@@ -3,9 +3,10 @@ import {DateTime} from "luxon";
 import {CHART_TYPES, fillGaps} from "@/channels/history/channel-measurements-history-chart-strategies";
 
 export class IndexedDbMeasurementLogsStorage {
-    constructor(channel) {
+    constructor(channel, logsType) {
         this.channel = channel;
-        this.chartStrategy = CHART_TYPES[this.channel.function.name];
+        this.logsType = logsType;
+        this.chartStrategy = CHART_TYPES.forChannel(this.channel, logsType);
     }
 
     async connect() {
@@ -14,6 +15,7 @@ export class IndexedDbMeasurementLogsStorage {
                 const dbName = [
                     'channel_measurement_logs',
                     this.channel.id,
+                    this.logsType,
                     this.channel.config?.counterType || 'default',
                     this.channel.config?.fillMissingData === false ? 'not_filled' : 'filled',
                 ];
@@ -59,6 +61,14 @@ export class IndexedDbMeasurementLogsStorage {
         });
         logs = this.chartStrategy.adjustLogs(logs, this.channel);
         return logs.map(log => this.chartStrategy.fixLog(log));
+    }
+
+    getLogsType() {
+        if (this.logsType === 'voltageHistory') {
+            return 'voltageHistory';
+        } else {
+            return 'default';
+        }
     }
 
     getAvailableAggregationStrategies(timestampRange) {
@@ -127,7 +137,7 @@ export class IndexedDbMeasurementLogsStorage {
     }
 
     async init(vue) {
-        return vue.$http.get(`channels/${this.channel.id}/measurement-logs?order=DESC&limit=1000`)
+        return vue.$http.get(`channels/${this.channel.id}/measurement-logs?order=DESC&limit=1000&logsType=${this.getLogsType()}`)
             .then(async ({body: logItems}) => {
                 if (logItems.length) {
                     logItems.reverse();
@@ -150,7 +160,7 @@ export class IndexedDbMeasurementLogsStorage {
         const oldestLog = await this.getOldestLog();
         if (oldestLog) {
             const beforeTimestamp = +oldestLog.date_timestamp - 300;
-            return vue.$http.get(`channels/${this.channel.id}/measurement-logs?order=DESC&limit=2500&beforeTimestamp=${beforeTimestamp}`)
+            return vue.$http.get(`channels/${this.channel.id}/measurement-logs?order=DESC&limit=2500&beforeTimestamp=${beforeTimestamp}&logsType=${this.getLogsType()}`)
                 .then(async ({body: logItems, headers}) => {
                     if (logItems.length) {
                         const totalCount = +headers.get('X-Total-Count');
@@ -173,6 +183,9 @@ export class IndexedDbMeasurementLogsStorage {
     }
 
     async storeLogs(logs) {
+        if (this.chartStrategy.mergeLogsWithTheSameTimestamp) {
+            logs = this.chartStrategy.mergeLogsWithTheSameTimestamp(logs);
+        }
         let adjustedLogs = fillGaps(logs, 600, this.chartStrategy.emptyLog());
         adjustedLogs = this.chartStrategy.interpolateGaps(adjustedLogs, this.channel);
         adjustedLogs = this.adjustLogsBeforeStorage(adjustedLogs);

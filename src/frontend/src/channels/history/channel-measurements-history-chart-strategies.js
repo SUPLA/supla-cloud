@@ -21,6 +21,13 @@ export function fillGaps(logs, expectedInterval, defaultLog) {
 }
 
 export const CHART_TYPES = {
+    forChannel(channel, logsType) {
+        let strategyDescriptor = channel.function.name;
+        if (['voltageHistory'].includes(logsType)) {
+            strategyDescriptor += logsType;
+        }
+        return this[strategyDescriptor];
+    },
     THERMOMETER: {
         chartType: () => 'rangeArea',
         chartOptions() {
@@ -570,6 +577,163 @@ export const CHART_TYPES = {
             phase1_rre: null, phase2_rre: null, phase3_rre: null,
             fae_total: 0, rae_total: 0, fae_rae_balance: 0,
             fae_balanced: null, rae_balanced: null,
+        }),
+    },
+    'ELECTRICITYMETERvoltageHistory': {
+        chartType: () => 'line',
+        chartOptions() {
+            const vue = this;
+            const enabledPhases = this.channel.config.enabledPhases || [1, 2, 3];
+            return {
+                fill: {
+                    opacity: enabledPhases.map(() => 1).concat(enabledPhases.map(() => .5)).concat(enabledPhases.map(() => .5)),
+                },
+                stroke: {
+                    curve: 'straight',
+                    width: 2,
+                    // dashArray: enabledPhases.map(() => 0).concat(enabledPhases.map(() => 5)).concat(enabledPhases.map(() => 5)),
+                },
+                legend: {customLegendItems: enabledPhases.map(phaseNo => vue.$t(`Phase ${phaseNo}`))},
+                tooltip: {
+                    custom(ctx) {
+                        const format = (v) => ctx.w.config.yaxis[0].labels.formatter(v);
+                        let tooltip = '<div class="p-3">';
+                        enabledPhases.forEach((phaseNo, idx) => {
+                            const avg = ctx.w.globals.series[idx][ctx.dataPointIndex];
+                            const min = ctx.w.globals.series[2 * idx + enabledPhases.length][ctx.dataPointIndex];
+                            const max = ctx.w.globals.series[2 * idx + enabledPhases.length + 1][ctx.dataPointIndex];
+                            const phaseLabel = `Phase ${phaseNo}`;
+                            tooltip += `<div>
+                                <strong>${vue.$t(phaseLabel)}:</strong>
+                                ${vue.$t('Average')}: ${format(avg)},
+                                ${vue.$t('Min')}: ${format(min)},
+                                ${vue.$t('Max')}: ${format(max)}
+                            </div>`;
+                        })
+                        tooltip += '</div>';
+                        return tooltip;
+                        //         const avg = ctx.w.globals.seriesRange[0][ctx.dataPointIndex].y[0].y1;
+                        //         const min = ctx.w.globals.seriesRange[1][ctx.dataPointIndex].y[0].y1;
+                        //         const max = ctx.w.globals.seriesRange[1][ctx.dataPointIndex].y[0].y2;
+                        return `<div class="p-3">
+                              <strong>${vue.$t('Average')}:</strong> ${format(5)}<br>
+                              <strong>${vue.$t('Min')}:</strong> ${format(5)}<br>
+                              <strong>${vue.$t('Max')}:</strong> ${format(5)}
+                           </div>`;
+                    }
+                },
+            };
+        },
+        series: function (allLogs) {
+            const enabledPhases = this.channel.config.enabledPhases || [1, 2, 3];
+            const series = [];
+            const colors = ['#00d150', '#008ffb', '#ff851b'];
+            enabledPhases.forEach((phaseNo) => {
+                // i18n: ['Phase 1', 'Phase 2', 'Phase 3']
+                const phaseLabel = `Phase ${phaseNo}`;
+                series.push({
+                    name: `${this.$t(phaseLabel)} - ${this.$t('Average')}`,
+                    color: colors[phaseNo - 1],
+                    data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item[`phase${phaseNo}_avg`]})),
+                });
+            });
+            enabledPhases.forEach((phaseNo) => {
+                const phaseLabel = `Phase ${phaseNo}`;
+                series.push({
+                    name: `${this.$t(phaseLabel)} - min`,
+                    color: colors[phaseNo - 1],
+                    data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item[`phase${phaseNo}_min`]})),
+                });
+                series.push({
+                    name: `${this.$t(phaseLabel)} - max`,
+                    color: colors[phaseNo - 1],
+                    data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item[`phase${phaseNo}_max`]})),
+                });
+                // const rangeSeries = allLogs
+                //     .filter((item) => item[`phase${phaseNo}_min`] !== null)
+                //     .map((item) => ({x: item.date_timestamp * 1000, y: [item[`phase${phaseNo}_min`], item[`phase${phaseNo}_max`]]}));
+                // series.push({
+                //     name: `${this.$t('Voltage')} - ${this.$t('range')}`,
+                //     type: 'rangeArea',
+                //     data: rangeSeries
+                // });
+            });
+            return series;
+            // const temperatureSeries = allLogs.map((item) => ({
+            //     x: item.date_timestamp * 1000,
+            //     y: item.phase1_avg
+            // }));
+            // const series = [
+            //     {
+            //         name: `${this.$t('Voltage - average')}`,
+            //         type: 'line',
+            //         data: temperatureSeries
+            //     },
+            // ];
+            // const rangeSeries = allLogs.filter((log) => log.phaseNo === 1)
+            //     .filter((item) => item.min !== null)
+            //     .map((item) => ({x: item.date_timestamp * 1000, y: [item.min, item.max]}));
+            // series.push({
+            //     name: `${this.$t('Voltage')} - ${this.$t('range')}`,
+            //     type: 'rangeArea',
+            //     data: rangeSeries
+            // });
+            // series[0].name = `${this.$t('Temperature')} - ${this.$t('average')}`;
+            // return series;
+        },
+        mergeLogsWithTheSameTimestamp: (logs) => {
+            const timestamps = {};
+            const mergedLogs = [];
+            logs.forEach(log => {
+                if (timestamps[log.date_timestamp] === undefined) {
+                    timestamps[log.date_timestamp] = mergedLogs.length;
+                    mergedLogs.push({date_timestamp: log.date_timestamp});
+                }
+                mergedLogs[timestamps[log.date_timestamp]][`phase${log.phaseNo}_min`] = log.min;
+                mergedLogs[timestamps[log.date_timestamp]][`phase${log.phaseNo}_max`] = log.max;
+                mergedLogs[timestamps[log.date_timestamp]][`phase${log.phaseNo}_avg`] = log.avg;
+            });
+            return mergedLogs;
+        },
+        fixLog: (log) => log,
+        adjustLogs: (logs) => logs,
+        interpolateGaps: (logs) => logs,
+        aggregateLogs: (logs) => {
+            // const phase1_mins = logs.map(log => log.phase1_min).filter(t => t || t === 0);
+            // const phase2_avg = logs.map(log => log.phase2_avg).filter(t => t || t === 0);
+            // const phase3_avg = logs.map(log => log.phase3_avg).filter(t => t || t === 0);
+            // const averageTemp = temperatures.reduce((a, b) => a + b, 0) / temperatures.length;
+            return {
+                ...logs[0],
+                // phase1_avg: isNaN(phase1_avg) ? null : phase1_avg,
+                // phase2_avg: isNaN(phase2_avg) ? null : phase2_avg,
+                // phase3_avg: isNaN(phase3_avg) ? null : phase3_avg,
+                // phase1_min: isNaN(phase1_avg) ? null : Math.min.apply(null, phase1_avg),
+                // phase1_avg: isNaN(phase1_avg) ? null : Math.max.apply(null, temperatures),
+            };
+        },
+        yaxes: function () {
+            return [
+                {
+                    seriesName: this.$t('Voltage'),
+                    title: {text: this.$t("Voltage")},
+                    // min: 215,
+                    // max: 245,
+                    labels: {formatter: (v) => v !== null ? `${(+v).toFixed(2)}V` : '?'},
+                }
+            ];
+        },
+        emptyLog: () => ({
+            date_timestamp: null,
+            phase1_min: null,
+            phase1_max: null,
+            phase1_avg: null,
+            phase2_min: null,
+            phase2_max: null,
+            phase2_avg: null,
+            phase3_min: null,
+            phase3_max: null,
+            phase3_avg: null
         }),
     },
     GENERAL_PURPOSE_MEASUREMENT: {

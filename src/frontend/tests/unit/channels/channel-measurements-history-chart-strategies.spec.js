@@ -496,4 +496,28 @@ describe('Channel measurement history data strategies', () => {
             });
         });
     });
+
+    describe('ELECTRICITYMETER_voltageHistory', function () {
+        const strategy = CHART_TYPES.ELECTRICITYMETERvoltageHistory;
+
+        it('merges phases logs', () => {
+            const logs = [
+                {date_timestamp: 0, phaseNo: 1, min: 1, max: 5, avg: 3},
+                {date_timestamp: 0, phaseNo: 2, min: 2, max: 5, avg: 2},
+                {date_timestamp: 1, phaseNo: 1, min: 2, max: 6, avg: 3},
+                {date_timestamp: 1, phaseNo: 2, min: 2, max: 5, avg: 2},
+            ];
+            const merged = strategy.mergeLogsWithTheSameTimestamp(logs);
+            expect(merged).toHaveLength(2);
+            expect(merged[0]).toEqual({
+                date_timestamp: 0,
+                phase1_min: 1,
+                phase1_max: 5,
+                phase1_avg: 3,
+                phase2_min: 2,
+                phase2_max: 5,
+                phase2_avg: 2,
+            });
+        });
+    });
 })

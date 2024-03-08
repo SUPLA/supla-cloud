@@ -153,10 +153,9 @@
                 hasLogs: undefined,
                 denseLogs: [],
                 bigChart: undefined,
-                smallChart: undefined,
                 fetchingDenseLogs: false,
                 chartStrategy: undefined,
-                chartMode: 'fae',
+                chartMode: 'default',
                 chartModeLabels: {
                     fae: 'Forward active energy', // i18n
                     rae: 'Reverse active energy', // i18n
@@ -164,6 +163,7 @@
                     rre: 'Reverse reactive energy', // i18n
                     fae_rae: 'Arithmetic balance', // i18n
                     fae_rae_vector: 'Vector balance', // i18n
+                    voltageHistory: 'Voltage', // i18n
                 },
                 aggregationMethod: 'day',
                 storage: undefined,
@@ -176,21 +176,7 @@
         },
         async mounted() {
             if (this.supportsChart) {
-                this.chartStrategy = CHART_TYPES[this.channel.function.name];
-                this.storage = new IndexedDbMeasurementLogsStorage(this.channel);
-                await this.storage.connect();
-                this.hasStorageSupport = await this.storage.checkSupport();
-                this.hasLogs = (await this.storage.init(this)).length > 1;
-                if (this.hasLogs && this.hasStorageSupport) {
-                    this.newestLog = await this.storage.getNewestLog();
-                    this.oldestLog = await this.storage.getOldestLog();
-                    this.fetchAllLogs();
-                    this.renderCharts();
-                    this.setTimeRange({
-                        afterTimestampMs: Math.max(this.oldestLog.date_timestamp * 1000, this.newestLog.date_timestamp * 1000 - 86_400_000 * 7),
-                        beforeTimestampMs: this.newestLog.date_timestamp * 1000,
-                    })
-                }
+                await this.initializeStorage();
             } else {
                 this.hasLogs = true;
             }
@@ -231,6 +217,24 @@
             }, 50);
         },
         methods: {
+            async initializeStorage() {
+                this.denseLogs = [];
+                this.chartStrategy = CHART_TYPES.forChannel(this.channel, this.chartMode);
+                this.storage = new IndexedDbMeasurementLogsStorage(this.channel, this.chartMode);
+                await this.storage.connect();
+                this.hasStorageSupport = await this.storage.checkSupport();
+                this.hasLogs = (await this.storage.init(this)).length > 1;
+                if (this.hasLogs && this.hasStorageSupport) {
+                    this.newestLog = await this.storage.getNewestLog();
+                    this.oldestLog = await this.storage.getOldestLog();
+                    this.fetchAllLogs();
+                    this.renderCharts();
+                    this.setTimeRange({
+                        afterTimestampMs: Math.max(this.oldestLog.date_timestamp * 1000, this.newestLog.date_timestamp * 1000 - 86_400_000 * 7),
+                        beforeTimestampMs: this.newestLog.date_timestamp * 1000,
+                    })
+                }
+            },
             fetchAllLogs() {
                 this.storage.fetchOlderLogs(this, (progress) => this.fetchingLogsProgress = progress)
                     .then((downloaded) => this.fetchingLogsProgress = downloaded);
@@ -383,8 +387,9 @@
                 this.fetchingDenseLogs = false;
             },
             changeChartMode(newMode) {
+                this.bigChart.destroy();
                 this.chartMode = newMode;
-                this.rerenderBigChart();
+                this.initializeStorage();
             },
             changeAggregationMethod(newMethod) {
                 if (this.availableAggregationStrategies.includes(newMethod)) {
@@ -454,6 +459,7 @@
                     if (availableModes.includes('forwardActiveEnergyBalanced') && availableModes.includes('reverseActiveEnergyBalanced')) {
                         modes.push('fae_rae_vector');
                     }
+                    modes.push('voltageHistory')
                     return modes;
                 }
                 return [];
