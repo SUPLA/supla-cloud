@@ -26,6 +26,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
 use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
@@ -710,6 +711,7 @@ class ChannelMeasurementLogsController extends RestController {
             $this->deleteMeasurementLogs(TempHumidityLogItem::class, $channel);
             $this->deleteMeasurementLogs(GeneralPurposeMeasurementLogItem::class, $channel);
             $this->deleteMeasurementLogs(GeneralPurposeMeterLogItem::class, $channel);
+            $this->deleteMeasurementLogs(ElectricityMeterVoltageLogItem::class, $channel);
         }
         return new Response('', Response::HTTP_NO_CONTENT);
     }

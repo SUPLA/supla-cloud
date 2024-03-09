@@ -93,7 +93,25 @@
                     </dl>
                 </div>
                 <div v-if="currentTab === 'data'">
-                    <p>{{ $t('The events in voltage aberrations history will be automatically deleted after {days} days.', {days: $frontendConfig.measurementLogsRetention?.voltageAberrations || 180}) }}</p>
+                    <p>{{ $t('Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.') }}</p>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{ $t('Data') }}</th>
+                            <th>{{ $t('Will be deleted after') }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">{{ $t('Electricity meter voltage logs') }}</th>
+                            <td>{{ $t('{days} days', {days: $frontendConfig.measurementLogsRetention?.voltage || 90}) }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">{{ $t('Electricity meter voltage aberrations logs') }}</th>
+                            <td>{{ $t('{days} days', {days: $frontendConfig.measurementLogsRetention?.voltageAberrations || 180}) }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div v-if="currentTab === 'api'">
                     <div class="row">

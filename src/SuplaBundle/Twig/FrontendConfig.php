@@ -36,6 +36,7 @@ class FrontendConfig {
         'mqttBrokerEnabled' => 'supla.mqtt_broker.enabled',
         'measurementLogsRetention' => [
             'voltageAberrations' => 'supla.measurement_logs_retention.em_voltage_aberrations',
+            'voltage' => 'supla.measurement_logs_retention.em_voltage',
         ],
     ];
 

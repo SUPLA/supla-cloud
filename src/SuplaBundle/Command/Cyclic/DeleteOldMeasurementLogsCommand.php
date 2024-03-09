@@ -19,6 +19,7 @@ namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Model\TimeProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,12 +28,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 class DeleteOldMeasurementLogsCommand extends Command implements CyclicCommand {
     /** @var EntityManagerInterface */
     private $entityManager;
-    /** @var int */
-    private $logsRetentionDaysForEmVoltageLogs;
+    private int $logsRetentionDaysForEmVoltageLogs;
+    private int $logsRetentionDaysForEmVoltageAberrationLogs;
 
-    public function __construct($measurementLogsEntityManager, int $logsRetentionDaysForEmVoltageLogs) {
+    public function __construct(
+        $measurementLogsEntityManager,
+        int $logsRetentionDaysForEmVoltageAberrationLogs,
+        int $logsRetentionDaysForEmVoltageLogs
+    ) {
         parent::__construct();
         $this->entityManager = $measurementLogsEntityManager;
+        $this->logsRetentionDaysForEmVoltageAberrationLogs = $logsRetentionDaysForEmVoltageAberrationLogs;
         $this->logsRetentionDaysForEmVoltageLogs = $logsRetentionDaysForEmVoltageLogs;
     }
 
@@ -43,7 +49,8 @@ class DeleteOldMeasurementLogsCommand extends Command implements CyclicCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $this->logClean($output, ElectricityMeterVoltageAberrationLogItem::class, $this->logsRetentionDaysForEmVoltageLogs);
+        $this->logClean($output, ElectricityMeterVoltageAberrationLogItem::class, $this->logsRetentionDaysForEmVoltageAberrationLogs);
+        $this->logClean($output, ElectricityMeterVoltageLogItem::class, $this->logsRetentionDaysForEmVoltageLogs);
         return 0;
     }
 

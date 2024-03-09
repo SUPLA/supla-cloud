@@ -88,6 +88,10 @@ class SuplaExtension extends ConfigurableExtension {
             'supla.measurement_logs_retention.em_voltage_aberrations',
             $mergedConfig['measurement_logs_retention']['em_voltage_aberrations']
         );
+        $container->setParameter(
+            'supla.measurement_logs_retention.em_voltage',
+            $mergedConfig['measurement_logs_retention']['em_voltage']
+        );
     }
 
     private function buildOauthTokensConfig(array $tokensLifetimes): array {
