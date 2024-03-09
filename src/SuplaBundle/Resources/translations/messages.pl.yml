@@ -73,8 +73,8 @@ All the above and many more can be done from your phone or tablet: Wszystko to i
 Allowed actions: Dozwolone akcje
 Allows to perform an action only using the HTTP PATCH request.: Pozwala na wykonanie akcji tylko przy użyciu żądania HTTP PATCH.
 Alternatively, you can add a GET parameter to specify response format.: Możesz również dodać parametr GET by określić format odpowiedzi.
-Always decrement: Zawsze rosnący
-Always increment: Zawsze malejący
+Always decrement: Zawsze malejący
+Always increment: Zawsze rosnący
 And more: I znacznie więcej
 Anti-freeze and overheat protection: Ochrona przed przegrzaniem i przeciwzamrożeniowa
 Anti-freeze protection: Ochrona przeciwzamrożeniowa

@@ -40,14 +40,18 @@ export const CHART_TYPES = {
                 tooltip: {
                     custom(ctx) {
                         const avg = ctx.w.globals.seriesRange[0][ctx.dataPointIndex].y[0].y1;
-                        const min = ctx.w.globals.seriesRange[1][ctx.dataPointIndex].y[0].y1;
-                        const max = ctx.w.globals.seriesRange[1][ctx.dataPointIndex].y[0].y2;
                         const format = (v) => ctx.w.config.yaxis[0].labels.formatter(v);
-                        return `<div class="p-3">
-                             <strong>${vue.$t('Average')}:</strong> ${format(avg)}<br>
-                             <strong>${vue.$t('Min')}:</strong> ${format(min)}<br>
-                             <strong>${vue.$t('Max')}:</strong> ${format(max)}
-                         </div>`;
+                        if (ctx.w.globals.seriesRange[1]) {
+                            const min = ctx.w.globals.seriesRange[1][ctx.dataPointIndex].y[0].y1;
+                            const max = ctx.w.globals.seriesRange[1][ctx.dataPointIndex].y[0].y2;
+                            return `<div class="p-3">
+                                 <strong>${vue.$t('Average')}:</strong> ${format(avg)}<br>
+                                 <strong>${vue.$t('Min')}:</strong> ${format(min)}<br>
+                                 <strong>${vue.$t('Max')}:</strong> ${format(max)}
+                             </div>`;
+                        } else {
+                            return `<div class="p-3"> ${format(avg)}</div>`;
+                        }
                     }
                 },
             };
@@ -709,7 +713,6 @@ export const CHART_TYPES = {
                         const h = ctx.w.globals.seriesCandleH[0][ctx.dataPointIndex];
                         const l = ctx.w.globals.seriesCandleL[0][ctx.dataPointIndex];
                         const c = ctx.w.globals.seriesCandleC[0][ctx.dataPointIndex];
-                        // debugger;
                         const format = (v) => ctx.w.config.yaxis[0].labels.formatter(v);
                         return `<div class="p-3">
                              <strong>${vue.$t('Open value')}:</strong> ${format(o)}<br>
@@ -843,7 +846,7 @@ export const CHART_TYPES = {
             for (let i = 1; i < logs.length; i++) {
                 const log = {...logs[i]};
                 if (counterType === 'ALWAYS_INCREMENT') {
-                    if (log.value >= previousLog.value * .9) { // .9 for reset misdetections
+                    if (log.value >= previousLog.value - Math.abs(0.1 * previousLog.value)) { // 0.1 for reset misdetections
                         if (log.value >= previousLog.value) {
                             log.value -= previousLog.value;
                         } else {
@@ -853,14 +856,13 @@ export const CHART_TYPES = {
                         log.counterReset = true;
                     }
                 } else if (counterType === 'ALWAYS_DECREMENT') {
-                    if (log.value <= previousLog.value * 1.1) { // 1.1 for reset misdetections
+                    if (log.value <= previousLog.value + Math.abs(0.1 * previousLog.value)) { // 0.1 for reset misdetections
                         if (log.value <= previousLog.value) {
                             log.value -= previousLog.value;
                         } else {
                             log.value = 0;
                         }
                     } else {
-                        debugger;
                         log.counterReset = true;
                     }
                 } else {

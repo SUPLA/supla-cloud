@@ -454,6 +454,34 @@ describe('Channel measurement history data strategies', () => {
                 const adjustedLogs = strategy.interpolateGaps(logs, channel);
                 expect(adjustedLogs[2].value).toEqual(2);
             });
+
+            it('detects counter resets', () => {
+                const logs = [
+                    {date_timestamp: 1, value: 100},
+                    {date_timestamp: 1, value: 85},
+                    {date_timestamp: 1, value: 75},
+                    {date_timestamp: 1, value: 95},
+                    {date_timestamp: 1, value: 85},
+                ];
+                const adjustedLogs = strategy.adjustLogs(logs, channel);
+                expect(adjustedLogs.map(l => l.value)).toEqual([100, -15, -10, 95, -10]);
+                expect(adjustedLogs[3].counterReset).toBeTruthy();
+                const series = strategy.series.call({$t: a => a}, adjustedLogs)[0].data;
+                expect(series.map(l => l.y)).toEqual([100, -15, -10, null, -10]);
+            });
+
+            it('does not detect counter reset in negative values', () => {
+                const logs = [
+                    {date_timestamp: 1, value: -20000},
+                    {date_timestamp: 2, value: -20001},
+                    {date_timestamp: 3, value: -20002},
+                    {date_timestamp: 4, value: -20003},
+                    {date_timestamp: 5, value: -20004},
+                ];
+                const adjustedLogs = strategy.adjustLogs(logs, channel);
+                expect(adjustedLogs.map(l => l.value)).toEqual([-20000, -1, -1, -1, -1]);
+                expect(adjustedLogs[3].counterReset).toBeFalsy();
+            });
         });
 
         describe('INCREMENT_AND_DECREMENT', function () {
