@@ -245,7 +245,7 @@
                 }
                 return [];
             },
-            formatPointLabel(pointTimestampMs, nextPointTimestampMs) {
+            formatPointLabel(pointTimestampMs, nextPointTimestampMs, prevPointTimestampMs) {
                 if (this.aggregationMethod === 'hour') {
                     let datetimeLabel = DateTime.fromSeconds(pointTimestampMs / 1000).startOf('hour').toLocaleString(DateTime.DATETIME_MED);
                     if (nextPointTimestampMs) {
@@ -257,10 +257,11 @@
                 } else if (this.aggregationMethod === 'month') {
                     return DateTime.fromSeconds(pointTimestampMs / 1000).toLocaleString({year: 'numeric', month: 'long'});
                 } else {
-                    let datetimeLabel = DateTime.fromSeconds(pointTimestampMs / 1000).toLocaleString(DateTime.DATETIME_MED);
-                    if (nextPointTimestampMs) {
-                        datetimeLabel += ' - ' + DateTime.fromSeconds(nextPointTimestampMs / 1000).toLocaleString(DateTime.DATETIME_MED);
+                    let datetimeLabel = '';
+                    if (prevPointTimestampMs) {
+                        datetimeLabel += DateTime.fromSeconds(prevPointTimestampMs / 1000).toLocaleString(DateTime.DATETIME_MED) + ' - ';
                     }
+                    datetimeLabel += DateTime.fromSeconds(pointTimestampMs / 1000).toLocaleString(DateTime.DATETIME_MED);
                     return datetimeLabel;
                 }
             },
@@ -326,14 +327,19 @@
                         x: {
                             formatter: (value, info) => {
                                 let nextPointTimestamp = undefined;
+                                let prevPointTimestamp = undefined;
                                 if (info?.series && info.seriesIndex !== undefined) {
                                     const nextPoint = info.w.config.series[info.seriesIndex].data[info.dataPointIndex + 1];
+                                    const prevPoint = info.w.config.series[info.seriesIndex].data[info.dataPointIndex - 1];
                                     if (nextPoint) {
                                         nextPointTimestamp = nextPoint.x;
                                     }
+                                    if (prevPoint) {
+                                        prevPointTimestamp = prevPoint.x;
+                                    }
                                 }
                                 if (value && info?.series) {
-                                    return this.formatPointLabel(value, nextPointTimestamp);
+                                    return this.formatPointLabel(value, nextPointTimestamp, prevPointTimestamp);
                                 } else {
                                     return this.$t('Value');
                                 }
