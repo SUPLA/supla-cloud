@@ -58,7 +58,7 @@
                                                 @change="sceneChanged()"/>
                                         </div>
                                     </div>
-                                    <div v-if="scene.id"
+                                    <div v-if="scene.id && scene.enabled"
                                         class="details-page-block">
                                         <h3 class="text-center">{{ $t('Actions') }}</h3>
                                         <div class="pt-3">
