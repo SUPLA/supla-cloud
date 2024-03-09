@@ -193,7 +193,7 @@
                             tools: {
                                 download: true,
                                 selection: false,
-                                zoom: false,
+                                zoom: true,
                                 zoomin: true,
                                 zoomout: true,
                                 pan: false, // disabled because of https://github.com/apexcharts/apexcharts.js/issues/3757#issuecomment-1517485503
