@@ -95,6 +95,15 @@
                     </div>
                 </div>
             </dt>
+            <dd>{{ $t('Refresh interval') }}</dd>
+            <dt>
+                <VueNumber v-model="channel.config.refreshIntervalMs"
+                    :min="1"
+                    :max="65535"
+                    v-bind="{decimal: '.', precision: 0, separator: ' ', suffix: ' ms'}"
+                    class="form-control text-center"
+                    @change="$emit('change')"/>
+            </dt>
         </dl>
     </div>
 </template>

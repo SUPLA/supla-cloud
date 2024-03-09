@@ -57,6 +57,7 @@ class GeneralPurposeMeasurementConfigTranslator extends UserConfigTranslator {
                     NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueMultiplier', 1) / 1000, 3) ?: 1,
                 'valueAdded' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueAdded', 0) / 1000, 3),
                 'valuePrecision' => $subject->getUserConfigValue('valuePrecision', 0),
+                'refreshIntervalMs' => $subject->getUserConfigValue('refreshIntervalMs', 1000),
                 'unitBeforeValue' => $subject->getUserConfigValue('unitBeforeValue', ''),
                 'unitAfterValue' => $subject->getUserConfigValue('unitAfterValue', ''),
                 'noSpaceAfterValue' => $subject->getUserConfigValue('noSpaceAfterValue', false),
@@ -110,6 +111,14 @@ class GeneralPurposeMeasurementConfigTranslator extends UserConfigTranslator {
                 $subject->setUserConfigValue('valuePrecision', $config['valuePrecision']);
             } else {
                 $subject->setUserConfigValue('valuePrecision', 0);
+            }
+        }
+        if (array_key_exists('refreshIntervalMs', $config)) {
+            if ($config['refreshIntervalMs']) {
+                Assert::that($config['refreshIntervalMs'], null, 'refreshIntervalMs')->numeric()->between(1, 65535);
+                $subject->setUserConfigValue('refreshIntervalMs', $config['refreshIntervalMs']);
+            } else {
+                $subject->setUserConfigValue('refreshIntervalMs', 0);
             }
         }
         if (array_key_exists('unitBeforeValue', $config)) {
