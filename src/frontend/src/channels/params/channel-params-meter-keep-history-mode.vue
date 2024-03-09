@@ -1,7 +1,7 @@
 <template>
     <div>
         <dl>
-            <dd>{{ $t('Store measurements history') }}</dd>
+            <dd>{{ $t(labelI18n) }}</dd>
             <dt class="text-center">
                 <toggler v-model="keepHistory"/>
             </dt>
@@ -21,7 +21,13 @@
 
     export default {
         components: {TransitionExpand},
-        props: ['value'],
+        props: {
+            value: Boolean,
+            labelI18n: {
+                type: String,
+                default: 'Store measurements history', // i18n
+            },
+        },
         data() {
             return {
                 initialKeepHistory: undefined,

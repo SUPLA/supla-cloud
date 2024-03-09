@@ -10,6 +10,8 @@
                     @input="$emit('change')"/>
             </dt>
         </dl>
+        <ChannelParamsMeterKeepHistoryMode v-model="channel.config.voltageLoggingEnabled" @input="$emit('change')"
+            label-i18n="Store voltage history"/>
         <div class="form-group"></div>
         <channel-params-electricity-meter-initial-values :channel="channel" @save="$emit('save')"/>
         <ChannelParamsElectricityMeterVoltageThresholds :channel="channel" @change="$emit('change')"/>
@@ -24,6 +26,7 @@
     import ChannelParamsElectricityMeterInitialValues from "@/channels/params/channel-params-electricity-meter-initial-values";
     import ChannelParamsElectricityMeterVoltageThresholds from "@/channels/params/channel-params-electricity-meter-voltage-thresholds";
     import ChannelParamsElectricityMeterEnabledPhases from "@/channels/params/channel-params-electricity-meter-enabled-phases";
+    import ChannelParamsMeterKeepHistoryMode from "@/channels/params/channel-params-meter-keep-history-mode.vue";
 
     defineProps({channel: Object});
 </script>
