@@ -193,19 +193,11 @@
                             tools: {
                                 download: true,
                                 selection: false,
-                                zoom: true,
+                                zoom: false,
                                 zoomin: true,
                                 zoomout: true,
                                 pan: false, // disabled because of https://github.com/apexcharts/apexcharts.js/issues/3757#issuecomment-1517485503
                                 reset: false,
-                                customIcons: [
-                                    {
-                                        icon: '<span class="pe-7s-refresh" style="font-weight: bold"></span>',
-                                        index: 2,
-                                        title: this.$t('reset chart view'),
-                                        click: () => this.$emit('rerender'),
-                                    }
-                                ]
                             },
                         },
                         animations: {enabled: false},
