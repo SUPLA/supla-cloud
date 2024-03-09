@@ -19,7 +19,8 @@
 
             <modal v-if="showDownloadConfig" :header="$t('Download measurements history')" display-close-button
                 @cancel="showDownloadConfig = false">
-                <ChannelMeasurementsDownloadForm :storage="storage" @downloaded="showDownloadConfig = false" :date-range="dateRange"/>
+                <ChannelMeasurementsDownloadForm :storage="storage" @downloaded="showDownloadConfig = false" :date-range="dateRange"
+                    :chart-mode="chartMode"/>
                 <template #footer>
                     <div></div>
                 </template>
@@ -44,6 +45,7 @@
             channel: Object,
             storage: Object,
             dateRange: Object,
+            chartMode: String,
         },
         data() {
             return {

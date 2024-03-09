@@ -125,6 +125,19 @@
             {field: 'fae_balanced', label: 'Forward active Energy kWh - Vector balance'},
             {field: 'rae_balanced', label: 'Reverse active Energy kWh - Vector balance'},
         ],
+        [ChannelFunction.ELECTRICITYMETER + 'voltageHistory']: [
+            {field: 'date_timestamp', label: 'Timestamp'},
+            {field: 'date', label: 'Date and time'},
+            {field: 'phase1_min', label: 'Phase 1 - min'},
+            {field: 'phase1_max', label: 'Phase 1 - max'},
+            {field: 'phase1_avg', label: 'Phase 1 - average'},
+            {field: 'phase2_min', label: 'Phase 2 - min'},
+            {field: 'phase2_max', label: 'Phase 2 - max'},
+            {field: 'phase2_avg', label: 'Phase 2 - average'},
+            {field: 'phase3_min', label: 'Phase 3 - min'},
+            {field: 'phase3_max', label: 'Phase 3 - max'},
+            {field: 'phase3_avg', label: 'Phase 3 - average'},
+        ],
         [ChannelFunction.IC_GASMETER]: [
             {field: 'date_timestamp', label: 'Timestamp'},
             {field: 'date', label: 'Date and time'},
@@ -156,6 +169,7 @@
         props: {
             storage: Object,
             dateRange: Object,
+            chartMode: String,
         },
         data() {
             return {
@@ -184,9 +198,6 @@
                     const range = IDBKeyRange.bound(fromDate, toDate);
                     const table = this.downloadConfig.transformation === 'cumulative' ? 'logs_raw' : 'logs';
                     let rows = (await (await this.storage.db).getAllFromIndex(table, 'date', this.downloadConfig.dateRange === 'all' ? undefined : range));
-                    if (table !== 'logs_raw') {
-                        rows.shift(); // removes the first null log
-                    }
                     rows = rows
                         .filter(row => !row.interpolated)
                         .map(row => {
@@ -214,7 +225,7 @@
                 const workbook = XLSX.utils.book_new();
                 const sheetName = channelTitle(this.channel, this).replace(/[^0-9a-z]/ig, '_').replace(/_+/g, ' ').substr(0, 30);
                 XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
-                const filename = `measurements_${this.channel.id}.${this.downloadConfig.format}`;
+                const filename = `${this.filename}.${this.downloadConfig.format}`;
                 XLSX.writeFile(workbook, filename, {compression: true, FS: fieldSeparator});
             },
         },
@@ -222,14 +233,24 @@
             channel() {
                 return this.storage.channel;
             },
+            filename() {
+                return [
+                    this.chartMode === 'voltageHistory' ? this.chartMode : 'measurements',
+                    this.channel.id,
+                ].join('_');
+            },
             exportFields() {
-                return EXPORT_DEFINITIONS[this.channel.functionId];
+                let fncDescriptor = this.channel.functionId;
+                if (this.chartMode === 'voltageHistory') {
+                    fncDescriptor += this.chartMode;
+                }
+                return EXPORT_DEFINITIONS[fncDescriptor];
             },
             supportsFrontendExport() {
                 return window.indexedDB && this.storage.hasSupport && !!this.exportFields;
             },
             supportsIncrementalLogs() {
-                return [
+                return this.chartMode !== 'voltageHistory' && [
                     ChannelFunction.IC_WATERMETER,
                     ChannelFunction.IC_HEATMETER,
                     ChannelFunction.IC_GASMETER,

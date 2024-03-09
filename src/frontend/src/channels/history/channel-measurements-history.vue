@@ -21,6 +21,7 @@
                 </div>
                 <div>
                     <ChannelMeasurementsDownload :channel="channel" @delete="onMeasurementsDelete()" :storage="storage"
+                        :chart-mode="chartMode"
                         :date-range="dateRange" v-if="hasLogs"/>
                 </div>
             </div>
