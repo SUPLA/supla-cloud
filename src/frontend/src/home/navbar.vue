@@ -276,7 +276,26 @@
         }
     }
 
+    .green nav.navbar-top {
+        background: $supla-green;
+        .navbar-brand {
+            color: $supla-white;
+            fill: $supla-white;
+        }
+        .nav > li > a {
+            color: $supla-white;
+        }
+        .nav > li.active, .nav > li.open, .dropdown-menu > li.active {
+            background: darken($supla-green, 10%);
+        }
+    }
+
     .red nav.navbar-top {
+        background: $supla-red;
+        .navbar-brand {
+            color: $supla-white;
+            fill: $supla-white;
+        }
         .nav > li > a {
             color: $supla-white;
         }
