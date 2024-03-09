@@ -21,7 +21,7 @@ use SuplaBundle\Utils\NumberUtils;
  *     @OA\Property(property="electricityMeterInitialValues", type="object"),
  *     @OA\Property(property="relatedChannelId", type="integer"),
  *     @OA\Property(property="addToHistory", type="boolean"),
- *     @OA\Property(property="voltageLoggingEnabled", type="boolean"),
+ *     @OA\Property(property="voltageLoggerEnabled", type="boolean"),
  *     @OA\Property(property="lowerVoltageThreshold", type="number"),
  *     @OA\Property(property="upperVoltageThreshold", type="number"),
  * )
@@ -40,7 +40,7 @@ class ElectricityMeterParamsTranslator extends UserConfigTranslator {
             'lowerVoltageThreshold' => $subject->getUserConfigValue('lowerVoltageThreshold'),
             'upperVoltageThreshold' => $subject->getUserConfigValue('upperVoltageThreshold'),
             'disabledPhases' => $subject->getUserConfigValue('disabledPhases', []),
-            'voltageLoggingEnabled' => $subject->getUserConfigValue('voltageLoggingEnabled', false),
+            'voltageLoggerEnabled' => $subject->getUserConfigValue('voltageLoggerEnabled', false),
             'enabledPhases' => array_values(array_diff(
                 $this->getAvailablePhases($subject),
                 $subject->getUserConfigValue('disabledPhases', [])
@@ -67,8 +67,8 @@ class ElectricityMeterParamsTranslator extends UserConfigTranslator {
         if (array_key_exists('addToHistory', $config)) {
             $subject->setUserConfigValue('addToHistory', boolval($config['addToHistory']));
         }
-        if (array_key_exists('voltageLoggingEnabled', $config)) {
-            $subject->setUserConfigValue('voltageLoggingEnabled', boolval($config['voltageLoggingEnabled']));
+        if (array_key_exists('voltageLoggerEnabled', $config)) {
+            $subject->setUserConfigValue('voltageLoggerEnabled', boolval($config['voltageLoggerEnabled']));
         }
         if (array_key_exists('lowerVoltageThreshold', $config)) {
             $threshold = $config['lowerVoltageThreshold'] ? $this->getValueInRange($config['lowerVoltageThreshold'], 5, 240) : null;

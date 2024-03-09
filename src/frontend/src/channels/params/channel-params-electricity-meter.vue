@@ -10,7 +10,7 @@
                     @input="$emit('change')"/>
             </dt>
         </dl>
-        <ChannelParamsMeterKeepHistoryMode v-model="channel.config.voltageLoggingEnabled" @input="$emit('change')"
+        <ChannelParamsMeterKeepHistoryMode v-model="channel.config.voltageLoggerEnabled" @input="$emit('change')"
             label-i18n="Store voltage history"/>
         <div class="form-group"></div>
         <channel-params-electricity-meter-initial-values :channel="channel" @save="$emit('save')"/>
