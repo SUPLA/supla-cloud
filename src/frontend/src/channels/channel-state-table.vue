@@ -11,11 +11,17 @@
         </dl>
         <dl v-if="currentState.depth !== undefined">
             <dd>{{ $t('Depth') }}</dd>
-            <dt>{{ currentState.depth }} m</dt>
+            <dt>
+                <span v-if="currentState.value === null">---</span>
+                <span v-else>{{ currentState.depth }} m</span>
+            </dt>
         </dl>
         <dl v-if="currentState.distance !== undefined">
             <dd>{{ $t('Distance') }}</dd>
-            <dt>{{ currentState.distance }} m</dt>
+            <dt>
+                <span v-if="currentState.value === null">---</span>
+                <span v-else>{{ currentState.distance }} m</span>
+            </dt>
         </dl>
         <dl v-if="currentState.color_brightness">
             <dd>{{ $t('Color') }}</dd>
@@ -54,7 +60,8 @@
         </dl>
         <ChannelStateTableHvac v-if="currentState.connected && isHvac" :channel="channel" :state="currentState"/>
         <strong v-if="currentState.value !== undefined">
-            <span v-if="channel.function.name === 'WEIGHTSENSOR'">
+            <span v-if="currentState.value === null">---</span>
+            <span v-else-if="channel.function.name === 'WEIGHTSENSOR'">
                 <span v-if="currentState.value >= 2000">
                     {{ currentState.value / 1000 | roundToDecimals(4) }} kg
                 </span>

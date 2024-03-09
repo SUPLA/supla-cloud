@@ -25,7 +25,7 @@ class DistanceChannelStateGetter implements SingleChannelStateGetter {
         $value = $this->suplaServer->getDoubleValue($channel);
         if ($value !== false) {
             $key = $channel->getFunction() == ChannelFunction::DISTANCESENSOR() ? 'distance' : 'depth';
-            return [$key => $value];
+            return [$key => $value === -1 ? null : $value];
         } else {
             return [];
         }

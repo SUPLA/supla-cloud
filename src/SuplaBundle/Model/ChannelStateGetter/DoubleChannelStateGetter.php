@@ -19,7 +19,7 @@ class DoubleChannelStateGetter implements SingleChannelStateGetter {
     public function getState(IODeviceChannel $channel): array {
         $value = $this->suplaServer->getDoubleValue($channel);
         if ($value !== false) {
-            return ['value' => $value];
+            return ['value' => $value == -1 ? null : $value];
         } else {
             return [];
         }
