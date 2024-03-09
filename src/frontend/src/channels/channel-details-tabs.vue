@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <RouterView :subject="channel" :channel="channel" @rerender="rerender()" v-if="tabVisible"/>
+        <RouterView :subject="channel" :channel="channel" v-if="tabVisible"/>
     </div>
 </template>
 
@@ -36,10 +36,6 @@
             };
         },
         methods: {
-            rerender() {
-                this.tabVisible = false;
-                this.$nextTick(() => this.tabVisible = true);
-            },
             detectAvailableTabs() {
                 this.availableTabs = [];
                 const hasActions = this.channel.possibleActions?.length > 0;
