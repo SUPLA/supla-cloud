@@ -624,17 +624,17 @@ export const CHART_TYPES = {
                 // i18n: ['Phase 1', 'Phase 2', 'Phase 3']
                 const phaseLabel = `Phase ${phaseNo}`;
                 series.push({
-                    name: `${this.$t(phaseLabel)} - ${this.$t('Average')}`,
+                    name: `${this.$t(phaseLabel)} (${this.$t('Average')})`,
                     color: colors[phaseNo - 1],
                     data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item[`phase${phaseNo}_avg`]})),
                 });
                 series.push({
-                    name: `${this.$t(phaseLabel)} - min`,
+                    name: `${this.$t(phaseLabel)} (${this.$t('Min')})`,
                     color: colors[phaseNo - 1],
                     data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item[`phase${phaseNo}_min`]})),
                 });
                 series.push({
-                    name: `${this.$t(phaseLabel)} - max`,
+                    name: `${this.$t(phaseLabel)} (${this.$t('Max')})`,
                     color: colors[phaseNo - 1],
                     data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item[`phase${phaseNo}_max`]})),
                 });

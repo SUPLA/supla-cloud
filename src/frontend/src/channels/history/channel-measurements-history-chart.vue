@@ -383,5 +383,8 @@
                 justify-content: center;
             }
         }
+        ::v-deep .apexcharts-toolbar {
+            top: 25px !important;
+        }
     }
 </style>

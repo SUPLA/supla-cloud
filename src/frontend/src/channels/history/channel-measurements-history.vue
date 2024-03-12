@@ -1,15 +1,15 @@
 <template>
     <loading-cover :loading="hasLogs === undefined || fetchingDenseLogs">
         <div class="container">
-            <div class="d-flex">
-                <div class="flex-grow-1">
+            <div class="clearfix left-right-header reverse">
+                <div class="mb-3">
                     <div class="dropdown d-inline-block" v-if="supportedChartModes.length > 1">
                         <button class="btn btn-default dropdown-toggle btn-wrapped" type="button" data-toggle="dropdown">
                             {{ $t('Show data') }}:
                             {{ $t(chartModeLabels[chartMode]) }}
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-right">
+                        <ul class="dropdown-menu">
                             <li v-for="mode in supportedChartModes" :key="mode"
                                 :class="{active: mode === chartMode}">
                                 <a @click="changeChartMode(mode)">
@@ -19,7 +19,7 @@
                         </ul>
                     </div>
                 </div>
-                <div>
+                <div class="mb-3">
                     <ChannelMeasurementsDownload :channel="channel" @delete="onMeasurementsDelete()" :storage="storage"
                         :chart-mode="chartMode"
                         :date-range="dateRange" v-if="hasLogs"/>

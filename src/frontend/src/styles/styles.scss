@@ -250,6 +250,12 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
     > :last-child {
       text-align: center;
     }
+    &.reverse {
+      flex-direction: column-reverse;
+      > * {
+        text-align: center;
+      }
+    }
   }
 }
 
