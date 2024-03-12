@@ -215,7 +215,7 @@
                         },
                     },
                     title: {style: {fontSize: '20px', fontWeight: 'normal', fontFamily: 'Quicksand'}},
-                    legend: {show: true, showForSingleSeries: true, position: 'top', onItemClick: {toggleDataSeries: false}},
+                    legend: {show: true, showForSingleSeries: true, position: 'top'},
                     stroke: {width: 3,/* curve: 'smooth'*/},
                     colors: ['#00d150', '#008ffb', '#ff851b'],
                     dataLabels: {enabled: false},
