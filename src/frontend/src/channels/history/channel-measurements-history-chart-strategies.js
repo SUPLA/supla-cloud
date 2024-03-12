@@ -589,23 +589,19 @@ export const CHART_TYPES = {
             const vue = this;
             const enabledPhases = this.channel.config.enabledPhases || [1, 2, 3];
             return {
-                fill: {
-                    opacity: enabledPhases.map(() => 1).concat(enabledPhases.map(() => .5)).concat(enabledPhases.map(() => .5)),
-                },
                 stroke: {
                     curve: 'straight',
                     width: 2,
-                    // dashArray: enabledPhases.map(() => 0).concat(enabledPhases.map(() => 5)).concat(enabledPhases.map(() => 5)),
+                    dashArray: [0, 2, 2, 0, 2, 2, 0, 2, 2]
                 },
-                legend: {customLegendItems: enabledPhases.map(phaseNo => vue.$t(`Phase ${phaseNo}`))},
                 tooltip: {
                     custom(ctx) {
                         const format = (v) => ctx.w.config.yaxis[0].labels.formatter(v);
                         let tooltip = '<div class="p-3">';
                         enabledPhases.forEach((phaseNo, idx) => {
-                            const avg = ctx.w.globals.series[idx][ctx.dataPointIndex];
-                            const min = ctx.w.globals.series[2 * idx + enabledPhases.length][ctx.dataPointIndex];
-                            const max = ctx.w.globals.series[2 * idx + enabledPhases.length + 1][ctx.dataPointIndex];
+                            const avg = ctx.w.globals.series[idx * 3][ctx.dataPointIndex];
+                            const min = ctx.w.globals.series[idx * 3 + 1][ctx.dataPointIndex];
+                            const max = ctx.w.globals.series[idx * 3 + 2][ctx.dataPointIndex];
                             const phaseLabel = `Phase ${phaseNo}`;
                             tooltip += `<div>
                                 <strong>${vue.$t(phaseLabel)}:</strong>
@@ -632,9 +628,6 @@ export const CHART_TYPES = {
                     color: colors[phaseNo - 1],
                     data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item[`phase${phaseNo}_avg`]})),
                 });
-            });
-            enabledPhases.forEach((phaseNo) => {
-                const phaseLabel = `Phase ${phaseNo}`;
                 series.push({
                     name: `${this.$t(phaseLabel)} - min`,
                     color: colors[phaseNo - 1],
