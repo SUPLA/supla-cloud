@@ -131,7 +131,8 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         foreach ($this->channelRepository->findActionTriggers($channel) as $atChannel) {
             $dependentChannels[$atChannel->getId()] = $atChannel;
         }
-        foreach ($this->channelRepository->findBy(['type' => ChannelType::HVAC]) as $possibleChannel) {
+        $possibleHvacRelationFilters = ['type' => ChannelType::HVAC, 'iodevice' => $channel->getIoDevice()];
+        foreach ($this->channelRepository->findBy($possibleHvacRelationFilters) as $possibleChannel) {
             $config = $this->channelParamConfigTranslator->getConfig($possibleChannel);
             foreach ($config as $key => $value) {
                 if ((strpos($key, 'ChannelId') > 0) && $value === $channel->getId()) {
