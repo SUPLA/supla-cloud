@@ -12,6 +12,10 @@
         </dl>
         <ChannelParamsMeterKeepHistoryMode v-model="channel.config.voltageLoggerEnabled" @input="$emit('change')"
             label-i18n="Store voltage history"/>
+        <ChannelParamsMeterKeepHistoryMode v-model="channel.config.currentLoggerEnabled" @input="$emit('change')"
+            label-i18n="Store current history"/>
+        <ChannelParamsMeterKeepHistoryMode v-model="channel.config.powerActiveLoggerEnabled" @input="$emit('change')"
+            label-i18n="Store power active history"/>
         <div class="form-group"></div>
         <channel-params-electricity-meter-initial-values :channel="channel" @save="$emit('save')"/>
         <ChannelParamsElectricityMeterVoltageThresholds :channel="channel" @change="$emit('change')"/>
