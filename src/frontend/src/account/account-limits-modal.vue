@@ -103,19 +103,19 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <th scope="row">{{ $t('Electricity meter voltage logs') }}</th>
+                            <th scope="row">{{ $t('Electricity meter voltage history') }}</th>
                             <td>{{ $t('{days} days', {days: $frontendConfig.measurementLogsRetention?.em_voltage || 90}) }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">{{ $t('Electricity meter voltage aberrations logs') }}</th>
+                            <th scope="row">{{ $t('Electricity meter voltage aberrations history') }}</th>
                             <td>{{ $t('{days} days', {days: $frontendConfig.measurementLogsRetention?.em_voltage_aberrations || 180}) }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">{{ $t('Electricity meter current logs') }}</th>
+                            <th scope="row">{{ $t('Electricity meter current history') }}</th>
                             <td>{{ $t('{days} days', {days: $frontendConfig.measurementLogsRetention?.em_current || 90}) }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">{{ $t('Electricity meter power active logs') }}</th>
+                            <th scope="row">{{ $t('Electricity meter power active history') }}</th>
                             <td>{{ $t('{days} days', {days: $frontendConfig.measurementLogsRetention?.em_power_active || 90}) }}</td>
                         </tr>
                         </tbody>
