@@ -15,7 +15,7 @@ export class IndexedDbMeasurementLogsStorage {
                 const dbName = [
                     'channel_measurement_logs',
                     this.channel.id,
-                    this.logsType,
+                    this.getLogsType(),
                     this.channel.config?.counterType || 'default',
                     this.channel.config?.fillMissingData === false ? 'not_filled' : 'filled',
                 ];
@@ -64,8 +64,9 @@ export class IndexedDbMeasurementLogsStorage {
     }
 
     getLogsType() {
-        if (this.logsType === 'voltageHistory') {
-            return 'voltageHistory';
+        const customLogsTypes = ['voltageHistory', 'currentHistory', 'powerActiveHistory'];
+        if (customLogsTypes.includes(this.logsType)) {
+            return this.logsType;
         } else {
             return 'default';
         }

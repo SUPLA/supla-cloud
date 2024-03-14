@@ -70,6 +70,7 @@
     import {IndexedDbMeasurementLogsStorage} from "@/channels/history/channel-measurements-storage";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import ChannelMeasurementsHistoryChart from "@/channels/history/channel-measurements-history-chart.vue";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         components: {ChannelMeasurementsHistoryChart, TransitionExpand, ChannelMeasurementsDownload},
@@ -89,6 +90,8 @@
                     fae_rae: 'Arithmetic balance', // i18n
                     fae_rae_vector: 'Vector balance', // i18n
                     voltageHistory: 'Voltage', // i18n
+                    currentHistory: 'Current', // i18n
+                    powerActiveHistory: 'Power active', // i18n
                 },
                 storage: undefined,
                 fetchingLogsProgress: false,
@@ -139,7 +142,7 @@
                 return this.channel && CHART_TYPES[this.channel.function.name];
             },
             supportedChartModes() {
-                if (this.channel.function.name === 'ELECTRICITYMETER') {
+                if (this.channel.functionId === ChannelFunction.ELECTRICITYMETER) {
                     const modesMap = {
                         forwardActiveEnergy: 'fae',
                         reverseActiveEnergy: 'rae',
@@ -155,7 +158,9 @@
                     if (availableModes.includes('forwardActiveEnergyBalanced') && availableModes.includes('reverseActiveEnergyBalanced')) {
                         modes.push('fae_rae_vector');
                     }
-                    modes.push('voltageHistory')
+                    modes.push('voltageHistory');
+                    modes.push('currentHistory');
+                    modes.push('powerActiveHistory');
                     return modes;
                 }
                 return [];

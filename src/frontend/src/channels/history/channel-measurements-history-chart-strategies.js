@@ -23,7 +23,7 @@ export function fillGaps(logs, expectedInterval, defaultLog) {
 export const CHART_TYPES = {
     forChannel(channel, logsType) {
         let strategyDescriptor = channel.function.name;
-        if (['voltageHistory'].includes(logsType)) {
+        if (['voltageHistory', 'currentHistory', 'powerActiveHistory'].includes(logsType)) {
             strategyDescriptor += logsType;
         }
         return this[strategyDescriptor];
@@ -678,7 +678,7 @@ export const CHART_TYPES = {
                 {
                     seriesName: this.$t('Voltage'),
                     title: {text: this.$t("Voltage")},
-                    labels: {formatter: (v) => !isNaN(v) ? `${(+v).toFixed(2)}V` : '?'},
+                    labels: {formatter: (v) => !isNaN(v) ? `${(+v).toFixed(2)} V` : '?'},
                 }
             ];
         },
@@ -915,3 +915,27 @@ export const CHART_TYPES = {
 CHART_TYPES.IC_HEATMETER = CHART_TYPES.IC_GASMETER;
 CHART_TYPES.IC_WATERMETER = CHART_TYPES.IC_GASMETER;
 CHART_TYPES.IC_ELECTRICITYMETER = CHART_TYPES.IC_GASMETER;
+CHART_TYPES['ELECTRICITYMETERcurrentHistory'] = {
+    ...CHART_TYPES.ELECTRICITYMETERvoltageHistory,
+    yaxes: function () {
+        return [
+            {
+                seriesName: this.$t('Current'),
+                title: {text: this.$t("Current")},
+                labels: {formatter: (v) => !isNaN(v) ? `${(+v).toFixed(2)} A` : '?'},
+            }
+        ];
+    },
+};
+CHART_TYPES['ELECTRICITYMETERpowerActiveHistory'] = {
+    ...CHART_TYPES.ELECTRICITYMETERvoltageHistory,
+    yaxes: function () {
+        return [
+            {
+                seriesName: this.$t('Power active'),
+                title: {text: this.$t("Power active")},
+                labels: {formatter: (v) => !isNaN(v) ? `${(+v).toFixed(2)} W` : '?'},
+            }
+        ];
+    },
+};
