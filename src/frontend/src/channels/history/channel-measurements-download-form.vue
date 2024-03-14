@@ -163,6 +163,10 @@
     EXPORT_DEFINITIONS[ChannelFunction.IC_HEATMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
     EXPORT_DEFINITIONS[ChannelFunction.IC_WATERMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
     EXPORT_DEFINITIONS[ChannelFunction.IC_ELECTRICITYMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
+    EXPORT_DEFINITIONS[ChannelFunction.ELECTRICITYMETER + 'currentHistory'] = EXPORT_DEFINITIONS[ChannelFunction.ELECTRICITYMETER + 'voltageHistory'];
+    EXPORT_DEFINITIONS[ChannelFunction.ELECTRICITYMETER + 'powerActiveHistory'] = EXPORT_DEFINITIONS[ChannelFunction.ELECTRICITYMETER + 'voltageHistory'];
+
+    const CUSTOM_CHART_MODES = ['voltageHistory', 'currentHistory', 'powerActiveHistory'];
 
     export default {
         components: {TransitionExpand},
@@ -235,13 +239,13 @@
             },
             filename() {
                 return [
-                    this.chartMode === 'voltageHistory' ? this.chartMode : 'measurements',
+                    CUSTOM_CHART_MODES.includes(this.chartMode) ? this.chartMode : 'measurements',
                     this.channel.id,
                 ].join('_');
             },
             exportFields() {
                 let fncDescriptor = this.channel.functionId;
-                if (this.chartMode === 'voltageHistory') {
+                if (CUSTOM_CHART_MODES.includes(this.chartMode)) {
                     fncDescriptor += this.chartMode;
                 }
                 return EXPORT_DEFINITIONS[fncDescriptor];
@@ -250,7 +254,7 @@
                 return window.indexedDB && this.storage.hasSupport && !!this.exportFields;
             },
             supportsIncrementalLogs() {
-                return this.chartMode !== 'voltageHistory' && [
+                return !CUSTOM_CHART_MODES.includes(this.chartMode) && [
                     ChannelFunction.IC_WATERMETER,
                     ChannelFunction.IC_HEATMETER,
                     ChannelFunction.IC_GASMETER,
