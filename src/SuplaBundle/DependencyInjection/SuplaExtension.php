@@ -84,14 +84,7 @@ class SuplaExtension extends ConfigurableExtension {
         $container->setParameter('supla.mqtt_broker.integrated_auth', $mergedConfig['mqtt_broker']['integrated_auth']);
         $container->setParameter('supla.mqtt_broker.username', $mergedConfig['mqtt_broker']['username']);
         $container->setParameter('supla.mqtt_broker.password', $mergedConfig['mqtt_broker']['password']);
-        $container->setParameter(
-            'supla.measurement_logs_retention.em_voltage_aberrations',
-            $mergedConfig['measurement_logs_retention']['em_voltage_aberrations']
-        );
-        $container->setParameter(
-            'supla.measurement_logs_retention.em_voltage',
-            $mergedConfig['measurement_logs_retention']['em_voltage']
-        );
+        $container->setParameter('supla.measurement_logs_retention', $mergedConfig['measurement_logs_retention']);
     }
 
     private function buildOauthTokensConfig(array $tokensLifetimes): array {

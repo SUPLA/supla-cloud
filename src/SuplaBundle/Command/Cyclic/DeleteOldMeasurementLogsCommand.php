@@ -18,6 +18,8 @@
 namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterCurrentLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterPowerActiveLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Model\TimeProvider;
@@ -26,20 +28,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class DeleteOldMeasurementLogsCommand extends Command implements CyclicCommand {
-    /** @var EntityManagerInterface */
-    private $entityManager;
-    private int $logsRetentionDaysForEmVoltageLogs;
-    private int $logsRetentionDaysForEmVoltageAberrationLogs;
+    private EntityManagerInterface $entityManager;
+    private array $logsRetentionConfig;
 
-    public function __construct(
-        $measurementLogsEntityManager,
-        int $logsRetentionDaysForEmVoltageAberrationLogs,
-        int $logsRetentionDaysForEmVoltageLogs
-    ) {
+    public function __construct($measurementLogsEntityManager, array $logsRetentionConfig) {
         parent::__construct();
         $this->entityManager = $measurementLogsEntityManager;
-        $this->logsRetentionDaysForEmVoltageAberrationLogs = $logsRetentionDaysForEmVoltageAberrationLogs;
-        $this->logsRetentionDaysForEmVoltageLogs = $logsRetentionDaysForEmVoltageLogs;
+        $this->logsRetentionConfig = $logsRetentionConfig;
     }
 
     protected function configure() {
@@ -49,8 +44,10 @@ class DeleteOldMeasurementLogsCommand extends Command implements CyclicCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $this->logClean($output, ElectricityMeterVoltageAberrationLogItem::class, $this->logsRetentionDaysForEmVoltageAberrationLogs);
-        $this->logClean($output, ElectricityMeterVoltageLogItem::class, $this->logsRetentionDaysForEmVoltageLogs);
+        $this->logClean($output, ElectricityMeterVoltageAberrationLogItem::class, $this->logsRetentionConfig['em_voltage_aberrations']);
+        $this->logClean($output, ElectricityMeterVoltageLogItem::class, $this->logsRetentionConfig['em_voltage']);
+        $this->logClean($output, ElectricityMeterCurrentLogItem::class, $this->logsRetentionConfig['em_current']);
+        $this->logClean($output, ElectricityMeterPowerActiveLogItem::class, $this->logsRetentionConfig['em_power_active']);
         return 0;
     }
 

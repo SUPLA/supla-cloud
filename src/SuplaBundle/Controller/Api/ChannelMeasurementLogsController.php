@@ -24,7 +24,9 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterCurrentLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterPowerActiveLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
@@ -56,6 +58,8 @@ class ChannelMeasurementLogsController extends RestController {
 
     private const LOGS_TYPE_VOLTAGE_ABERRATIONS = 'voltageAberrations';
     private const LOGS_TYPE_VOLTAGE_HISTORY = 'voltageHistory';
+    private const LOGS_TYPE_CURRENT_HISTORY = 'currentHistory';
+    private const LOGS_TYPE_POWER_ACTIVE_HISTORY = 'powerActiveHistory';
 
     /** @var IODeviceManager */
     private $deviceManager;
@@ -209,6 +213,10 @@ class ChannelMeasurementLogsController extends RestController {
                 return 'supla_em_voltage_aberration_log';
             case self::LOGS_TYPE_VOLTAGE_HISTORY . ChannelFunction::ELECTRICITYMETER:
                 return 'supla_em_voltage_log';
+            case self::LOGS_TYPE_CURRENT_HISTORY . ChannelFunction::ELECTRICITYMETER:
+                return 'supla_em_current_log';
+            case self::LOGS_TYPE_POWER_ACTIVE_HISTORY . ChannelFunction::ELECTRICITYMETER:
+                return 'supla_em_power_active_log';
             case ChannelFunction::IC_ELECTRICITYMETER:
             case ChannelFunction::IC_GASMETER:
             case ChannelFunction::IC_WATERMETER:
@@ -296,7 +304,9 @@ class ChannelMeasurementLogsController extends RestController {
                         'sec_below secBelow, sec_above secAbove, max_sec_above maxSecAbove, max_sec_below maxSecBelow,' .
                         'min_voltage minVoltage, max_voltage maxVoltage, avg_voltage avgVoltage, measurement_time_sec measurementTimeSec';
                 }
-                if ($logsType === self::LOGS_TYPE_VOLTAGE_HISTORY) {
+                if (in_array($logsType, [
+                    self::LOGS_TYPE_VOLTAGE_HISTORY, self::LOGS_TYPE_CURRENT_HISTORY, self::LOGS_TYPE_POWER_ACTIVE_HISTORY,
+                ])) {
                     $columns = 'phase_no phaseNo, avg avg, min min, max max';
                 }
                 return $this->logItems(
@@ -452,7 +462,7 @@ class ChannelMeasurementLogsController extends RestController {
      *     @OA\Parameter(name="beforeTimestamp", description="Fetch log items created before this timestamp.", in="query", @OA\Schema(type="integer")),
      *     @OA\Parameter(name="order", description="Whether to order items ascending or descending by creation date.", in="query", @OA\Schema(type="string", default="DESC", enum={"ASC", "DESC"})),
      *     @OA\Parameter(name="sparse", description="Set the maximum items to return from the given period. If specified, the `limit` and `offset` params are ignored. For example, if you fetches the logs from the whole year and set the `sparse` param to `12`, the API will try to return up to 12 log items, equally distributed throug the whole year. Min: 1, Max: 1000.", in="query", @OA\Schema(type="integer", minimum=1, maximum=1000)),
-     *     @OA\Parameter(name="logsType", description="Type of the logs to return. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage", "voltageHistory", "voltageAberrations"})),
+     *     @OA\Parameter(name="logsType", description="Type of the logs to return. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage", "voltageHistory", "powerActiveHistory", "currentHistory", "voltageAberrations"})),
      *     @OA\Parameter(name="limit", description="Maximum items count in response, from 1 to 5000.", in="query", @OA\Schema(type="integer", default=5000, minimum=1, maximum=5000)),
      *     @OA\Parameter(name="offset", description="Pagination offset.", in="query", @OA\Schema(type="integer", default=0)),
      *     @OA\Response(response="200", description="Success",
@@ -680,7 +690,7 @@ class ChannelMeasurementLogsController extends RestController {
      *     path="/channels/{channel}/measurement-logs", operationId="deleteChannelMeasurementLogs",
      *     summary="Delete channel measurement logs.", tags={"Channels"},
      *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
-     *     @OA\Parameter(name="logsType", description="Type of the logs to delete. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage", "voltageHistory", "voltageAberrations"})),
+     *     @OA\Parameter(name="logsType", description="Type of the logs to delete. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage", "voltageHistory", "powerActiveHistory", "currentHistory", "voltageAberrations"})),
      *     @OA\Response(response="204", description="Success"),
      *     @OA\Response(response="400", description="Unsupported function", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")),
      * )
@@ -712,6 +722,8 @@ class ChannelMeasurementLogsController extends RestController {
             $this->deleteMeasurementLogs(GeneralPurposeMeasurementLogItem::class, $channel);
             $this->deleteMeasurementLogs(GeneralPurposeMeterLogItem::class, $channel);
             $this->deleteMeasurementLogs(ElectricityMeterVoltageLogItem::class, $channel);
+            $this->deleteMeasurementLogs(ElectricityMeterCurrentLogItem::class, $channel);
+            $this->deleteMeasurementLogs(ElectricityMeterPowerActiveLogItem::class, $channel);
         }
         return new Response('', Response::HTTP_NO_CONTENT);
     }
@@ -723,7 +735,12 @@ class ChannelMeasurementLogsController extends RestController {
         } elseif ($logsType === 'voltage') {
             return self::LOGS_TYPE_VOLTAGE_ABERRATIONS;
         } else {
-            Assertion::inArray($logsType, [self::LOGS_TYPE_VOLTAGE_ABERRATIONS, self::LOGS_TYPE_VOLTAGE_HISTORY]);
+            Assertion::inArray($logsType, [
+                self::LOGS_TYPE_VOLTAGE_ABERRATIONS,
+                self::LOGS_TYPE_VOLTAGE_HISTORY,
+                self::LOGS_TYPE_CURRENT_HISTORY,
+                self::LOGS_TYPE_POWER_ACTIVE_HISTORY,
+            ]);
             return $logsType;
         }
     }
@@ -733,7 +750,7 @@ class ChannelMeasurementLogsController extends RestController {
      *     path="/channels/{channel}/measurement-logs-download", operationId="downloadChannelMeasurementLogs",
      *     summary="Get measurement logs as a zipped CSV file.", tags={"Channels"},
      *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
-     *     @OA\Parameter(name="logsType", description="Type of the logs to delete. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage", "voltageAberrations", "voltageHistory"})),
+     *     @OA\Parameter(name="logsType", description="Type of the logs to delete. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage", "voltageAberrations", "voltageHistory", "powerActiveHistory", "currentHistory"})),
      *     @OA\Response(response="200", description="Success", @OA\MediaType(mediaType="application/zip")),
      *     @OA\Response(response="400", description="Unsupported function", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")),
      * )

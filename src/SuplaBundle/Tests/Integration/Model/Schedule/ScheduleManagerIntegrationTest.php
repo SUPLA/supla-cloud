@@ -28,34 +28,22 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 
+/** @small */
 class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     use UserFixtures;
-
-    /** @var ScheduleManager */
-    private $scheduleManager;
 
     /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
     private $channel;
 
     protected function initializeDatabaseForTests() {
-        $this->scheduleManager = self::$container->get(ScheduleManager::class);
         $user = $this->createConfirmedUser();
         $location = $this->createLocation($user);
         $sonoff = $this->createDeviceSonoff($location);
         $this->channel = $sonoff->getChannels()[0];
     }
 
-    public function testCreatedScheduleIsEmpty() {
-        $schedule = $this->createSchedule($this->channel, '0 0 1 1 * 2088');
-        $this->assertGreaterThan(0, $schedule->getId());
-        $this->assertNull($schedule->getNextCalculationDate());
-        $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findBy(['schedule' => $schedule]);
-        $this->assertEmpty($executions);
-    }
-
     public function testCalculateNextRunDateForOnceSchedule() {
         $schedule = $this->createSchedule($this->channel, '0 0 1 1 * 2088');
-        $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->assertNotNull($schedule->getNextCalculationDate());
         $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findBy(['schedule' => $schedule]);
         $this->assertCount(1, $executions);
@@ -70,48 +58,44 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
             'mode' => ScheduleMode::MINUTELY,
             'dateEnd' => (new DateTime('2018-01-01 00:00:00'))->format(DateTime::ATOM),
         ]);
-        $this->scheduleManager->generateScheduledExecutions($schedule);
         $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findBy(['schedule' => $schedule]);
         $this->assertEmpty($executions);
     }
 
     public function testDisablesScheduleIfNoMoreExecutions() {
+        TestTimeProvider::setTime('2018-01-01 00:00:00');
         $schedule = $this->createSchedule($this->channel, '*/5 * * * *', [
             'mode' => ScheduleMode::MINUTELY,
             'dateStart' => (new DateTime('2018-01-01 00:00:00'))->format(DateTime::ATOM),
             'dateEnd' => (new DateTime('2018-01-01 01:00:00'))->format(DateTime::ATOM),
         ]);
-        TestTimeProvider::setTime('2018-01-01 00:00:00');
-        $this->scheduleManager->generateScheduledExecutions($schedule);
+        self::$container->get(ScheduleManager::class)->generateScheduledExecutions($schedule);
         $this->assertTrue($schedule->getEnabled());
         TestTimeProvider::setTime('2018-01-01 01:00:01');
-        $this->scheduleManager->generateScheduledExecutions($schedule);
+        self::$container->get(ScheduleManager::class)->generateScheduledExecutions($schedule);
         $this->assertFalse($schedule->getEnabled());
     }
 
     public function testDoesNotDisableIfThereArePendingExecutionsToExecute() {
+        TestTimeProvider::setTime('2018-01-01 00:00:00');
         $schedule = $this->createSchedule($this->channel, '*/5 * * * *', [
             'mode' => ScheduleMode::MINUTELY,
             'dateStart' => (new DateTime('2018-01-01 00:00:00'))->format(DateTime::ATOM),
             'dateEnd' => (new DateTime('2018-01-01 01:00:00'))->format(DateTime::ATOM),
         ]);
-        TestTimeProvider::setTime('2018-01-01 00:00:00');
-        $this->scheduleManager->generateScheduledExecutions($schedule);
-        $this->scheduleManager->generateScheduledExecutions($schedule);
+        self::$container->get(ScheduleManager::class)->generateScheduledExecutions($schedule);
+        self::$container->get(ScheduleManager::class)->generateScheduledExecutions($schedule);
         $this->assertTrue($schedule->getEnabled());
     }
 
     public function testDoesNotDisableFutureOnceSchedule() {
         $schedule = $this->createSchedule($this->channel, '0 0 1 1 * 2088', ['mode' => ScheduleMode::ONCE]);
-        $this->scheduleManager->generateScheduledExecutions($schedule);
-        $this->scheduleManager->generateScheduledExecutions($schedule);
+        self::$container->get(ScheduleManager::class)->generateScheduledExecutions($schedule);
+        self::$container->get(ScheduleManager::class)->generateScheduledExecutions($schedule);
         $this->assertTrue($schedule->getEnabled());
     }
 
-    /**
-     * @dataProvider exampleConfigs
-     * @small
-     */
+    /** @dataProvider exampleConfigs */
     public function testValidatingConfig(array $config, bool $expectValid = false) {
         $schedule = new Schedule($this->channel->getUser(), [
             'subject' => $this->channel,
@@ -121,7 +105,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
         if (!$expectValid) {
             $this->expectException(InvalidArgumentException::class);
         }
-        $this->scheduleManager->validateSchedule($schedule);
+        self::$container->get(ScheduleManager::class)->validateSchedule($schedule);
         $this->assertTrue(true);
     }
 

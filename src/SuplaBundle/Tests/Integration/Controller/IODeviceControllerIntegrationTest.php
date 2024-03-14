@@ -828,4 +828,27 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->flushMessagesQueue($client);
         $this->assertEmpty(TestMailer::getMessages());
     }
+
+    public function testDeletingDeviceWithScheduleAndSceneScheduleDependencies() {
+        $sonoff = $this->createDeviceSonoff($this->location);
+        $channel = $sonoff->getChannels()[0];
+        $schedule = $this->createSchedule($channel, '*/5 * * * *');
+        $scene = $this->createScene($this->location, $channel, $schedule);
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $sonoff->getId() . '?safe=1');
+        $response = $client->getResponse();
+        $this->assertStatusCode(409, $response);
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('conflictOn', $content);
+        $this->assertArrayHasKey('dependencies', $content);
+        $this->assertCount(1, $content['dependencies']['sceneOperations']);
+        $this->assertCount(1, $content['dependencies']['schedules']);
+//        $this->assertEquals($cg->getId(), $content['dependencies']['channelGroups'][0]['id']);
+        $client->request('DELETE', '/api/iodevices/' . $sonoff->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(204, $response);
+//        $deviceIds = EntityUtils::mapToIds($this->user->getIODevices());
+//        $this->assertNotContains($deviceId, $deviceIds);
+//        return $deviceId;
+    }
 }

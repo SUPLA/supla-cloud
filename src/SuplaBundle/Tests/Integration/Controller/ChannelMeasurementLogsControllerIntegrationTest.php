@@ -158,6 +158,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-2 day', 1);
         $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-2 day', 2);
         $fixture->createElectricityMeterVoltageLogItems($offset + 4, '-2 day');
+        $fixture->createElectricityMeterCurrentLogItems($offset + 4, '-2 day');
+        $fixture->createElectricityMeterPowerActiveLogItems($offset + 4, '-2 day');
         $this->getMeasurementLogsEntityManager()->flush();
     }
 
@@ -947,6 +949,40 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertArrayHasKey('max', $log);
         $this->assertArrayHasKey('avg', $log);
         $this->assertSame($log['min'], floatval($log['min']));
+    }
+
+    public function testGettingCurrentHistoryLogs() {
+        $channelId = $this->device1->getChannels()[3]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?logsType=currentHistory");
+        $response = $client->getResponse();
+        $this->assertStatusCode('200', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertGreaterThan(0, count($content));
+        $log = $content[0];
+        $this->assertArrayHasKey('phaseNo', $log);
+        $this->assertArrayHasKey('min', $log);
+        $this->assertArrayHasKey('max', $log);
+        $this->assertArrayHasKey('avg', $log);
+        $this->assertIsNotString($log['min']);
+        $this->assertIsNumeric($log['min']);
+    }
+
+    public function testGettingPowerHistoryLogs() {
+        $channelId = $this->device1->getChannels()[3]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?logsType=powerActiveHistory");
+        $response = $client->getResponse();
+        $this->assertStatusCode('200', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertGreaterThan(0, count($content));
+        $log = $content[0];
+        $this->assertArrayHasKey('phaseNo', $log);
+        $this->assertArrayHasKey('min', $log);
+        $this->assertArrayHasKey('max', $log);
+        $this->assertArrayHasKey('avg', $log);
+        $this->assertIsNotString($log['min']);
+        $this->assertIsNumeric($log['min']);
     }
 
     public function testDeletingVoltageLogsForSelectedPhase() {

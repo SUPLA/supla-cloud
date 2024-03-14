@@ -112,8 +112,10 @@ class Configuration implements ConfigurationInterface {
             ->end();
         $rootNode->children()
             ->arrayNode('measurement_logs_retention')->addDefaultsIfNotSet()->children()
-                ->scalarNode('em_voltage_aberrations')->defaultValue(180)->info('How many days the voltage aberrations logs should be kept.')->end()
-                ->scalarNode('em_voltage')->defaultValue(90)->info('How many days the voltage logs should be kept.')->end()
+                ->scalarNode('em_voltage_aberrations')->defaultValue(180)->info('How many days the EM voltage aberrations logs should be kept.')->end()
+                ->scalarNode('em_voltage')->defaultValue(90)->info('How many days the EM voltage logs should be kept.')->end()
+                ->scalarNode('em_current')->defaultValue(90)->info('How many days the EM current logs should be kept.')->end()
+                ->scalarNode('em_power_active')->defaultValue(90)->info('How many days the EM power active logs should be kept.')->end()
             ->end()->end()
             ->end();
         // @formatter:on

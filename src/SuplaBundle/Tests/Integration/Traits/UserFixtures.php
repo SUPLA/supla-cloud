@@ -37,6 +37,7 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\IoDeviceFlags;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\LocationManager;
+use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\ApiClientRepository;
 use SuplaBundle\Tests\AnyFieldSetter;
@@ -152,23 +153,28 @@ trait UserFixtures {
     }
 
     protected function createSchedule(ActionableSubject $subject, string $timeExpression, array $data = []): Schedule {
+        $subject = $this->freshEntity($subject);
         $schedule = new Schedule($subject->getUser(), array_merge([
             'subject' => $subject,
             'mode' => ScheduleMode::ONCE,
             'config' => [['crontab' => $timeExpression, 'action' => ['id' => ChannelFunctionAction::TURN_ON]]],
         ], $data));
         $schedule->setEnabled(true);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($schedule);
-        $em->flush();
+        $this->persist($schedule);
+        self::$container->get(ScheduleManager::class)->generateScheduledExecutions($schedule);
         return $schedule;
     }
 
-    protected function createScene(Location $location, ActionableSubject $subjectForOperation): Scene {
+    protected function createScene(Location $location, ActionableSubject...$subjectForOperation): Scene {
         $scene = new Scene($this->freshEntity($location));
-        /** @var ActionableSubject $subject */
-        $subject = $this->freshEntity($subjectForOperation);
-        $scene->setOpeartions([new SceneOperation($subject, $subject->getFunction()->getDefaultPossibleActions()[0])]);
+        $operations = array_map(
+            fn(ActionableSubject $subject) => new SceneOperation(
+                $this->freshEntity($subject),
+                $subject->getFunction()->getDefaultPossibleActions()[0]
+            ),
+            $subjectForOperation
+        );
+        $scene->setOpeartions($operations);
         $this->persist($scene);
         return $scene;
     }

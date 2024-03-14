@@ -34,10 +34,7 @@ class FrontendConfig {
         'maintenanceMode' => 'supla.maintenance_mode',
         'accountsRegistrationEnabled' => 'supla.accounts_registration_enabled',
         'mqttBrokerEnabled' => 'supla.mqtt_broker.enabled',
-        'measurementLogsRetention' => [
-            'voltageAberrations' => 'supla.measurement_logs_retention.em_voltage_aberrations',
-            'voltage' => 'supla.measurement_logs_retention.em_voltage',
-        ],
+        'measurementLogsRetention' => 'supla.measurement_logs_retention',
     ];
 
     /** @var SuplaAutodiscover */
