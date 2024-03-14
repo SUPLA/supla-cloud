@@ -285,7 +285,7 @@
             rerenderBigChart() {
                 if (this.denseLogs && this.denseLogs.length) {
                     const series = this.getBigChartSeries();
-                    this.bigChart.updateSeries(series, true);
+                    const hiddenSeriesNames = this.bigChart.w.config.series.filter(ser => ser.data.length === 0).map(ser => ser.name);
                     const newChartOptions = {
                         xaxis: {
                             min: this.currentMinTimestamp,
@@ -296,7 +296,12 @@
                             xaxis: this.chartStrategy.getAnnotations?.call(this, this.denseLogs) || [],
                         },
                     };
-                    this.bigChart.updateOptions(merge(newChartOptions, this.chartStrategy.chartOptions.call(this)), false, false);
+                    this.bigChart.updateOptions(
+                        {...merge(newChartOptions, this.chartStrategy.chartOptions.call(this)), series}
+                        , false,
+                        false
+                    );
+                    hiddenSeriesNames.forEach(hiddenSeriesName => this.bigChart.hideSeries(hiddenSeriesName));
                 }
                 this.fetchingDenseLogs = false;
             },
