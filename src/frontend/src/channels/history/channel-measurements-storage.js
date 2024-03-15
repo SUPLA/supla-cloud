@@ -19,7 +19,7 @@ export class IndexedDbMeasurementLogsStorage {
                     this.channel.config?.counterType || 'default',
                     this.channel.config?.fillMissingData === false ? 'not_filled' : 'filled',
                 ];
-                this.db = await openDB(dbName.join('_'), 7, {
+                this.db = await openDB(dbName.join('_'), 8, {
                     async upgrade(db) {
                         if (db.objectStoreNames.contains('logs')) {
                             await db.deleteObjectStore('logs');
@@ -74,7 +74,8 @@ export class IndexedDbMeasurementLogsStorage {
 
     getAvailableAggregationStrategies(timestampRange) {
         const strategies = [];
-        if (timestampRange < 86400 * 10) {
+        const interval = this.getExpectedInterval();
+        if (timestampRange < 86400 * interval / 60) {
             strategies.push('minute');
         }
         if (timestampRange > 3600 * 6 && timestampRange < 86400 * 21) {
@@ -178,11 +179,20 @@ export class IndexedDbMeasurementLogsStorage {
         }
     }
 
+    getExpectedInterval() {
+        const customLogsTypes = ['voltageHistory', 'currentHistory', 'powerActiveHistory'];
+        if (customLogsTypes.includes(this.logsType)) {
+            return 180;
+        } else {
+            return 600;
+        }
+    }
+
     async storeLogs(logs) {
         if (this.chartStrategy.mergeLogsWithTheSameTimestamp) {
             logs = this.chartStrategy.mergeLogsWithTheSameTimestamp(logs);
         }
-        let adjustedLogs = fillGaps(logs, 600, this.chartStrategy.emptyLog());
+        let adjustedLogs = fillGaps(logs, this.getExpectedInterval(), this.chartStrategy.emptyLog());
         adjustedLogs = this.chartStrategy.interpolateGaps(adjustedLogs, this.channel);
         adjustedLogs = this.adjustLogsBeforeStorage(adjustedLogs);
         // the following if-s mitigate risk of bad-filled gaps when fetching logs by pages

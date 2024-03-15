@@ -237,7 +237,7 @@ class LogItemsFixture extends SuplaFixture {
         $from = strtotime($since ?: self::SINCE);
         $to = time();
         $phases = [230.0, 230.0];
-        for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
+        for ($timestamp = $from; $timestamp < $to; $timestamp += 180) {
             for ($phaseNo = 0; $phaseNo < 2; $phaseNo++) {
                 $logItem = new ElectricityMeterVoltageLogItem();
                 EntityUtils::setField($logItem, 'channel_id', $channelId);
@@ -266,7 +266,7 @@ class LogItemsFixture extends SuplaFixture {
         }
         $from = strtotime($since ?: self::SINCE);
         $to = time();
-        for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
+        for ($timestamp = $from; $timestamp < $to; $timestamp += 180) {
             for ($phaseNo = 0; $phaseNo < 3; $phaseNo++) {
                 $logItem = new ElectricityMeterCurrentLogItem();
                 EntityUtils::setField($logItem, 'channel_id', $channelId);
@@ -293,7 +293,7 @@ class LogItemsFixture extends SuplaFixture {
         }
         $from = strtotime($since ?: self::SINCE);
         $to = time();
-        for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
+        for ($timestamp = $from; $timestamp < $to; $timestamp += 180) {
             for ($phaseNo = 0; $phaseNo < 3; $phaseNo++) {
                 $logItem = new ElectricityMeterPowerActiveLogItem();
                 EntityUtils::setField($logItem, 'channel_id', $channelId);
