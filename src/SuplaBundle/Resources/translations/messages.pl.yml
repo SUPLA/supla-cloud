@@ -857,9 +857,9 @@ State webhook: Webhook stanu
 Status LED: Status LED
 Step by step: Krok po kroku
 Stop: Zatrzymaj
-Store current history: Przechowuj historię natężenia
+Store current history: Przechowuj historię natężenia prądu
 Store measurements history: Przechowuj historię pomiarów
-Store power active history: Przechowuj historię energii czynnej
+Store power active history: Przechowuj historię mocy czynnej
 Store voltage history: Przechowuj historię napięcia
 Subfunction: Podfunkcja
 Subject type: Typ podmiotu
