@@ -559,7 +559,7 @@ Manage your new client app in the SUPLA-Cloud.: Zarządzaj ustawieniami aplikacj
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Zarządzaj swoim urządzeniem w SUPLA-Cloud lub za pomocą aplikacji SUPLA w Twoim smartfonie.
 Manual: Instrukcja
 Manually closed: Zamknięty manualnie
-Max: Max
+Max: Maks.
 Maximum delay is 60 minutes.: Maksymalne opóźnienie to 60 minut.
 Maximum duration is one year.: Maksymalny okres to jeden rok.
 Maximum filesize limit is {limit}.: Maksymalny rozmiar pliku to {limit}.
@@ -569,7 +569,7 @@ Measurement settings: Ustawienia pomiaru
 Measurement window: Czas pomiaru
 Meter value: Stan licznika
 Meters: Liczniki
-Min: Min
+Min: Min.
 Minimum OFF time before cooling can be turned on: Minimalny czas WYŁĄCZENIA przed ponownym włączeniem chłodzenia
 Minimum OFF time before heating can be turned on: Minimalny czas WYŁĄCZENIA przed ponownym włączeniem ogrzewania
 Minimum OFF time before heating/cooling can be turned on: Minimalny czas WYŁĄCZENIA przed ponownym włączeniem chłodzenia/ogrzewania
@@ -1504,5 +1504,7 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+max: maks.
+min: min.
 
 #</editor-fold>
