@@ -336,9 +336,9 @@ Edit program settings: Edytuj ustawienia programu
 Edit reaction: Edytuj reakcję
 Electric: Elektryka
 Electricity meter: Licznik energii elektrycznej
+Electricity meter active power history: Historia mocy licznika energii elektrycznej
 Electricity meter current history: Historia natężenia licznika energii elektrycznej
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Licznik energii elektrycznej nie zgłosił możliwości konfiguracji wartości dodanych. Zaktualizuj firmware urządzenia i spróbuj ponownie.
-Electricity meter power active history: Historia mocy licznika energii elektrycznej
 Electricity meter voltage aberrations history: Historia aberracji napięcia licznika energii elektrycznej
 Electricity meter voltage history: Historia napięcia licznika energii elektrycznej
 Empty!: Pusto!
@@ -857,9 +857,9 @@ State webhook: Webhook stanu
 Status LED: Status LED
 Step by step: Krok po kroku
 Stop: Zatrzymaj
+Store active power history: Przechowuj historię mocy czynnej
 Store current history: Przechowuj historię natężenia prądu
 Store measurements history: Przechowuj historię pomiarów
-Store power active history: Przechowuj historię mocy czynnej
 Store voltage history: Przechowuj historię napięcia
 Subfunction: Podfunkcja
 Subject type: Typ podmiotu

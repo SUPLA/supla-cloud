@@ -115,7 +115,7 @@
                             <td>{{ $t('{days} days', {days: $frontendConfig.measurementLogsRetention?.em_current || 90}) }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">{{ $t('Electricity meter power active history') }}</th>
+                            <th scope="row">{{ $t('Electricity meter active power history') }}</th>
                             <td>{{ $t('{days} days', {days: $frontendConfig.measurementLogsRetention?.em_power_active || 90}) }}</td>
                         </tr>
                         </tbody>
