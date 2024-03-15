@@ -44,7 +44,7 @@
         <h3 class="text-center my-5" v-if="denseLogs.length === 0">{{ $t('Your chart is being drawn...') }}</h3>
         <div ref="bigChart"></div>
         <div
-            v-if="channel.functionId === ChannelFunction.ELECTRICITYMETER && denseLogs.length > 0 && !['voltageHistory'].includes(chartMode)">
+            v-if="channel.functionId === ChannelFunction.ELECTRICITYMETER && denseLogs.length > 0 && !['voltageHistory', 'currentHistory', 'powerActiveHistory'].includes(chartMode)">
             <h3>{{ $t('Summary for selected time range') }}</h3>
             <ChannelMeasurementsHistorySummaryTableElectricityMeter :channel="channel" :logs="denseLogs"/>
         </div>
