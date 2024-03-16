@@ -75,7 +75,7 @@ export class IndexedDbMeasurementLogsStorage {
     getAvailableAggregationStrategies(timestampRange) {
         const strategies = [];
         const interval = this.getExpectedInterval();
-        if (timestampRange < 86400 * interval / 60) {
+        if (timestampRange < 86400 * interval / 90) {
             strategies.push('minute');
         }
         if (timestampRange > 3600 * 6 && timestampRange < 86400 * 21) {
