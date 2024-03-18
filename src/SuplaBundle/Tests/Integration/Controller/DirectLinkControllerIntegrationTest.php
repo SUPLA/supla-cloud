@@ -639,4 +639,9 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(202, $response);
         $this->assertSuplaCommandExecuted('ACTION-HVAC-SET-TEMPERATURES:1,1,8,2150,0,1');
     }
+
+    protected static function createClient(array $options = [], array $server = []) {
+        self::ensureKernelShutdown();
+        return parent::createClient($options, $server);
+    }
 }

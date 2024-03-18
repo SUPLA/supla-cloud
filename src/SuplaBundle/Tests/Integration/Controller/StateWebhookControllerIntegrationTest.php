@@ -56,6 +56,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
 
     public function testCreatingStateWebhook() {
         /** @var TestClient $client */
+        self::ensureKernelShutdown();
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ABC', 'HTTPS' => true]);
         $client->followRedirects();
         $hookData = [
@@ -80,6 +81,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
 
     /** @depends testCreatingStateWebhook */
     public function testGettingStateWebhook() {
+        self::ensureKernelShutdown();
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ABC', 'HTTPS' => true]);
         $client->followRedirects();
         $client->apiRequestV23('GET', '/api/integrations/state-webhook');
@@ -97,6 +99,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
 
     /** @depends testCreatingStateWebhook */
     public function testUpdatingStateWebhook() {
+        self::ensureKernelShutdown();
         /** @var TestClient $client */
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ABC', 'HTTPS' => true]);
         $client->followRedirects();
@@ -122,6 +125,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
 
     /** @depends testUpdatingStateWebhook */
     public function testDeletingStateWebhook() {
+        self::ensureKernelShutdown();
         /** @var TestClient $client */
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ABC', 'HTTPS' => true]);
         $client->followRedirects();
@@ -135,7 +139,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
     public function testCantCreateStateWebhookForNonPublicClient() {
         $client = $this->createApiClient();
         $this->createAccessToken($client, $this->user, 'state_webhook', 'BCD');
-
+        self::ensureKernelShutdown();
         /** @var TestClient $client */
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer BCD', 'HTTPS' => true]);
         $client->followRedirects();
@@ -152,6 +156,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
 
     /** @dataProvider invalidStateWebhookRequests */
     public function testInvalidStateWebhookRequests($hookData) {
+        self::ensureKernelShutdown();
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ABC', 'HTTPS' => true]);
         $client->followRedirects();
         $client->apiRequestV23('PUT', '/api/integrations/state-webhook', $hookData);

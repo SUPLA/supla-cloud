@@ -155,11 +155,11 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         }
 
         $fixture = new LogItemsFixture($this->getDoctrine());
-        $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-2 day', 1);
-        $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-2 day', 2);
-        $fixture->createElectricityMeterVoltageLogItems($offset + 4, '-2 day');
-        $fixture->createElectricityMeterCurrentLogItems($offset + 4, '-2 day');
-        $fixture->createElectricityMeterPowerActiveLogItems($offset + 4, '-2 day');
+        $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-1 days', 1);
+        $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-1 days', 2);
+        $fixture->createElectricityMeterVoltageLogItems($offset + 4, '-3 hours');
+        $fixture->createElectricityMeterCurrentLogItems($offset + 4, '-3 hours');
+        $fixture->createElectricityMeterPowerActiveLogItems($offset + 4, '-3 hours');
         $this->getMeasurementLogsEntityManager()->flush();
     }
 
