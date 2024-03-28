@@ -44,7 +44,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   @OA\Property(property="id", type="integer", description="Identifier"),
  *   @OA\Property(property="functionId", type="integer", example=60),
  *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
- *   @OA\Property(property="images", description="Base64-encoded images of this icon. Returned only if required by the `include` parameter in the single-entity endpoint.", type="array", @OA\Items(type="string")),
+ *   @OA\Property(property="images", description="Base64-encoded images of this icon in light mode. Returned only if required by the `include` parameter in the single-entity endpoint.", type="array", @OA\Items(type="string")),
+ *   @OA\Property(property="imagesDark", description="Base64-encoded images of this icon in dark mode. Returned only if required by the `include` parameter in the single-entity endpoint.", type="array", @OA\Items(type="string")),
  * )
  */
 class UserIconController extends RestController {
@@ -77,6 +78,10 @@ class UserIconController extends RestController {
      *         @OA\Property(property="image2", type="string", format="binary"),
      *         @OA\Property(property="image3", type="string", format="binary"),
      *         @OA\Property(property="image4", type="string", format="binary"),
+     *         @OA\Property(property="imageDark1", type="string", format="binary"),
+     *         @OA\Property(property="imageDark2", type="string", format="binary"),
+     *         @OA\Property(property="imageDark3", type="string", format="binary"),
+     *         @OA\Property(property="imageDark4", type="string", format="binary"),
      *       )
      *     )
      *   ),
@@ -110,6 +115,10 @@ class UserIconController extends RestController {
      *       @OA\Property(property="image2", type="string", format="byte"),
      *       @OA\Property(property="image3", type="string", format="byte"),
      *       @OA\Property(property="image4", type="string", format="byte"),
+     *       @OA\Property(property="imageDark1", type="string", format="byte"),
+     *       @OA\Property(property="imageDark2", type="string", format="byte"),
+     *       @OA\Property(property="imageDark3", type="string", format="byte"),
+     *       @OA\Property(property="imageDark4", type="string", format="byte"),
      *     ),
      *   ),
      *   @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/UserIcon")),
@@ -250,7 +259,7 @@ class UserIconController extends RestController {
      *   path="/user-icons/{id}/{imageIndex}", operationId="getUserIconImage", summary="Get User Icon image at specified index", tags={"User Icons"},
      *   @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *   @OA\Parameter(name="imageIndex", in="path", required=true, @OA\Schema(type="integer")),
-     *   @OA\Parameter(name="dark", in="query", required=false, @OA\Schema(type="boolean"))),
+     *   @OA\Parameter(name="dark", in="query", required=false, @OA\Schema(type="boolean")),
      * @OA\Response(response="200", description="User Icon image", @OA\MediaType(mediaType="image/*", @OA\Schema(type="string", format="binary"))),
      * )
      * @Rest\Get("/user-icons/{userIcon}/{imageIndex}")
