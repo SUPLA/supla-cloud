@@ -182,6 +182,11 @@ class ScheduleManager {
                 EntityUtils::mapToIds($possibleActions),
                 "Action {$action->getName()} cannot be executed on this channel."
             );
+            Assertion::notInArray(
+                $action->getId(),
+                [ChannelFunctionAction::HVAC_SET_TEMPERATURE],
+                'This action is not supported in schedules.'
+            );
             $this->channelActionExecutor->validateAndTransformActionParamsFromApi(
                 $schedule->getSubject(),
                 new ChannelFunctionAction($configEntry['action']['id']),
