@@ -270,6 +270,7 @@ DHT11 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT11
 DHT21 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT21
 DHT22 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT22
 DS18B20 Thermometer: Termometr DS18B20
+Dark mode: Tryb ciemny
 Data: Dane
 Data limits: Limity danych
 Data saved: Dane zostały zapisane
@@ -526,6 +527,7 @@ Last access: Ostatnie połączenie
 Last connection: Ostatnie połączenie
 Last used: Ostatnio użyty
 Let me choose later: Pozwól mi wybrać później
+Light mode: Tryb jasny
 Light switch: Włącznik światła
 Lighting: Oświetlenie
 Limit has been exceeded: Limit został przekroczony
@@ -1173,7 +1175,7 @@ You must leave at least one phase enabled.: Przynajmniej jedna faza musi pozosta
 You must set an action for each reaction.: Musisz ustawić akcję dla każdej reakcji.
 You must set an action for each scene operation.: Wybierz akcję dla każdej operacji w scenie.
 You must set sections with transparent or opaque parameters or both.: Musisz wybrać przezroczystość przynajmniej jednej sekcji.
-You need to provide icons for all states.: Musisz dostarczyć ikony dla wszystkich stanów.
+You need to provide icons for all states in light mode.: Musisz dostarczyć ikony dla wszystkich stanów w trybie jasnym.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musisz zaktualizować swoją instancję SUPLA Cloud do wersji co najmniej 2.3.0.
 You will not be able to generate a direct link with the same URL again.: Utworzenie linku z tym samym URL-em nie będzie możliwe.
 Your account and MQTT Broker connection.: Połączenie Twojego konta z brokerem MQTT.
@@ -1306,8 +1308,10 @@ logs_aggregation_day: dni
 logs_aggregation_hour: godziny
 logs_aggregation_minute: minuty
 logs_aggregation_month: miesiące
+max: maks.
 midnight: północ
 milliseconds: milisekundy
+min: min.
 min.: min.
 minutes: minut
 notification: powiadomienie
@@ -1504,7 +1508,5 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-max: maks.
-min: min.
 
 #</editor-fold>
