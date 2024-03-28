@@ -37,6 +37,7 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
 
     private const SAMPLE_PNG_FILEPATH = \AppKernel::ROOT_PATH . '/../src/SuplaBundle/Tests/Utils/sample-icon.png';
+    private const SAMPLE_PNG_FILEPATH2 = \AppKernel::ROOT_PATH . '/../src/SuplaBundle/Tests/Utils/sample-icon2.png';
 
     /** @var User */
     private $user;
@@ -57,7 +58,7 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatingIconForThermometer() {
-        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
+//        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
         $client = $this->createAuthenticatedClientDebug($this->user);
         $image = new UploadedFile(self::SAMPLE_PNG_FILEPATH, 'devices.png');
         $client->apiRequestV24('POST', '/api/user-icons', ['function' => ChannelFunction::THERMOMETER], [], ['image1' => $image]);
@@ -75,6 +76,7 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertArrayNotHasKey('images', $content);
+        $this->assertArrayNotHasKey('imagesDark', $content);
     }
 
     /** @depends testCreatingIconForThermometer */
@@ -107,10 +109,12 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertCount(1, $content['images']);
+        $this->assertCount(1, $content['imagesDark']);
+        $this->assertEquals($content['images'][0], $content['imagesDark'][0]);
     }
 
     public function testCreatingIconForLightSwitch() {
-        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
+//        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
         $client = $this->createAuthenticatedClient($this->user);
         $image1 = new UploadedFile(self::SAMPLE_PNG_FILEPATH, 'devices.png');
         $image2 = new UploadedFile(\AppKernel::ROOT_PATH . '/../web/assets/img/user.png', 'user.png');
@@ -173,7 +177,7 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatingIconWithNotEnoughFiles() {
-        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
+//        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
         $client = $this->createAuthenticatedClient($this->user);
         $image1 = new UploadedFile(self::SAMPLE_PNG_FILEPATH, 'devices.png');
         $client->apiRequestV24('POST', '/api/user-icons', ['function' => ChannelFunction::LIGHTSWITCH], [], ['image1' => $image1]);
@@ -182,7 +186,7 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testAssigningUserIconWithWrongFunction() {
-        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
+//        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
         $iconId = $this->testCreatingIconForLightSwitch();
         $channel = $this->device->getChannels()[1];
         $client = $this->createAuthenticatedClient($this->user);
@@ -192,7 +196,7 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatingIconForThermometerSentInBase64Format() {
-        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
+//        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
         $client = $this->createAuthenticatedClient($this->user);
         // @codingStandardsIgnoreStart
         $client->apiRequestV24('POST', '/api/user-icons.base64', [
@@ -205,7 +209,7 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatingIconForThermometerByEncodingImageToBase64Format() {
-        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
+//        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('POST', '/api/user-icons.base64', [
             'function' => ChannelFunction::THERMOMETER,
@@ -216,7 +220,7 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatingWithInvalidBase64() {
-        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
+//        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('POST', '/api/user-icons.base64', [
             'function' => ChannelFunction::THERMOMETER,
@@ -224,5 +228,35 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
+    }
+
+    public function testCreatingIconForThermometerWithDarkMode() {
+//        $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $image = new UploadedFile(self::SAMPLE_PNG_FILEPATH, 'devices.png');
+        $imageDark = new UploadedFile(self::SAMPLE_PNG_FILEPATH2, 'supla.png');
+        $client->apiRequestV24(
+            'POST',
+            '/api/user-icons',
+            ['function' => ChannelFunction::THERMOMETER],
+            [],
+            ['image1' => $image, 'imageDark1' => $imageDark]
+        );
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        return $content['id'];
+    }
+
+    /** @depends testCreatingIconForThermometerWithDarkMode */
+    public function testGettingThermometerDarkIconWithImages(int $iconId) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/user-icons/' . $iconId . '?include=images');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content['images']);
+        $this->assertCount(1, $content['imagesDark']);
+        $this->assertNotEquals($content['images'][0], $content['imagesDark'][0]);
     }
 }

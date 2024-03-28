@@ -15,24 +15,15 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Serialization;
+namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Entity\Main\UserIcon;
+use SuplaBundle\Migrations\NoWayBackMigration;
 
-class UserIconSerializer extends AbstractSerializer {
-    /**
-     * @param \SuplaBundle\Entity\Main\UserIcon $icon
-     * @inheritdoc
-     */
-    protected function addExtraFields(array &$normalized, $icon, array $context) {
-        $normalized['functionId'] = $icon->getFunction()->getId();
-        if ($this->isSerializationGroupRequested('images', $context)) {
-            $normalized['images'] = array_map('base64_encode', $icon->getImages());
-            $normalized['imagesDark'] = array_map('base64_encode', $icon->getImagesDark());
-        }
-    }
-
-    public function supportsNormalization($entity, $format = null) {
-        return $entity instanceof UserIcon;
+/**
+ * Dark images for user icons.
+ */
+class Version20240327152635 extends NoWayBackMigration {
+    public function migrate() {
+        $this->addSql('ALTER TABLE supla_user_icons ADD image_dark1 LONGBLOB DEFAULT NULL, ADD image_dark2 LONGBLOB DEFAULT NULL, ADD image_dark3 LONGBLOB DEFAULT NULL, ADD image_dark4 LONGBLOB DEFAULT NULL');
     }
 }

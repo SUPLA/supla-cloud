@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Entity\Main;
 
+use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Enums\ChannelFunction;
@@ -84,7 +85,28 @@ class UserIcon {
      */
     private $image4;
 
+    /**
+     * @ORM\Column(name="image_dark1", type="blob", nullable=true)
+     */
+    private $imageDark1;
+
+    /**
+     * @ORM\Column(name="image_dark2", type="blob", nullable=true)
+     */
+    private $imageDark2;
+
+    /**
+     * @ORM\Column(name="image_dark3", type="blob", nullable=true)
+     */
+    private $imageDark3;
+
+    /**
+     * @ORM\Column(name="image_dark4", type="blob", nullable=true)
+     */
+    private $imageDark4;
+
     private $fetchedImages;
+    private $fetchedDarkImages;
 
     public function __construct(User $user, ChannelFunction $function) {
         $this->user = $user;
@@ -135,19 +157,32 @@ class UserIcon {
         return $this->fetchedImages;
     }
 
-    public function setImage1($image1) {
-        $this->image1 = $image1;
+    public function getImagesDark(): array {
+        if (!$this->fetchedDarkImages) {
+            $this->fetchedDarkImages = $this->getImages();
+            for ($i = 1; $i <= 4; $i++) {
+                $imageField = 'imageDark' . $i;
+                if ($this->{$imageField}) {
+                    if (is_resource($this->{$imageField})) {
+                        $this->fetchedDarkImages[$i - 1] = stream_get_contents($this->{$imageField});
+                    } else {
+                        $this->fetchedDarkImages[$i - 1] = $this->{$imageField};
+                    }
+                }
+            }
+        }
+        return $this->fetchedDarkImages;
     }
 
-    public function setImage2($image2) {
-        $this->image2 = $image2;
+    public function setImage($imageString, int $index): void {
+        Assertion::between($index, 1, 4);
+        $imageField = 'image' . $index;
+        $this->{$imageField} = $imageString;
     }
 
-    public function setImage3($image3) {
-        $this->image3 = $image3;
-    }
-
-    public function setImage4($image4) {
-        $this->image4 = $image4;
+    public function setImageDark($imageString, int $index): void {
+        Assertion::between($index, 1, 4);
+        $imageField = 'imageDark' . $index;
+        $this->{$imageField} = $imageString;
     }
 }

@@ -131,6 +131,17 @@ class UserIconController extends RestController {
         });
     }
 
+    private function adjustImageSize(ImageResize $imageFromRequest) {
+        if ($imageFromRequest->getSourceHeight() !== 156 || $imageFromRequest->getSourceWidth() !== 210) {
+            $image = $imageFromRequest->resizeToHeight(156, true)->getImageAsString(IMAGETYPE_PNG);
+            $image = ImageResize::createFromString($image);
+            $image = $image->crop(210, 156);
+        } else {
+            $image = $imageFromRequest;
+        }
+        return $image->getImageAsString(IMAGETYPE_PNG);
+    }
+
     private function storeIcon(Request $request, callable $getImageFromRequest) {
         /** @var ChannelFunction $function */
         $function = ChannelFunction::fromString($request->get('function', ''));
@@ -142,30 +153,30 @@ class UserIconController extends RestController {
         }
         $imagesCount = count($function->getPossibleVisualStates());
         for ($iconIndex = 1; $iconIndex <= $imagesCount; $iconIndex++) {
-            $imageFileNameInRequest = 'image' . $iconIndex;
             try {
                 /** @var ?ImageResize $imageFromRequest */
-                $imageFromRequest = $getImageFromRequest($imageFileNameInRequest);
+                $imageFromRequest = $getImageFromRequest('image' . $iconIndex);
+                $imageDarkFromRequest = $getImageFromRequest('imageDark' . $iconIndex);
                 if (!$sourceIcon) {
                     Assertion::notNull($imageFromRequest, "Icon for this function must consist of $imagesCount images.");
                 }
                 if ($imageFromRequest) {
-                    if ($imageFromRequest->getSourceHeight() !== 156 || $imageFromRequest->getSourceWidth() !== 210) {
-                        $image = $imageFromRequest->resizeToHeight(156, true)->getImageAsString(IMAGETYPE_PNG);
-                        $image = ImageResize::createFromString($image);
-                        $image = $image->crop(210, 156);
-                    } else {
-                        $image = $imageFromRequest;
-                    }
-                    $imageString = $image->getImageAsString(IMAGETYPE_PNG);
+                    $imageString = $this->adjustImageSize($imageFromRequest);
                 } else {
                     $imageString = $sourceIcon->getImages()[$iconIndex - 1];
+                }
+                if ($imageDarkFromRequest) {
+                    $imageDarkString = $this->adjustImageSize($imageDarkFromRequest);
+                } elseif ($sourceIcon) {
+                    $imageDarkString = $sourceIcon->getImagesDark()[$iconIndex - 1];
+                } else {
+                    $imageDarkString = null;
                 }
             } catch (ImageResizeException $exception) {
                 throw new ApiException($exception->getMessage(), 400, $exception);
             }
-            $method = 'setImage' . $iconIndex;
-            $icon->$method($imageString);
+            $icon->setImage($imageString, $iconIndex);
+            $icon->setImageDark($imageDarkString, $iconIndex);
         }
         $this->transactional(function (EntityManagerInterface $em) use ($icon, $sourceIcon) {
             $em->persist($icon);
@@ -239,14 +250,19 @@ class UserIconController extends RestController {
      *   path="/user-icons/{id}/{imageIndex}", operationId="getUserIconImage", summary="Get User Icon image at specified index", tags={"User Icons"},
      *   @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *   @OA\Parameter(name="imageIndex", in="path", required=true, @OA\Schema(type="integer")),
-     *   @OA\Response(response="200", description="User Icon image", @OA\MediaType(mediaType="image/*", @OA\Schema(type="string", format="binary"))),
+     *   @OA\Parameter(name="dark", in="query", required=false, @OA\Schema(type="boolean"))),
+     * @OA\Response(response="200", description="User Icon image", @OA\MediaType(mediaType="image/*", @OA\Schema(type="string", format="binary"))),
      * )
      * @Rest\Get("/user-icons/{userIcon}/{imageIndex}")
      * @Security("userIcon.belongsToUser(user) and is_granted('ROLE_CHANNELS_FILES')")
      * @Cache(maxage="86400", smaxage=86400)
      */
-    public function getUserIconImageAction(UserIcon $userIcon, int $imageIndex) {
-        $images = $userIcon->getImages();
+    public function getUserIconImageAction(Request $request, UserIcon $userIcon, int $imageIndex) {
+        if ($request->query->get('dark')) {
+            $images = $userIcon->getImagesDark();
+        } else {
+            $images = $userIcon->getImages();
+        }
         if (isset($images[$imageIndex])) {
             return new Response($images[$imageIndex], Response::HTTP_OK, ['Content-Type' => 'image/png']);
         } else {
