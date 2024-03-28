@@ -626,8 +626,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient();
         $client->apiRequest(Request::METHOD_POST, '/api/schedules', [
             'channelId' => $this->hvacChannel->getId(),
-            'actionId' => ChannelFunctionAction::HVAC_SET_TEMPERATURE,
-            'actionParam' => ['temperature' => 22.5],
+            'actionId' => ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE,
             'mode' => ScheduleMode::ONCE,
             'timeExpression' => '2 2 * * *',
         ]);
@@ -636,8 +635,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertGreaterThan(0, $scheduleFromResponse['id']);
         $config = $scheduleFromResponse['config'][0];
         $this->assertEquals('2 2 * * *', $config['crontab']);
-        $this->assertEquals(ChannelFunctionAction::HVAC_SET_TEMPERATURE, $config['action']['id']);
-        $this->assertEquals(['temperature' => 22.5], $config['action']['param']);
+        $this->assertEquals(ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE, $config['action']['id']);
     }
 
     /** @dataProvider stateExamples */
