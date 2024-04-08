@@ -260,7 +260,7 @@ class UserIconController extends RestController {
      *   @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *   @OA\Parameter(name="imageIndex", in="path", required=true, @OA\Schema(type="integer")),
      *   @OA\Parameter(name="dark", in="query", required=false, @OA\Schema(type="boolean")),
-     * @OA\Response(response="200", description="User Icon image", @OA\MediaType(mediaType="image/*", @OA\Schema(type="string", format="binary"))),
+     *   @OA\Response(response="200", description="User Icon image", @OA\MediaType(mediaType="image/*", @OA\Schema(type="string", format="binary"))),
      * )
      * @Rest\Get("/user-icons/{userIcon}/{imageIndex}")
      * @Security("userIcon.belongsToUser(user) and is_granted('ROLE_CHANNELS_FILES')")
