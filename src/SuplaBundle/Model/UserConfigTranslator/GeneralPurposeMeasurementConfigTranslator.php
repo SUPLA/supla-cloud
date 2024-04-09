@@ -108,15 +108,15 @@ class GeneralPurposeMeasurementConfigTranslator extends UserConfigTranslator {
         if (array_key_exists('valuePrecision', $config)) {
             if ($config['valuePrecision']) {
                 Assert::that($config['valuePrecision'], null, 'valuePrecision')->integer()->between(0, 4);
-                $subject->setUserConfigValue('valuePrecision', $config['valuePrecision']);
+                $subject->setUserConfigValue('valuePrecision', intval($config['valuePrecision']));
             } else {
                 $subject->setUserConfigValue('valuePrecision', 0);
             }
         }
         if (array_key_exists('refreshIntervalMs', $config)) {
             if ($config['refreshIntervalMs']) {
-                Assert::that($config['refreshIntervalMs'], null, 'refreshIntervalMs')->numeric()->between(1, 65535);
-                $subject->setUserConfigValue('refreshIntervalMs', $config['refreshIntervalMs']);
+                Assert::that($config['refreshIntervalMs'], null, 'refreshIntervalMs')->numeric()->between(200, 65535);
+                $subject->setUserConfigValue('refreshIntervalMs', intval($config['refreshIntervalMs']));
             } else {
                 $subject->setUserConfigValue('refreshIntervalMs', 0);
             }

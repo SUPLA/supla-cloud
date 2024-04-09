@@ -97,11 +97,13 @@
             </dt>
             <dd>{{ $t('Refresh interval') }}</dd>
             <dt>
+                <toggler v-model="defaultRefreshInterval" :label="$t('Use device default')" @input="$emit('change')"/>
                 <VueNumber v-model="channel.config.refreshIntervalMs"
-                    :min="1"
+                    v-if="!defaultRefreshInterval"
+                    :min="200"
                     :max="65535"
                     v-bind="{decimal: '.', precision: 0, separator: ' ', suffix: ' ms'}"
-                    class="form-control text-center"
+                    class="form-control text-center mt-2"
                     @change="$emit('change')"/>
             </dt>
         </dl>
@@ -190,6 +192,14 @@
                     return this.formValues.valuePrecision;
                 }
             },
+            defaultRefreshInterval: {
+                set(v) {
+                    this.channel.config.refreshIntervalMs = v ? 0 : 2000;
+                },
+                get() {
+                    return +this.channel.config.refreshIntervalMs === 0;
+                }
+            }
         },
     };
 </script>
