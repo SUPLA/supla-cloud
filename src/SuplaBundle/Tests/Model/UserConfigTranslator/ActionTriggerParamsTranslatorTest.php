@@ -29,12 +29,14 @@ use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\UserConfigTranslator\ActionTriggerParamsTranslator;
 use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Serialization\RequestFiller\SubjectActionFiller;
+use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 use SuplaBundle\Tests\Traits\ChannelStub;
 use SuplaBundle\Tests\Traits\SceneMocks;
 use SuplaBundle\Tests\Traits\UserMocks;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ActionTriggerParamsTranslatorTest extends TestCase {
+    use UnitTestHelper;
     use UserMocks;
     use SceneMocks;
 
@@ -85,7 +87,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
             'PRESS' => ['subjectId' => 1, 'subjectType' => 'channel', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => []]],
             'HOLD' => ['subjectId' => 1, 'subjectType' => 'scene', 'action' => ['id' => ChannelFunctionAction::EXECUTE, 'param' => []]],
         ];
-        $channel = ChannelStub::create(ChannelFunction::ACTION_TRIGGER())
+        $channel = ChannelStub::create(ChannelFunction::ACTION_TRIGGER(), $this)
             ->properties(['actionTriggerCapabilities' => ['HOLD', 'PRESS', 'PRESS_2X']]);
         $this->subjectActionFiler->method('getSubjectAndAction')
             ->willReturnOnConsecutiveCalls(
@@ -109,7 +111,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
             'PRESS' => ['subjectId' => 1, 'subjectType' => 'channel', 'action' => ['id' => ChannelFunctionAction::OPEN]],
             'PRESS_2X' => ['subjectId' => 1, 'subjectType' => 'scene', 'action' => ['id' => ChannelFunctionAction::EXECUTE]],
         ];
-        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())
+        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER(), $this)
             ->properties(['actionTriggerCapabilities' => ['PRESS_2X', 'PRESS']]);
         $this->subjectActionFiler->method('getSubjectAndAction')
             ->willReturnOnConsecutiveCalls(
@@ -151,7 +153,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
                 'param' => ['sourceChannelId' => 2],
             ],
         ]];
-        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())->properties(['actionTriggerCapabilities' => ['PRESS']]);
+        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER(), $this)->properties(['actionTriggerCapabilities' => ['PRESS']]);
         $this->subjectActionFiler->method('getSubjectAndAction')
             ->willReturnOnConsecutiveCalls(
                 [ChannelStub::create(ChannelFunction::POWERSWITCH()), ChannelFunctionAction::COPY(), ['sourceChannelId' => 2]],
@@ -180,7 +182,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
             'PRESS' => ['subjectId' => 1, 'subjectType' => 'channel', 'action' => ['id' => ChannelFunctionAction::OPEN]],
             'PRESS_2X' => ['subjectId' => 1, 'subjectType' => 'scene', 'action' => ['id' => ChannelFunctionAction::EXECUTE]],
         ];
-        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())
+        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER(), $this)
             ->properties(['actionTriggerCapabilities' => ['PRESS', 'PRESS_2X']]);
         $this->subjectActionFiler->method('getSubjectAndAction')->willThrowException(new NotFoundHttpException());
         $this->configTranslator->setConfig($channel, ['actions' => $actions]);
@@ -192,7 +194,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
             'PRESS' => ['subjectId' => 1, 'subjectType' => 'channel', 'action' => ['id' => ChannelFunctionAction::OPEN, 'params' => []]],
         ];
         $this->subjectActionFiler->method('getSubjectAndAction')->willThrowException(new \InvalidArgumentException());
-        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())
+        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER(), $this)
             ->properties(['actionTriggerCapabilities' => ['PRESS', 'PRESS_2X']]);
         $this->configTranslator->setConfig($channel, ['actions' => $actions]);
     }
@@ -234,7 +236,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
             'PRESS' => ['subjectId' => 1, 'subjectType' => 'channel', 'unicorn' => 'flower',
                 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => [], 'unicorn' => 'flower']],
         ];
-        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())
+        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER(), $this)
             ->properties(['actionTriggerCapabilities' => ['PRESS', 'PRESS_2X']]);
         $this->subjectActionFiler->method('getSubjectAndAction')
             ->willReturnOnConsecutiveCalls(

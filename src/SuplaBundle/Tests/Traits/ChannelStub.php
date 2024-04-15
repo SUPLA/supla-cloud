@@ -29,8 +29,8 @@ final class ChannelStub extends IODeviceChannel {
         }
     }
 
-    public static function create($typeOrFunction = null): self {
-        return new self($typeOrFunction);
+    public static function create($typeOrFunction = null, ?TestCase $mockBuilder = null): self {
+        return new self($typeOrFunction, $mockBuilder);
     }
 
     public function type(ChannelType $channelType): self {
