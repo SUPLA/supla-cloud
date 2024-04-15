@@ -8,6 +8,7 @@
                 </div>
                 <div :class="subject ? 'mt-0' : ''">
                     <a @click="createNewItem()"
+                        v-if="createNewLabelI18n"
                         class="btn btn-green btn-lg btn-wrapped">
                         <i class="pe-7s-plus"></i>
                         {{ $t(createNewLabelI18n) }}

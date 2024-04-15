@@ -16,7 +16,6 @@
                 <span class="input-group-addon" v-if="unitBefore(field, subject)">{{ $t(unitBefore(field, subject)) }}</span>
                 <input type="number"
                     required
-                    v-focus="true"
                     v-model="threshold"
                     :step="step()" :min="min()" :max="max()"
                     @input="updateModel(true)"

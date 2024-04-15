@@ -157,6 +157,25 @@ class ReactionController extends RestController {
 
     /**
      * @OA\Get(
+     *     path="/reactions", operationId="getReactions", summary="Get reactions", tags={"Channels"},
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject", "owningChannel"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Reaction"))),
+     * )
+     * @Security("is_granted('ROLE_CHANNELS_R')")
+     * @Rest\Get("/reactions")
+     */
+    public function getReactionsAction(Request $request) {
+        $this->ensureApiVersion24($request);
+        $reactions = $this->getCurrentUser()->getValueBasedTriggers();
+        return $this->serializedView($reactions, $request);
+    }
+
+    /**
+     * @OA\Get(
      *     path="/channels/{channel}/reactions/{reaction}", operationId="getChannelReaction", summary="Get channel reaction", tags={"Channels"},
      *     @OA\Parameter(description="Channel ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
      *     @OA\Parameter(description="Reaction ID", in="path", name="reaction", required=true, @OA\Schema(type="integer")),

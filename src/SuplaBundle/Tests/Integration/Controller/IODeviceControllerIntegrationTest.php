@@ -483,7 +483,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->refresh($this->device);
         $this->device->setEnabled(true);
         $this->getEntityManager()->persist($this->device);
-        $reaction = new ValueBasedTrigger($this->device->getUser(), $this->device->getChannels()[0]);
+        $reaction = new ValueBasedTrigger($this->device->getChannels()[0]);
         $reaction->setTrigger(['on_change' => []]);
         $reaction->setSubject($this->device->getChannels()[1]);
         $reaction->setAction(ChannelFunctionAction::TURN_ON());

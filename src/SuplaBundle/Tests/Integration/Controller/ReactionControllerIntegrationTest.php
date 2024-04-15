@@ -97,10 +97,23 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testCreatingReaction */
-    public function testGettingReactions() {
+    public function testGettingChannelReactions() {
         $this->testCreatingReaction();
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', "/api/channels/{$this->thermometer->getId()}/reactions");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(2, $content);
+        $reaction = $content[0];
+        $this->assertEquals(ChannelFunctionAction::TURN_ON, $reaction['actionId']);
+        $this->assertEquals(20, $reaction['trigger']['on_change_to']['lt']);
+    }
+
+    /** @depends testGettingChannelReactions */
+    public function testGettingAllReactions() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/reactions");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);

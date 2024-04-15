@@ -100,6 +100,9 @@ export default [
         ]
     },
     {
+        path: '/reactions', component: () => import("@/channels/reactions/channel-reactions-list.vue"), name: 'reactions',
+    },
+    {
         path: '/channels/:id',
         component: () => import(/*webpackChunkName:"channels-details-page"*/"@/channels/channel-details-page"),
         name: 'channel',
@@ -113,7 +116,7 @@ export default [
                     {
                         path: ':reactionId',
                         component: () => import("@/channels/reactions/channel-reaction"),
-                        name: 'channel.reaction',
+                        name: 'channel.reactions.details',
                         props: true
                     },
                 ],

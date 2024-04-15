@@ -6,17 +6,15 @@ use Assert\Assertion;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\PushNotification;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
-use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\AccessIdRepository;
 use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Repository\UserRepository;
 
 class SubjectActionFiller {
-    use CurrentUserAware;
-
     /** @var ActionableSubjectRepository */
     private $subjectRepository;
     /** @var ChannelActionExecutor */
@@ -38,7 +36,7 @@ class SubjectActionFiller {
         $this->userRepository = $userRepository;
     }
 
-    public function getSubjectAndAction(array $data): array {
+    public function getSubjectAndAction(User $user, array $data): array {
         Assertion::keyExists($data, 'subjectType', 'Invalid subject type.');
         Assertion::inArray($data['subjectType'], ActionableSubjectType::toArray(), 'Invalid subject type.');
         Assertion::keyExists(
@@ -47,14 +45,13 @@ class SubjectActionFiller {
             'Missing action.' // i18n
         );
         if ($data['subjectType'] === ActionableSubjectType::NOTIFICATION) {
-            return $this->createNotificationSubject($data);
+            return $this->createNotificationSubject($user, $data);
         } else {
-            return $this->fetchExistingSubject($data);
+            return $this->fetchExistingSubject($user, $data);
         }
     }
 
-    private function createNotificationSubject(array $data) {
-        $user = $this->getCurrentUserOrThrow();
+    private function createNotificationSubject(User $user, array $data) {
         $user = $this->userRepository->find($user->getId()); // to fetch relations count
         Assertion::false($user->isLimitNotificationsExceeded(), 'Push notifications limit has been exceeded'); // i18n
         $notification = new PushNotification($user);
@@ -68,9 +65,8 @@ class SubjectActionFiller {
         return [$notification, ChannelFunctionAction::SEND(), $actionParam];
     }
 
-    private function fetchExistingSubject(array $data) {
+    private function fetchExistingSubject(User $user, array $data) {
         Assertion::keyExists($data, 'subjectId', 'You must set subjectId for reaction.');
-        $user = $this->getCurrentUserOrThrow();
         /** @var ActionableSubject $subject */
         $subject = $this->subjectRepository->findForUser($user, $data['subjectType'], $data['subjectId']);
         Assertion::true($subject->getFunction()->isOutput(), 'Cannot execute an action on this subject.');

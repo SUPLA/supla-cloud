@@ -137,8 +137,8 @@ class ValueBasedTrigger implements HasSubject {
      */
     private $activityConditions;
 
-    public function __construct(User $user, IODeviceChannel $channel) {
-        $this->user = $user;
+    public function __construct(IODeviceChannel $channel) {
+        $this->user = $channel->getUser();
         $this->owningChannel = $channel;
     }
 

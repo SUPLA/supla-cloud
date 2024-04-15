@@ -7,7 +7,7 @@
             :endpoint="`channels/${subject.id}/reactions?include=subject,owningChannel`"
             create-new-label-i18n="Create new reaction"
             list-route="channel.reactions"
-            details-route="channel.reaction"
+            details-route="channel.reactions.details"
             id-param-name="reactionId"
             :limit="$user.userData.limits.schedule"
             :new-item-factory="newReactionFactory"/>
@@ -40,5 +40,8 @@
 <style lang="scss">
     .channel-reactions-config {
         min-height: 850px;
+        .owning-channel-caption {
+            display: none;
+        }
     }
 </style>

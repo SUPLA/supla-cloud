@@ -82,6 +82,7 @@ class ActionTriggerParamsTranslator extends UserConfigTranslator {
             $actionDefinition['action'] = ['id' => $actionToExecute['id']];
         } else {
             [$triggerSubject, $channelFunctionAction, $actionParam] = $this->subjectActionFiller->getSubjectAndAction(
+                $subject->getUser(),
                 array_merge($action, ['actionId' => $actionToExecute['id'], 'actionParam' => $actionToExecute['param'] ?? []])
             );
             if ($triggerSubject instanceof PushNotification) {

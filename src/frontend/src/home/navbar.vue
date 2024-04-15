@@ -52,7 +52,7 @@
                     </router-link>
 
                     <li class="dropdown"
-                        :class="{'active': subIsActive(['/schedules', '/channel-groups', '/scenes', '/direct-links'])}">
+                        :class="{'active': subIsActive(['/schedules', '/channel-groups', '/scenes', '/direct-links', '/reactions'])}">
                         <a class="dropdown-toggle"
                             data-toggle="dropdown">
                             <i class="hidden-sm hidden-xs pe-7s-config"></i>
@@ -82,6 +82,12 @@
                                 <router-link :to="{name: 'scenes'}">
                                     <i class="hidden-sm hidden-xs supla-icon supla-icon-scene mr-1"></i>
                                     {{ $t('Scenes') }}
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{name: 'reactions'}">
+                                    <i class="hidden-sm hidden-xs pe-7s-arc mr-1"></i>
+                                    {{ $t('Reactions') }}
                                 </router-link>
                             </li>
                             <li role="separator"

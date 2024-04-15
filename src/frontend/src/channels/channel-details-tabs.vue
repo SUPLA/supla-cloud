@@ -1,5 +1,5 @@
 <template>
-    <div class="channel-details-tabs details-tabs">
+    <div class="channel-details-tabs details-tabs" id="channel-details-tabs">
         <div class="container"
             v-if="availableTabs.length">
             <div class="form-group">
@@ -129,8 +129,16 @@
         mounted() {
             this.detectAvailableTabs();
             if (this.availableTabs.length) {
-                if (this.$router.currentRoute.name === 'channel' || !this.availableTabs.map(t => t.route).includes(this.$router.currentRoute.name)) {
+                const isDefaultChannelRoute = this.$router.currentRoute.name === 'channel';
+                const isDefaultTab = this.$router.currentRoute.name === this.availableTabs[0].route;
+                const isAvailableTabRequested = this.availableTabs
+                    .map(t => t.route)
+                    .filter(r => this.$router.currentRoute.name.startsWith(r))
+                    .length > 0;
+                if (isDefaultChannelRoute || !isAvailableTabRequested) {
                     this.$router.replace({name: this.availableTabs[0].route, params: {id: this.channel.id}});
+                } else if (!isDefaultTab) {
+                    setTimeout(() => document.getElementById('channel-details-tabs').scrollIntoView({behavior: 'smooth'}));
                 }
             }
             this.channelUpdatedListener = () => this.detectAvailableTabs();

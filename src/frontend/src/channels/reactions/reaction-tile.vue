@@ -1,7 +1,8 @@
 <template>
     <square-link :class="'clearfix pointer lift-up ' + (model.enabled ? 'green' : 'grey')" @click="$emit('click')">
-        <router-link :to="{name: 'channel.reaction', params: {id: this.model.owningChannel.id, reactionId: this.model.id}}"
+        <router-link :to="{name: 'channel.reactions.details', params: {id: this.model.owningChannel.id, reactionId: this.model.id}}"
             class="text-center">
+            <h2 class="owning-channel-caption">{{ owningChannelCaption }}</h2>
             <h3>{{ triggerCaption }}</h3>
             <fa icon="chevron-down"/>
             <h4>
@@ -15,12 +16,16 @@
 <script>
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
     import {reactionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
+    import {channelTitle} from "@/common/filters";
 
     export default {
         props: ['model'],
         computed: {
             triggerCaption() {
                 return reactionTriggerCaption(this.model, this);
+            },
+            owningChannelCaption() {
+                return channelTitle(this.model.owningChannel, this, false);
             },
             subjectCaption() {
                 if (this.model.subject.ownSubjectType === ActionableSubjectType.NOTIFICATION) {

@@ -6,12 +6,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\ValueBasedTrigger;
 use SuplaBundle\Enums\ActionableSubjectType;
-use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\ValueBasedTriggerValidator;
 
 class ValueBasedTriggerRequestFiller extends AbstractRequestFiller {
-    use CurrentUserAware;
-
     /** @var SubjectActionFiller */
     private $subjectActionFiller;
     /** @var ValueBasedTriggerValidator */
@@ -42,7 +39,7 @@ class ValueBasedTriggerRequestFiller extends AbstractRequestFiller {
         if ($vbt->getSubject() instanceof PushNotification) {
             $this->entityManager->remove($vbt->getSubject());
         }
-        [$subject, $action, $actionParam] = $this->subjectActionFiller->getSubjectAndAction($data);
+        [$subject, $action, $actionParam] = $this->subjectActionFiller->getSubjectAndAction($vbt->getUser(), $data);
         $vbt->setSubject($subject);
         if ($subject instanceof PushNotification) {
             $subject->setChannel($vbt->getOwningChannel());

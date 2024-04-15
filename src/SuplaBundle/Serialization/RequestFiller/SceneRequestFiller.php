@@ -86,7 +86,7 @@ class SceneRequestFiller extends AbstractRequestFiller {
                         'actionId',
                         'You must set an action for each scene operation.' // i18n
                     );
-                    [$subject, $action, $actionParam] = $this->subjectActionFiller->getSubjectAndAction($operationData);
+                    [$subject, $action, $actionParam] = $this->subjectActionFiller->getSubjectAndAction($user, $operationData);
                     $waitForCompletion = boolval($operationData['waitForCompletion'] ?? false);
                     $delayMs = intval($operationData['delayMs'] ?? 0);
                     return new SceneOperation($subject, $action, $actionParam, $delayMs, $waitForCompletion);
