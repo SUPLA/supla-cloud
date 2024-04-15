@@ -20,8 +20,12 @@ namespace SuplaBundle\Migrations;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 
-abstract class NoWayBackMigration extends AbstractMigration {
+abstract class NoWayBackMigration extends AbstractMigration implements LoggerAwareInterface {
+    private LoggerInterface $migrationsLogger;
+
     final public function up(Schema $schema): void {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
         $this->migrate();
@@ -39,5 +43,20 @@ abstract class NoWayBackMigration extends AbstractMigration {
 
     protected function getConnection(): Connection {
         return $this->connection;
+    }
+
+    public function setLogger(LoggerInterface $logger) {
+        $this->migrationsLogger = $logger;
+    }
+
+    protected function addSql(string $sql, array $params = [], array $types = []): void {
+        $this->log($sql, $params);
+        parent::addSql($sql, $params, $types);
+    }
+
+    protected function log(string $message, array $details = []): void {
+        $this->migrationsLogger->debug($message, array_merge([
+            'migration' => basename(str_replace('\\', '/', get_class($this))),
+        ], $details));
     }
 }

@@ -40,43 +40,43 @@ class OpeningClosingTimeChannelParamTranslatorTest extends TestCase {
 
     public function testSettingTimes() {
         $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 10, 'closingTimeS' => 20]);
-        $this->assertEquals(100, $this->channel->getParam1());
-        $this->assertEquals(200, $this->channel->getParam3());
+        $this->assertEquals(10000, $this->channel->getUserConfigValue('openingTimeMs'));
+        $this->assertEquals(20000, $this->channel->getUserConfigValue('closingTimeMs'));
     }
 
     public function testSettingLargeTimes() {
         $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 100, 'closingTimeS' => 500]);
-        $this->assertEquals(1000, $this->channel->getParam1());
-        $this->assertEquals(5000, $this->channel->getParam3());
+        $this->assertEquals(100000, $this->channel->getUserConfigValue('openingTimeMs'));
+        $this->assertEquals(500000, $this->channel->getUserConfigValue('closingTimeMs'));
     }
 
     public function testSettingTooLargeTimes() {
         $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 700, 'closingTimeS' => 700]);
-        $this->assertEquals(6000, $this->channel->getParam1());
-        $this->assertEquals(6000, $this->channel->getParam3());
+        $this->assertEquals(600000, $this->channel->getUserConfigValue('openingTimeMs'));
+        $this->assertEquals(600000, $this->channel->getUserConfigValue('closingTimeMs'));
     }
 
     public function testMinimumTimeIfNoAutoCalibration() {
         $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 0]);
-        $this->assertEquals(0, $this->channel->getParam1());
-        $this->assertEquals(0, $this->channel->getParam3());
+        $this->assertEquals(0, $this->channel->getUserConfigValue('openingTimeMs'));
+        $this->assertEquals(0, $this->channel->getUserConfigValue('closingTimeMs'));
     }
 
     public function testAllow0IfAutoCalibration() {
         EntityUtils::setField($this->channel, 'flags', ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE);
         $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 0]);
-        $this->assertEquals(0, $this->channel->getParam1());
-        $this->assertEquals(0, $this->channel->getParam3());
+        $this->assertEquals(0, $this->channel->getUserConfigValue('openingTimeMs'));
+        $this->assertEquals(0, $this->channel->getUserConfigValue('closingTimeMs'));
     }
 
     public function testBoth0IfFirst0() {
         EntityUtils::setField($this->channel, 'flags', ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE);
         $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 1]);
-        $this->assertEquals(0, $this->channel->getParam1());
-        $this->assertEquals(0, $this->channel->getParam3());
+        $this->assertEquals(0, $this->channel->getUserConfigValue('openingTimeMs'));
+        $this->assertEquals(0, $this->channel->getUserConfigValue('closingTimeMs'));
         $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 1, 'closingTimeS' => 0]);
-        $this->assertEquals(10, $this->channel->getParam1());
-        $this->assertEquals(0, $this->channel->getParam3());
+        $this->assertEquals(1000, $this->channel->getUserConfigValue('openingTimeMs'));
+        $this->assertEquals(0, $this->channel->getUserConfigValue('closingTimeMs'));
     }
 
     public function testGettingConfigWithFlags() {
@@ -85,8 +85,8 @@ class OpeningClosingTimeChannelParamTranslatorTest extends TestCase {
             'flags',
             ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE | ChannelFunctionBitsFlags::RECALIBRATE_ACTION_AVAILABLE
         );
-        $this->channel->setParam1(123);
-        $this->channel->setParam3(234);
+        $this->channel->setUserConfigValue('openingTimeMs', 12300);
+        $this->channel->setUserConfigValue('closingTimeMs', 23400);
         $config = $this->configTranslator->getConfig($this->channel);
         $expected = [
             'openingTimeS' => 12.3,

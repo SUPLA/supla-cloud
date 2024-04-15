@@ -18,8 +18,6 @@
 namespace SuplaBundle\Migrations\Migration;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Migrations\Factory\ChannelDependenciesAware;
@@ -30,13 +28,11 @@ use SuplaBundle\Model\Dependencies\ChannelDependencies;
 /**
  * Ensure the related channels are in the same location.
  */
-class Version20231103121340 extends NoWayBackMigration implements EntityManagerAware, ChannelDependenciesAware, LoggerAwareInterface {
+class Version20231103121340 extends NoWayBackMigration implements EntityManagerAware, ChannelDependenciesAware {
     /** @var ChannelDependencies */
     private $channelDependencies;
     /** @var EntityManagerInterface */
     private $em;
-    /** @var LoggerInterface */
-    private $migrationsLogger;
 
     private const PARENT_FUNCTIONS = [
         ChannelFunction::CONTROLLINGTHEGATEWAYLOCK,
@@ -61,10 +57,6 @@ class Version20231103121340 extends NoWayBackMigration implements EntityManagerA
 
     public function setEntityManager(EntityManagerInterface $em): void {
         $this->em = $em;
-    }
-
-    public function setLogger(LoggerInterface $logger) {
-        $this->migrationsLogger = $logger;
     }
 
     public function migrate() {
@@ -131,11 +123,5 @@ class Version20231103121340 extends NoWayBackMigration implements EntityManagerA
             'functionName' => $channel->getFunction()->getName(),
             'revertSql' => "UPDATE supla_dev_channel SET location_id={$channel->getLocation()->getId()} WHERE id={$channel->getId()};",
         ];
-    }
-
-    private function log(string $message, array $details = []): void {
-        $this->migrationsLogger->debug($message, array_merge([
-            'migrationClass' => get_class($this),
-        ], $details));
     }
 }

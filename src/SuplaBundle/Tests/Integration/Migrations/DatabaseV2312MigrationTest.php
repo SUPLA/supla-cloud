@@ -30,12 +30,13 @@ class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
     public function testMigratedCorrectly() {
         $this->migratedHvacAutoToHeatCool();
         $this->migratedEmojisInTextColumns();
+        $this->migratedRollerShutterTimesToUserConfig();
     }
 
     /**
      * @see Version20231219083453
      */
-    private function migratedHvacAutoToHeatCool() {
+    private function migratedHvacAutoToHeatCool(): void {
         $hvacChannel = $this->freshEntityById(IODeviceChannel::class, 98);
         $weeklySchedule = $hvacChannel->getUserConfigValue('weeklySchedule');
         $this->assertEquals('HEAT_COOL', $weeklySchedule['programSettings']['3']['mode']);
@@ -44,12 +45,24 @@ class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
     /**
      * @see Version20231221114509
      */
-    private function migratedEmojisInTextColumns() {
+    private function migratedEmojisInTextColumns(): void {
         $channel = $this->freshEntityById(IODeviceChannel::class, 1);
         $this->assertStringContainsString('❤️', $channel->getCaption());
         $channel = $this->freshEntityById(IODeviceChannel::class, 13);
         $this->assertStringContainsString('❤️', $channel->getUserConfigValue('unit'));
         $notification = $this->freshEntityById(PushNotification::class, 1);
         $this->assertStringContainsString('❤️', $notification->getBody());
+    }
+
+    /**
+     * @see Version20240415113159
+     */
+    private function migratedRollerShutterTimesToUserConfig(): void {
+        /** @var IODeviceChannel $rollerShutterChannel */
+        $rollerShutterChannel = $this->freshEntityById(IODeviceChannel::class, 57);
+        $this->assertEquals(0, $rollerShutterChannel->getParam1());
+        $this->assertEquals(0, $rollerShutterChannel->getParam3());
+        $this->assertEquals(12000, $rollerShutterChannel->getUserConfigValue('openingTimeMs'));
+        $this->assertEquals(10000, $rollerShutterChannel->getUserConfigValue('closingTimeMs'));
     }
 }

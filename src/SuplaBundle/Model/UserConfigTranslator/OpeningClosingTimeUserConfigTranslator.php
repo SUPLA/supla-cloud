@@ -12,8 +12,8 @@ class OpeningClosingTimeUserConfigTranslator extends UserConfigTranslator {
 
     public function getConfig(HasUserConfig $subject): array {
         return [
-            'openingTimeS' => NumberUtils::maximumDecimalPrecision($subject->getParam1() / 10, 1),
-            'closingTimeS' => NumberUtils::maximumDecimalPrecision($subject->getParam3() / 10, 1),
+            'openingTimeS' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('openingTimeMs', 0) / 1000, 1),
+            'closingTimeS' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('closingTimeMs', 0) / 1000, 1),
             'bottomPosition' => $subject->getParam4(),
             'timeSettingAvailable' => !ChannelFunctionBitsFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($subject->getFlags()),
             'recalibrateAvailable' => ChannelFunctionBitsFlags::RECALIBRATE_ACTION_AVAILABLE()->isSupported($subject->getFlags()),
@@ -29,10 +29,10 @@ class OpeningClosingTimeUserConfigTranslator extends UserConfigTranslator {
             $config['closingTimeS'] = 0;
         }
         if (array_key_exists('openingTimeS', $config)) {
-            $subject->setParam1(intval($this->getValueInRange($config['openingTimeS'], 0, 600) * 10));
+            $subject->setUserConfigValue('openingTimeMs', intval($this->getValueInRange($config['openingTimeS'], 0, 600) * 1000));
         }
         if (array_key_exists('closingTimeS', $config)) {
-            $subject->setParam3(intval($this->getValueInRange($config['closingTimeS'], 0, 600) * 10));
+            $subject->setUserConfigValue('closingTimeMs', intval($this->getValueInRange($config['closingTimeS'], 0, 600) * 1000));
         }
         if (array_key_exists('bottomPosition', $config)) {
             $subject->setParam4(intval($this->getValueInRange($config['bottomPosition'], 0, 100)));
