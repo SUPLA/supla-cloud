@@ -24,7 +24,7 @@ use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
 use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 
-class OpeningClosingTimeChannelParamTranslatorTest extends TestCase {
+class OpeningClosingTimeUserConfigTranslatorTest extends TestCase {
     use UnitTestHelper;
 
     /** @var OpeningClosingTimeUserConfigTranslator */
@@ -91,7 +91,6 @@ class OpeningClosingTimeChannelParamTranslatorTest extends TestCase {
         $expected = [
             'openingTimeS' => 12.3,
             'closingTimeS' => 23.4,
-            'bottomPosition' => 0,
             'timeSettingAvailable' => true,
             'recalibrateAvailable' => true,
             'autoCalibrationAvailable' => true,

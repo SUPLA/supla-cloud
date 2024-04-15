@@ -28,6 +28,7 @@ class CopyActionExecutor extends SingleChannelActionExecutor {
             ChannelFunction::CONTROLLINGTHEGATE(),
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(),
             ChannelFunction::CONTROLLINGTHEROOFWINDOW(),
+            ChannelFunction::CONTROLLINGTHEFACADEBLIND(),
             ChannelFunction::POWERSWITCH(),
             ChannelFunction::LIGHTSWITCH(),
             ChannelFunction::STAIRCASETIMER(),

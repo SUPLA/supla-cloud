@@ -13,7 +13,7 @@
             :loading="calibrating"
             @cancel="calibrateConfirm = false"
             :header="$t('Are you sure?')">
-            {{ $t('Confirm if you want to perform the roller shutter calibration.') }}
+            {{ $t('Confirm if you want to perform the calibration.') }}
         </modal-confirm>
     </div>
 </template>

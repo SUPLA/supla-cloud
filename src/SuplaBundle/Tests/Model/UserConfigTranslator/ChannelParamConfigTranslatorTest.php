@@ -32,6 +32,7 @@ use SuplaBundle\Model\UserConfigTranslator\NumberOfAttemptsToOpenOrCloseParamTra
 use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\RelayTimeMsUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\RelayTimeSUserConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\RollerShutterUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\TemperatureAdjustmentParamTranslator;
 
@@ -53,6 +54,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             new GeneralPurposeMeasurementConfigTranslator(),
             new DigiglassParamTranslator(),
             new NumberOfAttemptsToOpenOrCloseParamTranslator(),
+            new RollerShutterUserConfigTranslator(),
         ]);
     }
 

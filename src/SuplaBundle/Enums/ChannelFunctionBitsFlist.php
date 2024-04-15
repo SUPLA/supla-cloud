@@ -34,7 +34,7 @@ final class ChannelFunctionBitsFlist extends ChannelFunctionBits {
     const RAINSENSOR = 1 << 13;
     const WEIGHTSENSOR = 1 << 14;
     const CONTROLLINGTHEROOFWINDOW = 1 << 15;
-//    const CONTROLLINGTHEFACADEBLIND = 1 << 16;
+    const CONTROLLINGTHEFACADEBLIND = 1 << 16;
     const HVAC_THERMOSTAT = 1 << 17;
     const HVAC_THERMOSTAT_HEAT_COOL = 1 << 18;
     const HVAC_THERMOSTAT_DIFFERENTIAL = 1 << 19;

@@ -53,6 +53,7 @@ const ChannelFunction = Object.freeze({
     ACTION_TRIGGER: 700,
     DIGIGLASS_HORIZONTAL: 800,
     DIGIGLASS_VERTICAL: 810,
+    CONTROLLINGTHEFACADEBLIND: 900,
 });
 
 export default ChannelFunction;

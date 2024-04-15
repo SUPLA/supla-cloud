@@ -53,6 +53,7 @@
     import ChannelParamsHvacThermostatHeatCool from "./channel-params-hvac-thermostat.vue";
     import ChannelParamsHvacDomesticHotWater from "./channel-params-hvac-thermostat.vue";
     import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings";
+    import ChannelParamsControllingthefacadeblind from "@/channels/params/channel-params-controllingthefacadeblind.vue";
 
     export default {
         props: ['channel'],
@@ -92,6 +93,7 @@
             ChannelParamsHvacThermostat,
             ChannelParamsHvacThermostatHeatCool,
             ChannelParamsHvacDomesticHotWater,
+            ChannelParamsControllingthefacadeblind,
         },
         computed: {
             additionalChannelParamsComponent() {

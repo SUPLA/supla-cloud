@@ -93,6 +93,7 @@ use UnexpectedValueException;
  * @method static ChannelFunction ACTION_TRIGGER()
  * @method static ChannelFunction DIGIGLASS_VERTICAL()
  * @method static ChannelFunction DIGIGLASS_HORIZONTAL()
+ * @method static ChannelFunction CONTROLLINGTHEFACADEBLIND()
  */
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
@@ -152,6 +153,7 @@ final class ChannelFunction extends Enum {
     const ACTION_TRIGGER = 700;
     const DIGIGLASS_HORIZONTAL = 800;
     const DIGIGLASS_VERTICAL = 810;
+    const CONTROLLINGTHEFACADEBLIND = 900;
 
     private $unsupportedFunctionId;
 
@@ -227,6 +229,14 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::COPY(),
             ],
             self::CONTROLLINGTHEROLLERSHUTTER => [
+                ChannelFunctionAction::SHUT(),
+                ChannelFunctionAction::REVEAL(),
+                ChannelFunctionAction::REVEAL_PARTIALLY(),
+                ChannelFunctionAction::SHUT_PARTIALLY(),
+                ChannelFunctionAction::STOP(),
+                ChannelFunctionAction::COPY(),
+            ],
+            self::CONTROLLINGTHEFACADEBLIND => [
                 ChannelFunctionAction::SHUT(),
                 ChannelFunctionAction::REVEAL(),
                 ChannelFunctionAction::REVEAL_PARTIALLY(),
@@ -383,6 +393,7 @@ final class ChannelFunction extends Enum {
             self::CONTROLLINGTHEDOORLOCK => 'Door lock operation', // i18n
             self::OPENINGSENSOR_DOOR => 'Door opening sensor', // i18n
             self::CONTROLLINGTHEROLLERSHUTTER => 'Roller shutter operation', // i18n
+            self::CONTROLLINGTHEFACADEBLIND => 'Facade blind operation', // i18n
             self::CONTROLLINGTHEROOFWINDOW => 'Roof window shutter operation', // i18n
             self::OPENINGSENSOR_ROLLERSHUTTER => 'Roller shutter opening sensor', // i18n
             self::OPENINGSENSOR_ROOFWINDOW => 'Roof window opening sensor', // i18n
@@ -465,6 +476,7 @@ final class ChannelFunction extends Enum {
             self::CONTROLLINGTHEDOORLOCK => ['opened', 'closed'],
             self::OPENINGSENSOR_DOOR => ['opened', 'closed'],
             self::CONTROLLINGTHEROLLERSHUTTER => ['revealed', 'shut'],
+            self::CONTROLLINGTHEFACADEBLIND => ['revealed', 'shut'],
             self::CONTROLLINGTHEROOFWINDOW => ['revealed', 'shut'],
             self::OPENINGSENSOR_ROLLERSHUTTER => ['revealed', 'shut'],
             self::OPENINGSENSOR_ROOFWINDOW => ['revealed', 'shut'],

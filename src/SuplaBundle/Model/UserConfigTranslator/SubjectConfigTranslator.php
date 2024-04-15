@@ -22,6 +22,8 @@ use SuplaBundle\Utils\JsonArrayObject;
  *     @OA\Schema(ref="#/components/schemas/ChannelConfigHvacThermostat"),
  *     @OA\Schema(ref="#/components/schemas/ChannelConfigGeneralPurposeMeasurement"),
  *     @OA\Schema(ref="#/components/schemas/ChannelConfigGeneralPurposeMeter"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelConfigRollerShutter"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelConfigFacadeBlinds"),
  *   }
  * )
  */
