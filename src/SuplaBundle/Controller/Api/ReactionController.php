@@ -86,7 +86,7 @@ class ReactionController extends RestController {
         $vbt = $this->transactional(function (EntityManagerInterface $em) use ($request, $requestFiller, $channel) {
             $user = $this->getUser();
             Assertion::false($user->isLimitReactionsExceeded(), 'Reactions limit has been exceeded'); // i18n
-            $vbt = new ValueBasedTrigger($user, $channel);
+            $vbt = new ValueBasedTrigger($channel);
             $requestFiller->fillFromRequest($request, $vbt);
             $em->persist($vbt);
             return $vbt;
