@@ -95,6 +95,23 @@ export const ChannelFunctionTriggers = {
             def: () => ({on_change: {}})
         },
     ],
+    [ChannelFunction.CONTROLLINGTHEFACADEBLIND]: [
+        {
+            caption: () => 'When the facade blind reaches a certain position', // i18n
+            test: (t) => !!t.on_change_to,
+            component: ReactionConditionThreshold,
+            props: {
+                min: () => 0, max: () => 100, step: () => 1,
+                unit: () => '% of closing', // i18n
+                labelI18n: () => 'When the facade blind reaches', // i18n
+                resumeLabelI18n: () => 'and wait until it reaches', // i18n
+            },
+        },
+        {
+            caption: () => 'When the facade blind position changes', // i18n
+            def: () => ({on_change: {}})
+        },
+    ],
     [ChannelFunction.CONTROLLINGTHEROOFWINDOW]: [
         {
             caption: () => 'When the roof window reaches a certain position', // i18n

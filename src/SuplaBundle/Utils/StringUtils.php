@@ -68,4 +68,8 @@ final class StringUtils {
         }
         return str_replace('\\', '/', $path);
     }
+
+    public static function isNotBlank($string): bool {
+        return !is_string($string) || !!trim($string);
+    }
 }

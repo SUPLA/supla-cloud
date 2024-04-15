@@ -31,7 +31,9 @@
                             v-if="ChannelFunctionAction.requiresParams(possibleAction.id) && action && action.id === possibleAction.id">
                             <div
                                 v-if="[ChannelFunctionAction.REVEAL_PARTIALLY, ChannelFunctionAction.SHUT_PARTIALLY, ChannelFunctionAction.OPEN_PARTIALLY, ChannelFunctionAction.CLOSE_PARTIALLY].includes(action.id)">
-                                <rolette-shutter-partial-percentage v-model="param"
+                                <FacadeBlindPartialPercentage v-model="param" @input="paramsChanged()"
+                                    v-if="subject.function.name.match(/THEFACADEBLIND/)"/>
+                                <rolette-shutter-partial-percentage v-else v-model="param"
                                     @input="paramsChanged()"></rolette-shutter-partial-percentage>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.SET_RGBW_PARAMETERS">
@@ -102,9 +104,11 @@
     import {isEqual} from "lodash";
     import DurationParamSetter from "@/channels/action/duration-param-setter.vue";
     import HvacSetpointsSetter from "@/channels/action/hvac-setpoints-setter.vue";
+    import FacadeBlindPartialPercentage from "@/channels/action/facade-blind-partial-percentage.vue";
 
     export default {
         components: {
+            FacadeBlindPartialPercentage,
             HvacSetpointsSetter,
             DurationParamSetter,
             NotificationForm,

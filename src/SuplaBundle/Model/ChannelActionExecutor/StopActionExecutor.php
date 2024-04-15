@@ -10,7 +10,6 @@ class StopActionExecutor extends SetCharValueActionExecutor {
         return [
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(),
             ChannelFunction::CONTROLLINGTHEROOFWINDOW(),
-            ChannelFunction::CONTROLLINGTHEFACADEBLIND(),
         ];
     }
 

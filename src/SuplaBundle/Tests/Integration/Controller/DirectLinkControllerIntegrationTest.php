@@ -62,6 +62,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::DIGIGLASS, ChannelFunction::DIGIGLASS_HORIZONTAL],
             [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
             [ChannelType::HVAC, ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEFACADEBLIND],
         ]);
         $this->channelGroup = new IODeviceChannelGroup($this->user, $location, [
             $this->device->getChannels()[0],
@@ -638,6 +639,45 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $this->assertSuplaCommandExecuted('ACTION-HVAC-SET-TEMPERATURES:1,1,8,2150,0,1');
+    }
+
+    public function testExecutingDirectLinkToFacadeBlind() {
+        $response = $this->createDirectLink([
+            'subjectId' => $this->device->getChannels()[8]->getId(),
+            'allowedActions' => ['read', 'shut-partially'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/shut-partially?percentage=40");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $this->assertSuplaCommandExecuted('ACTION-SHUT-PARTIALLY:1,1,9,40,0,-1,0');
+    }
+
+    public function testExecutingDirectLinkToFacadeBlindWithDelta() {
+        $response = $this->createDirectLink([
+            'subjectId' => $this->device->getChannels()[8]->getId(),
+            'allowedActions' => ['read', 'shut-partially'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/shut-partially?percentage=+40&tilt=-10");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $this->assertSuplaCommandExecuted('ACTION-SHUT-PARTIALLY:1,1,9,40,1,-10,1');
+    }
+
+    public function testExecutingDirectLinkToFacadeBlindWithDeltaPlusEncodedInUrlAsSpace() {
+        $response = $this->createDirectLink([
+            'subjectId' => $this->device->getChannels()[8]->getId(),
+            'allowedActions' => ['read', 'shut-partially'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/shut-partially?percentage= 50");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $this->assertSuplaCommandExecuted('ACTION-SHUT-PARTIALLY:1,1,9,50,1,-1,0');
     }
 
     protected static function createClient(array $options = [], array $server = []) {
