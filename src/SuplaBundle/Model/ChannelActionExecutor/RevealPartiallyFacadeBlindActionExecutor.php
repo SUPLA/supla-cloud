@@ -26,5 +26,4 @@ class RevealPartiallyFacadeBlindActionExecutor extends ShutPartiallyFacadeBlindA
         }
         parent::execute($subject, $params);
     }
-
 }
