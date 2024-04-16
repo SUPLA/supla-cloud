@@ -27,13 +27,13 @@ class ShutPartiallyFacadeBlindActionExecutor extends SingleChannelActionExecutor
             [$percentage, $isDelta] = $this->extractDeltaParam($actionParams['percentage']);
             Assert::that($percentage)->numeric()->between(-100, 100);
             $params['percentage'] = intval($percentage);
-            $params['percentageAsDelta'] = $isDelta ? 1 : 0;
+            $params['percentageAsDelta'] = $isDelta;
         }
         if (array_key_exists('tilt', $actionParams) && StringUtils::isNotBlank($actionParams['tilt'])) {
             [$tilt, $isDelta] = $this->extractDeltaParam($actionParams['tilt']);
             Assert::that($tilt)->numeric()->between(-100, 100);
             $params['tilt'] = intval($tilt);
-            $params['tiltAsDelta'] = $isDelta ? 1 : 0;
+            $params['tiltAsDelta'] = $isDelta;
         }
         Assertion::true(isset($params['percentage']) || isset($params['tilt']), 'You have to set either percentage and/or tilt.');
         return array_merge(['percentageAsDelta' => 0, 'tiltAsDelta' => 0], $params);
@@ -45,9 +45,9 @@ class ShutPartiallyFacadeBlindActionExecutor extends SingleChannelActionExecutor
         // ACTION-SHUT-PARTIALLY:userId,deviceId,channelId,percentage,percentageAsDelta,tilt,tiltAsDelta
         $command = $subject->buildServerActionCommand('ACTION-SHUT-PARTIALLY', [
             $percentage,
-            $actionParams['percentageAsDelta'],
+            $actionParams['percentageAsDelta'] ? 1 : 0,
             $tilt,
-            $actionParams['tiltAsDelta'],
+            $actionParams['tiltAsDelta'] ? 1 : 0,
         ]);
         $this->suplaServer->executeCommand($command);
     }

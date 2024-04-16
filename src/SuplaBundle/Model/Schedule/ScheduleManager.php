@@ -164,7 +164,7 @@ class ScheduleManager {
             $schedule->getUser()->getLimitActionsPerSchedule(),
             'Too many actions in this schedule.' // i18n
         );
-        foreach ($config as $configEntry) {
+        foreach ($config as &$configEntry) {
             Assertion::count($configEntry, 2, 'Invalid schedule config (incorrect config item).');
             Assertion::string($configEntry['crontab'], 'Invalid schedule config (incorrect crontab).');
             Assertion::isArray($configEntry['action'], 'Invalid schedule config (incorrect action).');
@@ -187,13 +187,14 @@ class ScheduleManager {
                 [ChannelFunctionAction::HVAC_SET_TEMPERATURE],
                 'This action is not supported in schedules.'
             );
-            $this->channelActionExecutor->validateAndTransformActionParamsFromApi(
+            $configEntry['action']['param'] = $this->channelActionExecutor->validateAndTransformActionParamsFromApi(
                 $schedule->getSubject(),
                 new ChannelFunctionAction($configEntry['action']['id']),
                 $configEntry['action']['param'] ?? []
             );
             $this->schedulePlanner->validateCrontab($configEntry['crontab']);
         }
+        $schedule->setConfig($config);
         $nextScheduleExecutions = $this->getNextScheduleExecutions($schedule, '+5days', 1, true);
         Assertion::notEmpty($nextScheduleExecutions, 'Cannot calculate when to run the schedule - incorrect configuration?'); // i18n
     }

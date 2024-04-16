@@ -22,7 +22,9 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -43,7 +45,11 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
     protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
-        $this->device = $this->createDeviceFull($location);
+        $this->device = $this->createDevice($location, [
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEFACADEBLIND],
+        ]);
     }
 
     public function testCreatingNewSchedule() {
@@ -145,7 +151,7 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
 
     public function testCreatingNewDailySchedule() {
         $client = $this->createAuthenticatedClient();
-        $config = [['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::TURN_ON]]];
+        $config = [['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::TURN_ON, 'param' => []]]];
         $client->apiRequest(Request::METHOD_POST, '/api/schedules', [
             'channelId' => $this->device->getChannels()[0]->getId(),
             'config' => $config,
@@ -161,12 +167,36 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
 
     public function testCreatingScheduleForOpeningGate() {
         $client = $this->createAuthenticatedClient();
-        $config = [['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]]];
+        $config = [['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => []]]];
+        $client->apiRequest(Request::METHOD_POST, '/api/schedules', [
+            'channelId' => $this->device->getChannels()[1]->getId(),
+            'config' => $config,
+            'mode' => ScheduleMode::DAILY,
+        ]);
+        $this->assertStatusCode(Response::HTTP_CREATED, $client->getResponse());
+    }
+
+    public function testCreatingScheduleForFacadeBlind() {
+        $client = $this->createAuthenticatedClient();
+        $config = [['crontab' => '10 10 * * 1', 'action' => [
+            'id' => ChannelFunctionAction::REVEAL_PARTIALLY,
+            'param' => ['percentage' => '+20', 'tilt' => '10']]],
+        ];
         $client->apiRequest(Request::METHOD_POST, '/api/schedules', [
             'channelId' => $this->device->getChannels()[2]->getId(),
             'config' => $config,
             'mode' => ScheduleMode::DAILY,
         ]);
         $this->assertStatusCode(Response::HTTP_CREATED, $client->getResponse());
+        $scheduleFromResponse = json_decode($client->getResponse()->getContent(), true);
+        $schedule = $this->freshEntityById(Schedule::class, $scheduleFromResponse['id']);
+        $this->assertEquals($scheduleFromResponse['config'], $config);
+        $this->assertNotEquals($config, $schedule->getConfig());
+        $this->assertEquals([
+            'percentageAsDelta' => true,
+            'tiltAsDelta' => false,
+            'percentage' => 20,
+            'tilt' => 10,
+        ], $schedule->getConfig()[0]['action']['param']);
     }
 }

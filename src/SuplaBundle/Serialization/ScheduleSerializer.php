@@ -18,6 +18,8 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -29,12 +31,13 @@ class ScheduleSerializer extends AbstractSerializer implements NormalizerAwareIn
     use CurrentUserAware;
     use NormalizerAwareTrait;
 
-    /** @var ScheduleManager */
-    private $scheduleManager;
+    private ScheduleManager $scheduleManager;
+    private ChannelActionExecutor $channelActionExecutor;
 
-    public function __construct(ScheduleManager $scheduleManager) {
+    public function __construct(ScheduleManager $scheduleManager, ChannelActionExecutor $channelActionExecutor) {
         parent::__construct();
         $this->scheduleManager = $scheduleManager;
+        $this->channelActionExecutor = $channelActionExecutor;
     }
 
     /**
@@ -48,6 +51,13 @@ class ScheduleSerializer extends AbstractSerializer implements NormalizerAwareIn
         $normalized['mode'] = $schedule->getMode()->getValue();
         if ($this->isSerializationGroupRequested('closestExecutions', $context)) {
             $normalized['closestExecutions'] = $this->getClosestExecutions($schedule, null, $context);
+        }
+        foreach ($normalized['config'] as &$configEntry) {
+            $configEntry['action']['param'] = $this->channelActionExecutor->transformActionParamsForApi(
+                $schedule->getSubject(),
+                new ChannelFunctionAction($configEntry['action']['id']),
+                $configEntry['action']['param'] ?? []
+            );
         }
     }
 
