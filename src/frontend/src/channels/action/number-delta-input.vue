@@ -3,6 +3,8 @@
         class="form-control"
         v-model="theValue"
         @keydown="validateInput"
+        :maxlength="max ? ('' + max).length + 1 : 10"
+        @input="onInput()"
         @blur="onChange()">
 </template>
 
@@ -25,8 +27,8 @@
         },
         methods: {
             adjustTheValue() {
-                this.theValue = this.theValue.match(/^[+-]?[0-9]+/)?.[0] || '';
-                if (this.theValue !== '') {
+                const value = this.theValue.match(/^[+-]?[0-9]+/)?.[0] || '';
+                if (value !== '') {
                     const sign = this.theValue[0] === '+' ? '+' : '';
                     let value = +this.theValue;
                     if (this.min && value < this.min) {
@@ -35,11 +37,19 @@
                     if (this.max && value > this.max) {
                         value = this.max;
                     }
-                    this.theValue = sign + value;
+                    return sign + value;
+                } else {
+                    return '';
+                }
+            },
+            onInput() {
+                const newValue = this.adjustTheValue();
+                if (this.theValue === newValue) {
+                    this.onChange();
                 }
             },
             onChange() {
-                this.adjustTheValue();
+                this.theValue = this.adjustTheValue();
                 this.$emit('input', this.theValue);
             },
             validateInput(e) {
@@ -57,14 +67,12 @@
                 }
             }
         },
-        // watch: {
-        //     value() {
-        //         if (this.value && this.value.percentage === undefined) {
-        //             Vue.nextTick(() => this.onChange());
-        //         } else {
-        //             this.percentage = this.value?.percentage || 0;
-        //         }
-        //     },
-        // },
+        watch: {
+            value() {
+                if (this.value !== this.theValue) {
+                    this.theValue = '' + this.value;
+                }
+            },
+        },
     };
 </script>

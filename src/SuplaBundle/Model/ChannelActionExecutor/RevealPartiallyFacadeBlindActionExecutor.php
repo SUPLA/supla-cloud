@@ -9,22 +9,22 @@ class RevealPartiallyFacadeBlindActionExecutor extends ShutPartiallyFacadeBlindA
         return ChannelFunctionAction::REVEAL_PARTIALLY();
     }
 
-    public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
-        $params = parent::validateAndTransformActionParamsFromApi($subject, $actionParams);
+    public function execute(ActionableSubject $subject, array $params = []) {
         if (isset($params['percentage'])) {
-            if ($params['percentageDelta']) {
+            if ($params['percentageAsDelta']) {
                 $params['percentage'] = -$params['percentage'];
             } else {
                 $params['percentage'] = 100 - $params['percentage'];
             }
         }
         if (isset($params['tilt'])) {
-            if ($params['tiltDelta']) {
+            if ($params['tiltAsDelta']) {
                 $params['tilt'] = -$params['tilt'];
             } else {
                 $params['tilt'] = 100 - $params['tilt'];
             }
         }
-        return $params;
+        parent::execute($subject, $params);
     }
+
 }

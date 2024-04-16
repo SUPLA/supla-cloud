@@ -1,14 +1,16 @@
 <template>
     <div>
         <div class="form-group">
-            <label>{{ $t('Percentage') }}</label>
+            <label v-if="isDelta(percentage)">{{ $t('Change percentage by') }}</label>
+            <label v-else>{{ $t('Change percentage to') }}</label>
             <span class="input-group">
                 <NumberDeltaInput v-model="percentage" @input="onChange()" :min="-100" :max="100"/>
                 <span class="input-group-addon">%</span>
             </span>
         </div>
         <div class="form-group">
-            <label>{{ $t('Tilt') }}</label>
+            <label v-if="isDelta(tilt)">{{ $t('Change tilt by') }}</label>
+            <label v-else>{{ $t('Change tilt to') }}</label>
             <span class="input-group">
                 <NumberDeltaInput v-model="tilt" @input="onChange()" :min="-100" :max="100"/>
                 <span class="input-group-addon">%</span>
@@ -37,6 +39,7 @@
         mounted() {
             if (this.value) {
                 this.percentage = this.value.percentage || '';
+                this.tilt = this.value.tilt || '';
             }
             if (this.value.percentage === undefined) {
                 this.$nextTick(() => this.onChange());
@@ -46,6 +49,13 @@
             onChange() {
                 this.$emit('input', {percentage: this.percentage, tilt: this.tilt});
             },
+            isDelta(value) {
+                if (typeof value === 'string') {
+                    return value[0] === '+' || value[0] === '-';
+                } else {
+                    return value < 0;
+                }
+            }
         },
         watch: {
             // value() {

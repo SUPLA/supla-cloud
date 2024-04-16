@@ -27,16 +27,16 @@ class ShutPartiallyFacadeBlindActionExecutor extends SingleChannelActionExecutor
             [$percentage, $isDelta] = $this->extractDeltaParam($actionParams['percentage']);
             Assert::that($percentage)->numeric()->between(-100, 100);
             $params['percentage'] = intval($percentage);
-            $params['percentageDelta'] = $isDelta ? 1 : 0;
+            $params['percentageAsDelta'] = $isDelta ? 1 : 0;
         }
         if (array_key_exists('tilt', $actionParams) && StringUtils::isNotBlank($actionParams['tilt'])) {
             [$tilt, $isDelta] = $this->extractDeltaParam($actionParams['tilt']);
             Assert::that($tilt)->numeric()->between(-100, 100);
             $params['tilt'] = intval($tilt);
-            $params['tiltDelta'] = $isDelta ? 1 : 0;
+            $params['tiltAsDelta'] = $isDelta ? 1 : 0;
         }
         Assertion::true(isset($params['percentage']) || isset($params['tilt']), 'You have to set either percentage and/or tilt.');
-        return array_merge(['percentageDelta' => 0, 'tiltDelta' => 0], $params);
+        return array_merge(['percentageAsDelta' => 0, 'tiltAsDelta' => 0], $params);
     }
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
@@ -45,11 +45,28 @@ class ShutPartiallyFacadeBlindActionExecutor extends SingleChannelActionExecutor
         // ACTION-SHUT-PARTIALLY:userId,deviceId,channelId,percentage,percentageAsDelta,tilt,tiltAsDelta
         $command = $subject->buildServerActionCommand('ACTION-SHUT-PARTIALLY', [
             $percentage,
-            $actionParams['percentageDelta'],
+            $actionParams['percentageAsDelta'],
             $tilt,
-            $actionParams['tiltDelta'],
+            $actionParams['tiltAsDelta'],
         ]);
         $this->suplaServer->executeCommand($command);
+    }
+
+    public function transformActionParamsForApi(ActionableSubject $subject, array $actionParams): array {
+        $params = ['percentage' => '', 'tilt' => ''];
+        if (isset($actionParams['percentage'])) {
+            $params['percentage'] = strval($actionParams['percentage']);
+            if ($actionParams['percentageAsDelta'] && $actionParams['percentage'] > 0) {
+                $params['percentage'] = "+{$actionParams['percentage']}";
+            }
+        }
+        if (isset($actionParams['tilt'])) {
+            $params['tilt'] = strval($actionParams['tilt']);
+            if ($actionParams['tiltAsDelta'] && $actionParams['tilt'] > 0) {
+                $params['tilt'] = "+{$actionParams['tilt']}";
+            }
+        }
+        return $params;
     }
 
     private function extractDeltaParam($param): array {

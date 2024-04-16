@@ -12,6 +12,10 @@ class RevealFacadeBlindActionExecutor extends ShutPartiallyFacadeBlindActionExec
 
     public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
         Assertion::noContent($actionParams, 'This action is not supposed to have any parameters.');
-        return ['percentage' => 0, 'percentageDelta' => 0, 'tilt' => 0, 'tiltDelta' => 0];
+        return [];
+    }
+
+    public function execute(ActionableSubject $subject, array $actionParams = []) {
+        parent::execute($subject, ['percentage' => 0, 'percentageAsDelta' => 0, 'tilt' => 0, 'tiltAsDelta' => 0]);
     }
 }
