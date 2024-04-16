@@ -3,11 +3,19 @@ namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
 use SuplaBundle\Entity\ActionableSubject;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
-class ShutActionExecutor extends StopActionExecutor {
+class ShutActionExecutor extends SetCharValueActionExecutor {
     public function getSupportedAction(): ChannelFunctionAction {
         return ChannelFunctionAction::SHUT();
+    }
+
+    public function getSupportedFunctions(): array {
+        return [
+            ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(),
+            ChannelFunction::CONTROLLINGTHEROOFWINDOW(),
+        ];
     }
 
     public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {

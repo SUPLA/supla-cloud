@@ -304,12 +304,16 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [6, 'open', 'SET-CHAR-VALUE:1,1,6,1'],
             [6, 'close', 'SET-CHAR-VALUE:1,1,6,0'],
             [1, 'copy', 'ACTION-COPY:1,1,1,1,9', ['sourceChannelId' => 9]],
+            [10, 'shut', 'ACTION-SHUT-PARTIALLY:1,1,10,100,0,100,0'],
+            [10, 'reveal', 'ACTION-SHUT-PARTIALLY:1,1,10,0,0,0,0'],
             [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,80,0,-1,0', ['percentage' => 80]],
             [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,80,0,-1,0', ['percentage' => '80']],
             [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,-1,0,80,0', ['tilt' => 80]],
             [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,70,0,80,0', ['percentage' => 70, 'tilt' => 80]],
             [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,70,1,-80,1', ['percentage' => '+70', 'tilt' => '-80']],
             [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,70,0,-80,1', ['percentage' => 70, 'tilt' => -80]],
+            [10, 'reveal-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,30,0,80,1', ['percentage' => 70, 'tilt' => -80]],
+            [10, 'stop', 'SET-CHAR-VALUE:1,1,10,0'],
         ];
     }
 

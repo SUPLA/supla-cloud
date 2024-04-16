@@ -32,7 +32,7 @@
                             <div
                                 v-if="[ChannelFunctionAction.REVEAL_PARTIALLY, ChannelFunctionAction.SHUT_PARTIALLY, ChannelFunctionAction.OPEN_PARTIALLY, ChannelFunctionAction.CLOSE_PARTIALLY].includes(action.id)">
                                 <FacadeBlindPartialPercentage v-model="param" @input="paramsChanged()"
-                                    v-if="subject.function.name.match(/THEFACADEBLIND/)"/>
+                                    v-if="subject.functionId === ChannelFunction.CONTROLLINGTHEFACADEBLIND"/>
                                 <rolette-shutter-partial-percentage v-else v-model="param"
                                     @input="paramsChanged()"></rolette-shutter-partial-percentage>
                             </div>
@@ -99,6 +99,7 @@
     import Vue from "vue";
     import DigiglassParametersSetter from "./digiglass-parameters-setter";
     import ChannelsIdDropdown from "../../devices/channels-id-dropdown";
+    import ChannelFunction from "../../common/enums/channel-function";
     import ChannelFunctionAction from "../../common/enums/channel-function-action";
     import NotificationForm from "@/notifications/notification-form.vue";
     import {isEqual} from "lodash";
@@ -134,6 +135,7 @@
                 action: {},
                 param: {},
                 paramHistory: {},
+                ChannelFunction,
                 ChannelFunctionAction,
             };
         },
