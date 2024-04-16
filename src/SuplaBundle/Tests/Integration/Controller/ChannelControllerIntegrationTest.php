@@ -313,6 +313,35 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ];
     }
 
+    /**
+     * @dataProvider gettingChannelStateDataProvider
+     */
+    public function testGettingChannelState(int $channelId, string $mockedCommand, string $mockedResponse, array $expectedState) {
+        SuplaServerMock::mockResponse($mockedCommand, $mockedResponse);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', "/api/channels/{$channelId}?include=state");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $body = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('state', $body);
+        $bodyToCheck = array_intersect_key($body['state'], $expectedState);
+        $this->assertCount(count($expectedState), $bodyToCheck);
+        $this->assertEquals($expectedState, $bodyToCheck);
+    }
+
+    public static function gettingChannelStateDataProvider() {
+        return [
+            [1, 'IS-', "CONNECTED:FALSE\n", ['connected' => false]],
+            [1, 'IS-', "CONNECTED:1\n", ['connected' => true]],
+            [1, 'GET-RELAY-VALUE:1,1,1', 'VALUE:1,0', ['on' => true]],
+            [1, 'GET-RELAY-VALUE:1,1,1', 'VALUE:0,0', ['on' => false, 'currentOverload' => false]],
+            [1, 'GET-RELAY-VALUE:1,1,1', 'VALUE:0,1', ['on' => false, 'currentOverload' => true]],
+            [4, 'GET-CHAR-VALUE', 'VALUE:-1', ['is_calibrating' => true, 'shut' => 0]],
+            [4, 'GET-CHAR-VALUE', "VALUE:42\n", ['is_calibrating' => false, 'shut' => 42]],
+            [10, 'GET-FACADE-BLIND-VALUE:1,1,10', 'VALUE:1,2,3', ['shut' => 1, 'tiltPercent' => 2, 'tiltAngle' => 3]],
+        ];
+    }
+
     public function testTryingToExecuteActionInvalidForChannel() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->request('PATCH', '/api/channels/' . 1, [], [], [], json_encode(array_merge(['action' => 'open'])));

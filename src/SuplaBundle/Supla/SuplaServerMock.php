@@ -123,6 +123,9 @@ class SuplaServerMock extends SuplaServer {
             return 'VALUE:' . (rand(0, 1000) / 10);
         } elseif (preg_match('#^GET-DOUBLE-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . (rand(0, 1000000) / 100);
+        } elseif (preg_match('#^GET-FACADE-BLIND-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
+            $tiltPercent = rand(0, 100);
+            return sprintf('VALUE:%d,%d,%d', rand(0, 100), $tiltPercent, round($tiltPercent * 180 / 100));
         } elseif (preg_match('#^GET-SCENE-SUMMARY:\d+,(\d+)#', $cmd, $match)) {
             $sceneId = $match[1];
             $values = [$sceneId, 0, 0, 0, 0, 0];

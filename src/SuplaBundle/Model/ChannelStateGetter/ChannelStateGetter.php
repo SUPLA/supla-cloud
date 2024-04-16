@@ -34,6 +34,7 @@ use SuplaBundle\Supla\SuplaServerIsDownException;
  *     @OA\Schema(ref="#/components/schemas/ChannelStateRollerShutter"),
  *     @OA\Schema(ref="#/components/schemas/ChannelStateValve"),
  *     @OA\Schema(ref="#/components/schemas/SceneState"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelStateFacadeBlind"),
  *   }
  * )
  */
