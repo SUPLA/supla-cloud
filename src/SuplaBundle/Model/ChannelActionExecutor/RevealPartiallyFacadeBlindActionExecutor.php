@@ -11,18 +11,14 @@ class RevealPartiallyFacadeBlindActionExecutor extends ShutPartiallyFacadeBlindA
 
     public function execute(ActionableSubject $subject, array $params = []) {
         if (isset($params['percentage'])) {
-            if ($params['percentageAsDelta']) {
-                $params['percentage'] = -$params['percentage'];
-            } else {
-                $params['percentage'] = 100 - $params['percentage'];
-            }
+            $params['percentage'] = 100 - $params['percentage'];
+        } elseif (isset($params['percentageDelta'])) {
+            $params['percentageDelta'] = -$params['percentageDelta'];
         }
         if (isset($params['tilt'])) {
-            if ($params['tiltAsDelta']) {
-                $params['tilt'] = -$params['tilt'];
-            } else {
-                $params['tilt'] = 100 - $params['tilt'];
-            }
+            $params['tilt'] = 100 - $params['tilt'];
+        } elseif (isset($params['tiltDelta'])) {
+            $params['tiltDelta'] = -$params['tiltDelta'];
         }
         parent::execute($subject, $params);
     }

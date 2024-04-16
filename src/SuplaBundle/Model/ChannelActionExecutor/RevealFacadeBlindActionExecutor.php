@@ -16,6 +16,6 @@ class RevealFacadeBlindActionExecutor extends ShutPartiallyFacadeBlindActionExec
     }
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        parent::execute($subject, ['percentage' => 0, 'percentageAsDelta' => false, 'tilt' => 0, 'tiltAsDelta' => false]);
+        parent::execute($subject, ['percentage' => 0, 'tilt' => 0]);
     }
 }

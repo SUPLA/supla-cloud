@@ -26,28 +26,24 @@ class ShutPartiallyFacadeBlindActionExecutor extends SingleChannelActionExecutor
         if (array_key_exists('percentage', $actionParams) && StringUtils::isNotBlank($actionParams['percentage'])) {
             [$percentage, $isDelta] = $this->extractDeltaParam($actionParams['percentage']);
             Assert::that($percentage)->numeric()->between(-100, 100);
-            $params['percentage'] = intval($percentage);
-            $params['percentageAsDelta'] = $isDelta;
+            $params[$isDelta ? 'percentageDelta' : 'percentage'] = intval($percentage);
         }
         if (array_key_exists('tilt', $actionParams) && StringUtils::isNotBlank($actionParams['tilt'])) {
             [$tilt, $isDelta] = $this->extractDeltaParam($actionParams['tilt']);
             Assert::that($tilt)->numeric()->between(-100, 100);
-            $params['tilt'] = intval($tilt);
-            $params['tiltAsDelta'] = $isDelta;
+            $params[$isDelta ? 'tiltDelta' : 'tilt'] = intval($tilt);
         }
-        Assertion::true(isset($params['percentage']) || isset($params['tilt']), 'You have to set either percentage and/or tilt.');
-        return array_merge(['percentageAsDelta' => 0, 'tiltAsDelta' => 0], $params);
+        Assertion::true(count($params) > 0, 'You have to set either percentage and/or tilt.');
+        return $params;
     }
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        $percentage = $actionParams['percentage'] ?? -1;
-        $tilt = $actionParams['tilt'] ?? -1;
         // ACTION-SHUT-PARTIALLY:userId,deviceId,channelId,percentage,percentageAsDelta,tilt,tiltAsDelta
         $command = $subject->buildServerActionCommand('ACTION-SHUT-PARTIALLY', [
-            $percentage,
-            $actionParams['percentageAsDelta'] ? 1 : 0,
-            $tilt,
-            $actionParams['tiltAsDelta'] ? 1 : 0,
+            $actionParams['percentage'] ?? $actionParams['percentageDelta'] ?? -1,
+            isset($actionParams['percentageDelta']) ? 1 : 0,
+            $actionParams['tilt'] ?? $actionParams['tiltDelta'] ?? -1,
+            isset($actionParams['tiltDelta']) ? 1 : 0,
         ]);
         $this->suplaServer->executeCommand($command);
     }
@@ -56,15 +52,17 @@ class ShutPartiallyFacadeBlindActionExecutor extends SingleChannelActionExecutor
         $params = ['percentage' => '', 'tilt' => ''];
         if (isset($actionParams['percentage'])) {
             $params['percentage'] = strval($actionParams['percentage']);
-            if ($actionParams['percentageAsDelta'] && $actionParams['percentage'] > 0) {
-                $params['percentage'] = "+{$actionParams['percentage']}";
-            }
+        } elseif (isset($actionParams['percentageDelta'])) {
+            $params['percentage'] = $actionParams['percentageDelta'] > 0
+                ? "+{$actionParams['percentageDelta']}"
+                : strval($actionParams['percentageDelta']);
         }
         if (isset($actionParams['tilt'])) {
             $params['tilt'] = strval($actionParams['tilt']);
-            if ($actionParams['tiltAsDelta'] && $actionParams['tilt'] > 0) {
-                $params['tilt'] = "+{$actionParams['tilt']}";
-            }
+        } elseif (isset($actionParams['tiltDelta'])) {
+            $params['tilt'] = $actionParams['tiltDelta'] > 0
+                ? "+{$actionParams['tiltDelta']}"
+                : strval($actionParams['tiltDelta']);
         }
         return $params;
     }

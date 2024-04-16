@@ -193,9 +193,7 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($scheduleFromResponse['config'], $config);
         $this->assertNotEquals($config, $schedule->getConfig());
         $this->assertEquals([
-            'percentageAsDelta' => true,
-            'tiltAsDelta' => false,
-            'percentage' => 20,
+            'percentageDelta' => 20,
             'tilt' => 10,
         ], $schedule->getConfig()[0]['action']['param']);
     }
