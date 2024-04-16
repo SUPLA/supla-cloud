@@ -52,12 +52,14 @@ class ScheduleSerializer extends AbstractSerializer implements NormalizerAwareIn
         if ($this->isSerializationGroupRequested('closestExecutions', $context)) {
             $normalized['closestExecutions'] = $this->getClosestExecutions($schedule, null, $context);
         }
-        foreach ($normalized['config'] as &$configEntry) {
-            $configEntry['action']['param'] = $this->channelActionExecutor->transformActionParamsForApi(
-                $schedule->getSubject(),
-                new ChannelFunctionAction($configEntry['action']['id']),
-                $configEntry['action']['param'] ?? []
-            );
+        if (is_array($normalized['config'] ?? false)) {
+            foreach ($normalized['config'] as &$configEntry) {
+                $configEntry['action']['param'] = $this->channelActionExecutor->transformActionParamsForApi(
+                    $schedule->getSubject(),
+                    new ChannelFunctionAction($configEntry['action']['id']),
+                    $configEntry['action']['param'] ?? []
+                );
+            }
         }
     }
 
