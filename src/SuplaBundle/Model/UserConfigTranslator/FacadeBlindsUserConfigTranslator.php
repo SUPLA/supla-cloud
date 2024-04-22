@@ -28,9 +28,10 @@ class FacadeBlindsUserConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     private const FACADEBLIND_TYPES = [
-        1 => 'STANDS_IN_POSITION',
-        2 => 'CHANGES_POSITION_WHILE_TILTING',
-        3 => 'TILTS_ONLY_WHEN_FULLY_CLOSED',
+        'UNKNOWN',
+        'STANDS_IN_POSITION_WHILE_TILTING',
+        'CHANGES_POSITION_WHILE_TILTING',
+        'TILTS_ONLY_WHEN_FULLY_CLOSED',
     ];
 
     public function getConfig(HasUserConfig $subject): array {
@@ -41,7 +42,7 @@ class FacadeBlindsUserConfigTranslator extends UserConfigTranslator {
             'timeMargin' => $subject->getUserConfigValue('timeMargin', -1),
             'tilt0Angle' => $subject->getUserConfigValue('tilt0Angle', 0),
             'tilt100Angle' => $subject->getUserConfigValue('tilt100Angle', 0),
-            'facadeBlindType' => self::FACADEBLIND_TYPES[$subject->getUserConfigValue('facadeBlindType', 1)],
+            'facadeBlindType' => $subject->getUserConfigValue('facadeBlindType', self::FACADEBLIND_TYPES[0]),
         ];
     }
 
@@ -65,8 +66,11 @@ class FacadeBlindsUserConfigTranslator extends UserConfigTranslator {
             $subject->setUserConfigValue('timeMargin', intval($this->getValueInRange($config['timeMargin'], -1, 100)));
         }
         if (array_key_exists('facadeBlindType', $config)) {
+            if (!$config['facadeBlindType']) {
+                $config['facadeBlindType'] = self::FACADEBLIND_TYPES[0];
+            }
             Assertion::inArray($config['facadeBlindType'], self::FACADEBLIND_TYPES);
-            $subject->setUserConfigValue('facadeBlindType', array_flip(self::FACADEBLIND_TYPES)[$config['facadeBlindType']]);
+            $subject->setUserConfigValue('facadeBlindType', $config['facadeBlindType']);
         }
     }
 

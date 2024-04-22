@@ -107,7 +107,7 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsFlist::CONTROLLINGTHEROLLERSHUTTER, 'flags' => ChannelFunctionBitsFlags::RECALIBRATE_ACTION_AVAILABLE]],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEFACADEBLIND, ['funcList' => ChannelFunctionBitsFlist::CONTROLLINGTHEFACADEBLIND]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEFACADEBLIND, ['funcList' => ChannelFunctionBitsFlist::CONTROLLINGTHEFACADEBLIND | ChannelFunctionBitsFlist::CONTROLLINGTHEROLLERSHUTTER]],
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATEWAY],
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],

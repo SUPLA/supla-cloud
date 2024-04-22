@@ -10,7 +10,7 @@
                         <span class="caret"></span>
                     </button>
                     <!-- i18n:['facadeBlindType_STANDS_IN_POSITION_WHILE_TILTING', 'facadeBlindType_CHANGES_POSITION_WHILE_TILTING'] -->
-                    <!-- i18n:['facadeBlindType_TILTS_ONLY_WHEN_FULLY_CLOSED'] -->
+                    <!-- i18n:['facadeBlindType_TILTS_ONLY_WHEN_FULLY_CLOSED', 'facadeBlindType_UNKNOWN'] -->
                     <ul class="dropdown-menu">
                         <li v-for="type in ['STANDS_IN_POSITION_WHILE_TILTING', 'CHANGES_POSITION_WHILE_TILTING', 'TILTS_ONLY_WHEN_FULLY_CLOSED']"
                             :key="type">

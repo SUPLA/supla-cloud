@@ -130,3 +130,4 @@ thermostatTemperature_histeresis: Histeresis
 facadeBlindType_STANDS_IN_POSITION_WHILE_TILTING: Stands in position while tilting
 facadeBlindType_CHANGES_POSITION_WHILE_TILTING: Changes position while tilting
 facadeBlindType_TILTS_ONLY_WHEN_FULLY_CLOSED: Tilts only when fully closed
+facadeBlindType_UNKNOWN: Unknown
