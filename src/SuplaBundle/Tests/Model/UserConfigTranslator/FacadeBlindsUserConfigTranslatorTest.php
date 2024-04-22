@@ -41,7 +41,7 @@ class FacadeBlindsUserConfigTranslatorTest extends TestCase {
 
     public function testSettingBlindType() {
         $this->configTranslator->setConfig($this->channel, ['facadeBlindType' => 'CHANGES_POSITION_WHILE_TILTING']);
-        $this->assertEquals(2, $this->channel->getUserConfigValue('facadeBlindType'));
+        $this->assertEquals('CHANGES_POSITION_WHILE_TILTING', $this->channel->getUserConfigValue('facadeBlindType'));
     }
 
     /** @dataProvider invalidConfigs */
@@ -66,7 +66,7 @@ class FacadeBlindsUserConfigTranslatorTest extends TestCase {
             'timeMargin' => -1,
             'tilt0Angle' => 0,
             'tilt100Angle' => 0,
-            'facadeBlindType' => 'STANDS_IN_POSITION',
+            'facadeBlindType' => 'UNKNOWN',
         ];
         $this->assertEquals($expected, $config);
     }
