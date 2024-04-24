@@ -62,64 +62,63 @@
                         </span>
                     </span>
                 </dt>
-                <dd>{{ $t('Full tilting time') }}</dd>
-                <dt>
-                    <span class="input-group">
-                        <input type="number"
-                            step="0.1"
-                            min="0"
-                            max="600"
-                            class="form-control text-center"
-                            v-model="channel.config.tiltingTimeS"
-                            @change="$emit('change')">
-                        <span class="input-group-addon">
-                            {{ $t('sec.') }}
-                        </span>
-                    </span>
-                </dt>
             </dl>
         </transition-expand>
         <dl>
+            <dd>{{ $t('Full tilting time') }}</dd>
+            <dt>
+                <span class="input-group">
+                    <input type="number"
+                        step="0.1"
+                        min="0"
+                        max="600"
+                        class="form-control text-center"
+                        v-model="channel.config.tiltingTimeS"
+                        @change="$emit('change')">
+                    <span class="input-group-addon">
+                        {{ $t('sec.') }}
+                    </span>
+                </span>
+            </dt>
+        </dl>
+        <dl v-if="channel.config.motorUpsideDown !== undefined">
             <dd>{{ $t('Motor upside down') }}</dd>
             <dt class="text-center">
                 <toggler v-model="channel.config.motorUpsideDown"
                     @input="$emit('change')"></toggler>
             </dt>
+        </dl>
+        <dl v-if="channel.config.buttonsUpsideDown !== undefined">
             <dd>{{ $t('Buttons upside down') }}</dd>
             <dt class="text-center">
                 <toggler v-model="channel.config.buttonsUpsideDown"
                     @input="$emit('change')"></toggler>
             </dt>
+        </dl>
+        <dl v-if="channel.config.timeMargin !== undefined">
             <dd>{{ $t('Additional time margin') }}</dd>
             <dt>
-                <toggler v-model="defaultTimeMargin" :label="$t('Use device default')" @input="$emit('change')"/>
-                <toggler v-if="!defaultTimeMargin" v-model="enabledTimeMargin" :label="$t('Enabled')" @input="$emit('change')"
-                    class="ml-3"/>
-                <VueNumber v-model="channel.config.timeMargin"
-                    v-if="enabledTimeMargin"
-                    :min="1"
-                    :max="100"
-                    v-bind="{decimal: '.', precision: 0, separator: ' ', suffix: ' %'}"
-                    class="form-control text-center mt-2"
-                    @change="$emit('change')"/>
+                <ChannelParamsControllingthefacadeblindTimeMargin v-model="channel.config.timeMargin" @input="$emit('change')"/>
             </dt>
+        </dl>
+        <dl>
             <dd>{{ $t('0% tilt angle') }}</dd>
             <dt>
-                <VueNumber v-model="channel.config.tilt0Angle"
+                <NumberInput v-model="channel.config.tilt0Angle"
                     :min="0"
                     :max="180"
-                    v-bind="{decimal: '.', precision: 0, separator: ' ', suffix: '°'}"
+                    suffix="°"
                     class="form-control text-center mt-2"
-                    @change="$emit('change')"/>
+                    @input="$emit('change')"/>
             </dt>
             <dd>{{ $t('100% tilt angle') }}</dd>
             <dt>
-                <VueNumber v-model="channel.config.tilt100Angle"
+                <NumberInput v-model="channel.config.tilt100Angle"
                     :min="0"
                     :max="180"
-                    v-bind="{decimal: '.', precision: 0, separator: ' ', suffix: '°'}"
+                    suffix="°"
                     class="form-control text-center mt-2"
-                    @change="$emit('change')"/>
+                    @input="$emit('change')"/>
             </dt>
         </dl>
         <div class="form-group"></div>
@@ -131,10 +130,16 @@
 <script>
     import ChannelParamsControllingtherollershutterRecalibrate from "./channel-params-controllingtherollershutter-recalibrate";
     import TransitionExpand from "@/common/gui/transition-expand";
-    import {component as VueNumber} from '@coders-tm/vue-number-format'
+    import NumberInput from "@/common/number-input.vue";
+    import ChannelParamsControllingthefacadeblindTimeMargin
+        from "@/channels/params/channel-params-controllingthefacadeblind-time-margin.vue";
 
     export default {
-        components: {TransitionExpand, ChannelParamsControllingtherollershutterRecalibrate, VueNumber},
+        components: {
+            ChannelParamsControllingthefacadeblindTimeMargin,
+            NumberInput,
+            TransitionExpand, ChannelParamsControllingtherollershutterRecalibrate
+        },
         props: ['channel', 'sensorFunction'],
         data() {
             return {
@@ -159,22 +164,6 @@
                         this.channel.config.closingTimeS = this.manualOpeningTimes.closingTimeS;
                         this.channel.config.tiltingTimeS = this.manualOpeningTimes.tiltingTimeS;
                     }
-                }
-            },
-            defaultTimeMargin: {
-                set(v) {
-                    this.channel.config.timeMargin = v ? -1 : 0;
-                },
-                get() {
-                    return +this.channel.config.timeMargin === -1;
-                }
-            },
-            enabledTimeMargin: {
-                set(v) {
-                    this.channel.config.timeMargin = v ? 1 : 0;
-                },
-                get() {
-                    return this.channel.config.timeMargin > 0;
                 }
             },
         },

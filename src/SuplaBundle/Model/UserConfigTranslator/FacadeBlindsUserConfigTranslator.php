@@ -19,7 +19,10 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="motorUpsideDown", type="boolean"),
  *   @OA\Property(property="buttonsUpsideDown", type="boolean"),
  *   @OA\Property(property="facadeBlindType", type="string"),
- *   @OA\Property(property="timeMargin", type="integer"),
+ *   @OA\Property(property="timeMargin", oneOf={
+ *       @OA\Schema(type="integer", minimum=0, maximum=100),
+ *       @OA\Schema(type="string", enum={"DEVICE_SPECIFIC"}),
+ *   }),
  *   @OA\Property(property="tilt0Angle", type="integer"),
  *   @OA\Property(property="tilt100Angle", type="integer"),
  * )
@@ -35,25 +38,37 @@ class FacadeBlindsUserConfigTranslator extends UserConfigTranslator {
     ];
 
     public function getConfig(HasUserConfig $subject): array {
-        return [
-            'tiltingTimeS' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('tiltingTimeMs', 0) / 1000, 1),
-            'motorUpsideDown' => $subject->getUserConfigValue('motorUpsideDown', false),
-            'buttonsUpsideDown' => $subject->getUserConfigValue('buttonsUpsideDown', false),
-            'timeMargin' => $subject->getUserConfigValue('timeMargin', -1),
-            'tilt0Angle' => $subject->getUserConfigValue('tilt0Angle', 0),
-            'tilt100Angle' => $subject->getUserConfigValue('tilt100Angle', 0),
-            'facadeBlindType' => $subject->getUserConfigValue('facadeBlindType', self::FACADEBLIND_TYPES[0]),
-        ];
+        $subjectConfig = $subject->getUserConfig();
+        if (array_key_exists('facadeBlindType', $subjectConfig)) {
+            $config = [
+                'tiltingTimeS' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('tiltingTimeMs', 0) / 1000, 1),
+                'tilt0Angle' => $subject->getUserConfigValue('tilt0Angle', 0),
+                'tilt100Angle' => $subject->getUserConfigValue('tilt100Angle', 0),
+                'facadeBlindType' => $subject->getUserConfigValue('facadeBlindType', self::FACADEBLIND_TYPES[0]),
+            ];
+            if (($value = $subject->getUserConfigValue('timeMargin')) !== null) {
+                $config['timeMargin'] = $value;
+            }
+            if (($value = $subject->getUserConfigValue('motorUpsideDown')) !== null) {
+                $config['motorUpsideDown'] = $value;
+            }
+            if (($value = $subject->getUserConfigValue('buttonsUpsideDown')) !== null) {
+                $config['buttonsUpsideDown'] = $value;
+            }
+            return $config;
+        } else {
+            return ['waitingForConfigInit' => true];
+        }
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('tiltingTimeS', $config)) {
             $subject->setUserConfigValue('tiltingTimeMs', intval($this->getValueInRange($config['tiltingTimeS'], 0, 600) * 1000));
         }
-        if (array_key_exists('motorUpsideDown', $config)) {
+        if (array_key_exists('motorUpsideDown', $config) && $subject->getUserConfigValue('motorUpsideDown') !== null) {
             $subject->setUserConfigValue('motorUpsideDown', filter_var($config['motorUpsideDown'], FILTER_VALIDATE_BOOLEAN));
         }
-        if (array_key_exists('buttonsUpsideDown', $config)) {
+        if (array_key_exists('buttonsUpsideDown', $config) && $subject->getUserConfigValue('buttonsUpsideDown') !== null) {
             $subject->setUserConfigValue('buttonsUpsideDown', filter_var($config['buttonsUpsideDown'], FILTER_VALIDATE_BOOLEAN));
         }
         if (array_key_exists('tilt0Angle', $config)) {
@@ -62,8 +77,15 @@ class FacadeBlindsUserConfigTranslator extends UserConfigTranslator {
         if (array_key_exists('tilt100Angle', $config)) {
             $subject->setUserConfigValue('tilt100Angle', intval($this->getValueInRange($config['tilt100Angle'], 0, 180)));
         }
-        if (array_key_exists('timeMargin', $config)) {
-            $subject->setUserConfigValue('timeMargin', intval($this->getValueInRange($config['timeMargin'], -1, 100)));
+        if (array_key_exists('timeMargin', $config) && $subject->getUserConfigValue('timeMargin') !== null) {
+            $timeMargin = $config['timeMargin'];
+            if (is_numeric($timeMargin)) {
+                Assertion::between($timeMargin, 0, 100, null, 'timeMargin');
+                $subject->setUserConfigValue('timeMargin', intval($this->getValueInRange($timeMargin, 0, 100)));
+            } else {
+                Assertion::inArray($timeMargin, ['DEVICE_SPECIFIC']);
+                $subject->setUserConfigValue('timeMargin', $timeMargin);
+            }
         }
         if (array_key_exists('facadeBlindType', $config)) {
             if (!$config['facadeBlindType']) {
