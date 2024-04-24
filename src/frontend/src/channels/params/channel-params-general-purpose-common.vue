@@ -98,13 +98,13 @@
             <dd>{{ $t('Refresh interval') }}</dd>
             <dt>
                 <toggler v-model="defaultRefreshInterval" :label="$t('Use device default')" @input="$emit('change')"/>
-                <VueNumber v-model="channel.config.refreshIntervalMs"
+                <NumberInput v-model="channel.config.refreshIntervalMs"
                     v-if="!defaultRefreshInterval"
                     :min="200"
                     :max="65535"
-                    v-bind="{decimal: '.', precision: 0, separator: ' ', suffix: ' ms'}"
+                    suffix=" ms"
                     class="form-control text-center mt-2"
-                    @change="$emit('change')"/>
+                    @input="$emit('change')"/>
             </dt>
         </dl>
     </div>
@@ -114,9 +114,10 @@
     import UnitSymbolHelper from "./unit-symbol-helper";
     import {component as VueNumber} from '@coders-tm/vue-number-format'
     import ChannelParamsMeterInitialValuesMode from "@/channels/params/channel-params-meter-initial-values-mode.vue";
+    import NumberInput from "@/common/number-input.vue";
 
     export default {
-        components: {ChannelParamsMeterInitialValuesMode, UnitSymbolHelper, VueNumber},
+        components: {NumberInput, ChannelParamsMeterInitialValuesMode, UnitSymbolHelper, VueNumber},
         props: ['channel'],
         data() {
             return {
