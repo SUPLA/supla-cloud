@@ -27,7 +27,7 @@ class FacadeBlindChannelStateGetter implements SingleChannelStateGetter {
         if (count($values) !== 3) {
             throw new SuplaServerIsDownException();
         }
-        [$shutPercent, $tiltPercent, $tiltAngle] = $values;
+        [$shutPercent, $tiltPercent, $tiltAngle] = array_map('intval', $values);
         return [
             'shut' => $shutPercent,
             'tiltPercent' => $tiltPercent,

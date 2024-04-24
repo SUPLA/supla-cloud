@@ -343,6 +343,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [4, 'GET-CHAR-VALUE', 'VALUE:-1', ['is_calibrating' => true, 'shut' => 0]],
             [4, 'GET-CHAR-VALUE', "VALUE:42\n", ['is_calibrating' => false, 'shut' => 42]],
             [10, 'GET-FACADE-BLIND-VALUE:1,1,10', 'VALUE:1,2,3', ['shut' => 1, 'tiltPercent' => 2, 'tiltAngle' => 3]],
+            [10, 'GET-FACADE-BLIND-VALUE:1,1,10', 'VALUE:1,2.234,3.0001', ['shut' => 1, 'tiltPercent' => 2, 'tiltAngle' => 3]],
         ];
     }
 
