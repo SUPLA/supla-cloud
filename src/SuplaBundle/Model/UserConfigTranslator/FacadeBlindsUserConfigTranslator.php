@@ -18,7 +18,7 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="autoCalibrationAvailable", type="boolean"),
  *   @OA\Property(property="motorUpsideDown", type="boolean"),
  *   @OA\Property(property="buttonsUpsideDown", type="boolean"),
- *   @OA\Property(property="facadeBlindType", type="string"),
+ *   @OA\Property(property="tiltControlType", type="string"),
  *   @OA\Property(property="timeMargin", oneOf={
  *       @OA\Schema(type="integer", minimum=0, maximum=100),
  *       @OA\Schema(type="string", enum={"DEVICE_SPECIFIC"}),
@@ -39,12 +39,12 @@ class FacadeBlindsUserConfigTranslator extends UserConfigTranslator {
 
     public function getConfig(HasUserConfig $subject): array {
         $subjectConfig = $subject->getUserConfig();
-        if (array_key_exists('facadeBlindType', $subjectConfig)) {
+        if (array_key_exists('tiltControlType', $subjectConfig)) {
             $config = [
                 'tiltingTimeS' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('tiltingTimeMs', 0) / 1000, 1),
                 'tilt0Angle' => $subject->getUserConfigValue('tilt0Angle', 0),
                 'tilt100Angle' => $subject->getUserConfigValue('tilt100Angle', 0),
-                'facadeBlindType' => $subject->getUserConfigValue('facadeBlindType', self::FACADEBLIND_TYPES[0]),
+                'tiltControlType' => $subject->getUserConfigValue('tiltControlType', self::FACADEBLIND_TYPES[0]),
             ];
             if (($value = $subject->getUserConfigValue('timeMargin')) !== null) {
                 $config['timeMargin'] = $value;
@@ -87,12 +87,12 @@ class FacadeBlindsUserConfigTranslator extends UserConfigTranslator {
                 $subject->setUserConfigValue('timeMargin', $timeMargin);
             }
         }
-        if (array_key_exists('facadeBlindType', $config)) {
-            if (!$config['facadeBlindType']) {
-                $config['facadeBlindType'] = self::FACADEBLIND_TYPES[0];
+        if (array_key_exists('tiltControlType', $config)) {
+            if (!$config['tiltControlType']) {
+                $config['tiltControlType'] = self::FACADEBLIND_TYPES[0];
             }
-            Assertion::inArray($config['facadeBlindType'], self::FACADEBLIND_TYPES);
-            $subject->setUserConfigValue('facadeBlindType', $config['facadeBlindType']);
+            Assertion::inArray($config['tiltControlType'], self::FACADEBLIND_TYPES);
+            $subject->setUserConfigValue('tiltControlType', $config['tiltControlType']);
         }
     }
 

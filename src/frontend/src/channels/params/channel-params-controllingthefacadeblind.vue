@@ -1,22 +1,22 @@
 <template>
     <div>
         <dl>
-            <dd>{{ $t('Facade blind type') }}</dd>
+            <dd>{{ $t('Tilt control type') }}</dd>
             <dt>
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
                         data-toggle="dropdown">
-                        {{ $t(`facadeBlindType_${channel.config.facadeBlindType}`) }}
+                        {{ $t(`tiltControlType_${channel.config.tiltControlType}`) }}
                         <span class="caret"></span>
                     </button>
-                    <!-- i18n:['facadeBlindType_STANDS_IN_POSITION_WHILE_TILTING', 'facadeBlindType_CHANGES_POSITION_WHILE_TILTING'] -->
-                    <!-- i18n:['facadeBlindType_TILTS_ONLY_WHEN_FULLY_CLOSED', 'facadeBlindType_UNKNOWN'] -->
+                    <!-- i18n:['tiltControlType_STANDS_IN_POSITION_WHILE_TILTING', 'tiltControlType_CHANGES_POSITION_WHILE_TILTING'] -->
+                    <!-- i18n:['tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED', 'tiltControlType_UNKNOWN'] -->
                     <ul class="dropdown-menu">
                         <li v-for="type in ['STANDS_IN_POSITION_WHILE_TILTING', 'CHANGES_POSITION_WHILE_TILTING', 'TILTS_ONLY_WHEN_FULLY_CLOSED']"
                             :key="type">
-                            <a @click="channel.config.facadeBlindType = type; $emit('change')"
-                                v-show="type !== channel.config.facadeBlindType">
-                                {{ $t(`facadeBlindType_${type}`) }}
+                            <a @click="channel.config.tiltControlType = type; $emit('change')"
+                                v-show="type !== channel.config.tiltControlType">
+                                {{ $t(`tiltControlType_${type}`) }}
                             </a>
                         </li>
                     </ul>

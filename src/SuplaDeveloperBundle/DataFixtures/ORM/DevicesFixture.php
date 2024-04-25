@@ -110,7 +110,7 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEFACADEBLIND, [
                 'funcList' => ChannelFunctionBitsFlist::CONTROLLINGTHEFACADEBLIND | ChannelFunctionBitsFlist::CONTROLLINGTHEROLLERSHUTTER,
                 'userConfig' => json_encode([
-                    'facadeBlindType' => 'STANDS_IN_POSITION_WHILE_TILTING',
+                    'tiltControlType' => 'STANDS_IN_POSITION_WHILE_TILTING',
                     'timeMargin' => -1,
                     'motorUpsideDown' => false,
                     'buttonsUpsideDown' => false,

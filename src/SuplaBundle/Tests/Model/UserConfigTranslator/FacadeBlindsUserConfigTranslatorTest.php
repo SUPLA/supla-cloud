@@ -32,7 +32,7 @@ class FacadeBlindsUserConfigTranslatorTest extends TestCase {
     public function createTranslator() {
         $this->configTranslator = new FacadeBlindsUserConfigTranslator();
         $this->channel = new IODeviceChannel();
-        $this->channel->setUserConfigValue('facadeBlindType', 'UNKNOWN');
+        $this->channel->setUserConfigValue('tiltControlType', 'UNKNOWN');
         $this->channel->setUserConfigValue('timeMargin', 0);
     }
 
@@ -42,8 +42,8 @@ class FacadeBlindsUserConfigTranslatorTest extends TestCase {
     }
 
     public function testSettingBlindType() {
-        $this->configTranslator->setConfig($this->channel, ['facadeBlindType' => 'CHANGES_POSITION_WHILE_TILTING']);
-        $this->assertEquals('CHANGES_POSITION_WHILE_TILTING', $this->channel->getUserConfigValue('facadeBlindType'));
+        $this->configTranslator->setConfig($this->channel, ['tiltControlType' => 'CHANGES_POSITION_WHILE_TILTING']);
+        $this->assertEquals('CHANGES_POSITION_WHILE_TILTING', $this->channel->getUserConfigValue('tiltControlType'));
     }
 
     /** @dataProvider invalidConfigs */
@@ -54,7 +54,7 @@ class FacadeBlindsUserConfigTranslatorTest extends TestCase {
 
     public static function invalidConfigs() {
         return [
-            [['facadeBlindType' => 'UNICORN']],
+            [['tiltControlType' => 'UNICORN']],
             [['timeMargin' => -1]],
             [['timeMargin' => 'UNICORN']],
             [['timeMargin' => null]],
@@ -69,7 +69,7 @@ class FacadeBlindsUserConfigTranslatorTest extends TestCase {
             'tilt0Angle' => 0,
             'tilt100Angle' => 0,
             'timeMargin' => 0,
-            'facadeBlindType' => 'UNKNOWN',
+            'tiltControlType' => 'UNKNOWN',
         ];
         $this->assertEquals($expected, $config);
     }
