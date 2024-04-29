@@ -57,7 +57,7 @@ class FacadeBlindsUserConfigTranslatorTest extends TestCase {
             [['tiltControlType' => 'UNICORN']],
             [['timeMargin' => -1]],
             [['timeMargin' => 'UNICORN']],
-            [['timeMargin' => null]],
+            [['timeMargin' => '']],
         ];
     }
 
@@ -97,5 +97,10 @@ class FacadeBlindsUserConfigTranslatorTest extends TestCase {
         $this->assertTrue($this->configTranslator->getConfig($this->channel)['motorUpsideDown']);
         $this->configTranslator->setConfig($this->channel, ['motorUpsideDown' => false]);
         $this->assertFalse($this->configTranslator->getConfig($this->channel)['motorUpsideDown']);
+    }
+
+    public function testClearingConfigConfig() {
+        $this->configTranslator->clearConfig($this->channel);
+        $this->assertEquals(0, $this->channel->getUserConfigValue('timeMargin'));
     }
 }

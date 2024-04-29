@@ -82,7 +82,7 @@ class FacadeBlindsUserConfigTranslator extends UserConfigTranslator {
             if (is_numeric($timeMargin)) {
                 Assertion::between($timeMargin, 0, 100, null, 'timeMargin');
                 $subject->setUserConfigValue('timeMargin', intval($this->getValueInRange($timeMargin, 0, 100)));
-            } else {
+            } elseif ($timeMargin !== null) {
                 Assertion::inArray($timeMargin, ['DEVICE_SPECIFIC']);
                 $subject->setUserConfigValue('timeMargin', $timeMargin);
             }
