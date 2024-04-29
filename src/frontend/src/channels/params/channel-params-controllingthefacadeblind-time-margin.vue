@@ -30,7 +30,22 @@
                 enabled: false,
             };
         },
+        mounted() {
+            this.initFromModel();
+        },
         methods: {
+            initFromModel() {
+                if (this.value === 'DEVICE_SPECIFIC') {
+                    this.enabled = true;
+                    this.deviceSpecific = true;
+                } else if (this.value > 0) {
+                    this.enabled = true;
+                    this.deviceSpecific = false;
+                    this.timeMarginValue = this.value;
+                } else {
+                    this.enabled = false;
+                }
+            },
             onChange() {
                 let value = 0;
                 if (this.enabled) {
