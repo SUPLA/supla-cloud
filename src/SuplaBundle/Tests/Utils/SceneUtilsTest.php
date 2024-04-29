@@ -46,6 +46,9 @@ class SceneUtilsTest extends TestCase {
         $operation1->method('getSubject')->willReturn($scene2);
         $operation2->method('getSubject')->willReturn($scene3);
         $operation3->method('getSubject')->willReturn($scene1);
+        $operation1->method('getAction')->willReturn(ChannelFunctionAction::EXECUTE());
+        $operation2->method('getAction')->willReturn(ChannelFunctionAction::INTERRUPT_AND_EXECUTE());
+        $operation3->method('getAction')->willReturn(ChannelFunctionAction::EXECUTE());
         $scene1->method('getOperations')->willReturn([$operation1]);
         $scene2->method('getOperations')->willReturn([$operation2]);
         $scene3->method('getOperations')->willReturn([$operation3]);
@@ -63,6 +66,8 @@ class SceneUtilsTest extends TestCase {
         $operation2->method('getSubject')->willReturn($scene2);
         $operation1->method('getOwningScene')->willReturn($scene1);
         $operation2->method('getOwningScene')->willReturn($scene1);
+        $operation1->method('getAction')->willReturn(ChannelFunctionAction::EXECUTE());
+        $operation2->method('getAction')->willReturn(ChannelFunctionAction::EXECUTE());
         $scene1->method('getOperations')->willReturn([$operation1, $operation2]);
         $scene2->method('getOperations')->willReturn([]);
         $scene1->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection([]));
@@ -78,6 +83,7 @@ class SceneUtilsTest extends TestCase {
         $operation1 = $this->createEntityMock(SceneOperation::class);
         $operation1->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
         $operation1->method('getSubject')->willReturn($scene1);
+        $operation1->method('getAction')->willReturn(ChannelFunctionAction::EXECUTE());
         $scene1->method('getOperations')->willReturn([$operation1]);
         SceneUtils::ensureOperationsAreNotCyclic($scene1);
     }
@@ -94,6 +100,7 @@ class SceneUtilsTest extends TestCase {
                 $operation = $this->createEntityMock(SceneOperation::class);
                 $operation->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
                 $operation->method('getSubject')->willReturn($sceneNext);
+                $operation->method('getAction')->willReturn(ChannelFunctionAction::EXECUTE());
                 $operations[] = $operation;
             }
             $scene->method('getOperations')->willReturn($operations);
@@ -204,6 +211,7 @@ class SceneUtilsTest extends TestCase {
             $operation->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
             $operation->method('getSubject')->willReturn($sceneChild);
             $operation->method('getOwningScene')->willReturn($sceneParent);
+            $operation->method('getAction')->willReturn(ChannelFunctionAction::EXECUTE());
             $operations[] = $operation;
         }
         $sceneParent->setOpeartions($operations);
@@ -235,6 +243,7 @@ class SceneUtilsTest extends TestCase {
             $operation->method('getSubject')->willReturn($scene);
             $operation->method('getOwningScene')->willReturn($newScene);
             $operation->method('isWaitForCompletion')->willReturn(true);
+            $operation->method('getAction')->willReturn(ChannelFunctionAction::EXECUTE());
             $scene->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection([$operation]));
             $newScene->method('getOperations')->willReturn([$operation]);
             SceneUtils::ensureOperationsAreNotCyclic($scene);
@@ -242,5 +251,28 @@ class SceneUtilsTest extends TestCase {
             $scene = $newScene;
         }
         $this->assertLessThan(1, microtime(true) - $startTime);
+    }
+
+    public function testNoCycleIfSceneActionIsStop() {
+        $scene1 = $this->createEntityMock(Scene::class, 1);
+        $scene2 = $this->createEntityMock(Scene::class, 2);
+        $scene3 = $this->createEntityMock(Scene::class, 3);
+        $operation1 = $this->createEntityMock(SceneOperation::class);
+        $operation2 = $this->createEntityMock(SceneOperation::class);
+        $operation3 = $this->createEntityMock(SceneOperation::class);
+        $operation1->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
+        $operation2->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
+        $operation3->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
+        $operation1->method('getSubject')->willReturn($scene2);
+        $operation2->method('getSubject')->willReturn($scene3);
+        $operation3->method('getSubject')->willReturn($scene1);
+        $operation1->method('getAction')->willReturn(ChannelFunctionAction::EXECUTE());
+        $operation2->method('getAction')->willReturn(ChannelFunctionAction::EXECUTE());
+        $operation3->method('getAction')->willReturn(ChannelFunctionAction::STOP());
+        $scene1->method('getOperations')->willReturn([$operation1]);
+        $scene2->method('getOperations')->willReturn([$operation2]);
+        $scene3->method('getOperations')->willReturn([$operation3]);
+        SceneUtils::ensureOperationsAreNotCyclic($scene1);
+        $this->assertTrue(true);
     }
 }

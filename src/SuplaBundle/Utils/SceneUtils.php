@@ -21,6 +21,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Enums\ActionableSubjectType;
+use SuplaBundle\Enums\ChannelFunctionAction;
 
 final class SceneUtils {
     private const MAX_OPERATIONS_EXECUTIONS_PER_SCENE = 640;
@@ -39,7 +40,8 @@ final class SceneUtils {
                 self::MAX_OPERATIONS_EXECUTIONS_PER_SCENE,
                 'The scene would execute too many operations.' // i18n
             );
-            if ($operation->getSubjectType() == ActionableSubjectType::SCENE()) {
+            $isSceneSubject = $operation->getSubjectType() == ActionableSubjectType::SCENE();
+            if ($isSceneSubject && $operation->getAction() != ChannelFunctionAction::STOP()) {
                 self::ensureOperationsAreNotCyclic($operation->getSubject(), $usedScenesIds, $operationsCounter);
             }
         }
