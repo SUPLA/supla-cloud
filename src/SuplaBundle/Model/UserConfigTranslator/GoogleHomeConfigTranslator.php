@@ -80,6 +80,7 @@ class GoogleHomeConfigTranslator extends UserConfigTranslator {
             ChannelFunction::DIMMER,
             ChannelFunction::DIMMERANDRGBLIGHTING,
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
+            ChannelFunction::CONTROLLINGTHEFACADEBLIND,
             ChannelFunction::CONTROLLINGTHEGATE,
             ChannelFunction::CONTROLLINGTHEGARAGEDOOR,
             ChannelFunction::SCENE,
