@@ -17,6 +17,8 @@ class UpOrStopActionExecutor extends SingleChannelActionExecutor {
     public function getSupportedFunctions(): array {
         return [
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(),
+            ChannelFunction::CONTROLLINGTHEROOFWINDOW(),
+            ChannelFunction::CONTROLLINGTHEFACADEBLIND(),
         ];
     }
 
