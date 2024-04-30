@@ -143,7 +143,7 @@
         props: ['channel', 'sensorFunction'],
         data() {
             return {
-                manualOpeningTimes: {openingTimeS: 10, closingTimeS: 10, tiltingTimeS: 5},
+                manualOpeningTimes: {openingTimeS: 10, closingTimeS: 10},
             };
         },
         computed: {
@@ -155,14 +155,11 @@
                     if (value) {
                         this.manualOpeningTimes.openingTimeS = this.channel.config.openingTimeS;
                         this.manualOpeningTimes.closingTimeS = this.channel.config.closingTimeS;
-                        this.manualOpeningTimes.tiltingTimeS = this.channel.config.tiltingTimeS;
                         this.channel.config.openingTimeS = 0;
                         this.channel.config.closingTimeS = 0;
-                        this.channel.config.tiltingTimeS = 0;
                     } else {
                         this.channel.config.openingTimeS = this.manualOpeningTimes.openingTimeS;
                         this.channel.config.closingTimeS = this.manualOpeningTimes.closingTimeS;
-                        this.channel.config.tiltingTimeS = this.manualOpeningTimes.tiltingTimeS;
                     }
                 }
             },
