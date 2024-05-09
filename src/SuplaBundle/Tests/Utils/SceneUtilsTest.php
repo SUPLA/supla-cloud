@@ -268,7 +268,7 @@ class SceneUtilsTest extends TestCase {
         $operation3->method('getSubject')->willReturn($scene1);
         $operation1->method('getAction')->willReturn(ChannelFunctionAction::EXECUTE());
         $operation2->method('getAction')->willReturn(ChannelFunctionAction::EXECUTE());
-        $operation3->method('getAction')->willReturn(ChannelFunctionAction::STOP());
+        $operation3->method('getAction')->willReturn(ChannelFunctionAction::INTERRUPT());
         $scene1->method('getOperations')->willReturn([$operation1]);
         $scene2->method('getOperations')->willReturn([$operation2]);
         $scene3->method('getOperations')->willReturn([$operation3]);

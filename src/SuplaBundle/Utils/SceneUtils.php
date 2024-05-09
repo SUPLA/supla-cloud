@@ -41,7 +41,7 @@ final class SceneUtils {
                 'The scene would execute too many operations.' // i18n
             );
             $isSceneSubject = $operation->getSubjectType() == ActionableSubjectType::SCENE();
-            if ($isSceneSubject && $operation->getAction() != ChannelFunctionAction::STOP()) {
+            if ($isSceneSubject && $operation->getAction() != ChannelFunctionAction::INTERRUPT()) {
                 self::ensureOperationsAreNotCyclic($operation->getSubject(), $usedScenesIds, $operationsCounter);
             }
         }
