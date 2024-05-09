@@ -1511,7 +1511,7 @@ suffix: sufiks
 0% tilt angle: Kąt nachylenia 0%
 100% tilt angle: Kąt nachylenia 100%
 Additional time margin: Dodatkowy margines czasu
-Buttons upside down: Odwrócone przyciski
+Buttons upside down: Odwrócone sterowanie przyciskami
 Change percentage by: Zmień procent o
 Change percentage to: Zmień procent do
 Change tilt by: Zmień nachylenie o
@@ -1520,19 +1520,19 @@ Common currencies: Najczęściej wybierane waluty
 Confirm if you want to perform the calibration.: Potwierdź chęć wykonania kalibracji.
 Facade blind operation: Żaluzje fasadowe
 Full tilting time: Całkowity czas zmiany nachylenia
-Motor upside down: Silnik odwrócony
+Motor upside down: Odwrócone sterowanie silnikiem
 Tilt angle: Kąt nachylenia
-Tilt control type: Typ sterowania nachyleniem
+Tilt control type: Rodzaj sterowania nachyleniem
 Tilt percent: Procent nachylenia
-Use device default: Użyj domyślnej wartości urządzenia
+Use device default: Użyj domyślnej wartości z urządzenia
 When the facade blind position changes: Gdy żaluzja fasadowa zmienia pozycję
 When the facade blind reaches: Gdy żaluzja fasadowa osiąga
 When the facade blind reaches a certain position: Gdy żaluzja fasadowa osiąga określoną pozycję
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Możesz ustawić tutaj wartości względne. Przykładowo +10 lub -20 odpowiednio zwiększy ustawienie o 10 lub zmniejszy o 20.
 configuration missing: brak konfiguracji
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: Zmienia pozycję w trakcie zmiany przechylenia
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Nie zmienia pozycji w trakcie zmiany przechylenia
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Zmienia przechylenie tylko gdy jest w pełni zamknięte
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Zmienia pozycję w trakcie zmiany nachylenia
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Nie zmienia pozycji w trakcie zmiany nachylenia
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Zmienia nachylenie tylko gdy jest w pełni zamknięte
 tiltControlType_UNKNOWN: Nieznany
 
 #</editor-fold>
