@@ -46,15 +46,6 @@ class FacadeBlindsUserConfigTranslator extends UserConfigTranslator {
                 'tilt100Angle' => $subject->getUserConfigValue('tilt100Angle', 0),
                 'tiltControlType' => $subject->getUserConfigValue('tiltControlType', self::FACADEBLIND_TYPES[0]),
             ];
-            if (($value = $subject->getUserConfigValue('timeMargin')) !== null) {
-                $config['timeMargin'] = $value;
-            }
-            if (($value = $subject->getUserConfigValue('motorUpsideDown')) !== null) {
-                $config['motorUpsideDown'] = $value;
-            }
-            if (($value = $subject->getUserConfigValue('buttonsUpsideDown')) !== null) {
-                $config['buttonsUpsideDown'] = $value;
-            }
             return $config;
         } else {
             return ['waitingForConfigInit' => true];
@@ -65,27 +56,11 @@ class FacadeBlindsUserConfigTranslator extends UserConfigTranslator {
         if (array_key_exists('tiltingTimeS', $config)) {
             $subject->setUserConfigValue('tiltingTimeMs', intval($this->getValueInRange($config['tiltingTimeS'], 0, 600) * 1000));
         }
-        if (array_key_exists('motorUpsideDown', $config) && $subject->getUserConfigValue('motorUpsideDown') !== null) {
-            $subject->setUserConfigValue('motorUpsideDown', filter_var($config['motorUpsideDown'], FILTER_VALIDATE_BOOLEAN));
-        }
-        if (array_key_exists('buttonsUpsideDown', $config) && $subject->getUserConfigValue('buttonsUpsideDown') !== null) {
-            $subject->setUserConfigValue('buttonsUpsideDown', filter_var($config['buttonsUpsideDown'], FILTER_VALIDATE_BOOLEAN));
-        }
         if (array_key_exists('tilt0Angle', $config)) {
             $subject->setUserConfigValue('tilt0Angle', intval($this->getValueInRange($config['tilt0Angle'], 0, 180)));
         }
         if (array_key_exists('tilt100Angle', $config)) {
             $subject->setUserConfigValue('tilt100Angle', intval($this->getValueInRange($config['tilt100Angle'], 0, 180)));
-        }
-        if (array_key_exists('timeMargin', $config) && $subject->getUserConfigValue('timeMargin') !== null) {
-            $timeMargin = $config['timeMargin'];
-            if (is_numeric($timeMargin)) {
-                Assertion::between($timeMargin, 0, 100, null, 'timeMargin');
-                $subject->setUserConfigValue('timeMargin', intval($this->getValueInRange($timeMargin, 0, 100)));
-            } elseif ($timeMargin !== null) {
-                Assertion::inArray($timeMargin, ['DEVICE_SPECIFIC']);
-                $subject->setUserConfigValue('timeMargin', $timeMargin);
-            }
         }
         if (array_key_exists('tiltControlType', $config)) {
             if (!$config['tiltControlType']) {

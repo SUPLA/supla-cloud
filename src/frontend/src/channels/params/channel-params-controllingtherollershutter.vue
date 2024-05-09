@@ -41,7 +41,27 @@
                 </dt>
             </dl>
         </transition-expand>
-        <dl>
+        <dl v-if="channel.config.motorUpsideDown !== undefined">
+            <dd>{{ $t('Motor upside down') }}</dd>
+            <dt class="text-center">
+                <toggler v-model="channel.config.motorUpsideDown"
+                    @input="$emit('change')"></toggler>
+            </dt>
+        </dl>
+        <dl v-if="channel.config.buttonsUpsideDown !== undefined">
+            <dd>{{ $t('Buttons upside down') }}</dd>
+            <dt class="text-center">
+                <toggler v-model="channel.config.buttonsUpsideDown"
+                    @input="$emit('change')"></toggler>
+            </dt>
+        </dl>
+        <dl v-if="channel.config.timeMargin !== undefined">
+            <dd>{{ $t('Additional time margin') }}</dd>
+            <dt>
+                <ChannelParamsControllingthefacadeblindTimeMargin v-model="channel.config.timeMargin" @input="$emit('change')"/>
+            </dt>
+        </dl>
+        <dl v-if="channel.config.bottomPosition !== undefined">
             <dd v-tooltip="$t('Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.')">
                 {{ $t('Bottom position') }}
                 <i class="pe-7s-help1"></i>
@@ -77,9 +97,14 @@
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
     import ChannelParamsControllingtherollershutterRecalibrate from "./channel-params-controllingtherollershutter-recalibrate";
     import TransitionExpand from "@/common/gui/transition-expand";
+    import ChannelParamsControllingthefacadeblindTimeMargin
+        from "@/channels/params/channel-params-controllingthefacadeblind-time-margin.vue";
 
     export default {
-        components: {TransitionExpand, ChannelParamsControllingtherollershutterRecalibrate, ChannelsIdDropdown},
+        components: {
+            ChannelParamsControllingthefacadeblindTimeMargin,
+            TransitionExpand, ChannelParamsControllingtherollershutterRecalibrate, ChannelsIdDropdown
+        },
         props: ['channel', 'sensorFunction'],
         data() {
             return {

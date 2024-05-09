@@ -14,6 +14,12 @@ use SuplaBundle\Enums\ChannelFunction;
  *   @OA\Property(property="timeSettingAvailable", type="boolean"),
  *   @OA\Property(property="recalibrateAvailable", type="boolean"),
  *   @OA\Property(property="autoCalibrationAvailable", type="boolean"),
+ *   @OA\Property(property="motorUpsideDown", type="boolean"),
+ *   @OA\Property(property="buttonsUpsideDown", type="boolean"),
+ *   @OA\Property(property="timeMargin", oneOf={
+ *     @OA\Schema(type="integer", minimum=0, maximum=100),
+ *     @OA\Schema(type="string", enum={"DEVICE_SPECIFIC"}),
+ *   }),
  * )
  */
 class RollerShutterUserConfigTranslator extends UserConfigTranslator {
@@ -34,7 +40,6 @@ class RollerShutterUserConfigTranslator extends UserConfigTranslator {
     public function supports(HasUserConfig $subject): bool {
         return in_array($subject->getFunction()->getId(), [
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
-            ChannelFunction::CONTROLLINGTHEROOFWINDOW,
         ]);
     }
 }

@@ -36,6 +36,7 @@ class OpeningClosingTimeUserConfigTranslatorTest extends TestCase {
     public function createTranslator() {
         $this->configTranslator = new OpeningClosingTimeUserConfigTranslator();
         $this->channel = new IODeviceChannel();
+        $this->channel->setUserConfigValue('timeMargin', 0);
     }
 
     public function testSettingTimes() {
@@ -94,7 +95,42 @@ class OpeningClosingTimeUserConfigTranslatorTest extends TestCase {
             'timeSettingAvailable' => true,
             'recalibrateAvailable' => true,
             'autoCalibrationAvailable' => true,
+            'timeMargin' => 0,
         ];
         $this->assertEquals($expected, $config);
+    }
+
+    public function testTimeMargin() {
+        $this->channel->setUserConfigValue('timeMargin', 0);
+        $this->assertEquals(0, $this->configTranslator->getConfig($this->channel)['timeMargin']);
+        $this->configTranslator->setConfig($this->channel, ['timeMargin' => 0]);
+        $this->configTranslator->setConfig($this->channel, ['timeMargin' => 2]);
+        $this->assertEquals(2, $this->configTranslator->getConfig($this->channel)['timeMargin']);
+        $this->configTranslator->setConfig($this->channel, ['timeMargin' => 'DEVICE_SPECIFIC']);
+        $this->assertEquals('DEVICE_SPECIFIC', $this->configTranslator->getConfig($this->channel)['timeMargin']);
+    }
+
+    public function testMotorUpsideDown() {
+        $this->configTranslator->setConfig($this->channel, ['motorUpsideDown' => true]);
+        $this->assertArrayNotHasKey('motorUpsideDown', $this->configTranslator->getConfig($this->channel));
+        $this->channel->setUserConfigValue('motorUpsideDown', true);
+        $this->assertArrayHasKey('motorUpsideDown', $this->configTranslator->getConfig($this->channel));
+        $this->assertTrue($this->configTranslator->getConfig($this->channel)['motorUpsideDown']);
+        $this->configTranslator->setConfig($this->channel, ['motorUpsideDown' => false]);
+        $this->assertFalse($this->configTranslator->getConfig($this->channel)['motorUpsideDown']);
+    }
+
+    /** @dataProvider invalidConfigs */
+    public function testSettingInvalidConfigs(array $invalidConfig) {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->configTranslator->setConfig($this->channel, $invalidConfig);
+    }
+
+    public static function invalidConfigs() {
+        return [
+            [['timeMargin' => -1]],
+            [['timeMargin' => 'UNICORN']],
+            [['timeMargin' => '']],
+        ];
     }
 }

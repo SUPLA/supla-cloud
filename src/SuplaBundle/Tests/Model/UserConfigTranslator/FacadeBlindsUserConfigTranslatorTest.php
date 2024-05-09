@@ -55,9 +55,6 @@ class FacadeBlindsUserConfigTranslatorTest extends TestCase {
     public static function invalidConfigs() {
         return [
             [['tiltControlType' => 'UNICORN']],
-            [['timeMargin' => -1]],
-            [['timeMargin' => 'UNICORN']],
-            [['timeMargin' => '']],
         ];
     }
 
@@ -68,7 +65,6 @@ class FacadeBlindsUserConfigTranslatorTest extends TestCase {
             'tiltingTimeS' => 10.2,
             'tilt0Angle' => 0,
             'tilt100Angle' => 0,
-            'timeMargin' => 0,
             'tiltControlType' => 'UNKNOWN',
         ];
         $this->assertEquals($expected, $config);
@@ -77,26 +73,6 @@ class FacadeBlindsUserConfigTranslatorTest extends TestCase {
     public function testWaitingForConfigInit() {
         $defaultConfig = $this->configTranslator->getConfig(new IODeviceChannel());
         $this->assertTrue($defaultConfig['waitingForConfigInit']);
-    }
-
-    public function testTimeMargin() {
-        $this->channel->setUserConfigValue('timeMargin', 0);
-        $this->assertEquals(0, $this->configTranslator->getConfig($this->channel)['timeMargin']);
-        $this->configTranslator->setConfig($this->channel, ['timeMargin' => 0]);
-        $this->configTranslator->setConfig($this->channel, ['timeMargin' => 2]);
-        $this->assertEquals(2, $this->configTranslator->getConfig($this->channel)['timeMargin']);
-        $this->configTranslator->setConfig($this->channel, ['timeMargin' => 'DEVICE_SPECIFIC']);
-        $this->assertEquals('DEVICE_SPECIFIC', $this->configTranslator->getConfig($this->channel)['timeMargin']);
-    }
-
-    public function testMotorUpsideDown() {
-        $this->configTranslator->setConfig($this->channel, ['motorUpsideDown' => true]);
-        $this->assertArrayNotHasKey('motorUpsideDown', $this->configTranslator->getConfig($this->channel));
-        $this->channel->setUserConfigValue('motorUpsideDown', true);
-        $this->assertArrayHasKey('motorUpsideDown', $this->configTranslator->getConfig($this->channel));
-        $this->assertTrue($this->configTranslator->getConfig($this->channel)['motorUpsideDown']);
-        $this->configTranslator->setConfig($this->channel, ['motorUpsideDown' => false]);
-        $this->assertFalse($this->configTranslator->getConfig($this->channel)['motorUpsideDown']);
     }
 
     public function testClearingConfigConfig() {

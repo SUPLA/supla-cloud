@@ -106,7 +106,15 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsFlist::CONTROLLINGTHEROLLERSHUTTER, 'flags' => ChannelFunctionBitsFlags::RECALIBRATE_ACTION_AVAILABLE]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, [
+                'funcList' => ChannelFunctionBitsFlist::CONTROLLINGTHEROLLERSHUTTER,
+                'flags' => ChannelFunctionBitsFlags::RECALIBRATE_ACTION_AVAILABLE,
+                'userConfig' => json_encode([
+                    'timeMargin' => -1,
+                    'motorUpsideDown' => false,
+                    'buttonsUpsideDown' => false,
+                ]),
+            ]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEFACADEBLIND, [
                 'funcList' => ChannelFunctionBitsFlist::CONTROLLINGTHEFACADEBLIND | ChannelFunctionBitsFlist::CONTROLLINGTHEROLLERSHUTTER,
                 'userConfig' => json_encode([

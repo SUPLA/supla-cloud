@@ -81,26 +81,6 @@
                 </span>
             </dt>
         </dl>
-        <dl v-if="channel.config.motorUpsideDown !== undefined">
-            <dd>{{ $t('Motor upside down') }}</dd>
-            <dt class="text-center">
-                <toggler v-model="channel.config.motorUpsideDown"
-                    @input="$emit('change')"></toggler>
-            </dt>
-        </dl>
-        <dl v-if="channel.config.buttonsUpsideDown !== undefined">
-            <dd>{{ $t('Buttons upside down') }}</dd>
-            <dt class="text-center">
-                <toggler v-model="channel.config.buttonsUpsideDown"
-                    @input="$emit('change')"></toggler>
-            </dt>
-        </dl>
-        <dl v-if="channel.config.timeMargin !== undefined">
-            <dd>{{ $t('Additional time margin') }}</dd>
-            <dt>
-                <ChannelParamsControllingthefacadeblindTimeMargin v-model="channel.config.timeMargin" @input="$emit('change')"/>
-            </dt>
-        </dl>
         <dl>
             <dd>{{ $t('0% tilt angle') }}</dd>
             <dt>
@@ -119,6 +99,26 @@
                     suffix="°"
                     class="form-control text-center mt-2"
                     @input="$emit('change')"/>
+            </dt>
+        </dl>
+        <dl v-if="channel.config.motorUpsideDown !== undefined">
+            <dd>{{ $t('Motor upside down') }}</dd>
+            <dt class="text-center">
+                <toggler v-model="channel.config.motorUpsideDown"
+                    @input="$emit('change')"></toggler>
+            </dt>
+        </dl>
+        <dl v-if="channel.config.buttonsUpsideDown !== undefined">
+            <dd>{{ $t('Buttons upside down') }}</dd>
+            <dt class="text-center">
+                <toggler v-model="channel.config.buttonsUpsideDown"
+                    @input="$emit('change')"></toggler>
+            </dt>
+        </dl>
+        <dl v-if="channel.config.timeMargin !== undefined">
+            <dd>{{ $t('Additional time margin') }}</dd>
+            <dt>
+                <ChannelParamsControllingthefacadeblindTimeMargin v-model="channel.config.timeMargin" @input="$emit('change')"/>
             </dt>
         </dl>
         <div class="form-group"></div>
