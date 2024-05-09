@@ -86,6 +86,7 @@
     import ChannelFunction from "@/common/enums/channel-function";
     import {channelTitle} from "@/common/filters";
     import {DateTime} from "luxon";
+    import latinize from "latinize";
 
     const EXPORT_DEFINITIONS = {
         [ChannelFunction.THERMOMETER]: [
@@ -239,9 +240,13 @@
             },
             filename() {
                 return [
+                    latinize((this.channel.caption || '').toLowerCase().trim()).replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-'),
+                    'ID' + this.channel.id,
+                    DateTime.now().toFormat('yyyy-dd-MM_HH-mm-ss'),
                     CUSTOM_CHART_MODES.includes(this.chartMode) ? this.chartMode : 'measurements',
-                    this.channel.id,
-                ].join('_');
+                ]
+                    .filter(p => !!p)
+                    .join('_');
             },
             exportFields() {
                 let fncDescriptor = this.channel.functionId;
