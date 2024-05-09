@@ -16,7 +16,7 @@
                 type="submit"
                 @click="agree()">
                 <i class="pe-7s-check"></i>
-                {{ $t('I aree, taske me to the app') }}
+                {{ $t('I agree, take me to the app') }}
             </button>
         </div>
     </loading-cover>
