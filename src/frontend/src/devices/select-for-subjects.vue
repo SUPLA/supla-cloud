@@ -11,6 +11,10 @@
     export default {
         props: {
             options: Array,
+            optionGroups: {
+                type: Array,
+                default: () => [],
+            },
             value: [Object, Array],
             choosePromptI18n: String,
             noneOption: Boolean,
@@ -24,6 +28,10 @@
                 type: Function,
                 default: (option) => `<div>${option.fullCaption}</div>`,
             },
+            maxOptions: {
+                type: Number,
+                default: 50,
+            }
         },
         data() {
             return {
@@ -41,8 +49,10 @@
                         valueField: 'id',
                         labelField: 'fullCaption',
                         searchField: 'fullCaption',
+                        optgroupField: 'group',
                         hideSelected: !this.doNotHideSelected,
                         maxItems: this.multiple ? null : 1,
+                        maxOptions: this.maxOptions,
                         onInitialize: () => this.syncDropdown(),
                         render: {
                             option: (option, escape) => {
@@ -84,6 +94,8 @@
             syncDropdown() {
                 if (this.dropdown) {
                     this.dropdown.clearOptions();
+                    this.dropdown.clearOptionGroups();
+                    this.optionGroups.forEach(({id, labelI18n}) => this.dropdown.addOptionGroup(id, {label: this.$t(labelI18n)}));
                     this.dropdown.settings.placeholder = this.$t(this.choosePromptI18n);
                     this.dropdown.inputState();
                     if (this.options && this.options.length) {
