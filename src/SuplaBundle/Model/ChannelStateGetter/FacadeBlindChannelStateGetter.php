@@ -14,6 +14,8 @@ use SuplaBundle\Supla\SuplaServerIsDownException;
  *      @OA\Property(property="shut", type="integer", maximum=100, minimum=0),
  *      @OA\Property(property="tiltPercent", type="integer", maximum=100, minimum=0),
  *      @OA\Property(property="tiltAngle", type="integer"),
+ *      @OA\Property(property="isCalibrating", type="boolean"),
+ *      @OA\Property(property="notCalibrated", type="boolean"),
  *  )
  */
 class FacadeBlindChannelStateGetter implements SingleChannelStateGetter {
@@ -29,6 +31,8 @@ class FacadeBlindChannelStateGetter implements SingleChannelStateGetter {
         }
         [$shutPercent, $tiltPercent, $tiltAngle] = array_map('intval', $values);
         return [
+            'isCalibrating' => $shutPercent == -1,
+            'notCalibrated' => $shutPercent == -1,
             'shut' => $shutPercent,
             'tiltPercent' => $tiltPercent,
             'tiltAngle' => $tiltAngle,

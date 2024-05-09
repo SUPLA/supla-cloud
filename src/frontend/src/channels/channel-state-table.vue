@@ -36,19 +36,19 @@
             <dd>{{ $t('Brightness') }}</dd>
             <dt>{{ currentState.brightness }}%</dt>
         </dl>
-        <dl v-if="currentState.is_calibrating">
+        <dl v-if="currentState.isCalibrating">
             <dd>{{ $t('Calibration') }}</dd>
             <dt></dt>
         </dl>
-        <dl v-if="!currentState.is_calibrating && currentState.shut !== undefined">
+        <dl v-if="!currentState.isCalibrating && currentState.shut !== undefined">
             <dd>{{ $t('Percentage of closing') }}</dd>
             <dt>{{ currentState.shut }}%</dt>
         </dl>
-        <dl v-if="!currentState.is_calibrating && currentState.tiltPercent !== undefined && channel.config?.tiltingTimeS > 0">
+        <dl v-if="!currentState.isCalibrating && currentState.tiltPercent !== undefined && channel.config?.tiltingTimeS > 0">
             <dd>{{ $t('Tilt percent') }}</dd>
             <dt>{{ currentState.tiltPercent }}%</dt>
         </dl>
-        <dl v-if="!currentState.is_calibrating && currentState.tiltAngle !== undefined">
+        <dl v-if="!currentState.isCalibrating && currentState.tiltAngle !== undefined">
             <dd>{{ $t('Tilt angle') }}</dd>
             <dt v-if="channel.config?.tiltingTimeS > 0">{{ currentState.tiltAngle }}&deg;</dt>
             <dt v-else>{{ $t('configuration missing') }}</dt>
