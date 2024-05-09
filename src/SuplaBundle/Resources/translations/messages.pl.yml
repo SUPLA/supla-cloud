@@ -233,7 +233,6 @@ Configuration: Konfiguracja
 Configuration not available yet. Waiting for the device to connect.: Konfiguracja jeszcze nie jest dostępna. Poczekaj, aż urządzenie się podłączy.
 Confirm My Account: Potwierdzam Moje Konto
 Confirm Password: Potwierdzenie hasła
-Confirm if you want to perform the roller shutter calibration.: Potwierdź przeprowadzenie kalibracji modułu.
 Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Identyfikatora Dostępu
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.
 Confirm if you want to remove {deviceName} device and all of its channels.: Potwierdź, że chcesz usunąć urządzenie {deviceName} i wszystkie jego kanały.
@@ -1433,6 +1432,7 @@ Chart data source type: Rodzaj źródła danych
 Chart mode: Typ wykresu
 Chosen hour: Wybrana godzina
 Coming Soon: Dostępne wkrótce
+Confirm if you want to perform the roller shutter calibration.: Potwierdź przeprowadzenie kalibracji modułu.
 Confirm if you want to remove {deviceName} device: Potwierdź chęć usunięcia urządzenia {deviceName}
 Copy channel state: Powiel stan kanału
 Could not perform the calibration.: Nie udało się przeprowadzić kalibracji.
@@ -1508,5 +1508,31 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+0% tilt angle: Kąt nachylenia 0%
+100% tilt angle: Kąt nachylenia 100%
+Additional time margin: Dodatkowy margines czasu
+Buttons upside down: Odwrócone przyciski
+Change percentage by: Zmień procent o
+Change percentage to: Zmień procent do
+Change tilt by: Zmień nachylenie o
+Change tilt to: Zmień nachylenie do
+Common currencies: Najczęściej wybierane waluty
+Confirm if you want to perform the calibration.: Potwierdź chęć wykonania kalibracji.
+Facade blind operation: Żaluzje fasadowe
+Full tilting time: Pełny czas zmiany nachylenia
+Motor upside down: Silnik odwrócony
+Tilt angle: Kąt nachylenia
+Tilt control type: Typ sterowania nachyleniem
+Tilt percent: Procent nachylenia
+Use device default: Użyj domyślnej wartości urządzenia
+When the facade blind position changes: Gdy żaluzja fasadowa zmienia pozycję
+When the facade blind reaches: Gdy żaluzja fasadowa osiąga
+When the facade blind reaches a certain position: Gdy żaluzja fasadowa osiąga określoną pozycję
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Możesz ustawić tutaj wartości względne. Przykładowo +10 lub -20 odpowiednio zwiększy ustawienie o 10 lub zmniejszy o 20.
+configuration missing: brak konfiguracji
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Zmienia pozycję w trakcie zmiany przechylenia
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Nie zmienia pozycji w trakcie zmiany przechylenia
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Zmienia przechylenie tylko gdy jest w pełni zamknięte
+tiltControlType_UNKNOWN: Nieznany
 
 #</editor-fold>
