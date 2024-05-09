@@ -1,20 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" id="Layer_1" x="0" y="0"
-     style="enable-background:new 0 0 512 512" version="1.1" viewBox="0 0 512 512"><style>.st0{fill:none;stroke:#000;stroke-width:13.1464;stroke-miterlimit:10}.st3{clip-path:url(#SVGID_2_)}.st5,.st7{stroke:#000;stroke-miterlimit:10}.st5{clip-path:url(#SVGID_2_);fill:none;stroke-width:12}.st7{stroke-width:7.2083}</style>
-    <path d="M482.6 67.1H32.2c-2.2 0-4-1.8-4-4v-43c0-2.2 1.8-4 4-4h450.4c2.2 0 4 1.8 4 4v43c0 2.3-1.8 4-4 4zM481.7 141.7H31.3c-2.2 0-4-1.8-4-4v-43c0-2.2 1.8-4 4-4h450.4c2.2 0 4 1.8 4 4v43c0 2.2-1.8 4-4 4z"
-          class="st0"/>
-    <path d="M-695.8 44h428v54.6h-428z" style="fill:none"/>
-    <defs><path id="SVGID_1_" d="M16.2 136.1H492v335H16.2z"/></defs>
-    <clipPath id="SVGID_2_"><use xlink:href="#SVGID_1_" style="overflow:visible"/></clipPath>
-    <path id="XMLID_13_" d="M48.8 38.9c-2.7 133.3 0 268.5-1.1 403.1"
-          style="clip-path:url(#SVGID_2_);fill:none;stroke:#000;stroke-width:9.1952;stroke-miterlimit:10"/>
-    <g id="XMLID_2_" class="st3"><path id="XMLID_31_" d="M470 439.8c0 5.1-4.1 9.2-9.2 9.2H56.2c-5.1 0-9.2-4.1-9.2-9.2V35.2c0-5.1 4.1-9.2 9.2-9.2h404.6c5.1 0 9.2 4.1 9.2 9.2v404.6z" style="fill:none;stroke:#000;stroke-width:13.7928;stroke-miterlimit:10"/></g>
-    <path id="XMLID_32_" d="M73.6 52.9h168.1V221H73.6z" class="st5"/>
-    <path id="XMLID_1_" d="M273.9 52H442v168.1H273.9z" class="st5"/>
-    <path id="XMLID_5_" d="M74.3 253.9h168.1V422H74.3z" class="st5"/>
-    <path id="XMLID_4_" d="M274.6 253h168.1v168.1H274.6z" class="st5"/>
-    <path id="XMLID_8_" d="M310.5 124.8c5.2-25.5 27.8-44.7 54.9-44.7 30.9 0 56 25.1 56 56s-25.1 56-56 56c-10.2 0-19.8-2.7-28.1-7.5"
-          style="clip-path:url(#SVGID_2_);fill:none;stroke:#000;stroke-width:14;stroke-miterlimit:10"/>
-    <g id="XMLID_7_" class="st3"><path id="XMLID_9_" d="M227.3 180.4c-.6-.4-1.1-.9-1.6-1.4-7.2-6.8-8.7-17.7-2.7-26.1 1.3-1.8 2.8-3.3 4.4-4.6v-8.8c-2.3 1.1-4.4 2.5-6.4 4.3-6.4 6-9.4 13.3-8.9 22.1.6 10.3 5.6 17.7 14.5 22.8.3.2.5.3.8.4v-8.7h-.1z" class="st7"/>
-        <path id="XMLID_12_"
-              d="M354.9 150.9c-1.5-8.4-5.9-15.3-12.7-20.5-6.1-4.6-12.9-7-20.6-7.1-3.6 0-7.1.5-10.6 1.5-.8.2-1.3.3-1.6-.7-2.1-6.1-5.5-11.3-10.2-15.6-2.6-2.3-5.4-4.3-8.5-5.7-.7-.3-1.3-.6-2-.8v8.3c1.7.9 3.3 2 4.9 3.3 5.7 4.6 8.8 10.8 10 17.9l.3 1.5c.6 2.7.7 2.8 3.1 1.6 4.4-2.2 9-3.8 13.9-3.9 4.5 0 9 .9 13 3.2 7.2 4.1 11.9 10.1 13.6 18.3 1.8 8.5-.3 16-5.8 22.7-3.9 4.8-9 7.7-15 9.1-1.6.4-3.1.6-4.7.6h-33.3v7.6h31.1c2.9 0 5.8-.2 8.5-.8 7.2-1.6 13.4-5 18.4-10.6 7.7-8.8 10.1-18.9 8.2-29.9z"
-              class="st7"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 512 512">
+    <path fill="#00000000" stroke="#1F211F" stroke-linejoin="round" stroke-width="20" d="M11 32h490v56H11zM27 88h458l16 56H11l16-56Z"/>
+    <path fill="#00000000" stroke="#1F211F" stroke-linecap="round" stroke-width="19" d="M68 88v23.25M444 88v23.25"/>
+    <path fill="#00000000" stroke="#1F211F" stroke-width="20"
+          d="M40 144h432a4 4 0 0 1 4 4v318a4 4 0 0 1-4 4H40a4 4 0 0 1-4-4V148a4 4 0 0 1 4-4z"/>
+    <path fill="#00000000" stroke="#1F211F" stroke-linejoin="round" stroke-width="20" d="M80 144h156v286H80zM276 144h156v286H276z"/>
+</svg>

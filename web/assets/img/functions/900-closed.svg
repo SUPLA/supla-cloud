@@ -1,15 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" id="Layer_1" x="0" y="0"
-     style="enable-background:new 0 0 512 512" version="1.1" viewBox="0 0 512 512"><style>.st0{fill:none;stroke:#000;stroke-width:13.1464;stroke-miterlimit:10}</style>
-    <path d="M482.6 67.1H32.2c-2.2 0-4-1.8-4-4v-43c0-2.2 1.8-4 4-4h450.4c2.2 0 4 1.8 4 4v43c0 2.3-1.8 4-4 4z" class="st0"/>
-    <path d="M-695.8 44h428v54.6h-428z" style="fill:none"/>
-    <defs><path id="SVGID_1_" d="M16.2 366.2H492V471H16.2z"/></defs>
-    <clipPath id="SVGID_2_"><use xlink:href="#SVGID_1_" style="overflow:visible"/></clipPath>
-    <path id="XMLID_13_" d="M48.8 37.5c-2.7 133.7 0 269.3-1.1 404.4"
-          style="clip-path:url(#SVGID_2_);fill:none;stroke:#000;stroke-width:9.1952;stroke-miterlimit:10"/>
-    <g id="XMLID_2_" style="clip-path:url(#SVGID_2_)"><path id="XMLID_31_" d="M470 439.7c0 5.1-4.1 9.2-9.2 9.2H56.2c-5.1 0-9.2-4.1-9.2-9.2V33.8c0-5.1 4.1-9.2 9.2-9.2h404.6c5.1 0 9.2 4.1 9.2 9.2v405.9z" style="fill:none;stroke:#000;stroke-width:13.7928;stroke-miterlimit:10"/></g>
-    <path id="XMLID_5_" d="M74.3 253.2h168.1v168.6H74.3z"
-          style="clip-path:url(#SVGID_2_);stroke:#000;stroke-width:12;stroke-miterlimit:10"/>
-    <path id="XMLID_4_" d="M274.6 252.3h168.1v168.6H274.6z"
-          style="clip-path:url(#SVGID_2_);fill:#070707;stroke:#000;stroke-width:12;stroke-miterlimit:10"/>
-    <path d="M482.6 144.1H32.2c-2.2 0-4-1.8-4-4v-43c0-2.2 1.8-4 4-4h450.4c2.2 0 4 1.8 4 4v43c0 2.3-1.8 4-4 4zM481.7 218.7H31.3c-2.2 0-4-1.8-4-4v-43c0-2.2 1.8-4 4-4h450.4c2.2 0 4 1.8 4 4v43c0 2.2-1.8 4-4 4zM481.7 293.7H31.3c-2.2 0-4-1.8-4-4v-43c0-2.2 1.8-4 4-4h450.4c2.2 0 4 1.8 4 4v43c0 2.2-1.8 4-4 4zM482.7 367.7H32.3c-2.2 0-4-1.8-4-4v-43c0-2.2 1.8-4 4-4h450.4c2.2 0 4 1.8 4 4v43c0 2.2-1.8 4-4 4z"
-          class="st0"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 512 512">
+    <path fill="#00000000" stroke="#1F211F" stroke-linejoin="round" stroke-width="20"
+          d="M11 32h490v56H11zM27 88h458l16 56H11l16-56ZM27 144h458l16 56H11l16-56ZM27 200h458l16 56H11l16-56ZM27 256h458l16 56H11l16-56ZM27 312h458l16 56H11l16-56ZM27 368h458l16 56H11l16-56ZM27 424h458l16 56H11l16-56Z"/>
+    <path fill="#00000000" stroke="#1F211F" stroke-linecap="round" stroke-width="19"
+          d="M68 88v23.25M444 88v23.25M68 143.25v24M444 143.25v24M68 199.25v24M444 199.25v24M68 255.25v24M444 255.25v24M68 311.25v24M444 311.25v24M68 367.25v24M444 367.25v24M68 423.25v24M444 423.25v24"/>
+</svg>
