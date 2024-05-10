@@ -204,6 +204,21 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(Response::HTTP_OK, $response);
     }
 
+    public function testCanAuthenticateWebappIfTooManyRequestsGlobal() {
+        $client = $this->getClientWithToken();
+        $this->setGlobalApiRateLimit($client->getContainer(), '5/1000');
+        for ($i = 0; $i < 5; $i++) {
+            $client->apiRequestV24('GET', '/api/locations');
+            $response = $client->getResponse();
+            $this->assertStatusCode(200, $response);
+        }
+        self::ensureKernelShutdown();
+        $client = self::createClient(['debug' => false], ['HTTPS' => true]);
+        $client->apiRequestV24('POST', '/api/webapp-tokens', ['username' => 'supler@supla.org', 'password' => 'supla123']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(Response::HTTP_OK, $response);
+    }
+
     public function testCanReadHomePageIfTooManyRequestsGlobal() {
         $client = $this->getClientWithToken();
         $this->setGlobalApiRateLimit($client->getContainer(), '5/1000');

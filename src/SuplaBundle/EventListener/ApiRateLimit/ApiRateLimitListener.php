@@ -139,7 +139,7 @@ class ApiRateLimitListener {
         }
         $uri = $event->getRequest()->getRequestUri();
         if (substr($uri, 0, 5) === '/api/') {
-            return $uri !== '/api/server-status';
+            return !in_array($uri, ['/api/server-status', '/api/webapp-tokens']);
         }
         if (substr($uri, 0, 8) === '/direct/') {
             return true;
