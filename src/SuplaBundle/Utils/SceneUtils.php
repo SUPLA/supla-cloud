@@ -62,7 +62,8 @@ final class SceneUtils {
                 $delayFromWaiting = 0;
                 $operation->setDelayMs($totalDelay);
                 $totalExecutionTime += $totalDelay;
-                if ($operation->getSubjectType() == ActionableSubjectType::SCENE()) {
+                $isSceneSubject = $operation->getSubjectType() == ActionableSubjectType::SCENE();
+                if ($isSceneSubject && $operation->getAction() != ChannelFunctionAction::INTERRUPT()) {
                     /** @var Scene $executedScene */
                     $executedScene = $operation->getSubject();
                     $commandExecutionsCount += $executedScene->getCommandExecutionsCount();
@@ -95,9 +96,8 @@ final class SceneUtils {
     private static function getScenesThatUsesScene(Scene $currentScene): array {
         $dependentScenes = [];
         $currentScene->getOperationsThatReferToThisScene()
-            ->map(function (SceneOperation $sceneOperation) {
-                return $sceneOperation->getOwningScene();
-            })
+            ->filter(fn(SceneOperation $so) => $so->getAction() != ChannelFunctionAction::INTERRUPT())
+            ->map(fn(SceneOperation $so) => $so->getOwningScene())
             ->forAll(function (int $index, Scene $dependentScene) use (&$dependentScenes) {
                 $dependentScenes[$dependentScene->getId()] = $dependentScene;
                 return true;
