@@ -6,7 +6,9 @@
 ...open gateways, gates or doors: ...otworzyć furtkę, bramę lub drzwi
 ...or control home appliances: ...lub sterować sprzętem AGD/RTV
 ...you can monitor temperature: ...możesz monitorować temperaturę
+0% tilt angle: Kąt nachylenia 0%
 10 minutes before sunset, on day 10 of the month, May through August: 10 minut przed zachodem słońca, tylko 10. dnia miesiąca, od maja do sierpnia
+100% tilt angle: Kąt nachylenia 100%
 15 minutes after sunrise, every 2 days: 15 minut po wschodzie słońca, co drugi dzień
 A confirmation upon successful client app registration.: Potwierdzenie rejestracji nowej aplikacji klienckiej.
 A confirmation upon successful device registration.: Potwierdzenie pomyślnej rejestracji urządzenia.
@@ -54,6 +56,7 @@ Add action: Dodaj akcję
 Add first channel to set channel group function and save it: Wybierz pierwszy kanał by określić funkcję grupy i ją zapisać
 Add new channel group: Dodaj nową grupę kanałów
 Add new channel to this group: Dodaj nowy kanał do grupy
+Additional time margin: Dodatkowy margines czasu
 Adjust parameters: Ustaw parametry
 Adjust temperature: Ustaw temperaturę
 Adjust temperatures: Ustaw temperatury
@@ -149,6 +152,7 @@ Brightness: Jasność
 Brightness adjustment for automatic mode: Dostosowanie jasności trybu automatycznego
 Brightness level: Poziom jasności
 Button volume: Przycisk głośności
+Buttons upside down: Odwrócone sterowanie przyciskami
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Wyłączenie tej opcji umożliwi sterowanie tym urządzeniem z poziomu integracji bez dodatkowego potwierdzenia. To może prowadzić do niebezpiecznego lub mniej bezpiecznego stanu (np. przypadkowego otwarcia bramy).
 By signing in, you are authorizing {clientName} to control your devices.: Logując się, upoważniasz aplikację {clientName} do kontrolowania Twoich urządzeń.
 CLICK TO DISABLE: KLIKNIJ ABY WYŁĄCZYĆ
@@ -173,7 +177,11 @@ Change Password: Zmień hasło
 Change channel function: Zmień funkcję kanału
 Change function: Zmień funkcję
 Change icon: Zmień ikonę
+Change percentage by: Zmień procent o
+Change percentage to: Zmień procent do
 Change the password and log out: Zmień hasło i wyloguj się
+Change tilt by: Zmień nachylenie o
+Change tilt to: Zmień nachylenie do
 Changing channel’s function will also result in the following changes.: Zmiana funkcji kanału spowoduje także poniższe zmiany.
 Changing channel’s visibility will also change the visibility of other items.: Zmiana widoczności kanału zmieni także widoczność innych elementów.
 Changing the location will also imply changing the location of the following items.: Zmiana lokalizacji wpłynie także na jej zmianę dla poniższych elementów.
@@ -228,11 +236,13 @@ Color: Kolor
 Color brightness: Jasność koloru
 Comma: Przecinek
 Comment: Komentarz
+Common currencies: Najczęściej wybierane waluty
 Config of the schedule is too complicated.: Konfiguracja harmonogramu jest zbyt skomplikowana.
 Configuration: Konfiguracja
 Configuration not available yet. Waiting for the device to connect.: Konfiguracja jeszcze nie jest dostępna. Poczekaj, aż urządzenie się podłączy.
 Confirm My Account: Potwierdzam Moje Konto
 Confirm Password: Potwierdzenie hasła
+Confirm if you want to perform the calibration.: Potwierdź chęć wykonania kalibracji.
 Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Identyfikatora Dostępu
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.
 Confirm if you want to remove {deviceName} device and all of its channels.: Potwierdź, że chcesz usunąć urządzenie {deviceName} i wszystkie jego kanały.
@@ -375,6 +385,7 @@ Executions: Wykonania
 Expired: Przeterminowany
 Expires at: Wygasa
 External sensor disabling the thermostat: Zewnętrzny czujnik wyłączający termostat
+Facade blind operation: Żaluzje fasadowe
 Failed: Nieudane
 Failed (zombie): Nieudane (zombie)
 Fan: Wiatrak
@@ -402,6 +413,7 @@ From anywhere: Z każdego miejsca
 Full closing time: Całkowity czas zamknięcia
 Full documentation: Pełna dokumentacja
 Full opening time: Całkowity czas otwarcia
+Full tilting time: Całkowity czas zmiany nachylenia
 Function: Funkcja
 Function disabled: Funkcja wyłączona
 G5LA1A Relay: Przekaźnik G5LA1A
@@ -587,6 +599,7 @@ Mode: Tryb
 'Mode: off': 'Tryb: wyłączony'
 Modification: Modyfikacja
 Mondays: Poniedziałki
+Motor upside down: Odwrócone sterowanie silnikiem
 Move down or stop: W dół lub zatrzymaj
 Move up or stop: W górę lub zatrzymaj
 My OAuth apps: Moje aplikacje OAuth
@@ -953,6 +966,9 @@ This link is only valid for an hour.: Link będzie aktywny przez godzinę.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ten tryb harmonogramu jest zaprojektowany z myślą o technicznych lub bardzo cierpliwych użytkownikach. Wymaga on podania momentów wyzwalania harmonogramu w notacji crontab, wzbogaconej o kilka funkcjonalności spotykanych tylko w SUPLI. Jeśli nie spotkałeś/aś się wcześniej z crontabami a nadal chcesz użyć tego trybu, strona crontab.guru może się okazać dla Ciebie pomocna.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ten wyzwalacz jest używany lokalnie przez urządzenie (np. włącza światło, steruje roletą itd.) Jeśli przypiszesz mu inną akcję, to lokalna funkcja zostanie wyłączona.
 Thursdays: Czwartki
+Tilt angle: Kąt nachylenia
+Tilt control type: Rodzaj sterowania nachyleniem
+Tilt percent: Procent nachylenia
 Time: Czas
 Timezone: Strefa czasowa
 Title: Tytuł
@@ -987,6 +1003,7 @@ Until the next change: Do następnej zmiany
 Update in progress: Trwa aktualizacja
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Przesłane pliki nie naruszają dobrych obyczajów, praw autorskich oraz praw osób trzecich, a ja mam prawo z nich korzystać.
 Upper voltage threshold: Próg wysokiego napięcia
+Use device default: Użyj domyślnej wartości z urządzenia
 'Use the {0} server command to change this account''s limits. For example:': 'Aby zmienić limity dla tego konta, użyj komendy {0} na Twoim serwerze. Na przykład:'
 Use working schedule for this access identifier: Używaj harmonogramu dostępności dla tego identyfikatora dostępu
 Use working schedule for this reaction: Używaj harmonogramu aktywności dla tej reakcji
@@ -1069,6 +1086,9 @@ When the door will be opened or closed: Kiedy drzwi zostaną zamknięte lub otwa
 When the electricity meter reaches a certain value: Kiedy licznik energii osiągnie określoną wartość
 When the electricity meter value changes: Kiedy wartość licznika energii elektrycznej się zmieni
 When the electricity meter value will be: Kiedy wartość licznika energii będzie
+When the facade blind position changes: Gdy żaluzja fasadowa zmienia pozycję
+When the facade blind reaches: Gdy żaluzja fasadowa osiąga
+When the facade blind reaches a certain position: Gdy żaluzja fasadowa osiąga określoną pozycję
 When the forward active energy will be: Kiedy pobrana energia czynna będzie
 When the garage door will be closed: Kiedy brama garażowa zostanie zamknięta
 When the garage door will be opened: Kiedy brama garażowa zostanie otwarta
@@ -1158,6 +1178,7 @@ YOUR LINK CODE: KOD TWOJEGO LINKU
 You are changing the settings too quickly. You have to wait a while before making this change.: Zmieniasz ustawienia zbyt szybko. Musisz chwilę odczekać przed zmianą tych ustawień.
 You can browse only the most recent logs now. Wait a while for the full history.: Aktualnie wyświetlane są tylko najnowsze pomiary. Poczekaj chwilę na pobranie całej historii.
 You can ignore this message, if you have accidentally entered an incorrect password.: Możesz zignorować tę wiadomość jeżeli to Ty wprowadziłeś(aś) błędne hasło.
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Możesz ustawić tutaj wartości względne. Przykładowo +10 lub -20 odpowiednio zwiększy ustawienie o 10 lub zmniejszy o 20.
 You can use the application but you will not be able to modify any settings.: Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.
 You cannot delete your last access identifier.: Nie możesz usunąć swojego ostatniego identyfikatora dostępu.
 You cannot delete your last location.: Nie możesz usunąć swojej ostatniej lokalizacji.
@@ -1260,6 +1281,7 @@ choose the scene: wybierz scenę
 choose the schedule: wybierz harmonogram
 choose the timezone: wybierz strefę czasową
 click here: kliknij tutaj
+configuration missing: brak konfiguracji
 contains a character that is neither a letter nor a digit: zawiera znak, który nie jest literą ani cyfrą
 contains a digit: zawiera cyfrę
 contains lower and upper letters: zawiera małe i duże litery
@@ -1386,6 +1408,13 @@ thermostatTemperature_heatProtection: Temperatura ochrony przed przegrzaniem
 thermostatTemperature_histeresis: Histereza
 this month: bieżący miesiąc
 this year: bieżący rok
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Zmienia pozycję w trakcie zmiany nachylenia
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Nie zmienia pozycji w trakcie zmiany nachylenia
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Zmienia nachylenie tylko gdy jest w pełni zamknięte
+tiltControlType_UNKNOWN: Nieznany
+timeMarginMode_custom: Niestandardowy
+timeMarginMode_device: Wartość domyślna z urządzenia
+timeMarginMode_off: Wyłączony
 today: dziś
 unknown: nieznany
 username: nazwa użytkownika
@@ -1508,31 +1537,5 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-0% tilt angle: Kąt nachylenia 0%
-100% tilt angle: Kąt nachylenia 100%
-Additional time margin: Dodatkowy margines czasu
-Buttons upside down: Odwrócone sterowanie przyciskami
-Change percentage by: Zmień procent o
-Change percentage to: Zmień procent do
-Change tilt by: Zmień nachylenie o
-Change tilt to: Zmień nachylenie do
-Common currencies: Najczęściej wybierane waluty
-Confirm if you want to perform the calibration.: Potwierdź chęć wykonania kalibracji.
-Facade blind operation: Żaluzje fasadowe
-Full tilting time: Całkowity czas zmiany nachylenia
-Motor upside down: Odwrócone sterowanie silnikiem
-Tilt angle: Kąt nachylenia
-Tilt control type: Rodzaj sterowania nachyleniem
-Tilt percent: Procent nachylenia
-Use device default: Użyj domyślnej wartości z urządzenia
-When the facade blind position changes: Gdy żaluzja fasadowa zmienia pozycję
-When the facade blind reaches: Gdy żaluzja fasadowa osiąga
-When the facade blind reaches a certain position: Gdy żaluzja fasadowa osiąga określoną pozycję
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Możesz ustawić tutaj wartości względne. Przykładowo +10 lub -20 odpowiednio zwiększy ustawienie o 10 lub zmniejszy o 20.
-configuration missing: brak konfiguracji
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: Zmienia pozycję w trakcie zmiany nachylenia
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Nie zmienia pozycji w trakcie zmiany nachylenia
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Zmienia nachylenie tylko gdy jest w pełni zamknięte
-tiltControlType_UNKNOWN: Nieznany
 
 #</editor-fold>
