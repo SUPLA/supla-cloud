@@ -218,3 +218,14 @@
     position: static;
   }
 }
+
+.btn-group-flex {
+  display: flex;
+  justify-content: center;
+  .btn {
+    white-space: normal !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

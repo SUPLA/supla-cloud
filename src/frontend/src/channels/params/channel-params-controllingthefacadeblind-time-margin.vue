@@ -1,12 +1,27 @@
 <template>
     <div>
-        <toggler v-model="enabled" :label="$t('Enabled')" @input="onChange()"
-            class="ml-3"/>
-        <toggler v-if="enabled" v-model="deviceSpecific" :label="$t('Use device default')" @input="onChange()"
-            class="ml-3"/>
+
+
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
+                data-toggle="dropdown">
+                {{ $t(`timeMarginMode_${timeMarginMode}`) }}
+                <span class="caret"></span>
+            </button>
+            <!-- i18n: ['timeMarginMode_off', 'timeMarginMode_device', 'timeMarginMode_custom'] -->
+            <ul class="dropdown-menu">
+                <li v-for="mode in ['off', 'device', 'custom']" :key="mode">
+                    <a @click="timeMarginMode = mode; onChange()"
+                        v-show="mode !== timeMarginMode">
+                        {{ $t(`timeMarginMode_${mode}`) }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+
         <transition-expand>
             <NumberInput v-model="timeMarginValue"
-                v-if="enabled && !deviceSpecific"
+                v-if="timeMarginMode === 'custom'"
                 :min="1" :max="100" suffix=" %"
                 class="form-control text-center mt-2"
                 @input="onChange()"/>
@@ -25,9 +40,8 @@
         },
         data() {
             return {
+                timeMarginMode: 'off',
                 timeMarginValue: 1,
-                deviceSpecific: true,
-                enabled: false,
             };
         },
         mounted() {
@@ -36,24 +50,20 @@
         methods: {
             initFromModel() {
                 if (this.value === 'DEVICE_SPECIFIC') {
-                    this.enabled = true;
-                    this.deviceSpecific = true;
+                    this.timeMarginMode = 'device';
                 } else if (this.value > 0) {
-                    this.enabled = true;
-                    this.deviceSpecific = false;
+                    this.timeMarginMode = 'custom';
                     this.timeMarginValue = this.value;
                 } else {
-                    this.enabled = false;
+                    this.timeMarginMode = 'off';
                 }
             },
             onChange() {
                 let value = 0;
-                if (this.enabled) {
-                    if (this.deviceSpecific) {
-                        value = 'DEVICE_SPECIFIC';
-                    } else {
-                        value = this.timeMarginValue;
-                    }
+                if (this.timeMarginMode === 'device') {
+                    value = 'DEVICE_SPECIFIC';
+                } else if (this.timeMarginMode === 'custom') {
+                    value = this.timeMarginValue;
                 }
                 this.$emit('input', value);
             }

@@ -46,13 +46,3 @@
         }
     };
 </script>
-
-<style lang="scss">
-    .btn-group-flex {
-        display: flex;
-        justify-content: center;
-        .btn {
-            white-space: normal !important;
-        }
-    }
-</style>
