@@ -22,10 +22,17 @@ use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * Move openingTime (param1) and closingTime (param3) to user_config for roller shutters.
+ * Add a procedure to expand the list of channel functions.
  */
 class Version20240415113159 extends NoWayBackMigration {
     public function migrate() {
         $this->moveOpeningAndClosingTimeToUserConfigForRollerShutters();
+        $this->addSql(<<<PROCEDURE
+CREATE PROCEDURE `supla_update_channel_functions`(IN `_channel_id` INT, IN `_user_id` INT, IN `_flist` INT)
+    NO SQL
+UPDATE supla_dev_channel SET flist = IFNULL(flist, 0) | IFNULL(_flist, 0) WHERE id = _channel_id AND user_id = _user_id
+PROCEDURE
+        );
     }
 
     private function moveOpeningAndClosingTimeToUserConfigForRollerShutters() {
