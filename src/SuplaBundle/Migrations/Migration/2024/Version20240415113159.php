@@ -27,6 +27,7 @@ use SuplaBundle\Migrations\NoWayBackMigration;
 class Version20240415113159 extends NoWayBackMigration {
     public function migrate() {
         $this->moveOpeningAndClosingTimeToUserConfigForRollerShutters();
+        $this->addSql('DROP PROCEDURE IF EXISTS `supla_update_channel_functions`');
         $this->addSql(<<<PROCEDURE
 CREATE PROCEDURE `supla_update_channel_functions`(IN `_channel_id` INT, IN `_user_id` INT, IN `_flist` INT)
     NO SQL
