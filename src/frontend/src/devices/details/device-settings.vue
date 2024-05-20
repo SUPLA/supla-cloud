@@ -184,6 +184,7 @@
                 } else {
                     this.config.screenBrightness.level = 50;
                 }
+                this.onChange();
             },
             onChange() {
                 this.hasPendingChanges = true;
