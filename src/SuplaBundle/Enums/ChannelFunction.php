@@ -94,6 +94,11 @@ use UnexpectedValueException;
  * @method static ChannelFunction DIGIGLASS_VERTICAL()
  * @method static ChannelFunction DIGIGLASS_HORIZONTAL()
  * @method static ChannelFunction CONTROLLINGTHEFACADEBLIND()
+ * @method static ChannelFunction TERRACE_AWNING()
+ * @method static ChannelFunction PROJECTOR_SCREEN()
+ * @method static ChannelFunction CURTAIN()
+ * @method static ChannelFunction VERTICAL_BLIND()
+ * @method static ChannelFunction ROLLER_GARAGE_DOOR()
  */
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
@@ -154,6 +159,11 @@ final class ChannelFunction extends Enum {
     const DIGIGLASS_HORIZONTAL = 800;
     const DIGIGLASS_VERTICAL = 810;
     const CONTROLLINGTHEFACADEBLIND = 900;
+    const TERRACE_AWNING = 910;
+    const PROJECTOR_SCREEN = 920;
+    const CURTAIN = 930;
+    const VERTICAL_BLIND = 940;
+    const ROLLER_GARAGE_DOOR = 950;
 
     private $unsupportedFunctionId;
 
@@ -372,6 +382,11 @@ final class ChannelFunction extends Enum {
             self::DIGIGLASS_VERTICAL => [
                 ChannelFunctionAction::SET(),
             ],
+            self::TERRACE_AWNING => [],
+            self::PROJECTOR_SCREEN => [],
+            self::CURTAIN => [],
+            self::VERTICAL_BLIND => [],
+            self::ROLLER_GARAGE_DOOR => [],
         ];
     }
 
@@ -435,6 +450,11 @@ final class ChannelFunction extends Enum {
             self::ACTION_TRIGGER => 'Action trigger', // i18n
             self::DIGIGLASS_VERTICAL => 'Digi Glass Vertical', // i18n
             self::DIGIGLASS_HORIZONTAL => 'Digi Glass Horizontal', // i18n
+            self::TERRACE_AWNING => 'Terrace awning', // i18n
+            self::PROJECTOR_SCREEN => 'Projector screen', // i18n
+            self::CURTAIN => 'Curtain', // i18n
+            self::VERTICAL_BLIND => 'Vertical blind', // i18n
+            self::ROLLER_GARAGE_DOOR => 'Roller garage door', // i18n
         ];
     }
 
@@ -518,6 +538,11 @@ final class ChannelFunction extends Enum {
             self::ACTION_TRIGGER => ['default'],
             self::DIGIGLASS_VERTICAL => ['revealed', 'shut'],
             self::DIGIGLASS_HORIZONTAL => ['revealed', 'shut'],
+            self::TERRACE_AWNING => ['default'],
+            self::PROJECTOR_SCREEN => ['default'],
+            self::CURTAIN => ['default'],
+            self::VERTICAL_BLIND => ['default'],
+            self::ROLLER_GARAGE_DOOR => ['default'],
         ];
     }
 

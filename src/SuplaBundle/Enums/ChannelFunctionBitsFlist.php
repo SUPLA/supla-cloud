@@ -39,6 +39,11 @@ final class ChannelFunctionBitsFlist extends ChannelFunctionBits {
     const HVAC_THERMOSTAT_HEAT_COOL = 1 << 18;
     const HVAC_THERMOSTAT_DIFFERENTIAL = 1 << 19;
     const HVAC_DOMESTIC_HOT_WATER = 1 << 20;
+    const TERRACE_AWNING = 1 << 21;
+    const PROJECTOR_SCREEN = 1 << 22;
+    const CURTAIN = 1 << 23;
+    const VERTICAL_BLIND = 1 << 24;
+    const ROLLER_GARAGE_DOOR = 1 << 25;
 
     public static function getSupportedFunctions(int $functionList): array {
         return array_map(function (ChannelFunctionBitsFlist $bit) {
