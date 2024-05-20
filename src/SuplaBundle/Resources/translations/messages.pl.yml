@@ -151,7 +151,7 @@ Bridge: Most
 Brightness: Jasność
 Brightness adjustment for automatic mode: Dostosowanie jasności trybu automatycznego
 Brightness level: Poziom jasności
-Button volume: Przycisk głośności
+Button volume: Głośność przycisku
 Buttons upside down: Odwrócone sterowanie przyciskami
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Wyłączenie tej opcji umożliwi sterowanie tym urządzeniem z poziomu integracji bez dodatkowego potwierdzenia. To może prowadzić do niebezpiecznego lub mniej bezpiecznego stanu (np. przypadkowego otwarcia bramy).
 By signing in, you are authorizing {clientName} to control your devices.: Logując się, upoważniasz aplikację {clientName} do kontrolowania Twoich urządzeń.
