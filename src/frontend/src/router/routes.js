@@ -152,6 +152,11 @@ export default [
                 name: 'channel.thermostatPrograms',
             },
             {
+                path: 'ocr-settings',
+                component: () => import(/*webpackChunkName:"channel-ocr-settings"*/ "@/channels/ocr/ocr-settings-tab.vue"),
+                name: 'channel.ocrSettings',
+            },
+            {
                 path: 'action-triggers',
                 component: () => import("@/channels/action-trigger/channel-action-triggers"),
                 name: 'channel.actionTriggers',

@@ -124,6 +124,17 @@
                         header: 'Voltage aberrations', // i18n
                     });
                 }
+                const ocrSettingsFunctions = [
+                    ChannelFunction.IC_WATERMETER,
+                    ChannelFunction.IC_HEATMETER,
+                    ChannelFunction.IC_GASMETER,
+                ];
+                if (ocrSettingsFunctions.includes(this.channel.functionId)) {
+                    this.availableTabs.push({
+                        route: 'channel.ocrSettings',
+                        header: 'OCR Settings', // i18n
+                    });
+                }
             },
         },
         mounted() {
