@@ -27,7 +27,7 @@ use SuplaBundle\Migrations\NoWayBackMigration;
 class Version20240607174322 extends NoWayBackMigration {
     public function migrate() {
         $this->addSql('ALTER TABLE supla_iodevice ADD channel_addition_blocked TINYINT(1) DEFAULT \'0\' NOT NULL');
-        $this->addSql('ALTER TABLE supla_dev_channel ADD sub_device_id INT DEFAULT \'0\' NOT NULL');
+        $this->addSql('ALTER TABLE supla_dev_channel ADD sub_device_id SMALLINT NOT NULL DEFAULT \'0\' NOT NULL');
         $this->addSql('ALTER TABLE supla_dev_channel ADD conflict_details VARCHAR(256) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }

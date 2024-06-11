@@ -224,7 +224,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     private $properties;
 
     /**
-     * @ORM\Column(name="sub_device_id", type="integer", nullable=false, options={"default"=0})
+     * @ORM\Column(name="sub_device_id", type="smallint", nullable=false, options={"default"=0, "unsigned"=true})
      */
     private $subDeviceId = 0;
 
