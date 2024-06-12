@@ -24,6 +24,7 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  * Add a sub device id column for grouping devices.
  * Add a column containing the channel conflict detail in JSON format.
  * Modify the supla_update_iodevice procedure so that it clears conflict details and allows re-adding channels.
+ * Add procedure supla_update_channel_conflict_details
  */
 class Version20240607174322 extends NoWayBackMigration {
     public function migrate() {
@@ -57,5 +58,8 @@ UPDATE `supla_dev_channel` SET conflict_details = NULL WHERE `iodevice_id` = _id
 END
 PROCEDURE
         );
+
+        $this->addSql('DROP PROCEDURE IF EXISTS `supla_update_channel_conflict_details`');
+        $this->addSql('CREATE PROCEDURE `supla_update_channel_conflict_details`(IN `_iodevice_id` INT, IN `_channel_number` INT, IN `_details` VARCHAR(256) CHARSET utf8mb4) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER UPDATE `supla_dev_channel` SET `conflict_details` = _details WHERE `iodevice_id` = _iodevice_id AND `channel_number` = _channel_number');
     }
 }
