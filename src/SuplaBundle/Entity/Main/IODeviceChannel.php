@@ -355,6 +355,11 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
             ChannelFunction::CONTROLLINGTHEROOFWINDOW,
             ChannelFunction::CONTROLLINGTHEFACADEBLIND,
+            ChannelFunction::TERRACE_AWNING,
+            ChannelFunction::PROJECTOR_SCREEN,
+            ChannelFunction::CURTAIN,
+            ChannelFunction::ROLLER_GARAGE_DOOR,
+            ChannelFunction::VERTICAL_BLIND,
         ];
         if (in_array($this->function, $stepByStepChannels)
             && ChannelFunctionBitsFlags::ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS()->isSupported($this->flags)) {

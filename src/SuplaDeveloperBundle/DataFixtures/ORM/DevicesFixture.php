@@ -27,8 +27,8 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
-use SuplaBundle\Enums\ChannelFunctionBitsFlist;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags as Flags;
+use SuplaBundle\Enums\ChannelFunctionBitsFlist as Functions;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\IoDeviceFlags;
 use SuplaBundle\Tests\AnyFieldSetter;
@@ -91,7 +91,7 @@ class DevicesFixture extends SuplaFixture {
 
     protected function createDeviceSonoff(Location $location): IODevice {
         $device = $this->createDevice('SONOFF-DS', $location, [
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH]],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
             [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
         ], self::DEVICE_SONOFF);
@@ -103,12 +103,12 @@ class DevicesFixture extends SuplaFixture {
 
     protected function createDeviceFull(Location $location, $name = 'UNI-MODULE'): IODevice {
         $device = $this->createDevice($name, $location, [
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH]],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, ['funcList' => Functions::getAllFeaturesFlag()]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => Functions::getAllFeaturesFlag()]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, [
-                'funcList' => ChannelFunctionBitsFlist::CONTROLLINGTHEROLLERSHUTTER,
-                'flags' => ChannelFunctionBitsFlags::RECALIBRATE_ACTION_AVAILABLE,
+                'funcList' => Functions::CONTROLLINGTHEROLLERSHUTTER,
+                'flags' => Flags::RECALIBRATE_ACTION_AVAILABLE,
                 'userConfig' => json_encode([
                     'timeMargin' => -1,
                     'motorUpsideDown' => false,
@@ -116,7 +116,7 @@ class DevicesFixture extends SuplaFixture {
                 ]),
             ]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEFACADEBLIND, [
-                'funcList' => ChannelFunctionBitsFlist::CONTROLLINGTHEFACADEBLIND | ChannelFunctionBitsFlist::CONTROLLINGTHEROLLERSHUTTER,
+                'funcList' => Functions::CONTROLLINGTHEFACADEBLIND | Functions::CONTROLLINGTHEROLLERSHUTTER,
                 'userConfig' => json_encode([
                     'tiltControlType' => 'STANDS_IN_POSITION_WHILE_TILTING',
                     'timeMargin' => -1,
@@ -128,8 +128,8 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
             [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
-            [ChannelType::BRIDGE, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag(), 'flags' => ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE]],
-            [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER, ['flags' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE]],
+            [ChannelType::BRIDGE, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => Functions::getAllFeaturesFlag(), 'flags' => Flags::AUTO_CALIBRATION_AVAILABLE]],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER, ['flags' => Flags::RESET_COUNTERS_ACTION_AVAILABLE]],
             [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
         ], self::DEVICE_FULL);
         $at = $device->getChannels()[10];
@@ -147,7 +147,7 @@ class DevicesFixture extends SuplaFixture {
         });
         $channels = array_values(array_map(function (ChannelType $type) {
             return array_map(function (ChannelFunction $function) use ($type) {
-                return [$type->getValue(), $function->getValue()];
+                return [$type->getValue(), $function->getValue(), $this->getDefaultChannelConfig($function)];
             }, ChannelType::functions()[$type->getValue()]);
         }, $functionableTypes));
         $channels = call_user_func_array('array_merge', $channels);
@@ -167,7 +167,7 @@ class DevicesFixture extends SuplaFixture {
             $channels[] = [
                 ChannelType::RELAY,
                 ChannelFunction::CONTROLLINGTHEGATE,
-                ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()],
+                ['funcList' => Functions::getAllFeaturesFlag()],
             ];
         }
         return $this->createDevice('OH-MY-GATES. This device also has ridiculously long name!', $location, $channels, 'gatesDevice');
@@ -202,7 +202,7 @@ class DevicesFixture extends SuplaFixture {
                 ChannelType::HVAC,
                 ChannelFunction::HVAC_THERMOSTAT,
                 [
-                    'funcList' => ChannelFunctionBitsFlist::HVAC_THERMOSTAT | ChannelFunctionBitsFlist::HVAC_DOMESTIC_HOT_WATER,
+                    'funcList' => Functions::HVAC_THERMOSTAT | Functions::HVAC_DOMESTIC_HOT_WATER,
                     'properties' => json_encode([
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],
                         'temperatures' => [
@@ -253,7 +253,7 @@ class DevicesFixture extends SuplaFixture {
                 ChannelType::HVAC,
                 ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
                 [
-                    'funcList' => ChannelFunctionBitsFlist::HVAC_THERMOSTAT_HEAT_COOL,
+                    'funcList' => Functions::HVAC_THERMOSTAT_HEAT_COOL,
                     'properties' => json_encode([
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE'],
                         'temperatures' => [
@@ -306,8 +306,8 @@ class DevicesFixture extends SuplaFixture {
                 ChannelType::HVAC,
                 ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
                 [
-                    'funcList' => ChannelFunctionBitsFlist::HVAC_THERMOSTAT_HEAT_COOL | ChannelFunctionBitsFlist::HVAC_DOMESTIC_HOT_WATER |
-                        ChannelFunctionBitsFlist::HVAC_THERMOSTAT | ChannelFunctionBitsFlist::HVAC_THERMOSTAT_DIFFERENTIAL,
+                    'funcList' => Functions::HVAC_THERMOSTAT_HEAT_COOL | Functions::HVAC_DOMESTIC_HOT_WATER |
+                        Functions::HVAC_THERMOSTAT | Functions::HVAC_THERMOSTAT_DIFFERENTIAL,
                     'properties' => json_encode([
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],
                         'temperatures' => [
@@ -418,7 +418,7 @@ class DevicesFixture extends SuplaFixture {
                         'fillMissingData' => true,
                         'counterType' => 'ALWAYS_INCREMENT',
                     ]),
-                    'flags' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE,
+                    'flags' => Flags::RESET_COUNTERS_ACTION_AVAILABLE,
                 ],
             ],
             [
@@ -458,7 +458,7 @@ class DevicesFixture extends SuplaFixture {
 
     public function createDeviceLocked(Location $location): IODevice {
         $device = $this->createDevice('LOCKED-DEVICE', $location, [
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH]],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
         ]);
         AnyFieldSetter::set($device, ['flags' => IoDeviceFlags::DEVICE_LOCKED | IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE]);
@@ -529,5 +529,28 @@ class DevicesFixture extends SuplaFixture {
         if ($channelProperties) {
             EntityUtils::setField($channel, 'properties', json_encode($channelProperties));
         }
+    }
+
+    private function getDefaultChannelConfig(ChannelFunction $function): array {
+        $configs = [
+            ChannelFunction::VERTICAL_BLIND => [
+                'funcList' => Functions::CONTROLLINGTHEFACADEBLIND | Functions::VERTICAL_BLIND,
+                'userConfig' => json_encode([
+                    'tiltControlType' => 'STANDS_IN_POSITION_WHILE_TILTING',
+                    'timeMargin' => -1,
+                    'motorUpsideDown' => false,
+                    'buttonsUpsideDown' => false,
+                ]),
+            ],
+            ChannelFunction::PROJECTOR_SCREEN => [
+                'funcList' => Functions::PROJECTOR_SCREEN | Functions::TERRACE_AWNING,
+                'flags' => Flags::RECALIBRATE_ACTION_AVAILABLE | Flags::ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS | Flags::AUTO_CALIBRATION_AVAILABLE,
+                'userConfig' => json_encode([
+                    'timeMargin' => -1,
+                    'buttonsUpsideDown' => false,
+                ]),
+            ],
+        ];
+        return $configs[$function->getId()] ?? [];
     }
 }

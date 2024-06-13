@@ -45,7 +45,7 @@ class LogItemsFixture extends SuplaFixture {
     /** @var Generator */
     private $faker;
 
-    const SINCE = '-40 day';
+    const SINCE = '-14 day';
 
     public function __construct(ManagerRegistry $doctrine) {
         $this->faker = Factory::create('pl_PL');

@@ -72,6 +72,10 @@
             ChannelParamsOpeningsensorGaragedoor,
             ChannelParamsOpeningsensorWindow,
             ChannelParamsControllingtherollershutter,
+            ChannelParamsTerraceAwning: ChannelParamsControllingtherollershutter,
+            ChannelParamsProjectorScreen: ChannelParamsControllingtherollershutter,
+            ChannelParamsCurtain: ChannelParamsControllingtherollershutter,
+            ChannelParamsRollerGarageDoor: ChannelParamsControllingtherollershutter,
             ChannelParamsControllingtheroofwindow,
             ChannelParamsStaircasetimer,
             ChannelParamsThermometer,
@@ -94,6 +98,7 @@
             ChannelParamsHvacThermostatHeatCool,
             ChannelParamsHvacDomesticHotWater,
             ChannelParamsControllingthefacadeblind,
+            ChannelParamsVerticalBlind: ChannelParamsControllingthefacadeblind,
         },
         computed: {
             additionalChannelParamsComponent() {

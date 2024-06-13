@@ -223,7 +223,7 @@ final class ChannelFunction extends Enum {
     }
 
     public static function actions(): array {
-        return [
+        $actions = [
             self::CONTROLLINGTHEGATEWAYLOCK => [ChannelFunctionAction::OPEN()],
             self::CONTROLLINGTHEDOORLOCK => [ChannelFunctionAction::OPEN()],
             self::CONTROLLINGTHEGATE => [
@@ -382,12 +382,13 @@ final class ChannelFunction extends Enum {
             self::DIGIGLASS_VERTICAL => [
                 ChannelFunctionAction::SET(),
             ],
-            self::TERRACE_AWNING => [],
-            self::PROJECTOR_SCREEN => [],
-            self::CURTAIN => [],
-            self::VERTICAL_BLIND => [],
-            self::ROLLER_GARAGE_DOOR => [],
         ];
+        $actions[self::TERRACE_AWNING] = $actions[self::CONTROLLINGTHEROLLERSHUTTER];
+        $actions[self::PROJECTOR_SCREEN] = $actions[self::CONTROLLINGTHEROLLERSHUTTER];
+        $actions[self::CURTAIN] = $actions[self::CONTROLLINGTHEROLLERSHUTTER];
+        $actions[self::ROLLER_GARAGE_DOOR] = $actions[self::CONTROLLINGTHEROLLERSHUTTER];
+        $actions[self::VERTICAL_BLIND] = $actions[self::CONTROLLINGTHEFACADEBLIND];
+        return $actions;
     }
 
     public static function captions(): array {

@@ -79,7 +79,7 @@
                 </span>
             </dt>
         </dl>
-        <dl>
+        <dl v-if="channel.config.openingSensorChannelId !== undefined">
             <dd>{{ $t('Opening sensor') }}</dd>
             <dt>
                 <channels-id-dropdown :params="channelsDropdownFilter"

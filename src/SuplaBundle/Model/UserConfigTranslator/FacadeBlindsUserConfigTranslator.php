@@ -74,6 +74,7 @@ class FacadeBlindsUserConfigTranslator extends UserConfigTranslator {
     public function supports(HasUserConfig $subject): bool {
         return in_array($subject->getFunction()->getId(), [
             ChannelFunction::CONTROLLINGTHEFACADEBLIND,
+            ChannelFunction::VERTICAL_BLIND,
         ]);
     }
 }

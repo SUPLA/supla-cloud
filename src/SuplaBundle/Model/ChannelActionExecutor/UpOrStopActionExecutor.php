@@ -19,6 +19,11 @@ class UpOrStopActionExecutor extends SingleChannelActionExecutor {
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(),
             ChannelFunction::CONTROLLINGTHEROOFWINDOW(),
             ChannelFunction::CONTROLLINGTHEFACADEBLIND(),
+            ChannelFunction::TERRACE_AWNING(),
+            ChannelFunction::PROJECTOR_SCREEN(),
+            ChannelFunction::CURTAIN(),
+            ChannelFunction::ROLLER_GARAGE_DOOR(),
+            ChannelFunction::VERTICAL_BLIND(),
         ];
     }
 
