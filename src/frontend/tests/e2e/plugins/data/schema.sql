@@ -232,38 +232,40 @@ DROP TABLE IF EXISTS `supla_dev_channel`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `supla_dev_channel`
 (
-    `id`             int(11) NOT NULL AUTO_INCREMENT,
-    `iodevice_id`    int(11) NOT NULL,
-    `user_id`        int(11) NOT NULL,
-    `channel_number` int(11) NOT NULL,
-    `caption`     varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
-    `type`           int(11) NOT NULL,
-    `func`           int(11) NOT NULL,
-    `flist`          int(11) DEFAULT NULL,
-    `param1`         int(11) NOT NULL,
-    `param2`         int(11) NOT NULL,
-    `param3`         int(11) NOT NULL,
-    `text_param1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
-    `text_param2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
-    `text_param3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
-    `alt_icon`       int(11) DEFAULT NULL,
-    `hidden`         tinyint(1) NOT NULL DEFAULT '0',
-    `location_id`    int(11) DEFAULT NULL,
-    `flags`       bigint(20) unsigned DEFAULT NULL,
-    `user_icon_id`   int(11) DEFAULT NULL,
-    `user_config` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `param4`         int(11) NOT NULL DEFAULT '0',
-    `properties`  varchar(2048) COLLATE utf8_unicode_ci                          DEFAULT NULL,
+    `id`               int(11) NOT NULL AUTO_INCREMENT,
+    `iodevice_id`      int(11) NOT NULL,
+    `user_id`          int(11) NOT NULL,
+    `channel_number`   int(11) NOT NULL,
+    `caption`          varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `type`             int(11) NOT NULL,
+    `func`             int(11) NOT NULL,
+    `flist`            int(11) DEFAULT NULL,
+    `param1`           int(11) NOT NULL,
+    `param2`           int(11) NOT NULL,
+    `param3`           int(11) NOT NULL,
+    `text_param1`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `text_param2`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `text_param3`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `alt_icon`         int(11) DEFAULT NULL,
+    `hidden`           tinyint(1) NOT NULL DEFAULT '0',
+    `location_id`      int(11) DEFAULT NULL,
+    `flags`            bigint(20) unsigned DEFAULT NULL,
+    `user_icon_id`     int(11) DEFAULT NULL,
+    `user_config`      varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `param4`           int(11) NOT NULL DEFAULT '0',
+    `properties`       varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `sub_device_id`    smallint(5) unsigned NOT NULL DEFAULT '0',
+    `conflict_details` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQUE_CHANNEL` (`iodevice_id`,`channel_number`),
-    KEY              `IDX_81E928C9125F95D6` (`iodevice_id`),
-    KEY              `IDX_81E928C9A76ED395` (`user_id`),
-    KEY              `IDX_81E928C964D218E` (`location_id`),
-    KEY              `IDX_81E928C9CB4C938` (`user_icon_id`),
-    KEY              `supla_dev_channel_param1_idx` (`param1`),
-    KEY              `supla_dev_channel_param2_idx` (`param2`),
-    KEY              `supla_dev_channel_param3_idx` (`param3`),
-    KEY              `supla_dev_channel_param4_idx` (`param4`),
+    KEY                `IDX_81E928C9125F95D6` (`iodevice_id`),
+    KEY                `IDX_81E928C9A76ED395` (`user_id`),
+    KEY                `IDX_81E928C964D218E` (`location_id`),
+    KEY                `IDX_81E928C9CB4C938` (`user_icon_id`),
+    KEY                `supla_dev_channel_param1_idx` (`param1`),
+    KEY                `supla_dev_channel_param2_idx` (`param2`),
+    KEY                `supla_dev_channel_param3_idx` (`param3`),
+    KEY                `supla_dev_channel_param4_idx` (`param4`),
     CONSTRAINT `FK_81E928C9125F95D6` FOREIGN KEY (`iodevice_id`) REFERENCES `supla_iodevice` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_81E928C964D218E` FOREIGN KEY (`location_id`) REFERENCES `supla_location` (`id`),
     CONSTRAINT `FK_81E928C9A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`),
@@ -596,31 +598,32 @@ DROP TABLE IF EXISTS `supla_iodevice`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `supla_iodevice`
 (
-    `id`                   int(11) NOT NULL AUTO_INCREMENT,
-    `location_id`          int(11) NOT NULL,
-    `user_id`              int(11) NOT NULL,
-    `guid`                 varbinary(16) NOT NULL,
-    `name`                 varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `enabled`              tinyint(1) NOT NULL,
-    `comment`              varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `reg_date`             datetime                            NOT NULL COMMENT '(DC2Type:utcdatetime)',
-    `reg_ipv4`             int(10) unsigned DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
-    `last_connected`       datetime                                                      DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
-    `last_ipv4`            int(10) unsigned DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
-    `software_version`     varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-    `protocol_version`     int(11) NOT NULL,
-    `original_location_id` int(11) DEFAULT NULL,
-    `auth_key`             varchar(64) COLLATE utf8_unicode_ci                           DEFAULT NULL,
-    `flags`                int(11) DEFAULT NULL,
-    `manufacturer_id`      smallint(6) DEFAULT NULL,
-    `product_id`           smallint(6) DEFAULT NULL,
-    `user_config`          varchar(4096) COLLATE utf8_unicode_ci                         DEFAULT NULL,
-    `properties`           varchar(2048) COLLATE utf8_unicode_ci                         DEFAULT NULL,
+    `id`                       int(11) NOT NULL AUTO_INCREMENT,
+    `location_id`              int(11) NOT NULL,
+    `user_id`                  int(11) NOT NULL,
+    `guid`                     varbinary(16) NOT NULL,
+    `name`                     varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `enabled`                  tinyint(1) NOT NULL,
+    `comment`                  varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `reg_date`                 datetime NOT NULL COMMENT '(DC2Type:utcdatetime)',
+    `reg_ipv4`                 int(10) unsigned DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
+    `last_connected`           datetime                                                       DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `last_ipv4`                int(10) unsigned DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
+    `software_version`         varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci   DEFAULT NULL,
+    `protocol_version`         int(11) NOT NULL,
+    `original_location_id`     int(11) DEFAULT NULL,
+    `auth_key`                 varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci   DEFAULT NULL,
+    `flags`                    int(11) DEFAULT NULL,
+    `manufacturer_id`          smallint(6) DEFAULT NULL,
+    `product_id`               smallint(6) DEFAULT NULL,
+    `user_config`              varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `properties`               varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `channel_addition_blocked` tinyint(1) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQUE_USER_GUID` (`user_id`,`guid`),
-    KEY                    `IDX_793D49D64D218E` (`location_id`),
-    KEY                    `IDX_793D49DA76ED395` (`user_id`),
-    KEY                    `IDX_793D49DF142C1A4` (`original_location_id`),
+    KEY                        `IDX_793D49D64D218E` (`location_id`),
+    KEY                        `IDX_793D49DA76ED395` (`user_id`),
+    KEY                        `IDX_793D49DF142C1A4` (`original_location_id`),
     CONSTRAINT `FK_793D49D64D218E` FOREIGN KEY (`location_id`) REFERENCES `supla_location` (`id`),
     CONSTRAINT `FK_793D49DA76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`),
     CONSTRAINT `FK_793D49DF142C1A4` FOREIGN KEY (`original_location_id`) REFERENCES `supla_location` (`id`)
@@ -1168,15 +1171,19 @@ DROP TABLE IF EXISTS `supla_user_icons`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `supla_user_icons`
 (
-    `id`      int(11) NOT NULL AUTO_INCREMENT,
-    `user_id` int(11) NOT NULL,
-    `func`    int(11) NOT NULL,
-    `image1`  longblob NOT NULL,
-    `image2`  longblob,
-    `image3`  longblob,
-    `image4`  longblob,
+    `id`          int(11) NOT NULL AUTO_INCREMENT,
+    `user_id`     int(11) NOT NULL,
+    `func`        int(11) NOT NULL,
+    `image1`      longblob NOT NULL,
+    `image2`      longblob,
+    `image3`      longblob,
+    `image4`      longblob,
+    `image_dark1` longblob,
+    `image_dark2` longblob,
+    `image_dark3` longblob,
+    `image_dark4` longblob,
     PRIMARY KEY (`id`),
-    KEY       `IDX_27B32ACA76ED395` (`user_id`),
+    KEY           `IDX_27B32ACA76ED395` (`user_id`),
     CONSTRAINT `FK_EEB07467A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1433,14 +1440,14 @@ CREATE TABLE `supla_value_based_trigger`
     `scene_id`             int(11) DEFAULT NULL,
     `schedule_id`          int(11) DEFAULT NULL,
     `push_notification_id` int(11) DEFAULT NULL,
-    `trigger`             varchar(2048) COLLATE utf8_unicode_ci DEFAULT NULL,
+    `trigger`             varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `action`               int(11) NOT NULL,
-    `action_param`        varchar(255) COLLATE utf8_unicode_ci  DEFAULT NULL,
+    `action_param`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
     `enabled`              tinyint(1) NOT NULL DEFAULT '1',
-    `active_from`         datetime                              DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
-    `active_to`           datetime                              DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
-    `active_hours`        varchar(768) COLLATE utf8_unicode_ci  DEFAULT NULL,
-    `activity_conditions` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
+    `active_from`         datetime                                                       DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `active_to`           datetime                                                       DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `active_hours`        varchar(768) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `activity_conditions` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY                    `IDX_1DFF99CAA76ED395` (`user_id`),
     KEY                    `IDX_1DFF99CA13740A2` (`owning_channel_id`),
@@ -1473,7 +1480,7 @@ CREATE TABLE `supla_value_based_trigger`
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER;;
 CREATE
-DEFINER=`root`@`%` FUNCTION `supla_current_weekday_hour`(`user_timezone` VARCHAR(50)) RETURNS varchar(3) CHARSET latin1
+DEFINER=`root`@`%` FUNCTION `supla_current_weekday_hour`(`user_timezone` VARCHAR(50)) RETURNS varchar(3) CHARSET utf8 COLLATE utf8_unicode_ci
 BEGIN
             DECLARE
 current_weekday INT;
@@ -1625,12 +1632,12 @@ DELIMITER ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER ;;
 CREATE
-DEFINER=`root`@`%` PROCEDURE `supla_add_channel`(IN `_type` INT, IN `_func` INT, IN `_param1` INT, IN `_param2` INT, IN `_param3` INT, IN `_user_id` INT, IN `_channel_number` INT, IN `_iodevice_id` INT, IN `_flist` INT, IN `_flags` INT, IN `_alt_icon` INT)
+DEFINER=`root`@`%` PROCEDURE `supla_add_channel`(IN `_type` INT, IN `_func` INT, IN `_param1` INT, IN `_param2` INT, IN `_param3` INT, IN `_user_id` INT, IN `_channel_number` INT, IN `_iodevice_id` INT, IN `_flist` INT, IN `_flags` INT, IN `_alt_icon` INT, IN `_sub_device_id` SMALLINT UNSIGNED)
     NO SQL
 BEGIN
 INSERT INTO `supla_dev_channel` (`type`, `func`, `param1`, `param2`, `param3`, `user_id`, `channel_number`, `iodevice_id`, `flist`, `flags`,
-                                 `alt_icon`)
-VALUES (_type, _func, _param1, _param2, _param3, _user_id, _channel_number, _iodevice_id, _flist, _flags, _alt_icon);
+                                 `alt_icon`, `sub_device_id`)
+VALUES (_type, _func, _param1, _param2, _param3, _user_id, _channel_number, _iodevice_id, _flist, _flags, _alt_icon, _sub_device_id);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -2559,12 +2566,13 @@ DELIMITER;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER;;
 CREATE
-DEFINER=`root`@`%` PROCEDURE `supla_set_channel_caption`(IN `_user_id` INT, IN `_channel_id` INT, IN `_caption` VARCHAR(100) CHARSET utf8mb4)
+DEFINER=`root`@`%` PROCEDURE `supla_set_channel_caption`(IN `_user_id` INT, IN `_channel_id` INT, IN `_caption` VARCHAR(100) CHARSET utf8mb4, IN `_only_when_not_null` BIT)
     NO SQL
 UPDATE supla_dev_channel
 SET caption = _caption
 WHERE id = _channel_id
-  AND user_id = _user_id;;
+  AND user_id = _user_id
+  AND (caption IS NULL OR _only_when_not_null = 0);;
 DELIMITER;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -2801,7 +2809,7 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `supla_update_channel_extended_value` */;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_update_channel_conflict_details` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -2809,6 +2817,27 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER ;;
+CREATE
+DEFINER=`root`@`%` PROCEDURE `supla_update_channel_conflict_details`(IN `_iodevice_id` INT, IN `_channel_number` INT, IN `_details` VARCHAR(256) CHARSET utf8mb4)
+UPDATE `supla_dev_channel`
+SET `conflict_details` = _details
+WHERE `iodevice_id` = _iodevice_id
+  AND `channel_number` = _channel_number;;
+DELIMITER;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_update_channel_extended_value` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+DELIMITER;;
 CREATE
 DEFINER=`root`@`%` PROCEDURE `supla_update_channel_extended_value`(
     IN `_id` INT,
@@ -2853,6 +2882,27 @@ DEFINER=`root`@`%` PROCEDURE `supla_update_channel_flags`(IN `_channel_id` INT, 
     NO SQL
 UPDATE supla_dev_channel
 SET flags = IFNULL(flags, 0) | IFNULL(_flags, 0)
+WHERE id = _channel_id AND user_id = _user_id;;
+DELIMITER;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_update_channel_functions` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+DELIMITER;;
+CREATE
+DEFINER=`root`@`%` PROCEDURE `supla_update_channel_functions`(IN `_channel_id` INT, IN `_user_id` INT, IN `_flist` INT)
+    NO SQL
+UPDATE supla_dev_channel
+SET flist = IFNULL(flist, 0) | IFNULL(_flist, 0)
 WHERE id = _channel_id AND user_id = _user_id;;
 DELIMITER;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -3039,9 +3089,7 @@ DELIMITER ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER ;;
 CREATE
-DEFINER=`root`@`%` PROCEDURE `supla_update_iodevice`(IN `_name` VARCHAR(100) CHARSET utf8mb4, IN `_last_ipv4` INT(10) UNSIGNED,
-  IN `_software_version` VARCHAR(20) CHARSET utf8, IN `_protocol_version` INT(11), IN `_original_location_id` INT(11),
-  IN `_auth_key` VARCHAR(64) CHARSET utf8, IN `_id` INT(11), IN `_flags` INT(11))
+DEFINER=`root`@`%` PROCEDURE `supla_update_iodevice`(IN `_name` VARCHAR(100) CHARSET utf8mb4, IN `_last_ipv4` INT(10) UNSIGNED, IN `_software_version` VARCHAR(20) CHARSET utf8, IN `_protocol_version` INT(11), IN `_original_location_id` INT(11), IN `_auth_key` VARCHAR(64) CHARSET utf8, IN `_id` INT(11), IN `_flags` INT(11))
     NO SQL
 BEGIN
 UPDATE `supla_iodevice`
@@ -3051,8 +3099,10 @@ SET `name`               = _name,
     `software_version`   = _software_version,
     `protocol_version`   = _protocol_version,
     original_location_id = _original_location_id,
-    `flags`              = IFNULL(`flags`, 0) | IFNULL(_flags, 0)
+    `flags` = IFNULL(`flags`, 0) | IFNULL(_flags, 0),
+channel_addition_blocked = 0
 WHERE `id` = _id;
+
 IF
 _auth_key IS NOT NULL THEN
 UPDATE `supla_iodevice`
@@ -3060,6 +3110,12 @@ SET `auth_key` = _auth_key
 WHERE `id` = _id
   AND `auth_key` IS NULL;
 END IF;
+
+UPDATE `supla_dev_channel`
+SET conflict_details = NULL
+WHERE `iodevice_id` = _id
+  AND conflict_details IS NOT NULL;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -3307,4 +3363,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-12 22:29:18
+-- Dump completed on 2024-06-13 16:50:01
