@@ -42,6 +42,7 @@ class FacadeBlindChannelStateGetter implements SingleChannelStateGetter {
     public function supportedFunctions(): array {
         return [
             ChannelFunction::CONTROLLINGTHEFACADEBLIND(),
+            ChannelFunction::VERTICAL_BLIND(),
         ];
     }
 }

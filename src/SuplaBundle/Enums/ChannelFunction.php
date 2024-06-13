@@ -539,11 +539,11 @@ final class ChannelFunction extends Enum {
             self::ACTION_TRIGGER => ['default'],
             self::DIGIGLASS_VERTICAL => ['revealed', 'shut'],
             self::DIGIGLASS_HORIZONTAL => ['revealed', 'shut'],
-            self::TERRACE_AWNING => ['default'],
-            self::PROJECTOR_SCREEN => ['default'],
-            self::CURTAIN => ['default'],
-            self::VERTICAL_BLIND => ['default'],
-            self::ROLLER_GARAGE_DOOR => ['default'],
+            self::TERRACE_AWNING => ['revealed', 'shut'],
+            self::PROJECTOR_SCREEN => ['revealed', 'shut'],
+            self::CURTAIN => ['revealed', 'shut'],
+            self::VERTICAL_BLIND => ['revealed', 'shut'],
+            self::ROLLER_GARAGE_DOOR => ['revealed', 'shut'],
         ];
     }
 

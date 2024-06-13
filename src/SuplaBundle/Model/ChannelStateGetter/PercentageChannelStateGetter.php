@@ -33,6 +33,10 @@ class PercentageChannelStateGetter implements SingleChannelStateGetter {
     public function supportedFunctions(): array {
         return [
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(),
+            ChannelFunction::TERRACE_AWNING(),
+            ChannelFunction::PROJECTOR_SCREEN(),
+            ChannelFunction::CURTAIN(),
+            ChannelFunction::ROLLER_GARAGE_DOOR(),
         ];
     }
 }
