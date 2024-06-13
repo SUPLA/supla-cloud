@@ -254,6 +254,22 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::STOP(),
                 ChannelFunctionAction::COPY(),
             ],
+            self::PROJECTOR_SCREEN => [
+                ChannelFunctionAction::SHUT('Collapse'), // i18n
+                ChannelFunctionAction::REVEAL('Expand'), // i18n
+                ChannelFunctionAction::REVEAL_PARTIALLY('Expand partially'), // i18n
+                ChannelFunctionAction::SHUT_PARTIALLY('Collapse partially'), // i18n
+                ChannelFunctionAction::STOP(),
+                ChannelFunctionAction::COPY(),
+            ],
+            self::ROLLER_GARAGE_DOOR => [
+                ChannelFunctionAction::SHUT('Close'), // i18n
+                ChannelFunctionAction::REVEAL('Open'), // i18n
+                ChannelFunctionAction::REVEAL_PARTIALLY('Open partially'), // i18n
+                ChannelFunctionAction::SHUT_PARTIALLY('Close partially'), // i18n
+                ChannelFunctionAction::STOP(),
+                ChannelFunctionAction::COPY(),
+            ],
             self::CONTROLLINGTHEROOFWINDOW => [
                 ChannelFunctionAction::SHUT(),
                 ChannelFunctionAction::REVEAL(),
@@ -383,10 +399,8 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::SET(),
             ],
         ];
-        $actions[self::TERRACE_AWNING] = $actions[self::CONTROLLINGTHEROLLERSHUTTER];
-        $actions[self::PROJECTOR_SCREEN] = $actions[self::CONTROLLINGTHEROLLERSHUTTER];
+        $actions[self::TERRACE_AWNING] = $actions[self::PROJECTOR_SCREEN];
         $actions[self::CURTAIN] = $actions[self::CONTROLLINGTHEROLLERSHUTTER];
-        $actions[self::ROLLER_GARAGE_DOOR] = $actions[self::CONTROLLINGTHEROLLERSHUTTER];
         $actions[self::VERTICAL_BLIND] = $actions[self::CONTROLLINGTHEFACADEBLIND];
         return $actions;
     }

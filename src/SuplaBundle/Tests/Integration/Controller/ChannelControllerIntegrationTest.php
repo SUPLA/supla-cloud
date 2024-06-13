@@ -73,6 +73,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::NONE],
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEFACADEBLIND],
+            [ChannelType::RELAY, ChannelFunction::PROJECTOR_SCREEN],
         ]);
         $this->createDevice($this->location, [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
@@ -138,6 +139,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('ownSubjectType', $content);
         $this->assertArrayNotHasKey('param1', $content);
         $this->assertArrayHasKey('config', $content);
+        $this->assertArrayHasKey('possibleActions', $content);
+        $this->assertEquals('Toggle', $content['possibleActions'][2]['caption']);
         $this->assertEquals(ActionableSubjectType::CHANNEL, $content['ownSubjectType']);
     }
 
@@ -192,7 +195,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertCount(8, $content);
+        $this->assertCount(count($this->device->getChannels()) + 2 - 4, $content);
     }
 
     public function testFilteringByInput() {
@@ -253,7 +256,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertCount(10, $content);
+        $this->assertCount(count($this->device->getChannels()), $content);
     }
 
     public function testGettingChannelsWithDeviceLocationsV24() {
@@ -1497,5 +1500,25 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $at = $this->freshEntity($at);
         $this->assertFalse($at->hasInheritedLocation());
         $this->assertEquals($location->getId(), $at->getLocation()->getId());
+    }
+
+    public function testTranslatesPossibleActionCaptionForProjectorScreen() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $rollerShutter = $this->device->getChannels()[3];
+        $projectorScreen = $this->device->getChannels()[10];
+        $client->apiRequestV3('GET', '/api/channels/' . $rollerShutter->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $rollerShutterContent = json_decode($response->getContent(), true);
+        $this->assertEquals(ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, $rollerShutterContent['functionId']);
+        $client->apiRequestV3('GET', '/api/channels/' . $projectorScreen->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $projectorScreenContent = json_decode($response->getContent(), true);
+        $this->assertEquals(ChannelFunction::PROJECTOR_SCREEN, $projectorScreenContent['functionId']);
+        $this->assertArrayHasKey('possibleActions', $rollerShutterContent);
+        $this->assertArrayHasKey('possibleActions', $projectorScreenContent);
+        $this->assertEquals('Shut', $rollerShutterContent['possibleActions'][0]['caption']);
+        $this->assertEquals('Collapse', $projectorScreenContent['possibleActions'][0]['caption']);
     }
 }

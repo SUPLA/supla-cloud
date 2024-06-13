@@ -363,9 +363,10 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         ];
         if (in_array($this->function, $stepByStepChannels)
             && ChannelFunctionBitsFlags::ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS()->isSupported($this->flags)) {
+            $isCollapseExpand = in_array($this->function, [ChannelFunction::PROJECTOR_SCREEN, ChannelFunction::TERRACE_AWNING]);
             $actions = array_merge($actions, [
-                ChannelFunctionAction::UP_OR_STOP(),
-                ChannelFunctionAction::DOWN_OR_STOP(),
+                ChannelFunctionAction::UP_OR_STOP($isCollapseExpand ? 'Collapse or stop' : null), // i18n
+                ChannelFunctionAction::DOWN_OR_STOP($isCollapseExpand ? 'Expand or stop' : null), // i18n
                 ChannelFunctionAction::STEP_BY_STEP(),
             ]);
         }

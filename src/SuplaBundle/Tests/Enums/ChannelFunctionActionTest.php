@@ -37,6 +37,15 @@ class ChannelFunctionActionTest extends TestCase {
         $this->assertEquals(ChannelFunctionAction::OPEN_CLOSE(), ChannelFunctionAction::fromString('open-close'));
     }
 
+    public function testCanSetCustomCaption() {
+        $this->assertEquals('Unicornify', ChannelFunctionAction::SHUT('Unicornify')->getCaption());
+    }
+
+    public function testUsesDefaultCaptionIfEmptyPassed() {
+        $this->assertEquals('Shut', ChannelFunctionAction::SHUT(null)->getCaption());
+        $this->assertEquals('Shut', ChannelFunctionAction::SHUT('')->getCaption());
+    }
+
     public function testGeneratingChannelFunctionActionMarkdownTableForDocs() {
         // https://github.com/SUPLA/supla-cloud/wiki/Channel-Actions
         $this->markTestSkipped('Only for docs');

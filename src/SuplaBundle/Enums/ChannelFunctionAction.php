@@ -41,10 +41,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunctionAction SET()
  * @method static ChannelFunctionAction OPEN()
  * @method static ChannelFunctionAction CLOSE()
- * @method static ChannelFunctionAction SHUT()
- * @method static ChannelFunctionAction REVEAL()
- * @method static ChannelFunctionAction REVEAL_PARTIALLY()
- * @method static ChannelFunctionAction SHUT_PARTIALLY()
+ * @method static ChannelFunctionAction SHUT(string $customCaption = '')
+ * @method static ChannelFunctionAction REVEAL(string $customCaption = '')
+ * @method static ChannelFunctionAction REVEAL_PARTIALLY(string $customCaption = '')
+ * @method static ChannelFunctionAction SHUT_PARTIALLY(string $customCaption = '')
  * @method static ChannelFunctionAction TURN_ON()
  * @method static ChannelFunctionAction TURN_ON_WITH_DURATION()
  * @method static ChannelFunctionAction TURN_OFF()
@@ -60,8 +60,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunctionAction TOGGLE()
  * @method static ChannelFunctionAction OPEN_PARTIALLY()
  * @method static ChannelFunctionAction CLOSE_PARTIALLY()
- * @method static ChannelFunctionAction UP_OR_STOP()
- * @method static ChannelFunctionAction DOWN_OR_STOP()
+ * @method static ChannelFunctionAction UP_OR_STOP(string $customCaption = '')
+ * @method static ChannelFunctionAction DOWN_OR_STOP(string $customCaption = '')
  * @method static ChannelFunctionAction STEP_BY_STEP()
  * @method static ChannelFunctionAction COPY()
  * @method static ChannelFunctionAction ENABLE()
@@ -112,6 +112,16 @@ final class ChannelFunctionAction extends Enum {
     const AT_FORWARD_OUTSIDE = 10000;
     const AT_DISABLE_LOCAL_FUNCTION = 10200;
 
+    private string $customCaption = '';
+
+    public static function __callStatic($name, $arguments) {
+        $instance = parent::__callStatic($name, $arguments);
+        if (count($arguments) === 1 && is_string($arguments[0]) && trim($arguments[0])) {
+            $instance->customCaption = $arguments[0];
+        }
+        return $instance;
+    }
+
     /** @Groups({"basic"}) */
     public function getId(): int {
         return $this->value;
@@ -129,7 +139,7 @@ final class ChannelFunctionAction extends Enum {
 
     /** @Groups({"basic"}) */
     public function getCaption(): string {
-        return self::captions()[$this->getValue()];
+        return $this->customCaption ?: self::captions()[$this->getValue()];
     }
 
     public static function captions(): array {
