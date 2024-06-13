@@ -2757,7 +2757,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-DELIMITER ;;
 CREATE DEFINER=`root`@`%` FUNCTION `supla_is_now_active`(
     `active_from` DATETIME,
     `active_to` DATETIME,
@@ -2780,8 +2779,7 @@ BEGIN
         INTO res;
     END IF;
     RETURN res;
-END ;;
-DELIMITER ;
+END;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;

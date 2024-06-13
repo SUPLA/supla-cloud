@@ -17,111 +17,14 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Migrations\Factory\ChannelDependenciesAware;
-use SuplaBundle\Migrations\Factory\EntityManagerAware;
 use SuplaBundle\Migrations\NoWayBackMigration;
-use SuplaBundle\Model\Dependencies\ChannelDependencies;
 
 /**
  * Ensure the related channels are in the same location.
+ * Migration has been moved to the initialization command.
+ * @see MoveDependentChannelsToTheSameLocationCommand
  */
-class Version20231103121340 extends NoWayBackMigration implements EntityManagerAware, ChannelDependenciesAware {
-    /** @var ChannelDependencies */
-    private $channelDependencies;
-    /** @var EntityManagerInterface */
-    private $em;
-
-    private const PARENT_FUNCTIONS = [
-        ChannelFunction::CONTROLLINGTHEGATEWAYLOCK,
-        ChannelFunction::CONTROLLINGTHEGATE,
-        ChannelFunction::CONTROLLINGTHEGARAGEDOOR,
-        ChannelFunction::CONTROLLINGTHEDOORLOCK,
-        ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
-        ChannelFunction::CONTROLLINGTHEROOFWINDOW,
-        ChannelFunction::POWERSWITCH,
-        ChannelFunction::LIGHTSWITCH,
-        ChannelFunction::STAIRCASETIMER,
-        ChannelFunction::HVAC_THERMOSTAT,
-        ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
-        ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
-        ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
-    ];
-
-    /** @required */
-    public function setChannelDependencies(ChannelDependencies $channelDependencies): void {
-        $this->channelDependencies = $channelDependencies;
-    }
-
-    public function setEntityManager(EntityManagerInterface $em): void {
-        $this->em = $em;
-    }
-
+class Version20231103121340 extends NoWayBackMigration {
     public function migrate() {
-        $parentFunctions = implode(',', self::PARENT_FUNCTIONS);
-        $channels = $this->fetchAll("SELECT id FROM supla_dev_channel WHERE func IN($parentFunctions)");
-        $changeLocationOperations = [];
-        foreach ($channels as $channelData) {
-            $channel = $this->em->find(IODeviceChannel::class, $channelData['id']);
-            $dependencies = $this->channelDependencies->getItemsThatDependOnLocation($channel);
-            if ($dependencies['channels']) {
-                $expectedLocationId = $channel->getLocation()->getId();
-                foreach ($dependencies['channels'] as $depChannel) {
-                    /** @var IODeviceChannel $depChannel */
-                    if ($depChannel->getLocation()->getId() !== $expectedLocationId) {
-                        $changeLocationOperations[$depChannel->getId()] = $this->changeLocationOperation($depChannel, $expectedLocationId);
-                    }
-                }
-            }
-        }
-        // make sure that everything is migrated
-        $channels = $this->fetchAll("SELECT id FROM supla_dev_channel WHERE func NOT IN($parentFunctions)");
-        foreach ($channels as $channelData) {
-            $channel = $this->em->find(IODeviceChannel::class, $channelData['id']);
-            $dependencies = $this->channelDependencies->getItemsThatDependOnLocation($channel);
-            if ($dependencies['channels']) {
-                $expectedLocationId = $channel->getLocation()->getId();
-                if (isset($changeLocationOperations[$channel->getId()])) {
-                    $expectedLocationId = $changeLocationOperations[$channel->getId()]['newId'];
-                }
-                foreach ($dependencies['channels'] as $depChannel) {
-                    /** @var IODeviceChannel $depChannel */
-                    if (in_array($depChannel->getFunction()->getId(), self::PARENT_FUNCTIONS)) {
-                        continue;
-                    }
-                    if ($depChannel->getLocation()->getId() !== $expectedLocationId) {
-                        $changeLocationOperation = $this->changeLocationOperation($depChannel, $expectedLocationId);
-                        $changeLocationOperation['WARNING'] = 'No parent function chosen for this relation.';
-                        $changeLocationOperations[$depChannel->getId()] = $changeLocationOperation;
-                    }
-                }
-            }
-        }
-        foreach ($changeLocationOperations as $channelId => $changeOperation) {
-            $log = sprintf(
-                'Moved channel ID=%d from location ID=%d to ID=%d.',
-                $channelId,
-                $changeOperation['oldId'],
-                $changeOperation['newId']
-            );
-            $this->log($log, $changeOperation);
-            $this->addSql('UPDATE supla_dev_channel SET location_id=:locationId WHERE id=:id', [
-                'id' => $channelId,
-                'locationId' => $changeOperation['newId'],
-            ]);
-        }
-    }
-
-    private function changeLocationOperation(IODeviceChannel $channel, int $newLocationId): array {
-        return [
-            'channelId' => $channel->getId(),
-            'oldId' => $channel->getLocation()->getId(),
-            'newId' => $newLocationId,
-            'functionId' => $channel->getFunction()->getId(),
-            'functionName' => $channel->getFunction()->getName(),
-            'revertSql' => "UPDATE supla_dev_channel SET location_id={$channel->getLocation()->getId()} WHERE id={$channel->getId()};",
-        ];
     }
 }
