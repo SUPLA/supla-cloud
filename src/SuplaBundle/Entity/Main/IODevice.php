@@ -174,7 +174,7 @@ class IODevice implements HasLocation, HasRelationsCount {
     private $properties;
 
     /**
-     * @ORM\Column(name="channel_addition_blocked", type="bool", nullable=false, options={"default"=false})
+     * @ORM\Column(name="channel_addition_blocked", type="boolean", nullable=false, options={"default"=false})
      */
     private $channelAdditionBlocked = false;
 
