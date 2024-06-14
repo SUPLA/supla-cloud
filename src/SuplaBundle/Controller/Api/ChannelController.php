@@ -143,7 +143,7 @@ class ChannelController extends RestController {
      *     @OA\Parameter(name="type", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(ref="#/components/schemas/ChannelTypeEnumNames"))),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Channel"))),
      * )
-     * @Rest\Get(name="channels_list")
+     * @Rest\Get("/channels", name="channels_list")
      * @Security("is_granted('ROLE_CHANNELS_R')")
      */
     public function getChannelsAction(Request $request) {
@@ -218,6 +218,7 @@ class ChannelController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
      * )
+     * @Rest\Get("/channels/{channel}")
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getChannelAction(Request $request, IODeviceChannel $channel) {

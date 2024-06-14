@@ -1519,6 +1519,6 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('possibleActions', $rollerShutterContent);
         $this->assertArrayHasKey('possibleActions', $projectorScreenContent);
         $this->assertEquals('Shut', $rollerShutterContent['possibleActions'][0]['caption']);
-        $this->assertEquals('Collapse', $projectorScreenContent['possibleActions'][0]['caption']);
+        $this->assertEquals('Expand', $projectorScreenContent['possibleActions'][0]['caption']);
     }
 }

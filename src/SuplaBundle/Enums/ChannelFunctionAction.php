@@ -41,10 +41,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunctionAction SET()
  * @method static ChannelFunctionAction OPEN()
  * @method static ChannelFunctionAction CLOSE()
- * @method static ChannelFunctionAction SHUT(string $customCaption = '')
- * @method static ChannelFunctionAction REVEAL(string $customCaption = '')
- * @method static ChannelFunctionAction REVEAL_PARTIALLY(string $customCaption = '')
- * @method static ChannelFunctionAction SHUT_PARTIALLY(string $customCaption = '')
+ * @method static ChannelFunctionAction SHUT()
+ * @method static ChannelFunctionAction REVEAL()
+ * @method static ChannelFunctionAction REVEAL_PARTIALLY()
+ * @method static ChannelFunctionAction SHUT_PARTIALLY()
  * @method static ChannelFunctionAction TURN_ON()
  * @method static ChannelFunctionAction TURN_ON_WITH_DURATION()
  * @method static ChannelFunctionAction TURN_OFF()
@@ -114,14 +114,6 @@ final class ChannelFunctionAction extends Enum {
 
     private string $customCaption = '';
 
-    public static function __callStatic($name, $arguments) {
-        $instance = parent::__callStatic($name, $arguments);
-        if (count($arguments) === 1 && is_string($arguments[0]) && trim($arguments[0])) {
-            $instance->customCaption = $arguments[0];
-        }
-        return $instance;
-    }
-
     /** @Groups({"basic"}) */
     public function getId(): int {
         return $this->value;
@@ -135,6 +127,51 @@ final class ChannelFunctionAction extends Enum {
     /** @Groups({"basic"}) */
     public function getNameSlug(): string {
         return (new Slugify())->slugify($this->getKey());
+    }
+
+    /** @param $functionId ChannelFunction|int */
+    public function withFunctionCaption($functionId): self {
+        $customCaptions = [
+            self::SHUT => [
+                ChannelFunction::PROJECTOR_SCREEN => 'Expand',
+                ChannelFunction::TERRACE_AWNING => 'Expand',
+                ChannelFunction::ROLLER_GARAGE_DOOR => 'Close',
+            ],
+            self::REVEAL => [
+                ChannelFunction::PROJECTOR_SCREEN => 'Collapse',
+                ChannelFunction::TERRACE_AWNING => 'Collapse',
+                ChannelFunction::ROLLER_GARAGE_DOOR => 'Open',
+            ],
+            self::REVEAL_PARTIALLY => [
+                ChannelFunction::PROJECTOR_SCREEN => 'Collapse partially',
+                ChannelFunction::TERRACE_AWNING => 'Collapse partially',
+                ChannelFunction::ROLLER_GARAGE_DOOR => 'Open partially',
+            ],
+            self::SHUT_PARTIALLY => [
+                ChannelFunction::PROJECTOR_SCREEN => 'Expand partially',
+                ChannelFunction::TERRACE_AWNING => 'Expand partially',
+                ChannelFunction::ROLLER_GARAGE_DOOR => 'Close partially',
+            ],
+            self::UP_OR_STOP => [
+                ChannelFunction::PROJECTOR_SCREEN => 'Collapse or stop',
+                ChannelFunction::TERRACE_AWNING => 'Collapse or stop',
+                ChannelFunction::VERTICAL_BLIND => 'Reveal or stop',
+                ChannelFunction::CONTROLLINGTHEFACADEBLIND => 'Reveal or stop',
+            ],
+            self::DOWN_OR_STOP => [
+                ChannelFunction::PROJECTOR_SCREEN => 'Expand or stop',
+                ChannelFunction::TERRACE_AWNING => 'Expand or stop',
+                ChannelFunction::VERTICAL_BLIND => 'Shut or stop',
+                ChannelFunction::CONTROLLINGTHEFACADEBLIND => 'Shut or stop',
+            ],
+        ];
+        if ($functionId instanceof ChannelFunction) {
+            $functionId = $functionId->getId();
+        }
+        if (isset($customCaptions[$this->value][$functionId])) {
+            $this->customCaption = $customCaptions[$this->value][$functionId];
+        }
+        return $this;
     }
 
     /** @Groups({"basic"}) */

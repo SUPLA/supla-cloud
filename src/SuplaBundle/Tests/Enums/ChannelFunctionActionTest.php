@@ -38,12 +38,11 @@ class ChannelFunctionActionTest extends TestCase {
     }
 
     public function testCanSetCustomCaption() {
-        $this->assertEquals('Unicornify', ChannelFunctionAction::SHUT('Unicornify')->getCaption());
+        $this->assertEquals('Expand', ChannelFunctionAction::SHUT()->withFunctionCaption(ChannelFunction::PROJECTOR_SCREEN())->getCaption());
     }
 
-    public function testUsesDefaultCaptionIfEmptyPassed() {
-        $this->assertEquals('Shut', ChannelFunctionAction::SHUT(null)->getCaption());
-        $this->assertEquals('Shut', ChannelFunctionAction::SHUT('')->getCaption());
+    public function testUsesDefaultCaptionIfNoCustomFunctionMapping() {
+        $this->assertEquals('Shut', ChannelFunctionAction::SHUT()->withFunctionCaption(ChannelFunction::HUMIDITY())->getCaption());
     }
 
     public function testGeneratingChannelFunctionActionMarkdownTableForDocs() {
@@ -87,10 +86,10 @@ class ChannelFunctionActionTest extends TestCase {
                 return '<li>' . $item;
             }, $docs[$actionId] ?? []));
             $examplesForItem = $examples[$actionId] ?? null
-                    ? '`' . implode('`<br> `', array_map(function ($item) {
-                        return json_encode($item);
-                    }, $examples[$actionId] ?? [])) . '`'
-                    : '';
+                ? '`' . implode('`<br> `', array_map(function ($item) {
+                    return json_encode($item);
+                }, $examples[$actionId] ?? [])) . '`'
+                : '';
             $lines[] = sprintf('| `%s` (`%d`) | %s | %s |', $actionName, $actionId, $docsForItem, $examplesForItem);
         }
 

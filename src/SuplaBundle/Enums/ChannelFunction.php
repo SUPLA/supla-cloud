@@ -255,18 +255,18 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::COPY(),
             ],
             self::PROJECTOR_SCREEN => [
-                ChannelFunctionAction::SHUT('Collapse'), // i18n
-                ChannelFunctionAction::REVEAL('Expand'), // i18n
-                ChannelFunctionAction::REVEAL_PARTIALLY('Expand partially'), // i18n
-                ChannelFunctionAction::SHUT_PARTIALLY('Collapse partially'), // i18n
+                ChannelFunctionAction::SHUT()->withFunctionCaption(self::PROJECTOR_SCREEN),
+                ChannelFunctionAction::REVEAL()->withFunctionCaption(self::PROJECTOR_SCREEN),
+                ChannelFunctionAction::REVEAL_PARTIALLY()->withFunctionCaption(self::PROJECTOR_SCREEN),
+                ChannelFunctionAction::SHUT_PARTIALLY()->withFunctionCaption(self::PROJECTOR_SCREEN),
                 ChannelFunctionAction::STOP(),
                 ChannelFunctionAction::COPY(),
             ],
             self::ROLLER_GARAGE_DOOR => [
-                ChannelFunctionAction::SHUT('Close'), // i18n
-                ChannelFunctionAction::REVEAL('Open'), // i18n
-                ChannelFunctionAction::REVEAL_PARTIALLY('Open partially'), // i18n
-                ChannelFunctionAction::SHUT_PARTIALLY('Close partially'), // i18n
+                ChannelFunctionAction::SHUT()->withFunctionCaption(self::ROLLER_GARAGE_DOOR),
+                ChannelFunctionAction::REVEAL()->withFunctionCaption(self::ROLLER_GARAGE_DOOR),
+                ChannelFunctionAction::REVEAL_PARTIALLY()->withFunctionCaption(self::ROLLER_GARAGE_DOOR),
+                ChannelFunctionAction::SHUT_PARTIALLY()->withFunctionCaption(self::ROLLER_GARAGE_DOOR),
                 ChannelFunctionAction::STOP(),
                 ChannelFunctionAction::COPY(),
             ],
