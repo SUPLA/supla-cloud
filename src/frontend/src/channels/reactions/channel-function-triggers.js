@@ -95,6 +95,74 @@ export const ChannelFunctionTriggers = {
             def: () => ({on_change: {}})
         },
     ],
+    [ChannelFunction.TERRACE_AWNING]: [
+        {
+            caption: () => 'When the terrace awning reaches a certain position', // i18n
+            test: (t) => !!t.on_change_to,
+            component: ReactionConditionThreshold,
+            props: {
+                min: () => 0, max: () => 100, step: () => 1,
+                unit: () => '% of closing', // i18n
+                labelI18n: () => 'When the terrace awning reaches', // i18n
+                resumeLabelI18n: () => 'and wait until it reaches', // i18n
+            },
+        },
+        {
+            caption: () => 'When the terrace awning position changes', // i18n
+            def: () => ({on_change: {}})
+        },
+    ],
+    [ChannelFunction.PROJECTOR_SCREEN]: [
+        {
+            caption: () => 'When the projector screen reaches a certain position', // i18n
+            test: (t) => !!t.on_change_to,
+            component: ReactionConditionThreshold,
+            props: {
+                min: () => 0, max: () => 100, step: () => 1,
+                unit: () => '% of closing', // i18n
+                labelI18n: () => 'When the projector screen reaches', // i18n
+                resumeLabelI18n: () => 'and wait until it reaches', // i18n
+            },
+        },
+        {
+            caption: () => 'When the projector screen position changes', // i18n
+            def: () => ({on_change: {}})
+        },
+    ],
+    [ChannelFunction.CURTAIN]: [
+        {
+            caption: () => 'When the curtain reaches a certain position', // i18n
+            test: (t) => !!t.on_change_to,
+            component: ReactionConditionThreshold,
+            props: {
+                min: () => 0, max: () => 100, step: () => 1,
+                unit: () => '% of closing', // i18n
+                labelI18n: () => 'When the curtain reaches', // i18n
+                resumeLabelI18n: () => 'and wait until it reaches', // i18n
+            },
+        },
+        {
+            caption: () => 'When the curtain position changes', // i18n
+            def: () => ({on_change: {}})
+        },
+    ],
+    [ChannelFunction.ROLLER_GARAGE_DOOR]: [
+        {
+            caption: () => 'When the roller garage door a certain position', // i18n
+            test: (t) => !!t.on_change_to,
+            component: ReactionConditionThreshold,
+            props: {
+                min: () => 0, max: () => 100, step: () => 1,
+                unit: () => '% of closing', // i18n
+                labelI18n: () => 'When the roller garage door reaches', // i18n
+                resumeLabelI18n: () => 'and wait until it reaches', // i18n
+            },
+        },
+        {
+            caption: () => 'When the roller garage door position changes', // i18n
+            def: () => ({on_change: {}})
+        },
+    ],
     [ChannelFunction.CONTROLLINGTHEFACADEBLIND]: [
         {
             caption: () => 'When the facade blind reaches a certain position', // i18n
@@ -109,6 +177,23 @@ export const ChannelFunctionTriggers = {
         },
         {
             caption: () => 'When the facade blind position changes', // i18n
+            def: () => ({on_change: {}})
+        },
+    ],
+    [ChannelFunction.VERTICAL_BLIND]: [
+        {
+            caption: () => 'When the vertical blind reaches a certain position', // i18n
+            test: (t) => !!t.on_change_to,
+            component: ReactionConditionThreshold,
+            props: {
+                min: () => 0, max: () => 100, step: () => 1,
+                unit: () => '% of closing', // i18n
+                labelI18n: () => 'When the vertical blind reaches', // i18n
+                resumeLabelI18n: () => 'and wait until it reaches', // i18n
+            },
+        },
+        {
+            caption: () => 'When the vertical blind position changes', // i18n
             def: () => ({on_change: {}})
         },
     ],

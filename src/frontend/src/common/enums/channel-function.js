@@ -54,6 +54,11 @@ const ChannelFunction = Object.freeze({
     DIGIGLASS_HORIZONTAL: 800,
     DIGIGLASS_VERTICAL: 810,
     CONTROLLINGTHEFACADEBLIND: 900,
+    TERRACE_AWNING: 910,
+    PROJECTOR_SCREEN: 920,
+    CURTAIN: 930,
+    VERTICAL_BLIND: 940,
+    ROLLER_GARAGE_DOOR: 950,
 });
 
 export default ChannelFunction;
