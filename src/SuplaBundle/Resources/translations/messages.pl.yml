@@ -231,6 +231,9 @@ Close after: Zamknij po
 Close automatically: Zamykaj automatycznie
 Close partially: Zamknij częściowo
 Close value: Wartość zamknięcia
+Collapse: Zwiń
+Collapse or stop: Zwijaj albo zatrzymaj
+Collapse partially: Zwiń częściowo
 Colon: Średnik
 Color: Kolor
 Color brightness: Jasność koloru
@@ -273,6 +276,7 @@ Current: Prąd
 Current Overload: Przeciążenie
 Current Password: Aktualne hasło
 Current password is incorrect: Aktualne hasło jest niepoprawne
+Curtain: Zasłona
 Custom: Niestandardowy
 Custom execution limit: Niestandardowy limit wykonań
 DHT11 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT11
@@ -382,6 +386,9 @@ Executed without confirmation: Wykonano bez potwierdzenia
 Execution history: Historia wykonań
 Execution limit: Limit wykonań
 Executions: Wykonania
+Expand: Rozwiń
+Expand or stop: Rozwijaj albo zatrzymaj
+Expand partially: Rozwiń częściowo
 Expired: Przeterminowany
 Expires at: Wygasa
 External sensor disabling the thermostat: Zewnętrzny czujnik wyłączający termostat
@@ -731,6 +738,7 @@ Private instance of the SUPLA cloud with given URL is already registered.: Pod t
 Proceed: Kontynuuj
 Processing: W trakcie
 Program {programNo}: Program {programNo}
+Projector screen: Ekran projekcyjny
 Protocol: Protokół
 Public ID: Publiczny ID
 Publish to integrations: Publikuj do integracji
@@ -773,12 +781,14 @@ Reset counter: Resetuj licznik
 Reset to defaults: Przywróć domyślne wartości
 Retry on failure: Powtórz gdy niewykonane
 Reveal: Odsłoń
+Reveal or stop: Odsłaniaj albo zatrzymaj
 Reveal partially: Odsłoń częściowo
 Reverse active energy: Energia czynna zwrócona
 Reverse active energy balance: Bilans czynnej energii zwróconej
 Reverse active energy balanced: Energia czynna zwrócona (Bilans wektorowy)
 Reverse reactive energy: Energia bierna pojemnościowa
 Revoke: Unieważnij
+Roller garage door: Brama garażowa
 Roller shutter opening sensor: Czujnik otwarcia rolet
 Roller shutter operation: Otwieranie i zamykanie rolet
 Roller shutters: Rolety
@@ -850,6 +860,7 @@ Show data: Pokaż dane
 Show my limits: Pokaż moje limity
 Show on the Client’s devices: Pokaż w urządzeniach klienckich
 Shut: Zasłoń
+Shut or stop: Zasłaniaj albo zatrzymaj
 Shut partially: Zasłoń częściowo
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Zamknij roletę do momentu, aż dotknie dolnej krawędzi i przepisz jej procent zamknięcia w to pole. Ta operacja nie jest wymagana, ale jej podanie poprawi wizualizację położenia rolety w aplikacji mobilnej.
 Sign In: Zaloguj się
@@ -898,6 +909,7 @@ Temperature and humidity sensor: Czujnik temperatury i wilgotności
 Temperature difference is too big between {min}°C and {max}°C.: Różnica temperatur jest zbyt duża pomiędzy {min}°C a {max}°C.
 Temperature setpoint change switches to manual mode: Zmiana temperatury docelowej przełącza w tryb manualny
 Temporal override: Tymczasowe nadpisanie
+Terrace awning: Markiza tarasowa
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Dziękujemy za rejestrację konta w serwisie %cloudHost%. Aby zakończyć aktywację, kliknij poniższy link.
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Dzięki integracjom możesz w łatwy sposób dodać nowe funkcje do swojego konta, wykorzystując rozwiązania dostarczone przez zewnętrznych dostawców, programistów lub przez samego siebie.
 'The IP used for login is: %ip%': 'Próba logowania nastąpiła z adresu IP: %ip%'
@@ -1018,6 +1030,7 @@ Valve: Zawór
 Valve closed manually: Zawór zamknięty manualnie
 Vector balance: Bilans wektorowy
 Verification method: Sposób weryfikacji
+Vertical blind: Żaluzja pionowa
 Visible: Widoczne
 Visit app webpage: Otwórz witrynę aplikacji
 Voltage: Napięcie
@@ -1071,6 +1084,9 @@ When the brightness will be: Kiedy poziom jasności będzie
 When the color changes: Kiedy kolor się zmieni
 When the condition is met: Kiedy warunek zostanie spełniony
 When the current will be: Kiedy prąd będzie
+When the curtain position changes: Gdy zasłona zmienia pozycję
+When the curtain reaches: Gdy zasłona osiąga
+When the curtain reaches a certain position: Gdy zasłona osiąga określoną pozycję
 When the depth changes: Kiedy pomiar głębokości się zmieni
 When the depth is: Kiedy pomiar głębokości będzie
 When the device is turned off: Kiedy urządzenie zostanie wyłączone
@@ -1118,9 +1134,15 @@ When the precipitation amount will be: Kiedy ilość mierzonego deszczu będzie
 When the pressure changes: Kiedy ciśnienie się zmieni
 When the pressure reaches a certain level: Kiedy ciśnienie osiągnie określony poziom
 When the pressure will be: Kiedy ciśnienie będzie
+When the projector screen position changes: Gdy ekran projekcyjny zmienia pozycję
+When the projector screen reaches: Gdy ekran projekcyjny osiąga
+When the projector screen reaches a certain position: Gdy ekran projekcyjny osiąga określoną pozycję
 When the rain amount changes: Kiedy zmieni się ilość opadów
 When the reactive power will be: Kiedy moc bierna będzie
 When the reverse active energy will be: Kiedy zwrócona energia czynna będzie
+When the roller garage door a certain position: Gdy brama garażowa osiąga określoną pozycję
+When the roller garage door position changes: Gdy brama garażowa zmienia pozycję
+When the roller garage door reaches: Gdy brama garażowa osiąga
 When the roller shutter position changes: Kiedy zmieni się pozycja rolety
 When the roller shutter reaches: Kiedy roleta osiągnie
 When the roller shutter reaches a certain position: Kiedy roleta osiągnie określoną pozycję
@@ -1136,6 +1158,9 @@ When the roof window will be opened or closed: Kiedy okno dachowe zostanie zamkn
 When the temperature changes: Kiedy zmieni się temperatura
 When the temperature reaches a certain value: Kiedy temperatura osiągnie określoną wartość
 When the temperature will be: Kiedy temperatura będzie
+When the terrace awning position changes: Gdy markiza tarasowa zmienia pozycję
+When the terrace awning reaches: Gdy markiza tarasowa osiąga
+When the terrace awning reaches a certain position: Gdy markiza tarasowa osiąga określoną pozycję
 When the thermostat starts cooling: Gdy termostat zacznie chłodzić
 When the thermostat starts heating: Gdy termostat zacznie grzać
 When the thermostat starts or stops cooling: Gdy termostat zacznie lub przestanie chłodzić
@@ -1148,6 +1173,9 @@ When the valve is closed: Kiedy zawór zostanie zamknięty
 When the valve is manually closed: Kiedy zawór zostanie ręcznie zamknięty
 When the valve is opened: Kiedy zawór zostanie otwarty
 When the valve is opened or closed: Kiedy zawór zostanie zamknięty lub otwarty
+When the vertical blind position changes: Gdy żaluzja pionowa zmienia pozycję
+When the vertical blind reaches: Gdy żaluzja pionowa osiąga
+When the vertical blind reaches a certain position: Gdy żaluzja pionowa osiąga określoną pozycję
 When the voltage will be: Kiedy napięcie będzie
 When the water meter reaches a certain value: Kiedy licznik wody osiągnie określoną wartość
 When the water meter value changes: Kiedy wartość licznika wody się zmieni

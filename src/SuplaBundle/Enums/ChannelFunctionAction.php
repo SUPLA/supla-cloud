@@ -133,36 +133,36 @@ final class ChannelFunctionAction extends Enum {
     public function withFunctionCaption($functionId): self {
         $customCaptions = [
             self::SHUT => [
-                ChannelFunction::PROJECTOR_SCREEN => 'Expand',
-                ChannelFunction::TERRACE_AWNING => 'Expand',
-                ChannelFunction::ROLLER_GARAGE_DOOR => 'Close',
+                ChannelFunction::PROJECTOR_SCREEN => 'Expand', // i18n
+                ChannelFunction::TERRACE_AWNING => 'Expand', // i18n
+                ChannelFunction::ROLLER_GARAGE_DOOR => 'Close', // i18n
             ],
             self::REVEAL => [
-                ChannelFunction::PROJECTOR_SCREEN => 'Collapse',
-                ChannelFunction::TERRACE_AWNING => 'Collapse',
-                ChannelFunction::ROLLER_GARAGE_DOOR => 'Open',
+                ChannelFunction::PROJECTOR_SCREEN => 'Collapse', // i18n
+                ChannelFunction::TERRACE_AWNING => 'Collapse', // i18n
+                ChannelFunction::ROLLER_GARAGE_DOOR => 'Open', // i18n
             ],
             self::REVEAL_PARTIALLY => [
-                ChannelFunction::PROJECTOR_SCREEN => 'Collapse partially',
-                ChannelFunction::TERRACE_AWNING => 'Collapse partially',
-                ChannelFunction::ROLLER_GARAGE_DOOR => 'Open partially',
+                ChannelFunction::PROJECTOR_SCREEN => 'Collapse partially', // i18n
+                ChannelFunction::TERRACE_AWNING => 'Collapse partially', // i18n
+                ChannelFunction::ROLLER_GARAGE_DOOR => 'Open partially', // i18n
             ],
             self::SHUT_PARTIALLY => [
-                ChannelFunction::PROJECTOR_SCREEN => 'Expand partially',
-                ChannelFunction::TERRACE_AWNING => 'Expand partially',
-                ChannelFunction::ROLLER_GARAGE_DOOR => 'Close partially',
+                ChannelFunction::PROJECTOR_SCREEN => 'Expand partially', // i18n
+                ChannelFunction::TERRACE_AWNING => 'Expand partially', // i18n
+                ChannelFunction::ROLLER_GARAGE_DOOR => 'Close partially', // i18n
             ],
             self::UP_OR_STOP => [
-                ChannelFunction::PROJECTOR_SCREEN => 'Collapse or stop',
-                ChannelFunction::TERRACE_AWNING => 'Collapse or stop',
-                ChannelFunction::VERTICAL_BLIND => 'Reveal or stop',
-                ChannelFunction::CONTROLLINGTHEFACADEBLIND => 'Reveal or stop',
+                ChannelFunction::PROJECTOR_SCREEN => 'Collapse or stop', // i18n
+                ChannelFunction::TERRACE_AWNING => 'Collapse or stop', // i18n
+                ChannelFunction::VERTICAL_BLIND => 'Reveal or stop', // i18n
+                ChannelFunction::CONTROLLINGTHEFACADEBLIND => 'Reveal or stop', // i18n
             ],
             self::DOWN_OR_STOP => [
-                ChannelFunction::PROJECTOR_SCREEN => 'Expand or stop',
-                ChannelFunction::TERRACE_AWNING => 'Expand or stop',
-                ChannelFunction::VERTICAL_BLIND => 'Shut or stop',
-                ChannelFunction::CONTROLLINGTHEFACADEBLIND => 'Shut or stop',
+                ChannelFunction::PROJECTOR_SCREEN => 'Expand or stop', // i18n
+                ChannelFunction::TERRACE_AWNING => 'Expand or stop', // i18n
+                ChannelFunction::VERTICAL_BLIND => 'Shut or stop', // i18n
+                ChannelFunction::CONTROLLINGTHEFACADEBLIND => 'Shut or stop', // i18n
             ],
         ];
         if ($functionId instanceof ChannelFunction) {
