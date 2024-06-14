@@ -16,6 +16,7 @@ class ShutPartiallyFacadeBlindActionExecutor extends SingleChannelActionExecutor
     public function getSupportedFunctions(): array {
         return [
             ChannelFunction::CONTROLLINGTHEFACADEBLIND(),
+            ChannelFunction::VERTICAL_BLIND(),
         ];
     }
 

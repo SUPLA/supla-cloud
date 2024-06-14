@@ -32,7 +32,7 @@
                             <div
                                 v-if="[ChannelFunctionAction.REVEAL_PARTIALLY, ChannelFunctionAction.SHUT_PARTIALLY, ChannelFunctionAction.OPEN_PARTIALLY, ChannelFunctionAction.CLOSE_PARTIALLY].includes(action.id)">
                                 <FacadeBlindPartialPercentage v-model="param" @input="paramsChanged()"
-                                    v-if="subject.functionId === ChannelFunction.CONTROLLINGTHEFACADEBLIND"/>
+                                    v-if="[ChannelFunction.CONTROLLINGTHEFACADEBLIND, ChannelFunction.VERTICAL_BLIND].includes(subject.functionId)"/>
                                 <rolette-shutter-partial-percentage v-else v-model="param"
                                     @input="paramsChanged()"></rolette-shutter-partial-percentage>
                             </div>
