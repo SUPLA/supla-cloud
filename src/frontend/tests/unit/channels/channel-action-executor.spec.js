@@ -75,7 +75,7 @@ describe('ChannelActionExecutor', () => {
                 $http: {
                     patch(endpoint, data) {
                         expect(endpoint).toEqual('channels/6');
-                        expect(data).toEqual({action: ChannelFunctionAction.OPEN_PARTIALLY, percentage: 33})
+                        expect(data).toEqual({action: ChannelFunctionAction.OPEN_PARTIALLY, percentage: '33'})
                         executed = true;
                         return Promise.resolve();
                     },
@@ -83,9 +83,9 @@ describe('ChannelActionExecutor', () => {
             }
         });
         await wrapper.findAll('.panel-heading').at(0).trigger('click');
-        const percentage = wrapper.find('input[type=number]');
+        const percentage = wrapper.find('input[type=text]');
         expect(percentage.exists()).toBeTruthy();
-        await percentage.setValue(33);
+        await percentage.setValue('33');
         await wrapper.find('.btn-execute').trigger('click');
         expect(executed).toBeTruthy();
     });
