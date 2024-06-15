@@ -4,11 +4,15 @@ namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Model\ChannelActionExecutor\RevealActionExecutor;
+use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Model\ChannelActionExecutor\RevealPartiallyActionExecutor;
 use SuplaBundle\Supla\SuplaServer;
+use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
+use SuplaBundle\Tests\Traits\ChannelStub;
 
-class RevealActionExecutorTest extends TestCase {
+class RevealPartiallyActionExecutorTest extends TestCase {
+    use UnitTestHelper;
+
     /**
      * @dataProvider validatingActionParamsProvider
      */
@@ -16,8 +20,10 @@ class RevealActionExecutorTest extends TestCase {
         if (!$expectValid) {
             $this->expectException(InvalidArgumentException::class);
         }
-        $executor = new RevealActionExecutor();
-        $validParams = $executor->validateAndTransformActionParamsFromApi($this->createMock(ActionableSubject::class), $actionParams);
+        $executor = new RevealPartiallyActionExecutor();
+        $subject = $this->createMock(ActionableSubject::class);
+        $subject->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEROLLERSHUTTER());
+        $validParams = $executor->validateAndTransformActionParamsFromApi($subject, $actionParams);
         $this->assertNotNull($validParams);
     }
 
@@ -27,24 +33,27 @@ class RevealActionExecutorTest extends TestCase {
             [['percentage' => 50], true],
             [['percentage' => 100], true],
             [['percentage' => '100'], true],
-            [['percentage' => -1], false],
+            [['percentage' => -1], true],
+            [['percentage' => '+100'], true],
             [['percentage' => 101], false],
             [['percentage2' => 50], false],
             [['percentage' => 50, 'other' => 50], false],
-            [[], true],
+            [[], false],
         ];
     }
 
     public function testConvertingStringPercentageToInt() {
-        $executor = new RevealActionExecutor();
+        $executor = new RevealPartiallyActionExecutor();
         $subject = $this->createMock(ActionableSubject::class);
+        $subject->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEROLLERSHUTTER());
         $validated = $executor->validateAndTransformActionParamsFromApi($subject, ['percentage' => '56']);
         $this->assertSame(56, $validated['percentage']);
     }
 
     public function testConvertingPercentToPercentage() {
-        $executor = new RevealActionExecutor();
+        $executor = new RevealPartiallyActionExecutor();
         $subject = $this->createMock(ActionableSubject::class);
+        $subject->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEROLLERSHUTTER());
         $validated = $executor->validateAndTransformActionParamsFromApi($subject, ['percent' => 99]);
         $this->assertSame(99, $validated['percentage']);
     }
@@ -53,24 +62,23 @@ class RevealActionExecutorTest extends TestCase {
      * @dataProvider expectedServerCommandsProvider
      */
     public function testExpectedServerCommands($actionParams, string $expectCommand) {
-        $executor = new RevealActionExecutor();
+        $executor = new RevealPartiallyActionExecutor();
         $server = $this->createMock(SuplaServer::class);
         $executor->setSuplaServer($server);
         $server->expects($this->once())->method('executeCommand')->with($expectCommand);
-        $channel = $this->createMock(IODeviceChannel::class);
-        $channel->method('buildServerActionCommand')->willReturnCallback(function ($type, $actionParams) {
-            return 'SET-CHAR-VALUE:1,2,3,' . $actionParams[0];
-        });
-        $executor->execute($channel, $actionParams);
+        $channel = ChannelStub::create(ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), $this);
+        $params = $executor->validateAndTransformActionParamsFromApi($channel, $actionParams);
+        $executor->execute($channel, $params);
     }
 
     public function expectedServerCommandsProvider() {
         return [
-            [['percentage' => 0], 'SET-CHAR-VALUE:1,2,3,110'],
-            [['percentage' => 50], 'SET-CHAR-VALUE:1,2,3,60'],
-            [['percentage' => 60], 'SET-CHAR-VALUE:1,2,3,50'],
-            [['percentage' => 100], 'SET-CHAR-VALUE:1,2,3,10'],
-            [[], 'SET-CHAR-VALUE:1,2,3,10'],
+            [['percentage' => 0], 'ACTION-SHUT-PARTIALLY:222,333,1,100,0,-1,0'],
+            [['percentage' => 50], 'ACTION-SHUT-PARTIALLY:222,333,1,50,0,-1,0'],
+            [['percentage' => 60], 'ACTION-SHUT-PARTIALLY:222,333,1,40,0,-1,0'],
+            [['percentage' => 100], 'ACTION-SHUT-PARTIALLY:222,333,1,0,0,-1,0'],
+            [['percentage' => '+40'], 'ACTION-SHUT-PARTIALLY:222,333,1,-40,1,-1,0'],
+            [['percentage' => '-40'], 'ACTION-SHUT-PARTIALLY:222,333,1,40,1,-1,0'],
         ];
     }
 }
