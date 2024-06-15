@@ -8,7 +8,7 @@
                 <span class="input-group-addon">%</span>
             </span>
         </div>
-        <div class="form-group">
+        <div class="form-group" v-if="hasTilt">
             <label v-if="isDelta(tilt)">{{ $t('Change tilt by') }}</label>
             <label v-else>{{ $t('Change tilt to') }}</label>
             <span class="input-group">
@@ -24,11 +24,13 @@
 
 <script>
     import NumberDeltaInput from "@/channels/action/number-delta-input.vue";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         components: {NumberDeltaInput},
         props: {
             value: Object,
+            subject: Object,
         },
         data() {
             return {
@@ -47,7 +49,11 @@
         },
         methods: {
             onChange() {
-                this.$emit('input', {percentage: this.percentage, tilt: this.tilt});
+                const data = {percentage: this.percentage};
+                if (this.hasTilt) {
+                    data.tilt = this.tilt;
+                }
+                this.$emit('input', data);
             },
             isDelta(value) {
                 if (typeof value === 'string') {
@@ -57,14 +63,20 @@
                 }
             }
         },
+        computed: {
+            hasTilt() {
+                return [ChannelFunction.CONTROLLINGTHEFACADEBLIND, ChannelFunction.VERTICAL_BLIND].includes(this.subject.functionId);
+            }
+        },
         watch: {
-            // value() {
-            //     if (this.value && this.value.percentage === undefined) {
-            //         this.$nextTick(() => this.onChange());
-            //     } else {
-            //         this.percentage = this.value?.percentage || 0;
-            //     }
-            // },
+            value() {
+                if (this.value && this.value.percentage === undefined) {
+                    this.$nextTick(() => this.onChange());
+                } else {
+                    this.percentage = this.value?.percentage || '';
+                    this.tilt = this.value?.tilt || '';
+                }
+            },
         },
     };
 </script>

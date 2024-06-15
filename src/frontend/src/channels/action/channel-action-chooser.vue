@@ -31,10 +31,7 @@
                             v-if="ChannelFunctionAction.requiresParams(possibleAction.id) && action && action.id === possibleAction.id">
                             <div
                                 v-if="[ChannelFunctionAction.REVEAL_PARTIALLY, ChannelFunctionAction.SHUT_PARTIALLY, ChannelFunctionAction.OPEN_PARTIALLY, ChannelFunctionAction.CLOSE_PARTIALLY].includes(action.id)">
-                                <FacadeBlindPartialPercentage v-model="param" @input="paramsChanged()"
-                                    v-if="[ChannelFunction.CONTROLLINGTHEFACADEBLIND, ChannelFunction.VERTICAL_BLIND].includes(subject.functionId)"/>
-                                <rolette-shutter-partial-percentage v-else v-model="param"
-                                    @input="paramsChanged()"></rolette-shutter-partial-percentage>
+                                <PartialPercentageParamSetter v-model="param" :subject="subject" @input="paramsChanged()"/>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.SET_RGBW_PARAMETERS">
                                 <rgbw-parameters-setter v-model="param"
@@ -94,7 +91,6 @@
 
 <script>
     import TransitionExpand from "../../common/gui/transition-expand";
-    import RoletteShutterPartialPercentage from "./rolette-shutter-partial-percentage";
     import RgbwParametersSetter from "./rgbw-parameters-setter";
     import Vue from "vue";
     import DigiglassParametersSetter from "./digiglass-parameters-setter";
@@ -105,18 +101,17 @@
     import {isEqual} from "lodash";
     import DurationParamSetter from "@/channels/action/duration-param-setter.vue";
     import HvacSetpointsSetter from "@/channels/action/hvac-setpoints-setter.vue";
-    import FacadeBlindPartialPercentage from "@/channels/action/facade-blind-partial-percentage.vue";
+    import PartialPercentageParamSetter from "@/channels/action/partial-percentage-param-setter.vue";
 
     export default {
         components: {
-            FacadeBlindPartialPercentage,
+            PartialPercentageParamSetter,
             HvacSetpointsSetter,
             DurationParamSetter,
             NotificationForm,
             ChannelsIdDropdown,
             DigiglassParametersSetter,
             RgbwParametersSetter,
-            RoletteShutterPartialPercentage,
             TransitionExpand
         },
         props: {
