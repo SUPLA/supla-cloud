@@ -210,11 +210,11 @@ describe('SubjectDropdown', () => {
         expect(wrapper.vm.action).toBeDefined();
         expect(wrapper.vm.action.id).toEqual(ChannelFunctionAction.CLOSE_PARTIALLY);
         expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('CLOSE PARTIALLY');
-        const percentage = wrapper.find('input[type=number]');
+        const percentage = wrapper.find('input[type=text]');
         expect(percentage.exists()).toBeTruthy();
-        expect(wrapper.vm.action.param).toEqual({percentage: 0});
-        await percentage.setValue(22);
-        expect(wrapper.vm.action.param).toEqual({percentage: 22});
+        expect(wrapper.vm.action.param).toEqual({percentage: ''});
+        await percentage.setValue('22');
+        expect(wrapper.vm.action.param).toEqual({percentage: '22'});
     });
 
     it('clears action when the subject is cleared', async () => {
@@ -248,7 +248,7 @@ describe('SubjectDropdown', () => {
         wrapper.vm.action = {id: ChannelFunctionAction.OPEN_PARTIALLY, param: {percentage: 10}};
         await wrapper.vm.$nextTick();
         expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('OPEN PARTIALLY');
-        const percentage = wrapper.find('input[type=number]');
+        const percentage = wrapper.find('input[type=text]');
         expect(percentage.element.value).toEqual('10');
         wrapper.vm.action = {id: ChannelFunctionAction.OPEN_PARTIALLY, param: {percentage: 20}};
         await wrapper.vm.$nextTick();

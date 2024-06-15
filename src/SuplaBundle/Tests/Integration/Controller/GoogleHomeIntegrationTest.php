@@ -83,7 +83,7 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $this->assertSuplaCommandExecuted('SET-CHAR-VALUE:1,1,2,55,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'));
+        $this->assertSuplaCommandExecuted('ACTION-SHUT-PARTIALLY:1,1,2,45,0,-1,0,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'));
     }
 
     public function testChangingChannelGroupStateWithGoogle() {

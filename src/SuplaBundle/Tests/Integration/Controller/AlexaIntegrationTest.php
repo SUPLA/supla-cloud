@@ -83,7 +83,7 @@ class AlexaIntegrationTest extends IntegrationTestCase {
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $this->assertSuplaCommandExecuted('SET-CHAR-VALUE:1,1,2,55,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'));
+        $this->assertSuplaCommandExecuted('ACTION-SHUT-PARTIALLY:1,1,2,45,0,-1,0,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'));
     }
 
     public function testChangingChannelGroupStateWithAlexa() {
