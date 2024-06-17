@@ -36,7 +36,6 @@
     import ChannelParamsThermometer from "./channel-params-thermometer";
     import ChannelParamsHumidity from "./channel-params-humidity";
     import ChannelParamsHumidityandtemperature from "./channel-params-humidityandtemperature";
-    import ChannelParamsMailsensor from "./channel-params-mailsensor";
     import ChannelParamsNoliquidsensor from "./channel-params-noliquidsensor";
     import ChannelParamsElectricitymeter from "./channel-params-electricity-meter";
     import ChannelParamsIcElectricitymeter from "./channel-params-impulsecounter";
@@ -54,6 +53,7 @@
     import ChannelParamsHvacDomesticHotWater from "./channel-params-hvac-thermostat.vue";
     import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings";
     import ChannelParamsControllingthefacadeblind from "@/channels/params/channel-params-controllingthefacadeblind.vue";
+    import ChannelParamsSensorAny from "@/channels/params/channel-params-sensor-any.vue";
 
     export default {
         props: ['channel'],
@@ -81,7 +81,7 @@
             ChannelParamsThermometer,
             ChannelParamsHumidity,
             ChannelParamsHumidityandtemperature,
-            ChannelParamsMailsensor,
+            ChannelParamsMailsensor: ChannelParamsSensorAny,
             ChannelParamsNoliquidsensor,
             ChannelParamsElectricitymeter,
             ChannelParamsIcElectricitymeter,
@@ -99,6 +99,7 @@
             ChannelParamsHvacDomesticHotWater,
             ChannelParamsControllingthefacadeblind,
             ChannelParamsVerticalBlind: ChannelParamsControllingthefacadeblind,
+            ChannelParamsHotelcardsensor: ChannelParamsSensorAny,
         },
         computed: {
             additionalChannelParamsComponent() {

@@ -335,6 +335,11 @@ export const ChannelFunctionTriggers = {
         {caption: () => 'When the mail has been taken', def: () => ({on_change_to: {eq: 'lo'}})}, // i18n
         {caption: () => 'When the mail comes or is taken', def: () => ({on_change: {}})}, // i18n
     ],
+    [ChannelFunction.HOTELCARDSENSOR]: [
+        {caption: () => 'When the hotel card is put in', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
+        {caption: () => 'When the hotel card has been taken', def: () => ({on_change_to: {eq: 'lo'}})}, // i18n
+        {caption: () => 'When the hotel card is put in or has been taken', def: () => ({on_change: {}})}, // i18n
+    ],
     [ChannelFunction.WINDSENSOR]: [
         {
             caption: () => 'When the wind reaches a certain speed', // i18n
