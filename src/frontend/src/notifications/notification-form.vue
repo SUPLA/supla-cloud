@@ -46,7 +46,7 @@
         methods: {
             change(newProps) {
                 const data = {...this.value, ...newProps};
-                data.isValid = this.isValid;
+                data.isValid = (this.allowNoRecipients || data.accessIds?.length > 0) && (!!this.disableBodyMessage || !!data.body);
                 this.$emit('input', data);
             },
         },
