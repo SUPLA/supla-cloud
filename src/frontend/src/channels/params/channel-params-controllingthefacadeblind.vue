@@ -23,7 +23,7 @@
                 </div>
             </dt>
         </dl>
-        <dl v-if="channel.config.timeSettingAvailable && channel.config.autoCalibrationAvailable">
+        <dl v-if="channel.config.timeSettingAvailable && channel.config.autoCalibrationAvailable" class="wide-label">
             <dd>{{ $t('Automatic calibration') }}</dd>
             <dt class="text-center">
                 <toggler v-model="automaticCalibration"
@@ -31,7 +31,8 @@
             </dt>
         </dl>
         <transition-expand>
-            <dl v-if="channel.config.timeSettingAvailable && (!channel.config.autoCalibrationAvailable || !automaticCalibration)">
+            <dl v-if="channel.config.timeSettingAvailable && (!channel.config.autoCalibrationAvailable || !automaticCalibration)"
+                class="wide-label">
                 <dd>{{ $t('Full opening time') }}</dd>
                 <dt>
                     <span class="input-group">
@@ -64,7 +65,7 @@
                 </dt>
             </dl>
         </transition-expand>
-        <dl>
+        <dl class="wide-label">
             <dd>{{ $t('Full tilting time') }}</dd>
             <dt>
                 <span class="input-group">
@@ -81,7 +82,7 @@
                 </span>
             </dt>
         </dl>
-        <dl>
+        <dl class="wide-label">
             <dd>{{ $t('0% tilt angle') }}</dd>
             <dt>
                 <NumberInput v-model="channel.config.tilt0Angle"
@@ -101,21 +102,21 @@
                     @input="$emit('change')"/>
             </dt>
         </dl>
-        <dl v-if="channel.config.motorUpsideDown !== undefined">
+        <dl v-if="channel.config.motorUpsideDown !== undefined" class="wide-label">
             <dd>{{ $t('Motor upside down') }}</dd>
             <dt class="text-center">
                 <toggler v-model="channel.config.motorUpsideDown"
                     @input="$emit('change')"></toggler>
             </dt>
         </dl>
-        <dl v-if="channel.config.buttonsUpsideDown !== undefined">
+        <dl v-if="channel.config.buttonsUpsideDown !== undefined" class="wide-label">
             <dd>{{ $t('Buttons upside down') }}</dd>
             <dt class="text-center">
                 <toggler v-model="channel.config.buttonsUpsideDown"
                     @input="$emit('change')"></toggler>
             </dt>
         </dl>
-        <dl v-if="channel.config.timeMargin !== undefined">
+        <dl v-if="channel.config.timeMargin !== undefined" class="wide-label">
             <dd>{{ $t('Additional time margin') }}</dd>
             <dt>
                 <ChannelParamsControllingthefacadeblindTimeMargin v-model="channel.config.timeMargin" @input="$emit('change')"/>
