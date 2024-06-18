@@ -157,12 +157,14 @@ final class ChannelFunctionAction extends Enum {
                 ChannelFunction::TERRACE_AWNING => 'Collapse or stop', // i18n
                 ChannelFunction::VERTICAL_BLIND => 'Reveal or stop', // i18n
                 ChannelFunction::CONTROLLINGTHEFACADEBLIND => 'Reveal or stop', // i18n
+                ChannelFunction::CURTAIN => 'Reveal or stop', // i18n
             ],
             self::DOWN_OR_STOP => [
                 ChannelFunction::PROJECTOR_SCREEN => 'Expand or stop', // i18n
                 ChannelFunction::TERRACE_AWNING => 'Expand or stop', // i18n
                 ChannelFunction::VERTICAL_BLIND => 'Shut or stop', // i18n
                 ChannelFunction::CONTROLLINGTHEFACADEBLIND => 'Shut or stop', // i18n
+                ChannelFunction::CURTAIN => 'Shut or stop', // i18n
             ],
         ];
         if ($functionId instanceof ChannelFunction) {
