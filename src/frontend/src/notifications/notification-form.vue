@@ -29,6 +29,7 @@
             disableTitleMessage: String,
             disableBodyMessage: String,
             displayValidationErrors: Boolean,
+            allowNoRecipients: Boolean,
             variables: {
                 type: Array,
                 default: () => [],
@@ -45,7 +46,7 @@
         methods: {
             change(newProps) {
                 const data = {...this.value, ...newProps};
-                data.isValid = data.accessIds?.length > 0 && (!!this.disableBodyMessage || !!data.body);
+                data.isValid = this.isValid;
                 this.$emit('input', data);
             },
         },
@@ -75,7 +76,7 @@
                 }
             },
             validRecipients() {
-                return this.accessIds.length > 0;
+                return this.allowNoRecipients || this.accessIds.length > 0;
             },
             isValid() {
                 return this.validRecipients && (!!this.disableBodyMessage || !!this.body);

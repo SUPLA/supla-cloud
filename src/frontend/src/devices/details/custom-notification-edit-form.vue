@@ -3,6 +3,7 @@
         <NotificationForm v-model="notificationFields" :display-validation-errors="true"
             :disable-title-message="disableTitleMessage"
             :disable-body-message="disableBodyMessage"
+            allow-no-recipients
         />
         <div class="text-center my-3">
             <button class="btn btn-white" type="submit" :disabled="this.notificationFields.isValid === false || loading">

@@ -54,6 +54,11 @@
                         maxItems: this.multiple ? null : 1,
                         maxOptions: this.maxOptions,
                         onInitialize: () => this.syncDropdown(),
+                        plugins: {
+                            remove_button: {
+                                title: this.$t('Remove this item'),
+                            }
+                        },
                         render: {
                             option: (option, escape) => {
                                 if (option.id === 0) {
