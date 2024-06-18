@@ -23,7 +23,8 @@
                 <span class="label label-warning">{{ $t('Locked') }}</span>
             </div>
             <div class="square-link-label" v-else>
-                <span class="label label-danger" v-if="device.relationsCount.channelsWithConflict > 0">{{ $t('Conflict') }}</span>
+                <span class="label label-danger"
+                    v-if="device.relationsCount && device.relationsCount.channelsWithConflict > 0">{{ $t('Conflict') }}</span>
                 <connection-status-label v-else :model="device"></connection-status-label>
             </div>
         </router-link>
