@@ -125,8 +125,8 @@ class IODeviceChannelTest extends TestCase {
         $channel->setFunction(ChannelFunction::CONTROLLINGTHEROLLERSHUTTER());
         $functionIds = EntityUtils::mapToIds($channel->getPossibleActions());
         $this->assertEquals([
-            ChannelFunctionAction::SHUT,
             ChannelFunctionAction::REVEAL,
+            ChannelFunctionAction::SHUT,
             ChannelFunctionAction::REVEAL_PARTIALLY,
             ChannelFunctionAction::SHUT_PARTIALLY,
             ChannelFunctionAction::STOP,
@@ -140,8 +140,8 @@ class IODeviceChannelTest extends TestCase {
         EntityUtils::setField($channel, 'flags', ChannelFunctionBitsFlags::getAllFeaturesFlag());
         $functionIds = EntityUtils::mapToIds($channel->getPossibleActions());
         $this->assertEquals([
-            ChannelFunctionAction::SHUT,
             ChannelFunctionAction::REVEAL,
+            ChannelFunctionAction::SHUT,
             ChannelFunctionAction::REVEAL_PARTIALLY,
             ChannelFunctionAction::SHUT_PARTIALLY,
             ChannelFunctionAction::STOP,
