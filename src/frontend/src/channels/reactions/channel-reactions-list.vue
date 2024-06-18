@@ -1,6 +1,7 @@
 <template>
     <list-page header-i18n="Reactions"
         tile="reaction-tile"
+        subtitle-i18n="This is the list of our configured reactions. If you want to add a new reaction, go to the channel details that should trigger it."
         endpoint="reactions?include=owningChannel,subject"
     />
 </template>

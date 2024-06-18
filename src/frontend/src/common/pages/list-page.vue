@@ -3,8 +3,8 @@
         <div class="container">
             <div class="clearfix left-right-header">
                 <div>
-                    <h1 v-if="!subject"
-                        v-title>{{ $t(headerI18n) }}</h1>
+                    <h1 v-if="!subject" v-title>{{ $t(headerI18n) }}</h1>
+                    <h4 v-if="subtitleI18n">{{ $t(subtitleI18n) }}</h4>
                 </div>
                 <div :class="subject ? 'mt-0' : ''">
                     <a @click="createNewItem()"
@@ -45,7 +45,7 @@
     import {debounce} from "lodash";
 
     export default {
-        props: ['subject', 'headerI18n', 'tile', 'filters', 'endpoint', 'createNewLabelI18n', 'detailsRoute', 'limit'],
+        props: ['subject', 'headerI18n', 'subtitleI18n', 'tile', 'filters', 'endpoint', 'createNewLabelI18n', 'detailsRoute', 'limit'],
         data() {
             return {
                 items: undefined,
