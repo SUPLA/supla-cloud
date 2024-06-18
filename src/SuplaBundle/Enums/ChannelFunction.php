@@ -66,6 +66,7 @@ use UnexpectedValueException;
  * @method static ChannelFunction DISTANCESENSOR()
  * @method static ChannelFunction OPENINGSENSOR_WINDOW()
  * @method static ChannelFunction HOTELCARDSENSOR()
+ * @method static ChannelFunction ALARM_ARMAMENT_SENSOR()
  * @method static ChannelFunction MAILSENSOR()
  * @method static ChannelFunction WINDSENSOR()
  * @method static ChannelFunction PRESSURESENSOR()
@@ -131,6 +132,7 @@ final class ChannelFunction extends Enum {
     const DISTANCESENSOR = 220;
     const OPENINGSENSOR_WINDOW = 230;
     const HOTELCARDSENSOR = 235;
+    const ALARM_ARMAMENT_SENSOR = 236;
     const MAILSENSOR = 240;
     const WINDSENSOR = 250;
     const PRESSURESENSOR = 260;
@@ -438,6 +440,7 @@ final class ChannelFunction extends Enum {
             self::DEPTHSENSOR => 'Depth sensor', // i18n
             self::OPENINGSENSOR_WINDOW => 'Window opening sensor', // i18n
             self::HOTELCARDSENSOR => 'Hotel card sensor', // i18n
+            self::ALARM_ARMAMENT_SENSOR => 'Alarm armament sensor', // i18n
             self::MAILSENSOR => 'Mail sensor', // i18n
             self::WINDSENSOR => 'Wind sensor', // i18n
             self::PRESSURESENSOR => 'Pressure sensor', // i18n
@@ -490,6 +493,7 @@ final class ChannelFunction extends Enum {
             self::GENERAL_PURPOSE_METER => 14,
             self::THERMOMETER => 7,
             self::HUMIDITYANDTEMPERATURE => 7,
+            self::ALARM_ARMAMENT_SENSOR => 3,
         ];
     }
 
@@ -526,6 +530,7 @@ final class ChannelFunction extends Enum {
             self::DEPTHSENSOR => ['default'],
             self::OPENINGSENSOR_WINDOW => ['opened', 'closed'],
             self::HOTELCARDSENSOR => ['empty', 'full'],
+            self::ALARM_ARMAMENT_SENSOR => ['empty', 'full'],
             self::MAILSENSOR => ['empty', 'full'],
             self::WINDSENSOR => ['default'],
             self::PRESSURESENSOR => ['default'],

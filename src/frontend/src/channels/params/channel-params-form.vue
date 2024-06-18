@@ -100,6 +100,7 @@
             ChannelParamsControllingthefacadeblind,
             ChannelParamsVerticalBlind: ChannelParamsControllingthefacadeblind,
             ChannelParamsHotelcardsensor: ChannelParamsSensorAny,
+            ChannelParamsAlarmArmamentSensor: ChannelParamsSensorAny,
         },
         computed: {
             additionalChannelParamsComponent() {

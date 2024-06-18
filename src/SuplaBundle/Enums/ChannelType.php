@@ -187,6 +187,7 @@ final class ChannelType extends Enum {
                 ChannelFunction::OPENINGSENSOR_ROOFWINDOW(),
                 ChannelFunction::OPENINGSENSOR_WINDOW(),
                 ChannelFunction::HOTELCARDSENSOR(),
+                ChannelFunction::ALARM_ARMAMENT_SENSOR(),
                 ChannelFunction::MAILSENSOR(),
             ],
             self::RELAYHFD4 => [

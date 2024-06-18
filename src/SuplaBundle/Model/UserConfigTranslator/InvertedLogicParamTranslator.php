@@ -38,6 +38,7 @@ class InvertedLogicParamTranslator extends UserConfigTranslator {
             ChannelFunction::OPENINGSENSOR_ROOFWINDOW,
             ChannelFunction::OPENINGSENSOR_WINDOW,
             ChannelFunction::HOTELCARDSENSOR,
+            ChannelFunction::ALARM_ARMAMENT_SENSOR,
         ]);
     }
 }
