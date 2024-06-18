@@ -32,7 +32,8 @@
                 <dt>ID{{ model.location.id }} {{ model.location.caption }}</dt>
             </dl>
             <div class="square-link-label">
-                <connection-status-label :model="model"></connection-status-label>
+                <span v-if="model.conflictDetails" class="label label-danger">{{ $t('Conflict') }}</span>
+                <connection-status-label v-else :model="model"></connection-status-label>
             </div>
             <div class="square-link-label-left"
                 v-if="hasActionTrigger">

@@ -228,7 +228,10 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
      */
     private $subDeviceId = 0;
 
-    /** @ORM\Column(name="conflict_details", type="string", length=256, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"}) */
+    /**
+     * @ORM\Column(name="conflict_details", type="string", length=256, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
+     * @Groups({"basic"})
+     */
     private $conflictDetails;
 
     public function __construct() {
@@ -495,5 +498,9 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     /** @return Collection|PushNotification[] */
     public function getPushNotifications(): Collection {
         return $this->pushNotifications;
+    }
+
+    public function getConflictDetails(): ?array {
+        return $this->conflictDetails ? (json_decode($this->conflictDetails, true) ?: null) : null;
     }
 }

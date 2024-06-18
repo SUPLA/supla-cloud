@@ -170,6 +170,8 @@ class DevicesFixture extends SuplaFixture {
                 ['funcList' => Functions::getAllFeaturesFlag()],
             ];
         }
+        $channels[8][2]['conflictDetails'] = '{"missing": true}';
+        $channels[3][2]['conflictDetails'] = '{"type": 2000}';
         return $this->createDevice('OH-MY-GATES. This device also has ridiculously long name!', $location, $channels, 'gatesDevice');
     }
 

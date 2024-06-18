@@ -68,6 +68,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="ownSubjectType", type="string", enum={"channel"}),
  *   @OA\Property(property="state", ref="#/components/schemas/ChannelState"),
  *   @OA\Property(property="config", ref="#/components/schemas/ChannelConfig"),
+ *   @OA\Property(property="conflictDetails", type="object"),
  *   @OA\Property(property="userIconId", type="integer"),
  *   @OA\Property(property="userIcon", ref="#/components/schemas/UserIcon", description="User Icon, if requested by the `include` param"),
  *   @OA\Property(property="connected", type="boolean"),

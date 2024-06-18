@@ -851,4 +851,19 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
 //        $this->assertNotContains($deviceId, $deviceIds);
 //        return $deviceId;
     }
+
+    public function testDeviceWithConflictingChannels() {
+        $sonoff = $this->createDeviceSonoff($this->location);
+        $channel = $sonoff->getChannels()[0];
+        EntityUtils::setField($channel, 'conflictDetails', '{"type": 2000}');
+        $this->persist($channel);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('GET', "/api/iodevices/{$sonoff->getId()}");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertArrayHasKey('channelsWithConflict', $content['relationsCount']);
+        $this->assertEquals(1, $content['relationsCount']['channelsWithConflict']);
+    }
 }

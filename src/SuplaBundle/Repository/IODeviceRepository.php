@@ -44,6 +44,10 @@ class IODeviceRepository extends EntityWithRelationsRepository {
             ->addSelect('io entity')
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s c WHERE c.iodevice = io) channels', IODeviceChannel::class))
             ->addSelect(sprintf(
+                '(SELECT COUNT(1) FROM %s c2 WHERE c2.iodevice = io AND c2.conflictDetails IS NOT NULL) channelsWithConflict',
+                IODeviceChannel::class
+            ))
+            ->addSelect(sprintf(
                 '(SELECT COUNT(1) FROM %s mpn WHERE mpn.device = io AND mpn.channel IS NULL AND mpn.managedByDevice = TRUE) %s',
                 PushNotification::class,
                 'managedNotifications'

@@ -133,8 +133,8 @@ final class ChannelType extends Enum {
     public static function captions(): array {
         return [
             self::UNSUPPORTED => 'Unsupported type', // i18n
-            self::SENSORNO => 'Sensor (normal open)', // i18n
-            self::SENSORNC => 'Sensor (normal closed)', // i18n
+            self::SENSORNO => 'Binary sensor', // i18n
+            self::SENSORNC => 'Binary sensor', // i18n
             self::RELAY => 'Relay', // i18n
             self::RELAYHFD4 => 'HFD4 Relay', // i18n
             self::RELAYG5LA1A => 'G5LA1A Relay', // i18n

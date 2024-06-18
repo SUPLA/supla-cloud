@@ -11,7 +11,7 @@
                     {{ channel.id }},
                     {{ $t('Channel No') }}: {{ channel.channelNumber }}
                 </h4>
-
+                <ChannelConflictDetailsWarning :channel="channel" v-if="channel.conflictDetails"/>
                 <div class="row">
                     <div class="col-md-4 col-sm-12">
                         <div class="details-page-block">
@@ -212,10 +212,12 @@
     import TransitionExpand from "../common/gui/transition-expand";
     import {extendObject} from "@/common/utils";
     import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
+    import ChannelConflictDetailsWarning from "@/channels/channel-conflict-details-warning.vue";
 
     export default {
         props: ['id'],
         components: {
+            ChannelConflictDetailsWarning,
             ConfigConflictWarning,
             TransitionExpand,
             ChannelActionExecutorModal,

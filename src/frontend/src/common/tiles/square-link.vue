@@ -103,6 +103,7 @@
             line-height: 12px;
             .label {
                 border: 0;
+                padding: 0.2em 0.6em 0.2em;
             }
         }
         .square-link-label {

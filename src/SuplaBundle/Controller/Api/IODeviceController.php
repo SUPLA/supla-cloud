@@ -69,6 +69,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="connected", type="boolean", description="Whether the device is now connected to the SUPLA Server."),
  *   @OA\Property(property="relationsCount", description="Counts of related entities.",
  *     @OA\Property(property="channels", type="integer"),
+ *     @OA\Property(property="channelsWithConflict", type="integer"),
  *   ),
  *   @OA\Property(property="enterConfigurationModeAvailable", type="boolean"),
  *   @OA\Property(property="isSleepModeEnabled", type="boolean"),

@@ -3,8 +3,7 @@
 namespace SuplaBundle\Utils;
 
 class JsonArrayObject implements \JsonSerializable, \ArrayAccess, \Countable {
-    /** @var array */
-    private $array;
+    private array $array;
 
     public function __construct($array) {
         $this->array = is_array($array) ? $array : [];
@@ -33,7 +32,7 @@ class JsonArrayObject implements \JsonSerializable, \ArrayAccess, \Countable {
         unset($this->array[$offset]);
     }
 
-    public function count() {
+    public function count(): ?int {
         return count($this->array);
     }
 
