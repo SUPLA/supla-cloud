@@ -842,8 +842,6 @@ Selected: Wybrane
 Selected device has been logged out.: Wybrane urządzenie zostało wylogowane
 Send a notification: Wyślij powiadomienie
 Send notification: Wyślij powiadomienie
-Sensor (normal closed): Czujnik (normalnie zamknięty)
-Sensor (normal open): Czujnik (normalnie otwarty)
 Sensor disconnected: Brak czujnika
 Sensors: Czujniki
 Server address: Adres serwera
@@ -1539,6 +1537,8 @@ Remove: Usuń
 Requests limit: Limit żądań
 Schedule cannot be enabled: Nie udało się włączyć harmonogramu
 Schedules below will be deleted: Poniższe harmonogramy zostaną usunięte
+Sensor (normal closed): Czujnik (normalnie zamknięty)
+Sensor (normal open): Czujnik (normalnie otwarty)
 Set initial values: Ustaw wartości początkowe
 Show days with issues only: Pokaż tylko dni, w których odnotowano naruszenia
 Sources available from: Źródła dostępne w
@@ -1565,5 +1565,18 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Alarm armament sensor: Czujnik uzbrojenia alarmu
+Binary sensor: Czujnik binarny
+Conflict: Konflikt
+Remove this item: Usuń ten element
+The device has channel conflict and cannot work.: Urządzenie wygenerowało konflikt kanałów i nie może aktualnie pracować.
+This channel was missing during last device registration attempt.: Tego kanału brakuje na urządzeniu.
+This is the list of our configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: To jest lista reakcji działających na Twoim koncie. Jeśli chcesz dodać nową reakcję, przejdź do szczegółów kanału, który powinien ją wyzwalać.
+When the alarm is armed: Gdy alarm zostanie uzbrojony
+When the alarm is armed or disarmed: Gdy alarm zostanie wyłączony lub uzbrojony
+When the alarm is disarmed: Gdy alarm zostanie wyłączony
+When the hotel card has been taken: Gdy karta hotelowa zostanie zabrana
+When the hotel card is put in: Gdy karta hotelowa zostanie włożona
+When the hotel card is put in or has been taken: Gdy karta hotelowa zostanie włożona lub zabrana
 
 #</editor-fold>

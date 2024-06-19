@@ -1,15 +1,16 @@
 <template>
     <div class="alert alert-danger" v-if="channel.conflictDetails">
-        <span v-if="channel.conflictDetails.missing">{{ $t('The device skipped this channel during registration.') }}</span>
+        <span>{{ $t('Conflict') }}:{{ ' ' }}</span>
+        <span v-if="channel.conflictDetails.missing">{{ $t('This channel was missing during last device registration attempt.') }}</span>
         <span v-else-if="channel.conflictDetails.type">
             {{
                 $t(
-                    'The device is trying to register a channel with type {typeCaption} instead of the current one.',
-                    {typeCaption: typeCaption}
+                    'Invalid channel type ({typeCaption} - {typeId}) received in registration.',
+                    {typeCaption: typeCaption, typeId: channel.conflictDetails.type}
                 )
             }}
         </span>
-        <span v-else>{{ $t('The device has conflict and cannot work.') }}</span>
+        <span v-else>{{ $t('The device has channel conflict and cannot work.') }}</span>
     </div>
 </template>
 

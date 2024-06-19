@@ -1,5 +1,5 @@
 <template>
-    <square-link :class="'clearfix pointer with-label ' + (device.enabled && !device.locked ? 'green' : 'grey')">
+    <square-link :class="`clearfix pointer with-label ${backgroundColor}`">
         <router-link :to="linkSpec">
             <h3>{{ caption }}</h3>
             <dl>
@@ -43,7 +43,16 @@
             },
             linkSpec() {
                 return this.noLink ? {} : {name: 'device', params: {id: this.device.id}};
-            }
+            },
+            backgroundColor() {
+                if (this.device.relationsCount?.channelsWithConflict > 0) {
+                    return 'yellow';
+                } else if (!this.device.enabled || this.device.locked) {
+                    return 'grey';
+                } else {
+                    return 'green';
+                }
+            },
         }
     };
 </script>

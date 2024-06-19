@@ -1,5 +1,5 @@
 <template>
-    <square-link :class="`clearfix pointer with-label ${model.functionId == 0 ? 'yellow' : 'grey'}`"
+    <square-link :class="`clearfix pointer with-label ${backgroundColor}`"
         @click="$emit('click')">
         <router-link :to="linkSpec">
             <div class="clearfix">
@@ -61,4 +61,11 @@
     const caption = computed(() => props.model.caption || i18n.t(props.model.function.caption));
     const linkSpec = computed(() => props.noLink ? {} : {name: 'channel', params: {id: props.model.id}});
     const hasActionTrigger = computed(() => props.model?.relationsCount?.actionTriggers > 0);
+    const backgroundColor = computed(() => {
+        if (props.model.conflictDetails || props.model.functionId === 0) {
+            return 'yellow';
+        } else {
+            return 'grey';
+        }
+    });
 </script>
