@@ -67,6 +67,7 @@ class DevicesFixture extends SuplaFixture {
         $hvac = $this->createDeviceHvac($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->setReference(self::DEVICE_HVAC, $hvac);
         $this->createDeviceGeneralPurposeMeasurement($this->getReference(LocationsFixture::LOCATION_BEDROOM));
+        $this->createDeviceGateway($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $device = $this->createEveryFunctionDevice($location, 'SECOND MEGA DEVICE');
         foreach ($this->faker->randomElements($device->getChannels(), 3) as $noFunctionChannel) {
             $noFunctionChannel->setFunction(ChannelFunction::NONE());
@@ -454,6 +455,21 @@ class DevicesFixture extends SuplaFixture {
                 ],
             ],
         ], self::DEVICE_MEASUREMENTS);
+        $this->entityManager->persist($device);
+        return $device;
+    }
+
+    public function createDeviceGateway(Location $location) {
+        $device = $this->createDevice('GATEWAY-JEJ', $location, [
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH]],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH, 'subDeviceId' => 1]],
+            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER, ['subDeviceId' => 1]],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH, 'subDeviceId' => 2]],
+            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER, ['subDeviceId' => 2]],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => Functions::getAllFeaturesFlag(), 'subDeviceId' => 3]],
+            [ChannelType::SENSORNO, ChannelFunction::NONE, ['subDeviceId' => 3]],
+            [ChannelType::SENSORNO, ChannelFunction::NONE, ['subDeviceId' => 3]],
+        ]);
         $this->entityManager->persist($device);
         return $device;
     }
