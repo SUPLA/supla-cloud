@@ -67,6 +67,7 @@ After the update, the application will be faster, more comfortable, more powerfu
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Licznik rozpocznie liczenie od 0 po tej operacji, niezależnie od jego obecnego stanu. Tej operacji nie da się cofnąć.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Link zostanie wygenerowany tuż po wybraniu podmiotu. Wszystkie pozostałe opcje możesz wprowadzić zaraz po jego utworzeniu.
 Aggregation: Agregacja
+Alarm armament sensor: Czujnik uzbrojenia alarmu
 Algorithm: Algorytm
 All: Wszystko
 All events: Wszystkie zdarzenia
@@ -145,6 +146,7 @@ Be notified when your channels change state: Powiadamianie o zmianach stanu kana
 Be right back!: Wróć za kilka chwil!
 Behavior settings: Zachowanie
 Below threshold: Poniżej progu
+Binary sensor: Czujnik binarny
 Body: Treść
 Bottom position: Dolna pozycja
 Bridge: Most
@@ -250,6 +252,7 @@ Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Id
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.
 Confirm if you want to remove {deviceName} device and all of its channels.: Potwierdź, że chcesz usunąć urządzenie {deviceName} i wszystkie jego kanały.
 Confirmation: Potwierdzenie
+Conflict: Konflikt
 Connected: Połączony
 Connection with a private instance of the SUPLA cloud: Połączenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
@@ -525,6 +528,7 @@ Interrupt and execute: Przerwij i wykonaj
 Interval: Interwał
 Invalid SUPLA Cloud URL.: Niepoprawny adres URL instancji SUPLA Cloud.
 Invalid action parameters: Niepoprawne parametry wykonania.
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Urządzenie zarejestrowało kanał innego typu ({typeCaption} - {typeId}) w miejsce obecnego.
 Invalid e-mail address.: Nieprawidłowy adres e-mail.
 Invalid function for channel.: Niepoprawna funkcja dla kanału.
 'Invalid redirect URI: {uri}': 'Niepoprawny URL zwrotny: {uri}'
@@ -774,6 +778,7 @@ Reload the chart: Przeładuj wykres
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Usuń powiązane urządzenia zanim usuniesz tą lokalizację. Identyfikatory: {relatedIds}.'
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Usuń wszystkie powiązane sceny przed usunięciem tej lokalizacji. Identyfikatory: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Najpierw usuń wszystkie urządzenia, które używają tej lokalizacji jako oryginalna lokalizacja. Identyfikatory: {relatedIds}.'
+Remove this item: Usuń ten element
 Repeat password: Powtórz hasło
 Request device unlock: Zgłoś chęć odblokowania urządzenia
 Reset Your Password: Ustaw nowe hasło
@@ -923,6 +928,7 @@ The counter has been reset.: Licznik został zresetowany.
 The device could not be unlocked.: Nie udało się odblokować urządzenia.
 The device has been unlocked already.: Urządzenie już jest odblokowane.
 The device has been unlocked.: Urządzenie zostało odblokowane.
+The device has channel conflict and cannot work.: Urządzenie wygenerowało konflikt kanałów i nie może aktualnie pracować.
 The device is disabled: Urządzenie jest wyłączone
 The device is locked: Urządzenie zablokowane
 The device might be in a sleep mode.: Urządzenie może pracować w trybie uśpienia.
@@ -966,11 +972,13 @@ Thermometer error: Błąd termometru
 Thermometers configuration: Konfiguracja termometrów
 Thermostat: Termostat
 Thermostat programs: Programy termostatu
+This channel was missing during last device registration attempt.: Tego kanału brakuje na urządzeniu.
 This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: To urządzenie jest przeznaczone do dystrybucji i instalacji tylko przez autoryzowanych instalatorów. Jeśli nie jesteś autoryzowanym instalatorem SUPLA i nie dysponujesz aktywnym certyfikatem szkoleniowym zwróć je do sprzedawcy.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz poniższe przykłady aby dowiedzieć się, jakie parametry możesz ustawić.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Otrzymujesz tę informację w związku z nieudaną próbą logowania do SUPLA-CLOUD (%cloudHost%) przy użyciu Twojego adresu email.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: To jest ostatni etap usuwania Twojego konta. Wypełnienie i zatwierdzenie formularza będzie skutkować nieodwracalnym usunięciem Twoich danych.
 This is the list of applications you have granted access to your account.: To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: To jest lista reakcji działających na Twoim koncie. Jeśli chcesz dodać nową reakcję, przejdź do szczegółów kanału, który powinien ją wyzwalać.
 This link is only valid for an hour.: Link będzie aktywny przez godzinę.
 'This password will protect your home. Therefore, it must:': 'To hasło ochroni Twój dom. Dlatego:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ten tryb harmonogramu jest zaprojektowany z myślą o technicznych lub bardzo cierpliwych użytkownikach. Wymaga on podania momentów wyzwalania harmonogramu w notacji crontab, wzbogaconej o kilka funkcjonalności spotykanych tylko w SUPLI. Jeśli nie spotkałeś/aś się wcześniej z crontabami a nadal chcesz użyć tego trybu, strona crontab.guru może się okazać dla Ciebie pomocna.
@@ -1074,6 +1082,9 @@ When liquid or lack thereof is detected: Kiedy zostanie wykryta ciecz lub jej br
 When the RGB lighting brightness level changes: Kiedy poziom jasności oświetlenia RGB się zmieni
 When the RGB lighting reaches a certain level of brightness: Kiedy oświetlenie RGB osiągnie określony poziom jasności
 When the active power will be: Kiedy moc czynna będzie
+When the alarm is armed: Gdy alarm zostanie uzbrojony
+When the alarm is armed or disarmed: Gdy alarm zostanie wyłączony lub uzbrojony
+When the alarm is disarmed: Gdy alarm zostanie wyłączony
 When the apparent power will be: Kiedy moc pozorna będzie
 When the balanced forward active energy will be: Kiedy zbilansowana, pobrana energia czynna będzie
 When the balanced reverse active energy will be: Kiedy zbilansowana, zwrócona energia czynna będzie
@@ -1119,6 +1130,9 @@ When the gateway will be opened or closed: Kiedy furtka zostanie zamknięta lub 
 When the heat meter value changes: Kiedy wartość licznika się zmieni
 When the heat meter value reaches a certain value: Kiedy licznik ciepła osiągnie określoną wartość
 When the heat meter value will be: Kiedy wartość licznika ciepła będzie
+When the hotel card has been taken: Gdy karta hotelowa zostanie zabrana
+When the hotel card is put in: Gdy karta hotelowa zostanie włożona
+When the hotel card is put in or has been taken: Gdy karta hotelowa zostanie włożona lub zabrana
 When the humidity changes: Kiedy wilgotność się zmieni
 When the humidity reaches a certain level: Kiedy wilgotność osiągnie określony poziom
 When the humidity will be: Kiedy wilgotność będzie
@@ -1565,18 +1579,5 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Alarm armament sensor: Czujnik uzbrojenia alarmu
-Binary sensor: Czujnik binarny
-Conflict: Konflikt
-Remove this item: Usuń ten element
-The device has channel conflict and cannot work.: Urządzenie wygenerowało konflikt kanałów i nie może aktualnie pracować.
-This channel was missing during last device registration attempt.: Tego kanału brakuje na urządzeniu.
-This is the list of our configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: To jest lista reakcji działających na Twoim koncie. Jeśli chcesz dodać nową reakcję, przejdź do szczegółów kanału, który powinien ją wyzwalać.
-When the alarm is armed: Gdy alarm zostanie uzbrojony
-When the alarm is armed or disarmed: Gdy alarm zostanie wyłączony lub uzbrojony
-When the alarm is disarmed: Gdy alarm zostanie wyłączony
-When the hotel card has been taken: Gdy karta hotelowa zostanie zabrana
-When the hotel card is put in: Gdy karta hotelowa zostanie włożona
-When the hotel card is put in or has been taken: Gdy karta hotelowa zostanie włożona lub zabrana
 
 #</editor-fold>

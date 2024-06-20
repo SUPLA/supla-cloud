@@ -2,6 +2,7 @@
     <div class="alert alert-danger" v-if="channel.conflictDetails">
         <span>{{ $t('Conflict') }}:{{ ' ' }}</span>
         <span v-if="channel.conflictDetails.missing">{{ $t('This channel was missing during last device registration attempt.') }}</span>
+        <!-- i18n: ['Invalid channel type ({typeCaption} - {typeId}) received in registration.'] -->
         <span v-else-if="channel.conflictDetails.type">
             {{
                 $t(
