@@ -93,7 +93,8 @@ class TargetSuplaCloudRequestForwarder {
         if ($ip = $this->clientIpResolver->getRealIp()) {
             $headers[] = 'X-Real-Ip: ' . $ip;
         }
-        $response = $this->brokerHttpClient->request($target->getAddress() . $apiEndpoint, $data, $responseStatus, $headers, $method, 'SUPLA-Broker-Token');
+        $fullUrl = $target->getAddress() . $apiEndpoint;
+        $response = $this->brokerHttpClient->request($fullUrl, $data, $responseStatus, $headers, $method, 'SUPLA-Broker-Token');
         return [$response, $responseStatus];
     }
 }

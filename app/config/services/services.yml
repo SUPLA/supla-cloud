@@ -155,6 +155,9 @@ services:
     tags:
       - {name: monolog.logger, channel: supla_http_client}
 
+  SuplaBundle\Supla\SuplaOcr:
+    $ocrUrl: '%supla.ocr.url%'
+
   SuplaBundle\Auth\Voter\:
     resource: '../../../src/SuplaBundle/Auth/Voter'
 

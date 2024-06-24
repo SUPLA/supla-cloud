@@ -25,13 +25,12 @@ use SuplaBundle\Entity\Main\SettingsString;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\InstanceSettings;
 use SuplaBundle\Model\TargetSuplaCloud;
-use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
-use Symfony\Component\HttpFoundation\Response;
+use SuplaBundle\Tests\Integration\Traits\TestSuplaHttpClient;
 
 /**
  * For these tests to run, you need to launch your local instance of SUPLA Autodiscover from https://github.com/SUPLA/supla-autodiscover
@@ -52,7 +51,7 @@ services:
 /**
  * These tests are disabled by default because of the demand for the specific environment. To run them, change the group name below
  * (this group name is excluded in the app/phpunit.xml configuration file).
- * @group AutodiscoverIntegrationTest
+ * @group AutodiscoverIntegrationTests
  */
 class AutodiscoverIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
@@ -189,13 +188,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
     public function testRegisteringAnotherTargetCloudThroughBroker() {
         $this->testRegisteringTargetCloud();
         $this->treatAsBroker();
-        TargetSuplaCloudRequestForwarder::$requestExecutor =
-            function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('http://supla.private.pl', $address);
-                $this->assertEquals('server-info', $endpoint);
-                $targetCalled = true;
-                return [['cloudVersion' => '2.3.0'], Response::HTTP_OK];
-            };
+        TestSuplaHttpClient::mockHttpRequest('http://supla.private.pl/api/v2.3.0/server-info', ['cloudVersion' => '2.3.0']);
         $userData = [
             'email' => 'chief@supla.org',
             'targetCloud' => 'supla.private.pl',
@@ -217,6 +210,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
 
     public function testRegisteringAnotherTargetCloudThroughBrokerTwice() {
         $this->testRegisteringAnotherTargetCloudThroughBroker();
+        TestSuplaHttpClient::mockHttpRequest('http://supla.private.pl/api/v2.3.0/server-info', ['cloudVersion' => '2.3.0']);
         $userData = [
             'email' => 'chief@supla.org',
             'targetCloud' => 'supla.private.pl',
@@ -246,6 +240,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
 
     public function testCanReregisterTargetCloudAfterUnregistration() {
         $this->testUnregisteringTargetCloud();
+        TestSuplaHttpClient::mockHttpRequest('http://supla.private.pl/api/v2.3.0/server-info', ['cloudVersion' => '2.3.0']);
         $userData = [
             'email' => 'chief@supla.org',
             'targetCloud' => 'supla.private.pl',

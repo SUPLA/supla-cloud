@@ -27,10 +27,12 @@ use Symfony\Component\HttpFoundation\Response;
 class SuplaBrokerHttpClient {
     private SettingsStringRepository $settingsStringRepository;
     private LoggerInterface $logger;
+    private SuplaHttpClient $httpClient;
 
-    public function __construct(SettingsStringRepository $settingsStringRepository, LoggerInterface $logger) {
+    public function __construct(SuplaHttpClient $httpClient, SettingsStringRepository $settingsStringRepository, LoggerInterface $logger) {
         $this->settingsStringRepository = $settingsStringRepository;
         $this->logger = $logger;
+        $this->httpClient = $httpClient;
     }
 
     public function request(
@@ -41,40 +43,25 @@ class SuplaBrokerHttpClient {
         string $method = null,
         string $authorizationHeaderName = 'Authorization'
     ): ?array {
-        $ch = curl_init($fullUrl);
         $method = $method ?: ($payload ? 'POST' : 'GET');
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         $headers['X-Cloud-Version'] = ApiVersions::LATEST;
-        if ($payload) {
-            $content = json_encode($payload);
-            $headers = array_merge(['Content-Type' => 'application/json', 'Content-Length' => strlen($content)], $headers);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
-        }
         if (!isset($headers[$authorizationHeaderName]) && $this->settingsStringRepository->hasValue(InstanceSettings::TARGET_TOKEN)) {
             $headers[$authorizationHeaderName] = 'Bearer ' . $this->settingsStringRepository->getValue(InstanceSettings::TARGET_TOKEN);
         }
-        $headers = array_map(function ($headerName, $headerValue) {
-            return "$headerName: $headerValue";
-        }, array_keys($headers), $headers);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($ch, CURLOPT_COOKIE, 'XDEBUG_SESSION=PHPUNIT'); // uncomment to enable XDEBUG debugging in dev
-        $result = curl_exec($ch);
-        $responseStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        [$successful, $rawResponse, $responseStatus] = $this->httpClient->request($fullUrl, $method, $payload, $headers);
         $logDetails = [
             'address' => $fullUrl,
             'method' => $method,
             'payload' => $payload,
             'responseStatus' => $responseStatus,
-            'response' => var_export($result, true),
+            'response' => var_export($rawResponse, true),
         ];
-        if (curl_errno($ch) === 0) {
+        if ($successful) {
             $this->logger->debug('HTTP Request', $logDetails);
         } else {
             $this->logger->warning('Target service does not respond.', $logDetails);
             throw new ApiException('Service temporarily unavailable', Response::HTTP_SERVICE_UNAVAILABLE); // i18n
         }
-        curl_close($ch);
-        return json_decode($result, true);
+        return json_decode($rawResponse, true);
     }
 }
