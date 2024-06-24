@@ -75,7 +75,8 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         LocalSuplaCloud $localSuplaCloud,
         UserManager $userManager,
         LoggerInterface $logger,
-        SettingsStringRepository $settingsStringRepository
+        SettingsStringRepository $settingsStringRepository,
+        SuplaBrokerHttpClient $brokerHttpClient
     ) {
         parent::__construct(
             count(self::$userMapping) ? 'mocked-autodiscover' : false,
@@ -83,7 +84,8 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             self::$isBroker,
             $userManager,
             $logger,
-            $settingsStringRepository
+            $settingsStringRepository,
+            $brokerHttpClient
         );
     }
 

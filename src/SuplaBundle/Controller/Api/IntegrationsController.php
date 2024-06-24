@@ -21,36 +21,32 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Main\AmazonAlexa;
+use SuplaBundle\Entity\Main\GoogleHome;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AmazonAlexaRepository;
+use SuplaBundle\Repository\GoogleHomeRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class AmazonAlexaController extends RestController {
+class IntegrationsController extends RestController {
     use SuplaServerAware;
     use Transactional;
-
-    /** @var AmazonAlexaRepository */
-    private $amazonAlexaRepository;
-
-    public function __construct(AmazonAlexaRepository $amazonAlexaRepository) {
-        $this->amazonAlexaRepository = $amazonAlexaRepository;
-    }
 
     /**
      * @Security("is_granted('ROLE_CHANNELS_EA')")
      * @Rest\Put("/integrations/amazon-alexa")
      */
-    public function putAmazonAlexaAction(Request $request, AmazonAlexa $source) {
+    public function putAmazonAlexaAction(Request $request, AmazonAlexa $source, AmazonAlexaRepository $amazonAlexaRepository) {
         if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         };
 
         try {
-            $aegc = $this->amazonAlexaRepository->findForUser($this->getUser());
+            $aegc = $amazonAlexaRepository->findForUser($this->getUser());
             $aegc->setAccessToken($source->getAccessToken());
             $aegc->setExpiresAt($source->getExpiresAt());
             $aegc->setRefreshToken($source->getRefreshToken());
@@ -67,5 +63,41 @@ class AmazonAlexaController extends RestController {
         $this->suplaServer->amazonAlexaCredentialsChanged();
 
         return $this->handleView($this->view(null, Response::HTTP_OK));
+    }
+
+    /**
+     * @Security("is_granted('ROLE_CHANNELS_EA')")
+     * @Rest\Put("/integrations/google-home")
+     */
+    public function putGoogleHomeAction(Request $request, GoogleHome $source, GoogleHomeRepository $googleHomeRepository) {
+        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        };
+
+        try {
+            $gh = $googleHomeRepository->findForUser($this->getUser());
+            $gh->setAccessToken($source->getAccessToken());
+        } catch (NotFoundHttpException $e) {
+            $gh = $source;
+            $gh->setRegDate(new \DateTime);
+        };
+
+        $this->transactional(function (EntityManagerInterface $em) use ($gh) {
+            $em->persist($gh);
+        });
+
+        $this->suplaServer->googleHomeCredentialsChanged();
+
+        return $this->handleView($this->view(null, Response::HTTP_OK));
+    }
+
+    /**
+     * @Rest\Get("/integrations/ocr/{channel}/latest")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
+     */
+    public function getLatestOcrImageAction(Request $request, IODeviceChannel $channel) {
+        if (!ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        };
     }
 }

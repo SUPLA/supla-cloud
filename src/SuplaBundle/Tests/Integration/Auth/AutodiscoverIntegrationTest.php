@@ -90,7 +90,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $command = $result[2];
         $this->assertStringStartsWith('php bin/console supla:register-target-cloud ', $command);
         $result = $this->executeCommand(substr($command, strlen('php bin/console ')));
-        $this->assertContains('correctly', $result);
+        $this->assertStringContainsString('correctly', $result);
         @chmod(SuplaAutodiscover::PUBLIC_CLIENTS_SAVE_PATH, 0777);
     }
 
@@ -132,7 +132,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
     public function testDeletingUserDeletesItInAd() {
         $client = $this->registerUser();
         $result = $this->executeCommand('supla:delete-user adtest@supla.org', $client);
-        $this->assertContains('has been deleted', $result);
+        $this->assertStringContainsString('has been deleted', $result);
         $server = $this->autodiscover->getAuthServerForUser('adtest@supla.org');
         $this->assertTrue($server->isLocal());
     }

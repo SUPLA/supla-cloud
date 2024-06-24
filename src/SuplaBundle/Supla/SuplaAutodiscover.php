@@ -40,16 +40,13 @@ abstract class SuplaAutodiscover {
 
     protected $autodiscoverUrl = null;
 
-    /** @var UserManager */
-    private $userManager;
-    /** @var bool */
-    private $actAsBrokerCloud;
-    /** @var LocalSuplaCloud */
+    private UserManager $userManager;
+    private bool $actAsBrokerCloud;
+    /** @var LocalSuplaCloud $localSuplaCloud */
     protected $localSuplaCloud;
-    /** @var LoggerInterface */
-    private $logger;
-    /** @var SettingsStringRepository */
-    protected $settingsStringRepository;
+    private LoggerInterface $logger;
+    protected SettingsStringRepository $settingsStringRepository;
+    protected SuplaBrokerHttpClient $brokerHttpClient;
 
     public function __construct(
         $autodiscoverUrl,
@@ -57,7 +54,8 @@ abstract class SuplaAutodiscover {
         bool $actAsBrokerCloud,
         UserManager $userManager,
         LoggerInterface $logger,
-        SettingsStringRepository $settingsStringRepository
+        SettingsStringRepository $settingsStringRepository,
+        SuplaBrokerHttpClient $brokerHttpClient
     ) {
         $this->autodiscoverUrl = $autodiscoverUrl;
         $this->userManager = $userManager;
@@ -68,6 +66,7 @@ abstract class SuplaAutodiscover {
         if (strpos($this->autodiscoverUrl, 'http') !== 0) {
             $this->autodiscoverUrl = 'https://' . $this->autodiscoverUrl;
         }
+        $this->brokerHttpClient = $brokerHttpClient;
     }
 
     public function enabled(): bool {

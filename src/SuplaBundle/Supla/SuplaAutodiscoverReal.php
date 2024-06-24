@@ -17,41 +17,12 @@
 
 namespace SuplaBundle\Supla;
 
-use SuplaBundle\Enums\InstanceSettings;
-use SuplaBundle\Exception\ApiException;
-use SuplaBundle\Model\ApiVersions;
-use Symfony\Component\HttpFoundation\Response;
-
 class SuplaAutodiscoverReal extends SuplaAutodiscover {
     protected function remoteRequest($endpoint, $post = false, &$responseStatus = null, array $headers = [], string $method = null) {
         if (!$this->enabled()) {
             return null;
         }
         $endpointUrl = $this->autodiscoverUrl . $endpoint;
-        $ch = curl_init($endpointUrl);
-        $method = $method ?: ($post ? 'POST' : 'GET');
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-        $headers['X-Cloud-Version'] = ApiVersions::LATEST;
-        if ($post) {
-            $content = json_encode($post);
-            $headers = array_merge(['Content-Type' => 'application/json', 'Content-Length' => strlen($content)], $headers);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
-        }
-        if (!isset($headers['Authorization']) && $this->settingsStringRepository->hasValue(InstanceSettings::TARGET_TOKEN)) {
-            $headers['Authorization'] = 'Bearer ' . $this->settingsStringRepository->getValue(InstanceSettings::TARGET_TOKEN);
-        }
-        $headers = array_map(function ($headerName, $headerValue) {
-            return "$headerName: $headerValue";
-        }, array_keys($headers), $headers);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($ch, CURLOPT_COOKIE, 'XDEBUG_SESSION=PHPUNIT'); // uncomment to enable XDEBUG debugging in dev
-        $result = curl_exec($ch);
-        $responseStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        if (curl_errno($ch) != 0) {
-            throw new ApiException('Service temporarily unavailable', Response::HTTP_SERVICE_UNAVAILABLE); // i18n
-        }
-        curl_close($ch);
-        return json_decode($result, true);
+        return $this->brokerHttpClient->request($endpointUrl, $post ?: null, $responseStatus, $headers, $method);
     }
 }
