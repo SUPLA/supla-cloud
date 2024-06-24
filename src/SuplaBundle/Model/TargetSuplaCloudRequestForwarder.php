@@ -17,20 +17,12 @@
 
 namespace SuplaBundle\Model;
 
-use Psr\Log\LoggerInterface;
-use SuplaBundle\Enums\InstanceSettings;
-use SuplaBundle\Exception\ApiException;
-use SuplaBundle\Repository\SettingsStringRepository;
+use SuplaBundle\Supla\SuplaBrokerHttpClient;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class TargetSuplaCloudRequestForwarder {
-    /** @var LoggerInterface */
-    private $logger;
-    /** @var RealClientIpResolver */
-    private $clientIpResolver;
-    /** @var SettingsStringRepository */
-    private $settingsStringRepository;
+    private SuplaBrokerHttpClient $brokerHttpClient;
+    private RealClientIpResolver $clientIpResolver;
 
     /**
      * For the sake of tests.
@@ -38,14 +30,9 @@ class TargetSuplaCloudRequestForwarder {
      */
     public static $requestExecutor;
 
-    public function __construct(
-        LoggerInterface $logger,
-        RealClientIpResolver $clientIpResolver,
-        SettingsStringRepository $settingsStringRepository
-    ) {
-        $this->logger = $logger;
+    public function __construct(SuplaBrokerHttpClient $brokerHttpClient, RealClientIpResolver $clientIpResolver) {
+        $this->brokerHttpClient = $brokerHttpClient;
         $this->clientIpResolver = $clientIpResolver;
-        $this->settingsStringRepository = $settingsStringRepository;
     }
 
     public function issueWebappToken(TargetSuplaCloud $target, string $username, string $password): array {
@@ -102,38 +89,11 @@ class TargetSuplaCloudRequestForwarder {
         if (strpos($apiEndpoint, '/') !== 0) {
             $apiEndpoint = '/api/v' . ApiVersions::V2_3 . '/' . $apiEndpoint;
         }
-        $ch = curl_init($target->getAddress() . $apiEndpoint);
-        $method = $method ?: ($data !== null ? 'POST' : 'GET');
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         $headers = [];
         if ($ip = $this->clientIpResolver->getRealIp()) {
             $headers[] = 'X-Real-Ip: ' . $ip;
         }
-        if ($data) {
-            $content = json_encode($data);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
-            $headers[] = 'Content-Type: application/json';
-            $headers[] = 'Content-Length: ' . strlen($content);
-        }
-        if ($this->settingsStringRepository->hasValue(InstanceSettings::TARGET_TOKEN)) {
-            $headers[] = 'SUPLA-Broker-Token: Bearer ' . $this->settingsStringRepository->getValue(InstanceSettings::TARGET_TOKEN);
-        }
-        if ($headers) {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        }
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($ch, CURLOPT_COOKIE, 'XDEBUG_SESSION=PHPUNIT'); // uncomment to enable XDEBUG debugging in dev
-        $response = curl_exec($ch);
-        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        if (curl_errno($ch) != 0) {
-            $this->logger->error(
-                'Target Cloud does not respond.',
-                ['address' => $target->getAddress(), 'responseStatus' => $status, 'response' => var_export($response, true)]
-            );
-            throw new ApiException('Service temporarily unavailable', Response::HTTP_SERVICE_UNAVAILABLE); // i18n
-        }
-        curl_close($ch);
-        $response = json_decode($response, true);
-        return [$response, $status];
+        $response = $this->brokerHttpClient->request($target->getAddress() . $apiEndpoint, $data, $responseStatus, $headers, $method, 'SUPLA-Broker-Token');
+        return [$response, $responseStatus];
     }
 }

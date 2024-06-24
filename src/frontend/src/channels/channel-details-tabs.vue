@@ -128,6 +128,7 @@
                     ChannelFunction.IC_WATERMETER,
                     ChannelFunction.IC_HEATMETER,
                     ChannelFunction.IC_GASMETER,
+                    ChannelFunction.IC_ELECTRICITYMETER,
                 ];
                 if (ocrSettingsFunctions.includes(this.channel.functionId)) {
                     this.availableTabs.push({
