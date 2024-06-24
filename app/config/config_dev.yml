@@ -34,6 +34,7 @@ services:
     tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
 
 supla:
+  autodiscover_url: http://localhost:8010
   mqtt_broker:
     enabled: true
     host: supla.org
@@ -42,6 +43,9 @@ supla:
     tokens_lifetime:
       webapp: {access: 28800}
 #      webapp: {access: 60}
+  ocr:
+    enabled: true
+    url: 'http://localhost:8011'
 
 #swiftmailer:
 #  delivery_addresses: ['%admin_email%']

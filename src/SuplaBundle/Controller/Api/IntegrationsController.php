@@ -27,6 +27,7 @@ use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AmazonAlexaRepository;
 use SuplaBundle\Repository\GoogleHomeRepository;
+use SuplaBundle\Supla\SuplaOcr;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -95,9 +96,11 @@ class IntegrationsController extends RestController {
      * @Rest\Get("/integrations/ocr/{channel}/latest")
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
-    public function getLatestOcrImageAction(Request $request, IODeviceChannel $channel) {
+    public function getLatestOcrImageAction(Request $request, IODeviceChannel $channel, SuplaOcr $ocr) {
         if (!ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         };
+        $image = $ocr->getLatestImage($channel);
+        return $this->view($image);
     }
 }

@@ -27,6 +27,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Supla\SuplaServerMock;
+use SuplaBundle\Tests\Integration\Traits\TestSuplaHttpClient;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -158,6 +159,11 @@ abstract class IntegrationTestCase extends WebTestCase {
         if (SuplaAutodiscoverMock::$mockedResponses) {
             $error = 'Some of AD communication you mocked were not used. ' . var_export(SuplaServerMock::$mockedResponses, true);
             SuplaAutodiscoverMock::$mockedResponses = [];
+            $this->fail($error);
+        }
+        if (TestSuplaHttpClient::$mockedResponses) {
+            $error = 'Some of requests you mocked were not used. ' . var_export(TestSuplaHttpClient::$mockedResponses, true);
+            TestSuplaHttpClient::$mockedResponses = [];
             $this->fail($error);
         }
     }
