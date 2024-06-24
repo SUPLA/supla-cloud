@@ -72,7 +72,7 @@ class ShutPartiallyActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function transformActionParamsForApi(ActionableSubject $subject, array $actionParams): array {
-        $params = ['percentage' => '', 'tilt' => ''];
+        $params = [];
         if (isset($actionParams['percentage'])) {
             $params['percentage'] = strval($actionParams['percentage']);
         } elseif (isset($actionParams['percentageDelta'])) {
