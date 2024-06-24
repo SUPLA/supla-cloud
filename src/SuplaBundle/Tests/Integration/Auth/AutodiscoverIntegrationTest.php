@@ -51,7 +51,7 @@ services:
 /**
  * These tests are disabled by default because of the demand for the specific environment. To run them, change the group name below
  * (this group name is excluded in the app/phpunit.xml configuration file).
- * @group AutodiscoverIntegrationTests
+ * @group AutodiscoverIntegrationTest
  */
 class AutodiscoverIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
