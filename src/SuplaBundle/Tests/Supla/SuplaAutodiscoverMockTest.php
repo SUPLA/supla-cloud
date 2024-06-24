@@ -26,6 +26,7 @@ use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\SettingsStringRepository;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
+use SuplaBundle\Supla\SuplaBrokerHttpClient;
 
 /**
  * We are testing the mocked implementation here in order to be sure in behaves correctly in integration tests.
@@ -43,7 +44,8 @@ class SuplaAutodiscoverMockTest extends TestCase {
             new LocalSuplaCloud('https://supla.local'),
             $this->userManager,
             $this->createMock(LoggerInterface::class),
-            $this->createMock(SettingsStringRepository::class)
+            $this->createMock(SettingsStringRepository::class),
+            $this->createMock(SuplaBrokerHttpClient::class)
         );
         SuplaAutodiscoverMock::clear();
     }
