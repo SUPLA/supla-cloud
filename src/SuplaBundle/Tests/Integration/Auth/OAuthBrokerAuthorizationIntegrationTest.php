@@ -28,6 +28,7 @@ use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\TestSuplaHttpClient;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -84,14 +85,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient(false);
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $client->followRedirect();
-        $targetCalled = false;
-        TargetSuplaCloudRequestForwarder::$requestExecutor =
-            function (string $address, string $endpoint) use (&$targetCalled) {
-                $this->assertEquals('https://target.cloud', $address);
-                $this->assertEquals('server-info', $endpoint);
-                $targetCalled = true;
-                return [['version' => '2.3.0'], Response::HTTP_OK];
-            };
+        TestSuplaHttpClient::mockHttpRequest('https://target.cloud/.+/server-info', ['version' => '2.3.0']);
         $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
         $response = $client->getResponse();
         $this->assertTrue($response->isRedirect());
@@ -101,7 +95,6 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertStringContainsString('scope=account_r', $targetUrl);
         $this->assertStringContainsString('ad_username=ala%40supla.org', $targetUrl);
         $this->assertStringContainsString('state=some-state', $targetUrl);
-        $this->assertTrue($targetCalled);
     }
 
     public function testDoesNotRedirectToGivenTargetCloudIfItDoesNotWork() {
