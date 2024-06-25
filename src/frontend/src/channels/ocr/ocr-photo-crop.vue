@@ -1,7 +1,8 @@
 <template>
     <loading-cover :loading="!cropperReady">
         <div :class="{invisible: !cropperReady}">
-            <img src="https://ocdn.eu/images/pulscms/M2M7MDA_/bd8b7be0ad21e358dcc1d43b5a90672e.jpg" ref="image"/>
+            <!--            <img src="https://ocdn.eu/images/pulscms/M2M7MDA_/bd8b7be0ad21e358dcc1d43b5a90672e.jpg" ref="image"/>-->
+            <img :src="imageSrc" ref="image"/>
         </div>
         <div :class="[{invisible: !cropperReady}, 'd-flex mt-2']">
             <div class="flex-grow-1">
@@ -24,12 +25,16 @@
 
     export default {
         components: {},
-        props: ['value'],
+        props: {
+            value: Object,
+            imageBase64: String,
+        },
         data() {
             return {
                 currentData: undefined,
                 cropper: undefined,
                 cropperReady: false,
+                errorDetails: undefined,
             }
         },
         mounted() {
@@ -68,6 +73,11 @@
             rotate(angle) {
                 this.cropper.rotate(angle);
             }
+        },
+        computed: {
+            imageSrc() {
+                return 'data:image/jpg;base64,' + this.imageBase64;
+            },
         },
         watch: {
             value(newValue) {

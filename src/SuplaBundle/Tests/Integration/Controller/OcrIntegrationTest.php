@@ -44,7 +44,7 @@ class OcrIntegrationTest extends IntegrationTestCase {
         $this->counter = $this->device->getChannels()[0];
     }
 
-    public function testChangingChannelStateWithGoogle() {
+    public function testGettingLatestPhoto() {
         $client = $this->createAuthenticatedClient($this->user);
         TestSuplaHttpClient::mockHttpRequest('/latest', ['image' => 'abcjpeg']);
         $client->apiRequestV3('GET', "/api/integrations/ocr/{$this->counter->getId()}/latest");
@@ -52,5 +52,22 @@ class OcrIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertEquals('abcjpeg', $content['image']);
+    }
+
+    public function testUpdatingOcrSettings() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $ocrConfig = ['unicorn' => 'crop it!'];
+        TestSuplaHttpClient::mockHttpRequest('/settings', function (array $request) use ($ocrConfig) {
+            $this->assertStringContainsString($this->device->getGUIDString(), $request['url']);
+            $this->assertEquals(['config' => $ocrConfig], $request['payload']);
+            return [true, '', 200];
+        });
+        $client->apiRequestV3('PUT', "/api/channels/{$this->counter->getId()}", [
+            'config' => ['ocrSettings' => $ocrConfig],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $counter = $this->freshEntity($this->counter);
+        $this->assertEquals($ocrConfig, $counter->getUserConfigValue('ocrSettings'));
     }
 }
