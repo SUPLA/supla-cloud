@@ -6,25 +6,33 @@
             @cancel="cancelChanges()"
             @save="saveOcrSettings()"
             :is-pending="hasPendingChanges">
+            <loading-cover :loading="!latestImageDetails && !errorDetails">
+                <transition-expand>
+                    <div class="row" v-if="conflictingConfig">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <ConfigConflictWarning @refresh="replaceConfigWithConflictingConfig()"/>
+                        </div>
+                    </div>
+                </transition-expand>
 
-            <transition-expand>
-                <div class="row" v-if="conflictingConfig">
-                    <div class="col-sm-6 col-sm-offset-3">
-                        <ConfigConflictWarning @refresh="replaceConfigWithConflictingConfig()"/>
+                <div v-if="errorDetails">
+                    <div class="alert alert-danger">
+                        {{ $t(errorDetails.message, errorDetails.details) }}
                     </div>
                 </div>
-            </transition-expand>
 
-            <div class="form-group">
-                <label>{{ $t('Image area crop') }}</label>
-                <div
-                    class="help-block">{{ $t('This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.') }}
+                <div v-else-if="latestImageDetails">
+                    <div class="form-group">
+                        <label>{{ $t('Image area crop') }}</label>
+                        <div
+                            class="help-block">{{ $t('This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.') }}
+                        </div>
+                        <div class="ocr-photo-crop-area">
+                            <OcrPhotoCrop v-model="ocrSettings" @input="hasPendingChanges = true" :image-base64="latestImageDetails.image"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="ocr-photo-crop-area">
-                    <OcrPhotoCrop v-model="ocrSettings" @input="hasPendingChanges = true"/>
-                </div>
-            </div>
-
+            </loading-cover>
         </pending-changes-page>
     </div>
 </template>
@@ -51,6 +59,8 @@
                 hasPendingChanges: false,
                 ocrSettings: undefined,
                 conflictingConfig: undefined,
+                errorDetails: undefined,
+                latestImageDetails: undefined,
             }
         },
         beforeMount() {
@@ -72,9 +82,17 @@
                     }
                 });
             },
+            fetchLatestImage() {
+                this.errorDetails = undefined;
+                this.latestImageDetails = undefined;
+                this.$http.get(`integrations/ocr/${this.subject.id}/latest`, {skipErrorHandler: true})
+                    .then(response => this.latestImageDetails = response.body)
+                    .catch(error => this.errorDetails = error.body);
+            },
             cancelChanges() {
                 this.ocrSettings = deepCopy(this.subject.config.ocrSettings || {});
                 this.hasPendingChanges = false;
+                this.fetchLatestImage();
             },
             replaceConfigWithConflictingConfig() {
                 this.subject.config = this.conflictingConfig;

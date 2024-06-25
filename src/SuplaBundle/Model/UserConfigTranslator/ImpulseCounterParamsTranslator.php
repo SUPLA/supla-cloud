@@ -18,6 +18,7 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="unit", type="string"),
  *   @OA\Property(property="initialValue", type="integer"),
  *   @OA\Property(property="relatedChannelId", type="integer"),
+ *   @OA\Property(property="ocrSettings", type="object"),
  * )
  */
 class ImpulseCounterParamsTranslator extends UserConfigTranslator {
@@ -32,7 +33,6 @@ class ImpulseCounterParamsTranslator extends UserConfigTranslator {
             'initialValue' => $subject->getUserConfigValue('initialValue', 0),
             'addToHistory' => $subject->getUserConfigValue('addToHistory', false),
             'resetCountersAvailable' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($subject->getFlags()),
-            'ocrSettings' => $subject->getUserConfigValue('ocrSettings', new \stdClass()),
         ];
     }
 
@@ -66,12 +66,6 @@ class ImpulseCounterParamsTranslator extends UserConfigTranslator {
             Assert::that($value, null, 'unit')->string()->maxLength(8, null, null, 'ASCII');
             $subject->setTextParam2($value);
             $subject->setUserConfigValue('unit', $value ?: null);
-        }
-        if (array_key_exists('ocrSettings', $config)) {
-            $value = $config['ocrSettings'] ?? '';
-//            Assert::that($value, null, 'unit')->string()->maxLength(8, null, null, 'ASCII');
-//            $subject->setTextParam2($value);
-            $subject->setUserConfigValue('ocrSettings', $value);
         }
     }
 

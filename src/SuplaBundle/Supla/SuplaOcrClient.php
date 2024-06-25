@@ -18,8 +18,9 @@
 namespace SuplaBundle\Supla;
 
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Exception\ApiExceptionWithDetails;
 
-class SuplaOcr {
+class SuplaOcrClient {
     protected SuplaBrokerHttpClient $brokerHttpClient;
     private string $suplaOcrUrl;
 
@@ -33,7 +34,22 @@ class SuplaOcr {
 
     public function getLatestImage(IODeviceChannel $channel) {
         $deviceGuid = $channel->getIoDevice()->getGUIDString();
-        $fullUrl = sprintf("%s/pictures/%s/latest", $this->suplaOcrUrl, $deviceGuid);
-        return $this->brokerHttpClient->request($fullUrl);
+        $fullUrl = $this->ocrEndpoint(sprintf("images/%s/latest", $deviceGuid));
+        $response = $this->brokerHttpClient->request($fullUrl, null, $responseStatus);
+        if ($responseStatus === 200) {
+            return $response;
+        } else {
+            throw new ApiExceptionWithDetails('OCR service responded with error: {status}', $response, $responseStatus); // i18n
+        }
+    }
+
+    public function updateSettings(IODeviceChannel $channel, array $ocrConfig) {
+        $deviceGuid = $channel->getIoDevice()->getGUIDString();
+        $fullUrl = $this->ocrEndpoint(sprintf("devices/%s", $deviceGuid));
+        return $this->brokerHttpClient->request($fullUrl, ['config' => $ocrConfig], $responseStatus, [], 'PUT');
+    }
+
+    private function ocrEndpoint(string $endpoint): string {
+        return sprintf("%s/%s", $this->suplaOcrUrl, $endpoint);
     }
 }

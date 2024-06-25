@@ -9,7 +9,7 @@ class TestSuplaHttpClient extends SuplaHttpClient {
 
     public static function mockHttpRequest(string $url, $response) {
         Assertion::keyNotExists(self::$mockedResponses, $url, $url . ' is already mocked.');
-        if (!is_string($response)) {
+        if (!is_string($response) && !is_callable($response)) {
             $response = json_encode($response);
         }
         self::$mockedResponses[$url] = $response;
@@ -19,7 +19,11 @@ class TestSuplaHttpClient extends SuplaHttpClient {
         foreach (self::$mockedResponses as $url => $response) {
             if (preg_match("#$url#i", $fullUrl)) {
                 unset(self::$mockedResponses[$url]);
-                return [true, $response, 200];
+                if (is_callable($response)) {
+                    return $response(['url' => $fullUrl, 'method' => $method, 'payload' => $payload, 'headers' => $headers]);
+                } else {
+                    return [true, $response, 200];
+                }
             }
         }
         return parent::request($fullUrl, $method, $payload, $headers);

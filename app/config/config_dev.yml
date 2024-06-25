@@ -45,7 +45,7 @@ supla:
 #      webapp: {access: 60}
   ocr:
     enabled: true
-    url: 'http://localhost:8011'
+    url: 'http://localhost:8044'
 
 #swiftmailer:
 #  delivery_addresses: ['%admin_email%']

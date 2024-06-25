@@ -33,7 +33,7 @@ class ApiExceptionHandler implements EventSubscriberInterface {
     private $logger;
 
     public function __construct($isDebug, LoggerInterface $logger) {
-        $this->isDebug = $isDebug;
+        $this->isDebug = $isDebug || getenv('APPLICATION_ENV') === 'dev';
         $this->logger = $logger;
     }
 
