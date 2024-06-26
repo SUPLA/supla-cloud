@@ -503,4 +503,8 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     public function getConflictDetails(): ?array {
         return $this->conflictDetails ? (json_decode($this->conflictDetails, true) ?: null) : null;
     }
+
+    public function getSubDeviceId(): int {
+        return $this->subDeviceId;
+    }
 }

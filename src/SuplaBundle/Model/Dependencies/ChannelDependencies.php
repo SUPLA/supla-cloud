@@ -5,6 +5,7 @@ namespace SuplaBundle\Model\Dependencies;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
@@ -55,6 +56,32 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         return [
             'channels' => array_values($this->findDependentChannelsRecursive($channel)),
         ];
+    }
+
+    public function getChannelsToRemoveWith(IODeviceChannel $channel, array &$checkedIds = []): array {
+        $checkedIds[] = $channel->getId();
+        $channelsToRemove = $this->channelRepository->findBy(
+            ['function' => ChannelFunction::ACTION_TRIGGER, 'param1' => $channel->getId()]
+        );
+        if ($channel->getSubDeviceId() > 0) {
+            $channelsFromTheSameSubDevice = $channel->getIoDevice()->getChannels()
+                ->filter(fn(IODeviceChannel $ch) => $ch->getSubDeviceId() === $channel->getSubDeviceId())
+                ->toArray();
+            $channelsToRemove = array_merge($channelsToRemove, $channelsFromTheSameSubDevice);
+        }
+        $removeMap = [];
+        foreach ($channelsToRemove as $channelToRemove) {
+            $removeMap[$channelToRemove->getId()] = $channelToRemove;
+        }
+        foreach ($removeMap as $chId => $ch) {
+            if (!in_array($chId, $checkedIds)) {
+                foreach ($this->getChannelsToRemoveWith($ch, $checkedIds) as $anotherChannel) {
+                    $removeMap[$anotherChannel->getId()] = $anotherChannel;
+                }
+            }
+        }
+        unset($removeMap[$channel->getId()]);
+        return array_values($removeMap);
     }
 
     public function clearDependencies(IODeviceChannel $channel): void {

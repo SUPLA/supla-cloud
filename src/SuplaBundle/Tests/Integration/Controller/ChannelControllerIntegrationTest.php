@@ -22,6 +22,7 @@ use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\DirectLink;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\Scene;
@@ -1524,5 +1525,98 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('possibleActions', $projectorScreenContent);
         $this->assertEquals('Reveal', $rollerShutterContent['possibleActions'][0]['caption']);
         $this->assertEquals('Collapse', $projectorScreenContent['possibleActions'][0]['caption']);
+    }
+
+    public function testDeletingChannel() {
+        $sonoff = $this->createDeviceSonoff($this->location);
+        $thermometer = $sonoff->getChannels()[1];
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$thermometer->getId()}");
+        $this->assertStatusCode(204, $client->getResponse());
+        $sonoff = $this->freshEntity($sonoff);
+        $this->assertCount(2, $sonoff->getChannels());
+    }
+
+    public function testDeletingChannelWithAskingAboutDependencies() {
+        $sonoff = $this->createDeviceSonoff($this->location);
+        $psChannel = $sonoff->getChannels()[0];
+        $cg = new IODeviceChannelGroup($this->user, $this->location, [$psChannel]);
+        $this->getEntityManager()->persist($cg);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$psChannel->getId()}?safe=yes");
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('conflictOn', $content);
+        $this->assertArrayHasKey('dependencies', $content);
+        $this->assertArrayHasKey('sceneOperations', $content['dependencies']);
+        $this->assertArrayHasKey('channelGroups', $content['dependencies']);
+        $this->assertArrayHasKey('directLinks', $content['dependencies']);
+        $this->assertArrayHasKey('schedules', $content['dependencies']);
+        $this->assertArrayHasKey('reactions', $content['dependencies']);
+        $this->assertCount(1, $content['dependencies']['channelGroups']);
+        $this->assertEmpty($content['dependencies']['directLinks']);
+        $this->assertEquals($cg->getId(), $content['dependencies']['channelGroups'][0]['id']);
+    }
+
+    public function testDeletingChannelWithoutAskingAboutDependenciesAndWithAtTrigger() {
+        $sonoff = $this->createDeviceSonoff($this->location);
+        $psChannel = $sonoff->getChannels()[0];
+        $cg = new IODeviceChannelGroup($this->user, $this->location, [$psChannel]);
+        $this->getEntityManager()->persist($cg);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$psChannel->getId()}");
+        $this->assertStatusCode(204, $client->getResponse());
+        $this->assertNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $cg->getId()));
+        $sonoff = $this->freshEntity($sonoff);
+        $this->assertCount(1, $sonoff->getChannels());
+    }
+
+    public function testDeletingChannelWithSubDeviceIdsWithConfirmation() {
+        $sonoff = $this->createDeviceSonoff($this->location);
+        $psChannel = $sonoff->getChannels()[0];
+        $thermometer = $sonoff->getChannels()[1];
+        EntityUtils::setField($psChannel, 'subDeviceId', 1);
+        EntityUtils::setField($thermometer, 'subDeviceId', 1);
+        $this->persist($psChannel);
+        $this->persist($thermometer);
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$psChannel->getId()}?safe=yes");
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('conflictOn', $content);
+        $this->assertArrayHasKey('channelsToRemove', $content);
+        $this->assertCount(2, $content['channelsToRemove']);
+    }
+
+    public function testDeletingChannelWithSubDeviceIds() {
+        $sonoff = $this->createDeviceSonoff($this->location);
+        $psChannel = $sonoff->getChannels()[0];
+        $thermometer = $sonoff->getChannels()[1];
+        EntityUtils::setField($psChannel, 'subDeviceId', 1);
+        EntityUtils::setField($thermometer, 'subDeviceId', 1);
+        $this->persist($psChannel);
+        $this->persist($thermometer);
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$psChannel->getId()}");
+        $this->assertStatusCode(204, $client->getResponse());
+        $sonoff = $this->freshEntity($sonoff);
+        $this->assertCount(0, $sonoff->getChannels());
+    }
+
+    public function testDeletingDependentChannelsRecursively() {
+        $sonoff = $this->createDeviceSonoff($this->location);
+        $psChannel = $sonoff->getChannels()[0];
+        $thermometer = $sonoff->getChannels()[1];
+        EntityUtils::setField($psChannel, 'subDeviceId', 1);
+        EntityUtils::setField($thermometer, 'subDeviceId', 1);
+        $this->persist($psChannel);
+        $this->persist($thermometer);
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$thermometer->getId()}");
+        $this->assertStatusCode(204, $client->getResponse());
+        $sonoff = $this->freshEntity($sonoff);
+        $this->assertCount(0, $sonoff->getChannels());
     }
 }

@@ -544,4 +544,45 @@ class ChannelController extends RestController {
         );
         return $this->serializedView($channels, $request);
     }
+
+    /**
+     * @OA\Delete(
+     *     path="/channels/{id}", operationId="deleteChannel", summary="Delete the channel", tags={"Channels"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(description="Whether to perform actions that require data loss (e.g. delete schedules when deleting the channel)", in="query", name="safe", required=false, @OA\Schema(type="boolean")),
+     *     @OA\Response(response="204", description="Success"),
+     *     @OA\Response(response="409", description="Channel deletion would result in data loss, and the safe parameter has been set to true."),
+     * )
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
+     * @Rest\Delete("/channels/{channel}")
+     * @UnavailableInMaintenance
+     */
+    public function deleteChannelAction(IODeviceChannel $channel, Request $request, ChannelDependencies $channelDependencies) {
+        if (filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)) {
+            $dependencies = $channelDependencies->getItemsThatDependOnFunction($channel);
+            if (count(array_filter($dependencies))) {
+                $view = $this->view([
+                    'conflictOn' => 'deletion',
+                    'dependencies' => $dependencies,
+                    'channelsToRemove' => $channelDependencies->getChannelsToRemoveWith($channel),
+                ], Response::HTTP_CONFLICT);
+                $this->setSerializationGroups(
+                    $view,
+                    $request,
+                    ['scene', 'reaction.owningChannel'],
+                    ['scene', 'reaction.owningChannel']
+                );
+                return $view;
+            }
+        }
+        $this->transactional(function (EntityManagerInterface $em) use ($channelDependencies, $channel) {
+            $channelDependencies->clearDependencies($channel);
+            foreach ($channelDependencies->getChannelsToRemoveWith($channel) as $channelToRemove) {
+                $channelDependencies->clearDependencies($channelToRemove);
+                $em->remove($channelToRemove);
+            }
+            $em->remove($channel);
+        });
+        return new Response('', Response::HTTP_NO_CONTENT);
+    }
 }
