@@ -32,6 +32,6 @@ final class IoDeviceFlags extends ChannelFunctionBits {
 
     const DEVICE_LOCKED = 0x0100;
 
-    const ALWAYS_ALLOW_CHANNEL_DELETION = 0x0200;
-    const BLOCK_ADDING_CHANNELS_AFTER_DELETION = 0x0400;
+    const ALWAYS_ALLOW_CHANNEL_DELETION = 0x1000;
+    const BLOCK_ADDING_CHANNELS_AFTER_DELETION = 0x2000;
 }
