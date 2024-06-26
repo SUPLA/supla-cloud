@@ -34,6 +34,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\IoDeviceFlags;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Supla\SuplaServerMock;
@@ -1527,10 +1528,57 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('Collapse', $projectorScreenContent['possibleActions'][0]['caption']);
     }
 
-    public function testDeletingChannel() {
+    public function testDeletingChannelWhenNotAllowed() {
         $sonoff = $this->createDeviceSonoff($this->location);
         $thermometer = $sonoff->getChannels()[1];
         $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$thermometer->getId()}");
+        $this->assertStatusCode(403, $client->getResponse());
+        $sonoff = $this->freshEntity($sonoff);
+        $this->assertCount(3, $sonoff->getChannels());
+    }
+
+    public function testDeletingChannel() {
+        $sonoff = $this->createDeviceSonoff($this->location);
+        EntityUtils::setField($sonoff, 'flags', IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION);
+        $sonoff = $this->persist($sonoff);
+        $this->assertTrue($sonoff->isChannelDeletionAvailable());
+        $thermometer = $sonoff->getChannels()[1];
+        $client = $this->createAuthenticatedClient();
+        $this->getEntityManager()->clear();
+        $client->request('DELETE', "/api/channels/{$thermometer->getId()}");
+        $this->assertStatusCode(204, $client->getResponse());
+        $sonoff = $this->freshEntity($sonoff);
+        $this->assertCount(2, $sonoff->getChannels());
+        $this->assertFalse(EntityUtils::getField($sonoff, 'channelAdditionBlocked'));
+    }
+
+    public function testDeletingChannelAndBlockingAddition() {
+        $sonoff = $this->createDeviceSonoff($this->location);
+        EntityUtils::setField(
+            $sonoff,
+            'flags',
+            IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION | IoDeviceFlags::BLOCK_ADDING_CHANNELS_AFTER_DELETION
+        );
+        $sonoff = $this->persist($sonoff);
+        $this->assertTrue($sonoff->isChannelDeletionAvailable());
+        $thermometer = $sonoff->getChannels()[1];
+        $client = $this->createAuthenticatedClient();
+        $this->getEntityManager()->clear();
+        $client->request('DELETE', "/api/channels/{$thermometer->getId()}");
+        $this->assertStatusCode(204, $client->getResponse());
+        $sonoff = $this->freshEntity($sonoff);
+        $this->assertCount(2, $sonoff->getChannels());
+        $this->assertTrue(EntityUtils::getField($sonoff, 'channelAdditionBlocked'));
+    }
+
+    public function testDeletingChannelWithConflict() {
+        $sonoff = $this->createDeviceSonoff($this->location);
+        $thermometer = $sonoff->getChannels()[1];
+        EntityUtils::setField($thermometer, 'conflictDetails', '{"blah": 2}');
+        $this->persist($thermometer);
+        $client = $this->createAuthenticatedClient();
+        $this->getEntityManager()->clear();
         $client->request('DELETE', "/api/channels/{$thermometer->getId()}");
         $this->assertStatusCode(204, $client->getResponse());
         $sonoff = $this->freshEntity($sonoff);
@@ -1539,6 +1587,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testDeletingChannelWithAskingAboutDependencies() {
         $sonoff = $this->createDeviceSonoff($this->location);
+        EntityUtils::setField($sonoff, 'flags', IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION);
+        $sonoff = $this->persist($sonoff);
         $psChannel = $sonoff->getChannels()[0];
         $cg = new IODeviceChannelGroup($this->user, $this->location, [$psChannel]);
         $this->getEntityManager()->persist($cg);
@@ -1561,6 +1611,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testDeletingChannelWithoutAskingAboutDependenciesAndWithAtTrigger() {
         $sonoff = $this->createDeviceSonoff($this->location);
+        EntityUtils::setField($sonoff, 'flags', IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION);
+        $sonoff = $this->persist($sonoff);
         $psChannel = $sonoff->getChannels()[0];
         $cg = new IODeviceChannelGroup($this->user, $this->location, [$psChannel]);
         $this->getEntityManager()->persist($cg);
@@ -1575,6 +1627,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testDeletingChannelWithSubDeviceIdsWithConfirmation() {
         $sonoff = $this->createDeviceSonoff($this->location);
+        EntityUtils::setField($sonoff, 'flags', IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION);
+        $sonoff = $this->persist($sonoff);
         $psChannel = $sonoff->getChannels()[0];
         $thermometer = $sonoff->getChannels()[1];
         EntityUtils::setField($psChannel, 'subDeviceId', 1);
@@ -1592,6 +1646,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testDeletingChannelWithSubDeviceIds() {
         $sonoff = $this->createDeviceSonoff($this->location);
+        EntityUtils::setField($sonoff, 'flags', IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION);
+        $sonoff = $this->persist($sonoff);
         $psChannel = $sonoff->getChannels()[0];
         $thermometer = $sonoff->getChannels()[1];
         EntityUtils::setField($psChannel, 'subDeviceId', 1);
@@ -1607,6 +1663,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testDeletingDependentChannelsRecursively() {
         $sonoff = $this->createDeviceSonoff($this->location);
+        EntityUtils::setField($sonoff, 'flags', IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION);
+        $sonoff = $this->persist($sonoff);
         $psChannel = $sonoff->getChannels()[0];
         $thermometer = $sonoff->getChannels()[1];
         EntityUtils::setField($psChannel, 'subDeviceId', 1);

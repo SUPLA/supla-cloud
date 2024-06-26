@@ -283,11 +283,16 @@ class IODevice implements HasLocation, HasRelationsCount {
 
     /** @Groups({"basic"}) */
     public function isEnterConfigurationModeAvailable(): bool {
-        return IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE()->isSupported($this->flags);
+        return IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE()->isOn($this->flags);
+    }
+
+    /** @Groups({"basic"}) */
+    public function isChannelDeletionAvailable(): bool {
+        return IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($this->flags);
     }
 
     public function isLocked(): bool {
-        return IoDeviceFlags::DEVICE_LOCKED()->isSupported($this->flags);
+        return IoDeviceFlags::DEVICE_LOCKED()->isOn($this->flags);
     }
 
     public function unlock() {
@@ -308,5 +313,11 @@ class IODevice implements HasLocation, HasRelationsCount {
 
     public function getProperties(): array {
         return $this->properties ? (json_decode($this->properties, true) ?: []) : [];
+    }
+
+    public function onChannelRemoved() {
+        if (IoDeviceFlags::BLOCK_ADDING_CHANNELS_AFTER_DELETION()->isOn($this->flags)) {
+            $this->channelAdditionBlocked = true;
+        }
     }
 }

@@ -130,7 +130,7 @@ trait UserFixtures {
         $fieldSetter->call($device, 'protocolVersion', '2.' . rand(0, 50));
         $fieldSetter->call($device, 'location', $location);
         $fieldSetter->call($device, 'user', $location->getUser());
-        $fieldSetter->call($device, 'flags', IoDeviceFlags::getAllFeaturesFlag() & ~IoDeviceFlags::DEVICE_LOCKED);
+        $fieldSetter->call($device, 'flags', IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE);
         $fieldSetter->call($device, 'userConfig', '{"statusLed": "ON_WHEN_CONNECTED"}');
         $this->getEntityManager()->persist($device);
 

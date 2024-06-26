@@ -20,7 +20,7 @@ namespace SuplaBundle\Enums;
 use MyCLabs\Enum\Enum;
 
 abstract class ChannelFunctionBits extends Enum {
-    public function isOn(int $flags): bool {
+    public function isOn(?int $flags): bool {
         return $this->isSupported($flags);
     }
 

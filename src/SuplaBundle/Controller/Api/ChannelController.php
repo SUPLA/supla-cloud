@@ -558,6 +558,11 @@ class ChannelController extends RestController {
      * @UnavailableInMaintenance
      */
     public function deleteChannelAction(IODeviceChannel $channel, Request $request, ChannelDependencies $channelDependencies) {
+        $this->entityManager->detach($channel->getIoDevice());
+        $device = $this->entityManager->find(IODevice::class, $channel->getIoDevice()->getId());
+        if (!$device->isChannelDeletionAvailable() && !$channel->getConflictDetails()) {
+            throw new ApiException('Cannot delete this channel.', Response::HTTP_FORBIDDEN);
+        }
         if (filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)) {
             $dependencies = $channelDependencies->getItemsThatDependOnFunction($channel);
             if (count(array_filter($dependencies))) {
@@ -575,13 +580,15 @@ class ChannelController extends RestController {
                 return $view;
             }
         }
-        $this->transactional(function (EntityManagerInterface $em) use ($channelDependencies, $channel) {
+        $this->transactional(function (EntityManagerInterface $em) use ($device, $channelDependencies, $channel) {
             $channelDependencies->clearDependencies($channel);
             foreach ($channelDependencies->getChannelsToRemoveWith($channel) as $channelToRemove) {
                 $channelDependencies->clearDependencies($channelToRemove);
                 $em->remove($channelToRemove);
             }
             $em->remove($channel);
+            $device->onChannelRemoved();
+            $em->persist($device);
         });
         return new Response('', Response::HTTP_NO_CONTENT);
     }

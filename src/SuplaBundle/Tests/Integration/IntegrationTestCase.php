@@ -141,6 +141,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     protected function persist($entity) {
         $this->getEntityManager()->persist($entity);
         $this->flush();
+        return $this->freshEntity($entity);
     }
 
     protected function flush() {
