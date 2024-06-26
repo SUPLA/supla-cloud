@@ -3,14 +3,22 @@
         <loading-cover :loading="!channel || loading">
             <div class="container"
                 v-if="channel">
-                <h1 v-title>{{ channelTitle }}</h1>
-                <h4>
-                    {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',') }}
-                    <span v-if="channel.type.name == 'UNSUPPORTED'">{{ channel.type.id }},</span>
-                    {{ $t('ID') }}:
-                    {{ channel.id }},
-                    {{ $t('Channel No') }}: {{ channel.channelNumber }}
-                </h4>
+                <div class="d-flex mt-3">
+                    <div class="flex-grow-1">
+
+                        <h1 v-title class="m-0">{{ channelTitle }}</h1>
+                        <h4>
+                            {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',') }}
+                            <span v-if="channel.type.name == 'UNSUPPORTED'">{{ channel.type.id }},</span>
+                            {{ $t('ID') }}:
+                            {{ channel.id }},
+                            {{ $t('Channel No') }}: {{ channel.channelNumber }}
+                        </h4>
+                    </div>
+                    <div>
+                        <ChannelDeleteButton :channel="channel"/>
+                    </div>
+                </div>
                 <ChannelConflictDetailsWarning :channel="channel" v-if="channel.conflictDetails"/>
                 <div class="row">
                     <div class="col-md-4 col-sm-12">
@@ -213,10 +221,12 @@
     import {extendObject} from "@/common/utils";
     import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
     import ChannelConflictDetailsWarning from "@/channels/channel-conflict-details-warning.vue";
+    import ChannelDeleteButton from "@/channels/channel-delete-button.vue";
 
     export default {
         props: ['id'],
         components: {
+            ChannelDeleteButton,
             ChannelConflictDetailsWarning,
             ConfigConflictWarning,
             TransitionExpand,

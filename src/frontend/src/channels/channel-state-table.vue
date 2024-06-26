@@ -144,7 +144,7 @@
             fetchState() {
                 if (!this.fetching) {
                     this.fetching = true;
-                    this.$http.get(`channels/${this.channel.id}?include=state`)
+                    this.$http.get(`channels/${this.channel.id}?include=state`, {skipErrorHandler: true})
                         .then(({body}) => this.$set(this.channel, 'state', body.state))
                         .finally(() => this.fetching = false);
                 }

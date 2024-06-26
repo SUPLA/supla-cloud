@@ -470,6 +470,9 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::SENSORNO, ChannelFunction::NONE, ['subDeviceId' => 3]],
             [ChannelType::SENSORNO, ChannelFunction::NONE, ['subDeviceId' => 3]],
         ]);
+        AnyFieldSetter::set($device, [
+            'flags' => IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION | IoDeviceFlags::BLOCK_ADDING_CHANNELS_AFTER_DELETION,
+        ]);
         $this->entityManager->persist($device);
         return $device;
     }
@@ -497,7 +500,7 @@ class DevicesFixture extends SuplaFixture {
             'protocolVersion' => '2.' . rand(0, 50),
             'location' => $location,
             'user' => $location->getUser(),
-            'flags' => IoDeviceFlags::getAllFeaturesFlag() & ~IoDeviceFlags::DEVICE_LOCKED,
+            'flags' => IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE | IoDeviceFlags::SLEEP_MODE_ENABLED,
             'userConfig' => '{"statusLed": "ON_WHEN_CONNECTED"}',
         ]);
         $this->entityManager->persist($device);

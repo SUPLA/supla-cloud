@@ -565,11 +565,12 @@ class ChannelController extends RestController {
         }
         if (filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)) {
             $dependencies = $channelDependencies->getItemsThatDependOnFunction($channel);
-            if (count(array_filter($dependencies))) {
+            $channelsToRemoveWith = $channelDependencies->getChannelsToRemoveWith($channel);
+            if (count(array_filter($dependencies)) || $channelsToRemoveWith) {
                 $view = $this->view([
                     'conflictOn' => 'deletion',
                     'dependencies' => $dependencies,
-                    'channelsToRemove' => $channelDependencies->getChannelsToRemoveWith($channel),
+                    'channelsToRemove' => $channelsToRemoveWith,
                 ], Response::HTTP_CONFLICT);
                 $this->setSerializationGroups(
                     $view,
