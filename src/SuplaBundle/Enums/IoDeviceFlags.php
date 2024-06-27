@@ -21,6 +21,7 @@ namespace SuplaBundle\Enums;
  * @method static IoDeviceFlags ENTER_CONFIGURATION_MODE_AVAILABLE()
  * @method static IoDeviceFlags SLEEP_MODE_ENABLED()
  * @method static IoDeviceFlags DEVICE_LOCKED()
+ * @method static IoDeviceFlags PAIRING_SUBDEVICES_AVAILABLE()
  * @method static IoDeviceFlags ALWAYS_ALLOW_CHANNEL_DELETION()
  * @method static IoDeviceFlags BLOCK_ADDING_CHANNELS_AFTER_DELETION()
  */
@@ -32,6 +33,7 @@ final class IoDeviceFlags extends ChannelFunctionBits {
 
     const DEVICE_LOCKED = 0x0100;
 
+    const PAIRING_SUBDEVICES_AVAILABLE = 0x0200;
     const ALWAYS_ALLOW_CHANNEL_DELETION = 0x1000;
     const BLOCK_ADDING_CHANNELS_AFTER_DELETION = 0x2000;
 }

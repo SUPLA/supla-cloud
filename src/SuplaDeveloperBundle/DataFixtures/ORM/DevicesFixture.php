@@ -471,7 +471,9 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::SENSORNO, ChannelFunction::NONE, ['subDeviceId' => 3]],
         ]);
         AnyFieldSetter::set($device, [
-            'flags' => IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION | IoDeviceFlags::BLOCK_ADDING_CHANNELS_AFTER_DELETION,
+            'flags' => IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION
+                | IoDeviceFlags::BLOCK_ADDING_CHANNELS_AFTER_DELETION
+                | IoDeviceFlags::PAIRING_SUBDEVICES_AVAILABLE,
         ]);
         $this->entityManager->persist($device);
         return $device;

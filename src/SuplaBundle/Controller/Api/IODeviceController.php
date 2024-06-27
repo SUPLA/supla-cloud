@@ -72,6 +72,7 @@ use Symfony\Component\HttpFoundation\Response;
  *     @OA\Property(property="channelsWithConflict", type="integer"),
  *   ),
  *   @OA\Property(property="enterConfigurationModeAvailable", type="boolean"),
+ *   @OA\Property(property="pairingSubdevicesAvailable", type="boolean"),
  *   @OA\Property(property="isSleepModeEnabled", type="boolean"),
  *   @OA\Property(property="config", ref="#/components/schemas/DeviceConfig"),
  * )
@@ -367,6 +368,13 @@ class IODeviceController extends RestController {
                     'Entering configuration mode is unsupported in the firmware.' // i18n
                 );
                 $result = $this->suplaServer->deviceAction($ioDevice, 'ENTER-CONFIGURATION-MODE');
+                Assertion::true($result, 'Could not enter the configuration mode.'); // i18n
+            } elseif ($action === 'pairSubdevice') {
+                Assertion::true(
+                    $ioDevice->isPairingSubdevicesAvailable(),
+                    'Pairing subdevices is unsupported in the firmware.' // i18n
+                );
+                $result = $this->suplaServer->deviceAction($ioDevice, 'PAIR-SUBDEVICE');
                 Assertion::true($result, 'Could not enter the configuration mode.'); // i18n
             } elseif ($action === 'setTime') {
                 Assertion::keyExists($body, 'time', 'Missing time.');

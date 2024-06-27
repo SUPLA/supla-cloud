@@ -46,6 +46,7 @@
                                 <div v-if="!device.locked">
                                     <DeviceEnterConfigurationModeButton :device="device"/>
                                     <DeviceSetTimeButton :device="device"/>
+                                    <DevicePairSubdeviceButton :device="device"/>
                                 </div>
                             </div>
                             <div class="col-sm-4" v-if="!device.locked">
@@ -142,10 +143,12 @@
     import DeviceDetailsTabs from "@/devices/details/device-details-tabs.vue";
     import {extendObject} from "@/common/utils";
     import DeviceSetTimeButton from "@/devices/details/device-set-time-button.vue";
+    import DevicePairSubdeviceButton from "@/devices/details/device-pair-subdevice-button.vue";
 
     export default {
         props: ['id'],
         components: {
+            DevicePairSubdeviceButton,
             DeviceSetTimeButton,
             DeviceDetailsTabs,
             DeviceEnterConfigurationModeButton,

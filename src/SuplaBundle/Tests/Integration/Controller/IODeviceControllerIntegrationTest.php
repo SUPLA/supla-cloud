@@ -29,6 +29,7 @@ use SuplaBundle\Enums\ChannelConfigChangeScope;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\IoDeviceFlags;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
@@ -261,8 +262,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     public function testEnteringConfigurationModeWhenDeviceDoesNotSupportIt() {
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
         AnyFieldSetter::set($device, 'flags', 0);
-        $this->getEntityManager()->persist($device);
-        $this->getEntityManager()->flush();
+        $this->persist($device);
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'enterConfigurationMode']);
         $response = $client->getResponse();
@@ -276,6 +276,17 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'enterConfigurationMode']);
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
+    }
+
+    public function testPairingSubdevice() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        AnyFieldSetter::set($device, 'flags', IoDeviceFlags::PAIRING_SUBDEVICES_AVAILABLE);
+        $this->persist($device);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'pairSubdevice']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertSuplaCommandExecuted('PAIR-SUBDEVICE:1,' . $device->getId());
     }
 
     public function testSettingDeviceTime() {
