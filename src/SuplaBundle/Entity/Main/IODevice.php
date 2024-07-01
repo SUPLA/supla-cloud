@@ -178,6 +178,9 @@ class IODevice implements HasLocation, HasRelationsCount {
      */
     private $channelAdditionBlocked = false;
 
+    /** @ORM\Column(name="pairing_result", type="string", length=512, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"}) */
+    private $pairingResult;
+
     public function __construct() {
         $this->channels = new ArrayCollection();
         $this->pushNotifications = new ArrayCollection();
