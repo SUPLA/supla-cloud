@@ -21,9 +21,12 @@ use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * Add a pairing_result field
+ * Add supla_update_device_pairing_result procedure
  */
 class Version20240701141901 extends NoWayBackMigration {
     public function migrate() {
         $this->addSql('ALTER TABLE `supla_iodevice` ADD `pairing_result` VARCHAR(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL AFTER `channel_addition_blocked`');
+        $this->addSql('DROP PROCEDURE IF EXISTS `supla_update_device_pairing_result`');
+        $this->addSql('CREATE PROCEDURE `supla_update_device_pairing_result`(IN `_iodevice_id` INT, IN `_pairing_result` VARCHAR(512) CHARSET utf8mb4) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER UPDATE `supla_iodevice` SET `pairing_result` = _pairing_result WHERE `iodevice_id` = _iodevice_id');
     }
 }
