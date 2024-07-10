@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h4 class="text-center">{{ $t("Voltage monitoring") }}</h4>
         <dl>
             <dd>
                 {{ $t('Enabled') }}

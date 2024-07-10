@@ -547,6 +547,10 @@ class DevicesFixture extends SuplaFixture {
                 $numberOfCounters = $this->faker->numberBetween(2, count($possibleCounters));
                 $countersAvailable = $this->faker->randomElements($possibleCounters, $numberOfCounters);
                 $channelProperties['countersAvailable'] = $countersAvailable;
+                $channelProperties['availableCTTypes'] = ["100A_33mA", "200A_66mA", "400A_133mA"];
+                $channelProperties['availablePhaseLedTypes'] = [
+                    "OFF", "VOLTAGE_PRESENCE", "VOLTAGE_PRESENCE_INVERTED", "VOLTAGE_LEVEL", "POWER_ACTIVE_DIRECTION",
+                ];
                 break;
         }
         if ($channelProperties) {

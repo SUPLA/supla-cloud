@@ -2,6 +2,7 @@
 
 namespace SuplaBundle\Model\UserConfigTranslator;
 
+use Assert\Assert;
 use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
@@ -50,6 +51,10 @@ class ElectricityMeterUserConfigTranslator extends UserConfigTranslator {
                 $subject->getUserConfigValue('disabledPhases', [])
             )),
             'availablePhases' => $this->getAvailablePhases($subject),
+            'usedCTType' => $subject->getUserConfigValue('usedCTType'),
+            'availableCTTypes' => $subject->getProperties()['availableCTTypes'] ?? [],
+            'usedPhaseLedType' => $subject->getUserConfigValue('usedPhaseLedType', 'OFF'),
+            'availablePhaseLedTypes' => $subject->getProperties()['availablePhaseLedTypes'] ?? [],
         ];
     }
 
@@ -103,6 +108,20 @@ class ElectricityMeterUserConfigTranslator extends UserConfigTranslator {
         $upperVoltageThreshold = $subject->getUserConfigValue('upperVoltageThreshold');
         if ($lowerVoltageThreshold && $upperVoltageThreshold) {
             Assertion::lessThan($lowerVoltageThreshold, $upperVoltageThreshold);
+        }
+        if (array_key_exists('usedCTType', $config)) {
+            $type = $config['usedCTType'] ?: null;
+            if ($type) {
+                Assert::that($type, null, 'usedCTType')->string()->inArray($subject->getProperties()['availableCTTypes'] ?? []);
+            }
+            $subject->setUserConfigValue('usedCTType', $type);
+        }
+        if (array_key_exists('usedPhaseLedType', $config)) {
+            $type = $config['usedPhaseLedType'] ?: null;
+            if ($type) {
+                Assert::that($type, null, 'usedPhaseLedType')->string()->inArray($subject->getProperties()['availablePhaseLedTypes'] ?? []);
+            }
+            $subject->setUserConfigValue('usedPhaseLedType', $type);
         }
     }
 

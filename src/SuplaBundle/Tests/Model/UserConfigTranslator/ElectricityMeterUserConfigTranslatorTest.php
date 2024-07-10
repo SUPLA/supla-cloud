@@ -24,7 +24,7 @@ use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
 use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 
-class ElectricityMeterParamsTranslatorTest extends TestCase {
+class ElectricityMeterUserConfigTranslatorTest extends TestCase {
     use UnitTestHelper;
 
     /** @var OpeningClosingTimeUserConfigTranslator */
@@ -39,6 +39,10 @@ class ElectricityMeterParamsTranslatorTest extends TestCase {
         EntityUtils::setField($this->channel, 'properties', json_encode([
             'countersAvailable' => ['forwardActiveEnergy', 'reverseActiveEnergy', 'forwardReactiveEnergy', 'reverseReactiveEnergy',
                 'reverseActiveEnergyBalanced'],
+            'availableCTTypes' => ["100A_33mA", "200A_66mA", "400A_133mA"],
+            'availablePhaseLedTypes' => [
+                "OFF", "VOLTAGE_PRESENCE", "VOLTAGE_PRESENCE_INVERTED", "VOLTAGE_LEVEL", "POWER_ACTIVE_DIRECTION",
+            ],
         ]));
     }
 
@@ -123,5 +127,35 @@ class ElectricityMeterParamsTranslatorTest extends TestCase {
         EntityUtils::setField($this->channel, 'flags', 0);
         $config = $this->configTranslator->getConfig($this->channel);
         $this->assertFalse($config['resetCountersAvailable']);
+    }
+
+    public function testReadingAvailableCTTypes() {
+        $config = $this->configTranslator->getConfig($this->channel);
+        $this->assertCount(3, $config['availableCTTypes']);
+    }
+
+    public function testReadingAvailablePhaseLedTypes() {
+        $config = $this->configTranslator->getConfig($this->channel);
+        $this->assertCount(5, $config['availablePhaseLedTypes']);
+    }
+
+    public function testUpdatingUsedCTType() {
+        $this->assertNull($this->configTranslator->getConfig($this->channel)['usedCTType']);
+        $this->configTranslator->setConfig($this->channel, ['usedCTType' => '100A_33mA']);
+        $this->assertEquals('100A_33mA', $this->configTranslator->getConfig($this->channel)['usedCTType']);
+        $this->configTranslator->setConfig($this->channel, ['usedCTType' => '200A_66mA']);
+        $this->assertEquals('200A_66mA', $this->configTranslator->getConfig($this->channel)['usedCTType']);
+        $this->expectExceptionMessage('100A_33mA, 200A_66mA, 400A_133mA');
+        $this->configTranslator->setConfig($this->channel, ['usedCTType' => 'unicorn']);
+    }
+
+    public function testUpdatingUsedPhaseLedType() {
+        $this->assertEquals('OFF', $this->configTranslator->getConfig($this->channel)['usedPhaseLedType']);
+        $this->configTranslator->setConfig($this->channel, ['usedPhaseLedType' => 'VOLTAGE_PRESENCE']);
+        $this->assertEquals('VOLTAGE_PRESENCE', $this->configTranslator->getConfig($this->channel)['usedPhaseLedType']);
+        $this->configTranslator->setConfig($this->channel, ['usedPhaseLedType' => 'VOLTAGE_LEVEL']);
+        $this->assertEquals('VOLTAGE_LEVEL', $this->configTranslator->getConfig($this->channel)['usedPhaseLedType']);
+        $this->expectExceptionMessage('OFF, VOLTAGE_PRESENCE, VOLTAGE_PRESENCE_INVERTED');
+        $this->configTranslator->setConfig($this->channel, ['usedPhaseLedType' => 'unicorn']);
     }
 }
