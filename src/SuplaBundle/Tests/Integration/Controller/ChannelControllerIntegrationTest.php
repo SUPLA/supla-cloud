@@ -1551,6 +1551,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $sonoff = $this->freshEntity($sonoff);
         $this->assertCount(2, $sonoff->getChannels());
         $this->assertFalse(EntityUtils::getField($sonoff, 'channelAdditionBlocked'));
+        $this->assertSuplaCommandExecuted(sprintf('USER-ON-CHANNEL-DELETED:1,%s,%s', $sonoff->getId(), $thermometer->getId()));
     }
 
     public function testDeletingChannelAndBlockingAddition() {

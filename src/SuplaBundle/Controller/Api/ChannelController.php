@@ -587,9 +587,11 @@ class ChannelController extends RestController {
                 $channelDependencies->clearDependencies($channelToRemove);
                 $em->remove($channelToRemove);
             }
+            $channelId = $channel->getId();
             $em->remove($channel);
             $device->onChannelRemoved();
             $em->persist($device);
+            $this->suplaServer->userAction('ON-CHANNEL-DELETED', [$device->getId(), $channelId]);
         });
         return new Response('', Response::HTTP_NO_CONTENT);
     }
