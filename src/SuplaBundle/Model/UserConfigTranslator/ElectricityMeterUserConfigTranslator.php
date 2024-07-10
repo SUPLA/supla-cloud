@@ -28,7 +28,7 @@ use SuplaBundle\Utils\NumberUtils;
  *     @OA\Property(property="upperVoltageThreshold", type="number"),
  * )
  */
-class ElectricityMeterParamsTranslator extends UserConfigTranslator {
+class ElectricityMeterUserConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     public function getConfig(HasUserConfig $subject): array {

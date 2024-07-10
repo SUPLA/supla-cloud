@@ -20,7 +20,7 @@ namespace SuplaBundle\Tests\Model\UserConfigTranslator;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterParamsTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
 use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 
@@ -34,7 +34,7 @@ class ElectricityMeterParamsTranslatorTest extends TestCase {
 
     /** @before */
     public function createTranslator() {
-        $this->configTranslator = new ElectricityMeterParamsTranslator();
+        $this->configTranslator = new ElectricityMeterUserConfigTranslator();
         $this->channel = new IODeviceChannel();
         EntityUtils::setField($this->channel, 'properties', json_encode([
             'countersAvailable' => ['forwardActiveEnergy', 'reverseActiveEnergy', 'forwardReactiveEnergy', 'reverseReactiveEnergy',

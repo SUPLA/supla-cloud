@@ -23,7 +23,7 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Model\UserConfigTranslator\DigiglassParamTranslator;
-use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterParamsTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\GeneralPurposeMeasurementConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\HumidityAdjustmentParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\ImpulseCounterParamsTranslator;
@@ -46,7 +46,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             new RelayTimeMsUserConfigTranslator(),
             new RelayTimeSUserConfigTranslator(),
             new OpeningClosingTimeUserConfigTranslator(),
-            new ElectricityMeterParamsTranslator(),
+            new ElectricityMeterUserConfigTranslator(),
             new ImpulseCounterParamsTranslator(),
             new HumidityAdjustmentParamTranslator(),
             new TemperatureAdjustmentParamTranslator(),
