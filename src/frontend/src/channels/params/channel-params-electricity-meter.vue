@@ -91,7 +91,8 @@
                                 <span>{{ $t(`usedPhaseLedType_${channel.config.usedPhaseLedType}`) }}</span>
                                 <span class="caret ml-2"></span>
                             </button>
-                            <!-- i18n:['usedCTType_', 'thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST'] -->
+                            <!-- i18n:['usedPhaseLedType_OFF', 'usedPhaseLedType_VOLTAGE_PRESENCE', 'usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED'] -->
+                            <!-- i18n:['usedPhaseLedType_VOLTAGE_LEVEL', 'usedPhaseLedType_POWER_ACTIVE_DIRECTION'] -->
                             <ul class="dropdown-menu">
                                 <li v-for="type in channel.config.availablePhaseLedTypes" :key="type">
                                     <a @click="channel.config.usedPhaseLedType = type; $emit('change')"
