@@ -64,34 +64,7 @@
                     </div>
                     <div class="form-group with-border-bottom"
                         v-if="config.homeScreen !== undefined && config.homeScreenContentAvailable && config.homeScreenContentAvailable.length">
-                        <div class="form-group">
-                            <label for="homeScreen">{{ $t('Home screen content') }}</label>
-                            <!-- i18n:["homeScreenContent_NONE", "homeScreenContent_TEMPERATURE"] -->
-                            <!-- i18n:["homeScreenContent_TEMPERATURE_AND_HUMIDITY"] -->
-                            <!-- i18n:["homeScreenContent_TIME", "homeScreenContent_TIME_DATE", "homeScreenContent_TEMPERATURE_TIME"] -->
-                            <!-- i18n:["homeScreenContent_MAIN_AND_AUX_TEMPERATURE"] -->
-                            <select id="homeScreen" class="form-control" v-model="config.homeScreen.content" @change="onChange()">
-                                <option v-for="mode in config.homeScreenContentAvailable" :key="mode" :value="mode">
-                                    {{ $t(`homeScreenContent_${mode}`) }}
-                                </option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="checkbox2 checkbox2-grey">
-                                <input type="checkbox" v-model="homeScreenOff" @change="onChange()">
-                                {{ $t('Turn off the screen when inactive') }}
-                            </label>
-                        </div>
-                        <transition-expand>
-                            <div class="form-group mt-2" v-if="homeScreenOff">
-                                <label>{{ $t('Turn off after') }}</label>
-                                <div class="mt-3 mb-6">
-                                    <VueSlider v-model="config.homeScreen.offDelay" @change="onChange()" tooltip="always"
-                                        :data="homeScreenOffPossibleDelays" :tooltip-formatter="formatSeconds"
-                                        tooltip-placement="bottom" class="green"/>
-                                </div>
-                            </div>
-                        </transition-expand>
+                        <DeviceSettingsHomeScreen v-model="config.homeScreen" :config="config" @input="onChange()"/>
                     </div>
                     <div class="form-group with-border-bottom" v-if="config.userInterface">
                         <label>{{ $t('User interface') }}</label>
@@ -147,11 +120,12 @@
     import {deepCopy} from "@/common/utils";
     import 'vue-slider-component/theme/antd.css';
     import TransitionExpand from "@/common/gui/transition-expand.vue";
-    import {prettyMilliseconds} from "@/common/filters";
     import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
+    import DeviceSettingsHomeScreen from "@/devices/details/device-settings-home-screen.vue";
 
     export default {
         components: {
+            DeviceSettingsHomeScreen,
             ConfigConflictWarning,
             TransitionExpand,
             PendingChangesPage,
@@ -164,13 +138,6 @@
             return {
                 hasPendingChanges: false,
                 config: undefined,
-                homeScreenOff: false,
-                homeScreenOffPossibleDelays: [
-                    ...[...Array(30).keys()].map(k => k + 1), // s 1 - 30
-                    ...[...Array(5).keys()].map(k => k * 5 + 35), // s 35 - 55
-                    ...[...Array(9).keys()].map(k => k * 30 + 60), // min 1, 1.5, 2, ... 5
-                    ...[6, 7, 8, 9, 10, 15, 20, 30].map(k => k * 60)
-                ],
                 conflictingConfig: false,
             };
         },
@@ -191,19 +158,10 @@
             },
             cancelChanges() {
                 this.config = deepCopy(this.device.config);
-                if (this.config.homeScreen) {
-                    this.homeScreenOff = !!this.config.homeScreen?.offDelay;
-                    if (!this.homeScreenOff) {
-                        this.config.homeScreen.offDelay = 60;
-                    }
-                }
                 this.hasPendingChanges = false;
             },
             saveDeviceSettings() {
                 const config = deepCopy(this.config);
-                if (config.homeScreen && !this.homeScreenOff) {
-                    config.homeScreen.offDelay = 0;
-                }
                 if (config.screenBrightness) {
                     if (!config.screenBrightness.auto && !this.config.screenBrightness.level) {
                         config.screenBrightness.level = 1;
@@ -226,9 +184,6 @@
                             this.conflictingConfig = response.body.details.config;
                         }
                     });
-            },
-            formatSeconds(sliderValue) {
-                return prettyMilliseconds(+sliderValue * 1000, this);
             },
             replaceConfigWithConflictingConfig() {
                 this.device.config = this.conflictingConfig;

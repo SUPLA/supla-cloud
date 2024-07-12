@@ -20,6 +20,7 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="homeScreen", type="object",
  *     @OA\Property(property="content", type="string"),
  *     @OA\Property(property="offDelay", type="integer", description="Number of seconds or `0` to disable."),
+ *     @OA\Property(property="offDelayType", type="string"),
  *   ),
  *   @OA\Property(property="userInterface", type="object",
  *     @OA\Property(property="disabled", type="boolean"),
@@ -118,10 +119,16 @@ class IODeviceConfigTranslator {
                 Assert::that($value, null, 'automaticTimeSync')->boolean();
             }
             if ($settingName === 'homeScreen') {
-                Assert::that($value, null, 'homeScreen')->isArray()->keyExists('content')->keyExists('offDelay')->count(2);
+                Assert::that($value, null, 'homeScreen')->isArray()->keyExists('content')->keyExists('offDelay');
+                $hasDelayType = $currentConfig['homeScreen']['offDelayType'] ?? false;
+                Assertion::count($value, $hasDelayType ? 3 : 2, null, 'homeScreen');
                 $availableModes = $device->getProperties()['homeScreenContentAvailable'] ?? [];
                 Assertion::inArray($value['content'], $availableModes, null, 'homeScreen.content');
                 Assert::that($value['offDelay'], null, 'homeScreen.offDelay')->integer()->between(0, 3600);
+                if ($hasDelayType) {
+                    Assertion::keyExists($value, 'offDelayType', null, 'homeScreen');
+                    Assertion::inArray($value['offDelayType'], ['ALWAYS_ENABLED', 'ENABLED_WHEN_DARK'], null, 'homeScreen.offDelayType');
+                }
             }
             $device->setUserConfigValue($settingName, $value);
         }
