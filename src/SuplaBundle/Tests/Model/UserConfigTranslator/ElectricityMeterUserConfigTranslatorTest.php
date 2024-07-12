@@ -153,9 +153,32 @@ class ElectricityMeterUserConfigTranslatorTest extends TestCase {
         $this->assertEquals('OFF', $this->configTranslator->getConfig($this->channel)['usedPhaseLedType']);
         $this->configTranslator->setConfig($this->channel, ['usedPhaseLedType' => 'VOLTAGE_PRESENCE']);
         $this->assertEquals('VOLTAGE_PRESENCE', $this->configTranslator->getConfig($this->channel)['usedPhaseLedType']);
-        $this->configTranslator->setConfig($this->channel, ['usedPhaseLedType' => 'VOLTAGE_LEVEL']);
-        $this->assertEquals('VOLTAGE_LEVEL', $this->configTranslator->getConfig($this->channel)['usedPhaseLedType']);
+        $this->configTranslator->setConfig($this->channel, ['usedPhaseLedType' => 'VOLTAGE_PRESENCE_INVERTED']);
+        $this->assertEquals('VOLTAGE_PRESENCE_INVERTED', $this->configTranslator->getConfig($this->channel)['usedPhaseLedType']);
         $this->expectExceptionMessage('OFF, VOLTAGE_PRESENCE, VOLTAGE_PRESENCE_INVERTED');
         $this->configTranslator->setConfig($this->channel, ['usedPhaseLedType' => 'unicorn']);
+    }
+
+    public function testUpdatingUsedPhaseLedTypeToVoltageLevel() {
+        $this->assertEquals('OFF', $this->configTranslator->getConfig($this->channel)['usedPhaseLedType']);
+        $this->configTranslator->setConfig(
+            $this->channel,
+            ['usedPhaseLedType' => 'VOLTAGE_LEVEL', 'phaseLedParam1' => 220, 'phaseLedParam2' => 240]
+        );
+        $this->assertEquals('VOLTAGE_LEVEL', $this->configTranslator->getConfig($this->channel)['usedPhaseLedType']);
+        $this->assertEquals(220, $this->configTranslator->getConfig($this->channel)['phaseLedParam1']);
+        $this->assertEquals(240, $this->configTranslator->getConfig($this->channel)['phaseLedParam2']);
+        $this->assertEquals(22000, $this->channel->getUserConfigValue('phaseLedParam1'));
+        $this->configTranslator->setConfig(
+            $this->channel,
+            ['phaseLedParam1' => 220.2]
+        );
+        $this->assertEquals(220.2, $this->configTranslator->getConfig($this->channel)['phaseLedParam1']);
+        $this->assertEquals(240, $this->configTranslator->getConfig($this->channel)['phaseLedParam2']);
+        $this->expectExceptionMessage('is not less than "210"');
+        $this->configTranslator->setConfig(
+            $this->channel,
+            ['phaseLedParam2' => 210]
+        );
     }
 }

@@ -57,53 +57,7 @@
         </a>
         <transition-expand>
             <div v-show="group === 'other'">
-                <dl v-if="channel.config.availableCTTypes && channel.config.availableCTTypes.length > 0">
-                    <dd>
-                        {{ $t('Used current transformer type') }}
-                        <!--                        <a @click="algorithmHelpShown = !algorithmHelpShown"><i class="pe-7s-help1"></i></a>-->
-                    </dd>
-                    <dt>
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
-                                <span v-if="channel.config.usedCTType">{{ channel.config.usedCTType.replace(/_/g, ' ') }}</span>
-                                <span v-else>?</span>
-                                <span class="caret ml-2"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li v-for="type in channel.config.availableCTTypes" :key="type">
-                                    <a @click="channel.config.usedCTType = type; $emit('change')"
-                                        v-show="type !== channel.config.usedCTType">
-                                        {{ type.replace(/_/g, ' ') }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </dt>
-                </dl>
-                <dl v-if="channel.config.availablePhaseLedTypes && channel.config.availablePhaseLedTypes.length > 0">
-                    <dd>
-                        {{ $t('Phase LED type') }}
-                        <!--                        <a @click="algorithmHelpShown = !algorithmHelpShown"><i class="pe-7s-help1"></i></a>-->
-                    </dd>
-                    <dt>
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
-                                <span>{{ $t(`usedPhaseLedType_${channel.config.usedPhaseLedType}`) }}</span>
-                                <span class="caret ml-2"></span>
-                            </button>
-                            <!-- i18n:['usedPhaseLedType_OFF', 'usedPhaseLedType_VOLTAGE_PRESENCE', 'usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED'] -->
-                            <!-- i18n:['usedPhaseLedType_VOLTAGE_LEVEL', 'usedPhaseLedType_POWER_ACTIVE_DIRECTION'] -->
-                            <ul class="dropdown-menu">
-                                <li v-for="type in channel.config.availablePhaseLedTypes" :key="type">
-                                    <a @click="channel.config.usedPhaseLedType = type; $emit('change')"
-                                        v-show="type !== channel.config.usedPhaseLedType">
-                                        {{ $t(`usedPhaseLedType_${type}`) }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </dt>
-                </dl>
+                <ChannelParamsElectricityMeterOtherSettings :channel="channel" @change="$emit('change')"/>
             </div>
         </transition-expand>
     </div>
@@ -119,6 +73,7 @@
     import ChannelParamsMeterKeepHistoryMode from "@/channels/params/channel-params-meter-keep-history-mode.vue";
     import {ref} from "vue";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
+    import ChannelParamsElectricityMeterOtherSettings from "@/channels/params/channel-params-electricity-meter-other-settings.vue";
 
     defineProps({channel: Object});
 

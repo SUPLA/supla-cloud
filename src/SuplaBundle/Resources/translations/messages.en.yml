@@ -124,7 +124,7 @@ timeMarginMode_custom: Custom
 timeMarginMode_device: Device default
 timeMarginMode_off: 'Off'
 usedPhaseLedType_OFF: 'Off'
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: Voltage level
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Power active direction
 usedPhaseLedType_VOLTAGE_LEVEL: Voltage level
 usedPhaseLedType_VOLTAGE_PRESENCE: Voltage presence
 usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Voltage presence (inverted)

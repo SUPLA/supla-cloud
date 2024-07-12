@@ -55,6 +55,8 @@ class ElectricityMeterUserConfigTranslator extends UserConfigTranslator {
             'availableCTTypes' => $subject->getProperties()['availableCTTypes'] ?? [],
             'usedPhaseLedType' => $subject->getUserConfigValue('usedPhaseLedType', 'OFF'),
             'availablePhaseLedTypes' => $subject->getProperties()['availablePhaseLedTypes'] ?? [],
+            'phaseLedParam1' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('phaseLedParam1', 0) / 100),
+            'phaseLedParam2' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('phaseLedParam2', 0) / 100),
         ];
     }
 
@@ -116,12 +118,23 @@ class ElectricityMeterUserConfigTranslator extends UserConfigTranslator {
             }
             $subject->setUserConfigValue('usedCTType', $type);
         }
-        if (array_key_exists('usedPhaseLedType', $config)) {
-            $type = $config['usedPhaseLedType'] ?: null;
+        if (array_key_exists('usedPhaseLedType', $config) || array_key_exists('phaseLedParam1', $config) || array_key_exists('phaseLedParam2', $config)) {
+            $type = ($config['usedPhaseLedType'] ?? null) ?: $subject->getUserConfigValue('usedPhaseLedType', 'OFF');
             if ($type) {
                 Assert::that($type, null, 'usedPhaseLedType')->string()->inArray($subject->getProperties()['availablePhaseLedTypes'] ?? []);
             }
             $subject->setUserConfigValue('usedPhaseLedType', $type);
+            if (in_array($type, ['VOLTAGE_LEVEL', 'POWER_ACTIVE_DIRECTION'])) {
+                $param1 = $config['phaseLedParam1'] ?? $subject->getUserConfigValue('phaseLedParam1', 0) / 100;
+                $param2 = $config['phaseLedParam2'] ?? $subject->getUserConfigValue('phaseLedParam2', 0) / 100;
+                Assertion::numeric($param1);
+                Assertion::numeric($param2);
+                Assertion::lessThan($param1, $param2);
+                $max = $type === 'VOLTAGE_LEVEL' ? 400 : 10000;
+                Assertion::lessThan($param2, $max);
+                $subject->setUserConfigValue('phaseLedParam1', intval($param1 * 100));
+                $subject->setUserConfigValue('phaseLedParam2', intval($param2 * 100));
+            }
         }
     }
 

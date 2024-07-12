@@ -16,6 +16,7 @@ import {
     faChevronDown,
     faChevronLeft,
     faChevronRight,
+    faCircle,
     faCircleHalfStroke,
     faCircleNotch,
     faClock,
@@ -43,5 +44,5 @@ import {
 library.add(faSquare, faCheckSquare, faGear, faDownload, faSignOut, faSignIn, faShieldHalved, faPuzzlePiece, faKey, faTimesCircle, faCheck,
     faChevronLeft, faChevronRight, faChevronDown, faArrowRight, faQuestionCircle, faPlus, faTrash, faShuffle, faInfoCircle, faCircleNotch,
     faPowerOff, faEdit, faSave, faCancel, faRefresh, faCaretUp, faCaretDown, faAngleDoubleDown, faAngleDoubleRight, faAngleDoubleUp,
-    faCalendarWeek, faHand, faClock, faCircleHalfStroke, faUnlock);
+    faCalendarWeek, faHand, faClock, faCircleHalfStroke, faUnlock, faCircle);
 Vue.component('fa', FontAwesomeIcon)
