@@ -57,6 +57,15 @@
         },
         mounted() {
             this.updateSelectedItem();
+            // fix for negative page count when only single element is left after filtering
+            Object.defineProperty(this.$refs.carousel, "pageCount", {
+                get: function () {
+                    const pageCount = this.scrollPerPage
+                        ? Math.ceil(this.slideCount / this.currentPerPage)
+                        : this.slideCount - this.currentPerPage + 1;
+                    return pageCount > 0 ? pageCount : (this.slideCount > 0 ? 1 : 0);
+                },
+            });
         },
         computed: {
             multiple() {
