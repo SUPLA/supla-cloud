@@ -27,6 +27,15 @@ use SuplaBundle\Utils\NumberUtils;
  *     @OA\Property(property="powerActiveLoggerEnabled", type="boolean"),
  *     @OA\Property(property="lowerVoltageThreshold", type="number"),
  *     @OA\Property(property="upperVoltageThreshold", type="number"),
+ *     @OA\Property(property="disabledPhases", type="array", @OA\Items(type="integer")),
+ *     @OA\Property(property="enabledPhases", type="array", readOnly=true, @OA\Items(type="integer")),
+ *     @OA\Property(property="availablePhases", type="array", readOnly=true, @OA\Items(type="integer")),
+ *     @OA\Property(property="usedCTType", type="string", example="100A_33mA"),
+ *     @OA\Property(property="availableCTTypes", type="array", readOnly=true, @OA\Items(type="string", example="100A_33mA")),
+ *     @OA\Property(property="usedPhaseLedType", type="string", example="VOLTAGE_LEVEL"),
+ *     @OA\Property(property="availablePhaseLedTypes", type="array", readOnly=true, @OA\Items(type="string", example="VOLTAGE_LEVEL")),
+ *     @OA\Property(property="phaseLedParam1", type="number", format="float"),
+ *     @OA\Property(property="phaseLedParam2", type="number", format="float"),
  * )
  */
 class ElectricityMeterUserConfigTranslator extends UserConfigTranslator {
@@ -118,8 +127,10 @@ class ElectricityMeterUserConfigTranslator extends UserConfigTranslator {
             }
             $subject->setUserConfigValue('usedCTType', $type);
         }
-        if (array_key_exists('usedPhaseLedType', $config) || array_key_exists('phaseLedParam1', $config) || array_key_exists('phaseLedParam2', $config)) {
-            $type = ($config['usedPhaseLedType'] ?? null) ?: $subject->getUserConfigValue('usedPhaseLedType', 'OFF');
+        if (array_key_exists('usedPhaseLedType', $config)
+            || array_key_exists('phaseLedParam1', $config)
+            || array_key_exists('phaseLedParam2', $config)) {
+            $type = ($config['usedPhaseLedType'] ?? null) ?: $subject->getUserConfigValue('usedPhaseLedType');
             if ($type) {
                 Assert::that($type, null, 'usedPhaseLedType')->string()->inArray($subject->getProperties()['availablePhaseLedTypes'] ?? []);
             }
