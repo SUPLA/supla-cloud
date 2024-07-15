@@ -75,6 +75,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="pairingSubdevicesAvailable", type="boolean"),
  *   @OA\Property(property="isSleepModeEnabled", type="boolean"),
  *   @OA\Property(property="config", ref="#/components/schemas/DeviceConfig"),
+ *   @OA\Property(property="pairingResult", type="object"),
  * )
  */
 class IODeviceController extends RestController {
@@ -90,7 +91,7 @@ class IODeviceController extends RestController {
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
         $groups = [
-            'channels', 'location', 'originalLocation', 'connected', 'accessids', 'state',
+            'channels', 'location', 'originalLocation', 'connected', 'accessids', 'state', 'pairingResult',
             'channels' => 'iodevice.channels',
             'location' => 'iodevice.location',
             'originalLocation' => 'iodevice.originalLocation',
@@ -184,7 +185,7 @@ class IODeviceController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "location", "originalLocation", "connected", "accessids"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "location", "originalLocation", "connected", "accessids", "pairingResult"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
      * )

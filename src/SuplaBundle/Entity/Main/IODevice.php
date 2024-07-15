@@ -178,7 +178,10 @@ class IODevice implements HasLocation, HasRelationsCount {
      */
     private $channelAdditionBlocked = false;
 
-    /** @ORM\Column(name="pairing_result", type="string", length=512, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"}) */
+    /**
+     * @ORM\Column(name="pairing_result", type="string", length=512, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
+     * @Groups({"pairingResult"})
+     */
     private $pairingResult;
 
     public function __construct() {
@@ -327,5 +330,9 @@ class IODevice implements HasLocation, HasRelationsCount {
         if (IoDeviceFlags::BLOCK_ADDING_CHANNELS_AFTER_DELETION()->isOn($this->flags)) {
             $this->channelAdditionBlocked = true;
         }
+    }
+
+    public function getPairingResult(): ?array {
+        return json_decode($this->pairingResult ?: '', true) ?: null;
     }
 }
