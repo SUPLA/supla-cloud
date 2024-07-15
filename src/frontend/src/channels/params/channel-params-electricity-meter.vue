@@ -48,7 +48,6 @@
                 <ChannelParamsElectricityMeterVoltageThresholds :channel="channel" @change="$emit('change')"/>
             </div>
         </transition-expand>
-        <channel-params-meter-reset :channel="channel" class="mt-4"/>
         <a class="d-flex accordion-header" @click="displayGroup('other')">
             <span class="flex-grow-1">{{ $t('Other') }}</span>
             <span>
@@ -60,6 +59,7 @@
                 <ChannelParamsElectricityMeterOtherSettings :channel="channel" @change="$emit('change')"/>
             </div>
         </transition-expand>
+        <channel-params-meter-reset :channel="channel" class="mt-4"/>
     </div>
 </template>
 

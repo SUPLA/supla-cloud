@@ -140,9 +140,11 @@ class ElectricityMeterUserConfigTranslator extends UserConfigTranslator {
                 $param2 = $config['phaseLedParam2'] ?? $subject->getUserConfigValue('phaseLedParam2', 0) / 100;
                 Assertion::numeric($param1);
                 Assertion::numeric($param2);
-                Assertion::lessThan($param1, $param2);
-                $max = $type === 'VOLTAGE_LEVEL' ? 400 : 10000;
-                Assertion::lessThan($param2, $max);
+                Assertion::lessThan($param1, $param2, 'Low threshold must be less than high threshold.'); // i18n
+                $min = $type === 'VOLTAGE_LEVEL' ? 0 : -100000;
+                $max = $type === 'VOLTAGE_LEVEL' ? 1000 : 100000;
+                Assertion::greaterOrEqualThan($param1, $min);
+                Assertion::lessOrEqualThan($param2, $max);
                 $subject->setUserConfigValue('phaseLedParam1', intval($param1 * 100));
                 $subject->setUserConfigValue('phaseLedParam2', intval($param2 * 100));
             }

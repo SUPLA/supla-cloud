@@ -169,16 +169,10 @@ class ElectricityMeterUserConfigTranslatorTest extends TestCase {
         $this->assertEquals(220, $this->configTranslator->getConfig($this->channel)['phaseLedParam1']);
         $this->assertEquals(240, $this->configTranslator->getConfig($this->channel)['phaseLedParam2']);
         $this->assertEquals(22000, $this->channel->getUserConfigValue('phaseLedParam1'));
-        $this->configTranslator->setConfig(
-            $this->channel,
-            ['phaseLedParam1' => 220.2]
-        );
+        $this->configTranslator->setConfig($this->channel, ['phaseLedParam1' => 220.2]);
         $this->assertEquals(220.2, $this->configTranslator->getConfig($this->channel)['phaseLedParam1']);
         $this->assertEquals(240, $this->configTranslator->getConfig($this->channel)['phaseLedParam2']);
-        $this->expectExceptionMessage('is not less than "210"');
-        $this->configTranslator->setConfig(
-            $this->channel,
-            ['phaseLedParam2' => 210]
-        );
+        $this->expectExceptionMessage('Low threshold must be less than high threshold');
+        $this->configTranslator->setConfig($this->channel, ['phaseLedParam2' => 210]);
     }
 }

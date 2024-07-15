@@ -123,6 +123,9 @@ tiltControlType_UNKNOWN: Unknown
 timeMarginMode_custom: Custom
 timeMarginMode_device: Device default
 timeMarginMode_off: 'Off'
+usedCTType_100A_33mA: 100A/33.3mA
+usedCTType_200A_66mA: 200A/66.6mA
+usedCTType_400A_133mA: 400A/133.3mA
 usedPhaseLedType_OFF: 'Off'
 usedPhaseLedType_POWER_ACTIVE_DIRECTION: Power active direction
 usedPhaseLedType_VOLTAGE_LEVEL: Voltage level

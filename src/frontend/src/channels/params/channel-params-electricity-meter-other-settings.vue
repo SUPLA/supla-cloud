@@ -8,15 +8,16 @@
             <dt>
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
-                        <span v-if="channel.config.usedCTType">{{ channel.config.usedCTType.replace(/_/g, ' ') }}</span>
+                        <span v-if="channel.config.usedCTType">{{ $t(`usedCTType_${channel.config.usedCTType}`) }}</span>
                         <span v-else>?</span>
                         <span class="caret ml-2"></span>
                     </button>
+                    <!-- i18n:['usedCTType_100A_33mA', 'usedCTType_200A_66mA', 'usedCTType_400A_133mA'] -->
                     <ul class="dropdown-menu">
                         <li v-for="type in channel.config.availableCTTypes" :key="type">
                             <a @click="channel.config.usedCTType = type; $emit('change')"
                                 v-show="type !== channel.config.usedCTType">
-                                {{ type.replace(/_/g, ' ') }}
+                                {{ $t(`usedCTType_${type}`) }}
                             </a>
                         </li>
                     </ul>
@@ -52,9 +53,9 @@
                 <dl>
                     <dd>{{ $t('Low threshold') }}</dd>
                     <dt>
-                        <NumberInput v-model="channel.config.phaseLedParam1"
+                        <NumberInput v-model="lowV"
                             :min="0"
-                            :max="channel.config.phaseLedParam2 || 400"
+                            :max="highV || 1000"
                             :precision="2"
                             suffix=" V"
                             class="form-control text-center mt-2"
@@ -64,9 +65,9 @@
                 <dl>
                     <dd>{{ $t('High threshold') }}</dd>
                     <dt>
-                        <NumberInput v-model="channel.config.phaseLedParam2"
-                            :min="channel.config.phaseLedParam1 || 0"
-                            :max="400"
+                        <NumberInput v-model="highV"
+                            :min="lowV || 0"
+                            :max="1000"
                             :precision="2"
                             suffix=" V"
                             class="form-control text-center mt-2"
@@ -94,9 +95,9 @@
                 <dl>
                     <dd>{{ $t('Low threshold') }}</dd>
                     <dt>
-                        <NumberInput v-model="channel.config.phaseLedParam1"
-                            :min="0"
-                            :max="channel.config.phaseLedParam2 || 10000"
+                        <NumberInput v-model="lowW"
+                            :min="-100000"
+                            :max="highW || 100000"
                             :precision="2"
                             suffix=" W"
                             class="form-control text-center mt-2"
@@ -106,9 +107,9 @@
                 <dl>
                     <dd>{{ $t('High threshold') }}</dd>
                     <dt>
-                        <NumberInput v-model="channel.config.phaseLedParam2"
-                            :min="channel.config.phaseLedParam1 || 0"
-                            :max="10000"
+                        <NumberInput v-model="highW"
+                            :min="lowW || -100000"
+                            :max="100000"
                             :precision="2"
                             suffix=" W"
                             class="form-control text-center mt-2"
@@ -124,6 +125,10 @@
                         <fa icon="circle" class="red"/>
                         {{ $t('red, when power higher than the high threshold') }}
                     </div>
+                    <div>
+                        <fa icon="circle" class="blue"/>
+                        {{ $t('blue, otherwise') }}
+                    </div>
                 </div>
             </div>
         </transition-expand>
@@ -133,8 +138,37 @@
 <script setup>
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import NumberInput from "@/common/number-input.vue";
+    import {ref, watch} from "vue";
 
-    defineProps({channel: Object});
+    const props = defineProps({channel: Object});
+
+    const lowV = ref(220);
+    const highV = ref(250);
+    const lowW = ref(-100);
+    const highW = ref(100);
+
+    if (props.channel.config.usedPhaseLedType === 'VOLTAGE_LEVEL') {
+        lowV.value = props.channel.config.phaseLedParam1 || 220;
+        highV.value = props.channel.config.phaseLedParam2 || 250;
+    } else if (props.channel.config.usedPhaseLedType === 'POWER_ACTIVE_DIRECTION') {
+        lowW.value = props.channel.config.phaseLedParam1 || 220;
+        highW.value = props.channel.config.phaseLedParam2 || 250;
+    }
+
+    watch(() => props.channel.config.usedPhaseLedType, () => {
+        if (props.channel.config.usedPhaseLedType === 'VOLTAGE_LEVEL') {
+            props.channel.config.phaseLedParam1 = lowV.value;
+            props.channel.config.phaseLedParam2 = highV.value;
+        } else if (props.channel.config.usedPhaseLedType === 'POWER_ACTIVE_DIRECTION') {
+            props.channel.config.phaseLedParam1 = lowW.value;
+            props.channel.config.phaseLedParam2 = highW.value;
+        }
+    });
+
+    watch(lowV, (v) => props.channel.config.phaseLedParam1 = v);
+    watch(highV, (v) => props.channel.config.phaseLedParam2 = v);
+    watch(lowW, (v) => props.channel.config.phaseLedParam1 = v);
+    watch(highW, (v) => props.channel.config.phaseLedParam2 = v);
 </script>
 
 <style lang="scss" scoped>
