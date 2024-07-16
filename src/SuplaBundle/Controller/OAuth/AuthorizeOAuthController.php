@@ -41,8 +41,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class AuthorizeOAuthController extends AbstractController {
+    use TargetPathTrait;
+
     /** @var FailedAuthAttemptsUserBlocker */
     private $failedAuthAttemptsUserBlocker;
     /** @var SuplaAutodiscover */
@@ -92,7 +95,7 @@ class AuthorizeOAuthController extends AbstractController {
         $client = null;
         $publicClientName = null;
         if ($this->autodiscover->enabled()) {
-            $targetPath = $session->get('_security.oauth_authorize.target_path');
+            $targetPath = $this->getTargetPath($session, 'oauth_authorize');
             if (preg_match('#/oauth/v2/auth/?\?(.+)#', $targetPath, $match)) {
                 parse_str($match[1], $oauthParams);
             }
