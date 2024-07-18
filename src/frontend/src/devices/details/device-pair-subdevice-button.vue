@@ -7,13 +7,19 @@
             <span v-else>{{ $t('Pair new devices or sensors') }}</span>
         </button>
         <transition-expand>
-            <div class="text-center mt-2" v-if="loading || lastPairingResult">
+            <div class="text-center mt-2" v-if="(loading && timer) || lastPairingResult">
                 <div v-if="!lastPairingResult" class="small">
                     {{ $t('Pairing request sent.') }}
                 </div>
                 <div v-else>
                     <div class="small">
-                        {{ $t(`subdevicePairingResult_${lastPairingResult.result}`, {resultNum: lastPairingResult.resultNum}) }}
+                        <span v-if="lastPairingResult.result === 'SUCCESS' && lastPairingResult.timedOut">
+                            {{ $t('Last paired device') }}<br>
+                            {{ lastPairingResult.time | formatDateTime }}
+                        </span>
+                        <span v-else>
+                            {{ $t(`subdevicePairingResult_${lastPairingResult.result}`, {resultNum: lastPairingResult.resultNum}) }}
+                        </span>
                     </div>
                     <div v-if="lastPairingResult.name">{{ lastPairingResult.name }}</div>
                 </div>
@@ -34,10 +40,17 @@
         props: ['device'],
         data() {
             return {
-                loading: false,
+                loading: true,
                 timer: undefined,
                 lastPairingResult: null,
             };
+        },
+        mounted() {
+            this.fetchState().then(() => {
+                if (this.lastPairingResult?.timedOut && this.lastPairingResult?.result !== 'SUCCESS') {
+                    this.lastPairingResult = null;
+                }
+            });
         },
         methods: {
             pairSubdevices() {
@@ -49,10 +62,10 @@
                     .catch(() => this.loading = false);
             },
             fetchState() {
-                this.$http.get(`iodevices/${this.device.id}?include=pairingResult`, {skipErrorHandler: true})
+                return this.$http.get(`iodevices/${this.device.id}?include=pairingResult`, {skipErrorHandler: true})
                     .then((response) => {
                         const pr = response.body.pairingResult;
-                        // const pr = {"time": "2024-07-02T12:34:56Z", "result": "NO_NEW_DEVICE_FOUND"};
+                        // const pr = {"time": "2024-07-02T12:34:56Z", "result": "SUCCESS", "name": "ZAMEL", timedOut: true};
                         if (pr?.result.startsWith('CMD_RESULT_')) {
                             pr.resultNum = pr.result.substring('CMD_RESULT_'.length);
                             pr.result = 'CMD_RESULT_UNKNOWN';
@@ -62,9 +75,8 @@
                             pr.result = 'PAIRING_RESULT_UNKNOWN';
                         }
                         this.lastPairingResult = pr;
-                        if (pr && !['PROCEDURE_STARTED', 'ONGOING'].includes(pr.result)) {
+                        if (!pr || !['PROCEDURE_STARTED', 'ONGOING'].includes(pr.result)) {
                             this.loading = false;
-                            this.timer = setTimeout(() => this.lastPairingResult = null, 5000);
                         }
                     });
             },

@@ -21,6 +21,7 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Schedule\ScheduleManager;
+use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Model\UserConfigTranslator\IODeviceConfigTranslator;
 use SuplaBundle\Repository\IODeviceRepository;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -32,22 +33,22 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
     use CurrentUserAware;
     use NormalizerAwareTrait;
 
-    /** @var ScheduleManager */
-    private $scheduleManager;
-    /** @var IODeviceRepository */
-    private $iodeviceRepository;
-    /** @var IODeviceConfigTranslator */
-    private $configTranslator;
+    private ScheduleManager $scheduleManager;
+    private IODeviceRepository $iodeviceRepository;
+    private IODeviceConfigTranslator $configTranslator;
+    private TimeProvider $timeProvider;
 
     public function __construct(
         ScheduleManager $scheduleManager,
         IODeviceRepository $iodeviceRepository,
-        IODeviceConfigTranslator $configTranslator
+        IODeviceConfigTranslator $configTranslator,
+        TimeProvider $timeProvider
     ) {
         parent::__construct();
         $this->scheduleManager = $scheduleManager;
         $this->iodeviceRepository = $iodeviceRepository;
         $this->configTranslator = $configTranslator;
+        $this->timeProvider = $timeProvider;
     }
 
     /**
@@ -77,6 +78,14 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
         }
         if ($ioDevice->isLocked()) {
             $normalized['locked'] = true;
+        }
+        if (array_key_exists('pairingResult', $normalized) && $normalized['pairingResult']) {
+            $pr = &$normalized['pairingResult'];
+            $dates = array_values(array_filter([$pr['timeoutAt'] ?? null, $pr['startedAt'] ?? null, $pr['time'] ?? null]));
+            if (count($dates)) {
+                $theDate = $dates[0];
+                $pr['timedOut'] = strtotime($theDate) < $this->timeProvider->getTimestamp('-1 minute');
+            }
         }
     }
 

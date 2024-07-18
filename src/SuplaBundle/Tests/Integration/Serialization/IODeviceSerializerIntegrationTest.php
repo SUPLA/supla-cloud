@@ -17,9 +17,11 @@
 
 namespace SuplaBundle\Tests\Integration\Serialization;
 
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
 /** @small */
 class IODeviceSerializerIntegrationTest extends IntegrationTestCase {
@@ -50,5 +52,32 @@ class IODeviceSerializerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->device->getId(), $deviceJson['id']);
         $this->assertTrue(isset($deviceJson['location']));
         $this->assertFalse(isset($deviceJson['connected']));
+    }
+
+    public function testSerializingPairingStatus() {
+        EntityUtils::setField($this->device, 'pairingResult', json_encode([
+            'time' => (new \DateTime())->format(\DateTime::ATOM),
+            'result' => 'ONGOING',
+        ]));
+        $serializedDevice = self::$container->get('serializer')
+            ->serialize($this->device, 'json', ['groups' => ['basic', 'pairingResult']]);
+        $deviceJson = json_decode($serializedDevice, true);
+        $this->assertEquals($this->device->getId(), $deviceJson['id']);
+        $this->assertArrayHasKey('pairingResult', $deviceJson);
+        $this->assertFalse($deviceJson['pairingResult']['timedOut']);
+    }
+
+    public function testSerializingPairingStatusTimedOut() {
+        EntityUtils::setField($this->device, 'pairingResult', json_encode([
+            'time' => (new \DateTime())->format(\DateTime::ATOM),
+            'result' => 'ONGOING',
+        ]));
+        TestTimeProvider::setTime('+10 minutes');
+        $serializedDevice = self::$container->get('serializer')
+            ->serialize($this->device, 'json', ['groups' => ['basic', 'pairingResult']]);
+        $deviceJson = json_decode($serializedDevice, true);
+        $this->assertEquals($this->device->getId(), $deviceJson['id']);
+        $this->assertArrayHasKey('pairingResult', $deviceJson);
+        $this->assertTrue($deviceJson['pairingResult']['timedOut']);
     }
 }
