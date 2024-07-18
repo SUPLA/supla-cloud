@@ -13,7 +13,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label>{{ $t('Automatic screen turn off') }}</label>
+            <label>{{ $t('Automatic front panel turn off') }}</label>
             <div>
                 <div class="btn-group">
                     <button type="button" @click="homeScreenOffMode = 'DISABLE'; onChange()"
