@@ -33,6 +33,9 @@
                 <fa icon="clock" fixed-width/>
             </span>
         </div>
+        <div v-if="state.mode !== 'OFF' && state.partially" class="small">
+            {{ $t('Power: {percent}%', {percent: state.partially}) }}
+        </div>
     </div>
 </template>
 

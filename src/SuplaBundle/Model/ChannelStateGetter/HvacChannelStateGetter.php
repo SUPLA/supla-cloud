@@ -40,10 +40,11 @@ class HvacChannelStateGetter implements SingleChannelStateGetter {
         if (count($values) !== 7) {
             throw new SuplaServerIsDownException();
         }
-        [, $modeId, $tempHeat, $tempCool, $flags, $tempMain, $humidityMain] = $values;
+        [$isOn, $modeId, $tempHeat, $tempCool, $flags, $tempMain, $humidityMain] = $values;
         return [
             'heating' => HvacIpcValueFlags::HEATING()->isOn($flags),
             'cooling' => HvacIpcValueFlags::COOLING()->isOn($flags),
+            'partially' => $isOn >= 2 ? $isOn - 1 : 0,
             'manual' => !HvacIpcValueFlags::WEEKLY_SCHEDULE()->isOn($flags),
             'countdownTimer' => HvacIpcValueFlags::COUNTDOWN_TIMER()->isOn($flags),
             'thermometerError' => HvacIpcValueFlags::THERMOMETER_ERROR()->isOn($flags),
