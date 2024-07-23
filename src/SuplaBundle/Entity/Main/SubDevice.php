@@ -38,6 +38,16 @@ class SubDevice {
     private $device;
 
     /**
+     * @ORM\Column(name="reg_date", type="utcdatetime")
+     */
+    private $regDate;
+
+    /**
+     * @ORM\Column(name="updated_at", type="utcdatetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
      * @ORM\Column(name="name", type="string", length=200, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      */
     private $name;
