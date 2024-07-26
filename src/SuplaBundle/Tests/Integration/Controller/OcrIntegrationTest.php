@@ -26,12 +26,14 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
 use SuplaBundle\Tests\Integration\Traits\TestSuplaHttpClient;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /** @small */
 class OcrIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
+    use SuplaAssertions;
     use ResponseAssertions;
 
     private ?User $user;
@@ -89,5 +91,15 @@ class OcrIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $counter = $this->freshEntity($this->counter);
         $this->assertEquals($ocrSettings, $counter->getUserConfigValue('ocr'));
+    }
+
+    public function testTakingOcrPhoto() {
+        $client = $this->createAuthenticatedClient();
+        $channelId = $this->counter->getId();
+        $client->apiRequestV24('PATCH', "/api/channels/{$channelId}/settings", [
+            'action' => 'takeOcrPhoto',
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSuplaCommandExecuted('TAKE-OCR-PHOTO:1,1,1');
     }
 }

@@ -523,6 +523,10 @@ class ChannelController extends RestController {
                 Assertion::true($channelConfig['recalibrateAvailable'] ?? false, 'Cannot recalibrate this channel.');
                 $result = $this->suplaServer->channelAction($channel, 'RECALIBRATE');
                 Assertion::true($result, 'Could not recalibrate.');
+            } elseif ($action === 'takeOcrPhoto') {
+                Assertion::keyExists($channelConfig, 'ocr', 'Cannot take OCR photo.');
+                $result = $this->suplaServer->channelAction($channel, 'TAKE-OCR-PHOTO');
+                Assertion::true($result, 'Could not take OCR photo.');
             } else {
                 throw new ApiException('Invalid action given.');
             }

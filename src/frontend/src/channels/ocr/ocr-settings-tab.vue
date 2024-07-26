@@ -76,14 +76,23 @@
                         <div v-else-if="latestImageDetails">
                             <div class="form-group">
                                 <label>{{ $t('Image area crop') }}</label>
-                                <div
-                                    class="help-block">{{ $t('This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.') }}
+                                <div class="help-block">
+                                    {{ $t('This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.') }}
                                 </div>
                                 <div class="ocr-photo-crop-area">
                                     <OcrPhotoCrop v-model="ocrSettings.photoSettings" @input="onChange()"
                                         :image-base64="latestImageDetails.image"/>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-white" type="button" @click="takePhotoNow()" :disabled="takingPhoto">
+                                {{ $t('Take a photo now') }}
+                            </button>
+                            <button class="btn btn-white ml-3" type="button" @click="fetchLatestImage()">
+                                {{ $t('Reload last photo') }}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -100,6 +109,7 @@
     import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import NumberInput from "@/common/number-input.vue";
+    import {successNotification} from "@/common/notifier";
 
     export default {
         components: {
@@ -118,6 +128,7 @@
                 conflictingConfig: undefined,
                 latestImageError: undefined,
                 latestImageDetails: undefined,
+                takingPhoto: false,
             }
         },
         beforeMount() {
@@ -157,7 +168,16 @@
                 this.subject.configBefore = deepCopy(this.subject.config);
                 this.conflictingConfig = false;
                 this.cancelChanges();
-            }
+            },
+            takePhotoNow() {
+                this.takingPhoto = true;
+                this.$http.patch(`channels/${this.subject.id}/settings`, {action: 'takeOcrPhoto'})
+                    .then(() => successNotification(
+                        this.$t('Success'),
+                        this.$t('Command has been sent to the device. Try refreshing the photo in a while.')
+                    ))
+                    .finally(() => this.takingPhoto = false);
+            },
         },
         computed: {}
     };

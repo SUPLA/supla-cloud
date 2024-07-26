@@ -94,7 +94,7 @@ class SuplaServerMock extends SuplaServer {
             return 'OK:HURRA';
         } elseif (preg_match('#^DEVICE-SET-TIME:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
-        } elseif (preg_match('#^(RESET-COUNTERS|RECALIBRATE):(\d+),(\d+),(\d+)$#', $cmd, $match)) {
+        } elseif (preg_match('#^(RESET-COUNTERS|RECALIBRATE|TAKE-OCR-PHOTO):(\d+),(\d+),(\d+)$#', $cmd, $match)) {
             return "OK:$match[4]\n";
         } elseif (preg_match('#^(EXECUTE|INTERRUPT|INTERRUPT-AND-EXECUTE)-SCENE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
