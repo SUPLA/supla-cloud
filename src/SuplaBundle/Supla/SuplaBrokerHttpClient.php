@@ -48,7 +48,7 @@ class SuplaBrokerHttpClient {
         if (!isset($headers[$authorizationHeaderName]) && $this->settingsStringRepository->hasValue(InstanceSettings::TARGET_TOKEN)) {
             $headers[$authorizationHeaderName] = 'Bearer ' . $this->settingsStringRepository->getValue(InstanceSettings::TARGET_TOKEN);
         }
-        [$successful, $rawResponse, $responseStatus] = $this->httpClient->request($fullUrl, $method, $payload, $headers);
+        [$responseSuccess, $rawResponse, $responseStatus] = $this->httpClient->request($fullUrl, $method, $payload, $headers);
         $logDetails = [
             'address' => $fullUrl,
             'method' => $method,
@@ -56,8 +56,12 @@ class SuplaBrokerHttpClient {
             'responseStatus' => $responseStatus,
             'response' => var_export($rawResponse, true),
         ];
-        if ($successful) {
-            $this->logger->debug('HTTP Request', $logDetails);
+        if ($responseSuccess) {
+            if ($responseStatus >= 200 && $responseStatus <= 299) {
+                $this->logger->debug('HTTP Request', $logDetails);
+            } else {
+                $this->logger->notice('HTTP Request with error response', $logDetails);
+            }
         } else {
             $this->logger->warning('Target service does not respond.', $logDetails);
             throw new ApiException('Service temporarily unavailable', Response::HTTP_SERVICE_UNAVAILABLE); // i18n

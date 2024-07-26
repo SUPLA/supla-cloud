@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\User;
@@ -26,6 +27,7 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\TestSuplaHttpClient;
+use Symfony\Component\Console\Tester\CommandTester;
 
 /** @small */
 class OcrIntegrationTest extends IntegrationTestCase {
@@ -42,6 +44,24 @@ class OcrIntegrationTest extends IntegrationTestCase {
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER],
         ]);
         $this->counter = $this->device->getChannels()[0];
+        EntityUtils::setField($this->counter, 'properties', json_encode(['ocr' => ['authKey' => '123']]));
+        $this->persist($this->counter);
+    }
+
+    public function testSyncingOcrSettings() {
+        TestSuplaHttpClient::mockHttpRequest('/devices', function (array $request) {
+            $this->assertEquals('POST', $request['method']);
+            $this->assertEquals($this->counter->getIoDevice()->getGUIDString(), $request['payload']['guid']);
+            $this->assertEquals($this->counter->getChannelNumber(), $request['payload']['channelNo']);
+            $this->assertEquals('123', $request['payload']['authKey']);
+            return [true, '', 201];
+        });
+        $command = $this->application->find('supla:cyclic:synchronize-ocr-authkeys');
+        $commandTester = new CommandTester($command);
+        $result = $commandTester->execute([]);
+        $this->assertEquals(0, $result);
+        $counter = $this->freshEntity($this->counter);
+        $this->assertTrue($counter->getProperty('ocr')['ocrSynced']);
     }
 
     public function testGettingLatestPhoto() {
@@ -57,8 +77,8 @@ class OcrIntegrationTest extends IntegrationTestCase {
     public function testUpdatingOcrSettings() {
         $client = $this->createAuthenticatedClient($this->user);
         $ocrConfig = ['unicorn' => 'crop it!'];
-        TestSuplaHttpClient::mockHttpRequest('/settings', function (array $request) use ($ocrConfig) {
-            $this->assertStringContainsString($this->device->getGUIDString(), $request['url']);
+        TestSuplaHttpClient::mockHttpRequest($this->device->getGUIDString(), function (array $request) use ($ocrConfig) {
+            $this->assertEquals('PUT', $request['method']);
             $this->assertEquals(['config' => $ocrConfig], $request['payload']);
             return [true, '', 200];
         });

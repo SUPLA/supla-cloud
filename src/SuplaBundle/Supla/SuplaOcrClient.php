@@ -32,9 +32,20 @@ class SuplaOcrClient {
         $this->brokerHttpClient = $brokerHttpClient;
     }
 
+    public function registerDevice(IODeviceChannel $icChannel, string $authKey) {
+        $fullUrl = $this->ocrEndpoint('/devices');
+        $response = $this->brokerHttpClient->request($fullUrl, [
+            'guid' => $icChannel->getIoDevice()->getGUIDString(),
+            'channelNo' => $icChannel->getChannelNumber(),
+            'authKey' => $authKey,
+        ], $responseStatus);
+        if ($responseStatus !== 201) {
+            throw new ApiExceptionWithDetails('OCR service responded with error: {status}', $response, $responseStatus); // i18n
+        }
+    }
+
     public function getLatestImage(IODeviceChannel $channel) {
-        $deviceGuid = $channel->getIoDevice()->getGUIDString();
-        $fullUrl = $this->ocrEndpoint(sprintf("images/%s/latest", $deviceGuid));
+        $fullUrl = $this->deviceEndpoint($channel, 'images/latest');
         $response = $this->brokerHttpClient->request($fullUrl, null, $responseStatus);
         if ($responseStatus === 200) {
             return $response;
@@ -44,12 +55,19 @@ class SuplaOcrClient {
     }
 
     public function updateSettings(IODeviceChannel $channel, array $ocrConfig) {
-        $deviceGuid = $channel->getIoDevice()->getGUIDString();
-        $fullUrl = $this->ocrEndpoint(sprintf("devices/%s", $deviceGuid));
+        $fullUrl = $this->deviceEndpoint($channel);
         return $this->brokerHttpClient->request($fullUrl, ['config' => $ocrConfig], $responseStatus, [], 'PUT');
     }
 
     private function ocrEndpoint(string $endpoint): string {
         return sprintf("%s/%s", $this->suplaOcrUrl, $endpoint);
+    }
+
+    private function deviceEndpoint(IODeviceChannel $channel, string $endpoint = ''): string {
+        $url = $this->ocrEndpoint(sprintf("devices/%s/%s", $channel->getIoDevice()->getGUIDString(), $channel->getChannelNumber()));
+        if ($endpoint) {
+            $url .= '/' . $endpoint;
+        }
+        return $url;
     }
 }

@@ -552,6 +552,12 @@ class DevicesFixture extends SuplaFixture {
                     "OFF", "VOLTAGE_PRESENCE", "VOLTAGE_PRESENCE_INVERTED", "VOLTAGE_LEVEL", "POWER_ACTIVE_DIRECTION",
                 ];
                 break;
+            case ChannelType::IMPULSECOUNTER:
+                $channelProperties['ocr'] = [
+                    'authKey' => 'aaabbbccc',
+                    'availableLightingModes' => ['OFF', 'AUTO', 'ALWAYS_ON'],
+                ];
+                break;
         }
         if ($channelProperties) {
             EntityUtils::setField($channel, 'properties', json_encode($channelProperties));

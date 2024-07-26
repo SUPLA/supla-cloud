@@ -54,8 +54,6 @@ class UserManager {
 
     private $defaultClientsRegistrationTime;
     private $defaultIoDevicesRegistrationTime;
-    /** @var EntityManagerInterface */
-    private $entityManager;
     /** @var SuplaAutodiscover */
     private $autodiscover;
     /** @var Audit */

@@ -18,7 +18,6 @@
 namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
-use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -37,17 +36,10 @@ class MqttSettingsController extends RestController {
     private $containerWithParameters;
     /** @var ApiClientAuthorizationRepository */
     private $apiClientAuthorizationRepository;
-    /** @var EntityManagerInterface */
-    private $entityManager;
 
-    public function __construct(
-        ContainerInterface $container,
-        EntityManagerInterface $entityManager,
-        ApiClientAuthorizationRepository $apiClientAuthorizationRepository
-    ) {
+    public function __construct(ContainerInterface $container, ApiClientAuthorizationRepository $apiClientAuthorizationRepository) {
         $this->containerWithParameters = $container;
         $this->apiClientAuthorizationRepository = $apiClientAuthorizationRepository;
-        $this->entityManager = $entityManager;
     }
 
     /**

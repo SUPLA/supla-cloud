@@ -188,7 +188,7 @@ monolog:
       max_files: 1
     supla_http_client:
       channels: [supla_http_client]
-      level: warning
+      level: notice
       path: "%kernel.logs_dir%/http-client.log"
       type: rotating_file
       max_files: 5

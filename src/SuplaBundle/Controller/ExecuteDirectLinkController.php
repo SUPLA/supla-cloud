@@ -18,7 +18,6 @@
 namespace SuplaBundle\Controller;
 
 use Assert\Assertion;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
@@ -60,8 +59,6 @@ class ExecuteDirectLinkController extends Controller {
     private $channelStateGetter;
     /** @var Audit */
     private $audit;
-    /** @var EntityManagerInterface */
-    private $entityManager;
     /** @var TranslatorInterface */
     private $translator;
     /** @var LoggerInterface */
@@ -70,7 +67,6 @@ class ExecuteDirectLinkController extends Controller {
     private $normalizer;
 
     public function __construct(
-        EntityManagerInterface $entityManager,
         ChannelActionExecutor $channelActionExecutor,
         EncoderFactoryInterface $encoderFactory,
         ChannelStateGetter $channelStateGetter,
@@ -79,7 +75,6 @@ class ExecuteDirectLinkController extends Controller {
         LoggerInterface $logger,
         NormalizerInterface $normalizer
     ) {
-        $this->entityManager = $entityManager;
         $this->channelActionExecutor = $channelActionExecutor;
         $this->encoderFactory = $encoderFactory;
         $this->channelStateGetter = $channelStateGetter;

@@ -23,8 +23,7 @@ use SuplaBundle\Supla\SuplaServerAware;
 trait Transactional {
     use SuplaServerAware;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    protected EntityManagerInterface $entityManager;
 
     /** @required */
     public function setEntityManager(EntityManagerInterface $entityManager) {
