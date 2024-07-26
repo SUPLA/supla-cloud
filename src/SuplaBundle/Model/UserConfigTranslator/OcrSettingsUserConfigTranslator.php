@@ -2,6 +2,7 @@
 
 namespace SuplaBundle\Model\UserConfigTranslator;
 
+use Assert\Assert;
 use Assert\Assertion;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
@@ -18,21 +19,39 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
     }
 
     public function getConfig(HasUserConfig $subject): array {
-        return [
-            'ocrSettings' => $subject->getUserConfigValue('ocrSettings', new \stdClass()),
-        ];
+        $ocrProp = $subject->getProperty('ocr');
+        if ($ocrProp) {
+            $ocrConfig = $subject->getUserConfigValue('ocr', []);
+            $ocrConfig['availableLightingModes'] = $ocrProp['availableLightingModes'] ?? [];
+            return ['ocr' => $ocrConfig];
+        } else {
+            return [];
+        }
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
-        if (array_key_exists('ocrSettings', $config)) {
-            $config = $config['ocrSettings'];
-            Assertion::isArray($config);
-            try {
-                $this->ocr->updateSettings($subject, $config);
-                $subject->setUserConfigValue('ocrSettings', $config);
-            } catch (ApiException $e) {
-                Assertion::true(false, 'Cannot update OCR settings. Try again in a while.'); // i18n
+        if (array_key_exists('ocr', $config)) {
+            $ocrConfig = $config['ocr'];
+            Assertion::isArray($ocrConfig);
+            if (array_key_exists('photoIntervalSec', $ocrConfig)) {
+                Assert::that($ocrConfig['photoIntervalSec'], null, 'ocr.photoIntervalSec')->integer()->between(5, 300);
             }
+            if (array_key_exists('lightingMode', $ocrConfig)) {
+                Assert::that($ocrConfig['lightingMode'], null, 'ocr.lightingMode')
+                    ->string()
+                    ->inArray($this->getConfig($subject)['ocr']['availableLightingModes']);
+            }
+            if (array_key_exists('lightingLevel', $ocrConfig)) {
+                Assert::that($ocrConfig['lightingLevel'], null, 'ocr.lightingLevel')->integer()->between(1, 100);
+            }
+            if (array_key_exists('photoSettings', $ocrConfig)) {
+                try {
+                    $this->ocr->updateSettings($subject, $ocrConfig['photoSettings']);
+                } catch (ApiException $e) {
+                    Assertion::true(false, 'Cannot update OCR settings. Try again in a while.'); // i18n
+                }
+            }
+            $subject->setUserConfigValue('ocr', $ocrConfig);
         }
     }
 

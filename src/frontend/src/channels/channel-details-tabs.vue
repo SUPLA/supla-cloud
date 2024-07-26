@@ -124,13 +124,7 @@
                         header: 'Voltage aberrations', // i18n
                     });
                 }
-                const ocrSettingsFunctions = [
-                    ChannelFunction.IC_WATERMETER,
-                    ChannelFunction.IC_HEATMETER,
-                    ChannelFunction.IC_GASMETER,
-                    ChannelFunction.IC_ELECTRICITYMETER,
-                ];
-                if (ocrSettingsFunctions.includes(this.channel.functionId)) {
+                if (this.channel.config?.ocr) {
                     this.availableTabs.push({
                         route: 'channel.ocrSettings',
                         header: 'OCR Settings', // i18n

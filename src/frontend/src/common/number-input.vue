@@ -48,6 +48,13 @@
                 }
                 this.onChange();
             },
+        },
+        watch: {
+            value(newValue) {
+                if (newValue !== this.theValue) {
+                    this.theValue = newValue;
+                }
+            }
         }
     };
 </script>

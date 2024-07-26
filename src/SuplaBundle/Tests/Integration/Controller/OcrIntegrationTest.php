@@ -76,18 +76,18 @@ class OcrIntegrationTest extends IntegrationTestCase {
 
     public function testUpdatingOcrSettings() {
         $client = $this->createAuthenticatedClient($this->user);
-        $ocrConfig = ['unicorn' => 'crop it!'];
-        TestSuplaHttpClient::mockHttpRequest($this->device->getGUIDString(), function (array $request) use ($ocrConfig) {
+        $photoSettings = ['unicorn' => 'crop it!'];
+        TestSuplaHttpClient::mockHttpRequest($this->device->getGUIDString(), function (array $request) use ($photoSettings) {
             $this->assertEquals('PUT', $request['method']);
-            $this->assertEquals(['config' => $ocrConfig], $request['payload']);
+            $this->assertEquals(['config' => $photoSettings], $request['payload']);
             return [true, '', 200];
         });
         $client->apiRequestV3('PUT', "/api/channels/{$this->counter->getId()}", [
-            'config' => ['ocrSettings' => $ocrConfig],
+            'config' => ['ocr' => ['photoSettings' => $photoSettings, 'photoIntervalSec' => 66]],
         ]);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $counter = $this->freshEntity($this->counter);
-        $this->assertEquals($ocrConfig, $counter->getUserConfigValue('ocrSettings'));
+        $this->assertEquals(['photoIntervalSec' => 66, 'photoSettings' => $photoSettings], $counter->getUserConfigValue('ocr'));
     }
 }
