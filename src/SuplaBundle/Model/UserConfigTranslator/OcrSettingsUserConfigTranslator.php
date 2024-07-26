@@ -12,6 +12,8 @@ use SuplaBundle\Supla\SuplaOcrClient;
 class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
+    private const KEYS_TO_SYNCHRONIZE = ['photoSettings', 'decimalPoints'];
+
     private SuplaOcrClient $ocr;
 
     public function __construct(SuplaOcrClient $ocr) {
@@ -44,12 +46,16 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
             if (array_key_exists('lightingLevel', $ocrConfig)) {
                 Assert::that($ocrConfig['lightingLevel'], null, 'ocr.lightingLevel')->integer()->between(1, 100);
             }
+            if (array_key_exists('decimalPoints', $ocrConfig)) {
+                Assert::that($ocrConfig['decimalPoints'], null, 'ocr.decimalPoints')->integer()->between(0, 10);
+            }
             if (array_key_exists('photoSettings', $ocrConfig)) {
-                try {
-                    $this->ocr->updateSettings($subject, $ocrConfig['photoSettings']);
-                } catch (ApiException $e) {
-                    Assertion::true(false, 'Cannot update OCR settings. Try again in a while.'); // i18n
-                }
+                Assert::that($ocrConfig['photoSettings'], null, 'ocr.photoSettings')->isArray();
+            }
+            try {
+                $this->ocr->updateSettings($subject, array_intersect_key($ocrConfig, array_flip(self::KEYS_TO_SYNCHRONIZE)));
+            } catch (ApiException $e) {
+                Assertion::true(false, 'Cannot update OCR settings. Try again in a while.'); // i18n
             }
             $subject->setUserConfigValue('ocr', $ocrConfig);
         }

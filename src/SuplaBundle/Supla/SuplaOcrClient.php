@@ -32,7 +32,7 @@ class SuplaOcrClient {
         $this->brokerHttpClient = $brokerHttpClient;
     }
 
-    public function registerDevice(IODeviceChannel $icChannel, string $authKey) {
+    public function registerDevice(IODeviceChannel $icChannel, string $authKey): void {
         $fullUrl = $this->ocrEndpoint('/devices');
         $response = $this->brokerHttpClient->request($fullUrl, [
             'guid' => $icChannel->getIoDevice()->getGUIDString(),
@@ -44,7 +44,7 @@ class SuplaOcrClient {
         }
     }
 
-    public function getLatestImage(IODeviceChannel $channel) {
+    public function getLatestImage(IODeviceChannel $channel): array {
         $fullUrl = $this->deviceEndpoint($channel, 'images/latest');
         $response = $this->brokerHttpClient->request($fullUrl, null, $responseStatus);
         if ($responseStatus === 200) {
@@ -54,9 +54,12 @@ class SuplaOcrClient {
         }
     }
 
-    public function updateSettings(IODeviceChannel $channel, array $ocrConfig) {
+    public function updateSettings(IODeviceChannel $channel, array $ocrConfig): void {
         $fullUrl = $this->deviceEndpoint($channel);
-        return $this->brokerHttpClient->request($fullUrl, ['config' => $ocrConfig], $responseStatus, [], 'PUT');
+        $response = $this->brokerHttpClient->request($fullUrl, ['config' => $ocrConfig], $responseStatus, [], 'PUT');
+        if ($responseStatus !== 200) {
+            throw new ApiExceptionWithDetails('OCR service responded with error: {status}', $response, $responseStatus); // i18n
+        }
     }
 
     private function ocrEndpoint(string $endpoint): string {

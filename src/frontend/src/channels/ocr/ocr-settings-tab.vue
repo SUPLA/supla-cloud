@@ -58,6 +58,15 @@
                                 @input="onChange()"/>
                         </div>
 
+                        <div class="form-group">
+                            <label for="">{{ $t('The number of decimal points') }}</label>
+                            <NumberInput v-model="ocrSettings.decimalPoints"
+                                :min="0"
+                                :max="10"
+                                class="form-control text-center mt-2"
+                                @input="onChange()"/>
+                        </div>
+
                         <div v-if="latestImageError">
                             <div class="alert alert-warning">
                                 {{ $t(latestImageError.message, latestImageError.details) }}
