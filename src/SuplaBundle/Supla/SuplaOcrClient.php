@@ -18,6 +18,7 @@
 namespace SuplaBundle\Supla;
 
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
 
 class SuplaOcrClient {
@@ -32,11 +33,15 @@ class SuplaOcrClient {
         $this->brokerHttpClient = $brokerHttpClient;
     }
 
-    public function registerDevice(IODeviceChannel $icChannel, string $authKey): void {
+    public function registerDevice(IODeviceChannel $channel): void {
         $fullUrl = $this->ocrEndpoint('/devices');
+        $authKey = $this->getAuthKey($channel);
+        if (!$authKey) {
+            throw new ApiException('Channel did not specify the authKey in properties.');
+        }
         $response = $this->brokerHttpClient->request($fullUrl, [
-            'guid' => $icChannel->getIoDevice()->getGUIDString(),
-            'channelNo' => $icChannel->getChannelNumber(),
+            'guid' => $channel->getIoDevice()->getGUIDString(),
+            'channelNo' => $channel->getChannelNumber(),
             'authKey' => $authKey,
         ], $responseStatus);
         if ($responseStatus !== 201) {
@@ -46,7 +51,7 @@ class SuplaOcrClient {
 
     public function getLatestImage(IODeviceChannel $channel): array {
         $fullUrl = $this->deviceEndpoint($channel, 'images/latest');
-        $response = $this->brokerHttpClient->request($fullUrl, null, $responseStatus);
+        $response = $this->brokerHttpClient->request($fullUrl, null, $responseStatus, ['X-AuthKey' => $this->getAuthKey($channel)]);
         if ($responseStatus === 200) {
             return $response;
         } else {
@@ -72,5 +77,9 @@ class SuplaOcrClient {
             $url .= '/' . $endpoint;
         }
         return $url;
+    }
+
+    private function getAuthKey(IODeviceChannel $channel): ?string {
+        return $channel->getProperty('ocr', [])['authKey'] ?? null;
     }
 }

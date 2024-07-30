@@ -73,17 +73,13 @@ class SynchronizeOcrAuthKeysCommand extends AbstractCyclicCommand {
             foreach ($query->toIterable() as $icChannel) {
                 /** @var IODeviceChannel $icChannel */
                 $props = $icChannel->getProperties();
-                $ocr = $props['ocr'] ?? [];
-                $authKey = $ocr['authKey'] ?? null;
-                if ($authKey) {
-                    try {
-                        $this->ocrClient->registerDevice($icChannel, $authKey);
-                        $props['ocr']['ocrSynced'] = true;
-                        EntityUtils::setField($icChannel, 'properties', json_encode($props));
-                        $em->persist($icChannel);
-                    } catch (ApiException $e) {
-                        $io->error($e->getMessage());
-                    }
+                try {
+                    $this->ocrClient->registerDevice($icChannel);
+                    $props['ocr']['ocrSynced'] = true;
+                    EntityUtils::setField($icChannel, 'properties', json_encode($props));
+                    $em->persist($icChannel);
+                } catch (ApiException $e) {
+                    $io->error($e->getMessage());
                 }
                 if ($input->isInteractive()) {
                     $io->progressAdvance();
