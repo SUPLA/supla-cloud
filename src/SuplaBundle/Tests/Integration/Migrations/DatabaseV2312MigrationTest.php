@@ -31,6 +31,7 @@ class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
         $this->migratedHvacAutoToHeatCool();
         $this->migratedEmojisInTextColumns();
         $this->migratedRollerShutterTimesToUserConfig();
+        $this->migratedIcConfigFromParams();
     }
 
     /**
@@ -64,5 +65,19 @@ class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
         $this->assertEquals(0, $rollerShutterChannel->getParam3());
         $this->assertEquals(12000, $rollerShutterChannel->getUserConfigValue('openingTimeMs'));
         $this->assertEquals(10000, $rollerShutterChannel->getUserConfigValue('closingTimeMs'));
+    }
+
+    /**
+     * @see Version20240802194013
+     */
+    private function migratedIcConfigFromParams() {
+        /** @var IODeviceChannel $icChannel */
+        $icChannel = $this->freshEntityById(IODeviceChannel::class, 13);
+        $this->assertNull($icChannel->getTextParam1());
+        $this->assertNull($icChannel->getTextParam2());
+        $this->assertEquals(0, $icChannel->getParam2());
+        $this->assertEquals(55, $icChannel->getUserConfigValue('pricePerUnit'));
+        $this->assertEquals(100330, $icChannel->getUserConfigValue('initialValue'));
+        $this->assertEquals('PLN', $icChannel->getUserConfigValue('currency'));
     }
 }

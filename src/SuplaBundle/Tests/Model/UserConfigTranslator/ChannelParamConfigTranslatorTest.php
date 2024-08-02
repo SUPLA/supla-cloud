@@ -26,7 +26,7 @@ use SuplaBundle\Model\UserConfigTranslator\DigiglassParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\GeneralPurposeMeasurementConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\HumidityAdjustmentParamTranslator;
-use SuplaBundle\Model\UserConfigTranslator\ImpulseCounterParamsTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ImpulseCounterUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\InvertedLogicParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\NumberOfAttemptsToOpenOrCloseParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
@@ -47,7 +47,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             new RelayTimeSUserConfigTranslator(),
             new OpeningClosingTimeUserConfigTranslator(),
             new ElectricityMeterUserConfigTranslator(),
-            new ImpulseCounterParamsTranslator(),
+            new ImpulseCounterUserConfigTranslator(),
             new HumidityAdjustmentParamTranslator(),
             new TemperatureAdjustmentParamTranslator(),
             new InvertedLogicParamTranslator(),
@@ -146,10 +146,8 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::CONTROLLINGTHEGATE(), [700], ['relayTimeMs' => 700], [500]],
             [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), [700], ['relayTimeMs' => 700], [500]],
             [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), [null, null, null, 1], ['bottomPosition' => 1]],
-            [ChannelFunction::IC_ELECTRICITYMETER(), [null, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.03, 'unit' => 'm3']],
             [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN']],
             [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN']],
-            [ChannelFunction::IC_GASMETER(), [null, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']],
             [ChannelFunction::HUMIDITY(), [null, null, null], ['humidityAdjustment' => 1.24]],
             [ChannelFunction::HUMIDITYANDTEMPERATURE(), [null, null, null], ['temperatureAdjustment' => 1.23, 'humidityAdjustment' => 1.24]],
             [ChannelFunction::LIGHTSWITCH(), [], []],
@@ -163,7 +161,6 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::OPENINGSENSOR_WINDOW(), [null, null, null], ['invertedLogic' => true]],
             [ChannelFunction::STAIRCASETIMER(), [1011], ['relayTimeS' => 101.1]],
             [ChannelFunction::THERMOMETER(), [null, null], ['temperatureAdjustment' => 1.23]],
-            [ChannelFunction::IC_WATERMETER(), [null, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']],
             [ChannelFunction::DIGIGLASS_VERTICAL(), [2, 1000], ['sectionsCount' => 2, 'regenerationTimeStart' => 1000]],
             [ChannelFunction::DIGIGLASS_HORIZONTAL(), [2, 1000], ['sectionsCount' => 2, 'regenerationTimeStart' => 1000]],
         ];
@@ -208,18 +205,5 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $this->configTranslator->setConfig($channel, ['initialValue' => '']);
         $config = $this->configTranslator->getConfig($channel);
         $this->assertEquals(0, $config['initialValue']);
-    }
-
-    public function testSavingIcConfigAsBothParamsAndJson() {
-        $channel = new IODeviceChannel();
-        $channel->setFunction(ChannelFunction::IC_GASMETER());
-        $this->configTranslator->setConfig(
-            $channel,
-            ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']
-        );
-        $this->assertEquals(124, $channel->getParam3());
-        $this->assertEquals(124, $channel->getUserConfigValue('impulsesPerUnit'));
-        $this->assertEquals(123, $channel->getParam2());
-        $this->assertEquals(123, $channel->getUserConfigValue('pricePerUnit'));
     }
 }
