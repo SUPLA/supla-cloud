@@ -38,13 +38,16 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
             if (array_key_exists('photoIntervalSec', $ocrConfig)) {
                 Assert::that($ocrConfig['photoIntervalSec'], null, 'ocr.photoIntervalSec')->integer()->between(5, 300);
             }
-            if (array_key_exists('lightingMode', $ocrConfig)) {
-                Assert::that($ocrConfig['lightingMode'], null, 'ocr.lightingMode')
-                    ->string()
-                    ->inArray($this->getConfig($subject)['ocr']['availableLightingModes']);
-            }
-            if (array_key_exists('lightingLevel', $ocrConfig)) {
-                Assert::that($ocrConfig['lightingLevel'], null, 'ocr.lightingLevel')->integer()->between(1, 100);
+            $availableLightingModes = $this->getConfig($subject)['ocr']['availableLightingModes'];
+            if ($availableLightingModes) {
+                if (array_key_exists('lightingMode', $ocrConfig)) {
+                    Assert::that($ocrConfig['lightingMode'], null, 'ocr.lightingMode')
+                        ->string()
+                        ->inArray($availableLightingModes);
+                }
+                if (array_key_exists('lightingLevel', $ocrConfig)) {
+                    Assert::that($ocrConfig['lightingLevel'], null, 'ocr.lightingLevel')->integer()->between(1, 100);
+                }
             }
             if (array_key_exists('decimalPoints', $ocrConfig)) {
                 Assert::that($ocrConfig['decimalPoints'], null, 'ocr.decimalPoints')->integer()->between(0, 10);

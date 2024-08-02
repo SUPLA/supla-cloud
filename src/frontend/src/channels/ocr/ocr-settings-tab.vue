@@ -28,34 +28,36 @@
                                 @input="onChange()"/>
                         </div>
 
-                        <div class="form-group">
-                            <label for="">{{ $t('Lighting mode') }}</label>
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
-                                    data-toggle="dropdown">
-                                    {{ $t(`ocrLightingMode_${ocrSettings.lightingMode}`) }}
-                                    <span class="caret"></span>
-                                </button>
-                                <!-- i18n: ['timeMarginMode_off', 'timeMarginMode_device', 'timeMarginMode_custom'] -->
-                                <ul class="dropdown-menu">
-                                    <li v-for="mode in ocrSettings.availableLightingModes" :key="mode">
-                                        <a @click="ocrSettings.lightingMode = mode; onChange()"
-                                            v-show="mode !== ocrSettings.lightingMode">
-                                            {{ $t(`ocrLightingMode_${mode}`) }}
-                                        </a>
-                                    </li>
-                                </ul>
+                        <div v-if="ocrSettings.availableLightingModes.length">
+                            <div class="form-group">
+                                <label for="">{{ $t('Lighting mode') }}</label>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
+                                        data-toggle="dropdown">
+                                        {{ $t(`ocrLightingMode_${ocrSettings.lightingMode}`) }}
+                                        <span class="caret"></span>
+                                    </button>
+                                    <!-- i18n: ['timeMarginMode_off', 'timeMarginMode_device', 'timeMarginMode_custom'] -->
+                                    <ul class="dropdown-menu">
+                                        <li v-for="mode in ocrSettings.availableLightingModes" :key="mode">
+                                            <a @click="ocrSettings.lightingMode = mode; onChange()"
+                                                v-show="mode !== ocrSettings.lightingMode">
+                                                {{ $t(`ocrLightingMode_${mode}`) }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="">{{ $t('Lighting level') }}</label>
-                            <NumberInput v-model="ocrSettings.lightingLevel"
-                                :min="1"
-                                :max="100"
-                                suffix=" %"
-                                class="form-control text-center mt-2"
-                                @input="onChange()"/>
+                            <div class="form-group">
+                                <label for="">{{ $t('Lighting level') }}</label>
+                                <NumberInput v-model="ocrSettings.lightingLevel"
+                                    :min="1"
+                                    :max="100"
+                                    suffix=" %"
+                                    class="form-control text-center mt-2"
+                                    @input="onChange()"/>
+                            </div>
                         </div>
 
                         <div class="form-group">
