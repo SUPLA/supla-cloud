@@ -15,89 +15,99 @@
                     </div>
                 </transition-expand>
 
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
-
-                        <div class="form-group">
-                            <label for="">{{ $t('Photo interval') }}</label>
-                            <NumberInput v-model="ocrSettings.photoIntervalSec"
-                                :min="5"
-                                :max="300"
-                                suffix=" s"
-                                class="form-control text-center mt-2"
-                                @input="onChange()"/>
-                        </div>
-
-                        <div v-if="ocrSettings.availableLightingModes.length">
-                            <div class="form-group">
-                                <label for="">{{ $t('Lighting mode') }}</label>
-                                <div class="dropdown">
-                                    <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
-                                        data-toggle="dropdown">
-                                        {{ $t(`ocrLightingMode_${ocrSettings.lightingMode}`) }}
-                                        <span class="caret"></span>
-                                    </button>
-                                    <!-- i18n: ['timeMarginMode_off', 'timeMarginMode_device', 'timeMarginMode_custom'] -->
-                                    <ul class="dropdown-menu">
-                                        <li v-for="mode in ocrSettings.availableLightingModes" :key="mode">
-                                            <a @click="ocrSettings.lightingMode = mode; onChange()"
-                                                v-show="mode !== ocrSettings.lightingMode">
-                                                {{ $t(`ocrLightingMode_${mode}`) }}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                <div class="form-group text-center">
+                    <label>
+                        <label class="checkbox2 checkbox2-grey">
+                            <input type="checkbox" v-model="ocrSettings.enabled" @change="onChange()">
+                            {{ $t('Enable support for OCR readings for this channel') }}
+                        </label>
+                    </label>
+                </div>
+                <transition-expand>
+                    <div class="row" v-if="ocrSettings.enabled">
+                        <div class="col-md-6 col-md-offset-3">
 
                             <div class="form-group">
-                                <label for="">{{ $t('Lighting level') }}</label>
-                                <NumberInput v-model="ocrSettings.lightingLevel"
-                                    :min="1"
-                                    :max="100"
-                                    suffix=" %"
+                                <label for="">{{ $t('Photo interval') }}</label>
+                                <NumberInput v-model="ocrSettings.photoIntervalSec"
+                                    :min="60"
+                                    :max="300"
+                                    suffix=" s"
                                     class="form-control text-center mt-2"
                                     @input="onChange()"/>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="">{{ $t('The number of decimal points') }}</label>
-                            <NumberInput v-model="ocrSettings.decimalPoints"
-                                :min="0"
-                                :max="10"
-                                class="form-control text-center mt-2"
-                                @input="onChange()"/>
-                        </div>
+                            <div v-if="ocrSettings.availableLightingModes.length">
+                                <div class="form-group">
+                                    <label for="">{{ $t('Lighting mode') }}</label>
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
+                                            data-toggle="dropdown">
+                                            {{ $t(`ocrLightingMode_${ocrSettings.lightingMode}`) }}
+                                            <span class="caret"></span>
+                                        </button>
+                                        <!-- i18n: ['ocrLightingMode_OFF', 'ocrLightingMode_AUTO', 'ocrLightingMode_ALWAYS_ON'] -->
+                                        <ul class="dropdown-menu">
+                                            <li v-for="mode in ocrSettings.availableLightingModes" :key="mode">
+                                                <a @click="ocrSettings.lightingMode = mode; onChange()"
+                                                    v-show="mode !== ocrSettings.lightingMode">
+                                                    {{ $t(`ocrLightingMode_${mode}`) }}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
 
-                        <div v-if="latestImageError">
-                            <div class="alert alert-warning">
-                                {{ $t(latestImageError.message, latestImageError.details) }}
+                                <div class="form-group">
+                                    <label for="">{{ $t('Lighting level') }}</label>
+                                    <NumberInput v-model="ocrSettings.lightingLevel"
+                                        :min="1"
+                                        :max="100"
+                                        suffix=" %"
+                                        class="form-control text-center mt-2"
+                                        @input="onChange()"/>
+                                </div>
                             </div>
-                        </div>
 
-                        <div v-else-if="latestImageDetails">
                             <div class="form-group">
-                                <label>{{ $t('Image area crop') }}</label>
-                                <div class="help-block">
-                                    {{ $t('This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.') }}
-                                </div>
-                                <div class="ocr-photo-crop-area">
-                                    <OcrPhotoCrop v-model="ocrSettings.photoSettings" @input="onChange()"
-                                        :image-base64="latestImageDetails.image"/>
+                                <label for="">{{ $t('The number of decimal points') }}</label>
+                                <NumberInput v-model="ocrSettings.decimalPoints"
+                                    :min="0"
+                                    :max="10"
+                                    class="form-control text-center mt-2"
+                                    @input="onChange()"/>
+                            </div>
+
+                            <div v-if="latestImageError">
+                                <div class="alert alert-warning">
+                                    {{ $t(latestImageError.message, latestImageError.details) }}
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="text-center">
-                            <button class="btn btn-white" type="button" @click="takePhotoNow()" :disabled="takingPhoto">
-                                {{ $t('Take a photo now') }}
-                            </button>
-                            <button class="btn btn-white ml-3" type="button" @click="fetchLatestImage()">
-                                {{ $t('Reload last photo') }}
-                            </button>
+                            <div v-else-if="latestImageDetails">
+                                <div class="form-group">
+                                    <label>{{ $t('Image area crop') }}</label>
+                                    <div class="help-block">
+                                        {{ $t('This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.') }}
+                                    </div>
+                                    <div class="ocr-photo-crop-area">
+                                        <OcrPhotoCrop v-model="ocrSettings.photoSettings" @input="onChange()"
+                                            :image-base64="latestImageDetails.image"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn btn-white" type="button" @click="takePhotoNow()" :disabled="takingPhoto">
+                                    {{ $t('Take a photo now') }}
+                                </button>
+                                <button class="btn btn-white ml-3" type="button" @click="fetchLatestImage()">
+                                    {{ $t('Reload last photo') }}
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </transition-expand>
             </loading-cover>
         </pending-changes-page>
     </div>

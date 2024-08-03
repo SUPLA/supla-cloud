@@ -151,3 +151,6 @@ usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Voltage presence (inverted)
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+ocrLightingMode_OFF: Off
+ocrLightingMode_AUTO: Automatic
+ocrLightingMode_ALWAYS_ON: Always on
