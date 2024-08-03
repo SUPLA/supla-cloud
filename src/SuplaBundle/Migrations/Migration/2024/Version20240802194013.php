@@ -38,8 +38,8 @@ class Version20240802194013 extends NoWayBackMigration {
                 $userConfig['initialValue'] *= 1000;
                 $userConfig['initialValue'] = round($userConfig['initialValue']);
             }
-            $userConfig['pricePerUnit'] = intval($ic['param2']) ?: $userConfig['pricePerUnit'] ?: 0;
-            $userConfig['impulsesPerUnit'] = intval($ic['param3']) ?: $userConfig['impulsesPerUnit'] ?: 0;
+            $userConfig['pricePerUnit'] = intval($ic['param2']) ?: $userConfig['pricePerUnit'] ?? 0;
+            $userConfig['impulsesPerUnit'] = intval($ic['param3']) ?: $userConfig['impulsesPerUnit'] ?? 0;
             $userConfig['currency'] = ($ic['text_param1'] ?? null) ?: $userConfig['currency'] ?? null;
             $userConfig['unit'] = ($ic['text_param2'] ?? null) ?: $userConfig['unit'] ?? null;
             $userConfigJson = json_encode($userConfig);
