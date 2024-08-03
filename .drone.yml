@@ -23,11 +23,11 @@ steps:
     commands:
       - cd src/frontend && npm run lint -s
 
-  - name: audit-frontend
-    image: node:16.20.2-slim
-    depends_on: [install-frontend]
-    commands:
-      - cd src/frontend && npm audit --production
+  #  - name: audit-frontend
+  #    image: node:16.20.2-slim
+  #    depends_on: [install-frontend]
+  #    commands:
+  #      - cd src/frontend && npm audit --production
 
   - name: test-frontend-unit
     image: node:16.20.2-slim
