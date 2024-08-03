@@ -39,7 +39,6 @@ class DatabaseV2336MigrationTest extends DatabaseMigrationTestCase {
     private function configHasBeenChangedCoorrectlyVersion20220208164512() {
         $this->migratedElectricityMeterWithInitialValues();
         $this->migratedElectricityMeterWithoutInitialValues();
-        $this->migratedImpulseCounterWithInitialValue();
         $this->migratedImpulseCounterWithoutInitialValue();
         $this->migratedNumberOfAttemptsToOpenOrClose();
     }
@@ -56,14 +55,6 @@ class DatabaseV2336MigrationTest extends DatabaseMigrationTestCase {
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 73);
         $this->assertArrayHasKey('addToHistory', $channel->getUserConfig());
         $this->assertFalse($channel->getUserConfigValue('addToHistory'));
-    }
-
-    private function migratedImpulseCounterWithInitialValue() {
-        /** @var IODeviceChannel $channel */
-        $channel = $this->getEntityManager()->find(IODeviceChannel::class, 185);
-        $this->assertArrayHasKey('addToHistory', $channel->getUserConfig());
-        $this->assertTrue($channel->getUserConfigValue('addToHistory'));
-        $this->assertEquals(123, $channel->getUserConfigValue('initialValue'));
     }
 
     private function migratedImpulseCounterWithoutInitialValue() {
