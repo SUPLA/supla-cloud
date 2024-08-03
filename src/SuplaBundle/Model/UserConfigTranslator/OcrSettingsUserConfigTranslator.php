@@ -31,7 +31,8 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
             $ocrConfig['photoIntervalSec'] = max($ocrConfig['photoIntervalSec'] ?? 0, self::MIN_PHOTO_INTERVAL_SEC);
             $decimalPoints = $ocrConfig['decimalPoints'] ?? 0;
             $ocrConfig['maximumIncrement'] = NumberUtils::maximumDecimalPrecision(
-                ($ocrConfig['maximumIncrement'] ?? 0) / pow(10, $decimalPoints), $decimalPoints
+                ($ocrConfig['maximumIncrement'] ?? 0) / pow(10, $decimalPoints),
+                $decimalPoints
             );
             return ['ocr' => $ocrConfig];
         } else {
