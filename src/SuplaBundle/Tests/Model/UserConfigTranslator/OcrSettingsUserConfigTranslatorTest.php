@@ -51,4 +51,37 @@ class OcrSettingsUserConfigTranslatorTest extends TestCase {
         $this->assertArrayNotHasKey('enabled', $this->channel->getUserConfigValue('ocr'));
         $this->assertEquals(0, $this->channel->getUserConfigValue('ocr')['photoIntervalSec']);
     }
+
+    public function testSettingImpulsesPerUnit() {
+        $this->configTranslator->setConfig($this->channel, ['ocr' => ['decimalPoints' => 4]]);
+        $this->assertEquals(10000, $this->channel->getUserConfigValue('impulsesPerUnit'));
+    }
+
+    public function testSettingMaximumIncrement() {
+        $this->configTranslator->setConfig($this->channel, ['ocr' => ['decimalPoints' => 3, 'maximumIncrement' => 0.12]]);
+        $config = $this->configTranslator->getConfig($this->channel);
+        $this->assertEquals(0.12, $config['ocr']['maximumIncrement']);
+        $this->assertEquals(120, $this->channel->getUserConfigValue('ocr')['maximumIncrement']);
+    }
+
+    public function testChangingDecimalPointsWithoutMaximumIncrement() {
+        $this->configTranslator->setConfig($this->channel, ['ocr' => ['decimalPoints' => 3, 'maximumIncrement' => 0.12]]);
+        $this->configTranslator->setConfig($this->channel, ['ocr' => ['decimalPoints' => 2]]);
+        $config = $this->configTranslator->getConfig($this->channel);
+        $this->assertEquals(0.12, $config['ocr']['maximumIncrement']);
+        $this->assertEquals(12, $this->channel->getUserConfigValue('ocr')['maximumIncrement']);
+    }
+
+    public function testChangingMaximumIncrementWithoutDecimalPoints() {
+        $this->configTranslator->setConfig($this->channel, ['ocr' => ['decimalPoints' => 2, 'maximumIncrement' => 0.12]]);
+        $this->configTranslator->setConfig($this->channel, ['ocr' => ['maximumIncrement' => 1.01]]);
+        $config = $this->configTranslator->getConfig($this->channel);
+        $this->assertEquals(1.01, $config['ocr']['maximumIncrement']);
+        $this->assertEquals(101, $this->channel->getUserConfigValue('ocr')['maximumIncrement']);
+    }
+
+    public function testTryingToSetInvalidKey() {
+        $this->expectExceptionMessage('is not an element of the valid values');
+        $this->configTranslator->setConfig($this->channel, ['ocr' => ['unicorn' => 4]]);
+    }
 }

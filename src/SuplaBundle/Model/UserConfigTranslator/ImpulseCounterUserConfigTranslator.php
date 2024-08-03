@@ -49,7 +49,8 @@ class ImpulseCounterUserConfigTranslator extends UserConfigTranslator {
             $value = $this->getValueInRange($config['pricePerUnit'], 0, 1000) * 10000;
             $subject->setUserConfigValue('pricePerUnit', round($value));
         }
-        if (array_key_exists('impulsesPerUnit', $config)) {
+        // when the device supports OCR readings, the impulsesPerUnit is handled by OcrSettingsUserConfigTranslator
+        if (array_key_exists('impulsesPerUnit', $config) && !$subject->getProperty('ocr')) {
             $value = $this->getValueInRange($config['impulsesPerUnit'], 0, 1000000);
             $subject->setUserConfigValue('impulsesPerUnit', round($value));
         }

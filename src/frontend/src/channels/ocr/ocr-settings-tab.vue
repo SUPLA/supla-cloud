@@ -37,6 +37,19 @@
                                     @input="onChange()"/>
                             </div>
 
+                            <div class="form-group">
+                                <label for="">{{ $t('Expected maximum increment') }}</label>
+                                <NumberInput v-model="ocrSettings.maximumIncrement"
+                                    :min="0"
+                                    :precision="ocrSettings.decimalPoints"
+                                    :suffix="` ${unit}`"
+                                    class="form-control text-center mt-2"
+                                    @input="onChange()"/>
+                                <div class="help-block">
+                                    {{ $t('In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.') }}
+                                </div>
+                            </div>
+
                             <div v-if="ocrSettings.availableLightingModes.length">
                                 <div class="form-group">
                                     <label for="">{{ $t('Lighting mode') }}</label>
@@ -122,6 +135,7 @@
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import NumberInput from "@/common/number-input.vue";
     import {successNotification} from "@/common/notifier";
+    import {measurementUnit} from "@/channels/channel-helpers";
 
     export default {
         components: {
@@ -191,7 +205,11 @@
                     .finally(() => this.takingPhoto = false);
             },
         },
-        computed: {}
+        computed: {
+            unit() {
+                return measurementUnit(this.subject);
+            }
+        }
     };
 </script>
 

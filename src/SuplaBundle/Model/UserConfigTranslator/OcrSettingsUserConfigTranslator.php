@@ -8,6 +8,7 @@ use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Supla\SuplaOcrClient;
+use SuplaBundle\Utils\NumberUtils;
 
 class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
@@ -28,6 +29,10 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
             $ocrConfig['availableLightingModes'] = $ocrProp['availableLightingModes'] ?? [];
             $ocrConfig['enabled'] = ($ocrConfig['photoIntervalSec'] ?? 0) > 0;
             $ocrConfig['photoIntervalSec'] = max($ocrConfig['photoIntervalSec'] ?? 0, self::MIN_PHOTO_INTERVAL_SEC);
+            $decimalPoints = $ocrConfig['decimalPoints'] ?? 0;
+            $ocrConfig['maximumIncrement'] = NumberUtils::maximumDecimalPrecision(
+                ($ocrConfig['maximumIncrement'] ?? 0) / pow(10, $decimalPoints), $decimalPoints
+            );
             return ['ocr' => $ocrConfig];
         } else {
             return [];
@@ -35,9 +40,13 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
-        if (array_key_exists('ocr', $config)) {
+        if (array_key_exists('ocr', $config) && $config['ocr']) {
             $ocrConfig = $config['ocr'];
             Assertion::isArray($ocrConfig);
+            Assertion::allInArray(array_keys($ocrConfig), [
+                'enabled', 'photoIntervalSec', 'lightingMode', 'lightingLevel', 'decimalPoints', 'photoSettings', 'maximumIncrement',
+                'availableLightingModes',
+            ]);
             if (array_key_exists('enabled', $ocrConfig)) {
                 Assertion::boolean($ocrConfig['enabled']);
                 if ($ocrConfig['enabled']) {
@@ -70,10 +79,23 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
             }
             if (array_key_exists('decimalPoints', $ocrConfig)) {
                 Assert::that($ocrConfig['decimalPoints'], null, 'ocr.decimalPoints')->integer()->between(0, 10);
+                $subject->setUserConfigValue('impulsesPerUnit', pow(10, $ocrConfig['decimalPoints']));
+                if (!array_key_exists('maximumIncrement', $ocrConfig)) {
+                    $previousDecimalPoints = $subject->getUserConfigValue('ocr', [])['decimalPoints'] ?? 0;
+                    $maxIncrement = $subject->getUserConfigValue('ocr', [])['maximumIncrement'] ?? 0;
+                    $ocrConfig['maximumIncrement'] = $maxIncrement / pow(10, $previousDecimalPoints);
+                }
+            }
+            if (array_key_exists('maximumIncrement', $ocrConfig)) {
+                Assert::that($ocrConfig['maximumIncrement'], null, 'ocr.maximumIncrement')->numeric()->greaterOrEqualThan(0);
+                $decimalPoints = $ocrConfig['decimalPoints'] ?? $subject->getUserConfigValue('ocr', [])['decimalPoints'] ?? 0;
+                $ocrConfig['maximumIncrement'] *= pow(10, $decimalPoints);
+                $ocrConfig['maximumIncrement'] = round($ocrConfig['maximumIncrement']);
             }
             if (array_key_exists('photoSettings', $ocrConfig)) {
                 Assert::that($ocrConfig['photoSettings'], null, 'ocr.photoSettings')->isArray();
             }
+            $ocrConfig = array_replace($subject->getUserConfigValue('ocr', []), $ocrConfig);
             $this->synchronizeConfigWithOcr($subject, $ocrConfig);
             $subject->setUserConfigValue('ocr', $ocrConfig);
         }
