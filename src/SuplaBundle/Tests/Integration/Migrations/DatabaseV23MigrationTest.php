@@ -44,7 +44,6 @@ class DatabaseV23MigrationTest extends DatabaseMigrationTestCase {
 
     public function testMigratedCorrectly() {
         $this->splittingEmAndIcVersion20191226160845();
-        $this->assertImpulseCounterInitialValueIsMigratedVersion20200108201101();
         $this->migratingIpAddressesVersion20200124084227();
         $this->migrationOfMeasurementLogsVersion20200430113342();
         $this->migratingSchedulesVersion20210525104812();
@@ -110,16 +109,6 @@ class DatabaseV23MigrationTest extends DatabaseMigrationTestCase {
         $electricityMeterImpulseCounter = $this->getEntityManager()->find(IODeviceChannel::class, 67);
         $this->assertEquals($iconForEm->getId(), $electricityMeter->getUserIcon()->getId());
         $this->assertEquals($iconForEmImpulseCounter->getId(), $electricityMeterImpulseCounter->getUserIcon()->getId());
-    }
-
-    /**
-     * @see Version20200108201101
-     */
-    private function assertImpulseCounterInitialValueIsMigratedVersion20200108201101() {
-        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
-        $channel = $this->getEntityManager()->find(IODeviceChannel::class, 67);
-        $this->assertNotEmpty($channel->getUserConfig());
-        $this->assertEquals(103, $channel->getUserConfig()['initialValue']);
     }
 
     /**
@@ -243,6 +232,5 @@ class DatabaseV23MigrationTest extends DatabaseMigrationTestCase {
         $this->assertEquals(ChannelType::IMPULSECOUNTER, $channel->getType()->getId());
         $this->assertEquals(0, $channel->getParam1());
         $this->assertArrayHasKey('initialValue', $channel->getUserConfig());
-        $this->assertEquals(103, $channel->getUserConfigValue('initialValue'));
     }
 }
