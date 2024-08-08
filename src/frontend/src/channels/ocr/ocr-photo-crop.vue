@@ -6,13 +6,21 @@
         </div>
         <div :class="[{invisible: !cropperReady}, 'd-flex mt-2']">
             <div class="flex-grow-1">
+                <button @click="rotate(-90)" type="button" class="btn btn-default mr-2">
+                    <fa icon="rotate-left"/>
+                    90&deg;
+                </button>
                 <button @click="rotate(-1)" type="button" class="btn btn-default">
                     <fa icon="rotate-left"/>
                 </button>
             </div>
             <div>
-                <button @click="rotate(1)" type="button" class="btn btn-default">
+                <button @click="rotate(1)" type="button" class="btn btn-default mr-2">
                     <fa icon="rotate-right"/>
+                </button>
+                <button @click="rotate(90)" type="button" class="btn btn-default">
+                    <fa icon="rotate-right"/>
+                    90&deg;
                 </button>
             </div>
         </div>
