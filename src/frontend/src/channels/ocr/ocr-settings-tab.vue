@@ -100,11 +100,19 @@
                             <div v-else-if="latestImageDetails">
                                 <div class="form-group">
                                     <label>{{ $t('Image area crop') }}</label>
-                                    <div class="help-block">
-                                        {{ $t('This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.') }}
+                                    <div class="d-flex align-items-center">
+                                        <div class="help-block pr-4">
+                                            {{ $t('This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.') }}
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-white text-nowrap"
+                                                :disabled="editingPhoto" @click="editingPhoto = true">
+                                                {{ $t('Edit area crop') }}
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="ocr-photo-crop-area">
-                                        <OcrPhotoCrop v-model="ocrSettings.photoSettings" @input="onChange()"
+                                        <OcrPhotoCrop v-model="ocrSettings.photoSettings" @input="onChange()" :editable="editingPhoto"
                                             :image-base64="latestImageDetails.image"/>
                                     </div>
                                 </div>
@@ -155,6 +163,7 @@
                 latestImageError: undefined,
                 latestImageDetails: undefined,
                 takingPhoto: false,
+                editingPhoto: false,
             }
         },
         beforeMount() {
@@ -167,6 +176,7 @@
                     configBefore: this.subject.configBefore,
                 }, {skipErrorHandler: [409]}).then(() => {
                     this.hasPendingChanges = false;
+                    this.editingPhoto = false;
                     EventBus.$emit('channel-updated');
                 }).catch(response => {
                     if (response.status === 409) {
@@ -185,6 +195,7 @@
                 this.hasPendingChanges = true;
             },
             cancelChanges() {
+                this.editingPhoto = false;
                 this.ocrSettings = deepCopy(this.subject.config.ocr || {});
                 this.hasPendingChanges = false;
                 this.fetchLatestImage();
