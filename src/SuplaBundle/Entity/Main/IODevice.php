@@ -293,6 +293,11 @@ class IODevice implements HasLocation, HasRelationsCount {
     }
 
     /** @Groups({"basic"}) */
+    public function isRemoteRestartAvailable(): bool {
+        return IoDeviceFlags::REMOTE_RESTART_AVAILABLE()->isOn($this->flags);
+    }
+
+    /** @Groups({"basic"}) */
     public function isPairingSubdevicesAvailable(): bool {
         return IoDeviceFlags::PAIRING_SUBDEVICES_AVAILABLE()->isOn($this->flags);
     }

@@ -502,7 +502,9 @@ class DevicesFixture extends SuplaFixture {
             'protocolVersion' => '2.' . rand(0, 50),
             'location' => $location,
             'user' => $location->getUser(),
-            'flags' => IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE | IoDeviceFlags::SLEEP_MODE_ENABLED,
+            'flags' => IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE
+                | IoDeviceFlags::SLEEP_MODE_ENABLED
+                | IoDeviceFlags::REMOTE_RESTART_AVAILABLE,
             'userConfig' => '{"statusLed": "ON_WHEN_CONNECTED"}',
         ]);
         $this->entityManager->persist($device);

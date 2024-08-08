@@ -278,6 +278,36 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
     }
 
+    public function testRemoteRestartingDevice() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        AnyFieldSetter::set($device, 'flags', IoDeviceFlags::REMOTE_RESTART_AVAILABLE);
+        $this->persist($device);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'restartDevice']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertSuplaCommandExecuted('RESTART-DEVICE:1,' . $device->getId());
+    }
+
+    public function testRemoteRestartingDeviceWhenDeviceDoesNotSupportIt() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'restartDevice']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    public function testRemoteRestartingDeviceWhenSuplaServerRefuses() {
+        SuplaServerMock::mockResponse('RESTART-DEVICE', 'NO!');
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        AnyFieldSetter::set($device, 'flags', IoDeviceFlags::REMOTE_RESTART_AVAILABLE);
+        $this->persist($device);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'restartDevice']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
     public function testPairingSubdevice() {
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
         AnyFieldSetter::set($device, 'flags', IoDeviceFlags::PAIRING_SUBDEVICES_AVAILABLE);

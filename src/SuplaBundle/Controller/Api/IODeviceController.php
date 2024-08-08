@@ -370,6 +370,13 @@ class IODeviceController extends RestController {
                 );
                 $result = $this->suplaServer->deviceAction($ioDevice, 'ENTER-CONFIGURATION-MODE');
                 Assertion::true($result, 'Could not enter the configuration mode.'); // i18n
+            } elseif ($action === 'restartDevice') {
+                Assertion::true(
+                    $ioDevice->isRemoteRestartAvailable(),
+                    'Remote restart is unsupported in the firmware.' // i18n
+                );
+                $result = $this->suplaServer->deviceAction($ioDevice, 'RESTART-DEVICE');
+                Assertion::true($result, 'Could not restart the device.'); // i18n
             } elseif ($action === 'pairSubdevice') {
                 Assertion::true(
                     $ioDevice->isPairingSubdevicesAvailable(),
