@@ -1054,6 +1054,29 @@ CREATE TABLE `supla_state_webhooks`
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `supla_subdevice`
+--
+
+DROP TABLE IF EXISTS `supla_subdevice`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supla_subdevice`
+(
+    `id`               int(11) NOT NULL,
+    `iodevice_id`      int(11) NOT NULL,
+    `reg_date`         datetime NOT NULL COMMENT '(DC2Type:utcdatetime)',
+    `updated_at`       datetime                                                      DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `name`             varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `software_version` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `product_code`     varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `serial_number`    varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    PRIMARY KEY (`id`, `iodevice_id`),
+    KEY                `IDX_698D8D2F125F95D6` (`iodevice_id`),
+    CONSTRAINT `FK_698D8D2F125F95D6` FOREIGN KEY (`iodevice_id`) REFERENCES `supla_iodevice` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `supla_temperature_log`
 --
 
@@ -3194,6 +3217,38 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_update_subdevice` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+DELIMITER ;;
+CREATE
+DEFINER=`root`@`%` PROCEDURE `supla_update_subdevice`(IN `_id` INT, IN `_iodevice_id` INT, IN `_name` VARCHAR(200), IN `_software_version` VARCHAR(20), IN `_product_code` VARCHAR(50), IN `_serial_number` VARCHAR(50))
+BEGIN
+UPDATE supla_subdevice
+SET updated_at = UTC_TIMESTAMP()
+WHERE id = _id
+  AND iodevice_id = _iodevice_id
+  AND (!(name <=> NULLIF (_name, ''))
+    OR !(software_version <=> NULLIF (_software_version, ''))
+    OR !(product_code <=> NULLIF (_product_code, ''))
+    OR !(serial_number <=> NULLIF (_serial_number, '')));
+
+INSERT INTO supla_subdevice (id, iodevice_id, reg_date, name, software_version, product_code, serial_number)
+VALUES (_id, _iodevice_id, UTC_TIMESTAMP(), NULLIF(_name, ''), NULLIF(_software_version, ''), NULLIF(_product_code, ''),
+        NULLIF(_serial_number, '')) ON DUPLICATE KEY
+UPDATE name = NULLIF (_name, ''), software_version = NULLIF (_software_version, ''), product_code = NULLIF (_product_code, ''), serial_number = NULLIF (_serial_number, '');
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Final view structure for view `supla_v_accessid_active`
@@ -3384,4 +3439,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-12 15:00:09
+-- Dump completed on 2024-08-08 23:54:10
