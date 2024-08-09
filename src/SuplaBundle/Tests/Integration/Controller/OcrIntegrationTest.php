@@ -91,6 +91,7 @@ class OcrIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $counter = $this->freshEntity($this->counter);
         $this->assertEquals($ocrSettings, $counter->getUserConfigValue('ocr'));
+        $this->assertSuplaCommandNotExecuted('USER-RECONNECT:1');
     }
 
     public function testTakingOcrPhoto() {

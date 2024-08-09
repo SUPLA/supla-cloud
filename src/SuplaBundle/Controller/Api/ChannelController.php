@@ -441,11 +441,14 @@ class ChannelController extends RestController {
                 }
                 return $channel;
             });
-            if (!in_array($channel->getType()->getId(), [
+            $keysThatDoesNotTriggerReconnect = ['ocr'];
+            $typesThatDoesNotTriggerReconnect = [
                 ChannelType::HVAC,
                 ChannelType::GENERAL_PURPOSE_MEASUREMENT,
                 ChannelType::GENERAL_PURPOSE_METER,
-            ])) {
+            ];
+            $changedKeys = array_diff(array_keys($newConfigToSet), $keysThatDoesNotTriggerReconnect);
+            if (!in_array($channel->getType()->getId(), $typesThatDoesNotTriggerReconnect) && $changedKeys) {
                 $this->suplaServer->reconnect();
             }
             return $this->getChannelAction($request, $channel->clearRelationsCount());
