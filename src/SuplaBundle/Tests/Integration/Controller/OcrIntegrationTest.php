@@ -44,6 +44,7 @@ class OcrIntegrationTest extends IntegrationTestCase {
         $this->user = $this->createConfirmedUser();
         $this->device = $this->createDevice($this->createLocation($this->user), [
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER],
         ]);
         $this->counter = $this->device->getChannels()[0];
         EntityUtils::setField($this->counter, 'properties', json_encode(['ocr' => ['authKey' => '123']]));
@@ -66,6 +67,7 @@ class OcrIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($counter->getProperty('ocr')['ocrSynced']);
     }
 
+    /** @depends testSyncingOcrSettings */
     public function testGettingLatestPhoto() {
         $client = $this->createAuthenticatedClient($this->user);
         TestSuplaHttpClient::mockHttpRequest('/latest', ['image' => 'abcjpeg']);
@@ -102,5 +104,28 @@ class OcrIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertSuplaCommandExecuted('TAKE-OCR-PHOTO:1,1,1');
+    }
+
+    public function testGettingLatestPhotoOfChannelWithoutOcrSupport() {
+        $counter = $this->device->getChannels()[1];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', "/api/integrations/ocr/{$counter->getId()}/latest");
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
+    }
+
+    /** @depends testGettingLatestPhotoOfChannelWithoutOcrSupport */
+    public function testGettingLatestPhotoRegistersDeviceIfNotRegisteredAlready() {
+        $counter = $this->device->getChannels()[1];
+        EntityUtils::setField($counter, 'properties', json_encode(['ocr' => ['authKey' => '123']]));
+        $this->persist($counter);
+        $client = $this->createAuthenticatedClient($this->user);
+        TestSuplaHttpClient::mockHttpRequest('/devices', fn() => [true, '', 201]);
+        TestSuplaHttpClient::mockHttpRequest('/latest', ['image' => 'abcjpeg']);
+        $client->apiRequestV3('GET', "/api/integrations/ocr/{$counter->getId()}/latest");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals('abcjpeg', $content['image']);
     }
 }

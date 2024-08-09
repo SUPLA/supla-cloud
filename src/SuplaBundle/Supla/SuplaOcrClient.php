@@ -51,7 +51,7 @@ class SuplaOcrClient {
 
     public function getLatestImage(IODeviceChannel $channel): array {
         $fullUrl = $this->deviceEndpoint($channel, 'images/latest');
-        $response = $this->brokerHttpClient->request($fullUrl, null, $responseStatus, ['X-AuthKey' => $this->getAuthKey($channel)]);
+        $response = $this->brokerHttpClient->request($fullUrl, null, $responseStatus);
         if ($responseStatus === 200) {
             return $response;
         } else {

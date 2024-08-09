@@ -25,6 +25,7 @@ use SuplaBundle\Entity\Main\GoogleHome;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\AmazonAlexaRepository;
 use SuplaBundle\Repository\GoogleHomeRepository;
 use SuplaBundle\Supla\SuplaOcrClient;
@@ -96,10 +97,23 @@ class IntegrationsController extends RestController {
      * @Rest\Get("/integrations/ocr/{channel}/latest")
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
-    public function getLatestOcrImageAction(Request $request, IODeviceChannel $channel, SuplaOcrClient $ocr) {
+    public function getLatestOcrImageAction(
+        Request $request,
+        IODeviceChannel $channel,
+        SuplaOcrClient $ocr,
+        SubjectConfigTranslator $configTranslator
+    ) {
         if (!ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         };
+        $config = $configTranslator->getConfig($channel);
+        if (!isset($config['ocr'])) {
+            throw new NotFoundHttpException();
+        }
+        $synced = $channel->getProperty('ocr', [])['ocrSynced'] ?? false;
+        if (!$synced) {
+            $ocr->registerDevice($channel);
+        }
         $image = $ocr->getLatestImage($channel);
         return $this->view($image);
     }
