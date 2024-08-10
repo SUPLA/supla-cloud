@@ -52,11 +52,6 @@ class OcrSettingsUserConfigTranslatorTest extends TestCase {
         $this->assertEquals(0, $this->channel->getUserConfigValue('ocr')['photoIntervalSec']);
     }
 
-    public function testSettingImpulsesPerUnit() {
-        $this->configTranslator->setConfig($this->channel, ['ocr' => ['decimalPoints' => 4]]);
-        $this->assertEquals(10000, $this->channel->getUserConfigValue('impulsesPerUnit'));
-    }
-
     public function testSettingMaximumIncrement() {
         $this->configTranslator->setConfig($this->channel, ['ocr' => ['decimalPoints' => 3, 'maximumIncrement' => 0.12]]);
         $config = $this->configTranslator->getConfig($this->channel);

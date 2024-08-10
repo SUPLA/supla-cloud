@@ -12,17 +12,13 @@
             <channel-params-meter-cost :channel="channel"
                 :unit="unit"
                 @change="$emit('change')"></channel-params-meter-cost>
-            <dd v-tooltip="channel.config.ocr && $t('This device has an OCR support. The impulses per unit calculation is automatic based on OCR settings.')">
-                {{ $t('Impulses') }}
-                <i class="pe-7s-help1" v-if="channel.config.ocr"></i>
-            </dd>
+            <dd>{{ $t('Impulses') }}</dd>
             <dt>
                 <span class="input-group">
                     <input type="number"
                         step="1"
                         min="0"
                         max="1000000"
-                        :disabled="!!channel.config.ocr"
                         class="form-control text-center"
                         v-model="channel.config.impulsesPerUnit"
                         @change="$emit('change')">

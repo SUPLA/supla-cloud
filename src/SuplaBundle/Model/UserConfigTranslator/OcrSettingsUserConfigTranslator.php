@@ -80,7 +80,6 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
             }
             if (array_key_exists('decimalPoints', $ocrConfig)) {
                 Assert::that($ocrConfig['decimalPoints'], null, 'ocr.decimalPoints')->integer()->between(0, 10);
-                $subject->setUserConfigValue('impulsesPerUnit', pow(10, $ocrConfig['decimalPoints']));
                 if (!array_key_exists('maximumIncrement', $ocrConfig)) {
                     $previousDecimalPoints = $subject->getUserConfigValue('ocr', [])['decimalPoints'] ?? 0;
                     $maxIncrement = $subject->getUserConfigValue('ocr', [])['maximumIncrement'] ?? 0;
