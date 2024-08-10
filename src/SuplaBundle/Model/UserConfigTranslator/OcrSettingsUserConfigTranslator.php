@@ -30,8 +30,9 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
             $ocrConfig['enabled'] = ($ocrConfig['photoIntervalSec'] ?? 0) > 0;
             $ocrConfig['photoIntervalSec'] = max($ocrConfig['photoIntervalSec'] ?? 0, self::MIN_PHOTO_INTERVAL_SEC);
             $decimalPoints = $ocrConfig['decimalPoints'] ?? 0;
+            $divider = $subject->getUserConfigValue('impulsesPerUnit', pow(10, $ocrConfig['decimalPoints'] ?? 0)) ?: 1;
             $ocrConfig['maximumIncrement'] = NumberUtils::maximumDecimalPrecision(
-                ($ocrConfig['maximumIncrement'] ?? 0) / pow(10, $decimalPoints),
+                ($ocrConfig['maximumIncrement'] ?? 0) / $divider,
                 $decimalPoints
             );
             return ['ocr' => $ocrConfig];
@@ -89,7 +90,8 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
             if (array_key_exists('maximumIncrement', $ocrConfig)) {
                 Assert::that($ocrConfig['maximumIncrement'], null, 'ocr.maximumIncrement')->numeric()->greaterOrEqualThan(0);
                 $decimalPoints = $ocrConfig['decimalPoints'] ?? $subject->getUserConfigValue('ocr', [])['decimalPoints'] ?? 0;
-                $ocrConfig['maximumIncrement'] *= pow(10, $decimalPoints);
+                $divider = $subject->getUserConfigValue('impulsesPerUnit', pow(10, $decimalPoints)) ?: 1;
+                $ocrConfig['maximumIncrement'] *= $divider;
                 $ocrConfig['maximumIncrement'] = round($ocrConfig['maximumIncrement']);
             }
             if (array_key_exists('photoSettings', $ocrConfig)) {
