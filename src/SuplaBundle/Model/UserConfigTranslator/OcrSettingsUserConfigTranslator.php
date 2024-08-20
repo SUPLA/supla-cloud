@@ -63,7 +63,7 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
                 if ($ocrConfig['photoIntervalSec']) {
                     Assert::that($ocrConfig['photoIntervalSec'], null, 'ocr.photoIntervalSec')
                         ->integer()
-                        ->between(self::MIN_PHOTO_INTERVAL_SEC, 300);
+                        ->between(self::MIN_PHOTO_INTERVAL_SEC, 86400 * 365);
                 } else {
                     $ocrConfig['photoIntervalSec'] = 0;
                 }

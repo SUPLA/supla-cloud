@@ -62,10 +62,24 @@ export function prettyMilliseconds(ms, vue) {
         return ms + ' ms';
     } else if (ms < 60000) {
         return (Math.round(ms / 100) / 10) + ' ' + vue.$t('sec.');
-    } else {
+    } else if (ms < 3600000) {
         let formatted = Math.round(ms / 60000) + ' ' + vue.$t('min.');
         if (ms % 60000) {
             formatted += ' ' + prettyMilliseconds(ms % 60000, vue);
+        }
+        return formatted;
+    } else if (ms < 86400000) {
+        const value = Math.round(ms / 3600000);
+        let formatted = Math.round(ms / 3600000) + ' ' + (value === 1 ? vue.$t('hour') : vue.$t('hours'));
+        if (ms % 3600000) {
+            formatted += ' ' + prettyMilliseconds(ms % 3600000, vue);
+        }
+        return formatted;
+    } else {
+        const value = Math.round(ms / 86400000);
+        let formatted = value + ' ' + (value === 1 ? vue.$t('day') : vue.$t('days'));
+        if (ms % 86400000) {
+            formatted += ' ' + prettyMilliseconds(ms % 86400000, vue);
         }
         return formatted;
     }

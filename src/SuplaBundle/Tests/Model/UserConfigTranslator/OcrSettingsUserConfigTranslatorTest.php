@@ -53,26 +53,11 @@ class OcrSettingsUserConfigTranslatorTest extends TestCase {
     }
 
     public function testSettingMaximumIncrement() {
-        $this->configTranslator->setConfig($this->channel, ['ocr' => ['decimalPoints' => 3, 'maximumIncrement' => 0.12]]);
+        $this->channel->setUserConfigValue('impulsesPerUnit', 1000);
+        $this->configTranslator->setConfig($this->channel, ['ocr' => ['maximumIncrement' => 0.12]]);
         $config = $this->configTranslator->getConfig($this->channel);
         $this->assertEquals(0.12, $config['ocr']['maximumIncrement']);
         $this->assertEquals(120, $this->channel->getUserConfigValue('ocr')['maximumIncrement']);
-    }
-
-    public function testChangingDecimalPointsWithoutMaximumIncrement() {
-        $this->configTranslator->setConfig($this->channel, ['ocr' => ['decimalPoints' => 3, 'maximumIncrement' => 0.12]]);
-        $this->configTranslator->setConfig($this->channel, ['ocr' => ['decimalPoints' => 2]]);
-        $config = $this->configTranslator->getConfig($this->channel);
-        $this->assertEquals(0.12, $config['ocr']['maximumIncrement']);
-        $this->assertEquals(12, $this->channel->getUserConfigValue('ocr')['maximumIncrement']);
-    }
-
-    public function testChangingMaximumIncrementWithoutDecimalPoints() {
-        $this->configTranslator->setConfig($this->channel, ['ocr' => ['decimalPoints' => 2, 'maximumIncrement' => 0.12]]);
-        $this->configTranslator->setConfig($this->channel, ['ocr' => ['maximumIncrement' => 1.01]]);
-        $config = $this->configTranslator->getConfig($this->channel);
-        $this->assertEquals(1.01, $config['ocr']['maximumIncrement']);
-        $this->assertEquals(101, $this->channel->getUserConfigValue('ocr')['maximumIncrement']);
     }
 
     public function testTryingToSetInvalidKey() {

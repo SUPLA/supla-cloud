@@ -29,12 +29,7 @@
 
                             <div class="form-group">
                                 <label for="">{{ $t('Photo interval') }}</label>
-                                <NumberInput v-model="ocrSettings.photoIntervalSec"
-                                    :min="60"
-                                    :max="300"
-                                    suffix=" s"
-                                    class="form-control text-center mt-2"
-                                    @input="onChange()"/>
+                                <TimeIntervalSlider v-model="ocrSettings.photoIntervalSec" :min="60" @input="onChange()" seconds/>
                             </div>
 
                             <div class="form-group">
@@ -135,9 +130,11 @@
     import NumberInput from "@/common/number-input.vue";
     import {successNotification} from "@/common/notifier";
     import {measurementUnit} from "@/channels/channel-helpers";
+    import TimeIntervalSlider from "@/scenes/time-interval-slider.vue";
 
     export default {
         components: {
+            TimeIntervalSlider,
             NumberInput,
             TransitionExpand, ConfigConflictWarning,
             OcrPhotoCrop,
