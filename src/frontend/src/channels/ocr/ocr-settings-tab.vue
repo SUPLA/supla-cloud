@@ -41,7 +41,7 @@
                                 <label for="">{{ $t('Expected maximum increment') }}</label>
                                 <NumberInput v-model="ocrSettings.maximumIncrement"
                                     :min="0"
-                                    :precision="ocrSettings.decimalPoints"
+                                    :precision="3"
                                     :suffix="` ${unit}`"
                                     class="form-control text-center mt-2"
                                     @input="onChange()"/>
@@ -80,15 +80,6 @@
                                         class="form-control text-center mt-2"
                                         @input="onChange()"/>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="">{{ $t('The number of decimal points') }}</label>
-                                <NumberInput v-model="ocrSettings.decimalPoints"
-                                    :min="0"
-                                    :max="10"
-                                    class="form-control text-center mt-2"
-                                    @input="onChange()"/>
                             </div>
 
                             <div v-if="latestImageError">
