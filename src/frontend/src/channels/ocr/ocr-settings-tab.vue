@@ -29,7 +29,8 @@
 
                             <div class="form-group">
                                 <label for="">{{ $t('Photo interval') }}</label>
-                                <TimeIntervalSlider v-model="ocrSettings.photoIntervalSec" :min="60" @input="onChange()" seconds/>
+                                <TimeIntervalSlider v-model="ocrSettings.photoIntervalSec" :min="60" @input="onChange()" seconds
+                                    class="mt-5"/>
                             </div>
 
                             <div class="form-group">
