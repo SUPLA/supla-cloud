@@ -136,4 +136,11 @@ class RelatedMeterUserConfigTranslatorIntegrationTest extends IntegrationTestCas
         $em = $this->device->getChannels()[2];
         $this->configTranslator->setConfig($em, ['relatedRelayChannelId' => $invalidRelay->getId()]);
     }
+
+    public function testSettingRelatedChannelForElectricityMeterAsString() {
+        $this->expectExceptionMessage('is not an integer');
+        $powerswitch = $this->device->getChannels()[0];
+        $em = $this->device->getChannels()[2];
+        $this->configTranslator->setConfig($em, ['relatedRelayChannelId' => '' . $powerswitch->getId()]);
+    }
 }
