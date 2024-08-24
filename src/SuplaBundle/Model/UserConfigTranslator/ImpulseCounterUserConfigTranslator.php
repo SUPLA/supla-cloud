@@ -17,7 +17,7 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="currency", type="string"),
  *   @OA\Property(property="unit", type="string"),
  *   @OA\Property(property="initialValue", type="integer"),
- *   @OA\Property(property="relatedChannelId", type="integer"),
+ *   @OA\Property(property="relatedRelayChannelId", type="integer"),
  *   @OA\Property(property="ocrSettings", type="object"),
  * )
  */

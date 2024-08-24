@@ -12,7 +12,7 @@ use SuplaBundle\Utils\NumberUtils;
  * @OA\Schema(schema="ChannelConfigStaircaseTimer", description="Config for `STAIRCASETIMER`.",
  *   @OA\Property(property="timeSettingAvailable", type="boolean", readOnly=true),
  *   @OA\Property(property="relayTimeS", type="integer", minimum=0, maximum=7200),
- *   @OA\Property(property="relatedChannelId", type="integer"),
+ *   @OA\Property(property="relatedMeterChannelId", type="integer"),
  * )
  */
 class RelayTimeSUserConfigTranslator extends UserConfigTranslator {

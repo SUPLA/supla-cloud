@@ -126,32 +126,6 @@ class RelatedChannelsConnector extends UserConfigTranslator {
                 [ChannelFunction::OPENINGSENSOR_GATE, 2, ChannelFunction::CONTROLLINGTHEGATE, 3],
                 [ChannelFunction::OPENINGSENSOR_GARAGEDOOR, 2, ChannelFunction::CONTROLLINGTHEGARAGEDOOR, 3],
             ],
-            'relatedChannelId' => [
-                [
-                    [ChannelFunction::POWERSWITCH, ChannelFunction::LIGHTSWITCH],
-                    1,
-                    [
-                        ChannelFunction::ELECTRICITYMETER,
-                        ChannelFunction::IC_ELECTRICITYMETER,
-                        ChannelFunction::IC_GASMETER,
-                        ChannelFunction::IC_WATERMETER,
-                        ChannelFunction::IC_HEATMETER,
-                    ],
-                    4,
-                ],
-                [
-                    [ChannelFunction::STAIRCASETIMER],
-                    2,
-                    [
-                        ChannelFunction::ELECTRICITYMETER,
-                        ChannelFunction::IC_ELECTRICITYMETER,
-                        ChannelFunction::IC_GASMETER,
-                        ChannelFunction::IC_WATERMETER,
-                        ChannelFunction::IC_HEATMETER,
-                    ],
-                    4,
-                ],
-            ],
         ];
         $relationsMapped = [];
         foreach ($relations as $relationName => $possibleRelations) {

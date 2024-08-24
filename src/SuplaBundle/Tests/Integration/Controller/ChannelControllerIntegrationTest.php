@@ -1091,17 +1091,18 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient();
         // set measurement channel
         $client->apiRequestV24('PUT', '/api/channels/' . $relay->getId() . '?safe=1', [
-            'config' => ['relatedChannelId' => $measurement->getId()],
+            'config' => ['relatedMeterChannelId' => $measurement->getId()],
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $relay = $this->freshEntity($relay);
         $measurement = $this->freshEntity($measurement);
-        $this->assertEquals($measurement->getId(), $relay->getParam1());
-        $this->assertEquals($relay->getId(), $measurement->getParam4());
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $this->assertEquals($relay->getId(), $channelParamConfigTranslator->getConfig($measurement)['relatedRelayChannelId']);
+        $this->assertEquals($measurement->getId(), $channelParamConfigTranslator->getConfig($relay)['relatedMeterChannelId']);
         // change relay function
         $client->apiRequestV24('PUT', '/api/channels/' . $relay->getId(), [
             'functionId' => ChannelFunction::CONTROLLINGTHEGATE,
-            'config' => ['relatedChannelId' => $measurement->getId()], // old config should not influence the result
+            'config' => ['relatedMeterChannelId' => $measurement->getId()], // old config should not influence the result
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $relay = $this->freshEntity($relay);

@@ -20,7 +20,7 @@ use SuplaBundle\Utils\NumberUtils;
  *     @OA\Property(property="pricePerUnit", type="number"),
  *     @OA\Property(property="currency", type="string"),
  *     @OA\Property(property="electricityMeterInitialValues", type="object"),
- *     @OA\Property(property="relatedChannelId", type="integer"),
+ *     @OA\Property(property="relatedRelayChannelId", type="integer"),
  *     @OA\Property(property="addToHistory", type="boolean"),
  *     @OA\Property(property="voltageLoggerEnabled", type="boolean"),
  *     @OA\Property(property="currentLoggerEnabled", type="boolean"),

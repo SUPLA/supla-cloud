@@ -41,7 +41,6 @@ class RelatedChannelsConnectorTest extends TestCase {
         $this->assertArrayHasKey(CF::CONTROLLINGTHEDOORLOCK, $relations);
         $this->assertEquals([1, 2], $relations[CF::OPENINGSENSOR_DOOR][CF::CONTROLLINGTHEDOORLOCK]['openingSensorChannelId']);
         $this->assertEquals([2, 1], $relations[CF::CONTROLLINGTHEDOORLOCK][CF::OPENINGSENSOR_DOOR]['openingSensorChannelId']);
-        $this->assertEquals([1, 4], $relations[CF::POWERSWITCH][CF::IC_GASMETER]['relatedChannelId']);
     }
 
     public function testSupports() {

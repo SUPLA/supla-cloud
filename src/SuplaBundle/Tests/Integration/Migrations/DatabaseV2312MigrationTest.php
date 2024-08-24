@@ -32,6 +32,7 @@ class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
         $this->migratedEmojisInTextColumns();
         $this->migratedRollerShutterTimesToUserConfig();
         $this->migratedIcConfigFromParams();
+        $this->migratedRelaysRelatedChannelsConfigFromParams();
     }
 
     /**
@@ -79,5 +80,22 @@ class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
         $this->assertEquals(55, $icChannel->getUserConfigValue('pricePerUnit'));
         $this->assertEquals(100330, $icChannel->getUserConfigValue('initialValue'));
         $this->assertEquals('PLN', $icChannel->getUserConfigValue('currency'));
+    }
+
+    /**
+     * @see Version20240824185033
+     */
+    private function migratedRelaysRelatedChannelsConfigFromParams() {
+        /** @var IODeviceChannel $powerSwitch */
+        $powerSwitch = $this->freshEntityById(IODeviceChannel::class, 47);
+        $this->assertEquals(0, $powerSwitch->getParam1());
+        $this->assertEquals(78, $powerSwitch->getUserConfigValue('relatedMeterChannelId'));
+        $gasMeter = $this->freshEntityById(IODeviceChannel::class, 78);
+        $this->assertEquals(0, $gasMeter->getParam4());
+        $staircaseTimer = $this->freshEntityById(IODeviceChannel::class, 49);
+        $this->assertEquals(0, $staircaseTimer->getParam2());
+        $this->assertEquals(80, $staircaseTimer->getUserConfigValue('relatedMeterChannelId'));
+        $heatMeter = $this->freshEntityById(IODeviceChannel::class, 80);
+        $this->assertEquals(0, $heatMeter->getParam4());
     }
 }
