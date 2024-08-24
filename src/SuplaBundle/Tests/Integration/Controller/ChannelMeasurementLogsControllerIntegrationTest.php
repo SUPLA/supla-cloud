@@ -603,7 +603,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         /** @var SubjectConfigTranslator $paramsTranslator */
         $paramsTranslator = self::$container->get(SubjectConfigTranslator::class);
         $relayChannel = $this->device1->getChannels()[0];
-        $paramsTranslator->setConfig($relayChannel, ['relatedChannelId' => 4]);
+        $paramsTranslator->setConfig($relayChannel, ['relatedMeterChannelId' => 4]);
         $this->persist($relayChannel);
         $content = $this->getMeasurementLogsAscending($relayChannel->getId());
         $this->ensureElectricityMeasurementLogsOrder($content, [854800, 854900, 855000]);
@@ -614,7 +614,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         /** @var SubjectConfigTranslator $paramsTranslator */
         $paramsTranslator = self::$container->get(SubjectConfigTranslator::class);
         $staircaseTimerChannel = $this->device1->getChannels()[10];
-        $paramsTranslator->setConfig($staircaseTimerChannel, ['relatedChannelId' => 4]);
+        $paramsTranslator->setConfig($staircaseTimerChannel, ['relatedMeterChannelId' => 4]);
         $this->persist($staircaseTimerChannel);
         $content = $this->getMeasurementLogsAscending($staircaseTimerChannel->getId());
         $this->ensureElectricityMeasurementLogsOrder($content, [854800, 854900, 855000]);

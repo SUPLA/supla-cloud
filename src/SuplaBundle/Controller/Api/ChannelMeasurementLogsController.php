@@ -662,7 +662,7 @@ class ChannelMeasurementLogsController extends RestController {
             ChannelFunction::STAIRCASETIMER,
         ])) {
             $channelConfig = $this->channelParamConfigTranslator->getConfig($channel);
-            $relatedMeasurementChannelId = $channelConfig['relatedChannelId'] ?? null;
+            $relatedMeasurementChannelId = $channelConfig['relatedMeterChannelId'] ?? null;
             if ($relatedMeasurementChannelId) {
                 $targetChannel = $this->channelRepository->findForUser($channel->getUser(), $relatedMeasurementChannelId);
             }
