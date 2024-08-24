@@ -378,6 +378,9 @@
                 return [
                     this.availableTemperatures.find(t => t.name === 'auxMinSetpoint'),
                     this.availableTemperatures.find(t => t.name === 'auxMaxSetpoint'),
+                    this.availableTemperatures.find(t => t.name === 'boost'),
+                    this.availableTemperatures.find(t => t.name === 'eco'),
+                    this.availableTemperatures.find(t => t.name === 'comfort'),
                 ].filter(a => a);
             },
             freezeHeatProtectionTemperatures() {
