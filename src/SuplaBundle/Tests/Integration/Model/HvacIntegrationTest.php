@@ -818,4 +818,46 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ActionableSubjectType::NOTIFICATION, $content['subjectType']);
         $this->assertSuplaCommandExecuted('USER-ON-VBT-CHANGED:1');
     }
+
+    public function testSettingPumpSwitch() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $client->apiRequestV3('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
+            'config' => [
+                'pumpSwitchChannelId' => $this->device->getChannels()[8]->getId(),
+            ],
+            'configBefore' => $channelParamConfigTranslator->getConfig($this->hvacChannel),
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV24('GET', '/api/channels/' . $this->hvacChannel->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($this->device->getChannels()[8]->getId(), $content['config']['pumpSwitchChannelId']);
+        $hvacChannel = $this->freshEntity($this->hvacChannel);
+        $this->assertNull($hvacChannel->getUserConfigValue('pumpSwitchChannelId'));
+        $this->assertEquals(8, $hvacChannel->getUserConfigValue('pumpSwitchChannelNo'));
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,6100,420,%d',
+            $hvacChannel->getIoDevice()->getId(),
+            $hvacChannel->getId(),
+            ChannelConfigChangeScope::RELATIONS | ChannelConfigChangeScope::JSON_BASIC,
+        ));
+    }
+
+    /** @depends testSettingPumpSwitch */
+    public function testChangingPumpSwitchFunctionRemovesHvacRelationship() {
+        [$pumpId, $hvacId] = [$this->device->getChannels()[8]->getId(), $this->hvacChannel->getId()];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', "/api/channels/$pumpId?safe=true", ['functionId' => ChannelFunction::NONE]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent());
+        $this->assertEquals([$hvacId], array_column($content->dependencies->channels, 'id'));
+        $client->apiRequestV3('PUT', "/api/channels/$pumpId", ['functionId' => ChannelFunction::NONE]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertEquals(ChannelFunction::NONE, $this->freshEntityById(IODeviceChannel::class, $pumpId)->getFunction()->getId());
+        /** @var IODeviceChannel $hvacChannel */
+        $hvacChannel = $this->freshEntityById(IODeviceChannel::class, $hvacId);
+        $this->assertNull($hvacChannel->getUserConfigValue('pumpSwitchChannelNo'));
+    }
 }

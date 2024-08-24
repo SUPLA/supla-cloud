@@ -97,6 +97,11 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             if ($binarySensorChannelNo >= 0) {
                 $binarySensor = $this->channelNoToId($subject, $binarySensorChannelNo);
             }
+            $pumpSwitchChannelNo = $subject->getUserConfigValue('pumpSwitchChannelNo', -1);
+            $pumpSwitch = null;
+            if ($pumpSwitchChannelNo >= 0) {
+                $pumpSwitch = $this->channelNoToId($subject, $pumpSwitchChannelNo);
+            }
             $config = [
                 'mainThermometerChannelId' => $mainThermometer ? $mainThermometer->getId() : null,
                 'auxThermometerChannelId' => $auxThermometer ? $auxThermometer->getId() : null,
@@ -118,6 +123,8 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 ),
                 'temperatureConstraints' =>
                     array_map([$this, 'adjustTemperature'], $subject->getProperties()['temperatures'] ?? []) ?: new \stdClass(),
+                'pumpSwitchAvailable' => $this->deviceHasChannelWithFunction($subject, ChannelFunction::PUMPSWITCH()),
+                'pumpSwitchChannelId' => $pumpSwitch ? $pumpSwitch->getId() : null,
             ];
             if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT) {
                 $config['subfunction'] = $subject->getUserConfigValue('subfunction');
@@ -193,6 +200,21 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 );
             } else {
                 $subject->setUserConfigValue('binarySensorChannelNo', null);
+            }
+        }
+        if (array_key_exists('pumpSwitchChannelId', $config)) {
+            if ($config['pumpSwitchChannelId']) {
+                Assertion::numeric($config['pumpSwitchChannelId']);
+                $pump = $this->channelIdToNo($subject, $config['pumpSwitchChannelId']);
+                Assertion::eq(ChannelFunction::PUMPSWITCH, $pump->getFunction()->getId(), 'Invalid pump switch function.');
+                $subject->setUserConfigValue('pumpSwitchChannelNo', $pump->getChannelNumber());
+                Assertion::eq(
+                    $subject->getLocation()->getId(),
+                    $pump->getLocation()->getId(),
+                    'Channels that are meant to work with each other must be in the same location.' // i18n
+                );
+            } else {
+                $subject->setUserConfigValue('pumpSwitchChannelNo', null);
             }
         }
         if (array_key_exists('antiFreezeAndOverheatProtectionEnabled', $config)) {
@@ -416,5 +438,12 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 'freezeProtection'
             );
         }
+    }
+
+    private function deviceHasChannelWithFunction(IODeviceChannel $channel, ChannelFunction $function): bool {
+        return $channel->getIoDevice()
+                ->getChannels()
+                ->filter(fn(IODeviceChannel $ch) => $ch->getFunction()->getId() === $function->getId())
+                ->count() > 0;
     }
 }

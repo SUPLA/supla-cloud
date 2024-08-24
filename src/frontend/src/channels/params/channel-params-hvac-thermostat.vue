@@ -171,6 +171,15 @@
                             @input="$emit('change')"></channels-id-dropdown>
                     </dt>
                 </dl>
+                <dl v-if="channel.config.pumpSwitchAvailable">
+                    <dd>{{ $t('Pump switch') }}</dd>
+                    <dt>
+                        <channels-id-dropdown :params="`function=PUMPSWITCH&deviceIds=${channel.iodeviceId}`"
+                            choose-prompt-i18n="Function disabled"
+                            v-model="channel.config.pumpSwitchChannelId"
+                            @input="$emit('change')"></channels-id-dropdown>
+                    </dt>
+                </dl>
                 <div v-if="channel.config.availableAlgorithms.length > 1">
                     <dl>
                         <dd>
