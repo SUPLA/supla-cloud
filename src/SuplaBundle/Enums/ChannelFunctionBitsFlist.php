@@ -44,6 +44,8 @@ final class ChannelFunctionBitsFlist extends ChannelFunctionBits {
     const CURTAIN = 1 << 23;
     const VERTICAL_BLIND = 1 << 24;
     const ROLLER_GARAGE_DOOR = 1 << 25;
+    const PUMPSWITCH = 1 << 26;
+    const HEATORCOLDSOURCESWITCH = 1 << 27;
 
     public static function getSupportedFunctions(int $functionList): array {
         return array_map(function (ChannelFunctionBitsFlist $bit) {

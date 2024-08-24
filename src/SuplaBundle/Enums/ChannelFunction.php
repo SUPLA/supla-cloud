@@ -100,6 +100,8 @@ use UnexpectedValueException;
  * @method static ChannelFunction CURTAIN()
  * @method static ChannelFunction VERTICAL_BLIND()
  * @method static ChannelFunction ROLLER_GARAGE_DOOR()
+ * @method static ChannelFunction PUMPSWITCH()
+ * @method static ChannelFunction HEATORCOLDSOURCESWITCH()
  */
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
@@ -166,6 +168,8 @@ final class ChannelFunction extends Enum {
     const CURTAIN = 930;
     const VERTICAL_BLIND = 940;
     const ROLLER_GARAGE_DOOR = 950;
+    const PUMPSWITCH = 960;
+    const HEATORCOLDSOURCESWITCH = 970;
 
     private $unsupportedFunctionId;
 
@@ -473,6 +477,8 @@ final class ChannelFunction extends Enum {
             self::CURTAIN => 'Curtain', // i18n
             self::VERTICAL_BLIND => 'Vertical blind', // i18n
             self::ROLLER_GARAGE_DOOR => 'Roller garage door', // i18n
+            self::PUMPSWITCH => 'Pump switch', // i18n
+            self::HEATORCOLDSOURCESWITCH => 'Heat or cold source switch', // i18n
         ];
     }
 
@@ -563,6 +569,8 @@ final class ChannelFunction extends Enum {
             self::CURTAIN => ['revealed', 'shut'],
             self::VERTICAL_BLIND => ['revealed', 'shut'],
             self::ROLLER_GARAGE_DOOR => ['revealed', 'shut'],
+            self::PUMPSWITCH => ['default'],
+            self::HEATORCOLDSOURCESWITCH => ['default'],
         ];
     }
 

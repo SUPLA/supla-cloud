@@ -221,6 +221,8 @@ final class ChannelType extends Enum {
                 ChannelFunction::CURTAIN(),
                 ChannelFunction::VERTICAL_BLIND(),
                 ChannelFunction::ROLLER_GARAGE_DOOR(),
+                ChannelFunction::PUMPSWITCH(),
+                ChannelFunction::HEATORCOLDSOURCESWITCH(),
             ],
             self::THERMOMETERDS18B20 => [ChannelFunction::THERMOMETER()],
             self::DIMMER => [ChannelFunction::DIMMER()],
