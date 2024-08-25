@@ -882,21 +882,23 @@ class HvacIntegrationTest extends IntegrationTestCase {
     }
 
     public function testSettingHeatOrColdSourceSwitch() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
+        $hvacChannel = $device->getChannels()[2];
         $client = $this->createAuthenticatedClient($this->user);
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
-        $client->apiRequestV3('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
+        $client->apiRequestV3('PUT', '/api/channels/' . $hvacChannel->getId(), [
             'config' => [
-                'heatOrColdSourceSwitchChannelId' => $this->device->getChannels()[9]->getId(),
+                'heatOrColdSourceSwitchChannelId' => $device->getChannels()[9]->getId(),
             ],
-            'configBefore' => $channelParamConfigTranslator->getConfig($this->hvacChannel),
+            'configBefore' => $channelParamConfigTranslator->getConfig($hvacChannel),
         ]);
         $this->assertStatusCode(200, $client->getResponse());
-        $client->apiRequestV24('GET', '/api/channels/' . $this->hvacChannel->getId());
+        $client->apiRequestV24('GET', '/api/channels/' . $hvacChannel->getId());
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals($this->device->getChannels()[9]->getId(), $content['config']['heatOrColdSourceSwitchChannelId']);
-        $hvacChannel = $this->freshEntity($this->hvacChannel);
+        $this->assertEquals($device->getChannels()[9]->getId(), $content['config']['heatOrColdSourceSwitchChannelId']);
+        $hvacChannel = $this->freshEntity($hvacChannel);
         $this->assertNull($hvacChannel->getUserConfigValue('heatOrColdSourceSwitchChannelId'));
         $this->assertEquals(9, $hvacChannel->getUserConfigValue('heatOrColdSourceSwitchChannelNo'));
         $this->assertSuplaCommandExecuted(sprintf(
