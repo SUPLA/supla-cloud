@@ -139,7 +139,7 @@ class DevicesFixture extends SuplaFixture {
         return $device;
     }
 
-    protected function createEveryFunctionDevice(
+    public function createEveryFunctionDevice(
         Location $location,
         $name = 'ALL-IN-ONE MEGA DEVICE'
     ): IODevice {

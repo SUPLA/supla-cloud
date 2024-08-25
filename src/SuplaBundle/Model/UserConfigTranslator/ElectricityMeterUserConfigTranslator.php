@@ -130,11 +130,12 @@ class ElectricityMeterUserConfigTranslator extends UserConfigTranslator {
         if (array_key_exists('usedPhaseLedType', $config)
             || array_key_exists('phaseLedParam1', $config)
             || array_key_exists('phaseLedParam2', $config)) {
-            $type = ($config['usedPhaseLedType'] ?? null) ?: $subject->getUserConfigValue('usedPhaseLedType');
-            if ($type) {
+            $currentLedType = $subject->getUserConfigValue('usedPhaseLedType');
+            $type = ($config['usedPhaseLedType'] ?? null) ?: $currentLedType;
+            if ($type && $type !== $currentLedType) {
                 Assert::that($type, null, 'usedPhaseLedType')->string()->inArray($subject->getProperties()['availablePhaseLedTypes'] ?? []);
+                $subject->setUserConfigValue('usedPhaseLedType', $type);
             }
-            $subject->setUserConfigValue('usedPhaseLedType', $type);
             if (in_array($type, ['VOLTAGE_LEVEL', 'POWER_ACTIVE_DIRECTION'])) {
                 $param1 = $config['phaseLedParam1'] ?? $subject->getUserConfigValue('phaseLedParam1', 0) / 100;
                 $param2 = $config['phaseLedParam2'] ?? $subject->getUserConfigValue('phaseLedParam2', 0) / 100;

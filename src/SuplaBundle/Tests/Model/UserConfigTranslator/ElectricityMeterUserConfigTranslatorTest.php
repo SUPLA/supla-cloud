@@ -175,4 +175,11 @@ class ElectricityMeterUserConfigTranslatorTest extends TestCase {
         $this->expectExceptionMessage('Low threshold must be less than high threshold');
         $this->configTranslator->setConfig($this->channel, ['phaseLedParam2' => 210]);
     }
+
+    public function testClearingUsedPhaseLedTypeWhenNotAvailable() {
+        $channel = new IODeviceChannel();
+        $this->assertEquals('OFF', $this->configTranslator->getConfig($channel)['usedPhaseLedType']);
+        $channel->setUserConfigValue('usedPhaseLedType', 'OFF');
+        $this->configTranslator->setConfig($channel, ['usedPhaseLedType' => null]);
+    }
 }
