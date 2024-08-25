@@ -107,6 +107,21 @@
                                         </template>
                                     </dl>
                                 </transition-expand>
+                                <dl v-for="temp in otherTemperatures">
+                                    <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
+                                    <dt :key="`dt${temp.name}`">
+                                        <span class="input-group">
+                                            <input type="number"
+                                                step="0.1"
+                                                :min="temp.min"
+                                                :max="temp.max"
+                                                class="form-control text-center"
+                                                v-model="channel.config.temperatures[temp.name]"
+                                                @change="temperatureChanged(temp.name)">
+                                            <span class="input-group-addon">&deg;C</span>
+                                        </span>
+                                    </dt>
+                                </dl>
                             </div>
                         </transition-expand>
                     </div>
@@ -396,6 +411,10 @@
                 return [
                     this.availableTemperatures.find(t => t.name === 'auxMinSetpoint'),
                     this.availableTemperatures.find(t => t.name === 'auxMaxSetpoint'),
+                ].filter(a => a);
+            },
+            otherTemperatures() {
+                return [
                     this.availableTemperatures.find(t => t.name === 'boost'),
                     this.availableTemperatures.find(t => t.name === 'eco'),
                     this.availableTemperatures.find(t => t.name === 'comfort'),
