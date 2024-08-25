@@ -66,6 +66,7 @@
                     .then((response) => {
                         const pr = response.body.pairingResult;
                         // const pr = {"time": "2024-07-02T12:34:56Z", "result": "SUCCESS", "name": "ZAMEL", timedOut: true};
+                        // const pr = {"time": "2024-07-02T12:34:56Z", "result": "PROCEDURE_STARTED", "name": "ZAMEL", timedOut: false};
                         if (pr?.result.startsWith('CMD_RESULT_')) {
                             pr.resultNum = pr.result.substring('CMD_RESULT_'.length);
                             pr.result = 'CMD_RESULT_UNKNOWN';
@@ -75,8 +76,10 @@
                             pr.result = 'PAIRING_RESULT_UNKNOWN';
                         }
                         this.lastPairingResult = pr;
-                        if (!pr || !['PROCEDURE_STARTED', 'ONGOING'].includes(pr.result)) {
+                        if (!pr || !['PROCEDURE_STARTED', 'ONGOING'].includes(pr.result) || pr.timedOut) {
                             this.loading = false;
+                        } else {
+                            this.timer = setTimeout(() => this.fetchState(), 3000);
                         }
                     });
             },
