@@ -34,7 +34,12 @@
             </span>
         </div>
         <div v-if="state.mode !== 'OFF' && state.partially" class="small">
-            {{ $t('Power: {percent}%', {percent: state.partially}) }}
+            <span v-if="state.heating">{{ $t('Heating: {percent}%', {percent: state.partially}) }}</span>
+            <span v-else>{{ $t('Cooling: {percent}%', {percent: state.partially}) }}</span>
+            <div class="progress">
+                <div :class="['progress-bar', state.heating ? 'progress-bar-danger' : 'progress-bar-info']" role="progressbar"
+                    :style="{width: `${state.partially}%`}"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -76,6 +81,12 @@
                 color: $supla-red;
             }
         }
+    }
+
+    .progress {
+        height: 2px;
+        max-width: 50%;
+        margin: 10px auto;
     }
 
     @keyframes passing-down {
