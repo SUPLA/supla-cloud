@@ -107,9 +107,9 @@
                                         </template>
                                     </dl>
                                 </transition-expand>
-                                <dl v-for="temp in otherTemperatures">
-                                    <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
-                                    <dt :key="`dt${temp.name}`">
+                                <dl v-for="temp in otherTemperatures" :key="`dd${temp.name}`">
+                                    <dd>{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
+                                    <dt>
                                         <span class="input-group">
                                             <input type="number"
                                                 step="0.1"
