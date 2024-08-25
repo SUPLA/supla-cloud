@@ -48,17 +48,19 @@
                 <ChannelParamsElectricityMeterVoltageThresholds :channel="channel" @change="$emit('change')"/>
             </div>
         </transition-expand>
-        <a class="d-flex accordion-header" @click="displayGroup('other')">
-            <span class="flex-grow-1">{{ $t('Other') }}</span>
-            <span>
-                <fa :icon="group === 'other' ? 'chevron-down' : 'chevron-right'"/>
-            </span>
-        </a>
-        <transition-expand>
-            <div v-show="group === 'other'">
-                <ChannelParamsElectricityMeterOtherSettings :channel="channel" @change="$emit('change')"/>
-            </div>
-        </transition-expand>
+        <div v-if="displayOthersTab">
+            <a class="d-flex accordion-header" @click="displayGroup('other')">
+                <span class="flex-grow-1">{{ $t('Other') }}</span>
+                <span>
+                    <fa :icon="group === 'other' ? 'chevron-down' : 'chevron-right'"/>
+                </span>
+            </a>
+            <transition-expand>
+                <div v-show="group === 'other'">
+                    <ChannelParamsElectricityMeterOtherSettings :channel="channel" @change="$emit('change')"/>
+                </div>
+            </transition-expand>
+        </div>
         <channel-params-meter-reset :channel="channel" class="mt-4"/>
     </div>
 </template>
@@ -71,13 +73,19 @@
     import ChannelParamsElectricityMeterVoltageThresholds from "@/channels/params/channel-params-electricity-meter-voltage-thresholds";
     import ChannelParamsElectricityMeterEnabledPhases from "@/channels/params/channel-params-electricity-meter-enabled-phases";
     import ChannelParamsMeterKeepHistoryMode from "@/channels/params/channel-params-meter-keep-history-mode.vue";
-    import {ref} from "vue";
+    import {computed, ref} from "vue";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import ChannelParamsElectricityMeterOtherSettings from "@/channels/params/channel-params-electricity-meter-other-settings.vue";
 
-    defineProps({channel: Object});
+    const props = defineProps({channel: Object});
 
     const group = ref(undefined);
+
+    const displayOthersTab = computed(() => {
+        const hasPhaseLedTypes = props.channel.config.availablePhaseLedTypes && props.channel.config.availablePhaseLedTypes.length > 0;
+        const hasCTTypes = props.channel.config.availableCTTypes && props.channel.config.availableCTTypes.length > 0;
+        return hasPhaseLedTypes || hasCTTypes;
+    })
 
     function displayGroup(groupName) {
         if (group.value === groupName) {
