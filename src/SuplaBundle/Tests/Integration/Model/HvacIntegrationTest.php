@@ -846,6 +846,26 @@ class HvacIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testSettingPumpSwitch */
+    public function testChangingPumpSwitchLocationChangesHvacLocation() {
+        [$mainThermoId, $pumpId, $hvacId] = [
+            $this->device->getChannels()[0]->getId(),
+            $this->device->getChannels()[8]->getId(),
+            $this->device->getChannels()[3]->getId(),
+        ];
+        $location = $this->createLocation($this->user);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', "/api/channels/$pumpId?safe=true", ['locationId' => $location->getId()]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent());
+        $this->assertCount(4, array_column($content->dependencies->channels, 'id'));
+        $client->apiRequestV3('PUT', "/api/channels/$pumpId", ['locationId' => $location->getId()]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $mainThermoId)->getLocation()->getId());
+        $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $pumpId)->getLocation()->getId());
+        $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $hvacId)->getLocation()->getId());
+    }
+
+    /** @depends testSettingPumpSwitch */
     public function testChangingPumpSwitchFunctionRemovesHvacRelationship() {
         [$pumpId, $hvacId] = [$this->device->getChannels()[8]->getId(), $this->hvacChannel->getId()];
         $client = $this->createAuthenticatedClient();
@@ -859,5 +879,31 @@ class HvacIntegrationTest extends IntegrationTestCase {
         /** @var IODeviceChannel $hvacChannel */
         $hvacChannel = $this->freshEntityById(IODeviceChannel::class, $hvacId);
         $this->assertNull($hvacChannel->getUserConfigValue('pumpSwitchChannelNo'));
+    }
+
+    public function testSettingHeatOrColdSourceSwitch() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $client->apiRequestV3('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
+            'config' => [
+                'heatOrColdSourceSwitchChannelId' => $this->device->getChannels()[9]->getId(),
+            ],
+            'configBefore' => $channelParamConfigTranslator->getConfig($this->hvacChannel),
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV24('GET', '/api/channels/' . $this->hvacChannel->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($this->device->getChannels()[9]->getId(), $content['config']['heatOrColdSourceSwitchChannelId']);
+        $hvacChannel = $this->freshEntity($this->hvacChannel);
+        $this->assertNull($hvacChannel->getUserConfigValue('heatOrColdSourceSwitchChannelId'));
+        $this->assertEquals(9, $hvacChannel->getUserConfigValue('heatOrColdSourceSwitchChannelNo'));
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,6100,420,%d',
+            $hvacChannel->getIoDevice()->getId(),
+            $hvacChannel->getId(),
+            ChannelConfigChangeScope::RELATIONS | ChannelConfigChangeScope::JSON_BASIC,
+        ));
     }
 }

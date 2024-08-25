@@ -7,11 +7,10 @@ use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunction as CF;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
 use SuplaBundle\Utils\NumberUtils;
-use function Assert\Assert;
 
 /**
  * @OA\Schema(schema="ChannelConfigHvacThermostatSchedule", description="Weekly schedule for thermostats.",
@@ -69,10 +68,10 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
 
     public function supports(HasUserConfig $subject): bool {
         return in_array($subject->getFunction()->getId(), [
-            ChannelFunction::HVAC_THERMOSTAT,
-            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
-            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
-            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+            CF::HVAC_THERMOSTAT,
+            CF::HVAC_THERMOSTAT_HEAT_COOL,
+            CF::HVAC_THERMOSTAT_DIFFERENTIAL,
+            CF::HVAC_DOMESTIC_HOT_WATER,
         ]);
     }
 
@@ -82,7 +81,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $mainThermometerChannelNo = $subject->getUserConfigValue('mainThermometerChannelNo');
             $mainThermometer = null;
             if (is_int($mainThermometerChannelNo)) {
-                $mainThermometer = $this->channelNoToId($subject, $mainThermometerChannelNo);
+                $mainThermometer = $this->channelNoToChannel($subject, $mainThermometerChannelNo);
                 if (!$mainThermometer || $mainThermometer->getId() === $subject->getId()) {
                     $mainThermometer = null;
                 }
@@ -90,17 +89,22 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $auxThermometerChannelNo = $subject->getUserConfigValue('auxThermometerChannelNo', -1);
             $auxThermometer = null;
             if ($auxThermometerChannelNo >= 0) {
-                $auxThermometer = $this->channelNoToId($subject, $auxThermometerChannelNo);
+                $auxThermometer = $this->channelNoToChannel($subject, $auxThermometerChannelNo);
             }
             $binarySensorChannelNo = $subject->getUserConfigValue('binarySensorChannelNo', -1);
             $binarySensor = null;
             if ($binarySensorChannelNo >= 0) {
-                $binarySensor = $this->channelNoToId($subject, $binarySensorChannelNo);
+                $binarySensor = $this->channelNoToChannel($subject, $binarySensorChannelNo);
             }
             $pumpSwitchChannelNo = $subject->getUserConfigValue('pumpSwitchChannelNo', -1);
             $pumpSwitch = null;
             if ($pumpSwitchChannelNo >= 0) {
-                $pumpSwitch = $this->channelNoToId($subject, $pumpSwitchChannelNo);
+                $pumpSwitch = $this->channelNoToChannel($subject, $pumpSwitchChannelNo);
+            }
+            $heatOrColdSourceSwitchChannelNo = $subject->getUserConfigValue('heatOrColdSourceSwitchChannelNo', -1);
+            $heatOrColdSourceSwitch = null;
+            if ($heatOrColdSourceSwitchChannelNo >= 0) {
+                $heatOrColdSourceSwitch = $this->channelNoToChannel($subject, $heatOrColdSourceSwitchChannelNo);
             }
             $config = [
                 'mainThermometerChannelId' => $mainThermometer ? $mainThermometer->getId() : null,
@@ -123,10 +127,12 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 ),
                 'temperatureConstraints' =>
                     array_map([$this, 'adjustTemperature'], $subject->getProperties()['temperatures'] ?? []) ?: new \stdClass(),
-                'pumpSwitchAvailable' => $this->deviceHasChannelWithFunction($subject, ChannelFunction::PUMPSWITCH()),
+                'pumpSwitchAvailable' => $this->deviceHasChannelWithFunction($subject, CF::PUMPSWITCH()),
                 'pumpSwitchChannelId' => $pumpSwitch ? $pumpSwitch->getId() : null,
+                'heatOrColdSourceSwitchAvailable' => $this->deviceHasChannelWithFunction($subject, CF::HEATORCOLDSOURCESWITCH()),
+                'heatOrColdSourceSwitchChannelId' => $heatOrColdSourceSwitch ? $heatOrColdSourceSwitch->getId() : null,
             ];
-            if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT) {
+            if ($subject->getFunction()->getId() === CF::HVAC_THERMOSTAT) {
                 $config['subfunction'] = $subject->getUserConfigValue('subfunction');
                 $config['altWeeklySchedule'] = $this->adjustWeeklySchedule($subject->getUserConfigValue('altWeeklySchedule'));
             }
@@ -146,7 +152,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $thermometer = $this->channelIdToNo($subject, $mainThermometerChannelId);
                 Assertion::inArray(
                     $thermometer->getFunction()->getId(),
-                    [ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITYANDTEMPERATURE]
+                    [CF::THERMOMETER, CF::HUMIDITYANDTEMPERATURE]
                 );
                 $subject->setUserConfigValue('mainThermometerChannelNo', $thermometer->getChannelNumber());
                 Assertion::eq(
@@ -164,7 +170,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $thermometer = $this->channelIdToNo($subject, $config['auxThermometerChannelId']);
                 Assertion::inArray(
                     $thermometer->getFunction()->getId(),
-                    [ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITYANDTEMPERATURE]
+                    [CF::THERMOMETER, CF::HUMIDITYANDTEMPERATURE]
                 );
                 Assertion::notEq($thermometer->getChannelNumber(), $subject->getUserConfigValue('mainThermometerChannelNo'));
                 $subject->setUserConfigValue('auxThermometerChannelNo', $thermometer->getChannelNumber());
@@ -206,7 +212,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             if ($config['pumpSwitchChannelId']) {
                 Assertion::numeric($config['pumpSwitchChannelId']);
                 $pump = $this->channelIdToNo($subject, $config['pumpSwitchChannelId']);
-                Assertion::eq(ChannelFunction::PUMPSWITCH, $pump->getFunction()->getId(), 'Invalid pump switch function.');
+                Assertion::eq(CF::PUMPSWITCH, $pump->getFunction()->getId(), 'Invalid pump switch function.');
                 $subject->setUserConfigValue('pumpSwitchChannelNo', $pump->getChannelNumber());
                 Assertion::eq(
                     $subject->getLocation()->getId(),
@@ -215,6 +221,21 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 );
             } else {
                 $subject->setUserConfigValue('pumpSwitchChannelNo', null);
+            }
+        }
+        if (array_key_exists('heatOrColdSourceSwitchChannelId', $config)) {
+            if ($config['heatOrColdSourceSwitchChannelId']) {
+                Assertion::numeric($config['heatOrColdSourceSwitchChannelId']);
+                $hcsSwitch = $this->channelIdToNo($subject, $config['heatOrColdSourceSwitchChannelId']);
+                Assertion::eq(CF::HEATORCOLDSOURCESWITCH, $hcsSwitch->getFunction()->getId(), 'Invalid heat or cold source switch function.');
+                $subject->setUserConfigValue('heatOrColdSourceSwitchChannelNo', $hcsSwitch->getChannelNumber());
+                Assertion::eq(
+                    $subject->getLocation()->getId(),
+                    $hcsSwitch->getLocation()->getId(),
+                    'Channels that are meant to work with each other must be in the same location.' // i18n
+                );
+            } else {
+                $subject->setUserConfigValue('heatOrColdSourceSwitchChannelNo', null);
             }
         }
         if (array_key_exists('antiFreezeAndOverheatProtectionEnabled', $config)) {
@@ -265,7 +286,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         if (array_key_exists('weeklySchedule', $config) && $config['weeklySchedule']) {
             Assertion::isArray($subject->getUserConfigValue('weeklySchedule'));
             Assertion::isArray($config['weeklySchedule']);
-            $availableProgramModes = $subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL
+            $availableProgramModes = $subject->getFunction()->getId() === CF::HVAC_THERMOSTAT_HEAT_COOL
                 ? [self::PROGRAM_MODE_HEAT, self::PROGRAM_MODE_COOL, self::PROGRAM_MODE_HEAT_COOL]
                 : [self::PROGRAM_MODE_HEAT];
             $weeklySchedule = $this->validateWeeklySchedule($subject, $config['weeklySchedule'], $availableProgramModes);
@@ -301,7 +322,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         }
     }
 
-    private function channelNoToId(IODeviceChannel $channel, int $channelNo): ?IODeviceChannel {
+    private function channelNoToChannel(IODeviceChannel $channel, int $channelNo): ?IODeviceChannel {
         $device = $channel->getIoDevice();
         return $device->getChannels()->filter(function (IODeviceChannel $ch) use ($channelNo) {
             return $ch->getChannelNumber() == $channelNo;
@@ -428,7 +449,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 'auxMinSetpoint'
             );
         }
-        if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL &&
+        if ($subject->getFunction()->getId() === CF::HVAC_THERMOSTAT_HEAT_COOL &&
             isset($temps['freezeProtection']) && isset($temps['heatProtection'])) {
             $minOffset = $constraints['autoOffsetMin'] ?? 0;
             Assertion::lessOrEqualThan(
@@ -440,7 +461,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         }
     }
 
-    private function deviceHasChannelWithFunction(IODeviceChannel $channel, ChannelFunction $function): bool {
+    private function deviceHasChannelWithFunction(IODeviceChannel $channel, CF $function): bool {
         return $channel->getIoDevice()
                 ->getChannels()
                 ->filter(fn(IODeviceChannel $ch) => $ch->getFunction()->getId() === $function->getId())

@@ -180,6 +180,15 @@
                             @input="$emit('change')"></channels-id-dropdown>
                     </dt>
                 </dl>
+                <dl v-if="channel.config.heatOrColdSourceSwitchAvailable">
+                    <dd>{{ $t('Heat or cold source switch') }}</dd>
+                    <dt>
+                        <channels-id-dropdown :params="`function=HEATORCOLDSOURCESWITCH&deviceIds=${channel.iodeviceId}`"
+                            choose-prompt-i18n="Function disabled"
+                            v-model="channel.config.heatOrColdSourceSwitchChannelId"
+                            @input="$emit('change')"></channels-id-dropdown>
+                    </dt>
+                </dl>
                 <div v-if="channel.config.availableAlgorithms.length > 1">
                     <dl>
                         <dd>

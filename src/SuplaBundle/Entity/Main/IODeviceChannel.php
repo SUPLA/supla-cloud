@@ -217,7 +217,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
      */
     private $flags = 0;
 
-    /** @ORM\Column(name="user_config", type="string", length=4096, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"}) */
+    /** @ORM\Column(name="user_config", type="string", length=8192, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"}) */
     private $userConfig;
 
     /** @ORM\Column(name="properties", type="string", length=2048, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"}) */
