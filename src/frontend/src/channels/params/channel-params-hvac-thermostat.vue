@@ -356,16 +356,17 @@
                 this.$emit('change');
             },
             temperatureChanged(name) {
+                const autoOffsetMin = this.channel.config.temperatureConstraints.autoOffsetMin || 0;
                 if (this.channel.config.temperatures.auxMaxSetpoint !== '' && this.channel.config.temperatures.auxMinSetpoint !== '') {
                     if (name === 'auxMinSetpoint' && this.channel.config.temperatures.auxMaxSetpoint !== '') {
                         this.channel.config.temperatures.auxMaxSetpoint = Math.max(
                             this.channel.config.temperatures.auxMaxSetpoint,
-                            +this.channel.config.temperatures.auxMinSetpoint + this.channel.config.temperatureConstraints.autoOffsetMin
+                            +this.channel.config.temperatures.auxMinSetpoint + autoOffsetMin
                         );
                     } else if (name === 'auxMaxSetpoint') {
                         this.channel.config.temperatures.auxMinSetpoint = Math.min(
                             this.channel.config.temperatures.auxMinSetpoint,
-                            +this.channel.config.temperatures.auxMaxSetpoint - this.channel.config.temperatureConstraints.autoOffsetMin
+                            +this.channel.config.temperatures.auxMaxSetpoint - autoOffsetMin
                         );
                     }
                 }
@@ -373,12 +374,12 @@
                     if (name === 'freezeProtection') {
                         this.channel.config.temperatures.heatProtection = Math.max(
                             this.channel.config.temperatures.heatProtection,
-                            +this.channel.config.temperatures.freezeProtection + this.channel.config.temperatureConstraints.autoOffsetMin
+                            +this.channel.config.temperatures.freezeProtection + autoOffsetMin
                         );
                     } else if (name === 'heatProtection') {
                         this.channel.config.temperatures.freezeProtection = Math.min(
                             this.channel.config.temperatures.freezeProtection,
-                            +this.channel.config.temperatures.heatProtection - this.channel.config.temperatureConstraints.autoOffsetMin
+                            +this.channel.config.temperatures.heatProtection - autoOffsetMin
                         );
                     }
                 }
