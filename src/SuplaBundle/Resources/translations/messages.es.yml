@@ -162,12 +162,9 @@ Channel is assigned to the I/O device location: El canal es asignado a la locali
 Channel is disconnected.: El canal está desconectado.
 Channel name: Nombre del canal
 Channel reference will be removed from the items below.: El canal se eliminará de los siguientes elementos.
-Channel value: Valor
 Channel with action triggers: Canal con activadores de acción
 Channels: Canales
 Channels groups are not supported for this function.: Esta función no admite grupos de canales.
-Chart data source type: Tipo de fuente de datos
-Chart mode: Tipo de gráfico
 Chart type: Tipo de gráfico
 Check the direct link you used and try again.: Comprueba el enlace directo conectado  y prueba de nuevo.
 Check your email box: Comprueba tu correo electrónico
@@ -203,7 +200,6 @@ Config of the schedule is too complicated.: La configuración del cronograma es 
 Configuration: Configuración
 Confirm My Account: Confirmo mi cuenta
 Confirm Password: Confirmación de la contraseña
-Confirm if you want to perform the roller shutter calibration.: Confirmar que el módulo ha sido calibrado.
 Confirm if you want to remove Access Identifier: Confirma que quieres eliminar el Identificador de Acceso
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Confirma que quieres borrar Localización ID{locationId}. Será imposible conectar más dispositivos periféricos E/S con esta localización.
 Confirm if you want to remove {deviceName} device and all of its channels.: Confirma que quieres eliminar {deviceName} y todos sus canales.
@@ -253,14 +249,12 @@ Description: Descripción
 Details: Detalles
 Device: Dispositivo
 'Device ID: %deviceId%': 'ID de dispositivo: %ID de dispositivo%'
-Device channel value: Valor del dispositivo
 Device is disconnected.: El dispositivo está desconectado.
 Device might be sleeping: El dispositivo puede estar en modo de suspensión
 'Device name: %deviceName%': 'Nombre del dispositivo: %nombre del dispositivo%'
 Device should be now in configuration mode.: El dispositivo debería estar ahora en modo de configuración.
 'Device software version: %deviceSoftwareVersion%': 'Versión de software: %dispositivoVersión de software%'
 Device unavailable: Dispositivo no disponible
-Differential: Diferencial
 Digi Glass: Digi Glass
 Digi Glass Horizontal: Digi Glass horizontal
 Digi Glass Vertical: Digi Glass vertical
@@ -424,12 +418,10 @@ Incorrect password: Contraseña incorrecta.
 Incremental: Incremental
 Information: Información
 Inherit I/O Device location: Usa la localización del dispositivo
-Initial value: Valor inicial
 Integration with MQTT Broker has been disabled.: Se ha apagado la integración con el bróker MQTT.
 Integration with MQTT Broker has been enabled.: Se ha encendido la integración con el bróker MQTT.
 Integrations: Integraciones
 Integrations settings: Ajustes de integración
-Interpolate measurements: Estimar los valores faltantes
 Interrupt: Detener
 Interrupt and execute: Detener y hacer
 Interval: Intervalo
@@ -523,7 +515,6 @@ No of channels: Número de canales
 No of client apps: Número de aplicaciones de clientes
 No of devices: Número de dispositivos
 No of operations: Número de operaciones
-No results match {0}: No hay resultados que coincidan con {0}
 No schedule configuration.: No se especificó ninguna configuración de horario.
 No, take me back!: ¡No, sácame de aquí!
 No. of Client’s apps: Número de aplicaciones de cliente
@@ -699,8 +690,6 @@ Select the item (subject) you want to control using this link: Selecciona el ele
 Selected device has been logged out.: El dispositivo seleccionado se ha desconectado
 Send a notification: Enviar notificación
 Send notification: Enviar notificación
-Sensor (normal closed): Sensor (normalmente cerrado)
-Sensor (normal open): Sensor (normalmente abierto)
 Sensor disconnected: No hay sensor
 Sensors: Sensores
 Server address: Dirección del servidor
@@ -724,7 +713,6 @@ Some features depend on this device: Algunas funcionalidades dependen de este di
 Some features depend on this scene: Algunas funciones dependen de esta escena.
 Some of the features you have configured rely on channels from this device.: Algunas funcionalidades utilizan canales de este dispositivo.
 Staircase timer: Automático de escalera
-Standard: Estándar
 Start Here: Inicia aquí
 Start date: Fecha de inicio
 Start from the homepage.: Empieza desde la página de inicio.
@@ -763,7 +751,6 @@ The device might be in a sleep mode.: El dispositivo puede funcionar en modo de 
 The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Un dispositivo que utilice esta sesión perderá el acceso a SUPLA Cloud. Para seguir utilizando la aplicación, deberás volver a iniciar sesión en ella.
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Se eliminará todo el historial de aberraciones de tensión para la fase {phaseNumber}.
 The entire history of the voltage aberrations will be removed from this channel.: Se eliminará todo historial de aberración de tensión para este canal.
-The events in voltage aberrations history will be automatically deleted after {days} days.: Los eventos del historial de aberraciones de tensión se borrarán automáticamente al cabo de {days}.
 The following items use the channels of these device. These references will be also removed.: Los siguientes elementos utilizan canales de este dispositivo. También serán eliminados.
 'The following items will be deleted with this device:': Los siguientes elementos también se eliminarán con este dispositivo.
 The gate sensor must function properly in order to execute the Open and Close actions.: El sensor de la apertura de la cancela tiene que funcionar correctamente para realizar la acción de Abrir o Cerrar.
@@ -835,7 +822,6 @@ Use working schedule for this access identifier: Usar un horario de disponibilid
 User is already confirmed. Try to log in.: Esta cuenta ya está confirmada. Inicia sesión.
 Value: Valor
 Value added: Valor añadido
-Value per unit: Valor por unidad
 Value separator: Separador
 Valve: Válvula
 Valve closed manually: Vávula cerrada manualmente
@@ -998,7 +984,6 @@ You must leave at least one phase enabled.: Al menos una fase debe permanecer ac
 You must set an action for each reaction.: Es necesario establecer una acción para cada reacción.
 You must set an action for each scene operation.: Seleccionar una acción para cada operación en la escena.
 You must set sections with transparent or opaque parameters or both.: Debes elegir transparencia para al menos una sección.
-You need to provide icons for all states.: Debes proporcionar iconos para todos los estados.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Debes actualizar tu instacia de SUPLA Cloud al menos a la versión 2.3.0.
 You will not be able to generate a direct link with the same URL again.: No será posible crear un enlace con el mismo URL.
 Your account and MQTT Broker connection.: Vinculación de tu cuenta con el bróker MQTT.
@@ -1069,12 +1054,8 @@ channelConfig_stateVerificationMethod_active: Activo
 channelConfig_stateVerificationMethod_passive: Pasivo
 channelGroup: Conjunto de canales
 choose: elige
-choose a currency: elegir divisa
-choose access identifiers: seleccionar ID de acceso
 choose the access identifiers: seleccionar IDs de acceso
 choose the action: seleccionar la acción
-choose the channel: selecciona canal
-choose the channel group: elige el grupo de canales
 choose the scene: selecciona la escena
 choose the schedule: seleccionar horario
 choose the timezone: elige una zona horaria
@@ -1120,7 +1101,6 @@ minutes: minutos
 notification: notificación
 or another element: u otro elemento
 password: contraseña
-prefix: prefijo
 previous month: mes anterior
 range: rango
 register-slide1-text: Haciendo uso  de la electrónica disponible, SUPLA te facilitará crear módulos fáciles que permiten el manejo y control de los elementos de automatización de edificios. Gracias a SUPLA puedes, entre otros, controlar el alumbrado, encender y apagar los electrodomésticos, abrir y cerrar cancelas y puertas o controlar la temperatura en habitaciones. Todo eso lo puedes hacer moviendo un dedo.
@@ -1129,7 +1109,6 @@ register-slide2-text: Unos de los supuestos fundamentales del proyecto son senci
 register-slide2-title: ¡SUPLA en todas partes!
 register-slide3-text: Los sistemas de automatización de edificios disponibles en el mercado son por lo general muy complejos, cerrados y costosos. En muchos casos requieren instalación ya en la etapa de construcción del edificio. SUPLA es fácil, abierta y gratuita. Permite construir elementos ejecutivos basándose en plataformas Raspberry PI, Arduino o ESP8266 y además combinarlas a través de las redes LAN y WiFi. ¡Únete al proyecto y crea tu propia versión de un sistema de automatización de edificios!
 register-slide3-title: ¡Gratuita y abierta!
-reset chart view: volver a la vista principal
 scene: escena
 schedule: horario
 scheduleMode_crontab: Avanzado
@@ -1154,7 +1133,6 @@ state-rgb_on_dim_off: RGB encendido, atenuador apagado
 state-rgb_on_dim_on: RGB y atenuador encendidos
 state-shut: Cubierto
 state-temperature: Temperatura
-suffix: sufijo
 sum: suma
 sunrise-after: la salida del sol
 sunrise-before: la salida del sol
@@ -1197,13 +1175,19 @@ Assigned Locations: Localizaciones asignadas
 Authorized OAuth apps: Aplicaciones autorizadas OAuth
 Calculated value: Lectura del contador
 Cannot send an activation e-mail. Try again later.: No se puede enviar el mensaje con el enlace de activación. Por favor inténtalo de nuevo más tarde.
+Channel value: Valor
 Channel will be deleted from the channel group below: El canal será borrado de los grupos de canales siguientes
 Channels in channel group: Canales en grupos de canales
+Chart data source type: Tipo de fuente de datos
+Chart mode: Tipo de gráfico
 Chosen hour: Hora seleccionada
 Coming Soon: Disponible próximamente
+Confirm if you want to perform the roller shutter calibration.: Confirmar que el módulo ha sido calibrado.
 Confirm if you want to remove {deviceName} device: Confirma que quieres eliminar el dispositivo {deviceName}
 DISABLED: DESACTIVADO
 Days: Días
+Device channel value: Valor del dispositivo
+Differential: Diferencial
 Direct links below will be deleted: Los enlaces directos que figuran a continuación serán eliminados
 Doors, Gates: Puertas, Cancelas
 ENABLED: ACTIVADO
@@ -1216,7 +1200,9 @@ Hour: Hora
 Hours: Horas
 I/O: Entrada/Salida
 If you want to stay here, do something!: Si quieres quedarte aquí, ¡haz algo!
+Initial value: Valor inicial
 Input: Entrada
+Interpolate measurements: Estimar los valores faltantes
 Languages: Idiomas
 Loading: Carga
 Location password must be at least 4 characters.: La contraseña para la ubicación debe tener al menos 4 caracteres.
@@ -1224,6 +1210,7 @@ Location password must be no longer than 32 characters.: La contraseña para la 
 Minute: Minuto
 Mobile Apps: Aplicaciones móviles
 Next: Siguiente
+No results match {0}: No hay resultados que coincidan con {0}
 Number: Número
 Output: Salida
 Please select an action: Seleccionar una acción
@@ -1233,54 +1220,418 @@ Registration: Registro
 Remove: Eliminar
 Schedule cannot be enabled: No se ha podido activar el horario
 Schedules below will be deleted: Las programaciones siguientes  serán borrados
+Sensor (normal closed): Sensor (normalmente cerrado)
+Sensor (normal open): Sensor (normalmente abierto)
 Sources available from: Fuentes disponibles en
+Standard: Estándar
 Status: Estatus
 Subject: Sujeto
 Sunrise / Sunset: Puesta del sol / Salida del sol
 Supla for devices: Supla para dispositivos
+The events in voltage aberrations history will be automatically deleted after {days} days.: Los eventos del historial de aberraciones de tensión se borrarán automáticamente al cabo de {days}.
 Triggers: Activadores
 Try again later: Intenta más tarde
 Turning this device off will result in disabling all the associated schedules.: La desconexión de este dispositivo ocasionará también la desactivación de los horarios asignados.
+Value per unit: Valor por unidad
 When: Cuando
+You need to provide icons for all states.: Debes proporcionar iconos para todos los estados.
 You will be logged out shortly: Tu sesión se cerrará dentro de un rato
+choose a currency: elegir divisa
+choose access identifiers: seleccionar ID de acceso
+choose the channel: selecciona canal
+choose the channel group: elige el grupo de canales
 execute: ejecutar
 hourly: Cada hora
 or add a delay: o agregar un retraso
+prefix: prefijo
+reset chart view: volver a la vista principal
+suffix: sufijo
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+0% tilt angle: ~
+100% tilt angle: ~
+A confirmation upon successful device unlocking.: ~
 Active from: ~
 Active to: ~
 Activity conditions: ~
+Additional time margin: ~
+Adjust temperature: ~
+Adjust temperatures: ~
+After the delay: ~
+After the delay, but only when it's dark: ~
+Alarm armament sensor: ~
+Algorithm: ~
+All programs must define at least one temperature threshold.: ~
+Always decrement: ~
+Always increment: ~
+Anti-freeze and overheat protection: ~
+Anti-freeze protection: ~
+Are you sure you want to change channel’s location?: ~
+Are you sure you want to change channel’s visibility?: ~
+Are you sure you want to change device’s location?: ~
+Are you sure you want to delete this channel?: ~
+Automatic: ~
+Automatic front panel turn off: ~
+Automatic front panel turn off after: ~
+Automatic thermostat: ~
+Automatic time synchronization: ~
+Aux thermometer: ~
+Aux thermometer type: ~
 Available variables: ~
+Average: ~
+Behavior settings: ~
+Binary sensor: ~
+Brightness adjustment for automatic mode: ~
+Brightness level: ~
+Button volume: ~
+Buttons upside down: ~
+Candle: ~
+Cannot update OCR settings. Try again in a while.: ~
+Change percentage by: ~
+Change percentage to: ~
+Change tilt by: ~
+Change tilt to: ~
+Changing channel’s visibility will also change the visibility of other items.: ~
+Changing the location will also imply changing the location of the following items.: ~
+Channels that are meant to work with each other must be in the same location.: ~
+Clock error: ~
+Close value: ~
+Collapse: ~
+Collapse or stop: ~
+Collapse partially: ~
+Command has been sent to the device. Try refreshing the photo in a while.: ~
+Common currencies: ~
+Configuration not available yet. Waiting for the device to connect.: ~
+Confirm if you want to perform the calibration.: ~
+Conflict: ~
+Cool to: ~
+Cooling mode: ~
+'Cooling: {percent}%': ~
+Costs: ~
+Could not restart the device.: ~
+Could not set the device time.: ~
+Counter type: ~
+Curtain: ~
+Dark mode: ~
+Data: ~
 Date range: ~
 Daytime criteria: ~
+'Device GUID: %deviceGuid%': ~
+Device settings: ~
+Device should be restarting now.: ~
+Device time has been set.: ~
+Differential thermostat: ~
+Domestic hot water: ~
+Dryer: ~
+Edit area crop: ~
+Edit program settings: ~
+Electricity meter active power history: ~
+Electricity meter current history: ~
+Electricity meter voltage aberrations history: ~
+Electricity meter voltage history: ~
+Enable floor temperature control: ~
+Enable generic cooler temperature control: ~
+Enable generic heater temperature control: ~
+Enable support for OCR readings for this channel: ~
+Enable water temperature control: ~
+Example value: ~
+Expand: ~
+Expand or stop: ~
+Expand partially: ~
+Expected maximum increment: ~
+External sensor disabling the thermostat: ~
+Facade blind operation: ~
+Fan: ~
+'Field: {propertyPath}.': ~
+Fill missing data: ~
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+For a period: ~
+Forced off by sensor: ~
+Full tilting time: ~
+Function disabled: ~
+General purpose meter: ~
+HVAC: ~
+Heat or cold source switch: ~
+Heat to: ~
+Heating / ventilation / air conditioning: ~
+Heating mode: ~
+'Heating: {percent}%': ~
+High threshold: ~
+High value: ~
+History: ~
+Home screen content: ~
+Hotel card sensor: ~
+If you confirm the installation and wish to unlock this device, please click the link below.: ~
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
+Image area crop: ~
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: ~
+Increment and decrement: ~
+Installer e-mail address: ~
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: ~
+Invalid e-mail address.: ~
+Invalid unlock code.: ~
+Last paired device: ~
+Light mode: ~
+Lighting level: ~
+Lighting mode: ~
+List of available variables: ~
+Locked: ~
+Low threshold: ~
+Low threshold must be less than high threshold.: ~
+Low value: ~
+Main thermometer: ~
+Max: ~
+Maximum duration is one year.: ~
+Maximum temperature that can be set from the device: ~
+Measurement settings: ~
+Min: ~
+Minimum OFF time before cooling can be turned on: ~
+Minimum OFF time before heating can be turned on: ~
+Minimum OFF time before heating/cooling can be turned on: ~
+Minimum ON time before cooling can be turned off: ~
+Minimum ON time before heating can be turned off: ~
+Minimum ON time before heating/cooling can be turned off: ~
+Minimum temperature must be lower than maximum temperature.: ~
+Minimum temperature that can be set from the device: ~
+'Mode: cool': ~
+'Mode: heat': ~
+'Mode: off': ~
+Motor upside down: ~
 No results: ~
 Notification body is set by the firmware.: ~
 Notification must have recipients.: ~
 Notification title is set by the firmware.: ~
 Notifications (defined): ~
 Notifications (sent per hour): ~
+'OCR service responded with error: {status}': ~
+OCR settings: ~
 OR: ~
+Off with duration: ~
+On with duration: ~
+Open value: ~
+Output value on error: ~
+Overheat protection: ~
+Pair new devices or sensors: ~
+Pairing request sent.: ~
+Pairing subdevices is unsupported in the firmware.: ~
+Phase LED type: ~
+Photo interval: ~
+Please find the device details below.: ~
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: ~
+Please provide the installer e-mail address to request the device unlock.: ~
 Please select and configure the action: ~
+Program {programNo}: ~
+Projector screen: ~
+Pump switch: ~
+Push notifications limit has been exceeded: ~
+Reference to the channel will be removed from the items below.: ~
+Refresh interval: ~
+Refresh the config: ~
+Refreshing the configuration will overwrite the changes you made here.: ~
+Reload last photo: ~
+Remote restart is unsupported in the firmware.: ~
+Remove this item: ~
+Request device unlock: ~
+Reset to defaults: ~
+Restart the device: ~
+Reveal or stop: ~
+Roller garage door: ~
+SUPLA - Confirm unlocking device for authorized installers: ~
+SUPLA – your device has been unlocked!: ~
+Screen brightness: ~
 Selected: ~
+Set HVAC parameters: ~
+Set the device time: ~
 Settings: ~
+Settings have not been saved!: ~
+Show data: ~
+Shut or stop: ~
+Some features depend on this channel: ~
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
+Status LED: ~
+Store active power history: ~
+Store current history: ~
+Store voltage history: ~
+Subfunction: ~
+Switch to manual mode: ~
+Switch to program mode: ~
 THEN: ~
+Take a photo now: ~
+Temperature adjustment only: ~
+Temperature difference is too big between {min}°C and {max}°C.: ~
+Temperature setpoint change switches to manual mode: ~
+Temporal override: ~
+Terrace awning: ~
+The channel has been deleted.: ~
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: ~
+The device could not be unlocked.: ~
+The device has been unlocked already.: ~
+The device has been unlocked.: ~
+The device has channel conflict and cannot work.: ~
+The device is locked: ~
+The following channels will be also removed along with their dependencies.: ~
+The items below rely on this channel, so they will be deleted.: ~
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
+The thermostat will not work if the main thermometer is not set.: ~
+Thermometer error: ~
+Thermometers configuration: ~
+Thermostat programs: ~
+This action will result in restarting the device. It will not be available for a while.: ~
+This channel was missing during last device registration attempt.: ~
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
+Tilt angle: ~
+Tilt control type: ~
+Tilt percent: ~
 Time: ~
 Today, it would be active from {from} to {to}.: ~
+Turn off: ~
+Unlock the device: ~
+Unlocked: ~
+Until a date and time: ~
+Until the next change: ~
+Use device default: ~
 Use working schedule for this reaction: ~
+Used current transformer type: ~
+User interface: ~
+Value divider: ~
+Value multiplier: ~
+Vertical blind: ~
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
+Week: ~
+Weekly schedule: ~
+When the alarm is armed: ~
+When the alarm is armed or disarmed: ~
+When the alarm is disarmed: ~
+When the curtain position changes: ~
+When the curtain reaches: ~
+When the curtain reaches a certain position: ~
+When the facade blind position changes: ~
+When the facade blind reaches: ~
+When the facade blind reaches a certain position: ~
+When the hotel card has been taken: ~
+When the hotel card is put in: ~
+When the hotel card is put in or has been taken: ~
+When the meter reaches a certain value: ~
+When the meter value changes: ~
+When the meter value will be: ~
+When the projector screen position changes: ~
+When the projector screen reaches: ~
+When the projector screen reaches a certain position: ~
+When the roller garage door a certain position: ~
+When the roller garage door position changes: ~
+When the roller garage door reaches: ~
+When the terrace awning position changes: ~
+When the terrace awning reaches: ~
+When the terrace awning reaches a certain position: ~
+When the thermostat starts cooling: ~
+When the thermostat starts heating: ~
+When the thermostat starts or stops cooling: ~
+When the thermostat starts or stops heating: ~
+When the thermostat starts or stops heating or cooling: ~
+When the thermostat stops cooling: ~
+When the thermostat stops heating: ~
+When the vertical blind position changes: ~
+When the vertical blind reaches: ~
+When the vertical blind reaches a certain position: ~
+Will be deleted after: ~
+With a timer: ~
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
+You need to provide icons for all states in light mode.: ~
+Your device has been unlocked by the installer.: ~
+and wait until the meter will be: ~
+auxThermometerType_DISABLED: ~
+auxThermometerType_FLOOR: ~
+auxThermometerType_GENERIC_COOLER: ~
+auxThermometerType_GENERIC_HEATER: ~
+auxThermometerType_NOT_SET: ~
+auxThermometerType_WATER: ~
+blue, otherwise: ~
+blue, when voltage lower than the low threshold: ~
+choose the currency: ~
+configuration missing: ~
+cool: ~
+day: ~
+default: ~
+green, otherwise: ~
+green, when power less than the low threshold: ~
+heat: ~
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
+homeScreenContent_NONE: ~
+homeScreenContent_TEMPERATURE: ~
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
+homeScreenContent_TEMPERATURE_TIME: ~
+homeScreenContent_TIME: ~
+homeScreenContent_TIME_DATE: ~
+hour: ~
+keepHistoryMeasurementWarningSelected: ~
+max: ~
 midnight: ~
+milliseconds: ~
+min: ~
+ocrLightingMode_ALWAYS_ON: ~
+ocrLightingMode_AUTO: ~
+ocrLightingMode_OFF: ~
+'off': ~
+red, when power higher than the high threshold: ~
+red, when voltage higher than the high threshold: ~
+seconds: ~
+statusLed_ALWAYS_OFF: ~
+statusLed_OFF_WHEN_CONNECTED: ~
+statusLed_ON_WHEN_CONNECTED: ~
+subdevicePairingResult_CMD_RESULT_UNKNOWN: ~
+subdevicePairingResult_NOT_STARTED_BUSY: ~
+subdevicePairingResult_NOT_SUPPORTED: ~
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: ~
+subdevicePairingResult_ONGOING: ~
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: ~
+subdevicePairingResult_PROCEDURE_STARTED: ~
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: ~
+subdevicePairingResult_SUCCESS: ~
+subdevicePairingResult_UNAUTHORIZED: ~
 sunrise: ~
 sunset: ~
 swap: ~
-type {code} to show available variables: ~
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
+thermostatAlgorithm_help: ~
+thermostatOutputValue_help: ~
+thermostatSubfunction_COOL: ~
+thermostatSubfunction_HEAT: ~
+thermostatTemperature_aboveAlarm: ~
+thermostatTemperature_auxMaxSetpoint: ~
+thermostatTemperature_auxMinSetpoint: ~
+thermostatTemperature_belowAlarm: ~
+thermostatTemperature_boost: ~
+thermostatTemperature_comfort: ~
+thermostatTemperature_eco: ~
+thermostatTemperature_freezeProtection: ~
+thermostatTemperature_heatProtection: ~
+thermostatTemperature_histeresis: ~
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: ~
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: ~
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: ~
+tiltControlType_UNKNOWN: ~
+timeMarginMode_custom: ~
+timeMarginMode_device: ~
+timeMarginMode_off: ~
+usedCTType_100A_33mA: ~
+usedCTType_200A_66mA: ~
+usedCTType_400A_133mA: ~
+usedPhaseLedType_OFF: ~
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
+usedPhaseLedType_VOLTAGE_LEVEL: ~
+usedPhaseLedType_VOLTAGE_PRESENCE: ~
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
 '{count} minutes after sunrise': ~
 '{count} minutes after sunset': ~
 '{count} minutes before sunrise': ~
 '{count} minutes before sunset': ~
+'{days} days': ~
 
 #</editor-fold>

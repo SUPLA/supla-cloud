@@ -62,6 +62,9 @@ logs_aggregation_day: Days
 logs_aggregation_hour: Hours
 logs_aggregation_minute: Minutes
 logs_aggregation_month: Months
+ocrLightingMode_ALWAYS_ON: Always on
+ocrLightingMode_AUTO: Automatic
+ocrLightingMode_OFF: 'Off'
 register-slide1-text: Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.
 register-slide1-title: Develop your own building automation
 register-slide2-text: One of the main assumptions of this project is simplicity and availability. SUPLA allows simple light operation or gate opening, when you want to leave your premises, with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Hardware. This way, you can also develop this project!
@@ -151,6 +154,3 @@ usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Voltage presence (inverted)
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-ocrLightingMode_OFF: Off
-ocrLightingMode_AUTO: Automatic
-ocrLightingMode_ALWAYS_ON: Always on

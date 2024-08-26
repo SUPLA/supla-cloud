@@ -127,7 +127,7 @@
                 if (this.channel.config?.ocr) {
                     this.availableTabs.push({
                         route: 'channel.ocrSettings',
-                        header: 'OCR Settings', // i18n
+                        header: 'OCR settings', // i18n
                     });
                 }
             },

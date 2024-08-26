@@ -15,7 +15,7 @@
             </template>
         </subject-dependencies>
         <div v-if="dependencies.channelsToRemove">
-            <p>{{ $t('The following channels will be also removed along with their dependenceis.') }}</p>
+            <p>{{ $t('The following channels will be also removed along with their dependencies.') }}</p>
             <ul>
                 <li v-for="channel in dependencies.channelsToRemove"
                     :key="channel.id">

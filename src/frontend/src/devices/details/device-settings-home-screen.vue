@@ -34,7 +34,7 @@
         </div>
         <transition-expand>
             <div class="form-group mt-2" v-if="homeScreenOffMode !== 'DISABLE'">
-                <label>{{ $t('Automatic screen turn off after') }}</label>
+                <label>{{ $t('Automatic front panel turn off after') }}</label>
                 <div class="mt-3 mb-6">
                     <VueSlider v-model="offDelay" @change="onChange()" tooltip="always"
                         :data="homeScreenOffPossibleDelays" :tooltip-formatter="formatSeconds"
