@@ -447,8 +447,8 @@ class ChannelController extends RestController {
                 ChannelType::GENERAL_PURPOSE_MEASUREMENT,
                 ChannelType::GENERAL_PURPOSE_METER,
             ];
-            $changedKeys = array_diff(array_keys($newConfigToSet), $keysThatDoesNotTriggerReconnect);
-            if (!in_array($channel->getType()->getId(), $typesThatDoesNotTriggerReconnect) && $changedKeys) {
+
+            if (!in_array($channel->getType()->getId(), $typesThatDoesNotTriggerReconnect)) {
                 $this->suplaServer->reconnect();
             }
             return $this->getChannelAction($request, $channel->clearRelationsCount());
