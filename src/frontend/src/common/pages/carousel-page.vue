@@ -4,9 +4,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1 class="carousel-title"
-                            v-title>
-                            <router-link :to="{name: listRouteName}">{{ $t(headerI18n) }}</router-link>
+                        <h1 class="carousel-title">
+                            <router-link :to="{name: listRouteName}">
+                                <span v-if="dontSetPageTitle">{{ $t(headerI18n) }}</span>
+                                <span v-else>{{ $t(headerI18n) }}</span>
+                            </router-link>
                         </h1>
                         <loading-cover :loading="!items">
                             <div v-if="items">
@@ -61,6 +63,7 @@
             listRoute: String,
             limit: Number,
             permanentCarouselView: Boolean,
+            dontSetPageTitle: Boolean,
             idParamName: {
                 type: String,
                 default: 'id',

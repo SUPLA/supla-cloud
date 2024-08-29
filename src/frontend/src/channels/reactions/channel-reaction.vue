@@ -1,5 +1,7 @@
 <template>
-    <PendingChangesPage :header="item.id ? $t('Edit reaction') : $t('New reaction')" :is-pending="hasPendingChanges"
+    <PendingChangesPage
+        :header="item.id ? $t('Edit reaction') : $t('New reaction')" :is-pending="hasPendingChanges"
+        dont-set-page-title
         :deletable="!!item.id" :cancellable="!!item.id"
         @delete="deleteConfirm = true"
         @cancel="cancelChanges()"

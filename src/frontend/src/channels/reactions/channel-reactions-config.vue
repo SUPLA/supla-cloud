@@ -3,6 +3,7 @@
         <CarouselPage
             permanent-carousel-view
             header-i18n="Reactions"
+            dont-set-page-title
             tile="reaction-tile"
             :endpoint="`channels/${subject.id}/reactions?include=subject,owningChannel`"
             create-new-label-i18n="Create new reaction"
