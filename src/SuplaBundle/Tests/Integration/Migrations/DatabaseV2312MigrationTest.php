@@ -93,6 +93,7 @@ class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
         $gasMeter = $this->freshEntityById(IODeviceChannel::class, 78);
         $this->assertEquals(0, $gasMeter->getParam4());
         $staircaseTimer = $this->freshEntityById(IODeviceChannel::class, 49);
+        $this->assertEquals(250, $staircaseTimer->getParam1());
         $this->assertEquals(0, $staircaseTimer->getParam2());
         $this->assertEquals(80, $staircaseTimer->getUserConfigValue('relatedMeterChannelId'));
         $heatMeter = $this->freshEntityById(IODeviceChannel::class, 80);
