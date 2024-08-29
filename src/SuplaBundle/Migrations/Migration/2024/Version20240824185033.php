@@ -42,10 +42,11 @@ class Version20240824185033 extends NoWayBackMigration {
                                              WHERE func IN($relayFunctions) AND (param1 > 0 OR param2 > 0)");
         foreach ($relays as $relay) {
             $userConfig = json_decode($relay['user_config'] ?: '{}', true) ?: [];
-            $relatedMeterId = $relay['func'] == ChannelFunction::STAIRCASETIMER ? $relay['param2'] : $relay['param1'];
+            $param = ChannelFunction::STAIRCASETIMER ? 'param2' : 'param1';
+            $relatedMeterId = $relay['func'] == $relay[$param];
             $userConfig['relatedMeterChannelId'] = intval($relatedMeterId) ?: null;
             $userConfigJson = json_encode($userConfig);
-            $this->addSql('UPDATE supla_dev_channel SET user_config=:user_config, param1=0, param2=0 WHERE id=:id', [
+            $this->addSql('UPDATE supla_dev_channel SET user_config=:user_config, '. $param .'=0 WHERE id=:id', [
                 'id' => $relay['id'],
                 'user_config' => $userConfigJson,
             ]);
