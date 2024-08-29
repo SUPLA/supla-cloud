@@ -10,8 +10,8 @@
             :tooltip-formatter="formattedValue"></vue-slider>
         <div class="pull-right">
             <div class="controls">
-                <a @click="more()"><i class="glyphicon glyphicon-plus"></i></a>
-                <a @click="less()"><i class="glyphicon glyphicon-minus"></i></a>
+                <a @click="less()" class="mx-1"><i class="glyphicon glyphicon-minus"></i></a>
+                <a @click="more()" class="mx-1"><i class="glyphicon glyphicon-plus"></i></a>
                 <slot name="buttons"></slot>
             </div>
         </div>
