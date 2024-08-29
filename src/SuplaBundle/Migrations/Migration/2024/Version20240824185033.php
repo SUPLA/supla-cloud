@@ -46,7 +46,7 @@ class Version20240824185033 extends NoWayBackMigration {
             $relatedMeterId = $relay[$param];
             $userConfig['relatedMeterChannelId'] = intval($relatedMeterId) ?: null;
             $userConfigJson = json_encode($userConfig);
-            $this->addSql('UPDATE supla_dev_channel SET user_config=:user_config, '. $param .'=0 WHERE id=:id', [
+            $this->addSql("UPDATE supla_dev_channel SET user_config=:user_config, {$param}=0 WHERE id=:id", [
                 'id' => $relay['id'],
                 'user_config' => $userConfigJson,
             ]);
