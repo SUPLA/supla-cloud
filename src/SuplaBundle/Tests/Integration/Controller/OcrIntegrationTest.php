@@ -99,7 +99,7 @@ class OcrIntegrationTest extends IntegrationTestCase {
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,5010,330,%d',
             $this->device->getId(),
             $this->counter->getId(),
-            ChannelConfigChangeScope::JSON_BASIC
+            ChannelConfigChangeScope::OCR
         ));
     }
 

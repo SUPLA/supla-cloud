@@ -30,7 +30,6 @@ class IODeviceChannelEntityListener {
         if (isset($changeArray['function'])) {
             $changes->add(ChannelConfigChangeScope::CHANNEL_FUNCTION);
         }
-        $changedConfigKeys = [];
         if (isset($changeArray['userConfig'])) {
             $before = json_decode($changeArray['userConfig'][0] ?: '[]', true);
             $after = json_decode($changeArray['userConfig'][1] ?: '[]', true);
@@ -57,6 +56,10 @@ class IODeviceChannelEntityListener {
                     $changes->add(ChannelConfigChangeScope::ALEXA_INTEGRATION_ENABLED);
                 }
             }
+            if (in_array('ocr', $changedConfigKeys)) {
+                $changes->add(ChannelConfigChangeScope::OCR);
+                unset($changedConfigKeys[array_search('ocr', $changedConfigKeys)]);
+            }
             if ($changedConfigKeys || $relationsChanges) {
                 $changes->add(ChannelConfigChangeScope::JSON_BASIC);
             }
@@ -65,19 +68,17 @@ class IODeviceChannelEntityListener {
             $changes->add(ChannelConfigChangeScope::ICON);
         }
         $this->suplaServer->channelConfigChanged($channel, $changes->getValue());
-        $this->reconnectUserIfNeeded($channel, $changes, $changedConfigKeys);
+        $this->reconnectUserIfNeeded($channel, $changes);
     }
 
-    private function reconnectUserIfNeeded(IODeviceChannel $channel, PrzemekBitsBuilder $changes, array $changedConfigKeys): void {
-        $keysThatDoesNotTriggerReconnect = ['ocr'];
+    private function reconnectUserIfNeeded(IODeviceChannel $channel, PrzemekBitsBuilder $changes): void {
         $typesThatDoesNotTriggerReconnect = [
             ChannelType::HVAC,
             ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             ChannelType::GENERAL_PURPOSE_METER,
         ];
-        $changedConfigKeys = array_diff($changedConfigKeys, $keysThatDoesNotTriggerReconnect);
-        $onlyConfigChanged = $changes->getValue() === ChannelConfigChangeScope::JSON_BASIC;
-        if (!in_array($channel->getType()->getId(), $typesThatDoesNotTriggerReconnect) && ($changedConfigKeys || !$onlyConfigChanged)) {
+        $onlyOcrChanged = $changes->getValue() === ChannelConfigChangeScope::OCR;
+        if (!in_array($channel->getType()->getId(), $typesThatDoesNotTriggerReconnect) && !$onlyOcrChanged) {
             $this->suplaServer->reconnect($channel->getUser());
         }
     }
