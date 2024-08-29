@@ -3,7 +3,7 @@
         <channel-params-sensor-any :channel="channel"
             @change="$emit('change')"></channel-params-sensor-any>
         <dl>
-            <dd>{{ $t('Channel for the sensor') }}</dd>
+            <dd>{{ $t('Fully opened sensor for channel') }}</dd>
             <dt>
                 <channels-id-dropdown :params="'function=' + relatedChannelFunction"
                     v-model="channel.config.openingSensorChannelId"

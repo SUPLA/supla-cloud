@@ -151,8 +151,8 @@ Changing channel’s function will also result in the following changes.: سيؤ
 Channel: القناة
 Channel No: رقم القناة
 Channel available for {serviceName}: القناة متاحة لـ {serviceName}
-Channel for the partial opening sensor: قناة لمستشعر الفتح غير المباشر
-Channel for the sensor: مستشعر القناة
+Partially opened sensor for channel: قناة لمستشعر الفتح غير المباشر
+Fully opened sensor for channel: مستشعر القناة
 Channel group: مجموعة القنوات
 Channel group limit has been exceeded: تم تجاوز حد مجموعات القنوات
 Channel group must consist of at least one channel.: يجب أن تحتوي مجموعة القنوات على قناة واحدة على الأقل.

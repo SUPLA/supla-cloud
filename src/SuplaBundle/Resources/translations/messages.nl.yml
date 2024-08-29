@@ -151,8 +151,8 @@ Changing channel’s function will also result in the following changes.: Het ve
 Channel: Kanaal
 Channel No: Kanaalnummer
 Channel available for {serviceName}: Kanaal beschikbaar voor {serviceName}
-Channel for the partial opening sensor: Kanaal voor intermediaire openingssensor
-Channel for the sensor: Kanaalsensor
+Partially opened sensor for channel: Kanaal voor intermediaire openingssensor
+Fully opened sensor for channel: Kanaalsensor
 Channel group: Kanaalgroep
 Channel group limit has been exceeded: Limiet kanaalgroepen overschreden
 Channel group must consist of at least one channel.: Kanaalgroep moet ten minste één kanaal bevatten.

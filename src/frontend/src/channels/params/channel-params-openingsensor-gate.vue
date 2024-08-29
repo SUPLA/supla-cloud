@@ -4,7 +4,7 @@
             @change="$emit('change')"
             related-channel-function="CONTROLLINGTHEGATE"></channel-params-openingsensor-any>
         <dl>
-            <dd>{{ $t('Channel for the partial opening sensor') }}</dd>
+            <dd>{{ $t('Partially opened sensor for channel') }}</dd>
             <dt>
                 <channels-id-dropdown params="function=CONTROLLINGTHEGATE"
                     v-model="channel.config.openingSensorSecondaryChannelId"

@@ -151,8 +151,8 @@ Changing channel’s function will also result in the following changes.: Spreme
 Channel: Kanal
 Channel No: Številka kanala
 Channel available for {serviceName}: Kanal je na voljo za {serviceName}
-Channel for the partial opening sensor: Kanal za senzor posrednjega odprtja
-Channel for the sensor: Kanalski senzor
+Partially opened sensor for channel: Kanal za senzor posrednjega odprtja
+Fully opened sensor for channel: Kanalski senzor
 Channel group: Skupina kanalov
 Channel group limit has been exceeded: Omejitev skupin kanalov je bil presežen
 Channel group must consist of at least one channel.: Skupina kanalov mora vsebovati vsaj en kanal.

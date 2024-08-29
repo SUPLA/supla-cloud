@@ -151,8 +151,8 @@ Changing channel’s function will also result in the following changes.: Η α�
 Channel: Κανάλι
 Channel No: Αριθμός καναλιού
 Channel available for {serviceName}: Κανάλι διαθέσιμο για {serviceName}
-Channel for the partial opening sensor: Κανάλι αισθητήρα έμμεσου ανοίγματος
-Channel for the sensor: Αισθητήρας καναλιού
+Partially opened sensor for channel: Κανάλι αισθητήρα έμμεσου ανοίγματος
+Fully opened sensor for channel: Αισθητήρας καναλιού
 Channel group: Ομάδα καναλιών
 Channel group limit has been exceeded: Υπέρβαση ορίου των ομάδων καναλιών
 Channel group must consist of at least one channel.: Η ομάδα καναλιών πρέπει να περιέχει τουλάχιστον ένα κανάλι.

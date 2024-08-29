@@ -151,8 +151,8 @@ Changing channel’s function will also result in the following changes.: Kanalo
 Channel: Kanalas
 Channel No: Kanalo numeris
 Channel available for {serviceName}: Kanalas prieinamas {serviceName}
-Channel for the partial opening sensor: Netiesioginio atidarymo jutiklio kanalas
-Channel for the sensor: Jutiklio kanalas
+Partially opened sensor for channel: Netiesioginio atidarymo jutiklio kanalas
+Fully opened sensor for channel: Jutiklio kanalas
 Channel group: Kanalų grupė
 Channel group limit has been exceeded: Viršutinė kanalų grupių riba viršyta
 Channel group must consist of at least one channel.: Kanālu grupā jābūt iekļautam vismaz vienam kanālam.

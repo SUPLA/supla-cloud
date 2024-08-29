@@ -151,8 +151,8 @@ Changing channel’s function will also result in the following changes.: Thay �
 Channel: Kênh
 Channel No: Kênh No
 Channel available for {serviceName}: Kênh có sẵn cho {serviceName}
-Channel for the partial opening sensor: Kênh cảm biến một phần
-Channel for the sensor: Kênh cảm biến
+Partially opened sensor for channel: Kênh cảm biến một phần
+Fully opened sensor for channel: Kênh cảm biến
 Channel group: Nhóm kênh
 Channel group limit has been exceeded: Đã vượt quá giới hạn nhóm kênh.
 Channel group must consist of at least one channel.: Nhóm kênh phải có ít nhất một kênh.

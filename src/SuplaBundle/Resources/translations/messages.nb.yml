@@ -151,8 +151,8 @@ Changing channel’s function will also result in the following changes.: Endrin
 Channel: Kanal
 Channel No: Kanalnummer
 Channel available for {serviceName}: Kanal tilgjengelig for {serviceName}
-Channel for the partial opening sensor: Kanal for delvisåpning sensor
-Channel for the sensor: Sensor for kanalen
+Partially opened sensor for channel: Kanal for delvisåpning sensor
+Fully opened sensor for channel: Sensor for kanalen
 Channel group: Kanalgruppe
 Channel group limit has been exceeded: Maksimum antall kanalgrupper har blitt rukket
 Channel group must consist of at least one channel.: Kanalgruppe må inneholde minst en kanal

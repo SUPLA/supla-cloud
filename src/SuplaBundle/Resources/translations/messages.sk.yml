@@ -151,8 +151,8 @@ Changing channel’s function will also result in the following changes.: Zmena 
 Channel: Kanál
 Channel No: Číslo kanála
 Channel available for {serviceName}: Kanál dostupný pre {serviceName}
-Channel for the partial opening sensor: Kanál pre snímač prostredného otvorenia
-Channel for the sensor: Snímač pre kanál
+Partially opened sensor for channel: Kanál pre snímač prostredného otvorenia
+Fully opened sensor for channel: Snímač pre kanál
 Channel group: Skupina kanálov
 Channel group limit has been exceeded: Bol prekročený limit skupín kanálov
 Channel group must consist of at least one channel.: Skupina kanálov musí obsahovať aspoň jeden kanál.

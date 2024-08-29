@@ -151,8 +151,8 @@ Changing channel’s function will also result in the following changes.: La mod
 Channel: Chaîne
 Channel No: N° chaîne
 Channel available for {serviceName}: Canal disponible pour {serviceName}
-Channel for the partial opening sensor: Chaîne pour capteur d'ouverture partielle
-Channel for the sensor: Capteur chaîne
+Partially opened sensor for channel: Chaîne pour capteur d'ouverture partielle
+Fully opened sensor for channel: Capteur chaîne
 Channel group: Groupe de chaînes
 Channel group limit has been exceeded: La limite des groupes de canaux a été dépassée
 Channel group must consist of at least one channel.: Groupe de chaînes doit contenir au moins une chaîne.

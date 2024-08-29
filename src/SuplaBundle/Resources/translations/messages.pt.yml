@@ -151,8 +151,8 @@ Changing channel’s function will also result in the following changes.: A muda
 Channel: Canal
 Channel No: Número do canal
 Channel available for {serviceName}: Canal disponível para {serviceName}
-Channel for the partial opening sensor: Canal para o sensor de abertura parcial
-Channel for the sensor: Sensor do canal
+Partially opened sensor for channel: Canal para o sensor de abertura parcial
+Fully opened sensor for channel: Sensor do canal
 Channel group: Grupo de canais
 Channel group limit has been exceeded: O limite de grupos do canal foi excedido
 Channel group must consist of at least one channel.: O grupo de canais deve conter pelo menos um canal.

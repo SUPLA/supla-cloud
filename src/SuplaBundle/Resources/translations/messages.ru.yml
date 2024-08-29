@@ -129,8 +129,8 @@ Change icon: Сменить значок
 Changing channel’s function will also result in the following changes.: Изменение функции канала повлечет также следующие изменения.
 Channel: Канал
 Channel No: Номер канала
-Channel for the partial opening sensor: Канал для датчика промежуточного открытия
-Channel for the sensor: Канал датчика
+Partially opened sensor for channel: Канал для датчика промежуточного открытия
+Fully opened sensor for channel: Канал датчика
 Channel group: Группа каналов
 Channel group limit has been exceeded: Лимит групп каналов превышен
 Channel group must consist of at least one channel.: Группа каналов должна содержать, по крайней мере, один канал.

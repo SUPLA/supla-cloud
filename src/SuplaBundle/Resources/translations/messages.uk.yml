@@ -151,8 +151,8 @@ Changing channel’s function will also result in the following changes.: Змі
 Channel: Канал
 Channel No: Номер каналу
 Channel available for {serviceName}: Канал доступний для {serviceName}
-Channel for the partial opening sensor: Канал для датчика проміжного відкриття
-Channel for the sensor: Датчик для каналу
+Partially opened sensor for channel: Канал для датчика проміжного відкриття
+Fully opened sensor for channel: Датчик для каналу
 Channel group: Група каналів
 Channel group limit has been exceeded: Ліміт групи каналів перевищено
 Channel group must consist of at least one channel.: Група каналів має містити принаймні один канал.

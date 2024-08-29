@@ -196,8 +196,8 @@ Changing the location will also imply changing the location of the following ite
 Channel: Kanał
 Channel No: Numer kanału
 Channel available for {serviceName}: Kanał dostępny dla {serviceName}
-Channel for the partial opening sensor: Kanał dla czujnika pośredniego otwarcia
-Channel for the sensor: Czujnik dla kanału
+Partially opened sensor for channel: Czujnik pośredniego otwarcia dla kanału
+Fully opened sensor for channel: Czujnik całkowitego otwarcia dla kanału
 Channel group: Grupa kanałów
 Channel group limit has been exceeded: Limit grup kanałów został przekroczony
 Channel group must consist of at least one channel.: Grupa kanałów musi zawierać przynajmniej jeden kanał.

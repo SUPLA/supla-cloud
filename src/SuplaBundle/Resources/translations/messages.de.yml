@@ -151,8 +151,8 @@ Changing channel’s function will also result in the following changes.: Eine �
 Channel: Kanal
 Channel No: Kanal Nummer
 Channel available for {serviceName}: Kanal verfügbar für {serviceName}
-Channel for the partial opening sensor: Kanal für indirekt öffnenden Sensor
-Channel for the sensor: Sensor für den Kanal
+Partially opened sensor for channel: Kanal für indirekt öffnenden Sensor
+Fully opened sensor for channel: Sensor für den Kanal
 Channel group: Kanalgruppe
 Channel group limit has been exceeded: Das Limit der Kanalgruppen wurde überschritten
 Channel group must consist of at least one channel.: Die Kanalgruppe muss mindestens einen Kanal enthalten
