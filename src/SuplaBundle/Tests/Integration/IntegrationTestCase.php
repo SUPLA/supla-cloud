@@ -85,6 +85,7 @@ abstract class IntegrationTestCase extends WebTestCase {
                 $testState[$var->getName()] = $var->getValue($this);
             }
             self::$dataForTests[static::class] = $testState;
+            SuplaServerMock::reset();
         }
         if (isset(self::$dataForTests[static::class])) {
             foreach (self::$dataForTests[static::class] as $fieldName => $value) {

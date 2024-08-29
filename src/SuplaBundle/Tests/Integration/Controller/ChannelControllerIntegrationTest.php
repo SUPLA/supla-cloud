@@ -418,6 +418,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             $gateChannel->getId(),
             ChannelConfigChangeScope::RELATIONS | ChannelConfigChangeScope::JSON_BASIC
         ));
+        $this->assertSuplaCommandExecuted('USER-RECONNECT:1');
     }
 
     public function testCanChangeChannelFunctionToNone() {
@@ -432,6 +433,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $sensorChannel = $this->getEntityManager()->find(IODeviceChannel::class, $sensorChannel->getId());
         $this->assertEquals(ChannelFunction::NONE, $sensorChannel->getFunction()->getId());
+        $this->assertSuplaCommandExecuted('USER-RECONNECT:1');
     }
 
     public function testChangingChannelFunctionFromPowerswitchToOpeningGateWithParam() {
@@ -450,6 +452,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->refresh($relayChannel);
         $this->assertEquals(1000, $relayChannel->getParam1(), 'Opening time has been set.');
         $this->assertEquals(ChannelFunction::CONTROLLINGTHEGATEWAYLOCK, $relayChannel->getFunction()->getId());
+        $this->assertSuplaCommandExecuted('USER-RECONNECT:1');
     }
 
     public function testChangingChannelFunctionFromPowerswitchToOpeningGateWithConfig() {

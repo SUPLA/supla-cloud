@@ -21,7 +21,11 @@ use SuplaBundle\Supla\SuplaServerMock;
 
 trait SuplaAssertions {
     protected function assertSuplaCommandExecuted(string $command) {
-        $this->assertContains($command, SuplaServerMock::$executedCommands, implode(PHP_EOL, SuplaServerMock::$executedCommands));
+        $this->assertContains(
+            $command,
+            SuplaServerMock::$executedCommands,
+            'Executed commands: ' . (SuplaServerMock::$executedCommands ? implode(PHP_EOL, SuplaServerMock::$executedCommands) : 'NONE')
+        );
     }
 
     protected function assertSuplaCommandNotExecuted(string $command) {

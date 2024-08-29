@@ -441,16 +441,6 @@ class ChannelController extends RestController {
                 }
                 return $channel;
             });
-            $keysThatDoesNotTriggerReconnect = ['ocr'];
-            $typesThatDoesNotTriggerReconnect = [
-                ChannelType::HVAC,
-                ChannelType::GENERAL_PURPOSE_MEASUREMENT,
-                ChannelType::GENERAL_PURPOSE_METER,
-            ];
-
-            if (!in_array($channel->getType()->getId(), $typesThatDoesNotTriggerReconnect)) {
-                $this->suplaServer->reconnect();
-            }
             return $this->getChannelAction($request, $channel->clearRelationsCount());
         } else {
             $actionParams = json_decode($request->getContent(), true);
