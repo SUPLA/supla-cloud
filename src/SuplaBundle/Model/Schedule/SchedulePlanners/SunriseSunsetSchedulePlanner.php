@@ -25,8 +25,9 @@ use DateTimeZone;
 class SunriseSunsetSchedulePlanner extends SchedulePlanner {
 
     // SR -> SunRise, SS -> SunSet
-    const SPECIFICATION_REGEX = '#^S([SR])(-?\d+)#';
-    const MINIMUM_SECONDS_TO_NEXT_SUN = 360;
+    private const SPECIFICATION_REGEX = '#^S([SR])(-?\d+)#';
+    private const MINIMUM_SECONDS_TO_NEXT_SUN = 360;
+    private const DEFAULT_COORDINATES = ['latitude' => 52.25, 'longitude' => 21];
 
     /** @inheritdoc */
     public function calculateNextScheduleExecution(string $crontab, DateTime $currentDate): DateTime {
@@ -52,7 +53,7 @@ class SunriseSunsetSchedulePlanner extends SchedulePlanner {
     private function calculateNextRunDateBasedOnSun(string $crontab, DateTime $currentDate) {
         preg_match(self::SPECIFICATION_REGEX, $crontab, $matches);
         $timezone = new DateTimeZone(date_default_timezone_get());
-        $location = ($timezone)->getLocation();
+        $location = $timezone->getLocation() ?: self::DEFAULT_COORDINATES;
         $function = 'date_' . ($matches[1] == 'S' ? 'sunset' : 'sunrise');
         $nextSun = $function($currentDate->getTimestamp(), SUNFUNCS_RET_TIMESTAMP, $location['latitude'], $location['longitude']);
         $nextSun += intval($matches[2]) * 60;
