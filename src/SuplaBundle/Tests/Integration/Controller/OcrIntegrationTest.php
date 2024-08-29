@@ -21,6 +21,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Enums\ChannelConfigChangeScope;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -94,6 +95,12 @@ class OcrIntegrationTest extends IntegrationTestCase {
         $counter = $this->freshEntity($this->counter);
         $this->assertEquals($ocrSettings, $counter->getUserConfigValue('ocr'));
         $this->assertSuplaCommandNotExecuted('USER-RECONNECT:1');
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,5010,330,%d',
+            $this->device->getId(),
+            $this->counter->getId(),
+            ChannelConfigChangeScope::JSON_BASIC
+        ));
     }
 
     public function testTakingOcrPhoto() {
