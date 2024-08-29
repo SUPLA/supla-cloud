@@ -100,7 +100,7 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
         $configToSynchronize = array_intersect_key($ocrConfig, array_flip(self::KEYS_TO_SYNCHRONIZE));
         if ($configToSynchronize != $configToSynchronizeBefore) {
             try {
-                $this->ocr->updateSettings($subject, array_intersect_key($ocrConfig, array_flip(self::KEYS_TO_SYNCHRONIZE)));
+                $this->ocr->updateSettings($subject, $configToSynchronize);
             } catch (ApiException $e) {
                 Assertion::true(false, 'Cannot update OCR settings. Try again in a while.'); // i18n
             }
