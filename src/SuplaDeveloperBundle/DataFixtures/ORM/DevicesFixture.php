@@ -343,10 +343,10 @@ class DevicesFixture extends SuplaFixture {
                         ],
                         'hiddenConfigFields' => [
                             //"mainThermometerChannelNo",
-                            "auxThermometerChannelNo",
+//                            "auxThermometerChannelNo",
                             //"binarySensorChannelNo",
                             //"auxThermometerType",
-                            //"antiFreezeAndOverheatProtectionEnabled",
+                            "antiFreezeAndOverheatProtectionEnabled",
                             //"usedAlgorithm",
                             //"minOnTimeS",
                             //"minOffTimeS",
@@ -356,7 +356,7 @@ class DevicesFixture extends SuplaFixture {
                             //"useSeparateHeatCoolOutputs",
                             //"masterThermostatChannelNo",
                             //"heatOrColdSourceSwitchChannelNo",
-                            //"pumpSwitchChannelNo",
+                            "pumpSwitchChannelNo",
                             //"temperatureSetpointChangeSwitchesToManualMode",
                         ],
                         'readOnlyTemperatureConfigFields' => [
@@ -371,7 +371,7 @@ class DevicesFixture extends SuplaFixture {
                             //"auxMinSetpoint",
                             //"auxMaxSetpoint",
                         ],
-                        'hiddenTempretureConfigFields' => [
+                        'hiddenTemperatureConfigFields' => [
                             //"freezeProtection",
                             //"eco",
                             "comfort",
@@ -389,6 +389,13 @@ class DevicesFixture extends SuplaFixture {
                         'auxThermometerChannelNo' => null,
                         'binarySensorChannelNo' => 5,
                         'usedAlgorithm' => 'ON_OFF_SETPOINT_AT_MOST',
+                        'antiFreezeAndOverheatProtectionEnabled' => true,
+                        'temperatures' => [
+                            'freezeProtection' => 1100,
+                            'eco' => 1800,
+                            'comfort' => 2000,
+                            'boost' => 2500,
+                        ],
                         'weeklySchedule' => [
                             'programSettings' => [
                                 '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2400, 'setpointTemperatureCool' => 0],

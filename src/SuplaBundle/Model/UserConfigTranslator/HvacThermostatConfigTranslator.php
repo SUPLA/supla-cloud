@@ -123,10 +123,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 'minOffTimeS' => $subject->getUserConfigValue('minOffTimeS', 0),
                 'outputValueOnError' => $subject->getUserConfigValue('outputValueOnError', 0),
                 'weeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('weeklySchedule')),
-                'temperatures' => array_merge(
-                    ['auxMinSetpoint' => '', 'auxMaxSetpoint' => '', 'freezeProtection' => '', 'heatProtection' => '', 'histeresis' => ''],
-                    array_map([$this, 'adjustTemperature'], $subject->getUserConfigValue('temperatures', []))
-                ),
+                'temperatures' => $this->buildTemperaturesArray($subject),
                 'temperatureConstraints' =>
                     array_map([$this, 'adjustTemperature'], $subject->getProperties()['temperatures'] ?? []) ?: new \stdClass(),
                 'pumpSwitchAvailable' => $this->deviceHasChannelWithFunction($subject, CF::PUMPSWITCH()),
@@ -135,6 +132,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 'heatOrColdSourceSwitchChannelId' => $heatOrColdSourceSwitch ? $heatOrColdSourceSwitch->getId() : null,
                 'heatingModeAvailable' => $this->isHeatingModeAvailable($subject),
                 'coolingModeAvailable' => $this->isCoolingModeAvailable($subject),
+                'readOnlyTemperatureConfigFields' => $subject->getProperty('readOnlyTemperatureConfigFields', []),
             ];
             if ($subject->getFunction()->getId() === CF::HVAC_THERMOSTAT) {
                 $config['subfunction'] = $subject->getUserConfigValue('subfunction');
@@ -306,20 +304,26 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             Assert::that($config['temperatures'])->isArray();
             $newTemps = $config['temperatures'];
             $temps = $subject->getUserConfigValue('temperatures', []);
+            $currentTemperatures = $this->buildTemperaturesArray($subject);
             foreach ($newTemps as $tempKey => $newTemp) {
-                Assertion::inArray($tempKey, [
-                    'freezeProtection', 'heatProtection', 'auxMinSetpoint', 'auxMaxSetpoint', 'histeresis', 'eco', 'comfort', 'boost',
-                    'belowAlarm', 'aboveAlarm',
-                ]);
-                if (!$newTemp && $newTemp !== 0) {
-                    if (isset($temps[$tempKey])) {
-                        unset($temps[$tempKey]);
-                    }
-                    continue;
-                }
-                Assertion::numeric($newTemp);
+                Assertion::inArray($tempKey, array_keys($currentTemperatures));
                 $constraintName = ['histeresis' => 'histeresis', 'auxMinSetpoint' => 'aux', 'auxMaxSetpoint' => 'aux'][$tempKey] ?? 'room';
-                $temps[$tempKey] = $this->validateTemperature($subject, $newTemp, $constraintName);
+                $newTempForConfig = '';
+                if (is_numeric($newTemp)) {
+                    $newTempForConfig = $this->validateTemperature($subject, $newTemp, $constraintName);
+                }
+                if ($newTempForConfig !== ($temps[$tempKey] ?? '')) {
+                    $readOnlyTemperatures = $subject->getProperty('readOnlyTemperatureConfigFields', []);
+                    Assertion::notInArray($tempKey, $readOnlyTemperatures, 'Cannot change the temperature %s. It is read only.');
+                    if (!$newTemp && $newTemp !== 0) {
+                        if (isset($temps[$tempKey])) {
+                            unset($temps[$tempKey]);
+                        }
+                        continue;
+                    }
+                    Assertion::numeric($newTemp);
+                    $temps[$tempKey] = $newTempForConfig;
+                }
             }
             $this->validateTemperatures($subject, $temps);
             $subject->setUserConfigValue('temperatures', $temps);
@@ -351,10 +355,10 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         if ($constraintName) {
             $constraints = $subject->getProperties()['temperatures'] ?? [];
             if (array_key_exists("{$constraintName}Min", $constraints)) {
-                Assertion::greaterOrEqualThan($adjustedTemperature / 100, $constraints["{$constraintName}Min"] / 100);
+                Assertion::greaterOrEqualThan($adjustedTemperature / 100, $constraints["{$constraintName}Min"] / 100, null, $constraintName);
             }
             if (array_key_exists("{$constraintName}Max", $constraints)) {
-                Assertion::lessOrEqualThan($adjustedTemperature / 100, $constraints["{$constraintName}Max"] / 100);
+                Assertion::lessOrEqualThan($adjustedTemperature / 100, $constraints["{$constraintName}Max"] / 100, null, $constraintName);
             }
         }
         return $adjustedTemperature;
@@ -494,5 +498,14 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         $hasCoolSubfunction = $subject->getUserConfigValue('subfunction') === 'COOL';
         $isHeatingOnly = in_array('subfunction', $subject->getProperty('readOnlyConfigFields', [])) && !$hasCoolSubfunction;
         return !$isHeatingOnly && ($hasCoolingFunction || $hasCoolSubfunction);
+    }
+
+    private function buildTemperaturesArray(HasUserConfig $subject): array {
+        $temperatures = array_merge(
+            ['auxMinSetpoint' => '', 'auxMaxSetpoint' => '', 'freezeProtection' => '', 'heatProtection' => '', 'histeresis' => ''],
+            array_map([$this, 'adjustTemperature'], $subject->getUserConfigValue('temperatures', []))
+        );
+        $hiddenTemperatures = $subject->getProperty('hiddenTemperatureConfigFields', []);
+        return array_diff_key($temperatures, array_flip($hiddenTemperatures));
     }
 }

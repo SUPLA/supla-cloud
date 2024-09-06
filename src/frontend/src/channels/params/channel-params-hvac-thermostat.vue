@@ -105,6 +105,7 @@
                                                         :min="temp.min"
                                                         :max="temp.max"
                                                         class="form-control text-center"
+                                                        :disabled="!canChangeTemperature(temp.name)"
                                                         v-model="channel.config.temperatures[temp.name]"
                                                         @change="temperatureChanged(temp.name)">
                                                     <span class="input-group-addon">&deg;C</span>
@@ -113,29 +114,31 @@
                                         </template>
                                     </dl>
                                 </transition-expand>
-                                <dl v-for="temp in otherTemperatures" :key="`dd${temp.name}`">
-                                    <dd>{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
-                                    <dt>
-                                        <span class="input-group">
-                                            <input type="number"
-                                                step="0.1"
-                                                :min="temp.min"
-                                                :max="temp.max"
-                                                class="form-control text-center"
-                                                v-model="channel.config.temperatures[temp.name]"
-                                                @change="temperatureChanged(temp.name)">
-                                            <span class="input-group-addon">&deg;C</span>
-                                        </span>
-                                    </dt>
-                                </dl>
+
                             </div>
                         </transition-expand>
                     </div>
                 </transition-expand>
+                <dl v-for="temp in otherTemperatures" :key="`dd${temp.name}`">
+                    <dd>{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
+                    <dt>
+                        <span class="input-group">
+                            <input type="number"
+                                step="0.1"
+                                :min="temp.min"
+                                :max="temp.max"
+                                class="form-control text-center"
+                                :disabled="!canChangeTemperature(temp.name)"
+                                v-model="channel.config.temperatures[temp.name]"
+                                @change="temperatureChanged(temp.name)">
+                            <span class="input-group-addon">&deg;C</span>
+                        </span>
+                    </dt>
+                </dl>
             </div>
         </transition-expand>
         <a class="d-flex accordion-header" @click="displayGroup('freeze')"
-            v-if="canDisplayAnySetting('antiFreezeAndOverheatProtectionEnabled')">
+            v-if="canDisplayAnySetting('antiFreezeAndOverheatProtectionEnabled') || (channel.config.antiFreezeAndOverheatProtectionEnabled && freezeHeatProtectionTemperatures.length)">
             <span class="flex-grow-1" v-if="freezeHeatProtectionTemperatures.length === 2">
                 {{ $t('Anti-freeze and overheat protection') }}
             </span>
@@ -167,6 +170,7 @@
                                         :min="temp.min"
                                         :max="temp.max"
                                         class="form-control text-center"
+                                        :disabled="!canChangeTemperature(temp.name)"
                                         v-model="channel.config.temperatures[temp.name]"
                                         @change="temperatureChanged(temp.name)">
                                     <span class="input-group-addon">&deg;C</span>
@@ -257,6 +261,7 @@
                                     :min="temp.min"
                                     :max="temp.max"
                                     class="form-control text-center"
+                                    :disabled="!canChangeTemperature(temp.name)"
                                     v-model="channel.config.temperatures[temp.name]"
                                     @change="$emit('change')">
                                 <span class="input-group-addon">&deg;C</span>
@@ -420,6 +425,9 @@
             },
             canChangeSetting(settingName) {
                 return !this.channel.config.readOnlyConfigFields?.includes(settingName);
+            },
+            canChangeTemperature(temperatureName) {
+                return !this.channel.config.readOnlyTemperatureConfigFields?.includes(temperatureName);
             },
         },
         computed: {

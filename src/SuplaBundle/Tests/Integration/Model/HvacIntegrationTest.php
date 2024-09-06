@@ -149,8 +149,10 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(24, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureHeat']);
                     $this->assertEquals('ON_OFF_SETPOINT_AT_MOST', $config['usedAlgorithm']);
                     $this->assertEquals(6, $config['binarySensorChannelId']);
-                    $this->assertCount(5, $config['temperatures']);
-                    $this->assertCount(0, array_filter($config['temperatures']));
+                    $this->assertCount(7, $config['temperatures']);
+                    $this->assertEquals(18, $config['temperatures']['eco']);
+                    $this->assertArrayNotHasKey('comfort', $config['temperatures']);
+                    $this->assertCount(3, array_filter($config['temperatures']));
                     $this->assertTrue($config['heatingModeAvailable']);
                     $this->assertFalse($config['coolingModeAvailable']);
                 },
@@ -934,12 +936,17 @@ class HvacIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCannotChangeHiddenAttributeWithChannelId() {
-        $dhw = $this->device->getChannels()[4];
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
+        $dhw = $device->getChannels()[4];
+        $properties = $dhw->getProperties();
+        $properties['hiddenConfigFields'] = ['auxThermometerChannelNo'];
+        EntityUtils::setField($dhw, 'properties', json_encode($properties));
+        $dhw = $this->persist($dhw);
         $client = $this->createAuthenticatedClient($this->user);
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $client->apiRequestV3('PUT', '/api/channels/' . $dhw->getId(), [
             'config' => [
-                'auxThermometerChannelId' => $this->device->getChannels()[1]->getId(),
+                'auxThermometerChannelId' => $device->getChannels()[1]->getId(),
             ],
             'configBefore' => $channelParamConfigTranslator->getConfig($dhw),
         ]);
@@ -959,5 +966,34 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $channelConfig = $channelParamConfigTranslator->getConfig($thermostat);
         $this->assertTrue($channelConfig['coolingModeAvailable']);
         $this->assertFalse($channelConfig['heatingModeAvailable']);
+    }
+
+    public function testTryingToUpdateHiddenTemperature() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/' . $this->device->getChannels()[4]->getId(), [
+            'config' => ['temperatures' => ['comfort' => 21]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    public function testTryingToUpdateReadOnlyTemperature() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/' . $this->device->getChannels()[4]->getId(), [
+            'config' => ['temperatures' => ['eco' => 19]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    public function testCanSetReadOnlyTemperatureIfNotChanging() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/' . $this->device->getChannels()[4]->getId(), [
+            'config' => ['temperatures' => ['eco' => 18, 'freezeProtection' => 10]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $channel = $this->freshEntity($this->device->getChannels()[4]);
+        $this->assertEquals(1000, $channel->getUserConfigValue('temperatures')['freezeProtection']);
     }
 }
