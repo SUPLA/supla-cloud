@@ -83,7 +83,10 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $hvacChannel = $this->device->getChannels()[$hvacChannelIndex];
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $channelConfig = $channelParamConfigTranslator->getConfig($hvacChannel);
-        $client->apiRequestV24('PUT', '/api/channels/' . $hvacChannel->getId(), ['config' => $channelConfig]);
+        $client->apiRequestV3('PUT', '/api/channels/' . $hvacChannel->getId(), [
+            'config' => $channelConfig,
+            'configBefore' => $channelConfig,
+        ]);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
@@ -907,5 +910,33 @@ class HvacIntegrationTest extends IntegrationTestCase {
             $hvacChannel->getId(),
             ChannelConfigChangeScope::RELATIONS | ChannelConfigChangeScope::JSON_BASIC,
         ));
+    }
+
+    public function testCannotChangeReadOnlyAttribute() {
+        $dhw = $this->device->getChannels()[4];
+        $client = $this->createAuthenticatedClient($this->user);
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $client->apiRequestV3('PUT', '/api/channels/' . $dhw->getId(), [
+            'config' => [
+                'usedAlgorithm' => 'ON_OFF_SETPOINT_MIDDLE',
+            ],
+            'configBefore' => $channelParamConfigTranslator->getConfig($dhw),
+        ]);
+        $this->assertStatusCode(400, $client->getResponse());
+        $this->assertStringContainsString('cannot change the following config keys: usedAlgorithm', $client->getResponse()->getContent());
+    }
+
+    public function testCannotChangeHiddenAttributeWithChannelId() {
+        $dhw = $this->device->getChannels()[4];
+        $client = $this->createAuthenticatedClient($this->user);
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $client->apiRequestV3('PUT', '/api/channels/' . $dhw->getId(), [
+            'config' => [
+                'auxThermometerChannelId' => $this->device->getChannels()[1]->getId(),
+            ],
+            'configBefore' => $channelParamConfigTranslator->getConfig($dhw),
+        ]);
+        $this->assertStatusCode(400, $client->getResponse());
+        $this->assertStringContainsString('keys: auxThermometerChannelId', $client->getResponse()->getContent());
     }
 }
