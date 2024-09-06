@@ -30,7 +30,6 @@ class AccessIDActiveNowIntegrationTest extends IntegrationTestCase {
     private $user;
 
     protected function initializeDatabaseForTests() {
-        $this->initializeDatabaseWithMigrations();
         $this->user = $this->createConfirmedUser();
         $anotherUser = $this->createConfirmedUser('another@supla.org');
         $anotherUser->setTimezone('Pacific/Honolulu');

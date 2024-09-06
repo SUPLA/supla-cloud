@@ -1,6 +1,5 @@
 DROP VIEW IF EXISTS `supla_v_client_channel`;
-CREATE
-ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_client_channel` AS
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_client_channel` AS
 select `c`.`id`                         AS `id`,
        `c`.`type`                       AS `type`,
        `c`.`func`                       AS `func`,

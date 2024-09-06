@@ -1,6 +1,6 @@
 DROP PROCEDURE IF EXISTS `supla_set_channel_caption`;
 
-CREATE PROCEDURE `supla_set_channel_caption`(IN `_user_id` INT, IN `_channel_id` INT, IN `_caption` VARCHAR (100) CHARSET utf8mb4,
+CREATE PROCEDURE `supla_set_channel_caption`(IN `_user_id` INT, IN `_channel_id` INT, IN `_caption` VARCHAR(100) CHARSET utf8mb4,
                                              IN `_only_when_not_null` BIT)
     NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER
 UPDATE supla_dev_channel

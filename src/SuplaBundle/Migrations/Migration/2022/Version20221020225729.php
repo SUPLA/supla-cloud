@@ -2,76 +2,18 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use Doctrine\DBAL\Migrations\AbstractMigration;
 use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
- * 1.Rename the function supla_is_access_id_now_active to supla_is_now_active + Modify dependent view
  * 2.New supla_auto_gate_closing table
  * 3.New supla_v_auto_gate_closing view
  * 5.New supla_mark_gate_open procedure
- * 7.Fixing incorrectly calculated date in function supla_current_weekday_hour
  */
 class Version20221020225729 extends NoWayBackMigration {
     public function migrate() {
-        $this->dropSuplaAccessIdActiveView();
-        $this->renameIsNowActiveFunction();
-        $this->createSuplaAccessIdActiveView();
         $this->createAutoGateClosingTable();
         $this->createAutoGateClosingView();
         $this->createMarkGateOpenProcedure();
-        $this->fixWeekdayHourFunction();
-    }
-
-    private function dropSuplaAccessIdActiveView() {
-        $this->addSql("DROP VIEW IF EXISTS `supla_v_accessid_active`");
-    }
-
-    private function renameIsNowActiveFunction() {
-        $this->addSql('DROP FUNCTION IF EXISTS supla_is_access_id_now_active');
-        $function = <<<FNC
-CREATE FUNCTION supla_is_now_active(
-    `active_from` DATETIME,
-    `active_to` DATETIME,
-    `active_hours` VARCHAR(768),
-    `user_timezone` VARCHAR(50)
-) RETURNS INT(11) BEGIN
-    DECLARE res INT DEFAULT 1; 
-    IF `active_from` IS NOT NULL THEN
-        SELECT
-            (active_from <= UTC_TIMESTAMP)
-        INTO res;
-    END IF; 
-    IF res = 1 AND `active_to` IS NOT NULL THEN
-        SELECT (active_to >= UTC_TIMESTAMP) INTO res;
-    END IF; 
-    IF res = 1 AND `active_hours` IS NOT NULL THEN
-        SELECT
-            (`active_hours` LIKE CONCAT('%,', supla_current_weekday_hour(`user_timezone`), ',%') COLLATE utf8mb4_unicode_ci)
-        INTO res;
-    END IF; 
-    RETURN res;
-END
-FNC;
-        $this->addSql($function);
-    }
-
-    private function createSuplaAccessIdActiveView() {
-        $view = <<<VIEW
-CREATE OR REPLACE VIEW supla_v_accessid_active AS SELECT
-    sa.*,
-    supla_is_now_active(
-        active_from,
-        active_to,
-        active_hours,
-        timezone
-    ) is_now_active
-FROM
-    supla_accessid sa
-INNER JOIN supla_user su ON
-    su.id = sa.user_id;
-VIEW;
-        $this->addSql($view);
     }
 
     private function createAutoGateClosingTable() {
@@ -161,23 +103,5 @@ BEGIN
 END
 VIEW;
         $this->addSql($view);
-    }
-
-    private function fixWeekdayHourFunction() {
-        $this->addSql('DROP FUNCTION IF EXISTS supla_current_weekday_hour');
-        $function = <<<FNC
-        CREATE FUNCTION supla_current_weekday_hour(`user_timezone` VARCHAR(50))
-        RETURNS VARCHAR(3)
-        BEGIN
-            DECLARE current_weekday INT;
-            DECLARE current_hour INT;
-            DECLARE current_time_in_user_timezone DATETIME;
-            SELECT COALESCE(CONVERT_TZ(UTC_TIMESTAMP, 'UTC', `user_timezone`), UTC_TIMESTAMP) INTO current_time_in_user_timezone; 
-            SELECT (WEEKDAY(current_time_in_user_timezone) + 1) INTO current_weekday;
-            SELECT HOUR(current_time_in_user_timezone) INTO current_hour;
-            RETURN CONCAT(current_weekday, current_hour);
-        END
-FNC;
-        $this->addSql($function);
     }
 }
