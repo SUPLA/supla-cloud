@@ -35,6 +35,8 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="outputValueOnError", type="integer", minimum=-100, maximum=100),
  *   @OA\Property(property="weeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule"),
  *   @OA\Property(property="altWeeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule", description="Only for the `HVAC_THERMOSTAT` function."),
+ *   @OA\Property(property="heatingModeAvailable", type="boolean"),
+ *   @OA\Property(property="coolingModeAvailable", type="boolean"),
  *   @OA\Property(property="temperatures",
  *     @OA\Property(property="freezeProtection", type="float"),
  *     @OA\Property(property="heatProtection", type="float"),
@@ -131,6 +133,8 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 'pumpSwitchChannelId' => $pumpSwitch ? $pumpSwitch->getId() : null,
                 'heatOrColdSourceSwitchAvailable' => $this->deviceHasChannelWithFunction($subject, CF::HEATORCOLDSOURCESWITCH()),
                 'heatOrColdSourceSwitchChannelId' => $heatOrColdSourceSwitch ? $heatOrColdSourceSwitch->getId() : null,
+                'heatingModeAvailable' => $this->isHeatingModeAvailable($subject),
+                'coolingModeAvailable' => $this->isCoolingModeAvailable($subject),
             ];
             if ($subject->getFunction()->getId() === CF::HVAC_THERMOSTAT) {
                 $config['subfunction'] = $subject->getUserConfigValue('subfunction');
@@ -466,5 +470,29 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 ->getChannels()
                 ->filter(fn(IODeviceChannel $ch) => $ch->getFunction()->getId() === $function->getId())
                 ->count() > 0;
+    }
+
+    private function isHeatingModeAvailable(IODeviceChannel $subject) {
+        $heatingFunctions = [
+            CF::HVAC_THERMOSTAT,
+            CF::HVAC_THERMOSTAT_HEAT_COOL,
+            CF::HVAC_DOMESTIC_HOT_WATER,
+            CF::HVAC_THERMOSTAT_DIFFERENTIAL,
+        ];
+        $hasHeatingFunction = in_array($subject->getFunction()->getId(), $heatingFunctions);
+        $hasHeatSubfunction = $subject->getUserConfigValue('subfunction') !== 'COOL';
+        $isCoolingOnly = in_array('subfunction', $subject->getProperty('readOnlyConfigFields', [])) && !$hasHeatSubfunction;
+        return !$isCoolingOnly && ($hasHeatingFunction || $hasHeatSubfunction);
+    }
+
+    private function isCoolingModeAvailable(IODeviceChannel $subject) {
+        $coolingFunctions = [
+            CF::HVAC_THERMOSTAT,
+            CF::HVAC_THERMOSTAT_HEAT_COOL,
+        ];
+        $hasCoolingFunction = in_array($subject->getFunction()->getId(), $coolingFunctions);
+        $hasCoolSubfunction = $subject->getUserConfigValue('subfunction') === 'COOL';
+        $isHeatingOnly = in_array('subfunction', $subject->getProperty('readOnlyConfigFields', [])) && !$hasCoolSubfunction;
+        return !$isHeatingOnly && ($hasCoolingFunction || $hasCoolSubfunction);
     }
 }

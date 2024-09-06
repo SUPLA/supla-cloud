@@ -347,7 +347,6 @@
 <script>
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
-    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         components: {TransitionExpand, ChannelsIdDropdown},
@@ -475,16 +474,10 @@
                 return values;
             },
             heatAvailable() {
-                const heatFunctions = [
-                    ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
-                    ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
-                    ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
-                ];
-                return heatFunctions.includes(this.channel.functionId) || this.channel.config?.subfunction === 'HEAT';
+                return this.channel.config.heatingModeAvailable;
             },
             coolAvailable() {
-                return [ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL].includes(this.channel.functionId)
-                    || this.channel.config?.subfunction === 'COOL';
+                return this.channel.config.coolingModeAvailable;
             },
         },
         watch: {

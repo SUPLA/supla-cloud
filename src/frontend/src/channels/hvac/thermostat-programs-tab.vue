@@ -15,7 +15,8 @@
                 </div>
             </transition-expand>
 
-            <div class="text-center mb-5" v-if="subject.config.altWeeklySchedule">
+            <div class="text-center mb-5"
+                v-if="subject.config.altWeeklySchedule && subject.config.heatingModeAvailable && subject.config.coolingModeAvailable">
                 <a :class="['btn mx-2', editingMode === 'weeklySchedule' ? 'btn-orange' : 'btn-default']"
                     @click="editingMode = 'weeklySchedule'">
                     <IconHeating/>

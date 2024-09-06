@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Model;
 
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
@@ -111,9 +112,11 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(0, $config['outputValueOnError']);
                     $this->assertNull($config['binarySensorChannelId']);
                     $this->assertCount(5, $config['temperatures']);
+                    $this->assertTrue($config['heatingModeAvailable']);
+                    $this->assertTrue($config['coolingModeAvailable']);
                 },
             ],
-            'THERMOSTAT_AUTO' => [
+            'THERMOSTAT_HEAT_COOL' => [
                 3,
                 function (array $config) {
                     $this->assertArrayNotHasKey('subfunction', $config);
@@ -132,6 +135,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(42, $config['outputValueOnError']);
                     $this->assertCount(10, $config['temperatures']);
                     $this->assertCount(8, $config['temperatureConstraints']);
+                    $this->assertTrue($config['heatingModeAvailable']);
+                    $this->assertTrue($config['coolingModeAvailable']);
                 },
             ],
             'DOMESTIC_HOT_WATER' => [
@@ -146,6 +151,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(6, $config['binarySensorChannelId']);
                     $this->assertCount(5, $config['temperatures']);
                     $this->assertCount(0, array_filter($config['temperatures']));
+                    $this->assertTrue($config['heatingModeAvailable']);
+                    $this->assertFalse($config['coolingModeAvailable']);
                 },
             ],
         ];
@@ -938,5 +945,19 @@ class HvacIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(400, $client->getResponse());
         $this->assertStringContainsString('keys: auxThermometerChannelId', $client->getResponse()->getContent());
+    }
+
+    public function testHeatingNotAvailableWhenSubfunctionCoolReadOnly() {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
+        $thermostat = $device->getChannels()[2];
+        $thermostat->setUserConfigValue('subfunction', 'COOL');
+        $properties = $thermostat->getProperties();
+        $properties['readOnlyConfigFields'] = ['subfunction'];
+        EntityUtils::setField($thermostat, 'properties', json_encode($properties));
+        $thermostat = $this->persist($thermostat);
+        $channelConfig = $channelParamConfigTranslator->getConfig($thermostat);
+        $this->assertTrue($channelConfig['coolingModeAvailable']);
+        $this->assertFalse($channelConfig['heatingModeAvailable']);
     }
 }

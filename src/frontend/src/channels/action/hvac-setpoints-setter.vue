@@ -40,7 +40,6 @@
 </template>
 
 <script>
-    import ChannelFunction from "@/common/enums/channel-function";
     import IconHeating from "@/common/icons/icon-heating.vue";
     import IconCooling from "@/common/icons/icon-cooling.vue";
 
@@ -95,23 +94,10 @@
                 return this.subject.config?.temperatureConstraints?.roomMax || 100;
             },
             heatAvailable() {
-                if (this.hideHeat) {
-                    return false;
-                }
-                let heatFunctions = [
-                    ChannelFunction.THERMOSTATHEATPOLHOMEPLUS,
-                    ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
-                    ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
-                    ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
-                ];
-                return heatFunctions.includes(this.subject.functionId) || this.subject.config?.subfunction === 'HEAT';
+                return !this.hideHeat && this.subject.config.heatingModeAvailable;
             },
             coolAvailable() {
-                if (this.hideCool) {
-                    return false;
-                }
-                return [ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL].includes(this.subject.functionId)
-                    || this.subject.config?.subfunction === 'COOL';
+                return !this.hideCool && this.subject.config.coolingModeAvailable;
             },
             hasHeat() {
                 return this.temperatureHeat !== null && this.temperatureHeat !== '';
