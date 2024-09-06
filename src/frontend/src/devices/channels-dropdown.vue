@@ -7,6 +7,7 @@
             :caption="channelCaption"
             :option-html="channelHtml"
             :choose-prompt-i18n="choosePromptI18n || 'choose the channel'"
+            :disabled="disabled"
             v-model="chosenChannel"/>
     </div>
 </template>
@@ -16,7 +17,7 @@
     import SelectForSubjects from "@/devices/select-for-subjects.vue";
 
     export default {
-        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter', 'choosePromptI18n'],
+        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter', 'choosePromptI18n', 'disabled'],
         components: {SelectForSubjects},
         data() {
             return {

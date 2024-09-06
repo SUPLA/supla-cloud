@@ -3,6 +3,7 @@
         v-model="channel"
         :hide-none="hideNone"
         :choose-prompt-i18n="choosePromptI18n"
+        :disabled="disabled"
         @input="channelChanged()"></channels-dropdown>
 </template>
 
@@ -11,7 +12,7 @@
 
     export default {
         components: {ChannelsDropdown},
-        props: ['value', 'params', 'hideNone', 'choosePromptI18n'],
+        props: ['value', 'params', 'hideNone', 'choosePromptI18n', 'disabled'],
         data() {
             return {
                 channel: undefined,

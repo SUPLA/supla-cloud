@@ -20,6 +20,7 @@
             noneOption: Boolean,
             doNotHideSelected: Boolean,
             multiple: Boolean,
+            disabled: Boolean,
             caption: {
                 type: Function,
                 default: (option) => option.caption,
@@ -120,6 +121,9 @@
                     } else {
                         this.dropdown.disable();
                         this.dropdown.setValue(this.multiple ? [] : undefined);
+                    }
+                    if (this.disabled) {
+                        this.dropdown.disable();
                     }
                 }
             }

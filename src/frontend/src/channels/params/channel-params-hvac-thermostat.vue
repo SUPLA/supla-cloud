@@ -1,16 +1,18 @@
 <template>
     <div>
-        <dl v-if="channel.function.name === 'HVAC_THERMOSTAT'">
+        <dl v-if="canDisplaySetting('subfunction') && channel.function.name === 'HVAC_THERMOSTAT'">
             <dd>{{ $t('Subfunction') }}</dd>
             <dt>
                 <!-- i18n:['thermostatSubfunction_HEAT', 'thermostatSubfunction_COOL'] -->
                 <div class="btn-group btn-group-flex">
-                    <a :class="'btn ' + (channel.config.subfunction == type ? 'btn-green' : 'btn-default')"
+                    <button type="button"
+                        :class="'btn ' + (channel.config.subfunction == type ? 'btn-green' : 'btn-default')"
                         v-for="type in ['HEAT', 'COOL']"
+                        :disabled="!canChangeSetting('subfunction')"
                         :key="type"
                         @click="changeSubfunction(type)">
                         {{ $t(`thermostatSubfunction_${type}`) }}
-                    </a>
+                    </button>
                 </div>
             </dt>
         </dl>
@@ -19,7 +21,8 @@
                 {{ $t('The thermostat will not work if the main thermometer is not set.') }}
             </div>
         </transition-expand>
-        <a class="d-flex accordion-header" @click="displayGroup('related')">
+        <a class="d-flex accordion-header" @click="displayGroup('related')"
+            v-if="canDisplayAnySetting('mainThermometerChannelId', 'auxThermometerChannelId', 'auxThermometerType')">
             <span class="flex-grow-1">{{ $t('Thermometers configuration') }}</span>
             <span>
                 <fa :icon="group === 'related' ? 'chevron-down' : 'chevron-right'"/>
@@ -27,24 +30,26 @@
         </a>
         <transition-expand>
             <div v-show="group === 'related'">
-                <dl>
+                <dl v-if="canDisplaySetting('mainThermometerChannelId')">
                     <dd>{{ $t('Main thermometer') }}</dd>
                     <dt>
                         <channels-id-dropdown :params="`function=THERMOMETER,HUMIDITYANDTEMPERATURE&deviceIds=${channel.iodeviceId}`"
                             v-model="channel.config.mainThermometerChannelId" :hide-none="true"
+                            :disabled="!canChangeSetting('mainThermometerChannelId')"
                             @input="$emit('change')"></channels-id-dropdown>
                     </dt>
                 </dl>
-                <dl>
+                <dl v-if="canDisplaySetting('auxThermometerChannelId')">
                     <dd>{{ $t('Aux thermometer') }}</dd>
                     <dt>
                         <channels-id-dropdown :params="`function=THERMOMETER,HUMIDITYANDTEMPERATURE&deviceIds=${channel.iodeviceId}`"
                             v-model="channel.config.auxThermometerChannelId"
+                            :disabled="!canChangeSetting('auxThermometerChannelId')"
                             @input="auxThermometerChanged()"></channels-id-dropdown>
                     </dt>
                 </dl>
                 <transition-expand>
-                    <div v-if="channel.config.auxThermometerChannelId">
+                    <div v-if="channel.config.auxThermometerChannelId && canDisplaySetting('auxThermometerType')">
                         <dl>
                             <dd>{{ $t('Aux thermometer type') }}</dd>
                             <dt>
@@ -68,7 +73,7 @@
                             </dt>
                         </dl>
                         <transition-expand>
-                            <div v-if="channel.config.auxThermometerType !== 'DISABLED'">
+                            <div v-if="canDisplaySetting('auxMinMaxSetpointEnabled') && channel.config.auxThermometerType !== 'DISABLED'">
                                 <dl class="wide-label">
                                     <dd>
                                         <span v-if="channel.config.auxThermometerType === 'FLOOR'">
@@ -85,7 +90,8 @@
                                         </span>
                                     </dd>
                                     <dt class="text-center">
-                                        <toggler v-model="channel.config.auxMinMaxSetpointEnabled" @input="$emit('change')"/>
+                                        <toggler v-model="channel.config.auxMinMaxSetpointEnabled" @input="$emit('change')"
+                                            :disabled="!canChangeSetting('auxMinMaxSetpointEnabled')"/>
                                     </dt>
                                 </dl>
                                 <transition-expand>
@@ -128,7 +134,8 @@
                 </transition-expand>
             </div>
         </transition-expand>
-        <a class="d-flex accordion-header" @click="displayGroup('freeze')">
+        <a class="d-flex accordion-header" @click="displayGroup('freeze')"
+            v-if="canDisplayAnySetting('antiFreezeAndOverheatProtectionEnabled')">
             <span class="flex-grow-1" v-if="freezeHeatProtectionTemperatures.length === 2">
                 {{ $t('Anti-freeze and overheat protection') }}
             </span>
@@ -142,10 +149,11 @@
         </a>
         <transition-expand>
             <div v-show="group === 'freeze'">
-                <dl>
+                <dl v-if="canDisplaySetting('antiFreezeAndOverheatProtectionEnabled')">
                     <dd>{{ $t('Enabled') }}</dd>
                     <dt class="text-center">
-                        <toggler v-model="channel.config.antiFreezeAndOverheatProtectionEnabled" @input="$emit('change')"/>
+                        <toggler v-model="channel.config.antiFreezeAndOverheatProtectionEnabled" @input="$emit('change')"
+                            :disabled="!canChangeSetting('antiFreezeAndOverheatProtectionEnabled')"/>
                     </dt>
                 </dl>
                 <transition-expand>
@@ -169,7 +177,8 @@
                 </transition-expand>
             </div>
         </transition-expand>
-        <a class="d-flex accordion-header" @click="displayGroup('behavior')">
+        <a class="d-flex accordion-header" @click="displayGroup('behavior')"
+            v-if="canDisplayAnySetting('binarySensorChannelId', 'pumpSwitchChannelId', 'heatOrColdSourceSwitchChannelId', 'usedAlgorithm', 'minOnTimeS', 'minOffTimeS', 'outputValueOnError', 'temperatureSetpointChangeSwitchesToManualMode')">
             <span class="flex-grow-1">{{ $t('Behavior settings') }}</span>
             <span>
                 <fa :icon="group === 'behavior' ? 'chevron-down' : 'chevron-right'"/>
@@ -177,42 +186,46 @@
         </a>
         <transition-expand>
             <div v-show="group === 'behavior'">
-                <dl>
+                <dl v-if="canDisplaySetting('binarySensorChannelId')">
                     <dd>{{ $t('External sensor disabling the thermostat') }}</dd>
                     <dt>
                         <channels-id-dropdown :params="`type=SENSORNO&deviceIds=${channel.iodeviceId}`"
+                            :disabled="!canChangeSetting('binarySensorChannelId')"
                             choose-prompt-i18n="Function disabled"
                             v-model="channel.config.binarySensorChannelId"
                             @input="$emit('change')"></channels-id-dropdown>
                     </dt>
                 </dl>
-                <dl v-if="channel.config.pumpSwitchAvailable">
+                <dl v-if="channel.config.pumpSwitchAvailable && canDisplaySetting('pumpSwitchChannelId')">
                     <dd>{{ $t('Pump switch') }}</dd>
                     <dt>
                         <channels-id-dropdown :params="`function=PUMPSWITCH&deviceIds=${channel.iodeviceId}`"
                             choose-prompt-i18n="Function disabled"
+                            :disabled="!canChangeSetting('pumpSwitchChannelId')"
                             v-model="channel.config.pumpSwitchChannelId"
                             @input="$emit('change')"></channels-id-dropdown>
                     </dt>
                 </dl>
-                <dl v-if="channel.config.heatOrColdSourceSwitchAvailable">
+                <dl v-if="channel.config.heatOrColdSourceSwitchAvailable && canDisplaySetting('heatOrColdSourceSwitchChannelId')">
                     <dd>{{ $t('Heat or cold source switch') }}</dd>
                     <dt>
                         <channels-id-dropdown :params="`function=HEATORCOLDSOURCESWITCH&deviceIds=${channel.iodeviceId}`"
                             choose-prompt-i18n="Function disabled"
+                            :disabled="!canChangeSetting('heatOrColdSourceSwitchChannelId')"
                             v-model="channel.config.heatOrColdSourceSwitchChannelId"
                             @input="$emit('change')"></channels-id-dropdown>
                     </dt>
                 </dl>
                 <div v-if="channel.config.availableAlgorithms.length > 1">
-                    <dl>
+                    <dl v-if="canDisplaySetting('usedAlgorithm')">
                         <dd>
                             {{ $t('Algorithm') }}
                             <a @click="algorithmHelpShown = !algorithmHelpShown"><i class="pe-7s-help1"></i></a>
                         </dd>
                         <dt>
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
+                                <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown"
+                                    :disabled="!canChangeSetting('usedAlgorithm')">
                                     {{ $t(`thermostatAlgorithm_${channel.config.usedAlgorithm}`) }}
                                     <span class="caret"></span>
                                 </button>
@@ -251,7 +264,7 @@
                         </dt>
                     </template>
                 </dl>
-                <dl class="wide-label">
+                <dl class="wide-label" v-if="canDisplaySetting('minOnTimeS')">
                     <dd>
                         <span v-if="heatAvailable && !coolAvailable">{{ $t('Minimum ON time before heating can be turned off') }}</span>
                         <span v-else-if="!heatAvailable && coolAvailable">
@@ -267,12 +280,15 @@
                                 max="600"
                                 class="form-control text-center"
                                 v-model="channel.config.minOnTimeS"
+                                :disabled="!canChangeSetting('minOnTimeS')"
                                 @change="$emit('change')">
                             <span class="input-group-addon">
                                 {{ $t('sec.') }}
                             </span>
                         </span>
                     </dt>
+                </dl>
+                <dl class="wide-label" v-if="canDisplaySetting('minOffTimeS')">
                     <dd>
                         <span v-if="heatAvailable && !coolAvailable">{{ $t('Minimum OFF time before heating can be turned on') }}</span>
                         <span v-else-if="!heatAvailable && coolAvailable">
@@ -288,6 +304,7 @@
                                 max="600"
                                 class="form-control text-center"
                                 v-model="channel.config.minOffTimeS"
+                                :disabled="!canChangeSetting('minOffTimeS')"
                                 @change="$emit('change')">
                             <span class="input-group-addon">
                                 {{ $t('sec.') }}
@@ -295,13 +312,14 @@
                         </span>
                     </dt>
                 </dl>
-                <dl class="wide-label">
+                <dl class="wide-label" v-if="canDisplaySetting('outputValueOnError')">
                     <dd>
                         {{ $t('Output value on error') }}
                         <a @click="outputValueHelpShown = !outputValueHelpShown"><i class="pe-7s-help1"></i></a>
                     </dd>
                     <dt>
-                        <select v-model="channel.config.outputValueOnError" @change="$emit('change')" class="form-control">
+                        <select v-model="channel.config.outputValueOnError" @change="$emit('change')" class="form-control"
+                            :disabled="!canChangeSetting('outputValueOnError')">
                             <option v-for="possibleValue in possibleOutputValueOnErrorValues" :value="possibleValue.value"
                                 :key="possibleValue.value">
                                 {{ $t(possibleValue.label) }}
@@ -314,10 +332,11 @@
                         {{ $t('thermostatOutputValue_help') }}
                     </div>
                 </transition-expand>
-                <dl class="wide-label">
+                <dl class="wide-label" v-if="canDisplaySetting('temperatureSetpointChangeSwitchesToManualMode')">
                     <dd>{{ $t('Temperature setpoint change switches to manual mode') }}</dd>
                     <dt class="text-center">
-                        <toggler v-model="channel.config.temperatureSetpointChangeSwitchesToManualMode" @input="$emit('change')"/>
+                        <toggler v-model="channel.config.temperatureSetpointChangeSwitchesToManualMode" @input="$emit('change')"
+                            :disabled="!canChangeSetting('temperatureSetpointChangeSwitchesToManualMode')"/>
                     </dt>
                 </dl>
             </div>
@@ -393,7 +412,16 @@
                     this.channel.config.auxThermometerType = 'NOT_SET';
                 }
                 this.$emit('change');
-            }
+            },
+            canDisplaySetting(settingName) {
+                return !this.channel.config.hiddenConfigFields?.includes(settingName);
+            },
+            canDisplayAnySetting(...settingNames) {
+                return !!settingNames.find((s) => this.canDisplaySetting(s));
+            },
+            canChangeSetting(settingName) {
+                return !this.channel.config.readOnlyConfigFields?.includes(settingName);
+            },
         },
         computed: {
             availableTemperatures() {
