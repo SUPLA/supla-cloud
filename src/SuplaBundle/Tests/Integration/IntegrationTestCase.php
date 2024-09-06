@@ -69,6 +69,7 @@ abstract class IntegrationTestCase extends WebTestCase {
             $this->executeCommand('doctrine:schema:drop --force --full-database --em=measurement_logs');
             $this->executeCommand('doctrine:schema:create --em=default');
             $this->executeCommand('doctrine:schema:create --em=measurement_logs');
+            $this->executeCommand('supla:initialize:create-sql-procedures-and-views');
             $this->executeCommand('supla:initialize:create-webapp-client');
             $this->getEntityManager()->getConnection()->executeQuery('TRUNCATE supla_email_notifications;');
             $this->getEntityManager()->getConnection()->executeQuery('DROP FUNCTION IF EXISTS supla_is_now_active;');

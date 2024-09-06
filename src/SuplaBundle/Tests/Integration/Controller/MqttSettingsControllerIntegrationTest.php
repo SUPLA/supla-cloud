@@ -40,7 +40,6 @@ class MqttSettingsControllerIntegrationTest extends IntegrationTestCase {
     private $apiClientAuthorizationRepository;
 
     protected function initializeDatabaseForTests() {
-        $this->initializeDatabaseWithMigrations();
         $this->user = $this->createConfirmedUser();
         $this->user->setMqttBrokerEnabled(true);
         $this->getEntityManager()->persist($this->user);

@@ -28,7 +28,7 @@ class SuplaServerSqlProceduresIntegrationTest extends IntegrationTestCase {
     use UserFixtures;
 
     protected function initializeDatabaseForTests() {
-        $this->initializeDatabaseWithMigrations();
+//        $this->initializeDatabaseWithMigrations();
         $user = $this->createConfirmedUser();
         $this->createDeviceFull($user->getLocations()[0]);
     }

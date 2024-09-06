@@ -9,9 +9,7 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  * 1.Rename the function supla_is_access_id_now_active to supla_is_now_active + Modify dependent view
  * 2.New supla_auto_gate_closing table
  * 3.New supla_v_auto_gate_closing view
- * 4.New supla_mark_gate_closed procedure
  * 5.New supla_mark_gate_open procedure
- * 6.New supla_set_closing_attempt procedure
  * 7.Fixing incorrectly calculated date in function supla_current_weekday_hour
  */
 class Version20221020225729 extends NoWayBackMigration {
@@ -21,9 +19,7 @@ class Version20221020225729 extends NoWayBackMigration {
         $this->createSuplaAccessIdActiveView();
         $this->createAutoGateClosingTable();
         $this->createAutoGateClosingView();
-        $this->createMarkGateClosedProcedure();
         $this->createMarkGateOpenProcedure();
-        $this->createSetClosingAttemptProcedure();
         $this->fixWeekdayHourFunction();
     }
 
@@ -131,22 +127,6 @@ VIEW;
         $this->addSql($view);
     }
 
-    private function createMarkGateClosedProcedure() {
-        $this->addSql('DROP PROCEDURE IF EXISTS supla_mark_gate_closed');
-        $view = <<<VIEW
-CREATE PROCEDURE `supla_mark_gate_closed`(IN `_channel_id` INT)
-UPDATE
-    `supla_auto_gate_closing`
-SET
-    seconds_open = NULL,
-    closing_attempt = NULL,
-    last_seen_open = NULL
-WHERE
-    channel_id = _channel_id
-VIEW;
-        $this->addSql($view);
-    }
-
     private function createMarkGateOpenProcedure() {
         $this->addSql('DROP PROCEDURE IF EXISTS supla_mark_gate_open');
         $view = <<<VIEW
@@ -179,20 +159,6 @@ BEGIN
       WHERE
              channel_id = _channel_id;
 END
-VIEW;
-        $this->addSql($view);
-    }
-
-    private function createSetClosingAttemptProcedure() {
-        $this->addSql('DROP PROCEDURE IF EXISTS supla_set_closing_attempt');
-        $view = <<<VIEW
-CREATE PROCEDURE `supla_set_closing_attempt`(IN `_channel_id` INT)
-    UPDATE
-        `supla_auto_gate_closing`
-    SET
-        closing_attempt = UTC_TIMESTAMP()
-    WHERE
-        channel_id = _channel_id
 VIEW;
         $this->addSql($view);
     }

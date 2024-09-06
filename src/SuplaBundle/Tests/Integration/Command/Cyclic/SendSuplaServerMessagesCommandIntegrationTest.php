@@ -35,7 +35,6 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
     private $user;
 
     protected function initializeDatabaseForTests() {
-        $this->initializeDatabaseWithMigrations();
         $this->user = $this->createConfirmedUser();
     }
 
