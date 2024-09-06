@@ -2,6 +2,8 @@
 
 namespace SuplaBundle\Entity;
 
+use Assert\Assertion;
+
 /**
  * @property string $properties
  * @property string $userConfig
@@ -9,6 +11,7 @@ namespace SuplaBundle\Entity;
 trait HasUserConfigTrait {
     public function setUserConfig(array $config): void {
         $this->userConfig = $config ? json_encode($config, JSON_UNESCAPED_UNICODE) : '{}';
+        Assertion::maxLength($this->userConfig, 8192, 'Value is too long for user_config field.');
     }
 
     public function setUserConfigValue(string $valueName, $value): void {

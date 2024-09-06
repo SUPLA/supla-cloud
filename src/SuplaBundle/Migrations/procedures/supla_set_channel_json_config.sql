@@ -1,7 +1,7 @@
 DROP PROCEDURE IF EXISTS `supla_set_channel_json_config`;
 
-CREATE PROCEDURE `supla_set_channel_json_config`(IN `_user_id` INT, IN `_channel_id` INT, IN `_user_config` VARCHAR (4096),
-                                                 IN `_user_config_md5` VARCHAR (32), IN `_properties` VARCHAR (2048),
+CREATE PROCEDURE `supla_set_channel_json_config`(IN `_user_id` INT, IN `_channel_id` INT, IN `_user_config` TEXT,
+                                                 IN `_user_config_md5` VARCHAR (32), IN `_properties` TEXT,
                                                  IN `_properties_md5` VARCHAR (32))
     NOT DETERMINISTIC
     CONTAINS SQL SQL SECURITY DEFINER

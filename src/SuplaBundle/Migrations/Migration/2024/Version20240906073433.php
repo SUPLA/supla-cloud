@@ -20,10 +20,12 @@ namespace SuplaBundle\Migrations\Migration;
 use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
- * Increase the length of the supla_dev_channel.properties field (from 2048 to 8192).
+ * Increase the length of the supla_dev_channel.properties field (from VARCHAR 2048 to TEXT).
+ * Increase the length of the supla_dev_channel.user_config field (from VARCHAR 8192 to TEXT).
  */
 class Version20240906073433 extends NoWayBackMigration {
     public function migrate() {
-        $this->addSql('ALTER TABLE supla_dev_channel CHANGE properties properties VARCHAR(8192) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('ALTER TABLE supla_dev_channel CHANGE user_config user_config TEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('ALTER TABLE supla_dev_channel CHANGE properties properties TEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }
