@@ -123,7 +123,7 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(20, $reaction['trigger']['on_change_to']['lt']);
     }
 
-    /** @depends testGettingReactions */
+    /** @depends testGettingAllReactions */
     public function testGettingReactionsRelationsCount() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', "/api/channels/{$this->thermometer->getId()}");
