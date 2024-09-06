@@ -43,7 +43,6 @@ class GateClosingRuleParamTranslatorIntegrationTest extends IntegrationTestCase 
     private $ruleRepository;
 
     public function initializeDatabaseForTests() {
-        $this->initializeDatabaseWithMigrations();
         $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
         $this->device = $this->createDevice($location, [
