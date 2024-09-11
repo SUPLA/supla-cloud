@@ -92,6 +92,7 @@
                                     this.$emit('input', chosenOption);
                                 }
                             }
+                            this.dropdown.blur();
                         }
                     });
                     this.syncDropdown();
