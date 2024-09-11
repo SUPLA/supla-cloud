@@ -40,6 +40,8 @@ class CopyActionExecutor extends SingleChannelActionExecutor {
             ChannelFunction::DIMMER(),
             ChannelFunction::RGBLIGHTING(),
             ChannelFunction::DIMMERANDRGBLIGHTING(),
+            ChannelFunction::PUMPSWITCH(),
+            ChannelFunction::HEATORCOLDSOURCESWITCH(),
         ];
     }
 

@@ -61,6 +61,8 @@ const ChannelFunction = Object.freeze({
     CURTAIN: 930,
     VERTICAL_BLIND: 940,
     ROLLER_GARAGE_DOOR: 950,
+    PUMPSWITCH: 960,
+    HEATORCOLDSOURCESWITCH: 970,
 });
 
 export default ChannelFunction;

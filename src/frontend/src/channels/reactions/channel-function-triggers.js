@@ -635,6 +635,16 @@ export const ChannelFunctionTriggers = {
             def: () => ({on_change: {}})
         },
     ],
+    [ChannelFunction.PUMPSWITCH]: [
+        {caption: () => 'When the pump is turned on', def: () => ({on_change_to: {eq: 'on'}})}, // i18n
+        {caption: () => 'When the pump is turned off', def: () => ({on_change_to: {eq: 'off'}})}, // i18n
+        {caption: () => 'When the pump is turned on or off', def: () => ({on_change: {}})}, // i18n
+    ],
+    [ChannelFunction.HEATORCOLDSOURCESWITCH]: [
+        {caption: () => 'When the device is turned on', def: () => ({on_change_to: {eq: 'on'}})}, // i18n
+        {caption: () => 'When the device is turned off', def: () => ({on_change_to: {eq: 'off'}})}, // i18n
+        {caption: () => 'When the device is turned on or off', def: () => ({on_change: {}})}, // i18n
+    ],
 };
 
 ChannelFunctionTriggers[ChannelFunction.THERMOMETER] = [
