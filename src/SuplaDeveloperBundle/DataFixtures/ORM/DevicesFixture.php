@@ -413,6 +413,7 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::THERMOSTATHEATPOLHOMEPLUS, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
             [ChannelType::RELAY2XG5LA1A, ChannelFunction::PUMPSWITCH],
             [ChannelType::RELAY2XG5LA1A, ChannelFunction::HEATORCOLDSOURCESWITCH],
+            [ChannelType::RELAY2XG5LA1A, ChannelFunction::PUMPSWITCH],
         ], '');
         AnyFieldSetter::set($hvac, [
             'userConfig' => json_encode([

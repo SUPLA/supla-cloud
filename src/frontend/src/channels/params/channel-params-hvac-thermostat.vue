@@ -37,6 +37,8 @@
                             v-model="channel.config.mainThermometerChannelId" :hide-none="true"
                             :disabled="!canChangeSetting('mainThermometerChannelId')"
                             @input="$emit('change')"></channels-id-dropdown>
+                        <SameDifferentThanMasterThermostat :channel="channel" :master-thermostat="masterThermostat"
+                            setting="mainThermometerChannelId" @change="$emit('change')"/>
                     </dt>
                 </dl>
                 <dl v-if="canDisplaySetting('auxThermometerChannelId')">
@@ -46,6 +48,8 @@
                             v-model="channel.config.auxThermometerChannelId"
                             :disabled="!canChangeSetting('auxThermometerChannelId')"
                             @input="auxThermometerChanged()"></channels-id-dropdown>
+                        <SameDifferentThanMasterThermostat :channel="channel" :master-thermostat="masterThermostat"
+                            setting="auxThermometerChannelId" @change="$emit('change')"/>
                     </dt>
                 </dl>
                 <transition-expand>
@@ -190,6 +194,25 @@
         </a>
         <transition-expand>
             <div v-show="group === 'behavior'">
+                <dl v-if="channel.config.masterThermostatAvailable && canDisplaySetting('masterThermostatChannelId')">
+                    <dd>{{ $t('Master thermostat') }}</dd>
+                    <dt>
+                        <channels-id-dropdown :params="`type=HVAC&deviceIds=${channel.iodeviceId}&skipIds=${channel.id}`"
+                            :disabled="!canChangeSetting('masterThermostatChannelId')"
+                            choose-prompt-i18n="Function disabled"
+                            v-model="channel.config.masterThermostatChannelId"
+                            @channelChanged="(c) => masterThermostat = c"
+                            @input="masterThermostatChannelIdJustChanged = true; $emit('change')"></channels-id-dropdown>
+                    </dt>
+                </dl>
+                <transition-expand>
+                    <div class="alert alert-info my-2"
+                        v-if="masterThermostatChannelIdJustChanged && channel.config.masterThermostatChannelId">
+                        {{ $t('Do you want to set related channels like thermometers and sensors to be the same as in the master channel?') }}
+                        <a class="mx-1 btn btn-xs btn-green" @click="setChannelsFromMasterThermostat()">{{ $t('Yes') }}</a>
+                        <a class="mx-1 btn btn-xs btn-default" @click="masterThermostatChannelIdJustChanged = false">{{ $t('No') }}</a>
+                    </div>
+                </transition-expand>
                 <dl v-if="canDisplaySetting('binarySensorChannelId')">
                     <dd>{{ $t('External sensor disabling the thermostat') }}</dd>
                     <dt>
@@ -198,6 +221,8 @@
                             choose-prompt-i18n="Function disabled"
                             v-model="channel.config.binarySensorChannelId"
                             @input="$emit('change')"></channels-id-dropdown>
+                        <SameDifferentThanMasterThermostat :channel="channel" :master-thermostat="masterThermostat"
+                            setting="binarySensorChannelId" @change="$emit('change')"/>
                     </dt>
                 </dl>
                 <dl v-if="channel.config.pumpSwitchAvailable && canDisplaySetting('pumpSwitchChannelId')">
@@ -208,6 +233,8 @@
                             :disabled="!canChangeSetting('pumpSwitchChannelId')"
                             v-model="channel.config.pumpSwitchChannelId"
                             @input="$emit('change')"></channels-id-dropdown>
+                        <SameDifferentThanMasterThermostat :channel="channel" :master-thermostat="masterThermostat"
+                            setting="pumpSwitchChannelId" @change="$emit('change')"/>
                     </dt>
                 </dl>
                 <dl v-if="channel.config.heatOrColdSourceSwitchAvailable && canDisplaySetting('heatOrColdSourceSwitchChannelId')">
@@ -219,6 +246,8 @@
                             v-model="channel.config.heatOrColdSourceSwitchChannelId"
                             @input="$emit('change')"></channels-id-dropdown>
                     </dt>
+                    <SameDifferentThanMasterThermostat :channel="channel" :master-thermostat="masterThermostat"
+                        setting="heatOrColdSourceSwitchChannelId" @change="$emit('change')"/>
                 </dl>
                 <div v-if="channel.config.availableAlgorithms.length > 1">
                     <dl v-if="canDisplaySetting('usedAlgorithm')">
@@ -352,15 +381,18 @@
 <script>
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
+    import SameDifferentThanMasterThermostat from "@/channels/hvac/same-different-than-master-thermostat.vue";
 
     export default {
-        components: {TransitionExpand, ChannelsIdDropdown},
+        components: {SameDifferentThanMasterThermostat, TransitionExpand, ChannelsIdDropdown},
         props: ['channel'],
         data() {
             return {
                 group: undefined,
                 algorithmHelpShown: false,
                 outputValueHelpShown: false,
+                masterThermostat: undefined,
+                masterThermostatChannelIdJustChanged: false,
             };
         },
         methods: {
@@ -428,6 +460,16 @@
             },
             canChangeTemperature(temperatureName) {
                 return !this.channel.config.readOnlyTemperatureConfigFields?.includes(temperatureName);
+            },
+            setChannelsFromMasterThermostat() {
+                if (this.masterThermostat) {
+                    this.channel.config.mainThermometerChannelId = this.masterThermostat.config.mainThermometerChannelId;
+                    this.channel.config.auxThermometerChannelId = this.masterThermostat.config.auxThermometerChannelId;
+                    this.channel.config.binarySensorChannelId = this.masterThermostat.config.binarySensorChannelId;
+                    this.channel.config.pumpSwitchChannelId = this.masterThermostat.config.pumpSwitchChannelId;
+                    this.channel.config.heatOrColdSourceSwitchChannelId = this.masterThermostat.config.heatOrColdSourceSwitchChannelId;
+                }
+                this.masterThermostatChannelIdJustChanged = false;
             },
         },
         computed: {

@@ -114,6 +114,9 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertCount(5, $config['temperatures']);
                     $this->assertTrue($config['heatingModeAvailable']);
                     $this->assertTrue($config['coolingModeAvailable']);
+                    $this->assertTrue($config['pumpSwitchAvailable']);
+                    $this->assertTrue($config['masterThermostatAvailable']);
+                    $this->assertTrue($config['heatOrColdSourceSwitchAvailable']);
                 },
             ],
             'THERMOSTAT_HEAT_COOL' => [
@@ -995,5 +998,60 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $channel = $this->freshEntity($this->device->getChannels()[4]);
         $this->assertEquals(1000, $channel->getUserConfigValue('temperatures')['freezeProtection']);
+    }
+
+    public function testSettingMasterThermostat() {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
+        $thermostat = $device->getChannels()[2];
+        $thermostat2 = $device->getChannels()[3];
+        $channelParamConfigTranslator->setConfig($thermostat2, ['masterThermostatChannelId' => $thermostat->getId()]);
+        $thermostat2 = $this->persist($thermostat2);
+        $channelConfig = $channelParamConfigTranslator->getConfig($thermostat2);
+        $this->assertEquals($thermostat->getId(), $channelConfig['masterThermostatChannelId']);
+        $this->assertEquals(2, $thermostat2->getUserConfigValue('masterThermostatChannelNo'));
+        return $device->getId();
+    }
+
+    /** @depends testSettingMasterThermostat */
+    public function testUpdatingSlaveThermostatSettingsOnMasterChange(int $deviceId) {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $device = $this->freshEntityById(IODevice::class, $deviceId);
+        $thermostatMaster = $device->getChannels()[2];
+        $thermostatSlave = $device->getChannels()[3];
+        $this->assertEquals(2, $thermostatSlave->getUserConfigValue('masterThermostatChannelNo'));
+        $pump1Id = $device->getChannels()[8]->getId();
+        $pump2Id = $device->getChannels()[10]->getId();
+        $switchId = $device->getChannels()[9]->getId();
+        $thermoId = $device->getChannels()[0]->getId();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $thermostatMaster->getId(), [
+            'config' => [
+                'pumpSwitchChannelId' => $pump1Id,
+                'heatOrColdSourceSwitchChannelId' => $switchId,
+                'mainThermometerChannelId' => null,
+            ],
+            'configBefore' => $channelParamConfigTranslator->getConfig($thermostatMaster),
+        ]);
+        $client->apiRequestV3('PUT', '/api/channels/' . $thermostatSlave->getId(), [
+            'config' => [
+                'pumpSwitchChannelId' => $pump2Id,
+                'heatOrColdSourceSwitchChannelId' => $switchId,
+                'mainThermometerChannelId' => null,
+            ],
+            'configBefore' => $channelParamConfigTranslator->getConfig($this->freshEntity($thermostatSlave)),
+        ]);
+        $client->apiRequestV3('PUT', '/api/channels/' . $thermostatMaster->getId(), [
+            'config' => [
+                'heatOrColdSourceSwitchChannelId' => null,
+                'pumpSwitchChannelId' => null,
+                'mainThermometerChannelId' => $thermoId,
+            ],
+            'configBefore' => $channelParamConfigTranslator->getConfig($this->freshEntity($thermostatMaster)),
+        ]);
+        $slaveConfig = $channelParamConfigTranslator->getConfig($this->freshEntity($thermostatSlave));
+        $this->assertEquals($pump2Id, $slaveConfig['pumpSwitchChannelId']); // did not change as they were different
+        $this->assertEquals(null, $slaveConfig['heatOrColdSourceSwitchChannelId']); // changed, as were the same
+        $this->assertEquals($thermoId, $slaveConfig['mainThermometerChannelId']); // changed, as were the same
     }
 }

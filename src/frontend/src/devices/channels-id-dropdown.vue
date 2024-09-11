@@ -24,13 +24,22 @@
         methods: {
             updateChannel() {
                 if (this.value) {
-                    this.$http.get(`channels/${this.value}`).then(response => this.channel = response.body);
+                    this.$http.get(`channels/${this.value}`).then(response => {
+                        this.channel = response.body;
+                        this.emitChannel();
+                    });
                 } else {
                     this.channel = undefined;
+                    this.emitChannel();
+
                 }
             },
             channelChanged() {
                 this.$emit('input', this.channel?.id || 0);
+                this.emitChannel();
+            },
+            emitChannel() {
+                this.$emit('channelChanged', this.channel);
             }
         },
         watch: {

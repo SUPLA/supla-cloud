@@ -139,7 +139,14 @@
                             v-if="hasActionsToExecute">
                             <h3 class="text-center">{{ $t('Actions') }}</h3>
                             <div class="pt-3">
-                                <channel-action-executor :subject="channel"></channel-action-executor>
+                                <div class="alert alert-info m-0" v-if="channel.config.masterThermostatChannelId">
+                                    {{ $t('This thermostat is controlled by another device.') }}
+                                    <router-link
+                                        :to="{name: 'channel.thermostatPrograms', params: {id: channel.config.masterThermostatChannelId}}">
+                                        {{ $t('Visit the master thermostat page.') }}
+                                    </router-link>
+                                </div>
+                                <channel-action-executor :subject="channel" v-else></channel-action-executor>
                             </div>
                         </div>
                     </div>

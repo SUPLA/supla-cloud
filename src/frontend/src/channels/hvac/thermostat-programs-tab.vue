@@ -5,39 +5,52 @@
             dont-set-page-title
             @cancel="cancelChanges()"
             @save="saveWeeklySchedules()"
-            :is-pending="hasPendingChanges && !editingPrograms">
+            :is-pending="!subject.hasPendingChanges && hasPendingChanges && !editingPrograms">
 
-            <transition-expand>
-                <div class="row" v-if="conflictingConfig">
-                    <div class="col-sm-6 col-sm-offset-3">
-                        <ConfigConflictWarning @refresh="replaceConfigWithConflictingConfig()"/>
+            <div class="row" v-if="subject.config.masterThermostatChannelId">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="alert alert-info">
+                        {{ $t('Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.') }}
+                        <router-link :to="{name: 'channel.thermostatPrograms', params: {id: subject.config.masterThermostatChannelId}}">
+                            {{ $t('Visit the master thermostat page.') }}
+                        </router-link>
                     </div>
                 </div>
-            </transition-expand>
-
-            <div class="text-center mb-5"
-                v-if="subject.config.altWeeklySchedule && subject.config.heatingModeAvailable && subject.config.coolingModeAvailable">
-                <a :class="['btn mx-2', editingMode === 'weeklySchedule' ? 'btn-orange' : 'btn-default']"
-                    @click="editingMode = 'weeklySchedule'">
-                    <IconHeating/>
-                    {{ $t('Heating mode') }}
-                </a>
-                <a :class="['btn mx-2', editingMode === 'altWeeklySchedule' ? 'btn-blue' : 'btn-default']"
-                    @click="editingMode = 'altWeeklySchedule'">
-                    <IconCooling/>
-                    {{ $t('Cooling mode') }}
-                </a>
             </div>
 
-            <ThermostatProgramsConfigurator v-model="editingSchedule.programSettings" :subject="subject"
-                :default-program-mode="editingMode === 'weeklySchedule' ? 'HEAT' : 'COOL'"
-                @editing="editingPrograms = $event"
-                @input="hasPendingChanges = true"
-                @programChosen="(programNo) => currentProgram = programNo"/>
+            <div v-else>
+                <transition-expand>
+                    <div class="row" v-if="conflictingConfig">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <ConfigConflictWarning @refresh="replaceConfigWithConflictingConfig()"/>
+                        </div>
+                    </div>
+                </transition-expand>
 
-            <WeekScheduleSelector v-model="quarters" :selection-mode="currentProgram"
-                quarters
-                class="week-schedule-selector-thermostat"/>
+                <div class="text-center mb-5"
+                    v-if="subject.config.altWeeklySchedule && subject.config.heatingModeAvailable && subject.config.coolingModeAvailable">
+                    <a :class="['btn mx-2', editingMode === 'weeklySchedule' ? 'btn-orange' : 'btn-default']"
+                        @click="editingMode = 'weeklySchedule'">
+                        <IconHeating/>
+                        {{ $t('Heating mode') }}
+                    </a>
+                    <a :class="['btn mx-2', editingMode === 'altWeeklySchedule' ? 'btn-blue' : 'btn-default']"
+                        @click="editingMode = 'altWeeklySchedule'">
+                        <IconCooling/>
+                        {{ $t('Cooling mode') }}
+                    </a>
+                </div>
+
+                <ThermostatProgramsConfigurator v-model="editingSchedule.programSettings" :subject="subject"
+                    :default-program-mode="editingMode === 'weeklySchedule' ? 'HEAT' : 'COOL'"
+                    @editing="editingPrograms = $event"
+                    @input="hasPendingChanges = true"
+                    @programChosen="(programNo) => currentProgram = programNo"/>
+
+                <WeekScheduleSelector v-model="quarters" :selection-mode="currentProgram"
+                    quarters
+                    class="week-schedule-selector-thermostat"/>
+            </div>
         </pending-changes-page>
     </div>
 </template>
