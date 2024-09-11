@@ -181,9 +181,9 @@ export default [
         children: [
             {
                 path: 'channels',
-                component: () => import("@/channels/channel-list-page"),
+                component: () => import("@/devices/details/device-channel-list-page.vue"),
                 name: 'device.channels',
-                props: ({params}) => ({deviceId: params.id}),
+                props: ({params}) => ({deviceId: Number.parseInt(params.id)}),
             },
             {
                 path: 'notifications',
