@@ -91,11 +91,12 @@ class IODeviceController extends RestController {
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
         $groups = [
-            'channels', 'location', 'originalLocation', 'connected', 'accessids', 'state', 'pairingResult',
+            'channels', 'location', 'originalLocation', 'connected', 'accessids', 'state', 'pairingResult', 'subDevices',
             'channels' => 'iodevice.channels',
             'location' => 'iodevice.location',
             'originalLocation' => 'iodevice.originalLocation',
             'accessids' => 'location.accessids',
+            'subDevices' => 'iodevice.subDevices',
         ];
         if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
             $groups[] = 'schedules';
@@ -185,7 +186,7 @@ class IODeviceController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "location", "originalLocation", "connected", "accessids", "pairingResult"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "location", "originalLocation", "connected", "accessids", "pairingResult", "subDevices"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
      * )

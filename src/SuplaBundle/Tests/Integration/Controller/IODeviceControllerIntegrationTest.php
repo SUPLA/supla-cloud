@@ -907,4 +907,19 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('channelsWithConflict', $content['relationsCount']);
         $this->assertEquals(1, $content['relationsCount']['channelsWithConflict']);
     }
+
+    public function testFetchingSubDevices() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceGateway($this->device->getLocation());
+        $this->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('GET', "/api/iodevices/{$device->getId()}?include=subDevices");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('subDevices', $content);
+        $subDevices = $content['subDevices'];
+        $this->assertCount(2, $subDevices);
+        $this->assertEquals([1, 3], array_column($subDevices, 'id'));
+        $this->assertEquals('My Cool Subdevice', $subDevices[0]['name']);
+    }
 }

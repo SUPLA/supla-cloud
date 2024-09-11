@@ -26,6 +26,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\SubDevice;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags as Flags;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist as Functions;
@@ -545,6 +546,25 @@ class DevicesFixture extends SuplaFixture {
                 | IoDeviceFlags::BLOCK_ADDING_CHANNELS_AFTER_DELETION
                 | IoDeviceFlags::PAIRING_SUBDEVICES_AVAILABLE,
         ]);
+        $this->entityManager->persist($device);
+        $this->entityManager->persist(AnyFieldSetter::set(new SubDevice(), [
+            'id' => 1,
+            'device' => $device,
+            'regDate' => new DateTime(),
+            'name' => 'My Cool Subdevice',
+            'softwareVersion' => '2.' . rand(0, 50),
+            'productCode' => strtoupper($this->faker->randomLetter() . $this->faker->randomLetter()),
+            'serialNumber' => $this->faker->uuid(),
+        ]));
+        $this->entityManager->persist(AnyFieldSetter::set(new SubDevice(), [
+            'id' => 3,
+            'device' => $device,
+            'regDate' => new DateTime(),
+            'name' => 'Two Channels Subdeivce',
+            'softwareVersion' => '3.' . rand(0, 50),
+            'productCode' => strtoupper($this->faker->randomLetter() . $this->faker->randomLetter()),
+            'serialNumber' => $this->faker->uuid(),
+        ]));
         $this->entityManager->persist($device);
         return $device;
     }

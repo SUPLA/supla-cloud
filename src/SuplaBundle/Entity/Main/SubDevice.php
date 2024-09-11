@@ -18,6 +18,7 @@
 namespace SuplaBundle\Entity\Main;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -27,6 +28,7 @@ class SubDevice {
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
+     * @Groups({"basic"})
      */
     private $id;
 
@@ -39,6 +41,7 @@ class SubDevice {
 
     /**
      * @ORM\Column(name="reg_date", type="utcdatetime")
+     * @Groups({"basic"})
      */
     private $regDate;
 
@@ -49,21 +52,49 @@ class SubDevice {
 
     /**
      * @ORM\Column(name="name", type="string", length=200, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
+     * @Groups({"basic"})
      */
     private $name;
 
     /**
      * @ORM\Column(name="software_version", type="string", length=20, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
+     * @Groups({"basic"})
      */
     private $softwareVersion;
 
     /**
      * @ORM\Column(name="product_code", type="string", length=50, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
+     * @Groups({"basic"})
      */
     private $productCode;
 
     /**
      * @ORM\Column(name="serial_number", type="string", length=50, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
+     * @Groups({"basic"})
      */
     private $serialNumber;
+
+    public function getId(): ?int {
+        return $this->id;
+    }
+
+    public function getRegDate(): \DateTime {
+        return $this->regDate;
+    }
+
+    public function getName(): ?string {
+        return $this->name;
+    }
+
+    public function getSoftwareVersion(): ?string {
+        return $this->softwareVersion;
+    }
+
+    public function getProductCode(): ?string {
+        return $this->productCode;
+    }
+
+    public function getSerialNumber(): ?string {
+        return $this->serialNumber;
+    }
 }

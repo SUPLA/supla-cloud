@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests;
 class AnyFieldSetter {
     public static function set($object, $property, $value = null) {
         (new self())->setValue($object, $property, $value);
+        return $object;
     }
 
     private function setValue($object, $property, $value) {

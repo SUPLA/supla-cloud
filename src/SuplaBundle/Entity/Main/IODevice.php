@@ -87,6 +87,14 @@ class IODevice implements HasLocation, HasRelationsCount {
     private $channels;
 
     /**
+     * @var SubDevice[]
+     * @ORM\OneToMany(targetEntity="SubDevice", mappedBy="device")
+     * @Groups({"iodevice.subDevices"})
+     * @MaxDepth(1)
+     */
+    private $subDevices;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="iodevices")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
@@ -225,6 +233,11 @@ class IODevice implements HasLocation, HasRelationsCount {
     /** @return Collection|IODeviceChannel[] */
     public function getChannels(): Collection {
         return $this->channels;
+    }
+
+    /** @return Collection|SubDevice[] */
+    public function getSubDevices(): Collection {
+        return $this->subDevices;
     }
 
     public function getUser(): User {
