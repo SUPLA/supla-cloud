@@ -262,7 +262,7 @@
                 }
             },
             isSlaveThermostat() {
-                return !!this.subject.config?.masterThermostatChannelId;
+                return !!this.subject?.config?.masterThermostatChannelId;
             },
             isDisabled() {
                 return this.disabled || !!this.isSlaveThermostat;
