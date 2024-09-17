@@ -178,7 +178,6 @@
 </template>
 
 <script>
-    import Vue from "vue";
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
@@ -266,7 +265,7 @@
                 this.hasPendingChanges = true;
             },
             saveDirectLink() {
-                const toSend = Vue.util.extend({}, this.directLink);
+                const toSend = {...this.directLink};
                 toSend.allowedActions = this.currentlyAllowedActions;
                 this.loading = true;
                 this.$http

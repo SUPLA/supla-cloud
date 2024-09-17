@@ -164,7 +164,6 @@
 </template>
 
 <script>
-    import Vue from "vue";
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PasswordDisplay from "../common/gui/password-display";
     import Toggler from "../common/gui/toggler";
@@ -223,7 +222,7 @@
                 if (!this.useWorkingSchedule) {
                     this.accessId.activeHours = {};
                 }
-                const toSend = Vue.util.extend({}, this.accessId);
+                const toSend = {...this.accessId};
                 this.loading = true;
                 this.$http.put('accessids/' + this.accessId.id, toSend)
                     .then((response) => {

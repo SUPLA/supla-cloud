@@ -31,7 +31,7 @@
 
 <script setup>
     import ChannelTile from "../channels/channel-tile";
-    import {ref} from "vue";
+    import {defineProps, ref} from "vue";
 
     defineProps({
         channel: Object,
