@@ -6,7 +6,7 @@
         device: Object,
     });
 
-    const subdevice = computed(() => props.device.subDevices.find((sd) => sd.id == props.subDeviceId));
+    const subdevice = computed(() => props.device?.subDevices?.find((sd) => sd.id == props.subDeviceId));
 </script>
 
 <template>

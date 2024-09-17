@@ -319,6 +319,17 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSuplaCommandExecuted('PAIR-SUBDEVICE:1,' . $device->getId());
     }
 
+    public function testIdentifyingDevice() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        AnyFieldSetter::set($device, 'flags', IoDeviceFlags::IDENTIFY_DEVICE_AVAILABLE);
+        $this->persist($device);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'identifyDevice']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertSuplaCommandExecuted('IDENTIFY-DEVICE:1,' . $device->getId());
+    }
+
     public function testSettingDeviceTime() {
         $this->user->setTimezone('Europe/Warsaw');
         $this->persist($this->user);

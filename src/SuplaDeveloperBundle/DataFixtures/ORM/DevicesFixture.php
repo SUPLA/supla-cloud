@@ -544,6 +544,7 @@ class DevicesFixture extends SuplaFixture {
         AnyFieldSetter::set($device, [
             'flags' => IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION
                 | IoDeviceFlags::BLOCK_ADDING_CHANNELS_AFTER_DELETION
+                | IoDeviceFlags::IDENTIFY_DEVICE_AVAILABLE
                 | IoDeviceFlags::PAIRING_SUBDEVICES_AVAILABLE,
         ]);
         $this->entityManager->persist($device);

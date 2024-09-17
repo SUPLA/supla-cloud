@@ -316,6 +316,11 @@ class IODevice implements HasLocation, HasRelationsCount {
     }
 
     /** @Groups({"basic"}) */
+    public function isIdentifyDeviceAvailable(): bool {
+        return IoDeviceFlags::IDENTIFY_DEVICE_AVAILABLE()->isOn($this->flags);
+    }
+
+    /** @Groups({"basic"}) */
     public function isChannelDeletionAvailable(): bool {
         return IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($this->flags);
     }

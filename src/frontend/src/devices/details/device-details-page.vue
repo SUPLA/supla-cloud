@@ -48,6 +48,7 @@
                                     <DeviceRemoteRestartButton :device="device"/>
                                     <DeviceSetTimeButton :device="device"/>
                                     <DevicePairSubdeviceButton :device="device"/>
+                                    <DeviceIdentifyDeviceButton :device="device"/>
                                 </div>
                             </div>
                             <div class="col-sm-4" v-if="!device.locked">
@@ -146,10 +147,12 @@
     import DeviceSetTimeButton from "@/devices/details/device-set-time-button.vue";
     import DevicePairSubdeviceButton from "@/devices/details/device-pair-subdevice-button.vue";
     import DeviceRemoteRestartButton from "@/devices/details/device-remote-restart-button.vue";
+    import DeviceIdentifyDeviceButton from "@/devices/details/device-identify-device-button.vue";
 
     export default {
         props: ['id'],
         components: {
+            DeviceIdentifyDeviceButton,
             DeviceRemoteRestartButton,
             DevicePairSubdeviceButton,
             DeviceSetTimeButton,

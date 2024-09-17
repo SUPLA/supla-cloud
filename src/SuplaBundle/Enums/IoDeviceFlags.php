@@ -25,12 +25,14 @@ namespace SuplaBundle\Enums;
  * @method static IoDeviceFlags PAIRING_SUBDEVICES_AVAILABLE()
  * @method static IoDeviceFlags ALWAYS_ALLOW_CHANNEL_DELETION()
  * @method static IoDeviceFlags BLOCK_ADDING_CHANNELS_AFTER_DELETION()
+ * @method static IoDeviceFlags IDENTIFY_DEVICE_AVAILABLE()
  */
 final class IoDeviceFlags extends ChannelFunctionBits {
     /** @see https://github.com/SUPLA/supla-cloud/issues/448 */
     const ENTER_CONFIGURATION_MODE_AVAILABLE = 0x0010;
     /** @see https://github.com/SUPLA/supla-cloud/issues/622 */
     const SLEEP_MODE_ENABLED = 0x0020;
+    const IDENTIFY_DEVICE_AVAILABLE = 0x0400;
     const REMOTE_RESTART_AVAILABLE = 0x0800;
 
     const DEVICE_LOCKED = 0x0100;

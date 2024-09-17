@@ -385,6 +385,13 @@ class IODeviceController extends RestController {
                 );
                 $result = $this->suplaServer->deviceAction($ioDevice, 'PAIR-SUBDEVICE');
                 Assertion::true($result, 'Could not enter the configuration mode.'); // i18n
+            } elseif ($action === 'identifyDevice') {
+                Assertion::true(
+                    $ioDevice->isIdentifyDeviceAvailable(),
+                    'Device identification is unsupported in the firmware.' // i18n
+                );
+                $result = $this->suplaServer->deviceAction($ioDevice, 'IDENTIFY-DEVICE');
+                Assertion::true($result, 'Could not send the identify command.'); // i18n
             } elseif ($action === 'setTime') {
                 Assertion::keyExists($body, 'time', 'Missing time.');
                 $timestamp = strtotime($body['time']);
