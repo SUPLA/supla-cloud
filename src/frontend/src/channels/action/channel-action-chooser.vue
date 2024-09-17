@@ -1,7 +1,18 @@
 <template>
     <div :class="['channel-action-chooser', `channel-action-chooser-action-${action && action.id}`]">
         <div class="w-100">
-            <div :class="['panel-group panel-accordion m-0', {'panel-accordion-disabled': disabled}]">
+            <div class="alert alert-info" v-if="isSlaveThermostat">
+                {{ $t('This thermostat is controlled by another device.') }}
+                <i18n path="Use {theMasterThermostat} to control this device." tag="span">
+                    <template #theMasterThermostat>
+                        <router-link
+                            :to="{name: 'channel.thermostatPrograms', params: {id: subject.config.masterThermostatChannelId}}">
+                            {{ $t('the master thermostat ID{id}', {id: subject.config.masterThermostatChannelId}) }}
+                        </router-link>
+                    </template>
+                </i18n>
+            </div>
+            <div :class="['panel-group panel-accordion m-0', {'panel-accordion-disabled': isDisabled}]">
                 <div
                     :class="[{'panel panel-default': possibleAction.name !== 'SEND', 'panel-success': isSelected(possibleAction.id), 'action-without-params': !ChannelFunctionAction.requiresParams(possibleAction.id)}]"
                     v-for="possibleAction in actionsToShow"
@@ -140,6 +151,9 @@
         },
         methods: {
             changeAction(action) {
+                if (this.isDisabled) {
+                    return;
+                }
                 if (action.id === this.action?.id && this.executorMode && ChannelFunctionAction.requiresParams(action.id)) {
                     return this.changeAction({}); // collapse params panel
                 }
@@ -199,7 +213,7 @@
                 return this.possibleActionFilter ? this.possibleActionFilter(possibleAction) : true;
             },
             updateModel() {
-                if (this.disabled || (this.executorMode && !this.action.id)) {
+                if (this.isDisabled || (this.executorMode && !this.action.id)) {
                     return;
                 }
                 this.$emit('input', this.modelValue);
@@ -247,6 +261,12 @@
                     }
                 }
             },
+            isSlaveThermostat() {
+                return !!this.subject.config?.masterThermostatChannelId;
+            },
+            isDisabled() {
+                return this.disabled || !!this.isSlaveThermostat;
+            }
         },
         watch: {
             subject(newSubject, oldSubject) {
