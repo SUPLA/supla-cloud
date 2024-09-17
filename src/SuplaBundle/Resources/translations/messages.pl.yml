@@ -1503,7 +1503,7 @@ thermostatTemperature_aboveAlarm: Powyżej alarmu
 thermostatTemperature_auxMaxSetpoint: Maksymalna temperatura dodatkowa
 thermostatTemperature_auxMinSetpoint: Minimalna temperatura dodatkowa
 thermostatTemperature_belowAlarm: Poniżej alarmu
-thermostatTemperature_boost: Boost
+thermostatTemperature_boost: Temperatura boost
 thermostatTemperature_comfort: Temperatura komfortu
 thermostatTemperature_eco: Temperatura ECO
 thermostatTemperature_freezeProtection: Temperatura ochrony przeciwzamrożeniowej

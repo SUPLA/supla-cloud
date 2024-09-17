@@ -123,7 +123,7 @@ thermostatTemperature_aboveAlarm: Above alarm
 thermostatTemperature_auxMaxSetpoint: Aux max setpoint
 thermostatTemperature_auxMinSetpoint: Aux min setpoint
 thermostatTemperature_belowAlarm: Below alarm
-thermostatTemperature_boost: Boost
+thermostatTemperature_boost: Boost temperature
 thermostatTemperature_comfort: Comfort
 thermostatTemperature_eco: ECO
 thermostatTemperature_freezeProtection: Anti-freeze temperature
