@@ -4,6 +4,7 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 
 use Assert\Assert;
 use Assert\Assertion;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
@@ -238,12 +239,21 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         if (array_key_exists('masterThermostatChannelId', $config)) {
             if ($config['masterThermostatChannelId']) {
                 Assertion::numeric($config['masterThermostatChannelId']);
-                $hvac = $this->channelIdToNo($subject, $config['masterThermostatChannelId']);
-                Assertion::eq(ChannelType::HVAC, $hvac->getType()->getId(), 'Invalid master thermostat type.');
-                $subject->setUserConfigValue('masterThermostatChannelNo', $hvac->getChannelNumber());
+                $masterThermostat = $this->channelIdToNo($subject, $config['masterThermostatChannelId']);
+                Assertion::eq(ChannelType::HVAC, $masterThermostat->getType()->getId(), 'Invalid master thermostat type.');
+                Assertion::null(
+                    $masterThermostat->getUserConfigValue('masterThermostatChannelNo'),
+                    'The master termostat you chose already has a master.' // i18n
+                );
+                Assertion::eq(
+                    0,
+                    $this->findSlaveThermostats($subject)->count(),
+                    'You cannot to set a master thermostat for a channel that is master for others.' // i18n
+                );
+                $subject->setUserConfigValue('masterThermostatChannelNo', $masterThermostat->getChannelNumber());
                 Assertion::eq(
                     $subject->getLocation()->getId(),
-                    $hvac->getLocation()->getId(),
+                    $masterThermostat->getLocation()->getId(),
                     'Channels that are meant to work with each other must be in the same location.' // i18n
                 );
             } else {
@@ -519,12 +529,16 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             ->count();
     }
 
+    private function findSlaveThermostats(IODeviceChannel $channel): Collection {
+        return $channel->getIoDevice()
+            ->getChannels()
+            ->filter(fn(IODeviceChannel $ch) => $ch->getUserConfigValue('masterThermostatChannelNo') === $channel->getChannelNumber());
+    }
+
     private function updateSlaveThermostats(IODeviceChannel $channel, array $newConfig, string $fieldToSet): void {
         $configKey = str_replace('ChannelId', 'ChannelNo', $fieldToSet);
         $currentValue = $channel->getUserConfigValue($configKey);
-        $channel->getIoDevice()
-            ->getChannels()
-            ->filter(fn(IODeviceChannel $ch) => $ch->getUserConfigValue('masterThermostatChannelNo') === $channel->getChannelNumber())
+        $this->findSlaveThermostats($channel)
             ->filter(fn(IODeviceChannel $ch) => $ch->getUserConfigValue($configKey) === $currentValue)
             ->forAll(function ($id, IODeviceChannel $ch) use ($fieldToSet, $newConfig) {
                 $this->setConfig($ch, [$fieldToSet => $newConfig[$fieldToSet]]);

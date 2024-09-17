@@ -1003,13 +1003,13 @@ class HvacIntegrationTest extends IntegrationTestCase {
     public function testSettingMasterThermostat() {
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
-        $thermostat = $device->getChannels()[2];
-        $thermostat2 = $device->getChannels()[3];
-        $channelParamConfigTranslator->setConfig($thermostat2, ['masterThermostatChannelId' => $thermostat->getId()]);
-        $thermostat2 = $this->persist($thermostat2);
-        $channelConfig = $channelParamConfigTranslator->getConfig($thermostat2);
-        $this->assertEquals($thermostat->getId(), $channelConfig['masterThermostatChannelId']);
-        $this->assertEquals(2, $thermostat2->getUserConfigValue('masterThermostatChannelNo'));
+        $thermostatMaser = $device->getChannels()[2];
+        $thermostatSlave = $device->getChannels()[3];
+        $channelParamConfigTranslator->setConfig($thermostatSlave, ['masterThermostatChannelId' => $thermostatMaser->getId()]);
+        $thermostatSlave = $this->persist($thermostatSlave);
+        $channelConfig = $channelParamConfigTranslator->getConfig($thermostatSlave);
+        $this->assertEquals($thermostatMaser->getId(), $channelConfig['masterThermostatChannelId']);
+        $this->assertEquals(2, $thermostatSlave->getUserConfigValue('masterThermostatChannelNo'));
         return $device->getId();
     }
 
@@ -1053,5 +1053,25 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($pump2Id, $slaveConfig['pumpSwitchChannelId']); // did not change as they were different
         $this->assertEquals(null, $slaveConfig['heatOrColdSourceSwitchChannelId']); // changed, as were the same
         $this->assertEquals($thermoId, $slaveConfig['mainThermometerChannelId']); // changed, as were the same
+    }
+
+    /** @depends testSettingMasterThermostat */
+    public function testCantSetSlaveThermostatAsMasterForAnother(int $deviceId) {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $device = $this->freshEntityById(IODevice::class, $deviceId);
+        $thermostatSlave = $device->getChannels()[3];
+        $thermostatOther = $device->getChannels()[4];
+        $this->expectExceptionMessage('already has a master');
+        $channelParamConfigTranslator->setConfig($thermostatOther, ['masterThermostatChannelId' => $thermostatSlave->getId()]);
+    }
+
+    /** @depends testSettingMasterThermostat */
+    public function testCantSetMasterThermostatForThermostatThatIsMasterForOthers(int $deviceId) {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $device = $this->freshEntityById(IODevice::class, $deviceId);
+        $thermostatMaster = $device->getChannels()[2];
+        $thermostatOther = $device->getChannels()[4];
+        $this->expectExceptionMessage('is master for others');
+        $channelParamConfigTranslator->setConfig($thermostatMaster, ['masterThermostatChannelId' => $thermostatOther->getId()]);
     }
 }
