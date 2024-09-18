@@ -186,7 +186,7 @@ class IODeviceController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "location", "originalLocation", "connected", "accessids", "pairingResult", "subDevices"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "location", "originalLocation", "connected", "accessids", "pairingResult"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
      * )
@@ -422,7 +422,7 @@ class IODeviceController extends RestController {
     /**
      * @OA\Get(
      *     path="/subdevices", operationId="getSubDevices", tags={"Devices"},
-     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array"),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(type="object")),
      *    ),
      * )
      * @Security("is_granted('ROLE_IODEVICES_R')")
