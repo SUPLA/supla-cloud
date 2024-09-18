@@ -5,7 +5,7 @@ export const subDevicesApi = {
         const {body} = await api.get('subdevices');
         return body;
     },
-    async identify(subDevice) {
-        return await api.patch(`iodevices/${subDevice.ioDeviceId}/subdevices/${subDevice.id}`, {action: 'identify'});
+    async identify(channel) {
+        return await api.patch(`channels/${channel.id}/subdevice`, {action: 'identify'});
     }
 }

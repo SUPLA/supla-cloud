@@ -29,6 +29,7 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
@@ -591,5 +592,36 @@ class ChannelController extends RestController {
             $this->suplaServer->userAction('ON-CHANNEL-DELETED', [$device->getId(), $channelId]);
         });
         return new Response('', Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @OA\Patch(
+     *     path="/channels/{channelId}/subdevice", operationId="executeSubDeviceAction", tags={"Channels"},
+     *     @OA\Parameter(description="ID", in="path", name="channelId", required=true, @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *          @OA\Property(property="action", type="string"),
+     *       )
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="object")),
+     *    ),
+     * )
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
+     * @Rest\Patch("/channels/{channel}/subdevice", requirements={"channel"="^\d+$"})
+     * @UnavailableInMaintenance
+     */
+    public function patchSubdeviceAction(Request $request, IODeviceChannel $channel) {
+        $body = json_decode($request->getContent(), true);
+        Assertion::keyExists($body, 'action', 'Missing action.');
+        if ($body['action'] === 'identify') {
+            Assertion::true(
+                ChannelFunctionBitsFlags::IDENTIFY_SUBDEVICE_AVAILABLE()->isOn($channel->getFlags()),
+                'Device identification is unsupported in the firmware.' // i18n
+            );
+            $result = $this->suplaServer->channelAction($channel, 'IDENTIFY-SUBDEVICE');
+            Assertion::true($result, 'Could not send the identify command.'); // i18n
+        }
+        return $this->getChannelAction($request, $channel->clearRelationsCount());
     }
 }

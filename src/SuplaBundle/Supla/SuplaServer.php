@@ -180,14 +180,14 @@ abstract class SuplaServer {
         $params = implode(',', array_merge([$device->getUser()->getId(), $device->getId()], $params));
         $command = "$commandName:$params";
         $result = $this->doExecuteCommand($command);
-        return $result !== false && preg_match("/^OK:/", $result) === 1;
+        return $result !== false && str_starts_with($result, 'OK:');
     }
 
     public function channelAction(IODeviceChannel $channel, string $commandName): bool {
         $params = implode(',', [$channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId()]);
         $command = "$commandName:$params";
         $result = $this->doExecuteCommand($command);
-        return $result !== false && preg_match("/^OK:" . $channel->getId() . "\n/", $result) === 1;
+        return $result !== false && str_starts_with($result, 'OK:');
     }
 
     public function reconnect(User $user = null): void {

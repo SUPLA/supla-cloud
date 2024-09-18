@@ -1682,4 +1682,17 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $sonoff = $this->freshEntity($sonoff);
         $this->assertCount(0, $sonoff->getChannels());
     }
+
+    public function testIdentifyingDevice() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $channel = $device->getChannels()[0];
+        EntityUtils::setField($channel, 'subDeviceId', 1);
+        EntityUtils::setField($channel, 'flags', ChannelFunctionBitsFlags::IDENTIFY_SUBDEVICE_AVAILABLE);
+        $this->persist($channel);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', "/api/channels/{$channel->getId()}/subdevice", ['action' => 'identify']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertSuplaCommandExecuted("IDENTIFY-SUBDEVICE:1,{$device->getId()},{$channel->getId()}");
+    }
 }

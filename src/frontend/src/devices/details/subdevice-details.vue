@@ -12,7 +12,7 @@
     const subDeviceId = computed(() => props.channel?.subDeviceId)
     const subDevice = computed(() => subDevices.all[subDeviceId.value])
 
-    const identify = () => subDevicesApi.identify(subDevice.value);
+    const identify = () => subDevicesApi.identify(props.channel);
     const identifySubdeviceAvailable = computed(() => props.channel?.config?.identifySubdeviceAvailable);
 </script>
 

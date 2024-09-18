@@ -420,30 +420,6 @@ class IODeviceController extends RestController {
     }
 
     /**
-     * @OA\Patch(
-     *     path="/iodevices/{deviceId}/subdevices/{subDeviceId}", operationId="executeSubDeviceAction", tags={"Devices"},
-     *     @OA\Parameter(description="ID", in="path", name="deviceId", required=true, @OA\Schema(type="integer")),
-     *     @OA\Parameter(description="ID", in="path", name="subDeviceId", required=true, @OA\Schema(type="integer")),
-     *     @OA\RequestBody(
-     *       required=true,
-     *       @OA\JsonContent(
-     *          @OA\Property(property="action", type="string"),
-     *       )
-     *     ),
-     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
-     *    ),
-     * )
-     * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
-     * @Rest\Patch("/iodevices/{ioDevice}/subdevices/{subDeviceId}", requirements={"ioDevice"="^\d+$", "subDeviceId"="^\d+$"})
-     * @UnavailableInMaintenance
-     */
-    public function patchSubdeviceAction(Request $request, IODevice $ioDevice, int $subDeviceId) {
-        $body = json_decode($request->getContent(), true);
-        Assertion::keyExists($body, 'action', 'Missing action.');
-        return $this->getIodeviceAction($request, $ioDevice->clearRelationsCount());
-    }
-
-    /**
      * @OA\Get(
      *     path="/subdevices", operationId="getSubDevices", tags={"Devices"},
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array"),
