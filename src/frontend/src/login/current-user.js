@@ -2,6 +2,7 @@ import Vue from "vue";
 import {Base64} from 'js-base64';
 import {DateTime, Settings} from 'luxon';
 import {extendObject} from "@/common/utils";
+import {getActivePinia} from "pinia";
 
 export class CurrentUser {
     constructor() {
@@ -44,6 +45,7 @@ export class CurrentUser {
     authenticate(username, password) {
         return Vue.http.post('webapp-auth', {username, password}, {skipErrorHandler: [401, 409, 429]})
             .then(response => this.handleNewToken(response))
+            .then(() => getActivePinia()._s.forEach(store => store.$reset()))
             .then(() => this.fetchUserData());
     }
 

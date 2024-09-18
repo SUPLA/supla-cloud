@@ -12,7 +12,7 @@
                 <div v-if="filteredChannels.length">
                     <div v-for="channelsGroup in channelsBySubDevice" :key="channelsGroup[0].subDeviceId">
                         <div class="container" v-if="channelsGroup[0].subDeviceId > 0">
-                            <SubdeviceDetails :subDeviceId="channelsGroup[0].subDeviceId" :device="device" :channel="channelsGroup[0]"/>
+                            <SubdeviceDetails :channel="channelsGroup[0]"/>
                         </div>
                         <square-links-grid :count="channelsGroup.length">
                             <div v-for="channel in channelsGroup"
@@ -55,7 +55,7 @@
             this.loadNewChannelsListener = () => this.loadChannels();
             EventBus.$on('total-count-changed', this.loadNewChannelsListener);
             this.loadChannels();
-            this.$http.get(`iodevices/${this.deviceId}?include=subDevices`).then(({body}) => this.device = body);
+            this.$http.get(`iodevices/${this.deviceId}`).then(({body}) => this.device = body);
         },
         methods: {
             filter() {

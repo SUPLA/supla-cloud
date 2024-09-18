@@ -89,8 +89,6 @@ class IODevice implements HasLocation, HasRelationsCount {
     /**
      * @var SubDevice[]
      * @ORM\OneToMany(targetEntity="SubDevice", mappedBy="device")
-     * @Groups({"iodevice.subDevices"})
-     * @MaxDepth(1)
      */
     private $subDevices;
 

@@ -24,6 +24,7 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\SubDevice;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Message\Emails\ConfirmationAfterDeviceUnlockEmailNotification;
@@ -91,12 +92,11 @@ class IODeviceController extends RestController {
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
         $groups = [
-            'channels', 'location', 'originalLocation', 'connected', 'accessids', 'state', 'pairingResult', 'subDevices',
+            'channels', 'location', 'originalLocation', 'connected', 'accessids', 'state', 'pairingResult',
             'channels' => 'iodevice.channels',
             'location' => 'iodevice.location',
             'originalLocation' => 'iodevice.originalLocation',
             'accessids' => 'location.accessids',
-            'subDevices' => 'iodevice.subDevices',
         ];
         if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
             $groups[] = 'schedules';
@@ -441,6 +441,26 @@ class IODeviceController extends RestController {
         $body = json_decode($request->getContent(), true);
         Assertion::keyExists($body, 'action', 'Missing action.');
         return $this->getIodeviceAction($request, $ioDevice->clearRelationsCount());
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/subdevices", operationId="getSubDevices", tags={"Devices"},
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array"),
+     *    ),
+     * )
+     * @Security("is_granted('ROLE_IODEVICES_R')")
+     * @Rest\Get("/subdevices")
+     */
+    public function getSubdevicesAction(Request $request) {
+        $subdevices = $this->entityManager->getRepository(SubDevice::class)
+            ->createQueryBuilder('sd')
+            ->join(IODevice::class, 'io', 'io = sd.device')
+            ->where('io.user = :user')
+            ->setParameter('user', $this->getCurrentUser())
+            ->getQuery()
+            ->getResult();
+        return $this->serializedView($subdevices, $request);
     }
 
     /**

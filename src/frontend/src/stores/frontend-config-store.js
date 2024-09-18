@@ -21,5 +21,8 @@ export const useFrontendConfigStore = defineStore('frontendConfig', () => {
         baseUrl.value = data.value.baseUrl || '';
     };
 
-    return {config, cloudVersion, frontendVersion, env, time, baseUrl, fetchConfig};
+    const $reset = () => {
+    };
+
+    return {config, cloudVersion, frontendVersion, env, time, baseUrl, $reset, fetchConfig};
 })

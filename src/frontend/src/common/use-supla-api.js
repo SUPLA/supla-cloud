@@ -19,17 +19,17 @@ export const useSuplaApi = createFetch({
             return {url, options}
         },
         async onFetchError({response}) {
-            if (response.status == 401) {
+            if (response?.status == 401) {
                 window.location.assign(window.location.toString());
             } else {
                 let body;
                 try {
-                    body = await response.json();
+                    body = await response?.json();
                 } catch (e) {
                     body = '';
                 }
-                let message = body.message || 'Error when communicating the server. Try again in a while.'; // i18n
-                const details = body.details || {};
+                let message = body?.message || 'Error when communicating the server. Try again in a while.'; // i18n
+                const details = body?.details || {};
                 if (details.propertyPath && message.indexOf('{propertyPath}') === -1) {
                     message += ' ' + i18n.global.t('Field: {propertyPath}.', details);
                 }
