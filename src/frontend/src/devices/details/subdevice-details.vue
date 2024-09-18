@@ -1,8 +1,8 @@
 <script setup>
-    import {computed, ref} from "vue";
-    import {useDebounceFn} from "@vueuse/core";
+    import {computed} from "vue";
     import {useSubDevicesStore} from "@/stores/subdevices-store";
     import {subDevicesApi} from "@/api/subdevices-api";
+    import PromiseConfirmButton from "@/devices/details/promise-confirm-button.vue";
 
     const props = defineProps({
         channel: Object,
@@ -12,22 +12,7 @@
     const subDeviceId = computed(() => props.channel?.subDeviceId)
     const subDevice = computed(() => subDevices.all[subDeviceId.value])
 
-    const identifySuccess = ref(false);
-    const identifying = ref(false);
-    const clearIdentifySuccess = useDebounceFn(() => identifySuccess.value = false, 3000);
-
-    function identify() {
-        if (!identifying.value && !identifySuccess.value) {
-            identifying.value = true;
-            subDevicesApi.identify(subDevice.value)
-                .then(() => {
-                    identifySuccess.value = true;
-                    clearIdentifySuccess();
-                })
-                .finally(() => identifying.value = false);
-        }
-    }
-
+    const identify = () => subDevicesApi.identify(subDevice.value);
     const identifySubdeviceAvailable = computed(() => props.channel?.config?.identifySubdeviceAvailable);
 </script>
 
@@ -36,15 +21,7 @@
         <h3 v-if="subDevice && subDevice.name">{{ subDevice.name }}</h3>
         <h3 v-else>{{ $t('Subdevice #{id}', {id: subDeviceId}) }}</h3>
         <div v-if="identifySubdeviceAvailable" class="mb-3">
-            <button type="button" :class="['btn btn-sm', identifySuccess ? 'btn-green' : 'btn-white']" v-if="identifySubdeviceAvailable"
-                @click="identify()">
-                <button-loading-dots v-if="identifying"/>
-                <span v-else-if="identifySuccess">
-                    <fa icon="check" class="mr-1"/>
-                    {{ $t('Success') }}
-                </span>
-                <span v-else>{{ $t('Identify device') }}</span>
-            </button>
+            <PromiseConfirmButton :action="identify" label-i18n="Identify device"/>
         </div>
         <div v-if="subDevice" class="mb-3">
             <span class="label label-default mr-2">{{ $t('Firmware') }}: {{ subDevice.softwareVersion }}</span>
