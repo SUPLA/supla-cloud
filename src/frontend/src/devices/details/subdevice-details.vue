@@ -1,30 +1,30 @@
 <script setup>
     import {computed, ref} from "vue";
-    import {useSuplaApi} from "@/common/use-supla-api";
     import {useDebounceFn} from "@vueuse/core";
     import {useSubDevicesStore} from "@/stores/subdevices-store";
-    import {storeToRefs} from "pinia";
+    import {subDevicesApi} from "@/api/subdevices-api";
 
     const props = defineProps({
         channel: Object,
     });
 
-    const {subDevices} = storeToRefs(useSubDevicesStore());
+    const subDevices = useSubDevicesStore();
     const subDeviceId = computed(() => props.channel?.subDeviceId)
-    const subDevice = computed(() => subDevices.value.find((sd) => sd.id === subDeviceId.value))
+    const subDevice = computed(() => subDevices.all[subDeviceId.value])
 
     const identifySuccess = ref(false);
+    const identifying = ref(false);
     const clearIdentifySuccess = useDebounceFn(() => identifySuccess.value = false, 3000);
-    const url = computed(() => `iodevices/${props.channel?.iodeviceId}/subdevices/${subDeviceId.value}`)
-    const {execute: executeIdentify, isFetching: identifying, onFetchResponse: onIdentifySuccess} = useSuplaApi(url, {immediate: false})
-        .patch({action: 'identify'});
-    onIdentifySuccess(() => {
-        identifySuccess.value = true;
-        clearIdentifySuccess();
-    });
+
     function identify() {
         if (!identifying.value && !identifySuccess.value) {
-            executeIdentify();
+            identifying.value = true;
+            subDevicesApi.identify(subDevice.value)
+                .then(() => {
+                    identifySuccess.value = true;
+                    clearIdentifySuccess();
+                })
+                .finally(() => identifying.value = false);
         }
     }
 

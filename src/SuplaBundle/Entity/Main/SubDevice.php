@@ -78,6 +78,10 @@ class SubDevice {
         return $this->id;
     }
 
+    public function getDevice(): ?IODevice {
+        return $this->device;
+    }
+
     public function getRegDate(): \DateTime {
         return $this->regDate;
     }

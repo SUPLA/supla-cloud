@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-import {useSuplaApi} from "@/common/use-supla-api";
+import {useSuplaApi} from "@/api/use-supla-api";
 
 export const useFrontendConfigStore = defineStore('frontendConfig', () => {
     const {data, execute} = useSuplaApi('server-info', {immediate: false}).json();
