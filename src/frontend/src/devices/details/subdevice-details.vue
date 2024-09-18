@@ -11,10 +11,9 @@
 
     const identifySuccess = ref(false);
     const clearIdentifySuccess = useDebounceFn(() => identifySuccess.value = false, 3000);
-    const {execute: executeIdentify, isFetching: identifying, onFetchResponse: onIdentifySuccess} = useSuplaApi(
-        `iodevices/${props.device?.id}/subdevices/${props.subDeviceId}`,
-        {immediate: false}
-    ).patch({action: 'identify'});
+    const url = computed(() => `iodevices/${props.device?.id}/subdevices/${props.subDeviceId}`)
+    const {execute: executeIdentify, isFetching: identifying, onFetchResponse: onIdentifySuccess} = useSuplaApi(url, {immediate: false})
+        .patch({action: 'identify'});
     onIdentifySuccess(() => {
         identifySuccess.value = true;
         clearIdentifySuccess();
