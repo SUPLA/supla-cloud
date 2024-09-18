@@ -38,6 +38,7 @@ export class CurrentUser {
         if (!this.serverUrl) {
             this.serverUrl = (location && location.origin) || '';
         }
+        return this.serverUrl;
     }
 
     authenticate(username, password) {

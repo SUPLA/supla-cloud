@@ -28,6 +28,7 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\SubDevice;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags as Flags;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist as Functions;
 use SuplaBundle\Enums\ChannelType;
@@ -533,7 +534,11 @@ class DevicesFixture extends SuplaFixture {
     public function createDeviceGateway(Location $location) {
         $device = $this->createDevice('GATEWAY-JEJ', $location, [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH]],
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH, 'subDeviceId' => 1]],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, [
+                'funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH,
+                'subDeviceId' => 1,
+                'flags' => ChannelFunctionBitsFlags::IDENTIFY_SUBDEVICE_AVAILABLE,
+            ]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER, ['subDeviceId' => 1]],
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH, 'subDeviceId' => 2]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER, ['subDeviceId' => 2]],
