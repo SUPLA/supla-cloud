@@ -23,6 +23,7 @@ import './hello';
 import './styles/fontawesome';
 import FloatingVue from 'floating-vue';
 import 'floating-vue/dist/style.css'
+import {createApp} from 'vue-demi'
 
 Vue.use(VueResource);
 Vue.use(FloatingVue);
@@ -45,6 +46,31 @@ Vue.prototype.compareFrontendAndBackendVersion = (backendVersion) => {
     EventBus.$emit('backend-version-updated');
 };
 
+const appContainer = document.getElementById('vue-container');
+if (!appContainer) {
+    // eslint-disable-next-line no-console
+    console.warn('App container #vue-container could not be found.');
+}
+
+const appConfig = {
+    i18n,
+    router,
+    components: {
+        OauthAuthorizeForm: () => import("./login/oauth-authorize-form"),
+        ErrorPage: () => import("./common/errors/error-page"),
+        DirectLinkExecutionResult: () => import("./direct-links/result-page/direct-link-execution-result"),
+        PageFooter: () => import("./common/gui/page-footer"),
+    },
+    mounted() {
+        document.getElementById('page-preloader').remove();
+        document.getElementById('vue-container')?.classList.remove('hidden');
+    },
+};
+if (!appContainer.children.length) {
+    appConfig.render = h => h(App);
+}
+const app = createApp(appConfig);
+
 const renderStart = new Date();
 Vue.http.get('server-info')
     .then(({body: info}) => {
@@ -65,40 +91,10 @@ Vue.http.get('server-info')
     .then(() => Vue.prototype.$user.fetchUser())
     .then((userData) => setGuiLocale(userData))
     .then(() => {
-        const appContainer = document.getElementById('vue-container');
-        if (appContainer) {
-            const appConfig = {
-                i18n,
-                router,
-                components: {
-                    OauthAuthorizeForm: () => import("./login/oauth-authorize-form"),
-                    ErrorPage: () => import("./common/errors/error-page"),
-                    DirectLinkExecutionResult: () => import("./direct-links/result-page/direct-link-execution-result"),
-                    PageFooter: () => import("./common/gui/page-footer"),
-                },
-                mounted() {
-                    document.getElementById('page-preloader').remove();
-                    document.getElementById('vue-container')?.classList.remove('hidden');
-                },
-            };
-            if (!appContainer.children.length) {
-                appConfig.render = h => h(App);
-            }
-            const app = new Vue(appConfig).$mount(appContainer);
-
-            router.beforeEach((to, from, next) => {
-                Vue.prototype.$changingRoute = true;
-                next();
-            });
-            router.afterEach(() => Vue.prototype.$changingRoute = false);
-
-            Vue.http.interceptors.push(ResponseErrorInterceptor(app));
-            for (const transformer in requestTransformers) {
-                Vue.http.interceptors.push(requestTransformers[transformer]);
-            }
-        } else {
-            // eslint-disable-next-line no-console
-            console.warn('App container #vue-container could not be found.');
+        app.mount(appContainer);
+        Vue.http.interceptors.push(ResponseErrorInterceptor(app));
+        for (const transformer in requestTransformers) {
+            Vue.http.interceptors.push(requestTransformers[transformer]);
         }
     })
     // eslint-disable-next-line no-console

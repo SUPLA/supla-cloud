@@ -63,4 +63,11 @@ router.afterEach((to) => {
     }
 });
 
+router.beforeEach((to, from, next) => {
+    Vue.prototype.$changingRoute = true;
+    next();
+});
+
+router.afterEach(() => Vue.prototype.$changingRoute = false);
+
 export default router;
