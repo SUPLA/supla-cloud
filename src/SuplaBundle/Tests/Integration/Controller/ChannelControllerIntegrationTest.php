@@ -1683,7 +1683,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(0, $sonoff->getChannels());
     }
 
-    public function testIdentifyingDevice() {
+    public function testIdentifyingSubDevice() {
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
         $channel = $device->getChannels()[0];
         EntityUtils::setField($channel, 'subDeviceId', 1);
@@ -1694,5 +1694,18 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $this->assertSuplaCommandExecuted("IDENTIFY-SUBDEVICE:1,{$device->getId()},{$channel->getId()}");
+    }
+
+    public function testRestartingSubDevice() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $channel = $device->getChannels()[0];
+        EntityUtils::setField($channel, 'subDeviceId', 1);
+        EntityUtils::setField($channel, 'flags', ChannelFunctionBitsFlags::RESTART_SUBDEVICE_AVAILABLE);
+        $this->persist($channel);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', "/api/channels/{$channel->getId()}/subdevice", ['action' => 'restart']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertSuplaCommandExecuted("RESTART-SUBDEVICE:1,{$device->getId()},{$channel->getId()}");
     }
 }

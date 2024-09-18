@@ -537,10 +537,14 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, [
                 'funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH,
                 'subDeviceId' => 1,
-                'flags' => ChannelFunctionBitsFlags::IDENTIFY_SUBDEVICE_AVAILABLE,
+                'flags' => ChannelFunctionBitsFlags::IDENTIFY_SUBDEVICE_AVAILABLE | ChannelFunctionBitsFlags::RESTART_SUBDEVICE_AVAILABLE,
             ]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER, ['subDeviceId' => 1]],
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH, 'subDeviceId' => 2]],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, [
+                'funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH,
+                'subDeviceId' => 2,
+                'flags' => ChannelFunctionBitsFlags::RESTART_SUBDEVICE_AVAILABLE,
+            ]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER, ['subDeviceId' => 2]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => Functions::getAllFeaturesFlag(), 'subDeviceId' => 3]],
             [ChannelType::SENSORNO, ChannelFunction::NONE, ['subDeviceId' => 3]],

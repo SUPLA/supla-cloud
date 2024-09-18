@@ -621,6 +621,15 @@ class ChannelController extends RestController {
             );
             $result = $this->suplaServer->channelAction($channel, 'IDENTIFY-SUBDEVICE');
             Assertion::true($result, 'Could not send the identify command.'); // i18n
+        } elseif ($body['action'] === 'restart') {
+            Assertion::true(
+                ChannelFunctionBitsFlags::RESTART_SUBDEVICE_AVAILABLE()->isOn($channel->getFlags()),
+                'Remote restart is unsupported in the firmware.' // i18n
+            );
+            $result = $this->suplaServer->channelAction($channel, 'RESTART-SUBDEVICE');
+            Assertion::true($result, 'Could not restart the device.'); // i18n
+        } else {
+            throw new ApiException('Invalid action given.');
         }
         return $this->getChannelAction($request, $channel->clearRelationsCount());
     }

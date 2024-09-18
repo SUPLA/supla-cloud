@@ -10,6 +10,7 @@ class SubdeviceUserConfigTranslator extends UserConfigTranslator {
     public function getConfig(HasUserConfig $subject): array {
         return [
             'identifySubdeviceAvailable' => ChannelFunctionBitsFlags::IDENTIFY_SUBDEVICE_AVAILABLE()->isOn($subject->getFlags()),
+            'restartSubdeviceAvailable' => ChannelFunctionBitsFlags::RESTART_SUBDEVICE_AVAILABLE()->isOn($subject->getFlags()),
         ];
     }
 

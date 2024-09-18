@@ -4,10 +4,6 @@
 
     const props = defineProps({
         action: Function,
-        cssClass: {
-            type: String,
-            default: '',
-        },
         labelI18n: {
             type: String,
             default: 'Execute an action',
@@ -41,7 +37,7 @@
 </script>
 
 <template>
-    <button type="button" :class="['btn', cssClass, actionSuccess ? 'btn-green' : 'btn-white']" @click="executeAction()" ref="button"
+    <button type="button" :class="['btn', actionSuccess ? 'btn-green' : 'btn-white']" @click="executeAction()" ref="button"
         :style="{minWidth: (executingAction || actionSuccess) && fixedWidth || 'auto'}">
         <button-loading-dots v-if="executingAction"/>
         <span v-else-if="actionSuccess">

@@ -7,5 +7,8 @@ export const subDevicesApi = {
     },
     async identify(channel) {
         return await api.patch(`channels/${channel.id}/subdevice`, {action: 'identify'});
-    }
+    },
+    async restart(channel) {
+        return await api.patch(`channels/${channel.id}/subdevice`, {action: 'restart'});
+    },
 }
