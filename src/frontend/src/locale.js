@@ -1,6 +1,7 @@
 import Vue from "vue";
-import VueI18N from "vue-i18n";
+import VueI18n from "vue-i18n";
 import {Settings} from "luxon";
+import {createI18n} from 'vue-i18n-bridge'
 
 Vue.config.availableLanguages = [
     {value: 'en', text: 'English'},
@@ -24,14 +25,15 @@ Vue.config.availableLanguages = [
     {value: 'vi', text: 'Tiếng Việt'}
 ];
 
-Vue.use(VueI18N);
+Vue.use(VueI18n, {bridge: true});
 
-const i18n = new VueI18N({
+const i18n = createI18n({
+    legacy: false,
     fallbackLocale: 'en',
-    silentFallbackWarn: true,
-    silentTranslationWarn: true,
-    formatFallbackMessages: true,
-});
+    fallbackWarn: false,
+    missingWarn: false,
+    fallbackFormat: true,
+}, VueI18n);
 
 Vue.prototype.$setLocale = (lang) => {
     if (i18n.locale !== lang) {

@@ -1,7 +1,7 @@
 <template>
     <switches v-model="model"
         :type-bold="bold"
-        :label="$t(label)"
+        :label="$t(label || '')"
         :color="model ? trueColorValue : 'default'"
         :emit-on-mount="false"
         :disabled="disabled"></switches>

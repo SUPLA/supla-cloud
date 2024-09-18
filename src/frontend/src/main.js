@@ -55,7 +55,6 @@ if (!appContainer) {
 }
 
 const appConfig = {
-    i18n,
     router,
     components: {
         OauthAuthorizeForm: () => import("./login/oauth-authorize-form"),
@@ -72,6 +71,7 @@ if (!appContainer.children.length) {
     appConfig.render = h => h(App);
 }
 const app = createApp(appConfig);
+app.use(i18n);
 app.use(pinia);
 
 const renderStart = new Date();
