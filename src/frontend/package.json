@@ -37,6 +37,7 @@
     "latinize": "0.4.0",
     "lodash": "^4.17.20",
     "luxon": "^3.0.4",
+    "pinia": "^2.2.2",
     "pixeden-stroke-7-icon": "^1.2.3",
     "pnotify": "^5.2.0",
     "spectrum-colorpicker": "1.8.0",

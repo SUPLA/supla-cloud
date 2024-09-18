@@ -24,6 +24,8 @@ import './styles/fontawesome';
 import FloatingVue from 'floating-vue';
 import 'floating-vue/dist/style.css'
 import {createApp} from 'vue-demi'
+import {pinia} from "@/stores";
+import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
 Vue.use(VueResource);
 Vue.use(FloatingVue);
@@ -70,18 +72,20 @@ if (!appContainer.children.length) {
     appConfig.render = h => h(App);
 }
 const app = createApp(appConfig);
+app.use(pinia);
 
 const renderStart = new Date();
-Vue.http.get('server-info')
-    .then(({body: info}) => {
-        Vue.config.external = info.config;
-        Vue.prototype.$appEnv = info.env || 'prod';
+const frontendConfigStore = useFrontendConfigStore();
+frontendConfigStore.fetchConfig()
+    .then(() => {
+        Vue.config.external = frontendConfigStore.config;
+        Vue.prototype.$appEnv = frontendConfigStore.env || 'prod';
         Vue.prototype.$frontendConfig = Vue.config.external;
-        Vue.prototype.compareFrontendAndBackendVersion(info.cloudVersion);
+        Vue.prototype.compareFrontendAndBackendVersion(frontendConfigStore.cloudVersion);
         if (!Vue.config.external.baseUrl) {
             Vue.config.external.baseUrl = '';
         }
-        const serverTime = DateTime.fromISO(info.time).toJSDate();
+        const serverTime = DateTime.fromISO(frontendConfigStore.time).toJSDate();
         const offset = serverTime.getTime() - renderStart.getTime();
         Settings.now = function () {
             return Date.now() + offset;

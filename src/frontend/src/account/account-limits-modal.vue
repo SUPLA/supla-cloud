@@ -104,19 +104,19 @@
                         <tbody>
                         <tr>
                             <th scope="row">{{ $t('Electricity meter voltage history') }}</th>
-                            <td>{{ $t('{days} days', {days: $frontendConfig.measurementLogsRetention?.em_voltage || 90}) }}</td>
+                            <td>{{ $t('{days} days', {days: frontendConfigStore.config.measurementLogsRetention?.em_voltage || 90}) }}</td>
                         </tr>
                         <tr>
                             <th scope="row">{{ $t('Electricity meter voltage aberrations history') }}</th>
-                            <td>{{ $t('{days} days', {days: $frontendConfig.measurementLogsRetention?.em_voltage_aberrations || 180}) }}</td>
+                            <td>{{ $t('{days} days', {days: frontendConfigStore.config.measurementLogsRetention?.em_voltage_aberrations || 180}) }}</td>
                         </tr>
                         <tr>
                             <th scope="row">{{ $t('Electricity meter current history') }}</th>
-                            <td>{{ $t('{days} days', {days: $frontendConfig.measurementLogsRetention?.em_current || 90}) }}</td>
+                            <td>{{ $t('{days} days', {days: frontendConfigStore.config.measurementLogsRetention?.em_current || 90}) }}</td>
                         </tr>
                         <tr>
                             <th scope="row">{{ $t('Electricity meter active power history') }}</th>
-                            <td>{{ $t('{days} days', {days: $frontendConfig.measurementLogsRetention?.em_power_active || 90}) }}</td>
+                            <td>{{ $t('{days} days', {days: frontendConfigStore.config.measurementLogsRetention?.em_power_active || 950}) }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -183,6 +183,8 @@
     import AccountLimitProgressbar from "./account-limit-progressbar";
     import Vue from "vue";
     import {DateTime} from "luxon";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+    import {mapStores} from "pinia";
 
     export default {
         components: {AccountLimitProgressbar},
@@ -229,6 +231,7 @@
                 }
                 return DateTime.fromSeconds(this.limits.apiRateLimit.status.reset).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
             },
+            ...mapStores(useFrontendConfigStore),
         }
     };
 </script>
