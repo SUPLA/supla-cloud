@@ -15,22 +15,25 @@
 <script>
     import {channelIconUrl} from "../common/filters";
     import SelectForSubjects from "@/devices/select-for-subjects.vue";
+    import {useSubDevicesStore} from "@/stores/subdevices-store";
+    import {mapStores} from "pinia";
 
     export default {
         props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter', 'choosePromptI18n', 'disabled'],
         components: {SelectForSubjects},
         data() {
             return {
-                channels: undefined
+                channels: undefined,
             };
         },
-        mounted() {
-            this.fetchChannels();
+        async mounted() {
+            await this.subDevicesStore.fetchAll();
+            await this.fetchChannels();
         },
         methods: {
             fetchChannels() {
                 this.channels = undefined;
-                this.$http.get('channels?include=iodevice,location&' + (this.params || '')).then(({body: channels}) => {
+                return this.$http.get('channels?include=iodevice,location&' + (this.params || '')).then(({body: channels}) => {
                     this.channels = channels;
                 });
             },
@@ -38,6 +41,10 @@
                 return channel.caption || `ID${channel.id} ${this.$t(channel.function.caption)}`;
             },
             channelHtml(channel, escape) {
+                let subDeviceName = '';
+                if (channel.subDeviceId > 0 && this.subDevicesStore.all[channel.subDeviceId]) {
+                    subDeviceName = ' / ' + this.subDevicesStore.all[channel.subDeviceId].name;
+                }
                 return `<div>
                             <div class="subject-dropdown-option d-flex">
                                 <div class="flex-grow-1">
@@ -45,7 +52,7 @@
                                         <span class="line-clamp line-clamp-2">${escape(channel.fullCaption)}</span>
                                         ${channel.caption ? `<span class="small text-muted">ID${channel.id} ${this.$t(channel.function.caption)}</span>` : ''}
                                     </h5>
-                                    <p class="line-clamp line-clamp-2 small mb-0 option-extra">${channel.location.caption} / ${channel.iodevice.name}</p>
+                                    <p class="line-clamp line-clamp-2 small mb-0 option-extra">${channel.location.caption} / ${channel.iodevice.name}${subDeviceName}</p>
                                 </div>
                                 <div class="icon option-extra"><img src="${channelIconUrl(channel)}"></div></div>
                             </div>
@@ -77,7 +84,8 @@
                 set(channel) {
                     this.$emit('input', channel);
                 }
-            }
+            },
+            ...mapStores(useSubDevicesStore),
         },
         watch: {
             params() {

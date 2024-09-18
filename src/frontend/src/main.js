@@ -26,10 +26,12 @@ import 'floating-vue/dist/style.css'
 import {createApp} from 'vue-demi'
 import {pinia} from "@/stores";
 import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+import {PiniaVuePlugin} from "pinia";
 
 Vue.use(VueResource);
 Vue.use(FloatingVue);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
+Vue.use(PiniaVuePlugin);
 
 Vue.prototype.$frontendVersion = FRONTEND_VERSION; // eslint-disable-line no-undef
 Vue.config.productionTip = false;

@@ -9,6 +9,7 @@
     });
 
     const subDevices = useSubDevicesStore();
+    subDevices.fetchAll();
     const subDeviceId = computed(() => props.channel?.subDeviceId)
     const subDevice = computed(() => subDevices.all[subDeviceId.value])
 

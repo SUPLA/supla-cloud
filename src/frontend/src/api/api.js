@@ -16,7 +16,6 @@ function getDefaultHeaders() {
 
 function buildAbsoluteUrl(endpoint) {
     const serverUrl = Vue.prototype.$user?.determineServerUrl() || '';
-    console.log(serverUrl);
     return serverUrl + frontendConfig.baseUrl + '/api/' + endpoint;
 }
 
