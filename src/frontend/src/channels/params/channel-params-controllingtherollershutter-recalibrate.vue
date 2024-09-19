@@ -20,7 +20,6 @@
 
 <script>
     import {successNotification} from "@/common/notifier";
-    import EventBus from "@/common/event-bus";
 
     export default {
         props: ['channel'],
@@ -35,7 +34,6 @@
                 this.calibrating = true;
                 this.$http.patch('channels/' + this.channel.id + '/settings', {action: 'recalibrate'})
                     .then(() => setTimeout(() => this.assumeCalibrationFinished(), 5000))
-                    .then(() => EventBus.$emit('channel-state-updated'))
                     .catch(() => this.calibrating = false);
             },
             assumeCalibrationFinished() {

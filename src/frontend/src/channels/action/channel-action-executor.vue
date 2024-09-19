@@ -1,15 +1,9 @@
 <template>
     <div class="channel-action-executor">
-        <!--        <div class="flex-left-full-width mb-3">-->
-        <!--            <div>-->
-        <!--                <function-icon :model="subject" width="80"></function-icon>-->
-        <!--            </div>-->
-        <!--            <div class="full pl-2"><h3 class="m-0">{{ subject.caption }}</h3></div>-->
-        <!--        </div>-->
         <transition-expand>
             <div class="row"
                 v-if="!isConnected">
-                <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-10 col-md-offset-1">
                     <div class="alert alert-warning text-center">
                         {{ $t('Cannot execute an action when the device is disconnected.') }}
                     </div>
@@ -40,11 +34,12 @@
 
 <script>
     import ChannelActionChooser from "./channel-action-chooser";
-    import EventBus from "../../common/event-bus";
     import TransitionExpand from "../../common/gui/transition-expand";
     import ChannelFunctionAction from "../../common/enums/channel-function-action";
     import {removeByValue} from "../../common/utils";
     import ActionableSubjectType from "../../common/enums/actionable-subject-type";
+    import {mapStores} from "pinia";
+    import {useChannelsStore} from "@/stores/channels-store";
 
     export default {
         components: {TransitionExpand, ChannelActionChooser},
@@ -85,7 +80,7 @@
                         .then(() => {
                             this.executed.push(action.id);
                             setTimeout(() => removeByValue(this.executed, action.id), 3000);
-                            setTimeout(() => EventBus.$emit('channel-state-updated'), 1000);
+                            setTimeout(() => this.channelsStore.fetchStates(), 1000);
                         })
                         .finally(() => {
                             removeByValue(this.executing, action.id);
@@ -118,8 +113,9 @@
                 }
             },
             isConnected() {
-                return !this.subject.state || this.subject.state.connected;
+                return this.subject.ownSubjectType !== 'channel' || this.channelsStore.all[this.subject.id]?.connected;
             },
+            ...mapStores(useChannelsStore),
         }
     };
 </script>

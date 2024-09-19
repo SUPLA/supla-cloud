@@ -3,13 +3,10 @@
         @click="$emit('click')">
         <router-link :to="linkSpec">
             <div class="clearfix">
-                <function-icon :model="model"
-                    class="pull-right"
-                    width="90"/>
+                <function-icon :model="model" class="pull-right" width="90"/>
                 <h3 class="no-margin-top line-clamp line-clamp-4">{{ caption }}</h3>
             </div>
-            <dl class="ellipsis"
-                v-if="model.caption">
+            <dl class="ellipsis" v-if="model.caption">
                 <dd></dd>
                 <dt>{{ $t(model.function.caption) }}</dt>
             </dl>
@@ -17,26 +14,23 @@
                 <dd>ID</dd>
                 <dt>{{ model.id }}</dt>
             </dl>
-            <dl class="ellipsis"
-                v-if="model.iodevice">
+            <dl class="ellipsis" v-if="device">
                 <dd>{{ $t('Device') }}</dd>
-                <dt>{{ model.iodevice.name }}</dt>
+                <dt>{{ device.name }}</dt>
             </dl>
             <dl class="ellipsis">
                 <dd>{{ $t('Type') }}</dd>
                 <dt>{{ $t(model.type.caption) }}</dt>
             </dl>
-            <dl class="ellipsis"
-                v-if="model.location">
+            <dl class="ellipsis" v-if="location">
                 <dd>{{ $t('Location') }}</dd>
-                <dt>ID{{ model.location.id }} {{ model.location.caption }}</dt>
+                <dt>ID{{ model.locationId }} {{ location.caption }}</dt>
             </dl>
             <div class="square-link-label">
                 <span v-if="model.conflictDetails" class="label label-danger">{{ $t('Conflict') }}</span>
-                <connection-status-label v-else :model="model"></connection-status-label>
+                <ConnectionStatusLabel :model="model"/>
             </div>
-            <div class="square-link-label-left"
-                v-if="hasActionTrigger">
+            <div class="square-link-label-left" v-if="hasActionTrigger">
                 <action-trigger-indicator></action-trigger-indicator>
             </div>
         </router-link>
@@ -45,10 +39,12 @@
 
 <script setup>
     import FunctionIcon from "./function-icon";
-    import ConnectionStatusLabel from "../devices/list/connection-status-label.vue";
     import ActionTriggerIndicator from "@/channels/action-trigger/action-trigger-indicator";
     import {computed} from "vue";
-    import {i18n} from "@/locale";
+    import {useLocationsStore} from "@/stores/locations-store";
+    import {useI18n} from "vue-i18n-bridge";
+    import {useDevicesStore} from "@/stores/devices-store";
+    import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
 
     const props = defineProps({
         model: Object,
@@ -57,8 +53,8 @@
             default: false,
         }
     });
-
-    const caption = computed(() => props.model.caption || i18n.t(props.model.function.caption));
+    const {t} = useI18n();
+    const caption = computed(() => props.model.caption || t(props.model.function.caption));
     const linkSpec = computed(() => props.noLink ? {} : {name: 'channel', params: {id: props.model.id}});
     const hasActionTrigger = computed(() => props.model?.relationsCount?.actionTriggers > 0);
     const backgroundColor = computed(() => {
@@ -68,4 +64,8 @@
             return 'grey';
         }
     });
+    const locationsStore = useLocationsStore();
+    const location = computed(() => locationsStore.all[props.model.locationId]);
+    const devicesStore = useDevicesStore();
+    const device = computed(() => devicesStore.all[props.model.iodeviceId]);
 </script>

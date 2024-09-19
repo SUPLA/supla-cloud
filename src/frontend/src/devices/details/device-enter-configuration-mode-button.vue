@@ -26,6 +26,8 @@
 
 <script>
     import {successNotification} from "@/common/notifier";
+    import {mapState} from "pinia";
+    import {useDevicesStore} from "@/stores/devices-store";
 
     export default {
         props: ['device'],
@@ -49,8 +51,9 @@
             },
         },
         computed: {
+            ...mapState(useDevicesStore, {devices: 'all'}),
             isConnected() {
-                return !!this.device.connected;
+                return this.devices[this.device.id]?.connected;
             },
             disabledReason() {
                 if (!this.isConnected) {

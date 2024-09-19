@@ -121,34 +121,14 @@
 </template>
 
 <script>
-    import EventBus from "../common/event-bus";
     import ChannelStateTableHvac from "@/channels/channel-state-table-hvac.vue";
 
     export default {
         components: {ChannelStateTableHvac},
         props: ['channel', 'state'],
-        data() {
-            return {
-                timer: undefined,
-                fetching: false,
-            };
-        },
         mounted() {
-            if (!this.state) {
-                this.fetchState();
-                this.timer = setInterval(() => this.fetchState(), 7000);
-            }
-            EventBus.$on('channel-state-updated', this.fetchState);
         },
         methods: {
-            fetchState() {
-                if (!this.fetching) {
-                    this.fetching = true;
-                    this.$http.get(`channels/${this.channel.id}?include=state`, {skipErrorHandler: true})
-                        .then(({body}) => this.$set(this.channel, 'state', body.state))
-                        .finally(() => this.fetching = false);
-                }
-            },
             cssColor(hexStringColor) {
                 return hexStringColor.replace('0x', '#');
             }
@@ -161,10 +141,6 @@
                 return ['HVAC', 'THERMOSTATHEATPOLHOMEPLUS'].includes(this.channel.type.name);
             },
         },
-        beforeDestroy() {
-            clearInterval(this.timer);
-            EventBus.$off('channel-state-updated', this.loadNewClientAppsListener);
-        }
     };
 </script>
 

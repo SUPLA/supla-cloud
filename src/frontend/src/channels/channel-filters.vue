@@ -37,6 +37,9 @@
     import BtnFilters from "../common/btn-filters";
     import latinize from "latinize";
     import {DateTime} from "luxon";
+    import {mapState} from "pinia";
+    import {useLocationsStore} from "@/stores/locations-store";
+    import {useDevicesStore} from "@/stores/devices-store";
 
     export default {
         props: {
@@ -55,26 +58,31 @@
             };
         },
         mounted() {
-            this.$emit('filter-function', (device) => this.matches(device));
-            this.$emit('compare-function', (a, b) => this.compare(a, b));
+            this.filter();
         },
         methods: {
+            filter() {
+                this.$emit('filter-function', (device) => this.matches(device));
+                this.$emit('compare-function', (a, b) => this.compare(a, b));
+            },
             matches(channel) {
                 if ((this.connected === 'disconnected' && channel.connected) || (this.connected === 'connected' && !channel.connected)) {
                     return false;
                 }
                 if (this.functionality && this.functionality !== '*') {
                     if (this.functionality === 'withFunction') {
-                        if (!channel.function.id) {
+                        if (!channel.functionId) {
                             return false;
                         }
-                    } else if (this.functionality.split(',').indexOf('' + channel.function.id) === -1) {
+                    } else if (this.functionality.split(',').indexOf('' + channel.functionId) === -1) {
                         return false;
                     }
                 }
                 if (this.search) {
-                    const searchString = latinize([channel.id, channel.caption, channel.iodevice.name, this.$t(channel.type.caption),
-                        channel.location.id, channel.location.caption, this.$t(channel.function.caption)].join(' '))
+                    const location = this.locations[channel.locationId] || {};
+                    const device = this.devices[channel.iodeviceId] || {};
+                    const searchString = latinize([channel.id, channel.caption, device.name, this.$t(channel.type.caption),
+                        location.id, location.caption, this.$t(channel.function.caption)].join(' '))
                         .toLowerCase();
                     return searchString.indexOf(latinize(this.search).toLowerCase()) >= 0;
                 }
@@ -90,7 +98,9 @@
                 } else if (this.sort === 'regDate') {
                     return DateTime.fromISO(b.iodevice.regDate).diff(DateTime.fromISO(a.iodevice.regDate)).milliseconds;
                 } else {
-                    return this.captionForSort(a.location) < this.captionForSort(b.location) ? -1 : 1;
+                    const locationA = this.locations[a.locationId] || {};
+                    const locationB = this.locations[b.locationId] || {};
+                    return this.captionForSort(locationA) < this.captionForSort(locationB) ? -1 : 1;
                 }
             },
             captionForSort(channel) {
@@ -106,7 +116,9 @@
                     {label: this.$t('Last access'), value: 'lastAccess', visible: !this.hasDevice},
                     {label: this.$t('Location'), value: 'location'}
                 ];
-            }
+            },
+            ...mapState(useLocationsStore, {locations: 'all'}),
+            ...mapState(useDevicesStore, {devices: 'all'}),
         },
     };
 </script>

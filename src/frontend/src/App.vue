@@ -19,16 +19,12 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import PageFooter from "./common/gui/page-footer";
     import Navbar from "./home/navbar";
     import MaintenanceWarning from "./common/errors/maintenance-warning";
     import CookieWarning from "./common/errors/cookie-warning";
     import CloudVersionMismatchWarningModal from "./common/errors/cloud-version-mismatch-warning-modal";
-
-    export default {
-        components: {CookieWarning, MaintenanceWarning, Navbar, PageFooter, CloudVersionMismatchWarningModal}
-    };
 </script>
 
 <style>

@@ -14,7 +14,7 @@
                             <div class="col-sm-4">
                                 <h3>{{ $t('Device') }}</h3>
                                 <div class="text-center form-group" v-if="!device.locked">
-                                    <connection-status-label :model="device"></connection-status-label>
+                                    <ConnectionStatusLabel :model="deviceFromStore"/>
                                 </div>
                                 <div class="hover-editable text-left">
                                     <dl>
@@ -148,6 +148,8 @@
     import DevicePairSubdeviceButton from "@/devices/details/device-pair-subdevice-button.vue";
     import DeviceRemoteRestartButton from "@/devices/details/device-remote-restart-button.vue";
     import DeviceIdentifyDeviceButton from "@/devices/details/device-identify-device-button.vue";
+    import {mapState} from "pinia";
+    import {useDevicesStore} from "@/stores/devices-store";
 
     export default {
         props: ['id'],
@@ -249,6 +251,10 @@
         computed: {
             deviceTitle() {
                 return deviceTitle(this.device, this);
+            },
+            ...mapState(useDevicesStore, {allDevices: 'all'}),
+            deviceFromStore() { // TODO temporary, the whole view should use it
+                return this.allDevices[this.id];
             }
         }
     };

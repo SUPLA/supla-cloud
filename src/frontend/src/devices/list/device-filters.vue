@@ -2,16 +2,16 @@
     <div class="grid-filters">
         <btn-filters v-model="sort"
             id="deviceFiltersSort"
-            @input="$emit('filter')"
+            @input="filter()"
             :filters="[{label: 'A-Z', value: 'az'}, {label: $t('Last access'), value: 'lastAccess'}, {label: $t('Registered'), value: 'regDate'}, {label: $t('Location'), value: 'location'}]"></btn-filters>
         <btn-filters v-model="enabled"
-            @input="$emit('filter')"
+            @input="filter()"
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
         <btn-filters v-model="connected"
-            @input="$emit('filter')"
+            @input="filter()"
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Connected'), value: true}, {label: $t('Disconnected'), value: false}]"></btn-filters>
         <input type="text"
-            @input="$emit('filter')"
+            @input="filter()"
             class="form-control"
             v-model="search"
             :placeholder="$t('Search')">
@@ -22,6 +22,8 @@
     import BtnFilters from "../../common/btn-filters";
     import latinize from "latinize";
     import {DateTime} from "luxon";
+    import {mapState} from "pinia";
+    import {useLocationsStore} from "@/stores/locations-store";
 
     export default {
         components: {BtnFilters},
@@ -34,10 +36,13 @@
             };
         },
         mounted() {
-            this.$emit('filter-function', (device) => this.matches(device));
-            this.$emit('compare-function', (a, b) => this.compare(a, b));
+            this.filter();
         },
         methods: {
+            filter() {
+                this.$emit('filter-function', (device) => this.matches(device));
+                this.$emit('compare-function', (a, b) => this.compare(a, b));
+            },
             matches(device) {
                 if (this.enabled !== undefined && this.enabled != device.enabled) {
                     return false;
@@ -46,8 +51,9 @@
                     return false;
                 }
                 if (this.search) {
+                    const location = this.locations[device.locationId];
                     const searchString = latinize([device.id, device.name, device.gUIDString, device.softwareVersion, device.comment,
-                        device.location.id, device.location.caption].join(' ')).toLowerCase();
+                        location.id, location.caption].join(' ')).toLowerCase();
                     return searchString.indexOf(latinize(this.search).toLowerCase()) >= 0;
                 }
                 return true;
@@ -66,6 +72,9 @@
             captionForSort(model) {
                 return latinize(model.comment || model.caption || model.name).toLowerCase().trim();
             },
+        },
+        computed: {
+            ...mapState(useLocationsStore, {locations: 'all'}),
         }
     };
 </script>

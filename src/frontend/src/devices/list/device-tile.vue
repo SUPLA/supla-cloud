@@ -17,7 +17,7 @@
             </dl>
             <dl class="ellipsis" v-if="!device.locked">
                 <dd>{{ $t('Location') }}</dd>
-                <dt>ID{{ device.location.id }} {{ device.location.caption }}</dt>
+                <dt>ID{{ device.locationId }} {{ location.caption || '' }}</dt>
             </dl>
             <div class="square-link-label" v-if="device.locked">
                 <span class="label label-warning">{{ $t('Locked') }}</span>
@@ -25,19 +25,25 @@
             <div class="square-link-label" v-else>
                 <span class="label label-danger"
                     v-if="device.relationsCount && device.relationsCount.channelsWithConflict > 0">{{ $t('Conflict') }}</span>
-                <connection-status-label v-else :model="device"></connection-status-label>
+                <ConnectionStatusLabel :model="device"/>
             </div>
         </router-link>
     </square-link>
 </template>
 
 <script>
-    import ConnectionStatusLabel from "./connection-status-label.vue";
+    import {mapState} from "pinia";
+    import {useLocationsStore} from "@/stores/locations-store";
+    import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
 
     export default {
-        props: ['device', 'noLink'],
         components: {ConnectionStatusLabel},
+        props: ['device', 'noLink'],
         computed: {
+            ...mapState(useLocationsStore, {locations: 'all'}),
+            location() {
+                return this.locations[this.device.locationId] || {};
+            },
             caption() {
                 return this.device.comment || this.$t(this.device.name);
             },

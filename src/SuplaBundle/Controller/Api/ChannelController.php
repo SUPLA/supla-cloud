@@ -211,6 +211,28 @@ class ChannelController extends RestController {
 
     /**
      * @OA\Get(
+     *     path="/channels/states", operationId="getChannels", summary="Get Channels states", tags={"Channels"},
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(type="object"))),
+     * )
+     * @Rest\Get("/channels/states")
+     * @Security("is_granted('ROLE_CHANNELS_R')")
+     */
+    public function getChannelsStateAction(ChannelStateGetter $channelStateGetter) {
+        $channels = $this->channelRepository->findAllForUser($this->getUser())
+            ->filter(fn(IODeviceChannel $channel) => $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channel))
+            ->map(function (IODeviceChannel $channel) use ($channelStateGetter) {
+                return [
+                    'id' => $channel->getId(),
+                    'iodeviceId' => $channel->getIoDevice()->getId(),
+                    'state' => $channelStateGetter->getState($channel),
+                ];
+            })
+            ->toArray();
+        return $this->view($channels);
+    }
+
+    /**
+     * @OA\Get(
      *     path="/channels/{id}", operationId="getChannel", summary="Get Channel", tags={"Channels"},
      *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
      *     @OA\Parameter(

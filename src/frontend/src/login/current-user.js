@@ -3,6 +3,9 @@ import {Base64} from 'js-base64';
 import {DateTime, Settings} from 'luxon';
 import {extendObject} from "@/common/utils";
 import {getActivePinia} from "pinia";
+import {useChannelsStore} from "@/stores/channels-store";
+import {useDevicesStore} from "@/stores/devices-store";
+import {useLocationsStore} from "@/stores/locations-store";
 
 export class CurrentUser {
     constructor() {
@@ -98,6 +101,13 @@ export class CurrentUser {
                             Vue.prototype.compareFrontendAndBackendVersion(info.cloudVersion);
                         }
                     });
+            })
+            .then(() => {
+                return Promise.all([
+                    useDevicesStore().fetchAll(),
+                    useChannelsStore().fetchAll(),
+                    useLocationsStore().fetchAll(),
+                ]);
             });
     }
 }

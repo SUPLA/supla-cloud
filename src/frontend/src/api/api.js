@@ -3,10 +3,9 @@ import Vue from "vue";
 import {i18n} from "@/locale";
 import {errorNotification} from "@/common/notifier";
 
-const frontendConfig = useFrontendConfigStore();
-
 function getDefaultHeaders() {
     const token = Vue.prototype.$user?.getToken();
+    const frontendConfig = useFrontendConfigStore();
     return {
         Authorization: `Bearer ${token}`,
         'X-Accept-Version': '3',
@@ -15,6 +14,7 @@ function getDefaultHeaders() {
 }
 
 function buildAbsoluteUrl(endpoint) {
+    const frontendConfig = useFrontendConfigStore();
     const serverUrl = Vue.prototype.$user?.determineServerUrl() || '';
     return serverUrl + frontendConfig.baseUrl + '/api/' + endpoint;
 }
@@ -22,7 +22,7 @@ function buildAbsoluteUrl(endpoint) {
 function responseHandler(request, config) {
     return (response) => {
         if (response.status == 401) {
-            window.location.assign(window.location.toString());
+            // window.location.assign(window.location.toString());
         } else {
             return response.text().then(text => {
                 let body = text && JSON.parse(text);

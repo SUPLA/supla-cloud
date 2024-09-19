@@ -16,6 +16,8 @@
 
 <script>
     import TransitionExpand from "@/common/gui/transition-expand.vue";
+    import {mapState} from "pinia";
+    import {useDevicesStore} from "@/stores/devices-store";
 
     export default {
         components: {TransitionExpand},
@@ -37,8 +39,9 @@
             },
         },
         computed: {
+            ...mapState(useDevicesStore, {devices: 'all'}),
             isConnected() {
-                return !!this.device.connected;
+                return this.devices[this.device.id]?.connected;
             },
             disabledReason() {
                 if (!this.isConnected) {

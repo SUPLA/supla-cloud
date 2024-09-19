@@ -1,11 +1,9 @@
 <template>
     <div>
         <loading-cover :loading="!devices">
-            <div class="container"
-                v-show="devices && devices.length">
+            <div class="container" v-show="devices && devices.length">
                 <device-filters @filter-function="filterFunction = $event"
-                    @compare-function="compareFunction = $event"
-                    @filter="filter()"></device-filters>
+                    @compare-function="compareFunction = $event"></device-filters>
             </div>
             <square-links-grid v-if="filteredDevices && filteredDevices.length || (showPossibleDevices && !devices.length)"
                 :count="filteredDevices.length + (showPossibleDevices ? possibleDevices.length : 0)">
@@ -18,15 +16,10 @@
                     <div v-for="possibleDevice in possibleDevices"
                         :key="'possible' + possibleDevice.title">
                         <square-link class="grey possible-device">
-                            <a href="https://www.supla.org"
-                                target="_blank"
-                                class="valign-center">
+                            <a href="https://www.supla.org" target="_blank" class="valign-center">
                                 <span>
-                                    <i v-if="possibleDevice.icon"
-                                        :class="possibleDevice.icon"></i>
-                                    <img v-else
-                                        :src="'/assets/img/' + possibleDevice.image"
-                                        :alt="$t(possibleDevice.title)">
+                                    <i v-if="possibleDevice.icon" :class="possibleDevice.icon"></i>
+                                    <img v-else :src="'/assets/img/' + possibleDevice.image" :alt="$t(possibleDevice.title)">
                                     <h3>{{ $t(possibleDevice.title) }}</h3>
                                     <p>{{ $t(possibleDevice.description) }}</p>
                                 </span>
@@ -37,37 +30,26 @@
             </square-links-grid>
             <empty-list-placeholder v-else-if="devices"></empty-list-placeholder>
         </loading-cover>
-        <div class="hidden"
-            v-if="devices">
-            <!--allow filtered-out items to still receive status updates-->
-            <connection-status-label :model="device"
-                :key="device.id"
-                v-for="device in devices"></connection-status-label>
-        </div>
     </div>
 </template>
 
 <script>
     import DeviceTile from "./device-tile.vue";
-    import ConnectionStatusLabel from "./connection-status-label.vue";
     import EmptyListPlaceholder from "../../common/gui/empty-list-placeholder.vue";
     import DeviceFilters from "./device-filters";
-    import EventBus from "../../common/event-bus";
+    import {mapState} from "pinia";
+    import {useDevicesStore} from "@/stores/devices-store";
 
     export default {
         components: {
             DeviceFilters,
-            ConnectionStatusLabel,
             DeviceTile,
             EmptyListPlaceholder,
         },
         data() {
             return {
-                devices: undefined,
-                filteredDevices: undefined,
                 filterFunction: () => true,
                 compareFunction: () => -1,
-                loadNewDevicesListener: undefined,
                 possibleDevices: [
                     {
                         icon: 'pe-7s-light',
@@ -107,32 +89,19 @@
                 ]
             };
         },
-        mounted() {
-            this.loadNewDevicesListener = () => this.loadDevices();
-            EventBus.$on('total-count-changed', this.loadNewDevicesListener);
-            this.loadDevices();
-        },
         computed: {
             showPossibleDevices() {
                 return this.filteredDevices && this.devices.length < 3 && this.filteredDevices.length === this.devices.length;
-            }
-        },
-        methods: {
-            filter() {
-                this.filteredDevices = this.devices ? this.devices.filter(this.filterFunction) : this.devices;
-                if (this.filteredDevices) {
-                    this.filteredDevices = this.filteredDevices.sort(this.compareFunction);
-                }
             },
-            loadDevices() {
-                this.$http.get('iodevices?include=location')
-                    .then(({body}) => this.devices = body)
-                    .then(() => this.filter());
+            ...mapState(useDevicesStore, {devices: 'list'}),
+            filteredDevices() {
+                const filteredDevices = this.devices ? this.devices.filter(this.filterFunction) : this.devices;
+                if (filteredDevices) {
+                    filteredDevices.sort(this.compareFunction);
+                }
+                return filteredDevices;
             }
         },
-        beforeDestroy() {
-            EventBus.$off('total-count-changed', this.loadNewDevicesListener);
-        }
     };
 </script>
 

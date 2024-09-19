@@ -22,6 +22,8 @@
 <script>
     import {successNotification} from "@/common/notifier";
     import {DateTime} from "luxon";
+    import {mapState} from "pinia";
+    import {useDevicesStore} from "@/stores/devices-store";
 
     export default {
         props: {
@@ -50,8 +52,9 @@
             },
         },
         computed: {
+            ...mapState(useDevicesStore, {devices: 'all'}),
             isConnected() {
-                return !!this.device.connected;
+                return this.devices[this.device.id]?.connected;
             },
             disabledReason() {
                 if (!this.isConnected) {
