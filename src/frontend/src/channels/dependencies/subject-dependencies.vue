@@ -60,10 +60,8 @@
                 v-if="(dependentChannels || []).length > 0">
                 <h5>{{ $t('Channels') }}</h5>
                 <ul>
-                    <li v-for="channel in dependentChannels"
-                        :key="channel.id">
-                        ID{{ channel.id }}
-                        <span class="small">{{ channel.caption }}</span>
+                    <li v-for="channel in dependentChannels" :key="channel.id">
+                        {{ channelCaption(channel) }}
                     </li>
                 </ul>
             </div>
@@ -108,12 +106,16 @@
 
 <script>
     import {reactionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
+    import {channelTitle} from "@/common/filters";
 
     export default {
         props: ['dependencies'],
         methods: {
             humanizeTrigger(reaction) {
-                return reactionTriggerCaption(reaction, this);
+                return reactionTriggerCaption(reaction);
+            },
+            channelCaption(channel) {
+                return channelTitle(channel);
             }
         },
         computed: {
