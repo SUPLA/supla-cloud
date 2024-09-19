@@ -82,7 +82,7 @@ export const ChannelFunctionTriggers = {
     [ChannelFunction.CONTROLLINGTHEROLLERSHUTTER]: [
         {
             caption: () => 'When the roller shutter reaches a certain position', // i18n
-            test: (t) => !!t.on_change_to,
+            test: (t) => !!t.on_change_to && !t.on_change_to.name,
             component: ReactionConditionThreshold,
             props: {
                 min: () => 0, max: () => 100, step: () => 1,
@@ -90,6 +90,30 @@ export const ChannelFunctionTriggers = {
                 labelI18n: () => 'When the roller shutter reaches', // i18n
                 resumeLabelI18n: () => 'and wait until it reaches', // i18n
             },
+        },
+        {
+            caption: () => 'When the roller shutter calibration failed', // i18n
+            test: (t) => t.on_change_to?.name === 'calibration_failed',
+            def: () => ({on_change_to: {eq: 'on', name: 'calibration_failed'}}),
+            canBeSetForChannel: (channel) => channel.config.autoCalibrationAvailable,
+        },
+        {
+            caption: () => 'When the roller shutter calibration has started', // i18n
+            test: (t) => t.on_change_to?.name === 'calibration_in_progress',
+            def: () => ({on_change_to: {eq: 'on', name: 'calibration_in_progress'}}),
+            canBeSetForChannel: (channel) => channel.config.autoCalibrationAvailable,
+        },
+        {
+            caption: () => 'When the roller shutter calibration has been lost', // i18n
+            test: (t) => t.on_change_to?.name === 'calibration_lost',
+            def: () => ({on_change_to: {eq: 'on', name: 'calibration_lost'}}),
+            canBeSetForChannel: (channel) => channel.config.autoCalibrationAvailable,
+        },
+        {
+            caption: () => 'When the roller shutter motor reported a problem', // i18n
+            test: (t) => t.on_change_to?.name === 'motor_problem',
+            def: () => ({on_change_to: {eq: 'on', name: 'motor_problem'}}),
+            canBeSetForChannel: (channel) => channel.config.autoCalibrationAvailable,
         },
         {
             caption: () => 'When the roller shutter position changes', // i18n

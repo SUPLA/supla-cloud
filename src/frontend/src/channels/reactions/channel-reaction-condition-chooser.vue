@@ -74,7 +74,8 @@
                 }
             },
             possibleConditions() {
-                return ChannelFunctionTriggers[this.subject.functionId] || [];
+                return (ChannelFunctionTriggers[this.subject.functionId] || [])
+                    .filter((trigger) => !trigger.canBeSetForChannel || trigger.canBeSetForChannel(this.subject));
             }
         },
         watch: {

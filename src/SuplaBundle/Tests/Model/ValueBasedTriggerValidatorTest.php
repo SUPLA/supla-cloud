@@ -62,6 +62,10 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(), '{"on_change_to": {"gt": 20}}'],
             [ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(), '{"on_change_to": {"gt": 20, "resume": {"le": 10}}}'],
             [ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(), '{"on_change": {}}'],
+            [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), '{"on_change": {}}'],
+            [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), '{"on_change_to": {"ge": 20, "resume": {"lt": 10}}}'],
+            [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), '{"on_change_to": {"eq": "on", "name": "calibration_failed"}}'],
+            [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), '{"on_change_to": {"eq": "on", "name": "motor_problem"}}'],
         ];
     }
 

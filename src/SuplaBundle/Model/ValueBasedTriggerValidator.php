@@ -120,7 +120,57 @@ class ValueBasedTriggerValidator {
             ChannelFunction::IC_GASMETER,
             ChannelFunction::IC_ELECTRICITYMETER,
         ],
-        'default' => [ChannelFunction::VALVEOPENCLOSE],
+        'calibration_failed' => [
+            ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
+            ChannelFunction::CONTROLLINGTHEROOFWINDOW,
+            ChannelFunction::CONTROLLINGTHEFACADEBLIND,
+            ChannelFunction::TERRACE_AWNING,
+            ChannelFunction::PROJECTOR_SCREEN,
+            ChannelFunction::CURTAIN,
+            ChannelFunction::ROLLER_GARAGE_DOOR,
+            ChannelFunction::VERTICAL_BLIND,
+        ],
+        'calibration_in_progress' => [
+            ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
+            ChannelFunction::CONTROLLINGTHEROOFWINDOW,
+            ChannelFunction::CONTROLLINGTHEFACADEBLIND,
+            ChannelFunction::TERRACE_AWNING,
+            ChannelFunction::PROJECTOR_SCREEN,
+            ChannelFunction::CURTAIN,
+            ChannelFunction::ROLLER_GARAGE_DOOR,
+            ChannelFunction::VERTICAL_BLIND,
+        ],
+        'calibration_lost' => [
+            ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
+            ChannelFunction::CONTROLLINGTHEROOFWINDOW,
+            ChannelFunction::CONTROLLINGTHEFACADEBLIND,
+            ChannelFunction::TERRACE_AWNING,
+            ChannelFunction::PROJECTOR_SCREEN,
+            ChannelFunction::CURTAIN,
+            ChannelFunction::ROLLER_GARAGE_DOOR,
+            ChannelFunction::VERTICAL_BLIND,
+        ],
+        'motor_problem' => [
+            ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
+            ChannelFunction::CONTROLLINGTHEROOFWINDOW,
+            ChannelFunction::CONTROLLINGTHEFACADEBLIND,
+            ChannelFunction::TERRACE_AWNING,
+            ChannelFunction::PROJECTOR_SCREEN,
+            ChannelFunction::CURTAIN,
+            ChannelFunction::ROLLER_GARAGE_DOOR,
+            ChannelFunction::VERTICAL_BLIND,
+        ],
+        'default' => [
+            ChannelFunction::VALVEOPENCLOSE,
+            ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
+            ChannelFunction::CONTROLLINGTHEROOFWINDOW,
+            ChannelFunction::CONTROLLINGTHEFACADEBLIND,
+            ChannelFunction::TERRACE_AWNING,
+            ChannelFunction::PROJECTOR_SCREEN,
+            ChannelFunction::CURTAIN,
+            ChannelFunction::ROLLER_GARAGE_DOOR,
+            ChannelFunction::VERTICAL_BLIND,
+        ],
     ];
 
     private const THRESHOLD_SUPPORT = [
@@ -151,6 +201,13 @@ class ValueBasedTriggerValidator {
         ChannelFunction::IC_HEATMETER,
         ChannelFunction::GENERAL_PURPOSE_METER,
         ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+    ];
+
+    const BOOLEAN_FIELD_NAMES = [
+        'calibration_failed',
+        'calibration_in_progress',
+        'calibration_lost',
+        'motor_problem',
     ];
 
     /**
@@ -284,7 +341,8 @@ class ValueBasedTriggerValidator {
         $mainCondition = array_intersect_key($onChangeTo, array_flip(['eq', 'ne']));
         Assertion::count($mainCondition, 1, 'You must define only one condition for the threshold (eq, ne).');
         $operator = key($mainCondition);
-        if (in_array($channel->getFunction()->getId(), self::THRESHOLD_SUPPORT)) {
+        $fieldName = $onChangeTo['name'] ?? 'default';
+        if (in_array($channel->getFunction()->getId(), self::THRESHOLD_SUPPORT) && !in_array($fieldName, self::BOOLEAN_FIELD_NAMES)) {
             Assertion::numeric($onChangeTo[$operator], 'Threshold must be numeric.');
         } else {
             Assertion::inArray(
