@@ -107,7 +107,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals('NOT_SET', $config['auxThermometerType']);
                     $this->assertFalse($config['antiFreezeAndOverheatProtectionEnabled']);
                     $this->assertFalse($config['temperatureSetpointChangeSwitchesToManualMode']);
-                    $this->assertCount(2, $config['availableAlgorithms']);
+                    $this->assertCount(3, $config['availableAlgorithms']);
                     $this->assertEquals(0, $config['minOnTimeS']);
                     $this->assertEquals(0, $config['outputValueOnError']);
                     $this->assertNull($config['binarySensorChannelId']);
