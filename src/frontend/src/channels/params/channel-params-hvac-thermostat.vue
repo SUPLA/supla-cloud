@@ -245,9 +245,9 @@
                             :disabled="!canChangeSetting('heatOrColdSourceSwitchChannelId')"
                             v-model="channel.config.heatOrColdSourceSwitchChannelId"
                             @input="$emit('change')"></channels-id-dropdown>
+                        <SameDifferentThanMasterThermostat :channel="channel" :master-thermostat="masterThermostat"
+                            setting="heatOrColdSourceSwitchChannelId" @change="$emit('change')"/>
                     </dt>
-                    <SameDifferentThanMasterThermostat :channel="channel" :master-thermostat="masterThermostat"
-                        setting="heatOrColdSourceSwitchChannelId" @change="$emit('change')"/>
                 </dl>
                 <div v-if="channel.config.availableAlgorithms.length > 1">
                     <dl v-if="canDisplaySetting('usedAlgorithm')">
