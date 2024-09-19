@@ -2,10 +2,9 @@
     <span v-if="expirationTimestamp">
         <span v-if="secondsLeft > 0"
             class="text-muted">
-            <i18n path="Your session will expire in {0}."
-                tag="span">
+            <i18n-t keypath="Your session will expire in {0}." tag="span">
                 <span>{{ timeLeft }}</span>
-            </i18n>
+            </i18n-t>
             <a @click="show()"
                 v-if="secondsLeft < 300">{{ $t('extend') }}</a>
         </span>
@@ -14,10 +13,10 @@
             :header="$t('Your session is about to expire')"
             :class="['text-center session-countdown-modal', {expiring: secondsLeft < 60}]">
             <p>
-                <i18n path="Your session will expire in {0}."
+                <i18n-t keypath="Your session will expire in {0}."
                     tag="span">
                     <span>{{ timeLeft }}</span>
-                </i18n>
+                </i18n-t>
             </p>
             <div class="form-group">
                 <p>{{ $t('Enter your password to prevent automatic logout.') }}</p>

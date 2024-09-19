@@ -28,14 +28,14 @@
                         </div>
                         <div v-else-if="!loading"
                             class="alert alert-warning">
-                            <i18n path="No location enabled. Go to {locationsListLink} or {newLocationLink}.">
+                            <i18n-t keypath="No location enabled. Go to {locationsListLink} or {newLocationLink}.">
                                 <template #locationsListLink>
                                     <router-link :to="{name: 'locations'}">{{ $t('Locations') }}</router-link>
                                 </template>
                                 <template #newLocationLink>
                                     <router-link :to="{name: 'location', params: {id: 'new'}}">{{ $t('Create New Location') }}</router-link>
                                 </template>
-                            </i18n>
+                            </i18n-t>
                         </div>
                     </loading-cover>
                 </div>
@@ -66,14 +66,14 @@
                         </div>
                         <div v-else-if="!loading"
                             class="alert alert-warning">
-                            <i18n path="No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.">
+                            <i18n-t keypath="No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.">
                                 <template #accessIdsListLink>
                                     <router-link :to="{name: 'accessIds'}">{{ $t('Access Identifiers') }}</router-link>
                                 </template>
                                 <template #newAccessIdLink>
                                     <router-link :to="{name: 'accessId', params: {id: 'new'}}">{{ $t('Create New Access Identifier') }}</router-link>
                                 </template>
-                            </i18n>
+                            </i18n-t>
                         </div>
                     </loading-cover>
                 </div>

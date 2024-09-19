@@ -160,9 +160,9 @@
         <div v-if="showChangingInfo && currentTab !== 'data'"
             class="alert alert-info my-3">
             <p class="mb-2">
-                <i18n path="Use the {0} server command to change this account's limits. For example:">
+                <i18n-t keypath="Use the {0} server command to change this account's limits. For example:">
                     <code>supla:user:change-limits</code>
-                </i18n>
+                </i18n-t>
             </p>
             <pre><code>docker-compose exec -u www-data supla-cloud php bin/console supla:user:change-limits {{ user.email }}</code></pre>
         </div>

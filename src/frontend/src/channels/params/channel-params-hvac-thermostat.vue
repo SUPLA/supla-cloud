@@ -21,6 +21,25 @@
                 {{ $t('The thermostat will not work if the main thermometer is not set.') }}
             </div>
         </transition-expand>
+        <dl v-if="channel.config.masterThermostatAvailable && canDisplaySetting('masterThermostatChannelId')">
+            <dd>{{ $t('Master thermostat') }}</dd>
+            <dt>
+                <channels-id-dropdown :params="`type=HVAC&deviceIds=${channel.iodeviceId}&skipIds=${channel.id}`"
+                    :disabled="!canChangeSetting('masterThermostatChannelId')"
+                    choose-prompt-i18n="Function disabled"
+                    v-model="channel.config.masterThermostatChannelId"
+                    @channelChanged="(c) => masterThermostat = c"
+                    @input="masterThermostatChannelIdJustChanged = true; $emit('change')"></channels-id-dropdown>
+            </dt>
+        </dl>
+        <transition-expand>
+            <div class="alert alert-info my-2"
+                v-if="masterThermostatChannelIdJustChanged && channel.config.masterThermostatChannelId">
+                {{ $t('Do you want to set related channels like thermometers and sensors to be the same as in the master channel?') }}
+                <a class="mx-1 btn btn-xs btn-green" @click="setChannelsFromMasterThermostat()">{{ $t('Yes') }}</a>
+                <a class="mx-1 btn btn-xs btn-default" @click="masterThermostatChannelIdJustChanged = false">{{ $t('No') }}</a>
+            </div>
+        </transition-expand>
         <a class="d-flex accordion-header" @click="displayGroup('related')"
             v-if="canDisplayAnySetting('mainThermometerChannelId', 'auxThermometerChannelId', 'auxThermometerType')">
             <span class="flex-grow-1">{{ $t('Thermometers configuration') }}</span>
@@ -194,25 +213,6 @@
         </a>
         <transition-expand>
             <div v-show="group === 'behavior'">
-                <dl v-if="channel.config.masterThermostatAvailable && canDisplaySetting('masterThermostatChannelId')">
-                    <dd>{{ $t('Master thermostat') }}</dd>
-                    <dt>
-                        <channels-id-dropdown :params="`type=HVAC&deviceIds=${channel.iodeviceId}&skipIds=${channel.id}`"
-                            :disabled="!canChangeSetting('masterThermostatChannelId')"
-                            choose-prompt-i18n="Function disabled"
-                            v-model="channel.config.masterThermostatChannelId"
-                            @channelChanged="(c) => masterThermostat = c"
-                            @input="masterThermostatChannelIdJustChanged = true; $emit('change')"></channels-id-dropdown>
-                    </dt>
-                </dl>
-                <transition-expand>
-                    <div class="alert alert-info my-2"
-                        v-if="masterThermostatChannelIdJustChanged && channel.config.masterThermostatChannelId">
-                        {{ $t('Do you want to set related channels like thermometers and sensors to be the same as in the master channel?') }}
-                        <a class="mx-1 btn btn-xs btn-green" @click="setChannelsFromMasterThermostat()">{{ $t('Yes') }}</a>
-                        <a class="mx-1 btn btn-xs btn-default" @click="masterThermostatChannelIdJustChanged = false">{{ $t('No') }}</a>
-                    </div>
-                </transition-expand>
                 <dl v-if="canDisplaySetting('binarySensorChannelId')">
                     <dd>{{ $t('External sensor disabling the thermostat') }}</dd>
                     <dt>

@@ -1,12 +1,13 @@
 <template>
     <div>
         <button-loading-dots v-if="loading"></button-loading-dots>
-        <i18n path="Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend."
+        <i18n-t
+            keypath="Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend."
             v-else-if="!success && !error">
             <template #clickHereLink>
                 <a @click="resendActivationLink()">{{ $t('click here') }}</a>
             </template>
-        </i18n>
+        </i18n-t>
         <span v-else-if="error">
             {{ $t(error) }}
         </span>

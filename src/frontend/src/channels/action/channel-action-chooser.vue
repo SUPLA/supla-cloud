@@ -3,14 +3,14 @@
         <div class="w-100">
             <div class="alert alert-info" v-if="isSlaveThermostat">
                 {{ $t('This thermostat is controlled by another device.') }}
-                <i18n path="Use {theMasterThermostat} to control this device." tag="span">
+                <i18n-t keypath="Use {theMasterThermostat} to control this device." tag="span">
                     <template #theMasterThermostat>
                         <router-link
                             :to="{name: 'channel.thermostatPrograms', params: {id: subject.config.masterThermostatChannelId}}">
                             {{ $t('the master thermostat ID{id}', {id: subject.config.masterThermostatChannelId}) }}
                         </router-link>
                     </template>
-                </i18n>
+                </i18n-t>
             </div>
             <div :class="['panel-group panel-accordion m-0', {'panel-accordion-disabled': isDisabled}]">
                 <div

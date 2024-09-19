@@ -97,18 +97,18 @@
 
                                 <div class="text-right mt-3 small"
                                     v-if="!isBusy">
-                                    <i18n path="If you wish to register your instance, {clickHereLink}."
+                                    <i18n-t keypath="If you wish to register your instance, {clickHereLink}."
                                         v-if="unregister">
                                         <template #clickHereLink>
                                             <a @click.prevent="unregister = false">{{ $t('click here') }}</a>
                                         </template>
-                                    </i18n>
-                                    <i18n path="If you wish to unregister your instance, {clickHereLink}."
+                                    </i18n-t>
+                                    <i18n-t keypath="If you wish to unregister your instance, {clickHereLink}."
                                         v-else>
                                         <template #clickHereLink>
                                             <a @click.prevent="unregister = true">{{ $t('click here') }}</a>
                                         </template>
-                                    </i18n>
+                                    </i18n-t>
                                 </div>
 
                             </form>
