@@ -589,13 +589,13 @@ export const ChannelFunctionTriggers = {
         {caption: () => 'When the thermostat stops heating', def: () => ({on_change_to: {eq: 'off', name: 'heating'}})}, // i18n
         {caption: () => 'When the thermostat stops cooling', def: () => ({on_change_to: {eq: 'off', name: 'cooling'}})}, // i18n
         {
-            caption: () => 'When the thermostat starts heating or cooling',
+            caption: () => 'When the thermostat starts heating or cooling', // i18n
             def: () => ({on_change_to: {eq: 'on', name: 'heating_or_cooling'}})
-        }, // i18n
+        },
         {
-            caption: () => 'When the thermostat stops heating or cooling',
+            caption: () => 'When the thermostat stops heating or cooling', // i18n
             def: () => ({on_change_to: {eq: 'off', name: 'heating_or_cooling'}})
-        }, // i18n
+        },
         {caption: () => 'When the thermostat starts or stops heating', def: () => ({on_change: {name: 'heating'}})}, // i18n
         {caption: () => 'When the thermostat starts or stops cooling', def: () => ({on_change: {name: 'cooling'}})}, // i18n
         {caption: () => 'When the thermostat starts or stops heating or cooling', def: () => ({on_change: {name: 'heating_or_cooling'}})}, // i18n
