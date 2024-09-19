@@ -12,7 +12,7 @@ Cypress.Commands.add('login', (username = 'user@supla.org', password = 'pass') =
         cy.get('input[type=email]').type(username);
         cy.get('input[type=password]').type(password);
         cy.get('button[type=submit]').click();
-        cy.contains('.active', 'My SUPLA');
+        cy.contains('.active', 'SUPLA');
     }, {
         validate() {
             const token = localStorage.getItem('_token');

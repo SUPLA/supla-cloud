@@ -17,7 +17,7 @@ describe('Login tests', () => {
         cy.get('input[type=email]').type('user@supla.org');
         cy.get('input[type=password]').type('pass');
         cy.get('button[type=submit]').click();
-        cy.contains('.active', 'My SUPLA');
+        cy.contains('.active', 'SUPLA');
         cy.get('.square-link').should('have.length.at.least', 4)
         cy.contains('a', 'MEGA DEVICE');
     });

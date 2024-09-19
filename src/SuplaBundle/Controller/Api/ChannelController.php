@@ -211,7 +211,7 @@ class ChannelController extends RestController {
 
     /**
      * @OA\Get(
-     *     path="/channels/states", operationId="getChannels", summary="Get Channels states", tags={"Channels"},
+     *     path="/channels/states", operationId="getChannelsStates", summary="Get Channels states", tags={"Channels"},
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(type="object"))),
      * )
      * @Rest\Get("/channels/states")

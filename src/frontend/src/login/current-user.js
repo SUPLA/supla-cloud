@@ -49,7 +49,8 @@ export class CurrentUser {
         return Vue.http.post('webapp-auth', {username, password}, {skipErrorHandler: [401, 409, 429]})
             .then(response => this.handleNewToken(response))
             .then(() => getActivePinia()._s.forEach(store => store.$reset()))
-            .then(() => this.fetchUserData());
+            .then(() => this.fetchUserData())
+            .then(() => this.userData);
     }
 
     handleNewToken(response) {
