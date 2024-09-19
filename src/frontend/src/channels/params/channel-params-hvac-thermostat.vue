@@ -263,6 +263,7 @@
                                     <span class="caret"></span>
                                 </button>
                                 <!-- i18n:['thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE', 'thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST'] -->
+                                <!-- i18n:['thermostatAlgorithm_PID'] -->
                                 <ul class="dropdown-menu">
                                     <li v-for="type in channel.config.availableAlgorithms" :key="type">
                                         <a @click="channel.config.usedAlgorithm = type; $emit('change')"

@@ -209,7 +209,7 @@ class DevicesFixture extends SuplaFixture {
                 [
                     'funcList' => Functions::HVAC_THERMOSTAT | Functions::HVAC_DOMESTIC_HOT_WATER,
                     'properties' => json_encode([
-                        'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],
+                        'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST', 'PID'],
                         'temperatures' => [
                             'roomMin' => 1000,
                             'roomMax' => 3900,
