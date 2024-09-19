@@ -366,7 +366,8 @@
                         {{ $t('thermostatOutputValue_help') }}
                     </div>
                 </transition-expand>
-                <dl class="wide-label" v-if="canDisplaySetting('temperatureSetpointChangeSwitchesToManualMode')">
+                <dl class="wide-label"
+                    v-if="canDisplaySetting('temperatureSetpointChangeSwitchesToManualMode') && !channel.config.masterThermostatChannelId">
                     <dd>{{ $t('Temperature setpoint change switches to manual mode') }}</dd>
                     <dt class="text-center">
                         <toggler v-model="channel.config.temperatureSetpointChangeSwitchesToManualMode" @input="$emit('change')"
