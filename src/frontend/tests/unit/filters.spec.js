@@ -19,7 +19,7 @@ describe('filters', () => {
         ];
 
         it.each(tests)('formats GPM value %p -> %p', (ms, expectedLabel) => {
-            const label = prettyMilliseconds(ms, {$t: x => x});
+            const label = prettyMilliseconds(ms);
             expect(label).toEqual(expectedLabel);
         });
     });

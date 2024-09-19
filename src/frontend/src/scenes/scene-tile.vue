@@ -39,7 +39,7 @@
         },
         methods: {
             prettyMilliseconds(ms) {
-                return prettyMilliseconds(ms, this);
+                return prettyMilliseconds(ms);
             }
         }
     };

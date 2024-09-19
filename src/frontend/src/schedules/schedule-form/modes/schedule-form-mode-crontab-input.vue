@@ -13,6 +13,7 @@
 
 <script>
     import cronstrue from 'cronstrue/i18n';
+    import {i18n} from "@/locale";
 
     if (!cronstrue.prototype.getTimeOfDayDescriptionOriginal) {
         cronstrue.prototype.getTimeOfDayDescriptionOriginal = cronstrue.prototype.getTimeOfDayDescription;
@@ -23,21 +24,21 @@
                 const delay = parseInt(minutePart.substr(2));
                 if (delay === 0) {
                     if (sunset) {
-                        return this.vue.$t('At sunset');
+                        return i18n.global.t('At sunset');
                     } else {
-                        return this.vue.$t('At sunrise');
+                        return i18n.global.t('At sunrise');
                     }
                 } else if (delay > 0) {
                     if (sunset) {
-                        return this.vue.$t('{minutes} minutes after sunset', {minutes: delay});
+                        return i18n.global.t('{minutes} minutes after sunset', {minutes: delay});
                     } else {
-                        return this.vue.$t('{minutes} minutes after sunrise', {minutes: delay});
+                        return i18n.global.t('{minutes} minutes after sunrise', {minutes: delay});
                     }
                 } else {
                     if (sunset) {
-                        return this.vue.$t('{minutes} minutes before sunset', {minutes: -delay});
+                        return i18n.global.t('{minutes} minutes before sunset', {minutes: -delay});
                     } else {
-                        return this.vue.$t('{minutes} minutes before sunrise', {minutes: -delay});
+                        return i18n.global.t('{minutes} minutes before sunrise', {minutes: -delay});
                     }
                 }
             } else {
@@ -54,7 +55,6 @@
             };
         },
         mounted() {
-            cronstrue.prototype.vue = this;
             if (this.value) {
                 this.crontab = this.value;
             }

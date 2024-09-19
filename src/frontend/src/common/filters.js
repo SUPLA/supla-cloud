@@ -1,5 +1,6 @@
 import Vue from "vue";
 import "./filters-date";
+import {i18n} from "@/locale";
 
 export function withBaseUrl(url, absolute = true) {
     if (url[0] != '/') {
@@ -12,10 +13,8 @@ export function withDownloadAccessToken(url) {
     return withBaseUrl(url) + 'access_token=' + Vue.prototype.$user.getFilesDownloadToken();
 }
 
-export function channelTitle(channel, vue, withDevice = false) {
-    return (channel.caption || `ID${channel.id} ` + vue.$t(channel.function ? channel.function.caption : 'None'))
-        + (withDevice && channel.iodevice ? ' ('
-            + deviceTitle({location: channel.location, comment: channel.iodevice.comment, name: channel.iodevice.name}) + ')' : '');
+export function channelTitle(channel) {
+    return channel.caption || `ID${channel.id} ` + i18n.global.t(channel.function ? channel.function.caption : 'None');
 }
 
 export function channelIconUrl(channel) {
@@ -54,32 +53,32 @@ export function roundToDecimals(num, decimals = 2) {
     return Math.round(num * multiplier) / multiplier;
 }
 
-export function prettyMilliseconds(ms, vue) {
+export function prettyMilliseconds(ms) {
     if (typeof ms !== 'number' || isNaN(ms)) {
         throw new TypeError('Expected a number');
     }
     if (ms < 1000) {
         return ms + ' ms';
     } else if (ms < 60000) {
-        return (Math.round(ms / 100) / 10) + ' ' + vue.$t('sec.');
+        return (Math.round(ms / 100) / 10) + ' ' + i18n.global.t('sec.');
     } else if (ms < 3600000) {
-        let formatted = Math.floor(ms / 60000) + ' ' + vue.$t('min.');
+        let formatted = Math.floor(ms / 60000) + ' ' + i18n.global.t('min.');
         if (ms % 60000) {
-            formatted += ' ' + prettyMilliseconds(ms % 60000, vue);
+            formatted += ' ' + prettyMilliseconds(ms % 60000);
         }
         return formatted;
     } else if (ms < 86400000) {
         const value = Math.floor(ms / 3600000);
-        let formatted = value + ' ' + (value === 1 ? vue.$t('hour') : vue.$t('hours'));
+        let formatted = value + ' ' + (value === 1 ? i18n.global.t('hour') : i18n.global.t('hours'));
         if (ms % 3600000) {
-            formatted += ' ' + prettyMilliseconds(ms % 3600000, vue);
+            formatted += ' ' + prettyMilliseconds(ms % 3600000);
         }
         return formatted;
     } else {
         const value = Math.floor(ms / 86400000);
-        let formatted = value + ' ' + (value === 1 ? vue.$t('day') : vue.$t('days'));
+        let formatted = value + ' ' + (value === 1 ? i18n.global.t('day') : i18n.global.t('days'));
         if (ms % 86400000) {
-            formatted += ' ' + prettyMilliseconds(ms % 86400000, vue);
+            formatted += ' ' + prettyMilliseconds(ms % 86400000);
         }
         return formatted;
     }

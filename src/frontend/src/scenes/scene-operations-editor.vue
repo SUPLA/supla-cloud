@@ -178,7 +178,7 @@
                 }
             },
             channelTitle(subject) {
-                return channelTitle(subject, this, false);
+                return channelTitle(subject);
             },
             possibleActionFilter() {
                 return () => true;
@@ -228,7 +228,7 @@
                     [ChannelFunctionAction.EXECUTE, ChannelFunctionAction.INTERRUPT_AND_EXECUTE].includes(operation.action.id);
             },
             prettyMilliseconds(ms) {
-                return prettyMilliseconds(ms, this);
+                return prettyMilliseconds(ms);
             }
         },
         watch: {

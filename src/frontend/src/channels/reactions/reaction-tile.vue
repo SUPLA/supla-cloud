@@ -22,10 +22,10 @@
         props: ['model'],
         computed: {
             triggerCaption() {
-                return reactionTriggerCaption(this.model, this);
+                return reactionTriggerCaption(this.model);
             },
             owningChannelCaption() {
-                return channelTitle(this.model.owningChannel, this, false);
+                return channelTitle(this.model.owningChannel);
             },
             subjectCaption() {
                 if (this.model.subject.ownSubjectType === ActionableSubjectType.NOTIFICATION) {

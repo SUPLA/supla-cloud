@@ -82,7 +82,7 @@
     watch(() => props.value, () => readModelFromProps());
 
     function formatSeconds(sliderValue) {
-        return prettyMilliseconds(+sliderValue * 1000, this);
+        return prettyMilliseconds(+sliderValue * 1000);
     }
 
     function onChange() {

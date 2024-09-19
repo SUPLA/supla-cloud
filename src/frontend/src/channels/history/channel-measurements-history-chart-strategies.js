@@ -1,5 +1,6 @@
 import {measurementUnit} from "@/channels/channel-helpers";
 import {formatGpmValue} from "@/common/filters";
+import {i18n} from "@/locale";
 
 export function fillGaps(logs, expectedInterval, defaultLog) {
     if (logs.length < 2) {
@@ -31,7 +32,6 @@ export const CHART_TYPES = {
     THERMOMETER: {
         chartType: () => 'rangeArea',
         chartOptions() {
-            const vue = this;
             return {
                 fill: {opacity: [1, .25]},
                 stroke: {curve: 'straight', width: [2, 0]},
@@ -45,9 +45,9 @@ export const CHART_TYPES = {
                             const min = ctx.w.globals.seriesRange[1][ctx.dataPointIndex].y[0].y1;
                             const max = ctx.w.globals.seriesRange[1][ctx.dataPointIndex].y[0].y2;
                             return `<div class="p-3">
-                                 <strong>${vue.$t('Average')}:</strong> ${format(avg)}<br>
-                                 <strong>${vue.$t('Min')}:</strong> ${format(min)}<br>
-                                 <strong>${vue.$t('Max')}:</strong> ${format(max)}
+                                 <strong>${i18n.global.t('Average')}:</strong> ${format(avg)}<br>
+                                 <strong>${i18n.global.t('Min')}:</strong> ${format(min)}<br>
+                                 <strong>${i18n.global.t('Max')}:</strong> ${format(max)}
                              </div>`;
                         } else {
                             return `<div class="p-3"> ${format(avg)}</div>`;
@@ -586,7 +586,6 @@ export const CHART_TYPES = {
     'ELECTRICITYMETERvoltageHistory': {
         chartType: () => 'line',
         chartOptions() {
-            const vue = this;
             const enabledPhases = this.channel.config.enabledPhases || [1, 2, 3];
             return {
                 stroke: {
@@ -604,10 +603,10 @@ export const CHART_TYPES = {
                             const max = ctx.w.globals.series[idx * 3 + 2][ctx.dataPointIndex];
                             const phaseLabel = `Phase ${phaseNo}`;
                             tooltip += `<div>
-                                <strong>${vue.$t(phaseLabel)}:</strong>
-                                ${vue.$t('Average')}: ${format(avg)},
-                                ${vue.$t('Min')}: ${format(min)},
-                                ${vue.$t('Max')}: ${format(max)}
+                                <strong>${i18n.global.t(phaseLabel)}:</strong>
+                                ${i18n.global.t('Average')}: ${format(avg)},
+                                ${i18n.global.t('Min')}: ${format(min)},
+                                ${i18n.global.t('Max')}: ${format(max)}
                             </div>`;
                         })
                         tooltip += '</div>';
@@ -692,7 +691,6 @@ export const CHART_TYPES = {
     GENERAL_PURPOSE_MEASUREMENT: {
         chartType: (channel) => ({'CANDLE': 'candlestick', 'LINEAR': 'rangeArea'}[channel?.config?.chartType || ''] || 'bar'),
         chartOptions() {
-            const vue = this;
             const options = {
                 fill: {opacity: [1, .25]},
                 stroke: {curve: 'straight', width: [2, 0]},
@@ -708,10 +706,10 @@ export const CHART_TYPES = {
                         const c = ctx.w.globals.seriesCandleC[0][ctx.dataPointIndex];
                         const format = (v) => ctx.w.config.yaxis[0].labels.formatter(v);
                         return `<div class="p-3">
-                             <strong>${vue.$t('Open value')}:</strong> ${format(o)}<br>
-                             <strong>${vue.$t('High value')}:</strong> ${format(h)}<br>
-                             <strong>${vue.$t('Low value')}:</strong> ${format(l)}<br>
-                             <strong>${vue.$t('Close value')}:</strong> ${format(c)}
+                             <strong>${i18n.global.t('Open value')}:</strong> ${format(o)}<br>
+                             <strong>${i18n.global.t('High value')}:</strong> ${format(h)}<br>
+                             <strong>${i18n.global.t('Low value')}:</strong> ${format(l)}<br>
+                             <strong>${i18n.global.t('Close value')}:</strong> ${format(c)}
                          </div>`;
                     }
                 };
@@ -724,9 +722,9 @@ export const CHART_TYPES = {
                         const max = ctx.w.globals.seriesRange[1][ctx.dataPointIndex].y[0].y2;
                         const format = (v) => ctx.w.config.yaxis[0].labels.formatter(v);
                         return `<div class="p-3">
-                             <strong>${vue.$t('Average')}:</strong> ${format(avg)}<br>
-                             <strong>${vue.$t('Min')}:</strong> ${format(min)}<br>
-                             <strong>${vue.$t('Max')}:</strong> ${format(max)}
+                             <strong>${i18n.global.t('Average')}:</strong> ${format(avg)}<br>
+                             <strong>${i18n.global.t('Min')}:</strong> ${format(min)}<br>
+                             <strong>${i18n.global.t('Max')}:</strong> ${format(max)}
                          </div>`;
                     }
                 };

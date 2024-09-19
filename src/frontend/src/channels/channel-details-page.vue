@@ -378,10 +378,10 @@
         },
         computed: {
             channelTitle() {
-                return channelTitle(this.channel, this);
+                return channelTitle(this.channel);
             },
             deviceTitle() {
-                return deviceTitle(this.channel.iodevice, this);
+                return deviceTitle(this.channel.iodevice);
             },
             frozenShownInClientsState() {
                 if (this.channel.config.controllingChannelId || this.channel.config.controllingSecondaryChannelId) {

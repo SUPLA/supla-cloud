@@ -278,7 +278,7 @@
                 const locale = availableLocales.includes(this.$i18n.locale) ? this.$i18n.locale : 'en';
                 this.bigChart.setLocale(locale);
                 this.bigChart.updateOptions({
-                    title: {text: channelTitle(this.channel, this)},
+                    title: {text: channelTitle(this.channel)},
                 });
                 this.rerenderBigChart();
             },

@@ -228,7 +228,7 @@
                 });
                 XLSX.utils.sheet_add_aoa(worksheet, [columnLabels], {origin: "A1"});
                 const workbook = XLSX.utils.book_new();
-                const sheetName = channelTitle(this.channel, this).replace(/[^0-9a-z]/ig, '_').replace(/_+/g, ' ').substr(0, 30);
+                const sheetName = channelTitle(this.channel).replace(/[^0-9a-z]/ig, '_').replace(/_+/g, ' ').substr(0, 30);
                 XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
                 const filename = `${this.filename}.${this.downloadConfig.format}`;
                 XLSX.writeFile(workbook, filename, {compression: true, FS: fieldSeparator});

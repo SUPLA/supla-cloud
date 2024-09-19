@@ -62,7 +62,7 @@
         },
         methods: {
             formattedValue(sliderValue = this.sliderValue) {
-                return prettyMilliseconds(+sliderValue, this);
+                return prettyMilliseconds(+sliderValue);
             },
             less() {
                 const index = this.possibleValues.indexOf(this.sliderValue);

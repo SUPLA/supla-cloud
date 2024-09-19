@@ -98,7 +98,7 @@
             itemChanged(item) {
                 if (!item.id) {
                     if (this.limit && this.items.length >= this.limit) {
-                        return warningNotification('Error', 'Limit has been exceeded', this);
+                        return warningNotification('Error', 'Limit has been exceeded');
                     }
                     item = this.newItemFactory();
                     this.$router.push({name: this.detailsRoute, params: {[this.idParamName]: 'new'}}).catch(() => undefined);

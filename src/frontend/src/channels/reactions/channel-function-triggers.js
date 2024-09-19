@@ -3,6 +3,7 @@ import ReactionConditionThreshold from "@/channels/reactions/params/reaction-con
 import ReactionConditionElectricitymeter from "@/channels/reactions/params/reaction-condition-electricitymeter.vue";
 import {isEqual} from "lodash";
 import {measurementUnit} from "@/channels/channel-helpers";
+import {i18n} from "@/locale";
 
 export const ChannelFunctionTriggers = {
     [ChannelFunction.HUMIDITYANDTEMPERATURE]: [
@@ -667,7 +668,7 @@ export function findTriggerDefinition(channelFunction, trigger) {
     return (ChannelFunctionTriggers[channelFunction] || []).find(t => t.test ? t.test(trigger) : isEqual(t.def(), trigger));
 }
 
-export function reactionTriggerCaption(reaction, vue) {
+export function reactionTriggerCaption(reaction) {
     const triggerDef = findTriggerDefinition(reaction.owningChannel.functionId, reaction.trigger);
     if (triggerDef) {
         if ([ReactionConditionThreshold, ReactionConditionElectricitymeter].includes(triggerDef.component)) {
@@ -681,12 +682,12 @@ export function reactionTriggerCaption(reaction, vue) {
             const operatorLabel = {eq: '=', ne: '≠', le: '≤', lt: '<', ge: '≥', gt: '>'}[operator];
             const unit = triggerDef.props.unit ? triggerDef.props.unit(onChangeTo.name, reaction.owningChannel) : '';
             const unitBefore = triggerDef.props.unitBefore ? triggerDef.props.unitBefore(onChangeTo.name, reaction.owningChannel) : ''
-            return vue.$t(triggerDef.props.labelI18n(onChangeTo.name)) + ` ${operatorLabel} ${unitBefore}${onChangeTo[operator]}${unit}`;
+            return i18n.global.t(triggerDef.props.labelI18n(onChangeTo.name)) + ` ${operatorLabel} ${unitBefore}${onChangeTo[operator]}${unit}`;
         } else {
-            return vue.$t(triggerDef.caption(reaction.owningChannel));
+            return i18n.global.t(triggerDef.caption(reaction.owningChannel));
         }
     } else {
-        return vue.$t('When the condition is met');
+        return i18n.global.t('When the condition is met');
     }
 }
 

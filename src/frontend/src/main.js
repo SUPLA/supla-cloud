@@ -98,7 +98,7 @@ frontendConfigStore.fetchConfig()
     .then((userData) => setGuiLocale(userData))
     .then(() => {
         app.mount(appContainer);
-        Vue.http.interceptors.push(ResponseErrorInterceptor(app));
+        Vue.http.interceptors.push(ResponseErrorInterceptor());
         for (const transformer in requestTransformers) {
             Vue.http.interceptors.push(requestTransformers[transformer]);
         }

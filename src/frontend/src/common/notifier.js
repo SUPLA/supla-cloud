@@ -4,30 +4,29 @@ import * as PNotifyMobile from '@pnotify/mobile';
 import '@pnotify/mobile/dist/PNotifyMobile.css';
 import * as PNotifyBootstrap3 from '@pnotify/bootstrap3';
 import '@pnotify/core/dist/BrightTheme.css';
+import {i18n} from "@/locale";
 
 defaultModules.set(PNotifyMobile, {});
 defaultModules.set(PNotifyBootstrap3, {});
 
-function showNotification(title, text, type, vue = null) {
-    if (vue) {
-        title = vue.$t(title);
-        text = vue.$t(text);
-    }
+function showNotification(title, text, type) {
+    title = i18n.global.t(title);
+    text = i18n.global.t(text);
     return alert({title, text, type});
 }
 
-export function successNotification(title, text = '', vue = null) {
-    return showNotification(title, text, 'success', vue);
+export function successNotification(title, text = '') {
+    return showNotification(title, text, 'success');
 }
 
-export function warningNotification(title, text = '', vue = null) {
-    return showNotification(title, text, 'notice', vue);
+export function warningNotification(title, text = '') {
+    return showNotification(title, text, 'notice');
 }
 
-export function errorNotification(title, text = '', vue = null) {
-    return showNotification(title, text, 'error', vue);
+export function errorNotification(title, text = '') {
+    return showNotification(title, text, 'error');
 }
 
-export function infoNotification(title, text = '', vue = null) {
-    return showNotification(title, text, 'info', vue);
+export function infoNotification(title, text = '') {
+    return showNotification(title, text, 'info');
 }

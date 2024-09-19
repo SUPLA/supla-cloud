@@ -68,7 +68,7 @@
                 return undefined;
             },
             subjectCaption() {
-                return channelTitle(this.directLink.subject, this, false).replace(/^ID[0-9]+/, '');
+                return channelTitle(this.directLink.subject).replace(/^ID[0-9]+/, '');
             },
             availableChannelsIds() {
                 return this.directLink.state ? Object.keys(this.directLink.state) : [];
