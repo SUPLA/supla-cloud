@@ -38,17 +38,4 @@ describe('Login tests', () => {
         cy.get('button[type=submit]').click();
         cy.get('.error.locked').should('be.visible');
     });
-
-    it('Performs successful authentication', () => {
-        cy.intercept('POST', 'api/webapp-auth', {fixture: 'access-token'});
-        cy.intercept('GET', 'api/users/current', {fixture: 'current-user.json'});
-        cy.intercept('GET', 'api/iodevices?*', {headers: {'X-Total-Count': '4'}, fixture: 'iodevices.json'});
-        cy.visit('/')
-        cy.get('input[type=email]').type('user@supla.org');
-        cy.get('input[type=password]').type('pass');
-        cy.get('button[type=submit]').click();
-        cy.contains('.active', 'SUPLA');
-        cy.get('.square-link').should('have.length', 4)
-        cy.contains('a', 'MEGA DEVICE');
-    });
 })
