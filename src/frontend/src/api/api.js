@@ -22,7 +22,7 @@ function buildAbsoluteUrl(endpoint) {
 function responseHandler(request, config) {
     return (response) => {
         if (response.status == 401) {
-            // window.location.assign(window.location.toString());
+            window.location.assign(window.location.toString());
         } else {
             return response.text().then(text => {
                 let body = text && JSON.parse(text);

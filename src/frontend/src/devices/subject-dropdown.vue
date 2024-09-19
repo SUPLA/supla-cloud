@@ -196,7 +196,6 @@
                 this.subjectChanged(this.subject);
             },
             subjectChanged(subject) {
-                console.log('changed');
                 if (this.subject != subject) {
                     this.subject = subject;
                 }

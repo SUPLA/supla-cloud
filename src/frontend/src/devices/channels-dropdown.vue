@@ -26,9 +26,9 @@
                 channels: undefined,
             };
         },
-        async mounted() {
-            await this.subDevicesStore.fetchAll();
-            await this.fetchChannels();
+        mounted() {
+            this.subDevicesStore.fetchAll();
+            this.fetchChannels();
         },
         methods: {
             fetchChannels() {

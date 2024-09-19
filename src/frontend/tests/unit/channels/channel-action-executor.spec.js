@@ -3,8 +3,18 @@ import ActionableSubjectType from "@/common/enums/actionable-subject-type";
 import ChannelActionExecutor from "@/channels/action/channel-action-executor.vue";
 import ChannelFunctionAction from "@/common/enums/channel-function-action";
 import ChannelFunction from "@/common/enums/channel-function";
+import {setActivePinia} from "pinia";
+import {createTestingPinia} from "@pinia/testing";
 
 describe('ChannelActionExecutor', () => {
+
+    beforeEach(() => {
+        setActivePinia(createTestingPinia({
+            initialState: {
+                channels: {all: {6: ROLETTE}}
+            }
+        }))
+    })
 
     const SCENE = {
         id: 1,
@@ -30,6 +40,7 @@ describe('ChannelActionExecutor', () => {
         ownSubjectType: ActionableSubjectType.CHANNEL,
         possibleActions: [{"id": ChannelFunctionAction.OPEN_PARTIALLY, "name": "OPEN_PARTIALLY", "caption": "Open partially"}],
         functionId: ChannelFunction.CONTROLLINGTHEROLLERSHUTTER,
+        connected: true,
         "function": {
             "id": ChannelFunction.CONTROLLINGTHEROLLERSHUTTER,
             "name": "CONTROLLINGTHEROLLERSHUTTER",

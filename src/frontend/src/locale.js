@@ -45,7 +45,7 @@ Vue.prototype.$setLocale = (lang) => {
                 document.getElementsByTagName("html")[0].removeAttribute('dir');
             }
             Settings.defaultLocale = lang;
-            if (Vue.prototype.$user.userData && Vue.prototype.$user.userData.locale != lang) {
+            if (Vue.prototype.$user?.userData && Vue.prototype.$user.userData.locale != lang) {
                 Vue.prototype.$updateUserLocale(lang);
             }
             if (Vue.prototype.$localStorage) {

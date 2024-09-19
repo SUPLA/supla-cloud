@@ -5,9 +5,15 @@ import ChannelFunction from "@/common/enums/channel-function";
 import ActionableSubjectType from "@/common/enums/actionable-subject-type";
 import ChannelFunctionAction from "@/common/enums/channel-function-action";
 import Vue from "vue";
+import {setActivePinia} from "pinia";
+import {createTestingPinia} from "@pinia/testing";
 
 describe('SubjectDropdown', () => {
     Vue.config.external.notificationsEnabled = true;
+
+    beforeEach(() => {
+        setActivePinia(createTestingPinia());
+    })
 
     const subjectDropdown = async (cfg = {}) => {
         return mount(
@@ -15,9 +21,9 @@ describe('SubjectDropdown', () => {
                 data: () => ({subject: undefined, action: undefined, ...(cfg.data || {})}),
                 template: `
                     <div>
-                    <SubjectDropdown v-model="subject">
-                        <ChannelActionChooser :subject="subject" v-model="action" :always-select-first-action="true"/>
-                    </SubjectDropdown>
+                        <SubjectDropdown v-model="subject">
+                            <ChannelActionChooser :subject="subject" v-model="action" :always-select-first-action="true"/>
+                        </SubjectDropdown>
                     </div>`,
                 components: {SubjectDropdown, ChannelActionChooser},
             },
@@ -201,10 +207,7 @@ describe('SubjectDropdown', () => {
                 possibleActions: [possibleAction(ChannelFunctionAction.OPEN), possibleAction(ChannelFunctionAction.CLOSE), possibleAction(ChannelFunctionAction.CLOSE_PARTIALLY)],
             }),
         ];
-        const wrapper = await subjectDropdown({
-            channels,
-            data: {subject: channels[0]}
-        });
+        const wrapper = await subjectDropdown({channels, data: {subject: channels[0]}});
         expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('OPEN');
         await wrapper.findAll('.channel-action-chooser .panel-heading').at(2).trigger('click');
         expect(wrapper.vm.action).toBeDefined();
@@ -229,6 +232,7 @@ describe('SubjectDropdown', () => {
         await wrapper.vm.$nextTick();
         expect(wrapper.vm.subject).toBeUndefined();
         expect(wrapper.vm.action).toBeUndefined();
+        expect(wrapper.vm.subjectType).toBeUndefined();
         expect(wrapper.find('div').text()).toContain('Channels');
         expect(wrapper.find('div').text()).toContain('Schedules');
         expect(wrapper.find('div').text()).toContain('Send notification');
