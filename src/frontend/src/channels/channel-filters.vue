@@ -3,15 +3,15 @@
         <btn-filters v-model="sort"
             id="channelsFiltersSort"
             :default-sort="hasDevice && 'channelNumber'"
-            @input="$emit('filter')"
+            @input="filter()"
             :filters="filters"></btn-filters>
         <btn-filters v-model="connected"
             id="channelsFilterConnection"
-            @input="$emit('filter')"
+            @input="filter()"
             :filters="[{label: $t('All'), value: 'all'}, {label: $t('Connected'), value: 'connected'}, {label: $t('Disconnected'), value: 'disconnected'}]"></btn-filters>
         <btn-filters v-model="functionality"
             class="always-dropdown"
-            @input="$emit('filter')"
+            @input="filter()"
             :filters="[
                 {label: $t('All'), value: '*'},
                 {label: $t('With function'), value: 'withFunction'},
@@ -26,7 +26,7 @@
                 {label: $t('No function'), value: '0,-1'}
             ]"></btn-filters>
         <input type="text"
-            @input="$emit('filter')"
+            @input="filter()"
             class="form-control"
             v-model="search"
             :placeholder="$t('Search')">
@@ -92,11 +92,15 @@
                 if (this.sort === 'channelNumber') {
                     return a.channelNumber - b.channelNumber;
                 } else if (this.sort === 'lastAccess') {
-                    return DateTime.fromISO(b.iodevice.lastConnected).diff(DateTime.fromISO(a.iodevice.lastConnected)).milliseconds;
+                    const deviceA = this.devices[a.iodeviceId] || {};
+                    const deviceB = this.devices[b.iodeviceId] || {};
+                    return DateTime.fromISO(deviceB.lastConnected).diff(DateTime.fromISO(deviceA.lastConnected)).milliseconds;
                 } else if (this.sort === 'caption') {
                     return this.captionForSort(a) < this.captionForSort(b) ? -1 : 1;
                 } else if (this.sort === 'regDate') {
-                    return DateTime.fromISO(b.iodevice.regDate).diff(DateTime.fromISO(a.iodevice.regDate)).milliseconds;
+                    const deviceA = this.devices[a.iodeviceId] || {};
+                    const deviceB = this.devices[b.iodeviceId] || {};
+                    return DateTime.fromISO(deviceB.regDate).diff(DateTime.fromISO(deviceA.regDate)).milliseconds;
                 } else {
                     const locationA = this.locations[a.locationId] || {};
                     const locationB = this.locations[b.locationId] || {};
