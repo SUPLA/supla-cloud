@@ -108,6 +108,27 @@ class ValueBasedTriggerValidator {
         'heating' => [ChannelFunction::HVAC_THERMOSTAT, ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL],
         'cooling' => [ChannelFunction::HVAC_THERMOSTAT, ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL],
         'heating_or_cooling' => [ChannelFunction::HVAC_THERMOSTAT, ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL],
+        'clock_error' => [
+            ChannelFunction::HVAC_THERMOSTAT,
+            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
+            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
+            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
+        ],
+        'thermometer_error' => [
+            ChannelFunction::HVAC_THERMOSTAT,
+            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
+            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
+            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
+        ],
+        'is_battery_cover_open' => [
+            ChannelFunction::HVAC_THERMOSTAT,
+            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
+            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
+            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
+        ],
         'counter' => [
             ChannelFunction::IC_HEATMETER,
             ChannelFunction::IC_WATERMETER,

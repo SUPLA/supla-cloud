@@ -66,6 +66,7 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), '{"on_change_to": {"ge": 20, "resume": {"lt": 10}}}'],
             [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), '{"on_change_to": {"eq": "on", "name": "calibration_failed"}}'],
             [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), '{"on_change_to": {"eq": "on", "name": "motor_problem"}}'],
+            [ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL(), '{"on_change_to": {"eq": "on", "name": "clock_error"}}'],
         ];
     }
 

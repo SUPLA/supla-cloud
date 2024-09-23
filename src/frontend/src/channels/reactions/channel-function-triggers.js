@@ -606,6 +606,9 @@ export const ChannelFunctionTriggers = {
         {caption: () => 'When the thermostat starts heating', def: () => ({on_change_to: {eq: 'on', name: 'is_on'}})}, // i18n
         {caption: () => 'When the thermostat stops heating', def: () => ({on_change_to: {eq: 'off', name: 'is_on'}})}, // i18n
         {caption: () => 'When the thermostat starts or stops heating', def: () => ({on_change: {name: 'is_on'}})}, // i18n
+        {caption: () => 'When the battery cover is opened', def: () => ({on_change_to: {eq: 'on', name: 'is_battery_cover_open'}})}, // i18n
+        {caption: () => 'When the thermometer error has been reported', def: () => ({on_change_to: {eq: 'on', name: 'thermometer_error'}})}, // i18n
+        {caption: () => 'When the clock error has been reported', def: () => ({on_change_to: {eq: 'on', name: 'clock_error'}})}, // i18n
     ],
     [ChannelFunction.HVAC_THERMOSTAT]: [
         {caption: () => 'When the thermostat starts heating', def: () => ({on_change_to: {eq: 'on', name: 'heating'}})}, // i18n
@@ -623,6 +626,9 @@ export const ChannelFunctionTriggers = {
         {caption: () => 'When the thermostat starts or stops heating', def: () => ({on_change: {name: 'heating'}})}, // i18n
         {caption: () => 'When the thermostat starts or stops cooling', def: () => ({on_change: {name: 'cooling'}})}, // i18n
         {caption: () => 'When the thermostat starts or stops heating or cooling', def: () => ({on_change: {name: 'heating_or_cooling'}})}, // i18n
+        {caption: () => 'When the battery cover is opened', def: () => ({on_change_to: {eq: 'on', name: 'is_battery_cover_open'}})}, // i18n
+        {caption: () => 'When the thermometer error has been reported', def: () => ({on_change_to: {eq: 'on', name: 'thermometer_error'}})}, // i18n
+        {caption: () => 'When the clock error has been reported', def: () => ({on_change_to: {eq: 'on', name: 'clock_error'}})}, // i18n
     ],
     [ChannelFunction.GENERAL_PURPOSE_METER]: [
         {
