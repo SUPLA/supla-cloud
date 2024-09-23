@@ -32,6 +32,9 @@
             <span v-if="state.countdownTimer" v-tooltip.bottom="$t('With a timer')">
                 <fa icon="clock" fixed-width/>
             </span>
+            <span v-if="state.batteryCoverOpened" v-tooltip.bottom="$t('Battery cover opened')">
+                <fa icon="car-battery" fixed-width/>
+            </span>
         </div>
         <div v-if="state.mode !== 'OFF' && state.partially" class="small">
             <span v-if="state.heating">{{ $t('Heating: {percent}%', {percent: state.partially}) }}</span>

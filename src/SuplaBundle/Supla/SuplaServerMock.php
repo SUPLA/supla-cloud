@@ -198,6 +198,9 @@ class SuplaServerMock extends SuplaServer {
             if ($this->faker->boolean(10)) {
                 $flags |= HvacIpcValueFlags::WEEKLY_SCHEDULE_TEMPORAL_OVERRIDE;
             }
+            if ($this->faker->boolean(10)) {
+                $flags |= HvacIpcValueFlags::BATTERY_COVER_OPEN;
+            }
             return sprintf(
                 'VALUE:%d,%d,%d,%d,%d,%d,%d',
                 $this->faker->numberBetween(0, 100),

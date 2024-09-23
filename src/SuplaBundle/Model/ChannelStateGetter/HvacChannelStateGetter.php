@@ -51,6 +51,7 @@ class HvacChannelStateGetter implements SingleChannelStateGetter {
             'clockError' => HvacIpcValueFlags::CLOCK_ERROR()->isOn($flags),
             'forcedOffBySensor' => HvacIpcValueFlags::FORCED_OFF_BY_SENSOR()->isOn($flags),
             'weeklyScheduleTemporalOverride' => HvacIpcValueFlags::WEEKLY_SCHEDULE_TEMPORAL_OVERRIDE()->isOn($flags),
+            'batteryCoverOpened' => HvacIpcValueFlags::BATTERY_COVER_OPEN()->isOn($flags),
             'mode' => (new HvacIpcActionMode(intval($modeId)))->getKey(),
             'temperatureHeat' => HvacIpcValueFlags::TEMPERATURE_HEAT_SET()->isOn($flags)
                 ? NumberUtils::maximumDecimalPrecision($tempHeat / 100)
