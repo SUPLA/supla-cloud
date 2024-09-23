@@ -31,6 +31,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
+use SuplaBundle\Model\Dependencies\ChannelDependencies;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -1073,5 +1074,15 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $thermostatOther = $device->getChannels()[4];
         $this->expectExceptionMessage('is master for others');
         $channelParamConfigTranslator->setConfig($thermostatMaster, ['masterThermostatChannelId' => $thermostatOther->getId()]);
+    }
+
+    public function testIssue885() {
+        $dump = file_get_contents(__DIR__ . '/../fixtures/issue-885.sql');
+        $this->getEntityManager()->getConnection()->executeStatement($dump);
+        $problematicChannel = $this->freshChannelById(107178);
+        $depFinder = self::$container->get(ChannelDependencies::class);
+        $dependencies = $depFinder->getItemsThatDependOnLocation($problematicChannel);
+        $this->assertArrayHasKey('channels', $dependencies);
+        $this->assertCount(16, $dependencies['channels']);
     }
 }

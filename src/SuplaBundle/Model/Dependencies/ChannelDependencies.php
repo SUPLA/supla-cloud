@@ -122,7 +122,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         }
     }
 
-    private function findDependentChannelsRecursive(IODeviceChannel $channel, array $checkedChannelsIds = []): array {
+    private function findDependentChannelsRecursive(IODeviceChannel $channel, array &$checkedChannelsIds = []): array {
         $checkedChannelsIds[] = $channel->getId();
         $dependentChannels = $this->findDependentChannels($channel);
         foreach ($dependentChannels as $ch) {
