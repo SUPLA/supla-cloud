@@ -113,6 +113,9 @@
             <div v-if="currentState.thermometerError === true">
                 <span class="label label-danger">{{ $t('Thermometer error') }}</span>
             </div>
+            <div v-if="currentState.batteryCoverOpen === true">
+                <span class="label label-danger">{{ $t('Battery cover open') }}</span>
+            </div>
             <div v-if="currentState.forcedOffBySensor === true">
                 <span class="label label-info">{{ $t('Forced off by sensor') }}</span>
             </div>
