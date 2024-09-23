@@ -55,8 +55,15 @@ class MoveDependentChannelsToTheSameLocationCommand extends Command implements I
             ->toIterable();
         $changeLocationOperations = [];
         foreach ($channels as $channel) {
+            if ($output->isVeryVerbose()) {
+                $output->write("Checking dependencies for channel #{$channel->getId()}:");
+            }
             $dependencies = $this->channelDependencies->getItemsThatDependOnLocation($channel);
             if ($dependencies['channels']) {
+                if ($output->isVeryVerbose()) {
+                    $ids = array_map(fn(IODeviceChannel $ch) => $ch->getId(), $dependencies['channels']);
+                    $output->writeln(' ' . implode(', ', $ids));
+                }
                 $expectedLocationId = $channel->getLocation()->getId();
                 foreach ($dependencies['channels'] as $depChannel) {
                     /** @var IODeviceChannel $depChannel */
@@ -64,6 +71,8 @@ class MoveDependentChannelsToTheSameLocationCommand extends Command implements I
                         $changeLocationOperations[$depChannel->getId()] = $this->changeLocationOperation($depChannel, $expectedLocationId);
                     }
                 }
+            } elseif ($output->isVeryVerbose()) {
+                $output->writeln(' none');
             }
         }
         // make sure that everything is migrated
@@ -73,8 +82,15 @@ class MoveDependentChannelsToTheSameLocationCommand extends Command implements I
             ->getQuery()
             ->toIterable();
         foreach ($channels as $channel) {
+            if ($output->isVeryVerbose()) {
+                $output->write("Checking dependencies for channel #{$channel->getId()}:");
+            }
             $dependencies = $this->channelDependencies->getItemsThatDependOnLocation($channel);
             if ($dependencies['channels']) {
+                if ($output->isVeryVerbose()) {
+                    $ids = array_map(fn(IODeviceChannel $ch) => $ch->getId(), $dependencies['channels']);
+                    $output->writeln(' ' . implode(', ', $ids));
+                }
                 $expectedLocationId = $channel->getLocation()->getId();
                 if (isset($changeLocationOperations[$channel->getId()])) {
                     $expectedLocationId = $changeLocationOperations[$channel->getId()]['newId'];
@@ -90,6 +106,8 @@ class MoveDependentChannelsToTheSameLocationCommand extends Command implements I
                         $changeLocationOperations[$depChannel->getId()] = $changeLocationOperation;
                     }
                 }
+            } elseif ($output->isVeryVerbose()) {
+                $output->writeln(' none');
             }
         }
         foreach ($changeLocationOperations as $channelId => $changeOperation) {
