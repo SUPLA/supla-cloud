@@ -404,7 +404,7 @@ If you really want to unregister your private SUPLA Cloud instance, here are the
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Po pakartotino paskyros sukūrimo, kai kuriuos įrenginius gali prireikti iš naujo konfigūruoti, net jei nurodysi tą patį el. pašto adresą.
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Jeigu norite suderinti privatų debesį SUPLA su viešąja programa OAuth, turite {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Jei nori pasinaudoti tiesiogine nuoroda kitoje programinėje įrangoje, pridėk atitinkamą užklausos antraštę, kad gauti lengviau apdorojamą atsakymą.
-If you wish not to receive such messages,<br> change it in your account settings [here].: Jei nenorite iš mūsų gauti tokių pranešimų, <br> apsilankykite savo paskyros nustatymuose [čia].
+If you wish not to receive such messages, change it in your account settings [here].: Jei nenorite iš mūsų gauti tokių pranešimų, <br> apsilankykite savo paskyros nustatymuose [čia].
 If you wish to register your instance, {clickHereLink}.: Jei norite užregistruoti savo paskyrą, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Jeigu norite pamatyti prieinamas integracijas, pereikite į {0}.
 If you wish to unregister your instance, {clickHereLink}.: Jei norite išregistruoti savo paskyrą, {clickHereLink}.

@@ -404,7 +404,7 @@ If you really want to unregister your private SUPLA Cloud instance, here are the
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Je možné, že po opätovnej registrácii účtu bude potrebné znova konfigurovať niektoré zariadenia, aj keď zadáte tú istú emailovú adresu.
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Ak chcete integrovať súkromný mrak SUPLA s verejnou aplikáciou OAuth, {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Ak chcete priamy odkaz použiť v inom softvéri, vhodne doplňte hlavičku dopytu, aby ste dostali odpoveď, ktorá sa dá ľahšie spracovať.
-If you wish not to receive such messages,<br> change it in your account settings [here].: Pokiaľ od nás nechcete dostávať takéto upozornenia, pozrite si nastavenia svojho účtu [tu].
+If you wish not to receive such messages, change it in your account settings [here].: Pokiaľ od nás nechcete dostávať takéto upozornenia, pozrite si nastavenia svojho účtu [tu].
 If you wish to register your instance, {clickHereLink}.: Ak chcete zaregistrovať svoju inštanciu, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Ak si chcete pozrieť dostupné integrácie, prejdite na {0}.
 If you wish to unregister your instance, {clickHereLink}.: Ak chcete zrušiť registráciu svojej inštancie, {clickHereLink}.

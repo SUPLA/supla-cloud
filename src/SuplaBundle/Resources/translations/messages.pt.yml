@@ -404,7 +404,7 @@ If you really want to unregister your private SUPLA Cloud instance, here are the
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Caso seja criada uma nova conta, certas configurações podem ser resgatadas, se o mesmo email for usado.
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Se você deseja integrar aplicativos em nuvem SUPL privada com aplicações OAuth públicas, você tem que {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Se você quiser usar o link direto em outro software, adicione o cabeçalho de solicitação apropriado para ter a resposta mais rápida ao processo.
-If you wish not to receive such messages,<br> change it in your account settings [here].: Se não quiser receber as nossas notificações, consulte as configurações da sua conta [aqui].
+If you wish not to receive such messages, change it in your account settings [here].: Se não quiser receber as nossas notificações, consulte as configurações da sua conta [aqui].
 If you wish to register your instance, {clickHereLink}.: Se deseja registar a sua instância, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Se você quiser ver as integrações disponíveis, vá para {0}.
 If you wish to unregister your instance, {clickHereLink}.: Se quiser cancelar o registo da sua instância, {clickHereLink}.

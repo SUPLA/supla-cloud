@@ -404,7 +404,7 @@ If you really want to unregister your private SUPLA Cloud instance, here are the
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Nach erneuter Kontoregistrierung kann bei manchen Geräten eine erneute Konfigurierung erforderlich sein auch wenn die selbe E-Mail Adresse angegeben wurde.
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Wenn Sie eine private SUPLA-Cloud mit einer öffentlichen OAuth-Anwendung integrieren möchten, {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Wenn Sie einen direkten Link in einer anderen Software verwenden möchten, fügen Sie den entsprechenden Anfragekopf hinzu, um eine leichter zu verarbeitende Antwort zu erhalten.
-If you wish not to receive such messages,<br> change it in your account settings [here].: Wenn Sie solche Informationen von uns nicht bekommen möchten,<br> sehen Sie sich Ihre Kontoeinstellungen an [hier].
+If you wish not to receive such messages, change it in your account settings [here].: Wenn Sie solche Informationen von uns nicht bekommen möchten,<br> sehen Sie sich Ihre Kontoeinstellungen an [hier].
 If you wish to register your instance, {clickHereLink}.: Wenn Sie Ihre Instanz registrieren möchtest, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Wenn Sie die verfügbaren Integrationen sehen möchten, gehen Sie zu {0}.
 If you wish to unregister your instance, {clickHereLink}.: Wenn Sie Ihre Instanz abmelden möchten, {clickHereLink}.
