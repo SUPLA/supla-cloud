@@ -197,7 +197,16 @@ class ChannelGroupController extends RestController {
         $channelGroup = $channelGroupFiller->fillFromRequest($request);
         Assertion::notInArray(
             $channelGroup->getFunction()->getId(),
-            [ChannelFunction::DIGIGLASS_VERTICAL, ChannelFunction::DIGIGLASS_HORIZONTAL],
+            [
+                ChannelFunction::DIGIGLASS_VERTICAL,
+                ChannelFunction::DIGIGLASS_HORIZONTAL,
+                ChannelFunction::HVAC_THERMOSTAT,
+                ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+                ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
+                ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
+                ChannelFunction::THERMOSTAT,
+                ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
+            ],
             'Channels groups are not supported for this function.' // i18n
         );
         $channelGroup = $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {

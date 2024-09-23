@@ -28,7 +28,8 @@
                     <form @submit.prevent="addChannel()"
                         v-else>
                         <div class="form-group">
-                            <channels-dropdown :params="'io=output&hasFunction=1' + (channelGroup.function ? '&function=' + channelGroup.function.id : '')"
+                            <channels-dropdown
+                                :params="'io=output&hasFunction=1' + (channelGroup.function ? '&function=' + channelGroup.function.id : '')"
                                 v-model="newChannel"
                                 @update="channelsToChoose = $event"
                                 hide-none="true"
@@ -56,6 +57,7 @@
 </template>
 
 <script>
+    import ChannelFunction from "@/common/enums/channel-function";
     import ChannelsDropdown from "../devices/channels-dropdown.vue";
 
     export default {
@@ -78,7 +80,17 @@
                 }
             },
             filterOutChannelsNotForChannelGroup(channel) {
-                return !['DIGIGLASS_VERTICAL', 'DIGIGLASS_HORIZONTAL'].includes(channel.function.name);
+                const nonGroupingFunctions = [
+                    ChannelFunction.DIGIGLASS_VERTICAL,
+                    ChannelFunction.DIGIGLASS_HORIZONTAL,
+                    ChannelFunction.HVAC_THERMOSTAT,
+                    ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
+                    ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
+                    ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
+                    ChannelFunction.THERMOSTAT,
+                    ChannelFunction.THERMOSTATHEATPOLHOMEPLUS,
+                ];
+                return !nonGroupingFunctions.includes(channel.function.id);
             },
         },
         watch: {
