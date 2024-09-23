@@ -69,6 +69,10 @@ abstract class SuplaAutodiscover {
         $this->brokerHttpClient = $brokerHttpClient;
     }
 
+    public function getAutodiscoverUrl(): ?string {
+        return $this->autodiscoverUrl;
+    }
+
     public function enabled(): bool {
         return !!$this->autodiscoverUrl;
     }
