@@ -122,6 +122,8 @@
 
 <script>
     import ChannelStateTableHvac from "@/channels/channel-state-table-hvac.vue";
+    import {mapState} from "pinia";
+    import {useChannelsStore} from "@/stores/channels-store";
 
     export default {
         components: {ChannelStateTableHvac},
@@ -135,10 +137,14 @@
         },
         computed: {
             currentState() {
-                return this.state || this.channel.state;
+                return this.state || this.stateFromStore;
             },
             isHvac() {
                 return ['HVAC', 'THERMOSTATHEATPOLHOMEPLUS'].includes(this.channel.type.name);
+            },
+            ...mapState(useChannelsStore, {channels: 'list'}),
+            stateFromStore() {
+                return this.channels[this.channel.id]?.state;
             },
         },
     };
