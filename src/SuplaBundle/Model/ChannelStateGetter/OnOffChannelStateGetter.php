@@ -25,6 +25,8 @@ class OnOffChannelStateGetter implements SingleChannelStateGetter {
         return [
             ChannelFunction::THERMOSTAT(),
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS(),
+            ChannelFunction::PUMPSWITCH(),
+            ChannelFunction::HEATORCOLDSOURCESWITCH(),
         ];
     }
 }
