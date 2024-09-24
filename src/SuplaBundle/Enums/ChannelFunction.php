@@ -404,18 +404,6 @@ final class ChannelFunction extends Enum {
             self::DIGIGLASS_VERTICAL => [
                 ChannelFunctionAction::SET(),
             ],
-            self::PUMPSWITCH => [
-                ChannelFunctionAction::TURN_ON(),
-                ChannelFunctionAction::TURN_OFF(),
-                ChannelFunctionAction::TOGGLE(),
-                ChannelFunctionAction::COPY(),
-            ],
-            self::HEATORCOLDSOURCESWITCH => [
-                ChannelFunctionAction::TURN_ON(),
-                ChannelFunctionAction::TURN_OFF(),
-                ChannelFunctionAction::TOGGLE(),
-                ChannelFunctionAction::COPY(),
-            ],
         ];
         $actions[self::TERRACE_AWNING] = $actions[self::PROJECTOR_SCREEN];
         $actions[self::CURTAIN] = $actions[self::CONTROLLINGTHEROLLERSHUTTER];
