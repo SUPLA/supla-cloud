@@ -9,6 +9,10 @@ export const channelsApi = {
         const {body} = await api.get('channels?include=state,connected');
         return body;
     },
+    async getOneWithState(id) {
+        const {body} = await api.get(`channels/${id}?include=state,connected`);
+        return body;
+    },
     async getStates() {
         const {body} = await api.get('channels/states');
         return body;

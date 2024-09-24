@@ -235,6 +235,12 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
      */
     private $conflictDetails;
 
+    /**
+     * @ORM\Column(name="checksum", type="string", length=32, nullable=false, options={"charset"="ascii", "collation"="ascii_bin", "default"="", "fixed" = true})
+     * @Groups({"basic"})
+     */
+    private string $checksum = '';
+
     public function __construct() {
         $this->directLinks = new ArrayCollection();
         $this->schedules = new ArrayCollection();
@@ -507,5 +513,9 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
 
     public function getSubDeviceId(): int {
         return $this->subDeviceId;
+    }
+
+    public function getChecksum(): string {
+        return $this->checksum;
     }
 }

@@ -142,6 +142,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayNotHasKey('param1', $content);
         $this->assertArrayHasKey('config', $content);
         $this->assertArrayHasKey('possibleActions', $content);
+        $this->assertArrayHasKey('checksum', $content);
         $this->assertEquals('Toggle', $content['possibleActions'][2]['caption']);
         $this->assertEquals(ActionableSubjectType::CHANNEL, $content['ownSubjectType']);
     }
@@ -547,13 +548,14 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
         ]);
         $sensorChannel = $anotherDevice->getChannels()[0];
+        $previousChecksum = $sensorChannel->getChecksum();
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV3('PUT', '/api/channels/' . $sensorChannel->getId(), [
             'locationId' => $anotherLocation->getId(),
             'caption' => 'Inny caption',
         ]);
         $this->assertStatusCode(200, $client->getResponse());
-        $sensorChannel = $this->getEntityManager()->find(IODeviceChannel::class, $sensorChannel->getId());
+        $sensorChannel = $this->freshEntity($sensorChannel);
         $this->assertEquals('Inny caption', $sensorChannel->getCaption());
         $this->assertEquals($anotherLocation->getId(), $sensorChannel->getLocation()->getId());
         $this->assertSuplaCommandExecuted(sprintf(
@@ -562,6 +564,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             $sensorChannel->getId(),
             ChannelConfigChangeScope::CAPTION | ChannelConfigChangeScope::LOCATION
         ));
+        $this->assertNotEquals($previousChecksum, $sensorChannel->getChecksum());
         return $sensorChannel->getId();
     }
 

@@ -25,9 +25,18 @@ export const useChannelsStore = defineStore('channels', () => {
         }
     };
 
+    const updateChannel = (channel) => {
+        all.value[channel.id] = {...all.value[channel.id], ...channel};
+    }
+
+    const fetchChannel = (channelId) => {
+        return channelsApi.getOneWithState(channelId).then(updateChannel);
+    };
+
     const fetchStates = () => {
         return channelsApi.getStates().then((response) => {
             let refetch = false;
+            const idsToFetch = [];
             const devicesStore = useDevicesStore();
             // const {states: channelsStates, devicesCount} = response;
             // TODO ^ uncomment after full 24.10 update
@@ -47,13 +56,18 @@ export const useChannelsStore = defineStore('channels', () => {
                 if (all.value[channel.id]) {
                     all.value[channel.id].connected = channel.state.connected;
                     all.value[channel.id].state = channel.state;
+                    if (all.value[channel.id].checksum !== channel.checksum) {
+                        idsToFetch.push(channel.id);
+                    }
                 } else {
                     refetch = true;
                 }
             });
             refetch = refetch || channelsStates.length !== ids.value.length || devicesCount !== devicesStore.ids.length;
-            if (refetch) {
+            if (refetch || idsToFetch.length > 5) {
                 refetchAll();
+            } else if (idsToFetch.length > 0) {
+                idsToFetch.forEach((id) => fetchChannel(id));
             }
         });
     };

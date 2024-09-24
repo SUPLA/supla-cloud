@@ -226,6 +226,7 @@ class ChannelController extends RestController {
                     'id' => $channel->getId(),
                     'iodeviceId' => $channel->getIoDevice()->getId(),
                     'state' => $channelStateGetter->getState($channel),
+                    'checksum' => $channel->getChecksum(),
                 ];
             })
             ->toArray();
