@@ -512,6 +512,7 @@ final class ChannelFunction extends Enum {
             self::THERMOMETER => 7,
             self::HUMIDITYANDTEMPERATURE => 7,
             self::ALARM_ARMAMENT_SENSOR => 3,
+            self::HEATORCOLDSOURCESWITCH => 5,
         ];
     }
 
