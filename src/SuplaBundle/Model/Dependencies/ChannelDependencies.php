@@ -54,7 +54,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
 
     public function getItemsThatDependOnLocation(IODeviceChannel $channel): array {
         return [
-            'channels' => array_values($this->findDependentChannelsRecursive($channel)),
+            'channels' => array_values($this->findDependentChannelsRecursive($channel, ['auxThermometerChannelId'])),
         ];
     }
 
@@ -122,12 +122,19 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         }
     }
 
-    private function findDependentChannelsRecursive(IODeviceChannel $channel, array &$checkedChannelsIds = []): array {
+    private function findDependentChannelsRecursive(
+        IODeviceChannel $channel,
+        array $skipConfigIds = [],
+        array &$checkedChannelsIds = []
+    ): array {
         $checkedChannelsIds[] = $channel->getId();
-        $dependentChannels = $this->findDependentChannels($channel);
+        $dependentChannels = $this->findDependentChannels($channel, $skipConfigIds);
         foreach ($dependentChannels as $ch) {
             if (!in_array($ch->getId(), $checkedChannelsIds)) {
-                $dependentChannels = array_replace($dependentChannels, $this->findDependentChannelsRecursive($ch, $checkedChannelsIds));
+                $dependentChannels = array_replace(
+                    $dependentChannels,
+                    $this->findDependentChannelsRecursive($ch, $skipConfigIds, $checkedChannelsIds)
+                );
             }
         }
         if (isset($dependentChannels[$channel->getId()])) {
@@ -136,11 +143,11 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         return $dependentChannels;
     }
 
-    private function findDependentChannels(IODeviceChannel $channel): array {
+    private function findDependentChannels(IODeviceChannel $channel, array $skipConfigIds = []): array {
         $config = $this->channelParamConfigTranslator->getConfig($channel);
         $dependentChannels = [];
         foreach ($config as $key => $value) {
-            if ((strpos($key, 'ChannelId') > 0) && is_int($value) && $value > 0) {
+            if ((strpos($key, 'ChannelId') > 0) && is_int($value) && $value > 0 && !in_array($key, $skipConfigIds)) {
                 $depChannel = $this->entityManager->find(IODeviceChannel::class, $value);
                 if ($depChannel) {
                     $dependentChannels[$depChannel->getId()] = $depChannel;
@@ -162,7 +169,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         foreach ($this->channelRepository->findBy($possibleHvacRelationFilters) as $possibleChannel) {
             $config = $this->channelParamConfigTranslator->getConfig($possibleChannel);
             foreach ($config as $key => $value) {
-                if ((strpos($key, 'ChannelId') > 0) && $value === $channel->getId()) {
+                if ((strpos($key, 'ChannelId') > 0) && $value === $channel->getId() && !in_array($key, $skipConfigIds)) {
                     $dependentChannels[$possibleChannel->getId()] = $possibleChannel;
                 }
             }
