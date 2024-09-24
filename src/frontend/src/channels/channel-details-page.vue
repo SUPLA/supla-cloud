@@ -120,7 +120,8 @@
                         <div class="details-page-block">
                             <h3 class="text-center">{{ $t('State') }}</h3>
                             <div class="text-center">
-                                <function-icon :model="channel" width="100" :flexible-width="true"></function-icon>
+                                <function-icon :model="channelsStore.all[channel.id] || channel" width="100"
+                                    :flexible-width="true"></function-icon>
                                 <div v-if="channelFunctionIsChosen">
                                     <span v-if="hasPendingChanges"
                                         v-tooltip.bottom="$t('Save or discard configuration changes first.')">
@@ -222,6 +223,8 @@
     import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
     import ChannelConflictDetailsWarning from "@/channels/channel-conflict-details-warning.vue";
     import ChannelDeleteButton from "@/channels/channel-delete-button.vue";
+    import {mapStores} from "pinia";
+    import {useChannelsStore} from "@/stores/channels-store";
 
     export default {
         props: ['id'],
@@ -364,6 +367,7 @@
                 if (this.channel.iodevice.sleepModeEnabled) {
                     this.sleepingDeviceWarning = true;
                 }
+                this.channelsStore.fetchAll(true);
             },
             refreshChannelConfig(showLoading = true) {
                 this.loading = showLoading;
@@ -398,6 +402,7 @@
                 const noApiActionFunctions = ['VALVEPERCENTAGE'];
                 return this.channel.possibleActions?.length && !noApiActionFunctions.includes(this.channel.function.name);
             },
+            ...mapStores(useChannelsStore),
         },
         watch: {
             id(l, a) {

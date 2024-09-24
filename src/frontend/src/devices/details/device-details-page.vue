@@ -148,7 +148,7 @@
     import DevicePairSubdeviceButton from "@/devices/details/device-pair-subdevice-button.vue";
     import DeviceRemoteRestartButton from "@/devices/details/device-remote-restart-button.vue";
     import DeviceIdentifyDeviceButton from "@/devices/details/device-identify-device-button.vue";
-    import {mapState} from "pinia";
+    import {mapStores} from "pinia";
     import {useDevicesStore} from "@/stores/devices-store";
 
     export default {
@@ -214,6 +214,7 @@
                             return this.fetchDevice();
                         }
                     })
+                    .then(() => this.devicesStore.fetchAll(true))
                     .catch(({body, status}) => {
                         if (status == 409) {
                             this.dependenciesThatWillBeDisabled = body;
@@ -252,9 +253,9 @@
             deviceTitle() {
                 return deviceTitle(this.device, this);
             },
-            ...mapState(useDevicesStore, {allDevices: 'all'}),
+            ...mapStores(useDevicesStore),
             deviceFromStore() { // TODO temporary, the whole view should use it
-                return this.allDevices[this.id];
+                return this.devicesStore.all[this.id];
             }
         }
     };
