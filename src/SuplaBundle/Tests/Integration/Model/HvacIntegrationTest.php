@@ -873,23 +873,20 @@ class HvacIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testSettingPumpSwitch */
-    public function testChangingPumpSwitchLocationChangesHvacLocation() {
+    public function testChangingPumpSwitchLocationDoesNotChangeHvacLocation() {
         [$mainThermoId, $pumpId, $hvacId] = [
             $this->device->getChannels()[0]->getId(),
             $this->device->getChannels()[8]->getId(),
             $this->device->getChannels()[3]->getId(),
         ];
+        $mainThermoLocationId = $this->freshChannelById($mainThermoId)->getLocation()->getId();
         $location = $this->createLocation($this->user);
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV3('PUT', "/api/channels/$pumpId?safe=true", ['locationId' => $location->getId()]);
-        $this->assertStatusCode(409, $client->getResponse());
-        $content = json_decode($client->getResponse()->getContent());
-        $this->assertCount(3, array_column($content->dependencies->channels, 'id'));
-        $client->apiRequestV3('PUT', "/api/channels/$pumpId", ['locationId' => $location->getId()]);
         $this->assertStatusCode(200, $client->getResponse());
-        $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $mainThermoId)->getLocation()->getId());
-        $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $pumpId)->getLocation()->getId());
-        $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $hvacId)->getLocation()->getId());
+        $this->assertEquals($mainThermoLocationId, $this->freshChannelById($mainThermoId)->getLocation()->getId());
+        $this->assertEquals($location->getId(), $this->freshChannelById($pumpId)->getLocation()->getId());
+        $this->assertEquals($mainThermoLocationId, $this->freshChannelById($hvacId)->getLocation()->getId());
     }
 
     /** @depends testSettingPumpSwitch */
@@ -1094,6 +1091,6 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $depFinder = self::$container->get(ChannelDependencies::class);
         $dependencies = $depFinder->getItemsThatDependOnLocation($problematicChannel);
         $this->assertArrayHasKey('channels', $dependencies);
-        $this->assertCount(15, $dependencies['channels']);
+        $this->assertCount(10, $dependencies['channels']);
     }
 }

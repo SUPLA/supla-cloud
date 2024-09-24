@@ -262,11 +262,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $pump = $this->channelIdToNo($subject, $config['pumpSwitchChannelId']);
                 Assertion::eq(CF::PUMPSWITCH, $pump->getFunction()->getId(), 'Invalid pump switch function.');
                 $subject->setUserConfigValue('pumpSwitchChannelNo', $pump->getChannelNumber());
-                Assertion::eq(
-                    $subject->getLocation()->getId(),
-                    $pump->getLocation()->getId(),
-                    'Channels that are meant to work with each other must be in the same location.' // i18n
-                );
             } else {
                 $subject->setUserConfigValue('pumpSwitchChannelNo', null);
             }
@@ -278,11 +273,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $hcsSwitch = $this->channelIdToNo($subject, $config['heatOrColdSourceSwitchChannelId']);
                 Assertion::eq(CF::HEATORCOLDSOURCESWITCH, $hcsSwitch->getFunction()->getId(), 'Invalid heat or cold source switch function.');
                 $subject->setUserConfigValue('heatOrColdSourceSwitchChannelNo', $hcsSwitch->getChannelNumber());
-                Assertion::eq(
-                    $subject->getLocation()->getId(),
-                    $hcsSwitch->getLocation()->getId(),
-                    'Channels that are meant to work with each other must be in the same location.' // i18n
-                );
             } else {
                 $subject->setUserConfigValue('heatOrColdSourceSwitchChannelNo', null);
             }

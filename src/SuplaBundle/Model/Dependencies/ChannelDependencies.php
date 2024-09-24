@@ -53,8 +53,13 @@ class ChannelDependencies extends ActionableSubjectDependencies {
     }
 
     public function getItemsThatDependOnLocation(IODeviceChannel $channel): array {
+        $dependentChannels = $this->findDependentChannelsRecursive($channel, [
+            'auxThermometerChannelId',
+            'pumpSwitchChannelId',
+            'heatOrColdSourceSwitchChannelId',
+        ]);
         return [
-            'channels' => array_values($this->findDependentChannelsRecursive($channel, ['auxThermometerChannelId'])),
+            'channels' => array_values($dependentChannels),
         ];
     }
 
