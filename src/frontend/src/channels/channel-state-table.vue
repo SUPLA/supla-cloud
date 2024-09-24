@@ -145,7 +145,7 @@
             isHvac() {
                 return ['HVAC', 'THERMOSTATHEATPOLHOMEPLUS'].includes(this.channel.type.name);
             },
-            ...mapState(useChannelsStore, {channels: 'list'}),
+            ...mapState(useChannelsStore, {channels: 'all'}),
             stateFromStore() {
                 return this.channels[this.channel.id]?.state;
             },
