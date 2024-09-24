@@ -25,23 +25,37 @@ export const useChannelsStore = defineStore('channels', () => {
         }
     };
 
+    const updateChannel = (channel) => {
+        all.value[channel.id] = {...all.value[channel.id], ...channel};
+    }
+
+    const fetchChannel = (channelId) => {
+        return channelsApi.getOneWithState(channelId).then(updateChannel);
+    };
+
     const fetchStates = () => {
         return channelsApi.getStates().then((channelsStates) => {
             let refetch = false;
+            const idsToFetch = [];
             const devicesStore = useDevicesStore();
             devicesStore.updateConnectedStatuses(channelsStates);
             channelsStates.forEach((channel) => {
                 if (all.value[channel.id]) {
                     all.value[channel.id].connected = channel.state.connected;
                     all.value[channel.id].state = channel.state;
+                    if (all.value[channel.id].checksum !== channel.checksum) {
+                        idsToFetch.push(channel.id);
+                    }
                 } else {
                     refetch = true;
                 }
             });
             refetch = refetch || channelsStates.length !== ids.value.length;
-            if (refetch) {
+            if (refetch || idsToFetch.length > 5) {
                 fetchAll(true);
                 devicesStore.fetchAll(true);
+            } else if (idsToFetch.length > 0) {
+                idsToFetch.forEach((id) => fetchChannel(id));
             }
         });
     };
