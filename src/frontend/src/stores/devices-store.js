@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
 import {computed, ref} from "vue";
 import {devicesApi} from "@/api/devices-api";
+import {useChannelsStore} from "@/stores/channels-store";
 
 export const useDevicesStore = defineStore('devices', () => {
     const all = ref({});
@@ -33,6 +34,16 @@ export const useDevicesStore = defineStore('devices', () => {
         });
     };
 
+    const remove = (deviceId, safe = true) => {
+        return devicesApi.remove(deviceId, safe)
+            .then(() => {
+                delete all.value[deviceId];
+                ids.value = ids.value.filter((id) => id !== deviceId);
+                const channelsStore = useChannelsStore();
+                channelsStore.refetchAll();
+            });
+    }
+
     const list = computed(() => ids.value.map(id => all.value[id]));
 
     const $reset = () => {
@@ -41,5 +52,5 @@ export const useDevicesStore = defineStore('devices', () => {
         fetchAll.promise = undefined;
     };
 
-    return {all, ids, list, $reset, fetchAll, updateConnectedStatuses};
+    return {all, ids, list, $reset, fetchAll, updateConnectedStatuses, remove};
 });

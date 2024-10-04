@@ -67,7 +67,16 @@ function patch(endpoint, body, config = {}) {
     return fetch(buildAbsoluteUrl(endpoint), requestOptions).then(responseHandler(requestOptions, config));
 }
 
+function delete_(endpoint, config = {}) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: getDefaultHeaders(),
+    };
+    return fetch(buildAbsoluteUrl(endpoint), requestOptions).then(responseHandler(requestOptions, config));
+}
+
 export const api = {
     get,
     patch,
+    delete_,
 };

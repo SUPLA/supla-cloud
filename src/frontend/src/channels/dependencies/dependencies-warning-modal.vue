@@ -17,10 +17,8 @@
         <div v-if="dependencies.channelsToRemove">
             <p>{{ $t('The following channels will be also removed along with their dependencies.') }}</p>
             <ul>
-                <li v-for="channel in dependencies.channelsToRemove"
-                    :key="channel.id">
-                    ID{{ channel.id }}
-                    <span class="small">{{ channel.caption }}</span>
+                <li v-for="channel in dependencies.channelsToRemove" :key="channel.id">
+                    {{ channelCaption(channel) }}
                 </li>
             </ul>
         </div>
@@ -29,9 +27,15 @@
 
 <script>
     import SubjectDependencies from "./subject-dependencies";
+    import {channelTitle} from "@/common/filters";
 
     export default {
         components: {SubjectDependencies},
         props: ['dependencies', 'headerI18n', 'descriptionI18n', 'deletingHeaderI18n', 'removingHeaderI18n', 'loading'],
+        methods: {
+            channelCaption(channel) {
+                return channelTitle(channel);
+            }
+        }
     };
 </script>

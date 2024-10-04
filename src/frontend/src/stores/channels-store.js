@@ -40,11 +40,16 @@ export const useChannelsStore = defineStore('channels', () => {
             });
             refetch = refetch || channelsStates.length !== ids.value.length;
             if (refetch) {
-                fetchAll(true);
-                devicesStore.fetchAll(true);
+                refetchAll();
             }
         });
     };
+
+    const refetchAll = () => {
+        fetchAll(true);
+        const devicesStore = useDevicesStore();
+        devicesStore.fetchAll(true);
+    }
 
     useIntervalFn(() => fetchStates(), 7777);
 
@@ -56,5 +61,5 @@ export const useChannelsStore = defineStore('channels', () => {
         fetchAll.promise = undefined;
     };
 
-    return {all, ids, list, $reset, fetchAll, fetchStates};
+    return {all, ids, list, $reset, fetchAll, refetchAll, fetchStates};
 });

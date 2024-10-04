@@ -224,7 +224,7 @@
             }, 1000),
             deleteDevice(safe = true) {
                 this.loading = true;
-                this.$http.delete(`iodevices/${this.id}?safe=${safe ? '1' : '0'}`, {skipErrorHandler: [409]})
+                this.devicesStore.remove(this.id, safe)
                     .then(() => this.$router.push({name: 'me'}))
                     .catch(({body, status}) => {
                         if (status == 409) {

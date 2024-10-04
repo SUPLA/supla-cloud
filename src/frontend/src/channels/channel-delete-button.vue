@@ -25,6 +25,8 @@
 <script>
     import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal.vue";
     import {successNotification} from "@/common/notifier";
+    import {mapStores} from "pinia";
+    import {useChannelsStore} from "@/stores/channels-store";
 
     export default {
         components: {DependenciesWarningModal},
@@ -44,6 +46,7 @@
                 this.$http.delete(`channels/${this.channel.id}?safe=${safe}`, {skipErrorHandler: [409]})
                     .then(() => {
                         this.dependenciesThatPreventsDeletion = undefined;
+                        this.channelsStore.refetchAll();
                         successNotification(this.$t('Successful'), this.$t('The channel has been deleted.'));
                         this.$router.push({name: 'device', params: {id: this.channel.iodeviceId}});
                     })
@@ -58,7 +61,8 @@
         computed: {
             canDelete() {
                 return this.channel.conflictDetails || this.channel.iodevice?.channelDeletionAvailable;
-            }
+            },
+            ...mapStores(useChannelsStore),
         }
     };
 </script>
