@@ -41,6 +41,7 @@ use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
+use SuplaBundle\Repository\IODeviceRepository;
 use SuplaBundle\Repository\LocationRepository;
 use SuplaBundle\Repository\UserIconRepository;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -217,7 +218,7 @@ class ChannelController extends RestController {
      * @Rest\Get("/channels/states")
      * @Security("is_granted('ROLE_CHANNELS_R')")
      */
-    public function getChannelsStateAction(ChannelStateGetter $channelStateGetter) {
+    public function getChannelsStateAction(ChannelStateGetter $channelStateGetter, IODeviceRepository $deviceRepository) {
         $channels = $this->channelRepository->findAllForUser($this->getUser())
             ->filter(fn(IODeviceChannel $channel) => $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channel))
             ->map(function (IODeviceChannel $channel) use ($channelStateGetter) {
@@ -228,7 +229,11 @@ class ChannelController extends RestController {
                 ];
             })
             ->toArray();
-        return $this->view($channels);
+        $devicesCount = $deviceRepository->count(['user' => $this->getCurrentUser()]);
+        return $this->view([
+            'states' => $channels,
+            'devicesCount' => $devicesCount,
+        ]);
     }
 
     /**

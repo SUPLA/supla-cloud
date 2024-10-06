@@ -380,6 +380,16 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,5,16711935,58,42,0');
     }
 
+    public function testFetchingStates() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/channels/states');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $body = json_decode($response->getContent(), true);
+        $this->assertCount(13, $body['states']);
+        $this->assertEquals(2, $body['devicesCount']);
+    }
+
     public function testChangingChannelFunctionClearsRelatedSensorInOtherDevices() {
         $client = $this->createAuthenticatedClient();
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);

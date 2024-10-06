@@ -26,9 +26,22 @@ export const useChannelsStore = defineStore('channels', () => {
     };
 
     const fetchStates = () => {
-        return channelsApi.getStates().then((channelsStates) => {
+        return channelsApi.getStates().then((response) => {
             let refetch = false;
             const devicesStore = useDevicesStore();
+            // const {states: channelsStates, devicesCount} = response;
+            // TODO ^ uncomment after full 24.10 update
+            // TODO v remove after full 24.10 update
+            let channelsStates;
+            let devicesCount;
+            if (response.states) {
+                channelsStates = response.states;
+                devicesCount = response.devicesCount;
+            } else {
+                channelsStates = response;
+                devicesCount = devicesStore.ids.length;
+            }
+            // TODO ^ REMOVE AFTER 24.10 update
             devicesStore.updateConnectedStatuses(channelsStates);
             channelsStates.forEach((channel) => {
                 if (all.value[channel.id]) {
@@ -38,7 +51,7 @@ export const useChannelsStore = defineStore('channels', () => {
                     refetch = true;
                 }
             });
-            refetch = refetch || channelsStates.length !== ids.value.length;
+            refetch = refetch || channelsStates.length !== ids.value.length || devicesCount !== devicesStore.ids.length;
             if (refetch) {
                 refetchAll();
             }

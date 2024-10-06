@@ -70,6 +70,7 @@ class DevicesFixture extends SuplaFixture {
         $this->setReference(self::DEVICE_HVAC, $hvac);
         $this->createDeviceGeneralPurposeMeasurement($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->createDeviceGateway($this->getReference(LocationsFixture::LOCATION_BEDROOM));
+        $this->createDevice('EMPTY DEVICE', $location, []);
         $device = $this->createEveryFunctionDevice($location, 'SECOND MEGA DEVICE');
         foreach ($this->faker->randomElements($device->getChannels(), 3) as $noFunctionChannel) {
             $noFunctionChannel->setFunction(ChannelFunction::NONE());
@@ -609,6 +610,7 @@ class DevicesFixture extends SuplaFixture {
             'userConfig' => '{"statusLed": "ON_WHEN_CONNECTED"}',
         ]);
         $this->entityManager->persist($device);
+        $this->entityManager->flush();
         foreach ($channelTypes as $channelNumber => $channelData) {
             $channel = new IODeviceChannel();
             if ($this->faker->boolean()) {
