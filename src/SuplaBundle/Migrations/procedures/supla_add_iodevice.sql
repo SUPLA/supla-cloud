@@ -5,7 +5,8 @@ CREATE PROCEDURE `supla_add_iodevice`(IN `_location_id` INT(11), IN `_user_id` I
                                       IN `_software_version` VARCHAR(20), IN `_protocol_version` INT(11), IN `_product_id` SMALLINT,
                                       IN `_manufacturer_id` SMALLINT, IN `_original_location_id` INT(11), IN `_auth_key` VARCHAR(64),
                                       IN `_flags` INT(11), OUT `_id` INT(11))
-    NO SQL
+    NOT DETERMINISTIC
+    MODIFIES SQL DATA
 BEGIN
     SET
         @mfr_id = _manufacturer_id;

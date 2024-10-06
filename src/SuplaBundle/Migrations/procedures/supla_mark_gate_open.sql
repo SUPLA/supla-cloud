@@ -1,6 +1,7 @@
 DROP PROCEDURE IF EXISTS supla_mark_gate_open;
 
 CREATE PROCEDURE `supla_mark_gate_open`(IN `_channel_id` INT)
+    MODIFIES SQL DATA
 BEGIN
     -- We assume the server will mark open gates at least every minute.
     UPDATE

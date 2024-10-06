@@ -28,7 +28,7 @@ class CreateSqlProceduresAndViewsInitializationCommand extends Command implement
     protected function execute(InputInterface $input, OutputInterface $output) {
         $files = array_values(array_filter(scandir(self::PROCEDURES_PATH), fn($path) => str_ends_with($path, '.sql')));
         $io = new SymfonyStyle($input, $output);
-        if ($input->isInteractive() || $io->isVerbose()) {
+        if (!$io->isQuiet()) {
             $io->title('Creating SQL procedures and views');
             $io->writeln('Number of scripts to execute: ' . count($files));
             $io->newLine();
@@ -37,11 +37,11 @@ class CreateSqlProceduresAndViewsInitializationCommand extends Command implement
             $fullPath = StringUtils::joinPaths(self::PROCEDURES_PATH, $file);
             $sql = file_get_contents($fullPath);
             $this->entityManager->getConnection()->executeStatement($sql);
-            if ($input->isInteractive() || $io->isVerbose()) {
+            if (!$io->isQuiet()) {
                 $io->writeln('✅ ' . $file);
             }
         }
-        if ($input->isInteractive() || $io->isVerbose()) {
+        if (!$io->isQuiet()) {
             $io->newLine();
         }
         return 0;

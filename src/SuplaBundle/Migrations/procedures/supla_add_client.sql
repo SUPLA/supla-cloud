@@ -4,7 +4,8 @@ CREATE PROCEDURE `supla_add_client`(IN `_access_id` INT(11), IN `_guid` VARBINAR
                                     IN `_reg_ipv4` INT(10) UNSIGNED, IN `_software_version` VARCHAR(20) CHARSET utf8,
                                     IN `_protocol_version` INT(11), IN `_user_id` INT(11),
                                     IN `_auth_key` VARCHAR(64) CHARSET utf8, OUT `_id` INT(11))
-    NO SQL
+    NOT DETERMINISTIC
+    MODIFIES SQL DATA
 BEGIN
 
     INSERT INTO `supla_client`(`access_id`, `guid`, `name`, `enabled`, `reg_ipv4`, `reg_date`, `last_access_ipv4`,

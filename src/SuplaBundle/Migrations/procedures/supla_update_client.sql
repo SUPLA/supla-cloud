@@ -3,7 +3,7 @@ DROP PROCEDURE IF EXISTS `supla_update_client`;
 CREATE PROCEDURE `supla_update_client`(IN `_access_id` INT(11), IN `_name` VARCHAR(100) CHARSET utf8mb4,
                                        IN `_last_ipv4` INT(10) UNSIGNED, IN `_software_version` VARCHAR(20) CHARSET utf8,
                                        IN `_protocol_version` INT(11), IN `_auth_key` VARCHAR(64) CHARSET utf8, IN `_id` INT(11))
-    NO SQL
+    MODIFIES SQL DATA
 BEGIN
 
     UPDATE `supla_client`
