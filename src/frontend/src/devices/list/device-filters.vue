@@ -64,7 +64,9 @@
                 } else if (this.sort === 'regDate') {
                     return DateTime.fromISO(b.regDate).diff(DateTime.fromISO(a.regDate)).milliseconds;
                 } else if (this.sort === 'location') {
-                    return this.captionForSort(a.location) < this.captionForSort(b.location) ? -1 : 1;
+                    const locationA = this.locations[a.locationId] || {};
+                    const locationB = this.locations[b.locationId] || {};
+                    return this.captionForSort(locationA) < this.captionForSort(locationB) ? -1 : 1;
                 } else {
                     return this.captionForSort(a) < this.captionForSort(b) ? -1 : 1;
                 }
