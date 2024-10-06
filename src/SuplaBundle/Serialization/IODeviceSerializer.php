@@ -25,6 +25,7 @@ use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Model\UserConfigTranslator\IODeviceConfigTranslator;
 use SuplaBundle\Repository\IODeviceRepository;
 use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Utils\JsonArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
@@ -70,7 +71,7 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
                     $normalized['relationsCount'] = $this->iodeviceRepository->find($ioDevice->getId())->getRelationsCount();
                 }
             }
-            $normalized['config'] = $this->configTranslator->getConfig($ioDevice);
+            $normalized['config'] = new JsonArrayObject($this->configTranslator->getConfig($ioDevice));
         } else {
             $normalized['channelsIds'] = $this->toIds($ioDevice->getChannels());
             $normalized['regIpv4'] = ($normalized['regIpv4'] ?? null) ? ip2long($normalized['regIpv4']) : null;
