@@ -94,8 +94,14 @@ const setGuiLocale = (userData) => {
     return Vue.prototype.$setLocale(locale);
 };
 
+const escapeI18n = (text) => {
+    // https://vue-i18n.intlify.dev/guide/essentials/syntax#special-characters
+    return text.replaceAll(/([{}@$|])/g, "{'$1'}");
+}
+
 export {
     i18n,
     loadLanguage,
-    setGuiLocale
+    setGuiLocale,
+    escapeI18n,
 };

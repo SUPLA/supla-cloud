@@ -93,7 +93,7 @@ class DevicesFixture extends SuplaFixture {
     }
 
     protected function createDeviceSonoff(Location $location): IODevice {
-        $device = $this->createDevice('SONOFF-DS', $location, [
+        $device = $this->createDevice('SONOFF-DS by@fracz', $location, [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
             [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
