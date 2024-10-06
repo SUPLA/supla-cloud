@@ -8,7 +8,8 @@ CREATE PROCEDURE `supla_add_em_voltage_log_item`(
     IN `_max` NUMERIC(5, 2),
     IN `_avg` NUMERIC(5, 2)
 )
-    NO SQL
+    NOT DETERMINISTIC
+    MODIFIES SQL DATA
 BEGIN
     INSERT INTO `supla_em_voltage_log` (`date`, channel_id, phase_no, min, max, avg)
     VALUES (_date, _channel_id, _phase_no, _min, _max, _avg);

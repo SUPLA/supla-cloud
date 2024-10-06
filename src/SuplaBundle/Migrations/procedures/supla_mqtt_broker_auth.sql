@@ -1,7 +1,7 @@
 DROP PROCEDURE IF EXISTS `supla_mqtt_broker_auth`;
 
 CREATE PROCEDURE `supla_mqtt_broker_auth`(IN `in_suid` VARCHAR(255) CHARSET utf8mb4, IN `in_password` VARCHAR(255) CHARSET utf8mb4)
-    NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER
+    NOT DETERMINISTIC READS SQL DATA SQL SECURITY DEFINER
 BEGIN
     SET @hashed_password = SHA2(in_password, 512);
     SELECT 1

@@ -2,6 +2,7 @@ DROP FUNCTION IF EXISTS supla_current_weekday_hour;
 
 CREATE FUNCTION supla_current_weekday_hour(`user_timezone` VARCHAR(50))
     RETURNS VARCHAR(3)
+    CONTAINS SQL
 BEGIN
     DECLARE current_weekday INT;
     DECLARE current_hour INT;

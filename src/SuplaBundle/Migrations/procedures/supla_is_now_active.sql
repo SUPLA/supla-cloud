@@ -6,6 +6,7 @@ CREATE FUNCTION supla_is_now_active(
     `active_hours` VARCHAR(768),
     `user_timezone` VARCHAR(50)
 ) RETURNS INT(11)
+    CONTAINS SQL
 BEGIN
     DECLARE res INT DEFAULT 1;
     IF `active_from` IS NOT NULL THEN

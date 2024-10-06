@@ -5,7 +5,7 @@ CREATE PROCEDURE `supla_set_device_json_config`(IN `_user_id` INT, IN `_device_i
                                                 IN `_user_config_md5` VARCHAR(32), IN `_properties` VARCHAR(2048),
                                                 IN `_properties_md5` VARCHAR(32))
     NOT DETERMINISTIC
-    CONTAINS SQL SQL SECURITY DEFINER
+    MODIFIES SQL DATA SQL SECURITY DEFINER
 BEGIN
     UPDATE supla_iodevice
     SET user_config = _user_config,

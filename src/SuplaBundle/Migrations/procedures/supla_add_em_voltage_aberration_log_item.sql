@@ -16,7 +16,8 @@ CREATE PROCEDURE `supla_add_em_voltage_aberration_log_item`(
     IN `_avg_voltage` NUMERIC(7, 2),
     IN `_measurement_time_sec` INT(11)
 )
-    NO SQL
+    NOT DETERMINISTIC
+    MODIFIES SQL DATA
 BEGIN
     INSERT INTO `supla_em_voltage_aberration_log` (`date`, channel_id, phase_no, count_total, count_above, count_below, sec_above,
                                                    sec_below,

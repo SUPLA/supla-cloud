@@ -4,7 +4,7 @@ CREATE PROCEDURE `supla_set_channel_json_config`(IN `_user_id` INT, IN `_channel
                                                  IN `_user_config_md5` VARCHAR(32), IN `_properties` TEXT CHARSET utf8mb4,
                                                  IN `_properties_md5` VARCHAR(32))
     NOT DETERMINISTIC
-    CONTAINS SQL SQL SECURITY DEFINER
+    MODIFIES SQL DATA SQL SECURITY DEFINER
 BEGIN
     UPDATE supla_dev_channel
     SET user_config = _user_config,

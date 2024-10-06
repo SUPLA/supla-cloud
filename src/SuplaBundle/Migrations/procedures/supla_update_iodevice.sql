@@ -4,7 +4,7 @@ CREATE PROCEDURE `supla_update_iodevice`(IN `_name` VARCHAR(100) CHARSET utf8mb4
                                          IN `_software_version` VARCHAR(20) CHARSET utf8, IN `_protocol_version` INT(11),
                                          IN `_original_location_id` INT(11), IN `_auth_key` VARCHAR(64) CHARSET utf8, IN `_id` INT(11),
                                          IN `_flags` INT(11))
-    NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER
+    NOT DETERMINISTIC MODIFIES SQL DATA SQL SECURITY DEFINER
 BEGIN
     UPDATE `supla_iodevice`
     SET `name`                   = _name,

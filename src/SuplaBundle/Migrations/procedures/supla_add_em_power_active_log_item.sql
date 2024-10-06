@@ -8,9 +8,9 @@ CREATE PROCEDURE `supla_add_em_power_active_log_item`(
     IN `_max` NUMERIC(11, 5),
     IN `_avg` NUMERIC(11, 5)
 )
-    NO SQL
+    NOT DETERMINISTIC
+    MODIFIES SQL DATA
 BEGIN
     INSERT INTO `supla_em_power_active_log` (`date`, channel_id, phase_no, min, max, avg)
     VALUES (_date, _channel_id, _phase_no, _min, _max, _avg);
-
 END;
