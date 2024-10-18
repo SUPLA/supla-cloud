@@ -117,7 +117,6 @@ Cannot calculate when to run the schedule - incorrect configuration?: Не уд�
 Cannot change the channel function right now.: Вы не можете изменить функцию этого канала в данный момент.
 Cannot delete this I/O Device right now.: Вы не можете удалить это устройство в данный момент.
 Cannot execute an action when the device is disconnected.: Не удается выполнить действие при отключенном устройстве.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Сообщение со ссылкой для активации Вашей учетной записи не пришло? Убедитесь, что оно не попало в папку СПАМ (нежелательная почта). Вы также можете {clickHereLink}, чтобы отправить его снова.
 Captcha token is not valid.: Неправильная капча.
 Caption: Подпись
 Caption is too long.: Название слишком длинное.
@@ -129,8 +128,6 @@ Change icon: Сменить значок
 Changing channel’s function will also result in the following changes.: Изменение функции канала повлечет также следующие изменения.
 Channel: Канал
 Channel No: Номер канала
-Partially opened sensor for channel: Канал для датчика промежуточного открытия
-Fully opened sensor for channel: Канал датчика
 Channel group: Группа каналов
 Channel group limit has been exceeded: Лимит групп каналов превышен
 Channel group must consist of at least one channel.: Группа каналов должна содержать, по крайней мере, один канал.
@@ -294,6 +291,7 @@ From anywhere: Отовсюду
 Full closing time: Общее время закрытия
 Full documentation: Полная документация
 Full opening time: Общее время открытия
+Fully opened sensor for channel: Канал датчика
 Function: Назначение
 G5LA1A Relay: Реле G5LA1A
 G5LA1A Relay x2: Двойное реле G5LA1A
@@ -490,6 +488,7 @@ Original location: Исходное локализацию
 Other: Другое
 Otherwise go to the homepage.: В противном случае перейдите на [домашнюю страницу].
 Partial opening sensor: Датчик промежуточного открытия
+Partially opened sensor for channel: Канал для датчика промежуточного открытия
 Password: Пароль
 Password Reset: Сброс пароля
 Password has been changed: Пароль изменен
@@ -923,6 +922,7 @@ Assigned Locations: Подключенные Области
 Authorized OAuth apps: Авторизованные приложения OAuth
 Calculated value: Состояние счетчика
 Cannot send an activation e-mail. Try again later.: Невозможно отправить сообщение со ссылкой для активации. Пожалуйста, попробуйте позже.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Сообщение со ссылкой для активации Вашей учетной записи не пришло? Убедитесь, что оно не попало в папку СПАМ (нежелательная почта). Вы также можете {clickHereLink}, чтобы отправить его снова.
 Channel value: Значение
 Channel will be deleted from the channel group below: Канал будет удален из следующих групп каналов
 Channels in channel group: Каналы в группах каналов
@@ -1042,6 +1042,7 @@ Aux thermometer: ~
 Aux thermometer type: ~
 Available variables: ~
 Average: ~
+Battery cover open: ~
 Behavior settings: ~
 Binary sensor: ~
 Body: ~
@@ -1058,6 +1059,7 @@ Change percentage to: ~
 Change the password and log out: ~
 Change tilt by: ~
 Change tilt to: ~
+Change to be the same.: ~
 Changing channel’s visibility will also change the visibility of other items.: ~
 Changing the location will also imply changing the location of the following items.: ~
 Channel available for {serviceName}: ~
@@ -1084,6 +1086,7 @@ Cooling mode: ~
 'Cooling: {percent}%': ~
 Costs: ~
 Could not restart the device.: ~
+Could not send the identify command.: ~
 Could not set the device time.: ~
 Counter: ~
 Counter reset: ~
@@ -1098,10 +1101,13 @@ Date and time: ~
 Date range: ~
 Daytime criteria: ~
 'Device GUID: %deviceGuid%': ~
+Device identification is unsupported in the firmware.: ~
 Device settings: ~
 Device should be restarting now.: ~
 Device time has been set.: ~
+Different than on master thermostat.: ~
 Differential thermostat: ~
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
 Domestic hot water: ~
 Download measurements history: ~
 Dryer: ~
@@ -1116,6 +1122,7 @@ Electricity meter voltage history: ~
 Enable floor temperature control: ~
 Enable generic cooler temperature control: ~
 Enable generic heater temperature control: ~
+Enable power status LED: ~
 Enable support for OCR readings for this channel: ~
 Enable water temperature control: ~
 Enabled phases: ~
@@ -1131,6 +1138,7 @@ Fan: ~
 'Field: {propertyPath}.': ~
 File format: ~
 Fill missing data: ~
+Firmware: ~
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
 For a period: ~
@@ -1157,6 +1165,8 @@ Home screen content: ~
 Hotel card sensor: ~
 I understand that my SUPLA account will be permanently deleted.: ~
 IP Address: ~
+Identify device: ~
+Identify request sent.: ~
 If you confirm the installation and wish to unlock this device, please click the link below.: ~
 If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
 Image area crop: ~
@@ -1182,6 +1192,7 @@ Low threshold: ~
 Low threshold must be less than high threshold.: ~
 Low value: ~
 Main thermometer: ~
+Master thermostat: ~
 Max: ~
 Maximum duration is one year.: ~
 Maximum temperature that can be set from the device: ~
@@ -1201,6 +1212,7 @@ Missing action.: ~
 'Mode: off': ~
 Motor upside down: ~
 New reaction: ~
+'No': ~
 No results: ~
 No, take me back!: ~
 Noop: ~
@@ -1222,6 +1234,7 @@ Open value: ~
 Operation: ~
 Output value on error: ~
 Overheat protection: ~
+P/C: ~
 PIN: ~
 PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
 Pair new devices or sensors: ~
@@ -1261,12 +1274,15 @@ Remote restart is unsupported in the firmware.: ~
 Remove this item: ~
 Request device unlock: ~
 Reset to defaults: ~
+Restart device: ~
 Restart the device: ~
 Reveal or stop: ~
 Reverse active energy balance: ~
 Roller garage door: ~
+S/N: ~
 SUPLA - Confirm unlocking device for authorized installers: ~
 SUPLA – your device has been unlocked!: ~
+Same as on master thermostat.: ~
 Scene available for {serviceName}: ~
 Screen brightness: ~
 Security: ~
@@ -1288,6 +1304,7 @@ Status LED: ~
 Store active power history: ~
 Store current history: ~
 Store voltage history: ~
+'Subdevice #{id}': ~
 Subfunction: ~
 Summary for selected time range: ~
 Switch to manual mode: ~
@@ -1312,6 +1329,7 @@ The entire history of the voltage aberrations from phase {phaseNumber} will be r
 The entire history of the voltage aberrations will be removed from this channel.: ~
 The following channels will be also removed along with their dependencies.: ~
 The items below rely on this channel, so they will be deleted.: ~
+The master termostat you chose already has a master.: ~
 The notification must have a recipient.: ~
 The reaction has been added: ~
 The reaction has been changed: ~
@@ -1319,6 +1337,7 @@ The reaction will be active when all of the conditions will be meet. If you choo
 The thermostat will not work if the main thermometer is not set.: ~
 Thermometer error: ~
 Thermometers configuration: ~
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
 Thermostat programs: ~
 This action will result in restarting the device. It will not be available for a while.: ~
 This channel was missing during last device registration attempt.: ~
@@ -1327,6 +1346,7 @@ This is the final step in the deletion process. Completing the form will result 
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
 'This password will protect your home. Therefore, it must:': ~
+This thermostat is controlled by another device.: ~
 Tilt angle: ~
 Tilt control type: ~
 Tilt percent: ~
@@ -1343,6 +1363,7 @@ Until a date and time: ~
 Until the next change: ~
 Use device default: ~
 Use working schedule for this reaction: ~
+Use {theMasterThermostat} to control this device.: ~
 Used current transformer type: ~
 User interface: ~
 Value: ~
@@ -1351,6 +1372,7 @@ Value multiplier: ~
 Value separator: ~
 Vector balance: ~
 Vertical blind: ~
+Visit the master thermostat page.: ~
 Voltage: ~
 'We also strongly advise you to choose a password that:': ~
 We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
@@ -1373,8 +1395,10 @@ When the alarm is disarmed: ~
 When the apparent power will be: ~
 When the balanced forward active energy will be: ~
 When the balanced reverse active energy will be: ~
+When the battery cover is opened: ~
 When the brightness level changes: ~
 When the brightness will be: ~
+When the clock error has been reported: ~
 When the color changes: ~
 When the condition is met: ~
 When the current will be: ~
@@ -1434,12 +1458,19 @@ When the pressure will be: ~
 When the projector screen position changes: ~
 When the projector screen reaches: ~
 When the projector screen reaches a certain position: ~
+When the pump is turned off: ~
+When the pump is turned on: ~
+When the pump is turned on or off: ~
 When the rain amount changes: ~
 When the reactive power will be: ~
 When the reverse active energy will be: ~
 When the roller garage door a certain position: ~
 When the roller garage door position changes: ~
 When the roller garage door reaches: ~
+When the roller shutter calibration failed: ~
+When the roller shutter calibration has been lost: ~
+When the roller shutter calibration has started: ~
+When the roller shutter motor reported a problem: ~
 When the roller shutter position changes: ~
 When the roller shutter reaches: ~
 When the roller shutter reaches a certain position: ~
@@ -1458,13 +1489,16 @@ When the temperature will be: ~
 When the terrace awning position changes: ~
 When the terrace awning reaches: ~
 When the terrace awning reaches a certain position: ~
+When the thermometer error has been reported: ~
 When the thermostat starts cooling: ~
 When the thermostat starts heating: ~
+When the thermostat starts heating or cooling: ~
 When the thermostat starts or stops cooling: ~
 When the thermostat starts or stops heating: ~
 When the thermostat starts or stops heating or cooling: ~
 When the thermostat stops cooling: ~
 When the thermostat stops heating: ~
+When the thermostat stops heating or cooling: ~
 When the value will be: ~
 When the valve is closed: ~
 When the valve is manually closed: ~
@@ -1489,8 +1523,10 @@ When there is certain amount of rain: ~
 When there weight reaches a certain value: ~
 Will be deleted after: ~
 With a timer: ~
+'Yes': ~
 You can browse only the most recent logs now. Wait a while for the full history.: ~
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
+You cannot to set a master thermostat for a channel that is master for others.: ~
 You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
 You must leave at least one phase enabled.: ~
 You must set an action for each reaction.: ~
@@ -1571,6 +1607,7 @@ statusLed_OFF_WHEN_CONNECTED: ~
 statusLed_ON_WHEN_CONNECTED: ~
 subdevicePairingResult_CMD_RESULT_UNKNOWN: ~
 subdevicePairingResult_NOT_STARTED_BUSY: ~
+subdevicePairingResult_NOT_STARTED_NOT_READY: ~
 subdevicePairingResult_NOT_SUPPORTED: ~
 subdevicePairingResult_NO_NEW_DEVICE_FOUND: ~
 subdevicePairingResult_ONGOING: ~
@@ -1583,10 +1620,12 @@ sum: ~
 sunrise: ~
 sunset: ~
 swap: ~
+the master thermostat ID{id}: ~
 the whole history: ~
 then execute the action: ~
 thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
 thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
+thermostatAlgorithm_PID: ~
 thermostatAlgorithm_help: ~
 thermostatOutputValue_help: ~
 thermostatSubfunction_COOL: ~

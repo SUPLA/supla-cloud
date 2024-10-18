@@ -137,7 +137,6 @@ Cannot calculate when to run the schedule - incorrect configuration?: Αποτυ
 Cannot change the channel function right now.: Δεν μπορείτε να αλλάξετε τη λειτουργία αυτού του καναλιού αυτήν τη στιγμή.
 Cannot delete this I/O Device right now.: Αυτή η συσκευή δεν μπορεί να καταργηθεί αυτήν τη στιγμή.
 Cannot execute an action when the device is disconnected.: Δεν μπορείτε να εκτελείτε ενέργειες, όταν η συσκευή είναι αποσυνδεδεμένη.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Δε λάβατε το μήνυμα με το σύνδεσμο ενεργοποίησης του λογαριασμού σας; Βεβαιωθείτε ότι δεν βρίσκεται στο φάκελο SPAM (ανεπιθύμητη αλληλογραφία). Μπορείτε επίσης να κάνετε {clickHereLink} για να το στείλετε ξανά.
 Captcha token is not valid.: Μη έγκυρο captcha.
 Caption: Υπογραφή
 Caption is too long.: Το όνομα είναι πολύ μεγάλο.
@@ -151,8 +150,6 @@ Changing channel’s function will also result in the following changes.: Η α�
 Channel: Κανάλι
 Channel No: Αριθμός καναλιού
 Channel available for {serviceName}: Κανάλι διαθέσιμο για {serviceName}
-Partially opened sensor for channel: Κανάλι αισθητήρα έμμεσου ανοίγματος
-Fully opened sensor for channel: Αισθητήρας καναλιού
 Channel group: Ομάδα καναλιών
 Channel group limit has been exceeded: Υπέρβαση ορίου των ομάδων καναλιών
 Channel group must consist of at least one channel.: Η ομάδα καναλιών πρέπει να περιέχει τουλάχιστον ένα κανάλι.
@@ -337,6 +334,7 @@ From anywhere: Από κάθε σημείο
 Full closing time: Συνολικός χρόνος κλεισίματος
 Full documentation: Πλήρης φάκελος
 Full opening time: Συνολικός χρόνος ανοίγματος
+Fully opened sensor for channel: Αισθητήρας καναλιού
 Function: Λειτουργία
 G5LA1A Relay: Ηλεκτρονόμος G5LA1A
 G5LA1A Relay x2: Ηλεκτρονόμος 2xG5LA1A
@@ -556,6 +554,7 @@ Otherwise go to the homepage.: Διαφορετικά, μεταβείτε στη
 PIN: PIN
 PIN for Google must have a length between {minLength} and {maxLength} digits.: Το PIN για την Google πρέπει να έχει τουλάχιστον {minLength} και το πολύ {maxLength} ψηφία.
 Partial opening sensor: Αισθητήρας έμμεσου ανοίγματος
+Partially opened sensor for channel: Κανάλι αισθητήρα έμμεσου ανοίγματος
 Password: Κωδικός πρόσβασης
 Password Reset: Επαναφορά κωδικού πρόσβασης
 Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Η αλλαγή του κωδικού πρόσβασης θα έχει ως αποτέλεσμα την αποσύνδεση όλων των τρέχουσων συνεδρίων. Ωστόσο, αυτό δεν θα επηρεάσει τις εφαρμογές που έχουν εγκριθεί από εσάς. Τις εγκρίσεις για τη σύνδεση των εφαρμογών πρέπει να τις ακυρώσετε ξεχωριστά.
@@ -1175,6 +1174,7 @@ Assigned Locations: Παραχωρημένες τοποθεσίες
 Authorized OAuth apps: Εγκεκριμένες εφαρμογές OAuth
 Calculated value: Ανάγνωση μετρητή
 Cannot send an activation e-mail. Try again later.: Δεν είναι δυνατή η αποστολή μηνύματος με το σύνδεσμο ενεργοποίησης. Δοκιμάστε ξανά αργότερα.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Δε λάβατε το μήνυμα με το σύνδεσμο ενεργοποίησης του λογαριασμού σας; Βεβαιωθείτε ότι δεν βρίσκεται στο φάκελο SPAM (ανεπιθύμητη αλληλογραφία). Μπορείτε επίσης να κάνετε {clickHereLink} για να το στείλετε ξανά.
 Channel value: Τιμή
 Channel will be deleted from the channel group below: Το κανάλι θα αφαιρεθεί από τις ακόλουθες ομάδες καναλιών
 Channels in channel group: Κανάλια σε ομάδες καναλιών
@@ -1281,6 +1281,7 @@ Aux thermometer: ~
 Aux thermometer type: ~
 Available variables: ~
 Average: ~
+Battery cover open: ~
 Behavior settings: ~
 Binary sensor: ~
 Brightness adjustment for automatic mode: ~
@@ -1293,6 +1294,7 @@ Change percentage by: ~
 Change percentage to: ~
 Change tilt by: ~
 Change tilt to: ~
+Change to be the same.: ~
 Changing channel’s visibility will also change the visibility of other items.: ~
 Changing the location will also imply changing the location of the following items.: ~
 Channels that are meant to work with each other must be in the same location.: ~
@@ -1311,6 +1313,7 @@ Cooling mode: ~
 'Cooling: {percent}%': ~
 Costs: ~
 Could not restart the device.: ~
+Could not send the identify command.: ~
 Could not set the device time.: ~
 Counter type: ~
 Curtain: ~
@@ -1319,10 +1322,13 @@ Data: ~
 Date range: ~
 Daytime criteria: ~
 'Device GUID: %deviceGuid%': ~
+Device identification is unsupported in the firmware.: ~
 Device settings: ~
 Device should be restarting now.: ~
 Device time has been set.: ~
+Different than on master thermostat.: ~
 Differential thermostat: ~
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
 Domestic hot water: ~
 Dryer: ~
 Edit area crop: ~
@@ -1334,6 +1340,7 @@ Electricity meter voltage history: ~
 Enable floor temperature control: ~
 Enable generic cooler temperature control: ~
 Enable generic heater temperature control: ~
+Enable power status LED: ~
 Enable support for OCR readings for this channel: ~
 Enable water temperature control: ~
 Example value: ~
@@ -1346,6 +1353,7 @@ Facade blind operation: ~
 Fan: ~
 'Field: {propertyPath}.': ~
 Fill missing data: ~
+Firmware: ~
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
 For a period: ~
@@ -1364,6 +1372,8 @@ High value: ~
 History: ~
 Home screen content: ~
 Hotel card sensor: ~
+Identify device: ~
+Identify request sent.: ~
 If you confirm the installation and wish to unlock this device, please click the link below.: ~
 If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
 Image area crop: ~
@@ -1383,6 +1393,7 @@ Low threshold: ~
 Low threshold must be less than high threshold.: ~
 Low value: ~
 Main thermometer: ~
+Master thermostat: ~
 Max: ~
 Maximum duration is one year.: ~
 Maximum temperature that can be set from the device: ~
@@ -1400,6 +1411,7 @@ Minimum temperature that can be set from the device: ~
 'Mode: heat': ~
 'Mode: off': ~
 Motor upside down: ~
+'No': ~
 No results: ~
 Notification body is set by the firmware.: ~
 Notification must have recipients.: ~
@@ -1414,6 +1426,7 @@ On with duration: ~
 Open value: ~
 Output value on error: ~
 Overheat protection: ~
+P/C: ~
 Pair new devices or sensors: ~
 Pairing request sent.: ~
 Pairing subdevices is unsupported in the firmware.: ~
@@ -1436,11 +1449,14 @@ Remote restart is unsupported in the firmware.: ~
 Remove this item: ~
 Request device unlock: ~
 Reset to defaults: ~
+Restart device: ~
 Restart the device: ~
 Reveal or stop: ~
 Roller garage door: ~
+S/N: ~
 SUPLA - Confirm unlocking device for authorized installers: ~
 SUPLA – your device has been unlocked!: ~
+Same as on master thermostat.: ~
 Screen brightness: ~
 Selected: ~
 Set HVAC parameters: ~
@@ -1455,6 +1471,7 @@ Status LED: ~
 Store active power history: ~
 Store current history: ~
 Store voltage history: ~
+'Subdevice #{id}': ~
 Subfunction: ~
 Switch to manual mode: ~
 Switch to program mode: ~
@@ -1474,16 +1491,19 @@ The device has channel conflict and cannot work.: ~
 The device is locked: ~
 The following channels will be also removed along with their dependencies.: ~
 The items below rely on this channel, so they will be deleted.: ~
+The master termostat you chose already has a master.: ~
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
 The thermostat will not work if the main thermometer is not set.: ~
 Thermometer error: ~
 Thermometers configuration: ~
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
 Thermostat programs: ~
 This action will result in restarting the device. It will not be available for a while.: ~
 This channel was missing during last device registration attempt.: ~
 This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
+This thermostat is controlled by another device.: ~
 Tilt angle: ~
 Tilt control type: ~
 Tilt percent: ~
@@ -1496,17 +1516,21 @@ Until a date and time: ~
 Until the next change: ~
 Use device default: ~
 Use working schedule for this reaction: ~
+Use {theMasterThermostat} to control this device.: ~
 Used current transformer type: ~
 User interface: ~
 Value divider: ~
 Value multiplier: ~
 Vertical blind: ~
+Visit the master thermostat page.: ~
 We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
 Week: ~
 Weekly schedule: ~
 When the alarm is armed: ~
 When the alarm is armed or disarmed: ~
 When the alarm is disarmed: ~
+When the battery cover is opened: ~
+When the clock error has been reported: ~
 When the curtain position changes: ~
 When the curtain reaches: ~
 When the curtain reaches a certain position: ~
@@ -1522,25 +1546,37 @@ When the meter value will be: ~
 When the projector screen position changes: ~
 When the projector screen reaches: ~
 When the projector screen reaches a certain position: ~
+When the pump is turned off: ~
+When the pump is turned on: ~
+When the pump is turned on or off: ~
 When the roller garage door a certain position: ~
 When the roller garage door position changes: ~
 When the roller garage door reaches: ~
+When the roller shutter calibration failed: ~
+When the roller shutter calibration has been lost: ~
+When the roller shutter calibration has started: ~
+When the roller shutter motor reported a problem: ~
 When the terrace awning position changes: ~
 When the terrace awning reaches: ~
 When the terrace awning reaches a certain position: ~
+When the thermometer error has been reported: ~
 When the thermostat starts cooling: ~
 When the thermostat starts heating: ~
+When the thermostat starts heating or cooling: ~
 When the thermostat starts or stops cooling: ~
 When the thermostat starts or stops heating: ~
 When the thermostat starts or stops heating or cooling: ~
 When the thermostat stops cooling: ~
 When the thermostat stops heating: ~
+When the thermostat stops heating or cooling: ~
 When the vertical blind position changes: ~
 When the vertical blind reaches: ~
 When the vertical blind reaches a certain position: ~
 Will be deleted after: ~
 With a timer: ~
+'Yes': ~
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
+You cannot to set a master thermostat for a channel that is master for others.: ~
 You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
 You need to provide icons for all states in light mode.: ~
 Your device has been unlocked by the installer.: ~
@@ -1586,6 +1622,7 @@ statusLed_OFF_WHEN_CONNECTED: ~
 statusLed_ON_WHEN_CONNECTED: ~
 subdevicePairingResult_CMD_RESULT_UNKNOWN: ~
 subdevicePairingResult_NOT_STARTED_BUSY: ~
+subdevicePairingResult_NOT_STARTED_NOT_READY: ~
 subdevicePairingResult_NOT_SUPPORTED: ~
 subdevicePairingResult_NO_NEW_DEVICE_FOUND: ~
 subdevicePairingResult_ONGOING: ~
@@ -1597,8 +1634,10 @@ subdevicePairingResult_UNAUTHORIZED: ~
 sunrise: ~
 sunset: ~
 swap: ~
+the master thermostat ID{id}: ~
 thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
 thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
+thermostatAlgorithm_PID: ~
 thermostatAlgorithm_help: ~
 thermostatOutputValue_help: ~
 thermostatSubfunction_COOL: ~

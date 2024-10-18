@@ -96,6 +96,7 @@ statusLed_OFF_WHEN_CONNECTED: Off when connected
 statusLed_ON_WHEN_CONNECTED: On when connected
 subdevicePairingResult_CMD_RESULT_UNKNOWN: Unknown command result ({resultNum}).
 subdevicePairingResult_NOT_STARTED_BUSY: Pairing not started because the device is busy.
+subdevicePairingResult_NOT_STARTED_NOT_READY: Pairing not started because the device is not ready.
 subdevicePairingResult_NOT_SUPPORTED: Pairing not supported on the device.
 subdevicePairingResult_NO_NEW_DEVICE_FOUND: No new device found.
 subdevicePairingResult_ONGOING: Pairing in progress.

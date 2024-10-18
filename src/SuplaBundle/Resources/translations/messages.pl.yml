@@ -377,6 +377,7 @@ Enable: Włącz
 Enable floor temperature control: Włącz kontrolę temperatury podłogi
 Enable generic cooler temperature control: Włącz kontrolę temperatury źródła chłodu
 Enable generic heater temperature control: Włącz kontrolę temperatury źródła ciepła
+Enable power status LED: Włącz diodę statusu zasilania
 Enable support for OCR readings for this channel: Włącz wsparcie dla odczytów OCR dla tego kanału
 Enable water temperature control: Włącz kontrolę temperatury wody
 Enabled: Włączone
@@ -1500,6 +1501,7 @@ statusLed_OFF_WHEN_CONNECTED: Wyłącz gdy połączono
 statusLed_ON_WHEN_CONNECTED: Włącz gdy połączono
 subdevicePairingResult_CMD_RESULT_UNKNOWN: Nieznany rezultat
 subdevicePairingResult_NOT_STARTED_BUSY: Urządzenie jest zajęte
+subdevicePairingResult_NOT_STARTED_NOT_READY: Urządzenie jest niegotowe
 subdevicePairingResult_NOT_SUPPORTED: Operacja niewspierana
 subdevicePairingResult_NO_NEW_DEVICE_FOUND: Nie odnaleziono nowych urządzeń
 subdevicePairingResult_ONGOING: W trakcie
@@ -1684,6 +1686,9 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Battery cover open: ~
+When the battery cover is opened: ~
+When the clock error has been reported: ~
+When the thermometer error has been reported: ~
 
 #</editor-fold>
-Enable power status LED: Włącz diodę statusu zasilania
