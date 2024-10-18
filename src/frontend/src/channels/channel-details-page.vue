@@ -136,13 +136,13 @@
                                     v-if="channelFunctionIsChosen && !loading"></channel-state-table>
                             </div>
                         </div>
-                        <div class="details-page-block"
-                            v-if="hasActionsToExecute">
+                        <div class="details-page-block" v-if="hasActionsToExecute">
                             <h3 class="text-center">{{ $t('Actions') }}</h3>
                             <div class="pt-3">
                                 <channel-action-executor :subject="channel"></channel-action-executor>
                             </div>
                         </div>
+                        <ChannelDependenciesList :channel="channelsStore.all[channel.id] || channel"/>
                     </div>
                 </div>
             </div>
@@ -225,10 +225,12 @@
     import ChannelDeleteButton from "@/channels/channel-delete-button.vue";
     import {mapStores} from "pinia";
     import {useChannelsStore} from "@/stores/channels-store";
+    import ChannelDependenciesList from "@/channels/channel-dependencies-list.vue";
 
     export default {
         props: ['id'],
         components: {
+            ChannelDependenciesList,
             ChannelDeleteButton,
             ChannelConflictDetailsWarning,
             ConfigConflictWarning,
