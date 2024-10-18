@@ -939,7 +939,7 @@ Store active power history: Przechowuj historię mocy czynnej
 Store current history: Przechowuj historię natężenia prądu
 Store measurements history: Przechowuj historię pomiarów
 Store voltage history: Przechowuj historię napięcia
-'Subdevice #{id}': 'Urządzenie podwykonwacze #{id}'
+'Subdevice #{id}': 'Urządzenie podwykonawcze #{id}'
 Subfunction: Podfunkcja
 Subject type: Typ podmiotu
 Success: Sukces
