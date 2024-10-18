@@ -147,6 +147,7 @@ Average voltage: Średnie napięcie
 Back to apps list: Powrót do listy aplikacji
 Bar: Słupkowy
 Based on sunrise or sunset: W oparciu o wschód / zachód
+Battery cover open: Pokrywa baterii otwarta
 Be notified when your channels change state: Powiadamianie o zmianach stanu kanałów
 Be right back!: Wróć za kilka chwil!
 Behavior settings: Zachowanie
@@ -310,6 +311,7 @@ Delete measurement history: Usuń historię pomiarów
 Delete my account: Usuń moje konto
 Delete voltage aberrations history: Usuń historię aberracji napięcia
 Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Usunięcie Twojego konta spowoduje także usunięcie wszystkich Twoich danych, między innymi Twoich połączonych urządzeń, skonfigurowanych kanałów, linków bezpośrednich i historii pomiarów. Usunięcie konta jest nieodwracalne.
+Dependencies: Zależności
 Depth: Głębokość
 Depth sensor: Czujnik głębokości
 Description: Opis
@@ -1150,8 +1152,10 @@ When the alarm is disarmed: Gdy alarm zostanie wyłączony
 When the apparent power will be: Kiedy moc pozorna będzie
 When the balanced forward active energy will be: Kiedy zbilansowana, pobrana energia czynna będzie
 When the balanced reverse active energy will be: Kiedy zbilansowana, zwrócona energia czynna będzie
+When the battery cover is opened: Gdy pokrywa baterii zostanie otwarta
 When the brightness level changes: Kiedy poziom jasności się zmieni
 When the brightness will be: Kiedy poziom jasności będzie
+When the clock error has been reported: Gdy zegar zgłosi błąd
 When the color changes: Kiedy kolor się zmieni
 When the condition is met: Kiedy warunek zostanie spełniony
 When the current will be: Kiedy prąd będzie
@@ -1242,6 +1246,7 @@ When the temperature will be: Kiedy temperatura będzie
 When the terrace awning position changes: Gdy markiza tarasowa zmienia pozycję
 When the terrace awning reaches: Gdy markiza tarasowa osiąga
 When the terrace awning reaches a certain position: Gdy markiza tarasowa osiąga określoną pozycję
+When the thermometer error has been reported: Gdy termometr zgłosi błąd
 When the thermostat starts cooling: Gdy termostat zacznie chłodzić
 When the thermostat starts heating: Gdy termostat zacznie grzać
 When the thermostat starts heating or cooling: Gdy termostat rozpocznie chłodzenie lub ogrzewanie
@@ -1686,10 +1691,5 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Battery cover open: ~
-When the battery cover is opened: ~
-When the clock error has been reported: ~
-When the thermometer error has been reported: ~
-Dependencies: Zależności
 
 #</editor-fold>
