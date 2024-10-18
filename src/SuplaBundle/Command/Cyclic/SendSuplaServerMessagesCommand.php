@@ -63,7 +63,7 @@ class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
                 $output->writeln('<error>No template or user id in the message! Do not sending this supla-server message.</error>');
                 $output->writeln($suplaServerMessage['body']);
                 $this->logger->warning('No template or user id in the message!', $suplaServerMessage);
-            } else if ($type === 'email') {
+            } elseif ($type === 'email') {
                 try {
                     $message = $this->getMessage($template, $data, $userId);
                     $this->messageBus->dispatch($message);
