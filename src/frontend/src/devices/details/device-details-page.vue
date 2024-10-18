@@ -57,7 +57,7 @@
                                     class="original-location"
                                     v-if="device.originalLocationId && device.originalLocationId != device.locationId">
                                     {{ $t('Original location') }}
-                                    <strong>{{ device.originalLocation.caption }}</strong>
+                                    <strong>{{ originalLocation.caption }}</strong>
                                 </router-link>
                                 <SquareLocationChooser v-model="device.location" @chosen="changeLocation($event)"/>
                             </div>
@@ -150,6 +150,7 @@
     import DeviceIdentifyDeviceButton from "@/devices/details/device-identify-device-button.vue";
     import {mapStores} from "pinia";
     import {useDevicesStore} from "@/stores/devices-store";
+    import {useLocationsStore} from "@/stores/locations-store";
 
     export default {
         props: ['id'],
@@ -186,7 +187,7 @@
             fetchDevice() {
                 this.loading = true;
                 this.error = false;
-                return this.$http.get(`iodevices/${this.id}?include=location,originalLocation,accessids`, {skipErrorHandler: [403, 404]})
+                return this.$http.get(`iodevices/${this.id}?include=location,accessids`, {skipErrorHandler: [403, 404]})
                     .then(response => {
                         this.device = response.body;
                         this.loading = false;
@@ -253,7 +254,10 @@
             deviceTitle() {
                 return deviceTitle(this.device, this);
             },
-            ...mapStores(useDevicesStore),
+            ...mapStores(useDevicesStore, useLocationsStore),
+            originalLocation() {
+                return this.locationsStore.all[this.device.originalLocationId] || undefined;
+            },
             deviceFromStore() { // TODO temporary, the whole view should use it
                 return this.devicesStore.all[this.id];
             }
