@@ -425,7 +425,7 @@ class DevicesFixture extends SuplaFixture {
                 'buttonVolume' => 14,
                 'userInterface' => ['disabled' => false],
                 'automaticTimeSync' => false,
-                'powerStatusLedDisabled' => false,
+                'powerStatusLed' => 'DISABLED',
                 'homeScreen' => ['content' => 'TEMPERATURE', 'offDelay' => 60, 'offDelayType' => 'ALWAYS_ENABLED'],
             ]),
             'properties' => json_encode([

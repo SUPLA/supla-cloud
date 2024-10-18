@@ -76,8 +76,8 @@ class IODeviceConfigTranslator {
             if ($settingName === 'statusLed') {
                 Assertion::inArray($value, ['OFF_WHEN_CONNECTED', 'ALWAYS_OFF', 'ON_WHEN_CONNECTED'], null, 'statusLed');
             }
-            if ($settingName === 'powerStatusLedDisabled') {
-                Assertion::boolean($value, null, 'powerStatusLedDisabled');
+            if ($settingName === 'powerStatusLed') {
+                Assertion::inArray($value, ['DISABLED', 'ENABLED'], null, 'statusLed');
             }
             if ($settingName === 'screenBrightness') {
                 Assert::that($value, null, 'screenBrightness')->isArray()->keyIsset('level');

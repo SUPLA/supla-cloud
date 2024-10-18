@@ -109,9 +109,9 @@
                             {{ $t('Automatic time synchronization') }}
                         </label>
                     </div>
-                    <div class="form-group with-border-bottom" v-if="powerStatusLedEnabled !== undefined">
+                    <div class="form-group with-border-bottom" v-if="powerStatusLedBoolean !== undefined">
                         <label class="checkbox2 checkbox2-grey">
-                            <input type="checkbox" v-model="powerStatusLedEnabled" @change="onChange()">
+                            <input type="checkbox" v-model="powerStatusLedBoolean" @change="onChange()">
                             {{ $t('Enable power status LED') }}
                         </label>
                     </div>
@@ -205,12 +205,12 @@
             maxUiTemperature() {
                 return this.config.userInterfaceConstraints?.maxAllowedTemperatureSetpoint
             },
-            powerStatusLedEnabled: {
+            powerStatusLedBoolean: {
                 get() {
-                    return this.config.powerStatusLedDisabled === undefined ? undefined : !this.config.powerStatusLedDisabled;
+                    return this.config.powerStatusLed === undefined ? undefined : this.config.powerStatusLed === 'ENABLED';
                 },
                 set(value) {
-                    this.config.powerStatusLedDisabled = !value;
+                    this.config.powerStatusLed = value ? 'ENABLED' : 'DISABLED';
                 }
             }
         }
