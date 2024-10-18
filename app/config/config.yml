@@ -132,10 +132,10 @@ framework:
     enable_annotations: true
 
 monolog:
-  channels: [supla_api_rate_limit, supla_autodiscover, supla_direct_links, supla_server, supla_migrations, supla_debug, supla_http_client]
+  channels: [supla_api_rate_limit, supla_autodiscover, supla_direct_links, supla_server, supla_migrations, supla_debug, supla_http_client, supla_cli]
   handlers:
     main:
-      channels: ['!supla_direct_links', '!supla_server', '!supla_api_rate_limit', '!supla_migrations', '!supla_initialization', '!supla_debug']
+      channels: ['!supla_direct_links', '!supla_server', '!supla_api_rate_limit', '!supla_migrations', '!supla_debug', '!supla_cli']
       action_level: error
       handler: main_logger
       type: fingers_crossed
@@ -174,12 +174,6 @@ monolog:
       path: "%kernel.logs_dir%/migrations.log"
       type: rotating_file
       max_files: 5
-    supla_initialization:
-      channels: [supla_initialization]
-      level: debug
-      path: "%kernel.logs_dir%/initialization.log"
-      type: rotating_file
-      max_files: 5
     supla_debug:
       channels: [supla_debug]
       level: warning
@@ -190,6 +184,12 @@ monolog:
       channels: [supla_http_client]
       level: notice
       path: "%kernel.logs_dir%/http-client.log"
+      type: rotating_file
+      max_files: 5
+    supla_cli:
+      channels: [supla_cli]
+      level: notice
+      path: "%kernel.logs_dir%/cli.log"
       type: rotating_file
       max_files: 5
 

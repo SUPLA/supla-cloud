@@ -118,7 +118,7 @@ class MoveDependentChannelsToTheSameLocationCommand extends Command implements I
                 $changeOperation['newId']
             );
             $output->writeln($log);
-            $this->logger->debug($log, $changeOperation);
+            $this->logger->notice($log, $changeOperation);
             $this->em->createQuery(sprintf('UPDATE %s c SET c.location=:locationId WHERE c.id=:id', IODeviceChannel::class))
                 ->execute([
                     'id' => $channelId,

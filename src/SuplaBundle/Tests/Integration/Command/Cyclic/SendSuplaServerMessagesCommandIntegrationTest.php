@@ -201,4 +201,39 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
         $this->flushMessagesQueue();
         $this->assertCount(0, TestMailer::getMessages());
     }
+
+    public function testSendingSuplaServerEmailInvalid() {
+        $body = json_encode([
+            'template' => UserOptOutNotifications::FAILED_AUTH_ATTEMPT,
+            'data' => ['ip' => '12.23.34.45'],
+        ]);
+        $this->getEntityManager()->getConnection()->executeQuery(
+            'INSERT INTO supla_email_notifications (body, headers, queue_name, created_at, available_at) ' .
+            "VALUES('$body', '[]', 'supla-server', NOW(), NOW())"
+        );
+        $this->flushMessagesQueue();
+        $this->assertCount(0, TestMailer::getMessages());
+        $this->executeCommand('supla:cyclic:send-server-messages');
+        $this->assertCount(0, TestMailer::getMessages());
+        $this->flushMessagesQueue();
+        $this->assertCount(0, TestMailer::getMessages());
+    }
+
+    public function testSendingSuplaServerEmailToInvalidUserId() {
+        $body = json_encode([
+            'template' => UserOptOutNotifications::FAILED_AUTH_ATTEMPT,
+            'userId' => 666,
+            'data' => ['ip' => '12.23.34.45'],
+        ]);
+        $this->getEntityManager()->getConnection()->executeQuery(
+            'INSERT INTO supla_email_notifications (body, headers, queue_name, created_at, available_at) ' .
+            "VALUES('$body', '[]', 'supla-server', NOW(), NOW())"
+        );
+        $this->flushMessagesQueue();
+        $this->assertCount(0, TestMailer::getMessages());
+        $this->executeCommand('supla:cyclic:send-server-messages');
+        $this->assertCount(0, TestMailer::getMessages());
+        $this->flushMessagesQueue();
+        $this->assertCount(0, TestMailer::getMessages());
+    }
 }

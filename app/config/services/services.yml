@@ -19,12 +19,13 @@ services:
       tags: [supla.user_config_translator]
     SuplaBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
       tags: [supla.channel_state_getter]
+    Symfony\Component\Console\Command\Command:
+      tags:
+        - {name: monolog.logger, channel: supla_cli}
     SuplaBundle\Command\Cyclic\CyclicCommand:
       tags: [supla.cyclic_command]
     SuplaBundle\Command\Initialization\InitializationCommand:
-      tags:
-        - supla.initialization_command
-        - {name: monolog.logger, channel: supla_initialization}
+      tags: [supla.initialization_command]
     SuplaBundle\Model\Schedule\SchedulePlanners\SchedulePlanner:
       tags: [supla.schedule_planner]
 

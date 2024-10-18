@@ -19,6 +19,7 @@ namespace SuplaBundle\Command\Cyclic;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\Main\ClientApp;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Message\EmailFromTemplate;
@@ -31,15 +32,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
-    /** @var EntityManagerInterface */
-    private $entityManager;
-    /** @var MessageBusInterface */
-    private $messageBus;
+    private EntityManagerInterface $entityManager;
+    private MessageBusInterface $messageBus;
+    private LoggerInterface $logger;
 
-    public function __construct(MessageBusInterface $messageBus, EntityManagerInterface $entityManager) {
+    public function __construct(MessageBusInterface $messageBus, EntityManagerInterface $entityManager, LoggerInterface $logger) {
         parent::__construct();
         $this->entityManager = $entityManager;
         $this->messageBus = $messageBus;
+        $this->logger = $logger;
     }
 
     protected function configure() {
@@ -61,13 +62,15 @@ class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
             if (!$template || !$userId) {
                 $output->writeln('<error>No template or user id in the message! Do not sending this supla-server message.</error>');
                 $output->writeln($suplaServerMessage['body']);
-            } elseif ($type === 'email') {
+                $this->logger->warning('No template or user id in the message!', $suplaServerMessage);
+            } else if ($type === 'email') {
                 try {
                     $message = $this->getMessage($template, $data, $userId);
                     $this->messageBus->dispatch($message);
-                } catch (\InvalidArgumentException $e) {
+                } catch (\Throwable $e) {
                     $output->writeln('<error>Invalid message data.</error>');
                     $output->writeln($suplaServerMessage['body']);
+                    $this->logger->warning('Invalid message sent from server.', $suplaServerMessage);
                 }
             } else {
                 $output->writeln('<error>Invalid message type.</error>');
