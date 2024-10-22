@@ -37,6 +37,7 @@ Account has been activated. You can Sign In now.: Konto zostało aktywowane. Mo�
 Action confirmation: Potwierdzenie akcji
 Action execution: Wykonywanie akcji
 Action trigger: Wyzwalacz akcji
+Action trigger for channel: '@:{''Action trigger''} @:{''for channel''}'
 'Action trigger no. #{index}': 'Wyzwalacz #{index}'
 Action triggers: Wyzwalacze akcji
 Actions: Akcje
@@ -140,6 +141,7 @@ Automatic thermostat: Termostat automatyczny
 Automatic time synchronization: Automatyczna synchronizacja daty i godziny
 Automation: Automatyka
 Aux thermometer: Termometr dodatkowy
+Aux thermometer for channel: '@:{''Aux thermometer''} @:{''for channel''}'
 Aux thermometer type: Typ termometru dodatkowego
 Available variables: Dostępne zmienne
 Average: Średnia
@@ -153,6 +155,7 @@ Be right back!: Wróć za kilka chwil!
 Behavior settings: Zachowanie
 Below threshold: Poniżej progu
 Binary sensor: Czujnik binarny
+Binary sensor for channel: '@:{''Binary sensor''} @:{''for channel''}'
 Body: Treść
 Bottom position: Dolna pozycja
 Bridge: Most
@@ -609,6 +612,7 @@ MQTT Broker password has been changed.: Hasło brokera MQTT zostało zmienione.
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Nazwa użytkownika lub hasło nie są skonfigurowane w tej instancji.
 Mail sensor: Czujnik poczty
 Main thermometer: Termometr główny
+Main thermometer for channel: '@:{''Main thermometer''} @:{''for channel''}'
 Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
 Make sure to copy it now because you won’t be able to see it again!: Upewnij się, że zachowasz je w bezpiecznym miejscu.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Upewnij się, że jest zapisany w bezpiecznym miejscu jeżeli zechcesz go jeszcze użyć w przyszłości. Link nie będzie już więcej wyświetlany po opuszczeniu tej strony.
@@ -617,6 +621,7 @@ Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Za
 Manual: Instrukcja
 Manually closed: Zamknięty manualnie
 Master thermostat: Termostat nadrzędny
+Master thermostat for channel: '@:{''Master thermostat''} @:{''for channel''}'
 Max: Maks.
 Maximum delay is 60 minutes.: Maksymalne opóźnienie to 60 minut.
 Maximum duration is one year.: Maksymalny okres to jeden rok.
@@ -721,6 +726,7 @@ Open / close: Otwórz / zamknij
 Open partially: Otwórz częściowo
 Open value: Wartość otwarcia
 Opening sensor: Czujnik otwarcia
+Opening sensor for channel: '@:{''Opening sensor''} @:{''for channel''}'
 Operation: Operacja
 Operations: Operacje
 Original location: Oryginalna lokalizacja
@@ -735,7 +741,7 @@ Pair new devices or sensors: Sparuj nowe urządzenia lub czujniki
 Pairing request sent.: Wysłano żądanie parowania.
 Pairing subdevices is unsupported in the firmware.: Parowanie jest niewspierane przez oprogramowanie urządzenia.
 Partial opening sensor: Czujnik pośredniego otwarcia
-Partially opened sensor for channel: Czujnik pośredniego otwarcia dla kanału
+Partially opened sensor for channel: '@:{''Partial opening sensor''} @:{''for channel''}'
 Password: Hasło
 Password Reset: Resetowanie hasła
 Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Zmiana hasła spowoduje wylogowanie wszystkich aktualnych sesji. Nie wpłynie to jednak na aplikacje, które otrzymały od Ciebie autoryzację. Zgody na logowanie aplikacji musisz wycofać oddzielnie.
@@ -792,6 +798,7 @@ Public ID: Publiczny ID
 Publish to integrations: Publikuj do integracji
 Publishes the event to integrated services like MQTT or webhooks.: Powiadamia integracje takie jak MQTT lub webhooki o wykonaniu tej akcji.
 Pump switch: Włącznik pompy
+Pump switch for channel: '@:{''Pump switch''} @:{''for channel''}'
 Push notifications limit has been exceeded: Limit powiadomień push został przekroczony
 RESET: RESETUJ
 RGB led controller: Kontroler oświetlenia RGB
@@ -1683,6 +1690,7 @@ choose the channel: wybierz kanał
 choose the channel group: wybierz grupę kanałów
 comment: komentarz
 execute: wykonaj
+for channel: dla kanału
 hourly: Każdy dzień
 prefix: prefiks
 reset chart view: wróć do początkowego widoku

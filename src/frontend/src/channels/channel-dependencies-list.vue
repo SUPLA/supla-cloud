@@ -4,13 +4,10 @@
         <div class="pt-3">
             <ul class="list-group m-0">
                 <li v-for="dep in dependencies" :key="dep.id" class="list-group-item">
+                    <div class="small text-muted">{{ $t(dep.label) }}</div>
                     <router-link :to="{name: 'channel', params: {id: dep.channel.id}}">
                         {{ channelTitle(dep.channel) }}
                     </router-link>
-                    {{ ' ' }}
-                    <span :class="['small text-muted', {'hidden': !dependencyLabels[roleId(dep.role)]}]">
-                        {{ $t(dependencyLabels[roleId(dep.role)] || dep.role).toLowerCase() }}
-                    </span>
                 </li>
             </ul>
         </div>
@@ -27,23 +24,30 @@
     });
 
     const dependencyLabels = {
-        masterThermostatChannelId: 'Master thermostat', // i18n
-        mainThermometerChannelId: 'Main thermometer', // i18n
-        auxThermometerChannelId: 'Aux thermometer', // i18n
-        binarySensorChannelId: 'Binary sensor', // i18n
-        pumpSwitchChannelId: 'Pump switch', // i18n
-        openingSensorChannelId: 'Opening sensor', // i18n
-        openingSensorSecondaryChannelId: 'Partial opening sensor', // i18n
+        masterThermostatChannelId_src: 'Master thermostat', // i18n
+        masterThermostatChannelId_dest: 'Master thermostat for channel', // i18n
+        mainThermometerChannelId_src: 'Main thermometer', // i18n
+        mainThermometerChannelId_dest: 'Main thermometer for channel', // i18n
+        auxThermometerChannelId_src: 'Aux thermometer', // i18n
+        auxThermometerChannelId_dest: 'Aux thermometer for channel', // i18n
+        binarySensorChannelId_src: 'Binary sensor', // i18n
+        binarySensorChannelId_dest: 'Binary sensor for channel', // i18n
+        pumpSwitchChannelId_src: 'Pump switch', // i18n
+        pumpSwitchChannelId_dest: 'Pump switch for channel', // i18n
+        openingSensorChannelId_src: 'Opening sensor', // i18n
+        openingSensorChannelId_dest: 'Opening sensor for channel', // i18n
+        openingSensorSecondaryChannelId_src: 'Partial opening sensor', // i18n
+        openingSensorSecondaryChannelId_dest: 'Partially opened sensor for channel', // i18n
         heatOrColdSourceSwitchChannelId: 'Heat or cold source switch', // i18n
-        relatedRelayChannelId: 'Associated measured channel', // i18n
-        relatedChannelId: 'Action trigger', // i18n
+        relatedRelayChannelId_src: 'Associated measured channel', // i18n
+        relatedRelayChannelId_dest: 'Associated measurement channel', // i18n
+        relatedChannelId_src: 'Action trigger', // i18n
+        relatedChannelId_dest: 'Action trigger for channel', // i18n
     };
 
-    const dependencyNamesUnified = {
-        relatedMeterChannelId: 'relatedRelayChannelId',
-    };
+    const hiddenRelations = ['relatedMeterChannelId'];
 
-    const roleId = (role) => dependencyNamesUnified[role] || role;
+    const dependencyLabel = (role, direction) => dependencyLabels[`${role}_${direction}`] || dependencyLabels[role] || '';
 
     const channelsStore = useChannelsStore();
 
@@ -53,10 +57,12 @@
         // own dependencies
         Object.keys(props.channel.config)
             .filter((key) => key.endsWith('ChannelId'))
+            .filter((key) => !hiddenRelations.includes(key))
             .filter((key) => props.channel.config[key] > 0)
             .map((role) => ({
-                id: `ch_${roleId(role)}_${props.channel.config[role]}`,
+                id: `ch_${role}_${props.channel.config[role]}`,
                 role,
+                label: dependencyLabel(role, 'src'),
                 channel: channelsStore.all[props.channel.config[role]],
             }))
             .forEach((dep) => deps[dep.id] = dep);
@@ -65,10 +71,12 @@
         Object.values(channelsStore.all).forEach((channel) => {
             Object.keys(channel.config)
                 .filter((key) => key.endsWith('ChannelId'))
+                .filter((key) => !hiddenRelations.includes(key))
                 .filter((key) => channel.config[key] === props.channel.id)
                 .map((role) => ({
-                    id: `ch_${roleId(role)}_${channel.id}`,
+                    id: `ch_${role}_${channel.id}`,
                     role,
+                    label: dependencyLabel(role, 'dest'),
                     channel,
                 }))
                 .forEach((dep) => deps[dep.id] = dep);
