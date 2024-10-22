@@ -8,8 +8,8 @@
                         {{ channelTitle(dep.channel) }}
                     </router-link>
                     {{ ' ' }}
-                    <span :class="['small text-muted', {'hidden': !dependencyLabels[dep.role]}]">
-                        {{ $t(dependencyLabels[dep.role] || dep.role).toLowerCase() }}
+                    <span :class="['small text-muted', {'hidden': !dependencyLabels[roleId(dep.role)]}]">
+                        {{ $t(dependencyLabels[roleId(dep.role)] || dep.role).toLowerCase() }}
                     </span>
                 </li>
             </ul>
@@ -35,7 +35,15 @@
         openingSensorChannelId: 'Opening sensor', // i18n
         openingSensorSecondaryChannelId: 'Partial opening sensor', // i18n
         heatOrColdSourceSwitchChannelId: 'Heat or cold source switch', // i18n
+        relatedRelayChannelId: 'Associated measured channel', // i18n
+        relatedChannelId: 'Action trigger', // i18n
     };
+
+    const dependencyNamesUnified = {
+        relatedMeterChannelId: 'relatedRelayChannelId',
+    };
+
+    const roleId = (role) => dependencyNamesUnified[role] || role;
 
     const channelsStore = useChannelsStore();
 
@@ -47,7 +55,7 @@
             .filter((key) => key.endsWith('ChannelId'))
             .filter((key) => props.channel.config[key] > 0)
             .map((role) => ({
-                id: `ch_${role}_${props.channel.config[role]}`,
+                id: `ch_${roleId(role)}_${props.channel.config[role]}`,
                 role,
                 channel: channelsStore.all[props.channel.config[role]],
             }))
@@ -59,7 +67,7 @@
                 .filter((key) => key.endsWith('ChannelId'))
                 .filter((key) => channel.config[key] === props.channel.id)
                 .map((role) => ({
-                    id: `ch_${role}_${channel.id}`,
+                    id: `ch_${roleId(role)}_${channel.id}`,
                     role,
                     channel,
                 }))
