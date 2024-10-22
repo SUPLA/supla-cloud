@@ -475,7 +475,7 @@ Guru Meditation: Guru Meditation
 HFD4 Relay: Przekaźnik HFD4
 HVAC: HVAC
 Heat meter: Licznik ciepła
-Heat or cold source switch: Przełącznik źródła ciepła lub chłodu
+Heat or cold source switch: Włącznik źródła ciepła lub chłodu
 Heat to: Grzej do
 Heating / ventilation / air conditioning: Ogrzewanie / wentylacja / klimatyzacja (HVAC)
 Heating mode: Tryb ogrzewania
@@ -791,7 +791,7 @@ Protocol: Protokół
 Public ID: Publiczny ID
 Publish to integrations: Publikuj do integracji
 Publishes the event to integrated services like MQTT or webhooks.: Powiadamia integracje takie jak MQTT lub webhooki o wykonaniu tej akcji.
-Pump switch: Przełącznik pompy
+Pump switch: Włącznik pompy
 Push notifications limit has been exceeded: Limit powiadomień push został przekroczony
 RESET: RESETUJ
 RGB led controller: Kontroler oświetlenia RGB
