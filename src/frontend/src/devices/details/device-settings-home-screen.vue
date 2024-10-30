@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="form-group">
+        <div class="form-group" v-if="config.homeScreenContentAvailable && config.homeScreenContentAvailable.length">
             <label for="homeScreen">{{ $t('Home screen content') }}</label>
             <!-- i18n:["homeScreenContent_NONE", "homeScreenContent_TEMPERATURE"] -->
             <!-- i18n:["homeScreenContent_TEMPERATURE_AND_HUMIDITY"] -->
@@ -12,7 +12,7 @@
                 </option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" v-if="value.offDelayType !== undefined">
             <label>{{ $t('Automatic front panel turn off') }}</label>
             <div>
                 <div class="btn-group">
@@ -33,7 +33,7 @@
             </div>
         </div>
         <transition-expand>
-            <div class="form-group mt-2" v-if="homeScreenOffMode !== 'DISABLE'">
+            <div class="form-group mt-2" v-if="homeScreenOffMode !== 'DISABLE' && value.offDelay !== undefined">
                 <label>{{ $t('Automatic front panel turn off after') }}</label>
                 <div class="mt-3 mb-6">
                     <VueSlider v-model="offDelay" @change="onChange()" tooltip="always"

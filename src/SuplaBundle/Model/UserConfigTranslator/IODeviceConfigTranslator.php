@@ -122,16 +122,28 @@ class IODeviceConfigTranslator {
                 Assert::that($value, null, 'automaticTimeSync')->boolean();
             }
             if ($settingName === 'homeScreen') {
-                Assert::that($value, null, 'homeScreen')->isArray()->keyExists('content')->keyExists('offDelay');
+                $homeScreenConfig = [];
+                Assert::that($value, null, 'homeScreen')->isArray();
+                Assertion::allInArray(array_keys($value), ['content', 'offDelay', 'offDelayType'], null, 'homeScreen');
+                $contentAvailable = $device->getProperties()['homeScreenContentAvailable'] ?? [];
+                $hasOffDelay = ($currentConfig['homeScreen']['offDelay'] ?? false) !== false;
                 $hasDelayType = $currentConfig['homeScreen']['offDelayType'] ?? false;
-                Assertion::count($value, $hasDelayType ? 3 : 2, null, 'homeScreen');
-                $availableModes = $device->getProperties()['homeScreenContentAvailable'] ?? [];
-                Assertion::inArray($value['content'], $availableModes, null, 'homeScreen.content');
-                Assert::that($value['offDelay'], null, 'homeScreen.offDelay')->integer()->between(0, 3600);
-                if ($hasDelayType) {
-                    Assertion::keyExists($value, 'offDelayType', null, 'homeScreen');
-                    Assertion::inArray($value['offDelayType'], ['ALWAYS_ENABLED', 'ENABLED_WHEN_DARK'], null, 'homeScreen.offDelayType');
+                if ($contentAvailable) {
+                    Assert::that($value, null, 'homeScreen.content')->keyExists('content');
+                    Assertion::inArray($value['content'], $contentAvailable, null, 'homeScreen.content');
+                    $homeScreenConfig['content'] = $value['content'];
                 }
+                if ($hasOffDelay) {
+                    Assert::that($value, null, 'homeScreen.offDelay')->keyExists('offDelay');
+                    Assert::that($value['offDelay'], null, 'homeScreen.offDelay')->integer()->between(0, 3600);
+                    $homeScreenConfig['offDelay'] = $value['offDelay'];
+                }
+                if ($hasDelayType) {
+                    Assertion::keyExists($value, 'offDelayType', null, 'homeScreen.offDelayType');
+                    Assertion::inArray($value['offDelayType'], ['ALWAYS_ENABLED', 'ENABLED_WHEN_DARK'], null, 'homeScreen.offDelayType');
+                    $homeScreenConfig['offDelayType'] = $value['offDelayType'];
+                }
+                $value = $homeScreenConfig;
             }
             $device->setUserConfigValue($settingName, $value);
         }

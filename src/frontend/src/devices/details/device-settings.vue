@@ -62,8 +62,7 @@
                                 tooltip-placement="bottom" class="green"/>
                         </div>
                     </div>
-                    <div class="form-group with-border-bottom"
-                        v-if="config.homeScreen !== undefined && config.homeScreenContentAvailable && config.homeScreenContentAvailable.length">
+                    <div class="form-group with-border-bottom" v-if="config.homeScreen !== undefined">
                         <DeviceSettingsHomeScreen v-model="config.homeScreen" :config="config" @input="onChange()"/>
                     </div>
                     <div class="form-group with-border-bottom" v-if="config.userInterface">

@@ -42,7 +42,7 @@ class IODeviceConfigTranslatorTest extends TestCase {
             'buttonVolume' => 14,
             'userInterface' => ['disabled' => false],
             'automaticTimeSync' => false,
-            'homeScreen' => [],
+            'homeScreen' => ['content' => 'NONE', 'offDelay' => 0],
         ]);
         EntityUtils::setField($device, 'properties', json_encode([
             'homeScreenContentAvailable' => ["NONE", "TEMPERATURE", "HUMIDITY", "TIME", "TIME_DATE"],
@@ -124,7 +124,6 @@ class IODeviceConfigTranslatorTest extends TestCase {
             [['homeScreen' => ['offDelay' => 10000]]],
             [['homeScreen' => ['content' => 'NONE', 'offDelay' => 1000, 'extra' => 'unicorn']]],
             [['homeScreen' => 2]],
-            [['homeScreen' => ['content' => 'NONE', 'offDelay' => 100, 'offDelayType' => 'ALWAYS_ENABLED']]],
         ];
     }
 
@@ -166,7 +165,7 @@ class IODeviceConfigTranslatorTest extends TestCase {
 
     public function testSettingHomeScreenOffDelayType() {
         $device = new IODevice();
-        $device->setUserConfig(['homeScreen' => ['offDelayType' => 'ALWAYS_ENABLED']]);
+        $device->setUserConfig(['homeScreen' => ['content' => 'NONE', 'offDelay' => 100, 'offDelayType' => 'ALWAYS_ENABLED']]);
         EntityUtils::setField($device, 'properties', json_encode([
             'homeScreenContentAvailable' => ["NONE", "TEMPERATURE", "HUMIDITY", "TIME", "TIME_DATE"],
         ]));
