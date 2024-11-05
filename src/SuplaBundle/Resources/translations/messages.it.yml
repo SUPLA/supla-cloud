@@ -1588,16 +1588,16 @@ auxThermometerType_GENERIC_COOLER: ~
 auxThermometerType_GENERIC_HEATER: ~
 auxThermometerType_NOT_SET: ~
 auxThermometerType_WATER: ~
-blue, otherwise: ~
-blue, when voltage lower than the low threshold: ~
-choose the currency: ~
-configuration missing: ~
-cool: ~
-day: ~
-default: ~
-green, otherwise: ~
-green, when power less than the low threshold: ~
-heat: ~
+blue, otherwise: blu, altrimenti
+blue, when voltage lower than the low threshold: blu, con tensione al di sotto della soglia bassa
+choose the currency: Scegli valuta
+configuration missing: Configurazione mancante
+cool: raffresca
+day: giorno
+default: default
+green, otherwise: verde, altrimenti
+green, when power less than the low threshold: verde, con tensione al di sotto della soglia bassa
+heat: riscalda
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
 homeScreenContent_NONE: ~
 homeScreenContent_TEMPERATURE: ~
@@ -1605,19 +1605,19 @@ homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
 homeScreenContent_TEMPERATURE_TIME: ~
 homeScreenContent_TIME: ~
 homeScreenContent_TIME_DATE: ~
-hour: ~
+hour: ora
 keepHistoryMeasurementWarningSelected: ~
-max: ~
-midnight: ~
-milliseconds: ~
-min: ~
+max: max
+midnight: mezzanotte
+milliseconds: millisecondi
+min: min
 ocrLightingMode_ALWAYS_ON: ~
 ocrLightingMode_AUTO: ~
 ocrLightingMode_OFF: ~
-'off': ~
-red, when power higher than the high threshold: ~
-red, when voltage higher than the high threshold: ~
-seconds: ~
+'off': 'off'
+red, when power higher than the high threshold: rosso, con potenza al di sopra della soglia alta
+red, when voltage higher than the high threshold: rosso, con tensione al di sopra della soglia alta
+seconds: secondi
 statusLed_ALWAYS_OFF: ~
 statusLed_OFF_WHEN_CONNECTED: ~
 statusLed_ON_WHEN_CONNECTED: ~
@@ -1632,8 +1632,8 @@ subdevicePairingResult_PROCEDURE_STARTED: ~
 subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: ~
 subdevicePairingResult_SUCCESS: ~
 subdevicePairingResult_UNAUTHORIZED: ~
-sunrise: ~
-sunset: ~
+sunrise: alba
+sunset: tramonto
 swap: ~
 the master thermostat ID{id}: ~
 thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
@@ -1668,10 +1668,10 @@ usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
 usedPhaseLedType_VOLTAGE_LEVEL: ~
 usedPhaseLedType_VOLTAGE_PRESENCE: ~
 usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
-'{count} minutes after sunrise': ~
-'{count} minutes after sunset': ~
-'{count} minutes before sunrise': ~
-'{count} minutes before sunset': ~
-'{days} days': ~
+'{count} minutes after sunrise': '{count} minuti dopo l'alba'
+'{count} minutes after sunset': '{count} minuti dopo il tramonto'
+'{count} minutes before sunrise': '{count} minuti prima dell'alba'
+'{count} minutes before sunset': '{count} minuti prima del tramonto'
+'{days} days': '{days} giorni'
 
 #</editor-fold>
