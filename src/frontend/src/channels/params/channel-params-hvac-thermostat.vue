@@ -78,6 +78,7 @@
                             <dt>
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
+                                        :disabled="!canChangeSetting('auxThermometerType')"
                                         data-toggle="dropdown">
                                         {{ $t(`auxThermometerType_${channel.config.auxThermometerType}`) }}
                                         <span class="caret"></span>
