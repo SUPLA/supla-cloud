@@ -4,6 +4,7 @@
         :hide-none="hideNone"
         :choose-prompt-i18n="choosePromptI18n"
         :disabled="disabled"
+        :filter="filter"
         @input="channelChanged()"></channels-dropdown>
 </template>
 
@@ -12,7 +13,7 @@
 
     export default {
         components: {ChannelsDropdown},
-        props: ['value', 'params', 'hideNone', 'choosePromptI18n', 'disabled'],
+        props: ['value', 'params', 'hideNone', 'choosePromptI18n', 'disabled', 'filter'],
         data() {
             return {
                 channel: undefined,

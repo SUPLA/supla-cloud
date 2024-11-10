@@ -53,6 +53,7 @@
                     <dd>{{ $t('Main thermometer') }}</dd>
                     <dt>
                         <channels-id-dropdown :params="`function=THERMOMETER,HUMIDITYANDTEMPERATURE&deviceIds=${channel.iodeviceId}`"
+                            :filter="(ch) => ch.id !== channel.config.auxThermometerChannelId"
                             v-model="channel.config.mainThermometerChannelId" :hide-none="true"
                             :disabled="!canChangeSetting('mainThermometerChannelId')"
                             @input="$emit('change')"></channels-id-dropdown>
@@ -64,6 +65,7 @@
                     <dd>{{ $t('Aux thermometer') }}</dd>
                     <dt>
                         <channels-id-dropdown :params="`function=THERMOMETER,HUMIDITYANDTEMPERATURE&deviceIds=${channel.iodeviceId}`"
+                            :filter="(ch) => ch.id !== channel.config.mainThermometerChannelId"
                             v-model="channel.config.auxThermometerChannelId"
                             :disabled="!canChangeSetting('auxThermometerChannelId')"
                             @input="auxThermometerChanged()"></channels-id-dropdown>
