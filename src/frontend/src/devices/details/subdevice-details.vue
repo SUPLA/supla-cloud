@@ -3,6 +3,7 @@
     import {useSubDevicesStore} from "@/stores/subdevices-store";
     import {subDevicesApi} from "@/api/subdevices-api";
     import PromiseConfirmButton from "@/devices/details/promise-confirm-button.vue";
+    import ChannelDeleteButton from "@/channels/channel-delete-button.vue";
 
     const props = defineProps({
         channel: Object,
@@ -22,8 +23,15 @@
 
 <template>
     <div>
-        <h3 v-if="subDevice && subDevice.name">{{ subDevice.name }}</h3>
-        <h3 v-else>{{ $t('Subdevice #{id}', {id: subDeviceId}) }}</h3>
+        <div class="d-flex mt-3">
+            <div class="flex-grow-1">
+                <h3 class="m-0" v-if="subDevice && subDevice.name">{{ subDevice.name }}</h3>
+                <h3 class="m-0" v-else>{{ $t('Subdevice #{id}', {id: subDeviceId}) }}</h3>
+            </div>
+            <div>
+                <ChannelDeleteButton :channel="channel" deleting-subdevice/>
+            </div>
+        </div>
         <div v-if="identifyAvailable || restartAvailable" class="mb-3">
             <PromiseConfirmButton :action="identify" label-i18n="Identify device" v-if="identifyAvailable" class="mr-2"/>
             <PromiseConfirmButton :action="restart" label-i18n="Restart device" v-if="restartAvailable"/>

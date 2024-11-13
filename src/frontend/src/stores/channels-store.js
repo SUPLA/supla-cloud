@@ -73,9 +73,9 @@ export const useChannelsStore = defineStore('channels', () => {
     };
 
     const refetchAll = () => {
-        fetchAll(true);
         const devicesStore = useDevicesStore();
         devicesStore.fetchAll(true);
+        return fetchAll(true);
     }
 
     useIntervalFn(() => fetchStates(), 7777);

@@ -592,6 +592,9 @@ class ChannelController extends RestController {
         if (filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)) {
             $dependencies = $channelDependencies->getItemsThatDependOnFunction($channel);
             $channelsToRemoveWith = $channelDependencies->getChannelsToRemoveWith($channel);
+            foreach ($channelsToRemoveWith as $channelToRemove) {
+                $dependencies = array_merge_recursive($dependencies, $channelDependencies->getItemsThatDependOnFunction($channelToRemove));
+            }
             if (count(array_filter($dependencies)) || $channelsToRemoveWith) {
                 $view = $this->view([
                     'conflictOn' => 'deletion',
