@@ -370,14 +370,15 @@ abstract class SuplaServer {
         }
     }
 
-    public function executeCommand(string $command) {
+    public function executeCommand(string $command): string {
         $result = $this->doExecuteCommand($command);
-        if (!$result || preg_match("/^OK:/", $result) !== 1) {
+        if (!$result || preg_match("/^[A-Z-]+:/", $result) !== 1) {
             throw new ApiExceptionWithDetails(
                 'SUPLA Server was unable to execute the action.', // i18n
                 ['error' => 'suplaServerError', 'response' => $result],
             );
         }
+        return $result;
     }
 
     public function flushPostponedCommands(): array {

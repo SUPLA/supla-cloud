@@ -606,7 +606,34 @@ export const ChannelFunctionTriggers = {
         {caption: () => 'When the thermostat starts heating', def: () => ({on_change_to: {eq: 'on', name: 'is_on'}})}, // i18n
         {caption: () => 'When the thermostat stops heating', def: () => ({on_change_to: {eq: 'off', name: 'is_on'}})}, // i18n
         {caption: () => 'When the thermostat starts or stops heating', def: () => ({on_change: {name: 'is_on'}})}, // i18n
-        {caption: () => 'When the battery cover is opened', def: () => ({on_change_to: {eq: 'on', name: 'is_battery_cover_open'}})}, // i18n
+        {
+            caption: () => 'When the battery cover is opened', // i18n
+            def: () => ({on_change_to: {eq: 'on', name: 'is_battery_cover_open'}}),
+            canBeSetForChannel: (channel) => channel.config.isBatteryPowered,
+        },
+        {
+            caption: () => 'When the device starts to be powered from battery', // i18n
+            def: () => ({on_change_to: {eq: 'on', name: 'battery_powered'}}),
+            canBeSetForChannel: (channel) => channel.config.isBatteryPowered,
+        },
+        {
+            caption: () => 'When the device stops to be powered from battery', // i18n
+            def: () => ({on_change_to: {eq: 'off', name: 'battery_powered'}}),
+            canBeSetForChannel: (channel) => channel.config.isBatteryPowered,
+        },
+        {
+            caption: () => 'When the battery reaches a certain level', // i18n
+            canBeSetForChannel: (channel) => channel.config.isBatteryPowered,
+            test: ({on_change_to = {}}) => on_change_to.name === 'battery_level',
+            component: ReactionConditionThreshold,
+            props: {
+                unit: '%',
+                field: 'battery_level',
+                operators: ['gt', 'ge', 'eq'],
+                labelI18n: () => 'When the battery level will be', // i18n
+                resumeLabelI18n: () => 'and wait until the battery level will be', // i18n
+            },
+        },
         {caption: () => 'When the thermometer error has been reported', def: () => ({on_change_to: {eq: 'on', name: 'thermometer_error'}})}, // i18n
         {caption: () => 'When the clock error has been reported', def: () => ({on_change_to: {eq: 'on', name: 'clock_error'}})}, // i18n
     ],
@@ -626,7 +653,34 @@ export const ChannelFunctionTriggers = {
         {caption: () => 'When the thermostat starts or stops heating', def: () => ({on_change: {name: 'heating'}})}, // i18n
         {caption: () => 'When the thermostat starts or stops cooling', def: () => ({on_change: {name: 'cooling'}})}, // i18n
         {caption: () => 'When the thermostat starts or stops heating or cooling', def: () => ({on_change: {name: 'heating_or_cooling'}})}, // i18n
-        {caption: () => 'When the battery cover is opened', def: () => ({on_change_to: {eq: 'on', name: 'is_battery_cover_open'}})}, // i18n
+        {
+            caption: () => 'When the battery cover is opened', // i18n
+            def: () => ({on_change_to: {eq: 'on', name: 'is_battery_cover_open'}}),
+            canBeSetForChannel: (channel) => channel.config.isBatteryPowered,
+        },
+        {
+            caption: () => 'When the device starts to be powered from battery', // i18n
+            def: () => ({on_change_to: {eq: 'on', name: 'battery_powered'}}),
+            canBeSetForChannel: (channel) => channel.config.isBatteryPowered,
+        },
+        {
+            caption: () => 'When the device stops to be powered from battery', // i18n
+            def: () => ({on_change_to: {eq: 'off', name: 'battery_powered'}}),
+            canBeSetForChannel: (channel) => channel.config.isBatteryPowered,
+        },
+        {
+            caption: () => 'When the battery reaches a certain level', // i18n
+            canBeSetForChannel: (channel) => channel.config.isBatteryPowered,
+            test: ({on_change_to = {}}) => on_change_to.name === 'battery_level',
+            component: ReactionConditionThreshold,
+            props: {
+                unit: () => '%',
+                field: 'battery_level',
+                // operators: ['gt', 'lt', 'eq'],
+                labelI18n: () => 'When the battery level will be', // i18n
+                resumeLabelI18n: () => 'and wait until the battery level will be', // i18n
+            },
+        },
         {caption: () => 'When the thermometer error has been reported', def: () => ({on_change_to: {eq: 'on', name: 'thermometer_error'}})}, // i18n
         {caption: () => 'When the clock error has been reported', def: () => ({on_change_to: {eq: 'on', name: 'clock_error'}})}, // i18n
     ],

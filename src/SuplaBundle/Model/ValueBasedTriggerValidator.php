@@ -129,6 +129,20 @@ class ValueBasedTriggerValidator {
             ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
         ],
+        'battery_powered' => [
+            ChannelFunction::HVAC_THERMOSTAT,
+            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
+            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
+            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
+        ],
+        'battery_level' => [
+            ChannelFunction::HVAC_THERMOSTAT,
+            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
+            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
+            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
+        ],
         'counter' => [
             ChannelFunction::IC_HEATMETER,
             ChannelFunction::IC_WATERMETER,
@@ -222,6 +236,11 @@ class ValueBasedTriggerValidator {
         ChannelFunction::IC_HEATMETER,
         ChannelFunction::GENERAL_PURPOSE_METER,
         ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+        ChannelFunction::HVAC_THERMOSTAT,
+        ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
+        ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
+        ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+        ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
     ];
 
     const BOOLEAN_FIELD_NAMES = [
@@ -229,6 +248,16 @@ class ValueBasedTriggerValidator {
         'calibration_in_progress',
         'calibration_lost',
         'motor_problem',
+        'clock_error',
+        'thermometer_error',
+        'is_battery_cover_open',
+        'battery_powered',
+        'heating',
+        'cooling',
+        'heating_or_cooling',
+        'is_on',
+        'flooding',
+        'manually_closed',
     ];
 
     /**
