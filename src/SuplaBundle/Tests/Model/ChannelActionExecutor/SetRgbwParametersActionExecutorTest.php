@@ -113,6 +113,7 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
                     $expectedCommand = 'SET-RGBW-VALUE:1,1,1,' . $expectedCommand;
                 }
                 $this->assertEquals($expectedCommand, $command);
+                return 'OK:true';
             }
         );
         $channel = new IODeviceChannel();
