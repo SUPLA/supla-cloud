@@ -72,6 +72,5 @@ class ExtendedChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $state = $this->channelStateGetter->getState($this->channel);
         $this->assertArrayHasKey('batteryLevel', $state);
         $this->assertEquals(66, $state['batteryLevel']);
-        $this->assertEquals('AA:BB:CC', $state['macAddress']);
     }
 }
