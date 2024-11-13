@@ -1128,7 +1128,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testExecutingActionOnOfflineChannel() {
-        SuplaServerMock::mockResponse('ACTION-TURN-ON:1,1,1', "FAIL:1\n");
+        SuplaServerMock::mockResponse('ACTION-TURN-ON:1,1,1', "FAILURE\n");
         $client = $this->createAuthenticatedClient($this->user);
         $client->request('PATCH', '/api/channels/1', [], [], [], json_encode(['action' => ChannelFunctionAction::TURN_ON]));
         $response = $client->getResponse();
