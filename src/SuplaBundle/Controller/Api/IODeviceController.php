@@ -431,7 +431,7 @@ class IODeviceController extends RestController {
     public function getSubdevicesAction(Request $request) {
         $subdevices = $this->entityManager->getRepository(SubDevice::class)
             ->createQueryBuilder('sd')
-            ->join(IODevice::class, 'io', 'io = sd.device')
+            ->innerJoin('sd.device', 'io')
             ->where('io.user = :user')
             ->setParameter('user', $this->getCurrentUser())
             ->getQuery()
