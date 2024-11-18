@@ -410,6 +410,7 @@ class DevicesFixture extends SuplaFixture {
                             'quarters' => $sampleQuarters2,
                         ],
                     ]),
+                    'flags' => Flags::BATTERY_COVER_AVAILABLE,
                 ],
             ],
             [ChannelType::SENSORNO, ChannelFunction::HOTELCARDSENSOR],

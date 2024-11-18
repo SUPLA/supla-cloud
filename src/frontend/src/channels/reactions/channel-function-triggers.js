@@ -609,7 +609,7 @@ export const ChannelFunctionTriggers = {
         {
             caption: () => 'When the battery cover is opened', // i18n
             def: () => ({on_change_to: {eq: 'on', name: 'is_battery_cover_open'}}),
-            canBeSetForChannel: (channel) => channel.config.isBatteryPowered,
+            canBeSetForChannel: (channel) => channel.config.isBatteryCoverAvailable,
         },
         {
             caption: () => 'When the device starts to be powered from battery', // i18n
@@ -656,7 +656,7 @@ export const ChannelFunctionTriggers = {
         {
             caption: () => 'When the battery cover is opened', // i18n
             def: () => ({on_change_to: {eq: 'on', name: 'is_battery_cover_open'}}),
-            canBeSetForChannel: (channel) => channel.config.isBatteryPowered,
+            canBeSetForChannel: (channel) => channel.config.isBatteryCoverAvailable,
         },
         {
             caption: () => 'When the device starts to be powered from battery', // i18n

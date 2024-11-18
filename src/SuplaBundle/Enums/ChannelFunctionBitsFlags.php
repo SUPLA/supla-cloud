@@ -28,6 +28,7 @@ namespace SuplaBundle\Enums;
  * @method static ChannelFunctionBitsFlags ELECTRICITY_METER_PHASE3_UNSUPPORTED()
  * @method static ChannelFunctionBitsFlags IDENTIFY_SUBDEVICE_AVAILABLE()
  * @method static ChannelFunctionBitsFlags RESTART_SUBDEVICE_AVAILABLE()
+ * @method static ChannelFunctionBitsFlags BATTERY_COVER_AVAILABLE()
  */
 final class ChannelFunctionBitsFlags extends ChannelFunctionBits {
     /** @see https://github.com/SUPLA/supla-core/blob/ffa56e4579812c50ca15202c698d0c1d363a0258/supla-common/proto.h#L458 */
@@ -45,4 +46,6 @@ final class ChannelFunctionBitsFlags extends ChannelFunctionBits {
     const ELECTRICITY_METER_PHASE3_UNSUPPORTED = 0x00080000;
     const IDENTIFY_SUBDEVICE_AVAILABLE = 0x8000;
     const RESTART_SUBDEVICE_AVAILABLE = 0x40000000;
+    /** @see https://github.com/SUPLA/supla-cloud/issues/916 */
+    const BATTERY_COVER_AVAILABLE = 0x80000000;
 }
