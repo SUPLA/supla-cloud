@@ -1,4 +1,4 @@
-FROM composer:2.3.4 AS backend
+FROM composer:2.8.2 AS backend
 COPY . /var/app
 WORKDIR /var/app
 ARG RELEASE_VERSION

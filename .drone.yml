@@ -37,7 +37,7 @@ steps:
       - npm run test:unit
 
   - name: install-backend
-    image: supla/supla-cloud:ci-php7.4
+    image: supla/supla-cloud:ci-php8.1
     pull: always
     depends_on: [clone]
     commands:
@@ -45,26 +45,26 @@ steps:
       - composer install --optimize-autoloader
 
   - name: lint-backend
-    image: supla/supla-cloud:ci-php7.4
+    image: supla/supla-cloud:ci-php8.1
     depends_on: [install-backend]
     commands:
       - composer run lint-backend
 
   - name: backend-unit-tests
-    image: supla/supla-cloud:ci-php7.4
+    image: supla/supla-cloud:ci-php8.1
     depends_on: [install-backend]
     commands:
       - ./vendor/bin/phpunit -c app --testsuite unit
 
   - name: api-tests
-    image: supla/supla-cloud:ci-php7.4
+    image: supla/supla-cloud:ci-php8.1
     depends_on: [install-backend, build-frontend]
     commands:
       - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
 
   - name: integration-tests
-    image: supla/supla-cloud:ci-php7.4
+    image: supla/supla-cloud:ci-php8.1
     depends_on: [api-tests]
     commands:
       - rm -fr var/cache/test
@@ -76,7 +76,10 @@ steps:
     environment:
       CYPRESS_DATABASE: mysql://root@database/supla_e2e
     commands:
-      - apt-get update && apt-get install -y dialog php7.4 php7.4-curl php7.4-dom php7.4-intl php7.4-json php7.4-mbstring php7.4-mysql php7.4-zip
+      - apt-get update && apt-get install -y ca-certificates apt-transport-https software-properties-common wget gnupg
+      - echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/sury-php.list
+      - wget -qO - https://packages.sury.org/php/apt.gpg | apt-key add -
+      - apt-get update && apt-get install -y dialog php8.1 php8.1-curl php8.1-dom php8.1-intl php8.1-mbstring php8.1-mysql php8.1-zip
       - cd src/frontend
       - npm ci
       - node_modules/cypress/bin/cypress install

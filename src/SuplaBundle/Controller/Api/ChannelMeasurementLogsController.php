@@ -543,6 +543,9 @@ class ChannelMeasurementLogsController extends RestController {
         $minTimestampParam = $request->query->get('afterTimestamp');
         $maxTimestampParam = $request->query->get('beforeTimestamp');
         $channel = $this->findTargetChannel($channel);
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            $this->entityManager->getConnection()->getNativeConnection()->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, true);
+        }
         $logs = $this->getMeasurementLogItemsAction(
             $channel,
             $request->query->get('offset'),
