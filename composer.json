@@ -14,7 +14,7 @@
         ]
     },
     "require": {
-        "php": ">=7.4.33",
+        "php": ">=8.2.20",
         "ext-curl": "*",
         "ext-gd": "*",
         "ext-intl": "*",
@@ -106,7 +106,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.4.33"
+            "php": "8.2.20"
         },
         "process-timeout": 0,
         "sort-packages": true
