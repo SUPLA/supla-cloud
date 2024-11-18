@@ -427,6 +427,28 @@ CREATE TABLE `supla_dev_channel_group`
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `supla_dev_channel_state`
+--
+
+DROP TABLE IF EXISTS `supla_dev_channel_state`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supla_dev_channel_state`
+(
+    `channel_id`  int(11) NOT NULL,
+    `user_id`     int(11) NOT NULL,
+    `update_time` datetime DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `state`       text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+    PRIMARY KEY (`channel_id`),
+    KEY `IDX_A57D6ADBA76ED395` (`user_id`),
+    CONSTRAINT `FK_A57D6ADB72F5A1AA` FOREIGN KEY (`channel_id`) REFERENCES `supla_dev_channel` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `FK_A57D6ADBA76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `supla_dev_channel_value`
 --
 
@@ -3793,4 +3815,4 @@ where ((`g`.`func` is not null) and (`g`.`func` <> 0) and (`l`.`enabled` = 1) an
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-18 14:44:29
+-- Dump completed on 2024-11-18 19:48:27
