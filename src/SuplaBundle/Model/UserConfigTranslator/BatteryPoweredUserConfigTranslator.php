@@ -3,20 +3,18 @@
 namespace SuplaBundle\Model\UserConfigTranslator;
 
 use SuplaBundle\Entity\HasUserConfig;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Model\ChannelStateGetter\ExtendedChannelStateGetter;
 
 class BatteryPoweredUserConfigTranslator extends UserConfigTranslator {
-    private ExtendedChannelStateGetter $extendedChannelStateGetter;
-
-    public function __construct(ExtendedChannelStateGetter $extendedChannelStateGetter) {
-        $this->extendedChannelStateGetter = $extendedChannelStateGetter;
-    }
-
     public function getConfig(HasUserConfig $subject): array {
-        return [
-            'isBatteryPowered' => $this->extendedChannelStateGetter->getState($subject)['isBatteryPowered'],
-        ];
+        if ($subject instanceof IODeviceChannel) {
+            return [
+                'isBatteryPowered' => $subject->getLastKnownChannelState()['isBatteryPowered'] ?? false,
+            ];
+        } else {
+            return [];
+        }
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {

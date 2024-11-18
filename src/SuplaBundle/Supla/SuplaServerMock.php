@@ -256,15 +256,6 @@ class SuplaServerMock extends SuplaServer {
                 rand(0, 100000), // PricePerUnit * 10000
                 $this->faker->currencyCode
             );
-        } elseif (preg_match('#^GET-CHANNEL-STATE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            /* @see https://github.com/SUPLA/supla-core/issues/483#issuecomment-2445262873 */
-            $values = [$match[3], 0, 0]; // %channelId,%defaultIconField,%SwitchCycleCount
-            $values[] = $this->faker->ipv4(); // %IPv4
-            $values[] = $this->faker->macAddress(); // %MAC
-            $values[] = $this->faker->numberBetween(0, 100); // %BatteryLevel
-            $values[] = 1; // %BatteryPowered
-            // ...
-            return 'STATE:' . implode(',', $values);
         }
         return false;
     }

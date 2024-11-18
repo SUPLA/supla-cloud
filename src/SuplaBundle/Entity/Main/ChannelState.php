@@ -29,7 +29,7 @@ class ChannelState {
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="IODeviceChannel")
+     * @ORM\OneToOne(targetEntity="IODeviceChannel", mappedBy="lastKnownChannelState")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $channel;
@@ -50,7 +50,20 @@ class ChannelState {
      */
     private $state;
 
+    public function __construct(IODeviceChannel $channel) {
+        $this->channel = $channel;
+        $this->user = $channel->getUser();
+    }
+
+    public function getId(): int {
+        return $this->channel->getId();
+    }
+
     public function getUser(): User {
         return $this->user;
+    }
+
+    public function getState(): array {
+        return $this->state ? (json_decode($this->state, true) ?: []) : [];
     }
 }

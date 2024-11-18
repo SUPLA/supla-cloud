@@ -212,6 +212,11 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     private $directLinks;
 
     /**
+     * @ORM\OneToOne(targetEntity="ChannelState", mappedBy="channel")
+     */
+    private ?ChannelState $lastKnownChannelState = null;
+
+    /**
      * @ORM\Column(name="flags", type="bigint", nullable=true, options={"unsigned"=true})
      * @Groups({"basic"})
      */
@@ -517,5 +522,9 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
 
     public function getChecksum(): string {
         return $this->checksum;
+    }
+
+    public function getLastKnownChannelState(): array {
+        return ($this->lastKnownChannelState ?: new ChannelState($this))->getState();
     }
 }

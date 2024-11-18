@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Integration\Model;
 
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\Main\ChannelState;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
@@ -1082,6 +1083,18 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $thermostatOther = $device->getChannels()[4];
         $this->expectExceptionMessage('is master for others');
         $channelParamConfigTranslator->setConfig($thermostatMaster, ['masterThermostatChannelId' => $thermostatOther->getId()]);
+    }
+
+    public function testGettingBatteryPowered() {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $config = $channelParamConfigTranslator->getConfig($this->hvacChannel);
+        $this->assertFalse($config['isBatteryPowered']);
+        $state = new ChannelState($this->hvacChannel);
+        EntityUtils::setField($state, 'state', '{"isBatteryPowered": true}');
+        $this->persist($state);
+        $this->getEntityManager()->clear();
+        $config = $channelParamConfigTranslator->getConfig($this->freshEntity($this->hvacChannel));
+        $this->assertTrue($config['isBatteryPowered']);
     }
 
     public function testIssue885() {

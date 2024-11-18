@@ -23,6 +23,7 @@ use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\Main\ChannelState;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Location;
@@ -435,6 +436,9 @@ class DevicesFixture extends SuplaFixture {
             ]),
         ]);
         $this->entityManager->persist($hvac);
+        $state = new ChannelState($hvac->getChannels()[3]);
+        EntityUtils::setField($state, 'state', '{"isBatteryPowered": true}');
+        $this->entityManager->persist($state);
         return $hvac;
     }
 
