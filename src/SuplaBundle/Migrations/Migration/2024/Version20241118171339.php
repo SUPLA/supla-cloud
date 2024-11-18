@@ -20,10 +20,12 @@ namespace SuplaBundle\Migrations\Migration;
 use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
- * Channel checksum.
+ * channel_state table.
  */
-class Version20240924120951 extends NoWayBackMigration {
+class Version20241118171339 extends NoWayBackMigration {
     public function migrate() {
-        $this->addSql('ALTER TABLE supla_dev_channel ADD checksum CHAR(32) CHARACTER SET ascii DEFAULT \'\' NOT NULL COLLATE `ascii_bin`');
+        $this->addSql('CREATE TABLE supla_dev_channel_state (channel_id INT NOT NULL, user_id INT NOT NULL, update_time DATETIME DEFAULT NULL COMMENT \'(DC2Type:utcdatetime)\', state TEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, INDEX IDX_A57D6ADBA76ED395 (user_id), PRIMARY KEY(channel_id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE supla_dev_channel_state ADD CONSTRAINT FK_A57D6ADB72F5A1AA FOREIGN KEY (channel_id) REFERENCES supla_dev_channel (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE supla_dev_channel_state ADD CONSTRAINT FK_A57D6ADBA76ED395 FOREIGN KEY (user_id) REFERENCES supla_user (id) ON DELETE CASCADE');
     }
 }

@@ -21,7 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\BelongsToUser;
 
 /**
- * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelStateRepository")
+ * @ORM\Entity
  * @ORM\Table(name="supla_dev_channel_state")
  */
 class ChannelState {
@@ -36,7 +36,7 @@ class ChannelState {
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $user;
 
