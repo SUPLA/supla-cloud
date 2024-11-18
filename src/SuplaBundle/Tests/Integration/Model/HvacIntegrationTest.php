@@ -1099,6 +1099,32 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($config['isBatteryCoverAvailable']);
     }
 
+    /** @see https://github.com/SUPLA/supla-cloud/issues/906 */
+    public function testDeletingDependentChannelsWithReadOnlyRelation() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
+        $this->flush();
+        $channelsCount = $device->getChannels()->count();
+        $this->assertTrue($device->isChannelDeletionAvailable());
+        $hotelCard = $device->getChannels()[5];
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$hotelCard->getId()}");
+        $this->assertStatusCode(204, $client->getResponse());
+        $device = $this->freshEntity($device);
+        $this->assertCount($channelsCount - 2, $device->getChannels());
+    }
+
+    /** @see https://github.com/SUPLA/supla-cloud/issues/906 */
+    public function testCantChangeFunctionIfChannelIsDependentWithReadOnlyRelation() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
+        $this->flush();
+        $hotelCard = $device->getChannels()[5];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', "/api/channels/{$hotelCard->getId()}", ['functionId' => ChannelFunction::NONE]);
+        $this->assertStatusCode(400, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertStringContainsString('required in another channel', $content['message']);
+    }
+
     public function testIssue885() {
         $dump = file_get_contents(__DIR__ . '/../fixtures/issue-885.sql');
         $this->getEntityManager()->getConnection()->executeStatement($dump);

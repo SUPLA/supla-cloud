@@ -313,6 +313,7 @@ class DevicesFixture extends SuplaFixture {
                 ChannelType::HVAC,
                 ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
                 [
+                    'subDeviceId' => 1,
                     'funcList' => Functions::HVAC_THERMOSTAT_HEAT_COOL | Functions::HVAC_DOMESTIC_HOT_WATER |
                         Functions::HVAC_THERMOSTAT | Functions::HVAC_THERMOSTAT_DIFFERENTIAL,
                     'properties' => json_encode([
@@ -413,7 +414,7 @@ class DevicesFixture extends SuplaFixture {
                     'flags' => Flags::BATTERY_COVER_AVAILABLE,
                 ],
             ],
-            [ChannelType::SENSORNO, ChannelFunction::HOTELCARDSENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::HOTELCARDSENSOR, ['subDeviceId' => 1]],
             [ChannelType::SENSORNO, ChannelFunction::NONE],
             [ChannelType::THERMOSTATHEATPOLHOMEPLUS, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
             [ChannelType::RELAY2XG5LA1A, ChannelFunction::PUMPSWITCH],
@@ -435,11 +436,21 @@ class DevicesFixture extends SuplaFixture {
                     'NONE', 'TEMPERATURE', 'HUMIDITY', 'TIME', 'TIME_DATE', 'TEMPERATURE_TIME', 'MAIN_AND_AUX_TEMPERATURE',
                 ],
             ]),
+            'flags' => IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION,
         ]);
         $this->entityManager->persist($hvac);
         $state = new ChannelState($hvac->getChannels()[3]);
         EntityUtils::setField($state, 'state', '{"isBatteryPowered": true}');
         $this->entityManager->persist($state);
+        $this->entityManager->persist(AnyFieldSetter::set(new SubDevice(), [
+            'id' => 1,
+            'device' => $hvac,
+            'regDate' => new DateTime(),
+            'name' => 'Thermostat with hotel card sensor',
+            'softwareVersion' => '2.' . rand(0, 50),
+            'productCode' => strtoupper($this->faker->randomLetter() . $this->faker->randomLetter()),
+            'serialNumber' => $this->faker->uuid(),
+        ]));
         return $hvac;
     }
 

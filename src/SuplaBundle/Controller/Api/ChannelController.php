@@ -18,6 +18,7 @@
 namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
+use Assert\InvalidArgumentException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -39,6 +40,7 @@ use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\Dependencies\ChannelDependencies;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Model\UserConfigTranslator\HiddenReadOnlyConfigFieldsUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\IODeviceRepository;
@@ -419,7 +421,12 @@ class ChannelController extends RestController {
                 if ($newFunction) {
                     $paramConfigTranslator->clearConfig($channel);
                     $channel->setFunction($newFunction);
-                    $channelDependencies->clearDependencies($channel);
+                    try {
+                        $channelDependencies->clearDependencies($channel);
+                    } catch (InvalidArgumentException $e) {
+                        $e = 'You cannot change the function of this channel because it is required in another channel.'; // i18n
+                        throw new ApiException($e);
+                    }
                     $channel->setUserIcon(null);
                     $channel->setAltIcon(0);
                     $em->persist($channel);
@@ -583,7 +590,12 @@ class ChannelController extends RestController {
      * @Rest\Delete("/channels/{channel}")
      * @UnavailableInMaintenance
      */
-    public function deleteChannelAction(IODeviceChannel $channel, Request $request, ChannelDependencies $channelDependencies) {
+    public function deleteChannelAction(
+        IODeviceChannel $channel,
+        Request $request,
+        ChannelDependencies $channelDependencies,
+        HiddenReadOnlyConfigFieldsUserConfigTranslator $hiddenConfigTranslator
+    ) {
         $this->entityManager->detach($channel->getIoDevice());
         $device = $this->entityManager->find(IODevice::class, $channel->getIoDevice()->getId());
         if (!$device->isChannelDeletionAvailable() && !$channel->getConflictDetails()) {
@@ -610,9 +622,13 @@ class ChannelController extends RestController {
                 return $view;
             }
         }
-        $this->transactional(function (EntityManagerInterface $em) use ($device, $channelDependencies, $channel) {
+        $this->transactional(function (EntityManagerInterface $em) use ($device, $channelDependencies, $channel, $hiddenConfigTranslator) {
+            $channelsToRemoveWith = $channelDependencies->getChannelsToRemoveWith($channel);
+            $idsToRemove = array_map(fn(IODeviceChannel $ch) => $ch->getId(), $channelsToRemoveWith);
+            $idsToRemove[] = $channel->getId();
+            $hiddenConfigTranslator->setIdsToIgnore($idsToRemove);
             $channelDependencies->clearDependencies($channel);
-            foreach ($channelDependencies->getChannelsToRemoveWith($channel) as $channelToRemove) {
+            foreach ($channelsToRemoveWith as $channelToRemove) {
                 $channelDependencies->clearDependencies($channelToRemove);
                 $em->remove($channelToRemove);
             }
