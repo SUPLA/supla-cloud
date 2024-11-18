@@ -252,7 +252,7 @@
                             setting="heatOrColdSourceSwitchChannelId" @change="$emit('change')"/>
                     </dt>
                 </dl>
-                <div v-if="channel.config.availableAlgorithms.length > 1">
+                <div v-if="channel.config.availableAlgorithms.length > 0">
                     <dl v-if="canDisplaySetting('usedAlgorithm')">
                         <dd>
                             {{ $t('Algorithm') }}
