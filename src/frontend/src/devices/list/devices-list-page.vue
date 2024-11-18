@@ -37,7 +37,7 @@
     import DeviceTile from "./device-tile.vue";
     import EmptyListPlaceholder from "../../common/gui/empty-list-placeholder.vue";
     import DeviceFilters from "./device-filters";
-    import {mapState} from "pinia";
+    import {mapState, mapStores} from "pinia";
     import {useDevicesStore} from "@/stores/devices-store";
 
     export default {
@@ -89,10 +89,14 @@
                 ]
             };
         },
+        beforeMount() {
+            this.devicesStore.fetchAll(true);
+        },
         computed: {
             showPossibleDevices() {
                 return this.filteredDevices && this.devices.length < 3 && this.filteredDevices.length === this.devices.length;
             },
+            ...mapStores(useDevicesStore),
             ...mapState(useDevicesStore, {devices: 'list'}),
             filteredDevices() {
                 const filteredDevices = this.devices ? this.devices.filter(this.filterFunction) : this.devices;
