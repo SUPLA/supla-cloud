@@ -11,8 +11,7 @@
 
     const subDevices = useSubDevicesStore();
     subDevices.fetchAll();
-    const subDeviceId = computed(() => props.channel?.subDeviceId)
-    const subDevice = computed(() => subDevices.all[subDeviceId.value])
+    const subDevice = computed(() => subDevices.forChannel(props.channel))
 
     const identify = () => subDevicesApi.identify(props.channel);
     const identifyAvailable = computed(() => props.channel?.config?.identifySubdeviceAvailable);
@@ -26,7 +25,7 @@
         <div class="d-flex mt-3">
             <div class="flex-grow-1">
                 <h3 class="m-0" v-if="subDevice && subDevice.name">{{ subDevice.name }}</h3>
-                <h3 class="m-0" v-else>{{ $t('Subdevice #{id}', {id: subDeviceId}) }}</h3>
+                <h3 class="m-0" v-else>{{ $t('Subdevice #{id}', {id: channel.subDeviceId}) }}</h3>
             </div>
             <div>
                 <ChannelDeleteButton :channel="channel" deleting-subdevice/>

@@ -41,10 +41,8 @@
                 return channel.caption || `ID${channel.id} ${this.$t(channel.function.caption)}`;
             },
             channelHtml(channel, escape) {
-                let subDeviceName = '';
-                if (channel.subDeviceId > 0 && this.subDevicesStore.all[channel.subDeviceId]) {
-                    subDeviceName = ' / ' + this.subDevicesStore.all[channel.subDeviceId].name;
-                }
+                const subDevice = this.subDevicesStore.forChannel(channel);
+                const subDeviceName = subDevice ? ' / ' + subDevice.name : '';
                 return `<div>
                             <div class="subject-dropdown-option d-flex">
                                 <div class="flex-grow-1">

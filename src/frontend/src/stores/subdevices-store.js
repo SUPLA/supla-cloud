@@ -12,9 +12,10 @@ export const useSubDevicesStore = defineStore('subDevices', () => {
         } else {
             return fetchAll.promise = subDevicesApi.getList().then((subDevices) => {
                 const state = subDevices.reduce((acc, curr) => {
+                    const id = `${curr.id}_${curr.ioDeviceId}`;
                     return {
-                        ids: acc.ids.concat(curr.id),
-                        all: {...acc.all, [curr.id]: curr}
+                        ids: acc.ids.concat(id),
+                        all: {...acc.all, [id]: curr}
                     }
                 }, {ids: [], all: {}});
                 all.value = state.all;
@@ -23,11 +24,13 @@ export const useSubDevicesStore = defineStore('subDevices', () => {
         }
     };
 
+    const forChannel = (channel) => all.value[`${channel?.subDeviceId}_${channel?.iodeviceId}`];
+
     const $reset = () => {
         all.value = {};
         ids.value = [];
         fetchAll.promise = undefined;
     };
 
-    return {all, ids, $reset, fetchAll};
+    return {forChannel, $reset, fetchAll};
 });
