@@ -81,6 +81,7 @@ class IODevice implements HasLocation, HasRelationsCount {
     /**
      * @var IODeviceChannel[]
      * @ORM\OneToMany(targetEntity="IODeviceChannel", mappedBy="iodevice")
+     * @ORM\OrderBy({"channelNumber"="ASC"})
      * @Groups({"iodevice.channels"})
      * @MaxDepth(1)
      */
