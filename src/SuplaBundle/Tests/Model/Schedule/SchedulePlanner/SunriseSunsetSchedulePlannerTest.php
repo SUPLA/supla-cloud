@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -19,9 +19,9 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 // @codingStandardsIgnoreFile
 
-use PHPUnit\Framework\TestCase;
 use DateTime;
 use DateTimeZone;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 
@@ -45,41 +45,41 @@ class SunriseSunsetSchedulePlannerTest extends TestCase {
 
     public function calculatingNextRunDateProvider() {
         return [
-            ['2017-01-01 00:00', 'SR0 * * * *', '2017-01-01 07:45'], // sunrise: 7:46, http://suncalc.net/#/52.2297,21.0122,11/2017.01.01/13:11
-            ['2016-12-31 23:00', 'SR0 * * * *', '2017-01-01 07:45'], // sunrise: 7:46, http://suncalc.net/#/52.2297,21.0122,11/2017.01.01/13:11
-            ['2017-01-01 00:00', 'SS0 * * * *', '2017-01-01 15:34'], // sunset: 15:34
-            ['2017-06-24 00:00', 'SR0 * * * *', '2017-06-24 04:15'], // sunrise: 4:15, http://suncalc.net/#/52.2297,21.0122,11/2017.06.24/13:11
-            ['2017-06-24 00:00', 'SS0 * * * *', '2017-06-24 21:02'], // sunrise: 21:02
-            ['2017-06-29 00:00', 'SR0 * * * *', '2017-06-29 04:18'], // sunrise: 4:18, http://suncalc.net/#/52.2297,21.0122,11/2017.06.29/13:11
-            ['2017-06-29 00:00', 'SS0 * * * *', '2017-06-29 21:01'], // sunset: 21:02
-            ['2017-06-28 23:59', 'SS0 * * * *', '2017-06-29 16:56', 'Australia/Sydney'], // sunset: 21:02
-            ['2017-06-29 00:00', 'SS0 * * * *', '2017-06-29 16:56', 'Australia/Sydney'], // sunset: 21:02
-            ['2017-06-29 00:01', 'SS0 * * * *', '2017-06-29 16:56', 'Australia/Sydney'], // sunset: 21:02
-            ['2017-06-24 04:08', 'SR0 * * * *', '2017-06-24 04:15'],
-            ['2017-06-24 04:14', 'SR0 * * * *', '2017-06-25 04:16'],
-            ['2017-06-24 04:13', 'SR5 * * * *', '2017-06-24 04:20'],
-            ['2017-06-24 04:14', 'SR15 * * * *', '2017-06-24 04:30'],
-            ['2017-06-24 04:14', 'SR-5 * * * *', '2017-06-25 04:10'],
-            ['2017-06-24 04:00', 'SR-5 * * * *', '2017-06-24 04:10'],
-            ['2017-06-24 01:00', 'SR-15 * * * *', '2017-06-24 04:00'],
-            ['2017-06-24 01:00', 'SR-150 * * * *', '2017-06-24 01:45'],
-            ['2017-06-24 01:00', 'SR150 * * * *', '2017-06-24 06:45'],
-            ['2017-06-24 04:15', 'SR0 * * * *', '2017-06-25 04:15'],
-            ['2017-06-24 06:15', 'SR0 * * * *', '2017-06-25 04:15'],
-            ['2017-02-18 13:51', 'SR0 * * * *', '2017-02-19 06:45'],
-            ['2017-02-18 13:51', 'SS0 * * * *', '2017-02-18 16:55'],
-            ['2017-02-18 13:51', 'SS0 * * * 1,2,3,4,5', '2017-02-20 16:59'], // only chosen weekdays
+            ['2017-01-01 00:00', 'SR0 * * * *', '2017-01-01 07:43'], // sunrise: 7:46, http://suncalc.net/#/52.2297,21.0122,11/2017.01.01/13:11
+            ['2016-12-31 23:00', 'SR0 * * * *', '2017-01-01 07:43'], // sunrise: 7:46, http://suncalc.net/#/52.2297,21.0122,11/2017.01.01/13:11
+            ['2017-01-01 00:00', 'SS0 * * * *', '2017-01-01 15:36'], // sunset: 15:34
+            ['2017-06-24 00:00', 'SR0 * * * *', '2017-06-24 04:13'], // sunrise: 4:15, http://suncalc.net/#/52.2297,21.0122,11/2017.06.24/13:11
+            ['2017-06-24 00:00', 'SS0 * * * *', '2017-06-24 21:04'], // sunrise: 21:02
+            ['2017-06-29 00:00', 'SR0 * * * *', '2017-06-29 04:16'], // sunrise: 4:18, http://suncalc.net/#/52.2297,21.0122,11/2017.06.29/13:11
+            ['2017-06-29 00:00', 'SS0 * * * *', '2017-06-29 21:03'], // sunset: 21:02
+            ['2017-06-28 23:59', 'SS0 * * * *', '2017-06-29 16:57', 'Australia/Sydney'], // sunset: 21:02
+            ['2017-06-29 00:00', 'SS0 * * * *', '2017-06-29 16:58', 'Australia/Sydney'], // sunset: 21:02
+            ['2017-06-29 00:01', 'SS0 * * * *', '2017-06-29 16:58', 'Australia/Sydney'], // sunset: 21:02
+            ['2017-06-24 04:06', 'SR0 * * * *', '2017-06-24 04:13'],
+            ['2017-06-24 04:15', 'SR0 * * * *', '2017-06-25 04:13'],
+            ['2017-06-24 04:11', 'SR5 * * * *', '2017-06-24 04:18'],
+            ['2017-06-24 04:14', 'SR15 * * * *', '2017-06-24 04:28'],
+            ['2017-06-24 04:14', 'SR-5 * * * *', '2017-06-25 04:08'],
+            ['2017-06-24 04:00', 'SR-5 * * * *', '2017-06-24 04:08'],
+            ['2017-06-24 01:00', 'SR-15 * * * *', '2017-06-24 03:58'],
+            ['2017-06-24 01:00', 'SR-150 * * * *', '2017-06-24 01:43'],
+            ['2017-06-24 01:00', 'SR150 * * * *', '2017-06-24 06:43'],
+            ['2017-06-24 04:15', 'SR0 * * * *', '2017-06-25 04:13'],
+            ['2017-06-24 06:15', 'SR0 * * * *', '2017-06-25 04:13'],
+            ['2017-02-18 13:51', 'SR0 * * * *', '2017-02-19 06:43'],
+            ['2017-02-18 13:51', 'SS0 * * * *', '2017-02-18 16:57'],
+            ['2017-02-18 13:51', 'SS0 * * * 1,2,3,4,5', '2017-02-20 17:00'], // only chosen weekdays
 //           saturday                            friday
-            ['2017-02-18 13:51', 'SR0 * * * 5', '2017-02-24 06:32'],
+            ['2017-02-18 13:51', 'SR0 * * * 5', '2017-02-24 06:31'],
 //           saturday                            next saturday
-            ['2017-02-18 13:51', 'SR0 * * * 6', '2017-02-25 06:30'],
-            ['2017-02-19 13:51', 'SR0 * * * 6', '2017-02-25 06:30'],
-            ['2017-02-18 13:51', 'SR0 * 14 3 *', '2017-03-14 05:52'],
-            ['2017-02-19 11:36', 'SS0 * * * *', '2017-02-19 17:44', 'Asia/Shanghai'], // it caused stackoverflow in the past
-            ['2017-11-19 11:36', 'SS0 * * * *', '2017-11-19 17:50', 'Asia/Colombo'], // GMT+5.5
-            ['2017-03-25 18:13', 'SS0 * * * *', '2017-03-25 18:21', 'Asia/Colombo'], // GMT+5.5
-            ['2017-03-25 18:20', 'SS0 * * * *', '2017-03-26 18:21', 'Asia/Colombo'], // GMT+5.5
-            ['2017-03-25 18:21', 'SS0 * * * *', '2017-03-26 18:21', 'Asia/Colombo'], // GMT+5.5
+            ['2017-02-18 13:51', 'SR0 * * * 6', '2017-02-25 06:28'],
+            ['2017-02-19 13:51', 'SR0 * * * 6', '2017-02-25 06:28'],
+            ['2017-02-18 13:51', 'SR0 * 14 3 *', '2017-03-14 05:50'],
+            ['2017-02-19 11:36', 'SS0 * * * *', '2017-02-19 17:46', 'Asia/Shanghai'], // it caused stackoverflow in the past
+            ['2017-11-19 11:36', 'SS0 * * * *', '2017-11-19 17:51', 'Asia/Colombo'], // GMT+5.5
+            ['2017-03-25 18:13', 'SS0 * * * *', '2017-03-25 18:22', 'Asia/Colombo'], // GMT+5.5
+            ['2017-03-25 18:20', 'SS0 * * * *', '2017-03-26 18:22', 'Asia/Colombo'], // GMT+5.5
+            ['2017-03-25 18:21', 'SS0 * * * *', '2017-03-26 18:22', 'Asia/Colombo'], // GMT+5.5
         ];
     }
 
@@ -91,9 +91,9 @@ class SunriseSunsetSchedulePlannerTest extends TestCase {
         $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
         $startDate = DateTime::createFromFormat($format, '2017-04-23 15:00', new DateTimeZone('Europe/Warsaw'));
         $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
-        $this->assertEquals('2017-04-23 19:48', $formatter($nextExecution));
+        $this->assertEquals('2017-04-23 19:50', $formatter($nextExecution));
         $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $nextExecution->getPlannedTimestamp());
-        $this->assertEquals('2017-04-24 19:50', $formatter($nextExecution));
+        $this->assertEquals('2017-04-24 19:51', $formatter($nextExecution));
     }
 
     // https://github.com/SUPLA/supla-cloud/issues/405
@@ -104,10 +104,10 @@ class SunriseSunsetSchedulePlannerTest extends TestCase {
         $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
         $startDate = DateTime::createFromFormat($format, '2020-11-03 01:00', new DateTimeZone('Europe/Warsaw'));
         $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
-        $this->assertEquals('2020-11-03 06:36', $formatter($nextExecution));
+        $this->assertEquals('2020-11-03 06:34', $formatter($nextExecution));
         $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $nextExecution->getPlannedTimestamp());
-        $this->assertEquals('2020-11-04 06:36', $formatter($nextExecution));
+        $this->assertEquals('2020-11-04 06:34', $formatter($nextExecution));
         $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $nextExecution->getPlannedTimestamp());
-        $this->assertEquals('2020-11-05 06:40', $formatter($nextExecution));
+        $this->assertEquals('2020-11-05 06:38', $formatter($nextExecution));
     }
 }
