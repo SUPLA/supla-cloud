@@ -1,7 +1,7 @@
 DROP PROCEDURE IF EXISTS `supla_add_channel`;
 
 CREATE PROCEDURE `supla_add_channel`(IN `_type` INT, IN `_func` INT, IN `_param1` INT, IN `_param2` INT, IN `_param3` INT,
-                                     IN `_user_id` INT, IN `_channel_number` INT, IN `_iodevice_id` INT, IN `_flist` INT, IN `_flags` INT,
+                                     IN `_user_id` INT, IN `_channel_number` INT, IN `_iodevice_id` INT, IN `_flist` INT, IN `_flags` BIGINT,
                                      IN `_alt_icon` INT, IN `_sub_device_id` SMALLINT UNSIGNED)
     NOT DETERMINISTIC
     MODIFIES SQL DATA
