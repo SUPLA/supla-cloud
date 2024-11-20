@@ -346,8 +346,11 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public static function gettingChannelStateDataProvider() {
         return [
-            [1, 'IS-', "CONNECTED:FALSE\n", ['connected' => false]],
-            [1, 'IS-', "CONNECTED:1\n", ['connected' => true]],
+            [1, 'IS-', "DISCONNECTED:1\n", ['connected' => false]],
+            [1, 'IS-', "CONNECTED:1\n", ['connected' => true, 'operational' => true]],
+            [1, 'IS-', "CONNECTED:1,1\n", ['connected' => true, 'operational' => true]],
+            [1, 'IS-', "CONNECTED:1,2\n", ['connected' => true, 'operational' => false]],
+            [1, 'IS-', "CONNECTED:1,3\n", ['connected' => true, 'operational' => false]],
             [1, 'GET-RELAY-VALUE:1,1,1', 'VALUE:1,0', ['on' => true]],
             [1, 'GET-RELAY-VALUE:1,1,1', 'VALUE:0,0', ['on' => false, 'currentOverload' => false]],
             [1, 'GET-RELAY-VALUE:1,1,1', 'VALUE:0,1', ['on' => false, 'currentOverload' => true]],

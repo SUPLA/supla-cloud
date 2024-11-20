@@ -43,7 +43,7 @@
         },
         computed: {
             isConnected() {
-                return !this.channel.state || this.channel.state.connected;
+                return !this.channel.state || this.channel.state.operational;
             },
             notCalibrated() {
                 return this.calibrating || (this.channel.state && this.channel.state.not_calibrated);

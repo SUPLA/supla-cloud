@@ -8,13 +8,18 @@ use SuplaBundle\Supla\SuplaServerAware;
 /**
  * @OA\Schema(schema="ChannelStateConnected",
  *     @OA\Property(property="connected", type="boolean"),
+ *     @OA\Property(property="operational", type="boolean"),
  * )
  */
 class ConnectedChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
     public function getState(IODeviceChannel $channel): array {
-        return ['connected' => $this->suplaServer->isChannelConnected($channel)];
+        $status = $this->suplaServer->getChannelConnectionOnlineStatus($channel);
+        return [
+            'connected' => $status > 0,
+            'operational' => $status === 1,
+        ];
     }
 
     public function supportedFunctions(): array {

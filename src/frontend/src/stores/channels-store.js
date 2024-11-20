@@ -55,6 +55,7 @@ export const useChannelsStore = defineStore('channels', () => {
             channelsStates.forEach((channel) => {
                 if (all.value[channel.id]) {
                     all.value[channel.id].connected = channel.state.connected;
+                    all.value[channel.id].operational = channel.state.operational;
                     all.value[channel.id].state = channel.state;
                     if (all.value[channel.id].checksum !== channel.checksum) {
                         idsToFetch.push(channel.id);

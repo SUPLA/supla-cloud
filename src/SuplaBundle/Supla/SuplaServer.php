@@ -115,36 +115,48 @@ abstract class SuplaServer {
         }
     }
 
-    private function isConnected(string $what, int ...$args): bool {
+    /** @return array|false */
+    private function isConnected(string $what, int ...$args) {
         $args = implode(',', $args);
         try {
             $result = $this->doExecuteCommand("IS-$what-CONNECTED:$args");
-            return $result !== false && preg_match("/^CONNECTED:\d+\n/", $result) === 1 ? true : false;
+            if (is_string($result) && str_starts_with($result, 'CONNECTED:')) {
+                return array_map('intval', explode(',', substr($result, strlen('CONNECTED:'))));
+            }
         } catch (SuplaServerIsDownException $e) {
             $this->logger->error('SUPLA Server is down.');
-            return false;
         }
+        return false;
     }
 
     public function isClientAppConnected(ClientApp $clientApp): bool {
         if (!$clientApp->getEnabled()) {
             return false;
         }
-        return $this->isConnected('CLIENT', $clientApp->getUser()->getId(), $clientApp->getId());
+        return !!$this->isConnected('CLIENT', $clientApp->getUser()->getId(), $clientApp->getId());
     }
 
     public function isDeviceConnected(IODevice $device) {
         if (!$device->getEnabled()) {
             return false;
         }
-        return $this->isConnected('IODEV', $device->getUser()->getId(), $device->getId());
+        return !!$this->isConnected('IODEV', $device->getUser()->getId(), $device->getId());
     }
 
     public function isChannelConnected(IODeviceChannel $channel) {
+        return $this->getChannelConnectionOnlineStatus($channel) > 0;
+    }
+
+    public function getChannelConnectionOnlineStatus(IODeviceChannel $channel): int {
         if (!$channel->getIoDevice()->getEnabled()) {
-            return false;
+            return 0;
         }
-        return $this->isConnected('CHANNEL', $channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId());
+        $connectionData = $this->isConnected('CHANNEL', $channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId());
+        if (!$connectionData) {
+            return 0;
+        } else {
+            return $connectionData[1] ?? 1;
+        }
     }
 
     public function userAction($action, $params = [], User $user = null): bool {

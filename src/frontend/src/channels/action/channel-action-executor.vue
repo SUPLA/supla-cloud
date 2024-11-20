@@ -5,7 +5,7 @@
                 v-if="!isConnected">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="alert alert-warning text-center">
-                        {{ $t('Cannot execute an action when the device is disconnected.') }}
+                        {{ $t('Cannot execute an action when the channel is not available.') }}
                     </div>
                 </div>
             </div>
@@ -113,7 +113,7 @@
                 }
             },
             isConnected() {
-                return this.subject.ownSubjectType !== 'channel' || this.channelsStore.all[this.subject.id]?.connected;
+                return this.subject.ownSubjectType !== 'channel' || this.channelsStore.all[this.subject.id]?.operational;
             },
             ...mapStores(useChannelsStore),
         }
