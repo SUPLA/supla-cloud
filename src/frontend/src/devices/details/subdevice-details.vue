@@ -22,18 +22,12 @@
 
 <template>
     <div>
-        <div class="d-flex mt-3">
-            <div class="flex-grow-1">
-                <h3 class="m-0" v-if="subDevice && subDevice.name">{{ subDevice.name }}</h3>
-                <h3 class="m-0" v-else>{{ $t('Subdevice #{id}', {id: channel.subDeviceId}) }}</h3>
-            </div>
-            <div>
-                <ChannelDeleteButton :channel="channel" deleting-subdevice/>
-            </div>
-        </div>
+        <h3 class="m-3" v-if="subDevice && subDevice.name">{{ subDevice.name }}</h3>
+        <h3 class="m-3" v-else>{{ $t('Subdevice #{id}', {id: channel.subDeviceId}) }}</h3>
         <div v-if="identifyAvailable || restartAvailable" class="mb-3">
             <PromiseConfirmButton :action="identify" label-i18n="Identify device" v-if="identifyAvailable" class="mr-2"/>
             <PromiseConfirmButton :action="restart" label-i18n="Restart device" v-if="restartAvailable"/>
+            <ChannelDeleteButton :channel="channel" deleting-subdevice/>
         </div>
         <div v-if="subDevice" class="mb-3">
             <span class="label label-default mr-2">{{ $t('Firmware') }}: {{ subDevice.softwareVersion }}</span>

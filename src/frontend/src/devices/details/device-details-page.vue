@@ -45,9 +45,9 @@
                                 </div>
                                 <div v-if="!device.locked">
                                     <DeviceEnterConfigurationModeButton :device="device"/>
+                                    <DeviceIdentifyDeviceButton :device="device"/>
                                     <DeviceRemoteRestartButton :device="device"/>
                                     <DeviceSetTimeButton :device="device"/>
-                                    <DeviceIdentifyDeviceButton :device="device"/>
                                     <DevicePairSubdeviceButton :device="device"/>
                                 </div>
                             </div>
