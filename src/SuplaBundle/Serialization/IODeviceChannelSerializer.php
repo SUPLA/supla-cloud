@@ -59,11 +59,14 @@ class IODeviceChannelSerializer extends AbstractSerializer {
         $normalized['functionId'] = $channel->getFunction()->getId();
         $normalized['userIconId'] = $channel->getUserIcon() ? $channel->getUserIcon()->getId() : null;
         $normalized['typeId'] = $channel->getType()->getId();
-        if ($this->isSerializationGroupRequested('connected', $context)) {
-            $normalized['connected'] = $this->suplaServer->isChannelConnected($channel);
-        }
-        if ($this->isSerializationGroupRequested('state', $context)) {
-            $normalized['state'] = new JsonArrayObject($this->channelStateGetter->getState($channel));
+        if ($this->isSerializationGroupRequested('connected', $context) || $this->isSerializationGroupRequested('state', $context)) {
+            $state = $this->channelStateGetter->getState($channel);
+            if ($this->isSerializationGroupRequested('connected', $context)) {
+                $normalized['connected'] = $state['connected'];
+            }
+            if ($this->isSerializationGroupRequested('state', $context)) {
+                $normalized['state'] = new JsonArrayObject($state);
+            }
         }
         if (!isset($normalized['relationsCount']) && (
                 $this->isSerializationGroupRequested('channel.relationsCount', $context)
