@@ -161,6 +161,30 @@
                         </span>
                     </dt>
                 </dl>
+                <div v-if="channel.config.temperatureControlType && canDisplaySetting('temperatureControlType')">
+                    <dl>
+                        <dd>{{ $t('Temperature control type') }}</dd>
+                        <dt>
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
+                                    :disabled="!canChangeSetting('temperatureControlType')"
+                                    data-toggle="dropdown">
+                                    {{ $t(`temperatureControlType_${channel.config.temperatureControlType}`) }}
+                                    <span class="caret"></span>
+                                </button>
+                                <!-- i18n:['temperatureControlType_ROOM_TEMPERATURE', 'temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE'] -->
+                                <ul class="dropdown-menu">
+                                    <li v-for="type in ['ROOM_TEMPERATURE', 'AUX_HEATER_COOLER_TEMPERATURE']" :key="type">
+                                        <a @click="channel.config.temperatureControlType = type; $emit('change')"
+                                            v-show="type !== channel.config.temperatureControlType">
+                                            {{ $t(`temperatureControlType_${type}`) }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </dt>
+                    </dl>
+                </div>
             </div>
         </transition-expand>
         <a class="d-flex accordion-header" @click="displayGroup('freeze')"
@@ -478,13 +502,17 @@
             },
         },
         computed: {
+            defaultTemperatureConstraintName() {
+                return this.channel.config?.defaultTemperatureConstraintName || 'room';
+            },
             availableTemperatures() {
                 // i18n:['thermostatTemperature_freezeProtection','thermostatTemperature_eco','thermostatTemperature_comfort']
                 // i18n:['thermostatTemperature_boost','thermostatTemperature_heatProtection','thermostatTemperature_histeresis']
                 // i18n:['thermostatTemperature_belowAlarm','thermostatTemperature_aboveAlarm','thermostatTemperature_auxMinSetpoint']
                 // i18n:['thermostatTemperature_auxMaxSetpoint']
                 return Object.keys(this.channel.config.temperatures || {}).map(name => {
-                    const constraintName = {histeresis: 'histeresis', auxMinSetpoint: 'aux', auxMaxSetpoint: 'aux'}[name] || 'room';
+                    const constraintName = {histeresis: 'histeresis', auxMinSetpoint: 'aux', auxMaxSetpoint: 'aux'}[name]
+                        || this.defaultTemperatureConstraintName;
                     const min = this.channel.config.temperatureConstraints?.[`${constraintName}Min`];
                     const max = this.channel.config.temperatureConstraints?.[`${constraintName}Max`];
                     return {name, min, max};

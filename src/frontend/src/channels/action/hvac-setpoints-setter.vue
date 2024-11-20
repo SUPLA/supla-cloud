@@ -87,11 +87,14 @@
             offsetMin() {
                 return this.subject.config.temperatureConstraints?.autoOffsetMin || 0;
             },
+            temperatureConstraintName() {
+                return this.subject.config?.defaultTemperatureConstraintName || 'room';
+            },
             roomMin() {
-                return this.subject.config?.temperatureConstraints?.roomMin || 0;
+                return this.subject.config?.temperatureConstraints?.[`${this.temperatureConstraintName}Min`] || 0;
             },
             roomMax() {
-                return this.subject.config?.temperatureConstraints?.roomMax || 100;
+                return this.subject.config?.temperatureConstraints?.[`${this.temperatureConstraintName}Max`] || 100;
             },
             heatAvailable() {
                 return !this.hideHeat && this.subject.config.heatingModeAvailable;

@@ -32,6 +32,8 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="temperatureSetpointChangeSwitchesToManualMode", type="boolean"),
  *   @OA\Property(property="availableAlgorithms", type="array", readOnly=true, @OA\Items(type="string")),
  *   @OA\Property(property="usedAlgorithm", type="string"),
+ *   @OA\Property(property="temperatureControlType", type="string"),
+ *   @OA\Property(property="defaultTemperatureConstraintName", type="string", readOnly=true),
  *   @OA\Property(property="minOnTimeS", type="integer", minimum=0, maximum=600),
  *   @OA\Property(property="minOffTimeS", type="integer", minimum=0, maximum=600),
  *   @OA\Property(property="outputValueOnError", type="integer", minimum=-100, maximum=100),
@@ -156,10 +158,14 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 'heatingModeAvailable' => $this->isHeatingModeAvailable($subject),
                 'coolingModeAvailable' => $this->isCoolingModeAvailable($subject),
                 'readOnlyTemperatureConfigFields' => $subject->getProperty('readOnlyTemperatureConfigFields', []),
+                'defaultTemperatureConstraintName' => $this->getDefaultTemperatureConstraintName($subject),
             ];
             if ($subject->getFunction()->getId() === CF::HVAC_THERMOSTAT) {
                 $config['subfunction'] = $subject->getUserConfigValue('subfunction');
                 $config['altWeeklySchedule'] = $this->adjustWeeklySchedule($subject->getUserConfigValue('altWeeklySchedule'));
+            }
+            if ($subject->getUserConfigValue('temperatureControlType', 'NOT_SUPPORTED') !== 'NOT_SUPPORTED') {
+                $config['temperatureControlType'] = $subject->getUserConfigValue('temperatureControlType');
             }
             return $config;
         } else {
@@ -337,6 +343,16 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $weeklySchedule = $this->validateWeeklySchedule($subject, $config['altWeeklySchedule'], ['COOL']);
             $subject->setUserConfigValue('altWeeklySchedule', $weeklySchedule);
         }
+        if (array_key_exists('temperatureControlType', $config)) {
+            $availableTypes = ['ROOM_TEMPERATURE', 'AUX_HEATER_COOLER_TEMPERATURE'];
+            Assertion::inArray(
+                $subject->getUserConfigValue('temperatureControlType'),
+                $availableTypes,
+                'temperatureControlType not supported for this channel'
+            );
+            Assertion::inArray($config['temperatureControlType'], $availableTypes);
+            $subject->setUserConfigValue('temperatureControlType', $config['temperatureControlType']);
+        }
         if (array_key_exists('temperatures', $config) && $config['temperatures']) {
             Assert::that($config['temperatures'])->isArray();
             $newTemps = $config['temperatures'];
@@ -344,7 +360,11 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $currentTemperatures = $this->buildTemperaturesArray($subject);
             foreach ($newTemps as $tempKey => $newTemp) {
                 Assertion::inArray($tempKey, array_keys($currentTemperatures));
-                $constraintName = ['histeresis' => 'histeresis', 'auxMinSetpoint' => 'aux', 'auxMaxSetpoint' => 'aux'][$tempKey] ?? 'room';
+                $constraintName = [
+                    'histeresis' => 'histeresis',
+                    'auxMinSetpoint' => 'aux',
+                    'auxMaxSetpoint' => 'aux',
+                ][$tempKey] ?? $this->getDefaultTemperatureConstraintName($subject);
                 $newTempForConfig = '';
                 if (is_numeric($newTemp)) {
                     $newTempForConfig = $this->validateTemperature($subject, $newTemp, $constraintName);
@@ -385,6 +405,10 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
 
     private function adjustTemperature(int $temperature): float {
         return NumberUtils::maximumDecimalPrecision($temperature / 100);
+    }
+
+    private function getDefaultTemperatureConstraintName(HasUserConfig $subject): string {
+        return $subject->getUserConfigValue('temperatureControlType') === 'AUX_HEATER_COOLER_TEMPERATURE' ? 'aux' : 'room';
     }
 
     private function validateTemperature(HasUserConfig $subject, $valueFromApi, string $constraintName = ''): int {
@@ -455,11 +479,12 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 Assertion::inArray($programMode, $availableProgramModes);
                 $min = 0;
                 $max = 0;
+                $tempConstraintName = $this->getDefaultTemperatureConstraintName($subject);
                 if (in_array($programMode, [self::PROGRAM_MODE_HEAT, self::PROGRAM_MODE_HEAT_COOL])) {
-                    $min = $this->validateTemperature($subject, $programSettings['setpointTemperatureHeat'], 'room');
+                    $min = $this->validateTemperature($subject, $programSettings['setpointTemperatureHeat'], $tempConstraintName);
                 }
                 if (in_array($programMode, [self::PROGRAM_MODE_COOL, self::PROGRAM_MODE_HEAT_COOL])) {
-                    $max = $this->validateTemperature($subject, $programSettings['setpointTemperatureCool'], 'room');
+                    $max = $this->validateTemperature($subject, $programSettings['setpointTemperatureCool'], $tempConstraintName);
                 }
                 if ($programMode === self::PROGRAM_MODE_HEAT_COOL) {
                     $constraints = $subject->getProperties()['temperatures'] ?? [];

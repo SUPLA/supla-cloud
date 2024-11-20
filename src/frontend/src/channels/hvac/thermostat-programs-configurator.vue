@@ -211,11 +211,14 @@
             offsetMin() {
                 return this.subject.config.temperatureConstraints?.autoOffsetMin || 0;
             },
+            temperatureConstraintName() {
+                return this.subject.config?.defaultTemperatureConstraintName || 'room';
+            },
             roomMin() {
-                return this.subject.config?.temperatureConstraints?.roomMin;
+                return this.subject.config?.temperatureConstraints?.[`${this.temperatureConstraintName}Min`];
             },
             roomMax() {
-                return this.subject.config?.temperatureConstraints?.roomMax;
+                return this.subject.config?.temperatureConstraints?.[`${this.temperatureConstraintName}Max`];
             },
         },
         watch: {

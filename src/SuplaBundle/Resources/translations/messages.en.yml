@@ -156,3 +156,5 @@ usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Voltage presence (inverted)
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+temperatureControlType_ROOM_TEMPERATURE: Room temperature
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Aux heater/cooler temperature

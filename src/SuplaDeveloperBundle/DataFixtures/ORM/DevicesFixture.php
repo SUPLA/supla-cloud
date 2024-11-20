@@ -228,6 +228,7 @@ class DevicesFixture extends SuplaFixture {
                         'mainThermometerChannelNo' => 1,
                         'auxThermometerChannelNo' => null,
                         'usedAlgorithm' => 'ON_OFF_SETPOINT_MIDDLE',
+                        'temperatureControlType' => 'ROOM_TEMPERATURE',
                         'temperatures' => [
                             'freezeProtection' => 1000,
                             'heatProtection' => 3300,
@@ -278,6 +279,7 @@ class DevicesFixture extends SuplaFixture {
                         'mainThermometerChannelNo' => 0,
                         'auxThermometerChannelNo' => 1,
                         'auxThermometerType' => 'FLOOR',
+                        'temperatureControlType' => 'NOT_SUPPORTED',
                         'antiFreezeAndOverheatProtectionEnabled' => true,
                         'auxMinMaxSetpointEnabled' => true,
                         'temperatureSetpointChangeSwitchesToManualMode' => true,

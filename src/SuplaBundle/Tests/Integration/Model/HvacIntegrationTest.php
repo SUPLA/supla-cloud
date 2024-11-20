@@ -119,6 +119,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertTrue($config['pumpSwitchAvailable']);
                     $this->assertTrue($config['masterThermostatAvailable']);
                     $this->assertTrue($config['heatOrColdSourceSwitchAvailable']);
+                    $this->assertEquals('ROOM_TEMPERATURE', $config['temperatureControlType']);
+                    $this->assertEquals('room', $config['defaultTemperatureConstraintName']);
                 },
             ],
             'THERMOSTAT_HEAT_COOL' => [
@@ -142,6 +144,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertCount(8, $config['temperatureConstraints']);
                     $this->assertTrue($config['heatingModeAvailable']);
                     $this->assertTrue($config['coolingModeAvailable']);
+                    $this->assertArrayNotHasKey('temperatureControlType', $config);
+                    $this->assertEquals('room', $config['defaultTemperatureConstraintName']);
                 },
             ],
             'DOMESTIC_HOT_WATER' => [
@@ -160,6 +164,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertCount(3, array_filter($config['temperatures']));
                     $this->assertTrue($config['heatingModeAvailable']);
                     $this->assertFalse($config['coolingModeAvailable']);
+                    $this->assertArrayNotHasKey('temperatureControlType', $config);
                 },
             ],
         ];
@@ -459,9 +464,10 @@ class HvacIntegrationTest extends IntegrationTestCase {
     }
 
     /** @dataProvider invalidConfigRequests */
-    public function testSettingInvalidConfigs(array $invalidConfig) {
+    public function testSettingInvalidConfigs(array $invalidConfig, int $channelIndex = 2) {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('PUT', '/api/channels/' . $this->hvacChannel->getId(), ['config' => $invalidConfig]);
+        $channel = $this->device->getChannels()[$channelIndex];
+        $client->apiRequestV24('PUT', "/api/channels/{$channel->getId()}", ['config' => $invalidConfig]);
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
     }
@@ -482,6 +488,9 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [['minOnTimeS' => 'abc']],
             [['outputValueOnError' => 'abc']],
             [['outputValueOnError' => 101]],
+            [['temperatureControlType' => 'unicorn']],
+            [['temperatureControlType' => 'AUX_HEATER_COOLER_TEMPERATURE'], 3],
+            [['temperatureControlType' => 'AUX_HEATER_COOLER_TEMPERATURE'], 4],
             [['temperatures' => ['freezeProtection' => 100]]],
             [['temperatures' => ['unknownTemperature' => 10]]],
             [['temperatures' => ['roomMin' => 10]]],
@@ -994,6 +1003,36 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PUT', '/api/channels/' . $this->device->getChannels()[4]->getId(), [
             'config' => ['temperatures' => ['eco' => 19]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    public function testTryingToUpdateTemperatureWithValueHigherThanConstraint() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/' . $this->device->getChannels()[2]->getId(), [
+            'config' => ['temperatures' => ['heatProtection' => 41]], // roomMax = 40
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    public function testAllowsToUpdateHeatProtectionWhenTemperatureControlTypeChanges() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/' . $this->device->getChannels()[2]->getId(), [
+            // auxMax = 50
+            'config' => ['temperatureControlType' => 'AUX_HEATER_COOLER_TEMPERATURE', 'temperatures' => ['heatProtection' => 41]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $body = json_decode($response->getContent(), true);
+        $this->assertEquals('aux', $body['config']['defaultTemperatureConstraintName']);
+    }
+
+    public function testTemperatureControlTypeAuxValidation() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/' . $this->device->getChannels()[2]->getId(), [
+            'config' => ['temperatureControlType' => 'AUX_HEATER_COOLER_TEMPERATURE', 'temperatures' => ['heatProtection' => 51]],
         ]);
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
