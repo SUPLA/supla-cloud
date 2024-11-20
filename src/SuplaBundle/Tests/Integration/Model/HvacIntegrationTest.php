@@ -1125,6 +1125,38 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertStringContainsString('required in another channel', $content['message']);
     }
 
+    /** @see https://github.com/SUPLA/supla-cloud/issues/910 */
+    public function testCanHideThermostatWithoutHidingThermometer() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
+        $this->flush();
+        $thermostat = $device->getChannels()[2];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $thermostat->getId() . '?safe=true', ['hidden' => true]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertFalse($this->freshEntity($device->getChannels()[0])->getHidden());
+        $this->assertFalse($this->freshEntity($device->getChannels()[1])->getHidden());
+        $this->assertTrue($this->freshEntity($device->getChannels()[2])->getHidden());
+        $this->assertFalse($this->freshEntity($device->getChannels()[3])->getHidden());
+    }
+
+    /** @see https://github.com/SUPLA/supla-cloud/issues/910 */
+    public function testCantHideThermometerWithoutHidingThermostat() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
+        $this->flush();
+        $thermometer = $device->getChannels()[0];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $thermometer->getId() . '?safe=true', ['hidden' => true]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertContains($device->getChannels()[3]->getId(), array_column($content['dependencies']['channels'], 'id'));
+        $client->apiRequestV3('PUT', '/api/channels/' . $thermometer->getId(), ['hidden' => true]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertTrue($this->freshEntity($device->getChannels()[0])->getHidden());
+        $this->assertFalse($this->freshEntity($device->getChannels()[1])->getHidden());
+        $this->assertFalse($this->freshEntity($device->getChannels()[2])->getHidden());
+        $this->assertTrue($this->freshEntity($device->getChannels()[3])->getHidden());
+    }
+
     public function testIssue885() {
         $dump = file_get_contents(__DIR__ . '/../fixtures/issue-885.sql');
         $this->getEntityManager()->getConnection()->executeStatement($dump);

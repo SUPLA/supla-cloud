@@ -393,7 +393,7 @@ class ChannelController extends RestController {
             }
             $hiddenChanged = isset($requestData['hidden']) && $requestData['hidden'] !== $channel->getHidden();
             if ($hiddenChanged && !$changesConfirmed) {
-                $dependencies = $channelDependencies->getItemsThatDependOnLocation($channel);
+                $dependencies = $channelDependencies->getItemsThatDependOnVisibility($channel);
                 $visibleDependencies = $channelDependencies->onlyDependenciesVisibleToUser($dependencies);
                 if (array_filter($visibleDependencies)) {
                     return $this->view(['conflictOn' => 'hidden', 'dependencies' => $visibleDependencies], Response::HTTP_CONFLICT);
@@ -462,7 +462,7 @@ class ChannelController extends RestController {
                 }
                 if ($hiddenChanged) {
                     $channel->setHidden(boolval($requestData['hidden']));
-                    $dependencies = $channelDependencies->getItemsThatDependOnLocation($channel);
+                    $dependencies = $channelDependencies->getItemsThatDependOnVisibility($channel);
                     foreach ($dependencies['channels'] as $depChannel) {
                         $depChannel->setHidden($channel->getHidden());
                         $em->persist($depChannel);

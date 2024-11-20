@@ -50,4 +50,8 @@ final class ArrayUtils {
         }
         return $new;
     }
+
+    public static function filter(array $array, callable $filter): array {
+        return array_values(array_filter($array, $filter));
+    }
 }

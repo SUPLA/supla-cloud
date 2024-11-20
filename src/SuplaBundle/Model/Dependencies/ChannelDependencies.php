@@ -63,6 +63,14 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         ];
     }
 
+    public function getItemsThatDependOnVisibility(IODeviceChannel $channel): array {
+        $deps = $this->getItemsThatDependOnLocation($channel);
+        if ($channel->getType()->getId() === ChannelType::HVAC) {
+            $deps['channels'] = [];
+        }
+        return $deps;
+    }
+
     public function getChannelsToRemoveWith(IODeviceChannel $channel, array &$checkedIds = []): array {
         $checkedIds[] = $channel->getId();
         $channelsToRemove = $this->channelRepository->findBy(
