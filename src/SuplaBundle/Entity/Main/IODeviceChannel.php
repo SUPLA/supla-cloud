@@ -218,7 +218,6 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
 
     /**
      * @ORM\Column(name="flags", type="bigint", nullable=true, options={"unsigned"=true})
-     * @Groups({"basic"})
      */
     private $flags = 0;
 
