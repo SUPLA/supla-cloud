@@ -24,9 +24,9 @@
     <div>
         <h3 class="m-3" v-if="subDevice && subDevice.name">{{ subDevice.name }}</h3>
         <h3 class="m-3" v-else>{{ $t('Subdevice #{id}', {id: channel.subDeviceId}) }}</h3>
-        <div v-if="identifyAvailable || restartAvailable" class="mb-3">
+        <div v-if="identifyAvailable || restartAvailable" class="mb-3 d-flex">
             <PromiseConfirmButton :action="identify" label-i18n="Identify device" v-if="identifyAvailable" class="mr-2"/>
-            <PromiseConfirmButton :action="restart" label-i18n="Restart device" v-if="restartAvailable"/>
+            <PromiseConfirmButton :action="restart" label-i18n="Restart device" v-if="restartAvailable" class="mr-2"/>
             <ChannelDeleteButton :channel="channel" deleting-subdevice/>
         </div>
         <div v-if="subDevice" class="mb-3">
