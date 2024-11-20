@@ -920,15 +920,28 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testFetchingSubDevices() {
-        (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceGateway($this->device->getLocation());
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceGateway($this->device->getLocation());
         $this->flush();
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV3('GET', "/api/subdevices");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $subDevices = json_decode($client->getResponse()->getContent(), true);
-        $this->assertCount(2, $subDevices);
-        $this->assertEquals([1, 3], array_column($subDevices, 'id'));
+        $this->assertCount(3, $subDevices);
+        $this->assertEquals([1, 3, 4], array_column($subDevices, 'id'));
         $this->assertEquals('My Cool Subdevice', $subDevices[0]['name']);
+        return $device->getId();
+    }
+
+    /** @depends testFetchingSubDevices */
+    public function testDeletingDeviceDeletesItsSubDevices(int $deviceId) {
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $deviceId);
+        $this->assertStatusCode(204, $client->getResponse());
+        $client->apiRequestV3('GET', "/api/subdevices");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $subDevices = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEmpty($subDevices);
     }
 }

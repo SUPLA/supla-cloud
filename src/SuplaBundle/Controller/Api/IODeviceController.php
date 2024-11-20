@@ -23,6 +23,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\SubDevice;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
@@ -33,6 +34,7 @@ use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Dependencies\ChannelDependencies;
 use SuplaBundle\Model\Dependencies\IODeviceDependencies;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Model\UserConfigTranslator\HiddenReadOnlyConfigFieldsUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\IODeviceConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\IODeviceRepository;
@@ -454,7 +456,8 @@ class IODeviceController extends RestController {
         IODevice $ioDevice,
         Request $request,
         IODeviceDependencies $deviceDependencies,
-        ChannelDependencies $channelDependencies
+        ChannelDependencies $channelDependencies,
+        HiddenReadOnlyConfigFieldsUserConfigTranslator $hiddenConfigTranslator
     ) {
         $deviceId = $ioDevice->getId();
         if (filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)) {
@@ -472,7 +475,8 @@ class IODeviceController extends RestController {
         }
         $cannotDeleteMsg = 'Cannot delete this I/O Device right now.'; // i18n
         Assertion::true($this->suplaServer->userAction('BEFORE-DEVICE-DELETE', $ioDevice->getId()), $cannotDeleteMsg);
-        $this->transactional(function (EntityManagerInterface $em) use ($channelDependencies, $ioDevice) {
+        $this->transactional(function (EntityManagerInterface $em) use ($hiddenConfigTranslator, $channelDependencies, $ioDevice) {
+            $hiddenConfigTranslator->setIdsToIgnore(EntityUtils::mapToIds($ioDevice->getChannels()));
             foreach ($ioDevice->getChannels() as $channel) {
                 $channelDependencies->clearDependencies($channel);
             }

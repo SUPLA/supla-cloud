@@ -28,6 +28,7 @@ use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\SubDevice;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
@@ -641,6 +642,15 @@ class ChannelController extends RestController {
                 $em->remove($channelToRemove);
             }
             $channelId = $channel->getId();
+            if ($channel->getSubDeviceId() > 0) {
+                $subDevice = $em->getRepository(SubDevice::class)->findOneBy([
+                    'id' => $channel->getSubDeviceId(),
+                    'device' => $device,
+                ]);
+                if ($subDevice) {
+                    $em->remove($subDevice);
+                }
+            }
             $em->remove($channel);
             $device->onChannelRemoved();
             $em->persist($device);

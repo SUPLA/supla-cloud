@@ -21,12 +21,14 @@ use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
+use SuplaBundle\Entity\Main\SubDevice;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelConfigChangeScope;
@@ -1694,6 +1696,23 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $removedChannelsIds = array_column($content['channelsToRemove'], 'id');
         $this->assertEquals(array_unique($dependentChannelsIds), $dependentChannelsIds);
         $this->assertEmpty(array_intersect($dependentChannelsIds, $removedChannelsIds));
+        return $device->getId();
+    }
+
+    /** @depends testDeletingThermometerUsedInManyChannelsDoesNotDuplicateDependencies */
+    public function testDeletingSubdeviceAlongWithChannels(int $deviceId) {
+        /** @var IODevice $device */
+        $device = $this->freshEntityById(IODevice::class, $deviceId);
+        $thermometer = $device->getChannels()[9];
+        $count = $device->getChannels()->count();
+        $subDeviceId = $thermometer->getSubDeviceId();
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$thermometer->getId()}");
+        $this->assertStatusCode(204, $client->getResponse());
+        $device = $this->freshEntity($device);
+        $this->assertEquals($count - 6, $device->getChannels()->count());
+        $subDevice = $this->getEntityManager()->getRepository(SubDevice::class)->findOneBy(['id' => $subDeviceId, 'device' => $device]);
+        $this->assertNull($subDevice);
     }
 
     public function testDeletingDependentChannelsRecursively() {
