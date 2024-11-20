@@ -40,7 +40,7 @@ describe('ChannelActionExecutor', () => {
         ownSubjectType: ActionableSubjectType.CHANNEL,
         possibleActions: [{"id": ChannelFunctionAction.OPEN_PARTIALLY, "name": "OPEN_PARTIALLY", "caption": "Open partially"}],
         functionId: ChannelFunction.CONTROLLINGTHEROLLERSHUTTER,
-        connected: true,
+        operational: true,
         "function": {
             "id": ChannelFunction.CONTROLLINGTHEROLLERSHUTTER,
             "name": "CONTROLLINGTHEROLLERSHUTTER",
