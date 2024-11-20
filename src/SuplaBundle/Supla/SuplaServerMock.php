@@ -75,8 +75,11 @@ class SuplaServerMock extends SuplaServer {
         if (preg_match('#^IS-(IODEV|CLIENT|CHANNEL)-CONNECTED:(\d+),(\d+),?(\d+)?$#', $cmd, $match)) {
             if ($match[1] === 'CHANNEL') {
                 $isTests = defined('APPLICATION_ENV') && in_array(APPLICATION_ENV, ['e2e', 'test']);
-                $available = $this->faker->boolean($isTests ? 100 : 90) ? 1 : 2;
-                return "CONNECTED:$match[3],$available\n";
+                if ($this->faker->boolean($isTests ? 100 : 90)) {
+                    return "CONNECTED:$match[3]\n";
+                } else {
+                    return "CONNECTED_BUT_NOT_AVAILABLE:$match[3]\n";
+                }
             } elseif ($match[1] !== 'CLIENT' || $this->faker->boolean()) {
                 return "CONNECTED:$match[3]\n";
             } else {

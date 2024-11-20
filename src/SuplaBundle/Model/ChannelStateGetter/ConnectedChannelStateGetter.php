@@ -15,10 +15,10 @@ class ConnectedChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
     public function getState(IODeviceChannel $channel): array {
-        $status = $this->suplaServer->getChannelConnectionOnlineStatus($channel);
+        $status = $this->suplaServer->getChannelConnectionStatus($channel);
         return [
-            'connected' => $status > 0,
-            'operational' => $status === 1,
+            'connected' => $status->isConnected(),
+            'operational' => $status->isOperational(),
         ];
     }
 
