@@ -26,6 +26,7 @@ class IntegrationTestCaseListener implements TestListener {
     use TestListenerDefaultImplementation;
 
     public function startTest(Test $test): void {
+        defined('APPLICATION_ENV') || define('APPLICATION_ENV', 'test');
         if ($test instanceof IntegrationTestCase) {
             try {
                 $test->prepareIntegrationTest();
