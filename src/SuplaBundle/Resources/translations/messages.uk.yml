@@ -136,7 +136,6 @@ Cancelled: Скасовано
 Cannot calculate when to run the schedule - incorrect configuration?: Не вдалося розрахувати дату початку розкладу - неправильна конфігурація?
 Cannot change the channel function right now.: Наразі функції цього каналу не можна змінити.
 Cannot delete this I/O Device right now.: Цей пристрій наразі неможливо видалити.
-Cannot execute an action when the device is disconnected.: Неможливо виконати дію, коли пристрій відключено.
 Captcha token is not valid.: Недійсний код перевірки.
 Caption: Підпис
 Caption is too long.: Назва занадто довга.
@@ -1167,6 +1166,7 @@ Add new item to use in the scene: Додайте новий елемент до 
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ви впевнені, що хочете видалити всю історію аберації цього каналу?
 Authorized OAuth apps: Авторизовані програми OAuth
 Calculated value: Покази лічильника
+Cannot execute an action when the device is disconnected.: Неможливо виконати дію, коли пристрій відключено.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Не надійшло повідомлення з посиланням для активації вашого облікового запису? Переконайтеся, що він не потрапив у папку СПАМ (небажана пошта). Або ви можете {clickHereLink}, щоб надіслати його повторно.
 Channel value: Значення
 Chart data source type: Тип джерела даних
@@ -1207,6 +1207,7 @@ suffix: суфікс
 0% tilt angle: ~
 100% tilt angle: ~
 A confirmation upon successful device unlocking.: ~
+Action trigger for channel: ~
 Active from: ~
 Active to: ~
 Activity conditions: ~
@@ -1226,23 +1227,27 @@ Are you sure you want to change channel’s location?: ~
 Are you sure you want to change channel’s visibility?: ~
 Are you sure you want to change device’s location?: ~
 Are you sure you want to delete this channel?: ~
+Are you sure you want to delete this subdevice?: ~
 Automatic: ~
 Automatic front panel turn off: ~
 Automatic front panel turn off after: ~
 Automatic thermostat: ~
 Automatic time synchronization: ~
 Aux thermometer: ~
+Aux thermometer for channel: ~
 Aux thermometer type: ~
 Available variables: ~
 Average: ~
 Battery cover open: ~
 Behavior settings: ~
 Binary sensor: ~
+Binary sensor for channel: ~
 Brightness adjustment for automatic mode: ~
 Brightness level: ~
 Button volume: ~
 Buttons upside down: ~
 Candle: ~
+Cannot execute an action when the channel is not available.: ~
 Cannot update OCR settings. Try again in a while.: ~
 Change percentage by: ~
 Change percentage to: ~
@@ -1349,7 +1354,9 @@ Low threshold: ~
 Low threshold must be less than high threshold.: ~
 Low value: ~
 Main thermometer: ~
+Main thermometer for channel: ~
 Master thermostat: ~
+Master thermostat for channel: ~
 Max: ~
 Maximum duration is one year.: ~
 Maximum temperature that can be set from the device: ~
@@ -1369,6 +1376,7 @@ Minimum temperature that can be set from the device: ~
 Motor upside down: ~
 'No': ~
 No results: ~
+Not available: ~
 Notification body is set by the firmware.: ~
 Notification must have recipients.: ~
 Notification title is set by the firmware.: ~
@@ -1380,6 +1388,7 @@ OR: ~
 Off with duration: ~
 On with duration: ~
 Open value: ~
+Opening sensor for channel: ~
 Output value on error: ~
 Overheat protection: ~
 P/C: ~
@@ -1395,8 +1404,9 @@ Please select and configure the action: ~
 Program {programNo}: ~
 Projector screen: ~
 Pump switch: ~
+Pump switch for channel: ~
 Push notifications limit has been exceeded: ~
-Reference to the channel will be removed from the items below.: ~
+Reference to the deleted channels will be removed from the items below.: ~
 Refresh interval: ~
 Refresh the config: ~
 Refreshing the configuration will overwrite the changes you made here.: ~
@@ -1434,6 +1444,7 @@ Switch to program mode: ~
 THEN: ~
 Take a photo now: ~
 Temperature adjustment only: ~
+Temperature control type: ~
 Temperature difference is too big between {min}°C and {max}°C.: ~
 Temperature setpoint change switches to manual mode: ~
 Temporal override: ~
@@ -1446,9 +1457,10 @@ The device has been unlocked.: ~
 The device has channel conflict and cannot work.: ~
 The device is locked: ~
 The following channels will be also removed along with their dependencies.: ~
-The items below rely on this channel, so they will be deleted.: ~
+The items below rely on the deleted channels, so they will be deleted, too.: ~
 The master termostat you chose already has a master.: ~
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
+The subdevice has been deleted.: ~
 The thermostat will not work if the main thermometer is not set.: ~
 Thermometer error: ~
 Thermometers configuration: ~
@@ -1486,10 +1498,14 @@ When the alarm is armed: ~
 When the alarm is armed or disarmed: ~
 When the alarm is disarmed: ~
 When the battery cover is opened: ~
+When the battery level will be: ~
+When the battery reaches a certain level: ~
 When the clock error has been reported: ~
 When the curtain position changes: ~
 When the curtain reaches: ~
 When the curtain reaches a certain position: ~
+When the device starts to be powered from battery: ~
+When the device stops to be powered from battery: ~
 When the facade blind position changes: ~
 When the facade blind reaches: ~
 When the facade blind reaches a certain position: ~
@@ -1532,10 +1548,12 @@ Will be deleted after: ~
 With a timer: ~
 'Yes': ~
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
+You cannot change the function of this channel because it is required in another channel.: ~
 You cannot to set a master thermostat for a channel that is master for others.: ~
 You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
 You need to provide icons for all states in light mode.: ~
 Your device has been unlocked by the installer.: ~
+and wait until the battery level will be: ~
 and wait until the meter will be: ~
 auxThermometerType_DISABLED: ~
 auxThermometerType_FLOOR: ~
@@ -1590,6 +1608,8 @@ subdevicePairingResult_UNAUTHORIZED: ~
 sunrise: ~
 sunset: ~
 swap: ~
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
+temperatureControlType_ROOM_TEMPERATURE: ~
 the master thermostat ID{id}: ~
 thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
 thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~

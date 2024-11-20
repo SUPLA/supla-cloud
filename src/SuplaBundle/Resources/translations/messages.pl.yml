@@ -108,6 +108,7 @@ Are you sure you want to delete this icon?: Czy na pewno chcesz usunąć tą iko
 Are you sure you want to delete this reaction?: Czy na pewno chcesz usunąć tą reakcję?
 Are you sure you want to delete this scene?: Czy na pewno chcesz usunąć tę scenę?
 Are you sure you want to delete this schedule?: Czy na pewno chcesz usunąć ten harmonogram?
+Are you sure you want to delete this subdevice?: Czy na pewno chcesz usunąć do urządzenie podwykonawcze?
 Are you sure you want to log out this device?: Czy na pewno chcesz wylogować to urządzenie?
 Are you sure you want to reset the counter state?: Czy na pewno chcesz wyzerować licznik?
 Are you sure you want to revoke permissions granted to this OAuth application?: Czy na pewno chcesz odwołać uprawnienia przyznane tej aplikacji OAuth?
@@ -178,7 +179,7 @@ Candle: Świecowy
 Cannot calculate when to run the schedule - incorrect configuration?: Nie udało się obliczyć żadnej daty uruchomienia harmonogramu - niepoprawna konfiguracja?
 Cannot change the channel function right now.: Nie można zmienić funkcji tego kanału w tej chwili.
 Cannot delete this I/O Device right now.: Nie można usunąć tego urządzenia w tej chwili.
-Cannot execute an action when the device is disconnected.: Nie można wykonywać akcji gdy urządzenie jest rozłączone.
+Cannot execute an action when the channel is not available.: Nie można wykonywać akcji, gdy kanał jest niedostępny.
 Cannot update OCR settings. Try again in a while.: Nie udało się zaktualizować ustawień OCR. Spróbuj ponownie za chwilę.
 Captcha token is not valid.: Niepoprawna captcha.
 Caption: Podpis
@@ -693,6 +694,7 @@ No. of locations: Liczba lokalizacji
 None: Brak
 None (channel disabled): Brak (kanał wyłączony)
 Noop: Brak operacji
+Not available: Niedostępny
 Notification: Powiadomienie
 Notification body is set by the firmware.: Treść powiadomienia jest ustawiana przez firmware.
 Notification must have a body.: Powiadomienie musi mieć treść.
@@ -809,7 +811,7 @@ Reactions: Reakcje
 Reactions limit has been exceeded: Przekroczono limit reakcji
 Read: Odczyt
 Recipients: Odbiorcy
-Reference to the channel will be removed from the items below.: Wskazanie na ten kanał będzie usunięte z poniższych elementów.
+Reference to the deleted channels will be removed from the items below.: Wskazanie na ten kanał zosatnie także usunięte z poniższych elementów.
 Reference to the scene will be removed from the items below.: Wskazanie na scenę zostanie usunięte z poniższych elementów.
 Refresh: Odśwież
 Refresh interval: Interwał odświeżania
@@ -971,6 +973,7 @@ Temperature Sensor: Czujnik temperatury
 Temperature adjustment: Dostosowanie temperatury
 Temperature adjustment only: Tylko ustawienie temperatury
 Temperature and humidity sensor: Czujnik temperatury i wilgotności
+Temperature control type: Typ kontroli temperatury
 Temperature difference is too big between {min}°C and {max}°C.: Różnica temperatur jest zbyt duża pomiędzy {min}°C a {max}°C.
 Temperature setpoint change switches to manual mode: Zmiana temperatury docelowej przełącza w tryb manualny
 Temporal override: Tymczasowe nadpisanie
@@ -1004,9 +1007,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
 The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
 The incident was detected at %datetime%.: Zdarzenie miało miejsce %datetime%.
+The items below rely on the deleted channels, so they will be deleted, too.: Poniższe elementy są zależne od usuwanych kanałów, więc także zostaną usunięte.
 The items below rely on this channel function, so they will be deleted.: Poniższe elementy bazują na aktualnej funkcji kanału, więc zostaną usunięte po jej zmianie.
 The items below rely on this channel group, so they will be deleted.: Poniższe elementy korzystają z tej grupy kanałów, więc po jej usunięciu zostaną również usunięte.
-The items below rely on this channel, so they will be deleted.: Poniższe elementy zależą od tego kanału, więc zostaną usunięte.
 The items below rely on this scene, so they will be deleted.: Poniższe elementy opierają się o tę scenę, więc zostaną usunięte.
 The latest execution: Ostatnie wykonanie
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Rezultat wykonania jest zaprezentowany jako strona internetowa, ponieważ Ty (lub Twoja przeglądarka) poprosiła o odpowiedź w formacie HTML.
@@ -1028,6 +1031,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.
 The server has returned an HTTP {statusCode} error.: Serwer zwrócił błąd {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.
+The subdevice has been deleted.: Urządzenie podwykonawcze zostało usunięte
 The thermostat will not work if the main thermometer is not set.: Główny termometr musi być ustawiony by termostat działał.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Zawór nie może zostać otwarty za pomocą linku bezpośredniego bądź za pośrednictwem API, gdy został zamknięty manualnie. Aby wznowić sterowanie otwórz zawór ręcznie.
 The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: Zawór został zamknięty w trybie manualnym lub radiowo. Zanim go otworzysz upewnij się, że nie został zamknięty z powodu zalania. Aby wyłączyć ostrzeżenie otwórz zawór manualnie. Czy na pewno chcesz otworzyć zawór zdalnie?!
@@ -1160,6 +1164,8 @@ When the apparent power will be: Kiedy moc pozorna będzie
 When the balanced forward active energy will be: Kiedy zbilansowana, pobrana energia czynna będzie
 When the balanced reverse active energy will be: Kiedy zbilansowana, zwrócona energia czynna będzie
 When the battery cover is opened: Gdy pokrywa baterii zostanie otwarta
+When the battery level will be: Kiedy poziom baterii będzie
+When the battery reaches a certain level: Kiedy poziom baterii osiągnie dany poziom
 When the brightness level changes: Kiedy poziom jasności się zmieni
 When the brightness will be: Kiedy poziom jasności będzie
 When the clock error has been reported: Gdy zegar zgłosi błąd
@@ -1174,6 +1180,8 @@ When the depth is: Kiedy pomiar głębokości będzie
 When the device is turned off: Kiedy urządzenie zostanie wyłączone
 When the device is turned on: Kiedy urządzenie zostanie włączone
 When the device is turned on or off: Kiedy urządzenie zostanie włączone lub wyłączone
+When the device starts to be powered from battery: Kiedy urządzenie zacznie być zasilane z baterii
+When the device stops to be powered from battery: Kiedy urządzenie przestanie być zasilane z baterii
 When the dimmer brightness level changes: Kiedy poziom jasności ściemniacza się zmieni
 When the dimmer reaches a certain brightness level: Kiedy ściemniacz osiągnie określony poziom jasności
 When the distance changes: Kiedy odległość się zmieni
@@ -1304,6 +1312,7 @@ You can browse only the most recent logs now. Wait a while for the full history.
 You can ignore this message, if you have accidentally entered an incorrect password.: Możesz zignorować tę wiadomość jeżeli to Ty wprowadziłeś(aś) błędne hasło.
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Możesz ustawić tutaj wartości względne. Przykładowo +10 lub -20 odpowiednio zwiększy ustawienie o 10 lub zmniejszy o 20.
 You can use the application but you will not be able to modify any settings.: Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.
+You cannot change the function of this channel because it is required in another channel.: Nie możesz zmienić funkcji tego kanału, ponieważ jest ona wymagana w ustawieniach innego kanału.
 You cannot delete your last access identifier.: Nie możesz usunąć swojego ostatniego identyfikatora dostępu.
 You cannot delete your last location.: Nie możesz usunąć swojej ostatniej lokalizacji.
 You cannot to set a master thermostat for a channel that is master for others.: Nie możesz ustawić termostatu nadrzędnego w termostacie nadrzędnym
@@ -1376,6 +1385,7 @@ addToHistoryMeasurementWarningUnselected: Odznaczenie tej opcji spowoduje pomini
 after: po
 and wait until it reaches: i nie wykonuj ponownie tej reakcji, aż osiągnie
 and wait until it will be: i nie wykonuj ponownie tej reakcji, aż będzie
+and wait until the battery level will be: i czekaj, aż poziom baterii będzie
 and wait until the humidity will be: i nie wykonuj ponownie tej reakcji, aż wilgotność będzie
 and wait until the meter will be: i nie wykonuj ponownie tej reakcji, dopóki wartość nie będzie
 and wait until the temperature will be: i nie wykonuj ponownie tej reakcji, aż temperatura będzie
@@ -1530,6 +1540,8 @@ sunset: zachód słońca
 sunset-after: zachodzie
 sunset-before: zachodem
 swap: zamień
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Temperatura dodatkowa
+temperatureControlType_ROOM_TEMPERATURE: Temperatura pokoju
 the master thermostat ID{id}: termostatu nadrzędnego ID{id}
 the whole history: cała historia
 then execute the action: wtedy wykonaj akcję
@@ -1610,6 +1622,7 @@ Assigned Locations: Przypisane Lokalizacje
 Authorized OAuth apps: Zautoryzowane aplikacje OAuth
 Available: Dostępne
 Calculated value: Stan licznika
+Cannot execute an action when the device is disconnected.: Nie można wykonywać akcji gdy urządzenie jest rozłączone.
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Wiadomość z linkiem aktywującym Twoje konto nie dotarła? Upewnij się, że nie trafiła do folderu SPAM (niechciana poczta). Jeśli nie, {clickHereLink}, by wysłać ją ponownie.
 Channel value: Wartość
@@ -1663,6 +1676,7 @@ Please select the schedules that should also be enabled.: Zaznacz harmonogramy, 
 Previous login: Poprzednie logowanie
 Read the following channel's state: Odczytaj stan poniższego kanału
 Reads the state from source channel and sets the same in other channel or channel group.: Odczytuje stan wskazanego kanału i ustawia taki sam stan dla wybranego kanału lub grupy.
+Reference to the channel will be removed from the items below.: Wskazanie na ten kanał będzie usunięte z poniższych elementów.
 Registration: Rejestracja
 Remaining: Pozostało
 Remove: Usuń
@@ -1679,6 +1693,7 @@ Status: Status
 Subject: Podmiot
 Sunrise / Sunset: Wschód / Zachód
 The events in voltage aberrations history will be automatically deleted after {days} days.: Zdarzenia w historii aberracji napięcia będą automatycznie usuwane po {days} dniach.
+The items below rely on this channel, so they will be deleted.: Poniższe elementy zależą od tego kanału, więc zostaną usunięte.
 Triggers: Wyzwalacze
 Try again later: Spróbuj ponownie później
 Turn off after: Wyłącz po czasie

@@ -116,7 +116,6 @@ Cancelled: Аннулировано
 Cannot calculate when to run the schedule - incorrect configuration?: Не удалось вычислить дату запуска графика - неправильная конфигурация?
 Cannot change the channel function right now.: Вы не можете изменить функцию этого канала в данный момент.
 Cannot delete this I/O Device right now.: Вы не можете удалить это устройство в данный момент.
-Cannot execute an action when the device is disconnected.: Не удается выполнить действие при отключенном устройстве.
 Captcha token is not valid.: Неправильная капча.
 Caption: Подпись
 Caption is too long.: Название слишком длинное.
@@ -921,6 +920,7 @@ Are you sure you want to disable this device?: Ты уверен, что хоч�
 Assigned Locations: Подключенные Области
 Authorized OAuth apps: Авторизованные приложения OAuth
 Calculated value: Состояние счетчика
+Cannot execute an action when the device is disconnected.: Не удается выполнить действие при отключенном устройстве.
 Cannot send an activation e-mail. Try again later.: Невозможно отправить сообщение со ссылкой для активации. Пожалуйста, попробуйте позже.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Сообщение со ссылкой для активации Вашей учетной записи не пришло? Убедитесь, что оно не попало в папку СПАМ (нежелательная почта). Вы также можете {clickHereLink}, чтобы отправить его снова.
 Channel value: Значение
@@ -999,6 +999,7 @@ suffix: суффикс
 100% tilt angle: ~
 A confirmation upon successful device unlocking.: ~
 Action confirmation: ~
+Action trigger for channel: ~
 Active applications: ~
 Active from: ~
 Active sessions: ~
@@ -1029,6 +1030,7 @@ Are you sure you want to change device’s location?: ~
 Are you sure you want to delete the events from the voltage aberrations history?: ~
 Are you sure you want to delete this channel?: ~
 Are you sure you want to delete this reaction?: ~
+Are you sure you want to delete this subdevice?: ~
 Are you sure you want to log out this device?: ~
 Arithmetic balance: ~
 Authentication failure: ~
@@ -1039,12 +1041,14 @@ Automatic front panel turn off after: ~
 Automatic thermostat: ~
 Automatic time synchronization: ~
 Aux thermometer: ~
+Aux thermometer for channel: ~
 Aux thermometer type: ~
 Available variables: ~
 Average: ~
 Battery cover open: ~
 Behavior settings: ~
 Binary sensor: ~
+Binary sensor for channel: ~
 Body: ~
 Brightness adjustment for automatic mode: ~
 Brightness level: ~
@@ -1053,6 +1057,7 @@ Buttons upside down: ~
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
 By signing in, you are authorizing {clientName} to control your devices.: ~
 Candle: ~
+Cannot execute an action when the channel is not available.: ~
 Cannot update OCR settings. Try again in a while.: ~
 Change percentage by: ~
 Change percentage to: ~
@@ -1193,7 +1198,9 @@ Low threshold: ~
 Low threshold must be less than high threshold.: ~
 Low value: ~
 Main thermometer: ~
+Main thermometer for channel: ~
 Master thermostat: ~
+Master thermostat for channel: ~
 Max: ~
 Maximum duration is one year.: ~
 Maximum temperature that can be set from the device: ~
@@ -1217,6 +1224,7 @@ New reaction: ~
 No results: ~
 No, take me back!: ~
 Noop: ~
+Not available: ~
 Notification: ~
 Notification body is set by the firmware.: ~
 Notification must have a body.: ~
@@ -1232,6 +1240,7 @@ OR: ~
 Off with duration: ~
 On with duration: ~
 Open value: ~
+Opening sensor for channel: ~
 Operation: ~
 Output value on error: ~
 Overheat protection: ~
@@ -1261,11 +1270,12 @@ Predefined time ranges: ~
 Program {programNo}: ~
 Projector screen: ~
 Pump switch: ~
+Pump switch for channel: ~
 Push notifications limit has been exceeded: ~
 Reactions: ~
 Reactions limit has been exceeded: ~
 Recipients: ~
-Reference to the channel will be removed from the items below.: ~
+Reference to the deleted channels will be removed from the items below.: ~
 Refresh interval: ~
 Refresh the config: ~
 Refreshing the configuration will overwrite the changes you made here.: ~
@@ -1314,6 +1324,7 @@ THEN: ~
 Tab: ~
 Take a photo now: ~
 Temperature adjustment only: ~
+Temperature control type: ~
 Temperature difference is too big between {min}°C and {max}°C.: ~
 Temperature setpoint change switches to manual mode: ~
 Temporal override: ~
@@ -1329,12 +1340,13 @@ The device that uses this session will loose access to the SUPLA Cloud and will 
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
 The entire history of the voltage aberrations will be removed from this channel.: ~
 The following channels will be also removed along with their dependencies.: ~
-The items below rely on this channel, so they will be deleted.: ~
+The items below rely on the deleted channels, so they will be deleted, too.: ~
 The master termostat you chose already has a master.: ~
 The notification must have a recipient.: ~
 The reaction has been added: ~
 The reaction has been changed: ~
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
+The subdevice has been deleted.: ~
 The thermostat will not work if the main thermometer is not set.: ~
 Thermometer error: ~
 Thermometers configuration: ~
@@ -1397,6 +1409,8 @@ When the apparent power will be: ~
 When the balanced forward active energy will be: ~
 When the balanced reverse active energy will be: ~
 When the battery cover is opened: ~
+When the battery level will be: ~
+When the battery reaches a certain level: ~
 When the brightness level changes: ~
 When the brightness will be: ~
 When the clock error has been reported: ~
@@ -1411,6 +1425,8 @@ When the depth is: ~
 When the device is turned off: ~
 When the device is turned on: ~
 When the device is turned on or off: ~
+When the device starts to be powered from battery: ~
+When the device stops to be powered from battery: ~
 When the dimmer brightness level changes: ~
 When the dimmer reaches a certain brightness level: ~
 When the distance changes: ~
@@ -1527,6 +1543,7 @@ With a timer: ~
 'Yes': ~
 You can browse only the most recent logs now. Wait a while for the full history.: ~
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
+You cannot change the function of this channel because it is required in another channel.: ~
 You cannot to set a master thermostat for a channel that is master for others.: ~
 You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
 You must leave at least one phase enabled.: ~
@@ -1541,6 +1558,7 @@ actionableSubjectType_notification: ~
 actionableSubjectType_schedule: ~
 and wait until it reaches: ~
 and wait until it will be: ~
+and wait until the battery level will be: ~
 and wait until the humidity will be: ~
 and wait until the meter will be: ~
 and wait until the temperature will be: ~
@@ -1621,6 +1639,8 @@ sum: ~
 sunrise: ~
 sunset: ~
 swap: ~
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
+temperatureControlType_ROOM_TEMPERATURE: ~
 the master thermostat ID{id}: ~
 the whole history: ~
 then execute the action: ~
