@@ -607,6 +607,14 @@ class ChannelController extends RestController {
             foreach ($channelsToRemoveWith as $channelToRemove) {
                 $dependencies = array_merge_recursive($dependencies, $channelDependencies->getItemsThatDependOnFunction($channelToRemove));
             }
+            $dependencies = array_map(fn(array $deps) => EntityUtils::uniqueByIds($deps), $dependencies);
+            if ($dependencies['channels'] ?? []) {
+                $removedIds = EntityUtils::mapToIds($channelsToRemoveWith);
+                $dependencies['channels'] = array_values(array_filter(
+                    $dependencies['channels'],
+                    fn(IODeviceChannel $ch) => !in_array($ch->getId(), $removedIds)
+                ));
+            }
             if (count(array_filter($dependencies)) || $channelsToRemoveWith) {
                 $view = $this->view([
                     'conflictOn' => 'deletion',
@@ -624,7 +632,7 @@ class ChannelController extends RestController {
         }
         $this->transactional(function (EntityManagerInterface $em) use ($device, $channelDependencies, $channel, $hiddenConfigTranslator) {
             $channelsToRemoveWith = $channelDependencies->getChannelsToRemoveWith($channel);
-            $idsToRemove = array_map(fn(IODeviceChannel $ch) => $ch->getId(), $channelsToRemoveWith);
+            $idsToRemove = EntityUtils::mapToIds($channelsToRemoveWith);
             $idsToRemove[] = $channel->getId();
             $hiddenConfigTranslator->setIdsToIgnore($idsToRemove);
             $channelDependencies->clearDependencies($channel);

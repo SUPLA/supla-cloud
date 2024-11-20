@@ -567,6 +567,48 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => Functions::getAllFeaturesFlag(), 'subDeviceId' => 3]],
             [ChannelType::SENSORNO, ChannelFunction::NONE, ['subDeviceId' => 3]],
             [ChannelType::SENSORNO, ChannelFunction::NONE, ['subDeviceId' => 3]],
+            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER, ['subDeviceId' => 4]],
+            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER, ['subDeviceId' => 4]],
+            [
+                ChannelType::HVAC,
+                ChannelFunction::HVAC_THERMOSTAT,
+                [
+                    'subDeviceId' => 4,
+                    'funcList' => Functions::HVAC_THERMOSTAT,
+                    'properties' => json_encode(['readOnlyConfigFields' => ['auxThermometerChannelNo']]),
+                    'userConfig' => json_encode(['mainThermometerChannelNo' => 8, 'auxThermometerChannelNo' => 9]),
+                ],
+            ],
+            [
+                ChannelType::HVAC,
+                ChannelFunction::HVAC_THERMOSTAT,
+                [
+                    'subDeviceId' => 4,
+                    'funcList' => Functions::HVAC_THERMOSTAT,
+                    'properties' => json_encode(['readOnlyConfigFields' => ['auxThermometerChannelNo']]),
+                    'userConfig' => json_encode(['mainThermometerChannelNo' => 8, 'auxThermometerChannelNo' => 9]),
+                ],
+            ],
+            [
+                ChannelType::HVAC,
+                ChannelFunction::HVAC_THERMOSTAT,
+                [
+                    'subDeviceId' => 4,
+                    'funcList' => Functions::HVAC_THERMOSTAT,
+                    'properties' => json_encode(['readOnlyConfigFields' => ['auxThermometerChannelNo']]),
+                    'userConfig' => json_encode(['mainThermometerChannelNo' => 8, 'auxThermometerChannelNo' => 9]),
+                ],
+            ],
+            [
+                ChannelType::HVAC,
+                ChannelFunction::HVAC_THERMOSTAT,
+                [
+                    'subDeviceId' => 4,
+                    'funcList' => Functions::HVAC_THERMOSTAT,
+                    'properties' => json_encode(['readOnlyConfigFields' => ['auxThermometerChannelNo']]),
+                    'userConfig' => json_encode(['mainThermometerChannelNo' => 8, 'auxThermometerChannelNo' => 9]),
+                ],
+            ],
         ]);
         AnyFieldSetter::set($device, [
             'flags' => IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION
@@ -590,6 +632,15 @@ class DevicesFixture extends SuplaFixture {
             'regDate' => new DateTime(),
             'name' => 'Two Channels Subdeivce',
             'softwareVersion' => '3.' . rand(0, 50),
+            'productCode' => strtoupper($this->faker->randomLetter() . $this->faker->randomLetter()),
+            'serialNumber' => $this->faker->uuid(),
+        ]));
+        $this->entityManager->persist(AnyFieldSetter::set(new SubDevice(), [
+            'id' => 4,
+            'device' => $device,
+            'regDate' => new DateTime(),
+            'name' => 'Floor Heating Controller',
+            'softwareVersion' => '6.' . rand(0, 50),
             'productCode' => strtoupper($this->faker->randomLetter() . $this->faker->randomLetter()),
             'serialNumber' => $this->faker->uuid(),
         ]));

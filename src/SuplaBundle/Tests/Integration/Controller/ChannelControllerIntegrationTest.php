@@ -1679,6 +1679,20 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(0, $sonoff->getChannels());
     }
 
+    public function testDeletingThermometerUsedInManyChannelsDoesNotDuplicateDependencies() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceGateway($this->device->getLocation());
+        $this->flush();
+        $thermometer = $device->getChannels()[9];
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$thermometer->getId()}?safe=yes");
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $dependentChannelsIds = array_column($content['dependencies']['channels'], 'id');
+        $removedChannelsIds = array_column($content['channelsToRemove'], 'id');
+        $this->assertEquals(array_unique($dependentChannelsIds), $dependentChannelsIds);
+        $this->assertEmpty(array_intersect($dependentChannelsIds, $removedChannelsIds));
+    }
+
     public function testDeletingDependentChannelsRecursively() {
         $sonoff = $this->createDeviceSonoff($this->location);
         EntityUtils::setField($sonoff, 'flags', IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION);

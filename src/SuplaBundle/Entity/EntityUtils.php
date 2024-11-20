@@ -40,9 +40,7 @@ final class EntityUtils {
         if (!is_array($entities)) {
             $entities = iterator_to_array($entities);
         }
-        return array_values(array_map(function ($entity) {
-            return $entity->getId();
-        }, $entities));
+        return array_values(array_map(fn($entity) => $entity->getId(), $entities));
     }
 
     public static function uniqueByIds(array $entities): array {
