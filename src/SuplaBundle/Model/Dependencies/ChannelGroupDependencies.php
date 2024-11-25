@@ -8,7 +8,7 @@ use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 /**
- * This class is responsible for detecting and possibly clearing all items that rely on the given channel (and its function).
+ * This class is responsible for detecting and possibly clearing all items that depend on the given channel (and its function).
  */
 class ChannelGroupDependencies extends ActionableSubjectDependencies {
     /** @var ScheduleManager */

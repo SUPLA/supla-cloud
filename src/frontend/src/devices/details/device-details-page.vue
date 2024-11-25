@@ -111,7 +111,7 @@
             @cancel="dependenciesThatWillBeDisabled = undefined"></dependencies-warning-modal>
         <dependencies-warning-modal
             header-i18n="Some features depend on this device"
-            description-i18n="Some of the features you have configured rely on channels from this device."
+            description-i18n="Some of the features you have configured depend on channels from this device."
             deleting-header-i18n="The following items will be deleted with this device:"
             removing-header-i18n="The following items use the channels of these device. These references will be also removed."
             :loading="loading"

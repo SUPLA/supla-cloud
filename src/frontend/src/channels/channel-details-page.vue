@@ -164,7 +164,7 @@
         <dependencies-warning-modal
             header-i18n="Are you sure you want to change channel’s function?"
             description-i18n="Changing channel’s function will also result in the following changes."
-            deleting-header-i18n="The items below rely on this channel function, so they will be deleted."
+            deleting-header-i18n="The items below depend on this channel function, so they will be deleted."
             removing-header-i18n="Channel reference will be removed from the items below."
             :loading="loading"
             v-if="changeFunctionConfirmationObject"

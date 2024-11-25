@@ -620,7 +620,7 @@ SoftVer: Версия
 Some features depend on this channel group: Некоторые функции зависят от этой группы каналов.
 Some features depend on this device: Некоторые функции зависят от этого устройства
 Some features depend on this scene: Некоторые функциональные возможности зависят от этой сцены.
-Some of the features you have configured rely on channels from this device.: Некоторые функции используют каналы с этого устройства.
+Some of the features you have configured depend on channels from this device.: Некоторые функции используют каналы с этого устройства.
 Staircase timer: Лестничный автомат
 Start Here: Начни отсюда
 Start date: Дата начала
@@ -660,9 +660,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Датчик открытия ворот должен работать правильно, чтобы выполнить действие Открыть или Закрыть.
 The gate sensor must function properly in order to execute the scheduled action.: Чтобы выполнить задачу, датчик открытия ворот должен работать правильно.
 The incident was detected at %datetime%.: Событие произошло %datetime%.
-The items below rely on this channel function, so they will be deleted.: Следующие элементы основаны на текущей функции канала, поэтому будут удалены при ее изменении.
-The items below rely on this channel group, so they will be deleted.: Следующие элементы используют эту группу каналов, поэтому после ее удаления они также будут удалены.
-The items below rely on this scene, so they will be deleted.: Следующие элементы опираются на эту сцену, поэтому будут удалены.
+The items below depend on this channel function, so they will be deleted.: Следующие элементы основаны на текущей функции канала, поэтому будут удалены при ее изменении.
+The items below depend on this channel group, so they will be deleted.: Следующие элементы используют эту группу каналов, поэтому после ее удаления они также будут удалены.
+The items below depend on this scene, so they will be deleted.: Следующие элементы опираются на эту сцену, поэтому будут удалены.
 The latest execution: Последнее исполнение
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Результат отображается в виде веб-сайта, потому что Вы (или Ваш браузер) запросили ответ в формате HTML.
 The measurement history has been deleted.: История измерений удалена.
@@ -1340,7 +1340,7 @@ The device that uses this session will loose access to the SUPLA Cloud and will 
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
 The entire history of the voltage aberrations will be removed from this channel.: ~
 The following channels will be also removed along with their dependencies.: ~
-The items below rely on the deleted channels, so they will be deleted, too.: ~
+The items below depend on the deleted channels, so they will be deleted, too.: ~
 The master termostat you chose already has a master.: ~
 The notification must have a recipient.: ~
 The reaction has been added: ~
@@ -1543,7 +1543,7 @@ With a timer: ~
 'Yes': ~
 You can browse only the most recent logs now. Wait a while for the full history.: ~
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot change the function of this channel because it is required in another channel.: ~
+You cannot change this function becuase it is required by another channel.: ~
 You cannot to set a master thermostat for a channel that is master for others.: ~
 You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
 You must leave at least one phase enabled.: ~

@@ -709,7 +709,7 @@ SoftVer: WerOpr
 Some features depend on this channel group: Bepaalde functionaliteite zijn afhankelijk van deze groep kanalen.
 Some features depend on this device: Sommige functionaliteiten zijn afhankelijk van dit apparaat
 Some features depend on this scene: Sommige functies zijn afhankelijk van deze scène.
-Some of the features you have configured rely on channels from this device.: Sommige functionaliteiten gebruiken kanalen van dit apparaat.
+Some of the features you have configured depend on channels from this device.: Sommige functionaliteiten gebruiken kanalen van dit apparaat.
 Staircase timer: Trap automaat
 Start Here: Begin hier
 Start date: Begindatum
@@ -754,9 +754,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: De poortopeningsensor moet correct werken om de actie Openen of Sluiten uit te voeren.
 The gate sensor must function properly in order to execute the scheduled action.: Om de actie uit te voeren, moet de poortopeningssensor correct werken.
 The incident was detected at %datetime%.: De gebeurtenis vond plaats %datetime%.
-The items below rely on this channel function, so they will be deleted.: De volgende items zijn gebaseerd op de huidige kanaalfunctie, en zullen dus worden verwijderd als die verandert.
-The items below rely on this channel group, so they will be deleted.: De volgende items gebruiken deze groep kanalen, dus wanneer ze verwijderd worden, zullen ze ook verwijderd worden.
-The items below rely on this scene, so they will be deleted.: De volgende elementen zijn gebaseerd op deze scène, dus zullen worden verwijderd.
+The items below depend on this channel function, so they will be deleted.: De volgende items zijn gebaseerd op de huidige kanaalfunctie, en zullen dus worden verwijderd als die verandert.
+The items below depend on this channel group, so they will be deleted.: De volgende items gebruiken deze groep kanalen, dus wanneer ze verwijderd worden, zullen ze ook verwijderd worden.
+The items below depend on this scene, so they will be deleted.: De volgende elementen zijn gebaseerd op deze scène, dus zullen worden verwijderd.
 The latest execution: Laatste uitvoering
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Het resultaat van de implementatie wordt gepresenteerd als een website omdat u (of uw browser) om een antwoord in HTML-formaat hebt gevraagd.
 The measurement history has been deleted.: Meetgeschiedenis is verwijderd.
@@ -1503,7 +1503,7 @@ The device has been unlocked.: ~
 The device has channel conflict and cannot work.: ~
 The device is locked: ~
 The following channels will be also removed along with their dependencies.: ~
-The items below rely on the deleted channels, so they will be deleted, too.: ~
+The items below depend on the deleted channels, so they will be deleted, too.: ~
 The master termostat you chose already has a master.: ~
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
 The subdevice has been deleted.: ~
@@ -1594,7 +1594,7 @@ Will be deleted after: ~
 With a timer: ~
 'Yes': ~
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot change the function of this channel because it is required in another channel.: ~
+You cannot change this function becuase it is required by another channel.: ~
 You cannot to set a master thermostat for a channel that is master for others.: ~
 You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
 You need to provide icons for all states in light mode.: ~

@@ -8,7 +8,7 @@ use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 /**
- * This class is responsible for detecting and possibly clearing all items that rely on the given scene.
+ * This class is responsible for detecting and possibly clearing all items that depend on the given scene.
  */
 class SceneDependencies extends ActionableSubjectDependencies {
     /** @var ScheduleManager */

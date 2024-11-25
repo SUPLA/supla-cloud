@@ -108,7 +108,7 @@ Are you sure you want to delete this icon?: Czy na pewno chcesz usunąć tą iko
 Are you sure you want to delete this reaction?: Czy na pewno chcesz usunąć tą reakcję?
 Are you sure you want to delete this scene?: Czy na pewno chcesz usunąć tę scenę?
 Are you sure you want to delete this schedule?: Czy na pewno chcesz usunąć ten harmonogram?
-Are you sure you want to delete this subdevice?: Czy na pewno chcesz usunąć do urządzenie podwykonawcze?
+Are you sure you want to delete this subdevice?: Czy na pewno chcesz usunąć to urządzenie podwykonawcze?
 Are you sure you want to log out this device?: Czy na pewno chcesz wylogować to urządzenie?
 Are you sure you want to reset the counter state?: Czy na pewno chcesz wyzerować licznik?
 Are you sure you want to revoke permissions granted to this OAuth application?: Czy na pewno chcesz odwołać uprawnienia przyznane tej aplikacji OAuth?
@@ -937,7 +937,7 @@ Some features depend on this channel group: Niektóre funkcjonalności zależą 
 Some features depend on this device: Niektóre funkcjonalności zależą od tego urządzenia
 Some features depend on this scene: Niektóre funkcjonalności zależą od tej sceny.
 Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Część danych gromadzonych dla twojego konta będzie cyklicznie usuwana po upłynięciu określonego czasu. Zapoznaj się z limitami poniżej.
-Some of the features you have configured rely on channels from this device.: Niektóre funkcjonalności używają kanałów z tego urządzenia.
+Some of the features you have configured depend on channels from this device.: Niektóre funkcjonalności używają kanałów z tego urządzenia.
 Staircase timer: Automat schodowy
 Start Here: Rozpocznij tutaj
 Start date: Data rozpoczęcia
@@ -1007,10 +1007,10 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
 The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
 The incident was detected at %datetime%.: Zdarzenie miało miejsce %datetime%.
-The items below rely on the deleted channels, so they will be deleted, too.: Poniższe elementy są zależne od usuwanych kanałów, więc także zostaną usunięte.
-The items below rely on this channel function, so they will be deleted.: Poniższe elementy bazują na aktualnej funkcji kanału, więc zostaną usunięte po jej zmianie.
-The items below rely on this channel group, so they will be deleted.: Poniższe elementy korzystają z tej grupy kanałów, więc po jej usunięciu zostaną również usunięte.
-The items below rely on this scene, so they will be deleted.: Poniższe elementy opierają się o tę scenę, więc zostaną usunięte.
+The items below depend on the deleted channels, so they will be deleted, too.: Poniższe elementy są zależne od usuwanych kanałów, więc także zostaną usunięte.
+The items below depend on this channel function, so they will be deleted.: Poniższe elementy bazują na aktualnej funkcji kanału, więc zostaną usunięte po jej zmianie.
+The items below depend on this channel group, so they will be deleted.: Poniższe elementy korzystają z tej grupy kanałów, więc po jej usunięciu zostaną również usunięte.
+The items below depend on this scene, so they will be deleted.: Poniższe elementy opierają się o tę scenę, więc zostaną usunięte.
 The latest execution: Ostatnie wykonanie
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Rezultat wykonania jest zaprezentowany jako strona internetowa, ponieważ Ty (lub Twoja przeglądarka) poprosiła o odpowiedź w formacie HTML.
 The master termostat you chose already has a master.: Wybrany przez ciebie termostat nadrzędny ma już inny termostat nadrzędny
@@ -1031,7 +1031,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.
 The server has returned an HTTP {statusCode} error.: Serwer zwrócił błąd {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.
-The subdevice has been deleted.: Urządzenie podwykonawcze zostało usunięte
+The subdevice has been deleted.: Urządzenie podwykonawcze zostało usunięte.
 The thermostat will not work if the main thermometer is not set.: Główny termometr musi być ustawiony by termostat działał.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Zawór nie może zostać otwarty za pomocą linku bezpośredniego bądź za pośrednictwem API, gdy został zamknięty manualnie. Aby wznowić sterowanie otwórz zawór ręcznie.
 The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: Zawór został zamknięty w trybie manualnym lub radiowo. Zanim go otworzysz upewnij się, że nie został zamknięty z powodu zalania. Aby wyłączyć ostrzeżenie otwórz zawór manualnie. Czy na pewno chcesz otworzyć zawór zdalnie?!
@@ -1148,94 +1148,94 @@ Weekly schedule: Harmonogram tygodniowy
 Weight sensor: Waga
 Welcome!: Witaj!
 What this token is for?: Do czego służy ten token?
-When a certain distance is reached: Kiedy określona odległość zostanie osiągnięta
-When a lack of liquid is detected: Kiedy zostanie wykryty brak cieczy
-When a new mail comes: Kiedy przyjdzie nowa poczta
-When flooding is detected: Kiedy zostanie wykryte zalanie
-When liquid is detected: Kiedy zostanie wykryta ciecz
-When liquid or lack thereof is detected: Kiedy zostanie wykryta ciecz lub jej brak
-When the RGB lighting brightness level changes: Kiedy poziom jasności oświetlenia RGB się zmieni
-When the RGB lighting reaches a certain level of brightness: Kiedy oświetlenie RGB osiągnie określony poziom jasności
-When the active power will be: Kiedy moc czynna będzie
+When a certain distance is reached: Gdy określona odległość zostanie osiągnięta
+When a lack of liquid is detected: Gdy zostanie wykryty brak cieczy
+When a new mail comes: Gdy przyjdzie nowa poczta
+When flooding is detected: Gdy zostanie wykryte zalanie
+When liquid is detected: Gdy zostanie wykryta ciecz
+When liquid or lack thereof is detected: Gdy zostanie wykryta ciecz lub jej brak
+When the RGB lighting brightness level changes: Gdy poziom jasności oświetlenia RGB się zmieni
+When the RGB lighting reaches a certain level of brightness: Gdy oświetlenie RGB osiągnie określony poziom jasności
+When the active power will be: Gdy moc czynna będzie
 When the alarm is armed: Gdy alarm zostanie uzbrojony
 When the alarm is armed or disarmed: Gdy alarm zostanie wyłączony lub uzbrojony
 When the alarm is disarmed: Gdy alarm zostanie wyłączony
-When the apparent power will be: Kiedy moc pozorna będzie
-When the balanced forward active energy will be: Kiedy zbilansowana, pobrana energia czynna będzie
-When the balanced reverse active energy will be: Kiedy zbilansowana, zwrócona energia czynna będzie
+When the apparent power will be: Gdy moc pozorna będzie
+When the balanced forward active energy will be: Gdy zbilansowana, pobrana energia czynna będzie
+When the balanced reverse active energy will be: Gdy zbilansowana, zwrócona energia czynna będzie
 When the battery cover is opened: Gdy pokrywa baterii zostanie otwarta
-When the battery level will be: Kiedy poziom baterii będzie
-When the battery reaches a certain level: Kiedy poziom baterii osiągnie dany poziom
-When the brightness level changes: Kiedy poziom jasności się zmieni
-When the brightness will be: Kiedy poziom jasności będzie
+When the battery level will be: Gdy poziom baterii będzie
+When the battery reaches a certain level: Gdy poziom baterii osiągnie dany poziom
+When the brightness level changes: Gdy poziom jasności się zmieni
+When the brightness will be: Gdy poziom jasności będzie
 When the clock error has been reported: Gdy zegar zgłosi błąd
-When the color changes: Kiedy kolor się zmieni
-When the condition is met: Kiedy warunek zostanie spełniony
-When the current will be: Kiedy prąd będzie
+When the color changes: Gdy kolor się zmieni
+When the condition is met: Gdy warunek zostanie spełniony
+When the current will be: Gdy prąd będzie
 When the curtain position changes: Gdy zasłona zmienia pozycję
 When the curtain reaches: Gdy zasłona osiąga
 When the curtain reaches a certain position: Gdy zasłona osiąga określoną pozycję
-When the depth changes: Kiedy pomiar głębokości się zmieni
-When the depth is: Kiedy pomiar głębokości będzie
-When the device is turned off: Kiedy urządzenie zostanie wyłączone
-When the device is turned on: Kiedy urządzenie zostanie włączone
-When the device is turned on or off: Kiedy urządzenie zostanie włączone lub wyłączone
-When the device starts to be powered from battery: Kiedy urządzenie zacznie być zasilane z baterii
-When the device stops to be powered from battery: Kiedy urządzenie przestanie być zasilane z baterii
-When the dimmer brightness level changes: Kiedy poziom jasności ściemniacza się zmieni
-When the dimmer reaches a certain brightness level: Kiedy ściemniacz osiągnie określony poziom jasności
-When the distance changes: Kiedy odległość się zmieni
-When the distance will be: Kiedy odległość będzie
-When the door will be closed: Kiedy drzwi zostaną zamknięte
-When the door will be opened: Kiedy drzwi zostaną otwarte
-When the door will be opened or closed: Kiedy drzwi zostaną zamknięte lub otwarte
-When the electricity meter reaches a certain value: Kiedy licznik energii osiągnie określoną wartość
-When the electricity meter value changes: Kiedy wartość licznika energii elektrycznej się zmieni
-When the electricity meter value will be: Kiedy wartość licznika energii będzie
+When the depth changes: Gdy pomiar głębokości się zmieni
+When the depth is: Gdy pomiar głębokości będzie
+When the device is turned off: Gdy urządzenie zostanie wyłączone
+When the device is turned on: Gdy urządzenie zostanie włączone
+When the device is turned on or off: Gdy urządzenie zostanie włączone lub wyłączone
+When the device starts to be powered from battery: Gdy urządzenie zacznie być zasilane z baterii
+When the device stops to be powered from battery: Gdy urządzenie przestanie być zasilane z baterii
+When the dimmer brightness level changes: Gdy poziom jasności ściemniacza się zmieni
+When the dimmer reaches a certain brightness level: Gdy ściemniacz osiągnie określony poziom jasności
+When the distance changes: Gdy odległość się zmieni
+When the distance will be: Gdy odległość będzie
+When the door will be closed: Gdy drzwi zostaną zamknięte
+When the door will be opened: Gdy drzwi zostaną otwarte
+When the door will be opened or closed: Gdy drzwi zostaną zamknięte lub otwarte
+When the electricity meter reaches a certain value: Gdy licznik energii osiągnie określoną wartość
+When the electricity meter value changes: Gdy wartość licznika energii elektrycznej się zmieni
+When the electricity meter value will be: Gdy wartość licznika energii będzie
 When the facade blind position changes: Gdy żaluzja fasadowa zmienia pozycję
 When the facade blind reaches: Gdy żaluzja fasadowa osiąga
 When the facade blind reaches a certain position: Gdy żaluzja fasadowa osiąga określoną pozycję
-When the forward active energy will be: Kiedy pobrana energia czynna będzie
-When the garage door will be closed: Kiedy brama garażowa zostanie zamknięta
-When the garage door will be opened: Kiedy brama garażowa zostanie otwarta
-When the garage door will be opened or closed: Kiedy brama garażowa zostanie zamknięta lub otwarta
-When the gas meter value changes: Kiedy wartość licznika gazu sie zmieni
-When the gas meter value reaches a certain value: Kiedy licznik gazu osiągnie określoną wartość
-When the gas meter value will be: Kiedy wartość licznika gazu będzie
-When the gate will be closed: Kiedy brama zostanie zamknięta
-When the gate will be opened: Kiedy brama zostanie otwarta
-When the gate will be opened or closed: Kiedy brama zostanie otwarta lub zamknięta
-When the gateway will be closed: Kiedy furtka zostanie zamknięta
-When the gateway will be opened: Kiedy furtka zostanie otwarta
-When the gateway will be opened or closed: Kiedy furtka zostanie zamknięta lub otwarta
-When the heat meter value changes: Kiedy wartość licznika się zmieni
-When the heat meter value reaches a certain value: Kiedy licznik ciepła osiągnie określoną wartość
-When the heat meter value will be: Kiedy wartość licznika ciepła będzie
+When the forward active energy will be: Gdy pobrana energia czynna będzie
+When the garage door will be closed: Gdy brama garażowa zostanie zamknięta
+When the garage door will be opened: Gdy brama garażowa zostanie otwarta
+When the garage door will be opened or closed: Gdy brama garażowa zostanie zamknięta lub otwarta
+When the gas meter value changes: Gdy wartość licznika gazu sie zmieni
+When the gas meter value reaches a certain value: Gdy licznik gazu osiągnie określoną wartość
+When the gas meter value will be: Gdy wartość licznika gazu będzie
+When the gate will be closed: Gdy brama zostanie zamknięta
+When the gate will be opened: Gdy brama zostanie otwarta
+When the gate will be opened or closed: Gdy brama zostanie otwarta lub zamknięta
+When the gateway will be closed: Gdy furtka zostanie zamknięta
+When the gateway will be opened: Gdy furtka zostanie otwarta
+When the gateway will be opened or closed: Gdy furtka zostanie zamknięta lub otwarta
+When the heat meter value changes: Gdy wartość licznika się zmieni
+When the heat meter value reaches a certain value: Gdy licznik ciepła osiągnie określoną wartość
+When the heat meter value will be: Gdy wartość licznika ciepła będzie
 When the hotel card has been taken: Gdy karta hotelowa zostanie zabrana
 When the hotel card is put in: Gdy karta hotelowa zostanie włożona
 When the hotel card is put in or has been taken: Gdy karta hotelowa zostanie włożona lub zabrana
-When the humidity changes: Kiedy wilgotność się zmieni
-When the humidity reaches a certain level: Kiedy wilgotność osiągnie określony poziom
-When the humidity will be: Kiedy wilgotność będzie
+When the humidity changes: Gdy wilgotność się zmieni
+When the humidity reaches a certain level: Gdy wilgotność osiągnie określony poziom
+When the humidity will be: Gdy wilgotność będzie
 When the lighting reaches a certain level of brightness: Gdy oświetlenie osiągnie określony poziom jasności
-When the mail comes or is taken: Kiedy przyjdzie poczta lub zostanie zabrana
-When the mail has been taken: Kiedy poczta zostanie odebrana
+When the mail comes or is taken: Gdy przyjdzie poczta lub zostanie zabrana
+When the mail has been taken: Gdy poczta zostanie odebrana
 When the meter reaches a certain value: Gdy licznik osiągnie zadaną wartość
 When the meter value changes: Gdy wartość zmieni się
 When the meter value will be: Gdy wartość będzie
-When the precipitation amount will be: Kiedy ilość mierzonego deszczu będzie
-When the pressure changes: Kiedy ciśnienie się zmieni
-When the pressure reaches a certain level: Kiedy ciśnienie osiągnie określony poziom
-When the pressure will be: Kiedy ciśnienie będzie
+When the precipitation amount will be: Gdy ilość mierzonego deszczu będzie
+When the pressure changes: Gdy ciśnienie się zmieni
+When the pressure reaches a certain level: Gdy ciśnienie osiągnie określony poziom
+When the pressure will be: Gdy ciśnienie będzie
 When the projector screen position changes: Gdy ekran projekcyjny zmienia pozycję
 When the projector screen reaches: Gdy ekran projekcyjny osiąga
 When the projector screen reaches a certain position: Gdy ekran projekcyjny osiąga określoną pozycję
-When the pump is turned off: Kiedy pompa zostanie wyłączona
-When the pump is turned on: Kiedy pompa zostanie włączona
-When the pump is turned on or off: Kiedy pompa zostania włączona lub wyłączona
-When the rain amount changes: Kiedy zmieni się ilość opadów
-When the reactive power will be: Kiedy moc bierna będzie
-When the reverse active energy will be: Kiedy zwrócona energia czynna będzie
+When the pump is turned off: Gdy pompa zostanie wyłączona
+When the pump is turned on: Gdy pompa zostanie włączona
+When the pump is turned on or off: Gdy pompa zostania włączona lub wyłączona
+When the rain amount changes: Gdy zmieni się ilość opadów
+When the reactive power will be: Gdy moc bierna będzie
+When the reverse active energy will be: Gdy zwrócona energia czynna będzie
 When the roller garage door a certain position: Gdy brama garażowa osiąga określoną pozycję
 When the roller garage door position changes: Gdy brama garażowa zmienia pozycję
 When the roller garage door reaches: Gdy brama garażowa osiąga
@@ -1243,21 +1243,21 @@ When the roller shutter calibration failed: Gdy kalibracja rolety zakończy się
 When the roller shutter calibration has been lost: Gdy kalibracja rolety nie będzie w stanie się zakończyć
 When the roller shutter calibration has started: Gdy kalibracja rolety się rozpocznie
 When the roller shutter motor reported a problem: Gdy silnik rolety zgłosi problem
-When the roller shutter position changes: Kiedy zmieni się pozycja rolety
-When the roller shutter reaches: Kiedy roleta osiągnie
-When the roller shutter reaches a certain position: Kiedy roleta osiągnie określoną pozycję
-When the roller shutter will be closed: Kiedy roleta zostanie zamknięta
-When the roller shutter will be opened: Kiedy roleta zostanie otwarta
-When the roller shutter will be opened or closed: Kiedy roleta zostanie otwarta lub zamknięta
-When the roof window position changes: Kiedy zmieni się pozycja okna dachowego
-When the roof window reaches: Kiedy okno dachowe osiągnie
-When the roof window reaches a certain position: Kiedy okno dachowe osiągnie określoną pozycję
-When the roof window will be closed: Kiedy okno dachowe zostanie zamknięte
-When the roof window will be opened: Kiedy okno dachowe zostanie otwarte
-When the roof window will be opened or closed: Kiedy okno dachowe zostanie zamknięte lub otwarte
-When the temperature changes: Kiedy zmieni się temperatura
-When the temperature reaches a certain value: Kiedy temperatura osiągnie określoną wartość
-When the temperature will be: Kiedy temperatura będzie
+When the roller shutter position changes: Gdy zmieni się pozycja rolety
+When the roller shutter reaches: Gdy roleta osiągnie
+When the roller shutter reaches a certain position: Gdy roleta osiągnie określoną pozycję
+When the roller shutter will be closed: Gdy roleta zostanie zamknięta
+When the roller shutter will be opened: Gdy roleta zostanie otwarta
+When the roller shutter will be opened or closed: Gdy roleta zostanie otwarta lub zamknięta
+When the roof window position changes: Gdy zmieni się pozycja okna dachowego
+When the roof window reaches: Gdy okno dachowe osiągnie
+When the roof window reaches a certain position: Gdy okno dachowe osiągnie określoną pozycję
+When the roof window will be closed: Gdy okno dachowe zostanie zamknięte
+When the roof window will be opened: Gdy okno dachowe zostanie otwarte
+When the roof window will be opened or closed: Gdy okno dachowe zostanie zamknięte lub otwarte
+When the temperature changes: Gdy zmieni się temperatura
+When the temperature reaches a certain value: Gdy temperatura osiągnie określoną wartość
+When the temperature will be: Gdy temperatura będzie
 When the terrace awning position changes: Gdy markiza tarasowa zmienia pozycję
 When the terrace awning reaches: Gdy markiza tarasowa osiąga
 When the terrace awning reaches a certain position: Gdy markiza tarasowa osiąga określoną pozycję
@@ -1271,28 +1271,28 @@ When the thermostat starts or stops heating or cooling: Gdy termostat zacznie lu
 When the thermostat stops cooling: Gdy termostat przestanie chłodzić
 When the thermostat stops heating: Gdy termostat przestanie grzać
 When the thermostat stops heating or cooling: Gdy termostat zatrzyma chłodzenie lub ogrzewanie
-When the value will be: Kiedy wartość będzie
-When the valve is closed: Kiedy zawór zostanie zamknięty
-When the valve is manually closed: Kiedy zawór zostanie ręcznie zamknięty
-When the valve is opened: Kiedy zawór zostanie otwarty
-When the valve is opened or closed: Kiedy zawór zostanie zamknięty lub otwarty
+When the value will be: Gdy wartość będzie
+When the valve is closed: Gdy zawór zostanie zamknięty
+When the valve is manually closed: Gdy zawór zostanie ręcznie zamknięty
+When the valve is opened: Gdy zawór zostanie otwarty
+When the valve is opened or closed: Gdy zawór zostanie zamknięty lub otwarty
 When the vertical blind position changes: Gdy żaluzja pionowa zmienia pozycję
 When the vertical blind reaches: Gdy żaluzja pionowa osiąga
 When the vertical blind reaches a certain position: Gdy żaluzja pionowa osiąga określoną pozycję
-When the voltage will be: Kiedy napięcie będzie
-When the water meter reaches a certain value: Kiedy licznik wody osiągnie określoną wartość
-When the water meter value changes: Kiedy wartość licznika wody się zmieni
-When the water meter value will be: Kiedy wartość licznika wody będzie
-When the weight changes: Kiedy waga się zmieni
-When the weight will be: Kiedy waga będzie
-When the wind reaches a certain speed: Kiedy wiatr osiągnie określoną prędkość
-When the wind speed changes: Kiedy prędkość wiatru się zmieni
-When the wind speed will be: Kiedy prędkość wiatru będzie
-When the window will be closed: Kiedy okno zostanie zamknięte
-When the window will be opened: Kiedy okno zostanie otwarte
-When the window will be opened or closed: Kiedy okno zostanie zamknięte lub otwarte
-When there is certain amount of rain: Kiedy pada określona ilość deszczu
-When there weight reaches a certain value: Kiedy waga osiągnie określoną wartość
+When the voltage will be: Gdy napięcie będzie
+When the water meter reaches a certain value: Gdy licznik wody osiągnie określoną wartość
+When the water meter value changes: Gdy wartość licznika wody się zmieni
+When the water meter value will be: Gdy wartość licznika wody będzie
+When the weight changes: Gdy waga się zmieni
+When the weight will be: Gdy waga będzie
+When the wind reaches a certain speed: Gdy wiatr osiągnie określoną prędkość
+When the wind speed changes: Gdy prędkość wiatru się zmieni
+When the wind speed will be: Gdy prędkość wiatru będzie
+When the window will be closed: Gdy okno zostanie zamknięte
+When the window will be opened: Gdy okno zostanie otwarte
+When the window will be opened or closed: Gdy okno zostanie zamknięte lub otwarte
+When there is certain amount of rain: Gdy pada określona ilość deszczu
+When there weight reaches a certain value: Gdy waga osiągnie określoną wartość
 When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Możesz wykonać akcję linku bezpośredniego podając jego unikalny identyfikator w treści żądania HTTP PATCH. Jest to bezpieczniejsze, gdyż uniemożliwia to zapisanie pełnego adresu Twojego linku w logach dostępowych serwerów, przez które przechodzi Twoje żądanie. Poniżej znajdziesz przykładowe wykonanie za pomocą narzędzia cURL.
 Where is the JSON?: Gdzie jest JSON?
 Where is your SUPLA Cloud?: Gdzie znajduje się Twoja Supla?
@@ -1312,7 +1312,7 @@ You can browse only the most recent logs now. Wait a while for the full history.
 You can ignore this message, if you have accidentally entered an incorrect password.: Możesz zignorować tę wiadomość jeżeli to Ty wprowadziłeś(aś) błędne hasło.
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Możesz ustawić tutaj wartości względne. Przykładowo +10 lub -20 odpowiednio zwiększy ustawienie o 10 lub zmniejszy o 20.
 You can use the application but you will not be able to modify any settings.: Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.
-You cannot change the function of this channel because it is required in another channel.: Nie możesz zmienić funkcji tego kanału, ponieważ jest ona wymagana w ustawieniach innego kanału.
+You cannot change this function becuase it is required by another channel.: Nie można zmienić funkcji, ponieważ jest ona wymagana w ustawieniach innego kanału.
 You cannot delete your last access identifier.: Nie możesz usunąć swojego ostatniego identyfikatora dostępu.
 You cannot delete your last location.: Nie możesz usunąć swojej ostatniej lokalizacji.
 You cannot to set a master thermostat for a channel that is master for others.: Nie możesz ustawić termostatu nadrzędnego w termostacie nadrzędnym
@@ -1540,8 +1540,8 @@ sunset: zachód słońca
 sunset-after: zachodzie
 sunset-before: zachodem
 swap: zamień
-temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Temperatura dodatkowa
-temperatureControlType_ROOM_TEMPERATURE: Temperatura pokoju
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Sterowanie oparte o dodatkowy termometr
+temperatureControlType_ROOM_TEMPERATURE: Sterowanie oparte o główny termometr
 the master thermostat ID{id}: termostatu nadrzędnego ID{id}
 the whole history: cała historia
 then execute the action: wtedy wykonaj akcję
@@ -1693,7 +1693,6 @@ Status: Status
 Subject: Podmiot
 Sunrise / Sunset: Wschód / Zachód
 The events in voltage aberrations history will be automatically deleted after {days} days.: Zdarzenia w historii aberracji napięcia będą automatycznie usuwane po {days} dniach.
-The items below rely on this channel, so they will be deleted.: Poniższe elementy zależą od tego kanału, więc zostaną usunięte.
 Triggers: Wyzwalacze
 Try again later: Spróbuj ponownie później
 Turn off after: Wyłącz po czasie

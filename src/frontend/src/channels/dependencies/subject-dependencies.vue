@@ -1,7 +1,7 @@
 <template>
     <div>
         <p v-if="dependentSchedules.length > 0 || dependentDirectLinks.length > 0 || dependentReactions.length > 0 || dependentOwnReactions.length">
-            <slot name="deletingHeader">{{ $t('The items below rely on this channel function, so they will be deleted.') }}</slot>
+            <slot name="deletingHeader">{{ $t('The items below depend on this channel function, so they will be deleted.') }}</slot>
         </p>
         <div class="row">
             <div class="col-sm-6 col-12-if-alone"

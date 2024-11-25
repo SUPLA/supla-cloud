@@ -12,7 +12,7 @@ use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 
 /**
- * This class is responsible for detecting and possibly clearing all items that rely on the given channel (and its function).
+ * This class is responsible for detecting and possibly clearing all items that depend on the given channel (and its function).
  */
 class ChannelDependencies extends ActionableSubjectDependencies {
     /** @var ScheduleManager */

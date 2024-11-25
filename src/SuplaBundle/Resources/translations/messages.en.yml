@@ -109,8 +109,8 @@ sunrise-after: the sunrise
 sunrise-before: the sunrise
 sunset-after: the sunset
 sunset-before: the sunset
-temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Aux heater/cooler temperature
-temperatureControlType_ROOM_TEMPERATURE: Room temperature
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Control based on auxilary thermometer
+temperatureControlType_ROOM_TEMPERATURE: Control based on main thermometer
 thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: On/off with setpoint at most
 thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: On/off with setpoint middle
 thermostatAlgorithm_PID: PID

@@ -708,7 +708,7 @@ SoftVer: WerOpr
 Some features depend on this channel group: Деякі функції залежать від цієї групи каналів.
 Some features depend on this device: Деякі функції залежать від цього пристрою
 Some features depend on this scene: Деякі функції залежать від цієї сцени.
-Some of the features you have configured rely on channels from this device.: Деякі функції використовують канали з цього пристрою.
+Some of the features you have configured depend on channels from this device.: Деякі функції використовують канали з цього пристрою.
 Staircase timer: Сходовий таймер
 Start Here: Розпочати тут
 Start date: Дата початку
@@ -753,9 +753,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Датчик відкриття воріт має працювати належним чином, щоб виконати дію Відкрити або Закрити.
 The gate sensor must function properly in order to execute the scheduled action.: Щоб виконати дію, датчик відкриття воріт повинен працювати правильно.
 The incident was detected at %datetime%.: Подія відбулася %datetime%.
-The items below rely on this channel function, so they will be deleted.: Наведені нижче елементи базуються на поточній функції каналу та будуть видалені, коли її буде змінено.
-The items below rely on this channel group, so they will be deleted.: Наведені нижче елементи використовують цю групу каналів, тому, якщо ви її видалите, вони також будуть видалені.
-The items below rely on this scene, so they will be deleted.: Наведені нижче елементи засновані на цій сцені, тому їх буде видалено.
+The items below depend on this channel function, so they will be deleted.: Наведені нижче елементи базуються на поточній функції каналу та будуть видалені, коли її буде змінено.
+The items below depend on this channel group, so they will be deleted.: Наведені нижче елементи використовують цю групу каналів, тому, якщо ви її видалите, вони також будуть видалені.
+The items below depend on this scene, so they will be deleted.: Наведені нижче елементи засновані на цій сцені, тому їх буде видалено.
 The latest execution: Остання операція
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Результат представлено як веб-сторінку, оскільки ви (або ваш браузер) запитали відповідь HTML.
 The measurement history has been deleted.: Історія вимірювань видалена.
@@ -1457,7 +1457,7 @@ The device has been unlocked.: ~
 The device has channel conflict and cannot work.: ~
 The device is locked: ~
 The following channels will be also removed along with their dependencies.: ~
-The items below rely on the deleted channels, so they will be deleted, too.: ~
+The items below depend on the deleted channels, so they will be deleted, too.: ~
 The master termostat you chose already has a master.: ~
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
 The subdevice has been deleted.: ~
@@ -1548,7 +1548,7 @@ Will be deleted after: ~
 With a timer: ~
 'Yes': ~
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot change the function of this channel because it is required in another channel.: ~
+You cannot change this function becuase it is required by another channel.: ~
 You cannot to set a master thermostat for a channel that is master for others.: ~
 You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
 You need to provide icons for all states in light mode.: ~

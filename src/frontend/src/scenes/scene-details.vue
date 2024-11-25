@@ -94,7 +94,7 @@
         </modal-confirm>
         <dependencies-warning-modal
             header-i18n="Some features depend on this scene"
-            deleting-header-i18n="The items below rely on this scene, so they will be deleted."
+            deleting-header-i18n="The items below depend on this scene, so they will be deleted."
             removing-header-i18n="Reference to the scene will be removed from the items below."
             v-if="dependenciesThatPreventsDeletion"
             :dependencies="dependenciesThatPreventsDeletion"

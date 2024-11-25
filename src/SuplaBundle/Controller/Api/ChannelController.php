@@ -425,7 +425,7 @@ class ChannelController extends RestController {
                     try {
                         $channelDependencies->clearDependencies($channel);
                     } catch (InvalidArgumentException $e) {
-                        $e = 'You cannot change the function of this channel because it is required in another channel.'; // i18n
+                        $e = 'You cannot change this function becuase it is required by another channel.'; // i18n
                         throw new ApiException($e);
                     }
                     $channel->setUserIcon(null);
