@@ -12,7 +12,7 @@
                 </option>
             </select>
         </div>
-        <div class="form-group" v-if="value.offDelayType !== undefined">
+        <div class="form-group">
             <label>{{ $t('Automatic front panel turn off') }}</label>
             <div>
                 <div class="btn-group">
