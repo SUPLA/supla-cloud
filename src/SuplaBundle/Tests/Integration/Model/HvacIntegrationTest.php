@@ -709,8 +709,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
             ['VALUE:0,1,2,3,2048,0,0', ['weeklyScheduleTemporalOverride' => true]],
             ['VALUE:0,1,2,3,2048,0,0', ['partially' => 0]],
             ['VALUE:1,1,2,3,2048,0,0', ['partially' => 0]],
-            ['VALUE:2,1,2,3,2048,0,0', ['partially' => 1]],
-            ['VALUE:41,1,2,3,2048,0,0', ['partially' => 40]],
+            ['VALUE:2,1,2,3,2048,0,0', ['partially' => 0]],
+            ['VALUE:41,1,2,3,2048,0,0', ['partially' => 39]],
         ];
     }
 

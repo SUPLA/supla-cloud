@@ -44,7 +44,7 @@ class HvacChannelStateGetter implements SingleChannelStateGetter {
         return [
             'heating' => HvacIpcValueFlags::HEATING()->isOn($flags),
             'cooling' => HvacIpcValueFlags::COOLING()->isOn($flags),
-            'partially' => $isOn >= 2 ? $isOn - 1 : 0,
+            'partially' => $isOn >= 3 ? $isOn - 2 : 0,
             'manual' => !HvacIpcValueFlags::WEEKLY_SCHEDULE()->isOn($flags),
             'countdownTimer' => HvacIpcValueFlags::COUNTDOWN_TIMER()->isOn($flags),
             'thermometerError' => HvacIpcValueFlags::THERMOMETER_ERROR()->isOn($flags),

@@ -33,7 +33,7 @@
                 <fa icon="clock" fixed-width/>
             </span>
         </div>
-        <div v-if="state.mode !== 'OFF' && state.partially" class="small">
+        <div v-if="(state.heating || state.cooling) && state.partially" class="small">
             <span v-if="state.heating">{{ $t('Heating: {percent}%', {percent: state.partially}) }}</span>
             <span v-else>{{ $t('Cooling: {percent}%', {percent: state.partially}) }}</span>
             <div class="progress">
