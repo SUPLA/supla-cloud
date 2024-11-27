@@ -1161,7 +1161,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV3('PUT', "/api/channels/{$hotelCard->getId()}", ['functionId' => ChannelFunction::NONE]);
         $this->assertStatusCode(400, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
-        $this->assertStringContainsString('required in another channel', $content['message']);
+        $this->assertStringContainsString('required by another channel', $content['message']);
     }
 
     /** @see https://github.com/SUPLA/supla-cloud/issues/910 */
