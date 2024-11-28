@@ -9,7 +9,7 @@
     "test:e2e:ui": "start-test test:e2e:run-backend :8008/api/server-info serve 8080 'cypress open'",
     "test:e2e:ui:built": "start-test test:e2e:run-backend :8008/api/server-info 'cypress open --config baseUrl=http://localhost:8008'",
     "test:e2e:ci": "start-test test:e2e:run-backend :8008/api/server-info 'cypress run --config baseUrl=http://localhost:8008,defaultCommandTimeout=10000 --spec=tests/e2e/specs/stubbed/*.js,tests/e2e/specs/fullstack/*.js'",
-    "test:e2e:run-backend": "cross-env APPLICATION_ENV=e2e php8.1 -S 127.0.0.1:8008 -q -t ../../web",
+    "test:e2e:run-backend": "cross-env APPLICATION_ENV=e2e php8.2 -S 127.0.0.1:8008 -q -t ../../web",
     "test:e2e:nightly": "cypress run --config baseUrl=https://nightly.supla.org,defaultCommandTimeout=10000 --spec=tests/e2e/specs/nightly/*.js",
     "lint": "vue-cli-service lint --mode=production",
     "collect-translations": "node scripts/collect-translations.js",
