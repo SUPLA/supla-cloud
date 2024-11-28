@@ -73,8 +73,8 @@ class TargetSuplaCloudRequestForwarder {
         return $this->sendRequest($target, 'register', $request->request->all());
     }
 
-    public function getInfo(TargetSuplaCloud $target): ?array {
-        [$response, $status] = $this->sendRequest($target, 'server-info');
+    public function getInfo(TargetSuplaCloud $target, array $headers = []): ?array {
+        [$response, $status] = $this->sendRequest($target, 'server-info', null, null, $headers);
         if ($status == 200) {
             return $response;
         } else {
@@ -82,14 +82,19 @@ class TargetSuplaCloudRequestForwarder {
         }
     }
 
-    private function sendRequest(TargetSuplaCloud $target, string $apiEndpoint, array $data = null, string $method = null): array {
+    private function sendRequest(
+        TargetSuplaCloud $target,
+        string $apiEndpoint,
+        array $data = null,
+        string $method = null,
+        array $headers = []
+    ): array {
         if (self::$requestExecutor) {
             return (self::$requestExecutor)($target->getAddress(), $apiEndpoint, $data);
         }
         if (strpos($apiEndpoint, '/') !== 0) {
             $apiEndpoint = '/api/v' . ApiVersions::V2_3 . '/' . $apiEndpoint;
         }
-        $headers = [];
         if ($ip = $this->clientIpResolver->getRealIp()) {
             $headers['X-Real-Ip'] = $ip;
         }

@@ -49,7 +49,7 @@ class DebugBrokerCommunicationCommand extends Command {
         $url = $io->ask('Cloud URL (instance you want to connect to)');
         $target = TargetSuplaCloud::forHost($this->localSuplaCloud->getProtocol(), $url);
         $io->section('Info from ' . $target->getAddress());
-        $info = $this->requestForwarder->getInfo($target);
+        $info = $this->requestForwarder->getInfo($target, ['X-Real-Ip' => '1.2.3.4']);
         $io->writeln(json_encode($info, JSON_PRETTY_PRINT));
         return 0;
     }
