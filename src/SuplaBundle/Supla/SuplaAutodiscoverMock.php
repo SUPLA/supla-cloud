@@ -168,6 +168,7 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             return [
                 ['id' => 1, 'url' => 'https://broker1.supla', 'ip' => '127.0.0.2', 'ips' => ['127.0.0.2']],
                 ['id' => 2, 'url' => 'https://broker2.supla', 'ip' => '127.0.0.3', 'ips' => ['127.0.0.3']],
+                ['id' => 3, 'url' => 'https://supla.local', 'ip' => '127.0.0.1', 'ips' => ['127.0.0.1']],
             ];
         } elseif (preg_match('#/about#', $endpoint, $match)) {
             $responseStatus = 200;

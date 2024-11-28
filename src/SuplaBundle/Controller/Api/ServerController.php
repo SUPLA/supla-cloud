@@ -21,6 +21,7 @@ use DateTime;
 use FOS\RestBundle\Controller\Annotations\Get;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Model\ApiVersions;
+use SuplaBundle\Model\RealClientIpResolver;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Twig\FrontendConfig;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,7 +77,7 @@ class ServerController extends RestController {
      * )
      * @Get("/server-info")
      */
-    public function getServerInfoAction(Request $request) {
+    public function getServerInfoAction(Request $request, RealClientIpResolver $clientIpResolver) {
         $dt = new DateTime();
         $result = [
             'address' => $this->suplaServerHost,
@@ -101,6 +102,13 @@ class ServerController extends RestController {
             }
             if ($this->actAsBrokerCloud) {
                 $result['broker'] = true;
+            }
+            if ($request->headers->has('X-Cloud-Version')) {
+                $result ['debug'] = [
+                    'requestIp' => $request->getClientIp(),
+                    'realIp' => $clientIpResolver->getRealIp(),
+                    'headers' => iterator_to_array($request->headers->getIterator()),
+                ];
             }
             $result['config'] = $this->frontendConfig->getConfig();
         } else {
