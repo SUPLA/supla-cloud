@@ -76,9 +76,11 @@ describe('ChannelReactionsConfig', () => {
     });
 
     describe('THERMOMETER', () => {
+        const channel = {functionId: ChannelFunction.THERMOMETER, config: {}};
+
         it('displays unit', async () => {
             const wrapper = await mount({
-                data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
+                data: () => ({channel, condition: undefined}),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
@@ -88,7 +90,7 @@ describe('ChannelReactionsConfig', () => {
 
         it('can set the temperature condition parameters', async () => {
             const wrapper = await mount({
-                data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
+                data: () => ({channel, condition: undefined}),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
@@ -109,7 +111,7 @@ describe('ChannelReactionsConfig', () => {
 
         it('can set negative threshold', async () => {
             const wrapper = await mount({
-                data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
+                data: () => ({channel, condition: undefined}),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
@@ -124,7 +126,7 @@ describe('ChannelReactionsConfig', () => {
 
         it('can set negative resume threshold', async () => {
             const wrapper = await mount({
-                data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
+                data: () => ({channel, condition: undefined}),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
@@ -141,7 +143,7 @@ describe('ChannelReactionsConfig', () => {
 
         it('cannot set empty threshold for temerature', async () => {
             const wrapper = await mount({
-                data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
+                data: () => ({channel, condition: undefined}),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
@@ -153,7 +155,7 @@ describe('ChannelReactionsConfig', () => {
         it('can initialize temperature condition with initial value', async () => {
             const wrapper = await mount({
                 data: () => ({
-                    channel: {functionId: ChannelFunction.THERMOMETER},
+                    channel,
                     condition: {on_change_to: {gt: 33, name: 'temperature'}}
                 }),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
@@ -166,7 +168,7 @@ describe('ChannelReactionsConfig', () => {
         it('can initialize temperature condition with initial value with threshold 0', async () => {
             const wrapper = await mount({
                 data: () => ({
-                    channel: {functionId: ChannelFunction.THERMOMETER},
+                    channel,
                     condition: {on_change_to: {gt: 0, name: 'temperature'}}
                 }),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
@@ -179,7 +181,7 @@ describe('ChannelReactionsConfig', () => {
         it('can initialize temperature condition on_change', async () => {
             const wrapper = await mount({
                 data: () => ({
-                    channel: {functionId: ChannelFunction.THERMOMETER},
+                    channel,
                     condition: {on_change: {name: 'temperature'}}
                 }),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
@@ -190,7 +192,7 @@ describe('ChannelReactionsConfig', () => {
 
         it('can set invalid threshold for a while', async () => {
             const wrapper = await mount({
-                data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
+                data: () => ({channel, condition: undefined}),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
@@ -203,9 +205,11 @@ describe('ChannelReactionsConfig', () => {
     });
 
     describe('HUMIDITYANDTEMPERATURE', () => {
+        const channel = {functionId: ChannelFunction.HUMIDITYANDTEMPERATURE, config: {}};
+
         it('can set humidity threshold', async () => {
             const wrapper = await mount({
-                data: () => ({channel: {functionId: ChannelFunction.HUMIDITYANDTEMPERATURE}, condition: undefined}),
+                data: () => ({channel, condition: undefined}),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
@@ -218,7 +222,7 @@ describe('ChannelReactionsConfig', () => {
         it('initializes humidity condition from json', async () => {
             const wrapper = await mount({
                 data: () => ({
-                    channel: {functionId: ChannelFunction.HUMIDITYANDTEMPERATURE},
+                    channel,
                     condition: {on_change_to: {lt: 60, name: 'humidity'}}
                 }),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
