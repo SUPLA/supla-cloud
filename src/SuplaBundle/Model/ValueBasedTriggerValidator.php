@@ -130,6 +130,8 @@ class ValueBasedTriggerValidator {
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
         ],
         'battery_powered' => [
+            ChannelFunction::THERMOMETER,
+            ChannelFunction::HUMIDITYANDTEMPERATURE,
             ChannelFunction::HVAC_THERMOSTAT,
             ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
             ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
@@ -137,6 +139,8 @@ class ValueBasedTriggerValidator {
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
         ],
         'battery_level' => [
+            ChannelFunction::THERMOMETER,
+            ChannelFunction::HUMIDITYANDTEMPERATURE,
             ChannelFunction::HVAC_THERMOSTAT,
             ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
             ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,

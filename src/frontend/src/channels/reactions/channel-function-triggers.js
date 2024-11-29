@@ -38,6 +38,30 @@ export const ChannelFunctionTriggers = {
             caption: () => 'When the humidity changes', // i18n
             def: () => ({on_change: {name: 'humidity'}})
         },
+        {
+            caption: () => 'When the device starts to be powered from battery', // i18n
+            def: () => ({on_change_to: {eq: 'on', name: 'battery_powered'}}),
+            canBeSetForChannel: (channel) => channel.config.isBatteryPowered,
+        },
+        {
+            caption: () => 'When the device stops to be powered from battery', // i18n
+            def: () => ({on_change_to: {eq: 'off', name: 'battery_powered'}}),
+            canBeSetForChannel: (channel) => channel.config.isBatteryPowered,
+        },
+        {
+            caption: () => 'When the battery reaches a certain level', // i18n
+            canBeSetForChannel: (channel) => channel.config.isBatteryPowered,
+            test: ({on_change_to = {}}) => on_change_to.name === 'battery_level',
+            component: ReactionConditionThreshold,
+            props: {
+                unit: () => '%',
+                step: () => 1,
+                field: 'battery_level',
+                operators: ['gt', 'ge', 'eq'],
+                labelI18n: () => 'When the battery level will be', // i18n
+                resumeLabelI18n: () => 'and wait until the battery level will be', // i18n
+            },
+        },
     ],
     [ChannelFunction.OPENINGSENSOR_GARAGEDOOR]: [
         {caption: () => 'When the garage door will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
@@ -627,7 +651,8 @@ export const ChannelFunctionTriggers = {
             test: ({on_change_to = {}}) => on_change_to.name === 'battery_level',
             component: ReactionConditionThreshold,
             props: {
-                unit: '%',
+                unit: () => '%',
+                step: () => 1,
                 field: 'battery_level',
                 operators: ['gt', 'ge', 'eq'],
                 labelI18n: () => 'When the battery level will be', // i18n
@@ -675,6 +700,7 @@ export const ChannelFunctionTriggers = {
             component: ReactionConditionThreshold,
             props: {
                 unit: () => '%',
+                step: () => 1,
                 field: 'battery_level',
                 // operators: ['gt', 'lt', 'eq'],
                 labelI18n: () => 'When the battery level will be', // i18n
@@ -735,6 +761,9 @@ export const ChannelFunctionTriggers = {
 ChannelFunctionTriggers[ChannelFunction.THERMOMETER] = [
     ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][0],
     ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][1],
+    ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][4],
+    ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][5],
+    ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][6],
 ];
 ChannelFunctionTriggers[ChannelFunction.HUMIDITY] = [
     ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][2],

@@ -24,6 +24,8 @@ class BatteryPoweredUserConfigTranslator extends UserConfigTranslator {
 
     public function supports(HasUserConfig $subject): bool {
         return in_array($subject->getFunction()->getId(), [
+            ChannelFunction::THERMOMETER,
+            ChannelFunction::HUMIDITYANDTEMPERATURE,
             ChannelFunction::HVAC_THERMOSTAT,
             ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
             ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,

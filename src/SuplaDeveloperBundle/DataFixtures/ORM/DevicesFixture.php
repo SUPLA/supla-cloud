@@ -442,7 +442,7 @@ class DevicesFixture extends SuplaFixture {
         ]);
         $this->entityManager->persist($hvac);
         $state = new ChannelState($hvac->getChannels()[3]);
-        EntityUtils::setField($state, 'state', '{"isBatteryPowered": true}');
+        EntityUtils::setField($state, 'state', '{"batteryPowered": true}');
         $this->entityManager->persist($state);
         $this->entityManager->persist(AnyFieldSetter::set(new SubDevice(), [
             'id' => 1,
