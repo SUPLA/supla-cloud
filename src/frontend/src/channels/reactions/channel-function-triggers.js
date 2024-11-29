@@ -57,7 +57,6 @@ export const ChannelFunctionTriggers = {
                 unit: () => '%',
                 step: () => 1,
                 field: 'battery_level',
-                operators: ['gt', 'ge', 'eq'],
                 labelI18n: () => 'When the battery level will be', // i18n
                 resumeLabelI18n: () => 'and wait until the battery level will be', // i18n
             },
@@ -654,7 +653,6 @@ export const ChannelFunctionTriggers = {
                 unit: () => '%',
                 step: () => 1,
                 field: 'battery_level',
-                operators: ['gt', 'ge', 'eq'],
                 labelI18n: () => 'When the battery level will be', // i18n
                 resumeLabelI18n: () => 'and wait until the battery level will be', // i18n
             },
@@ -702,7 +700,6 @@ export const ChannelFunctionTriggers = {
                 unit: () => '%',
                 step: () => 1,
                 field: 'battery_level',
-                // operators: ['gt', 'lt', 'eq'],
                 labelI18n: () => 'When the battery level will be', // i18n
                 resumeLabelI18n: () => 'and wait until the battery level will be', // i18n
             },
