@@ -12,7 +12,7 @@ class BatteryPoweredUserConfigTranslator extends UserConfigTranslator {
         if ($subject instanceof IODeviceChannel) {
             return [
                 'isBatteryCoverAvailable' => ChannelFunctionBitsFlags::BATTERY_COVER_AVAILABLE()->isSupported($subject->getFlags()),
-                'isBatteryPowered' => $subject->getLastKnownChannelState()['isBatteryPowered'] ?? false,
+                'isBatteryPowered' => $subject->getLastKnownChannelState()['batteryPowered'] ?? false,
             ];
         } else {
             return [];

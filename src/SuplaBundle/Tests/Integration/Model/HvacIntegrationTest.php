@@ -1130,7 +1130,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($config['isBatteryPowered']);
         $this->assertFalse($config['isBatteryCoverAvailable']);
         $state = new ChannelState($this->hvacChannel);
-        EntityUtils::setField($state, 'state', '{"isBatteryPowered": true}');
+        EntityUtils::setField($state, 'state', '{"batteryPowered": true}');
         $this->persist($state);
         $this->getEntityManager()->clear();
         $config = $channelParamConfigTranslator->getConfig($this->freshEntity($this->hvacChannel));
