@@ -9,6 +9,6 @@ BEGIN
              LEFT JOIN supla_oauth_client_authorizations soca ON su.id = soca.user_id
     WHERE mqtt_broker_enabled = 1
       AND short_unique_id = BINARY in_suid
-      AND (su.mqtt_broker_auth_password = @hashed_password OR soca.mqtt_broker_auth_password = @hashed_password)
+      AND (su.mqtt_broker_auth_password = @hashed_password COLLATE utf8mb4_unicode_ci OR soca.mqtt_broker_auth_password = @hashed_password COLLATE utf8mb4_unicode_ci)
     LIMIT 1;
 END;
