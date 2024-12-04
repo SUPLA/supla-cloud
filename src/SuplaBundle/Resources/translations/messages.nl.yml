@@ -624,11 +624,11 @@ Registered: geregistreerd
 Relay: Relais
 Relay switching time: Inschakeltijd relais
 Reload the chart: Vernieuw grafiek
-'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID''s: {relatedIds}.'
-'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID''s: {relatedIds}.'
-'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Verwijder gekoppelde apparaten voordat u deze locatie verwijdert. ID''s: {relatedIds}.'
+'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': "Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID's: {relatedIds}."
+'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': "Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID's: {relatedIds}."
+'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': "Verwijder gekoppelde apparaten voordat u deze locatie verwijdert. ID's: {relatedIds}."
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Verwijder alle bijbehorende scènes voordat je deze locatie verwijdert. Identificatoren: {relatedIds}.'
-'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Verwijder eerst alle apparaten die deze locatie als de oorspronkelijke locatie gebruiken. ID''s: {relatedIds}.'
+'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': "Verwijder eerst alle apparaten die deze locatie als de oorspronkelijke locatie gebruiken. ID's: {relatedIds}."
 Repeat password: Wachtwoord opnieuw invoeren
 Reset Your Password: Een nieuw wachtwoord instellen
 Reset counter: Reset teller
@@ -816,7 +816,7 @@ Unsupported type: Niet-ondersteund type
 Update in progress: Update in uitvoering
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: op het zedelijkheid, het auteursrecht en de rechten van derden en ik heb het recht om ze te gebruiken.
 Upper voltage threshold: Drempelwaarde hoogspanning
-'Use the {0} server command to change this account''s limits. For example:': 'Om de limieten voor deze account te wijzigen, gebruikt u het {0} commando op uw server. Bijvoorbeeld:'
+"Use the {0} server command to change this account's limits. For example:": 'Om de limieten voor deze account te wijzigen, gebruikt u het {0} commando op uw server. Bijvoorbeeld:'
 Use working schedule for this access identifier: Gebruik het beschikbaarheidsschema voor deze toegangsidentificatie
 User is already confirmed. Try to log in.: Dit account is al bevestigd. Log dan in!
 Value: Waarde
@@ -1251,428 +1251,431 @@ suffix: achtervoegsel
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-0% tilt angle: ~
-100% tilt angle: ~
-A confirmation upon successful device unlocking.: ~
-Active from: ~
-Active to: ~
-Activity conditions: ~
-Additional time margin: ~
-Adjust temperature: ~
-Adjust temperatures: ~
-After the delay: ~
-After the delay, but only when it's dark: ~
-Alarm armament sensor: ~
-Algorithm: ~
-All programs must define at least one temperature threshold.: ~
-Always decrement: ~
-Always increment: ~
-Anti-freeze and overheat protection: ~
-Anti-freeze protection: ~
-Are you sure you want to change channel’s location?: ~
-Are you sure you want to change channel’s visibility?: ~
-Are you sure you want to change device’s location?: ~
-Are you sure you want to delete this channel?: ~
-Automatic: ~
-Automatic front panel turn off: ~
-Automatic front panel turn off after: ~
-Automatic thermostat: ~
-Automatic time synchronization: ~
-Aux thermometer: ~
-Aux thermometer type: ~
-Available variables: ~
-Average: ~
-Battery cover open: ~
-Behavior settings: ~
-Binary sensor: ~
-Brightness adjustment for automatic mode: ~
-Brightness level: ~
-Button volume: ~
-Buttons upside down: ~
-Candle: ~
-Cannot update OCR settings. Try again in a while.: ~
-Change percentage by: ~
-Change percentage to: ~
-Change tilt by: ~
-Change tilt to: ~
-Change to be the same.: ~
-Changing channel’s visibility will also change the visibility of other items.: ~
-Changing the location will also imply changing the location of the following items.: ~
-Channels that are meant to work with each other must be in the same location.: ~
-Clock error: ~
-Close value: ~
-Collapse: ~
-Collapse or stop: ~
-Collapse partially: ~
-Command has been sent to the device. Try refreshing the photo in a while.: ~
-Common currencies: ~
-Configuration not available yet. Waiting for the device to connect.: ~
-Confirm if you want to perform the calibration.: ~
-Conflict: ~
-Cool to: ~
-Cooling mode: ~
-'Cooling: {percent}%': ~
-Costs: ~
-Could not restart the device.: ~
-Could not send the identify command.: ~
-Could not set the device time.: ~
-Counter type: ~
-Curtain: ~
-Dark mode: ~
-Data: ~
-Date range: ~
-Daytime criteria: ~
-Dependencies: ~
-'Device GUID: %deviceGuid%': ~
-Device identification is unsupported in the firmware.: ~
-Device settings: ~
-Device should be restarting now.: ~
-Device time has been set.: ~
-Different than on master thermostat.: ~
-Differential thermostat: ~
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
-Domestic hot water: ~
-Dryer: ~
-Edit area crop: ~
-Edit program settings: ~
-Electricity meter active power history: ~
-Electricity meter current history: ~
-Electricity meter voltage aberrations history: ~
-Electricity meter voltage history: ~
-Enable floor temperature control: ~
-Enable generic cooler temperature control: ~
-Enable generic heater temperature control: ~
-Enable power status LED: ~
-Enable support for OCR readings for this channel: ~
-Enable water temperature control: ~
-Example value: ~
-Expand: ~
-Expand or stop: ~
-Expand partially: ~
-Expected maximum increment: ~
-External sensor disabling the thermostat: ~
-Facade blind operation: ~
-Fan: ~
-'Field: {propertyPath}.': ~
-Fill missing data: ~
-Firmware: ~
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-For a period: ~
-Forced off by sensor: ~
-Full tilting time: ~
-Function disabled: ~
-General purpose meter: ~
-HVAC: ~
-Heat or cold source switch: ~
-Heat to: ~
-Heating / ventilation / air conditioning: ~
-Heating mode: ~
-'Heating: {percent}%': ~
-High threshold: ~
-High value: ~
-History: ~
-Home screen content: ~
-Hotel card sensor: ~
-Identify device: ~
-Identify request sent.: ~
-If you confirm the installation and wish to unlock this device, please click the link below.: ~
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
-Image area crop: ~
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: ~
-Increment and decrement: ~
-Installer e-mail address: ~
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: ~
-Invalid e-mail address.: ~
-Invalid unlock code.: ~
-Last paired device: ~
-Light mode: ~
-Lighting level: ~
-Lighting mode: ~
-List of available variables: ~
-Locked: ~
-Low threshold: ~
-Low threshold must be less than high threshold.: ~
-Low value: ~
-Main thermometer: ~
-Master thermostat: ~
-Max: ~
-Maximum duration is one year.: ~
-Maximum temperature that can be set from the device: ~
-Measurement settings: ~
-Min: ~
-Minimum OFF time before cooling can be turned on: ~
-Minimum OFF time before heating can be turned on: ~
-Minimum OFF time before heating/cooling can be turned on: ~
-Minimum ON time before cooling can be turned off: ~
-Minimum ON time before heating can be turned off: ~
-Minimum ON time before heating/cooling can be turned off: ~
-Minimum temperature must be lower than maximum temperature.: ~
-Minimum temperature that can be set from the device: ~
-'Mode: cool': ~
-'Mode: heat': ~
-'Mode: off': ~
-Motor upside down: ~
-'No': ~
-No results: ~
-Notification body is set by the firmware.: ~
-Notification must have recipients.: ~
-Notification title is set by the firmware.: ~
-Notifications (defined): ~
-Notifications (sent per hour): ~
-'OCR service responded with error: {status}': ~
-OCR settings: ~
-OR: ~
-Off with duration: ~
-On with duration: ~
-Open value: ~
-Output value on error: ~
-Overheat protection: ~
-P/C: ~
-Pair new devices or sensors: ~
-Pairing request sent.: ~
-Pairing subdevices is unsupported in the firmware.: ~
-Phase LED type: ~
-Photo interval: ~
-Please find the device details below.: ~
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: ~
-Please provide the installer e-mail address to request the device unlock.: ~
-Please select and configure the action: ~
-Program {programNo}: ~
-Projector screen: ~
-Pump switch: ~
-Push notifications limit has been exceeded: ~
-Reference to the channel will be removed from the items below.: ~
-Refresh interval: ~
-Refresh the config: ~
-Refreshing the configuration will overwrite the changes you made here.: ~
-Reload last photo: ~
-Remote restart is unsupported in the firmware.: ~
-Remove this item: ~
-Request device unlock: ~
-Reset to defaults: ~
-Restart device: ~
-Restart the device: ~
-Reveal or stop: ~
-Roller garage door: ~
-S/N: ~
-SUPLA - Confirm unlocking device for authorized installers: ~
-SUPLA – your device has been unlocked!: ~
-Same as on master thermostat.: ~
-Screen brightness: ~
-Selected: ~
-Set HVAC parameters: ~
-Set the device time: ~
-Settings: ~
-Settings have not been saved!: ~
-Show data: ~
-Shut or stop: ~
-Some features depend on this channel: ~
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
-Status LED: ~
-Store active power history: ~
-Store current history: ~
-Store voltage history: ~
-'Subdevice #{id}': ~
-Subfunction: ~
-Switch to manual mode: ~
-Switch to program mode: ~
-THEN: ~
-Take a photo now: ~
-Temperature adjustment only: ~
-Temperature difference is too big between {min}°C and {max}°C.: ~
-Temperature setpoint change switches to manual mode: ~
-Temporal override: ~
-Terrace awning: ~
-The channel has been deleted.: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: ~
-The device could not be unlocked.: ~
-The device has been unlocked already.: ~
-The device has been unlocked.: ~
-The device has channel conflict and cannot work.: ~
-The device is locked: ~
-The following channels will be also removed along with their dependencies.: ~
-The items below rely on this channel, so they will be deleted.: ~
-The master termostat you chose already has a master.: ~
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
-The thermostat will not work if the main thermometer is not set.: ~
-Thermometer error: ~
-Thermometers configuration: ~
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
-Thermostat programs: ~
-This action will result in restarting the device. It will not be available for a while.: ~
-This channel was missing during last device registration attempt.: ~
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
-This thermostat is controlled by another device.: ~
-Tilt angle: ~
-Tilt control type: ~
-Tilt percent: ~
-Time: ~
-Today, it would be active from {from} to {to}.: ~
-Turn off: ~
-Unlock the device: ~
-Unlocked: ~
-Until a date and time: ~
-Until the next change: ~
-Use device default: ~
-Use working schedule for this reaction: ~
-Use {theMasterThermostat} to control this device.: ~
-Used current transformer type: ~
-User interface: ~
-Value divider: ~
-Value multiplier: ~
-Vertical blind: ~
-Visit the master thermostat page.: ~
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
-Week: ~
-Weekly schedule: ~
-When the alarm is armed: ~
-When the alarm is armed or disarmed: ~
-When the alarm is disarmed: ~
-When the battery cover is opened: ~
-When the clock error has been reported: ~
-When the curtain position changes: ~
-When the curtain reaches: ~
-When the curtain reaches a certain position: ~
-When the facade blind position changes: ~
-When the facade blind reaches: ~
-When the facade blind reaches a certain position: ~
-When the hotel card has been taken: ~
-When the hotel card is put in: ~
-When the hotel card is put in or has been taken: ~
-When the meter reaches a certain value: ~
-When the meter value changes: ~
-When the meter value will be: ~
-When the projector screen position changes: ~
-When the projector screen reaches: ~
-When the projector screen reaches a certain position: ~
-When the pump is turned off: ~
-When the pump is turned on: ~
-When the pump is turned on or off: ~
-When the roller garage door a certain position: ~
-When the roller garage door position changes: ~
-When the roller garage door reaches: ~
-When the roller shutter calibration failed: ~
-When the roller shutter calibration has been lost: ~
-When the roller shutter calibration has started: ~
-When the roller shutter motor reported a problem: ~
-When the terrace awning position changes: ~
-When the terrace awning reaches: ~
-When the terrace awning reaches a certain position: ~
-When the thermometer error has been reported: ~
-When the thermostat starts cooling: ~
-When the thermostat starts heating: ~
-When the thermostat starts heating or cooling: ~
-When the thermostat starts or stops cooling: ~
-When the thermostat starts or stops heating: ~
-When the thermostat starts or stops heating or cooling: ~
-When the thermostat stops cooling: ~
-When the thermostat stops heating: ~
-When the thermostat stops heating or cooling: ~
-When the vertical blind position changes: ~
-When the vertical blind reaches: ~
-When the vertical blind reaches a certain position: ~
-Will be deleted after: ~
-With a timer: ~
-'Yes': ~
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot to set a master thermostat for a channel that is master for others.: ~
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
-You need to provide icons for all states in light mode.: ~
-Your device has been unlocked by the installer.: ~
-and wait until the meter will be: ~
-auxThermometerType_DISABLED: ~
-auxThermometerType_FLOOR: ~
-auxThermometerType_GENERIC_COOLER: ~
-auxThermometerType_GENERIC_HEATER: ~
-auxThermometerType_NOT_SET: ~
-auxThermometerType_WATER: ~
-blue, otherwise: ~
-blue, when voltage lower than the low threshold: ~
-choose the currency: ~
-configuration missing: ~
-cool: ~
-day: ~
-default: ~
-green, otherwise: ~
-green, when power less than the low threshold: ~
-heat: ~
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
-homeScreenContent_NONE: ~
-homeScreenContent_TEMPERATURE: ~
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
-homeScreenContent_TEMPERATURE_TIME: ~
-homeScreenContent_TIME: ~
-homeScreenContent_TIME_DATE: ~
-hour: ~
-keepHistoryMeasurementWarningSelected: ~
-max: ~
-midnight: ~
-milliseconds: ~
-min: ~
-ocrLightingMode_ALWAYS_ON: ~
-ocrLightingMode_AUTO: ~
-ocrLightingMode_OFF: ~
-'off': ~
-red, when power higher than the high threshold: ~
-red, when voltage higher than the high threshold: ~
-seconds: ~
-statusLed_ALWAYS_OFF: ~
-statusLed_OFF_WHEN_CONNECTED: ~
-statusLed_ON_WHEN_CONNECTED: ~
-subdevicePairingResult_CMD_RESULT_UNKNOWN: ~
-subdevicePairingResult_NOT_STARTED_BUSY: ~
-subdevicePairingResult_NOT_STARTED_NOT_READY: ~
-subdevicePairingResult_NOT_SUPPORTED: ~
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: ~
-subdevicePairingResult_ONGOING: ~
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: ~
-subdevicePairingResult_PROCEDURE_STARTED: ~
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: ~
-subdevicePairingResult_SUCCESS: ~
-subdevicePairingResult_UNAUTHORIZED: ~
-sunrise: ~
-sunset: ~
-swap: ~
-the master thermostat ID{id}: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
-thermostatAlgorithm_PID: ~
-thermostatAlgorithm_help: ~
+0% tilt angle: Hoek van de lamellen die de jaloezie bij het sluiten maakt
+100% tilt angle: De hoek van de lamellen die de jaloezie  bij het openen maakt
+A confirmation upon successful device unlocking.: Bevestiging van ontgrendeling van toestel.
+Active from: Actief sinds
+Active to: Actief tot
+Activity conditions: Activiteit voorwaarden
+Additional time margin: Extra tijdsmarge
+Adjust temperature: Stel de temperatuur in
+Adjust temperatures: Ingestelde temperatuur
+After the delay: Na een bepaalde tijd
+After the delay, but only when it's dark: Na een bepaalde tijd, maar alleen als het donker is
+Alarm armament sensor: Sensor voor alarminstelling
+Algorithm: Algoritme
+All programs must define at least one temperature threshold.: Elk programma moet minstens één temperatuurdrempel definiëren.
+Always decrement: Altijd aflopend
+Always increment: Altijd oplopend
+Anti-freeze and overheat protection: Bescherming tegen oververhitting en antivries
+Anti-freeze protection: Bescherming tegen vorst
+Are you sure you want to change channel’s location?: Weet je zeker dat je de locatie van het kanaal wilt veranderen?
+Are you sure you want to change channel’s visibility?: Weet je zeker dat je de zichtbaarheid van het kanaal wilt veranderen?
+Are you sure you want to change device’s location?: Weet je zeker dat je de locatie van het apparaat wilt wijzigen?
+Are you sure you want to delete this channel?: Weet je zeker dat je dit kanaal wilt verwijderen?
+Automatic: Automatisch
+Automatic front panel turn off: Automatisch uitschakelen van het frontpaneel
+Automatic front panel turn off after: Tijd om het frontpaneel uit te schakelen
+Automatic thermostat: Automatische thermostaat
+Automatic time synchronization: Automatische datum- en tijdsynchronisatie
+Aux thermometer: Extra thermometer
+Aux thermometer type: Type extra thermometer
+Available variables: Beschikbare variabelen
+Average: Gemiddeld
+Battery cover open: Batterijdeksel open
+Behavior settings: Gedrag
+Binary sensor: Binaire sensor
+Brightness adjustment for automatic mode: De helderheid van de automatische modus aanpassen
+Brightness level: Helderheidsniveau
+Button volume: Volume knop
+Buttons upside down: Omgekeerde knopbediening
+Candle: met bougies
+Cannot update OCR settings. Try again in a while.: OCR-instellingen konden niet worden bijgewerkt. Probeer het later opnieuw.
+Change percentage by: Wijzig het percentage met
+Change percentage to: Wijzig het percentage naar
+Change tilt by: Verander de helling met
+Change tilt to: Verander de helling naar
+Change to be the same.: Stel hetzelfde in.
+Changing channel’s visibility will also change the visibility of other items.: Door de zichtbaarheid van het kanaal te veranderen, verandert ook de zichtbaarheid van andere elementen.
+Changing the location will also imply changing the location of the following items.: De verandering van locatie heeft ook gevolgen voor volgende elementen
+Channels that are meant to work with each other must be in the same location.: De kanalen die geacht worden om samen  te werken, moeten zich op dezelfde locatie bevinden.
+Clock error: Klokfout
+Close value: Eindwaarde
+Collapse: Invouwen
+Collapse or stop: Rollen of stoppen
+Collapse partially: Gedeeltelijk inrollen
+Command has been sent to the device. Try refreshing the photo in a while.: Het verzoek is naar het toestel verzonden. Probeer de foto straks te verversen.
+Common currencies: Meest gekozen valuta
+Configuration not available yet. Waiting for the device to connect.: De configuratie is nog niet beschikbaar. Wacht tot het apparaat verbinding maakt.
+Confirm if you want to perform the calibration.: Bevestig dat u de kalibratie wilt uitvoeren.
+Conflict: Conflict
+Cool to: Koelen tot
+Cooling mode: Koelmodus
+'Cooling: {percent}%': 'Koelen: {percent}%'
+Costs: kosten
+Could not restart the device.: Het apparaat kon niet opnieuw worden opgestart.
+Could not send the identify command.: De commando kon niet worden verzonden.
+Could not set the device time.: Het was niet mogelijk om de datum en tijd in te stellen op het toestel.
+Counter type: Type meter
+Curtain: Gordijn
+Dark mode: Donkere modus
+Data: Details
+Date range: Datumbereik
+Daytime criteria: Criteria op basis van daglengte
+Dependencies: Relaties
+'Device GUID: %deviceGuid%': 'GUID van het apparaat: %deviceGuid%'
+Device identification is unsupported in the firmware.: Apparaatidentificatie wordt niet ondersteund in de firmware.
+Device settings: Apparaatinstellingen
+Device should be restarting now.: Het apparaat moet opnieuw opstarten.
+Device time has been set.: De datum en tijd van het apparaat zijn ingesteld.
+Different than on master thermostat.: De instelling is anders dan die op de hoofdthermostaat.
+Differential thermostat: Differentiële thermostaat
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Wil je de kanalen die afhankelijk zijn van deze thermostaat (zoals thermometers en sensoren) hetzelfde maken als in de hoofdthermostaat?
+Domestic hot water: Warm water thuis
+Dryer: Luchtontvochtiger
+Edit area crop: Gebied bewerken
+Edit program settings: Programma-instellingen bewerken
+Electricity meter active power history: Geschiedenis van de power van elektriciteitsmeter
+Electricity meter current history: Geschiedenis stroom in elektriciteitsmeter
+Electricity meter voltage aberrations history: Geschiedenis spanningsafwijking elektriciteitsmeter
+Electricity meter voltage history: Spanningsgeschiedenis elektriciteitsmeter
+Enable floor temperature control: Vloertemperatuurregeling activeren
+Enable generic cooler temperature control: Temperatuurregeling van de koelbron inschakelen
+Enable generic heater temperature control: Warmtebron temperatuurregeling activeren
+Enable power status LED: De voedingsstatus-LED inschakelen
+Enable support for OCR readings for this channel: OCR-ondersteuning inschakelen voor dit kanaal
+Enable water temperature control: Watertemperatuurregeling activeren
+Example value: Voorbeeld
+Expand: Rol uit
+Expand or stop: Rol uit of behouden
+Expand partially: Gedeeltelijk uitrollen
+Expected maximum increment: Verwachte maximale stijging
+External sensor disabling the thermostat: Externe sensor om de thermostaat uit te schakelen
+Facade blind operation: Buitenjaloezieën
+Fan: Windmolen
+'Field: {propertyPath}.': 'Veld {propertyPath}.'
+Fill missing data: Vul ontbrekende metingen in
+Firmware: Firmware
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: De firmware van dit apparaat verstuurt meldingen in de context van dit kanaal. Hier kun je de inhoud en ontvangers configureren. Neem voor meer informatie contact op met de leverancier van je toestel.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: De firmware van dit apparaat verzendt meldingen. Hier kun je de inhoud en ontvangers configureren. Neem voor meer informatie contact op met de leverancier van je toestel.
+For a period: Voor de periode
+Forced off by sensor: Gedwongen uitschakeling door sensor
+Full tilting time: Totale tijd om helling te veranderen
+Function disabled: Functie uitgeschakeld
+General purpose meter: Meterkanaal voor algemene doeleinden
+HVAC: HVAC
+Heat or cold source switch: Schakelaar voor warmte- of koudebron
+Heat to: Warmte naar
+Heating / ventilation / air conditioning: Verwarming / ventilatie / airconditioning (HVAC)
+Heating mode: Verwarmingsmodus
+'Heating: {percent}%': 'Verwarming: {percent}%'
+High threshold: Hoge drempel
+High value: Maximale waarde
+History: Geschiedenis
+Home screen content: Inhoud van het beginscherm
+Hotel card sensor: Hotelkaartsensor
+Identify device: Uw apparaat identificeren
+Identify request sent.: Het verzoek voor identificatie is verzonden.
+If you confirm the installation and wish to unlock this device, please click the link below.: Als jij degene bent die een nieuw apparaat probeert toe te voegen, klik dan op de link hieronder om de ontgrendeling te bevestigen.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Als je niet degene bent die het apparaat probeert te ontgrendelen, negeer deze e-mail dan. De bevestigingslink verloopt automatisch na 24 uur.
+Image area crop: Afbeeldingsgebied
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Om het risico op een onjuiste aflezing te minimaliseren, stel je de maximale verwachte toename van de tellerwaarde tussen opeenvolgende afbeeldingen in.
+Increment and decrement: Oplopend en aflopend
+Installer e-mail address: E-mailadres installateur
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Het apparaat heeft een kanaal van een ander type ({typeCaption} - {typeId}) geregistreerd in plaats van het huidige kanaal.
+Invalid e-mail address.: Ongeldige e-mailadres.
+Invalid unlock code.: Onjuiste deblokkeringslink.
+Last paired device: Laatst gekoppelde apparaat
+Light mode: Heldere modus
+Lighting level: Lichtniveau
+Lighting mode: Verlichtingsmodus
+List of available variables: Lijst met beschikbare variabelen
+Locked: Geblokkeerd
+Low threshold: Lage drempel
+Low threshold must be less than high threshold.: De waarde van de lage drempel moet lager zijn dan van de hoge drempel
+Low value: Minimumwaarde
+Main thermometer: Hoofthermometer
+Master thermostat: Hoofdthermostaat
+Max: Max.
+Maximum duration is one year.: De maximale periode is één jaar.
+Maximum temperature that can be set from the device: Maximale temperatuur die kan worden ingesteld met het apparaat
+Measurement settings: Meetinstellingen
+Min: Min.
+Minimum OFF time before cooling can be turned on: Minimale uitschakeltijd voordat de koeling opnieuw wordt gestart
+Minimum OFF time before heating can be turned on: Minimale UITSCHAKELTIJD voor het opnieuw starten van de verwarming
+Minimum OFF time before heating/cooling can be turned on: Minimale UIT-tijd voordat koelen/verwarmen opnieuw wordt gestart
+Minimum ON time before cooling can be turned off: Minimale uitschakeltijd voordat koeling weer wordt uitgeschakeld
+Minimum ON time before heating can be turned off: Minimale inschakeltijd voordat de verwarming weer wordt uitgeschakeld
+Minimum ON time before heating/cooling can be turned off: Minimale AAN-tijd voordat koelen/verwarmen weer wordt uitgeschakeld
+Minimum temperature must be lower than maximum temperature.: De waarde van minimumtemperatuur moet lager zijn dan de maximumtemperatuur
+Minimum temperature that can be set from the device: Minimumtemperatuur die kan worden ingesteld met het apparaat
+'Mode: cool': 'Modus: koeling'
+'Mode: heat': 'Modus: verwarming'
+'Mode: off': 'Modus: uit'
+Motor upside down: Omgekeerde motorbesturing
+'No': 'Nee'
+No results: Geen resultaten
+Notification body is set by the firmware.: De inhoud van de melding wordt door de firmware ingesteld.
+Notification must have recipients.: De melding moet ontvangers hebben.
+Notification title is set by the firmware.: De koptekst van de melding wordt door de firmware ingesteld.
+Notifications (defined): Meldingen (gedefinieerd)
+Notifications (sent per hour): Meldingen (verzonden per uur)
+'OCR service responded with error: {status}': 'De OCR-service reageerde met een fout: {status}'
+OCR settings: OCR-instellingen
+OR: OF
+Off with duration: Tijdig uitschakelen
+On with duration: Tijd om in te schakelen
+Open value: Openingswaarde
+Output value on error: Uitgangsstatus tijdens een fout
+Overheat protection: Bescherming tegen oververhitting
+P/C: P/C
+Pair new devices or sensors: Nieuwe apparaten of sensoren koppelen
+Pairing request sent.: Koppelingsverzoek verzonden.
+Pairing subdevices is unsupported in the firmware.: Koppelen wordt niet ondersteund door de software van het toestel.
+Phase LED type: LED-fase-indicator
+Photo interval: Opname foto's interval
+Please find the device details below.: Details over het toestel vind je hieronder.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Houd er rekening mee dat het apparaat in kwestie alleen bedoeld is voor gecertificeerde installateurs.
+Please provide the installer e-mail address to request the device unlock.: Om het apparaat te ontgrendelen, voert u het e-mailadres in dat tijdens het verkrijgen van het installatiecertificaat werd opgegeven.
+Please select and configure the action: Selecteer en configureer de actie.
+Program {programNo}: Programma {programNo}
+Projector screen: Projectiescherm
+Pump switch: Pompschakelaar
+Push notifications limit has been exceeded: Limiet voor pushberichten is overschreden
+Reference to the channel will be removed from the items below.: Verwijzingen naar dit kanaal worden uit de onderstaande elementen opgegeven.
+Refresh interval: Vernieuwingsinterval
+Refresh the config: Configuratie vernieuwen
+Refreshing the configuration will overwrite the changes you made here.: Als je de configuratie vernieuwt, worden de wijzigingen in het formulier overschreven.
+Reload last photo: De laatste foto opnieuw laden
+Remote restart is unsupported in the firmware.: Op afstand herstarten wordt niet ondersteund door de software van onderhavig toestel
+Remove this item: Verwijder dit element
+Request device unlock: Toepassen om uw toestel te ontgrendelen
+Reset to defaults: Standaardwaarden herstellen
+Restart device: Het toestel herstarten
+Restart the device: Het toestel herstarten
+Reveal or stop: Onthullen of stoppen
+Roller garage door: Garagedeur
+S/N: S/N
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Toestel ontgrendelen voor een gecertificeerde installateur
+SUPLA – your device has been unlocked!: SUPLA - Uw toestel is ontgrendeld!
+Same as on master thermostat.: Dezelfde instelling als op de hoofdthermostaat.
+Screen brightness: Helderheid scherm
+Selected: Geselecteerd
+Set HVAC parameters: Stel de parameters in
+Set the device time: Het was niet mogelijk om de datum en tijd in te stellen op het toestel.
+Settings: aInstellingen
+Settings have not been saved!: Instellingen zijn niet opgeslagen!
+Show data: Gegevens tonen
+Shut or stop: Bedek of stop
+Some features depend on this channel: Sommige functies zijn afhankelijk van dit kanaal
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Sommige gegevens die voor je account worden verzameld, worden na een bepaalde periode periodiek verwijderd. Maak jezelf vertrouwd met de onderstaande limieten.
+Status LED: Status-LED
+Store active power history: Een geschiedenis van actief vermogen bijhouden
+Store current history: Huidige geschiedenis bewaren
+Store voltage history: Houd een geschiedenis van spanning bij
+'Subdevice #{id}': 'Toeleveringsapparaat #{id}'
+Subfunction: Subfunctie
+Switch to manual mode: Schakel over naar handmatige modus
+Switch to program mode: Overschakelen naar programmamodus
+THEN: TOEN
+Take a photo now: Maak nu een foto
+Temperature adjustment only: Alleen temperatuurinstelling
+Temperature difference is too big between {min}°C and {max}°C.: Het temperatuurverschil tussen {min}°C en {max}°C is te groot.
+Temperature setpoint change switches to manual mode: Door de doeltemperatuur te wijzigen, schakelt u over naar de handmatige modus
+Temporal override: Tijdelijke opheffing
+Terrace awning: Terraszonwering
+The channel has been deleted.: Het kanaal is verwijderd.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: De configuratie is gewijzigd vanaf een andere locatie (bijv. een ander browservenster, mobiele app of apparaat). Je moet de configuratie vernieuwen voordat je verdere wijzigingen aanbrengt.
+The device could not be unlocked.: Het toestel kon niet worden ontgrendeld.
+The device has been unlocked already.: Het toestel is al ontgrendeld.
+The device has been unlocked.: Het toestel werd ontgrendeld.
+The device has channel conflict and cannot work.: Het toestel heeft een kanaalconflict gegenereerd en kan momenteel niet werken.
+The device is locked: Toestel vergrendeld
+The following channels will be also removed along with their dependencies.: De volgende kanalen worden ook verwijderd, samen met hun afhankelijkheden.
+The items below rely on this channel, so they will be deleted.: De volgende items zijn afhankelijk van dit kanaal, dus die worden verwijderd.
+The master termostat you chose already has a master.: De masterthermostaat die je hebt geselecteerd heeft al een andere masterthermostaat
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: De reactie is actief als aan alle volgende voorwaarden is voldaan. Als je alle beschikbare opties instelt, wordt de reactie alleen geactiveerd tussen de geselecteerde data, op de geselecteerde tijden en dagen van de week en wanneer aan een van de referenties voor zonsondergang of zonsopgang wordt voldaan.
+The thermostat will not work if the main thermometer is not set.: De hoofdthermometer moet zijn ingesteld om de thermostaat te laten werken.
+Thermometer error: Thermometerfout
+Thermometers configuration: Configuratie van thermometers
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Deze thermostaat gebruikt de instellingen van de hoofdthermostaat. Ga naar de detailpagina om de instellingen te wijzigen.
+Thermostat programs: Thermostaatprogramma's
+This action will result in restarting the device. It will not be available for a while.: Door deze handeling uit te voeren, wordt het toestel opnieuw opgestart. Tijdens het herstarten is het toestel niet toegankelijk.
+This channel was missing during last device registration attempt.: Dit kanaal ontbreekt op het toestel.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Dit toestel is uitsluitend bedoeld voor distributie en installatie door erkende installateurs. Als u geen erkende SUPLA-installateur bent en geen actief trainingscertificaat hebt, retourneer dit dan aan uw dealer.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Dit is de laatste foto die is geüpload vanaf het toestel. Markeer het exacte gebied waar de tellercijfers zichtbaar zijn.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Dit is een lijst met reacties die op je account worden uitgevoerd. Als je een nieuwe reactie wilt toevoegen, ga dan naar de details van het kanaal dat de reactie moet veroorzaken.
+This thermostat is controlled by another device.: Deze thermostaat wordt aangestuurd door een hoofdthermostaat.
+Tilt angle: Hellingshoek
+Tilt control type: Type kantelbesturing
+Tilt percent: Percentage helling
+Time: Tijd
+Today, it would be active from {from} to {to}.: Vandaag zou de activiteitsperiode tussen {from} en {to} vallen.
+Turn off: Schakel uit
+Unlock the device: Het toestel ontgrendelen
+Unlocked: Ontgrendeld
+Until a date and time: Tot
+Until the next change: Tot de volgende shift
+Use device default: Gebruik de standaardwaarde van het toestel
+Use working schedule for this reaction: Gebruik het activiteitenschema voor deze reactie
+Use {theMasterThermostat} to control this device.: Gebruik {theMasterThermostat} om dit toestel te bedienen.
+Used current transformer type: Gebruikte stroomtransformator
+User interface: Gebruiker/computer-interface
+Value divider: Deelbaar
+Value multiplier: Vermenigvuldiger
+Vertical blind: Verticale jaloezie
+Visit the master thermostat page.: Ga naar de hoofdthermostaat.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: We hebben een verzoek ontvangen om een toestel te deblokkeren dat alleen bedoeld is voor gecertificeerde installateurs. Het verzoek is verzonden door gebruiker %deviceUserEmail% vanaf de SUPLA Cloud instance op %targetCloudUrl%.
+Week: Week
+Weekly schedule: Wekelijks schema
+When the alarm is armed: Wanneer het alarm is ingesteld
+When the alarm is armed or disarmed: Wanneer het alarm is gedeactiveerd of ingesteld
+When the alarm is disarmed: Wanneer het alarm afgaat
+When the battery cover is opened: Wanneer het batterijklepje wordt geopend
+When the clock error has been reported: Wanneer de timer een fout meldt
+When the curtain position changes: Wanneer het gordijn van positie verandert
+When the curtain reaches: Wanneer het gordijn
+When the curtain reaches a certain position: Wanneer het gordijn een bepaalde positie bereikt
+When the facade blind position changes: Wanneer een gevelgordijn van positie verandert
+When the facade blind reaches: Wanneer de externe jaloezie
+When the facade blind reaches a certain position: Wanneer de externe jaloezie een bepaalde positie bereikt
+When the hotel card has been taken: Wanneer de hotelkaart wordt ingenomen
+When the hotel card is put in: Wanneer de hotelkaart wordt ingebracht
+When the hotel card is put in or has been taken: Wanneer de hotelkaart wordt ingebracht of uitgenomen
+When the meter reaches a certain value: Wanneer de teller de gewenste waarde bereikt
+When the meter value changes: Wanneer de waarde verandert
+When the meter value will be: Wanneer de waarde
+When the projector screen position changes: Wanneer het projectiescherm van positie verandert
+When the projector screen reaches: Wanneer het projectiescherm
+When the projector screen reaches a certain position: Wanneer het projectiescherm een bepaalde positie bereikt
+When the pump is turned off: Wanneer de pomp is uitgeschakeld
+When the pump is turned on: Wanneer de pomp wordt ingeschakeld
+When the pump is turned on or off: Wanneer de pomp wordt in- of uitgeschakeld
+When the roller garage door a certain position: Wanneer de garagedeur een bepaalde positie bereikt
+When the roller garage door position changes: Wanneer de garagedeur van positie verandert
+When the roller garage door reaches: Wanneer de garagedeur
+When the roller shutter calibration failed: Als de kalibratie van het rolluik eindigt met een fout
+When the roller shutter calibration has been lost: Wanneer de kalibratie van het rolluik niet kan worden voltooid
+When the roller shutter calibration has started: Zodra de kalibratie van het rolluik is gestart
+When the roller shutter motor reported a problem: Wanneer de rolluikmotor een probleem meldt
+When the terrace awning position changes: Wanneer een terraszonwering van positie verandert
+When the terrace awning reaches: Wanneer een terraszonwering
+When the terrace awning reaches a certain position: Wanneer een terraszonwering een bepaalde positie bereikt
+When the thermometer error has been reported: Wanneer de thermometer een fout meldt
+When the thermostat starts cooling: Wanneer de thermostaat begint te koelen
+When the thermostat starts heating: Wanneer de thermostaat begint te verwarmen
+When the thermostat starts heating or cooling: Wanneer de thermostaat begint met koelen of verwarmen
+When the thermostat starts or stops cooling: Wanneer de thermostaat begint of stopt met koelen
+When the thermostat starts or stops heating: Wanneer de thermostaat begint of stopt met verwarmen
+When the thermostat starts or stops heating or cooling: Wanneer de thermostaat begint of stopt met verwarmen of koelen
+When the thermostat stops cooling: Wanneer de thermostaat stopt met koelen
+When the thermostat stops heating: Wanneer de thermostaat stopt met verwarmen
+When the thermostat stops heating or cooling: Wanneer de thermostaat stopt met koelen of verwarmen
+When the vertical blind position changes: Wanneer de verticale jaloezie van positie verandert
+When the vertical blind reaches: Wanneer de verticale jaloezie
+When the vertical blind reaches a certain position: Wanneer de verticale jaloezie een bepaalde positie bereikt
+Will be deleted after: Verwijdering na
+With a timer: Met timer
+'Yes': 'Ja'
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Je kunt hier relatieve waarden instellen. Bijvoorbeeld, +10 of -20 zal de instelling respectievelijk met 10 verhogen of met 20 verlagen.
+You cannot to set a master thermostat for a channel that is master for others.: U kunt de hoofdthermostaat niet instellen in de hoofdthermostaat
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Het verzoek is verzonden. We brengen je op de hoogte wanneer de installateur het goedkeurt en het toestel ontgrendelt.
+You need to provide icons for all states in light mode.: Je moet pictogrammen voorzien voor alle toestanden in heldere modus.
+Your device has been unlocked by the installer.: Je toestel is ontgrendeld door de installateur
+and wait until the meter will be: en voer deze reactie niet opnieuw uit totdat de waarde
+auxThermometerType_DISABLED: Uit
+auxThermometerType_FLOOR: Vloer
+auxThermometerType_GENERIC_COOLER: Koelbron
+auxThermometerType_GENERIC_HEATER: Warmtebron
+auxThermometerType_NOT_SET: Niet ingesteld
+auxThermometerType_WATER: Water
+blue, otherwise: anders blauw
+blue, when voltage lower than the low threshold: blauw wanneer de spanning onder de lage drempel is
+choose the currency: Selecteer valuta
+configuration missing: geen configuratie
+cool: koeling
+day: dag
+default: standaard
+green, otherwise: anders groen
+green, when power less than the low threshold: groen wanneer het vermogen lager is dan de ondergrens
+heat: verwarming
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Hoofd- en hulptemperatuur
+homeScreenContent_NONE: Geen
+homeScreenContent_TEMPERATURE: Temperatuur
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatuur en luchtvochtigheid
+homeScreenContent_TEMPERATURE_TIME: Temperatuur en tijd
+homeScreenContent_TIME: Tijd
+homeScreenContent_TIME_DATE: Datum en tijd
+hour: uur
+keepHistoryMeasurementWarningSelected: Weet je zeker dat je dit verhaal nodig hebt? Supla is een open source project dat met eigen middelen wordt onderhouden. Als je dit verhaal niet nodig hebt, help ons dan waardevolle opslagruimte te besparen door deze optie uit te schakelen.
+max: max.
+midnight: het Noorden
+milliseconds: milliseconden
+min: min.
+ocrLightingMode_ALWAYS_ON: Altijd aan
+ocrLightingMode_AUTO: Automatisch
+ocrLightingMode_OFF: Uit
+'off': 'Schakel uit'
+red, when power higher than the high threshold: rood wanneer vermogen boven hoge drempel is
+red, when voltage higher than the high threshold: rood wanneer de spanning hoger is dan de hoge drempel
+seconds: seconden
+statusLed_ALWAYS_OFF: Altijd uitschakelen
+statusLed_OFF_WHEN_CONNECTED: Uitschakelen wanneer aangesloten
+statusLed_ON_WHEN_CONNECTED: Inschakelen wanneer aangesloten
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Onbekend resultaat
+subdevicePairingResult_NOT_STARTED_BUSY: Het toestel is bezet
+subdevicePairingResult_NOT_STARTED_NOT_READY: Het toestel is niet gereed
+subdevicePairingResult_NOT_SUPPORTED: Niet-ondersteunde bewerking
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Geen nieuwe apparatuur gevonden
+subdevicePairingResult_ONGOING: In uitvoering...
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Onbekend resultaat van verdamping
+subdevicePairingResult_PROCEDURE_STARTED: Procedure gestart
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Limiet voor bronnen overschreden
+subdevicePairingResult_SUCCESS: Succes
+subdevicePairingResult_UNAUTHORIZED: Mislukte autorisatie
+sunrise: zonsopgang
+sunset: zonsondergang
+swap: ruil
+the master thermostat ID{id}: van de hoofdthermostaat ID{id}
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Aan/uit met bovenste instelling
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Aan/uit met middelste instelling
+thermostatAlgorithm_PID: PID
+thermostatAlgorithm_help: |
+  De aan/uit-algoritmen werken op basis van een hysteresisinstelling. De hysteresis kan gerelateerd worden aan het midden van het bereik (middelste instelling) of aan de ingestelde temperatuur (bovenste instelling).
+  Bijvoorbeeld, uitgaande van een hysteresis van 1°C en een gewenste temperatuur van 23°C, zal de thermostaat:
+  - de verwarming aanzetten op 22,5°C en stoppen wanneer de temperatuur 23,5°C bereikt voor de middelste instelling 
+  - de verwarming aanzetten op 22°C en stoppen wanneer de temperatuur 23°C bereikt voor de bovenste instelling
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: ~
-thermostatSubfunction_HEAT: ~
-thermostatTemperature_aboveAlarm: ~
-thermostatTemperature_auxMaxSetpoint: ~
-thermostatTemperature_auxMinSetpoint: ~
-thermostatTemperature_belowAlarm: ~
-thermostatTemperature_boost: ~
-thermostatTemperature_comfort: ~
-thermostatTemperature_eco: ~
-thermostatTemperature_freezeProtection: ~
-thermostatTemperature_heatProtection: ~
-thermostatTemperature_histeresis: ~
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: ~
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: ~
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: ~
-tiltControlType_UNKNOWN: ~
-timeMarginMode_custom: ~
-timeMarginMode_device: ~
-timeMarginMode_off: ~
-usedCTType_100A_33mA: ~
-usedCTType_200A_66mA: ~
-usedCTType_400A_133mA: ~
-usedPhaseLedType_OFF: ~
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
-usedPhaseLedType_VOLTAGE_LEVEL: ~
-usedPhaseLedType_VOLTAGE_PRESENCE: ~
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
-'{count} minutes after sunrise': ~
-'{count} minutes after sunset': ~
-'{count} minutes before sunrise': ~
-'{count} minutes before sunset': ~
-'{days} days': ~
-
+thermostatSubfunction_COOL: Koeling
+thermostatSubfunction_HEAT: Verwarming
+thermostatTemperature_aboveAlarm: Boven het alarm
+thermostatTemperature_auxMaxSetpoint: Maximale hulptemperatuur
+thermostatTemperature_auxMinSetpoint: Minimale hulptemperatuur
+thermostatTemperature_belowAlarm: Onder het alarm
+thermostatTemperature_boost: Temperatuurverhoging
+thermostatTemperature_comfort: Comforttemperatuur
+thermostatTemperature_eco: ECO-temperatuur
+thermostatTemperature_freezeProtection: Temperatuur antivriesbeveiliging
+thermostatTemperature_heatProtection: Temperatuur oververhittingsbeveiliging
+thermostatTemperature_histeresis: Hysterese
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Verandert van positie tijdens kantelen
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Verandert niet van positie tijdens het kantelen
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Verandert de graad van kanteling alleen als hij volledig gesloten is
+tiltControlType_UNKNOWN: Onbekend
+timeMarginMode_custom: Ongewoon
+timeMarginMode_device: Standaardwaarde van het toestel
+timeMarginMode_off: Uit
+usedCTType_100A_33mA: 100A/33,3mA
+usedCTType_200A_66mA: 200A/66,6mA
+usedCTType_400A_133mA: 400A/133,3mA
+usedPhaseLedType_OFF: Uit
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Richting van energiestroom
+usedPhaseLedType_VOLTAGE_LEVEL: Spanningsniveau
+usedPhaseLedType_VOLTAGE_PRESENCE: Aanwezigheid van spanning
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Aanwezigheid van spanning (geïnverteerd)
+'{count} minutes after sunrise': '{count} minuten na zonsopgang'
+'{count} minutes after sunset': '{count} minuten na zonsondergang'
+'{count} minutes before sunrise': '{count} minuten voor zonsopgang'
+'{count} minutes before sunset': '{count} minuten voor zonsondergang'
+'{days} days': '{dagen} dagen'
 #</editor-fold>
