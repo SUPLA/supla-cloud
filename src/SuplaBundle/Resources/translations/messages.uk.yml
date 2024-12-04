@@ -815,7 +815,7 @@ Unsupported type: Тип, що не підтримується
 Update in progress: Оновлення триває
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Завантажені файли не порушують моральні принципи, авторські права та права третіх осіб, і я маю право їх використовувати.
 Upper voltage threshold: поріг високої напруги
-'Use the {0} server command to change this account''s limits. For example:': 'Щоб змінити обмеження для цього облікового запису, скористайтеся командою {0} на своєму сервері. Наприклад:'
+"Use the {0} server command to change this account's limits. For example:": 'Щоб змінити обмеження для цього облікового запису, скористайтеся командою {0} на своєму сервері. Наприклад:'
 Use working schedule for this access identifier: Використовуйте графік доступності для цього ідентифікатора доступу
 User is already confirmed. Try to log in.: Цей обліковий запис уже підтверджено. Авторизуйтесь
 Value: Значення
@@ -1204,429 +1204,432 @@ suffix: суфікс
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-0% tilt angle: ~
-100% tilt angle: ~
-A confirmation upon successful device unlocking.: ~
-Active from: ~
-Active to: ~
-Activity conditions: ~
-Additional time margin: ~
-Adjust temperature: ~
-Adjust temperatures: ~
-After the delay: ~
-After the delay, but only when it's dark: ~
-Alarm armament sensor: ~
-Algorithm: ~
-All programs must define at least one temperature threshold.: ~
-Always decrement: ~
-Always increment: ~
-Anti-freeze and overheat protection: ~
-Anti-freeze protection: ~
-Are you sure you want to change channel’s location?: ~
-Are you sure you want to change channel’s visibility?: ~
-Are you sure you want to change device’s location?: ~
-Are you sure you want to delete this channel?: ~
-Automatic: ~
-Automatic front panel turn off: ~
-Automatic front panel turn off after: ~
-Automatic thermostat: ~
-Automatic time synchronization: ~
-Aux thermometer: ~
-Aux thermometer type: ~
-Available variables: ~
-Average: ~
-Battery cover open: ~
-Behavior settings: ~
-Binary sensor: ~
-Brightness adjustment for automatic mode: ~
-Brightness level: ~
-Button volume: ~
-Buttons upside down: ~
-Candle: ~
-Cannot update OCR settings. Try again in a while.: ~
-Change percentage by: ~
-Change percentage to: ~
-Change tilt by: ~
-Change tilt to: ~
-Change to be the same.: ~
-Changing channel’s visibility will also change the visibility of other items.: ~
-Changing the location will also imply changing the location of the following items.: ~
-Channels that are meant to work with each other must be in the same location.: ~
-Clock error: ~
-Close value: ~
-Collapse: ~
-Collapse or stop: ~
-Collapse partially: ~
-Command has been sent to the device. Try refreshing the photo in a while.: ~
-Common currencies: ~
-Configuration not available yet. Waiting for the device to connect.: ~
-Confirm if you want to perform the calibration.: ~
-Conflict: ~
-Cool to: ~
-Cooling mode: ~
-'Cooling: {percent}%': ~
-Costs: ~
-Could not restart the device.: ~
-Could not send the identify command.: ~
-Could not set the device time.: ~
-Counter type: ~
-Curtain: ~
-Dark mode: ~
-Data: ~
-Date: ~
-Date range: ~
-Daytime criteria: ~
-Dependencies: ~
-'Device GUID: %deviceGuid%': ~
-Device identification is unsupported in the firmware.: ~
-Device settings: ~
-Device should be restarting now.: ~
-Device time has been set.: ~
-Different than on master thermostat.: ~
-Differential thermostat: ~
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
-Domestic hot water: ~
-Dryer: ~
-Edit area crop: ~
-Edit program settings: ~
-Electricity meter active power history: ~
-Electricity meter current history: ~
-Electricity meter voltage aberrations history: ~
-Electricity meter voltage history: ~
-Enable floor temperature control: ~
-Enable generic cooler temperature control: ~
-Enable generic heater temperature control: ~
-Enable power status LED: ~
-Enable support for OCR readings for this channel: ~
-Enable water temperature control: ~
-Example value: ~
-Expand: ~
-Expand or stop: ~
-Expand partially: ~
-Expected maximum increment: ~
-External sensor disabling the thermostat: ~
-Facade blind operation: ~
-Fan: ~
-'Field: {propertyPath}.': ~
-Fill missing data: ~
-Firmware: ~
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-For a period: ~
-Forced off by sensor: ~
-Full tilting time: ~
-Function disabled: ~
-General purpose meter: ~
-HVAC: ~
-Heat or cold source switch: ~
-Heat to: ~
-Heating / ventilation / air conditioning: ~
-Heating mode: ~
-'Heating: {percent}%': ~
-High threshold: ~
-High value: ~
-History: ~
-Home screen content: ~
-Hotel card sensor: ~
-Identify device: ~
-Identify request sent.: ~
-If you confirm the installation and wish to unlock this device, please click the link below.: ~
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
-Image area crop: ~
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: ~
-Increment and decrement: ~
-Installer e-mail address: ~
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: ~
-Invalid e-mail address.: ~
-Invalid unlock code.: ~
-Last paired device: ~
-Light mode: ~
-Lighting level: ~
-Lighting mode: ~
-List of available variables: ~
-Locked: ~
-Low threshold: ~
-Low threshold must be less than high threshold.: ~
-Low value: ~
-Main thermometer: ~
-Master thermostat: ~
-Max: ~
-Maximum duration is one year.: ~
-Maximum temperature that can be set from the device: ~
-Measurement settings: ~
-Min: ~
-Minimum OFF time before cooling can be turned on: ~
-Minimum OFF time before heating can be turned on: ~
-Minimum OFF time before heating/cooling can be turned on: ~
-Minimum ON time before cooling can be turned off: ~
-Minimum ON time before heating can be turned off: ~
-Minimum ON time before heating/cooling can be turned off: ~
-Minimum temperature must be lower than maximum temperature.: ~
-Minimum temperature that can be set from the device: ~
-'Mode: cool': ~
-'Mode: heat': ~
-'Mode: off': ~
-Motor upside down: ~
-'No': ~
-No results: ~
-Notification body is set by the firmware.: ~
-Notification must have recipients.: ~
-Notification title is set by the firmware.: ~
-Notifications (defined): ~
-Notifications (sent per hour): ~
-'OCR service responded with error: {status}': ~
-OCR settings: ~
-OR: ~
-Off with duration: ~
-On with duration: ~
-Open value: ~
-Output value on error: ~
-Overheat protection: ~
-P/C: ~
-Pair new devices or sensors: ~
-Pairing request sent.: ~
-Pairing subdevices is unsupported in the firmware.: ~
-Phase LED type: ~
-Photo interval: ~
-Please find the device details below.: ~
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: ~
-Please provide the installer e-mail address to request the device unlock.: ~
-Please select and configure the action: ~
-Program {programNo}: ~
-Projector screen: ~
-Pump switch: ~
-Push notifications limit has been exceeded: ~
-Reference to the channel will be removed from the items below.: ~
-Refresh interval: ~
-Refresh the config: ~
-Refreshing the configuration will overwrite the changes you made here.: ~
-Reload last photo: ~
-Remote restart is unsupported in the firmware.: ~
-Remove this item: ~
-Request device unlock: ~
-Reset to defaults: ~
-Restart device: ~
-Restart the device: ~
-Reveal or stop: ~
-Roller garage door: ~
-S/N: ~
-SUPLA - Confirm unlocking device for authorized installers: ~
-SUPLA – your device has been unlocked!: ~
-Same as on master thermostat.: ~
-Screen brightness: ~
-Selected: ~
-Set HVAC parameters: ~
-Set the device time: ~
-Settings: ~
-Settings have not been saved!: ~
-Show data: ~
-Shut or stop: ~
-Some features depend on this channel: ~
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
-Status LED: ~
-Store active power history: ~
-Store current history: ~
-Store voltage history: ~
-'Subdevice #{id}': ~
-Subfunction: ~
-Switch to manual mode: ~
-Switch to program mode: ~
-THEN: ~
-Take a photo now: ~
-Temperature adjustment only: ~
-Temperature difference is too big between {min}°C and {max}°C.: ~
-Temperature setpoint change switches to manual mode: ~
-Temporal override: ~
-Terrace awning: ~
-The channel has been deleted.: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: ~
-The device could not be unlocked.: ~
-The device has been unlocked already.: ~
-The device has been unlocked.: ~
-The device has channel conflict and cannot work.: ~
-The device is locked: ~
-The following channels will be also removed along with their dependencies.: ~
-The items below rely on this channel, so they will be deleted.: ~
-The master termostat you chose already has a master.: ~
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
-The thermostat will not work if the main thermometer is not set.: ~
-Thermometer error: ~
-Thermometers configuration: ~
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
-Thermostat programs: ~
-This action will result in restarting the device. It will not be available for a while.: ~
-This channel was missing during last device registration attempt.: ~
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
-This thermostat is controlled by another device.: ~
-Tilt angle: ~
-Tilt control type: ~
-Tilt percent: ~
-Time: ~
-Today, it would be active from {from} to {to}.: ~
-Turn off: ~
-Unlock the device: ~
-Unlocked: ~
-Until a date and time: ~
-Until the next change: ~
-Use device default: ~
-Use working schedule for this reaction: ~
-Use {theMasterThermostat} to control this device.: ~
-Used current transformer type: ~
-User interface: ~
-Value divider: ~
-Value multiplier: ~
-Vertical blind: ~
-Visit the master thermostat page.: ~
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
-Week: ~
-Weekly schedule: ~
-When the alarm is armed: ~
-When the alarm is armed or disarmed: ~
-When the alarm is disarmed: ~
-When the battery cover is opened: ~
-When the clock error has been reported: ~
-When the curtain position changes: ~
-When the curtain reaches: ~
-When the curtain reaches a certain position: ~
-When the facade blind position changes: ~
-When the facade blind reaches: ~
-When the facade blind reaches a certain position: ~
-When the hotel card has been taken: ~
-When the hotel card is put in: ~
-When the hotel card is put in or has been taken: ~
-When the meter reaches a certain value: ~
-When the meter value changes: ~
-When the meter value will be: ~
-When the projector screen position changes: ~
-When the projector screen reaches: ~
-When the projector screen reaches a certain position: ~
-When the pump is turned off: ~
-When the pump is turned on: ~
-When the pump is turned on or off: ~
-When the roller garage door a certain position: ~
-When the roller garage door position changes: ~
-When the roller garage door reaches: ~
-When the roller shutter calibration failed: ~
-When the roller shutter calibration has been lost: ~
-When the roller shutter calibration has started: ~
-When the roller shutter motor reported a problem: ~
-When the terrace awning position changes: ~
-When the terrace awning reaches: ~
-When the terrace awning reaches a certain position: ~
-When the thermometer error has been reported: ~
-When the thermostat starts cooling: ~
-When the thermostat starts heating: ~
-When the thermostat starts heating or cooling: ~
-When the thermostat starts or stops cooling: ~
-When the thermostat starts or stops heating: ~
-When the thermostat starts or stops heating or cooling: ~
-When the thermostat stops cooling: ~
-When the thermostat stops heating: ~
-When the thermostat stops heating or cooling: ~
-When the vertical blind position changes: ~
-When the vertical blind reaches: ~
-When the vertical blind reaches a certain position: ~
-Will be deleted after: ~
-With a timer: ~
-'Yes': ~
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot to set a master thermostat for a channel that is master for others.: ~
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
-You need to provide icons for all states in light mode.: ~
-Your device has been unlocked by the installer.: ~
-and wait until the meter will be: ~
-auxThermometerType_DISABLED: ~
-auxThermometerType_FLOOR: ~
-auxThermometerType_GENERIC_COOLER: ~
-auxThermometerType_GENERIC_HEATER: ~
-auxThermometerType_NOT_SET: ~
-auxThermometerType_WATER: ~
-blue, otherwise: ~
-blue, when voltage lower than the low threshold: ~
-choose the currency: ~
-configuration missing: ~
-cool: ~
-day: ~
-default: ~
-green, otherwise: ~
-green, when power less than the low threshold: ~
-heat: ~
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
-homeScreenContent_NONE: ~
-homeScreenContent_TEMPERATURE: ~
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
-homeScreenContent_TEMPERATURE_TIME: ~
-homeScreenContent_TIME: ~
-homeScreenContent_TIME_DATE: ~
-hour: ~
-keepHistoryMeasurementWarningSelected: ~
-max: ~
-midnight: ~
-milliseconds: ~
-min: ~
-ocrLightingMode_ALWAYS_ON: ~
-ocrLightingMode_AUTO: ~
-ocrLightingMode_OFF: ~
-'off': ~
-red, when power higher than the high threshold: ~
-red, when voltage higher than the high threshold: ~
-seconds: ~
-statusLed_ALWAYS_OFF: ~
-statusLed_OFF_WHEN_CONNECTED: ~
-statusLed_ON_WHEN_CONNECTED: ~
-subdevicePairingResult_CMD_RESULT_UNKNOWN: ~
-subdevicePairingResult_NOT_STARTED_BUSY: ~
-subdevicePairingResult_NOT_STARTED_NOT_READY: ~
-subdevicePairingResult_NOT_SUPPORTED: ~
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: ~
-subdevicePairingResult_ONGOING: ~
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: ~
-subdevicePairingResult_PROCEDURE_STARTED: ~
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: ~
-subdevicePairingResult_SUCCESS: ~
-subdevicePairingResult_UNAUTHORIZED: ~
-sunrise: ~
-sunset: ~
-swap: ~
-the master thermostat ID{id}: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
-thermostatAlgorithm_PID: ~
-thermostatAlgorithm_help: ~
+0% tilt angle: Кут нахилу ламелей, який встановлюють жалюзі при закриванні
+100% tilt angle: Кут нахилу ламелей, який встановлюють жалюзі при відкриванні
+A confirmation upon successful device unlocking.: Підтвердження розблокування пристрою.
+Active from: Активний з
+Active to: Активний до
+Activity conditions: Умови діяльності
+Additional time margin: Додатковий запас часу
+Adjust temperature: Встановіть температуру
+Adjust temperatures: Встановіть температури
+After the delay: Через визначений проміжок часу
+After the delay, but only when it's dark: Через певний час, але тільки коли стемніє
+Alarm armament sensor: Датчик постановки сигналізації на охорону
+Algorithm: Алгоритм
+All programs must define at least one temperature threshold.: Кожна програма повинна визначати принаймні один температурний поріг.
+Always decrement: Постійне зменшення
+Always increment: Постійне зростання
+Anti-freeze and overheat protection: Захист від перегріву та замерзання
+Anti-freeze protection: Захист від замерзання
+Are you sure you want to change channel’s location?: Ви впевнені, що хочете змінити розташування каналу?
+Are you sure you want to change channel’s visibility?: Ви впевнені, що хочете змінити видимість каналу?
+Are you sure you want to change device’s location?: Ви впевнені, що хочете змінити місце розташування пристрою?
+Are you sure you want to delete this channel?: Ви дійсно хочете видалити цей канал?
+Automatic: Автоматичне
+Automatic front panel turn off: Автоматичне вимкнення передньої панелі
+Automatic front panel turn off after: Час вимкнення передньої панелі
+Automatic thermostat: Автоматичний термостат
+Automatic time synchronization: Автоматична синхронізація дати та часу
+Aux thermometer: Додатковий термометр
+Aux thermometer type: Додатковий тип термометра
+Available variables: Доступні змінні
+Average: Середня
+Battery cover open: Кришка акумулятора відкрита
+Behavior settings: Поведінка
+Binary sensor: Бінарний датчик
+Brightness adjustment for automatic mode: Налаштування яскравості автоматичного режиму
+Brightness level: Рівень яскравості
+Button volume: Кнопка гучності
+Buttons upside down: Керування кнопкою реверсу
+Candle: Свічник
+Cannot update OCR settings. Try again in a while.: Не вдалося оновити налаштування розпізнавання тексту. Спробуйте ще раз за мить.
+Change percentage by: Змініть відсоток на
+Change percentage to: Змініть відсоток до
+Change tilt by: Змініть нахил на
+Change tilt to: Змініть нахил до
+Change to be the same.: Налаштуйте так само.
+Changing channel’s visibility will also change the visibility of other items.: Зміна видимості каналу також змінить видимість інших елементів.
+Changing the location will also imply changing the location of the following items.: Зміна розташування також призведе до зміни розташування наступних елементів.
+Channels that are meant to work with each other must be in the same location.: Канали для спільної роботи повинні знаходитися в одному місці.
+Clock error: Помилка годинника
+Close value: Значення закриття
+Collapse: Згорнути
+Collapse or stop: Прокрутити або зупинити
+Collapse partially: Згорнути частково
+Command has been sent to the device. Try refreshing the photo in a while.: Запит було надіслано на пристрій. Спробуйте оновити фото за мить.
+Common currencies: Валюти, які обирають найчастіше
+Configuration not available yet. Waiting for the device to connect.: Конфігурація ще не доступна. Зачекайте, поки пристрій підключиться.
+Confirm if you want to perform the calibration.: Підтвердьте, що ви бажаєте виконати калібрування.
+Conflict: Конфлікт
+Cool to: Перейти до
+Cooling mode: Режим охолодження
+'Cooling: {percent}%': 'Охолодження: {percent}%.'
+Costs: Витрати
+Could not restart the device.: Пристрій не вдалося перезапустити.
+Could not send the identify command.: Не вдалося відправити замовлення.
+Could not set the device time.: Не вдалося налаштувати дату і час на пристрої.
+Counter type: Тип лічильника
+Curtain: Штора
+Dark mode: Темний режим
+Data: Дані
+Date: Дата
+Date range: Діапазон дат
+Daytime criteria: Критерії на основі тривалості дня
+Dependencies: Залежності
+'Device GUID: %deviceGuid%': 'GUID пристрою: %deviceGuid% (Глобальний унікальний ідентифікатор)'
+Device identification is unsupported in the firmware.: Ідентифікація пристрою не підтримується у прошивці.
+Device settings: Параметри пристрою
+Device should be restarting now.: Пристрій повинен перезапуститися.
+Device time has been set.: Встановлено дату та час роботи пристрою.
+Different than on master thermostat.: Налаштування відрізняються від налаштувань на головному термостаті.
+Differential thermostat: Диференціальний термостат
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Ви хочете, щоб канали, залежні від цього термостата (наприклад, термометри та датчики), були такими ж, як і в головному термостаті?
+Domestic hot water: Гаряча вода вдома
+Dryer: Осушувач повітря
+Edit area crop: Область редагування
+Edit program settings: Редагування налаштувань програми
+Electricity meter active power history: Історія потужності лічильника електроенергії
+Electricity meter current history: Історія інтенсивності лічильника електроенергії
+Electricity meter voltage aberrations history: Історія відхилень напруги лічильника електроенергії
+Electricity meter voltage history: Історія напруги лічильника електроенергії
+Enable floor temperature control: Увімкнути керування температурою підлоги
+Enable generic cooler temperature control: Увімкніть контроль температури джерела охолодження
+Enable generic heater temperature control: Увімкніть регулювання температури джерела тепла
+Enable power status LED: Увімкніть світлодіодний індикатор стану живлення
+Enable support for OCR readings for this channel: Увімкніть підтримку розпізнавання тексту для цього каналу
+Enable water temperature control: Увімкніть регулювання температури води
+Example value: Приклад
+Expand: Розгорнути
+Expand or stop: Розгорнути або утримувати
+Expand partially: Розгорнути частково
+Expected maximum increment: Очікуване максимальне зростання
+External sensor disabling the thermostat: Зовнішній датчик для вимкнення терморегулятора
+Facade blind operation: Фасадні ролети
+Fan: Вітряк
+'Field: {propertyPath}.': 'Поле {propertyPath}.'
+Fill missing data: Заповніть відсутні розміри
+Firmware: Прошивка
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Прошивка цього пристрою надсилає сповіщення в контексті цього каналу. Тут ви можете налаштувати вміст і отримувачів. Для отримання додаткової інформації зверніться до постачальника пристрою.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Прошивка цього пристрою надсилає сповіщення. Тут ви можете налаштувати вміст і отримувачів. Для отримання додаткової інформації зверніться до постачальника пристрою.
+For a period: За період
+Forced off by sensor: Примусове вимкнення за датчиком
+Full tilting time: Загальний час зміни нахилу
+Function disabled: Функцію вимкнено
+General purpose meter: Канал лічильника загального призначення
+HVAC: ОВК
+Heat or cold source switch: Перемикач джерела тепла або охолодження
+Heat to: Нагріти до
+Heating / ventilation / air conditioning: Опалення / вентиляція / кондиціонування (ОВК)
+Heating mode: Режим нагріву
+'Heating: {percent}%': 'Опалення: {percent}%.'
+High threshold: Високий поріг
+High value: Максимальне значення
+History: Історія
+Home screen content: Вміст головного екрану
+Hotel card sensor: Датчик готельної картки
+Identify device: Ідентифікуйте пристрій
+Identify request sent.: Запит на встановлення особи відправлено.
+If you confirm the installation and wish to unlock this device, please click the link below.: Якщо ви намагаєтеся додати новий пристрій, натисніть на посилання нижче, щоб підтвердити розблокування.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Якщо ви не намагаєтеся розблокувати пристрій, ігноруйте цей лист. Посилання для підтвердження автоматично втратить чинність через 24 години.
+Image area crop: Область зображення
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Щоб мінімізувати ризик неправильного зчитування, установіть лічильник на максимальний очікуваний крок між фотографіями.
+Increment and decrement: Збільшення та зменшення
+Installer e-mail address: Адреса електронної пошти інсталятора
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Пристрій зареєстрував канал іншого типу ({typeCaption} - {typeId}) замість поточного.
+Invalid e-mail address.: Неправильна адреса електронної пошти
+Invalid unlock code.: Неправильне посилання для розблокування.
+Last paired device: Останній спарений пристрій
+Light mode: Яскравий режим
+Lighting level: Рівень освітлення
+Lighting mode: Режим освітлення
+List of available variables: Список доступних змінних
+Locked: Заблокований
+Low threshold: Низький поріг
+Low threshold must be less than high threshold.: Низький поріг повинен бути нижчим за високий поріг
+Low value: Мінімальне значення
+Main thermometer: Основний термометр
+Master thermostat: Головний термостат
+Max: Макс.
+Maximum duration is one year.: Максимальний термін - один рік.
+Maximum temperature that can be set from the device: Максимальна температура, яку можна встановити за допомогою пристрою
+Measurement settings: Налаштування вимірювання
+Min: Мін.
+Minimum OFF time before cooling can be turned on: Мінімальний час вимкнення перед повторним запуском охолодження
+Minimum OFF time before heating can be turned on: Мінімальний час  ВИМКНЕННЯ перед повторним увімкненням опалення
+Minimum OFF time before heating/cooling can be turned on: Мінімальний час ВИМКНЕННЯ перед перезапуском охолодження/обігріву
+Minimum ON time before cooling can be turned off: Мінімальний час УВІМКНЕННЯ перед повторним вимкненням охолодження
+Minimum ON time before heating can be turned off: Мінімальний час УВІМКНЕННЯ перед наступним вимкненням опалення
+Minimum ON time before heating/cooling can be turned off: Мінімальний час УВІМКНЕННЯ перед наступним вимкненням охолодження/обігріву
+Minimum temperature must be lower than maximum temperature.: Мінімальна температура повинна бути меншою за максимальну
+Minimum temperature that can be set from the device: Мінімальна температура, яку можна встановити за допомогою пристрою
+'Mode: cool': 'Режим: охолодження'
+'Mode: heat': 'Режим: опалення'
+'Mode: off': 'Режим: вимкнено'
+Motor upside down: Інверторне керування двигуном
+'No': 'Ні'
+No results: Немає результатів
+Notification body is set by the firmware.: Зміст сповіщення встановлюється прошивкою.
+Notification must have recipients.: Повідомлення повинно мати адресатів.
+Notification title is set by the firmware.: Заголовок сповіщення встановлюється прошивкою.
+Notifications (defined): Сповіщення (визначено)
+Notifications (sent per hour): Сповіщення (надсилаються щогодини)
+'OCR service responded with error: {status}': 'Служба розпізнавання видала помилку: {status}'
+OCR settings: Налаштування розпізнавання тексту
+OR: АБО
+Off with duration: Вимкніть вчасно
+On with duration: Увімкніть вчасно
+Open value: Початкове значення
+Output value on error: Стан виходу під час помилки
+Overheat protection: Захист від перегріву
+P/C: P/C
+Pair new devices or sensors: Встановлення пари нових пристроїв або датчиків
+Pairing request sent.: Запит на встановлення пари надіслано.
+Pairing subdevices is unsupported in the firmware.: Програмне забезпечення пристрою не підтримує встановлення пари.
+Phase LED type: Світлодіодний індикатор фази
+Photo interval: Інтервал зйомки
+Please find the device details below.: Детальніше про пристрій можна прочитати нижче.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Зверніть увагу, що цей пристрій призначений лише для сертифікованих інсталяторів.
+Please provide the installer e-mail address to request the device unlock.: Щоб розблокувати пристрій, введіть адресу електронної пошти, яку було надано під час отримання сертифіката інсталятора.
+Please select and configure the action: Виберіть і налаштуйте дію.
+Program {programNo}: Програма {programNo}
+Projector screen: Проекційний екран
+Pump switch: Вмикач насоса
+Push notifications limit has been exceeded: Перевищено ліміт пуш-сповіщень
+Reference to the channel will be removed from the items below.: Вказівка на цей канал буде вилучена з наступних.
+Refresh interval: Інтервал оновлення
+Refresh the config: Оновити конфігурацію
+Refreshing the configuration will overwrite the changes you made here.: Оновлення конфігурації перезапише зміни, внесені у форму.
+Reload last photo: Перезавантажити останню фотографію
+Remote restart is unsupported in the firmware.: Віддалений перезапуск не підтримується програмним забезпеченням пристрою.
+Remove this item: Вилучити цей елемент
+Request device unlock: Подати заявку на розблокування пристрою
+Reset to defaults: Відновлення значень за замовчуванням
+Restart device: Перезавантажте пристрій
+Restart the device: Перезавантажте пристрій
+Reveal or stop: Розкрийте або зупиніть
+Roller garage door: Гаражні двері
+S/N: Серійний номер
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Розблокування пристрою для сертифікованого інсталятора
+SUPLA – your device has been unlocked!: SUPLA - Ваш пристрій розблоковано!
+Same as on master thermostat.: Ті самі налаштування, що й на головному термостаті.
+Screen brightness: Яскравість екрану
+Selected: Вибране
+Set HVAC parameters: Встановіть параметри
+Set the device time: Не вдалося налаштувати дату і час на пристрої.
+Settings: Налаштування
+Settings have not been saved!: Налаштування не збережено!
+Show data: Відобразити дані
+Shut or stop: Прикрийте або зупиніть
+Some features depend on this channel: Деякі функції залежать від цього каналу
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Деякі дані, зібрані для вашого облікового запису, будуть періодично видалятися через певний проміжок часу. Ознайомтеся з лімітами нижче.
+Status LED: Статус LED
+Store active power history: Зберігайте історію активної потужності
+Store current history: Зберігайте поточну історію напруги
+Store voltage history: Зберігайте історію напруги
+'Subdevice #{id}': 'Субпідрядний пристрій #{id}'
+Subfunction: Підфункція
+Switch to manual mode: Перехід до ручного режиму
+Switch to program mode: Перехід до режиму програмування
+THEN: А ПОТІМ
+Take a photo now: Сфотографуйте зараз
+Temperature adjustment only: Тільки налаштування температури
+Temperature difference is too big between {min}°C and {max}°C.: Різниця температур між {min}°C і {max}°C занадто велика.
+Temperature setpoint change switches to manual mode: Зміна цільової температури перемикає в ручний режим
+Temporal override: Тимчасове перевизначення
+Terrace awning: Тент для тераси
+The channel has been deleted.: Канал було видалено.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Конфігурацію було змінено з іншого місця (наприклад, з іншого вікна браузера, мобільного додатку або пристрою). Перш ніж вносити подальші зміни, потрібно оновити конфігурацію.
+The device could not be unlocked.: Пристрій не вдалося розблокувати.
+The device has been unlocked already.: Пристрій вже розблоковано.
+The device has been unlocked.: Пристрій розблоковано.
+The device has channel conflict and cannot work.: Пристрій згенерував конфлікт каналів і наразі не може працювати.
+The device is locked: Заблокований пристрій
+The following channels will be also removed along with their dependencies.: Наступні канали також будуть видалені разом з їхніми залежностями.
+The items below rely on this channel, so they will be deleted.: Наступні елементи залежать від цього каналу, тому вони будуть видалені.
+The master termostat you chose already has a master.: Вибраний вами головний термостат вже має інший головний термостат
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Реакція буде активною, коли будуть виконані всі наведені нижче умови. Якщо ви встановите всі доступні параметри, реакція активуватиметься лише між вибраними датами, у вибраний час і дні тижня, а також коли буде виконано одне з посилань на захід або схід сонця.
+The thermostat will not work if the main thermometer is not set.: Для роботи терморегулятора необхідно встановити основний термометр.
+Thermometer error: Похибка термометра
+Thermometers configuration: Конфігурація термометрів
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Цей термостат використовує налаштування головного термостата. Щоб змінити налаштування, перейдіть на його сторінку з деталями.
+Thermostat programs: Програми термостату
+This action will result in restarting the device. It will not be available for a while.: Виконання цієї операції призведе до перезапуску пристрою. Під час перезапуску пристрій буде недоступний.
+This channel was missing during last device registration attempt.: Цей канал відсутній у пристрої.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Цей пристрій призначений для розповсюдження та встановлення лише авторизованими інсталяторами. Якщо ви не є авторизованим інсталятором SUPLA і не маєте чинного сертифіката про проходження навчання, поверніть його своєму дилеру.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Це останнє фото, завантажене з пристрою. Позначте саме ту область, де видно цифри лічильника.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Це список реакцій, запущених у Вашому акаунті. Якщо ви хочете додати нову реакцію, перейдіть до деталей каналу, який має її викликати.
+This thermostat is controlled by another device.: Цей термостат керується головним термостатом.
+Tilt angle: Кут нахилу
+Tilt control type: Тип регулювання нахилу
+Tilt percent: Відсоток нахилу
+Time: Час
+Today, it would be active from {from} to {to}.: Сьогодні період активності припадає на період між {from} і {to}.
+Turn off: Вимкніть
+Unlock the device: Розблокуйте пристрій
+Unlocked: Розблоковано
+Until a date and time: До тих пір, поки
+Until the next change: До наступної зміни
+Use device default: Використовуйте значення за замовчуванням з пристрою
+Use working schedule for this reaction: Використовуйте графік активності для цієї відповіді
+Use {theMasterThermostat} to control this device.: Для керування цим пристроєм використовуйте {theMasterThermostat}.
+Used current transformer type: Використаний трансформатор струму
+User interface: Інтерфейс користувача
+Value divider: Дільник
+Value multiplier: Дільник
+Vertical blind: Вертикальні жалюзі
+Visit the master thermostat page.: Перейдіть до головного термостата.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Ми отримали запит на розблокування пристрою, призначеного лише для сертифікованих інсталяторів. Запит було надіслано користувачем %deviceUserEmail% з екземпляра хмари SUPLA за адресою %targetCloudUrl%.
+Week: Тиждень
+Weekly schedule: Тижневий графік
+When the alarm is armed: Коли встановлено сигналізацію
+When the alarm is armed or disarmed: Коли сигналізацію вимкнено або встановлено
+When the alarm is disarmed: Коли сигналізацію вимкнено
+When the battery cover is opened: Коли відкрито кришку батарейного відсіку
+When the clock error has been reported: Коли таймер повідомляє про помилку
+When the curtain position changes: Коли штора змінює положення
+When the curtain reaches: Коли штора сягає
+When the curtain reaches a certain position: Коли штора досягає певного положення
+When the facade blind position changes: Коли фасадна ролета змінює положення
+When the facade blind reaches: Коли фасадна ролета досягає
+When the facade blind reaches a certain position: Коли фасадна ролета досягає певного положення
+When the hotel card has been taken: Коли забирають картку готелю
+When the hotel card is put in: Коли вставлено картку готелю
+When the hotel card is put in or has been taken: Коли вставляється або виймається картка готелю
+When the meter reaches a certain value: Коли лічильник досягне потрібного значення
+When the meter value changes: Коли значення зміниться
+When the meter value will be: Якщо значення дорівнює
+When the projector screen position changes: Коли проекційний екран змінює положення
+When the projector screen reaches: Коли проекційний екран досягає
+When the projector screen reaches a certain position: Коли проекційний екран досягає певного положення
+When the pump is turned off: Коли насос вимкнеться
+When the pump is turned on: Коли насос увімкнеться
+When the pump is turned on or off: Коли насос увімкнеться або вимкнеться
+When the roller garage door a certain position: Коли гаражні ворота досягають певного положення
+When the roller garage door position changes: Коли гаражні ворота змінюють положення
+When the roller garage door reaches: Коли гаражні ворота досягають
+When the roller shutter calibration failed: Якщо калібрування ролет завершується з помилкою
+When the roller shutter calibration has been lost: Коли калібрування ролет не вдається завершити
+When the roller shutter calibration has started: Після запуску калібрування ролет
+When the roller shutter motor reported a problem: Коли двигун ролет повідомляє про проблему
+When the terrace awning position changes: Коли терасна маркіза змінює положення
+When the terrace awning reaches: Коли тент для тераси досягає
+When the terrace awning reaches a certain position: Коли терасна маркіза досягає певного положення
+When the thermometer error has been reported: Коли термометр повідомляє про помилку
+When the thermostat starts cooling: Коли термостат починає охолоджуватися
+When the thermostat starts heating: Коли терморегулятор починає нагріватися
+When the thermostat starts heating or cooling: Коли термостат починає охолодження або нагрівання
+When the thermostat starts or stops cooling: Коли термостат починає або припиняє охолодження
+When the thermostat starts or stops heating: Коли термостат починає або припиняє нагрівання
+When the thermostat starts or stops heating or cooling: Коли термостат починає або припиняє нагрівання або охолодження
+When the thermostat stops cooling: Коли термостат припинить охолодження
+When the thermostat stops heating: Коли термостат припинить нагрівання
+When the thermostat stops heating or cooling: Коли термостат перестає охолоджувати або нагрівати
+When the vertical blind position changes: Коли вертикальна штора змінює положення
+When the vertical blind reaches: Коли вертикальна штора досягає
+When the vertical blind reaches a certain position: Коли вертикальна штора досягає певного положення
+Will be deleted after: Видалення після
+With a timer: З таймером
+'Yes': 'Так'
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Тут Ви можете задати відносні значення. Наприклад, +10 або -20 відповідно збільшить налаштування на 10 або зменшить на 20.
+You cannot to set a master thermostat for a channel that is master for others.: Неможливо налаштувати головний термостат у головному термостаті
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Запит відправлено. Ми повідомимо вас, коли інсталятор схвалить його і розблокує пристрій.
+You need to provide icons for all states in light mode.: Ви повинні надати іконки для всіх станів у яскравому режимі.
+Your device has been unlocked by the installer.: Ваш пристрій було розблоковано інсталятором.
+and wait until the meter will be: і не виконуйте цю реакцію, поки значення не стане рівним
+auxThermometerType_DISABLED: Вимкнено
+auxThermometerType_FLOOR: Підлога
+auxThermometerType_GENERIC_COOLER: Джерело холоду
+auxThermometerType_GENERIC_HEATER: Джерело тепла
+auxThermometerType_NOT_SET: Не налаштований.
+auxThermometerType_WATER: Вода
+blue, otherwise: інакше синій
+blue, when voltage lower than the low threshold: синій, коли напруга нижче низького порогу
+choose the currency: виберіть валюту
+configuration missing: немає конфігурації
+cool: охолодження
+day: день
+default: за замовчуванням
+green, otherwise: інакше зелений
+green, when power less than the low threshold: зелений, коли потужність нижча за нижній поріг
+heat: опалення
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Основна та допоміжна температура
+homeScreenContent_NONE: Немає
+homeScreenContent_TEMPERATURE: Температура
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Температура та вологість
+homeScreenContent_TEMPERATURE_TIME: Температура і час
+homeScreenContent_TIME: Час
+homeScreenContent_TIME_DATE: Дата і час
+hour: год.
+keepHistoryMeasurementWarningSelected: Ви впевнені, що Вам потрібна ця історія? Supla - це проект з відкритим вихідним кодом, який підтримується за рахунок власних коштів. Якщо Вам не потрібна ця історія, будь ласка, допоможіть нам заощадити цінне місце в сховищі, залишивши цю опцію вимкненою.
+max: макс.
+midnight: північ
+milliseconds: мілісекунди
+min: мін.
+ocrLightingMode_ALWAYS_ON: Завжди увімкнено
+ocrLightingMode_AUTO: Автоматично
+ocrLightingMode_OFF: Вимкнено
+'off': 'Вимкніть'
+red, when power higher than the high threshold: червоний, коли потужність перевищує високий поріг
+red, when voltage higher than the high threshold: червоний, коли напруга перевищує високий поріг
+seconds: секунди
+statusLed_ALWAYS_OFF: Завжди вимикайте
+statusLed_OFF_WHEN_CONNECTED: Вимкни, якщо підключено
+statusLed_ON_WHEN_CONNECTED: Увімкни, якщо підключено
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Невідомий результат
+subdevicePairingResult_NOT_STARTED_BUSY: Пристрій зайнято
+subdevicePairingResult_NOT_STARTED_NOT_READY: Пристрій не готовий
+subdevicePairingResult_NOT_SUPPORTED: Операція не підтримується
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Нове обладнання не знайдено
+subdevicePairingResult_ONGOING: В процесі
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Невідомий результат утворення пари
+subdevicePairingResult_PROCEDURE_STARTED: Процедуру розпочато
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Перевищено ліміт ресурсів
+subdevicePairingResult_SUCCESS: Успіх
+subdevicePairingResult_UNAUTHORIZED: Невдала авторизація
+sunrise: схід сонця
+sunset: захід сонця
+swap: заміна
+the master thermostat ID{id}: головного термостата ID{id}
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Увімкнення/вимкнення за допомогою верхнього налаштування
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Увімкнення/вимкнення за допомогою середнього налаштування
+thermostatAlgorithm_PID: Ідентифікатор PID
+thermostatAlgorithm_help: |
+  Алгоритми вмикання/вимикання працюють на основі налаштування гістерезису. Гістерезис може бути віднесений до середини діапазону (середнє значення) або до заданої температури (верхнє значення).
+  Наприклад, якщо припустити, що гістерезис становить 1°C і цільова температура 23°C, термостат
+  - увімкне опалення при 22,5°C і вимкне, коли температура досягне 23,5°C для середнього налаштування 
+  - увімкне опалення при 22°C і вимкне, коли температура досягне 23°C для верхнього налаштування
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: ~
-thermostatSubfunction_HEAT: ~
-thermostatTemperature_aboveAlarm: ~
-thermostatTemperature_auxMaxSetpoint: ~
-thermostatTemperature_auxMinSetpoint: ~
-thermostatTemperature_belowAlarm: ~
-thermostatTemperature_boost: ~
-thermostatTemperature_comfort: ~
-thermostatTemperature_eco: ~
-thermostatTemperature_freezeProtection: ~
-thermostatTemperature_heatProtection: ~
-thermostatTemperature_histeresis: ~
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: ~
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: ~
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: ~
-tiltControlType_UNKNOWN: ~
-timeMarginMode_custom: ~
-timeMarginMode_device: ~
-timeMarginMode_off: ~
-usedCTType_100A_33mA: ~
-usedCTType_200A_66mA: ~
-usedCTType_400A_133mA: ~
-usedPhaseLedType_OFF: ~
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
-usedPhaseLedType_VOLTAGE_LEVEL: ~
-usedPhaseLedType_VOLTAGE_PRESENCE: ~
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
-'{count} minutes after sunrise': ~
-'{count} minutes after sunset': ~
-'{count} minutes before sunrise': ~
-'{count} minutes before sunset': ~
-'{days} days': ~
-
+thermostatSubfunction_COOL: Охолодження
+thermostatSubfunction_HEAT: Опалення
+thermostatTemperature_aboveAlarm: Вище тривоги
+thermostatTemperature_auxMaxSetpoint: Максимальна додаткова температура
+thermostatTemperature_auxMinSetpoint: Мінімальна додаткова температура
+thermostatTemperature_belowAlarm: Нижче тривоги
+thermostatTemperature_boost: Підвищення температури
+thermostatTemperature_comfort: Комфортна температура
+thermostatTemperature_eco: Температура ECO
+thermostatTemperature_freezeProtection: Температура захисту від замерзання
+thermostatTemperature_heatProtection: Температура захисту від перегріву
+thermostatTemperature_histeresis: Гістерезис
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Змінює положення під час зміни нахилу
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Не змінює положення під час зміни нахилу
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Змінює висоту тону тільки при повному закритті
+tiltControlType_UNKNOWN: Невідомий
+timeMarginMode_custom: Нестандартний
+timeMarginMode_device: Значення за замовчуванням з пристрою
+timeMarginMode_off: Вимкнено
+usedCTType_100A_33mA: 100A/33.3мА
+usedCTType_200A_66mA: 200A/66.6мА
+usedCTType_400A_133mA: 400A/133.3мА
+usedPhaseLedType_OFF: Вимкнено
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Напрямок потоку енергії
+usedPhaseLedType_VOLTAGE_LEVEL: Рівень напруги
+usedPhaseLedType_VOLTAGE_PRESENCE: Наявність напруги
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Наявність напруги (інвертована)
+'{count} minutes after sunrise': '{count} хвилин після сходу сонця'
+'{count} minutes after sunset': '{count} хвилин після заходу сонця'
+'{count} minutes before sunrise': '{count} хвилин до сходу сонця'
+'{count} minutes before sunset': '{count} хвилин до заходу сонця'
+'{days} days': '{days} днях'
 #</editor-fold>
