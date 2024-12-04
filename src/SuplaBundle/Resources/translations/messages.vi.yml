@@ -816,7 +816,7 @@ Unsupported type: Loại không được hỗ trợ
 Update in progress: Đang cập nhật
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Các tệp đã tải lên không chứa bất kỳ nội dung không phù hợp hoặc có bản quyền nào, chúng cũng không vi phạm Quyền của bên thứ ba và tôi có quyền sử dụng chúng.
 Upper voltage threshold: Ngưỡng điện áp cao
-'Use the {0} server command to change this account''s limits. For example:': 'Để thay đổi các hạn mức cho tài khoản này, hãy sử dụng câu lệnh {0} trên máy chủ của bạn. Ví dụ:'
+"Use the {0} server command to change this account's limits. For example:": 'Để thay đổi các hạn mức cho tài khoản này, hãy sử dụng câu lệnh {0} trên máy chủ của bạn. Ví dụ:'
 Use working schedule for this access identifier: Hãy sử dụng lịch biểu cho ID truy cập này
 User is already confirmed. Try to log in.: Người dùng đã được xác nhận. Hãy thử đăng nhập.
 Value: Giá trị
@@ -1250,428 +1250,431 @@ suffix: Hậu tố
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-0% tilt angle: ~
-100% tilt angle: ~
-A confirmation upon successful device unlocking.: ~
-Active from: ~
-Active to: ~
-Activity conditions: ~
-Additional time margin: ~
-Adjust temperature: ~
-Adjust temperatures: ~
-After the delay: ~
-After the delay, but only when it's dark: ~
-Alarm armament sensor: ~
-Algorithm: ~
-All programs must define at least one temperature threshold.: ~
-Always decrement: ~
-Always increment: ~
-Anti-freeze and overheat protection: ~
-Anti-freeze protection: ~
-Are you sure you want to change channel’s location?: ~
-Are you sure you want to change channel’s visibility?: ~
-Are you sure you want to change device’s location?: ~
-Are you sure you want to delete this channel?: ~
-Automatic: ~
-Automatic front panel turn off: ~
-Automatic front panel turn off after: ~
-Automatic thermostat: ~
-Automatic time synchronization: ~
-Aux thermometer: ~
-Aux thermometer type: ~
-Available variables: ~
-Average: ~
-Battery cover open: ~
-Behavior settings: ~
-Binary sensor: ~
-Brightness adjustment for automatic mode: ~
-Brightness level: ~
-Button volume: ~
-Buttons upside down: ~
-Candle: ~
-Cannot update OCR settings. Try again in a while.: ~
-Change percentage by: ~
-Change percentage to: ~
-Change tilt by: ~
-Change tilt to: ~
-Change to be the same.: ~
-Changing channel’s visibility will also change the visibility of other items.: ~
-Changing the location will also imply changing the location of the following items.: ~
-Channels that are meant to work with each other must be in the same location.: ~
-Clock error: ~
-Close value: ~
-Collapse: ~
-Collapse or stop: ~
-Collapse partially: ~
-Command has been sent to the device. Try refreshing the photo in a while.: ~
-Common currencies: ~
-Configuration not available yet. Waiting for the device to connect.: ~
-Confirm if you want to perform the calibration.: ~
-Conflict: ~
-Cool to: ~
-Cooling mode: ~
-'Cooling: {percent}%': ~
-Costs: ~
-Could not restart the device.: ~
-Could not send the identify command.: ~
-Could not set the device time.: ~
-Counter type: ~
-Curtain: ~
-Dark mode: ~
-Data: ~
-Date range: ~
-Daytime criteria: ~
-Dependencies: ~
-'Device GUID: %deviceGuid%': ~
-Device identification is unsupported in the firmware.: ~
-Device settings: ~
-Device should be restarting now.: ~
-Device time has been set.: ~
-Different than on master thermostat.: ~
-Differential thermostat: ~
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
-Domestic hot water: ~
-Dryer: ~
-Edit area crop: ~
-Edit program settings: ~
-Electricity meter active power history: ~
-Electricity meter current history: ~
-Electricity meter voltage aberrations history: ~
-Electricity meter voltage history: ~
-Enable floor temperature control: ~
-Enable generic cooler temperature control: ~
-Enable generic heater temperature control: ~
-Enable power status LED: ~
-Enable support for OCR readings for this channel: ~
-Enable water temperature control: ~
-Example value: ~
-Expand: ~
-Expand or stop: ~
-Expand partially: ~
-Expected maximum increment: ~
-External sensor disabling the thermostat: ~
-Facade blind operation: ~
-Fan: ~
-'Field: {propertyPath}.': ~
-Fill missing data: ~
-Firmware: ~
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-For a period: ~
-Forced off by sensor: ~
-Full tilting time: ~
-Function disabled: ~
-General purpose meter: ~
-HVAC: ~
-Heat or cold source switch: ~
-Heat to: ~
-Heating / ventilation / air conditioning: ~
-Heating mode: ~
-'Heating: {percent}%': ~
-High threshold: ~
-High value: ~
-History: ~
-Home screen content: ~
-Hotel card sensor: ~
-Identify device: ~
-Identify request sent.: ~
-If you confirm the installation and wish to unlock this device, please click the link below.: ~
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
-Image area crop: ~
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: ~
-Increment and decrement: ~
-Installer e-mail address: ~
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: ~
-Invalid e-mail address.: ~
-Invalid unlock code.: ~
-Last paired device: ~
-Light mode: ~
-Lighting level: ~
-Lighting mode: ~
-List of available variables: ~
-Locked: ~
-Low threshold: ~
-Low threshold must be less than high threshold.: ~
-Low value: ~
-Main thermometer: ~
-Master thermostat: ~
-Max: ~
-Maximum duration is one year.: ~
-Maximum temperature that can be set from the device: ~
-Measurement settings: ~
-Min: ~
-Minimum OFF time before cooling can be turned on: ~
-Minimum OFF time before heating can be turned on: ~
-Minimum OFF time before heating/cooling can be turned on: ~
-Minimum ON time before cooling can be turned off: ~
-Minimum ON time before heating can be turned off: ~
-Minimum ON time before heating/cooling can be turned off: ~
-Minimum temperature must be lower than maximum temperature.: ~
-Minimum temperature that can be set from the device: ~
-'Mode: cool': ~
-'Mode: heat': ~
-'Mode: off': ~
-Motor upside down: ~
-'No': ~
-No results: ~
-Notification body is set by the firmware.: ~
-Notification must have recipients.: ~
-Notification title is set by the firmware.: ~
-Notifications (defined): ~
-Notifications (sent per hour): ~
-'OCR service responded with error: {status}': ~
-OCR settings: ~
-OR: ~
-Off with duration: ~
-On with duration: ~
-Open value: ~
-Output value on error: ~
-Overheat protection: ~
-P/C: ~
-Pair new devices or sensors: ~
-Pairing request sent.: ~
-Pairing subdevices is unsupported in the firmware.: ~
-Phase LED type: ~
-Photo interval: ~
-Please find the device details below.: ~
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: ~
-Please provide the installer e-mail address to request the device unlock.: ~
-Please select and configure the action: ~
-Program {programNo}: ~
-Projector screen: ~
-Pump switch: ~
-Push notifications limit has been exceeded: ~
-Reference to the channel will be removed from the items below.: ~
-Refresh interval: ~
-Refresh the config: ~
-Refreshing the configuration will overwrite the changes you made here.: ~
-Reload last photo: ~
-Remote restart is unsupported in the firmware.: ~
-Remove this item: ~
-Request device unlock: ~
-Reset to defaults: ~
-Restart device: ~
-Restart the device: ~
-Reveal or stop: ~
-Roller garage door: ~
-S/N: ~
-SUPLA - Confirm unlocking device for authorized installers: ~
-SUPLA – your device has been unlocked!: ~
-Same as on master thermostat.: ~
-Screen brightness: ~
-Selected: ~
-Set HVAC parameters: ~
-Set the device time: ~
-Settings: ~
-Settings have not been saved!: ~
-Show data: ~
-Shut or stop: ~
-Some features depend on this channel: ~
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
-Status LED: ~
-Store active power history: ~
-Store current history: ~
-Store voltage history: ~
-'Subdevice #{id}': ~
-Subfunction: ~
-Switch to manual mode: ~
-Switch to program mode: ~
-THEN: ~
-Take a photo now: ~
-Temperature adjustment only: ~
-Temperature difference is too big between {min}°C and {max}°C.: ~
-Temperature setpoint change switches to manual mode: ~
-Temporal override: ~
-Terrace awning: ~
-The channel has been deleted.: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: ~
-The device could not be unlocked.: ~
-The device has been unlocked already.: ~
-The device has been unlocked.: ~
-The device has channel conflict and cannot work.: ~
-The device is locked: ~
-The following channels will be also removed along with their dependencies.: ~
-The items below rely on this channel, so they will be deleted.: ~
-The master termostat you chose already has a master.: ~
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
-The thermostat will not work if the main thermometer is not set.: ~
-Thermometer error: ~
-Thermometers configuration: ~
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
-Thermostat programs: ~
-This action will result in restarting the device. It will not be available for a while.: ~
-This channel was missing during last device registration attempt.: ~
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
-This thermostat is controlled by another device.: ~
-Tilt angle: ~
-Tilt control type: ~
-Tilt percent: ~
-Time: ~
-Today, it would be active from {from} to {to}.: ~
-Turn off: ~
-Unlock the device: ~
-Unlocked: ~
-Until a date and time: ~
-Until the next change: ~
-Use device default: ~
-Use working schedule for this reaction: ~
-Use {theMasterThermostat} to control this device.: ~
-Used current transformer type: ~
-User interface: ~
-Value divider: ~
-Value multiplier: ~
-Vertical blind: ~
-Visit the master thermostat page.: ~
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
-Week: ~
-Weekly schedule: ~
-When the alarm is armed: ~
-When the alarm is armed or disarmed: ~
-When the alarm is disarmed: ~
-When the battery cover is opened: ~
-When the clock error has been reported: ~
-When the curtain position changes: ~
-When the curtain reaches: ~
-When the curtain reaches a certain position: ~
-When the facade blind position changes: ~
-When the facade blind reaches: ~
-When the facade blind reaches a certain position: ~
-When the hotel card has been taken: ~
-When the hotel card is put in: ~
-When the hotel card is put in or has been taken: ~
-When the meter reaches a certain value: ~
-When the meter value changes: ~
-When the meter value will be: ~
-When the projector screen position changes: ~
-When the projector screen reaches: ~
-When the projector screen reaches a certain position: ~
-When the pump is turned off: ~
-When the pump is turned on: ~
-When the pump is turned on or off: ~
-When the roller garage door a certain position: ~
-When the roller garage door position changes: ~
-When the roller garage door reaches: ~
-When the roller shutter calibration failed: ~
-When the roller shutter calibration has been lost: ~
-When the roller shutter calibration has started: ~
-When the roller shutter motor reported a problem: ~
-When the terrace awning position changes: ~
-When the terrace awning reaches: ~
-When the terrace awning reaches a certain position: ~
-When the thermometer error has been reported: ~
-When the thermostat starts cooling: ~
-When the thermostat starts heating: ~
-When the thermostat starts heating or cooling: ~
-When the thermostat starts or stops cooling: ~
-When the thermostat starts or stops heating: ~
-When the thermostat starts or stops heating or cooling: ~
-When the thermostat stops cooling: ~
-When the thermostat stops heating: ~
-When the thermostat stops heating or cooling: ~
-When the vertical blind position changes: ~
-When the vertical blind reaches: ~
-When the vertical blind reaches a certain position: ~
-Will be deleted after: ~
-With a timer: ~
-'Yes': ~
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot to set a master thermostat for a channel that is master for others.: ~
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
-You need to provide icons for all states in light mode.: ~
-Your device has been unlocked by the installer.: ~
-and wait until the meter will be: ~
-auxThermometerType_DISABLED: ~
-auxThermometerType_FLOOR: ~
-auxThermometerType_GENERIC_COOLER: ~
-auxThermometerType_GENERIC_HEATER: ~
-auxThermometerType_NOT_SET: ~
-auxThermometerType_WATER: ~
-blue, otherwise: ~
-blue, when voltage lower than the low threshold: ~
-choose the currency: ~
-configuration missing: ~
-cool: ~
-day: ~
-default: ~
-green, otherwise: ~
-green, when power less than the low threshold: ~
-heat: ~
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
-homeScreenContent_NONE: ~
-homeScreenContent_TEMPERATURE: ~
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
-homeScreenContent_TEMPERATURE_TIME: ~
-homeScreenContent_TIME: ~
-homeScreenContent_TIME_DATE: ~
-hour: ~
-keepHistoryMeasurementWarningSelected: ~
-max: ~
-midnight: ~
-milliseconds: ~
-min: ~
-ocrLightingMode_ALWAYS_ON: ~
-ocrLightingMode_AUTO: ~
-ocrLightingMode_OFF: ~
-'off': ~
-red, when power higher than the high threshold: ~
-red, when voltage higher than the high threshold: ~
-seconds: ~
-statusLed_ALWAYS_OFF: ~
-statusLed_OFF_WHEN_CONNECTED: ~
-statusLed_ON_WHEN_CONNECTED: ~
-subdevicePairingResult_CMD_RESULT_UNKNOWN: ~
-subdevicePairingResult_NOT_STARTED_BUSY: ~
-subdevicePairingResult_NOT_STARTED_NOT_READY: ~
-subdevicePairingResult_NOT_SUPPORTED: ~
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: ~
-subdevicePairingResult_ONGOING: ~
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: ~
-subdevicePairingResult_PROCEDURE_STARTED: ~
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: ~
-subdevicePairingResult_SUCCESS: ~
-subdevicePairingResult_UNAUTHORIZED: ~
-sunrise: ~
-sunset: ~
-swap: ~
-the master thermostat ID{id}: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
-thermostatAlgorithm_PID: ~
-thermostatAlgorithm_help: ~
+0% tilt angle: Góc của các thanh mà rèm đặt khi đóng lại
+100% tilt angle: Góc của các thanh mà rèm đặt khi mở
+A confirmation upon successful device unlocking.: Xác nhận mở khóa thiết bị.
+Active from: Hoạt động kể từ
+Active to: Hoạt động đến
+Activity conditions: Điều kiện hoạt động
+Additional time margin: Khoảng thời gian bổ sung
+Adjust temperature: Đặt nhiệt độ
+Adjust temperatures: Đặt nhiệt độ
+After the delay: Sau khoảng thời gian xác định
+After the delay, but only when it's dark: Sau khoảng thời gian xác định, nhưng chỉ khi trời tối
+Alarm armament sensor: Cảm biến kích hoạt báo động
+Algorithm: Thuật toán
+All programs must define at least one temperature threshold.: Mỗi chương trình phải xác định ít nhất một ngưỡng nhiệt độ.
+Always decrement: Luôn giảm
+Always increment: Luôn tăng
+Anti-freeze and overheat protection: Bảo vệ quá nhiệt và chống đóng băng
+Anti-freeze protection: Bảo vệ chống đóng băng
+Are you sure you want to change channel’s location?: Bạn có chắc chắn muốn thay đổi vị trí kênh không?
+Are you sure you want to change channel’s visibility?: Bạn có chắc chắn muốn thay đổi chế độ hiển thị của kênh không?
+Are you sure you want to change device’s location?: Bạn có chắc chắn muốn thay đổi vị trí thiết bị không?
+Are you sure you want to delete this channel?: Bạn có chắc chắn muốn xóa kênh này không?
+Automatic: Tự động
+Automatic front panel turn off: Tự động tắt bảng điều khiển phía trước~
+Automatic front panel turn off after: Thời gian cho đến khi bảng điều khiển phía trước tắt
+Automatic thermostat: Bộ điều chỉnh nhiệt độ tự động
+Automatic time synchronization: Tự động đồng bộ hóa ngày và giờ
+Aux thermometer: Nhiệt kế bổ sung
+Aux thermometer type: Loại nhiệt kế bổ sung
+Available variables: Các biến có sẵn
+Average: Trung bình
+Battery cover open: Nắp pin mở
+Behavior settings: Hành vi
+Binary sensor: Cảm biến nhị phân
+Brightness adjustment for automatic mode: Điều chỉnh độ sáng của chế độ tự động
+Brightness level: Mức độ sáng
+Button volume: Âm lượng nút bấm
+Buttons upside down: Điều khiển nút đảo ngược
+Candle: Nến
+Cannot update OCR settings. Try again in a while.: Không thể cập nhật cài đặt OCR. Vui lòng thử lại sau giây lát
+Change percentage by: Thay đổi tỷ lệ phần trăm theo
+Change percentage to: Thay đổi tỷ lệ phần trăm thành
+Change tilt by: Thay đổi độ dốc theo
+Change tilt to: Thay đổi độ dốc thành
+Change to be the same.: Đặt như nhau.
+Changing channel’s visibility will also change the visibility of other items.: Thay đổi khả năng hiển thị của kênh cũng sẽ thay đổi khả năng hiển thị của các thành phần khác.
+Changing the location will also imply changing the location of the following items.: Thay đổi vị trí cũng sẽ thay đổi vị trí cho các mục sau.
+Channels that are meant to work with each other must be in the same location.: Các kênh bạn muốn làm việc phải ở một vị trí.
+Clock error: Lỗi đồng hồ
+Close value: Giá trị cuối kỳ
+Collapse: Che
+Collapse or stop: Thu gọn hoặc dừng
+Collapse partially: Thu gọn một phần
+Command has been sent to the device. Try refreshing the photo in a while.: Yêu cầu đã được gửi đến thiết bị. Vui lòng thử làm mới ảnh của bạn trong giây lát.
+Common currencies: Tiền tệ được chọn thường xuyên nhất
+Configuration not available yet. Waiting for the device to connect.: Cấu hình chưa khả dụng. Đợi thiết bị kết nối.
+Confirm if you want to perform the calibration.: Xác nhận rằng bạn muốn hiệu chỉnh.
+Conflict: Xung đột
+Cool to: Làm mát đến
+Cooling mode: Chế độ làm mát
+'Cooling: {percent}%': 'Làm mát: {percent}%'
+Costs: Chi phí
+Could not restart the device.: Không thể khởi động lại thiết bị.
+Could not send the identify command.: Không thể gửi đơn hàng.
+Could not set the device time.: Không thể đặt ngày và giờ trên thiết bị.
+Counter type: Loại bộ đếm
+Curtain: Rèm
+Dark mode: Chế độ tối
+Data: Dữ liệu
+Date range: Phạm vi ngày
+Daytime criteria: Tiêu chí dựa trên độ dài ngày
+Dependencies: Sự phụ thuộc
+'Device GUID: %deviceGuid%': 'Mã định danh duy nhất toàn cầu của thiết bị: %deviceGuid%'
+Device identification is unsupported in the firmware.: Không hỗ trợ nhận dạng thiết bị trong phần mềm
+Device settings: Cài đặt thiết bị
+Device should be restarting now.: Thiết bị sẽ khởi động lại.
+Device time has been set.: Ngày và giờ của thiết bị đã được đặt.
+Different than on master thermostat.: Cài đặt khác với cài đặt trên bộ điều chỉnh nhiệt chính.
+Differential thermostat: Bộ điều chỉnh nhiệt vi sai
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Bạn có muốn đặt các kênh tùy thuộc vào bộ điều chỉnh nhiệt này (chẳng hạn như nhiệt kế và cảm biến) giống như trong bộ điều chỉnh nhiệt chính không?
+Domestic hot water: Nước nóng tại nhà
+Dryer: Máy hút ẩm
+Edit area crop: Chỉnh sửa khu vực
+Edit program settings: Chỉnh sửa cài đặt chương trình
+Electricity meter active power history: Lịch sử sử dụng điện của công tơ điện
+Electricity meter current history: Lịch sử hiện tại của công tơ điện
+Electricity meter voltage aberrations history: Lịch sử quang sai điện áp công tơ điện
+Electricity meter voltage history: Lịch sử hiện tại của công tơ điện
+Enable floor temperature control: Bật điều khiển nhiệt độ sàn
+Enable generic cooler temperature control: Bật điều khiển nhiệt độ của nguồn làm mát
+Enable generic heater temperature control: Bật điều khiển nhiệt độ nguồn nhiệt
+Enable power status LED: Bật diode trạng thái nguồn
+Enable support for OCR readings for this channel: Bật hỗ trợ OCR cho kênh này
+Enable water temperature control: Bật điều khiển nhiệt độ sàn
+Example value: Ví dụ
+Expand: Bỏ che
+Expand or stop: Thu gọn hoặc dừng
+Expand partially: Mở rộng một phần
+Expected maximum increment: Mức tăng tối đa dự kiến
+External sensor disabling the thermostat: Cảm biến bên ngoài tắt bộ điều chỉnh nhiệt
+Facade blind operation: Rèm mặt tiền
+Fan: Cối xay gió
+'Field: {propertyPath}.': 'Trường {propertyPath}.'
+Fill missing data: Điền các số đo còn thiếu
+Firmware: Phần mềm chương trình cơ sở
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Phần mềm của thiết bị này gửi thông báo trong ngữ cảnh của kênh này. Đây là nơi bạn có thể thiết lập nội dung và đối tượng của mình. Để biết thêm thông tin, vui lòng liên hệ với nhà cung cấp thiết bị.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Phần mềm của thiết bị này sẽ gửi thông báo. Đây là nơi bạn có thể thiết lập nội dung và đối tượng của mình. Để biết thêm thông tin, vui lòng liên hệ với nhà cung cấp thiết bị.
+For a period: Cho giai đoạn
+Forced off by sensor: Buộc tắt máy bằng cảm biến
+Full tilting time: Tổng thời gian thay đổi độ dốc
+Function disabled: Chức năng bị vô hiệu hóa
+General purpose meter: Kênh truy cập mục đích chung
+HVAC: HVAC
+Heat or cold source switch: Công tắc nguồn nhiệt hoặc làm mát
+Heat to: Làm nóng đến
+Heating / ventilation / air conditioning: Hệ thống sưởi / thông gió / điều hòa không khí (HVAC)
+Heating mode: Chế độ làm nóng
+'Heating: {percent}%': 'Hệ thống sưởi: {percent}%'
+High threshold: Ngưỡng cao
+High value: Giá trị tối đa
+History: Lịch sử
+Home screen content: Nội dung màn hình chính
+Hotel card sensor: Cảm biến thẻ khách sạn
+Identify device: Xác định thiết bị
+Identify request sent.: Yêu cầu nhận dạng đã được gửi.
+If you confirm the installation and wish to unlock this device, please click the link below.: Nếu bạn là người đang cố gắng thêm thiết bị mới, hãy nhấp vào liên kết bên dưới để xác nhận mở khóa.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Nếu bạn không phải là người đang cố gắng mở khóa thiết bị của mình, hãy bỏ qua email này. Liên kết xác nhận sẽ tự động hết hạn sau 24 giờ.
+Image area crop: Khu vực ảnh
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Để giảm thiểu nguy cơ đọc sai, hãy đặt bộ đếm ở mức tăng tối đa dự kiến giữa các ảnh.
+Increment and decrement: Tăng và giảm
+Installer e-mail address: Email của người cài đặt
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Thiết bị đã đăng ký một kênh thuộc loại khác ({typeCaption} - {typeId}) thay vì kênh hiện tại.
+Invalid e-mail address.: Địa chỉ email không hợp lệ.
+Invalid unlock code.: Liên kết mở khóa không hợp lệ.
+Last paired device: Thiết bị được ghép nối lần cuối
+Light mode: Chế độ sáng
+Lighting level: Mức độ chiếu sáng
+Lighting mode: Chế độ chiếu sáng
+List of available variables: Danh sách các thay đổi có sẵn
+Locked: Đã chặn
+Low threshold: Ngưỡng thấp
+Low threshold must be less than high threshold.: Ngưỡng thấp phải thấp hơn ngưỡng cao
+Low value: Giá trị tối thiểu
+Main thermometer: Nhiệt kế chính
+Master thermostat: Bộ điều chỉnh nhiệt chính
+Max: Tối đa
+Maximum duration is one year.: Thời gian tối đa là một năm.
+Maximum temperature that can be set from the device: Nhiệt độ tối đa mà thiết bị có thể cài đặt
+Measurement settings: Cài đặt đo lường
+Min: Tối thiểu
+Minimum OFF time before cooling can be turned on: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ làm mát
+Minimum OFF time before heating can be turned on: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ sưởi
+Minimum OFF time before heating/cooling can be turned on: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ làm mát/sưởi
+Minimum ON time before cooling can be turned off: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ làm mát
+Minimum ON time before heating can be turned off: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ sưởi
+Minimum ON time before heating/cooling can be turned off: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ làm mát/sưởi
+Minimum temperature must be lower than maximum temperature.: Nhiệt độ tối thiểu phải thấp hơn nhiệt độ tối đa
+Minimum temperature that can be set from the device: Nhiệt độ tối thiểu mà thiết bị có thể cài đặt
+'Mode: cool': 'Chế độ làm mát'
+'Mode: heat': 'Chế độ làm nóng'
+'Mode: off': 'Chế độ: Tắt'
+Motor upside down: Điều khiển động cơ đảo chiều
+'No': 'Không'
+No results: Không có kết quả
+Notification body is set by the firmware.: Nội dung của thông báo được thiết lập bởi phần mềm.
+Notification must have recipients.: Thông báo phải có người nhận.
+Notification title is set by the firmware.: Tiêu đề thông báo được thiết lập bởi chương trình phần mềm cơ sỏ.
+Notifications (defined): Thông báo (được xác định)
+Notifications (sent per hour): Thông báo (được gửi mỗi giờ)
+'OCR service responded with error: {status}': 'Dịch vụ OCR đã phản hồi với lỗi: {status}'
+OCR settings: Cài đặt OCR
+OR: HOẶC
+Off with duration: Tắt đúng giờ
+On with duration: Bật đúng giờ
+Open value: Giá trị mở đầu kì
+Output value on error: Trạng thái đầu ra khi có lỗi
+Overheat protection: Bảo vệ quá nhiệt
+P/C: P/C
+Pair new devices or sensors: Ghép nối các thiết bị hoặc cảm biến mới
+Pairing request sent.: Yêu cầu ghép nối đã được gửi.
+Pairing subdevices is unsupported in the firmware.: Phần mềm thiết bị không hỗ trợ ghép nối.
+Phase LED type: Đèn báo pha LED
+Photo interval: Khoảng thời gian chụp ảnh
+Please find the device details below.: Thông tin chi tiết về thiết bị có thể được tìm thấy bên dưới.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Xin lưu ý rằng thiết bị áp dụng yêu cầu này chỉ dành cho những người cài đặt được chứng nhận.
+Please provide the installer e-mail address to request the device unlock.: Để mở khóa thiết bị, hãy nhập địa chỉ email bạn đã cung cấp trong quy trình chứng nhận trình cài đặt.
+Please select and configure the action: Chọn và thiết lập hành động.
+Program {programNo}: Chương trình {programNo}
+Projector screen: Màn chiếu
+Pump switch: Công tắc bơm
+Push notifications limit has been exceeded: Đã vượt quá giới hạn thông báo đẩy
+Reference to the channel will be removed from the items below.: Chỉ định cho kênh này sẽ bị xóa khỏi các mục bên dưới.
+Refresh interval: Khoảng thời gian làm mới
+Refresh the config: Làm mới cấu hình
+Refreshing the configuration will overwrite the changes you made here.: Việc làm mới cấu hình sẽ ghi đè lên mọi thay đổi làm theo như biểu mẫu.
+Reload last photo: Tải lại ảnh cuối cùng
+Remote restart is unsupported in the firmware.: Phần mềm thiết bị không hỗ trợ khởi động lại từ xa.
+Remove this item: Xóa mục này
+Request device unlock: Báo cáo muốn mở khóa thiết bị
+Reset to defaults: Khôi phục giá trị mặc định
+Restart device: Khởi động lại thiết bị
+Restart the device: Khởi động lại thiết bị
+Reveal or stop: Kéo mở ra hoặc giữ lại
+Roller garage door: Cửa nhà để xe
+S/N: Tỷ lệ tín hiệu trên tạp âm
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Mở khóa thiết bị dành cho người được chứng nhận cài đặt
+SUPLA – your device has been unlocked!: SUPLA - Thiết bị của bạn đã được mở khóa!
+Same as on master thermostat.: Cài đặt giống như trong bộ điều chỉnh nhiệt chính.
+Screen brightness: Độ sáng màn hình
+Selected: Đã chọn
+Set HVAC parameters: Đặt thông số
+Set the device time: Không thể đặt ngày và giờ trên thiết bị.
+Settings: Cài đặt
+Settings have not been saved!: Cài đặt chưa được lưu!
+Show data: Hiển thị dữ liệu
+Shut or stop: Đóng che vào hoặc giữ lại
+Some features depend on this channel: Một số tính năng phụ thuộc vào kênh này
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Một số dữ liệu được thu thập cho tài khoản của bạn sẽ bị xóa định kỳ sau một khoảng thời gian nhất định. Vui lòng xem các giới hạn dưới đây.
+Status LED: Trạng thái đèn LED
+Store active power history: Lưu trữ lịch sử năng lượng đang hoạt động
+Store current history: Lưu trữ lịch sử hiện tại
+Store voltage history: Giữ lại lịch sử điện áp
+'Subdevice #{id}': 'Thiết bị được hợp đồng phụ #{id}'
+Subfunction: Chức năng phụ
+Switch to manual mode: Chuyển sang chế độ thủ công
+Switch to program mode: Chuyển sang chế độ chương trình
+THEN: SAU ĐÓ
+Take a photo now: Chụp ảnh ngay
+Temperature adjustment only: Chỉ cài đặt nhiệt độ
+Temperature difference is too big between {min}°C and {max}°C.: Chênh lệch nhiệt độ quá lớn giữa {min}°C và {max}°C.
+Temperature setpoint change switches to manual mode: Thay đổi công tắc nhiệt độ mục tiêu sang chế độ thủ công
+Temporal override: Ghi đè lên tạm thời
+Terrace awning: Mái hiên sân thượng
+The channel has been deleted.: Kênh đã bị xóa.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Cấu hình đã được thay đổi từ nơi khác (ví dụ: cửa sổ trình duyệt, ứng dụng di động hoặc thiết bị khác). Bạn phải làm mới cấu hình trước khi thực hiện bất kỳ thay đổi nào khác.
+The device could not be unlocked.: Không thể mở khóa thiết bị.
+The device has been unlocked already.: Thiết bị đã được mở khóa.
+The device has been unlocked.: Thiết bị đã được mở khóa.
+The device has channel conflict and cannot work.: Thiết bị đã tạo ra xung đột giữa các kênh và hiện không thể hoạt động.
+The device is locked: Đã chặn thiết bị
+The following channels will be also removed along with their dependencies.: Các kênh sau cũng sẽ bị xóa cùng với các kênh phụ thuộc chúng.
+The items below rely on this channel, so they will be deleted.: Các mục sau đây phụ thuộc vào kênh này, vì vậy chúng sẽ bị xóa.
+The master termostat you chose already has a master.: Bộ điều chỉnh nhiệt chính bạn đã chọn đã có một bộ điều chỉnh nhiệt chính khác
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Phản ứng sẽ xảy ra khi đáp ứng tất cả các điều kiện sau. Nếu bạn cài đặt chọn tất cả các lựa chọn có sẵn, hoạt động sẽ chỉ bật lên vào các ngày đã chọn, vào khung giờ và ngày trong tuần đã chọn và khi đã điền vào một trong các thông tin phụ lục về hoàng hôn hoặc bình minh.
+The thermostat will not work if the main thermometer is not set.: Nhiệt kế chính phải được đặt để bộ điều chỉnh nhiệt hoạt động.
+Thermometer error: Lỗi nhiệt kế
+Thermometers configuration: Cấu hình nhiệt kế
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Bộ điều chỉnh nhiệt này sử dụng các cài đặt từ bộ điều chỉnh nhiệt chính. Chuyển đến trang chi tiết để thay đổi cài đặt.
+Thermostat programs: Chương trình điều nhiệt
+This action will result in restarting the device. It will not be available for a while.: Sắp xếp thao tác này sẽ khởi động lại thiết bị. Trong quá trình khởi động lại thiết bị sẽ không vào được
+This channel was missing during last device registration attempt.: Thiết bị của bạn bị thiếu kênh này.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Thiết bị này chỉ dành cho việc phân phối và lắp đặt bởi những người được ủy quyền cài đặt. Nếu bạn không phải là người cài đặt SUPLA được ủy quyền và không có chứng chỉ đào tạo đang hoạt động, hãy trả lại cho đại lý.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Đây là ảnh cuối cùng được tải lên từ thiết bị. Đánh dấu chính xác khu vực có thể nhìn thấy các chữ số từ máy đếm.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Đây là danh sách các hoạt động phản hồi đang chạy trên tài khoản của bạn. Nếu bạn muốn thêm một phản ứng mới, hãy chuyển đến chi tiết, kênh sẽ kích hoạt phản ứng đó.
+This thermostat is controlled by another device.: Bộ điều chỉnh nhiệt này được điều khiển bởi bộ điều chỉnh nhiệt chính.
+Tilt angle: Góc nghiêng
+Tilt control type: Loại điều khiển độ nghiêng
+Tilt percent: Phần trăm độ dốc
+Time: Giờ
+Today, it would be active from {from} to {to}.: Hôm nay, thời gian hoạt động sẽ kéo dài trong khung giờ giờ từ {from} đến {to}.
+Turn off: Tắt
+Unlock the device: Mở khóa thiết bị
+Unlocked: Đã mở khóa
+Until a date and time: Đến thời điểm
+Until the next change: Cho đến lần thay đổi tiếp theo
+Use device default: Sử dụng giá trị mặc định từ thiết bị
+Use working schedule for this reaction: Sử dụng lịch trình hoạt động cho phản hồi này
+Use {theMasterThermostat} to control this device.: Sử dụng {theMasterThermostat} để điều khiển thiết bị này.
+Used current transformer type: Máy biến dòng đã qua sử dụng
+User interface: Giao diện người dùng
+Value divider: Dải phân cách
+Value multiplier: Số nhân
+Vertical blind: Màn trập dọc
+Visit the master thermostat page.: Chuyển đến bộ điều chỉnh nhiệt chính.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Chúng tôi đã nhận được yêu cầu mở khóa thiết bị chỉ dành cho những người cài đặt được chứng nhận. Yêu cầu đã được gửi bởi %deviceUserEmail% từ phiên bản SUPLA Cloud tại %targetCloudUrl%.
+Week: Tuần
+Weekly schedule: Lịch trình hàng tuần
+When the alarm is armed: Khi báo động được kích hoạt
+When the alarm is armed or disarmed: Khi báo động bị tắt hoặc được kích hoạt
+When the alarm is disarmed: Khi báo động bị tắt
+When the battery cover is opened: Khi nắp pin được mở
+When the clock error has been reported: Khi đồng hồ báo lỗi
+When the curtain position changes: Khi rèm thay đổi vị trí
+When the curtain reaches: Khi rèm được kéo lên
+When the curtain reaches a certain position: Khi rèm chạm đến một vị trí nhất định
+When the facade blind position changes: Khi rèm mặt tiền thay đổi vị trí
+When the facade blind reaches: Khi rèm mặt tiền chạm tới
+When the facade blind reaches a certain position: Khi rèm mặt tiền đạt đến một vị trí nhất định
+When the hotel card has been taken: Khi thẻ khách sạn bị lấy đi
+When the hotel card is put in: Khi thẻ khách sạn được đưa vào
+When the hotel card is put in or has been taken: Khi thẻ khách sạn được đưa vào hoặc rút ra
+When the meter reaches a certain value: Khi bộ đếm đạt giá trị cài đặt
+When the meter value changes: Khi giá trị thay đổi
+When the meter value will be: Khi giá trị sẽ là
+When the projector screen position changes: Khi màn hình chiếu thay đổi vị trí
+When the projector screen reaches: Khi màn hình chiếu đạt đến
+When the projector screen reaches a certain position: Khi màn hình chiếu đạt đến một vị trí nhất định
+When the pump is turned off: Khi máy bơm được tắt
+When the pump is turned on: Khi máy bơm được bật
+When the pump is turned on or off: Khi máy bơm được bật hoặc tắt
+When the roller garage door a certain position: Khi cửa nhà để xe đạt đến một vị trí nhất định
+When the roller garage door position changes: Khi cửa nhà để xe thay đổi vị trí
+When the roller garage door reaches: Khi cửa nhà để xe chạm vào
+When the roller shutter calibration failed: Khi việc kiểm định rèm xảy ra lỗi lúc kết thúc
+When the roller shutter calibration has been lost: Khi không thể hoàn thành việc kiểm định rèm
+When the roller shutter calibration has started: Khi việc kiểm định rèm bắt đầu
+When the roller shutter motor reported a problem: Khi động cơ của rèm báo cáo sự cố
+When the terrace awning position changes: Khi mái hiên thay đổi vị trí
+When the terrace awning reaches: Khi mái hiên đạt đến
+When the terrace awning reaches a certain position: Khi mái hiên đạt đến một vị trí nhất định
+When the thermometer error has been reported: Khi nhiệt kế báo lỗi
+When the thermostat starts cooling: Khi bộ điều chỉnh nhiệt bắt đầu nguội
+When the thermostat starts heating: Khi bộ điều chỉnh nhiệt bắt đầu nóng lên
+When the thermostat starts heating or cooling: Khi bộ điều chỉnh nhiệt bắt đầu làm mát hoặc sưởi ấm
+When the thermostat starts or stops cooling: Khi bộ điều chỉnh nhiệt khởi động hoặc ngừng làm mát
+When the thermostat starts or stops heating: Khi bộ điều chỉnh nhiệt khởi động hoặc ngừng sưởi ấm
+When the thermostat starts or stops heating or cooling: Khi bộ điều chỉnh nhiệt khởi động hoặc ngừng sưởi ấm hoặc làm mát
+When the thermostat stops cooling: Khi bộ điều chỉnh nhiệt ngừng làm mát
+When the thermostat stops heating: Khi bộ điều chỉnh nhiệt ngừng làm nóng
+When the thermostat stops heating or cooling: Khi bộ điều chỉnh nhiệt ngừng làm mát hoặc sưởi ấm
+When the vertical blind position changes: Khi rèm mặt tiền thay đổi vị trí
+When the vertical blind reaches: Khi cửa chớp thẳng đứng chạm đến
+When the vertical blind reaches a certain position: Khi rèm mặt tiền đạt đến một vị trí nhất định
+Will be deleted after: Xóa sau khi
+With a timer: Có hẹn giờ
+'Yes': 'Đồng ý'
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Bạn có thể đặt các giá trị tương đối tại đây. Ví dụ +10 hoặc -20 sẽ tương ứng tăng cài đặt thêm 10 hoặc giảm 20.
+You cannot to set a master thermostat for a channel that is master for others.: Bạn không thể đặt bộ điều chỉnh nhiệt chính trong bộ điều chỉnh nhiệt chính
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Yêu cầu của bạn đã được gửi. Chúng tôi sẽ thông báo cho bạn khi người cài đặt phê duyệt và mở khóa thiết bị.
+You need to provide icons for all states in light mode.: Bạn phải cung cấp các biểu tượng cho tất cả các trạng thái ở chế độ sáng.
+Your device has been unlocked by the installer.: Người cài đặt đã mở khóa thiết bị của bạn.
+and wait until the meter will be: và không thực hiện lại phản ứng này cho đến khi hết giá trị
+auxThermometerType_DISABLED: Đã tắt
+auxThermometerType_FLOOR: Sàn
+auxThermometerType_GENERIC_COOLER: Nguồn làm mát
+auxThermometerType_GENERIC_HEATER: Nguồn nhiệt
+auxThermometerType_NOT_SET: Chưa cài đặt
+auxThermometerType_WATER: Nước
+blue, otherwise: nếu không thì màu xanh lam
+blue, when voltage lower than the low threshold: màu xanh lam khi điện áp thấp hơn ngưỡng thấp
+choose the currency: chọn loại tiền tệ
+configuration missing: không có cấu hình
+cool: làm mát
+day: ngày
+default: Mặc định
+green, otherwise: nếu không thì màu xanh lá
+green, when power less than the low threshold: màu xanh lá cây khi công suất thấp hơn ngưỡng thấp hơn
+heat: sưởi ấm
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Nhiệt độ chính và phụ
+homeScreenContent_NONE: Thiếu
+homeScreenContent_TEMPERATURE: Nhiệt độ
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Nhiệt độ và độ ẩm
+homeScreenContent_TEMPERATURE_TIME: Nhiệt độ và thời gian
+homeScreenContent_TIME: Giờ
+homeScreenContent_TIME_DATE: Ngày và giờ
+hour: giờ
+keepHistoryMeasurementWarningSelected: Bạn có chắc chắn là cần lịch sử này không? Supla là một dự án mã nguồn mở được duy trì từ các nguồn lực riêng của mình. Nếu bạn không cần lịch sử này, vui lòng giúp chúng tôi tiết kiệm dung lượng lưu trữ có giá trị bằng cách tắt tùy chọn này.
+max: Cực đại
+midnight: hướng bắc
+milliseconds: mili- giây
+min: tối thiểu
+ocrLightingMode_ALWAYS_ON: Luôn bật
+ocrLightingMode_AUTO: Tự động
+ocrLightingMode_OFF: Đã tắt
+'off': 'Tắt'
+red, when power higher than the high threshold: màu đỏ, khi công suất cao hơn ngưỡng cao
+red, when voltage higher than the high threshold: màu đỏ, khi điện áp cao hơn ngưỡng cao
+seconds: giây
+statusLed_ALWAYS_OFF: Luôn tắt
+statusLed_OFF_WHEN_CONNECTED: Tắt khi kết nối
+statusLed_ON_WHEN_CONNECTED: Bật khi kết nối
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Kết quả không xác định
+subdevicePairingResult_NOT_STARTED_BUSY: Thiết bị đang bận
+subdevicePairingResult_NOT_STARTED_NOT_READY: Thiết bị chưa sẵn sàng
+subdevicePairingResult_NOT_SUPPORTED: Hoạt động không được hỗ trợ
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Không tìm thấy thiết bị mới
+subdevicePairingResult_ONGOING: Đang tiến hành
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Kết quả ghép nối không xác định
+subdevicePairingResult_PROCEDURE_STARTED: Quy trình bắt đầu
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Đã vượt quá giới hạn tài nguyên
+subdevicePairingResult_SUCCESS: Thành công
+subdevicePairingResult_UNAUTHORIZED: Ủy quyền không thành công
+sunrise: bình minh
+sunset: hoàng hôn
+swap: thay thế
+the master thermostat ID{id}: số xác minh bộ điều chỉnh nhiệt chính {id}
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Bật/Tắt với cài đặt trên
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Bật/Tắt với cài đặt trung tâm
+thermostatAlgorithm_PID: Bộ điều khiển vi tích phân tỉ lệ
+thermostatAlgorithm_help: |
+  Các thuật toán bật/tắt hoạt động dựa trên cài đặt độ trễ. Độ trễ có thể liên quan đến một nửa phạm vi của nó (điểm đặt giữa) hoặc đến nhiệt độ đặt (điểm đặt trên).
+  Ví dụ, giả sử độ trễ là 1°C và nhiệt độ đích là 23°C, bộ điều nhiệt:
+  - bật hệ thống sưởi ở 22,5° C và kết thúc hoạt động khi nhiệt độ đạt 23,5° C cho cài đặt trung tâm
+  - bật hệ thống sưởi ở 22° C và kết thúc hoạt động khi nhiệt độ đạt đến 23° C cho cài đặt trên
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: ~
-thermostatSubfunction_HEAT: ~
-thermostatTemperature_aboveAlarm: ~
-thermostatTemperature_auxMaxSetpoint: ~
-thermostatTemperature_auxMinSetpoint: ~
-thermostatTemperature_belowAlarm: ~
-thermostatTemperature_boost: ~
-thermostatTemperature_comfort: ~
-thermostatTemperature_eco: ~
-thermostatTemperature_freezeProtection: ~
-thermostatTemperature_heatProtection: ~
-thermostatTemperature_histeresis: ~
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: ~
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: ~
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: ~
-tiltControlType_UNKNOWN: ~
-timeMarginMode_custom: ~
-timeMarginMode_device: ~
-timeMarginMode_off: ~
-usedCTType_100A_33mA: ~
-usedCTType_200A_66mA: ~
-usedCTType_400A_133mA: ~
-usedPhaseLedType_OFF: ~
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
-usedPhaseLedType_VOLTAGE_LEVEL: ~
-usedPhaseLedType_VOLTAGE_PRESENCE: ~
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
-'{count} minutes after sunrise': ~
-'{count} minutes after sunset': ~
-'{count} minutes before sunrise': ~
-'{count} minutes before sunset': ~
-'{days} days': ~
-
+thermostatSubfunction_COOL: làm mát
+thermostatSubfunction_HEAT: sưởi ấm
+thermostatTemperature_aboveAlarm: Trên mức báo động
+thermostatTemperature_auxMaxSetpoint: Nhiệt độ bổ sung tối đa
+thermostatTemperature_auxMinSetpoint: Nhiệt độ bổ sung tối thiểu
+thermostatTemperature_belowAlarm: Trên mức báo động
+thermostatTemperature_boost: Tăng nhiệt độ
+thermostatTemperature_comfort: Nhiệt độ thoải mái
+thermostatTemperature_eco: Nhiệt độ tiết kiệm năng lượng
+thermostatTemperature_freezeProtection: Nhiệt độ bảo vệ chống đông
+thermostatTemperature_heatProtection: Nhiệt độ bảo vệ quá nhiệt
+thermostatTemperature_histeresis: Độ trễ
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Thay đổi vị trí trong quá trình thay đổi độ dốc
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Không thay đổi vị trí trong quá trình thay đổi độ dốc
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Chỉ thay đổi độ dốc khi nó được đóng hoàn toàn
+tiltControlType_UNKNOWN: Không biết
+timeMarginMode_custom: Tùy chỉnh
+timeMarginMode_device: Giá trị mặc định từ thiết bị
+timeMarginMode_off: Đã tắt
+usedCTType_100A_33mA: 100A/33.3mA
+usedCTType_200A_66mA: 200A/66.6mA
+usedCTType_400A_133mA: 400A/133.3mA
+usedPhaseLedType_OFF: Đã tắt
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Hướng dòng điện
+usedPhaseLedType_VOLTAGE_LEVEL: Cấp điện áp
+usedPhaseLedType_VOLTAGE_PRESENCE: Sự hiện diện của điện áp
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Sự hiện diện của điện áp (đảo ngược)
+'{count} minutes after sunrise': '{count} phút sau khi mặt trời mọc'
+'{count} minutes after sunset': '{count} phút sau khi mặt trời lặn'
+'{count} minutes before sunrise': '{count} phút trước khi mặt trời mọc'
+'{count} minutes before sunset': '{count} phút trước khi mặt trời lặn'
+'{days} days': '{days} ngày'
 #</editor-fold>
