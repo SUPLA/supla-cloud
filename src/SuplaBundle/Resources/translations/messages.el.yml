@@ -816,7 +816,7 @@ Unsupported type: Μη υποστηριζόμενο είδος
 Update in progress: Ενημέρωση σε εξέλιξη
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Τα απεσταλμένα αρχεία δεν παραβιάζουν την ευπρέπεια, τα πνευματικά δικαιώματα και τα δικαιώματα τρίτων και έχω το δικαίωμα να τα χρησιμοποιήσω.
 Upper voltage threshold: Όριο υψηλής τάσης
-'Use the {0} server command to change this account''s limits. For example:': 'Για να αλλάξετε τα όρια για αυτόν τον λογαριασμό, χρησιμοποιήστε την εντολή {0} στον διακομιστή σας. Για παράδειγμα:'
+"Use the {0} server command to change this account's limits. For example:": 'Για να αλλάξετε τα όρια για αυτόν τον λογαριασμό, χρησιμοποιήστε την εντολή {0} στον διακομιστή σας. Για παράδειγμα:'
 Use working schedule for this access identifier: Χρήση χρονοδιαγράμματος διαθεσιμότητας για αυτό το αναγνωριστικό πρόσβασης
 User is already confirmed. Try to log in.: Αυτός ο λογαριασμός έχει ήδη επιβεβαιωθεί. Σύνδεση
 Value: Αξία
@@ -1250,428 +1250,431 @@ suffix: επίθημα
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-0% tilt angle: ~
-100% tilt angle: ~
-A confirmation upon successful device unlocking.: ~
-Active from: ~
-Active to: ~
-Activity conditions: ~
-Additional time margin: ~
-Adjust temperature: ~
-Adjust temperatures: ~
-After the delay: ~
-After the delay, but only when it's dark: ~
-Alarm armament sensor: ~
-Algorithm: ~
-All programs must define at least one temperature threshold.: ~
-Always decrement: ~
-Always increment: ~
-Anti-freeze and overheat protection: ~
-Anti-freeze protection: ~
-Are you sure you want to change channel’s location?: ~
-Are you sure you want to change channel’s visibility?: ~
-Are you sure you want to change device’s location?: ~
-Are you sure you want to delete this channel?: ~
-Automatic: ~
-Automatic front panel turn off: ~
-Automatic front panel turn off after: ~
-Automatic thermostat: ~
-Automatic time synchronization: ~
-Aux thermometer: ~
-Aux thermometer type: ~
-Available variables: ~
-Average: ~
-Battery cover open: ~
-Behavior settings: ~
-Binary sensor: ~
-Brightness adjustment for automatic mode: ~
-Brightness level: ~
-Button volume: ~
-Buttons upside down: ~
-Candle: ~
-Cannot update OCR settings. Try again in a while.: ~
-Change percentage by: ~
-Change percentage to: ~
-Change tilt by: ~
-Change tilt to: ~
-Change to be the same.: ~
-Changing channel’s visibility will also change the visibility of other items.: ~
-Changing the location will also imply changing the location of the following items.: ~
-Channels that are meant to work with each other must be in the same location.: ~
-Clock error: ~
-Close value: ~
-Collapse: ~
-Collapse or stop: ~
-Collapse partially: ~
-Command has been sent to the device. Try refreshing the photo in a while.: ~
-Common currencies: ~
-Configuration not available yet. Waiting for the device to connect.: ~
-Confirm if you want to perform the calibration.: ~
-Conflict: ~
-Cool to: ~
-Cooling mode: ~
-'Cooling: {percent}%': ~
-Costs: ~
-Could not restart the device.: ~
-Could not send the identify command.: ~
-Could not set the device time.: ~
-Counter type: ~
-Curtain: ~
-Dark mode: ~
-Data: ~
-Date range: ~
-Daytime criteria: ~
-Dependencies: ~
-'Device GUID: %deviceGuid%': ~
-Device identification is unsupported in the firmware.: ~
-Device settings: ~
-Device should be restarting now.: ~
-Device time has been set.: ~
-Different than on master thermostat.: ~
-Differential thermostat: ~
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
-Domestic hot water: ~
-Dryer: ~
-Edit area crop: ~
-Edit program settings: ~
-Electricity meter active power history: ~
-Electricity meter current history: ~
-Electricity meter voltage aberrations history: ~
-Electricity meter voltage history: ~
-Enable floor temperature control: ~
-Enable generic cooler temperature control: ~
-Enable generic heater temperature control: ~
-Enable power status LED: ~
-Enable support for OCR readings for this channel: ~
-Enable water temperature control: ~
-Example value: ~
-Expand: ~
-Expand or stop: ~
-Expand partially: ~
-Expected maximum increment: ~
-External sensor disabling the thermostat: ~
-Facade blind operation: ~
-Fan: ~
-'Field: {propertyPath}.': ~
-Fill missing data: ~
-Firmware: ~
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-For a period: ~
-Forced off by sensor: ~
-Full tilting time: ~
-Function disabled: ~
-General purpose meter: ~
-HVAC: ~
-Heat or cold source switch: ~
-Heat to: ~
-Heating / ventilation / air conditioning: ~
-Heating mode: ~
-'Heating: {percent}%': ~
-High threshold: ~
-High value: ~
-History: ~
-Home screen content: ~
-Hotel card sensor: ~
-Identify device: ~
-Identify request sent.: ~
-If you confirm the installation and wish to unlock this device, please click the link below.: ~
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
-Image area crop: ~
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: ~
-Increment and decrement: ~
-Installer e-mail address: ~
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: ~
-Invalid e-mail address.: ~
-Invalid unlock code.: ~
-Last paired device: ~
-Light mode: ~
-Lighting level: ~
-Lighting mode: ~
-List of available variables: ~
-Locked: ~
-Low threshold: ~
-Low threshold must be less than high threshold.: ~
-Low value: ~
-Main thermometer: ~
-Master thermostat: ~
-Max: ~
-Maximum duration is one year.: ~
-Maximum temperature that can be set from the device: ~
-Measurement settings: ~
-Min: ~
-Minimum OFF time before cooling can be turned on: ~
-Minimum OFF time before heating can be turned on: ~
-Minimum OFF time before heating/cooling can be turned on: ~
-Minimum ON time before cooling can be turned off: ~
-Minimum ON time before heating can be turned off: ~
-Minimum ON time before heating/cooling can be turned off: ~
-Minimum temperature must be lower than maximum temperature.: ~
-Minimum temperature that can be set from the device: ~
-'Mode: cool': ~
-'Mode: heat': ~
-'Mode: off': ~
-Motor upside down: ~
-'No': ~
-No results: ~
-Notification body is set by the firmware.: ~
-Notification must have recipients.: ~
-Notification title is set by the firmware.: ~
-Notifications (defined): ~
-Notifications (sent per hour): ~
-'OCR service responded with error: {status}': ~
-OCR settings: ~
-OR: ~
-Off with duration: ~
-On with duration: ~
-Open value: ~
-Output value on error: ~
-Overheat protection: ~
-P/C: ~
-Pair new devices or sensors: ~
-Pairing request sent.: ~
-Pairing subdevices is unsupported in the firmware.: ~
-Phase LED type: ~
-Photo interval: ~
-Please find the device details below.: ~
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: ~
-Please provide the installer e-mail address to request the device unlock.: ~
-Please select and configure the action: ~
-Program {programNo}: ~
-Projector screen: ~
-Pump switch: ~
-Push notifications limit has been exceeded: ~
-Reference to the channel will be removed from the items below.: ~
-Refresh interval: ~
-Refresh the config: ~
-Refreshing the configuration will overwrite the changes you made here.: ~
-Reload last photo: ~
-Remote restart is unsupported in the firmware.: ~
-Remove this item: ~
-Request device unlock: ~
-Reset to defaults: ~
-Restart device: ~
-Restart the device: ~
-Reveal or stop: ~
-Roller garage door: ~
-S/N: ~
-SUPLA - Confirm unlocking device for authorized installers: ~
-SUPLA – your device has been unlocked!: ~
-Same as on master thermostat.: ~
-Screen brightness: ~
-Selected: ~
-Set HVAC parameters: ~
-Set the device time: ~
-Settings: ~
-Settings have not been saved!: ~
-Show data: ~
-Shut or stop: ~
-Some features depend on this channel: ~
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
-Status LED: ~
-Store active power history: ~
-Store current history: ~
-Store voltage history: ~
-'Subdevice #{id}': ~
-Subfunction: ~
-Switch to manual mode: ~
-Switch to program mode: ~
-THEN: ~
-Take a photo now: ~
-Temperature adjustment only: ~
-Temperature difference is too big between {min}°C and {max}°C.: ~
-Temperature setpoint change switches to manual mode: ~
-Temporal override: ~
-Terrace awning: ~
-The channel has been deleted.: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: ~
-The device could not be unlocked.: ~
-The device has been unlocked already.: ~
-The device has been unlocked.: ~
-The device has channel conflict and cannot work.: ~
-The device is locked: ~
-The following channels will be also removed along with their dependencies.: ~
-The items below rely on this channel, so they will be deleted.: ~
-The master termostat you chose already has a master.: ~
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
-The thermostat will not work if the main thermometer is not set.: ~
-Thermometer error: ~
-Thermometers configuration: ~
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
-Thermostat programs: ~
-This action will result in restarting the device. It will not be available for a while.: ~
-This channel was missing during last device registration attempt.: ~
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
-This thermostat is controlled by another device.: ~
-Tilt angle: ~
-Tilt control type: ~
-Tilt percent: ~
-Time: ~
-Today, it would be active from {from} to {to}.: ~
-Turn off: ~
-Unlock the device: ~
-Unlocked: ~
-Until a date and time: ~
-Until the next change: ~
-Use device default: ~
-Use working schedule for this reaction: ~
-Use {theMasterThermostat} to control this device.: ~
-Used current transformer type: ~
-User interface: ~
-Value divider: ~
-Value multiplier: ~
-Vertical blind: ~
-Visit the master thermostat page.: ~
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
-Week: ~
-Weekly schedule: ~
-When the alarm is armed: ~
-When the alarm is armed or disarmed: ~
-When the alarm is disarmed: ~
-When the battery cover is opened: ~
-When the clock error has been reported: ~
-When the curtain position changes: ~
-When the curtain reaches: ~
-When the curtain reaches a certain position: ~
-When the facade blind position changes: ~
-When the facade blind reaches: ~
-When the facade blind reaches a certain position: ~
-When the hotel card has been taken: ~
-When the hotel card is put in: ~
-When the hotel card is put in or has been taken: ~
-When the meter reaches a certain value: ~
-When the meter value changes: ~
-When the meter value will be: ~
-When the projector screen position changes: ~
-When the projector screen reaches: ~
-When the projector screen reaches a certain position: ~
-When the pump is turned off: ~
-When the pump is turned on: ~
-When the pump is turned on or off: ~
-When the roller garage door a certain position: ~
-When the roller garage door position changes: ~
-When the roller garage door reaches: ~
-When the roller shutter calibration failed: ~
-When the roller shutter calibration has been lost: ~
-When the roller shutter calibration has started: ~
-When the roller shutter motor reported a problem: ~
-When the terrace awning position changes: ~
-When the terrace awning reaches: ~
-When the terrace awning reaches a certain position: ~
-When the thermometer error has been reported: ~
-When the thermostat starts cooling: ~
-When the thermostat starts heating: ~
-When the thermostat starts heating or cooling: ~
-When the thermostat starts or stops cooling: ~
-When the thermostat starts or stops heating: ~
-When the thermostat starts or stops heating or cooling: ~
-When the thermostat stops cooling: ~
-When the thermostat stops heating: ~
-When the thermostat stops heating or cooling: ~
-When the vertical blind position changes: ~
-When the vertical blind reaches: ~
-When the vertical blind reaches a certain position: ~
-Will be deleted after: ~
-With a timer: ~
-'Yes': ~
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot to set a master thermostat for a channel that is master for others.: ~
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
-You need to provide icons for all states in light mode.: ~
-Your device has been unlocked by the installer.: ~
-and wait until the meter will be: ~
-auxThermometerType_DISABLED: ~
-auxThermometerType_FLOOR: ~
-auxThermometerType_GENERIC_COOLER: ~
-auxThermometerType_GENERIC_HEATER: ~
-auxThermometerType_NOT_SET: ~
-auxThermometerType_WATER: ~
-blue, otherwise: ~
-blue, when voltage lower than the low threshold: ~
-choose the currency: ~
-configuration missing: ~
-cool: ~
-day: ~
-default: ~
-green, otherwise: ~
-green, when power less than the low threshold: ~
-heat: ~
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
-homeScreenContent_NONE: ~
-homeScreenContent_TEMPERATURE: ~
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
-homeScreenContent_TEMPERATURE_TIME: ~
-homeScreenContent_TIME: ~
-homeScreenContent_TIME_DATE: ~
-hour: ~
-keepHistoryMeasurementWarningSelected: ~
-max: ~
-midnight: ~
-milliseconds: ~
-min: ~
-ocrLightingMode_ALWAYS_ON: ~
-ocrLightingMode_AUTO: ~
-ocrLightingMode_OFF: ~
-'off': ~
-red, when power higher than the high threshold: ~
-red, when voltage higher than the high threshold: ~
-seconds: ~
-statusLed_ALWAYS_OFF: ~
-statusLed_OFF_WHEN_CONNECTED: ~
-statusLed_ON_WHEN_CONNECTED: ~
-subdevicePairingResult_CMD_RESULT_UNKNOWN: ~
-subdevicePairingResult_NOT_STARTED_BUSY: ~
-subdevicePairingResult_NOT_STARTED_NOT_READY: ~
-subdevicePairingResult_NOT_SUPPORTED: ~
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: ~
-subdevicePairingResult_ONGOING: ~
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: ~
-subdevicePairingResult_PROCEDURE_STARTED: ~
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: ~
-subdevicePairingResult_SUCCESS: ~
-subdevicePairingResult_UNAUTHORIZED: ~
-sunrise: ~
-sunset: ~
-swap: ~
-the master thermostat ID{id}: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
-thermostatAlgorithm_PID: ~
-thermostatAlgorithm_help: ~
+0% tilt angle: Γωνία ελασμάτων που καθορίζει η περσίδα κατά το κλείσιμο
+100% tilt angle: Γωνία ελασμάτων που καθορίζει η περσίδα κατά το άνοιγμα
+A confirmation upon successful device unlocking.: Επιβεβαίωση ξεκλειδώματος συσκευής.
+Active from: Ενεργή από
+Active to: Ενεργή έως
+Activity conditions: Συνθήκες ενέργειας
+Additional time margin: Πρόσθετο χρονικό περιθώριο
+Adjust temperature: Ρύθμιση θερμοκρασίας
+Adjust temperatures: Ρύθμιση θερμοκρασιών
+After the delay: Μετά από ορισμένη ώρα
+After the delay, but only when it's dark: Μετά από ορισμένη ώρα, αλλά μόνο όταν είναι σκοτάδι
+Alarm armament sensor: Αισθητήρας ρύθμισης συναγερμού
+Algorithm: Αλγόριθμος
+All programs must define at least one temperature threshold.: Κάθε πρόγραμμα πρέπει να καθορίσει τουλάχιστον ένα κατώφλι θερμοκρασίας.
+Always decrement: Πάντα φθίνουσα
+Always increment: Πάντα αυξούσα
+Anti-freeze and overheat protection: Προστασία από υπερθέρμανση και πάγωμα
+Anti-freeze protection: Προστασία από πάγωμα
+Are you sure you want to change channel’s location?: Είστε σίγουροι ότι θέλετε να αλλάξετε τη θέση του καναλιού;
+Are you sure you want to change channel’s visibility?: Είστε σίγουροι ότι θέλετε να αλλάξετε την ορατότητα του καναλιού;
+Are you sure you want to change device’s location?: Είστε σίγουροι ότι θέλετε να αλλάξετε τη θέση της συσκευής;
+Are you sure you want to delete this channel?: Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό το κανάλι;
+Automatic: Αυτόματα
+Automatic front panel turn off: Αυτόματη απενεργοποίηση του μπροστινού πίνακα
+Automatic front panel turn off after: Ώρα απενεργοποίησης του μπροστινού πίνακα
+Automatic thermostat: Αυτόματος θερμοστάτης
+Automatic time synchronization: Αυτόματος συγχρονισμός ημερομηνίας και ώρας
+Aux thermometer: Πρόσθετο θερμόμετρο
+Aux thermometer type: Τύπος προσθέτου θερμομέτρου
+Available variables: Διαθέσιμες μεταβλητές
+Average: Μέσος όρος
+Battery cover open: Καπάκι μπαταρίας ανοιχτό
+Behavior settings: Συμπεριφορά
+Binary sensor: Δυαδικός αισθητήρας
+Brightness adjustment for automatic mode: Ρύθμιση φωτεινότητας της αυτόματης λειτουργίας
+Brightness level: Επίπεδο φωτεινότητας
+Button volume: Ένταση κουμπιού
+Buttons upside down: Αντίστροφος έλεγχος κουμιών
+Candle: Κεριού
+Cannot update OCR settings. Try again in a while.: Δεν πέτυχε η ενημέρωση των ρυθμίσεων OCR. Δοκιμάστε ξανά σε λίγο.
+Change percentage by: Αλλάξτε το ποσοστό κατά
+Change percentage to: Αλλάξτε το ποσοστό σε
+Change tilt by: Αλλάξτε την κλίση κατά
+Change tilt to: Αλλάξτε την κλίση σε
+Change to be the same.: Καθορίστε το ίδιο.
+Changing channel’s visibility will also change the visibility of other items.: Η αλλαγή ορατότητας του καναλιού θα αλλάξει και την ορατότητα άλλων στοιχείων.
+Changing the location will also imply changing the location of the following items.: Η αλλαγή της θέσης θα την επηρεάσει επίσης για τα εξής.
+Channels that are meant to work with each other must be in the same location.: Τα κανάλια που θα συνεργαστούν πρέπει να βρίσκονται στην ίδια θέση.
+Clock error: Σφάλμα ρολογιού
+Close value: Αξία κατά το κλείσιμο
+Collapse: Τύλιγμα
+Collapse or stop: Τύλιγμα ή σταμάτημα
+Collapse partially: Τύλιγμα μερικό
+Command has been sent to the device. Try refreshing the photo in a while.: Το αίτημα στάλθηκε στη συσκευή. Δοκιμάστε να ανανεώσετε τη φωτογραφία σε λίγο.
+Common currencies: Πιο συχνά επιλεγμένα νομίσματα
+Configuration not available yet. Waiting for the device to connect.: Η διαμόρφωση δεν είναι ακόμη διαθέσιμη. Περιμένετε να συνδεθεί η συσκευή.
+Confirm if you want to perform the calibration.: Επιβεβαιώστε ότι θέλετε να εκτελέσετε τη βαθμονόμηση.
+Conflict: Σύγκρουση
+Cool to: Ψύξη μέχρι
+Cooling mode: Λειτουργία ψύξης
+'Cooling: {percent}%': 'Ψύξη: {percent}%'
+Costs: Κόστος
+Could not restart the device.: Απέτυχε η επανεκκίνηση της συσκευής.
+Could not send the identify command.: Απέτυχε η αποστολή εντολής.
+Could not set the device time.: Απέτυχε η ρύθμιση της ημερομηνίας και της ώρας στη συσκευή.
+Counter type: Τύπος μετρητή
+Curtain: Κουρτίνα
+Dark mode: Σκοτεινή λειτουργία
+Data: Δεδομένα
+Date range: Εύρος ημερομηνιών
+Daytime criteria: Κριτήρια με βάση τη διάρκεια της ημέρας
+Dependencies: Εξαρτήσεις
+'Device GUID: %deviceGuid%': 'GUID της συσκευής: %deviceGuid%'
+Device identification is unsupported in the firmware.: Η αναγνώριση συσκευής δεν υποστηρίζεται από το υλικολογισμικό.
+Device settings: Ρυθμίσεις συσκευής
+Device should be restarting now.: Η συσκευή θα πρέπει να επανεκκινήσει.
+Device time has been set.: Η ημερομηνία και η ώρα της συσκευής έχουν ρυθμιστεί.
+Different than on master thermostat.: Ρύθμιση διαφορετική από εκείνη του κύριου θερμοστάτη.
+Differential thermostat: Διαφορικός θερμοστάτης
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Θέλετε να ρυθμίσετε τα κανάλια που εξαρτώνται από αυτόν τον θερμοστάτη (όπως τα θερμόμετρα και οι αισθητήρες) να είναι τα ίδια με αυτά του κύριου θερμοστάτη;
+Domestic hot water: Ζεστό νερό στο σπίτι
+Dryer: Αφυγραντήρας
+Edit area crop: Επεξεργασία περιοχής
+Edit program settings: Επεξεργασία ρυθμίσεων προγράμματος
+Electricity meter active power history: Ιστορία της ισχύος του μετρητή ηλεκτρικής ενέργειας
+Electricity meter current history: Ιστορικό έντασης μετρητή ηλεκτρικής ενέργειας
+Electricity meter voltage aberrations history: Ιστορικό εκτροπής τάσης του μετρητή ηλεκτρικής ενέργειας
+Electricity meter voltage history: Ιστορικό τάσης του μετρητή ηλεκτρικής ενέργειας
+Enable floor temperature control: Ενεργοποίηση ελέγχου θερμοκρασίας δαπέδου
+Enable generic cooler temperature control: Ενεργοποίηση ελέγχου θερμοκρασίας της πηγής ψύξης
+Enable generic heater temperature control: Ενεργοποίηση ελέγχου θερμοκρασίας της πηγής θερμότητας
+Enable power status LED: Ενεργοποιήστε το LED της κατάστασης λειτουργίας
+Enable support for OCR readings for this channel: Ενεργοποίηση υποστήριξης για αναγνώσεις OCR για αυτό το κανάλι
+Enable water temperature control: Ενεργοποίηση ελέγχου θερμοκρασίας νερού
+Example value: Παράδειγμα
+Expand: Επέκταση
+Expand or stop: Επέκταση ή σταμάτημα
+Expand partially: Μερική επέκταση
+Expected maximum increment: Αναμενόμενη μέγιστη αύξηση
+External sensor disabling the thermostat: Εξωτερικός αισθητήρας για την απενεργοποίηση θερμοστάτη
+Facade blind operation: Παντζούρια πρόσοψης
+Fan: Ανεμόμυλος
+'Field: {propertyPath}.': 'Πεδίο {propertyPath}.'
+Fill missing data: Συμπληρώστε τις ελλείπουσες μετρήσεις
+Firmware: Υλικολογισμικό
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Το υλικολογισμικό αυτής της συσκευής αποστέλλει ειδοποιήσεις στο πλαίσιο αυτού του καναλιού. Εδώ μπορείτε να ρυθμίσετε το περιεχόμενο και τους παραλήπτες. Για περισσότερες πληροφορίες, επικοινωνήστε με τον προμηθευτή της συσκευής.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Το υλικολογισμικό αυτής της συσκευής αποστέλλει ειδοποιήσεις. Εδώ μπορείτε να ρυθμίσετε το περιεχόμενο και τους παραλήπτες. Για περισσότερες πληροφορίες, επικοινωνήστε με τον προμηθευτή της συσκευής.
+For a period: Για την περίοδο
+Forced off by sensor: Αναγκαστική διακοπή λειτουργίας από αισθητήρα
+Full tilting time: Συνολικός χρόνος αλλαγής κλίσης
+Function disabled: Λειτουργία απενεργοποιημένη
+General purpose meter: Κανάλι μετρητή γενικής χρήσης
+HVAC: HVAC
+Heat or cold source switch: Διακόπτης για πηγή θερμότητας ή κρύου
+Heat to: θέρμανση μέχρι
+Heating / ventilation / air conditioning: Θέρμανση / εξαερισμός / κλιματισμός (HVAC)
+Heating mode: Λειτουργία θέρμανσης
+'Heating: {percent}%': 'Θέρμανση: {percent}%'
+High threshold: Υψηλό κατώφλι
+High value: Μέγιστη τιμή
+History: Ιστορικό
+Home screen content: Περιεχόμενα της αρχικής οθόνης
+Hotel card sensor: Αισθητήρας κάρτας ξενοδοχείου
+Identify device: Ταυτοπποίηση συσκευής
+Identify request sent.: Το αίτημα για ταυτοποίηση έχει αποσταλεί.
+If you confirm the installation and wish to unlock this device, please click the link below.: Αν εσείς προσπαθείτε να προσθέσετε μια νέα συσκευή, κάντε κλικ στον παρακάτω σύνδεσμο για να επιβεβαιώσετε το ξεκλείδωμα.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Εάν δεν είστε εσείς αυτός που προσπαθεί να ξεκλειδώσει τη συσκευή, αγνοήστε αυτό το μήνυμα ηλεκτρονικού ταχυδρομείου. Ο σύνδεσμος επιβεβαίωσης θα λήξει αυτόματα μετά από 24 ώρες.
+Image area crop: Περιοχή εικόνας
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Για να ελαχιστοποιήσετε τον κίνδυνο λανθασμένης ανάγνωσης, ορίστε τη μέγιστη αναμενόμενη αύξηση της τιμής του μετρητή μεταξύ διαδοχικών εικόνων.
+Increment and decrement: Αύξουσα και φθίνουσα
+Installer e-mail address: Διεύθυνση ηλεκτρονικού ταχυδρομείου του εγκαταστάτη
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Η συσκευή έχει καταχωρίσει ένα κανάλι διαφορετικού τύπου ({typeCaption} - {typeId}) στη θέση του τρέχοντος.
+Invalid e-mail address.: Λανθασμένη διεύθυνση ηλεκτρονικού ταχυδρομείου.
+Invalid unlock code.: Λανθασμένος σύνδεσμος ξεμπλοκαρίσματος.
+Last paired device: Τελευταία συζευγμένη συσκευή
+Light mode: Φωτεινή λειτουργία
+Lighting level: Επίπεδο φωτισμού
+Lighting mode: Λειτουργία φωτισμού
+List of available variables: Κατάλογος διαθέσιμων μεταβλητών
+Locked: Αποκλεισμένο
+Low threshold: Χαμηλό κατώφλι
+Low threshold must be less than high threshold.: Το χαμηλό κατώφλι πρέπει να είναι χαμηλότερο από το υψηλό κατώφλι
+Low value: Ελάχιστη τιμή
+Main thermometer: Κύριο θερμόμετρο
+Master thermostat: Κύριος θερμοστάτης
+Max: Μέγ.
+Maximum duration is one year.: Η μέγιστη περίοδος είναι ένα έτος.
+Maximum temperature that can be set from the device: Μέγιστη θερμοκρασία που μπορεί να ρυθμιστεί με τη συσκευή
+Measurement settings: Ρυθμίσεις μέτρησης
+Min: Ελάχ.
+Minimum OFF time before cooling can be turned on: Ελάχιστος χρόνος ΑΠΕΝΕΡΓΟΠΟΙΗΣΗΣ πριν από την επανεκκίνηση της ψύξης
+Minimum OFF time before heating can be turned on: Ελάχιστος χρόνος απενεργοποίησης πριν από την επανενεργοποίηση της θέρμανσης
+Minimum OFF time before heating/cooling can be turned on: Ελάχιστος χρόνος απενεργοποίησης πριν από την επανεκκίνηση της ψύξης/θέρμανσης
+Minimum ON time before cooling can be turned off: Ελάχιστος χρόνος απενεργοποίησης πριν από την εκ νέου απενεργοποίηση της ψύξης
+Minimum ON time before heating can be turned off: Ελάχιστος χρόνος ΕΝΕΡΓΟΠΟΙΗΣΗΣ πριν η θέρμανση απενεργοποιηθεί ξανά
+Minimum ON time before heating/cooling can be turned off: Ελάχιστος χρόνος ενεργοποίησης πριν η ψύξη/θέρμανση απενεργοποιηθεί ξανά
+Minimum temperature must be lower than maximum temperature.: Η ελάχιστη θερμοκρασία πρέπει να είναι μικρότερη από τη μέγιστη θερμοκρασία
+Minimum temperature that can be set from the device: Ελάχιστη θερμοκρασία που μπορεί να ρυθμιστεί με τη συσκευή
+'Mode: cool': 'Λειτουργία: ψύξη'
+'Mode: heat': 'Λειτουργία: θέρμανση'
+'Mode: off': 'Λειτουργία: απενεργ.'
+Motor upside down: Αντίστροφος έλεγχος κινητήρα
+'No': 'Όχι'
+No results: Δεν υπάρχουν αποτελέσματα
+Notification body is set by the firmware.: Το περιεχόμενο της ειδοποίησης καθορίζεται από το υλικολογισμικό.
+Notification must have recipients.: Η ειδοποίηση πρέπει να έχει παραλήπτες.
+Notification title is set by the firmware.: Η επικεφαλίδα ειδοποίησης ορίζεται από το υλικολογισμικό.
+Notifications (defined): Ειδοποιήσεις (καθορισμένες)
+Notifications (sent per hour): Ειδοποιήσεις (αποστέλλονται ανά ώρα)
+'OCR service responded with error: {status}': 'Η υπηρεσία OCR απάντησε με σφάλμα: {status}'
+OCR settings: Ρυθμίσεις OCR
+OR: Ή
+Off with duration: Απενεργοποίηση στη συγκεκριμένη ώρα
+On with duration: Ενεργοποίηση στη συγκεκριμένη ώρα
+Open value: Τιμή κατά το άνοιγμα
+Output value on error: Κατάσταση εξόδου κατά τη διάρκεια σφάλματος
+Overheat protection: Προστασία υπερθέρμανσης
+P/C: P/C
+Pair new devices or sensors: Ζεύξη νέων συσκευών ή αισθητήρων
+Pairing request sent.: Αποστολή αιτήματος σύζευξης.
+Pairing subdevices is unsupported in the firmware.: Η ζεύξη δεν υποστηρίζεται από το λογισμικό της συσκευής.
+Phase LED type: Ένδειξη φάσης LED
+Photo interval: Διάστημα μεταξύ τωμ λήψεων φωτογραφιών
+Please find the device details below.: Λεπτομέρειες για τη συσκευή μπορείτε να βρείτε παρακάτω.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Σημειώστε ότι η εν λόγω συσκευή προορίζεται μόνο για πιστοποιημένους εγκαταστάτες.
+Please provide the installer e-mail address to request the device unlock.: Για να ξεκλειδώσετε τη συσκευή, εισαγάγετε τη διεύθυνση ηλεκτρονικού ταχυδρομείου που δόθηκε κατά τη διαδικασία λήψης του πιστοποιητικού εγκατάστασης.
+Please select and configure the action: Επιλέξτε και ρυθμίστε τις παραμέτρους της ενέργειας.
+Program {programNo}: Πρόγραμμα {programmeNo}
+Projector screen: Οθόνη προβολής
+Pump switch: Διακόπτης αντλίας
+Push notifications limit has been exceeded: Έχει ξεπεραστεί το όριο ειδοποιήσεων Push
+Reference to the channel will be removed from the items below.: Η παραπομπή σε αυτό το κανάλι θα αφαιρεθεί από τα ακόλουθα.
+Refresh interval: Διάστημα μεταξύ ανανεώσεων
+Refresh the config: Ανανέωση διαμόρφωσης
+Refreshing the configuration will overwrite the changes you made here.: Η ανανέωση της διαμόρφωσης θα αντικαταστήσει τις αλλαγές που έγιναν στη φόρμα.
+Reload last photo: Επαναφόρτωση της τελευταίας φωτογραφίας
+Remote restart is unsupported in the firmware.: Η απομακρυσμένη επανεκκίνηση δεν υποστηρίζεται από το λογισμικό της συσκευής.
+Remove this item: Αφαίρεση αυτού του στοιχείου
+Request device unlock: Αναφορά επιθυμίας ξεκειδώματος της συσκευής
+Reset to defaults: Επαναφορά προεπιλεγμένων τιμών
+Restart device: Επανεκκίνηση της συσκευής
+Restart the device: Επανεκκίνηση της συσκευής
+Reveal or stop: Αποκάλυψη ή σταμάτημα
+Roller garage door: Γκαραζόπορτα
+S/N: S/N
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Ξεκλείδωμα συσκευής που προορίζεται για πιστοποιημένο εγκαταστάτη
+SUPLA – your device has been unlocked!: SUPLA - Η συσκευή σας έχει ξεκλειδωθεί!
+Same as on master thermostat.: Ίδια ρύθμιση με αυτή του κύριου θερμοστάτη.
+Screen brightness: Φωτεινότητα οθόνης
+Selected: Επιλεγμένα
+Set HVAC parameters: Ορισμός παραμέτρων
+Set the device time: Απέτυχε η ρύθμιση της ημερομηνίας και της ώρας στη συσκευή.
+Settings: Ρυθμίσεις
+Settings have not been saved!: Οι ρυθμίσεις δεν έχουν αποθηκευτεί!
+Show data: Εμφάνιση δεδομένων
+Shut or stop: Κάλυψη ή σταμάτημα
+Some features depend on this channel: Ορισμένες λειτουργίες εξαρτώνται από αυτό το κανάλι
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Ορισμένα από τα δεδομένα που συλλέγονται για το λογαριασμό σας θα διαγράφονται περιοδικά μετά από ορισμένο χρονικό διάστημα. Εξοικειωθείτε με τα παρακάτω όρια.
+Status LED: Κατάσταση LED
+Store active power history: Διατήρηση ιστορικού του ενεργού ισχύος
+Store current history: Διατήρηση ιστορικού ρεύματος
+Store voltage history: Διατήρηση ιστορικού έντασης
+'Subdevice #{id}': 'Συσκευή υπεργολαβίας #{id}'
+Subfunction: Δευτερεύουσα λειτουργία
+Switch to manual mode: Εναλλαγή σε χειροκίνητη λειτουργία
+Switch to program mode: Εναλλαγή σε λειτουργία προγράμματος
+THEN: ΤΟΤΕ
+Take a photo now: Λήψη φωτογραφίας τώρα
+Temperature adjustment only: Μόνο ρύθμιση θερμοκρασίας
+Temperature difference is too big between {min}°C and {max}°C.: Η διαφορά θερμοκρασιών είναι πολύ μεγάλη μεταξύ {min}°C και {max}°C.
+Temperature setpoint change switches to manual mode: Η αλλαγή της θερμοκρασίας στόχου μεταβαίνει σε χειροκίνητη λειτουργία
+Temporal override: Προσωρινή αντικατάσταση
+Terrace awning: Τέντα ταράτσας
+The channel has been deleted.: Το κανάλι έχει αφαιρεθεί.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Η διαμόρφωση άλλαξε από άλλη τοποθεσία (π.χ. άλλο παράθυρο προγράμματος περιήγησης, κινητή εφαρμογή ή συσκευή). Πρέπει να ανανεώσετε τη διαμόρφωση πριν κάνετε περαιτέρω αλλαγές.
+The device could not be unlocked.: Απέτυχε το ξεκλείδωμα συσκευής.
+The device has been unlocked already.: Η συσκευή είναι ήδη ξεκλειδωμένη.
+The device has been unlocked.: Η συσκευή έχει ξεκλειδωθεί.
+The device has channel conflict and cannot work.: Η συσκευή έχει δημιουργήσει σύγκρουση καναλιών και δεν μπορεί προς το παρόν να λειτουργήσει.
+The device is locked: Συσκευή κλειδωμένη
+The following channels will be also removed along with their dependencies.: Τα ακόλουθα κανάλια θα αφαιρεθούν επίσης μαζί με τις εξαρτήσεις τους.
+The items below rely on this channel, so they will be deleted.: Τα ακόλουθα στοιχεία εξαρτώνται από αυτό το κανάλι, οπότε θα αφαιρεθούν.
+The master termostat you chose already has a master.: Ο κύριος θερμοστάτης που έχετε επιλέξει έχει ήδη έναν άλλο κύριο θερμοστάτη
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Η απόκριση θα είναι ενεργή όταν πληρούνται όλες οι ακόλουθες συνθήκες. Εάν ορίσετε όλες τις διαθέσιμες επιλογές, η απόκριση θα ενεργοποιείται μόνο μεταξύ των επιλεγμένων ημερομηνιών, στις επιλεγμένες ώρες και ημέρες της εβδομάδας και όταν πληρούται μία από τις αναφορές ηλιοβασιλέματος ή ανατολής.
+The thermostat will not work if the main thermometer is not set.: Το κύριο θερμόμετρο πρέπει να είναι ρυθμισμένο για να λειτουργήσει ο θερμοστάτης.
+Thermometer error: Σφάλμα θερμομέτρου
+Thermometers configuration: Διαμόρφωση θερμομέτρων
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Αυτός ο θερμοστάτης χρησιμοποιεί τις ρυθμίσεις από τον κύριο θερμοστάτη. Μεταβείτε στη σελίδα λεπτομερειών για να αλλάξετε τις ρυθμίσεις.
+Thermostat programs: Προγράμματα θερμοστάτη
+This action will result in restarting the device. It will not be available for a while.: Η εντολή αυτής της λειτουργίας θα επανεκκινήσει τη συσκευή. Κατά τη διάρκεια της επανεκκίνησης, η συσκευή δεν θα είναι προσβάσιμη.
+This channel was missing during last device registration attempt.: Αυτό το κανάλι λείπει από τη συσκευή.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Αυτή η συσκευή προορίζεται για διανομή και εγκατάσταση μόνο από εξουσιοδοτημένους εγκαταστάτες. Εάν δεν είστε εξουσιοδοτημένος εγκαταστάτης της SUPLA και δεν έχετε ενεργό πιστοποιητικό εκπαίδευσης, επικοινωνήστε με τον πωλήτη.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Αυτή είναι η τελευταία φωτογραφία που μεταφορτώθηκε από τη συσκευή. Σημειώστε την ακριβή περιοχή όπου είναι ορατά τα ψηφία του μετρητή.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Αυτή είναι μια λίστα με τις αποκρίσεις που εκτελούνται στον λογαριασμό σας. Αν θέλετε να προσθέσετε μια νέα απόκριση, μεταβείτε στις λεπτομέρειες του καναλιού που θα την ενεργοποιήσει.
+This thermostat is controlled by another device.: Αυτός ο θερμοστάτης ελέγχεται από έναν κύριο θερμοστάτη.
+Tilt angle: Γωνία κλίσης
+Tilt control type: Τύπος ελέγχου κλίσης
+Tilt percent: Ποσοστό κλίσης
+Time: Ώρα
+Today, it would be active from {from} to {to}.: Σήμερα, η περίοδος δραστηριότητας θα εμπίπτει μεταξύ {from} και {to}.
+Turn off: Απενεργοποίηση
+Unlock the device: Ξεκλείδωμα συσκευής
+Unlocked: Ξεμπλοκαρισμένο
+Until a date and time: Μέχρι το
+Until the next change: Μέχρι την επόμενη βάρδια
+Use device default: Χρήση προεπιλεγμένης τιμής από τη συσκευή
+Use working schedule for this reaction: Χρήση χρονοδιαγραμμάτος ενεργειών για αυτήν την απόκριση
+Use {theMasterThermostat} to control this device.: Χρήση {theMasterThermostat} για να ελέγχετε αυτή τη συσκευή.
+Used current transformer type: Χρήση μετασχηματιστή ρεύματος
+User interface: Διεπαφή χρήστη
+Value divider: Διαιρέτης
+Value multiplier: Πολλαπλασιαστής
+Vertical blind: Περσίδα κατακόρυφη
+Visit the master thermostat page.: Πέρασμα στον κύριο θερμοστάτη.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Λάβαμε αίτημα για ξεκλείδωμα συσκευής που προορίζεται μόνο για πιστοποιημένους εγκαταστάτες. Το αίτημα εστάλη από τον χρήστη %deviceUserEmail% από την SUPLA Cloud στη διεύθυνση %targetCloudUrl%.
+Week: Εβδομάδα
+Weekly schedule: Εβδομαδιαίο χρονοδιάγραμμα
+When the alarm is armed: Όταν ο συναγερμός είναι οπλισμένος
+When the alarm is armed or disarmed: Όταν ο συναγερμός είναι απενεργοποιημένος ή οπλισμένος
+When the alarm is disarmed: Όταν ο συναγερμός απενεροποίησει
+When the battery cover is opened: Όταν ανοίγει το καπάκι της μπαταρίας
+When the clock error has been reported: Όταν το ρολοί αναφέρει σφάλμα
+When the curtain position changes: Όταν η κουρτίνα αλλάζει θέση
+When the curtain reaches: Όταν η κουρτίνα φτάσει
+When the curtain reaches a certain position: Όταν η κουρτίνα φτάσει σε μια συγκεκριμένη θέση
+When the facade blind position changes: Όταν η περσίδα πρόσοψης αλλάζει θέση
+When the facade blind reaches: Όταν η περσίδα πρόσοψης φτάσει
+When the facade blind reaches a certain position: Όταν η περσίδα πρόσοψης φτάσει σε μια ορισμένη θέση
+When the hotel card has been taken: Όταν αφαιρείται η κάρτα ξενοδοχείου
+When the hotel card is put in: Όταν εισάγεται η κάρτα ξενοδοχείου
+When the hotel card is put in or has been taken: Όταν εισάγεται ή αφαιρείται η κάρτα ξενοδοχείου
+When the meter reaches a certain value: Όταν ο μετρητής φτάσει στην επιθυμητή τιμή
+When the meter value changes: Όταν η τιμή αλλάζει
+When the meter value will be: Όταν η τιμή είναι
+When the projector screen position changes: Όταν η οθόνη προβολής αλλάζει θέση
+When the projector screen reaches: Όταν η οθόνη προβολής φτάσει
+When the projector screen reaches a certain position: Όταν η οθόνη προβολής φτάσει σε μια συγκεκριμένη θέση
+When the pump is turned off: Όταν η αντλία είναι απενεργοποιημένη
+When the pump is turned on: Όταν η αντλία είναι ενεργοποιημένη
+When the pump is turned on or off: Όταν η αντλία ενεργοποιείται ή απενεργοποιείται
+When the roller garage door a certain position: Όταν η γκαραζόπορτα φτάσει σε μια συγκεκριμένη θέση
+When the roller garage door position changes: Όταν η γκαραζόπορτα αλλάζει θέση
+When the roller garage door reaches: Όταν η πόρτα του γκαράζ φτάσει
+When the roller shutter calibration failed: Εάν η βαθμονόμηση του ρολού τελειώσει με σφάλμα
+When the roller shutter calibration has been lost: Όταν η βαθμονόμηση του ρολού δεν μπορεί να ολοκληρωθεί
+When the roller shutter calibration has started: Όταν ξεκινήσει η βαθμονόμηση του ρολού
+When the roller shutter motor reported a problem: Όταν ο κινητήρας του ρολού αναφέρει πρόβλημα
+When the terrace awning position changes: Όταν η τέντα βεράντας αλλάζει θέση
+When the terrace awning reaches: Όταν ή τέντα βεράντας φτάσει
+When the terrace awning reaches a certain position: Όταν η τέντα βεράντας φτάσει σε μια ορισμένη θέση
+When the thermometer error has been reported: Όταν το θερμόμετρο αναφέρει σφάλμα
+When the thermostat starts cooling: Όταν ο θερμοστάτης αρχίζει να ψύχει
+When the thermostat starts heating: Όταν ο θερμοστάτης αρχίζει να θερμαίνει
+When the thermostat starts heating or cooling: Όταν ο θερμοστάτης αρχίζει να ψύχει ή να θερμαίνει
+When the thermostat starts or stops cooling: Όταν ο θερμοστάτης ξεκινά ή σταματά την ψύξη
+When the thermostat starts or stops heating: Όταν ο θερμοστάτης ξεκινά ή σταματά να θερμαίνει
+When the thermostat starts or stops heating or cooling: Όταν ο θερμοστάτης ξεκινά ή σταματά να θερμαίνει ή να ψύχει
+When the thermostat stops cooling: Όταν ο θερμοστάτης σταματήσει την ψύξη
+When the thermostat stops heating: Όταν ο θερμοστάτης σταματήσει τη θέρμανση
+When the thermostat stops heating or cooling: Όταν ο θερμοστάτης σταματήσει να ψύχει ή να θερμαίνει
+When the vertical blind position changes: Όταν η κατακόρυφη περσίδα αλλάζει θέση
+When the vertical blind reaches: Όταν η κατακόρυφη περσίδα φτάσει
+When the vertical blind reaches a certain position: Όταν η κατακόρυφη περσίδα φτάσει σε μια ορισμένη θέση
+Will be deleted after: Αφαίρεση μετά
+With a timer: Με χρονοδιακόπτη
+'Yes': 'Ναι'
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Μπορείτε εδώ να ορίσετε σχετικές τιμές. Για παράδειγμα, +10 ή -20 θα αυξήσει αντίστοιχα τη ρύθμιση κατά 10 ή θα τη μειώσει κατά 20.
+You cannot to set a master thermostat for a channel that is master for others.: Δεν μπορείτε να ρυθμίσετε τον κύριο θερμοστάτη στον κύριο θερμοστάτη
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Το αίτημα έχει σταλεί. Θα σας ειδοποιήσουμε όταν ο εγκαταστάτης το εγκρίνει και ξεκλειδώσει τη συσκευή.
+You need to provide icons for all states in light mode.: Πρέπει να παρέχετε εικονίδια για όλες τις καταστάσεις σε φωτεινή λειτουργία.
+Your device has been unlocked by the installer.: Η συσκευή σας έχει ξεκλειδωθεί από τον εγκαταστάτη.
+and wait until the meter will be: και μην εκτελέσετε ξανά αυτή την απόκριση μέχρι η τιμή να είναι
+auxThermometerType_DISABLED: Απενεργοποιημένο
+auxThermometerType_FLOOR: Δάπεδο
+auxThermometerType_GENERIC_COOLER: Πηγή κρύου
+auxThermometerType_GENERIC_HEATER: Πηγή θερμότητας
+auxThermometerType_NOT_SET: Δεν έχει ρυθμιστεί
+auxThermometerType_WATER: Νερό
+blue, otherwise: αλλιώς μπλε
+blue, when voltage lower than the low threshold: μπλε όταν η τάση είναι κάτω από το χαμηλό κατώφλι
+choose the currency: επιλογή νομίσματος
+configuration missing: καμία διαμόρφωση
+cool: ψύξη
+day: ημερα
+default: προεπιλογή
+green, otherwise: αλλιώς πράσινο
+green, when power less than the low threshold: πράσινο όταν η ισχύς είναι χαμηλότερη από το χαμηλό κατώφλι
+heat: θέρμανση
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Κύρια και βοηθητική θερμοκρασία
+homeScreenContent_NONE: Δεν υπάρχει
+homeScreenContent_TEMPERATURE: Θερμοκρασία
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Θερμοκρασία και υγρασία
+homeScreenContent_TEMPERATURE_TIME: Θερμοκρασία και ώρα
+homeScreenContent_TIME: Ώρα
+homeScreenContent_TIME_DATE: Ημερομηνία και ώρα
+hour: ώρα
+keepHistoryMeasurementWarningSelected: Είστε σίγουροι ότι χρειάζεσται αυτό το ιστορικό; Το Supla είναι ένα έργο open source που συντηρείται με ίδια κεφάλαια. Αν δεν χρειάζεστε αυτό το ιστορκό, παρακαλούμε βοηθήστε μας να εξοικονομήσουμε πολύτιμο αποθηκευτικό χώρο αφήνοντας αυτή την επιλογή απενεργοποιημένη.
+max: μέγ.
+midnight: Βορράς
+milliseconds: χιλιοστά του δευτερολέπτου
+min: λεπτ.
+ocrLightingMode_ALWAYS_ON: Πάντα σε λειτουργία
+ocrLightingMode_AUTO: Αυτόματα
+ocrLightingMode_OFF: Απενεργ.
+'off': Απενεργοποίηση
+red, when power higher than the high threshold: κόκκινο όταν η ισχύς είναι πάνω από το υψηλό κατώφλι
+red, when voltage higher than the high threshold: κόκκινο όταν η τάση είναι υψηλότερη από το υψηλό κατώφλι
+seconds: δευτ.
+statusLed_ALWAYS_OFF: Πάντα απενεργοποίηση
+statusLed_OFF_WHEN_CONNECTED: Απενεργοποίηση όταν είναι συνδεδεμένο
+statusLed_ON_WHEN_CONNECTED: Ενεργοποίηση όταν είναι συνδεδεμένο
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Άγνωστο αποτέλεσμα
+subdevicePairingResult_NOT_STARTED_BUSY: Η συσκευή είναι κατειλημμένη
+subdevicePairingResult_NOT_STARTED_NOT_READY: Η συσκευή δεν είναι έτοιμη
+subdevicePairingResult_NOT_SUPPORTED: Μη υποστηριζόμενη λειτουργία
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Δεν βρέθηκαν νέες εξοπλισμοί
+subdevicePairingResult_ONGOING: Σε εξέλιξη
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Άγνωστο αποτέλεσμα εξάτμισης
+subdevicePairingResult_PROCEDURE_STARTED: Η διαδικασία ξεκίνησε
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Υπέρβαση ορίου πόρων
+subdevicePairingResult_SUCCESS: Επιτυχία
+subdevicePairingResult_UNAUTHORIZED: Αποτυχημένη ταυτοποίηση
+sunrise: ανατολή
+sunset: ηλιοβασίλεμα
+swap: εναλλαγή
+the master thermostat ID{id}: του κύριου θερμοστάτη ID{id}
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Ενεργοποίηση/απενεργοποίηση με πάνω ρύθμιση
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Ενεργοποίηση/απενεργοποίηση με μεσαία ρύθμιση
+thermostatAlgorithm_PID: PID
+thermostatAlgorithm_help: |
+  Οι αλγόριθμοι ενεργοποίησης/απενεργοποίησης λειτουργούν με βάση τη ρύθμιση υστέρησης. Η υστέρηση μπορεί να σχετίζεται με το μέσο του εύρους της (μεσαία ρύθμιση) ή με τη ρυθμισμένη θερμοκρασία (πάνω ρύθμιση).
+  Για παράδειγμα, υποθέτοντας υστέρηση 1°C και θερμοκρασία-στόχο 23°C, ο θερμοστάτης: 
+  - θα ενεργοποιήσει τη θέρμανση στους 22,5°C και θα σταματήσει όταν η θερμοκρασία φτάσει τους 23,5°C για τη μεσαία ρύθμιση 
+  - θα ενεργοποιήσει τη θέρμανση στους 22°C και θα σταματήσει όταν η θερμοκρασία φτάσει τους 23°C για την πάνω ρύθμιση
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: ~
-thermostatSubfunction_HEAT: ~
-thermostatTemperature_aboveAlarm: ~
-thermostatTemperature_auxMaxSetpoint: ~
-thermostatTemperature_auxMinSetpoint: ~
-thermostatTemperature_belowAlarm: ~
-thermostatTemperature_boost: ~
-thermostatTemperature_comfort: ~
-thermostatTemperature_eco: ~
-thermostatTemperature_freezeProtection: ~
-thermostatTemperature_heatProtection: ~
-thermostatTemperature_histeresis: ~
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: ~
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: ~
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: ~
-tiltControlType_UNKNOWN: ~
-timeMarginMode_custom: ~
-timeMarginMode_device: ~
-timeMarginMode_off: ~
-usedCTType_100A_33mA: ~
-usedCTType_200A_66mA: ~
-usedCTType_400A_133mA: ~
-usedPhaseLedType_OFF: ~
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
-usedPhaseLedType_VOLTAGE_LEVEL: ~
-usedPhaseLedType_VOLTAGE_PRESENCE: ~
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
-'{count} minutes after sunrise': ~
-'{count} minutes after sunset': ~
-'{count} minutes before sunrise': ~
-'{count} minutes before sunset': ~
-'{days} days': ~
-
+thermostatSubfunction_COOL: Ψύξη
+thermostatSubfunction_HEAT: Θέρμανση
+thermostatTemperature_aboveAlarm: Πάνω από συναγερμό
+thermostatTemperature_auxMaxSetpoint: Μέγιστη βοηθητική θερμοκρασία
+thermostatTemperature_auxMinSetpoint: Ελάχιστη βοηθητική θερμοκρασία
+thermostatTemperature_belowAlarm: Κάτω από συναγερμό
+thermostatTemperature_boost: Ενίσχυση θερμοκρασίας
+thermostatTemperature_comfort: Θερμοκρασία άνεσης
+thermostatTemperature_eco: Θερμοκρασία ECO
+thermostatTemperature_freezeProtection: Θερμοκρασία προστασίας κατά παγώματος
+thermostatTemperature_heatProtection: Θερμοκρασία προστασίας από υπερθέρμανση
+thermostatTemperature_histeresis: Υστέρηση
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Αλλάζει θέση κατά τις αλλαγές κλίσης
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Δεν αλλάζει θέση κατά τις αλλαγές κλίσης
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Αλλάζει την κλίσ μόνο όταν είναι πλήρως κλειστό
+tiltControlType_UNKNOWN: Άγνωστο
+timeMarginMode_custom: Προσαρμοσμένο
+timeMarginMode_device: Προεπιλεγμένη τιμή από τη συσκευή
+timeMarginMode_off: Απενεργοποιημένο
+usedCTType_100A_33mA: 100 A/33,3 mA
+usedCTType_200A_66mA: 200 A/66,6 mA
+usedCTType_400A_133mA: 400 A/ 133,3 mA
+usedPhaseLedType_OFF: Απενεργ.
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Κατεύθυνση της ροής ισχύος
+usedPhaseLedType_VOLTAGE_LEVEL: Επίπεδο τάσης
+usedPhaseLedType_VOLTAGE_PRESENCE: Παρουσία τάσης
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Παρουσία τάσης (αντεστραμμένη)
+'{count} minutes after sunrise': '{count} λεπτά μετά την ανατολή του ηλίου'
+'{count} minutes after sunset': '{count} λεπτά μετά τη δύση του ηλίου'
+'{count} minutes before sunrise': '{count} λεπτά πριν την ανατολή του ήλιου'
+'{count} minutes before sunset': '{count} λεπτά πριν από τη δύση του ηλίου'
+'{days} days': '{days} ημέρες'
 #</editor-fold>
