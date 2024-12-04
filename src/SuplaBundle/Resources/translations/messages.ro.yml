@@ -816,7 +816,7 @@ Unsupported type: Tip nesuportat
 Update in progress: Actualizarea este în curs
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Fișierele încărcate nu încalcă bunele obiceiuri, drepturile de autor și drepturile terților, iar eu am dreptul să le folosesc.
 Upper voltage threshold: Prag de înaltă tensiune
-'Use the {0} server command to change this account''s limits. For example:': 'Pentru a modifica limitele pentru acest cont, utilizați comanda {0} de pe serverul dvs. De exemplu:'
+"Use the {0} server command to change this account's limits. For example:": 'Pentru a modifica limitele pentru acest cont, utilizați comanda {0} de pe serverul dvs. De exemplu:'
 Use working schedule for this access identifier: Utilizați un program de disponibilitate pentru acest ID de acces
 User is already confirmed. Try to log in.: Acest cont a fost deja confirmat. Conectați-vă
 Value: Valoarea
@@ -1254,428 +1254,431 @@ will expire: expiră
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-0% tilt angle: ~
-100% tilt angle: ~
-A confirmation upon successful device unlocking.: ~
-Active from: ~
-Active to: ~
-Activity conditions: ~
-Additional time margin: ~
-Adjust temperature: ~
-Adjust temperatures: ~
-After the delay: ~
-After the delay, but only when it's dark: ~
-Alarm armament sensor: ~
-Algorithm: ~
-All programs must define at least one temperature threshold.: ~
-Always decrement: ~
-Always increment: ~
-Anti-freeze and overheat protection: ~
-Anti-freeze protection: ~
-Are you sure you want to change channel’s location?: ~
-Are you sure you want to change channel’s visibility?: ~
-Are you sure you want to change device’s location?: ~
-Are you sure you want to delete this channel?: ~
-Automatic: ~
-Automatic front panel turn off: ~
-Automatic front panel turn off after: ~
-Automatic thermostat: ~
-Automatic time synchronization: ~
-Aux thermometer: ~
-Aux thermometer type: ~
-Available variables: ~
-Average: ~
-Battery cover open: ~
-Behavior settings: ~
-Binary sensor: ~
-Brightness adjustment for automatic mode: ~
-Brightness level: ~
-Button volume: ~
-Buttons upside down: ~
-Candle: ~
-Cannot update OCR settings. Try again in a while.: ~
-Change percentage by: ~
-Change percentage to: ~
-Change tilt by: ~
-Change tilt to: ~
-Change to be the same.: ~
-Changing channel’s visibility will also change the visibility of other items.: ~
-Changing the location will also imply changing the location of the following items.: ~
-Channels that are meant to work with each other must be in the same location.: ~
-Clock error: ~
-Close value: ~
-Collapse: ~
-Collapse or stop: ~
-Collapse partially: ~
-Command has been sent to the device. Try refreshing the photo in a while.: ~
-Common currencies: ~
-Configuration not available yet. Waiting for the device to connect.: ~
-Confirm if you want to perform the calibration.: ~
-Conflict: ~
-Cool to: ~
-Cooling mode: ~
-'Cooling: {percent}%': ~
-Costs: ~
-Could not restart the device.: ~
-Could not send the identify command.: ~
-Could not set the device time.: ~
-Counter type: ~
-Curtain: ~
-Dark mode: ~
-Data: ~
-Date range: ~
-Daytime criteria: ~
-Dependencies: ~
-'Device GUID: %deviceGuid%': ~
-Device identification is unsupported in the firmware.: ~
-Device settings: ~
-Device should be restarting now.: ~
-Device time has been set.: ~
-Different than on master thermostat.: ~
-Differential thermostat: ~
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
-Domestic hot water: ~
-Dryer: ~
-Edit area crop: ~
-Edit program settings: ~
-Electricity meter active power history: ~
-Electricity meter current history: ~
-Electricity meter voltage aberrations history: ~
-Electricity meter voltage history: ~
-Enable floor temperature control: ~
-Enable generic cooler temperature control: ~
-Enable generic heater temperature control: ~
-Enable power status LED: ~
-Enable support for OCR readings for this channel: ~
-Enable water temperature control: ~
-Example value: ~
-Expand: ~
-Expand or stop: ~
-Expand partially: ~
-Expected maximum increment: ~
-External sensor disabling the thermostat: ~
-Facade blind operation: ~
-Fan: ~
-'Field: {propertyPath}.': ~
-Fill missing data: ~
-Firmware: ~
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-For a period: ~
-Forced off by sensor: ~
-Full tilting time: ~
-Function disabled: ~
-General purpose meter: ~
-HVAC: ~
-Heat or cold source switch: ~
-Heat to: ~
-Heating / ventilation / air conditioning: ~
-Heating mode: ~
-'Heating: {percent}%': ~
-High threshold: ~
-High value: ~
-History: ~
-Home screen content: ~
-Hotel card sensor: ~
-Identify device: ~
-Identify request sent.: ~
-If you confirm the installation and wish to unlock this device, please click the link below.: ~
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
-Image area crop: ~
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: ~
-Increment and decrement: ~
-Installer e-mail address: ~
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: ~
-Invalid e-mail address.: ~
-Invalid unlock code.: ~
-Last paired device: ~
-Light mode: ~
-Lighting level: ~
-Lighting mode: ~
-List of available variables: ~
-Locked: ~
-Low threshold: ~
-Low threshold must be less than high threshold.: ~
-Low value: ~
-Main thermometer: ~
-Master thermostat: ~
-Max: ~
-Maximum duration is one year.: ~
-Maximum temperature that can be set from the device: ~
-Measurement settings: ~
-Min: ~
-Minimum OFF time before cooling can be turned on: ~
-Minimum OFF time before heating can be turned on: ~
-Minimum OFF time before heating/cooling can be turned on: ~
-Minimum ON time before cooling can be turned off: ~
-Minimum ON time before heating can be turned off: ~
-Minimum ON time before heating/cooling can be turned off: ~
-Minimum temperature must be lower than maximum temperature.: ~
-Minimum temperature that can be set from the device: ~
-'Mode: cool': ~
-'Mode: heat': ~
-'Mode: off': ~
-Motor upside down: ~
-'No': ~
-No results: ~
-Notification body is set by the firmware.: ~
-Notification must have recipients.: ~
-Notification title is set by the firmware.: ~
-Notifications (defined): ~
-Notifications (sent per hour): ~
-'OCR service responded with error: {status}': ~
-OCR settings: ~
-OR: ~
-Off with duration: ~
-On with duration: ~
-Open value: ~
-Output value on error: ~
-Overheat protection: ~
-P/C: ~
-Pair new devices or sensors: ~
-Pairing request sent.: ~
-Pairing subdevices is unsupported in the firmware.: ~
-Phase LED type: ~
-Photo interval: ~
-Please find the device details below.: ~
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: ~
-Please provide the installer e-mail address to request the device unlock.: ~
-Please select and configure the action: ~
-Program {programNo}: ~
-Projector screen: ~
-Pump switch: ~
-Push notifications limit has been exceeded: ~
-Reference to the channel will be removed from the items below.: ~
-Refresh interval: ~
-Refresh the config: ~
-Refreshing the configuration will overwrite the changes you made here.: ~
-Reload last photo: ~
-Remote restart is unsupported in the firmware.: ~
-Remove this item: ~
-Request device unlock: ~
-Reset to defaults: ~
-Restart device: ~
-Restart the device: ~
-Reveal or stop: ~
-Roller garage door: ~
-S/N: ~
-SUPLA - Confirm unlocking device for authorized installers: ~
-SUPLA – your device has been unlocked!: ~
-Same as on master thermostat.: ~
-Screen brightness: ~
-Selected: ~
-Set HVAC parameters: ~
-Set the device time: ~
-Settings: ~
-Settings have not been saved!: ~
-Show data: ~
-Shut or stop: ~
-Some features depend on this channel: ~
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
-Status LED: ~
-Store active power history: ~
-Store current history: ~
-Store voltage history: ~
-'Subdevice #{id}': ~
-Subfunction: ~
-Switch to manual mode: ~
-Switch to program mode: ~
-THEN: ~
-Take a photo now: ~
-Temperature adjustment only: ~
-Temperature difference is too big between {min}°C and {max}°C.: ~
-Temperature setpoint change switches to manual mode: ~
-Temporal override: ~
-Terrace awning: ~
-The channel has been deleted.: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: ~
-The device could not be unlocked.: ~
-The device has been unlocked already.: ~
-The device has been unlocked.: ~
-The device has channel conflict and cannot work.: ~
-The device is locked: ~
-The following channels will be also removed along with their dependencies.: ~
-The items below rely on this channel, so they will be deleted.: ~
-The master termostat you chose already has a master.: ~
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
-The thermostat will not work if the main thermometer is not set.: ~
-Thermometer error: ~
-Thermometers configuration: ~
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
-Thermostat programs: ~
-This action will result in restarting the device. It will not be available for a while.: ~
-This channel was missing during last device registration attempt.: ~
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
-This thermostat is controlled by another device.: ~
-Tilt angle: ~
-Tilt control type: ~
-Tilt percent: ~
-Time: ~
-Today, it would be active from {from} to {to}.: ~
-Turn off: ~
-Unlock the device: ~
-Unlocked: ~
-Until a date and time: ~
-Until the next change: ~
-Use device default: ~
-Use working schedule for this reaction: ~
-Use {theMasterThermostat} to control this device.: ~
-Used current transformer type: ~
-User interface: ~
-Value divider: ~
-Value multiplier: ~
-Vertical blind: ~
-Visit the master thermostat page.: ~
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
-Week: ~
-Weekly schedule: ~
-When the alarm is armed: ~
-When the alarm is armed or disarmed: ~
-When the alarm is disarmed: ~
-When the battery cover is opened: ~
-When the clock error has been reported: ~
-When the curtain position changes: ~
-When the curtain reaches: ~
-When the curtain reaches a certain position: ~
-When the facade blind position changes: ~
-When the facade blind reaches: ~
-When the facade blind reaches a certain position: ~
-When the hotel card has been taken: ~
-When the hotel card is put in: ~
-When the hotel card is put in or has been taken: ~
-When the meter reaches a certain value: ~
-When the meter value changes: ~
-When the meter value will be: ~
-When the projector screen position changes: ~
-When the projector screen reaches: ~
-When the projector screen reaches a certain position: ~
-When the pump is turned off: ~
-When the pump is turned on: ~
-When the pump is turned on or off: ~
-When the roller garage door a certain position: ~
-When the roller garage door position changes: ~
-When the roller garage door reaches: ~
-When the roller shutter calibration failed: ~
-When the roller shutter calibration has been lost: ~
-When the roller shutter calibration has started: ~
-When the roller shutter motor reported a problem: ~
-When the terrace awning position changes: ~
-When the terrace awning reaches: ~
-When the terrace awning reaches a certain position: ~
-When the thermometer error has been reported: ~
-When the thermostat starts cooling: ~
-When the thermostat starts heating: ~
-When the thermostat starts heating or cooling: ~
-When the thermostat starts or stops cooling: ~
-When the thermostat starts or stops heating: ~
-When the thermostat starts or stops heating or cooling: ~
-When the thermostat stops cooling: ~
-When the thermostat stops heating: ~
-When the thermostat stops heating or cooling: ~
-When the vertical blind position changes: ~
-When the vertical blind reaches: ~
-When the vertical blind reaches a certain position: ~
-Will be deleted after: ~
-With a timer: ~
-'Yes': ~
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot to set a master thermostat for a channel that is master for others.: ~
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
-You need to provide icons for all states in light mode.: ~
-Your device has been unlocked by the installer.: ~
-and wait until the meter will be: ~
-auxThermometerType_DISABLED: ~
-auxThermometerType_FLOOR: ~
-auxThermometerType_GENERIC_COOLER: ~
-auxThermometerType_GENERIC_HEATER: ~
-auxThermometerType_NOT_SET: ~
-auxThermometerType_WATER: ~
-blue, otherwise: ~
-blue, when voltage lower than the low threshold: ~
-choose the currency: ~
-configuration missing: ~
-cool: ~
-day: ~
-default: ~
-green, otherwise: ~
-green, when power less than the low threshold: ~
-heat: ~
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
-homeScreenContent_NONE: ~
-homeScreenContent_TEMPERATURE: ~
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
-homeScreenContent_TEMPERATURE_TIME: ~
-homeScreenContent_TIME: ~
-homeScreenContent_TIME_DATE: ~
-hour: ~
-keepHistoryMeasurementWarningSelected: ~
-max: ~
-midnight: ~
-milliseconds: ~
-min: ~
-ocrLightingMode_ALWAYS_ON: ~
-ocrLightingMode_AUTO: ~
-ocrLightingMode_OFF: ~
-'off': ~
-red, when power higher than the high threshold: ~
-red, when voltage higher than the high threshold: ~
-seconds: ~
-statusLed_ALWAYS_OFF: ~
-statusLed_OFF_WHEN_CONNECTED: ~
-statusLed_ON_WHEN_CONNECTED: ~
-subdevicePairingResult_CMD_RESULT_UNKNOWN: ~
-subdevicePairingResult_NOT_STARTED_BUSY: ~
-subdevicePairingResult_NOT_STARTED_NOT_READY: ~
-subdevicePairingResult_NOT_SUPPORTED: ~
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: ~
-subdevicePairingResult_ONGOING: ~
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: ~
-subdevicePairingResult_PROCEDURE_STARTED: ~
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: ~
-subdevicePairingResult_SUCCESS: ~
-subdevicePairingResult_UNAUTHORIZED: ~
-sunrise: ~
-sunset: ~
-swap: ~
-the master thermostat ID{id}: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
-thermostatAlgorithm_PID: ~
-thermostatAlgorithm_help: ~
+0% tilt angle: Unghiul lamelelor pe care jaluzeaua le fixează la închidere
+100% tilt angle: Unghiul lamelelor pe care jaluzeaua le fixează la deschidere
+A confirmation upon successful device unlocking.: Confirmarea deblocării dispozitivului.
+Active from: Activ din
+Active to: Activ până la
+Activity conditions: Condiții de activitate
+Additional time margin: Marjă de timp suplimentară
+Adjust temperature: Setați temperatura
+Adjust temperatures: Setați temperaturile
+After the delay: După o anumită perioadă de timp
+After the delay, but only when it's dark: După un anumit timp, dar numai când este întuneric
+Alarm armament sensor: Senzor de setare a alarmei
+Algorithm: Algoritm
+All programs must define at least one temperature threshold.: Fiecare program trebuie să definească cel puțin un prag de temperatură.
+Always decrement: Întotdeauna în scădere
+Always increment: În continuă creștere
+Anti-freeze and overheat protection: Supraîncălzire și protecție antiîngheț
+Anti-freeze protection: Protecție anti-îngheț
+Are you sure you want to change channel’s location?: Sunteți sigur că doriți să schimbați locația canalului?
+Are you sure you want to change channel’s visibility?: Sunteți sigur că doriți să schimbați vizibilitatea canalului?
+Are you sure you want to change device’s location?: Sunteți sigur că doriți să schimbați locația dispozitivului?
+Are you sure you want to delete this channel?: Sunteți sigur că doriți să ștergeți acest canal?
+Automatic: Automat
+Automatic front panel turn off: Deconectarea automată a panoului frontal
+Automatic front panel turn off after: Este timpul să opriți panoul frontal
+Automatic thermostat: Termostat automat
+Automatic time synchronization: Sincronizarea automată a datei și orei
+Aux thermometer: Termometru suplimentar
+Aux thermometer type: Tip termometru suplimentar
+Available variables: Variabile disponibile
+Average: Medie
+Battery cover open: Capacul bateriei deschis
+Behavior settings: Cunoștințe practice
+Binary sensor: Senzor binar
+Brightness adjustment for automatic mode: Reglarea luminozității în modul automat
+Brightness level: Nivelul de luminozitate
+Button volume: Volumul butonului
+Buttons upside down: Controlul butonului de mers înapoi
+Candle: Sfeșnic
+Cannot update OCR settings. Try again in a while.: Setările OCR nu au putut fi actualizate. Încercați din nou peste câteva momente.
+Change percentage by: Modificați procentul prin
+Change percentage to: Modificați procentul la
+Change tilt by: Modificați panta prin
+Change tilt to: Modificați panta la
+Change to be the same.: Setați la fel.
+Changing channel’s visibility will also change the visibility of other items.: Modificarea vizibilității canalului va modifica și vizibilitatea altor elemente.
+Changing the location will also imply changing the location of the following items.: Schimbarea locației îl va afecta și pentru următoarele.
+Channels that are meant to work with each other must be in the same location.: Canalele care trebuie să funcționeze împreună trebuie să fie în aceeași locație.
+Clock error: Eroare de ceas
+Close value: Valoarea de închidere
+Collapse: Colapsează
+Collapse or stop: Rulare sau oprire
+Collapse partially: Colaps parțial
+Command has been sent to the device. Try refreshing the photo in a while.: Cererea a fost trimisă către dispozitiv. Încercați să reîmprospătați fotografia într-un moment.
+Common currencies: Cele mai frecvent selectate valute
+Configuration not available yet. Waiting for the device to connect.: Configurația nu este încă disponibilă. Așteptați ca dispozitivul să se conecteze.
+Confirm if you want to perform the calibration.: Confirmați că doriți să efectuați calibrarea.
+Conflict: Conflict
+Cool to: Se dă la frigider până când
+Cooling mode: Modul de răcire
+'Cooling: {percent}%': 'Răcire: {percent}%'
+Costs: Costuri
+Could not restart the device.: Dispozitivul nu a putut fi repornit.
+Could not send the identify command.: Comanda nu a putut fi trimisă.
+Could not set the device time.: Nu a fost posibil să setați data și ora pe dispozitiv.
+Counter type: Tip de contor
+Curtain: Cortină
+Dark mode: Mod întunecat
+Data: Date
+Date range: Intervalul de date
+Daytime criteria: Criterii bazate pe durata zilei
+Dependencies: Dependențe
+'Device GUID: %deviceGuid%': 'GHID al dispozitivului: %deviceGuid%'
+Device identification is unsupported in the firmware.: Identificarea dispozitivului nu este suportată în firmware.
+Device settings: Setări dispozitiv
+Device should be restarting now.: Dispozitivul ar trebui să repornească.
+Device time has been set.: Data și ora dispozitivului au fost setate.
+Different than on master thermostat.: Setare diferită de cea de pe termostatul principal.
+Differential thermostat: Termostat diferențial
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Doriți să setați canalele care depind de acest termostat (cum ar fi termometrele și senzorii) să fie aceleași ca în termostatul principal?
+Domestic hot water: Apă caldă la domiciliu
+Dryer: Uscător
+Edit area crop: Zona de editare
+Edit program settings: Editarea setărilor programului
+Electricity meter active power history: Istoria puterii contorului de electricitate
+Electricity meter current history: Istoricul intensității contorului de electricitate
+Electricity meter voltage aberrations history: Istoricul aberațiilor de tensiune ale contorului de electricitate
+Electricity meter voltage history: Istoricul tensiunii contorului de electricitate
+Enable floor temperature control: Activați controlul temperaturii podelei
+Enable generic cooler temperature control: Activarea controlului temperaturii sursei de răcire
+Enable generic heater temperature control: Activarea controlului temperaturii sursei de căldură
+Enable power status LED: Porniți LED-ul de stare a alimentării
+Enable support for OCR readings for this channel: Activați suportul OCR pentru acest canal
+Enable water temperature control: Activați controlul temperaturii apei
+Example value: Exemplu
+Expand: Desfășoară
+Expand or stop: Dezvoltarea sau menținerea
+Expand partially: Extindeți în parte
+Expected maximum increment: Creșterea maximă preconizată
+External sensor disabling the thermostat: Senzor extern pentru oprirea termostatului
+Facade blind operation: Obloane de fațadă
+Fan: Ventilator
+'Field: {propertyPath}.': 'Câmp {propertyPath}.'
+Fill missing data: Completați măsurătorile lipsă
+Firmware: Firmware
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware-ul acestui dispozitiv trimite notificări în contextul acestui canal. Aici puteți configura conținutul și destinatarii. Pentru mai multe informații, contactați furnizorul dispozitivului.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware-ul acestui dispozitiv trimite notificări. Aici puteți configura conținutul și destinatarii. Pentru mai multe informații, contactați furnizorul dispozitivului.
+For a period: Pentru perioada
+Forced off by sensor: Oprire forțată de către senzor
+Full tilting time: Timp total pentru schimbarea gradientului
+Function disabled: Funcție oprită
+General purpose meter: Canal de contor cu scop general
+HVAC: HVAC
+Heat or cold source switch: Comutator pentru sursă de căldură sau rece
+Heat to: Căldură la
+Heating / ventilation / air conditioning: Încălzire / ventilație / aer condiționat (HVAC)
+Heating mode: Modul de încălzire
+'Heating: {percent}%': 'Încălzire: {percent}%'
+High threshold: Prag înalt
+High value: Valoare maximă
+History: Istoric
+Home screen content: Conținutul ecranului de pornire
+Hotel card sensor: Senzor card hotelier
+Identify device: Identificați dispozitivul
+Identify request sent.: Cererea de identificare a fost trimisă.
+If you confirm the installation and wish to unlock this device, please click the link below.: Dacă sunteți cel care încearcă să adauge un dispozitiv nou, faceți clic pe link-ul de mai jos pentru a confirma deblocarea.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Dacă nu sunteți cel care încearcă să deblocheze dispozitivul, ignorați acest e-mail. Linkul de confirmare va expira automat după 24 de ore.
+Image area crop: Zona imaginii
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Pentru a minimiza riscul unei citiri incorecte, setați creșterea maximă așteptată a valorii contorului între imagini succesive.
+Increment and decrement: Creștere și descreștere
+Installer e-mail address: Adresa de e-mail a instalatorului
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Dispozitivul a înregistrat un canal de un tip diferit ({typeCaption} - {typeId}) în locul celui curent.
+Invalid e-mail address.: Adresă de e- mail greșită.
+Invalid unlock code.: Legătură de deblocare incorectă.
+Last paired device: Ultimul dispozitiv împerecheat
+Light mode: Mod luminos
+Lighting level: Nivelul de iluminare
+Lighting mode: Modul de iluminare
+List of available variables: Lista variabilelor disponibile
+Locked: Blocat
+Low threshold: Prag scăzut
+Low threshold must be less than high threshold.: Pragul scăzut trebuie să fie mai mic decât pragul ridicat
+Low value: Valoare minimă
+Main thermometer: Termometru principal
+Master thermostat: Termostat principal
+Max: Maks.
+Maximum duration is one year.: Perioada maximă este de un an.
+Maximum temperature that can be set from the device: Temperatura maximă care poate fi setată cu dispozitivul
+Measurement settings: Setări de măsurare
+Min: Min.
+Minimum OFF time before cooling can be turned on: Timp minim de ÎNCHIDERE înainte de repornirea răcirii
+Minimum OFF time before heating can be turned on: Timpul minim de oprire înainte ca încălzirea să fie repornită
+Minimum OFF time before heating/cooling can be turned on: Timp minim de oprire înainte de repornirea răcirii/încălzirii
+Minimum ON time before cooling can be turned off: Timp minim de ÎNCHIDERE înainte ca răcirea să fie oprită din nou
+Minimum ON time before heating can be turned off: Timp minim de pornire înainte ca încălzirea să fie oprită din nou
+Minimum ON time before heating/cooling can be turned off: Timp minim de pornire înainte ca răcirea/încălzirea să fie oprită din nou
+Minimum temperature must be lower than maximum temperature.: Temperatura minimă trebuie să fie mai mică decât temperatura maximă
+Minimum temperature that can be set from the device: Temperatura minimă care poate fi setată cu dispozitivul
+'Mode: cool': 'Mod: răcire'
+'Mode: heat': 'Mod: încălzire'
+'Mode: off': 'Mod: oprit'
+Motor upside down: Control inversat al motorului
+'No': 'Nu'
+No results: Niciun rezultat
+Notification body is set by the firmware.: Conținutul notificării este setat de firmware.
+Notification must have recipients.: Notificarea trebuie să aibă destinatari.
+Notification title is set by the firmware.: Antetul de notificare este setat de către firmware.
+Notifications (defined): Notificări (definite)
+Notifications (sent per hour): Notificări (trimise pe oră)
+'OCR service responded with error: {status}': 'Serviciul OCR a răspuns cu o eroare: {status}'
+OCR settings: Setări OCR
+OR: Awaryjne opuszczanie segregatora.
+Off with duration: Oprire la timp
+On with duration: Timpul de pornire
+Open value: Valoarea de deschidere
+Output value on error: Starea ieșirii în timpul unei erori
+Overheat protection: Protecție împotriva supraîncălzirii
+P/C: P/C
+Pair new devices or sensors: Asocierea de noi dispozitive sau senzori
+Pairing request sent.: Cerere de împerechere trimisă.
+Pairing subdevices is unsupported in the firmware.: Împerecherea nu este suportată de software-ul dispozitivului.
+Phase LED type: Indicator de fază LED
+Photo interval: Interval de fotografiere
+Please find the device details below.: Detalii despre dispozitiv pot fi găsite mai jos.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Vă rugăm să rețineți că dispozitivul în cauză este destinat exclusiv instalatorilor certificați.
+Please provide the installer e-mail address to request the device unlock.: Pentru a debloca dispozitivul, introduceți adresa de e-mail care a fost furnizată în procesul de obținere a certificatului de instalare.
+Please select and configure the action: Selectați și configurați acțiunea.
+Program {programNo}: Program {programNo}
+Projector screen: Ecran de proiecție
+Pump switch: Comutator pompă
+Push notifications limit has been exceeded: Limita de notificări push a fost depășită
+Reference to the channel will be removed from the items below.: Direcționarea către acest canal va fi eliminată din următoarele.
+Refresh interval: Interval de reîmprospătare
+Refresh the config: Actualizați configurația
+Refreshing the configuration will overwrite the changes you made here.: Reîmprospătarea configurației va suprascrie modificările efectuate la formular.
+Reload last photo: Reîncărcați ultima fotografie
+Remote restart is unsupported in the firmware.: Repornirea de la distanță nu este acceptată de software-ul dispozitivului.
+Remove this item: Elimină acest element
+Request device unlock: Aplicați pentru a vă debloca dispozitivul
+Reset to defaults: Restaurarea valorilor implicite
+Restart device: Reporniți dispozitivul
+Restart the device: Reporniți dispozitivul
+Reveal or stop: Dezvăluiți sau opriți
+Roller garage door: Ușa garajului
+S/N: S/N
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Deblocarea unui dispozitiv pentru un instalator certificat
+SUPLA – your device has been unlocked!: SUPLA - Dispozitivul dvs. a fost deblocat!
+Same as on master thermostat.: Aceeași setare ca la termostatul principal.
+Screen brightness: Luminozitate ecran
+Selected: Selectat
+Set HVAC parameters: Setează parametrii
+Set the device time: Nu a fost posibil să setați data și ora pe dispozitiv.
+Settings: Setări
+Settings have not been saved!: Setările nu au fost salvate!
+Show data: Vizualizare resursă
+Shut or stop: Acoperiți sau opriți
+Some features depend on this channel: Unele funcții depind de acest canal
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Unele dintre datele colectate pentru contul dvs. vor fi șterse periodic după o anumită perioadă de timp. Familiarizați-vă cu limitele de mai jos.
+Status LED: LED de stare
+Store active power history: Păstrați un istoric al puterii active
+Store current history: Păstrați istoricul curent
+Store voltage history: Păstrați un istoric al tensiunii
+'Subdevice #{id}': 'Dispozitiv de subcontractare #{id}'
+Subfunction: Subfuncție
+Switch to manual mode: Treceți la modul manual
+Switch to program mode: Treceți la modul program
+THEN: ATUNCI
+Take a photo now: Fă o fotografie acum
+Temperature adjustment only: Numai setarea temperaturii
+Temperature difference is too big between {min}°C and {max}°C.: Diferența de temperatură este prea mare între {min}°C și {max}°C.
+Temperature setpoint change switches to manual mode: Modificarea temperaturii țintă comută în modul manual
+Temporal override: Suprascriere temporară
+Terrace awning: Copertină de terasă
+The channel has been deleted.: Canalul a fost eliminat.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Configurația a fost modificată dintr-o altă locație (de exemplu, o altă fereastră de browser, aplicație sau dispozitiv mobil). Trebuie să actualizați configurația înainte de a efectua alte modificări.
+The device could not be unlocked.: Dispozitivul nu a putut fi deblocat.
+The device has been unlocked already.: Dispozitivul este deja deblocat.
+The device has been unlocked.: Dispozitivul a fost deblocat.
+The device has channel conflict and cannot work.: Dispozitivul a generat un conflict de canal și nu poate funcționa în prezent.
+The device is locked: Dispozitiv blocat
+The following channels will be also removed along with their dependencies.: Următoarele canale vor fi, de asemenea, eliminate împreună cu dependențele lor.
+The items below rely on this channel, so they will be deleted.: Următoarele elemente depind de acest canal, astfel încât acestea vor fi eliminate.
+The master termostat you chose already has a master.: Termostatul principal pe care l-ați selectat are deja un alt termostat principal
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Răspunsul va fi activ atunci când sunt îndeplinite toate condițiile următoare. Dacă setați toate opțiunile disponibile, reacția se va activa numai între datele selectate, la orele și în zilele săptămânii selectate și atunci când este îndeplinită una dintre referințele de apus sau răsărit.
+The thermostat will not work if the main thermometer is not set.: Termometrul principal trebuie să fie setat pentru ca termostatul să funcționeze.
+Thermometer error: Eroare de termometru
+Thermometers configuration: Configurarea termometrelor
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Acest termostat utilizează setările de la termostatul principal. Accesați pagina de detalii a acestuia pentru a modifica setările.
+Thermostat programs: Programe de termostat
+This action will result in restarting the device. It will not be available for a while.: Comandarea acestei operațiuni va reporni dispozitivul. În timpul repornirii, dispozitivul va fi inaccesibil.
+This channel was missing during last device registration attempt.: Acest canal lipsește din dispozitiv.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Acest aparat este destinat distribuției și instalării numai de către instalatori autorizați. Dacă nu sunteți un instalator SUPLA autorizat și nu dețineți un certificat de formare activ, returnați-l dealerului.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Aceasta este ultima fotografie încărcată de pe dispozitiv. Marcați exact zona în care sunt vizibile cifrele contorului.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Aceasta este o listă a reacțiilor care rulează pe contul dvs. Dacă doriți să adăugați o nouă reacție, accesați detaliile canalului care ar trebui să o declanșeze.
+This thermostat is controlled by another device.: Acest termostat este controlat de un termostat principal.
+Tilt angle: Unghiul de înclinare
+Tilt control type: Tip de control al înclinării
+Tilt percent: Procent de pantă
+Time: Timp
+Today, it would be active from {from} to {to}.: Astăzi, perioada de activitate ar fi între {from} și {to}.
+Turn off: Închide
+Unlock the device: Deblocați dispozitivul
+Unlocked: Deblocat
+Until a date and time: Până la
+Until the next change: Până la următoarea tură
+Use device default: Utilizați valoarea implicită din dispozitiv
+Use working schedule for this reaction: Utilizați programul de activitate pentru acest răspuns
+Use {theMasterThermostat} to control this device.: Utilizați {theMasterThermostat} pentru a controla acest dispozitiv.
+Used current transformer type: Transformator de curent utilizat
+User interface: Configurări interfață cu utilizatorul
+Value divider: Divizor
+Value multiplier: Multiplicator
+Vertical blind: Jaluzele verticale
+Visit the master thermostat page.: Mergeți la termostatul principal.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Am primit o cerere de deblocare a unui dispozitiv destinat exclusiv instalatorilor certificați. Cererea a fost trimisă de utilizatorul %deviceUserEmail% de la instanța SUPLA Cloud la %targetCloudUrl%.
+Week: Săptămână
+Weekly schedule: Program săptămânal
+When the alarm is armed: Când alarma este setată
+When the alarm is armed or disarmed: Când alarma este dezactivată sau setată
+When the alarm is disarmed: Când alarma este dezactivată
+When the battery cover is opened: Când capacul bateriei este deschis
+When the clock error has been reported: Atunci când cronometrul raportează o eroare
+When the curtain position changes: Când perdeaua își schimbă poziția
+When the curtain reaches: Când cortina ajunge la
+When the curtain reaches a certain position: Atunci când perdeaua atinge o anumită poziție
+When the facade blind position changes: Când un jaluzele de fațadă își schimbă poziția
+When the facade blind reaches: Atunci când grilajul fațadei atinge
+When the facade blind reaches a certain position: Atunci când o lamelă de fațadă atinge o anumită poziție
+When the hotel card has been taken: Când cardul de hotel este retras
+When the hotel card is put in: Când este introdus cardul de hotel
+When the hotel card is put in or has been taken: Când cardul de hotel este introdus sau retras
+When the meter reaches a certain value: Atunci când contorul atinge valoarea dorită
+When the meter value changes: Atunci când valoarea se modifică
+When the meter value will be: Atunci când valoarea va fi
+When the projector screen position changes: Când ecranul de proiecție își schimbă poziția
+When the projector screen reaches: Când ecranul de proiecție atinge
+When the projector screen reaches a certain position: Când ecranul de proiecție atinge o anumită poziție
+When the pump is turned off: Când pompa este oprită
+When the pump is turned on: Când pompa este pornită
+When the pump is turned on or off: Când pompa este pornită sau oprită
+When the roller garage door a certain position: Când ușa garajului ajunge într-o anumită poziție
+When the roller garage door position changes: Când ușa garajului își schimbă poziția
+When the roller garage door reaches: Când ușa garajului ajunge la
+When the roller shutter calibration failed: Dacă calibrarea obturatorului cu role se încheie cu o eroare
+When the roller shutter calibration has been lost: Atunci când calibrarea obturatorului cu role nu se poate finaliza
+When the roller shutter calibration has started: Odată ce calibrarea oblonului cu role a început
+When the roller shutter motor reported a problem: Atunci când motorul oblonului rulant semnalează o problemă
+When the terrace awning position changes: Când o copertină de terasă își schimbă poziția
+When the terrace awning reaches: Atunci când o copertină de terasă atinge
+When the terrace awning reaches a certain position: Atunci când o copertină de terasă atinge o anumită poziție
+When the thermometer error has been reported: Atunci când termometrul raportează o eroare
+When the thermostat starts cooling: Când termostatul începe să se răcească
+When the thermostat starts heating: Când termostatul începe să încălzească
+When the thermostat starts heating or cooling: Când termostatul începe să răcească sau să încălzească
+When the thermostat starts or stops cooling: Când termostatul pornește sau oprește răcirea
+When the thermostat starts or stops heating: Când termostatul pornește sau oprește încălzirea
+When the thermostat starts or stops heating or cooling: Când termostatul pornește sau oprește încălzirea sau răcirea
+When the thermostat stops cooling: Când termostatul nu mai răcește
+When the thermostat stops heating: Când termostatul nu mai încălzește
+When the thermostat stops heating or cooling: Când termostatul nu mai răcește sau nu mai încălzește
+When the vertical blind position changes: Atunci când jaluzelele verticale își schimbă poziția
+When the vertical blind reaches: Când jaluzelele verticale ajung la
+When the vertical blind reaches a certain position: Atunci când jaluzelele verticale ating o anumită poziție
+Will be deleted after: Îndepărtarea după
+With a timer: Cu cronometru
+'Yes': 'Da'
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Aici puteți seta valori relative. De exemplu, +10 sau -20 vor crește setarea cu 10 sau, respectiv, o vor reduce cu 20.
+You cannot to set a master thermostat for a channel that is master for others.: Nu puteți seta termostatul principal în termostatul principal
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Cererea a fost trimisă. Vă vom notifica atunci când instalatorul o aprobă și deblochează dispozitivul.
+You need to provide icons for all states in light mode.: Trebuie să furnizați pictograme pentru toate statele în modul luminos.
+Your device has been unlocked by the installer.: Dispozitivul dvs. a fost deblocat de către instalator.
+and wait until the meter will be: și nu mai efectuați această reacție până când valoarea este
+auxThermometerType_DISABLED: Dezactivat
+auxThermometerType_FLOOR: Podea
+auxThermometerType_GENERIC_COOLER: Sursa de răcire
+auxThermometerType_GENERIC_HEATER: Sursa de căldură
+auxThermometerType_NOT_SET: Nu este configurat
+auxThermometerType_WATER: Apă
+blue, otherwise: altfel albastru
+blue, when voltage lower than the low threshold: albastru când tensiunea este sub pragul scăzut
+choose the currency: alegeți valuta
+configuration missing: nicio configurare
+cool: răcire
+day: zi
+default: implicit
+green, otherwise: altfel verde
+green, when power less than the low threshold: verde atunci când puterea este mai mică decât pragul inferior
+heat: încălzire
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Temperatura principală și auxiliară
+homeScreenContent_NONE: Nu există
+homeScreenContent_TEMPERATURE: Temperatura
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatură și umiditate
+homeScreenContent_TEMPERATURE_TIME: Temperatură și timp
+homeScreenContent_TIME: Timp
+homeScreenContent_TIME_DATE: Data şi ora
+hour: oră(e)
+keepHistoryMeasurementWarningSelected: Sunteți sigur că aveți nevoie de această poveste? Supla este un proiect open source întreținut cu fonduri proprii. Dacă nu aveți nevoie de această poveste, vă rugăm să ne ajutați să economisim spațiu de stocare valoros lăsând această opțiune dezactivată.
+max: max.
+midnight: nord
+milliseconds: milisecunde
+min: min.
+ocrLightingMode_ALWAYS_ON: Întotdeauna pornit
+ocrLightingMode_AUTO: Acestea își ajustează
+ocrLightingMode_OFF: Închisă
+'off': 'Închide'
+red, when power higher than the high threshold: roșu când puterea este peste pragul ridicat
+red, when voltage higher than the high threshold: roșu când tensiunea este mai mare decât pragul înalt
+seconds: secunde
+statusLed_ALWAYS_OFF: Închideți întotdeauna
+statusLed_OFF_WHEN_CONNECTED: Opriți când sunteți conectat
+statusLed_ON_WHEN_CONNECTED: Activează atunci când este conectat
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Rezultat necunoscut
+subdevicePairingResult_NOT_STARTED_BUSY: Dispozitivul este ocupat
+subdevicePairingResult_NOT_STARTED_NOT_READY: Dispozitivul nu este pregătit
+subdevicePairingResult_NOT_SUPPORTED: Operațiune nesuportată
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Nu s-au găsit echipamente noi
+subdevicePairingResult_ONGOING: În curs
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Rezultat necunoscut al evaporării
+subdevicePairingResult_PROCEDURE_STARTED: Procedura a început
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Limita de resurse depășită
+subdevicePairingResult_SUCCESS: Succes
+subdevicePairingResult_UNAUTHORIZED: Autorizare nereușită
+sunrise: răsărit de soare
+sunset: apus de soare
+swap: schimbă
+the master thermostat ID{id}: a termostatului principal ID{id}
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Pornit/oprit cu setare superioară
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Pornit/oprit cu setare de mijloc
+thermostatAlgorithm_PID: PID
+thermostatAlgorithm_help: |
+  Algoritmii de pornire/oprire funcționează pe baza unei setări de histerezis. Histerezisul poate fi raportat la mijlocul intervalului său (setare medie) sau la temperatura setată (setare superioară). 
+  De exemplu, presupunând o histerezis de 1°C și o temperatură țintă de 23°C, termostatul va:
+  - va porni încălzirea la 22,5°C și se va opri când temperatura atinge 23,5°C pentru setarea medie 
+  - va porni încălzirea la 22°C și se va opri când temperatura atinge 23°C pentru setarea superioară
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: ~
-thermostatSubfunction_HEAT: ~
-thermostatTemperature_aboveAlarm: ~
-thermostatTemperature_auxMaxSetpoint: ~
-thermostatTemperature_auxMinSetpoint: ~
-thermostatTemperature_belowAlarm: ~
-thermostatTemperature_boost: ~
-thermostatTemperature_comfort: ~
-thermostatTemperature_eco: ~
-thermostatTemperature_freezeProtection: ~
-thermostatTemperature_heatProtection: ~
-thermostatTemperature_histeresis: ~
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: ~
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: ~
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: ~
-tiltControlType_UNKNOWN: ~
-timeMarginMode_custom: ~
-timeMarginMode_device: ~
-timeMarginMode_off: ~
-usedCTType_100A_33mA: ~
-usedCTType_200A_66mA: ~
-usedCTType_400A_133mA: ~
-usedPhaseLedType_OFF: ~
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
-usedPhaseLedType_VOLTAGE_LEVEL: ~
-usedPhaseLedType_VOLTAGE_PRESENCE: ~
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
-'{count} minutes after sunrise': ~
-'{count} minutes after sunset': ~
-'{count} minutes before sunrise': ~
-'{count} minutes before sunset': ~
-'{days} days': ~
-
+thermostatSubfunction_COOL: Răcire
+thermostatSubfunction_HEAT: Încălzire
+thermostatTemperature_aboveAlarm: Deasupra alarmei
+thermostatTemperature_auxMaxSetpoint: Temperatura auxiliară maximă
+thermostatTemperature_auxMinSetpoint: Temperatura auxiliară minimă
+thermostatTemperature_belowAlarm: Sub alarmă
+thermostatTemperature_boost: Creșterea temperaturii
+thermostatTemperature_comfort: Temperatura de confort
+thermostatTemperature_eco: Temperatura ECO
+thermostatTemperature_freezeProtection: Temperatura de protecție antiîngheț
+thermostatTemperature_heatProtection: Temperatura de protecție la supraîncălzire
+thermostatTemperature_histeresis: Histerezis
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Schimbă poziția în timpul schimbărilor de înclinare
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Nu își schimbă poziția în timpul schimbărilor de înclinare
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Schimbă pasul numai atunci când este complet închis
+tiltControlType_UNKNOWN: Necunoscut
+timeMarginMode_custom: Particularizat
+timeMarginMode_device: Valoarea implicită de la dispozitiv
+timeMarginMode_off: Dezactivat
+usedCTType_100A_33mA: 100A/33.3mA
+usedCTType_200A_66mA: 200A/66.6mA
+usedCTType_400A_133mA: 400A/133.3mA
+usedPhaseLedType_OFF: Închisă
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Direcția fluxului de energie
+usedPhaseLedType_VOLTAGE_LEVEL: Nivelul de tensiune
+usedPhaseLedType_VOLTAGE_PRESENCE: Prezența tensiunii
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Prezența tensiunii (inversată)
+'{count} minutes after sunrise': '{count} de minute după răsăritul soarelui'
+'{count} minutes after sunset': '{count} de minute după apusul soarelui'
+'{count} minutes before sunrise': '{count} de minute înainte de răsăritul soarelui'
+'{count} minutes before sunset': '{count} de minute înainte de apus'
+'{days} days': '{days} zile'
 #</editor-fold>
