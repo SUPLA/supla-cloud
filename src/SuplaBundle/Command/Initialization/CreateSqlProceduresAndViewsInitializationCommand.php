@@ -1,6 +1,8 @@
 <?php
 namespace SuplaBundle\Command\Initialization;
 
+use Assert\Assert;
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Utils\StringUtils;
 use Symfony\Component\Console\Command\Command;
@@ -36,8 +38,11 @@ class CreateSqlProceduresAndViewsInitializationCommand extends Command implement
             $io->section('Procedures');
         }
         foreach ($procedures as $file) {
+            $procedureName = pathinfo($file, PATHINFO_FILENAME);
+            $procedurePermissions = $this->getProcedurePermissions($procedureName);
             $fullPath = StringUtils::joinPaths(self::PROCEDURES_PATH, $file);
             $this->executeSqlFile($fullPath);
+            $this->restoreProcedurePermissions($procedureName, $procedurePermissions);
             if (!$io->isQuiet()) {
                 $io->writeln('✅ ' . $file);
             }
@@ -61,5 +66,32 @@ class CreateSqlProceduresAndViewsInitializationCommand extends Command implement
     private function executeSqlFile(string $fullPath): void {
         $sql = file_get_contents($fullPath);
         $this->entityManager->getConnection()->executeStatement($sql);
+    }
+
+    private function getProcedurePermissions(string $procedureName): array {
+        $databaseName = $this->entityManager->getConnection()->getDatabase();
+        $query = 'SELECT `user` "user", `host` "host" FROM mysql.procs_priv WHERE db = :db AND routine_name = :procedure';
+        $permissionsStatement = $this->entityManager->getConnection()->prepare($query);
+        $permissionsStatement->bindValue('db', $databaseName);
+        $permissionsStatement->bindValue('procedure', $procedureName);
+        try {
+            $procedurePermissions = $permissionsStatement->executeQuery()->fetchAllAssociative();
+        } catch (\Throwable $e) {
+            $procedurePermissions = [];
+        }
+        return $procedurePermissions ?: [];
+    }
+
+    private function restoreProcedurePermissions(string $procedureName, array $procedurePermissions): void {
+        $databaseName = $this->entityManager->getConnection()->getDatabase();
+        $grantQuery = "GRANT EXECUTE ON PROCEDURE `$databaseName`.`$procedureName` TO :user@:host";
+        foreach ($procedurePermissions as $permissionSpec) {
+            Assertion::isArray($permissionSpec, 'Invalid permissions specification');
+            Assert::that($permissionSpec)->keyExists('user')->keyExists('host');
+            $grantStatement = $this->entityManager->getConnection()->prepare($grantQuery);
+            $grantStatement->bindValue('user', $permissionSpec['user']);
+            $grantStatement->bindValue('host', $permissionSpec['host']);
+            $grantStatement->executeStatement();
+        }
     }
 }
