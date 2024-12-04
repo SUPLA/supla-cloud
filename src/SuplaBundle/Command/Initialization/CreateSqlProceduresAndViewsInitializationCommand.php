@@ -10,6 +10,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CreateSqlProceduresAndViewsInitializationCommand extends Command implements InitializationCommand {
     private const PROCEDURES_PATH = __DIR__ . '/../../Migrations/procedures';
+    private const VIEWS_PATH = __DIR__ . '/../../Migrations/views';
 
     private EntityManagerInterface $entityManager;
 
@@ -26,17 +27,27 @@ class CreateSqlProceduresAndViewsInitializationCommand extends Command implement
 
     /** @inheritdoc */
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $files = array_values(array_filter(scandir(self::PROCEDURES_PATH), fn($path) => str_ends_with($path, '.sql')));
+        $procedures = array_values(array_filter(scandir(self::PROCEDURES_PATH), fn($path) => str_ends_with($path, '.sql')));
+        $views = array_values(array_filter(scandir(self::VIEWS_PATH), fn($path) => str_ends_with($path, '.sql')));
         $io = new SymfonyStyle($input, $output);
         if (!$io->isQuiet()) {
             $io->title('Creating SQL procedures and views');
-            $io->writeln('Number of scripts to execute: ' . count($files));
-            $io->newLine();
+            $io->writeln('Number of scripts to execute: ' . (count($procedures) + count($views)));
+            $io->section('Procedures');
         }
-        foreach ($files as $file) {
+        foreach ($procedures as $file) {
             $fullPath = StringUtils::joinPaths(self::PROCEDURES_PATH, $file);
-            $sql = file_get_contents($fullPath);
-            $this->entityManager->getConnection()->executeStatement($sql);
+            $this->executeSqlFile($fullPath);
+            if (!$io->isQuiet()) {
+                $io->writeln('✅ ' . $file);
+            }
+        }
+        if (!$io->isQuiet()) {
+            $io->section('Views');
+        }
+        foreach ($views as $file) {
+            $fullPath = StringUtils::joinPaths(self::VIEWS_PATH, $file);
+            $this->executeSqlFile($fullPath);
             if (!$io->isQuiet()) {
                 $io->writeln('✅ ' . $file);
             }
@@ -45,5 +56,10 @@ class CreateSqlProceduresAndViewsInitializationCommand extends Command implement
             $io->newLine();
         }
         return 0;
+    }
+
+    private function executeSqlFile(string $fullPath): void {
+        $sql = file_get_contents($fullPath);
+        $this->entityManager->getConnection()->executeStatement($sql);
     }
 }
