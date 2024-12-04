@@ -514,12 +514,12 @@ No of devices: Aantal apparaten
 No of operations: Aantal bewerkingen
 No schedule configuration.: Er is geen schemaconfiguratie voorzien.
 No, take me back!: Nee, haal me hier weg!
-No. of Client’s apps: Het aantal klant-applicaties
-No. of access identifiers: Aantal toegangs-ID's
-No. of channel groups: Aantal kanaalgroepen
-No. of channels: Aantal kanalen
-No. of devices: Aantal apparaten
-No. of locations: Aantal locaties
+No{'.'} of Client’s apps: Het aantal klant-applicaties
+No{'.'} of access identifiers: Aantal toegangs-ID's
+No{'.'} of channel groups: Aantal kanaalgroepen
+No{'.'} of channels: Aantal kanalen
+No{'.'} of devices: Aantal apparaten
+No{'.'} of locations: Aantal locaties
 None: Geen
 None (channel disabled): Geen (kanaal uitgeschakeld)
 Noop: Geen bewerkingen

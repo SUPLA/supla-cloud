@@ -514,12 +514,12 @@ No of devices: Įrenginių skaičius
 No of operations: Operacijų skaičius
 No schedule configuration.: Tvarkaraščio konfigūracija nenurodyta.
 No, take me back!: Ne, išveskite mane iš čia!
-No. of Client’s apps: Klientų programų skaičius
-No. of access identifiers: Prieigos identifikatorių skaičius
-No. of channel groups: Kanalų grupių skaičius
-No. of channels: Kanalų skaičius
-No. of devices: Įrenginių skaičius
-No. of locations: Vietų skaičius
+No{'.'} of Client’s apps: Klientų programų skaičius
+No{'.'} of access identifiers: Prieigos identifikatorių skaičius
+No{'.'} of channel groups: Kanalų grupių skaičius
+No{'.'} of channels: Kanalų skaičius
+No{'.'} of devices: Įrenginių skaičius
+No{'.'} of locations: Vietų skaičius
 None: Nėra
 None (channel disabled): Nėra (kanalas išjungtas)
 Noop: Nėra operacijos

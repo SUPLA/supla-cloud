@@ -4,11 +4,11 @@
         <dl v-if="location.relationsCount">
             <dd>ID</dd>
             <dt>{{ location.id }}</dt>
-            <dd>{{ $t('No. of devices') }}</dd>
+            <dd>{{ $t("No{'.'} of devices") }}</dd>
             <dt>{{ location.relationsCount.ioDevices }}</dt>
-            <dd>{{ $t('No. of channel groups') }}</dd>
+            <dd>{{ $t("No{'.'} of channel groups") }}</dd>
             <dt>{{ location.relationsCount.channelGroups }}</dt>
-            <dd>{{ $t('No. of access identifiers') }}</dd>
+            <dd>{{ $t("No{'.'} of access identifiers") }}</dd>
             <dt>{{ location.relationsCount.accessIds }}</dt>
         </dl>
         <div class="square-link-label">

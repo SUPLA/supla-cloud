@@ -514,12 +514,12 @@ No of devices: Antall enheter
 No of operations: Antall handlinger
 No schedule configuration.: Ingen tidsplankonfigurasjon ble spesifisert.
 No, take me back!: Nei, få meg ut herfra!
-No. of Client’s apps: Antall kundeapplikasjoner
-No. of access identifiers: Antall tilgang identifikatorer
-No. of channel groups: Antall kanalgrupper
-No. of channels: Antall kanaler
-No. of devices: Antall enheter
-No. of locations: Antall lokaliseringer
+No{'.'} of Client’s apps: Antall kundeapplikasjoner
+No{'.'} of access identifiers: Antall tilgang identifikatorer
+No{'.'} of channel groups: Antall kanalgrupper
+No{'.'} of channels: Antall kanaler
+No{'.'} of devices: Antall enheter
+No{'.'} of locations: Antall lokaliseringer
 None: Mangel
 None (channel disabled): Ingen (kanal av)
 Noop: Ingen drift

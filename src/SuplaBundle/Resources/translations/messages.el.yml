@@ -514,12 +514,12 @@ No of devices: Αριθμός συσκευών
 No of operations: Αριθμός ενέργειων
 No schedule configuration.: Δεν έχει καθοριστεί ρύθμιση παραμέτρων χρονοδιαγράμματος.
 No, take me back!: Όχι, πάρτε με από εδώ!
-No. of Client’s apps: Αριθμός των εφαρμογών πελάτη
-No. of access identifiers: Αριθμός αναγνωριστικών πρόσβασης
-No. of channel groups: Αριθμός ομάδων καναλιών
-No. of channels: Αριθμός καναλιών
-No. of devices: Αριθμός συσκευών
-No. of locations: Αριθμός τοποθεσιών
+No{'.'} of Client’s apps: Αριθμός των εφαρμογών πελάτη
+No{'.'} of access identifiers: Αριθμός αναγνωριστικών πρόσβασης
+No{'.'} of channel groups: Αριθμός ομάδων καναλιών
+No{'.'} of channels: Αριθμός καναλιών
+No{'.'} of devices: Αριθμός συσκευών
+No{'.'} of locations: Αριθμός τοποθεσιών
 None: Κανένα
 None (channel disabled): Κανένα (απενεργοποιημένο κανάλι)
 Noop: Καμία λειτουργία

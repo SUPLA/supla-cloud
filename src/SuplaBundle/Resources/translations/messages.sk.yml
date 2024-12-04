@@ -514,12 +514,12 @@ No of devices: Počet zariadení
 No of operations: Počet operácií
 No schedule configuration.: Nebola zadaná žiadna konfigurácia harmonogramu.
 No, take me back!: Nie, dostaňte ma odtiaľto!
-No. of Client’s apps: Počet klientských aplikácií
-No. of access identifiers: Počet identifikátorov prístupu
-No. of channel groups: Počet skupín kanálov
-No. of channels: Počet kanálov
-No. of devices: Počet zariadení
-No. of locations: Počet polôh
+No{'.'} of Client’s apps: Počet klientských aplikácií
+No{'.'} of access identifiers: Počet identifikátorov prístupu
+No{'.'} of channel groups: Počet skupín kanálov
+No{'.'} of channels: Počet kanálov
+No{'.'} of devices: Počet zariadení
+No{'.'} of locations: Počet polôh
 None: Žiadne
 None (channel disabled): Žiadne (kanál je vypnutý)
 Noop: Žiadna operácia

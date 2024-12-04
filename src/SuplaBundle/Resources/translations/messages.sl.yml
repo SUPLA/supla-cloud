@@ -514,12 +514,12 @@ No of devices: Število naprav
 No of operations: Število operacij
 No schedule configuration.: Konfiguracija urnika ni bila dodana.
 No, take me back!: Ne, hočem stran!
-No. of Client’s apps: Število odjemalskih aplikacij
-No. of access identifiers: Število identifikatorjev dostopa
-No. of channel groups: Število skupin kanalov
-No. of channels: Število kanalov
-No. of devices: Število naprav
-No. of locations: Število lokacij
+No{'.'} of Client’s apps: Število odjemalskih aplikacij
+No{'.'} of access identifiers: Število identifikatorjev dostopa
+No{'.'} of channel groups: Število skupin kanalov
+No{'.'} of channels: Število kanalov
+No{'.'} of devices: Število naprav
+No{'.'} of locations: Število lokacij
 None: Ni prisotna
 None (channel disabled): Brez (kanal izklopljen)
 Noop: Brez operacij

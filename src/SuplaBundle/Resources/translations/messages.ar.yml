@@ -514,12 +514,12 @@ No of devices: عدد الأجهزة
 No of operations: عدد العمليات
 No schedule configuration.: لم يتم تحديد تكوين الجدول الزمني.
 No, take me back!: لا، أخرجني من هنا!
-No. of Client’s apps: عدد طلبات العميل
-No. of access identifiers: عدد معرفات الوصول
-No. of channel groups: عدد مجموعات القنوات
-No. of channels: عدد القنوات
-No. of devices: عدد الاجهزة
-No. of locations: عدد المواقع
+No{'.'} of Client’s apps: عدد طلبات العميل
+No{'.'} of access identifiers: عدد معرفات الوصول
+No{'.'} of channel groups: عدد مجموعات القنوات
+No{'.'} of channels: عدد القنوات
+No{'.'} of devices: عدد الاجهزة
+No{'.'} of locations: عدد المواقع
 None: لا يوجد
 None (channel disabled): لا يوجد (إيقاف تشغيل القناة)
 Noop: عدم وجود إجراء

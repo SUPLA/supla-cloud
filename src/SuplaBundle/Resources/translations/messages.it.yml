@@ -514,12 +514,12 @@ No of devices: N° di dispositivi
 No of operations: N° di operazioni
 No schedule configuration.: N° configurazioni scadenziario
 No, take me back!: No, portami via di qui!
-No. of Client’s apps: Numero delle applicazioni client
-No. of access identifiers: Numero degli identificatori d’accesso
-No. of channel groups: Numero dei gruppi di canali
-No. of channels: Numero di canali
-No. of devices: Numero dei dispositivi
-No. of locations: Numero delle localizzazioni
+No{'.'} of Client’s apps: Numero delle applicazioni client
+No{'.'} of access identifiers: Numero degli identificatori d’accesso
+No{'.'} of channel groups: Numero dei gruppi di canali
+No{'.'} of channels: Numero di canali
+No{'.'} of devices: Numero dei dispositivi
+No{'.'} of locations: Numero delle localizzazioni
 None: Nessuno
 None (channel disabled): Nessuna (canale disabilitato)
 Noop: Nessuna operazione

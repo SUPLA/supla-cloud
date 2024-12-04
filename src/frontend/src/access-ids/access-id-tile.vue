@@ -9,9 +9,9 @@
                     <dt>{{ model.id }}</dt>
                 </dl>
                 <dl v-if="model.relationsCount">
-                    <dd>{{ $t('No. of locations') }}</dd>
+                    <dd>{{ $t("No{'.'} of locations") }}</dd>
                     <dt>{{ model.relationsCount.locations }}</dt>
-                    <dd>{{ $t('No. of Client’s apps') }}</dd>
+                    <dd>{{ $t("No{'.'} of Client’s apps") }}</dd>
                     <dt>{{ model.relationsCount.clientApps }}</dt>
                 </dl>
                 <div class="square-link-label">

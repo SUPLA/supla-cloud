@@ -685,12 +685,12 @@ No of operations: Liczba operacji
 No results: Brak wyników
 No schedule configuration.: Nie podano konfiguracji harmonogramu.
 No, take me back!: Nie, zabierz mnie stąd!
-No. of Client’s apps: Liczba aplikacji klienckich
-No. of access identifiers: Liczba identyfikatorów dostępu
-No. of channel groups: Liczba grup kanałów
-No. of channels: Liczba kanałów
-No. of devices: Liczba urządzeń
-No. of locations: Liczba lokalizacji
+No{'.'} of Client’s apps: Liczba aplikacji klienckich
+No{'.'} of access identifiers: Liczba identyfikatorów dostępu
+No{'.'} of channel groups: Liczba grup kanałów
+No{'.'} of channels: Liczba kanałów
+No{'.'} of devices: Liczba urządzeń
+No{'.'} of locations: Liczba lokalizacji
 None: Brak
 None (channel disabled): Brak (kanał wyłączony)
 Noop: Brak operacji

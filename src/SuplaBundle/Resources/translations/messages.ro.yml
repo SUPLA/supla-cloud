@@ -514,12 +514,12 @@ No of devices: Numărul de dispozitive
 No of operations: Numărul de operații
 No schedule configuration.: Nu a fost specificată nici o configurație de program.
 No, take me back!: Nu, scoateți-mă de aici!
-No. of Client’s apps: Numărul de aplicații de client
-No. of access identifiers: Numărul de identificatoare de acces
-No. of channel groups: Numărul de grupe de canale
-No. of channels: Numărul de canale
-No. of devices: Numărul de dispozitive
-No. of locations: Numărul de locații
+No{'.'} of Client’s apps: Numărul de aplicații de client
+No{'.'} of access identifiers: Numărul de identificatoare de acces
+No{'.'} of channel groups: Numărul de grupe de canale
+No{'.'} of channels: Numărul de canale
+No{'.'} of devices: Numărul de dispozitive
+No{'.'} of locations: Numărul de locații
 None: Lipsă
 None (channel disabled): Niciuna (canal oprit)
 Noop: Lipsea activității

@@ -43,7 +43,7 @@
                                         <span class="line-clamp line-clamp-2">${escape(channelGroup.fullCaption)}</span>
                                         ${channelGroup.caption ? `<span class="small text-muted">ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}</span>` : ''}
                                     </h5>
-                                    <p class="line-clamp line-clamp-2 small mb-0 option-extra">${this.$t('No. of channels')}: ${channelGroup.relationsCount.channels}</p>
+                                    <p class="line-clamp line-clamp-2 small mb-0 option-extra">${this.$t("No{'.'} of channels")}: ${channelGroup.relationsCount.channels}</p>
                                 </div>
                                 <div class="icon option-extra"><img src="${channelIconUrl(channelGroup)}"></div></div>
                             </div>

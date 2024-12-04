@@ -514,12 +514,12 @@ No of devices: Số lượng thiết bị
 No of operations: Số lượng hoạt động
 No schedule configuration.: Chưa cài đặt lịch trình chiếu
 No, take me back!: Không, đưa tôi ra khỏi đây!
-No. of Client’s apps: Số ứng dụng Client's Apps
-No. of access identifiers: Số định danh truy cập
-No. of channel groups: Số kênh nhóm
-No. of channels: Số kênh
-No. of devices: Số thiết bị
-No. of locations: Số khu vực
+No{'.'} of Client’s apps: Số ứng dụng Client's Apps
+No{'.'} of access identifiers: Số định danh truy cập
+No{'.'} of channel groups: Số kênh nhóm
+No{'.'} of channels: Số kênh
+No{'.'} of devices: Số thiết bị
+No{'.'} of locations: Số khu vực
 None: không
 None (channel disabled): Không có (kênh đang tắt)
 Noop: Không có hoạt động

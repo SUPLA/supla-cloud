@@ -13,7 +13,7 @@
                 <dt>{{ model.id }}</dt>
             </dl>
             <dl v-if="model.relationsCount">
-                <dd>{{ $t('No. of channels') }}</dd>
+                <dd>{{ $t("No{'.'} of channels") }}</dd>
                 <dt>{{ model.relationsCount.channels }}</dt>
             </dl>
         </router-link>

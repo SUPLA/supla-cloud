@@ -513,12 +513,12 @@ No of devices: Кількість пристроїв
 No of operations: Кількість операцій
 No schedule configuration.: Конфігурація розкладу не вказана.
 No, take me back!: Ні, заберіть мене звідси!
-No. of Client’s apps: Кількість клієнтських заявок
-No. of access identifiers: Кількість ідентифікаторів доступу
-No. of channel groups: Кількість груп каналів
-No. of channels: Кількість каналів
-No. of devices: Кількість пристроїв
-No. of locations: Кількість місць
+No{'.'} of Client’s apps: Кількість клієнтських заявок
+No{'.'} of access identifiers: Кількість ідентифікаторів доступу
+No{'.'} of channel groups: Кількість груп каналів
+No{'.'} of channels: Кількість каналів
+No{'.'} of devices: Кількість пристроїв
+No{'.'} of locations: Кількість місць
 None: Відсутність
 None (channel disabled): Немає (канал вимкнено)
 Noop: Операція не проводиться

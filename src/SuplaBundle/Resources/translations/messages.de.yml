@@ -514,12 +514,12 @@ No of devices: Anzahl der Geräte
 No of operations: Anzahl der Vorgänge
 No schedule configuration.: Konfiguration des Zeitplans wurde nicht angegeben.
 No, take me back!: Nein, holt mich hier raus!
-No. of Client’s apps: Anzahl der Client-Anwendungen
-No. of access identifiers: Anzahl der Zugangskennungen
-No. of channel groups: Anzahl der Kanalgruppen
-No. of channels: Kanalanzahl
-No. of devices: Anzahl der Geräte
-No. of locations: Anzahl der Lokalisierungen
+No{'.'} of Client’s apps: Anzahl der Client-Anwendungen
+No{'.'} of access identifiers: Anzahl der Zugangskennungen
+No{'.'} of channel groups: Anzahl der Kanalgruppen
+No{'.'} of channels: Kanalanzahl
+No{'.'} of devices: Anzahl der Geräte
+No{'.'} of locations: Anzahl der Lokalisierungen
 None: Ohne
 None (channel disabled): Ohne (Kanal deaktiviert)
 Noop: Keine Operation

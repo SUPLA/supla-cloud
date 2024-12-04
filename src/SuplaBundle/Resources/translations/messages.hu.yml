@@ -514,12 +514,12 @@ No of devices: Eszközök száma
 No of operations: Műveletek száma
 No schedule configuration.: Az ütemterv konfigurálása nincs megadva.
 No, take me back!: Nem, vigyél ki innen!
-No. of Client’s apps: Az ügyfélalkalmazások száma
-No. of access identifiers: Hozzáférési azonosítók száma
-No. of channel groups: Csatornacsoportok száma
-No. of channels: Csatornák száma
-No. of devices: Eszközök száma
-No. of locations: Lokálizációk száma
+No{'.'} of Client’s apps: Az ügyfélalkalmazások száma
+No{'.'} of access identifiers: Hozzáférési azonosítók száma
+No{'.'} of channel groups: Csatornacsoportok száma
+No{'.'} of channels: Csatornák száma
+No{'.'} of devices: Eszközök száma
+No{'.'} of locations: Lokálizációk száma
 None: Hiány
 None (channel disabled): Hiány (a csatorna kikapcsolt állapotban van)
 Noop: Hiányzó művelet
