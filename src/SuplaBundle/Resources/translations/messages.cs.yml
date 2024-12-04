@@ -816,7 +816,7 @@ Unsupported type: Nepodporavný typ
 Update in progress: Probíhá aktualizace
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Nahrané soubory neporušují dobré chování, autorská práva a práva třetích stran a mám právo je používat.
 Upper voltage threshold: Práh vysokého napětí
-'Use the {0} server command to change this account''s limits. For example:': 'Chcete-li změnit limity pro tento účet, použijte příkaz {0} na vašem serveru. Například:'
+"Use the {0} server command to change this account's limits. For example:": 'Chcete-li změnit limity pro tento účet, použijte příkaz {0} na vašem serveru. Například:'
 Use working schedule for this access identifier: Použijte plán dostupnosti pro tento přístupový identifikátor
 User is already confirmed. Try to log in.: Tento účet je již potvrzen. Přihlaste se.
 Value: Hodnota
@@ -1250,428 +1250,431 @@ suffix: přípona
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-0% tilt angle: ~
-100% tilt angle: ~
-A confirmation upon successful device unlocking.: ~
-Active from: ~
-Active to: ~
-Activity conditions: ~
-Additional time margin: ~
-Adjust temperature: ~
-Adjust temperatures: ~
-After the delay: ~
-After the delay, but only when it's dark: ~
-Alarm armament sensor: ~
-Algorithm: ~
-All programs must define at least one temperature threshold.: ~
-Always decrement: ~
-Always increment: ~
-Anti-freeze and overheat protection: ~
-Anti-freeze protection: ~
-Are you sure you want to change channel’s location?: ~
-Are you sure you want to change channel’s visibility?: ~
-Are you sure you want to change device’s location?: ~
-Are you sure you want to delete this channel?: ~
-Automatic: ~
-Automatic front panel turn off: ~
-Automatic front panel turn off after: ~
-Automatic thermostat: ~
-Automatic time synchronization: ~
-Aux thermometer: ~
-Aux thermometer type: ~
-Available variables: ~
-Average: ~
-Battery cover open: ~
-Behavior settings: ~
-Binary sensor: ~
-Brightness adjustment for automatic mode: ~
-Brightness level: ~
-Button volume: ~
-Buttons upside down: ~
-Candle: ~
-Cannot update OCR settings. Try again in a while.: ~
-Change percentage by: ~
-Change percentage to: ~
-Change tilt by: ~
-Change tilt to: ~
-Change to be the same.: ~
-Changing channel’s visibility will also change the visibility of other items.: ~
-Changing the location will also imply changing the location of the following items.: ~
-Channels that are meant to work with each other must be in the same location.: ~
-Clock error: ~
-Close value: ~
-Collapse: ~
-Collapse or stop: ~
-Collapse partially: ~
-Command has been sent to the device. Try refreshing the photo in a while.: ~
-Common currencies: ~
-Configuration not available yet. Waiting for the device to connect.: ~
-Confirm if you want to perform the calibration.: ~
-Conflict: ~
-Cool to: ~
-Cooling mode: ~
-'Cooling: {percent}%': ~
-Costs: ~
-Could not restart the device.: ~
-Could not send the identify command.: ~
-Could not set the device time.: ~
-Counter type: ~
-Curtain: ~
-Dark mode: ~
-Data: ~
-Date range: ~
-Daytime criteria: ~
-Dependencies: ~
-'Device GUID: %deviceGuid%': ~
-Device identification is unsupported in the firmware.: ~
-Device settings: ~
-Device should be restarting now.: ~
-Device time has been set.: ~
-Different than on master thermostat.: ~
-Differential thermostat: ~
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
-Domestic hot water: ~
-Dryer: ~
-Edit area crop: ~
-Edit program settings: ~
-Electricity meter active power history: ~
-Electricity meter current history: ~
-Electricity meter voltage aberrations history: ~
-Electricity meter voltage history: ~
-Enable floor temperature control: ~
-Enable generic cooler temperature control: ~
-Enable generic heater temperature control: ~
-Enable power status LED: ~
-Enable support for OCR readings for this channel: ~
-Enable water temperature control: ~
-Example value: ~
-Expand: ~
-Expand or stop: ~
-Expand partially: ~
-Expected maximum increment: ~
-External sensor disabling the thermostat: ~
-Facade blind operation: ~
-Fan: ~
-'Field: {propertyPath}.': ~
-Fill missing data: ~
-Firmware: ~
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-For a period: ~
-Forced off by sensor: ~
-Full tilting time: ~
-Function disabled: ~
-General purpose meter: ~
-HVAC: ~
-Heat or cold source switch: ~
-Heat to: ~
-Heating / ventilation / air conditioning: ~
-Heating mode: ~
-'Heating: {percent}%': ~
-High threshold: ~
-High value: ~
-History: ~
-Home screen content: ~
-Hotel card sensor: ~
-Identify device: ~
-Identify request sent.: ~
-If you confirm the installation and wish to unlock this device, please click the link below.: ~
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
-Image area crop: ~
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: ~
-Increment and decrement: ~
-Installer e-mail address: ~
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: ~
-Invalid e-mail address.: ~
-Invalid unlock code.: ~
-Last paired device: ~
-Light mode: ~
-Lighting level: ~
-Lighting mode: ~
-List of available variables: ~
-Locked: ~
-Low threshold: ~
-Low threshold must be less than high threshold.: ~
-Low value: ~
-Main thermometer: ~
-Master thermostat: ~
-Max: ~
-Maximum duration is one year.: ~
-Maximum temperature that can be set from the device: ~
-Measurement settings: ~
-Min: ~
-Minimum OFF time before cooling can be turned on: ~
-Minimum OFF time before heating can be turned on: ~
-Minimum OFF time before heating/cooling can be turned on: ~
-Minimum ON time before cooling can be turned off: ~
-Minimum ON time before heating can be turned off: ~
-Minimum ON time before heating/cooling can be turned off: ~
-Minimum temperature must be lower than maximum temperature.: ~
-Minimum temperature that can be set from the device: ~
-'Mode: cool': ~
-'Mode: heat': ~
-'Mode: off': ~
-Motor upside down: ~
-'No': ~
-No results: ~
-Notification body is set by the firmware.: ~
-Notification must have recipients.: ~
-Notification title is set by the firmware.: ~
-Notifications (defined): ~
-Notifications (sent per hour): ~
-'OCR service responded with error: {status}': ~
-OCR settings: ~
-OR: ~
-Off with duration: ~
-On with duration: ~
-Open value: ~
-Output value on error: ~
-Overheat protection: ~
-P/C: ~
-Pair new devices or sensors: ~
-Pairing request sent.: ~
-Pairing subdevices is unsupported in the firmware.: ~
-Phase LED type: ~
-Photo interval: ~
-Please find the device details below.: ~
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: ~
-Please provide the installer e-mail address to request the device unlock.: ~
-Please select and configure the action: ~
-Program {programNo}: ~
-Projector screen: ~
-Pump switch: ~
-Push notifications limit has been exceeded: ~
-Reference to the channel will be removed from the items below.: ~
-Refresh interval: ~
-Refresh the config: ~
-Refreshing the configuration will overwrite the changes you made here.: ~
-Reload last photo: ~
-Remote restart is unsupported in the firmware.: ~
-Remove this item: ~
-Request device unlock: ~
-Reset to defaults: ~
-Restart device: ~
-Restart the device: ~
-Reveal or stop: ~
-Roller garage door: ~
-S/N: ~
-SUPLA - Confirm unlocking device for authorized installers: ~
-SUPLA – your device has been unlocked!: ~
-Same as on master thermostat.: ~
-Screen brightness: ~
-Selected: ~
-Set HVAC parameters: ~
-Set the device time: ~
-Settings: ~
-Settings have not been saved!: ~
-Show data: ~
-Shut or stop: ~
-Some features depend on this channel: ~
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
-Status LED: ~
-Store active power history: ~
-Store current history: ~
-Store voltage history: ~
-'Subdevice #{id}': ~
-Subfunction: ~
-Switch to manual mode: ~
-Switch to program mode: ~
-THEN: ~
-Take a photo now: ~
-Temperature adjustment only: ~
-Temperature difference is too big between {min}°C and {max}°C.: ~
-Temperature setpoint change switches to manual mode: ~
-Temporal override: ~
-Terrace awning: ~
-The channel has been deleted.: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: ~
-The device could not be unlocked.: ~
-The device has been unlocked already.: ~
-The device has been unlocked.: ~
-The device has channel conflict and cannot work.: ~
-The device is locked: ~
-The following channels will be also removed along with their dependencies.: ~
-The items below rely on this channel, so they will be deleted.: ~
-The master termostat you chose already has a master.: ~
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
-The thermostat will not work if the main thermometer is not set.: ~
-Thermometer error: ~
-Thermometers configuration: ~
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
-Thermostat programs: ~
-This action will result in restarting the device. It will not be available for a while.: ~
-This channel was missing during last device registration attempt.: ~
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
-This thermostat is controlled by another device.: ~
-Tilt angle: ~
-Tilt control type: ~
-Tilt percent: ~
-Time: ~
-Today, it would be active from {from} to {to}.: ~
-Turn off: ~
-Unlock the device: ~
-Unlocked: ~
-Until a date and time: ~
-Until the next change: ~
-Use device default: ~
-Use working schedule for this reaction: ~
-Use {theMasterThermostat} to control this device.: ~
-Used current transformer type: ~
-User interface: ~
-Value divider: ~
-Value multiplier: ~
-Vertical blind: ~
-Visit the master thermostat page.: ~
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
-Week: ~
-Weekly schedule: ~
-When the alarm is armed: ~
-When the alarm is armed or disarmed: ~
-When the alarm is disarmed: ~
-When the battery cover is opened: ~
-When the clock error has been reported: ~
-When the curtain position changes: ~
-When the curtain reaches: ~
-When the curtain reaches a certain position: ~
-When the facade blind position changes: ~
-When the facade blind reaches: ~
-When the facade blind reaches a certain position: ~
-When the hotel card has been taken: ~
-When the hotel card is put in: ~
-When the hotel card is put in or has been taken: ~
-When the meter reaches a certain value: ~
-When the meter value changes: ~
-When the meter value will be: ~
-When the projector screen position changes: ~
-When the projector screen reaches: ~
-When the projector screen reaches a certain position: ~
-When the pump is turned off: ~
-When the pump is turned on: ~
-When the pump is turned on or off: ~
-When the roller garage door a certain position: ~
-When the roller garage door position changes: ~
-When the roller garage door reaches: ~
-When the roller shutter calibration failed: ~
-When the roller shutter calibration has been lost: ~
-When the roller shutter calibration has started: ~
-When the roller shutter motor reported a problem: ~
-When the terrace awning position changes: ~
-When the terrace awning reaches: ~
-When the terrace awning reaches a certain position: ~
-When the thermometer error has been reported: ~
-When the thermostat starts cooling: ~
-When the thermostat starts heating: ~
-When the thermostat starts heating or cooling: ~
-When the thermostat starts or stops cooling: ~
-When the thermostat starts or stops heating: ~
-When the thermostat starts or stops heating or cooling: ~
-When the thermostat stops cooling: ~
-When the thermostat stops heating: ~
-When the thermostat stops heating or cooling: ~
-When the vertical blind position changes: ~
-When the vertical blind reaches: ~
-When the vertical blind reaches a certain position: ~
-Will be deleted after: ~
-With a timer: ~
-'Yes': ~
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot to set a master thermostat for a channel that is master for others.: ~
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
-You need to provide icons for all states in light mode.: ~
-Your device has been unlocked by the installer.: ~
-and wait until the meter will be: ~
-auxThermometerType_DISABLED: ~
-auxThermometerType_FLOOR: ~
-auxThermometerType_GENERIC_COOLER: ~
-auxThermometerType_GENERIC_HEATER: ~
-auxThermometerType_NOT_SET: ~
-auxThermometerType_WATER: ~
-blue, otherwise: ~
-blue, when voltage lower than the low threshold: ~
-choose the currency: ~
-configuration missing: ~
-cool: ~
-day: ~
-default: ~
-green, otherwise: ~
-green, when power less than the low threshold: ~
-heat: ~
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
-homeScreenContent_NONE: ~
-homeScreenContent_TEMPERATURE: ~
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
-homeScreenContent_TEMPERATURE_TIME: ~
-homeScreenContent_TIME: ~
-homeScreenContent_TIME_DATE: ~
-hour: ~
-keepHistoryMeasurementWarningSelected: ~
-max: ~
-midnight: ~
-milliseconds: ~
-min: ~
-ocrLightingMode_ALWAYS_ON: ~
-ocrLightingMode_AUTO: ~
-ocrLightingMode_OFF: ~
-'off': ~
-red, when power higher than the high threshold: ~
-red, when voltage higher than the high threshold: ~
-seconds: ~
-statusLed_ALWAYS_OFF: ~
-statusLed_OFF_WHEN_CONNECTED: ~
-statusLed_ON_WHEN_CONNECTED: ~
-subdevicePairingResult_CMD_RESULT_UNKNOWN: ~
-subdevicePairingResult_NOT_STARTED_BUSY: ~
-subdevicePairingResult_NOT_STARTED_NOT_READY: ~
-subdevicePairingResult_NOT_SUPPORTED: ~
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: ~
-subdevicePairingResult_ONGOING: ~
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: ~
-subdevicePairingResult_PROCEDURE_STARTED: ~
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: ~
-subdevicePairingResult_SUCCESS: ~
-subdevicePairingResult_UNAUTHORIZED: ~
-sunrise: ~
-sunset: ~
-swap: ~
-the master thermostat ID{id}: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
-thermostatAlgorithm_PID: ~
-thermostatAlgorithm_help: ~
+0% tilt angle: Úhel lamel, který žaluzie nastaví při zavírání
+100% tilt angle: Úhel lamel, který žaluzie nastaví při otevírání
+A confirmation upon successful device unlocking.: Potvrzení odemčení zařízení.
+Active from: Aktivní od
+Active to: Aktivní do
+Activity conditions: Podmínky činnosti
+Additional time margin: Dodatečná časová rezerva
+Adjust temperature: Nastavte teplotu
+Adjust temperatures: Nastavit teploty
+After the delay: Po určité době
+After the delay, but only when it's dark: Po určité době, ale pouze když je tma.
+Alarm armament sensor: Snímač aktivace alarmu
+Algorithm: Algoritmus
+All programs must define at least one temperature threshold.: Každý program musí definovat alespoň jeden teplotní práh.
+Always decrement: Vždy klesající
+Always increment: Vždy rostoucí
+Anti-freeze and overheat protection: Ochrana proti přehřátí a zamrznutí
+Anti-freeze protection: Ochrana proti zamrznutí
+Are you sure you want to change channel’s location?: Určitě chcete změnit umístění kanálu?
+Are you sure you want to change channel’s visibility?: Jste si jisti, že chcete změnit viditelnost kanálu?
+Are you sure you want to change device’s location?: Opravdu chcete změnit umístění zařízení?
+Are you sure you want to delete this channel?: Opravdu chcete tento kanál odstranit?
+Automatic: Automatické
+Automatic front panel turn off: Automatické vypnutí předního panelu
+Automatic front panel turn off after: Čas do vypnutí předního panelu
+Automatic thermostat: Automatický termostat
+Automatic time synchronization: Automatická synchronizace data a času
+Aux thermometer: Přídavný teploměr
+Aux thermometer type: Typ přídavného teploměru
+Available variables: Dostupné proměnné
+Average: Průměr
+Battery cover open: Otevřený kryt baterie
+Behavior settings: Chování
+Binary sensor: Binární senzor
+Brightness adjustment for automatic mode: Nastavení jasu v automatickém režimu
+Brightness level: Úroveň jasu
+Button volume: Hlasitost tlačítka
+Buttons upside down: Obrácené ovládání tlačítky
+Candle: Svíčkový
+Cannot update OCR settings. Try again in a while.: Aktualizace nastavení OCR se nezdařila. Zkuste to znovu za pár minut.
+Change percentage by: Změňte procento o
+Change percentage to: Změňte procento na
+Change tilt by: Změňte sklon o
+Change tilt to: Změňte sklon na
+Change to be the same.: Nastavte stejnou hodnotu.
+Changing channel’s visibility will also change the visibility of other items.: Změnou viditelnosti kanálu se změní i viditelnost ostatních prvků.
+Changing the location will also imply changing the location of the following items.: Změnou umístění se změní také u následujících položek.
+Channels that are meant to work with each other must be in the same location.: Kanály, které mají spolupracovat, musí být na stejném místě.
+Clock error: Chyba hodin
+Close value: Závěrečná hodnota
+Collapse: Sbalit
+Collapse or stop: Sbalit nebo zastavit
+Collapse partially: Částečně sbalit
+Command has been sent to the device. Try refreshing the photo in a while.: Požadavek byl odeslán do zařízení. Zkuste fotografii za chvíli obnovit.
+Common currencies: Nejčastěji vybírané měny
+Configuration not available yet. Waiting for the device to connect.: Konfigurace zatím není k dispozici. Počkejte, až se zařízení připojí.
+Confirm if you want to perform the calibration.: Potvrďte, že chcete provést kalibraci.
+Conflict: Konflikt
+Cool to: Schladit na
+Cooling mode: Režim chlazení
+'Cooling: {percent}%': 'Chlazení: {percent}%'
+Costs: Náklady
+Could not restart the device.: Zařízení se nepodařilo restartovat.
+Could not send the identify command.: Příkaz se nepodařilo odeslat.
+Could not set the device time.: Na zařízení nebylo možné nastavit datum a čas
+Counter type: Typ měřiče
+Curtain: Závěs
+Dark mode: Tmavý režim
+Data: Údaje
+Date range: Rozsah dat
+Daytime criteria: Kritéria založená na délce dne
+Dependencies: Závislosti
+'Device GUID: %deviceGuid%': 'GUID zařízení: %deviceGuid%'
+Device identification is unsupported in the firmware.: Identifikace zařízení není ve firmwaru podporována.
+Device settings: Nastavení zařízení
+Device should be restarting now.: Zařízení by se mělo restartovat.
+Device time has been set.: Datum a čas zařízení byly nastaveny.
+Different than on master thermostat.: Nastavení se liší od nastavení na hlavním termostatu.
+Differential thermostat: Diferenciální termostat
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Chcete nastavit kanály závislé na tomto termostatu (například teploměry a čidla) tak, aby byly stejné jako v hlavním termostatu?
+Domestic hot water: Teplá voda v domácnosti
+Dryer: Vysoušeč
+Edit area crop: Upravit oblast
+Edit program settings: Úprava nastavení programu
+Electricity meter active power history: Historie výkonu elektroměru
+Electricity meter current history: Historie intenzity měření elektřiny
+Electricity meter voltage aberrations history: Historie odchylky napětí elektroměru
+Electricity meter voltage history: Historie napětí elektroměru
+Enable floor temperature control: Aktivace regulace teploty podlahy
+Enable generic cooler temperature control: Aktivace regulace teploty zdroje chlazení
+Enable generic heater temperature control: Aktivace regulace teploty zdroje tepla
+Enable power status LED: Aktivace LED diody stavu napájení
+Enable support for OCR readings for this channel: Aktivace podpory pro rozpoznání OCR tohoto kanálu
+Enable water temperature control: Aktivace regulace teploty vody
+Example value: Příklad
+Expand: Rozbalit
+Expand or stop: Rozbalit nebo zastavit
+Expand partially: Částečně rozbalit
+Expected maximum increment: Očekávané maximální zvýšení
+External sensor disabling the thermostat: Externí čidlo pro vypnutí termostatu
+Facade blind operation: Fasádní žaluzie
+Fan: Větrný mlýn
+'Field: {propertyPath}.': 'Pole {propertyPath}.'
+Fill missing data: Doplňte chybějící měření
+Firmware: Firmware
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tohoto zařízení odesílá oznámení v rámci tohoto kanálu. Zde můžete nastavit obsah a příjemce. Další informace získáte od dodavatele zařízení.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tohoto zařízení odesílá oznámení. Zde můžete nastavit obsah a příjemce. Další informace získáte od dodavatele zařízení.
+For a period: Za období
+Forced off by sensor: Vynucené vypnutí senzorem
+Full tilting time: Celková doba změny sklonu
+Function disabled: Funkce vypnuta
+General purpose meter: Kanál měřiče pro všeobecné použití
+HVAC: HVAC
+Heat or cold source switch: Přepínač pro zdroj tepla nebo chladu
+Heat to: Zahřátí na
+Heating / ventilation / air conditioning: topení / větrání / klimatizace (HVAC)
+Heating mode: Režim topení
+'Heating: {percent}%': 'topení: {percent}%'
+High threshold: Vysoký práh
+High value: Maximální hodnota
+History: Historie
+Home screen content: Obsah hlavní obrazovky
+Hotel card sensor: Snímač hotelové karty
+Identify device: Identifikace zařízení
+Identify request sent.: Žádost o identifikaci byla odeslána.
+If you confirm the installation and wish to unlock this device, please click the link below.: Pokud se snažíte přidat nové zařízení, klikněte na odkaz níže a potvrďte odemknutí.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Pokud se zařízení nesnažíte odemknout vy, tento e-mail ignorujte. Platnost potvrzovacího odkazu automaticky vyprší po 24 hodinách.
+Image area crop: Oblast obrázku
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Chcete-li minimalizovat riziko nesprávného odečtu, nastavte maximální očekávaný přírůstek hodnoty počítadla mezi po sobě jdoucími snímky.
+Increment and decrement: Vzestupný a sestupný
+Installer e-mail address: E-mailová adresa instalatéra
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Zařízení zaregistrovalo kanál jiného typu ({typeCaption} - {typeId}) místo aktuálního.
+Invalid e-mail address.: Neplatná e-mailová adresa.
+Invalid unlock code.: Nesprávné odblokování odkazu.
+Last paired device: Poslední spárované zařízení
+Light mode: Jasný režim
+Lighting level: Úroveň osvětlení
+Lighting mode: Režim osvětlení
+List of available variables: Seznam dostupných proměnných
+Locked: Zablokovaný
+Low threshold: Nízký práh
+Low threshold must be less than high threshold.: Nízký práh musí být nižší než vysoký práh
+Low value: Minimální hodnota
+Main thermometer: Hlavní teploměr
+Master thermostat: Nadřazený termostat
+Max: Max.
+Maximum duration is one year.: Maximální doba je jeden rok.
+Maximum temperature that can be set from the device: Maximální teplota, kterou lze nastavit pomocí zařízení
+Measurement settings: Nastavení měření
+Min: Min.
+Minimum OFF time before cooling can be turned on: Minimální doba VYPNUTÍ před opětovným spuštěním chlazení
+Minimum OFF time before heating can be turned on: Minimální doba VYPNUTÍ před opětovným spuštěním topení
+Minimum OFF time before heating/cooling can be turned on: Minimální doba VYPNUTÍ před opětovným spuštěním chlazení/topení
+Minimum ON time before cooling can be turned off: Minimální doba ZAPNUTÍ, než se chlazení opět vypne
+Minimum ON time before heating can be turned off: Minimální doba ZAPNUTÍ, než se topení opět vypne
+Minimum ON time before heating/cooling can be turned off: Minimální doba ZAPNUTÍ před opětovným vypnutím chlazení/topení
+Minimum temperature must be lower than maximum temperature.: Minimální teplota musí být nižší než maximální teplota.
+Minimum temperature that can be set from the device: Minimální teplota, kterou lze nastavit pomocí zařízení
+'Mode: cool': 'Režim: chlazení'
+'Mode: heat': 'Režim: topení'
+'Mode: off': 'Režim: vypnuto'
+Motor upside down: Invertované řízení motoru
+'No': 'Ne'
+No results: Žádné výsledky
+Notification body is set by the firmware.: Obsah oznámení nastavuje firmware.
+Notification must have recipients.: Oznámení musí mít příjemce.
+Notification title is set by the firmware.: Hlavička oznámení je nastavena firmwarem.
+Notifications (defined): Oznámení (definováno)
+Notifications (sent per hour): Oznámení (odeslaná za hodinu)
+'OCR service responded with error: {status}': 'Služba OCR odpověděla chybou: {status}'
+OCR settings: Nastavení OCR
+OR: NEBO
+Off with duration: Čas vypnutí
+On with duration: Čas zapnutí
+Open value: Hodnota pro otevření
+Output value on error: Stav výstupu při chybě
+Overheat protection: Ochrana před přehřátím
+P/C: P/C
+Pair new devices or sensors: Párování nových zařízení nebo snímačů
+Pairing request sent.: Žádost o spárování odeslána.
+Pairing subdevices is unsupported in the firmware.: Párování není podporováno softwarem zařízení.
+Phase LED type: Indikátor fáze LED
+Photo interval: Interval snímání fotografií
+Please find the device details below.: Podrobnosti o zařízení naleznete níže.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Upozorňujeme, že dané zařízení je určeno pouze pro certifikované montážní firmy.
+Please provide the installer e-mail address to request the device unlock.: Chcete-li zařízení odemknout, zadejte e-mailovou adresu, která byla zadána při získávání instalačního certifikátu.
+Please select and configure the action: Vyberte a nakonfigurujte akci.
+Program {programNo}: Program {programNo}
+Projector screen: Promítací plátno
+Pump switch: Spínač čerpadla
+Push notifications limit has been exceeded: Limit pro push oznámení byl překročen
+Reference to the channel will be removed from the items below.: Odkazování na tento kanál bude z následujících kanálů odstraněno.
+Refresh interval: Interval obnovení
+Refresh the config: Obnovení konfigurace
+Refreshing the configuration will overwrite the changes you made here.: Obnovení konfigurace přepíše změny provedené ve formuláři.
+Reload last photo: Znovu načíst poslední fotografii
+Remote restart is unsupported in the firmware.: Software zařízení nepodporuje vzdálený restart.
+Remove this item: Odstranění tohoto prvku
+Request device unlock: Žádost o odemknutí zařízení
+Reset to defaults: Obnovení výchozích hodnot
+Restart device: Restartování zařízení
+Restart the device: Restartování zařízení
+Reveal or stop: Odhalit nebo zastavit
+Roller garage door: Garážová brána
+S/N: S/N
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Odblokování zařízení pro certifikovaného instalatéra
+SUPLA – your device has been unlocked!: SUPLA - Vaše zařízení bylo odemčeno!
+Same as on master thermostat.: Stejné nastavení jako na hlavním termostatu.
+Screen brightness: Jas obrazovky
+Selected: Vybráno
+Set HVAC parameters: Nastavení parametrů
+Set the device time: Na zařízení nebylo možné nastavit datum a čas
+Settings: Nastavení
+Settings have not been saved!: Nastavení nebyla uložena!
+Show data: Zobrazit data
+Shut or stop: Zakrýt nebo zastavit
+Some features depend on this channel: Některé funkce závisí na tomto kanálu
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Některé shromážděné údaje pro váš účet budou po určité době pravidelně vymazány. Seznamte se s níže uvedenými limity.
+Status LED: Stav LED
+Store active power history: Uchovávejte historii činného výkonu
+Store current history: Uchovávejte aktuální historii
+Store voltage history: Uchovávejte historii napětí
+'Subdevice #{id}': 'Subdodavatelské zařízení #{id}'
+Subfunction: Podfunkce
+Switch to manual mode: Přepnutí do manuálního režimu
+Switch to program mode: Přepnutí do programového režimu
+THEN: POTÉ
+Take a photo now: Vyfoťte se nyní
+Temperature adjustment only: Pouze nastavení teploty
+Temperature difference is too big between {min}°C and {max}°C.: Rozdíl teplot mezi {min} °C a {max} °C je příliš velký.
+Temperature setpoint change switches to manual mode: Změna cílové teploty přepne do ručního režimu
+Temporal override: Dočasné přepsání
+Terrace awning: Markýza na terasu
+The channel has been deleted.: Kanál byl odstraněn.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfigurace byla změněna z jiného místa (např. z jiného okna prohlížeče, mobilní aplikace nebo zařízení). Před provedením dalších změn je třeba obnovit konfiguraci.
+The device could not be unlocked.: Zařízení nebylo možné odemknout.
+The device has been unlocked already.: Zařízení je již odemčené.
+The device has been unlocked.: Zařízení bylo odemčeno.
+The device has channel conflict and cannot work.: Zařízení vyvolalo konflikt kanálů a nemůže v současné době pracovat.
+The device is locked: Zařízení je zablokováno
+The following channels will be also removed along with their dependencies.: Následující kanály budou také odstraněny spolu s jejich závislostmi.
+The items below rely on this channel, so they will be deleted.: Následující položky závisí na tomto kanálu, proto budou odstraněny.
+The master termostat you chose already has a master.: Vybraný hlavní termostat již má jiný hlavní termostat.
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reakce bude aktivní, pokud jsou splněny všechny následující podmínky. Pokud nastavíte všechny dostupné možnosti, reakce se aktivuje pouze mezi vybranými daty, ve vybraných časech a dnech v týdnu a při splnění jedné z referenčních hodnot západu nebo východu slunce.
+The thermostat will not work if the main thermometer is not set.: Aby termostat fungoval, musí být nastaven hlavní teploměr.
+Thermometer error: Chyba teploměru
+Thermometers configuration: Konfigurace teploměrů
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Tento termostat používá nastavení z hlavního termostatu. Přejděte na stránku s podrobnostmi a změňte nastavení.
+Thermostat programs: Programy termostatu
+This action will result in restarting the device. It will not be available for a while.: Při zadání této operace se zařízení restartuje. Během restartu bude zařízení nedostupné.
+This channel was missing during last device registration attempt.: Tento kanál v zařízení chybí.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Tento spotřebič je určen k distribuci a instalaci pouze autorizovanými instalatéry. Pokud nejste autorizovaným instalatérem SUPLA a nemáte aktivní certifikát o školení, vraťte jej svému prodejci.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Toto je poslední fotografie nahraná ze zařízení. Označte přesnou oblast, kde jsou číslice počítadla viditelné.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Jedná se o seznam reakcí spuštěných na vašem účtu. Pokud chcete přidat novou reakci, přejděte do podrobností kanálu, který ji má spustit.
+This thermostat is controlled by another device.: Tento termostat je řízen hlavním termostatem.
+Tilt angle: Úhel sklonu
+Tilt control type: Typ řízení sklonu
+Tilt percent: Procento sklonu
+Time: Čas
+Today, it would be active from {from} to {to}.: Dnes by období aktivity spadalo do období mezi {from} a {to}.
+Turn off: Vypnout
+Unlock the device: Odblokujte zařízení
+Unlocked: Odblokované
+Until a date and time: Až do
+Until the next change: Do příští změny
+Use device default: Použijte výchozí hodnotu ze zařízení
+Use working schedule for this reaction: Pro tuto odpověď použijte plán činností
+Use {theMasterThermostat} to control this device.: K ovládání tohoto zařízení použijte {theMasterThermostat}.
+Used current transformer type: Použitý transformátor proudu
+User interface: Počítačové rozhraní
+Value divider: Rozdělovač
+Value multiplier: Násobitel
+Vertical blind: Vertikální žaluzie
+Visit the master thermostat page.: Přejděte k hlavnímu termostatu.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Obdrželi jsme žádost o odblokování zařízení určeného pouze pro certifikované instalatéry. Požadavek byl odeslán uživatelem %deviceUserEmail% z instance služby SUPLA Cloud na adrese %targetCloudUrl%.
+Week: Týden
+Weekly schedule: Týdenní plán
+When the alarm is armed: Když je alarm zapnutý
+When the alarm is armed or disarmed: Když je alarm vypnutý nebo zapnutý
+When the alarm is disarmed: Když je alarm vypnutý
+When the battery cover is opened: Po otevření krytu baterie
+When the clock error has been reported: Když časovač ohlásí chybu
+When the curtain position changes: Při změně polohy závěsu
+When the curtain reaches: Když opona dosáhne
+When the curtain reaches a certain position: Když závěs dosáhne určité polohy
+When the facade blind position changes: Při změně polohy fasádní žaluzie
+When the facade blind reaches: Když fasádní žaluzie dosáhne
+When the facade blind reaches a certain position: Když fasádní žaluzie dosáhne určité polohy
+When the hotel card has been taken: Při vyjmutí hotelové karty
+When the hotel card is put in: Po vložení hotelové karty
+When the hotel card is put in or has been taken: Při vložení nebo vyjmutí hotelové karty
+When the meter reaches a certain value: Když počitadlo dosáhne nastavené hodnoty
+When the meter value changes: Když se změní hodnota
+When the meter value will be: Když je hodnota
+When the projector screen position changes: Při změně polohy promítacího plátna
+When the projector screen reaches: Když projekční plocha dosáhne
+When the projector screen reaches a certain position: Když projekční plocha dosáhne určité polohy.
+When the pump is turned off: Když je čerpadlo vypnuté
+When the pump is turned on: Když je čerpadlo zapnuté
+When the pump is turned on or off: Při zapnutí nebo vypnutí čerpadla
+When the roller garage door a certain position: Když garážová vrata dosáhnou určité polohy
+When the roller garage door position changes: Při změně polohy garážových vrat
+When the roller garage door reaches: Když garážová vrata dosáhnou
+When the roller shutter calibration failed: Pokud kalibrace rolety skončí chybou.
+When the roller shutter calibration has been lost: Pokud se kalibrace rolet nemůže dokončit.
+When the roller shutter calibration has started: Po zahájení kalibrace rolety
+When the roller shutter motor reported a problem: Když motor rolety nahlásí problém.
+When the terrace awning position changes: Při změně polohy markýzy na terase
+When the terrace awning reaches: Když markýza na terase dosáhne
+When the terrace awning reaches a certain position: Když markýza na terase dosáhne určité polohy.
+When the thermometer error has been reported: Když teploměr hlásí chybu
+When the thermostat starts cooling: Když termostat začne chladit
+When the thermostat starts heating: Když termostat začne hřát
+When the thermostat starts heating or cooling: Když termostat spustí chlazení nebo topení
+When the thermostat starts or stops cooling: Když termostat spustí nebo zastaví chlazení
+When the thermostat starts or stops heating: Když termostat spustí nebo zastaví topení
+When the thermostat starts or stops heating or cooling: Když termostat spustí nebo zastaví topení nebo chlazení.
+When the thermostat stops cooling: Když termostat přestane chladit
+When the thermostat stops heating: Když termostat přestane topit
+When the thermostat stops heating or cooling: Když termostat přestane chladit nebo topit
+When the vertical blind position changes: Při změně polohy vertikální žaluzie
+When the vertical blind reaches: Když vertikální žaluzie dosáhne
+When the vertical blind reaches a certain position: Když vertikální žaluzie dosáhne určité polohy
+Will be deleted after: Odstranění po
+With a timer: S časovačem
+'Yes': 'Ano'
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Zde můžete nastavit relativní hodnoty. Například +10 nebo -20 zvýší nastavení o 10, resp. sníží o 20.
+You cannot to set a master thermostat for a channel that is master for others.: V hlavním termostatu nelze nastavit hlavní termostat.
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Žádost byla odeslána. Po schválení instalace a odemčení zařízení vás budeme informovat.
+You need to provide icons for all states in light mode.: Pro všechny stavy v jasném režimu je nutné zadat ikony.
+Your device has been unlocked by the installer.: Vaše zařízení bylo odemčeno instalátorem.
+and wait until the meter will be: a neprovádějte tuto reakci znovu, dokud se hodnota
+auxThermometerType_DISABLED: Vypnutý
+auxThermometerType_FLOOR: Podlaha
+auxThermometerType_GENERIC_COOLER: Zdroj chladu
+auxThermometerType_GENERIC_HEATER: Zdroj tepla
+auxThermometerType_NOT_SET: Není nastaveno
+auxThermometerType_WATER: Voda
+blue, otherwise: jinak modrá
+blue, when voltage lower than the low threshold: modrá, když je napětí pod nízkou prahovou hodnotou
+choose the currency: Vyberte měnu
+configuration missing: žádná konfigurace
+cool: chlazení
+day: den
+default: výchozí
+green, otherwise: jinak zelená
+green, when power less than the low threshold: zelená, když je výkon nižší než spodní práh.
+heat: topení
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Primární a sekundární teplota
+homeScreenContent_NONE: Neuvedeno
+homeScreenContent_TEMPERATURE: Teplota
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Teplota a vlhkost
+homeScreenContent_TEMPERATURE_TIME: Teplota a čas
+homeScreenContent_TIME: Čas
+homeScreenContent_TIME_DATE: Datum a čas
+hour: hod.
+keepHistoryMeasurementWarningSelected: Jste si jistý, že tento příběh potřebujete? Supla je projekt s open source kódem, který je udržován z vlastních prostředků. Pokud tento příběh nepotřebujete, pomozte nám ušetřit cenné místo v úložišti a nechte tuto možnost vypnutou.
+max: max.
+midnight: sever
+milliseconds: milisekundy
+min: min.
+ocrLightingMode_ALWAYS_ON: Vždy zapnuto
+ocrLightingMode_AUTO: Automaticky
+ocrLightingMode_OFF: Vypnutá
+'off': 'Vypnout'
+red, when power higher than the high threshold: červená, když je výkon nad vysokým prahem
+red, when voltage higher than the high threshold: červená, když je napětí vyšší než vysoký práh
+seconds: sekundy
+statusLed_ALWAYS_OFF: Vždy vypnout
+statusLed_OFF_WHEN_CONNECTED: Vypnutí po připojení
+statusLed_ON_WHEN_CONNECTED: Povolit při připojení
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Neznámý výsledek
+subdevicePairingResult_NOT_STARTED_BUSY: Zařízení je obsazeno
+subdevicePairingResult_NOT_STARTED_NOT_READY: Zařízení není připraveno
+subdevicePairingResult_NOT_SUPPORTED: Nepodporovaná operace
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Nebylo nalezeno žádné nové vybavení
+subdevicePairingResult_ONGOING: V průběhu
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Neznámý výsledek odpařování
+subdevicePairingResult_PROCEDURE_STARTED: Zahájení postupu
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Překročení limitu prostředků
+subdevicePairingResult_SUCCESS: Úspěch
+subdevicePairingResult_UNAUTHORIZED: Neúspěšná autorizace
+sunrise: východ slunce
+sunset: západ slunce
+swap: swap
+the master thermostat ID{id}: ID{id} hlavního termostatu
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Zapnuto/vypnuto s horním nastavením
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Zapnuto/vypnuto se středním nastavením
+thermostatAlgorithm_PID: PID
+thermostatAlgorithm_help: |
+  Algoritmy zapnutí/vypnutí fungují na základě nastavení hystereze. Hystereze se může vztahovat ke středu jejího rozsahu (střední nastavení) nebo k nastavené teplotě (horní nastavení).
+  Například za předpokladu hystereze 1 °C a cílové teploty 23 °C termostat:
+  - zapne topení při 22,5 °C a zastaví, když teplota dosáhne 23,5 °C pro střední nastavení 
+  - zapne topení při 22 °C a zastaví, když teplota dosáhne 23 °C pro horní nastavení
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: ~
-thermostatSubfunction_HEAT: ~
-thermostatTemperature_aboveAlarm: ~
-thermostatTemperature_auxMaxSetpoint: ~
-thermostatTemperature_auxMinSetpoint: ~
-thermostatTemperature_belowAlarm: ~
-thermostatTemperature_boost: ~
-thermostatTemperature_comfort: ~
-thermostatTemperature_eco: ~
-thermostatTemperature_freezeProtection: ~
-thermostatTemperature_heatProtection: ~
-thermostatTemperature_histeresis: ~
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: ~
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: ~
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: ~
-tiltControlType_UNKNOWN: ~
-timeMarginMode_custom: ~
-timeMarginMode_device: ~
-timeMarginMode_off: ~
-usedCTType_100A_33mA: ~
-usedCTType_200A_66mA: ~
-usedCTType_400A_133mA: ~
-usedPhaseLedType_OFF: ~
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
-usedPhaseLedType_VOLTAGE_LEVEL: ~
-usedPhaseLedType_VOLTAGE_PRESENCE: ~
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
-'{count} minutes after sunrise': ~
-'{count} minutes after sunset': ~
-'{count} minutes before sunrise': ~
-'{count} minutes before sunset': ~
-'{days} days': ~
-
+thermostatSubfunction_COOL: Chlazení
+thermostatSubfunction_HEAT: Ohřívání
+thermostatTemperature_aboveAlarm: Nad alarmem
+thermostatTemperature_auxMaxSetpoint: Maximální pomocná teplota
+thermostatTemperature_auxMinSetpoint: Minimální pomocná teplota
+thermostatTemperature_belowAlarm: Pod alarmem
+thermostatTemperature_boost: Zvýšení teploty
+thermostatTemperature_comfort: Komfortní teplota
+thermostatTemperature_eco: Teplota ECO
+thermostatTemperature_freezeProtection: Teplota ochrany proti zamrznutí
+thermostatTemperature_heatProtection: Teplota ochrany proti přehřátí
+thermostatTemperature_histeresis: Hystereze
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Změna polohy při změně náklonu
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Nemění polohu při změně náklonu
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: mění výšku tónu pouze při úplném zavření
+tiltControlType_UNKNOWN: Neznámý
+timeMarginMode_custom: Nestandardní
+timeMarginMode_device: Výchozí hodnota ze zařízení
+timeMarginMode_off: Vypnutý
+usedCTType_100A_33mA: 100 A/33,3 mA
+usedCTType_200A_66mA: 200 A/66,6 mA
+usedCTType_400A_133mA: 400 A/133,3 mA
+usedPhaseLedType_OFF: Vypnutá
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Směr toku energie
+usedPhaseLedType_VOLTAGE_LEVEL: Úroveň napětí
+usedPhaseLedType_VOLTAGE_PRESENCE: Přítomnost napětí
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Přítomnost napětí (invertované)
+'{count} minutes after sunrise': '{count} minut po východu slunce'
+'{count} minutes after sunset': '{count} minut po západu slunce'
+'{count} minutes before sunrise': '{count} minut před východem slunce'
+'{count} minutes before sunset': '{count} minut před západem slunce'
+'{days} days': '{days} dnech'
 #</editor-fold>
