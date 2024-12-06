@@ -515,12 +515,12 @@ No of devices: عدد الأجهزة
 No of operations: عدد العمليات
 No schedule configuration.: لم يتم تحديد تكوين الجدول الزمني.
 No, take me back!: لا، أخرجني من هنا!
-No. of Client’s apps: عدد طلبات العميل
-No. of access identifiers: عدد معرفات الوصول
-No. of channel groups: عدد مجموعات القنوات
-No. of channels: عدد القنوات
-No. of devices: عدد الاجهزة
-No. of locations: عدد المواقع
+No{'.'} of Client’s apps: عدد طلبات العميل
+No{'.'} of access identifiers: عدد معرفات الوصول
+No{'.'} of channel groups: عدد مجموعات القنوات
+No{'.'} of channels: عدد القنوات
+No{'.'} of devices: عدد الاجهزة
+No{'.'} of locations: عدد المواقع
 None: لا يوجد
 None (channel disabled): لا يوجد (إيقاف تشغيل القناة)
 Noop: عدم وجود إجراء
@@ -710,7 +710,7 @@ SoftVer: WerOpr
 Some features depend on this channel group: تعتمد بعض الوظائف على هذه المجموعة من القنوات.
 Some features depend on this device: تعتمد بعض الوظائف على هذا الجهاز
 Some features depend on this scene: تعتمد بعض الوظائف على هذا المشهد.
-Some of the features you have configured rely on channels from this device.: تستخدم بعض الوظائف قنوات من هذا الجهاز.
+Some of the features you have configured depend on channels from this device.: تستخدم بعض الوظائف قنوات من هذا الجهاز.
 Staircase timer: الدرج الآلي
 Start Here: ابدأ هنا
 Start date: تاريخ البدء
@@ -755,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: يجب أن يعمل مستشعر فتح البوابة بشكل صحيح لتنفيذ إجراء "فتح" أو "إغلاق".
 The gate sensor must function properly in order to execute the scheduled action.: لتنفيذ الإجراء، يجب أن يعمل مستشعر فتح البوابة بشكل صحيح.
 The incident was detected at %datetime%.: حدث الحدث %datetime%.
-The items below rely on this channel function, so they will be deleted.: تستند العناصر التالية إلى وظيفة القناة الحالية، لذلك ستتم حذفها عند تغييرها.
-The items below rely on this channel group, so they will be deleted.: تستخدم العناصر التالية مجموعة القنوات هذه، لذلك عند حذفها، سيتم حذفها أيضا.
-The items below rely on this scene, so they will be deleted.: تستند العناصر التالية إلى هذا المشهد، لذلك سيتم حذفها.
+The items below depend on this channel function, so they will be deleted.: تستند العناصر التالية إلى وظيفة القناة الحالية، لذلك ستتم حذفها عند تغييرها.
+The items below depend on this channel group, so they will be deleted.: تستخدم العناصر التالية مجموعة القنوات هذه، لذلك عند حذفها، سيتم حذفها أيضا.
+The items below depend on this scene, so they will be deleted.: تستند العناصر التالية إلى هذا المشهد، لذلك سيتم حذفها.
 The latest execution: آخر إجراء
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: يتم تقديم نتيجة التنفيذ كموقع ويب لأنك (أو متصفحك) طلبت إجابة بتنسيق HTML.
 The measurement history has been deleted.: تم حذف سجل القياسات.
@@ -1494,7 +1494,7 @@ The device has been unlocked.: تم إلغاء قفل الجهاز.
 The device has channel conflict and cannot work.: أنشأ الجهاز تعارضاً في القنوات ولا يمكن تشغيله حالياً.
 The device is locked: الجهاز مقفول
 The following channels will be also removed along with their dependencies.: ستتم إزالة القنوات التالية أيضًا مع توابعها.
-The items below rely on this channel, so they will be deleted.: تعتمد العناصر التالية على هذه القناة، لذلك ستتم إزالتها.
+The items below depend on this channel, so they will be deleted.: تعتمد العناصر التالية على هذه القناة، لذلك ستتم إزالتها.
 The master termostat you chose already has a master.: ثرموستات الماستر الذي قمت بتحديده له ثرموستات ماستر آخر بالفعل
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: سيكون التفاعل نشطا عند استيفاء جميع الشروط التالية. إذا قمت بتعيين جميع الخيارات المتاحة، فلن يتم تنشيط التفاعل إلا بين التواريخ المحددة، وفي الأوقات والأيام المحددة من الأسبوع، وعند استيفاء أحد مراجع غروب الشمس أو شروقها.
 The thermostat will not work if the main thermometer is not set.: يجب ضبط الثرموستات الرئيسي لكي يعمل الثرموستات.

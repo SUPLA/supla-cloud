@@ -515,12 +515,12 @@ No of devices: Número de dispositivos
 No of operations: Número de operaciones
 No schedule configuration.: No se especificó ninguna configuración de horario.
 No, take me back!: ¡No, sácame de aquí!
-No. of Client’s apps: Número de aplicaciones de cliente
-No. of access identifiers: Número de identificadore de acceso
-No. of channel groups: Número de conjuntos de canales
-No. of channels: Número de canales
-No. of devices: Número de dispositivos
-No. of locations: Número de localizaciones
+No{'.'} of Client’s apps: Número de aplicaciones de cliente
+No{'.'} of access identifiers: Número de identificadore de acceso
+No{'.'} of channel groups: Número de conjuntos de canales
+No{'.'} of channels: Número de canales
+No{'.'} of devices: Número de dispositivos
+No{'.'} of locations: Número de localizaciones
 None: No hay
 None (channel disabled): Ninguno (canal apagado)
 Noop: Ninguna operación
@@ -710,7 +710,7 @@ SoftVer: VerSoft
 Some features depend on this channel group: Algunas funcionalidades dependen de este grupo de canales.
 Some features depend on this device: Algunas funcionalidades dependen de este dispositivo
 Some features depend on this scene: Algunas funciones dependen de esta escena.
-Some of the features you have configured rely on channels from this device.: Algunas funcionalidades utilizan canales de este dispositivo.
+Some of the features you have configured depend on channels from this device.: Algunas funcionalidades utilizan canales de este dispositivo.
 Staircase timer: Automático de escalera
 Start Here: Inicia aquí
 Start date: Fecha de inicio
@@ -755,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: El sensor de la apertura de la cancela tiene que funcionar correctamente para realizar la acción de Abrir o Cerrar.
 The gate sensor must function properly in order to execute the scheduled action.: El sensor de apertura de la puerta debe funcionar correctamente para poder realizar esta acción.
 The incident was detected at %datetime%.: El evento sucedió %datetime%.
-The items below rely on this channel function, so they will be deleted.: Los siguientes elementos se basan en la función del canal actual, por lo que se eliminarán cuando esta función se modifique.
-The items below rely on this channel group, so they will be deleted.: Los siguientes elementos utilizan este grupo de canales, por lo que cuando lo elimines, también se eliminarán.
-The items below rely on this scene, so they will be deleted.: Los elementos a continuación se basan en esta escena, por lo que se eliminarán.
+The items below depend on this channel function, so they will be deleted.: Los siguientes elementos se basan en la función del canal actual, por lo que se eliminarán cuando esta función se modifique.
+The items below depend on this channel group, so they will be deleted.: Los siguientes elementos utilizan este grupo de canales, por lo que cuando lo elimines, también se eliminarán.
+The items below depend on this scene, so they will be deleted.: Los elementos a continuación se basan en esta escena, por lo que se eliminarán.
 The latest execution: Última ejecución
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: El resultado de la acción se presenta como página web, dado que Tu (o Tu buscadora) has solicitado la respuesta en el formato HTML.
 The measurement history has been deleted.: El historial de mediciones ha sido eliminado.
@@ -1491,7 +1491,7 @@ The device has been unlocked.: El dispositivo ha sido desbloqueado.
 The device has channel conflict and cannot work.: El dispositivo ha generado un conflicto de canales y no puede funcionar en este momento.
 The device is locked: Dispositivo bloqueado
 The following channels will be also removed along with their dependencies.: También se eliminarán los siguientes canales junto con sus dependencias.
-The items below rely on this channel, so they will be deleted.: Los siguientes elementos dependen de este canal, por lo que serán eliminados.
+The items below depend on this channel, so they will be deleted.: Los siguientes elementos dependen de este canal, por lo que serán eliminados.
 The master termostat you chose already has a master.: El termostato principal que has seleccionado ya tiene otro termostato principal
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: La respuesta estará activa cuando se cumplan todas las condiciones siguientes. Si configures todas las opciones disponibles, la reacción sólo se activará entre las fechas seleccionadas, a las horas y días de la semana seleccionados y cuando se cumpla una de las referencias de puesta o salida del sol.
 The thermostat will not work if the main thermometer is not set.: El termómetro principal debe estar ajustado para que el termostato funcione.

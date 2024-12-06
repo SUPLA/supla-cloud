@@ -515,12 +515,12 @@ No of devices: Số lượng thiết bị
 No of operations: Số lượng hoạt động
 No schedule configuration.: Chưa cài đặt lịch trình chiếu
 No, take me back!: Không, đưa tôi ra khỏi đây!
-No. of Client’s apps: Số ứng dụng Client's Apps
-No. of access identifiers: Số định danh truy cập
-No. of channel groups: Số kênh nhóm
-No. of channels: Số kênh
-No. of devices: Số thiết bị
-No. of locations: Số khu vực
+No{'.'} of Client’s apps: Số ứng dụng Client's Apps
+No{'.'} of access identifiers: Số định danh truy cập
+No{'.'} of channel groups: Số kênh nhóm
+No{'.'} of channels: Số kênh
+No{'.'} of devices: Số thiết bị
+No{'.'} of locations: Số khu vực
 None: không
 None (channel disabled): Không có (kênh đang tắt)
 Noop: Không có hoạt động
@@ -710,7 +710,7 @@ SoftVer: Phiên bản phần mềm
 Some features depend on this channel group: Một số chức năng không thuộc nhóm kênh này.
 Some features depend on this device: Một số chức năng không thuộc thiết bị này.
 Some features depend on this scene: Một số tính năng nằm trong hoạt cảnh này.
-Some of the features you have configured rely on channels from this device.: Một số chức năng sử dụng kênh thuộc thiết bị này.
+Some of the features you have configured depend on channels from this device.: Một số chức năng sử dụng kênh thuộc thiết bị này.
 Staircase timer: Hẹn giờ cầu thang
 Start Here: Bắt đầu ở đây
 Start date: Ngày bắt đầu
@@ -755,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Cảm biến mở cổng phải hoạt động tốt để thực hiện hành động Mở hoặc Đóng.
 The gate sensor must function properly in order to execute the scheduled action.: Cảm biến cổng phải hoạt động đúng để thực hiện hành động theo lịch trình
 The incident was detected at %datetime%.: Sử việc sảy ra vào %datetime%.
-The items below rely on this channel function, so they will be deleted.: Các mục sau dựa trên các chức năng của kênh, nên cũng sẽ bị xóa sau thay đổi.
-The items below rely on this channel group, so they will be deleted.: Các mục sau sử dụng nhóm kênh này, nên cũng sẽ bị xóa sau khi xóa kênh.
-The items below rely on this scene, so they will be deleted.: Các mục dưới đây dựa vào hoạt cảnh này, nên cũng sẽ bị xóa.
+The items below depend on this channel function, so they will be deleted.: Các mục sau dựa trên các chức năng của kênh, nên cũng sẽ bị xóa sau thay đổi.
+The items below depend on this channel group, so they will be deleted.: Các mục sau sử dụng nhóm kênh này, nên cũng sẽ bị xóa sau khi xóa kênh.
+The items below depend on this scene, so they will be deleted.: Các mục dưới đây dựa vào hoạt cảnh này, nên cũng sẽ bị xóa.
 The latest execution: Thực thi mới nhất
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Kết quả liên kết được trình bày dưới dạng trang web thay thế, bởi vì bạn (hoặc trình duyệt của bạn) đã yêu cầu đầu ra HTML..
 The measurement history has been deleted.: Lịch sử đo lường đã được xóa.
@@ -1491,7 +1491,7 @@ The device has been unlocked.: Thiết bị đã được mở khóa.
 The device has channel conflict and cannot work.: Thiết bị đã tạo ra xung đột giữa các kênh và hiện không thể hoạt động.
 The device is locked: Đã chặn thiết bị
 The following channels will be also removed along with their dependencies.: Các kênh sau cũng sẽ bị xóa cùng với các kênh phụ thuộc chúng.
-The items below rely on this channel, so they will be deleted.: Các mục sau đây phụ thuộc vào kênh này, vì vậy chúng sẽ bị xóa.
+The items below depend on this channel, so they will be deleted.: Các mục sau đây phụ thuộc vào kênh này, vì vậy chúng sẽ bị xóa.
 The master termostat you chose already has a master.: Bộ điều chỉnh nhiệt chính bạn đã chọn đã có một bộ điều chỉnh nhiệt chính khác
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Phản ứng sẽ xảy ra khi đáp ứng tất cả các điều kiện sau. Nếu bạn cài đặt chọn tất cả các lựa chọn có sẵn, hoạt động sẽ chỉ bật lên vào các ngày đã chọn, vào khung giờ và ngày trong tuần đã chọn và khi đã điền vào một trong các thông tin phụ lục về hoàng hôn hoặc bình minh.
 The thermostat will not work if the main thermometer is not set.: Nhiệt kế chính phải được đặt để bộ điều chỉnh nhiệt hoạt động.

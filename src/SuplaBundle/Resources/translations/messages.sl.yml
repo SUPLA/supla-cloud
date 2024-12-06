@@ -515,12 +515,12 @@ No of devices: Število naprav
 No of operations: Število operacij
 No schedule configuration.: Konfiguracija urnika ni bila dodana.
 No, take me back!: Ne, hočem stran!
-No. of Client’s apps: Število odjemalskih aplikacij
-No. of access identifiers: Število identifikatorjev dostopa
-No. of channel groups: Število skupin kanalov
-No. of channels: Število kanalov
-No. of devices: Število naprav
-No. of locations: Število lokacij
+No{'.'} of Client’s apps: Število odjemalskih aplikacij
+No{'.'} of access identifiers: Število identifikatorjev dostopa
+No{'.'} of channel groups: Število skupin kanalov
+No{'.'} of channels: Število kanalov
+No{'.'} of devices: Število naprav
+No{'.'} of locations: Število lokacij
 None: Ni prisotna
 None (channel disabled): Brez (kanal izklopljen)
 Noop: Brez operacij
@@ -710,7 +710,7 @@ SoftVer: WerOpr
 Some features depend on this channel group: Nekatere funkcije so odvisne od te skupine kanalov.
 Some features depend on this device: Nekatere funkcije so odvisne od te naprave
 Some features depend on this scene: Nekatere funkcije so odvisne od te scene.
-Some of the features you have configured rely on channels from this device.: Nekatere funkcije uporabljajo kanale te naprave.
+Some of the features you have configured depend on channels from this device.: Nekatere funkcije uporabljajo kanale te naprave.
 Staircase timer: Stopniščni avtomat
 Start Here: Začnite tukaj
 Start date: Datum začetka
@@ -755,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Senzor odpiranja vrat mora pravilno delovati, da izvede dejanje Odpri ali Zapri.
 The gate sensor must function properly in order to execute the scheduled action.: Za izvedbo dejanja mora senzor odpiranja vrat pravilno delovati.
 The incident was detected at %datetime%.: Dogodek se je zgodil %datetime%.
-The items below rely on this channel function, so they will be deleted.: Naslednji elementi temeljijo na trenutni funkciji kanala, zato bodo ob spremembi odstranjeni.
-The items below rely on this channel group, so they will be deleted.: Naslednji elementi uporabljajo to skupino kanalov, zato bodo, ko bo skupina odstranjena, izbrisani tudi ti.
-The items below rely on this scene, so they will be deleted.: Spodnji elementi temeljijo na tej sceni, zato bodo odstranjeni.
+The items below depend on this channel function, so they will be deleted.: Naslednji elementi temeljijo na trenutni funkciji kanala, zato bodo ob spremembi odstranjeni.
+The items below depend on this channel group, so they will be deleted.: Naslednji elementi uporabljajo to skupino kanalov, zato bodo, ko bo skupina odstranjena, izbrisani tudi ti.
+The items below depend on this scene, so they will be deleted.: Spodnji elementi temeljijo na tej sceni, zato bodo odstranjeni.
 The latest execution: Zadnja izvršitev
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Rezultat izvajanja je predstavljen kot spletno mesto, ker ste (ali vaš brskalnik) zaprosili za odgovor v obliki HTML.
 The measurement history has been deleted.: Zgodovina meritev je izbrisana.
@@ -1491,7 +1491,7 @@ The device has been unlocked.: Naprava je bila odklenjena.
 The device has channel conflict and cannot work.: Naprava je ustvarila konflikt kanalov in trenutno ne more delovati.
 The device is locked: Naprava je zaklenjena
 The following channels will be also removed along with their dependencies.: Odstranjeni bodo tudi naslednji kanali in njihove odvisnosti.
-The items below rely on this channel, so they will be deleted.: Naslednji elementi so odvisni od tega kanala, zato bodo odstranjeni.
+The items below depend on this channel, so they will be deleted.: Naslednji elementi so odvisni od tega kanala, zato bodo odstranjeni.
 The master termostat you chose already has a master.: Glavni termostat, ki ste ga izbrali, že ima drug glavni termostat.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Odziv bo aktiven, ko bodo izpolnjeni vsi naslednji pogoji. Če nastavite vse razpoložljive možnosti, se bo reakcija aktivirala le med izbranimi datumi, ob izbranih urah in dnevih v tednu ter ob izpolnitvi ene od referenc sončnega zahoda ali vzhoda.
 The thermostat will not work if the main thermometer is not set.: Glavni termometer mora biti nastavljen, da termostat deluje.

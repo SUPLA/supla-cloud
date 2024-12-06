@@ -515,12 +515,12 @@ No of devices: Eszközök száma
 No of operations: Műveletek száma
 No schedule configuration.: Az ütemterv konfigurálása nincs megadva.
 No, take me back!: Nem, vigyél ki innen!
-No. of Client’s apps: Az ügyfélalkalmazások száma
-No. of access identifiers: Hozzáférési azonosítók száma
-No. of channel groups: Csatornacsoportok száma
-No. of channels: Csatornák száma
-No. of devices: Eszközök száma
-No. of locations: Lokálizációk száma
+No{'.'} of Client’s apps: Az ügyfélalkalmazások száma
+No{'.'} of access identifiers: Hozzáférési azonosítók száma
+No{'.'} of channel groups: Csatornacsoportok száma
+No{'.'} of channels: Csatornák száma
+No{'.'} of devices: Eszközök száma
+No{'.'} of locations: Lokálizációk száma
 None: Hiány
 None (channel disabled): Hiány (a csatorna kikapcsolt állapotban van)
 Noop: Hiányzó művelet
@@ -710,7 +710,7 @@ SoftVer: WerOpr
 Some features depend on this channel group: Egyes funkciók ettől a csatorna csoporttól függenek.
 Some features depend on this device: Egyes funkciók ettől a készüléktől függenek.
 Some features depend on this scene: Egyes funkciók ettől a jelenettől függenek.
-Some of the features you have configured rely on channels from this device.: Egyes funkciók a készülék csatornáit használják.
+Some of the features you have configured depend on channels from this device.: Egyes funkciók a készülék csatornáit használják.
 Staircase timer: Lépcsőautomata
 Start Here: Kezdje itt
 Start date: Kezdő dátum
@@ -755,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: A kapu nyitó érzékelőnek rendeltetésszerűen kell működnie ahhoz, hogy a Nyitás Zárás művelet végrehajtása megtörténjen.
 The gate sensor must function properly in order to execute the scheduled action.: A művelet végrehajtásához a kapunyílás-érzékelőnek megfelelően kell működnie.
 The incident was detected at %datetime%.: Az esemény helye %datetime%.
-The items below rely on this channel function, so they will be deleted.: Az alábbi elemek az aktuális csatornafunkción alapulnak, ezért a csatorna módosításakor törlődnek.
-The items below rely on this channel group, so they will be deleted.: Az alábbi elemek ezt a csatornacsoportot használják, így a visszavonással automatikusan törlésre kerülnek.
-The items below rely on this scene, so they will be deleted.: Az alábbi elemek erre a jelenetre épülnek, így törlésre kerülnek.
+The items below depend on this channel function, so they will be deleted.: Az alábbi elemek az aktuális csatornafunkción alapulnak, ezért a csatorna módosításakor törlődnek.
+The items below depend on this channel group, so they will be deleted.: Az alábbi elemek ezt a csatornacsoportot használják, így a visszavonással automatikusan törlésre kerülnek.
+The items below depend on this scene, so they will be deleted.: Az alábbi elemek erre a jelenetre épülnek, így törlésre kerülnek.
 The latest execution: Legutóbbi végrehajtás
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: A megvalósítás eredménye weboldalként jelenik meg, mert Ön (vagy a böngészője) HTML formátumban kért választ.
 The measurement history has been deleted.: A mérési előzményeket törölték.
@@ -1495,7 +1495,7 @@ The device has been unlocked.: A készüléket feloldották.
 The device has channel conflict and cannot work.: A készülék csatornakonfliktust generált, és jelenleg nem működőképes.
 The device is locked: Készülék zárolva
 The following channels will be also removed along with their dependencies.: A következő csatornák szintén törlődnek a kapcsolódó csatornákkal együtt.
-The items below rely on this channel, so they will be deleted.: A következő elemek ehhez a csatornához kapcsolódnak, ezért eltávolításra kerülnek.
+The items below depend on this channel, so they will be deleted.: A következő elemek ehhez a csatornához kapcsolódnak, ezért eltávolításra kerülnek.
 The master termostat you chose already has a master.: Az Ön által kiválasztott főtermosztát egy másik főtermosztáthoz kapcsolódik.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: A művelet akkor aktiválódik, ha az alábbi feltételek mindegyike teljesül. Amennyiben az összes rendelkezésre álló opciót beállítja, a művelet csak a kiválasztott dátumok között, a kiválasztott időpontokban és hétköznapokon aktiválódik, és csak akkor, ha a napnyugtára vagy napkeltére vonatkozó valamely beállítás teljesül.
 The thermostat will not work if the main thermometer is not set.: A fő hőmérőnek be kell állítani ahhoz, hogy a termosztát működjön.

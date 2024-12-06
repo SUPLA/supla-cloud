@@ -515,12 +515,12 @@ No of devices: Numărul de dispozitive
 No of operations: Numărul de operații
 No schedule configuration.: Nu a fost specificată nici o configurație de program.
 No, take me back!: Nu, scoateți-mă de aici!
-No. of Client’s apps: Numărul de aplicații de client
-No. of access identifiers: Numărul de identificatoare de acces
-No. of channel groups: Numărul de grupe de canale
-No. of channels: Numărul de canale
-No. of devices: Numărul de dispozitive
-No. of locations: Numărul de locații
+No{'.'} of Client’s apps: Numărul de aplicații de client
+No{'.'} of access identifiers: Numărul de identificatoare de acces
+No{'.'} of channel groups: Numărul de grupe de canale
+No{'.'} of channels: Numărul de canale
+No{'.'} of devices: Numărul de dispozitive
+No{'.'} of locations: Numărul de locații
 None: Lipsă
 None (channel disabled): Niciuna (canal oprit)
 Noop: Lipsea activității
@@ -710,7 +710,7 @@ SoftVer: WerOpr
 Some features depend on this channel group: Unele funcționalități depind de acest grup de canale.
 Some features depend on this device: Unele funcționalități depind de acest dispozitiv
 Some features depend on this scene: Unele funcționalități depind de această scenă.
-Some of the features you have configured rely on channels from this device.: Unele funcționalități folosesc canale de pe acest dispozitiv.
+Some of the features you have configured depend on channels from this device.: Unele funcționalități folosesc canale de pe acest dispozitiv.
 Staircase timer: Întrerupător automat scară
 Start Here: Începeți aici
 Start date: Data începerii
@@ -755,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Senzorul de deschidere a porții trebuie să funcționeze corect pentru a efectua acțiunea Deschidere sau Închidere.
 The gate sensor must function properly in order to execute the scheduled action.: Pentru a efectua acțiunea, senzorul de deschidere al porții trebuie să funcționeze corect.
 The incident was detected at %datetime%.: Evenimentul a avut loc %datetime%.
-The items below rely on this channel function, so they will be deleted.: Elemente de mai jos se bazează pe funcția curentă a canalului, deci vor fi eliminate atunci când sunt modificate.
-The items below rely on this channel group, so they will be deleted.: Elemente de mai jos folosesc acest grup de canale, așa că atunci când îl ștergeți, vor fi și ele șterse.
-The items below rely on this scene, so they will be deleted.: Elementele de mai jos se bazează pe această scenă, așa că vor fi eliminate.
+The items below depend on this channel function, so they will be deleted.: Elemente de mai jos se bazează pe funcția curentă a canalului, deci vor fi eliminate atunci când sunt modificate.
+The items below depend on this channel group, so they will be deleted.: Elemente de mai jos folosesc acest grup de canale, așa că atunci când îl ștergeți, vor fi și ele șterse.
+The items below depend on this scene, so they will be deleted.: Elementele de mai jos se bazează pe această scenă, așa că vor fi eliminate.
 The latest execution: Ultima executare
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Rezultatul efectuării este prezentat sub forma unui site web, deoarece dvs. (sau browser-ul dvs.) ați solicitat un răspuns în format HTML.
 The measurement history has been deleted.: Istoricul măsurătorilor a fost șters.
@@ -1495,7 +1495,7 @@ The device has been unlocked.: Dispozitivul a fost deblocat.
 The device has channel conflict and cannot work.: Dispozitivul a generat un conflict de canal și nu poate funcționa în prezent.
 The device is locked: Dispozitiv blocat
 The following channels will be also removed along with their dependencies.: Următoarele canale vor fi, de asemenea, eliminate împreună cu dependențele lor.
-The items below rely on this channel, so they will be deleted.: Următoarele elemente depind de acest canal, astfel încât acestea vor fi eliminate.
+The items below depend on this channel, so they will be deleted.: Următoarele elemente depind de acest canal, astfel încât acestea vor fi eliminate.
 The master termostat you chose already has a master.: Termostatul principal pe care l-ați selectat are deja un alt termostat principal
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Răspunsul va fi activ atunci când sunt îndeplinite toate condițiile următoare. Dacă setați toate opțiunile disponibile, reacția se va activa numai între datele selectate, la orele și în zilele săptămânii selectate și atunci când este îndeplinită una dintre referințele de apus sau răsărit.
 The thermostat will not work if the main thermometer is not set.: Termometrul principal trebuie să fie setat pentru ca termostatul să funcționeze.

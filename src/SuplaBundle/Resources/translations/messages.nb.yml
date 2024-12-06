@@ -515,12 +515,12 @@ No of devices: Antall enheter
 No of operations: Antall handlinger
 No schedule configuration.: Ingen tidsplankonfigurasjon ble spesifisert.
 No, take me back!: Nei, få meg ut herfra!
-No. of Client’s apps: Antall kundeapplikasjoner
-No. of access identifiers: Antall tilgang identifikatorer
-No. of channel groups: Antall kanalgrupper
-No. of channels: Antall kanaler
-No. of devices: Antall enheter
-No. of locations: Antall lokaliseringer
+No{'.'} of Client’s apps: Antall kundeapplikasjoner
+No{'.'} of access identifiers: Antall tilgang identifikatorer
+No{'.'} of channel groups: Antall kanalgrupper
+No{'.'} of channels: Antall kanaler
+No{'.'} of devices: Antall enheter
+No{'.'} of locations: Antall lokaliseringer
 None: Mangel
 None (channel disabled): Ingen (kanal av)
 Noop: Ingen drift
@@ -710,7 +710,7 @@ SoftVer: WerOpr
 Some features depend on this channel group: Noe funksjonalitet avhenger av denne gruppen av kanaler.
 Some features depend on this device: Noe funksjonalitet avhenger av denne enheten.
 Some features depend on this scene: Noe funksjonalitet avhenger av denne scenen.
-Some of the features you have configured rely on channels from this device.: Noen funksjoner bruker kanaler fra denne enheten.
+Some of the features you have configured depend on channels from this device.: Noen funksjoner bruker kanaler fra denne enheten.
 Staircase timer: Trappeautomat
 Start Here: Start her
 Start date: Startdato
@@ -755,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Portåpner sensor må fungere riktig for å utføre handlingen Åpne eller Steng.
 The gate sensor must function properly in order to execute the scheduled action.: For å utføre handlingen må portåpner sensor fungere riktig.
 The incident was detected at %datetime%.: Hendelsen skjedde% datetime%.
-The items below rely on this channel function, so they will be deleted.: Følgende elementer er basert på gjeldende kanalfunksjon, så de vil bli fjernet når de endres.
-The items below rely on this channel group, so they will be deleted.: 'Følgende elementer bruker med denne kanalgruppen, så de vil bli fjernes og. '
-The items below rely on this scene, so they will be deleted.: Elementene nedenfor er basert på denne scenen, så de vil bli fjernet.
+The items below depend on this channel function, so they will be deleted.: Følgende elementer er basert på gjeldende kanalfunksjon, så de vil bli fjernet når de endres.
+The items below depend on this channel group, so they will be deleted.: 'Følgende elementer bruker med denne kanalgruppen, så de vil bli fjernes og. '
+The items below depend on this scene, so they will be deleted.: Elementene nedenfor er basert på denne scenen, så de vil bli fjernet.
 The latest execution: Utført sist
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Resultat for utførelser er presentert som en nettside siden enten du (eller din søker) ba om svar i HTML format.
 The measurement history has been deleted.: Målingshistorie ble fjernet.
@@ -1491,7 +1491,7 @@ The device has been unlocked.: Enheten har blitt låst opp.
 The device has channel conflict and cannot work.: Enheten har generert en kanalkonflikt og kan for øyeblikket ikke fungere.
 The device is locked: Enheten blokkert
 The following channels will be also removed along with their dependencies.: Følgende kanaler vil også bli fjernet sammen med deres avhengigheter.
-The items below rely on this channel, so they will be deleted.: Følgende elementer avhenger av denne kanalen, så de vil bli fjernet.
+The items below depend on this channel, so they will be deleted.: Følgende elementer avhenger av denne kanalen, så de vil bli fjernet.
 The master termostat you chose already has a master.: Hovedtermostaten du har valgt har allerede en annen hovedtermostat
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reaksjonen vil være aktiv når alle de følgende betingelsene er oppfylt. Hvis du angir alle tilgjengelige alternativer, vil reaksjonen bare aktiveres mellom de valgte datoene, på de valgte klokkeslettene og ukedagene, og når en av solnedgangs- eller soloppgangsreferansene er oppfylt.
 The thermostat will not work if the main thermometer is not set.: Hovedtermometeret må stilles inn for at termostaten skal fungere.

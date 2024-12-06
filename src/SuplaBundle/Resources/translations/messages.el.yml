@@ -515,12 +515,12 @@ No of devices: Αριθμός συσκευών
 No of operations: Αριθμός ενέργειων
 No schedule configuration.: Δεν έχει καθοριστεί ρύθμιση παραμέτρων χρονοδιαγράμματος.
 No, take me back!: Όχι, πάρτε με από εδώ!
-No. of Client’s apps: Αριθμός των εφαρμογών πελάτη
-No. of access identifiers: Αριθμός αναγνωριστικών πρόσβασης
-No. of channel groups: Αριθμός ομάδων καναλιών
-No. of channels: Αριθμός καναλιών
-No. of devices: Αριθμός συσκευών
-No. of locations: Αριθμός τοποθεσιών
+No{'.'} of Client’s apps: Αριθμός των εφαρμογών πελάτη
+No{'.'} of access identifiers: Αριθμός αναγνωριστικών πρόσβασης
+No{'.'} of channel groups: Αριθμός ομάδων καναλιών
+No{'.'} of channels: Αριθμός καναλιών
+No{'.'} of devices: Αριθμός συσκευών
+No{'.'} of locations: Αριθμός τοποθεσιών
 None: Κανένα
 None (channel disabled): Κανένα (απενεργοποιημένο κανάλι)
 Noop: Καμία λειτουργία
@@ -710,7 +710,7 @@ SoftVer: WerOpr
 Some features depend on this channel group: Ορισμένες λειτουργίες εξαρτώνται από αυτήν την ομάδα καναλιών.
 Some features depend on this device: Ορισμένες λειτουργίες εξαρτώνται από αυτήν τη συσκευή
 Some features depend on this scene: Ορισμένες λειτουργίες εξαρτώνται από αυτήν τη σκηνή.
-Some of the features you have configured rely on channels from this device.: Ορισμένες λειτουργίες χρησιμοποιούν κανάλια από αυτήν τη συσκευή.
+Some of the features you have configured depend on channels from this device.: Ορισμένες λειτουργίες χρησιμοποιούν κανάλια από αυτήν τη συσκευή.
 Staircase timer: Αυτόματη σκάλα
 Start Here: Ξεκινήστε εδώ
 Start date: Ημ/νία έναρξης
@@ -755,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Ο αισθητήρας ανοίγματος της πύλης πρέπει να λειτουργεί σωστά για να εκτελέσει την εντολή Άνοιγμα ή Κλείσιμο.
 The gate sensor must function properly in order to execute the scheduled action.: Για να εκτελεστεί η ενέργεια, ο αισθητήρας ανοίγματος της πύλης πρέπει να λειτουργεί σωστά.
 The incident was detected at %datetime%.: Το συμβάν παρουσιάστηκε %datetime%.
-The items below rely on this channel function, so they will be deleted.: Τα ακόλουθα στοιχεία βασίζονται στην τρέχουσα λειτουργία καναλιού, επομένως θα καταργηθούν όταν την αλλάξετε.
-The items below rely on this channel group, so they will be deleted.: Τα ακόλουθα στοιχεία χρησιμοποιούν αυτήν την ομάδα καναλιών, επομένως, όταν τη διαγράψετε, θα διαγραφούν επίσης.
-The items below rely on this scene, so they will be deleted.: Τα ακόλουθα στοιχεία βασίζονται σε αυτήν τη σκηνή, οπότε θα αφαιρεθούν.
+The items below depend on this channel function, so they will be deleted.: Τα ακόλουθα στοιχεία βασίζονται στην τρέχουσα λειτουργία καναλιού, επομένως θα καταργηθούν όταν την αλλάξετε.
+The items below depend on this channel group, so they will be deleted.: Τα ακόλουθα στοιχεία χρησιμοποιούν αυτήν την ομάδα καναλιών, επομένως, όταν τη διαγράψετε, θα διαγραφούν επίσης.
+The items below depend on this scene, so they will be deleted.: Τα ακόλουθα στοιχεία βασίζονται σε αυτήν τη σκηνή, οπότε θα αφαιρεθούν.
 The latest execution: Τελευταία εκτέλεση
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Το αποτέλεσμα της εκτέλεσης εμφανίζεται σε μορφή ιστοσελίδας επειδή εσείς (ή το πρόγραμμα περιήγησής που χρησιμοποιείτε) ζητήσατε την απάντηση σε μορφή HTML.
 The measurement history has been deleted.: Το ιστορικό μετρήσεων έχει διαγραφεί.
@@ -1491,7 +1491,7 @@ The device has been unlocked.: Η συσκευή έχει ξεκλειδωθεί
 The device has channel conflict and cannot work.: Η συσκευή έχει δημιουργήσει σύγκρουση καναλιών και δεν μπορεί προς το παρόν να λειτουργήσει.
 The device is locked: Συσκευή κλειδωμένη
 The following channels will be also removed along with their dependencies.: Τα ακόλουθα κανάλια θα αφαιρεθούν επίσης μαζί με τις εξαρτήσεις τους.
-The items below rely on this channel, so they will be deleted.: Τα ακόλουθα στοιχεία εξαρτώνται από αυτό το κανάλι, οπότε θα αφαιρεθούν.
+The items below depend on this channel, so they will be deleted.: Τα ακόλουθα στοιχεία εξαρτώνται από αυτό το κανάλι, οπότε θα αφαιρεθούν.
 The master termostat you chose already has a master.: Ο κύριος θερμοστάτης που έχετε επιλέξει έχει ήδη έναν άλλο κύριο θερμοστάτη
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Η απόκριση θα είναι ενεργή όταν πληρούνται όλες οι ακόλουθες συνθήκες. Εάν ορίσετε όλες τις διαθέσιμες επιλογές, η απόκριση θα ενεργοποιείται μόνο μεταξύ των επιλεγμένων ημερομηνιών, στις επιλεγμένες ώρες και ημέρες της εβδομάδας και όταν πληρούται μία από τις αναφορές ηλιοβασιλέματος ή ανατολής.
 The thermostat will not work if the main thermometer is not set.: Το κύριο θερμόμετρο πρέπει να είναι ρυθμισμένο για να λειτουργήσει ο θερμοστάτης.

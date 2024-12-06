@@ -515,12 +515,12 @@ No of devices: Počet zariadení
 No of operations: Počet operácií
 No schedule configuration.: Nebola zadaná žiadna konfigurácia harmonogramu.
 No, take me back!: Nie, dostaňte ma odtiaľto!
-No. of Client’s apps: Počet klientských aplikácií
-No. of access identifiers: Počet identifikátorov prístupu
-No. of channel groups: Počet skupín kanálov
-No. of channels: Počet kanálov
-No. of devices: Počet zariadení
-No. of locations: Počet polôh
+No{'.'} of Client’s apps: Počet klientských aplikácií
+No{'.'} of access identifiers: Počet identifikátorov prístupu
+No{'.'} of channel groups: Počet skupín kanálov
+No{'.'} of channels: Počet kanálov
+No{'.'} of devices: Počet zariadení
+No{'.'} of locations: Počet polôh
 None: Žiadne
 None (channel disabled): Žiadne (kanál je vypnutý)
 Noop: Žiadna operácia
@@ -710,7 +710,7 @@ SoftVer: VerSoft
 Some features depend on this channel group: Niektoré funkcie závisia od tejto skupiny kanálov.
 Some features depend on this device: Niektoré funkcie závisia od tohto zariadenia
 Some features depend on this scene: Niektoré funkcie závisia od tejto scény.
-Some of the features you have configured rely on channels from this device.: Niektoré funkcie využívajú kanály z tohto zariadenia.
+Some of the features you have configured depend on channels from this device.: Niektoré funkcie využívajú kanály z tohto zariadenia.
 Staircase timer: Schodiskový automat
 Start Here: Začnite tu
 Start date: Dátum začatia
@@ -755,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Snímač otvorenia brány musí fungovať správne, ak má vykonať akciu Otvor alebo Zatvor.
 The gate sensor must function properly in order to execute the scheduled action.: Na vykonanie akcie musí snímač otvorenia brány fungovať správne.
 The incident was detected at %datetime%.: Udalosť sa stala %datetime%.
-The items below rely on this channel function, so they will be deleted.: Nasledujúce položky sú založené na aktuálnej funkcii kanála, takže pri jej zmene budú odstránené.
-The items below rely on this channel group, so they will be deleted.: Nasledujúce položky používajú túto skupinu kanálov, takže keď ju odstránite, odstránia sa aj ony.
-The items below rely on this scene, so they will be deleted.: Položky nižšie sú založené na tejto scéne, takže budú odstránené.
+The items below depend on this channel function, so they will be deleted.: Nasledujúce položky sú založené na aktuálnej funkcii kanála, takže pri jej zmene budú odstránené.
+The items below depend on this channel group, so they will be deleted.: Nasledujúce položky používajú túto skupinu kanálov, takže keď ju odstránite, odstránia sa aj ony.
+The items below depend on this scene, so they will be deleted.: Položky nižšie sú založené na tejto scéne, takže budú odstránené.
 The latest execution: Posledné vykonanie
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Výsledok vykonania je predstavený formou webovej stránky, pretože ste vy (alebo váš prehliadač) požiadali o odpoveď vo formáte HTML.
 The measurement history has been deleted.: História meraní bola odstránená.
@@ -1491,7 +1491,7 @@ The device has been unlocked.: Zariadenie bolo odomknuté.
 The device has channel conflict and cannot work.: Zariadenie vytvorilo konflikt kanálov a momentálne nemôže fungovať.
 The device is locked: Zariadenie je zablokované
 The following channels will be also removed along with their dependencies.: Nasledujúce kanály budú odstránené spolu s ich závislosťami.
-The items below rely on this channel, so they will be deleted.: Nasledujúce položky závisia od tohto kanála, preto budú odstránené.
+The items below depend on this channel, so they will be deleted.: Nasledujúce položky závisia od tohto kanála, preto budú odstránené.
 The master termostat you chose already has a master.: Vybraný hlavný termostat už má iný hlavný termostat
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Odpoveď bude aktívna, keď budú splnené všetky nasledujúce podmienky. Ak nastavíte všetky dostupné možnosti, reakcia sa aktivuje len medzi vybranými dátumami, vo vybraných časoch a dňoch v týždni a vtedy, keď je splnená jedna z referenčných hodnôt západu alebo východu slnka.
 The thermostat will not work if the main thermometer is not set.: Aby termostat fungoval, musí byť nastavený hlavný teplomer.

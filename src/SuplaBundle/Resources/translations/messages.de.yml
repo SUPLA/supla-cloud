@@ -515,12 +515,12 @@ No of devices: Anzahl der Geräte
 No of operations: Anzahl der Vorgänge
 No schedule configuration.: Konfiguration des Zeitplans wurde nicht angegeben.
 No, take me back!: Nein, holt mich hier raus!
-No. of Client’s apps: Anzahl der Client-Anwendungen
-No. of access identifiers: Anzahl der Zugangskennungen
-No. of channel groups: Anzahl der Kanalgruppen
-No. of channels: Kanalanzahl
-No. of devices: Anzahl der Geräte
-No. of locations: Anzahl der Lokalisierungen
+No{'.'} of Client’s apps: Anzahl der Client-Anwendungen
+No{'.'} of access identifiers: Anzahl der Zugangskennungen
+No{'.'} of channel groups: Anzahl der Kanalgruppen
+No{'.'} of channels: Kanalanzahl
+No{'.'} of devices: Anzahl der Geräte
+No{'.'} of locations: Anzahl der Lokalisierungen
 None: Ohne
 None (channel disabled): Ohne (Kanal deaktiviert)
 Noop: Keine Operation
@@ -710,7 +710,7 @@ SoftVer: Soft/Ver
 Some features depend on this channel group: Einige Funktionen hängen von dieser Kanalgruppe ab.
 Some features depend on this device: Einige Funktionen hängen von diesem Gerät ab
 Some features depend on this scene: Einige Funktionen hängen von dieser Szene ab.
-Some of the features you have configured rely on channels from this device.: Einige Funktionen verwenden Kanäle von diesem Gerät.
+Some of the features you have configured depend on channels from this device.: Einige Funktionen verwenden Kanäle von diesem Gerät.
 Staircase timer: Treppenlichtsensor
 Start Here: Hier starten
 Start date: Beginndatum
@@ -755,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Zwecks der Ausführung der Aktion Öffnen oder Schließen muss der Tor-Öffnungssensor einwandfrei funktionieren.
 The gate sensor must function properly in order to execute the scheduled action.: Zwecks der Ausführung einer Aktion muss der Tor-Öffnungssensor einwandfrei funktionieren.
 The incident was detected at %datetime%.: Der Vorfall ereignete sich am %datetime%.
-The items below rely on this channel function, so they will be deleted.: Folgende Elemente basieren auf aktueller Funktion des Kanals, daher werden sie nach ihrer Änderung gelöscht.
-The items below rely on this channel group, so they will be deleted.: Folgende Elemente verwenden diese Gruppe der Kanäle, daher werden sie nach ihrer Entfernung auch gelöscht.
-The items below rely on this scene, so they will be deleted.: Folgende Elemente basieren auf dieser Szene, deswegen werden sie gelöscht.
+The items below depend on this channel function, so they will be deleted.: Folgende Elemente basieren auf aktueller Funktion des Kanals, daher werden sie nach ihrer Änderung gelöscht.
+The items below depend on this channel group, so they will be deleted.: Folgende Elemente verwenden diese Gruppe der Kanäle, daher werden sie nach ihrer Entfernung auch gelöscht.
+The items below depend on this scene, so they will be deleted.: Folgende Elemente basieren auf dieser Szene, deswegen werden sie gelöscht.
 The latest execution: Letzte Ausführung
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Das Ergebnis wird als Website dargestellt, weil Sie (oder Ihr Browser) um eine Antwort im HTML-Format gebeten haben.
 The measurement history has been deleted.: Messverlauf wurde gelöscht.
@@ -1491,7 +1491,7 @@ The device has been unlocked.: Gerät wurde entsperrt.
 The device has channel conflict and cannot work.: Das Gerät hat einen Kanal-Konflikt verursacht und kann derzeit nicht arbeiten.
 The device is locked: Gerät gesperr
 The following channels will be also removed along with their dependencies.: Die folgenden Kanäle werden zusammen mit ihren Abhängigkeiten entfernt.
-The items below rely on this channel, so they will be deleted.: Die folgenden Elemente hängen von diesem Kanal ab und werden daher entfernt.
+The items below depend on this channel, so they will be deleted.: Die folgenden Elemente hängen von diesem Kanal ab und werden daher entfernt.
 The master termostat you chose already has a master.: Der von Ihnen gewählte übergeordnete Thermostat hat bereits einen übergeordneten Thermostat.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Die Reaktion wird aktiviert, wenn alle untenstehenden Bedingungen erfüllt sind. Wenn Sie alle verfügbaren Optionen einstellen, wird die Reaktion nur zwischen den ausgewählten Daten, zu bestimmten Zeiten und Tagen der Woche aktiv, und wenn eine der Referenzen zu Sonnenaufgang oder -untergang erfüllt ist.
 The thermostat will not work if the main thermometer is not set.: Das Hauptthermometer muss eingestellt werden, damit der Thermostat funktioniert.

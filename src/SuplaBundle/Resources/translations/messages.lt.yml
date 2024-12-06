@@ -515,12 +515,12 @@ No of devices: Įrenginių skaičius
 No of operations: Operacijų skaičius
 No schedule configuration.: Tvarkaraščio konfigūracija nenurodyta.
 No, take me back!: Ne, išveskite mane iš čia!
-No. of Client’s apps: Klientų programų skaičius
-No. of access identifiers: Prieigos identifikatorių skaičius
-No. of channel groups: Kanalų grupių skaičius
-No. of channels: Kanalų skaičius
-No. of devices: Įrenginių skaičius
-No. of locations: Vietų skaičius
+No{'.'} of Client’s apps: Klientų programų skaičius
+No{'.'} of access identifiers: Prieigos identifikatorių skaičius
+No{'.'} of channel groups: Kanalų grupių skaičius
+No{'.'} of channels: Kanalų skaičius
+No{'.'} of devices: Įrenginių skaičius
+No{'.'} of locations: Vietų skaičius
 None: Nėra
 None (channel disabled): Nėra (kanalas išjungtas)
 Noop: Nėra operacijos
@@ -710,7 +710,7 @@ SoftVer: ProgĮrVer
 Some features depend on this channel group: Kai kurie funkcionalumai priklauso nuo šios kanalų grupės.
 Some features depend on this device: Kai kurie funkcionalumai priklauso nuo šio įrenginio.
 Some features depend on this scene: Kai kurie funkcionalumai priklauso nuo šios scenos.
-Some of the features you have configured rely on channels from this device.: Kai kurie funkcionalumai naudoja šio įrenginio kanalus.
+Some of the features you have configured depend on channels from this device.: Kai kurie funkcionalumai naudoja šio įrenginio kanalus.
 Staircase timer: Laiptų automatas
 Start Here: Pradėti čia
 Start date: Pradžios data
@@ -755,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Norint įvykdyti veiksmą Atidaryti arba Uždaryti, vartelių atidarymo jutiklis turi veikti tinkamai.
 The gate sensor must function properly in order to execute the scheduled action.: Kad veiksmas būtų atliktas vartų atidarymo jutiklis turi veikti teisingai.
 The incident was detected at %datetime%.: Įvykis įvyko %datetime%
-The items below rely on this channel function, so they will be deleted.: Žemiau nurodyti elementai veikia su dabartine kanalo funkcija, todėl po šio pakeitimo bus pašalinti.
-The items below rely on this channel group, so they will be deleted.: Žemiau nurodyti elementai naudoja šios grupės kanalus, todėl po jos pašalinimo taip pat bus pašalinti.
-The items below rely on this scene, so they will be deleted.: Žemiau nurodyti elementai susiję su šia scena, todėl bus pašalinti.
+The items below depend on this channel function, so they will be deleted.: Žemiau nurodyti elementai veikia su dabartine kanalo funkcija, todėl po šio pakeitimo bus pašalinti.
+The items below depend on this channel group, so they will be deleted.: Žemiau nurodyti elementai naudoja šios grupės kanalus, todėl po jos pašalinimo taip pat bus pašalinti.
+The items below depend on this scene, so they will be deleted.: Žemiau nurodyti elementai susiję su šia scena, todėl bus pašalinti.
 The latest execution: Paskutinis atlikimas
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Įvykdymo rezultatas pateikiamas kaip interneto svetainė, nes Tu (arba Tavo naršyklė) paprašei pateikti atsakymą HTML formatu.
 The measurement history has been deleted.: Matmenų istorija pašalinta.
@@ -1491,7 +1491,7 @@ The device has been unlocked.: Įrenginys buvo atrakintas.
 The device has channel conflict and cannot work.: Įrenginys sugeneravo kanalų konfliktą ir dabar negali veikti.
 The device is locked: Įrenginys užrakintas
 The following channels will be also removed along with their dependencies.: Žemiau nurodyti kanalai taip pat bus pašalinti kartu su jų priklausomybėmis.
-The items below rely on this channel, so they will be deleted.: Žemiau nurodyti elementai priklauso nuo šio kanalo, todėl bus pašalinti.
+The items below depend on this channel, so they will be deleted.: Žemiau nurodyti elementai priklauso nuo šio kanalo, todėl bus pašalinti.
 The master termostat you chose already has a master.: Jūsų pasirinktas pagrindinis termostatas turi jau kitą pagrindinį termostatą
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reakcija bus aktyvi, kai visos žemiau nurodytos sąlygos bus įvykdytos. Jei nustatysite visas galimas parinktis, reakcija bus aktyvuota tik tarp pasirinktų datų, pasirinktomis valandomis ir savaitės dienomis bei kai bus įvykdyta viena iš saulėlydžio ar saulėtekio atžvilgiu nuorodų.
 The thermostat will not work if the main thermometer is not set.: Kas termostatas veiktų, turi būti nustatytas pagrindinis termometras.
