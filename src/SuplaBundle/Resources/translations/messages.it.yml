@@ -515,12 +515,12 @@ No of devices: N° di dispositivi
 No of operations: N° di operazioni
 No schedule configuration.: N° configurazioni scadenziario
 No, take me back!: No, portami via di qui!
-No. of Client’s apps: Numero delle applicazioni client
-No. of access identifiers: Numero degli identificatori d’accesso
-No. of channel groups: Numero dei gruppi di canali
-No. of channels: Numero di canali
-No. of devices: Numero dei dispositivi
-No. of locations: Numero delle localizzazioni
+No{'.'} of Client’s apps: Numero delle applicazioni client
+No{'.'} of access identifiers: Numero degli identificatori d’accesso
+No{'.'} of channel groups: Numero dei gruppi di canali
+No{'.'} of channels: Numero di canali
+No{'.'} of devices: Numero dei dispositivi
+No{'.'} of locations: Numero delle localizzazioni
 None: Nessuno
 None (channel disabled): Nessuna (canale disabilitato)
 Noop: Nessuna operazione
@@ -710,7 +710,7 @@ SoftVer: VerSoft
 Some features depend on this channel group: Alcune funzionalità dipendo da questo gruppo di canali
 Some features depend on this device: Alcune caratteristiche dipendono da questo dispositivo
 Some features depend on this scene: Alcune funzionalità dipendono da questo scenario
-Some of the features you have configured rely on channels from this device.: Alcune delle funzionalità configurate si basano sui canali di questo dispositivo.
+Some of the features you have configured depend on channels from this device.: Alcune delle funzionalità configurate si basano sui canali di questo dispositivo.
 Staircase timer: Temporizzatore luce scale
 Start Here: Comincia qui
 Start date: Data dell’inizio
@@ -755,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Sensore dell'apertura del cancello deve funzionare correttamente per effettuare l'azione Apri o Chiudi.
 The gate sensor must function properly in order to execute the scheduled action.: Per effettuare un’azione programmata, il sensore di apertura del cancello deve funzionare correttamente.
 The incident was detected at %datetime%.: L'evento è stato rilevato il %datetime%
-The items below rely on this channel function, so they will be deleted.: Gli elementi di seguito si basano sulle funzioni di questo canale e verranno eliminate.
-The items below rely on this channel group, so they will be deleted.: I seguenti elementi si basano su questo gruppo di canali, quindi verranno eliminati
-The items below rely on this scene, so they will be deleted.: I seguenti elementi si basano su questo scenario, di conseguenza verranno rimossi
+The items below depend on this channel function, so they will be deleted.: Gli elementi di seguito si basano sulle funzioni di questo canale e verranno eliminate.
+The items below depend on this channel group, so they will be deleted.: I seguenti elementi si basano su questo gruppo di canali, quindi verranno eliminati
+The items below depend on this scene, so they will be deleted.: I seguenti elementi si basano su questo scenario, di conseguenza verranno rimossi
 The latest execution: Ultima esecuzione
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Il risultato dell`esecuzione è presentato come un sito web, perché la risposta in formato HTML è stata richiesta da te (o dal tuo browser).
 The measurement history has been deleted.: Lo storico delle misurazioni è stato cancellato.
@@ -1369,7 +1369,7 @@ Heating / ventilation / air conditioning: Riscaldamento / Ventilazione / Aria co
 Heating mode: Modalità riscaldamento
 'Heating: {percent}%': 'Riscaldamento: {percent}%'
 High threshold: ~
-High value: ~ 
+High value: ~
 History: Cronologia
 Home screen content: Contenuto schermata iniziale
 Hotel card sensor: Sensore tessera hotel
@@ -1491,7 +1491,7 @@ The device has been unlocked.: Il dispositivo è stato sbloccato
 The device has channel conflict and cannot work.: Il dispositivo ha un conflitto di canale e non può funzionare
 The device is locked: Il dispositivo è bloccato
 The following channels will be also removed along with their dependencies.: ~
-The items below rely on this channel, so they will be deleted.: ~
+The items below depend on this channel, so they will be deleted.: ~
 The master termostat you chose already has a master.: Il termostato master scelto ha già un master
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: La reazione sarà attiva quando tutte le condizioni sono verificate. Se si sceglie di impostare tutte le impostazioni di tempo disponibili, la reazione sarà attiva quando l'orario è compreso tra attivo da e attivo a, è compreso nell'orario di lavoro selezionato e soddisfa uno dei criteri diurni.
 The thermostat will not work if the main thermometer is not set.: Il termostato non funzionerà se non viene impostato il termometro principale
