@@ -136,6 +136,7 @@ Cancelled: Annulé
 Cannot calculate when to run the schedule - incorrect configuration?: Impossible de calculer une date de début de programmation - configuration incorrecte ?
 Cannot change the channel function right now.: La fonction de cette chaîne ne peut pas être modifiée pour le moment.
 Cannot delete this I/O Device right now.: Cet appareil ne peut pas être supprimé pour le moment.
+Cannot execute an action when the device is disconnected.: Ne pas effectuer d’actions lorsque l’appareil est débranché.
 Captcha token is not valid.: Captcha incorrect.
 Caption: Signature
 Caption is too long.: Le nom est trop long.
@@ -514,12 +515,12 @@ No of devices: Nombre d’appareils
 No of operations: Nombre d’interventions
 No schedule configuration.: Aucune configuration du calendrier n’est fournie.
 No, take me back!: Non, faites-moi sortir d’ici !
-No{'.'} of Client’s apps: Nombre des applications clientes
-No{'.'} of access identifiers: Nombre d'identifiants d'accès
-No{'.'} of channel groups: Nombre de groupes de chaînes
-No{'.'} of channels: Nombre de chaînes
-No{'.'} of devices: Nombre de dispositifs
-No{'.'} of locations: Nombre des lieux
+No. of Client’s apps: Nombre des applications clientes
+No. of access identifiers: Nombre d'identifiants d'accès
+No. of channel groups: Nombre de groupes de chaînes
+No. of channels: Nombre de chaînes
+No. of devices: Nombre de dispositifs
+No. of locations: Nombre des lieux
 None: Nul
 None (channel disabled): Aucun (chaîne désactivée)
 Noop: Aucune opération
@@ -623,11 +624,11 @@ Registered: Enregistré
 Relay: Relais
 Relay switching time: Durée d'activation de relais
 Reload the chart: Recharger le graphique
-'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Avant de pouvoir supprimer un lieu, vous devez d''abord déplacer les groupes de chaînes attribués. Identifiants: {relatedIds}.'
-'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Avant de supprimer un lieu, vous devez d''abord déplacer les chaînes attribuées. Identifiants: {relatedIds}.'
+'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': "Avant de pouvoir supprimer un lieu, vous devez d'abord déplacer les groupes de chaînes attribués. Identifiants: {relatedIds}."
+'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': "Avant de supprimer un lieu, vous devez d'abord déplacer les chaînes attribuées. Identifiants: {relatedIds}."
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Supprimer les dispositifs attribués avant de supprimer le lieu. Identifiants: {relatedIds}.'
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Effacez toutes les scènes liées avant de supprimer cette locatisation. Des identificateurs : {relatedIds}.'
-'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Tout d''abord, supprimez tous les dispositifs qui utilisent ce lieu comme le lieu d''origine. Identifiants: {relatedIds}.'
+'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': "Tout d'abord, supprimez tous les dispositifs qui utilisent ce lieu comme le lieu d'origine. Identifiants: {relatedIds}."
 Repeat password: Répétez le mot de passe Cliquez ici pour le faire.
 Reset Your Password: Définir un nouveau mot de passe
 Reset counter: Réinitialiser le compteur
@@ -709,7 +710,7 @@ SoftVer: Version du logiciel
 Some features depend on this channel group: Certaines fonctionnalités dépendent de ce groupe de chaînes.
 Some features depend on this device: Certaines fonctionnalités dépendent de cet appareil
 Some features depend on this scene: Certaines fonctionnalités dépendent de cette scène.
-Some of the features you have configured depend on channels from this device.: Certaines fonctionnalités utilisent les chaînes de ce dispositif.
+Some of the features you have configured rely on channels from this device.: Certaines fonctionnalités utilisent les chaînes de ce dispositif.
 Staircase timer: Minuterie d'escalier
 Start Here: Commencer ici
 Start date: Date d'activation
@@ -754,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Le capteur d'ouverture du portail doit fonctionner correctement pour effectuer l'action Ouvrir ou Fermer.
 The gate sensor must function properly in order to execute the scheduled action.: Afin d'actionner, le capteur d'ouverture de portail doit fonctionner correctement.
 The incident was detected at %datetime%.: L’événement s’est produit %datetime%.
-The items below depend on this channel function, so they will be deleted.: Les éléments suivants sont basés sur la fonction actuelle de la chaîne, ils seront donc supprimés lorsqu’elle sera modifiée.
-The items below depend on this channel group, so they will be deleted.: Les éléments suivants utilisent ce groupe de la chaîne, de sorte que lorsque vous le supprimez, ils seront également supprimés.
-The items below depend on this scene, so they will be deleted.: Les éléments ci-dessous sont basés sur cette scène, ils seront donc supprimés.
+The items below rely on this channel function, so they will be deleted.: Les éléments suivants sont basés sur la fonction actuelle de la chaîne, ils seront donc supprimés lorsqu’elle sera modifiée.
+The items below rely on this channel group, so they will be deleted.: Les éléments suivants utilisent ce groupe de la chaîne, de sorte que lorsque vous le supprimez, ils seront également supprimés.
+The items below rely on this scene, so they will be deleted.: Les éléments ci-dessous sont basés sur cette scène, ils seront donc supprimés.
 The latest execution: Dernier programme
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Le résultat de la mise en œuvre est présenté sous forme d’un site Web vu que vous (ou votre navigateur) avez demandé une réponse au format HTML.
 The measurement history has been deleted.: Historique de mesures a été supprimé.
@@ -815,7 +816,7 @@ Unsupported type: Type non supporté
 Update in progress: La mise à jour est en cours
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Les fichiers téléchargés ne violent pas les bonnes mœurs, les droits d'auteur et les droits des tiers, et j'ai le droit de les utiliser.
 Upper voltage threshold: Seuil de la tension haute
-'Use the {0} server command to change this account''s limits. For example:': 'Pour modifier les limites de ce compte, utilisez la commande {0} sur votre serveur. Par exemple :'
+"Use the {0} server command to change this account's limits. For example:": 'Pour modifier les limites de ce compte, utilisez la commande {0} sur votre serveur. Par exemple :'
 Use working schedule for this access identifier: Utiliser un horaire de disponibilité pour cet ID d’accès
 User is already confirmed. Try to log in.: Ce compte est déjà confirmé. Connectez-vous.
 Value: Valeur
@@ -1147,7 +1148,7 @@ valid until: expirera
 values as seen on chart: valeurs comme dans la graphique
 values as seen on counter: valeurs comme sur le compteur
 yesterday: hier
-'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} ne peut pas interagir avec votre compte jusqu''à ce que vous accordiez à nouveau l''accès.'
+'{applicationName} will not be able to interact with your account until you grant the access again.': "{applicationName} ne peut pas interagir avec votre compte jusqu'à ce que vous accordiez à nouveau l'accès."
 '{clientName} wants to access your account.': '{clientName} veux accéder à votre compte.'
 '{minutes} minutes after sunrise': '{minutes} minutes après le lever du soleil'
 '{minutes} minutes after sunset': '{minutes} minutes après le coucher du soleil'
@@ -1172,7 +1173,6 @@ Are you sure you want to disable this device?: Voulez-vous vraiement désactiver
 Assigned Locations: Lieux attribués
 Authorized OAuth apps: Applications OAuth autorisées
 Calculated value: État du compteur
-Cannot execute an action when the device is disconnected.: Ne pas effectuer d’actions lorsque l’appareil est débranché.
 Cannot send an activation e-mail. Try again later.: Impossible d’envoyer le message avec le lien d’activation. Réessayez plus tard.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Vous n’avez pas reçu le message avec le lien d’activation?  Assurez-vous qu’il ne soit pas considéré comme du SPAM (courrier indésirable). Vous pouvez aussi {clickHereLink}, pour l’envoyer encore une fois.
 Channel value: Valeur
@@ -1250,448 +1250,431 @@ suffix: suffixe
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-0% tilt angle: ~
-100% tilt angle: ~
-A confirmation upon successful device unlocking.: ~
-Action trigger for channel: ~
-Active from: ~
-Active to: ~
-Activity conditions: ~
-Additional time margin: ~
-Adjust temperature: ~
-Adjust temperatures: ~
-After the delay: ~
-After the delay, but only when it's dark: ~
-Alarm armament sensor: ~
-Algorithm: ~
-All programs must define at least one temperature threshold.: ~
-Always decrement: ~
-Always increment: ~
-Anti-freeze and overheat protection: ~
-Anti-freeze protection: ~
-Are you sure you want to change channel’s location?: ~
-Are you sure you want to change channel’s visibility?: ~
-Are you sure you want to change device’s location?: ~
-Are you sure you want to delete this channel?: ~
-Are you sure you want to delete this subdevice?: ~
-Automatic: ~
-Automatic front panel turn off: ~
-Automatic front panel turn off after: ~
-Automatic thermostat: ~
-Automatic time synchronization: ~
-Aux thermometer: ~
-Aux thermometer for channel: ~
-Aux thermometer type: ~
-Available variables: ~
-Average: ~
-Battery cover open: ~
-Behavior settings: ~
-Binary sensor: ~
-Binary sensor for channel: ~
-Brightness adjustment for automatic mode: ~
-Brightness level: ~
-Button volume: ~
-Buttons upside down: ~
-Candle: ~
-Cannot execute an action when the channel is not available.: ~
-Cannot update OCR settings. Try again in a while.: ~
-Change percentage by: ~
-Change percentage to: ~
-Change tilt by: ~
-Change tilt to: ~
-Change to be the same.: ~
-Changing channel’s visibility will also change the visibility of other items.: ~
-Changing the location will also imply changing the location of the following items.: ~
-Channels that are meant to work with each other must be in the same location.: ~
-Clock error: ~
-Close value: ~
-Collapse: ~
-Collapse or stop: ~
-Collapse partially: ~
-Command has been sent to the device. Try refreshing the photo in a while.: ~
-Common currencies: ~
-Configuration not available yet. Waiting for the device to connect.: ~
-Confirm if you want to perform the calibration.: ~
-Conflict: ~
-Cool to: ~
-Cooling mode: ~
-'Cooling: {percent}%': ~
-Costs: ~
-Could not restart the device.: ~
-Could not send the identify command.: ~
-Could not set the device time.: ~
-Counter type: ~
-Curtain: ~
-Dark mode: ~
-Data: ~
-Date range: ~
-Daytime criteria: ~
-Dependencies: ~
-'Device GUID: %deviceGuid%': ~
-Device identification is unsupported in the firmware.: ~
-Device settings: ~
-Device should be restarting now.: ~
-Device time has been set.: ~
-Different than on master thermostat.: ~
-Differential thermostat: ~
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
-Domestic hot water: ~
-Dryer: ~
-Edit area crop: ~
-Edit program settings: ~
-Electricity meter active power history: ~
-Electricity meter current history: ~
-Electricity meter voltage aberrations history: ~
-Electricity meter voltage history: ~
-Enable floor temperature control: ~
-Enable generic cooler temperature control: ~
-Enable generic heater temperature control: ~
-Enable power status LED: ~
-Enable support for OCR readings for this channel: ~
-Enable water temperature control: ~
-Example value: ~
-Expand: ~
-Expand or stop: ~
-Expand partially: ~
-Expected maximum increment: ~
-External sensor disabling the thermostat: ~
-Facade blind operation: ~
-Fan: ~
-'Field: {propertyPath}.': ~
-Fill missing data: ~
-Firmware: ~
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-For a period: ~
-Forced off by sensor: ~
-Full tilting time: ~
-Function disabled: ~
-General purpose meter: ~
-HVAC: ~
-Heat or cold source switch: ~
-Heat to: ~
-Heating / ventilation / air conditioning: ~
-Heating mode: ~
-'Heating: {percent}%': ~
-High threshold: ~
-High value: ~
-History: ~
-Home screen content: ~
-Hotel card sensor: ~
-Identify device: ~
-Identify request sent.: ~
-If you confirm the installation and wish to unlock this device, please click the link below.: ~
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
-Image area crop: ~
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: ~
-Increment and decrement: ~
-Installer e-mail address: ~
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: ~
-Invalid e-mail address.: ~
-Invalid unlock code.: ~
-Last paired device: ~
-Light mode: ~
-Lighting level: ~
-Lighting mode: ~
-List of available variables: ~
-Locked: ~
-Low threshold: ~
-Low threshold must be less than high threshold.: ~
-Low value: ~
-Main thermometer: ~
-Main thermometer for channel: ~
-Master thermostat: ~
-Master thermostat for channel: ~
-Max: ~
-Maximum duration is one year.: ~
-Maximum temperature that can be set from the device: ~
-Measurement settings: ~
-Min: ~
-Minimum OFF time before cooling can be turned on: ~
-Minimum OFF time before heating can be turned on: ~
-Minimum OFF time before heating/cooling can be turned on: ~
-Minimum ON time before cooling can be turned off: ~
-Minimum ON time before heating can be turned off: ~
-Minimum ON time before heating/cooling can be turned off: ~
-Minimum temperature must be lower than maximum temperature.: ~
-Minimum temperature that can be set from the device: ~
-'Mode: cool': ~
-'Mode: heat': ~
-'Mode: off': ~
-Motor upside down: ~
-'No': ~
-No results: ~
-Not available: ~
-Notification body is set by the firmware.: ~
-Notification must have recipients.: ~
-Notification title is set by the firmware.: ~
-Notifications (defined): ~
-Notifications (sent per hour): ~
-'OCR service responded with error: {status}': ~
-OCR settings: ~
-OR: ~
-Off with duration: ~
-On with duration: ~
-Open value: ~
-Opening sensor for channel: ~
-Output value on error: ~
-Overheat protection: ~
-P/C: ~
-Pair new devices or sensors: ~
-Pairing request sent.: ~
-Pairing subdevices is unsupported in the firmware.: ~
-Phase LED type: ~
-Photo interval: ~
-Please find the device details below.: ~
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: ~
-Please provide the installer e-mail address to request the device unlock.: ~
-Please select and configure the action: ~
-Program {programNo}: ~
-Projector screen: ~
-Pump switch: ~
-Pump switch for channel: ~
-Push notifications limit has been exceeded: ~
-Reference to the deleted channels will be removed from the items below.: ~
-Refresh interval: ~
-Refresh the config: ~
-Refreshing the configuration will overwrite the changes you made here.: ~
-Reload last photo: ~
-Remote restart is unsupported in the firmware.: ~
-Remove this item: ~
-Request device unlock: ~
-Reset to defaults: ~
-Restart device: ~
-Restart the device: ~
-Reveal or stop: ~
-Roller garage door: ~
-S/N: ~
-SUPLA - Confirm unlocking device for authorized installers: ~
-SUPLA – your device has been unlocked!: ~
-Same as on master thermostat.: ~
-Screen brightness: ~
-Selected: ~
-Set HVAC parameters: ~
-Set the device time: ~
-Settings: ~
-Settings have not been saved!: ~
-Show data: ~
-Shut or stop: ~
-Some features depend on this channel: ~
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
-Status LED: ~
-Store active power history: ~
-Store current history: ~
-Store voltage history: ~
-'Subdevice #{id}': ~
-Subfunction: ~
-Switch to manual mode: ~
-Switch to program mode: ~
-THEN: ~
-Take a photo now: ~
-Temperature adjustment only: ~
-Temperature control type: ~
-Temperature difference is too big between {min}°C and {max}°C.: ~
-Temperature setpoint change switches to manual mode: ~
-Temporal override: ~
-Terrace awning: ~
-The channel has been deleted.: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: ~
-The device could not be unlocked.: ~
-The device has been unlocked already.: ~
-The device has been unlocked.: ~
-The device has channel conflict and cannot work.: ~
-The device is locked: ~
-The following channels will be also removed along with their dependencies.: ~
-The items below depend on the deleted channels, so they will be deleted, too.: ~
-The master termostat you chose already has a master.: ~
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
-The subdevice has been deleted.: ~
-The thermostat will not work if the main thermometer is not set.: ~
-Thermometer error: ~
-Thermometers configuration: ~
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
-Thermostat programs: ~
-This action will result in restarting the device. It will not be available for a while.: ~
-This channel was missing during last device registration attempt.: ~
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
-This thermostat is controlled by another device.: ~
-Tilt angle: ~
-Tilt control type: ~
-Tilt percent: ~
-Time: ~
-Today, it would be active from {from} to {to}.: ~
-Turn off: ~
-Unlock the device: ~
-Unlocked: ~
-Until a date and time: ~
-Until the next change: ~
-Use device default: ~
-Use working schedule for this reaction: ~
-Use {theMasterThermostat} to control this device.: ~
-Used current transformer type: ~
-User interface: ~
-Value divider: ~
-Value multiplier: ~
-Vertical blind: ~
-Visit the master thermostat page.: ~
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
-Week: ~
-Weekly schedule: ~
-When the alarm is armed: ~
-When the alarm is armed or disarmed: ~
-When the alarm is disarmed: ~
-When the battery cover is opened: ~
-When the battery level will be: ~
-When the battery reaches a certain level: ~
-When the clock error has been reported: ~
-When the curtain position changes: ~
-When the curtain reaches: ~
-When the curtain reaches a certain position: ~
-When the device starts to be powered from battery: ~
-When the device stops to be powered from battery: ~
-When the facade blind position changes: ~
-When the facade blind reaches: ~
-When the facade blind reaches a certain position: ~
-When the hotel card has been taken: ~
-When the hotel card is put in: ~
-When the hotel card is put in or has been taken: ~
-When the meter reaches a certain value: ~
-When the meter value changes: ~
-When the meter value will be: ~
-When the projector screen position changes: ~
-When the projector screen reaches: ~
-When the projector screen reaches a certain position: ~
-When the pump is turned off: ~
-When the pump is turned on: ~
-When the pump is turned on or off: ~
-When the roller garage door a certain position: ~
-When the roller garage door position changes: ~
-When the roller garage door reaches: ~
-When the roller shutter calibration failed: ~
-When the roller shutter calibration has been lost: ~
-When the roller shutter calibration has started: ~
-When the roller shutter motor reported a problem: ~
-When the terrace awning position changes: ~
-When the terrace awning reaches: ~
-When the terrace awning reaches a certain position: ~
-When the thermometer error has been reported: ~
-When the thermostat starts cooling: ~
-When the thermostat starts heating: ~
-When the thermostat starts heating or cooling: ~
-When the thermostat starts or stops cooling: ~
-When the thermostat starts or stops heating: ~
-When the thermostat starts or stops heating or cooling: ~
-When the thermostat stops cooling: ~
-When the thermostat stops heating: ~
-When the thermostat stops heating or cooling: ~
-When the vertical blind position changes: ~
-When the vertical blind reaches: ~
-When the vertical blind reaches a certain position: ~
-Will be deleted after: ~
-With a timer: ~
-'Yes': ~
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot change this function becuase it is required by another channel.: ~
-You cannot to set a master thermostat for a channel that is master for others.: ~
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
-You need to provide icons for all states in light mode.: ~
-Your device has been unlocked by the installer.: ~
-and wait until the battery level will be: ~
-and wait until the meter will be: ~
-auxThermometerType_DISABLED: ~
-auxThermometerType_FLOOR: ~
-auxThermometerType_GENERIC_COOLER: ~
-auxThermometerType_GENERIC_HEATER: ~
-auxThermometerType_NOT_SET: ~
-auxThermometerType_WATER: ~
-blue, otherwise: ~
-blue, when voltage lower than the low threshold: ~
-choose the currency: ~
-configuration missing: ~
-cool: ~
-day: ~
-default: ~
-green, otherwise: ~
-green, when power less than the low threshold: ~
-heat: ~
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
-homeScreenContent_NONE: ~
-homeScreenContent_TEMPERATURE: ~
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
-homeScreenContent_TEMPERATURE_TIME: ~
-homeScreenContent_TIME: ~
-homeScreenContent_TIME_DATE: ~
-hour: ~
-keepHistoryMeasurementWarningSelected: ~
-max: ~
-midnight: ~
-milliseconds: ~
-min: ~
-ocrLightingMode_ALWAYS_ON: ~
-ocrLightingMode_AUTO: ~
-ocrLightingMode_OFF: ~
-'off': ~
-red, when power higher than the high threshold: ~
-red, when voltage higher than the high threshold: ~
-seconds: ~
-statusLed_ALWAYS_OFF: ~
-statusLed_OFF_WHEN_CONNECTED: ~
-statusLed_ON_WHEN_CONNECTED: ~
-subdevicePairingResult_CMD_RESULT_UNKNOWN: ~
-subdevicePairingResult_NOT_STARTED_BUSY: ~
-subdevicePairingResult_NOT_STARTED_NOT_READY: ~
-subdevicePairingResult_NOT_SUPPORTED: ~
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: ~
-subdevicePairingResult_ONGOING: ~
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: ~
-subdevicePairingResult_PROCEDURE_STARTED: ~
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: ~
-subdevicePairingResult_SUCCESS: ~
-subdevicePairingResult_UNAUTHORIZED: ~
-sunrise: ~
-sunset: ~
-swap: ~
-temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
-temperatureControlType_ROOM_TEMPERATURE: ~
-the master thermostat ID{id}: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
-thermostatAlgorithm_PID: ~
-thermostatAlgorithm_help: ~
+0% tilt angle: Angle des lamelles que le store fixe lors de la fermeture
+100% tilt angle: Angle des lamelles que le store fixe lors de l’ouverture
+A confirmation upon successful device unlocking.: Confirmation du déverrouillage de l’appareil.
+Active from: Actif depuis
+Active to: Actif jusqu’à
+Activity conditions: Conditions d’activité
+Additional time margin: Marge de temps supplémentaire
+Adjust temperature: Régler la température
+Adjust temperatures: Régler les températures
+After the delay: Après une période spécifiée
+After the delay, but only when it's dark: Après une période spécifiée, mais uniquement lorsqu’il fait nuit
+Alarm armament sensor: Capteur d’armement d’alarme
+Algorithm: Algorithmique
+All programs must define at least one temperature threshold.: Chaque programme doit définir au moins un seuil de température
+Always decrement: Toujours décroissant
+Always increment: Toujours croissant
+Anti-freeze and overheat protection: Protection contre la surchauffe et le gel
+Anti-freeze protection: Protection contre le gel
+Are you sure you want to change channel’s location?: Êtes-vous sûr de vouloir modifier l’emplacement du canal ?
+Are you sure you want to change channel’s visibility?: Êtes-vous sûr de vouloir modifier la visibilité du canal ?
+Are you sure you want to change device’s location?: Êtes-vous sûr de vouloir modifier l’emplacement de l’appareil ?
+Are you sure you want to delete this channel?: Êtes-vous sûr de vouloir supprimer ce canal ?
+Automatic: Automatique
+Automatic front panel turn off: Extinction automatique du panneau avant
+Automatic front panel turn off after: Temps jusqu'à l’extinction du panneau avant
+Automatic thermostat: Thermostat automatique
+Automatic time synchronization: Synchronisation automatique de la date et de l'heure
+Aux thermometer: Thermomètre auxiliaire
+Aux thermometer type: Type de thermomètre auxiliaire
+Available variables: Variables disponibles
+Average: Moyenne
+Battery cover open: Couvercle de la batterie ouvert
+Behavior settings: Comportement
+Binary sensor: Capteur binaire
+Brightness adjustment for automatic mode: Réglage de la luminosité en mode automatique
+Brightness level: Niveau de luminosité
+Button volume: Volume du bouton
+Buttons upside down: Commande des boutons inversée
+Candle: Chandelier
+Cannot update OCR settings. Try again in a while.: Échec de la mise à jour des paramètres OCR. Réessayez plus tard.
+Change percentage by: Modifier le pourcentage de
+Change percentage to: Modifier le pourcentage à
+Change tilt by: Modifier l’inclinaison de
+Change tilt to: Modifier l’inclinaison à
+Change to be the same.: Configurer identiquement.
+Changing channel’s visibility will also change the visibility of other items.: La modification de la visibilité du canal modifie également la visibilité d’autres éléments.
+Changing the location will also imply changing the location of the following items.: Le changement de lieu l’affectera également pour les raisons suivantes.
+Channels that are meant to work with each other must be in the same location.: Les canaux interconnectés doivent être situés au même emplacement.
+Clock error: Erreur d’horloge
+Close value: Valeur de fermeture
+Collapse: Replier
+Collapse or stop: Replier ou arrêter
+Collapse partially: Replier partiellement
+Command has been sent to the device. Try refreshing the photo in a while.: La demande a été envoyée à l’appareil. Essayez de rafraîchir l’image plus tard.
+Common currencies: Devises les plus fréquemment sélectionnées
+Configuration not available yet. Waiting for the device to connect.: Configuration non disponible pour le moment. Attendez que l’appareil se connecte.
+Confirm if you want to perform the calibration.: Confirmez l’exécution de la calibration.
+Conflict: Conflit
+Cool to: Refroidir jusqu’à
+Cooling mode: Mode de refroidissement
+'Cooling: {percent}%': 'Refroidissement : {percent}%'
+Costs: Coûts
+Could not restart the device.: Impossible de redémarrer l’appareil.
+Could not send the identify command.: Impossible d’envoyer la commande.
+Could not set the device time.: Impossible de régler la date et l’heure de l’appareil.
+Counter type: Type de compteur
+Curtain: Rideau
+Dark mode: Mode sombre
+Data: Données
+Date range: Intervalle de dates
+Daytime criteria: Critères basés sur la durée du jour
+Dependencies: Dépendances
+'Device GUID: %deviceGuid%': 'GUID de l’appareil : %deviceGuid%'
+Device identification is unsupported in the firmware.: Identification de l’appareil non prise en charge par le firmware.
+Device settings: Paramètres de l’appareil
+Device should be restarting now.: L’appareil devrait redémarrer.
+Device time has been set.: Date et heure de l’appareil définies.
+Different than on master thermostat.: Paramètre différent de celui du thermostat principal.
+Differential thermostat: Thermostat différentiel
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Souhaitez-vous configurer les canaux dépendants de ce thermostat (comme les thermomètres et capteurs) pour qu’ils soient identiques à ceux du thermostat principal ?
+Domestic hot water: Eau chaude domestique
+Dryer: Déshumidificateur
+Edit area crop: Modifier la zone
+Edit program settings: Modifier les paramètres du programme
+Electricity meter active power history: Historique de la puissance du compteur électrique
+Electricity meter current history: Historique de l’intensité du compteur électrique
+Electricity meter voltage aberrations history: Historique des anomalies de tension du compteur électrique
+Electricity meter voltage history: Historique de la tension du compteur électrique
+Enable floor temperature control: Activer le contrôle de la température du sol
+Enable generic cooler temperature control: Activer le contrôle de la température de la source froide
+Enable generic heater temperature control: Activer le contrôle de la température de la source chaude
+Enable power status LED: Activer la LED d’état d’alimentation
+Enable support for OCR readings for this channel: Activer la prise en charge des lectures OCR pour ce canal
+Enable water temperature control: Activer le contrôle de la température de l’eau
+Example value: Exemple
+Expand: Déployer
+Expand or stop: Déployer ou arrêter
+Expand partially: Déployer partiellement
+Expected maximum increment: Gain maximum attendu
+External sensor disabling the thermostat: Capteur externe désactivant le thermostat
+Facade blind operation: Stores extérieurs
+Fan: Ventilateur
+'Field: {propertyPath}.': 'Champ {propertyPath}.'
+Fill missing data: Compenser les mesures manquantes
+Firmware: Firmware
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Le firmware de cet appareil envoie des notifications pour ce canal. Configurez ici leur contenu et leurs destinataires. Pour plus d’informations, contactez le fournisseur de l’appareil.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Le firmware de cet appareil envoie des notifications. Configurez ici leur contenu et leurs destinataires. Pour plus d’informations, contactez le fournisseur de l’appareil.
+For a period: Pour la période
+Forced off by sensor: Extinction forcée par un capteur
+Full tilting time: Durée totale de changement d’inclinaison
+Function disabled: Fonction désactivée
+General purpose meter: Canal compteur à usage général
+HVAC: CVC
+Heat or cold source switch: Commutateur de la source de chauffage ou de refroidissement
+Heat to: Chauffer jusqu’à
+Heating / ventilation / air conditioning: Chauffage / ventilation / climatisation (CVC)
+Heating mode: Mode chauffage
+'Heating: {percent}%': 'Chauffage : {percent}%'
+High threshold: Seuil haut
+High value: Valeur maximale
+History: Histoire
+Home screen content: Contenu de l’écran d’accueil
+Hotel card sensor: Capteur de carte d’hôtel
+Identify device: Identifier l’appareil
+Identify request sent.: La demande d’identification a été envoyée.
+If you confirm the installation and wish to unlock this device, please click the link below.: Si vous essayez d’ajouter un nouvel appareil, cliquez sur le lien ci-dessous pour confirmer le déverrouillage.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Si ce n’est pas vous qui tentez de déverrouiller l’appareil, ignorez cet e-mail. Le lien de confirmation expirera automatiquement après 24 heures.
+Image area crop: Zone de l’image
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Pour minimiser le risque de lecture incorrecte, définissez l’augmentation maximale attendue de la valeur du compteur entre deux images consécutives.
+Increment and decrement: Croissant et décroissant.
+Installer e-mail address: Adresse électronique de l’installateur
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: L’appareil a enregistré un canal d’un autre type ({typeCaption} - {typeId}) à la place de l’actuel.
+Invalid e-mail address.: Adresse e-mail invalide.
+Invalid unlock code.: Lien de déverrouillage invalide.
+Last paired device: Dernier appareil appairé
+Light mode: Mode clair
+Lighting level: Niveau d’éclairage
+Lighting mode: Mode éclairage
+List of available variables: Liste des variables disponibles
+Locked: Bloqué
+Low threshold: Seuil bas
+Low threshold must be less than high threshold.: Le seuil bas doit être inférieur au seuil haut
+Low value: Valeur minimale
+Main thermometer: Thermomètre principal
+Master thermostat: Thermostat principal
+Max: Max.
+Maximum duration is one year.: La période maximale est d’un an.
+Maximum temperature that can be set from the device: Température maximale réglable via l’appareil
+Measurement settings: Paramètres de mesure
+Min: Min.
+Minimum OFF time before cooling can be turned on: Durée minimale d’ARRÊT avant de réactiver le refroidissement
+Minimum OFF time before heating can be turned on: Temps d’ARRÊT minimum avant de réactiver le chauffage
+Minimum OFF time before heating/cooling can be turned on: Temps minimum d’ARRÊT avant de réactiver le refroidissement/chauffage
+Minimum ON time before cooling can be turned off: Temps minimum d’ACTIVATION avant de désactiver le refroidissement
+Minimum ON time before heating can be turned off: Temps minimum d’ACTIVATION avant de désactiver le chauffage
+Minimum ON time before heating/cooling can be turned off: Temps minimum d’ACTIVATION avant de désactiver le refroidissement/chauffage
+Minimum temperature must be lower than maximum temperature.: La température minimale doit être inférieure à la maximale
+Minimum temperature that can be set from the device: Température minimale pouvant être réglée avec l’appareil
+'Mode: cool': 'Mode : refroidissement'
+'Mode: heat': 'Mode : chauffage'
+'Mode: off': 'Mode : désactivé'
+Motor upside down: Contrôle inversé du moteur
+'No': 'Non'
+No results: Aucun résultat
+Notification body is set by the firmware.: Le contenu de la notification est défini par le firmware.
+Notification must have recipients.: La notification doit avoir des destinataires.
+Notification title is set by the firmware.: L'en-tête de la notification est défini par le firmware.
+Notifications (defined): Notifications (définies)
+Notifications (sent per hour): Notifications (envoyées par heure)
+'OCR service responded with error: {status}': 'Le service OCR a répondu avec une erreur : {status}'
+OCR settings: Paramètres OCR
+OR: OU
+Off with duration: Désactiver pour une durée déterminée
+On with duration: Activer pour une durée déterminée
+Open value: Valeur d’ouverture
+Output value on error: État de sortie en cas d’erreur
+Overheat protection: Protection contre la surchauffe
+P/C: P/C
+Pair new devices or sensors: Associer de nouveaux appareils ou capteurs
+Pairing request sent.: Une demande d’apairage a été envoyée
+Pairing subdevices is unsupported in the firmware.: L’apairage n’est pas pris en charge par le logiciel de l’appareil.
+Phase LED type: Indicateur de phase LED
+Photo interval: Intervalle de prise de photos
+Please find the device details below.: Les détails de l’appareil sont ci-dessous.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Veuillez noter que l’appareil concerné par cette demande est réservé aux installateurs certifiés uniquement.
+Please provide the installer e-mail address to request the device unlock.: Pour déverrouiller l’appareil, entrez l’adresse e-mail fournie lors du processus d’obtention du certificat d’installateur.
+Please select and configure the action: Choisissez et configurez l’action.
+Program {programNo}: Programme {programNo}
+Projector screen: Écran de projection
+Pump switch: Interrupteur de pompe
+Push notifications limit has been exceeded: La limite de notifications push a été dépassée
+Reference to the channel will be removed from the items below.: L’indication pour ce canal sera supprimée des éléments ci-dessous.
+Refresh interval: Intervalle de rafraîchissement
+Refresh the config: Rafraîchir la configuration
+Refreshing the configuration will overwrite the changes you made here.: Le rafraîchissement de la configuration écrasera les modifications effectuées dans le formulaire.
+Reload last photo: Recharger la dernière photo
+Remote restart is unsupported in the firmware.: Le redémarrage à distance n’est pas pris en charge par le logiciel de l’appareil.
+Remove this item: Supprimer cet élément
+Request device unlock: Demander le déverrouillage de l’appareil
+Reset to defaults: Restaurer les valeurs par défaut
+Restart device: Redémarrer l’appareil
+Restart the device: Redémarrer l’appareil
+Reveal or stop: Révéler ou arrêter
+Roller garage door: Porte de garage
+S/N: S/N
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Déverrouillage de l’appareil réservé à l’installateur certifié
+SUPLA – your device has been unlocked!: SUPLA - Votre appareil a été déverrouillé !
+Same as on master thermostat.: Réglage identique à celui du thermostat principal.
+Screen brightness: Luminosité de l’écran
+Selected: Sélectionné
+Set HVAC parameters: Régler les paramètres
+Set the device time: Impossible de définir la date et l’heure sur l’appareil.
+Settings: Paramètres
+Settings have not been saved!: Les paramètres n’ont pas été enregistrés !
+Show data: Afficher les données
+Shut or stop: Couvrir ou arrêter
+Some features depend on this channel: Certaines fonctionnalités dépendent de ce canal
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Certaines données collectées pour votre compte seront supprimées périodiquement après un certain temps. Familiarisez-vous avec les limites ci-dessous.
+Status LED: Statut LED
+Store active power history: Conserver l’historique de la puissance active
+Store current history: Conserver l’historique du courant
+Store voltage history: Conserver l’historique de la tension
+'Subdevice #{id}': 'Appareil sous-traitant #{id}'
+Subfunction: Sous-fonction
+Switch to manual mode: Passer en mode manuel
+Switch to program mode: Passer en mode programme
+THEN: ALORS
+Take a photo now: Prendre une photo maintenant
+Temperature adjustment only: Réglage uniquement de la température
+Temperature difference is too big between {min}°C and {max}°C.: L’écart de température est trop important entre {min}°C et {max}°C.
+Temperature setpoint change switches to manual mode: Le changement de la température cible bascule en mode manuel
+Temporal override: Écrasement temporaire
+Terrace awning: Store de terrasse
+The channel has been deleted.: Le canal a été supprimé.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: La configuration a été modifiée d’un autre endroit (par exemple, une autre fenêtre de navigateur, application mobile ou appareil). Vous devez rafraîchir la configuration avant d’apporter de nouvelles modifications.
+The device could not be unlocked.: Impossible de déverrouiller l’appareil.
+The device has been unlocked already.: L’appareil est déjà déverrouillé.
+The device has been unlocked.: L’appareil a été déverrouillé.
+The device has channel conflict and cannot work.: L’appareil a généré un conflit de canaux et ne peut actuellement pas fonctionner.
+The device is locked: Appareil verrouillé
+The following channels will be also removed along with their dependencies.: Les canaux suivants seront également supprimés avec leurs dépendances.
+The items below rely on this channel, so they will be deleted.: Les éléments suivants dépendent de ce canal, donc ils seront supprimés.
+The master termostat you chose already has a master.: Le thermostat principal que vous avez sélectionné possède déjà un autre thermostat principal
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: La réaction sera active lorsque toutes les conditions ci-dessous seront remplies. Si vous définissez toutes les options disponibles, la réaction s’activera uniquement entre les dates sélectionnées, pendant les heures et jours de la semaine choisis et lorsque l’une des références au coucher ou au lever du soleil sera remplie.
+The thermostat will not work if the main thermometer is not set.: Le thermomètre principal doit être réglé pour que le thermostat fonctionne.
+Thermometer error: Erreur du thermomètre
+Thermometers configuration: Configuration des thermomètres
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Ce thermostat utilise les paramètres du thermostat principal. Allez sur sa page de détails pour modifier les paramètres.
+Thermostat programs: Programmes du thermostat
+This action will result in restarting the device. It will not be available for a while.: Exécuter cette opération entraînera un redémarrage de l’appareil. Pendant le redémarrage, l’appareil sera indisponible.
+This channel was missing during last device registration attempt.: Ce canal manque sur l’appareil.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Cet appareil est destiné à la distribution et à l’installation uniquement par des installateurs autorisés. Si vous n’êtes pas un installateur certifié SUPLA et que vous ne disposez pas d’un certificat de formation actif, retournez-le au vendeur.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: C’est la dernière photo envoyée depuis l’appareil. Sélectionnez précisément la zone où les chiffres du compteur sont visibles.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Voici la liste des réactions activées sur votre compte. Si vous souhaitez ajouter une nouvelle réaction, allez dans les détails du canal qui devrait la déclencher.
+This thermostat is controlled by another device.: Ce thermostat est contrôlé par le thermostat principal.
+Tilt angle: Angle d’inclinaison
+Tilt control type: Type de contrôle de l’inclinaison
+Tilt percent: Pourcentage d’inclinaison
+Time: Durée
+Today, it would be active from {from} to {to}.: Aujourd’hui, la période d’activité serait de {from} à {to}.
+Turn off: Éteindre
+Unlock the device: Déverrouiller l’appareil
+Unlocked: Déverrouillé
+Until a date and time: Jusqu’à
+Until the next change: Jusqu’au prochain changement
+Use device default: Utiliser la valeur par défaut de l’appareil
+Use working schedule for this reaction: Utiliser le programme d’activité pour cette réaction
+Use {theMasterThermostat} to control this device.: Utiliser {theMasterThermostat} pour contrôler cet appareil.
+Used current transformer type: Transformateur de courant utilisé
+User interface: Interface utilisateur
+Value divider: Diviseur
+Value multiplier: Multiplicateur
+Vertical blind: Store vertical
+Visit the master thermostat page.: Aller au thermostat principal.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Nous avons reçu une demande de déverrouillage d’un appareil destiné uniquement aux installateurs certifiés. La demande a été envoyée par l’utilisateur %deviceUserEmail% depuis l’instance SUPLA Cloud à l’adresse %targetCloudUrl%.
+Week: Semaine
+Weekly schedule: Calendrier hebdomadaire
+When the alarm is armed: Lorsque l’alarme est activée
+When the alarm is armed or disarmed: Lorsque l’alarme est désactivée ou activée
+When the alarm is disarmed: Lorsque l’alarme est désactivée
+When the battery cover is opened: Lorsque le couvercle de la batterie est ouvert
+When the clock error has been reported: Lorsque l’horloge signale une erreur
+When the curtain position changes: Lorsque le rideau change de position
+When the curtain reaches: Lorsque le rideau atteint
+When the curtain reaches a certain position: Lorsque le rideau atteint une position définie
+When the facade blind position changes: Lorsque le store de façade change de position
+When the facade blind reaches: Lorsque le store de façade atteint
+When the facade blind reaches a certain position: Lorsque le store de façade atteint une position définie
+When the hotel card has been taken: Lorsque la carte d’hôtel est retirée
+When the hotel card is put in: Lorsque la carte d’hôtel est insérée
+When the hotel card is put in or has been taken: Lorsque la carte d’hôtel est insérée ou retirée
+When the meter reaches a certain value: Lorsque le compteur atteint la valeur définie
+When the meter value changes: Lorsque la valeur change
+When the meter value will be: Lorsque la valeur sera
+When the projector screen position changes: Lorsque l’écran de projection change de position
+When the projector screen reaches: Lorsque l’écran de projection atteint
+When the projector screen reaches a certain position: Lorsque l’écran de projection atteint une position définie
+When the pump is turned off: Lorsque la pompe est arrêtée
+When the pump is turned on: Lorsque la pompe est activée
+When the pump is turned on or off: Lorsque la pompe est activée ou arrêtée
+When the roller garage door a certain position: Lorsque la porte de garage atteint une position définie
+When the roller garage door position changes: Lorsque la porte de garage change de position
+When the roller garage door reaches: Lorsque la porte de garage atteint
+When the roller shutter calibration failed: Lorsque la calibration du volet échoue
+When the roller shutter calibration has been lost: Lorsque la calibration du volet ne peut être terminée
+When the roller shutter calibration has started: Lorsque la calibration du volet commence
+When the roller shutter motor reported a problem: Lorsque le moteur du volet signale un problème
+When the terrace awning position changes: Lorsque le store de terrasse change de position
+When the terrace awning reaches: Lorsque le store de terrasse atteint
+When the terrace awning reaches a certain position: Lorsque le store de terrasse atteint une position définie
+When the thermometer error has been reported: Lorsque le thermomètre signale une erreur
+When the thermostat starts cooling: Lorsque le thermostat commence à refroidir
+When the thermostat starts heating: Lorsque le thermostat commence à chauffer
+When the thermostat starts heating or cooling: Lorsque le thermostat commence à chauffer ou refroidir
+When the thermostat starts or stops cooling: Lorsque le thermostat commence ou arrête de refroidir
+When the thermostat starts or stops heating: Lorsque le thermostat commence ou arrête de chauffer
+When the thermostat starts or stops heating or cooling: Lorsque le thermostat commence ou arrête de chauffer ou refroidir
+When the thermostat stops cooling: Lorsque le thermostat arrête de refroidir
+When the thermostat stops heating: Lorsque le thermostat arrête de chauffer
+When the thermostat stops heating or cooling: Lorsque le thermostat arrête de chauffer ou refroidir
+When the vertical blind position changes: Lorsque le store vertical change de position
+When the vertical blind reaches: Lorsque le store vertical atteint
+When the vertical blind reaches a certain position: Lorsque le store vertical atteint une position définie
+Will be deleted after: Suppression après
+With a timer: Avec minuterie
+'Yes': 'Oui'
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Vous pouvez définir ici des valeurs relatives. Par exemple, +10 ou -20 augmentera le réglage de 10 ou le diminuera de 20.
+You cannot to set a master thermostat for a channel that is master for others.: Vous ne pouvez pas régler le thermostat principal dans le thermostat principal
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: La demande a été envoyée. Nous vous informerons lorsque l’'installateur l’approuvera et déverrouillera l’appareil.
+You need to provide icons for all states in light mode.: Vous devez fournir des icônes pour tous les états en mode clair.
+Your device has been unlocked by the installer.: Votre appareil a été déverrouillé par l’installateur.
+and wait until the meter will be: et ne répétez pas cette action tant que la valeur ne sera pas
+auxThermometerType_DISABLED: Atteinte
+auxThermometerType_FLOOR: Sol
+auxThermometerType_GENERIC_COOLER: Source de froid
+auxThermometerType_GENERIC_HEATER: Source de chaleur
+auxThermometerType_NOT_SET: Non défini
+auxThermometerType_WATER: Eau
+blue, otherwise: sinon bleue
+blue, when voltage lower than the low threshold: bleue, lorsque la tension est inférieure au seuil bas
+choose the currency: choisissez une devise
+configuration missing: aucune configuration
+cool: refroidissement
+day: jour
+default: par défaut
+green, otherwise: sinon verte
+green, when power less than the low threshold: verte, lorsque la puissance est inférieure au seuil bas
+heat: chauffage
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Température principale et additionnelle
+homeScreenContent_NONE: Aucun
+homeScreenContent_TEMPERATURE: Température
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Température et humidité
+homeScreenContent_TEMPERATURE_TIME: Température et temps
+homeScreenContent_TIME: Temps
+homeScreenContent_TIME_DATE: Date et heure
+hour: heures
+keepHistoryMeasurementWarningSelected: Avez-vous vraiment besoin de cet historique ? Supla est un projet open source financé sur fonds propres. Si cet historique n’est pas indispensable, aidez-nous à économiser notre espace de stockage précieux en laissant cette option désactivée.
+max: max.
+midnight: nord
+milliseconds: millisecondes
+min: min
+ocrLightingMode_ALWAYS_ON: Toujours activée
+ocrLightingMode_AUTO: Automatiquement
+ocrLightingMode_OFF: Désactivée
+'off': 'Désactiver'
+red, when power higher than the high threshold: rouge, lorsque la puissance est supérieure au seuil haut
+red, when voltage higher than the high threshold: rouge, lorsque la tension est supérieure au seuil haut
+seconds: secondes
+statusLed_ALWAYS_OFF: Toujours désactivé
+statusLed_OFF_WHEN_CONNECTED: Désactiver lorsqu’il est connecté
+statusLed_ON_WHEN_CONNECTED: Activer lorsqu’il est connecté
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Résultat inconnu
+subdevicePairingResult_NOT_STARTED_BUSY: L’appareil est occupé
+subdevicePairingResult_NOT_STARTED_NOT_READY: L’appareil n’est pas prêt
+subdevicePairingResult_NOT_SUPPORTED: Opération non prise en charge
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Aucun nouvel appareil détecté
+subdevicePairingResult_ONGOING: En cours
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Résultat de couplage inconnu
+subdevicePairingResult_PROCEDURE_STARTED: Procédure commencée
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Limite des ressources dépassée
+subdevicePairingResult_SUCCESS: Succès
+subdevicePairingResult_UNAUTHORIZED: Échec de l’autorisation
+sunrise: lever du soleil
+sunset: coucher du soleil
+swap: remplacer
+the master thermostat ID{id}: ID{id} du thermostat principal
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Activer/désactiver avec le réglage supérieur
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Activer/désactiver avec le réglage central
+thermostatAlgorithm_PID: PID
+thermostatAlgorithm_help: |
+  Les algorithmes marche/arrêt fonctionnent sur la base d’un réglage d’hystérésis. L’hystérésis peut être liée au milieu de sa plage (réglage du milieu) ou à la température réglée (réglage du haut).
+  Par exemple, en supposant une hystérésis de 1°C et une température cible de 23°C, le thermostat :
+   - allumera le chauffage à 22,5°C et s’arrêtera lorsque la température atteindra 23,5°C pour le réglage moyen 
+   - allumera le chauffage à 22°C et s’arrêtera lorsque la température atteindra 23°C pour le réglage supérieur
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: ~
-thermostatSubfunction_HEAT: ~
-thermostatTemperature_aboveAlarm: ~
-thermostatTemperature_auxMaxSetpoint: ~
-thermostatTemperature_auxMinSetpoint: ~
-thermostatTemperature_belowAlarm: ~
-thermostatTemperature_boost: ~
-thermostatTemperature_comfort: ~
-thermostatTemperature_eco: ~
-thermostatTemperature_freezeProtection: ~
-thermostatTemperature_heatProtection: ~
-thermostatTemperature_histeresis: ~
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: ~
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: ~
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: ~
-tiltControlType_UNKNOWN: ~
-timeMarginMode_custom: ~
-timeMarginMode_device: ~
-timeMarginMode_off: ~
-usedCTType_100A_33mA: ~
-usedCTType_200A_66mA: ~
-usedCTType_400A_133mA: ~
-usedPhaseLedType_OFF: ~
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
-usedPhaseLedType_VOLTAGE_LEVEL: ~
-usedPhaseLedType_VOLTAGE_PRESENCE: ~
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
-'{count} minutes after sunrise': ~
-'{count} minutes after sunset': ~
-'{count} minutes before sunrise': ~
-'{count} minutes before sunset': ~
-'{days} days': ~
-
+thermostatSubfunction_COOL: Refroidissement
+thermostatSubfunction_HEAT: Chauffage
+thermostatTemperature_aboveAlarm: Au-dessus de l’alarme
+thermostatTemperature_auxMaxSetpoint: Température supplémentaire maximale
+thermostatTemperature_auxMinSetpoint: Température supplémentaire minimale
+thermostatTemperature_belowAlarm: En dessous de l’alarme
+thermostatTemperature_boost: Température boost
+thermostatTemperature_comfort: Température de confort
+thermostatTemperature_eco: Température ECO
+thermostatTemperature_freezeProtection: Température de protection antigel
+thermostatTemperature_heatProtection: Température de protection contre la surchauffe
+thermostatTemperature_histeresis: Hystérésis
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Change de position pendant le changement d’inclinaison
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Ne change pas de position pendant le changement d’inclinaison
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Change l’inclinaison uniquement lorsqu’il est complètement fermé
+tiltControlType_UNKNOWN: Inconnu
+timeMarginMode_custom: Personnalisé
+timeMarginMode_device: Valeur par défaut de l’appareil
+timeMarginMode_off: Désactivé
+usedCTType_100A_33mA: 100A/33,3mA
+usedCTType_200A_66mA: 200A/66.6mA
+usedCTType_400A_133mA: 400A/133.3mA
+usedPhaseLedType_OFF: Désactivée
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Direction du flux de puissance
+usedPhaseLedType_VOLTAGE_LEVEL: Niveau de tension
+usedPhaseLedType_VOLTAGE_PRESENCE: Présence de tension
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Présence de tension (inversée)
+'{count} minutes after sunrise': '{count} minutes après le lever du soleil'
+'{count} minutes after sunset': '{count} minutes après le coucher du soleil'
+'{count} minutes before sunrise': '{count} minutes avant le lever du soleil'
+'{count} minutes before sunset': '{count} minutes avant le coucher du soleil'
+'{days} days': '{days} jours'
 #</editor-fold>

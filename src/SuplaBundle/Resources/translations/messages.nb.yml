@@ -136,6 +136,7 @@ Cancelled: Avbrutt
 Cannot calculate when to run the schedule - incorrect configuration?: Kunne ikke beregne noen planstartdato - feil konfigurasjon?
 Cannot change the channel function right now.: Funksjonene til denne kanalen kan ikke endres for øyeblikket.
 Cannot delete this I/O Device right now.: Denne enheten kan ikke fjernes for øyeblikket.
+Cannot execute an action when the device is disconnected.: Ikke mulig å utføre handlingen når enheten er frakoblet.
 Captcha token is not valid.: Feil captcha.
 Caption: Underskrift
 Caption is too long.: Navnet er for langt.
@@ -514,12 +515,12 @@ No of devices: Antall enheter
 No of operations: Antall handlinger
 No schedule configuration.: Ingen tidsplankonfigurasjon ble spesifisert.
 No, take me back!: Nei, få meg ut herfra!
-No{'.'} of Client’s apps: Antall kundeapplikasjoner
-No{'.'} of access identifiers: Antall tilgang identifikatorer
-No{'.'} of channel groups: Antall kanalgrupper
-No{'.'} of channels: Antall kanaler
-No{'.'} of devices: Antall enheter
-No{'.'} of locations: Antall lokaliseringer
+No. of Client’s apps: Antall kundeapplikasjoner
+No. of access identifiers: Antall tilgang identifikatorer
+No. of channel groups: Antall kanalgrupper
+No. of channels: Antall kanaler
+No. of devices: Antall enheter
+No. of locations: Antall lokaliseringer
 None: Mangel
 None (channel disabled): Ingen (kanal av)
 Noop: Ingen drift
@@ -709,7 +710,7 @@ SoftVer: WerOpr
 Some features depend on this channel group: Noe funksjonalitet avhenger av denne gruppen av kanaler.
 Some features depend on this device: Noe funksjonalitet avhenger av denne enheten.
 Some features depend on this scene: Noe funksjonalitet avhenger av denne scenen.
-Some of the features you have configured depend on channels from this device.: Noen funksjoner bruker kanaler fra denne enheten.
+Some of the features you have configured rely on channels from this device.: Noen funksjoner bruker kanaler fra denne enheten.
 Staircase timer: Trappeautomat
 Start Here: Start her
 Start date: Startdato
@@ -754,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Portåpner sensor må fungere riktig for å utføre handlingen Åpne eller Steng.
 The gate sensor must function properly in order to execute the scheduled action.: For å utføre handlingen må portåpner sensor fungere riktig.
 The incident was detected at %datetime%.: Hendelsen skjedde% datetime%.
-The items below depend on this channel function, so they will be deleted.: Følgende elementer er basert på gjeldende kanalfunksjon, så de vil bli fjernet når de endres.
-The items below depend on this channel group, so they will be deleted.: 'Følgende elementer bruker med denne kanalgruppen, så de vil bli fjernes og. '
-The items below depend on this scene, so they will be deleted.: Elementene nedenfor er basert på denne scenen, så de vil bli fjernet.
+The items below rely on this channel function, so they will be deleted.: Følgende elementer er basert på gjeldende kanalfunksjon, så de vil bli fjernet når de endres.
+The items below rely on this channel group, so they will be deleted.: 'Følgende elementer bruker med denne kanalgruppen, så de vil bli fjernes og. '
+The items below rely on this scene, so they will be deleted.: Elementene nedenfor er basert på denne scenen, så de vil bli fjernet.
 The latest execution: Utført sist
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Resultat for utførelser er presentert som en nettside siden enten du (eller din søker) ba om svar i HTML format.
 The measurement history has been deleted.: Målingshistorie ble fjernet.
@@ -815,7 +816,7 @@ Unsupported type: Type ikke støttet
 Update in progress: Oppdatering pågår
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Opplastede filer berører ikke gode skikker, opphavsrett eller tredjeparts rettigheter og jeg har rett til å bruke dem.
 Upper voltage threshold: Høy spenning terskel
-'Use the {0} server command to change this account''s limits. For example:': 'For å endre grensene for denne kontoen, bruk kommandoen {0} på serveren din. For eksempel:'
+"Use the {0} server command to change this account's limits. For example:": 'For å endre grensene for denne kontoen, bruk kommandoen {0} på serveren din. For eksempel:'
 Use working schedule for this access identifier: bruk tilgjengelighetsplanen for denne tilgangs-IDen
 User is already confirmed. Try to log in.: Konto er bekreftet. Logg inn.
 Value: Verdi
@@ -832,7 +833,7 @@ Voltage aberrations: Spenningsavvik
 Voltage monitoring: Spenning overvåking
 WELCOME_MESSAGE: |
   Tilkobling av ditt hus eller kontor til SUPLA er enkelt.Det eneste du må gjøre er å taste
-  inn i enhetene som styrer (inngang/ utgang) samt smarttelefonene data du finner nedenfor. 
+  inn i enhetene som styrer (inngang/ utgang) samt smarttelefonene data du finner nedenfor.
 Wait a while before the next request. You can check your limits in the account settings.: Vent litt før du sender en ny forespørsel. Du kan sjekke den nåværende statusen av begrensningene dine i kontoinnstillingene.
 Wait for this scene to finish before proceeding to the next step ({time}).: Vent til scenen er ferdig før du fortsetter handlingen ({time}).
 Water meter: Vannmåler
@@ -1172,7 +1173,6 @@ Are you sure you want to disable this device?: Er du sikker på at du ønsker å
 Assigned Locations: Tildelte lokaliseringer
 Authorized OAuth apps: Autoriserte OAuth applikasjoner
 Calculated value: Målerstatus
-Cannot execute an action when the device is disconnected.: Ikke mulig å utføre handlingen når enheten er frakoblet.
 Cannot send an activation e-mail. Try again later.: Sending av melding med aktiviseringslenken var ikke mulig. Vennligst prøv senere.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Finner du ikke meldingen med en lenke for å aktivere din konto i innboksen? Se om den ikke er i mappen SPAM (søppelpost). Du kan også {clickHereLink} for å sende den på nytt.
 Channel value: Verdi
@@ -1250,448 +1250,431 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-0% tilt angle: ~
-100% tilt angle: ~
-A confirmation upon successful device unlocking.: ~
-Action trigger for channel: ~
-Active from: ~
-Active to: ~
-Activity conditions: ~
-Additional time margin: ~
-Adjust temperature: ~
-Adjust temperatures: ~
-After the delay: ~
-After the delay, but only when it's dark: ~
-Alarm armament sensor: ~
-Algorithm: ~
-All programs must define at least one temperature threshold.: ~
-Always decrement: ~
-Always increment: ~
-Anti-freeze and overheat protection: ~
-Anti-freeze protection: ~
-Are you sure you want to change channel’s location?: ~
-Are you sure you want to change channel’s visibility?: ~
-Are you sure you want to change device’s location?: ~
-Are you sure you want to delete this channel?: ~
-Are you sure you want to delete this subdevice?: ~
-Automatic: ~
-Automatic front panel turn off: ~
-Automatic front panel turn off after: ~
-Automatic thermostat: ~
-Automatic time synchronization: ~
-Aux thermometer: ~
-Aux thermometer for channel: ~
-Aux thermometer type: ~
-Available variables: ~
-Average: ~
-Battery cover open: ~
-Behavior settings: ~
-Binary sensor: ~
-Binary sensor for channel: ~
-Brightness adjustment for automatic mode: ~
-Brightness level: ~
-Button volume: ~
-Buttons upside down: ~
-Candle: ~
-Cannot execute an action when the channel is not available.: ~
-Cannot update OCR settings. Try again in a while.: ~
-Change percentage by: ~
-Change percentage to: ~
-Change tilt by: ~
-Change tilt to: ~
-Change to be the same.: ~
-Changing channel’s visibility will also change the visibility of other items.: ~
-Changing the location will also imply changing the location of the following items.: ~
-Channels that are meant to work with each other must be in the same location.: ~
-Clock error: ~
-Close value: ~
-Collapse: ~
-Collapse or stop: ~
-Collapse partially: ~
-Command has been sent to the device. Try refreshing the photo in a while.: ~
-Common currencies: ~
-Configuration not available yet. Waiting for the device to connect.: ~
-Confirm if you want to perform the calibration.: ~
-Conflict: ~
-Cool to: ~
-Cooling mode: ~
-'Cooling: {percent}%': ~
-Costs: ~
-Could not restart the device.: ~
-Could not send the identify command.: ~
-Could not set the device time.: ~
-Counter type: ~
-Curtain: ~
-Dark mode: ~
-Data: ~
-Date range: ~
-Daytime criteria: ~
-Dependencies: ~
-'Device GUID: %deviceGuid%': ~
-Device identification is unsupported in the firmware.: ~
-Device settings: ~
-Device should be restarting now.: ~
-Device time has been set.: ~
-Different than on master thermostat.: ~
-Differential thermostat: ~
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
-Domestic hot water: ~
-Dryer: ~
-Edit area crop: ~
-Edit program settings: ~
-Electricity meter active power history: ~
-Electricity meter current history: ~
-Electricity meter voltage aberrations history: ~
-Electricity meter voltage history: ~
-Enable floor temperature control: ~
-Enable generic cooler temperature control: ~
-Enable generic heater temperature control: ~
-Enable power status LED: ~
-Enable support for OCR readings for this channel: ~
-Enable water temperature control: ~
-Example value: ~
-Expand: ~
-Expand or stop: ~
-Expand partially: ~
-Expected maximum increment: ~
-External sensor disabling the thermostat: ~
-Facade blind operation: ~
-Fan: ~
-'Field: {propertyPath}.': ~
-Fill missing data: ~
-Firmware: ~
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-For a period: ~
-Forced off by sensor: ~
-Full tilting time: ~
-Function disabled: ~
-General purpose meter: ~
-HVAC: ~
-Heat or cold source switch: ~
-Heat to: ~
-Heating / ventilation / air conditioning: ~
-Heating mode: ~
-'Heating: {percent}%': ~
-High threshold: ~
-High value: ~
-History: ~
-Home screen content: ~
-Hotel card sensor: ~
-Identify device: ~
-Identify request sent.: ~
-If you confirm the installation and wish to unlock this device, please click the link below.: ~
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
-Image area crop: ~
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: ~
-Increment and decrement: ~
-Installer e-mail address: ~
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: ~
-Invalid e-mail address.: ~
-Invalid unlock code.: ~
-Last paired device: ~
-Light mode: ~
-Lighting level: ~
-Lighting mode: ~
-List of available variables: ~
-Locked: ~
-Low threshold: ~
-Low threshold must be less than high threshold.: ~
-Low value: ~
-Main thermometer: ~
-Main thermometer for channel: ~
-Master thermostat: ~
-Master thermostat for channel: ~
-Max: ~
-Maximum duration is one year.: ~
-Maximum temperature that can be set from the device: ~
-Measurement settings: ~
-Min: ~
-Minimum OFF time before cooling can be turned on: ~
-Minimum OFF time before heating can be turned on: ~
-Minimum OFF time before heating/cooling can be turned on: ~
-Minimum ON time before cooling can be turned off: ~
-Minimum ON time before heating can be turned off: ~
-Minimum ON time before heating/cooling can be turned off: ~
-Minimum temperature must be lower than maximum temperature.: ~
-Minimum temperature that can be set from the device: ~
-'Mode: cool': ~
-'Mode: heat': ~
-'Mode: off': ~
-Motor upside down: ~
-'No': ~
-No results: ~
-Not available: ~
-Notification body is set by the firmware.: ~
-Notification must have recipients.: ~
-Notification title is set by the firmware.: ~
-Notifications (defined): ~
-Notifications (sent per hour): ~
-'OCR service responded with error: {status}': ~
-OCR settings: ~
-OR: ~
-Off with duration: ~
-On with duration: ~
-Open value: ~
-Opening sensor for channel: ~
-Output value on error: ~
-Overheat protection: ~
-P/C: ~
-Pair new devices or sensors: ~
-Pairing request sent.: ~
-Pairing subdevices is unsupported in the firmware.: ~
-Phase LED type: ~
-Photo interval: ~
-Please find the device details below.: ~
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: ~
-Please provide the installer e-mail address to request the device unlock.: ~
-Please select and configure the action: ~
-Program {programNo}: ~
-Projector screen: ~
-Pump switch: ~
-Pump switch for channel: ~
-Push notifications limit has been exceeded: ~
-Reference to the deleted channels will be removed from the items below.: ~
-Refresh interval: ~
-Refresh the config: ~
-Refreshing the configuration will overwrite the changes you made here.: ~
-Reload last photo: ~
-Remote restart is unsupported in the firmware.: ~
-Remove this item: ~
-Request device unlock: ~
-Reset to defaults: ~
-Restart device: ~
-Restart the device: ~
-Reveal or stop: ~
-Roller garage door: ~
-S/N: ~
-SUPLA - Confirm unlocking device for authorized installers: ~
-SUPLA – your device has been unlocked!: ~
-Same as on master thermostat.: ~
-Screen brightness: ~
-Selected: ~
-Set HVAC parameters: ~
-Set the device time: ~
-Settings: ~
-Settings have not been saved!: ~
-Show data: ~
-Shut or stop: ~
-Some features depend on this channel: ~
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
-Status LED: ~
-Store active power history: ~
-Store current history: ~
-Store voltage history: ~
-'Subdevice #{id}': ~
-Subfunction: ~
-Switch to manual mode: ~
-Switch to program mode: ~
-THEN: ~
-Take a photo now: ~
-Temperature adjustment only: ~
-Temperature control type: ~
-Temperature difference is too big between {min}°C and {max}°C.: ~
-Temperature setpoint change switches to manual mode: ~
-Temporal override: ~
-Terrace awning: ~
-The channel has been deleted.: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: ~
-The device could not be unlocked.: ~
-The device has been unlocked already.: ~
-The device has been unlocked.: ~
-The device has channel conflict and cannot work.: ~
-The device is locked: ~
-The following channels will be also removed along with their dependencies.: ~
-The items below depend on the deleted channels, so they will be deleted, too.: ~
-The master termostat you chose already has a master.: ~
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
-The subdevice has been deleted.: ~
-The thermostat will not work if the main thermometer is not set.: ~
-Thermometer error: ~
-Thermometers configuration: ~
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
-Thermostat programs: ~
-This action will result in restarting the device. It will not be available for a while.: ~
-This channel was missing during last device registration attempt.: ~
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
-This thermostat is controlled by another device.: ~
-Tilt angle: ~
-Tilt control type: ~
-Tilt percent: ~
-Time: ~
-Today, it would be active from {from} to {to}.: ~
-Turn off: ~
-Unlock the device: ~
-Unlocked: ~
-Until a date and time: ~
-Until the next change: ~
-Use device default: ~
-Use working schedule for this reaction: ~
-Use {theMasterThermostat} to control this device.: ~
-Used current transformer type: ~
-User interface: ~
-Value divider: ~
-Value multiplier: ~
-Vertical blind: ~
-Visit the master thermostat page.: ~
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
-Week: ~
-Weekly schedule: ~
-When the alarm is armed: ~
-When the alarm is armed or disarmed: ~
-When the alarm is disarmed: ~
-When the battery cover is opened: ~
-When the battery level will be: ~
-When the battery reaches a certain level: ~
-When the clock error has been reported: ~
-When the curtain position changes: ~
-When the curtain reaches: ~
-When the curtain reaches a certain position: ~
-When the device starts to be powered from battery: ~
-When the device stops to be powered from battery: ~
-When the facade blind position changes: ~
-When the facade blind reaches: ~
-When the facade blind reaches a certain position: ~
-When the hotel card has been taken: ~
-When the hotel card is put in: ~
-When the hotel card is put in or has been taken: ~
-When the meter reaches a certain value: ~
-When the meter value changes: ~
-When the meter value will be: ~
-When the projector screen position changes: ~
-When the projector screen reaches: ~
-When the projector screen reaches a certain position: ~
-When the pump is turned off: ~
-When the pump is turned on: ~
-When the pump is turned on or off: ~
-When the roller garage door a certain position: ~
-When the roller garage door position changes: ~
-When the roller garage door reaches: ~
-When the roller shutter calibration failed: ~
-When the roller shutter calibration has been lost: ~
-When the roller shutter calibration has started: ~
-When the roller shutter motor reported a problem: ~
-When the terrace awning position changes: ~
-When the terrace awning reaches: ~
-When the terrace awning reaches a certain position: ~
-When the thermometer error has been reported: ~
-When the thermostat starts cooling: ~
-When the thermostat starts heating: ~
-When the thermostat starts heating or cooling: ~
-When the thermostat starts or stops cooling: ~
-When the thermostat starts or stops heating: ~
-When the thermostat starts or stops heating or cooling: ~
-When the thermostat stops cooling: ~
-When the thermostat stops heating: ~
-When the thermostat stops heating or cooling: ~
-When the vertical blind position changes: ~
-When the vertical blind reaches: ~
-When the vertical blind reaches a certain position: ~
-Will be deleted after: ~
-With a timer: ~
-'Yes': ~
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot change this function becuase it is required by another channel.: ~
-You cannot to set a master thermostat for a channel that is master for others.: ~
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
-You need to provide icons for all states in light mode.: ~
-Your device has been unlocked by the installer.: ~
-and wait until the battery level will be: ~
-and wait until the meter will be: ~
-auxThermometerType_DISABLED: ~
-auxThermometerType_FLOOR: ~
-auxThermometerType_GENERIC_COOLER: ~
-auxThermometerType_GENERIC_HEATER: ~
-auxThermometerType_NOT_SET: ~
-auxThermometerType_WATER: ~
-blue, otherwise: ~
-blue, when voltage lower than the low threshold: ~
-choose the currency: ~
-configuration missing: ~
-cool: ~
-day: ~
-default: ~
-green, otherwise: ~
-green, when power less than the low threshold: ~
-heat: ~
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
-homeScreenContent_NONE: ~
-homeScreenContent_TEMPERATURE: ~
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
-homeScreenContent_TEMPERATURE_TIME: ~
-homeScreenContent_TIME: ~
-homeScreenContent_TIME_DATE: ~
-hour: ~
-keepHistoryMeasurementWarningSelected: ~
-max: ~
-midnight: ~
-milliseconds: ~
-min: ~
-ocrLightingMode_ALWAYS_ON: ~
-ocrLightingMode_AUTO: ~
-ocrLightingMode_OFF: ~
-'off': ~
-red, when power higher than the high threshold: ~
-red, when voltage higher than the high threshold: ~
-seconds: ~
-statusLed_ALWAYS_OFF: ~
-statusLed_OFF_WHEN_CONNECTED: ~
-statusLed_ON_WHEN_CONNECTED: ~
-subdevicePairingResult_CMD_RESULT_UNKNOWN: ~
-subdevicePairingResult_NOT_STARTED_BUSY: ~
-subdevicePairingResult_NOT_STARTED_NOT_READY: ~
-subdevicePairingResult_NOT_SUPPORTED: ~
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: ~
-subdevicePairingResult_ONGOING: ~
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: ~
-subdevicePairingResult_PROCEDURE_STARTED: ~
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: ~
-subdevicePairingResult_SUCCESS: ~
-subdevicePairingResult_UNAUTHORIZED: ~
-sunrise: ~
-sunset: ~
-swap: ~
-temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
-temperatureControlType_ROOM_TEMPERATURE: ~
-the master thermostat ID{id}: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
-thermostatAlgorithm_PID: ~
-thermostatAlgorithm_help: ~
+0% tilt angle: Vinkelen på lamellene som persiennen stiller inn ved lukking
+100% tilt angle: Vinkelen på lamellene som persiennen stiller inn ved åpning
+A confirmation upon successful device unlocking.: Bekreftelse på opplåsing av enheten.
+Active from: Aktiv siden
+Active to: Aktiv til
+Activity conditions: Aktivitetsbetingelser
+Additional time margin: Ekstra tidsmargin
+Adjust temperature: Still inn temperaturen
+Adjust temperatures: Still inn temperaturer
+After the delay: Etter en bestemt tidsperiode
+After the delay, but only when it's dark: Etter en bestemt tid, men bare når det er mørkt
+Alarm armament sensor: Sensor for alarmaktivering
+Algorithm: Algoritme
+All programs must define at least one temperature threshold.: Hvert program må definere minst én temperaturterskel.
+Always decrement: Alltid synkende
+Always increment: Alltid økende
+Anti-freeze and overheat protection: Beskyttelse mot overoppheting og frostsikring
+Anti-freeze protection: Beskyttelse mot frost
+Are you sure you want to change channel’s location?: Er du sikker på at du vil endre plasseringen av kanalen?
+Are you sure you want to change channel’s visibility?: Er du sikker på at du vil endre synligheten av kanalen?
+Are you sure you want to change device’s location?: Er du sikker på at du vil endre plasseringen av enheten?
+Are you sure you want to delete this channel?: Er du sikker på at du vil slette denne kanalen?
+Automatic: Automatisk
+Automatic front panel turn off: Automatisk deaktivering av frontpanelet
+Automatic front panel turn off after: Tid til deaktivering av frontpanelet
+Automatic thermostat: Automatisk termostat
+Automatic time synchronization: Automatisk synkronisering av dato og klokkeslett
+Aux thermometer: Tilleggstermometer
+Aux thermometer type: Ekstra termometertype
+Available variables: Tilgjengelige variabler
+Average: Gjennomsnittlig
+Battery cover open: Batteridekselet åpent
+Behavior settings: Adferd
+Binary sensor: Binær sensor
+Brightness adjustment for automatic mode: Justere lysstyrken i automatisk modus
+Brightness level: Lysstyrkenivå
+Button volume: Volum på knappene
+Buttons upside down: Invertert knappestyring
+Candle: Lys
+Cannot update OCR settings. Try again in a while.: OCR-innstillingene kunne ikke oppdateres. Prøv igjen om et øyeblikk.
+Change percentage by: Endre prosentandelen med
+Change percentage to: Endre prosentandelen til
+Change tilt by: Endre hellingen med
+Change tilt to: Endre hellingen til
+Change to be the same.: Still det likt.
+Changing channel’s visibility will also change the visibility of other items.: Hvis du endrer kanalens synlighet, endres også synligheten til andre elementer.
+Changing the location will also imply changing the location of the following items.: Endringen av plassering vil også påvirke den for følgende elementer.
+Channels that are meant to work with each other must be in the same location.: Kanalene, som skal samarbeide, må være på samme sted.
+Clock error: Klokkefeil
+Close value: Sluttverdi
+Collapse: Skjul
+Collapse or stop: Skjul eller stopp
+Collapse partially: Delvis skjul
+Command has been sent to the device. Try refreshing the photo in a while.: Forespørselen ble sendt til enheten. Prøv å oppdatere bildet om et øyeblikk.
+Common currencies: Mest valgte valutaer
+Configuration not available yet. Waiting for the device to connect.: Konfigurasjonen er ennå ikke tilgjengelig. Vent til enheten kobler seg til.
+Confirm if you want to perform the calibration.: Bekreft at du ønsker å utføre kalibreringen.
+Conflict: Konflikt
+Cool to: Kjøl ned til
+Cooling mode: Kjølemodus
+'Cooling: {percent}%': 'Avkjøling: {percent}%.'
+Costs: Kostnader
+Could not restart the device.: Enheten kunne ikke startes på nytt.
+Could not send the identify command.: Ordren kunne ikke sendes.
+Could not set the device time.: Det var ikke mulig å stille dato og klokkeslett på enheten.
+Counter type: Type måler
+Curtain: Gardin
+Dark mode: Mørk modus
+Data: Data
+Date range: Datointervall
+Daytime criteria: Kriterier basert på daglengden
+Dependencies: Avhengigheter
+'Device GUID: %deviceGuid%': 'GUID for enheten: %deviceGuid%'
+Device identification is unsupported in the firmware.: Enhetsidentifikasjon støttes ikke i fastvare.
+Device settings: Innstillinger for enheten
+Device should be restarting now.: Enheten bør startes på nytt.
+Device time has been set.: Dato og klokkeslett for enheten er innstilt.
+Different than on master thermostat.: Innstilling forskjellig fra den på hovedtermostaten.
+Differential thermostat: Differensiell termostat
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Ønsker du å stille inn kanalene som er avhengige av denne termostaten (som termometre og sensorer) til å være de samme som i hovedtermostaten?
+Domestic hot water: Varmt vann hjemme
+Dryer: Avfukter
+Edit area crop: Rediger området
+Edit program settings: Rediger programinnstillinger
+Electricity meter active power history: Strømmålerens historikk
+Electricity meter current history: Historikk for strømstyrken på strømmåleren
+Electricity meter voltage aberrations history: Historikk for spenningsavvik i strømmåleren
+Electricity meter voltage history: Historikk for spenningen på strømmåleren
+Enable floor temperature control: Aktiver gulv temperaturkontroll
+Enable generic cooler temperature control: Aktiver temperaturkontroll for kjølekilden
+Enable generic heater temperature control: Aktiver temperaturkontroll for varmekilde
+Enable power status LED: Aktiver strømstatusdiode
+Enable support for OCR readings for this channel: Aktiver støtte for OCR-avlesninger for denne kanalen
+Enable water temperature control: Aktiver temperaturkontroll for vann
+Example value: Eksempel
+Expand: Utvid
+Expand or stop: Utvid eller stopp
+Expand partially: Utvid delvis
+Expected maximum increment: Forventet maksimal økning
+External sensor disabling the thermostat: Ekstern sensor som slår av termostaten
+Facade blind operation: Fasade persienner
+Fan: Vindmølle
+'Field: {propertyPath}.': 'Felt {propertyPath}.'
+Fill missing data: Fyll inn manglende målinger
+Firmware: Fastvare
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Fastvaren til denne enheten sender varsler i forbindelse med denne kanalen. Her kan du konfigurere innhold og mottakere. Ta kontakt med leverandøren av enheten for mer informasjon.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Fastvaren til denne enheten sender varsler. Her kan du konfigurere innhold og mottakere. Ta kontakt med leverandøren av enheten for mer informasjon.
+For a period: For perioden
+Forced off by sensor: Tvungen nedstengning gjennom sensor
+Full tilting time: Total tid for hellingsendring
+Function disabled: Funksjonen er deaktivert
+General purpose meter: Målekanal for allment bruk
+HVAC: HVAC
+Heat or cold source switch: Bryter for varme- eller kuldekilde
+Heat to: Varme til
+Heating / ventilation / air conditioning: Oppvarming/ventilasjon/klimaanlegg (HVAC)
+Heating mode: Oppvarmingsmodus
+'Heating: {percent}%': 'Oppvarming: {percent}%'
+High threshold: Høy terskel
+High value: Maksimal verdi
+History: Historikk
+Home screen content: Innhold på startskjermen
+Hotel card sensor: Sensor for hotellkort
+Identify device: Identifiser enheten
+Identify request sent.: Forespørselen om identifikasjon er sendt.
+If you confirm the installation and wish to unlock this device, please click the link below.: Hvis det er du som prøver å legge til en ny enhet, vennligst klikk på lenken nedenfor for å bekrefte opplåsingen.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Hvis det ikke er du som prøver å låse opp enheten, kan du ignorere denne e-posten. Bekreftelseslenken utløper automatisk etter 24 timer.
+Image area crop: Bildeområde
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: For å minimere risikoen for feilaktig avlesning, sett den maksimale forventede økningen av tellerverdien mellom påfølgende bilder.
+Increment and decrement: Økende og synkende
+Installer e-mail address: Installatørens e-postadresse
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Enheten har registrert en kanal av en annen type ({typeCaption} - {typeId}) i stedet for den nåværende.
+Invalid e-mail address.: Feil e-postadresse.
+Invalid unlock code.: Feil opplåsingslenke.
+Last paired device: Sist sammenkoblede enhet
+Light mode: Lysmodus
+Lighting level: Belysningsnivå
+Lighting mode: Belysningsmodus
+List of available variables: Liste over tilgjengelige variabler
+Locked: Blokkert
+Low threshold: Lav terskel
+Low threshold must be less than high threshold.: Den lave terskelen må være lavere enn den høye
+Low value: Minsteverdi
+Main thermometer: Hovedtermometer
+Master thermostat: Hovedtermostat
+Max: Maks.
+Maximum duration is one year.: Den maksimale perioden er ett år.
+Maximum temperature that can be set from the device: Maksimal temperatur som kan stilles inn med enheten
+Measurement settings: Målingsinnstillinger
+Min: Min.
+Minimum OFF time before cooling can be turned on: Minimum AV-tid før kjølingen slås på igjen
+Minimum OFF time before heating can be turned on: Minimum AVSLÅINGSTID før oppvarmingen slås på igjen
+Minimum OFF time before heating/cooling can be turned on: Minimum AV-tid før kjøling/oppvarming slås på igjen
+Minimum ON time before cooling can be turned off: Minimum PÅ-tid før kjølingen slås av igjen
+Minimum ON time before heating can be turned off: Minimum PÅ-tid før oppvarmingen slås av igjen
+Minimum ON time before heating/cooling can be turned off: Minimum PÅ-tid før kjøling/oppvarming slås av igjen
+Minimum temperature must be lower than maximum temperature.: Minimumstemperaturen må være lavere enn maksimumstemperaturen
+Minimum temperature that can be set from the device: Minimumstemperatur som kan stilles inn med enheten
+'Mode: cool': 'Modus: kjøling'
+'Mode: heat': 'Modus: oppvarming'
+'Mode: off': 'Modus: av'
+Motor upside down: Invertert motorstyring
+'No': 'Nei'
+No results: Fant ingen treff
+Notification body is set by the firmware.: Innholdet i varselet angis av fastvaren.
+Notification must have recipients.: Meldingen må ha mottakere.
+Notification title is set by the firmware.: Varslingsoverskriften angis av fastvaren.
+Notifications (defined): Varsler (definert)
+Notifications (sent per hour): Varsler (sendt per time)
+'OCR service responded with error: {status}': 'OCR-tjenesten svarte med en feilmelding: {status}'
+OCR settings: OCR-innstillinger
+OR: ELLER
+Off with duration: Slå av i tide
+On with duration: Aktiver i tide
+Open value: Åpningsverdi
+Output value on error: Utgangsstatus under en feil
+Overheat protection: Beskyttelse mot overoppheting
+P/C: P/C
+Pair new devices or sensors: Par nye enheter eller sensorer
+Pairing request sent.: Paringsforespørsel sendt.
+Pairing subdevices is unsupported in the firmware.: Paring støttes ikke av enhetens programvare.
+Phase LED type: LED-faseindikator
+Photo interval: Opptaksintervall
+Please find the device details below.: Du finner mer informasjon om enheten nedenfor.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Vær oppmerksom på at utstyret som denne forespørselen gjelder, kun er beregnet for sertifiserte installatører.
+Please provide the installer e-mail address to request the device unlock.: For å låse opp enheten, oppgi e-postadressen som ble brukt i sertifiseringsprosessen for installatøren.
+Please select and configure the action: Velg og konfigurer handlingen.
+Program {programNo}: Program {programNo}
+Projector screen: Projeksjonsskjerm
+Pump switch: Pumpebryter
+Push notifications limit has been exceeded: Grensen for push-varslinger er overskredet
+Reference to the channel will be removed from the items below.: Indikasjonen for denne kanalen vil bli fjernet fra de følgende elementene.
+Refresh interval: Oppdateringsintervall
+Refresh the config: Oppdater konfigurasjonen
+Refreshing the configuration will overwrite the changes you made here.: Oppdatering av konfigurasjonen vil overskrive endringene som er gjort i skjemaet.
+Reload last photo: Last inn det siste bildet på nytt
+Remote restart is unsupported in the firmware.: Ekstern omstart støttes ikke av enhetens programvare.
+Remove this item: Fjern dette elementet
+Request device unlock: Meld fra om ønsket om å låse opp enheten
+Reset to defaults: Gjenopprett standardverdier
+Restart device: Tilbakestill enheten
+Restart the device: Tilbakestill enheten
+Reveal or stop: Avdekk eller stopp
+Roller garage door: Garasjeport
+S/N: S/N
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Låser opp en enhet som er beregnet til en sertifisert installatør
+SUPLA – your device has been unlocked!: SUPLA - Enheten din har blitt låst opp!
+Same as on master thermostat.: Innstillingen er den samme som på hovedtermostaten.
+Screen brightness: Skjermens lysstyrke
+Selected: Utvalgte
+Set HVAC parameters: Still inn parametere
+Set the device time: Det var ikke mulig å stille dato og klokkeslett på enheten.
+Settings: Innstillinger
+Settings have not been saved!: Innstillingene er ikke lagret!
+Show data: Vis data
+Shut or stop: Dekk over eller stopp
+Some features depend on this channel: Noen funksjoner avhenger av denne kanalen
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Noen av dataene som samles inn for kontoen din skal med jevne mellomrom slettes, etter den angitte tiden har gått. Bli kjent med begrensningene nedenfor.
+Status LED: LED- status
+Store active power history: Lagre aktiv effekt historikk
+Store current history: Lagre strømstyrke historikk
+Store voltage history: Lagre spenningshistorikk
+'Subdevice #{id}': 'Underleverandørenhet #{id}'
+Subfunction: Underfunksjon
+Switch to manual mode: Bytt til manuell modus
+Switch to program mode: Bytt til programmeringsmodus
+THEN: DA
+Take a photo now: Ta et bilde nå
+Temperature adjustment only: Kun temperaturinnstilling
+Temperature difference is too big between {min}°C and {max}°C.: Temperaturforskjellen er for stor mellom {min} °C og {maks} °C.
+Temperature setpoint change switches to manual mode: Endring av bryterens målemperatur til manuell modus
+Temporal override: Midlertidig overstyring
+Terrace awning: Terrassemarkise
+The channel has been deleted.: Kanalen er fjernet.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfigurasjonen er endret fra et annet sted (f.eks. et annet nettleservindu, mobilapp eller enhet). Du må oppdatere konfigurasjonen før du gjør videre endringer.
+The device could not be unlocked.: Enheten kunne ikke låses opp.
+The device has been unlocked already.: Enheten er allerede låst opp.
+The device has been unlocked.: Enheten har blitt låst opp.
+The device has channel conflict and cannot work.: Enheten har generert en kanalkonflikt og kan for øyeblikket ikke fungere.
+The device is locked: Enheten blokkert
+The following channels will be also removed along with their dependencies.: Følgende kanaler vil også bli fjernet sammen med deres avhengigheter.
+The items below rely on this channel, so they will be deleted.: Følgende elementer avhenger av denne kanalen, så de vil bli fjernet.
+The master termostat you chose already has a master.: Hovedtermostaten du har valgt har allerede en annen hovedtermostat
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reaksjonen vil være aktiv når alle de følgende betingelsene er oppfylt. Hvis du angir alle tilgjengelige alternativer, vil reaksjonen bare aktiveres mellom de valgte datoene, på de valgte klokkeslettene og ukedagene, og når en av solnedgangs- eller soloppgangsreferansene er oppfylt.
+The thermostat will not work if the main thermometer is not set.: Hovedtermometeret må stilles inn for at termostaten skal fungere.
+Thermometer error: Termometerfeil
+Thermometers configuration: Konfigurasjon av termometre
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Denne termostaten bruker innstillingene fra hovedtermostaten. Gå til detaljsiden for å endre innstillingene.
+Thermostat programs: Termostatens programmer
+This action will result in restarting the device. It will not be available for a while.: Bestilling av denne operasjonen vil starte enheten på nytt. Under omstart vil enheten være utilgjengelig.
+This channel was missing during last device registration attempt.: Denne kanalen er ikke tilgjengelig på enheten.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Dette apparatet er kun beregnet for distribusjon og installasjon av autoriserte installatører. Hvis du ikke er en autorisert SUPLA-installatør og ikke har et aktivt opplæringsbevis, returner den til forhandleren.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Dette er det siste bildet som er lastet opp fra enheten. Marker nøyaktig området der tallene fra måleren er synlige.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Dette er en liste over reaksjoner som fungerer på kontoen din. Hvis du vil legge til en ny reaksjon, går du til kanaldetaljene som bør  utløse den.
+This thermostat is controlled by another device.: Denne termostaten kontrolleres av hovedtermostaten.
+Tilt angle: Hellingsvinkel
+Tilt control type: Type hellingskontroll
+Tilt percent: Hellingsprosent
+Time: Tid
+Today, it would be active from {from} to {to}.: I dag vil den aktive perioden være {from} klokka {to}.
+Turn off: Slå av
+Unlock the device: Lås opp enheten
+Unlocked: Avblokkert
+Until a date and time: Inntil
+Until the next change: Inntil neste endring
+Use device default: Bruk standardverdien fra enheten
+Use working schedule for this reaction: Bruk en aktivitetsplan for denne reaksjonen
+Use {theMasterThermostat} to control this device.: Bruk {theMasterThermostat} til å styre denne enheten.
+Used current transformer type: Brukt strømtransformator
+User interface: Brukergrensesnitt
+Value divider: Divisor
+Value multiplier: Multiplikator
+Vertical blind: Vertikal persienne
+Visit the master thermostat page.: Gå til hovedtermostaten.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Vi har mottatt en forespørsel om å låse opp enheten som kun er beregnet for sertifiserte installatører. Forespørselen ble sendt av brukeren %deviceUserEmail% fra SUPLA Cloud-instansen under adressen %targetCloudUrl%.
+Week: Uke
+Weekly schedule: Ukeplan
+When the alarm is armed: Når alarmen er aktivert
+When the alarm is armed or disarmed: Når alarmen blir deaktivert eller aktivert
+When the alarm is disarmed: Når alarmen blir slått av
+When the battery cover is opened: Når batteridekselet blir åpnet
+When the clock error has been reported: Når klokken rapporterer en feil
+When the curtain position changes: Når gardinen endrer posisjon
+When the curtain reaches: Når gardinen når
+When the curtain reaches a certain position: Når gardinen når en bestemt posisjon
+When the facade blind position changes: Når fasadepersiennen endrer posisjon
+When the facade blind reaches: Når fasadepersiennen når
+When the facade blind reaches a certain position: Når fasadepersiennen når en bestemt posisjon
+When the hotel card has been taken: Når hotellnøkkelkortet blir rekvirert
+When the hotel card is put in: Når hotellnøkkelkortet blir satt inn
+When the hotel card is put in or has been taken: Når hotellnøkkelkortet settes inn eller tas ut
+When the meter reaches a certain value: Når måleren når den ønskede verdien
+When the meter value changes: Når verdien endres
+When the meter value will be: Når verdien blir
+When the projector screen position changes: Når projeksjonsskjermen endrer posisjon
+When the projector screen reaches: Når projeksjonsskjermen når
+When the projector screen reaches a certain position: Når projeksjonsskjermen når en bestemt posisjon
+When the pump is turned off: Når pumpen blir slått av
+When the pump is turned on: Når pumpen blir aktivert
+When the pump is turned on or off: Når pumpen skal aktiveres eller desaktiveres
+When the roller garage door a certain position: Når garasjeporten når en bestemt posisjon
+When the roller garage door position changes: Når garasjeporten endrer posisjon
+When the roller garage door reaches: Når garasjeporten når
+When the roller shutter calibration failed: Når kalibrering av rullegardinen avsluttes med en feil
+When the roller shutter calibration has been lost: Når kalibrering av rullegardinen ikke kan fullføres
+When the roller shutter calibration has started: Når kalibrering av rullegardinen starter
+When the roller shutter motor reported a problem: Når rullegardin-motoren rapporterer et problem
+When the terrace awning position changes: Når terrassemarkisen endrer posisjon
+When the terrace awning reaches: Når terrassemarkisen når
+When the terrace awning reaches a certain position: Når terrassemarkisen når en bestemt posisjon
+When the thermometer error has been reported: Når termometeret rapporterer en feil
+When the thermostat starts cooling: Når termostaten begynner å kjøle
+When the thermostat starts heating: Når termostaten begynner å varme opp
+When the thermostat starts heating or cooling: Når termostaten begynner kjøling eller oppvarming
+When the thermostat starts or stops cooling: Når termostaten begynner eller slutter å kjøle
+When the thermostat starts or stops heating: Når termostaten begynner eller slutter å varme opp
+When the thermostat starts or stops heating or cooling: Når termostaten begynner eller slutter å varme opp eller å kjøle
+When the thermostat stops cooling: Når termostaten slutter å kjøle
+When the thermostat stops heating: Når termostaten slutter å varme opp
+When the thermostat stops heating or cooling: Når termostaten stopper kjøling eller oppvarming
+When the vertical blind position changes: Når den vertikale persiennen endrer posisjon
+When the vertical blind reaches: Når den vertikale persiennen når
+When the vertical blind reaches a certain position: Når den vertikale persiennen når en bestemt posisjon
+Will be deleted after: Fjerning etter
+With a timer: Med tidsmåler
+'Yes': 'Ja'
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Du kan stille inn relative verdier her. For eksempel vil +10 eller -20 øke innstillingen med henholdsvis 10 eller redusere den med 20.
+You cannot to set a master thermostat for a channel that is master for others.: Du kan ikke stille inn hovedtermostaten i hovedtermostaten.
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Forespørselen er sendt. Vi varsler deg når installatøren godkjenner den og låser opp enheten.
+You need to provide icons for all states in light mode.: Du må levere ikoner for alle tilstander i lysmodus.
+Your device has been unlocked by the installer.: Enheten din har blitt låst opp av installatøren.
+and wait until the meter will be: og ikke utfør denne reaksjonen igjen før verdien ikke blir
+auxThermometerType_DISABLED: Av
+auxThermometerType_FLOOR: Gulv
+auxThermometerType_GENERIC_COOLER: Kjølekilde
+auxThermometerType_GENERIC_HEATER: Varmekilde
+auxThermometerType_NOT_SET: Ikke innstilt
+auxThermometerType_WATER: Vann
+blue, otherwise: ellers blå
+blue, when voltage lower than the low threshold: blå når spenningen er lavere enn lavterskelen
+choose the currency: velg valuta
+configuration missing: ingen konfigurasjon
+cool: kjøling
+day: dag
+default: som standard
+green, otherwise: ellers grønn
+green, when power less than the low threshold: grønn når effekten er lavere enn den lavere terskelen
+heat: oppvarming
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Hoved- og tilleggstemperatur
+homeScreenContent_NONE: Mangel
+homeScreenContent_TEMPERATURE: Temperatur
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatur og fuktighet
+homeScreenContent_TEMPERATURE_TIME: Temperatur og tid
+homeScreenContent_TIME: Tid
+homeScreenContent_TIME_DATE: Dato og tid
+hour: time
+keepHistoryMeasurementWarningSelected: Trenger du virkelig denne historien? Supla er et åpent kildekode-prosjekt vedlikeholdt med egne midler. Hvis du ikke trenger denne historien, vennligst hjelp oss med å spare verdifull diskplass ved å la dette alternativet være deaktivert.
+max: maks
+midnight: nord
+milliseconds: millisekunder
+min: min
+ocrLightingMode_ALWAYS_ON: Alltid på
+ocrLightingMode_AUTO: Automatisk
+ocrLightingMode_OFF: Avslått
+'off': 'Slå av'
+red, when power higher than the high threshold: rød når effekten er høyere enn høy terskel
+red, when voltage higher than the high threshold: rød når spenningen er høyere enn høy terskel
+seconds: sekunder
+statusLed_ALWAYS_OFF: Slå alltid av
+statusLed_OFF_WHEN_CONNECTED: Slå av når tilkoblet
+statusLed_ON_WHEN_CONNECTED: Aktiver når tilkoblet
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Ukjent resultat
+subdevicePairingResult_NOT_STARTED_BUSY: Enheten er opptatt
+subdevicePairingResult_NOT_STARTED_NOT_READY: Enheten er ikke klar
+subdevicePairingResult_NOT_SUPPORTED: Operasjonen støttes ikke
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Ingen nye enheter funnet
+subdevicePairingResult_ONGOING: I løpet av
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Ukjent resultat av fordampning
+subdevicePairingResult_PROCEDURE_STARTED: Prosedyren har startet
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Ressursgrensen er overskredet
+subdevicePairingResult_SUCCESS: Suksess
+subdevicePairingResult_UNAUTHORIZED: Mislykket autorisasjon
+sunrise: soloppgang
+sunset: solnedgang
+swap: bytt
+the master thermostat ID{id}: av hovedtermostaten ID{id}
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: På/av med øvre innstilling
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: På/av med midtre innstilling
+thermostatAlgorithm_PID: PID
+thermostatAlgorithm_help: |
+  På/av-algoritmene fungerer basert på hysterese-innstillingen. Hysteresen kan relateres til midten av området (midtre innstilling) eller til den innstilte temperaturen (øvre innstilling).
+  Hvis man for eksempel antar en hysterese på 1 °C og en måltemperatur på 23 °C, vil termostaten
+  - slå på varmen ved 22,5 °C og stoppe å virke når temperaturen når 23,5 °C for den midtre innstillingen 
+  - slå på varmen ved 22 °C og stoppe når temperaturen når 23 °C for den øvre innstillingen
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: ~
-thermostatSubfunction_HEAT: ~
-thermostatTemperature_aboveAlarm: ~
-thermostatTemperature_auxMaxSetpoint: ~
-thermostatTemperature_auxMinSetpoint: ~
-thermostatTemperature_belowAlarm: ~
-thermostatTemperature_boost: ~
-thermostatTemperature_comfort: ~
-thermostatTemperature_eco: ~
-thermostatTemperature_freezeProtection: ~
-thermostatTemperature_heatProtection: ~
-thermostatTemperature_histeresis: ~
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: ~
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: ~
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: ~
-tiltControlType_UNKNOWN: ~
-timeMarginMode_custom: ~
-timeMarginMode_device: ~
-timeMarginMode_off: ~
-usedCTType_100A_33mA: ~
-usedCTType_200A_66mA: ~
-usedCTType_400A_133mA: ~
-usedPhaseLedType_OFF: ~
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
-usedPhaseLedType_VOLTAGE_LEVEL: ~
-usedPhaseLedType_VOLTAGE_PRESENCE: ~
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
-'{count} minutes after sunrise': ~
-'{count} minutes after sunset': ~
-'{count} minutes before sunrise': ~
-'{count} minutes before sunset': ~
-'{days} days': ~
-
+thermostatSubfunction_COOL: Kjøling
+thermostatSubfunction_HEAT: Oppvarming
+thermostatTemperature_aboveAlarm: Over alarmen
+thermostatTemperature_auxMaxSetpoint: Maksimal tilleggstemperatur
+thermostatTemperature_auxMinSetpoint: Minimal tilleggstemperatur
+thermostatTemperature_belowAlarm: Under alarmen
+thermostatTemperature_boost: Temperaturøkning
+thermostatTemperature_comfort: Komforttemperatur
+thermostatTemperature_eco: ECO temperatur
+thermostatTemperature_freezeProtection: Frost beskyttelse temperatur
+thermostatTemperature_heatProtection: Overopphetingsbeskyttelse temperatur
+thermostatTemperature_histeresis: Hysterese
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Endrer posisjon under hellingsendring
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Endrer ikke posisjon under hellingsendring
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Endrer hellingen bare når den er helt lukket
+tiltControlType_UNKNOWN: Ukjent
+timeMarginMode_custom: Utenom standard
+timeMarginMode_device: Standardverdi fra enheten
+timeMarginMode_off: Av
+usedCTType_100A_33mA: 100A/33.3mA
+usedCTType_200A_66mA: 200A/66.6mA
+usedCTType_400A_133mA: 400A/133.3mA
+usedPhaseLedType_OFF: Avslått
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Kraftstrømmens retning
+usedPhaseLedType_VOLTAGE_LEVEL: Spenningsnivå
+usedPhaseLedType_VOLTAGE_PRESENCE: Tilstedeværelse av spenning
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Tilstedeværelse av spenning (invertert)
+'{count} minutes after sunrise': '{count} minutter etter soloppgang'
+'{count} minutes after sunset': '{count} minutter etter solnedgang'
+'{count} minutes before sunrise': '{count} minutter før soloppgang'
+'{count} minutes before sunset': '{count} minutter før solnedgang'
+'{days} days': '{days} dager'
 #</editor-fold>

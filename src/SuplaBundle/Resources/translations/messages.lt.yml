@@ -136,6 +136,7 @@ Cancelled: Atšaukta
 Cannot calculate when to run the schedule - incorrect configuration?: Nepavyko apskaičiuoti jokios tvarkaraščio paleidimo datos – neteisinga konfigūracija?
 Cannot change the channel function right now.: Šiuo metu negalima pakeisti šio kanalo funkcijų.
 Cannot delete this I/O Device right now.: Šiuo metu negalima pašalinti šio įrenginio.
+Cannot execute an action when the device is disconnected.: Kai įrenginys atjungtas negalima atlikti veiksmo.
 Captcha token is not valid.: Neteisingai įvestas captcha kodas.
 Caption: Parašas
 Caption is too long.: Pavadinimas per ilgas.
@@ -514,12 +515,12 @@ No of devices: Įrenginių skaičius
 No of operations: Operacijų skaičius
 No schedule configuration.: Tvarkaraščio konfigūracija nenurodyta.
 No, take me back!: Ne, išveskite mane iš čia!
-No{'.'} of Client’s apps: Klientų programų skaičius
-No{'.'} of access identifiers: Prieigos identifikatorių skaičius
-No{'.'} of channel groups: Kanalų grupių skaičius
-No{'.'} of channels: Kanalų skaičius
-No{'.'} of devices: Įrenginių skaičius
-No{'.'} of locations: Vietų skaičius
+No. of Client’s apps: Klientų programų skaičius
+No. of access identifiers: Prieigos identifikatorių skaičius
+No. of channel groups: Kanalų grupių skaičius
+No. of channels: Kanalų skaičius
+No. of devices: Įrenginių skaičius
+No. of locations: Vietų skaičius
 None: Nėra
 None (channel disabled): Nėra (kanalas išjungtas)
 Noop: Nėra operacijos
@@ -709,7 +710,7 @@ SoftVer: ProgĮrVer
 Some features depend on this channel group: Kai kurie funkcionalumai priklauso nuo šios kanalų grupės.
 Some features depend on this device: Kai kurie funkcionalumai priklauso nuo šio įrenginio.
 Some features depend on this scene: Kai kurie funkcionalumai priklauso nuo šios scenos.
-Some of the features you have configured depend on channels from this device.: Kai kurie funkcionalumai naudoja šio įrenginio kanalus.
+Some of the features you have configured rely on channels from this device.: Kai kurie funkcionalumai naudoja šio įrenginio kanalus.
 Staircase timer: Laiptų automatas
 Start Here: Pradėti čia
 Start date: Pradžios data
@@ -754,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Norint įvykdyti veiksmą Atidaryti arba Uždaryti, vartelių atidarymo jutiklis turi veikti tinkamai.
 The gate sensor must function properly in order to execute the scheduled action.: Kad veiksmas būtų atliktas vartų atidarymo jutiklis turi veikti teisingai.
 The incident was detected at %datetime%.: Įvykis įvyko %datetime%
-The items below depend on this channel function, so they will be deleted.: Žemiau nurodyti elementai veikia su dabartine kanalo funkcija, todėl po šio pakeitimo bus pašalinti.
-The items below depend on this channel group, so they will be deleted.: Žemiau nurodyti elementai naudoja šios grupės kanalus, todėl po jos pašalinimo taip pat bus pašalinti.
-The items below depend on this scene, so they will be deleted.: Žemiau nurodyti elementai susiję su šia scena, todėl bus pašalinti.
+The items below rely on this channel function, so they will be deleted.: Žemiau nurodyti elementai veikia su dabartine kanalo funkcija, todėl po šio pakeitimo bus pašalinti.
+The items below rely on this channel group, so they will be deleted.: Žemiau nurodyti elementai naudoja šios grupės kanalus, todėl po jos pašalinimo taip pat bus pašalinti.
+The items below rely on this scene, so they will be deleted.: Žemiau nurodyti elementai susiję su šia scena, todėl bus pašalinti.
 The latest execution: Paskutinis atlikimas
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Įvykdymo rezultatas pateikiamas kaip interneto svetainė, nes Tu (arba Tavo naršyklė) paprašei pateikti atsakymą HTML formatu.
 The measurement history has been deleted.: Matmenų istorija pašalinta.
@@ -815,7 +816,7 @@ Unsupported type: Tipas nepalaikomas
 Update in progress: Vyksta atnaujinimas
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Įkelti failai nepažeidžia gerų įpročių, autorių teisių ir trečiųjų šalių teisių, o aš turiu teisę jais naudoti.
 Upper voltage threshold: Aukštos įtampos slenkstis
-'Use the {0} server command to change this account''s limits. For example:': 'Norėdami pakeisti šios paskyros apribojimus, savo serveryje pasinaudokite komanda {0}. Pavyzdžiui:'
+"Use the {0} server command to change this account's limits. For example:": 'Norėdami pakeisti šios paskyros apribojimus, savo serveryje pasinaudokite komanda {0}. Pavyzdžiui:'
 Use working schedule for this access identifier: Šiam prieigos identifikatoriui naudoti prieinamumo tvarkaraštį
 User is already confirmed. Try to log in.: Ši paskyra jau patvirtinta. Prisijungti.
 Value: Reikšmė
@@ -1172,7 +1173,6 @@ Are you sure you want to disable this device?: Ar tikrai norite išjungti šį �
 Assigned Locations: Priskirtos Vietos
 Authorized OAuth apps: Autorizuotos programos OAuth
 Calculated value: Skaitiklio būsena
-Cannot execute an action when the device is disconnected.: Kai įrenginys atjungtas negalima atlikti veiksmo.
 Cannot send an activation e-mail. Try again later.: Nepavyksta išsiųsti pranešimo su aktyvavimo nuoroda. Bandykite dar kartą vėliau.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Negavote pranešimo su Jūsų paskyros aktyvavimo nuoroda? Įsitikinkite, kad jis nepateko į SPAM (Šlamštas) aplankalą. Taip pat galite {clickHereLink}, kad jį išsiųstumėte dar kartą.
 Channel value: Reikšmė
@@ -1250,448 +1250,431 @@ suffix: sufiksas
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-0% tilt angle: ~
-100% tilt angle: ~
-A confirmation upon successful device unlocking.: ~
-Action trigger for channel: ~
-Active from: ~
-Active to: ~
-Activity conditions: ~
-Additional time margin: ~
-Adjust temperature: ~
-Adjust temperatures: ~
-After the delay: ~
-After the delay, but only when it's dark: ~
-Alarm armament sensor: ~
-Algorithm: ~
-All programs must define at least one temperature threshold.: ~
-Always decrement: ~
-Always increment: ~
-Anti-freeze and overheat protection: ~
-Anti-freeze protection: ~
-Are you sure you want to change channel’s location?: ~
-Are you sure you want to change channel’s visibility?: ~
-Are you sure you want to change device’s location?: ~
-Are you sure you want to delete this channel?: ~
-Are you sure you want to delete this subdevice?: ~
-Automatic: ~
-Automatic front panel turn off: ~
-Automatic front panel turn off after: ~
-Automatic thermostat: ~
-Automatic time synchronization: ~
-Aux thermometer: ~
-Aux thermometer for channel: ~
-Aux thermometer type: ~
-Available variables: ~
-Average: ~
-Battery cover open: ~
-Behavior settings: ~
-Binary sensor: ~
-Binary sensor for channel: ~
-Brightness adjustment for automatic mode: ~
-Brightness level: ~
-Button volume: ~
-Buttons upside down: ~
-Candle: ~
-Cannot execute an action when the channel is not available.: ~
-Cannot update OCR settings. Try again in a while.: ~
-Change percentage by: ~
-Change percentage to: ~
-Change tilt by: ~
-Change tilt to: ~
-Change to be the same.: ~
-Changing channel’s visibility will also change the visibility of other items.: ~
-Changing the location will also imply changing the location of the following items.: ~
-Channels that are meant to work with each other must be in the same location.: ~
-Clock error: ~
-Close value: ~
-Collapse: ~
-Collapse or stop: ~
-Collapse partially: ~
-Command has been sent to the device. Try refreshing the photo in a while.: ~
-Common currencies: ~
-Configuration not available yet. Waiting for the device to connect.: ~
-Confirm if you want to perform the calibration.: ~
-Conflict: ~
-Cool to: ~
-Cooling mode: ~
-'Cooling: {percent}%': ~
-Costs: ~
-Could not restart the device.: ~
-Could not send the identify command.: ~
-Could not set the device time.: ~
-Counter type: ~
-Curtain: ~
-Dark mode: ~
-Data: ~
-Date range: ~
-Daytime criteria: ~
-Dependencies: ~
-'Device GUID: %deviceGuid%': ~
-Device identification is unsupported in the firmware.: ~
-Device settings: ~
-Device should be restarting now.: ~
-Device time has been set.: ~
-Different than on master thermostat.: ~
-Differential thermostat: ~
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
-Domestic hot water: ~
-Dryer: ~
-Edit area crop: ~
-Edit program settings: ~
-Electricity meter active power history: ~
-Electricity meter current history: ~
-Electricity meter voltage aberrations history: ~
-Electricity meter voltage history: ~
-Enable floor temperature control: ~
-Enable generic cooler temperature control: ~
-Enable generic heater temperature control: ~
-Enable power status LED: ~
-Enable support for OCR readings for this channel: ~
-Enable water temperature control: ~
-Example value: ~
-Expand: ~
-Expand or stop: ~
-Expand partially: ~
-Expected maximum increment: ~
-External sensor disabling the thermostat: ~
-Facade blind operation: ~
-Fan: ~
-'Field: {propertyPath}.': ~
-Fill missing data: ~
-Firmware: ~
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-For a period: ~
-Forced off by sensor: ~
-Full tilting time: ~
-Function disabled: ~
-General purpose meter: ~
-HVAC: ~
-Heat or cold source switch: ~
-Heat to: ~
-Heating / ventilation / air conditioning: ~
-Heating mode: ~
-'Heating: {percent}%': ~
-High threshold: ~
-High value: ~
-History: ~
-Home screen content: ~
-Hotel card sensor: ~
-Identify device: ~
-Identify request sent.: ~
-If you confirm the installation and wish to unlock this device, please click the link below.: ~
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
-Image area crop: ~
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: ~
-Increment and decrement: ~
-Installer e-mail address: ~
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: ~
-Invalid e-mail address.: ~
-Invalid unlock code.: ~
-Last paired device: ~
-Light mode: ~
-Lighting level: ~
-Lighting mode: ~
-List of available variables: ~
-Locked: ~
-Low threshold: ~
-Low threshold must be less than high threshold.: ~
-Low value: ~
-Main thermometer: ~
-Main thermometer for channel: ~
-Master thermostat: ~
-Master thermostat for channel: ~
-Max: ~
-Maximum duration is one year.: ~
-Maximum temperature that can be set from the device: ~
-Measurement settings: ~
-Min: ~
-Minimum OFF time before cooling can be turned on: ~
-Minimum OFF time before heating can be turned on: ~
-Minimum OFF time before heating/cooling can be turned on: ~
-Minimum ON time before cooling can be turned off: ~
-Minimum ON time before heating can be turned off: ~
-Minimum ON time before heating/cooling can be turned off: ~
-Minimum temperature must be lower than maximum temperature.: ~
-Minimum temperature that can be set from the device: ~
-'Mode: cool': ~
-'Mode: heat': ~
-'Mode: off': ~
-Motor upside down: ~
-'No': ~
-No results: ~
-Not available: ~
-Notification body is set by the firmware.: ~
-Notification must have recipients.: ~
-Notification title is set by the firmware.: ~
-Notifications (defined): ~
-Notifications (sent per hour): ~
-'OCR service responded with error: {status}': ~
-OCR settings: ~
-OR: ~
-Off with duration: ~
-On with duration: ~
-Open value: ~
-Opening sensor for channel: ~
-Output value on error: ~
-Overheat protection: ~
-P/C: ~
-Pair new devices or sensors: ~
-Pairing request sent.: ~
-Pairing subdevices is unsupported in the firmware.: ~
-Phase LED type: ~
-Photo interval: ~
-Please find the device details below.: ~
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: ~
-Please provide the installer e-mail address to request the device unlock.: ~
-Please select and configure the action: ~
-Program {programNo}: ~
-Projector screen: ~
-Pump switch: ~
-Pump switch for channel: ~
-Push notifications limit has been exceeded: ~
-Reference to the deleted channels will be removed from the items below.: ~
-Refresh interval: ~
-Refresh the config: ~
-Refreshing the configuration will overwrite the changes you made here.: ~
-Reload last photo: ~
-Remote restart is unsupported in the firmware.: ~
-Remove this item: ~
-Request device unlock: ~
-Reset to defaults: ~
-Restart device: ~
-Restart the device: ~
-Reveal or stop: ~
-Roller garage door: ~
-S/N: ~
-SUPLA - Confirm unlocking device for authorized installers: ~
-SUPLA – your device has been unlocked!: ~
-Same as on master thermostat.: ~
-Screen brightness: ~
-Selected: ~
-Set HVAC parameters: ~
-Set the device time: ~
-Settings: ~
-Settings have not been saved!: ~
-Show data: ~
-Shut or stop: ~
-Some features depend on this channel: ~
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
-Status LED: ~
-Store active power history: ~
-Store current history: ~
-Store voltage history: ~
-'Subdevice #{id}': ~
-Subfunction: ~
-Switch to manual mode: ~
-Switch to program mode: ~
-THEN: ~
-Take a photo now: ~
-Temperature adjustment only: ~
-Temperature control type: ~
-Temperature difference is too big between {min}°C and {max}°C.: ~
-Temperature setpoint change switches to manual mode: ~
-Temporal override: ~
-Terrace awning: ~
-The channel has been deleted.: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: ~
-The device could not be unlocked.: ~
-The device has been unlocked already.: ~
-The device has been unlocked.: ~
-The device has channel conflict and cannot work.: ~
-The device is locked: ~
-The following channels will be also removed along with their dependencies.: ~
-The items below depend on the deleted channels, so they will be deleted, too.: ~
-The master termostat you chose already has a master.: ~
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
-The subdevice has been deleted.: ~
-The thermostat will not work if the main thermometer is not set.: ~
-Thermometer error: ~
-Thermometers configuration: ~
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
-Thermostat programs: ~
-This action will result in restarting the device. It will not be available for a while.: ~
-This channel was missing during last device registration attempt.: ~
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
-This thermostat is controlled by another device.: ~
-Tilt angle: ~
-Tilt control type: ~
-Tilt percent: ~
-Time: ~
-Today, it would be active from {from} to {to}.: ~
-Turn off: ~
-Unlock the device: ~
-Unlocked: ~
-Until a date and time: ~
-Until the next change: ~
-Use device default: ~
-Use working schedule for this reaction: ~
-Use {theMasterThermostat} to control this device.: ~
-Used current transformer type: ~
-User interface: ~
-Value divider: ~
-Value multiplier: ~
-Vertical blind: ~
-Visit the master thermostat page.: ~
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
-Week: ~
-Weekly schedule: ~
-When the alarm is armed: ~
-When the alarm is armed or disarmed: ~
-When the alarm is disarmed: ~
-When the battery cover is opened: ~
-When the battery level will be: ~
-When the battery reaches a certain level: ~
-When the clock error has been reported: ~
-When the curtain position changes: ~
-When the curtain reaches: ~
-When the curtain reaches a certain position: ~
-When the device starts to be powered from battery: ~
-When the device stops to be powered from battery: ~
-When the facade blind position changes: ~
-When the facade blind reaches: ~
-When the facade blind reaches a certain position: ~
-When the hotel card has been taken: ~
-When the hotel card is put in: ~
-When the hotel card is put in or has been taken: ~
-When the meter reaches a certain value: ~
-When the meter value changes: ~
-When the meter value will be: ~
-When the projector screen position changes: ~
-When the projector screen reaches: ~
-When the projector screen reaches a certain position: ~
-When the pump is turned off: ~
-When the pump is turned on: ~
-When the pump is turned on or off: ~
-When the roller garage door a certain position: ~
-When the roller garage door position changes: ~
-When the roller garage door reaches: ~
-When the roller shutter calibration failed: ~
-When the roller shutter calibration has been lost: ~
-When the roller shutter calibration has started: ~
-When the roller shutter motor reported a problem: ~
-When the terrace awning position changes: ~
-When the terrace awning reaches: ~
-When the terrace awning reaches a certain position: ~
-When the thermometer error has been reported: ~
-When the thermostat starts cooling: ~
-When the thermostat starts heating: ~
-When the thermostat starts heating or cooling: ~
-When the thermostat starts or stops cooling: ~
-When the thermostat starts or stops heating: ~
-When the thermostat starts or stops heating or cooling: ~
-When the thermostat stops cooling: ~
-When the thermostat stops heating: ~
-When the thermostat stops heating or cooling: ~
-When the vertical blind position changes: ~
-When the vertical blind reaches: ~
-When the vertical blind reaches a certain position: ~
-Will be deleted after: ~
-With a timer: ~
-'Yes': ~
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot change this function becuase it is required by another channel.: ~
-You cannot to set a master thermostat for a channel that is master for others.: ~
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
-You need to provide icons for all states in light mode.: ~
-Your device has been unlocked by the installer.: ~
-and wait until the battery level will be: ~
-and wait until the meter will be: ~
-auxThermometerType_DISABLED: ~
-auxThermometerType_FLOOR: ~
-auxThermometerType_GENERIC_COOLER: ~
-auxThermometerType_GENERIC_HEATER: ~
-auxThermometerType_NOT_SET: ~
-auxThermometerType_WATER: ~
-blue, otherwise: ~
-blue, when voltage lower than the low threshold: ~
-choose the currency: ~
-configuration missing: ~
-cool: ~
-day: ~
-default: ~
-green, otherwise: ~
-green, when power less than the low threshold: ~
-heat: ~
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
-homeScreenContent_NONE: ~
-homeScreenContent_TEMPERATURE: ~
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
-homeScreenContent_TEMPERATURE_TIME: ~
-homeScreenContent_TIME: ~
-homeScreenContent_TIME_DATE: ~
-hour: ~
-keepHistoryMeasurementWarningSelected: ~
-max: ~
-midnight: ~
-milliseconds: ~
-min: ~
-ocrLightingMode_ALWAYS_ON: ~
-ocrLightingMode_AUTO: ~
-ocrLightingMode_OFF: ~
-'off': ~
-red, when power higher than the high threshold: ~
-red, when voltage higher than the high threshold: ~
-seconds: ~
-statusLed_ALWAYS_OFF: ~
-statusLed_OFF_WHEN_CONNECTED: ~
-statusLed_ON_WHEN_CONNECTED: ~
-subdevicePairingResult_CMD_RESULT_UNKNOWN: ~
-subdevicePairingResult_NOT_STARTED_BUSY: ~
-subdevicePairingResult_NOT_STARTED_NOT_READY: ~
-subdevicePairingResult_NOT_SUPPORTED: ~
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: ~
-subdevicePairingResult_ONGOING: ~
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: ~
-subdevicePairingResult_PROCEDURE_STARTED: ~
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: ~
-subdevicePairingResult_SUCCESS: ~
-subdevicePairingResult_UNAUTHORIZED: ~
-sunrise: ~
-sunset: ~
-swap: ~
-temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
-temperatureControlType_ROOM_TEMPERATURE: ~
-the master thermostat ID{id}: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
-thermostatAlgorithm_PID: ~
-thermostatAlgorithm_help: ~
+0% tilt angle: Juostelės kampas, kurį žaliuzės nustato uždarymo metu
+100% tilt angle: Juostelės kampas, kurį žaliuzės nustato atidarymo metu
+A confirmation upon successful device unlocking.: Įrenginio atrakinimo patvirtinimas.
+Active from: Aktyvus nuo
+Active to: Aktyvus iki
+Activity conditions: Aktyvumo sąlygos
+Additional time margin: Papildoma laiko riba
+Adjust temperature: Nustatykite temperatūrą
+Adjust temperatures: Nustatykite temperatūras
+After the delay: Po nustatyto laiko
+After the delay, but only when it's dark: Po nustatyto laiko, tačiau tik kai yra tamsu
+Alarm armament sensor: Signalizacijos įjungimo jutiklis
+Algorithm: Algoritmas
+All programs must define at least one temperature threshold.: Kiekvienoje programoje turi būti apibrėžiama bent viena temperatūros riba.
+Always decrement: Visada mažėjanti
+Always increment: Visada didėjanti
+Anti-freeze and overheat protection: Apsauga nuo perkaitimo ir užšalimo
+Anti-freeze protection: Apsauga nuo užšalimo
+Are you sure you want to change channel’s location?: Ar tikrai norite pakeisti kanalo vietą?
+Are you sure you want to change channel’s visibility?: Ar tikrai norite pakeisti kanalo matomumą?
+Are you sure you want to change device’s location?: Ar tikrai norite pakeisti įrenginio vietą?
+Are you sure you want to delete this channel?: Ar tikrai norite pašalinti šį kanalą?
+Automatic: Automatinis
+Automatic front panel turn off: Automatinis priekinio skydelio išjungimas
+Automatic front panel turn off after: Laikas iki priekinio skydelio išsijungimo
+Automatic thermostat: Automatinis termostatas
+Automatic time synchronization: Automatinis datos ir laiko sinchronizavimas
+Aux thermometer: Papildomas termometras
+Aux thermometer type: Papildomo termometro tipas
+Available variables: Galimi kintamieji
+Average: Vidutiniška
+Battery cover open: Baterijos dangtelis atidarytas
+Behavior settings: Elgesys
+Binary sensor: Dvejetainis jutiklis
+Brightness adjustment for automatic mode: Ryškumo automatinio režimo pritaikymas
+Brightness level: Ryškumo lygis
+Button volume: Mygtuko garsumas
+Buttons upside down: Atvirkštinis valdymas mygtukais
+Candle: Žvakės
+Cannot update OCR settings. Try again in a while.: Nepavyko atnaujinti OCR nustatymų. Netrukus pabandykite dar kartą.
+Change percentage by: Pakeisti procentą
+Change percentage to: Pakeisti procentą iki
+Change tilt by: Pakeisti pakrypimą
+Change tilt to: Pakeisti pakrypimą iki
+Change to be the same.: Nustatyti taip pat.
+Changing channel’s visibility will also change the visibility of other items.: Kanalo matomumo pakeitimas taip pat pakeis ir kitų elementų matomumą.
+Changing the location will also imply changing the location of the following items.: Vietos pakeitimas taip pat paveiks žemiau nurodytų elementų vietos pokytį.
+Channels that are meant to work with each other must be in the same location.: Kanalai, kurie turi veikti kartu, turi būti vienoje vietoje.
+Clock error: Laikrodžio klaida
+Close value: Uždarymo vertė
+Collapse: Suskleisti
+Collapse or stop: Suskleisti arba sustabdyti
+Collapse partially: Suskleisti dalinai
+Command has been sent to the device. Try refreshing the photo in a while.: Prašymas nusiųstas į įrenginį. Pabandykite atnaujinti nuotrauką po kelių sekundžių.
+Common currencies: Dažniausiai pasirenkamos valiutos
+Configuration not available yet. Waiting for the device to connect.: Konfigūravimas dar neprieinamas. Palaukite, kol įrenginys prisijungs.
+Confirm if you want to perform the calibration.: Patvirtinkite, kad norite atlikti kalibravimą.
+Conflict: Konfliktas
+Cool to: Vėsinti iki
+Cooling mode: Vėsinimo režimas
+'Cooling: {percent}%': 'Vėsinimas: {percent} %'
+Costs: Išlaidos
+Could not restart the device.: Įrenginio nepavyko paleisti iš naujo.
+Could not send the identify command.: Nepavyko nusiųsti įsakymo.
+Could not set the device time.: Įrenginyje nepavyko nustatyti datos ir laiko.
+Counter type: Skaitiklio tipas
+Curtain: Užuolaida
+Dark mode: Tamsus režimas
+Data: Duomenys
+Date range: Datų diapazonas
+Daytime criteria: Kriterijai pagal dienos trukmę
+Dependencies: Priklausomybės
+'Device GUID: %deviceGuid%': 'Įrenginio GUID: %deviceGuid%'
+Device identification is unsupported in the firmware.: Programinė apatinė įranga (firmware) nepalaiko įrenginio identifikavimo.
+Device settings: Įrenginio nustatymai
+Device should be restarting now.: Įrenginys turėtų pasileistas iš naujo.
+Device time has been set.: Įrenginio data ir laikas nustatyti.
+Different than on master thermostat.: Kiti nustatymai nei pagrindiniame termostate.
+Differential thermostat: Diferencinis termostatas
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Ar norite nustatyti priklausančius nuo šio termostato kanalus (tokius kaip termometrai ir jutikliai), kad būtų tokie patys kaip pagrindiniame termostate?
+Domestic hot water: Karštas vanduo namuose
+Dryer: Sausintuvas
+Edit area crop: Koreguoti zoną
+Edit program settings: Koreguoti programos nustatymus
+Electricity meter active power history: Elektros energijos skaitiklio galios istorija
+Electricity meter current history: Elektros energijos skaitiklio srovės istorija
+Electricity meter voltage aberrations history: Elektros energijos skaitiklio įtampos aberacijos istorija
+Electricity meter voltage history: Elektros energijos skaitiklio įtampos istorija
+Enable floor temperature control: Įjungti grindų temperatūros kontrolę
+Enable generic cooler temperature control: Įjungti vėsumos šaltinio temperatūros kontrolę
+Enable generic heater temperature control: Įjungti šilumos šaltinio temperatūros kontrolę
+Enable power status LED: Įjungti maitinimo būsenos šviesos diodą
+Enable support for OCR readings for this channel: Įjungti OCR nuskaitymų palaikymą šiam kanalui
+Enable water temperature control: Įjungti vandens temperatūros kontrolę
+Example value: Pavyzdys
+Expand: Išskleisti
+Expand or stop: Išskleisti arba sustabdyti
+Expand partially: Išskleisti dalinai
+Expected maximum increment: Tikėtinas maksimalus padidėjimas
+External sensor disabling the thermostat: Išorinis jutiklis, kuris išjungia termostatą
+Facade blind operation: Fasado žaliuzės
+Fan: Ventiliatorius
+'Field: {propertyPath}.': 'Laukas {propertyPath}.'
+Fill missing data: Užpildyti trūkstamus matmenis
+Firmware: Programinė apatinė įranga (firmware)
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Šio įrenginio programinė apatinė įranga (firmware) siunčia pranešimus atsižvelgiant į šį kanalą. Šioje vietoje galite konfigūruoti turinį ir gavėjus. Norėdami gauti daugiau informacijos, susisiekite su įrenginio tiekėju.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Šio įrenginio programinė apatinė įranga (firmware) siunčia pranešimus. Šioje vietoje galite konfigūruoti turinį ir gavėjus. Norėdami gauti daugiau informacijos, susisiekite su įrenginio tiekėju.
+For a period: Laikotarpiui
+Forced off by sensor: Priverstinis išjungimas dėl jutiklio
+Full tilting time: Bendras pakrypimo pakeitimo laikas
+Function disabled: Funkcija išjungta
+General purpose meter: Bendrosios paskirties skaitiklio kanalas
+HVAC: HVAC
+Heat or cold source switch: Šilumos ar vėsinimo šaltinio jungiklis
+Heat to: Šildyti iki
+Heating / ventilation / air conditioning: Šildymas / vėdinimas / oro kondicionavimas (HVAC)
+Heating mode: Šildymo režimas
+'Heating: {percent}%': 'Šildymas: {percent} %'
+High threshold: Viršutinė riba
+High value: Maksimali vertė
+History: Istorija
+Home screen content: Pagrindinio ekrano turinys
+Hotel card sensor: Viešbučio kortelės jutiklis
+Identify device: Identifikuoti įrenginį
+Identify request sent.: Identifikavimo prašymas buvo nusiųstas.
+If you confirm the installation and wish to unlock this device, please click the link below.: Jei tai Jūs bandote pridėti naują įrenginį, spustelėkite žemiau pateiktą nuorodą, kad patvirtintumėte atrakinimą.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Jei tai ne Jūs bandote atrakinti įrenginį, ignoruokite šį pranešimą. Patvirtinimo nuoroda automatiškai nustos galioti po 24 valandų.
+Image area crop: Nuotraukos laukas
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Norėdami sumažinti neteisingo nuskaitymo riziką, nustatykite maksimalų numatomą skaitiklio vertės padidėjimą tarp sekančių nuotraukų.
+Increment and decrement: Didėjantis ir mažėjantis
+Installer e-mail address: Montuotojo el. pašto adresas
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Įrenginys vietoje dabartinio užregistravo kito tipo kanalą ({typeCaption} - {typeId}).
+Invalid e-mail address.: Neteisingas el. pašto adresas.
+Invalid unlock code.: Neteisinga atrakinimo nuoroda.
+Last paired device: Paskutinis susietas įrenginys
+Light mode: Ryškus režimas
+Lighting level: Apšvietimo lygis
+Lighting mode: Apšvietimo režimas
+List of available variables: Galimų kintamųjų sąrašas
+Locked: Užrakinta
+Low threshold: Apatinė riba
+Low threshold must be less than high threshold.: Apatinė riba turi būti mažesnė nei viršutinė
+Low value: Minimali vertė
+Main thermometer: Pagrindinis termometras
+Master thermostat: Pagrindinis termostatas
+Max: Maks.
+Maximum duration is one year.: Maksimalus laikotarpis tai vieneri metai.
+Maximum temperature that can be set from the device: Maksimali temperatūra, kurią galima nustatyti įrenginio pagalba
+Measurement settings: Matavimo nustatymai
+Min: Min.
+Minimum OFF time before cooling can be turned on: Minimalus IŠJUNGIMO laikas prieš vėl įjungiant vėsinimą
+Minimum OFF time before heating can be turned on: Minimalus IŠJUNGIMO laikas prieš vėl įjungiant šildymą
+Minimum OFF time before heating/cooling can be turned on: Minimalus IŠJUNGIMO laikas prieš vėl įjungiant vėsinimą / šildymą
+Minimum ON time before cooling can be turned off: Minimalus ĮJUNGIMO laikas prieš vėl išjungiant vėsinimą
+Minimum ON time before heating can be turned off: Minimalus ĮJUNGIMO laikas prieš vėl išjungiant šildymą
+Minimum ON time before heating/cooling can be turned off: Minimalus ĮJUNGIMO laikas prieš vėl išjungiant vėsinimą / šildymą
+Minimum temperature must be lower than maximum temperature.: Minimali temperatūra turi būti žemesnė nei maksimali
+Minimum temperature that can be set from the device: Minimali temperatūra, kurią galima nustatyti įrenginio pagalba
+'Mode: cool': 'Režimas: vėsinimas'
+'Mode: heat': 'Režimas: šildymas'
+'Mode: off': 'Režimas: išjungtas'
+Motor upside down: Atvirkštinis variklio valdymas
+'No': 'Ne'
+No results: Rezultatų nėra
+Notification body is set by the firmware.: Pranešimo turinį nustato programinė apatinė įranga (firmware).
+Notification must have recipients.: Pranešimas turi turėti gavėjų.
+Notification title is set by the firmware.: Pranešimo antraštę nustato programinė apatinė įranga (firmware).
+Notifications (defined): Pranešimai (apibrėžti)
+Notifications (sent per hour): Pranešimai (siunčiami per valandą)
+'OCR service responded with error: {status}': 'OCR paslauga atsakė su klaida: {status}'
+OCR settings: OCR nustatymai
+OR: ARBA
+Off with duration: Išjungti tam tikram laikui
+On with duration: Įjungti tam tikram laikui
+Open value: Atidarymo vertė
+Output value on error: Išvesties būsena klaidos metu
+Overheat protection: Apsauga nuo perkaitimo
+P/C: P/C
+Pair new devices or sensors: Susieti naujus įrenginius arba jutiklius
+Pairing request sent.: Siejimo užklausa išsiųsta.
+Pairing subdevices is unsupported in the firmware.: Įrenginio programinė įranga nepalaiko siejimo.
+Phase LED type: LED fazės indikatorius
+Photo interval: Nuotraukų darymo intervalas
+Please find the device details below.: Išsamią informaciją apie įrenginį rasite žemiau.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Atkreipkite dėmesį, kad įrenginys, kuriam taikoma ši užklausa, skirtas tik sertifikuotiems montuotojams.
+Please provide the installer e-mail address to request the device unlock.: Norėdami atrakinti įrenginį, įveskite el. pašto adresą, kuris buvo nurodytas montuotojo sertifikato gavimo metu.
+Please select and configure the action: Pasirinkite ir sukonfigūruokite veiksmą.
+Program {programNo}: Programa {programNo}
+Projector screen: Projekcinis ekranas
+Pump switch: Siurblio jungiklis
+Push notifications limit has been exceeded: Viršytas push pranešimų limitas
+Reference to the channel will be removed from the items below.: Nuoroda į šį kanalą bus pašalinta iš žemiau nurodytų elementų.
+Refresh interval: Atnaujinimo intervalas
+Refresh the config: Atnaujinkite konfigūraciją
+Refreshing the configuration will overwrite the changes you made here.: Konfigūracijos atnaujinimas perrašys atliktus formoje pakeitimus.
+Reload last photo: Iš naujo įkelti paskutinę nuotrauką
+Remote restart is unsupported in the firmware.: Įrenginio programinė įranga nepalaiko nuotolinio paleidimo iš naujo.
+Remove this item: Pašalinti šį elementą
+Request device unlock: Pranešti apie norą atrakinti įrenginį
+Reset to defaults: Atkurti numatytąsias vertes
+Restart device: Iš naujo paleiskite įrenginį
+Restart the device: Iš naujo paleiskite įrenginį
+Reveal or stop: Atidengti arba sustabdyti
+Roller garage door: Garažo vartai
+S/N: S/N
+SUPLA - Confirm unlocking device for authorized installers: SUPLA – Įrenginio, skirto sertifikuotam montuotojui, atrakinimas
+SUPLA – your device has been unlocked!: SUPLA – Jūsų įrenginys atrakintas!
+Same as on master thermostat.: Nustatymas toks pat kaip ir pagrindiniame termostate.
+Screen brightness: Ekrano ryškumas
+Selected: Pasirinkta
+Set HVAC parameters: Nustatyti parametrus
+Set the device time: Įrenginyje nepavyko nustatyti datos ir laiko.
+Settings: Nustatymai
+Settings have not been saved!: Nustatymai nebuvo išsaugoti!
+Show data: Rodyti duomenis
+Shut or stop: Uždengti arba sustabdyti
+Some features depend on this channel: Kai kurios funkcijos priklauso nuo šio kanalo
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Dalis duomenų, kurie kaupiami Jūsų paskyrai, po nurodyto laiko periodiškai bus šalinama. Susipažinkite su limitais žemiau.
+Status LED: LED būsena
+Store active power history: Išsaugoti aktyviosios galios istoriją
+Store current history: Išsaugoti elektros srovės istoriją
+Store voltage history: Išsaugoti įtampos istoriją
+'Subdevice #{id}': 'Subrangovinis įrenginys #{id}'
+Subfunction: Subfunkcija
+Switch to manual mode: Perjungti į rankinį režimą
+Switch to program mode: Perjungti į programos režimą
+THEN: TADA
+Take a photo now: Padaryti nuotrauką dabar
+Temperature adjustment only: Tik temperatūros nustatymas
+Temperature difference is too big between {min}°C and {max}°C.: Temperatūros skirtumas tarp {min}°C ir {max}°C.
+Temperature setpoint change switches to manual mode: Tikslinės temperatūros pakeitimas perjungia į rankinį režimą
+Temporal override: Laikinas įrašymas ant viršaus
+Terrace awning: Terasos markizė
+The channel has been deleted.: Kanalas buvo pašalintas.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfigūracija buvo pakeista iš kitos vietos (pvz. kitas naršyklės langas, mobilioji programėlė arba įrenginys). Prieš atlikdami sekančius pakeitimus, turite atnaujinti konfigūraciją.
+The device could not be unlocked.: Nepavyko atrakinti įrenginio.
+The device has been unlocked already.: Įrenginys jau atrakintas.
+The device has been unlocked.: Įrenginys buvo atrakintas.
+The device has channel conflict and cannot work.: Įrenginys sugeneravo kanalų konfliktą ir dabar negali veikti.
+The device is locked: Įrenginys užrakintas
+The following channels will be also removed along with their dependencies.: Žemiau nurodyti kanalai taip pat bus pašalinti kartu su jų priklausomybėmis.
+The items below rely on this channel, so they will be deleted.: Žemiau nurodyti elementai priklauso nuo šio kanalo, todėl bus pašalinti.
+The master termostat you chose already has a master.: Jūsų pasirinktas pagrindinis termostatas turi jau kitą pagrindinį termostatą
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reakcija bus aktyvi, kai visos žemiau nurodytos sąlygos bus įvykdytos. Jei nustatysite visas galimas parinktis, reakcija bus aktyvuota tik tarp pasirinktų datų, pasirinktomis valandomis ir savaitės dienomis bei kai bus įvykdyta viena iš saulėlydžio ar saulėtekio atžvilgiu nuorodų.
+The thermostat will not work if the main thermometer is not set.: Kas termostatas veiktų, turi būti nustatytas pagrindinis termometras.
+Thermometer error: Termometro klaida
+Thermometers configuration: Termometrų konfigūravimas
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Šis termostatas naudoja pagrindinio termostato nustatymus. Norėdami pakeisti nustatymus, pereikite į išsamios informacijos puslapį.
+Thermostat programs: Termostato programos
+This action will result in restarting the device. It will not be available for a while.: Aktyvavus šią operaciją, įrenginys bus paleistas iš naujo. Paleidimo iš naujo metu įrenginys bus nepasiekiamas.
+This channel was missing during last device registration attempt.: Šio kanalo įrenginyje nėra.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Šis įrenginys skirtas platinti ir montuoti tik įgaliotiems montuotojams. Jei nesate įgaliotas SUPLA montuotojas ir neturite aktyvaus mokymo sertifikato, grąžinkite jį pardavėjui.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Tai paskutinė įrenginio atsiųsta nuotrauka. Pažymėkite tiksliai sritį, kurioje matomi skaitmenys iš skaitiklio.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Tai Jūsų paskyroje veikiančių reakcijų sąrašas. Jei norite pridėti naują reakciją, pereikite į išsamią informaciją apie kanalą, kuris turi ją suaktyvinti.
+This thermostat is controlled by another device.: Šį termostatą valdo pagrindinis termostatas.
+Tilt angle: Pakrypimo kampas
+Tilt control type: Pakrypimo valdymo tipas
+Tilt percent: Pakrypimo procentas
+Time: Laikas
+Today, it would be active from {from} to {to}.: Šiandien aktyvumo laikotarpis būtų nuo {from} iki {to} valandos.
+Turn off: Išjungti
+Unlock the device: Atrakinti įrenginį
+Unlocked: Atrakintas
+Until a date and time: Iki kol
+Until the next change: Iki sekančio pakeitimo
+Use device default: Naudoti numatytąją įrenginio vertę
+Use working schedule for this reaction: Šiai reakcijai naudokite aktyvumo grafiką
+Use {theMasterThermostat} to control this device.: Norėdami valdyti šį įrenginį, naudokite {theMasterThermostat}.
+Used current transformer type: Naudojamas srovės transformatorius
+User interface: Naudotojo sąsaja
+Value divider: Daliklis
+Value multiplier: Daugiklis
+Vertical blind: Vertikalios žaliuzės
+Visit the master thermostat page.: Pereiti į pagrindinį termostatą.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Gavome prašymą atrakinti įrenginį, skirtą tik sertifikuotiems montuotojams. Prašymą išsiuntė naudotojas %deviceUserEmail% iš SUPLA Cloud įrenginio, esančio adresu %targetCloudUrl%.
+Week: Savaitė
+Weekly schedule: Savaitės grafikas
+When the alarm is armed: Kai signalizacija bus įjungta
+When the alarm is armed or disarmed: Kai signalizacija bus išjungta arba įjungta
+When the alarm is disarmed: Kai signalizacija bus išjungta
+When the battery cover is opened: Kai baterijos dangtelis bus atidarytas
+When the clock error has been reported: Kai laikrodis praneš apie klaidą
+When the curtain position changes: Kai užuolaida pakeičia padėtį
+When the curtain reaches: Kai užuolaida pasiekia
+When the curtain reaches a certain position: Kai užuolaida pasiekia nustatytą padėtį
+When the facade blind position changes: Kai fasado žaliuzės pakeičia padėtį
+When the facade blind reaches: Kai fasado žaliuzės pasiekia
+When the facade blind reaches a certain position: Kai fasado žaliuzės pasiekia nustatytą padėtį
+When the hotel card has been taken: Kai viešbučio kortelė bus paimta
+When the hotel card is put in: Kai viešbučio kortelė bus įdėta
+When the hotel card is put in or has been taken: Kai viešbučio kortelė bus įdėta arba paimta
+When the meter reaches a certain value: Kai skaitiklis pasieks nustatytą vertę
+When the meter value changes: Kai vertė pasikeis
+When the meter value will be: Kai vertė sieks
+When the projector screen position changes: Kai projekcinis ekranas pakeičia padėtį
+When the projector screen reaches: Kai projekcinis ekranas pasiekia
+When the projector screen reaches a certain position: Kai projekcinis ekranas pasiekia nustatytą padėtį
+When the pump is turned off: Kai siurblys bus išjungtas
+When the pump is turned on: Kai siurblys bus įjungtas
+When the pump is turned on or off: Kai siurblys bus įjungtas arba išjungtas
+When the roller garage door a certain position: Kai garažo vartai pasiekia nustatytą padėtį
+When the roller garage door position changes: Kai garažo vartai pakeičia padėtį
+When the roller garage door reaches: Kai garažo vartai pasiekia
+When the roller shutter calibration failed: Kai roleto kalibravimas baigiasi klaida
+When the roller shutter calibration has been lost: Kai roleto kalibravimas negalės pasibaigti
+When the roller shutter calibration has started: Kai roleto kalibravimas prasidės
+When the roller shutter motor reported a problem: Kai roleto variklis praneš apie problemą
+When the terrace awning position changes: Kai terasos markizė pakeičia padėtį
+When the terrace awning reaches: Kai terasos markizė pasiekia
+When the terrace awning reaches a certain position: Kai terasos markizė pasiekia nustatytą padėtį
+When the thermometer error has been reported: Kai termometras praneš apie klaidą
+When the thermostat starts cooling: Kai termostatas pradės vėsinti
+When the thermostat starts heating: Kai termostatas pradės šildyti
+When the thermostat starts heating or cooling: Kai termostatas pradės šildymą arba vėsinimą
+When the thermostat starts or stops cooling: Kai termostatas pradės arba nustos vėsinti
+When the thermostat starts or stops heating: Kai termostatas pradės arba nustos šildyti
+When the thermostat starts or stops heating or cooling: Kai termostatas pradės arba nustos šildyti arba vėsinti
+When the thermostat stops cooling: Kai termostatas nustos vėsinti
+When the thermostat stops heating: Kai termostatas nustos šildyti
+When the thermostat stops heating or cooling: Kai termostatas sustabdys vėsinimą arba šildymą
+When the vertical blind position changes: Kai vertikalios žaliuzės pakeičia padėtį
+When the vertical blind reaches: Kai vertikalios žaliuzės pasiekia
+When the vertical blind reaches a certain position: Kai vertikalios žaliuzės pasiekia nustatytą padėtį
+Will be deleted after: Šalinimas po
+With a timer: Su laikmačiu
+'Yes': 'Taip'
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Čia galite nustatyti santykines vertes. Pavyzdžiui +10 arba -20 atitinkamai padidins nustatymus 10 arba sumažins 20.
+You cannot to set a master thermostat for a channel that is master for others.: Negalite nustatyti pagrindinio termostato pagrindiniame termostate
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Prašymas buvo išsiųstas. Pranešime Jums, kai montuotojas jį patvirtins ir atrakins įrenginį.
+You need to provide icons for all states in light mode.: Turite pateikti piktogramas visoms būsenoms ryškiame režime.
+Your device has been unlocked by the installer.: Jūsų įrenginį atrakino montuotojas.
+and wait until the meter will be: ir neatlikite šios reakcijos vėl, kol vertė nebus
+auxThermometerType_DISABLED: Išjungta
+auxThermometerType_FLOOR: Grindys
+auxThermometerType_GENERIC_COOLER: Vėsos šaltinis
+auxThermometerType_GENERIC_HEATER: Šilumos šaltinis
+auxThermometerType_NOT_SET: Nenustatyta
+auxThermometerType_WATER: Vanduo
+blue, otherwise: kitu atveju mėlyna
+blue, when voltage lower than the low threshold: mėlyna, kai įtampa mažesnė nei apatinė riba
+choose the currency: pasirinkite valiutą
+configuration missing: konfigūracijos nėra
+cool: vėsinimas
+day: diena
+default: pagal nutylėjimą
+green, otherwise: kitu atveju žalia
+green, when power less than the low threshold: žalia, kai galia mažesnė nei apatinė riba
+heat: šildymas
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Pagrindinė ir papildoma temperatūra
+homeScreenContent_NONE: Nėra
+homeScreenContent_TEMPERATURE: Temperatūra
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatūra ir drėgmė
+homeScreenContent_TEMPERATURE_TIME: Temperatūra ir laikas
+homeScreenContent_TIME: Laikas
+homeScreenContent_TIME_DATE: Data ir laikas
+hour: val.
+keepHistoryMeasurementWarningSelected: Ar ši istorija tikrai Jums reikalinga? Supla tai atviro kodo projektas, išlaikomas nuosavomis lėšomis. Jei ši istorija nėra Jums reikalinga, padėkite mums sutaupyti vertingos vietos diske palikdami šią parinktį išjungtą.
+max: maks.
+midnight: vidurnaktis
+milliseconds: milisekundės
+min: min.
+ocrLightingMode_ALWAYS_ON: Visada įjungta
+ocrLightingMode_AUTO: Automatiškai
+ocrLightingMode_OFF: Išjungta
+'off': 'Išjungti'
+red, when power higher than the high threshold: raudona, kai galia didesnė nei viršutinė riba
+red, when voltage higher than the high threshold: raudona, kai įtampa didesnė nei viršutinė riba
+seconds: sekundės
+statusLed_ALWAYS_OFF: Visada išjungti
+statusLed_OFF_WHEN_CONNECTED: Išjungti, kai susieta
+statusLed_ON_WHEN_CONNECTED: Įjungti, kai susieta
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Nežinomas rezultatas
+subdevicePairingResult_NOT_STARTED_BUSY: Įrenginys užimtas
+subdevicePairingResult_NOT_STARTED_NOT_READY: Įrenginys neparuoštas
+subdevicePairingResult_NOT_SUPPORTED: Operacija nepalaikoma
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Naujų įrenginių nerasta
+subdevicePairingResult_ONGOING: Vykdoma
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Nežinomas siejimo rezultatas
+subdevicePairingResult_PROCEDURE_STARTED: Procedūra pradėta
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Viršytas išteklių limitas
+subdevicePairingResult_SUCCESS: Sėkmė
+subdevicePairingResult_UNAUTHORIZED: Autorizacija nesėkminga
+sunrise: saulėtekis
+sunset: saulėlydis
+swap: pakeisti
+the master thermostat ID{id}: pagrindinio termostato ID{id}
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Įjungti/išjungti su viršutiniu nustatymu
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Įjungti/išjungti su centriniu nustatymu
+thermostatAlgorithm_PID: PID
+thermostatAlgorithm_help: |
+  Įjungimo/išjungimo algoritmai veikia pagal histerezės nustatymus. Histerezė gali būti susijusi su puse jos diapazono (centrinis nustatymas) arba su nustatyta temperatūra (viršutinis nustatymas).
+  Pavyzdžiui, darant prielaidą, kad histerezė yra 1°C ir tikslinė temperatūra 23°C, termostatas:
+  - įjungs šildymą esant 22.5°C ir nustos veikti, kai temperatūra pasieks 23.5°C, esant centriniam nustatymui
+  - įjungs šildymą esant 22°C ir nustos veikti, kai temperatūra pasieks 23°C, esant viršutiniam nustatymui
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: ~
-thermostatSubfunction_HEAT: ~
-thermostatTemperature_aboveAlarm: ~
-thermostatTemperature_auxMaxSetpoint: ~
-thermostatTemperature_auxMinSetpoint: ~
-thermostatTemperature_belowAlarm: ~
-thermostatTemperature_boost: ~
-thermostatTemperature_comfort: ~
-thermostatTemperature_eco: ~
-thermostatTemperature_freezeProtection: ~
-thermostatTemperature_heatProtection: ~
-thermostatTemperature_histeresis: ~
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: ~
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: ~
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: ~
-tiltControlType_UNKNOWN: ~
-timeMarginMode_custom: ~
-timeMarginMode_device: ~
-timeMarginMode_off: ~
-usedCTType_100A_33mA: ~
-usedCTType_200A_66mA: ~
-usedCTType_400A_133mA: ~
-usedPhaseLedType_OFF: ~
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
-usedPhaseLedType_VOLTAGE_LEVEL: ~
-usedPhaseLedType_VOLTAGE_PRESENCE: ~
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
-'{count} minutes after sunrise': ~
-'{count} minutes after sunset': ~
-'{count} minutes before sunrise': ~
-'{count} minutes before sunset': ~
-'{days} days': ~
-
+thermostatSubfunction_COOL: Vėsinimas
+thermostatSubfunction_HEAT: Šildymas
+thermostatTemperature_aboveAlarm: Virš signalizacijos
+thermostatTemperature_auxMaxSetpoint: Maksimali papildoma temperatūra
+thermostatTemperature_auxMinSetpoint: Minimali papildoma temperatūra
+thermostatTemperature_belowAlarm: Žemiau signalizacijos
+thermostatTemperature_boost: Boost temperatūra
+thermostatTemperature_comfort: Komforto temperatūra
+thermostatTemperature_eco: ECO temperatūra
+thermostatTemperature_freezeProtection: Apsaugos nuo užšalimo temperatūra
+thermostatTemperature_heatProtection: Apsaugos nuo perkaitimo temperatūra
+thermostatTemperature_histeresis: Histerezė
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Pakeičia padėtį, kai keičiasi pakrypimas
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Nekeičia padėties, kai keičiasi pakrypimas
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Keičia pakrypimą tik data, kai visiškai uždaryta
+tiltControlType_UNKNOWN: Nežinoma
+timeMarginMode_custom: Nestandartinis
+timeMarginMode_device: Įrenginio numatytoji vertė
+timeMarginMode_off: Išjungta
+usedCTType_100A_33mA: 100A/33.3mA
+usedCTType_200A_66mA: 200A/66.6mA
+usedCTType_400A_133mA: 400A/133.3mA
+usedPhaseLedType_OFF: Išjungta
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Galios srauto kryptis
+usedPhaseLedType_VOLTAGE_LEVEL: Įtampos lygis
+usedPhaseLedType_VOLTAGE_PRESENCE: Įtampos buvimas
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Įtampos buvimas (atvirkštinis)
+'{count} minutes after sunrise': '{count} minučių po saulėtekio'
+'{count} minutes after sunset': '{count} minučių po saulėlydžio'
+'{count} minutes before sunrise': '{count} minučių iki saulėtekio'
+'{count} minutes before sunset': '{count} minučių iki saulėlydžio'
+'{days} days': '{days} dienų'
 #</editor-fold>

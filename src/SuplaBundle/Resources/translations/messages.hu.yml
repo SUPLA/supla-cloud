@@ -136,6 +136,7 @@ Cancelled: Visszavont
 Cannot calculate when to run the schedule - incorrect configuration?: Nem sikerült kiszámítani az ütemezés kezdeti dátumát - helytelen konfiguráció?
 Cannot change the channel function right now.: Jelenleg nem lehet megváltoztatni a csatorna funkcióját.
 Cannot delete this I/O Device right now.: Ezt az eszközt jelenleg nem lehet törölni.
+Cannot execute an action when the device is disconnected.: Nem végezhet műveleteket, ha az eszköz ki van kapcsolva.
 Captcha token is not valid.: Érvénytelen captcha.
 Caption: Aláírás
 Caption is too long.: Túl hosszú név.
@@ -514,12 +515,12 @@ No of devices: Eszközök száma
 No of operations: Műveletek száma
 No schedule configuration.: Az ütemterv konfigurálása nincs megadva.
 No, take me back!: Nem, vigyél ki innen!
-No{'.'} of Client’s apps: Az ügyfélalkalmazások száma
-No{'.'} of access identifiers: Hozzáférési azonosítók száma
-No{'.'} of channel groups: Csatornacsoportok száma
-No{'.'} of channels: Csatornák száma
-No{'.'} of devices: Eszközök száma
-No{'.'} of locations: Lokálizációk száma
+No. of Client’s apps: Az ügyfélalkalmazások száma
+No. of access identifiers: Hozzáférési azonosítók száma
+No. of channel groups: Csatornacsoportok száma
+No. of channels: Csatornák száma
+No. of devices: Eszközök száma
+No. of locations: Lokálizációk száma
 None: Hiány
 None (channel disabled): Hiány (a csatorna kikapcsolt állapotban van)
 Noop: Hiányzó művelet
@@ -709,7 +710,7 @@ SoftVer: WerOpr
 Some features depend on this channel group: Egyes funkciók ettől a csatorna csoporttól függenek.
 Some features depend on this device: Egyes funkciók ettől a készüléktől függenek.
 Some features depend on this scene: Egyes funkciók ettől a jelenettől függenek.
-Some of the features you have configured depend on channels from this device.: Egyes funkciók a készülék csatornáit használják.
+Some of the features you have configured rely on channels from this device.: Egyes funkciók a készülék csatornáit használják.
 Staircase timer: Lépcsőautomata
 Start Here: Kezdje itt
 Start date: Kezdő dátum
@@ -754,9 +755,9 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: A kapu nyitó érzékelőnek rendeltetésszerűen kell működnie ahhoz, hogy a Nyitás Zárás művelet végrehajtása megtörténjen.
 The gate sensor must function properly in order to execute the scheduled action.: A művelet végrehajtásához a kapunyílás-érzékelőnek megfelelően kell működnie.
 The incident was detected at %datetime%.: Az esemény helye %datetime%.
-The items below depend on this channel function, so they will be deleted.: Az alábbi elemek az aktuális csatornafunkción alapulnak, ezért a csatorna módosításakor törlődnek.
-The items below depend on this channel group, so they will be deleted.: Az alábbi elemek ezt a csatornacsoportot használják, így a visszavonással automatikusan törlésre kerülnek.
-The items below depend on this scene, so they will be deleted.: Az alábbi elemek erre a jelenetre épülnek, így törlésre kerülnek.
+The items below rely on this channel function, so they will be deleted.: Az alábbi elemek az aktuális csatornafunkción alapulnak, ezért a csatorna módosításakor törlődnek.
+The items below rely on this channel group, so they will be deleted.: Az alábbi elemek ezt a csatornacsoportot használják, így a visszavonással automatikusan törlésre kerülnek.
+The items below rely on this scene, so they will be deleted.: Az alábbi elemek erre a jelenetre épülnek, így törlésre kerülnek.
 The latest execution: Legutóbbi végrehajtás
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: A megvalósítás eredménye weboldalként jelenik meg, mert Ön (vagy a böngészője) HTML formátumban kért választ.
 The measurement history has been deleted.: A mérési előzményeket törölték.
@@ -815,7 +816,7 @@ Unsupported type: Nem támogatott típus
 Update in progress: Frissítés folyamatban
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: A feltöltött fájlok nem ütköznek a közerkölcsbe, nem sértik a szerzői jogokat se a harmadik személyek jogait, és jogsult vagyok ezek használatára.
 Upper voltage threshold: Magas feszültség küszöbértéke
-'Use the {0} server command to change this account''s limits. For example:': 'A {0} kiszolgálóparanccsal módosíthatja a fiók korlátozásait. Például:'
+"Use the {0} server command to change this account's limits. For example:": 'A {0} kiszolgálóparanccsal módosíthatja a fiók korlátozásait. Például:'
 Use working schedule for this access identifier: Használja a hozzáférési ütemtervet a hozzáférési azonosítóhoz
 User is already confirmed. Try to log in.: Ezt a fiókot már megerősítettük. Belépés
 Value: Érték
@@ -1172,7 +1173,6 @@ Are you sure you want to disable this device?: Biztosan ki akarja kapcsolni ezt 
 Assigned Locations: Hozzárendelt Lokálizációk
 Authorized OAuth apps: Engedélyezett OAuth alkalmazások
 Calculated value: Mérőóra állás
-Cannot execute an action when the device is disconnected.: Nem végezhet műveleteket, ha az eszköz ki van kapcsolva.
 Cannot send an activation e-mail. Try again later.: Nem lehet üzenetet küldeni az aktiválási linkkel. Kérjük, próbálja meg újra később.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Nem érkezett meg a fiókaktiválási linket tartalmazó üzenet? Győződjön meg róla, hogy nem került a SPAM (kéretlen levelek) mappába. Az újraküldéshez kattintson a gombra {clickHereLink}.
 Channel value: Érték
@@ -1254,448 +1254,431 @@ will expire: lejár
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-0% tilt angle: ~
-100% tilt angle: ~
-A confirmation upon successful device unlocking.: ~
-Action trigger for channel: ~
-Active from: ~
-Active to: ~
-Activity conditions: ~
-Additional time margin: ~
-Adjust temperature: ~
-Adjust temperatures: ~
-After the delay: ~
-After the delay, but only when it's dark: ~
-Alarm armament sensor: ~
-Algorithm: ~
-All programs must define at least one temperature threshold.: ~
-Always decrement: ~
-Always increment: ~
-Anti-freeze and overheat protection: ~
-Anti-freeze protection: ~
-Are you sure you want to change channel’s location?: ~
-Are you sure you want to change channel’s visibility?: ~
-Are you sure you want to change device’s location?: ~
-Are you sure you want to delete this channel?: ~
-Are you sure you want to delete this subdevice?: ~
-Automatic: ~
-Automatic front panel turn off: ~
-Automatic front panel turn off after: ~
-Automatic thermostat: ~
-Automatic time synchronization: ~
-Aux thermometer: ~
-Aux thermometer for channel: ~
-Aux thermometer type: ~
-Available variables: ~
-Average: ~
-Battery cover open: ~
-Behavior settings: ~
-Binary sensor: ~
-Binary sensor for channel: ~
-Brightness adjustment for automatic mode: ~
-Brightness level: ~
-Button volume: ~
-Buttons upside down: ~
-Candle: ~
-Cannot execute an action when the channel is not available.: ~
-Cannot update OCR settings. Try again in a while.: ~
-Change percentage by: ~
-Change percentage to: ~
-Change tilt by: ~
-Change tilt to: ~
-Change to be the same.: ~
-Changing channel’s visibility will also change the visibility of other items.: ~
-Changing the location will also imply changing the location of the following items.: ~
-Channels that are meant to work with each other must be in the same location.: ~
-Clock error: ~
-Close value: ~
-Collapse: ~
-Collapse or stop: ~
-Collapse partially: ~
-Command has been sent to the device. Try refreshing the photo in a while.: ~
-Common currencies: ~
-Configuration not available yet. Waiting for the device to connect.: ~
-Confirm if you want to perform the calibration.: ~
-Conflict: ~
-Cool to: ~
-Cooling mode: ~
-'Cooling: {percent}%': ~
-Costs: ~
-Could not restart the device.: ~
-Could not send the identify command.: ~
-Could not set the device time.: ~
-Counter type: ~
-Curtain: ~
-Dark mode: ~
-Data: ~
-Date range: ~
-Daytime criteria: ~
-Dependencies: ~
-'Device GUID: %deviceGuid%': ~
-Device identification is unsupported in the firmware.: ~
-Device settings: ~
-Device should be restarting now.: ~
-Device time has been set.: ~
-Different than on master thermostat.: ~
-Differential thermostat: ~
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
-Domestic hot water: ~
-Dryer: ~
-Edit area crop: ~
-Edit program settings: ~
-Electricity meter active power history: ~
-Electricity meter current history: ~
-Electricity meter voltage aberrations history: ~
-Electricity meter voltage history: ~
-Enable floor temperature control: ~
-Enable generic cooler temperature control: ~
-Enable generic heater temperature control: ~
-Enable power status LED: ~
-Enable support for OCR readings for this channel: ~
-Enable water temperature control: ~
-Example value: ~
-Expand: ~
-Expand or stop: ~
-Expand partially: ~
-Expected maximum increment: ~
-External sensor disabling the thermostat: ~
-Facade blind operation: ~
-Fan: ~
-'Field: {propertyPath}.': ~
-Fill missing data: ~
-Firmware: ~
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-For a period: ~
-Forced off by sensor: ~
-Full tilting time: ~
-Function disabled: ~
-General purpose meter: ~
-HVAC: ~
-Heat or cold source switch: ~
-Heat to: ~
-Heating / ventilation / air conditioning: ~
-Heating mode: ~
-'Heating: {percent}%': ~
-High threshold: ~
-High value: ~
-History: ~
-Home screen content: ~
-Hotel card sensor: ~
-Identify device: ~
-Identify request sent.: ~
-If you confirm the installation and wish to unlock this device, please click the link below.: ~
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
-Image area crop: ~
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: ~
-Increment and decrement: ~
-Installer e-mail address: ~
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: ~
-Invalid e-mail address.: ~
-Invalid unlock code.: ~
-Last paired device: ~
-Light mode: ~
-Lighting level: ~
-Lighting mode: ~
-List of available variables: ~
-Locked: ~
-Low threshold: ~
-Low threshold must be less than high threshold.: ~
-Low value: ~
-Main thermometer: ~
-Main thermometer for channel: ~
-Master thermostat: ~
-Master thermostat for channel: ~
-Max: ~
-Maximum duration is one year.: ~
-Maximum temperature that can be set from the device: ~
-Measurement settings: ~
-Min: ~
-Minimum OFF time before cooling can be turned on: ~
-Minimum OFF time before heating can be turned on: ~
-Minimum OFF time before heating/cooling can be turned on: ~
-Minimum ON time before cooling can be turned off: ~
-Minimum ON time before heating can be turned off: ~
-Minimum ON time before heating/cooling can be turned off: ~
-Minimum temperature must be lower than maximum temperature.: ~
-Minimum temperature that can be set from the device: ~
-'Mode: cool': ~
-'Mode: heat': ~
-'Mode: off': ~
-Motor upside down: ~
-'No': ~
-No results: ~
-Not available: ~
-Notification body is set by the firmware.: ~
-Notification must have recipients.: ~
-Notification title is set by the firmware.: ~
-Notifications (defined): ~
-Notifications (sent per hour): ~
-'OCR service responded with error: {status}': ~
-OCR settings: ~
-OR: ~
-Off with duration: ~
-On with duration: ~
-Open value: ~
-Opening sensor for channel: ~
-Output value on error: ~
-Overheat protection: ~
-P/C: ~
-Pair new devices or sensors: ~
-Pairing request sent.: ~
-Pairing subdevices is unsupported in the firmware.: ~
-Phase LED type: ~
-Photo interval: ~
-Please find the device details below.: ~
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: ~
-Please provide the installer e-mail address to request the device unlock.: ~
-Please select and configure the action: ~
-Program {programNo}: ~
-Projector screen: ~
-Pump switch: ~
-Pump switch for channel: ~
-Push notifications limit has been exceeded: ~
-Reference to the deleted channels will be removed from the items below.: ~
-Refresh interval: ~
-Refresh the config: ~
-Refreshing the configuration will overwrite the changes you made here.: ~
-Reload last photo: ~
-Remote restart is unsupported in the firmware.: ~
-Remove this item: ~
-Request device unlock: ~
-Reset to defaults: ~
-Restart device: ~
-Restart the device: ~
-Reveal or stop: ~
-Roller garage door: ~
-S/N: ~
-SUPLA - Confirm unlocking device for authorized installers: ~
-SUPLA – your device has been unlocked!: ~
-Same as on master thermostat.: ~
-Screen brightness: ~
-Selected: ~
-Set HVAC parameters: ~
-Set the device time: ~
-Settings: ~
-Settings have not been saved!: ~
-Show data: ~
-Shut or stop: ~
-Some features depend on this channel: ~
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
-Status LED: ~
-Store active power history: ~
-Store current history: ~
-Store voltage history: ~
-'Subdevice #{id}': ~
-Subfunction: ~
-Switch to manual mode: ~
-Switch to program mode: ~
-THEN: ~
-Take a photo now: ~
-Temperature adjustment only: ~
-Temperature control type: ~
-Temperature difference is too big between {min}°C and {max}°C.: ~
-Temperature setpoint change switches to manual mode: ~
-Temporal override: ~
-Terrace awning: ~
-The channel has been deleted.: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: ~
-The device could not be unlocked.: ~
-The device has been unlocked already.: ~
-The device has been unlocked.: ~
-The device has channel conflict and cannot work.: ~
-The device is locked: ~
-The following channels will be also removed along with their dependencies.: ~
-The items below depend on the deleted channels, so they will be deleted, too.: ~
-The master termostat you chose already has a master.: ~
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
-The subdevice has been deleted.: ~
-The thermostat will not work if the main thermometer is not set.: ~
-Thermometer error: ~
-Thermometers configuration: ~
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
-Thermostat programs: ~
-This action will result in restarting the device. It will not be available for a while.: ~
-This channel was missing during last device registration attempt.: ~
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
-This thermostat is controlled by another device.: ~
-Tilt angle: ~
-Tilt control type: ~
-Tilt percent: ~
-Time: ~
-Today, it would be active from {from} to {to}.: ~
-Turn off: ~
-Unlock the device: ~
-Unlocked: ~
-Until a date and time: ~
-Until the next change: ~
-Use device default: ~
-Use working schedule for this reaction: ~
-Use {theMasterThermostat} to control this device.: ~
-Used current transformer type: ~
-User interface: ~
-Value divider: ~
-Value multiplier: ~
-Vertical blind: ~
-Visit the master thermostat page.: ~
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
-Week: ~
-Weekly schedule: ~
-When the alarm is armed: ~
-When the alarm is armed or disarmed: ~
-When the alarm is disarmed: ~
-When the battery cover is opened: ~
-When the battery level will be: ~
-When the battery reaches a certain level: ~
-When the clock error has been reported: ~
-When the curtain position changes: ~
-When the curtain reaches: ~
-When the curtain reaches a certain position: ~
-When the device starts to be powered from battery: ~
-When the device stops to be powered from battery: ~
-When the facade blind position changes: ~
-When the facade blind reaches: ~
-When the facade blind reaches a certain position: ~
-When the hotel card has been taken: ~
-When the hotel card is put in: ~
-When the hotel card is put in or has been taken: ~
-When the meter reaches a certain value: ~
-When the meter value changes: ~
-When the meter value will be: ~
-When the projector screen position changes: ~
-When the projector screen reaches: ~
-When the projector screen reaches a certain position: ~
-When the pump is turned off: ~
-When the pump is turned on: ~
-When the pump is turned on or off: ~
-When the roller garage door a certain position: ~
-When the roller garage door position changes: ~
-When the roller garage door reaches: ~
-When the roller shutter calibration failed: ~
-When the roller shutter calibration has been lost: ~
-When the roller shutter calibration has started: ~
-When the roller shutter motor reported a problem: ~
-When the terrace awning position changes: ~
-When the terrace awning reaches: ~
-When the terrace awning reaches a certain position: ~
-When the thermometer error has been reported: ~
-When the thermostat starts cooling: ~
-When the thermostat starts heating: ~
-When the thermostat starts heating or cooling: ~
-When the thermostat starts or stops cooling: ~
-When the thermostat starts or stops heating: ~
-When the thermostat starts or stops heating or cooling: ~
-When the thermostat stops cooling: ~
-When the thermostat stops heating: ~
-When the thermostat stops heating or cooling: ~
-When the vertical blind position changes: ~
-When the vertical blind reaches: ~
-When the vertical blind reaches a certain position: ~
-Will be deleted after: ~
-With a timer: ~
-'Yes': ~
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot change this function becuase it is required by another channel.: ~
-You cannot to set a master thermostat for a channel that is master for others.: ~
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
-You need to provide icons for all states in light mode.: ~
-Your device has been unlocked by the installer.: ~
-and wait until the battery level will be: ~
-and wait until the meter will be: ~
-auxThermometerType_DISABLED: ~
-auxThermometerType_FLOOR: ~
-auxThermometerType_GENERIC_COOLER: ~
-auxThermometerType_GENERIC_HEATER: ~
-auxThermometerType_NOT_SET: ~
-auxThermometerType_WATER: ~
-blue, otherwise: ~
-blue, when voltage lower than the low threshold: ~
-choose the currency: ~
-configuration missing: ~
-cool: ~
-day: ~
-default: ~
-green, otherwise: ~
-green, when power less than the low threshold: ~
-heat: ~
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
-homeScreenContent_NONE: ~
-homeScreenContent_TEMPERATURE: ~
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
-homeScreenContent_TEMPERATURE_TIME: ~
-homeScreenContent_TIME: ~
-homeScreenContent_TIME_DATE: ~
-hour: ~
-keepHistoryMeasurementWarningSelected: ~
-max: ~
-midnight: ~
-milliseconds: ~
-min: ~
-ocrLightingMode_ALWAYS_ON: ~
-ocrLightingMode_AUTO: ~
-ocrLightingMode_OFF: ~
-'off': ~
-red, when power higher than the high threshold: ~
-red, when voltage higher than the high threshold: ~
-seconds: ~
-statusLed_ALWAYS_OFF: ~
-statusLed_OFF_WHEN_CONNECTED: ~
-statusLed_ON_WHEN_CONNECTED: ~
-subdevicePairingResult_CMD_RESULT_UNKNOWN: ~
-subdevicePairingResult_NOT_STARTED_BUSY: ~
-subdevicePairingResult_NOT_STARTED_NOT_READY: ~
-subdevicePairingResult_NOT_SUPPORTED: ~
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: ~
-subdevicePairingResult_ONGOING: ~
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: ~
-subdevicePairingResult_PROCEDURE_STARTED: ~
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: ~
-subdevicePairingResult_SUCCESS: ~
-subdevicePairingResult_UNAUTHORIZED: ~
-sunrise: ~
-sunset: ~
-swap: ~
-temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
-temperatureControlType_ROOM_TEMPERATURE: ~
-the master thermostat ID{id}: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
-thermostatAlgorithm_PID: ~
-thermostatAlgorithm_help: ~
+0% tilt angle: A lamellák a zsaluzia záráskor beállított szöge
+100% tilt angle: A lamellák a zsaluzia nyitásakor beállított szöge
+A confirmation upon successful device unlocking.: A készülék feloldásának megerősítése.
+Active from: Aktív -tól
+Active to: Aktív -ig
+Activity conditions: Tevékenységi feltételek
+Additional time margin: További időkeret
+Adjust temperature: Hőmérsékletet beállítás
+Adjust temperatures: Hőmérsékletek beállítása
+After the delay: Megadott idő múlva
+After the delay, but only when it's dark: Megadott idő múlva, kizárólag sötétben.
+Alarm armament sensor: Élesített riasztás érzékelő
+Algorithm: Algoritmus
+All programs must define at least one temperature threshold.: Minden programnak legalább egy hőmérsékleti küszöbértéket meg kell határoznia.
+Always decrement: Mindig csökkenő
+Always increment: Mindig növekvő
+Anti-freeze and overheat protection: Túlmelegedés és fagy elleni védelem
+Anti-freeze protection: Fagy elleni védelem
+Are you sure you want to change channel’s location?: Biztosan meg akarja változtatni a csatorna helyét?
+Are you sure you want to change channel’s visibility?: Biztosan meg akarja változtatni a csatorna láthatóságát?
+Are you sure you want to change device’s location?: Biztosan meg akarja változtatni a készülék helyét?
+Are you sure you want to delete this channel?: Biztosan törölni akarja ezt a csatornát?
+Automatic: Automatikus
+Automatic front panel turn off: Az előlap automatikus kikapcsolása
+Automatic front panel turn off after: Az előlap kikapcsolásának ideje
+Automatic thermostat: Automatikus termosztát
+Automatic time synchronization: Automatikus dátum- és időszinkronizálás
+Aux thermometer: Kiegészítő hőmérő
+Aux thermometer type: A kiegészítő hőmérő típusa
+Available variables: Rendelkezésre álló változók
+Average: Átlag
+Battery cover open: Elemfedél nyitva
+Behavior settings: Eljárás
+Binary sensor: Bináris érzékelő
+Brightness adjustment for automatic mode: Automatikus üzemmód fényerő szabályozó
+Brightness level: Fényerőszint
+Button volume: Kapcsológomb hangerő
+Buttons upside down: Fordított vezérlés kapcsológombokkal
+Candle: Gyertya
+Cannot update OCR settings. Try again in a while.: Az OCR beállítások frissítése sikertelen. Próbálja meg újra kicsit később.
+Change percentage by: A százalékérték módosítása
+Change percentage to: A százalékérték módosítása a következőre
+Change tilt by: A dőlésszög módosítása
+Change tilt to: A dőlésszög módosítása a következőre
+Change to be the same.: Állítsa be ugyanúgy.
+Changing channel’s visibility will also change the visibility of other items.: A csatorna láthatóságának módosítása más elemek láthatóságát is módosítja.
+Changing the location will also imply changing the location of the following items.: A hely módosítása a következő elemekre is hatással lesz.
+Channels that are meant to work with each other must be in the same location.: Az együtt használandó csatornáknak egyazon helyen kell lenniük.
+Clock error: Óra hiba
+Close value: Záró érték
+Collapse: Visszahúz
+Collapse or stop: Visszahúz vagy megállít
+Collapse partially: Részlegesen visszahúz
+Command has been sent to the device. Try refreshing the photo in a while.: A kérelem elküldve a készüléknek. Próbálja meg frissíteni a képet később.
+Common currencies: Leggyakrabban választott pénznemek
+Configuration not available yet. Waiting for the device to connect.: A konfiguráció még nem áll rendelkezésre. Várja meg, amíg a készülék csatlakozik.
+Confirm if you want to perform the calibration.: Erősítse meg, hogy el kívánja végezni a kalibrálást.
+Conflict: Konfliktus
+Cool to: Hűtés
+Cooling mode: Hűtés üzemmód
+'Cooling: {percent}%': 'Hűtés: {percent}%'
+Costs: Költségek
+Could not restart the device.: A készülék újraindítása sikertelen.
+Could not send the identify command.: A parancs elküldése sikertelen.
+Could not set the device time.: A dátum és az idő beállítása a készüléken sikertelen.
+Counter type: Mérőóra típusa
+Curtain: Sötétítő függöny
+Dark mode: Sötét üzemmód
+Data: Adatok
+Date range: Dátum tartomány
+Daytime criteria: Kritériumok a nap hossza alapján
+Dependencies: Csatlakoztatott eszközök
+'Device GUID: %deviceGuid%': 'A készülék GUID azonosítója: %deviceGuid%'
+Device identification is unsupported in the firmware.: A firmware nem támogatja a készülék azonosítását.
+Device settings: Készülék beállítások
+Device should be restarting now.: A készüléket újra kell indítani.
+Device time has been set.: A készüléken a dátum és időpont beállítva.
+Different than on master thermostat.: A beállítás eltér a főtermosztáton lévő beállításoktól.
+Differential thermostat: Differenciál termosztát
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Szeretné, ha az ehhez a termosztáthoz csatlakoztatott csatornák (pl. hőmérők és érzékelők) beállításai megegyezzenek a főtermosztátéval?
+Domestic hot water: Meleg víz otthon
+Dryer: Páramentesítő
+Edit area crop: Terület szerkesztése
+Edit program settings: Program beállítások szerkesztése
+Electricity meter active power history: Villamosenergia fogyasztásmérő áramerősség előzményei
+Electricity meter current history: Villamosenergia fogyasztásmérő teljesítmény előzményei
+Electricity meter voltage aberrations history: Villamosenergia fogyasztásmérő feszültségkülönbség előzményei
+Electricity meter voltage history: Villamosenergia fogyasztásmérő feszültség előzményei
+Enable floor temperature control: A padlóhőmérséklet szabályozó bekapcsolása
+Enable generic cooler temperature control: A hűtés hőmérséklet szabályozó bekapcsolása
+Enable generic heater temperature control: A fűtés hőmérséklet szabályozó bekapcsolása
+Enable power status LED: A tápellátás állapotát jelző LED bekapcsolása
+Enable support for OCR readings for this channel: OCR támogatás engedélyezése ezen a csatornán
+Enable water temperature control: Vízhőmérséklet szabályozó bekapcsolása
+Example value: Példa
+Expand: Kienged
+Expand or stop: Kienged vagy megállít
+Expand partially: Részben kienged
+Expected maximum increment: Várható maximális kiterjedés
+External sensor disabling the thermostat: Külső érzékelő a termosztát kikapcsolásához
+Facade blind operation: Homlokzati zsaluzia
+Fan: Ventilátor
+'Field: {propertyPath}.': 'Útvonal {propertyPath}.'
+Fill missing data: Hiányzó mérési eredmények kitöltése
+Firmware: Firmware
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: A készülék firmware programja ezen a csatornán küld értesítéseket. Itt konfigurálhatja a tartalmat és a címzetteket. További információért forduljon a készülék forgalmazójához.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: A készülék firmware programja értesítéseket küld. Itt konfigurálhatja a tartalmat és a címzetteket. További információért forduljon a készülék forgalmazójához.
+For a period: Az alábbi időszakban
+Forced off by sensor: Érzékelő által kényszerített kikapcsolás
+Full tilting time: A dőlésszög módosításhoz szükséges teljes időtartam
+Function disabled: Kikapcsolt funkció
+General purpose meter: Általános célú mérőóra csatorna
+HVAC: HVAC
+Heat or cold source switch: Fűtés vagy hűtés kapcsoló
+Heat to: Fűtés
+Heating / ventilation / air conditioning: Fűtés / szellőzés / légkondicionálás (HVAC)
+Heating mode: Fűtés üzemmód
+'Heating: {percent}%': 'Fűtés: {percent}%'
+High threshold: Magas küszöbérték
+High value: Maximális érték
+History: Előzmények
+Home screen content: A kezdőképernyő tartalma
+Hotel card sensor: Szállodai kártyaolvasó
+Identify device: A készülék azonosítása
+Identify request sent.: Azonosítási kérelem elküldve.
+If you confirm the installation and wish to unlock this device, please click the link below.: Ha Ön próbál új eszközt hozzáadni, kattintson az alábbi linkre a feloldás megerősítéséhez.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Ha nem Ön próbálja feloldani a készüléket, hagyja figyelmen kívül ezt az e-mailt. A megerősítő link 24 óra elteltével automatikusan lejár.
+Image area crop: Képterület
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: A hibás leolvasás kockázatának minimalizálása érdekében állítsa be a mérőóra értékének maximális várható növekedését az egymást követő képek között.
+Increment and decrement: Növekvő és csökkenő
+Installer e-mail address: Telepítő e-mail címe
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: A készülék egy másik típusú ({typeCaption} - {typeId}) csatornát regisztrált az aktuális helyett.
+Invalid e-mail address.: Érvénytelen e- mail cím
+Invalid unlock code.: Érvénytelen blokkolás feloldó link.
+Last paired device: Utoljára párosított eszköz
+Light mode: Világos üzemmód
+Lighting level: Világítási szint
+Lighting mode: Világítás üzemmód
+List of available variables: A rendelkezésre álló változók listája
+Locked: Blokkolva
+Low threshold: Alacsony küszöbérték
+Low threshold must be less than high threshold.: Az alsó küszöbértéknek alacsonyabbnak kell lennie, mint a felső küszöbértéknek.
+Low value: Minimális érték
+Main thermometer: Fő hőmérő
+Master thermostat: Főtermosztát
+Max: Max.
+Maximum duration is one year.: A maximális időtartam egy év.
+Maximum temperature that can be set from the device: A készülékkel beállítható maximális hőmérséklet
+Measurement settings: Mérési adatok beállítása
+Min: Min.
+Minimum OFF time before cooling can be turned on: Minimális KIKAPCSOLÁSI idő a hűtés újraindítása előtt
+Minimum OFF time before heating can be turned on: Minimális KIKAPCSOLÁSI idő a fűtés újraindítása előtt
+Minimum OFF time before heating/cooling can be turned on: Minimális KIKAPCSOLÁSI idő a hűtés/fűtés újraindítása előtt
+Minimum ON time before cooling can be turned off: Minimális BEKAPCSOLÁSI idő a hűtés újbóli kikapcsolása előtt
+Minimum ON time before heating can be turned off: Minimális BEKAPCSOLÁSI idő a fűtés ismételt kikapcsolása előtt
+Minimum ON time before heating/cooling can be turned off: Minimális BEKAPCSOLÁSI idő a hűtés/fűtés ismételt kikapcsolása előtt
+Minimum temperature must be lower than maximum temperature.: A minimális hőmérsékletnek kisebbnek kell lennie, mint a maximális hőmérsékletnek.
+Minimum temperature that can be set from the device: A készülékkel beállítható minimális hőmérséklet
+'Mode: cool': 'Üzemmód: hűtés'
+'Mode: heat': 'Üzemmód: fűtés'
+'Mode: off': 'Üzemmód: kikapcsolva'
+Motor upside down: Fordított motorvezérlés
+'No': 'Nem'
+No results: Nincs találat
+Notification body is set by the firmware.: Az értesítés tartalmát a firmware határozza meg.
+Notification must have recipients.: Az értesítésnek tartalmaznia kell a címzetteket.
+Notification title is set by the firmware.: Az értesítési fejlécet a firmware állítja be.
+Notifications (defined): Értesítések (meghatározva)
+Notifications (sent per hour): Értesítések (óránként küldve)
+'OCR service responded with error: {status}': 'Az OCR szolgáltatás válasza hibás: {status}'
+OCR settings: OCR beállítások
+OR: VAGY
+Off with duration: Kikapcsol megadott időpontra
+On with duration: Bekapcsol megadott időpontra
+Open value: Nyitóérték
+Output value on error: Kimeneti állapot hiba esetén
+Overheat protection: Túlmelegedés elleni védelem
+P/C: P/C
+Pair new devices or sensors: Új eszközök vagy érzékelők párosítása
+Pairing request sent.: Párosítási kérelem elküldve.
+Pairing subdevices is unsupported in the firmware.: A párosítást az eszköz szoftvere nem támogatja.
+Phase LED type: LED fázis visszajelző
+Photo interval: Felvétel készítési intervallum
+Please find the device details below.: A készülék részletei az alábbiakban olvashatók.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Felhívjuk figyelmét, hogy a kérelemben érintett készülék kizárólag tanúsítvánnyal rendelkező telepítő általi üzembe helyezése engedélyezett.
+Please provide the installer e-mail address to request the device unlock.: A készülék feloldásához adja meg a hivatalos telepítői tanúsítvány megszerzése során megadott e-mail címet.
+Please select and configure the action: Műveletet kiválasztás és konfigurálás.
+Program {programNo}: Program {programNo}
+Projector screen: Vetítővászon
+Pump switch: Szivattyú kapcsoló
+Push notifications limit has been exceeded: Túllépte a push értesítések maximális számát
+Reference to the channel will be removed from the items below.: Az erre a csatornára való hivatkozás eltávolításra kerül az alábbi elemek közül.
+Refresh interval: Frissítési intervallum
+Refresh the config: Konfiguráció frissítés
+Refreshing the configuration will overwrite the changes you made here.: A konfiguráció frissítése felülírja az űrlapon végrehajtott módosításokat.
+Reload last photo: Az utolsó fénykép újratöltése
+Remote restart is unsupported in the firmware.: Az eszköz szoftver nem támogatja a távoli újraindítást.
+Remove this item: Távolítsa el ezt az elemet
+Request device unlock: Készülék feloldási kérelem
+Reset to defaults: Alapértelmezett értékek visszaállítása
+Restart device: A készülék újraindítása
+Restart the device: A készülék újraindítása
+Reveal or stop: Sötétítőt elhúz vagy megállít
+Roller garage door: Garázs kapu
+S/N: S/N (sorozat szám)
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Készülék feloldása hivatalos tanúsítvánnyal rendelkező telepítő által engedélyezett
+SUPLA – your device has been unlocked!: SUPLA - A készüléke feloldva!
+Same as on master thermostat.: A beállítás megegyezik a főtermosztáton lévő beállításokkal.
+Screen brightness: Képernyő fényerő
+Selected: Kijelölve
+Set HVAC parameters: Állítsa be a paramétereket
+Set the device time: A dátum és az idő beállítása a készüléken sikertelen.
+Settings: Beállítások
+Settings have not been saved!: A beállítások nem kerültek elmentésre!
+Show data: Adatok megjelenítése
+Shut or stop: Elsötétít vagy megállít
+Some features depend on this channel: Egyes funkciók csatlakoznak ehhez a csatornához
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Az Ön fiókjához gyűjtött adatok egy részét bizonyos idő elteltével rendszeresen töröljük. Ismerje meg az alábbiak szerint meghatározott értékhatárokat.
+Status LED: LED állapota
+Store active power history: Az aktív áramerősség előzmények mentése
+Store current history: Az áramerősség teljesítmény előzmények mentése
+Store voltage history: A feszültség előzmények mentése
+'Subdevice #{id}': 'Működtető alegység #{id}'
+Subfunction: Alfunkció
+Switch to manual mode: Kézi üzemmódra váltás
+Switch to program mode: Program üzemmódra váltás
+THEN: AMIKOR
+Take a photo now: Készítsen egy képet most
+Temperature adjustment only: Kizárólag hőmérséklet beállítása
+Temperature difference is too big between {min}°C and {max}°C.: Túl nagy hőmérséklet különbség a {min}°C és a {max}°C értékek között.
+Temperature setpoint change switches to manual mode: A célhőmérséklet módosítása kézi üzemmódra váltás
+Temporal override: Ideiglenes felülírás
+Terrace awning: Terasz árnyékoló
+The channel has been deleted.: A csatornát törölték.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: A konfigurációt egy másik helyről (pl. egy másik böngészőablakból, mobilalkalmazásból vagy eszközről) módosították. A további módosítások előtt frissítse a konfigurációt.
+The device could not be unlocked.: A készülék feloldása sikertelen.
+The device has been unlocked already.: A készülék már fel van oldva.
+The device has been unlocked.: A készüléket feloldották.
+The device has channel conflict and cannot work.: A készülék csatornakonfliktust generált, és jelenleg nem működőképes.
+The device is locked: Készülék zárolva
+The following channels will be also removed along with their dependencies.: A következő csatornák szintén törlődnek a kapcsolódó csatornákkal együtt.
+The items below rely on this channel, so they will be deleted.: A következő elemek ehhez a csatornához kapcsolódnak, ezért eltávolításra kerülnek.
+The master termostat you chose already has a master.: Az Ön által kiválasztott főtermosztát egy másik főtermosztáthoz kapcsolódik.
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: A művelet akkor aktiválódik, ha az alábbi feltételek mindegyike teljesül. Amennyiben az összes rendelkezésre álló opciót beállítja, a művelet csak a kiválasztott dátumok között, a kiválasztott időpontokban és hétköznapokon aktiválódik, és csak akkor, ha a napnyugtára vagy napkeltére vonatkozó valamely beállítás teljesül.
+The thermostat will not work if the main thermometer is not set.: A fő hőmérőnek be kell állítani ahhoz, hogy a termosztát működjön.
+Thermometer error: Hőmérő hiba
+Thermometers configuration: A hőmérők konfigurációja
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Ez a termosztát a főtermosztát beállításait használja. A beállítások módosításához lépjen a részletek oldalára.
+Thermostat programs: Termosztát programok
+This action will result in restarting the device. It will not be available for a while.: A művelet elküldése újraindítja a készüléket. A készülék nem lesz elérhető az újraindítás során.
+This channel was missing during last device registration attempt.: Ez a csatorna nem található a készüléken.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: E készülék forgalmazása és telepítése kizárólag hivatalos tanúsítvánnyal rendelkező telepítő által engedélyezett. Ha Ön nem hivatalos SUPLA telepítő, és nem rendelkezik aktív képzési tanúsítvánnyal, küldje vissza azt a kereskedőnek.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Ez az eszközről utoljára feltöltött fénykép. Jelölje meg pontosan azt a területet, ahol a mérőóra számjegyei láthatóak.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Ez az Ön fiókján futó műveletek listája. Ha új műveletet szeretne hozzáadni, lépjen annak a csatornának a részleteihez, amelyik elindítja azt.
+This thermostat is controlled by another device.: Ezt a termosztátot egy főtermosztát vezérli.
+Tilt angle: Dőlésszög
+Tilt control type: A dőlésszög szabályozás típusa
+Tilt percent: A dőlésszög százalékos aránya
+Time: Idő
+Today, it would be active from {from} to {to}.: Ma az aktív időszak {from} és {to} közé esik.
+Turn off: Kikapcsolás
+Unlock the device: A készülék feloldása
+Unlocked: Feloldva
+Until a date and time: Megadott ideig
+Until the next change: A következő módosításig
+Use device default: Használja a készülék alapértelmezett értékét
+Use working schedule for this reaction: Használja a tevékenységi ütemtervet ehhez a művelethez
+Use {theMasterThermostat} to control this device.: Használja a {theMasterThermostat} eszközt a készülék vezérléséhez.
+Used current transformer type: Használatban lévő áramváltó
+User interface: Felhasználói felület
+Value divider: Osztó
+Value multiplier: Szorzó
+Vertical blind: Függőleges redőny
+Visit the master thermostat page.: Ugrás a főtermosztáthoz.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Kérést kaptunk egy kizárólag tanúsítvánnyal rendelkező telepítő által engedélytethető eszköz feloldásához. A kérést a %deviceUserEmail% felhasználó küldte a %targetCloudUrl% alatti SUPLA Cloud példányról.
+Week: Hét
+Weekly schedule: Heti ütemterv
+When the alarm is armed: A riasztó élesítésekor
+When the alarm is armed or disarmed: A riasztó kikapcsolásakor vagy élesítésekor
+When the alarm is disarmed: A riasztó kikapcsolásakor
+When the battery cover is opened: Az elemtartó fedél kinyílásakor
+When the clock error has been reported: Az óra hiba jelzésekor
+When the curtain position changes: A sötétítő függöny pozíció váltásakor
+When the curtain reaches: Amikor a sötétítő függöny eléri
+When the curtain reaches a certain position: A sötétítő függöny meghatározott pozíciójának elérésekor
+When the facade blind position changes: A homlokzati zsaluzia pozíció váltásakor
+When the facade blind reaches: Amikor a homlokzati zsaluzia eléri
+When the facade blind reaches a certain position: A homlokzati zsaluzia meghatározott pozíciójának elérésekor
+When the hotel card has been taken: A szállodai kártya kivételekor
+When the hotel card is put in: A szállodai kártya behelyezésekor
+When the hotel card is put in or has been taken: A szállodai kártya behelyezésekor vagy kivételekor
+When the meter reaches a certain value: A mérőóra kívánt értékének elérésekor
+When the meter value changes: Az érték megváltozásakor
+When the meter value will be: Amikor az érték eléri
+When the projector screen position changes: A vetítővászon pozíció váltásakor
+When the projector screen reaches: Amkor a vetítővászon eléri
+When the projector screen reaches a certain position: A vetítővászon meghatározott pozíciójának elérésekor
+When the pump is turned off: A szivattyú kikapcsolásakor
+When the pump is turned on: A szivattyú bekapcsolásakor
+When the pump is turned on or off: A szivattyú be- vagy kikapcsolásakor
+When the roller garage door a certain position: A garázskapu meghatározott pozíciójának elérésekor
+When the roller garage door position changes: A garázskapu pozíció váltásakor
+When the roller garage door reaches: Amikor a garázskapu eléri
+When the roller shutter calibration failed: A redőnykalibrálás hibás lezárásakor
+When the roller shutter calibration has been lost: Amikor a redőnykalibrálás nem befejezhető
+When the roller shutter calibration has started: A redőny kalibrálás megkezdésekor
+When the roller shutter motor reported a problem: A redőnymotor probléma üzenet jelzésekor
+When the terrace awning position changes: A terasz árnyékoló helyzet váltásakor
+When the terrace awning reaches: Amikor a terasz árnyékoló eléri
+When the terrace awning reaches a certain position: A terasz árnyékoló meghatározott pozíciójának elérésekor
+When the thermometer error has been reported: A hőmérő hiba üzenetekor
+When the thermostat starts cooling: A termosztát hűtés elindításakor
+When the thermostat starts heating: A termosztát fűtés elindításakor
+When the thermostat starts heating or cooling: A termosztát hűtés vagy fűtés elindításakor
+When the thermostat starts or stops cooling: A termosztát hűtés elindításakor vagy leállításakor
+When the thermostat starts or stops heating: Amikor a termosztát elindítja vagy leállítja a fűtést
+When the thermostat starts or stops heating or cooling: A termosztát fűtés vagy hűtés elindításakor vagy leállításakor
+When the thermostat stops cooling: A termosztát hűtés leállításakor
+When the thermostat stops heating: A termosztát fűtés leállításakor
+When the thermostat stops heating or cooling: A termosztát hűtés vagy fűtés leállításakor
+When the vertical blind position changes: A függőleges árnyékoló pozíció váltásakor
+When the vertical blind reaches: Amikor a függőleges árnyékoló eléri
+When the vertical blind reaches a certain position: A függőleges árnyékoló meghatározott pozíciójának elérésekor
+Will be deleted after: Eltávolítás miután
+With a timer: Időzítővel
+'Yes': 'Igen'
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Itt viszonyított értékeket állíthat be. Például a +10 vagy -20 10-el növeli, illetve 20-al csökkenti a beállítást.
+You cannot to set a master thermostat for a channel that is master for others.: A főtermosztát beállításai nem adhatók meg a főtermosztáton.
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: A kérést elküldtük. Értesítjük Önt, amikor a telepítő engedélyezteti és feloldja a készüléket.
+You need to provide icons for all states in light mode.: Világos üzemmódban minden állapothoz meg kell adni egy ikont.
+Your device has been unlocked by the installer.: A telepítő feloldotta az Ön készülékének zárolását.
+and wait until the meter will be: és ne hajtsa végre ezt a műveletet újra, amíg az érték nem lesz
+auxThermometerType_DISABLED: Kikapcsolva
+auxThermometerType_FLOOR: Padló
+auxThermometerType_GENERIC_COOLER: Hűtés
+auxThermometerType_GENERIC_HEATER: Hőforrás
+auxThermometerType_NOT_SET: Nincs beállítva
+auxThermometerType_WATER: Víz
+blue, otherwise: ellenkező esetben kék
+blue, when voltage lower than the low threshold: kék, ha a feszültség az alsó küszöbérték alatt van
+choose the currency: válasszon pénznemet
+configuration missing: Nincs konfigurálva
+cool: hűtés
+day: nap
+default: alapértelmezett
+green, otherwise: ellenkező esetben zöld
+green, when power less than the low threshold: zöld, ha a teljesítmény alacsonyabb az alsó küszöbértéknél
+heat: fűtés
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Fő- és segédhőmérséklet
+homeScreenContent_NONE: Hiány
+homeScreenContent_TEMPERATURE: Hőmérséklet
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Hőmérséklet és páratartalom
+homeScreenContent_TEMPERATURE_TIME: Hőmérséklet és idő
+homeScreenContent_TIME: Idő
+homeScreenContent_TIME_DATE: Dátum és idő
+hour: óra
+keepHistoryMeasurementWarningSelected: Biztos, hogy szüksége van erre az előzményre? A Supla egy nyílt forráskódú, saját finanszírozással fentartott projekt. Ha nincs szüksége erre az előzményre, kérjük, segítsen nekünk az értékes tárhely megtakarításban azáltal, hogy ezt az opciót nem engedélyezi.
+max: max.
+midnight: észak
+milliseconds: milliszekundum
+min: min.
+ocrLightingMode_ALWAYS_ON: Mindig bekapcsolva
+ocrLightingMode_AUTO: Automatikus
+ocrLightingMode_OFF: Kikapcsolva
+'off': 'Kikapcsolás'
+red, when power higher than the high threshold: piros, ha a teljesítmény a magas küszöbérték felett van
+red, when voltage higher than the high threshold: piros, ha a feszültség a magas küszöbértéknél magasabb
+seconds: másodpercek
+statusLed_ALWAYS_OFF: Mindig kapcsolja ki
+statusLed_OFF_WHEN_CONNECTED: Kikapcsolás miután csatlakoztatva
+statusLed_ON_WHEN_CONNECTED: Bekapcsolás miután csatlakoztatva
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Ismeretlen hatás
+subdevicePairingResult_NOT_STARTED_BUSY: A készülék foglalt
+subdevicePairingResult_NOT_STARTED_NOT_READY: A készülék nem áll készen
+subdevicePairingResult_NOT_SUPPORTED: Nem támogatott művelet
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Nem található új eszköz
+subdevicePairingResult_ONGOING: Folyamatban
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: A párosítás hatása ismeretlen
+subdevicePairingResult_PROCEDURE_STARTED: Eljárás megkezdve
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Túllépte az erőforrások határértékét
+subdevicePairingResult_SUCCESS: Siker
+subdevicePairingResult_UNAUTHORIZED: Sikertelen engedélyeztetés
+sunrise: napfelkelte
+sunset: napnyugta
+swap: cserél
+the master thermostat ID{id}: a főtermosztát ID{id}
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Be/kikapcsol felső beállítással
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Be/kikapcsol középső beállítással
+thermostatAlgorithm_PID: PID
+thermostatAlgorithm_help: |
+  A be-/kikapcsolási algoritmusok hiszterézis beállítása alapján működnek. A hiszterézis vonatkozhat a tartomány közép értékére (középső beállítás) vagy a beállított hőmérsékletre (felső beállítás).
+  Például 1°C hiszterézist és 23°C célhőmérsékletet feltételezve a termosztát:
+  - 22,5°C-on bekapcsolja a fűtést, és leáll, amikor a 23.5°C-os hőmérséklet eléri a középső beállítás esetén
+  - 22°C-on bekapcsolja a fűtést, és leáll, amikor a hőmérséklet eléri a 23°C-ot a felső beállítás esetén.
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: ~
-thermostatSubfunction_HEAT: ~
-thermostatTemperature_aboveAlarm: ~
-thermostatTemperature_auxMaxSetpoint: ~
-thermostatTemperature_auxMinSetpoint: ~
-thermostatTemperature_belowAlarm: ~
-thermostatTemperature_boost: ~
-thermostatTemperature_comfort: ~
-thermostatTemperature_eco: ~
-thermostatTemperature_freezeProtection: ~
-thermostatTemperature_heatProtection: ~
-thermostatTemperature_histeresis: ~
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: ~
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: ~
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: ~
-tiltControlType_UNKNOWN: ~
-timeMarginMode_custom: ~
-timeMarginMode_device: ~
-timeMarginMode_off: ~
-usedCTType_100A_33mA: ~
-usedCTType_200A_66mA: ~
-usedCTType_400A_133mA: ~
-usedPhaseLedType_OFF: ~
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
-usedPhaseLedType_VOLTAGE_LEVEL: ~
-usedPhaseLedType_VOLTAGE_PRESENCE: ~
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
-'{count} minutes after sunrise': ~
-'{count} minutes after sunset': ~
-'{count} minutes before sunrise': ~
-'{count} minutes before sunset': ~
-'{days} days': ~
-
+thermostatSubfunction_COOL: Hűtés
+thermostatSubfunction_HEAT: Fűtés
+thermostatTemperature_aboveAlarm: Efelett riasztás
+thermostatTemperature_auxMaxSetpoint: Maximális segédhőmérséklet
+thermostatTemperature_auxMinSetpoint: Minimális segédhőmérséklet
+thermostatTemperature_belowAlarm: Ezalatt riasztás
+thermostatTemperature_boost: Boost hőmérséklet
+thermostatTemperature_comfort: Komfort hőmérséklet
+thermostatTemperature_eco: ECO hőmérséklet
+thermostatTemperature_freezeProtection: Fagyvédelmi hőmérséklet
+thermostatTemperature_heatProtection: Túlmelegedés elleni védelem hőmérséklete
+thermostatTemperature_histeresis: Hiszterézis
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Dőlésszög váltás pozícióváltással
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Dőlésszög váltás pozícióváltás nélkül
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Dőlésszög váltás kizárólag teljesen zárt állapotban
+tiltControlType_UNKNOWN: Ismeretlen
+timeMarginMode_custom: Alapértelmezettől eltérő
+timeMarginMode_device: A készülék alapértelmezett értéke
+timeMarginMode_off: Kikapcsolva
+usedCTType_100A_33mA: 100A/33,3mA
+usedCTType_200A_66mA: 200A/66.6mA
+usedCTType_400A_133mA: 400A/133.3mA
+usedPhaseLedType_OFF: Kikapcsolva
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: A teljesítményáramlás iránya
+usedPhaseLedType_VOLTAGE_LEVEL: Feszültségszint
+usedPhaseLedType_VOLTAGE_PRESENCE: Hálózati feszültség jelenlét
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Hálózati feszültség jelenlét (fordított)
+'{count} minutes after sunrise': '{count} perccel napfelkelte után'
+'{count} minutes after sunset': '{count} perccel napnyugta után'
+'{count} minutes before sunrise': '{count} perccel napfelkelte előtt'
+'{count} minutes before sunset': '{count} perccel napnyugta előtt'
+'{days} days': {days} nap
 #</editor-fold>
