@@ -1642,8 +1642,8 @@ thermostatAlgorithm_PID: PID
 thermostatAlgorithm_help: |
   Algoritmy zapnutia/vypnutia fungujú na základe nastavenia hysterézy. Hysteréza sa môže vzťahovať na stred rozsahu (stredné nastavenie) alebo na nastavenú teplotu (horné nastavenie).
   Napríklad za predpokladu hysterézy 1 °C a cieľovej teploty 23 °C termostat:
- - zapne vykurovanie pri 22,5 °C a zastaví, keď teplota dosiahne 23,5 °C pre stredné nastavenie 
- - zapne vykurovanie pri 22 °C a zastaví, keď teplota dosiahne 23 °C pre horné nastavenie
+  - zapne vykurovanie pri 22,5 °C a zastaví, keď teplota dosiahne 23,5 °C pre stredné nastavenie 
+  - zapne vykurovanie pri 22 °C a zastaví, keď teplota dosiahne 23 °C pre horné nastavenie
 thermostatOutputValue_help: ~
 thermostatSubfunction_COOL: Chladenie
 thermostatSubfunction_HEAT: Tepelná úprava

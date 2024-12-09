@@ -1668,7 +1668,7 @@ tiltControlType_UNKNOWN: Ismeretlen
 timeMarginMode_custom: Alapértelmezettől eltérő
 timeMarginMode_device: A készülék alapértelmezett értéke
 timeMarginMode_off: Kikapcsolva
-usedCTType_100A_33mA: 100A/33,3mA
+usedCTType_100A_33mA: 100A/33.3mA
 usedCTType_200A_66mA: 200A/66.6mA
 usedCTType_400A_133mA: 400A/133.3mA
 usedPhaseLedType_OFF: Kikapcsolva
@@ -1680,5 +1680,5 @@ usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Hálózati feszültség jelenlét (f
 '{count} minutes after sunset': '{count} perccel napnyugta után'
 '{count} minutes before sunrise': '{count} perccel napfelkelte előtt'
 '{count} minutes before sunset': '{count} perccel napnyugta előtt'
-'{days} days': {days} nap
+'{days} days': '{days} nap'
 #</editor-fold>

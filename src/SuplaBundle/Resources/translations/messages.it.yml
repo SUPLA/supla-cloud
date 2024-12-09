@@ -1253,8 +1253,8 @@ suffix: suffisso
 0% tilt angle: ~
 100% tilt angle: ~
 A confirmation upon successful device unlocking.: ~
-Active from: Attivo da:
-Active to: Attivo fino:
+Active from: Attivo da
+Active to: Attivo fino
 Activity conditions: ~
 Additional time margin: ~
 Adjust temperature: Imposta temperatura
@@ -1533,7 +1533,7 @@ When the alarm is disarmed: Quando l'allarme è disinserito
 When the battery cover is opened: Quando il coperchio batteria viene aperto
 When the clock error has been reported: ~
 When the curtain position changes: Quando cambia la posizione della tenda
-When the curtain reaches: Quando la tenda raggiunge:
+When the curtain reaches: Quando la tenda raggiunge
 When the curtain reaches a certain position: Quando la tenda raggiunge una posizione definita
 When the facade blind position changes: Quando la posizione della persiana cambia
 When the facade blind reaches: Quando la persiana raggiunge
@@ -1668,9 +1668,9 @@ usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
 usedPhaseLedType_VOLTAGE_LEVEL: ~
 usedPhaseLedType_VOLTAGE_PRESENCE: ~
 usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
-'{count} minutes after sunrise': '{count} minuti dopo l'alba'
+'{count} minutes after sunrise': '{count} minuti dopo l’alba'
 '{count} minutes after sunset': '{count} minuti dopo il tramonto'
-'{count} minutes before sunrise': '{count} minuti prima dell'alba'
+'{count} minutes before sunrise': '{count} minuti prima dell’alba'
 '{count} minutes before sunset': '{count} minuti prima del tramonto'
 '{days} days': '{days} giorni'
 
