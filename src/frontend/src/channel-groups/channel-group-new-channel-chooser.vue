@@ -88,7 +88,6 @@
                     ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
                     ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
                     ChannelFunction.THERMOSTAT,
-                    ChannelFunction.THERMOSTATHEATPOLHOMEPLUS,
                 ];
                 return !nonGroupingFunctions.includes(channel.function.id);
             },
