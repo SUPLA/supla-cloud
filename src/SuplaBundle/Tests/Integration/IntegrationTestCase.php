@@ -42,7 +42,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     protected $application;
 
     public function prepareIntegrationTest() {
-        if (!$this->hasDependencies()) {
+        if (!$this->requires()) {
             TestTimeProvider::reset();
             TestMailer::reset();
             SuplaServerMock::$executedCommands = [];
@@ -64,7 +64,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     protected function clearDatabase() {
         self::$dataForTests = array_intersect_key(self::$dataForTests, [static::class => '']);
         $initializedAtLeastOnce = isset(self::$dataForTests[static::class]);
-        if (!$initializedAtLeastOnce || $this->isLarge() || (!$this->hasDependencies() && !$this->isSmall())) {
+        if (!$initializedAtLeastOnce || $this->isLarge() || (!$this->requires() && !$this->isSmall())) {
             $this->executeCommand('doctrine:schema:drop --force --full-database --em=default');
             $this->executeCommand('doctrine:schema:drop --force --full-database --em=measurement_logs');
             $this->executeCommand('doctrine:schema:create --em=default');

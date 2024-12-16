@@ -40,11 +40,12 @@ class UserManagerIntegrationTest extends IntegrationTestCase {
         $this->userManager->create($user);
         $this->assertNotNull($user);
         $this->assertGreaterThan(0, $user->getId());
-        return $user;
+        return $user->getId();
     }
 
     /** @depends testCreatingUser */
-    public function testCheckingPasswordValidity(User $user) {
+    public function testCheckingPasswordValidity(int $userId) {
+        $user = $this->freshEntityById(User::class, $userId);
         $this->userManager->setPassword('ala', $user, true);
         $this->assertTrue($this->userManager->isPasswordValid($user, 'ala'));
         $this->assertFalse($this->userManager->isPasswordValid($user, 'Ala'));

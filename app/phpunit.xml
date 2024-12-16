@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!-- https://phpunit.de/manual/current/en/appendixes.configuration.html -->
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.5/phpunit.xsd"
-         colors="true"
-         beStrictAboutOutputDuringTests="true"
-         bootstrap="autoload.php">
-
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         colors="true" beStrictAboutOutputDuringTests="true" bootstrap="autoload.php">
+    <coverage>
+        <include>
+            <directory>../src</directory>
+        </include>
+        <exclude>
+            <directory>../src/*Bundle/Resources</directory>
+            <directory>../src/*Bundle/Tests</directory>
+        </exclude>
+    </coverage>
     <php>
         <env name="KERNEL_CLASS" value="AppKernel"/>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=0"/>
         <ini name="memory_limit" value="192M"/>
     </php>
-
     <listeners>
         <listener class="SuplaBundle\Tests\Integration\IntegrationTestCaseListener"
                   file="../src/SuplaBundle/Tests/Integration/IntegrationTestCaseListener.php"/>
     </listeners>
-
     <testsuites>
         <testsuite name="unit">
             <directory>../src/*Bundle/Tests</directory>
@@ -31,20 +33,9 @@
             <directory>../src/*Bundle/Tests/Integration/Controller</directory>
         </testsuite>
     </testsuites>
-
     <groups>
         <exclude>
             <group>AutodiscoverIntegrationTest</group>
         </exclude>
     </groups>
-
-    <filter>
-        <whitelist>
-            <directory>../src</directory>
-            <exclude>
-                <directory>../src/*Bundle/Resources</directory>
-                <directory>../src/*Bundle/Tests</directory>
-            </exclude>
-        </whitelist>
-    </filter>
 </phpunit>
