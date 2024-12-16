@@ -22,7 +22,7 @@
         "ext-mbstring": "*",
         "ext-zip": "*",
         "composer-runtime-api": "^2",
-        "beberlei/assert": "^2.7",
+        "beberlei/assert": "^3.3.3",
         "cocur/slugify": "^2.3",
         "doctrine/doctrine-bundle": "^2.7.0",
         "doctrine/doctrine-migrations-bundle": "^3.1",
