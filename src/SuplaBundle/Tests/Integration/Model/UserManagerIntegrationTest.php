@@ -23,21 +23,11 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 
 /** @small */
 class UserManagerIntegrationTest extends IntegrationTestCase {
-    /** @var UserManager */
-    private $userManager;
-
-    protected function initializeDatabaseForTests() {
-        $this->userManager = self::$container->get(UserManager::class);
-    }
-
-    public function testCanGetUserManagerFromIoc() {
-        $this->assertNotNull($this->userManager);
-    }
-
     public function testCreatingUser() {
+        $userManager = self::$container->get(UserManager::class);
         $user = new User();
         $user->setEmail('test@supla.org');
-        $this->userManager->create($user);
+        $userManager->create($user);
         $this->assertNotNull($user);
         $this->assertGreaterThan(0, $user->getId());
         return $user->getId();
@@ -45,11 +35,12 @@ class UserManagerIntegrationTest extends IntegrationTestCase {
 
     /** @depends testCreatingUser */
     public function testCheckingPasswordValidity(int $userId) {
+        $userManager = self::$container->get(UserManager::class);
         $user = $this->freshEntityById(User::class, $userId);
-        $this->userManager->setPassword('ala', $user, true);
-        $this->assertTrue($this->userManager->isPasswordValid($user, 'ala'));
-        $this->assertFalse($this->userManager->isPasswordValid($user, 'Ala'));
-        $this->assertFalse($this->userManager->isPasswordValid($user, 'ala '));
-        $this->assertFalse($this->userManager->isPasswordValid($user, 'ola'));
+        $userManager->setPassword('ala', $user, true);
+        $this->assertTrue($userManager->isPasswordValid($user, 'ala'));
+        $this->assertFalse($userManager->isPasswordValid($user, 'Ala'));
+        $this->assertFalse($userManager->isPasswordValid($user, 'ala '));
+        $this->assertFalse($userManager->isPasswordValid($user, 'ola'));
     }
 }
