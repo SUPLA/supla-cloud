@@ -72,7 +72,7 @@ class OcrIntegrationTest extends IntegrationTestCase {
     public function testGettingLatestPhoto() {
         $client = $this->createAuthenticatedClient($this->user);
         TestSuplaHttpClient::mockHttpRequest('/latest', ['image' => 'abcjpeg']);
-        $client->apiRequestV3('GET', "/api/integrations/ocr/{$this->counter->getId()}/latest");
+        $client->apiRequestV3('GET', "/api/integrations/ocr/{$this->counter->getId()}/images/latest");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
@@ -129,7 +129,7 @@ class OcrIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient($this->user);
         TestSuplaHttpClient::mockHttpRequest('/devices', fn() => [true, '', 201]);
         TestSuplaHttpClient::mockHttpRequest('/latest', ['image' => 'abcjpeg']);
-        $client->apiRequestV3('GET', "/api/integrations/ocr/{$counter->getId()}/latest");
+        $client->apiRequestV3('GET', "/api/integrations/ocr/{$counter->getId()}/images/latest");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
