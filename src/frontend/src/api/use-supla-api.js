@@ -18,7 +18,11 @@ export const useSuplaApi = createFetch({
             url = serverUrl + baseUrl + '/api/' + url
             return {url, options}
         },
-        async onFetchError({response}) {
+        async onFetchError(e) {
+            if (e.error?.name === 'AbortError') {
+                return;
+            }
+            const response = e.response;
             if (response?.status == 401) {
                 window.location.assign(window.location.toString());
             } else {
@@ -35,7 +39,6 @@ export const useSuplaApi = createFetch({
                 }
                 errorNotification(i18n.global.t('Error'), i18n.global.t(message, details));
             }
-
         }
     },
 })

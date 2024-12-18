@@ -94,7 +94,7 @@ class IntegrationsController extends RestController {
     }
 
     /**
-     * @Rest\Get("/integrations/ocr/{channel}/latest")
+     * @Rest\Get("/integrations/ocr/{channel}/images/latest")
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getLatestOcrImageAction(
@@ -116,5 +116,30 @@ class IntegrationsController extends RestController {
         }
         $image = $ocr->getLatestImage($channel);
         return $this->view($image);
+    }
+
+    /**
+     * @Rest\Get("/integrations/ocr/{channel}/images")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
+     */
+    public function getLatestOcrImagesAction(
+        Request $request,
+        IODeviceChannel $channel,
+        SuplaOcrClient $ocr,
+        SubjectConfigTranslator $configTranslator
+    ) {
+        if (!ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        };
+        $config = $configTranslator->getConfig($channel);
+        if (!isset($config['ocr'])) {
+            throw new NotFoundHttpException();
+        }
+        $synced = $channel->getProperty('ocr', [])['ocrSynced'] ?? false;
+        if (!$synced) {
+            $ocr->registerDevice($channel);
+        }
+        $images = $ocr->getLatestImages($channel);
+        return $this->view($images);
     }
 }

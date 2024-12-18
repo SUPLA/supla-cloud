@@ -8,7 +8,6 @@ use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Supla\SuplaOcrClient;
-use SuplaBundle\Utils\NumberUtils;
 
 class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
@@ -29,11 +28,6 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
             $ocrConfig['availableLightingModes'] = $ocrProp['availableLightingModes'] ?? [];
             $ocrConfig['enabled'] = ($ocrConfig['photoIntervalSec'] ?? 0) > 0;
             $ocrConfig['photoIntervalSec'] = max($ocrConfig['photoIntervalSec'] ?? 0, self::MIN_PHOTO_INTERVAL_SEC);
-            $divider = $subject->getUserConfigValue('impulsesPerUnit') ?: 1;
-            $ocrConfig['maximumIncrement'] = NumberUtils::maximumDecimalPrecision(
-                ($ocrConfig['maximumIncrement'] ?? 0) / $divider,
-                3
-            );
             return ['ocr' => $ocrConfig];
         } else {
             return [];
@@ -46,7 +40,7 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
             $ocrConfig = $config['ocr'];
             Assertion::isArray($ocrConfig);
             Assertion::allInArray(array_keys($ocrConfig), array_merge(array_keys($currentConfig), [
-                'enabled', 'photoIntervalSec', 'lightingMode', 'lightingLevel', 'photoSettings', 'maximumIncrement',
+                'enabled', 'photoIntervalSec', 'lightingMode', 'lightingLevel', 'photoSettings',
                 'availableLightingModes',
             ]));
             if (array_key_exists('enabled', $ocrConfig)) {
@@ -78,12 +72,6 @@ class OcrSettingsUserConfigTranslator extends UserConfigTranslator {
                 if (array_key_exists('lightingLevel', $ocrConfig)) {
                     Assert::that($ocrConfig['lightingLevel'], null, 'ocr.lightingLevel')->integer()->between(1, 100);
                 }
-            }
-            if (array_key_exists('maximumIncrement', $ocrConfig)) {
-                Assert::that($ocrConfig['maximumIncrement'], null, 'ocr.maximumIncrement')->numeric()->greaterOrEqualThan(0);
-                $divider = $subject->getUserConfigValue('impulsesPerUnit') ?: 1;
-                $ocrConfig['maximumIncrement'] *= $divider;
-                $ocrConfig['maximumIncrement'] = round($ocrConfig['maximumIncrement']);
             }
             if (array_key_exists('photoSettings', $ocrConfig)) {
                 Assert::that($ocrConfig['photoSettings'], null, 'ocr.photoSettings')->isArray();

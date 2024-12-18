@@ -51,7 +51,17 @@ class SuplaOcrClient {
 
     public function getLatestImage(IODeviceChannel $channel): array {
         $fullUrl = $this->deviceEndpoint($channel, 'images/latest');
-        $response = $this->brokerHttpClient->request($fullUrl, null, $responseStatus);
+        $response = $this->brokerHttpClient->request($fullUrl, null, $responseStatus, ['X-AuthKey' => $this->getAuthKey($channel)]);
+        if ($responseStatus === 200) {
+            return $response;
+        } else {
+            throw new ApiExceptionWithDetails('OCR service responded with error: {status}', $response, $responseStatus); // i18n
+        }
+    }
+
+    public function getLatestImages(IODeviceChannel $channel): array {
+        $fullUrl = $this->deviceEndpoint($channel, 'images');
+        $response = $this->brokerHttpClient->request($fullUrl, null, $responseStatus, ['X-AuthKey' => $this->getAuthKey($channel)]);
         if ($responseStatus === 200) {
             return $response;
         } else {
@@ -61,7 +71,13 @@ class SuplaOcrClient {
 
     public function updateSettings(IODeviceChannel $channel, array $ocrConfig): void {
         $fullUrl = $this->deviceEndpoint($channel);
-        $response = $this->brokerHttpClient->request($fullUrl, ['config' => $ocrConfig], $responseStatus, [], 'PUT');
+        $response = $this->brokerHttpClient->request(
+            $fullUrl,
+            ['config' => $ocrConfig],
+            $responseStatus,
+            ['X-AuthKey' => $this->getAuthKey($channel)],
+            'PUT'
+        );
         if ($responseStatus !== 200) {
             throw new ApiExceptionWithDetails('OCR service responded with error: {status}', $response, $responseStatus); // i18n
         }

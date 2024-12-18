@@ -57,7 +57,6 @@
                 this.possibleValues.push(parseInt(this.sliderValue));
                 this.possibleValues.sort((a, b) => a - b);
             }
-            console.log(this.max);
             this.possibleValues = this.possibleValues.filter(v => v >= this.min * this.multiplier && v <= this.max * this.multiplier);
         },
         methods: {
