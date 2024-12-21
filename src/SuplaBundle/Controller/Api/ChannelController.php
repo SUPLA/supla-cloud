@@ -47,6 +47,7 @@ use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\IODeviceRepository;
 use SuplaBundle\Repository\LocationRepository;
 use SuplaBundle\Repository\UserIconRepository;
+use SuplaBundle\Supla\SuplaOcrClient;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\ArrayUtils;
 use Symfony\Component\HttpFoundation\Request;
@@ -527,7 +528,7 @@ class ChannelController extends RestController {
      *     @OA\RequestBody(
      *       required=true,
      *       @OA\JsonContent(
-     *          @OA\Property(property="action", type="string", enum={"resetCounters", "recalibrate"})
+     *          @OA\Property(property="action", type="string", enum={"resetCounters", "recalibrate", "takeOcrPhoto"})
      *       ),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
@@ -538,17 +539,21 @@ class ChannelController extends RestController {
     public function patchChannelSettingsAction(
         Request $request,
         IODeviceChannel $channel,
-        SubjectConfigTranslator $paramConfigTranslator
+        SubjectConfigTranslator $paramConfigTranslator,
+        SuplaOcrClient $ocr
     ) {
         $body = json_decode($request->getContent(), true);
         Assertion::keyExists($body, 'action', 'Missing action.');
         $channelConfig = $paramConfigTranslator->getConfig($channel);
-        $channel = $this->transactional(function (EntityManagerInterface $em) use ($body, $channel, $channelConfig) {
+        $channel = $this->transactional(function (EntityManagerInterface $em) use ($ocr, $body, $channel, $channelConfig) {
             $action = $body['action'];
             if ($action === 'resetCounters') {
                 Assertion::true($channelConfig['resetCountersAvailable'] ?? false, 'Cannot reset counters of this channel.');
                 $result = $this->suplaServer->channelAction($channel, 'RESET-COUNTERS');
                 Assertion::true($result, 'Could not reset the counters.');
+                if ($channelConfig['ocr']) {
+                    $ocr->resetCounter($channel);
+                }
             } elseif ($action === 'recalibrate') {
                 Assertion::true($channelConfig['recalibrateAvailable'] ?? false, 'Cannot recalibrate this channel.');
                 $result = $this->suplaServer->channelAction($channel, 'RECALIBRATE');

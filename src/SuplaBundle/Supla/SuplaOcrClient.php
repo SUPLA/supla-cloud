@@ -83,6 +83,22 @@ class SuplaOcrClient {
         }
     }
 
+    public function resetCounter(IODeviceChannel $channel): array {
+        $fullUrl = $this->deviceEndpoint($channel);
+        $response = $this->brokerHttpClient->request(
+            $fullUrl,
+            ['action' => 'resetCounter'],
+            $responseStatus,
+            ['X-AuthKey' => $this->getAuthKey($channel)],
+            'PATCH'
+        );
+        if ($responseStatus === 200) {
+            return $response;
+        } else {
+            throw new ApiExceptionWithDetails('OCR service responded with error: {status}', $response, $responseStatus); // i18n
+        }
+    }
+
     private function ocrEndpoint(string $endpoint): string {
         return sprintf("%s/%s", $this->suplaOcrUrl, $endpoint);
     }
