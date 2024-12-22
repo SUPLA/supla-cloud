@@ -167,6 +167,14 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             if ($subject->getUserConfigValue('temperatureControlType', 'NOT_SUPPORTED') !== 'NOT_SUPPORTED') {
                 $config['temperatureControlType'] = $subject->getUserConfigValue('temperatureControlType');
             }
+            if ($subject->getProperty('localUILockingCapabilities') !== null) {
+                $config['localUILockingCapabilities'] = $subject->getProperty('localUILockingCapabilities', []);
+                $config['localUILock'] = $subject->getUserConfigValue('localUILock', []);
+                $minTemp = $subject->getUserConfigValue('minAllowedTemperatureSetpointFromLocalUI');
+                $maxTemp = $subject->getUserConfigValue('maxAllowedTemperatureSetpointFromLocalUI');
+                $config['minAllowedTemperatureSetpointFromLocalUI'] = $minTemp ? $this->adjustTemperature($minTemp) : null;
+                $config['maxAllowedTemperatureSetpointFromLocalUI'] = $maxTemp ? $this->adjustTemperature($maxTemp) : null;
+            }
             return $config;
         } else {
             return [
@@ -384,6 +392,38 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             }
             $this->validateTemperatures($subject, $temps);
             $subject->setUserConfigValue('temperatures', $temps);
+        }
+        if (array_key_exists('minAllowedTemperatureSetpointFromLocalUI', $config) ||
+            array_key_exists('maxAllowedTemperatureSetpointFromLocalUI', $config)) {
+            if (!array_key_exists('localUILock', $config)) {
+                $config['localUILock'] = $subject->getUserConfigValue('localUILock', []);
+            }
+        }
+        if (array_key_exists('localUILock', $config) && $subject->getProperty('localUILockingCapabilities') !== null) {
+            Assert::that($config['localUILock'], null, 'localUILock')->isArray()->maxCount(1);
+            $newLock = $config['localUILock'][0] ?? null;
+            if ($newLock) {
+                $possibleValues = $subject->getProperty('localUILockingCapabilities', []);
+                Assert::that($newLock, null, 'localUILock')->inArray($possibleValues);
+                $subject->setUserConfigValue('localUILock', [$newLock]);
+                if ($newLock === 'TEMPERATURE') {
+                    $tempMin = $this->validateTemperature(
+                        $subject,
+                        $config['minAllowedTemperatureSetpointFromLocalUI'] ?? 10,
+                        $this->getDefaultTemperatureConstraintName($subject)
+                    );
+                    $tempMax = $this->validateTemperature(
+                        $subject,
+                        $config['maxAllowedTemperatureSetpointFromLocalUI'] ?? 20,
+                        $this->getDefaultTemperatureConstraintName($subject)
+                    );
+                    Assertion::lessThan($tempMin, $tempMax, 'Minimum temperature must be lower than maximum.');
+                    $subject->setUserConfigValue('minAllowedTemperatureSetpointFromLocalUI', $tempMin);
+                    $subject->setUserConfigValue('maxAllowedTemperatureSetpointFromLocalUI', $tempMax);
+                }
+            } else {
+                $subject->setUserConfigValue('localUILock', []);
+            }
         }
     }
 

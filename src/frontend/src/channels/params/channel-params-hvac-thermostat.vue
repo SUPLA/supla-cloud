@@ -404,6 +404,63 @@
                 </dl>
             </div>
         </transition-expand>
+
+        <a class="d-flex accordion-header" @click="displayGroup('userInterface')"
+            v-if="canDisplayAnySetting('localUILock') && channel.config.localUILockingCapabilities">
+            <span class="flex-grow-1">{{ $t('User interface') }}</span>
+            <span>
+                <fa :icon="group === 'userInterface' ? 'chevron-down' : 'chevron-right'"/>
+            </span>
+        </a>
+        <transition-expand>
+            <div v-show="group === 'userInterface'">
+                <dl>
+                    <dd>{{ $t('Screen lock') }}</dd>
+                    <dt>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
+                                :disabled="!canChangeSetting('localUILock')"
+                                data-toggle="dropdown">
+                                {{ $t(`localUILock_${localUILockMode}`) }}
+                                <span class="caret"></span>
+                            </button>
+                            <!-- i18n:['localUILock_UNLOCKED', 'localUILock_FULL', 'localUILock_TEMPERATURE'] -->
+                            <ul class="dropdown-menu">
+                                <li v-for="type in localUILockingCapabilities" :key="type">
+                                    <a @click="localUILockMode = type; $emit('change')"
+                                        v-show="type !== localUILockMode">
+                                        {{ $t(`localUILock_${type}`) }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </dt>
+                </dl>
+                <transition-expand>
+                    <div v-if="localUILockMode === 'TEMPERATURE'">
+                        <h5 class="text-center">{{ $t('Temperatures that can be set from local UI') }}</h5>
+                        <dl>
+                            <dd>{{ $t('Minimum') }}</dd>
+                            <dt>
+                                <input type="number" class="form-control" step="0.1"
+                                    @change="$emit('change')"
+                                    v-model="channel.config.minAllowedTemperatureSetpointFromLocalUI"
+                                    :max="channel.config.maxAllowedTemperatureSetpointFromLocalUI || defaultTemperatureConstraintMax"
+                                    :min="defaultTemperatureConstraintMin">
+                            </dt>
+                            <dd>{{ $t('Maximum') }}</dd>
+                            <dt>
+                                <input type="number" class="form-control" step="0.1"
+                                    @change="$emit('change')"
+                                    v-model="channel.config.maxAllowedTemperatureSetpointFromLocalUI"
+                                    :max="defaultTemperatureConstraintMax"
+                                    :min="channel.config.minAllowedTemperatureSetpointFromLocalUI || defaultTemperatureConstraintMin">
+                            </dt>
+                        </dl>
+                    </div>
+                </transition-expand>
+            </div>
+        </transition-expand>
     </div>
 </template>
 
@@ -505,6 +562,12 @@
             defaultTemperatureConstraintName() {
                 return this.channel.config?.defaultTemperatureConstraintName || 'room';
             },
+            defaultTemperatureConstraintMin() {
+                return this.channel.config.temperatureConstraints?.[`${this.defaultTemperatureConstraintName}Min`];
+            },
+            defaultTemperatureConstraintMax() {
+                return this.channel.config.temperatureConstraints?.[`${this.defaultTemperatureConstraintName}Max`];
+            },
             availableTemperatures() {
                 // i18n:['thermostatTemperature_freezeProtection','thermostatTemperature_eco','thermostatTemperature_comfort']
                 // i18n:['thermostatTemperature_boost','thermostatTemperature_heatProtection','thermostatTemperature_histeresis']
@@ -561,6 +624,22 @@
             },
             coolAvailable() {
                 return this.channel.config.coolingModeAvailable;
+            },
+            localUILockMode: {
+                get() {
+                    return this.channel.config.localUILock?.[0] || 'UNLOCKED';
+                },
+                set(mode) {
+                    let setting = [];
+                    if (mode !== 'UNLOCKED') {
+                        setting = [mode];
+                    }
+                    this.channel.config.localUILock = setting;
+                    this.$emit('change');
+                }
+            },
+            localUILockingCapabilities() {
+                return ['UNLOCKED', ...this.channel.config.localUILockingCapabilities];
             },
         },
         watch: {

@@ -222,6 +222,7 @@ class DevicesFixture extends SuplaFixture {
                             'autoOffsetMin' => 100,
                             'autoOffsetMax' => 200,
                         ],
+                        'localUILockingCapabilities' => ['FULL', 'TEMPERATURE'],
                     ]),
                     'userConfig' => json_encode([
                         'subfunction' => 'HEAT',
@@ -274,6 +275,7 @@ class DevicesFixture extends SuplaFixture {
                             'autoOffsetMin' => 100,
                             'autoOffsetMax' => 2000,
                         ],
+                        'localUILockingCapabilities' => ['TEMPERATURE'],
                     ]),
                     'userConfig' => json_encode([
                         'mainThermometerChannelNo' => 0,
