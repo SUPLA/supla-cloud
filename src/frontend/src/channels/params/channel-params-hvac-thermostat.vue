@@ -413,7 +413,7 @@
             </span>
         </a>
         <transition-expand>
-            <div v-show="group === 'userInterface'">
+            <div v-show="group === 'userInterface'" v-if="channel.config.localUILockingCapabilities">
                 <dl>
                     <dd>{{ $t('Screen lock') }}</dd>
                     <dt>
