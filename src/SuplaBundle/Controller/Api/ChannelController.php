@@ -551,7 +551,7 @@ class ChannelController extends RestController {
                 Assertion::true($channelConfig['resetCountersAvailable'] ?? false, 'Cannot reset counters of this channel.');
                 $result = $this->suplaServer->channelAction($channel, 'RESET-COUNTERS');
                 Assertion::true($result, 'Could not reset the counters.');
-                if ($channelConfig['ocr']) {
+                if ($channelConfig['ocr'] ?? false) {
                     $ocr->resetCounter($channel);
                 }
             } elseif ($action === 'recalibrate') {
