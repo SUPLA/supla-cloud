@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
+use SuplaBundle\Entity\ActiveHours;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\HasIcon;
@@ -141,6 +142,30 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
      * @MaxDepth(1)
      */
     private $reactions;
+
+    /**
+     * @ORM\Column(name="active_from", type="utcdatetime", nullable=true)
+     * @Groups({"basic"})
+     */
+    private $activeFrom;
+
+    /**
+     * @ORM\Column(name="active_to", type="utcdatetime", nullable=true)
+     * @Groups({"basic"})
+     */
+    private $activeTo;
+
+    /**
+     * @ORM\Column(name="active_hours", type="string", length=768, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
+     * @Groups({"basic"})
+     */
+    private $activeHours;
+
+    /**
+     * @ORM\Column(name="activity_conditions", type="string", length=1024, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
+     * @Groups({"basic"})
+     */
+    private $activityConditions;
 
     private $commandExecutionsCount = 0;
 
@@ -296,5 +321,38 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
 
     public function setCommandExecutionsCount(int $commandExecutionsCount): void {
         $this->commandExecutionsCount = $commandExecutionsCount;
+    }
+
+
+    public function getActiveFrom(): ?\DateTime {
+        return $this->activeFrom;
+    }
+
+    public function setActiveFrom(?\DateTime $activeFrom): void {
+        $this->activeFrom = $activeFrom;
+    }
+
+    public function getActiveTo(): ?\DateTime {
+        return $this->activeTo;
+    }
+
+    public function setActiveTo(?\DateTime $activeTo): void {
+        $this->activeTo = $activeTo;
+    }
+
+    public function getActiveHours(): ?array {
+        return ActiveHours::fromString($this->activeHours)->toArray();
+    }
+
+    public function setActiveHours(?array $activeHours): void {
+        $this->activeHours = ActiveHours::fromArray($activeHours)->toString();
+    }
+
+    public function getActivityConditions(): array {
+        return $this->activityConditions ? json_decode($this->activityConditions, true) : [];
+    }
+
+    public function setActivityConditions(?array $activityConditions): void {
+        $this->activityConditions = $activityConditions ? json_encode($activityConditions) : null;
     }
 }
