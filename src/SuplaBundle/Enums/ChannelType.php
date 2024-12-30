@@ -57,6 +57,7 @@ use UnexpectedValueException;
  * @method static ChannelType RAINSENSOR()
  * @method static ChannelType WEIGHTSENSOR()
  * @method static ChannelType WEATHER_STATION()
+ * @method static ChannelType CONTAINER()
  * @method static ChannelType DIMMER()
  * @method static ChannelType RGBLEDCONTROLLER()
  * @method static ChannelType DIMMERANDRGBLED()
@@ -97,6 +98,7 @@ final class ChannelType extends Enum {
     const RAINSENSOR = 3048;
     const WEIGHTSENSOR = 3050;
     const WEATHER_STATION = 3100;
+    const CONTAINER = 3200;
     const DIMMER = 4000;
     const RGBLEDCONTROLLER = 4010;
     const DIMMERANDRGBLED = 4020;
@@ -153,6 +155,7 @@ final class ChannelType extends Enum {
             self::RAINSENSOR => 'Rain sensor', // i18n
             self::WEIGHTSENSOR => 'Weight sensor', // i18n
             self::WEATHER_STATION => 'Weather Station', // i18n
+            self::CONTAINER => 'Container', // i18n
             self::DIMMER => 'Dimmer', // i18n
             self::RGBLEDCONTROLLER => 'RGB led controller', // i18n
             self::DIMMERANDRGBLED => 'Dimmer & RGB led controller', // i18n
@@ -189,6 +192,7 @@ final class ChannelType extends Enum {
                 ChannelFunction::HOTELCARDSENSOR(),
                 ChannelFunction::ALARM_ARMAMENT_SENSOR(),
                 ChannelFunction::MAILSENSOR(),
+                ChannelFunction::CONTAINER_LEVEL_SENSOR(),
             ],
             self::RELAYHFD4 => [
                 ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
@@ -264,6 +268,11 @@ final class ChannelType extends Enum {
             self::GENERAL_PURPOSE_METER => [ChannelFunction::GENERAL_PURPOSE_METER()],
             self::ACTION_TRIGGER => [ChannelFunction::ACTION_TRIGGER()],
             self::DIGIGLASS => [ChannelFunction::DIGIGLASS_VERTICAL(), ChannelFunction::DIGIGLASS_HORIZONTAL()],
+            self::CONTAINER => [
+                ChannelFunction::CONTAINER(),
+                ChannelFunction::SEPTIC_TANK(),
+                ChannelFunction::WATER_TANK(),
+            ],
         ];
         $map[self::SENSORNC] = $map[self::SENSORNO];
         foreach ([self::DHT11, self::DHT21, self::DHT22, self::AM2301, self::AM2302] as $humidityAndTemperatureType) {

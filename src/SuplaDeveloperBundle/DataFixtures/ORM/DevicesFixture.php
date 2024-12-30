@@ -71,6 +71,7 @@ class DevicesFixture extends SuplaFixture {
         $this->setReference(self::DEVICE_HVAC, $hvac);
         $this->createDeviceGeneralPurposeMeasurement($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->createDeviceGateway($this->getReference(LocationsFixture::LOCATION_BEDROOM));
+        $this->createDeviceSeptic($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->createDevice('EMPTY DEVICE', $location, []);
         $device = $this->createEveryFunctionDevice($location, 'SECOND MEGA DEVICE');
         foreach ($this->faker->randomElements($device->getChannels(), 3) as $noFunctionChannel) {
@@ -648,6 +649,42 @@ class DevicesFixture extends SuplaFixture {
             'productCode' => strtoupper($this->faker->randomLetter() . $this->faker->randomLetter()),
             'serialNumber' => $this->faker->uuid(),
         ]));
+        $this->entityManager->persist($device);
+        return $device;
+    }
+
+    public function createDeviceSeptic(Location $location) {
+        $device = $this->createDevice('SEPTIC-DEVICE', $location, [
+            [
+                ChannelType::CONTAINER,
+                ChannelFunction::SEPTIC_TANK,
+                [
+                    'userConfig' => json_encode([
+                        'warningAboveLevel' => 20,
+                        'alarmAboveLevel' => 30,
+                        'warningBelowLevel' => 40,
+                        'alarmBelowLevel' => 50,
+                        'muteAlarmSoundWithoutAdditionalAuth' => false,
+                        'sensors' => [
+                            '1' => ['fillLevel' => 20],
+                            '2' => ['fillLevel' => 30],
+                            '3' => ['fillLevel' => 40],
+                            '4' => ['fillLevel' => 50],
+                        ],
+                    ]),
+                ],
+            ],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
+        ]);
         $this->entityManager->persist($device);
         return $device;
     }

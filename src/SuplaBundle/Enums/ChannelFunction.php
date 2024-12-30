@@ -102,6 +102,10 @@ use UnexpectedValueException;
  * @method static ChannelFunction ROLLER_GARAGE_DOOR()
  * @method static ChannelFunction PUMPSWITCH()
  * @method static ChannelFunction HEATORCOLDSOURCESWITCH()
+ * @method static ChannelFunction CONTAINER()
+ * @method static ChannelFunction SEPTIC_TANK()
+ * @method static ChannelFunction WATER_TANK()
+ * @method static ChannelFunction CONTAINER_LEVEL_SENSOR()
  */
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
@@ -170,6 +174,10 @@ final class ChannelFunction extends Enum {
     const ROLLER_GARAGE_DOOR = 950;
     const PUMPSWITCH = 960;
     const HEATORCOLDSOURCESWITCH = 970;
+    const CONTAINER = 980;
+    const SEPTIC_TANK = 981;
+    const WATER_TANK = 982;
+    const CONTAINER_LEVEL_SENSOR = 990;
 
     private $unsupportedFunctionId;
 
@@ -479,6 +487,10 @@ final class ChannelFunction extends Enum {
             self::ROLLER_GARAGE_DOOR => 'Roller garage door', // i18n
             self::PUMPSWITCH => 'Pump switch', // i18n
             self::HEATORCOLDSOURCESWITCH => 'Heat or cold source switch', // i18n
+            self::CONTAINER => 'Container', // i18n
+            self::SEPTIC_TANK => 'Septic tank', // i18n
+            self::WATER_TANK => 'Water tank', // i18n
+            self::CONTAINER_LEVEL_SENSOR => 'Container level sensor', // i18n
         ];
     }
 
@@ -572,6 +584,10 @@ final class ChannelFunction extends Enum {
             self::ROLLER_GARAGE_DOOR => ['revealed', 'shut'],
             self::PUMPSWITCH => ['off', 'on'],
             self::HEATORCOLDSOURCESWITCH => ['off', 'on'],
+            self::CONTAINER => ['default'],
+            self::SEPTIC_TANK => ['default'],
+            self::WATER_TANK => ['default'],
+            self::CONTAINER_LEVEL_SENSOR => ['empty', 'full'],
         ];
     }
 
