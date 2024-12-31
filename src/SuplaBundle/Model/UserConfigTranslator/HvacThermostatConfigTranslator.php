@@ -167,7 +167,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             if ($subject->getUserConfigValue('temperatureControlType', 'NOT_SUPPORTED') !== 'NOT_SUPPORTED') {
                 $config['temperatureControlType'] = $subject->getUserConfigValue('temperatureControlType');
             }
-            if ($subject->getProperty('localUILockingCapabilities') !== null) {
+            if ($subject->getProperty('localUILockingCapabilities')) {
                 $config['localUILockingCapabilities'] = $subject->getProperty('localUILockingCapabilities', []);
                 $config['localUILock'] = $subject->getUserConfigValue('localUILock', []);
                 $minTemp = $subject->getUserConfigValue('minAllowedTemperatureSetpointFromLocalUI');
@@ -399,7 +399,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $config['localUILock'] = $subject->getUserConfigValue('localUILock', []);
             }
         }
-        if (array_key_exists('localUILock', $config) && $subject->getProperty('localUILockingCapabilities') !== null) {
+        if (array_key_exists('localUILock', $config) && $subject->getProperty('localUILockingCapabilities')) {
             Assert::that($config['localUILock'], null, 'localUILock')->isArray()->maxCount(1);
             $newLock = $config['localUILock'][0] ?? null;
             if ($newLock) {

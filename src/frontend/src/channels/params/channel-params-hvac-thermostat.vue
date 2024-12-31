@@ -406,7 +406,7 @@
         </transition-expand>
 
         <a class="d-flex accordion-header" @click="displayGroup('userInterface')"
-            v-if="canDisplayAnySetting('localUILock') && channel.config.localUILockingCapabilities && channel.config.localUILockingCapabilities.length">
+            v-if="canDisplayAnySetting('localUILock') && channel.config.localUILockingCapabilities">
             <span class="flex-grow-1">{{ $t('User interface') }}</span>
             <span>
                 <fa :icon="group === 'userInterface' ? 'chevron-down' : 'chevron-right'"/>
