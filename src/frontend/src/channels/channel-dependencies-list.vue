@@ -43,6 +43,8 @@
         relatedRelayChannelId_dest: 'Associated measurement channel', // i18n
         relatedChannelId_src: 'Action trigger', // i18n
         relatedChannelId_dest: 'Action trigger for channel', // i18n
+        levelSensor_src: 'Level sensor', // i18n
+        levelSensor_dest: 'Level sensor for container', // i18n
     };
 
     const hiddenRelations = ['relatedMeterChannelId'];
@@ -66,6 +68,14 @@
                 channel: channelsStore.all[props.channel.config[role]],
             }))
             .forEach((dep) => deps[dep.id] = dep);
+        Object.keys(props.channel.config.sensors || {})
+            .map((channelId) => ({
+                id: `ch_levelSensor_${channelId}`,
+                role: 'levelSensor',
+                label: dependencyLabel('levelSensor', 'src'),
+                channel: channelsStore.all[channelId],
+            }))
+            .forEach((dep) => deps[dep.id] = dep);
 
         // channels that refer to this one
         Object.values(channelsStore.all).forEach((channel) => {
@@ -78,6 +88,15 @@
                     role,
                     label: dependencyLabel(role, 'dest'),
                     channel,
+                }))
+                .forEach((dep) => deps[dep.id] = dep);
+            Object.keys(channel.config.sensors || {})
+                .filter((key) => key == props.channel.id)
+                .map(() => ({
+                    id: `ch_levelSensor_${channel.id}`,
+                    role: 'levelSensor',
+                    label: dependencyLabel('levelSensor', 'dest'),
+                    channel: channel,
                 }))
                 .forEach((dep) => deps[dep.id] = dep);
         });

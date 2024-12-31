@@ -668,7 +668,7 @@ class DevicesFixture extends SuplaFixture {
                         'sensors' => [
                             '1' => ['fillLevel' => 20],
                             '2' => ['fillLevel' => 30],
-                            '3' => ['fillLevel' => 40],
+                            '3' => ['fillLevel' => null],
                             '4' => ['fillLevel' => 50],
                         ],
                     ]),
