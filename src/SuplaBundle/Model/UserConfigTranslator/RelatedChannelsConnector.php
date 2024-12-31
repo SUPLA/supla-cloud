@@ -14,8 +14,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class RelatedChannelsConnector extends UserConfigTranslator {
     use SuplaServerAware;
 
-    /** @var IODeviceChannelRepository */
-    private $channelRepository;
+    private IODeviceChannelRepository $channelRepository;
+    private EntityManagerInterface $em;
 
     public function __construct(IODeviceChannelRepository $channelRepository, EntityManagerInterface $em) {
         $this->channelRepository = $channelRepository;

@@ -41,6 +41,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     /** @var Application */
     protected $application;
 
+    /** @before */
     public function prepareIntegrationTest() {
         if (!$this->requires()) {
             TestTimeProvider::reset();

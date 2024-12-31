@@ -12,14 +12,11 @@
         </exclude>
     </coverage>
     <php>
+        <env name="APPLICATION_ENV" value="test"/>
         <env name="KERNEL_CLASS" value="AppKernel"/>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=0"/>
         <ini name="memory_limit" value="192M"/>
     </php>
-    <listeners>
-        <listener class="SuplaBundle\Tests\Integration\IntegrationTestCaseListener"
-                  file="../src/SuplaBundle/Tests/Integration/IntegrationTestCaseListener.php"/>
-    </listeners>
     <testsuites>
         <testsuite name="unit">
             <directory>../src/*Bundle/Tests</directory>

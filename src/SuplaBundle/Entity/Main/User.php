@@ -605,6 +605,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
 
     public function setTimezone(?string $timezone) {
         try {
+            $timezone = $timezone ?: date_default_timezone_get();
             new DateTimeZone($timezone);
             $this->timezone = $timezone;
         } catch (Exception $e) {
