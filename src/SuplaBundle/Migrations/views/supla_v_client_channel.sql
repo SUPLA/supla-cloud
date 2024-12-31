@@ -24,6 +24,7 @@ select `c`.`id`                         AS `id`,
        ifnull(`c`.`alt_icon`, 0)        AS `alt_icon`,
        `d`.`protocol_version`           AS `protocol_version`,
        ifnull(`c`.`flags`, 0)           AS `flags`,
+       ifnull(`d`.`flags`, 0)           AS `device_flags`,
        `v`.`value`                      AS `value`,
        CASE
            WHEN `v`.`valid_to` >= utc_timestamp() THEN time_to_sec(timediff(`v`.`valid_to`, utc_timestamp()))
