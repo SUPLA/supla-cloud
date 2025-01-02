@@ -323,7 +323,6 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
         $this->commandExecutionsCount = $commandExecutionsCount;
     }
 
-
     public function getActiveFrom(): ?\DateTime {
         return $this->activeFrom;
     }

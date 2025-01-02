@@ -23,7 +23,7 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  * Add time conditions to Scene.
  */
 class Version20241227212817 extends NoWayBackMigration {
-public function migrate() {
+    public function migrate() {
         $this->addSql('ALTER TABLE supla_scene ADD active_from DATETIME DEFAULT NULL COMMENT \'(DC2Type:utcdatetime)\', ADD active_to DATETIME DEFAULT NULL COMMENT \'(DC2Type:utcdatetime)\', ADD active_hours VARCHAR(768) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, ADD activity_conditions VARCHAR(1024) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }
