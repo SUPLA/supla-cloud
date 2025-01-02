@@ -57,7 +57,7 @@ class SuplaBrokerHttpClient {
             'response' => var_export($rawResponse, true),
         ];
         if ($responseSuccess) {
-            if ($responseStatus >= 200 && $responseStatus <= 299) {
+            if ($responseStatus >= 200 && $responseStatus <= 399) {
                 $this->logger->debug('HTTP Request', $logDetails);
             } else {
                 $this->logger->notice('HTTP Request with error response', $logDetails);
