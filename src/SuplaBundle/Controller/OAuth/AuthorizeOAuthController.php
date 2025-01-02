@@ -192,8 +192,7 @@ class AuthorizeOAuthController extends AbstractController {
 
     private function fetchClientFromAutodiscover(array $oauthParams) {
         $publicId = $this->autodiscover->getPublicIdBasedOnMappedId($oauthParams['client_id']);
-        if ($publicId) {
-            $clientData = $this->autodiscover->getPublicClient($publicId);
+        if ($publicId && ($clientData = $this->autodiscover->getPublicClient($publicId))) {
             /** @var ApiClient $client */
             $client = $this->clientManager->createClient();
             $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
