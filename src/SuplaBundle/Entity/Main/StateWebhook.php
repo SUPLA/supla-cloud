@@ -75,7 +75,7 @@ class StateWebhook {
     private $expiresAt;
 
     /**
-     * @ORM\Column(name="functions_ids", type="string", length=255, nullable=false)
+     * @ORM\Column(name="functions_ids", type="string", length=1024, nullable=false)
      */
     private $functionsIds;
 
