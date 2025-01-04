@@ -172,8 +172,8 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $config['localUILock'] = $subject->getUserConfigValue('localUILock', []);
                 $minTemp = $subject->getUserConfigValue('minAllowedTemperatureSetpointFromLocalUI');
                 $maxTemp = $subject->getUserConfigValue('maxAllowedTemperatureSetpointFromLocalUI');
-                $config['minAllowedTemperatureSetpointFromLocalUI'] = $minTemp ? $this->adjustTemperature($minTemp) : null;
-                $config['maxAllowedTemperatureSetpointFromLocalUI'] = $maxTemp ? $this->adjustTemperature($maxTemp) : null;
+                $config['minAllowedTemperatureSetpointFromLocalUI'] = $minTemp !== null ? $this->adjustTemperature($minTemp) : null;
+                $config['maxAllowedTemperatureSetpointFromLocalUI'] = $maxTemp !== null ? $this->adjustTemperature($maxTemp) : null;
             }
             return $config;
         } else {
@@ -184,6 +184,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
+        $channelConfig = $this->getConfig($subject);
         if (array_key_exists('mainThermometerChannelId', $config)) {
             $this->updateSlaveThermostats($subject, $config, 'mainThermometerChannelId');
             $mainThermometerChannelId = $config['mainThermometerChannelId'];
@@ -407,16 +408,17 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 Assert::that($newLock, null, 'localUILock')->inArray($possibleValues);
                 $subject->setUserConfigValue('localUILock', [$newLock]);
                 if ($newLock === 'TEMPERATURE') {
-                    $tempMin = $this->validateTemperature(
-                        $subject,
-                        $config['minAllowedTemperatureSetpointFromLocalUI'] ?? 10,
-                        $this->getDefaultTemperatureConstraintName($subject)
-                    );
-                    $tempMax = $this->validateTemperature(
-                        $subject,
-                        $config['maxAllowedTemperatureSetpointFromLocalUI'] ?? 20,
-                        $this->getDefaultTemperatureConstraintName($subject)
-                    );
+                    $tempConfig = array_merge($channelConfig, $config);
+                    $tempMin = $tempConfig['minAllowedTemperatureSetpointFromLocalUI'];
+                    if (!is_numeric($tempMin)) {
+                        $tempMin = $this->getTemperatureConstraint($subject, 'min');
+                    }
+                    $tempMax = $tempConfig['maxAllowedTemperatureSetpointFromLocalUI'];
+                    if (!is_numeric($tempMax)) {
+                        $tempMax = $this->getTemperatureConstraint($subject, 'max');
+                    }
+                    $tempMin = $this->validateTemperature($subject, $tempMin, $this->getDefaultTemperatureConstraintName($subject));
+                    $tempMax = $this->validateTemperature($subject, $tempMax, $this->getDefaultTemperatureConstraintName($subject));
                     Assertion::lessThan($tempMin, $tempMax, 'Minimum temperature must be lower than maximum.');
                     $subject->setUserConfigValue('minAllowedTemperatureSetpointFromLocalUI', $tempMin);
                     $subject->setUserConfigValue('maxAllowedTemperatureSetpointFromLocalUI', $tempMax);
@@ -449,6 +451,24 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
 
     private function getDefaultTemperatureConstraintName(HasUserConfig $subject): string {
         return $subject->getUserConfigValue('temperatureControlType') === 'AUX_HEATER_COOLER_TEMPERATURE' ? 'aux' : 'room';
+    }
+
+    private function getTemperatureConstraint(
+        HasUserConfig $subject,
+        string $minOrMax,
+        string $constaintName = '',
+        float $default = 0
+    ): float {
+        $constraints = $subject->getProperties()['temperatures'] ?? [];
+        if (!$constaintName) {
+            $constraintName = $this->getDefaultTemperatureConstraintName($subject);
+        }
+        $minOrMax = ucfirst($minOrMax);
+        if (array_key_exists("{$constraintName}{$minOrMax}", $constraints)) {
+            return $constraints["{$constraintName}{$minOrMax}"] / 100;
+        } else {
+            return $default ?: ($minOrMax === 'max' ? 20 : 0);
+        }
     }
 
     private function validateTemperature(HasUserConfig $subject, $valueFromApi, string $constraintName = ''): int {

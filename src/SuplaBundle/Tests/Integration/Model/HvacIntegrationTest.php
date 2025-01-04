@@ -1274,5 +1274,25 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $newConfig = $configTranslator->getConfig($this->freshEntity($hvac));
         $this->assertEquals(['TEMPERATURE'], $newConfig['localUILock']);
         $this->assertEquals(13.9, $newConfig['minAllowedTemperatureSetpointFromLocalUI']);
+        $this->assertEquals(22.2, $newConfig['maxAllowedTemperatureSetpointFromLocalUI']);
+    }
+
+    /** @depends testChangingLocalUILockToTemperature */
+    public function testChangingLocalUILockTemperatureToEmpty(int $hvacId) {
+        $hvac = $this->freshEntityById(IODeviceChannel::class, $hvacId);
+        $configTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $hvac->getId(), [
+            'config' => [
+                'minAllowedTemperatureSetpointFromLocalUI' => '',
+            ],
+            'configBefore' => $configTranslator->getConfig($hvac),
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $hvac = $this->freshEntity($hvac);
+        $newConfig = $configTranslator->getConfig($this->freshEntity($hvac));
+        $this->assertEquals(['TEMPERATURE'], $newConfig['localUILock']);
+        $this->assertEquals(10, $newConfig['minAllowedTemperatureSetpointFromLocalUI']);
+        $this->assertEquals(22.2, $newConfig['maxAllowedTemperatureSetpointFromLocalUI']);
     }
 }

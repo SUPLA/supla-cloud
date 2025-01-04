@@ -407,7 +407,7 @@
 
         <a class="d-flex accordion-header" @click="displayGroup('userInterface')"
             v-if="canDisplayAnySetting('localUILock') && channel.config.localUILockingCapabilities">
-            <span class="flex-grow-1">{{ $t('User interface') }}</span>
+            <span class="flex-grow-1">{{ $t('Local interface') }}</span>
             <span>
                 <fa :icon="group === 'userInterface' ? 'chevron-down' : 'chevron-right'"/>
             </span>
@@ -445,6 +445,7 @@
                                 <input type="number" class="form-control" step="0.1"
                                     @change="$emit('change')"
                                     v-model="channel.config.minAllowedTemperatureSetpointFromLocalUI"
+                                    :placeholder="defaultTemperatureConstraintMin"
                                     :max="channel.config.maxAllowedTemperatureSetpointFromLocalUI || defaultTemperatureConstraintMax"
                                     :min="defaultTemperatureConstraintMin">
                             </dt>
@@ -453,6 +454,7 @@
                                 <input type="number" class="form-control" step="0.1"
                                     @change="$emit('change')"
                                     v-model="channel.config.maxAllowedTemperatureSetpointFromLocalUI"
+                                    :placeholder="defaultTemperatureConstraintMax"
                                     :max="defaultTemperatureConstraintMax"
                                     :min="channel.config.minAllowedTemperatureSetpointFromLocalUI || defaultTemperatureConstraintMin">
                             </dt>
