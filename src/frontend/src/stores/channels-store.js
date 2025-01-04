@@ -40,19 +40,7 @@ export const useChannelsStore = defineStore('channels', () => {
             let refetch = false;
             const idsToFetch = [];
             const devicesStore = useDevicesStore();
-            // const {states: channelsStates, devicesCount} = response;
-            // TODO ^ uncomment after full 24.10 update
-            // TODO v remove after full 24.10 update
-            let channelsStates;
-            let devicesCount;
-            if (response.states) {
-                channelsStates = response.states;
-                devicesCount = response.devicesCount;
-            } else {
-                channelsStates = response;
-                devicesCount = devicesStore.ids.length;
-            }
-            // TODO ^ REMOVE AFTER 24.10 update
+            const {states: channelsStates, devicesCount} = response;
             devicesStore.updateConnectedStatuses(channelsStates);
             channelsStates.forEach((channel) => {
                 if (all.value[channel.id]) {
