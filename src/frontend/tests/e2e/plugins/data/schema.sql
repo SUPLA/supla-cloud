@@ -1065,6 +1065,10 @@ CREATE TABLE `supla_scene`
     `estimated_execution_time` int(11)             NOT NULL                                   DEFAULT '0',
     `hidden`                   tinyint(1)          NOT NULL                                   DEFAULT '0',
     `user_config`              varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `active_from`         datetime                                                       DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `active_to`           datetime                                                       DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `active_hours`        varchar(768) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `activity_conditions` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY `IDX_A4825857A76ED395` (`user_id`),
     KEY `IDX_A482585764D218E` (`location_id`),
@@ -1877,7 +1881,7 @@ DELIMITER ;;
 CREATE
     DEFINER = `root`@`%` PROCEDURE `supla_add_channel`(IN `_type` INT, IN `_func` INT, IN `_param1` INT, IN `_param2` INT, IN `_param3` INT,
                                                        IN `_user_id` INT, IN `_channel_number` INT, IN `_iodevice_id` INT, IN `_flist` INT,
-                                                       IN `_flags` INT,
+                                                       IN `_flags` BIGINT,
                                                        IN `_alt_icon` INT, IN `_sub_device_id` SMALLINT UNSIGNED)
     MODIFIES SQL DATA
 BEGIN
@@ -2504,7 +2508,8 @@ BEGIN
              LEFT JOIN supla_oauth_client_authorizations soca ON su.id = soca.user_id
     WHERE mqtt_broker_enabled = 1
       AND short_unique_id = BINARY in_suid
-      AND (su.mqtt_broker_auth_password = @hashed_password OR soca.mqtt_broker_auth_password = @hashed_password)
+      AND (su.mqtt_broker_auth_password = @hashed_password COLLATE utf8mb4_unicode_ci OR
+           soca.mqtt_broker_auth_password = @hashed_password COLLATE utf8mb4_unicode_ci)
     LIMIT 1;
 END ;;
 DELIMITER ;
@@ -3138,9 +3143,14 @@ DELIMITER ;
 /*!50003 SET collation_connection = utf8mb4_general_ci */;
 DELIMITER ;;
 CREATE
-    DEFINER = `root`@`%` PROCEDURE `supla_update_channel_flags`(IN `_channel_id` INT, IN `_user_id` INT, IN `_flags` INT)
+    DEFINER = `root`@`%` PROCEDURE `supla_update_channel_flags`(
+    IN `_channel_id` INT,
+    IN `_user_id` INT,
+    IN `_flags` BIGINT
+)
     NO SQL
-UPDATE supla_dev_channel
+UPDATE
+    supla_dev_channel
 SET flags = IFNULL(flags, 0) | IFNULL(_flags, 0)
 WHERE id = _channel_id
   AND user_id = _user_id ;;
@@ -3228,6 +3238,43 @@ CREATE
     NO SQL
 BEGIN
     UPDATE supla_dev_channel SET properties = _properties WHERE id = _id AND user_id = _user_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode = @saved_sql_mode */;
+/*!50003 SET character_set_client = @saved_cs_client */;
+/*!50003 SET character_set_results = @saved_cs_results */;
+/*!50003 SET collation_connection = @saved_col_connection */;
+/*!50003 SET @saved_sql_mode = @@sql_mode */;
+/*!50003 SET sql_mode =
+        'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_update_channel_state` */;
+/*!50003 SET @saved_cs_client = @@character_set_client */;
+/*!50003 SET @saved_cs_results = @@character_set_results */;
+/*!50003 SET @saved_col_connection = @@collation_connection */;
+/*!50003 SET character_set_client = utf8mb4 */;
+/*!50003 SET character_set_results = utf8mb4 */;
+/*!50003 SET collation_connection = utf8mb4_general_ci */;
+DELIMITER ;;
+CREATE
+    DEFINER = `root`@`%` PROCEDURE `supla_update_channel_state`(
+    IN `_id` INT,
+    IN `_user_id` INT,
+    IN `_state` TEXT CHARSET utf8mb4
+)
+    NO SQL
+BEGIN
+
+    UPDATE `supla_dev_channel_state`
+    SET `update_time` = UTC_TIMESTAMP(),
+        `state`       = _state
+    WHERE user_id = _user_id
+      AND channel_id = _id;
+
+    IF ROW_COUNT() = 0 THEN
+        INSERT INTO `supla_dev_channel_state` (`channel_id`, `user_id`, `update_time`, `state`)
+        VALUES (_id, _user_id, UTC_TIMESTAMP(), _state)
+        ON DUPLICATE KEY UPDATE `state` = _state, update_time = UTC_TIMESTAMP();
+    END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode = @saved_sql_mode */;
@@ -3815,4 +3862,4 @@ where ((`g`.`func` is not null) and (`g`.`func` <> 0) and (`l`.`enabled` = 1) an
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-18 19:48:27
+-- Dump completed on 2025-01-04 19:10:10
