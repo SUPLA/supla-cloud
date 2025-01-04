@@ -42,7 +42,7 @@
             },
             channelHtml(channel, escape) {
                 const subDevice = this.subDevicesStore.forChannel(channel);
-                const subDeviceName = subDevice ? ' / ' + subDevice.name : '';
+                const subDeviceName = subDevice ? ' / ' + escape(subDevice.name) : '';
                 return `<div>
                             <div class="subject-dropdown-option d-flex">
                                 <div class="flex-grow-1">
@@ -50,7 +50,7 @@
                                         <span class="line-clamp line-clamp-2">${escape(channel.fullCaption)}</span>
                                         ${channel.caption ? `<span class="small text-muted">ID${channel.id} ${this.$t(channel.function.caption)}</span>` : ''}
                                     </h5>
-                                    <p class="line-clamp line-clamp-2 small mb-0 option-extra">${channel.location.caption} / ${channel.iodevice.name}${subDeviceName}</p>
+                                    <p class="line-clamp line-clamp-2 small mb-0 option-extra">${escape(channel.location.caption)} / ${escape(channel.iodevice.name)}${subDeviceName}</p>
                                 </div>
                                 <div class="icon option-extra"><img src="${channelIconUrl(channel)}"></div></div>
                             </div>
