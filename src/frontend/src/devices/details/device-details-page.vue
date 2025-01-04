@@ -151,6 +151,7 @@
     import {mapStores} from "pinia";
     import {useDevicesStore} from "@/stores/devices-store";
     import {useLocationsStore} from "@/stores/locations-store";
+    import {useChannelsStore} from "@/stores/channels-store";
 
     export default {
         props: ['id'],
@@ -215,7 +216,7 @@
                             return this.fetchDevice();
                         }
                     })
-                    .then(() => this.devicesStore.fetchAll(true))
+                    .then(() => this.channelsStore.refetchAll())
                     .catch(({body, status}) => {
                         if (status == 409) {
                             this.dependenciesThatWillBeDisabled = body;
@@ -227,6 +228,7 @@
                 this.loading = true;
                 this.devicesStore.remove(this.id, safe)
                     .then(() => this.$router.push({name: 'me'}))
+                    .then(() => this.channelsStore.refetchAll())
                     .catch(({body, status}) => {
                         if (status == 409) {
                             this.dependenciesThatPreventsDeletion = body;
@@ -241,6 +243,7 @@
                         this.dependenciesThatWillChangeLocation = undefined;
                         this.$set(this.device, 'location', location);
                     })
+                    .then(() => this.channelsStore.refetchAll())
                     .catch(response => {
                         if (response.status === 409) {
                             this.dependenciesThatWillChangeLocation = response.body;
@@ -254,7 +257,7 @@
             deviceTitle() {
                 return deviceTitle(this.device, this);
             },
-            ...mapStores(useDevicesStore, useLocationsStore),
+            ...mapStores(useDevicesStore, useLocationsStore, useChannelsStore),
             originalLocation() {
                 return this.locationsStore.all[this.device.originalLocationId] || undefined;
             },
