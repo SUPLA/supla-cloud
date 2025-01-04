@@ -70,6 +70,6 @@ final class StringUtils {
     }
 
     public static function isNotBlank($string): bool {
-        return !is_string($string) || !!trim($string);
+        return !is_string($string) || strlen(trim($string)) > 0;
     }
 }

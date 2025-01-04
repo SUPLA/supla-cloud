@@ -76,7 +76,7 @@ class ShutPartiallyActionExecutor extends SingleChannelActionExecutor {
         if (isset($actionParams['percentage'])) {
             $params['percentage'] = strval($actionParams['percentage']);
         } elseif (isset($actionParams['percentageDelta'])) {
-            $params['percentage'] = $actionParams['percentageDelta'] > 0
+            $params['percentage'] = $actionParams['percentageDelta'] >= 0
                 ? "+{$actionParams['percentageDelta']}"
                 : strval($actionParams['percentageDelta']);
         }
@@ -84,7 +84,7 @@ class ShutPartiallyActionExecutor extends SingleChannelActionExecutor {
             if (isset($actionParams['tilt'])) {
                 $params['tilt'] = strval($actionParams['tilt']);
             } elseif (isset($actionParams['tiltDelta'])) {
-                $params['tilt'] = $actionParams['tiltDelta'] > 0
+                $params['tilt'] = $actionParams['tiltDelta'] >= 0
                     ? "+{$actionParams['tiltDelta']}"
                     : strval($actionParams['tiltDelta']);
             }

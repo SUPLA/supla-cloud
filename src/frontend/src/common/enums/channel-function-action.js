@@ -64,7 +64,7 @@ const ChannelFunctionAction = Object.freeze({
             case ChannelFunctionAction.SHUT_PARTIALLY:
             case ChannelFunctionAction.OPEN_PARTIALLY:
             case ChannelFunctionAction.CLOSE_PARTIALLY:
-                return params.percentage >= -100 && params.percentage <= 100;
+                return (params.percentage >= -100 && params.percentage <= 100) || (params.tilt >= -100 && params.tilt <= 100);
             case ChannelFunctionAction.COPY:
                 return !!params.sourceChannelId;
             case ChannelFunctionAction.SEND:

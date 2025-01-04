@@ -321,6 +321,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,80,0,-1,0', ['percentage' => 80]],
             [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,80,0,-1,0', ['percentage' => '80']],
             [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,-1,0,80,0', ['tilt' => 80]],
+            [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,-1,0,0,0', ['tilt' => '0']],
+            [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,-1,0,0,1', ['tilt' => '-0']],
             [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,70,0,80,0', ['percentage' => 70, 'tilt' => 80]],
             [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,70,1,-80,1', ['percentage' => '+70', 'tilt' => '-80']],
             [10, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,10,70,0,-80,1', ['percentage' => 70, 'tilt' => -80]],

@@ -14,31 +14,61 @@ class RevealPartiallyActionExecutorTest extends TestCase {
     use UnitTestHelper;
 
     /**
-     * @dataProvider validatingActionParamsProvider
+     * @dataProvider validParamsProvider
      */
-    public function testValidatingActionParams($actionParams, bool $expectValid) {
-        if (!$expectValid) {
-            $this->expectException(InvalidArgumentException::class);
-        }
+    public function testTransformingActionParamsFromApi(array $apiParams, array $databaseParams) {
         $executor = new RevealPartiallyActionExecutor();
         $subject = $this->createMock(ActionableSubject::class);
-        $subject->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEROLLERSHUTTER());
-        $validParams = $executor->validateAndTransformActionParamsFromApi($subject, $actionParams);
-        $this->assertNotNull($validParams);
+        $subject->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEFACADEBLIND());
+        $transformedParams = $executor->validateAndTransformActionParamsFromApi($subject, $apiParams);
+        $this->assertEquals($databaseParams, $transformedParams);
     }
 
-    public function validatingActionParamsProvider() {
+    /**
+     * @dataProvider validParamsProvider
+     */
+    public function testTransformingActionParamsForApi(array $apiParams, array $databaseParams) {
+//        if (!$expectValid) {
+//            $this->expectException(InvalidArgumentException::class);
+//        }
+        $executor = new RevealPartiallyActionExecutor();
+        $subject = $this->createMock(ActionableSubject::class);
+        $subject->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEFACADEBLIND());
+        $transformedParams = $executor->transformActionParamsForApi($subject, $databaseParams);
+        $this->assertEquals($apiParams, $transformedParams);
+    }
+
+    public function validParamsProvider() {
         return [
-            [['percentage' => 0], true],
-            [['percentage' => 50], true],
-            [['percentage' => 100], true],
-            [['percentage' => '100'], true],
-            [['percentage' => -1], true],
-            [['percentage' => '+100'], true],
-            [['percentage' => 101], false],
-            [['percentage2' => 50], false],
-            [['percentage' => 50, 'other' => 50], false],
-            [[], false],
+            [['percentage' => 0], ['percentage' => 0]],
+            [['percentage' => 50], ['percentage' => 50]],
+            [['percentage' => 100], ['percentage' => 100]],
+            [['percentage' => '100'], ['percentage' => 100]],
+            [['percentage' => -1], ['percentageDelta' => -1]],
+            [['percentage' => '+100'], ['percentageDelta' => 100]],
+            [['percentage' => '+0'], ['percentageDelta' => 0]],
+            [['percentage' => '+10', 'tilt' => 10], ['percentageDelta' => 10, 'tilt' => 10]],
+            [['percentage' => '+10', 'tilt' => '+10'], ['percentageDelta' => 10, 'tiltDelta' => 10]],
+            [['percentage' => '+10', 'tilt' => -10], ['percentageDelta' => 10, 'tiltDelta' => -10]],
+            [['percentage' => '66', 'tilt' => '+0'], ['percentage' => 66, 'tiltDelta' => 0]],
+        ];
+    }
+
+    /** @dataProvider invalidParamsProvider */
+    public function testInvalidParamsProvider(array $invalidParams) {
+        $this->expectException(InvalidArgumentException::class);
+        $executor = new RevealPartiallyActionExecutor();
+        $subject = $this->createMock(ActionableSubject::class);
+        $subject->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEFACADEBLIND());
+        $executor->validateAndTransformActionParamsFromApi($subject, $invalidParams);
+    }
+
+    public function invalidParamsProvider() {
+        return [
+            [['percentage' => 101]],
+            [['percentage2' => 50]],
+            [['percentage' => 50, 'other' => 50]],
+            [[]],
         ];
     }
 
