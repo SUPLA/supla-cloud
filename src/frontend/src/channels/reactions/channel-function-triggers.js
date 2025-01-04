@@ -150,7 +150,7 @@ export const ChannelFunctionTriggers = {
             component: ReactionConditionThreshold,
             props: {
                 min: () => 0, max: () => 100, step: () => 1,
-                unit: () => '% of closing', // i18n
+                unit: () => '% of extension', // i18n
                 labelI18n: () => 'When the terrace awning reaches', // i18n
                 resumeLabelI18n: () => 'and wait until it reaches', // i18n
             },
@@ -790,8 +790,10 @@ export function reactionTriggerCaption(reaction) {
                 }
             }
             const operatorLabel = {eq: '=', ne: '≠', le: '≤', lt: '<', ge: '≥', gt: '>'}[operator];
-            const unit = triggerDef.props.unit ? triggerDef.props.unit(onChangeTo.name, reaction.owningChannel) : '';
-            const unitBefore = triggerDef.props.unitBefore ? triggerDef.props.unitBefore(onChangeTo.name, reaction.owningChannel) : ''
+            const unit = triggerDef.props.unit ? i18n.global.t(triggerDef.props.unit(onChangeTo.name, reaction.owningChannel)) : '';
+            const unitBefore = triggerDef.props.unitBefore
+                ? i18n.global.t(triggerDef.props.unitBefore(onChangeTo.name, reaction.owningChannel))
+                : ''
             return i18n.global.t(triggerDef.props.labelI18n(onChangeTo.name)) + ` ${operatorLabel} ${unitBefore}${onChangeTo[operator]}${unit}`;
         } else {
             return i18n.global.t(triggerDef.caption(reaction.owningChannel));
