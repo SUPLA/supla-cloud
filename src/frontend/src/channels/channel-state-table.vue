@@ -41,7 +41,8 @@
             <dt></dt>
         </dl>
         <dl v-if="!currentState.isCalibrating && currentState.shut !== undefined">
-            <dd>{{ $t('Percentage of closing') }}</dd>
+            <dd v-if="channel.function.name === 'TERRACE_AWNING'">{{ $t('Percentage of extension') }}</dd>
+            <dd v-else>{{ $t('Percentage of closing') }}</dd>
             <dt>{{ currentState.shut }}%</dt>
         </dl>
         <dl v-if="!currentState.isCalibrating && currentState.tiltPercent !== undefined && channel.config.tiltingTimeS > 0">
