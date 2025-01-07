@@ -4,6 +4,7 @@
             none-option
             :options="channelGroupsForDropdown"
             :caption="channelGroupCaption"
+            :search-text="channelGroupSearchText"
             :option-html="channelGroupHtml"
             :choose-prompt-i18n="'choose the channel group'"
             v-model="chosenChannelGroup"/>
@@ -34,6 +35,9 @@
             },
             channelGroupCaption(channelGroup) {
                 return channelGroup.caption || `ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
+            },
+            channelGroupSearchText(channelGroup) {
+                return `${channelGroup.caption || ''} ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
             },
             channelGroupHtml(channelGroup, escape) {
                 return `<div>

@@ -25,6 +25,10 @@
                 type: Function,
                 default: (option) => option.caption,
             },
+            searchText: {
+                type: Function,
+                default: (option) => option.fullCaption,
+            },
             optionHtml: {
                 type: Function,
                 default: (option) => `<div>${option.fullCaption}</div>`,
@@ -49,7 +53,7 @@
                     this.dropdown = new TomSelect(this.$refs.dropdownElement, {
                         valueField: 'id',
                         labelField: 'fullCaption',
-                        searchField: 'fullCaption',
+                        searchField: 'searchText',
                         optgroupField: 'group',
                         hideSelected: !this.doNotHideSelected,
                         maxItems: this.multiple ? null : 1,
@@ -110,10 +114,11 @@
                         if (this.noneOption) {
                             this.dropdown.addOption({id: 0, caption: this.$t('None')});
                         }
-                        this.options.forEach(o => this.dropdown.addOption({
-                            ...o,
-                            fullCaption: this.caption(o),
-                        }));
+                        this.options.forEach(o => {
+                            const optionToAdd = {...o, fullCaption: this.caption(o)};
+                            optionToAdd.searchText = this.searchText(optionToAdd);
+                            this.dropdown.addOption(optionToAdd);
+                        });
                         if (this.multiple) {
                             this.dropdown.setValue((this.value || []).map(v => v.id));
                         } else {

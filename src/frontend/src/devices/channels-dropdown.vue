@@ -5,6 +5,7 @@
             :none-option="!hideNone"
             :options="channelsForDropdown"
             :caption="channelCaption"
+            :search-text="channelSearchText"
             :option-html="channelHtml"
             :choose-prompt-i18n="choosePromptI18n || 'choose the channel'"
             :disabled="disabled"
@@ -39,6 +40,10 @@
             },
             channelCaption(channel) {
                 return channel.caption || `ID${channel.id} ${this.$t(channel.function.caption)}`;
+            },
+            channelSearchText(channel) {
+                const subDevice = this.subDevicesStore.forChannel(channel);
+                return `${channel.caption || ''} ID${channel.id} ${this.$t(channel.function.caption)} ${channel.location.caption} ${channel.iodevice.name} ${subDevice?.name || ''}`;
             },
             channelHtml(channel, escape) {
                 const subDevice = this.subDevicesStore.forChannel(channel);

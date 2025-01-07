@@ -4,6 +4,7 @@
             class="schedules-dropdown"
             :options="schedulesForDropdown"
             :caption="scheduleCaption"
+            :search-text="scheduleSearchText"
             :option-html="scheduleHtml"
             choose-prompt-i18n="choose the schedule"
             v-model="chosenSchedule"/>
@@ -33,6 +34,9 @@
             },
             scheduleCaption(schedule) {
                 return schedule.caption || `ID${schedule.id}`;
+            },
+            scheduleSearchText(schedule) {
+                return `${schedule.caption || ''} ID${schedule.id}`;
             },
             scheduleHtml(schedule, escape) {
                 return `<div>

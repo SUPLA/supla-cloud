@@ -4,6 +4,7 @@
             class="scenes-dropdown"
             :options="scenesForDropdown"
             :caption="sceneCaption"
+            :search-text="sceneSearchText"
             :option-html="sceneHtml"
             choose-prompt-i18n="choose the scene"
             v-model="chosenScene"/>
@@ -34,6 +35,9 @@
             },
             sceneCaption(scene) {
                 return scene.caption || `ID${scene.id}`;
+            },
+            sceneSearchText(scene) {
+                return `${scene.caption || ''} ID${scene.id}`;
             },
             sceneHtml(scene, escape) {
                 return `<div>
