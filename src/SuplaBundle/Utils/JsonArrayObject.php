@@ -9,30 +9,30 @@ class JsonArrayObject implements \JsonSerializable, \ArrayAccess, \Countable {
         $this->array = is_array($array) ? $array : [];
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize(): mixed {
         if (isset($this->array[0])) {
             return (object)$this->array;
         }
         return $this->array ?: new \stdClass();
     }
 
-    public function offsetExists($offset) {
+    public function offsetExists($offset): bool {
         return isset($this->array[$offset]);
     }
 
-    public function offsetGet($offset) {
+    public function offsetGet($offset): mixed {
         return $this->array[$offset];
     }
 
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value): void {
         $this->array[$offset] = $value;
     }
 
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset): void {
         unset($this->array[$offset]);
     }
 
-    public function count(): ?int {
+    public function count(): int {
         return count($this->array);
     }
 
