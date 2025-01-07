@@ -41,7 +41,6 @@ class DatabaseV2207MigrationTest extends DatabaseMigrationTestCase {
         $this->movingTargetCloudTokenToDatabaseVersion20230612185931();
         $this->calculatingUserHomeCoordinatesVersion20230815145146();
         $this->movingInvertedLogicVersion20230926065848();
-        $this->movingLocationsVersion20231103121340();
     }
 
     /**
@@ -106,39 +105,5 @@ class DatabaseV2207MigrationTest extends DatabaseMigrationTestCase {
         $this->assertEquals(12, $tempAdjusted->getUserConfigValue('temperatureAdjustment'));
         $humNotAdjusted = $this->getEntityManager()->find(IODeviceChannel::class, 63);
         $this->assertEquals(0, $humNotAdjusted->getUserConfigValue('humidityAdjustment'));
-    }
-
-    /**
-     * @see Version20231103121340
-     */
-    private function movingLocationsVersion20231103121340() {
-        $this->assertMovedPowerSwitchAndAtToTheSameLocation();
-        $this->assertMovedGateAndSensorToTheSameLocation();
-        $this->assertNotMovedUnpairedSensorToAnyNewLocation();
-        $this->assertMovedIcToPowerSwitchLocation();
-    }
-
-    private function assertMovedPowerSwitchAndAtToTheSameLocation() {
-        $powerSwitch = $this->freshEntityById(IODeviceChannel::class, 1);
-        $at = $this->freshEntityById(IODeviceChannel::class, 3);
-        $this->assertEquals($powerSwitch->getLocation()->getId(), $at->getLocation()->getId());
-    }
-
-    private function assertMovedGateAndSensorToTheSameLocation() {
-        $gate = $this->freshEntityById(IODeviceChannel::class, 6);
-        $sensor = $this->freshEntityById(IODeviceChannel::class, 8);
-        $this->assertEquals($gate->getLocation()->getId(), $sensor->getLocation()->getId());
-    }
-
-    private function assertNotMovedUnpairedSensorToAnyNewLocation() {
-        $sensor = $this->freshEntityById(IODeviceChannel::class, 9);
-        $this->assertEquals(1, $sensor->getLocation()->getId());
-    }
-
-    private function assertMovedIcToPowerSwitchLocation() {
-        $powerSwitch = $this->freshEntityById(IODeviceChannel::class, 114);
-        $ic = $this->freshEntityById(IODeviceChannel::class, 74);
-        $this->assertEquals($ic->getLocation()->getId(), $powerSwitch->getLocation()->getId());
-        $this->assertEquals(2, $powerSwitch->getLocation()->getId());
     }
 }

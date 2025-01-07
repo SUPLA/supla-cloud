@@ -54,9 +54,10 @@ class MoveDependentChannelsToTheSameLocationCommand extends Command implements I
             ->getQuery()
             ->toIterable();
         $changeLocationOperations = [];
+        $changeVisibilityOperations = [];
         foreach ($channels as $channel) {
             if ($output->isVeryVerbose()) {
-                $output->write("Checking dependencies for channel #{$channel->getId()}:");
+                $output->write("Checking location dependencies for channel #{$channel->getId()}:");
             }
             $dependencies = $this->channelDependencies->getItemsThatDependOnLocation($channel);
             if ($dependencies['channels']) {
@@ -69,6 +70,26 @@ class MoveDependentChannelsToTheSameLocationCommand extends Command implements I
                     /** @var IODeviceChannel $depChannel */
                     if ($depChannel->getLocation()->getId() !== $expectedLocationId) {
                         $changeLocationOperations[$depChannel->getId()] = $this->changeLocationOperation($depChannel, $expectedLocationId);
+                    }
+                }
+            } elseif ($output->isVeryVerbose()) {
+                $output->writeln(' none');
+            }
+            if ($output->isVeryVerbose()) {
+                $output->write("Checking visibility dependencies for channel #{$channel->getId()}:");
+            }
+            $dependencies = $this->channelDependencies->getItemsThatDependOnVisibility($channel);
+            $dependencies = $this->channelDependencies->onlyDependenciesVisibleToUser($dependencies);
+            if ($dependencies['channels']) {
+                if ($output->isVeryVerbose()) {
+                    $ids = array_map(fn(IODeviceChannel $ch) => $ch->getId(), $dependencies['channels']);
+                    $output->writeln(' ' . implode(', ', $ids));
+                }
+                $expectedVisibility = $channel->getHidden();
+                foreach ($dependencies['channels'] as $depChannel) {
+                    /** @var IODeviceChannel $depChannel */
+                    if ($depChannel->getHidden() !== $expectedVisibility) {
+                        $changeVisibilityOperations[$depChannel->getId()] = $this->changeVisibilityOperation($depChannel, $expectedVisibility);
                     }
                 }
             } elseif ($output->isVeryVerbose()) {
@@ -125,6 +146,21 @@ class MoveDependentChannelsToTheSameLocationCommand extends Command implements I
                     'locationId' => $changeOperation['newId'],
                 ]);
         }
+        foreach ($changeVisibilityOperations as $channelId => $changeOperation) {
+            $log = sprintf(
+                'Changed visibility of channel ID=%d from %s to %s.',
+                $channelId,
+                $changeOperation['oldIsHidden'] ? 'true' : 'false',
+                $changeOperation['newIsHidden'] ? 'true' : 'false',
+            );
+            $output->writeln($log);
+            $this->logger->notice($log, $changeOperation);
+            $this->em->createQuery(sprintf('UPDATE %s c SET c.hidden=:hidden WHERE c.id=:id', IODeviceChannel::class))
+                ->execute([
+                    'id' => $channelId,
+                    'hidden' => $changeOperation['newIsHidden'] ? 1 : 0,
+                ]);
+        }
         return 0;
     }
 
@@ -136,6 +172,17 @@ class MoveDependentChannelsToTheSameLocationCommand extends Command implements I
             'functionId' => $channel->getFunction()->getId(),
             'functionName' => $channel->getFunction()->getName(),
             'revertSql' => "UPDATE supla_dev_channel SET location_id={$channel->getLocation()->getId()} WHERE id={$channel->getId()};",
+        ];
+    }
+
+    private function changeVisibilityOperation(IODeviceChannel $channel, bool $isHidden): array {
+        return [
+            'channelId' => $channel->getId(),
+            'oldIsHidden' => $channel->getHidden(),
+            'newIsHidden' => $isHidden,
+            'functionId' => $channel->getFunction()->getId(),
+            'functionName' => $channel->getFunction()->getName(),
+            'revertSql' => "UPDATE supla_dev_channel SET hidden=" . ($isHidden ? 0 : 1) . " WHERE id={$channel->getId()};",
         ];
     }
 }

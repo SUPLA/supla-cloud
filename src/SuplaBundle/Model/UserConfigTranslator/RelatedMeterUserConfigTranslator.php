@@ -64,6 +64,11 @@ class RelatedMeterUserConfigTranslator extends UserConfigTranslator {
                     $newMeterChannel->getLocation()->getId(),
                     'Channels that are meant to work with each other must be in the same location.' // i18n
                 );
+                Assertion::eq(
+                    $subject->getHidden(),
+                    $newMeterChannel->getHidden(),
+                    'Channels that are meant to work with each other must have the same visibility setting.' // i18n
+                );
                 $this->setConfigForMeter($newMeterChannel, ['relatedRelayChannelId' => null]);
                 $subject->setUserConfigValue('relatedMeterChannelId', $newMeterChannel->getId());
             } else {

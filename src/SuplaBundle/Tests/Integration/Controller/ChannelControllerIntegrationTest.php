@@ -1505,6 +1505,29 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ));
     }
 
+    public function testCannotLinkHiddenAndNotHiddenChannel() {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $deviceLocation = $this->createLocation($this->user);
+        $device1 = $this->createDevice($deviceLocation, [
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $device2 = $this->createDevice($deviceLocation, [
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
+        ]);
+        $sensorChannel = $device1->getChannels()[0];
+        $gateChannel = $device2->getChannels()[0];
+        $sensorChannel->setHidden(true);
+        $this->persist($sensorChannel);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $gateChannel->getId(), [
+            'config' => ['openingSensorChannelId' => $sensorChannel->getId()],
+            'configBefore' => $channelParamConfigTranslator->getConfig($gateChannel),
+        ]);
+        $this->assertStatusCode(400, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertStringContainsString('must have the same visibilit', $content['message']);
+    }
+
     public function testHidingChannelsOfLockedDevices() {
         $lockedDevice = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceLocked($this->location);
         $client = $this->createAuthenticatedClient();

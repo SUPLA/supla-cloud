@@ -83,6 +83,11 @@ class RelatedChannelsConnector extends UserConfigTranslator {
                         $relatedChannel->getLocation()->getId(),
                         'Channels that are meant to work with each other must be in the same location.' // i18n
                     );
+                    Assertion::eq(
+                        $thisChannel->getHidden(),
+                        $relatedChannel->getHidden(),
+                        'Channels that are meant to work with each other must have the same visibility setting.' // i18n
+                    );
                 }
                 if ($thisChannel && $currentRelatedId != $relatedId) {
                     $thisChannel->setParam($thisParamNo, $relatedId);
