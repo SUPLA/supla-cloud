@@ -27,7 +27,7 @@
         "doctrine/doctrine-bundle": "^2.7.0",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.5",
-        "dragonmantank/cron-expression": "3.1.*",
+        "dragonmantank/cron-expression": "3.4.*",
         "friendsofsymfony/oauth-server-bundle": "dev-master",
         "friendsofsymfony/rest-bundle": "^2.7",
         "google/recaptcha": "^1.1",

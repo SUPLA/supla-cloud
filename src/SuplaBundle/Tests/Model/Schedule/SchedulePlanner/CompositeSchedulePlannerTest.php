@@ -78,11 +78,11 @@ class CompositeSchedulePlannerTest extends TestCase {
             $this->planner->calculateScheduleExecutionsUntil($schedule, '2017-03-28 08:00', '2017-03-25 00:00')
         );
         $this->assertContains('2017-03-25T02:30:00+01:00', $runDates);
+        $this->assertContains('2017-03-26T03:30:00+02:00', $runDates);
         $this->assertContains('2017-03-27T02:30:00+02:00', $runDates);
         $this->assertNotContains('2017-03-26T02:30:00+01:00', $runDates);
         $this->assertNotContains('2017-03-26T02:30:00+02:00', $runDates);
         $this->assertNotContains('2017-03-26T03:30:00+01:00', $runDates);
-        $this->assertNotContains('2017-03-26T03:30:00+02:00', $runDates);
     }
 
     public function testCalculatingIntervalWhenDstChangesBackward() {
@@ -124,7 +124,7 @@ class CompositeSchedulePlannerTest extends TestCase {
         );
         $this->assertContains('2018-11-03T01:30:00-05:00', $runDates);
         $this->assertContains('2018-11-04T01:30:00-05:00', $runDates);
-        $this->assertNotContains('2018-11-04T01:30:00-06:00', $runDates);
+        $this->assertContains('2018-11-04T01:30:00-06:00', $runDates);
         $this->assertContains('2018-11-05T01:30:00-06:00', $runDates);
     }
 
