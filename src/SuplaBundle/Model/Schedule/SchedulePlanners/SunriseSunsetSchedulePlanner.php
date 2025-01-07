@@ -54,8 +54,9 @@ class SunriseSunsetSchedulePlanner extends SchedulePlanner {
         preg_match(self::SPECIFICATION_REGEX, $crontab, $matches);
         $timezone = new DateTimeZone(date_default_timezone_get());
         $location = $timezone->getLocation() ?: self::DEFAULT_COORDINATES;
-        $function = 'date_' . ($matches[1] == 'S' ? 'sunset' : 'sunrise');
-        $nextSun = $function($currentDate->getTimestamp(), SUNFUNCS_RET_TIMESTAMP, $location['latitude'], $location['longitude']);
+        $lookFor = $matches[1] == 'S' ? 'sunset' : 'sunrise';
+        $sunInfo = date_sun_info($currentDate->getTimestamp(), $location['latitude'], $location['longitude']);
+        $nextSun = $sunInfo[$lookFor];
         $nextSun += intval($matches[2]) * 60;
         $nextRunDate = CompositeSchedulePlanner::roundToClosestMinute($nextSun, $timezone);
         if ($nextRunDate < $currentDate) {

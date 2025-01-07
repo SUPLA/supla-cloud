@@ -236,7 +236,6 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
 
     /** @small */
     public function testGettingUserWithSunsetAndSunriseTime() {
-        $this->markTestSkipped('Does not work on CI after PHP 7.4 upgrade.');
         SuplaAutodiscoverMock::clear(false);
         /** @var TestClient $client */
         $client = self::createAuthenticatedClient();

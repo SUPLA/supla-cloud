@@ -82,12 +82,12 @@ class UserSerializer extends AbstractSerializer {
             }
         }
         if ($this->isSerializationGroupRequested('sun', $context)) {
-            $fmt = SUNFUNCS_RET_TIMESTAMP;
             $time = $this->timeProvider->getTimestamp();
             $lat = $user->getHomeLatitude();
             $lng = $user->getHomeLongitude();
-            $normalized['closestSunset'] = date_sunset($time, $fmt, $lat, $lng) ?: null;
-            $normalized['closestSunrise'] = date_sunrise($time, $fmt, $lat, $lng) ?: null;
+            $sunInfo = date_sun_info($time, $lat, $lng);
+            $normalized['closestSunset'] = $sunInfo['sunset'] ?: null;
+            $normalized['closestSunrise'] = $sunInfo['sunrise'] ?: null;
         }
     }
 
