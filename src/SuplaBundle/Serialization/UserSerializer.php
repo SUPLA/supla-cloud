@@ -25,7 +25,6 @@ use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\UserRepository;
 use SuplaBundle\Supla\SuplaServerAware;
-use SuplaBundle\Utils\DateUtils;
 
 class UserSerializer extends AbstractSerializer {
     use SuplaServerAware;
@@ -86,9 +85,9 @@ class UserSerializer extends AbstractSerializer {
             $time = $this->timeProvider->getTimestamp();
             $lat = $user->getHomeLatitude();
             $lng = $user->getHomeLongitude();
-            $sunInfo = DateUtils::wrapInTimezone($user->getTimezone(), fn() => date_sun_info($time, $lat, $lng));
-            $normalized['closestSunset'] = $sunInfo['sunset'] ?: null;
-            $normalized['closestSunrise'] = $sunInfo['sunrise'] ?: null;
+            $sunInfo = date_sun_info($time, $lat, $lng) ?: [];
+            $normalized['closestSunset'] = is_int($sunInfo['sunset'] ?? null) ? $sunInfo['sunset'] : null;
+            $normalized['closestSunrise'] = is_int($sunInfo['sunrise'] ?? null) ? $sunInfo['sunrise'] : null;
         }
     }
 

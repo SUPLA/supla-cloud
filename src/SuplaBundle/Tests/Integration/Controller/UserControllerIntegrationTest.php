@@ -236,7 +236,9 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
 
     /** @small */
     public function testGettingUserWithSunsetAndSunriseTime() {
-        SuplaAutodiscoverMock::clear(false);
+        $this->user->setTimezone('Europe/Warsaw');
+        $this->getEntityManager()->persist($this->user);
+        $this->getEntityManager()->flush();
         /** @var TestClient $client */
         $client = self::createAuthenticatedClient();
         $client->apiRequestV24('GET', '/api/users/current?include=sun');
@@ -254,7 +256,16 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
 
     /** @small */
     public function testGettingUserWithSunsetAndSunriseTimeInPolarNight() {
-        TestTimeProvider::setTime('2023-12-22');
+        $this->testNoSunriseSunsetDuringPolarDayOrNight('2023-12-22');
+    }
+
+    /** @small */
+    public function testGettingUserWithSunsetAndSunriseTimeInPolarDay() {
+        $this->testNoSunriseSunsetDuringPolarDayOrNight('2023-06-22');
+    }
+
+    private function testNoSunriseSunsetDuringPolarDayOrNight(string $date): void {
+        TestTimeProvider::setTime($date);
         $this->user->setTimezone('Arctic/Longyearbyen');
         $this->getEntityManager()->persist($this->user);
         $this->getEntityManager()->flush();
