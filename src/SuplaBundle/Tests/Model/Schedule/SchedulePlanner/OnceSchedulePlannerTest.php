@@ -35,7 +35,7 @@ class OnceSchedulePlannerTest extends TestCase {
         $this->assertEquals($expectedNextRunDate, $nextExecution->format($format));
     }
 
-    public function calculatingNextRunDateProvider() {
+    public static function calculatingNextRunDateProvider() {
         return [
             ['2017-01-01 00:00', '23 11 5 12 * 2089', '2089-12-05 11:23'], // run once
         ];
@@ -49,7 +49,7 @@ class OnceSchedulePlannerTest extends TestCase {
         $this->assertFalse($schedulePlanner->canCalculateFor($invalidCronExpression));
     }
 
-    public function invalidCronExpressions() {
+    public static function invalidCronExpressions() {
         return [
             [''],
             ['S * * * *'],

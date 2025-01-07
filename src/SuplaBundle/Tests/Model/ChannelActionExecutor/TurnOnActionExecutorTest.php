@@ -19,7 +19,7 @@ class TurnOnActionExecutorTest extends TestCase {
         $this->assertNotNull($params);
     }
 
-    public function validatingActionParamsProvider() {
+    public static function validatingActionParamsProvider() {
         return [
             [[], true],
             [['alexaCorrelationToken' => 'abcd'], false],

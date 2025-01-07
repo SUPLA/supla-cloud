@@ -43,7 +43,7 @@ class SunriseSunsetSchedulePlannerTest extends TestCase {
         $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
     }
 
-    public function calculatingNextRunDateProvider() {
+    public static function calculatingNextRunDateProvider() {
         return [
             ['2017-01-01 00:00', 'SR0 * * * *', '2017-01-01 07:43'], // sunrise: 7:46, http://suncalc.net/#/52.2297,21.0122,11/2017.01.01/13:11
             ['2016-12-31 23:00', 'SR0 * * * *', '2017-01-01 07:43'], // sunrise: 7:46, http://suncalc.net/#/52.2297,21.0122,11/2017.01.01/13:11

@@ -38,7 +38,7 @@ class ApiRateLimitRuleTest extends TestCase {
         }
     }
 
-    public function ruleSpecs() {
+    public static function ruleSpecs() {
         return [
             ['', false],
             ['0', false],

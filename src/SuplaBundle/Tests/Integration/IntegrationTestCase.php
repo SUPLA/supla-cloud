@@ -65,7 +65,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     protected function clearDatabase() {
         self::$dataForTests = array_intersect_key(self::$dataForTests, [static::class => '']);
         $initializedAtLeastOnce = isset(self::$dataForTests[static::class]);
-        if (!$initializedAtLeastOnce || $this->isLarge() || (!$this->requires() && !$this->isSmall())) {
+        if (!$initializedAtLeastOnce || $this->size()->isLarge() || (!$this->requires() && !$this->size()->isSmall())) {
             $this->executeCommand('doctrine:schema:drop --force --full-database --em=default');
             $this->executeCommand('doctrine:schema:drop --force --full-database --em=measurement_logs');
             $this->executeCommand('doctrine:schema:create --em=default');

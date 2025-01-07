@@ -28,9 +28,6 @@ class RevealPartiallyActionExecutorTest extends TestCase {
      * @dataProvider validParamsProvider
      */
     public function testTransformingActionParamsForApi(array $apiParams, array $databaseParams) {
-//        if (!$expectValid) {
-//            $this->expectException(InvalidArgumentException::class);
-//        }
         $executor = new RevealPartiallyActionExecutor();
         $subject = $this->createMock(ActionableSubject::class);
         $subject->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEFACADEBLIND());
@@ -38,7 +35,7 @@ class RevealPartiallyActionExecutorTest extends TestCase {
         $this->assertEquals($apiParams, $transformedParams);
     }
 
-    public function validParamsProvider() {
+    public static function validParamsProvider() {
         return [
             [['percentage' => 0], ['percentage' => 0]],
             [['percentage' => 50], ['percentage' => 50]],
@@ -63,7 +60,7 @@ class RevealPartiallyActionExecutorTest extends TestCase {
         $executor->validateAndTransformActionParamsFromApi($subject, $invalidParams);
     }
 
-    public function invalidParamsProvider() {
+    public static function invalidParamsProvider() {
         return [
             [['percentage' => 101]],
             [['percentage2' => 50]],
@@ -101,7 +98,7 @@ class RevealPartiallyActionExecutorTest extends TestCase {
         $executor->execute($channel, $params);
     }
 
-    public function expectedServerCommandsProvider() {
+    public static function expectedServerCommandsProvider() {
         return [
             [['percentage' => 0], 'ACTION-SHUT-PARTIALLY:222,333,1,100,0,-1,0'],
             [['percentage' => 50], 'ACTION-SHUT-PARTIALLY:222,333,1,50,0,-1,0'],

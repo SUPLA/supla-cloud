@@ -70,7 +70,7 @@ class ColorUtilsTest extends TestCase {
         $this->assertEqualsWithDelta($dec, ColorUtils::rgbToDec($rgb), 1);
     }
 
-    public function colorExamples(): array {
+    public static function colorExamples(): array {
         return [
             [[0, 100, 100], 16711680, '0xFF0000', [255, 0, 0]],
             [[1, 100, 100], 16712704, '0xFF0400', [255, 4, 0]],

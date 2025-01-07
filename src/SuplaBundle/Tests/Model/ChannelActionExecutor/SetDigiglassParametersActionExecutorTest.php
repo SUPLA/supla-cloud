@@ -28,7 +28,7 @@ class SetDigiglassParametersActionExecutorTest extends TestCase {
         $executor->execute($channel, $actionParams);
     }
 
-    public function expectedServerCommandsProvider() {
+    public static function expectedServerCommandsProvider() {
         return [
             [['transparent' => [0]], 'SET-DIGIGLASS-VALUE:222,333,111,1,1'],
             [['transparent' => 0], 'SET-DIGIGLASS-VALUE:222,333,111,1,1'],
@@ -58,12 +58,12 @@ class SetDigiglassParametersActionExecutorTest extends TestCase {
         $this->assertTrue(true);
     }
 
-    public function actionParametersProvider() {
+    public static function actionParametersProvider() {
         return array_merge([
             [[], false],
             [['transparent' => [], 'opaque' => []], false],
             [['transparent' => [], 'opaque' => [], 'unicorn' => []], false],
             [['unicorn' => []], false],
-        ], $this->expectedServerCommandsProvider());
+        ], self::expectedServerCommandsProvider());
     }
 }

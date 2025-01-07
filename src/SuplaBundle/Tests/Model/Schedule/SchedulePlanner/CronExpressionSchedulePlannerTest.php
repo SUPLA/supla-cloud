@@ -34,7 +34,7 @@ class CronExpressionSchedulePlannerTest extends TestCase {
         $this->assertEquals($expectedNextRunDate, $nextExecution->format($format));
     }
 
-    public function calculatingNextRunDateProvider() {
+    public static function calculatingNextRunDateProvider() {
         return [
             ['2017-01-01 00:00', '*/5 * * * *', '2017-01-01 00:05'], // every 5 minutes
             ['2017-01-01 00:00', '34 12 * * 4', '2017-01-05 12:34'], // 12:34 in thursdays
@@ -55,7 +55,7 @@ class CronExpressionSchedulePlannerTest extends TestCase {
         $this->assertFalse($schedulePlanner->canCalculateFor($invalidCronExpression));
     }
 
-    public function invalidCronExpressions() {
+    public static function invalidCronExpressions() {
         return [
             [''],
             ['S * * * *'],

@@ -30,7 +30,7 @@ class PasswordStrengthValidatorTest extends TestCase {
         }
     }
 
-    public function examples() {
+    public static function examples() {
         return [
             [PasswordStrengthValidator::create()->requireNumbers(), ['1abc', 'abc1', '111', '0', ''], ['abc', 'rRr%', ' ']],
             [PasswordStrengthValidator::create()->requireLetters(), ['1abc', 'abc1', 'aaa', 'ąść', ''], ['111', '3#4%', ' ']],

@@ -63,7 +63,7 @@ class DatabaseV2207MigrationTest extends DatabaseMigrationTestCase {
         $repository = $this->getDoctrine()->getRepository(SettingsString::class);
         $this->assertTrue($repository->hasValue(InstanceSettings::TARGET_TOKEN));
         $this->assertEquals('the_token_for_test', $repository->getValue(InstanceSettings::TARGET_TOKEN));
-        $this->assertFileNotExists(self::PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH);
+        $this->assertFileDoesNotExist(self::PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH);
     }
 
     /**

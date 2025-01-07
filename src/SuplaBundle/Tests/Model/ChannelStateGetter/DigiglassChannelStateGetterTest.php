@@ -39,7 +39,7 @@ class DigiglassChannelStateGetterTest extends TestCase {
         $this->assertEquals($expectedState, $state);
     }
 
-    public function stateExamples() {
+    public static function stateExamples() {
         return [
             [0, ['transparent' => [], 'opaque' => [0, 1, 2, 3, 4, 5, 6], 'mask' => 0]],
             [1, ['transparent' => [0], 'opaque' => [1, 2, 3, 4, 5, 6], 'mask' => 1]],

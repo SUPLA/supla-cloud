@@ -37,7 +37,7 @@ class ElectricityMeterChannelStateTest extends TestCase {
         }
     }
 
-    public function clearUnsupportedMeasurementsTestCases() {
+    public static function clearUnsupportedMeasurementsTestCases() {
         return [
             [0, []],
             [ElectricityMeterSupportBits::CURRENT, ['current']],

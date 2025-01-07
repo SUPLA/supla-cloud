@@ -135,7 +135,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $this->assertEquals(($expectedParams[6] ?? null) !== null ? '' : 'ccc', $channel->getTextParam3());
     }
 
-    public function paramsConfigsExamples() {
+    public static function paramsConfigsExamples() {
         // the examples below omits testing of controllingChannels and sensorChannels on purpose;
         // they are tested in the ControllingAnyLockRelatedSensorIntegrationTest
         // @codingStandardsIgnoreStart

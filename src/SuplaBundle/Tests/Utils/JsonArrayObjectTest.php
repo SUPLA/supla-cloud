@@ -25,7 +25,7 @@ class JsonArrayObjectTest extends TestCase {
         $this->assertEquals($expectedOutput, json_encode(new JsonArrayObject($array)));
     }
 
-    public function serializingExamples() {
+    public static function serializingExamples() {
         return [
             [null, '{}'],
             [[], '{}'],

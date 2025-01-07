@@ -283,7 +283,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSuplaCommandExecuted($expectedCommand);
     }
 
-    public function changingChannelStateDataProvider() {
+    public static function changingChannelStateDataProvider() {
         return [
             [1, 'turn-on', 'ACTION-TURN-ON:1,1,1'],
             [1, 'turn-off', 'ACTION-TURN-OFF:1,1,1'],

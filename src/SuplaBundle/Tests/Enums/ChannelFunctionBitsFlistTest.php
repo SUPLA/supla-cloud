@@ -27,7 +27,7 @@ class ChannelFunctionBitsFlistTest extends TestCase {
         $this->assertEquals($expectedFuncions, ChannelFunctionBitsFlist::getSupportedFunctions($functionList));
     }
 
-    public function supportedFunctionsTestCases() {
+    public static function supportedFunctionsTestCases() {
         return [
             [0, []],
             [1, [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK()]],

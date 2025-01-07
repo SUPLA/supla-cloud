@@ -29,7 +29,7 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
         $this->assertNotNull($params);
     }
 
-    public function validatingActionParamsProvider() {
+    public static function validatingActionParamsProvider() {
         return [
             [['hue' => 0, 'color_brightness' => 0], true],
             [['color' => 0, 'color_brightness' => 0], false],
@@ -124,7 +124,7 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
         $executor->execute($channel, $params);
     }
 
-    public function exampleRgbwParameters() {
+    public static function exampleRgbwParameters() {
         return [
             [['hue' => 0, 'color_brightness' => 0], '16711680,0,0,0'],
             [['hue' => 'white', 'color_brightness' => 12], '16777215,12,0,0'],

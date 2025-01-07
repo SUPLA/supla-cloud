@@ -52,7 +52,7 @@ class IODeviceConfigTranslatorTest extends TestCase {
         $this->assertEquals(array_intersect_key($newConfig, $config), $config);
     }
 
-    public function validConfigs() {
+    public static function validConfigs() {
         return [
             [['statusLed' => 'OFF_WHEN_CONNECTED']],
             [['statusLed' => 'ALWAYS_OFF']],
@@ -84,7 +84,7 @@ class IODeviceConfigTranslatorTest extends TestCase {
         $this->testValidConfigs($config);
     }
 
-    public function invalidConfigs() {
+    public static function invalidConfigs() {
         return [
             [['unicorn' => 'UNICORN']],
             [['statusLed' => 'UNICORN']],

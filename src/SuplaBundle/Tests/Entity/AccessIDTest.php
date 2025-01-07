@@ -28,7 +28,7 @@ class AccessIDTest extends TestCase {
         $this->assertEquals($validActiveHours, $accessId->getActiveHours());
     }
 
-    public function validActiveHours() {
+    public static function validActiveHours() {
         return [
             [[1 => [22], 6 => [23]]],
             [[1 => [22], 6 => [23, 0, 4]]],

@@ -49,9 +49,9 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.2",
         "fakerphp/faker": "^1.23",
-        "phpunit/phpunit": "^9.0",
+        "phpunit/phpunit": "^10.0",
         "squizlabs/php_codesniffer": "^3.6",
-        "symfony/phpunit-bridge": "^4.4"
+        "symfony/phpunit-bridge": "^5.4"
     },
     "scripts": {
         "dump-version": [

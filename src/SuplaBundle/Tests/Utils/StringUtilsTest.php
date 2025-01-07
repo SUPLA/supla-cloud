@@ -31,7 +31,7 @@ class StringUtilsTest extends TestCase {
         $this->assertEquals($snakeCase, StringUtils::camelCaseToSnakeCase($camelCase));
     }
 
-    public function snakeCaseToCamelCaseExamples(): array {
+    public static function snakeCaseToCamelCaseExamples(): array {
         return [
             ['', ''],
             ['FREQUENCY', 'frequency'],

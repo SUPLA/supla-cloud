@@ -31,7 +31,7 @@ class TargetSuplaCloudTest extends TestCase {
         $this->assertEquals($expectedAddress, $tc->getAddress());
     }
 
-    public function creatingFromDomainNameData() {
+    public static function creatingFromDomainNameData() {
         return [
             ['https', 'supla.org', 'https://supla.org'],
             ['http', 'supla.org', 'http://supla.org'],

@@ -34,7 +34,7 @@ class IntervalSchedulePlannerTest extends TestCase {
         $this->assertEquals($expectedNextRunDate, $nextExecution->format($format));
     }
 
-    public function calculatingNextRunDateProvider() {
+    public static function calculatingNextRunDateProvider() {
         return [
             ['2017-01-01 00:00', '*/5 * * * *', '2017-01-01 00:05'],
             ['2017-01-01 00:05', '*/5 * * * *', '2017-01-01 00:10'],
@@ -62,7 +62,7 @@ class IntervalSchedulePlannerTest extends TestCase {
         $this->assertFalse($schedulePlanner->canCalculateFor($invalidCronExpression));
     }
 
-    public function invalidCronExpressions() {
+    public static function invalidCronExpressions() {
         return [
             [''],
             ['S * * * *'],

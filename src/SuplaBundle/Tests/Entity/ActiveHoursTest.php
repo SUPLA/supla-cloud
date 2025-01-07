@@ -28,7 +28,7 @@ class ActiveHoursTest extends TestCase {
         $this->assertEquals($validActiveHours, $activeHours->toArray());
     }
 
-    public function validActiveHours() {
+    public static function validActiveHours() {
         return [
             [[1 => [22], 6 => [23]]],
             [[1 => [22], 6 => [23, 0, 4]]],
@@ -69,7 +69,7 @@ class ActiveHoursTest extends TestCase {
         ActiveHours::fromArray($invalidActiveHours);
     }
 
-    public function invalidActiveHours() {
+    public static function invalidActiveHours() {
         return [
             [[1]],
             [[1 => 22]],

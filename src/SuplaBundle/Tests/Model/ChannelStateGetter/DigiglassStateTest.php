@@ -41,7 +41,7 @@ class DigiglassStateTest extends TestCase {
         $this->assertEquals($expectedOpaqueSections, $state->getOpaqueSections());
     }
 
-    public function maskTestCases(): array {
+    public static function maskTestCases(): array {
         return [
             [0, 0, [], [], DigiglassState::sections(2)],
             [1, 1, [0], [], DigiglassState::sections(2)->setTransparent(0)],

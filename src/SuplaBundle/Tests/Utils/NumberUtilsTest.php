@@ -26,7 +26,7 @@ class NumberUtilsTest extends TestCase {
         $this->assertEquals($expected, NumberUtils::maximumDecimalPrecision($number, $decimals));
     }
 
-    public function maximumDecimalPrecisionExamples(): array {
+    public static function maximumDecimalPrecisionExamples(): array {
         return [
             ['', 0],
             [1, 1],

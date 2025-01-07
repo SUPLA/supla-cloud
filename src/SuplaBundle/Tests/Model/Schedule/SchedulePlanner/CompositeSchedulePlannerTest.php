@@ -225,7 +225,7 @@ class CompositeSchedulePlannerTest extends TestCase {
         $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
     }
 
-    public function calculatingNextRunDateComplexConfigsProvider() {
+    public static function calculatingNextRunDateComplexConfigsProvider() {
         $def = function ($crontab) {
             return ['crontab' => $crontab, 'action' => ['id' => ChannelFunctionAction::TURN_ON]];
         };

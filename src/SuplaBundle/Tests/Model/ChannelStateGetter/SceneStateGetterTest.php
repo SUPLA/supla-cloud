@@ -38,7 +38,7 @@ class SceneStateGetterTest extends TestCase {
         $this->assertEquals($expectedState, $state);
     }
 
-    public function stateExamples() {
+    public static function stateExamples() {
         return [
             [[0, 0, 0, 0, 0], ['executing' => false]],
             [

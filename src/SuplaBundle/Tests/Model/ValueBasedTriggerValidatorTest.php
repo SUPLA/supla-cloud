@@ -36,7 +36,7 @@ class ValueBasedTriggerValidatorTest extends TestCase {
         $this->assertTrue(true); // no exception thrown
     }
 
-    public function validTriggers() {
+    public static function validTriggers() {
         return [
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"lt": 20, "name": "temperature", "resume": {"ge": 21}}}'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"ge": 20, "name": "temperature", "resume": {"lt": 19}}}'],
@@ -82,7 +82,7 @@ class ValueBasedTriggerValidatorTest extends TestCase {
         $this->testValidTriggers($channelFunction, $trigger);
     }
 
-    public function invalidTriggers() {
+    public static function invalidTriggers() {
         return [
             [ChannelFunction::THERMOMETER(), '{}', 'Invalid trigger'],
             [ChannelFunction::THERMOMETER(), '{"unicorn": {}}', 'Missing on_change_to'],
