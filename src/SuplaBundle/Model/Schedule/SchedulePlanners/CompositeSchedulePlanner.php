@@ -24,6 +24,7 @@ use InvalidArgumentException;
 use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Utils\DateUtils;
 
 class CompositeSchedulePlanner {
     /** @var SchedulePlanner[] */
@@ -109,12 +110,8 @@ class CompositeSchedulePlanner {
         Assertion::true($canCalculate, 'Invalid schedule.');
     }
 
-    public static function wrapInScheduleTimezone(Schedule $schedule, $function) {
-        $defaultTimezone = date_default_timezone_get();
-        date_default_timezone_set($schedule->getUser()->getTimezone());
-        $result = $function();
-        date_default_timezone_set($defaultTimezone);
-        return $result;
+    public static function wrapInScheduleTimezone(Schedule $schedule, $function): mixed {
+        return DateUtils::wrapInTimezone($schedule->getUserTimezone(), $function);
     }
 
     public static function roundToClosestMinute($dateOrTimestamp, DateTimeZone $timezone): DateTime {
