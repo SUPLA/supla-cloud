@@ -10,7 +10,9 @@ use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\CurrentUserAware;
+use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Serialization\RequestFiller\SubjectActionFiller;
 use SuplaBundle\Utils\JsonArrayObject;
 
@@ -27,14 +29,12 @@ use SuplaBundle\Utils\JsonArrayObject;
 class ActionTriggerParamsTranslator extends UserConfigTranslator {
     use CurrentUserAware;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
-    /** @var SubjectActionFiller */
-    private $subjectActionFiller;
-
-    public function __construct(EntityManagerInterface $entityManager, SubjectActionFiller $subjectActionFiller) {
-        $this->entityManager = $entityManager;
-        $this->subjectActionFiller = $subjectActionFiller;
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly SubjectActionFiller $subjectActionFiller,
+        private readonly ChannelActionExecutor $channelActionExecutor,
+        private readonly ActionableSubjectRepository $subjectRepository
+    ) {
     }
 
     public function getConfig(HasUserConfig $subject): array {
@@ -43,7 +43,7 @@ class ActionTriggerParamsTranslator extends UserConfigTranslator {
             'disablesLocalOperation' => $subject->getProperties()['disablesLocalOperation'] ?? [],
             'relatedChannelId' => $subject->getParam1() ?: null,
             'hideInChannelsList' => !!$subject->getParam1(),
-            'actions' => new JsonArrayObject($subject->getUserConfig()['actions'] ?? []),
+            'actions' => new JsonArrayObject($this->getActions($subject)),
         ];
     }
 
@@ -57,7 +57,7 @@ class ActionTriggerParamsTranslator extends UserConfigTranslator {
                 return $this->adjustAction($subject, $action);
             }, $actions);
             $this->clearOldNotifications($subject->getUserConfigValue('actions', []));
-            $subject->setUserConfig(array_replace($subject->getUserConfig(), ['actions' => $actions]));
+            $subject->setUserConfigValue('actions', $actions);
         }
     }
 
@@ -105,5 +105,20 @@ class ActionTriggerParamsTranslator extends UserConfigTranslator {
                 }
             }
         }
+    }
+
+    private function getActions(HasUserConfig $channel): array {
+        $triggers = $channel->getUserConfig()['actions'] ?? [];
+        return array_map(function (array $triggerDef) use ($channel) {
+            if ($triggerDef['action']['param'] ?? false) {
+                $subject = $this->subjectRepository->findForUser($channel->getUser(), $triggerDef['subjectType'], $triggerDef['subjectId']);
+                $triggerDef['action']['param'] = $this->channelActionExecutor->transformActionParamsForApi(
+                    $subject,
+                    new ChannelFunctionAction($triggerDef['action']['id']),
+                    $triggerDef['action']['param']
+                );
+            }
+            return $triggerDef;
+        }, $triggers);
     }
 }

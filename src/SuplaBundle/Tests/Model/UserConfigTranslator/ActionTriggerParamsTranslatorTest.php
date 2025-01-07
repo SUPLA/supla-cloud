@@ -50,9 +50,12 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
     /** @before */
     public function createTranslator() {
         $this->subjectActionFiler = $this->createMock(SubjectActionFiller::class);
+        $this->actionExecutorMock = $this->createMock(ChannelActionExecutor::class);
         $this->configTranslator = new ActionTriggerParamsTranslator(
             $this->createMock(EntityManagerInterface::class),
-            $this->subjectActionFiler
+            $this->subjectActionFiler,
+            $this->actionExecutorMock,
+            $this->createMock(ActionableSubjectRepository::class),
         );
         $this->configTranslator->setTokenStorage($this->getMockedTokenStorage());
     }
@@ -156,9 +159,12 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER(), $this)->properties(['actionTriggerCapabilities' => ['PRESS']]);
         $this->subjectActionFiler->method('getSubjectAndAction')
             ->willReturnOnConsecutiveCalls(
-                [ChannelStub::create(ChannelFunction::POWERSWITCH()), ChannelFunctionAction::COPY(), ['sourceChannelId' => 2]],
+                [ChannelStub::create(ChannelFunction::POWERSWITCH()), ChannelFunctionAction::COPY(), ['SOURCE_CHANNEL_ID' => 2]],
             );
+        $this->actionExecutorMock->method('transformActionParamsForApi')->willReturnOnConsecutiveCalls(['sourceChannelId' => 2]);
         $this->configTranslator->setConfig($channel, ['actions' => $actions]);
+        $this->assertEquals($actions, $this->configTranslator->getConfig($channel)['actions']->toArray());
+        $actions['PRESS']['action']['param'] = ['SOURCE_CHANNEL_ID' => 2];
         $this->assertEquals($actions, $channel->getUserConfig()['actions']);
     }
 

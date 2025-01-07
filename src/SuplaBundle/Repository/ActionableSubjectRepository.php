@@ -7,25 +7,13 @@ use SuplaBundle\Enums\ActionableSubjectType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ActionableSubjectRepository {
-    /** @var IODeviceChannelRepository */
-    private $channelRepository;
-    /** @var ChannelGroupRepository */
-    private $channelGroupRepository;
-    /** @var SceneRepository */
-    private $sceneRepository;
-    /** @var ScheduleRepository */
-    private $scheduleRepository;
-
     public function __construct(
-        IODeviceChannelRepository $channelRepository,
-        ChannelGroupRepository $channelGroupRepository,
-        SceneRepository $sceneRepository,
-        ScheduleRepository $scheduleRepository
+        private readonly IODeviceChannelRepository $channelRepository,
+        private readonly ChannelGroupRepository $channelGroupRepository,
+        private readonly SceneRepository $sceneRepository,
+        private readonly ScheduleRepository $scheduleRepository,
+        private readonly PushNotificationRepository $notificationRepository
     ) {
-        $this->channelRepository = $channelRepository;
-        $this->channelGroupRepository = $channelGroupRepository;
-        $this->sceneRepository = $sceneRepository;
-        $this->scheduleRepository = $scheduleRepository;
     }
 
     /**
@@ -47,6 +35,8 @@ class ActionableSubjectRepository {
                 return $this->sceneRepository->findForUser($user, $id);
             case ActionableSubjectType::SCHEDULE:
                 return $this->scheduleRepository->findForUser($user, $id);
+            case ActionableSubjectType::NOTIFICATION:
+                return $this->notificationRepository->findForUser($user, $id);
             default:
                 throw new \InvalidArgumentException('No repository configured for ' . $subjectType);
         }
