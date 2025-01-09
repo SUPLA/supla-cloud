@@ -1,4 +1,6 @@
 import {i18n} from "@/locale";
+import ChannelFunction from "@/common/enums/channel-function";
+import ChannelFunctionAction from "@/common/enums/channel-function-action";
 
 export function measurementUnit(channel) {
     if (channel.config && channel.config.unit) {
@@ -16,5 +18,15 @@ export function measurementUnit(channel) {
 }
 
 export function actionCaption(action, subject) {
-    return i18n.global.t(action.caption);
+    const functionId = subject?.functionId || subject?.id || subject || 0;
+    const customLabels = {
+        [ChannelFunction.CONTROLLINGTHEROOFWINDOW]: {
+            [ChannelFunctionAction.REVEAL]: 'Open', // i18n
+            [ChannelFunctionAction.SHUT]: 'Close', // i18n
+            [ChannelFunctionAction.REVEAL_PARTIALLY]: 'Open partially', // i18n
+            [ChannelFunctionAction.SHUT_PARTIALLY]: 'Close partially', // i18n
+        },
+    }
+    const caption = customLabels[functionId]?.[action.id] || action.caption;
+    return i18n.global.t(caption);
 }
