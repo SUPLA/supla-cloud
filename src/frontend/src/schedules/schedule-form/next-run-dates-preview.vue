@@ -15,7 +15,7 @@
                     <span class="pull-right small text-muted">
                         <span v-if="nextScheduleExecution.action"
                             class="label label-default">
-                            {{ $t(nextScheduleExecution.action.caption) }}
+                            {{ actionCaption(nextScheduleExecution.action, schedule.subject) }}
                         </span>
                         <span class="label label-default">
                             {{ humanizeNextRunDate(nextScheduleExecution.plannedTimestamp).fromNow }}
@@ -33,6 +33,7 @@
     import Vue from "vue";
     import {formatDateTimeLong} from "../../common/filters-date";
     import {DateTime} from "luxon";
+    import {actionCaption} from "../../channels/channel-helpers";
 
     export default {
         props: ['value', 'schedule', 'config'],
@@ -54,6 +55,7 @@
             this.fetchNextScheduleExecutions();
         },
         methods: {
+            actionCaption,
             fetchNextScheduleExecutions() {
                 const query = this.nextRunDatesQuery;
                 if (!query.config) {

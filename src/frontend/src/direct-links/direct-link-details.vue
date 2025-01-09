@@ -12,6 +12,7 @@
                         :is-pending="hasPendingChanges && !isNew">
                         <direct-link-preview v-if="fullUrl"
                             :url="fullUrl"
+                            :direct-link="directLink"
                             :possible-actions="possibleActions"
                             :allowed-actions="allowedActions"></direct-link-preview>
                         <div class="row"
@@ -52,7 +53,7 @@
                                                             :key="action.id"
                                                             class="col-sm-3 text-center">
                                                             <toggler
-                                                                :label="action.caption"
+                                                                :label="actionCaption(action, directLink.subject)"
                                                                 @input="directLinkChanged()"
                                                                 v-model="allowedActions[action.name]"></toggler>
                                                         </div>
@@ -192,6 +193,7 @@
     import SubjectDropdown from "../devices/subject-dropdown";
     import AppState from "../router/app-state";
     import TransitionExpand from "../common/gui/transition-expand";
+    import {actionCaption} from "@/channels/channel-helpers";
 
     export default {
         props: ['id', 'item'],
@@ -224,6 +226,7 @@
             this.fetch();
         },
         methods: {
+            actionCaption,
             fetch() {
                 this.hasPendingChanges = false;
                 if (this.id && this.id != 'new') {

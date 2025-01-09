@@ -20,7 +20,7 @@
             <li v-for="action in possibleAllowedActions"
                 :key="action.id"
                 :class="currentAction == action.nameSlug ? 'active' : ''">
-                <a @click="currentAction = action.nameSlug">{{ $t(action.caption) }}</a>
+                <a @click="currentAction = action.nameSlug">{{ actionCaption(action, directLink.subject) }}</a>
             </li>
         </ul>
 
@@ -33,10 +33,12 @@
 
 <script>
     import CopyButton from "../common/copy-button";
+    import {actionCaption} from "../channels/channel-helpers";
 
     export default {
+        methods: {actionCaption},
         components: {CopyButton},
-        props: ['url', 'allowedActions', 'possibleActions'],
+        props: ['url', 'allowedActions', 'possibleActions', 'directLink'],
         data() {
             return {
                 currentAction: undefined,

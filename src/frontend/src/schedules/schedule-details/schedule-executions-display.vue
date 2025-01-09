@@ -6,7 +6,7 @@
                 :key="'past' + $index"
                 :class="'past past' + (executions.past.length - $index) + (execution.failed ? ' failed' : '')">
                 <div>
-                    <span class="label label-default">{{ $t(execution.action.caption) }}</span>
+                    <span class="label label-default">{{ actionCaption(execution.action, schedule.subject) }}</span>
                 </div>
                 {{ (execution.resultTimestamp || execution.plannedTimestamp) | formatDateTimeLong }}
                 <div class="small"
@@ -19,7 +19,7 @@
                     :key="'future' + $index"
                     :class="'future future' + $index">
                     <div>
-                        <span class="label label-default">{{ $t(execution.action.caption) }}</span>
+                        <span class="label label-default">{{ actionCaption(execution.action, schedule.subject) }}</span>
                     </div>
                     {{ execution.plannedTimestamp | formatDateTimeLong }}
                 </li>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+    import {actionCaption} from "../../channels/channel-helpers";
+
     export default {
         props: ['schedule'],
         data() {
@@ -42,6 +44,7 @@
             this.fetch();
         },
         methods: {
+            actionCaption,
             fetch() {
                 this.$http.get(`schedules/${this.schedule.id}?include=closestExecutions`).then(({body}) => {
                     this.executions = body.closestExecutions;

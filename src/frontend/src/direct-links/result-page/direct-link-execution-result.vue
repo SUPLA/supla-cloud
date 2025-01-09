@@ -69,7 +69,7 @@
                         :key="allowedAction"
                         class="form-group">
                         <div class="flex-left-full-width">
-                            <span class="label label-default hidden-xs">{{ $t(allowedAction.caption) }}</span>
+                            <span class="label label-default hidden-xs">{{ actionCaption(allowedAction, directLink.subject) }}</span>
                             <pre><code>{{ exampleUrl(allowedAction) }}</code></pre>
                             <div class="btn-group">
                                 <copy-button :text="exampleUrl(allowedAction)"></copy-button>
@@ -80,7 +80,7 @@
                                     @click="executeAction(allowedAction)">
                                     <span>
                                         <i :class="'pe-7s-' + (allowedAction.executed ? 'check' : 'rocket')"></i>
-                                        {{ allowedAction.executed ? $t('executed') : $t(allowedAction.caption) }}
+                                        {{ allowedAction.executed ? $t('executed') : actionCaption(allowedAction, directLink.subject) }}
                                     </span>
                                 </button>
                             </div>
@@ -121,6 +121,7 @@
     import DirectLinkChannelStatus from "./direct-link-channel-status";
     import ChannelFunction from "@/common/enums/channel-function";
     import ChannelFunctionAction from "@/common/enums/channel-function-action";
+    import {actionCaption} from "../../channels/channel-helpers";
 
     export default {
         props: ['failureReason', 'action'],
@@ -135,6 +136,7 @@
             this.directLink = window.directLink;
         },
         methods: {
+            actionCaption,
             executeAction(action) {
                 this.$set(action, 'executing', true);
                 this.$http.get(this.currentUrl + '/' + action.nameSlug)

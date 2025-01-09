@@ -1,3 +1,5 @@
+import {i18n} from "@/locale";
+
 export function measurementUnit(channel) {
     if (channel.config && channel.config.unit) {
         return channel.config.unit;
@@ -11,4 +13,8 @@ export function measurementUnit(channel) {
         default:
             return 'm³';
     }
+}
+
+export function actionCaption(action, subject) {
+    return i18n.global.t(action.caption);
 }

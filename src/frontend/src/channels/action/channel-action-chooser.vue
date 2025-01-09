@@ -24,7 +24,7 @@
                             tabindex="0"
                             @keydown.enter.stop="changeAction(possibleAction)"
                             class="text-inherit">
-                            {{ $t(possibleAction.caption) }}
+                            {{ actionCaption(possibleAction, subject) }}
                         </a>
                         <div>
                             <button-loading-dots v-if="executing.includes(possibleAction.id)"></button-loading-dots>
@@ -113,6 +113,7 @@
     import DurationParamSetter from "@/channels/action/duration-param-setter.vue";
     import HvacSetpointsSetter from "@/channels/action/hvac-setpoints-setter.vue";
     import PartialPercentageParamSetter from "@/channels/action/partial-percentage-param-setter.vue";
+    import {actionCaption} from "@/channels/channel-helpers";
 
     export default {
         components: {
@@ -150,6 +151,7 @@
             this.selectFirstActionIfOnlyOne();
         },
         methods: {
+            actionCaption,
             changeAction(action) {
                 if (this.isDisabled) {
                     return;

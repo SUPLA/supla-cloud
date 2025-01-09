@@ -31,21 +31,21 @@
                 <h5>{{ $t('Reactions') }}</h5>
                 <ul>
                     <li v-for="reaction in dependentReactions"
-                        :key="reaction.id">
+                        :key="reaction.id + 'dep'">
                         ID{{ reaction.owningChannelId }}
                         <span class="small">
                             {{ humanizeTrigger(reaction) }}
                             &raquo;
-                            {{ $t(reaction.action.caption) }}
+                            {{ actionCaption(reaction.action, reaction) }}
                         </span>
                     </li>
                     <li v-for="reaction in dependentOwnReactions"
-                        :key="reaction.id">
+                        :key="reaction.id + 'owndep'">
                         ID{{ reaction.owningChannelId }}
                         <span class="small">
                             {{ humanizeTrigger(reaction) }}
                             &raquo;
-                            {{ $t(reaction.action.caption) }}
+                            {{ actionCaption(reaction.action, reaction) }}
                         </span>
                     </li>
                 </ul>
@@ -107,10 +107,12 @@
 <script>
     import {reactionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
     import {channelTitle} from "@/common/filters";
+    import {actionCaption} from "../channel-helpers";
 
     export default {
         props: ['dependencies'],
         methods: {
+            actionCaption,
             humanizeTrigger(reaction) {
                 return reactionTriggerCaption(reaction);
             },

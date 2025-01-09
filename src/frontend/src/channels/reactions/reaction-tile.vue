@@ -6,7 +6,7 @@
             <h3>{{ triggerCaption }}</h3>
             <fa icon="chevron-down"/>
             <h4>
-                {{ $t(model.action.caption) }}
+                {{ actionCaption(model.action, model) }}
                 {{ subjectCaption }}
             </h4>
         </router-link>
@@ -17,8 +17,10 @@
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
     import {reactionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
     import {channelTitle} from "@/common/filters";
+    import {actionCaption} from "../channel-helpers";
 
     export default {
+        methods: {actionCaption},
         props: ['model'],
         computed: {
             triggerCaption() {
