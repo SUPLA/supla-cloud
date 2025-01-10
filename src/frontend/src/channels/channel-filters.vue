@@ -8,7 +8,7 @@
         <btn-filters v-model="connected"
             id="channelsFilterConnection"
             @input="filter()"
-            :filters="[{label: $t('All'), value: 'all'}, {label: $t('Connected'), value: 'connected'}, {label: $t('Disconnected'), value: 'disconnected'}]"></btn-filters>
+            :filters="[{label: $t('All'), value: 'all'}, {label: $t('Connected'), value: 'connected'}, {label: $t('Disconnected'), value: 'disconnected'}, {label: $t('Not available'), value: 'notAvailable'}]"></btn-filters>
         <btn-filters v-model="functionality"
             class="always-dropdown"
             @input="filter()"
@@ -66,7 +66,7 @@
                 this.$emit('compare-function', (a, b) => this.compare(a, b));
             },
             matches(channel) {
-                if ((this.connected === 'disconnected' && channel.connected) || (this.connected === 'connected' && !channel.connected)) {
+                if ((this.connected === 'disconnected' && channel.connected) || (this.connected === 'connected' && !channel.connected) || (this.connected === 'notAvailable' && channel.operational)) {
                     return false;
                 }
                 if (this.functionality && this.functionality !== '*') {
