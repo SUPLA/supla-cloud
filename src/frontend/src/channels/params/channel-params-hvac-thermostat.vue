@@ -308,7 +308,7 @@
                         </div>
                     </transition-expand>
                 </div>
-                <dl class="wide-label">
+                <dl>
                     <template v-for="temp in histeresisTemperatures">
                         <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
                         <dt :key="`dt${temp.name}`">
