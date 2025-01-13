@@ -6,7 +6,6 @@ import Vue from "vue";
 import {i18n, setGuiLocale} from './locale';
 import router from './router';
 import VueResource from "vue-resource";
-import vMediaQuery from 'v-media-query';
 import ResponseErrorInterceptor from "./common/http/response-error-interceptor";
 import * as requestTransformers from "./common/http/transformers";
 import "./common/common-components";
@@ -30,7 +29,6 @@ import {PiniaVuePlugin} from "pinia";
 
 Vue.use(VueResource);
 Vue.use(FloatingVue);
-Vue.use(vMediaQuery, {variables: {xs: 768}});
 Vue.use(PiniaVuePlugin);
 
 Vue.prototype.$frontendVersion = FRONTEND_VERSION; // eslint-disable-line no-undef

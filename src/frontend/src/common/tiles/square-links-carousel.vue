@@ -45,6 +45,7 @@
     import {Carousel, Slide} from 'vue-carousel';
     import EmptyListPlaceholder from "../../common/gui/empty-list-placeholder";
     import Vue from "vue";
+    import {useMediaQuery} from "@vueuse/core";
 
     export default {
         components: {Carousel, Slide, EmptyListPlaceholder},
@@ -52,7 +53,8 @@
         data() {
             return {
                 selectedIds: [],
-                newItem: {}
+                newItem: {},
+                isXs: useMediaQuery('(max-width: 768px)'),
             };
         },
         mounted() {
@@ -72,7 +74,7 @@
                 return Array.isArray(this.selected);
             },
             showNewItemTile() {
-                return this.newItemTile && this.$mq.resize && this.$mq.above(this.$mv.xs) && !this.$frontendConfig.maintenanceMode;
+                return this.newItemTile && !this.isXs && !this.$frontendConfig.maintenanceMode;
             },
             selectedItemIndex() {
                 return !this.multiple && this.selected && this.items.findIndex(item => this.isSelected(item));
