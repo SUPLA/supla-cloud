@@ -3,7 +3,7 @@
         v-if="items">
         <a class="btn btn-block btn-black text-center visible-xs"
             @click="onItemClick(newItem)"
-            v-if="newItemTile && !$frontendConfig.maintenanceMode">
+            v-if="newItemTile && !frontendConfig.maintenanceMode">
             <span>
                 <i class="pe-7s-plus"></i>
                 {{ $t(newItemTile) }}
@@ -46,6 +46,8 @@
     import EmptyListPlaceholder from "../../common/gui/empty-list-placeholder";
     import Vue from "vue";
     import {useMediaQuery} from "@vueuse/core";
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         components: {Carousel, Slide, EmptyListPlaceholder},
@@ -74,11 +76,12 @@
                 return Array.isArray(this.selected);
             },
             showNewItemTile() {
-                return this.newItemTile && !this.isXs && !this.$frontendConfig.maintenanceMode;
+                return this.newItemTile && !this.isXs && !this.frontendConfig.maintenanceMode;
             },
             selectedItemIndex() {
                 return !this.multiple && this.selected && this.items.findIndex(item => this.isSelected(item));
             },
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
         },
         methods: {
             onItemClick(item) {

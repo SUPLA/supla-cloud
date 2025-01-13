@@ -83,6 +83,9 @@
 </template>
 
 <script>
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+
     export default {
         data() {
             return {
@@ -109,8 +112,9 @@
         },
         computed: {
             suplaServerHost() {
-                return this.$frontendConfig.suplaUrl.replace(/https?:\/\//, '');
-            }
+                return this.frontendConfig.suplaUrl.replace(/https?:\/\//, '');
+            },
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
         }
     };
 </script>

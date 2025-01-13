@@ -7,7 +7,7 @@
                     <h4 class="text-muted">{{ $t('smartphones, tablets, etc.') }}</h4>
                 </div>
                 <div>
-                    <devices-registration-button v-show="!$frontendConfig.maintenanceMode"
+                    <devices-registration-button v-show="!frontendConfig.maintenanceMode"
                         field="clientsRegistrationEnabled"
                         caption-i18n="Client registration"></devices-registration-button>
                 </div>
@@ -48,6 +48,8 @@
     import ClientAppTileEditable from "./client-app-tile-editable";
     import ClientAppFilters from "./client-app-filters";
     import EventBus from "../common/event-bus";
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         components: {
@@ -90,6 +92,9 @@
                         this.filter();
                     });
             }
+        },
+        computed: {
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
         },
         beforeDestroy() {
             EventBus.$off('total-count-changed', this.loadNewClientAppsListener);

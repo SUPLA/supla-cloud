@@ -56,6 +56,8 @@
     import AccountOptOutNotificationsModal from "./account-opt-out-notifications-modal";
     import AccountDeleteModal from "./account-delete-modal";
     import AccountLimitsModal from "./account-limits-modal";
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         components: {
@@ -93,9 +95,10 @@
         },
         computed: {
             suplaServerHost() {
-                return this.$frontendConfig.suplaUrl.replace(/https?:\/\//, '');
-            }
-        }
+                return this.frontendConfig.suplaUrl.replace(/https?:\/\//, '');
+            },
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
+        },
     };
 </script>
 

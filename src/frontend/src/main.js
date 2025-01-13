@@ -80,7 +80,6 @@ frontendConfigStore.fetchConfig()
     .then(() => {
         Vue.config.external = frontendConfigStore.config;
         Vue.prototype.$appEnv = frontendConfigStore.env || 'prod';
-        Vue.prototype.$frontendConfig = Vue.config.external;
         Vue.prototype.compareFrontendAndBackendVersion(frontendConfigStore.cloudVersion);
         if (!Vue.config.external.baseUrl) {
             Vue.config.external.baseUrl = '';

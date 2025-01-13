@@ -5,7 +5,7 @@
             <h2 class="no-margin-top" v-else-if="header" v-title>{{ header }}</h2>
             <div v-else></div>
             <div class="button-container no-margin-top"
-                v-show="!$frontendConfig.maintenanceMode">
+                v-show="!frontendConfig.maintenanceMode">
                 <transition name="fade">
                     <div class="btn-toolbar"
                         v-if="showPendingButtons">
@@ -61,6 +61,9 @@
 </template>
 
 <script>
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+
     export default {
         props: {
             header: String,
@@ -85,6 +88,7 @@
             showNotPendingButtons() {
                 return !this.isPending && !this.currentTimeout;
             },
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
         },
         watch: {
             isPending() {

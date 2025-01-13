@@ -21,7 +21,7 @@
                             class="btn">
                             {{ $t('My OAuth apps') }}
                         </router-link>
-                        <router-link v-if="$frontendConfig.mqttBrokerEnabled"
+                        <router-link v-if="frontendConfig.config.mqttBrokerEnabled"
                             :to="{name: 'integrations.mqtt'}"
                             class="btn">
                             {{ $t('MQTT Broker') }}
@@ -34,6 +34,8 @@
     </div>
 </template>
 
-<script>
-    export default {};
+<script setup>
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+
+    const frontendConfig = useFrontendConfigStore();
 </script>

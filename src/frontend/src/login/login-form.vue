@@ -74,7 +74,7 @@
         </transition>
         <transition name="fade">
             <div class="error"
-                v-if="$frontendConfig.maintenanceMode">
+                v-if="frontendConfig.maintenanceMode">
                 <maintenance-warning></maintenance-warning>
             </div>
         </transition>
@@ -86,7 +86,7 @@
                 {{ $t('Don’t worry, you can always reset your password via email. Click here to do so.') }}
             </router-link>
         </transition>
-        <div v-if="!oauth && !$frontendConfig.maintenanceMode && $frontendConfig.accountsRegistrationEnabled"
+        <div v-if="!oauth && !frontendConfig.maintenanceMode && frontendConfig.accountsRegistrationEnabled"
             class="additional-buttons">
             <router-link
                 to="/forgotten-password"
@@ -107,6 +107,8 @@
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import ResendAccountActivationLink from "../register/resend-account-activation-link";
     import MaintenanceWarning from "../common/errors/maintenance-warning";
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         props: ['authenticating', 'oauth', 'error', 'value', 'intitialUsername', 'submitButtonText'],
@@ -119,6 +121,9 @@
         },
         mounted() {
             this.username = this.intitialUsername || '';
+        },
+        computed: {
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
         }
     };
 </script>

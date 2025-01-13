@@ -11,7 +11,7 @@
                         />
                     </div>
                 </div>
-                <devices-registration-button v-show="!$frontendConfig.maintenanceMode"
+                <devices-registration-button v-show="!frontendConfig.maintenanceMode"
                     field="ioDevicesRegistrationEnabled"
                     caption-i18n="I/O devices registration"></devices-registration-button>
             </div>
@@ -27,6 +27,8 @@
     import DevicesListPage from "../devices/list/devices-list-page";
     import BtnFilters from "../common/btn-filters";
     import ChannelListPage from "../channels/channel-list-page";
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         components: {
@@ -39,6 +41,9 @@
             return {
                 listType: 'devices'
             };
-        }
+        },
+        computed: {
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
+        },
     };
 </script>

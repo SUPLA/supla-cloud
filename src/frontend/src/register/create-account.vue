@@ -31,6 +31,8 @@
     import RegisterForm from './register-form';
     import WholeScreenMessage from "./whole-screen-message";
     import ResendAccountActivationLink from "./resend-account-activation-link";
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         components: {ResendAccountActivationLink, WholeScreenMessage, RegisterSlider, RegisterForm},
@@ -40,9 +42,12 @@
             };
         },
         mounted() {
-            if (!this.$frontendConfig.accountsRegistrationEnabled) {
+            if (!this.frontendConfig.accountsRegistrationEnabled) {
                 this.$router.push('/');
             }
+        },
+        computed: {
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
         }
     };
 </script>

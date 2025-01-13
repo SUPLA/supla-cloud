@@ -14,7 +14,7 @@
                     <span v-if="username">
                         <session-countdown></session-countdown>
                     </span>
-                    <div v-else-if="isLoginPage && !$frontendConfig.maintenanceMode">
+                    <div v-else-if="isLoginPage && !frontendConfig.maintenanceMode">
                         <a v-if="showRegisterCloud"
                             class="brand nav-link"
                             :href="`https://cloud.supla.org/register-cloud?domain=${domain}`">
@@ -36,6 +36,8 @@
     import LanguageSelector from "./language-selector.vue";
     import SessionCountdown from "./session-countdown";
     import EventBus from "@/common/event-bus";
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         props: ['username'],
@@ -56,7 +58,7 @@
             updateVersionSignature() {
                 this.versionSignature =
                     this.$backendAndFrontendVersionMatches ?
-                        this.$frontendVersion
+                        this.frontendVersion
                         : `${this.$frontendVersion} / ${this.$backendVersion}`;
             },
         },
@@ -65,14 +67,15 @@
                 return this.$route.path.indexOf('/login') === 0 || this.$route.path.indexOf('/oauth-authorize') === 0;
             },
             domain() {
-                return this.$frontendConfig.suplaUrl.replace(/https?:\/\//, '');
+                return this.frontendConfig.suplaUrl.replace(/https?:\/\//, '');
             },
             showRegisterCloud() {
-                return !this.$frontendConfig.actAsBrokerCloud && !this.$frontendConfig.isCloudRegistered
-                    && this.$frontendConfig.suplaUrl.indexOf('https') === 0
+                return !this.frontendConfig.actAsBrokerCloud && !this.frontendConfig.isCloudRegistered
+                    && this.frontendConfig.suplaUrl.indexOf('https') === 0
                     && this.domain.indexOf('localhost:') !== 0
                     && this.domain !== 'localhost';
             },
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
         }
     };
 </script>
