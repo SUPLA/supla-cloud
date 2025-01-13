@@ -111,7 +111,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <router-link to="/account" class="text-center">
-                                    <span class="username" v-if="$user">{{ $user.username }}</span>
+                                    <span class="username" v-if="currentUserStore.username">{{ currentUserStore.username }}</span>
                                     {{ $t('Go to your account') }}
                                 </router-link>
                             </li>
@@ -145,6 +145,8 @@
 
 <script>
     import SuplaLogo from "./supla-logo";
+    import {mapStores} from "pinia";
+    import {useCurrentUserStore} from "@/stores/current-user-store";
 
     export default {
         components: {SuplaLogo},
@@ -162,9 +164,12 @@
             },
             logout() {
                 this.$http.post('logout', undefined, {skipErrorHandler: true});
-                this.$user.forget();
+                this.currentUserStore.forget();
                 this.$router.push({name: 'login'});
             }
+        },
+        computed: {
+            ...mapStores(useCurrentUserStore),
         },
         watch: {
             $route() {

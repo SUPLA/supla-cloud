@@ -14,6 +14,9 @@
     import LoginForm from "./login-form.vue";
     import {errorNotification} from "../common/notifier";
     import AppState from "../router/app-state";
+    import {mapStores} from "pinia";
+    import {useCurrentUserStore} from "@/stores/current-user-store";
+    import {detectGuiLocale} from "@/locale";
 
     export default {
         components: {LoginForm},
@@ -34,17 +37,12 @@
                 if (!this.authenticating) {
                     this.authenticating = true;
                     this.displayError = false;
-                    this.$user.authenticate(this.user.username, this.user.password)
-                        .then(userData => {
-                            if (userData) {
-                                if (userData.locale) {
-                                    this.$setLocale(userData.locale);
-                                } else {
-                                    this.$updateUserLocale(this.$i18n.locale);
-                                }
-                            }
+                    this.currentUserStore.authenticate(this.user.username, this.user.password)
+                        .then(() => {
+                            detectGuiLocale();
+                            this.$router.push(this.$router.currentRoute.query.target || '/').catch(() => {
+                            });
                         })
-                        .then(() => this.$router.push(this.$router.currentRoute.query.target || '/'))
                         .catch((error) => {
                             if (error.status == 401) {
                                 this.displayError = 'error';
@@ -60,6 +58,9 @@
                         });
                 }
             }
+        },
+        computed: {
+            ...mapStores(useCurrentUserStore),
         }
     };
 </script>

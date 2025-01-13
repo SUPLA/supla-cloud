@@ -1,27 +1,38 @@
 import {useFrontendConfigStore} from "@/stores/frontend-config-store";
-import Vue from "vue";
 import {i18n} from "@/locale";
 import {errorNotification} from "@/common/notifier";
+import {useCurrentUserStore} from "@/stores/current-user-store";
 
 function getDefaultHeaders() {
-    const token = Vue.prototype.$user?.getToken();
     const frontendConfig = useFrontendConfigStore();
-    return {
-        Authorization: `Bearer ${token}`,
+    const headers = {
+        'Accept': 'application/json',
         'X-Accept-Version': '3',
         'X-Client-Version': frontendConfig.frontendVersion,
     }
+    const currentUser = useCurrentUserStore();
+    const token = currentUser.userToken;
+    if (token) {
+        headers.Authorization = `Bearer ${token}`;
+    }
+    return headers;
+}
+
+function getDefaultHeadersJson() {
+    return {...getDefaultHeaders(), 'Content-Type': 'application/json'};
 }
 
 function buildAbsoluteUrl(endpoint) {
-    const frontendConfig = useFrontendConfigStore();
-    const serverUrl = Vue.prototype.$user?.determineServerUrl() || '';
-    return serverUrl + frontendConfig.baseUrl + '/api/' + endpoint;
+    const currentUser = useCurrentUserStore();
+    return currentUser.serverUrl + '/api/' + endpoint;
 }
 
 function responseHandler(request, config) {
     return (response) => {
-        if (response.status == 401) {
+        const skip = config.skipErrorHandler &&
+            (!Array.isArray(config.skipErrorHandler) || config.skipErrorHandler.includes(response?.status));
+        if (response.status === 401 && !skip) {
+            useCurrentUserStore().forget();
             window.location.assign(window.location.toString());
         } else {
             return response.text().then(text => {
@@ -58,10 +69,19 @@ function get(endpoint, config = {}) {
     return fetch(buildAbsoluteUrl(endpoint), requestOptions).then(responseHandler(requestOptions, config));
 }
 
+function post(endpoint, body, config = {}) {
+    const requestOptions = {
+        method: 'POST',
+        headers: getDefaultHeadersJson(),
+        body: JSON.stringify(body),
+    };
+    return fetch(buildAbsoluteUrl(endpoint), requestOptions).then(responseHandler(requestOptions, config));
+}
+
 function patch(endpoint, body, config = {}) {
     const requestOptions = {
         method: 'PATCH',
-        headers: getDefaultHeaders(),
+        headers: getDefaultHeadersJson(),
         body: JSON.stringify(body),
     };
     return fetch(buildAbsoluteUrl(endpoint), requestOptions).then(responseHandler(requestOptions, config));
@@ -77,6 +97,7 @@ function delete_(endpoint, config = {}) {
 
 export const api = {
     get,
+    post,
     patch,
     delete_,
 };

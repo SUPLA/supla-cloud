@@ -194,6 +194,8 @@
     import AppState from "../router/app-state";
     import TransitionExpand from "../common/gui/transition-expand";
     import {actionCaption} from "@/channels/channel-helpers";
+    import {mapState} from "pinia";
+    import {useCurrentUserStore} from "@/stores/current-user-store";
 
     export default {
         props: ['id', 'item'],
@@ -335,7 +337,7 @@
                 return this.item && this.item.url || '';
             },
             urlWithoutSecret() {
-                return this.$user.serverUrl + '/direct/' + this.directLink.id;
+                return this.serverUrl + '/direct/' + this.directLink.id;
             },
             linkSecret() {
                 return this.fullUrl ? this.fullUrl.substr(this.fullUrl.lastIndexOf('/') + 1) : this.$t('YOUR LINK CODE');
@@ -343,7 +345,10 @@
             examplePatchBody() {
                 return `curl -s -H "Content-Type: application/json" -H "Accept: application/json" -X PATCH ` +
                     `-d '{"code":"${this.linkSecret}","action":"read"}' ${this.urlWithoutSecret}`;
-            }
+            },
+            computed: {
+                ...mapState(useCurrentUserStore, ['serverUrl']),
+            },
         },
         watch: {
             id() {

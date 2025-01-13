@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from './routes';
+import {useCurrentUserStore} from "@/stores/current-user-store";
 
 Vue.use(VueRouter);
 
@@ -22,8 +23,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    const currentUser = useCurrentUserStore();
     if (Vue.config.external.regulationsAcceptRequired) {
-        if (Vue.prototype.$user.username && !Vue.prototype.$user.userData.agreements.rules && to.name != 'agree-on-rules') {
+        if (currentUser.username && !currentUser.userData.agreements.rules && to.name != 'agree-on-rules') {
             next({name: 'agree-on-rules'});
             return;
         }
@@ -32,9 +34,10 @@ router.beforeEach((to, from, next) => {
 });
 
 router.beforeEach((to, from, next) => {
-    if (!Vue.prototype.$user.username && !to.meta.unrestricted) {
+    const currentUser = useCurrentUserStore();
+    if (!currentUser.username && !to.meta.unrestricted) {
         next({name: 'login', query: {target: (to.fullPath?.length > 2 ? to.fullPath : undefined)}});
-    } else if (Vue.prototype.$user.username && to.meta.onlyUnauthenticated) {
+    } else if (currentUser.username && to.meta.onlyUnauthenticated) {
         next(to.query?.target || '/');
     } else if (Vue.config.external.maintenanceMode && to.meta.unavailableInMaintenance) {
         next('/');

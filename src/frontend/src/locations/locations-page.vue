@@ -4,7 +4,7 @@
         filters="location-filters"
         endpoint="locations"
         create-new-label-i18n="Create New Location"
-        :limit="$user.userData.limits.location"
+        :limit="userData.limits.location"
         details-route="location"></carousel-page>
 </template>
 
@@ -13,11 +13,16 @@
     import LocationTile from "./location-tile";
     import LocationFilters from "./location-filters";
     import Vue from "vue";
+    import {mapState} from "pinia";
+    import {useCurrentUserStore} from "@/stores/current-user-store";
 
     Vue.component('LocationTile', LocationTile);
     Vue.component('LocationFilters', LocationFilters);
 
     export default {
-        components: {CarouselPage}
+        components: {CarouselPage},
+        computed: {
+            ...mapState(useCurrentUserStore, ['userData']),
+        },
     };
 </script>

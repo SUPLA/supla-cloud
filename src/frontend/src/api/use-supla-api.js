@@ -1,21 +1,21 @@
 import {createFetch} from "@vueuse/core";
-import Vue from "vue";
 import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 import {errorNotification} from "@/common/notifier";
 import {i18n} from "@/locale";
+import {useCurrentUserStore} from "@/stores/current-user-store";
 
 export const useSuplaApi = createFetch({
     options: {
         async beforeFetch({url, options}) {
-            const {frontendVersion, baseUrl} = useFrontendConfigStore();
-            const token = Vue.prototype.$user?.getToken();
+            const {frontendVersion} = useFrontendConfigStore();
+            const currentUser = useCurrentUserStore();
+            const token = currentUser.userToken;
             if (token) {
                 options.headers.Authorization = `Bearer ${token}`
             }
             options.headers['X-Accept-Version'] = '3';
             options.headers['X-Client-Version'] = frontendVersion;
-            const serverUrl = Vue.prototype.$user?.determineServerUrl() || '';
-            url = serverUrl + baseUrl + '/api/' + url
+            url = currentUser.serverUrl + '/api/' + url
             return {url, options}
         },
         async onFetchError(e) {

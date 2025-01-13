@@ -16,7 +16,7 @@
             <square-link class="clearfix pointer black not-transform">
                 <span class="valign-center text-center">
                     <span>
-                        <div v-if="$user.userData.limits.channelPerGroup <= channelGroup.channels.length"
+                        <div v-if="userData.limits.channelPerGroup <= channelGroup.channels.length"
                             @click="addingNewChannel = false">
                             <i class="pe-7s-close-circle"></i>
                             {{ $t('Limit has been exceeded') }}
@@ -61,6 +61,8 @@
 <script>
     import ChannelFunction from "@/common/enums/channel-function";
     import ChannelsDropdown from "../devices/channels-dropdown.vue";
+    import {mapState} from "pinia";
+    import {useCurrentUserStore} from "@/stores/current-user-store";
 
     export default {
         props: ['channelGroup'],
@@ -93,6 +95,9 @@
                 ];
                 return !nonGroupingFunctions.includes(channel.function.id);
             },
+        },
+        computed: {
+            ...mapState(useCurrentUserStore, ['userData']),
         },
         watch: {
             channelGroup() {

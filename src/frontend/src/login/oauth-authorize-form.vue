@@ -45,6 +45,7 @@
 <script>
     import {addImplicitScopes, arrayOfScopes, availableScopes, scopeId, scopeSuffixLabels} from "../account/integrations/oauth-scopes";
     import {cloneDeep} from "lodash";
+    import {setGuiLocale} from "@/locale";
 
     export default {
         props: ['desiredScopes', 'clientName', 'locale'],
@@ -73,7 +74,7 @@
             );
             this.desiredAvailableScopes = desiredAvailableScopes.filter(scope => scope.suffixes.length > 0);
             if (this.locale) {
-                this.$setLocale(this.locale);
+                setGuiLocale(this.locale);
             }
         },
         methods: {

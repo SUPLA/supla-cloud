@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueI18n from "vue-i18n";
 import {Settings} from "luxon";
 import {createI18n} from 'vue-i18n-bridge'
+import {useCurrentUserStore} from "@/stores/current-user-store";
 
 Vue.config.availableLanguages = [
     {value: 'en', text: 'English'},
@@ -35,32 +36,6 @@ const i18n = createI18n({
     fallbackFormat: true,
 }, VueI18n);
 
-Vue.prototype.$setLocale = (lang) => {
-    if (i18n.locale !== lang) {
-        Promise.resolve(loadedLanguages.includes(lang) ? true : loadLanguage(lang)).then(() => {
-            i18n.locale = lang;
-            if (['ar'].includes(lang)) {
-                document.getElementsByTagName("html")[0].setAttribute('dir', 'rtl');
-            } else {
-                document.getElementsByTagName("html")[0].removeAttribute('dir');
-            }
-            Settings.defaultLocale = lang;
-            if (Vue.prototype.$user?.userData && Vue.prototype.$user.userData.locale != lang) {
-                Vue.prototype.$updateUserLocale(lang);
-            }
-            if (Vue.prototype.$localStorage) {
-                Vue.prototype.$localStorage.set('locale', lang);
-            }
-        });
-    }
-};
-
-Vue.prototype.$updateUserLocale = (lang) => {
-    return Vue.http.patch('users/current', {locale: lang, action: 'change:userLocale'}).then(() => {
-        Vue.prototype.$user.userData.locale = lang;
-    });
-};
-
 const loadedLanguages = [];
 
 const loadLanguage = (lang) => {
@@ -69,18 +44,19 @@ const loadLanguage = (lang) => {
             i18n.setLocaleMessage(lang, translations.default);
             loadedLanguages.push(lang);
         })
-        .catch(() => Vue.prototype.$setLocale('en'));
+        .catch(() => setGuiLocale('en'));
 };
 
 loadLanguage('en');
 
-const setGuiLocale = (userData) => {
+const detectGuiLocale = () => {
+    const userLocale = useCurrentUserStore().userData?.locale;
     let locale;
     let match = window.location.href.match(/[?&]lang=([a-z][a-z])/);
     if (match) {
         locale = match[1].substring(0, 2);
-    } else if (userData && userData.locale) {
-        locale = userData.locale;
+    } else if (userLocale) {
+        locale = userLocale;
     } else if (Vue.prototype.$localStorage && Vue.prototype.$localStorage.get('locale')) {
         locale = Vue.prototype.$localStorage.get('locale');
     } else {
@@ -91,7 +67,28 @@ const setGuiLocale = (userData) => {
     if (!availableLocales.includes(locale)) {
         locale = 'en';
     }
-    return Vue.prototype.$setLocale(locale);
+    return setGuiLocale(locale);
+};
+
+const setGuiLocale = (lang) => {
+    if (i18n.locale !== lang) {
+        Promise.resolve(loadedLanguages.includes(lang) ? true : loadLanguage(lang)).then(() => {
+            i18n.locale = lang;
+            if (['ar'].includes(lang)) {
+                document.getElementsByTagName("html")[0].setAttribute('dir', 'rtl');
+            } else {
+                document.getElementsByTagName("html")[0].removeAttribute('dir');
+            }
+            Settings.defaultLocale = lang;
+            const currentUser = useCurrentUserStore();
+            if (currentUser.username && currentUser.userData?.locale !== lang) {
+                currentUser.updateUserLocale(lang);
+            }
+            if (Vue.prototype.$localStorage) {
+                Vue.prototype.$localStorage.set('locale', lang);
+            }
+        });
+    }
 };
 
 const escapeI18n = (text) => {
@@ -103,5 +100,6 @@ export {
     i18n,
     loadLanguage,
     setGuiLocale,
+    detectGuiLocale,
     escapeI18n,
 };

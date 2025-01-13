@@ -1,16 +1,19 @@
 import Vue from "vue";
 import "./filters-date";
 import {i18n} from "@/locale";
+import {useCurrentUserStore} from "@/stores/current-user-store";
 
 export function withBaseUrl(url, absolute = true) {
     if (url[0] != '/') {
         url = '/' + url;
     }
-    return (Vue.prototype.$user ? ((absolute && Vue.prototype.$user.serverUrl) || '') : '') + (Vue.config.external?.baseUrl || '') + url;
+    const {serverUrl} = useCurrentUserStore();
+    return (serverUrl ? ((absolute && serverUrl) || '') : '') + url;
 }
 
 export function withDownloadAccessToken(url) {
-    return withBaseUrl(url) + 'access_token=' + Vue.prototype.$user.getFilesDownloadToken();
+    const {filesToken} = useCurrentUserStore();
+    return withBaseUrl(url) + 'access_token=' + filesToken;
 }
 
 export function channelTitle(channel) {

@@ -22,7 +22,7 @@
             endpoint="oauth-clients"
             create-new-label-i18n="Register a new OAuth application"
             details-route="myOauthApp"
-            :limit="$user.userData.limits.oauthClient"
+            :limit="userData.limits.oauthClient"
             class="my-oauth-apps-page"></carousel-page>
     </div>
 </template>
@@ -31,11 +31,16 @@
     import CarouselPage from "../../../common/pages/carousel-page.vue";
     import MyOauthAppTile from "./my-oauth-app-tile.vue";
     import Vue from "vue";
+    import {mapState} from "pinia";
+    import {useCurrentUserStore} from "@/stores/current-user-store";
 
     Vue.component('MyOauthAppTile', MyOauthAppTile);
 
     export default {
-        components: {CarouselPage}
+        components: {CarouselPage},
+        computed: {
+            ...mapState(useCurrentUserStore, ['userData']),
+        },
     };
 </script>
 

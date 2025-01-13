@@ -13,6 +13,7 @@
 
 <script>
     import Vue from "vue";
+    import {setGuiLocale} from "@/locale";
 
     export default {
         data() {
@@ -30,7 +31,7 @@
         },
         methods: {
             updateLocale() {
-                this.$setLocale(this.locale);
+                setGuiLocale(this.locale);
             }
         },
         watch: {

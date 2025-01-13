@@ -26,7 +26,7 @@
                     <input type="text"
                         name="username"
                         class="form-control"
-                        v-model="$user.username"
+                        v-model="currentUserStore.username"
                         readonly>
                     <label>{{ $t('Your email') }}</label>
                 </div>
@@ -72,6 +72,8 @@
     import Vue from "vue";
     import AppState from "../../router/app-state";
     import {DateTime} from "luxon";
+    import {useCurrentUserStore} from "@/stores/current-user-store";
+    import {mapStores} from "pinia";
 
     export default {
         data() {
@@ -98,7 +100,8 @@
                 } else {
                     return '';
                 }
-            }
+            },
+            ...mapStores(useCurrentUserStore),
         },
         methods: {
             synchronizeExpirationTime() {
@@ -123,7 +126,7 @@
             extendSession() {
                 this.loading = true;
                 this.error = false;
-                this.$user.authenticate(this.$user.username, this.password)
+                this.currentUserStore.authenticate(this.currentUserStore.username, this.password)
                     .then(() => this.synchronizeExpirationTime())
                     .then(() => this.cancel())
                     .catch(() => this.error = true)

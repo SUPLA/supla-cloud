@@ -24,6 +24,8 @@
 
 <script>
     import RegulationsCheckbox from "./regulations-checkbox";
+    import {mapState} from "pinia";
+    import {useCurrentUserStore} from "@/stores/current-user-store";
 
     export default {
         components: {RegulationsCheckbox},
@@ -33,7 +35,7 @@
             };
         },
         mounted() {
-            if (this.$user.userData.agreements.rules) {
+            if (this.userData.agreements.rules) {
                 this.$router.push('/');
             }
         },
@@ -46,6 +48,9 @@
             disagree() {
                 document.getElementById('logoutButton').dispatchEvent(new MouseEvent('click'));
             }
-        }
+        },
+        computed: {
+            ...mapState(useCurrentUserStore, ['userData']),
+        },
     };
 </script>

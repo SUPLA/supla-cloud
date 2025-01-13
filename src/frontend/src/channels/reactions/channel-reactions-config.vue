@@ -10,7 +10,7 @@
             list-route="channel.reactions"
             details-route="channel.reactions.details"
             id-param-name="reactionId"
-            :limit="$user.userData.limits.schedule"
+            :limit="userData.limits.schedule"
             :new-item-factory="newReactionFactory"/>
     </div>
 </template>
@@ -19,6 +19,8 @@
     import ReactionTile from "./reaction-tile";
     import Vue from "vue";
     import CarouselPage from "@/common/pages/carousel-page.vue";
+    import {mapState} from "pinia";
+    import {useCurrentUserStore} from "@/stores/current-user-store";
 
     Vue.component('ReactionTile', ReactionTile);
 
@@ -34,7 +36,10 @@
                     enabled: true,
                 };
             },
-        }
+        },
+        computed: {
+            ...mapState(useCurrentUserStore, ['userData']),
+        },
     };
 </script>
 

@@ -3,7 +3,7 @@ import 'bootstrap/js/tooltip';
 import "pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Vue from "vue";
-import {i18n, setGuiLocale} from './locale';
+import {detectGuiLocale, i18n} from './locale';
 import router from './router';
 import VueResource from "vue-resource";
 import ResponseErrorInterceptor from "./common/http/response-error-interceptor";
@@ -13,11 +13,9 @@ import "./common/common-directives";
 import "./common/filters";
 import "./styles/styles.scss";
 import "./polyfills";
-import {CurrentUser} from "./login/current-user";
 import {LocalStorageWithMemoryFallback} from "./common/local-storage";
 import App from "./App";
 import EventBus from "./common/event-bus";
-import {DateTime, Settings} from 'luxon';
 import './hello';
 import './styles/fontawesome';
 import FloatingVue from 'floating-vue';
@@ -26,6 +24,7 @@ import {createApp} from 'vue-demi'
 import {pinia} from "@/stores";
 import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 import {PiniaVuePlugin} from "pinia";
+import {useCurrentUserStore} from "@/stores/current-user-store";
 
 Vue.use(VueResource);
 Vue.use(FloatingVue);
@@ -51,7 +50,7 @@ Vue.prototype.compareFrontendAndBackendVersion = (backendVersion) => {
 const appContainer = document.getElementById('vue-container');
 if (!appContainer) {
     // eslint-disable-next-line no-console
-    console.warn('App container #vue-container could not be found.');
+    console.error('App container #vue-container could not be found.');
 }
 
 const appConfig = {
@@ -74,31 +73,20 @@ const app = createApp(appConfig);
 app.use(i18n);
 app.use(pinia);
 
-const renderStart = new Date();
 const frontendConfigStore = useFrontendConfigStore();
-frontendConfigStore.fetchConfig()
-    .then(() => {
-        Vue.config.external = frontendConfigStore.config;
-        Vue.prototype.$appEnv = frontendConfigStore.env || 'prod';
-        Vue.prototype.compareFrontendAndBackendVersion(frontendConfigStore.cloudVersion);
-        if (!Vue.config.external.baseUrl) {
-            Vue.config.external.baseUrl = '';
-        }
-        const serverTime = DateTime.fromISO(frontendConfigStore.time).toJSDate();
-        const offset = serverTime.getTime() - renderStart.getTime();
-        Settings.now = function () {
-            return Date.now() + offset;
-        };
-        Vue.prototype.$user = new CurrentUser();
-    })
-    .then(() => Vue.prototype.$user.fetchUser())
-    .then((userData) => setGuiLocale(userData))
-    .then(() => {
-        app.mount(appContainer);
-        Vue.http.interceptors.push(ResponseErrorInterceptor());
-        for (const transformer in requestTransformers) {
-            Vue.http.interceptors.push(requestTransformers[transformer]);
-        }
-    })
-    // eslint-disable-next-line no-console
-    .catch((error) => console.warn(error));
+const currentUserStore = useCurrentUserStore();
+
+await frontendConfigStore.fetchConfig();
+
+Vue.config.external = frontendConfigStore.config;
+Vue.prototype.$appEnv = frontendConfigStore.env || 'prod';
+Vue.prototype.compareFrontendAndBackendVersion(frontendConfigStore.cloudVersion);
+
+await currentUserStore.fetchUser();
+detectGuiLocale();
+
+app.mount(appContainer);
+Vue.http.interceptors.push(ResponseErrorInterceptor());
+for (const transformer in requestTransformers) {
+    Vue.http.interceptors.push(requestTransformers[transformer]);
+}

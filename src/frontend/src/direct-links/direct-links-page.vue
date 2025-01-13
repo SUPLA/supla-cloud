@@ -3,7 +3,7 @@
         tile="direct-link-tile"
         endpoint="direct-links?include=subject"
         create-new-label-i18n="Create new direct link"
-        :limit="$user.userData.limits.directLink"
+        :limit="userData.limits.directLink"
         filters="direct-link-filters"
         list="direct-links-list"
         details-route="directLink"></carousel-page>
@@ -15,12 +15,17 @@
     import DirectLinksList from "./direct-links-list";
     import DirectLinkFilters from "./direct-link-filters";
     import Vue from "vue";
+    import {mapState} from "pinia";
+    import {useCurrentUserStore} from "@/stores/current-user-store";
 
     Vue.component('DirectLinkTile', DirectLinkTile);
     Vue.component('DirectLinksList', DirectLinksList);
     Vue.component('DirectLinkFilters', DirectLinkFilters);
 
     export default {
-        components: {CarouselPage}
+        components: {CarouselPage},
+        computed: {
+            ...mapState(useCurrentUserStore, ['userData']),
+        },
     };
 </script>

@@ -90,6 +90,8 @@
     import CopyButton from "../../../common/copy-button.vue";
     import autosize from "autosize";
     import {urlParams} from "@/common/utils";
+    import {mapState} from "pinia";
+    import {useCurrentUserStore} from "@/stores/current-user-store";
 
     export default {
         props: ['id'],
@@ -155,7 +157,7 @@
                 return !this.app.id;
             },
             exampleAuthUrl() {
-                return this.$user.serverUrl + '/oauth/v2/auth?' + urlParams({
+                return this.serverUrl + '/oauth/v2/auth?' + urlParams({
                     client_id: this.app.publicId,
                     scope: 'account_r',
                     state: 'example-state',
@@ -166,7 +168,8 @@
             secretPreview() {
                 const stars20 = '********************';
                 return this.app.secret.substr(0, 5) + stars20 + stars20 + this.app.secret.substr(this.app.secret.length - 5);
-            }
+            },
+            ...mapState(useCurrentUserStore, ['serverUrl']),
         },
         watch: {
             id() {
