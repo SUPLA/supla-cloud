@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {api} from "@/api/api";
 import {DateTime, Settings} from "luxon";
 
@@ -28,8 +28,14 @@ export const useFrontendConfigStore = defineStore('frontendConfig', () => {
         };
     };
 
+    const backendAndFrontendVersionMatches = computed(() => {
+        const frontendUnknown = frontendVersion.value === 'UNKNOWN_VERSION';
+        const versionMatches = frontendVersion.value.indexOf(cloudVersion.value) === 0;
+        return versionMatches || frontendUnknown;
+    });
+
     const $reset = () => {
     };
 
-    return {config, cloudVersion, frontendVersion, env, baseUrl, $reset, fetchConfig};
+    return {config, cloudVersion, frontendVersion, env, baseUrl, backendAndFrontendVersionMatches, $reset, fetchConfig};
 })

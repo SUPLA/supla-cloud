@@ -1,46 +1,36 @@
 <template>
     <modal-confirm
-        v-if="shown"
+        v-if="!frontendConfigStore.backendAndFrontendVersionMatches && !isDev && shown"
         @confirm="redirect()"
         @cancel="shown = false"
         class="modal-warning green-confirm-button"
         :header="$t('Update in progress')">
         <p>{{ $t('The SUPLA infrastructure is being updated.') }}</p>
-        <p>{{ $t('For a short period of time, it is recommended for you to use the {suplaUrl} address.', {suplaUrl: frontendConfig.suplaUrl}) }}</p>
+        <p>{{ $t('For a short period of time, it is recommended for you to use the {suplaUrl} address.', {suplaUrl: frontendConfigStore.config.suplaUrl}) }}</p>
         <p>{{ $t('Do you want to be redirected there? You may be asked to authenticate again.') }}</p>
     </modal-confirm>
 </template>
 
 <script>
-    import EventBus from "../event-bus";
-    import {mapState} from "pinia";
+    import {mapStores} from "pinia";
     import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         data() {
             return {
-                shown: false,
-                callback: undefined,
-            };
-        },
-        mounted() {
-            this.callback = () => this.showWarningIfNeeded();
-            EventBus.$on('backend-version-updated', this.callback);
-            this.showWarningIfNeeded();
-        },
-        beforeDestroy() {
-            EventBus.$off('backend-version-updated', this.callback);
+                shown: true,
+            }
         },
         methods: {
-            showWarningIfNeeded() {
-                this.shown = !this.$backendAndFrontendVersionMatches;
-            },
             redirect() {
-                window.location.href = this.frontendConfig.suplaUrl;
+                window.location.href = this.frontendConfigStore.config.suplaUrl;
             }
         },
         computed: {
-            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
+            isDev() {
+                return ['dev', 'e2e'].includes(this.frontendConfigStore.env);
+            },
+            ...mapStores(useFrontendConfigStore),
         }
     };
 </script>

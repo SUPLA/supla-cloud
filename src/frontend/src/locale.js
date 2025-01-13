@@ -47,8 +47,6 @@ const loadLanguage = (lang) => {
         .catch(() => setGuiLocale('en'));
 };
 
-loadLanguage('en');
-
 const detectGuiLocale = () => {
     const userLocale = useCurrentUserStore().userData?.locale;
     let locale;

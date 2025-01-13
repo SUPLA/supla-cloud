@@ -5,7 +5,7 @@
             :file="'assets/img/user-account-bg.svg' | withBaseUrl(false)"></animated-svg>
         <div :class="'user-account-container ' + (animationFinished ? 'animation-finished' : '')">
             <loading-cover :loading="!user">
-                <span class="supla-version">supla cloud {{ $frontendVersion }}</span>
+                <span class="supla-version">supla cloud {{ frontendVersion }}</span>
                 <transition name="fade">
                     <div class="user-account"
                         v-if="user">
@@ -97,7 +97,7 @@
             suplaServerHost() {
                 return this.frontendConfig.suplaUrl.replace(/https?:\/\//, '');
             },
-            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config', 'frontendVersion': 'frontendVersion'}),
         },
     };
 </script>

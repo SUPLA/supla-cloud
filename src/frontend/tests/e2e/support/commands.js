@@ -3,6 +3,8 @@ Cypress.Commands.add('loginStub', (username = 'user@supla.org', password = 'pass
     cy.intercept('POST', 'api/webapp-auth', {fixture: 'access-token'});
     cy.intercept('api/users/current', {fixture: 'current-user.json'});
     cy.intercept('GET', 'api/iodevices?*', {headers: {'X-Total-Count': '4'}, fixture: 'iodevices.json'});
+    cy.intercept('GET', 'api/channels?*', {headers: {'X-Total-Count': '4'}, fixture: 'iodevices.json'});
+    cy.intercept('GET', 'api/locations', {headers: {'X-Total-Count': '4'}, fixture: 'iodevices.json'});
     cy.login(username, password);
 });
 

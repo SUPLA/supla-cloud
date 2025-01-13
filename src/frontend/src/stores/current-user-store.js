@@ -57,7 +57,6 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
         userToken.value = null;
         filesToken.value = null;
         tokenExpiration.value = null;
-        username.value = undefined;
         userData.value = undefined;
         serverUrl.value = undefined;
         synchronizeAuthState();

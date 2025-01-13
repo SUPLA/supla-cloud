@@ -3,7 +3,7 @@ import 'bootstrap/js/tooltip';
 import "pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Vue from "vue";
-import {detectGuiLocale, i18n} from './locale';
+import {detectGuiLocale, i18n, loadLanguage} from './locale';
 import router from './router';
 import VueResource from "vue-resource";
 import ResponseErrorInterceptor from "./common/http/response-error-interceptor";
@@ -15,7 +15,6 @@ import "./styles/styles.scss";
 import "./polyfills";
 import {LocalStorageWithMemoryFallback} from "./common/local-storage";
 import App from "./App";
-import EventBus from "./common/event-bus";
 import './hello';
 import './styles/fontawesome';
 import FloatingVue from 'floating-vue';
@@ -30,22 +29,13 @@ Vue.use(VueResource);
 Vue.use(FloatingVue);
 Vue.use(PiniaVuePlugin);
 
-Vue.prototype.$frontendVersion = FRONTEND_VERSION; // eslint-disable-line no-undef
 Vue.config.productionTip = false;
 Vue.http.headers.common['X-Accept-Version'] = '3';
-Vue.http.headers.common['X-Client-Version'] = Vue.prototype.$frontendVersion;
+Vue.http.headers.common['X-Client-Version'] = FRONTEND_VERSION; // eslint-disable-line no-undef
 
 Vue.prototype.$localStorage = new LocalStorageWithMemoryFallback();
 Vue.prototype.$changingRoute = false;
 Vue.http.options.root = '/api';
-Vue.prototype.compareFrontendAndBackendVersion = (backendVersion) => {
-    Vue.prototype.$backendVersion = backendVersion;
-    const frontendUnknown = Vue.prototype.$frontendVersion === 'UNKNOWN_VERSION';
-    const frontendAndBackendMatches = Vue.prototype.$frontendVersion.indexOf(Vue.prototype.$backendVersion) === 0;
-    const isDev = ['dev', 'e2e'].includes(Vue.prototype.$appEnv);
-    Vue.prototype.$backendAndFrontendVersionMatches = frontendAndBackendMatches || frontendUnknown || isDev;
-    EventBus.$emit('backend-version-updated');
-};
 
 const appContainer = document.getElementById('vue-container');
 if (!appContainer) {
@@ -79,10 +69,9 @@ const currentUserStore = useCurrentUserStore();
 await frontendConfigStore.fetchConfig();
 
 Vue.config.external = frontendConfigStore.config;
-Vue.prototype.$appEnv = frontendConfigStore.env || 'prod';
-Vue.prototype.compareFrontendAndBackendVersion(frontendConfigStore.cloudVersion);
 
 await currentUserStore.fetchUser();
+await loadLanguage('en');
 detectGuiLocale();
 
 app.mount(appContainer);

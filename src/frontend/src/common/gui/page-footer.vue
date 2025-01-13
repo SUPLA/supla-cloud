@@ -14,7 +14,7 @@
                     <span v-if="username">
                         <session-countdown></session-countdown>
                     </span>
-                    <div v-else-if="isLoginPage && !frontendConfig.maintenanceMode">
+                    <div v-else-if="isLoginPage && !frontendConfigStore.config.maintenanceMode">
                         <a v-if="showRegisterCloud"
                             class="brand nav-link"
                             :href="`https://cloud.supla.org/register-cloud?domain=${domain}`">
@@ -35,39 +35,23 @@
 <script>
     import LanguageSelector from "./language-selector.vue";
     import SessionCountdown from "./session-countdown";
-    import EventBus from "@/common/event-bus";
-    import {mapState} from "pinia";
+    import {mapStores} from "pinia";
     import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         props: ['username'],
         components: {LanguageSelector, SessionCountdown},
-        data() {
-            return {
-                versionSignature: ''
-            };
-        },
-        mounted() {
-            this.updateVersionSignature();
-            EventBus.$on('backend-version-updated', this.updateVersionSignature);
-        },
-        beforeDestroy() {
-            EventBus.$off('backend-version-updated', this.updateVersionSignature);
-        },
-        methods: {
-            updateVersionSignature() {
-                this.versionSignature =
-                    this.$backendAndFrontendVersionMatches ?
-                        this.frontendVersion
-                        : `${this.$frontendVersion} / ${this.$backendVersion}`;
-            },
-        },
         computed: {
+            versionSignature() {
+                return this.frontendConfigStore.backendAndFrontendVersionMatches ?
+                    this.frontendConfigStore.frontendVersion
+                    : `${this.frontendConfigStore.frontendVersion} / ${this.frontendConfigStore.cloudVersion}`;
+            },
             isLoginPage() {
                 return this.$route.path.indexOf('/login') === 0 || this.$route.path.indexOf('/oauth-authorize') === 0;
             },
             domain() {
-                return this.frontendConfig.suplaUrl.replace(/https?:\/\//, '');
+                return this.frontendConfigStore.config.suplaUrl.replace(/https?:\/\//, '');
             },
             showRegisterCloud() {
                 return !this.frontendConfig.actAsBrokerCloud && !this.frontendConfig.isCloudRegistered
@@ -75,7 +59,7 @@
                     && this.domain.indexOf('localhost:') !== 0
                     && this.domain !== 'localhost';
             },
-            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
+            ...mapStores(useFrontendConfigStore),
         }
     };
 </script>
