@@ -159,6 +159,8 @@
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
     import ChannelFunctionAction from "@/common/enums/channel-function-action";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         props: {
@@ -225,8 +227,9 @@
                 return !!this.$slots['other'] || !!this.$scopedSlots['other'];
             },
             notificationsEnabled() {
-                return !this.disableNotifications && Vue.config.external.notificationsEnabled;
+                return !this.disableNotifications && this.frontendConfig.notificationsEnabled;
             },
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
         },
         watch: {
             value() {

@@ -119,7 +119,6 @@
 </template>
 
 <script>
-    import Vue from 'vue';
     import ButtonLoadingDots from '../common/gui/loaders/button-loading-dots.vue';
     import InvisibleRecaptcha from './invisible-recaptcha.vue';
     import RegulationsCheckbox from "../common/errors/regulations-checkbox";
@@ -127,6 +126,8 @@
     import {DateTime} from "luxon";
     import FaChecklistBullet from "@/register/fa-checklist-bullet";
     import TransitionExpand from "@/common/gui/transition-expand";
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         components: {
@@ -142,9 +143,6 @@
                 timezone: DateTime.local().setZone("system").zoneName || 'Europe/Warsaw',
                 isBusy: false,
                 errorMessage: '',
-                regulationsAcceptRequired: Vue.config.external.regulationsAcceptRequired,
-                captchaEnabled: Vue.config.external.recaptchaEnabled,
-                captchaSiteKey: Vue.config.external.recaptchaSiteKey,
                 captchaToken: null,
                 regulationsAgreed: false,
                 resendActivationLinkOption: false,
@@ -169,6 +167,16 @@
             },
             formIsValid() {
                 return !this.errorEmail && !this.errorPassword && !this.errorPasswordConfirm && !this.errorRegulations;
+            },
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
+            captchaEnabled() {
+                return this.frontendConfig.recaptchaEnabled;
+            },
+            captchaSiteKey() {
+                return this.frontendConfig.recaptchaSiteKey;
+            },
+            regulationsAcceptRequired() {
+                return this.frontendConfig.regulationsAcceptRequired;
             },
         },
         methods: {

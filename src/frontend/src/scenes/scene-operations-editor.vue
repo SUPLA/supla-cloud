@@ -123,6 +123,8 @@
     import ChannelFunctionAction from "../common/enums/channel-function-action";
     import ActionableSubjectType from "../common/enums/actionable-subject-type";
     import NotificationForm from "@/notifications/notification-form";
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     let UNIQUE_OPERATION_ID = 0;
 
@@ -140,7 +142,6 @@
                 dragging: false,
                 lastValue: undefined,
                 operations: [],
-                notificationsEnabled: Vue.config.external.notificationsEnabled,
             };
         },
         mounted() {
@@ -230,6 +231,12 @@
             prettyMilliseconds(ms) {
                 return prettyMilliseconds(ms);
             }
+        },
+        computed: {
+            notificationsEnabled() {
+                return this.frontendConfig.notificationsEnabled;
+            },
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
         },
         watch: {
             value() {

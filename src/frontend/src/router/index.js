@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from './routes';
 import {useCurrentUserStore} from "@/stores/current-user-store";
+import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
 Vue.use(VueRouter);
 
@@ -24,7 +25,8 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     const currentUser = useCurrentUserStore();
-    if (Vue.config.external.regulationsAcceptRequired) {
+    const frontendConfig = useFrontendConfigStore();
+    if (frontendConfig.config.regulationsAcceptRequired) {
         if (currentUser.username && !currentUser.userData.agreements.rules && to.name != 'agree-on-rules') {
             next({name: 'agree-on-rules'});
             return;
@@ -35,11 +37,12 @@ router.beforeEach((to, from, next) => {
 
 router.beforeEach((to, from, next) => {
     const currentUser = useCurrentUserStore();
+    const frontendConfig = useFrontendConfigStore();
     if (!currentUser.username && !to.meta.unrestricted) {
         next({name: 'login', query: {target: (to.fullPath?.length > 2 ? to.fullPath : undefined)}});
     } else if (currentUser.username && to.meta.onlyUnauthenticated) {
         next(to.query?.target || '/');
-    } else if (Vue.config.external.maintenanceMode && to.meta.unavailableInMaintenance) {
+    } else if (frontendConfig.config.maintenanceMode && to.meta.unavailableInMaintenance) {
         next('/');
     } else {
         next();
@@ -47,7 +50,8 @@ router.beforeEach((to, from, next) => {
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.meta.requireBackendAndFrontendVersionMatches && !Vue.prototype.$backendAndFrontendVersionMatches) {
+    const frontendConfig = useFrontendConfigStore();
+    if (to.meta.requireBackendAndFrontendVersionMatches && !frontendConfig.backendAndFrontendVersionMatches) {
         next({name: 'update-in-progress'});
     } else {
         next();
@@ -55,8 +59,9 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach((to) => {
+    const frontendConfig = useFrontendConfigStore();
     let cssClass = to.meta.bodyClass || '';
-    if (Vue.config.external.maintenanceMode) {
+    if (frontendConfig.config.maintenanceMode) {
         cssClass += ' maintenance-mode';
     }
     if (cssClass) {

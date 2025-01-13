@@ -157,7 +157,7 @@
                 </div>
             </div>
         </loading-cover>
-        <div v-if="showChangingInfo && currentTab !== 'data'"
+        <div v-if="frontendConfigStore.config.actAsBrokerCloud && currentTab !== 'data'"
             class="alert alert-info my-3">
             <p class="mb-2">
                 <i18n-t keypath="Use the {0} server command to change this account's limits. For example:">
@@ -181,7 +181,6 @@
 
 <script>
     import AccountLimitProgressbar from "./account-limit-progressbar";
-    import Vue from "vue";
     import {DateTime} from "luxon";
     import {useFrontendConfigStore} from "@/stores/frontend-config-store";
     import {mapStores} from "pinia";
@@ -196,7 +195,6 @@
                 relationsCount: undefined,
                 apiRateStatus: undefined,
                 currentTab: 'features',
-                showChangingInfo: !Vue.config.external.actAsBrokerCloud,
             };
         },
         mounted() {

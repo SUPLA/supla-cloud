@@ -99,7 +99,8 @@
 <script>
     import {errorNotification} from "../common/notifier";
     import {prettyBytes, withDownloadAccessToken} from "../common/filters";
-    import Vue from "vue";
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         props: ['model', 'icon'],
@@ -113,8 +114,6 @@
                 previewsDark: [],
                 uploading: false,
                 fileCopyrightConfirmed: false,
-                maxUploadSizePerFile: Vue.config.external.max_upload_size.file || 0,
-                maxUploadSizeTotal: Vue.config.external.max_upload_size.total || 0,
                 filesTooBig: false,
             };
         },
@@ -200,7 +199,14 @@
             },
             maxUploadSizeTotalPretty() {
                 return prettyBytes(this.maxUploadSizeTotal);
-            }
+            },
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
+            maxUploadSizePerFile() {
+                return this.frontendConfig.max_upload_size?.file || 0;
+            },
+            maxUploadSizeTotal() {
+                return this.frontendConfig.max_upload_size?.total || 0;
+            },
         }
     };
 </script>

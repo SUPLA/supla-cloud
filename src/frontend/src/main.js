@@ -68,8 +68,6 @@ const currentUserStore = useCurrentUserStore();
 
 await frontendConfigStore.fetchConfig();
 
-Vue.config.external = frontendConfigStore.config;
-
 await currentUserStore.fetchUser();
 await loadLanguage('en');
 detectGuiLocale();

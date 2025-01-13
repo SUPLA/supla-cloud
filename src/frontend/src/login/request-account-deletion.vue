@@ -53,8 +53,9 @@
 
 <script>
     import {errorNotification} from "../common/notifier";
-    import Vue from "vue";
     import InvisibleRecaptcha from "@/register/invisible-recaptcha";
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         components: {InvisibleRecaptcha},
@@ -64,8 +65,6 @@
                 password: '',
                 isBusy: false,
                 isSent: false,
-                captchaEnabled: Vue.config.external.recaptchaEnabled,
-                captchaSiteKey: Vue.config.external.recaptchaSiteKey,
             };
         },
         methods: {
@@ -88,7 +87,14 @@
                 } else {
                     return undefined;
                 }
-            }
+            },
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
+            captchaEnabled() {
+                return this.frontendConfig.recaptchaEnabled;
+            },
+            captchaSiteKey() {
+                return this.frontendConfig.recaptchaSiteKey;
+            },
         }
     };
 </script>

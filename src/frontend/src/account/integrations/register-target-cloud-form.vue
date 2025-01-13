@@ -124,11 +124,12 @@
     import RegisterSlider from '../../register/register-slider.vue';
     import RegulationsCheckbox from "../../common/errors/regulations-checkbox.vue";
     import InvisibleRecaptcha from "../../register/invisible-recaptcha.vue";
-    import Vue from "vue";
     import ButtonLoadingDots from '../../common/gui/loaders/button-loading-dots.vue';
     import PageContainer from "../../common/pages/page-container.vue";
     import CopyButton from "../../common/copy-button.vue";
     import WholeScreenMessage from "../../register/whole-screen-message.vue";
+    import {mapState} from "pinia";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
     export default {
         components: {
@@ -140,8 +141,6 @@
                 email: '',
                 targetCloud: this.$route.query.domain || '',
                 isBusy: false,
-                captchaSiteKey: Vue.config.external.recaptchaSiteKey,
-                error: Vue.config.external.actAsBrokerCloud ? 0 : 404,
                 regulationsAgreed: false,
                 errorMessage: '',
                 token: undefined,
@@ -172,6 +171,13 @@
             },
             tokenCommand() {
                 return `docker exec -it -u www-data supla-cloud php bin/console supla:register-target-cloud ${this.token}`;
+            },
+            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
+            captchaSiteKey() {
+                return this.frontendConfig.recaptchaSiteKey;
+            },
+            error() {
+                return this.frontendConfig.actAsBrokerCloud ? 0 : 404;
             },
         },
         methods: {
