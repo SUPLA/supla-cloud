@@ -1,14 +1,11 @@
 <template>
-    <modal
-        class="text-left modal-800 display-newlines">
-        <div slot>
+    <modal class="text-left modal-800 display-newlines">
+        <div>
             <loading-cover :loading="!rules">
-                <div v-if="rules"
-                    v-html="rules"></div>
+                <div v-if="rules" v-html="rules"></div>
             </loading-cover>
         </div>
-        <div slot="footer">
-        </div>
+        <template #footer></template>
     </modal>
 </template>
 

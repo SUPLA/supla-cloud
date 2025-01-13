@@ -166,7 +166,7 @@
             </p>
             <pre><code>docker-compose exec -u www-data supla-cloud php bin/console supla:user:change-limits {{ user.email }}</code></pre>
         </div>
-        <div slot="footer">
+        <template #footer>
             <a @click="fetchLimits()"
                 class="cancel small">
                 <i class="pe-7s-refresh-2"></i>
@@ -175,7 +175,7 @@
                 class="confirm">
                 <i class="pe-7s-check"></i>
             </a>
-        </div>
+        </template>
     </modal>
 </template>
 

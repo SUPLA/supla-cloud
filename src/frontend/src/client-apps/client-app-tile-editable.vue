@@ -1,59 +1,59 @@
 <template>
     <div>
         <flipper :flipped="!!editingModel">
-            <client-app-tile :model="app"
-                slot="front"
-                @click="edit()"></client-app-tile>
-            <square-link class="yellow not-transform"
-                slot="back">
-                <form @submit.prevent="save()"
-                    v-if="editingModel">
-                    <div class="form-group">
-                        <label>{{ $t('Name') }}</label>
-                        <input type="text"
-                            class="form-control"
-                            v-model="editingModel.caption">
-                    </div>
-
-                    <div class="form-group">
-                        <label>{{ $t('Access Identifier') }}</label>
-                        <div>
-                            <a @click="assignAccessIds = true">
-                                <span v-if="editingModel.accessId">
-                                    ID{{ editingModel.accessId.id }} {{ editingModel.accessId.caption }}
-                                </span>
-                                <span v-else>{{ $t('None') }}</span>
-                            </a>
+            <template #front>
+                <client-app-tile :model="app" @click="edit()"/>
+            </template>
+            <template #back>
+                <square-link class="yellow not-transform">
+                    <form @submit.prevent="save()"
+                        v-if="editingModel">
+                        <div class="form-group">
+                            <label>{{ $t('Name') }}</label>
+                            <input type="text"
+                                class="form-control"
+                                v-model="editingModel.caption">
                         </div>
-                    </div>
-                    <switches v-model="editingModel.enabled"
-                        type-bold="true"
-                        color="green"
-                        :emit-on-mount="false"
-                        :text-enabled="$t('Enabled')"
-                        :text-disabled="$t('Disabled')"></switches>
-                    <div class="form-group text-right">
-                        <button type="button"
-                            :disabled="saving"
-                            @click="deleteConfirm = true"
-                            class="btn btn-danger btn-sm pull-left">
-                            {{ $t('Delete') }}
-                        </button>
-                        <button type="button"
-                            :disabled="saving"
-                            class="btn btn-default btn-sm"
-                            @click="cancelEdit()">
-                            {{ $t('Cancel') }}
-                        </button>
-                        <button class="btn btn-green btn-sm"
-                            type="submit"
-                            :disabled="saving">
-                            <button-loading-dots v-if="saving"></button-loading-dots>
-                            <span v-else>OK</span>
-                        </button>
-                    </div>
-                </form>
-            </square-link>
+                        <div class="form-group">
+                            <label>{{ $t('Access Identifier') }}</label>
+                            <div>
+                                <a @click="assignAccessIds = true">
+                                    <span v-if="editingModel.accessId">
+                                        ID{{ editingModel.accessId.id }} {{ editingModel.accessId.caption }}
+                                    </span>
+                                    <span v-else>{{ $t('None') }}</span>
+                                </a>
+                            </div>
+                        </div>
+                        <switches v-model="editingModel.enabled"
+                            type-bold="true"
+                            color="green"
+                            :emit-on-mount="false"
+                            :text-enabled="$t('Enabled')"
+                            :text-disabled="$t('Disabled')"></switches>
+                        <div class="form-group text-right">
+                            <button type="button"
+                                :disabled="saving"
+                                @click="deleteConfirm = true"
+                                class="btn btn-danger btn-sm pull-left">
+                                {{ $t('Delete') }}
+                            </button>
+                            <button type="button"
+                                :disabled="saving"
+                                class="btn btn-default btn-sm"
+                                @click="cancelEdit()">
+                                {{ $t('Cancel') }}
+                            </button>
+                            <button class="btn btn-green btn-sm"
+                                type="submit"
+                                :disabled="saving">
+                                <button-loading-dots v-if="saving"></button-loading-dots>
+                                <span v-else>OK</span>
+                            </button>
+                        </div>
+                    </form>
+                </square-link>
+            </template>
         </flipper>
         <modal-confirm v-if="deleteConfirm"
             @confirm="deleteClient()"

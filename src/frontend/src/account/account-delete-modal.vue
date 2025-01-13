@@ -10,7 +10,7 @@
             v-model="password"
             id="password">
         <label for="password">{{ $t('Password') }}</label>
-        <div slot="footer">
+        <template #footer>
             <button-loading-dots v-if="loading"></button-loading-dots>
             <div v-else>
                 <a @click="$emit('cancel')"
@@ -22,7 +22,7 @@
                     {{ $t('I confirm! Delete my account.') }}
                 </a>
             </div>
-        </div>
+        </template>
     </modal>
 </template>
 

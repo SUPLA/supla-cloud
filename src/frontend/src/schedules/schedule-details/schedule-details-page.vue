@@ -9,17 +9,18 @@
                     @cancel="cancelChanges()"
                     @save="saveChanges()"
                     :is-pending="hasPendingChanges">
-                    <div class="btn-toolbar"
-                        slot="buttons">
-                        <router-link :to="{name: 'schedule.edit', params: {id: schedule.id}}"
-                            class="btn btn-default">
-                            {{ $t('Edit') }}
-                        </router-link>
-                        <a class="btn btn-danger"
-                            @click="deleteConfirm = true">
-                            {{ $t('Delete') }}
-                        </a>
-                    </div>
+                    <template #buttons>
+                        <div class="btn-toolbar">
+                            <router-link :to="{name: 'schedule.edit', params: {id: schedule.id}}"
+                                class="btn btn-default">
+                                {{ $t('Edit') }}
+                            </router-link>
+                            <a class="btn btn-danger"
+                                @click="deleteConfirm = true">
+                                {{ $t('Delete') }}
+                            </a>
+                        </div>
+                    </template>
                     <div class="row">
                         <div class="col-md-4 col-sm-6">
                             <div class="details-page-block">

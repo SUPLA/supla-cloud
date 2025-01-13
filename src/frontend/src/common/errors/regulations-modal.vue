@@ -2,12 +2,10 @@
     <modal
         @confirm="$emit('confirm')"
         class="text-left modal-800 display-newlines">
-        <div slot>
-            <loading-cover :loading="!rules">
-                <div v-if="rules"
-                    v-html="rules"></div>
-            </loading-cover>
-        </div>
+        <loading-cover :loading="!rules">
+            <div v-if="rules"
+                v-html="rules"></div>
+        </loading-cover>
     </modal>
 </template>
 

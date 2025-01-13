@@ -2,7 +2,7 @@
     <modal class="modal-confirm"
         :header="header">
         <slot></slot>
-        <div slot="footer">
+        <template #footer>
             <button-loading-dots v-if="loading"></button-loading-dots>
             <div v-else>
                 <a @click="$emit('cancel')"
@@ -16,7 +16,7 @@
                     <i class="pe-7s-check"></i>
                 </a>
             </div>
-        </div>
+        </template>
     </modal>
 </template>
 

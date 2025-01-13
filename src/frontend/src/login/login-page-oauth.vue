@@ -10,7 +10,7 @@
             :error="error"
             :intitial-username="lastUsername"
             :submit-button-text="askForTargetCloud ? $t('Proceed') : ''">
-            <template slot="aboveForm">
+            <template #aboveForm>
                 <div v-if="clientName">
                     <div v-if="isGoogle">
                         <h4 class="client-name-prompt">

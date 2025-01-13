@@ -4,33 +4,34 @@
         <loading-cover :loading="!schedule || submitting">
             <pending-changes-page :header="schedule.id ? $t('Schedule') + ' ID' + id : $t('Create New Schedule')"
                 v-if="schedule">
-                <div slot="buttons"
-                    class="btn-toolbar">
-                    <router-link :to="{name: 'schedule', params: {id: schedule.id}}"
-                        class="btn btn-grey"
-                        v-if="schedule.id">
-                        <i class="pe-7s-back"></i>
-                        {{ $t('Cancel') }}
-                    </router-link>
-                    <div class="btn-group"
-                        v-tooltip="!nextRunDates.length ? $t('Cannot calculate when to run the schedule - incorrect configuration?') : ''">
-                        <button class="btn btn-white"
+                <template #buttons>
+                    <div class="btn-toolbar">
+                        <router-link :to="{name: 'schedule', params: {id: schedule.id}}"
+                            class="btn btn-grey"
+                            v-if="schedule.id">
+                            <i class="pe-7s-back"></i>
+                            {{ $t('Cancel') }}
+                        </router-link>
+                        <div class="btn-group"
+                            v-tooltip="!nextRunDates.length ? $t('Cannot calculate when to run the schedule - incorrect configuration?') : ''">
+                            <button class="btn btn-white"
+                                type="submit"
+                                :disabled="!nextRunDates.length || nextRunDates.fetching"
+                                @click="submit()">
+                                <i class="pe-7s-diskette"></i>
+                                {{ $t('Save') }}
+                            </button>
+                        </div>
+                        <button class="btn btn-green"
                             type="submit"
+                            v-if="schedule.id && schedule.enabled === false"
                             :disabled="!nextRunDates.length || nextRunDates.fetching"
-                            @click="submit()">
+                            @click="submit(true)">
                             <i class="pe-7s-diskette"></i>
-                            {{ $t('Save') }}
+                            {{ $t('Save and enable') }}
                         </button>
                     </div>
-                    <button class="btn btn-green"
-                        type="submit"
-                        v-if="schedule.id && schedule.enabled === false"
-                        :disabled="!nextRunDates.length || nextRunDates.fetching"
-                        @click="submit(true)">
-                        <i class="pe-7s-diskette"></i>
-                        {{ $t('Save and enable') }}
-                    </button>
-                </div>
+                </template>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">

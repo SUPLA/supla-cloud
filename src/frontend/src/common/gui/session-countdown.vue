@@ -45,7 +45,7 @@
             <div class="alert alert-danger"
                 v-if="error">{{ $t('Incorrect password') }}
             </div>
-            <div slot="footer">
+            <template #footer>
                 <button-loading-dots v-if="loading"></button-loading-dots>
                 <div v-else>
                     <div class="pull-left">
@@ -63,7 +63,7 @@
                         <i class="pe-7s-check"></i>
                     </a>
                 </div>
-            </div>
+            </template>
         </modal>
     </span>
 </template>
