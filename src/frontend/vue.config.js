@@ -16,9 +16,9 @@ module.exports = {
         // this module contains template compiler that is required for server-rendered pages to work,
         // i.e. OAuth login form or direct links execution results
         resolve: {
-            alias: {
-                'vue$': 'vue/dist/vue.esm.js'
-            }
+            // alias: {
+            //     'vue$': 'vue/dist/vue.esm.js'
+            // }
         },
         plugins: [
             new webpack.ProvidePlugin({
@@ -32,5 +32,21 @@ module.exports = {
     },
     chainWebpack: (config) => {
         config.plugins.delete('prefetch');
+
+        config.resolve.alias.set('vue', '@vue/compat');
+
+        config.module
+            .rule('vue')
+            .use('vue-loader')
+            .tap((options) => {
+                return {
+                    ...options,
+                    compilerOptions: {
+                        compatConfig: {
+                            MODE: 2
+                        }
+                    }
+                }
+            });
     },
 };

@@ -42,7 +42,7 @@
     import ActionTriggerIndicator from "@/channels/action-trigger/action-trigger-indicator";
     import {computed} from "vue";
     import {useLocationsStore} from "@/stores/locations-store";
-    import {useI18n} from "vue-i18n-bridge";
+    import {useI18n} from "vue-i18n";
     import {useDevicesStore} from "@/stores/devices-store";
     import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
 

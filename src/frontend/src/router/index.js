@@ -1,16 +1,13 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+import {createRouter, createWebHistory} from 'vue-router'
 import routes from './routes';
 import {useCurrentUserStore} from "@/stores/current-user-store";
 import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
-Vue.use(VueRouter);
-
-const router = new VueRouter({
+const router = new createRouter({
     routes,
-    base: '/',
+    history: createWebHistory('/'),
     linkActiveClass: 'active',
-    mode: 'history',
     scrollBehavior(to, from, savedPosition) {
         if (to.path === from.path || to.name?.indexOf('.') > 0) {
             return savedPosition;

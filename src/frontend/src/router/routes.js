@@ -290,5 +290,5 @@ export default [
         name: 'update-in-progress',
         meta: {bodyClass: 'warning'}
     },
-    {path: "*", component: () => import("@/common/errors/error-404"), meta: {bodyClass: 'red', unrestricted: true}}
+    {path: "/:pathMatch(.*)*", component: () => import("@/common/errors/error-404"), meta: {bodyClass: 'red', unrestricted: true}}
 ];

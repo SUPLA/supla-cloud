@@ -99,6 +99,7 @@
                                         v-go-to-link-on-row-click>
                                         <td>
                                             <router-link :to="{name: 'location', params: {id: location.id}}">{{ location.id }}</router-link>
+                                        </td>
                                         <td>
                                             <password-display :password="location.password"></password-display>
                                         </td>

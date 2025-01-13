@@ -122,9 +122,9 @@
                                 </dl>
                                 <transition-expand>
                                     <dl v-if="channel.config.auxMinMaxSetpointEnabled">
-                                        <template v-for="temp in auxMinMaxTemperatures">
-                                            <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
-                                            <dt :key="`dt${temp.name}`">
+                                        <template v-for="temp in auxMinMaxTemperatures" :key="`dd${temp.name}`">
+                                            <dd>{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
+                                            <dt>
                                                 <span class="input-group">
                                                     <input type="number"
                                                         step="0.1"
@@ -211,9 +211,9 @@
                 </dl>
                 <transition-expand>
                     <dl v-if="channel.config.antiFreezeAndOverheatProtectionEnabled" class="wide-label">
-                        <template v-for="temp in freezeHeatProtectionTemperatures">
-                            <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
-                            <dt :key="`dt${temp.name}`">
+                        <template v-for="temp in freezeHeatProtectionTemperatures" :key="`dd${temp.name}`">
+                            <dd>{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
+                            <dt>
                                 <span class="input-group d-flex align-items-center justify-content-end">
                                     <input type="number"
                                         step="0.1"
@@ -309,9 +309,9 @@
                     </transition-expand>
                 </div>
                 <dl>
-                    <template v-for="temp in histeresisTemperatures">
-                        <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
-                        <dt :key="`dt${temp.name}`">
+                    <template v-for="temp in histeresisTemperatures" :key="`dd${temp.name}`">
+                        <dd>{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
+                        <dt>
                             <span class="input-group">
                                 <input type="number"
                                     step="0.1"

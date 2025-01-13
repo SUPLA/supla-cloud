@@ -1,7 +1,6 @@
 import Vue from "vue";
-import VueI18n from "vue-i18n";
+import {createI18n} from "vue-i18n";
 import {Settings} from "luxon";
-import {createI18n} from 'vue-i18n-bridge'
 import {useCurrentUserStore} from "@/stores/current-user-store";
 
 Vue.config.availableLanguages = [
@@ -26,15 +25,13 @@ Vue.config.availableLanguages = [
     {value: 'vi', text: 'Tiếng Việt'}
 ];
 
-Vue.use(VueI18n, {bridge: true});
-
 const i18n = createI18n({
     legacy: false,
     fallbackLocale: 'en',
     fallbackWarn: false,
     missingWarn: false,
     fallbackFormat: true,
-}, VueI18n);
+});
 
 const loadedLanguages = [];
 

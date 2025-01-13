@@ -2,8 +2,8 @@ import 'bootstrap/js/dropdown';
 import 'bootstrap/js/tooltip';
 import "pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Vue from "vue";
 import {detectGuiLocale, i18n, loadLanguage} from './locale';
+import Vue, {createApp} from "vue";
 import router from './router';
 import VueResource from "vue-resource";
 import ResponseErrorInterceptor from "./common/http/response-error-interceptor";
@@ -19,7 +19,6 @@ import './hello';
 import './styles/fontawesome';
 import FloatingVue from 'floating-vue';
 import 'floating-vue/dist/style.css'
-import {createApp} from 'vue-demi'
 import {pinia} from "@/stores";
 import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 import {PiniaVuePlugin} from "pinia";
@@ -62,6 +61,7 @@ if (!appContainer.children.length) {
 const app = createApp(appConfig);
 app.use(i18n);
 app.use(pinia);
+app.use(router);
 
 const frontendConfigStore = useFrontendConfigStore();
 const currentUserStore = useCurrentUserStore();
@@ -77,3 +77,4 @@ frontendConfigStore.fetchConfig()
             Vue.http.interceptors.push(requestTransformers[transformer]);
         }
     });
+
