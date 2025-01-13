@@ -66,14 +66,14 @@ app.use(pinia);
 const frontendConfigStore = useFrontendConfigStore();
 const currentUserStore = useCurrentUserStore();
 
-await frontendConfigStore.fetchConfig();
-
-await currentUserStore.fetchUser();
-await loadLanguage('en');
-detectGuiLocale();
-
-app.mount(appContainer);
-Vue.http.interceptors.push(ResponseErrorInterceptor());
-for (const transformer in requestTransformers) {
-    Vue.http.interceptors.push(requestTransformers[transformer]);
-}
+frontendConfigStore.fetchConfig()
+    .then(() => currentUserStore.fetchUser())
+    .then(() => loadLanguage('en'))
+    .then(() => detectGuiLocale())
+    .then(() => {
+        app.mount(appContainer);
+        Vue.http.interceptors.push(ResponseErrorInterceptor());
+        for (const transformer in requestTransformers) {
+            Vue.http.interceptors.push(requestTransformers[transformer]);
+        }
+    });

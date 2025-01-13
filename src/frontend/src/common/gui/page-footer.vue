@@ -54,8 +54,8 @@
                 return this.frontendConfigStore.config.suplaUrl.replace(/https?:\/\//, '');
             },
             showRegisterCloud() {
-                return !this.frontendConfig.actAsBrokerCloud && !this.frontendConfig.isCloudRegistered
-                    && this.frontendConfig.suplaUrl.indexOf('https') === 0
+                return !this.frontendConfigStore.config.actAsBrokerCloud && !this.frontendConfigStore.config.isCloudRegistered
+                    && this.frontendConfigStore.config.suplaUrl.indexOf('https') === 0
                     && this.domain.indexOf('localhost:') !== 0
                     && this.domain !== 'localhost';
             },
