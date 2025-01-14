@@ -19,6 +19,7 @@ Cypress.Commands.add('login', (username = 'user@supla.org', password = 'pass') =
         validate() {
             const token = localStorage.getItem('supla-user-token');
             expect(token).not.to.be.undefined;
+            expect(token).not.to.be.null;
             // if not stubbed token
             if (token !== 'Yjg5OGU2NzM1MTk3MDRiZmUyNDAxZTQxZWE5YTU1OTM5MmNiNGY3ZjMwOWM5ZjkwNjI5NDQ3NjY0YTdhZTgzMw.aHR0cDovL3N1cGxhLmxvY2Fs') {
                 cy.request({url: '/api/users/current', auth: {bearer: token}}).its('status').should('eq', 200);

@@ -99,7 +99,7 @@ steps:
 
   - name: dump-logs
     image: cypress/base:16.18.1
-    depends_on: [api-tests, test-e2e]
+    depends_on: [integration-tests, test-e2e]
     failure: ignore
     when:
       status: [success, failure]

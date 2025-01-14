@@ -4,6 +4,7 @@ module.exports = defineConfig({
     fixturesFolder: 'tests/e2e/fixtures',
     screenshotsFolder: 'tests/e2e/screenshots',
     videosFolder: 'tests/e2e/videos',
+    // video: true,
     downloadsFolder: 'tests/e2e/downloads',
     env: {
         DATABASE: "mysql://root:php@localhost/supla_e2e",

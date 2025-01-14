@@ -37,8 +37,7 @@ describe('Device details', () => {
         });
     });
 
-    // TODO does not work in CI - don't know why; probably email gateway does not work
-    describe.skip('locked devices', () => {
+    describe('locked devices', () => {
         it('can request device unlock', () => {
             cy.login();
             cy.visit('/devices/4');
@@ -60,6 +59,11 @@ describe('Device details', () => {
                 expect(email.headers.subject).to.contain('odblokowane');
                 expect(email.body).to.contain('/devices/4');
             });
+        });
+
+        it('cannot unlock the unlocked device', () => {
+            cy.visit('/confirm-device-unlock/4/abcdef?lang=pl');
+            cy.contains('Nie udało się odblokować');
         });
 
         it('sees the unlocked device', () => {
