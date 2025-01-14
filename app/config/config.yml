@@ -108,6 +108,8 @@ framework:
   form: ~
   fragments: ~
   http_method_override: true
+  mailer:
+    dsn: "%mailer_dsn%"
   messenger:
     transports:
       async:
@@ -253,14 +255,6 @@ supla:
       admin: {access: 3600, refresh: 5184000}
       user: {access: 3600, refresh: 5184000}
       broker: {access: 3600, refresh: 5184000}
-
-swiftmailer:
-  encryption: "%mailer_encryption%"
-  host: "%mailer_host%"
-  password: "%mailer_password%"
-  port: "%mailer_port%"
-  transport: "%mailer_transport%"
-  username: "%mailer_user%"
 
 twig:
   debug: "%kernel.debug%"

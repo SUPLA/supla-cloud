@@ -5,13 +5,8 @@ parameters:
   database_user: root
   database_password: ~
 
-  mailer_transport: smtp
-  mailer_host: 127.0.0.1
-  mailer_user: ~
-  mailer_password: ~
-  mailer_port: 465
-  mailer_encryption: ssl
-  mailer_from: ~
+  mailer_dsn: 'smtp://localhost:7777'
+  mailer_from: 'SUPLA <no-reply@supla.org>'
   admin_email: ~
   supla_server: localhost:8008
   supla_require_regulations_acceptance: false

@@ -55,8 +55,8 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
         $this->flushMessagesQueue();
         $this->assertCount(1, TestMailer::getMessages());
         $message = TestMailer::getMessages()[0];
-        $this->assertStringContainsString('<b>12.23.34.45</b>', $message->getBody());
-        $this->assertStringContainsString('<a href="mailto:security', $message->getBody());
+        $this->assertStringContainsString('<b>12.23.34.45</b>', $message->getHtmlBody());
+        $this->assertStringContainsString('<a href="mailto:security', $message->getHtmlBody());
     }
 
     public function testNewIoDeviceNotification() {
@@ -83,8 +83,8 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
         $this->assertCount(1, TestMailer::getMessages());
         $message = TestMailer::getMessages()[0];
         $this->assertStringContainsString('new device has been added', $message->getSubject());
-        $this->assertStringContainsString('ZAMEL-PNW-CHOINKA', $message->getBody());
-        $this->assertStringContainsString('3.33', $message->getBody());
+        $this->assertStringContainsString('ZAMEL-PNW-CHOINKA', $message->getHtmlBody());
+        $this->assertStringContainsString('3.33', $message->getHtmlBody());
     }
 
     /** @depends testNewIoDeviceNotification */
@@ -157,8 +157,8 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
         $this->assertCount(1, TestMailer::getMessages());
         $message = TestMailer::getMessages()[0];
         $this->assertStringContainsString('new client app has been added', $message->getSubject());
-        $this->assertStringContainsString('My New Ajfon', $message->getBody());
-        $this->assertStringContainsString('2.22', $message->getBody());
+        $this->assertStringContainsString('My New Ajfon', $message->getHtmlBody());
+        $this->assertStringContainsString('2.22', $message->getHtmlBody());
     }
 
     public function testNewClientAppNotificationBurningInQueue() {

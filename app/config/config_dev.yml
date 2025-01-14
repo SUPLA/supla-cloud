@@ -47,9 +47,6 @@ supla:
     enabled: true
     url: 'http://localhost:8044'
 
-#swiftmailer:
-#  delivery_addresses: ['%admin_email%']
-
 web_profiler:
   intercept_redirects: false
   toolbar: true

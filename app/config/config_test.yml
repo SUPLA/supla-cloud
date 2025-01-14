@@ -7,6 +7,8 @@ framework:
   session:
     storage_id: session.storage.mock_file
   test: ~
+  mailer:
+    dsn: 'null://null'
   messenger:
     routing:
       SuplaBundle\Message\AsyncMessage: 'async'
@@ -74,9 +76,6 @@ supla:
     integrated_auth: true
   ocr:
     enabled: true
-
-swiftmailer:
-  disable_delivery: true
 
 web_profiler:
   toolbar: false

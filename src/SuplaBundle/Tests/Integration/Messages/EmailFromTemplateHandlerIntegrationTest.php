@@ -54,10 +54,10 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
         $handler(new FailedAuthAttemptEmailNotification($this->user, '1.2.3.4'));
         $this->assertCount(1, TestMailer::getMessages());
         $message = TestMailer::getMessages()[0];
-        $this->assertStringContainsString('<b>1.2.3.4</b>', $message->getBody());
-        $this->assertStringContainsString('<a href="mailto:security', $message->getBody());
-        $this->assertStringContainsString('The incident was detected at ' . date('n/j/y'), $message->getBody());
-        $this->assertStringContainsString('account?optOutNotification=failed_auth_attempt', $message->getBody());
+        $this->assertStringContainsString('<b>1.2.3.4</b>', $message->getHtmlBody());
+        $this->assertStringContainsString('<a href="mailto:security', $message->getHtmlBody());
+        $this->assertStringContainsString('The incident was detected at ' . date('n/j/y'), $message->getHtmlBody());
+        $this->assertStringContainsString('account?optOutNotification=failed_auth_attempt', $message->getHtmlBody());
     }
 
     public function testSendingFailedAuthAttemptInPolish() {
@@ -68,10 +68,10 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
         $handler(new FailedAuthAttemptEmailNotification($this->user, '1.2.3.4'));
         $this->assertCount(1, TestMailer::getMessages());
         $message = TestMailer::getMessages()[0];
-        $this->assertStringContainsString('<b>1.2.3.4</b>', $message->getBody());
-        $this->assertStringContainsString('<a href="mailto:security', $message->getBody());
-        $this->assertStringContainsString('Zdarzenie miało miejsce ' . date('j.m.Y'), $message->getBody());
-        $this->assertStringContainsString('account?optOutNotification=failed_auth_attempt', $message->getBody());
+        $this->assertStringContainsString('<b>1.2.3.4</b>', $message->getHtmlBody());
+        $this->assertStringContainsString('<a href="mailto:security', $message->getHtmlBody());
+        $this->assertStringContainsString('Zdarzenie miało miejsce ' . date('j.m.Y'), $message->getHtmlBody());
+        $this->assertStringContainsString('account?optOutNotification=failed_auth_attempt', $message->getHtmlBody());
     }
 
     public function testNotSendingFailedAuthAttemptIfUserOptOut() {
@@ -89,6 +89,6 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
         $handler(new ResetPasswordEmailNotification($this->user));
         $this->assertCount(1, TestMailer::getMessages());
         $message = TestMailer::getMessages()[0];
-        $this->assertStringContainsString('https://supla.local', $message->getBody());
+        $this->assertStringContainsString('https://supla.local', $message->getHtmlBody());
     }
 }

@@ -163,7 +163,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $client->getResponse());
     }
 
-    public function invalidStateWebhookRequests() {
+    public static function invalidStateWebhookRequests() {
         $almostGoodRequest = function (array $override) {
             return array_replace(
                 [

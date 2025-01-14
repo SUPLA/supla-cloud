@@ -97,6 +97,18 @@ steps:
       - node_modules/cypress/bin/cypress install
       - npm run test:e2e:nightly
 
+  - name: dump-logs
+    image: cypress/base:16.18.1
+    depends_on: [api-tests, test-e2e]
+    failure: ignore
+    when:
+      status: [success, failure]
+    trigger:
+      status: [success, failure]
+    commands:
+      - ls var/logs
+      - find var/logs/ -type f | xargs cat
+
   - name: notify
     image: mike1pol/drone-rocket
     depends_on: [integration-tests, test-e2e]

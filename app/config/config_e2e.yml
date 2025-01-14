@@ -5,8 +5,10 @@ parameters:
   supla_protocol: http
   database_name: supla_e2e
   notifications_enabled: true
-  mailer_host: localhost
-  mailer_port: 7777
+
+framework:
+  mailer:
+    dsn: 'smtp://localhost:7777'
 
 services:
   SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
