@@ -19,37 +19,34 @@
 
             <div :class="['collapse navbar-collapse', {in: !collapsed}]">
                 <ul class="nav navbar-nav">
-                    <router-link tag="li"
-                        active-class="link-active"
-                        exact-active-class="active"
-                        :class="{'active': subIsActive(['/devices', '/channels'])}"
-                        :to="{name: 'me'}">
-                        <a>
+                    <li>
+                        <router-link
+                            active-class="link-active"
+                            exact-active-class="active"
+                            :class="{'active': subIsActive(['/devices', '/channels'])}"
+                            :to="{name: 'me'}">
                             <i class="hidden-sm hidden-xs pe-7s-plug"></i>
                             {{ $t('My SUPLA') }}
-                        </a>
-                    </router-link>
-                    <router-link tag="li"
-                        to="/smartphones">
-                        <a>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/smartphones">
                             <i class="hidden-sm hidden-xs pe-7s-phone"></i>
                             {{ $t('Smartphones') }}
-                        </a>
-                    </router-link>
-                    <router-link tag="li"
-                        to="/locations">
-                        <a>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/locations">
                             <i class="hidden-sm hidden-xs pe-7s-home"></i>
                             {{ $t('Locations') }}
-                        </a>
-                    </router-link>
-                    <router-link tag="li"
-                        to="/access-identifiers">
-                        <a>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/access-identifiers">
                             <i class="hidden-sm hidden-xs pe-7s-key"></i>
                             {{ $t('Access Identifiers') }}
-                        </a>
-                    </router-link>
+                        </router-link>
+                    </li>
 
                     <li class="dropdown"
                         :class="{'active': subIsActive(['/schedules', '/channel-groups', '/scenes', '/direct-links', '/reactions'])}">
@@ -250,20 +247,17 @@
             }
         }
 
-        .nav > li.active, .nav > li.open, .dropdown-menu > li.active {
-            background: $supla-green;
-            border-bottom-color: $supla-green;
-
-            > a, > a:hover, > a:focus {
+        .nav {
+            > li > a.active, > li.open > a, .dropdown-menu > li > a.active, li.dropdown.active > a {
+                background: $supla-green;
                 border-bottom-color: $supla-green;
-                background: transparent;
                 color: $supla-white;
-            }
 
-            @include on-xs-and-down {
-                background: transparent;
-                > a, > a:hover, > a:focus {
-                    background: $supla-green;
+                @include on-xs-and-down {
+                    background: transparent;
+                    &, &:hover, &:focus {
+                        background: $supla-green;
+                    }
                 }
             }
         }
@@ -296,7 +290,7 @@
         .nav > li > a {
             color: $supla-white;
         }
-        .nav > li.active, .nav > li.open, .dropdown-menu > li.active {
+        li > a.active, li.open > a, .dropdown-menu > li > a.active, li.dropdown.active > a {
             background: darken($supla-green, 10%);
         }
     }
@@ -310,8 +304,22 @@
         .nav > li > a {
             color: $supla-white;
         }
-        .nav > li.active, .nav > li.open, .dropdown-menu > li.active {
+        li > a.active, li.open > a, .dropdown-menu > li > a.active, li.dropdown.active > a {
             background: darken($supla-red, 10%);
+        }
+    }
+
+    .yellow nav.navbar-top {
+        background: $supla-yellow;
+        .navbar-brand {
+            color: $supla-black;
+            fill: $supla-black;
+        }
+        .nav > li > a {
+            color: $supla-black;
+        }
+        li > a.active, li.open > a, .dropdown-menu > li > a.active, li.dropdown.active > a {
+            background: darken($supla-yellow, 15%);
         }
     }
 </style>

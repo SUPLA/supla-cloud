@@ -4,13 +4,13 @@
             v-if="availableTabs.length">
             <div class="form-group">
                 <ul class="nav nav-tabs">
-                    <router-link :to="{name: tabDefinition.route, params: {id: channel.id}}" tag="li"
-                        v-for="tabDefinition in availableTabs" :key="tabDefinition.id">
-                        <a>
+                    <li v-for="tabDefinition in availableTabs" :key="tabDefinition.id"
+                        :class="{active: $route.name === tabDefinition.route}">
+                        <router-link :to="{name: tabDefinition.route, params: {id: channel.id}}">
                             {{ $t(tabDefinition.header) }}
                             <span v-if="tabDefinition.count !== undefined">({{ tabDefinition.count() }})</span>
-                        </a>
-                    </router-link>
+                        </router-link>
+                    </li>
                 </ul>
             </div>
         </div>
