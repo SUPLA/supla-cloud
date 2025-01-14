@@ -9,6 +9,7 @@
     "cloudVersion": "23.05.01",
     "cloudVersionFull": "23.05.01",
     "apiVersion": "2.4.0",
+    "env": "e2e",
     "supportedApiVersions": [
         "2.1.0",
         "2.2.0",

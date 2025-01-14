@@ -6,4 +6,7 @@ module.exports = {
     setupFiles: [
         '<rootDir>/tests/unit/setup/setup-mocks.js',
     ],
+    globals: {
+        FRONTEND_VERSION: "0.0.0"
+    },
 }

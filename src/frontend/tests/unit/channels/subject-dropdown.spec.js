@@ -4,15 +4,16 @@ import ChannelActionChooser from "@/channels/action/channel-action-chooser.vue";
 import ChannelFunction from "@/common/enums/channel-function";
 import ActionableSubjectType from "@/common/enums/actionable-subject-type";
 import ChannelFunctionAction from "@/common/enums/channel-function-action";
-import Vue from "vue";
 import {setActivePinia} from "pinia";
 import {createTestingPinia} from "@pinia/testing";
 
 describe('SubjectDropdown', () => {
-    Vue.config.external.notificationsEnabled = true;
-
     beforeEach(() => {
-        setActivePinia(createTestingPinia());
+        setActivePinia(createTestingPinia({
+            initialState: {
+                frontendConfig: {config: {notificationsEnabled: true}}
+            }
+        }));
     })
 
     const subjectDropdown = async (cfg = {}) => {
