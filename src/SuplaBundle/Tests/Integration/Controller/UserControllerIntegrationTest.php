@@ -79,9 +79,9 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->flushMessagesQueue($client);
         $this->assertNotEmpty(TestMailer::getMessages());
         $confirmationMessage = TestMailer::getMessages()[0];
-        $this->assertArrayHasKey($this->user->getEmail(), $confirmationMessage->getTo());
+        $this->assertEquals($this->user->getEmail(), $confirmationMessage->getTo()[0]->getAddress());
         $this->assertStringContainsString('Removal', $confirmationMessage->getSubject());
-        $this->assertStringContainsString($this->user->getToken(), $confirmationMessage->getBody());
+        $this->assertStringContainsString($this->user->getToken(), $confirmationMessage->getHtmlBody());
     }
 
     /** @depends testDeletingUserAccount */
@@ -193,9 +193,9 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->flushMessagesQueue($client);
         $this->assertNotEmpty(TestMailer::getMessages());
         $confirmationMessage = TestMailer::getMessages()[0];
-        $this->assertArrayHasKey($this->user->getEmail(), $confirmationMessage->getTo());
+        $this->assertEquals($this->user->getEmail(), $confirmationMessage->getTo()[0]->getAddress());
         $this->assertStringContainsString('Removal', $confirmationMessage->getSubject());
-        $this->assertStringContainsString($this->user->getToken(), $confirmationMessage->getBody());
+        $this->assertStringContainsString($this->user->getToken(), $confirmationMessage->getHtmlBody());
     }
 
     /** @small */

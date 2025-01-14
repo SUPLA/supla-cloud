@@ -81,7 +81,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSuplaCommandExecuted($expectedCommand);
     }
 
-    public function changingChannelGroupStateDataProvider() {
+    public static function changingChannelGroupStateDataProvider() {
         return [
             [1, 'turn-on', 'ACTION-CG-TURN-ON:1,1'],
             [1, 'turn-off', 'ACTION-CG-TURN-OFF:1,1'],

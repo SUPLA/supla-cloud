@@ -230,7 +230,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $this->flushMessagesQueue($client);
         $this->assertCount(1, TestMailer::getMessages());
         $message = TestMailer::getMessages()[0];
-        preg_match('#confirm-target-cloud-deletion/([0-9]+)/([^\?]+)#', $message->getBody(), $match);
+        preg_match('#confirm-target-cloud-deletion/([0-9]+)/([^\?]+)#', $message->getHtmlBody(), $match);
         $this->assertCount(3, $match);
         [, $targetCloudId, $token] = $match;
         $client->apiRequest('DELETE', "/api/remove-target-cloud/$targetCloudId/$token");

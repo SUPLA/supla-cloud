@@ -222,7 +222,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertEquals($expectedLogCount, $response->headers->get('X-Total-Count'));
     }
 
-    public function measurementLogsCounts() {
+    public static function measurementLogsCounts() {
         return [[2], [3], [4], [5], [6], [7], [8], [9], [10]];
     }
 
@@ -786,7 +786,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertStatusCode('4xx', $response);
     }
 
-    public function invalidLimits() {
+    public static function invalidLimits() {
         return [[0], [-1], [5001]];
     }
 

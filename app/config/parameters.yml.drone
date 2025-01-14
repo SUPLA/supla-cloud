@@ -11,7 +11,7 @@ parameters:
   mailer_password: ~
   mailer_port: 465
   mailer_encryption: ssl
-  mailer_from: ~
+  mailer_from: 'SUPLA <no-reply@supla.org>'
   admin_email: ~
   supla_server: localhost:8008
   supla_require_regulations_acceptance: false

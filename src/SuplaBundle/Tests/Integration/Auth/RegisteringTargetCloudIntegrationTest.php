@@ -192,7 +192,7 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, TestMailer::getMessages());
         $message = TestMailer::getMessages()[0];
         $this->assertStringContainsString('Private instance unregistration', $message->getSubject());
-        $this->assertStringContainsString('confirm-target-cloud-deletion/123/ala123', $message->getBody());
+        $this->assertStringContainsString('confirm-target-cloud-deletion/123/ala123', $message->getHtmlBody());
     }
 
     public function testTargetCloudRemovalRequestError() {

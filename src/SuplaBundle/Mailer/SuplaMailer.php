@@ -17,29 +17,19 @@
 
 namespace SuplaBundle\Mailer;
 
-use Swift_Mailer;
-use Swift_Message;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class SuplaMailer {
     private const DEFAULT_FROM_NAME = 'SUPLA';
 
-    protected $mailerFrom;
-    protected $mailer;
-
-    public function __construct(Swift_Mailer $mailer, $mailerFrom) {
-        $this->mailerFrom = $mailerFrom;
-        $this->mailer = $mailer;
+    public function __construct(private MailerInterface $mailer, private ?string $mailerFrom) {
     }
 
-    public function send(Swift_Message $message): bool {
-        [$fromAddress, $fromName] = $this->parseFrom();
-        if ($fromAddress) {
-            $message->setFrom($fromAddress, $fromName);
-            $sent = $this->mailer->send($message);
-            return $sent > 0;
-        } else {
-            return false;
-        }
+    public function send(Email $message): bool {
+        $message->from($this->mailerFrom);
+        $this->mailer->send($message);
+        return true;
     }
 
     private function parseFrom(): array {
