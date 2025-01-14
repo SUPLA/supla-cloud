@@ -1,5 +1,4 @@
 const {defineConfig} = require('cypress')
-const path = require("path");
 
 module.exports = defineConfig({
     fixturesFolder: 'tests/e2e/fixtures',

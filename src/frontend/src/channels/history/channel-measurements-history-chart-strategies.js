@@ -757,7 +757,6 @@ export const CHART_TYPES = {
                     // TODO remove filter after fix https://github.com/apexcharts/apexcharts.js/issues/3821
                     // it should correctly display ranges on null logs
                     .filter(item => item.y[0] !== null);
-                console.log(rangeSeries[5]?.y);
                 series.push({
                     name: `${this.$t('Value')} - ${this.$t('range')}`,
                     type: 'rangeArea',
