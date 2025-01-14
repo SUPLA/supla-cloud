@@ -25,6 +25,6 @@
         "rules": true,
         "cookies": true
     },
-    "locale": null,
+    "locale": "en",
     "preferences": []
 }

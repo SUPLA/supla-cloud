@@ -42,10 +42,10 @@ describe('Device details', () => {
         it('can request device unlock', () => {
             cy.login();
             cy.visit('/devices/4');
-            cy.contains('The device is locked');
+            cy.contains('Urządzenie zablokowane');
             cy.get('input[type=email]').type('installer@zamel.com');
-            cy.contains('button', 'Request device unlock').click();
-            cy.contains('You have requested');
+            cy.contains('button', 'Zgłoś chęć odblokowania').click();
+            cy.contains('Prośba została wysłana');
             cy.task('getLastEmail', 'installer@zamel.com').then(email => {
                 expect(email).not.to.be.null;
                 expect(email.body).to.contain('/confirm-device-unlock');
@@ -57,7 +57,7 @@ describe('Device details', () => {
             cy.contains('Sukces');
             cy.task('getLastEmail', 'user@supla.org').then(email => {
                 expect(email).not.to.be.null;
-                expect(email.headers.subject).to.contain('unlocked');
+                expect(email.headers.subject).to.contain('odblokowane');
                 expect(email.body).to.contain('/devices/4');
             });
         });
