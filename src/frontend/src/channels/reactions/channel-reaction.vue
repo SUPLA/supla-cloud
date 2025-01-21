@@ -51,24 +51,7 @@
                             {{ $t('The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.') }}
                         </div>
                     </transition-expand>
-                    <DateRangePicker v-model="activeDateRange"
-                        :label-date-start="$t('Active from')"
-                        :label-date-end="$t('Active to')"
-                        @input="onChanged()"/>
-                    <div class="form-group text-center">
-                        <label>
-                            <label class="checkbox2 checkbox2-grey">
-                                <input type="checkbox" v-model="useWorkingSchedule" @change="onChanged()">
-                                {{ $t('Use working schedule for this reaction') }}
-                            </label>
-                        </label>
-                    </div>
-                    <transition-expand>
-                        <week-schedule-selector v-if="useWorkingSchedule" class="narrow mode-1-green"
-                            v-model="activeHours"
-                            @input="onChanged()"></week-schedule-selector>
-                    </transition-expand>
-                    <DaytimeActivityConditions class="mt-4" v-model="activityConditions" @input="onChanged()"/>
+                    <ActivityConditionsForm v-model="activityConditions" @input="onChanged()"/>
                 </div>
             </div>
         </div>
@@ -92,16 +75,12 @@
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import {deepCopy} from "@/common/utils";
     import EventBus from "@/common/event-bus";
-    import DateRangePicker from "@/direct-links/date-range-picker.vue";
-    import WeekScheduleSelector from "@/activity/week-schedule-selector.vue";
     import {mapValues, pickBy} from "lodash";
-    import DaytimeActivityConditions from "@/activity/daytime-activity-conditions.vue";
+    import ActivityConditionsForm from "@/activity/activity-conditions-form.vue";
 
     export default {
         components: {
-            DaytimeActivityConditions,
-            WeekScheduleSelector,
-            DateRangePicker,
+            ActivityConditionsForm,
             TransitionExpand, PendingChangesPage, ChannelActionChooser, SubjectDropdown, ChannelReactionConditionChooser
         },
         props: {
@@ -117,10 +96,7 @@
                 deleteConfirm: false,
                 loading: false,
                 displayValidationErrors: false,
-                activeDateRange: {},
-                useWorkingSchedule: false,
-                activeHours: {},
-                activityConditions: [],
+                activityConditions: {},
                 showConditionsHelp: false,
             };
         },
@@ -141,19 +117,12 @@
                 this.targetSubject = item.subject;
                 this.action = item.actionId ? {id: item.actionId, param: item.actionParam} : undefined;
                 this.enabled = item.enabled;
-                this.activeDateRange = {dateStart: item.activeFrom, dateEnd: item.activeTo};
-                if (item.activeHours) {
-                    this.activeHours = mapValues(item.activeHours, (hours) => {
-                        const hoursDef = {};
-                        [...Array(24).keys()].forEach((hour) => hoursDef[hour] = hours.includes(hour) ? 1 : 0);
-                        return hoursDef;
-                    });
-                    this.useWorkingSchedule = true;
-                } else {
-                    this.activeHours = {};
-                    this.useWorkingSchedule = false;
-                }
-                this.activityConditions = item.activityConditions;
+                this.activityConditions = {
+                    activeFrom: item.activeFrom,
+                    activeTo: item.activeTo,
+                    activeHours: item.activeHours,
+                    activityConditions: item.activityConditions,
+                };
                 this.$nextTick(() => this.hasPendingChanges = false);
             },
             submitForm() {
@@ -209,12 +178,7 @@
                     actionParam: this.action?.param,
                     enabled: this.enabled,
                     isValid: !!(this.trigger && this.action && this.targetSubject),
-                    activeFrom: this.activeDateRange.dateStart || null,
-                    activeTo: this.activeDateRange.dateEnd || null,
-                    activeHours: this.useWorkingSchedule ? mapValues(this.activeHours, (hours) => {
-                        return Object.keys(pickBy(hours, (selection) => !!selection)).map((hour) => parseInt(hour));
-                    }) : null,
-                    activityConditions: this.activityConditions,
+                    ...this.activityConditions,
                 };
             },
         },
