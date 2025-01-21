@@ -371,6 +371,17 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStringContainsString(DirectLinkExecutionFailureReason::SCENE_DURING_EXECUTION, $response->getContent());
     }
 
+    /** @depends testCreatingDirectLinkForScene */
+    public function testExecutingDirectLinkForSceneWhenInactive($linkData) {
+        SuplaServerMock::reset();
+        SuplaServerMock::mockResponse('EXECUTE-SCENE:1,1', 'INACTIVE-PERIOD:1');
+        $client = $this->createClient();
+        $client->request('GET', "/direct/$linkData[id]/$linkData[slug]/execute");
+        $response = $client->getResponse();
+        $this->assertStatusCode(409, $response);
+        $this->assertStringContainsString(DirectLinkExecutionFailureReason::SCENE_INACTIVE, $response->getContent());
+    }
+
     public function testExecutingDirectLinkWithGetWhenGetDisabled() {
         SuplaServerMock::reset();
         $directLinkDetails = $this->testCreatingDirectLink();

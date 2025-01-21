@@ -30,6 +30,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\DirectLinkExecutionFailureReason;
 use SuplaBundle\Exception\DirectLinkExecutionFailureException;
 use SuplaBundle\Exception\SceneDuringExecutionException;
+use SuplaBundle\Exception\SceneDuringInactivePeriodException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Audit\Audit;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
@@ -140,6 +141,13 @@ class ExecuteDirectLinkController extends Controller {
         } catch (SceneDuringExecutionException $e) {
             $executionException = new DirectLinkExecutionFailureException(
                 DirectLinkExecutionFailureReason::SCENE_DURING_EXECUTION(),
+                [],
+                Response::HTTP_CONFLICT,
+                $e
+            );
+        } catch (SceneDuringInactivePeriodException $e) {
+            $executionException = new DirectLinkExecutionFailureException(
+                DirectLinkExecutionFailureReason::SCENE_INACTIVE(),
                 [],
                 Response::HTTP_CONFLICT,
                 $e

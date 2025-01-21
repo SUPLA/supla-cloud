@@ -33,6 +33,7 @@ use MyCLabs\Enum\Enum;
  * @method static DirectLinkExecutionFailureReason INVALID_ACTION_PARAMETERS()
  * @method static DirectLinkExecutionFailureReason INVALID_CHANNEL_STATE()
  * @method static DirectLinkExecutionFailureReason SCENE_DURING_EXECUTION()
+ * @method static DirectLinkExecutionFailureReason SCENE_INACTIVE()
  * @method static DirectLinkExecutionFailureReason OTHER_FAILURE()
  */
 final class DirectLinkExecutionFailureReason extends Enum {
@@ -49,5 +50,6 @@ final class DirectLinkExecutionFailureReason extends Enum {
     const INVALID_ACTION_PARAMETERS = 'directLinkExecutionFailureReason_invalidActionParameters'; // i18n
     const INVALID_CHANNEL_STATE = 'directLinkExecutionFailureReason_invalidChannelState'; // i18n
     const SCENE_DURING_EXECUTION = 'directLinkExecutionFailureReason_sceneDuringExecution'; // i18n
+    const SCENE_INACTIVE = 'directLinkExecutionFailureReason_sceneDuringInactive'; // i18n
     const OTHER_FAILURE = 'directLinkExecutionFailureReason_otherFailure'; // i18n
 }

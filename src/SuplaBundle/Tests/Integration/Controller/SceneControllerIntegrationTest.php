@@ -202,6 +202,61 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         return $content;
     }
 
+    /** @depends testCreatingScene */
+    public function testUpdatingSceneActiveFromTo($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/scenes/' . $id, [
+            'activeFrom' => "2025-01-15T23:30:00+00:00",
+            'activeTo' => "2027-01-15T23:30:00+00:00",
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($id, $content['id']);
+        $this->assertEquals('2025-01-15T23:30:00+00:00', $content['activeFrom']);
+        $this->assertEquals('2027-01-15T23:30:00+00:00', $content['activeTo']);
+    }
+
+    /** @depends testCreatingScene */
+    public function testUpdatingSceneActiveHours($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/scenes/' . $id, [
+            'activeHours' => [1 => [12, 15, 18], 3 => [1, 3, 4]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($id, $content['id']);
+        $this->assertEquals([1 => [12, 15, 18], 3 => [1, 3, 4]], $content['activeHours']);
+    }
+
+    /** @depends testCreatingScene */
+    public function testUpdatingSceneActivityConditions($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/scenes/' . $id, [
+            'activityConditions' => [[['afterSunrise' => 27], ['beforeSunset' => 11]]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($id, $content['id']);
+        $this->assertEquals([[['afterSunrise' => 27], ['beforeSunset' => 11]]], $content['activityConditions']);
+    }
+
+    /** @depends testCreatingScene */
+    public function testUpdatingSceneActivityConditionsToInvalid($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/scenes/' . $id, [
+            'activityConditions' => [[['afterUnicorn' => 27], ['beforeSunset' => 11]]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
     /** @depends testUpdatingSceneDetails */
     public function testUpdatingSceneDetailsCaptionOnly($sceneDetails) {
         $id = $sceneDetails['id'];
@@ -313,6 +368,15 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testCreatingScene */
     public function testExecutingSceneDuringExecution(array $sceneDetails) {
         SuplaServerMock::mockResponse('EXECUTE-SCENE:1,1', 'IS-DURING-EXECUTION:1');
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/scenes/' . $sceneDetails['id'], ['action' => 'execute']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(409, $response);
+    }
+
+    /** @depends testCreatingScene */
+    public function testExecutingSceneDuringInactivePeriod(array $sceneDetails) {
+        SuplaServerMock::mockResponse('EXECUTE-SCENE:1,1', 'INACTIVE-PERIOD:1');
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PATCH', '/api/scenes/' . $sceneDetails['id'], ['action' => 'execute']);
         $response = $client->getResponse();

@@ -58,6 +58,9 @@
                                                 @change="sceneChanged()"/>
                                         </div>
                                     </div>
+                                    <div v-if="scene.id" class="details-page-block">
+                                        <ActivityConditionsForm v-model="activityConditions" @input="sceneChanged()"/>
+                                    </div>
                                     <div v-if="scene.id && scene.enabled"
                                         class="details-page-block">
                                         <h3 class="text-center">{{ $t('Actions') }}</h3>
@@ -118,10 +121,13 @@
     import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings.vue";
     import {warningNotification} from "@/common/notifier";
     import {deepCopy} from "@/common/utils";
+    import ActivityConditionsForm from "@/activity/activity-conditions-form.vue";
+    import TransitionExpand from "@/common/gui/transition-expand.vue";
 
     export default {
         props: ['id', 'item'],
         components: {
+            ActivityConditionsForm,
             ChannelParamsIntegrationsSettings,
             DependenciesWarningModal,
             ChannelActionExecutor,
@@ -143,6 +149,7 @@
                 hasPendingChanges: false,
                 displayValidationErrors: false,
                 dependenciesThatPreventsDeletion: undefined,
+                activityConditions: {},
             };
         },
         mounted() {
@@ -156,7 +163,15 @@
                     this.loading = true;
                     this.error = false;
                     this.$http.get(`scenes/${this.id}?include=operations,subject,location`, {skipErrorHandler: [403, 404]})
-                        .then(response => this.scene = response.body)
+                        .then(response => {
+                            this.scene = response.body;
+                            this.activityConditions = {
+                                activeFrom: this.scene.activeFrom,
+                                activeTo: this.scene.activeTo,
+                                activeHours: this.scene.activeHours,
+                                activityConditions: this.scene.activityConditions,
+                            };
+                        })
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
                 } else {
@@ -180,7 +195,7 @@
                     warningNotification(this.$t('Invalid scene'), this.$t('Please fix the problems with operations and try again.'));
                     return;
                 }
-                const toSend = deepCopy(this.scene);
+                const toSend = {...deepCopy(this.scene), ...this.activityConditions};
                 this.loading = true;
                 if (this.isNew) {
                     this.$http.post('scenes', toSend)

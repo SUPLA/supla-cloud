@@ -21,6 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\ActiveHours;
 use SuplaBundle\Entity\BelongsToUser;
+use SuplaBundle\Entity\HasActivityConditions;
 use SuplaBundle\Entity\HasSubject;
 use SuplaBundle\Entity\HasSubjectTrait;
 use SuplaBundle\Entity\Main\Listeners\ValueBasedTriggerEntityListener;
@@ -34,7 +35,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\EntityListeners({ValueBasedTriggerEntityListener::class})
  * @ORM\Table(name="supla_value_based_trigger")
  */
-class ValueBasedTrigger implements HasSubject {
+class ValueBasedTrigger implements HasSubject, HasActivityConditions {
     use HasSubjectTrait;
     use BelongsToUser;
 

@@ -9,21 +9,13 @@ use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Model\ValueBasedTriggerValidator;
 
 class ValueBasedTriggerRequestFiller extends AbstractRequestFiller {
-    /** @var SubjectActionFiller */
-    private $subjectActionFiller;
-    /** @var ValueBasedTriggerValidator */
-    private $triggerValidator;
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    use ActivityConditionsRequestFiller;
 
     public function __construct(
-        SubjectActionFiller $subjectActionFiller,
-        ValueBasedTriggerValidator $triggerValidator,
-        EntityManagerInterface $entityManager
+        private readonly SubjectActionFiller $subjectActionFiller,
+        private readonly ValueBasedTriggerValidator $triggerValidator,
+        private readonly EntityManagerInterface $entityManager
     ) {
-        $this->subjectActionFiller = $subjectActionFiller;
-        $this->triggerValidator = $triggerValidator;
-        $this->entityManager = $entityManager;
     }
 
     /** @param ValueBasedTrigger $vbt */
@@ -53,66 +45,7 @@ class ValueBasedTriggerRequestFiller extends AbstractRequestFiller {
         if (isset($data['enabled'])) {
             $vbt->setEnabled(boolval($data['enabled']));
         }
-        if (array_key_exists('activeFrom', $data)) {
-            $activeFrom = $data['activeFrom'];
-            if ($activeFrom) {
-                Assertion::string($activeFrom);
-                Assertion::integer(strtotime($activeFrom));
-                $vbt->setActiveFrom(new \DateTime($activeFrom));
-            } else {
-                $vbt->setActiveFrom(null);
-            }
-        }
-        if (array_key_exists('activeTo', $data)) {
-            $activeFrom = $data['activeTo'];
-            if ($activeFrom) {
-                Assertion::string($activeFrom);
-                Assertion::integer(strtotime($activeFrom));
-                $vbt->setActiveTo(new \DateTime($activeFrom));
-            } else {
-                $vbt->setActiveTo(null);
-            }
-        }
-        if (array_key_exists('activeHours', $data)) {
-            $activeHours = $data['activeHours'];
-            if ($activeHours) {
-                Assertion::isArray($activeHours);
-                $vbt->setActiveHours($activeHours);
-            } else {
-                $vbt->setActiveHours(null);
-            }
-        }
-        if (array_key_exists('activityConditions', $data)) {
-            $conditions = $data['activityConditions'];
-            if ($conditions) {
-                Assertion::isArray($conditions);
-                foreach ($conditions as $condition) {
-                    Assertion::isArray($condition);
-                    Assertion::allIsArray($condition);
-                    Assertion::allCount($condition, 1);
-                    foreach ($condition as $threshold) {
-                        Assertion::isArray($threshold);
-                        Assertion::count($threshold, 1);
-                        Assertion::inArray(key($threshold), ['beforeSunrise', 'afterSunrise', 'beforeSunset', 'afterSunset']);
-                        Assertion::integer(current($threshold));
-                    }
-                }
-                $vbt->setActivityConditions($conditions);
-            } else {
-                $vbt->setActivityConditions(null);
-            }
-        }
+        $this->fillActivityConditions($data, $vbt);
         return $vbt;
-    }
-
-    private function clearOldNotifications(array $actionsConfig) {
-        foreach ($actionsConfig as $action) {
-            if ($action['subjectType'] === ActionableSubjectType::NOTIFICATION) {
-                $notification = $this->entityManager->find(PushNotification::class, $action['subjectId'] ?? 0);
-                if ($notification) {
-                    $this->entityManager->remove($notification);
-                }
-            }
-        }
     }
 }

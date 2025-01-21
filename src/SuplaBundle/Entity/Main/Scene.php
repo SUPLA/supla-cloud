@@ -26,6 +26,7 @@ use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\ActiveHours;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\HasActivityConditions;
 use SuplaBundle\Entity\HasIcon;
 use SuplaBundle\Entity\HasLocation;
 use SuplaBundle\Entity\HasRelationsCount;
@@ -44,7 +45,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\EntityListeners({SceneEntityListener::class})
  * @ORM\Table(name="supla_scene")
  */
-class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUserConfig, HasIcon {
+class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUserConfig, HasIcon, HasActivityConditions {
     use BelongsToUser;
     use HasRelationsCountTrait;
     use HasUserConfigTrait;

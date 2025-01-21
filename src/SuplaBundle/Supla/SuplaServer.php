@@ -26,6 +26,7 @@ use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ConnectionStatus;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
 use SuplaBundle\Exception\SceneDuringExecutionException;
+use SuplaBundle\Exception\SceneDuringInactivePeriodException;
 use SuplaBundle\Model\ChannelStateGetter\ElectricityMeterChannelState;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\LocalSuplaCloud;
@@ -350,12 +351,14 @@ abstract class SuplaServer {
         return [];
     }
 
-    public function executeScene(Scene $scene) {
-        $command = $scene->buildServerActionCommand('EXECUTE-SCENE');
+    public function executeScene(Scene $scene, string $command = 'EXECUTE-SCENE'): void {
+        $command = $scene->buildServerActionCommand($command);
         $result = $this->doExecuteCommand($command) ?: '';
-        if (strpos($result, 'IS-DURING-EXECUTION:') === 0) {
+        if (str_starts_with($result, 'IS-DURING-EXECUTION:')) {
             throw new SceneDuringExecutionException($scene);
-        } elseif (strpos($result, 'OK:') !== 0) {
+        } elseif (str_starts_with($result, 'INACTIVE-PERIOD:')) {
+            throw new SceneDuringInactivePeriodException($scene);
+        } elseif (!str_starts_with($result, 'OK:')) {
             throw new ApiExceptionWithDetails(
                 'SUPLA Server was unable to execute the scene.', // i18n
                 ['error' => 'suplaServerError', 'response' => $result],

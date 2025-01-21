@@ -17,30 +17,14 @@ use SuplaBundle\Utils\SceneUtils;
 class SceneRequestFiller extends AbstractRequestFiller {
     use CurrentUserAware;
     use UserAltIconRequestFiller;
-
-    /** @var IODeviceChannelRepository */
-    private $channelRepository;
-    /** @var ChannelGroupRepository */
-    private $channelGroupRepository;
-    /** @var LocationRepository */
-    private $locationRepository;
-    /** @var UserIconRepository */
-    private $userIconRepository;
-    /** @var SubjectConfigTranslator */
-    private $configTranslator;
-    /** @var SubjectActionFiller */
-    private $subjectActionFiller;
+    use ActivityConditionsRequestFiller;
 
     public function __construct(
-        LocationRepository $locationRepository,
-        UserIconRepository $userIconRepository,
-        SubjectConfigTranslator $configTranslator,
-        SubjectActionFiller $subjectActionFiller
+        private readonly LocationRepository $locationRepository,
+        private readonly UserIconRepository $userIconRepository,
+        private readonly SubjectConfigTranslator $configTranslator,
+        private readonly SubjectActionFiller $subjectActionFiller
     ) {
-        $this->locationRepository = $locationRepository;
-        $this->userIconRepository = $userIconRepository;
-        $this->configTranslator = $configTranslator;
-        $this->subjectActionFiller = $subjectActionFiller;
     }
 
     /** @param Scene $scene */
@@ -105,6 +89,7 @@ class SceneRequestFiller extends AbstractRequestFiller {
             Assertion::isArray($data['config']);
             $this->configTranslator->setConfig($scene, $data['config']);
         }
+        $this->fillActivityConditions($data, $scene);
         return $scene;
     }
 }

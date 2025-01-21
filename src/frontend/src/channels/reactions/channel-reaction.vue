@@ -40,17 +40,6 @@
                     </div>
                 </div>
                 <div class="details-page-block">
-                    <h3 class="text-center">
-                        {{ $t('Activity conditions') }}
-                        <a @click="showConditionsHelp = !showConditionsHelp">
-                            <fa icon="info-circle" class="ml-2 small"/>
-                        </a>
-                    </h3>
-                    <transition-expand>
-                        <div v-if="showConditionsHelp" class="alert alert-info">
-                            {{ $t('The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.') }}
-                        </div>
-                    </transition-expand>
                     <ActivityConditionsForm v-model="activityConditions" @input="onChanged()"/>
                 </div>
             </div>
@@ -75,7 +64,6 @@
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import {deepCopy} from "@/common/utils";
     import EventBus from "@/common/event-bus";
-    import {mapValues, pickBy} from "lodash";
     import ActivityConditionsForm from "@/activity/activity-conditions-form.vue";
 
     export default {

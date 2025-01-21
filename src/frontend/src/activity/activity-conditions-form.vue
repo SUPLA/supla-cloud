@@ -1,5 +1,16 @@
 <template>
     <div>
+        <h3 class="text-center">
+            {{ $t('Activity conditions') }}
+            <a @click="showConditionsHelp = !showConditionsHelp">
+                <fa icon="info-circle" class="ml-2 small"/>
+            </a>
+        </h3>
+        <transition-expand>
+            <div v-if="showConditionsHelp" class="alert alert-info">
+                {{ $t('The item will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the item will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.') }}
+            </div>
+        </transition-expand>
         <DateRangePicker v-model="activeDateRange"
             :label-date-start="$t('Active from')"
             :label-date-end="$t('Active to')"
@@ -41,6 +52,7 @@
         },
         data() {
             return {
+                showConditionsHelp: false,
                 activeDateRange: {},
                 useWorkingSchedule: false,
                 activeHours: {},

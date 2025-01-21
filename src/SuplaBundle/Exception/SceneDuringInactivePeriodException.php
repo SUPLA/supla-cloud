@@ -20,10 +20,10 @@ namespace SuplaBundle\Exception;
 use SuplaBundle\Entity\Main\Scene;
 use Symfony\Component\HttpFoundation\Response;
 
-class SceneDuringExecutionException extends ApiExceptionWithDetails {
+class SceneDuringInactivePeriodException extends ApiExceptionWithDetails {
     public function __construct(Scene $scene) {
         parent::__construct(
-            'Scene ID{id} is being executed right now.', // i18n
+            'Scene ID{id} is inactive right now.', // i18n
             ['id' => $scene->getId()],
             Response::HTTP_CONFLICT
         );
