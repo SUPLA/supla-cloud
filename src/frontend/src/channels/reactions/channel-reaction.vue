@@ -68,7 +68,7 @@
                             v-model="activeHours"
                             @input="onChanged()"></week-schedule-selector>
                     </transition-expand>
-                    <ChannelReactionActivityConditions class="mt-4" v-model="activityConditions" @input="onChanged()"/>
+                    <DaytimeActivityConditions class="mt-4" v-model="activityConditions" @input="onChanged()"/>
                 </div>
             </div>
         </div>
@@ -93,13 +93,13 @@
     import {deepCopy} from "@/common/utils";
     import EventBus from "@/common/event-bus";
     import DateRangePicker from "@/direct-links/date-range-picker.vue";
-    import WeekScheduleSelector from "@/access-ids/week-schedule-selector.vue";
+    import WeekScheduleSelector from "@/activity/week-schedule-selector.vue";
     import {mapValues, pickBy} from "lodash";
-    import ChannelReactionActivityConditions from "@/channels/reactions/channel-reaction-activity-conditions.vue";
+    import DaytimeActivityConditions from "@/activity/daytime-activity-conditions.vue";
 
     export default {
         components: {
-            ChannelReactionActivityConditions,
+            DaytimeActivityConditions,
             WeekScheduleSelector,
             DateRangePicker,
             TransitionExpand, PendingChangesPage, ChannelActionChooser, SubjectDropdown, ChannelReactionConditionChooser

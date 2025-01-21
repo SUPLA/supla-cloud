@@ -1,5 +1,5 @@
 import {shallowMount} from '@vue/test-utils'
-import ChannelReactionActivityConditions from "@/channels/reactions/channel-reaction-activity-conditions.vue";
+import ChannelReactionActivityConditions from "@/activity/channel-reaction-activity-conditions.vue";
 
 describe('ChannelReactionActivityConditions', () => {
     describe('timesToConditions', () => {

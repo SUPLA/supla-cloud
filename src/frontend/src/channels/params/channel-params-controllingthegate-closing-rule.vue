@@ -43,9 +43,9 @@
 <script setup>
     import {computed, ref, set} from "vue";
     import DateRangePicker from "@/direct-links/date-range-picker";
-    import WeekScheduleSelector from "@/access-ids/week-schedule-selector";
+    import WeekScheduleSelector from "@/activity/week-schedule-selector.vue";
     import {mapValues, pickBy} from "lodash";
-    import WeekScheduleCaption from "@/access-ids/week-schedule-caption";
+    import WeekScheduleCaption from "@/activity/week-schedule-caption.vue";
 
     const props = defineProps({channel: Object});
     const emit = defineEmits(['change'])

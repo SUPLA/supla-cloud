@@ -28,9 +28,9 @@
                 tooltip="none" @change="updateModel()">
                 <template #label="{ label }">
                     <div class="vue-slider-mark-label">
-                        <img v-if="label === 'sunset'" src="../../assets/icons/sunset.svg" alt="sunset">
-                        <img v-else-if="label === 'sunrise'" src="../../assets/icons/sunrise.svg" alt="sunrise">
-                        <img v-else-if="label === 'midnight'" src="../../assets/icons/moon.svg" alt="midnight">
+                        <img v-if="label === 'sunset'" src="../assets/icons/sunset.svg" alt="sunset">
+                        <img v-else-if="label === 'sunrise'" src="../assets/icons/sunrise.svg" alt="sunrise">
+                        <img v-else-if="label === 'midnight'" src="../assets/icons/moon.svg" alt="midnight">
                     </div>
                 </template>
                 <template #step="{ label }">
@@ -146,7 +146,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../styles/variables";
+    @import "../styles/variables";
 
     $activeColor: $supla-green;
     $activeColorHover: lighten($supla-green, 5%);

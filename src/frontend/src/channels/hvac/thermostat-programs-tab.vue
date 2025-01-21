@@ -56,7 +56,7 @@
 </template>
 
 <script>
-    import WeekScheduleSelector from "@/access-ids/week-schedule-selector.vue";
+    import WeekScheduleSelector from "@/activity/week-schedule-selector.vue";
     import {mapValues} from "lodash";
     import PendingChangesPage from "@/common/pages/pending-changes-page.vue";
     import EventBus from "@/common/event-bus";

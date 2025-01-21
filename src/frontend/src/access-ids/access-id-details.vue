@@ -172,7 +172,7 @@
     import ClientAppChooser from "../client-apps/client-app-chooser";
     import PageContainer from "../common/pages/page-container";
     import DateRangePicker from "../direct-links/date-range-picker";
-    import WeekScheduleSelector from "./week-schedule-selector";
+    import WeekScheduleSelector from "@/activity/week-schedule-selector.vue";
     import {mapValues, pickBy} from "lodash";
     import TransitionExpand from "../common/gui/transition-expand";
 
