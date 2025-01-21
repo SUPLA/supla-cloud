@@ -188,7 +188,7 @@
     import ScheduleTile from "../schedules/schedule-list/schedule-tile";
     import ChannelGroupTile from "../channel-groups/channel-group-tile";
     import DirectLinkPreview from "./direct-link-preview";
-    import DateRangePicker from "./date-range-picker";
+    import DateRangePicker from "@/activity/date-range-picker";
     import DirectLinkAudit from "./direct-link-audit";
     import SubjectDropdown from "../devices/subject-dropdown";
     import AppState from "../router/app-state";

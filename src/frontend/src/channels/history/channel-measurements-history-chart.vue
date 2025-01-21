@@ -58,7 +58,7 @@
     import {DateTime} from "luxon";
     import {CHART_TYPES} from "./channel-measurements-history-chart-strategies";
     import ChannelMeasurementsPredefinedTimeRanges from "@/channels/history/channel-measurements-predefined-time-ranges.vue";
-    import DateRangePicker from "@/direct-links/date-range-picker.vue";
+    import DateRangePicker from "@/activity/date-range-picker.vue";
     import ChannelMeasurementsHistorySummaryTableElectricityMeter
         from "@/channels/history/channel-measurements-history-summary-table-electricity-meter.vue";
     import ChannelFunction from "@/common/enums/channel-function";

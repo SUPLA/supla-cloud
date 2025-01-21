@@ -42,7 +42,7 @@
 
 <script setup>
     import {computed, ref, set} from "vue";
-    import DateRangePicker from "@/direct-links/date-range-picker";
+    import DateRangePicker from "@/activity/date-range-picker";
     import WeekScheduleSelector from "@/activity/week-schedule-selector.vue";
     import {mapValues, pickBy} from "lodash";
     import WeekScheduleCaption from "@/activity/week-schedule-caption.vue";

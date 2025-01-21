@@ -122,7 +122,7 @@
     import {cloneDeep} from "lodash";
     import ActionableSubjectType from "../../common/enums/actionable-subject-type";
     import ChannelFunctionAction from "../../common/enums/channel-function-action";
-    import DateRangePicker from "../../direct-links/date-range-picker";
+    import DateRangePicker from "@/activity/date-range-picker";
     import {DateTime} from "luxon";
     import ChannelFunction from "@/common/enums/channel-function";
 

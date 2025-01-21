@@ -24,7 +24,7 @@
 <script>
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import {deepCopy} from "@/common/utils";
-    import DateRangePicker from "@/direct-links/date-range-picker.vue";
+    import DateRangePicker from "@/activity/date-range-picker.vue";
     import WeekScheduleSelector from "@/activity/week-schedule-selector.vue";
     import {mapValues, pickBy} from "lodash";
     import DaytimeActivityConditions from "@/activity/daytime-activity-conditions.vue";
