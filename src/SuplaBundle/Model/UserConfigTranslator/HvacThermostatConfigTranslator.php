@@ -186,7 +186,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
     public function setConfig(HasUserConfig $subject, array $config) {
         $channelConfig = $this->getConfig($subject);
         if (array_key_exists('mainThermometerChannelId', $config)) {
-            $this->updateSlaveThermostats($subject, $config, 'mainThermometerChannelId');
             $mainThermometerChannelId = $config['mainThermometerChannelId'];
             if ($mainThermometerChannelId) {
                 Assertion::integer($mainThermometerChannelId);
@@ -206,7 +205,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             }
         }
         if (array_key_exists('auxThermometerChannelId', $config)) {
-            $this->updateSlaveThermostats($subject, $config, 'auxThermometerChannelId');
             if ($config['auxThermometerChannelId']) {
                 Assertion::numeric($config['auxThermometerChannelId']);
                 $thermometer = $this->channelIdToNo($subject, $config['auxThermometerChannelId']);
@@ -231,7 +229,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $subject->setUserConfigValue('auxThermometerType', $config['auxThermometerType'] ?: 'NOT_SET');
         }
         if (array_key_exists('binarySensorChannelId', $config)) {
-            $this->updateSlaveThermostats($subject, $config, 'binarySensorChannelId');
             if ($config['binarySensorChannelId']) {
                 Assertion::numeric($config['binarySensorChannelId']);
                 $sensor = $this->channelIdToNo($subject, $config['binarySensorChannelId']);
@@ -271,7 +268,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             }
         }
         if (array_key_exists('pumpSwitchChannelId', $config)) {
-            $this->updateSlaveThermostats($subject, $config, 'pumpSwitchChannelId');
             if ($config['pumpSwitchChannelId']) {
                 Assertion::numeric($config['pumpSwitchChannelId']);
                 $pump = $this->channelIdToNo($subject, $config['pumpSwitchChannelId']);
@@ -282,7 +278,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             }
         }
         if (array_key_exists('heatOrColdSourceSwitchChannelId', $config)) {
-            $this->updateSlaveThermostats($subject, $config, 'heatOrColdSourceSwitchChannelId');
             if ($config['heatOrColdSourceSwitchChannelId']) {
                 Assertion::numeric($config['heatOrColdSourceSwitchChannelId']);
                 $hcsSwitch = $this->channelIdToNo($subject, $config['heatOrColdSourceSwitchChannelId']);
@@ -603,17 +598,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         return $channel->getIoDevice()
             ->getChannels()
             ->filter(fn(IODeviceChannel $ch) => $ch->getUserConfigValue('masterThermostatChannelNo') === $channel->getChannelNumber());
-    }
-
-    private function updateSlaveThermostats(IODeviceChannel $channel, array $newConfig, string $fieldToSet): void {
-        $configKey = str_replace('ChannelId', 'ChannelNo', $fieldToSet);
-        $currentValue = $channel->getUserConfigValue($configKey);
-        $this->findSlaveThermostats($channel)
-            ->filter(fn(IODeviceChannel $ch) => $ch->getUserConfigValue($configKey) === $currentValue)
-            ->forAll(function ($id, IODeviceChannel $ch) use ($fieldToSet, $newConfig) {
-                $this->setConfig($ch, [$fieldToSet => $newConfig[$fieldToSet]]);
-                $this->entityManager->persist($ch);
-            });
     }
 
     private function isHeatingModeAvailable(IODeviceChannel $subject) {
