@@ -23,3 +23,5 @@ var/logs/*
 var/sessions/*
 
 web/dist/
+
+**/.DS_Store
