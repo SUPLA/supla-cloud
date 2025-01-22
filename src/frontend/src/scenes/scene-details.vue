@@ -122,7 +122,6 @@
     import {warningNotification} from "@/common/notifier";
     import {deepCopy} from "@/common/utils";
     import ActivityConditionsForm from "@/activity/activity-conditions-form.vue";
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
 
     export default {
         props: ['id', 'item'],
