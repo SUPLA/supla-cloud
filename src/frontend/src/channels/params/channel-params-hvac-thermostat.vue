@@ -551,11 +551,19 @@
             },
             setChannelsFromMasterThermostat() {
                 if (this.masterThermostat) {
-                    this.channel.config.mainThermometerChannelId = this.masterThermostat.config.mainThermometerChannelId;
-                    this.channel.config.auxThermometerChannelId = this.masterThermostat.config.auxThermometerChannelId;
-                    this.channel.config.binarySensorChannelId = this.masterThermostat.config.binarySensorChannelId;
-                    this.channel.config.pumpSwitchChannelId = this.masterThermostat.config.pumpSwitchChannelId;
-                    this.channel.config.heatOrColdSourceSwitchChannelId = this.masterThermostat.config.heatOrColdSourceSwitchChannelId;
+                    const settingsToCopy = [
+                        'mainThermometerChannelId',
+                        'auxThermometerChannelId',
+                        'binarySensorChannelId',
+                        'pumpSwitchChannelId',
+                        'heatOrColdSourceSwitchChannelId',
+                    ];
+                    settingsToCopy
+                        .filter((setting) => this.canDisplaySetting(setting))
+                        .filter((setting) => this.canChangeSetting(setting))
+                        .forEach((setting) => {
+                            this.channel.config[setting] = this.masterThermostat.config[setting];
+                        });
                 }
                 this.masterThermostatChannelIdJustChanged = false;
             },

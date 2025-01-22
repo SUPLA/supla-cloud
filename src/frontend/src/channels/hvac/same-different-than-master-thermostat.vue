@@ -9,6 +9,7 @@
 
     const emit = defineEmits(['change']);
 
+    const canChangeSetting = computed(() => !props.channel.config.readOnlyConfigFields?.includes(props.setting));
     const sameAsMaster = computed(() => +props.masterThermostat?.config[props.setting] === +props.channel.config[props.setting]);
 
     const setSameAsMaster = () => {
@@ -18,7 +19,7 @@
 </script>
 
 <template>
-    <div class="help-block small" v-if="masterThermostat">
+    <div class="help-block small" v-if="masterThermostat && canChangeSetting">
         <span v-if="sameAsMaster">{{ $t('Same as on master thermostat.') }}</span>
         <span v-else>
             {{ $t('Different than on master thermostat.') }}

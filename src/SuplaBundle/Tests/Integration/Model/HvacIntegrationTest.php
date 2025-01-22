@@ -1110,6 +1110,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($pump2Id, $slaveConfig['pumpSwitchChannelId']); // did not change as they were different
         $this->assertEquals(null, $slaveConfig['heatOrColdSourceSwitchChannelId']); // changed, as were the same
         $this->assertEquals($thermoId, $slaveConfig['mainThermometerChannelId']); // changed, as were the same
+        $this->assertSuplaCommandExecuted("USER-ON-CHANNEL-CONFIG-CHANGED:1,$deviceId,{$thermostatMaster->getId()},6100,420,288");
+        $this->assertSuplaCommandExecuted("USER-ON-CHANNEL-CONFIG-CHANGED:1,$deviceId,{$thermostatSlave->getId()},6100,422,288");
     }
 
     /** @depends testSettingMasterThermostat */
