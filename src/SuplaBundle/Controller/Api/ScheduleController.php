@@ -113,6 +113,7 @@ class ScheduleController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Schedule"))),
      * )
+     * @Rest\Get("/schedules")
      * @Security("is_granted('ROLE_SCHEDULES_R')")
      */
     public function getSchedulesAction(Request $request) {
@@ -121,6 +122,7 @@ class ScheduleController extends RestController {
 
     /**
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R')")
+     * @Rest\Get("/channels/{channel}/schedules")
      */
     public function getChannelSchedulesAction(IODeviceChannel $channel, Request $request) {
         return $this->returnSchedules(ScheduleListQuery::create()->filterByChannel($channel), $request);
@@ -154,6 +156,7 @@ class ScheduleController extends RestController {
 
     /**
      * @Security("schedule.belongsToUser(user) and is_granted('ROLE_SCHEDULES_R')")
+     * @Rest\Get("/schedules/{schedule}")
      */
     public function getScheduleAction(Request $request, Schedule $schedule) {
         return $this->serializedView($schedule, $request, ['subject.relationsCount']);
@@ -161,6 +164,7 @@ class ScheduleController extends RestController {
 
     /**
      * @Security("is_granted('ROLE_SCHEDULES_RW')")
+     * @Rest\Post("/schedules")
      * @UnavailableInMaintenance
      */
     public function postScheduleAction(Request $request) {
@@ -177,6 +181,7 @@ class ScheduleController extends RestController {
 
     /**
      * @Security("schedule.belongsToUser(user) and is_granted('ROLE_SCHEDULES_RW')")
+     * @Rest\Put("/schedules/{schedule}")
      * @UnavailableInMaintenance
      */
     public function putScheduleAction(Request $request, Schedule $schedule) {
@@ -231,6 +236,7 @@ class ScheduleController extends RestController {
 
     /**
      * @Security("is_granted('ROLE_SCHEDULES_RW')")
+     * @Rest\Patch("/schedules")
      * @UnavailableInMaintenance
      */
     public function patchSchedulesAction(Request $request) {
@@ -249,6 +255,7 @@ class ScheduleController extends RestController {
 
     /**
      * @Security("schedule.belongsToUser(user) and is_granted('ROLE_SCHEDULES_RW')")
+     * @Rest\Delete("/schedules/{schedule}")
      * @UnavailableInMaintenance
      */
     public function deleteScheduleAction(Schedule $schedule) {

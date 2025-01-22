@@ -117,6 +117,7 @@ class IODeviceController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Device"))),
      * )
+     * @Rest\Get("/iodevices")
      * @Security("is_granted('ROLE_IODEVICES_R')")
      */
     public function getIodevicesAction(Request $request) {
@@ -192,8 +193,8 @@ class IODeviceController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
      * )
-     * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_R') and is_granted('accessIdContains', ioDevice)")
      * @Rest\Get("/iodevices/{ioDevice}", requirements={"ioDevice"="^\d+$"})
+     * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_R') and is_granted('accessIdContains', ioDevice)")
      */
     public function getIodeviceAction(Request $request, IODevice $ioDevice) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -273,6 +274,7 @@ class IODeviceController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
      *     @OA\Response(response="409", description="Device update would result in data loss, and the safe parameter has been set to true."),
      * )
+     * @Rest\Put("/iodevices/{ioDevice}")
      * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
@@ -427,8 +429,8 @@ class IODeviceController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(type="object")),
      *    ),
      * )
-     * @Security("is_granted('ROLE_IODEVICES_R')")
      * @Rest\Get("/subdevices")
+     * @Security("is_granted('ROLE_IODEVICES_R')")
      */
     public function getSubdevicesAction(Request $request) {
         $subdevices = $this->entityManager->getRepository(SubDevice::class)
@@ -449,6 +451,7 @@ class IODeviceController extends RestController {
      *     @OA\Response(response="204", description="Success"),
      *     @OA\Response(response="409", description="Device deletion would result in data loss, and the safe parameter has been set to true."),
      * )
+     * @Rest\Delete("/iodevices/{ioDevice}")
      * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */

@@ -66,6 +66,7 @@ class NotificationController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Notification")),
      * )
+     * @Rest\Get("/notifications/{notification}")
      * @Security("notification.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', notification.getChannel())")
      */
     public function getNotificationAction(Request $request, PushNotification $notification) {

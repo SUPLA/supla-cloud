@@ -297,6 +297,7 @@ class ChannelController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
      *     @OA\Response(response="409", description="Channel update would result in data loss, and the safe parameter has been set to true."),
      * )
+     * @Rest\Put("/channels/{channel}")
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      * @UnavailableInMaintenance
      */
@@ -508,6 +509,7 @@ class ChannelController extends RestController {
      *          @OA\Property(property="message", type="string", example="Cannot execute requested action on this channel."),
      *     )),
      * )
+     * @Rest\Patch("/channels/{channel}")
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_EA') and is_granted('accessIdContains', channel)")
      */
     public function patchChannelAction(Request $request, IODeviceChannel $channel) {
@@ -572,6 +574,7 @@ class ChannelController extends RestController {
     }
 
     /**
+     * @Rest\Get("/iodevices/{ioDevice}/channels")
      * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', ioDevice)")
      */
     public function getIodeviceChannelsAction(Request $request, IODevice $ioDevice) {

@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Main\AccessID;
@@ -118,6 +119,7 @@ class AccessIDController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/AccessIdentifier"))),
      * )
+     * @Rest\Get("/accessids")
      * @Security("is_granted('ROLE_ACCESSIDS_R')")
      */
     public function getAccessidsAction(Request $request) {
@@ -140,6 +142,7 @@ class AccessIDController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/AccessIdentifier")),
      * )
+     * @Rest\Get("/accessids/{accessId}")
      * @Security("accessId.belongsToUser(user) and is_granted('ROLE_ACCESSIDS_R')")
      */
     public function getAccessidAction(Request $request, AccessID $accessId) {
@@ -151,6 +154,7 @@ class AccessIDController extends RestController {
      *     path="/accessids", operationId="createAccessIdentifier", summary="Create a new Access Identifier", tags={"Access Identifiers"},
      *     @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/AccessIdentifier")),
      * )
+     * @Rest\Post("/accessids")
      * @Security("is_granted('ROLE_ACCESSIDS_RW')")
      * @UnavailableInMaintenance
      */
@@ -176,6 +180,7 @@ class AccessIDController extends RestController {
      *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
      *     @OA\Response(response="204", description="Success"),
      * )
+     * @Rest\Delete("/accessids/{accessId}")
      * @Security("accessId.belongsToUser(user) and is_granted('ROLE_ACCESSIDS_RW')")
      * @UnavailableInMaintenance
      */
@@ -208,6 +213,7 @@ class AccessIDController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/AccessIdentifier")),
      * )
+     * @Rest\Put("/accessids/{accessId}")
      * @Security("accessId.belongsToUser(user)")
      * @UnavailableInMaintenance
      */

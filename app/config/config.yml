@@ -87,7 +87,7 @@ fos_oauth_server:
 
 fos_rest:
   routing_loader:
-    default_format: json
+    enabled: false
   serializer:
     groups: ['basic']
     serialize_null: true

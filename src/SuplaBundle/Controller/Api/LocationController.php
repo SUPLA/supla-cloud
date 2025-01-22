@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\EntityUtils;
@@ -107,6 +108,7 @@ class LocationController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Location"))),
      * )
+     * @Rest\Get("/locations")
      * @Security("is_granted('ROLE_LOCATIONS_R')")
      */
     public function getLocationsAction(Request $request) {
@@ -123,6 +125,7 @@ class LocationController extends RestController {
      *     path="/locations", operationId="createLocation", summary="Create a new location", tags={"Locations"},
      *     @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/Location")),
      * )
+     * @Rest\Post("/locations")
      * @Security("is_granted('ROLE_LOCATIONS_RW')")
      * @UnavailableInMaintenance
      */
@@ -153,6 +156,7 @@ class LocationController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Location")),
      * )
+     * @Rest\Get("/locations/{location}")
      * @Security("location.belongsToUser(user) and is_granted('ROLE_LOCATIONS_R') and is_granted('accessIdContains', location)")
      */
     public function getLocationAction(Request $request, Location $location) {
@@ -165,6 +169,7 @@ class LocationController extends RestController {
      *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
      *     @OA\Response(response="204", description="Success"),
      * )
+     * @Rest\Delete("/locations/{location}")
      * @Security("location.belongsToUser(user) and is_granted('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
      * @UnavailableInMaintenance
      */
@@ -217,6 +222,7 @@ class LocationController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Location")),
      * )
+     * @Rest\Put("/locations/{location}")
      * @Security("location.belongsToUser(user) and is_granted('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
      * @UnavailableInMaintenance
      */

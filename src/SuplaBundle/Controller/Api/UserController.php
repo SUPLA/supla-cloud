@@ -196,6 +196,7 @@ class UserController extends RestController {
      *   path="/users/current", operationId="getCurrentUser", summary="Get info about user for the token.", tags={"Users"},
      *   @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/User")),
      * )
+     * @Rest\Get("/users/current")
      * @Security("is_granted('ROLE_ACCOUNT_R')")
      */
     public function currentUserAction(Request $request) {
@@ -303,7 +304,10 @@ class UserController extends RestController {
         return $this->view($user, Response::HTTP_OK, $headers);
     }
 
-    /** @Security("is_granted('ROLE_ACCOUNT_R')") */
+    /**
+     * @Rest\Get("/users/current/audit")
+     * @Security("is_granted('ROLE_ACCOUNT_R')")
+     */
     public function getUsersCurrentAuditAction(Request $request) {
         $events = $request->get('events', []);
         Assertion::isArray($events);
