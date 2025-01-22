@@ -112,6 +112,7 @@ class UserManager {
     }
 
     public function create(User $user) {
+        Assertion::notEmpty($user->getPlainPassword(), 'User does not have a password.');
         $this->setPassword($user->getPlainPassword(), $user);
         $this->genToken($user);
         $this->transactional(function (EntityManagerInterface $em) use ($user) {

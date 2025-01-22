@@ -48,6 +48,7 @@ trait UserFixtures {
         $userManager = self::$container->get(UserManager::class);
         $user = new User();
         $user->setEmail($username);
+        $user->setPlainPassword($password);
         $userManager->create($user);
         $userManager->setPassword($password, $user, true);
         $userManager->confirm($user->getToken());

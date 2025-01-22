@@ -111,6 +111,7 @@ class CreateConfirmedUserCommand extends Command {
                 throw new ServiceUnavailableHttpException(10, $message);
             }
         }
+        $user->setPlainPassword($password);
         $this->userManager->create($user);
         $this->userManager->setPassword($password, $user, true);
         $this->userManager->confirm($user->getToken());
