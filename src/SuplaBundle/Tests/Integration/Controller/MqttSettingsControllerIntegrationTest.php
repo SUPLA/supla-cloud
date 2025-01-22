@@ -102,4 +102,9 @@ class MqttSettingsControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
     }
+
+    protected static function createClient(array $options = [], array $server = []) {
+        self::ensureKernelShutdown();
+        return parent::createClient($options, $server);
+    }
 }

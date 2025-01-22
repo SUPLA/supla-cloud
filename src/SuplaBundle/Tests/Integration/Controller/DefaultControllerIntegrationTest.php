@@ -27,7 +27,8 @@ class DefaultControllerIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
 
     public function testGettingApiDocs() {
-        $client = $this->createClient();
+        self::ensureKernelShutdown();
+        $client = self::createClient();
         $client->request('GET', '/api-docs/supla-api-docs.yaml');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -38,7 +39,8 @@ class DefaultControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testGettingApiDocsV24() {
-        $client = $this->createClient();
+        self::ensureKernelShutdown();
+        $client = self::createClient();
         $client->request('GET', '/api-docs/supla-api-docs-v3.yaml');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
