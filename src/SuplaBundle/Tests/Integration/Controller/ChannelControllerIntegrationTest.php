@@ -277,7 +277,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     public function testChangingChannelState(int $channelId, string $action, string $expectedCommand, array $additionalRequest = []) {
         $client = $this->createAuthenticatedClient($this->user);
         $request = array_merge(['action' => $action], $additionalRequest);
-        $client->request('PATCH', '/api/channels/' . $channelId, [], [], [], json_encode($request));
+        $client->apiRequest('PATCH', '/api/channels/' . $channelId, $request);
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $this->assertSuplaCommandExecuted($expectedCommand);
@@ -365,14 +365,14 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testTryingToExecuteActionInvalidForChannel() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->request('PATCH', '/api/channels/' . 1, [], [], [], json_encode(array_merge(['action' => 'open'])));
+        $client->apiRequest('PATCH', '/api/channels/' . 1, array_merge(['action' => 'open']));
         $response = $client->getResponse();
         $this->assertStatusCode('4xx', $response);
     }
 
     public function testTryingToExecuteInvalidAction() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->request('PATCH', '/api/channels/' . 1, [], [], [], json_encode(array_merge(['action' => 'unicorn'])));
+        $client->apiRequest('PATCH', '/api/channels/' . 1, array_merge(['action' => 'unicorn']));
         $response = $client->getResponse();
         $this->assertStatusCode('4xx', $response);
     }
@@ -380,7 +380,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     public function testChangingChannelRgbwState21() {
         $client = $this->createAuthenticatedClient($this->user);
         $request = ['color' => 0xFF00FF, 'color_brightness' => 58, 'brightness' => 42];
-        $client->request('PUT', '/api/channels/5', [], [], $this->versionHeader(ApiVersions::V2_1()), json_encode($request));
+        $client->apiRequest('PUT', '/api/channels/5', $request, [], [], [], ApiVersions::V2_1);
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,5,16711935,58,42,0');
@@ -973,7 +973,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     public function testOpeningValveIfFloodingFromWebClient() {
         SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,1\n");
         $client = $this->createAuthenticatedClient($this->user);
-        $client->request('PATCH', '/api/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
+        $client->apiRequest('PATCH', '/api/channels/6', array_merge(['action' => 'open']));
         $response = $client->getResponse();
         $this->assertStatusCode('2XX', $response);
     }
@@ -981,7 +981,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     public function testOpeningValveIfManuallyShutFromWebClient() {
         SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,2\n");
         $client = $this->createAuthenticatedClient($this->user);
-        $client->request('PATCH', '/api/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
+        $client->apiRequest('PATCH', '/api/channels/6', array_merge(['action' => 'open']));
         $response = $client->getResponse();
         $this->assertStatusCode('2XX', $response);
     }
@@ -993,7 +993,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             ['debug' => false],
             ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]
         );
-        $client->request('PATCH', '/api/v2.3.0/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
+        $client->apiRequest('PATCH', '/api/v2.3.0/channels/6', array_merge(['action' => 'open']));
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
         $body = json_decode($response->getContent(), true);
@@ -1007,7 +1007,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             ['debug' => false],
             ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]
         );
-        $client->request('PATCH', '/api/v2.3.0/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
+        $client->apiRequest('PATCH', '/api/v2.3.0/channels/6', array_merge(['action' => 'open']));
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
         $body = json_decode($response->getContent(), true);
@@ -1021,7 +1021,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             ['debug' => false],
             ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]
         );
-        $client->request('PATCH', '/api/v2.3.0/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
+        $client->apiRequest('PATCH', '/api/v2.3.0/channels/6', array_merge(['action' => 'open']));
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
     }
@@ -1135,7 +1135,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     public function testExecutingActionOnOfflineChannel() {
         SuplaServerMock::mockResponse('ACTION-TURN-ON:1,1,1', "FAILURE\n");
         $client = $this->createAuthenticatedClient($this->user);
-        $client->request('PATCH', '/api/channels/1', [], [], [], json_encode(['action' => ChannelFunctionAction::TURN_ON]));
+        $client->apiRequest('PATCH', '/api/channels/1', ['action' => ChannelFunctionAction::TURN_ON]);
         $response = $client->getResponse();
         $this->assertStatusCode('400', $response);
         $body = json_decode($response->getContent(), true);

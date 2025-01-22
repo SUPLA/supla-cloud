@@ -27,6 +27,7 @@ class UserManagerIntegrationTest extends IntegrationTestCase {
         $userManager = self::$container->get(UserManager::class);
         $user = new User();
         $user->setEmail('test@supla.org');
+        $user->setPlainPassword('test');
         $userManager->create($user);
         $this->assertNotNull($user);
         $this->assertGreaterThan(0, $user->getId());

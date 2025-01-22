@@ -86,6 +86,8 @@ fos_oauth_server:
     storage: SuplaBundle\Auth\SuplaOAuthStorage
 
 fos_rest:
+  body_listener:
+    enabled: true
   routing_loader:
     enabled: false
   serializer:

@@ -20,7 +20,9 @@ trait HasSubjectTrait {
         $this->channel = null;
         $this->channelGroup = null;
         $this->scene = null;
-        $this->schedule = null;
+        if (property_exists($this, 'schedule')) {
+            $this->schedule = null;
+        }
         if (property_exists($this, 'pushNotification')) {
             $this->pushNotification = null;
         }

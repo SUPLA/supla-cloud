@@ -152,7 +152,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testCreatingDirectLink */
     public function testExecutingDirectLinkWithPatch(array $directLink) {
         $client = $this->createClient();
-        $client->request('PATCH', "/direct/$directLink[id]/$directLink[slug]/turn-on");
+        $client->request('PATCH', "/direct/$directLink[id]/$directLink[slug]/turn-on", [], [], ['CONTENT_TYPE' => 'application/json']);
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $this->assertSuplaCommandExecuted('ACTION-TURN-ON:1,1,1');
@@ -404,7 +404,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->persist($directLink);
         $this->getEntityManager()->flush();
         $client = $this->createClient();
-        $client->request('PATCH', "/direct/$directLinkDetails[id]/$directLinkDetails[slug]/turn-on");
+        $client->request('PATCH', "/direct/$directLinkDetails[id]/$directLinkDetails[slug]/turn-on", [], [], ['CONTENT_TYPE' => '*/*']);
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $this->assertSuplaCommandExecuted('ACTION-TURN-ON:1,1,1');
