@@ -162,3 +162,7 @@ usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Voltage presence (inverted)
 localUILock_UNLOCKED: Unlocked
 localUILock_FULL: Locked
 localUILock_TEMPERATURE: Temperature adjustment only
+
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: operation based on a hysteresis with the temperature setpoint placed at the middle of its range. For example, assuming a hysteresis of 1°C and a target temperature of 23°C, the thermostat will turn on the heating at 22.5°C and stop working when the temperature reaches 23.5°C.
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: operation based on a hysteresis with the temperature setpoint set as the upper hysteresis threshold. For example, assuming a hysteresis of 1°C and a target temperature of 23°C, the thermostat will turn on the heating at 22°C and stop working when the temperature reaches 23°C.
+thermostatAlgorithmHelp_PID: an algorithm that uses smooth control to stabilize the temperature near the desired setpoint.

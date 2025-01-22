@@ -1718,3 +1718,6 @@ suffix: sufiks
 Percentage of extension: Procent rozwinięcia
 '% of extension': '% rozwinięcia'
 'Scene ID{id} is inactive right now.': 'Scena ID{id} jest teraz nieaktywna.'
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: praca w oparciu o histerezę z nastawą temperatury ustawioną w połowie jej zakresu. Przykłądowo, przyjmując histerezę równą 1°C oraz docelową temperaturę 23°C, termostat włączy ogrzewanie przy 22.5°C i zakończy pracę, gdy temperatura osiągnie 23.5°C.
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: praca w oparciu o histerezę z nastawą temperatury ustawioną jako górny próg histerezy. Przykłądowo, przyjmując histerezę równą 1°C oraz docelową temperaturę 23°C, termostat włączy ogrzewanie przy 22°C i zakończy pracę, gdy temperatura osiągnie 23°C.
+thermostatAlgorithmHelp_PID: algorytm stosujący płynną regulację w celu stabilizacji temperatury w okolicy zadanej nastawy.

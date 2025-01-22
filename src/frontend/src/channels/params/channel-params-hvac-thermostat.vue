@@ -304,7 +304,15 @@
                     </dl>
                     <transition-expand>
                         <div class="well small text-muted p-2 display-newlines" v-if="algorithmHelpShown">
-                            {{ $t('thermostatAlgorithm_help') }}
+                            {{ $t('Algorithms available on this device') }}:
+                            <ul class="pl-4 m-0 mt-1">
+                                <!-- i18n:['thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE', 'thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST'] -->
+                                <!-- i18n:['thermostatAlgorithmHelp_PID'] -->
+                                <li v-for="type in channel.config.availableAlgorithms" :key="type">
+                                    <strong>{{ $t(`thermostatAlgorithm_${type}`) }}:</strong>
+                                    {{ $t(`thermostatAlgorithmHelp_${type}`) }}
+                                </li>
+                            </ul>
                         </div>
                     </transition-expand>
                 </div>
