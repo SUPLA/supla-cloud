@@ -1,7 +1,7 @@
 import {shallowMount} from '@vue/test-utils'
-import ChannelReactionActivityConditions from "@/activity/channel-reaction-activity-conditions.vue";
+import DaytimeActivityConditions from "@/activity/daytime-activity-conditions.vue";
 
-describe('ChannelReactionActivityConditions', () => {
+describe('DaytimeActivityConditions', () => {
     describe('timesToConditions', () => {
         const tests = [
             [[], []],
@@ -22,13 +22,13 @@ describe('ChannelReactionActivityConditions', () => {
         ];
 
         it.each(tests)('translates timesToConditions', async (times, expectedConditions) => {
-            const wrapper = await shallowMount(ChannelReactionActivityConditions);
+            const wrapper = await shallowMount(DaytimeActivityConditions);
             const actualConditions = wrapper.vm.timesToConditions(times);
             expect(actualConditions).toEqual(expectedConditions);
         });
 
         it.each(tests)('translates conditionsToTimes', async (expectedTimes, conditions) => {
-            const wrapper = await shallowMount(ChannelReactionActivityConditions);
+            const wrapper = await shallowMount(DaytimeActivityConditions);
             const actualTimes = wrapper.vm.conditionsToTimes(conditions);
             if (conditions.length > 0) {
                 expect(actualTimes).toEqual(expectedTimes);
