@@ -549,6 +549,13 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($reaction->isEnabled());
     }
 
+    public function testDeletingWithoutDependencies() {
+        $device = $this->createDeviceSonoff($this->location);
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/iodevices/{$device->getId()}?safe=true");
+        $this->assertStatusCode(204, $client->getResponse());
+    }
+
     public function testDeletingWithDependencies() {
         $device = $this->createDeviceFull($this->location);
         $cg = new IODeviceChannelGroup($this->user, $this->location, [$device->getChannels()[0]]);

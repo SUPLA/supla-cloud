@@ -5,6 +5,7 @@ namespace SuplaBundle\Model\Dependencies;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\ActionableSubject;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
@@ -30,6 +31,16 @@ abstract class ActionableSubjectDependencies {
                 $config = $this->channelParamConfigTranslator->getConfig($channel);
                 return !($config['hideInChannelsList'] ?? false);
             }));
+        }
+        return $dependencies;
+    }
+
+    public function onlyDependenciesFromOtherDevices(array $dependencies, IODevice $device): array {
+        if ($dependencies['channels'] ?? []) {
+            $dependencies['channels'] = array_values(array_filter(
+                $dependencies['channels'],
+                fn(IODeviceChannel $channel) => $channel->getIodevice()->getId() !== $device->getId()
+            ));
         }
         return $dependencies;
     }

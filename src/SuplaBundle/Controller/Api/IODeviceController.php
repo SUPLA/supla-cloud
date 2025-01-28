@@ -309,9 +309,10 @@ class IODeviceController extends RestController {
                 }
                 if ($enabledChanged && !$requestData['enabled']) {
                     $dependencies = $deviceDependencies->getItemsThatDependOnEnabled($ioDevice);
-                    $visibleDependencies = $deviceDependencies->onlyDependenciesVisibleToUser($dependencies);
-                    if (array_filter($visibleDependencies)) {
-                        $view = $this->view(['conflictOn' => 'enabled', 'dependencies' => $visibleDependencies], Response::HTTP_CONFLICT);
+                    $dependencies = $deviceDependencies->onlyDependenciesVisibleToUser($dependencies);
+                    $dependencies = $deviceDependencies->onlyDependenciesFromOtherDevices($dependencies, $ioDevice);
+                    if (array_filter($dependencies)) {
+                        $view = $this->view(['conflictOn' => 'enabled', 'dependencies' => $dependencies], Response::HTTP_CONFLICT);
                         $this->setSerializationGroups(
                             $view,
                             $request,
@@ -465,6 +466,8 @@ class IODeviceController extends RestController {
         $deviceId = $ioDevice->getId();
         if (filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)) {
             $dependencies = $deviceDependencies->getItemsThatDependOnEnabled($ioDevice);
+            $dependencies = $deviceDependencies->onlyDependenciesVisibleToUser($dependencies);
+            $dependencies = $deviceDependencies->onlyDependenciesFromOtherDevices($dependencies, $ioDevice);
             if (count(array_filter($dependencies))) {
                 $view = $this->view(['conflictOn' => 'deletion', 'dependencies' => $dependencies], Response::HTTP_CONFLICT);
                 $this->setSerializationGroups(
