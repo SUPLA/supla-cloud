@@ -1002,7 +1002,7 @@ The device that uses this session will loose access to the SUPLA Cloud and will 
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Cała historia aberracji napięcia dla fazy {phaseNumber} zostanie usunięta.
 The entire history of the voltage aberrations will be removed from this channel.: Cała historia aberracji napięcia zostanie usunięta dla tego kanału.
 The following channels will be also removed along with their dependencies.: Poniższe kanały także zostaną usunięte razem z ich zależnościami.
-The following items use the channels of these device. These references will be also removed.: Poniższe elementy używają kanałów z tego urządzenia. One również zostaną usunięte.
+The following items use the channels of these device. These references will be also removed.: Poniższe elementy używają kanałów z tego urządzenia. Odniesienia do nich również zostaną usunięte.
 'The following items will be deleted with this device:': Poniższe elementy zostaną również usunięte razem z tym urządzeniem.
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
 The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
