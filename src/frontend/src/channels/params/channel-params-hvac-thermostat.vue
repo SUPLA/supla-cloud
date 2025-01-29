@@ -415,7 +415,7 @@
 
         <a class="d-flex accordion-header" @click="displayGroup('userInterface')"
             v-if="canDisplayAnySetting('localUILock') && channel.config.localUILockingCapabilities">
-            <span class="flex-grow-1">{{ $t('Local interface') }}</span>
+            <span class="flex-grow-1">{{ $t('Device interface') }}</span>
             <span>
                 <fa :icon="group === 'userInterface' ? 'chevron-down' : 'chevron-right'"/>
             </span>
@@ -423,7 +423,7 @@
         <transition-expand>
             <div v-show="group === 'userInterface'" v-if="channel.config.localUILockingCapabilities">
                 <dl>
-                    <dd>{{ $t('Screen lock') }}</dd>
+                    <dd>{{ $t('Lock type') }}</dd>
                     <dt>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"

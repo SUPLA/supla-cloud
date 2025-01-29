@@ -66,39 +66,47 @@
                         <DeviceSettingsHomeScreen v-model="config.homeScreen" :config="config" @input="onChange()"/>
                     </div>
                     <div class="form-group with-border-bottom" v-if="config.userInterface">
-                        <label>{{ $t('User interface') }}</label>
-                        <div>
-                            <div class="btn-group">
-                                <button type="button" @click="config.userInterface.disabled = false; onChange()"
-                                    :class="['btn', config.userInterface.disabled === false ? 'btn-green' : 'btn-white']">
-                                    {{ $t('Unlocked') }}
-                                </button>
-                                <button type="button" @click="config.userInterface.disabled = true; onChange()"
-                                    :class="['btn', config.userInterface.disabled === true ? 'btn-green' : 'btn-white']">
-                                    {{ $t('Locked') }}
-                                </button>
-                                <button type="button" @click="config.userInterface.disabled = 'partial'; onChange()"
-                                    :class="['btn', config.userInterface.disabled === 'partial' ? 'btn-green' : 'btn-white']">
-                                    {{ $t('Temperature adjustment only') }}
-                                </button>
-                            </div>
+                        <label>{{ $t('Device interface') }}</label>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
+                                data-toggle="dropdown">
+                                {{ $t('Lock type') }}:
+                                {{ $t(`localUILock_${localUILockMode}`) }}
+                                <span class="caret"></span>
+                            </button>
+                            <!-- i18n:['localUILock_UNLOCKED', 'localUILock_FULL', 'localUILock_TEMPERATURE'] -->
+                            <ul class="dropdown-menu">
+                                <li v-for="type in localUILockingCapabilities" :key="type">
+                                    <a @click="localUILockMode = type"
+                                        v-show="type !== localUILockMode">
+                                        {{ $t(`localUILock_${type}`) }}
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="pl-4 mt-3" v-if="config.userInterface.disabled === 'partial'">
-                            <div class="form-group">
-                                <label>{{ $t('Minimum temperature that can be set from the device') }}</label>
-                                <input type="number" class="form-control" step="0.1"
-                                    @change="onChange()"
-                                    v-model="config.userInterface.minAllowedTemperatureSetpointFromLocalUI"
-                                    :max="config.userInterface.maxAllowedTemperatureSetpointFromLocalUI || maxUiTemperature"
-                                    :min="minUiTemperature" :placeholder="minUiTemperature">
-                            </div>
-                            <div class="form-group">
-                                <label>{{ $t('Maximum temperature that can be set from the device') }}</label>
-                                <input type="number" class="form-control" step="0.1"
-                                    @change="onChange()"
-                                    v-model="config.userInterface.maxAllowedTemperatureSetpointFromLocalUI"
-                                    :min="config.userInterface.minAllowedTemperatureSetpointFromLocalUI || minUiTemperature"
-                                    :max="maxUiTemperature" :placeholder="maxUiTemperature">
+                        <div class="mt-3" v-if="config.userInterface.disabled === 'partial'">
+                            <label>{{ $t('Temperatures that can be set from local UI') }}</label>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div>{{ $t('Minimum') }}</div>
+                                        <input type="number" class="form-control" step="0.1"
+                                            @change="onChange()"
+                                            v-model="config.userInterface.minAllowedTemperatureSetpointFromLocalUI"
+                                            :max="config.userInterface.maxAllowedTemperatureSetpointFromLocalUI || maxUiTemperature"
+                                            :min="minUiTemperature" :placeholder="minUiTemperature">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div>{{ $t('Maximum') }}</div>
+                                        <input type="number" class="form-control" step="0.1"
+                                            @change="onChange()"
+                                            v-model="config.userInterface.maxAllowedTemperatureSetpointFromLocalUI"
+                                            :min="config.userInterface.minAllowedTemperatureSetpointFromLocalUI || minUiTemperature"
+                                            :max="maxUiTemperature" :placeholder="maxUiTemperature">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -144,6 +152,7 @@
                 hasPendingChanges: false,
                 config: undefined,
                 conflictingConfig: false,
+                localUILockingCapabilities: ['UNLOCKED', 'FULL', 'TEMPERATURE'],
             };
         },
         beforeMount() {
@@ -211,7 +220,25 @@
                 set(value) {
                     this.config.powerStatusLed = value ? 'ENABLED' : 'DISABLED';
                 }
-            }
+            },
+            localUILockMode: {
+                get() {
+                    if (this.config.userInterface.disabled === 'partial') {
+                        return 'TEMPERATURE';
+                    }
+                    return this.config.userInterface.disabled ? 'FULL' : 'UNLOCKED';
+                },
+                set(mode) {
+                    if (mode === 'FULL') {
+                        this.config.userInterface.disabled = true;
+                    } else if (mode === 'TEMPERATURE') {
+                        this.config.userInterface.disabled = 'partial';
+                    } else {
+                        this.config.userInterface.disabled = false;
+                    }
+                    this.onChange();
+                }
+            },
         }
     }
 </script>
