@@ -22,7 +22,7 @@
                     <span class="input-group-addon">{{ $t('min.') }}</span>
                 </span>
             </dt>
-            <dd>{{ $t('Working schedule') }}</dd>
+            <dd>{{ $t('Activity schedule') }}</dd>
             <dt>
                 <WeekScheduleCaption :schedule="props.channel.config.closingRule.activeHours" :emptyCaption="$t('everyday')"/>
                 <div><a @click="startEdit()">{{ $t('Change') }}</a></div>

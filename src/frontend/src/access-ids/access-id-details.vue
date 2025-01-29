@@ -59,14 +59,14 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="details-page-block">
-                                <h3>{{ $t('Working schedule') }}</h3>
+                                <h3>{{ $t('Activity schedule') }}</h3>
                                 <div class="form-group text-center">
                                     <label>
                                         <label class="checkbox2 checkbox2-grey">
                                             <input type="checkbox"
                                                 v-model="useWorkingSchedule"
                                                 @change="accessIdChanged()">
-                                            {{ $t('Use working schedule for this access identifier') }}
+                                            {{ $t('Use activity schedule') }}
                                         </label>
                                     </label>
                                 </div>

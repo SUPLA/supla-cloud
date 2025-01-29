@@ -269,8 +269,8 @@ Conflict: Konflikt
 Connected: Połączony
 Connection with a private instance of the SUPLA cloud: Połączenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
-Container: Pojemnik
-Container level sensor: Czujnik poziomu pojemnika
+Container: Zbiornik
+Container level sensor: Czujnik poziomu zbiornika
 Cool to: Chłódź do
 Cooling mode: Tryb chłodzenia
 'Cooling: {percent}%': 'Chłodzenie: {percent}%'
@@ -1019,7 +1019,7 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
 The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
 The incident was detected at %datetime%.: Zdarzenie miało miejsce %datetime%.
-The item will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the item will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Element będzie aktywny, gdy wszystkie warunki zostaną spełnione. Jeśli zdecydujesz się ustawić wszystkie dostępne ustawienia czasowe, element będzie aktywny, gdy czas będzie między aktywny od i aktywny do, mieści się w wybranym harmonogramie pracy i spełnia jedno z kryteriów czasu dnia.
+activityConditions_help: Element będzie aktywny, gdy wszystkie warunki zostaną spełnione. Jeśli zdecydujesz się ustawić wszystkie dostępne ustawienia czasowe, element będzie aktywny, gdy czas będzie między aktywny od i aktywny do, mieści się w wybranym harmonogramie aktywności i spełnia jedno z kryteriów czasu dnia.
 The items below depend on the deleted channels, so they will be deleted, too.: Poniższe elementy są zależne od usuwanych kanałów, więc także zostaną usunięte.
 The items below depend on this channel function, so they will be deleted.: Poniższe elementy bazują na aktualnej funkcji kanału, więc zostaną usunięte po jej zmianie.
 The items below depend on this channel group, so they will be deleted.: Poniższe elementy korzystają z tej grupy kanałów, więc po jej usunięciu zostaną również usunięte.
@@ -1106,8 +1106,7 @@ Uploaded files do not contain any inappropriate or copyrighted content, nor do t
 Upper voltage threshold: Próg wysokiego napięcia
 Use device default: Użyj domyślnej wartości z urządzenia
 'Use the {0} server command to change this account''s limits. For example:': 'Aby zmienić limity dla tego konta, użyj komendy {0} na Twoim serwerze. Na przykład:'
-Use working schedule: Użyj harmonogramu pracy
-Use working schedule for this access identifier: Używaj harmonogramu dostępności dla tego identyfikatora dostępu
+Use activity schedule: Użyj harmonogramu aktywności
 Use {theMasterThermostat} to control this device.: Użyj {theMasterThermostat}, aby sterować tym urządzeniem.
 Used current transformer type: Używany przekładnik prądowy
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
@@ -1316,7 +1315,7 @@ With SUPLA you can operate the lights in your home or office: Z SUPLĄ możesz s
 With a timer: Z czasomierzem
 With function: Z funkcją
 Working period: Okres działania
-Working schedule: Harmonogram aktywności
+Activity schedule: Harmonogram aktywności
 YOUR LINK CODE: KOD TWOJEGO LINKU
 'Yes': Tak
 You are changing the settings too quickly. You have to wait a while before making this change.: Zmieniasz ustawienia zbyt szybko. Musisz chwilę odczekać przed zmianą tych ustawień.
@@ -1710,7 +1709,6 @@ Sunrise / Sunset: Wschód / Zachód
 Triggers: Wyzwalacze
 Try again later: Spróbuj ponownie później
 Turn off after: Wyłącz po czasie
-Use working schedule for this reaction: Używaj harmonogramu aktywności dla tej reakcji
 Value per unit: Wartość na jednostkę
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 choose a currency: wybierz walutę

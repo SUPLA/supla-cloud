@@ -8,7 +8,7 @@
         </h3>
         <transition-expand>
             <div v-if="showConditionsHelp" class="alert alert-info">
-                {{ $t('The item will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the item will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.') }}
+                {{ $t('activityConditions_help') }}
             </div>
         </transition-expand>
         <DateRangePicker v-model="activeDateRange"
@@ -19,7 +19,7 @@
             <label>
                 <label class="checkbox2 checkbox2-grey">
                     <input type="checkbox" v-model="useWorkingSchedule" @change="onChanged()">
-                    {{ $t('Use working schedule') }}
+                    {{ $t('Use activity schedule') }}
                 </label>
             </label>
         </div>

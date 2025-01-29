@@ -160,3 +160,5 @@ usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Voltage presence (inverted)
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+
+activityConditions_help: The item will be active when all conditions are met. If you choose to set all available time settings, the item will be active when the time is between "Active from" and "Active to," falls within the selected activity schedule, and meets one of the daytime criteria.
