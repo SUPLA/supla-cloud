@@ -50,6 +50,6 @@ final class DirectLinkExecutionFailureReason extends Enum {
     const INVALID_ACTION_PARAMETERS = 'directLinkExecutionFailureReason_invalidActionParameters'; // i18n
     const INVALID_CHANNEL_STATE = 'directLinkExecutionFailureReason_invalidChannelState'; // i18n
     const SCENE_DURING_EXECUTION = 'directLinkExecutionFailureReason_sceneDuringExecution'; // i18n
-    const SCENE_INACTIVE = 'directLinkExecutionFailureReason_sceneDuringInactive'; // i18n
+    const SCENE_INACTIVE = 'directLinkExecutionFailureReason_sceneDuringInactivePeriod'; // i18n
     const OTHER_FAILURE = 'directLinkExecutionFailureReason_otherFailure'; // i18n
 }

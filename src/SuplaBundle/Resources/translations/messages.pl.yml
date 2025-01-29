@@ -1,6 +1,7 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 '% of closing': '% zamknięcia'
+'% of extension': '% rozwinięcia'
 '%s trigger is not supported by the hardware.': Wyzwalacz %s nie jest wspierany przez urządzenie.
 ...open and shut roller shutters: ...zasłonić i odsłonić rolety
 ...open gateways, gates or doors: ...otworzyć furtkę, bramę lub drzwi
@@ -72,6 +73,7 @@ After you choose a subject, a direct link will be generated. You will be able to
 Aggregation: Agregacja
 Alarm armament sensor: Czujnik uzbrojenia alarmu
 Algorithm: Algorytm
+Algorithms available on this device: Algorytmy dostępne na tym urządzeniu
 All: Wszystko
 All events: Wszystkie zdarzenia
 All logs has been downloaded. Reload the chart to see them.: Pobrano wszystkie dane pomiarowe. Przeładuj wykres, by je zobaczyć.
@@ -214,6 +216,7 @@ Channel with action triggers: Kanał z wyzwalaczami akcji
 Channels: Kanały
 Channels groups are not supported for this function.: Ta funkcja nie wspiera grup kanałów.
 Channels that are meant to work with each other must be in the same location.: Kanały, które mają ze sobą współpracować, muszą być w jednej lokalizacji.
+Channels that are meant to work with each other must have the same visibility setting.: Kanały, które mają współpracować, muszą mieć takie same ustawienie widoczności.
 Chart type: Typ wykresu
 Check the direct link you used and try again.: Sprawdź wywołany link bezpośredni i spróbuj ponownie.
 Check your email box: Sprawdź swoją skrzynkę email
@@ -266,6 +269,8 @@ Conflict: Konflikt
 Connected: Połączony
 Connection with a private instance of the SUPLA cloud: Połączenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
+Container: Pojemnik
+Container level sensor: Czujnik poziomu pojemnika
 Cool to: Chłódź do
 Cooling mode: Tryb chłodzenia
 'Cooling: {percent}%': 'Chłodzenie: {percent}%'
@@ -324,6 +329,7 @@ Device: Urządzenie
 'Device GUID: %deviceGuid%': 'GUID urządzenia: %deviceGuid%'
 'Device ID: %deviceId%': 'Identyfikator urządzenia: %deviceId%'
 Device identification is unsupported in the firmware.: Identyfikacja urządzenia nie jest wspierana w firmware.
+Device interface: Interfejs urządzenia
 Device is disconnected.: Urządzenie jest rozłączone.
 Device might be sleeping: Urządzenie może być w trybie uśpienia
 'Device name: %deviceName%': 'Nazwa urządzenia: %deviceName%'
@@ -414,7 +420,6 @@ Executions: Wykonania
 Expand: Rozwiń
 Expand or stop: Rozwijaj albo zatrzymaj
 Expand partially: Rozwiń częściowo
-Expected maximum increment: Oczekiwany maksymalny przyrost
 Expired: Przeterminowany
 Expires at: Wygasa
 External sensor disabling the thermostat: Zewnętrzny czujnik wyłączający termostat
@@ -537,12 +542,12 @@ If you wish not to receive such messages, change it in your account settings [he
 If you wish to register your instance, {clickHereLink}.: Jeśli chcesz zarejestrować twoją instancję, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Jeśli chcesz zobaczyć dostępne integracje, przejdź do {0}.
 If you wish to unregister your instance, {clickHereLink}.: Jeśli chcesz wyrejestrować twoją instancję, {clickHereLink}.
+Image: Zdjęcie
 Image area crop: Obszar zdjęcia
 Impulse counter: Licznik impulsów
 Impulses: Impulsy
 In order to confirm account deletion, enter your password.: W celu potwierdzenia chęci usunięcia Twojego konta podaj swoje hasło.
 In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.: Aby uzyskać dane do logowania do brokera MQTT, skontaktuj się z administratorem tej instancji SUPLA Cloud.
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: W celu zminimalizowania ryzyka niepoprawnego odczytu, ustaw maksymalny oczekiwany przyrost wartości licznika pomiędzy kolejnymi zdjęciami.
 Inactive: Nieaktywny
 Include energy corrections in new measurements history (not recommended): Uwzględnij wartość dodaną w historii (niezalecane)
 Incorrect password: Nieprawidłowe hasło
@@ -596,6 +601,7 @@ Location Identifier: Identyfikator Lokalizacji
 Location limit has been exceeded: Limit lokalizacji został przekroczony
 Location name: Nazwa lokalizacji
 Locations: Lokalizacje
+Lock type: Typ blokady
 Locked: Zablokowany
 Log out: Wyloguj
 Login: Logowanie
@@ -624,16 +630,17 @@ Manually closed: Zamknięty manualnie
 Master thermostat: Termostat nadrzędny
 Master thermostat for channel: '@:{''Master thermostat''} @:{''for channel''}'
 Max: Maks.
+Maximum: Maksimum
 Maximum delay is 60 minutes.: Maksymalne opóźnienie to 60 minut.
 Maximum duration is one year.: Maksymalny okres to jeden rok.
 Maximum filesize limit is {limit}.: Maksymalny rozmiar pliku to {limit}.
-Maximum temperature that can be set from the device: Maksymalna temperatura, która może być ustawiona za pomocą urządzenia
 Maximum voltage: Najwyższe napięcie
 Measurement settings: Ustawienia pomiaru
 Measurement window: Czas pomiaru
 Meter value: Stan licznika
 Meters: Liczniki
 Min: Min.
+Minimum: Minimum
 Minimum OFF time before cooling can be turned on: Minimalny czas WYŁĄCZENIA przed ponownym włączeniem chłodzenia
 Minimum OFF time before heating can be turned on: Minimalny czas WYŁĄCZENIA przed ponownym włączeniem ogrzewania
 Minimum OFF time before heating/cooling can be turned on: Minimalny czas WYŁĄCZENIA przed ponownym włączeniem chłodzenia/ogrzewania
@@ -641,7 +648,6 @@ Minimum ON time before cooling can be turned off: Minimalny czas WŁĄCZENIA prz
 Minimum ON time before heating can be turned off: Minimalny czas WŁĄCZENIA przed ponownym wyłączeniem ogrzewania
 Minimum ON time before heating/cooling can be turned off: Minimalny czas WŁĄCZENIA przed ponownym wyłączeniem chłodzenia/ogrzewania
 Minimum temperature must be lower than maximum temperature.: Minimalna temperatura musi być mniejsza od maksymalnej
-Minimum temperature that can be set from the device: Minimalna temperatura, która może być ustawiona za pomocą urządzenia
 Minimum voltage: Najniższe napięcie
 Missing action.: Brak akcji
 Mode: Tryb
@@ -685,12 +691,6 @@ No of operations: Liczba operacji
 No results: Brak wyników
 No schedule configuration.: Nie podano konfiguracji harmonogramu.
 No, take me back!: Nie, zabierz mnie stąd!
-No{'.'} of Client’s apps: Liczba aplikacji klienckich
-No{'.'} of access identifiers: Liczba identyfikatorów dostępu
-No{'.'} of channel groups: Liczba grup kanałów
-No{'.'} of channels: Liczba kanałów
-No{'.'} of devices: Liczba urządzeń
-No{'.'} of locations: Liczba lokalizacji
 None: Brak
 None (channel disabled): Brak (kanał wyłączony)
 Noop: Brak operacji
@@ -703,6 +703,12 @@ Notification title is set by the firmware.: Nagłówek powiadomienia jest ustawi
 Notifications: Powiadomienia
 Notifications (defined): Powiadomienia (zdefiniowane)
 Notifications (sent per hour): Powiadomienia (wysłane na godzinę)
+No{'.'} of Client’s apps: Liczba aplikacji klienckich
+No{'.'} of access identifiers: Liczba identyfikatorów dostępu
+No{'.'} of channel groups: Liczba grup kanałów
+No{'.'} of channels: Liczba kanałów
+No{'.'} of devices: Liczba urządzeń
+No{'.'} of locations: Liczba lokalizacji
 Number of aberrations: Liczba aberracji
 Number of attempts to close: Liczba prób zamknięcia
 Number of attempts to open: Liczba prób otwarcia
@@ -754,6 +760,7 @@ Password must be no longer than {maxLength} characters.: Hasło nie może być d
 Password reset: Zresetuj hasło
 Password reset instructions.: Instrukcje przywrócenia dostępu do Twojego konta.
 Percentage of closing: Procent zamknięcia
+Percentage of extension: Procent rozwinięcia
 Personal access tokens: Osobiste tokeny dostępowe
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Osobiste tokeny dostępowe działają tak jak zwykłe z tą różnicą, że działają bezterminowo.
 Personal token name is required.: Wymagane jest podanie nazwy tokena osobistego.
@@ -764,6 +771,7 @@ Phase 3: Faza 3
 Phase LED type: Wskaźnik fazy LED
 Phase number: Faza
 Phase {phaseNumber}: Faza {phaseNumber}
+Photo history: Historia zdjęć
 Photo interval: Interwał wykonywania zdjęć
 Please choose the schedule subject first.: Najpierw wybierz czym harmonogram ma sterować
 Please click the following link to reset your %cloudHost% password.: Kliknij poniższy link w celu zresetowania Twojego hasła do aplikacji %cloudHost%.
@@ -810,6 +818,7 @@ Random: Losowy
 Reactions: Reakcje
 Reactions limit has been exceeded: Przekroczono limit reakcji
 Read: Odczyt
+Reading: Odczyt
 Recipients: Odbiorcy
 Reference to the deleted channels will be removed from the items below.: Wskazanie na ten kanał zosatnie także usunięte z poniższych elementów.
 Reference to the scene will be removed from the items below.: Wskazanie na scenę zostanie usunięte z poniższych elementów.
@@ -882,6 +891,8 @@ Save changes: Zapisz zmiany
 Save changes to see Access IDs: Zapisz zmiany by wyświetlić identyfikatory dostępu
 Save or discard configuration changes first.: Najpierw zapisz lub odrzuć zmiany w konfiguracji.
 Scene: Scena
+Scene ID{id} is being executed right now.: Scena ID{id} jest teraz wykonywana.
+Scene ID{id} is inactive right now.: Scena ID{id} jest teraz nieaktywna.
 Scene available for {serviceName}: Scena dostępna dla {serviceName}
 Scene must consist of at least one operation.: Scena musi zawierać co najmniej jedną operację
 Scenes: Sceny
@@ -910,6 +921,7 @@ Send a notification: Wyślij powiadomienie
 Send notification: Wyślij powiadomienie
 Sensor disconnected: Brak czujnika
 Sensors: Czujniki
+Septic tank: Szambo
 Server address: Adres serwera
 Server unreachable: Serwer nieosiągalny
 Service temporarily unavailable: Usługa tymczasowo niedostępna
@@ -971,11 +983,11 @@ Temperature: Temperatura
 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności
 Temperature Sensor: Czujnik temperatury
 Temperature adjustment: Dostosowanie temperatury
-Temperature adjustment only: Tylko ustawienie temperatury
 Temperature and humidity sensor: Czujnik temperatury i wilgotności
 Temperature control type: Typ kontroli temperatury
 Temperature difference is too big between {min}°C and {max}°C.: Różnica temperatur jest zbyt duża pomiędzy {min}°C a {max}°C.
 Temperature setpoint change switches to manual mode: Zmiana temperatury docelowej przełącza w tryb manualny
+Temperatures that can be set from local UI: Temperatura, która może być ustawiona za pomocą urządzenia
 Temporal override: Tymczasowe nadpisanie
 Terrace awning: Markiza tarasowa
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Dziękujemy za rejestrację konta w serwisie %cloudHost%. Aby zakończyć aktywację, kliknij poniższy link.
@@ -1007,6 +1019,7 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
 The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
 The incident was detected at %datetime%.: Zdarzenie miało miejsce %datetime%.
+The item will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the item will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Element będzie aktywny, gdy wszystkie warunki zostaną spełnione. Jeśli zdecydujesz się ustawić wszystkie dostępne ustawienia czasowe, element będzie aktywny, gdy czas będzie między aktywny od i aktywny do, mieści się w wybranym harmonogramie pracy i spełnia jedno z kryteriów czasu dnia.
 The items below depend on the deleted channels, so they will be deleted, too.: Poniższe elementy są zależne od usuwanych kanałów, więc także zostaną usunięte.
 The items below depend on this channel function, so they will be deleted.: Poniższe elementy bazują na aktualnej funkcji kanału, więc zostaną usunięte po jej zmianie.
 The items below depend on this channel group, so they will be deleted.: Poniższe elementy korzystają z tej grupy kanałów, więc po jej usunięciu zostaną również usunięte.
@@ -1023,7 +1036,6 @@ The password and its confirm are not the same.: Hasło i jego potwierdzenie nie 
 The password should be 8 or more characters.: Hasło powinno mieć minimum 8 znaków.
 The reaction has been added: Reakcja została dodana
 The reaction has been changed: Reakcja została zmieniona
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reakcja będzie aktywna, gdy wszystkie poniższe warunki zostaną spełnione. Jeśli ustawisz wszystkie dostępne opcje, reakcja aktywuję się wyłącznie pomiędzy wybranymi datami, w wybrane godziny i dni tygodnia i gdy jedno z odniesień do zachodu lub wschodu słońca będzie spełnione.
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Urządzenie zostało wyłączone zabezpieczeniem nadprądowym. Zanim je włączysz, upewnij się że rozwiązano problem, który do tego doprowadził. Czy na pewno chcesz włączyć to urządzenie zdalnie?
 The scene would execute too many operations.: Scena wykonuje zbyt wiele operacji.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serwer zwrócił błąd 400, co oznacza że przesłane żądanie jest niepoprawne.
@@ -1083,7 +1095,6 @@ Unit: Jednostka
 Unknown: Nieznany
 Unknown browser: Nieznana przeglądarka
 Unlock the device: Odblokuj urządzenie
-Unlocked: Odblokowany
 Unregister my private SUPLA Cloud instance: Wyrejestruj moją prywatną instancję SUPLA Cloud
 Unsuccessful login attempt: Nieudane logowanie
 Unsupported function: Niewspierana funkcja
@@ -1095,11 +1106,10 @@ Uploaded files do not contain any inappropriate or copyrighted content, nor do t
 Upper voltage threshold: Próg wysokiego napięcia
 Use device default: Użyj domyślnej wartości z urządzenia
 'Use the {0} server command to change this account''s limits. For example:': 'Aby zmienić limity dla tego konta, użyj komendy {0} na Twoim serwerze. Na przykład:'
+Use working schedule: Użyj harmonogramu pracy
 Use working schedule for this access identifier: Używaj harmonogramu dostępności dla tego identyfikatora dostępu
-Use working schedule for this reaction: Używaj harmonogramu aktywności dla tej reakcji
 Use {theMasterThermostat} to control this device.: Użyj {theMasterThermostat}, aby sterować tym urządzeniem.
 Used current transformer type: Używany przekładnik prądowy
-User interface: Interfejs użytkownika
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
 Value: Wartość
 Value added: Wartość dodana
@@ -1122,7 +1132,9 @@ WELCOME_MESSAGE: |
   przepisać do swoich urządzeń sterujących (wejścia/wyjścia) oraz smartfonów poniższe dane.
 Wait a while before the next request. You can check your limits in the account settings.: Odczekaj chwilę przed wykonaniem kolejnego żądania. Możesz sprawdzić aktualne wykorzystanie Twoich limitów w ustawieniach konta.
 Wait for this scene to finish before proceeding to the next step ({time}).: Czekaj na zakończenie wykonania sceny przed kontynuowaniem akcji ({time}).
+Waiting: Oczekiwanie
 Water meter: Licznik wody
+Water tank: Zbiornik na wodę
 'We also strongly advise you to choose a password that:': 'Ponadto, zdecydowanie zalecamy aby wybrać hasło które:'
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Będziemy wysyłać Ci powiadomienia o niektórych zdarzeniach związanych z Twoim kontem. Możesz wypisać się z tych, których nie potrzebujesz.
 We could not connect to your SUPLA Cloud instance.: Nie mogliśmy połączyć się z twoją prywatną instancją SUPLA Cloud.
@@ -1441,6 +1453,7 @@ directLinkExecutionFailureReason_noSlugOrAction: Niepoprawne żądanie - kod lin
 directLinkExecutionFailureReason_notActiveYet: Link bezpośredni nie jest jeszcze aktywny
 directLinkExecutionFailureReason_otherFailure: Błąd przy wykonaniu akcji
 directLinkExecutionFailureReason_sceneDuringExecution: Scena jest w trakcie wykonywania.
+directLinkExecutionFailureReason_sceneDuringInactivePeriod: Scena jest teraz nieaktywna.
 directLinkExecutionFailureReason_unsupportedAction: Wybrana akcja jest niepoprawna
 empty: pusty
 everyday: codziennie
@@ -1466,6 +1479,9 @@ last 24 hours: ostatnie 24 godziny
 last 30 days: ostatnie 30 dni
 last 6 hours: ostatnie 6 godzin
 last 7 days: ostatnie 7 dni
+localUILock_FULL: Zablokowany
+localUILock_TEMPERATURE: Tylko ustawienie temperatury
+localUILock_UNLOCKED: Odblokowany
 logs_aggregation_day: dni
 logs_aggregation_hour: godziny
 logs_aggregation_minute: minuty
@@ -1545,14 +1561,12 @@ temperatureControlType_ROOM_TEMPERATURE: Sterowanie oparte o główny termometr
 the master thermostat ID{id}: termostatu nadrzędnego ID{id}
 the whole history: cała historia
 then execute the action: wtedy wykonaj akcję
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: praca w oparciu o histerezę z nastawą temperatury ustawioną jako górny próg histerezy. Przykłądowo, przyjmując histerezę równą 1°C oraz docelową temperaturę 23°C, termostat włączy ogrzewanie przy 22°C i zakończy pracę, gdy temperatura osiągnie 23°C.
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: praca w oparciu o histerezę z nastawą temperatury ustawioną w połowie jej zakresu. Przykłądowo, przyjmując histerezę równą 1°C oraz docelową temperaturę 23°C, termostat włączy ogrzewanie przy 22.5°C i zakończy pracę, gdy temperatura osiągnie 23.5°C.
+thermostatAlgorithmHelp_PID: algorytm stosujący płynną regulację w celu stabilizacji temperatury w okolicy zadanej nastawy.
 thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Włącz/wyłącz z nastawą górną
 thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Włącz/wyłącz z nastawą środkową
 thermostatAlgorithm_PID: PID
-thermostatAlgorithm_help: |
-  Algorytmy włączania/wyłączania działają na podstawie ustawienia histerezy. Histereza może być odniesiona do połowy jej zakresu (nastawa środkowa) albo do ustawionej temperatury (nastawa górna).
-  Przykładowo, przyjmując histerezę równą 1°C oraz docelową temperaturę 23°C, termostat:
-  - włączy ogrzewanie przy 22.5°C i zakończy pracę, gdy temperatura osiągnie 23.5°C dla nastawy środkowej
-  - włączy ogrzewanie przy 22°C i zakończy pracę, gdy temperatura osiągnie 23°C dla nastawy górnej
 thermostatOutputValue_help: |
   Domyślnie termostat po wykryciu błędu w działaniu powinien się wyłączyć (np. w przypadku awarii termometru głównego). Nie zmieniaj tego zachowania, jeśli nie jesteś absolutnie pewny/pewna jakie będzie to mieć skutki.
 thermostatSubfunction_COOL: Chłodzenie
@@ -1624,7 +1638,6 @@ Available: Dostępne
 Calculated value: Stan licznika
 Cannot execute an action when the device is disconnected.: Nie można wykonywać akcji gdy urządzenie jest rozłączone.
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Wiadomość z linkiem aktywującym Twoje konto nie dotarła? Upewnij się, że nie trafiła do folderu SPAM (niechciana poczta). Jeśli nie, {clickHereLink}, by wysłać ją ponownie.
 Channel value: Wartość
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
 Channels in channel group: Kanały w grupach kanałów
@@ -1646,6 +1659,7 @@ ENABLED: WŁĄCZONE
 Email already exists: Adres e-mail już istnieje
 Execute the scene: Wykonaj scenę
 Existing schedules: Istniejące harmonogramy
+Expected maximum increment: Oczekiwany maksymalny przyrost
 From IP: Z adresu IP
 Generic action: Inna akcja
 Get SUPLA on your devices: Pobierz SUPLĘ na Twoje urządzenia
@@ -1664,6 +1678,8 @@ Loading: Ładowanie
 Location password must be at least 4 characters.: Hasło dla lokalizacji musi mieć co najmniej 4 znaki.
 Location password must be no longer than 32 characters.: Hasło dla lokalizacji nie może być dłuższe niż 32 znaki.
 Main thermometer must be set.: Termometr główny musi być ustawiony.
+Maximum temperature that can be set from the device: Maksymalna temperatura, która może być ustawiona za pomocą urządzenia
+Minimum temperature that can be set from the device: Minimalna temperatura, która może być ustawiona za pomocą urządzenia
 Minute: Minuta
 Mobile Apps: Aplikacje mobilne
 Next: Dalej
@@ -1672,7 +1688,6 @@ No results match {0}: Żadne wyniki nie pasują do {0}
 Number: Numer
 Output: Wyjście
 Please select an action: Proszę wybrać akcję
-Please select the schedules that should also be enabled.: Zaznacz harmonogramy, które także powinny zostać włączone.
 Previous login: Poprzednie logowanie
 Read the following channel's state: Odczytaj stan poniższego kanału
 Reads the state from source channel and sets the same in other channel or channel group.: Odczytuje stan wskazanego kanału i ustawia taki sam stan dla wybranego kanału lub grupy.
@@ -1692,10 +1707,10 @@ Standard: Standardowe
 Status: Status
 Subject: Podmiot
 Sunrise / Sunset: Wschód / Zachód
-The events in voltage aberrations history will be automatically deleted after {days} days.: Zdarzenia w historii aberracji napięcia będą automatycznie usuwane po {days} dniach.
 Triggers: Wyzwalacze
 Try again later: Spróbuj ponownie później
 Turn off after: Wyłącz po czasie
+Use working schedule for this reaction: Używaj harmonogramu aktywności dla tej reakcji
 Value per unit: Wartość na jednostkę
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 choose a currency: wybierz walutę
@@ -1715,9 +1730,3 @@ suffix: sufiks
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-Percentage of extension: Procent rozwinięcia
-'% of extension': '% rozwinięcia'
-'Scene ID{id} is inactive right now.': 'Scena ID{id} jest teraz nieaktywna.'
-thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: praca w oparciu o histerezę z nastawą temperatury ustawioną w połowie jej zakresu. Przykłądowo, przyjmując histerezę równą 1°C oraz docelową temperaturę 23°C, termostat włączy ogrzewanie przy 22.5°C i zakończy pracę, gdy temperatura osiągnie 23.5°C.
-thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: praca w oparciu o histerezę z nastawą temperatury ustawioną jako górny próg histerezy. Przykłądowo, przyjmując histerezę równą 1°C oraz docelową temperaturę 23°C, termostat włączy ogrzewanie przy 22°C i zakończy pracę, gdy temperatura osiągnie 23°C.
-thermostatAlgorithmHelp_PID: algorytm stosujący płynną regulację w celu stabilizacji temperatury w okolicy zadanej nastawy.

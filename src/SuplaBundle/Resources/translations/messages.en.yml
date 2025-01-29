@@ -49,6 +49,7 @@ directLinkExecutionFailureReason_noSlugOrAction: Invalid request data - code and
 directLinkExecutionFailureReason_notActiveYet: Direct link is not active yet.
 directLinkExecutionFailureReason_otherFailure: Direct link execution failure.
 directLinkExecutionFailureReason_sceneDuringExecution: Scene is being executed now.
+directLinkExecutionFailureReason_sceneDuringInactivePeriod: Scene is inactive right now.
 directLinkExecutionFailureReason_unsupportedAction: The requested action is not supported.
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Main and auxiliary temperature
 homeScreenContent_NONE: None
@@ -58,6 +59,9 @@ homeScreenContent_TEMPERATURE_TIME: Temperature and time
 homeScreenContent_TIME: Time
 homeScreenContent_TIME_DATE: Date and time
 keepHistoryMeasurementWarningSelected: Are you sure you need it? Supla is an open source, free project that is being maintained with its own resources. Consider helping the project infrastructure by leaving this option disabled, if you do not plan to use the stored logs.
+localUILock_FULL: Locked
+localUILock_TEMPERATURE: Temperature adjustment only
+localUILock_UNLOCKED: Unlocked
 logs_aggregation_day: Days
 logs_aggregation_hour: Hours
 logs_aggregation_minute: Minutes
@@ -111,14 +115,12 @@ sunset-after: the sunset
 sunset-before: the sunset
 temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Control based on auxilary thermometer
 temperatureControlType_ROOM_TEMPERATURE: Control based on main thermometer
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: operation based on a hysteresis with the temperature setpoint set as the upper hysteresis threshold. For example, assuming a hysteresis of 1°C and a target temperature of 23°C, the thermostat will turn on the heating at 22°C and stop working when the temperature reaches 23°C.
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: operation based on a hysteresis with the temperature setpoint placed at the middle of its range. For example, assuming a hysteresis of 1°C and a target temperature of 23°C, the thermostat will turn on the heating at 22.5°C and stop working when the temperature reaches 23.5°C.
+thermostatAlgorithmHelp_PID: an algorithm that uses smooth control to stabilize the temperature near the desired setpoint.
 thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: On/off with setpoint at most
 thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: On/off with setpoint middle
 thermostatAlgorithm_PID: PID
-thermostatAlgorithm_help: |
-  Algorithms on/off work based on histeresis setting. Histeresis can be applied with temperature setpoint in the middle of histeresis range (setpoint middle) or below/above temperature setpoint (setpoint at most).
-  I.e. histeresis 1°C and temperature setpoint 23°C, will:
-  - for "setpoint middle": turn on heating when temperature is below 22.5°C and turn off heating when temperature will go above 23.5°C
-  - for "setpoint at most": turn on heating when temperature is below 22°C and turn off heating when temperature will go above 23°C
 thermostatOutputValue_help: |
   By default thermostat should have output disabled in case of some critical error (like missing temperature measurement).  Don't change it unless your are sure what you are doing.
 thermostatSubfunction_COOL: Cooling
@@ -158,11 +160,3 @@ usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Voltage presence (inverted)
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-
-localUILock_UNLOCKED: Unlocked
-localUILock_FULL: Locked
-localUILock_TEMPERATURE: Temperature adjustment only
-
-thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: operation based on a hysteresis with the temperature setpoint placed at the middle of its range. For example, assuming a hysteresis of 1°C and a target temperature of 23°C, the thermostat will turn on the heating at 22.5°C and stop working when the temperature reaches 23.5°C.
-thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: operation based on a hysteresis with the temperature setpoint set as the upper hysteresis threshold. For example, assuming a hysteresis of 1°C and a target temperature of 23°C, the thermostat will turn on the heating at 22°C and stop working when the temperature reaches 23°C.
-thermostatAlgorithmHelp_PID: an algorithm that uses smooth control to stabilize the temperature near the desired setpoint.
