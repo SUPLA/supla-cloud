@@ -212,7 +212,10 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                     $thermometer->getFunction()->getId(),
                     [CF::THERMOMETER, CF::HUMIDITYANDTEMPERATURE]
                 );
-                Assertion::notEq($thermometer->getChannelNumber(), $subject->getUserConfigValue('mainThermometerChannelNo'));
+                $mainThermometerChannelNo = $subject->getUserConfigValue('mainThermometerChannelNo');
+                if ($mainThermometerChannelNo) {
+                    Assertion::notEq($thermometer->getChannelNumber(), $mainThermometerChannelNo);
+                }
                 $subject->setUserConfigValue('auxThermometerChannelNo', $thermometer->getChannelNumber());
             } else {
                 $subject->setUserConfigValue('auxThermometerChannelNo', null);

@@ -508,26 +508,26 @@
             },
             temperatureChanged(name) {
                 const autoOffsetMin = this.channel.config.temperatureConstraints.autoOffsetMin || 0;
-                if (this.channel.config.temperatures.auxMaxSetpoint !== '' && this.channel.config.temperatures.auxMinSetpoint !== '') {
-                    if (name === 'auxMinSetpoint' && this.channel.config.temperatures.auxMaxSetpoint !== '') {
+                if (this.auxMinMaxTemperatures.length === 2) {
+                    if (name === 'auxMinSetpoint' && this.channel.config.temperatures.auxMaxSetpoint !== '' && this.canChangeTemperature('auxMaxSetpoint')) {
                         this.channel.config.temperatures.auxMaxSetpoint = Math.max(
                             this.channel.config.temperatures.auxMaxSetpoint,
                             +this.channel.config.temperatures.auxMinSetpoint + autoOffsetMin
                         );
-                    } else if (name === 'auxMaxSetpoint') {
+                    } else if (name === 'auxMaxSetpoint' && this.canChangeTemperature('auxMinSetpoint')) {
                         this.channel.config.temperatures.auxMinSetpoint = Math.min(
                             this.channel.config.temperatures.auxMinSetpoint,
                             +this.channel.config.temperatures.auxMaxSetpoint - autoOffsetMin
                         );
                     }
                 }
-                if (this.channel.config.temperatures.heatProtection !== '' && this.channel.config.temperatures.freezeProtection !== '') {
-                    if (name === 'freezeProtection') {
+                if (this.freezeHeatProtectionTemperatures.length === 2 && this.channel.config.temperatures.heatProtection !== '' && this.channel.config.temperatures.freezeProtection !== '') {
+                    if (name === 'freezeProtection' && this.canChangeTemperature('heatProtection')) {
                         this.channel.config.temperatures.heatProtection = Math.max(
                             this.channel.config.temperatures.heatProtection,
                             +this.channel.config.temperatures.freezeProtection + autoOffsetMin
                         );
-                    } else if (name === 'heatProtection') {
+                    } else if (name === 'heatProtection' && this.canChangeTemperature('freezeProtection')) {
                         this.channel.config.temperatures.freezeProtection = Math.min(
                             this.channel.config.temperatures.freezeProtection,
                             +this.channel.config.temperatures.heatProtection - autoOffsetMin
