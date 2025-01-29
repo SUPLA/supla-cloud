@@ -66,7 +66,13 @@
                 this.$emit('compare-function', (a, b) => this.compare(a, b));
             },
             matches(channel) {
-                if ((this.connected === 'disconnected' && channel.connected) || (this.connected === 'connected' && !channel.connected) || (this.connected === 'notAvailable' && channel.operational)) {
+                const connectedFilters = {
+                    all: true,
+                    disconnected: !channel.connected,
+                    connected: channel.connected,
+                    notAvailable: !channel.operational && channel.connected,
+                };
+                if (!connectedFilters[this.connected]) {
                     return false;
                 }
                 if (this.functionality && this.functionality !== '*') {
