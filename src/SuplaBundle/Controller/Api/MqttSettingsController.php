@@ -28,6 +28,7 @@ use SuplaBundle\Utils\StringUtils;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
+use OpenApi\Annotations as OA;
 
 class MqttSettingsController extends RestController {
     use Transactional;
@@ -43,6 +44,18 @@ class MqttSettingsController extends RestController {
     }
 
     /**
+     * @OA\Post(
+     *     path="/integrations/mqtt-credentials", operationId="createMqttBrokerCredentials",
+     *     summary="Creates MQTT Broker credentials for the OAuth Client.", tags={"Integrations"},
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(
+     *         @OA\Property(property="host", type="string"),
+     *         @OA\Property(property="protocol", type="string"),
+     *         @OA\Property(property="port", type="integer"),
+     *         @OA\Property(property="tls", type="string"),
+     *         @OA\Property(property="username", type="string"),
+     *         @OA\Property(property="password", type="string"),
+     *     ))
+     * )
      * @Post("/integrations/mqtt-credentials")
      * @Security("is_granted('ROLE_MQTT_BROKER')")
      */
