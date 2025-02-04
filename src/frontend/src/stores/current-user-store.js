@@ -13,7 +13,7 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
     const userToken = useStorage('supla-user-token');
     const filesToken = useStorage('supla-user-token-files');
     const tokenExpiration = useStorage('supla-token-expiration');
-    const serverUrl = ref('');
+    const serverUrl = useStorage('supla-user-server-url');
     const userData = ref({});
     const username = computed(() => userData.value?.email);
 
@@ -56,6 +56,7 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
     const forget = () => {
         userToken.value = null;
         filesToken.value = null;
+        serverUrl.value = null;
         tokenExpiration.value = null;
         userData.value = undefined;
         serverUrl.value = undefined;

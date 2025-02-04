@@ -24,7 +24,7 @@ function getDefaultHeadersJson() {
 
 function buildAbsoluteUrl(endpoint) {
     const currentUser = useCurrentUserStore();
-    return currentUser.serverUrl + '/api/' + endpoint;
+    return (currentUser.serverUrl || '') + '/api/' + endpoint;
 }
 
 function responseHandler(request, config) {
