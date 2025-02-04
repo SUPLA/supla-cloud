@@ -37,10 +37,14 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
         }
     }
 
+    const clearStores = () => {
+        getActivePinia()._s.forEach(store => store.$reset());
+    }
+
     const authenticate = async (username, password) => {
         const {body} = await api.post('webapp-auth', {username, password}, {skipErrorHandler: [401, 409, 429]});
         handleNewToken(body);
-        getActivePinia()._s.forEach(store => store.$reset());
+        clearStores();
         return await fetchUser();
     }
 
@@ -59,7 +63,7 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
         serverUrl.value = null;
         tokenExpiration.value = null;
         userData.value = undefined;
-        serverUrl.value = undefined;
+        clearStores();
         synchronizeAuthState();
     }
 

@@ -7,6 +7,7 @@ import {useDevicesStore} from "@/stores/devices-store";
 export const useChannelsStore = defineStore('channels', () => {
     const all = ref({});
     const ids = ref([]);
+    const fetchingStates = useIntervalFn(() => fetchStates(), 7777, {immediate: false});
 
     const fetchAll = (force = false) => {
         if (fetchAll.promise && !force) {
@@ -23,6 +24,9 @@ export const useChannelsStore = defineStore('channels', () => {
                 }, {ids: [], all: {}});
                 all.value = state.all;
                 ids.value = state.ids;
+                if (!fetchingStates.isActive.value) {
+                    fetchingStates.resume();
+                }
             })
         }
     };
@@ -69,11 +73,10 @@ export const useChannelsStore = defineStore('channels', () => {
         return fetchAll(true);
     }
 
-    useIntervalFn(() => fetchStates(), 7777);
-
     const list = computed(() => ids.value.map(id => all.value[id]));
 
     const $reset = () => {
+        fetchingStates.pause();
         all.value = {};
         ids.value = [];
         fetchAll.promise = undefined;
