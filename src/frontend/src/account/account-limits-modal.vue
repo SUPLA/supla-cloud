@@ -157,7 +157,7 @@
                 </div>
             </div>
         </loading-cover>
-        <div v-if="frontendConfigStore.config.actAsBrokerCloud && currentTab !== 'data'"
+        <div v-if="!frontendConfigStore.config.actAsBrokerCloud && currentTab !== 'data'"
             class="alert alert-info my-3">
             <p class="mb-2">
                 <i18n-t keypath="Use the {0} server command to change this account's limits. For example:">
