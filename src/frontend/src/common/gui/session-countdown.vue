@@ -69,7 +69,6 @@
 </template>
 
 <script>
-    import Vue from "vue";
     import AppState from "../../router/app-state";
     import {DateTime} from "luxon";
     import {useCurrentUserStore} from "@/stores/current-user-store";
@@ -105,7 +104,7 @@
         },
         methods: {
             synchronizeExpirationTime() {
-                const expirationTime = this.$localStorage.get('_token_expiration');
+                const expirationTime = this.currentUserStore.tokenExpiration;
                 if (expirationTime) {
                     const timestamp = DateTime.fromISO(expirationTime).toSeconds();
                     if (timestamp > (new Date().getTime() / 1000)) {
@@ -121,7 +120,7 @@
             },
             show() {
                 this.showDialog = true;
-                Vue.nextTick(() => this.countdown());
+                this.$nextTick(() => this.countdown());
             },
             extendSession() {
                 this.loading = true;

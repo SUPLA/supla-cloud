@@ -106,5 +106,17 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
     //     }
     // });
 
-    return {$reset, fetchUser, authenticate, updateUserLocale, forget, username, userToken, filesToken, userData, serverUrl};
+    return {
+        $reset,
+        fetchUser,
+        authenticate,
+        updateUserLocale,
+        forget,
+        username,
+        userToken,
+        filesToken,
+        userData,
+        serverUrl,
+        tokenExpiration
+    };
 })
