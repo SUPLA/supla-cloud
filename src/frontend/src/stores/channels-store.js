@@ -3,6 +3,8 @@ import {computed, ref} from "vue";
 import {channelsApi} from "@/api/channels-api";
 import {useIntervalFn} from "@vueuse/core";
 import {useDevicesStore} from "@/stores/devices-store";
+import ChannelType from "@/common/enums/channel-type";
+import ChannelFunction from "@/common/enums/channel-function";
 
 export const useChannelsStore = defineStore('channels', () => {
     const all = ref({});
@@ -78,6 +80,24 @@ export const useChannelsStore = defineStore('channels', () => {
 
     const list = computed(() => ids.value.map(id => all.value[id]));
 
+    const filteredChannels = computed(() => ((filters) => {
+        const params = typeof filters === 'object' ? filters : Object.fromEntries(new URLSearchParams(filters));
+        params.deviceIds = ('' + (params.deviceIds || '')).split(',').filter(id => !!id).map((id) => +id);
+        params.skipIds = ('' + (params.skipIds || '')).split(',').filter(id => !!id).map((id) => +id);
+        params.type = ('' + (params.type || '')).split(',').filter(t => !!t).map(t => ChannelType[t] || +t);
+        params.function = ('' + (params.function || '')).split(',').filter(t => !!t).map(t => ChannelFunction[t] || +t);
+        if (params.hasFunction !== undefined) {
+            params.hasFunction = params.hasFunction === '0' ? false : !!params.hasFunction;
+        }
+        return list.value
+            .filter((c) => params.type.length === 0 || params.type.includes(c.typeId))
+            .filter((c) => params.function.length === 0 || params.function.includes(c.functionId))
+            .filter((c) => params.deviceIds.length === 0 || params.deviceIds.includes(c.iodeviceId))
+            .filter((c) => params.hasFunction === undefined || c.functionId !== ChannelFunction.NONE)
+            .filter((c) => params.io === undefined || c.function.output === (params.io === 'output'))
+            .filter((c) => !params.skipIds.includes(c.id));
+    }));
+
     const $reset = () => {
         fetchingStates.pause();
         all.value = {};
@@ -85,5 +105,5 @@ export const useChannelsStore = defineStore('channels', () => {
         fetchAll.promise = undefined;
     };
 
-    return {all, ids, list, $reset, fetchAll, refetchAll, fetchStates};
+    return {all, ids, list, filteredChannels, $reset, fetchAll, refetchAll, fetchStates};
 });

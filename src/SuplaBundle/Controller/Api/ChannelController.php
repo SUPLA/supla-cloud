@@ -136,6 +136,8 @@ class ChannelController extends RestController {
      *     @OA\Parameter(name="io", in="query", description="Return only `input` or `output` channels.", required=false, @OA\Schema(type="string", enum={"input", "output"})),
      *     @OA\Parameter(name="hasFunction", in="query", description="Return only channels with (`true`) or without (`false`) chosen functions.", required=false, @OA\Schema(type="boolean")),
      *     @OA\Parameter(name="skipIds", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(type="integer"))),
+     *     @OA\Parameter(name="deviceIds", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(type="integer"))),
+     *     @OA\Parameter(name="type", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(ref="#/components/schemas/ChannelTypeEnumNames"))),
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
@@ -146,8 +148,6 @@ class ChannelController extends RestController {
      *         in="query", name="forIntegration", required=false,
      *         @OA\Schema(type="string", enum={"google-home", "alexa"}),
      *     ),
-     *     @OA\Parameter(name="deviceIds", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(type="integer"))),
-     *     @OA\Parameter(name="type", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(ref="#/components/schemas/ChannelTypeEnumNames"))),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Channel"))),
      * )
      * @Rest\Get("/channels", name="channels_list")

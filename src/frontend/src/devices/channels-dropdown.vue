@@ -17,37 +17,32 @@
     import {channelIconUrl} from "../common/filters";
     import SelectForSubjects from "@/devices/select-for-subjects.vue";
     import {useSubDevicesStore} from "@/stores/subdevices-store";
-    import {mapStores} from "pinia";
+    import {mapState, mapStores} from "pinia";
+    import {useDevicesStore} from "@/stores/devices-store";
+    import {useLocationsStore} from "@/stores/locations-store";
+    import {useChannelsStore} from "@/stores/channels-store";
 
     export default {
         props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter', 'choosePromptI18n', 'disabled'],
         components: {SelectForSubjects},
-        data() {
-            return {
-                channels: undefined,
-            };
-        },
         mounted() {
             this.subDevicesStore.fetchAll();
-            this.fetchChannels();
         },
         methods: {
-            fetchChannels() {
-                this.channels = undefined;
-                return this.$http.get('channels?include=iodevice,location&' + (this.params || '')).then(({body: channels}) => {
-                    this.channels = channels;
-                });
-            },
             channelCaption(channel) {
                 return channel.caption || `ID${channel.id} ${this.$t(channel.function.caption)}`;
             },
             channelSearchText(channel) {
                 const subDevice = this.subDevicesStore.forChannel(channel);
-                return `${channel.caption || ''} ID${channel.id} ${this.$t(channel.function.caption)} ${channel.location.caption} ${channel.iodevice.name} ${subDevice?.name || ''}`;
+                const device = this.devices[channel.iodeviceId];
+                const location = this.locations[channel.locationId];
+                return `${channel.caption || ''} ID${channel.id} ${this.$t(channel.function.caption)} ${location.caption} ${device.name} ${subDevice?.name || ''}`;
             },
             channelHtml(channel, escape) {
                 const subDevice = this.subDevicesStore.forChannel(channel);
                 const subDeviceName = subDevice ? ' / ' + escape(subDevice.name) : '';
+                const device = this.devices[channel.iodeviceId];
+                const location = this.locations[channel.locationId];
                 return `<div>
                             <div class="subject-dropdown-option d-flex">
                                 <div class="flex-grow-1">
@@ -55,7 +50,7 @@
                                         <span class="line-clamp line-clamp-2">${escape(channel.fullCaption)}</span>
                                         ${channel.caption ? `<span class="small text-muted">ID${channel.id} ${this.$t(channel.function.caption)}</span>` : ''}
                                     </h5>
-                                    <p class="line-clamp line-clamp-2 small mb-0 option-extra">${escape(channel.location.caption)} / ${escape(channel.iodevice.name)}${subDeviceName}</p>
+                                    <p class="line-clamp line-clamp-2 small mb-0 option-extra">${escape(location.caption)} / ${escape(device.name)}${subDeviceName}</p>
                                 </div>
                                 <div class="icon option-extra"><img src="${channelIconUrl(channel)}"></div></div>
                             </div>
@@ -88,12 +83,14 @@
                     this.$emit('input', channel);
                 }
             },
+            ...mapState(useDevicesStore, {devices: 'all'}),
+            ...mapState(useLocationsStore, {locations: 'all'}),
+            ...mapState(useChannelsStore, {
+                channels(store) {
+                    return store.filteredChannels(this.params);
+                }
+            }),
             ...mapStores(useSubDevicesStore),
         },
-        watch: {
-            params() {
-                this.fetchChannels();
-            },
-        }
     };
 </script>
