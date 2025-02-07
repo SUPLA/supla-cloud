@@ -79,6 +79,15 @@ describe('ChannelsStore', () => {
         expect(store.filteredChannels('function=CONTROLLINGTHEGATE,60')).toHaveLength(3);
     });
 
+    it('filters by fnc', async () => {
+        const store = useChannelsStore();
+        expect(store.filteredChannels({'fnc': '60'})).toHaveLength(1);
+        expect(store.filteredChannels({'fnc': 60})).toHaveLength(1);
+        expect(store.filteredChannels('fnc=20')).toHaveLength(2);
+        expect(store.filteredChannels('fnc=CONTROLLINGTHEGATE')).toHaveLength(2);
+        expect(store.filteredChannels('fnc=CONTROLLINGTHEGATE,60')).toHaveLength(3);
+    });
+
     it('filters by io', async () => {
         const store = useChannelsStore();
         expect(store.filteredChannels({io: 'output'})).toHaveLength(2);

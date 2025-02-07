@@ -85,7 +85,7 @@ export const useChannelsStore = defineStore('channels', () => {
         params.deviceIds = ('' + (params.deviceIds || '')).split(',').filter(id => !!id).map((id) => +id);
         params.skipIds = ('' + (params.skipIds || '')).split(',').filter(id => !!id).map((id) => +id);
         params.type = ('' + (params.type || '')).split(',').filter(t => !!t).map(t => ChannelType[t] || +t);
-        params.function = ('' + (params.function || '')).split(',').filter(t => !!t).map(t => ChannelFunction[t] || +t);
+        params.function = ('' + (params.function || params.fnc || '')).split(',').filter(t => !!t).map(t => ChannelFunction[t] || +t);
         if (params.hasFunction !== undefined) {
             params.hasFunction = params.hasFunction === '0' ? false : !!params.hasFunction;
         }

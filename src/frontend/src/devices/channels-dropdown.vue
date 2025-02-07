@@ -52,7 +52,7 @@
                                     </h5>
                                     <p class="line-clamp line-clamp-2 small mb-0 option-extra">${escape(location.caption)} / ${escape(device.name)}${subDeviceName}</p>
                                 </div>
-                                <div class="icon option-extra"><img src="${channelIconUrl(channel)}"></div></div>
+                                <div class="icon option-extra"><img src="${channelIconUrl(channel)}"></div>
                             </div>
                         </div>`;
             },

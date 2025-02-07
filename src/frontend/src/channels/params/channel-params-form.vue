@@ -54,6 +54,7 @@
     import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings";
     import ChannelParamsControllingthefacadeblind from "@/channels/params/channel-params-controllingthefacadeblind.vue";
     import ChannelParamsSensorAny from "@/channels/params/channel-params-sensor-any.vue";
+    import ChannelParamsValveopenclose from "@/channels/params/channel-params-valveopenclose.vue";
 
     export default {
         props: ['channel'],
@@ -101,6 +102,7 @@
             ChannelParamsVerticalBlind: ChannelParamsControllingthefacadeblind,
             ChannelParamsHotelcardsensor: ChannelParamsSensorAny,
             ChannelParamsAlarmArmamentSensor: ChannelParamsSensorAny,
+            ChannelParamsValveopenclose,
         },
         computed: {
             additionalChannelParamsComponent() {
