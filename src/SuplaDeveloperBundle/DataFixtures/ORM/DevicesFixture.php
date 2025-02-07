@@ -684,6 +684,25 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
             [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
             [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
+            [
+                ChannelType::VALVEOPENCLOSE,
+                ChannelFunction::VALVEOPENCLOSE,
+                [
+                    'userConfig' => json_encode([
+                        'sensorChannelNos' => [12, 13, 14],
+                    ]),
+                ],
+            ],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
         ]);
         $this->entityManager->persist($device);
         return $device;
