@@ -369,7 +369,7 @@
                 if (this.channel.iodevice.sleepModeEnabled) {
                     this.sleepingDeviceWarning = true;
                 }
-                this.channelsStore.fetchAll(true);
+                return this.channelsStore.fetchAll(true);
             },
             refreshChannelConfig(showLoading = true) {
                 this.loading = showLoading;
