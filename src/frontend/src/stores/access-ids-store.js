@@ -6,8 +6,8 @@ export const useAccessIdsStore = defineStore('accessIds', () => {
     const all = ref({});
     const ids = ref([]);
 
-    const fetchAll = () => {
-        if (fetchAll.promise) {
+    const fetchAll = (force = false) => {
+        if (fetchAll.promise && !force) {
             return fetchAll.promise;
         } else {
             return fetchAll.promise = accessIdsApi.getList().then((accessIds) => {
