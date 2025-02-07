@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec987de2322489a0ffeefea2560100f2",
+    "content-hash": "fb80c13a50863f0e41ca6c72ed688fa8",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1778,8 +1778,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "ocramius/proxy-manager",
-                    "url": "https://github.com/Ocramius/ProxyManager"
+                    "url": "https://github.com/Ocramius/ProxyManager",
+                    "name": "ocramius/proxy-manager"
                 }
             },
             "autoload": {
@@ -2906,12 +2906,12 @@
             },
             "type": "library",
             "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
                 "branch-alias": {
                     "dev-main": "3.5-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
-                    "url": "https://github.com/symfony/contracts"
                 }
             },
             "autoload": {
@@ -3211,8 +3211,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -6497,7 +6497,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.2.20",
+        "php": ">=8.3.10",
         "ext-curl": "*",
         "ext-gd": "*",
         "ext-intl": "*",
@@ -6508,7 +6508,7 @@
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "8.2.20"
+        "php": "8.3.15"
     },
     "plugin-api-version": "2.3.0"
 }
