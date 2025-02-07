@@ -106,6 +106,7 @@ use UnexpectedValueException;
  * @method static ChannelFunction SEPTIC_TANK()
  * @method static ChannelFunction WATER_TANK()
  * @method static ChannelFunction CONTAINER_LEVEL_SENSOR()
+ * @method static ChannelFunction FLOOD_SENSOR()
  */
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
@@ -178,6 +179,7 @@ final class ChannelFunction extends Enum {
     const SEPTIC_TANK = 981;
     const WATER_TANK = 982;
     const CONTAINER_LEVEL_SENSOR = 990;
+    const FLOOD_SENSOR = 1000;
 
     private $unsupportedFunctionId;
 
@@ -491,6 +493,7 @@ final class ChannelFunction extends Enum {
             self::SEPTIC_TANK => 'Septic tank', // i18n
             self::WATER_TANK => 'Water tank', // i18n
             self::CONTAINER_LEVEL_SENSOR => 'Container level sensor', // i18n
+            self::FLOOD_SENSOR => 'Flood sensor', // i18n
         ];
     }
 
@@ -588,6 +591,7 @@ final class ChannelFunction extends Enum {
             self::SEPTIC_TANK => ['default'],
             self::WATER_TANK => ['default'],
             self::CONTAINER_LEVEL_SENSOR => ['empty', 'full'],
+            self::FLOOD_SENSOR => ['empty', 'full'],
         ];
     }
 
