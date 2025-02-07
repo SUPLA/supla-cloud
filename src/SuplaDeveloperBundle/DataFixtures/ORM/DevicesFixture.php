@@ -689,7 +689,7 @@ class DevicesFixture extends SuplaFixture {
                 ChannelFunction::VALVEOPENCLOSE,
                 [
                     'userConfig' => json_encode([
-                        'sensorChannelNos' => [12, 13, 14],
+                        'sensorChannelNumbers' => [12, 13, 14],
                     ]),
                 ],
             ],
