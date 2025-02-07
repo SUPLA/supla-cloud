@@ -40,6 +40,7 @@
     import ActionableSubjectType from "../../common/enums/actionable-subject-type";
     import {mapStores} from "pinia";
     import {useChannelsStore} from "@/stores/channels-store";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         components: {TransitionExpand, ChannelActionChooser},
@@ -88,13 +89,13 @@
                 }
             },
             confirmExecution(action) {
-                if (action.id === ChannelFunctionAction.OPEN && ['VALVEOPENCLOSE'].includes(this.subject.function.name)) {
-                    if (this.subject.state && (this.subject.state.manuallyClosed || this.subject.state.flooding)) {
+                if (action.id === ChannelFunctionAction.OPEN && [ChannelFunction.VALVEOPENCLOSE].includes(this.subject.functionId)) {
+                    if (this.state.manuallyClosed || this.state.flooding) {
                         this.actionToConfirm = action;
                         return false;
                     }
                 }
-                if (action.id === ChannelFunctionAction.TURN_ON && this.subject.state?.currentOverload) {
+                if (action.id === ChannelFunctionAction.TURN_ON && this.state.currentOverload) {
                     this.actionToConfirm = action;
                     return false;
                 }
@@ -114,6 +115,9 @@
             },
             isConnected() {
                 return this.subject.ownSubjectType !== 'channel' || this.channelsStore.all[this.subject.id]?.operational;
+            },
+            state() {
+                return (this.subject.ownSubjectType === 'channel' && this.channelsStore.all[this.subject.id]?.state) || {};
             },
             ...mapStores(useChannelsStore),
         }
