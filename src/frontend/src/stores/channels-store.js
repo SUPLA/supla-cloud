@@ -40,31 +40,34 @@ export const useChannelsStore = defineStore('channels', () => {
     };
 
     const fetchStates = () => {
-        return channelsApi.getStates().then((response) => {
-            let refetch = false;
-            const idsToFetch = [];
-            const devicesStore = useDevicesStore();
-            const {states: channelsStates, devicesCount} = response;
-            devicesStore.updateConnectedStatuses(channelsStates);
-            channelsStates.forEach((channel) => {
-                if (all.value[channel.id]) {
-                    all.value[channel.id].connected = channel.state.connected;
-                    all.value[channel.id].operational = channel.state.operational;
-                    all.value[channel.id].state = channel.state;
-                    if (all.value[channel.id].checksum !== channel.checksum) {
-                        idsToFetch.push(channel.id);
+        if (!fetchStates.promise) {
+            fetchStates.promise = channelsApi.getStates().then((response) => {
+                let refetch = false;
+                const idsToFetch = [];
+                const devicesStore = useDevicesStore();
+                const {states: channelsStates, devicesCount} = response;
+                devicesStore.updateConnectedStatuses(channelsStates);
+                channelsStates.forEach((channel) => {
+                    if (all.value[channel.id]) {
+                        all.value[channel.id].connected = channel.state.connected;
+                        all.value[channel.id].operational = channel.state.operational;
+                        all.value[channel.id].state = channel.state;
+                        if (all.value[channel.id].checksum !== channel.checksum) {
+                            idsToFetch.push(channel.id);
+                        }
+                    } else {
+                        refetch = true;
                     }
-                } else {
-                    refetch = true;
+                });
+                refetch = refetch || channelsStates.length !== ids.value.length || devicesCount !== devicesStore.ids.length;
+                if (refetch || idsToFetch.length > 5) {
+                    refetchAll();
+                } else if (idsToFetch.length > 0) {
+                    idsToFetch.forEach((id) => fetchChannel(id));
                 }
-            });
-            refetch = refetch || channelsStates.length !== ids.value.length || devicesCount !== devicesStore.ids.length;
-            if (refetch || idsToFetch.length > 5) {
-                refetchAll();
-            } else if (idsToFetch.length > 0) {
-                idsToFetch.forEach((id) => fetchChannel(id));
-            }
-        });
+            }).finally(() => fetchStates.promise = undefined);
+        }
+        return fetchStates.promise;
     };
 
     const refetchAll = () => {
