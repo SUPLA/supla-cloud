@@ -104,6 +104,7 @@
             },
             syncDropdown() {
                 if (this.dropdown) {
+                    this.dropdown.clear(true);
                     this.dropdown.clearOptions();
                     this.dropdown.clearOptionGroups();
                     this.optionGroups.forEach(({id, labelI18n}) => this.dropdown.addOptionGroup(id, {label: this.$t(labelI18n)}));
