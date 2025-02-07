@@ -777,7 +777,7 @@ The server has returned an HTTP 404 Error. It means that the item you are lookin
 The server has returned an HTTP {statusCode} error.: Strežnik je vrnil napako {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Izbrane datoteke ikon so prevelike. Največja dovoljena velikost nalaganja je {limit}.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Ventila ni mogoče odpreti prek neposredne povezave ali prek API-ja, če je bil ročno zaprt. Za nadaljevanje nadzora ročno odprite ventil.
-The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: Ventil je bil zaprt ročno ali na daljavo. Preden ga odprete, se prepričajte, da ni zaprt zaradi poplave. Če želite onemogočiti opozorilo, ročno odprite ventil. Ali ste prepričani, da želite ventil odpreti na daljavo?!
+valveOpenConfirm_manual: Ventil je bil zaprt ročno ali na daljavo. Preden ga odprete, se prepričajte, da ni zaprt zaradi poplave. Če želite onemogočiti opozorilo, ročno odprite ventil. Ali ste prepričani, da želite ventil odpreti na daljavo?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Ventil se ne bo odprl, če je bil zaprt ročno ali na daljavo, kar bi lahko bilo povezano s poplavljanjem.
 There are no more channels you can add to this group: V to skupino ni mogoče dodati drugih kanalov
 Thermometer: Termometer

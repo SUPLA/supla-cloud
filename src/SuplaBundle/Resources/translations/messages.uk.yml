@@ -776,7 +776,7 @@ The server has returned an HTTP 404 Error. It means that the item you are lookin
 The server has returned an HTTP {statusCode} error.: Сервер видав помилку {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Вибрані вами файли піктограм завеликі. Максимально дозволений розмір завантаження становить {limit}.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Вентиль не можна відкрити через пряме посилання або через API, якщо він був закритий вручну. Щоб відновити керування, відкрийте вентиль вручну.
-The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: Вентиль закрито вручну або по радіо. Перш ніж відкрити його, переконайтеся, що він не був закритий через затоплення. Щоб вимкнути попередження, відкрийте вентиль вручну. Ви впевнені, що бажаєте відкрити вентиль дистанційно?!
+valveOpenConfirm_manual: Вентиль закрито вручну або по радіо. Перш ніж відкрити його, переконайтеся, що він не був закритий через затоплення. Щоб вимкнути попередження, відкрийте вентиль вручну. Ви впевнені, що бажаєте відкрити вентиль дистанційно?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Вентиль не відкриється, якщо він був закритий вручну або по радіо, що може бути пов’язано із затопленням.
 There are no more channels you can add to this group: Немає інших каналів для додавання до цієї групи
 Thermometer: Термометр

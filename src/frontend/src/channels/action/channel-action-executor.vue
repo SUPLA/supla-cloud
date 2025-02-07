@@ -23,7 +23,8 @@
             @cancel="actionToConfirm = false"
             :header="$t('Are you sure?')">
             <span v-if="actionToConfirm.id === ChannelFunctionAction.OPEN">
-                {{ $t('The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!') }}
+                <span v-if="actionToConfirm.confirmationReason === 'flooding'">{{ $t('valveOpenConfirm_flooding') }}</span>
+                <span v-else>{{ $t('valveOpenConfirm_manual') }}</span>
             </span>
             <span v-else-if="actionToConfirm.id === ChannelFunctionAction.TURN_ON">
                 {{ $t('The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?') }}
@@ -91,7 +92,7 @@
             confirmExecution(action) {
                 if (action.id === ChannelFunctionAction.OPEN && [ChannelFunction.VALVEOPENCLOSE].includes(this.subject.functionId)) {
                     if (this.state.manuallyClosed || this.state.flooding) {
-                        this.actionToConfirm = action;
+                        this.actionToConfirm = {...action, confirmationReason: this.state.manuallyClosed ? 'manually' : 'flooding'};
                         return false;
                     }
                 }

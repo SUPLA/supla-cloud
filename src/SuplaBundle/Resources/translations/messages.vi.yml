@@ -777,7 +777,7 @@ The server has returned an HTTP 404 Error. It means that the item you are lookin
 The server has returned an HTTP {statusCode} error.: Máy chủ đã trả về lỗi HTTP {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Bộ biểu tượng bạn đã chọn quá lớn. Giới hạn tải lên tối đa là {limit}.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Không thể mở van qua liên kết trực tiếp hoặc qua API khi nó đã được đóng bằng tay. Để tiếp tục điều khiển, hãy mở van bằng tay.
-The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: Van đã được đóng bằng tay hoặc bằng radio. Trước khi mở nó, hãy chắc chắn rằng nó chưa bị đóng lại do ngập nước. Để tắt cảnh báo, hãy mở van bằng tay. Bạn có chắc chắn muốn mở van từ xa?!
+valveOpenConfirm_manual: Van đã được đóng bằng tay hoặc bằng radio. Trước khi mở nó, hãy chắc chắn rằng nó chưa bị đóng lại do ngập nước. Để tắt cảnh báo, hãy mở van bằng tay. Bạn có chắc chắn muốn mở van từ xa?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Van sẽ không được mở nếu nó được đóng bằng tay hoặc từ xa, điều này có thể gây ra bởi lũ lụt.
 There are no more channels you can add to this group: Không có thêm kênh bạn có thể thêm vào nhóm này.
 Thermometer: Nhiệt kế

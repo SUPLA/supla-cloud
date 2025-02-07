@@ -777,7 +777,7 @@ The server has returned an HTTP 404 Error. It means that the item you are lookin
 The server has returned an HTTP {statusCode} error.: أرجع الخادم خطأ {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: ملفات الرموز التي حددتها كبيرة جدًا. الحد الأقصى لحجم التحميل المسموح به هو {limit}.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: لا يمكن فتح الصمام عبر رابط مباشر أو عبر واجهة برمجة التطبيقات بعد إغلاقه يدويا. لاستئناف التحكم، افتح الصمام يدويا.
-The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: تم إغلاق الصمام في الوضع اليدوي أو اللاسلكي. قبل فتحه، تأكد من أنه لم يتم إغلاقه بسبب الإغراق. لتعطيل التحذير، افتح الصمام يدويا. هل أنت متأكد من أنك تريد فتح الصمام عن بعد؟!
+valveOpenConfirm_manual: تم إغلاق الصمام في الوضع اليدوي أو اللاسلكي. قبل فتحه، تأكد من أنه لم يتم إغلاقه بسبب الإغراق. لتعطيل التحذير، افتح الصمام يدويا. هل أنت متأكد من أنك تريد فتح الصمام عن بعد؟!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: لن يتم فتح الصمام إذا تم إغلاقه يدويا أو عن طريق اللاسلكي، والذي قد يكون مرتبطا بالإغراق.
 There are no more channels you can add to this group: لا توجد قنوات أخرى لإضافتها إلى هذه المجموعة
 Thermometer: ميزان الحرارة

@@ -777,7 +777,7 @@ The server has returned an HTTP 404 Error. It means that the item you are lookin
 The server has returned an HTTP {statusCode} error.: El servidor devolvió el error {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Los archivos seleccionados son demasiado grandes. El tamaño máximo del archivo permitido es de {limit}.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: La válvula no puede abrirse a través del enlace directo o a través de API, si se ha cerrado de forma manual. Para reanudar el control abre la válvula de forma manual.
-The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: La válvula se ha cerrado de forma manual o por la radio. Antes de abrirla, asegúrate de que no haya sido cerrado por haber sido inundado. Para apagar el aviso, abre la válvula de forma manual. ¿Estás seguro de querer abrir la válvula de forma manual?
+valveOpenConfirm_manual: La válvula se ha cerrado de forma manual o por la radio. Antes de abrirla, asegúrate de que no haya sido cerrado por haber sido inundado. Para apagar el aviso, abre la válvula de forma manual. ¿Estás seguro de querer abrir la válvula de forma manual?
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: La válvula no se abrirá si fue cerrada manualmente o remotamente, lo que puede estar relacionado con una inundación.
 There are no more channels you can add to this group: No hay otros canales que se puede añadir a este conjunto
 Thermometer: Termómetro
