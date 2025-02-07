@@ -346,9 +346,7 @@
                 return `curl -s -H "Content-Type: application/json" -H "Accept: application/json" -X PATCH ` +
                     `-d '{"code":"${this.linkSecret}","action":"read"}' ${this.urlWithoutSecret}`;
             },
-            computed: {
-                ...mapState(useCurrentUserStore, ['serverUrl']),
-            },
+            ...mapState(useCurrentUserStore, ['serverUrl']),
         },
         watch: {
             id() {
