@@ -43,6 +43,8 @@
         relatedRelayChannelId_dest: 'Associated measurement channel', // i18n
         relatedChannelId_src: 'Action trigger', // i18n
         relatedChannelId_dest: 'Action trigger for channel', // i18n
+        sensorChannelIds_src: 'Flood sensor', // i18n
+        sensorChannelIds_dest: 'Flood sensor for valve', // i18n
     };
 
     const hiddenRelations = ['relatedMeterChannelId'];
@@ -67,12 +69,24 @@
             }))
             .forEach((dep) => deps[dep.id] = dep);
 
+        Object.keys(props.channel.config)
+            .filter((key) => key.endsWith('ChannelIds'))
+            .filter((key) => !hiddenRelations.includes(key))
+            .filter((key) => props.channel.config[key]?.length > 0)
+            .map((role) => props.channel.config[role].map((channelId) => ({
+                id: `ch_${role}_${channelId}`,
+                role,
+                label: dependencyLabel(role, 'src'),
+                channel: channelsStore.all[channelId],
+            })))
+            .forEach((depList) => depList.forEach((dep) => deps[dep.id] = dep));
+
         // channels that refer to this one
         Object.values(channelsStore.all).forEach((channel) => {
             Object.keys(channel.config)
-                .filter((key) => key.endsWith('ChannelId'))
+                .filter((key) => key.endsWith('ChannelId') || key.endsWith('ChannelIds'))
                 .filter((key) => !hiddenRelations.includes(key))
-                .filter((key) => channel.config[key] === props.channel.id)
+                .filter((key) => Array.isArray(channel.config[key]) ? channel.config[key].includes(props.channel.id) : channel.config[key] === props.channel.id)
                 .map((role) => ({
                     id: `ch_${role}_${channel.id}`,
                     role,
