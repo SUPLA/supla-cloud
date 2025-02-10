@@ -34,8 +34,8 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="usedAlgorithm", type="string"),
  *   @OA\Property(property="temperatureControlType", type="string"),
  *   @OA\Property(property="defaultTemperatureConstraintName", type="string", readOnly=true),
- *   @OA\Property(property="minOnTimeS", type="integer", minimum=0, maximum=600),
- *   @OA\Property(property="minOffTimeS", type="integer", minimum=0, maximum=600),
+ *   @OA\Property(property="minOnTimeS", type="integer", minimum=0, maximum=3600),
+ *   @OA\Property(property="minOffTimeS", type="integer", minimum=0, maximum=3600),
  *   @OA\Property(property="outputValueOnError", type="integer", minimum=-100, maximum=100),
  *   @OA\Property(property="weeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule"),
  *   @OA\Property(property="altWeeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule", description="Only for the `HVAC_THERMOSTAT` function."),
@@ -314,7 +314,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         }
         if (array_key_exists('minOnTimeS', $config)) {
             if ($config['minOnTimeS']) {
-                Assert::that($config['minOnTimeS'])->numeric()->between(0, 600);
+                Assert::that($config['minOnTimeS'])->numeric()->between(0, 3600);
                 $subject->setUserConfigValue('minOnTimeS', intval($config['minOnTimeS']));
             } else {
                 $subject->setUserConfigValue('minOnTimeS', 0);
@@ -322,7 +322,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         }
         if (array_key_exists('minOffTimeS', $config)) {
             if ($config['minOffTimeS']) {
-                Assert::that($config['minOffTimeS'])->numeric()->between(0, 600);
+                Assert::that($config['minOffTimeS'])->numeric()->between(0, 3600);
                 $subject->setUserConfigValue('minOffTimeS', intval($config['minOffTimeS']));
             } else {
                 $subject->setUserConfigValue('minOffTimeS', 0);
