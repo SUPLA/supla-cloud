@@ -393,6 +393,11 @@ export const ChannelFunctionTriggers = {
         {caption: () => 'When the alarm is disarmed', def: () => ({on_change_to: {eq: 'lo'}})}, // i18n
         {caption: () => 'When the alarm is armed or disarmed', def: () => ({on_change: {}})}, // i18n
     ],
+    [ChannelFunction.FLOOD_SENSOR]: [
+        {caption: () => 'When a flood is detected', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
+        {caption: () => 'When a flooding state has been cleared', def: () => ({on_change_to: {eq: 'lo'}})}, // i18n
+        {caption: () => 'When a flooding state changes', def: () => ({on_change: {}})}, // i18n
+    ],
     [ChannelFunction.WINDSENSOR]: [
         {
             caption: () => 'When the wind reaches a certain speed', // i18n
