@@ -20,7 +20,7 @@
                 </div>
                 <ChannelConflictDetailsWarning :channel="channel" v-if="channel.conflictDetails"/>
                 <div class="alert alert-warning" v-if="channelsStore.all[channel.id]?.state?.connectedCode === 3">
-                    {{ $t('Tego urządzenia nie można zdalnie wybudzić. Oczekujemy na komunikację ze strony urządzenia...') }}
+                    {{ $t('This device cannot be remotely awakened. We are awaiting communication from the device...') }}
                 </div>
                 <div class="row">
                     <div class="col-md-4 col-sm-12">

@@ -1729,3 +1729,4 @@ suffix: sufiks
 
 #</editor-fold>
 valveOpenConfirm_flooding: Zawór został zamknięty z powodu wykrycia zalania. Upewnij się, że przyczyna zalania została już usunięta. Czy na pewno chcesz otworzyć zawór?
+This device cannot be remotely awakened. We are awaiting communication from the device...: Tego urządzenia nie można zdalnie wybudzić. Oczekujemy na komunikację ze strony urządzenia...
