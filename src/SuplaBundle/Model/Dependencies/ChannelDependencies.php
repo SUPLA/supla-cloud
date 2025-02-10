@@ -10,6 +10,7 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
+use SuplaBundle\Utils\ArrayUtils;
 
 /**
  * This class is responsible for detecting and possibly clearing all items that depend on the given channel (and its function).
@@ -127,8 +128,13 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         foreach ($this->findDependentChannels($channel) as $depChannel) {
             $config = $this->channelParamConfigTranslator->getConfig($depChannel);
             foreach ($config as $key => $value) {
-                if ((strpos($key, 'ChannelId') > 0) && $value === $channel->getId()) {
+                if (str_ends_with($key, 'ChannelId') && $value === $channel->getId()) {
                     $this->channelParamConfigTranslator->setConfig($depChannel, [$key => null]);
+                    $this->entityManager->persist($depChannel);
+                }
+                if (str_ends_with($key, 'ChannelIds') && in_array($channel->getId(), $value, true)) {
+                    $newIds = ArrayUtils::filter($value, fn(int $channelId) => $channelId !== $channel->getId());
+                    $this->channelParamConfigTranslator->setConfig($depChannel, [$key => $newIds]);
                     $this->entityManager->persist($depChannel);
                 }
             }
@@ -160,7 +166,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         $config = $this->channelParamConfigTranslator->getConfig($channel);
         $dependentChannels = [];
         foreach ($config as $key => $value) {
-            if ((strpos($key, 'ChannelId') > 0) && is_int($value) && $value > 0 && !in_array($key, $skipConfigIds)) {
+            if (str_ends_with($key, 'ChannelId') && is_int($value) && $value > 0 && !in_array($key, $skipConfigIds)) {
                 $depChannel = $this->entityManager->find(IODeviceChannel::class, $value);
                 if ($depChannel) {
                     $dependentChannels[$depChannel->getId()] = $depChannel;
@@ -178,11 +184,14 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         foreach ($this->channelRepository->findActionTriggers($channel) as $atChannel) {
             $dependentChannels[$atChannel->getId()] = $atChannel;
         }
-        $possibleHvacRelationFilters = ['type' => ChannelType::HVAC, 'iodevice' => $channel->getIoDevice()];
-        foreach ($this->channelRepository->findBy($possibleHvacRelationFilters) as $possibleChannel) {
+        $possibleDeviceRelationFilters = ['iodevice' => $channel->getIoDevice()];
+        foreach ($this->channelRepository->findBy($possibleDeviceRelationFilters) as $possibleChannel) {
             $config = $this->channelParamConfigTranslator->getConfig($possibleChannel);
             foreach ($config as $key => $value) {
-                if ((strpos($key, 'ChannelId') > 0) && $value === $channel->getId() && !in_array($key, $skipConfigIds)) {
+                if (str_ends_with($key, 'ChannelId') && $value === $channel->getId() && !in_array($key, $skipConfigIds)) {
+                    $dependentChannels[$possibleChannel->getId()] = $possibleChannel;
+                }
+                if (str_ends_with($key, 'ChannelIds') && in_array($channel->getId(), $value, true) && !in_array($key, $skipConfigIds)) {
                     $dependentChannels[$possibleChannel->getId()] = $possibleChannel;
                 }
             }

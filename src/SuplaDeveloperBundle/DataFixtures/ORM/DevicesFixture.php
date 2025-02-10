@@ -701,9 +701,21 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
             [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
             [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
-            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
-            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
-            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR, ['subDeviceId' => 2]],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR, ['subDeviceId' => 2]],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR, ['subDeviceId' => 2]],
+        ]);
+        $this->entityManager->persist(AnyFieldSetter::set(new SubDevice(), [
+            'id' => 2,
+            'device' => $device,
+            'regDate' => new DateTime(),
+            'name' => 'Flood sensor sub device',
+            'softwareVersion' => '6.' . rand(0, 50),
+            'productCode' => strtoupper($this->faker->randomLetter() . $this->faker->randomLetter()),
+            'serialNumber' => $this->faker->uuid(),
+        ]));
+        AnyFieldSetter::set($device, [
+            'flags' => IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION,
         ]);
         $this->entityManager->persist($device);
         return $device;

@@ -1737,6 +1737,43 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(0, $sonoff->getChannels());
     }
 
+    public function testDeletingFloodSensorRemovesItFromValveConfirm() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
+        $valve = $device->getChannels()[11];
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $channelParamConfigTranslator->setConfig($valve, ['floodSensorChannelIds' => [
+            $device->getChannels()[12]->getId(),
+            $device->getChannels()[20]->getId(),
+            $device->getChannels()[21]->getId(),
+        ]]);
+        $this->flush();
+        $sensorFromSubDevice = $device->getChannels()[20];
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$sensorFromSubDevice->getId()}?safe=yes");
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('conflictOn', $content);
+        $this->assertArrayHasKey('channelsToRemove', $content);
+        $this->assertCount(2, $content['channelsToRemove']);
+        $this->assertCount(1, $content['dependencies']['channels']);
+        $this->assertEquals($valve->getId(), $content['dependencies']['channels'][0]['id']);
+        return $device->getId();
+    }
+
+    /** @depends testDeletingFloodSensorRemovesItFromValveConfirm */
+    public function testDeletingFloodSensorRemovesItFromValve(int $deviceId) {
+        $device = $this->freshEntityById(IODevice::class, $deviceId);
+        $valve = $device->getChannels()[11];
+        $sensorFromSubDevice = $device->getChannels()[20];
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$sensorFromSubDevice->getId()}");
+        $this->assertStatusCode(204, $client->getResponse());
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $config = $channelParamConfigTranslator->getConfig($this->freshEntity($valve));
+        $this->assertCount(1, $config['floodSensorChannelIds']);
+        $this->assertEquals([$device->getChannels()[12]->getId()], $config['floodSensorChannelIds']);
+    }
+
     public function testDeletingThermometerUsedInManyChannelsDoesNotDuplicateDependencies() {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceGateway($this->device->getLocation());
         $this->flush();
