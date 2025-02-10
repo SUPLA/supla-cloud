@@ -8,7 +8,7 @@ use SuplaBundle\Supla\SuplaServerAware;
 /**
  * @OA\Schema(schema="ChannelStateConnected",
  *     @OA\Property(property="connected", type="boolean"),
- *     @OA\Property(property="operational", type="boolean"),
+ *     @OA\Property(property="connectedCode", type="integer"),
  * )
  */
 class ConnectedChannelStateGetter implements SingleChannelStateGetter {
@@ -18,7 +18,7 @@ class ConnectedChannelStateGetter implements SingleChannelStateGetter {
         $status = $this->suplaServer->getChannelConnectionStatus($channel);
         return [
             'connected' => $status->isConnected(),
-            'operational' => $status->isOperational(),
+            'connectedCode' => $status->getValue(),
         ];
     }
 

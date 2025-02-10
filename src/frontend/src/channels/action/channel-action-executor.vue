@@ -115,7 +115,7 @@
                 }
             },
             isConnected() {
-                return this.subject.ownSubjectType !== 'channel' || this.channelsStore.all[this.subject.id]?.operational;
+                return this.subject.ownSubjectType !== 'channel' || this.channelsStore.all[this.subject.id]?.state?.connectedCode === 1;
             },
             state() {
                 return (this.subject.ownSubjectType === 'channel' && this.channelsStore.all[this.subject.id]?.state) || {};

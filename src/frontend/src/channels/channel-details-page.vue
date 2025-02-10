@@ -5,7 +5,6 @@
                 v-if="channel">
                 <div class="d-flex mt-3">
                     <div class="flex-grow-1">
-
                         <h1 v-title class="m-0">{{ channelTitle }}</h1>
                         <h4>
                             {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',') }}
@@ -20,6 +19,9 @@
                     </div>
                 </div>
                 <ChannelConflictDetailsWarning :channel="channel" v-if="channel.conflictDetails"/>
+                <div class="alert alert-warning" v-if="channelsStore.all[channel.id]?.state?.connectedCode === 3">
+                    {{ $t('Tego urządzenia nie można zdalnie wybudzić. Oczekujemy na komunikację ze strony urządzenia...') }}
+                </div>
                 <div class="row">
                     <div class="col-md-4 col-sm-12">
                         <div class="details-page-block">

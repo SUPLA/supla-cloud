@@ -18,7 +18,6 @@ export const useChannelsStore = defineStore('channels', () => {
             return fetchAll.promise = channelsApi.getListWithState().then((channels) => {
                 const state = channels.reduce((acc, curr) => {
                     curr.connected = curr.state.connected;
-                    curr.operational = curr.state.operational;
                     return {
                         ids: acc.ids.concat(curr.id),
                         all: {...acc.all, [curr.id]: curr}
@@ -52,7 +51,6 @@ export const useChannelsStore = defineStore('channels', () => {
                 channelsStates.forEach((channel) => {
                     if (all.value[channel.id]) {
                         all.value[channel.id].connected = channel.state.connected;
-                        all.value[channel.id].operational = channel.state.operational;
                         all.value[channel.id].state = channel.state;
                         if (all.value[channel.id].checksum !== channel.checksum) {
                             idsToFetch.push(channel.id);

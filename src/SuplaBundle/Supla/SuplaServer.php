@@ -126,6 +126,8 @@ abstract class SuplaServer {
                     return ConnectionStatus::CONNECTED();
                 } elseif (str_starts_with($result, 'CONNECTED_BUT_NOT_AVAILABLE:')) {
                     return ConnectionStatus::CONNECTED_NOT_AVAILABLE();
+                } elseif (str_starts_with($result, 'OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED:')) {
+                    return ConnectionStatus::OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED();
                 }
             }
         } catch (SuplaServerIsDownException $e) {

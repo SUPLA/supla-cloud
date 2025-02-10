@@ -105,7 +105,7 @@
             <div v-if="currentState.connected === false">
                 <span class="label label-danger">{{ $t('Disconnected') }}</span>
             </div>
-            <div v-if="currentState.operational === false && currentState.connected">
+            <div v-if="currentState.connectedCode === 2">
                 <span class="label label-warning">{{ $t('Not available') }}</span>
             </div>
             <div v-if="currentState.currentOverload === true">
