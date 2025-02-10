@@ -1,4 +1,4 @@
-describe('Action Triggers', () => {
+describe('Action Executor', () => {
     before(function () {
         cy.task('seed:database', ['01_user.sql', '02_sonoff.sql', '03_uni_module.sql']);
     });
@@ -10,11 +10,11 @@ describe('Action Triggers', () => {
         cy.contains('.channel-action-chooser .panel-success', 'Włącz');
     });
 
-    it.skip('can execute action with params', () => {
+    it('can execute action with params', () => {
         cy.login();
         cy.visit('/channels/1');
         cy.contains('.channel-action-chooser a', 'Skopiuj stan').click();
-        cy.contains('.channel-action-chooser button', 'wybierz kanał').click();
+        cy.get('.channel-action-chooser .ts-control').click();
         cy.contains('.channel-action-chooser .subject-dropdown-option', 'ID4').click();
         cy.contains('.channel-action-chooser .btn-execute', 'Wykonaj').click();
         cy.contains('.channel-action-chooser .btn-green', 'wykonano');
