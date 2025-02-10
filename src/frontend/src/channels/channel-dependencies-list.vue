@@ -45,6 +45,8 @@
         relatedChannelId_dest: 'Action trigger for channel', // i18n
         floodSensorChannelIds_src: 'Flood sensor', // i18n
         floodSensorChannelIds_dest: 'Flood sensor for valve', // i18n
+        levelSensorChannelIds_src: 'Level sensor', // i18n
+        levelSensorChannelIds_dest: 'Level sensor for container', // i18n
     };
 
     const hiddenRelations = ['relatedMeterChannelId'];
