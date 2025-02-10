@@ -15,6 +15,6 @@
 
     export default {
         components: {Toggler},
-        props: ['channel'],
+        props: {channel: Object},
     };
 </script>

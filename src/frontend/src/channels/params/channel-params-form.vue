@@ -5,6 +5,7 @@
             <fa icon="circle-notch" spin></fa>
         </div>
         <div v-else>
+            <ChannelParamsInvertedLogic v-if="channel.config.invertedLogic !== undefined" :channel="channel" @change="$emit('change')"/>
             <component :is="additionalChannelParamsComponent"
                 :channel="channel"
                 @change="$emit('change')"
@@ -31,12 +32,10 @@
     import ChannelParamsOpeningsensorGaragedoor from "./channel-params-openingsensor-garagedoor";
     import ChannelParamsOpeningsensorRollershutter from "./channel-params-openingsensor-rollershutter";
     import ChannelParamsOpeningsensorRoofwindow from "./channel-params-openingsensor-roofwindow";
-    import ChannelParamsOpeningsensorWindow from "./channel-params-openingsensor-window";
     import ChannelParamsStaircasetimer from "./channel-params-staircasetimer";
     import ChannelParamsThermometer from "./channel-params-thermometer";
     import ChannelParamsHumidity from "./channel-params-humidity";
     import ChannelParamsHumidityandtemperature from "./channel-params-humidityandtemperature";
-    import ChannelParamsNoliquidsensor from "./channel-params-noliquidsensor";
     import ChannelParamsElectricitymeter from "./channel-params-electricity-meter";
     import ChannelParamsIcElectricitymeter from "./channel-params-impulsecounter";
     import ChannelParamsIcGasmeter from "./channel-params-impulsecounter";
@@ -53,12 +52,13 @@
     import ChannelParamsHvacDomesticHotWater from "./channel-params-hvac-thermostat.vue";
     import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings";
     import ChannelParamsControllingthefacadeblind from "@/channels/params/channel-params-controllingthefacadeblind.vue";
-    import ChannelParamsSensorAny from "@/channels/params/channel-params-sensor-any.vue";
+    import ChannelParamsInvertedLogic from "@/channels/params/channel-params-inverted-logic.vue";
     import ChannelParamsValveopenclose from "@/channels/params/channel-params-valveopenclose.vue";
 
     export default {
         props: ['channel'],
         components: {
+            ChannelParamsInvertedLogic,
             ChannelParamsIntegrationsSettings,
             ChannelParamsControllingthedoorlock,
             ChannelParamsControllingthegaragedoor,
@@ -71,7 +71,6 @@
             ChannelParamsOpeningsensorRollershutter,
             ChannelParamsOpeningsensorRoofwindow,
             ChannelParamsOpeningsensorGaragedoor,
-            ChannelParamsOpeningsensorWindow,
             ChannelParamsControllingtherollershutter,
             ChannelParamsTerraceAwning: ChannelParamsControllingtherollershutter,
             ChannelParamsProjectorScreen: ChannelParamsControllingtherollershutter,
@@ -82,8 +81,6 @@
             ChannelParamsThermometer,
             ChannelParamsHumidity,
             ChannelParamsHumidityandtemperature,
-            ChannelParamsMailsensor: ChannelParamsSensorAny,
-            ChannelParamsNoliquidsensor,
             ChannelParamsElectricitymeter,
             ChannelParamsIcElectricitymeter,
             ChannelParamsIcGasmeter,
@@ -100,8 +97,6 @@
             ChannelParamsHvacDomesticHotWater,
             ChannelParamsControllingthefacadeblind,
             ChannelParamsVerticalBlind: ChannelParamsControllingthefacadeblind,
-            ChannelParamsHotelcardsensor: ChannelParamsSensorAny,
-            ChannelParamsAlarmArmamentSensor: ChannelParamsSensorAny,
             ChannelParamsValveopenclose,
         },
         computed: {

@@ -1,7 +1,5 @@
 <template>
     <div>
-        <channel-params-sensor-any :channel="channel"
-            @change="$emit('change')"></channel-params-sensor-any>
         <dl>
             <dd>{{ $t('Fully opened sensor for channel') }}</dd>
             <dt>
@@ -14,11 +12,10 @@
 </template>
 
 <script>
-    import ChannelParamsSensorAny from "./channel-params-sensor-any";
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
 
     export default {
-        components: {ChannelsIdDropdown, ChannelParamsSensorAny},
+        components: {ChannelsIdDropdown},
         props: ['channel', 'relatedChannelFunction'],
     };
 </script>
