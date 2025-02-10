@@ -43,8 +43,8 @@
         relatedRelayChannelId_dest: 'Associated measurement channel', // i18n
         relatedChannelId_src: 'Action trigger', // i18n
         relatedChannelId_dest: 'Action trigger for channel', // i18n
-        sensorChannelIds_src: 'Flood sensor', // i18n
-        sensorChannelIds_dest: 'Flood sensor for valve', // i18n
+        floodSensorChannelIds_src: 'Flood sensor', // i18n
+        floodSensorChannelIds_dest: 'Flood sensor for valve', // i18n
     };
 
     const hiddenRelations = ['relatedMeterChannelId'];

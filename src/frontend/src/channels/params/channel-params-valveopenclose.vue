@@ -1,10 +1,10 @@
 <template>
     <div>
-        <dl>
+        <dl v-if="supportFloodSensors">
             <dd>{{ $t('Flood sensors') }}</dd>
             <dt>
                 <div class="mb-3">
-                    <div class="d-flex align-items-center bottom-border py-2" v-for="channel in sensors" :key="channel.id">
+                    <div class="d-flex align-items-center bottom-border py-2" v-for="channel in floodSensors" :key="channel.id">
                         <div class="flex-grow-1">
                             <h5 class="my-1">
                                 {{ channelTitle(channel) }}
@@ -19,7 +19,7 @@
                 </div>
                 <span class="small">{{ $t('Choose many') }}</span>
                 <ChannelsDropdown @input="handleNewSensor" :hideNone="true"
-                    :params="{skipIds: sensorsIds, deviceIds: channel.iodeviceId, fnc: 'FLOOD_SENSOR'}"/>
+                    :params="{skipIds: floodSensorsIds, deviceIds: channel.iodeviceId, fnc: 'FLOOD_SENSOR'}"/>
             </dt>
         </dl>
     </div>
@@ -36,23 +36,24 @@
 
     const channelsStore = useChannelsStore();
 
-    const sensorsIds = computed(() => props.channel.config.sensorChannelIds || []);
-    const sensors = computed({
+    const supportFloodSensors = computed(() => props.channel.config.floodSensorChannelIds !== undefined);
+    const floodSensorsIds = computed(() => props.channel.config.floodSensorChannelIds || []);
+    const floodSensors = computed({
         get() {
-            return sensorsIds.value.map(id => channelsStore.all[id]);
+            return floodSensorsIds.value.map(id => channelsStore.all[id]);
         },
         set(value) {
-            props.channel.config.sensorChannelIds = value.map(c => c.id);
+            props.channel.config.floodSensorChannelIds = value.map(c => c.id);
             emit('change');
         }
     });
 
     function handleNewSensor(newSensor) {
-        sensors.value = [...sensors.value, newSensor];
+        floodSensors.value = [...floodSensors.value, newSensor];
     }
 
     function handleRemoveSensor(sensorToRemove) {
-        sensors.value = sensors.value.filter(ch => ch.id !== sensorToRemove.id);
+        floodSensors.value = floodSensors.value.filter(ch => ch.id !== sensorToRemove.id);
     }
 
 </script>
