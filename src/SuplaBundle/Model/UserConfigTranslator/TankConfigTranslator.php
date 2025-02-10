@@ -8,6 +8,7 @@ use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Utils\ArrayUtils;
 
 class TankConfigTranslator extends UserConfigTranslator {
     use ChannelNoToIdTranslator;
@@ -33,6 +34,15 @@ class TankConfigTranslator extends UserConfigTranslator {
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
+        if (array_key_exists('levelSensorChannelIds', $config) && !array_key_exists('levelSensors', $config) && $config['levelSensorChannelIds']) {
+            // request from ChannelDependencies clearing
+            Assertion::isArray($config['levelSensorChannelIds'], null, 'levelSensorChannelIds');
+            $currentConfig = $this->getConfig($subject);
+            $config['levelSensors'] = ArrayUtils::filter(
+                $currentConfig['levelSensors'],
+                fn($sensor) => in_array($sensor['id'], $config['levelSensorChannelIds'])
+            );
+        }
         if (array_key_exists('levelSensors', $config) && $config['levelSensors']) {
             Assertion::isArray($config['levelSensors'], null, 'levelSensors');
             Assert::thatAll($config['levelSensors'], null, 'levelSensors')

@@ -681,9 +681,9 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
             [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
             [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
-            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
-            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
-            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR, ['subDeviceId' => 1]],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR, ['subDeviceId' => 1]],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR, ['subDeviceId' => 1]],
             [
                 ChannelType::VALVEOPENCLOSE,
                 ChannelFunction::VALVEOPENCLOSE,

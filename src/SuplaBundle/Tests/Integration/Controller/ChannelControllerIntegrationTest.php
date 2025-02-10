@@ -1769,9 +1769,50 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client->request('DELETE', "/api/channels/{$sensorFromSubDevice->getId()}");
         $this->assertStatusCode(204, $client->getResponse());
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
-        $config = $channelParamConfigTranslator->getConfig($this->freshEntity($valve));
+        $valve = $this->freshEntity($valve);
+        $config = $channelParamConfigTranslator->getConfig($valve);
         $this->assertCount(1, $config['floodSensorChannelIds']);
         $this->assertEquals([$device->getChannels()[12]->getId()], $config['floodSensorChannelIds']);
+        $this->assertCount(1, $valve->getUserConfigValue('sensorChannelNumbers'));
+    }
+
+    public function testDeletingLevelSensorRemovesItFromTankConfirm() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
+        $tank = $device->getChannels()[0];
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $channelParamConfigTranslator->setConfig($tank, ['levelSensors' => [
+            ['id' => $device->getChannels()[1]->getId(), 'fillLevel' => 10],
+            ['id' => $device->getChannels()[9]->getId(), 'fillLevel' => 20],
+            ['id' => $device->getChannels()[10]->getId(), 'fillLevel' => 30],
+        ]]);
+        $this->flush();
+        $sensorFromSubDevice = $device->getChannels()[9];
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$sensorFromSubDevice->getId()}?safe=yes");
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('conflictOn', $content);
+        $this->assertArrayHasKey('channelsToRemove', $content);
+        $this->assertCount(2, $content['channelsToRemove']);
+        $this->assertCount(1, $content['dependencies']['channels']);
+        $this->assertEquals($tank->getId(), $content['dependencies']['channels'][0]['id']);
+        return $device->getId();
+    }
+
+    /** @depends testDeletingLevelSensorRemovesItFromTankConfirm */
+    public function testDeletingLevelSensorRemovesItFromTank(int $deviceId) {
+        $device = $this->freshEntityById(IODevice::class, $deviceId);
+        $tank = $device->getChannels()[0];
+        $sensorFromSubDevice = $device->getChannels()[10];
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', "/api/channels/{$sensorFromSubDevice->getId()}");
+        $this->assertStatusCode(204, $client->getResponse());
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $tank = $this->freshEntity($tank);
+        $config = $channelParamConfigTranslator->getConfig($tank);
+        $this->assertCount(1, $config['levelSensors']);
+        $this->assertEquals(['id' => $device->getChannels()[1]->getId(), 'fillLevel' => 10], $config['levelSensors'][0]);
+        $this->assertCount(1, $tank->getUserConfigValue('sensors'));
     }
 
     public function testDeletingThermometerUsedInManyChannelsDoesNotDuplicateDependencies() {
