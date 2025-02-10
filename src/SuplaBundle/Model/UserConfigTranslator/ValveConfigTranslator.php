@@ -9,6 +9,8 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 
 class ValveConfigTranslator extends UserConfigTranslator {
+    use ChannelNoToIdTranslator;
+
     public function getConfig(HasUserConfig $subject): array {
         return [
             'sensorChannelIds' => array_values(array_filter(array_map(
@@ -34,22 +36,6 @@ class ValveConfigTranslator extends UserConfigTranslator {
                 array_map(fn(IODeviceChannel $channel) => $channel->getChannelNumber(), $sensors),
             );
         }
-    }
-
-    private function channelNoToChannel(IODeviceChannel $channel, int $channelNo): ?IODeviceChannel {
-        return $channel->getIoDevice()
-            ->getChannels()
-            ->filter(fn(IODeviceChannel $ch) => $ch->getChannelNumber() == $channelNo)
-            ->first() ?: null;
-    }
-
-    private function channelIdToChannelFromDevice(IODeviceChannel $channel, int $channelId): IODeviceChannel {
-        $channelWithId = $channel->getIoDevice()
-            ->getChannels()
-            ->filter(fn(IODeviceChannel $ch) => $ch->getId() == $channelId)
-            ->first();
-        Assertion::isObject($channelWithId, 'Invalid channel ID given: ' . $channelId);
-        return $channelWithId;
     }
 
     public function supports(HasUserConfig $subject): bool {
