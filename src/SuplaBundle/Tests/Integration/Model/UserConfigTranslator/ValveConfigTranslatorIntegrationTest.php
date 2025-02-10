@@ -66,6 +66,14 @@ class ValveConfigTranslatorIntegrationTest extends IntegrationTestCase {
         $this->assertEquals([12, 17], $channelNos);
     }
 
+    public function testSettingValveSensorsEmpty() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
+        $valve = $device->getChannels()[11];
+        $this->translator->setConfig($valve, ['floodSensorChannelIds' => []]);
+        $channelNos = $valve->getUserConfigValue('sensorChannelNumbers');
+        $this->assertEmpty($channelNos);
+    }
+
     public function testCanChooseAnyBinarySensorForValveSensor() {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
         $valve = $device->getChannels()[11];

@@ -26,7 +26,7 @@ class ValveConfigTranslator extends UserConfigTranslator {
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
-        if (array_key_exists('floodSensorChannelIds', $config) && $config['floodSensorChannelIds']) {
+        if (array_key_exists('floodSensorChannelIds', $config) && $config['floodSensorChannelIds'] !== null) {
             Assertion::true(
                 ChannelFunctionBitsFlags::FLOOD_SENSORS_SUPPORTED()->isSupported($subject->getFlags()),
                 'Flood sesnors not supported in this channel.'

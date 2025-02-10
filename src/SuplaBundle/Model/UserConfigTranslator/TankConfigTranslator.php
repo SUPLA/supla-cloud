@@ -43,7 +43,7 @@ class TankConfigTranslator extends UserConfigTranslator {
                 fn($sensor) => in_array($sensor['id'], $config['levelSensorChannelIds'])
             );
         }
-        if (array_key_exists('levelSensors', $config) && $config['levelSensors']) {
+        if (array_key_exists('levelSensors', $config) && $config['levelSensors'] !== null) {
             Assertion::isArray($config['levelSensors'], null, 'levelSensors');
             Assert::thatAll($config['levelSensors'], null, 'levelSensors')
                 ->isArray()->keyExists('id')->keyExists('fillLevel');
