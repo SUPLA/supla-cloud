@@ -34,6 +34,8 @@ class HiLowChannelStateGetter implements SingleChannelStateGetter {
             ChannelFunction::HOTELCARDSENSOR(),
             ChannelFunction::ALARM_ARMAMENT_SENSOR(),
             ChannelFunction::NOLIQUIDSENSOR(),
+            ChannelFunction::CONTAINER_LEVEL_SENSOR(),
+            ChannelFunction::FLOOD_SENSOR(),
         ];
     }
 }
