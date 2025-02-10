@@ -1788,9 +1788,9 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $tank = $device->getChannels()[0];
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $channelParamConfigTranslator->setConfig($tank, ['levelSensors' => [
-            ['id' => $device->getChannels()[1]->getId(), 'fillLevel' => 10],
-            ['id' => $device->getChannels()[9]->getId(), 'fillLevel' => 20],
-            ['id' => $device->getChannels()[10]->getId(), 'fillLevel' => 30],
+            ['channelId' => $device->getChannels()[1]->getId(), 'fillLevel' => 10],
+            ['channelId' => $device->getChannels()[9]->getId(), 'fillLevel' => 20],
+            ['channelId' => $device->getChannels()[10]->getId(), 'fillLevel' => 30],
         ]]);
         $this->flush();
         $sensorFromSubDevice = $device->getChannels()[9];
@@ -1818,7 +1818,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $tank = $this->freshEntity($tank);
         $config = $channelParamConfigTranslator->getConfig($tank);
         $this->assertCount(1, $config['levelSensors']);
-        $this->assertEquals(['id' => $device->getChannels()[1]->getId(), 'fillLevel' => 10], $config['levelSensors'][0]);
+        $this->assertEquals(['channelId' => $device->getChannels()[1]->getId(), 'fillLevel' => 10], $config['levelSensors'][0]);
         $this->assertCount(1, $tank->getUserConfigValue('sensors'));
     }
 

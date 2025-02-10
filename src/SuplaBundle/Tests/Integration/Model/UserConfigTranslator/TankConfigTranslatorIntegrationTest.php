@@ -61,7 +61,7 @@ class TankConfigTranslatorIntegrationTest extends IntegrationTestCase {
     public function testTranslatingLevelSensors() {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
         $tank = $device->getChannels()[0];
-        $tank->setUserConfigValue('sensors', ['1' => ['fillLevel' => 10], '3' => ['fillLevel' => 55]]);
+        $tank->setUserConfigValue('sensors', [['channelNo' => 1, 'fillLevel' => 10], ['channelNo' => 3, 'fillLevel' => 55]]);
         $config = $this->translator->getConfig($tank);
         $this->assertArrayHasKey('levelSensorChannelIds', $config);
         $this->assertArrayHasKey('levelSensors', $config);
@@ -69,31 +69,34 @@ class TankConfigTranslatorIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($device->getChannels()[1]->getId(), $config['levelSensorChannelIds'][0]);
         $this->assertEquals($device->getChannels()[3]->getId(), $config['levelSensorChannelIds'][1]);
         $this->assertCount(2, $config['levelSensors']);
-        $this->assertEquals(['id' => $device->getChannels()[1]->getId(), 'fillLevel' => 10], $config['levelSensors'][0]);
+        $this->assertEquals(['channelId' => $device->getChannels()[1]->getId(), 'fillLevel' => 10], $config['levelSensors'][0]);
     }
 
     public function testOrderingLevelSensorsByFillLevel() {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
         $tank = $device->getChannels()[0];
-        $tank->setUserConfigValue('sensors', ['1' => ['fillLevel' => 55], '3' => ['fillLevel' => 10]]);
+        $tank->setUserConfigValue('sensors', [['channelNo' => 1, 'fillLevel' => 55], ['channelNo' => 3, 'fillLevel' => 10]]);
         $config = $this->translator->getConfig($tank);
         $this->assertEquals([$device->getChannels()[3]->getId(), $device->getChannels()[1]->getId()], $config['levelSensorChannelIds']);
-        $this->assertEquals([$device->getChannels()[3]->getId(), $device->getChannels()[1]->getId()], array_column($config['levelSensors'], 'id'));
+        $this->assertEquals(
+            [$device->getChannels()[3]->getId(), $device->getChannels()[1]->getId()],
+            array_column($config['levelSensors'], 'channelId')
+        );
     }
 
     public function testSettingLevelSensors() {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
         $tank = $device->getChannels()[0];
         $this->translator->setConfig($tank, ['levelSensors' => [
-            ['id' => $device->getChannels()[2]->getId(), 'fillLevel' => 15],
-            ['id' => $device->getChannels()[5]->getId(), 'fillLevel' => 75],
-            ['id' => $device->getChannels()[6]->getId(), 'fillLevel' => 95],
+            ['channelId' => $device->getChannels()[2]->getId(), 'fillLevel' => 15],
+            ['channelId' => $device->getChannels()[5]->getId(), 'fillLevel' => 75],
+            ['channelId' => $device->getChannels()[6]->getId(), 'fillLevel' => 95],
         ]]);
         $sensorsConfig = $tank->getUserConfigValue('sensors');
         $this->assertEquals([
-            '2' => ['fillLevel' => 15],
-            '5' => ['fillLevel' => 75],
-            '6' => ['fillLevel' => 95],
+            ['channelNo' => 2, 'fillLevel' => 15],
+            ['channelNo' => 5, 'fillLevel' => 75],
+            ['channelNo' => 6, 'fillLevel' => 95],
         ], $sensorsConfig);
     }
 
@@ -102,9 +105,9 @@ class TankConfigTranslatorIntegrationTest extends IntegrationTestCase {
         $tank = $device->getChannels()[0];
         $this->translator->setConfig($tank, [
             'levelSensors' => [
-                ['id' => $device->getChannels()[5]->getId(), 'fillLevel' => 75],
-                ['id' => $device->getChannels()[6]->getId(), 'fillLevel' => 95],
-                ['id' => $device->getChannels()[7]->getId(), 'fillLevel' => 99],
+                ['channelId' => $device->getChannels()[5]->getId(), 'fillLevel' => 75],
+                ['channelId' => $device->getChannels()[6]->getId(), 'fillLevel' => 95],
+                ['channelId' => $device->getChannels()[7]->getId(), 'fillLevel' => 99],
             ],
             'warningAboveLevel' => 0,
             'alarmAboveLevel' => 75,
@@ -123,11 +126,11 @@ class TankConfigTranslatorIntegrationTest extends IntegrationTestCase {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
         $tank = $device->getChannels()[0];
         $this->translator->setConfig($tank, [
-            'levelSensors' => [['id' => $device->getChannels()[2]->getId(), 'fillLevel' => 15]],
+            'levelSensors' => [['channelId' => $device->getChannels()[2]->getId(), 'fillLevel' => 15]],
             'warningAboveLevel' => 15,
         ]);
         $this->translator->setConfig($tank, [
-            'levelSensors' => [['id' => $device->getChannels()[2]->getId(), 'fillLevel' => 25]],
+            'levelSensors' => [['channelId' => $device->getChannels()[2]->getId(), 'fillLevel' => 25]],
         ]);
         $this->assertNull($tank->getUserConfigValue('warningAboveLevel'));
     }
@@ -137,19 +140,19 @@ class TankConfigTranslatorIntegrationTest extends IntegrationTestCase {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
         $tank = $device->getChannels()[0];
         $this->translator->setConfig($tank, [
-            'levelSensors' => [['id' => $device->getChannels()[2]->getId(), 'fillLevel' => 15]],
+            'levelSensors' => [['channelId' => $device->getChannels()[2]->getId(), 'fillLevel' => 15]],
             'warningAboveLevel' => 25,
         ]);
     }
 
     public function testCannotSetTheSameLevelForTwoSensors() {
-        $this->expectExceptionMessage('occurs more than once');
+        $this->expectExceptionMessage('must have different fill');
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
         $tank = $device->getChannels()[0];
         $this->translator->setConfig($tank, [
             'levelSensors' => [
-                ['id' => $device->getChannels()[2]->getId(), 'fillLevel' => 15],
-                ['id' => $device->getChannels()[3]->getId(), 'fillLevel' => 15],
+                ['channelId' => $device->getChannels()[2]->getId(), 'fillLevel' => 15],
+                ['channelId' => $device->getChannels()[3]->getId(), 'fillLevel' => 15],
             ],
         ]);
     }

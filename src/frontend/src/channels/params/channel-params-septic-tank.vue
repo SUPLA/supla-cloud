@@ -4,15 +4,15 @@
             <dd>{{ $t('Level sensors') }}</dd>
             <dt>
                 <div class="mb-3">
-                    <div class="d-flex align-items-center bottom-border py-2" v-for="channel in levelSensorsDef" :key="channel.id">
+                    <div class="d-flex align-items-center bottom-border py-2" v-for="lvl in levelSensorsDef" :key="lvl.id">
                         <div class="flex-grow-1">
                             <h5 class="my-1">
-                                {{ channelTitle(channelsStore.all[channel.id]) }}
+                                {{ channelTitle(channelsStore.all[lvl.channelId]) }}
                             </h5>
                             <dl>
                                 <dt>{{ $t('Fill level') }}</dt>
                                 <dd>
-                                    <NumberInput v-model="channel.fillLevel"
+                                    <NumberInput v-model="lvl.fillLevel"
                                         :min="0"
                                         :max="100"
                                         suffix=" %"
@@ -22,7 +22,7 @@
                             </dl>
                         </div>
                         <div class="pl-3">
-                            <a class="text-default" @click="handleRemoveSensor(channel)">
+                            <a class="text-default" @click="handleRemoveSensor(lvl)">
                                 <fa icon="trash"/>
                             </a>
                         </div>
@@ -82,7 +82,7 @@
 
     const channelsStore = useChannelsStore();
 
-    const levelSensorsIds = computed(() => props.channel.config.levelSensors?.map(s => s.id) || []);
+    const levelSensorsIds = computed(() => props.channel.config.levelSensors?.map(s => s.channelId) || []);
     const levelSensorsDef = computed({
         get() {
             return props.channel.config.levelSensors;
@@ -106,11 +106,11 @@
     }
 
     function handleNewSensor(newSensor) {
-        levelSensorsDef.value = [...levelSensorsDef.value, {id: newSensor.id, fillLevel: 0}];
+        levelSensorsDef.value = [...levelSensorsDef.value, {channelId: newSensor.id, fillLevel: 0}];
     }
 
     function handleRemoveSensor(sensorToRemove) {
-        levelSensorsDef.value = levelSensorsDef.value.filter(ch => ch.id !== sensorToRemove.id);
+        levelSensorsDef.value = levelSensorsDef.value.filter(ch => ch.channelId !== sensorToRemove.id);
         levelChanged();
     }
 
