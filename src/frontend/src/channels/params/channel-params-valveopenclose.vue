@@ -7,8 +7,7 @@
                     <div class="d-flex align-items-center bottom-border py-2" v-for="channel in sensors" :key="channel.id">
                         <div class="flex-grow-1">
                             <h5 class="my-1">
-                                ID{{ channel.id }}
-                                {{ channel.caption }}
+                                {{ channelTitle(channel) }}
                             </h5>
                         </div>
                         <div class="pl-3">
@@ -30,6 +29,7 @@
     import {computed} from "vue";
     import {useChannelsStore} from "@/stores/channels-store";
     import ChannelsDropdown from "@/devices/channels-dropdown.vue";
+    import {channelTitle} from "@/common/filters";
 
     const props = defineProps({channel: Object});
     const emit = defineEmits('change');
