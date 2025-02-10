@@ -102,18 +102,17 @@ class TankConfigTranslatorIntegrationTest extends IntegrationTestCase {
         $tank = $device->getChannels()[0];
         $this->translator->setConfig($tank, [
             'levelSensors' => [
-                ['id' => $device->getChannels()[2]->getId(), 'fillLevel' => 15],
                 ['id' => $device->getChannels()[5]->getId(), 'fillLevel' => 75],
                 ['id' => $device->getChannels()[6]->getId(), 'fillLevel' => 95],
                 ['id' => $device->getChannels()[7]->getId(), 'fillLevel' => 99],
             ],
-            'warningAboveLevel' => 15,
+            'warningAboveLevel' => 0,
             'alarmAboveLevel' => 75,
             'warningBelowLevel' => 95,
             'alarmBelowLevel' => 99,
             'muteAlarmSoundWithoutAdditionalAuth' => true,
         ]);
-        $this->assertEquals(15, $tank->getUserConfigValue('warningAboveLevel'));
+        $this->assertEquals(0, $tank->getUserConfigValue('warningAboveLevel'));
         $this->assertEquals(75, $tank->getUserConfigValue('alarmAboveLevel'));
         $this->assertEquals(95, $tank->getUserConfigValue('warningBelowLevel'));
         $this->assertEquals(99, $tank->getUserConfigValue('alarmBelowLevel'));

@@ -164,3 +164,7 @@ usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Voltage presence (inverted)
 activityConditions_help: The item will be active when all conditions are met. If you choose to set all available time settings, the item will be active when the time is between "Active from" and "Active to," falls within the selected activity schedule, and meets one of the daytime criteria.
 valveOpenConfirm_flooding: The valve has been closed due to the detection of flooding. Make sure that the cause of flooding has already been removed. Are you sure you want to open the valve?
 valveOpenConfirm_manual: valveOpenConfirm_manual
+tank_alarm_warningAboveLevel: Warning above level
+tank_alarm_alarmAboveLevel: Alarm above level
+tank_alarm_warningBelowLevel: Warning below level
+tank_alarm_alarmBelowLevel: Alarm below level

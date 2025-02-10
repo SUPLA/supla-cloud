@@ -54,6 +54,7 @@
     import ChannelParamsControllingthefacadeblind from "@/channels/params/channel-params-controllingthefacadeblind.vue";
     import ChannelParamsInvertedLogic from "@/channels/params/channel-params-inverted-logic.vue";
     import ChannelParamsValveopenclose from "@/channels/params/channel-params-valveopenclose.vue";
+    import ChannelParamsSepticTank from "@/channels/params/channel-params-septic-tank.vue";
 
     export default {
         props: ['channel'],
@@ -98,6 +99,9 @@
             ChannelParamsControllingthefacadeblind,
             ChannelParamsVerticalBlind: ChannelParamsControllingthefacadeblind,
             ChannelParamsValveopenclose,
+            ChannelParamsSepticTank,
+            ChannelParamsWaterTank: ChannelParamsSepticTank,
+            ChannelParamsContainer: ChannelParamsSepticTank,
         },
         computed: {
             additionalChannelParamsComponent() {

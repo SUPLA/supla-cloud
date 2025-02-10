@@ -34,7 +34,7 @@ class TankConfigTranslator extends UserConfigTranslator {
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
-        if (array_key_exists('levelSensorChannelIds', $config) && !array_key_exists('levelSensors', $config) && $config['levelSensorChannelIds']) {
+        if (array_key_exists('levelSensorChannelIds', $config) && !array_key_exists('levelSensors', $config) && $config['levelSensorChannelIds'] !== null) {
             // request from ChannelDependencies clearing
             Assertion::isArray($config['levelSensorChannelIds'], null, 'levelSensorChannelIds');
             $currentConfig = $this->getConfig($subject);
@@ -58,7 +58,10 @@ class TankConfigTranslator extends UserConfigTranslator {
             $options = array_map(fn(array $sensor) => array_intersect_key($sensor, ['fillLevel' => '']), $config['levelSensors']);
             Assert::thatAll(array_column($options, 'fillLevel'), null, 'levelSensors.fillLevel')
                 ->integer()->between(0, 100);
-            Assertion::uniqueValues(array_column($options, 'fillLevel'), null, 'levelSensors.fillLevel');
+            Assertion::uniqueValues(
+                array_column($options, 'fillLevel'),
+                'Each container level sensor must have different fill level.' // i18n
+            );
             $subject->setUserConfigValue(
                 'sensors',
                 array_combine(
@@ -67,7 +70,7 @@ class TankConfigTranslator extends UserConfigTranslator {
                 )
             );
         }
-        $availableFillLevels = array_column($subject->getUserConfigValue('sensors', []), 'fillLevel');
+        $availableFillLevels = array_merge([0], array_column($subject->getUserConfigValue('sensors', []), 'fillLevel'));
         foreach (['warningAboveLevel', 'alarmAboveLevel', 'warningBelowLevel', 'alarmBelowLevel'] as $fillLevel) {
             if (array_key_exists($fillLevel, $config)) {
                 if (is_int($config[$fillLevel])) {
@@ -91,6 +94,7 @@ class TankConfigTranslator extends UserConfigTranslator {
         return in_array($subject->getFunction()->getId(), [
             ChannelFunction::CONTAINER,
             ChannelFunction::SEPTIC_TANK,
+            ChannelFunction::WATER_TANK,
         ]);
     }
 }
