@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import {channelIconUrl} from "../common/filters";
+    import {channelIconUrl} from "@/common/filters";
     import SelectForSubjects from "@/devices/select-for-subjects.vue";
     import {useSubDevicesStore} from "@/stores/subdevices-store";
     import {mapState, mapStores} from "pinia";
@@ -34,15 +34,15 @@
             },
             channelSearchText(channel) {
                 const subDevice = this.subDevicesStore.forChannel(channel);
-                const device = this.devices[channel.iodeviceId];
-                const location = this.locations[channel.locationId];
+                const device = this.devices[channel.iodeviceId] || {};
+                const location = this.locations[channel.locationId] || {};
                 return `${channel.caption || ''} ID${channel.id} ${this.$t(channel.function.caption)} ${location.caption} ${device.name} ${subDevice?.name || ''}`;
             },
             channelHtml(channel, escape) {
                 const subDevice = this.subDevicesStore.forChannel(channel);
                 const subDeviceName = subDevice ? ' / ' + escape(subDevice.name) : '';
-                const device = this.devices[channel.iodeviceId];
-                const location = this.locations[channel.locationId];
+                const device = this.devices[channel.iodeviceId] || {};
+                const location = this.locations[channel.locationId] || {};
                 return `<div>
                             <div class="subject-dropdown-option d-flex">
                                 <div class="flex-grow-1">

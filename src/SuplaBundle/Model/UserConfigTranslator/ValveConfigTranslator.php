@@ -21,7 +21,7 @@ class ValveConfigTranslator extends UserConfigTranslator {
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
-        if (array_key_exists('sensorChannelIds', $config)) {
+        if (array_key_exists('sensorChannelIds', $config) && $config['sensorChannelIds']) {
             Assertion::isArray($config['sensorChannelIds'], null, 'sensorChannelIds');
             Assertion::allInteger($config['sensorChannelIds'], null, 'sensorChannelIds');
             $sensors = array_map(fn(int $id) => $this->channelIdToChannelFromDevice($subject, $id), $config['sensorChannelIds']);

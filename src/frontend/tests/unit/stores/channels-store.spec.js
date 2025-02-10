@@ -44,6 +44,12 @@ describe('ChannelsStore', () => {
         expect(store.list[1].id).toEqual(2);
     });
 
+    it('filters by nothing', async () => {
+        const store = useChannelsStore();
+        expect(store.filteredChannels()).toHaveLength(3);
+        expect(store.filteredChannels(undefined)).toHaveLength(3);
+    });
+
     it('filters by deviceIds', async () => {
         const store = useChannelsStore();
         expect(store.filteredChannels({deviceIds: '1'})).toHaveLength(2);

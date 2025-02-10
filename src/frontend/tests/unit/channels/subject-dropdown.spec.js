@@ -9,14 +9,21 @@ import {createTestingPinia} from "@pinia/testing";
 
 describe('SubjectDropdown', () => {
     beforeEach(() => {
-        setActivePinia(createTestingPinia({
-            initialState: {
-                frontendConfig: {config: {notificationsEnabled: true}}
-            }
-        }));
+
     })
 
     const subjectDropdown = async (cfg = {}) => {
+        const channels = {};
+        cfg.channels?.forEach(ch => channels[ch.id] = ch);
+        setActivePinia(createTestingPinia({
+            initialState: {
+                frontendConfig: {config: {notificationsEnabled: true}},
+                channels: {
+                    all: channels,
+                    ids: cfg.channels?.map(ch => ch.id) || [],
+                },
+            }
+        }));
         return mount(
             {
                 data: () => ({subject: undefined, action: undefined, ...(cfg.data || {})}),
@@ -27,19 +34,6 @@ describe('SubjectDropdown', () => {
                         </SubjectDropdown>
                     </div>`,
                 components: {SubjectDropdown, ChannelActionChooser},
-            },
-            {
-                mocks: {
-                    $http: {
-                        get(endpoint) {
-                            let body = [];
-                            if (endpoint.startsWith('channels')) {
-                                body = cfg.channels || [];
-                            }
-                            return Promise.resolve({body});
-                        },
-                    },
-                },
             });
     };
 
@@ -49,8 +43,8 @@ describe('SubjectDropdown', () => {
         ownSubjectType: ActionableSubjectType.CHANNEL,
         functionId: functionId,
         function: {id: functionId, caption: 'Function Caption'},
-        iodevice: {id: 1, name: 'SONOFF'},
-        location: {id: 2, caption: 'Location #2'},
+        iodeviceId: 1,
+        locationId: 2,
         ...ext,
     });
 
@@ -213,6 +207,7 @@ describe('SubjectDropdown', () => {
         await wrapper.findAll('.channel-action-chooser .panel-heading').at(2).trigger('click');
         expect(wrapper.vm.action).toBeDefined();
         expect(wrapper.vm.action.id).toEqual(ChannelFunctionAction.CLOSE_PARTIALLY);
+        await wrapper.vm.$nextTick();
         expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('CLOSE PARTIALLY');
         const percentage = wrapper.find('input[type=text]');
         expect(percentage.exists()).toBeTruthy();
@@ -230,6 +225,7 @@ describe('SubjectDropdown', () => {
         const wrapper = await subjectDropdown({channels, data: {subject: channels[0]}});
         expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('OPEN');
         wrapper.vm.subject = undefined;
+        await wrapper.vm.$nextTick();
         await wrapper.vm.$nextTick();
         expect(wrapper.vm.subject).toBeUndefined();
         expect(wrapper.vm.action).toBeUndefined();
