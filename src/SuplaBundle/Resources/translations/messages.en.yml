@@ -21,6 +21,7 @@ actionableSubjectType_channelGroup: Channel group
 actionableSubjectType_notification: Notification
 actionableSubjectType_scene: Scene
 actionableSubjectType_schedule: Schedule
+activityConditions_help: The item will be active when all conditions are met. If you choose to set all available time settings, the item will be active when the time is between "Active from" and "Active to," falls within the selected activity schedule, and meets one of the daytime criteria.
 addToHistoryMeasurementWarningSelected: Selecting this option will result in adding the added value to the future measurements. It might produce an undesired increase in the measurement history chart. We recommend to set this option only during the first counter configuration. If you change it for a counter that already has some logs, consider clearing the history immediately after you save the changes.
 addToHistoryMeasurementWarningUnselected: Unselecting this option will result in ignoring the added value in the future measurements. It might produce an undesired decrease in the measurement history chart. We recommend to set this option only during the first counter configuration. If you change it for a counter that already has some logs, consider clearing the history immediately after you save the changes.
 auxThermometerType_DISABLED: Disabled
@@ -83,7 +84,10 @@ state-closed: Closed
 state-default: Default
 state-empty: Empty
 state-full: Full
+state-half: Filled partially
+state-hi: High state
 state-humidity: Humidity
+state-low: Low state
 state-off: 'Off'
 state-on: 'On'
 state-opened: Open
@@ -113,6 +117,10 @@ sunrise-after: the sunrise
 sunrise-before: the sunrise
 sunset-after: the sunset
 sunset-before: the sunset
+tank_alarm_alarmAboveLevel: Alarm above level
+tank_alarm_alarmBelowLevel: Alarm below level
+tank_alarm_warningAboveLevel: Warning above level
+tank_alarm_warningBelowLevel: Warning below level
 temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Control based on auxilary thermometer
 temperatureControlType_ROOM_TEMPERATURE: Control based on main thermometer
 thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: operation based on a hysteresis with the temperature setpoint set as the upper hysteresis threshold. For example, assuming a hysteresis of 1°C and a target temperature of 23°C, the thermostat will turn on the heating at 22°C and stop working when the temperature reaches 23°C.
@@ -150,6 +158,8 @@ usedPhaseLedType_POWER_ACTIVE_DIRECTION: Power active direction
 usedPhaseLedType_VOLTAGE_LEVEL: Voltage level
 usedPhaseLedType_VOLTAGE_PRESENCE: Voltage presence
 usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Voltage presence (inverted)
+valveOpenConfirm_flooding: The valve has been closed due to the detection of flooding. Make sure that the cause of flooding has already been removed. Are you sure you want to open the valve?
+valveOpenConfirm_manual: valveOpenConfirm_manual
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -160,11 +170,3 @@ usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Voltage presence (inverted)
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-
-activityConditions_help: The item will be active when all conditions are met. If you choose to set all available time settings, the item will be active when the time is between "Active from" and "Active to," falls within the selected activity schedule, and meets one of the daytime criteria.
-valveOpenConfirm_flooding: The valve has been closed due to the detection of flooding. Make sure that the cause of flooding has already been removed. Are you sure you want to open the valve?
-valveOpenConfirm_manual: valveOpenConfirm_manual
-tank_alarm_warningAboveLevel: Warning above level
-tank_alarm_alarmAboveLevel: Alarm above level
-tank_alarm_warningBelowLevel: Warning below level
-tank_alarm_alarmBelowLevel: Alarm below level

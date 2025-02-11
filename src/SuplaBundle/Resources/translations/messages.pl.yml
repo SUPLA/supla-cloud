@@ -50,6 +50,7 @@ Active sessions: Aktywne sesje
 Active to: Aktywne do
 Active web sessions: Aktywne sesje (web)
 Activity conditions: Warunki aktywności
+Activity schedule: Harmonogram aktywności
 Add: Dodaj
 Add a delay: Dodaj opóźnienie
 Add a new action to the scene: Dodaj nową akcję do sceny
@@ -1019,7 +1020,6 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
 The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
 The incident was detected at %datetime%.: Zdarzenie miało miejsce %datetime%.
-activityConditions_help: Element będzie aktywny, gdy wszystkie warunki zostaną spełnione. Jeśli zdecydujesz się ustawić wszystkie dostępne ustawienia czasowe, element będzie aktywny, gdy czas będzie między aktywny od i aktywny do, mieści się w wybranym harmonogramie aktywności i spełnia jedno z kryteriów czasu dnia.
 The items below depend on the deleted channels, so they will be deleted, too.: Poniższe elementy są zależne od usuwanych kanałów, więc także zostaną usunięte.
 The items below depend on this channel function, so they will be deleted.: Poniższe elementy bazują na aktualnej funkcji kanału, więc zostaną usunięte po jej zmianie.
 The items below depend on this channel group, so they will be deleted.: Poniższe elementy korzystają z tej grupy kanałów, więc po jej usunięciu zostaną również usunięte.
@@ -1046,7 +1046,6 @@ The set of icons you have chosen is too large. Maximum upload limit is {limit}.:
 The subdevice has been deleted.: Urządzenie podwykonawcze zostało usunięte.
 The thermostat will not work if the main thermometer is not set.: Główny termometr musi być ustawiony by termostat działał.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Zawór nie może zostać otwarty za pomocą linku bezpośredniego bądź za pośrednictwem API, gdy został zamknięty manualnie. Aby wznowić sterowanie otwórz zawór ręcznie.
-valveOpenConfirm_manual: Zawór został zamknięty w trybie manualnym lub radiowo. Zanim go otworzysz upewnij się, że nie został zamknięty z powodu zalania. Aby wyłączyć ostrzeżenie otwórz zawór manualnie. Czy na pewno chcesz otworzyć zawór zdalnie?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Zawór nie zostanie otwarty jeśli został zamknięty manualnie lub radiowo co mogło być związane z zalaniem.
 There are no more channels you can add to this group: Nie ma innych kanałów, które można by dodać do tej grupy
 Thermometer: Termometr
@@ -1057,6 +1056,7 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Programy termostatu
 This action will result in restarting the device. It will not be available for a while.: Zlecenie tej operacji spowoduje restart urządzenia. W trakcie restartu urządzenie będzie niedostępne.
 This channel was missing during last device registration attempt.: Tego kanału brakuje na urządzeniu.
+This device cannot be remotely awakened. We are awaiting communication from the device...: Tego urządzenia nie można zdalnie wybudzić. Oczekujemy na komunikację ze strony urządzenia...
 This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: To urządzenie jest przeznaczone do dystrybucji i instalacji tylko przez autoryzowanych instalatorów. Jeśli nie jesteś autoryzowanym instalatorem SUPLA i nie dysponujesz aktywnym certyfikatem szkoleniowym zwróć je do sprzedawcy.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz poniższe przykłady aby dowiedzieć się, jakie parametry możesz ustawić.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Otrzymujesz tę informację w związku z nieudaną próbą logowania do SUPLA-CLOUD (%cloudHost%) przy użyciu Twojego adresu email.
@@ -1104,9 +1104,9 @@ Until the next change: Do następnej zmiany
 Update in progress: Trwa aktualizacja
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Przesłane pliki nie naruszają dobrych obyczajów, praw autorskich oraz praw osób trzecich, a ja mam prawo z nich korzystać.
 Upper voltage threshold: Próg wysokiego napięcia
+Use activity schedule: Użyj harmonogramu aktywności
 Use device default: Użyj domyślnej wartości z urządzenia
 'Use the {0} server command to change this account''s limits. For example:': 'Aby zmienić limity dla tego konta, użyj komendy {0} na Twoim serwerze. Na przykład:'
-Use activity schedule: Użyj harmonogramu aktywności
 Use {theMasterThermostat} to control this device.: Użyj {theMasterThermostat}, aby sterować tym urządzeniem.
 Used current transformer type: Używany przekładnik prądowy
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
@@ -1315,7 +1315,6 @@ With SUPLA you can operate the lights in your home or office: Z SUPLĄ możesz s
 With a timer: Z czasomierzem
 With function: Z funkcją
 Working period: Okres działania
-Activity schedule: Harmonogram aktywności
 YOUR LINK CODE: KOD TWOJEGO LINKU
 'Yes': Tak
 You are changing the settings too quickly. You have to wait a while before making this change.: Zmieniasz ustawienia zbyt szybko. Musisz chwilę odczekać przed zmianą tych ustawień.
@@ -1391,6 +1390,7 @@ actionableSubjectType_channelGroup: Grupa kanałów
 actionableSubjectType_notification: Powiadomienie
 actionableSubjectType_scene: Scena
 actionableSubjectType_schedule: Harmonogram
+activityConditions_help: Element będzie aktywny, gdy wszystkie warunki zostaną spełnione. Jeśli zdecydujesz się ustawić wszystkie dostępne ustawienia czasowe, element będzie aktywny, gdy czas będzie między aktywny od i aktywny do, mieści się w wybranym harmonogramie aktywności i spełnia jedno z kryteriów czasu dnia.
 addToHistoryMeasurementWarningSelected: Zaznaczenie tej opcji spowoduje dodanie ustawionych wartości do przyszłych pomiarów zapisywanych w historii. Może to być widoczne na wykresach jako nagły przyrost o wprowadzoną wartość. Zalecamy ustawić te parametry wyłącznie podczas pierwszej instalacji licznika. Dla istniejących liczników, zalecamy usunięcie historii pomiarów tuż po zmianie tych ustawień.
 addToHistoryMeasurementWarningUnselected: Odznaczenie tej opcji spowoduje pominięcie ustawionych wartości w przyszłych pomiarach zapisywanych w historii. Może to być widoczne na wykresach jako nagły spadek. Zalecamy ustawić te parametry wyłącznie podczas pierwszej instalacji licznika. Dla istniejących liczników, zalecamy usunięcie historii pomiarów tuż po zmianie tych ustawień.
 after: po
@@ -1603,6 +1603,8 @@ username: nazwa użytkownika
 valid until: wygaśnie
 values as seen on chart: wartości tak jak na wykresie
 values as seen on counter: wartości tak jak na liczniku
+valveOpenConfirm_flooding: Zawór został zamknięty z powodu wykrycia zalania. Upewnij się, że przyczyna zalania została już usunięta. Czy na pewno chcesz otworzyć zawór?
+valveOpenConfirm_manual: Zawór został zamknięty w trybie manualnym lub radiowo. Zanim go otworzysz upewnij się, że nie został zamknięty z powodu zalania. Aby wyłączyć ostrzeżenie otwórz zawór manualnie. Czy na pewno chcesz otworzyć zawór zdalnie?!
 yesterday: wczoraj
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
 '{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
@@ -1726,7 +1728,25 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Choose many: Wybierz wiele
+Each container level sensor must have different fill level.: Każdy czujnik poziomu musi mieć ustawiony inny poziom napełnienia.
+Fill level: Poziom napełnienia
+Flood sensor: Czujnik zalania
+Flood sensor for valve: Czujnik zalania dla zaworu
+Flood sensors: Czujniki zalania
+Level sensor: Czujnik poziomu
+Level sensor for container: Czujnik poziomu dla zbiornika
+Level sensors: Czujniki poziomu
+Mute alarm sound without additional auth: Wycisz alarm bez dodatkowej autentykacji
+When a flood is detected: Kiedy zalanie zostanie wykryte
+When a flooding state changes: Kiedy stan zalania zmieni się
+When a flooding state has been cleared: Kiedy stan zalania zostanie wyczyszczony
+state-half: Wypełnione częściowo
+state-hi: Stan wysoki
+state-low: Stan niski
+tank_alarm_alarmAboveLevel: Alarm powyżej poziomu
+tank_alarm_alarmBelowLevel: Alarm poniżej poziomu
+tank_alarm_warningAboveLevel: Ostrzeżenie powyżej poziomu
+tank_alarm_warningBelowLevel: Ostrzeżenie poniżej poziomu
 
 #</editor-fold>
-valveOpenConfirm_flooding: Zawór został zamknięty z powodu wykrycia zalania. Upewnij się, że przyczyna zalania została już usunięta. Czy na pewno chcesz otworzyć zawór?
-This device cannot be remotely awakened. We are awaiting communication from the device...: Tego urządzenia nie można zdalnie wybudzić. Oczekujemy na komunikację ze strony urządzenia...
