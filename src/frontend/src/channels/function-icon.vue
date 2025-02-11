@@ -71,6 +71,9 @@
                     if (state.transparent && state.transparent.length > 0) {
                         return '-transparent';
                     }
+                    if (state.fillLevel > 20) {
+                        return state.fillLevel > 80 ? '-full' : '-half';
+                    }
                 }
                 const config = this.model.config || this.config || {};
                 if (config.subfunction) {

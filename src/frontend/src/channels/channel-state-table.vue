@@ -58,6 +58,11 @@
             <dd>{{ $t('Percentage of closing') }}</dd>
             <dt>{{ currentState.closed }}%</dt>
         </dl>
+        <dl v-if="currentState.fillLevel !== undefined">
+            <dd>{{ $t('Fill level') }}</dd>
+            <dt v-if="currentState.fillLevel === null">---</dt>
+            <dt v-else>{{ currentState.fillLevel }}%</dt>
+        </dl>
         <dl v-if="currentState.calculatedValue !== undefined">
             <dd>{{ $t('Meter value') }}</dd>
             <dt>
