@@ -6,7 +6,6 @@ use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelConfigChangeScope;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\PrzemekBitsBuilder;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -79,8 +78,7 @@ class IODeviceChannelEntityListener {
             ChannelType::GENERAL_PURPOSE_METER,
         ];
         $onlyOcrChanged = $changes->getValue() === ChannelConfigChangeScope::OCR;
-        $runtimeUpdateSupported = ChannelFunctionBitsFlags::RUNTIME_CHANNEL_CONFIG_UPDATE()->isSupported($channel->getFlags());
-        if (!in_array($channel->getType()->getId(), $typesThatDoesNotTriggerReconnect) && !$onlyOcrChanged && !$runtimeUpdateSupported) {
+        if (!in_array($channel->getType()->getId(), $typesThatDoesNotTriggerReconnect) && !$onlyOcrChanged) {
             $this->suplaServer->reconnect($channel->getUser());
         }
     }

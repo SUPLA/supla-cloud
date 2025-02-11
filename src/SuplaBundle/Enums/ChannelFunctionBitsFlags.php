@@ -29,7 +29,6 @@ namespace SuplaBundle\Enums;
  * @method static ChannelFunctionBitsFlags IDENTIFY_SUBDEVICE_AVAILABLE()
  * @method static ChannelFunctionBitsFlags RESTART_SUBDEVICE_AVAILABLE()
  * @method static ChannelFunctionBitsFlags BATTERY_COVER_AVAILABLE()
- * @method static ChannelFunctionBitsFlags RUNTIME_CHANNEL_CONFIG_UPDATE()
  * @method static ChannelFunctionBitsFlags FLOOD_SENSORS_SUPPORTED()
  */
 final class ChannelFunctionBitsFlags extends ChannelFunctionBits {
@@ -50,6 +49,5 @@ final class ChannelFunctionBitsFlags extends ChannelFunctionBits {
     const RESTART_SUBDEVICE_AVAILABLE = 0x40000000;
     /** @see https://github.com/SUPLA/supla-cloud/issues/916 */
     const BATTERY_COVER_AVAILABLE = 0x80000000;
-    const RUNTIME_CHANNEL_CONFIG_UPDATE = 0x08000000;
     const FLOOD_SENSORS_SUPPORTED = 0x0010;
 }

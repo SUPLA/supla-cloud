@@ -492,22 +492,6 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSuplaCommandExecuted('USER-RECONNECT:1');
     }
 
-    public function testChangingChannelConfigWithoutReconnectIfFlagSet() {
-        $client = $this->createAuthenticatedClient();
-        $this->simulateAuthentication($this->user);
-        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATEWAYLOCK],
-        ]);
-        $relayChannel = $anotherDevice->getChannels()[0];
-        EntityUtils::setField($relayChannel, 'flags', $relayChannel->getFlags() | ChannelFunctionBitsFlags::RUNTIME_CHANNEL_CONFIG_UPDATE);
-        $this->persist($relayChannel);
-        $client->apiRequestV3('PUT', '/api/channels/' . $relayChannel->getId(), ['config' => ['relayTimeMs' => 2000]]);
-        $this->assertStatusCode(200, $client->getResponse());
-        $this->getEntityManager()->refresh($relayChannel);
-        $this->assertEquals(2000, $relayChannel->getParam1(), 'Opening time has been set.');
-        $this->assertSuplaCommandNotExecuted('USER-RECONNECT:1');
-    }
-
     public function testChangingChannelFunctionFromPowerswitchToOpeningGateWithConfig() {
         $client = $this->createAuthenticatedClient();
         $this->simulateAuthentication($this->user);
