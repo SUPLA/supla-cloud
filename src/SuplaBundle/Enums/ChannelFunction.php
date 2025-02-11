@@ -516,6 +516,9 @@ final class ChannelFunction extends Enum {
             self::HUMIDITYANDTEMPERATURE => 7,
             self::ALARM_ARMAMENT_SENSOR => 3,
             self::HEATORCOLDSOURCESWITCH => 5,
+            self::CONTAINER => 3,
+            self::SEPTIC_TANK => 1,
+            self::WATER_TANK => 3,
         ];
     }
 
@@ -587,11 +590,11 @@ final class ChannelFunction extends Enum {
             self::ROLLER_GARAGE_DOOR => ['revealed', 'shut'],
             self::PUMPSWITCH => ['off', 'on'],
             self::HEATORCOLDSOURCESWITCH => ['off', 'on'],
-            self::CONTAINER => ['default'],
-            self::SEPTIC_TANK => ['default'],
-            self::WATER_TANK => ['default'],
-            self::CONTAINER_LEVEL_SENSOR => ['empty', 'full'],
-            self::FLOOD_SENSOR => ['empty', 'full'],
+            self::CONTAINER => ['empty', 'half', 'full'],
+            self::SEPTIC_TANK => ['empty', 'half', 'full'],
+            self::WATER_TANK => ['empty', 'half', 'full'],
+            self::CONTAINER_LEVEL_SENSOR => ['low', 'hi'],
+            self::FLOOD_SENSOR => ['low', 'hi'],
         ];
     }
 

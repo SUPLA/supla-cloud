@@ -11,7 +11,7 @@
                     v-for="(possibleState, stateIndex) in possibleStates">
                     <!-- i18n:['state-on','state-off','state-opened','state-closed','state-partially_closed','state-default','state-empty','state-full'] -->
                     <!-- i18n:['state-revealed','state-shut','state-rgb_on_dim_on','state-rgb_on_dim_off','state-rgb_off_dim_on','state-rgb_off_dim_off'] -->
-                    <!-- i18n:['state-temperature','state-humidity'] -->
+                    <!-- i18n:['state-temperature','state-humidity','state-low','state-hi','state-half'] -->
                     <h5 class="no-margin-top" v-if="possibleStates.length > 1">
                         {{ $t(`state-${possibleState}`) }}
                     </h5>
