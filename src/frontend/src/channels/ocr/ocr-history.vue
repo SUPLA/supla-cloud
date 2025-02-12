@@ -29,7 +29,7 @@
                     <span v-if="image.processedAt">
                         <span
                             :class="['label', image.measurementValid === null ? 'label-default' : (image.measurementValid ? 'label-success' : 'label-warning')]">
-                            {{ image.measurementValid ? image.resultMeasurement : $t('Error') }}
+                            {{ image.resultMeasurement | valueOrNoneLabel }}
                         </span>
                     </span>
                     <span class="label label-default" v-else>{{ $t('Waiting') }}</span>
