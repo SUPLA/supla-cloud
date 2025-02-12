@@ -40,6 +40,7 @@ class ValveConfigTranslator extends UserConfigTranslator {
                 'Only binary sensors can be chosen for valve sensors.',
                 'floodSensorChannelIds'
             );
+            Assertion::maxCount($sensors, 20, 'Valve supports up to 20 sensors.'); // i18n
             $subject->setUserConfigValue(
                 'sensorChannelNumbers',
                 array_map(fn(IODeviceChannel $channel) => $channel->getChannelNumber(), $sensors),

@@ -65,6 +65,7 @@ class TankConfigTranslator extends UserConfigTranslator {
                 array_column($options, 'fillLevel'),
                 'Each container level sensor must have different fill level.' // i18n
             );
+            Assertion::maxCount($options, 10, 'Container supports up to 10 sensors.'); // i18n
             $subject->setUserConfigValue('sensors', $options);
         }
         $availableFillLevels = array_merge([0], array_column($subject->getUserConfigValue('sensors', []), 'fillLevel'));
