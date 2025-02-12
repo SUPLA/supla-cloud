@@ -1,7 +1,7 @@
 <template>
     <div>
         <dl>
-            <dd>{{ $t('Level sensors') }}</dd>
+            <dd class="valign-top">{{ $t('Level sensors') }}</dd>
             <dt>
                 <div class="mb-3">
                     <div class="d-flex align-items-center bottom-border py-2" v-for="lvl in levelSensorsDef" :key="lvl.id">

@@ -1,7 +1,7 @@
 <template>
     <div>
         <dl v-if="supportFloodSensors">
-            <dd>{{ $t('Flood sensors') }}</dd>
+            <dd class="valign-top">{{ $t('Flood sensors') }}</dd>
             <dt>
                 <div class="mb-3">
                     <div class="d-flex align-items-center bottom-border py-2" v-for="channel in floodSensors" :key="channel.id">
