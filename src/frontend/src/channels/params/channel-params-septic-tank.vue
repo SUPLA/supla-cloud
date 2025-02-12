@@ -110,7 +110,7 @@
     }
 
     function handleRemoveSensor(sensorToRemove) {
-        levelSensorsDef.value = levelSensorsDef.value.filter(ch => ch.channelId !== sensorToRemove.id);
+        levelSensorsDef.value = levelSensorsDef.value.filter(ch => ch.channelId !== sensorToRemove.channelId);
         levelChanged();
     }
 
