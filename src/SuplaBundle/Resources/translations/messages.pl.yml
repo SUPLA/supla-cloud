@@ -228,6 +228,7 @@ Choose Access Identifiers to be assigned to this Location: Wybierz Identyfikator
 Choose channel function: Wybierz funkcję kanału
 Choose client apps: Wybierz aplikacje klienckie
 Choose location: Wybierz lokalizację
+Choose many: Wybierz wiele
 Choose the channel: Wybierz kanał
 Choose the channel group: Wybierz grupę kanałów
 Choose the scene: Wybierz scenę
@@ -272,6 +273,7 @@ Connection with a private instance of the SUPLA cloud: Połączenie z prywatną 
 Constraints: Ograniczenia
 Container: Zbiornik
 Container level sensor: Czujnik poziomu zbiornika
+Container supports up to 10 sensors.: Zbiornik może mieć maksymalnie 10 czujników.
 Cool to: Chłódź do
 Cooling mode: Tryb chłodzenia
 'Cooling: {percent}%': 'Chłodzenie: {percent}%'
@@ -374,6 +376,7 @@ Download the history of measurement: Pobierz historię pomiarów
 Drag your image(s) here or click to select from the disk: Przeciągnij obraz tutaj lub kliknij aby wybrać z dysku
 Dryer: Osuszacz
 E-mail notifications: Powiadomienia e-mail
+Each container level sensor must have different fill level.: Każdy czujnik poziomu musi mieć ustawiony inny poziom napełnienia.
 Edit: Edytuj
 Edit area crop: Edytuj obszar
 Edit program settings: Edytuj ustawienia programu
@@ -432,10 +435,14 @@ Feature limits: Limity funkcjonalności
 'Field: {propertyPath}.': Pole {propertyPath}.
 File format: Format pliku
 File is too large: Plik jest za duży
+Fill level: Poziom napełnienia
 Fill missing data: Wypełniaj brakujące pomiary
 Firmware: Firmware
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tego urządzenie wysyła powiadomienia w kontekście tego kanału. W tym miejscu możesz skonfigurować treść oraz odbiorców. Aby uzyskać więcej informacji, skontaktuj się z dostawcą urządzenia.
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tego urządzenie wysyła powiadomienia. W tym miejscu możesz skonfigurować treść oraz odbiorców. Aby uzyskać więcej informacji, skontaktuj się z dostawcą urządzenia.
+Flood sensor: Czujnik zalania
+Flood sensor for valve: Czujnik zalania dla zaworu
+Flood sensors: Czujniki zalania
 Flooding: Zalanie
 For a period: Na okres
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: W trakcie aktualizacji zalecane jest korzystanie z adresu {suplaUrl}.
@@ -588,6 +595,9 @@ Last connection: Ostatnie połączenie
 Last paired device: Ostatnio sparowane urządzenie
 Last used: Ostatnio użyty
 Let me choose later: Pozwól mi wybrać później
+Level sensor: Czujnik poziomu
+Level sensor for container: Czujnik poziomu dla zbiornika
+Level sensors: Czujniki poziomu
 Light mode: Tryb jasny
 Light switch: Włącznik światła
 Lighting: Oświetlenie
@@ -660,6 +670,7 @@ Mondays: Poniedziałki
 Motor upside down: Odwrócone sterowanie silnikiem
 Move down or stop: W dół lub zatrzymaj
 Move up or stop: W górę lub zatrzymaj
+Mute alarm sound without additional auth: Wycisz alarm bez dodatkowej autentykacji
 My OAuth apps: Moje aplikacje OAuth
 My SUPLA: Moja SUPLA
 NOTICE!: UWAGA!
@@ -1117,6 +1128,7 @@ Value multiplier: Mnożnik
 Value separator: Separator
 Valve: Zawór
 Valve closed manually: Zawór zamknięty manualnie
+Valve supports up to 20 sensors.: Zawór może mieć maksymalnie 20 czujników.
 Vector balance: Bilans wektorowy
 Verification method: Sposób weryfikacji
 Vertical blind: Żaluzja pionowa
@@ -1160,6 +1172,9 @@ Weight sensor: Waga
 Welcome!: Witaj!
 What this token is for?: Do czego służy ten token?
 When a certain distance is reached: Gdy określona odległość zostanie osiągnięta
+When a flood is detected: Kiedy zalanie zostanie wykryte
+When a flooding state changes: Kiedy stan zalania zmieni się
+When a flooding state has been cleared: Kiedy stan zalania zostanie wyczyszczony
 When a lack of liquid is detected: Gdy zostanie wykryty brak cieczy
 When a new mail comes: Gdy przyjdzie nowa poczta
 When flooding is detected: Gdy zostanie wykryte zalanie
@@ -1521,7 +1536,10 @@ state-closed: Zamknięte
 state-default: Domyślnie
 state-empty: Puste
 state-full: Pełne
+state-half: Wypełnione częściowo
+state-hi: Stan wysoki
 state-humidity: Wilgotność
+state-low: Stan niski
 state-off: Wyłączone
 state-on: Włączone
 state-opened: Otwarte
@@ -1555,6 +1573,10 @@ sunset: zachód słońca
 sunset-after: zachodzie
 sunset-before: zachodem
 swap: zamień
+tank_alarm_alarmAboveLevel: Alarm powyżej poziomu
+tank_alarm_alarmBelowLevel: Alarm poniżej poziomu
+tank_alarm_warningAboveLevel: Ostrzeżenie powyżej poziomu
+tank_alarm_warningBelowLevel: Ostrzeżenie poniżej poziomu
 temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Sterowanie oparte o dodatkowy termometr
 temperatureControlType_ROOM_TEMPERATURE: Sterowanie oparte o główny termometr
 the master thermostat ID{id}: termostatu nadrzędnego ID{id}
@@ -1728,25 +1750,5 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Choose many: Wybierz wiele
-Each container level sensor must have different fill level.: Każdy czujnik poziomu musi mieć ustawiony inny poziom napełnienia.
-Fill level: Poziom napełnienia
-Flood sensor: Czujnik zalania
-Flood sensor for valve: Czujnik zalania dla zaworu
-Flood sensors: Czujniki zalania
-Level sensor: Czujnik poziomu
-Level sensor for container: Czujnik poziomu dla zbiornika
-Level sensors: Czujniki poziomu
-Mute alarm sound without additional auth: Wycisz alarm bez dodatkowej autentykacji
-When a flood is detected: Kiedy zalanie zostanie wykryte
-When a flooding state changes: Kiedy stan zalania zmieni się
-When a flooding state has been cleared: Kiedy stan zalania zostanie wyczyszczony
-state-half: Wypełnione częściowo
-state-hi: Stan wysoki
-state-low: Stan niski
-tank_alarm_alarmAboveLevel: Alarm powyżej poziomu
-tank_alarm_alarmBelowLevel: Alarm poniżej poziomu
-tank_alarm_warningAboveLevel: Ostrzeżenie powyżej poziomu
-tank_alarm_warningBelowLevel: Ostrzeżenie poniżej poziomu
 
 #</editor-fold>
