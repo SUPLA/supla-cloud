@@ -19,10 +19,12 @@ class CloseActionExecutor extends SetCharValueActionExecutor {
     }
 
     public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
-        Assertion::true(
-            $subject instanceof IODeviceChannel,
-            "Cannot execute the requested action CLOSE on channel group."
-        );
+        if ($subject->getFunction()->getId() !== ChannelFunction::VALVEOPENCLOSE) {
+            Assertion::true(
+                $subject instanceof IODeviceChannel,
+                "Cannot execute the requested action CLOSE on channel group."
+            );
+        }
         return parent::validateAndTransformActionParamsFromApi($subject, $actionParams);
     }
 

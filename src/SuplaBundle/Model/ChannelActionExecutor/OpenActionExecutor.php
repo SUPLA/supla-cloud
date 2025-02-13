@@ -19,6 +19,7 @@ namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use SuplaBundle\Auth\Token\WebappToken;
 use SuplaBundle\Entity\ActionableSubject;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelStateGetter\ValveChannelStateGetter;
@@ -48,7 +49,7 @@ class OpenActionExecutor extends SetCharValueActionExecutor {
     }
 
     public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
-        if ($subject->getFunction()->getId() == ChannelFunction::VALVEOPENCLOSE) {
+        if ($subject->getFunction()->getId() == ChannelFunction::VALVEOPENCLOSE && $subject instanceof IODeviceChannel) {
             $state = $this->valveManuallyShutChannelStateGetter->getState($subject);
             $manuallyClosed = $state['manuallyClosed'] ?? true;
             $flooding = $state['flooding'] ?? true;
