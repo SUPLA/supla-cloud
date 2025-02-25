@@ -33,9 +33,10 @@
     import ChannelTile from "../../channels/channel-tile";
     import {groupBy, toArray} from "lodash";
     import SubdeviceDetails from "@/devices/details/subdevice-details.vue";
-    import {mapState} from "pinia";
+    import {mapState, mapStores} from "pinia";
     import {useChannelsStore} from "@/stores/channels-store";
     import {useDevicesStore} from "@/stores/devices-store";
+    import {useSubDevicesStore} from "@/stores/subdevices-store";
 
     export default {
         components: {SubdeviceDetails, ChannelTile, ChannelFilters},
@@ -50,9 +51,18 @@
         },
         computed: {
             channelsBySubDevice() {
-                return toArray(groupBy(this.filteredChannels, 'subDeviceId'));
+                let channelGroups = toArray(groupBy(this.filteredChannels, 'subDeviceId'));
+                channelGroups.forEach((channelsGroup) => {
+                    const channel = channelsGroup[0];
+                    channelsGroup.caption = this.subDevicesStore.forChannel(channel)?.name;
+                    if (!channelsGroup.caption) {
+                        channelsGroup.caption = channel.subDeviceId ? this.$t('Subdevice #{id}', {id: channel.subDeviceId}) : '___';
+                    }
+                });
+                return channelGroups.sort(this.compareFunction);
             },
             ...mapState(useDevicesStore, {allDevices: 'all'}),
+            ...mapStores(useSubDevicesStore),
             ...mapState(useChannelsStore, {allChannels: 'list'}),
             device() {
                 return this.allDevices[this.deviceId];

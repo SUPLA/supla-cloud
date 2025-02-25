@@ -681,9 +681,9 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
             [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
             [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
-            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR, ['subDeviceId' => 1]],
-            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR, ['subDeviceId' => 1]],
-            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR, ['subDeviceId' => 1]],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR, ['subDeviceId' => 11]],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR, ['subDeviceId' => 11]],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR, ['subDeviceId' => 11]],
             [
                 ChannelType::VALVEOPENCLOSE,
                 ChannelFunction::VALVEOPENCLOSE,
@@ -701,9 +701,9 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
             [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
             [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
-            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR, ['subDeviceId' => 2]],
-            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR, ['subDeviceId' => 2]],
-            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR, ['subDeviceId' => 2]],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR, ['subDeviceId' => 23]],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR, ['subDeviceId' => 23]],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR, ['subDeviceId' => 23]],
             [
                 ChannelType::CONTAINER,
                 ChannelFunction::WATER_TANK,
@@ -724,7 +724,7 @@ class DevicesFixture extends SuplaFixture {
             ],
         ]);
         $this->entityManager->persist(AnyFieldSetter::set(new SubDevice(), [
-            'id' => 2,
+            'id' => 23,
             'device' => $device,
             'regDate' => new DateTime(),
             'name' => 'Flood sensor sub device',
