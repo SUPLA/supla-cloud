@@ -51,11 +51,13 @@ class TankConfigTranslatorIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('warningBelowLevel', $config);
         $this->assertArrayHasKey('alarmBelowLevel', $config);
         $this->assertArrayHasKey('muteAlarmSoundWithoutAdditionalAuth', $config);
+        $this->assertArrayHasKey('fillLevelReportingInFullRange', $config);
         $this->assertEquals(20, $config['warningAboveLevel']);
         $this->assertEquals(30, $config['alarmAboveLevel']);
         $this->assertEquals(40, $config['warningBelowLevel']);
         $this->assertEquals(50, $config['alarmBelowLevel']);
         $this->assertEquals(false, $config['muteAlarmSoundWithoutAdditionalAuth']);
+        $this->assertEquals(false, $config['fillLevelReportingInFullRange']);
     }
 
     public function testTranslatingLevelSensors() {
@@ -155,5 +157,15 @@ class TankConfigTranslatorIntegrationTest extends IntegrationTestCase {
                 ['channelId' => $device->getChannels()[3]->getId(), 'fillLevel' => 15],
             ],
         ]);
+    }
+
+    public function testCanSetWarningToNotExistingLevelIfFullLevelReporting() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
+        $tankWithFullLevelReporting = $device->getChannels()[22];
+        $this->translator->setConfig($tankWithFullLevelReporting, [
+            'levelSensors' => [['channelId' => $device->getChannels()[2]->getId(), 'fillLevel' => 15]],
+            'warningAboveLevel' => 25,
+        ]);
+        $this->assertEquals(25, $tankWithFullLevelReporting->getUserConfigValue('warningAboveLevel'));
     }
 }

@@ -37,7 +37,15 @@
         <dl v-for="alarm in availableAlarms" :key="alarm">
             <dd>{{ $t(`tank_alarm_${alarm}`) }}</dd>
             <dt>
-                <div class="dropdown">
+                <NumberInput
+                    v-model="channel.config[alarm]"
+                    v-if="fillLevelInFullRange"
+                    :min="0"
+                    :max="100"
+                    suffix=" %"
+                    class="form-control text-center mt-2"
+                    @input="emit('change')"/>
+                <div class="dropdown" v-else>
                     <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"
                         type="button"
                         data-toggle="dropdown">
@@ -93,6 +101,7 @@
         }
     });
     const availableFillLevels = computed(() => uniq([0, ...levelSensorsDef.value.map(def => +def.fillLevel)]).sort((a, b) => a - b));
+    const fillLevelInFullRange = computed(() => props.channel.config.fillLevelReportingInFullRange);
 
     const availableAlarms = ['warningAboveLevel', 'alarmAboveLevel', 'warningBelowLevel', 'alarmBelowLevel'];
 
