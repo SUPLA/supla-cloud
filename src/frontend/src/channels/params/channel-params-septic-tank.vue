@@ -49,11 +49,11 @@
                     <ul class="dropdown-menu">
                         <li>
                             <a @click="channel.config[alarm] = null; emit('change')"
-                                v-show="channel.config[alarm]">{{ $t('Disabled') }}</a>
+                                v-show="channel.config[alarm] !== null">{{ $t('Disabled') }}</a>
                         </li>
                         <li v-for="percent in availableFillLevels" :key="percent">
                             <a @click="channel.config[alarm] = percent; emit('change')"
-                                v-show="percent != channel.config[alarm]">{{ percent }}%</a>
+                                v-show="percent !== channel.config[alarm]">{{ percent }}%</a>
                         </li>
                     </ul>
                 </div>
@@ -92,7 +92,7 @@
             emit('change');
         }
     });
-    const availableFillLevels = computed(() => uniq([0, ...levelSensorsDef.value.map(def => +def.fillLevel)]).sort());
+    const availableFillLevels = computed(() => uniq([0, ...levelSensorsDef.value.map(def => +def.fillLevel)]).sort((a, b) => a - b));
 
     const availableAlarms = ['warningAboveLevel', 'alarmAboveLevel', 'warningBelowLevel', 'alarmBelowLevel'];
 
