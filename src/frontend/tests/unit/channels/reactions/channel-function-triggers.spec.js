@@ -19,9 +19,6 @@ describe('ChannelFunctionTriggers', () => {
             ChannelFunction.ACTION_TRIGGER,
             ChannelFunction.DIGIGLASS_HORIZONTAL,
             ChannelFunction.DIGIGLASS_VERTICAL,
-            ChannelFunction.CONTAINER,
-            ChannelFunction.SEPTIC_TANK,
-            ChannelFunction.WATER_TANK,
             ChannelFunction.CONTAINER_LEVEL_SENSOR,
         ];
         for (const fncName in ChannelFunction) {
