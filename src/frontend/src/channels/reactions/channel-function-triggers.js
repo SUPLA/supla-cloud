@@ -758,6 +758,39 @@ export const ChannelFunctionTriggers = {
         {caption: () => 'When the device is turned off', def: () => ({on_change_to: {eq: 'off'}})}, // i18n
         {caption: () => 'When the device is turned on or off', def: () => ({on_change: {}})}, // i18n
     ],
+    [ChannelFunction.CONTAINER]: [
+        {
+            caption: () => 'When the fill level reaches a certain value', // i18n
+            test: (t) => t.on_change_to && t.on_change_to.name === undefined,
+            component: ReactionConditionThreshold,
+            props: {
+                min: () => 0, max: () => 100, step: () => 1,
+                unit: () => '%',
+                labelI18n: () => 'When the fill level will be', // i18n
+                resumeLabelI18n: () => 'and wait until the fill level will be', // i18n
+            },
+        },
+        {
+            caption: () => 'When the fill level changes', // i18n
+            def: () => ({on_change: {}})
+        },
+        {caption: () => 'When the fill level reading error occurs', def: () => ({on_change_to: {eq: 'on', name: 'invalid_value'}})}, // i18n
+        {caption: () => 'When the fill level reading error disappears', def: () => ({on_change_to: {eq: 'off', name: 'invalid_value'}})}, // i18n
+        {caption: () => 'When the alarm starts', def: () => ({on_change_to: {eq: 'on', name: 'alarm'}})}, // i18n
+        {caption: () => 'When the alarm stops', def: () => ({on_change_to: {eq: 'off', name: 'alarm'}})}, // i18n
+        {caption: () => 'When the warning starts', def: () => ({on_change_to: {eq: 'on', name: 'warning'}})}, // i18n
+        {caption: () => 'When the warning stops', def: () => ({on_change_to: {eq: 'off', name: 'warning'}})}, // i18n
+        {
+            caption: () => 'When any of the sensors starts to report an invalid state',
+            def: () => ({on_change_to: {eq: 'on', name: 'invalid_sensor_state'}})
+        }, // i18n
+        {
+            caption: () => 'When any of the sensors stops to report an invalid state',
+            def: () => ({on_change_to: {eq: 'off', name: 'invalid_sensor_state'}})
+        }, // i18n
+        {caption: () => 'When the sound alarm starts', def: () => ({on_change_to: {eq: 'on', name: 'sound_alarm_on'}})}, // i18n
+        {caption: () => 'When the sound alarm stops', def: () => ({on_change_to: {eq: 'off', name: 'sound_alarm_on'}})}, // i18n
+    ]
 };
 
 ChannelFunctionTriggers[ChannelFunction.THERMOMETER] = [
@@ -778,6 +811,9 @@ ChannelFunctionTriggers[ChannelFunction.STAIRCASETIMER] = ChannelFunctionTrigger
 ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL] = ChannelFunctionTriggers[ChannelFunction.HVAC_DOMESTIC_HOT_WATER];
 ChannelFunctionTriggers[ChannelFunction.THERMOSTATHEATPOLHOMEPLUS] = ChannelFunctionTriggers[ChannelFunction.HVAC_DOMESTIC_HOT_WATER];
 ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL] = ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT];
+
+ChannelFunctionTriggers[ChannelFunction.SEPTIC_TANK] = ChannelFunctionTriggers[ChannelFunction.CONTAINER];
+ChannelFunctionTriggers[ChannelFunction.WATER_TANK] = ChannelFunctionTriggers[ChannelFunction.CONTAINER];
 
 export function findTriggerDefinition(channelFunction, trigger) {
     return (ChannelFunctionTriggers[channelFunction] || []).find(t => t.test ? t.test(trigger) : isEqual(t.def(), trigger));

@@ -199,6 +199,31 @@ class ValueBasedTriggerValidator {
             ChannelFunction::ROLLER_GARAGE_DOOR,
             ChannelFunction::VERTICAL_BLIND,
         ],
+        'invalid_value' => [
+            ChannelFunction::CONTAINER,
+            ChannelFunction::SEPTIC_TANK,
+            ChannelFunction::WATER_TANK,
+        ],
+        'alarm' => [
+            ChannelFunction::CONTAINER,
+            ChannelFunction::SEPTIC_TANK,
+            ChannelFunction::WATER_TANK,
+        ],
+        'warning' => [
+            ChannelFunction::CONTAINER,
+            ChannelFunction::SEPTIC_TANK,
+            ChannelFunction::WATER_TANK,
+        ],
+        'invalid_sensor_state' => [
+            ChannelFunction::CONTAINER,
+            ChannelFunction::SEPTIC_TANK,
+            ChannelFunction::WATER_TANK,
+        ],
+        'sound_alarm_on' => [
+            ChannelFunction::CONTAINER,
+            ChannelFunction::SEPTIC_TANK,
+            ChannelFunction::WATER_TANK,
+        ],
         'default' => [
             ChannelFunction::VALVEOPENCLOSE,
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
@@ -209,6 +234,9 @@ class ValueBasedTriggerValidator {
             ChannelFunction::CURTAIN,
             ChannelFunction::ROLLER_GARAGE_DOOR,
             ChannelFunction::VERTICAL_BLIND,
+            ChannelFunction::CONTAINER,
+            ChannelFunction::SEPTIC_TANK,
+            ChannelFunction::WATER_TANK,
         ],
     ];
 
@@ -245,6 +273,9 @@ class ValueBasedTriggerValidator {
         ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
         ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
         ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
+        ChannelFunction::CONTAINER,
+        ChannelFunction::SEPTIC_TANK,
+        ChannelFunction::WATER_TANK,
     ];
 
     const BOOLEAN_FIELD_NAMES = [
@@ -262,6 +293,11 @@ class ValueBasedTriggerValidator {
         'is_on',
         'flooding',
         'manually_closed',
+        'invalid_value',
+        'alarm',
+        'warning',
+        'invalid_sensor_state',
+        'sound_alarm_on',
     ];
 
     /**
