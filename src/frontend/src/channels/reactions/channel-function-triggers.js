@@ -1,7 +1,7 @@
 import ChannelFunction from "@/common/enums/channel-function";
 import ReactionConditionThreshold from "@/channels/reactions/params/reaction-condition-threshold.vue";
 import ReactionConditionElectricitymeter from "@/channels/reactions/params/reaction-condition-electricitymeter.vue";
-import {isEqual} from "lodash";
+import {isEqual, uniq} from "lodash";
 import {measurementUnit} from "@/channels/channel-helpers";
 import {i18n} from "@/locale";
 
@@ -766,6 +766,13 @@ export const ChannelFunctionTriggers = {
             props: {
                 min: () => 0, max: () => 100, step: () => 1,
                 unit: () => '%',
+                availableValues: (channel) => {
+                    if (channel.config.fillLevelReportingInFullRange) {
+                        return undefined;
+                    } else {
+                        return uniq([0, ...(channel.config.levelSensors || []).map(def => +def.fillLevel)]).sort((a, b) => a - b)
+                    }
+                },
                 labelI18n: () => 'When the fill level will be', // i18n
                 resumeLabelI18n: () => 'and wait until the fill level will be', // i18n
             },

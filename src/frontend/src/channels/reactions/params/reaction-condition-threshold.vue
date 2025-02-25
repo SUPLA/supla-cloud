@@ -14,7 +14,22 @@
                     </a>
                 </span>
                 <span class="input-group-addon" v-if="unitBefore(field, subject)">{{ $t(unitBefore(field, subject)) }}</span>
-                <input type="number"
+                <div class="dropdown" v-if="valuesForDropdown.length">
+                    <button class="btn btn-default dropdown-toggle btn-wrapped border-left-radius-0" type="button" data-toggle="dropdown">
+                        <span>{{ threshold }} {{ $t(unit(field, subject)) }}</span>
+                        {{ ' ' }}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li v-for="v in valuesForDropdown" :key="v">
+                            <a @click="threshold = resumeThreshold = v; updateModel(false)" v-show="threshold !== v">
+                                {{ v }} {{ $t(unit(field, subject)) }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <input v-else
+                    type="number"
                     required
                     v-model="threshold"
                     :step="step()" :min="min()" :max="max()"
@@ -36,7 +51,10 @@
                     <span v-else>&ge;</span>
                 </span>
                 <span class="input-group-addon" v-if="unitBefore(field, subject)">{{ $t(unitBefore(field, subject)) }}</span>
-                <input type="number" required class="form-control" v-model="resumeThreshold"
+                <span class="input-group-addon" v-if="valuesForDropdown.length">
+                    {{ threshold }}
+                </span>
+                <input v-else type="number" required class="form-control" v-model="resumeThreshold"
                     :step="step()"
                     @input="updateModel()"
                     :min="['lt', 'le'].includes(operator) ? threshold : min()"
@@ -68,6 +86,10 @@
             step: {
                 type: Function,
                 default: () => 0.01,
+            },
+            availableValues: {
+                type: Function,
+                default: () => undefined,
             },
             unit: {
                 type: Function,
@@ -113,6 +135,10 @@
                 this.threshold = Number.isFinite(this.onChangeTo[this.operator]) ? this.onChangeTo[this.operator] : this.defaultThreshold;
                 const resume = this.onChangeTo.resume || {};
                 this.resumeThreshold = Number.isFinite(resume[this.resumeOperator]) ? resume[this.resumeOperator] : this.defaultThreshold;
+                if (this.valuesForDropdown.length && !this.valuesForDropdown.includes(this.threshold)) {
+                    this.threshold = this.valuesForDropdown[0];
+                    this.resumeThreshold = this.valuesForDropdown[0];
+                }
             },
             updateModel(adjustResumeThreshold = false) {
                 if (adjustResumeThreshold && this.resumeOperator) {
@@ -167,6 +193,9 @@
                     (!Number.isFinite(this.resumeMin) || this.resumeThreshold >= this.resumeMin) &&
                     (!Number.isFinite(this.resumeMax) || this.resumeThreshold <= this.resumeMax);
             },
+            valuesForDropdown() {
+                return this.availableValues(this.subject) || [];
+            },
         },
         watch: {
             field() {
@@ -193,5 +222,10 @@
         input[type=number] {
             width: 95px;
         }
+    }
+
+    .border-left-radius-0 {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
     }
 </style>
