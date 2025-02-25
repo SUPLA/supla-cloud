@@ -17,7 +17,7 @@
                 <!-- i18n: ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays'] -->
                 <th v-for="(weekday, $index) in ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays']"
                     :key="weekday"
-                    :class="['hidden-xs weekday-header ellipsis', 'weekday-column-' + ($index + 1)]">
+                    :class="['hidden-xs weekday-header ellipsis', 'weekday-column-' + ($index + 1), {'current-hover': currentHover[0] === $index + 1, 'current-label': currentWeekday === $index + 1}]">
                     <span class="full-weekday-name">{{ $t(weekday) }}</span>
                     <span class="short-weekday-name">{{ shortWeekdayLabels[$index] }}</span>
                 </th>
@@ -27,16 +27,17 @@
             <tr v-for="hour in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]"
                 :key="hour">
                 <th scope="row"
-                    class="hour-header ellipsis">
+                    :class="['hour-header ellipsis', {'current-hover': currentHover[1] === hour, 'current-label': currentHour === hour}]">
                     {{ hourLabelStart(hour) }} - {{ hourLabelEnd(hour) }}
                 </th>
                 <td v-for="weekday in [1,2,3,4,5,6,7]"
-                    :class="['hidden-xs', 'weekday-column-' + weekday]"
+                    :class="['hidden-xs', 'weekday-column-' + weekday, {'current-hover': currentHover[0] === weekday || currentHover[1] === hour}]"
                     :key="'0' + hour + weekday">
                     <div class="d-flex w-100">
                         <div :class="['time-slot flex-grow-1', `time-slot-mode-${temporaryModel[weekday][hour * quarterMultiplicator]}`]"
                             @mousedown="startSelection(weekday, hour * quarterMultiplicator)"
                             @mouseenter="expandSelection(weekday, hour * quarterMultiplicator)"
+                            @mouseleave="clearCurrentHover()"
                             @mouseup="finishSelection()">
                             &nbsp;
                         </div>
@@ -44,6 +45,7 @@
                             v-if="quarters"
                             @mousedown="startSelection(weekday, hour * 4 + 1)"
                             @mouseenter="expandSelection(weekday, hour * 4 + 1)"
+                            @mouseleave="clearCurrentHover()"
                             @mouseup="finishSelection()">
                             &nbsp;
                         </div>
@@ -51,6 +53,7 @@
                             v-if="quarters"
                             @mousedown="startSelection(weekday, hour * 4 + 2)"
                             @mouseenter="expandSelection(weekday, hour * 4 + 2)"
+                            @mouseleave="clearCurrentHover()"
                             @mouseup="finishSelection()">
                             &nbsp;
                         </div>
@@ -58,6 +61,7 @@
                             v-if="quarters"
                             @mousedown="startSelection(weekday, hour * 4 + 3)"
                             @mouseenter="expandSelection(weekday, hour * 4 + 3)"
+                            @mouseleave="clearCurrentHover()"
                             @mouseup="finishSelection()">
                             &nbsp;
                         </div>
@@ -112,6 +116,10 @@
                 mouseUpCatcher: undefined,
                 mobileWeekdayDisplay: 1,
                 shortWeekdayLabels: Info.weekdays('short'),
+                currentHover: [],
+                currentHour: 0,
+                currentWeekday: 0,
+                currentTimeInterval: 0,
             };
         },
         mounted() {
@@ -119,9 +127,12 @@
             this.initModelFromValue();
             this.mouseUpCatcher = () => this.finishSelection();
             window.addEventListener('mouseup', this.mouseUpCatcher);
+            this.getCurrentWeekdayHours();
+            this.currentTimeInterval = setInterval(() => this.getCurrentWeekdayHours(), 60000);
         },
         beforeDestroy() {
             window.removeEventListener('mouseup', this.mouseUpCatcher);
+            clearInterval(this.currentTimeInterval);
         },
         methods: {
             initModelFromValue() {
@@ -136,6 +147,10 @@
                     this.$set(this.model, weekday, hours);
                 });
                 this.temporaryModel = cloneDeep(this.model);
+            },
+            getCurrentWeekdayHours() {
+                this.currentHour = DateTime.now().hour;
+                this.currentWeekday = DateTime.now().weekday;
             },
             hourLabelStart(hour) {
                 const start = DateTime.fromFormat(('0' + hour).substr(-2), 'HH');
@@ -171,6 +186,10 @@
                         }
                     }
                 }
+                this.currentHover = [weekday, Math.floor(hour / this.quarterMultiplicator)];
+            },
+            clearCurrentHover() {
+                this.currentHover = [];
             },
             finishSelection() {
                 if (this.selectionStartCoords) {
@@ -240,13 +259,14 @@
             width: 100%;
             padding: 1px;
             vertical-align: middle;
+            opacity: 0.8;
         }
         .time-slot {
             cursor: pointer;
             display: block;
             height: 100%;
             background: $supla-grey-light;
-            border-left: 1px dotted #EEE;
+            border-left: 1px dotted #eee;
             @media (hover: hover) {
                 &:hover {
                     background: darken($supla-grey-light, 10%);
@@ -281,6 +301,16 @@
         }
         .short-weekday-name {
             display: none;
+        }
+
+        th.current-hover {
+            background: lighten($supla-yellow, 20%);
+        }
+        td.current-hover {
+            opacity: 1;
+        }
+        .current-label {
+            font-weight: bold;
         }
     }
 
