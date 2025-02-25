@@ -781,13 +781,15 @@ export const ChannelFunctionTriggers = {
         {caption: () => 'When the warning starts', def: () => ({on_change_to: {eq: 'on', name: 'warning'}})}, // i18n
         {caption: () => 'When the warning stops', def: () => ({on_change_to: {eq: 'off', name: 'warning'}})}, // i18n
         {
-            caption: () => 'When any of the sensors starts to report an invalid state',
-            def: () => ({on_change_to: {eq: 'on', name: 'invalid_sensor_state'}})
-        }, // i18n
+            caption: () => 'When any of the sensors starts to report an invalid state', // i18n
+            def: () => ({on_change_to: {eq: 'on', name: 'invalid_sensor_state'}}),
+            canBeSetForChannel: (channel) => channel.config.levelSensors?.length > 0,
+        },
         {
-            caption: () => 'When any of the sensors stops to report an invalid state',
-            def: () => ({on_change_to: {eq: 'off', name: 'invalid_sensor_state'}})
-        }, // i18n
+            caption: () => 'When any of the sensors stops to report an invalid state', // i18n
+            def: () => ({on_change_to: {eq: 'off', name: 'invalid_sensor_state'}}),
+            canBeSetForChannel: (channel) => channel.config.levelSensors?.length > 0,
+        },
         {caption: () => 'When the sound alarm starts', def: () => ({on_change_to: {eq: 'on', name: 'sound_alarm_on'}})}, // i18n
         {caption: () => 'When the sound alarm stops', def: () => ({on_change_to: {eq: 'off', name: 'sound_alarm_on'}})}, // i18n
     ]

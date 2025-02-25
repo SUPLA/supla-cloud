@@ -103,5 +103,5 @@ export const useChannelsStore = defineStore('channels', () => {
         fetchAll.promise = undefined;
     };
 
-    return {all, ids, list, filteredChannels, $reset, fetchAll, refetchAll, fetchStates};
+    return {all, ids, list, filteredChannels, $reset, fetchAll, refetchAll, fetchStates, fetchChannel};
 });

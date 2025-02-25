@@ -150,7 +150,7 @@
                 </div>
             </div>
 
-            <channel-details-tabs v-if="channel && !loading" :channel="channel"></channel-details-tabs>
+            <ChannelDetailsTabs v-if="channel && !loading" :channel-id="channel.id"/>
 
         </loading-cover>
 
@@ -332,6 +332,7 @@
                 this.loading = true;
                 return this.$http.put(`channels/${this.id}${safe ? '?safe=1' : ''}`, this.channel, {skipErrorHandler: [409]})
                     .then(response => extendObject(this.channel, response.body))
+                    .then(() => this.channelsStore.fetchChannel(this.channel.id))
                     .then(() => {
                         this.saveConfigConfirmationObject = undefined;
                         this.hasPendingChanges = false;
