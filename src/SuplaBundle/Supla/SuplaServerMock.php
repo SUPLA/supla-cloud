@@ -122,7 +122,7 @@ class SuplaServerMock extends SuplaServer {
         } elseif (preg_match('#^GET-(VALVE)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . rand(0, 1) . ',' . rand(0, 3);
         } elseif (preg_match('#^GET-(CONTAINER)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            return 'VALUE:0' . rand(0, 101);
+            return 'VALUE:' . rand(0, 101) . ',' . rand(0, 16);
         } elseif (preg_match('#^GET-(RELAY)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             $flag = $isTests ? 0 : rand(0, 1);
             return 'VALUE:' . rand(0, 1) . ',' . $flag;

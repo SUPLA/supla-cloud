@@ -48,15 +48,22 @@ class TankChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $expectedState['connected'] = true;
         $expectedState['connectedCode'] = 1;
-        $this->assertEquals($expectedState, $state);
+        $this->assertEquals($expectedState, array_intersect_key($state, $expectedState));
     }
 
     public function valveStates() {
+        // @codingStandardsIgnoreStart
         return [
             ['0', ['fillLevel' => null]],
+            ['0,0', ['fillLevel' => null]],
+            ['1,0', ['fillLevel' => 0]],
             ['1', ['fillLevel' => 0]],
-            ['20', ['fillLevel' => 19]],
-            ['101', ['fillLevel' => 100]],
+            ['20,0', ['fillLevel' => 19]],
+            ['101,0', ['fillLevel' => 100]],
+            ['20', ['fillLevel' => 19, 'warningLevel' => false, 'alarmLevel' => false, 'invalidSensorState' => false, 'soundAlarmOn' => false]],
+            ['20,1', ['fillLevel' => 19, 'warningLevel' => true, 'alarmLevel' => false, 'invalidSensorState' => false, 'soundAlarmOn' => false]],
+            ['20,7', ['fillLevel' => 19, 'warningLevel' => true, 'alarmLevel' => true, 'invalidSensorState' => true, 'soundAlarmOn' => false]],
         ];
+        // @codingStandardsIgnoreEnd
     }
 }

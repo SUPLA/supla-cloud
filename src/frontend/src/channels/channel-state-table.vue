@@ -128,6 +128,18 @@
             <div v-if="currentState.forcedOffBySensor === true">
                 <span class="label label-info">{{ $t('Forced off by sensor') }}</span>
             </div>
+            <div v-if="currentState.warningLevel === true">
+                <span class="label label-warning">{{ $t('Warning level') }}</span>
+            </div>
+            <div v-if="currentState.alarmLevel === true">
+                <span class="label label-danger">{{ $t('Alarm level') }}</span>
+            </div>
+            <div v-if="currentState.invalidSensorState === true">
+                <span class="label label-danger">{{ $t('Invalid sensor state') }}</span>
+            </div>
+            <div v-if="currentState.soundAlarmOn === true">
+                <span class="label label-info">{{ $t('Sound alarm on') }}</span>
+            </div>
         </div>
     </div>
 </template>
