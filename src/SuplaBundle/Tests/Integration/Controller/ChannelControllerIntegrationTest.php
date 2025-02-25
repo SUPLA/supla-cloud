@@ -1090,7 +1090,18 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'action' => 'recalibrate',
         ]);
         $this->assertStatusCode(200, $client->getResponse());
-        $this->assertContains("RECALIBRATE:1,{$anotherDevice->getId()},{$measurementChannelId}", SuplaServerMock::$executedCommands);
+        $this->assertSuplaCommandExecuted("RECALIBRATE:1,{$anotherDevice->getId()},{$measurementChannelId}");
+    }
+
+    public function testMutingAlarm() {
+        $septicDevice = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
+        $tankChannel = $septicDevice->getChannels()[0];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', "/api/channels/{$tankChannel->getId()}/settings", [
+            'action' => 'muteAlarm',
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSuplaCommandExecuted("MUTE-ALARM:1,{$septicDevice->getId()},{$tankChannel->getId()}");
     }
 
     public function testFetchingActionTriggers() {

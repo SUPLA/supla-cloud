@@ -17,4 +17,7 @@ export const channelsApi = {
         const {body} = await api.get('channels/states');
         return body;
     },
+    async muteAlarm(channel) {
+        return await api.patch(`channels/${channel.id}/settings`, {action: 'muteAlarm'});
+    },
 }

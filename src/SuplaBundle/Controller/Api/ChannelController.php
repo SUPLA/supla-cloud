@@ -542,12 +542,19 @@ class ChannelController extends RestController {
         Request $request,
         IODeviceChannel $channel,
         SubjectConfigTranslator $paramConfigTranslator,
+        ChannelStateGetter $channelStateGetter,
         SuplaOcrClient $ocr
     ) {
         $body = json_decode($request->getContent(), true);
         Assertion::keyExists($body, 'action', 'Missing action.');
         $channelConfig = $paramConfigTranslator->getConfig($channel);
-        $channel = $this->transactional(function (EntityManagerInterface $em) use ($ocr, $body, $channel, $channelConfig) {
+        $channel = $this->transactional(function (EntityManagerInterface $em) use (
+            $channelStateGetter,
+            $ocr,
+            $body,
+            $channel,
+            $channelConfig
+        ) {
             $action = $body['action'];
             if ($action === 'resetCounters') {
                 Assertion::true($channelConfig['resetCountersAvailable'] ?? false, 'Cannot reset counters of this channel.');
@@ -560,6 +567,11 @@ class ChannelController extends RestController {
                 Assertion::true($channelConfig['recalibrateAvailable'] ?? false, 'Cannot recalibrate this channel.');
                 $result = $this->suplaServer->channelAction($channel, 'RECALIBRATE');
                 Assertion::true($result, 'Could not recalibrate.');
+            } elseif ($action === 'muteAlarm') {
+                $state = $channelStateGetter->getState($channel);
+                Assertion::keyExists($state, 'soundAlarmOn', 'Cannot mute alarm for this channel.');
+                $result = $this->suplaServer->channelAction($channel, 'MUTE-ALARM');
+                Assertion::true($result, 'Could not mute alarm.');
             } elseif ($action === 'takeOcrPhoto') {
                 Assertion::keyExists($channelConfig, 'ocr', 'Cannot take OCR photo.');
                 $result = $this->suplaServer->channelAction($channel, 'TAKE-OCR-PHOTO');

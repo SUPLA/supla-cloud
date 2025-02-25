@@ -136,6 +136,7 @@
                                 <channel-state-table class="py-3"
                                     :channel="channel"
                                     v-if="channelFunctionIsChosen && !loading"></channel-state-table>
+                                <ChannelMuteAlarmButton :channel="channelsStore.all[channel.id] || channel"/>
                             </div>
                         </div>
                         <div class="details-page-block" v-if="hasActionsToExecute">
@@ -228,10 +229,12 @@
     import {mapStores} from "pinia";
     import {useChannelsStore} from "@/stores/channels-store";
     import ChannelDependenciesList from "@/channels/channel-dependencies-list.vue";
+    import ChannelMuteAlarmButton from "@/channels/action/channel-mute-alarm-button.vue";
 
     export default {
         props: ['id'],
         components: {
+            ChannelMuteAlarmButton,
             ChannelDependenciesList,
             ChannelDeleteButton,
             ChannelConflictDetailsWarning,
