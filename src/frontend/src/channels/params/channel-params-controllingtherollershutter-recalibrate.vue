@@ -43,7 +43,7 @@
         },
         computed: {
             isConnected() {
-                return !this.channel.state || this.channel.state.connectedCode === 1;
+                return !this.channel.state || this.channel.state.connectedCode === 'CONNECTED';
             },
             notCalibrated() {
                 return this.calibrating || (this.channel.state && this.channel.state.not_calibrated);

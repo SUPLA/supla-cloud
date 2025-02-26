@@ -70,7 +70,7 @@
                     all: true,
                     disconnected: !channel.connected,
                     connected: channel.connected,
-                    notAvailable: channel.state?.connectedCode === 2,
+                    notAvailable: channel.state?.connectedCode === 'CONNECTED_NOT_AVAILABLE',
                 };
                 if (!connectedFilters[this.connected]) {
                     return false;

@@ -47,7 +47,7 @@ class TankChannelStateGetterIntegrationTest extends IntegrationTestCase {
         SuplaServerMock::mockResponse('GET-CONTAINER-VALUE', "VALUE:$serverResponse\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $expectedState['connected'] = true;
-        $expectedState['connectedCode'] = 1;
+        $expectedState['connectedCode'] = 'CONNECTED';
         $this->assertEquals($expectedState, array_intersect_key($state, $expectedState));
     }
 

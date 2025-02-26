@@ -110,8 +110,11 @@
             <div v-if="currentState.connected === false">
                 <span class="label label-danger">{{ $t('Disconnected') }}</span>
             </div>
-            <div v-if="currentState.connectedCode === 2">
+            <div v-if="currentState.connectedCode === 'CONNECTED_NOT_AVAILABLE'">
                 <span class="label label-warning">{{ $t('Not available') }}</span>
+            </div>
+            <div v-if="currentState.connectedCode === 'FIRMWARE_UPDATE_ONGOING'">
+                <span class="label label-info">{{ $t('Updating...') }}</span>
             </div>
             <div v-if="currentState.currentOverload === true">
                 <span class="label label-danger">{{ $t('Current Overload') }}</span>

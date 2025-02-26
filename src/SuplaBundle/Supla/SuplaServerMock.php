@@ -78,8 +78,10 @@ class SuplaServerMock extends SuplaServer {
                 if ($this->faker->boolean($isTests ? 100 : 95)) {
                     return "CONNECTED:$match[3]\n";
                 } elseif ($this->faker->boolean()) {
-                    if ($this->faker->boolean()) {
+                    if ($this->faker->boolean(33)) {
                         return "CONNECTED_BUT_NOT_AVAILABLE:$match[3]\n";
+                    } elseif ($this->faker->boolean(33)) {
+                        return "FIRMWARE_UPDATE_ONGOING:$match[3]\n";
                     } else {
                         return "OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED:$match[3]\n";
                     }

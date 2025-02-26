@@ -128,6 +128,8 @@ abstract class SuplaServer {
                     return ConnectionStatus::CONNECTED_NOT_AVAILABLE();
                 } elseif (str_starts_with($result, 'OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED:')) {
                     return ConnectionStatus::OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED();
+                } elseif (str_starts_with($result, 'FIRMWARE_UPDATE_ONGOING:')) {
+                    return ConnectionStatus::FIRMWARE_UPDATE_ONGOING();
                 }
             }
         } catch (SuplaServerIsDownException $e) {

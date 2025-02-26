@@ -352,13 +352,24 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     public static function gettingChannelStateDataProvider() {
         return [
             [1, 'IS-', "DISCONNECTED:1\n", ['connected' => false]],
-            [1, 'IS-', "CONNECTED:1\n", ['connected' => true, 'connectedCode' => ConnectionStatus::CONNECTED]],
-            [1, 'IS-', "CONNECTED_BUT_NOT_AVAILABLE:1\n", ['connected' => true, 'connectedCode' => ConnectionStatus::CONNECTED_NOT_AVAILABLE]],
+            [1, 'IS-', "CONNECTED:1\n", ['connected' => true, 'connectedCode' => ConnectionStatus::CONNECTED()->getKey()]],
+            [
+                1,
+                'IS-',
+                "CONNECTED_BUT_NOT_AVAILABLE:1\n",
+                ['connected' => true, 'connectedCode' => ConnectionStatus::CONNECTED_NOT_AVAILABLE()->getKey()],
+            ],
             [
                 1,
                 'IS-',
                 "OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED:1\n",
-                ['connected' => false, 'connectedCode' => ConnectionStatus::OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED],
+                ['connected' => false, 'connectedCode' => ConnectionStatus::OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED()->getKey()],
+            ],
+            [
+                1,
+                'IS-',
+                "FIRMWARE_UPDATE_ONGOING:1\n",
+                ['connected' => true, 'connectedCode' => ConnectionStatus::FIRMWARE_UPDATE_ONGOING()->getKey()],
             ],
             [1, 'GET-RELAY-VALUE:1,1,1', 'VALUE:1,0', ['on' => true]],
             [1, 'GET-RELAY-VALUE:1,1,1', 'VALUE:0,0', ['on' => false, 'currentOverload' => false]],

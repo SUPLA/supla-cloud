@@ -24,7 +24,7 @@ describe('ChannelActionExecutor', () => {
             {"id": 3001, "name": "INTERRUPT", "nameSlug": "interrupt", "caption": "Interrupt"},
             {"id": 3002, "name": "INTERRUPT_AND_EXECUTE", "nameSlug": "interrupt-and-execute", "caption": "Interrupt and execute"}
         ],
-        state: {connected: true, connectedCode: 1},
+        state: {connected: true, connectedCode: 'CONNECTED'},
         functionId: 2000,
         "function": {
             "id": 2000,
@@ -40,7 +40,7 @@ describe('ChannelActionExecutor', () => {
         id: 6,
         ownSubjectType: ActionableSubjectType.CHANNEL,
         possibleActions: [{"id": ChannelFunctionAction.OPEN_PARTIALLY, "name": "OPEN_PARTIALLY", "caption": "Open partially"}],
-        state: {connected: true, connectedCode: 1},
+        state: {connected: true, connectedCode: 'CONNECTED'},
         functionId: ChannelFunction.CONTROLLINGTHEROLLERSHUTTER,
         "function": {
             "id": ChannelFunction.CONTROLLINGTHEROLLERSHUTTER,
