@@ -61,11 +61,11 @@
                         header: 'Notifications', // i18n
                     });
                 }
-                if (this.channel.actionTriggersIds?.length || isActionTrigger) {
+                if (this.channel.relationsCount.actionTriggers > 0 || isActionTrigger) {
                     this.availableTabs.push({
                         route: 'channel.actionTriggers',
                         header: 'Action triggers', // i18n
-                        count: () => this.channel.actionTriggersIds?.length + (isActionTrigger ? 1 : 0),
+                        count: () => this.channel.relationsCount.actionTriggers + (isActionTrigger ? 1 : 0),
                     });
                 }
                 if (hasActions) {

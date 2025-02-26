@@ -9,8 +9,7 @@
                 @save="saveChanges()"
                 :is-pending="hasPendingChanges">
                 <div class="form-group"></div>
-                <div class="row"
-                    v-if="actionTriggers">
+                <div class="row" v-if="actionTriggers">
                     <div :class="{'col-sm-6 col-sm-offset-3': actionTriggers.length === 1, 'col-sm-6': actionTriggers.length > 1}"
                         v-for="(actionTrigger, index) in actionTriggers"
                         :key="actionTrigger.id">
@@ -30,6 +29,9 @@
     import ActionTriggerPanel from "@/channels/action-trigger/action-trigger-panel";
     import PendingChangesPage from "@/common/pages/pending-changes-page";
     import ChannelFunction from "@/common/enums/channel-function";
+    import {mapStores} from "pinia";
+    import {useChannelsStore} from "@/stores/channels-store";
+    import {deepCopy} from "@/common/utils";
 
     export default {
         components: {PendingChangesPage, ActionTriggerPanel},
@@ -38,33 +40,40 @@
         },
         data() {
             return {
-                actionTriggers: undefined,
                 loading: false,
                 hasPendingChanges: false,
+                actionTriggers: [],
             };
         },
         mounted() {
-            this.loadActionTriggers();
+            this.actionTriggers = deepCopy(this.actionTriggersForChannel);
         },
         methods: {
             loadActionTriggers() {
                 this.loading = true;
-                const promises = this.subject.actionTriggersIds.map((actionTriggerId) => this.$http.get(`channels/${actionTriggerId}`));
-                if (this.subject.functionId === ChannelFunction.ACTION_TRIGGER) {
-                    promises.push(Promise.resolve({body: this.subject}));
-                }
-                Promise.all(promises).then((responses) => {
-                    this.actionTriggers = responses.map((response) => response.body);
-                    this.loading = false;
+                const promises = this.actionTriggers.map(trigger => this.channelsStore.fetchChannel(trigger.id));
+                Promise.all(promises).then(() => {
+                    this.actionTriggers = deepCopy(this.actionTriggersForChannel);
                     this.hasPendingChanges = false;
-                });
+                    this.loading = false;
+                })
             },
             saveChanges() {
                 this.loading = true;
                 const promises = this.actionTriggers
                     .map((actionTrigger) => this.$http.put(`channels/${actionTrigger.id}?safe=1`, actionTrigger));
-                Promise.all(promises).finally(() => this.loadActionTriggers());
+                Promise.all(promises)
+                    .then(() => this.loadActionTriggers())
+                    .finally(() => this.loading = false);
             }
+        },
+        computed: {
+            ...mapStores(useChannelsStore),
+            actionTriggersForChannel() {
+                return this.channelsStore.list
+                    .filter((ch) => ch.functionId === ChannelFunction.ACTION_TRIGGER)
+                    .filter((ch) => ch.config.relatedChannelId === this.subject.id || this.subject.id === ch.id);
+            },
         }
     }
 </script>

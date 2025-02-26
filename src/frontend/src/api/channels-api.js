@@ -1,4 +1,5 @@
 import {api} from "@/api/api";
+import {deepCopy} from "@/common/utils";
 
 export const channelsApi = {
     async getList() {
@@ -6,12 +7,20 @@ export const channelsApi = {
         return body;
     },
     async getListWithState() {
-        const {body} = await api.get('channels?include=state,connected');
-        return body;
+        const {body: channels} = await api.get('channels?include=state,connected');
+        channels.forEach(channel => {
+            if (channel.config) {
+                channel.configBefore = deepCopy(channel.config);
+            }
+        });
+        return channels;
     },
     async getOneWithState(id) {
-        const {body} = await api.get(`channels/${id}?include=state,connected`);
-        return body;
+        const {body: channel} = await api.get(`channels/${id}?include=state,connected`);
+        if (channel.config) {
+            channel.configBefore = deepCopy(channel.config);
+        }
+        return channel;
     },
     async getStates() {
         const {body} = await api.get('channels/states');
