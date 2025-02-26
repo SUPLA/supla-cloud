@@ -205,7 +205,7 @@
 </template>
 
 <script>
-    import {channelTitle, deviceTitle} from "../common/filters";
+    import {channelTitle} from "../common/filters";
     import FunctionIcon from "./function-icon";
     import ChannelParamsForm from "./params/channel-params-form";
     import SquareLocationChooser from "../locations/square-location-chooser";
@@ -379,10 +379,10 @@
             },
             refreshChannelConfig(showLoading = true) {
                 this.loading = showLoading;
-                this.channelRequest().then(({body}) => {
-                    this.channel.relationsCount = body.relationsCount;
-                    this.channel.config = body.config;
-                    this.channel.configBefore = body.configBefore;
+                this.channelsStore.fetchChannel(this.channel.id).then((channel) => {
+                    this.channel.relationsCount = channel.relationsCount;
+                    this.channel.config = channel.config;
+                    this.channel.configBefore = channel.configBefore;
                     this.configConflictDetected = false;
                     this.loading = false;
                 });
@@ -391,9 +391,6 @@
         computed: {
             channelTitle() {
                 return channelTitle(this.channel);
-            },
-            deviceTitle() {
-                return deviceTitle(this.channel.iodevice);
             },
             frozenShownInClientsState() {
                 if (this.channel.config.controllingChannelId || this.channel.config.controllingSecondaryChannelId) {

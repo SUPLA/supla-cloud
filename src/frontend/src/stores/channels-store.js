@@ -37,7 +37,11 @@ export const useChannelsStore = defineStore('channels', () => {
     }
 
     const fetchChannel = (channelId) => {
-        return channelsApi.getOneWithState(channelId).then(updateChannel);
+        return channelsApi.getOneWithState(channelId)
+            .then((channel) => {
+                updateChannel(channel);
+                return channel;
+            });
     };
 
     const fetchStates = () => {
