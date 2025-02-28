@@ -48,7 +48,7 @@ class ValveChannelStateGetterIntegrationTest extends IntegrationTestCase {
         SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:$serverResponse\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[$channelIndex]);
         $expectedState['connected'] = true;
-        $expectedState['connectedCode'] = 1;
+        $expectedState['connectedCode'] = 'CONNECTED';
         $this->assertEquals($expectedState, $state);
     }
 
