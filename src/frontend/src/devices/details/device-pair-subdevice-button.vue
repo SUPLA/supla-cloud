@@ -1,5 +1,5 @@
 <template>
-    <div v-if="device.pairingSubdevicesAvailable" v-tooltip="disabledReason">
+    <div v-if="device.flags.pairingSubdevicesAvailable" v-tooltip="disabledReason">
         <button class="btn btn-default btn-block btn-wrapped" type="button"
             :disabled="!!disabledReason || loading"
             @click="pairSubdevices()">

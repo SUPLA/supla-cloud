@@ -1109,7 +1109,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
         $this->flush();
         $channelsCount = $device->getChannels()->count();
-        $this->assertTrue($device->isChannelDeletionAvailable());
+        $this->assertTrue($device->getFlags()['alwaysAllowChannelDeletion']);
         $hotelCard = $device->getChannels()[5];
         $client = $this->createAuthenticatedClient();
         $client->request('DELETE', "/api/channels/{$hotelCard->getId()}");

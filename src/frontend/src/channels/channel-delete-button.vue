@@ -76,7 +76,7 @@
         },
         computed: {
             canDelete() {
-                return this.channel.conflictDetails || this.device?.channelDeletionAvailable;
+                return this.channel.deletable;
             },
             device() {
                 return this.allDevices[this.channel.iodeviceId];

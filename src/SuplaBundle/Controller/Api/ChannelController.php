@@ -78,6 +78,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="userIconId", type="integer"),
  *   @OA\Property(property="userIcon", ref="#/components/schemas/UserIcon", description="User Icon, if requested by the `include` param"),
  *   @OA\Property(property="connected", type="boolean"),
+ *   @OA\Property(property="deletable", type="boolean"),
  *   @OA\Property(property="relationsCount", description="Counts of related entities.",
  *     @OA\Property(property="channelGroups", type="integer"),
  *     @OA\Property(property="directLinks", type="integer"),
@@ -619,7 +620,7 @@ class ChannelController extends RestController {
     ) {
         $this->entityManager->detach($channel->getIoDevice());
         $device = $this->entityManager->find(IODevice::class, $channel->getIoDevice()->getId());
-        if (!$device->isChannelDeletionAvailable() && !$channel->getConflictDetails()) {
+        if (!$channel->isDeletable()) {
             throw new ApiException('Cannot delete this channel.', Response::HTTP_FORBIDDEN);
         }
         if (filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)) {

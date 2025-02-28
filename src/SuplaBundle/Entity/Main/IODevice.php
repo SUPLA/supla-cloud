@@ -309,23 +309,17 @@ class IODevice implements HasLocation, HasRelationsCount {
         return IoDeviceFlags::REMOTE_RESTART_AVAILABLE()->isOn($this->flags);
     }
 
-    /** @Groups({"basic"}) */
-    public function isPairingSubdevicesAvailable(): bool {
-        return IoDeviceFlags::PAIRING_SUBDEVICES_AVAILABLE()->isOn($this->flags);
-    }
-
-    /** @Groups({"basic"}) */
-    public function isIdentifyDeviceAvailable(): bool {
-        return IoDeviceFlags::IDENTIFY_DEVICE_AVAILABLE()->isOn($this->flags);
-    }
-
-    /** @Groups({"basic"}) */
-    public function isChannelDeletionAvailable(): bool {
-        return IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($this->flags);
-    }
-
     public function isLocked(): bool {
         return IoDeviceFlags::DEVICE_LOCKED()->isOn($this->flags);
+    }
+
+    /** @Groups({"basic"}) */
+    public function getFlags(): array {
+        return [
+            'alwaysAllowChannelDeletion' => IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($this->flags),
+            'identifyDeviceAvailable' => IoDeviceFlags::IDENTIFY_DEVICE_AVAILABLE()->isOn($this->flags),
+            'pairingSubdevicesAvailable' => IoDeviceFlags::PAIRING_SUBDEVICES_AVAILABLE()->isOn($this->flags),
+        ];
     }
 
     public function unlock() {

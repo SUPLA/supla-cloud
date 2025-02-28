@@ -1630,7 +1630,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $sonoff = $this->createDeviceSonoff($this->location);
         EntityUtils::setField($sonoff, 'flags', IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION);
         $sonoff = $this->persist($sonoff);
-        $this->assertTrue($sonoff->isChannelDeletionAvailable());
+        $this->assertTrue($sonoff->getFlags()['alwaysAllowChannelDeletion']);
         $thermometer = $sonoff->getChannels()[1];
         $client = $this->createAuthenticatedClient();
         $this->getEntityManager()->clear();
@@ -1650,7 +1650,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION | IoDeviceFlags::BLOCK_ADDING_CHANNELS_AFTER_DELETION
         );
         $sonoff = $this->persist($sonoff);
-        $this->assertTrue($sonoff->isChannelDeletionAvailable());
+        $this->assertTrue($sonoff->getFlags()['alwaysAllowChannelDeletion']);
         $thermometer = $sonoff->getChannels()[1];
         $client = $this->createAuthenticatedClient();
         $this->getEntityManager()->clear();

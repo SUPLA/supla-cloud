@@ -75,7 +75,7 @@ use Symfony\Component\HttpFoundation\Response;
  *     @OA\Property(property="channelsWithConflict", type="integer"),
  *   ),
  *   @OA\Property(property="enterConfigurationModeAvailable", type="boolean"),
- *   @OA\Property(property="pairingSubdevicesAvailable", type="boolean"),
+ *   @OA\Property(property="flags", type="object"),
  *   @OA\Property(property="isSleepModeEnabled", type="boolean"),
  *   @OA\Property(property="config", ref="#/components/schemas/DeviceConfig"),
  *   @OA\Property(property="pairingResult", type="object"),
@@ -386,14 +386,14 @@ class IODeviceController extends RestController {
                 Assertion::true($result, 'Could not restart the device.'); // i18n
             } elseif ($action === 'pairSubdevice') {
                 Assertion::true(
-                    $ioDevice->isPairingSubdevicesAvailable(),
+                    $ioDevice->getFlags()['pairingSubdevicesAvailable'],
                     'Pairing subdevices is unsupported in the firmware.' // i18n
                 );
                 $result = $this->suplaServer->deviceAction($ioDevice, 'PAIR-SUBDEVICE');
                 Assertion::true($result, 'Could not enter the configuration mode.'); // i18n
             } elseif ($action === 'identifyDevice') {
                 Assertion::true(
-                    $ioDevice->isIdentifyDeviceAvailable(),
+                    $ioDevice->getFlags()['identifyDeviceAvailable'],
                     'Device identification is unsupported in the firmware.' // i18n
                 );
                 $result = $this->suplaServer->deviceAction($ioDevice, 'IDENTIFY-DEVICE');

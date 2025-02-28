@@ -526,4 +526,10 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     public function getLastKnownChannelState(): array {
         return ($this->lastKnownChannelState ?: new ChannelState($this))->getState();
     }
+
+    /** @Groups({"basic"}) */
+    public function isDeletable(): bool {
+        $deviceFlags = $this->getIoDevice()->getFlags();
+        return $deviceFlags['alwaysAllowChannelDeletion'] || $this->getConflictDetails();
+    }
 }
