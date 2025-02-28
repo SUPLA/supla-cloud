@@ -25,7 +25,7 @@ use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Model\UserConfigTranslator\DigiglassParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\GeneralPurposeMeasurementConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\HumidityAdjustmentParamTranslator;
+use SuplaBundle\Model\UserConfigTranslator\HumidityAdjustmentConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\ImpulseCounterUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\InvertedLogicParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\NumberOfAttemptsToOpenOrCloseParamTranslator;
@@ -48,7 +48,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             new OpeningClosingTimeUserConfigTranslator(),
             new ElectricityMeterUserConfigTranslator(),
             new ImpulseCounterUserConfigTranslator(),
-            new HumidityAdjustmentParamTranslator(),
+            new HumidityAdjustmentConfigTranslator(),
             new TemperatureAdjustmentParamTranslator(),
             new InvertedLogicParamTranslator(),
             new GeneralPurposeMeasurementConfigTranslator(),

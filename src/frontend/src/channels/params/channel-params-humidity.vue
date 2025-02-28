@@ -5,8 +5,8 @@
             <span class="input-group">
                 <input type="number"
                     step="0.1"
-                    min="-10"
-                    max="10"
+                    :min="minAdjustment"
+                    :max="maxAdjustment"
                     class="form-control text-center"
                     v-model="channel.config.humidityAdjustment"
                     @input="$emit('change')">
@@ -18,8 +18,12 @@
     </dl>
 </template>
 
-<script>
-    export default {
-        props: ['channel'],
-    };
+<script setup>
+    import {computed} from "vue";
+
+    const props = defineProps({channel: Object});
+
+    const minAdjustment = computed(() => props.channel.config.minHumidityAdjustment || -10);
+    const maxAdjustment = computed(() => props.channel.config.maxHumidityAdjustment || 10);
 </script>
+
