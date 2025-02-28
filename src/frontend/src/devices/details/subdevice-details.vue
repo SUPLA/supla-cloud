@@ -30,9 +30,11 @@
             <ChannelDeleteButton :channel="channel" deleting-subdevice/>
         </div>
         <div v-if="subDevice" class="mb-3">
-            <span class="label label-default mr-2">{{ $t('Firmware') }}: {{ subDevice.softwareVersion }}</span>
-            <span class="label label-default mr-2">{{ $t('P/C') }}: {{ subDevice.productCode }}</span>
-            <span class="label label-default mr-2">{{ $t('S/N') }}: {{ subDevice.serialNumber }}</span>
+            <span class="label label-default mr-2" v-if="subDevice.softwareVersion">
+                {{ $t('Firmware') }}: {{ subDevice.softwareVersion }}
+            </span>
+            <span class="label label-default mr-2" v-if="subDevice.productCode">{{ $t('P/C') }}: {{ subDevice.productCode }}</span>
+            <span class="label label-default mr-2" v-if="subDevice.serialNumber">{{ $t('S/N') }}: {{ subDevice.serialNumber }}</span>
         </div>
     </div>
 </template>
