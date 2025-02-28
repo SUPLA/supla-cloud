@@ -34,7 +34,7 @@ use SuplaBundle\Model\UserConfigTranslator\RelayTimeMsUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\RelayTimeSUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\RollerShutterUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\TemperatureAdjustmentParamTranslator;
+use SuplaBundle\Model\UserConfigTranslator\TemperatureAdjustmentConfigTranslator;
 
 class ChannelParamConfigTranslatorTest extends TestCase {
     /** @var SubjectConfigTranslator */
@@ -49,7 +49,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             new ElectricityMeterUserConfigTranslator(),
             new ImpulseCounterUserConfigTranslator(),
             new HumidityAdjustmentConfigTranslator(),
-            new TemperatureAdjustmentParamTranslator(),
+            new TemperatureAdjustmentConfigTranslator(),
             new InvertedLogicParamTranslator(),
             new GeneralPurposeMeasurementConfigTranslator(),
             new DigiglassParamTranslator(),

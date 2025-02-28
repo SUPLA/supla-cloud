@@ -1329,13 +1329,13 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->flush();
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV3('PUT', '/api/channels/' . $channel->getId(), [
-            'config' => ['temperatureAdjustment' => 11],
+            'config' => ['temperatureAdjustment' => 9],
             'configBefore' => ['temperatureAdjustment' => 10],
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $channel = $this->freshEntity($channel);
         $config = $channelParamConfigTranslator->getConfig($channel);
-        $this->assertEquals(11, $config['temperatureAdjustment']);
+        $this->assertEquals(9, $config['temperatureAdjustment']);
         return $channel->getId();
     }
 
@@ -1343,7 +1343,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     public function testCantUpdateWithoutConfigBefore(int $channelId) {
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV3('PUT', '/api/channels/' . $channelId . '?safe=true', [
-            'config' => ['temperatureAdjustment' => 11],
+            'config' => ['temperatureAdjustment' => 9],
         ]);
         $this->assertStatusCode(400, $client->getResponse());
     }
@@ -1369,7 +1369,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('details', $content);
-        $this->assertEquals(11, $content['details']['config']['temperatureAdjustment']);
+        $this->assertEquals(9, $content['details']['config']['temperatureAdjustment']);
         $this->assertEquals('temperatureAdjustment', $content['details']['conflictingField']);
     }
 
@@ -1377,7 +1377,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     public function testUpdatingConfigWhenBeforeDifferentButCurrentTheSame(int $channelId) {
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV3('PUT', '/api/channels/' . $channelId, [
-            'config' => ['temperatureAdjustment' => 11],
+            'config' => ['temperatureAdjustment' => 9],
             'configBefore' => ['temperatureAdjustment' => 12],
         ]);
         $this->assertStatusCode(200, $client->getResponse());

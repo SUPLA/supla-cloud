@@ -22,7 +22,7 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="maxHumidityAdjustment", type="number"),
  * )
  */
-class TemperatureAdjustmentParamTranslator extends UserConfigTranslator {
+class TemperatureAdjustmentConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     public function getConfig(HasUserConfig $subject): array {
