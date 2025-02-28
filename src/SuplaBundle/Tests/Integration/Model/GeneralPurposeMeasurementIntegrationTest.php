@@ -187,6 +187,6 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertSuplaCommandExecuted("GET-GPM-VALUE:1,{$this->device->getId()},{$this->meterChannelId}");
         $content = json_decode($client->getResponse()->getContent(), true);
-        $this->assertEquals(['connected' => true, 'connectedCode' => 1, 'value' => 2.3], $content['state']);
+        $this->assertEquals(['connected' => true, 'connectedCode' => 'CONNECTED', 'value' => 2.3], $content['state']);
     }
 }
