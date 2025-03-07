@@ -43,6 +43,7 @@ class SuplaOcrClient {
             'guid' => $channel->getIoDevice()->getGUIDString(),
             'channelNo' => $channel->getChannelNumber(),
             'authKey' => $authKey,
+            'userId' => $channel->getUser()->getShortUniqueId(),
         ], $responseStatus);
         if ($responseStatus !== 201) {
             throw new ApiExceptionWithDetails('OCR service responded with error: {status}', $response, $responseStatus); // i18n
