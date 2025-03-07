@@ -322,7 +322,7 @@ class IODevice implements HasLocation, HasRelationsCount {
     }
 
     public function getFlagsInt(): int {
-        return $this->flags;
+        return intval($this->flags);
     }
 
     public function unlock() {
