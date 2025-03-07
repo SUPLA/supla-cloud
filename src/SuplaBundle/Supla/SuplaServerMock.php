@@ -219,6 +219,9 @@ class SuplaServerMock extends SuplaServer {
             if ($this->faker->boolean(10)) {
                 $flags |= HvacIpcValueFlags::BATTERY_COVER_OPEN;
             }
+            if ($this->faker->boolean(10)) {
+                $flags |= HvacIpcValueFlags::CALIBRATION_ERROR;
+            }
             return sprintf(
                 'VALUE:%d,%d,%d,%d,%d,%d,%d',
                 $this->faker->numberBetween(0, 100),

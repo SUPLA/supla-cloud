@@ -31,6 +31,7 @@ namespace SuplaBundle\Enums;
  * @method static HvacIpcValueFlags FORCED_OFF_BY_SENSOR()
  * @method static HvacIpcValueFlags WEEKLY_SCHEDULE_TEMPORAL_OVERRIDE()
  * @method static HvacIpcValueFlags BATTERY_COVER_OPEN()
+ * @method static HvacIpcValueFlags CALIBRATION_ERROR()
  */
 final class HvacIpcValueFlags extends ChannelFunctionBits {
     const TEMPERATURE_HEAT_SET = 1 << 0;
@@ -44,4 +45,5 @@ final class HvacIpcValueFlags extends ChannelFunctionBits {
     const FORCED_OFF_BY_SENSOR = 1 << 9;
     const WEEKLY_SCHEDULE_TEMPORAL_OVERRIDE = 1 << 11;
     const BATTERY_COVER_OPEN = 1 << 12;
+    const CALIBRATION_ERROR = 1 << 13;
 }

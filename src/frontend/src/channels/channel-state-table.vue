@@ -146,6 +146,9 @@
             <div v-if="currentState.soundAlarmOn === true">
                 <span class="label label-info">{{ $t('Sound alarm on') }}</span>
             </div>
+            <div v-if="currentState.calibrationError === true">
+                <span class="label label-danger">{{ $t('Calibration error') }}</span>
+            </div>
         </div>
     </div>
 </template>
