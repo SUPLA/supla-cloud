@@ -30,6 +30,7 @@ use SuplaBundle\Enums\ChannelConfigChangeScope;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\IoDeviceFlags;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\Dependencies\ChannelDependencies;
@@ -1109,7 +1110,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
         $this->flush();
         $channelsCount = $device->getChannels()->count();
-        $this->assertTrue($device->getFlags()['alwaysAllowChannelDeletion']);
+        $this->assertTrue(IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($device->getFlagsInt()));
         $hotelCard = $device->getChannels()[5];
         $client = $this->createAuthenticatedClient();
         $client->request('DELETE', "/api/channels/{$hotelCard->getId()}");

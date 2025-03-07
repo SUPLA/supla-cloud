@@ -618,8 +618,8 @@ class ChannelController extends RestController {
         ChannelDependencies $channelDependencies,
         HiddenReadOnlyConfigFieldsUserConfigTranslator $hiddenConfigTranslator
     ) {
-        $this->entityManager->detach($channel->getIoDevice());
-        $device = $this->entityManager->find(IODevice::class, $channel->getIoDevice()->getId());
+        $this->entityManager->detach($channel);
+        $channel = $this->entityManager->find(IODeviceChannel::class, $channel->getId());
         if (!$channel->isDeletable()) {
             throw new ApiException('Cannot delete this channel.', Response::HTTP_FORBIDDEN);
         }
@@ -652,7 +652,7 @@ class ChannelController extends RestController {
                 return $view;
             }
         }
-        $this->transactional(function (EntityManagerInterface $em) use ($device, $channelDependencies, $channel, $hiddenConfigTranslator) {
+        $this->transactional(function (EntityManagerInterface $em) use ($channelDependencies, $channel, $hiddenConfigTranslator) {
             $channelsToRemoveWith = $channelDependencies->getChannelsToRemoveWith($channel);
             $idsToRemove = EntityUtils::mapToIds($channelsToRemoveWith);
             $idsToRemove[] = $channel->getId();
@@ -666,12 +666,13 @@ class ChannelController extends RestController {
             if ($channel->getSubDeviceId() > 0) {
                 $subDevice = $em->getRepository(SubDevice::class)->findOneBy([
                     'id' => $channel->getSubDeviceId(),
-                    'device' => $device,
+                    'device' => $channel->getIoDevice(),
                 ]);
                 if ($subDevice) {
                     $em->remove($subDevice);
                 }
             }
+            $device = $em->find(IODevice::class, $channel->getIoDevice()->getId());
             $em->remove($channel);
             $device->onChannelRemoved();
             $em->persist($device);

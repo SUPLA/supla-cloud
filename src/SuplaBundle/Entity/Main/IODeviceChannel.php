@@ -36,6 +36,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\IoDeviceFlags;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
@@ -529,7 +530,9 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
 
     /** @Groups({"basic"}) */
     public function isDeletable(): bool {
-        $deviceFlags = $this->getIoDevice()->getFlags();
-        return $deviceFlags['alwaysAllowChannelDeletion'] || $this->getConflictDetails();
+        $deviceFlags = $this->getIoDevice()->getFlagsInt();
+        return $this->getConflictDetails() ||
+            IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($deviceFlags) ||
+            (IoDeviceFlags::ALWAYS_ALLOW_SUBDEVICE_CHANNEL_DELETION()->isOn($deviceFlags) && $this->subDeviceId > 0);
     }
 }
