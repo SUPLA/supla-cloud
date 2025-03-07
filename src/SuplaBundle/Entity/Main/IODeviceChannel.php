@@ -218,7 +218,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     private ?ChannelState $lastKnownChannelState = null;
 
     /**
-     * @ORM\Column(name="flags", type="bigint", nullable=false, options={"unsigned"=true, "default": 0})
+     * @ORM\Column(name="flags", type="bigint", nullable=true, options={"unsigned"=true})
      */
     private $flags = 0;
 
