@@ -22,6 +22,8 @@ use SuplaBundle\Utils\NumberUtils;
  *     @OA\Property(property="clockError", type="boolean"),
  *     @OA\Property(property="forcedOffBySensor", type="boolean"),
  *     @OA\Property(property="weeklyScheduleTemporalOverride", type="boolean"),
+ *     @OA\Property(property="batteryCoverOpen", type="boolean"),
+ *     @OA\Property(property="calibrationError", type="boolean"),
  *     @OA\Property(property="mode", type="string"),
  *     @OA\Property(property="temperatureHeat", type="number"),
  *     @OA\Property(property="temperatureCool", type="number"),
@@ -52,6 +54,7 @@ class HvacChannelStateGetter implements SingleChannelStateGetter {
             'forcedOffBySensor' => HvacIpcValueFlags::FORCED_OFF_BY_SENSOR()->isOn($flags),
             'weeklyScheduleTemporalOverride' => HvacIpcValueFlags::WEEKLY_SCHEDULE_TEMPORAL_OVERRIDE()->isOn($flags),
             'batteryCoverOpen' => HvacIpcValueFlags::BATTERY_COVER_OPEN()->isOn($flags),
+            'calibrationError' => HvacIpcValueFlags::CALIBRATION_ERROR()->isOn($flags),
             'mode' => (new HvacIpcActionMode(intval($modeId)))->getKey(),
             'temperatureHeat' => HvacIpcValueFlags::TEMPERATURE_HEAT_SET()->isOn($flags)
                 ? NumberUtils::maximumDecimalPrecision($tempHeat / 100)
