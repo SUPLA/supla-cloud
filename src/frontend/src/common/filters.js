@@ -97,14 +97,6 @@ export function formatGpmValue(value, config) {
     return (unitBefore + roundedValue + unitAfter).trim();
 }
 
-export function valueOrNoneLabel(value) {
-    if (value && value.trim()) {
-        return value;
-    }
-
-    return i18n.global.t('None');
-}
-
 Vue.filter('withBaseUrl', withBaseUrl);
 Vue.filter('withDownloadAccessToken', withDownloadAccessToken);
 Vue.filter('deviceTitle', deviceTitle);
@@ -113,4 +105,3 @@ Vue.filter('ellipsis', ellipsis);
 Vue.filter('prettyBytes', prettyBytes);
 Vue.filter('roundToDecimals', roundToDecimals);
 Vue.filter('formatGpmValue', formatGpmValue);
-Vue.filter('valueOrNoneLabel', valueOrNoneLabel);
