@@ -218,9 +218,9 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     private ?ChannelState $lastKnownChannelState = null;
 
     /**
-     * @ORM\Column(name="flags", type="bigint", nullable=true, options={"unsigned"=true})
+     * @ORM\Column(name="flags", type="bigint", nullable=false, options={"unsigned"=true, "default": 0})
      */
-    private $flags = 0;
+    private int $flags = 0;
 
     /** @ORM\Column(name="user_config", type="text", length=8192, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"}) */
     private $userConfig;
@@ -500,7 +500,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     }
 
     public function getFlags(): int {
-        return intval($this->flags);
+        return $this->flags;
     }
 
     public function getProperties(): array {

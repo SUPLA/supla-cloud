@@ -158,9 +158,9 @@ class IODevice implements HasLocation, HasRelationsCount {
     private $authKey;
 
     /**
-     * @ORM\Column(name="flags", type="integer", nullable=true)
+     * @ORM\Column(name="flags", type="integer", nullable=false, options={"default"=0})
      */
-    private $flags = 0;
+    private int $flags = 0;
 
     /**
      * @ORM\Column(name="manufacturer_id", type="smallint", nullable=true)

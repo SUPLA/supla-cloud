@@ -185,7 +185,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testGettingDeviceDetailsWhenFlagsIsNull() {
-        EntityUtils::setField($this->device, 'flags', null);
+        EntityUtils::setField($this->device, 'flags', 0);
         $this->getEntityManager()->persist($this->device);
         $this->getEntityManager()->flush();
         $client = $this->createAuthenticatedClient();
