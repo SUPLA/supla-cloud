@@ -24,6 +24,7 @@
             :header="$t('Are you sure?')">
             <span v-if="actionToConfirm.id === ChannelFunctionAction.OPEN">
                 <span v-if="actionToConfirm.confirmationReason === 'flooding'">{{ $t('valveOpenConfirm_flooding') }}</span>
+                <span v-else-if="actionToConfirm.confirmationReason === 'motorProblem'">{{ $t('valveOpenConfirm_motorProblem') }}</span>
                 <span v-else>{{ $t('valveOpenConfirm_manual') }}</span>
             </span>
             <span v-else-if="actionToConfirm.id === ChannelFunctionAction.TURN_ON">
@@ -91,8 +92,9 @@
             },
             confirmExecution(action) {
                 if (action.id === ChannelFunctionAction.OPEN && [ChannelFunction.VALVEOPENCLOSE].includes(this.subject.functionId)) {
-                    if (this.state.manuallyClosed || this.state.flooding) {
-                        this.actionToConfirm = {...action, confirmationReason: this.state.manuallyClosed ? 'manually' : 'flooding'};
+                    if (this.state.manuallyClosed || this.state.flooding || this.state.motorProblem) {
+                        const confirmationReason = this.state.manuallyClosed ? 'manually' : (this.flooding ? 'flooding' : 'motorProblem');
+                        this.actionToConfirm = {...action, confirmationReason};
                         return false;
                     }
                 }

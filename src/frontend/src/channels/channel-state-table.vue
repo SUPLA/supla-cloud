@@ -107,6 +107,9 @@
             <div v-if="currentState.manuallyClosed === true">
                 <span class="label label-warning">{{ $t('Manually closed') }}</span>
             </div>
+            <div v-if="currentState.motorProblem === true">
+                <span class="label label-warning">{{ $t('Motor problem') }}</span>
+            </div>
             <div v-if="currentState.connected === false">
                 <span class="label label-danger">{{ $t('Disconnected') }}</span>
             </div>

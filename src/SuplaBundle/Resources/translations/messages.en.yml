@@ -170,3 +170,5 @@ valveOpenConfirm_manual: valveOpenConfirm_manual
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+
+valveOpenConfirm_motorProblem: A motor problem has been detected. Make sure nothing is blocking the valve. The valve may be partially open. Are you sure you want to open/close it?

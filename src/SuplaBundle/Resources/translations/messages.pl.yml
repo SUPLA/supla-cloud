@@ -1752,3 +1752,5 @@ suffix: sufiks
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+valveOpenConfirm_motorProblem: Wystąpił problem z silnikiem. Upewnij się, czy nic nie blokuje zaworu. Zawór może być częściowo otwarty. Czy na pewno chcesz go otworzyć/zamknąć?
+Motor problem: Problem z silnikiem

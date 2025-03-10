@@ -26,6 +26,7 @@ class ValveChannelStateGetter implements SingleChannelStateGetter {
                 'closed' => $channel->getFunction()->getId() === ChannelFunction::VALVEOPENCLOSE ? boolval($closed) : $closed,
                 'manuallyClosed' => ValveStateBits::MANUALLY_CLOSED()->isSupported($flags),
                 'flooding' => ValveStateBits::FLOODING()->isSupported($flags),
+                'motorProblem' => ValveStateBits::MOTOR_PROBLEM()->isSupported($flags),
             ];
         } else {
             return [];

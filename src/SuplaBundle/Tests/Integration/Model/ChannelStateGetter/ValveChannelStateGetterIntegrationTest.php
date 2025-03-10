@@ -54,11 +54,12 @@ class ValveChannelStateGetterIntegrationTest extends IntegrationTestCase {
 
     public function valveStates() {
         return [
-            [0, '1,2', ['closed' => true, 'manuallyClosed' => true, 'flooding' => false]],
-            [0, '1,3', ['closed' => true, 'manuallyClosed' => true, 'flooding' => true]],
-            [0, '0,0', ['closed' => false, 'manuallyClosed' => false, 'flooding' => false]],
-            [1, '1,1', ['closed' => 1, 'manuallyClosed' => false, 'flooding' => true]],
-            [1, '50,1', ['closed' => 50, 'manuallyClosed' => false, 'flooding' => true]],
+            [0, '1,2', ['closed' => true, 'manuallyClosed' => true, 'flooding' => false, 'motorProblem' => false]],
+            [0, '1,3', ['closed' => true, 'manuallyClosed' => true, 'flooding' => true, 'motorProblem' => false]],
+            [0, '0,0', ['closed' => false, 'manuallyClosed' => false, 'flooding' => false, 'motorProblem' => false]],
+            [1, '1,1', ['closed' => 1, 'manuallyClosed' => false, 'flooding' => true, 'motorProblem' => false]],
+            [1, '50,1', ['closed' => 50, 'manuallyClosed' => false, 'flooding' => true, 'motorProblem' => false]],
+            [1, '50,5', ['closed' => 50, 'manuallyClosed' => false, 'flooding' => true, 'motorProblem' => true]],
             [1, 'bleh', []],
         ];
     }
