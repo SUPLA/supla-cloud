@@ -76,6 +76,7 @@ class IODeviceChannelEntityListener {
             ChannelType::HVAC,
             ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             ChannelType::GENERAL_PURPOSE_METER,
+            ChannelType::ELECTRICITYMETER,
         ];
         $onlyOcrChanged = $changes->getValue() === ChannelConfigChangeScope::OCR;
         if (!in_array($channel->getType()->getId(), $typesThatDoesNotTriggerReconnect) && !$onlyOcrChanged) {
