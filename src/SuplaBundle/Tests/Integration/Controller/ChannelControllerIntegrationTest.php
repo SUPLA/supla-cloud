@@ -1803,6 +1803,26 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $valve->getUserConfigValue('sensorChannelNumbers'));
     }
 
+    public function testCanChangeValveAndSensorsLocationsIndependently() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
+        $anotherLocation = $this->createLocation($this->user);
+        $valve = $device->getChannels()[11];
+        $sensor = $device->getChannels()[20];
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $channelParamConfigTranslator->setConfig($valve, ['floodSensorChannelIds' => [$sensor->getId()]]);
+        $this->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $valve->getId(), ['locationId' => $anotherLocation->getId()]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertEquals($anotherLocation->getId(), $this->freshEntity($valve)->getLocation()->getId());
+        $this->assertEquals($this->location->getId(), $this->freshEntity($sensor)->getLocation()->getId());
+        $anotherLocation2 = $this->createLocation($this->freshEntity($this->user));
+        $this->flush();
+        $client->apiRequestV3('PUT', '/api/channels/' . $sensor->getId(), ['locationId' => $anotherLocation2->getId()]);
+        $this->assertEquals($anotherLocation->getId(), $this->freshEntity($valve)->getLocation()->getId());
+        $this->assertEquals($anotherLocation2->getId(), $this->freshEntity($sensor)->getLocation()->getId());
+    }
+
     public function testDeletingLevelSensorRemovesItFromTankConfirm() {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
         $tank = $device->getChannels()[0];

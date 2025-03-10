@@ -58,6 +58,8 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             'auxThermometerChannelId',
             'pumpSwitchChannelId',
             'heatOrColdSourceSwitchChannelId',
+            'floodSensorChannelIds',
+            'levelSensorChannelIds',
         ]);
         return [
             'channels' => array_values($dependentChannels),
