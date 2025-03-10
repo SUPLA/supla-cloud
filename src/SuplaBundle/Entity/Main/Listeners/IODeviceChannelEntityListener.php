@@ -77,6 +77,9 @@ class IODeviceChannelEntityListener {
             ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             ChannelType::GENERAL_PURPOSE_METER,
             ChannelType::ELECTRICITYMETER,
+            ChannelType::THERMOMETER,
+            ChannelType::HUMIDITYSENSOR,
+            ChannelType::HUMIDITYANDTEMPSENSOR,
         ];
         $onlyOcrChanged = $changes->getValue() === ChannelConfigChangeScope::OCR;
         if (!in_array($channel->getType()->getId(), $typesThatDoesNotTriggerReconnect) && !$onlyOcrChanged) {
