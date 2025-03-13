@@ -571,7 +571,7 @@ class ChannelController extends RestController {
             } elseif ($action === 'muteAlarm') {
                 $state = $channelStateGetter->getState($channel);
                 Assertion::keyExists($state, 'soundAlarmOn', 'Cannot mute alarm for this channel.');
-                $result = $this->suplaServer->channelAction($channel, 'MUTE-ALARM');
+                $result = $this->suplaServer->channelAction($channel, 'MUTE-ALARM-SOUND');
                 Assertion::true($result, 'Could not mute alarm.');
             } elseif ($action === 'takeOcrPhoto') {
                 Assertion::keyExists($channelConfig, 'ocr', 'Cannot take OCR photo.');

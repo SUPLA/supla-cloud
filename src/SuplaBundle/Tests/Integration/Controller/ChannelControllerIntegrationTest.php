@@ -1112,7 +1112,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'action' => 'muteAlarm',
         ]);
         $this->assertStatusCode(200, $client->getResponse());
-        $this->assertSuplaCommandExecuted("MUTE-ALARM:1,{$septicDevice->getId()},{$tankChannel->getId()}");
+        $this->assertSuplaCommandExecuted("MUTE-ALARM-SOUND:1,{$septicDevice->getId()},{$tankChannel->getId()}");
     }
 
     public function testFetchingActionTriggers() {
