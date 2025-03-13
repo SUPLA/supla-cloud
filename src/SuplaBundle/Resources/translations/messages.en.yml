@@ -117,10 +117,10 @@ sunrise-after: the sunrise
 sunrise-before: the sunrise
 sunset-after: the sunset
 sunset-before: the sunset
-tank_alarm_alarmAboveLevel: Alarm above level
-tank_alarm_alarmBelowLevel: Alarm below level
-tank_alarm_warningAboveLevel: Warning above level
-tank_alarm_warningBelowLevel: Warning below level
+tank_alarm_alarmAboveLevel: Alarm at level (and above)
+tank_alarm_alarmBelowLevel: Alarm at level (and below)
+tank_alarm_warningAboveLevel: Warning at level (and above)
+tank_alarm_warningBelowLevel: Warning at level (and below)
 temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Control based on auxilary thermometer
 temperatureControlType_ROOM_TEMPERATURE: Control based on main thermometer
 thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: operation based on a hysteresis with the temperature setpoint set as the upper hysteresis threshold. For example, assuming a hysteresis of 1°C and a target temperature of 23°C, the thermostat will turn on the heating at 22°C and stop working when the temperature reaches 23°C.

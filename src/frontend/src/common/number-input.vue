@@ -2,7 +2,7 @@
     <VueNumber v-model="theValue"
         :max="max"
         v-bind="{decimal: '.', separator: ' ', precision,  suffix}"
-        class="form-control text-center mt-2"
+        class="form-control text-center"
         @change="onChange()"
         @blur="onBlur()"/>
 </template>

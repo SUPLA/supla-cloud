@@ -1574,10 +1574,10 @@ sunset: zachód słońca
 sunset-after: zachodzie
 sunset-before: zachodem
 swap: zamień
-tank_alarm_alarmAboveLevel: Alarm powyżej poziomu
-tank_alarm_alarmBelowLevel: Alarm poniżej poziomu
-tank_alarm_warningAboveLevel: Ostrzeżenie powyżej poziomu
-tank_alarm_warningBelowLevel: Ostrzeżenie poniżej poziomu
+tank_alarm_alarmAboveLevel: Alarm dla poziomu (oraz powyżej)
+tank_alarm_alarmBelowLevel: Alarm dla poziomu (oraz poniżej)
+tank_alarm_warningAboveLevel: Ostrzeżenie dla poziomu (oraz powyżej)
+tank_alarm_warningBelowLevel: Ostrzeżenie dla poziomu (oraz poniżej)
 temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Sterowanie oparte o dodatkowy termometr
 temperatureControlType_ROOM_TEMPERATURE: Sterowanie oparte o główny termometr
 the master thermostat ID{id}: termostatu nadrzędnego ID{id}

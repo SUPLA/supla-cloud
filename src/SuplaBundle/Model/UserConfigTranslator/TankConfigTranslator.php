@@ -63,7 +63,7 @@ class TankConfigTranslator extends UserConfigTranslator {
                 return ['channelNo' => $sensor->getChannelNumber(), 'fillLevel' => $lvlConfig['fillLevel']];
             }, $config['levelSensors']);
             Assert::thatAll(array_column($options, 'fillLevel'), null, 'levelSensors.fillLevel')
-                ->integer()->between(0, 100);
+                ->integer()->between(1, 100);
             Assertion::uniqueValues(
                 array_column($options, 'fillLevel'),
                 'Each container level sensor must have different fill level.' // i18n
@@ -87,6 +87,33 @@ class TankConfigTranslator extends UserConfigTranslator {
             $level = $subject->getUserConfigValue($fillLevel);
             if (is_int($level) && !in_array($level, $availableFillLevels)) {
                 $subject->setUserConfigValue($fillLevel, null);
+            }
+        }
+        if ($subject->getUserConfigValue('warningAboveLevel') !== null && $subject->getUserConfigValue('alarmAboveLevel') !== null) {
+            Assertion::greaterThan(
+                $subject->getUserConfigValue('alarmAboveLevel'),
+                $subject->getUserConfigValue('warningAboveLevel'),
+                'Alarm at level (and above) should be greater than the corresponding warning level.' // i18n
+            );
+        }
+        if ($subject->getUserConfigValue('warningBelowLevel') !== null && $subject->getUserConfigValue('alarmBelowLevel') !== null) {
+            Assertion::lessThan(
+                $subject->getUserConfigValue('alarmBelowLevel'),
+                $subject->getUserConfigValue('warningBelowLevel'),
+                'Alarm at level (and below) should be lower than the corresponding warning level.' // i18n
+            );
+        }
+        foreach (['warningBelowLevel', 'alarmBelowLevel'] as $below) {
+            if ($subject->getUserConfigValue($below) !== null) {
+                foreach (['warningAboveLevel', 'alarmAboveLevel'] as $above) {
+                    if ($subject->getUserConfigValue($above) !== null) {
+                        Assertion::greaterThan(
+                            $subject->getUserConfigValue($above),
+                            $subject->getUserConfigValue($below),
+                            'Warning and alarm at level (and above) should be lower than the warning and alarm at level (and below).' // i18n
+                        );
+                    }
+                }
             }
         }
         if (array_key_exists('muteAlarmSoundWithoutAdditionalAuth', $config)) {

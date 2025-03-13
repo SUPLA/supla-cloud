@@ -3,7 +3,7 @@
         <dl>
             <dd class="valign-top">{{ $t('Level sensors') }}</dd>
             <dt>
-                <div class="mb-3">
+                <div class="mb-3" v-if="levelSensorsDef.length > 0">
                     <div class="d-flex align-items-center bottom-border py-2" v-for="lvl in levelSensorsDef" :key="lvl.id">
                         <div class="flex-grow-1">
                             <h5 class="my-1">
@@ -13,7 +13,7 @@
                                 <dt>{{ $t('Fill level') }}</dt>
                                 <dd>
                                     <NumberInput v-model="lvl.fillLevel"
-                                        :min="0"
+                                        :min="1"
                                         :max="100"
                                         suffix=" %"
                                         class="form-control text-center mt-2"
@@ -37,14 +37,21 @@
         <dl v-for="alarm in availableAlarms" :key="alarm">
             <dd>{{ $t(`tank_alarm_${alarm}`) }}</dd>
             <dt>
-                <NumberInput
-                    v-model="channel.config[alarm]"
-                    v-if="fillLevelInFullRange"
-                    :min="0"
-                    :max="100"
-                    suffix=" %"
-                    class="form-control text-center mt-2"
-                    @input="emit('change')"/>
+                <div class="d-flex align-items-center ml-2" v-if="fillLevelInFullRange">
+                    <label class="checkbox2 checkbox2-grey">
+                        <input type="checkbox" :checked="channel.config[alarm] !== null"
+                            @change="channel.config[alarm] = channel.config[alarm] === null ? 0 : null; emit('change')">
+                    </label>
+                    <NumberInput
+                        v-if="channel.config[alarm] !== null"
+                        v-model="channel.config[alarm]"
+                        :min="0"
+                        :max="100"
+                        suffix=" %"
+                        class="form-control text-center"
+                        @input="emit('change')"/>
+                    <input type="text" class="form-control text-center" disabled :placeholder="$t('Disabled')" v-else/>
+                </div>
                 <div class="dropdown" v-else>
                     <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"
                         type="button"
@@ -115,7 +122,7 @@
     }
 
     function handleNewSensor(newSensor) {
-        levelSensorsDef.value = [...levelSensorsDef.value, {channelId: newSensor.id, fillLevel: 0}];
+        levelSensorsDef.value = [...levelSensorsDef.value, {channelId: newSensor.id, fillLevel: 1}];
     }
 
     function handleRemoveSensor(sensorToRemove) {

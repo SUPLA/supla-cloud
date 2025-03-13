@@ -660,16 +660,16 @@ class DevicesFixture extends SuplaFixture {
                 ChannelFunction::SEPTIC_TANK,
                 [
                     'userConfig' => json_encode([
-                        'warningAboveLevel' => 20,
-                        'alarmAboveLevel' => 30,
-                        'warningBelowLevel' => 40,
-                        'alarmBelowLevel' => 50,
+                        'warningAboveLevel' => 75,
+                        'alarmAboveLevel' => 95,
+                        'warningBelowLevel' => 25,
+                        'alarmBelowLevel' => 15,
                         'muteAlarmSoundWithoutAdditionalAuth' => false,
                         'sensors' => [
-                            ['channelNo' => 1, 'fillLevel' => 20],
-                            ['channelNo' => 2, 'fillLevel' => 30],
-                            ['channelNo' => 3, 'fillLevel' => 40],
-                            ['channelNo' => 4, 'fillLevel' => 50],
+                            ['channelNo' => 1, 'fillLevel' => 75],
+                            ['channelNo' => 2, 'fillLevel' => 95],
+                            ['channelNo' => 3, 'fillLevel' => 25],
+                            ['channelNo' => 4, 'fillLevel' => 15],
                         ],
                     ]),
                 ],
@@ -710,10 +710,10 @@ class DevicesFixture extends SuplaFixture {
                 [
                     'caption' => 'Full fill level tank',
                     'userConfig' => json_encode([
-                        'warningAboveLevel' => 20,
-                        'alarmAboveLevel' => 30,
+                        'warningAboveLevel' => 80,
+                        'alarmAboveLevel' => 99,
                         'warningBelowLevel' => 40,
-                        'alarmBelowLevel' => 50,
+                        'alarmBelowLevel' => 33,
                         'muteAlarmSoundWithoutAdditionalAuth' => false,
                         'sensors' => [
                             ['channelNo' => 1, 'fillLevel' => 20],

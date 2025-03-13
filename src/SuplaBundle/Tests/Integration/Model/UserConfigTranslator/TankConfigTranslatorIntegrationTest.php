@@ -52,10 +52,10 @@ class TankConfigTranslatorIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('alarmBelowLevel', $config);
         $this->assertArrayHasKey('muteAlarmSoundWithoutAdditionalAuth', $config);
         $this->assertArrayHasKey('fillLevelReportingInFullRange', $config);
-        $this->assertEquals(20, $config['warningAboveLevel']);
-        $this->assertEquals(30, $config['alarmAboveLevel']);
-        $this->assertEquals(40, $config['warningBelowLevel']);
-        $this->assertEquals(50, $config['alarmBelowLevel']);
+        $this->assertEquals(75, $config['warningAboveLevel']);
+        $this->assertEquals(95, $config['alarmAboveLevel']);
+        $this->assertEquals(25, $config['warningBelowLevel']);
+        $this->assertEquals(15, $config['alarmBelowLevel']);
         $this->assertEquals(false, $config['muteAlarmSoundWithoutAdditionalAuth']);
         $this->assertEquals(false, $config['fillLevelReportingInFullRange']);
     }
@@ -109,18 +109,19 @@ class TankConfigTranslatorIntegrationTest extends IntegrationTestCase {
             'levelSensors' => [
                 ['channelId' => $device->getChannels()[5]->getId(), 'fillLevel' => 75],
                 ['channelId' => $device->getChannels()[6]->getId(), 'fillLevel' => 95],
-                ['channelId' => $device->getChannels()[7]->getId(), 'fillLevel' => 99],
+                ['channelId' => $device->getChannels()[7]->getId(), 'fillLevel' => 25],
+                ['channelId' => $device->getChannels()[8]->getId(), 'fillLevel' => 15],
             ],
-            'warningAboveLevel' => 0,
-            'alarmAboveLevel' => 75,
-            'warningBelowLevel' => 95,
-            'alarmBelowLevel' => 99,
+            'warningAboveLevel' => 75,
+            'alarmAboveLevel' => 95,
+            'warningBelowLevel' => 25,
+            'alarmBelowLevel' => 15,
             'muteAlarmSoundWithoutAdditionalAuth' => true,
         ]);
-        $this->assertEquals(0, $tank->getUserConfigValue('warningAboveLevel'));
-        $this->assertEquals(75, $tank->getUserConfigValue('alarmAboveLevel'));
-        $this->assertEquals(95, $tank->getUserConfigValue('warningBelowLevel'));
-        $this->assertEquals(99, $tank->getUserConfigValue('alarmBelowLevel'));
+        $this->assertEquals(75, $tank->getUserConfigValue('warningAboveLevel'));
+        $this->assertEquals(95, $tank->getUserConfigValue('alarmAboveLevel'));
+        $this->assertEquals(25, $tank->getUserConfigValue('warningBelowLevel'));
+        $this->assertEquals(15, $tank->getUserConfigValue('alarmBelowLevel'));
         $this->assertTrue($tank->getUserConfigValue('muteAlarmSoundWithoutAdditionalAuth'));
     }
 
@@ -128,8 +129,8 @@ class TankConfigTranslatorIntegrationTest extends IntegrationTestCase {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
         $tank = $device->getChannels()[0];
         $this->translator->setConfig($tank, [
-            'levelSensors' => [['channelId' => $device->getChannels()[2]->getId(), 'fillLevel' => 15]],
-            'warningAboveLevel' => 15,
+            'levelSensors' => [['channelId' => $device->getChannels()[2]->getId(), 'fillLevel' => 65]],
+            'warningAboveLevel' => 65,
         ]);
         $this->translator->setConfig($tank, [
             'levelSensors' => [['channelId' => $device->getChannels()[2]->getId(), 'fillLevel' => 25]],
@@ -164,8 +165,27 @@ class TankConfigTranslatorIntegrationTest extends IntegrationTestCase {
         $tankWithFullLevelReporting = $device->getChannels()[22];
         $this->translator->setConfig($tankWithFullLevelReporting, [
             'levelSensors' => [['channelId' => $device->getChannels()[2]->getId(), 'fillLevel' => 15]],
-            'warningAboveLevel' => 25,
+            'warningAboveLevel' => 55,
         ]);
-        $this->assertEquals(25, $tankWithFullLevelReporting->getUserConfigValue('warningAboveLevel'));
+        $this->assertEquals(55, $tankWithFullLevelReporting->getUserConfigValue('warningAboveLevel'));
+    }
+
+    /** @dataProvider invalidWarningAlarmRanges */
+    public function testInvalidWarningAlarmRanges(array $invalidConfig) {
+        $this->expectException(\InvalidArgumentException::class);
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
+        $tankWithFullLevelReporting = $device->getChannels()[22];
+        $this->translator->setConfig($tankWithFullLevelReporting, $invalidConfig);
+    }
+
+    public static function invalidWarningAlarmRanges() {
+        return [
+            [['warningAboveLevel' => 70, 'alarmAboveLevel' => 60, 'warningBelowLevel' => 50, 'alarmBelowLevel' => 40]],
+            [['warningAboveLevel' => 70, 'alarmAboveLevel' => 80, 'warningBelowLevel' => 30, 'alarmBelowLevel' => 40]],
+            [['warningAboveLevel' => 70, 'alarmAboveLevel' => 80, 'warningBelowLevel' => 90, 'alarmBelowLevel' => 80]],
+            [['warningAboveLevel' => 70, 'alarmAboveLevel' => null, 'warningBelowLevel' => 90, 'alarmBelowLevel' => null]],
+            [['warningAboveLevel' => null, 'alarmAboveLevel' => 80, 'warningBelowLevel' => null, 'alarmBelowLevel' => 90]],
+            [['warningAboveLevel' => 60, 'alarmAboveLevel' => null, 'warningBelowLevel' => null, 'alarmBelowLevel' => 80]],
+        ];
     }
 }
