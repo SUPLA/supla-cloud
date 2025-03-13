@@ -493,14 +493,30 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient();
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATEWAYLOCK],
+            [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
         ]);
-        $relayChannel = $anotherDevice->getChannels()[0];
-        $client->apiRequestV3('PUT', '/api/channels/' . $relayChannel->getId(), ['config' => ['relayTimeMs' => 2000]]);
+        $thermometerChannel = $anotherDevice->getChannels()[0];
+        $client->apiRequestV3('PUT', '/api/channels/' . $thermometerChannel->getId(), ['config' => ['temperatureAdjustment' => 1.1]]);
         $this->assertStatusCode(200, $client->getResponse());
-        $this->getEntityManager()->refresh($relayChannel);
-        $this->assertEquals(2000, $relayChannel->getParam1(), 'Opening time has been set.');
+        $this->getEntityManager()->refresh($thermometerChannel);
+        $this->assertEquals(110, $thermometerChannel->getUserConfigValue('temperatureAdjustment'));
         $this->assertSuplaCommandExecuted('USER-RECONNECT:1');
+    }
+
+    public function testChangingChannelConfigWithoutReconnectIfFlagSet() {
+        $client = $this->createAuthenticatedClient();
+        $this->simulateAuthentication($this->user);
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
+        ]);
+        $thermometerChannel = $anotherDevice->getChannels()[0];
+        EntityUtils::setField($thermometerChannel, 'flags', $thermometerChannel->getFlags() | ChannelFunctionBitsFlags::RUNTIME_CHANNEL_CONFIG_UPDATE);
+        $this->persist($thermometerChannel);
+        $client->apiRequestV3('PUT', '/api/channels/' . $thermometerChannel->getId(), ['config' => ['temperatureAdjustment' => 1.1]]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->getEntityManager()->refresh($thermometerChannel);
+        $this->assertEquals(110, $thermometerChannel->getUserConfigValue('temperatureAdjustment'));
+        $this->assertSuplaCommandNotExecuted('USER-RECONNECT:1');
     }
 
     public function testChangingChannelFunctionFromPowerswitchToOpeningGateWithConfig() {

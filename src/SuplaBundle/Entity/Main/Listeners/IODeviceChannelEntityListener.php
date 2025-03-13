@@ -6,6 +6,7 @@ use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelConfigChangeScope;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\PrzemekBitsBuilder;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -80,9 +81,13 @@ class IODeviceChannelEntityListener {
             ChannelType::THERMOMETER,
             ChannelType::HUMIDITYSENSOR,
             ChannelType::HUMIDITYANDTEMPSENSOR,
+            ChannelType::SENSORNO,
+            ChannelType::CONTAINER,
         ];
+        $runtimeUpdateSupported = in_array($channel->getType()->getId(), $typesThatDoesNotTriggerReconnect)
+            && ChannelFunctionBitsFlags::RUNTIME_CHANNEL_CONFIG_UPDATE()->isSupported($channel->getFlags());
         $onlyOcrChanged = $changes->getValue() === ChannelConfigChangeScope::OCR;
-        if (!in_array($channel->getType()->getId(), $typesThatDoesNotTriggerReconnect) && !$onlyOcrChanged) {
+        if (!$runtimeUpdateSupported && !$onlyOcrChanged) {
             $this->suplaServer->reconnect($channel->getUser());
         }
     }
