@@ -510,7 +510,11 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
         ]);
         $thermometerChannel = $anotherDevice->getChannels()[0];
-        EntityUtils::setField($thermometerChannel, 'flags', $thermometerChannel->getFlags() | ChannelFunctionBitsFlags::RUNTIME_CHANNEL_CONFIG_UPDATE);
+        EntityUtils::setField(
+            $thermometerChannel,
+            'flags',
+            $thermometerChannel->getFlags() | ChannelFunctionBitsFlags::RUNTIME_CHANNEL_CONFIG_UPDATE
+        );
         $this->persist($thermometerChannel);
         $client->apiRequestV3('PUT', '/api/channels/' . $thermometerChannel->getId(), ['config' => ['temperatureAdjustment' => 1.1]]);
         $this->assertStatusCode(200, $client->getResponse());
