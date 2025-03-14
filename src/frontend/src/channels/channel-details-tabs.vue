@@ -21,7 +21,7 @@
 
 <script>
     import ChannelFunction from "../common/enums/channel-function";
-    import {ChannelFunctionTriggers} from "@/channels/reactions/channel-function-triggers";
+    import {getTriggerDefinitionsForChannel} from "@/channels/reactions/channel-function-triggers";
     import EventBus from "@/common/event-bus";
     import {mapStores} from "pinia";
     import {useChannelsStore} from "@/stores/channels-store";
@@ -48,7 +48,7 @@
                         header: 'Week', // i18n
                     });
                 }
-                if (ChannelFunctionTriggers[this.channel.functionId]) {
+                if (getTriggerDefinitionsForChannel(this.channel).length > 0) {
                     this.availableTabs.push({
                         route: 'channel.reactions',
                         header: 'Reactions', // i18n

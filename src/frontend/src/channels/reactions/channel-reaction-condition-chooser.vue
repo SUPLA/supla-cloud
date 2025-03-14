@@ -32,7 +32,7 @@
 
 <script>
     import TransitionExpand from "@/common/gui/transition-expand.vue";
-    import {ChannelFunctionTriggers, findTriggerDefinition} from "@/channels/reactions/channel-function-triggers";
+    import {findTriggerDefinition, getTriggerDefinitionsForChannel} from "@/channels/reactions/channel-function-triggers";
 
     export default {
         components: {TransitionExpand},
@@ -47,7 +47,7 @@
         },
         beforeMount() {
             if (!this.currentCondition && this.value) {
-                this.currentCondition = findTriggerDefinition(this.subject.functionId, this.value);
+                this.currentCondition = findTriggerDefinition(this.subject, this.value);
             }
             if (!this.currentCondition && this.possibleConditions.length === 1) {
                 this.changeCondition(this.possibleConditions[0]);
@@ -74,14 +74,13 @@
                 }
             },
             possibleConditions() {
-                return (ChannelFunctionTriggers[this.subject.functionId] || [])
-                    .filter((trigger) => !trigger.canBeSetForChannel || trigger.canBeSetForChannel(this.subject));
+                return getTriggerDefinitionsForChannel(this.subject);
             }
         },
         watch: {
             value() {
                 if (this.value) {
-                    this.currentCondition = findTriggerDefinition(this.subject.functionId, this.value);
+                    this.currentCondition = findTriggerDefinition(this.subject, this.value);
                 }
             }
         }

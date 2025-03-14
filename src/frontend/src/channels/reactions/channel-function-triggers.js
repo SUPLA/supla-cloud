@@ -5,7 +5,7 @@ import {isEqual, uniq} from "lodash";
 import {measurementUnit} from "@/channels/channel-helpers";
 import {i18n} from "@/locale";
 
-export const ChannelFunctionTriggers = {
+const ChannelFunctionTriggers = {
     [ChannelFunction.HUMIDITYANDTEMPERATURE]: [
         {
             caption: () => 'When the temperature reaches a certain value', // i18n
@@ -101,166 +101,6 @@ export const ChannelFunctionTriggers = {
         {caption: () => 'When a lack of liquid is detected', def: () => ({on_change_to: {eq: 'lo'}})}, // i18n
         {caption: () => 'When liquid is detected', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
         {caption: () => 'When liquid or lack thereof is detected', def: () => ({on_change: {}})}, // i18n
-    ],
-    [ChannelFunction.CONTROLLINGTHEROLLERSHUTTER]: [
-        {
-            caption: () => 'When the roller shutter reaches a certain position', // i18n
-            test: (t) => !!t.on_change_to && !t.on_change_to.name,
-            component: ReactionConditionThreshold,
-            props: {
-                min: () => 0, max: () => 100, step: () => 1,
-                unit: () => '% of closing', // i18n
-                labelI18n: () => 'When the roller shutter reaches', // i18n
-                resumeLabelI18n: () => 'and wait until it reaches', // i18n
-            },
-        },
-        {
-            caption: () => 'When the roller shutter calibration failed', // i18n
-            test: (t) => t.on_change_to?.name === 'calibration_failed',
-            def: () => ({on_change_to: {eq: 'on', name: 'calibration_failed'}}),
-            canBeSetForChannel: (channel) => channel.config.autoCalibrationAvailable,
-        },
-        {
-            caption: () => 'When the roller shutter calibration has started', // i18n
-            test: (t) => t.on_change_to?.name === 'calibration_in_progress',
-            def: () => ({on_change_to: {eq: 'on', name: 'calibration_in_progress'}}),
-            canBeSetForChannel: (channel) => channel.config.autoCalibrationAvailable,
-        },
-        {
-            caption: () => 'When the roller shutter calibration has been lost', // i18n
-            test: (t) => t.on_change_to?.name === 'calibration_lost',
-            def: () => ({on_change_to: {eq: 'on', name: 'calibration_lost'}}),
-            canBeSetForChannel: (channel) => channel.config.autoCalibrationAvailable,
-        },
-        {
-            caption: () => 'When the roller shutter motor reported a problem', // i18n
-            test: (t) => t.on_change_to?.name === 'motor_problem',
-            def: () => ({on_change_to: {eq: 'on', name: 'motor_problem'}}),
-            canBeSetForChannel: (channel) => channel.config.autoCalibrationAvailable,
-        },
-        {
-            caption: () => 'When the roller shutter position changes', // i18n
-            def: () => ({on_change: {}})
-        },
-    ],
-    [ChannelFunction.TERRACE_AWNING]: [
-        {
-            caption: () => 'When the terrace awning reaches a certain position', // i18n
-            test: (t) => !!t.on_change_to,
-            component: ReactionConditionThreshold,
-            props: {
-                min: () => 0, max: () => 100, step: () => 1,
-                unit: () => '% of extension', // i18n
-                labelI18n: () => 'When the terrace awning reaches', // i18n
-                resumeLabelI18n: () => 'and wait until it reaches', // i18n
-            },
-        },
-        {
-            caption: () => 'When the terrace awning position changes', // i18n
-            def: () => ({on_change: {}})
-        },
-    ],
-    [ChannelFunction.PROJECTOR_SCREEN]: [
-        {
-            caption: () => 'When the projector screen reaches a certain position', // i18n
-            test: (t) => !!t.on_change_to,
-            component: ReactionConditionThreshold,
-            props: {
-                min: () => 0, max: () => 100, step: () => 1,
-                unit: () => '% of closing', // i18n
-                labelI18n: () => 'When the projector screen reaches', // i18n
-                resumeLabelI18n: () => 'and wait until it reaches', // i18n
-            },
-        },
-        {
-            caption: () => 'When the projector screen position changes', // i18n
-            def: () => ({on_change: {}})
-        },
-    ],
-    [ChannelFunction.CURTAIN]: [
-        {
-            caption: () => 'When the curtain reaches a certain position', // i18n
-            test: (t) => !!t.on_change_to,
-            component: ReactionConditionThreshold,
-            props: {
-                min: () => 0, max: () => 100, step: () => 1,
-                unit: () => '% of closing', // i18n
-                labelI18n: () => 'When the curtain reaches', // i18n
-                resumeLabelI18n: () => 'and wait until it reaches', // i18n
-            },
-        },
-        {
-            caption: () => 'When the curtain position changes', // i18n
-            def: () => ({on_change: {}})
-        },
-    ],
-    [ChannelFunction.ROLLER_GARAGE_DOOR]: [
-        {
-            caption: () => 'When the roller garage door a certain position', // i18n
-            test: (t) => !!t.on_change_to,
-            component: ReactionConditionThreshold,
-            props: {
-                min: () => 0, max: () => 100, step: () => 1,
-                unit: () => '% of closing', // i18n
-                labelI18n: () => 'When the roller garage door reaches', // i18n
-                resumeLabelI18n: () => 'and wait until it reaches', // i18n
-            },
-        },
-        {
-            caption: () => 'When the roller garage door position changes', // i18n
-            def: () => ({on_change: {}})
-        },
-    ],
-    [ChannelFunction.CONTROLLINGTHEFACADEBLIND]: [
-        {
-            caption: () => 'When the facade blind reaches a certain position', // i18n
-            test: (t) => !!t.on_change_to,
-            component: ReactionConditionThreshold,
-            props: {
-                min: () => 0, max: () => 100, step: () => 1,
-                unit: () => '% of closing', // i18n
-                labelI18n: () => 'When the facade blind reaches', // i18n
-                resumeLabelI18n: () => 'and wait until it reaches', // i18n
-            },
-        },
-        {
-            caption: () => 'When the facade blind position changes', // i18n
-            def: () => ({on_change: {}})
-        },
-    ],
-    [ChannelFunction.VERTICAL_BLIND]: [
-        {
-            caption: () => 'When the vertical blind reaches a certain position', // i18n
-            test: (t) => !!t.on_change_to,
-            component: ReactionConditionThreshold,
-            props: {
-                min: () => 0, max: () => 100, step: () => 1,
-                unit: () => '% of closing', // i18n
-                labelI18n: () => 'When the vertical blind reaches', // i18n
-                resumeLabelI18n: () => 'and wait until it reaches', // i18n
-            },
-        },
-        {
-            caption: () => 'When the vertical blind position changes', // i18n
-            def: () => ({on_change: {}})
-        },
-    ],
-    [ChannelFunction.CONTROLLINGTHEROOFWINDOW]: [
-        {
-            caption: () => 'When the roof window reaches a certain position', // i18n
-            test: (t) => !!t.on_change_to,
-            component: ReactionConditionThreshold,
-            props: {
-                min: () => 0, max: () => 100, step: () => 1,
-                unit: () => '% of closing', // i18n
-                labelI18n: () => 'When the roof window reaches', // i18n
-                resumeLabelI18n: () => 'and wait until it reaches', // i18n
-            },
-        },
-        {
-            caption: () => 'When the roof window position changes', // i18n
-            def: () => ({on_change: {}})
-        },
     ],
     [ChannelFunction.POWERSWITCH]: [
         {caption: () => 'When the device is turned on', def: () => ({on_change_to: {eq: 'on'}})}, // i18n
@@ -802,6 +642,66 @@ export const ChannelFunctionTriggers = {
     ]
 };
 
+const REACTIONS = [
+    {
+        captions: {
+            [ChannelFunction.CONTROLLINGTHEROLLERSHUTTER]: 'When the roller shutter reaches a certain position', // i18n
+            [ChannelFunction.PROJECTOR_SCREEN]: 'When the projector screen reaches a certain position', // i18n
+            [ChannelFunction.CONTROLLINGTHEFACADEBLIND]: 'When the facade blind reaches a certain position', // i18n
+            [ChannelFunction.CURTAIN]: 'When the curtain reaches a certain position', // i18n
+            [ChannelFunction.TERRACE_AWNING]: 'When the terrace awning reaches a certain position', // i18n
+            [ChannelFunction.VERTICAL_BLIND]: 'When the vertical blind reaches a certain position', // i18n
+            [ChannelFunction.ROLLER_GARAGE_DOOR]: 'When the roller garage door reaches a certain position', // i18n
+            [ChannelFunction.CONTROLLINGTHEROOFWINDOW]: 'When the roof window reaches a certain position', // i18n
+        },
+        test: (t) => !!t.on_change_to && !t.on_change_to.name,
+        component: ReactionConditionThreshold,
+        props: {
+            min: () => 0, max: () => 100, step: () => 1,
+            unit: () => '% of closing', // i18n
+            labelI18n: () => 'When the position reaches', // i18n
+            resumeLabelI18n: () => 'and wait until it reaches', // i18n
+        },
+    },
+    {
+        caption: () => 'When the calibration fails', // i18n
+        test: (t) => t.on_change_to?.name === 'calibration_failed',
+        def: () => ({on_change_to: {eq: 'on', name: 'calibration_failed'}}),
+        canBeSetForChannel: (channel) => channel.config?.autoCalibrationAvailable,
+    },
+    {
+        caption: () => 'When the calibration has started', // i18n
+        test: (t) => t.on_change_to?.name === 'calibration_in_progress',
+        def: () => ({on_change_to: {eq: 'on', name: 'calibration_in_progress'}}),
+        canBeSetForChannel: (channel) => channel.config?.autoCalibrationAvailable,
+    },
+    {
+        caption: () => 'When the calibration has been lost', // i18n
+        test: (t) => t.on_change_to?.name === 'calibration_lost',
+        def: () => ({on_change_to: {eq: 'on', name: 'calibration_lost'}}),
+        canBeSetForChannel: (channel) => channel.config?.autoCalibrationAvailable,
+    },
+    {
+        caption: () => 'When the motor reported a problem', // i18n
+        test: (t) => t.on_change_to?.name === 'motor_problem',
+        def: () => ({on_change_to: {eq: 'on', name: 'motor_problem'}}),
+        canBeSetForChannel: (channel) => channel.config?.autoCalibrationAvailable,
+    },
+    {
+        captions: {
+            [ChannelFunction.CONTROLLINGTHEROLLERSHUTTER]: 'When the roller shutter position changes', // i18n
+            [ChannelFunction.PROJECTOR_SCREEN]: 'When the projector screen position changes', // i18n
+            [ChannelFunction.CONTROLLINGTHEFACADEBLIND]: 'When the facade blind position changes', // i18n
+            [ChannelFunction.CURTAIN]: 'When the curtain position changes', // i18n
+            [ChannelFunction.TERRACE_AWNING]: 'When the terrace awning position changes', // i18n
+            [ChannelFunction.VERTICAL_BLIND]: 'When the vertical blind position changes', // i18n
+            [ChannelFunction.ROLLER_GARAGE_DOOR]: 'When the roller garage door position changes', // i18n
+            [ChannelFunction.CONTROLLINGTHEROOFWINDOW]: 'When the roof window position changes', // i18n
+        },
+        def: () => ({on_change: {}}),
+    },
+];
+
 ChannelFunctionTriggers[ChannelFunction.THERMOMETER] = [
     ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][0],
     ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][1],
@@ -824,12 +724,26 @@ ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL] = ChannelFunc
 ChannelFunctionTriggers[ChannelFunction.SEPTIC_TANK] = ChannelFunctionTriggers[ChannelFunction.CONTAINER];
 ChannelFunctionTriggers[ChannelFunction.WATER_TANK] = ChannelFunctionTriggers[ChannelFunction.CONTAINER];
 
-export function findTriggerDefinition(channelFunction, trigger) {
-    return (ChannelFunctionTriggers[channelFunction] || []).find(t => t.test ? t.test(trigger) : isEqual(t.def(), trigger));
+export function getTriggerDefinitionsForChannel(channel) {
+    const reactions = [...(ChannelFunctionTriggers[channel.functionId] || []), ...REACTIONS]
+        .filter((trigger) => !trigger.canBeSetForChannel || trigger.canBeSetForChannel(channel))
+        .filter((trigger) => !trigger.captions || trigger.captions[channel.functionId]);
+    return reactions.map((def) => {
+        if (def.captions && !def.caption) {
+            def.caption = function (channel) {
+                return this.captions[channel.functionId];
+            }
+        }
+        return def;
+    });
+}
+
+export function findTriggerDefinition(channel, trigger) {
+    return getTriggerDefinitionsForChannel(channel).find(t => t.test ? t.test(trigger) : isEqual(t.def(), trigger));
 }
 
 export function reactionTriggerCaption(reaction) {
-    const triggerDef = findTriggerDefinition(reaction.owningChannel.functionId, reaction.trigger);
+    const triggerDef = findTriggerDefinition(reaction.owningChannel, reaction.trigger);
     if (triggerDef) {
         if ([ReactionConditionThreshold, ReactionConditionElectricitymeter].includes(triggerDef.component)) {
             const onChangeTo = reaction.trigger?.on_change_to || {};

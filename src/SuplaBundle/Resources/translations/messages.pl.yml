@@ -1266,10 +1266,10 @@ When the reverse active energy will be: Gdy zwrócona energia czynna będzie
 When the roller garage door a certain position: Gdy brama garażowa osiąga określoną pozycję
 When the roller garage door position changes: Gdy brama garażowa zmienia pozycję
 When the roller garage door reaches: Gdy brama garażowa osiąga
-When the roller shutter calibration failed: Gdy kalibracja rolety zakończy się błędem
-When the roller shutter calibration has been lost: Gdy kalibracja rolety nie będzie w stanie się zakończyć
-When the roller shutter calibration has started: Gdy kalibracja rolety się rozpocznie
-When the roller shutter motor reported a problem: Gdy silnik rolety zgłosi problem
+When the calibration fails: Gdy kalibracja zakończy się błędem
+When the calibration has been lost: Gdy kalibracja zostanie utracona
+When the calibration has started: Gdy kalibracja się rozpocznie
+When the motor reported a problem: Gdy silnik zgłosi problem
 When the roller shutter position changes: Gdy zmieni się pozycja rolety
 When the roller shutter reaches: Gdy roleta osiągnie
 When the roller shutter reaches a certain position: Gdy roleta osiągnie określoną pozycję

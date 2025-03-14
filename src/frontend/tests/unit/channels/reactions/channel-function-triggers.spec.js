@@ -1,5 +1,5 @@
 import ChannelFunction from "@/common/enums/channel-function";
-import {ChannelFunctionTriggers, reactionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
+import {getTriggerDefinitionsForChannel, reactionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
 
 describe('ChannelFunctionTriggers', () => {
     it('defines triggers for all functions', () => {
@@ -22,13 +22,13 @@ describe('ChannelFunctionTriggers', () => {
             ChannelFunction.CONTAINER_LEVEL_SENSOR,
         ];
         for (const fncName in ChannelFunction) {
-            const fncId = ChannelFunction[fncName];
-            if (!functionsToSkip.includes(fncId)) {
-                expect(ChannelFunctionTriggers).toHaveProperty(fncId.toString());
+            const functionId = ChannelFunction[fncName];
+            if (!functionsToSkip.includes(functionId)) {
+                expect(getTriggerDefinitionsForChannel({functionId, config: {}})).not.empty;
             }
         }
-        for (const fncId of functionsToSkip) {
-            expect(ChannelFunctionTriggers).not.toHaveProperty(fncId.toString());
+        for (const functionId of functionsToSkip) {
+            expect(getTriggerDefinitionsForChannel({functionId, config: {}})).empty;
         }
     });
 
@@ -49,7 +49,7 @@ describe('ChannelFunctionTriggers', () => {
 
         it.each(tests)('humanizes trigger to %p', (expectedText, functionId, trigger) => {
             const reaction = {
-                owningChannel: {functionId},
+                owningChannel: {functionId, config: {}},
                 trigger,
             };
             const humanized = reactionTriggerCaption(reaction, {
