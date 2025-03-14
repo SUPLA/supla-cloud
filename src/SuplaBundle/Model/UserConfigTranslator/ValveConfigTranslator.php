@@ -22,6 +22,7 @@ class ValveConfigTranslator extends UserConfigTranslator {
                 )));
             }
         }
+        $config['motorAlarmSupported'] = ChannelFunctionBitsFlags::VALVE_MOTOR_ALARM_SUPPORTED()->isSupported($subject->getFlags());
         return $config;
     }
 

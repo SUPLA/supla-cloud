@@ -685,7 +685,7 @@ const REACTIONS = [
         caption: () => 'When the motor reported a problem', // i18n
         test: (t) => t.on_change_to?.name === 'motor_problem',
         def: () => ({on_change_to: {eq: 'on', name: 'motor_problem'}}),
-        canBeSetForChannel: (channel) => channel.config?.autoCalibrationAvailable,
+        canBeSetForChannel: (channel) => channel.config?.autoCalibrationAvailable || channel.config?.motorAlarmSupported,
     },
     {
         captions: {

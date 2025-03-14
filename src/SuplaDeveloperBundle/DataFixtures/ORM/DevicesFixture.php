@@ -691,7 +691,7 @@ class DevicesFixture extends SuplaFixture {
                     'userConfig' => json_encode([
                         'sensorChannelNumbers' => [12, 13, 14],
                     ]),
-                    'flags' => ChannelFunctionBitsFlags::FLOOD_SENSORS_SUPPORTED,
+                    'flags' => ChannelFunctionBitsFlags::FLOOD_SENSORS_SUPPORTED | ChannelFunctionBitsFlags::VALVE_MOTOR_ALARM_SUPPORTED,
                 ],
             ],
             [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],

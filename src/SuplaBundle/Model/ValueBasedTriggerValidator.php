@@ -198,6 +198,7 @@ class ValueBasedTriggerValidator {
             ChannelFunction::CURTAIN,
             ChannelFunction::ROLLER_GARAGE_DOOR,
             ChannelFunction::VERTICAL_BLIND,
+            ChannelFunction::VALVEOPENCLOSE,
         ],
         'invalid_value' => [
             ChannelFunction::CONTAINER,
