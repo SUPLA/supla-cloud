@@ -145,7 +145,9 @@ trait UserFixtures {
             if (in_array($channel->getType()->getId(), [ChannelType::RELAY, ChannelType::HVAC])) {
                 $fieldSetter->call($channel, 'funcList', ChannelFunctionBitsFlist::getAllFeaturesFlag());
             }
-            $fieldSetter->call($channel, 'flags', 0b1111111111);
+            if (isset($channelData[2])) {
+                AnyFieldSetter::set($channel, $channelData[2]);
+            }
             $this->getEntityManager()->persist($channel);
             $this->getEntityManager()->flush();
         }

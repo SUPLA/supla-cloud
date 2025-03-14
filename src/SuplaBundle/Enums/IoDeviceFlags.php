@@ -24,7 +24,6 @@ namespace SuplaBundle\Enums;
  * @method static IoDeviceFlags DEVICE_LOCKED()
  * @method static IoDeviceFlags PAIRING_SUBDEVICES_AVAILABLE()
  * @method static IoDeviceFlags ALWAYS_ALLOW_CHANNEL_DELETION()
- * @method static IoDeviceFlags ALWAYS_ALLOW_SUBDEVICE_CHANNEL_DELETION()
  * @method static IoDeviceFlags BLOCK_ADDING_CHANNELS_AFTER_DELETION()
  * @method static IoDeviceFlags IDENTIFY_DEVICE_AVAILABLE()
  */

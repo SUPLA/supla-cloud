@@ -33,6 +33,7 @@ namespace SuplaBundle\Enums;
  * @method static ChannelFunctionBitsFlags FLOOD_SENSORS_SUPPORTED()
  * @method static ChannelFunctionBitsFlags TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE()
  * @method static ChannelFunctionBitsFlags VALVE_MOTOR_ALARM_SUPPORTED()
+ * @method static ChannelFunctionBitsFlags ALWAYS_ALLOW_CHANNEL_DELETION()
  */
 final class ChannelFunctionBitsFlags extends ChannelFunctionBits {
     /** @see https://github.com/SUPLA/supla-core/blob/ffa56e4579812c50ca15202c698d0c1d363a0258/supla-common/proto.h#L458 */
@@ -56,4 +57,5 @@ final class ChannelFunctionBitsFlags extends ChannelFunctionBits {
     const FLOOD_SENSORS_SUPPORTED = 0x0010;
     const TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE = 0x0020;
     const VALVE_MOTOR_ALARM_SUPPORTED = 0x0040;
+    const ALWAYS_ALLOW_CHANNEL_DELETION = 0x0200;
 }

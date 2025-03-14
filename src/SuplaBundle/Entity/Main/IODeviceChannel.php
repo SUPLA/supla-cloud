@@ -533,6 +533,6 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         $deviceFlags = $this->getIoDevice()->getFlagsInt();
         return $this->getConflictDetails() ||
             IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($deviceFlags) ||
-            (IoDeviceFlags::ALWAYS_ALLOW_SUBDEVICE_CHANNEL_DELETION()->isOn($deviceFlags) && $this->subDeviceId > 0);
+            ChannelFunctionBitsFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($this->flags);
     }
 }

@@ -77,7 +77,11 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
             [ChannelType::RELAY, ChannelFunction::NONE],
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
-            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEFACADEBLIND],
+            [
+                ChannelType::RELAY,
+                ChannelFunction::CONTROLLINGTHEFACADEBLIND,
+                ['flags' => ChannelFunctionBitsFlags::ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS],
+            ],
             [ChannelType::RELAY, ChannelFunction::PROJECTOR_SCREEN],
         ]);
         $this->createDevice($this->location, [
@@ -1698,10 +1702,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testDeletingChannelFromSubdevicesOnly() {
         $sonoff = $this->createDeviceSonoff($this->location);
-        EntityUtils::setField($sonoff, 'flags', IoDeviceFlags::ALWAYS_ALLOW_SUBDEVICE_CHANNEL_DELETION);
-        $sonoff = $this->persist($sonoff);
         $switch = $sonoff->getChannels()[0];
-        EntityUtils::setField($switch, 'subDeviceId', 1);
+        EntityUtils::setField($switch, 'flags', ChannelFunctionBitsFlags::ALWAYS_ALLOW_CHANNEL_DELETION);
         $switch = $this->persist($switch);
         $thermometer = $sonoff->getChannels()[1];
         $this->assertTrue($switch->isDeletable());
