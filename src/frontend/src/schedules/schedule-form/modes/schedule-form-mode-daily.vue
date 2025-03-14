@@ -136,7 +136,8 @@
 
     .daily-checkboxes {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
     }
 
     .schedule-mode-daily-header {
