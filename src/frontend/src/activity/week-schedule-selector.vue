@@ -31,7 +31,7 @@
                     {{ hourLabelStart(hour) }} - {{ hourLabelEnd(hour) }}
                 </th>
                 <td v-for="weekday in [1,2,3,4,5,6,7]"
-                    :class="['hidden-xs', 'weekday-column-' + weekday, {'current-hover': currentHover[0] === weekday || currentHover[1] === hour}]"
+                    :class="['hidden-xs', 'weekday-column-' + weekday, {'current-hover': currentHover[0] === weekday || currentHover[1] === hour, 'current-day': currentWeekday === weekday && currentHour === hour}]"
                     :key="'0' + hour + weekday">
                     <div class="d-flex w-100">
                         <div :class="['time-slot flex-grow-1', `time-slot-mode-${temporaryModel[weekday][hour * quarterMultiplicator]}`]"
@@ -257,29 +257,30 @@
         td {
             height: 100%;
             width: 100%;
-            padding: 1px;
+            padding: 0;
             vertical-align: middle;
             opacity: 0.8;
         }
         .time-slot {
+            position: relative;
+            overflow: hidden;
             cursor: pointer;
             display: block;
             height: 100%;
             background: $supla-grey-light;
-            border-left: 1px dotted #eee;
+            border: 1px solid $supla-white;
             @media (hover: hover) {
                 &:hover {
                     background: darken($supla-grey-light, 10%);
                 }
             }
             &:first-child {
-                border-left: 0;
-                border-top-left-radius: 4px;
-                border-bottom-left-radius: 4px;
+                border-top-left-radius: 2px;
+                border-bottom-left-radius: 2px;
             }
             &:last-child {
-                border-top-right-radius: 4px;
-                border-bottom-right-radius: 4px;
+                border-top-right-radius: 2px;
+                border-bottom-right-radius: 2px;
             }
         }
         .copy-buttons {
@@ -309,8 +310,21 @@
         td.current-hover {
             opacity: 1;
         }
+        td.current-day .time-slot::before {
+            position: absolute;
+            inset: 0 auto auto 0;
+            background: $supla-grey-dark;
+            content: '';
+            width: 20px;
+            height: 15px;
+            transform-origin: 100% 0; /* or top left */
+            transform: translate(-140%) rotate(-45deg);
+            box-shadow: 0 0 0 999px $supla-grey-dark;
+            clip-path: inset(0 -100%);
+        }
         .current-label {
             font-weight: bold;
+            background: $supla-grey-light;
         }
     }
 
