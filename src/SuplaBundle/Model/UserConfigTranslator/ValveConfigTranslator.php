@@ -5,8 +5,8 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 use Assert\Assertion;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 
 class ValveConfigTranslator extends UserConfigTranslator {
@@ -15,21 +15,21 @@ class ValveConfigTranslator extends UserConfigTranslator {
     public function getConfig(HasUserConfig $subject): array {
         $config = [];
         if ($subject instanceof IODeviceChannel) {
-            if (ChannelFunctionBitsFlags::FLOOD_SENSORS_SUPPORTED()->isSupported($subject->getFlags())) {
+            if (ChannelFlags::FLOOD_SENSORS_SUPPORTED()->isSupported($subject->getFlags())) {
                 $config['floodSensorChannelIds'] = array_values(array_filter(array_map(
                     fn(int $id) => $this->channelNoToChannel($subject, $id)?->getId(),
                     $subject->getUserConfigValue('sensorChannelNumbers', [])
                 )));
             }
         }
-        $config['motorAlarmSupported'] = ChannelFunctionBitsFlags::VALVE_MOTOR_ALARM_SUPPORTED()->isSupported($subject->getFlags());
+        $config['motorAlarmSupported'] = ChannelFlags::VALVE_MOTOR_ALARM_SUPPORTED()->isSupported($subject->getFlags());
         return $config;
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('floodSensorChannelIds', $config) && $config['floodSensorChannelIds'] !== null) {
             Assertion::true(
-                ChannelFunctionBitsFlags::FLOOD_SENSORS_SUPPORTED()->isSupported($subject->getFlags()),
+                ChannelFlags::FLOOD_SENSORS_SUPPORTED()->isSupported($subject->getFlags()),
                 'Flood sesnors not supported in this channel.'
             );
             Assertion::isArray($config['floodSensorChannelIds'], null, 'sensorChannelIds');

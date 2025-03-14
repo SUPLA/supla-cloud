@@ -18,24 +18,24 @@
 namespace SuplaBundle\Enums;
 
 /**
- * @method static ChannelFunctionBitsFlags TIME_SETTING_NOT_AVAILABLE()
- * @method static ChannelFunctionBitsFlags RESET_COUNTERS_ACTION_AVAILABLE()
- * @method static ChannelFunctionBitsFlags AUTO_CALIBRATION_AVAILABLE()
- * @method static ChannelFunctionBitsFlags RECALIBRATE_ACTION_AVAILABLE()
- * @method static ChannelFunctionBitsFlags ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS()
- * @method static ChannelFunctionBitsFlags ELECTRICITY_METER_PHASE1_UNSUPPORTED()
- * @method static ChannelFunctionBitsFlags ELECTRICITY_METER_PHASE2_UNSUPPORTED()
- * @method static ChannelFunctionBitsFlags ELECTRICITY_METER_PHASE3_UNSUPPORTED()
- * @method static ChannelFunctionBitsFlags IDENTIFY_SUBDEVICE_AVAILABLE()
- * @method static ChannelFunctionBitsFlags RESTART_SUBDEVICE_AVAILABLE()
- * @method static ChannelFunctionBitsFlags BATTERY_COVER_AVAILABLE()
- * @method static ChannelFunctionBitsFlags RUNTIME_CHANNEL_CONFIG_UPDATE()
- * @method static ChannelFunctionBitsFlags FLOOD_SENSORS_SUPPORTED()
- * @method static ChannelFunctionBitsFlags TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE()
- * @method static ChannelFunctionBitsFlags VALVE_MOTOR_ALARM_SUPPORTED()
- * @method static ChannelFunctionBitsFlags ALWAYS_ALLOW_CHANNEL_DELETION()
+ * @method static ChannelFlags TIME_SETTING_NOT_AVAILABLE()
+ * @method static ChannelFlags RESET_COUNTERS_ACTION_AVAILABLE()
+ * @method static ChannelFlags AUTO_CALIBRATION_AVAILABLE()
+ * @method static ChannelFlags RECALIBRATE_ACTION_AVAILABLE()
+ * @method static ChannelFlags ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS()
+ * @method static ChannelFlags ELECTRICITY_METER_PHASE1_UNSUPPORTED()
+ * @method static ChannelFlags ELECTRICITY_METER_PHASE2_UNSUPPORTED()
+ * @method static ChannelFlags ELECTRICITY_METER_PHASE3_UNSUPPORTED()
+ * @method static ChannelFlags IDENTIFY_SUBDEVICE_AVAILABLE()
+ * @method static ChannelFlags RESTART_SUBDEVICE_AVAILABLE()
+ * @method static ChannelFlags BATTERY_COVER_AVAILABLE()
+ * @method static ChannelFlags RUNTIME_CHANNEL_CONFIG_UPDATE()
+ * @method static ChannelFlags FLOOD_SENSORS_SUPPORTED()
+ * @method static ChannelFlags TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE()
+ * @method static ChannelFlags VALVE_MOTOR_ALARM_SUPPORTED()
+ * @method static ChannelFlags ALWAYS_ALLOW_CHANNEL_DELETION()
  */
-final class ChannelFunctionBitsFlags extends ChannelFunctionBits {
+final class ChannelFlags extends ChannelFunctionBits {
     /** @see https://github.com/SUPLA/supla-core/blob/ffa56e4579812c50ca15202c698d0c1d363a0258/supla-common/proto.h#L458 */
     const RESET_COUNTERS_ACTION_AVAILABLE = 0x2000;
     /** @see https://github.com/SUPLA/supla-core/blob/ffa56e4579812c50ca15202c698d0c1d363a0258/supla-common/proto.h#L464 */

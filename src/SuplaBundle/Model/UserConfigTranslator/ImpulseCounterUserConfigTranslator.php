@@ -5,8 +5,8 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 use Assert\Assert;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Utils\NumberUtils;
 
 /**
@@ -32,7 +32,7 @@ class ImpulseCounterUserConfigTranslator extends UserConfigTranslator {
             'unit' => $subject->getUserConfigValue('unit'),
             'initialValue' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('initialValue', 0) / 1000, 3),
             'addToHistory' => $subject->getUserConfigValue('addToHistory', false),
-            'resetCountersAvailable' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($subject->getFlags()),
+            'resetCountersAvailable' => ChannelFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($subject->getFlags()),
         ];
     }
 

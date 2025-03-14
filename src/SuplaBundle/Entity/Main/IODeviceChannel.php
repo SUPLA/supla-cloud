@@ -31,9 +31,9 @@ use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\HasUserConfigTrait;
 use SuplaBundle\Entity\Main\Listeners\IODeviceChannelEntityListener;
 use SuplaBundle\Enums\ActionableSubjectType;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\IoDeviceFlags;
@@ -377,7 +377,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
             ChannelFunction::VERTICAL_BLIND,
         ];
         if (in_array($this->function, $stepByStepChannels)
-            && ChannelFunctionBitsFlags::ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS()->isSupported($this->flags)) {
+            && ChannelFlags::ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS()->isSupported($this->flags)) {
             $actions = array_merge($actions, [
                 ChannelFunctionAction::UP_OR_STOP()->withFunctionCaption($this->function),
                 ChannelFunctionAction::DOWN_OR_STOP()->withFunctionCaption($this->function),
@@ -533,6 +533,6 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         $deviceFlags = $this->getIoDevice()->getFlagsInt();
         return $this->getConflictDetails() ||
             IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($deviceFlags) ||
-            ChannelFunctionBitsFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($this->flags);
+            ChannelFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($this->flags);
     }
 }

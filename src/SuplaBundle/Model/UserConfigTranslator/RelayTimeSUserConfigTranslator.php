@@ -4,8 +4,8 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Utils\NumberUtils;
 
 /**
@@ -21,7 +21,7 @@ class RelayTimeSUserConfigTranslator extends UserConfigTranslator {
     public function getConfig(HasUserConfig $subject): array {
         return [
             'relayTimeS' => NumberUtils::maximumDecimalPrecision($subject->getParam1() / 10, 1),
-            'timeSettingAvailable' => !ChannelFunctionBitsFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($subject->getFlags()),
+            'timeSettingAvailable' => !ChannelFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($subject->getFlags()),
         ];
     }
 

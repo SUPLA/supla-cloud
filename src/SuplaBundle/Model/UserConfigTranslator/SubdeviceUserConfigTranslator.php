@@ -4,13 +4,13 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
+use SuplaBundle\Enums\ChannelFlags;
 
 class SubdeviceUserConfigTranslator extends UserConfigTranslator {
     public function getConfig(HasUserConfig $subject): array {
         return [
-            'identifySubdeviceAvailable' => ChannelFunctionBitsFlags::IDENTIFY_SUBDEVICE_AVAILABLE()->isOn($subject->getFlags()),
-            'restartSubdeviceAvailable' => ChannelFunctionBitsFlags::RESTART_SUBDEVICE_AVAILABLE()->isOn($subject->getFlags()),
+            'identifySubdeviceAvailable' => ChannelFlags::IDENTIFY_SUBDEVICE_AVAILABLE()->isOn($subject->getFlags()),
+            'restartSubdeviceAvailable' => ChannelFlags::RESTART_SUBDEVICE_AVAILABLE()->isOn($subject->getFlags()),
         ];
     }
 

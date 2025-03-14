@@ -32,9 +32,9 @@ use SuplaBundle\Entity\Main\SubDevice;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelConfigChangeScope;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\ConnectionStatus;
 use SuplaBundle\Enums\IoDeviceFlags;
@@ -80,7 +80,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [
                 ChannelType::RELAY,
                 ChannelFunction::CONTROLLINGTHEFACADEBLIND,
-                ['flags' => ChannelFunctionBitsFlags::ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS],
+                ['flags' => ChannelFlags::ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS],
             ],
             [ChannelType::RELAY, ChannelFunction::PROJECTOR_SCREEN],
         ]);
@@ -517,7 +517,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         EntityUtils::setField(
             $thermometerChannel,
             'flags',
-            $thermometerChannel->getFlags() | ChannelFunctionBitsFlags::RUNTIME_CHANNEL_CONFIG_UPDATE
+            $thermometerChannel->getFlags() | ChannelFlags::RUNTIME_CHANNEL_CONFIG_UPDATE
         );
         $this->persist($thermometerChannel);
         $client->apiRequestV3('PUT', '/api/channels/' . $thermometerChannel->getId(), ['config' => ['temperatureAdjustment' => 1.1]]);
@@ -1087,7 +1087,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER],
         ]);
         $measurementChannel = $anotherDevice->getChannels()[0];
-        EntityUtils::setField($measurementChannel, 'flags', ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE);
+        EntityUtils::setField($measurementChannel, 'flags', ChannelFlags::RESET_COUNTERS_ACTION_AVAILABLE);
         $this->getEntityManager()->persist($measurementChannel);
         $this->getEntityManager()->flush();
         $client = $this->createAuthenticatedClient();
@@ -1116,7 +1116,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
         ]);
         $channel = $anotherDevice->getChannels()[0];
-        EntityUtils::setField($channel, 'flags', ChannelFunctionBitsFlags::RECALIBRATE_ACTION_AVAILABLE);
+        EntityUtils::setField($channel, 'flags', ChannelFlags::RECALIBRATE_ACTION_AVAILABLE);
         $this->getEntityManager()->persist($channel);
         $this->getEntityManager()->flush();
         $client = $this->createAuthenticatedClient();
@@ -1703,7 +1703,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     public function testDeletingChannelFromSubdevicesOnly() {
         $sonoff = $this->createDeviceSonoff($this->location);
         $switch = $sonoff->getChannels()[0];
-        EntityUtils::setField($switch, 'flags', ChannelFunctionBitsFlags::ALWAYS_ALLOW_CHANNEL_DELETION);
+        EntityUtils::setField($switch, 'flags', ChannelFlags::ALWAYS_ALLOW_CHANNEL_DELETION);
         $switch = $this->persist($switch);
         $thermometer = $sonoff->getChannels()[1];
         $this->assertTrue($switch->isDeletable());
@@ -1936,7 +1936,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
         $channel = $device->getChannels()[0];
         EntityUtils::setField($channel, 'subDeviceId', 1);
-        EntityUtils::setField($channel, 'flags', ChannelFunctionBitsFlags::IDENTIFY_SUBDEVICE_AVAILABLE);
+        EntityUtils::setField($channel, 'flags', ChannelFlags::IDENTIFY_SUBDEVICE_AVAILABLE);
         $this->persist($channel);
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PATCH', "/api/channels/{$channel->getId()}/subdevice", ['action' => 'identify']);
@@ -1949,7 +1949,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
         $channel = $device->getChannels()[0];
         EntityUtils::setField($channel, 'subDeviceId', 1);
-        EntityUtils::setField($channel, 'flags', ChannelFunctionBitsFlags::RESTART_SUBDEVICE_AVAILABLE);
+        EntityUtils::setField($channel, 'flags', ChannelFlags::RESTART_SUBDEVICE_AVAILABLE);
         $this->persist($channel);
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PATCH', "/api/channels/{$channel->getId()}/subdevice", ['action' => 'restart']);

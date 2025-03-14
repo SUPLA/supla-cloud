@@ -29,9 +29,9 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\SubDevice;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
@@ -703,14 +703,14 @@ class ChannelController extends RestController {
         Assertion::keyExists($body, 'action', 'Missing action.');
         if ($body['action'] === 'identify') {
             Assertion::true(
-                ChannelFunctionBitsFlags::IDENTIFY_SUBDEVICE_AVAILABLE()->isOn($channel->getFlags()),
+                ChannelFlags::IDENTIFY_SUBDEVICE_AVAILABLE()->isOn($channel->getFlags()),
                 'Device identification is unsupported in the firmware.' // i18n
             );
             $result = $this->suplaServer->channelAction($channel, 'IDENTIFY-SUBDEVICE');
             Assertion::true($result, 'Could not send the identify command.'); // i18n
         } elseif ($body['action'] === 'restart') {
             Assertion::true(
-                ChannelFunctionBitsFlags::RESTART_SUBDEVICE_AVAILABLE()->isOn($channel->getFlags()),
+                ChannelFlags::RESTART_SUBDEVICE_AVAILABLE()->isOn($channel->getFlags()),
                 'Remote restart is unsupported in the firmware.' // i18n
             );
             $result = $this->suplaServer->channelAction($channel, 'RESTART-SUBDEVICE');

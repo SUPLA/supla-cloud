@@ -20,8 +20,8 @@ namespace SuplaBundle\Tests\Model\UserConfigTranslator;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Model\UserConfigTranslator\DigiglassParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\GeneralPurposeMeasurementConfigTranslator;
@@ -194,7 +194,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel->setFunction(ChannelFunction::CONTROLLINGTHEGATE());
         $config = $this->configTranslator->getConfig($channel);
         $this->assertTrue($config['timeSettingAvailable']);
-        EntityUtils::setField($channel, 'flags', ChannelFunctionBitsFlags::getAllFeaturesFlag());
+        EntityUtils::setField($channel, 'flags', ChannelFlags::getAllFeaturesFlag());
         $config = $this->configTranslator->getConfig($channel);
         $this->assertFalse($config['timeSettingAvailable']);
     }

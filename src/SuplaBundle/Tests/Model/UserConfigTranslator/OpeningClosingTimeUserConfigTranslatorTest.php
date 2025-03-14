@@ -20,7 +20,7 @@ namespace SuplaBundle\Tests\Model\UserConfigTranslator;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
 use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 
@@ -64,14 +64,14 @@ class OpeningClosingTimeUserConfigTranslatorTest extends TestCase {
     }
 
     public function testAllow0IfAutoCalibration() {
-        EntityUtils::setField($this->channel, 'flags', ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE);
+        EntityUtils::setField($this->channel, 'flags', ChannelFlags::AUTO_CALIBRATION_AVAILABLE);
         $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 0]);
         $this->assertEquals(0, $this->channel->getUserConfigValue('openingTimeMs'));
         $this->assertEquals(0, $this->channel->getUserConfigValue('closingTimeMs'));
     }
 
     public function testBoth0IfFirst0() {
-        EntityUtils::setField($this->channel, 'flags', ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE);
+        EntityUtils::setField($this->channel, 'flags', ChannelFlags::AUTO_CALIBRATION_AVAILABLE);
         $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 1]);
         $this->assertEquals(0, $this->channel->getUserConfigValue('openingTimeMs'));
         $this->assertEquals(0, $this->channel->getUserConfigValue('closingTimeMs'));
@@ -84,7 +84,7 @@ class OpeningClosingTimeUserConfigTranslatorTest extends TestCase {
         EntityUtils::setField(
             $this->channel,
             'flags',
-            ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE | ChannelFunctionBitsFlags::RECALIBRATE_ACTION_AVAILABLE
+            ChannelFlags::AUTO_CALIBRATION_AVAILABLE | ChannelFlags::RECALIBRATE_ACTION_AVAILABLE
         );
         $this->channel->setUserConfigValue('openingTimeMs', 12300);
         $this->channel->setUserConfigValue('closingTimeMs', 23400);

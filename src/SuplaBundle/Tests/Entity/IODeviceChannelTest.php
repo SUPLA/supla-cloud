@@ -22,9 +22,9 @@ use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 
 class IODeviceChannelTest extends TestCase {
@@ -137,7 +137,7 @@ class IODeviceChannelTest extends TestCase {
     public function testGettingPossibleActionsForRollerShutterWithStartStopActionsSupported() {
         $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
         $channel->setFunction(ChannelFunction::CONTROLLINGTHEROLLERSHUTTER());
-        EntityUtils::setField($channel, 'flags', ChannelFunctionBitsFlags::getAllFeaturesFlag());
+        EntityUtils::setField($channel, 'flags', ChannelFlags::getAllFeaturesFlag());
         $functionIds = EntityUtils::mapToIds($channel->getPossibleActions());
         $this->assertEquals([
             ChannelFunctionAction::REVEAL,

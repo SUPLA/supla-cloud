@@ -7,8 +7,8 @@ use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Utils\JsonArrayObject;
 use SuplaBundle\Utils\NumberUtils;
 
@@ -45,7 +45,7 @@ class ElectricityMeterUserConfigTranslator extends UserConfigTranslator {
         return [
             'pricePerUnit' => NumberUtils::maximumDecimalPrecision($subject->getParam2() / 10000, 4),
             'currency' => $subject->getTextParam1() ?: null,
-            'resetCountersAvailable' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($subject->getFlags()),
+            'resetCountersAvailable' => ChannelFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($subject->getFlags()),
             'countersAvailable' => ($subject->getProperties()['countersAvailable'] ?? []) ?: [],
             'electricityMeterInitialValues' => new JsonArrayObject($subject->getUserConfig()['electricityMeterInitialValues'] ?? []),
             'addToHistory' => $subject->getUserConfigValue('addToHistory', false),
@@ -160,13 +160,13 @@ class ElectricityMeterUserConfigTranslator extends UserConfigTranslator {
 
     private function getAvailablePhases(IODeviceChannel $channel): array {
         $availablePhases = [];
-        if (!ChannelFunctionBitsFlags::ELECTRICITY_METER_PHASE1_UNSUPPORTED()->isOn($channel->getFlags())) {
+        if (!ChannelFlags::ELECTRICITY_METER_PHASE1_UNSUPPORTED()->isOn($channel->getFlags())) {
             $availablePhases[] = 1;
         }
-        if (!ChannelFunctionBitsFlags::ELECTRICITY_METER_PHASE2_UNSUPPORTED()->isOn($channel->getFlags())) {
+        if (!ChannelFlags::ELECTRICITY_METER_PHASE2_UNSUPPORTED()->isOn($channel->getFlags())) {
             $availablePhases[] = 2;
         }
-        if (!ChannelFunctionBitsFlags::ELECTRICITY_METER_PHASE3_UNSUPPORTED()->isOn($channel->getFlags())) {
+        if (!ChannelFlags::ELECTRICITY_METER_PHASE3_UNSUPPORTED()->isOn($channel->getFlags())) {
             $availablePhases[] = 3;
         }
         return $availablePhases;

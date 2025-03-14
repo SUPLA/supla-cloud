@@ -20,8 +20,8 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 use Assert\Assert;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 
 /**
  * @OA\Schema(schema="ChannelConfigGeneralPurposeMeter", description="Config for `GENERAL_PURPOSE_METER` function.",
@@ -47,7 +47,7 @@ class GeneralPurposeMeterConfigTranslator extends GeneralPurposeMeasurementConfi
             $config['includeValueAddedInHistory'] = $subject->getUserConfigValue('includeValueAddedInHistory');
             $config['fillMissingData'] = $subject->getUserConfigValue('fillMissingData');
             $config['counterType'] = $subject->getUserConfigValue('counterType');
-            $config['resetCountersAvailable'] = ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($subject->getFlags());
+            $config['resetCountersAvailable'] = ChannelFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($subject->getFlags());
         }
         return $config;
     }

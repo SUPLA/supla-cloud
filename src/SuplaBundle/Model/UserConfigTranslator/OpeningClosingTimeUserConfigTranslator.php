@@ -4,8 +4,8 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 
 use Assert\Assertion;
 use SuplaBundle\Entity\HasUserConfig;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Utils\NumberUtils;
 
 class OpeningClosingTimeUserConfigTranslator extends UserConfigTranslator {
@@ -15,9 +15,9 @@ class OpeningClosingTimeUserConfigTranslator extends UserConfigTranslator {
         $config = [
             'openingTimeS' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('openingTimeMs', 0) / 1000, 1),
             'closingTimeS' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('closingTimeMs', 0) / 1000, 1),
-            'timeSettingAvailable' => !ChannelFunctionBitsFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($subject->getFlags()),
-            'recalibrateAvailable' => ChannelFunctionBitsFlags::RECALIBRATE_ACTION_AVAILABLE()->isSupported($subject->getFlags()),
-            'autoCalibrationAvailable' => ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE()->isSupported($subject->getFlags()),
+            'timeSettingAvailable' => !ChannelFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($subject->getFlags()),
+            'recalibrateAvailable' => ChannelFlags::RECALIBRATE_ACTION_AVAILABLE()->isSupported($subject->getFlags()),
+            'autoCalibrationAvailable' => ChannelFlags::AUTO_CALIBRATION_AVAILABLE()->isSupported($subject->getFlags()),
         ];
         if (($value = $subject->getUserConfigValue('timeMargin')) !== null) {
             $config['timeMargin'] = $value;

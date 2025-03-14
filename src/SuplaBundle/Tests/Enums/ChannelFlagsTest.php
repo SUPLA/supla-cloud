@@ -18,12 +18,12 @@
 namespace SuplaBundle\Tests\Enums;
 
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
+use SuplaBundle\Enums\ChannelFlags;
 
-class ChannelFunctionBitsFlagsTest extends TestCase {
+class ChannelFlagsTest extends TestCase {
     public function testEveryBitIsExclusive() {
         $bitsSum = 0;
-        foreach (ChannelFunctionBitsFlags::values() as $bit) {
+        foreach (ChannelFlags::values() as $bit) {
             $newBitsSum = $bitsSum | $bit->getValue();
             $this->assertNotEquals($newBitsSum, $bitsSum, 'Non exclusive detected on ' . $bit->getKey());
             $bitsSum = $newBitsSum;

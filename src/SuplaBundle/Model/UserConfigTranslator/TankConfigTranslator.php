@@ -5,8 +5,8 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 use Assert\Assert;
 use Assert\Assertion;
 use SuplaBundle\Entity\HasUserConfig;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Utils\ArrayUtils;
 
@@ -31,7 +31,7 @@ class TankConfigTranslator extends UserConfigTranslator {
             'alarmBelowLevel' => $subject->getUserConfigValue('alarmBelowLevel'),
             'muteAlarmSoundWithoutAdditionalAuth' => boolval($subject->getUserConfigValue('muteAlarmSoundWithoutAdditionalAuth')),
             'fillLevelReportingInFullRange' =>
-                ChannelFunctionBitsFlags::TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE()->isOn($subject->getFlags()),
+                ChannelFlags::TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE()->isOn($subject->getFlags()),
         ];
     }
 
@@ -72,7 +72,7 @@ class TankConfigTranslator extends UserConfigTranslator {
             $subject->setUserConfigValue('sensors', $options);
         }
         $availableFillLevels = array_merge([0], array_column($subject->getUserConfigValue('sensors', []), 'fillLevel'));
-        if (ChannelFunctionBitsFlags::TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE()->isOn($subject->getFlags())) {
+        if (ChannelFlags::TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE()->isOn($subject->getFlags())) {
             $availableFillLevels = range(0, 100);
         }
         foreach (['warningAboveLevel', 'alarmAboveLevel', 'warningBelowLevel', 'alarmBelowLevel'] as $fillLevel) {

@@ -28,9 +28,9 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\SubDevice;
+use SuplaBundle\Enums\ChannelFlags;
+use SuplaBundle\Enums\ChannelFlags as Flags;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags as Flags;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist as Functions;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\IoDeviceFlags;
@@ -560,13 +560,13 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, [
                 'funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH,
                 'subDeviceId' => 1,
-                'flags' => ChannelFunctionBitsFlags::IDENTIFY_SUBDEVICE_AVAILABLE | ChannelFunctionBitsFlags::RESTART_SUBDEVICE_AVAILABLE,
+                'flags' => ChannelFlags::IDENTIFY_SUBDEVICE_AVAILABLE | ChannelFlags::RESTART_SUBDEVICE_AVAILABLE,
             ]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER, ['subDeviceId' => 1]],
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, [
                 'funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH,
                 'subDeviceId' => 2,
-                'flags' => ChannelFunctionBitsFlags::RESTART_SUBDEVICE_AVAILABLE,
+                'flags' => ChannelFlags::RESTART_SUBDEVICE_AVAILABLE,
             ]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER, ['subDeviceId' => 2]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => Functions::getAllFeaturesFlag(), 'subDeviceId' => 3]],
@@ -691,7 +691,7 @@ class DevicesFixture extends SuplaFixture {
                     'userConfig' => json_encode([
                         'sensorChannelNumbers' => [12, 13, 14],
                     ]),
-                    'flags' => ChannelFunctionBitsFlags::FLOOD_SENSORS_SUPPORTED | ChannelFunctionBitsFlags::VALVE_MOTOR_ALARM_SUPPORTED,
+                    'flags' => ChannelFlags::FLOOD_SENSORS_SUPPORTED | ChannelFlags::VALVE_MOTOR_ALARM_SUPPORTED,
                 ],
             ],
             [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
@@ -719,7 +719,7 @@ class DevicesFixture extends SuplaFixture {
                             ['channelNo' => 1, 'fillLevel' => 20],
                         ],
                     ]),
-                    'flags' => ChannelFunctionBitsFlags::TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE,
+                    'flags' => ChannelFlags::TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE,
                 ],
             ],
         ]);
