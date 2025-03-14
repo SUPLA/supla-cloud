@@ -211,6 +211,7 @@ class DevicesFixture extends SuplaFixture {
                 ChannelFunction::HVAC_THERMOSTAT,
                 [
                     'funcList' => Functions::HVAC_THERMOSTAT | Functions::HVAC_DOMESTIC_HOT_WATER,
+                    'flags' => ChannelFlags::RUNTIME_CHANNEL_CONFIG_UPDATE,
                     'properties' => json_encode([
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST', 'PID'],
                         'temperatures' => [
