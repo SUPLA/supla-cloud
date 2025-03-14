@@ -11,7 +11,7 @@
                 <div v-if="filteredChannels.length">
                     <div v-for="channelsGroup in channelsBySubDevice" :key="channelsGroup[0].subDeviceId">
                         <div class="container" v-if="channelsGroup[0].subDeviceId > 0">
-                            <SubdeviceDetails :channel="channelsGroup[0]"/>
+                            <SubdeviceDetails :channels="channelsGroup"/>
                         </div>
                         <square-links-grid :count="channelsGroup.length">
                             <div v-for="channel in channelsGroup"

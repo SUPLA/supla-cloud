@@ -6,28 +6,30 @@
     import ChannelDeleteButton from "@/channels/channel-delete-button.vue";
 
     const props = defineProps({
-        channel: Object,
+        channels: Array,
     });
 
     const subDevices = useSubDevicesStore();
     subDevices.fetchAll();
-    const subDevice = computed(() => subDevices.forChannel(props.channel))
+    const subDevice = computed(() => subDevices.forChannel(props.channels[0]))
 
     const identify = () => subDevicesApi.identify(props.channel);
-    const identifyAvailable = computed(() => props.channel?.config?.identifySubdeviceAvailable);
+    const identifyAvailable = computed(() => props.channels[0]?.config?.identifySubdeviceAvailable);
 
     const restart = () => subDevicesApi.restart(props.channel);
-    const restartAvailable = computed(() => props.channel?.config?.restartSubdeviceAvailable);
+    const restartAvailable = computed(() => props.channels[0]?.config?.restartSubdeviceAvailable);
+
+    const deleteAvailable = computed(() => !props.channels.find((ch) => !ch.deletable));
 </script>
 
 <template>
     <div>
         <h3 class="mt-3 mb-2" v-if="subDevice && subDevice.name">{{ subDevice.name }}</h3>
-        <h3 class="mt-3 mb-2" v-else>{{ $t('Subdevice #{id}', {id: channel.subDeviceId}) }}</h3>
-        <div class="mb-3 d-flex" v-if="identifyAvailable || restartAvailable || channel.deletable">
+        <h3 class="mt-3 mb-2" v-else>{{ $t('Subdevice #{id}', {id: channels[0].subDeviceId}) }}</h3>
+        <div class="mb-3 d-flex" v-if="identifyAvailable || restartAvailable || deleteAvailable">
             <PromiseConfirmButton :action="identify" label-i18n="Identify device" v-if="identifyAvailable" class="mr-2"/>
             <PromiseConfirmButton :action="restart" label-i18n="Restart device" v-if="restartAvailable" class="mr-2"/>
-            <ChannelDeleteButton :channel="channel" deleting-subdevice/>
+            <ChannelDeleteButton v-if="deleteAvailable" :channel="channels[0]" deleting-subdevice/>
         </div>
         <div v-if="subDevice" class="mb-3">
             <span class="label label-default mr-2" v-if="subDevice.softwareVersion">
