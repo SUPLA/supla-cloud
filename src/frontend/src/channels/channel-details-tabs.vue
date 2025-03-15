@@ -43,7 +43,7 @@
                     .filter(r => this.$router.currentRoute.name.startsWith(r))
                     .length > 0;
                 if (isDefaultChannelRoute || !isAvailableTabRequested) {
-                    this.$router.replace({name: this.availableTabs[0].route, params: {id: this.channel.id}}).catch();
+                    setTimeout(() => this.$router.replace({name: this.availableTabs[0].route, params: {id: this.channel.id}}));
                 } else if (!isDefaultTab) {
                     setTimeout(() => document.getElementById('channel-details-tabs').scrollIntoView({behavior: 'smooth'}));
                 }
