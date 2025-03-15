@@ -11,8 +11,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * @method static ApiVersions V2_3()
  * @method static ApiVersions V2_4()
  * @method static ApiVersions V3()
+ * @method static ApiVersions V4()
  * @method static ApiVersions DEFAULT()
- * @method static ApiVersions LATEST()
  */
 class ApiVersions extends Enum {
     const V2_1 = '2.1.0';
@@ -20,8 +20,8 @@ class ApiVersions extends Enum {
     const V2_3 = '2.3.0';
     const V2_4 = '2.4.0';
     const V3 = '3';
+    const V4 = '4';
     const DEFAULT = self::V2_1;
-    const LATEST = self::V3;
 
     /** @param Request|array $request */
     public function isRequestedEqualOrGreaterThan($request): bool {

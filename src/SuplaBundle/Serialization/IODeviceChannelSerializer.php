@@ -89,7 +89,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             $normalized['textParam2'] = $channel->getTextParam2();
             $normalized['textParam3'] = $channel->getTextParam3();
         }
-        if (ApiVersions::V3()->isRequestedEqualOrGreaterThan($context)) {
+        if (ApiVersions::V4()->isRequestedEqualOrGreaterThan($context)) {
             $normalized['supportedFunctionIds'] = EntityUtils::mapToIds($channel->getSupportedFunctions());
             if (isset($normalized['supportedFunctions'])) {
                 unset($normalized['supportedFunctions']);

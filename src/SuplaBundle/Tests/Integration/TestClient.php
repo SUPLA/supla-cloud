@@ -44,6 +44,10 @@ class TestClient extends KernelBrowser {
         return $this->apiRequest($method, $uri, $content, $params, $files, $server, ApiVersions::V3);
     }
 
+    public function apiRequestV4(string $method, string $uri, $content = [], array $params = [], array $files = [], array $server = []) {
+        return $this->apiRequest($method, $uri, $content, $params, $files, $server, ApiVersions::V4);
+    }
+
     public function getResponseBody(): array {
         return json_decode($this->getResponse()->getContent(), true);
     }

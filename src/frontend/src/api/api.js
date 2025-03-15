@@ -7,7 +7,7 @@ function getDefaultHeaders() {
     const frontendConfig = useFrontendConfigStore();
     const headers = {
         'Accept': 'application/json',
-        'X-Accept-Version': '3',
+        'X-Accept-Version': '4',
         'X-Client-Version': frontendConfig.frontendVersion,
     }
     const currentUser = useCurrentUserStore();

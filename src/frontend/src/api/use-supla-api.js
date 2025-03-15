@@ -13,7 +13,7 @@ export const useSuplaApi = createFetch({
             if (token) {
                 options.headers.Authorization = `Bearer ${token}`
             }
-            options.headers['X-Accept-Version'] = '3';
+            options.headers['X-Accept-Version'] = '4';
             options.headers['X-Client-Version'] = frontendVersion;
             url = currentUser.serverUrl + '/api/' + url
             return {url, options}

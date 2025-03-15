@@ -30,7 +30,7 @@ Vue.use(FloatingVue);
 Vue.use(PiniaVuePlugin);
 
 Vue.config.productionTip = false;
-Vue.http.headers.common['X-Accept-Version'] = '3';
+Vue.http.headers.common['X-Accept-Version'] = '4';
 Vue.http.headers.common['X-Client-Version'] = FRONTEND_VERSION; // eslint-disable-line no-undef
 
 Vue.prototype.$localStorage = new LocalStorageWithMemoryFallback();

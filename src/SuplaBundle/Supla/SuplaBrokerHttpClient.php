@@ -44,7 +44,7 @@ class SuplaBrokerHttpClient {
         string $authorizationHeaderName = 'Authorization'
     ): ?array {
         $method = $method ?: ($payload ? 'POST' : 'GET');
-        $headers['X-Cloud-Version'] = ApiVersions::LATEST;
+        $headers['X-Cloud-Version'] = ApiVersions::V3;
         if (!isset($headers[$authorizationHeaderName]) && $this->settingsStringRepository->hasValue(InstanceSettings::TARGET_TOKEN)) {
             $headers[$authorizationHeaderName] = 'Bearer ' . $this->settingsStringRepository->getValue(InstanceSettings::TARGET_TOKEN);
         }

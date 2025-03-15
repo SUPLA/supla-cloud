@@ -150,8 +150,21 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('config', $content);
         $this->assertArrayHasKey('possibleActions', $content);
         $this->assertArrayHasKey('checksum', $content);
+        $this->assertArrayHasKey('function', $content);
         $this->assertEquals('Toggle', $content['possibleActions'][2]['caption']);
         $this->assertEquals(ActionableSubjectType::CHANNEL, $content['ownSubjectType']);
+    }
+
+    public function testGettingChannelInfoV4() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $channel = $this->device->getChannels()[0];
+        $client->apiRequestV4('GET', '/api/channels/' . $channel->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['functionId']);
+        $this->assertArrayHasKey('checksum', $content);
+        $this->assertArrayNotHasKey('function', $content);
     }
 
     public function testGettingChannelInfoWithDeviceLocationV24() {

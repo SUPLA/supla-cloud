@@ -31,7 +31,7 @@ class UserIconSerializer extends AbstractSerializer {
             $normalized['images'] = array_map('base64_encode', $icon->getImages());
             $normalized['imagesDark'] = array_map('base64_encode', $icon->getImagesDark());
         }
-        if (ApiVersions::V3()->isRequestedEqualOrGreaterThan($context)) {
+        if (ApiVersions::V4()->isRequestedEqualOrGreaterThan($context)) {
             if (isset($normalized['function'])) {
                 unset($normalized['function']);
             }
