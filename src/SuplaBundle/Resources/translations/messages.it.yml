@@ -39,8 +39,10 @@ Action triggers: Attiva azioni
 Actions: Azioni
 Active: Attivi
 Active applications: Applicazioni attive
+Active from: Attivo da
 Active period: Periodo attivo
 Active sessions: Sessioni attive
+Active to: Attivo fino
 Active web sessions: Sessioni attive (web)
 Add: Aggiungi
 Add a delay: Aggiungi ritardo
@@ -51,21 +53,31 @@ Add first channel to set channel group function and save it: Scegli il primo can
 Add new channel group: Aggiungi un nuovo gruppo di canali
 Add new channel to this group: Aggiungi un nuovo canale al gruppo
 Adjust parameters: Imposta i parametri
+Adjust temperature: Imposta temperatura
+Adjust temperatures: Imposta temperature
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Una volta cancellata questa icona, tutti i canali ed i gruppi di canali che usano questa icona, riceveranno le icone di default.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Una volta ottenuto l’accesso, puoi cambiare la decisione adattando le impostazioni nella sezione delle impostazioni del Tuo account.
+After the delay: Dopo il tempo
+After the delay, but only when it's dark: Dopo il tempo, ma solo quando è buio
 After the device enters the configuration mode, it will not be accessible on your account.: Quando il dispositivo è in modalità di configurazione, non è possibile gestirlo dal proprio account.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Dopo l’aggiornamento, l’applicazione sarà più rapida, comoda, potente...Semplicemente migliore!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Dopo questa operazione, il contatore inizierà a contare da 0 indipendentemente dal suo stato attuale. Questa azione non può essere annullata.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Il link verrà generato non appena scelto il soggetto. Tutte le altre opzioni potranno essere impostate da Te immediatamente dopo la sua creazione.
 Aggregation: Aggregazione
+Algorithm: Algoritmo
 All: Tutto
 All events: Tutti gli eventi
 All logs has been downloaded. Reload the chart to see them.: Tutti i dati di misura sono stati scaricati. Ricaricare il grafico per visualizzarli.
+All programs must define at least one temperature threshold.: Tutti i programmi devono avere almeno una soglia di temperatura
 All the above and many more can be done from your phone or tablet: Puoi fare tutto questo e molto di più tramite il smartphone o il tablet
 Allowed actions: Azioni ammesse
 Allows to perform an action only using the HTTP PATCH request.: Consente di  eseguire l'azione utilizzando solo la richiesta HTTP PATCH.
 Alternatively, you can add a GET parameter to specify response format.: Puoi anche aggiungere il parametro GET per definire il formato della risposta.
+Always decrement: Diminuisci sempre
+Always increment: Aumenta sempre
 And more: E molto di più
+Anti-freeze and overheat protection: Protezione antigelo e sovratemperatura
+Anti-freeze protection: Protezione antigelo
 Any application or device that uses the {tokenName} token will not work anymore.: Tutte le applicazioni od i dispositivi che utilizzano il token {tokenName} smetteranno di funzionare.
 'App version: %clientAppSoftwareVersion%': Versione app
 Application: Applicazione
@@ -75,10 +87,14 @@ Applications: Applicazioni
 Applications with access: Applicazione con accesso
 Are you lost?: Ti sei perso? Cerchi qualcosa?
 Are you sure you want to change channel’s function?: Sei sicuro di voler cambiare la funzione del canale?
+Are you sure you want to change channel’s location?: Sei sicuro di voler cambiare la localizzazione del canale?
+Are you sure you want to change channel’s visibility?: Sei sicuro di voler cambiare la visibilità del canale?
+Are you sure you want to change device’s location?: Sei sicuro di voler cambiare la localizzazione del dispositivo?
 Are you sure you want to delete the entire measurement history saved for this channel?: Sei sicuro di voler cancellare tutto lo storico delle misurazioni salvato per questo canale?
 Are you sure you want to delete the events from the voltage aberrations history?: Sei sicuro di voler rimuovere tutti gli eventi dallo storico dell'aberrazione di tensione?
 Are you sure you want to delete this OAuth application?: Sei sicuro di voler cancellare questa applicazione Oauth?
 Are you sure you want to delete this channel group?: Sei sicuro di voler eliminare questo gruppo di canali?
+Are you sure you want to delete this channel?: Sei sicuro di voler cancellare questo canale?
 Are you sure you want to delete this client?: Sei sicuro di voler rimuovere questa applicazione del cliente?
 Are you sure you want to delete this direct link?: Sei sicuro di voler cancellare questo link diretto?
 Are you sure you want to delete this icon?: Sei sicuro di voler cancellare questa icona?
@@ -109,20 +125,33 @@ Authentication successful: Accesso riuscito
 Authorization callback URLs (one per line): URL di callback per l’autorizzazione
 Authorize the application, so that it can access your account.: Autoriza l’applicazione affinché essa possa ottenere l’accesso al Tuo account.
 Authorized: Autorizzato
+Automatic: Automatico
 Automatic calibration: Calibrazione automatica
 Automatic closing rule: Chiusura automatica del cancello
+Automatic front panel turn off: Spegnimento automatico del pannello frontale
+Automatic front panel turn off after: Spegnimento automatico del pannello frontale dopo
+Automatic time synchronization: Sincronizzazione oraria automatica
 Automation: Automazione
+Aux thermometer: Termometro Ausiliario
+Aux thermometer type: Tipo di termostato ausiliario
+Available variables: Variabili disponibili
+Average: Media
 Average voltage: Tensione media
 Back to apps list: Torna all’elenco delle applicazioni
 Bar: Bar
 Based on sunrise or sunset: Basata su alba o tramonto
 Be notified when your channels change state: Segnalazione di cambio dello stato dei canali
 Be right back!: Torno subito!
+Behavior settings: Impostazioni comportamento
 Below threshold: Sotto la soglia
+Binary sensor: Sensore binario
 Body: Contenuto
 Bottom position: Posizione soglia inferione
 Bridge: Ponte
 Brightness: Luminosità
+Brightness adjustment for automatic mode: Impostazione luminosità per modo automatico
+Brightness level: Livello luminosità
+Button volume: Volume pulsanti
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Disattivando questa opzione, il dispositivo potrà essere controllato dal livello di integrazione senza ulteriori conferme. Questo può portare a una condizione non sicura o meno sicura (ad esempio, l'apertura accidentale di un cancello).
 By signing in, you are authorizing {clientName} to control your devices.: Accedendo, stai autorizzando l'applicazione {clientName} a controllare i tuoi dispositivi.
 CLICK TO DISABLE: CLICCA PER DISABILITARE
@@ -137,7 +166,7 @@ Cancelled: Cancellati
 Cannot calculate when to run the schedule - incorrect configuration?: Non è possibile stabilire quando eseguire lo scadenziario - verificare la configurazione
 Cannot change the channel function right now.: Non è possibile modificare la funzione del canale in questo momento.
 Cannot delete this I/O Device right now.: Non è possibile eliminare il dispositivo I/O in questo momento.
-Cannot execute an action when the device is disconnected.: Non è possibile eseguire le azioni se l’apparecchio è disconnesso.
+Cannot update OCR settings. Try again in a while.: Non è possibile aggiornare le impostazioni OCR. Riprovare fra un momento.
 Captcha token is not valid.: Captcha non valido.
 Caption: Titolo
 Caption is too long.: Descrizione troppo lunga
@@ -148,6 +177,8 @@ Change function: Cambia funzione
 Change icon: Cambia l’icona
 Change the password and log out: Cambiare la password e disconnettersi
 Changing channel’s function will also result in the following changes.: Il cambio della funzione del canale comporterà anche le seguenti modifiche.
+Changing channel’s visibility will also change the visibility of other items.: La modifica della visibilità del canale comporterà la modifica della visibilità di altri elementi.
+Changing the location will also imply changing the location of the following items.: La modifica della localizzazione comporterà la modifica della localizzazione dei seguenti elementi.
 Channel: Canale
 Channel No: Numero del canale
 Channel available for {serviceName}: Canale disponibile per {serviceName}
@@ -163,6 +194,7 @@ Channel reference will be removed from the items below.: Il riferimento al Canal
 Channel with action triggers: Canale con attivazione azioni
 Channels: Canali
 Channels groups are not supported for this function.: Questa funzione non supporta Gruppi di canali.
+Channels that are meant to work with each other must be in the same location.: Canali che sono predisposti per funzionare insieme devono essere nella stessa locazione.
 Chart type: Tipo di grafico
 Check the direct link you used and try again.: Controlla link diretto richiesto e riprova.
 Check your email box: Controlla la Tua posta email
@@ -205,13 +237,19 @@ Confirmation: Conferma
 Connected: Connesso
 Connection with a private instance of the SUPLA cloud: Connessione con l’istanza privata della nuvola SUPLA
 Constraints: Restrizioni
+Cool to: Raffredda a
+Cooling mode: Modalità raffrescamento
+'Cooling: {percent}%': 'Raffrescamento: {percent}%'
 Copy state from other channel: Copia stato da un altro canale
+Costs: Costi
 Could not contact Autodiscover service. Try again in a while.: Impossibile contattare il servizio di registrazione. Riprova tra un attimo.
 Could not enter the configuration mode.: Non è possibile attivare la modalità di configurazione
 Could not reset the password.: Il reset della password è fallito.
 Could not reset the password. Please try again later.: Non è possibile resettare la password. Riprova tra poco.
+Could not restart the device.: Non è possibile riavviare il dispositivo
 Counter: Contatore
 Counter reset: Azzeramento del contatore
+Counter type: Tipo di contatore
 Create New Access Identifier: Crea un nuovo Identificatore dell’Accesso
 Create New Location: Crea una nuova Localizzazione
 Create New Schedule: Crea un nuovo scadenzario
@@ -230,6 +268,8 @@ DHT11 Temperature & Humidity Sensor: Termometro di temperatura e umidità DHT11
 DHT21 Temperature & Humidity Sensor: Termometro di temperatura e umidità DHT21
 DHT22 Temperature & Humidity Sensor: Termometro di temperatura e umidità DHT22
 DS18B20 Thermometer: Termometro DS18B20
+Dark mode: Modalità Scuro
+Data: Dati
 Data limits: Limiti dei dati
 Data saved: I dati sono stati salvati
 Date: Data
@@ -241,16 +281,20 @@ Delete measurement history: cancella lo storico delle misurazioni
 Delete my account: Cancella il mio account
 Delete voltage aberrations history: Cancella la cronologia delle aberrazioni di tensione
 Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: 'La cancellazione del Tuo account comporterà la cancellazione di tutti i Tuoi dati, ad esempio:  Tuoi dispositivi collegati, canali configurati, link diretti e storico delle misurazioni. La cancellazione dell’account è irreversibile.'
+Dependencies: Dipendenze
 Depth: Profondità
 Depth sensor: Sensore di profondità
 Description: Descrizione
 Details: Dettagli
 Device: Dispositivo
+'Device GUID: %deviceGuid%': 'GUID dispositivo: %deviceGuid%'
 'Device ID: %deviceId%': ID dispositivo
 Device is disconnected.: Dispositivo disconnesso
 Device might be sleeping: Il dispositivo potrebbe essere in modalità standby
 'Device name: %deviceName%': Nome dispositivo
+Device settings: Impostazioni dispositivo
 Device should be now in configuration mode.: Il dispositivo dovrebbe ora essere in modalità di configurazione
+Device should be restarting now.: Il dispositivo dovrebbe essere riavviato ora
 'Device software version: %deviceSoftwareVersion%': Versione SW del dispositivo
 Device unavailable: Dispositivo indisponibile
 Digi Glass: Digi Glass
@@ -273,6 +317,7 @@ Disconnected: Disconnesso
 Distance: Distanza
 Distance sensor: Sensore di distanza
 Do you want to be redirected there? You may be asked to authenticate again.: Vuoi essere reindirizzato? Potrebbe essere richiesta una nuova autenticazione
+Domestic hot water: Acqua calda sanitaria
 Don’t worry, you can always reset your password via email. Click here to do so.: Non Ti preoccupare. Puoi sempre resettare la password tramite la Tua posta email. Clicca qui per farlo.
 Door lock operation: Apertura della porta
 Door opening sensor: Sensore di apertura della porta
@@ -283,12 +328,17 @@ Download the history of measurement: Scarica lo storico delle misurazioni
 Drag your image(s) here or click to select from the disk: Trascina l’immagine qui o clicca per selezionare dal disco
 E-mail notifications: Notifiche E-mail
 Edit: Modifica
+Edit program settings: Modifica setpoint programmi
 Edit reaction: Modifica una reazione
 Electric: Elettricità
 Electricity meter: Misuratore elettrico
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Il contatore elettrico non ha segnalato la possibilità di configurare valori aggiunti. Aggiornare il firmware del dispositivo e riprovare.
 Empty!: Vuoto!
 Enable: Abilita
+Enable floor temperature control: Abilita controllo riscaldamento a pavimento
+Enable generic cooler temperature control: Abilita controllo sistema di raffrescamento generico
+Enable generic heater temperature control: Abilita controllo sistema di riscaldamento generico
+Enable water temperature control: Abilita controllo temperatura acqua
 Enabled: Abilitato
 Enabled phases: Fasi attive
 End date: Data della fine
@@ -306,6 +356,7 @@ Error when communicating the server. Try again in a while.: Si è verificato un 
 Estimated execution time: Tempo stimato per il completamento
 Every: Ogni
 Example Auth URL: Esempio dell’url di autorizzazione
+Example value: Valore di esempio
 Execute: Eseguire
 Execute an action: Eseguire un’azione
 Executed action: Azione svolta
@@ -313,17 +364,26 @@ Executed without confirmation: Eseguito senza confermare
 Execution history: Storico delle esecuzioni
 Execution limit: Limite delle esecuzioni
 Executions: Esecuzioni
+Expand: Espandi
+Expand or stop: Espandi o ferma
+Expand partially: Espandi parzialmente
 Expired: Scaduto
 Expires at: Scadenza
+External sensor disabling the thermostat: Sensore esterno per disabilitazione termostato
 Failed: Falliti
 Failed (zombie): Falliti (zombie)
+Fan: Fan
 Feature limits: Limiti delle funzioni
 File format: Formato del file
 File is too large: Il file è troppo grande
+Fill missing data: Compila i dati mancanti
+Firmware: Firmware
 Flooding: Allagamento
+For a period: Per un periodo
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Per un breve periodo, è raccomandato l'uso dell'indirizzo {suplaUrl}
 For devices: Per dispositivi
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: Per motivi di sicurezza l’intero URL di questo link diretto verrà visualizzato solo una volta durante la sua creazione.
+Forced off by sensor: Forzato off da sensore
 Forgot your password?: Hai dimenticato la password?
 Forward active energy: Energia attiva prelevata
 Forward active energy balance: Bilancio dell'energia attiva apportata
@@ -337,6 +397,7 @@ Full documentation: Documentazione completa
 Full opening time: Tempo totale di apertura
 Fully opened sensor for channel: Sensore per il canale
 Function: Funzione
+Function disabled: Funzione disabilitata
 G5LA1A Relay: Relè G5LA1A
 G5LA1A Relay x2: Relè 2xG5LA1A
 GENERATE: GENERA
@@ -362,12 +423,21 @@ Go to your account: Vai al Tuo account
 Grant access: Concedi l’accesso
 Guru Meditation: Guru Meditation
 HFD4 Relay: Relè HFD4
+HVAC: HVAC
 Heat meter: Contatore di calore
+Heat or cold source switch: Commutazione sorgente caldo o freddo
+Heat to: Riscalda a
+Heating / ventilation / air conditioning: Riscaldamento / Ventilazione / Aria condizionata
+Heating mode: Modalità riscaldamento
+'Heating: {percent}%': 'Riscaldamento: {percent}%'
 Hide days without aberrations: Nascondi giorni senza aberrazioni
+History: Cronologia
 History of measurements: Storia delle misurazioni
 Home appliances: Elettrodomestici
+Home screen content: Contenuto schermata iniziale
 Home+ Heater: Riscaldatore Home+
 Host: Host
+Hotel card sensor: Sensore tessera hotel
 However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: Purtroppo, attualmente l'uso dei nostri server è salito a un livello pericoloso. Stiamo monitorando la situazione, torniamo tra qualche istante.
 Humidity: Umidità
 Humidity Sensor: Sensore di umidità
@@ -385,14 +455,17 @@ ID: ID
 INACTIVE: INATTIVA
 IP Address: Indirizzo IP
 Icon: Icona
+Identify device: Identifica dispositivo
 Idle: Inattivi
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Se il dispositivo è attualmente in modalità standby, le modifiche alla configurazione avranno effetto alla riattivazione.
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: Se il dispositivo è ora inattivo, entrerà in modalità di configurazione alla prossima riattivazione.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Se il link non funziona, copialo oppure scrivilo manualmente nella barra degli indirizzi.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Se sei uno sviluppatore che vuole fornire funzionalità aggiuntive per SUPLA, puoi creare un’applicazione OAuth che gli utenti possono autorizzare e usare.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Se sei sicuro di essere in possesso di un account su cloud.supla.org, verifica che l’applicazione che stai cercando di autorizzare, sia pubblica.
+If you confirm the installation and wish to unlock this device, please click the link below.: Se confermi l'installazione e desideri sbloccare il dispositivo, clicca il link sottostante per favore.
 If you did not request this password reset, please ignore this information.: Ignora il messaggio se non sei stato tu a chiedere la reimpostazione della password.
 If you do not want to delete your account on %cloudHost%, please do not click the link.: Se non vuoi cancellare il Tuo account nel servizio %cloudHost%, non cliccare il link.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: se non desideri sbloccare il dispositivo, non cliccare il link per favore. scadrà automaticamente fra 24 ore.
 If you do not want to unregister your instance, please do not click the link.: Se non desideri annullare la registrazione della tua istanza, si prega di non cliccare il link
 If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Se non viene effettuata alcuna connessione al dispositivo per diversi minuti, verrà riavviato automaticamente mantenendo le impostazioni precedenti.
 If you have doubts or more questions, you can contact us directly at %securityEmail%.: In caso di dubbi oppure domande puoi contattarci all’indirizzo %securityEmail%
@@ -414,9 +487,11 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Inattivo
 Include energy corrections in new measurements history (not recommended): Includi le correzioni energetiche nel nuovo storico delle misurazioni (non consigliato)
 Incorrect password: Password non corretta
+Increment and decrement: Aumenta e diminuisci
 Incremental: Incrementale
 Information: Informazione
 Inherit I/O Device location: Utilizza la localizzazione del dispositivo I/O
+Installer e-mail address: Indirizzo mail installatore
 Integration with MQTT Broker has been disabled.: L’integrazione con il Broker MQTT è stata disabilitata.
 Integration with MQTT Broker has been enabled.: L’integrazione con il Broker MQTT è stata abilitata.
 Integrations: Integrazioni
@@ -426,12 +501,14 @@ Interrupt and execute: Interrompi ed esegui
 Interval: Intervallo
 Invalid SUPLA Cloud URL.: Indirizzo URL dell’istanza SUPLA Cloud non valido.
 Invalid action parameters: Parametri di azione non validi
+Invalid e-mail address.: Indirizzo mail non valido
 Invalid function for channel.: Funzione canale non valida
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 Invalid request: Richiesta non corretta
 Invalid request.: Richiesta non valida
 Invalid scene: Scena errata
 Invalid token.: Token non valido
+Invalid unlock code.: Codice sblocco non valido
 Invalid username or password: Nome utente o password errati
 Inverted logic: Logica invertita
 Invisible: Non visibile
@@ -442,10 +519,14 @@ Keep in mind, that the humanized description of the entered crontab is not perfe
 Language is not available: La lingua non è disponibile
 Last access: Ultimo collegamento
 Last connection: Ultima connessione
+Last paired device: Ultimo dispositivo associato
 Last used: Recentemente usato
 Let me choose later: Lasciami scegliere più tardi.
+Light mode: Modalità luce
 Light switch: Sensore di luce
 Lighting: Illuminazione
+Lighting level: Livello illuminazione
+Lighting mode: Modalità illuminazione
 Limit has been exceeded: Il limite è stato superato
 Linear: Lineare
 Liquid, Temp: Liquido, Temperatura
@@ -454,6 +535,7 @@ Location Identifier: Identificatore della Localizzazione
 Location limit has been exceeded: Il limite della localizzazione è stato superato
 Location name: Nome Localizzazione
 Locations: Localizzazioni
+Locked: Bloccato
 Log out: Disconnettersi
 Login: Log in
 Logs transformation: Trasformazione del valore
@@ -466,6 +548,7 @@ MQTT Broker password: Broker MQTT password
 MQTT Broker password has been changed.: La password del Broker MQTT è stata cambiata.
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Il nome utente e la password di questa istanza SUPLA Cloud non sono configurati.
 Mail sensor: Rilevatore di posta
+Main thermometer: Termometro principale
 Maintenance mode active. You cannot modify any data now.: Funzionamento in modalità di servizio. Non puoi modificare alcun dato.
 Make sure to copy it now because you won’t be able to see it again!: Assicurati di copiarlo ora perché non potrai vederlo di nuovo!
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Assicurati di averlo salvato in un posto sicuro se vuoi usarlo ancora in futuro. Una volta uscito dalla pagina, il link non verrà più visualizzato.
@@ -473,15 +556,30 @@ Manage your new client app in the SUPLA-Cloud.: Gestire la nuova app in SUPLA-Cl
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Gestire il nuovo dispositivo in SUPLA-Cloud o con l’applicazione SUPLA
 Manual: Istruzioni
 Manually closed: Chiuso manualmente
+Master thermostat: Termostato master
+Max: Max
 Maximum delay is 60 minutes.: Massimo ritardo 60’
+Maximum duration is one year.: Durata massima è 1 anno
 Maximum filesize limit is {limit}.: La dimensione massima del file è {limit}.
 Maximum voltage: Tensione più alta
+Measurement settings: Impostazioni misure
 Measurement window: Tempo di misurazione
 Meter value: Lettura del contatore
 Meters: Misuratori
+Min: Min
+Minimum OFF time before cooling can be turned on: Tempo di spegnimento minimo prima che il raffrescamento possa essere acceso
+Minimum OFF time before heating can be turned on: Tempo di spegnimento minimo prima che il riscaldamento possa essere acceso
+Minimum OFF time before heating/cooling can be turned on: Tempo di spegnimento minimo prima che il riscaldamento/raffrescamento possa essere acceso
+Minimum ON time before cooling can be turned off: Tempo di accensione minimo prima che il raffrescamento possa essere spento
+Minimum ON time before heating can be turned off: Tempo di accensione minimo prima che il riscaldamento possa essere spento
+Minimum ON time before heating/cooling can be turned off: Tempo di accensione minimo prima che il riscaldamento/raffrescamento possa essere spento
+Minimum temperature must be lower than maximum temperature.: La temperatura minima deve essere inferiore della temperatura massima
 Minimum voltage: Tensione più bassa
 Missing action.: Nessuna azione
 Mode: Modalità
+'Mode: cool': 'Modo: raffrescamento'
+'Mode: heat': 'Modo: riscaldamento'
+'Mode: off': 'Modo: off'
 Modification: Modifica
 Mondays: Lunedì
 Move down or stop: Scendere o fermare
@@ -504,6 +602,7 @@ New scene: Nuovo scenario
 Newer: Più recenti
 'Next limit renewal: {date}': Il limite verrà rinnovato {data}
 Next run date: Prossima esecuzione
+'No': 'No'
 No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Nessun identificatore di accesso abilitato. Vai alla {accessIdsListLink} o {newAccessIdLink}.
 No function: Nessuna funzione
 No future executions - schedule disabled: Nessuna esecuzione programmata - scadenzario disabilitato
@@ -514,20 +613,25 @@ No of channels: N° di canali
 No of client apps: N° di applicazioni client
 No of devices: N° di dispositivi
 No of operations: N° di operazioni
+No results: Nessun risultato
 No schedule configuration.: N° configurazioni scadenziario
 No, take me back!: No, portami via di qui!
+None: Nessuno
+None (channel disabled): Nessuna (canale disabilitato)
+Noop: Nessuna operazione
+Notification: Notifica
+Notification body is set by the firmware.: Il corpo della notifica è impostato nel firmware
+Notification must have a body.: La notifica deve avere un contenuto.
+Notification title is set by the firmware.: Il titolo della notifica è impostato nel firmware
+Notifications: Notifiche
+Notifications (defined): Notifiche (stabilite)
+Notifications (sent per hour): Notifiche (inviate per ora)
 No{'.'} of Client’s apps: Numero delle applicazioni client
 No{'.'} of access identifiers: Numero degli identificatori d’accesso
 No{'.'} of channel groups: Numero dei gruppi di canali
 No{'.'} of channels: Numero di canali
 No{'.'} of devices: Numero dei dispositivi
 No{'.'} of locations: Numero delle localizzazioni
-None: Nessuno
-None (channel disabled): Nessuna (canale disabilitato)
-Noop: Nessuna operazione
-Notification: Notifica
-Notification must have a body.: La notifica deve avere un contenuto.
-Notifications: Notifiche
 Number of aberrations: Numero di aberrazioni
 Number of attempts to close: Numero di tentativi di chiusura
 Number of attempts to open: Numero di tentativi di apertura
@@ -536,24 +640,32 @@ OAuth application: Applicazione OAuth
 OAuth apps: Applicazioni OAuth
 OAuth authorization: Autorizzazione OAuth
 OAuth integrations might stop working after the instance is unregistered.: Le integrazioni Oauth potrebbero smettere di funzionare dopo l’annullamento della registrazione dell’istanza
+OCR settings: Impostazioni OCR
 OK: OK
+OR: OR
 'Off': Disabilita
+Off with duration: Off a tempo
 Offline access: Accesso offline
 Older: Meno recenti
 'On': Abilita
+On with duration: On a tempo
 On/Off switch: Sensore di alimentazione
 Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Sono ammessi solo i nomi dei domini con un numero opzionale della porta. Ad esempio. mysupla.org oppure mysupla.org:88. L’HTTPS è obbligatorio.
 Open: Apri
 Open / close: Apri/chiudi
 Open partially: Apri parzialmente
+Open value: Valore apertura
 Opening sensor: Sensore di apertura
 Operation: Operazione
 Operations: Attività
 Original location: Localizzazione originale
 Other: Altro
 Otherwise go to the homepage.: Altrimenti passa a [home page].
+Overheat protection: Protezione alte temperature
 PIN: PIN
 PIN for Google must have a length between {minLength} and {maxLength} digits.: Il PIN per Google deve essere composto da almeno {minLength} e da un massimo di {maxLength} cifre.
+Pair new devices or sensors: Associa nuovi dispositivi o sensori
+Pairing request sent.: Richiesta associazione inviata
 Partial opening sensor: Sensore di apertura parziale
 Partially opened sensor for channel: Canale per il sensore di apertura  parziale
 Password: Password
@@ -581,11 +693,15 @@ Please click the link we have sent you after the registration to proceed.: Clicc
 Please confirm your SUPLA account.: Conferma l’account SUPLA
 Please enter a valid email address: Inserisci l’indirizzo e-mail corretto
 Please fill a valid email address: Inserisci un’email valida
+Please find the device details below.: Di seguito sono riportati i dettagli del dispositivo
 Please fix the problems with operations and try again.: Risolvi i problemi con le operazioni e riprova.
 Please log in again to proceed.: Accedi di nuovo per continuare.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Fare attenzione che, i dispositivi menzionati in questo messaggio dovrebbero essere installati solo da installatori certificati SUPLA
 Please provide a valid domain name for your private SUPLA Cloud: Inserisci il nome corretto del dominio per la Tua nuvola privata SUPLA
+Please provide the installer e-mail address to request the device unlock.: Indicare indirizzo mail dell'installatore per inviare richiesta di sblocco dispositivo
 Please read the Terms and Conditions.: Leggi il Regolamento.
 Please select a condition: Si prega di selezionare una condizione
+Please select and configure the action: Selezionare e configurare l'azione
 Please wait a moment before the next login attempt.: Aspetta un momento prima di un altro tentativo di login.
 Port: Porta
 Power active: Energia attiva
@@ -599,10 +715,13 @@ Private Cloud domain name: Nome del dominio della nuvola privata
 Private instance of the SUPLA cloud with given URL is already registered.: Il cloud SUPLA privato è già registrato a questo indirizzo.
 Proceed: Continua
 Processing: In corso
+Program {programNo}: Programma {programNo}
+Projector screen: Schermo proiettore
 Protocol: Protocollo
 Public ID: ID pubblico
 Publish to integrations: Pubblicare su integrazioni
 Publishes the event to integrated services like MQTT or webhooks.: Pubblicare l’evento su servizi di integrazioni come MQTT o webhooks
+Push notifications limit has been exceeded: Il limite di notifiche push è stato superato
 RESET: RESETTA
 RGB led controller: Controllore dell’illuminazione RGB
 RGB lighting: Illuminazione RGB
@@ -614,6 +733,9 @@ Read: Lettura
 Recipients: Destinatari
 Reference to the scene will be removed from the items below.: La relazione con lo scenario verrà rimosso dagli elementi seguenti
 Refresh: Aggiorna
+Refresh interval: Intervallo di ricaricamento
+Refresh the config: Ricarica la configurazione
+Refreshing the configuration will overwrite the changes you made here.: Il ricaricamento della configurazione sovrascriverà le modifiche apportate
 Regeneration starts at: La rigenerazione inizia alle
 Register: Registra
 Register a new OAuth application: Registra la nuova applicazione OAuth
@@ -624,17 +746,25 @@ Registered: Registrato
 'Registered from IP address: %deviceRegIp%': 'Registrato dall’indirizzo IP: %deviceRegIp%'
 Relay: Relè
 Relay switching time: Tempo di commutazione del relè
+Reload last photo: Ricarica ultima foto
 Reload the chart: Ricaricare il grafico
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Prima di eliminare la localizzazione, devi trasferire i gruppi di canali in essa presenti. Identificatori: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Prima di eliminare la localizzazione, devi trasferire i canali in essa presenti. Identificatori: {relatedIds}.'
+Remote restart is unsupported in the firmware.: Il riavvio da remoto non è supportato dal firmware
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Prima di eliminare questa localizzazione, elimina i dispositivi collegati. Identificatori: {relatedIds}.'
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Elimina tutte le scene correlate prima di eliminare questa posizione. Identificatori: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Prima elimina tutti i dispositivi che usano questa localizzazione come localizzazione originale. Identificatori: {relatedIds}.'
+Remove this item: Rimuovi questo elemento
 Repeat password: Ripeti la password
+Request device unlock: Richiedi sblocco dispositivo
 Reset Your Password: Reset password
 Reset counter: Reset contatore
+Reset to defaults: Reimposta alle configurazioni di default
+Restart device: Riavvia dispositivo
+Restart the device: Riavvia dispositivo
 Retry on failure: Ripeti se fallito
 Reveal: Apri
+Reveal or stop: Rivela o ferma
 Reveal partially: Apri parzialmente
 Reverse active energy: Energia attiva restituita
 Reverse active energy balance: Bilancio dell’energia attiva restituita
@@ -646,8 +776,10 @@ Roller shutter operation: Apertura e chiusura di avvolgibili
 Roller shutters: Avvolgibili
 Roof window opening sensor: Sensore apertura lucernario
 Roof window shutter operation: Funzionamento lucernario
+S/N: S/N
 SUPLA - Account Activation: SUPLA – Attivazione dell’account
 SUPLA - Account Removal: SUPLA – Cancellazione dell’account
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Conferma sblocco dispositivi per installatori autorizzati
 SUPLA - Password reset: SUPLA – Reimpostazione della password
 SUPLA - Private instance unregistration: SUPLA - annullamento della registrazione dell’istanza privata
 SUPLA Cloud is under maintenance.: SUPLA Cloud è in fase di aggiornamento.
@@ -658,6 +790,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Notifica di accesso al %cloudHost% non riuscito
 SUPLA – new client app has been added to your account: SUPLA - nuova app aggiunta al tuo account
 SUPLA – new device has been added to your account: SUPLA - nuovo dispositivo aggiunto al tuo account
+SUPLA – your device has been unlocked!: SUPLA - il tuo dispositivo è stato sbloccato!
 SUPLA.ORG Team: Squadra di SUPLA.ORG
 Saturdays: Sabato
 Save: Salva
@@ -677,6 +810,7 @@ Schedules: Scadenzari
 Scope: Ambito (scope)
 Scopes: Ambiti
 Scopes define which sections of your account can be accessed when using the token.: Gli ambiti definiscono a quali parti dell’account è possibile ottenere l’accesso tramite il token.
+Screen brightness: Luminosità schermo
 Search: Cerca
 Secret: Chiave segreta (secret)
 Security: Sicurezza
@@ -687,6 +821,7 @@ See in SUPLA-Cloud: Vedi in SUPLA-Cloud
 Seems like a secret place: Sembra che tu non debba essere qui
 Select icon: Seleziona l’icona
 Select the item (subject) you want to control using this link: Seleziona un elemento (soggetto) che vuoi controllare tramite questo link
+Selected: Selezionati
 Selected device has been logged out.: Il dispositivo selezionato è stato disconnesso
 Send a notification: Invia una notifica
 Send notification: Invia una notifica
@@ -695,12 +830,17 @@ Sensors: Sensori
 Server address: Indirizzo del server
 Server unreachable: Server irragiungibile
 Service temporarily unavailable: Servizio temporaneamente non disponibile
+Set HVAC parameters: Imposta parametri HVAC
+Set the device time: Imposta il tempo del dispositivo
 Set value added: Imposta valore aggiunto
 Set values for each phase separately: Determinare il valore per ogni fase separatamente
 Setting the number of attempts to 1 disables the retrying behavior completely.: Impostando il numero di tentativi a 1, verrà disabilitata la ripetizione
+Settings: Impostazioni
+Settings have not been saved!: Le impostazioni non sono state salvate
 Show my limits: Mostra i miei limiti
 Show on the Client’s devices: Mostra nei dispositivi client
 Shut: Chiudi
+Shut or stop: Chiudi o ferma
 Shut partially: Chiudi parzialmente
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Chiudi il motore fino al fondo della corsa e inserisci il valore della percentuale di chiusura. Questa impostazione non è obbligatoria ma consentirà una migliore visualizzazione della posizione del motore nell’applicazione.
 Sign In: Log in
@@ -708,6 +848,7 @@ Sign Out: Log out
 Sign in temporarily unavailable. Please try again later.: Login temporaneamente non disponibile. Riprova più tard.
 Smartphones: Smartphone
 SoftVer: VerSoft
+Some features depend on this channel: Alcune funzionalità dipendono da questo canale
 Some features depend on this channel group: Alcune funzionalità dipendo da questo gruppo di canali
 Some features depend on this device: Alcune caratteristiche dipendono da questo dispositivo
 Some features depend on this scene: Alcune funzionalità dipendono da questo scenario
@@ -718,6 +859,7 @@ Start date: Data dell’inizio
 Start from the homepage.: Inizia dalla homepage
 State: Stato
 State webhook: Webhook dello stato
+Status LED: LED di stato
 Step by step: Passp-passo
 Stop: Ferma
 Store measurements history: Archivia storico delle misurazioni
@@ -727,6 +869,9 @@ Successful: Riusciti
 Summary for selected time range: Riepilogo per l’ambito selezionato
 Sundays: Domeniche
 Switch the device to configuration mode: Attiva la modalità di configurazione sul dispositivo
+Switch to manual mode: Passa in manuale
+Switch to program mode: Passa in automatico
+THEN: ALLORA
 THIS CANNOT BE UNDONE!: QUESTA OPERAZIONE NON PUÒ ESSERE ANNULLATA!
 TLS: TLS
 Tab: Tabulatore
@@ -736,6 +881,8 @@ Temperature & Humidity Sensor: Sensore di temperatura e di umidità
 Temperature Sensor: Sensore di temperatura
 Temperature adjustment: Regolazione della temperatura
 Temperature and humidity sensor: Sensore di temperatura e umidità
+Temperature difference is too big between {min}°C and {max}°C.: La differenza di temperatura è troppo grande tra {min}°C e {max}°C
+Temperature setpoint change switches to manual mode: La modifica del setpoint di temperatura abilita la modalità manuale
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Grazie per l’iscrizione al sito %cloudHost%. Per portare a buon fine l’attivazione, clicca sul seguente link.
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Grazie alle integrazioni, puoi aggiungere facilmente le nuove funzioni al Tuo account, sfruttando le soluzioni fornite dai provider esterni, dai programmatori o da Te stesso.
 'The IP used for login is: %ip%': 'Tentativo di accesso proviene da un indirizzo IP: %ip%'
@@ -744,9 +891,15 @@ The SUPLA infrastructure is being updated.: L’infrastruttura SUPLA è stata ag
 The Terms and Conditions have changed: Il regolamento ha subito una modifica
 The Terms and Conditions have changed – please read them and accept.: Il regolamento ha subito una modifica – è richiesta la sua accettazione.
 The activation link has been sent again. Check the inbox.: Il messaggio con il link di attivazione del Tuo account è stato inviato di nuovo. Controlla la posta elettronica.
+The channel has been deleted.: Il canale è stato eliminato
 The client will be automatically logged out when deleted.: Eliminare il cliente causerà la sua immediata disconnessione.
 The counter has been reset.: Il contatore è stato resettato
+The device could not be unlocked.: Il dispositivo non può essere sbloccato
+The device has been unlocked already.: Il dispositivo è già stato sbloccato
+The device has been unlocked.: Il dispositivo è stato sbloccato
+The device has channel conflict and cannot work.: Il dispositivo ha un conflitto di canale e non può funzionare
 The device is disabled: Il dispositivo è spento
+The device is locked: Il dispositivo è bloccato
 The device might be in a sleep mode.: Il dispositivo può funzionare in modalità standby.
 The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Il dispositivo che utilizza questa sessione perderà l’accesso a SUPLA Cloud. Per continuare ad usare l’applicazione, sarà necessario effettuare un nuovo login.
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Tutto lo storico delle aberrazioni di tensione per la fase {phaseNumber} verrà rimosso.
@@ -761,6 +914,7 @@ The items below depend on this channel group, so they will be deleted.: I seguen
 The items below depend on this scene, so they will be deleted.: I seguenti elementi si basano su questo scenario, di conseguenza verranno rimossi
 The latest execution: Ultima esecuzione
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Il risultato dell`esecuzione è presentato come un sito web, perché la risposta in formato HTML è stata richiesta da te (o dal tuo browser).
+The master termostat you chose already has a master.: Il termostato master scelto ha già un master
 The measurement history has been deleted.: Lo storico delle misurazioni è stato cancellato.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: "La nuova password sostituirà quella precedente. Alcune delle attuali integrazioni\_potrebbero non funzionare. Procedere?"
 The next available executions: Prossime esecuzioni disponibili
@@ -777,12 +931,15 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Il server ha restituito l’errore HTTP 404. Ciò significa che l’elemento che stai cercando non esiste.
 The server has returned an HTTP {statusCode} error.: Il server ha restituito un errore {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: I file delle icone che hai selezionato sono troppo grandi. La dimensione massima consentita di upload è {limit}.
+The thermostat will not work if the main thermometer is not set.: Il termostato non funzionerà se non viene impostato il termometro principale
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Valvola non può essere aperto tramite il link diretto o tramite API, se è stato chiuso manualmente. Per riprendere il comando apri la valvola manualmente.
-valveOpenConfirm_manual: Valvola è stata chiusa in modalità manuale o via radio. Prima di aprire assicurati che non è stata chiusa a causa di allagamento. Per spegnere l'avverimento apri la valvola manualmente. Sei sicuro di voler aprire la valvola in modo telecomandato?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: La valvola non si aprirà se fosse chiusa manualmente o via radio che potrebbe essere associato a danni causati dall'acqua.
 There are no more channels you can add to this group: Non ci sono altri canali da aggiungere a questo gruppo
 Thermometer: Termometro
+Thermometer error: Errore termometro
+Thermometers configuration: Configurazione termometri
 Thermostat: Termostato
+Thermostat programs: Programmi termostato
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Questo link diretto richiede una precisazione dei parametri dell’azione eseguita. Vedi i seguenti esempi per scoprire quali parametri puoi impostare.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ricevi questa informazione in materia di tentativo di accesso non riuscito al SUPLA-CLOUD con la Tua email.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Questa è la fase finale della cancellazione del tuo account. La compilazione e l’approvazione del modulo comporterà la cancellazione irreversibile dei tuoi dati.
@@ -790,8 +947,10 @@ This is the list of applications you have granted access to your account.: Quest
 This link is only valid for an hour.: Il link sarà attivo per un’ora.
 'This password will protect your home. Therefore, it must:': 'Questa password proteggerà la tua casa. Quindi:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Questa modalità di pianificazione è pensata per utenti esperti. È necessario specificare il comportamento desiderato in una nota Crontab (prorogata da alcune versioni SUPLA). Puoi trovare maggiori informazioni su Crontab sul sito web crontab.guru
+This thermostat is controlled by another device.: Questo termostato è controllato da un altro dispositivo
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Questa azione è utilizzata dal dispositivo stesso (es. accende la luce o avvia la tapparella). L'impostazione di qualsiasi evento su questa azione disabiliterà la funzione del comando locale.
 Thursdays: Giovedì
+Time: Ora
 Timezone: Fuso orario
 Title: Titolo
 To: Fino a
@@ -803,6 +962,7 @@ Too many operations in this scene: Troppe azioni nello scenario
 Total: Totale
 Total time: Tempo totale
 Tuesdays: Martedì
+Turn off: Spegni
 Turning this device off will cause its channels not working in the following features.: Disattivando questo dispositivo, i suoi canali non funzioneranno nelle seguenti funzionalità.
 Turning this device off will result in disabling features listed below.: Disattivando questo dispositivo, le funzionalità elencate di seguito saranno disabilitate.
 Type: Tipo
@@ -810,18 +970,25 @@ Undo registration: Annullare registrazione
 Unit: Unità
 Unknown: Sconosciuto
 Unknown browser: Browser sconosciuto
+Unlock the device: Sblocca il dispositivo
 Unregister my private SUPLA Cloud instance: Annullare la registrazione della mia istanza privata SUPLA Cloud
 Unsuccessful login attempt: Tentativo di accesso non riuscito
 Unsupported function: Funzione non supportata
 Unsupported type: Tipo non supportato
+Until a date and time: Fino ad una data ed un orario
+Until the next change: Fino al prossimo cambio
 Update in progress: Aggiornamento in corso
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: I file inviati non contengono contenuti inappropriati, non violano i diritti d’autore od i diritti di terzi, ed io ho il diritto di utilizzarli.
 Upper voltage threshold: Soglia di alta tensione
+Use device default: Utilizza dispositivo di default
 'Use the {0} server command to change this account''s limits. For example:': 'Usa il {0} comando server per cambiare i limiti dell’account. Per esempio:'
-Use working schedule for this access identifier: Usa la pianificazione oraria per questo identificatore dell’accesso
+Use {theMasterThermostat} to control this device.: Utilizza {theMasterThermostat} per controllare questo dispositivo
+Used current transformer type: Tipo di trasformatore di corrente utilizzato
 User is already confirmed. Try to log in.: Questo account è già confermato. Accedi.
 Value: Valore
 Value added: Valore aggiunto
+Value divider: Valore divisore
+Value multiplier: Valore moltiplicatore
 Value separator: Separatore
 Valve: Valvola
 Valve closed manually: Valvola chiusa manualmente
@@ -829,6 +996,7 @@ Vector balance: Equilibrio vettoriale
 Verification method: Metodo di verifica
 Visible: Visibile
 Visit app webpage: Apri il sito web dell’applicazione
+Visit the master thermostat page.: Visita la pagina del termostato master
 Voltage: Tensione
 Voltage aberrations: Aberrazioni della tensione
 Voltage monitoring: Monitoraggio della tensione
@@ -857,6 +1025,8 @@ We will try to display the received icons the best possible way, however you wil
 We will use it only in justified situations.: Lo useremo solo nei casi giustificati.
 Weather Station: Stazione meteo
 Wednesdays: Mercoledì
+Week: Settimana
+Weekly schedule: Schedulazione settimanale
 Weight sensor: Peso
 Welcome!: Benvenuto/a!
 What this token is for?: A che cosa serve questo token?
@@ -869,14 +1039,20 @@ When liquid or lack thereof is detected: Quando viene rilevato un liquido o l’
 When the RGB lighting brightness level changes: Quando il livello di luminosità dell’illuminazione RGB cambia
 When the RGB lighting reaches a certain level of brightness: Quando l’illuminazione RGB raggiunge uno specifico livello di luminosità
 When the active power will be: Quando la potenza attiva sarà
+When the alarm is armed: Quando l'allarme è inserito
+When the alarm is armed or disarmed: Quando l'allarme è inserito o disinserito
+When the alarm is disarmed: Quando l'allarme è disinserito
 When the apparent power will be: Quando la potenza apparente sarà
 When the balanced forward active energy will be: Quando è bilanciata, l’energia attiva consumata sarà
 When the balanced reverse active energy will be: Quando è bilanciata, l’energia attiva restituita sarà
+When the battery cover is opened: Quando il coperchio batteria viene aperto
 When the brightness level changes: Quando il livello di luminosità cambia
 When the brightness will be: Quando il livello di luminosità sarà
 When the color changes: Quando il colore cambia
 When the condition is met: Quando la condizione è soddisfatta
 When the current will be: Quando la corrente sarà
+When the curtain position changes: Quando cambia la posizione della tenda
+When the curtain reaches a certain position: Quando la tenda raggiunge una posizione definita
 When the depth changes: Quando la misurazione della profondità cambia
 When the depth is: Quando la misurazione della profondità sarà
 When the device is turned off: Quando il dispositivo sarà spento
@@ -892,6 +1068,8 @@ When the door will be opened or closed: Quando la porta sarà chiusa o aperta
 When the electricity meter reaches a certain value: Quando il contatore di energia raggiunge uno specifico valore
 When the electricity meter value changes: Quando il valore del contatore di energia elettrica cambia
 When the electricity meter value will be: Quando il valore del contatore di energia sarà
+When the facade blind position changes: Quando la posizione della persiana cambia
+When the facade blind reaches a certain position: Quando la persiana raggiunge una posizione definita
 When the forward active energy will be: Quando l’energia consumata sarà
 When the garage door will be closed: Quando la porta del garage sarà chiusa
 When the garage door will be opened: Quando la porta del garage sarà aperta
@@ -908,27 +1086,37 @@ When the gateway will be opened or closed: Quando il passaggio sarà chiuso o ap
 When the heat meter value changes: Quando il valore del contatore cambia
 When the heat meter value reaches a certain value: Quando il valore del contatore di calore raggiunge uno specifico valore
 When the heat meter value will be: Quando il valore del contatore di calore sarà
+When the hotel card has been taken: Quando la tessera Hotel viene tolta
+When the hotel card is put in: Quando la tessera Hotel viene inserita
+When the hotel card is put in or has been taken: Quando la tessera Hotel viene inserita o tolta
 When the humidity changes: Quando l’umidità cambia
 When the humidity reaches a certain level: Quando l’umidità raggiunge uno specifico livello
 When the humidity will be: Quando l’umidità sarà
 When the lighting reaches a certain level of brightness: Quando l’illuminazione raggiunge uno specifico livello di luminosità
 When the mail comes or is taken: Quando la posta arriva o viene prelevata
 When the mail has been taken: Quando la posta viene prelevata
+When the meter reaches a certain value: Quando la misura raggiunge un determinato valore
+When the meter value changes: Quando il valore della misura cambia
+When the meter value will be: Quando il valore della misura è
 When the precipitation amount will be: Quando la quantità misurata di pioggia sarà
 When the pressure changes: Quando la pressione cambia
 When the pressure reaches a certain level: Quando la pressione raggiunge uno specifico livello
 When the pressure will be: Quando la pressione sarà
+When the projector screen position changes: Quando la posizione dello schermo del proiettore cambia
+When the projector screen reaches a certain position: Quando lo schermo del proiettore raggiunge una posizione definita
+When the pump is turned off: Quando la pompa è spenta
+When the pump is turned on: Quando la pompa è accesa
+When the pump is turned on or off: Quando la pompa è accesa o spenta
 When the rain amount changes: Quando la quantità di pioggia cambia
 When the reactive power will be: Quando la potenza passiva sarà
 When the reverse active energy will be: Quando l’energia attiva restituita sarà
+When the roller garage door position changes: Quando la serranda cambia posizione
 When the roller shutter position changes: Quando la posizione dell’avvolgibile cambia
-When the roller shutter reaches: Quando l’avvolgibile raggiunge
 When the roller shutter reaches a certain position: Quando l’avvolgibile raggiunge una specifica posizione
 When the roller shutter will be closed: Quando l’avvolgibile sarà chiuso
 When the roller shutter will be opened: Quando l’avvolgibile sarà aperto
 When the roller shutter will be opened or closed: Quando l’avvolgibile sarà aperto o chiuso
 When the roof window position changes: Quando la posizione del lucernario cambia
-When the roof window reaches: Quando il lucernario raggiunge
 When the roof window reaches a certain position: Quando il lucernario raggiunge una specifica posizione
 When the roof window will be closed: Quando il lucernario sarà chiuso
 When the roof window will be opened: Quando il lucernario sarà aperto
@@ -936,11 +1124,25 @@ When the roof window will be opened or closed: Quando il lucernario sarà chiuso
 When the temperature changes: Quando la temperatura cambia
 When the temperature reaches a certain value: Quando la temperatura raggiunge una specifica temperatura
 When the temperature will be: Quando la temperatura sarà
+When the terrace awning position changes: Quando la posizione della tenda del terrazzo cambia
+When the terrace awning reaches a certain position: Quando la posizione della tenda del terrazzo raggiunge una certa posizione
+When the thermometer error has been reported: Quando l'errore del termometro viene segnalato
+When the thermostat starts cooling: Quando il termostato inizia a raffrescare
+When the thermostat starts heating: Quando il termostato inizia a riscaldare
+When the thermostat starts heating or cooling: Quando il termostato inizia a riscaldare o a raffrescare
+When the thermostat starts or stops cooling: Quando il termostato inizia o finisce di raffrescare
+When the thermostat starts or stops heating: Quando il termostato inizia o finisce di riscaldare
+When the thermostat starts or stops heating or cooling: Quando il termostato inizia o finisce di riscaldare o raffrescare
+When the thermostat stops cooling: Quando il termostato finisce di raffrescare
+When the thermostat stops heating: Quando il termostato finisce di riscaldare
+When the thermostat stops heating or cooling: Quando il termostato finisce di riscaldare o raffrescare
 When the value will be: Quando il valore sarà
 When the valve is closed: Quando la valvola sarà chiusa
 When the valve is manually closed: Quando la valvola sarà chiusa manualmente
 When the valve is opened: Quando la valvola sarà aperta
 When the valve is opened or closed: Quando la valvola sarà chiusa o aperta
+When the vertical blind position changes: Quando la posizione delle persiane verticali cambia
+When the vertical blind reaches a certain position: Quando le persiane verticali raggiungono una posizione definita
 When the voltage will be: Quando la tensione sarà
 When the water meter reaches a certain value: Quando il contatore dell’acqua raggiunge uno specifico valore
 When the water meter value changes: Quando il valore del contatore dell’acqua cambia
@@ -959,19 +1161,22 @@ When you execute the link with HTTP PATCH method, you can omit the random part o
 Where is the JSON?: Dove è JSON?
 Where is your SUPLA Cloud?: Dove si trova la Tua Supla?
 White: Bianco
+Will be deleted after: Verrà eliminato dopo
 Wind sensor: Sensore di vento
 Window opening sensor: Sensore di apertura finestra
 With SUPLA you can operate the lights in your home or office: Con SUPLA puoi gestire l’illuminazione a casa o in ufficio
+With a timer: A tempo
 With function: Con la funzione
 Working period: Periodo di lavoro
-Working schedule: Pianificazione oraria
 YOUR LINK CODE: CODICE DEL TUO LINK
+'Yes': Si
 You are changing the settings too quickly. You have to wait a while before making this change.: Impostazioni modificate troppo velocemente. Aspettare qualche istante prima di effettuare questa modifica.
 You can browse only the most recent logs now. Wait a while for the full history.: Al momento vengono visualizzate solo le misure più recenti. Attendere un po’ di tempo per scaricare l’intero storico.
 You can ignore this message, if you have accidentally entered an incorrect password.: Puoi ignorare questa informazione se sei stato Tu ad inserire una password errata.
 You can use the application but you will not be able to modify any settings.: È possibile utilizzare l'applicazione, ma non è possibile apportare modifiche alla configurazione.
 You cannot delete your last access identifier.: Non puoi eliminare il Tuo ultimo identificatore di accesso.
 You cannot delete your last location.: Non puoi eliminare la Tua ultima localizzazione.
+You cannot to set a master thermostat for a channel that is master for others.: Non è possibile impostare come termostato master un canale che è già master per altri canali
 You cannot use SUPLA project name in the domain name.: Non è possibile usare il nome SUPLA nel nome del dominio.
 You have exceeded your API Rate Limit: Hai utilizzatoil Tuo limite delle richieste API
 You have requested to unregister your SUPLA Cloud instance: Hai richiesto l’annullamento della registrazione dell’istanza SUPLA Cloud
@@ -996,6 +1201,7 @@ Your channel groups are allowed to have a maximum of {max} channels.: I tuoi gru
 Your chart is being drawn...: Il tuo grafico è disegnato...
 Your data are being collected. Please be patient.: Stiamo raccogliendo i tuoi dati, pregasi attendere.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: I tuoi dati vengono scaricati dal server. Attendere il completamento del download prima di esportarli.
+Your device has been unlocked by the installer.: Il tuo dispositivo è stato sbloccato dall'installatore
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Il dispositivo consente l’esecuzione delle azioni desiderate su qualsiasi dispositivo associato al proprio account. Le azioni disponibili dipendono dal dispositivo e dalla relativa versione firmware
 Your email: Tua email
 Your instance is not registered or you are trying to authorize an application that is not public.: La Tua istanza non è registrata oppure stai cercando di autorizzare un’applicazione che non è pubblica.
@@ -1044,6 +1250,8 @@ and wait until the value will be: e attendi che il valore sia
 average: media
 be at least {numChars} characters long: deve contenere almeno {numChars} caratteri
 before: prima
+blue, otherwise: blu, altrimenti
+blue, when voltage lower than the low threshold: blu, con tensione al di sotto della soglia bassa
 caption: Descrizione
 change: cambia
 channel: Canale
@@ -1056,16 +1264,21 @@ channelGroup: Gruppo di canali
 choose: scegli
 choose the access identifiers: seleziona gli identificatori di accesso
 choose the action: Scegliere azione
+choose the currency: Scegli valuta
 choose the scene: Scegliere scenario
 choose the schedule: selezionare l’agenda
 choose the timezone: seleziona il fusorario
 click here: clicca quì
+configuration missing: Configurazione mancante
 contains a character that is neither a letter nor a digit: contiene un carattere che non è né una lettera né una cifra
 contains a digit: contiene una cifra
 contains lower and upper letters: contiene lettere maiuscole e minuscole
+cool: raffresca
 copied: copiato
 copy: copia
+day: giorno
 days: Giorni
+default: default
 directLinkExecutionFailureReason_disabled: Il link diretto è disabilitato
 directLinkExecutionFailureReason_executionLimitExceeded: l limite delle esecuzioni è stato superato.
 directLinkExecutionFailureReason_expired: Il link diretto è scaduto.
@@ -1086,6 +1299,10 @@ executed: eseguito
 extend: prolunga la durata
 from IP: dall’indirizzo IP
 from the IP: dall’indirizzo
+green, otherwise: verde, altrimenti
+green, when power less than the low threshold: verde, con tensione al di sotto della soglia bassa
+heat: riscalda
+hour: ora
 hours: Ore
 is at least {numChars} characters long: ha almeno {numChars} caratteri
 last 24 hours: ultime 24 ore
@@ -1096,13 +1313,20 @@ logs_aggregation_day: giorni
 logs_aggregation_hour: ore
 logs_aggregation_minute: minuti
 logs_aggregation_month: mesi
+max: max
+midnight: mezzanotte
+milliseconds: millisecondi
+min: min
 min.: Min.
 minutes: minuti
 notification: notifica
+'off': 'off'
 or another element: o un altro elemento
 password: password
 previous month: mese precedente
 range: intervallo
+red, when power higher than the high threshold: rosso, con potenza al di sopra della soglia alta
+red, when voltage higher than the high threshold: rosso, con tensione al di sopra della soglia alta
 register-slide1-text: Basandosi sull’elettronica disponibile, SUPLA Ti renderà possibile la costruzione di moduli semplici che permettono di gestire e controllare gli elementi dell’automazione degli edifici. Grazie a SUPLA puoi ad esempio controllare l’illuminazione, accendere e spegnere gli elettrodomestici, aprire e chiudere i cancelli e le porte oppure monitorare la temperatura nei locali.  Basta solo un tocco del dito.
 register-slide1-title: Tuo edificio intelligente
 register-slide2-text: Uno dei presupposti basilari del progetto è la semplicità e disponibilità. SUPLA, con un solo tocco del dito , permette di accendere la luce o di aprire il cancello nel momento in cui vogliamo entrare. SUPLA è disponibile ovunque lì dove hai accesso alla rete Internet e puoi usare il smartphone od il tablet. SUPLA viene sviluppata sulla base di Open Software e Hardware. In questo modo anche Tu puoi sviluppare questo progetto!
@@ -1116,6 +1340,7 @@ scheduleMode_daily: Ogni giorno
 scheduleMode_minutely: Ogni minuto
 scheduleMode_once: Una sola volta
 sec.: Sec.
+seconds: secondi
 smartphones, tablets, etc.: smartphone, tablet ecc.
 state-closed: Chiuso
 state-default: Default
@@ -1134,8 +1359,10 @@ state-rgb_on_dim_on: RGB e varialuce abilitati
 state-shut: Chiuso
 state-temperature: Temperatura
 sum: somma
+sunrise: alba
 sunrise-after: alba
 sunrise-before: alba
+sunset: tramonto
 sunset-after: tramonto
 sunset-before: tramonto
 the whole history: storico completo
@@ -1148,9 +1375,15 @@ username: nome utente
 valid until: scade
 values as seen on chart: valori come da grafico
 values as seen on counter: valori come da contatore
+valveOpenConfirm_manual: Valvola è stata chiusa in modalità manuale o via radio. Prima di aprire assicurati che non è stata chiusa a causa di allagamento. Per spegnere l'avverimento apri la valvola manualmente. Sei sicuro di voler aprire la valvola in modo telecomandato?!
 yesterday: ieri
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} non può interagire con il Tuo account finché non concederai di nuovo l’accesso.'
 '{clientName} wants to access your account.': '{clientName} vuole accedere al Tuo account.'
+'{count} minutes after sunrise': '{count} minuti dopo l’alba'
+'{count} minutes after sunset': '{count} minuti dopo il tramonto'
+'{count} minutes before sunrise': '{count} minuti prima dell’alba'
+'{count} minutes before sunset': '{count} minuti prima del tramonto'
+'{days} days': '{days} giorni'
 '{minutes} minutes after sunrise': '{minutes} minuti dopo l’alba'
 '{minutes} minutes after sunset': '{minutes} minuti dopo il tramonto'
 '{minutes} minutes before sunrise': '{minutes} minuti prima dell’alba'
@@ -1174,6 +1407,7 @@ Are you sure you want to disable this device?: Sei sicuro di voler spegnere ques
 Assigned Locations: Localizzazioni assegnate
 Authorized OAuth apps: Applicazioni OAuth autorizzate
 Calculated value: Stato del contatore
+Cannot execute an action when the device is disconnected.: Non è possibile eseguire le azioni se l’apparecchio è disconnesso.
 Cannot send an activation e-mail. Try again later.: Impossibile inviare il messaggio con il link di attivazione. Riprova più tardi.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Non hai ricevuto il messaggio con il link di attivazione del Tuo account? Assicurati che esso non sia finito nella casella SPAM (posta indesiderata). Puoi anche {clickHereLink}, per inviarlo di nuovo.
 Channel value: Valore del canale
@@ -1194,6 +1428,7 @@ Doors, Gates: Porte, Cancelli
 ENABLED: ABILITATO
 Email already exists: Email già esistente
 Existing schedules: Scadenzari esistenti
+Expected maximum increment: Massimo incremento previsto
 From IP: Dall’indirizzo IP
 Get SUPLA on your devices: Scarica SUPLA per i Tuoi dispositivi
 Hi: Ciao
@@ -1208,6 +1443,8 @@ Languages: Lingue
 Loading: Caricamento
 Location password must be at least 4 characters.: La password per la localizzazione deve contenere almeno 4 caratteri.
 Location password must be no longer than 32 characters.: La password per la localizzazione non può contenere più di 32 caratteri.
+Maximum temperature that can be set from the device: Temperatura massima che può essere impostata dal dispositivo
+Minimum temperature that can be set from the device: Temperatura minima che può essere impostata dal dispositivo
 Minute: Minuto
 Mobile Apps: Applicazioni mobili
 Next: Avanti
@@ -1229,12 +1466,32 @@ Status: Status
 Subject: Soggetto
 Sunrise / Sunset: Alba/Tramonto
 Supla for devices: Supla per dispositivi
+Temperature adjustment only: Solo regolazione temperatura
 The events in voltage aberrations history will be automatically deleted after {days} days.: Gli eventi nello storico delle aberrazioni di tensione saranno rimossi automaticamente dopo {days} giorni.
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: La reazione sarà attiva quando tutte le condizioni sono verificate. Se si sceglie di impostare tutte le impostazioni di tempo disponibili, la reazione sarà attiva quando l'orario è compreso tra attivo da e attivo a, è compreso nell'orario di lavoro selezionato e soddisfa uno dei criteri diurni.
 Triggers: Comandi
 Try again later: Riprova più tardi
 Turning this device off will result in disabling all the associated schedules.: Lo spegnimento di questo dispositivo causerà anche la disabilitazione degli scadenzari ad esso uniti.
+Unlocked: Sbloccato
+Use working schedule for this access identifier: Usa la pianificazione oraria per questo identificatore dell’accesso
+Use working schedule for this reaction: Utilizza schedulazione per questa reazione
+User interface: Interfaccia utente
 Value per unit: Valore unitario
 When: Quando
+When the curtain reaches: Quando la tenda raggiunge
+When the facade blind reaches: Quando la persiana raggiunge
+When the projector screen reaches: Quando lo schermo del proiettore raggiunge
+When the roller garage door a certain position: Quando la serranda raggiunge una posizione definita
+When the roller garage door reaches: Quando la serranda raggiunge
+When the roller shutter calibration failed: Quando la calibrazione della tapparella fallisce
+When the roller shutter calibration has been lost: Quando la calibrazione della tapparella viene persa
+When the roller shutter calibration has started: Quando la calibrazione della tapparella inizia
+When the roller shutter motor reported a problem: Quando il motore della tapparella segnala un problema
+When the roller shutter reaches: Quando l’avvolgibile raggiunge
+When the roof window reaches: Quando il lucernario raggiunge
+When the terrace awning reaches: Quando la posizione della tenda del terrazzo raggiunge
+When the vertical blind reaches: Quando le persiane verticali raggiungono
+Working schedule: Pianificazione oraria
 You need to provide icons for all states.: Devi fornire le icone a tutti gli stati.
 You will be logged out shortly: A breve verrà eseguito il log out
 choose a currency: seleziona la valuta
@@ -1254,51 +1511,30 @@ suffix: suffisso
 0% tilt angle: ~
 100% tilt angle: ~
 A confirmation upon successful device unlocking.: ~
-Active from: Attivo da
-Active to: Attivo fino
+Action trigger for channel: ~
 Activity conditions: ~
+Activity schedule: ~
 Additional time margin: ~
-Adjust temperature: Imposta temperatura
-Adjust temperatures: Imposta temperature
-After the delay: Dopo il tempo
-After the delay, but only when it's dark: Dopo il tempo, ma solo quando è buio
 Alarm armament sensor: ~
-Algorithm: Algoritmo
-All programs must define at least one temperature threshold.: Tutti i programmi devono avere almeno una soglia di temperatura
-Always decrement: Diminuisci sempre
-Always increment: Aumenta sempre
-Anti-freeze and overheat protection: Protezione antigelo e sovratemperatura
-Anti-freeze protection: Protezione antigelo
-Are you sure you want to change channel’s location?: Sei sicuro di voler cambiare la localizzazione del canale?
-Are you sure you want to change channel’s visibility?: Sei sicuro di voler cambiare la visibilità del canale?
-Are you sure you want to change device’s location?: Sei sicuro di voler cambiare la localizzazione del dispositivo?
-Are you sure you want to delete this channel?: Sei sicuro di voler cancellare questo canale?
-Automatic: Automatico
-Automatic front panel turn off: Spegnimento automatico del pannello frontale
-Automatic front panel turn off after: Spegnimento automatico del pannello frontale dopo
+Alarm at level (and above) should be greater than the corresponding warning level.: ~
+Alarm at level (and below) should be lower than the corresponding warning level.: ~
+Alarm level: ~
+Algorithms available on this device: ~
+Are you sure you want to delete this subdevice?: ~
 Automatic thermostat: ~
-Automatic time synchronization: Sincronizzazione oraria automatica
-Aux thermometer: Termometro Ausiliario
-Aux thermometer type: Tipo di termostato ausiliario
-Available variables: Variabili disponibili
-Average: Media
+Aux thermometer for channel: ~
 Battery cover open: ~
-Behavior settings: Impostazioni comportamento
-Binary sensor: Sensore binario
-Brightness adjustment for automatic mode: Impostazione luminosità per modo automatico
-Brightness level: Livello luminosità
-Button volume: Volume pulsanti
+Binary sensor for channel: ~
 Buttons upside down: ~
 Candle: ~
-Cannot update OCR settings. Try again in a while.: Non è possibile aggiornare le impostazioni OCR. Riprovare fra un momento.
+Cannot execute an action when the channel is not available.: ~
 Change percentage by: ~
 Change percentage to: ~
 Change tilt by: ~
 Change tilt to: ~
 Change to be the same.: ~
-Changing channel’s visibility will also change the visibility of other items.: La modifica della visibilità del canale comporterà la modifica della visibilità di altri elementi.
-Changing the location will also imply changing the location of the following items.: La modifica della localizzazione comporterà la modifica della localizzazione dei seguenti elementi.
-Channels that are meant to work with each other must be in the same location.: Canali che sono predisposti per funzionare insieme devono essere nella stessa locazione.
+Channels that are meant to work with each other must have the same visibility setting.: ~
+Choose many: ~
 Clock error: ~
 Close value: ~
 Collapse: ~
@@ -1309,279 +1545,154 @@ Common currencies: ~
 Configuration not available yet. Waiting for the device to connect.: ~
 Confirm if you want to perform the calibration.: ~
 Conflict: ~
-Cool to: Raffredda a
-Cooling mode: Modalità raffrescamento
-'Cooling: {percent}%': 'Raffrescamento: {percent}%'
-Costs: Costi
-Could not restart the device.: Non è possibile riavviare il dispositivo
+Container: ~
+Container level sensor: ~
+Container supports up to 10 sensors.: ~
 Could not send the identify command.: ~
 Could not set the device time.: ~
-Counter type: Tipo di contatore
 Curtain: ~
-Dark mode: Modalità Scuro
-Data: Dati
 Date range: ~
 Daytime criteria: ~
-Dependencies: Dipendenze
-'Device GUID: %deviceGuid%': 'GUID dispositivo: %deviceGuid%'
 Device identification is unsupported in the firmware.: ~
-Device settings: Impostazioni dispositivo
-Device should be restarting now.: Il dispositivo dovrebbe essere riavviato ora
+Device interface: ~
 Device time has been set.: ~
 Different than on master thermostat.: ~
 Differential thermostat: ~
 Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
-Domestic hot water: Acqua calda sanitaria
 Dryer: ~
+Each container level sensor must have different fill level.: ~
 Edit area crop: ~
-Edit program settings: Modifica setpoint programmi
 Electricity meter active power history: ~
 Electricity meter current history: ~
 Electricity meter voltage aberrations history: ~
 Electricity meter voltage history: ~
-Enable floor temperature control: Abilita controllo riscaldamento a pavimento
-Enable generic cooler temperature control: Abilita controllo sistema di raffrescamento generico
-Enable generic heater temperature control: Abilita controllo sistema di riscaldamento generico
 Enable power status LED: ~
 Enable support for OCR readings for this channel: ~
-Enable water temperature control: Abilita controllo temperatura acqua
-Example value: Valore di esempio
-Expand: Espandi
-Expand or stop: Espandi o ferma
-Expand partially: Espandi parzialmente
-Expected maximum increment: Massimo incremento previsto
-External sensor disabling the thermostat: Sensore esterno per disabilitazione termostato
 Facade blind operation: ~
-Fan: Fan
 'Field: {propertyPath}.': ~
-Fill missing data: Compila i dati mancanti
-Firmware: Firmware
+Fill level: ~
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
-For a period: Per un periodo
-Forced off by sensor: Forzato off da sensore
+Flood sensor: ~
+Flood sensor for valve: ~
+Flood sensors: ~
 Full tilting time: ~
-Function disabled: Funzione disabilitata
 General purpose meter: ~
-HVAC: HVAC
-Heat or cold source switch: Commutazione sorgente caldo o freddo
-Heat to: Riscalda a
-Heating / ventilation / air conditioning: Riscaldamento / Ventilazione / Aria condizionata
-Heating mode: Modalità riscaldamento
-'Heating: {percent}%': 'Riscaldamento: {percent}%'
 High threshold: ~
 High value: ~
-History: Cronologia
-Home screen content: Contenuto schermata iniziale
-Hotel card sensor: Sensore tessera hotel
-Identify device: Identifica dispositivo
 Identify request sent.: ~
-If you confirm the installation and wish to unlock this device, please click the link below.: Se confermi l'installazione e desideri sbloccare il dispositivo, clicca il link sottostante per favore.
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: se non desideri sbloccare il dispositivo, non cliccare il link per favore. scadrà automaticamente fra 24 ore.
+Image: ~
 Image area crop: ~
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: ~
-Increment and decrement: Aumenta e diminuisci
-Installer e-mail address: Indirizzo mail installatore
 Invalid channel type ({typeCaption} - {typeId}) received in registration.: ~
-Invalid e-mail address.: Indirizzo mail non valido
-Invalid unlock code.: Codice sblocco non valido
-Last paired device: Ultimo dispositivo associato
-Light mode: Modalità luce
-Lighting level: Livello illuminazione
-Lighting mode: Modalità illuminazione
+Invalid sensor state: ~
+Level sensor: ~
+Level sensor for container: ~
+Level sensors: ~
 List of available variables: ~
-Locked: Bloccato
+Lock type: ~
 Low threshold: ~
 Low threshold must be less than high threshold.: ~
 Low value: ~
-Main thermometer: Termometro principale
-Master thermostat: Termostato master
-Max: Max
-Maximum duration is one year.: Durata massima è 1 anno
-Maximum temperature that can be set from the device: Temperatura massima che può essere impostata dal dispositivo
-Measurement settings: Impostazioni misure
-Min: Min
-Minimum OFF time before cooling can be turned on: Tempo di spegnimento minimo prima che il raffrescamento possa essere acceso
-Minimum OFF time before heating can be turned on: Tempo di spegnimento minimo prima che il riscaldamento possa essere acceso
-Minimum OFF time before heating/cooling can be turned on: Tempo di spegnimento minimo prima che il riscaldamento/raffrescamento possa essere acceso
-Minimum ON time before cooling can be turned off: Tempo di accensione minimo prima che il raffrescamento possa essere spento
-Minimum ON time before heating can be turned off: Tempo di accensione minimo prima che il riscaldamento possa essere spento
-Minimum ON time before heating/cooling can be turned off: Tempo di accensione minimo prima che il riscaldamento/raffrescamento possa essere spento
-Minimum temperature must be lower than maximum temperature.: La temperatura minima deve essere inferiore della temperatura massima
-Minimum temperature that can be set from the device: Temperatura minima che può essere impostata dal dispositivo
-'Mode: cool': 'Modo: raffrescamento'
-'Mode: heat': 'Modo: riscaldamento'
-'Mode: off': 'Modo: off'
+Main thermometer for channel: ~
+Master thermostat for channel: ~
+Maximum: ~
+Minimum: ~
+Motor problem: ~
 Motor upside down: ~
-'No': 'No'
-No results: Nessun risultato
-Notification body is set by the firmware.: Il corpo della notifica è impostato nel firmware
+Mute alarm: ~
+Mute alarm sound without additional auth: ~
+Mute command sent: ~
+Not available: ~
 Notification must have recipients.: ~
-Notification title is set by the firmware.: Il titolo della notifica è impostato nel firmware
-Notifications (defined): Notifiche (stabilite)
-Notifications (sent per hour): Notifiche (inviate per ora)
 'OCR service responded with error: {status}': ~
-OCR settings: Impostazioni OCR
-OR: OR
-Off with duration: Off a tempo
-On with duration: On a tempo
-Open value: Valore apertura
+Opening sensor for channel: ~
 Output value on error: ~
-Overheat protection: Protezione alte temperature
 P/C: ~
-Pair new devices or sensors: Associa nuovi dispositivi o sensori
-Pairing request sent.: Richiesta associazione inviata
 Pairing subdevices is unsupported in the firmware.: ~
+Percentage of extension: ~
 Phase LED type: ~
+Photo history: ~
 Photo interval: ~
-Please find the device details below.: Di seguito sono riportati i dettagli del dispositivo
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Fare attenzione che, i dispositivi menzionati in questo messaggio dovrebbero essere installati solo da installatori certificati SUPLA
-Please provide the installer e-mail address to request the device unlock.: Indicare indirizzo mail dell'installatore per inviare richiesta di sblocco dispositivo
-Please select and configure the action: Selezionare e configurare l'azione
-Program {programNo}: Programma {programNo}
-Projector screen: Schermo proiettore
 Pump switch: ~
-Push notifications limit has been exceeded: Il limite di notifiche push è stato superato
-Reference to the channel will be removed from the items below.: ~
-Refresh interval: Intervallo di ricaricamento
-Refresh the config: Ricarica la configurazione
-Refreshing the configuration will overwrite the changes you made here.: Il ricaricamento della configurazione sovrascriverà le modifiche apportate
-Reload last photo: Ricarica ultima foto
-Remote restart is unsupported in the firmware.: Il riavvio da remoto non è supportato dal firmware
-Remove this item: Rimuovi questo elemento
-Request device unlock: Richiedi sblocco dispositivo
-Reset to defaults: Reimposta alle configurazioni di default
-Restart device: Riavvia dispositivo
-Restart the device: Riavvia dispositivo
-Reveal or stop: Rivela o ferma
+Pump switch for channel: ~
+Reading: ~
+Reference to the deleted channels will be removed from the items below.: ~
 Roller garage door: ~
-S/N: S/N
-SUPLA - Confirm unlocking device for authorized installers: SUPLA - Conferma sblocco dispositivi per installatori autorizzati
-SUPLA – your device has been unlocked!: SUPLA - il tuo dispositivo è stato sbloccato!
 Same as on master thermostat.: ~
-Screen brightness: Luminosità schermo
-Selected: Selezionati
-Set HVAC parameters: Imposta parametri HVAC
-Set the device time: Imposta il tempo del dispositivo
-Settings: Impostazioni
-Settings have not been saved!: Le impostazioni non sono state salvate
+Scene ID{id} is being executed right now.: ~
+Scene ID{id} is inactive right now.: ~
+Septic tank: ~
 Show data: ~
-Shut or stop: Chiudi o ferma
-Some features depend on this channel: Alcune funzionalità dipendono da questo canale
 Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
-Status LED: LED di stato
+Sound alarm on: ~
 Store active power history: ~
 Store current history: ~
 Store voltage history: ~
 'Subdevice #{id}': ~
 Subfunction: ~
-Switch to manual mode: Passa in manuale
-Switch to program mode: Passa in automatico
-THEN: ALLORA
 Take a photo now: ~
-Temperature adjustment only: Solo regolazione temperatura
-Temperature difference is too big between {min}°C and {max}°C.: La differenza di temperatura è troppo grande tra {min}°C e {max}°C
-Temperature setpoint change switches to manual mode: La modifica del setpoint di temperatura abilita la modalità manuale
+Temperature control type: ~
+Temperatures that can be set from local UI: ~
 Temporal override: ~
 Terrace awning: ~
-The channel has been deleted.: Il canale è stato eliminato
 The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: ~
-The device could not be unlocked.: Il dispositivo non può essere sbloccato
-The device has been unlocked already.: Il dispositivo è già stato sbloccato
-The device has been unlocked.: Il dispositivo è stato sbloccato
-The device has channel conflict and cannot work.: Il dispositivo ha un conflitto di canale e non può funzionare
-The device is locked: Il dispositivo è bloccato
 The following channels will be also removed along with their dependencies.: ~
-The items below depend on this channel, so they will be deleted.: ~
-The master termostat you chose already has a master.: Il termostato master scelto ha già un master
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: La reazione sarà attiva quando tutte le condizioni sono verificate. Se si sceglie di impostare tutte le impostazioni di tempo disponibili, la reazione sarà attiva quando l'orario è compreso tra attivo da e attivo a, è compreso nell'orario di lavoro selezionato e soddisfa uno dei criteri diurni.
-The thermostat will not work if the main thermometer is not set.: Il termostato non funzionerà se non viene impostato il termometro principale
-Thermometer error: Errore termometro
-Thermometers configuration: Configurazione termometri
+The items below depend on the deleted channels, so they will be deleted, too.: ~
+The subdevice has been deleted.: ~
 Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
-Thermostat programs: Programmi termostato
 This action will result in restarting the device. It will not be available for a while.: ~
 This channel was missing during last device registration attempt.: ~
+This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
-This thermostat is controlled by another device.: Questo termostato è controllato da un altro dispositivo
 Tilt angle: ~
 Tilt control type: ~
 Tilt percent: ~
-Time: Ora
 Today, it would be active from {from} to {to}.: ~
-Turn off: Spegni
-Unlock the device: Sblocca il dispositivo
-Unlocked: Sbloccato
-Until a date and time: Fino ad una data ed un orario
-Until the next change: Fino al prossimo cambio
-Use device default: Utilizza dispositivo di default
-Use working schedule for this reaction: Utilizza schedulazione per questa reazione
-Use {theMasterThermostat} to control this device.: Utilizza {theMasterThermostat} per controllare questo dispositivo
-Used current transformer type: Tipo di trasformatore di corrente utilizzato
-User interface: Interfaccia utente
-Value divider: Valore divisore
-Value multiplier: Valore moltiplicatore
+Updating...: ~
+Use activity schedule: ~
+Valve supports up to 20 sensors.: ~
 Vertical blind: ~
-Visit the master thermostat page.: Visita la pagina del termostato master
+Waiting: ~
+Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).: ~
+Warning level: ~
+Water tank: ~
 We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
-Week: Settimana
-Weekly schedule: Schedulazione settimanale
-When the alarm is armed: Quando l'allarme è inserito
-When the alarm is armed or disarmed: Quando l'allarme è inserito o disinserito
-When the alarm is disarmed: Quando l'allarme è disinserito
-When the battery cover is opened: Quando il coperchio batteria viene aperto
+When a flood is detected: ~
+When a flooding state changes: ~
+When a flooding state has been cleared: ~
+When any of the sensors starts to report an invalid state: ~
+When any of the sensors stops to report an invalid state: ~
+When the alarm starts: ~
+When the alarm stops: ~
+When the battery level will be: ~
+When the battery reaches a certain level: ~
+When the calibration fails: ~
+When the calibration has been lost: ~
+When the calibration has started: ~
 When the clock error has been reported: ~
-When the curtain position changes: Quando cambia la posizione della tenda
-When the curtain reaches: Quando la tenda raggiunge
-When the curtain reaches a certain position: Quando la tenda raggiunge una posizione definita
-When the facade blind position changes: Quando la posizione della persiana cambia
-When the facade blind reaches: Quando la persiana raggiunge
-When the facade blind reaches a certain position: Quando la persiana raggiunge una posizione definita
-When the hotel card has been taken: Quando la tessera Hotel viene tolta
-When the hotel card is put in: Quando la tessera Hotel viene inserita
-When the hotel card is put in or has been taken: Quando la tessera Hotel viene inserita o tolta
-When the meter reaches a certain value: Quando la misura raggiunge un determinato valore
-When the meter value changes: Quando il valore della misura cambia
-When the meter value will be: Quando il valore della misura è
-When the projector screen position changes: Quando la posizione dello schermo del proiettore cambia
-When the projector screen reaches: Quando lo schermo del proiettore raggiunge
-When the projector screen reaches a certain position: Quando lo schermo del proiettore raggiunge una posizione definita
-When the pump is turned off: Quando la pompa è spenta
-When the pump is turned on: Quando la pompa è accesa
-When the pump is turned on or off: Quando la pompa è accesa o spenta
-When the roller garage door a certain position: Quando la serranda raggiunge una posizione definita
-When the roller garage door position changes: Quando la serranda cambia posizione
-When the roller garage door reaches: Quando la serranda raggiunge
-When the roller shutter calibration failed: Quando la calibrazione della tapparella fallisce
-When the roller shutter calibration has been lost: Quando la calibrazione della tapparella viene persa
-When the roller shutter calibration has started: Quando la calibrazione della tapparella inizia
-When the roller shutter motor reported a problem: Quando il motore della tapparella segnala un problema
-When the terrace awning position changes: Quando la posizione della tenda del terrazzo cambia
-When the terrace awning reaches: Quando la posizione della tenda del terrazzo raggiunge
-When the terrace awning reaches a certain position: Quando la posizione della tenda del terrazzo raggiunge una certa posizione
-When the thermometer error has been reported: Quando l'errore del termometro viene segnalato
-When the thermostat starts cooling: Quando il termostato inizia a raffrescare
-When the thermostat starts heating: Quando il termostato inizia a riscaldare
-When the thermostat starts heating or cooling: Quando il termostato inizia a riscaldare o a raffrescare
-When the thermostat starts or stops cooling: Quando il termostato inizia o finisce di raffrescare
-When the thermostat starts or stops heating: Quando il termostato inizia o finisce di riscaldare
-When the thermostat starts or stops heating or cooling: Quando il termostato inizia o finisce di riscaldare o raffrescare
-When the thermostat stops cooling: Quando il termostato finisce di raffrescare
-When the thermostat stops heating: Quando il termostato finisce di riscaldare
-When the thermostat stops heating or cooling: Quando il termostato finisce di riscaldare o raffrescare
-When the vertical blind position changes: Quando la posizione delle persiane verticali cambia
-When the vertical blind reaches: Quando le persiane verticali raggiungono
-When the vertical blind reaches a certain position: Quando le persiane verticali raggiungono una posizione definita
-Will be deleted after: Verrà eliminato dopo
-With a timer: A tempo
-'Yes': 'Si'
+When the device starts to be powered from battery: ~
+When the device stops to be powered from battery: ~
+When the fill level changes: ~
+When the fill level reaches a certain value: ~
+When the fill level reading error disappears: ~
+When the fill level reading error occurs: ~
+When the fill level will be: ~
+When the motor reported a problem: ~
+When the position reaches: ~
+When the roller garage door reaches a certain position: ~
+When the sound alarm starts: ~
+When the sound alarm stops: ~
+When the warning starts: ~
+When the warning stops: ~
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
-You cannot to set a master thermostat for a channel that is master for others.: Non è possibile impostare come termostato master un canale che è già master per altri canali
+You cannot change this function becuase it is required by another channel.: ~
 You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
 You need to provide icons for all states in light mode.: ~
-Your device has been unlocked by the installer.: Il tuo dispositivo è stato sbloccato dall'installatore
+activityConditions_help: ~
+and wait until the battery level will be: ~
+and wait until the fill level will be: ~
 and wait until the meter will be: ~
 auxThermometerType_DISABLED: ~
 auxThermometerType_FLOOR: ~
@@ -1589,16 +1700,7 @@ auxThermometerType_GENERIC_COOLER: ~
 auxThermometerType_GENERIC_HEATER: ~
 auxThermometerType_NOT_SET: ~
 auxThermometerType_WATER: ~
-blue, otherwise: blu, altrimenti
-blue, when voltage lower than the low threshold: blu, con tensione al di sotto della soglia bassa
-choose the currency: Scegli valuta
-configuration missing: Configurazione mancante
-cool: raffresca
-day: giorno
-default: default
-green, otherwise: verde, altrimenti
-green, when power less than the low threshold: verde, con tensione al di sotto della soglia bassa
-heat: riscalda
+directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
 homeScreenContent_NONE: ~
 homeScreenContent_TEMPERATURE: ~
@@ -1606,19 +1708,16 @@ homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
 homeScreenContent_TEMPERATURE_TIME: ~
 homeScreenContent_TIME: ~
 homeScreenContent_TIME_DATE: ~
-hour: ora
 keepHistoryMeasurementWarningSelected: ~
-max: max
-midnight: mezzanotte
-milliseconds: millisecondi
-min: min
+localUILock_FULL: ~
+localUILock_TEMPERATURE: ~
+localUILock_UNLOCKED: ~
 ocrLightingMode_ALWAYS_ON: ~
 ocrLightingMode_AUTO: ~
 ocrLightingMode_OFF: ~
-'off': 'off'
-red, when power higher than the high threshold: rosso, con potenza al di sopra della soglia alta
-red, when voltage higher than the high threshold: rosso, con tensione al di sopra della soglia alta
-seconds: secondi
+state-half: ~
+state-hi: ~
+state-low: ~
 statusLed_ALWAYS_OFF: ~
 statusLed_OFF_WHEN_CONNECTED: ~
 statusLed_ON_WHEN_CONNECTED: ~
@@ -1633,14 +1732,20 @@ subdevicePairingResult_PROCEDURE_STARTED: ~
 subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: ~
 subdevicePairingResult_SUCCESS: ~
 subdevicePairingResult_UNAUTHORIZED: ~
-sunrise: alba
-sunset: tramonto
 swap: ~
+tank_alarm_alarmAboveLevel: ~
+tank_alarm_alarmBelowLevel: ~
+tank_alarm_warningAboveLevel: ~
+tank_alarm_warningBelowLevel: ~
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
+temperatureControlType_ROOM_TEMPERATURE: ~
 the master thermostat ID{id}: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: ~
+thermostatAlgorithmHelp_PID: ~
 thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
 thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
 thermostatAlgorithm_PID: ~
-thermostatAlgorithm_help: ~
 thermostatOutputValue_help: ~
 thermostatSubfunction_COOL: ~
 thermostatSubfunction_HEAT: ~
@@ -1669,10 +1774,7 @@ usedPhaseLedType_POWER_ACTIVE_DIRECTION: ~
 usedPhaseLedType_VOLTAGE_LEVEL: ~
 usedPhaseLedType_VOLTAGE_PRESENCE: ~
 usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
-'{count} minutes after sunrise': '{count} minuti dopo l’alba'
-'{count} minutes after sunset': '{count} minuti dopo il tramonto'
-'{count} minutes before sunrise': '{count} minuti prima dell’alba'
-'{count} minutes before sunset': '{count} minuti prima del tramonto'
-'{days} days': '{days} giorni'
+valveOpenConfirm_flooding: ~
+valveOpenConfirm_motorProblem: ~
 
 #</editor-fold>

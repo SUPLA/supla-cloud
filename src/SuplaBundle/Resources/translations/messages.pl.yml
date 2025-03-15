@@ -1,7 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 '% of closing': '% zamknięcia'
-'% of extension': '% rozwinięcia'
 '%s trigger is not supported by the hardware.': Wyzwalacz %s nie jest wspierany przez urządzenie.
 ...open and shut roller shutters: ...zasłonić i odsłonić rolety
 ...open gateways, gates or doors: ...otworzyć furtkę, bramę lub drzwi
@@ -668,6 +667,7 @@ Mode: Tryb
 'Mode: off': 'Tryb: wyłączony'
 Modification: Modyfikacja
 Mondays: Poniedziałki
+Motor problem: Problem z silnikiem
 Motor upside down: Odwrócone sterowanie silnikiem
 Move down or stop: W dół lub zatrzymaj
 Move up or stop: W górę lub zatrzymaj
@@ -1195,12 +1195,14 @@ When the battery level will be: Gdy poziom baterii będzie
 When the battery reaches a certain level: Gdy poziom baterii osiągnie dany poziom
 When the brightness level changes: Gdy poziom jasności się zmieni
 When the brightness will be: Gdy poziom jasności będzie
+When the calibration fails: Gdy kalibracja zakończy się błędem
+When the calibration has been lost: Gdy kalibracja zostanie utracona
+When the calibration has started: Gdy kalibracja się rozpocznie
 When the clock error has been reported: Gdy zegar zgłosi błąd
 When the color changes: Gdy kolor się zmieni
 When the condition is met: Gdy warunek zostanie spełniony
 When the current will be: Gdy prąd będzie
 When the curtain position changes: Gdy zasłona zmienia pozycję
-When the curtain reaches: Gdy zasłona osiąga
 When the curtain reaches a certain position: Gdy zasłona osiąga określoną pozycję
 When the depth changes: Gdy pomiar głębokości się zmieni
 When the depth is: Gdy pomiar głębokości będzie
@@ -1220,7 +1222,6 @@ When the electricity meter reaches a certain value: Gdy licznik energii osiągni
 When the electricity meter value changes: Gdy wartość licznika energii elektrycznej się zmieni
 When the electricity meter value will be: Gdy wartość licznika energii będzie
 When the facade blind position changes: Gdy żaluzja fasadowa zmienia pozycję
-When the facade blind reaches: Gdy żaluzja fasadowa osiąga
 When the facade blind reaches a certain position: Gdy żaluzja fasadowa osiąga określoną pozycję
 When the forward active energy will be: Gdy pobrana energia czynna będzie
 When the garage door will be closed: Gdy brama garażowa zostanie zamknięta
@@ -1250,12 +1251,12 @@ When the mail has been taken: Gdy poczta zostanie odebrana
 When the meter reaches a certain value: Gdy licznik osiągnie zadaną wartość
 When the meter value changes: Gdy wartość zmieni się
 When the meter value will be: Gdy wartość będzie
+When the motor reported a problem: Gdy silnik zgłosi problem
 When the precipitation amount will be: Gdy ilość mierzonego deszczu będzie
 When the pressure changes: Gdy ciśnienie się zmieni
 When the pressure reaches a certain level: Gdy ciśnienie osiągnie określony poziom
 When the pressure will be: Gdy ciśnienie będzie
 When the projector screen position changes: Gdy ekran projekcyjny zmienia pozycję
-When the projector screen reaches: Gdy ekran projekcyjny osiąga
 When the projector screen reaches a certain position: Gdy ekran projekcyjny osiąga określoną pozycję
 When the pump is turned off: Gdy pompa zostanie wyłączona
 When the pump is turned on: Gdy pompa zostanie włączona
@@ -1263,21 +1264,13 @@ When the pump is turned on or off: Gdy pompa zostania włączona lub wyłączona
 When the rain amount changes: Gdy zmieni się ilość opadów
 When the reactive power will be: Gdy moc bierna będzie
 When the reverse active energy will be: Gdy zwrócona energia czynna będzie
-When the roller garage door a certain position: Gdy brama garażowa osiąga określoną pozycję
 When the roller garage door position changes: Gdy brama garażowa zmienia pozycję
-When the roller garage door reaches: Gdy brama garażowa osiąga
-When the calibration fails: Gdy kalibracja zakończy się błędem
-When the calibration has been lost: Gdy kalibracja zostanie utracona
-When the calibration has started: Gdy kalibracja się rozpocznie
-When the motor reported a problem: Gdy silnik zgłosi problem
 When the roller shutter position changes: Gdy zmieni się pozycja rolety
-When the roller shutter reaches: Gdy roleta osiągnie
 When the roller shutter reaches a certain position: Gdy roleta osiągnie określoną pozycję
 When the roller shutter will be closed: Gdy roleta zostanie zamknięta
 When the roller shutter will be opened: Gdy roleta zostanie otwarta
 When the roller shutter will be opened or closed: Gdy roleta zostanie otwarta lub zamknięta
 When the roof window position changes: Gdy zmieni się pozycja okna dachowego
-When the roof window reaches: Gdy okno dachowe osiągnie
 When the roof window reaches a certain position: Gdy okno dachowe osiągnie określoną pozycję
 When the roof window will be closed: Gdy okno dachowe zostanie zamknięte
 When the roof window will be opened: Gdy okno dachowe zostanie otwarte
@@ -1286,7 +1279,6 @@ When the temperature changes: Gdy zmieni się temperatura
 When the temperature reaches a certain value: Gdy temperatura osiągnie określoną wartość
 When the temperature will be: Gdy temperatura będzie
 When the terrace awning position changes: Gdy markiza tarasowa zmienia pozycję
-When the terrace awning reaches: Gdy markiza tarasowa osiąga
 When the terrace awning reaches a certain position: Gdy markiza tarasowa osiąga określoną pozycję
 When the thermometer error has been reported: Gdy termometr zgłosi błąd
 When the thermostat starts cooling: Gdy termostat zacznie chłodzić
@@ -1304,7 +1296,6 @@ When the valve is manually closed: Gdy zawór zostanie ręcznie zamknięty
 When the valve is opened: Gdy zawór zostanie otwarty
 When the valve is opened or closed: Gdy zawór zostanie zamknięty lub otwarty
 When the vertical blind position changes: Gdy żaluzja pionowa zmienia pozycję
-When the vertical blind reaches: Gdy żaluzja pionowa osiąga
 When the vertical blind reaches a certain position: Gdy żaluzja pionowa osiąga określoną pozycję
 When the voltage will be: Gdy napięcie będzie
 When the water meter reaches a certain value: Gdy licznik wody osiągnie określoną wartość
@@ -1628,6 +1619,7 @@ values as seen on chart: wartości tak jak na wykresie
 values as seen on counter: wartości tak jak na liczniku
 valveOpenConfirm_flooding: Zawór został zamknięty z powodu wykrycia zalania. Upewnij się, że przyczyna zalania została już usunięta. Czy na pewno chcesz otworzyć zawór?
 valveOpenConfirm_manual: Zawór został zamknięty w trybie manualnym lub radiowo. Zanim go otworzysz upewnij się, że nie został zamknięty z powodu zalania. Aby wyłączyć ostrzeżenie otwórz zawór manualnie. Czy na pewno chcesz otworzyć zawór zdalnie?!
+valveOpenConfirm_motorProblem: Wystąpił problem z silnikiem. Upewnij się, czy nic nie blokuje zaworu. Zawór może być częściowo otwarty. Czy na pewno chcesz go otworzyć/zamknąć?
 yesterday: wczoraj
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
 '{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
@@ -1649,6 +1641,7 @@ yesterday: wczoraj
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+'% of extension': '% rozwinięcia'
 ...and start your adventure with building automation today!: ...i rozpocznij przygodę z inteligentnymi budynkami już dzisiaj!
 Access identifier password must be at least 8 characters.: Hasło dla identyfikatora dostępu musi mieć co najmniej 8 znaków.
 Access identifier password must be no longer than 32 characters.: Hasło dla identyfikatora dostępu nie może być dłuższe niż 32 znaki.
@@ -1735,6 +1728,15 @@ Triggers: Wyzwalacze
 Try again later: Spróbuj ponownie później
 Turn off after: Wyłącz po czasie
 Value per unit: Wartość na jednostkę
+When the curtain reaches: Gdy zasłona osiąga
+When the facade blind reaches: Gdy żaluzja fasadowa osiąga
+When the projector screen reaches: Gdy ekran projekcyjny osiąga
+When the roller garage door a certain position: Gdy brama garażowa osiąga określoną pozycję
+When the roller garage door reaches: Gdy brama garażowa osiąga
+When the roller shutter reaches: Gdy roleta osiągnie
+When the roof window reaches: Gdy okno dachowe osiągnie
+When the terrace awning reaches: Gdy markiza tarasowa osiąga
+When the vertical blind reaches: Gdy żaluzja pionowa osiąga
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 choose a currency: wybierz walutę
 choose access identifiers: wybierz identyfikatory dostępu
@@ -1751,7 +1753,31 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Alarm at level (and above) should be greater than the corresponding warning level.: Alarm od poziomu (i powyżej) powinien być większy niż odpowiadający mu poziom ostrzeżenia.
+Alarm at level (and below) should be lower than the corresponding warning level.: Alarm od poziomu (i poniżej) powinien być niższy niż odpowiadający mu poziom ostrzeżenia.
+Alarm level: Poziom alarmu
+Invalid sensor state: Nieprawidłowy stan czujnika
+Mute alarm: Wycisz alarm
+Mute command sent: Polecenie wyciszenia wysłane
+Sound alarm on: Dźwiękowy alarm włączony
+Updating...: Aktualizacja...
+Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).: Ostrzeżenie i alarm od poziomu (i powyżej) powinny być wyższe niż ostrzeżenie i alarm od poziomu (i poniżej).
+Warning level: Poziom ostrzeżenia
+When any of the sensors starts to report an invalid state: Gdy którykolwiek z czujników zacznie zgłaszać nieprawidłowy stan
+When any of the sensors stops to report an invalid state: Gdy którykolwiek z czujników przestanie zgłaszać nieprawidłowy stan
+When the alarm starts: Gdy rozpocznie się alarm
+When the alarm stops: Gdy alarm się zatrzyma
+When the fill level changes: Gdy poziom napełnienia się zmieni
+When the fill level reaches a certain value: Gdy poziom napełnienia osiągnie określoną wartość
+When the fill level reading error disappears: Gdy błąd odczytu poziomu napełnienia zniknie
+When the fill level reading error occurs: Gdy wystąpi błąd odczytu poziomu napełnienia
+When the fill level will be: Gdy poziom napełnienia będzie wynosił
+When the position reaches: Gdy pozycja osiągnie
+When the roller garage door reaches a certain position: Gdy brama garażowa segmentowa osiągnie określoną pozycję
+When the sound alarm starts: Gdy rozpocznie się alarm dźwiękowy
+When the sound alarm stops: Gdy alarm dźwiękowy się zatrzyma
+When the warning starts: Gdy rozpocznie się ostrzeżenie
+When the warning stops: Gdy ostrzeżenie się zatrzyma
+and wait until the fill level will be: i poczekaj, aż poziom napełnienia będzie wynosił
 
 #</editor-fold>
-valveOpenConfirm_motorProblem: Wystąpił problem z silnikiem. Upewnij się, czy nic nie blokuje zaworu. Zawór może być częściowo otwarty. Czy na pewno chcesz go otworzyć/zamknąć?
-Motor problem: Problem z silnikiem

@@ -6,10 +6,13 @@
 ...open gateways, gates or doors: ...åpne hageport, port eller dør
 ...or control home appliances: ...styre hvitevarer og elektronikk
 ...you can monitor temperature: ...kontrollere temperaturen
+0% tilt angle: Vinkelen på lamellene som persiennen stiller inn ved lukking
 10 minutes before sunset, on day 10 of the month, May through August: 10 minutter før solnedgang, kun på den 10. dagen i måneden, fra mai til august
+100% tilt angle: Vinkelen på lamellene som persiennen stiller inn ved åpning
 15 minutes after sunrise, every 2 days: 15 minutter etter soloppgang, annenhver dag
 A confirmation upon successful client app registration.: Bekreftelse på registrering av ny klientapplikasjon.
 A confirmation upon successful device registration.: Bekreftelse på vellykket enhetsregistrering.
+A confirmation upon successful device unlocking.: Bekreftelse på opplåsing av enheten.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Den nye klientapplikasjonen (smarttelefonen) er lagt til SUPLA-Cloud-kontoen din.
 A new device has been added to your SUPLA-Cloud account.: Den nye enheten er lagt til SUPLA-Cloud-kontoen din.
 A new personal access token has been generated.: Et nytt personlig tilgangstoken er generert
@@ -39,9 +42,12 @@ Action triggers: Handlingsutløser
 Actions: Handlinger
 Active: Aktive
 Active applications: Aktive apper
+Active from: Aktiv siden
 Active period: Aktivitetsperiode
 Active sessions: Aktive økter
+Active to: Aktiv til
 Active web sessions: Aktive økter (web)
+Activity conditions: Aktivitetsbetingelser
 Add: Legg til
 Add a delay: Legg til en forsinkelse
 Add a new action to the scene: Legge til en ny handling i en scene
@@ -50,22 +56,34 @@ Add action: Legg til en handling
 Add first channel to set channel group function and save it: Velg den første kanalen for å bestemme gruppefunksjonen og lagre den
 Add new channel group: Legg til kontaktgruppe
 Add new channel to this group: Legg til ny kanal til gruppen
+Additional time margin: Ekstra tidsmargin
 Adjust parameters: Angi parameterne
+Adjust temperature: Still inn temperaturen
+Adjust temperatures: Still inn temperaturer
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Alle kanaler og kanalgrupper som benytter seg av dette ikonet vil få en standard ikon etter fjerning av denne.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Etter å ha gitt tilgang, kan du alltid ombestemme deg ved å fjerne tilgangen i kontoinnstillingene.
+After the delay: Etter en bestemt tidsperiode
+After the delay, but only when it's dark: Etter en bestemt tid, men bare når det er mørkt
 After the device enters the configuration mode, it will not be accessible on your account.: Enheten vil ikke være tilgjengelig fra kontoen din etter at du har gått inn i konfigurasjonsmodus.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Etter oppdatering vil appen være raskere, mer praktisk ... Rett og slett bedre!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Telleren vil begynne å telle fra 0 etter denne operasjonen, uavhengig av gjeldende tilstand. Denne operasjonen kan ikke angres.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Lenken genereres etter du har valgt enheten. Du kan angi resten av alternativene så snart du oppretter den.
 Aggregation: Aggregering
+Alarm armament sensor: Sensor for alarmaktivering
+Algorithm: Algoritme
 All: Alt
 All events: Alle hendelser
 All logs has been downloaded. Reload the chart to see them.: Alle måledata ble lasted ned. Last inn diagrammet på nytt for å se dem.
+All programs must define at least one temperature threshold.: Hvert program må definere minst én temperaturterskel.
 All the above and many more can be done from your phone or tablet: Alt dette og mye mer kan du gjøre ved hjelp av din smarttelefon eller nettbrett.
 Allowed actions: Tillate handlinger
 Allows to perform an action only using the HTTP PATCH request.: Gjennomføring av handlingen er kun tillat ved bruk av HTTP PATCH.
 Alternatively, you can add a GET parameter to specify response format.: Du kan også legge til en GET-parameter for å spesifisere svarformatet.
+Always decrement: Alltid synkende
+Always increment: Alltid økende
 And more: Og mye mer.
+Anti-freeze and overheat protection: Beskyttelse mot overoppheting og frostsikring
+Anti-freeze protection: Beskyttelse mot frost
 Any application or device that uses the {tokenName} token will not work anymore.: Alle applikasjoner og enheter som benytter seg av token {tokenName} vil slutte å fungere.
 'App version: %clientAppSoftwareVersion%': 'Appversjon: %clientAppSoftwareVersion%'
 Application: En app
@@ -75,10 +93,14 @@ Applications: Apper
 Applications with access: En app med tilgang
 Are you lost?: Har du rotet deg vill? Ser du etter noe?
 Are you sure you want to change channel’s function?: CEr du sikker på at du ønsker å endre kanalfunksjonen?
+Are you sure you want to change channel’s location?: Er du sikker på at du vil endre plasseringen av kanalen?
+Are you sure you want to change channel’s visibility?: Er du sikker på at du vil endre synligheten av kanalen?
+Are you sure you want to change device’s location?: Er du sikker på at du vil endre plasseringen av enheten?
 Are you sure you want to delete the entire measurement history saved for this channel?: Er du sikker på at du ønsker å fjerne hele målingshistorien for denne kanalen?
 Are you sure you want to delete the events from the voltage aberrations history?: Er du sikker på at du vil slette alle hendelser fra historien om spenningsavvik?
 Are you sure you want to delete this OAuth application?: Er du sikker på at du ønsker å fjerne OAuth?
 Are you sure you want to delete this channel group?: Er du sikker på at du ønsker å fjerne denne kanalgruppen?
+Are you sure you want to delete this channel?: Er du sikker på at du vil slette denne kanalen?
 Are you sure you want to delete this client?: Er du sikker på at du ønsker å fjerne kundeapplikasjonen?
 Are you sure you want to delete this direct link?: Er du sikker på at du ønsker å fjerne denne direkte lenken?
 Are you sure you want to delete this icon?: Er du sikker på at du ønsker å fjerne dette ikonet?
@@ -109,20 +131,36 @@ Authentication successful: Pålogging fullført
 Authorization callback URLs (one per line): Omdirigering autorisasjon URL (en per linje)
 Authorize the application, so that it can access your account.: Autoriser applikasjonen slik at den får tilgang til Din konto.
 Authorized: Autorisert
+Automatic: Automatisk
 Automatic calibration: Automatisk kalibrering
 Automatic closing rule: Automatisk portlukking
+Automatic front panel turn off: Automatisk deaktivering av frontpanelet
+Automatic front panel turn off after: Tid til deaktivering av frontpanelet
+Automatic thermostat: Automatisk termostat
+Automatic time synchronization: Automatisk synkronisering av dato og klokkeslett
 Automation: Automatikk
+Aux thermometer: Tilleggstermometer
+Aux thermometer type: Ekstra termometertype
+Available variables: Tilgjengelige variabler
+Average: Gjennomsnittlig
 Average voltage: Middels spenning
 Back to apps list: Tilbake til applikasjonslisten
 Bar: Stolpe
 Based on sunrise or sunset: I henhold til oppgang/ nedgang
+Battery cover open: Batteridekselet åpent
 Be notified when your channels change state: Varsling om endringer i kanalers tilstand
 Be right back!: Kom tilbake om noen få øyeblikk!
+Behavior settings: Adferd
 Below threshold: Under terskelen
+Binary sensor: Binær sensor
 Body: Innhold
 Bottom position: Lavere posisjon
 Bridge: Bro
 Brightness: Lysstyrke
+Brightness adjustment for automatic mode: Justere lysstyrken i automatisk modus
+Brightness level: Lysstyrkenivå
+Button volume: Volum på knappene
+Buttons upside down: Invertert knappestyring
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Deaktivering av dette alternativet vil tillate deg å kontrollere denne innretningen fra integreringsnivået uten ytterligere bekreftelse. Dette kan lede til usikre eller mindre sikre tilstand (f.eks. utilsiktet åpning av en port).
 By signing in, you are authorizing {clientName} to control your devices.: Ved å logge på tillater du {clientName}-applikasjonen til å kontrollere innretningene dine.
 CLICK TO DISABLE: TRYKK FOR Å SKRU AV
@@ -134,10 +172,11 @@ Calibration successful.: Kalibrering vellykket
 Cancel: Avbryt
 Cancel changes: Avbryt endringer
 Cancelled: Avbrutt
+Candle: Lys
 Cannot calculate when to run the schedule - incorrect configuration?: Kunne ikke beregne noen planstartdato - feil konfigurasjon?
 Cannot change the channel function right now.: Funksjonene til denne kanalen kan ikke endres for øyeblikket.
 Cannot delete this I/O Device right now.: Denne enheten kan ikke fjernes for øyeblikket.
-Cannot execute an action when the device is disconnected.: Ikke mulig å utføre handlingen når enheten er frakoblet.
+Cannot update OCR settings. Try again in a while.: OCR-innstillingene kunne ikke oppdateres. Prøv igjen om et øyeblikk.
 Captcha token is not valid.: Feil captcha.
 Caption: Underskrift
 Caption is too long.: Navnet er for langt.
@@ -146,8 +185,15 @@ Change Password: Endre passord
 Change channel function: Endre funksjonen til kanalen
 Change function: Endre funksjon
 Change icon: Endre ikon
+Change percentage by: Endre prosentandelen med
+Change percentage to: Endre prosentandelen til
 Change the password and log out: Bytt passord og logg ut
+Change tilt by: Endre hellingen med
+Change tilt to: Endre hellingen til
+Change to be the same.: Still det likt.
 Changing channel’s function will also result in the following changes.: Endring av kanalfunksjoner vil medføre følgende endringer.
+Changing channel’s visibility will also change the visibility of other items.: Hvis du endrer kanalens synlighet, endres også synligheten til andre elementer.
+Changing the location will also imply changing the location of the following items.: Endringen av plassering vil også påvirke den for følgende elementer.
 Channel: Kanal
 Channel No: Kanalnummer
 Channel available for {serviceName}: Kanal tilgjengelig for {serviceName}
@@ -163,6 +209,7 @@ Channel reference will be removed from the items below.: Kanalen vil bli fjernet
 Channel with action triggers: Kanal med handlingstriggere
 Channels: Kanaler
 Channels groups are not supported for this function.: Denne funksjonen støtter ikke kanalgrupper.
+Channels that are meant to work with each other must be in the same location.: Kanalene, som skal samarbeide, må være på samme sted.
 Chart type: Diagramtype
 Check the direct link you used and try again.: Sjekk valgt direkte lenke og prøv en gang til.
 Check your email box: Sjekk din e-post
@@ -185,33 +232,51 @@ Click the following link to confirm unregistration of your private SUPLA Cloud i
 Client registration: Registrering av kunder
 Client’s Apps: Kundeapplikasjoner
 Client’s app has been deleted: Kundeapplikasjon ble fjernet
+Clock error: Klokkefeil
 Close: Steng
 Close after: Lukk etter
 Close automatically: Lukk automatisk
 Close partially: Lukk delvis
+Close value: Sluttverdi
+Collapse: Skjul
+Collapse or stop: Skjul eller stopp
+Collapse partially: Delvis skjul
 Colon: Semikolon
 Color: Farge
 Color brightness: Farge lysstyrke
 Comma: Komma
+Command has been sent to the device. Try refreshing the photo in a while.: Forespørselen ble sendt til enheten. Prøv å oppdatere bildet om et øyeblikk.
 Comment: Kommentar
+Common currencies: Mest valgte valutaer
 Config of the schedule is too complicated.: Tidsplankonfigurasjonen er for komplisert.
 Configuration: Konfigurasjon
+Configuration not available yet. Waiting for the device to connect.: Konfigurasjonen er ennå ikke tilgjengelig. Vent til enheten kobler seg til.
 Confirm My Account: Jeg bekrefter kontoen min
 Confirm Password: Passord bekreftelse
+Confirm if you want to perform the calibration.: Bekreft at du ønsker å utføre kalibreringen.
 Confirm if you want to remove Access Identifier: Bekreft at du vil fjerne tilgang identifikator
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Bekreft at du vil fjerne Lokalisering ID {locationId}. Videre kobling av enheter inngang/utgang med denne lokaliseringen blir ikke mulig.
 Confirm if you want to remove {deviceName} device and all of its channels.: Bekreft at du vil fjerne {deviceName} og alle tilhørende kanaler.
 Confirmation: Bekreftelse
+Conflict: Konflikt
 Connected: Tilkoblet
 Connection with a private instance of the SUPLA cloud: Tilkobling til privat SUPLA Cloud
 Constraints: Begrensninger
+Cool to: Kjøl ned til
+Cooling mode: Kjølemodus
+'Cooling: {percent}%': 'Avkjøling: {percent}%.'
 Copy state from other channel: Kopier status fra en annen kanal
+Costs: Kostnader
 Could not contact Autodiscover service. Try again in a while.: Kan ikke ta kontakt med registreringstjeneste. Prøv på nytt om en stund.
 Could not enter the configuration mode.: Kunne ikke sette enheten i konfigurasjonsmodus.
 Could not reset the password.: Ikke mulig å tilbakestille passordet.
 Could not reset the password. Please try again later.: Ikke mulig å tilbakestille passordet. Prøv senere.
+Could not restart the device.: Enheten kunne ikke startes på nytt.
+Could not send the identify command.: Ordren kunne ikke sendes.
+Could not set the device time.: Det var ikke mulig å stille dato og klokkeslett på enheten.
 Counter: Teller
 Counter reset: Tilbakestilling av telleren
+Counter type: Type måler
 Create New Access Identifier: Opprett ny Tilgang Identifikator
 Create New Location: Opprett ny lokalisering
 Create New Schedule: Opprett nytt program
@@ -224,16 +289,21 @@ Current: Strøm
 Current Overload: Overbelastning
 Current Password: Nåværende passord
 Current password is incorrect: Aktuelt passord er ikke korrekt
+Curtain: Gardin
 Custom: Tilpasset
 Custom execution limit: Tilpasset grense på utførelser
 DHT11 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor DHT11
 DHT21 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor DHT21
 DHT22 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor DHT22
 DS18B20 Thermometer: Termometer DS18B20
+Dark mode: Mørk modus
+Data: Data
 Data limits: Datagrenser
 Data saved: Gara ble lagret
 Date: Dato
 Date and time: Dato og tid
+Date range: Datointervall
+Daytime criteria: Kriterier basert på daglengden
 Decline: Avvis
 Default: som standard
 Delete: Fjern
@@ -241,18 +311,26 @@ Delete measurement history: Fjern målingshistorie
 Delete my account: Fjern min konto
 Delete voltage aberrations history: Slett historie om spenningsavvik
 Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Fjerning av din konto vil føre til fjerning av alle dine data, blant annet linket enheter, konfigurerte kanaler, direkte lenker og målingshistorie. Fjerning av konto er irreversibel.
+Dependencies: Avhengigheter
 Depth: Dybde
 Depth sensor: Dybdesensor
 Description: Beskrivelse
 Details: Detaljer
 Device: Enhet
+'Device GUID: %deviceGuid%': 'GUID for enheten: %deviceGuid%'
 'Device ID: %deviceId%': 'Enhets-ID: %deviceId%'
+Device identification is unsupported in the firmware.: Enhetsidentifikasjon støttes ikke i fastvare.
 Device is disconnected.: Enheten er frakoblet.
 Device might be sleeping: Enheten kan være i hvilemodus
 'Device name: %deviceName%': 'Enhetsnavn: %deviceName%'
+Device settings: Innstillinger for enheten
 Device should be now in configuration mode.: Enheten skal nå være i konfigurasjonsmodus.
+Device should be restarting now.: Enheten bør startes på nytt.
 'Device software version: %deviceSoftwareVersion%': 'Programvareversjon: %deviceSoftwareVersion%'
+Device time has been set.: Dato og klokkeslett for enheten er innstilt.
 Device unavailable: Enhet utilgjengelig
+Different than on master thermostat.: Innstilling forskjellig fra den på hovedtermostaten.
+Differential thermostat: Differensiell termostat
 Digi Glass: Digi Glass
 Digi Glass Horizontal: Digi Glass horisontal
 Digi Glass Vertical: Digi Glass vertikal
@@ -273,6 +351,8 @@ Disconnected: Frakoblet
 Distance: Avstand
 Distance sensor: Avstand sensor
 Do you want to be redirected there? You may be asked to authenticate again.: Vil du at vi skal omdirigere deg dit? Du må kanskje logge på igjen.
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Ønsker du å stille inn kanalene som er avhengige av denne termostaten (som termometre og sensorer) til å være de samme som i hovedtermostaten?
+Domestic hot water: Varmt vann hjemme
 Don’t worry, you can always reset your password via email. Click here to do so.: Ingen bekymringer. Du kan tilbakestille passordet via din e-post. Klikk her for å gjøre det.
 Door lock operation: Døråpning
 Door opening sensor: Døråpner sensor
@@ -281,14 +361,27 @@ Doors, Gates, Windows: Dører, porter, vinduer
 Download measurements history: Last ned målehistorikk
 Download the history of measurement: Last ned målingshistorien
 Drag your image(s) here or click to select from the disk: Dra bildet over her eller trykk for å velge fra disken
+Dryer: Avfukter
 E-mail notifications: E-postvarsler
 Edit: Rediger
+Edit area crop: Rediger området
+Edit program settings: Rediger programinnstillinger
 Edit reaction: Rediger reaksjon
 Electric: Elektronikk
 Electricity meter: Elektrisitetsmåler
+Electricity meter active power history: Strømmålerens historikk
+Electricity meter current history: Historikk for strømstyrken på strømmåleren
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Strømmåleren rapporterte ikke om muligheten til å konfigurere merverdier. Oppdater innretnings fastvare og prøv på nytt.
+Electricity meter voltage aberrations history: Historikk for spenningsavvik i strømmåleren
+Electricity meter voltage history: Historikk for spenningen på strømmåleren
 Empty!: Tomt!
 Enable: På
+Enable floor temperature control: Aktiver gulv temperaturkontroll
+Enable generic cooler temperature control: Aktiver temperaturkontroll for kjølekilden
+Enable generic heater temperature control: Aktiver temperaturkontroll for varmekilde
+Enable power status LED: Aktiver strømstatusdiode
+Enable support for OCR readings for this channel: Aktiver støtte for OCR-avlesninger for denne kanalen
+Enable water temperature control: Aktiver temperaturkontroll for vann
 Enabled: PÅ
 Enabled phases: Aktive faser
 End date: Avslutningsdato
@@ -306,6 +399,7 @@ Error when communicating the server. Try again in a while.: Problem med kommunik
 Estimated execution time: Estimert utførelsestid
 Every: Hva
 Example Auth URL: Eksempel på autorisasjon URL
+Example value: Eksempel
 Execute: Utfør
 Execute an action: Utfør handlingen
 Executed action: Utført handling
@@ -313,17 +407,30 @@ Executed without confirmation: Utført uten bekreftelse
 Execution history: Utførelse historie
 Execution limit: Grense på utførelser
 Executions: Utførelser
+Expand: Utvid
+Expand or stop: Utvid eller stopp
+Expand partially: Utvid delvis
 Expired: Utdatert
 Expires at: Utløper
+External sensor disabling the thermostat: Ekstern sensor som slår av termostaten
+Facade blind operation: Fasade persienner
 Failed: Mislykket
 Failed (zombie): Mislykket (zombie)
+Fan: Vindmølle
 Feature limits: Driftsgrenser
+'Field: {propertyPath}.': Felt {propertyPath}.
 File format: Feil filformat
 File is too large: Filen er for stor
+Fill missing data: Fyll inn manglende målinger
+Firmware: Fastvare
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Fastvaren til denne enheten sender varsler i forbindelse med denne kanalen. Her kan du konfigurere innhold og mottakere. Ta kontakt med leverandøren av enheten for mer informasjon.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Fastvaren til denne enheten sender varsler. Her kan du konfigurere innhold og mottakere. Ta kontakt med leverandøren av enheten for mer informasjon.
 Flooding: Vannskader
+For a period: For perioden
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Det anbefales å bruke {suplaUrl}-adressen under oppdateringen.
 For devices: For enheter
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: ZFor sikkerhetsmessige grunner full URL av denne direkte lenken blir vist kun en gang ved dens opprettelse.
+Forced off by sensor: Tvungen nedstengning gjennom sensor
 Forgot your password?: Husker du ikke passordet?
 Forward active energy: Aktiv energi nedlastet
 Forward active energy balance: Balanse av aktiv energi absorbert
@@ -335,8 +442,10 @@ From anywhere: Fra hvert sted
 Full closing time: Total stengetid
 Full documentation: Full dokumentasjon
 Full opening time: Total åpningstid
+Full tilting time: Total tid for hellingsendring
 Fully opened sensor for channel: Sensor for kanalen
 Function: Funksjoner
+Function disabled: Funksjonen er deaktivert
 G5LA1A Relay: Relé G5LA1A
 G5LA1A Relay x2: Relé 2xG5LA1A
 GENERATE: GENERER
@@ -349,6 +458,7 @@ Gate's state verification: Verifisering av portstatus
 Gateway lock operation: Åpne/steng hageporten
 Gateway opening sensor: Hageportåpner sensor
 General purpose measurement: Generell målekanal
+General purpose meter: Målekanal for allment bruk
 Generate new password: Generer et nytt passord
 Generate new token: Generer ny token
 Generate token: Generer token
@@ -362,12 +472,23 @@ Go to your account: Gå til din konto
 Grant access: Gi tilgang
 Guru Meditation: Guru Meditation
 HFD4 Relay: Relé HFD4
+HVAC: HVAC
 Heat meter: Varmemåler
+Heat or cold source switch: Bryter for varme- eller kuldekilde
+Heat to: Varme til
+Heating / ventilation / air conditioning: Oppvarming/ventilasjon/klimaanlegg (HVAC)
+Heating mode: Oppvarmingsmodus
+'Heating: {percent}%': 'Oppvarming: {percent}%'
 Hide days without aberrations: Skjul dager uten avvik
+High threshold: Høy terskel
+High value: Maksimal verdi
+History: Historikk
 History of measurements: Målingshistorie
 Home appliances: Hvitevarer/ Elektronikk
+Home screen content: Innhold på startskjermen
 Home+ Heater: Varmeapparat Home+
 Host: Vert
+Hotel card sensor: Sensor for hotellkort
 However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: Dessverre, forbrukelsen av serverne våre har økt til en farlig nivå. Vi overvåker situasjonen, kom tilbake om en liten stund.
 Humidity: Fuktighet
 Humidity Sensor: Fuktighetssensor
@@ -385,14 +506,18 @@ ID: ID
 INACTIVE: INAKTIV
 IP Address: IP-adresse
 Icon: Ikon
+Identify device: Identifiser enheten
+Identify request sent.: Forespørselen om identifikasjon er sendt.
 Idle: Hvile modus
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Hvis enheten for øyeblikket er i hvilemodus, vil konfigurasjonsendringer bli gjort når den er våken.
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: Hvis enheten nå er sovende, vil den bli satt i konfigurasjonsmodus ved nærmeste vekking.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Hvis lenken ikke fungerer kopier og lim den inn i søketjenesten eller tast den inn.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Hvis du er en programutvikler som ønsker å levere ekstra funksjoner til SUPLA, opprett applikasjonen OAuth som andre brukere kan autorisere og bruke.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Dersom du har en konto på cloud.supla.org sjekk om applikasjonen du forsøker å autorisere er offentlig.
+If you confirm the installation and wish to unlock this device, please click the link below.: Hvis det er du som prøver å legge til en ny enhet, vennligst klikk på lenken nedenfor for å bekrefte opplåsingen.
 If you did not request this password reset, please ignore this information.: Dersom du ikke ønsker å tilbakestille passordet se bort fra denne meldingen.
 If you do not want to delete your account on %cloudHost%, please do not click the link.: Hvis du ikke ønsker å fjerne din konto i cloud.supla.org, ikke trykk på lenken.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Hvis det ikke er du som prøver å låse opp enheten, kan du ignorere denne e-posten. Bekreftelseslenken utløper automatisk etter 24 timer.
 If you do not want to unregister your instance, please do not click the link.: Hvis du ikke vil avregistrere din cloud, vennligst ikke klikk på lenken.
 If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Hvis du ikke klarer å koble til dette tilgangspunktet i flere minutter, vil enheten starte på nytt og koble til med de siste innstillingene.
 If you have doubts or more questions, you can contact us directly at %securityEmail%.: Hvis det er noe du lurer på eller hvis du har spørsmål kan du ta kontakt med oss på %securityEmail%.
@@ -407,6 +532,7 @@ If you wish not to receive such messages, change it in your account settings [he
 If you wish to register your instance, {clickHereLink}.: Hvis du vil registrere din cloud, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: JDersom du vil sjekke ut tilgjengelige integrasjoner gå til {0}.
 If you wish to unregister your instance, {clickHereLink}.: Hvis du vil avregistrere din cloud, vennligst ikke {clickHereLink}.
+Image area crop: Bildeområde
 Impulse counter: Impulsmåler
 Impulses: Impulser
 In order to confirm account deletion, enter your password.: For å bekrefte at du ønsker å fjerne din konto vennligst oppgi ditt passord.
@@ -414,9 +540,11 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Ikke aktiv
 Include energy corrections in new measurements history (not recommended): Inkluder merverdi i historien (anbefales ikke)
 Incorrect password: Feil passord
+Increment and decrement: Økende og synkende
 Incremental: Inkrementell
 Information: Informasjon
 Inherit I/O Device location: Benytt deg av enhetens lokalisering
+Installer e-mail address: Installatørens e-postadresse
 Integration with MQTT Broker has been disabled.: Integrasjon med MQTT er deaktivert.
 Integration with MQTT Broker has been enabled.: Integrasjon med MQTT er aktivert.
 Integrations: Integrasjoner
@@ -426,12 +554,15 @@ Interrupt and execute: Stopp og utfør
 Interval: Intervall
 Invalid SUPLA Cloud URL.: Ugyldig SUPLA Cloud URL adresse.
 Invalid action parameters: Feil utførelsesparametere.
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Enheten har registrert en kanal av en annen type ({typeCaption} - {typeId}) i stedet for den nåværende.
+Invalid e-mail address.: Feil e-postadresse.
 Invalid function for channel.: Ugyldig funksjon for kanale
 'Invalid redirect URI: {uri}': 'Ugyldig omdirigering URL: {uri}'
 Invalid request: Ugyldig forespørsel
 Invalid request.: Feil handling.
 Invalid scene: Feil scene
 Invalid token.: Feil token.
+Invalid unlock code.: Feil opplåsingslenke.
 Invalid username or password: Feil brukernavnet eller passordet
 Inverted logic: Omvendt logikk
 Invisible: Usynlig
@@ -442,22 +573,31 @@ Keep in mind, that the humanized description of the entered crontab is not perfe
 Language is not available: Språk ikke tilgjengelig
 Last access: Sist kobling
 Last connection: Sist kobling
+Last paired device: Sist sammenkoblede enhet
 Last used: Sist brukt
 Let me choose later: La meg velge nedenfor
+Light mode: Lysmodus
 Light switch: Lysbryter
 Lighting: Belysning
+Lighting level: Belysningsnivå
+Lighting mode: Belysningsmodus
 Limit has been exceeded: Grensen er overskredet
 Linear: linje
 Liquid, Temp: Væske, Temperatur
+List of available variables: Liste over tilgjengelige variabler
 Location: Lokalisering
 Location Identifier: Lokalisering identifikator
 Location limit has been exceeded: Grensen på lokaliseringer er overskredet
 Location name: Stedsnavn
 Locations: Sted
+Locked: Blokkert
 Log out: Logg ut
 Login: Logg inn
 Logs transformation: Verditransformasjon
 Longest aberration: Lengste avvik
+Low threshold: Lav terskel
+Low threshold must be less than high threshold.: Den lave terskelen må være lavere enn den høye
+Low value: Minsteverdi
 Lower voltage threshold: Lav spenning terskel
 MQTT Broker: MQTT
 MQTT Broker Username: Brukernavn
@@ -466,6 +606,7 @@ MQTT Broker password: Passord til MQTT
 MQTT Broker password has been changed.: Passord til MQTT ble endret.
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Brukernavn eller passord er ikke konfigurert på denne cloud.
 Mail sensor: Postsensor
+Main thermometer: Hovedtermometer
 Maintenance mode active. You cannot modify any data now.: Handling i servicemodus. Du kan ikke endre på noe data
 Make sure to copy it now because you won’t be able to see it again!: Sørg for å oppbevare dem på et trygt sted.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Husk å lagre den på et trygd sted dersom du ønsker å bruke den en gang til i fremtiden. Lenken vises ikke mer etter at har forlatt denne siden.
@@ -473,17 +614,33 @@ Manage your new client app in the SUPLA-Cloud.: Håndterer applikasjonsinnstilli
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Håndterer enheten din i SUPLA-Cloud eller ved å bruke SUPLA-applikasjonen på smarttelefonen.
 Manual: Instruks
 Manually closed: Stengt manuelt
+Master thermostat: Hovedtermostat
+Max: Maks.
 Maximum delay is 60 minutes.: Maksimal forsinkelse er 60 minutter.
+Maximum duration is one year.: Den maksimale perioden er ett år.
 Maximum filesize limit is {limit}.: Maksimal filstørrelse er {limit}.
 Maximum voltage: Høyeste spenning
+Measurement settings: Målingsinnstillinger
 Measurement window: Måling tid
 Meter value: Meterlesing
 Meters: Tellere
+Min: Min.
+Minimum OFF time before cooling can be turned on: Minimum AV-tid før kjølingen slås på igjen
+Minimum OFF time before heating can be turned on: Minimum AVSLÅINGSTID før oppvarmingen slås på igjen
+Minimum OFF time before heating/cooling can be turned on: Minimum AV-tid før kjøling/oppvarming slås på igjen
+Minimum ON time before cooling can be turned off: Minimum PÅ-tid før kjølingen slås av igjen
+Minimum ON time before heating can be turned off: Minimum PÅ-tid før oppvarmingen slås av igjen
+Minimum ON time before heating/cooling can be turned off: Minimum PÅ-tid før kjøling/oppvarming slås av igjen
+Minimum temperature must be lower than maximum temperature.: Minimumstemperaturen må være lavere enn maksimumstemperaturen
 Minimum voltage: Laveste spenning
 Missing action.: Ingen handling
 Mode: Modus
+'Mode: cool': 'Modus: kjøling'
+'Mode: heat': 'Modus: oppvarming'
+'Mode: off': 'Modus: av'
 Modification: Modifisering
 Mondays: Mandag
+Motor upside down: Invertert motorstyring
 Move down or stop: Ned eller stopp
 Move up or stop: Opp eller stopp
 My OAuth apps: Mine apper OAuth
@@ -504,6 +661,7 @@ New scene: En ny scene
 Newer: Nyere
 'Next limit renewal: {date}': Begrensningen vil bli fornyet {date}
 Next run date: Neste utførelsesdato
+'No': Nei
 No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Du har ingen aktive tilgang identifikatorer. Gå til {accessIdsListLink} eller {newAccessIdLink}.
 No function: Manglende funksjoner
 No future executions - schedule disabled: Mangel på planlagte utførelser – plan skrudd av
@@ -514,20 +672,26 @@ No of channels: Antall kanaler
 No of client apps: Antall kundensapper
 No of devices: Antall enheter
 No of operations: Antall handlinger
+No results: Fant ingen treff
 No schedule configuration.: Ingen tidsplankonfigurasjon ble spesifisert.
 No, take me back!: Nei, få meg ut herfra!
+None: Mangel
+None (channel disabled): Ingen (kanal av)
+Noop: Ingen drift
+Notification: Varsling
+Notification body is set by the firmware.: Innholdet i varselet angis av fastvaren.
+Notification must have a body.: Varselet må ha innhold.
+Notification must have recipients.: Meldingen må ha mottakere.
+Notification title is set by the firmware.: Varslingsoverskriften angis av fastvaren.
+Notifications: Varslinger
+Notifications (defined): Varsler (definert)
+Notifications (sent per hour): Varsler (sendt per time)
 No{'.'} of Client’s apps: Antall kundeapplikasjoner
 No{'.'} of access identifiers: Antall tilgang identifikatorer
 No{'.'} of channel groups: Antall kanalgrupper
 No{'.'} of channels: Antall kanaler
 No{'.'} of devices: Antall enheter
 No{'.'} of locations: Antall lokaliseringer
-None: Mangel
-None (channel disabled): Ingen (kanal av)
-Noop: Ingen drift
-Notification: Varsling
-Notification must have a body.: Varselet må ha innhold.
-Notifications: Varslinger
 Number of aberrations: Antall avvik
 Number of attempts to close: Antall lukeforsøk
 Number of attempts to open: Antall åpningsforsøk
@@ -536,24 +700,36 @@ OAuth application: Applikasjon OAuth
 OAuth apps: Appene OAuth
 OAuth authorization: Autorisasjon OAuth
 OAuth integrations might stop working after the instance is unregistered.: Integrasjoner med Oauth-apper kan slutte å fungere etter avregistrering av cloud.
+'OCR service responded with error: {status}': 'OCR-tjenesten svarte med en feilmelding: {status}'
+OCR settings: OCR-innstillinger
 OK: OK
+OR: ELLER
 'Off': Av
+Off with duration: Slå av i tide
 Offline access: Tilgang offline
 Older: Eldre
 'On': På
+On with duration: Aktiver i tide
 On/Off switch: Strømbryter
 Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Kun domenenavn med mulig portnummer er tillat. F.eks. mysupla.org eller mysupla.org:88. HTTPS er påkrevd.
 Open: Åpne
 Open / close: Åpne / steng
 Open partially: Åpne delvis
+Open value: Åpningsverdi
 Opening sensor: Åpningssensor
 Operation: Drift
 Operations: Handlinger
 Original location: Opprinnelig lokalisering
 Other: Andre
 Otherwise go to the homepage.: I et annet tilfelle gå til [hjemmeside].
+Output value on error: Utgangsstatus under en feil
+Overheat protection: Beskyttelse mot overoppheting
+P/C: P/C
 PIN: PIN-koden
 PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN-koden for Google må ha minst {minLength} og høyst {maxLength} sifre.
+Pair new devices or sensors: Par nye enheter eller sensorer
+Pairing request sent.: Paringsforespørsel sendt.
+Pairing subdevices is unsupported in the firmware.: Paring støttes ikke av enhetens programvare.
 Partial opening sensor: Delvisåpning sensor
 Partially opened sensor for channel: Kanal for delvisåpning sensor
 Password: Passord
@@ -573,19 +749,25 @@ Phase: Fase
 Phase 1: Fase 1
 Phase 2: Fase 2
 Phase 3: Fase 3
+Phase LED type: LED-faseindikator
 Phase number: Fase
 Phase {phaseNumber}: Fase {phaseNumber}
+Photo interval: Opptaksintervall
 Please choose the schedule subject first.: Velg først hva timeplanen skal styre
 Please click the following link to reset your %cloudHost% password.: Trykk på lenken nedenfor for å tilbakestille ditt %cloudHost% passord.
 Please click the link we have sent you after the registration to proceed.: Trykk på lenken i meldingen vi sendte til deg etter oppretting av konto.
 Please confirm your SUPLA account.: Aktiver SUPLA-kontoen din.
 Please enter a valid email address: Tast inn korrekt e-post adresse
 Please fill a valid email address: Tast inn korrekt e-post adresse
+Please find the device details below.: Du finner mer informasjon om enheten nedenfor.
 Please fix the problems with operations and try again.: Feilsøk operasjoner, og prøv på nytt.
 Please log in again to proceed.: Logg inn på nytt for å fortsette.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Vær oppmerksom på at utstyret som denne forespørselen gjelder, kun er beregnet for sertifiserte installatører.
 Please provide a valid domain name for your private SUPLA Cloud: Oppgi korrekt navn på din private SUPLA Cloud.
+Please provide the installer e-mail address to request the device unlock.: For å låse opp enheten, oppgi e-postadressen som ble brukt i sertifiseringsprosessen for installatøren.
 Please read the Terms and Conditions.: Les regelverket.
 Please select a condition: Velg en betingelse
+Please select and configure the action: Velg og konfigurer handlingen.
 Please wait a moment before the next login attempt.: Vent litt før det neste pålogging forsøket.
 Port: Port
 Power active: Aktiv energi
@@ -599,10 +781,14 @@ Private Cloud domain name: Domenenavn på privat Cloud
 Private instance of the SUPLA cloud with given URL is already registered.: En privat sky SUPLA er allerede registrert på denne adressen
 Proceed: Fortsett
 Processing: Pågår
+Program {programNo}: Program {programNo}
+Projector screen: Projeksjonsskjerm
 Protocol: Protokoll
 Public ID: Offentlig ID
 Publish to integrations: Publiser for integrering
 Publishes the event to integrated services like MQTT or webhooks.: Varsler integrasjoner som MQTT eller webhooks når denne handlingen utføres.
+Pump switch: Pumpebryter
+Push notifications limit has been exceeded: Grensen for push-varslinger er overskredet
 RESET: TILBAKESTILL
 RGB led controller: Belysningskontroll RGB
 RGB lighting: Belysning RGB
@@ -614,6 +800,9 @@ Read: Avlesning
 Recipients: Mottakere
 Reference to the scene will be removed from the items below.: Indikasjonen på scenen vil bli fjernet fra følgende elementer.
 Refresh: Last inn på nytt
+Refresh interval: Oppdateringsintervall
+Refresh the config: Oppdater konfigurasjonen
+Refreshing the configuration will overwrite the changes you made here.: Oppdatering av konfigurasjonen vil overskrive endringene som er gjort i skjemaet.
 Regeneration starts at: Begynnelsen av regenerering
 Register: Tilbakestill
 Register a new OAuth application: Registrer ny OAuth applikasjon
@@ -624,30 +813,41 @@ Registered: Registrert
 'Registered from IP address: %deviceRegIp%': 'IP-adressen: %deviceRegIp%'
 Relay: Relé
 Relay switching time: Relé koblingstid
+Reload last photo: Last inn det siste bildet på nytt
 Reload the chart: Last inn diagrammet på nytt
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Før du fjerner lokalisering må du først flytte kanalgrupper som finnes i den. Identifikatorer: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Før du fjerner lokalisering må du først flytte kanalene som finnes i den. Identifikatorer: {relatedIds}.'
+Remote restart is unsupported in the firmware.: Ekstern omstart støttes ikke av enhetens programvare.
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Fjern relaterte enheter før du fjerner lokaliseringen. Identifikator: {relatedIds}.'
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Slett alle relaterte scener før du sletter denne plasseringen. Identifikatorer: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Fjern alle enheter som bruker denne lokaliseringen som opprinnelig lokalisering først. Identifikatorer: {relatedIds}.'
+Remove this item: Fjern dette elementet
 Repeat password: Gjenta passord
+Request device unlock: Meld fra om ønsket om å låse opp enheten
 Reset Your Password: Generer et nytt passord
 Reset counter: Tilbakestill telleren
+Reset to defaults: Gjenopprett standardverdier
+Restart device: Tilbakestill enheten
+Restart the device: Tilbakestill enheten
 Retry on failure: Gjenta når ikke utført
 Reveal: Avdekk
+Reveal or stop: Avdekk eller stopp
 Reveal partially: Avdekk delvis
 Reverse active energy: Aktiv energi returnert
 Reverse active energy balance: Balanse av aktiv energi som returneres
 Reverse active energy balanced: Aktiv energi returnert (vektorbalanse)Aktivt energiforbruk (vektorbalanse)
 Reverse reactive energy: Passiv energi returnert
 Revoke: Opphev
+Roller garage door: Garasjeport
 Roller shutter opening sensor: Rullegardineråpner sensor
 Roller shutter operation: Åpning og stenging av rullegardiner
 Roller shutters: Rullegardiner
 Roof window opening sensor: Sensor for åpning av takvindu
 Roof window shutter operation: Åpning av takvindu
+S/N: S/N
 SUPLA - Account Activation: SUPLA – Aktivering av konto
 SUPLA - Account Removal: SUPLA – Fjerning av konto
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Låser opp en enhet som er beregnet til en sertifisert installatør
 SUPLA - Password reset: SUPLA – Tilbakestilling av passordet
 SUPLA - Private instance unregistration: SUPLA - avregistrering av en privat cloud
 SUPLA Cloud is under maintenance.: Oppdatering av SUPLA Cloud pågår
@@ -658,7 +858,9 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – beskjed om mislykket innlogging til %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - en ny klientapplikasjon er registrert
 SUPLA – new device has been added to your account: SUPLA - en ny enhet er lagt til kontoen din
+SUPLA – your device has been unlocked!: SUPLA - Enheten din har blitt låst opp!
 SUPLA.ORG Team: SUPLA.ORG Team
+Same as on master thermostat.: Innstillingen er den samme som på hovedtermostaten.
 Saturdays: Lørdager
 Save: Lagre
 Save and enable: Lagre og skru på
@@ -677,6 +879,7 @@ Schedules: Planer
 Scope: Omfang (scope)
 Scopes: Omfang
 Scopes define which sections of your account can be accessed when using the token.: Omfang bestemmer hvilke konto innhold man kan få tilgang ved bruk av token.
+Screen brightness: Skjermens lysstyrke
 Search: Søk
 Secret: Hemmelignøkkel (secret)
 Security: Sikkerhet
@@ -687,6 +890,7 @@ See in SUPLA-Cloud: Se i SUPLA-Cloud
 Seems like a secret place: Vi har på følelse at du ikke burde være her
 Select icon: Velg ikon
 Select the item (subject) you want to control using this link: Velg enhet du ønsker å kontrollere ved bruk av denne lenken
+Selected: Utvalgte
 Selected device has been logged out.: Den valgte innretningen har blitt logget ut
 Send a notification: Send varsel
 Send notification: Send varsel
@@ -695,12 +899,18 @@ Sensors: Sensorer
 Server address: Serveradresse
 Server unreachable: Server ikke tilgjengelig
 Service temporarily unavailable: Tjeneste midlertidig ikke tilgjengelig
+Set HVAC parameters: Still inn parametere
+Set the device time: Det var ikke mulig å stille dato og klokkeslett på enheten.
 Set value added: Estimer merverdi
 Set values for each phase separately: Bestem verdien for hver fase separat
 Setting the number of attempts to 1 disables the retrying behavior completely.: Innstilling av antall forsøk til mindre enn 2 kan føre til at lukking eller åpning ikke finner sted.
+Settings: Innstillinger
+Settings have not been saved!: Innstillingene er ikke lagret!
+Show data: Vis data
 Show my limits: Vis mine begrensninger
 Show on the Client’s devices: Vis i kundeenheter
 Shut: Lukke
+Shut or stop: Dekk over eller stopp
 Shut partially: Dekke delvis
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Lukk rullegardinen til den berører den nederste kanten og skriv inn sluttprosenten i dette feltet. Denne operasjonen er ikke nødvendig, men forutsatt at den forbedrer visualiseringen av rullegardinens  posisjon i mobilapplikasjonen.
 Sign In: Logg inn
@@ -708,9 +918,11 @@ Sign Out: Logg ut
 Sign in temporarily unavailable. Please try again later.: Logg inn midlertidig utilgjengelig. Prøv igjen senere.
 Smartphones: Smarttelefoner
 SoftVer: WerOpr
+Some features depend on this channel: Noen funksjoner avhenger av denne kanalen
 Some features depend on this channel group: Noe funksjonalitet avhenger av denne gruppen av kanaler.
 Some features depend on this device: Noe funksjonalitet avhenger av denne enheten.
 Some features depend on this scene: Noe funksjonalitet avhenger av denne scenen.
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Noen av dataene som samles inn for kontoen din skal med jevne mellomrom slettes, etter den angitte tiden har gått. Bli kjent med begrensningene nedenfor.
 Some of the features you have configured depend on channels from this device.: Noen funksjoner bruker kanaler fra denne enheten.
 Staircase timer: Trappeautomat
 Start Here: Start her
@@ -718,24 +930,38 @@ Start date: Startdato
 Start from the homepage.: Begynn fra startside
 State: Tilstand
 State webhook: Statuswebhook
+Status LED: LED- status
 Step by step: Skritt for skritt
 Stop: Stop
+Store active power history: Lagre aktiv effekt historikk
+Store current history: Lagre strømstyrke historikk
 Store measurements history: Lagre målehistorikk
+Store voltage history: Lagre spenningshistorikk
+'Subdevice #{id}': 'Underleverandørenhet #{id}'
+Subfunction: Underfunksjon
 Subject type: Enhetstype
 Success: Suksess
 Successful: Vellykket
 Summary for selected time range: Sammendrag for det valgte omfanget
 Sundays: Søndager
 Switch the device to configuration mode: Sett enheten i konfigurasjonsmodus
+Switch to manual mode: Bytt til manuell modus
+Switch to program mode: Bytt til programmeringsmodus
+THEN: DA
 THIS CANNOT BE UNDONE!: DU KAN IKKE ANGRE PÅ DENNE HANDLINGEN!
 TLS: TLS
 Tab: Tabulator
+Take a photo now: Ta et bilde nå
 Target Cloud is not registered, or is registered with another e-mail address.: Denne SUPLA Cloud er ikke registrert eller er registrert med en annen e-postadresse.
 Temperature: Temperatur
 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor
 Temperature Sensor: Temperatursensor
 Temperature adjustment: Tilpass temperaturen
 Temperature and humidity sensor: Temperatur- og fuktighetssensor
+Temperature difference is too big between {min}°C and {max}°C.: Temperaturforskjellen er for stor mellom {min} °C og {maks} °C.
+Temperature setpoint change switches to manual mode: Endring av bryterens målemperatur til manuell modus
+Temporal override: Midlertidig overstyring
+Terrace awning: Terrassemarkise
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Takk for at du registrerer din konto i %cloudHost%. For å avslutte aktiviseringen trykk på lenken nedenfor.
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Integrasjoner gir deg mulighet til å legge til nye funksjoner til din konto på et enkelt vis ved hjelp av løsninger levert av eksterne leverandører, programmerere eller deg selv.
 'The IP used for login is: %ip%': 'Forsøket på å logge inn ble gjort fra IP adressen: %ip%'
@@ -744,13 +970,21 @@ The SUPLA infrastructure is being updated.: SUPLA-servere oppdatering pågår.
 The Terms and Conditions have changed: Regelverket ble endret.
 The Terms and Conditions have changed – please read them and accept.: Tjenesteregelverk ble endret – godkjenning av det nye regelverket er påkrevd.
 The activation link has been sent again. Check the inbox.: Melding med aktiveringslenke til din konto ble sendt på nytt. Sjekk din innboks.
+The channel has been deleted.: Kanalen er fjernet.
 The client will be automatically logged out when deleted.: Fjerning av kunden betyr at den blir logget ut med en gang
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfigurasjonen er endret fra et annet sted (f.eks. et annet nettleservindu, mobilapp eller enhet). Du må oppdatere konfigurasjonen før du gjør videre endringer.
 The counter has been reset.: Telleren er tilbakestilt.
+The device could not be unlocked.: Enheten kunne ikke låses opp.
+The device has been unlocked already.: Enheten er allerede låst opp.
+The device has been unlocked.: Enheten har blitt låst opp.
+The device has channel conflict and cannot work.: Enheten har generert en kanalkonflikt og kan for øyeblikket ikke fungere.
 The device is disabled: Enheten er av
+The device is locked: Enheten blokkert
 The device might be in a sleep mode.: Enheten kan fungere i hvilemodus.
 The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Innretningen som bruker denne økten, mister tilgangen til SUPLA Cloud. For å kunne fortsette å bruke applikasjonen, må man logge inn på nytt.
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: All spenningsavvikshistorikk for fase {phaseNumber} skal bli fjernet.
 The entire history of the voltage aberrations will be removed from this channel.: Alle historien for spenningsavvik fjernes for denne kanalen.
+The following channels will be also removed along with their dependencies.: Følgende kanaler vil også bli fjernet sammen med deres avhengigheter.
 The following items use the channels of these device. These references will be also removed.: Følgende elementer bruker kanaler fra denne enheten. De vil også bli slettet.
 'The following items will be deleted with this device:': Følgende elementer vil også bli slettet sammen med denne enheten.
 The gate sensor must function properly in order to execute the Open and Close actions.: Portåpner sensor må fungere riktig for å utføre handlingen Åpne eller Steng.
@@ -761,6 +995,7 @@ The items below depend on this channel group, so they will be deleted.: 'Følgen
 The items below depend on this scene, so they will be deleted.: Elementene nedenfor er basert på denne scenen, så de vil bli fjernet.
 The latest execution: Utført sist
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Resultat for utførelser er presentert som en nettside siden enten du (eller din søker) ba om svar i HTML format.
+The master termostat you chose already has a master.: Hovedtermostaten du har valgt har allerede en annen hovedtermostat
 The measurement history has been deleted.: Målingshistorie ble fjernet.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Det nye passordet vil bytte det du bruker for øyeblikket. Noen integrasjoner kan slutte å fungere etter at de er endret. Å fortsette?
 The next available executions: Neste utførelser.
@@ -777,24 +1012,39 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Server viser feil HTTP 404. Dette betyr at elementet du søker etter eksisterer ikke.
 The server has returned an HTTP {statusCode} error.: Server viser feil {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Ikonfiler du har valgt er for store. Maksimal størrelse på upload er {limit}.
+The thermostat will not work if the main thermometer is not set.: Hovedtermometeret må stilles inn for at termostaten skal fungere.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Ventilen kan ikke åpnes med en direkte lenke eller via API når den har blitt stengt manuelt. Åpne ventilen manuelt for å gjenoppta kontrollen.
-valveOpenConfirm_manual: Ventilen har blitt stengt manuelt eller gjennom radio. Før du åpner den, må du sørge for at den ikke har vært stengt på grunn av vannskader. For å deaktivere advarselen, åpne ventilen manuelt. Er du sikker på at du vil åpne ventilen gjennom radio?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Ventilen vil ikke bli åpnet hvis den har blitt stengt manuelt eller gjennom radio, som kunne bli forårsaket av vannskader
 There are no more channels you can add to this group: Det er ingen andre kanaler du kan legge til denne gruppen.
 Thermometer: Termometer
+Thermometer error: Termometerfeil
+Thermometers configuration: Konfigurasjon av termometre
 Thermostat: Termostat
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Denne termostaten bruker innstillingene fra hovedtermostaten. Gå til detaljsiden for å endre innstillingene.
+Thermostat programs: Termostatens programmer
+This action will result in restarting the device. It will not be available for a while.: Bestilling av denne operasjonen vil starte enheten på nytt. Under omstart vil enheten være utilgjengelig.
+This channel was missing during last device registration attempt.: Denne kanalen er ikke tilgjengelig på enheten.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Dette apparatet er kun beregnet for distribusjon og installasjon av autoriserte installatører. Hvis du ikke er en autorisert SUPLA-installatør og ikke har et aktivt opplæringsbevis, returner den til forhandleren.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Denne lenken krever en presisering av parameter av den utførte handlingen. Se parameterne nedenfor for å finne ut hvilke parameter du kan sette.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Du mottar denne meldingen fordi det har vært et mislykket forsøk på å logge inn til SUPLA-CLOUD med din adresse.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Dette er den siste etappen i slettingen av kontoen din. Hvis du fyller ut og bekrefter skjemaet, slettes opplysningene dine ugjenkallelig.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Dette er det siste bildet som er lastet opp fra enheten. Marker nøyaktig området der tallene fra måleren er synlige.
 This is the list of applications you have granted access to your account.: Dette er en liste med applikasjoner du har gitt tilgang til din konto.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Dette er en liste over reaksjoner som fungerer på kontoen din. Hvis du vil legge til en ny reaksjon, går du til kanaldetaljene som bør  utløse den.
 This link is only valid for an hour.: Lenken er aktiv i en time.
 'This password will protect your home. Therefore, it must:': 'Dette passordet vil verne hjemmet ditt. Derfor:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Denne tidsplanmodusen er designet for tekniske eller svært tålmodige brukere. Det krever at tidsplanens utløsertider spesifiseres i crontab-notasjon, beriket med flere funksjoner som bare finnes i SUPLI. Hvis du ikke har sett crontabs før og fortsatt ønsker å bruke denne modusen, kan nettstedet crontab.guru være til hjelp for deg.
+This thermostat is controlled by another device.: Denne termostaten kontrolleres av hovedtermostaten.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Denne utløseren brukes lokalt av enheten (f.eks. slår den på lyset, kontrollerer rullegardinen osv.). Hvis du tilordner den en annen handling, vil den lokale funksjonen bli deaktivert.
 Thursdays: Torsdager
+Tilt angle: Hellingsvinkel
+Tilt control type: Type hellingskontroll
+Tilt percent: Hellingsprosent
+Time: Tid
 Timezone: Tidssone
 Title: Tittel
 To: Til
+Today, it would be active from {from} to {to}.: I dag vil den aktive perioden være {from} klokka {to}.
 Toggle: Bytt
 Token does not exist: Token finnes ikke
 Too many actions in this schedule.: For mange handlinger i én tidsplan.
@@ -803,6 +1053,7 @@ Too many operations in this scene: For mange operasjoner på åstedet.
 Total: Sum
 Total time: Total tid
 Tuesdays: Tirsdager
+Turn off: Slå av
 Turning this device off will cause its channels not working in the following features.: Å slå av enheten vil slutte kanalene å fungere i følgende elementer.
 Turning this device off will result in disabling features listed below.: Å slå av enheten vil også slå av følgende elementer.
 Type: Type
@@ -810,25 +1061,34 @@ Undo registration: Trekk tilbake registreringen
 Unit: Enhet
 Unknown: Ukjent
 Unknown browser: Ukjent nettleser
+Unlock the device: Lås opp enheten
 Unregister my private SUPLA Cloud instance: Avregistrer min private SUPLA Cloud
 Unsuccessful login attempt: Innlogging mislyktes
 Unsupported function: Funksjon ikke støttet
 Unsupported type: Type ikke støttet
+Until a date and time: Inntil
+Until the next change: Inntil neste endring
 Update in progress: Oppdatering pågår
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Opplastede filer berører ikke gode skikker, opphavsrett eller tredjeparts rettigheter og jeg har rett til å bruke dem.
 Upper voltage threshold: Høy spenning terskel
-"Use the {0} server command to change this account's limits. For example:": 'For å endre grensene for denne kontoen, bruk kommandoen {0} på serveren din. For eksempel:'
-Use working schedule for this access identifier: bruk tilgjengelighetsplanen for denne tilgangs-IDen
+Use device default: Bruk standardverdien fra enheten
+'Use the {0} server command to change this account''s limits. For example:': 'For å endre grensene for denne kontoen, bruk kommandoen {0} på serveren din. For eksempel:'
+Use {theMasterThermostat} to control this device.: Bruk {theMasterThermostat} til å styre denne enheten.
+Used current transformer type: Brukt strømtransformator
 User is already confirmed. Try to log in.: Konto er bekreftet. Logg inn.
 Value: Verdi
 Value added: Merverdi
+Value divider: Divisor
+Value multiplier: Multiplikator
 Value separator: Separator
 Valve: Ventil
 Valve closed manually: Ventil stengt manuelt
 Vector balance: Vektorbalanse
 Verification method: Verifisering metode
+Vertical blind: Vertikal persienne
 Visible: Synlig
 Visit app webpage: Åpne nettsiden til applikasjonen
+Visit the master thermostat page.: Gå til hovedtermostaten.
 Voltage: Spenning
 Voltage aberrations: Spenningsavvik
 Voltage monitoring: Spenning overvåking
@@ -846,6 +1106,7 @@ We have been asked to unregister your private SUPLA Cloud instance (%targetCloud
 We have just sent you an activation link. You should be receiving it shortly.: Melding med aktiviseringslenke ble nettopp sendt. Vis litt tålmodighet.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Vi sendte en e-post med lenke hvor du kan bekrefte fjerning av kontoen. Kanskje du ombestemmer deg!
 We have sent you an email with further instructions.: Vi har sendt deg en melding med ytterligere instruksjoner.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Vi har mottatt en forespørsel om å låse opp enheten som kun er beregnet for sertifiserte installatører. Forespørselen ble sendt av brukeren %deviceUserEmail% fra SUPLA Cloud-instansen under adressen %targetCloudUrl%.
 We should be ready shortly.: Vi bør bli ferdige snart
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Vi lagrer informasjon om dine preferanser i nettleseren din for å gjøre bruken av applikasjoner lettere (f.eks. ved hjelp av informasjonskapsler).
 We try to be faster: Vi er raskere og raskere
@@ -857,6 +1118,8 @@ We will try to display the received icons the best possible way, however you wil
 We will use it only in justified situations.: Vi vil kun bruke den i berettiget situasjoner.
 Weather Station: Værstasjon
 Wednesdays: Onsdager
+Week: Uke
+Weekly schedule: Ukeplan
 Weight sensor: Vekt
 Welcome!: Hei!
 What this token is for?: Hva brukes denne token til?
@@ -869,14 +1132,21 @@ When liquid or lack thereof is detected: Når væske eller mangel på væske opp
 When the RGB lighting brightness level changes: Når lysstyrkenivået til RGB-belysning vil endre seg
 When the RGB lighting reaches a certain level of brightness: Når RGB-belysning når et visst lysstyrkenivå
 When the active power will be: Når den aktive kraften blir
+When the alarm is armed: Når alarmen er aktivert
+When the alarm is armed or disarmed: Når alarmen blir deaktivert eller aktivert
+When the alarm is disarmed: Når alarmen blir slått av
 When the apparent power will be: Når den tilsynelatende kraften blir
 When the balanced forward active energy will be: Når den balanserte, forbrukte aktive energien vil være
 When the balanced reverse active energy will be: Når balansert, returnert aktiv energi blir
+When the battery cover is opened: Når batteridekselet blir åpnet
 When the brightness level changes: Når lysstyrkenivået  vil endre seg
 When the brightness will be: Når lysstyrkenivået blir
+When the clock error has been reported: Når klokken rapporterer en feil
 When the color changes: Når fargen  vil endre seg
 When the condition is met: Når betingelsen er oppfylt
 When the current will be: Når strømmen blir
+When the curtain position changes: Når gardinen endrer posisjon
+When the curtain reaches a certain position: Når gardinen når en bestemt posisjon
 When the depth changes: Når dybdemålingen vil endre seg
 When the depth is: Når dybdemålingen blir
 When the device is turned off: Når enheten er slått av
@@ -892,6 +1162,8 @@ When the door will be opened or closed: Når døren er lukket eller åpnet
 When the electricity meter reaches a certain value: Når energimåleren når en viss verdi
 When the electricity meter value changes: Når verdien på strømmåleren  vil endre seg
 When the electricity meter value will be: Når energimålerverdien blir
+When the facade blind position changes: Når fasadepersiennen endrer posisjon
+When the facade blind reaches a certain position: Når fasadepersiennen når en bestemt posisjon
 When the forward active energy will be: Når den forbrukte aktive energien vil være
 When the garage door will be closed: Når garasjeporten lukkes
 When the garage door will be opened: Når garasjeporten åpnes
@@ -908,27 +1180,37 @@ When the gateway will be opened or closed: Når porten er lukket eller åpnet
 When the heat meter value changes: Når tellerverdien vil endre seg
 When the heat meter value reaches a certain value: Når varmemåleren når en viss verdi
 When the heat meter value will be: Når varmemålerverdien vil være
+When the hotel card has been taken: Når hotellnøkkelkortet blir rekvirert
+When the hotel card is put in: Når hotellnøkkelkortet blir satt inn
+When the hotel card is put in or has been taken: Når hotellnøkkelkortet settes inn eller tas ut
 When the humidity changes: Når fuktigheten vil endre seg
 When the humidity reaches a certain level: Når fuktigheten når et visst nivå
 When the humidity will be: Når fuktigheten blir
 When the lighting reaches a certain level of brightness: Når belysningen når et visst lysstyrkenivå
 When the mail comes or is taken: Når posten kommer eller blir tatt bort
 When the mail has been taken: Når posten vil bli mottatt
+When the meter reaches a certain value: Når måleren når den ønskede verdien
+When the meter value changes: Når verdien endres
+When the meter value will be: Når verdien blir
 When the precipitation amount will be: Når mengden målt regn vil være
 When the pressure changes: Når trykket vil endre seg
 When the pressure reaches a certain level: Når trykket rekker et visst nivå
 When the pressure will be: Når trykket blir
+When the projector screen position changes: Når projeksjonsskjermen endrer posisjon
+When the projector screen reaches a certain position: Når projeksjonsskjermen når en bestemt posisjon
+When the pump is turned off: Når pumpen blir slått av
+When the pump is turned on: Når pumpen blir aktivert
+When the pump is turned on or off: Når pumpen skal aktiveres eller desaktiveres
 When the rain amount changes: Når mengden nedbør vil endre seg
 When the reactive power will be: Når reaktiv kraft vil være
 When the reverse active energy will be: Når den returnerte aktive energien blir
+When the roller garage door position changes: Når garasjeporten endrer posisjon
 When the roller shutter position changes: Når rullegardinens stilling vil endre seg
-When the roller shutter reaches: Når rullegardinen rekker
 When the roller shutter reaches a certain position: Når rullegardinen når en bestemt posisjon
 When the roller shutter will be closed: Når  rullegardinen er lukket
 When the roller shutter will be opened: Når  rullegardinen åpnes
 When the roller shutter will be opened or closed: Når  rullegardinen åpnes eller lukkes
 When the roof window position changes: Når posisjonen til takvinduet vil endre seg
-When the roof window reaches: Når takvinduet rekker
 When the roof window reaches a certain position: Når takvinduet når en bestemt posisjon
 When the roof window will be closed: Når takvinduet er lukket
 When the roof window will be opened: Når takvinduet åpnes
@@ -936,11 +1218,25 @@ When the roof window will be opened or closed: Når takvinduet er lukket eller �
 When the temperature changes: Når temperaturen vi endre seg
 When the temperature reaches a certain value: Når temperaturen når en viss verdi
 When the temperature will be: Når temperaturen blir
+When the terrace awning position changes: Når terrassemarkisen endrer posisjon
+When the terrace awning reaches a certain position: Når terrassemarkisen når en bestemt posisjon
+When the thermometer error has been reported: Når termometeret rapporterer en feil
+When the thermostat starts cooling: Når termostaten begynner å kjøle
+When the thermostat starts heating: Når termostaten begynner å varme opp
+When the thermostat starts heating or cooling: Når termostaten begynner kjøling eller oppvarming
+When the thermostat starts or stops cooling: Når termostaten begynner eller slutter å kjøle
+When the thermostat starts or stops heating: Når termostaten begynner eller slutter å varme opp
+When the thermostat starts or stops heating or cooling: Når termostaten begynner eller slutter å varme opp eller å kjøle
+When the thermostat stops cooling: Når termostaten slutter å kjøle
+When the thermostat stops heating: Når termostaten slutter å varme opp
+When the thermostat stops heating or cooling: Når termostaten stopper kjøling eller oppvarming
 When the value will be: Når verdien blir
 When the valve is closed: Når ventilen er lukket
 When the valve is manually closed: Når ventilen lukkes manuelt
 When the valve is opened: Når ventilen åpnes
 When the valve is opened or closed: Når ventilen er lukket eller åpnet
+When the vertical blind position changes: Når den vertikale persiennen endrer posisjon
+When the vertical blind reaches a certain position: Når den vertikale persiennen når en bestemt posisjon
 When the voltage will be: Når spenningen vil være
 When the water meter reaches a certain value: Når vannmåleren rekker en viss verdi
 When the water meter value changes: Når vannmålerverdien vil endre seg
@@ -959,21 +1255,26 @@ When you execute the link with HTTP PATCH method, you can omit the random part o
 Where is the JSON?: Hvor er JSON?
 Where is your SUPLA Cloud?: Hvor er din SUPLA?
 White: Hvit
+Will be deleted after: Fjerning etter
 Wind sensor: Vinnsensor
 Window opening sensor: Vindusåpner sensor
 With SUPLA you can operate the lights in your home or office: Med SUPLA kan du styre belysningen hjemme hos deg og på kontoret
+With a timer: Med tidsmåler
 With function: Med funksjon
 Working period: Driftsperiode
-Working schedule: Aktivitetsplan
 YOUR LINK CODE: DIN LENKE KODE
+'Yes': Ja
 You are changing the settings too quickly. You have to wait a while before making this change.: Du endrer innstillinger for fort.  Du må vente litt før du endrer disse innstillingene.
 You can browse only the most recent logs now. Wait a while for the full history.: For nå vises det bare de nyeste målingene. Vent et øyeblikk til hele historien er lastet ned.
 You can ignore this message, if you have accidentally entered an incorrect password.: Dersom det er du som har innført feil passord er det bare å se bort ifra denne meldingen.
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Du kan stille inn relative verdier her. For eksempel vil +10 eller -20 øke innstillingen med henholdsvis 10 eller redusere den med 20.
 You can use the application but you will not be able to modify any settings.: Du kan bruke appen men det er ikke mulig å gjøre endringer
 You cannot delete your last access identifier.: Du kan ikke fjerne din siste tilgang identifikator.
 You cannot delete your last location.: Du kan ikke fjerne din siste lokalisering.
+You cannot to set a master thermostat for a channel that is master for others.: Du kan ikke stille inn hovedtermostaten i hovedtermostaten.
 You cannot use SUPLA project name in the domain name.: Du kan ikke bruke SUPLA-prosjektnavnet i hoveddomenenavnet.
 You have exceeded your API Rate Limit: Du har overskredet din begrensning for etterspørsler til API
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Forespørselen er sendt. Vi varsler deg når installatøren godkjenner den og låser opp enheten.
 You have requested to unregister your SUPLA Cloud instance: Du ba om å avregistrere SUPLA Cloud-forekomsten
 You have to choose at least one scope.: Du må velge minst ett område.
 You just need to execute the following command inside your host terminal.: Det holder med å utføre følgende forespørsel innen din host sin terminal.
@@ -984,6 +1285,7 @@ You must leave at least one phase enabled.: Minst én fase må forbli aktiv.
 You must set an action for each reaction.: Du må angi en handling for hver reaksjon.
 You must set an action for each scene operation.: Velg en handling for hver handling i scenen.
 You must set sections with transparent or opaque parameters or both.: Du må velge åpenhet for minst én seksjon.
+You need to provide icons for all states in light mode.: Du må levere ikoner for alle tilstander i lysmodus.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Du må oppdatere din SUPLA Cloud minst til versjonen 2.3.0.
 You will not be able to generate a direct link with the same URL again.: Oppretting av lenke med den samme URL blir ikke mulig.
 Your account and MQTT Broker connection.: Koble kontoen din til MQTT.
@@ -996,6 +1298,7 @@ Your channel groups are allowed to have a maximum of {max} channels.: Kanalgrupp
 Your chart is being drawn...: Diagrammet ditt tegnes akkurat nå...
 Your data are being collected. Please be patient.: Vi samler inn dataene dine, vent et øyeblikk.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Dataene dine lastes ned fra serveren. Vent til nedlastningene er fullført før du eksporterer dem.
+Your device has been unlocked by the installer.: Enheten din har blitt låst opp av installatøren.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Enheten lar deg utvide funksjonaliteten og lar deg utføre enhver handling på hvilken som helst enhet du eier. De tilgjengelige alternativene avhenger av fastvaren og enheten du bruker.
 Your email: Din e-post
 Your instance is not registered or you are trying to authorize an application that is not public.: Din cloud er enten ikke registrert eller prøver du å autorisere en applikasjon som ikke er offentlig.
@@ -1039,11 +1342,20 @@ after: etter
 and wait until it reaches: og vent til den når
 and wait until it will be: og vent til det blir
 and wait until the humidity will be: og vent til fuktigheten vil være
+and wait until the meter will be: og ikke utfør denne reaksjonen igjen før verdien ikke blir
 and wait until the temperature will be: og vent til temperaturen blir
 and wait until the value will be: og vent til verdien blir
+auxThermometerType_DISABLED: Av
+auxThermometerType_FLOOR: Gulv
+auxThermometerType_GENERIC_COOLER: Kjølekilde
+auxThermometerType_GENERIC_HEATER: Varmekilde
+auxThermometerType_NOT_SET: Ikke innstilt
+auxThermometerType_WATER: Vann
 average: gjennomsnitt
 be at least {numChars} characters long: må inneholde minst {numChars} tegn
 before: før
+blue, otherwise: ellers blå
+blue, when voltage lower than the low threshold: blå når spenningen er lavere enn lavterskelen
 caption: navn
 change: bytt
 channel: Kanal
@@ -1056,16 +1368,21 @@ channelGroup: Kanalgruppe
 choose: velg
 choose the access identifiers: Velg tilgangs-IDer
 choose the action: velg aksjon
+choose the currency: velg valuta
 choose the scene: velg scene
 choose the schedule: velg tidsplan
 choose the timezone: velg kanalgruppe
 click here: klikk her
+configuration missing: ingen konfigurasjon
 contains a character that is neither a letter nor a digit: inneholder et tegn som verken er en bokstav eller et tall
 contains a digit: inneholder et tall
 contains lower and upper letters: inneholder små og store bokstaver
+cool: kjøling
 copied: kopiert
 copy: kopier
+day: dag
 days: dager
+default: som standard
 directLinkExecutionFailureReason_disabled: Direkte lenke er av
 directLinkExecutionFailureReason_executionLimitExceeded: Grensen på utførelser er overskredet
 directLinkExecutionFailureReason_expired: Direkte lenke er utløpt
@@ -1086,8 +1403,20 @@ executed: utført
 extend: forleng
 from IP: fra IP-adresse
 from the IP: fra adresse
+green, otherwise: ellers grønn
+green, when power less than the low threshold: grønn når effekten er lavere enn den lavere terskelen
+heat: oppvarming
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Hoved- og tilleggstemperatur
+homeScreenContent_NONE: Mangel
+homeScreenContent_TEMPERATURE: Temperatur
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatur og fuktighet
+homeScreenContent_TEMPERATURE_TIME: Temperatur og tid
+homeScreenContent_TIME: Tid
+homeScreenContent_TIME_DATE: Dato og tid
+hour: time
 hours: timer
 is at least {numChars} characters long: har minst {numChars} tegn
+keepHistoryMeasurementWarningSelected: Trenger du virkelig denne historien? Supla er et åpent kildekode-prosjekt vedlikeholdt med egne midler. Hvis du ikke trenger denne historien, vennligst hjelp oss med å spare verdifull diskplass ved å la dette alternativet være deaktivert.
 last 24 hours: siste 24 timer
 last 30 days: siste 30 dager
 last 6 hours: siste 6 timer
@@ -1096,13 +1425,23 @@ logs_aggregation_day: dager
 logs_aggregation_hour: timer
 logs_aggregation_minute: minutter
 logs_aggregation_month: måneder
+max: maks
+midnight: nord
+milliseconds: millisekunder
+min: min
 min.: min.
 minutes: minutt
 notification: varsling
+ocrLightingMode_ALWAYS_ON: Alltid på
+ocrLightingMode_AUTO: Automatisk
+ocrLightingMode_OFF: Avslått
+'off': Slå av
 or another element: eller et annet element
 password: Passord
 previous month: forrige måned
 range: omfang
+red, when power higher than the high threshold: rød når effekten er høyere enn høy terskel
+red, when voltage higher than the high threshold: rød når spenningen er høyere enn høy terskel
 register-slide1-text: Ved hjelp av tilgjengelige enheter SUPLA gir deg mulighet til å skape enkle moduler til å styre og kontrollere deler av automatikken i bygget. Med SUPLA kan du blant annet styre belysningen, skru av og på hvitevarer og elektronikk, åpne og stenge porter og dører samt kontrollere temperaturen i rommene. Alt dette kan du gjøre med et sveip.
 register-slide1-title: Ditt eget smart bygg
 register-slide2-text: Noen av de grunnleggende forutsetningene til prosjektet er enkelhet og tilgjengelighet. SUPLA gir deg muligheten til å åpne porten når du skal kjøre inn på eiendommen din med et sveip. SUPLA er tilgjengelig over alt hvor du har tilgang til internett og har en smarttelefon eller nett brett. SUPLA er en OpenSource programvare derfor kan du også bli med på å utvikle den!
@@ -1116,6 +1455,7 @@ scheduleMode_daily: Dagsyklus
 scheduleMode_minutely: Minuttsyklus
 scheduleMode_once: Engangs
 sec.: sek.
+seconds: sekunder
 smartphones, tablets, etc.: smarttelefoner, nettbrett, etc.
 state-closed: Stengt
 state-default: Forhåndsinnstilling
@@ -1133,24 +1473,78 @@ state-rgb_on_dim_off: RGB på, dimmer på
 state-rgb_on_dim_on: RGB og dimmer på
 state-shut: Gardiner dratt for
 state-temperature: Temperatur
+statusLed_ALWAYS_OFF: Slå alltid av
+statusLed_OFF_WHEN_CONNECTED: Slå av når tilkoblet
+statusLed_ON_WHEN_CONNECTED: Aktiver når tilkoblet
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Ukjent resultat
+subdevicePairingResult_NOT_STARTED_BUSY: Enheten er opptatt
+subdevicePairingResult_NOT_STARTED_NOT_READY: Enheten er ikke klar
+subdevicePairingResult_NOT_SUPPORTED: Operasjonen støttes ikke
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Ingen nye enheter funnet
+subdevicePairingResult_ONGOING: I løpet av
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Ukjent resultat av fordampning
+subdevicePairingResult_PROCEDURE_STARTED: Prosedyren har startet
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Ressursgrensen er overskredet
+subdevicePairingResult_SUCCESS: Suksess
+subdevicePairingResult_UNAUTHORIZED: Mislykket autorisasjon
 sum: beløp
+sunrise: soloppgang
 sunrise-after: soloppgang – etter
 sunrise-before: soloppgang – før
+sunset: solnedgang
 sunset-after: solnedgang – etter
 sunset-before: solnedgang – før
+swap: bytt
+the master thermostat ID{id}: av hovedtermostaten ID{id}
 the whole history: hele historien
 then execute the action: Utfør deretter handlingen
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: På/av med øvre innstilling
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: På/av med midtre innstilling
+thermostatAlgorithm_PID: PID
+thermostatSubfunction_COOL: Kjøling
+thermostatSubfunction_HEAT: Oppvarming
+thermostatTemperature_aboveAlarm: Over alarmen
+thermostatTemperature_auxMaxSetpoint: Maksimal tilleggstemperatur
+thermostatTemperature_auxMinSetpoint: Minimal tilleggstemperatur
+thermostatTemperature_belowAlarm: Under alarmen
+thermostatTemperature_boost: Temperaturøkning
+thermostatTemperature_comfort: Komforttemperatur
+thermostatTemperature_eco: ECO temperatur
+thermostatTemperature_freezeProtection: Frost beskyttelse temperatur
+thermostatTemperature_heatProtection: Overopphetingsbeskyttelse temperatur
+thermostatTemperature_histeresis: Hysterese
 this month: nåværende måned
 this year: nåværende år
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Endrer posisjon under hellingsendring
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Endrer ikke posisjon under hellingsendring
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Endrer hellingen bare når den er helt lukket
+tiltControlType_UNKNOWN: Ukjent
+timeMarginMode_custom: Utenom standard
+timeMarginMode_device: Standardverdi fra enheten
+timeMarginMode_off: Av
 today: i dag
 unknown: ukjent
+usedCTType_100A_33mA: 100A/33.3mA
+usedCTType_200A_66mA: 200A/66.6mA
+usedCTType_400A_133mA: 400A/133.3mA
+usedPhaseLedType_OFF: Avslått
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Kraftstrømmens retning
+usedPhaseLedType_VOLTAGE_LEVEL: Spenningsnivå
+usedPhaseLedType_VOLTAGE_PRESENCE: Tilstedeværelse av spenning
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Tilstedeværelse av spenning (invertert)
 username: Brukernavn
 valid until: utløper
 values as seen on chart: verdier som i diagrammet
 values as seen on counter: verdier som på telleren
+valveOpenConfirm_manual: Ventilen har blitt stengt manuelt eller gjennom radio. Før du åpner den, må du sørge for at den ikke har vært stengt på grunn av vannskader. For å deaktivere advarselen, åpne ventilen manuelt. Er du sikker på at du vil åpne ventilen gjennom radio?!
 yesterday: i går
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} kan ikke samhandle med din konto før du gir tilgang på nytt.'
 '{clientName} wants to access your account.': '{clientName} ber om tilgang til din konto.'
+'{count} minutes after sunrise': '{count} minutter etter soloppgang'
+'{count} minutes after sunset': '{count} minutter etter solnedgang'
+'{count} minutes before sunrise': '{count} minutter før soloppgang'
+'{count} minutes before sunset': '{count} minutter før solnedgang'
+'{days} days': '{days} dager'
 '{minutes} minutes after sunrise': '{minutes} minutter etter soloppgang'
 '{minutes} minutes after sunset': '{minutes} minutter etter solnedgang'
 '{minutes} minutes before sunrise': '{minutes} minutter før soloppgang'
@@ -1174,6 +1568,7 @@ Are you sure you want to disable this device?: Er du sikker på at du ønsker å
 Assigned Locations: Tildelte lokaliseringer
 Authorized OAuth apps: Autoriserte OAuth applikasjoner
 Calculated value: Målerstatus
+Cannot execute an action when the device is disconnected.: Ikke mulig å utføre handlingen når enheten er frakoblet.
 Cannot send an activation e-mail. Try again later.: Sending av melding med aktiviseringslenken var ikke mulig. Vennligst prøv senere.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Finner du ikke meldingen med en lenke for å aktivere din konto i innboksen? Se om den ikke er i mappen SPAM (søppelpost). Du kan også {clickHereLink} for å sende den på nytt.
 Channel value: Verdi
@@ -1194,6 +1589,7 @@ Doors, Gates: Dører, Porter
 ENABLED: PÅ
 Email already exists: Denne e-post adressen eksisterer allerede
 Existing schedules: Eksisterende planer
+Expected maximum increment: Forventet maksimal økning
 From IP: Fra IP adressen
 Get SUPLA on your devices: Last ned SUPLA på dine enheter
 Hi: Hei
@@ -1201,6 +1597,7 @@ Hour: Time
 Hours: Timer
 I/O: Inngang/Utgang
 If you want to stay here, do something!: Hvis du ønsker å bli igjen her, gjør noe!
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: For å minimere risikoen for feilaktig avlesning, sett den maksimale forventede økningen av tellerverdien mellom påfølgende bilder.
 Initial value: Startverdi
 Input: Inngang
 Interpolate measurements: Estimer de manglende verdiene
@@ -1208,6 +1605,8 @@ Languages: Språk
 Loading: Lading
 Location password must be at least 4 characters.: Passord for lokalisering må ha minst 4 tegn.
 Location password must be no longer than 32 characters.: Passord for lokalisering kan ikke ha mer enn 32 tegn.
+Maximum temperature that can be set from the device: Maksimal temperatur som kan stilles inn med enheten
+Minimum temperature that can be set from the device: Minimumstemperatur som kan stilles inn med enheten
 Minute: Minutt
 Mobile Apps: Mobilapper
 Next: Videre
@@ -1217,6 +1616,7 @@ Output: Utgang
 Please select an action: Velg en handling
 Please select the schedules that should also be enabled.: Velg planer som bør aktiveres på.
 Previous login: Sist innlogging
+Reference to the channel will be removed from the items below.: Indikasjonen for denne kanalen vil bli fjernet fra de følgende elementene.
 Registration: Registrering
 Remove: Fjern
 Schedule cannot be enabled: Aktivering av planen mislykket
@@ -1229,12 +1629,33 @@ Status: Status
 Subject: Enhet
 Sunrise / Sunset: Soloppgang / Solnedgang
 Supla for devices: SUPLA for enheter
+Temperature adjustment only: Kun temperaturinnstilling
 The events in voltage aberrations history will be automatically deleted after {days} days.: Hendelser i spenningsavvikshistorikken slettes automatisk etter {days} dager.
+The items below depend on this channel, so they will be deleted.: Følgende elementer avhenger av denne kanalen, så de vil bli fjernet.
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reaksjonen vil være aktiv når alle de følgende betingelsene er oppfylt. Hvis du angir alle tilgjengelige alternativer, vil reaksjonen bare aktiveres mellom de valgte datoene, på de valgte klokkeslettene og ukedagene, og når en av solnedgangs- eller soloppgangsreferansene er oppfylt.
 Triggers: Utløsere
 Try again later: Prøv en gang til senere
 Turning this device off will result in disabling all the associated schedules.: Dersom denne enheten blir skrudd av vil alle planene som er relatert til den også bli skrudd av.
+Unlocked: Avblokkert
+Use working schedule for this access identifier: bruk tilgjengelighetsplanen for denne tilgangs-IDen
+Use working schedule for this reaction: Bruk en aktivitetsplan for denne reaksjonen
+User interface: Brukergrensesnitt
 Value per unit: Verdi per enhet
 When: Når
+When the curtain reaches: Når gardinen når
+When the facade blind reaches: Når fasadepersiennen når
+When the projector screen reaches: Når projeksjonsskjermen når
+When the roller garage door a certain position: Når garasjeporten når en bestemt posisjon
+When the roller garage door reaches: Når garasjeporten når
+When the roller shutter calibration failed: Når kalibrering av rullegardinen avsluttes med en feil
+When the roller shutter calibration has been lost: Når kalibrering av rullegardinen ikke kan fullføres
+When the roller shutter calibration has started: Når kalibrering av rullegardinen starter
+When the roller shutter motor reported a problem: Når rullegardin-motoren rapporterer et problem
+When the roller shutter reaches: Når rullegardinen rekker
+When the roof window reaches: Når takvinduet rekker
+When the terrace awning reaches: Når terrassemarkisen når
+When the vertical blind reaches: Når den vertikale persiennen når
+Working schedule: Aktivitetsplan
 You need to provide icons for all states.: Du må levere ikoner for alle tilstander.
 You will be logged out shortly: Snart blir du logget ut.
 choose a currency: velg valuta
@@ -1247,435 +1668,121 @@ or add a delay: Eller legg til en forsinkelse
 prefix: prefiks
 reset chart view: Tilbake til første utsikt
 suffix: sufiks
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-0% tilt angle: Vinkelen på lamellene som persiennen stiller inn ved lukking
-100% tilt angle: Vinkelen på lamellene som persiennen stiller inn ved åpning
-A confirmation upon successful device unlocking.: Bekreftelse på opplåsing av enheten.
-Active from: Aktiv siden
-Active to: Aktiv til
-Activity conditions: Aktivitetsbetingelser
-Additional time margin: Ekstra tidsmargin
-Adjust temperature: Still inn temperaturen
-Adjust temperatures: Still inn temperaturer
-After the delay: Etter en bestemt tidsperiode
-After the delay, but only when it's dark: Etter en bestemt tid, men bare når det er mørkt
-Alarm armament sensor: Sensor for alarmaktivering
-Algorithm: Algoritme
-All programs must define at least one temperature threshold.: Hvert program må definere minst én temperaturterskel.
-Always decrement: Alltid synkende
-Always increment: Alltid økende
-Anti-freeze and overheat protection: Beskyttelse mot overoppheting og frostsikring
-Anti-freeze protection: Beskyttelse mot frost
-Are you sure you want to change channel’s location?: Er du sikker på at du vil endre plasseringen av kanalen?
-Are you sure you want to change channel’s visibility?: Er du sikker på at du vil endre synligheten av kanalen?
-Are you sure you want to change device’s location?: Er du sikker på at du vil endre plasseringen av enheten?
-Are you sure you want to delete this channel?: Er du sikker på at du vil slette denne kanalen?
-Automatic: Automatisk
-Automatic front panel turn off: Automatisk deaktivering av frontpanelet
-Automatic front panel turn off after: Tid til deaktivering av frontpanelet
-Automatic thermostat: Automatisk termostat
-Automatic time synchronization: Automatisk synkronisering av dato og klokkeslett
-Aux thermometer: Tilleggstermometer
-Aux thermometer type: Ekstra termometertype
-Available variables: Tilgjengelige variabler
-Average: Gjennomsnittlig
-Battery cover open: Batteridekselet åpent
-Behavior settings: Adferd
-Binary sensor: Binær sensor
-Brightness adjustment for automatic mode: Justere lysstyrken i automatisk modus
-Brightness level: Lysstyrkenivå
-Button volume: Volum på knappene
-Buttons upside down: Invertert knappestyring
-Candle: Lys
-Cannot update OCR settings. Try again in a while.: OCR-innstillingene kunne ikke oppdateres. Prøv igjen om et øyeblikk.
-Change percentage by: Endre prosentandelen med
-Change percentage to: Endre prosentandelen til
-Change tilt by: Endre hellingen med
-Change tilt to: Endre hellingen til
-Change to be the same.: Still det likt.
-Changing channel’s visibility will also change the visibility of other items.: Hvis du endrer kanalens synlighet, endres også synligheten til andre elementer.
-Changing the location will also imply changing the location of the following items.: Endringen av plassering vil også påvirke den for følgende elementer.
-Channels that are meant to work with each other must be in the same location.: Kanalene, som skal samarbeide, må være på samme sted.
-Clock error: Klokkefeil
-Close value: Sluttverdi
-Collapse: Skjul
-Collapse or stop: Skjul eller stopp
-Collapse partially: Delvis skjul
-Command has been sent to the device. Try refreshing the photo in a while.: Forespørselen ble sendt til enheten. Prøv å oppdatere bildet om et øyeblikk.
-Common currencies: Mest valgte valutaer
-Configuration not available yet. Waiting for the device to connect.: Konfigurasjonen er ennå ikke tilgjengelig. Vent til enheten kobler seg til.
-Confirm if you want to perform the calibration.: Bekreft at du ønsker å utføre kalibreringen.
-Conflict: Konflikt
-Cool to: Kjøl ned til
-Cooling mode: Kjølemodus
-'Cooling: {percent}%': 'Avkjøling: {percent}%.'
-Costs: Kostnader
-Could not restart the device.: Enheten kunne ikke startes på nytt.
-Could not send the identify command.: Ordren kunne ikke sendes.
-Could not set the device time.: Det var ikke mulig å stille dato og klokkeslett på enheten.
-Counter type: Type måler
-Curtain: Gardin
-Dark mode: Mørk modus
-Data: Data
-Date range: Datointervall
-Daytime criteria: Kriterier basert på daglengden
-Dependencies: Avhengigheter
-'Device GUID: %deviceGuid%': 'GUID for enheten: %deviceGuid%'
-Device identification is unsupported in the firmware.: Enhetsidentifikasjon støttes ikke i fastvare.
-Device settings: Innstillinger for enheten
-Device should be restarting now.: Enheten bør startes på nytt.
-Device time has been set.: Dato og klokkeslett for enheten er innstilt.
-Different than on master thermostat.: Innstilling forskjellig fra den på hovedtermostaten.
-Differential thermostat: Differensiell termostat
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Ønsker du å stille inn kanalene som er avhengige av denne termostaten (som termometre og sensorer) til å være de samme som i hovedtermostaten?
-Domestic hot water: Varmt vann hjemme
-Dryer: Avfukter
-Edit area crop: Rediger området
-Edit program settings: Rediger programinnstillinger
-Electricity meter active power history: Strømmålerens historikk
-Electricity meter current history: Historikk for strømstyrken på strømmåleren
-Electricity meter voltage aberrations history: Historikk for spenningsavvik i strømmåleren
-Electricity meter voltage history: Historikk for spenningen på strømmåleren
-Enable floor temperature control: Aktiver gulv temperaturkontroll
-Enable generic cooler temperature control: Aktiver temperaturkontroll for kjølekilden
-Enable generic heater temperature control: Aktiver temperaturkontroll for varmekilde
-Enable power status LED: Aktiver strømstatusdiode
-Enable support for OCR readings for this channel: Aktiver støtte for OCR-avlesninger for denne kanalen
-Enable water temperature control: Aktiver temperaturkontroll for vann
-Example value: Eksempel
-Expand: Utvid
-Expand or stop: Utvid eller stopp
-Expand partially: Utvid delvis
-Expected maximum increment: Forventet maksimal økning
-External sensor disabling the thermostat: Ekstern sensor som slår av termostaten
-Facade blind operation: Fasade persienner
-Fan: Vindmølle
-'Field: {propertyPath}.': 'Felt {propertyPath}.'
-Fill missing data: Fyll inn manglende målinger
-Firmware: Fastvare
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Fastvaren til denne enheten sender varsler i forbindelse med denne kanalen. Her kan du konfigurere innhold og mottakere. Ta kontakt med leverandøren av enheten for mer informasjon.
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Fastvaren til denne enheten sender varsler. Her kan du konfigurere innhold og mottakere. Ta kontakt med leverandøren av enheten for mer informasjon.
-For a period: For perioden
-Forced off by sensor: Tvungen nedstengning gjennom sensor
-Full tilting time: Total tid for hellingsendring
-Function disabled: Funksjonen er deaktivert
-General purpose meter: Målekanal for allment bruk
-HVAC: HVAC
-Heat or cold source switch: Bryter for varme- eller kuldekilde
-Heat to: Varme til
-Heating / ventilation / air conditioning: Oppvarming/ventilasjon/klimaanlegg (HVAC)
-Heating mode: Oppvarmingsmodus
-'Heating: {percent}%': 'Oppvarming: {percent}%'
-High threshold: Høy terskel
-High value: Maksimal verdi
-History: Historikk
-Home screen content: Innhold på startskjermen
-Hotel card sensor: Sensor for hotellkort
-Identify device: Identifiser enheten
-Identify request sent.: Forespørselen om identifikasjon er sendt.
-If you confirm the installation and wish to unlock this device, please click the link below.: Hvis det er du som prøver å legge til en ny enhet, vennligst klikk på lenken nedenfor for å bekrefte opplåsingen.
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Hvis det ikke er du som prøver å låse opp enheten, kan du ignorere denne e-posten. Bekreftelseslenken utløper automatisk etter 24 timer.
-Image area crop: Bildeområde
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: For å minimere risikoen for feilaktig avlesning, sett den maksimale forventede økningen av tellerverdien mellom påfølgende bilder.
-Increment and decrement: Økende og synkende
-Installer e-mail address: Installatørens e-postadresse
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: Enheten har registrert en kanal av en annen type ({typeCaption} - {typeId}) i stedet for den nåværende.
-Invalid e-mail address.: Feil e-postadresse.
-Invalid unlock code.: Feil opplåsingslenke.
-Last paired device: Sist sammenkoblede enhet
-Light mode: Lysmodus
-Lighting level: Belysningsnivå
-Lighting mode: Belysningsmodus
-List of available variables: Liste over tilgjengelige variabler
-Locked: Blokkert
-Low threshold: Lav terskel
-Low threshold must be less than high threshold.: Den lave terskelen må være lavere enn den høye
-Low value: Minsteverdi
-Main thermometer: Hovedtermometer
-Master thermostat: Hovedtermostat
-Max: Maks.
-Maximum duration is one year.: Den maksimale perioden er ett år.
-Maximum temperature that can be set from the device: Maksimal temperatur som kan stilles inn med enheten
-Measurement settings: Målingsinnstillinger
-Min: Min.
-Minimum OFF time before cooling can be turned on: Minimum AV-tid før kjølingen slås på igjen
-Minimum OFF time before heating can be turned on: Minimum AVSLÅINGSTID før oppvarmingen slås på igjen
-Minimum OFF time before heating/cooling can be turned on: Minimum AV-tid før kjøling/oppvarming slås på igjen
-Minimum ON time before cooling can be turned off: Minimum PÅ-tid før kjølingen slås av igjen
-Minimum ON time before heating can be turned off: Minimum PÅ-tid før oppvarmingen slås av igjen
-Minimum ON time before heating/cooling can be turned off: Minimum PÅ-tid før kjøling/oppvarming slås av igjen
-Minimum temperature must be lower than maximum temperature.: Minimumstemperaturen må være lavere enn maksimumstemperaturen
-Minimum temperature that can be set from the device: Minimumstemperatur som kan stilles inn med enheten
-'Mode: cool': 'Modus: kjøling'
-'Mode: heat': 'Modus: oppvarming'
-'Mode: off': 'Modus: av'
-Motor upside down: Invertert motorstyring
-'No': 'Nei'
-No results: Fant ingen treff
-Notification body is set by the firmware.: Innholdet i varselet angis av fastvaren.
-Notification must have recipients.: Meldingen må ha mottakere.
-Notification title is set by the firmware.: Varslingsoverskriften angis av fastvaren.
-Notifications (defined): Varsler (definert)
-Notifications (sent per hour): Varsler (sendt per time)
-'OCR service responded with error: {status}': 'OCR-tjenesten svarte med en feilmelding: {status}'
-OCR settings: OCR-innstillinger
-OR: ELLER
-Off with duration: Slå av i tide
-On with duration: Aktiver i tide
-Open value: Åpningsverdi
-Output value on error: Utgangsstatus under en feil
-Overheat protection: Beskyttelse mot overoppheting
-P/C: P/C
-Pair new devices or sensors: Par nye enheter eller sensorer
-Pairing request sent.: Paringsforespørsel sendt.
-Pairing subdevices is unsupported in the firmware.: Paring støttes ikke av enhetens programvare.
-Phase LED type: LED-faseindikator
-Photo interval: Opptaksintervall
-Please find the device details below.: Du finner mer informasjon om enheten nedenfor.
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Vær oppmerksom på at utstyret som denne forespørselen gjelder, kun er beregnet for sertifiserte installatører.
-Please provide the installer e-mail address to request the device unlock.: For å låse opp enheten, oppgi e-postadressen som ble brukt i sertifiseringsprosessen for installatøren.
-Please select and configure the action: Velg og konfigurer handlingen.
-Program {programNo}: Program {programNo}
-Projector screen: Projeksjonsskjerm
-Pump switch: Pumpebryter
-Push notifications limit has been exceeded: Grensen for push-varslinger er overskredet
-Reference to the channel will be removed from the items below.: Indikasjonen for denne kanalen vil bli fjernet fra de følgende elementene.
-Refresh interval: Oppdateringsintervall
-Refresh the config: Oppdater konfigurasjonen
-Refreshing the configuration will overwrite the changes you made here.: Oppdatering av konfigurasjonen vil overskrive endringene som er gjort i skjemaet.
-Reload last photo: Last inn det siste bildet på nytt
-Remote restart is unsupported in the firmware.: Ekstern omstart støttes ikke av enhetens programvare.
-Remove this item: Fjern dette elementet
-Request device unlock: Meld fra om ønsket om å låse opp enheten
-Reset to defaults: Gjenopprett standardverdier
-Restart device: Tilbakestill enheten
-Restart the device: Tilbakestill enheten
-Reveal or stop: Avdekk eller stopp
-Roller garage door: Garasjeport
-S/N: S/N
-SUPLA - Confirm unlocking device for authorized installers: SUPLA - Låser opp en enhet som er beregnet til en sertifisert installatør
-SUPLA – your device has been unlocked!: SUPLA - Enheten din har blitt låst opp!
-Same as on master thermostat.: Innstillingen er den samme som på hovedtermostaten.
-Screen brightness: Skjermens lysstyrke
-Selected: Utvalgte
-Set HVAC parameters: Still inn parametere
-Set the device time: Det var ikke mulig å stille dato og klokkeslett på enheten.
-Settings: Innstillinger
-Settings have not been saved!: Innstillingene er ikke lagret!
-Show data: Vis data
-Shut or stop: Dekk over eller stopp
-Some features depend on this channel: Noen funksjoner avhenger av denne kanalen
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Noen av dataene som samles inn for kontoen din skal med jevne mellomrom slettes, etter den angitte tiden har gått. Bli kjent med begrensningene nedenfor.
-Status LED: LED- status
-Store active power history: Lagre aktiv effekt historikk
-Store current history: Lagre strømstyrke historikk
-Store voltage history: Lagre spenningshistorikk
-'Subdevice #{id}': 'Underleverandørenhet #{id}'
-Subfunction: Underfunksjon
-Switch to manual mode: Bytt til manuell modus
-Switch to program mode: Bytt til programmeringsmodus
-THEN: DA
-Take a photo now: Ta et bilde nå
-Temperature adjustment only: Kun temperaturinnstilling
-Temperature difference is too big between {min}°C and {max}°C.: Temperaturforskjellen er for stor mellom {min} °C og {maks} °C.
-Temperature setpoint change switches to manual mode: Endring av bryterens målemperatur til manuell modus
-Temporal override: Midlertidig overstyring
-Terrace awning: Terrassemarkise
-The channel has been deleted.: Kanalen er fjernet.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfigurasjonen er endret fra et annet sted (f.eks. et annet nettleservindu, mobilapp eller enhet). Du må oppdatere konfigurasjonen før du gjør videre endringer.
-The device could not be unlocked.: Enheten kunne ikke låses opp.
-The device has been unlocked already.: Enheten er allerede låst opp.
-The device has been unlocked.: Enheten har blitt låst opp.
-The device has channel conflict and cannot work.: Enheten har generert en kanalkonflikt og kan for øyeblikket ikke fungere.
-The device is locked: Enheten blokkert
-The following channels will be also removed along with their dependencies.: Følgende kanaler vil også bli fjernet sammen med deres avhengigheter.
-The items below depend on this channel, so they will be deleted.: Følgende elementer avhenger av denne kanalen, så de vil bli fjernet.
-The master termostat you chose already has a master.: Hovedtermostaten du har valgt har allerede en annen hovedtermostat
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reaksjonen vil være aktiv når alle de følgende betingelsene er oppfylt. Hvis du angir alle tilgjengelige alternativer, vil reaksjonen bare aktiveres mellom de valgte datoene, på de valgte klokkeslettene og ukedagene, og når en av solnedgangs- eller soloppgangsreferansene er oppfylt.
-The thermostat will not work if the main thermometer is not set.: Hovedtermometeret må stilles inn for at termostaten skal fungere.
-Thermometer error: Termometerfeil
-Thermometers configuration: Konfigurasjon av termometre
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Denne termostaten bruker innstillingene fra hovedtermostaten. Gå til detaljsiden for å endre innstillingene.
-Thermostat programs: Termostatens programmer
-This action will result in restarting the device. It will not be available for a while.: Bestilling av denne operasjonen vil starte enheten på nytt. Under omstart vil enheten være utilgjengelig.
-This channel was missing during last device registration attempt.: Denne kanalen er ikke tilgjengelig på enheten.
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Dette apparatet er kun beregnet for distribusjon og installasjon av autoriserte installatører. Hvis du ikke er en autorisert SUPLA-installatør og ikke har et aktivt opplæringsbevis, returner den til forhandleren.
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Dette er det siste bildet som er lastet opp fra enheten. Marker nøyaktig området der tallene fra måleren er synlige.
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Dette er en liste over reaksjoner som fungerer på kontoen din. Hvis du vil legge til en ny reaksjon, går du til kanaldetaljene som bør  utløse den.
-This thermostat is controlled by another device.: Denne termostaten kontrolleres av hovedtermostaten.
-Tilt angle: Hellingsvinkel
-Tilt control type: Type hellingskontroll
-Tilt percent: Hellingsprosent
-Time: Tid
-Today, it would be active from {from} to {to}.: I dag vil den aktive perioden være {from} klokka {to}.
-Turn off: Slå av
-Unlock the device: Lås opp enheten
-Unlocked: Avblokkert
-Until a date and time: Inntil
-Until the next change: Inntil neste endring
-Use device default: Bruk standardverdien fra enheten
-Use working schedule for this reaction: Bruk en aktivitetsplan for denne reaksjonen
-Use {theMasterThermostat} to control this device.: Bruk {theMasterThermostat} til å styre denne enheten.
-Used current transformer type: Brukt strømtransformator
-User interface: Brukergrensesnitt
-Value divider: Divisor
-Value multiplier: Multiplikator
-Vertical blind: Vertikal persienne
-Visit the master thermostat page.: Gå til hovedtermostaten.
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Vi har mottatt en forespørsel om å låse opp enheten som kun er beregnet for sertifiserte installatører. Forespørselen ble sendt av brukeren %deviceUserEmail% fra SUPLA Cloud-instansen under adressen %targetCloudUrl%.
-Week: Uke
-Weekly schedule: Ukeplan
-When the alarm is armed: Når alarmen er aktivert
-When the alarm is armed or disarmed: Når alarmen blir deaktivert eller aktivert
-When the alarm is disarmed: Når alarmen blir slått av
-When the battery cover is opened: Når batteridekselet blir åpnet
-When the clock error has been reported: Når klokken rapporterer en feil
-When the curtain position changes: Når gardinen endrer posisjon
-When the curtain reaches: Når gardinen når
-When the curtain reaches a certain position: Når gardinen når en bestemt posisjon
-When the facade blind position changes: Når fasadepersiennen endrer posisjon
-When the facade blind reaches: Når fasadepersiennen når
-When the facade blind reaches a certain position: Når fasadepersiennen når en bestemt posisjon
-When the hotel card has been taken: Når hotellnøkkelkortet blir rekvirert
-When the hotel card is put in: Når hotellnøkkelkortet blir satt inn
-When the hotel card is put in or has been taken: Når hotellnøkkelkortet settes inn eller tas ut
-When the meter reaches a certain value: Når måleren når den ønskede verdien
-When the meter value changes: Når verdien endres
-When the meter value will be: Når verdien blir
-When the projector screen position changes: Når projeksjonsskjermen endrer posisjon
-When the projector screen reaches: Når projeksjonsskjermen når
-When the projector screen reaches a certain position: Når projeksjonsskjermen når en bestemt posisjon
-When the pump is turned off: Når pumpen blir slått av
-When the pump is turned on: Når pumpen blir aktivert
-When the pump is turned on or off: Når pumpen skal aktiveres eller desaktiveres
-When the roller garage door a certain position: Når garasjeporten når en bestemt posisjon
-When the roller garage door position changes: Når garasjeporten endrer posisjon
-When the roller garage door reaches: Når garasjeporten når
-When the roller shutter calibration failed: Når kalibrering av rullegardinen avsluttes med en feil
-When the roller shutter calibration has been lost: Når kalibrering av rullegardinen ikke kan fullføres
-When the roller shutter calibration has started: Når kalibrering av rullegardinen starter
-When the roller shutter motor reported a problem: Når rullegardin-motoren rapporterer et problem
-When the terrace awning position changes: Når terrassemarkisen endrer posisjon
-When the terrace awning reaches: Når terrassemarkisen når
-When the terrace awning reaches a certain position: Når terrassemarkisen når en bestemt posisjon
-When the thermometer error has been reported: Når termometeret rapporterer en feil
-When the thermostat starts cooling: Når termostaten begynner å kjøle
-When the thermostat starts heating: Når termostaten begynner å varme opp
-When the thermostat starts heating or cooling: Når termostaten begynner kjøling eller oppvarming
-When the thermostat starts or stops cooling: Når termostaten begynner eller slutter å kjøle
-When the thermostat starts or stops heating: Når termostaten begynner eller slutter å varme opp
-When the thermostat starts or stops heating or cooling: Når termostaten begynner eller slutter å varme opp eller å kjøle
-When the thermostat stops cooling: Når termostaten slutter å kjøle
-When the thermostat stops heating: Når termostaten slutter å varme opp
-When the thermostat stops heating or cooling: Når termostaten stopper kjøling eller oppvarming
-When the vertical blind position changes: Når den vertikale persiennen endrer posisjon
-When the vertical blind reaches: Når den vertikale persiennen når
-When the vertical blind reaches a certain position: Når den vertikale persiennen når en bestemt posisjon
-Will be deleted after: Fjerning etter
-With a timer: Med tidsmåler
-'Yes': 'Ja'
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Du kan stille inn relative verdier her. For eksempel vil +10 eller -20 øke innstillingen med henholdsvis 10 eller redusere den med 20.
-You cannot to set a master thermostat for a channel that is master for others.: Du kan ikke stille inn hovedtermostaten i hovedtermostaten.
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Forespørselen er sendt. Vi varsler deg når installatøren godkjenner den og låser opp enheten.
-You need to provide icons for all states in light mode.: Du må levere ikoner for alle tilstander i lysmodus.
-Your device has been unlocked by the installer.: Enheten din har blitt låst opp av installatøren.
-and wait until the meter will be: og ikke utfør denne reaksjonen igjen før verdien ikke blir
-auxThermometerType_DISABLED: Av
-auxThermometerType_FLOOR: Gulv
-auxThermometerType_GENERIC_COOLER: Kjølekilde
-auxThermometerType_GENERIC_HEATER: Varmekilde
-auxThermometerType_NOT_SET: Ikke innstilt
-auxThermometerType_WATER: Vann
-blue, otherwise: ellers blå
-blue, when voltage lower than the low threshold: blå når spenningen er lavere enn lavterskelen
-choose the currency: velg valuta
-configuration missing: ingen konfigurasjon
-cool: kjøling
-day: dag
-default: som standard
-green, otherwise: ellers grønn
-green, when power less than the low threshold: grønn når effekten er lavere enn den lavere terskelen
-heat: oppvarming
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Hoved- og tilleggstemperatur
-homeScreenContent_NONE: Mangel
-homeScreenContent_TEMPERATURE: Temperatur
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatur og fuktighet
-homeScreenContent_TEMPERATURE_TIME: Temperatur og tid
-homeScreenContent_TIME: Tid
-homeScreenContent_TIME_DATE: Dato og tid
-hour: time
-keepHistoryMeasurementWarningSelected: Trenger du virkelig denne historien? Supla er et åpent kildekode-prosjekt vedlikeholdt med egne midler. Hvis du ikke trenger denne historien, vennligst hjelp oss med å spare verdifull diskplass ved å la dette alternativet være deaktivert.
-max: maks
-midnight: nord
-milliseconds: millisekunder
-min: min
-ocrLightingMode_ALWAYS_ON: Alltid på
-ocrLightingMode_AUTO: Automatisk
-ocrLightingMode_OFF: Avslått
-'off': 'Slå av'
-red, when power higher than the high threshold: rød når effekten er høyere enn høy terskel
-red, when voltage higher than the high threshold: rød når spenningen er høyere enn høy terskel
-seconds: sekunder
-statusLed_ALWAYS_OFF: Slå alltid av
-statusLed_OFF_WHEN_CONNECTED: Slå av når tilkoblet
-statusLed_ON_WHEN_CONNECTED: Aktiver når tilkoblet
-subdevicePairingResult_CMD_RESULT_UNKNOWN: Ukjent resultat
-subdevicePairingResult_NOT_STARTED_BUSY: Enheten er opptatt
-subdevicePairingResult_NOT_STARTED_NOT_READY: Enheten er ikke klar
-subdevicePairingResult_NOT_SUPPORTED: Operasjonen støttes ikke
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: Ingen nye enheter funnet
-subdevicePairingResult_ONGOING: I løpet av
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Ukjent resultat av fordampning
-subdevicePairingResult_PROCEDURE_STARTED: Prosedyren har startet
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Ressursgrensen er overskredet
-subdevicePairingResult_SUCCESS: Suksess
-subdevicePairingResult_UNAUTHORIZED: Mislykket autorisasjon
-sunrise: soloppgang
-sunset: solnedgang
-swap: bytt
-the master thermostat ID{id}: av hovedtermostaten ID{id}
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: På/av med øvre innstilling
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: På/av med midtre innstilling
-thermostatAlgorithm_PID: PID
 thermostatAlgorithm_help: |
   På/av-algoritmene fungerer basert på hysterese-innstillingen. Hysteresen kan relateres til midten av området (midtre innstilling) eller til den innstilte temperaturen (øvre innstilling).
   Hvis man for eksempel antar en hysterese på 1 °C og en måltemperatur på 23 °C, vil termostaten
   - slå på varmen ved 22,5 °C og stoppe å virke når temperaturen når 23,5 °C for den midtre innstillingen 
   - slå på varmen ved 22 °C og stoppe når temperaturen når 23 °C for den øvre innstillingen
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Action trigger for channel: ~
+Activity schedule: ~
+Alarm at level (and above) should be greater than the corresponding warning level.: ~
+Alarm at level (and below) should be lower than the corresponding warning level.: ~
+Alarm level: ~
+Algorithms available on this device: ~
+Are you sure you want to delete this subdevice?: ~
+Aux thermometer for channel: ~
+Binary sensor for channel: ~
+Cannot execute an action when the channel is not available.: ~
+Channels that are meant to work with each other must have the same visibility setting.: ~
+Choose many: ~
+Container: ~
+Container level sensor: ~
+Container supports up to 10 sensors.: ~
+Device interface: ~
+Each container level sensor must have different fill level.: ~
+Fill level: ~
+Flood sensor: ~
+Flood sensor for valve: ~
+Flood sensors: ~
+Image: ~
+Invalid sensor state: ~
+Level sensor: ~
+Level sensor for container: ~
+Level sensors: ~
+Lock type: ~
+Main thermometer for channel: ~
+Master thermostat for channel: ~
+Maximum: ~
+Minimum: ~
+Motor problem: ~
+Mute alarm: ~
+Mute alarm sound without additional auth: ~
+Mute command sent: ~
+Not available: ~
+Opening sensor for channel: ~
+Percentage of extension: ~
+Photo history: ~
+Pump switch for channel: ~
+Reading: ~
+Reference to the deleted channels will be removed from the items below.: ~
+Scene ID{id} is being executed right now.: ~
+Scene ID{id} is inactive right now.: ~
+Septic tank: ~
+Sound alarm on: ~
+Temperature control type: ~
+Temperatures that can be set from local UI: ~
+The items below depend on the deleted channels, so they will be deleted, too.: ~
+The subdevice has been deleted.: ~
+This device cannot be remotely awakened. We are awaiting communication from the device...: ~
+Updating...: ~
+Use activity schedule: ~
+Valve supports up to 20 sensors.: ~
+Waiting: ~
+Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).: ~
+Warning level: ~
+Water tank: ~
+When a flood is detected: ~
+When a flooding state changes: ~
+When a flooding state has been cleared: ~
+When any of the sensors starts to report an invalid state: ~
+When any of the sensors stops to report an invalid state: ~
+When the alarm starts: ~
+When the alarm stops: ~
+When the battery level will be: ~
+When the battery reaches a certain level: ~
+When the calibration fails: ~
+When the calibration has been lost: ~
+When the calibration has started: ~
+When the device starts to be powered from battery: ~
+When the device stops to be powered from battery: ~
+When the fill level changes: ~
+When the fill level reaches a certain value: ~
+When the fill level reading error disappears: ~
+When the fill level reading error occurs: ~
+When the fill level will be: ~
+When the motor reported a problem: ~
+When the position reaches: ~
+When the roller garage door reaches a certain position: ~
+When the sound alarm starts: ~
+When the sound alarm stops: ~
+When the warning starts: ~
+When the warning stops: ~
+You cannot change this function becuase it is required by another channel.: ~
+activityConditions_help: ~
+and wait until the battery level will be: ~
+and wait until the fill level will be: ~
+directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
+localUILock_FULL: ~
+localUILock_TEMPERATURE: ~
+localUILock_UNLOCKED: ~
+state-half: ~
+state-hi: ~
+state-low: ~
+tank_alarm_alarmAboveLevel: ~
+tank_alarm_alarmBelowLevel: ~
+tank_alarm_warningAboveLevel: ~
+tank_alarm_warningBelowLevel: ~
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
+temperatureControlType_ROOM_TEMPERATURE: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: ~
+thermostatAlgorithmHelp_PID: ~
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: Kjøling
-thermostatSubfunction_HEAT: Oppvarming
-thermostatTemperature_aboveAlarm: Over alarmen
-thermostatTemperature_auxMaxSetpoint: Maksimal tilleggstemperatur
-thermostatTemperature_auxMinSetpoint: Minimal tilleggstemperatur
-thermostatTemperature_belowAlarm: Under alarmen
-thermostatTemperature_boost: Temperaturøkning
-thermostatTemperature_comfort: Komforttemperatur
-thermostatTemperature_eco: ECO temperatur
-thermostatTemperature_freezeProtection: Frost beskyttelse temperatur
-thermostatTemperature_heatProtection: Overopphetingsbeskyttelse temperatur
-thermostatTemperature_histeresis: Hysterese
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: Endrer posisjon under hellingsendring
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Endrer ikke posisjon under hellingsendring
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Endrer hellingen bare når den er helt lukket
-tiltControlType_UNKNOWN: Ukjent
-timeMarginMode_custom: Utenom standard
-timeMarginMode_device: Standardverdi fra enheten
-timeMarginMode_off: Av
-usedCTType_100A_33mA: 100A/33.3mA
-usedCTType_200A_66mA: 200A/66.6mA
-usedCTType_400A_133mA: 400A/133.3mA
-usedPhaseLedType_OFF: Avslått
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: Kraftstrømmens retning
-usedPhaseLedType_VOLTAGE_LEVEL: Spenningsnivå
-usedPhaseLedType_VOLTAGE_PRESENCE: Tilstedeværelse av spenning
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Tilstedeværelse av spenning (invertert)
-'{count} minutes after sunrise': '{count} minutter etter soloppgang'
-'{count} minutes after sunset': '{count} minutter etter solnedgang'
-'{count} minutes before sunrise': '{count} minutter før soloppgang'
-'{count} minutes before sunset': '{count} minutter før solnedgang'
-'{days} days': '{days} dager'
+valveOpenConfirm_flooding: ~
+valveOpenConfirm_motorProblem: ~
+
 #</editor-fold>

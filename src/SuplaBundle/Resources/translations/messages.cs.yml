@@ -6,10 +6,13 @@
 ...open gateways, gates or doors: ...otevřít branky, brány a dveře
 ...or control home appliances: ...nebo ovládat domácí spotřebiče
 ...you can monitor temperature: ...můžete sledovat teplotu
+0% tilt angle: Úhel lamel, který žaluzie nastaví při zavírání
 10 minutes before sunset, on day 10 of the month, May through August: 10 minut před západem slunce, pouze 10. den v měsíci, od května do srpna
+100% tilt angle: Úhel lamel, který žaluzie nastaví při otevírání
 15 minutes after sunrise, every 2 days: 15 minut po východu slunce, každý druhý den
 A confirmation upon successful client app registration.: Potvrzení registrace nové klientské aplikace.
 A confirmation upon successful device registration.: Potvrzení úspěšné registrace zařízení.
+A confirmation upon successful device unlocking.: Potvrzení odemčení zařízení.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Do vašeho účtu SUPLA-Cloud byla přidána nová klientská aplikace (smartphone).
 A new device has been added to your SUPLA-Cloud account.: Nové zařízení bylo přidáno do vašeho účtu SUPLA-Cloud.
 A new personal access token has been generated.: Byl vygenerován nový osobní přístupový token
@@ -39,9 +42,12 @@ Action triggers: Spouštěče akcí
 Actions: Akce
 Active: Aktivní
 Active applications: Aktivní aplikace
+Active from: Aktivní od
 Active period: Období činnosti
 Active sessions: Aktivní relace
+Active to: Aktivní do
 Active web sessions: Aktivní relace (web)
+Activity conditions: Podmínky činnosti
 Add: Přidat
 Add a delay: Přidat zpoždění
 Add a new action to the scene: Přidat novou akci ke scéně
@@ -50,22 +56,34 @@ Add action: Přidat akci
 Add first channel to set channel group function and save it: Vyberte první kanál pro definici funkce skupiny a uložte ji
 Add new channel group: Přidat novou skupinu kanálů
 Add new channel to this group: Přidejte nový kanál do skupiny
+Additional time margin: Dodatečná časová rezerva
 Adjust parameters: Nastavte parametry
+Adjust temperature: Nastavte teplotu
+Adjust temperatures: Nastavit teploty
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Veškeré kanály a skupiny kanálů, které používají tuto ikonu, budou mít po smazání výchozí ikony.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Po udělení přístupu můžete vždy změnit svůj názor tím, že v nastavení účtu zrušíte přístup.
+After the delay: Po určité době
+After the delay, but only when it's dark: Po určité době, ale pouze když je tma.
 After the device enters the configuration mode, it will not be accessible on your account.: Po vstupu do konfiguračního režimu nebude zařízení z vašeho účtu dostupné.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Po aktualizaci bude aplikace rychlejší, pohodlnější ... jednoduše lepší!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Měřič začne po této operaci počítat od 0 bez ohledu na jeho aktuální stav. Tuto operaci nelze vrátit zpět.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Odkaz bude generován hned po výběru předmětu. Všechny ostatní možnosti můžete realizovat ihned po jejím vytvoření.
 Aggregation: Agregace
+Alarm armament sensor: Snímač aktivace alarmu
+Algorithm: Algoritmus
 All: Všechno
 All events: Všechny události
 All logs has been downloaded. Reload the chart to see them.: Všechna naměřená data byla stažena. Pokud si chceš graf prohlédnout, musíš ho znovu načíst.
+All programs must define at least one temperature threshold.: Každý program musí definovat alespoň jeden teplotní práh.
 All the above and many more can be done from your phone or tablet: To vše a mnohem více, můžete udělat prostřednictvím smartphonu nebo tabletu
 Allowed actions: Dovolené akce
 Allows to perform an action only using the HTTP PATCH request.: Umožňuje provádět akci pouze pomocí žádosti HTTP PATCH.
 Alternatively, you can add a GET parameter to specify response format.: Můžete rovněž pro určení formátu odpovědi přidat parametr GET.
+Always decrement: Vždy klesající
+Always increment: Vždy rostoucí
 And more: a více
+Anti-freeze and overheat protection: Ochrana proti přehřátí a zamrznutí
+Anti-freeze protection: Ochrana proti zamrznutí
 Any application or device that uses the {tokenName} token will not work anymore.: Všechny aplikace nebo zařízení, které používají token {tokenName}, přestanou fungovat.
 'App version: %clientAppSoftwareVersion%': 'Verze aplikace: %clientAppSoftwareVersion%'
 Application: Aplikace
@@ -75,10 +93,14 @@ Applications: Aplikace
 Applications with access: Aplikace s přístupem
 Are you lost?: Ztratili jste? Hledáte něco?
 Are you sure you want to change channel’s function?: Opravdu chcete změnit funkci kanálu?
+Are you sure you want to change channel’s location?: Určitě chcete změnit umístění kanálu?
+Are you sure you want to change channel’s visibility?: Jste si jisti, že chcete změnit viditelnost kanálu?
+Are you sure you want to change device’s location?: Opravdu chcete změnit umístění zařízení?
 Are you sure you want to delete the entire measurement history saved for this channel?: Opravdu chcete smazat celou historii měření shromážděnou pro tento kanál?
 Are you sure you want to delete the events from the voltage aberrations history?: Jsi si jistý, že chceš z příběhu o odchylce napětí odstranit všechny události?
 Are you sure you want to delete this OAuth application?: Opravdu chcete smazat tuto aplikaci OAuth?
 Are you sure you want to delete this channel group?: Opravdu chcete tuto skupinu kanálů smazat?
+Are you sure you want to delete this channel?: Opravdu chcete tento kanál odstranit?
 Are you sure you want to delete this client?: Opravdu chcete tuto klientskou aplikaci smazat?
 Are you sure you want to delete this direct link?: Opravdu chcete smazat tento přímý odkaz?
 Are you sure you want to delete this icon?: Opravdu chcete tuto ikonu smazat?
@@ -109,20 +131,36 @@ Authentication successful: Přihlášení proběhlo úspěšně
 Authorization callback URLs (one per line): Autorizační zpětné URL adresy(jeden na řádek)
 Authorize the application, so that it can access your account.: Autorizujte aplikaci tak, aby měla přístup k vašemu účtu.
 Authorized: Ověřeno
+Automatic: Automatické
 Automatic calibration: Automatická kalibrace
 Automatic closing rule: Automatické zavírání brány
+Automatic front panel turn off: Automatické vypnutí předního panelu
+Automatic front panel turn off after: Čas do vypnutí předního panelu
+Automatic thermostat: Automatický termostat
+Automatic time synchronization: Automatická synchronizace data a času
 Automation: Automatizace
+Aux thermometer: Přídavný teploměr
+Aux thermometer type: Typ přídavného teploměru
+Available variables: Dostupné proměnné
+Average: Průměr
 Average voltage: Střední napětí
 Back to apps list: Zpět na seznam aplikaci
 Bar: Sloupcový
 Based on sunrise or sunset: Na základě východu / západu
+Battery cover open: Otevřený kryt baterie
 Be notified when your channels change state: Oznámení o změnách stavu kanálů
 Be right back!: Za chvíli se vraťte zpět!
+Behavior settings: Chování
 Below threshold: Pod prahovou hodnotou
+Binary sensor: Binární senzor
 Body: Obsah
 Bottom position: Dolní pozice
 Bridge: Most
 Brightness: Jas
+Brightness adjustment for automatic mode: Nastavení jasu v automatickém režimu
+Brightness level: Úroveň jasu
+Button volume: Hlasitost tlačítka
+Buttons upside down: Obrácené ovládání tlačítky
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Zakázání této možnosti umožní ovládání tohoto zařízení z integrace bez dalšího potvrzení. To může vést k nebezpečnému nebo méně bezpečnému stavu (např. náhodné otevření brány).
 By signing in, you are authorizing {clientName} to control your devices.: Přihlášením budeš aplikaci autorizovat {clientName} k ovládání vašich zařízení.
 CLICK TO DISABLE: KLIKNI ABY VYPNOUT
@@ -134,10 +172,11 @@ Calibration successful.: Kalibrace byla úspěšná
 Cancel: Zrušit
 Cancel changes: Zrušit změny
 Cancelled: Zrušeno
+Candle: Svíčkový
 Cannot calculate when to run the schedule - incorrect configuration?: Nelze vypočítat žádné datum zahájení plánu – nesprávná konfigurace?
 Cannot change the channel function right now.: Funkci tohoto kanálu nelze v tuto chvíli změnit.
 Cannot delete this I/O Device right now.: Toto zařízení nelze v tuto chvíli odebrat.
-Cannot execute an action when the device is disconnected.: Je zakázané provádět akci, pokud je zařízení vypnuté.
+Cannot update OCR settings. Try again in a while.: Aktualizace nastavení OCR se nezdařila. Zkuste to znovu za pár minut.
 Captcha token is not valid.: Nesprávná captcha
 Caption: Podpis
 Caption is too long.: Název je příliš dlouhý.
@@ -146,8 +185,15 @@ Change Password: Změna hesla
 Change channel function: Změňte funkci kanálu
 Change function: Změňte funkci
 Change icon: Změňte ikonu
+Change percentage by: Změňte procento o
+Change percentage to: Změňte procento na
 Change the password and log out: Změň heslo a odhlaš se
+Change tilt by: Změňte sklon o
+Change tilt to: Změňte sklon na
+Change to be the same.: Nastavte stejnou hodnotu.
 Changing channel’s function will also result in the following changes.: Změna funkce kanálu také způsobí následující změny.
+Changing channel’s visibility will also change the visibility of other items.: Změnou viditelnosti kanálu se změní i viditelnost ostatních prvků.
+Changing the location will also imply changing the location of the following items.: Změnou umístění se změní také u následujících položek.
 Channel: Kanál
 Channel No: Číslo kanálu
 Channel available for {serviceName}: Kanál je dostupný pro {serviceName}
@@ -163,6 +209,7 @@ Channel reference will be removed from the items below.: Kanál bude smazán z n
 Channel with action triggers: Kanál se spouštěčem akcí
 Channels: Kanály
 Channels groups are not supported for this function.: Tato funkce nepodporuje skupiny kanálů.
+Channels that are meant to work with each other must be in the same location.: Kanály, které mají spolupracovat, musí být na stejném místě.
 Chart type: Typ schématu
 Check the direct link you used and try again.: Zkontrolujte zda-li se vytvořil odkaz a zkuste to ještě jednou.
 Check your email box: Zkontrolujte e-mailovou schránku
@@ -185,33 +232,51 @@ Click the following link to confirm unregistration of your private SUPLA Cloud i
 Client registration: Registrace zákazníka
 Client’s Apps: Klientské aplikace
 Client’s app has been deleted: Klientská aplikace byla odstraněna
+Clock error: Chyba hodin
 Close: Zavřít
 Close after: Poté zavřít
 Close automatically: Zavřít automaticky
 Close partially: Částečně zavřít
+Close value: Závěrečná hodnota
+Collapse: Sbalit
+Collapse or stop: Sbalit nebo zastavit
+Collapse partially: Částečně sbalit
 Colon: Středník
 Color: Barvy
 Color brightness: Jas barev
 Comma: Čárka
+Command has been sent to the device. Try refreshing the photo in a while.: Požadavek byl odeslán do zařízení. Zkuste fotografii za chvíli obnovit.
 Comment: Komentář
+Common currencies: Nejčastěji vybírané měny
 Config of the schedule is too complicated.: Konfigurace rozvrhu je příliš složitá.
 Configuration: Konfigurace
+Configuration not available yet. Waiting for the device to connect.: Konfigurace zatím není k dispozici. Počkejte, až se zařízení připojí.
 Confirm My Account: Potvrzuji svůj účet
 Confirm Password: Potvrzení hesla
+Confirm if you want to perform the calibration.: Potvrďte, že chcete provést kalibraci.
 Confirm if you want to remove Access Identifier: Potvrď, jestli chceš odstranit identifikátor přístupu
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potvrďte, že chcete smazat identifikátor polohy Potvrďte, že chcete smazat identifikátor polohy {locationId}. Další připojení I / O zařízení na toto místo nebude možné.. Další připojení I / O zařízení na toto místo nebude možné.
 Confirm if you want to remove {deviceName} device and all of its channels.: Potvrdit, že chcete odebrat {deviceName} a všechny jeho kanály.
 Confirmation: Potvrzení
+Conflict: Konflikt
 Connected: Připojeno
 Connection with a private instance of the SUPLA cloud: Připojení k soukromé instanci cloudu SUPLA.
 Constraints: Omezení
+Cool to: Schladit na
+Cooling mode: Režim chlazení
+'Cooling: {percent}%': 'Chlazení: {percent}%'
 Copy state from other channel: Zkopírujte stav z jiného kanálu
+Costs: Náklady
 Could not contact Autodiscover service. Try again in a while.: Není možné se kontaktovat s registrační službou. Zkuste to prosím později.
 Could not enter the configuration mode.: Zařízení se nepodařilo uvést do konfiguračního režimu.
 Could not reset the password.: Heslo se nepodařilo obnovit.
 Could not reset the password. Please try again later.: Heslo nelze obnovit. Zkuste to prosím znovu.
+Could not restart the device.: Zařízení se nepodařilo restartovat.
+Could not send the identify command.: Příkaz se nepodařilo odeslat.
+Could not set the device time.: Na zařízení nebylo možné nastavit datum a čas
 Counter: Počítadlo
 Counter reset: Reset počitadla
+Counter type: Typ měřiče
 Create New Access Identifier: Vytvoř nový přístupový identifikátor
 Create New Location: Vytvořte nové umístění
 Create New Schedule: Vytvořte nový plán
@@ -224,16 +289,21 @@ Current: Aktuální
 Current Overload: Přetížení
 Current Password: Aktuální heslo
 Current password is incorrect: Aktuální heslo je nesprávné
+Curtain: Závěs
 Custom: Nestandardní
 Custom execution limit: Nestandardní počet provedení
 DHT11 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT11
 DHT21 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT21
 DHT22 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT22
 DS18B20 Thermometer: Teploměr DS18B20
+Dark mode: Tmavý režim
+Data: Údaje
 Data limits: Datové limity
 Data saved: Data byla uložena
 Date: Datum
 Date and time: Datum a čas
+Date range: Rozsah dat
+Daytime criteria: Kritéria založená na délce dne
 Decline: Odmítnout
 Default: výchozí stav
 Delete: Vymazat
@@ -241,18 +311,26 @@ Delete measurement history: Vymazat historii měření
 Delete my account: Odstranit můj účet.
 Delete voltage aberrations history: Vymazat historii aberace napětí
 Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Odstranění Vašeho účtu způsobí odstranění všech Vaších osobních údajů včetně Vaších připojených zařízení, nakonfigurovaných kanálů, bezprostředních odkazů a měřenou historii. Odstranění účtu je již nevratné.
+Dependencies: Závislosti
 Depth: Hloubka
 Depth sensor: Snímač hloubky
 Description: Popis
 Details: Podrobnosti
 Device: Zařízení
+'Device GUID: %deviceGuid%': 'GUID zařízení: %deviceGuid%'
 'Device ID: %deviceId%': 'Identifikátor zařízení: %deviceId%'
+Device identification is unsupported in the firmware.: Identifikace zařízení není ve firmwaru podporována.
 Device is disconnected.: Zařízení je odpojeno.
 Device might be sleeping: Zařízení může být v režimu spánku
 'Device name: %deviceName%': 'Název zařízení: %deviceName%'
+Device settings: Nastavení zařízení
 Device should be now in configuration mode.: Zařízení by nyní mělo být v konfiguračním režimu.
+Device should be restarting now.: Zařízení by se mělo restartovat.
 'Device software version: %deviceSoftwareVersion%': 'Verze softwaru: %deviceSoftwareVersion%'
+Device time has been set.: Datum a čas zařízení byly nastaveny.
 Device unavailable: Zařízení je nedostupné
+Different than on master thermostat.: Nastavení se liší od nastavení na hlavním termostatu.
+Differential thermostat: Diferenciální termostat
 Digi Glass: Digi Glass
 Digi Glass Horizontal: Digi Glass horizontální
 Digi Glass Vertical: Digi Glass vertikální
@@ -273,6 +351,8 @@ Disconnected: Odpojeno
 Distance: Vzdálenost
 Distance sensor: Snímač vzdálenosti
 Do you want to be redirected there? You may be asked to authenticate again.: Chcete, na dané místo přesměrovat? Možná se bude nutné znovu přihlásit.
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Chcete nastavit kanály závislé na tomto termostatu (například teploměry a čidla) tak, aby byly stejné jako v hlavním termostatu?
+Domestic hot water: Teplá voda v domácnosti
 Don’t worry, you can always reset your password via email. Click here to do so.: Nebojte se. Heslo můžete vždy obnovit prostřednictvím e-mailu. Klepněte zde pro provedení.
 Door lock operation: Otevření dveří
 Door opening sensor: Snímač otevření dveří
@@ -281,14 +361,27 @@ Doors, Gates, Windows: Dveře, vrata, okna
 Download measurements history: Stáhni si historii měření
 Download the history of measurement: Stáhnout historii měření
 Drag your image(s) here or click to select from the disk: Přetáhněte obrázek zde nebo klepnutím vyberte z disku
+Dryer: Vysoušeč
 E-mail notifications: E-mailové upozornění
 Edit: Editovat
+Edit area crop: Upravit oblast
+Edit program settings: Úprava nastavení programu
 Edit reaction: Upravit reakci
 Electric: Elektrika
 Electricity meter: Elektroměr
+Electricity meter active power history: Historie výkonu elektroměru
+Electricity meter current history: Historie intenzity měření elektřiny
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Elektroměr neohlásil možnost konfigurace přidaných hodnot. Aktualizuj firmware zařízení a zkus to znovu.
+Electricity meter voltage aberrations history: Historie odchylky napětí elektroměru
+Electricity meter voltage history: Historie napětí elektroměru
 Empty!: Prázdný!
 Enable: Zapnout
+Enable floor temperature control: Aktivace regulace teploty podlahy
+Enable generic cooler temperature control: Aktivace regulace teploty zdroje chlazení
+Enable generic heater temperature control: Aktivace regulace teploty zdroje tepla
+Enable power status LED: Aktivace LED diody stavu napájení
+Enable support for OCR readings for this channel: Aktivace podpory pro rozpoznání OCR tohoto kanálu
+Enable water temperature control: Aktivace regulace teploty vody
 Enabled: Aktivován
 Enabled phases: Aktivní fáze
 End date: Datum ukončení
@@ -306,6 +399,7 @@ Error when communicating the server. Try again in a while.: Při komunikaci se s
 Estimated execution time: Odhadovaný čas dokončení
 Every: Každý
 Example Auth URL: Vzorová autorizační adresa URL
+Example value: Příklad
 Execute: Provést
 Execute an action: Provést akci
 Executed action: Provedená akce
@@ -313,17 +407,30 @@ Executed without confirmation: Provedeno bez potvrzení
 Execution history: Historie provedení
 Execution limit: Počet provedení
 Executions: Výkony
+Expand: Rozbalit
+Expand or stop: Rozbalit nebo zastavit
+Expand partially: Částečně rozbalit
 Expired: Prošlý
 Expires at: Vyprší
+External sensor disabling the thermostat: Externí čidlo pro vypnutí termostatu
+Facade blind operation: Fasádní žaluzie
 Failed: Neúspěšný
 Failed (zombie): Neúspěšný (zombie)
+Fan: Větrný mlýn
 Feature limits: Limity funkčnosti
+'Field: {propertyPath}.': Pole {propertyPath}.
 File format: Formát souboru
 File is too large: Plik jest za duży
+Fill missing data: Doplňte chybějící měření
+Firmware: Firmware
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tohoto zařízení odesílá oznámení v rámci tohoto kanálu. Zde můžete nastavit obsah a příjemce. Další informace získáte od dodavatele zařízení.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tohoto zařízení odesílá oznámení. Zde můžete nastavit obsah a příjemce. Další informace získáte od dodavatele zařízení.
 Flooding: Záplavení
+For a period: Za období
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Během aktualizace se doporučuje použít adresu {suplaUrl}.
 For devices: Pro zařízení
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: Z bezpečnostních důvodů, se při vytváření zobrazí úplná adresa URL tohoto přímého odkazu pouze jednou.
+Forced off by sensor: Vynucené vypnutí senzorem
 Forgot your password?: Zapoměl jsi heslo?
 Forward active energy: Pobíraná činná energie
 Forward active energy balance: Bilance příkonu aktivní energie
@@ -335,8 +442,10 @@ From anywhere: Odkudkoliv
 Full closing time: Celkový čas uzavření
 Full documentation: Úplná dokumentace
 Full opening time: Celkový čas otevření
+Full tilting time: Celková doba změny sklonu
 Fully opened sensor for channel: Kanál pro snímač
 Function: Funkce
+Function disabled: Funkce vypnuta
 G5LA1A Relay: Relé G5LA1A
 G5LA1A Relay x2: Relé 2xG5LA1A
 GENERATE: GENERUJ
@@ -349,6 +458,7 @@ Gate's state verification: Ověření stavu brány
 Gateway lock operation: Otevření branky
 Gateway opening sensor: Snímač otevření branky
 General purpose measurement: Obecný měřicí kanál
+General purpose meter: Kanál měřiče pro všeobecné použití
 Generate new password: Vygenerovat nové heslo
 Generate new token: Generovat nový token
 Generate token: Generovat token
@@ -362,12 +472,23 @@ Go to your account: Přejděte do účtu
 Grant access: Poskytněte přístup
 Guru Meditation: Guru Meditation
 HFD4 Relay: Relé HFD4
+HVAC: HVAC
 Heat meter: Měřič tepla
+Heat or cold source switch: Přepínač pro zdroj tepla nebo chladu
+Heat to: Zahřátí na
+Heating / ventilation / air conditioning: topení / větrání / klimatizace (HVAC)
+Heating mode: Režim topení
+'Heating: {percent}%': 'topení: {percent}%'
 Hide days without aberrations: Skryjte dny bez aberací
+High threshold: Vysoký práh
+High value: Maximální hodnota
+History: Historie
 History of measurements: Historie měření
 Home appliances: Domácí spotřebiče
+Home screen content: Obsah hlavní obrazovky
 Home+ Heater: Topení Home+
 Host: Host
+Hotel card sensor: Snímač hotelové karty
 However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: Bohužel, aktuálně jsou naše servery plně vytížené. Celou situaci sledujeme, zkuste to za chvíli.
 Humidity: Vlhkost
 Humidity Sensor: Snímač vlhkosti
@@ -385,14 +506,18 @@ ID: ID
 INACTIVE: NEAKTIVNÍ
 IP Address: IP adresa
 Icon: Ikona
+Identify device: Identifikace zařízení
+Identify request sent.: Žádost o identifikaci byla odeslána.
 Idle: Nečinný
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Pokud je zařízení aktuálně v režimu spánku, změny konfigurace se projeví po probuzení.
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: Pokud je zařízení nyní v režimu spánku, přejde při příštím probuzení do konfiguračního režimu.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Pokud odkaz nefunguje, zkopírujte jej do vyhledávacího panelu nebo jej zadejte ručně.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Pokud jste programátor, který chce poskytnout další funkce pro službu SUPLI, vytvořte aplikaci OAuth, kterou uživatelé mohou autorizovat a používat.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Pokud jste si jisti, že máte účet na cloud.supla.org, zkontrolujte, zda je aplikace, kterou se pokoušíte autorizovat, veřejná.
+If you confirm the installation and wish to unlock this device, please click the link below.: Pokud se snažíte přidat nové zařízení, klikněte na odkaz níže a potvrďte odemknutí.
 If you did not request this password reset, please ignore this information.: Pokud jste nepožádali o obnovení hesla, ignorujte tuto zprávu.
 If you do not want to delete your account on %cloudHost%, please do not click the link.: Pokud nechcete smazat svůj účet na webu %cloudHost%, tak neklikejte na odkaz.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Pokud se zařízení nesnažíte odemknout vy, tento e-mail ignorujte. Platnost potvrzovacího odkazu automaticky vyprší po 24 hodinách.
 If you do not want to unregister your instance, please do not click the link.: Pokud nechcete svou instanci zrušit, neklikejte na odkaz.
 If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Pokud se vám během několika minut nepodaří připojit k tomuto přístupovému bodu, zařízení se restartuje a připojí se pomocí posledního nastavení.
 If you have doubts or more questions, you can contact us directly at %securityEmail%.: Máte-li pochybnosti nebo otázky, můžete nás kontaktovat na adrese %securityEmail%.
@@ -407,6 +532,7 @@ If you wish not to receive such messages, change it in your account settings [he
 If you wish to register your instance, {clickHereLink}.: Pokud chcete zaregistrovat svou instanci, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Chcete-li zobrazit dostupné integrace, přejděte na stránku {0}.
 If you wish to unregister your instance, {clickHereLink}.: Pokud chcete zrušit registraci své instance, {clickHereLink}.
+Image area crop: Oblast obrázku
 Impulse counter: Počítadlo implulzů
 Impulses: Impulzy
 In order to confirm account deletion, enter your password.: Pro potvrzení, že chcete odstranit Váš účet zadejte Vaše heslo.
@@ -414,9 +540,11 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Neaktivní
 Include energy corrections in new measurements history (not recommended): Zahrnout přidanou hodnotu do historie (nedoporučuje se)
 Incorrect password: Nesprávné heslo
+Increment and decrement: Vzestupný a sestupný
 Incremental: Inkrementální
 Information: Informace
 Inherit I/O Device location: Použijte polohu zařízení
+Installer e-mail address: E-mailová adresa instalatéra
 Integration with MQTT Broker has been disabled.: Integrace s brokerem MQTT byla zakázána.
 Integration with MQTT Broker has been enabled.: Integrace s brokerem MQTT byla povolena.
 Integrations: Integrace
@@ -426,12 +554,15 @@ Interrupt and execute: Zastavit a provést
 Interval: Interval
 Invalid SUPLA Cloud URL.: Nesprávná adresa URL instance SUPLA Cloud
 Invalid action parameters: Nesprávné parametry provedení.
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Zařízení zaregistrovalo kanál jiného typu ({typeCaption} - {typeId}) místo aktuálního.
+Invalid e-mail address.: Neplatná e-mailová adresa.
 Invalid function for channel.: Nesprávná funkce kanálu
 'Invalid redirect URI: {uri}': 'Neplatné přesměrování URI : {uri}'
 Invalid request: Nesprávná žádost
 Invalid request.: Neplatná žádost.
 Invalid scene: Nesprávná scéna
 Invalid token.: Neplatný token.
+Invalid unlock code.: Nesprávné odblokování odkazu.
 Invalid username or password: Nesprávné uživatelské jméno nebo heslo
 Inverted logic: Obrácená logika
 Invisible: Neviditelný
@@ -442,22 +573,31 @@ Keep in mind, that the humanized description of the entered crontab is not perfe
 Language is not available: Jazyk není k dispozici
 Last access: Poslední hovor
 Last connection: Poslední připojení
+Last paired device: Poslední spárované zařízení
 Last used: Poslední použití
 Let me choose later: Nechte mě vybrat později
+Light mode: Jasný režim
 Light switch: Spínač světel
 Lighting: Osvětlení
+Lighting level: Úroveň osvětlení
+Lighting mode: Režim osvětlení
 Limit has been exceeded: Limit byl překročen
 Linear: Lineární
 Liquid, Temp: Kapalina, Teplota
+List of available variables: Seznam dostupných proměnných
 Location: Lokalizace
 Location Identifier: Identifikátor lokalizace
 Location limit has been exceeded: Limit umístění byl překročen
 Location name: Název umístění
 Locations: Lokalizace
+Locked: Zablokovaný
 Log out: Odhlásit
 Login: Přihlášení
 Logs transformation: Transformace hodnot
 Longest aberration: Nejdelší aberace
+Low threshold: Nízký práh
+Low threshold must be less than high threshold.: Nízký práh musí být nižší než vysoký práh
+Low value: Minimální hodnota
 Lower voltage threshold: Prahová hodnota nízkého napětí
 MQTT Broker: Broker MQTT
 MQTT Broker Username: Uživatelské jméno
@@ -466,6 +606,7 @@ MQTT Broker password: Heslo brokera MQTT
 MQTT Broker password has been changed.: Heslo brokera MQTT bylo změněno.
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: V této instanci není nakonfigurováno uživatelské jméno ani heslo.
 Mail sensor: Poštovní snímač
+Main thermometer: Hlavní teploměr
 Maintenance mode active. You cannot modify any data now.: Provoz v servisním režimu. Není možné upravovat žádné údaje.
 Make sure to copy it now because you won’t be able to see it again!: Ujistěte se, že je uchováváte na bezpečném místě.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Ujistěte se, že je uložen na bezpečném místě, pokud jej chcete v budoucnu použít. Po odchodu z této stránky již nebude odkaz zobrazen.
@@ -473,17 +614,33 @@ Manage your new client app in the SUPLA-Cloud.: Spravujte nastavení aplikace v 
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Spravujte své zařízení v SUPLA-Cloud nebo pomocí aplikace SUPLA na vašem mobilním zařízení.
 Manual: Návod
 Manually closed: Uzavřeno ručně
+Master thermostat: Nadřazený termostat
+Max: Max.
 Maximum delay is 60 minutes.: Maximální zpoždění je 60 minut.
+Maximum duration is one year.: Maximální doba je jeden rok.
 Maximum filesize limit is {limit}.: Maksymalny rozmiar pliku to {limit}.
 Maximum voltage: Nejvyšší napětí
+Measurement settings: Nastavení měření
 Measurement window: Čas měření
 Meter value: Stav měřiče
 Meters: Měřiče
+Min: Min.
+Minimum OFF time before cooling can be turned on: Minimální doba VYPNUTÍ před opětovným spuštěním chlazení
+Minimum OFF time before heating can be turned on: Minimální doba VYPNUTÍ před opětovným spuštěním topení
+Minimum OFF time before heating/cooling can be turned on: Minimální doba VYPNUTÍ před opětovným spuštěním chlazení/topení
+Minimum ON time before cooling can be turned off: Minimální doba ZAPNUTÍ, než se chlazení opět vypne
+Minimum ON time before heating can be turned off: Minimální doba ZAPNUTÍ, než se topení opět vypne
+Minimum ON time before heating/cooling can be turned off: Minimální doba ZAPNUTÍ před opětovným vypnutím chlazení/topení
+Minimum temperature must be lower than maximum temperature.: Minimální teplota musí být nižší než maximální teplota.
 Minimum voltage: Nízké napětí
 Missing action.: Žádná akce
 Mode: Režim
+'Mode: cool': 'Režim: chlazení'
+'Mode: heat': 'Režim: topení'
+'Mode: off': 'Režim: vypnuto'
 Modification: Modifikace
 Mondays: Pondělky
+Motor upside down: Invertované řízení motoru
 Move down or stop: Dolů nebo zastavit
 Move up or stop: Nahoru nebo zastavit
 My OAuth apps: Moje OAuth aplikace
@@ -504,6 +661,7 @@ New scene: Nová scéna
 Newer: Novější
 'Next limit renewal: {date}': Limit bude brzy obnoven {date}
 Next run date: Nejbližší výkon
+'No': Ne
 No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Nemáte aktivní identifikátory přístupu. Přejděte na {accessIdsListLink} nebo {newAccessIdLink}.
 No function: Bez funkce
 No future executions - schedule disabled: Žádné naplánované výkony - plán zakázán
@@ -514,20 +672,26 @@ No of channels: Počet kanálů
 No of client apps: Počet klientských aplikací
 No of devices: Počet zařízení
 No of operations: Počet operací
+No results: Žádné výsledky
 No schedule configuration.: Nebyla zadána žádná konfigurace plánu.
 No, take me back!: Ne, dostaň mě odsud!
+None: Žádný
+None (channel disabled): Žádná (kanál vypnutý)
+Noop: Žádná operace
+Notification: Oznámení
+Notification body is set by the firmware.: Obsah oznámení nastavuje firmware.
+Notification must have a body.: Oznámení musí mít obsah.
+Notification must have recipients.: Oznámení musí mít příjemce.
+Notification title is set by the firmware.: Hlavička oznámení je nastavena firmwarem.
+Notifications: Oznámení
+Notifications (defined): Oznámení (definováno)
+Notifications (sent per hour): Oznámení (odeslaná za hodinu)
 No{'.'} of Client’s apps: Počet klientských aplikací
 No{'.'} of access identifiers: Počet identifikátorů přístupu
 No{'.'} of channel groups: Počet skupin kanálů
 No{'.'} of channels: Počet kanálů
 No{'.'} of devices: Počet zařízení
 No{'.'} of locations: Počet umístění
-None: Žádný
-None (channel disabled): Žádná (kanál vypnutý)
-Noop: Žádná operace
-Notification: Oznámení
-Notification must have a body.: Oznámení musí mít obsah.
-Notifications: Oznámení
 Number of aberrations: Počet aberací
 Number of attempts to close: Počet pokusů o uzavření
 Number of attempts to open: Počet pokusů o otevření
@@ -536,24 +700,36 @@ OAuth application: Aplikace OAuth
 OAuth apps: Aplikace OAuth
 OAuth authorization: Autorizace OAuth
 OAuth integrations might stop working after the instance is unregistered.: Integrace s aplikacemi OAuth mohou přestat fungovat po zrušení registrace vaší instance.
+'OCR service responded with error: {status}': 'Služba OCR odpověděla chybou: {status}'
+OCR settings: Nastavení OCR
 OK: Ok
+OR: NEBO
 'Off': Vypnout
+Off with duration: Čas vypnutí
 Offline access: Přístup offline
 Older: Starší
 'On': Zapnout
+On with duration: Čas zapnutí
 On/Off switch: Síťový spínač
 Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Pouze názvy domén s volitelným číslem portu jsou povoleny. Například. mysupla.org nebo mysupla.org:88. Je vyžadován protokol HTTPS.
 Open: Otevřít
 Open / close: Otevřít / zavřít
 Open partially: Zkuste postupně otevírat
+Open value: Hodnota pro otevření
 Opening sensor: Snímač otevření
 Operation: Operace
 Operations: Operace
 Original location: Původní umístění
 Other: Jiné
 Otherwise go to the homepage.: V opačném případě přejděte na [domovskou stránku].
+Output value on error: Stav výstupu při chybě
+Overheat protection: Ochrana před přehřátím
+P/C: P/C
 PIN: PIN
 PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN pro Google musí mít nejméně {minLength} a nejvýše {maxLength} číslic.
+Pair new devices or sensors: Párování nových zařízení nebo snímačů
+Pairing request sent.: Žádost o spárování odeslána.
+Pairing subdevices is unsupported in the firmware.: Párování není podporováno softwarem zařízení.
 Partial opening sensor: Snímač středního otevření
 Partially opened sensor for channel: Kanál pro snímač nepřímého otevření
 Password: Heslo
@@ -573,19 +749,25 @@ Phase: Fáze
 Phase 1: Jednofázová
 Phase 2: Dvoufázová
 Phase 3: Třífázová
+Phase LED type: Indikátor fáze LED
 Phase number: Fáze
 Phase {phaseNumber}: Fáze {phaseNumber}
+Photo interval: Interval snímání fotografií
 Please choose the schedule subject first.: Nejprve vyberte, co má plán ovládat
 Please click the following link to reset your %cloudHost% password.: Kliknutím na níže uvedený odkaz obnovíte své heslo pro webovou stránku %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Klikněte na odkaz ze zprávy, kterou jsme Vám zaslali po vytvoření účtu.
 Please confirm your SUPLA account.: Aktivujte si svůj SUPLA účet.
 Please enter a valid email address: Zadejte správnou mailovou adresu
 Please fill a valid email address: Zadejte správnou e-mailovou adresu
+Please find the device details below.: Podrobnosti o zařízení naleznete níže.
 Please fix the problems with operations and try again.: Vyřešte problémy s operacemi a zkuste to znovu.
 Please log in again to proceed.: Chcete-li pokračovat, přihlaste se znovu.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Upozorňujeme, že dané zařízení je určeno pouze pro certifikované montážní firmy.
 Please provide a valid domain name for your private SUPLA Cloud: Zadejte správný název domény pro váš soukromý cloud SUPLA
+Please provide the installer e-mail address to request the device unlock.: Chcete-li zařízení odemknout, zadejte e-mailovou adresu, která byla zadána při získávání instalačního certifikátu.
 Please read the Terms and Conditions.: Přečtěte si pravidla.
 Please select a condition: Vyberte podmínku prosím
+Please select and configure the action: Vyberte a nakonfigurujte akci.
 Please wait a moment before the next login attempt.: Počkejte chvíli na další pokus o přihlášení.
 Port: Port
 Power active: Činná energie
@@ -599,10 +781,14 @@ Private Cloud domain name: Název soukromé domény cloud
 Private instance of the SUPLA cloud with given URL is already registered.: Na této adrese je již zaregistrován soukromý cloud SUPLA.
 Proceed: Pokračuj
 Processing: Zpracovává se
+Program {programNo}: Program {programNo}
+Projector screen: Promítací plátno
 Protocol: Protokol
 Public ID: Veřejné ID
 Publish to integrations: Publikovat pro integraci
 Publishes the event to integrated services like MQTT or webhooks.: Při provedení této akce upozorní integrace, jako je MQTT nebo webhooky.
+Pump switch: Spínač čerpadla
+Push notifications limit has been exceeded: Limit pro push oznámení byl překročen
 RESET: RESET
 RGB led controller: Kontroler oświetlenia RGB
 RGB lighting: Osvětlení RGB
@@ -614,6 +800,9 @@ Read: Odečet
 Recipients: Odběratelé
 Reference to the scene will be removed from the items below.: Indikace obrazového panelu bude odstraněna z následujících položek.
 Refresh: Obnovit
+Refresh interval: Interval obnovení
+Refresh the config: Obnovení konfigurace
+Refreshing the configuration will overwrite the changes you made here.: Obnovení konfigurace přepíše změny provedené ve formuláři.
 Regeneration starts at: Začátek regenerace
 Register: Registrovat
 Register a new OAuth application: Registrovat novou aplikaci OAuth
@@ -624,30 +813,41 @@ Registered: Registrován
 'Registered from IP address: %deviceRegIp%': 'IP adresa: %deviceRegIp%'
 Relay: Relé
 Relay switching time: Doba sepnutí relé
+Reload last photo: Znovu načíst poslední fotografii
 Reload the chart: Graf načítání
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Než odstraníte místo, musíte nejprve přesunout skupiny kanálů, které jsou v něm. Identifikátory: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Než odstraníte místo, musíte nejprve přesunout kanály, které jsou v něm. Identifikátory: {relatedIds}.'
+Remote restart is unsupported in the firmware.: Software zařízení nepodporuje vzdálený restart.
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Před odstraněním tohoto umístění odstraňte související zařízení. Identifikátory: {relatedIds}.'
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Před odstraněním tohoto umístění smažte všechny související scény. Identifikátory: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Nejdříve odstraňte všechna zařízení, která používají toto umístění jako původní umístění. ID: {relatedIds}.'
+Remove this item: Odstranění tohoto prvku
 Repeat password: Opakujte heslo
+Request device unlock: Žádost o odemknutí zařízení
 Reset Your Password: Nastavit nové heslo
 Reset counter: Vynulovat měřič
+Reset to defaults: Obnovení výchozích hodnot
+Restart device: Restartování zařízení
+Restart the device: Restartování zařízení
 Retry on failure: Opakujte, když není hotovo
 Reveal: Odkrýt
+Reveal or stop: Odhalit nebo zastavit
 Reveal partially: Částečně odkrytí
 Reverse active energy: Činná vrácená energie
 Reverse active energy balance: Bilance vrácené aktivní energie
 Reverse active energy balanced: Vrácená aktivní energie (Vektorová bilance)
 Reverse reactive energy: Jalová vrácená energie
 Revoke: Zrušit
+Roller garage door: Garážová brána
 Roller shutter opening sensor: Snímač otevření rolet
 Roller shutter operation: Otevírání a zavírání rolet
 Roller shutters: Rolety
 Roof window opening sensor: Senzor otevření střešního okna
 Roof window shutter operation: Otevírání střešního okna
+S/N: S/N
 SUPLA - Account Activation: SUPLA - Aktivace účtu
 SUPLA - Account Removal: SUPLA – Odstranění účtu
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Odblokování zařízení pro certifikovaného instalatéra
 SUPLA - Password reset: SUPLA - Resetování hesla
 SUPLA - Private instance unregistration: SUPLA - zrušení registrace soukromé instance
 SUPLA Cloud is under maintenance.: Probíhá aktualizace SUPLA Cloudu.
@@ -658,7 +858,9 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - upozornění na neúspěšné přihlášení na %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - byla zaregistrována nová klientská aplikace
 SUPLA – new device has been added to your account: SUPLA – do vašeho účtu bylo přidáno nové zařízení
+SUPLA – your device has been unlocked!: SUPLA - Vaše zařízení bylo odemčeno!
 SUPLA.ORG Team: Tým SUPLA.ORG
+Same as on master thermostat.: Stejné nastavení jako na hlavním termostatu.
 Saturdays: Soboty
 Save: Ulož
 Save and enable: Uložit a povolit
@@ -677,6 +879,7 @@ Schedules: Plány
 Scope: Rozsah (scope)
 Scopes: Rozsahy
 Scopes define which sections of your account can be accessed when using the token.: Rozsahy určí, které části účtu mohou být přístupné pomocí tokenu.
+Screen brightness: Jas obrazovky
 Search: Hledej
 Secret: Tajný klíč (secret)
 Security: Bezpečnost
@@ -687,6 +890,7 @@ See in SUPLA-Cloud: Zobrazit na SUPLA-Cloud
 Seems like a secret place: Něco nám říká, že byste tady neměl být
 Select icon: Vyberte ikonu
 Select the item (subject) you want to control using this link: Vyberte prvek (předmět), který chcete ovládat pomocí tohoto odkazu
+Selected: Vybráno
 Selected device has been logged out.: Vybrané zařízení bylo odhlášeno
 Send a notification: Odeslat oznámení
 Send notification: Odeslat oznámení
@@ -695,12 +899,18 @@ Sensors: Senzory
 Server address: Adresa serveru
 Server unreachable: Server není dosažitelný
 Service temporarily unavailable: Služba dočasně nedostupná
+Set HVAC parameters: Nastavení parametrů
+Set the device time: Na zařízení nebylo možné nastavit datum a čas
 Set value added: Určit přidanou hodnotu
 Set values for each phase separately: Urči, prosím, hodnotu pro každou fázi zvlášť
 Setting the number of attempts to 1 disables the retrying behavior completely.: Nastavení počtu pokusů na méně než 2 může mít za následek selhání, zavření nebo otevření.
+Settings: Nastavení
+Settings have not been saved!: Nastavení nebyla uložena!
+Show data: Zobrazit data
 Show my limits: Ukázat moje limity
 Show on the Client’s devices: Zobrazit v klientských zařízeních
 Shut: Zakrýt
+Shut or stop: Zakrýt nebo zastavit
 Shut partially: Částečně zakrýt
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Zavřete roletu, dokud se nedotkne spodního okraje a do tohoto pole zadejte procento jejího uzavření. Tato operace není vyžadována, ale její poskytnutí zlepší vizualizaci polohy rolety v mobilní aplikaci.
 Sign In: Přihlas se
@@ -708,9 +918,11 @@ Sign Out: Odhlas se
 Sign in temporarily unavailable. Please try again later.: Přihlášení dočasně nedostupné. Zkuste to prosím později.
 Smartphones: Smartphony
 SoftVer: Software
+Some features depend on this channel: Některé funkce závisí na tomto kanálu
 Some features depend on this channel group: Některé funkce závisí na této skupině kanálů.
 Some features depend on this device: Některé funkce závisí na tomto zařízení
 Some features depend on this scene: Některé funkce závisí na této scéně.
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Některé shromážděné údaje pro váš účet budou po určité době pravidelně vymazány. Seznamte se s níže uvedenými limity.
 Some of the features you have configured depend on channels from this device.: Některé funkce využívají kanály tohoto zařízení.
 Staircase timer: Schodišťový automat
 Start Here: Začni tady
@@ -718,24 +930,38 @@ Start date: Datum zahájení
 Start from the homepage.: Začněte z domovské stránky.
 State: Stav
 State webhook: Webhook stavu
+Status LED: Stav LED
 Step by step: Krok za krokem
 Stop: Zastavit
+Store active power history: Uchovávejte historii činného výkonu
+Store current history: Uchovávejte aktuální historii
 Store measurements history: Uložte historii měření
+Store voltage history: Uchovávejte historii napětí
+'Subdevice #{id}': 'Subdodavatelské zařízení #{id}'
+Subfunction: Podfunkce
 Subject type: Typ předmětu
 Success: Úspěch
 Successful: Úspěšný
 Summary for selected time range: Shrnutí pro vybranou oblast působnosti
 Sundays: Neděle
 Switch the device to configuration mode: Přepněte zařízení do konfiguračního režimu
+Switch to manual mode: Přepnutí do manuálního režimu
+Switch to program mode: Přepnutí do programového režimu
+THEN: POTÉ
 THIS CANNOT BE UNDONE!: TUTO AKCI NELZE VRÁTIT ZPĚT!
 TLS: TLS
 Tab: Tabulátor
+Take a photo now: Vyfoťte se nyní
 Target Cloud is not registered, or is registered with another e-mail address.: Tato instance SUPLA Cloud není registrována, nebo je registrována pomocí jiné e-mailové adresy.
 Temperature: Teplota
 Temperature & Humidity Sensor: Snímač teploty a vlhkosti
 Temperature Sensor: Snímač teploty
 Temperature adjustment: Nastavení teploty
 Temperature and humidity sensor: Snímač teploty a vlhkosti
+Temperature difference is too big between {min}°C and {max}°C.: Rozdíl teplot mezi {min} °C a {max} °C je příliš velký.
+Temperature setpoint change switches to manual mode: Změna cílové teploty přepne do ručního režimu
+Temporal override: Dočasné přepsání
+Terrace awning: Markýza na terasu
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Děkujeme, že jste zaregistrovali svůj účet na webových stránkách %cloudHost%. K ukončení aktivace klikněte na odkaz níže.
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Díky integrací můžete snadno přidávat nové funkce do svého účtu pomocí řešení poskytovaných externími dodavateli, programátory nebo sami.
 'The IP used for login is: %ip%': 'Přihlašovací pokus byl proveden z adresy IP: %ip%'
@@ -744,13 +970,21 @@ The SUPLA infrastructure is being updated.: Probíhá aktualizace serverů SUPLA
 The Terms and Conditions have changed: Podmínky se změnily
 The Terms and Conditions have changed – please read them and accept.: Podmínky servisu se změnily - vyžaduje se jejich přijetí.
 The activation link has been sent again. Check the inbox.: Zpráva s odkazem k aktivaci Vašeho účtu byla znovu odeslána. Zkontrolujte svou doručenou poštu.
+The channel has been deleted.: Kanál byl odstraněn.
 The client will be automatically logged out when deleted.: Odstranění klienta bude mít za následek okamžité odhlášení.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfigurace byla změněna z jiného místa (např. z jiného okna prohlížeče, mobilní aplikace nebo zařízení). Před provedením dalších změn je třeba obnovit konfiguraci.
 The counter has been reset.: Měřič byl vynulován.
+The device could not be unlocked.: Zařízení nebylo možné odemknout.
+The device has been unlocked already.: Zařízení je již odemčené.
+The device has been unlocked.: Zařízení bylo odemčeno.
+The device has channel conflict and cannot work.: Zařízení vyvolalo konflikt kanálů a nemůže v současné době pracovat.
 The device is disabled: Zařízení je vypnuté
+The device is locked: Zařízení je zablokováno
 The device might be in a sleep mode.: Zařízení může pracovat v režimu spánku.
 The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Zařízení, které tuto relaci použije, ztratí přístup ke službě SUPLA Cloud. Pokud chceš aplikaci dále používat, budeš se do ní muset znovu přihlásit.
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Veškerá historie aberací napětí pro fázi {phaseNumber} bude odstraněna.
 The entire history of the voltage aberrations will be removed from this channel.: Veškerá historie napěťových odchylek bude pro tento kanál odstraněna.
+The following channels will be also removed along with their dependencies.: Následující kanály budou také odstraněny spolu s jejich závislostmi.
 The following items use the channels of these device. These references will be also removed.: Následující položky používají kanály z tohoto zařízení. Budou rovněž smazány.
 'The following items will be deleted with this device:': S tímto zařízením budou také odstraněny také následující položky.
 The gate sensor must function properly in order to execute the Open and Close actions.: Pro otevírání a zavírání závory musí snímač závory fungovat velice správně.
@@ -761,6 +995,7 @@ The items below depend on this channel group, so they will be deleted.: Následu
 The items below depend on this scene, so they will be deleted.: Položky níže jsou založeny na této scéně, takže budou odstraněny.
 The latest execution: Poslední výkon
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Výsledek je prezentovaný ve formě internetové stránky, poněvadž Vy (nebo Váš prohlížeč) požádal o odpověď ve formátu HTML.
+The master termostat you chose already has a master.: Vybraný hlavní termostat již má jiný hlavní termostat.
 The measurement history has been deleted.: Historie měření byla odstraněná.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Nové heslo nahradí to, které aktuálně používáte. Některé integrace mohou po změně přestat fungovat. Pokračovat?
 The next available executions: Nejbližší výkony
@@ -777,24 +1012,39 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Server vrátil chybu HTTP 404. To znamená, že položka, kterou hledáte, neexistuje.
 The server has returned an HTTP {statusCode} error.: Server vrátil chybu {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.
+The thermostat will not work if the main thermometer is not set.: Aby termostat fungoval, musí být nastaven hlavní teploměr.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Ventil není možné otevřít pomocí přímého odkazu nebo API pokud byl uzavřen dálkovým ovladačem nebo záplavovým čidlem. Pro obnovení funkce ovládání otevřete ventil pomocí ovládacího tlačítka na ventilu.
-valveOpenConfirm_manual: Ventil byl uzavřen dálkovým ovladačem (klíčenkou nebo záplavovým čidlem). Než ventil znovu otevřete, ujistěte se, že nebyl uzavřen kvůli úniku vody. Pokud je záplavové čidlo ve vodě,  NEvyšle ventilu  opakovaně signál pro uzavření. Chcete-li varování vypnout, otevřte ventil pomocí ovládacího tlačítka na ventilu. Opravdu chcete ventil otevřít?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Ventil se neotevře, dokud bude manuálně nebo vzdáleně uzavřený. Může to souviset s jeho zalitím.
 There are no more channels you can add to this group: K této skupině nejsou přidány žádné další kanály
 Thermometer: Teploměr
+Thermometer error: Chyba teploměru
+Thermometers configuration: Konfigurace teploměrů
 Thermostat: Termostat
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Tento termostat používá nastavení z hlavního termostatu. Přejděte na stránku s podrobnostmi a změňte nastavení.
+Thermostat programs: Programy termostatu
+This action will result in restarting the device. It will not be available for a while.: Při zadání této operace se zařízení restartuje. Během restartu bude zařízení nedostupné.
+This channel was missing during last device registration attempt.: Tento kanál v zařízení chybí.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Tento spotřebič je určen k distribuci a instalaci pouze autorizovanými instalatéry. Pokud nejste autorizovaným instalatérem SUPLA a nemáte aktivní certifikát o školení, vraťte jej svému prodejci.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Tento přímý odkaz vyžaduje další upřesnění parametrů prováděné akce. Na níže uvedeném příkladu zjistíte, které parametry můžete nastavit.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Tyto informace se zobrazují kvůli neúspěšnému pokusu o přihlášení k SUPLA-CLOUD pomocí vaší e-mailové adresy.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Toto je poslední fáze odstranění tvého účtu. Vyplněním a schválením formuláře dojde k nevratnému vymazání tvých údajů.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Toto je poslední fotografie nahraná ze zařízení. Označte přesnou oblast, kde jsou číslice počítadla viditelné.
 This is the list of applications you have granted access to your account.: Toto je seznam aplikací, kterým jste udělili přístup k vašemu účtu.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Jedná se o seznam reakcí spuštěných na vašem účtu. Pokud chcete přidat novou reakci, přejděte do podrobností kanálu, který ji má spustit.
 This link is only valid for an hour.: Odkaz bude aktivní po dobu jedné hodiny.
 'This password will protect your home. Therefore, it must:': 'Toto heslo chrání tvůj dům. Z tohoto důvodu:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Tento plánovací režim je určen pro technické nebo velmi trpělivé uživatele. Vyžaduje, aby byly časy spuštění plánu specifikovány v notaci crontab, obohacené o několik funkcí, které lze nalézt pouze v SUPLI. Pokud jste crontabs ještě neviděli a přesto chcete tento režim používat, může vám pomoci web crontab.guru.
+This thermostat is controlled by another device.: Tento termostat je řízen hlavním termostatem.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Tento spouštěč je lokálně používán zařízením (např. rozsvěcuje světlo, ovládá roletu atd.) Pokud jí přiřadíte jinou akci, lokální funkce bude deaktivována.
 Thursdays: Čtvrtky
+Tilt angle: Úhel sklonu
+Tilt control type: Typ řízení sklonu
+Tilt percent: Procento sklonu
+Time: Čas
 Timezone: Časová zóna
 Title: Název
 To: Do
+Today, it would be active from {from} to {to}.: Dnes by období aktivity spadalo do období mezi {from} a {to}.
 Toggle: Přepnout
 Token does not exist: Token neexistuje
 Too many actions in this schedule.: Příliš mnoho akcí v jednom plánu.
@@ -803,6 +1053,7 @@ Too many operations in this scene: Příliš mnoho operací na scéně.
 Total: Součet
 Total time: Celkový čas
 Tuesdays: Úterky
+Turn off: Vypnout
 Turning this device off will cause its channels not working in the following features.: Vypnutí zařízení způsobí, že jeho kanály přestanou fungovat v následujících položkách.
 Turning this device off will result in disabling features listed below.: Vypnutím zařízení se vypnou také následující položky.
 Type: Typ
@@ -810,25 +1061,34 @@ Undo registration: Zrušit registraci
 Unit: Jednotka
 Unknown: Neznámý
 Unknown browser: Neznámý prohlížeč
+Unlock the device: Odblokujte zařízení
 Unregister my private SUPLA Cloud instance: Zrušit mojí soukromou instanci SUPLA Cloud
 Unsuccessful login attempt: Přihlášení selhalo
 Unsupported function: Nepodporovaná funkce
 Unsupported type: Nepodporavný typ
+Until a date and time: Až do
+Until the next change: Do příští změny
 Update in progress: Probíhá aktualizace
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Nahrané soubory neporušují dobré chování, autorská práva a práva třetích stran a mám právo je používat.
 Upper voltage threshold: Práh vysokého napětí
-"Use the {0} server command to change this account's limits. For example:": 'Chcete-li změnit limity pro tento účet, použijte příkaz {0} na vašem serveru. Například:'
-Use working schedule for this access identifier: Použijte plán dostupnosti pro tento přístupový identifikátor
+Use device default: Použijte výchozí hodnotu ze zařízení
+'Use the {0} server command to change this account''s limits. For example:': 'Chcete-li změnit limity pro tento účet, použijte příkaz {0} na vašem serveru. Například:'
+Use {theMasterThermostat} to control this device.: K ovládání tohoto zařízení použijte {theMasterThermostat}.
+Used current transformer type: Použitý transformátor proudu
 User is already confirmed. Try to log in.: Tento účet je již potvrzen. Přihlaste se.
 Value: Hodnota
 Value added: Přidaná hodnota
+Value divider: Rozdělovač
+Value multiplier: Násobitel
 Value separator: Oddělovač
 Valve: Ventil
 Valve closed manually: Manuálně uzavřený ventil
 Vector balance: Vektorová rovnováha
 Verification method: Způsob ověření
+Vertical blind: Vertikální žaluzie
 Visible: Viditelný
 Visit app webpage: Otevřete okno aplikace
+Visit the master thermostat page.: Přejděte k hlavnímu termostatu.
 Voltage: Napětí
 Voltage aberrations: Napěťové aberace
 Voltage monitoring: Monitorování napětí
@@ -846,6 +1106,7 @@ We have been asked to unregister your private SUPLA Cloud instance (%targetCloud
 We have just sent you an activation link. You should be receiving it shortly.: Právě byla odeslána zpráva s odkazem k aktivaci Vašeho účtu. Trpělivost.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Vyslali jsme Vám e-mail s potvrzením odkazu pro odstranění účtu. Nechceš si to ještě rozmyslet?
 We have sent you an email with further instructions.: Poslali jsme vám zprávu s dalšími pokyny.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Obdrželi jsme žádost o odblokování zařízení určeného pouze pro certifikované instalatéry. Požadavek byl odeslán uživatelem %deviceUserEmail% z instance služby SUPLA Cloud na adrese %targetCloudUrl%.
 We should be ready shortly.: Měli bychom mít už brzy hotovo.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Ukládáme informace o vašich preferencích do vašeho prohlížeče, abychom usnadnili používání aplikace (např. Pomocí mechanismu souborů cookie).
 We try to be faster: Jsme čím dál tím rychlejší
@@ -857,6 +1118,8 @@ We will try to display the received icons the best possible way, however you wil
 We will use it only in justified situations.: Použijeme jej pouze v odůvodněných případech.
 Weather Station: Meteorologická stanice
 Wednesdays: Středy
+Week: Týden
+Weekly schedule: Týdenní plán
 Weight sensor: Váha
 Welcome!: Vítejte!
 What this token is for?: K čemu je tento token?
@@ -869,14 +1132,21 @@ When liquid or lack thereof is detected: Když se zjistí přítomnost nebo nedo
 When the RGB lighting brightness level changes: Když se změní úroveň jasu osvětlení RGB
 When the RGB lighting reaches a certain level of brightness: Když osvětlení RGB dosáhne určité úrovně jasu
 When the active power will be: Když bude činný výkon
+When the alarm is armed: Když je alarm zapnutý
+When the alarm is armed or disarmed: Když je alarm vypnutý nebo zapnutý
+When the alarm is disarmed: Když je alarm vypnutý
 When the apparent power will be: Když bude zdánlivý výkon
 When the balanced forward active energy will be: Když vyvážená, spotřebovaná činná energie bude
 When the balanced reverse active energy will be: Když vyvážená, vrácená činná energie bude
+When the battery cover is opened: Po otevření krytu baterie
 When the brightness level changes: Když se změní úroveň jasu
 When the brightness will be: Když bude úroveň jasu
+When the clock error has been reported: Když časovač ohlásí chybu
 When the color changes: Když se změní barva
 When the condition is met: Když je podmínka splněna
 When the current will be: Když bude proud
+When the curtain position changes: Při změně polohy závěsu
+When the curtain reaches a certain position: Když závěs dosáhne určité polohy
 When the depth changes: Když se změní měření hloubky
 When the depth is: Když bude měření hloubky
 When the device is turned off: Když se zařízení vypne
@@ -892,6 +1162,8 @@ When the door will be opened or closed: Když se dveře zavřou nebo otevřou
 When the electricity meter reaches a certain value: Když elektroměr dosáhne určité hodnoty
 When the electricity meter value changes: Když se změní hodnota elektroměru
 When the electricity meter value will be: Když bude hodnota elektroměru
+When the facade blind position changes: Při změně polohy fasádní žaluzie
+When the facade blind reaches a certain position: Když fasádní žaluzie dosáhne určité polohy
 When the forward active energy will be: Kdy bude spotřebovaná činná energie
 When the garage door will be closed: Když se garážová brána zavře
 When the garage door will be opened: Když se garážová brána otevře
@@ -908,27 +1180,37 @@ When the gateway will be opened or closed: Když se branka zavře nebo otevře
 When the heat meter value changes: Když se změní hodnota měřiče
 When the heat meter value reaches a certain value: Když měřič tepla dosáhne určité hodnoty
 When the heat meter value will be: Když bude hodnota měřiče tepla
+When the hotel card has been taken: Při vyjmutí hotelové karty
+When the hotel card is put in: Po vložení hotelové karty
+When the hotel card is put in or has been taken: Při vložení nebo vyjmutí hotelové karty
 When the humidity changes: Když se změní vlhkost
 When the humidity reaches a certain level: Když vlhkost dosáhne určité úrovně
 When the humidity will be: Když bude vlhkost
 When the lighting reaches a certain level of brightness: Když osvětlení dosáhne určité úrovně jasu
 When the mail comes or is taken: Když přijde pošta nebo je vyzvednuta
 When the mail has been taken: Kdy bude pošta přijata
+When the meter reaches a certain value: Když počitadlo dosáhne nastavené hodnoty
+When the meter value changes: Když se změní hodnota
+When the meter value will be: Když je hodnota
 When the precipitation amount will be: Když bude množství naměřených srážek
 When the pressure changes: Když se změní tlak
 When the pressure reaches a certain level: Když tlak dosáhne určité úrovně
 When the pressure will be: Když bude tlak
+When the projector screen position changes: Při změně polohy promítacího plátna
+When the projector screen reaches a certain position: Když projekční plocha dosáhne určité polohy.
+When the pump is turned off: Když je čerpadlo vypnuté
+When the pump is turned on: Když je čerpadlo zapnuté
+When the pump is turned on or off: Při zapnutí nebo vypnutí čerpadla
 When the rain amount changes: Když se změní počet srážek
 When the reactive power will be: Když bude jalový výkon
 When the reverse active energy will be: Když bude vrácena činná energie
+When the roller garage door position changes: Při změně polohy garážových vrat
 When the roller shutter position changes: Když se změní poloha rolety
-When the roller shutter reaches: Když roleta dosáhne
 When the roller shutter reaches a certain position: Když roleta dosáhne určité polohy
 When the roller shutter will be closed: Když se roleta zavře
 When the roller shutter will be opened: Když se roleta otevře
 When the roller shutter will be opened or closed: Když se roleta otevře nebo zavře
 When the roof window position changes: Když se změní poloha střešního okna
-When the roof window reaches: Když střešní okno dosáhne
 When the roof window reaches a certain position: Když střešní okno dosáhne určité polohy
 When the roof window will be closed: Když se střešní okno zavře
 When the roof window will be opened: Když se střešní okno otevře
@@ -936,11 +1218,25 @@ When the roof window will be opened or closed: Když se střešní okno zavře n
 When the temperature changes: Když se změní teplota
 When the temperature reaches a certain value: Když teplota dosáhne určité hodnoty
 When the temperature will be: Když bude teplota
+When the terrace awning position changes: Při změně polohy markýzy na terase
+When the terrace awning reaches a certain position: Když markýza na terase dosáhne určité polohy.
+When the thermometer error has been reported: Když teploměr hlásí chybu
+When the thermostat starts cooling: Když termostat začne chladit
+When the thermostat starts heating: Když termostat začne hřát
+When the thermostat starts heating or cooling: Když termostat spustí chlazení nebo topení
+When the thermostat starts or stops cooling: Když termostat spustí nebo zastaví chlazení
+When the thermostat starts or stops heating: Když termostat spustí nebo zastaví topení
+When the thermostat starts or stops heating or cooling: Když termostat spustí nebo zastaví topení nebo chlazení.
+When the thermostat stops cooling: Když termostat přestane chladit
+When the thermostat stops heating: Když termostat přestane topit
+When the thermostat stops heating or cooling: Když termostat přestane chladit nebo topit
 When the value will be: Když bude hodnota
 When the valve is closed: Když se ventil uzavře
 When the valve is manually closed: Když se ventil ručně uzavře
 When the valve is opened: Když se ventil otevře
 When the valve is opened or closed: Když se ventil uzavře nebo otevře
+When the vertical blind position changes: Při změně polohy vertikální žaluzie
+When the vertical blind reaches a certain position: Když vertikální žaluzie dosáhne určité polohy
 When the voltage will be: Když bude napětí
 When the water meter reaches a certain value: Když vodoměr dosáhne určité hodnoty
 When the water meter value changes: Když se změní hodnota vodoměru
@@ -959,21 +1255,26 @@ When you execute the link with HTTP PATCH method, you can omit the random part o
 Where is the JSON?: Kde je JSON?
 Where is your SUPLA Cloud?: Kde se nachází Vaše Supla?
 White: Bílý
+Will be deleted after: Odstranění po
 Wind sensor: Snímač větru
 Window opening sensor: Snímač otevření okna
 With SUPLA you can operate the lights in your home or office: Se SUPLOU můžete ovládat osvětlení ve Vašem domu nebo kanceláři
+With a timer: S časovačem
 With function: S funkcí
 Working period: Období provozu
-Working schedule: Plán činnosti
 YOUR LINK CODE: KÓD VAŠEHO ODKAZU
+'Yes': Ano
 You are changing the settings too quickly. You have to wait a while before making this change.: Měníte nastavení příliš rychle. Před změnou těchto nastavení musíte chvíli počkat.
 You can browse only the most recent logs now. Wait a while for the full history.: V současné době se zobrazují pouze nejnovější měření. Chvíli počkej, až se celá  stáhne.
 You can ignore this message, if you have accidentally entered an incorrect password.: Tyto informace můžete ignorovat, pokud jste zadali nesprávné heslo.
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Zde můžete nastavit relativní hodnoty. Například +10 nebo -20 zvýší nastavení o 10, resp. sníží o 20.
 You can use the application but you will not be able to modify any settings.: Můžete používat aplikaci, ale není možné změnit nastavení konfigurace
 You cannot delete your last access identifier.: Nemůžete smazat poslední ID přístupu.
 You cannot delete your last location.: Nemůžete smazat vaše poslední umístění.
+You cannot to set a master thermostat for a channel that is master for others.: V hlavním termostatu nelze nastavit hlavní termostat.
 You cannot use SUPLA project name in the domain name.: V názvu hlavní domény nemůžete použít název projektu SUPLA.
 You have exceeded your API Rate Limit: Využili jste svůj maximální limit API požadavků
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Žádost byla odeslána. Po schválení instalace a odemčení zařízení vás budeme informovat.
 You have requested to unregister your SUPLA Cloud instance: Požádali jste o zrušení registrace vaší instance SUPLA Cloud
 You have to choose at least one scope.: Musíte vybrat alespoň jeden rozsah.
 You just need to execute the following command inside your host terminal.: Stačí spustit následující příkaz uvnitř terminálu hostitele.
@@ -984,6 +1285,7 @@ You must leave at least one phase enabled.: Alespoň jedna fáze musí zůstat a
 You must set an action for each reaction.: Pro každou reakci je třeba nastavit akci.
 You must set an action for each scene operation.: Vyberte akci pro každou operaci ve scéně.
 You must set sections with transparent or opaque parameters or both.: Musíte zvolit průhlednost alespoň pro jednu sekci.
+You need to provide icons for all states in light mode.: Pro všechny stavy v jasném režimu je nutné zadat ikony.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musíte aktualizovat svojí instanci SUPLA Cloud do minimální verze 2.3.0.
 You will not be able to generate a direct link with the same URL again.: Není možné vytvořit odkaz se stejnou adresou URL.
 Your account and MQTT Broker connection.: Propojení vašeho účtu s brokerem MQTT.
@@ -996,6 +1298,7 @@ Your channel groups are allowed to have a maximum of {max} channels.: Vaše skup
 Your chart is being drawn...: Tvůj graf je nakreslen...
 Your data are being collected. Please be patient.: Shromažďujeme tvé údaje, prosíme o trpělivost.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Tvé udaje se stahují ze serveru. Před exportem počkej na dokončení stahování.
+Your device has been unlocked by the installer.: Vaše zařízení bylo odemčeno instalátorem.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Zařízení umožňuje rozšířit jeho funkčnost a umožňuje provádět jakoukoli činnost na jakémkoli vašem zařízení. Dostupné možnosti závisí na firmwaru a zařízení, které používáte.
 Your email: Váš e-mail
 Your instance is not registered or you are trying to authorize an application that is not public.: Vaše instance není registrována nebo se pokoušíte autorizovat aplikaci, která není veřejná.
@@ -1039,11 +1342,20 @@ after: po
 and wait until it reaches: a počkejte, dokud nedosáhne
 and wait until it will be: a počkejte, až bude
 and wait until the humidity will be: a počkejte, až bude vlhkost
+and wait until the meter will be: a neprovádějte tuto reakci znovu, dokud se hodnota
 and wait until the temperature will be: a počkejte, až bude teplota
 and wait until the value will be: a počkejte, až bude hodnota
+auxThermometerType_DISABLED: Vypnutý
+auxThermometerType_FLOOR: Podlaha
+auxThermometerType_GENERIC_COOLER: Zdroj chladu
+auxThermometerType_GENERIC_HEATER: Zdroj tepla
+auxThermometerType_NOT_SET: Není nastaveno
+auxThermometerType_WATER: Voda
 average: průměr
 be at least {numChars} characters long: musí mít alespoň {numChars} znaků
 before: před
+blue, otherwise: jinak modrá
+blue, when voltage lower than the low threshold: modrá, když je napětí pod nízkou prahovou hodnotou
 caption: název
 change: změň
 channel: Kanál
@@ -1056,16 +1368,21 @@ channelGroup: Skupina kanálů
 choose: vybrat
 choose the access identifiers: vybrat identifikátory přístupu
 choose the action: vyberte akci
+choose the currency: Vyberte měnu
 choose the scene: vyberte scénu
 choose the schedule: vyber harmonogram
 choose the timezone: vyberte časové pásmo
 click here: klikněte zde
+configuration missing: žádná konfigurace
 contains a character that is neither a letter nor a digit: obsahuje znak, který není ani písmenem, ani číslicí.
 contains a digit: obsahuje číslo
 contains lower and upper letters: obsahuje velká a malá písmena
+cool: chlazení
 copied: kopírováno
 copy: kopíruj
+day: den
 days: dny
+default: výchozí
 directLinkExecutionFailureReason_disabled: Přímý odkaz je vypnutý
 directLinkExecutionFailureReason_executionLimitExceeded: Limit výkonů byl překročen
 directLinkExecutionFailureReason_expired: Přímý odkaz je zastaralý
@@ -1086,8 +1403,20 @@ executed: hotovo
 extend: prodloužit
 from IP: z adresy IP
 from the IP: z adresy
+green, otherwise: jinak zelená
+green, when power less than the low threshold: zelená, když je výkon nižší než spodní práh.
+heat: topení
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Primární a sekundární teplota
+homeScreenContent_NONE: Neuvedeno
+homeScreenContent_TEMPERATURE: Teplota
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Teplota a vlhkost
+homeScreenContent_TEMPERATURE_TIME: Teplota a čas
+homeScreenContent_TIME: Čas
+homeScreenContent_TIME_DATE: Datum a čas
+hour: hod.
 hours: hodiny
 is at least {numChars} characters long: má alespoň {numChars} znaků
+keepHistoryMeasurementWarningSelected: Jste si jistý, že tento příběh potřebujete? Supla je projekt s open source kódem, který je udržován z vlastních prostředků. Pokud tento příběh nepotřebujete, pomozte nám ušetřit cenné místo v úložišti a nechte tuto možnost vypnutou.
 last 24 hours: posledních 24 hodin
 last 30 days: posledních 30 dní
 last 6 hours: posledních 6 hodin
@@ -1096,13 +1425,23 @@ logs_aggregation_day: dní
 logs_aggregation_hour: hodiny
 logs_aggregation_minute: minuty
 logs_aggregation_month: měsíce
+max: max.
+midnight: sever
+milliseconds: milisekundy
+min: min.
 min.: min.
 minutes: minuty
 notification: oznámení
+ocrLightingMode_ALWAYS_ON: Vždy zapnuto
+ocrLightingMode_AUTO: Automaticky
+ocrLightingMode_OFF: Vypnutá
+'off': Vypnout
 or another element: nebo jiný prvek
 password: heslo
 previous month: předchozí měsíc
 range: rozsah
+red, when power higher than the high threshold: červená, když je výkon nad vysokým prahem
+red, when voltage higher than the high threshold: červená, když je napětí vyšší než vysoký práh
 register-slide1-text: Na základě dostupné elektroniky Vám SUPLA umožní vytvářet jednoduché moduly, které vám umožní ovládat a řídit komponenty automatizace budov. Díky SUPLI můžete mimo jiné ovládat osvětlení, zapínat a vypínat domácí spotřebiče a elektroniku, otvírat a zavírat brány a dveře nebo řídit teplotu v místnostech. To vše můžete udělat jedním prstem.
 register-slide1-title: Vlastní inteligentní budova
 register-slide2-text: Jedním ze základních předpokladů projektu je jednoduchost a dostupnost. SUPLA umožňuje zapnout světlo jedním pohybem prstu nebo otevřít bránu, když chcete vstoupit do areálu. SUPLA je k dispozici všude tam, kde máte přístup k Internetu a máte k dispozici smartphone nebo tablet. SUPLA je vyvíjen na principech Open Software a Open Equipment, díky nimž můžete také tento projekt vyvíjet!
@@ -1116,6 +1455,7 @@ scheduleMode_daily: Denní cyklus
 scheduleMode_minutely: Minutový cyklus
 scheduleMode_once: Jednorázový
 sec.: sek.
+seconds: sekundy
 smartphones, tablets, etc.: smartphony, tablety atd.
 state-closed: Zavřené
 state-default: Výchozí
@@ -1133,24 +1473,78 @@ state-rgb_on_dim_off: RGB zapnuté, stmívač vypnutý
 state-rgb_on_dim_on: RGB a stmívač zapnuté
 state-shut: Zakryté
 state-temperature: Teplota
+statusLed_ALWAYS_OFF: Vždy vypnout
+statusLed_OFF_WHEN_CONNECTED: Vypnutí po připojení
+statusLed_ON_WHEN_CONNECTED: Povolit při připojení
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Neznámý výsledek
+subdevicePairingResult_NOT_STARTED_BUSY: Zařízení je obsazeno
+subdevicePairingResult_NOT_STARTED_NOT_READY: Zařízení není připraveno
+subdevicePairingResult_NOT_SUPPORTED: Nepodporovaná operace
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Nebylo nalezeno žádné nové vybavení
+subdevicePairingResult_ONGOING: V průběhu
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Neznámý výsledek odpařování
+subdevicePairingResult_PROCEDURE_STARTED: Zahájení postupu
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Překročení limitu prostředků
+subdevicePairingResult_SUCCESS: Úspěch
+subdevicePairingResult_UNAUTHORIZED: Neúspěšná autorizace
 sum: suma
+sunrise: východ slunce
 sunrise-after: po východu slunce
 sunrise-before: před východem slunce
+sunset: západ slunce
 sunset-after: po západu slunce
 sunset-before: před západem slunce
+swap: swap
+the master thermostat ID{id}: ID{id} hlavního termostatu
 the whole history: celá historie
 then execute the action: pak proveďte akci
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Zapnuto/vypnuto s horním nastavením
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Zapnuto/vypnuto se středním nastavením
+thermostatAlgorithm_PID: PID
+thermostatSubfunction_COOL: Chlazení
+thermostatSubfunction_HEAT: Ohřívání
+thermostatTemperature_aboveAlarm: Nad alarmem
+thermostatTemperature_auxMaxSetpoint: Maximální pomocná teplota
+thermostatTemperature_auxMinSetpoint: Minimální pomocná teplota
+thermostatTemperature_belowAlarm: Pod alarmem
+thermostatTemperature_boost: Zvýšení teploty
+thermostatTemperature_comfort: Komfortní teplota
+thermostatTemperature_eco: Teplota ECO
+thermostatTemperature_freezeProtection: Teplota ochrany proti zamrznutí
+thermostatTemperature_heatProtection: Teplota ochrany proti přehřátí
+thermostatTemperature_histeresis: Hystereze
 this month: aktuální měsíc
 this year: aktuální rok
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Změna polohy při změně náklonu
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Nemění polohu při změně náklonu
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: mění výšku tónu pouze při úplném zavření
+tiltControlType_UNKNOWN: Neznámý
+timeMarginMode_custom: Nestandardní
+timeMarginMode_device: Výchozí hodnota ze zařízení
+timeMarginMode_off: Vypnutý
 today: dnes
 unknown: neznámý
+usedCTType_100A_33mA: 100 A/33,3 mA
+usedCTType_200A_66mA: 200 A/66,6 mA
+usedCTType_400A_133mA: 400 A/133,3 mA
+usedPhaseLedType_OFF: Vypnutá
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Směr toku energie
+usedPhaseLedType_VOLTAGE_LEVEL: Úroveň napětí
+usedPhaseLedType_VOLTAGE_PRESENCE: Přítomnost napětí
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Přítomnost napětí (invertované)
 username: název uživatele
 valid until: vyprší
 values as seen on chart: hodnoty jako v diagramu
 values as seen on counter: hodnoty jako na počítadle
+valveOpenConfirm_manual: Ventil byl uzavřen dálkovým ovladačem (klíčenkou nebo záplavovým čidlem). Než ventil znovu otevřete, ujistěte se, že nebyl uzavřen kvůli úniku vody. Pokud je záplavové čidlo ve vodě,  NEvyšle ventilu  opakovaně signál pro uzavření. Chcete-li varování vypnout, otevřte ventil pomocí ovládacího tlačítka na ventilu. Opravdu chcete ventil otevřít?!
 yesterday: včera
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nemůže komunikovat s Vaším účtem, dokud znovu neudělíte přístup.'
 '{clientName} wants to access your account.': '{clientName} chce získat přístup k vašemu účtu.'
+'{count} minutes after sunrise': '{count} minut po východu slunce'
+'{count} minutes after sunset': '{count} minut po západu slunce'
+'{count} minutes before sunrise': '{count} minut před východem slunce'
+'{count} minutes before sunset': '{count} minut před západem slunce'
+'{days} days': '{days} dnech'
 '{minutes} minutes after sunrise': '{minutes} minut po východu slunce'
 '{minutes} minutes after sunset': '{minutes} minut po západu slunce'
 '{minutes} minutes before sunrise': '{minutes} minut před východem slunce'
@@ -1174,6 +1568,7 @@ Are you sure you want to disable this device?: Opravdu chcete toto zařízení d
 Assigned Locations: Přiřazené umístění
 Authorized OAuth apps: Autorizované aplikace OAuth
 Calculated value: Stav elektroměru
+Cannot execute an action when the device is disconnected.: Je zakázané provádět akci, pokud je zařízení vypnuté.
 Cannot send an activation e-mail. Try again later.: Nelze odeslat zprávu s aktivačním odkazem. Zkuste to prosím znovu později.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Neobdrželi jste zprávu s odkazem aktivujícím Váš účet? Ujistěte se, že neskončila ve složce SPAM (nevyžádaná pošta). Můžete také {clickHereLink} a odeslat ji znovu.
 Channel value: Hodnota
@@ -1194,6 +1589,7 @@ Doors, Gates: Dveře, Brány
 ENABLED: ZAPNUTO
 Email already exists: E-mailová adresa již existuje
 Existing schedules: Stávající plány
+Expected maximum increment: Očekávané maximální zvýšení
 From IP: Z adresy IP
 Get SUPLA on your devices: Stáhněte si zařízení SUPLA do vašeho zařízení
 Hi: Ahoj
@@ -1201,6 +1597,7 @@ Hour: Hodina
 Hours: Hodiny
 I/O: Vstup/ Výstup
 If you want to stay here, do something!: Pokud chcete zůstat, udělejte něco!
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Chcete-li minimalizovat riziko nesprávného odečtu, nastavte maximální očekávaný přírůstek hodnoty počítadla mezi po sobě jdoucími snímky.
 Initial value: Počáteční hodnota
 Input: Vvstup
 Interpolate measurements: Spočítat chybějící hodnoty
@@ -1208,6 +1605,8 @@ Languages: Jazyky
 Loading: Načítání
 Location password must be at least 4 characters.: Heslo pro umístění musí mít délku alespoň 4 znaků.
 Location password must be no longer than 32 characters.: Heslo pro umístění nesmí být delší než 32 znaků.
+Maximum temperature that can be set from the device: Maximální teplota, kterou lze nastavit pomocí zařízení
+Minimum temperature that can be set from the device: Minimální teplota, kterou lze nastavit pomocí zařízení
 Minute: Minuta
 Mobile Apps: Mobilní aplikace
 Next: Dále
@@ -1217,6 +1616,7 @@ Output: Výstup
 Please select an action: Vyberte akci prosím
 Please select the schedules that should also be enabled.: Vyberte plány, které by měly být také zahrnuty.
 Previous login: Předchozí přihlášení
+Reference to the channel will be removed from the items below.: Odkazování na tento kanál bude z následujících kanálů odstraněno.
 Registration: Registrace
 Remove: Vymazat
 Schedule cannot be enabled: Plán nemohl být zapnutý
@@ -1229,12 +1629,33 @@ Status: Stav
 Subject: Předmět
 Sunrise / Sunset: Východ / Západ
 Supla for devices: Supla na zařízeních
+Temperature adjustment only: Pouze nastavení teploty
 The events in voltage aberrations history will be automatically deleted after {days} days.: Události v historii napěťových aberací se automaticky odstraní po {days} dnech.
+The items below depend on this channel, so they will be deleted.: Následující položky závisí na tomto kanálu, proto budou odstraněny.
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reakce bude aktivní, pokud jsou splněny všechny následující podmínky. Pokud nastavíte všechny dostupné možnosti, reakce se aktivuje pouze mezi vybranými daty, ve vybraných časech a dnech v týdnu a při splnění jedné z referenčních hodnot západu nebo východu slunce.
 Triggers: Spouštěče
 Try again later: Zkuste to prosím později
 Turning this device off will result in disabling all the associated schedules.: Vypnutí tohoto zařízení způsobí také vypnutí plánů, které jsou s ním spojeny.
+Unlocked: Odblokované
+Use working schedule for this access identifier: Použijte plán dostupnosti pro tento přístupový identifikátor
+Use working schedule for this reaction: Pro tuto odpověď použijte plán činností
+User interface: Počítačové rozhraní
 Value per unit: Hodnota na jednotku
 When: Kdy
+When the curtain reaches: Když opona dosáhne
+When the facade blind reaches: Když fasádní žaluzie dosáhne
+When the projector screen reaches: Když projekční plocha dosáhne
+When the roller garage door a certain position: Když garážová vrata dosáhnou určité polohy
+When the roller garage door reaches: Když garážová vrata dosáhnou
+When the roller shutter calibration failed: Pokud kalibrace rolety skončí chybou.
+When the roller shutter calibration has been lost: Pokud se kalibrace rolet nemůže dokončit.
+When the roller shutter calibration has started: Po zahájení kalibrace rolety
+When the roller shutter motor reported a problem: Když motor rolety nahlásí problém.
+When the roller shutter reaches: Když roleta dosáhne
+When the roof window reaches: Když střešní okno dosáhne
+When the terrace awning reaches: Když markýza na terase dosáhne
+When the vertical blind reaches: Když vertikální žaluzie dosáhne
+Working schedule: Plán činnosti
 You need to provide icons for all states.: Musíte přidat ikony pro všechny stavy.
 You will be logged out shortly: Budete brzy odhlášeni
 choose a currency: vyberte měnu
@@ -1247,435 +1668,121 @@ or add a delay: nebo přidat zpoždění
 prefix: předpona
 reset chart view: vrátit se na původní náhled
 suffix: přípona
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-0% tilt angle: Úhel lamel, který žaluzie nastaví při zavírání
-100% tilt angle: Úhel lamel, který žaluzie nastaví při otevírání
-A confirmation upon successful device unlocking.: Potvrzení odemčení zařízení.
-Active from: Aktivní od
-Active to: Aktivní do
-Activity conditions: Podmínky činnosti
-Additional time margin: Dodatečná časová rezerva
-Adjust temperature: Nastavte teplotu
-Adjust temperatures: Nastavit teploty
-After the delay: Po určité době
-After the delay, but only when it's dark: Po určité době, ale pouze když je tma.
-Alarm armament sensor: Snímač aktivace alarmu
-Algorithm: Algoritmus
-All programs must define at least one temperature threshold.: Každý program musí definovat alespoň jeden teplotní práh.
-Always decrement: Vždy klesající
-Always increment: Vždy rostoucí
-Anti-freeze and overheat protection: Ochrana proti přehřátí a zamrznutí
-Anti-freeze protection: Ochrana proti zamrznutí
-Are you sure you want to change channel’s location?: Určitě chcete změnit umístění kanálu?
-Are you sure you want to change channel’s visibility?: Jste si jisti, že chcete změnit viditelnost kanálu?
-Are you sure you want to change device’s location?: Opravdu chcete změnit umístění zařízení?
-Are you sure you want to delete this channel?: Opravdu chcete tento kanál odstranit?
-Automatic: Automatické
-Automatic front panel turn off: Automatické vypnutí předního panelu
-Automatic front panel turn off after: Čas do vypnutí předního panelu
-Automatic thermostat: Automatický termostat
-Automatic time synchronization: Automatická synchronizace data a času
-Aux thermometer: Přídavný teploměr
-Aux thermometer type: Typ přídavného teploměru
-Available variables: Dostupné proměnné
-Average: Průměr
-Battery cover open: Otevřený kryt baterie
-Behavior settings: Chování
-Binary sensor: Binární senzor
-Brightness adjustment for automatic mode: Nastavení jasu v automatickém režimu
-Brightness level: Úroveň jasu
-Button volume: Hlasitost tlačítka
-Buttons upside down: Obrácené ovládání tlačítky
-Candle: Svíčkový
-Cannot update OCR settings. Try again in a while.: Aktualizace nastavení OCR se nezdařila. Zkuste to znovu za pár minut.
-Change percentage by: Změňte procento o
-Change percentage to: Změňte procento na
-Change tilt by: Změňte sklon o
-Change tilt to: Změňte sklon na
-Change to be the same.: Nastavte stejnou hodnotu.
-Changing channel’s visibility will also change the visibility of other items.: Změnou viditelnosti kanálu se změní i viditelnost ostatních prvků.
-Changing the location will also imply changing the location of the following items.: Změnou umístění se změní také u následujících položek.
-Channels that are meant to work with each other must be in the same location.: Kanály, které mají spolupracovat, musí být na stejném místě.
-Clock error: Chyba hodin
-Close value: Závěrečná hodnota
-Collapse: Sbalit
-Collapse or stop: Sbalit nebo zastavit
-Collapse partially: Částečně sbalit
-Command has been sent to the device. Try refreshing the photo in a while.: Požadavek byl odeslán do zařízení. Zkuste fotografii za chvíli obnovit.
-Common currencies: Nejčastěji vybírané měny
-Configuration not available yet. Waiting for the device to connect.: Konfigurace zatím není k dispozici. Počkejte, až se zařízení připojí.
-Confirm if you want to perform the calibration.: Potvrďte, že chcete provést kalibraci.
-Conflict: Konflikt
-Cool to: Schladit na
-Cooling mode: Režim chlazení
-'Cooling: {percent}%': 'Chlazení: {percent}%'
-Costs: Náklady
-Could not restart the device.: Zařízení se nepodařilo restartovat.
-Could not send the identify command.: Příkaz se nepodařilo odeslat.
-Could not set the device time.: Na zařízení nebylo možné nastavit datum a čas
-Counter type: Typ měřiče
-Curtain: Závěs
-Dark mode: Tmavý režim
-Data: Údaje
-Date range: Rozsah dat
-Daytime criteria: Kritéria založená na délce dne
-Dependencies: Závislosti
-'Device GUID: %deviceGuid%': 'GUID zařízení: %deviceGuid%'
-Device identification is unsupported in the firmware.: Identifikace zařízení není ve firmwaru podporována.
-Device settings: Nastavení zařízení
-Device should be restarting now.: Zařízení by se mělo restartovat.
-Device time has been set.: Datum a čas zařízení byly nastaveny.
-Different than on master thermostat.: Nastavení se liší od nastavení na hlavním termostatu.
-Differential thermostat: Diferenciální termostat
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Chcete nastavit kanály závislé na tomto termostatu (například teploměry a čidla) tak, aby byly stejné jako v hlavním termostatu?
-Domestic hot water: Teplá voda v domácnosti
-Dryer: Vysoušeč
-Edit area crop: Upravit oblast
-Edit program settings: Úprava nastavení programu
-Electricity meter active power history: Historie výkonu elektroměru
-Electricity meter current history: Historie intenzity měření elektřiny
-Electricity meter voltage aberrations history: Historie odchylky napětí elektroměru
-Electricity meter voltage history: Historie napětí elektroměru
-Enable floor temperature control: Aktivace regulace teploty podlahy
-Enable generic cooler temperature control: Aktivace regulace teploty zdroje chlazení
-Enable generic heater temperature control: Aktivace regulace teploty zdroje tepla
-Enable power status LED: Aktivace LED diody stavu napájení
-Enable support for OCR readings for this channel: Aktivace podpory pro rozpoznání OCR tohoto kanálu
-Enable water temperature control: Aktivace regulace teploty vody
-Example value: Příklad
-Expand: Rozbalit
-Expand or stop: Rozbalit nebo zastavit
-Expand partially: Částečně rozbalit
-Expected maximum increment: Očekávané maximální zvýšení
-External sensor disabling the thermostat: Externí čidlo pro vypnutí termostatu
-Facade blind operation: Fasádní žaluzie
-Fan: Větrný mlýn
-'Field: {propertyPath}.': 'Pole {propertyPath}.'
-Fill missing data: Doplňte chybějící měření
-Firmware: Firmware
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tohoto zařízení odesílá oznámení v rámci tohoto kanálu. Zde můžete nastavit obsah a příjemce. Další informace získáte od dodavatele zařízení.
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tohoto zařízení odesílá oznámení. Zde můžete nastavit obsah a příjemce. Další informace získáte od dodavatele zařízení.
-For a period: Za období
-Forced off by sensor: Vynucené vypnutí senzorem
-Full tilting time: Celková doba změny sklonu
-Function disabled: Funkce vypnuta
-General purpose meter: Kanál měřiče pro všeobecné použití
-HVAC: HVAC
-Heat or cold source switch: Přepínač pro zdroj tepla nebo chladu
-Heat to: Zahřátí na
-Heating / ventilation / air conditioning: topení / větrání / klimatizace (HVAC)
-Heating mode: Režim topení
-'Heating: {percent}%': 'topení: {percent}%'
-High threshold: Vysoký práh
-High value: Maximální hodnota
-History: Historie
-Home screen content: Obsah hlavní obrazovky
-Hotel card sensor: Snímač hotelové karty
-Identify device: Identifikace zařízení
-Identify request sent.: Žádost o identifikaci byla odeslána.
-If you confirm the installation and wish to unlock this device, please click the link below.: Pokud se snažíte přidat nové zařízení, klikněte na odkaz níže a potvrďte odemknutí.
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Pokud se zařízení nesnažíte odemknout vy, tento e-mail ignorujte. Platnost potvrzovacího odkazu automaticky vyprší po 24 hodinách.
-Image area crop: Oblast obrázku
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Chcete-li minimalizovat riziko nesprávného odečtu, nastavte maximální očekávaný přírůstek hodnoty počítadla mezi po sobě jdoucími snímky.
-Increment and decrement: Vzestupný a sestupný
-Installer e-mail address: E-mailová adresa instalatéra
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: Zařízení zaregistrovalo kanál jiného typu ({typeCaption} - {typeId}) místo aktuálního.
-Invalid e-mail address.: Neplatná e-mailová adresa.
-Invalid unlock code.: Nesprávné odblokování odkazu.
-Last paired device: Poslední spárované zařízení
-Light mode: Jasný režim
-Lighting level: Úroveň osvětlení
-Lighting mode: Režim osvětlení
-List of available variables: Seznam dostupných proměnných
-Locked: Zablokovaný
-Low threshold: Nízký práh
-Low threshold must be less than high threshold.: Nízký práh musí být nižší než vysoký práh
-Low value: Minimální hodnota
-Main thermometer: Hlavní teploměr
-Master thermostat: Nadřazený termostat
-Max: Max.
-Maximum duration is one year.: Maximální doba je jeden rok.
-Maximum temperature that can be set from the device: Maximální teplota, kterou lze nastavit pomocí zařízení
-Measurement settings: Nastavení měření
-Min: Min.
-Minimum OFF time before cooling can be turned on: Minimální doba VYPNUTÍ před opětovným spuštěním chlazení
-Minimum OFF time before heating can be turned on: Minimální doba VYPNUTÍ před opětovným spuštěním topení
-Minimum OFF time before heating/cooling can be turned on: Minimální doba VYPNUTÍ před opětovným spuštěním chlazení/topení
-Minimum ON time before cooling can be turned off: Minimální doba ZAPNUTÍ, než se chlazení opět vypne
-Minimum ON time before heating can be turned off: Minimální doba ZAPNUTÍ, než se topení opět vypne
-Minimum ON time before heating/cooling can be turned off: Minimální doba ZAPNUTÍ před opětovným vypnutím chlazení/topení
-Minimum temperature must be lower than maximum temperature.: Minimální teplota musí být nižší než maximální teplota.
-Minimum temperature that can be set from the device: Minimální teplota, kterou lze nastavit pomocí zařízení
-'Mode: cool': 'Režim: chlazení'
-'Mode: heat': 'Režim: topení'
-'Mode: off': 'Režim: vypnuto'
-Motor upside down: Invertované řízení motoru
-'No': 'Ne'
-No results: Žádné výsledky
-Notification body is set by the firmware.: Obsah oznámení nastavuje firmware.
-Notification must have recipients.: Oznámení musí mít příjemce.
-Notification title is set by the firmware.: Hlavička oznámení je nastavena firmwarem.
-Notifications (defined): Oznámení (definováno)
-Notifications (sent per hour): Oznámení (odeslaná za hodinu)
-'OCR service responded with error: {status}': 'Služba OCR odpověděla chybou: {status}'
-OCR settings: Nastavení OCR
-OR: NEBO
-Off with duration: Čas vypnutí
-On with duration: Čas zapnutí
-Open value: Hodnota pro otevření
-Output value on error: Stav výstupu při chybě
-Overheat protection: Ochrana před přehřátím
-P/C: P/C
-Pair new devices or sensors: Párování nových zařízení nebo snímačů
-Pairing request sent.: Žádost o spárování odeslána.
-Pairing subdevices is unsupported in the firmware.: Párování není podporováno softwarem zařízení.
-Phase LED type: Indikátor fáze LED
-Photo interval: Interval snímání fotografií
-Please find the device details below.: Podrobnosti o zařízení naleznete níže.
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Upozorňujeme, že dané zařízení je určeno pouze pro certifikované montážní firmy.
-Please provide the installer e-mail address to request the device unlock.: Chcete-li zařízení odemknout, zadejte e-mailovou adresu, která byla zadána při získávání instalačního certifikátu.
-Please select and configure the action: Vyberte a nakonfigurujte akci.
-Program {programNo}: Program {programNo}
-Projector screen: Promítací plátno
-Pump switch: Spínač čerpadla
-Push notifications limit has been exceeded: Limit pro push oznámení byl překročen
-Reference to the channel will be removed from the items below.: Odkazování na tento kanál bude z následujících kanálů odstraněno.
-Refresh interval: Interval obnovení
-Refresh the config: Obnovení konfigurace
-Refreshing the configuration will overwrite the changes you made here.: Obnovení konfigurace přepíše změny provedené ve formuláři.
-Reload last photo: Znovu načíst poslední fotografii
-Remote restart is unsupported in the firmware.: Software zařízení nepodporuje vzdálený restart.
-Remove this item: Odstranění tohoto prvku
-Request device unlock: Žádost o odemknutí zařízení
-Reset to defaults: Obnovení výchozích hodnot
-Restart device: Restartování zařízení
-Restart the device: Restartování zařízení
-Reveal or stop: Odhalit nebo zastavit
-Roller garage door: Garážová brána
-S/N: S/N
-SUPLA - Confirm unlocking device for authorized installers: SUPLA - Odblokování zařízení pro certifikovaného instalatéra
-SUPLA – your device has been unlocked!: SUPLA - Vaše zařízení bylo odemčeno!
-Same as on master thermostat.: Stejné nastavení jako na hlavním termostatu.
-Screen brightness: Jas obrazovky
-Selected: Vybráno
-Set HVAC parameters: Nastavení parametrů
-Set the device time: Na zařízení nebylo možné nastavit datum a čas
-Settings: Nastavení
-Settings have not been saved!: Nastavení nebyla uložena!
-Show data: Zobrazit data
-Shut or stop: Zakrýt nebo zastavit
-Some features depend on this channel: Některé funkce závisí na tomto kanálu
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Některé shromážděné údaje pro váš účet budou po určité době pravidelně vymazány. Seznamte se s níže uvedenými limity.
-Status LED: Stav LED
-Store active power history: Uchovávejte historii činného výkonu
-Store current history: Uchovávejte aktuální historii
-Store voltage history: Uchovávejte historii napětí
-'Subdevice #{id}': 'Subdodavatelské zařízení #{id}'
-Subfunction: Podfunkce
-Switch to manual mode: Přepnutí do manuálního režimu
-Switch to program mode: Přepnutí do programového režimu
-THEN: POTÉ
-Take a photo now: Vyfoťte se nyní
-Temperature adjustment only: Pouze nastavení teploty
-Temperature difference is too big between {min}°C and {max}°C.: Rozdíl teplot mezi {min} °C a {max} °C je příliš velký.
-Temperature setpoint change switches to manual mode: Změna cílové teploty přepne do ručního režimu
-Temporal override: Dočasné přepsání
-Terrace awning: Markýza na terasu
-The channel has been deleted.: Kanál byl odstraněn.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfigurace byla změněna z jiného místa (např. z jiného okna prohlížeče, mobilní aplikace nebo zařízení). Před provedením dalších změn je třeba obnovit konfiguraci.
-The device could not be unlocked.: Zařízení nebylo možné odemknout.
-The device has been unlocked already.: Zařízení je již odemčené.
-The device has been unlocked.: Zařízení bylo odemčeno.
-The device has channel conflict and cannot work.: Zařízení vyvolalo konflikt kanálů a nemůže v současné době pracovat.
-The device is locked: Zařízení je zablokováno
-The following channels will be also removed along with their dependencies.: Následující kanály budou také odstraněny spolu s jejich závislostmi.
-The items below depend on this channel, so they will be deleted.: Následující položky závisí na tomto kanálu, proto budou odstraněny.
-The master termostat you chose already has a master.: Vybraný hlavní termostat již má jiný hlavní termostat.
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reakce bude aktivní, pokud jsou splněny všechny následující podmínky. Pokud nastavíte všechny dostupné možnosti, reakce se aktivuje pouze mezi vybranými daty, ve vybraných časech a dnech v týdnu a při splnění jedné z referenčních hodnot západu nebo východu slunce.
-The thermostat will not work if the main thermometer is not set.: Aby termostat fungoval, musí být nastaven hlavní teploměr.
-Thermometer error: Chyba teploměru
-Thermometers configuration: Konfigurace teploměrů
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Tento termostat používá nastavení z hlavního termostatu. Přejděte na stránku s podrobnostmi a změňte nastavení.
-Thermostat programs: Programy termostatu
-This action will result in restarting the device. It will not be available for a while.: Při zadání této operace se zařízení restartuje. Během restartu bude zařízení nedostupné.
-This channel was missing during last device registration attempt.: Tento kanál v zařízení chybí.
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Tento spotřebič je určen k distribuci a instalaci pouze autorizovanými instalatéry. Pokud nejste autorizovaným instalatérem SUPLA a nemáte aktivní certifikát o školení, vraťte jej svému prodejci.
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Toto je poslední fotografie nahraná ze zařízení. Označte přesnou oblast, kde jsou číslice počítadla viditelné.
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Jedná se o seznam reakcí spuštěných na vašem účtu. Pokud chcete přidat novou reakci, přejděte do podrobností kanálu, který ji má spustit.
-This thermostat is controlled by another device.: Tento termostat je řízen hlavním termostatem.
-Tilt angle: Úhel sklonu
-Tilt control type: Typ řízení sklonu
-Tilt percent: Procento sklonu
-Time: Čas
-Today, it would be active from {from} to {to}.: Dnes by období aktivity spadalo do období mezi {from} a {to}.
-Turn off: Vypnout
-Unlock the device: Odblokujte zařízení
-Unlocked: Odblokované
-Until a date and time: Až do
-Until the next change: Do příští změny
-Use device default: Použijte výchozí hodnotu ze zařízení
-Use working schedule for this reaction: Pro tuto odpověď použijte plán činností
-Use {theMasterThermostat} to control this device.: K ovládání tohoto zařízení použijte {theMasterThermostat}.
-Used current transformer type: Použitý transformátor proudu
-User interface: Počítačové rozhraní
-Value divider: Rozdělovač
-Value multiplier: Násobitel
-Vertical blind: Vertikální žaluzie
-Visit the master thermostat page.: Přejděte k hlavnímu termostatu.
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Obdrželi jsme žádost o odblokování zařízení určeného pouze pro certifikované instalatéry. Požadavek byl odeslán uživatelem %deviceUserEmail% z instance služby SUPLA Cloud na adrese %targetCloudUrl%.
-Week: Týden
-Weekly schedule: Týdenní plán
-When the alarm is armed: Když je alarm zapnutý
-When the alarm is armed or disarmed: Když je alarm vypnutý nebo zapnutý
-When the alarm is disarmed: Když je alarm vypnutý
-When the battery cover is opened: Po otevření krytu baterie
-When the clock error has been reported: Když časovač ohlásí chybu
-When the curtain position changes: Při změně polohy závěsu
-When the curtain reaches: Když opona dosáhne
-When the curtain reaches a certain position: Když závěs dosáhne určité polohy
-When the facade blind position changes: Při změně polohy fasádní žaluzie
-When the facade blind reaches: Když fasádní žaluzie dosáhne
-When the facade blind reaches a certain position: Když fasádní žaluzie dosáhne určité polohy
-When the hotel card has been taken: Při vyjmutí hotelové karty
-When the hotel card is put in: Po vložení hotelové karty
-When the hotel card is put in or has been taken: Při vložení nebo vyjmutí hotelové karty
-When the meter reaches a certain value: Když počitadlo dosáhne nastavené hodnoty
-When the meter value changes: Když se změní hodnota
-When the meter value will be: Když je hodnota
-When the projector screen position changes: Při změně polohy promítacího plátna
-When the projector screen reaches: Když projekční plocha dosáhne
-When the projector screen reaches a certain position: Když projekční plocha dosáhne určité polohy.
-When the pump is turned off: Když je čerpadlo vypnuté
-When the pump is turned on: Když je čerpadlo zapnuté
-When the pump is turned on or off: Při zapnutí nebo vypnutí čerpadla
-When the roller garage door a certain position: Když garážová vrata dosáhnou určité polohy
-When the roller garage door position changes: Při změně polohy garážových vrat
-When the roller garage door reaches: Když garážová vrata dosáhnou
-When the roller shutter calibration failed: Pokud kalibrace rolety skončí chybou.
-When the roller shutter calibration has been lost: Pokud se kalibrace rolet nemůže dokončit.
-When the roller shutter calibration has started: Po zahájení kalibrace rolety
-When the roller shutter motor reported a problem: Když motor rolety nahlásí problém.
-When the terrace awning position changes: Při změně polohy markýzy na terase
-When the terrace awning reaches: Když markýza na terase dosáhne
-When the terrace awning reaches a certain position: Když markýza na terase dosáhne určité polohy.
-When the thermometer error has been reported: Když teploměr hlásí chybu
-When the thermostat starts cooling: Když termostat začne chladit
-When the thermostat starts heating: Když termostat začne hřát
-When the thermostat starts heating or cooling: Když termostat spustí chlazení nebo topení
-When the thermostat starts or stops cooling: Když termostat spustí nebo zastaví chlazení
-When the thermostat starts or stops heating: Když termostat spustí nebo zastaví topení
-When the thermostat starts or stops heating or cooling: Když termostat spustí nebo zastaví topení nebo chlazení.
-When the thermostat stops cooling: Když termostat přestane chladit
-When the thermostat stops heating: Když termostat přestane topit
-When the thermostat stops heating or cooling: Když termostat přestane chladit nebo topit
-When the vertical blind position changes: Při změně polohy vertikální žaluzie
-When the vertical blind reaches: Když vertikální žaluzie dosáhne
-When the vertical blind reaches a certain position: Když vertikální žaluzie dosáhne určité polohy
-Will be deleted after: Odstranění po
-With a timer: S časovačem
-'Yes': 'Ano'
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Zde můžete nastavit relativní hodnoty. Například +10 nebo -20 zvýší nastavení o 10, resp. sníží o 20.
-You cannot to set a master thermostat for a channel that is master for others.: V hlavním termostatu nelze nastavit hlavní termostat.
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Žádost byla odeslána. Po schválení instalace a odemčení zařízení vás budeme informovat.
-You need to provide icons for all states in light mode.: Pro všechny stavy v jasném režimu je nutné zadat ikony.
-Your device has been unlocked by the installer.: Vaše zařízení bylo odemčeno instalátorem.
-and wait until the meter will be: a neprovádějte tuto reakci znovu, dokud se hodnota
-auxThermometerType_DISABLED: Vypnutý
-auxThermometerType_FLOOR: Podlaha
-auxThermometerType_GENERIC_COOLER: Zdroj chladu
-auxThermometerType_GENERIC_HEATER: Zdroj tepla
-auxThermometerType_NOT_SET: Není nastaveno
-auxThermometerType_WATER: Voda
-blue, otherwise: jinak modrá
-blue, when voltage lower than the low threshold: modrá, když je napětí pod nízkou prahovou hodnotou
-choose the currency: Vyberte měnu
-configuration missing: žádná konfigurace
-cool: chlazení
-day: den
-default: výchozí
-green, otherwise: jinak zelená
-green, when power less than the low threshold: zelená, když je výkon nižší než spodní práh.
-heat: topení
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Primární a sekundární teplota
-homeScreenContent_NONE: Neuvedeno
-homeScreenContent_TEMPERATURE: Teplota
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: Teplota a vlhkost
-homeScreenContent_TEMPERATURE_TIME: Teplota a čas
-homeScreenContent_TIME: Čas
-homeScreenContent_TIME_DATE: Datum a čas
-hour: hod.
-keepHistoryMeasurementWarningSelected: Jste si jistý, že tento příběh potřebujete? Supla je projekt s open source kódem, který je udržován z vlastních prostředků. Pokud tento příběh nepotřebujete, pomozte nám ušetřit cenné místo v úložišti a nechte tuto možnost vypnutou.
-max: max.
-midnight: sever
-milliseconds: milisekundy
-min: min.
-ocrLightingMode_ALWAYS_ON: Vždy zapnuto
-ocrLightingMode_AUTO: Automaticky
-ocrLightingMode_OFF: Vypnutá
-'off': 'Vypnout'
-red, when power higher than the high threshold: červená, když je výkon nad vysokým prahem
-red, when voltage higher than the high threshold: červená, když je napětí vyšší než vysoký práh
-seconds: sekundy
-statusLed_ALWAYS_OFF: Vždy vypnout
-statusLed_OFF_WHEN_CONNECTED: Vypnutí po připojení
-statusLed_ON_WHEN_CONNECTED: Povolit při připojení
-subdevicePairingResult_CMD_RESULT_UNKNOWN: Neznámý výsledek
-subdevicePairingResult_NOT_STARTED_BUSY: Zařízení je obsazeno
-subdevicePairingResult_NOT_STARTED_NOT_READY: Zařízení není připraveno
-subdevicePairingResult_NOT_SUPPORTED: Nepodporovaná operace
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: Nebylo nalezeno žádné nové vybavení
-subdevicePairingResult_ONGOING: V průběhu
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Neznámý výsledek odpařování
-subdevicePairingResult_PROCEDURE_STARTED: Zahájení postupu
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Překročení limitu prostředků
-subdevicePairingResult_SUCCESS: Úspěch
-subdevicePairingResult_UNAUTHORIZED: Neúspěšná autorizace
-sunrise: východ slunce
-sunset: západ slunce
-swap: swap
-the master thermostat ID{id}: ID{id} hlavního termostatu
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Zapnuto/vypnuto s horním nastavením
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Zapnuto/vypnuto se středním nastavením
-thermostatAlgorithm_PID: PID
 thermostatAlgorithm_help: |
   Algoritmy zapnutí/vypnutí fungují na základě nastavení hystereze. Hystereze se může vztahovat ke středu jejího rozsahu (střední nastavení) nebo k nastavené teplotě (horní nastavení).
   Například za předpokladu hystereze 1 °C a cílové teploty 23 °C termostat:
   - zapne topení při 22,5 °C a zastaví, když teplota dosáhne 23,5 °C pro střední nastavení 
   - zapne topení při 22 °C a zastaví, když teplota dosáhne 23 °C pro horní nastavení
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Action trigger for channel: ~
+Activity schedule: ~
+Alarm at level (and above) should be greater than the corresponding warning level.: ~
+Alarm at level (and below) should be lower than the corresponding warning level.: ~
+Alarm level: ~
+Algorithms available on this device: ~
+Are you sure you want to delete this subdevice?: ~
+Aux thermometer for channel: ~
+Binary sensor for channel: ~
+Cannot execute an action when the channel is not available.: ~
+Channels that are meant to work with each other must have the same visibility setting.: ~
+Choose many: ~
+Container: ~
+Container level sensor: ~
+Container supports up to 10 sensors.: ~
+Device interface: ~
+Each container level sensor must have different fill level.: ~
+Fill level: ~
+Flood sensor: ~
+Flood sensor for valve: ~
+Flood sensors: ~
+Image: ~
+Invalid sensor state: ~
+Level sensor: ~
+Level sensor for container: ~
+Level sensors: ~
+Lock type: ~
+Main thermometer for channel: ~
+Master thermostat for channel: ~
+Maximum: ~
+Minimum: ~
+Motor problem: ~
+Mute alarm: ~
+Mute alarm sound without additional auth: ~
+Mute command sent: ~
+Not available: ~
+Opening sensor for channel: ~
+Percentage of extension: ~
+Photo history: ~
+Pump switch for channel: ~
+Reading: ~
+Reference to the deleted channels will be removed from the items below.: ~
+Scene ID{id} is being executed right now.: ~
+Scene ID{id} is inactive right now.: ~
+Septic tank: ~
+Sound alarm on: ~
+Temperature control type: ~
+Temperatures that can be set from local UI: ~
+The items below depend on the deleted channels, so they will be deleted, too.: ~
+The subdevice has been deleted.: ~
+This device cannot be remotely awakened. We are awaiting communication from the device...: ~
+Updating...: ~
+Use activity schedule: ~
+Valve supports up to 20 sensors.: ~
+Waiting: ~
+Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).: ~
+Warning level: ~
+Water tank: ~
+When a flood is detected: ~
+When a flooding state changes: ~
+When a flooding state has been cleared: ~
+When any of the sensors starts to report an invalid state: ~
+When any of the sensors stops to report an invalid state: ~
+When the alarm starts: ~
+When the alarm stops: ~
+When the battery level will be: ~
+When the battery reaches a certain level: ~
+When the calibration fails: ~
+When the calibration has been lost: ~
+When the calibration has started: ~
+When the device starts to be powered from battery: ~
+When the device stops to be powered from battery: ~
+When the fill level changes: ~
+When the fill level reaches a certain value: ~
+When the fill level reading error disappears: ~
+When the fill level reading error occurs: ~
+When the fill level will be: ~
+When the motor reported a problem: ~
+When the position reaches: ~
+When the roller garage door reaches a certain position: ~
+When the sound alarm starts: ~
+When the sound alarm stops: ~
+When the warning starts: ~
+When the warning stops: ~
+You cannot change this function becuase it is required by another channel.: ~
+activityConditions_help: ~
+and wait until the battery level will be: ~
+and wait until the fill level will be: ~
+directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
+localUILock_FULL: ~
+localUILock_TEMPERATURE: ~
+localUILock_UNLOCKED: ~
+state-half: ~
+state-hi: ~
+state-low: ~
+tank_alarm_alarmAboveLevel: ~
+tank_alarm_alarmBelowLevel: ~
+tank_alarm_warningAboveLevel: ~
+tank_alarm_warningBelowLevel: ~
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
+temperatureControlType_ROOM_TEMPERATURE: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: ~
+thermostatAlgorithmHelp_PID: ~
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: Chlazení
-thermostatSubfunction_HEAT: Ohřívání
-thermostatTemperature_aboveAlarm: Nad alarmem
-thermostatTemperature_auxMaxSetpoint: Maximální pomocná teplota
-thermostatTemperature_auxMinSetpoint: Minimální pomocná teplota
-thermostatTemperature_belowAlarm: Pod alarmem
-thermostatTemperature_boost: Zvýšení teploty
-thermostatTemperature_comfort: Komfortní teplota
-thermostatTemperature_eco: Teplota ECO
-thermostatTemperature_freezeProtection: Teplota ochrany proti zamrznutí
-thermostatTemperature_heatProtection: Teplota ochrany proti přehřátí
-thermostatTemperature_histeresis: Hystereze
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: Změna polohy při změně náklonu
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Nemění polohu při změně náklonu
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: mění výšku tónu pouze při úplném zavření
-tiltControlType_UNKNOWN: Neznámý
-timeMarginMode_custom: Nestandardní
-timeMarginMode_device: Výchozí hodnota ze zařízení
-timeMarginMode_off: Vypnutý
-usedCTType_100A_33mA: 100 A/33,3 mA
-usedCTType_200A_66mA: 200 A/66,6 mA
-usedCTType_400A_133mA: 400 A/133,3 mA
-usedPhaseLedType_OFF: Vypnutá
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: Směr toku energie
-usedPhaseLedType_VOLTAGE_LEVEL: Úroveň napětí
-usedPhaseLedType_VOLTAGE_PRESENCE: Přítomnost napětí
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Přítomnost napětí (invertované)
-'{count} minutes after sunrise': '{count} minut po východu slunce'
-'{count} minutes after sunset': '{count} minut po západu slunce'
-'{count} minutes before sunrise': '{count} minut před východem slunce'
-'{count} minutes before sunset': '{count} minut před západem slunce'
-'{days} days': '{days} dnech'
+valveOpenConfirm_flooding: ~
+valveOpenConfirm_motorProblem: ~
+
 #</editor-fold>

@@ -110,7 +110,7 @@ class TankConfigTranslator extends UserConfigTranslator {
                         Assertion::greaterThan(
                             $subject->getUserConfigValue($above),
                             $subject->getUserConfigValue($below),
-                            'Warning and alarm at level (and above) should be lower than the warning and alarm at level (and below).' // i18n
+                            'Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).' // i18n
                         );
                     }
                 }

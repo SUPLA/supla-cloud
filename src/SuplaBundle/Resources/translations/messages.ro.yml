@@ -6,10 +6,13 @@
 ...open gateways, gates or doors: ...deschiderea portiței, porții sau ușii
 ...or control home appliances: ...sau controlul dispozitivelor electrocasnice/electronice
 ...you can monitor temperature: ...puteți monitoriza temperatura
+0% tilt angle: Unghiul lamelelor pe care jaluzeaua le fixează la închidere
 10 minutes before sunset, on day 10 of the month, May through August: Cu 10 minute înainte de apus, numai în a 10-a zi a lunii, din mai până în august
+100% tilt angle: Unghiul lamelelor pe care jaluzeaua le fixează la deschidere
 15 minutes after sunrise, every 2 days: La 15 minute după răsărit, o dată la două zile
 A confirmation upon successful client app registration.: Confirmarea înregistrării unei noi aplicații de client.
 A confirmation upon successful device registration.: Confirmarea înregistrării cu succes a dispozitivului.
+A confirmation upon successful device unlocking.: Confirmarea deblocării dispozitivului.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Noua aplicație client (smartphone) a fost adăugată la contul tău SUPLA-Cloud.
 A new device has been added to your SUPLA-Cloud account.: Noul dispozitiv a fost adăugat la contul Tău SUPLA-Cloud.
 A new personal access token has been generated.: A fost generat un nou token de acces personal
@@ -39,9 +42,12 @@ Action triggers: Declanșatoare acțiuni
 Actions: Acțiuni
 Active: Active
 Active applications: Aplicații active
+Active from: Activ din
 Active period: Perioada de activitate
 Active sessions: Sesiuni active
+Active to: Activ până la
 Active web sessions: Sesiuni active (web)
+Activity conditions: Condiții de activitate
 Add: Adaugă
 Add a delay: Adăugați  întârziere
 Add a new action to the scene: Adaugă o nouă acțiune în scenă
@@ -50,22 +56,34 @@ Add action: Adăugați  acțiune
 Add first channel to set channel group function and save it: Selectați primul canal pentru a specifica funcția grupei și pentru a o salva
 Add new channel group: Adaugă o grupă nouă de canale
 Add new channel to this group: Adaugă un canal nou în grupă
+Additional time margin: Marjă de timp suplimentară
 Adjust parameters: Setează parametrii
+Adjust temperature: Setați temperatura
+Adjust temperatures: Setați temperaturile
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Toate canalele și grupele de canale care utilizează această pictogramă, vor primi pictograme implicite după eliminarea acesteia.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: După acordarea accesului, puteți oricând să vă răzgândiți revocând accesul în setările contului dvs.
+After the delay: După o anumită perioadă de timp
+After the delay, but only when it's dark: După un anumit timp, dar numai când este întuneric
 After the device enters the configuration mode, it will not be accessible on your account.: Dispozitivul nu va fi disponibil din contul Tău după ce intrați în modul de configurare.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: După actualizare, aplicația va fi mai rapidă, mai convenabilă... Pur și simplu mai bună!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Contorul va începe să socotească de la 0 după această operație, indiferent de starea sa curentă. Această operațiune nu poate fi anulată.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Link-ul va fi generat imediat după selectarea entității. Puteți introduce toate celelalte opțiuni imediat după crearea acestuia.
 Aggregation: Agregare
+Alarm armament sensor: Senzor de setare a alarmei
+Algorithm: Algoritm
 All: Tot
 All events: Toate evenimentele
 All logs has been downloaded. Reload the chart to see them.: Au fost descărcate toate datele de măsurare Reîncarcă diagramă pentru a le vedea.
+All programs must define at least one temperature threshold.: Fiecare program trebuie să definească cel puțin un prag de temperatură.
 All the above and many more can be done from your phone or tablet: Toate acestea și multe altele pot fi făcute prin intermediul unui smartphone sau al unei tablete
 Allowed actions: Acțiuni permise
 Allows to perform an action only using the HTTP PATCH request.: Permite executarea acțiunilor numai cu utilizarea cererii HTTP PATCH.
 Alternatively, you can add a GET parameter to specify response format.: De asemenea, puteți adăuga un parametru GET pentru a specifica formatul răspunsului.
+Always decrement: Întotdeauna în scădere
+Always increment: În continuă creștere
 And more: Și multe altele
+Anti-freeze and overheat protection: Supraîncălzire și protecție antiîngheț
+Anti-freeze protection: Protecție anti-îngheț
 Any application or device that uses the {tokenName} token will not work anymore.: Toate aplicațiile sau dispozitivele care folosesc simbolul {tokenName} vor înceta să funcționeze.
 'App version: %clientAppSoftwareVersion%': 'Versiunea aplicației: %clientAppSoftwareVersion%'
 Application: Aplicație
@@ -75,10 +93,14 @@ Applications: Aplicații
 Applications with access: Aplicație cu acces
 Are you lost?: V-ați pierdut? Căutați ceva?
 Are you sure you want to change channel’s function?: Sigur doriți să schimbați funcția canalului?
+Are you sure you want to change channel’s location?: Sunteți sigur că doriți să schimbați locația canalului?
+Are you sure you want to change channel’s visibility?: Sunteți sigur că doriți să schimbați vizibilitatea canalului?
+Are you sure you want to change device’s location?: Sunteți sigur că doriți să schimbați locația dispozitivului?
 Are you sure you want to delete the entire measurement history saved for this channel?: Sigur doriți să ștergeți tot istoricul de măsurare adunat pentru acest canal?
 Are you sure you want to delete the events from the voltage aberrations history?: Ești sigur că vrei să ștergi toate evenimentele din istoricul aberațiilor de tensiune?
 Are you sure you want to delete this OAuth application?: Sigur doriți să ștergeți această aplicație OAuth?
 Are you sure you want to delete this channel group?: Sigur doriți să ștergeți această grupă de canale?
+Are you sure you want to delete this channel?: Sunteți sigur că doriți să ștergeți acest canal?
 Are you sure you want to delete this client?: Sigur doriți să ștergeți această aplicație de client?
 Are you sure you want to delete this direct link?: Sigur doriți să ștergeți acest link direct?
 Are you sure you want to delete this icon?: Sigur doriți să ștergeți această pictogramă?
@@ -109,20 +131,36 @@ Authentication successful: Conectare reușită
 Authorization callback URLs (one per line): URL de răspuns pentru autorizare (una pe linie)
 Authorize the application, so that it can access your account.: Autorizați aplicația astfel încât aceasta să poată accesa contul dvs.
 Authorized: Autorizată
+Automatic: Automat
 Automatic calibration: Calibrare automată
 Automatic closing rule: Închidere automată a ușii de garaj
+Automatic front panel turn off: Deconectarea automată a panoului frontal
+Automatic front panel turn off after: Este timpul să opriți panoul frontal
+Automatic thermostat: Termostat automat
+Automatic time synchronization: Sincronizarea automată a datei și orei
 Automation: Automatizare
+Aux thermometer: Termometru suplimentar
+Aux thermometer type: Tip termometru suplimentar
+Available variables: Variabile disponibile
+Average: Medie
 Average voltage: Tensiune medie
 Back to apps list: Revenire la lista de aplicații
 Bar: De bare
 Based on sunrise or sunset: Bazat pe est/vest
+Battery cover open: Capacul bateriei deschis
 Be notified when your channels change state: Notificarea modificărilor stării canalului
 Be right back!: Reveniți în câteva clipe!
+Behavior settings: Cunoștințe practice
 Below threshold: Sub pragul
+Binary sensor: Senzor binar
 Body: Conținut
 Bottom position: Poziție inferioară
 Bridge: Pod
 Brightness: Claritate
+Brightness adjustment for automatic mode: Reglarea luminozității în modul automat
+Brightness level: Nivelul de luminozitate
+Button volume: Volumul butonului
+Buttons upside down: Controlul butonului de mers înapoi
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Dezactivarea acestei opțiuni permite controlul acestui dispozitiv de la nivelul de integrare fără confirmare suplimentară. Acest lucru poate conduce la o stare periculoasă sau mai puțin sigură (de exemplu, deschiderea accidentală a unei porți).
 By signing in, you are authorizing {clientName} to control your devices.: Prin conectare, autorizezi aplicația {clientName} pentru controlul dispozitivelor tale.
 CLICK TO DISABLE: FACEȚI CLIC PENTRU A DEZACTIVA
@@ -134,10 +172,11 @@ Calibration successful.: Calibrare reușită
 Cancel: Anulează
 Cancel changes: Anulează modificările
 Cancelled: Anulate
+Candle: Sfeșnic
 Cannot calculate when to run the schedule - incorrect configuration?: Nu s-a putut calcula nici o dată de începere a programului - configurație incorectă?
 Cannot change the channel function right now.: Funcțiile acestui canal nu pot fi modificate momentan.
 Cannot delete this I/O Device right now.: Acest dispozitiv nu poate fi demontat în acest moment.
-Cannot execute an action when the device is disconnected.: Nu puteți efectua acțiuni atunci când dispozitivul este deconectat.
+Cannot update OCR settings. Try again in a while.: Setările OCR nu au putut fi actualizate. Încercați din nou peste câteva momente.
 Captcha token is not valid.: Captcha incorectă.
 Caption: Semnătură
 Caption is too long.: Numele este prea lung.
@@ -146,8 +185,15 @@ Change Password: Schimbarea parolei
 Change channel function: Schimbați funcția canalului
 Change function: Schimbați funcția
 Change icon: Modifică pictograma
+Change percentage by: Modificați procentul prin
+Change percentage to: Modificați procentul la
 Change the password and log out: Schimbă-ți parola și deconectează-te.
+Change tilt by: Modificați panta prin
+Change tilt to: Modificați panta la
+Change to be the same.: Setați la fel.
 Changing channel’s function will also result in the following changes.: Modificarea funcției canalului va provoca, de asemenea, următoarele modificări.
+Changing channel’s visibility will also change the visibility of other items.: Modificarea vizibilității canalului va modifica și vizibilitatea altor elemente.
+Changing the location will also imply changing the location of the following items.: Schimbarea locației îl va afecta și pentru următoarele.
 Channel: Canal
 Channel No: Numărul canalului
 Channel available for {serviceName}: Canal disponibil pentru {serviceName}
@@ -163,6 +209,7 @@ Channel reference will be removed from the items below.: Canalul va fi șters di
 Channel with action triggers: Canal de declanșatoare de acțiuni
 Channels: Canale
 Channels groups are not supported for this function.: Această funcție nu acceptă grupuri de canale.
+Channels that are meant to work with each other must be in the same location.: Canalele care trebuie să funcționeze împreună trebuie să fie în aceeași locație.
 Chart type: Tipul graficului
 Check the direct link you used and try again.: Verificați linkul direct accesat și încercați din nou.
 Check your email box: Verificați căsuța de e-mail
@@ -185,33 +232,51 @@ Click the following link to confirm unregistration of your private SUPLA Cloud i
 Client registration: Înregistrarea clienților
 Client’s Apps: Aplicații de client
 Client’s app has been deleted: Aplicația de client a fost eliminată
+Clock error: Eroare de ceas
 Close: Închide
 Close after: Închide după
 Close automatically: Închide automat
 Close partially: Închideți parțial
+Close value: Valoarea de închidere
+Collapse: Colapsează
+Collapse or stop: Rulare sau oprire
+Collapse partially: Colaps parțial
 Colon: Punct și virgulă
 Color: Culoare
 Color brightness: Luminozitatea culorii
 Comma: Virgulă
+Command has been sent to the device. Try refreshing the photo in a while.: Cererea a fost trimisă către dispozitiv. Încercați să reîmprospătați fotografia într-un moment.
 Comment: Comentariu
+Common currencies: Cele mai frecvent selectate valute
 Config of the schedule is too complicated.: Configurarea programului este prea complicată.
 Configuration: Configurație
+Configuration not available yet. Waiting for the device to connect.: Configurația nu este încă disponibilă. Așteptați ca dispozitivul să se conecteze.
 Confirm My Account: Confirm contul meu
 Confirm Password: Confirmarea parolei
+Confirm if you want to perform the calibration.: Confirmați că doriți să efectuați calibrarea.
 Confirm if you want to remove Access Identifier: Confirmați că doriți să eliminați Identificatorul de Acces
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Confirmați că doriți să eliminați ID-ul locației {locationId}. Nu se pot conecta alte dispozitive I / O cu această locație va fi imposibilă.
 Confirm if you want to remove {deviceName} device and all of its channels.: Confirmați că doriți să eliminați {deviceName} și toate canalele acestuia.
 Confirmation: Confirmare
+Conflict: Conflict
 Connected: Conectat
 Connection with a private instance of the SUPLA cloud: Conexiune la o instanță  privată a cloud-ului SUPLA.
 Constraints: Restricții
+Cool to: Se dă la frigider până când
+Cooling mode: Modul de răcire
+'Cooling: {percent}%': 'Răcire: {percent}%'
 Copy state from other channel: Copiați starea de pe alt canal
+Costs: Costuri
 Could not contact Autodiscover service. Try again in a while.: Serviciul de înregistrare nu a putut fi contactat. Vă rugăm să încercați din nou peste un moment.
 Could not enter the configuration mode.: Nu s-a putut trece dispozitivul în modul de configurare.
 Could not reset the password.: Resetarea parolei a eșuat.
 Could not reset the password. Please try again later.: Parola nu poate fi resetată. Încercați din nou peste câteva momente.
+Could not restart the device.: Dispozitivul nu a putut fi repornit.
+Could not send the identify command.: Comanda nu a putut fi trimisă.
+Could not set the device time.: Nu a fost posibil să setați data și ora pe dispozitiv.
 Counter: Contor
 Counter reset: Resetarea contorului
+Counter type: Tip de contor
 Create New Access Identifier: Creați un Identificator de Acces nou
 Create New Location: Creați o locație nouă
 Create New Schedule: Creați un plan nou
@@ -224,16 +289,21 @@ Current: Curent
 Current Overload: Supraîncărcare
 Current Password: Parola curentă
 Current password is incorrect: Parola curentă este incorectă
+Curtain: Cortină
 Custom: Particularizat
 Custom execution limit: Limită de executări particularizată
 DHT11 Temperature & Humidity Sensor: Senzor de temperatură și umiditate DHT11
 DHT21 Temperature & Humidity Sensor: Senzor de temperatură și umiditate DHT21
 DHT22 Temperature & Humidity Sensor: Senzor de temperatură și umiditate DHT22
 DS18B20 Thermometer: Termometru DS18B20
+Dark mode: Mod întunecat
+Data: Date
 Data limits: Limitele datelor
 Data saved: Datele au fost salvate
 Date: Data
 Date and time: Data şi ora
+Date range: Intervalul de date
+Daytime criteria: Criterii bazate pe durata zilei
 Decline: Respinge
 Default: în mod implicit
 Delete: Șterge
@@ -241,18 +311,26 @@ Delete measurement history: Șterge istoricul măsurătorilor
 Delete my account: Șterge contul meu
 Delete voltage aberrations history: Șterge istoricul aberațiilor de tensiune
 Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Ștergerea contului dvs. va duce la ștergerea tuturor datelor, inclusiv a dispozitivelor conectate, canalelor configurate, linkurilor directe și istoricului măsurătorilor. Ștergerea contului este permanentă.
+Dependencies: Dependențe
 Depth: Adâncime
 Depth sensor: Senzor de adâncime
 Description: Descriere
 Details: Detalii
 Device: Dispozitiv
+'Device GUID: %deviceGuid%': 'GHID al dispozitivului: %deviceGuid%'
 'Device ID: %deviceId%': Identificator dispozitiv:%deviceId%
+Device identification is unsupported in the firmware.: Identificarea dispozitivului nu este suportată în firmware.
 Device is disconnected.: Dispozitivul este deconectat.
 Device might be sleeping: Dispozitivul poate să fie în modul de repaus
 'Device name: %deviceName%': Nume dispozitiv:%deviceName%
+Device settings: Setări dispozitiv
 Device should be now in configuration mode.: Dispozitivul ar trebui să fie acum în modul de configurare.
+Device should be restarting now.: Dispozitivul ar trebui să repornească.
 'Device software version: %deviceSoftwareVersion%': Versiune software:%deviceSoftwareVersion%
+Device time has been set.: Data și ora dispozitivului au fost setate.
 Device unavailable: Dispozitivul nu este disponibil
+Different than on master thermostat.: Setare diferită de cea de pe termostatul principal.
+Differential thermostat: Termostat diferențial
 Digi Glass: Digi Glass
 Digi Glass Horizontal: Digi Glass orizontală
 Digi Glass Vertical: Digi Glass verticală
@@ -273,6 +351,8 @@ Disconnected: Deconectat
 Distance: Distanță
 Distance sensor: Senzor de distanță
 Do you want to be redirected there? You may be asked to authenticate again.: Doriți să vă redirecționăm acolo? Poate fi necesar să vă conectați din nou.
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Doriți să setați canalele care depind de acest termostat (cum ar fi termometrele și senzorii) să fie aceleași ca în termostatul principal?
+Domestic hot water: Apă caldă la domiciliu
 Don’t worry, you can always reset your password via email. Click here to do so.: Nu vă faceți griji. Puteți reseta întotdeauna parola prin intermediul poștei e-mail. Faceți clic aici pentru a face acest lucru.
 Door lock operation: Deschiderea ușii
 Door opening sensor: Senzor de deschidere a ușilor
@@ -281,14 +361,27 @@ Doors, Gates, Windows: Uși, porți, ferestre
 Download measurements history: Descărcați istoricul măsurătorilor
 Download the history of measurement: Descărcați istoricul măsurătorilor
 Drag your image(s) here or click to select from the disk: Trageți imaginea aici sau faceți clic pentru a selecta de pe disc
+Dryer: Uscător
 E-mail notifications: Notificări prin email
 Edit: Editează
+Edit area crop: Zona de editare
+Edit program settings: Editarea setărilor programului
 Edit reaction: Editează reacția
 Electric: Electricitate
 Electricity meter: Contor de electricitate
+Electricity meter active power history: Istoria puterii contorului de electricitate
+Electricity meter current history: Istoricul intensității contorului de electricitate
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Contorul de energie electrică nu a raportat posibilitatea de a configura valorile adăugate. Actualizează firmware-ul dispozitivului și încercă din nou.
+Electricity meter voltage aberrations history: Istoricul aberațiilor de tensiune ale contorului de electricitate
+Electricity meter voltage history: Istoricul tensiunii contorului de electricitate
 Empty!: Gol!
 Enable: Activează
+Enable floor temperature control: Activați controlul temperaturii podelei
+Enable generic cooler temperature control: Activarea controlului temperaturii sursei de răcire
+Enable generic heater temperature control: Activarea controlului temperaturii sursei de căldură
+Enable power status LED: Porniți LED-ul de stare a alimentării
+Enable support for OCR readings for this channel: Activați suportul OCR pentru acest canal
+Enable water temperature control: Activați controlul temperaturii apei
 Enabled: Activate
 Enabled phases: Faze active
 End date: Data terminării
@@ -306,6 +399,7 @@ Error when communicating the server. Try again in a while.: A apărut o problem�
 Estimated execution time: Timp estimat pentru realizare
 Every: Ce
 Example Auth URL: Exemplu de URL de autorizare
+Example value: Exemplu
 Execute: Efectuează
 Execute an action: Efectuează acțiunea
 Executed action: Acțiune executată
@@ -313,17 +407,30 @@ Executed without confirmation: Executat fără confirmare
 Execution history: Istoricul executărilor
 Execution limit: Limita executărilor
 Executions: Executări
+Expand: Desfășoară
+Expand or stop: Dezvoltarea sau menținerea
+Expand partially: Extindeți în parte
 Expired: Expirat
 Expires at: Expiră
+External sensor disabling the thermostat: Senzor extern pentru oprirea termostatului
+Facade blind operation: Obloane de fațadă
 Failed: Eșuat
 Failed (zombie): Eșuat (zombi)
+Fan: Ventilator
 Feature limits: Limite funcționale
+'Field: {propertyPath}.': Câmp {propertyPath}.
 File format: Formatul fișierului
 File is too large: Fișierul este prea mare
+Fill missing data: Completați măsurătorile lipsă
+Firmware: Firmware
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware-ul acestui dispozitiv trimite notificări în contextul acestui canal. Aici puteți configura conținutul și destinatarii. Pentru mai multe informații, contactați furnizorul dispozitivului.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware-ul acestui dispozitiv trimite notificări. Aici puteți configura conținutul și destinatarii. Pentru mai multe informații, contactați furnizorul dispozitivului.
 Flooding: Inundare
+For a period: Pentru perioada
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Este recomandat să utilizați adresa {suplaUrl} în timpul actualizării.
 For devices: Pentru dispozitive
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: Din motive de securitate, URL-ul complet al acestui link direct va fi afișat o singură dată în timpul creării sale.
+Forced off by sensor: Oprire forțată de către senzor
 Forgot your password?: Ați uitat parola?
 Forward active energy: Energie activă consumată
 Forward active energy balance: Balanță a energiei active consumate
@@ -335,8 +442,10 @@ From anywhere: De oriunde
 Full closing time: Timp total de închidere
 Full documentation: Documentația completă
 Full opening time: Timp total de deschidere
+Full tilting time: Timp total pentru schimbarea gradientului
 Fully opened sensor for channel: Senzor pentru canal
 Function: Funcție
+Function disabled: Funcție oprită
 G5LA1A Relay: Releu G5LA1A
 G5LA1A Relay x2: Releu 2xG5LA1A
 GENERATE: GENEREAZĂ
@@ -349,6 +458,7 @@ Gate's state verification: Verificarea stării ușii de garaj
 Gateway lock operation: Deschiderea porții
 Gateway opening sensor: Senzor de deschidere a porții
 General purpose measurement: Canal general de măsurare
+General purpose meter: Canal de contor cu scop general
 Generate new password: Generați o nouă parolă
 Generate new token: Generează un token nou
 Generate token: Generează un token
@@ -362,12 +472,23 @@ Go to your account: Accesați contul dvs.
 Grant access: Acordați acces
 Guru Meditation: Guru Meditation
 HFD4 Relay: Releu HFD4
+HVAC: HVAC
 Heat meter: Contor de căldură
+Heat or cold source switch: Comutator pentru sursă de căldură sau rece
+Heat to: Căldură la
+Heating / ventilation / air conditioning: Încălzire / ventilație / aer condiționat (HVAC)
+Heating mode: Modul de încălzire
+'Heating: {percent}%': 'Încălzire: {percent}%'
 Hide days without aberrations: Ascunde zilele fără aberații
+High threshold: Prag înalt
+High value: Valoare maximă
+History: Istoric
 History of measurements: Istoricul măsurătorilor
 Home appliances: Aparate electrocasnice/electronice
+Home screen content: Conținutul ecranului de pornire
 Home+ Heater: Încălzitor Home+
 Host: Gazdă
+Hotel card sensor: Senzor card hotelier
 However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: Din păcate, utilizarea serverului nostru a crescut la un nivel nesigur în acest moment. Monitorizăm situația, reveniți în câteva momente.
 Humidity: Umiditate
 Humidity Sensor: Senzor de umiditate
@@ -385,14 +506,18 @@ ID: ID
 INACTIVE: INACTIVĂ
 IP Address: Adresă IP
 Icon: Pictogramă
+Identify device: Identificați dispozitivul
+Identify request sent.: Cererea de identificare a fost trimisă.
 Idle: Inactive
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Dacă dispozitivul este momentan în modul de repaus, modificările de configurare vor intra în vigoare după acționare.
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: Dacă dispozitivul este acum în stare de repaus, va intra în modul de configurare după următoarea acționare.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Dacă linkul nu funcționează, copiați-l în bara browser-ului sau introduceți-l manual.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Dacă sunteți un programator care dorește să ofere funcții suplimentare pentru SUPLI, creați o aplicație OAuth pe care utilizatorii o vor putea autoriza și utiliza.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Dacă sunteți sigur că aveți un cont pe cloud.supla.org, verificați dacă aplicația pe care încercați să o autorizați este publică.
+If you confirm the installation and wish to unlock this device, please click the link below.: Dacă sunteți cel care încearcă să adauge un dispozitiv nou, faceți clic pe link-ul de mai jos pentru a confirma deblocarea.
 If you did not request this password reset, please ignore this information.: Dacă nu ați solicitat resetarea parolei, ignorați acest mesaj.
 If you do not want to delete your account on %cloudHost%, please do not click the link.: Dacă nu doriți să ștergeți contul dvs. de pe %cloudHost%, nu faceți clic pe link.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Dacă nu sunteți cel care încearcă să deblocheze dispozitivul, ignorați acest e-mail. Linkul de confirmare va expira automat după 24 de ore.
 If you do not want to unregister your instance, please do not click the link.: Dacă nu doriți să vă anulați înregistrarea instanței, vă rugăm să nu faceți clic pe link.
 If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Dacă nu reușiți să vă conectați la acest punct de acces timp de câteva minute, dispozitivul se va reporni și se va conecta utilizând ultimele setări.
 If you have doubts or more questions, you can contact us directly at %securityEmail%.: Dacă aveți îndoieli sau întrebări, ne puteți contacta scriind la adresa %securityEmail%.
@@ -407,6 +532,7 @@ If you wish not to receive such messages, change it in your account settings [he
 If you wish to register your instance, {clickHereLink}.: Dacă doriți să vă înregistrați instanța, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Dacă doriți să vedeți integrările disponibile, treceți la {0}.
 If you wish to unregister your instance, {clickHereLink}.: Dacă doriți să vă anulați înregistrarea instanței, faceți {clickHereLink}.
+Image area crop: Zona imaginii
 Impulse counter: Contor de impulsuri
 Impulses: Impulsuri
 In order to confirm account deletion, enter your password.: Pentru a confirma intenția de ștergere a contului, introduceți parola dvs.
@@ -414,9 +540,11 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Inactiv
 Include energy corrections in new measurements history (not recommended): Includeți valoare adăugată în istorie (nu este recomandat)
 Incorrect password: Parolă incorectă
+Increment and decrement: Creștere și descreștere
 Incremental: Incrementală
 Information: Informație
 Inherit I/O Device location: Utilizați locația dispozitivului
+Installer e-mail address: Adresa de e-mail a instalatorului
 Integration with MQTT Broker has been disabled.: Integrarea cu brokerul MQTT a fost dezactivată.
 Integration with MQTT Broker has been enabled.: Integrarea cu brokerul MQTT a fost activată.
 Integrations: Integrări
@@ -426,12 +554,15 @@ Interrupt and execute: Oprește și realizează
 Interval: Interval
 Invalid SUPLA Cloud URL.: Adresa URL a instanței SUPLA Cloud este incorectă.
 Invalid action parameters: Parametri de executare incorecți.
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Dispozitivul a înregistrat un canal de un tip diferit ({typeCaption} - {typeId}) în locul celui curent.
+Invalid e-mail address.: Adresă de e- mail greșită.
 Invalid function for channel.: Funcție nevalidă pentru canal.
 'Invalid redirect URI: {uri}': 'Adresa URL de returnare este incorectă: {uri}'
 Invalid request: Cerere nevalidă
 Invalid request.: Cerere nevalidă.
 Invalid scene: Scenă incorectă
 Invalid token.: Token nevalid.
+Invalid unlock code.: Legătură de deblocare incorectă.
 Invalid username or password: Nume de utilizator sau parolă incorectă
 Inverted logic: Logică inversă
 Invisible: Invizibil
@@ -442,22 +573,31 @@ Keep in mind, that the humanized description of the entered crontab is not perfe
 Language is not available: Limba nu este disponibilă
 Last access: Ultima conexiune
 Last connection: Ultima conexiune
+Last paired device: Ultimul dispozitiv împerecheat
 Last used: Ultima utilizare
 Let me choose later: Lasă-mă să aleg mai târziu
+Light mode: Mod luminos
 Light switch: Întrerupător de lumină
 Lighting: Iluminare
+Lighting level: Nivelul de iluminare
+Lighting mode: Modul de iluminare
 Limit has been exceeded: Limita a fost depășită
 Linear: Liniar
 Liquid, Temp: Lichid, Temperatură
+List of available variables: Lista variabilelor disponibile
 Location: Locație
 Location Identifier: Identificatorul Locației
 Location limit has been exceeded: Limita de locații a fost depășită
 Location name: Denumirea locației
 Locations: Locații
+Locked: Blocat
 Log out: Deconectare
 Login: Conectare
 Logs transformation: Transformarea valorii
 Longest aberration: Cea mai lungă aberație
+Low threshold: Prag scăzut
+Low threshold must be less than high threshold.: Pragul scăzut trebuie să fie mai mic decât pragul ridicat
+Low value: Valoare minimă
 Lower voltage threshold: Prag de tensiune joasă
 MQTT Broker: Broker MQTT
 MQTT Broker Username: Nume de utilizator
@@ -466,6 +606,7 @@ MQTT Broker password: Parola brokerului MQTT
 MQTT Broker password has been changed.: Parola brokerului MQTT a fost schimbată.
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Numele de utilizator sau parola nu sunt configurate în această instanță.
 Mail sensor: Senzor de poștă
+Main thermometer: Termometru principal
 Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
 Make sure to copy it now because you won’t be able to see it again!: Asigurați-vă că le păstrați într-un loc sigur.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Asigurați-vă că este salvat într-un loc sigur dacă doriți să îl mai utilizați în viitor. Linkul nu va mai fi afișat după părăsirea acestei pagini.
@@ -473,17 +614,33 @@ Manage your new client app in the SUPLA-Cloud.: Gestionați setările aplicație
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Gestionați-vă dispozitivul în SUPLA-Cloud sau folosind aplicația SUPLA de pe smartphone.
 Manual: Instrucțiune
 Manually closed: Închis manual
+Master thermostat: Termostat principal
+Max: Maks.
 Maximum delay is 60 minutes.: Întârzierea maximă este de 60 de minute.
+Maximum duration is one year.: Perioada maximă este de un an.
 Maximum filesize limit is {limit}.: Mărimea maximă a fișierului este de {limit}.
 Maximum voltage: Cea mai mare tensiune
+Measurement settings: Setări de măsurare
 Measurement window: Timpul de măsurare
 Meter value: Starea contorului
 Meters: Contoare
+Min: Min.
+Minimum OFF time before cooling can be turned on: Timp minim de ÎNCHIDERE înainte de repornirea răcirii
+Minimum OFF time before heating can be turned on: Timpul minim de oprire înainte ca încălzirea să fie repornită
+Minimum OFF time before heating/cooling can be turned on: Timp minim de oprire înainte de repornirea răcirii/încălzirii
+Minimum ON time before cooling can be turned off: Timp minim de ÎNCHIDERE înainte ca răcirea să fie oprită din nou
+Minimum ON time before heating can be turned off: Timp minim de pornire înainte ca încălzirea să fie oprită din nou
+Minimum ON time before heating/cooling can be turned off: Timp minim de pornire înainte ca răcirea/încălzirea să fie oprită din nou
+Minimum temperature must be lower than maximum temperature.: Temperatura minimă trebuie să fie mai mică decât temperatura maximă
 Minimum voltage: Tensiune cea mai joasă
 Missing action.: Lipsă acțiune
 Mode: Mod
+'Mode: cool': 'Mod: răcire'
+'Mode: heat': 'Mod: încălzire'
+'Mode: off': 'Mod: oprit'
 Modification: Modificare
 Mondays: Zilele de luni
+Motor upside down: Control inversat al motorului
 Move down or stop: Jos sau opriți
 Move up or stop: Sus sau opriți
 My OAuth apps: Aplicațiile mele OAuth
@@ -504,6 +661,7 @@ New scene: O noua scena
 Newer: Mai noi
 'Next limit renewal: {date}': Limita va fi reînnoită {date}
 Next run date: Execuția următoare
+'No': Nu
 No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Nu aveți identificatoare de acces active. Accesați {accessIdsListLink} sau {newAccessIdLink}.
 No function: Nu există funcții
 No future executions - schedule disabled: Nu există execuții planificate - planul este dezactivat
@@ -514,20 +672,26 @@ No of channels: Numărul de canale
 No of client apps: Numărul de aplicații client
 No of devices: Numărul de dispozitive
 No of operations: Numărul de operații
+No results: Niciun rezultat
 No schedule configuration.: Nu a fost specificată nici o configurație de program.
 No, take me back!: Nu, scoateți-mă de aici!
+None: Lipsă
+None (channel disabled): Niciuna (canal oprit)
+Noop: Lipsea activității
+Notification: Notificare
+Notification body is set by the firmware.: Conținutul notificării este setat de firmware.
+Notification must have a body.: Notificarea trebuie să aibă conținut.
+Notification must have recipients.: Notificarea trebuie să aibă destinatari.
+Notification title is set by the firmware.: Antetul de notificare este setat de către firmware.
+Notifications: Notificare
+Notifications (defined): Notificări (definite)
+Notifications (sent per hour): Notificări (trimise pe oră)
 No{'.'} of Client’s apps: Numărul de aplicații de client
 No{'.'} of access identifiers: Numărul de identificatoare de acces
 No{'.'} of channel groups: Numărul de grupe de canale
 No{'.'} of channels: Numărul de canale
 No{'.'} of devices: Numărul de dispozitive
 No{'.'} of locations: Numărul de locații
-None: Lipsă
-None (channel disabled): Niciuna (canal oprit)
-Noop: Lipsea activității
-Notification: Notificare
-Notification must have a body.: Notificarea trebuie să aibă conținut.
-Notifications: Notificare
 Number of aberrations: Numărul de aberații
 Number of attempts to close: Numărul de încercări de închidere
 Number of attempts to open: Numărul de încercări de deschidere
@@ -536,24 +700,36 @@ OAuth application: Aplicație OAuth
 OAuth apps: Aplicații OAuth
 OAuth authorization: Autorizație OAuth
 OAuth integrations might stop working after the instance is unregistered.: Integrarea aplicației OAuth poate înceta să funcționeze după anularea înregistrării instanței dvs.
+'OCR service responded with error: {status}': 'Serviciul OCR a răspuns cu o eroare: {status}'
+OCR settings: Setări OCR
 OK: OK
+OR: Awaryjne opuszczanie segregatora.
 'Off': Dezactivează
+Off with duration: Oprire la timp
 Offline access: Acces offline
 Older: Mai vechi
 'On': Activează
+On with duration: Timpul de pornire
 On/Off switch: Comutator de alimentare
 Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Sunt permise numai numele de domenii cu număr de port opțional. De exemplu, mysupla.org sau mysupla.org:88. HTTPS este necesar.
 Open: Deschide
 Open / close: Deschide / închide
 Open partially: Deschide parțial
+Open value: Valoarea de deschidere
 Opening sensor: Senzor de deschidere
 Operation: Operațiuni
 Operations: Operațiuni
 Original location: Locația originală
 Other: Alte
 Otherwise go to the homepage.: În caz contrar, treceți la [pagina principală].
+Output value on error: Starea ieșirii în timpul unei erori
+Overheat protection: Protecție împotriva supraîncălzirii
+P/C: P/C
 PIN: PIN
 PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN-ul pentru Google trebuie să conțină cel puțin {minLength} și cel mult {maxLength} cifre.
+Pair new devices or sensors: Asocierea de noi dispozitive sau senzori
+Pairing request sent.: Cerere de împerechere trimisă.
+Pairing subdevices is unsupported in the firmware.: Împerecherea nu este suportată de software-ul dispozitivului.
 Partial opening sensor: Senzor de deschidere indirectă
 Partially opened sensor for channel: Canal pentru senzorul de deschidere intermediară
 Password: Parolă
@@ -573,19 +749,25 @@ Phase: Faza
 Phase 1: Faza 1
 Phase 2: Faza 2
 Phase 3: Faza 3
+Phase LED type: Indicator de fază LED
 Phase number: Fază
 Phase {phaseNumber}: Faza {phaseNumber}
+Photo interval: Interval de fotografiere
 Please choose the schedule subject first.: În primul rând, alegeți ce ar trebui să controleze programul
 Please click the following link to reset your %cloudHost% password.: Faceți clic pe linkul de mai jos pentru a reseta parola pentru %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Faceți clic pe linkul din mesajul pe care vi l-am trimis după crearea contului.
 Please confirm your SUPLA account.: Activează-ți contul SUPLA.
 Please enter a valid email address: Vă rugăm să introduceți o adresă de e-mail validă
 Please fill a valid email address: Vă rugăm să introduceți o adresă de e-mail validă
+Please find the device details below.: Detalii despre dispozitiv pot fi găsite mai jos.
 Please fix the problems with operations and try again.: Rezolvă problemele cu operațiile și încearcă din nou.
 Please log in again to proceed.: Conectați-vă din nou pentru a continua.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Vă rugăm să rețineți că dispozitivul în cauză este destinat exclusiv instalatorilor certificați.
 Please provide a valid domain name for your private SUPLA Cloud: Introduceți numele de domeniu corect pentru cloud-ul dvs. privat SUPLA
+Please provide the installer e-mail address to request the device unlock.: Pentru a debloca dispozitivul, introduceți adresa de e-mail care a fost furnizată în procesul de obținere a certificatului de instalare.
 Please read the Terms and Conditions.: Citiți regulamentul.
 Please select a condition: Vă rugăm să selectați o condiție
+Please select and configure the action: Selectați și configurați acțiunea.
 Please wait a moment before the next login attempt.: Așteptați un moment înainte de următoarea încercare de conectare.
 Port: Port
 Power active: Energie activă
@@ -599,10 +781,14 @@ Private Cloud domain name: Numele de domeniu al cloud-ului privat
 Private instance of the SUPLA cloud with given URL is already registered.: La această adresă este deja înregistrat un cloud privat SUPLA.
 Proceed: Continuă
 Processing: În curs
+Program {programNo}: Program {programNo}
+Projector screen: Ecran de proiecție
 Protocol: Protocol
 Public ID: ID public
 Publish to integrations: Publicați pentru integrare
 Publishes the event to integrated services like MQTT or webhooks.: Notifică integrări precum MQTT sau webhook-uri atunci când este întreprinsă această acțiune.
+Pump switch: Comutator pompă
+Push notifications limit has been exceeded: Limita de notificări push a fost depășită
 RESET: RESETEAZĂ
 RGB led controller: Reglator de iluminare RGB
 RGB lighting: Iluminare RGB
@@ -614,6 +800,9 @@ Read: Citire
 Recipients: Receptori
 Reference to the scene will be removed from the items below.: Indicarea scenei va fi eliminată din elemente de mai jos.
 Refresh: Actualizează
+Refresh interval: Interval de reîmprospătare
+Refresh the config: Actualizați configurația
+Refreshing the configuration will overwrite the changes you made here.: Reîmprospătarea configurației va suprascrie modificările efectuate la formular.
 Regeneration starts at: Începutul regenerării
 Register: Înregistrează
 Register a new OAuth application: Înregistrați o nouă aplicație OAuth
@@ -624,30 +813,41 @@ Registered: Înregistrat
 'Registered from IP address: %deviceRegIp%': 'Adresă IP: %deviceRegIp%'
 Relay: Releu
 Relay switching time: Timpul de acționare al releului
+Reload last photo: Reîncărcați ultima fotografie
 Reload the chart: Reîncarcă graficul
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Înainte de eliminarea unei locații, trebuie mai întâi să mutați grupele de canale care se află în aceasta. Identificatoare: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Înainte de ștergerea unei locații, trebuie mai întâi să mutați canalele care se află în aceasta. Identificatoare: {relatedIds}.'
+Remote restart is unsupported in the firmware.: Repornirea de la distanță nu este acceptată de software-ul dispozitivului.
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Ștergeți dispozitivele conectate înainte de ștergerea acestei locații. Identificatoare: {relatedIds}.'
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Ștergeți toate scenele conexe înainte de a șterge această locație. Identificatori: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Ștergeți mai întâi toate dispozitivele care folosesc această locație drept locație inițială. Identificatoare: {relatedIds}.'
+Remove this item: Elimină acest element
 Repeat password: Repetați parola
+Request device unlock: Aplicați pentru a vă debloca dispozitivul
 Reset Your Password: Setați o nouă parolă
 Reset counter: Resetează contorul
+Reset to defaults: Restaurarea valorilor implicite
+Restart device: Reporniți dispozitivul
+Restart the device: Reporniți dispozitivul
 Retry on failure: Repetați atunci când nu a fost efectuat
 Reveal: Dezvăluie
+Reveal or stop: Dezvăluiți sau opriți
 Reveal partially: Dezvăluie parțial
 Reverse active energy: Energia activă returnată
 Reverse active energy balance: Balanța energiei active returnate
 Reverse active energy balanced: Energia activă returnată (bilanț vectorial)
 Reverse reactive energy: Energia reactivă returnată
 Revoke: Revocare
+Roller garage door: Ușa garajului
 Roller shutter opening sensor: Senzor de deschidere a jaluzelelor
 Roller shutter operation: Deschiderea și închiderea jaluzelelor
 Roller shutters: Jaluzele
 Roof window opening sensor: Senzor deschidere fereastră de mansardă
 Roof window shutter operation: Deschidere fereastră de mansardă
+S/N: S/N
 SUPLA - Account Activation: SUPLA - Activarea contului
 SUPLA - Account Removal: SUPLA - Ștergerea contului
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Deblocarea unui dispozitiv pentru un instalator certificat
 SUPLA - Password reset: SUPLA - Resetarea parolei
 SUPLA - Private instance unregistration: SUPLA - anularea înregistrării unei instanțe private
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
@@ -658,7 +858,9 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Notificare despre o conectare eșuată la %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - a fost înregistrată o nouă aplicație client
 SUPLA – new device has been added to your account: SUPLA - un dispozitiv nou a fost adăugat în contul dvs
+SUPLA – your device has been unlocked!: SUPLA - Dispozitivul dvs. a fost deblocat!
 SUPLA.ORG Team: Echipa SUPLA.ORG
+Same as on master thermostat.: Aceeași setare ca la termostatul principal.
 Saturdays: Zilele de sâmbătă
 Save: Salvează
 Save and enable: Salvează și activează
@@ -677,6 +879,7 @@ Schedules: Planuri de execuție
 Scope: Domeniu de aplicare (scope)
 Scopes: Domenii de aplicare
 Scopes define which sections of your account can be accessed when using the token.: Domeniile de aplicare determină resursele de cont care vor putea fi accesate folosind token-ul.
+Screen brightness: Luminozitate ecran
 Search: Caută
 Secret: Cheia secretă (secret)
 Security: Siguranţă
@@ -687,6 +890,7 @@ See in SUPLA-Cloud: Vizualizare la SUPLA-Cloud
 Seems like a secret place: Credem că nu ar trebui să fii aici
 Select icon: Alegeți pictograma
 Select the item (subject) you want to control using this link: Selectați elementul (entitatea) pe care doriți să îl controlați folosind acest link
+Selected: Selectat
 Selected device has been logged out.: Dispozitivul selectat a fost deconectat
 Send a notification: Trimite notificare
 Send notification: Trimite notificare
@@ -695,12 +899,18 @@ Sensors: Senzori
 Server address: Adresa serverului
 Server unreachable: Serverul nu este disponibil
 Service temporarily unavailable: Serviciu indisponibil temporar
+Set HVAC parameters: Setează parametrii
+Set the device time: Nu a fost posibil să setați data și ora pe dispozitiv.
 Set value added: Determinați valoarea adăugată
 Set values for each phase separately: Fixează valoarea pentru fiecare fază în parte
 Setting the number of attempts to 1 disables the retrying behavior completely.: Setarea numărului de încercări la mai puțin de 2 poate duce la o eroare de închidere sau deschidere.
+Settings: Setări
+Settings have not been saved!: Setările nu au fost salvate!
+Show data: Vizualizare resursă
 Show my limits: Arată-mi limitele
 Show on the Client’s devices: Afișează pe dispozitivele de client
 Shut: Ascunde
+Shut or stop: Acoperiți sau opriți
 Shut partially: Acoperiți parțial
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Închideți jaluzeaua până când atinge marginea de jos și introduceți procentul de închidere în acest câmp. Această operațiune nu este necesară, dar furnizarea acesteia va îmbunătăți vizualizarea poziției jaluzelei în aplicația mobilă.
 Sign In: Conectați-vă
@@ -708,9 +918,11 @@ Sign Out: Deconectați-vă
 Sign in temporarily unavailable. Please try again later.: Conectare indisponibilă temporar. Încercați din nou mai târziu.
 Smartphones: Smartphone-uri
 SoftVer: WerOpr
+Some features depend on this channel: Unele funcții depind de acest canal
 Some features depend on this channel group: Unele funcționalități depind de acest grup de canale.
 Some features depend on this device: Unele funcționalități depind de acest dispozitiv
 Some features depend on this scene: Unele funcționalități depind de această scenă.
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Unele dintre datele colectate pentru contul dvs. vor fi șterse periodic după o anumită perioadă de timp. Familiarizați-vă cu limitele de mai jos.
 Some of the features you have configured depend on channels from this device.: Unele funcționalități folosesc canale de pe acest dispozitiv.
 Staircase timer: Întrerupător automat scară
 Start Here: Începeți aici
@@ -718,24 +930,38 @@ Start date: Data începerii
 Start from the homepage.: Începeți de la pagina de start.
 State: Stare
 State webhook: Webhook de stare
+Status LED: LED de stare
 Step by step: Pas cu pas
 Stop: Oprește
+Store active power history: Păstrați un istoric al puterii active
+Store current history: Păstrați istoricul curent
 Store measurements history: Stocați istoricul măsurătorilor
+Store voltage history: Păstrați un istoric al tensiunii
+'Subdevice #{id}': 'Dispozitiv de subcontractare #{id}'
+Subfunction: Subfuncție
 Subject type: Tipul entității
 Success: Succes
 Successful: Reușite
 Summary for selected time range: Rezumat pentru intervalul selectat
 Sundays: Zilele de duminică
 Switch the device to configuration mode: Puneți dispozitivul în modul de configurare
+Switch to manual mode: Treceți la modul manual
+Switch to program mode: Treceți la modul program
+THEN: ATUNCI
 THIS CANNOT BE UNDONE!: ACEASTĂ OPERAȚIUNE NU POATE FI REVOCATĂ!
 TLS: TLS
 Tab: Tabulator
+Take a photo now: Fă o fotografie acum
 Target Cloud is not registered, or is registered with another e-mail address.: Această instanță SUPLA Cloud nu este înregistrată sau este înregistrată folosind o altă adresă de e-mail.
 Temperature: Temperatură
 Temperature & Humidity Sensor: Senzor de temperatură și umiditate
 Temperature Sensor: Senzor de temperatură
 Temperature adjustment: Reglarea temperaturii
 Temperature and humidity sensor: Senzor de temperatură și umiditate
+Temperature difference is too big between {min}°C and {max}°C.: Diferența de temperatură este prea mare între {min}°C și {max}°C.
+Temperature setpoint change switches to manual mode: Modificarea temperaturii țintă comută în modul manual
+Temporal override: Suprascriere temporară
+Terrace awning: Copertină de terasă
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Vă mulțumim pentru înregistrarea unui cont în serviciul %cloudHost%. Pentru a finaliza activarea, faceți clic pe linkul de mai jos.
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Datorită integrărilor, puteți adăuga cu ușurință noi funcții la contul dvs., folosind soluții furnizate de furnizori externi, programatori sau de către dvs.
 'The IP used for login is: %ip%': 'Încercarea de conectare a fost făcută de la adresa IP: %ip%'
@@ -744,13 +970,21 @@ The SUPLA infrastructure is being updated.: Serverele SUPLA sunt în curs de act
 The Terms and Conditions have changed: Regulamentul a fost modificat
 The Terms and Conditions have changed – please read them and accept.: Regulamentul site-ului a fost modificat - este necesară acceptarea acestuia.
 The activation link has been sent again. Check the inbox.: Mesajul cu linkul de activare a contului dvs. a fost trimis din nou. Verificați căsuța de e-mail.
+The channel has been deleted.: Canalul a fost eliminat.
 The client will be automatically logged out when deleted.: Ștergerea clientului va duce la deconectarea imediată a acestuia.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Configurația a fost modificată dintr-o altă locație (de exemplu, o altă fereastră de browser, aplicație sau dispozitiv mobil). Trebuie să actualizați configurația înainte de a efectua alte modificări.
 The counter has been reset.: Contorul a fost resetat.
+The device could not be unlocked.: Dispozitivul nu a putut fi deblocat.
+The device has been unlocked already.: Dispozitivul este deja deblocat.
+The device has been unlocked.: Dispozitivul a fost deblocat.
+The device has channel conflict and cannot work.: Dispozitivul a generat un conflict de canal și nu poate funcționa în prezent.
 The device is disabled: Dispozitivul este oprit
+The device is locked: Dispozitiv blocat
 The device might be in a sleep mode.: Dispozitivul poate funcționa în modul de repaus.
 The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Dispozitivul care utilizează această sesiune va pierde accesul la SUPLA Cloud. În scopul continuării folosirii aplicației, va fi necesar să te conectezi din nou.
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Tot istoricul aberațiilor de tensiune pentru faza {phaseNumber}.va fi șters
 The entire history of the voltage aberrations will be removed from this channel.: Tot istoricul aberațiilor de tensiune va fi șters pentru acest canal.
+The following channels will be also removed along with their dependencies.: Următoarele canale vor fi, de asemenea, eliminate împreună cu dependențele lor.
 The following items use the channels of these device. These references will be also removed.: Următoarele articole folosesc canale de pe acest dispozitiv. Vor fi, de asemenea, șterse.
 'The following items will be deleted with this device:': Următoarele elemente vor fi, de asemenea, șterse cu acest dispozitiv.
 The gate sensor must function properly in order to execute the Open and Close actions.: Senzorul de deschidere a porții trebuie să funcționeze corect pentru a efectua acțiunea Deschidere sau Închidere.
@@ -761,6 +995,7 @@ The items below depend on this channel group, so they will be deleted.: Elemente
 The items below depend on this scene, so they will be deleted.: Elementele de mai jos se bazează pe această scenă, așa că vor fi eliminate.
 The latest execution: Ultima executare
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Rezultatul efectuării este prezentat sub forma unui site web, deoarece dvs. (sau browser-ul dvs.) ați solicitat un răspuns în format HTML.
+The master termostat you chose already has a master.: Termostatul principal pe care l-ați selectat are deja un alt termostat principal
 The measurement history has been deleted.: Istoricul măsurătorilor a fost șters.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Noua parolă o va înlocui pe cea pe care o utilizați în prezent. Unele integrări pot înceta să funcționeze după ce le-au schimbat. A continua?
 The next available executions: Execuțiile următoare
@@ -777,24 +1012,39 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Serverul a returnat eroarea HTTP 404. Acest lucru înseamnă că elementul pe care îl căutați nu există.
 The server has returned an HTTP {statusCode} error.: Serverul a returnat eroarea {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Fișierele de pictograme selectate sunt prea mari. Mărimea maximă permisă pentru încărcare este de {limit}.
+The thermostat will not work if the main thermometer is not set.: Termometrul principal trebuie să fie setat pentru ca termostatul să funcționeze.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Supapa nu poate fi deschisă printr-un link direct sau prin API atunci când a fost închisă manual. Pentru a relua controlul, deschideți supapa manual.
-valveOpenConfirm_manual: Supapa a fost închisă manual sau prin radio. Înainte de a-l deschide, asigurați-vă că nu a fost închis din cauza inundației. Pentru a dezactiva avertismentul, deschideți supapa manual. Sigur doriți să deschideți supapa de la distanță?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Supapa nu se va deschide dacă a fost închisă manual sau prin radio, ceea ce ar putea fi legat de inundație.
 There are no more channels you can add to this group: Nu există alte canale care ar putea fi adăugate la această grupă
 Thermometer: Termometru
+Thermometer error: Eroare de termometru
+Thermometers configuration: Configurarea termometrelor
 Thermostat: Termostat
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Acest termostat utilizează setările de la termostatul principal. Accesați pagina de detalii a acestuia pentru a modifica setările.
+Thermostat programs: Programe de termostat
+This action will result in restarting the device. It will not be available for a while.: Comandarea acestei operațiuni va reporni dispozitivul. În timpul repornirii, dispozitivul va fi inaccesibil.
+This channel was missing during last device registration attempt.: Acest canal lipsește din dispozitiv.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Acest aparat este destinat distribuției și instalării numai de către instalatori autorizați. Dacă nu sunteți un instalator SUPLA autorizat și nu dețineți un certificat de formare activ, returnați-l dealerului.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Acest link direct necesită clarificarea parametrilor acțiunii efectuate. Consultați exemplele de mai jos pentru a afla ce parametri puteți seta.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Primiți această informație în legătură cu o încercare nereușită de conectare la SUPLA-CLOUD folosind adresa dvs. de e-mail.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Aceasta este etapa finală de ștergere a contului tău. Completarea și aprobarea formularului va duce la ștergerea ireversibilă a datelor tale.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Aceasta este ultima fotografie încărcată de pe dispozitiv. Marcați exact zona în care sunt vizibile cifrele contorului.
 This is the list of applications you have granted access to your account.: Aceasta este lista de aplicații cărora le-ați acordat acces la contul dvs.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Aceasta este o listă a reacțiilor care rulează pe contul dvs. Dacă doriți să adăugați o nouă reacție, accesați detaliile canalului care ar trebui să o declanșeze.
 This link is only valid for an hour.: Linkul va fi activ timp de o oră.
 'This password will protect your home. Therefore, it must:': 'Această parolă va proteja casa ta. Prin urmare:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Acest mod de programare este conceput pentru utilizatorii tehnici sau foarte răbdători. Necesită indicarea momentelor de declanșare a programului în notația crontab, îmbogățită cu mai multe funcționalități găsite doar în SUPLI. Dacă nu ați întâlnit crontab-uri înainte și încă doriți să utilizați acest mod, site-ul web crontab.guru vă poate fi de ajutor.
+This thermostat is controlled by another device.: Acest termostat este controlat de un termostat principal.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Acest declanșator este utilizat local de dispozitiv (de exemplu, aprinde lumina, comandă jaluzea etc.). Dacă îi atribuiți o altă acțiune, funcția locală va fi dezactivată.
 Thursdays: Zilele de joi
+Tilt angle: Unghiul de înclinare
+Tilt control type: Tip de control al înclinării
+Tilt percent: Procent de pantă
+Time: Timp
 Timezone: Fus orar
 Title: Titlu
 To: Până la
+Today, it would be active from {from} to {to}.: Astăzi, perioada de activitate ar fi între {from} și {to}.
 Toggle: Comutare
 Token does not exist: Token-ul nu există
 Too many actions in this schedule.: Prea multe acțiuni într-un singur program.
@@ -803,6 +1053,7 @@ Too many operations in this scene: Prea multe operațiuni în scenă.
 Total: Suma
 Total time: Timpul total
 Tuesdays: Zilele de marți
+Turn off: Închide
 Turning this device off will cause its channels not working in the following features.: Oprirea dispozitivului va face ca canalele acestuia să nu mai funcționeze în următoarele elemente.
 Turning this device off will result in disabling features listed below.: Oprirea dispozitivului va dezactiva și elemente de mai jos.
 Type: Tip
@@ -810,25 +1061,34 @@ Undo registration: Retrage înregistrarea
 Unit: Unitate
 Unknown: Necunoscut
 Unknown browser: Browser necunoscut
+Unlock the device: Deblocați dispozitivul
 Unregister my private SUPLA Cloud instance: Anulează înregistrarea instanței mele private de SUPLA Cloud
 Unsuccessful login attempt: Autentificare eșuata
 Unsupported function: Funcție nesuportată
 Unsupported type: Tip nesuportat
+Until a date and time: Până la
+Until the next change: Până la următoarea tură
 Update in progress: Actualizarea este în curs
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Fișierele încărcate nu încalcă bunele obiceiuri, drepturile de autor și drepturile terților, iar eu am dreptul să le folosesc.
 Upper voltage threshold: Prag de înaltă tensiune
-"Use the {0} server command to change this account's limits. For example:": 'Pentru a modifica limitele pentru acest cont, utilizați comanda {0} de pe serverul dvs. De exemplu:'
-Use working schedule for this access identifier: Utilizați un program de disponibilitate pentru acest ID de acces
+Use device default: Utilizați valoarea implicită din dispozitiv
+'Use the {0} server command to change this account''s limits. For example:': 'Pentru a modifica limitele pentru acest cont, utilizați comanda {0} de pe serverul dvs. De exemplu:'
+Use {theMasterThermostat} to control this device.: Utilizați {theMasterThermostat} pentru a controla acest dispozitiv.
+Used current transformer type: Transformator de curent utilizat
 User is already confirmed. Try to log in.: Acest cont a fost deja confirmat. Conectați-vă
 Value: Valoarea
 Value added: Valoare adăugată
+Value divider: Divizor
+Value multiplier: Multiplicator
 Value separator: Delimitator
 Valve: Supapă
 Valve closed manually: Supapă închisă manual
 Vector balance: Bilanț vectorial
 Verification method: Metoda de verificare
+Vertical blind: Jaluzele verticale
 Visible: Vizibil
 Visit app webpage: Deschide site-ul aplicației
+Visit the master thermostat page.: Mergeți la termostatul principal.
 Voltage: Tensiune
 Voltage aberrations: Aberații de tensiune
 Voltage monitoring: Monitorizarea tensiunii
@@ -846,6 +1106,7 @@ We have been asked to unregister your private SUPLA Cloud instance (%targetCloud
 We have just sent you an activation link. You should be receiving it shortly.: Tocmai a fost trimis un mesaj cu un link pentru a vă activa contul. Răbdare.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: V-am trimis un mesaj e-mail cu un link de confirmare a ștergerii contului. Poate te vei răzgândi!
 We have sent you an email with further instructions.: V-am trimis un mesaj cu instrucțiuni suplimentare.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Am primit o cerere de deblocare a unui dispozitiv destinat exclusiv instalatorilor certificați. Cererea a fost trimisă de utilizatorul %deviceUserEmail% de la instanța SUPLA Cloud la %targetCloudUrl%.
 We should be ready shortly.: Powinniśmy niedługo skończyć.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Stocăm în browser-ul dvs. informații despre preferințele dvs. pentru a facilita utilizarea aplicației (de exemplu, folosind mecanismul cookie).
 We try to be faster: Devenim tot mai rapizi
@@ -857,6 +1118,8 @@ We will try to display the received icons the best possible way, however you wil
 We will use it only in justified situations.: Îl vom folosi numai în cazuri justificate.
 Weather Station: Stație meteorologică
 Wednesdays: Zilele de miercuri
+Week: Săptămână
+Weekly schedule: Program săptămânal
 Weight sensor: Greutate
 Welcome!: Salut!
 What this token is for?: Pentru ce servește acest token?
@@ -869,14 +1132,21 @@ When liquid or lack thereof is detected: Când se detectează lichid sau lipsa a
 When the RGB lighting brightness level changes: Când nivelul de luminozitate al luminii RGB se modifică
 When the RGB lighting reaches a certain level of brightness: Când iluminarea RGB atinge un anumit nivel de luminozitate
 When the active power will be: Când puterea activă va fi
+When the alarm is armed: Când alarma este setată
+When the alarm is armed or disarmed: Când alarma este dezactivată sau setată
+When the alarm is disarmed: Când alarma este dezactivată
 When the apparent power will be: Când puterea aparentă va fi
 When the balanced forward active energy will be: Când echilibrată, energia acumulată activă va fi
 When the balanced reverse active energy will be: Când echilibrată, energia returnată activă va fi
+When the battery cover is opened: Când capacul bateriei este deschis
 When the brightness level changes: Când nivelul de luminozitate se va modifica
 When the brightness will be: Când nivelul de luminozitate va fi
+When the clock error has been reported: Atunci când cronometrul raportează o eroare
 When the color changes: Când culoarea se va schimba
 When the condition is met: Când condiția va fi îndeplinită
 When the current will be: Când curentul va fi
+When the curtain position changes: Când perdeaua își schimbă poziția
+When the curtain reaches a certain position: Atunci când perdeaua atinge o anumită poziție
 When the depth changes: Când măsurarea adâncimii se va modifica
 When the depth is: Când măsurarea adâncimii va fi
 When the device is turned off: Când dispozitivul va fi oprit
@@ -892,6 +1162,8 @@ When the door will be opened or closed: Când ușile sunt deschise sau închise
 When the electricity meter reaches a certain value: Când contorul de energie atinge valoarea stabilită
 When the electricity meter value changes: Când valoarea contorului de energie electrică se va modifica
 When the electricity meter value will be: Când valoarea contorului de energie va fi
+When the facade blind position changes: Când un jaluzele de fațadă își schimbă poziția
+When the facade blind reaches a certain position: Atunci când o lamelă de fațadă atinge o anumită poziție
 When the forward active energy will be: Când energia absorbită activă va fi
 When the garage door will be closed: Când ușa garajului va fi închisă
 When the garage door will be opened: Când ușa garajului va fi deschisă
@@ -908,27 +1180,37 @@ When the gateway will be opened or closed: Când portița va fi deschisă sau î
 When the heat meter value changes: Când valoarea contorului se va modifica
 When the heat meter value reaches a certain value: Când contorul de căldură atinge o anumită valoare
 When the heat meter value will be: Când valoarea contorului de căldură va fi
+When the hotel card has been taken: Când cardul de hotel este retras
+When the hotel card is put in: Când este introdus cardul de hotel
+When the hotel card is put in or has been taken: Când cardul de hotel este introdus sau retras
 When the humidity changes: Când umiditatea se va schimba
 When the humidity reaches a certain level: Când umiditatea atinge un anumit nivel
 When the humidity will be: Când umiditatea va fi
 When the lighting reaches a certain level of brightness: Când iluminarea atinge un anumit nivel de luminozitate
 When the mail comes or is taken: Când poșta sosește sau va fi luată
 When the mail has been taken: Când poșta va fi luată
+When the meter reaches a certain value: Atunci când contorul atinge valoarea dorită
+When the meter value changes: Atunci când valoarea se modifică
+When the meter value will be: Atunci când valoarea va fi
 When the precipitation amount will be: Când cantitatea de ploaie măsurată va fi
 When the pressure changes: Când presiunea se va schimba
 When the pressure reaches a certain level: Când presiunea atinge un anumit nivel
 When the pressure will be: Când presiunea va fi
+When the projector screen position changes: Când ecranul de proiecție își schimbă poziția
+When the projector screen reaches a certain position: Când ecranul de proiecție atinge o anumită poziție
+When the pump is turned off: Când pompa este oprită
+When the pump is turned on: Când pompa este pornită
+When the pump is turned on or off: Când pompa este pornită sau oprită
 When the rain amount changes: Când se va schimba cantitatea de precipitații
 When the reactive power will be: Când putere pasivă va fi
 When the reverse active energy will be: Când energie returnată activă va fi
+When the roller garage door position changes: Când ușa garajului își schimbă poziția
 When the roller shutter position changes: Când se schimbă poziția jaluzelei
-When the roller shutter reaches: Când jaluzea atinge
 When the roller shutter reaches a certain position: Când jaluzea ajunge într-o anumită poziție
 When the roller shutter will be closed: Când jaluzea va fi închisă
 When the roller shutter will be opened: Când jaluzeaua va fi deschisă
 When the roller shutter will be opened or closed: Când jaluzeaua va fi deschisă sau închisă
 When the roof window position changes: Când se va schimba poziția ferestrei de la mansardă
-When the roof window reaches: Când fereastra de la mansardă ajunge
 When the roof window reaches a certain position: Când fereastra de la mansardă ajunge într-o anumită poziție
 When the roof window will be closed: Când fereastra de la mansardă va fi închisă
 When the roof window will be opened: Când fereastra de la mansardă va fi deschisă
@@ -936,11 +1218,25 @@ When the roof window will be opened or closed: Când fereastra de la mansardă v
 When the temperature changes: Când se schimbă temperatura
 When the temperature reaches a certain value: Când temperatura atinge o valoare stabilită
 When the temperature will be: Când temperatura va fi
+When the terrace awning position changes: Când o copertină de terasă își schimbă poziția
+When the terrace awning reaches a certain position: Atunci când o copertină de terasă atinge o anumită poziție
+When the thermometer error has been reported: Atunci când termometrul raportează o eroare
+When the thermostat starts cooling: Când termostatul începe să se răcească
+When the thermostat starts heating: Când termostatul începe să încălzească
+When the thermostat starts heating or cooling: Când termostatul începe să răcească sau să încălzească
+When the thermostat starts or stops cooling: Când termostatul pornește sau oprește răcirea
+When the thermostat starts or stops heating: Când termostatul pornește sau oprește încălzirea
+When the thermostat starts or stops heating or cooling: Când termostatul pornește sau oprește încălzirea sau răcirea
+When the thermostat stops cooling: Când termostatul nu mai răcește
+When the thermostat stops heating: Când termostatul nu mai încălzește
+When the thermostat stops heating or cooling: Când termostatul nu mai răcește sau nu mai încălzește
 When the value will be: Când valoarea va fi
 When the valve is closed: Când robinetul va fi închis
 When the valve is manually closed: Când robinetul va fi închis manual
 When the valve is opened: Când robinetul va fi deschis
 When the valve is opened or closed: Când robinetul va fi închis sau deschis
+When the vertical blind position changes: Atunci când jaluzelele verticale își schimbă poziția
+When the vertical blind reaches a certain position: Atunci când jaluzelele verticale ating o anumită poziție
 When the voltage will be: Când tensiunea va fi
 When the water meter reaches a certain value: Când contorul de apă atinge o valoare anume
 When the water meter value changes: Când contorul de apă se va schimbata
@@ -959,21 +1255,26 @@ When you execute the link with HTTP PATCH method, you can omit the random part o
 Where is the JSON?: Unde este JSON?
 Where is your SUPLA Cloud?: Unde se află Supla ta?
 White: Alb
+Will be deleted after: Îndepărtarea după
 Wind sensor: Senzor de vânt
 Window opening sensor: Senzor de deschidere a geamului
 With SUPLA you can operate the lights in your home or office: Cu SUPLA puteți controla iluminatul în casă sau la birou
+With a timer: Cu cronometru
 With function: Cu funcția
 Working period: Perioada de funcționare
-Working schedule: Program de activitate
 YOUR LINK CODE: CODUL LINKULUI TĂU
+'Yes': Da
 You are changing the settings too quickly. You have to wait a while before making this change.: Schimbați setările prea repede. Trebuie să așteptați un timp înainte de a modifica aceste setări.
 You can browse only the most recent logs now. Wait a while for the full history.: În prezent, sunt afișate doar cele mai recente măsurători. Așteaptă puțin pentru a descărca istoricul întreg.
 You can ignore this message, if you have accidentally entered an incorrect password.: Puteți ignora acest mesaj dacă dvs. ați introdus o parolă greșită.
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Aici puteți seta valori relative. De exemplu, +10 sau -20 vor crește setarea cu 10 sau, respectiv, o vor reduce cu 20.
 You can use the application but you will not be able to modify any settings.: Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.
 You cannot delete your last access identifier.: Nu puteți șterge ultimul identificator de acces.
 You cannot delete your last location.: Nu puteți șterge ultima locație.
+You cannot to set a master thermostat for a channel that is master for others.: Nu puteți seta termostatul principal în termostatul principal
 You cannot use SUPLA project name in the domain name.: Nu puteți utiliza denumirea proiectului SUPLA în denumirea domeniului principal.
 You have exceeded your API Rate Limit: Ați folosit limita de solicitări API
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Cererea a fost trimisă. Vă vom notifica atunci când instalatorul o aprobă și deblochează dispozitivul.
 You have requested to unregister your SUPLA Cloud instance: Ați solicitat să vă anulați înregistrarea instanței SUPLA Cloud
 You have to choose at least one scope.: Trebuie să selectați cel puțin un interval.
 You just need to execute the following command inside your host terminal.: Trebuie numai să executați următoarea comandă în interiorul terminalului gazdei dvs.
@@ -984,6 +1285,7 @@ You must leave at least one phase enabled.: Cel puțin o fază trebuie să răm�
 You must set an action for each reaction.: Trebuie să setezi o acțiune pentru fiecare reacție
 You must set an action for each scene operation.: Selectați acțiune pentru fiecare operațiune din scenă.
 You must set sections with transparent or opaque parameters or both.: Trebuie să alegeți transparența pentru cel puțin o secțiune.
+You need to provide icons for all states in light mode.: Trebuie să furnizați pictograme pentru toate statele în modul luminos.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Trebuie să actualizați instanța dvs. SUPLA Cloud la cel puțin versiunea 2.3.0.
 You will not be able to generate a direct link with the same URL again.: Crearea unui link cu aceeași adresă URL nu va fi posibilă.
 Your account and MQTT Broker connection.: Conectarea contului dvs. cu brokerul MQTT.
@@ -996,6 +1298,7 @@ Your channel groups are allowed to have a maximum of {max} channels.: Grupurile 
 Your chart is being drawn...: Graficul tău este în curs de desenare...
 Your data are being collected. Please be patient.: Colectăm datele tale, răbdare.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Datele tale sunt descărcate de pe server. Așteptați finalizarea descărcărilor înainte de a le exporta.
+Your device has been unlocked by the installer.: Dispozitivul dvs. a fost deblocat de către instalator.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Dispozitivul vă permite să-și extindeți funcționalitatea și vă permite să efectuați orice acțiune pe orice dispozitiv pe care îl aveți. Opțiunile disponibile depind de firmware-ul și dispozitivul pe care îl utilizați.
 Your email: E-mailul dvs.
 Your instance is not registered or you are trying to authorize an application that is not public.: Instanța dvs. nu este înregistrată sau încercați să autorizați o aplicație care nu este publică.
@@ -1039,11 +1342,20 @@ after: după
 and wait until it reaches: și așteaptă până ajunge
 and wait until it will be: și așteaptă până va fi
 and wait until the humidity will be: și așteaptă până ce umiditatea va fi
+and wait until the meter will be: și nu mai efectuați această reacție până când valoarea este
 and wait until the temperature will be: și așteaptă până ce temperatura va fi
 and wait until the value will be: și așteaptă până ce valoarea va fi
+auxThermometerType_DISABLED: Dezactivat
+auxThermometerType_FLOOR: Podea
+auxThermometerType_GENERIC_COOLER: Sursa de răcire
+auxThermometerType_GENERIC_HEATER: Sursa de căldură
+auxThermometerType_NOT_SET: Nu este configurat
+auxThermometerType_WATER: Apă
 average: medie
 be at least {numChars} characters long: trebuie să aibă cel puțin {numChars} caractere
 before: înainte de
+blue, otherwise: altfel albastru
+blue, when voltage lower than the low threshold: albastru când tensiunea este sub pragul scăzut
 caption: nume
 change: schimbă
 channel: Canal
@@ -1056,16 +1368,21 @@ channelGroup: Grupă de canale
 choose: alegeți
 choose the access identifiers: selectează ID-urile de acces
 choose the action: selectați acțiunea
+choose the currency: alegeți valuta
 choose the scene: selectați scena
 choose the schedule: selectează-ți programul
 choose the timezone: selectați un fus orar
 click here: click aici
+configuration missing: nicio configurare
 contains a character that is neither a letter nor a digit: conține un caracter care nu este nici literă, nici număr
 contains a digit: conține o cifră
 contains lower and upper letters: conține litere majuscule și minuscule
+cool: răcire
 copied: copiat
 copy: copiază
+day: zi
 days: zile
+default: implicit
 directLinkExecutionFailureReason_disabled: Linkul direct este dezactivat
 directLinkExecutionFailureReason_executionLimitExceeded: Limita de executări a fost depășită
 directLinkExecutionFailureReason_expired: Linkul direct a expirat
@@ -1086,8 +1403,20 @@ executed: executat
 extend: extinde
 from IP: de la adresa IP
 from the IP: de la adresa
+green, otherwise: altfel verde
+green, when power less than the low threshold: verde atunci când puterea este mai mică decât pragul inferior
+heat: încălzire
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Temperatura principală și auxiliară
+homeScreenContent_NONE: Nu există
+homeScreenContent_TEMPERATURE: Temperatura
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatură și umiditate
+homeScreenContent_TEMPERATURE_TIME: Temperatură și timp
+homeScreenContent_TIME: Timp
+homeScreenContent_TIME_DATE: Data şi ora
+hour: oră(e)
 hours: ore
 is at least {numChars} characters long: are cel puțin {numChars} caractere
+keepHistoryMeasurementWarningSelected: Sunteți sigur că aveți nevoie de această poveste? Supla este un proiect open source întreținut cu fonduri proprii. Dacă nu aveți nevoie de această poveste, vă rugăm să ne ajutați să economisim spațiu de stocare valoros lăsând această opțiune dezactivată.
 last 24 hours: ultimele 24 de ore
 last 30 days: ultimele 30 de zile
 last 6 hours: ultimele 6 ore
@@ -1096,13 +1425,23 @@ logs_aggregation_day: zile
 logs_aggregation_hour: ore
 logs_aggregation_minute: minute
 logs_aggregation_month: luni
+max: max.
+midnight: nord
+milliseconds: milisecunde
+min: min.
 min.: min.
 minutes: minute
 notification: notificare
+ocrLightingMode_ALWAYS_ON: Întotdeauna pornit
+ocrLightingMode_AUTO: Acestea își ajustează
+ocrLightingMode_OFF: Închisă
+'off': Închide
 or another element: sau un alt element
 password: parola
 previous month: luna precedentă
 range: domeniu
+red, when power higher than the high threshold: roșu când puterea este peste pragul ridicat
+red, when voltage higher than the high threshold: roșu când tensiunea este mai mare decât pragul înalt
 register-slide1-text: Pe baza dispozitivelor electronice disponibile, SUPLA vă va permite să construiți module simple pentru comanda și monitorizarea componentelor de automatizare a clădirilor. Datorită SUPLA puteți, printre altele, să controlați iluminatul, să porniți și să opriți dispozitivele electrocasnice și electronice, să deschideți și să închideți porțile și ușile sau să controlați temperatura în camere. Toate acestea le puteți face cu o singură mișcare a degetului.
 register-slide1-title: Propria Clădire Inteligentă
 register-slide2-text: Unele dintre obiectivele de bază ale proiectului sunt simplitatea și disponibilitatea. SUPLA vă permite să porniți lumina sau să deschideți poarta de intrare atunci când doriți să accesați proprietatea, cu o singură mișcare de deget. SUPLA este disponibilă oriunde aveți acces la Internet și dispuneți de un smartphone sau o tabletă. SUPLA este dezvoltată pe principiul Open Source și Open Hardware, de aceea poți dezvolta și tu acest proiect!
@@ -1116,6 +1455,7 @@ scheduleMode_daily: Ciclu zilnic
 scheduleMode_minutely: Ciclu în minute
 scheduleMode_once: Unic
 sec.: sec.
+seconds: secunde
 smartphones, tablets, etc.: smartphone-uri, tablete etc.
 state-closed: Închise
 state-default: Implicit
@@ -1133,24 +1473,78 @@ state-rgb_on_dim_off: RGB activat, variatorul de lumină dezactivat
 state-rgb_on_dim_on: RGB și variatorul de lumină activate
 state-shut: Închise
 state-temperature: Temperatură
+statusLed_ALWAYS_OFF: Închideți întotdeauna
+statusLed_OFF_WHEN_CONNECTED: Opriți când sunteți conectat
+statusLed_ON_WHEN_CONNECTED: Activează atunci când este conectat
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Rezultat necunoscut
+subdevicePairingResult_NOT_STARTED_BUSY: Dispozitivul este ocupat
+subdevicePairingResult_NOT_STARTED_NOT_READY: Dispozitivul nu este pregătit
+subdevicePairingResult_NOT_SUPPORTED: Operațiune nesuportată
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Nu s-au găsit echipamente noi
+subdevicePairingResult_ONGOING: În curs
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Rezultat necunoscut al evaporării
+subdevicePairingResult_PROCEDURE_STARTED: Procedura a început
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Limita de resurse depășită
+subdevicePairingResult_SUCCESS: Succes
+subdevicePairingResult_UNAUTHORIZED: Autorizare nereușită
 sum: suma
+sunrise: răsărit de soare
 sunrise-after: răsărit
 sunrise-before: răsărit
+sunset: apus de soare
 sunset-after: apus
 sunset-before: apus
+swap: schimbă
+the master thermostat ID{id}: a termostatului principal ID{id}
 the whole history: istoricul întreg
 then execute the action: apoi realizează acțiunea
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Pornit/oprit cu setare superioară
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Pornit/oprit cu setare de mijloc
+thermostatAlgorithm_PID: PID
+thermostatSubfunction_COOL: Răcire
+thermostatSubfunction_HEAT: Încălzire
+thermostatTemperature_aboveAlarm: Deasupra alarmei
+thermostatTemperature_auxMaxSetpoint: Temperatura auxiliară maximă
+thermostatTemperature_auxMinSetpoint: Temperatura auxiliară minimă
+thermostatTemperature_belowAlarm: Sub alarmă
+thermostatTemperature_boost: Creșterea temperaturii
+thermostatTemperature_comfort: Temperatura de confort
+thermostatTemperature_eco: Temperatura ECO
+thermostatTemperature_freezeProtection: Temperatura de protecție antiîngheț
+thermostatTemperature_heatProtection: Temperatura de protecție la supraîncălzire
+thermostatTemperature_histeresis: Histerezis
 this month: luna curentă
 this year: anul curent
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Schimbă poziția în timpul schimbărilor de înclinare
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Nu își schimbă poziția în timpul schimbărilor de înclinare
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Schimbă pasul numai atunci când este complet închis
+tiltControlType_UNKNOWN: Necunoscut
+timeMarginMode_custom: Particularizat
+timeMarginMode_device: Valoarea implicită de la dispozitiv
+timeMarginMode_off: Dezactivat
 today: azi
 unknown: necunoscut
+usedCTType_100A_33mA: 100A/33.3mA
+usedCTType_200A_66mA: 200A/66.6mA
+usedCTType_400A_133mA: 400A/133.3mA
+usedPhaseLedType_OFF: Închisă
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Direcția fluxului de energie
+usedPhaseLedType_VOLTAGE_LEVEL: Nivelul de tensiune
+usedPhaseLedType_VOLTAGE_PRESENCE: Prezența tensiunii
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Prezența tensiunii (inversată)
 username: nume de utilizator
 valid until: expiră
 values as seen on chart: valori așa cum se arată în diagramă
 values as seen on counter: valori așa cum să arată  pe contor
+valveOpenConfirm_manual: Supapa a fost închisă manual sau prin radio. Înainte de a-l deschide, asigurați-vă că nu a fost închis din cauza inundației. Pentru a dezactiva avertismentul, deschideți supapa manual. Sigur doriți să deschideți supapa de la distanță?!
 yesterday: ieri
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nu poate interacționa cu contul dvs. până când nu veți acorda din nou acces.'
 '{clientName} wants to access your account.': '{clientName} dorește să acceseze contul dvs.'
+'{count} minutes after sunrise': '{count} de minute după răsăritul soarelui'
+'{count} minutes after sunset': '{count} de minute după apusul soarelui'
+'{count} minutes before sunrise': '{count} de minute înainte de răsăritul soarelui'
+'{count} minutes before sunset': '{count} de minute înainte de apus'
+'{days} days': '{days} zile'
 '{minutes} minutes after sunrise': '{minutes} minute după răsăritul soarelui'
 '{minutes} minutes after sunset': '{minutes} minute după apusul soarelui'
 '{minutes} minutes before sunrise': '{minutes} minute înainte de răsărit'
@@ -1174,6 +1568,7 @@ Are you sure you want to disable this device?: Sigur doriți să opriți acest d
 Assigned Locations: Locații atribuite
 Authorized OAuth apps: Aplicații autorizate OAuth
 Calculated value: Citirea contorului
+Cannot execute an action when the device is disconnected.: Nu puteți efectua acțiuni atunci când dispozitivul este deconectat.
 Cannot send an activation e-mail. Try again later.: Mesajul cu link-ul de activare nu poate fi trimis. Încercați din nou mai târziu.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Nu ați primit mesajul cu linkul de activare pentru contul dvs.? Asigurați-vă că nu a ajuns în dosarul SPAM poșta nedorită). De asemenea, puteți face {clickHereLink} pentru a-l retrimite.
 Channel value: Valoare
@@ -1193,6 +1588,7 @@ Doors, Gates: Uși, Porți
 ENABLED: ACTIVAT
 Email already exists: Adresa de e-mail există deja
 Existing schedules: Planificări existente
+Expected maximum increment: Creșterea maximă preconizată
 From IP: De la adresa IP
 Get SUPLA on your devices: Descărcați SUPLA pe dispozitivele dvs.
 Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.: Mesajul cu linkul de activare a contul dvs. nu a sosit? Asigurați-vă că nu se află în folderul SPAM (junk mail). Puteți, de asemenea, să faceți clic [aici] pentru a-l retrimite.
@@ -1201,6 +1597,7 @@ Hour: Ora
 Hours: Ore
 I/O: Intrare/Ieșire
 If you want to stay here, do something!: Dacă vrei să rămâi aici, fă ceva!
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Pentru a minimiza riscul unei citiri incorecte, setați creșterea maximă așteptată a valorii contorului între imagini succesive.
 Initial value: Valoarea inițială
 Input: Intrare
 Interpolate measurements: Estimați valorile lipsă
@@ -1208,6 +1605,8 @@ Languages: Limbi
 Loading: Încărcare
 Location password must be at least 4 characters.: Parola pentru locație trebuie să aibă cel puțin 4 caractere.
 Location password must be no longer than 32 characters.: Parola pentru locație nu poate fi mai lungă de 32 de caractere.
+Maximum temperature that can be set from the device: Temperatura maximă care poate fi setată cu dispozitivul
+Minimum temperature that can be set from the device: Temperatura minimă care poate fi setată cu dispozitivul
 Minute: Minut
 Mobile Apps: Aplicații mobile
 Next: Mai departe
@@ -1217,6 +1616,7 @@ Output: Ieșire
 Please select an action: Vă rugăm să selectați o acțiune
 Please select the schedules that should also be enabled.: Selectați planurile care ar trebui să fie, de asemenea, activate.
 Previous login: Conectarea precedentă
+Reference to the channel will be removed from the items below.: Direcționarea către acest canal va fi eliminată din următoarele.
 Registration: Înregistrare
 Registration of new I/O devices: Înregistrarea dispozitivelor
 Registration of new clients: Înregistrarea clienților
@@ -1231,13 +1631,34 @@ Status: Stare
 Subject: Entitate
 Sunrise / Sunset: Est / Vest
 Supla for devices: Supla pentru dispozitive
+Temperature adjustment only: Numai setarea temperaturii
 The events in voltage aberrations history will be automatically deleted after {days} days.: Evenimentele din istoricul aberațiilor de tensiune vor fi șterse automat după {days} câteva zile.
+The items below depend on this channel, so they will be deleted.: Următoarele elemente depind de acest canal, astfel încât acestea vor fi eliminate.
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Răspunsul va fi activ atunci când sunt îndeplinite toate condițiile următoare. Dacă setați toate opțiunile disponibile, reacția se va activa numai între datele selectate, la orele și în zilele săptămânii selectate și atunci când este îndeplinită una dintre referințele de apus sau răsărit.
 Triggers: Declanșatoare
 Try again later: Încercați din nou mai târziu
 Turning this device off will result in disabling all the associated schedules.: Dezactivarea acestui dispozitiv va dezactiva, de asemenea, planurile de executare asociate cu acesta.
+Unlocked: Deblocat
+Use working schedule for this access identifier: Utilizați un program de disponibilitate pentru acest ID de acces
+Use working schedule for this reaction: Utilizați programul de activitate pentru acest răspuns
+User interface: Configurări interfață cu utilizatorul
 Value per unit: Valoare pe unitate
 We have just sent you an activation link. Be patient.: Tocmai a fost trimis un mesaj cu un link pentru activarea contului dvs. Răbdare.
 When: Când
+When the curtain reaches: Când cortina ajunge la
+When the facade blind reaches: Atunci când grilajul fațadei atinge
+When the projector screen reaches: Când ecranul de proiecție atinge
+When the roller garage door a certain position: Când ușa garajului ajunge într-o anumită poziție
+When the roller garage door reaches: Când ușa garajului ajunge la
+When the roller shutter calibration failed: Dacă calibrarea obturatorului cu role se încheie cu o eroare
+When the roller shutter calibration has been lost: Atunci când calibrarea obturatorului cu role nu se poate finaliza
+When the roller shutter calibration has started: Odată ce calibrarea oblonului cu role a început
+When the roller shutter motor reported a problem: Atunci când motorul oblonului rulant semnalează o problemă
+When the roller shutter reaches: Când jaluzea atinge
+When the roof window reaches: Când fereastra de la mansardă ajunge
+When the terrace awning reaches: Atunci când o copertină de terasă atinge
+When the vertical blind reaches: Când jaluzelele verticale ajung la
+Working schedule: Program de activitate
 You need to provide icons for all states.: Trebuie să furnizați pictograme pentru toate stările.
 You will be logged out shortly: Îndată veți fi deconectat
 choose a currency: alegeți valuta
@@ -1250,436 +1671,122 @@ or add a delay: sau adăugați o întârziere
 prefix: prefix
 reset chart view: reveniți la vizualizarea inițială
 suffix: sufix
-will expire: expiră
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-0% tilt angle: Unghiul lamelelor pe care jaluzeaua le fixează la închidere
-100% tilt angle: Unghiul lamelelor pe care jaluzeaua le fixează la deschidere
-A confirmation upon successful device unlocking.: Confirmarea deblocării dispozitivului.
-Active from: Activ din
-Active to: Activ până la
-Activity conditions: Condiții de activitate
-Additional time margin: Marjă de timp suplimentară
-Adjust temperature: Setați temperatura
-Adjust temperatures: Setați temperaturile
-After the delay: După o anumită perioadă de timp
-After the delay, but only when it's dark: După un anumit timp, dar numai când este întuneric
-Alarm armament sensor: Senzor de setare a alarmei
-Algorithm: Algoritm
-All programs must define at least one temperature threshold.: Fiecare program trebuie să definească cel puțin un prag de temperatură.
-Always decrement: Întotdeauna în scădere
-Always increment: În continuă creștere
-Anti-freeze and overheat protection: Supraîncălzire și protecție antiîngheț
-Anti-freeze protection: Protecție anti-îngheț
-Are you sure you want to change channel’s location?: Sunteți sigur că doriți să schimbați locația canalului?
-Are you sure you want to change channel’s visibility?: Sunteți sigur că doriți să schimbați vizibilitatea canalului?
-Are you sure you want to change device’s location?: Sunteți sigur că doriți să schimbați locația dispozitivului?
-Are you sure you want to delete this channel?: Sunteți sigur că doriți să ștergeți acest canal?
-Automatic: Automat
-Automatic front panel turn off: Deconectarea automată a panoului frontal
-Automatic front panel turn off after: Este timpul să opriți panoul frontal
-Automatic thermostat: Termostat automat
-Automatic time synchronization: Sincronizarea automată a datei și orei
-Aux thermometer: Termometru suplimentar
-Aux thermometer type: Tip termometru suplimentar
-Available variables: Variabile disponibile
-Average: Medie
-Battery cover open: Capacul bateriei deschis
-Behavior settings: Cunoștințe practice
-Binary sensor: Senzor binar
-Brightness adjustment for automatic mode: Reglarea luminozității în modul automat
-Brightness level: Nivelul de luminozitate
-Button volume: Volumul butonului
-Buttons upside down: Controlul butonului de mers înapoi
-Candle: Sfeșnic
-Cannot update OCR settings. Try again in a while.: Setările OCR nu au putut fi actualizate. Încercați din nou peste câteva momente.
-Change percentage by: Modificați procentul prin
-Change percentage to: Modificați procentul la
-Change tilt by: Modificați panta prin
-Change tilt to: Modificați panta la
-Change to be the same.: Setați la fel.
-Changing channel’s visibility will also change the visibility of other items.: Modificarea vizibilității canalului va modifica și vizibilitatea altor elemente.
-Changing the location will also imply changing the location of the following items.: Schimbarea locației îl va afecta și pentru următoarele.
-Channels that are meant to work with each other must be in the same location.: Canalele care trebuie să funcționeze împreună trebuie să fie în aceeași locație.
-Clock error: Eroare de ceas
-Close value: Valoarea de închidere
-Collapse: Colapsează
-Collapse or stop: Rulare sau oprire
-Collapse partially: Colaps parțial
-Command has been sent to the device. Try refreshing the photo in a while.: Cererea a fost trimisă către dispozitiv. Încercați să reîmprospătați fotografia într-un moment.
-Common currencies: Cele mai frecvent selectate valute
-Configuration not available yet. Waiting for the device to connect.: Configurația nu este încă disponibilă. Așteptați ca dispozitivul să se conecteze.
-Confirm if you want to perform the calibration.: Confirmați că doriți să efectuați calibrarea.
-Conflict: Conflict
-Cool to: Se dă la frigider până când
-Cooling mode: Modul de răcire
-'Cooling: {percent}%': 'Răcire: {percent}%'
-Costs: Costuri
-Could not restart the device.: Dispozitivul nu a putut fi repornit.
-Could not send the identify command.: Comanda nu a putut fi trimisă.
-Could not set the device time.: Nu a fost posibil să setați data și ora pe dispozitiv.
-Counter type: Tip de contor
-Curtain: Cortină
-Dark mode: Mod întunecat
-Data: Date
-Date range: Intervalul de date
-Daytime criteria: Criterii bazate pe durata zilei
-Dependencies: Dependențe
-'Device GUID: %deviceGuid%': 'GHID al dispozitivului: %deviceGuid%'
-Device identification is unsupported in the firmware.: Identificarea dispozitivului nu este suportată în firmware.
-Device settings: Setări dispozitiv
-Device should be restarting now.: Dispozitivul ar trebui să repornească.
-Device time has been set.: Data și ora dispozitivului au fost setate.
-Different than on master thermostat.: Setare diferită de cea de pe termostatul principal.
-Differential thermostat: Termostat diferențial
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Doriți să setați canalele care depind de acest termostat (cum ar fi termometrele și senzorii) să fie aceleași ca în termostatul principal?
-Domestic hot water: Apă caldă la domiciliu
-Dryer: Uscător
-Edit area crop: Zona de editare
-Edit program settings: Editarea setărilor programului
-Electricity meter active power history: Istoria puterii contorului de electricitate
-Electricity meter current history: Istoricul intensității contorului de electricitate
-Electricity meter voltage aberrations history: Istoricul aberațiilor de tensiune ale contorului de electricitate
-Electricity meter voltage history: Istoricul tensiunii contorului de electricitate
-Enable floor temperature control: Activați controlul temperaturii podelei
-Enable generic cooler temperature control: Activarea controlului temperaturii sursei de răcire
-Enable generic heater temperature control: Activarea controlului temperaturii sursei de căldură
-Enable power status LED: Porniți LED-ul de stare a alimentării
-Enable support for OCR readings for this channel: Activați suportul OCR pentru acest canal
-Enable water temperature control: Activați controlul temperaturii apei
-Example value: Exemplu
-Expand: Desfășoară
-Expand or stop: Dezvoltarea sau menținerea
-Expand partially: Extindeți în parte
-Expected maximum increment: Creșterea maximă preconizată
-External sensor disabling the thermostat: Senzor extern pentru oprirea termostatului
-Facade blind operation: Obloane de fațadă
-Fan: Ventilator
-'Field: {propertyPath}.': 'Câmp {propertyPath}.'
-Fill missing data: Completați măsurătorile lipsă
-Firmware: Firmware
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware-ul acestui dispozitiv trimite notificări în contextul acestui canal. Aici puteți configura conținutul și destinatarii. Pentru mai multe informații, contactați furnizorul dispozitivului.
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware-ul acestui dispozitiv trimite notificări. Aici puteți configura conținutul și destinatarii. Pentru mai multe informații, contactați furnizorul dispozitivului.
-For a period: Pentru perioada
-Forced off by sensor: Oprire forțată de către senzor
-Full tilting time: Timp total pentru schimbarea gradientului
-Function disabled: Funcție oprită
-General purpose meter: Canal de contor cu scop general
-HVAC: HVAC
-Heat or cold source switch: Comutator pentru sursă de căldură sau rece
-Heat to: Căldură la
-Heating / ventilation / air conditioning: Încălzire / ventilație / aer condiționat (HVAC)
-Heating mode: Modul de încălzire
-'Heating: {percent}%': 'Încălzire: {percent}%'
-High threshold: Prag înalt
-High value: Valoare maximă
-History: Istoric
-Home screen content: Conținutul ecranului de pornire
-Hotel card sensor: Senzor card hotelier
-Identify device: Identificați dispozitivul
-Identify request sent.: Cererea de identificare a fost trimisă.
-If you confirm the installation and wish to unlock this device, please click the link below.: Dacă sunteți cel care încearcă să adauge un dispozitiv nou, faceți clic pe link-ul de mai jos pentru a confirma deblocarea.
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Dacă nu sunteți cel care încearcă să deblocheze dispozitivul, ignorați acest e-mail. Linkul de confirmare va expira automat după 24 de ore.
-Image area crop: Zona imaginii
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Pentru a minimiza riscul unei citiri incorecte, setați creșterea maximă așteptată a valorii contorului între imagini succesive.
-Increment and decrement: Creștere și descreștere
-Installer e-mail address: Adresa de e-mail a instalatorului
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: Dispozitivul a înregistrat un canal de un tip diferit ({typeCaption} - {typeId}) în locul celui curent.
-Invalid e-mail address.: Adresă de e- mail greșită.
-Invalid unlock code.: Legătură de deblocare incorectă.
-Last paired device: Ultimul dispozitiv împerecheat
-Light mode: Mod luminos
-Lighting level: Nivelul de iluminare
-Lighting mode: Modul de iluminare
-List of available variables: Lista variabilelor disponibile
-Locked: Blocat
-Low threshold: Prag scăzut
-Low threshold must be less than high threshold.: Pragul scăzut trebuie să fie mai mic decât pragul ridicat
-Low value: Valoare minimă
-Main thermometer: Termometru principal
-Master thermostat: Termostat principal
-Max: Maks.
-Maximum duration is one year.: Perioada maximă este de un an.
-Maximum temperature that can be set from the device: Temperatura maximă care poate fi setată cu dispozitivul
-Measurement settings: Setări de măsurare
-Min: Min.
-Minimum OFF time before cooling can be turned on: Timp minim de ÎNCHIDERE înainte de repornirea răcirii
-Minimum OFF time before heating can be turned on: Timpul minim de oprire înainte ca încălzirea să fie repornită
-Minimum OFF time before heating/cooling can be turned on: Timp minim de oprire înainte de repornirea răcirii/încălzirii
-Minimum ON time before cooling can be turned off: Timp minim de ÎNCHIDERE înainte ca răcirea să fie oprită din nou
-Minimum ON time before heating can be turned off: Timp minim de pornire înainte ca încălzirea să fie oprită din nou
-Minimum ON time before heating/cooling can be turned off: Timp minim de pornire înainte ca răcirea/încălzirea să fie oprită din nou
-Minimum temperature must be lower than maximum temperature.: Temperatura minimă trebuie să fie mai mică decât temperatura maximă
-Minimum temperature that can be set from the device: Temperatura minimă care poate fi setată cu dispozitivul
-'Mode: cool': 'Mod: răcire'
-'Mode: heat': 'Mod: încălzire'
-'Mode: off': 'Mod: oprit'
-Motor upside down: Control inversat al motorului
-'No': 'Nu'
-No results: Niciun rezultat
-Notification body is set by the firmware.: Conținutul notificării este setat de firmware.
-Notification must have recipients.: Notificarea trebuie să aibă destinatari.
-Notification title is set by the firmware.: Antetul de notificare este setat de către firmware.
-Notifications (defined): Notificări (definite)
-Notifications (sent per hour): Notificări (trimise pe oră)
-'OCR service responded with error: {status}': 'Serviciul OCR a răspuns cu o eroare: {status}'
-OCR settings: Setări OCR
-OR: Awaryjne opuszczanie segregatora.
-Off with duration: Oprire la timp
-On with duration: Timpul de pornire
-Open value: Valoarea de deschidere
-Output value on error: Starea ieșirii în timpul unei erori
-Overheat protection: Protecție împotriva supraîncălzirii
-P/C: P/C
-Pair new devices or sensors: Asocierea de noi dispozitive sau senzori
-Pairing request sent.: Cerere de împerechere trimisă.
-Pairing subdevices is unsupported in the firmware.: Împerecherea nu este suportată de software-ul dispozitivului.
-Phase LED type: Indicator de fază LED
-Photo interval: Interval de fotografiere
-Please find the device details below.: Detalii despre dispozitiv pot fi găsite mai jos.
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Vă rugăm să rețineți că dispozitivul în cauză este destinat exclusiv instalatorilor certificați.
-Please provide the installer e-mail address to request the device unlock.: Pentru a debloca dispozitivul, introduceți adresa de e-mail care a fost furnizată în procesul de obținere a certificatului de instalare.
-Please select and configure the action: Selectați și configurați acțiunea.
-Program {programNo}: Program {programNo}
-Projector screen: Ecran de proiecție
-Pump switch: Comutator pompă
-Push notifications limit has been exceeded: Limita de notificări push a fost depășită
-Reference to the channel will be removed from the items below.: Direcționarea către acest canal va fi eliminată din următoarele.
-Refresh interval: Interval de reîmprospătare
-Refresh the config: Actualizați configurația
-Refreshing the configuration will overwrite the changes you made here.: Reîmprospătarea configurației va suprascrie modificările efectuate la formular.
-Reload last photo: Reîncărcați ultima fotografie
-Remote restart is unsupported in the firmware.: Repornirea de la distanță nu este acceptată de software-ul dispozitivului.
-Remove this item: Elimină acest element
-Request device unlock: Aplicați pentru a vă debloca dispozitivul
-Reset to defaults: Restaurarea valorilor implicite
-Restart device: Reporniți dispozitivul
-Restart the device: Reporniți dispozitivul
-Reveal or stop: Dezvăluiți sau opriți
-Roller garage door: Ușa garajului
-S/N: S/N
-SUPLA - Confirm unlocking device for authorized installers: SUPLA - Deblocarea unui dispozitiv pentru un instalator certificat
-SUPLA – your device has been unlocked!: SUPLA - Dispozitivul dvs. a fost deblocat!
-Same as on master thermostat.: Aceeași setare ca la termostatul principal.
-Screen brightness: Luminozitate ecran
-Selected: Selectat
-Set HVAC parameters: Setează parametrii
-Set the device time: Nu a fost posibil să setați data și ora pe dispozitiv.
-Settings: Setări
-Settings have not been saved!: Setările nu au fost salvate!
-Show data: Vizualizare resursă
-Shut or stop: Acoperiți sau opriți
-Some features depend on this channel: Unele funcții depind de acest canal
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Unele dintre datele colectate pentru contul dvs. vor fi șterse periodic după o anumită perioadă de timp. Familiarizați-vă cu limitele de mai jos.
-Status LED: LED de stare
-Store active power history: Păstrați un istoric al puterii active
-Store current history: Păstrați istoricul curent
-Store voltage history: Păstrați un istoric al tensiunii
-'Subdevice #{id}': 'Dispozitiv de subcontractare #{id}'
-Subfunction: Subfuncție
-Switch to manual mode: Treceți la modul manual
-Switch to program mode: Treceți la modul program
-THEN: ATUNCI
-Take a photo now: Fă o fotografie acum
-Temperature adjustment only: Numai setarea temperaturii
-Temperature difference is too big between {min}°C and {max}°C.: Diferența de temperatură este prea mare între {min}°C și {max}°C.
-Temperature setpoint change switches to manual mode: Modificarea temperaturii țintă comută în modul manual
-Temporal override: Suprascriere temporară
-Terrace awning: Copertină de terasă
-The channel has been deleted.: Canalul a fost eliminat.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Configurația a fost modificată dintr-o altă locație (de exemplu, o altă fereastră de browser, aplicație sau dispozitiv mobil). Trebuie să actualizați configurația înainte de a efectua alte modificări.
-The device could not be unlocked.: Dispozitivul nu a putut fi deblocat.
-The device has been unlocked already.: Dispozitivul este deja deblocat.
-The device has been unlocked.: Dispozitivul a fost deblocat.
-The device has channel conflict and cannot work.: Dispozitivul a generat un conflict de canal și nu poate funcționa în prezent.
-The device is locked: Dispozitiv blocat
-The following channels will be also removed along with their dependencies.: Următoarele canale vor fi, de asemenea, eliminate împreună cu dependențele lor.
-The items below depend on this channel, so they will be deleted.: Următoarele elemente depind de acest canal, astfel încât acestea vor fi eliminate.
-The master termostat you chose already has a master.: Termostatul principal pe care l-ați selectat are deja un alt termostat principal
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Răspunsul va fi activ atunci când sunt îndeplinite toate condițiile următoare. Dacă setați toate opțiunile disponibile, reacția se va activa numai între datele selectate, la orele și în zilele săptămânii selectate și atunci când este îndeplinită una dintre referințele de apus sau răsărit.
-The thermostat will not work if the main thermometer is not set.: Termometrul principal trebuie să fie setat pentru ca termostatul să funcționeze.
-Thermometer error: Eroare de termometru
-Thermometers configuration: Configurarea termometrelor
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Acest termostat utilizează setările de la termostatul principal. Accesați pagina de detalii a acestuia pentru a modifica setările.
-Thermostat programs: Programe de termostat
-This action will result in restarting the device. It will not be available for a while.: Comandarea acestei operațiuni va reporni dispozitivul. În timpul repornirii, dispozitivul va fi inaccesibil.
-This channel was missing during last device registration attempt.: Acest canal lipsește din dispozitiv.
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Acest aparat este destinat distribuției și instalării numai de către instalatori autorizați. Dacă nu sunteți un instalator SUPLA autorizat și nu dețineți un certificat de formare activ, returnați-l dealerului.
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Aceasta este ultima fotografie încărcată de pe dispozitiv. Marcați exact zona în care sunt vizibile cifrele contorului.
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Aceasta este o listă a reacțiilor care rulează pe contul dvs. Dacă doriți să adăugați o nouă reacție, accesați detaliile canalului care ar trebui să o declanșeze.
-This thermostat is controlled by another device.: Acest termostat este controlat de un termostat principal.
-Tilt angle: Unghiul de înclinare
-Tilt control type: Tip de control al înclinării
-Tilt percent: Procent de pantă
-Time: Timp
-Today, it would be active from {from} to {to}.: Astăzi, perioada de activitate ar fi între {from} și {to}.
-Turn off: Închide
-Unlock the device: Deblocați dispozitivul
-Unlocked: Deblocat
-Until a date and time: Până la
-Until the next change: Până la următoarea tură
-Use device default: Utilizați valoarea implicită din dispozitiv
-Use working schedule for this reaction: Utilizați programul de activitate pentru acest răspuns
-Use {theMasterThermostat} to control this device.: Utilizați {theMasterThermostat} pentru a controla acest dispozitiv.
-Used current transformer type: Transformator de curent utilizat
-User interface: Configurări interfață cu utilizatorul
-Value divider: Divizor
-Value multiplier: Multiplicator
-Vertical blind: Jaluzele verticale
-Visit the master thermostat page.: Mergeți la termostatul principal.
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Am primit o cerere de deblocare a unui dispozitiv destinat exclusiv instalatorilor certificați. Cererea a fost trimisă de utilizatorul %deviceUserEmail% de la instanța SUPLA Cloud la %targetCloudUrl%.
-Week: Săptămână
-Weekly schedule: Program săptămânal
-When the alarm is armed: Când alarma este setată
-When the alarm is armed or disarmed: Când alarma este dezactivată sau setată
-When the alarm is disarmed: Când alarma este dezactivată
-When the battery cover is opened: Când capacul bateriei este deschis
-When the clock error has been reported: Atunci când cronometrul raportează o eroare
-When the curtain position changes: Când perdeaua își schimbă poziția
-When the curtain reaches: Când cortina ajunge la
-When the curtain reaches a certain position: Atunci când perdeaua atinge o anumită poziție
-When the facade blind position changes: Când un jaluzele de fațadă își schimbă poziția
-When the facade blind reaches: Atunci când grilajul fațadei atinge
-When the facade blind reaches a certain position: Atunci când o lamelă de fațadă atinge o anumită poziție
-When the hotel card has been taken: Când cardul de hotel este retras
-When the hotel card is put in: Când este introdus cardul de hotel
-When the hotel card is put in or has been taken: Când cardul de hotel este introdus sau retras
-When the meter reaches a certain value: Atunci când contorul atinge valoarea dorită
-When the meter value changes: Atunci când valoarea se modifică
-When the meter value will be: Atunci când valoarea va fi
-When the projector screen position changes: Când ecranul de proiecție își schimbă poziția
-When the projector screen reaches: Când ecranul de proiecție atinge
-When the projector screen reaches a certain position: Când ecranul de proiecție atinge o anumită poziție
-When the pump is turned off: Când pompa este oprită
-When the pump is turned on: Când pompa este pornită
-When the pump is turned on or off: Când pompa este pornită sau oprită
-When the roller garage door a certain position: Când ușa garajului ajunge într-o anumită poziție
-When the roller garage door position changes: Când ușa garajului își schimbă poziția
-When the roller garage door reaches: Când ușa garajului ajunge la
-When the roller shutter calibration failed: Dacă calibrarea obturatorului cu role se încheie cu o eroare
-When the roller shutter calibration has been lost: Atunci când calibrarea obturatorului cu role nu se poate finaliza
-When the roller shutter calibration has started: Odată ce calibrarea oblonului cu role a început
-When the roller shutter motor reported a problem: Atunci când motorul oblonului rulant semnalează o problemă
-When the terrace awning position changes: Când o copertină de terasă își schimbă poziția
-When the terrace awning reaches: Atunci când o copertină de terasă atinge
-When the terrace awning reaches a certain position: Atunci când o copertină de terasă atinge o anumită poziție
-When the thermometer error has been reported: Atunci când termometrul raportează o eroare
-When the thermostat starts cooling: Când termostatul începe să se răcească
-When the thermostat starts heating: Când termostatul începe să încălzească
-When the thermostat starts heating or cooling: Când termostatul începe să răcească sau să încălzească
-When the thermostat starts or stops cooling: Când termostatul pornește sau oprește răcirea
-When the thermostat starts or stops heating: Când termostatul pornește sau oprește încălzirea
-When the thermostat starts or stops heating or cooling: Când termostatul pornește sau oprește încălzirea sau răcirea
-When the thermostat stops cooling: Când termostatul nu mai răcește
-When the thermostat stops heating: Când termostatul nu mai încălzește
-When the thermostat stops heating or cooling: Când termostatul nu mai răcește sau nu mai încălzește
-When the vertical blind position changes: Atunci când jaluzelele verticale își schimbă poziția
-When the vertical blind reaches: Când jaluzelele verticale ajung la
-When the vertical blind reaches a certain position: Atunci când jaluzelele verticale ating o anumită poziție
-Will be deleted after: Îndepărtarea după
-With a timer: Cu cronometru
-'Yes': 'Da'
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Aici puteți seta valori relative. De exemplu, +10 sau -20 vor crește setarea cu 10 sau, respectiv, o vor reduce cu 20.
-You cannot to set a master thermostat for a channel that is master for others.: Nu puteți seta termostatul principal în termostatul principal
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Cererea a fost trimisă. Vă vom notifica atunci când instalatorul o aprobă și deblochează dispozitivul.
-You need to provide icons for all states in light mode.: Trebuie să furnizați pictograme pentru toate statele în modul luminos.
-Your device has been unlocked by the installer.: Dispozitivul dvs. a fost deblocat de către instalator.
-and wait until the meter will be: și nu mai efectuați această reacție până când valoarea este
-auxThermometerType_DISABLED: Dezactivat
-auxThermometerType_FLOOR: Podea
-auxThermometerType_GENERIC_COOLER: Sursa de răcire
-auxThermometerType_GENERIC_HEATER: Sursa de căldură
-auxThermometerType_NOT_SET: Nu este configurat
-auxThermometerType_WATER: Apă
-blue, otherwise: altfel albastru
-blue, when voltage lower than the low threshold: albastru când tensiunea este sub pragul scăzut
-choose the currency: alegeți valuta
-configuration missing: nicio configurare
-cool: răcire
-day: zi
-default: implicit
-green, otherwise: altfel verde
-green, when power less than the low threshold: verde atunci când puterea este mai mică decât pragul inferior
-heat: încălzire
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Temperatura principală și auxiliară
-homeScreenContent_NONE: Nu există
-homeScreenContent_TEMPERATURE: Temperatura
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatură și umiditate
-homeScreenContent_TEMPERATURE_TIME: Temperatură și timp
-homeScreenContent_TIME: Timp
-homeScreenContent_TIME_DATE: Data şi ora
-hour: oră(e)
-keepHistoryMeasurementWarningSelected: Sunteți sigur că aveți nevoie de această poveste? Supla este un proiect open source întreținut cu fonduri proprii. Dacă nu aveți nevoie de această poveste, vă rugăm să ne ajutați să economisim spațiu de stocare valoros lăsând această opțiune dezactivată.
-max: max.
-midnight: nord
-milliseconds: milisecunde
-min: min.
-ocrLightingMode_ALWAYS_ON: Întotdeauna pornit
-ocrLightingMode_AUTO: Acestea își ajustează
-ocrLightingMode_OFF: Închisă
-'off': 'Închide'
-red, when power higher than the high threshold: roșu când puterea este peste pragul ridicat
-red, when voltage higher than the high threshold: roșu când tensiunea este mai mare decât pragul înalt
-seconds: secunde
-statusLed_ALWAYS_OFF: Închideți întotdeauna
-statusLed_OFF_WHEN_CONNECTED: Opriți când sunteți conectat
-statusLed_ON_WHEN_CONNECTED: Activează atunci când este conectat
-subdevicePairingResult_CMD_RESULT_UNKNOWN: Rezultat necunoscut
-subdevicePairingResult_NOT_STARTED_BUSY: Dispozitivul este ocupat
-subdevicePairingResult_NOT_STARTED_NOT_READY: Dispozitivul nu este pregătit
-subdevicePairingResult_NOT_SUPPORTED: Operațiune nesuportată
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: Nu s-au găsit echipamente noi
-subdevicePairingResult_ONGOING: În curs
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Rezultat necunoscut al evaporării
-subdevicePairingResult_PROCEDURE_STARTED: Procedura a început
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Limita de resurse depășită
-subdevicePairingResult_SUCCESS: Succes
-subdevicePairingResult_UNAUTHORIZED: Autorizare nereușită
-sunrise: răsărit de soare
-sunset: apus de soare
-swap: schimbă
-the master thermostat ID{id}: a termostatului principal ID{id}
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Pornit/oprit cu setare superioară
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Pornit/oprit cu setare de mijloc
-thermostatAlgorithm_PID: PID
 thermostatAlgorithm_help: |
   Algoritmii de pornire/oprire funcționează pe baza unei setări de histerezis. Histerezisul poate fi raportat la mijlocul intervalului său (setare medie) sau la temperatura setată (setare superioară). 
   De exemplu, presupunând o histerezis de 1°C și o temperatură țintă de 23°C, termostatul va:
   - va porni încălzirea la 22,5°C și se va opri când temperatura atinge 23,5°C pentru setarea medie 
   - va porni încălzirea la 22°C și se va opri când temperatura atinge 23°C pentru setarea superioară
+will expire: expiră
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Action trigger for channel: ~
+Activity schedule: ~
+Alarm at level (and above) should be greater than the corresponding warning level.: ~
+Alarm at level (and below) should be lower than the corresponding warning level.: ~
+Alarm level: ~
+Algorithms available on this device: ~
+Are you sure you want to delete this subdevice?: ~
+Aux thermometer for channel: ~
+Binary sensor for channel: ~
+Cannot execute an action when the channel is not available.: ~
+Channels that are meant to work with each other must have the same visibility setting.: ~
+Choose many: ~
+Container: ~
+Container level sensor: ~
+Container supports up to 10 sensors.: ~
+Device interface: ~
+Each container level sensor must have different fill level.: ~
+Fill level: ~
+Flood sensor: ~
+Flood sensor for valve: ~
+Flood sensors: ~
+Image: ~
+Invalid sensor state: ~
+Level sensor: ~
+Level sensor for container: ~
+Level sensors: ~
+Lock type: ~
+Main thermometer for channel: ~
+Master thermostat for channel: ~
+Maximum: ~
+Minimum: ~
+Motor problem: ~
+Mute alarm: ~
+Mute alarm sound without additional auth: ~
+Mute command sent: ~
+Not available: ~
+Opening sensor for channel: ~
+Percentage of extension: ~
+Photo history: ~
+Pump switch for channel: ~
+Reading: ~
+Reference to the deleted channels will be removed from the items below.: ~
+Scene ID{id} is being executed right now.: ~
+Scene ID{id} is inactive right now.: ~
+Septic tank: ~
+Sound alarm on: ~
+Temperature control type: ~
+Temperatures that can be set from local UI: ~
+The items below depend on the deleted channels, so they will be deleted, too.: ~
+The subdevice has been deleted.: ~
+This device cannot be remotely awakened. We are awaiting communication from the device...: ~
+Updating...: ~
+Use activity schedule: ~
+Valve supports up to 20 sensors.: ~
+Waiting: ~
+Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).: ~
+Warning level: ~
+Water tank: ~
+When a flood is detected: ~
+When a flooding state changes: ~
+When a flooding state has been cleared: ~
+When any of the sensors starts to report an invalid state: ~
+When any of the sensors stops to report an invalid state: ~
+When the alarm starts: ~
+When the alarm stops: ~
+When the battery level will be: ~
+When the battery reaches a certain level: ~
+When the calibration fails: ~
+When the calibration has been lost: ~
+When the calibration has started: ~
+When the device starts to be powered from battery: ~
+When the device stops to be powered from battery: ~
+When the fill level changes: ~
+When the fill level reaches a certain value: ~
+When the fill level reading error disappears: ~
+When the fill level reading error occurs: ~
+When the fill level will be: ~
+When the motor reported a problem: ~
+When the position reaches: ~
+When the roller garage door reaches a certain position: ~
+When the sound alarm starts: ~
+When the sound alarm stops: ~
+When the warning starts: ~
+When the warning stops: ~
+You cannot change this function becuase it is required by another channel.: ~
+activityConditions_help: ~
+and wait until the battery level will be: ~
+and wait until the fill level will be: ~
+directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
+localUILock_FULL: ~
+localUILock_TEMPERATURE: ~
+localUILock_UNLOCKED: ~
+state-half: ~
+state-hi: ~
+state-low: ~
+tank_alarm_alarmAboveLevel: ~
+tank_alarm_alarmBelowLevel: ~
+tank_alarm_warningAboveLevel: ~
+tank_alarm_warningBelowLevel: ~
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
+temperatureControlType_ROOM_TEMPERATURE: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: ~
+thermostatAlgorithmHelp_PID: ~
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: Răcire
-thermostatSubfunction_HEAT: Încălzire
-thermostatTemperature_aboveAlarm: Deasupra alarmei
-thermostatTemperature_auxMaxSetpoint: Temperatura auxiliară maximă
-thermostatTemperature_auxMinSetpoint: Temperatura auxiliară minimă
-thermostatTemperature_belowAlarm: Sub alarmă
-thermostatTemperature_boost: Creșterea temperaturii
-thermostatTemperature_comfort: Temperatura de confort
-thermostatTemperature_eco: Temperatura ECO
-thermostatTemperature_freezeProtection: Temperatura de protecție antiîngheț
-thermostatTemperature_heatProtection: Temperatura de protecție la supraîncălzire
-thermostatTemperature_histeresis: Histerezis
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: Schimbă poziția în timpul schimbărilor de înclinare
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Nu își schimbă poziția în timpul schimbărilor de înclinare
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Schimbă pasul numai atunci când este complet închis
-tiltControlType_UNKNOWN: Necunoscut
-timeMarginMode_custom: Particularizat
-timeMarginMode_device: Valoarea implicită de la dispozitiv
-timeMarginMode_off: Dezactivat
-usedCTType_100A_33mA: 100A/33.3mA
-usedCTType_200A_66mA: 200A/66.6mA
-usedCTType_400A_133mA: 400A/133.3mA
-usedPhaseLedType_OFF: Închisă
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: Direcția fluxului de energie
-usedPhaseLedType_VOLTAGE_LEVEL: Nivelul de tensiune
-usedPhaseLedType_VOLTAGE_PRESENCE: Prezența tensiunii
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Prezența tensiunii (inversată)
-'{count} minutes after sunrise': '{count} de minute după răsăritul soarelui'
-'{count} minutes after sunset': '{count} de minute după apusul soarelui'
-'{count} minutes before sunrise': '{count} de minute înainte de răsăritul soarelui'
-'{count} minutes before sunset': '{count} de minute înainte de apus'
-'{days} days': '{days} zile'
+valveOpenConfirm_flooding: ~
+valveOpenConfirm_motorProblem: ~
+
 #</editor-fold>

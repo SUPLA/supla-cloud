@@ -457,14 +457,14 @@ No of client apps: Количество клиентских приложени�
 No of devices: Количество устройств
 No of operations: Количество операций
 No schedule configuration.: Конфигурация графика не указана.
+None: Нет
+None (channel disabled): Пусто (канал выключен)
 No{'.'} of Client’s apps: Количество клиентских приложений
 No{'.'} of access identifiers: Количество идентификаторов доступа
 No{'.'} of channel groups: Количество групп каналов
 No{'.'} of channels: Количество каналов
 No{'.'} of devices: Количество устройств
 No{'.'} of locations: Количество местоположений
-None: Нет
-None (channel disabled): Пусто (канал выключен)
 Number of aberrations: Количество аберраций
 Number of attempts to close: Количество попыток закрытия
 Number of attempts to open: Количество попыток открытия
@@ -680,7 +680,6 @@ The server has returned an HTTP 404 Error. It means that the item you are lookin
 The server has returned an HTTP {statusCode} error.: Сервер вернул ошибку {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Выбранный Вами файлы икон превышают максимальный размер. Максимальный размер загружаемого файла - {limit}.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Клапан не может быть открыт по прямой ссылке или через API, если он был закрыт вручную. Чтобы возобновить управление, откройте клапан вручную.
-valveOpenConfirm_manual: Клапан был закрыт в ручном или радио режиме. Перед его открытием убедитесь, что он не был закрыт по причине затопления. Чтобы отключить предупреждение, откройте клапан вручную. Вы уверены, что хотите открыть клапан удаленно?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Клапан не откроется, если он был закрыт вручную или дистанционно, что могло быть связано с затоплением.
 There are no more channels you can add to this group: Нет других каналов, которые можно добавить в эту группу
 Thermometer: Термометр
@@ -714,7 +713,6 @@ Update in progress: Идет обновление
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Загруженные файлы не нарушают норм нравственности, авторских прав и прав третьих лиц, и я имею право их использовать.
 Upper voltage threshold: Порог высокого напряжения
 'Use the {0} server command to change this account''s limits. For example:': 'Чтобы изменить лимиты для этой учетной записи, используйте команду {0} на вашем сервере. Например:'
-Use working schedule for this access identifier: Используйте график доступности для этого идентификатора доступа
 User is already confirmed. Try to log in.: Эта учетная запись уже подтверждена. Войдите.
 Value added: Добавленное значение
 Valve: Клапан
@@ -758,7 +756,6 @@ Window opening sensor: Датчик открытия окна
 With SUPLA you can operate the lights in your home or office: С SUPLĄ можно управлять светом в доме или офисе
 With function: С функцией
 Working period: Срок действия
-Working schedule: График действий
 YOUR LINK CODE: КОД ТВОЕЙ ССЫЛКИ
 You are changing the settings too quickly. You have to wait a while before making this change.: Вы слишком быстро меняете настройки. Следует подождать некоторое время, прежде чем изменить эти настройки.
 You can ignore this message, if you have accidentally entered an incorrect password.: Вы можете проигнорировать данную информацию, если это вы указали неверный пароль.
@@ -897,6 +894,7 @@ sunset-after: заката
 sunset-before: заката
 username: имя пользователя
 valid until: Истечет
+valveOpenConfirm_manual: Клапан был закрыт в ручном или радио режиме. Перед его открытием убедитесь, что он не был закрыт по причине затопления. Чтобы отключить предупреждение, откройте клапан вручную. Вы уверены, что хотите открыть клапан удаленно?!
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} мы не можем взаимодействовать с вашей учетной записью до повторного предоставления доступа.'
 '{clientName} wants to access your account.': '{clientName} хочет получить доступ к вашей учетной записи.'
 '{minutes} minutes after sunrise': '{minutes} минут после восхода солнца'
@@ -978,8 +976,10 @@ Supla for devices: Supla для устройств
 Triggers: Триггеры
 Try again later: Попытайся повторно задать команду
 Turning this device off will result in disabling all the associated schedules.: Выключение этого оборудования приведет  к одновременному выключению графиков, которые с ним соединены.
+Use working schedule for this access identifier: Используйте график доступности для этого идентификатора доступа
 Value per unit: Значение на единицу
 When: Когда
+Working schedule: График действий
 You need to provide icons for all states.: Вы должны назначить значки для всех состояний.
 You will be logged out shortly: В течение нескольких секунд система удалит тебя как пользователя
 choose a currency: выбрать валюту
@@ -1007,6 +1007,7 @@ Active sessions: ~
 Active to: ~
 Active web sessions: ~
 Activity conditions: ~
+Activity schedule: ~
 Add a new action to the scene: ~
 Additional time margin: ~
 Adjust temperature: ~
@@ -1015,7 +1016,11 @@ After the delay: ~
 After the delay, but only when it's dark: ~
 Aggregation: ~
 Alarm armament sensor: ~
+Alarm at level (and above) should be greater than the corresponding warning level.: ~
+Alarm at level (and below) should be lower than the corresponding warning level.: ~
+Alarm level: ~
 Algorithm: ~
+Algorithms available on this device: ~
 All events: ~
 All logs has been downloaded. Reload the chart to see them.: ~
 All programs must define at least one temperature threshold.: ~
@@ -1070,6 +1075,8 @@ Changing channel’s visibility will also change the visibility of other items.:
 Changing the location will also imply changing the location of the following items.: ~
 Channel available for {serviceName}: ~
 Channels that are meant to work with each other must be in the same location.: ~
+Channels that are meant to work with each other must have the same visibility setting.: ~
+Choose many: ~
 Choose the channel: ~
 Choose the channel group: ~
 Choose the scene: ~
@@ -1087,6 +1094,9 @@ Configuration not available yet. Waiting for the device to connect.: ~
 Confirm if you want to perform the calibration.: ~
 Confirmation: ~
 Conflict: ~
+Container: ~
+Container level sensor: ~
+Container supports up to 10 sensors.: ~
 Cool to: ~
 Cooling mode: ~
 'Cooling: {percent}%': ~
@@ -1109,6 +1119,7 @@ Daytime criteria: ~
 Dependencies: ~
 'Device GUID: %deviceGuid%': ~
 Device identification is unsupported in the firmware.: ~
+Device interface: ~
 Device settings: ~
 Device should be restarting now.: ~
 Device time has been set.: ~
@@ -1118,6 +1129,7 @@ Do you want to set related channels like thermometers and sensors to be the same
 Domestic hot water: ~
 Download measurements history: ~
 Dryer: ~
+Each container level sensor must have different fill level.: ~
 Edit area crop: ~
 Edit program settings: ~
 Edit reaction: ~
@@ -1137,17 +1149,20 @@ Example value: ~
 Expand: ~
 Expand or stop: ~
 Expand partially: ~
-Expected maximum increment: ~
 Expires at: ~
 External sensor disabling the thermostat: ~
 Facade blind operation: ~
 Fan: ~
 'Field: {propertyPath}.': ~
 File format: ~
+Fill level: ~
 Fill missing data: ~
 Firmware: ~
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+Flood sensor: ~
+Flood sensor for valve: ~
+Flood sensors: ~
 For a period: ~
 Forced off by sensor: ~
 Forward active energy balance: ~
@@ -1176,8 +1191,8 @@ Identify device: ~
 Identify request sent.: ~
 If you confirm the installation and wish to unlock this device, please click the link below.: ~
 If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: ~
+Image: ~
 Image area crop: ~
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: ~
 Increment and decrement: ~
 Incremental: ~
 Installer e-mail address: ~
@@ -1185,13 +1200,18 @@ Integrations settings: ~
 Invalid channel type ({typeCaption} - {typeId}) received in registration.: ~
 Invalid e-mail address.: ~
 Invalid scene: ~
+Invalid sensor state: ~
 Invalid unlock code.: ~
 Invalid username or password: ~
 Last paired device: ~
+Level sensor: ~
+Level sensor for container: ~
+Level sensors: ~
 Light mode: ~
 Lighting level: ~
 Lighting mode: ~
 List of available variables: ~
+Lock type: ~
 Locked: ~
 Log out: ~
 Logs transformation: ~
@@ -1203,10 +1223,11 @@ Main thermometer for channel: ~
 Master thermostat: ~
 Master thermostat for channel: ~
 Max: ~
+Maximum: ~
 Maximum duration is one year.: ~
-Maximum temperature that can be set from the device: ~
 Measurement settings: ~
 Min: ~
+Minimum: ~
 Minimum OFF time before cooling can be turned on: ~
 Minimum OFF time before heating can be turned on: ~
 Minimum OFF time before heating/cooling can be turned on: ~
@@ -1214,12 +1235,15 @@ Minimum ON time before cooling can be turned off: ~
 Minimum ON time before heating can be turned off: ~
 Minimum ON time before heating/cooling can be turned off: ~
 Minimum temperature must be lower than maximum temperature.: ~
-Minimum temperature that can be set from the device: ~
 Missing action.: ~
 'Mode: cool': ~
 'Mode: heat': ~
 'Mode: off': ~
+Motor problem: ~
 Motor upside down: ~
+Mute alarm: ~
+Mute alarm sound without additional auth: ~
+Mute command sent: ~
 New reaction: ~
 'No': ~
 No results: ~
@@ -1254,9 +1278,11 @@ Pairing subdevices is unsupported in the firmware.: ~
 Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: ~
 Password changed: ~
 Password reset: ~
+Percentage of extension: ~
 Phase: ~
 Phase LED type: ~
 Phase {phaseNumber}: ~
+Photo history: ~
 Photo interval: ~
 Please find the device details below.: ~
 Please fix the problems with operations and try again.: ~
@@ -1275,6 +1301,7 @@ Pump switch for channel: ~
 Push notifications limit has been exceeded: ~
 Reactions: ~
 Reactions limit has been exceeded: ~
+Reading: ~
 Recipients: ~
 Reference to the deleted channels will be removed from the items below.: ~
 Refresh interval: ~
@@ -1295,6 +1322,8 @@ S/N: ~
 SUPLA - Confirm unlocking device for authorized installers: ~
 SUPLA – your device has been unlocked!: ~
 Same as on master thermostat.: ~
+Scene ID{id} is being executed right now.: ~
+Scene ID{id} is inactive right now.: ~
 Scene available for {serviceName}: ~
 Screen brightness: ~
 Security: ~
@@ -1303,6 +1332,7 @@ Selected: ~
 Selected device has been logged out.: ~
 Send a notification: ~
 Send notification: ~
+Septic tank: ~
 Set HVAC parameters: ~
 Set the device time: ~
 Set values for each phase separately: ~
@@ -1312,6 +1342,7 @@ Show data: ~
 Shut or stop: ~
 Some features depend on this channel: ~
 Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
+Sound alarm on: ~
 Status LED: ~
 Store active power history: ~
 Store current history: ~
@@ -1324,10 +1355,10 @@ Switch to program mode: ~
 THEN: ~
 Tab: ~
 Take a photo now: ~
-Temperature adjustment only: ~
 Temperature control type: ~
 Temperature difference is too big between {min}°C and {max}°C.: ~
 Temperature setpoint change switches to manual mode: ~
+Temperatures that can be set from local UI: ~
 Temporal override: ~
 Terrace awning: ~
 The channel has been deleted.: ~
@@ -1346,7 +1377,6 @@ The master termostat you chose already has a master.: ~
 The notification must have a recipient.: ~
 The reaction has been added: ~
 The reaction has been changed: ~
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
 The subdevice has been deleted.: ~
 The thermostat will not work if the main thermometer is not set.: ~
 Thermometer error: ~
@@ -1355,6 +1385,7 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: ~
 This action will result in restarting the device. It will not be available for a while.: ~
 This channel was missing during last device registration attempt.: ~
+This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
@@ -1372,22 +1403,26 @@ Total: ~
 Turn off: ~
 Unknown browser: ~
 Unlock the device: ~
-Unlocked: ~
 Until a date and time: ~
 Until the next change: ~
+Updating...: ~
+Use activity schedule: ~
 Use device default: ~
-Use working schedule for this reaction: ~
 Use {theMasterThermostat} to control this device.: ~
 Used current transformer type: ~
-User interface: ~
 Value: ~
 Value divider: ~
 Value multiplier: ~
 Value separator: ~
+Valve supports up to 20 sensors.: ~
 Vector balance: ~
 Vertical blind: ~
 Visit the master thermostat page.: ~
 Voltage: ~
+Waiting: ~
+Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).: ~
+Warning level: ~
+Water tank: ~
 'We also strongly advise you to choose a password that:': ~
 We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: ~
 We were not able to prepare your data. Please see the error details below.: ~
@@ -1395,8 +1430,13 @@ We will miss you!: ~
 Week: ~
 Weekly schedule: ~
 When a certain distance is reached: ~
+When a flood is detected: ~
+When a flooding state changes: ~
+When a flooding state has been cleared: ~
 When a lack of liquid is detected: ~
 When a new mail comes: ~
+When any of the sensors starts to report an invalid state: ~
+When any of the sensors stops to report an invalid state: ~
 When flooding is detected: ~
 When liquid is detected: ~
 When liquid or lack thereof is detected: ~
@@ -1406,6 +1446,8 @@ When the active power will be: ~
 When the alarm is armed: ~
 When the alarm is armed or disarmed: ~
 When the alarm is disarmed: ~
+When the alarm starts: ~
+When the alarm stops: ~
 When the apparent power will be: ~
 When the balanced forward active energy will be: ~
 When the balanced reverse active energy will be: ~
@@ -1414,12 +1456,14 @@ When the battery level will be: ~
 When the battery reaches a certain level: ~
 When the brightness level changes: ~
 When the brightness will be: ~
+When the calibration fails: ~
+When the calibration has been lost: ~
+When the calibration has started: ~
 When the clock error has been reported: ~
 When the color changes: ~
 When the condition is met: ~
 When the current will be: ~
 When the curtain position changes: ~
-When the curtain reaches: ~
 When the curtain reaches a certain position: ~
 When the depth changes: ~
 When the depth is: ~
@@ -1439,8 +1483,12 @@ When the electricity meter reaches a certain value: ~
 When the electricity meter value changes: ~
 When the electricity meter value will be: ~
 When the facade blind position changes: ~
-When the facade blind reaches: ~
 When the facade blind reaches a certain position: ~
+When the fill level changes: ~
+When the fill level reaches a certain value: ~
+When the fill level reading error disappears: ~
+When the fill level reading error occurs: ~
+When the fill level will be: ~
 When the forward active energy will be: ~
 When the garage door will be closed: ~
 When the garage door will be opened: ~
@@ -1469,12 +1517,13 @@ When the mail has been taken: ~
 When the meter reaches a certain value: ~
 When the meter value changes: ~
 When the meter value will be: ~
+When the motor reported a problem: ~
+When the position reaches: ~
 When the precipitation amount will be: ~
 When the pressure changes: ~
 When the pressure reaches a certain level: ~
 When the pressure will be: ~
 When the projector screen position changes: ~
-When the projector screen reaches: ~
 When the projector screen reaches a certain position: ~
 When the pump is turned off: ~
 When the pump is turned on: ~
@@ -1482,30 +1531,24 @@ When the pump is turned on or off: ~
 When the rain amount changes: ~
 When the reactive power will be: ~
 When the reverse active energy will be: ~
-When the roller garage door a certain position: ~
 When the roller garage door position changes: ~
-When the roller garage door reaches: ~
-When the roller shutter calibration failed: ~
-When the roller shutter calibration has been lost: ~
-When the roller shutter calibration has started: ~
-When the roller shutter motor reported a problem: ~
+When the roller garage door reaches a certain position: ~
 When the roller shutter position changes: ~
-When the roller shutter reaches: ~
 When the roller shutter reaches a certain position: ~
 When the roller shutter will be closed: ~
 When the roller shutter will be opened: ~
 When the roller shutter will be opened or closed: ~
 When the roof window position changes: ~
-When the roof window reaches: ~
 When the roof window reaches a certain position: ~
 When the roof window will be closed: ~
 When the roof window will be opened: ~
 When the roof window will be opened or closed: ~
+When the sound alarm starts: ~
+When the sound alarm stops: ~
 When the temperature changes: ~
 When the temperature reaches a certain value: ~
 When the temperature will be: ~
 When the terrace awning position changes: ~
-When the terrace awning reaches: ~
 When the terrace awning reaches a certain position: ~
 When the thermometer error has been reported: ~
 When the thermostat starts cooling: ~
@@ -1523,9 +1566,10 @@ When the valve is manually closed: ~
 When the valve is opened: ~
 When the valve is opened or closed: ~
 When the vertical blind position changes: ~
-When the vertical blind reaches: ~
 When the vertical blind reaches a certain position: ~
 When the voltage will be: ~
+When the warning starts: ~
+When the warning stops: ~
 When the water meter reaches a certain value: ~
 When the water meter value changes: ~
 When the water meter value will be: ~
@@ -1557,9 +1601,11 @@ Your data are being fetched from the server. Wait for it to complete before expo
 Your device has been unlocked by the installer.: ~
 actionableSubjectType_notification: ~
 actionableSubjectType_schedule: ~
+activityConditions_help: ~
 and wait until it reaches: ~
 and wait until it will be: ~
 and wait until the battery level will be: ~
+and wait until the fill level will be: ~
 and wait until the humidity will be: ~
 and wait until the meter will be: ~
 and wait until the temperature will be: ~
@@ -1585,6 +1631,7 @@ contains lower and upper letters: ~
 cool: ~
 day: ~
 default: ~
+directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
 green, otherwise: ~
 green, when power less than the low threshold: ~
 heat: ~
@@ -1602,6 +1649,9 @@ last 24 hours: ~
 last 30 days: ~
 last 6 hours: ~
 last 7 days: ~
+localUILock_FULL: ~
+localUILock_TEMPERATURE: ~
+localUILock_UNLOCKED: ~
 logs_aggregation_day: ~
 logs_aggregation_hour: ~
 logs_aggregation_minute: ~
@@ -1622,6 +1672,9 @@ red, when power higher than the high threshold: ~
 red, when voltage higher than the high threshold: ~
 schedule: ~
 seconds: ~
+state-half: ~
+state-hi: ~
+state-low: ~
 statusLed_ALWAYS_OFF: ~
 statusLed_OFF_WHEN_CONNECTED: ~
 statusLed_ON_WHEN_CONNECTED: ~
@@ -1640,15 +1693,21 @@ sum: ~
 sunrise: ~
 sunset: ~
 swap: ~
+tank_alarm_alarmAboveLevel: ~
+tank_alarm_alarmBelowLevel: ~
+tank_alarm_warningAboveLevel: ~
+tank_alarm_warningBelowLevel: ~
 temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
 temperatureControlType_ROOM_TEMPERATURE: ~
 the master thermostat ID{id}: ~
 the whole history: ~
 then execute the action: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: ~
+thermostatAlgorithmHelp_PID: ~
 thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: ~
 thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: ~
 thermostatAlgorithm_PID: ~
-thermostatAlgorithm_help: ~
 thermostatOutputValue_help: ~
 thermostatSubfunction_COOL: ~
 thermostatSubfunction_HEAT: ~
@@ -1683,6 +1742,8 @@ usedPhaseLedType_VOLTAGE_PRESENCE: ~
 usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: ~
 values as seen on chart: ~
 values as seen on counter: ~
+valveOpenConfirm_flooding: ~
+valveOpenConfirm_motorProblem: ~
 yesterday: ~
 '{count} minutes after sunrise': ~
 '{count} minutes after sunset': ~

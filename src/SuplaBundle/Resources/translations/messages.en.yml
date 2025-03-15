@@ -160,6 +160,7 @@ usedPhaseLedType_VOLTAGE_PRESENCE: Voltage presence
 usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Voltage presence (inverted)
 valveOpenConfirm_flooding: The valve has been closed due to the detection of flooding. Make sure that the cause of flooding has already been removed. Are you sure you want to open the valve?
 valveOpenConfirm_manual: valveOpenConfirm_manual
+valveOpenConfirm_motorProblem: A motor problem has been detected. Make sure nothing is blocking the valve. The valve may be partially open. Are you sure you want to open/close it?
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -170,5 +171,3 @@ valveOpenConfirm_manual: valveOpenConfirm_manual
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-
-valveOpenConfirm_motorProblem: A motor problem has been detected. Make sure nothing is blocking the valve. The valve may be partially open. Are you sure you want to open/close it?

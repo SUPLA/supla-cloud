@@ -6,10 +6,13 @@
 ...open gateways, gates or doors: ...Mở cổng hoặc cửa
 ...or control home appliances: ...hoặc kiểm soát các thiết bị gia dụng
 ...you can monitor temperature: ...bạn có thể theo dõi nhiệt độ
+0% tilt angle: Góc của các thanh mà rèm đặt khi đóng lại
 10 minutes before sunset, on day 10 of the month, May through August: 10 phút trước khi mặt trời lặn, chỉ vào ngày mùng 10 của tháng, từ tháng 5 đến tháng 8
+100% tilt angle: Góc của các thanh mà rèm đặt khi mở
 15 minutes after sunrise, every 2 days: 15 phút sau khi mặt trời mọc, đều đặn cách 1 ngày
 A confirmation upon successful client app registration.: Xác nhận đăng ký ứng dụng khách hàng mới
 A confirmation upon successful device registration.: Xác nhận đăng ký thiết bị thành công.
+A confirmation upon successful device unlocking.: Xác nhận mở khóa thiết bị.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Ứng dụng khách hàng mới (điện thoại thông minh) đã được thêm vào tài khoản đám mây SUPLA của bạn.
 A new device has been added to your SUPLA-Cloud account.: Thiết bị mới đã được thêm vào tài khoản SUPLA-Cloud của bạn.
 A new personal access token has been generated.: Một mã truy cập cá nhân mới đã được tạo
@@ -39,9 +42,12 @@ Action triggers: Những kích hoạt hành động
 Actions: Hoạt động
 Active: Kích hoạt
 Active applications: Các ứng dụng hoạt động
+Active from: Hoạt động kể từ
 Active period: Khoảng thời gian hoạt động
 Active sessions: Các phiên hoạt động
+Active to: Hoạt động đến
 Active web sessions: Các phiên hoạt động (trang mạng)
+Activity conditions: Điều kiện hoạt động
 Add: Thêm
 Add a delay: Thêm thời gian trễ
 Add a new action to the scene: Thêm một hoạt động mới vào cảnh
@@ -50,22 +56,34 @@ Add action: Thêm một hành động
 Add first channel to set channel group function and save it: Thêm kênh đầu tiên để đặt chức năng nhóm kênh và lứu.
 Add new channel group: Thêm nhóm kênh mới.
 Add new channel to this group: Thêm mới.
+Additional time margin: Khoảng thời gian bổ sung
 Adjust parameters: Điều chỉnh thông số
+Adjust temperature: Đặt nhiệt độ
+Adjust temperatures: Đặt nhiệt độ
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Sau khi xóa icon, tất cả các channels và channel grops sẽ trở lại icon mặc định.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Sau khi cấp quyền truy cập, bạn luôn có thể xóa quyền truy cập bằng cách điều chỉnh cài đặt trong phần cài đặt tài khoản của bạn
+After the delay: Sau khoảng thời gian xác định
+After the delay, but only when it's dark: Sau khoảng thời gian xác định, nhưng chỉ khi trời tối
 After the device enters the configuration mode, it will not be accessible on your account.: Sẽ không vào được thiết bị từ cấp độ tài khoản của bạn sau khi vào chế độ cấu hình.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Sau khi cập nhật, ứng dụng sẽ nhanh hơn, tiện lợi hơn ... Đơn giản là tốt hơn!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Máy sẽ bắt đầu đếm từ 0 sau hoạt động này, bất kể trạng thái hiện tại của nó. Không thể hồi lại thao tác này.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Sau khi bạn chọn một đối tượng, một liên kết trực tiếp sẽ được tạo ra. Bạn sẽ có thể đặt tất cả các tùy chọn khác sau khi tạo.
 Aggregation: Tổng hợp
+Alarm armament sensor: Cảm biến kích hoạt báo động
+Algorithm: Thuật toán
 All: Tất cả
 All events: Tất cả các sự kiện
 All logs has been downloaded. Reload the chart to see them.: Đã tải xuống tất cả dữ liệu đo. Tải lại biểu đồ để xem chúng.
+All programs must define at least one temperature threshold.: Mỗi chương trình phải xác định ít nhất một ngưỡng nhiệt độ.
 All the above and many more can be done from your phone or tablet: Tất cả có thể được thực hiện từ điện thoại và máy tính bảng của bản.
 Allowed actions: Cho phép thao tác
 Allows to perform an action only using the HTTP PATCH request.: Cho phép bạn thực hiện một hành động chỉ bằng cách sử dụng yêu cầu HTTP PATCH.
 Alternatively, you can add a GET parameter to specify response format.: Bạn cũng có thể thêm tham số GET để chỉ định định dạng phản hồi.
+Always decrement: Luôn giảm
+Always increment: Luôn tăng
 And more: Thêm nữa
+Anti-freeze and overheat protection: Bảo vệ quá nhiệt và chống đóng băng
+Anti-freeze protection: Bảo vệ chống đóng băng
 Any application or device that uses the {tokenName} token will not work anymore.: Bất kỳ ứng dụng hoặc thiết bị nào sử dụng mã thông báo {tokenName} sẽ không hoạt động nữa.
 'App version: %clientAppSoftwareVersion%': 'Phiên bản ứng dụng: %clientAppSoftwareVersion%'
 Application: Ứng dụng
@@ -75,10 +93,14 @@ Applications: Các ứng dụng
 Applications with access: Ứng dụng có quyền truy cập
 Are you lost?: Bạn bị mất?
 Are you sure you want to change channel’s function?: Chắc chắn muốn thay đổi chức năng kênh?
+Are you sure you want to change channel’s location?: Bạn có chắc chắn muốn thay đổi vị trí kênh không?
+Are you sure you want to change channel’s visibility?: Bạn có chắc chắn muốn thay đổi chế độ hiển thị của kênh không?
+Are you sure you want to change device’s location?: Bạn có chắc chắn muốn thay đổi vị trí thiết bị không?
 Are you sure you want to delete the entire measurement history saved for this channel?: Chắc chắn xóa toàn bộ lịch sử lưu?
 Are you sure you want to delete the events from the voltage aberrations history?: Bạn có chắc chắn muốn xóa tất cả các sự kiện trong lịch sử sự cố điện áp?
 Are you sure you want to delete this OAuth application?: Chắc chắn muốn xóa ứng dụng OAuth này?
 Are you sure you want to delete this channel group?: Chắc chắc xóa nhóm kênh?
+Are you sure you want to delete this channel?: Bạn có chắc chắn muốn xóa kênh này không?
 Are you sure you want to delete this client?: Chắc chắn muốn xóa Client này ?
 Are you sure you want to delete this direct link?: Chắc chắn muốn xóa liên kết này?
 Are you sure you want to delete this icon?: Chắc chắn muốn xóa biểu tượng này?
@@ -109,20 +131,36 @@ Authentication successful: Đăng nhập thành công
 Authorization callback URLs (one per line): URL gọi lại ủy quyền (một trên mỗi dòng)
 Authorize the application, so that it can access your account.: Cho phép ứng dụng để ứng dụng có thể truy cập vào tài khoản của bạn.
 Authorized: Được hủy quyền
+Automatic: Tự động
 Automatic calibration: Hiệu chuẩn tự động
 Automatic closing rule: Tự động đóng cổng
+Automatic front panel turn off: Tự động tắt bảng điều khiển phía trước~
+Automatic front panel turn off after: Thời gian cho đến khi bảng điều khiển phía trước tắt
+Automatic thermostat: Bộ điều chỉnh nhiệt độ tự động
+Automatic time synchronization: Tự động đồng bộ hóa ngày và giờ
 Automation: Tự động hóa
+Aux thermometer: Nhiệt kế bổ sung
+Aux thermometer type: Loại nhiệt kế bổ sung
+Available variables: Các biến có sẵn
+Average: Trung bình
 Average voltage: Điện áp trung bình
 Back to apps list: Trở lại danh sách ứng dụng
 Bar: Biểu đồ dạng cột
 Based on sunrise or sunset: Dựa trên hướng đông / tây
+Battery cover open: Nắp pin mở
 Be notified when your channels change state: Thông báo về những thay đổi trong trạng thái kênh
 Be right back!: Hãy quay lại sau vài phút nữa!
+Behavior settings: Hành vi
 Below threshold: Dưới ngưỡng
+Binary sensor: Cảm biến nhị phân
 Body: Nội dung
 Bottom position: Vị trí thấp hơn
 Bridge: Cầu
 Brightness: Độ sáng
+Brightness adjustment for automatic mode: Điều chỉnh độ sáng của chế độ tự động
+Brightness level: Mức độ sáng
+Button volume: Âm lượng nút bấm
+Buttons upside down: Điều khiển nút đảo ngược
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: 'Tắt tùy chọn này sẽ cho phép điều khiển thiết bị ở mức tích hợp mà không cần xác nhận bổ sung. Điều này có thể dẫn đến tình trạng nguy hiểm hoặc ít an toàn hơn (ví dụ: mở cổng ngẫu nhiên).'
 By signing in, you are authorizing {clientName} to control your devices.: Bằng cách đăng nhập, bạn cho phép ứng dụng {clientName} kiểm soát các thiết bị của bạn.
 CLICK TO DISABLE: CLICK TẮT
@@ -134,10 +172,11 @@ Calibration successful.: Hiệu chuẩn thành công
 Cancel: Hủy
 Cancel changes: Hủy bỏ
 Cancelled: Đã hủy
+Candle: Nến
 Cannot calculate when to run the schedule - incorrect configuration?: Không thể tính toán bất kỳ ngày bắt đầu theo lịch trình nào - cấu hình không chính xác?
 Cannot change the channel function right now.: Hiện không thể thay đổi các chức năng của kênh này.
 Cannot delete this I/O Device right now.: Không thể xóa thiết bị này vào lúc này.
-Cannot execute an action when the device is disconnected.: Không thể thực hiện thao tác khi thiết bị bị ngắt kết nối.
+Cannot update OCR settings. Try again in a while.: Không thể cập nhật cài đặt OCR. Vui lòng thử lại sau giây lát
 Captcha token is not valid.: Captcha không đúng.
 Caption: Chú thích
 Caption is too long.: Tên quá dài.
@@ -146,8 +185,15 @@ Change Password: Đổi mật khẩu
 Change channel function: Thay đổi chức năng của kênh
 Change function: Thay đổi chức năng
 Change icon: Thay đổi biểu tượng.
+Change percentage by: Thay đổi tỷ lệ phần trăm theo
+Change percentage to: Thay đổi tỷ lệ phần trăm thành
 Change the password and log out: Thay đổi mật khẩu và đăng xuất
+Change tilt by: Thay đổi độ dốc theo
+Change tilt to: Thay đổi độ dốc thành
+Change to be the same.: Đặt như nhau.
 Changing channel’s function will also result in the following changes.: Thay đổi chức năng của kênh cũng sẽ dẫn đến các thay đổi kết quả.
+Changing channel’s visibility will also change the visibility of other items.: Thay đổi khả năng hiển thị của kênh cũng sẽ thay đổi khả năng hiển thị của các thành phần khác.
+Changing the location will also imply changing the location of the following items.: Thay đổi vị trí cũng sẽ thay đổi vị trí cho các mục sau.
 Channel: Kênh
 Channel No: Kênh No
 Channel available for {serviceName}: Kênh có sẵn cho {serviceName}
@@ -163,6 +209,7 @@ Channel reference will be removed from the items below.: Kênh sẽ bị xóa kh
 Channel with action triggers: Kênh có trình kích hoạt hành động
 Channels: Cũng là kênh nhưng số nhiều.
 Channels groups are not supported for this function.: Chức năng này không hỗ trợ nhóm kênh.
+Channels that are meant to work with each other must be in the same location.: Các kênh bạn muốn làm việc phải ở một vị trí.
 Chart type: Loại biểu đồ
 Check the direct link you used and try again.: Kiểm tra liên kết trực tiếp và thử lại
 Check your email box: Check email đi bạn êi.
@@ -185,33 +232,51 @@ Click the following link to confirm unregistration of your private SUPLA Cloud i
 Client registration: Đăng ký Client
 Client’s Apps: Ứng dụng khách
 Client’s app has been deleted: Ứng dụng khách đã xóa
+Clock error: Lỗi đồng hồ
 Close: Đóng
 Close after: Đóng sau
 Close automatically: Đóng tự động
 Close partially: Đóng một phần
+Close value: Giá trị cuối kỳ
+Collapse: Che
+Collapse or stop: Thu gọn hoặc dừng
+Collapse partially: Thu gọn một phần
 Colon: Dấu chấm câu
 Color: Màu
 Color brightness: Độ sáng màu
 Comma: Dấu phẩy
+Command has been sent to the device. Try refreshing the photo in a while.: Yêu cầu đã được gửi đến thiết bị. Vui lòng thử làm mới ảnh của bạn trong giây lát.
 Comment: Bình luận
+Common currencies: Tiền tệ được chọn thường xuyên nhất
 Config of the schedule is too complicated.: Cấu hình lịch trình quá phức tạp.
 Configuration: Cấu hình
+Configuration not available yet. Waiting for the device to connect.: Cấu hình chưa khả dụng. Đợi thiết bị kết nối.
 Confirm My Account: Xác nhận tài khoản của tôi
 Confirm Password: Xác nhận mật khẩu
+Confirm if you want to perform the calibration.: Xác nhận rằng bạn muốn hiệu chỉnh.
 Confirm if you want to remove Access Identifier: Xác nhận muốn xóa?
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Xác nhận nếu bạn muốn xóa vị trí ID {locationId}. Bạn sẽ không còn có thể kết nối các thiết bị i/o với vị trí này.
 Confirm if you want to remove {deviceName} device and all of its channels.: Xác nhận là bạn muốn xóa thiết bị {deviceName} và tất cả các kênh
 Confirmation: Xác nhận
+Conflict: Xung đột
 Connected: Đã kết nối
 Connection with a private instance of the SUPLA cloud: Kết nối với một phiên bản riêng.
 Constraints: Ràng buộc
+Cool to: Làm mát đến
+Cooling mode: Chế độ làm mát
+'Cooling: {percent}%': 'Làm mát: {percent}%'
 Copy state from other channel: Sao chép trạng thái từ kênh khác
+Costs: Chi phí
 Could not contact Autodiscover service. Try again in a while.: Không thể kết nối với dịch vụ. Thử lại sau một lúc.
 Could not enter the configuration mode.: Không thành công trong việc chuyển thiết bị sang chế độ cài đặt.
 Could not reset the password.: Không thể đặt lại mật khẩu.
 Could not reset the password. Please try again later.: Không thể đặt lại mật khẩu. Vui lòng thử lại sau chốc lát.
+Could not restart the device.: Không thể khởi động lại thiết bị.
+Could not send the identify command.: Không thể gửi đơn hàng.
+Could not set the device time.: Không thể đặt ngày và giờ trên thiết bị.
 Counter: Bộ đếm
 Counter reset: Đặt lại bộ đếm
+Counter type: Loại bộ đếm
 Create New Access Identifier: Tạo truy cập mới.
 Create New Location: Tạo vị trí mới.
 Create New Schedule: Tạo lịch trình mới.
@@ -224,16 +289,21 @@ Current: Điện
 Current Overload: Quá tải
 Current Password: Mật khẩu hiện tại
 Current password is incorrect: Mật khẩu hiện tại không đúng
+Curtain: Rèm
 Custom: Tùy chỉnh
 Custom execution limit: Giới hạn tùy chỉnh
 DHT11 Temperature & Humidity Sensor: Cảm biến nhiệt & độ ẩm DHT11
 DHT21 Temperature & Humidity Sensor: Cảm biến nhiệt & độ ẩm DHT21
 DHT22 Temperature & Humidity Sensor: Cảm biến nhiệt & độ ẩm DHT22
 DS18B20 Thermometer: Nhiệt kế DS18B20
+Dark mode: Chế độ tối
+Data: Dữ liệu
 Data limits: Giới hạn dữ liệu
 Data saved: Lưu dữ liệu
 Date: Ngày
 Date and time: Ngày giờ
+Date range: Phạm vi ngày
+Daytime criteria: Tiêu chí dựa trên độ dài ngày
 Decline: Refuser
 Default: Mặc định
 Delete: Xóa
@@ -241,18 +311,26 @@ Delete measurement history: Xóa lịch sử đo
 Delete my account: Xóa tài khoản
 Delete voltage aberrations history: Xóa lịch sử độ sai lệch điện áp
 Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Xóa tài khoản dẫn đến xóa tất cả các dữ liệu liên quan, bao gốm các thiết bị được kết nối, cấu hình kênh, link liên kết, lịch sử. Xóa tài khoản là không thể lấy lại được.
+Dependencies: Sự phụ thuộc
 Depth: Sâu
 Depth sensor: Cảm biến độ sâu
 Description: Description
 Details: Chi tiết
 Device: Thiết bị
+'Device GUID: %deviceGuid%': 'Mã định danh duy nhất toàn cầu của thiết bị: %deviceGuid%'
 'Device ID: %deviceId%': 'Số Id thiết bị: %deviceId%'
+Device identification is unsupported in the firmware.: Không hỗ trợ nhận dạng thiết bị trong phần mềm
 Device is disconnected.: Thiết bị trong tình trạng ngắt kết nối.
 Device might be sleeping: Thiết bị có thể ở chế độ ngủ
 'Device name: %deviceName%': 'Tên thiết bị: %deviceName%'
+Device settings: Cài đặt thiết bị
 Device should be now in configuration mode.: Thiệt bị trong chế độ cài đặt.
+Device should be restarting now.: Thiết bị sẽ khởi động lại.
 'Device software version: %deviceSoftwareVersion%': 'Phiên bản phần mềm: %deviceSoftwareVersion%'
+Device time has been set.: Ngày và giờ của thiết bị đã được đặt.
 Device unavailable: Thiết bị không khả dụng
+Different than on master thermostat.: Cài đặt khác với cài đặt trên bộ điều chỉnh nhiệt chính.
+Differential thermostat: Bộ điều chỉnh nhiệt vi sai
 Digi Glass: Digi Glass
 Digi Glass Horizontal: Digi Glass ngang
 Digi Glass Vertical: Digi Glass dọc
@@ -273,6 +351,8 @@ Disconnected: Ngắt kết nối
 Distance: Distance
 Distance sensor: Cảm biến Distance
 Do you want to be redirected there? You may be asked to authenticate again.: Bạn có muốn chúng tôi chuyển trang không? Có thể sẽ cần phải đăng nhập lại.
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Bạn có muốn đặt các kênh tùy thuộc vào bộ điều chỉnh nhiệt này (chẳng hạn như nhiệt kế và cảm biến) giống như trong bộ điều chỉnh nhiệt chính không?
+Domestic hot water: Nước nóng tại nhà
 Don’t worry, you can always reset your password via email. Click here to do so.: Đừng lo lắng bạn có thể đặt lại mật khẩu qua email. Click vào đây.
 Door lock operation: Khóa cửa
 Door opening sensor: Cảm biến mở cửa
@@ -281,14 +361,27 @@ Doors, Gates, Windows: Cửa ra vào, cổng, cửa sổ
 Download measurements history: Tải lịch sử đo đạc
 Download the history of measurement: Tải xuống lịch sử đo lường
 Drag your image(s) here or click to select from the disk: Kéo hình ảnh ở đây hoặc nhấp để chọn nó từ đĩa
+Dryer: Máy hút ẩm
 E-mail notifications: Thông báo qua e-mail
 Edit: Chỉnh sửa
+Edit area crop: Chỉnh sửa khu vực
+Edit program settings: Chỉnh sửa cài đặt chương trình
 Edit reaction: Chỉnh sửa phản ứng
 Electric: Điện
 Electricity meter: Đồng hồ điện
+Electricity meter active power history: Lịch sử sử dụng điện của công tơ điện
+Electricity meter current history: Lịch sử hiện tại của công tơ điện
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Bộ đếm năng lượng điện không báo cáo khả năng tạo cấu hình cho f các giá trị đã thêm. Vui lòng cập nhật phần sụn của thiết bị và thử lại.
+Electricity meter voltage aberrations history: Lịch sử quang sai điện áp công tơ điện
+Electricity meter voltage history: Lịch sử hiện tại của công tơ điện
 Empty!: Rổng!
 Enable: Kích hoạt
+Enable floor temperature control: Bật điều khiển nhiệt độ sàn
+Enable generic cooler temperature control: Bật điều khiển nhiệt độ của nguồn làm mát
+Enable generic heater temperature control: Bật điều khiển nhiệt độ nguồn nhiệt
+Enable power status LED: Bật diode trạng thái nguồn
+Enable support for OCR readings for this channel: Bật hỗ trợ OCR cho kênh này
+Enable water temperature control: Bật điều khiển nhiệt độ sàn
 Enabled: Bật
 Enabled phases: Các pha hoạt động
 End date: Ngày cuối
@@ -306,6 +399,7 @@ Error when communicating the server. Try again in a while.: Lỗi khi giao tiế
 Estimated execution time: Thời gian thực hiện ước tính
 Every: Mọi
 Example Auth URL: Ví dụ URL xác thực
+Example value: Ví dụ
 Execute: Thực hiện
 Execute an action: Thực hiện hành động
 Executed action: Thực hiện hành động
@@ -313,17 +407,30 @@ Executed without confirmation: Thực hiện mà không cần xác nhận
 Execution history: Lịch sử thực hiện
 Execution limit: Giới hạn thực hiện
 Executions: Chương trình
+Expand: Bỏ che
+Expand or stop: Thu gọn hoặc dừng
+Expand partially: Mở rộng một phần
 Expired: Đã hết hạn
 Expires at: Hết hạn
+External sensor disabling the thermostat: Cảm biến bên ngoài tắt bộ điều chỉnh nhiệt
+Facade blind operation: Rèm mặt tiền
 Failed: Thất bại
 Failed (zombie): Thất bại
+Fan: Cối xay gió
 Feature limits: Giới hạn chức năng
+'Field: {propertyPath}.': Trường {propertyPath}.
 File format: Định dạng tệp
 File is too large: tập tin quá lớn
+Fill missing data: Điền các số đo còn thiếu
+Firmware: Phần mềm chương trình cơ sở
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Phần mềm của thiết bị này gửi thông báo trong ngữ cảnh của kênh này. Đây là nơi bạn có thể thiết lập nội dung và đối tượng của mình. Để biết thêm thông tin, vui lòng liên hệ với nhà cung cấp thiết bị.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Phần mềm của thiết bị này sẽ gửi thông báo. Đây là nơi bạn có thể thiết lập nội dung và đối tượng của mình. Để biết thêm thông tin, vui lòng liên hệ với nhà cung cấp thiết bị.
 Flooding: Ngập
+For a period: Cho giai đoạn
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Trong quá trình nâng cấp khuyến cáo sử dụng liên kết từ {suplaUrl}.
 For devices: Cho thiết bị
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: Vì lý do bảo mật, URL đầy đủ của link liên kết này sẽ chỉ được hiển thị một lần, trong khi tạo
+Forced off by sensor: Buộc tắt máy bằng cảm biến
 Forgot your password?: Quên mật khẩu?
 Forward active energy: Forward active energy
 Forward active energy balance: Cân bằng năng lượng hoạt động tiêu thụ
@@ -335,8 +442,10 @@ From anywhere: Từ bất cứ đâu
 Full closing time: Tổng thời gian đóng cửa
 Full documentation: Tổng tài liệu
 Full opening time: Tổng thời gian mở cửa
+Full tilting time: Tổng thời gian thay đổi độ dốc
 Fully opened sensor for channel: Kênh cảm biến
 Function: Chức năng
+Function disabled: Chức năng bị vô hiệu hóa
 G5LA1A Relay: Rơ le G5LA1A
 G5LA1A Relay x2: Rơ le 2xG5LA1A
 GENERATE: Tạo
@@ -349,6 +458,7 @@ Gate's state verification: Xác minh trạng thái của cổng
 Gateway lock operation: Thao tác khóa cổng
 Gateway opening sensor: Cảm biến mở cổng
 General purpose measurement: Các kênh đo lường cơ bản
+General purpose meter: Kênh truy cập mục đích chung
 Generate new password: Tạo mật khẩu mới
 Generate new token: Tạo mã thông báo mới
 Generate token: Tạo mã thông báo
@@ -362,12 +472,23 @@ Go to your account: Chi tiết tài khoản
 Grant access: Cấp phép chi cập
 Guru Meditation: Guru Meditation
 HFD4 Relay: Rơ le HFD4
+HVAC: HVAC
 Heat meter: đồng hồ nhiệt
+Heat or cold source switch: Công tắc nguồn nhiệt hoặc làm mát
+Heat to: Làm nóng đến
+Heating / ventilation / air conditioning: Hệ thống sưởi / thông gió / điều hòa không khí (HVAC)
+Heating mode: Chế độ làm nóng
+'Heating: {percent}%': 'Hệ thống sưởi: {percent}%'
 Hide days without aberrations: Ẩn ngày không sai lệch
+High threshold: Ngưỡng cao
+High value: Giá trị tối đa
+History: Lịch sử
 History of measurements: Lịch sử đo lường
 Home appliances: Thiết bị gia dụng
+Home screen content: Nội dung màn hình chính
 Home+ Heater: Home+ Heater
 Host: Host
+Hotel card sensor: Cảm biến thẻ khách sạn
 However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: Tuy nhiên, hiện tại có quá nhiều load trên máy chủ của chúng tôi. Chúng tôi đang theo dõi tình hình. Trở lại sau một lúc
 Humidity: Độ ẩm
 Humidity Sensor: Cảm biến độ ẩm
@@ -385,14 +506,18 @@ ID: ID
 INACTIVE: KHÔNG HOẠT ĐỘNG
 IP Address: Địa chỉ IP
 Icon: Biểu tượng icon
+Identify device: Xác định thiết bị
+Identify request sent.: Yêu cầu nhận dạng đã được gửi.
 Idle: Không hoạt động
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Nếu thiết bị của bạn hiện đang ở chế độ ngủ, các thay đổi về cấu hình sẽ chạy khi thiết bị được bật.
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: Nếu thiết bị hiện đang ở chế độ ngủ, chế độ cấu hình sẽ được chạy như lần gần đây nhất.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Nếu liên kết không hoạt động, vui lòng sao chép và dán hoặc nhập thủ công trong cửa sổ trình duyệt mới.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Nếu bạn là nhà phát triển muốn cung cấp các tính năng bổ sung cho SUPLA, hãy tạo một ứng dụng OAuth mà người dùng có thể ủy quyền và sử dụng
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Nếu bạn chắc chắn rằng bạn có tài khoản trên cloud.supla.org, hãy kiểm tra xem ứng dụng bạn đang cố gắng ủy quyền có công khai không
+If you confirm the installation and wish to unlock this device, please click the link below.: Nếu bạn là người đang cố gắng thêm thiết bị mới, hãy nhấp vào liên kết bên dưới để xác nhận mở khóa.
 If you did not request this password reset, please ignore this information.: Nếu bạn không yêu cầu đặt lại mật khẩu, xin vui lòng bỏ qua thông tin này.
 If you do not want to delete your account on %cloudHost%, please do not click the link.: Nếu bạn không muốn xóa tài khoản của mình trên %cloudHost%, vui lòng không nhấp vào liên kết.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Nếu bạn không phải là người đang cố gắng mở khóa thiết bị của mình, hãy bỏ qua email này. Liên kết xác nhận sẽ tự động hết hạn sau 24 giờ.
 If you do not want to unregister your instance, please do not click the link.: Nếu bạn không muốn hủy bỏ đăng kí cho trường hợp của bạn, thì không bấm vào liên kết
 If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Nếu bạn không thể kết nối với điểm phát trong vòng vài phút, thiết bị sẽ tự khởi động lại và kết nối bằng các cài đặt gần nhất.
 If you have doubts or more questions, you can contact us directly at %securityEmail%.: Nếu bạn có nghi ngờ hoặc có nhiều câu hỏi, bạn có thể liên hệ trực tiếp với chúng tôi tại %securityEmail%.
@@ -407,6 +532,7 @@ If you wish not to receive such messages, change it in your account settings [he
 If you wish to register your instance, {clickHereLink}.: Nếu bạn muốn đăng kí phiên bản của bạn {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Nếu bạn muốn xem các tích hợp có sẵn, hãy truy cập {0}.
 If you wish to unregister your instance, {clickHereLink}.: Nếu bạn muốn hủy đăng kí phiên bản của bạn {clickHereLink}.
+Image area crop: Khu vực ảnh
 Impulse counter: Bộ đếm xung
 Impulses: Impulses
 In order to confirm account deletion, enter your password.: Để xác nhận xóa tài khoản, nhập mật khẩu.
@@ -414,9 +540,11 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Không hoạt động
 Include energy corrections in new measurements history (not recommended): Bao gồm giá trị gia tăng trong lịch sử (không khuyến nghị)
 Incorrect password: Mật khẩu không chính xác
+Increment and decrement: Tăng và giảm
 Incremental: Gia tăng
 Information: Thông tin
 Inherit I/O Device location: Sử dụng vị trí thiết bị
+Installer e-mail address: Email của người cài đặt
 Integration with MQTT Broker has been disabled.: Kết nối với giao thức MQTT MQTT đã bị tắt.
 Integration with MQTT Broker has been enabled.: Kết nối với giao thức MQTT đã được bật.
 Integrations: Tích hợp
@@ -426,12 +554,15 @@ Interrupt and execute: Dừng và khởi động
 Interval: Interval
 Invalid SUPLA Cloud URL.: URL SUPLA Cloud không hợp lệ
 Invalid action parameters: Các tham số thực thi không chính xác.
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Thiết bị đã đăng ký một kênh thuộc loại khác ({typeCaption} - {typeId}) thay vì kênh hiện tại.
+Invalid e-mail address.: Địa chỉ email không hợp lệ.
 Invalid function for channel.: Chức năng không hợp lệ cho kênh.
 'Invalid redirect URI: {uri}': 'URI chuyển hướng không hợp lệ: {uri}'
 Invalid request: Yêu cầu không hợp lệ.
 Invalid request.: Yêu cầu không hợp lệ.
 Invalid scene: Cảnh không hợp lệ
 Invalid token.: Mã token không hợp lệ.
+Invalid unlock code.: Liên kết mở khóa không hợp lệ.
 Invalid username or password: Tên người dùng hoặc mật khẩu không đúng
 Inverted logic: Inverted logic
 Invisible: Không hiển thị
@@ -442,22 +573,31 @@ Keep in mind, that the humanized description of the entered crontab is not perfe
 Language is not available: Ngôn ngữ không có sẵn
 Last access: Truy cập lần cuối
 Last connection: Kết nối lần cuối
+Last paired device: Thiết bị được ghép nối lần cuối
 Last used: Sử dụng lần cuối
 Let me choose later: Để tôi chọn sau
+Light mode: Chế độ sáng
 Light switch: Công tắc đèn
 Lighting: Lighting
+Lighting level: Mức độ chiếu sáng
+Lighting mode: Chế độ chiếu sáng
 Limit has been exceeded: Đã vượt quá giới hạn
 Linear: Biểu đồ dạng đường
 Liquid, Temp: Chất lỏng, Nhiệt độ
+List of available variables: Danh sách các thay đổi có sẵn
 Location: Vị trí
 Location Identifier: Định danh vị trí
 Location limit has been exceeded: Giới hạn vị trí đã bị vượt quá
 Location name: Tên vị trí
 Locations: Địa điểm
+Locked: Đã chặn
 Log out: Đăng xuất
 Login: Đăng nhập
 Logs transformation: Chuyển đổi giá trị
 Longest aberration: Độ sai lệch dài nhất
+Low threshold: Ngưỡng thấp
+Low threshold must be less than high threshold.: Ngưỡng thấp phải thấp hơn ngưỡng cao
+Low value: Giá trị tối thiểu
 Lower voltage threshold: Ngưỡng điện áp thấp
 MQTT Broker: Giao thức MQTT
 MQTT Broker Username: Tên người dùng
@@ -466,6 +606,7 @@ MQTT Broker password: Mật khẩu giao thức MQTT
 MQTT Broker password has been changed.: Mật khẩu giao thức MQTT đã được thay đổi
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Tên người dùng hoặc mật khẩu chưa được thiết đặt cho trường hợp này.
 Mail sensor: Cảm biến mail
+Main thermometer: Nhiệt kế chính
 Maintenance mode active. You cannot modify any data now.: Chế độ bảo trì hoạt động. Hiện tại bạn không thể sửa đổi bất kỳ dữ liệu.
 Make sure to copy it now because you won’t be able to see it again!: Hãy chắc chắn là, bạn đã lưu dữ chúng ở nơi an toàn.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Đảm bảo lưu nó ở một nơi an toàn nếu bạn muốn truy cập nó trong tương lai. Liên kết sẽ không hiển thị lại sau khi bạn rời khỏi trang này.
@@ -473,17 +614,33 @@ Manage your new client app in the SUPLA-Cloud.: Quản lí cài đặt ứng dù
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Quán lí thiết bị của bạn thông qua SUPLA-Cloud hoặc qua sự trợ giúp của ứng dụng SUPLA trên điện thoại smartphone của bạn.
 Manual: Hướng dẫn
 Manually closed: Đóng thủ công
+Master thermostat: Bộ điều chỉnh nhiệt chính
+Max: Tối đa
 Maximum delay is 60 minutes.: Độ trễ tối đa là 60 phút.
+Maximum duration is one year.: Thời gian tối đa là một năm.
 Maximum filesize limit is {limit}.: Giới hạn kích thước tệp tối đa là {limit}.
 Maximum voltage: Điện áp cao nhất
+Measurement settings: Cài đặt đo lường
 Measurement window: Thời gian đo
 Meter value: giá trị bộ đếm
 Meters: Bộ đếm
+Min: Tối thiểu
+Minimum OFF time before cooling can be turned on: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ làm mát
+Minimum OFF time before heating can be turned on: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ sưởi
+Minimum OFF time before heating/cooling can be turned on: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ làm mát/sưởi
+Minimum ON time before cooling can be turned off: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ làm mát
+Minimum ON time before heating can be turned off: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ sưởi
+Minimum ON time before heating/cooling can be turned off: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ làm mát/sưởi
+Minimum temperature must be lower than maximum temperature.: Nhiệt độ tối thiểu phải thấp hơn nhiệt độ tối đa
 Minimum voltage: Điện áp thấp nhất
 Missing action.: Không có hành động
 Mode: Chế độ
+'Mode: cool': Chế độ làm mát
+'Mode: heat': Chế độ làm nóng
+'Mode: off': 'Chế độ: Tắt'
 Modification: Sửa đổi
 Mondays: Thứ hai
+Motor upside down: Điều khiển động cơ đảo chiều
 Move down or stop: Xuống dưới hoạc dừng lại
 Move up or stop: Lên trên hoặc dừng lại
 My OAuth apps: Ứng dụng OAuths
@@ -504,6 +661,7 @@ New scene: Hoạt cảnh mới
 Newer: Gần đây
 'Next limit renewal: {date}': Gia hạn tiếp theo {date}
 Next run date: Ngày chạy tiếp theo
+'No': Không
 No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Không có định danh truy cập được kích hoạt.Chuyển đến {accessIdsListLink} hoặc {newAccessIdLink}.
 No function: Không có chức năng
 No future executions - schedule disabled: Không thực hiện trong tương lai - bị vô hiệu hóa theo lịch trình
@@ -514,20 +672,26 @@ No of channels: Số lượng kênh
 No of client apps: Số lượng ứng dụng client
 No of devices: Số lượng thiết bị
 No of operations: Số lượng hoạt động
+No results: Không có kết quả
 No schedule configuration.: Chưa cài đặt lịch trình chiếu
 No, take me back!: Không, đưa tôi ra khỏi đây!
+None: không
+None (channel disabled): Không có (kênh đang tắt)
+Noop: Không có hoạt động
+Notification: Thông báo
+Notification body is set by the firmware.: Nội dung của thông báo được thiết lập bởi phần mềm.
+Notification must have a body.: Thông báo phải có nội dung
+Notification must have recipients.: Thông báo phải có người nhận.
+Notification title is set by the firmware.: Tiêu đề thông báo được thiết lập bởi chương trình phần mềm cơ sỏ.
+Notifications: Các thông báo
+Notifications (defined): Thông báo (được xác định)
+Notifications (sent per hour): Thông báo (được gửi mỗi giờ)
 No{'.'} of Client’s apps: Số ứng dụng Client's Apps
 No{'.'} of access identifiers: Số định danh truy cập
 No{'.'} of channel groups: Số kênh nhóm
 No{'.'} of channels: Số kênh
 No{'.'} of devices: Số thiết bị
 No{'.'} of locations: Số khu vực
-None: không
-None (channel disabled): Không có (kênh đang tắt)
-Noop: Không có hoạt động
-Notification: Thông báo
-Notification must have a body.: Thông báo phải có nội dung
-Notifications: Các thông báo
 Number of aberrations: Số sai lệch
 Number of attempts to close: Số lần thử đóng
 Number of attempts to open: Số lần thử mở
@@ -536,24 +700,36 @@ OAuth application: OAuth application
 OAuth apps: OAuth apps
 OAuth authorization: OAuth authorization
 OAuth integrations might stop working after the instance is unregistered.: Tích hợp với ứng dụng Oauth có thể ngừng hoạt động sau khi bạn hủy bỏ đăng kí.
+'OCR service responded with error: {status}': 'Dịch vụ OCR đã phản hồi với lỗi: {status}'
+OCR settings: Cài đặt OCR
 OK: Đồng ý
+OR: HOẶC
 'Off': Tắt
+Off with duration: Tắt đúng giờ
 Offline access: Truy cập offline
 Older: Lớn hơn
 'On': Mở
+On with duration: Bật đúng giờ
 On/Off switch: Bật/Tắt
 Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Chỉ cho phép tên miền với số cổng tùy chọn. Ví dụ. mysupla.org hoặc mysupla.org:88. HTTPS là bắt buộc.
 Open: Mở
 Open / close: Mở / Đóng
 Open partially: Mở một phần
+Open value: Giá trị mở đầu kì
 Opening sensor: Cảm biến mở
 Operation: Hoạt động
 Operations: Thao tác
 Original location: Vị trí ban đầu
 Other: Khác
 Otherwise go to the homepage.: Nếu không, hãy truy cập [trang chủ].
+Output value on error: Trạng thái đầu ra khi có lỗi
+Overheat protection: Bảo vệ quá nhiệt
+P/C: P/C
 PIN: Số nhận dạng cá nhân
 PIN for Google must have a length between {minLength} and {maxLength} digits.: Số nhận dạng cá nhân cho Google phải có ít nhất {minLength} và tối đa {maxLength} chữ số.
+Pair new devices or sensors: Ghép nối các thiết bị hoặc cảm biến mới
+Pairing request sent.: Yêu cầu ghép nối đã được gửi.
+Pairing subdevices is unsupported in the firmware.: Phần mềm thiết bị không hỗ trợ ghép nối.
 Partial opening sensor: Cảm biến mở một phần
 Partially opened sensor for channel: Kênh cảm biến một phần
 Password: Mật Khẩu
@@ -573,19 +749,25 @@ Phase: Pha
 Phase 1: Giai đoạn 1
 Phase 2: Giai đoạn 2
 Phase 3: Giai đoạn 3
+Phase LED type: Đèn báo pha LED
 Phase number: Pha
 Phase {phaseNumber}: Pha {phaseNumber}
+Photo interval: Khoảng thời gian chụp ảnh
 Please choose the schedule subject first.: Trước tiên, hãy chọn những gì lịch trình sẽ kiểm soát
 Please click the following link to reset your %cloudHost% password.: Vui lòng nhấp vào liên kết sau để đặt lại mật khẩu cloud.supla.org của bạn.
 Please click the link we have sent you after the registration to proceed.: Vui lòng nhấp vào liên kết chúng tôi đã gửi cho bạn sau khi đăng ký để tiến hành.
 Please confirm your SUPLA account.: Kích hoạt tài khoản SUPLA của bạn
 Please enter a valid email address: Vui lòng nhập một địa chỉ email hợp lệ
 Please fill a valid email address: Vui lòng điền địa chỉ email hợp lệ
+Please find the device details below.: Thông tin chi tiết về thiết bị có thể được tìm thấy bên dưới.
 Please fix the problems with operations and try again.: Giải quyết các vấn đề với các bên vận hành và thử lại
 Please log in again to proceed.: Vui lòng đăng nhập lại để tiếp tục.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Xin lưu ý rằng thiết bị áp dụng yêu cầu này chỉ dành cho những người cài đặt được chứng nhận.
 Please provide a valid domain name for your private SUPLA Cloud: Vui lòng cung cấp một tên miền hợp lệ cho Đám mây SUPLA riêng tư của bạn
+Please provide the installer e-mail address to request the device unlock.: Để mở khóa thiết bị, hãy nhập địa chỉ email bạn đã cung cấp trong quy trình chứng nhận trình cài đặt.
 Please read the Terms and Conditions.: Vui lòng đọc Điều khoản và Điều kiện.
 Please select a condition: Vui lòng chọn điều kiện
+Please select and configure the action: Chọn và thiết lập hành động.
 Please wait a moment before the next login attempt.: Vui lòng đợi trong giây lát trước lần đăng nhập tiếp theo.
 Port: Cổng
 Power active: Năng lượng hoạt động
@@ -599,10 +781,14 @@ Private Cloud domain name: Tên miền đám mây riêng
 Private instance of the SUPLA cloud with given URL is already registered.: Phiên bản riêng của đám mây SUPLA với URL đã cho đã được đăng ký.
 Proceed: Tiến hành
 Processing: Chế biến
+Program {programNo}: Chương trình {programNo}
+Projector screen: Màn chiếu
 Protocol: Giao thức
 Public ID: Public ID
 Publish to integrations: Đăng vào phần tích hợp
 Publishes the event to integrated services like MQTT or webhooks.: Thông báo tích hợp MQTT hoặc Webhook khi hoạt động này được thực hiện.
+Pump switch: Công tắc bơm
+Push notifications limit has been exceeded: Đã vượt quá giới hạn thông báo đẩy
 RESET: RESET
 RGB led controller: Bộ điều khiển led RGB
 RGB lighting: Ánh sáng RGB
@@ -614,6 +800,9 @@ Read: Đọc
 Recipients: Người nhận
 Reference to the scene will be removed from the items below.: Nhưng mục đã chọn trong cảnh này sẽ được xóa cùng những mục dưới đây.
 Refresh: Làm mới
+Refresh interval: Khoảng thời gian làm mới
+Refresh the config: Làm mới cấu hình
+Refreshing the configuration will overwrite the changes you made here.: Việc làm mới cấu hình sẽ ghi đè lên mọi thay đổi làm theo như biểu mẫu.
 Regeneration starts at: Bắt đầu tái tạo
 Register: Đăng ký
 Register a new OAuth application: Đăng ký OAuth
@@ -624,30 +813,41 @@ Registered: Đã đăng ký
 'Registered from IP address: %deviceRegIp%': 'Địa chỉ IP: %deviceRegIp%'
 Relay: Rơle
 Relay switching time: Rơle thời gian chuyển mạch
+Reload last photo: Tải lại ảnh cuối cùng
 Reload the chart: Tải lại biểu đồ
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Di dời tất cả các nhóm kênh được liên kết trước khi bạn xóa vị trí này. Ids: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Di dời tất cả các kênh liên quan trước khi bạn xóa vị trí này. Ids: {relatedIds}.'
+Remote restart is unsupported in the firmware.: Phần mềm thiết bị không hỗ trợ khởi động lại từ xa.
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Xóa tất cả các thiết bị liên quan trước khi bạn xóa vị trí này. Ids: {relatedIds}.'
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Xóa tất cả các cảnh liên quan trước khi xóa vị trí này. Mã định danh: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Xóa tất cả các thiết bị sử dụng vị trí này làm chính thức trước khi bạn xóa nó. Ids: {relatedIds}.'
+Remove this item: Xóa mục này
 Repeat password: Nhập lại mật khẩu.
+Request device unlock: Báo cáo muốn mở khóa thiết bị
 Reset Your Password: Thiết đặt mật khẩu mới
 Reset counter: Cài đặt lại bộ đếm
+Reset to defaults: Khôi phục giá trị mặc định
+Restart device: Khởi động lại thiết bị
+Restart the device: Khởi động lại thiết bị
 Retry on failure: Thử lại thất bại
 Reveal: Tiết lộ
+Reveal or stop: Kéo mở ra hoặc giữ lại
 Reveal partially: Tiết lộ một phần
 Reverse active energy: Năng lượng hoạt động trở lại
 Reverse active energy balance: Cân bằng năng lượng hoạt động trở lại
 Reverse active energy balanced: Năng lượng được trả lại (Cân bằng véc tơ)
 Reverse reactive energy: Năng lượng phản ứng trở lại
 Revoke: Thu hồi
+Roller garage door: Cửa nhà để xe
 Roller shutter opening sensor: Cảm biến mở cửa trập
 Roller shutter operation: Vận hành cửa trập
 Roller shutters: Cửa chớp lăn
 Roof window opening sensor: Cảm biến mở của sổ mái nhà
 Roof window shutter operation: Mở của sổ mái nhà
+S/N: Tỷ lệ tín hiệu trên tạp âm
 SUPLA - Account Activation: SUPLA - Kích hoạt tài khoản
 SUPLA - Account Removal: SUPLA - Xóa tài khoản
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Mở khóa thiết bị dành cho người được chứng nhận cài đặt
 SUPLA - Password reset: SUPLA - Đặt lại mật khẩu
 SUPLA - Private instance unregistration: SUPLA – đã hủy đăng kí của một ứng dụng
 SUPLA Cloud is under maintenance.: Đám mây SUPLA đang được bảo trì.
@@ -658,7 +858,9 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - %cloudHost% thông báo cố gắng đăng nhập không thành công
 SUPLA – new client app has been added to your account: SUPLA – đã đăng kí một ứng dụng client mới
 SUPLA – new device has been added to your account: SUPLA – đã thêm một thiết bị mới vào tài khoản của bạn
+SUPLA – your device has been unlocked!: SUPLA - Thiết bị của bạn đã được mở khóa!
 SUPLA.ORG Team: Đội SUPLA.ORG
+Same as on master thermostat.: Cài đặt giống như trong bộ điều chỉnh nhiệt chính.
 Saturdays: Thứ bảy
 Save: Lưu
 Save and enable: Lưu và kích hoạt
@@ -677,6 +879,7 @@ Schedules: Lịch trình.
 Scope: Phạm vi
 Scopes: Phạm vi
 Scopes define which sections of your account can be accessed when using the token.: Phạm vi xác định phần nào trong tài khoản của bạn có thể được truy cập khi sử dụng mã thông báo.
+Screen brightness: Độ sáng màn hình
 Search: Tìm kiếm
 Secret: Bí mật (secret)
 Security: Sự an toàn
@@ -687,6 +890,7 @@ See in SUPLA-Cloud: Xem trong SUPLA-Cloud
 Seems like a secret place: Có vẻ như là một nơi bí mật
 Select icon: Chọn biểu tượng
 Select the item (subject) you want to control using this link: Chọn mục (chủ đề) bạn muốn kiểm soát bằng liên kết này.
+Selected: Đã chọn
 Selected device has been logged out.: Thiết bị được chọn đã đăng xuất
 Send a notification: Gửi thông báo
 Send notification: Gửi thông báo
@@ -695,12 +899,18 @@ Sensors: Cảm biến
 Server address: Địa chỉ máy chủ
 Server unreachable: Không thể truy cập máy chủ
 Service temporarily unavailable: Dịch vụ tạm thời không khả dụng
+Set HVAC parameters: Đặt thông số
+Set the device time: Không thể đặt ngày và giờ trên thiết bị.
 Set value added: Nhập giá trị tăng
 Set values for each phase separately: Tự đặt giá trị cho từng pha một
 Setting the number of attempts to 1 disables the retrying behavior completely.: Cài đặt số lần thử dưới 2 có thể sẽ khiến cho việc đóng hoặc mở không được thực hiện.
+Settings: Cài đặt
+Settings have not been saved!: Cài đặt chưa được lưu!
+Show data: Hiển thị dữ liệu
 Show my limits: Hiển thị giới hạn của tôi
 Show on the Client’s devices: Hiển thị trên các thiết bị Client
 Shut: Tắt
+Shut or stop: Đóng che vào hoặc giữ lại
 Shut partially: Đóng một phần
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Đóng rèm cửa cho đến lúc chạm vào phần dưới của ô cửa và nhập tỷ lệ phần trăm đóng vào ô này. Hành động này không bắt buộc nhưng sẽ thiện khả năng hiển thị vị trí của rèm cửa trong ứng dụng di động.
 Sign In: Đăng nhập
@@ -708,9 +918,11 @@ Sign Out: Đăng ký
 Sign in temporarily unavailable. Please try again later.: Đăng nhập tạm thời không được. Vui lòng thử lại sau.
 Smartphones: Smartphones
 SoftVer: Phiên bản phần mềm
+Some features depend on this channel: Một số tính năng phụ thuộc vào kênh này
 Some features depend on this channel group: Một số chức năng không thuộc nhóm kênh này.
 Some features depend on this device: Một số chức năng không thuộc thiết bị này.
 Some features depend on this scene: Một số tính năng nằm trong hoạt cảnh này.
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Một số dữ liệu được thu thập cho tài khoản của bạn sẽ bị xóa định kỳ sau một khoảng thời gian nhất định. Vui lòng xem các giới hạn dưới đây.
 Some of the features you have configured depend on channels from this device.: Một số chức năng sử dụng kênh thuộc thiết bị này.
 Staircase timer: Hẹn giờ cầu thang
 Start Here: Bắt đầu ở đây
@@ -718,24 +930,38 @@ Start date: Ngày bắt đầu
 Start from the homepage.: Bắt đầu từ trang chủ
 State: Trạng thái
 State webhook: Trạng thái Webhook
+Status LED: Trạng thái đèn LED
 Step by step: Theo từng bước một
 Stop: Dừng
+Store active power history: Lưu trữ lịch sử năng lượng đang hoạt động
+Store current history: Lưu trữ lịch sử hiện tại
 Store measurements history: Lưu giữ lịch sử đã được đo đạc
+Store voltage history: Giữ lại lịch sử điện áp
+'Subdevice #{id}': 'Thiết bị được hợp đồng phụ #{id}'
+Subfunction: Chức năng phụ
 Subject type: Loại đối tượng
 Success: Thành công
 Successful: Thành công
 Summary for selected time range: Tóm tắt cho khoảng thời gian đã chọn
 Sundays: Chủ Nhật
 Switch the device to configuration mode: Chuyển thiết bị sang chế đố cài đặt
+Switch to manual mode: Chuyển sang chế độ thủ công
+Switch to program mode: Chuyển sang chế độ chương trình
+THEN: SAU ĐÓ
 THIS CANNOT BE UNDONE!: TĐIỀU NÀY KHÔNG THỂ ĐƯỢC HOÀN TÁC!
 TLS: TLS
 Tab: Bộ điều pha
+Take a photo now: Chụp ảnh ngay
 Target Cloud is not registered, or is registered with another e-mail address.: Trường hợp SUPLA Cloud này chưa được đăng kí, hoặc đã được đăng kí bằng một địa chỉ e-mail khác.
 Temperature: Nhiệt độ
 Temperature & Humidity Sensor: Cảm biến nhiệt độ và độ ẩm
 Temperature Sensor: Cảm biến nhiệt độ
 Temperature adjustment: Điều chỉnh nhiệt độ
 Temperature and humidity sensor: Cảm biến nhiệt độ và độ ẩm
+Temperature difference is too big between {min}°C and {max}°C.: Chênh lệch nhiệt độ quá lớn giữa {min}°C và {max}°C.
+Temperature setpoint change switches to manual mode: Thay đổi công tắc nhiệt độ mục tiêu sang chế độ thủ công
+Temporal override: Ghi đè lên tạm thời
+Terrace awning: Mái hiên sân thượng
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Cảm ơn bạn đã đăng ký tài khoản với %cloudHost%. Vui lòng nhấp vào liên kết sau để hoàn thành kích hoạt tài khoản của bạn.
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Nhờ tích hợp, bạn có thể dễ dàng thêm các tính năng mới vào tài khoản của mình bằng các giải pháp được cung cấp bởi các nhà cung cấp bên ngoài, nhà phát triển hoặc của chính bạn.
 'The IP used for login is: %ip%': 'IP được sử dụng để đăng nhập là: %ip%'
@@ -744,13 +970,21 @@ The SUPLA infrastructure is being updated.: Đang cập nhập máy chủ SUPLA.
 The Terms and Conditions have changed: Các điều khoản và điều kiện đã thay đổi
 The Terms and Conditions have changed – please read them and accept.: Các Điều khoản và Điều kiện đã thay đổi - vui lòng đọc chúng và chấp nhận.
 The activation link has been sent again. Check the inbox.: Liên kết kích hoạt đã được gửi lại. Kiểm tra hộp thư đến..
+The channel has been deleted.: Kênh đã bị xóa.
 The client will be automatically logged out when deleted.: Máy khách (Client) sẽ tự động đăng xuất khi bị xóa.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: 'Cấu hình đã được thay đổi từ nơi khác (ví dụ: cửa sổ trình duyệt, ứng dụng di động hoặc thiết bị khác). Bạn phải làm mới cấu hình trước khi thực hiện bất kỳ thay đổi nào khác.'
 The counter has been reset.: Đồng đồ đếm đã được cài lại.
+The device could not be unlocked.: Không thể mở khóa thiết bị.
+The device has been unlocked already.: Thiết bị đã được mở khóa.
+The device has been unlocked.: Thiết bị đã được mở khóa.
+The device has channel conflict and cannot work.: Thiết bị đã tạo ra xung đột giữa các kênh và hiện không thể hoạt động.
 The device is disabled: Thiết bị bị vô hiệu hóa
+The device is locked: Đã chặn thiết bị
 The device might be in a sleep mode.: Thiết bị có thể hoạt động ở chế độ ngủ.
 The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Thiết bị sử dụng phiên này sẽ mất quyền truy cập vào SUPLA Cloud. Để tiếp tục sử dụng ứng dụng, cần đăng nhập lại trên thiết bị đó.
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Toàn bộ lịch sử sự cố điện áp cho pha {phaseNumber} sẽ bị xóa.
 The entire history of the voltage aberrations will be removed from this channel.: Toàn bộ lịch sử sự cố điện áp cho kênh này sẽ bị xóa.
+The following channels will be also removed along with their dependencies.: Các kênh sau cũng sẽ bị xóa cùng với các kênh phụ thuộc chúng.
 The following items use the channels of these device. These references will be also removed.: Các mục sau đây sử dụng kênh từ thiết bị này. Các mục này cũng sẽ bị xóa.
 'The following items will be deleted with this device:': Các mục sau đây cũng sẽ bị xóa với thiết bị này.
 The gate sensor must function properly in order to execute the Open and Close actions.: Cảm biến mở cổng phải hoạt động tốt để thực hiện hành động Mở hoặc Đóng.
@@ -761,6 +995,7 @@ The items below depend on this channel group, so they will be deleted.: Các m�
 The items below depend on this scene, so they will be deleted.: Các mục dưới đây dựa vào hoạt cảnh này, nên cũng sẽ bị xóa.
 The latest execution: Thực thi mới nhất
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Kết quả liên kết được trình bày dưới dạng trang web thay thế, bởi vì bạn (hoặc trình duyệt của bạn) đã yêu cầu đầu ra HTML..
+The master termostat you chose already has a master.: Bộ điều chỉnh nhiệt chính bạn đã chọn đã có một bộ điều chỉnh nhiệt chính khác
 The measurement history has been deleted.: Lịch sử đo lường đã được xóa.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Mật khẩu mới sẽ thay thế mật khẩu bạn đang sử dụng. Một số tích hợp có thể sẽ dừng hoạt động sau thay đổi này. Bạn có tiếp tục?
 The next available executions: Các thực thi có sẵn tiếp theo
@@ -777,24 +1012,39 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist
 The server has returned an HTTP {statusCode} error.: Máy chủ đã trả về lỗi HTTP {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Bộ biểu tượng bạn đã chọn quá lớn. Giới hạn tải lên tối đa là {limit}.
+The thermostat will not work if the main thermometer is not set.: Nhiệt kế chính phải được đặt để bộ điều chỉnh nhiệt hoạt động.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Không thể mở van qua liên kết trực tiếp hoặc qua API khi nó đã được đóng bằng tay. Để tiếp tục điều khiển, hãy mở van bằng tay.
-valveOpenConfirm_manual: Van đã được đóng bằng tay hoặc bằng radio. Trước khi mở nó, hãy chắc chắn rằng nó chưa bị đóng lại do ngập nước. Để tắt cảnh báo, hãy mở van bằng tay. Bạn có chắc chắn muốn mở van từ xa?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Van sẽ không được mở nếu nó được đóng bằng tay hoặc từ xa, điều này có thể gây ra bởi lũ lụt.
 There are no more channels you can add to this group: Không có thêm kênh bạn có thể thêm vào nhóm này.
 Thermometer: Nhiệt kế
+Thermometer error: Lỗi nhiệt kế
+Thermometers configuration: Cấu hình nhiệt kế
 Thermostat: Bình giữ nhiệt
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Bộ điều chỉnh nhiệt này sử dụng các cài đặt từ bộ điều chỉnh nhiệt chính. Chuyển đến trang chi tiết để thay đổi cài đặt.
+Thermostat programs: Chương trình điều nhiệt
+This action will result in restarting the device. It will not be available for a while.: Sắp xếp thao tác này sẽ khởi động lại thiết bị. Trong quá trình khởi động lại thiết bị sẽ không vào được
+This channel was missing during last device registration attempt.: Thiết bị của bạn bị thiếu kênh này.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Thiết bị này chỉ dành cho việc phân phối và lắp đặt bởi những người được ủy quyền cài đặt. Nếu bạn không phải là người cài đặt SUPLA được ủy quyền và không có chứng chỉ đào tạo đang hoạt động, hãy trả lại cho đại lý.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Liên kết trực tiếp này yêu cầu các tham số tiếp theo để được thực hiện đúng. Xem các ví dụ dưới đây để có ý tưởng về những gì bạn có thể làm.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: thông tin này đã được tạo tự động do nỗ lực đăng nhập không thành công vào SUPLA-CLOUD với việc sử dụng địa chỉ email của bạn.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Đây là giai đoạn cuối cùng trong quá trình xóa tài khoản của bạn. Việc điền và xác nhận biểu mẫu sẽ giúp xóa dữ liệu của bạn ở mức không thể phục hồi.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Đây là ảnh cuối cùng được tải lên từ thiết bị. Đánh dấu chính xác khu vực có thể nhìn thấy các chữ số từ máy đếm.
 This is the list of applications you have granted access to your account.: Đây là danh sách các ứng dụng bạn đã cấp quyền truy cập vào tài khoản của bạn..
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Đây là danh sách các hoạt động phản hồi đang chạy trên tài khoản của bạn. Nếu bạn muốn thêm một phản ứng mới, hãy chuyển đến chi tiết, kênh sẽ kích hoạt phản ứng đó.
 This link is only valid for an hour.: Liên kết này chỉ có hiệu lực trong một giờ.
 'This password will protect your home. Therefore, it must:': 'Mật khẩu này sẽ bảo vệ ngôi nhà của Bạn. Vì vậy:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Chế độ lịch biểu này được thiết kế nhằm mục đích kĩ thuật hoặc cho những người dùng nâng cao. Nó yêu cầu bạn phải nhập thời gian kích hoạt lịch trình phải được chỉ định trong ký hiệu crontab, được bổ sung thêm một số chức năng chỉ có trong SUPLI. Nếu bạn chưa từng sử dụng crontabs trước đây và bạn vẫn muốn sử dụng chế độ này, trang web crontab.guru có thể giúp ích cho bạn.
+This thermostat is controlled by another device.: Bộ điều chỉnh nhiệt này được điều khiển bởi bộ điều chỉnh nhiệt chính.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: 'Công tắc kích hoạt này được sử dụng nội bộ bởi thiết bị (ví dụ: bật đèn, điều khiển rèm cửa, v.v.). Nếu bạn gán cho nó một tác vụ khác, chức năng nội bộ sẽ bị tắt.'
 Thursdays: Thứ năm
+Tilt angle: Góc nghiêng
+Tilt control type: Loại điều khiển độ nghiêng
+Tilt percent: Phần trăm độ dốc
+Time: Giờ
 Timezone: Múi giờ
 Title: Tiêu đề
 To: Đến
+Today, it would be active from {from} to {to}.: Hôm nay, thời gian hoạt động sẽ kéo dài trong khung giờ giờ từ {from} đến {to}.
 Toggle: Chuyển đổi
 Token does not exist: Mã thông báo không tồn tại
 Too many actions in this schedule.: Quá nhiều hoạt động trong một lịch biểu
@@ -803,6 +1053,7 @@ Too many operations in this scene: Quá nhiều thao tác trong hoạt cảnh.
 Total: Tổng
 Total time: Tổng thời gian
 Tuesdays: Thứ ba
+Turn off: Tắt
 Turning this device off will cause its channels not working in the following features.: Tắt thiệt bị sẽ khiến cho các kênh của nó dừng hoạt động trong các mục dưới đây.
 Turning this device off will result in disabling features listed below.: Tắt thiệt bị sẽ khiến cho những mục sau bị tắt theo.
 Type: Loại
@@ -810,25 +1061,34 @@ Undo registration: Rút lại đăng ký
 Unit: Đơn vị
 Unknown: không xác định
 Unknown browser: Trình duyệt không xác định
+Unlock the device: Mở khóa thiết bị
 Unregister my private SUPLA Cloud instance: Hủy đăng ký phiên bản SUPLA Cloud cá nhân
 Unsuccessful login attempt: Truy cập không thành công
 Unsupported function: Chức năng không được hỗ trợ
 Unsupported type: Loại không được hỗ trợ
+Until a date and time: Đến thời điểm
+Until the next change: Cho đến lần thay đổi tiếp theo
 Update in progress: Đang cập nhật
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Các tệp đã tải lên không chứa bất kỳ nội dung không phù hợp hoặc có bản quyền nào, chúng cũng không vi phạm Quyền của bên thứ ba và tôi có quyền sử dụng chúng.
 Upper voltage threshold: Ngưỡng điện áp cao
-"Use the {0} server command to change this account's limits. For example:": 'Để thay đổi các hạn mức cho tài khoản này, hãy sử dụng câu lệnh {0} trên máy chủ của bạn. Ví dụ:'
-Use working schedule for this access identifier: Hãy sử dụng lịch biểu cho ID truy cập này
+Use device default: Sử dụng giá trị mặc định từ thiết bị
+'Use the {0} server command to change this account''s limits. For example:': 'Để thay đổi các hạn mức cho tài khoản này, hãy sử dụng câu lệnh {0} trên máy chủ của bạn. Ví dụ:'
+Use {theMasterThermostat} to control this device.: Sử dụng {theMasterThermostat} để điều khiển thiết bị này.
+Used current transformer type: Máy biến dòng đã qua sử dụng
 User is already confirmed. Try to log in.: Người dùng đã được xác nhận. Hãy thử đăng nhập.
 Value: Giá trị
 Value added: Giá trị tăng
+Value divider: Dải phân cách
+Value multiplier: Số nhân
 Value separator: Phân tách
 Valve: Van
 Valve closed manually: Van đóng bằng tay
 Vector balance: Cân bằng vector
 Verification method: Phương pháp xác minh
+Vertical blind: Màn trập dọc
 Visible: Có thể nhìn thấy
 Visit app webpage: Truy cập trang web ứng dụng
+Visit the master thermostat page.: Chuyển đến bộ điều chỉnh nhiệt chính.
 Voltage: Điện áp
 Voltage aberrations: Sai lệch điện áp
 Voltage monitoring: Giám sát điện áp
@@ -846,6 +1106,7 @@ We have been asked to unregister your private SUPLA Cloud instance (%targetCloud
 We have just sent you an activation link. You should be receiving it shortly.: Chúng tôi vừa gửi cho bạn một liên kết kích hoạt. Kiên nhẫn.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Chúng tôi đã gửi cho bạn một tin nhắn e-mail với một liên kết xác nhận xóa. Chỉ để được chắc chắn!
 We have sent you an email with further instructions.: Chúng tôi đã gửi cho bạn hướng dẫn cho các bước tiếp theo.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Chúng tôi đã nhận được yêu cầu mở khóa thiết bị chỉ dành cho những người cài đặt được chứng nhận. Yêu cầu đã được gửi bởi %deviceUserEmail% từ phiên bản SUPLA Cloud tại %targetCloudUrl%.
 We should be ready shortly.: Chúng ta nên sẵn sàng trong thời gian ngắn.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: 'Chúng tôi lưu trữ một số dữ liệu (ví dụ: cookie) trong trình duyệt của bạn để ghi nhớ tùy chọn của bạn và để giúp việc sử dụng ứng dụng dễ dàng hơn.'
 We try to be faster: Chúng tôi cố gắng để được nhanh hơn
@@ -857,6 +1118,8 @@ We will try to display the received icons the best possible way, however you wil
 We will use it only in justified situations.: Chúng tôi sẽ chỉ sử dụng nó trong các tình huống hợp lý.
 Weather Station: Trạm thời tiết
 Wednesdays: Thứ tư
+Week: Tuần
+Weekly schedule: Lịch trình hàng tuần
 Weight sensor: Cảm biến trọng lượng
 Welcome!: Chào mừng bạn
 What this token is for?: Mã thông báo này để làm gì ?
@@ -869,14 +1132,21 @@ When liquid or lack thereof is detected: Khi phát hiện có hoặc không có 
 When the RGB lighting brightness level changes: Khi độ sáng của ánh sáng RGB thay đổi
 When the RGB lighting reaches a certain level of brightness: Khi ánh sáng RGB đạt độ sáng cụ thể
 When the active power will be: Khi công suất hoạt động
+When the alarm is armed: Khi báo động được kích hoạt
+When the alarm is armed or disarmed: Khi báo động bị tắt hoặc được kích hoạt
+When the alarm is disarmed: Khi báo động bị tắt
 When the apparent power will be: Khi công suất hiển thị
 When the balanced forward active energy will be: Khi năng lượng hoạt động được tiêu thụ và cân bằng
 When the balanced reverse active energy will be: Khi năng lượng hoạt động được trả lại và cân bằng
+When the battery cover is opened: Khi nắp pin được mở
 When the brightness level changes: Khi độ sáng thay đổi
 When the brightness will be: Khi độ sáng là
+When the clock error has been reported: Khi đồng hồ báo lỗi
 When the color changes: Khi màu sắc thay đổi
 When the condition is met: Khi điều kiện được đáp ứng
 When the current will be: Khi có dòng điện
+When the curtain position changes: Khi rèm thay đổi vị trí
+When the curtain reaches a certain position: Khi rèm chạm đến một vị trí nhất định
 When the depth changes: Khi kích thước độ sâu thay đổi
 When the depth is: Khi kích thước độ sâu là
 When the device is turned off: Khi thiết bị được tắt
@@ -892,6 +1162,8 @@ When the door will be opened or closed: Khi cửa được đóng hoặc mở
 When the electricity meter reaches a certain value: Khi bộ đo năng lượng đạt một giá trị cụ thể
 When the electricity meter value changes: Khi giá trị trên bộ đo năng lượng điện thay đổi
 When the electricity meter value will be: Khi giá trị trên bộ đo năng lượng là
+When the facade blind position changes: Khi rèm mặt tiền thay đổi vị trí
+When the facade blind reaches a certain position: Khi rèm mặt tiền đạt đến một vị trí nhất định
 When the forward active energy will be: Khi năng lượng hoạt động được tiêu thụ
 When the garage door will be closed: Khi cổng ga-ra được đóng
 When the garage door will be opened: Khi cổng ga-ra được mở
@@ -908,27 +1180,37 @@ When the gateway will be opened or closed: Khi cổng nhỏ được đóng ho�
 When the heat meter value changes: Khi giá trị bộ đếm thay đổi
 When the heat meter value reaches a certain value: Khi bộ đo nhiệt lượng đạt giá trị cụ thể
 When the heat meter value will be: Khi giá trị bộ trên đo nhiệt lượng là
+When the hotel card has been taken: Khi thẻ khách sạn bị lấy đi
+When the hotel card is put in: Khi thẻ khách sạn được đưa vào
+When the hotel card is put in or has been taken: Khi thẻ khách sạn được đưa vào hoặc rút ra
 When the humidity changes: Khi độ ẩm thay đổi
 When the humidity reaches a certain level: Khi độ ẩm đạt mức độ cụ thể
 When the humidity will be: Khi độ ẩm là
 When the lighting reaches a certain level of brightness: Khi ánh sáng đạt mức độ sáng cụ thể
 When the mail comes or is taken: Khi thư đến hoặc được lấy đi
 When the mail has been taken: Khi thư được nhận
+When the meter reaches a certain value: Khi bộ đếm đạt giá trị cài đặt
+When the meter value changes: Khi giá trị thay đổi
+When the meter value will be: Khi giá trị sẽ là
 When the precipitation amount will be: Khi lượng mưa được đo
 When the pressure changes: Khi áp suất thay đổi
 When the pressure reaches a certain level: Khi áp suất đạt mức độ cụ thể
 When the pressure will be: Khi áp suất là
+When the projector screen position changes: Khi màn hình chiếu thay đổi vị trí
+When the projector screen reaches a certain position: Khi màn hình chiếu đạt đến một vị trí nhất định
+When the pump is turned off: Khi máy bơm được tắt
+When the pump is turned on: Khi máy bơm được bật
+When the pump is turned on or off: Khi máy bơm được bật hoặc tắt
 When the rain amount changes: Khi lượng mưa thay đổi
 When the reactive power will be: Khi có công suất lưu hành
 When the reverse active energy will be: Khi trả lại công suất hoạt động
+When the roller garage door position changes: Khi cửa nhà để xe thay đổi vị trí
 When the roller shutter position changes: Khi vị trí rèm thay đổi
-When the roller shutter reaches: Khi rèm đạt đến
 When the roller shutter reaches a certain position: Khi rèm cửa đạt đến vị trí cụ thể
 When the roller shutter will be closed: Khi rèm cửa được đóng
 When the roller shutter will be opened: Khi rèm cửa được mở
 When the roller shutter will be opened or closed: Khi rèm cửa được mở hoặc đóng
 When the roof window position changes: Khi vị trí cửa sổ trên mái thay đổi
-When the roof window reaches: Khi cửa sổ trên mái đạt đến
 When the roof window reaches a certain position: Khi cửa sổ trên mái đạt đến vị trí cụ thể
 When the roof window will be closed: Khi cửa sổ trên mái được đóng
 When the roof window will be opened: Khi cửa sổ trên  mái được mở
@@ -936,11 +1218,25 @@ When the roof window will be opened or closed: Khi cửa sổ trên  mái đư�
 When the temperature changes: Khi nhiệt độ thay đổi
 When the temperature reaches a certain value: Khi nhiệt độ đạt đến giá trị cụ thể
 When the temperature will be: Khi nhiệt độ là
+When the terrace awning position changes: Khi mái hiên thay đổi vị trí
+When the terrace awning reaches a certain position: Khi mái hiên đạt đến một vị trí nhất định
+When the thermometer error has been reported: Khi nhiệt kế báo lỗi
+When the thermostat starts cooling: Khi bộ điều chỉnh nhiệt bắt đầu nguội
+When the thermostat starts heating: Khi bộ điều chỉnh nhiệt bắt đầu nóng lên
+When the thermostat starts heating or cooling: Khi bộ điều chỉnh nhiệt bắt đầu làm mát hoặc sưởi ấm
+When the thermostat starts or stops cooling: Khi bộ điều chỉnh nhiệt khởi động hoặc ngừng làm mát
+When the thermostat starts or stops heating: Khi bộ điều chỉnh nhiệt khởi động hoặc ngừng sưởi ấm
+When the thermostat starts or stops heating or cooling: Khi bộ điều chỉnh nhiệt khởi động hoặc ngừng sưởi ấm hoặc làm mát
+When the thermostat stops cooling: Khi bộ điều chỉnh nhiệt ngừng làm mát
+When the thermostat stops heating: Khi bộ điều chỉnh nhiệt ngừng làm nóng
+When the thermostat stops heating or cooling: Khi bộ điều chỉnh nhiệt ngừng làm mát hoặc sưởi ấm
 When the value will be: Khi giá trị là
 When the valve is closed: Khi van được đóng
 When the valve is manually closed: Khi van được đóng thủ công
 When the valve is opened: Khi van được mở
 When the valve is opened or closed: Khi van được đóng hoặc mở
+When the vertical blind position changes: Khi rèm mặt tiền thay đổi vị trí
+When the vertical blind reaches a certain position: Khi rèm mặt tiền đạt đến một vị trí nhất định
 When the voltage will be: Khi điện áp là
 When the water meter reaches a certain value: Khi bộ đo lượng nước đạt giá trị cụ thể
 When the water meter value changes: Khi giá trị bộ đo lượng nước thay đổi
@@ -959,21 +1255,26 @@ When you execute the link with HTTP PATCH method, you can omit the random part o
 Where is the JSON?: JSON ở đâu?
 Where is your SUPLA Cloud?: Đám mây SUPLA của bạn ở đâu??
 White: Trắng
+Will be deleted after: Xóa sau khi
 Wind sensor: Cảm biến gió
 Window opening sensor: Cảm biến mở cửa sổ
 With SUPLA you can operate the lights in your home or office: Với SUPLA, bạn có thể vận hành đèn trong nhà hoặc văn phòng của bạn
+With a timer: Có hẹn giờ
 With function: Với chức năng
 Working period: Thời gian làm việc
-Working schedule: Lịch hoạt động
 YOUR LINK CODE: MÃ LIÊN KẾT CỦA BẠN
+'Yes': Đồng ý
 You are changing the settings too quickly. You have to wait a while before making this change.: Bạn thay đổi các cài đặt quá nhanh. Bạn cần đợi một lúc trước khi tiếp tục thay đổi các cài đặt này.
 You can browse only the most recent logs now. Wait a while for the full history.: Hiện chỉ hiển thị các đo đạc mới nhất. Vui lòng đợi một chút để tải toàn bộ lịch sử.
 You can ignore this message, if you have accidentally entered an incorrect password.: Bạn có thể bỏ qua thông báo này, nếu bạn vô tình nhập sai mật khẩu.
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Bạn có thể đặt các giá trị tương đối tại đây. Ví dụ +10 hoặc -20 sẽ tương ứng tăng cài đặt thêm 10 hoặc giảm 20.
 You can use the application but you will not be able to modify any settings.: Bạn có thể sử dụng ứng dụng nhưng bạn sẽ không thể sửa đổi bất kỳ cài đặt nào.
 You cannot delete your last access identifier.: Bạn không thể xóa định danh truy cập cuối cùng của bạn.
 You cannot delete your last location.: Bạn không thể xóa vị trí cuối cùng của bạn.
+You cannot to set a master thermostat for a channel that is master for others.: Bạn không thể đặt bộ điều chỉnh nhiệt chính trong bộ điều chỉnh nhiệt chính
 You cannot use SUPLA project name in the domain name.: Bạn không thể sử dụng tên dự án SUPLA trong phần tên ở domain chủ.
 You have exceeded your API Rate Limit: Bạn đã sử dụng hết giới hạn yêu cầu đối với API
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Yêu cầu của bạn đã được gửi. Chúng tôi sẽ thông báo cho bạn khi người cài đặt phê duyệt và mở khóa thiết bị.
 You have requested to unregister your SUPLA Cloud instance: Bạn đã yêu cầu hủy đăng kí phiên bản SUPLA Cloud của bạn.
 You have to choose at least one scope.: Bạn phải chọn ít nhất một phạm vi
 You just need to execute the following command inside your host terminal.: Bạn chỉ cần thực hiện lệnh sau trong thiết bị đầu cuối máy chủ của bạn.
@@ -984,6 +1285,7 @@ You must leave at least one phase enabled.: Ít nhất một pha phải được
 You must set an action for each reaction.: Bạn cần thiết lập một hành động cho mỗi phản ứng.
 You must set an action for each scene operation.: Chọn hành động cho từng diễn biến trong cảnh.
 You must set sections with transparent or opaque parameters or both.: Bạn phải chọn độ trong suốt cho ít nhất một phần.
+You need to provide icons for all states in light mode.: Bạn phải cung cấp các biểu tượng cho tất cả các trạng thái ở chế độ sáng.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Bạn cần cập nhật SUPLA Cloud lên phiên bản 2.3.0. hoặc mới hơn.
 You will not be able to generate a direct link with the same URL again.: Bạn sẽ không thể tạo lại một liên kết trực tiếp với cùng một URL.
 Your account and MQTT Broker connection.: Kết nối tài khoản của bạn với giao thức MQTT/
@@ -996,6 +1298,7 @@ Your channel groups are allowed to have a maximum of {max} channels.: Các nhóm
 Your chart is being drawn...: Biểu đồ của bạn đang được vẽ...
 Your data are being collected. Please be patient.: Chúng tôi đang thu thập dữ liệu của bạn, hãy kiên nhẫn.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Dữ liệu của bạn đang được tải từ máy chủ. Vui lòng đợi cho đến khi hoàn tất việc tải xuống trước khi xuất dữ liệu.
+Your device has been unlocked by the installer.: Người cài đặt đã mở khóa thiết bị của bạn.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Thiết bị cho phép mở rộng các tính năng và cho phép thực hiện các thao tác bất kì trên thiết bị bạn sở hữu. Những tính năng có phụ thuộc vào phiên bản phần mềm trên thiết bị.
 Your email: Địa chỉ email của bạn
 Your instance is not registered or you are trying to authorize an application that is not public.: Trường hợp của bạn chưa được đăng ký hoặc bạn đang cố gắng ủy quyền cho một ứng dụng không công khai.
@@ -1039,11 +1342,20 @@ after: Sau
 and wait until it reaches: và đợi đến khi đạt được
 and wait until it will be: và đợi đến khi sẽ
 and wait until the humidity will be: và đợi đến khi độ ẩm sẽ
+and wait until the meter will be: và không thực hiện lại phản ứng này cho đến khi hết giá trị
 and wait until the temperature will be: và đợi đến khi nhiệt độ sẽ
 and wait until the value will be: và đợi đến khi giá trị sẽ
+auxThermometerType_DISABLED: Đã tắt
+auxThermometerType_FLOOR: Sàn
+auxThermometerType_GENERIC_COOLER: Nguồn làm mát
+auxThermometerType_GENERIC_HEATER: Nguồn nhiệt
+auxThermometerType_NOT_SET: Chưa cài đặt
+auxThermometerType_WATER: Nước
 average: Trung bình
 be at least {numChars} characters long: phải có ít nhất {numChars} ký tự
 before: Trước
+blue, otherwise: nếu không thì màu xanh lam
+blue, when voltage lower than the low threshold: màu xanh lam khi điện áp thấp hơn ngưỡng thấp
 caption: Tên
 change: thay đổi
 channel: Kênh
@@ -1056,16 +1368,21 @@ channelGroup: Nhóm kênh
 choose: chọn
 choose the access identifiers: chọn các thông tin xác thực
 choose the action: Chọn hành động
+choose the currency: chọn loại tiền tệ
 choose the scene: Chọn hoạt cảnh
 choose the schedule: chọn lịch trình
 choose the timezone: chọn múi giờ
 click here: bấm vào đây
+configuration missing: không có cấu hình
 contains a character that is neither a letter nor a digit: chứa ký tự không phải là chữ cái hoặc số
 contains a digit: chứa số
 contains lower and upper letters: chứa chữ cái in hoa và chữ cái thường
+cool: làm mát
 copied: sao chép
 copy: sao chép
+day: ngày
 days: ngày
+default: Mặc định
 directLinkExecutionFailureReason_disabled: Liên kết trực tiếp bị vô hiệu hóa
 directLinkExecutionFailureReason_executionLimitExceeded: Giới hạn ứng dụng đã bị vượt quá
 directLinkExecutionFailureReason_expired: Liên kết trực tiếp không còn hoạt động
@@ -1086,8 +1403,20 @@ executed: Thực thi
 extend: mở rộng
 from IP: từ địa chỉ IP
 from the IP: từ IP
+green, otherwise: nếu không thì màu xanh lá
+green, when power less than the low threshold: màu xanh lá cây khi công suất thấp hơn ngưỡng thấp hơn
+heat: sưởi ấm
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Nhiệt độ chính và phụ
+homeScreenContent_NONE: Thiếu
+homeScreenContent_TEMPERATURE: Nhiệt độ
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Nhiệt độ và độ ẩm
+homeScreenContent_TEMPERATURE_TIME: Nhiệt độ và thời gian
+homeScreenContent_TIME: Giờ
+homeScreenContent_TIME_DATE: Ngày và giờ
+hour: giờ
 hours: Giờ
 is at least {numChars} characters long: phải có ít nhất {numChars} ký tự
+keepHistoryMeasurementWarningSelected: Bạn có chắc chắn là cần lịch sử này không? Supla là một dự án mã nguồn mở được duy trì từ các nguồn lực riêng của mình. Nếu bạn không cần lịch sử này, vui lòng giúp chúng tôi tiết kiệm dung lượng lưu trữ có giá trị bằng cách tắt tùy chọn này.
 last 24 hours: 24 giờ gần nhất
 last 30 days: 30 ngày gần nhất
 last 6 hours: 6 giờ gần nhất
@@ -1096,13 +1425,23 @@ logs_aggregation_day: ngày
 logs_aggregation_hour: giờ
 logs_aggregation_minute: phút
 logs_aggregation_month: tháng
+max: Cực đại
+midnight: hướng bắc
+milliseconds: mili- giây
+min: tối thiểu
 min.: Tối thiểu
 minutes: phút
 notification: thông báo
+ocrLightingMode_ALWAYS_ON: Luôn bật
+ocrLightingMode_AUTO: Tự động
+ocrLightingMode_OFF: Đã tắt
+'off': Tắt
 or another element: hoặc các yếu tố khác
 password: mật khẩu
 previous month: tháng trước
 range: khoảng thời gian
+red, when power higher than the high threshold: màu đỏ, khi công suất cao hơn ngưỡng cao
+red, when voltage higher than the high threshold: màu đỏ, khi điện áp cao hơn ngưỡng cao
 register-slide1-text: Dựa trên các thiết bị điện tử có sẵn, SUPLA cho phép bạn xây dựng các mô-đun đơn giản mà bạn có thể quản lý và điều khiển các thành phần tự động hóa trong tòa nhà của mình. Nhờ SUPLA, trong số những thứ khác, bạn có thể quản lý ánh sáng, bật và tắt thiết bị gia dụng, mở / đóng cửa và cổng hoặc kiểm soát nhiệt độ phòng. Tất cả điều này bạn có thể làm chỉ với một cú nhấp chuột trên màn hình
 register-slide1-title: Phát triển tòa nhà thông minh của riêng bạn
 register-slide2-text: Một trong những giả định chính của dự án là sự đơn giản và sẵn có. SUPLA cho phép bạn bật đèn hoặc mở cửa chỉ bằng một cú nhấp chuột và khi bạn muốn vào sở hữu của chúng tôi. SUPLA luôn khả dụng mọi lúc mọi nơi với quyền truy cập vào mạng Internet và điện thoại thông minh hoặc máy tính bảng của bạn. Sự phát triển của SUPLA dựa trên các nguyên tắc của phần mềm nguồn mở và phần cứng mở để bạn có thể tự cam kết với dự án này!
@@ -1116,6 +1455,7 @@ scheduleMode_daily: hằng ngày
 scheduleMode_minutely: từng phút
 scheduleMode_once: một lần
 sec.: giây
+seconds: giây
 smartphones, tablets, etc.: smartphones, tablettes, etc.
 state-closed: Đóng
 state-default: Mặc định
@@ -1133,24 +1473,78 @@ state-rgb_on_dim_off: Bật RGB, tắt dần
 state-rgb_on_dim_on: bật RGB và dim
 state-shut: Chuyển đổi
 state-temperature: nhiệt độ
+statusLed_ALWAYS_OFF: Luôn tắt
+statusLed_OFF_WHEN_CONNECTED: Tắt khi kết nối
+statusLed_ON_WHEN_CONNECTED: Bật khi kết nối
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Kết quả không xác định
+subdevicePairingResult_NOT_STARTED_BUSY: Thiết bị đang bận
+subdevicePairingResult_NOT_STARTED_NOT_READY: Thiết bị chưa sẵn sàng
+subdevicePairingResult_NOT_SUPPORTED: Hoạt động không được hỗ trợ
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Không tìm thấy thiết bị mới
+subdevicePairingResult_ONGOING: Đang tiến hành
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Kết quả ghép nối không xác định
+subdevicePairingResult_PROCEDURE_STARTED: Quy trình bắt đầu
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Đã vượt quá giới hạn tài nguyên
+subdevicePairingResult_SUCCESS: Thành công
+subdevicePairingResult_UNAUTHORIZED: Ủy quyền không thành công
 sum: tổng
+sunrise: bình minh
 sunrise-after: sau bình minh
 sunrise-before: trước bình minh
+sunset: hoàng hôn
 sunset-after: sau hoàng hôn
 sunset-before: trước hoàng hôn
+swap: thay thế
+the master thermostat ID{id}: số xác minh bộ điều chỉnh nhiệt chính {id}
 the whole history: toàn bộ lịch sử
 then execute the action: sau đó thực hiện hành động
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Bật/Tắt với cài đặt trên
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Bật/Tắt với cài đặt trung tâm
+thermostatAlgorithm_PID: Bộ điều khiển vi tích phân tỉ lệ
+thermostatSubfunction_COOL: làm mát
+thermostatSubfunction_HEAT: sưởi ấm
+thermostatTemperature_aboveAlarm: Trên mức báo động
+thermostatTemperature_auxMaxSetpoint: Nhiệt độ bổ sung tối đa
+thermostatTemperature_auxMinSetpoint: Nhiệt độ bổ sung tối thiểu
+thermostatTemperature_belowAlarm: Trên mức báo động
+thermostatTemperature_boost: Tăng nhiệt độ
+thermostatTemperature_comfort: Nhiệt độ thoải mái
+thermostatTemperature_eco: Nhiệt độ tiết kiệm năng lượng
+thermostatTemperature_freezeProtection: Nhiệt độ bảo vệ chống đông
+thermostatTemperature_heatProtection: Nhiệt độ bảo vệ quá nhiệt
+thermostatTemperature_histeresis: Độ trễ
 this month: tháng hiện tại
 this year: năm hiện tại
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Thay đổi vị trí trong quá trình thay đổi độ dốc
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Không thay đổi vị trí trong quá trình thay đổi độ dốc
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Chỉ thay đổi độ dốc khi nó được đóng hoàn toàn
+tiltControlType_UNKNOWN: Không biết
+timeMarginMode_custom: Tùy chỉnh
+timeMarginMode_device: Giá trị mặc định từ thiết bị
+timeMarginMode_off: Đã tắt
 today: hôm nay
 unknown: không xác định
+usedCTType_100A_33mA: 100A/33.3mA
+usedCTType_200A_66mA: 200A/66.6mA
+usedCTType_400A_133mA: 400A/133.3mA
+usedPhaseLedType_OFF: Đã tắt
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Hướng dòng điện
+usedPhaseLedType_VOLTAGE_LEVEL: Cấp điện áp
+usedPhaseLedType_VOLTAGE_PRESENCE: Sự hiện diện của điện áp
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Sự hiện diện của điện áp (đảo ngược)
 username: Tên người dùng
 valid until: sẽ hết hạn
 values as seen on chart: giá trị như trên biểu đồ
 values as seen on counter: giá trị như trên đồng hồ đo
+valveOpenConfirm_manual: Van đã được đóng bằng tay hoặc bằng radio. Trước khi mở nó, hãy chắc chắn rằng nó chưa bị đóng lại do ngập nước. Để tắt cảnh báo, hãy mở van bằng tay. Bạn có chắc chắn muốn mở van từ xa?!
 yesterday: hôm qua
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} sẽ không thể tương tác với tài khoản của bạn cho đến khi bạn cấp lại quyền truy cập.'
 '{clientName} wants to access your account.': '{clientName} muốn truy cập tài khoản của bạn'
+'{count} minutes after sunrise': '{count} phút sau khi mặt trời mọc'
+'{count} minutes after sunset': '{count} phút sau khi mặt trời lặn'
+'{count} minutes before sunrise': '{count} phút trước khi mặt trời mọc'
+'{count} minutes before sunset': '{count} phút trước khi mặt trời lặn'
+'{days} days': '{days} ngày'
 '{minutes} minutes after sunrise': '{minutes} phút sau bình minh'
 '{minutes} minutes after sunset': '{minutes} phút sau hoàng hôn'
 '{minutes} minutes before sunrise': '{minutes} phút trước bình minh'
@@ -1174,6 +1568,7 @@ Are you sure you want to disable this device?: Chắc chắn muốn xóa thiết
 Assigned Locations: Địa điểm được phân công
 Authorized OAuth apps: Ứng dụng OAuth ủy quyền
 Calculated value: Đọc đồng hồ
+Cannot execute an action when the device is disconnected.: Không thể thực hiện thao tác khi thiết bị bị ngắt kết nối.
 Cannot send an activation e-mail. Try again later.: Không gửi mail được. Thử lại sau.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Có vấn đề với kích hoạt tài khoản? Đảm bảo rằng thư không rơi vào thư mục SPAM/Thùng Rác. Bạn cũng có thể nhấp {clickHereLink} để gửi lại liên kết kích hoạt tài khoản
 Channel value: Giá trị
@@ -1194,6 +1589,7 @@ Doors, Gates: Cửa, Cổng
 ENABLED: BẬT
 Email already exists: Email đã tồn tại
 Existing schedules: Lịch trình hiện có
+Expected maximum increment: Mức tăng tối đa dự kiến
 From IP: Từ IP
 Get SUPLA on your devices: Get SUPLA on your devices
 Hi: Hi
@@ -1201,6 +1597,7 @@ Hour: Giờ
 Hours: Giờ
 I/O: Đầu vào/Đầu ra
 If you want to stay here, do something!: Nếu bạn muốn ở lại đây, hãy làm gì đó!
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Để giảm thiểu nguy cơ đọc sai, hãy đặt bộ đếm ở mức tăng tối đa dự kiến giữa các ảnh.
 Initial value: Giá trị ban đấu
 Input: Đầu vào
 Interpolate measurements: Ước tính các giá trị còn thiếu
@@ -1208,6 +1605,8 @@ Languages: Idiomas
 Loading: Đang tải
 Location password must be at least 4 characters.: Mật khẩu vị trí phải có ít nhất 4 ký tự.
 Location password must be no longer than 32 characters.: Mật khẩu vị trí phải không dài hơn 32 ký tự.
+Maximum temperature that can be set from the device: Nhiệt độ tối đa mà thiết bị có thể cài đặt
+Minimum temperature that can be set from the device: Nhiệt độ tối thiểu mà thiết bị có thể cài đặt
 Minute: Phút
 Mobile Apps: Ứng dụng di động
 Next: Tiếp theo
@@ -1217,6 +1616,7 @@ Output: Đầu ra
 Please select an action: Vui lòng chọn hoạt động
 Please select the schedules that should also be enabled.: Vui lòng chọn lịch trình cũng sẽ được kích hoạt.
 Previous login: Đăng nhập trước
+Reference to the channel will be removed from the items below.: Chỉ định cho kênh này sẽ bị xóa khỏi các mục bên dưới.
 Registration: Đăng ký
 Remove: Gỡ bỏ
 Schedule cannot be enabled: Lịch trình không thể được kích hoạt
@@ -1229,12 +1629,33 @@ Status: Trạng thái
 Subject: Đối tượng
 Sunrise / Sunset: Sáng / Chiều
 Supla for devices: Supla cho các thiết bị
+Temperature adjustment only: Chỉ cài đặt nhiệt độ
 The events in voltage aberrations history will be automatically deleted after {days} days.: Các sự kiện trong lịch sử sự cố điện áp sẽ tự động bị xóa sau {days} ngày.
+The items below depend on this channel, so they will be deleted.: Các mục sau đây phụ thuộc vào kênh này, vì vậy chúng sẽ bị xóa.
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Phản ứng sẽ xảy ra khi đáp ứng tất cả các điều kiện sau. Nếu bạn cài đặt chọn tất cả các lựa chọn có sẵn, hoạt động sẽ chỉ bật lên vào các ngày đã chọn, vào khung giờ và ngày trong tuần đã chọn và khi đã điền vào một trong các thông tin phụ lục về hoàng hôn hoặc bình minh.
 Triggers: Công tắc kích hoạt
 Try again later: Thử lại sau
 Turning this device off will result in disabling all the associated schedules.: Tắt thiết bị này sẽ dẫn đến vô hiệu hóa tất cả các lịch trình liên quan.
+Unlocked: Đã mở khóa
+Use working schedule for this access identifier: Hãy sử dụng lịch biểu cho ID truy cập này
+Use working schedule for this reaction: Sử dụng lịch trình hoạt động cho phản hồi này
+User interface: Giao diện người dùng
 Value per unit: Giá trị mỗi đơn vị
 When: Khi
+When the curtain reaches: Khi rèm được kéo lên
+When the facade blind reaches: Khi rèm mặt tiền chạm tới
+When the projector screen reaches: Khi màn hình chiếu đạt đến
+When the roller garage door a certain position: Khi cửa nhà để xe đạt đến một vị trí nhất định
+When the roller garage door reaches: Khi cửa nhà để xe chạm vào
+When the roller shutter calibration failed: Khi việc kiểm định rèm xảy ra lỗi lúc kết thúc
+When the roller shutter calibration has been lost: Khi không thể hoàn thành việc kiểm định rèm
+When the roller shutter calibration has started: Khi việc kiểm định rèm bắt đầu
+When the roller shutter motor reported a problem: Khi động cơ của rèm báo cáo sự cố
+When the roller shutter reaches: Khi rèm đạt đến
+When the roof window reaches: Khi cửa sổ trên mái đạt đến
+When the terrace awning reaches: Khi mái hiên đạt đến
+When the vertical blind reaches: Khi cửa chớp thẳng đứng chạm đến
+Working schedule: Lịch hoạt động
 You need to provide icons for all states.: Bạn cần cung cấp các biểu tượng cho tất cả các tiểu bang
 You will be logged out shortly: Bạn sẽ được đăng xuất ngay
 choose a currency: chọn tiền tệ
@@ -1247,435 +1668,121 @@ or add a delay: Hoặc thêm độ trễ
 prefix: Tiền tố
 reset chart view: đặt lại chế độ xem biểu đồ
 suffix: Hậu tố
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-0% tilt angle: Góc của các thanh mà rèm đặt khi đóng lại
-100% tilt angle: Góc của các thanh mà rèm đặt khi mở
-A confirmation upon successful device unlocking.: Xác nhận mở khóa thiết bị.
-Active from: Hoạt động kể từ
-Active to: Hoạt động đến
-Activity conditions: Điều kiện hoạt động
-Additional time margin: Khoảng thời gian bổ sung
-Adjust temperature: Đặt nhiệt độ
-Adjust temperatures: Đặt nhiệt độ
-After the delay: Sau khoảng thời gian xác định
-After the delay, but only when it's dark: Sau khoảng thời gian xác định, nhưng chỉ khi trời tối
-Alarm armament sensor: Cảm biến kích hoạt báo động
-Algorithm: Thuật toán
-All programs must define at least one temperature threshold.: Mỗi chương trình phải xác định ít nhất một ngưỡng nhiệt độ.
-Always decrement: Luôn giảm
-Always increment: Luôn tăng
-Anti-freeze and overheat protection: Bảo vệ quá nhiệt và chống đóng băng
-Anti-freeze protection: Bảo vệ chống đóng băng
-Are you sure you want to change channel’s location?: Bạn có chắc chắn muốn thay đổi vị trí kênh không?
-Are you sure you want to change channel’s visibility?: Bạn có chắc chắn muốn thay đổi chế độ hiển thị của kênh không?
-Are you sure you want to change device’s location?: Bạn có chắc chắn muốn thay đổi vị trí thiết bị không?
-Are you sure you want to delete this channel?: Bạn có chắc chắn muốn xóa kênh này không?
-Automatic: Tự động
-Automatic front panel turn off: Tự động tắt bảng điều khiển phía trước~
-Automatic front panel turn off after: Thời gian cho đến khi bảng điều khiển phía trước tắt
-Automatic thermostat: Bộ điều chỉnh nhiệt độ tự động
-Automatic time synchronization: Tự động đồng bộ hóa ngày và giờ
-Aux thermometer: Nhiệt kế bổ sung
-Aux thermometer type: Loại nhiệt kế bổ sung
-Available variables: Các biến có sẵn
-Average: Trung bình
-Battery cover open: Nắp pin mở
-Behavior settings: Hành vi
-Binary sensor: Cảm biến nhị phân
-Brightness adjustment for automatic mode: Điều chỉnh độ sáng của chế độ tự động
-Brightness level: Mức độ sáng
-Button volume: Âm lượng nút bấm
-Buttons upside down: Điều khiển nút đảo ngược
-Candle: Nến
-Cannot update OCR settings. Try again in a while.: Không thể cập nhật cài đặt OCR. Vui lòng thử lại sau giây lát
-Change percentage by: Thay đổi tỷ lệ phần trăm theo
-Change percentage to: Thay đổi tỷ lệ phần trăm thành
-Change tilt by: Thay đổi độ dốc theo
-Change tilt to: Thay đổi độ dốc thành
-Change to be the same.: Đặt như nhau.
-Changing channel’s visibility will also change the visibility of other items.: Thay đổi khả năng hiển thị của kênh cũng sẽ thay đổi khả năng hiển thị của các thành phần khác.
-Changing the location will also imply changing the location of the following items.: Thay đổi vị trí cũng sẽ thay đổi vị trí cho các mục sau.
-Channels that are meant to work with each other must be in the same location.: Các kênh bạn muốn làm việc phải ở một vị trí.
-Clock error: Lỗi đồng hồ
-Close value: Giá trị cuối kỳ
-Collapse: Che
-Collapse or stop: Thu gọn hoặc dừng
-Collapse partially: Thu gọn một phần
-Command has been sent to the device. Try refreshing the photo in a while.: Yêu cầu đã được gửi đến thiết bị. Vui lòng thử làm mới ảnh của bạn trong giây lát.
-Common currencies: Tiền tệ được chọn thường xuyên nhất
-Configuration not available yet. Waiting for the device to connect.: Cấu hình chưa khả dụng. Đợi thiết bị kết nối.
-Confirm if you want to perform the calibration.: Xác nhận rằng bạn muốn hiệu chỉnh.
-Conflict: Xung đột
-Cool to: Làm mát đến
-Cooling mode: Chế độ làm mát
-'Cooling: {percent}%': 'Làm mát: {percent}%'
-Costs: Chi phí
-Could not restart the device.: Không thể khởi động lại thiết bị.
-Could not send the identify command.: Không thể gửi đơn hàng.
-Could not set the device time.: Không thể đặt ngày và giờ trên thiết bị.
-Counter type: Loại bộ đếm
-Curtain: Rèm
-Dark mode: Chế độ tối
-Data: Dữ liệu
-Date range: Phạm vi ngày
-Daytime criteria: Tiêu chí dựa trên độ dài ngày
-Dependencies: Sự phụ thuộc
-'Device GUID: %deviceGuid%': 'Mã định danh duy nhất toàn cầu của thiết bị: %deviceGuid%'
-Device identification is unsupported in the firmware.: Không hỗ trợ nhận dạng thiết bị trong phần mềm
-Device settings: Cài đặt thiết bị
-Device should be restarting now.: Thiết bị sẽ khởi động lại.
-Device time has been set.: Ngày và giờ của thiết bị đã được đặt.
-Different than on master thermostat.: Cài đặt khác với cài đặt trên bộ điều chỉnh nhiệt chính.
-Differential thermostat: Bộ điều chỉnh nhiệt vi sai
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Bạn có muốn đặt các kênh tùy thuộc vào bộ điều chỉnh nhiệt này (chẳng hạn như nhiệt kế và cảm biến) giống như trong bộ điều chỉnh nhiệt chính không?
-Domestic hot water: Nước nóng tại nhà
-Dryer: Máy hút ẩm
-Edit area crop: Chỉnh sửa khu vực
-Edit program settings: Chỉnh sửa cài đặt chương trình
-Electricity meter active power history: Lịch sử sử dụng điện của công tơ điện
-Electricity meter current history: Lịch sử hiện tại của công tơ điện
-Electricity meter voltage aberrations history: Lịch sử quang sai điện áp công tơ điện
-Electricity meter voltage history: Lịch sử hiện tại của công tơ điện
-Enable floor temperature control: Bật điều khiển nhiệt độ sàn
-Enable generic cooler temperature control: Bật điều khiển nhiệt độ của nguồn làm mát
-Enable generic heater temperature control: Bật điều khiển nhiệt độ nguồn nhiệt
-Enable power status LED: Bật diode trạng thái nguồn
-Enable support for OCR readings for this channel: Bật hỗ trợ OCR cho kênh này
-Enable water temperature control: Bật điều khiển nhiệt độ sàn
-Example value: Ví dụ
-Expand: Bỏ che
-Expand or stop: Thu gọn hoặc dừng
-Expand partially: Mở rộng một phần
-Expected maximum increment: Mức tăng tối đa dự kiến
-External sensor disabling the thermostat: Cảm biến bên ngoài tắt bộ điều chỉnh nhiệt
-Facade blind operation: Rèm mặt tiền
-Fan: Cối xay gió
-'Field: {propertyPath}.': 'Trường {propertyPath}.'
-Fill missing data: Điền các số đo còn thiếu
-Firmware: Phần mềm chương trình cơ sở
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Phần mềm của thiết bị này gửi thông báo trong ngữ cảnh của kênh này. Đây là nơi bạn có thể thiết lập nội dung và đối tượng của mình. Để biết thêm thông tin, vui lòng liên hệ với nhà cung cấp thiết bị.
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Phần mềm của thiết bị này sẽ gửi thông báo. Đây là nơi bạn có thể thiết lập nội dung và đối tượng của mình. Để biết thêm thông tin, vui lòng liên hệ với nhà cung cấp thiết bị.
-For a period: Cho giai đoạn
-Forced off by sensor: Buộc tắt máy bằng cảm biến
-Full tilting time: Tổng thời gian thay đổi độ dốc
-Function disabled: Chức năng bị vô hiệu hóa
-General purpose meter: Kênh truy cập mục đích chung
-HVAC: HVAC
-Heat or cold source switch: Công tắc nguồn nhiệt hoặc làm mát
-Heat to: Làm nóng đến
-Heating / ventilation / air conditioning: Hệ thống sưởi / thông gió / điều hòa không khí (HVAC)
-Heating mode: Chế độ làm nóng
-'Heating: {percent}%': 'Hệ thống sưởi: {percent}%'
-High threshold: Ngưỡng cao
-High value: Giá trị tối đa
-History: Lịch sử
-Home screen content: Nội dung màn hình chính
-Hotel card sensor: Cảm biến thẻ khách sạn
-Identify device: Xác định thiết bị
-Identify request sent.: Yêu cầu nhận dạng đã được gửi.
-If you confirm the installation and wish to unlock this device, please click the link below.: Nếu bạn là người đang cố gắng thêm thiết bị mới, hãy nhấp vào liên kết bên dưới để xác nhận mở khóa.
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Nếu bạn không phải là người đang cố gắng mở khóa thiết bị của mình, hãy bỏ qua email này. Liên kết xác nhận sẽ tự động hết hạn sau 24 giờ.
-Image area crop: Khu vực ảnh
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Để giảm thiểu nguy cơ đọc sai, hãy đặt bộ đếm ở mức tăng tối đa dự kiến giữa các ảnh.
-Increment and decrement: Tăng và giảm
-Installer e-mail address: Email của người cài đặt
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: Thiết bị đã đăng ký một kênh thuộc loại khác ({typeCaption} - {typeId}) thay vì kênh hiện tại.
-Invalid e-mail address.: Địa chỉ email không hợp lệ.
-Invalid unlock code.: Liên kết mở khóa không hợp lệ.
-Last paired device: Thiết bị được ghép nối lần cuối
-Light mode: Chế độ sáng
-Lighting level: Mức độ chiếu sáng
-Lighting mode: Chế độ chiếu sáng
-List of available variables: Danh sách các thay đổi có sẵn
-Locked: Đã chặn
-Low threshold: Ngưỡng thấp
-Low threshold must be less than high threshold.: Ngưỡng thấp phải thấp hơn ngưỡng cao
-Low value: Giá trị tối thiểu
-Main thermometer: Nhiệt kế chính
-Master thermostat: Bộ điều chỉnh nhiệt chính
-Max: Tối đa
-Maximum duration is one year.: Thời gian tối đa là một năm.
-Maximum temperature that can be set from the device: Nhiệt độ tối đa mà thiết bị có thể cài đặt
-Measurement settings: Cài đặt đo lường
-Min: Tối thiểu
-Minimum OFF time before cooling can be turned on: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ làm mát
-Minimum OFF time before heating can be turned on: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ sưởi
-Minimum OFF time before heating/cooling can be turned on: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ làm mát/sưởi
-Minimum ON time before cooling can be turned off: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ làm mát
-Minimum ON time before heating can be turned off: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ sưởi
-Minimum ON time before heating/cooling can be turned off: Thời gian TẮT tối thiểu trước khi khởi động lại chế độ làm mát/sưởi
-Minimum temperature must be lower than maximum temperature.: Nhiệt độ tối thiểu phải thấp hơn nhiệt độ tối đa
-Minimum temperature that can be set from the device: Nhiệt độ tối thiểu mà thiết bị có thể cài đặt
-'Mode: cool': 'Chế độ làm mát'
-'Mode: heat': 'Chế độ làm nóng'
-'Mode: off': 'Chế độ: Tắt'
-Motor upside down: Điều khiển động cơ đảo chiều
-'No': 'Không'
-No results: Không có kết quả
-Notification body is set by the firmware.: Nội dung của thông báo được thiết lập bởi phần mềm.
-Notification must have recipients.: Thông báo phải có người nhận.
-Notification title is set by the firmware.: Tiêu đề thông báo được thiết lập bởi chương trình phần mềm cơ sỏ.
-Notifications (defined): Thông báo (được xác định)
-Notifications (sent per hour): Thông báo (được gửi mỗi giờ)
-'OCR service responded with error: {status}': 'Dịch vụ OCR đã phản hồi với lỗi: {status}'
-OCR settings: Cài đặt OCR
-OR: HOẶC
-Off with duration: Tắt đúng giờ
-On with duration: Bật đúng giờ
-Open value: Giá trị mở đầu kì
-Output value on error: Trạng thái đầu ra khi có lỗi
-Overheat protection: Bảo vệ quá nhiệt
-P/C: P/C
-Pair new devices or sensors: Ghép nối các thiết bị hoặc cảm biến mới
-Pairing request sent.: Yêu cầu ghép nối đã được gửi.
-Pairing subdevices is unsupported in the firmware.: Phần mềm thiết bị không hỗ trợ ghép nối.
-Phase LED type: Đèn báo pha LED
-Photo interval: Khoảng thời gian chụp ảnh
-Please find the device details below.: Thông tin chi tiết về thiết bị có thể được tìm thấy bên dưới.
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Xin lưu ý rằng thiết bị áp dụng yêu cầu này chỉ dành cho những người cài đặt được chứng nhận.
-Please provide the installer e-mail address to request the device unlock.: Để mở khóa thiết bị, hãy nhập địa chỉ email bạn đã cung cấp trong quy trình chứng nhận trình cài đặt.
-Please select and configure the action: Chọn và thiết lập hành động.
-Program {programNo}: Chương trình {programNo}
-Projector screen: Màn chiếu
-Pump switch: Công tắc bơm
-Push notifications limit has been exceeded: Đã vượt quá giới hạn thông báo đẩy
-Reference to the channel will be removed from the items below.: Chỉ định cho kênh này sẽ bị xóa khỏi các mục bên dưới.
-Refresh interval: Khoảng thời gian làm mới
-Refresh the config: Làm mới cấu hình
-Refreshing the configuration will overwrite the changes you made here.: Việc làm mới cấu hình sẽ ghi đè lên mọi thay đổi làm theo như biểu mẫu.
-Reload last photo: Tải lại ảnh cuối cùng
-Remote restart is unsupported in the firmware.: Phần mềm thiết bị không hỗ trợ khởi động lại từ xa.
-Remove this item: Xóa mục này
-Request device unlock: Báo cáo muốn mở khóa thiết bị
-Reset to defaults: Khôi phục giá trị mặc định
-Restart device: Khởi động lại thiết bị
-Restart the device: Khởi động lại thiết bị
-Reveal or stop: Kéo mở ra hoặc giữ lại
-Roller garage door: Cửa nhà để xe
-S/N: Tỷ lệ tín hiệu trên tạp âm
-SUPLA - Confirm unlocking device for authorized installers: SUPLA - Mở khóa thiết bị dành cho người được chứng nhận cài đặt
-SUPLA – your device has been unlocked!: SUPLA - Thiết bị của bạn đã được mở khóa!
-Same as on master thermostat.: Cài đặt giống như trong bộ điều chỉnh nhiệt chính.
-Screen brightness: Độ sáng màn hình
-Selected: Đã chọn
-Set HVAC parameters: Đặt thông số
-Set the device time: Không thể đặt ngày và giờ trên thiết bị.
-Settings: Cài đặt
-Settings have not been saved!: Cài đặt chưa được lưu!
-Show data: Hiển thị dữ liệu
-Shut or stop: Đóng che vào hoặc giữ lại
-Some features depend on this channel: Một số tính năng phụ thuộc vào kênh này
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Một số dữ liệu được thu thập cho tài khoản của bạn sẽ bị xóa định kỳ sau một khoảng thời gian nhất định. Vui lòng xem các giới hạn dưới đây.
-Status LED: Trạng thái đèn LED
-Store active power history: Lưu trữ lịch sử năng lượng đang hoạt động
-Store current history: Lưu trữ lịch sử hiện tại
-Store voltage history: Giữ lại lịch sử điện áp
-'Subdevice #{id}': 'Thiết bị được hợp đồng phụ #{id}'
-Subfunction: Chức năng phụ
-Switch to manual mode: Chuyển sang chế độ thủ công
-Switch to program mode: Chuyển sang chế độ chương trình
-THEN: SAU ĐÓ
-Take a photo now: Chụp ảnh ngay
-Temperature adjustment only: Chỉ cài đặt nhiệt độ
-Temperature difference is too big between {min}°C and {max}°C.: Chênh lệch nhiệt độ quá lớn giữa {min}°C và {max}°C.
-Temperature setpoint change switches to manual mode: Thay đổi công tắc nhiệt độ mục tiêu sang chế độ thủ công
-Temporal override: Ghi đè lên tạm thời
-Terrace awning: Mái hiên sân thượng
-The channel has been deleted.: Kênh đã bị xóa.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: 'Cấu hình đã được thay đổi từ nơi khác (ví dụ: cửa sổ trình duyệt, ứng dụng di động hoặc thiết bị khác). Bạn phải làm mới cấu hình trước khi thực hiện bất kỳ thay đổi nào khác.'
-The device could not be unlocked.: Không thể mở khóa thiết bị.
-The device has been unlocked already.: Thiết bị đã được mở khóa.
-The device has been unlocked.: Thiết bị đã được mở khóa.
-The device has channel conflict and cannot work.: Thiết bị đã tạo ra xung đột giữa các kênh và hiện không thể hoạt động.
-The device is locked: Đã chặn thiết bị
-The following channels will be also removed along with their dependencies.: Các kênh sau cũng sẽ bị xóa cùng với các kênh phụ thuộc chúng.
-The items below depend on this channel, so they will be deleted.: Các mục sau đây phụ thuộc vào kênh này, vì vậy chúng sẽ bị xóa.
-The master termostat you chose already has a master.: Bộ điều chỉnh nhiệt chính bạn đã chọn đã có một bộ điều chỉnh nhiệt chính khác
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Phản ứng sẽ xảy ra khi đáp ứng tất cả các điều kiện sau. Nếu bạn cài đặt chọn tất cả các lựa chọn có sẵn, hoạt động sẽ chỉ bật lên vào các ngày đã chọn, vào khung giờ và ngày trong tuần đã chọn và khi đã điền vào một trong các thông tin phụ lục về hoàng hôn hoặc bình minh.
-The thermostat will not work if the main thermometer is not set.: Nhiệt kế chính phải được đặt để bộ điều chỉnh nhiệt hoạt động.
-Thermometer error: Lỗi nhiệt kế
-Thermometers configuration: Cấu hình nhiệt kế
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Bộ điều chỉnh nhiệt này sử dụng các cài đặt từ bộ điều chỉnh nhiệt chính. Chuyển đến trang chi tiết để thay đổi cài đặt.
-Thermostat programs: Chương trình điều nhiệt
-This action will result in restarting the device. It will not be available for a while.: Sắp xếp thao tác này sẽ khởi động lại thiết bị. Trong quá trình khởi động lại thiết bị sẽ không vào được
-This channel was missing during last device registration attempt.: Thiết bị của bạn bị thiếu kênh này.
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Thiết bị này chỉ dành cho việc phân phối và lắp đặt bởi những người được ủy quyền cài đặt. Nếu bạn không phải là người cài đặt SUPLA được ủy quyền và không có chứng chỉ đào tạo đang hoạt động, hãy trả lại cho đại lý.
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Đây là ảnh cuối cùng được tải lên từ thiết bị. Đánh dấu chính xác khu vực có thể nhìn thấy các chữ số từ máy đếm.
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Đây là danh sách các hoạt động phản hồi đang chạy trên tài khoản của bạn. Nếu bạn muốn thêm một phản ứng mới, hãy chuyển đến chi tiết, kênh sẽ kích hoạt phản ứng đó.
-This thermostat is controlled by another device.: Bộ điều chỉnh nhiệt này được điều khiển bởi bộ điều chỉnh nhiệt chính.
-Tilt angle: Góc nghiêng
-Tilt control type: Loại điều khiển độ nghiêng
-Tilt percent: Phần trăm độ dốc
-Time: Giờ
-Today, it would be active from {from} to {to}.: Hôm nay, thời gian hoạt động sẽ kéo dài trong khung giờ giờ từ {from} đến {to}.
-Turn off: Tắt
-Unlock the device: Mở khóa thiết bị
-Unlocked: Đã mở khóa
-Until a date and time: Đến thời điểm
-Until the next change: Cho đến lần thay đổi tiếp theo
-Use device default: Sử dụng giá trị mặc định từ thiết bị
-Use working schedule for this reaction: Sử dụng lịch trình hoạt động cho phản hồi này
-Use {theMasterThermostat} to control this device.: Sử dụng {theMasterThermostat} để điều khiển thiết bị này.
-Used current transformer type: Máy biến dòng đã qua sử dụng
-User interface: Giao diện người dùng
-Value divider: Dải phân cách
-Value multiplier: Số nhân
-Vertical blind: Màn trập dọc
-Visit the master thermostat page.: Chuyển đến bộ điều chỉnh nhiệt chính.
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Chúng tôi đã nhận được yêu cầu mở khóa thiết bị chỉ dành cho những người cài đặt được chứng nhận. Yêu cầu đã được gửi bởi %deviceUserEmail% từ phiên bản SUPLA Cloud tại %targetCloudUrl%.
-Week: Tuần
-Weekly schedule: Lịch trình hàng tuần
-When the alarm is armed: Khi báo động được kích hoạt
-When the alarm is armed or disarmed: Khi báo động bị tắt hoặc được kích hoạt
-When the alarm is disarmed: Khi báo động bị tắt
-When the battery cover is opened: Khi nắp pin được mở
-When the clock error has been reported: Khi đồng hồ báo lỗi
-When the curtain position changes: Khi rèm thay đổi vị trí
-When the curtain reaches: Khi rèm được kéo lên
-When the curtain reaches a certain position: Khi rèm chạm đến một vị trí nhất định
-When the facade blind position changes: Khi rèm mặt tiền thay đổi vị trí
-When the facade blind reaches: Khi rèm mặt tiền chạm tới
-When the facade blind reaches a certain position: Khi rèm mặt tiền đạt đến một vị trí nhất định
-When the hotel card has been taken: Khi thẻ khách sạn bị lấy đi
-When the hotel card is put in: Khi thẻ khách sạn được đưa vào
-When the hotel card is put in or has been taken: Khi thẻ khách sạn được đưa vào hoặc rút ra
-When the meter reaches a certain value: Khi bộ đếm đạt giá trị cài đặt
-When the meter value changes: Khi giá trị thay đổi
-When the meter value will be: Khi giá trị sẽ là
-When the projector screen position changes: Khi màn hình chiếu thay đổi vị trí
-When the projector screen reaches: Khi màn hình chiếu đạt đến
-When the projector screen reaches a certain position: Khi màn hình chiếu đạt đến một vị trí nhất định
-When the pump is turned off: Khi máy bơm được tắt
-When the pump is turned on: Khi máy bơm được bật
-When the pump is turned on or off: Khi máy bơm được bật hoặc tắt
-When the roller garage door a certain position: Khi cửa nhà để xe đạt đến một vị trí nhất định
-When the roller garage door position changes: Khi cửa nhà để xe thay đổi vị trí
-When the roller garage door reaches: Khi cửa nhà để xe chạm vào
-When the roller shutter calibration failed: Khi việc kiểm định rèm xảy ra lỗi lúc kết thúc
-When the roller shutter calibration has been lost: Khi không thể hoàn thành việc kiểm định rèm
-When the roller shutter calibration has started: Khi việc kiểm định rèm bắt đầu
-When the roller shutter motor reported a problem: Khi động cơ của rèm báo cáo sự cố
-When the terrace awning position changes: Khi mái hiên thay đổi vị trí
-When the terrace awning reaches: Khi mái hiên đạt đến
-When the terrace awning reaches a certain position: Khi mái hiên đạt đến một vị trí nhất định
-When the thermometer error has been reported: Khi nhiệt kế báo lỗi
-When the thermostat starts cooling: Khi bộ điều chỉnh nhiệt bắt đầu nguội
-When the thermostat starts heating: Khi bộ điều chỉnh nhiệt bắt đầu nóng lên
-When the thermostat starts heating or cooling: Khi bộ điều chỉnh nhiệt bắt đầu làm mát hoặc sưởi ấm
-When the thermostat starts or stops cooling: Khi bộ điều chỉnh nhiệt khởi động hoặc ngừng làm mát
-When the thermostat starts or stops heating: Khi bộ điều chỉnh nhiệt khởi động hoặc ngừng sưởi ấm
-When the thermostat starts or stops heating or cooling: Khi bộ điều chỉnh nhiệt khởi động hoặc ngừng sưởi ấm hoặc làm mát
-When the thermostat stops cooling: Khi bộ điều chỉnh nhiệt ngừng làm mát
-When the thermostat stops heating: Khi bộ điều chỉnh nhiệt ngừng làm nóng
-When the thermostat stops heating or cooling: Khi bộ điều chỉnh nhiệt ngừng làm mát hoặc sưởi ấm
-When the vertical blind position changes: Khi rèm mặt tiền thay đổi vị trí
-When the vertical blind reaches: Khi cửa chớp thẳng đứng chạm đến
-When the vertical blind reaches a certain position: Khi rèm mặt tiền đạt đến một vị trí nhất định
-Will be deleted after: Xóa sau khi
-With a timer: Có hẹn giờ
-'Yes': 'Đồng ý'
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Bạn có thể đặt các giá trị tương đối tại đây. Ví dụ +10 hoặc -20 sẽ tương ứng tăng cài đặt thêm 10 hoặc giảm 20.
-You cannot to set a master thermostat for a channel that is master for others.: Bạn không thể đặt bộ điều chỉnh nhiệt chính trong bộ điều chỉnh nhiệt chính
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Yêu cầu của bạn đã được gửi. Chúng tôi sẽ thông báo cho bạn khi người cài đặt phê duyệt và mở khóa thiết bị.
-You need to provide icons for all states in light mode.: Bạn phải cung cấp các biểu tượng cho tất cả các trạng thái ở chế độ sáng.
-Your device has been unlocked by the installer.: Người cài đặt đã mở khóa thiết bị của bạn.
-and wait until the meter will be: và không thực hiện lại phản ứng này cho đến khi hết giá trị
-auxThermometerType_DISABLED: Đã tắt
-auxThermometerType_FLOOR: Sàn
-auxThermometerType_GENERIC_COOLER: Nguồn làm mát
-auxThermometerType_GENERIC_HEATER: Nguồn nhiệt
-auxThermometerType_NOT_SET: Chưa cài đặt
-auxThermometerType_WATER: Nước
-blue, otherwise: nếu không thì màu xanh lam
-blue, when voltage lower than the low threshold: màu xanh lam khi điện áp thấp hơn ngưỡng thấp
-choose the currency: chọn loại tiền tệ
-configuration missing: không có cấu hình
-cool: làm mát
-day: ngày
-default: Mặc định
-green, otherwise: nếu không thì màu xanh lá
-green, when power less than the low threshold: màu xanh lá cây khi công suất thấp hơn ngưỡng thấp hơn
-heat: sưởi ấm
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Nhiệt độ chính và phụ
-homeScreenContent_NONE: Thiếu
-homeScreenContent_TEMPERATURE: Nhiệt độ
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: Nhiệt độ và độ ẩm
-homeScreenContent_TEMPERATURE_TIME: Nhiệt độ và thời gian
-homeScreenContent_TIME: Giờ
-homeScreenContent_TIME_DATE: Ngày và giờ
-hour: giờ
-keepHistoryMeasurementWarningSelected: Bạn có chắc chắn là cần lịch sử này không? Supla là một dự án mã nguồn mở được duy trì từ các nguồn lực riêng của mình. Nếu bạn không cần lịch sử này, vui lòng giúp chúng tôi tiết kiệm dung lượng lưu trữ có giá trị bằng cách tắt tùy chọn này.
-max: Cực đại
-midnight: hướng bắc
-milliseconds: mili- giây
-min: tối thiểu
-ocrLightingMode_ALWAYS_ON: Luôn bật
-ocrLightingMode_AUTO: Tự động
-ocrLightingMode_OFF: Đã tắt
-'off': 'Tắt'
-red, when power higher than the high threshold: màu đỏ, khi công suất cao hơn ngưỡng cao
-red, when voltage higher than the high threshold: màu đỏ, khi điện áp cao hơn ngưỡng cao
-seconds: giây
-statusLed_ALWAYS_OFF: Luôn tắt
-statusLed_OFF_WHEN_CONNECTED: Tắt khi kết nối
-statusLed_ON_WHEN_CONNECTED: Bật khi kết nối
-subdevicePairingResult_CMD_RESULT_UNKNOWN: Kết quả không xác định
-subdevicePairingResult_NOT_STARTED_BUSY: Thiết bị đang bận
-subdevicePairingResult_NOT_STARTED_NOT_READY: Thiết bị chưa sẵn sàng
-subdevicePairingResult_NOT_SUPPORTED: Hoạt động không được hỗ trợ
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: Không tìm thấy thiết bị mới
-subdevicePairingResult_ONGOING: Đang tiến hành
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Kết quả ghép nối không xác định
-subdevicePairingResult_PROCEDURE_STARTED: Quy trình bắt đầu
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Đã vượt quá giới hạn tài nguyên
-subdevicePairingResult_SUCCESS: Thành công
-subdevicePairingResult_UNAUTHORIZED: Ủy quyền không thành công
-sunrise: bình minh
-sunset: hoàng hôn
-swap: thay thế
-the master thermostat ID{id}: số xác minh bộ điều chỉnh nhiệt chính {id}
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Bật/Tắt với cài đặt trên
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Bật/Tắt với cài đặt trung tâm
-thermostatAlgorithm_PID: Bộ điều khiển vi tích phân tỉ lệ
 thermostatAlgorithm_help: |
   Các thuật toán bật/tắt hoạt động dựa trên cài đặt độ trễ. Độ trễ có thể liên quan đến một nửa phạm vi của nó (điểm đặt giữa) hoặc đến nhiệt độ đặt (điểm đặt trên).
   Ví dụ, giả sử độ trễ là 1°C và nhiệt độ đích là 23°C, bộ điều nhiệt:
   - bật hệ thống sưởi ở 22,5° C và kết thúc hoạt động khi nhiệt độ đạt 23,5° C cho cài đặt trung tâm
   - bật hệ thống sưởi ở 22° C và kết thúc hoạt động khi nhiệt độ đạt đến 23° C cho cài đặt trên
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Action trigger for channel: ~
+Activity schedule: ~
+Alarm at level (and above) should be greater than the corresponding warning level.: ~
+Alarm at level (and below) should be lower than the corresponding warning level.: ~
+Alarm level: ~
+Algorithms available on this device: ~
+Are you sure you want to delete this subdevice?: ~
+Aux thermometer for channel: ~
+Binary sensor for channel: ~
+Cannot execute an action when the channel is not available.: ~
+Channels that are meant to work with each other must have the same visibility setting.: ~
+Choose many: ~
+Container: ~
+Container level sensor: ~
+Container supports up to 10 sensors.: ~
+Device interface: ~
+Each container level sensor must have different fill level.: ~
+Fill level: ~
+Flood sensor: ~
+Flood sensor for valve: ~
+Flood sensors: ~
+Image: ~
+Invalid sensor state: ~
+Level sensor: ~
+Level sensor for container: ~
+Level sensors: ~
+Lock type: ~
+Main thermometer for channel: ~
+Master thermostat for channel: ~
+Maximum: ~
+Minimum: ~
+Motor problem: ~
+Mute alarm: ~
+Mute alarm sound without additional auth: ~
+Mute command sent: ~
+Not available: ~
+Opening sensor for channel: ~
+Percentage of extension: ~
+Photo history: ~
+Pump switch for channel: ~
+Reading: ~
+Reference to the deleted channels will be removed from the items below.: ~
+Scene ID{id} is being executed right now.: ~
+Scene ID{id} is inactive right now.: ~
+Septic tank: ~
+Sound alarm on: ~
+Temperature control type: ~
+Temperatures that can be set from local UI: ~
+The items below depend on the deleted channels, so they will be deleted, too.: ~
+The subdevice has been deleted.: ~
+This device cannot be remotely awakened. We are awaiting communication from the device...: ~
+Updating...: ~
+Use activity schedule: ~
+Valve supports up to 20 sensors.: ~
+Waiting: ~
+Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).: ~
+Warning level: ~
+Water tank: ~
+When a flood is detected: ~
+When a flooding state changes: ~
+When a flooding state has been cleared: ~
+When any of the sensors starts to report an invalid state: ~
+When any of the sensors stops to report an invalid state: ~
+When the alarm starts: ~
+When the alarm stops: ~
+When the battery level will be: ~
+When the battery reaches a certain level: ~
+When the calibration fails: ~
+When the calibration has been lost: ~
+When the calibration has started: ~
+When the device starts to be powered from battery: ~
+When the device stops to be powered from battery: ~
+When the fill level changes: ~
+When the fill level reaches a certain value: ~
+When the fill level reading error disappears: ~
+When the fill level reading error occurs: ~
+When the fill level will be: ~
+When the motor reported a problem: ~
+When the position reaches: ~
+When the roller garage door reaches a certain position: ~
+When the sound alarm starts: ~
+When the sound alarm stops: ~
+When the warning starts: ~
+When the warning stops: ~
+You cannot change this function becuase it is required by another channel.: ~
+activityConditions_help: ~
+and wait until the battery level will be: ~
+and wait until the fill level will be: ~
+directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
+localUILock_FULL: ~
+localUILock_TEMPERATURE: ~
+localUILock_UNLOCKED: ~
+state-half: ~
+state-hi: ~
+state-low: ~
+tank_alarm_alarmAboveLevel: ~
+tank_alarm_alarmBelowLevel: ~
+tank_alarm_warningAboveLevel: ~
+tank_alarm_warningBelowLevel: ~
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
+temperatureControlType_ROOM_TEMPERATURE: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: ~
+thermostatAlgorithmHelp_PID: ~
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: làm mát
-thermostatSubfunction_HEAT: sưởi ấm
-thermostatTemperature_aboveAlarm: Trên mức báo động
-thermostatTemperature_auxMaxSetpoint: Nhiệt độ bổ sung tối đa
-thermostatTemperature_auxMinSetpoint: Nhiệt độ bổ sung tối thiểu
-thermostatTemperature_belowAlarm: Trên mức báo động
-thermostatTemperature_boost: Tăng nhiệt độ
-thermostatTemperature_comfort: Nhiệt độ thoải mái
-thermostatTemperature_eco: Nhiệt độ tiết kiệm năng lượng
-thermostatTemperature_freezeProtection: Nhiệt độ bảo vệ chống đông
-thermostatTemperature_heatProtection: Nhiệt độ bảo vệ quá nhiệt
-thermostatTemperature_histeresis: Độ trễ
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: Thay đổi vị trí trong quá trình thay đổi độ dốc
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Không thay đổi vị trí trong quá trình thay đổi độ dốc
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Chỉ thay đổi độ dốc khi nó được đóng hoàn toàn
-tiltControlType_UNKNOWN: Không biết
-timeMarginMode_custom: Tùy chỉnh
-timeMarginMode_device: Giá trị mặc định từ thiết bị
-timeMarginMode_off: Đã tắt
-usedCTType_100A_33mA: 100A/33.3mA
-usedCTType_200A_66mA: 200A/66.6mA
-usedCTType_400A_133mA: 400A/133.3mA
-usedPhaseLedType_OFF: Đã tắt
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: Hướng dòng điện
-usedPhaseLedType_VOLTAGE_LEVEL: Cấp điện áp
-usedPhaseLedType_VOLTAGE_PRESENCE: Sự hiện diện của điện áp
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Sự hiện diện của điện áp (đảo ngược)
-'{count} minutes after sunrise': '{count} phút sau khi mặt trời mọc'
-'{count} minutes after sunset': '{count} phút sau khi mặt trời lặn'
-'{count} minutes before sunrise': '{count} phút trước khi mặt trời mọc'
-'{count} minutes before sunset': '{count} phút trước khi mặt trời lặn'
-'{days} days': '{days} ngày'
+valveOpenConfirm_flooding: ~
+valveOpenConfirm_motorProblem: ~
+
 #</editor-fold>

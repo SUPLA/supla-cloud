@@ -6,10 +6,13 @@
 ...open gateways, gates or doors: ...відкрити хвіртку, ворота або двері
 ...or control home appliances: ...або керувати побутовими приладами/аудіо/відеопристроями
 ...you can monitor temperature: ...можна стежити за температурою
+0% tilt angle: Кут нахилу ламелей, який встановлюють жалюзі при закриванні
 10 minutes before sunset, on day 10 of the month, May through August: за 10 хвилин до заходу сонця, лише у 10-й день місяця, з травня по серпень
+100% tilt angle: Кут нахилу ламелей, який встановлюють жалюзі при відкриванні
 15 minutes after sunrise, every 2 days: 15 хвилин після сходу сонця, через день
 A confirmation upon successful client app registration.: Підтвердження реєстрації  заявки нового клієнта.
 A confirmation upon successful device registration.: Підтвердження успішної реєстрації пристрою.
+A confirmation upon successful device unlocking.: Підтвердження розблокування пристрою.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Новий клієнтський додаток (смартфон) було додано до вашого облікового запису SUPLA-Cloud
 A new device has been added to your SUPLA-Cloud account.: Новий пристрій додано до вашого облікового запису SUPLA-Cloud
 A new personal access token has been generated.: Створено новий особистий токен доступу
@@ -39,9 +42,12 @@ Action triggers: Команди дії
 Actions: Дії
 Active: Діючі
 Active applications: Активні додатки
+Active from: Активний з
 Active period: Період дії
 Active sessions: Активні сесії
+Active to: Активний до
 Active web sessions: Активні сесії (веб)
+Activity conditions: Умови діяльності
 Add: Додати
 Add a delay: Додати затримку
 Add a new action to the scene: Додати нову дію до сцени
@@ -50,22 +56,34 @@ Add action: Додати дію
 Add first channel to set channel group function and save it: Виберіть перший канал для визначення функції групи та збережіть його
 Add new channel group: Додайте нову групу каналів
 Add new channel to this group: Додайте новий канал до групи
+Additional time margin: Додатковий запас часу
 Adjust parameters: Встановіть параметри
+Adjust temperature: Встановіть температуру
+Adjust temperatures: Встановіть температури
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Усі канали та групи каналів, які використовують цю піктограму, матимуть свої піктограми за замовчуванням після видалення.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Після надання доступу ви завжди можете передумати, скасувавши доступ у налаштуваннях облікового запису.
+After the delay: Через визначений проміжок часу
+After the delay, but only when it's dark: Через певний час, але тільки коли стемніє
 After the device enters the configuration mode, it will not be accessible on your account.: Пристрій буде недоступний з вашого облікового запису після входу в режим налаштування.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Після оновлення додаток стане швидшим, зручнішим... просто кращим!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: «Лічильник почне відлік від 0 після цієї операції, незалежно від його поточного стану. Цю операцію неможливо скасувати.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Посилання буде згенеровано відразу після вибору об’єкта. Ви можете ввести всі інші параметри відразу після його створення.
 Aggregation: Агрегація
+Alarm armament sensor: Датчик постановки сигналізації на охорону
+Algorithm: Алгоритм
 All: Все
 All events: Всі події
 All logs has been downloaded. Reload the chart to see them.: Всі дані вимірювань були завантажені. Перезавантажте діаграму, щоб побачити їх.
+All programs must define at least one temperature threshold.: Кожна програма повинна визначати принаймні один температурний поріг.
 All the above and many more can be done from your phone or tablet: Ви можете робити все це та багато іншого за допомогою свого смартфона чи планшета
 Allowed actions: Дозволені дії
 Allows to perform an action only using the HTTP PATCH request.: Дозволяє виконувати дію лише за допомогою запиту HTTP PATCH.
 Alternatively, you can add a GET parameter to specify response format.: Ви також можете додати параметр GET, щоб вказати формат відповіді.
+Always decrement: Постійне зменшення
+Always increment: Постійне зростання
 And more: І значно більше
+Anti-freeze and overheat protection: Захист від перегріву та замерзання
+Anti-freeze protection: Захист від замерзання
 Any application or device that uses the {tokenName} token will not work anymore.: Усі програми або пристрої, які використовують токен {tokenName}, перестануть працювати.
 'App version: %clientAppSoftwareVersion%': 'Версія застосунку: %clientAppSoftwareVersion%'
 Application: Додаток
@@ -75,10 +93,14 @@ Applications: Застосунки
 Applications with access: Додаток з доступом
 Are you lost?: Ви загубились? Ви щось шукаєте?
 Are you sure you want to change channel’s function?: Ви впевнені, що хочете змінити функцію каналу?
+Are you sure you want to change channel’s location?: Ви впевнені, що хочете змінити розташування каналу?
+Are you sure you want to change channel’s visibility?: Ви впевнені, що хочете змінити видимість каналу?
+Are you sure you want to change device’s location?: Ви впевнені, що хочете змінити місце розташування пристрою?
 Are you sure you want to delete the entire measurement history saved for this channel?: Ви впевнені, що бажаєте видалити всю історію вимірювань, зібрану для цього каналу?
 Are you sure you want to delete the events from the voltage aberrations history?: Ви впевнені, що хочете видалити всі події з історії про аберації напруги?
 Are you sure you want to delete this OAuth application?: Ви впевнені, що бажаєте видалити цю програму OAuth?
 Are you sure you want to delete this channel group?: Ви впевнені, що бажаєте видалити цю групу каналів?
+Are you sure you want to delete this channel?: Ви дійсно хочете видалити цей канал?
 Are you sure you want to delete this client?: Ви впевнені, що бажаєте видалити цю клієнтську програму?
 Are you sure you want to delete this direct link?: Ви впевнені, що хочете видалити це пряме посилання?
 Are you sure you want to delete this icon?: Ви впевнені, що хочете видалити цю піктограму?
@@ -109,20 +131,36 @@ Authentication successful: Успішний вхід в систему
 Authorization callback URLs (one per line): URL-адреси зворотної авторизації (по одному на рядок)
 Authorize the application, so that it can access your account.: Авторизуйте програму, щоб вона мала доступ до вашого облікового запису.
 Authorized: Авторизований
+Automatic: Автоматичне
 Automatic calibration: Автоматичне калібрування
 Automatic closing rule: Автоматичне закриття воріт
+Automatic front panel turn off: Автоматичне вимкнення передньої панелі
+Automatic front panel turn off after: Час вимкнення передньої панелі
+Automatic thermostat: Автоматичний термостат
+Automatic time synchronization: Автоматична синхронізація дати та часу
 Automation: Автоматизація
+Aux thermometer: Додатковий термометр
+Aux thermometer type: Додатковий тип термометра
+Available variables: Доступні змінні
+Average: Середня
 Average voltage: Середня напруга
 Back to apps list: Назад до списку програм
 Bar: Пункт
 Based on sunrise or sunset: З розрахунку схід/захід
+Battery cover open: Кришка акумулятора відкрита
 Be notified when your channels change state: Повідомлення про зміни статусу каналу
 Be right back!: Поверніться через кілька хвилин!
+Behavior settings: Поведінка
 Below threshold: Нижче порогового значення
+Binary sensor: Бінарний датчик
 Body: Зміст
 Bottom position: Нижня позиція
 Bridge: Перехід
 Brightness: Яскравість
+Brightness adjustment for automatic mode: Налаштування яскравості автоматичного режиму
+Brightness level: Рівень яскравості
+Button volume: Кнопка гучності
+Buttons upside down: Керування кнопкою реверсу
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Вимкнення цієї опції дозволить керувати цим пристроєм з інтеграції без додаткового підтвердження. Це може призвести до небезпечного або менш безпечного стану (наприклад, випадкове відкриття воріт).
 By signing in, you are authorizing {clientName} to control your devices.: Увійшовши в систему, ви дозволяєте додатку {clientName} керувати вашими пристроями.
 CLICK TO DISABLE: НАТИСНІТЬ, ЩОБ ВИМКНУТИ
@@ -134,10 +172,11 @@ Calibration successful.: Калібрування успішне
 Cancel: Скасувати
 Cancel changes: Скасувати зміни
 Cancelled: Скасовано
+Candle: Свічник
 Cannot calculate when to run the schedule - incorrect configuration?: Не вдалося розрахувати дату початку розкладу - неправильна конфігурація?
 Cannot change the channel function right now.: Наразі функції цього каналу не можна змінити.
 Cannot delete this I/O Device right now.: Цей пристрій наразі неможливо видалити.
-Cannot execute an action when the device is disconnected.: Неможливо виконати дію, коли пристрій відключено.
+Cannot update OCR settings. Try again in a while.: Не вдалося оновити налаштування розпізнавання тексту. Спробуйте ще раз за мить.
 Captcha token is not valid.: Недійсний код перевірки.
 Caption: Підпис
 Caption is too long.: Назва занадто довга.
@@ -146,8 +185,15 @@ Change Password: Зміна пароля
 Change channel function: Змінити функцію каналу
 Change function: Змінити функцію
 Change icon: Змінити піктограму
+Change percentage by: Змініть відсоток на
+Change percentage to: Змініть відсоток до
 Change the password and log out: Змініть пароль і вийдіть з системи
+Change tilt by: Змініть нахил на
+Change tilt to: Змініть нахил до
+Change to be the same.: Налаштуйте так само.
 Changing channel’s function will also result in the following changes.: Зміна функції каналу також змінить наступне.
+Changing channel’s visibility will also change the visibility of other items.: Зміна видимості каналу також змінить видимість інших елементів.
+Changing the location will also imply changing the location of the following items.: Зміна розташування також призведе до зміни розташування наступних елементів.
 Channel: Канал
 Channel No: Номер каналу
 Channel available for {serviceName}: Канал доступний для {serviceName}
@@ -163,6 +209,7 @@ Channel reference will be removed from the items below.: Канал буде в�
 Channel with action triggers: Канал із командами дії
 Channels: Канали
 Channels groups are not supported for this function.: Ця функція не підтримує групи каналів.
+Channels that are meant to work with each other must be in the same location.: Канали для спільної роботи повинні знаходитися в одному місці.
 Chart type: Тип діаграми
 Check the direct link you used and try again.: Перевірте відображене пряме посилання та повторіть спробу.
 Check your email box: Перевірте свою електронну скриньку
@@ -185,33 +232,51 @@ Click the following link to confirm unregistration of your private SUPLA Cloud i
 Client registration: Реєстрація клієнтів
 Client’s Apps: Клієнтські програми
 Client’s app has been deleted: Клієнтську програму видалено
+Clock error: Помилка годинника
 Close: Закрити
 Close after: Закрити після
 Close automatically: Закривати автоматично
 Close partially: Закрити частково
+Close value: Значення закриття
+Collapse: Згорнути
+Collapse or stop: Прокрутити або зупинити
+Collapse partially: Згорнути частково
 Colon: Крапка з комою
 Color: Колір
 Color brightness: Яскравість кольору
 Comma: Кома
+Command has been sent to the device. Try refreshing the photo in a while.: Запит було надіслано на пристрій. Спробуйте оновити фото за мить.
 Comment: Коментар
+Common currencies: Валюти, які обирають найчастіше
 Config of the schedule is too complicated.: Конфігурація розкладу надто складна.
 Configuration: Конфігурація
+Configuration not available yet. Waiting for the device to connect.: Конфігурація ще не доступна. Зачекайте, поки пристрій підключиться.
 Confirm My Account: Я підтверджую свій обліковий запис
 Confirm Password: Підтвердження паролю
+Confirm if you want to perform the calibration.: Підтвердьте, що ви бажаєте виконати калібрування.
 Confirm if you want to remove Access Identifier: Підтвердіть, що ви хочете видалити ідентифікатор доступу
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Підтвердіть, що ви хочете видалити ідентифікатор місцезнаходження {locationId}. Пристрої вводу/виводу більше не підключатимуться до цього місця.
 Confirm if you want to remove {deviceName} device and all of its channels.: Підтвердіть, що ви хочете видалити {deviceName} і всі його канали.
 Confirmation: Підтвердження
+Conflict: Конфлікт
 Connected: Підключено
 Connection with a private instance of the SUPLA cloud: Підключення до приватного екземпляра хмари SUPLA.
 Constraints: Обмеження
+Cool to: Перейти до
+Cooling mode: Режим охолодження
+'Cooling: {percent}%': 'Охолодження: {percent}%.'
 Copy state from other channel: Копіювати статус з іншого каналу
+Costs: Витрати
 Could not contact Autodiscover service. Try again in a while.: Не вдалося зв’язатися з реєстраційною службою. Спробуйте ще раз за мить.
 Could not enter the configuration mode.: Не вдалося перевести пристрій у режим конфігурації.
 Could not reset the password.: Помилка скидання пароля.
 Could not reset the password. Please try again later.: Пароль не можна скинути.Спробуйте ще раз за мить.
+Could not restart the device.: Пристрій не вдалося перезапустити.
+Could not send the identify command.: Не вдалося відправити замовлення.
+Could not set the device time.: Не вдалося налаштувати дату і час на пристрої.
 Counter: Лічильник
 Counter reset: Скидання лічильника
+Counter type: Тип лічильника
 Create New Access Identifier: Створіть новий ідентифікатор доступу
 Create New Location: Створіть нове місцезнаходження
 Create New Schedule: Створіть новий розклад
@@ -224,15 +289,21 @@ Current: Струм
 Current Overload: Перевантаження
 Current Password: Поточний пароль
 Current password is incorrect: Поточний пароль неправильний
+Curtain: Штора
 Custom: Користувацький
 Custom execution limit: Користувацький ліміт виконання
 DHT11 Temperature & Humidity Sensor: Датчик температури та вологості DHT11
 DHT21 Temperature & Humidity Sensor: Датчик температури та вологості DHT21
 DHT22 Temperature & Humidity Sensor: Датчик температури та вологості DHT22
 DS18B20 Thermometer: Термометр DS18B20
+Dark mode: Темний режим
+Data: Дані
 Data limits: Обмеження даних
 Data saved: Дані збережено
+Date: Дата
 Date and time: Дата і час
+Date range: Діапазон дат
+Daytime criteria: Критерії на основі тривалості дня
 Decline: Будь ласка, відхиліть
 Default: за замовчуванням
 Delete: Видалити
@@ -240,18 +311,26 @@ Delete measurement history: Видалити історію вимірювань
 Delete my account: Видалити мій обліковий запис
 Delete voltage aberrations history: Видалити історію аберації напруги
 Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Видалення вашого облікового запису також призведе до видалення всіх ваших даних, включаючи підключені пристрої, налаштовані канали, прямі посилання та історію вимірювань. Видалення облікового запису незворотне.
+Dependencies: Залежності
 Depth: Глибина
 Depth sensor: Датчик глибини
 Description: Опис
 Details: Подробиці
 Device: Пристрій
+'Device GUID: %deviceGuid%': 'GUID пристрою: %deviceGuid% (Глобальний унікальний ідентифікатор)'
 'Device ID: %deviceId%': 'Ідентифікатор пристрою: %deviceId%'
+Device identification is unsupported in the firmware.: Ідентифікація пристрою не підтримується у прошивці.
 Device is disconnected.: Пристрій відключено.
 Device might be sleeping: Пристрій може бути в режимі сну
 'Device name: %deviceName%': 'Назва приладу: %deviceName%'
+Device settings: Параметри пристрою
 Device should be now in configuration mode.: Тепер пристрій має бути в режимі налаштування.
+Device should be restarting now.: Пристрій повинен перезапуститися.
 'Device software version: %deviceSoftwareVersion%': 'Версія програмного забезпечення: %deviceSoftwareVersion%'
+Device time has been set.: Встановлено дату та час роботи пристрою.
 Device unavailable: Пристрій недоступний
+Different than on master thermostat.: Налаштування відрізняються від налаштувань на головному термостаті.
+Differential thermostat: Диференціальний термостат
 Digi Glass: Digi Glass
 Digi Glass Horizontal: Digi Glass горизонтальний
 Digi Glass Vertical: Digi Glass вертикальний
@@ -272,6 +351,8 @@ Disconnected: Відключено
 Distance: Відстань
 Distance sensor: Датчик відстані
 Do you want to be redirected there? You may be asked to authenticate again.: Ви хочете, щоб ми перенаправили вас туди?» Можливо, вам доведеться увійти знову.
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Ви хочете, щоб канали, залежні від цього термостата (наприклад, термометри та датчики), були такими ж, як і в головному термостаті?
+Domestic hot water: Гаряча вода вдома
 Don’t worry, you can always reset your password via email. Click here to do so.: Не хвилюйся. Ви завжди можете змінити свій пароль за допомогою електронної пошти. Натисніть тут, щоб зробити це.
 Door lock operation: Відкриття дверей
 Door opening sensor: Датчик відкриття дверей
@@ -280,14 +361,27 @@ Doors, Gates, Windows: Двері, ворота, вікна
 Download measurements history: Завантажити історію вимірювань
 Download the history of measurement: Завантажити історію вимірювань
 Drag your image(s) here or click to select from the disk: Перетягніть зображення сюди або натисніть, щоб вибрати з диска
+Dryer: Осушувач повітря
 E-mail notifications: Сповіщення електронною поштою
 Edit: Редагувати
+Edit area crop: Область редагування
+Edit program settings: Редагування налаштувань програми
 Edit reaction: Редагувати реакцію
 Electric: Електрика
 Electricity meter: Лічильник електроенергії
+Electricity meter active power history: Історія потужності лічильника електроенергії
+Electricity meter current history: Історія інтенсивності лічильника електроенергії
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Лічильник електроенергії не повідомляв про можливість налаштувати додаткові значення. Оновіть прошивку пристрою та спробуйте ще раз.
+Electricity meter voltage aberrations history: Історія відхилень напруги лічильника електроенергії
+Electricity meter voltage history: Історія напруги лічильника електроенергії
 Empty!: Порожньо!
 Enable: Ввімкнути
+Enable floor temperature control: Увімкнути керування температурою підлоги
+Enable generic cooler temperature control: Увімкніть контроль температури джерела охолодження
+Enable generic heater temperature control: Увімкніть регулювання температури джерела тепла
+Enable power status LED: Увімкніть світлодіодний індикатор стану живлення
+Enable support for OCR readings for this channel: Увімкніть підтримку розпізнавання тексту для цього каналу
+Enable water temperature control: Увімкніть регулювання температури води
 Enabled: В комплекті
 Enabled phases: Активні фази
 End date: Дата закінчення
@@ -305,6 +399,7 @@ Error when communicating the server. Try again in a while.: Виникла пр�
 Estimated execution time: Приблизний час виконання
 Every: Що
 Example Auth URL: Зразок URL-адреси авторизації
+Example value: Приклад
 Execute: Виконати
 Execute an action: Виконати дію
 Executed action: Дія виконана
@@ -312,17 +407,30 @@ Executed without confirmation: Виконано без підтвердженн�
 Execution history: Історія продуктивності
 Execution limit: Ліміт виконання
 Executions: Виконання
+Expand: Розгорнути
+Expand or stop: Розгорнути або утримувати
+Expand partially: Розгорнути частково
 Expired: Минув термін придатності
 Expires at: Закінчується
+External sensor disabling the thermostat: Зовнішній датчик для вимкнення терморегулятора
+Facade blind operation: Фасадні ролети
 Failed: Не вдалося
 Failed (zombie): Не вдалося (zombie)
+Fan: Вітряк
 Feature limits: Функціональні межі
+'Field: {propertyPath}.': Поле {propertyPath}.
 File format: Формат файлу
 File is too large: Файл завеликий
+Fill missing data: Заповніть відсутні розміри
+Firmware: Прошивка
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Прошивка цього пристрою надсилає сповіщення в контексті цього каналу. Тут ви можете налаштувати вміст і отримувачів. Для отримання додаткової інформації зверніться до постачальника пристрою.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Прошивка цього пристрою надсилає сповіщення. Тут ви можете налаштувати вміст і отримувачів. Для отримання додаткової інформації зверніться до постачальника пристрою.
 Flooding: Флуд
+For a period: За період
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Рекомендовано використовувати {suplaUrl} під час оновлення.
 For devices: Для пристроїв
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: З міркувань безпеки повна URL-адреса цього прямого посилання відображатиметься лише один раз під час його створення.
+Forced off by sensor: Примусове вимкнення за датчиком
 Forgot your password?: Забули пароль?
 Forward active energy: Зібрана активна енергія
 Forward active energy balance: Баланс споживання активної енергії
@@ -334,8 +442,10 @@ From anywhere: Звідки завгодно
 Full closing time: Загальний час закриття
 Full documentation: Повна документація
 Full opening time: Загальний час відкриття
+Full tilting time: Загальний час зміни нахилу
 Fully opened sensor for channel: Датчик для каналу
 Function: Функція
+Function disabled: Функцію вимкнено
 G5LA1A Relay: Реле G5LA1A
 G5LA1A Relay x2: Реле 2xG5LA1A
 GENERATE: ГЕНЕРУВАТИ
@@ -348,6 +458,7 @@ Gate's state verification: Перевірка статусу воріт
 Gateway lock operation: Відкриття хвіртки
 Gateway opening sensor: Датчик відкриття хвіртки
 General purpose measurement: Загальний вимірювальний канал
+General purpose meter: Канал лічильника загального призначення
 Generate new password: Згенеруйте новий пароль
 Generate new token: Згенеруйте новий токен
 Generate token: Згенеруйте токен
@@ -361,12 +472,23 @@ Go to your account: Перейдіть до свого облікового за
 Grant access: Надайте доступ
 Guru Meditation: Guru Meditation
 HFD4 Relay: Реле HFD4
+HVAC: ОВК
 Heat meter: Лічильник тепла
+Heat or cold source switch: Перемикач джерела тепла або охолодження
+Heat to: Нагріти до
+Heating / ventilation / air conditioning: Опалення / вентиляція / кондиціонування (ОВК)
+Heating mode: Режим нагріву
+'Heating: {percent}%': 'Опалення: {percent}%.'
 Hide days without aberrations: приховати дні без аберації
+High threshold: Високий поріг
+High value: Максимальне значення
+History: Історія
 History of measurements: Історія вимірювань
 Home appliances: Побутова техніка / телебачення
+Home screen content: Вміст головного екрану
 Home+ Heater: Будинок + обігрівач
 Host: Хост
+Hotel card sensor: Датчик готельної картки
 However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: На жаль, на даний момент рівень використання нашого сервера піднявся до небезпечного рівня. Ми стежимо за ситуацією, повернемося за кілька хвилин.
 Humidity: Вологість
 Humidity Sensor: Датчик вологості
@@ -384,14 +506,18 @@ ID: ID
 INACTIVE: НЕАКТИВНИЙ
 IP Address: Адреса IP
 Icon: Значок
+Identify device: Ідентифікуйте пристрій
+Identify request sent.: Запит на встановлення особи відправлено.
 Idle: Бездіяльність
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Якщо пристрій знаходиться в режимі сну, то зміни в конфігурації можливі лише після виходу з цього режиму.
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: Якщо пристрій зараз перебуває в режимі сну, він увійде в режим конфігурації наступного разу, коли вийде з режиму сну.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Якщо посилання не працює, скопіюйте його в адресний рядок веб-браузера або введіть вручну.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Якщо ви розробник, який хоче надати додаткові функції для SUPLI, створіть програму OAuth для авторизації та використання користувачами.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Якщо ви впевнені, що маєте обліковий запис на cloud.supla.org, переконайтеся, що програма, яку ви намагаєтеся авторизувати, є загальнодоступною.
+If you confirm the installation and wish to unlock this device, please click the link below.: Якщо ви намагаєтеся додати новий пристрій, натисніть на посилання нижче, щоб підтвердити розблокування.
 If you did not request this password reset, please ignore this information.: Якщо ви не надсилали запит на скидання пароля, проігноруйте це повідомлення.
 If you do not want to delete your account on %cloudHost%, please do not click the link.: Якщо ви не хочете видаляти свій обліковий запис %cloudHost%, не натискайте посилання.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Якщо ви не намагаєтеся розблокувати пристрій, ігноруйте цей лист. Посилання для підтвердження автоматично втратить чинність через 24 години.
 If you do not want to unregister your instance, please do not click the link.: Якщо ви не хочете скасовувати реєстрацію свого екземпляра, не натискайте посилання.
 If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Якщо вам не вдасться підключитися до цієї точки доступу протягом кількох хвилин, пристрій перезавантажиться та підключиться, використовуючи останні налаштування.
 If you have doubts or more questions, you can contact us directly at %securityEmail%.: Якщо у вас є сумніви чи запитання, ви можете зв’язатися з нами за адресою %securityEmail%.
@@ -406,6 +532,7 @@ If you wish not to receive such messages, change it in your account settings [he
 If you wish to register your instance, {clickHereLink}.: Якщо ви хочете зареєструвати свій екземпляр, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Якщо ви хочете побачити доступні інтеграції, перейдіть на {0}.
 If you wish to unregister your instance, {clickHereLink}.: Якщо ви хочете скасувати реєстрацію свого екземпляра, {clickHereLink}.
+Image area crop: Область зображення
 Impulse counter: Лічильник імпульсів
 Impulses: Імпульси
 In order to confirm account deletion, enter your password.: Введіть свій пароль, щоб підтвердити, що ви хочете видалити свій обліковий запис.
@@ -413,9 +540,11 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Неактивний
 Include energy corrections in new measurements history (not recommended): Включати додану вартість в історію (не рекомендовано)
 Incorrect password: Невірний пароль
+Increment and decrement: Збільшення та зменшення
 Incremental: Інкрементний
 Information: Інформація
 Inherit I/O Device location: Використовуйте місцезнаходження пристрою
+Installer e-mail address: Адреса електронної пошти інсталятора
 Integration with MQTT Broker has been disabled.: Інтеграцію з брокером MQTT вимкнено.
 Integration with MQTT Broker has been enabled.: Увімкнено інтеграцію з брокером MQTT.
 Integrations: Інтеграції
@@ -425,12 +554,15 @@ Interrupt and execute: Перервати і виконати
 Interval: Інтервал
 Invalid SUPLA Cloud URL.: Неправильна URL-адреса примірника SUPLA Cloud.
 Invalid action parameters: Неправильні параметри виконання.
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Пристрій зареєстрував канал іншого типу ({typeCaption} - {typeId}) замість поточного.
+Invalid e-mail address.: Неправильна адреса електронної пошти
 Invalid function for channel.: Недійсна функція для каналу.
 'Invalid redirect URI: {uri}': 'Недійсна URL-адреса зворотного виклику: {uri}'
 Invalid request: Невірний запит
 Invalid request.: Невірний запит.
 Invalid scene: Неправильна сцена
 Invalid token.: Неприпустимий токен.
+Invalid unlock code.: Неправильне посилання для розблокування.
 Invalid username or password: Неправильне ім'я користувача або пароль
 Inverted logic: Зворотна логіка
 Invisible: Невидимий
@@ -441,22 +573,31 @@ Keep in mind, that the humanized description of the entered crontab is not perfe
 Language is not available: Мова недоступна
 Last access: Останній дзвінок
 Last connection: Останній дзвінок
+Last paired device: Останній спарений пристрій
 Last used: Останнє використання
 Let me choose later: Дозвольте мені вибрати пізніше
+Light mode: Яскравий режим
 Light switch: Вмикач світла
 Lighting: Освітлення
+Lighting level: Рівень освітлення
+Lighting mode: Режим освітлення
 Limit has been exceeded: Ліміт перевищено
 Linear: Лінійний
 Liquid, Temp: «Рідина, Температура»
+List of available variables: Список доступних змінних
 Location: Місцезнаходження
 Location Identifier: Ідентифікатор місцезнаходження
 Location limit has been exceeded: Ліміт місцезнаходження перевищено
 Location name: Назва місця
 Locations: Місцезнаходження
+Locked: Заблокований
 Log out: Вийти
 Login: Логін
 Logs transformation: Трансформація цінностей
 Longest aberration: Найдовша аберація
+Low threshold: Низький поріг
+Low threshold must be less than high threshold.: Низький поріг повинен бути нижчим за високий поріг
+Low value: Мінімальне значення
 Lower voltage threshold: Поріг низької напруги
 MQTT Broker: Брокер MQTT
 MQTT Broker Username: Ім'я користувача
@@ -465,6 +606,7 @@ MQTT Broker password: Пароль брокера MQTT
 MQTT Broker password has been changed.: Пароль брокера MQTT змінено.
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Ім’я користувача чи пароль не налаштовано на цьому екземплярі.
 Mail sensor: Датчик пошти
+Main thermometer: Основний термометр
 Maintenance mode active. You cannot modify any data now.: Робота в сервісному режимі. Ви не можете змінити жодні дані.
 Make sure to copy it now because you won’t be able to see it again!: Переконайтеся, що ви зберігаєте їх у безпечному місці.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Переконайтеся, що ви помістили його в безпечне місце, якщо захочете використовувати його знову в майбутньому. Посилання більше не відображатиметься після виходу з цієї сторінки.
@@ -472,17 +614,33 @@ Manage your new client app in the SUPLA-Cloud.: Керуйте налаштув�
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Керуйте своїм пристроєм у SUPLA-Cloud або за допомогою програми SUPLA на смартфоні.
 Manual: Інструкція
 Manually closed: Закривається вручну
+Master thermostat: Головний термостат
+Max: Макс.
 Maximum delay is 60 minutes.: Максимальна затримка становить 60 хвилин.
+Maximum duration is one year.: Максимальний термін - один рік.
 Maximum filesize limit is {limit}.: Максимальний розмір файлу становить {limit}.
 Maximum voltage: Найвища напруга
+Measurement settings: Налаштування вимірювання
 Measurement window: Час вимірювання
 Meter value: Покази лічильника
 Meters: Лічильники
+Min: Мін.
+Minimum OFF time before cooling can be turned on: Мінімальний час вимкнення перед повторним запуском охолодження
+Minimum OFF time before heating can be turned on: Мінімальний час  ВИМКНЕННЯ перед повторним увімкненням опалення
+Minimum OFF time before heating/cooling can be turned on: Мінімальний час ВИМКНЕННЯ перед перезапуском охолодження/обігріву
+Minimum ON time before cooling can be turned off: Мінімальний час УВІМКНЕННЯ перед повторним вимкненням охолодження
+Minimum ON time before heating can be turned off: Мінімальний час УВІМКНЕННЯ перед наступним вимкненням опалення
+Minimum ON time before heating/cooling can be turned off: Мінімальний час УВІМКНЕННЯ перед наступним вимкненням охолодження/обігріву
+Minimum temperature must be lower than maximum temperature.: Мінімальна температура повинна бути меншою за максимальну
 Minimum voltage: Найнижча напруга
 Missing action.: Немає акцій
 Mode: Режим
+'Mode: cool': 'Режим: охолодження'
+'Mode: heat': 'Режим: опалення'
+'Mode: off': 'Режим: вимкнено'
 Modification: Модифікація
 Mondays: Понеділки
+Motor upside down: Інверторне керування двигуном
 Move down or stop: Вниз або зупинитись
 Move up or stop: Вгору або зупинись
 My OAuth apps: Мої програми OAuth
@@ -503,6 +661,7 @@ New scene: Нова сцена
 Newer: Новіший
 'Next limit renewal: {date}': Ліміт буде поновлено {date}
 Next run date: Найближче виконання
+'No': Ні
 No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: У вас немає активних ідентифікаторів доступу. Перейдіть до {accessIdsListLink} або {newAccessIdLink}.
 No function: Без функції
 No future executions - schedule disabled: Виконання не заплановано – розклад вимкнено
@@ -513,20 +672,26 @@ No of channels: Кількість каналів
 No of client apps: Кількість клієнтських заявок
 No of devices: Кількість пристроїв
 No of operations: Кількість операцій
+No results: Немає результатів
 No schedule configuration.: Конфігурація розкладу не вказана.
 No, take me back!: Ні, заберіть мене звідси!
+None: Відсутність
+None (channel disabled): Немає (канал вимкнено)
+Noop: Операція не проводиться
+Notification: Повідомлення
+Notification body is set by the firmware.: Зміст сповіщення встановлюється прошивкою.
+Notification must have a body.: Повідомлення повинно мати зміст.
+Notification must have recipients.: Повідомлення повинно мати адресатів.
+Notification title is set by the firmware.: Заголовок сповіщення встановлюється прошивкою.
+Notifications: Повідомлення
+Notifications (defined): Сповіщення (визначено)
+Notifications (sent per hour): Сповіщення (надсилаються щогодини)
 No{'.'} of Client’s apps: Кількість клієнтських заявок
 No{'.'} of access identifiers: Кількість ідентифікаторів доступу
 No{'.'} of channel groups: Кількість груп каналів
 No{'.'} of channels: Кількість каналів
 No{'.'} of devices: Кількість пристроїв
 No{'.'} of locations: Кількість місць
-None: Відсутність
-None (channel disabled): Немає (канал вимкнено)
-Noop: Операція не проводиться
-Notification: Повідомлення
-Notification must have a body.: Повідомлення повинно мати зміст.
-Notifications: Повідомлення
 Number of aberrations: Кількість аберацій
 Number of attempts to close: Кількість спроб закриття
 Number of attempts to open: Кількість спроб відкриття
@@ -535,24 +700,36 @@ OAuth application: Програма OAuth
 OAuth apps: Програми OAuth
 OAuth authorization: Авторизація OAuth
 OAuth integrations might stop working after the instance is unregistered.: Інтеграція програми OAuth може перестати працювати після скасування реєстрації екземпляра.
+'OCR service responded with error: {status}': 'Служба розпізнавання видала помилку: {status}'
+OCR settings: Налаштування розпізнавання тексту
 OK: OK
+OR: АБО
 'Off': Вимкнено
+Off with duration: Вимкніть вчасно
 Offline access: Офлайн-доступ
 Older: Старший
 'On': Ввімкнути
+On with duration: Увімкніть вчасно
 On/Off switch: Вимикач живлення
 Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Дозволяються лише доменні імена з необов’язковим номером порту. Наприклад. mysupla.org або mysupla.org:88. Потрібен протокол HTTPS.
 Open: Відкрийте
 Open / close: Відкрийте / закрийте
 Open partially: Відкрийте частково
+Open value: Початкове значення
 Opening sensor: Датчик відкриття
 Operation: Операція
 Operations: Операції
 Original location: Оригінальне місцезнаходження
 Other: Інший
 Otherwise go to the homepage.: В іншому випадку перейдіть на [домашню сторінку].
+Output value on error: Стан виходу під час помилки
+Overheat protection: Захист від перегріву
+P/C: P/C
 PIN: PIN
 PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN-код для Google повинен мати щонайменше {minLength} і щонайбільше {maxLength} цифр.
+Pair new devices or sensors: Встановлення пари нових пристроїв або датчиків
+Pairing request sent.: Запит на встановлення пари надіслано.
+Pairing subdevices is unsupported in the firmware.: Програмне забезпечення пристрою не підтримує встановлення пари.
 Partial opening sensor: Датчик непрямого відкриття
 Partially opened sensor for channel: Канал для датчика проміжного відкриття
 Password: Пароль
@@ -572,19 +749,25 @@ Phase: Фаза
 Phase 1: Фаза 1
 Phase 2: Фаза 2
 Phase 3: Фаза 3
+Phase LED type: Світлодіодний індикатор фази
 Phase number: Фаза
 Phase {phaseNumber}: Фаза {phaseNumber}
+Photo interval: Інтервал зйомки
 Please choose the schedule subject first.: Спочатку виберіть, чим має керувати розклад
 Please click the following link to reset your %cloudHost% password.: Натисніть на посилання нижче, щоб скинути пароль %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Натисніть посилання в повідомленні, яке ми надіслали вам після створення облікового запису.
 Please confirm your SUPLA account.: Активуйте свій обліковий запис SUPLA.
 Please enter a valid email address: Будь ласка, введіть дійсну адресу електронної пошти
 Please fill a valid email address: Будь ласка, введіть дійсну адресу електронної пошти
+Please find the device details below.: Детальніше про пристрій можна прочитати нижче.
 Please fix the problems with operations and try again.: Усуньте проблеми з операціями та повторіть спробу.
 Please log in again to proceed.: Будь ласка, увійдіть знову, щоб продовжити.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Зверніть увагу, що цей пристрій призначений лише для сертифікованих інсталяторів.
 Please provide a valid domain name for your private SUPLA Cloud: Вкажіть дійсне доменне ім’я для вашої приватної хмари SUPLA
+Please provide the installer e-mail address to request the device unlock.: Щоб розблокувати пристрій, введіть адресу електронної пошти, яку було надано під час отримання сертифіката інсталятора.
 Please read the Terms and Conditions.: Читати правила.
 Please select a condition: Будь ласка, виберіть умову
+Please select and configure the action: Виберіть і налаштуйте дію.
 Please wait a moment before the next login attempt.: Зачекайте деякий час, перш ніж спробувати увійти знову.
 Port: Порт
 Power active: Активна енергія
@@ -598,10 +781,14 @@ Private Cloud domain name: Ім’я домену приватної хмари
 Private instance of the SUPLA cloud with given URL is already registered.: За цією адресою вже зареєстровано приватну хмару SUPLA.
 Proceed: Продовжити
 Processing: В процесі
+Program {programNo}: Програма {programNo}
+Projector screen: Проекційний екран
 Protocol: Протокол
 Public ID: Публічний ID
 Publish to integrations: Опублікувати для інтеграції
 Publishes the event to integrated services like MQTT or webhooks.: Повідомляє такі інтеграції, як MQTT або веб-хуки, коли виконується ця дія.
+Pump switch: Вмикач насоса
+Push notifications limit has been exceeded: Перевищено ліміт пуш-сповіщень
 RESET: СКИДАННЯ
 RGB led controller: Контролер освітлення RGB
 RGB lighting: RGB освітлення
@@ -613,6 +800,9 @@ Read: Зчитування
 Recipients: Одержувачу
 Reference to the scene will be removed from the items below.: Наведення на сцену буде видалено з наступних елементів.
 Refresh: Оновити
+Refresh interval: Інтервал оновлення
+Refresh the config: Оновити конфігурацію
+Refreshing the configuration will overwrite the changes you made here.: Оновлення конфігурації перезапише зміни, внесені у форму.
 Regeneration starts at: Початок відновлення
 Register: Реєстрація
 Register a new OAuth application: Зареєструйте нову програму OAuth
@@ -623,30 +813,41 @@ Registered: Зареєстровано
 'Registered from IP address: %deviceRegIp%': 'Адреса ІР: %deviceRegIp%'
 Relay: Реле
 Relay switching time: Час увімкнення реле
+Reload last photo: Перезавантажити останню фотографію
 Reload the chart: Діаграма перезавантаження
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Перш ніж видаляти місцезнаходження, ви повинні спочатку перемістити групи каналів у цьому місці. Ідентифікатори: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Перш ніж видаляти місцезнаходження, ви повинні спочатку перемістити канали, які там знаходяться. Ідентифікатори: {relatedIds}.'
+Remote restart is unsupported in the firmware.: Віддалений перезапуск не підтримується програмним забезпеченням пристрою.
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Видаліть спарені пристрої перед видаленням цього розташування. Ідентифікатори: {relatedIds}.'
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Видаліть усі пов’язані сцени перед видаленням цього місця. Ідентифікатори: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'По-перше, видаліть усі пристрої, які використовують це місцезнаходження як вихідне. Ідентифікатори: {relatedIds}.'
+Remove this item: Вилучити цей елемент
 Repeat password: Повторіть пароль
+Request device unlock: Подати заявку на розблокування пристрою
 Reset Your Password: Встановіть новий пароль
 Reset counter: Скинути лічильник
+Reset to defaults: Відновлення значень за замовчуванням
+Restart device: Перезавантажте пристрій
+Restart the device: Перезавантажте пристрій
 Retry on failure: Повторювати, коли не закінчено
 Reveal: Розкрити
+Reveal or stop: Розкрийте або зупиніть
 Reveal partially: Частково розкрити
 Reverse active energy: Активна енергія повернулася
 Reverse active energy balance: Баланс активної повернутої енергії
 Reverse active energy balanced: Повернена активна енергія (Векторний баланс)
 Reverse reactive energy: Реактивна енергія повернута
 Revoke: Скасувати
+Roller garage door: Гаражні двері
 Roller shutter opening sensor: Датчик відкриття ролет
 Roller shutter operation: Відкриття та закриття ролет
 Roller shutters: Ролети
 Roof window opening sensor: Датчик відкриття вікна даху
 Roof window shutter operation: Відкриття вікна даху
+S/N: Серійний номер
 SUPLA - Account Activation: SUPLA - активація облікового запису
 SUPLA - Account Removal: SUPLA - Видалення облікового запису
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Розблокування пристрою для сертифікованого інсталятора
 SUPLA - Password reset: SUPLA - Скинути пароль
 SUPLA - Private instance unregistration: SUPLA - зняття з реєстрації приватного екземпляра
 SUPLA Cloud is under maintenance.: SUPLA Cloud оновлюється.
@@ -657,7 +858,9 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - Сповіщення про невдалий вхід до %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - зареєстровано новий клієнтський додаток
 SUPLA – new device has been added to your account: SUPLA - до вашого облікового запису додано новий пристрій
+SUPLA – your device has been unlocked!: SUPLA - Ваш пристрій розблоковано!
 SUPLA.ORG Team: Команда SUPLA.ORG
+Same as on master thermostat.: Ті самі налаштування, що й на головному термостаті.
 Saturdays: Суботи
 Save: Зберегти
 Save and enable: Зберегти та ввімкнути
@@ -676,6 +879,7 @@ Schedules: Розклади
 Scope: Область застосування
 Scopes: Діапазони
 Scopes define which sections of your account can be accessed when using the token.: Області визначають, до яких ресурсів облікового запису можна отримати доступ за допомогою маркера.
+Screen brightness: Яскравість екрану
 Search: Пошук
 Secret: Секретний ключ (секрет)
 Security: Безпека
@@ -686,6 +890,7 @@ See in SUPLA-Cloud: Переглянути на SUPLA-Cloud
 Seems like a secret place: Щось нам підказує, що Вас тут не повинно бути
 Select icon: Виберіть піктограму
 Select the item (subject) you want to control using this link: Виберіть елемент (тему), яким хочете керувати за цим посиланням
+Selected: Вибране
 Selected device has been logged out.: Вибраний пристрій вийшов з системи
 Send a notification: Надіслати повідомлення
 Send notification: Надіслати повідомлення
@@ -694,12 +899,18 @@ Sensors: Датчики
 Server address: Адреса сервера
 Server unreachable: Сервер недоступний
 Service temporarily unavailable: Сервіс тимчасово недоступний
+Set HVAC parameters: Встановіть параметри
+Set the device time: Не вдалося налаштувати дату і час на пристрої.
 Set value added: Визначте додану вартість
 Set values for each phase separately: Визначте значення для кожної фази окремо
 Setting the number of attempts to 1 disables the retrying behavior completely.: Встановлення кількості спроб менше 2 може призвести до помилки закриття або відкриття.
+Settings: Налаштування
+Settings have not been saved!: Налаштування не збережено!
+Show data: Відобразити дані
 Show my limits: Покажіть мої ліміти
 Show on the Client’s devices: Показати на клієнтських пристроях
 Shut: Приховати
+Shut or stop: Прикрийте або зупиніть
 Shut partially: Приховати частково
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Закрийте ролети, доки вони не торкнуться нижнього краю, і введіть у це поле відсоток закриття. Ця операція не є обов’язковою, але її виконання покращить візуалізацію положення ролет у мобільному додатку.
 Sign In: Увійти
@@ -707,9 +918,11 @@ Sign Out: Вийти
 Sign in temporarily unavailable. Please try again later.: Вхід тимчасово недоступний. Будь-ласка спробуйте пізніше.
 Smartphones: Смартфони
 SoftVer: WerOpr
+Some features depend on this channel: Деякі функції залежать від цього каналу
 Some features depend on this channel group: Деякі функції залежать від цієї групи каналів.
 Some features depend on this device: Деякі функції залежать від цього пристрою
 Some features depend on this scene: Деякі функції залежать від цієї сцени.
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Деякі дані, зібрані для вашого облікового запису, будуть періодично видалятися через певний проміжок часу. Ознайомтеся з лімітами нижче.
 Some of the features you have configured depend on channels from this device.: Деякі функції використовують канали з цього пристрою.
 Staircase timer: Сходовий таймер
 Start Here: Розпочати тут
@@ -717,24 +930,38 @@ Start date: Дата початку
 Start from the homepage.: Почати з головної сторінки
 State: Статус
 State webhook: Вебхук статусу
+Status LED: Статус LED
 Step by step: Крок за кроком
 Stop: Зупнити
+Store active power history: Зберігайте історію активної потужності
+Store current history: Зберігайте поточну історію напруги
 Store measurements history: Зберігати історію вимірювань
+Store voltage history: Зберігайте історію напруги
+'Subdevice #{id}': 'Субпідрядний пристрій #{id}'
+Subfunction: Підфункція
 Subject type: Тип суб’єкта
 Success: Успіх
 Successful: Успішний
 Summary for selected time range: Підсумок для вибраного діапазону
 Sundays: Неділі
 Switch the device to configuration mode: Переведіть пристрій у режим конфігурації
+Switch to manual mode: Перехід до ручного режиму
+Switch to program mode: Перехід до режиму програмування
+THEN: А ПОТІМ
 THIS CANNOT BE UNDONE!: ЦЮ ОПЕРАЦІЮ НЕМОЖЛИВО БУДЕ СКАСУВАТИ!
 TLS: TLS
 Tab: Табулятор
+Take a photo now: Сфотографуйте зараз
 Target Cloud is not registered, or is registered with another e-mail address.: Цей екземпляр SUPLA Cloud не зареєстрований або зареєстрований з іншою електронною адресою.
 Temperature: Температура
 Temperature & Humidity Sensor: Датчик температури та вологості
 Temperature Sensor: Температурний сенсор
 Temperature adjustment: Регулювання температури
 Temperature and humidity sensor: Датчик температури та вологості
+Temperature difference is too big between {min}°C and {max}°C.: Різниця температур між {min}°C і {max}°C занадто велика.
+Temperature setpoint change switches to manual mode: Зміна цільової температури перемикає в ручний режим
+Temporal override: Тимчасове перевизначення
+Terrace awning: Тент для тераси
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Дякуємо за реєстрацію облікового запису в службі %cloudHost%. Натисніть на посилання нижче, щоб завершити активацію.
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Завдяки інтеграції ви можете легко додавати нові функції до свого облікового запису, використовуючи рішення, надані зовнішніми постачальниками, розробниками або вами.
 'The IP used for login is: %ip%': 'Спроба входу була зроблена з IP-адреси: %ip%'
@@ -743,13 +970,21 @@ The SUPLA infrastructure is being updated.: Сервери SUPLA оновлюю�
 The Terms and Conditions have changed: Правила змінилися
 The Terms and Conditions have changed – please read them and accept.: Правила сайту змінилися - їх прийняття є обов’язковим.
 The activation link has been sent again. Check the inbox.: Повідомлення з посиланням для активації облікового запису надіслано повторно. Перевірте свою поштову скриньку.
+The channel has been deleted.: Канал було видалено.
 The client will be automatically logged out when deleted.: Видалення клієнта призведе до негайного виходу з системи.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Конфігурацію було змінено з іншого місця (наприклад, з іншого вікна браузера, мобільного додатку або пристрою). Перш ніж вносити подальші зміни, потрібно оновити конфігурацію.
 The counter has been reset.: Лічильник скинуто.
+The device could not be unlocked.: Пристрій не вдалося розблокувати.
+The device has been unlocked already.: Пристрій вже розблоковано.
+The device has been unlocked.: Пристрій розблоковано.
+The device has channel conflict and cannot work.: Пристрій згенерував конфлікт каналів і наразі не може працювати.
 The device is disabled: Пристрій вимкнено
+The device is locked: Заблокований пристрій
 The device might be in a sleep mode.: Пристрій може працювати в режимі сну
 The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Пристрій, який використовує цю сесію, втратить доступ до SUPLA Cloud. Для того, щоб продовжити користуватися додатком, вам потрібно буде знову увійти в нього.
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Усю історію аберації напруги для фази {phaseNumber} буде видалено.
 The entire history of the voltage aberrations will be removed from this channel.: Для цього каналу буде видалено всю історію аберації напруги.
+The following channels will be also removed along with their dependencies.: Наступні канали також будуть видалені разом з їхніми залежностями.
 The following items use the channels of these device. These references will be also removed.: Наступні елементи використовують канали з цього пристрою. Вони також будуть видалені.
 'The following items will be deleted with this device:': Наведені нижче елементи також буде видалено разом із цим пристроєм.
 The gate sensor must function properly in order to execute the Open and Close actions.: Датчик відкриття воріт має працювати належним чином, щоб виконати дію Відкрити або Закрити.
@@ -760,6 +995,7 @@ The items below depend on this channel group, so they will be deleted.: Наве
 The items below depend on this scene, so they will be deleted.: Наведені нижче елементи засновані на цій сцені, тому їх буде видалено.
 The latest execution: Остання операція
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Результат представлено як веб-сторінку, оскільки ви (або ваш браузер) запитали відповідь HTML.
+The master termostat you chose already has a master.: Вибраний вами головний термостат вже має інший головний термостат
 The measurement history has been deleted.: Історія вимірювань видалена.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Новий пароль замінить той, який ви зараз використовуєте. Деякі інтеграції можуть перестати працювати після його зміни. Продовжувати?
 The next available executions: Майбутні операції
@@ -776,24 +1012,39 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Сервер видав помилку HTTP 404. Це означає, що елемент, який ви шукаєте, не існує.
 The server has returned an HTTP {statusCode} error.: Сервер видав помилку {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Вибрані вами файли піктограм завеликі. Максимально дозволений розмір завантаження становить {limit}.
+The thermostat will not work if the main thermometer is not set.: Для роботи терморегулятора необхідно встановити основний термометр.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Вентиль не можна відкрити через пряме посилання або через API, якщо він був закритий вручну. Щоб відновити керування, відкрийте вентиль вручну.
-valveOpenConfirm_manual: Вентиль закрито вручну або по радіо. Перш ніж відкрити його, переконайтеся, що він не був закритий через затоплення. Щоб вимкнути попередження, відкрийте вентиль вручну. Ви впевнені, що бажаєте відкрити вентиль дистанційно?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Вентиль не відкриється, якщо він був закритий вручну або по радіо, що може бути пов’язано із затопленням.
 There are no more channels you can add to this group: Немає інших каналів для додавання до цієї групи
 Thermometer: Термометр
+Thermometer error: Похибка термометра
+Thermometers configuration: Конфігурація термометрів
 Thermostat: Термостат
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Цей термостат використовує налаштування головного термостата. Щоб змінити налаштування, перейдіть на його сторінку з деталями.
+Thermostat programs: Програми термостату
+This action will result in restarting the device. It will not be available for a while.: Виконання цієї операції призведе до перезапуску пристрою. Під час перезапуску пристрій буде недоступний.
+This channel was missing during last device registration attempt.: Цей канал відсутній у пристрої.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Цей пристрій призначений для розповсюдження та встановлення лише авторизованими інсталяторами. Якщо ви не є авторизованим інсталятором SUPLA і не маєте чинного сертифіката про проходження навчання, поверніть його своєму дилеру.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Це пряме посилання вимагає подальшого уточнення параметрів виконуваної дії. Перегляньте наведені нижче приклади, щоб дізнатися, які параметри можна встановити.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ви отримуєте це повідомлення через невдалий вхід до SUPLA-CLOUD (%cloudHost%) за допомогою вашої електронної адреси.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Це завершальний етап видалення Вашого облікового запису. Заповнення та затвердження форми призведе до незворотного видалення Ваших даних.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Це останнє фото, завантажене з пристрою. Позначте саме ту область, де видно цифри лічильника.
 This is the list of applications you have granted access to your account.: Це список програм, яким ви надали доступ до свого облікового запису.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Це список реакцій, запущених у Вашому акаунті. Якщо ви хочете додати нову реакцію, перейдіть до деталей каналу, який має її викликати.
 This link is only valid for an hour.: Посилання буде активним протягом однієї години.
 'This password will protect your home. Therefore, it must:': 'Цей пароль захистить ваш дім. Тому:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Цей режим розкладу призначений для технічних або дуже терплячих користувачів. Він вимагає, щоб час запуску розкладу було зазначено в нотації crontab, збагаченої декількома функціями, доступними лише в SUPLA. Якщо ви раніше не бачили crontab і все ще хочете використовувати цей режим, сайт crontab.guru може бути вам корисним.
+This thermostat is controlled by another device.: Цей термостат керується головним термостатом.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ця команда використовується пристроєм локально (наприклад, він вмикає світло, керує ролетами тощо). Якщо ви призначите їй іншу дію, локальну функцію буде вимкнено.
 Thursdays: Четверги
+Tilt angle: Кут нахилу
+Tilt control type: Тип регулювання нахилу
+Tilt percent: Відсоток нахилу
+Time: Час
 Timezone: Часовий пояс
 Title: Назва
 To: До
+Today, it would be active from {from} to {to}.: Сьогодні період активності припадає на період між {from} і {to}.
 Toggle: Переключити
 Token does not exist: Токен не існує
 Too many actions in this schedule.: Забагато дій в одному розкладі.
@@ -802,6 +1053,7 @@ Too many operations in this scene: Забагато операцій у сцен
 Total: Сума
 Total time: Загальний час
 Tuesdays: вівторок
+Turn off: Вимкніть
 Turning this device off will cause its channels not working in the following features.: Вимкнення пристрою призведе до того, що його канали перестануть працювати в наступних елементах.
 Turning this device off will result in disabling features listed below.: Вимкнення пристрою призведе до вимкнення наступних елементів.
 Type: Тип
@@ -809,25 +1061,34 @@ Undo registration: Скасувати реєстрацію
 Unit: Одиниця
 Unknown: Невідомий
 Unknown browser: Невідомий браузер
+Unlock the device: Розблокуйте пристрій
 Unregister my private SUPLA Cloud instance: Скасувати реєстрацію мого приватного екземпляра SUPLA Cloud
 Unsuccessful login attempt: Помилка логіну
 Unsupported function: Функція не підтримується
 Unsupported type: Тип, що не підтримується
+Until a date and time: До тих пір, поки
+Until the next change: До наступної зміни
 Update in progress: Оновлення триває
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Завантажені файли не порушують моральні принципи, авторські права та права третіх осіб, і я маю право їх використовувати.
 Upper voltage threshold: поріг високої напруги
-"Use the {0} server command to change this account's limits. For example:": 'Щоб змінити обмеження для цього облікового запису, скористайтеся командою {0} на своєму сервері. Наприклад:'
-Use working schedule for this access identifier: Використовуйте графік доступності для цього ідентифікатора доступу
+Use device default: Використовуйте значення за замовчуванням з пристрою
+'Use the {0} server command to change this account''s limits. For example:': 'Щоб змінити обмеження для цього облікового запису, скористайтеся командою {0} на своєму сервері. Наприклад:'
+Use {theMasterThermostat} to control this device.: Для керування цим пристроєм використовуйте {theMasterThermostat}.
+Used current transformer type: Використаний трансформатор струму
 User is already confirmed. Try to log in.: Цей обліковий запис уже підтверджено. Авторизуйтесь
 Value: Значення
 Value added: Додана вартість
+Value divider: Дільник
+Value multiplier: Дільник
 Value separator: Роздільник
 Valve: Вентиль
 Valve closed manually: Вентиль закритий вручну
 Vector balance: Векторний баланс
 Verification method: Метод верифікації
+Vertical blind: Вертикальні жалюзі
 Visible: Видимий
 Visit app webpage: Відкрийте сайт додатку
+Visit the master thermostat page.: Перейдіть до головного термостата.
 Voltage: Напруга
 Voltage aberrations: Аберації напруги
 Voltage monitoring: Моніторинг напруги
@@ -845,6 +1106,7 @@ We have been asked to unregister your private SUPLA Cloud instance (%targetCloud
 We have just sent you an activation link. You should be receiving it shortly.: Щойно надіслано повідомлення з посиланням для активації вашого облікового запису. Зберігайте терпіння.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Ми надіслали вам електронний лист із посиланням, що підтверджує видалення вашого облікового запису. Може, ви ще передумаєте!
 We have sent you an email with further instructions.: Ми надіслали вам повідомлення з подальшими інструкціями.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Ми отримали запит на розблокування пристрою, призначеного лише для сертифікованих інсталяторів. Запит було надіслано користувачем %deviceUserEmail% з екземпляра хмари SUPLA за адресою %targetCloudUrl%.
 We should be ready shortly.: Ми повинні невдовзі закінчити.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Ми зберігаємо інформацію про ваші налаштування у вашому браузері, щоб полегшити використання програми (наприклад, за допомогою механізму файлів cookie).
 We try to be faster: Ми стаємо щоразу швидші
@@ -856,6 +1118,8 @@ We will try to display the received icons the best possible way, however you wil
 We will use it only in justified situations.: Ми будемо використовувати його лише в обґрунтованих випадках.
 Weather Station: Метеостанція
 Wednesdays: Середи
+Week: Тиждень
+Weekly schedule: Тижневий графік
 Weight sensor: Вага
 Welcome!: Привіт!
 What this token is for?: Для чого цей токен?
@@ -868,14 +1132,21 @@ When liquid or lack thereof is detected: При виявленні рідини 
 When the RGB lighting brightness level changes: Коли рівень яскравості освітлення RGB зміниться
 When the RGB lighting reaches a certain level of brightness: Коли освітлення RGB досягне певного рівня яскравості
 When the active power will be: Коли активна потужність буде
+When the alarm is armed: Коли встановлено сигналізацію
+When the alarm is armed or disarmed: Коли сигналізацію вимкнено або встановлено
+When the alarm is disarmed: Коли сигналізацію вимкнено
 When the apparent power will be: Коли уявна сила буде
 When the balanced forward active energy will be: Коли збалансована, споживана активна енергія буде
 When the balanced reverse active energy will be: Коли збалансована, повернута активна енергія буде
+When the battery cover is opened: Коли відкрито кришку батарейного відсіку
 When the brightness level changes: Коли рівень яскравості зміниться
 When the brightness will be: Коли рівень яскравості буде
+When the clock error has been reported: Коли таймер повідомляє про помилку
 When the color changes: Коли зміниться колір
 When the condition is met: Коли умова буде виконана
 When the current will be: Коли струм буде
+When the curtain position changes: Коли штора змінює положення
+When the curtain reaches a certain position: Коли штора досягає певного положення
 When the depth changes: Коли зміниться вимірювання глибини
 When the depth is: Коли вимірювання глибини буде
 When the device is turned off: Коли пристрій вимкнеться
@@ -891,6 +1162,8 @@ When the door will be opened or closed: Коли двері зачинені а�
 When the electricity meter reaches a certain value: Коли лічильник енергії досягне певного значення
 When the electricity meter value changes: Коли значення лічильника електроенергії зміниться
 When the electricity meter value will be: Коли значення лічильника енергії буде
+When the facade blind position changes: Коли фасадна ролета змінює положення
+When the facade blind reaches a certain position: Коли фасадна ролета досягає певного положення
 When the forward active energy will be: Коли активна енергія буде
 When the garage door will be closed: Коли гаражні ворота зачиняться
 When the garage door will be opened: Коли гаражні ворота відчиняться
@@ -907,27 +1180,37 @@ When the gateway will be opened or closed: Коли хвіртка буде  з�
 When the heat meter value changes: Коли значення лічильника зміниться
 When the heat meter value reaches a certain value: Коли лічильник тепла досягне певного значення
 When the heat meter value will be: Коли значення лічильника тепла буде
+When the hotel card has been taken: Коли забирають картку готелю
+When the hotel card is put in: Коли вставлено картку готелю
+When the hotel card is put in or has been taken: Коли вставляється або виймається картка готелю
 When the humidity changes: Коли вологість зміниться
 When the humidity reaches a certain level: Коли вологість досягне певного рівня
 When the humidity will be: Коли вологість буде
 When the lighting reaches a certain level of brightness: Коли освітлення досягне певного рівня яскравості
 When the mail comes or is taken: Коли приходить пошта або її забирають
 When the mail has been taken: Коли пошта буде отримана
+When the meter reaches a certain value: Коли лічильник досягне потрібного значення
+When the meter value changes: Коли значення зміниться
+When the meter value will be: Якщо значення дорівнює
 When the precipitation amount will be: Коли кількість вимірюваного дощу буде
 When the pressure changes: Коли тиск зміниться
 When the pressure reaches a certain level: Коли тиск досягне певного рівня
 When the pressure will be: Коли тиск буде
+When the projector screen position changes: Коли проекційний екран змінює положення
+When the projector screen reaches a certain position: Коли проекційний екран досягає певного положення
+When the pump is turned off: Коли насос вимкнеться
+When the pump is turned on: Коли насос увімкнеться
+When the pump is turned on or off: Коли насос увімкнеться або вимкнеться
 When the rain amount changes: Коли зміниться кількість опадів
 When the reactive power will be: Коли реактивна потужність буде
 When the reverse active energy will be: Коли повернута активна енергія буде
+When the roller garage door position changes: Коли гаражні ворота змінюють положення
 When the roller shutter position changes: Коли зміниться положення жалюзі
-When the roller shutter reaches: Коли жалюзі досягнуть
 When the roller shutter reaches a certain position: Коли жалюзі досягнуть певної положення
 When the roller shutter will be closed: Коли жалюзі зачиняться
 When the roller shutter will be opened: Коли жалюзі відчиняться
 When the roller shutter will be opened or closed: Коли жалюзі відчиняться або зачиняться
 When the roof window position changes: Коли зміниться положення мансардного вікна
-When the roof window reaches: Коли мансардне вікно досягне
 When the roof window reaches a certain position: Коли мансардне вікно досягне певного положення
 When the roof window will be closed: Коли мансардне вікно зачиниться
 When the roof window will be opened: Коли мансардне вікно відчиниться
@@ -935,11 +1218,25 @@ When the roof window will be opened or closed: Коли мансардне ві�
 When the temperature changes: Коли температура зміниться
 When the temperature reaches a certain value: Коли температура досягне певного значення
 When the temperature will be: Коли температура буде
+When the terrace awning position changes: Коли терасна маркіза змінює положення
+When the terrace awning reaches a certain position: Коли терасна маркіза досягає певного положення
+When the thermometer error has been reported: Коли термометр повідомляє про помилку
+When the thermostat starts cooling: Коли термостат починає охолоджуватися
+When the thermostat starts heating: Коли терморегулятор починає нагріватися
+When the thermostat starts heating or cooling: Коли термостат починає охолодження або нагрівання
+When the thermostat starts or stops cooling: Коли термостат починає або припиняє охолодження
+When the thermostat starts or stops heating: Коли термостат починає або припиняє нагрівання
+When the thermostat starts or stops heating or cooling: Коли термостат починає або припиняє нагрівання або охолодження
+When the thermostat stops cooling: Коли термостат припинить охолодження
+When the thermostat stops heating: Коли термостат припинить нагрівання
+When the thermostat stops heating or cooling: Коли термостат перестає охолоджувати або нагрівати
 When the value will be: Коли значення буде
 When the valve is closed: Коли клапан зачиниться
 When the valve is manually closed: Коли клапан зачиниться вручну
 When the valve is opened: Коли клапан відчиниться
 When the valve is opened or closed: Коли клапан буде зачинений або відчинений
+When the vertical blind position changes: Коли вертикальна штора змінює положення
+When the vertical blind reaches a certain position: Коли вертикальна штора досягає певного положення
 When the voltage will be: Коли напруга буде
 When the water meter reaches a certain value: Коли лічильник води досягне певного значення
 When the water meter value changes: Коли значення лічильника води зміниться
@@ -958,21 +1255,26 @@ When you execute the link with HTTP PATCH method, you can omit the random part o
 Where is the JSON?: Де знаходиться JSON?
 Where is your SUPLA Cloud?: Де знаходиться Ваша Supla?
 White: Білий
+Will be deleted after: Видалення після
 Wind sensor: Датчик вітру
 Window opening sensor: Датчик відкриття вікна
 With SUPLA you can operate the lights in your home or office: За допомогою SUPLA ви можете контролювати освітлення у Вашому домі чи офісі
+With a timer: З таймером
 With function: З функцією
 Working period: Термін експлуатації
-Working schedule: Графік діяльності
 YOUR LINK CODE: ВАШ КОД ПОСИЛАННЯ
+'Yes': Так
 You are changing the settings too quickly. You have to wait a while before making this change.: Ви занадто швидко змінюєте налаштування. Перш ніж змінити ці параметри, потрібно трохи почекати.
 You can browse only the most recent logs now. Wait a while for the full history.: Наразі відображаються лише останні вимірювання. Зачекайте деякий час, поки завантажиться вся історія.
 You can ignore this message, if you have accidentally entered an incorrect password.: Ви можете проігнорувати це повідомлення, якщо Ви ввели неправильний пароль.
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Тут Ви можете задати відносні значення. Наприклад, +10 або -20 відповідно збільшить налаштування на 10 або зменшить на 20.
 You can use the application but you will not be able to modify any settings.: Ви можете використовувати програму, але неможливо внести зміни в конфігурацію.
 You cannot delete your last access identifier.: Ви не можете видалити свій останній ідентифікатор доступу.
 You cannot delete your last location.: Ви не можете видалити своє останнє місцезнаходження.
+You cannot to set a master thermostat for a channel that is master for others.: Неможливо налаштувати головний термостат у головному термостаті
 You cannot use SUPLA project name in the domain name.: Ви не можете використовувати назву проекту SUPLA в основному доменному імені.
 You have exceeded your API Rate Limit: Ви використали ліміт запитів API
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Запит відправлено. Ми повідомимо вас, коли інсталятор схвалить його і розблокує пристрій.
 You have requested to unregister your SUPLA Cloud instance: Ви попросили скасувати реєстрацію свого екземпляра SUPLA Cloud
 You have to choose at least one scope.: Необхідно вибрати принаймні один діапазон.
 You just need to execute the following command inside your host terminal.: Просто виконайте наступну команду всередині свого хост-терміналу.
@@ -983,6 +1285,7 @@ You must leave at least one phase enabled.: Принаймні одна фаза
 You must set an action for each reaction.: Ви повинні встановити дію для кожної реакції.
 You must set an action for each scene operation.: Виберіть дію для кожної операції в сцені.
 You must set sections with transparent or opaque parameters or both.: Ви повинні вибрати прозорість принаймні для одного розділу.
+You need to provide icons for all states in light mode.: Ви повинні надати іконки для всіх станів у яскравому режимі.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Вам потрібно оновити свій екземпляр SUPLA Cloud принаймні до версії 2.3.0.
 You will not be able to generate a direct link with the same URL again.: Ви не зможете створити посилання за тією самою URL-адресою.
 Your account and MQTT Broker connection.: Зв’язування облікового запису з брокером MQTT.
@@ -995,6 +1298,7 @@ Your channel groups are allowed to have a maximum of {max} channels.: Ваші �
 Your chart is being drawn...: Ваш графік побудований...
 Your data are being collected. Please be patient.: Ми збираємо ваші дані, наберіться терпіння.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Ваші дані завантажуються з сервера. Зачекайте, поки завантаження завершаться, перш ніж експортувати їх.
+Your device has been unlocked by the installer.: Ваш пристрій було розблоковано інсталятором.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Пристрій дозволяє розширити його функціональність і дозволяє виконувати будь-які дії на будь-якому вашому пристрої. Доступні параметри залежать від мікропрограми та пристрою, що використовується.
 Your email: Ваша електронна скринька
 Your instance is not registered or you are trying to authorize an application that is not public.: Ваш екземпляр не зареєстровано, або ви намагаєтеся авторизувати програму, яка не є загальнодоступною.
@@ -1038,11 +1342,20 @@ after: після
 and wait until it reaches: і зачекайте, поки досягне
 and wait until it will be: і зачекайте, поки буде
 and wait until the humidity will be: і зачекайте, поки вологість не стане
+and wait until the meter will be: і не виконуйте цю реакцію, поки значення не стане рівним
 and wait until the temperature will be: і зачекайте, поки температура не стане
 and wait until the value will be: і зачекайте, поки значення буде
+auxThermometerType_DISABLED: Вимкнено
+auxThermometerType_FLOOR: Підлога
+auxThermometerType_GENERIC_COOLER: Джерело холоду
+auxThermometerType_GENERIC_HEATER: Джерело тепла
+auxThermometerType_NOT_SET: Не налаштований.
+auxThermometerType_WATER: Вода
 average: середня
 be at least {numChars} characters long: повинен містити не менше {numChars} символів
 before: перед
+blue, otherwise: інакше синій
+blue, when voltage lower than the low threshold: синій, коли напруга нижче низького порогу
 caption: назва
 change: змінити
 channel: Канал
@@ -1055,16 +1368,21 @@ channelGroup: Група каналів
 choose: вибрати
 choose the access identifiers: виберіть ідентифікатори доступу
 choose the action: оберіть дію
+choose the currency: виберіть валюту
 choose the scene: оберіть сцену
 choose the schedule: вибрати розклад
 choose the timezone: оберіть часовий пояс
 click here: натисніть тут
+configuration missing: немає конфігурації
 contains a character that is neither a letter nor a digit: містить символ, який не є ні літерою, ні цифрою
 contains a digit: містить число
 contains lower and upper letters: містить великі та малі літери
+cool: охолодження
 copied: скопійовано
 copy: копіювати
+day: день
 days: дні
+default: за замовчуванням
 directLinkExecutionFailureReason_disabled: Пряме посилання вимкнено
 directLinkExecutionFailureReason_executionLimitExceeded: Ліміт виконань перевищено
 directLinkExecutionFailureReason_expired: Термін дії прямого посилання закінчився
@@ -1085,8 +1403,20 @@ executed: виконано
 extend: продовжити
 from IP: з IP-адреси
 from the IP: з адреси
+green, otherwise: інакше зелений
+green, when power less than the low threshold: зелений, коли потужність нижча за нижній поріг
+heat: опалення
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Основна та допоміжна температура
+homeScreenContent_NONE: Немає
+homeScreenContent_TEMPERATURE: Температура
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Температура та вологість
+homeScreenContent_TEMPERATURE_TIME: Температура і час
+homeScreenContent_TIME: Час
+homeScreenContent_TIME_DATE: Дата і час
+hour: год.
 hours: години
 is at least {numChars} characters long: має не менше {numChars} символів
+keepHistoryMeasurementWarningSelected: Ви впевнені, що Вам потрібна ця історія? Supla - це проект з відкритим вихідним кодом, який підтримується за рахунок власних коштів. Якщо Вам не потрібна ця історія, будь ласка, допоможіть нам заощадити цінне місце в сховищі, залишивши цю опцію вимкненою.
 last 24 hours: за останні 24 години
 last 30 days: останні 30 днів
 last 6 hours: останні 6 годин
@@ -1095,13 +1425,23 @@ logs_aggregation_day: днів
 logs_aggregation_hour: години
 logs_aggregation_minute: хвилини
 logs_aggregation_month: місяців
+max: макс.
+midnight: північ
+milliseconds: мілісекунди
+min: мін.
 min.: хв.
 minutes: хвилин
 notification: повідомлення
+ocrLightingMode_ALWAYS_ON: Завжди увімкнено
+ocrLightingMode_AUTO: Автоматично
+ocrLightingMode_OFF: Вимкнено
+'off': Вимкніть
 or another element: або інший елемент
 password: пароль
 previous month: попередній місяць
 range: період
+red, when power higher than the high threshold: червоний, коли потужність перевищує високий поріг
+red, when voltage higher than the high threshold: червоний, коли напруга перевищує високий поріг
 register-slide1-text: На основі доступної електроніки SUPLA дозволить вам створювати прості модулі, які дозволять  контролювати компоненти автоматизації будівель. Завдяки SUPLA ви можете, серед іншого, керувати освітленням, вмикати та вимикати побутову техніку та аудіо/відео пристрої, відкривати та закривати ворота та двері, контролювати температуру в кімнатах. Ви можете зробити все одним рухом пальця.
 register-slide1-title: Власний розумний будинок
 register-slide2-text: Однією з основних ідей проєкту є простота та доступність. SUPLA дозволяє вам увімкнути світло одним пальцем або відкрити ворота, коли ви хочете увійти до помешкання. SUPLA доступна скрізь, де є доступ до Інтернету та під рукою смартфон або планшет. SUPLA розроблено на основі відкритого програмного забезпечення та відкритого апаратного забезпечення, завдяки чому ви також можете розвивати цей проєкт!
@@ -1115,6 +1455,7 @@ scheduleMode_daily: Тиждень
 scheduleMode_minutely: Інтервал
 scheduleMode_once: Один раз
 sec.: сек.
+seconds: секунди
 smartphones, tablets, etc.: смартфони, планшети тощо
 state-closed: Зачинено
 state-default: За замовчуванням
@@ -1132,24 +1473,78 @@ state-rgb_on_dim_off: RGB увімкнено, затемнення вимкне�
 state-rgb_on_dim_on: RGB і диммер включені
 state-shut: Зашторено
 state-temperature: Температура
+statusLed_ALWAYS_OFF: Завжди вимикайте
+statusLed_OFF_WHEN_CONNECTED: Вимкни, якщо підключено
+statusLed_ON_WHEN_CONNECTED: Увімкни, якщо підключено
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Невідомий результат
+subdevicePairingResult_NOT_STARTED_BUSY: Пристрій зайнято
+subdevicePairingResult_NOT_STARTED_NOT_READY: Пристрій не готовий
+subdevicePairingResult_NOT_SUPPORTED: Операція не підтримується
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Нове обладнання не знайдено
+subdevicePairingResult_ONGOING: В процесі
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Невідомий результат утворення пари
+subdevicePairingResult_PROCEDURE_STARTED: Процедуру розпочато
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Перевищено ліміт ресурсів
+subdevicePairingResult_SUCCESS: Успіх
+subdevicePairingResult_UNAUTHORIZED: Невдала авторизація
 sum: сума
+sunrise: схід сонця
 sunrise-after: схід
 sunrise-before: східний
+sunset: захід сонця
 sunset-after: захід
 sunset-before: західний
+swap: заміна
+the master thermostat ID{id}: головного термостата ID{id}
 the whole history: повна історія
 then execute the action: потім виконайте дію
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Увімкнення/вимкнення за допомогою верхнього налаштування
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Увімкнення/вимкнення за допомогою середнього налаштування
+thermostatAlgorithm_PID: Ідентифікатор PID
+thermostatSubfunction_COOL: Охолодження
+thermostatSubfunction_HEAT: Опалення
+thermostatTemperature_aboveAlarm: Вище тривоги
+thermostatTemperature_auxMaxSetpoint: Максимальна додаткова температура
+thermostatTemperature_auxMinSetpoint: Мінімальна додаткова температура
+thermostatTemperature_belowAlarm: Нижче тривоги
+thermostatTemperature_boost: Підвищення температури
+thermostatTemperature_comfort: Комфортна температура
+thermostatTemperature_eco: Температура ECO
+thermostatTemperature_freezeProtection: Температура захисту від замерзання
+thermostatTemperature_heatProtection: Температура захисту від перегріву
+thermostatTemperature_histeresis: Гістерезис
 this month: поточний місяць
 this year: поточний рік
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Змінює положення під час зміни нахилу
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Не змінює положення під час зміни нахилу
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Змінює висоту тону тільки при повному закритті
+tiltControlType_UNKNOWN: Невідомий
+timeMarginMode_custom: Нестандартний
+timeMarginMode_device: Значення за замовчуванням з пристрою
+timeMarginMode_off: Вимкнено
 today: сьогодні
 unknown: невідомий
+usedCTType_100A_33mA: 100A/33.3мА
+usedCTType_200A_66mA: 200A/66.6мА
+usedCTType_400A_133mA: 400A/133.3мА
+usedPhaseLedType_OFF: Вимкнено
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Напрямок потоку енергії
+usedPhaseLedType_VOLTAGE_LEVEL: Рівень напруги
+usedPhaseLedType_VOLTAGE_PRESENCE: Наявність напруги
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Наявність напруги (інвертована)
 username: ім'я користувача
 valid until: закінчиться
 values as seen on chart: значення як на діаграмі
 values as seen on counter: значення як на лічильнику
+valveOpenConfirm_manual: Вентиль закрито вручну або по радіо. Перш ніж відкрити його, переконайтеся, що він не був закритий через затоплення. Щоб вимкнути попередження, відкрийте вентиль вручну. Ви впевнені, що бажаєте відкрити вентиль дистанційно?!
 yesterday: вчора
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} не зможе взаємодіяти з вашим обліковим записом, доки ви знову не надасте доступ.'
 '{clientName} wants to access your account.': '{clientName} хоче отримати доступ до вашого облікового запису.'
+'{count} minutes after sunrise': '{count} хвилин після сходу сонця'
+'{count} minutes after sunset': '{count} хвилин після заходу сонця'
+'{count} minutes before sunrise': '{count} хвилин до сходу сонця'
+'{count} minutes before sunset': '{count} хвилин до заходу сонця'
+'{days} days': '{days} днях'
 '{minutes} minutes after sunrise': '{minutes} хвилин після сходу сонця'
 '{minutes} minutes after sunset': '{minutes} хвилин після заходу сонця'
 '{minutes} minutes before sunrise': '{minutes} хвилин до сходу сонця'
@@ -1168,6 +1563,7 @@ Add new item to use in the scene: Додайте новий елемент до 
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ви впевнені, що хочете видалити всю історію аберації цього каналу?
 Authorized OAuth apps: Авторизовані програми OAuth
 Calculated value: Покази лічильника
+Cannot execute an action when the device is disconnected.: Неможливо виконати дію, коли пристрій відключено.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Не надійшло повідомлення з посиланням для активації вашого облікового запису? Переконайтеся, що він не потрапив у папку СПАМ (небажана пошта). Або ви можете {clickHereLink}, щоб надіслати його повторно.
 Channel value: Значення
 Chart data source type: Тип джерела даних
@@ -1176,22 +1572,48 @@ Coming Soon: Незабаром буде доступно
 Confirm if you want to perform the roller shutter calibration.: Переконайтеся, що модуль відкалібровано.
 Device channel value: Значення від пристрою
 Differential: Диференціал
+Expected maximum increment: Очікуване максимальне зростання
 From IP: З IP-адреси
 Get SUPLA on your devices: Завантажте SUPLA на свої пристрої
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Щоб мінімізувати ризик неправильного зчитування, установіть лічильник на максимальний очікуваний крок між фотографіями.
 Initial value: Початкове значення
 Interpolate measurements: Оцініть пропущені значення
+Maximum temperature that can be set from the device: Максимальна температура, яку можна встановити за допомогою пристрою
+Minimum temperature that can be set from the device: Мінімальна температура, яку можна встановити за допомогою пристрою
 Mobile Apps: Мобільні додатки
 No results match {0}: Немає результатів, що відповідають {0}
 Please select an action: Будь ласка, виберіть дію
 Previous login: Попередній вхід
+Reference to the channel will be removed from the items below.: Вказівка на цей канал буде вилучена з наступних.
 Sensor (normal closed): Датчик (нормально закритий)
 Sensor (normal open): Датчик (нормально відкритий)
 Sources available from: Джерела доступні в
 Standard: Стандартний
 Supla for devices: Supla для пристроїв
+Temperature adjustment only: Тільки налаштування температури
 The events in voltage aberrations history will be automatically deleted after {days} days.: Події в історії відхилень напруги будуть автоматично видалені через {days}.
+The items below depend on this channel, so they will be deleted.: Наступні елементи залежать від цього каналу, тому вони будуть видалені.
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Реакція буде активною, коли будуть виконані всі наведені нижче умови. Якщо ви встановите всі доступні параметри, реакція активуватиметься лише між вибраними датами, у вибраний час і дні тижня, а також коли буде виконано одне з посилань на захід або схід сонця.
 Triggers: Команди
+Unlocked: Розблоковано
+Use working schedule for this access identifier: Використовуйте графік доступності для цього ідентифікатора доступу
+Use working schedule for this reaction: Використовуйте графік активності для цієї відповіді
+User interface: Інтерфейс користувача
 Value per unit: Вартість за одиницю
+When the curtain reaches: Коли штора сягає
+When the facade blind reaches: Коли фасадна ролета досягає
+When the projector screen reaches: Коли проекційний екран досягає
+When the roller garage door a certain position: Коли гаражні ворота досягають певного положення
+When the roller garage door reaches: Коли гаражні ворота досягають
+When the roller shutter calibration failed: Якщо калібрування ролет завершується з помилкою
+When the roller shutter calibration has been lost: Коли калібрування ролет не вдається завершити
+When the roller shutter calibration has started: Після запуску калібрування ролет
+When the roller shutter motor reported a problem: Коли двигун ролет повідомляє про проблему
+When the roller shutter reaches: Коли жалюзі досягнуть
+When the roof window reaches: Коли мансардне вікно досягне
+When the terrace awning reaches: Коли тент для тераси досягає
+When the vertical blind reaches: Коли вертикальна штора досягає
+Working schedule: Графік діяльності
 You need to provide icons for all states.: Ви повинні надати піктограми для всіх станів.
 choose a currency: оберіть валюту
 choose access identifiers: виберіть ідентифікатори доступу
@@ -1201,436 +1623,121 @@ or add a delay: або додайте затримку
 prefix: префікс
 reset chart view: повернутися до початкового вигляду
 suffix: суфікс
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-0% tilt angle: Кут нахилу ламелей, який встановлюють жалюзі при закриванні
-100% tilt angle: Кут нахилу ламелей, який встановлюють жалюзі при відкриванні
-A confirmation upon successful device unlocking.: Підтвердження розблокування пристрою.
-Active from: Активний з
-Active to: Активний до
-Activity conditions: Умови діяльності
-Additional time margin: Додатковий запас часу
-Adjust temperature: Встановіть температуру
-Adjust temperatures: Встановіть температури
-After the delay: Через визначений проміжок часу
-After the delay, but only when it's dark: Через певний час, але тільки коли стемніє
-Alarm armament sensor: Датчик постановки сигналізації на охорону
-Algorithm: Алгоритм
-All programs must define at least one temperature threshold.: Кожна програма повинна визначати принаймні один температурний поріг.
-Always decrement: Постійне зменшення
-Always increment: Постійне зростання
-Anti-freeze and overheat protection: Захист від перегріву та замерзання
-Anti-freeze protection: Захист від замерзання
-Are you sure you want to change channel’s location?: Ви впевнені, що хочете змінити розташування каналу?
-Are you sure you want to change channel’s visibility?: Ви впевнені, що хочете змінити видимість каналу?
-Are you sure you want to change device’s location?: Ви впевнені, що хочете змінити місце розташування пристрою?
-Are you sure you want to delete this channel?: Ви дійсно хочете видалити цей канал?
-Automatic: Автоматичне
-Automatic front panel turn off: Автоматичне вимкнення передньої панелі
-Automatic front panel turn off after: Час вимкнення передньої панелі
-Automatic thermostat: Автоматичний термостат
-Automatic time synchronization: Автоматична синхронізація дати та часу
-Aux thermometer: Додатковий термометр
-Aux thermometer type: Додатковий тип термометра
-Available variables: Доступні змінні
-Average: Середня
-Battery cover open: Кришка акумулятора відкрита
-Behavior settings: Поведінка
-Binary sensor: Бінарний датчик
-Brightness adjustment for automatic mode: Налаштування яскравості автоматичного режиму
-Brightness level: Рівень яскравості
-Button volume: Кнопка гучності
-Buttons upside down: Керування кнопкою реверсу
-Candle: Свічник
-Cannot update OCR settings. Try again in a while.: Не вдалося оновити налаштування розпізнавання тексту. Спробуйте ще раз за мить.
-Change percentage by: Змініть відсоток на
-Change percentage to: Змініть відсоток до
-Change tilt by: Змініть нахил на
-Change tilt to: Змініть нахил до
-Change to be the same.: Налаштуйте так само.
-Changing channel’s visibility will also change the visibility of other items.: Зміна видимості каналу також змінить видимість інших елементів.
-Changing the location will also imply changing the location of the following items.: Зміна розташування також призведе до зміни розташування наступних елементів.
-Channels that are meant to work with each other must be in the same location.: Канали для спільної роботи повинні знаходитися в одному місці.
-Clock error: Помилка годинника
-Close value: Значення закриття
-Collapse: Згорнути
-Collapse or stop: Прокрутити або зупинити
-Collapse partially: Згорнути частково
-Command has been sent to the device. Try refreshing the photo in a while.: Запит було надіслано на пристрій. Спробуйте оновити фото за мить.
-Common currencies: Валюти, які обирають найчастіше
-Configuration not available yet. Waiting for the device to connect.: Конфігурація ще не доступна. Зачекайте, поки пристрій підключиться.
-Confirm if you want to perform the calibration.: Підтвердьте, що ви бажаєте виконати калібрування.
-Conflict: Конфлікт
-Cool to: Перейти до
-Cooling mode: Режим охолодження
-'Cooling: {percent}%': 'Охолодження: {percent}%.'
-Costs: Витрати
-Could not restart the device.: Пристрій не вдалося перезапустити.
-Could not send the identify command.: Не вдалося відправити замовлення.
-Could not set the device time.: Не вдалося налаштувати дату і час на пристрої.
-Counter type: Тип лічильника
-Curtain: Штора
-Dark mode: Темний режим
-Data: Дані
-Date: Дата
-Date range: Діапазон дат
-Daytime criteria: Критерії на основі тривалості дня
-Dependencies: Залежності
-'Device GUID: %deviceGuid%': 'GUID пристрою: %deviceGuid% (Глобальний унікальний ідентифікатор)'
-Device identification is unsupported in the firmware.: Ідентифікація пристрою не підтримується у прошивці.
-Device settings: Параметри пристрою
-Device should be restarting now.: Пристрій повинен перезапуститися.
-Device time has been set.: Встановлено дату та час роботи пристрою.
-Different than on master thermostat.: Налаштування відрізняються від налаштувань на головному термостаті.
-Differential thermostat: Диференціальний термостат
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Ви хочете, щоб канали, залежні від цього термостата (наприклад, термометри та датчики), були такими ж, як і в головному термостаті?
-Domestic hot water: Гаряча вода вдома
-Dryer: Осушувач повітря
-Edit area crop: Область редагування
-Edit program settings: Редагування налаштувань програми
-Electricity meter active power history: Історія потужності лічильника електроенергії
-Electricity meter current history: Історія інтенсивності лічильника електроенергії
-Electricity meter voltage aberrations history: Історія відхилень напруги лічильника електроенергії
-Electricity meter voltage history: Історія напруги лічильника електроенергії
-Enable floor temperature control: Увімкнути керування температурою підлоги
-Enable generic cooler temperature control: Увімкніть контроль температури джерела охолодження
-Enable generic heater temperature control: Увімкніть регулювання температури джерела тепла
-Enable power status LED: Увімкніть світлодіодний індикатор стану живлення
-Enable support for OCR readings for this channel: Увімкніть підтримку розпізнавання тексту для цього каналу
-Enable water temperature control: Увімкніть регулювання температури води
-Example value: Приклад
-Expand: Розгорнути
-Expand or stop: Розгорнути або утримувати
-Expand partially: Розгорнути частково
-Expected maximum increment: Очікуване максимальне зростання
-External sensor disabling the thermostat: Зовнішній датчик для вимкнення терморегулятора
-Facade blind operation: Фасадні ролети
-Fan: Вітряк
-'Field: {propertyPath}.': 'Поле {propertyPath}.'
-Fill missing data: Заповніть відсутні розміри
-Firmware: Прошивка
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Прошивка цього пристрою надсилає сповіщення в контексті цього каналу. Тут ви можете налаштувати вміст і отримувачів. Для отримання додаткової інформації зверніться до постачальника пристрою.
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Прошивка цього пристрою надсилає сповіщення. Тут ви можете налаштувати вміст і отримувачів. Для отримання додаткової інформації зверніться до постачальника пристрою.
-For a period: За період
-Forced off by sensor: Примусове вимкнення за датчиком
-Full tilting time: Загальний час зміни нахилу
-Function disabled: Функцію вимкнено
-General purpose meter: Канал лічильника загального призначення
-HVAC: ОВК
-Heat or cold source switch: Перемикач джерела тепла або охолодження
-Heat to: Нагріти до
-Heating / ventilation / air conditioning: Опалення / вентиляція / кондиціонування (ОВК)
-Heating mode: Режим нагріву
-'Heating: {percent}%': 'Опалення: {percent}%.'
-High threshold: Високий поріг
-High value: Максимальне значення
-History: Історія
-Home screen content: Вміст головного екрану
-Hotel card sensor: Датчик готельної картки
-Identify device: Ідентифікуйте пристрій
-Identify request sent.: Запит на встановлення особи відправлено.
-If you confirm the installation and wish to unlock this device, please click the link below.: Якщо ви намагаєтеся додати новий пристрій, натисніть на посилання нижче, щоб підтвердити розблокування.
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Якщо ви не намагаєтеся розблокувати пристрій, ігноруйте цей лист. Посилання для підтвердження автоматично втратить чинність через 24 години.
-Image area crop: Область зображення
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Щоб мінімізувати ризик неправильного зчитування, установіть лічильник на максимальний очікуваний крок між фотографіями.
-Increment and decrement: Збільшення та зменшення
-Installer e-mail address: Адреса електронної пошти інсталятора
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: Пристрій зареєстрував канал іншого типу ({typeCaption} - {typeId}) замість поточного.
-Invalid e-mail address.: Неправильна адреса електронної пошти
-Invalid unlock code.: Неправильне посилання для розблокування.
-Last paired device: Останній спарений пристрій
-Light mode: Яскравий режим
-Lighting level: Рівень освітлення
-Lighting mode: Режим освітлення
-List of available variables: Список доступних змінних
-Locked: Заблокований
-Low threshold: Низький поріг
-Low threshold must be less than high threshold.: Низький поріг повинен бути нижчим за високий поріг
-Low value: Мінімальне значення
-Main thermometer: Основний термометр
-Master thermostat: Головний термостат
-Max: Макс.
-Maximum duration is one year.: Максимальний термін - один рік.
-Maximum temperature that can be set from the device: Максимальна температура, яку можна встановити за допомогою пристрою
-Measurement settings: Налаштування вимірювання
-Min: Мін.
-Minimum OFF time before cooling can be turned on: Мінімальний час вимкнення перед повторним запуском охолодження
-Minimum OFF time before heating can be turned on: Мінімальний час  ВИМКНЕННЯ перед повторним увімкненням опалення
-Minimum OFF time before heating/cooling can be turned on: Мінімальний час ВИМКНЕННЯ перед перезапуском охолодження/обігріву
-Minimum ON time before cooling can be turned off: Мінімальний час УВІМКНЕННЯ перед повторним вимкненням охолодження
-Minimum ON time before heating can be turned off: Мінімальний час УВІМКНЕННЯ перед наступним вимкненням опалення
-Minimum ON time before heating/cooling can be turned off: Мінімальний час УВІМКНЕННЯ перед наступним вимкненням охолодження/обігріву
-Minimum temperature must be lower than maximum temperature.: Мінімальна температура повинна бути меншою за максимальну
-Minimum temperature that can be set from the device: Мінімальна температура, яку можна встановити за допомогою пристрою
-'Mode: cool': 'Режим: охолодження'
-'Mode: heat': 'Режим: опалення'
-'Mode: off': 'Режим: вимкнено'
-Motor upside down: Інверторне керування двигуном
-'No': 'Ні'
-No results: Немає результатів
-Notification body is set by the firmware.: Зміст сповіщення встановлюється прошивкою.
-Notification must have recipients.: Повідомлення повинно мати адресатів.
-Notification title is set by the firmware.: Заголовок сповіщення встановлюється прошивкою.
-Notifications (defined): Сповіщення (визначено)
-Notifications (sent per hour): Сповіщення (надсилаються щогодини)
-'OCR service responded with error: {status}': 'Служба розпізнавання видала помилку: {status}'
-OCR settings: Налаштування розпізнавання тексту
-OR: АБО
-Off with duration: Вимкніть вчасно
-On with duration: Увімкніть вчасно
-Open value: Початкове значення
-Output value on error: Стан виходу під час помилки
-Overheat protection: Захист від перегріву
-P/C: P/C
-Pair new devices or sensors: Встановлення пари нових пристроїв або датчиків
-Pairing request sent.: Запит на встановлення пари надіслано.
-Pairing subdevices is unsupported in the firmware.: Програмне забезпечення пристрою не підтримує встановлення пари.
-Phase LED type: Світлодіодний індикатор фази
-Photo interval: Інтервал зйомки
-Please find the device details below.: Детальніше про пристрій можна прочитати нижче.
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Зверніть увагу, що цей пристрій призначений лише для сертифікованих інсталяторів.
-Please provide the installer e-mail address to request the device unlock.: Щоб розблокувати пристрій, введіть адресу електронної пошти, яку було надано під час отримання сертифіката інсталятора.
-Please select and configure the action: Виберіть і налаштуйте дію.
-Program {programNo}: Програма {programNo}
-Projector screen: Проекційний екран
-Pump switch: Вмикач насоса
-Push notifications limit has been exceeded: Перевищено ліміт пуш-сповіщень
-Reference to the channel will be removed from the items below.: Вказівка на цей канал буде вилучена з наступних.
-Refresh interval: Інтервал оновлення
-Refresh the config: Оновити конфігурацію
-Refreshing the configuration will overwrite the changes you made here.: Оновлення конфігурації перезапише зміни, внесені у форму.
-Reload last photo: Перезавантажити останню фотографію
-Remote restart is unsupported in the firmware.: Віддалений перезапуск не підтримується програмним забезпеченням пристрою.
-Remove this item: Вилучити цей елемент
-Request device unlock: Подати заявку на розблокування пристрою
-Reset to defaults: Відновлення значень за замовчуванням
-Restart device: Перезавантажте пристрій
-Restart the device: Перезавантажте пристрій
-Reveal or stop: Розкрийте або зупиніть
-Roller garage door: Гаражні двері
-S/N: Серійний номер
-SUPLA - Confirm unlocking device for authorized installers: SUPLA - Розблокування пристрою для сертифікованого інсталятора
-SUPLA – your device has been unlocked!: SUPLA - Ваш пристрій розблоковано!
-Same as on master thermostat.: Ті самі налаштування, що й на головному термостаті.
-Screen brightness: Яскравість екрану
-Selected: Вибране
-Set HVAC parameters: Встановіть параметри
-Set the device time: Не вдалося налаштувати дату і час на пристрої.
-Settings: Налаштування
-Settings have not been saved!: Налаштування не збережено!
-Show data: Відобразити дані
-Shut or stop: Прикрийте або зупиніть
-Some features depend on this channel: Деякі функції залежать від цього каналу
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Деякі дані, зібрані для вашого облікового запису, будуть періодично видалятися через певний проміжок часу. Ознайомтеся з лімітами нижче.
-Status LED: Статус LED
-Store active power history: Зберігайте історію активної потужності
-Store current history: Зберігайте поточну історію напруги
-Store voltage history: Зберігайте історію напруги
-'Subdevice #{id}': 'Субпідрядний пристрій #{id}'
-Subfunction: Підфункція
-Switch to manual mode: Перехід до ручного режиму
-Switch to program mode: Перехід до режиму програмування
-THEN: А ПОТІМ
-Take a photo now: Сфотографуйте зараз
-Temperature adjustment only: Тільки налаштування температури
-Temperature difference is too big between {min}°C and {max}°C.: Різниця температур між {min}°C і {max}°C занадто велика.
-Temperature setpoint change switches to manual mode: Зміна цільової температури перемикає в ручний режим
-Temporal override: Тимчасове перевизначення
-Terrace awning: Тент для тераси
-The channel has been deleted.: Канал було видалено.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Конфігурацію було змінено з іншого місця (наприклад, з іншого вікна браузера, мобільного додатку або пристрою). Перш ніж вносити подальші зміни, потрібно оновити конфігурацію.
-The device could not be unlocked.: Пристрій не вдалося розблокувати.
-The device has been unlocked already.: Пристрій вже розблоковано.
-The device has been unlocked.: Пристрій розблоковано.
-The device has channel conflict and cannot work.: Пристрій згенерував конфлікт каналів і наразі не може працювати.
-The device is locked: Заблокований пристрій
-The following channels will be also removed along with their dependencies.: Наступні канали також будуть видалені разом з їхніми залежностями.
-The items below depend on this channel, so they will be deleted.: Наступні елементи залежать від цього каналу, тому вони будуть видалені.
-The master termostat you chose already has a master.: Вибраний вами головний термостат вже має інший головний термостат
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Реакція буде активною, коли будуть виконані всі наведені нижче умови. Якщо ви встановите всі доступні параметри, реакція активуватиметься лише між вибраними датами, у вибраний час і дні тижня, а також коли буде виконано одне з посилань на захід або схід сонця.
-The thermostat will not work if the main thermometer is not set.: Для роботи терморегулятора необхідно встановити основний термометр.
-Thermometer error: Похибка термометра
-Thermometers configuration: Конфігурація термометрів
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Цей термостат використовує налаштування головного термостата. Щоб змінити налаштування, перейдіть на його сторінку з деталями.
-Thermostat programs: Програми термостату
-This action will result in restarting the device. It will not be available for a while.: Виконання цієї операції призведе до перезапуску пристрою. Під час перезапуску пристрій буде недоступний.
-This channel was missing during last device registration attempt.: Цей канал відсутній у пристрої.
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Цей пристрій призначений для розповсюдження та встановлення лише авторизованими інсталяторами. Якщо ви не є авторизованим інсталятором SUPLA і не маєте чинного сертифіката про проходження навчання, поверніть його своєму дилеру.
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Це останнє фото, завантажене з пристрою. Позначте саме ту область, де видно цифри лічильника.
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Це список реакцій, запущених у Вашому акаунті. Якщо ви хочете додати нову реакцію, перейдіть до деталей каналу, який має її викликати.
-This thermostat is controlled by another device.: Цей термостат керується головним термостатом.
-Tilt angle: Кут нахилу
-Tilt control type: Тип регулювання нахилу
-Tilt percent: Відсоток нахилу
-Time: Час
-Today, it would be active from {from} to {to}.: Сьогодні період активності припадає на період між {from} і {to}.
-Turn off: Вимкніть
-Unlock the device: Розблокуйте пристрій
-Unlocked: Розблоковано
-Until a date and time: До тих пір, поки
-Until the next change: До наступної зміни
-Use device default: Використовуйте значення за замовчуванням з пристрою
-Use working schedule for this reaction: Використовуйте графік активності для цієї відповіді
-Use {theMasterThermostat} to control this device.: Для керування цим пристроєм використовуйте {theMasterThermostat}.
-Used current transformer type: Використаний трансформатор струму
-User interface: Інтерфейс користувача
-Value divider: Дільник
-Value multiplier: Дільник
-Vertical blind: Вертикальні жалюзі
-Visit the master thermostat page.: Перейдіть до головного термостата.
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Ми отримали запит на розблокування пристрою, призначеного лише для сертифікованих інсталяторів. Запит було надіслано користувачем %deviceUserEmail% з екземпляра хмари SUPLA за адресою %targetCloudUrl%.
-Week: Тиждень
-Weekly schedule: Тижневий графік
-When the alarm is armed: Коли встановлено сигналізацію
-When the alarm is armed or disarmed: Коли сигналізацію вимкнено або встановлено
-When the alarm is disarmed: Коли сигналізацію вимкнено
-When the battery cover is opened: Коли відкрито кришку батарейного відсіку
-When the clock error has been reported: Коли таймер повідомляє про помилку
-When the curtain position changes: Коли штора змінює положення
-When the curtain reaches: Коли штора сягає
-When the curtain reaches a certain position: Коли штора досягає певного положення
-When the facade blind position changes: Коли фасадна ролета змінює положення
-When the facade blind reaches: Коли фасадна ролета досягає
-When the facade blind reaches a certain position: Коли фасадна ролета досягає певного положення
-When the hotel card has been taken: Коли забирають картку готелю
-When the hotel card is put in: Коли вставлено картку готелю
-When the hotel card is put in or has been taken: Коли вставляється або виймається картка готелю
-When the meter reaches a certain value: Коли лічильник досягне потрібного значення
-When the meter value changes: Коли значення зміниться
-When the meter value will be: Якщо значення дорівнює
-When the projector screen position changes: Коли проекційний екран змінює положення
-When the projector screen reaches: Коли проекційний екран досягає
-When the projector screen reaches a certain position: Коли проекційний екран досягає певного положення
-When the pump is turned off: Коли насос вимкнеться
-When the pump is turned on: Коли насос увімкнеться
-When the pump is turned on or off: Коли насос увімкнеться або вимкнеться
-When the roller garage door a certain position: Коли гаражні ворота досягають певного положення
-When the roller garage door position changes: Коли гаражні ворота змінюють положення
-When the roller garage door reaches: Коли гаражні ворота досягають
-When the roller shutter calibration failed: Якщо калібрування ролет завершується з помилкою
-When the roller shutter calibration has been lost: Коли калібрування ролет не вдається завершити
-When the roller shutter calibration has started: Після запуску калібрування ролет
-When the roller shutter motor reported a problem: Коли двигун ролет повідомляє про проблему
-When the terrace awning position changes: Коли терасна маркіза змінює положення
-When the terrace awning reaches: Коли тент для тераси досягає
-When the terrace awning reaches a certain position: Коли терасна маркіза досягає певного положення
-When the thermometer error has been reported: Коли термометр повідомляє про помилку
-When the thermostat starts cooling: Коли термостат починає охолоджуватися
-When the thermostat starts heating: Коли терморегулятор починає нагріватися
-When the thermostat starts heating or cooling: Коли термостат починає охолодження або нагрівання
-When the thermostat starts or stops cooling: Коли термостат починає або припиняє охолодження
-When the thermostat starts or stops heating: Коли термостат починає або припиняє нагрівання
-When the thermostat starts or stops heating or cooling: Коли термостат починає або припиняє нагрівання або охолодження
-When the thermostat stops cooling: Коли термостат припинить охолодження
-When the thermostat stops heating: Коли термостат припинить нагрівання
-When the thermostat stops heating or cooling: Коли термостат перестає охолоджувати або нагрівати
-When the vertical blind position changes: Коли вертикальна штора змінює положення
-When the vertical blind reaches: Коли вертикальна штора досягає
-When the vertical blind reaches a certain position: Коли вертикальна штора досягає певного положення
-Will be deleted after: Видалення після
-With a timer: З таймером
-'Yes': 'Так'
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Тут Ви можете задати відносні значення. Наприклад, +10 або -20 відповідно збільшить налаштування на 10 або зменшить на 20.
-You cannot to set a master thermostat for a channel that is master for others.: Неможливо налаштувати головний термостат у головному термостаті
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Запит відправлено. Ми повідомимо вас, коли інсталятор схвалить його і розблокує пристрій.
-You need to provide icons for all states in light mode.: Ви повинні надати іконки для всіх станів у яскравому режимі.
-Your device has been unlocked by the installer.: Ваш пристрій було розблоковано інсталятором.
-and wait until the meter will be: і не виконуйте цю реакцію, поки значення не стане рівним
-auxThermometerType_DISABLED: Вимкнено
-auxThermometerType_FLOOR: Підлога
-auxThermometerType_GENERIC_COOLER: Джерело холоду
-auxThermometerType_GENERIC_HEATER: Джерело тепла
-auxThermometerType_NOT_SET: Не налаштований.
-auxThermometerType_WATER: Вода
-blue, otherwise: інакше синій
-blue, when voltage lower than the low threshold: синій, коли напруга нижче низького порогу
-choose the currency: виберіть валюту
-configuration missing: немає конфігурації
-cool: охолодження
-day: день
-default: за замовчуванням
-green, otherwise: інакше зелений
-green, when power less than the low threshold: зелений, коли потужність нижча за нижній поріг
-heat: опалення
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Основна та допоміжна температура
-homeScreenContent_NONE: Немає
-homeScreenContent_TEMPERATURE: Температура
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: Температура та вологість
-homeScreenContent_TEMPERATURE_TIME: Температура і час
-homeScreenContent_TIME: Час
-homeScreenContent_TIME_DATE: Дата і час
-hour: год.
-keepHistoryMeasurementWarningSelected: Ви впевнені, що Вам потрібна ця історія? Supla - це проект з відкритим вихідним кодом, який підтримується за рахунок власних коштів. Якщо Вам не потрібна ця історія, будь ласка, допоможіть нам заощадити цінне місце в сховищі, залишивши цю опцію вимкненою.
-max: макс.
-midnight: північ
-milliseconds: мілісекунди
-min: мін.
-ocrLightingMode_ALWAYS_ON: Завжди увімкнено
-ocrLightingMode_AUTO: Автоматично
-ocrLightingMode_OFF: Вимкнено
-'off': 'Вимкніть'
-red, when power higher than the high threshold: червоний, коли потужність перевищує високий поріг
-red, when voltage higher than the high threshold: червоний, коли напруга перевищує високий поріг
-seconds: секунди
-statusLed_ALWAYS_OFF: Завжди вимикайте
-statusLed_OFF_WHEN_CONNECTED: Вимкни, якщо підключено
-statusLed_ON_WHEN_CONNECTED: Увімкни, якщо підключено
-subdevicePairingResult_CMD_RESULT_UNKNOWN: Невідомий результат
-subdevicePairingResult_NOT_STARTED_BUSY: Пристрій зайнято
-subdevicePairingResult_NOT_STARTED_NOT_READY: Пристрій не готовий
-subdevicePairingResult_NOT_SUPPORTED: Операція не підтримується
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: Нове обладнання не знайдено
-subdevicePairingResult_ONGOING: В процесі
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Невідомий результат утворення пари
-subdevicePairingResult_PROCEDURE_STARTED: Процедуру розпочато
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Перевищено ліміт ресурсів
-subdevicePairingResult_SUCCESS: Успіх
-subdevicePairingResult_UNAUTHORIZED: Невдала авторизація
-sunrise: схід сонця
-sunset: захід сонця
-swap: заміна
-the master thermostat ID{id}: головного термостата ID{id}
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Увімкнення/вимкнення за допомогою верхнього налаштування
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Увімкнення/вимкнення за допомогою середнього налаштування
-thermostatAlgorithm_PID: Ідентифікатор PID
 thermostatAlgorithm_help: |
   Алгоритми вмикання/вимикання працюють на основі налаштування гістерезису. Гістерезис може бути віднесений до середини діапазону (середнє значення) або до заданої температури (верхнє значення).
   Наприклад, якщо припустити, що гістерезис становить 1°C і цільова температура 23°C, термостат
   - увімкне опалення при 22,5°C і вимкне, коли температура досягне 23,5°C для середнього налаштування 
   - увімкне опалення при 22°C і вимкне, коли температура досягне 23°C для верхнього налаштування
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Action trigger for channel: ~
+Activity schedule: ~
+Alarm at level (and above) should be greater than the corresponding warning level.: ~
+Alarm at level (and below) should be lower than the corresponding warning level.: ~
+Alarm level: ~
+Algorithms available on this device: ~
+Are you sure you want to delete this subdevice?: ~
+Aux thermometer for channel: ~
+Binary sensor for channel: ~
+Cannot execute an action when the channel is not available.: ~
+Channels that are meant to work with each other must have the same visibility setting.: ~
+Choose many: ~
+Container: ~
+Container level sensor: ~
+Container supports up to 10 sensors.: ~
+Device interface: ~
+Each container level sensor must have different fill level.: ~
+Fill level: ~
+Flood sensor: ~
+Flood sensor for valve: ~
+Flood sensors: ~
+Image: ~
+Invalid sensor state: ~
+Level sensor: ~
+Level sensor for container: ~
+Level sensors: ~
+Lock type: ~
+Main thermometer for channel: ~
+Master thermostat for channel: ~
+Maximum: ~
+Minimum: ~
+Motor problem: ~
+Mute alarm: ~
+Mute alarm sound without additional auth: ~
+Mute command sent: ~
+Not available: ~
+Opening sensor for channel: ~
+Percentage of extension: ~
+Photo history: ~
+Pump switch for channel: ~
+Reading: ~
+Reference to the deleted channels will be removed from the items below.: ~
+Scene ID{id} is being executed right now.: ~
+Scene ID{id} is inactive right now.: ~
+Septic tank: ~
+Sound alarm on: ~
+Temperature control type: ~
+Temperatures that can be set from local UI: ~
+The items below depend on the deleted channels, so they will be deleted, too.: ~
+The subdevice has been deleted.: ~
+This device cannot be remotely awakened. We are awaiting communication from the device...: ~
+Updating...: ~
+Use activity schedule: ~
+Valve supports up to 20 sensors.: ~
+Waiting: ~
+Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).: ~
+Warning level: ~
+Water tank: ~
+When a flood is detected: ~
+When a flooding state changes: ~
+When a flooding state has been cleared: ~
+When any of the sensors starts to report an invalid state: ~
+When any of the sensors stops to report an invalid state: ~
+When the alarm starts: ~
+When the alarm stops: ~
+When the battery level will be: ~
+When the battery reaches a certain level: ~
+When the calibration fails: ~
+When the calibration has been lost: ~
+When the calibration has started: ~
+When the device starts to be powered from battery: ~
+When the device stops to be powered from battery: ~
+When the fill level changes: ~
+When the fill level reaches a certain value: ~
+When the fill level reading error disappears: ~
+When the fill level reading error occurs: ~
+When the fill level will be: ~
+When the motor reported a problem: ~
+When the position reaches: ~
+When the roller garage door reaches a certain position: ~
+When the sound alarm starts: ~
+When the sound alarm stops: ~
+When the warning starts: ~
+When the warning stops: ~
+You cannot change this function becuase it is required by another channel.: ~
+activityConditions_help: ~
+and wait until the battery level will be: ~
+and wait until the fill level will be: ~
+directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
+localUILock_FULL: ~
+localUILock_TEMPERATURE: ~
+localUILock_UNLOCKED: ~
+state-half: ~
+state-hi: ~
+state-low: ~
+tank_alarm_alarmAboveLevel: ~
+tank_alarm_alarmBelowLevel: ~
+tank_alarm_warningAboveLevel: ~
+tank_alarm_warningBelowLevel: ~
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
+temperatureControlType_ROOM_TEMPERATURE: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: ~
+thermostatAlgorithmHelp_PID: ~
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: Охолодження
-thermostatSubfunction_HEAT: Опалення
-thermostatTemperature_aboveAlarm: Вище тривоги
-thermostatTemperature_auxMaxSetpoint: Максимальна додаткова температура
-thermostatTemperature_auxMinSetpoint: Мінімальна додаткова температура
-thermostatTemperature_belowAlarm: Нижче тривоги
-thermostatTemperature_boost: Підвищення температури
-thermostatTemperature_comfort: Комфортна температура
-thermostatTemperature_eco: Температура ECO
-thermostatTemperature_freezeProtection: Температура захисту від замерзання
-thermostatTemperature_heatProtection: Температура захисту від перегріву
-thermostatTemperature_histeresis: Гістерезис
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: Змінює положення під час зміни нахилу
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Не змінює положення під час зміни нахилу
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Змінює висоту тону тільки при повному закритті
-tiltControlType_UNKNOWN: Невідомий
-timeMarginMode_custom: Нестандартний
-timeMarginMode_device: Значення за замовчуванням з пристрою
-timeMarginMode_off: Вимкнено
-usedCTType_100A_33mA: 100A/33.3мА
-usedCTType_200A_66mA: 200A/66.6мА
-usedCTType_400A_133mA: 400A/133.3мА
-usedPhaseLedType_OFF: Вимкнено
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: Напрямок потоку енергії
-usedPhaseLedType_VOLTAGE_LEVEL: Рівень напруги
-usedPhaseLedType_VOLTAGE_PRESENCE: Наявність напруги
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Наявність напруги (інвертована)
-'{count} minutes after sunrise': '{count} хвилин після сходу сонця'
-'{count} minutes after sunset': '{count} хвилин після заходу сонця'
-'{count} minutes before sunrise': '{count} хвилин до сходу сонця'
-'{count} minutes before sunset': '{count} хвилин до заходу сонця'
-'{days} days': '{days} днях'
+valveOpenConfirm_flooding: ~
+valveOpenConfirm_motorProblem: ~
+
 #</editor-fold>

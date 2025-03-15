@@ -6,10 +6,13 @@
 ...open gateways, gates or doors: ...odpreti vratca, dvoriščna vrata ali vrata
 ...or control home appliances: ...ali nadzirati z gospodinjskimi aparati/elektroniko
 ...you can monitor temperature: ...lahko spremljate temperaturo
+0% tilt angle: Kot lamel, ki ga žaluzija nastavi pri zapiranju
 10 minutes before sunset, on day 10 of the month, May through August: 10 minut pred sončnim zahodom, samo 10. dan v mesecu, od maja do avgusta
+100% tilt angle: Kot lamel, ki ga žaluzija nastavi pri odpiranju
 15 minutes after sunrise, every 2 days: 15 minut po sončnem vzhodu, vsak drugi dan
 A confirmation upon successful client app registration.: Potrdilo registracije nove odjemalske aplikacije.
 A confirmation upon successful device registration.: Potrdilo uspešne registracije naprave.
+A confirmation upon successful device unlocking.: Potrditev odklepanja naprave.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Nova odjemalska aplikacija (pametni telefon) je bila dodana do vašega računa SUPLA-Cloud.
 A new device has been added to your SUPLA-Cloud account.: Nova naprava je bila dodana do vašega računa SUPLA-Cloud.
 A new personal access token has been generated.: Ustvarjeno nov zasebni dostopni žeton
@@ -39,9 +42,12 @@ Action triggers: Sprožilci dejanja
 Actions: Dejanja
 Active: Aktivne
 Active applications: Aktivne aplikacije
+Active from: Aktivno od
 Active period: Obdobje dejavnosti
 Active sessions: Aktivne seje
+Active to: Aktivno do
 Active web sessions: Aktivne seje (splet)
+Activity conditions: Pogoji dejavnosti
 Add: Dodajte
 Add a delay: Dodajte zamik
 Add a new action to the scene: Dodajte na sceno novo dejanje
@@ -50,22 +56,34 @@ Add action: Dodajte dejanje
 Add first channel to set channel group function and save it: Izberite prvi kanal, da bi določili funkcijo skupine in jo shranili
 Add new channel group: Dodajte novo skupino kanalov
 Add new channel to this group: V skupino dodajte nov kanal
+Additional time margin: Dodatna časovna rezerva
 Adjust parameters: Nastavite parametre
+Adjust temperature: Nastavi temperaturo
+Adjust temperatures: Nastavi temperature
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Vsi kanali in skupine kanalov, ki uporabljajo to ikono, bodo po odstranitvi prejeli privzete ikone.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Po odobritvi dostopa si lahko vedno premislite in prekličete dostop v nastavitvah svojega računa.
+After the delay: Po določenem času
+After the delay, but only when it's dark: Po določenem času, vendar le, ko je tema
 After the device enters the configuration mode, it will not be accessible on your account.: Ko naprava preide v konfiguracijski način, ne bo več dostopna v vašem računu.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Po posodobitvi bo aplikacija hitrejša, bolj priročna ... Enostavno boljša!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: 'Po tej operaciji bo števec začel šteti od 0, ne glede na trenutno stanje. Tega dejanja ni mogoče razveljaviti. '
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Povezava bo ustvarjena takoj po izbiri subjekta. Vse druge možnosti lahko vnesete takoj, ko jih ustvarite.
 Aggregation: Združevanje
+Alarm armament sensor: Senzor za nastavitev alarma
+Algorithm: Algoritem
 All: Vse
 All events: Vsi dogodki
 All logs has been downloaded. Reload the chart to see them.: Vsi podatki o meritvah so bili preneseni. Če si želite ogledati grafikon, ga ponovno naložite.
+All programs must define at least one temperature threshold.: Vsak program mora določiti vsaj en temperaturni prag.
 All the above and many more can be done from your phone or tablet: Vse to in še veliko več, kar lahko storite s pametnim telefonom ali tabličnim računalnikom
 Allowed actions: Dovoljena dejanja
 Allows to perform an action only using the HTTP PATCH request.: Omogoča vam, da izvajate dejanja samo z zahtevo HTTP PATCH.
 Alternatively, you can add a GET parameter to specify response format.: Da določite format odgovora lahko prav tako dodate parameter GET.
+Always decrement: Vedno se zmanjšuje
+Always increment: Vedno raste
 And more: In še veliko več
+Anti-freeze and overheat protection: Zaščita pred pregrevanjem in zmrzovanjem
+Anti-freeze protection: Zaščita pred zmrzovanjem
 Any application or device that uses the {tokenName} token will not work anymore.: Vse aplikacije ali naprave, ki uporabljajo token {tokenName}, bodo prenehale delovati.
 'App version: %clientAppSoftwareVersion%': 'Različica aplikacije: %clientAppSoftwareVersion%'
 Application: Aplikacija
@@ -75,10 +93,14 @@ Applications: Aplikacije
 Applications with access: Aplikacija z dostopom
 Are you lost?: Ste se izgubili? Nekaj iščete?
 Are you sure you want to change channel’s function?: Ali ste prepričani, da želite spremeniti funkcijo kanala?
+Are you sure you want to change channel’s location?: Ste prepričani, da želite spremeniti lokacijo kanala?
+Are you sure you want to change channel’s visibility?: Ste prepričani, da želite spremeniti vidnost kanala?
+Are you sure you want to change device’s location?: Ste prepričani, da želite spremeniti lokacijo naprave?
 Are you sure you want to delete the entire measurement history saved for this channel?: Ali ste prepričani, da želite izbrisati vso zgodovino meritev, zbrano za ta kanal?
 Are you sure you want to delete the events from the voltage aberrations history?: Ali ste prepričani, da želite odstraniti vse dogodke iz zgodovine o aberaciji napetosti?
 Are you sure you want to delete this OAuth application?: Ali ste prepričani, da želite izbrisati to aplikacijo OAuth?
 Are you sure you want to delete this channel group?: Ali zares želite odstraniti to skupino kanalov?
+Are you sure you want to delete this channel?: Ste prepričani, da želite izbrisati ta kanal?
 Are you sure you want to delete this client?: Ali ste prepričani, da želite izbrisati to odjemalsko aplikacijo?
 Are you sure you want to delete this direct link?: Ali ste prepričani, da želite izbrisati to direktno povezavo?
 Are you sure you want to delete this icon?: Ali ste prepričani, da želite izbrisati to ikono?
@@ -109,20 +131,36 @@ Authentication successful: Prijava je bila uspešna
 Authorization callback URLs (one per line): Vrnite URL-je za avtorizacijo (po enega v vrstici)
 Authorize the application, so that it can access your account.: Dovolite aplikacijo, da lahko dobi dostop do vašega računa.
 Authorized: Overjeno
+Automatic: Samodejmo
 Automatic calibration: Samodejno umerjanje
 Automatic closing rule: Samodejno zapiranje vrat
+Automatic front panel turn off: Samodejni izklop sprednje plošče
+Automatic front panel turn off after: Čas za izklop sprednje plošče
+Automatic thermostat: Samodejni termostat
+Automatic time synchronization: Samodejna sinhronizacija datuma in časa
 Automation: Avtomatizacija
+Aux thermometer: Dodatni termometer
+Aux thermometer type: Vrsta dodatnega termometra
+Available variables: Razpoložljive spremembe
+Average: Povprečna
 Average voltage: Srednja napetost
 Back to apps list: Vrnitev na seznam aplikacij
 Bar: Bar
 Based on sunrise or sunset: Na podlagi sončnega vzhoda / zahoda
+Battery cover open: Odprt pokrov baterije
 Be notified when your channels change state: Obveščanje o spremembah stanja kanalov
 Be right back!: Vrnite se čez nekaj trenutkov!
+Behavior settings: Vedenje
 Below threshold: Pod pragom
+Binary sensor: Binarni senzor
 Body: Vsebina
 Bottom position: Spodnji položaj
 Bridge: Most
 Brightness: Svetlost
+Brightness adjustment for automatic mode: Prilagajanje svetlosti v samodejnem načinu
+Brightness level: Stopnja svetlosti
+Button volume: Glasnost gumba
+Buttons upside down: Upravljanje z gumbom za vzvratni pogon
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Če to možnost onemogočite, bo to napravo mogoče upravljati iz ravni integracije brez dodatne potrditve. To lahko povzroči nevarno ali manj varno stanje (npr. nenamerno odpiranje vrat).
 By signing in, you are authorizing {clientName} to control your devices.: S prijavo pooblastite aplikacijo {clientName} za nadzor vaših naprav.
 CLICK TO DISABLE: KLIKNITE, DA SE IZKLOPITE
@@ -134,10 +172,11 @@ Calibration successful.: Umerjanje uspešno
 Cancel: Prekličite
 Cancel changes: Prekličite spremembe
 Cancelled: Prekinjeno
+Candle: Svečni
 Cannot calculate when to run the schedule - incorrect configuration?: Ni bilo mogoče izračunati, kdaj zagnati urnik – napačna konfiguracija?
 Cannot change the channel function right now.: Trenutno ni mogoče spremeniti funkcije tega kanala.
 Cannot delete this I/O Device right now.: Trenutno ni mogoče odstraniti te naprave.
-Cannot execute an action when the device is disconnected.: Ko odklopite napravo, ne morete izvajati dejanj.
+Cannot update OCR settings. Try again in a while.: Nastavitev OCR ni bilo mogoče posodobiti. Poskusite znova čez trenutek.
 Captcha token is not valid.: Nepravilna captcha.
 Caption: Podpis
 Caption is too long.: Ime je predolgo.
@@ -146,8 +185,15 @@ Change Password: Sprememba gesla
 Change channel function: Spremenite funkcijo kanala
 Change function: Spremenite funkcijo
 Change icon: Spremenite ikono
+Change percentage by: Odstotek spremenite za
+Change percentage to: Odstotek spremenite v
 Change the password and log out: Spremenite geslo in se odjavite
+Change tilt by: Spremenite naklon za
+Change tilt to: Spremenite naklon na
+Change to be the same.: Nastavite enako.
 Changing channel’s function will also result in the following changes.: Sprememba funkcije kanala bo povzročila tudi naslednje spremembe.
+Changing channel’s visibility will also change the visibility of other items.: Če spremenite vidnost kanala, se spremeni tudi vidnost drugih elementov.
+Changing the location will also imply changing the location of the following items.: Sprememba lokacije bo vplivala tudi na spodnje elemente.
 Channel: Kanal
 Channel No: Številka kanala
 Channel available for {serviceName}: Kanal je na voljo za {serviceName}
@@ -163,6 +209,7 @@ Channel reference will be removed from the items below.: Kanal bo odstranjen iz 
 Channel with action triggers: Kanal s sprožilci dejanja
 Channels: Kanali
 Channels groups are not supported for this function.: Ta funkcija ne podpira skupin kanalov.
+Channels that are meant to work with each other must be in the same location.: Kanali, ki bodo delovali skupaj, morajo biti na isti lokaciji.
 Chart type: Vrsta grafike
 Check the direct link you used and try again.: Preverite poklicano direktno povezavo in poskusite znova.
 Check your email box: Preverite svojo e-pošto
@@ -185,33 +232,51 @@ Click the following link to confirm unregistration of your private SUPLA Cloud i
 Client registration: Registracija strank
 Client’s Apps: Odjemalske aplikacije
 Client’s app has been deleted: Odjemalska aplikacija je bila odstranjena
+Clock error: Napaka ure
 Close: Zaprite
 Close after: Zapri po
 Close automatically: Zapri samodejno
 Close partially: Delno zapri
+Close value: Končna vrednost
+Collapse: Zvij
+Collapse or stop: Zvijaj ali zaustavi
+Collapse partially: Delno zvij
 Colon: Podpičje
 Color: Barva
 Color brightness: Barvna svetlost
 Comma: Vejica
+Command has been sent to the device. Try refreshing the photo in a while.: Zahteva je bila poslana napravi. Čez trenutek poskusite osvežiti fotografijo.
 Comment: Opombe
+Common currencies: Najpogosteje izbrane valute
 Config of the schedule is too complicated.: Konfiguracija urnika je preveč komplicirana.
 Configuration: KKonfiguracija
+Configuration not available yet. Waiting for the device to connect.: Konfiguracija še ni na voljo. Počakajte, da se naprava poveže.
 Confirm My Account: Potrjujem Moj Račun
 Confirm Password: Potrditev gesla
+Confirm if you want to perform the calibration.: Potrdite, da želite izvesti kalibracijo.
 Confirm if you want to remove Access Identifier: Potrdite, da želite odstraniti Identifikator dostopa
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potrdite, da želite odstraniti ID lokacije {locationId}. Na to lokacijo se ne morejo povezati nobene druge naprave.
 Confirm if you want to remove {deviceName} device and all of its channels.: Potrdite, če želite odstraniti napravo {deviceName} in vse njene kanale.
 Confirmation: Potrditev
+Conflict: Konflikt
 Connected: Povezan
 Connection with a private instance of the SUPLA cloud: Povezava z zasebnim primerkom oblaka SUPLA.
 Constraints: Omejitve
+Cool to: Hladi do
+Cooling mode: Način hlajenja
+'Cooling: {percent}%': 'Hlajenje: {percent}%'
 Copy state from other channel: Kopirajte stanje iz drugega kanala.
+Costs: Stroški
 Could not contact Autodiscover service. Try again in a while.: Povezava s storitvijo registracije ni mogoča. Ponovno poskusite kasneje.
 Could not enter the configuration mode.: Naprave ni bilo mogoče preklopiti v konfiguracijski način.
 Could not reset the password.: Ponastavitev gesla ni bila uspešna.
 Could not reset the password. Please try again later.: Gesla ni mogoče ponastaviti. Poskusite znova čez trenutek.
+Could not restart the device.: Naprave ni bilo mogoče ponovno zagnati.
+Could not send the identify command.: Naročila ni bilo mogoče poslati.
+Could not set the device time.: V napravi ni bilo mogoče nastaviti datuma in časa.
 Counter: Števec
 Counter reset: Ponastavitev števca
+Counter type: Vrsta števca
 Create New Access Identifier: Ustvarite nov identifikator dostopa
 Create New Location: Ustvarite novo lokacijo
 Create New Schedule: Ustvarite nov urnik
@@ -224,16 +289,21 @@ Current: Tok
 Current Overload: Preobremenitev
 Current Password: Aktualno geslo
 Current password is incorrect: Trenutno geslo ni pravilno
+Curtain: Zavesa
 Custom: Po meri
 Custom execution limit: Omejitev zmogljivosti po meri
 DHT11 Temperature & Humidity Sensor: DHT11 senzor temperature in vlažnosti
 DHT21 Temperature & Humidity Sensor: DHT21 senzor temperature in vlažnosti
 DHT22 Temperature & Humidity Sensor: DHT22 senzor temperature in vlažnosti
 DS18B20 Thermometer: DS18B20 termometer
+Dark mode: Temni način
+Data: Podatki
 Data limits: Omejitve podatkov
 Data saved: Podatki so shranjeni
 Date: Datum
 Date and time: Datum in čas
+Date range: Obseg podatkov
+Daytime criteria: Merila glede na dolžino dneva
 Decline: Zavrnite
 Default: privzeto
 Delete: Izbrišite
@@ -241,18 +311,26 @@ Delete measurement history: Izbrišite zgodovino meritev
 Delete my account: Izbrišite moj račun
 Delete voltage aberrations history: Izbriši zgodovino napetostnih odstopanj
 Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Če izbrišete račun, bodo izbrisani tudi vsi vaši podatki, vključno s povezanimi napravami, konfiguriranimi kanali, neposrednimi povezavami in zgodovino meritev. Izbris računa je trajen.
+Dependencies: Odvisnosti
 Depth: Globina
 Depth sensor: Senzor globine
 Description: Opis
 Details: Podrobne informacije
 Device: Naprava
+'Device GUID: %deviceGuid%': 'GUID naprave: %deviceGuid%'
 'Device ID: %deviceId%': 'Identifikator naprave: %deviceId%'
+Device identification is unsupported in the firmware.: Identifikacija naprave ni podprta v vdelani programski opremi.
 Device is disconnected.: Naprava je odklopljena.
 Device might be sleeping: Naprava je morda v načinu mirovanja
 'Device name: %deviceName%': 'Ime naprave: %deviceName%'
+Device settings: Nastavitve naprave
 Device should be now in configuration mode.: Naprava bi morala bit zdaj v načinu konfiguracije.
+Device should be restarting now.: Naprava se mora znova zagnati.
 'Device software version: %deviceSoftwareVersion%': 'Različica programske opreme: %deviceSoftwareVersion%'
+Device time has been set.: Datum in čas naprave sta nastavljena.
 Device unavailable: Naprava ni na voljo
+Different than on master thermostat.: Nastavitev se razlikuje od nastavitve na glavnem termostatu.
+Differential thermostat: Diferencialni termostat
 Digi Glass: Digi Glass
 Digi Glass Horizontal: Digi Glass horizontalni
 Digi Glass Vertical: Digi Glass vertikalni
@@ -273,6 +351,8 @@ Disconnected: Odklopljen
 Distance: Razdalja
 Distance sensor: Senzor razdalje
 Do you want to be redirected there? You may be asked to authenticate again.: Ali želite biti preusmerjeni tja? Mogoče bo potrebna ponovna prijava.
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Ali želite, da so kanali, ki so odvisni od tega termostata (na primer termometri in senzorji), enaki kot v glavnem termostatu?
+Domestic hot water: Topla voda doma
 Don’t worry, you can always reset your password via email. Click here to do so.: Brez skrbi. Geslo lahko vedno ponastavite po e-pošti. Za to kliknite tukaj.
 Door lock operation: Odpiranje vrat
 Door opening sensor: Senzor odprtja vrat
@@ -281,14 +361,27 @@ Doors, Gates, Windows: Vrata, prehodi, okna
 Download measurements history: Prenesite zgodovino meritev
 Download the history of measurement: Prenesite zgodovino meritev
 Drag your image(s) here or click to select from the disk: Tu povlecite sliko ali kliknite, da izberete z diska
+Dryer: Razvlaževalnik zraka
 E-mail notifications: E-mail obvestila
 Edit: Uredite
+Edit area crop: Uredi območje
+Edit program settings: Uredi nastavitev programa
 Edit reaction: Uredite reakcijo
 Electric: Elektrika
 Electricity meter: Števec električne energije
+Electricity meter active power history: Zgodovina moči števca električne energije
+Electricity meter current history: Zgodovina intenzivnosti števca električne energije
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Števec električne energije ni poročal o možnosti konfiguriranja dodanih vrednosti. Posodobite vdelano programsko opremo naprave in poskusite znova.
+Electricity meter voltage aberrations history: Zgodovina odstopanj napetosti števca električne energije
+Electricity meter voltage history: Zgodovina napetosti števca električne energije
 Empty!: Prazno!
 Enable: Vklopite
+Enable floor temperature control: Vključite nadzor temperature tal
+Enable generic cooler temperature control: Omogočite nadzor temperature vira hlajenja
+Enable generic heater temperature control: Vključite nadzor temperature vira toplote
+Enable power status LED: Vklopite LED diodo stanja napajanja
+Enable support for OCR readings for this channel: Omogočite podporo OCR za ta kanal
+Enable water temperature control: Vključite nadzor temperature vode
 Enabled: Vklopljeno
 Enabled phases: Aktivne faze
 End date: Datum zaključka
@@ -306,6 +399,7 @@ Error when communicating the server. Try again in a while.: Pri komunikaciji s s
 Estimated execution time: Predviden čas za dokončanje
 Every: Kaj
 Example Auth URL: Vzorčni avtorizacijski URL
+Example value: Primer
 Execute: Izvedi
 Execute an action: Izvedi dejanje
 Executed action: Izvedeno dejanje
@@ -313,17 +407,30 @@ Executed without confirmation: Izvedeno brez potrdila
 Execution history: Zgodovina izvedb
 Execution limit: Omejitev izvedb
 Executions: Izvedbe
+Expand: Razvij
+Expand or stop: Razvijaj ali zadrži
+Expand partially: Delno razvij
 Expired: Potekel
 Expires at: Velja do
+External sensor disabling the thermostat: Zunanji senzor za izklop termostata
+Facade blind operation: Fasadne žaluzije
 Failed: Neuspešne
 Failed (zombie): Neuspešen (zombie)
+Fan: Mlin na veter
 Feature limits: Omejitve funkcij
+'Field: {propertyPath}.': Polje {propertyPath}.
 File format: Format datoteke
 File is too large: Datoteka je prevelika
+Fill missing data: Dopolnite manjkajoče meritve
+Firmware: Vdelana programska oprema
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Vdelana programska oprema te naprave pošilja obvestila v okviru tega kanala. Tu lahko nastavite vsebino in prejemnike. Za več informacij se obrnite na dobavitelja naprave.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Vdelana programska oprema te naprave pošilja obvestila. Tu lahko nastavite vsebino in prejemnike. Za več informacij se obrnite na dobavitelja naprave.
 Flooding: Poplava
+For a period: Za obdobje
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: V času posodobitve je priporočljivo, da uporabite naslov {suplaUrl}.
 For devices: Za naprave
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: Zaradi varnostnih razlogov bo celoten URL te neposredne povezave prikazan samo enkrat med njegovim ustvarjanjem.
+Forced off by sensor: Prisilna zaustavitev s senzorjem
 Forgot your password?: Pozabili ste geslo?
 Forward active energy: Aktivna porabljena energija
 Forward active energy balance: Bilanca vložene aktivne energije
@@ -335,8 +442,10 @@ From anywhere: Z vsakega mesta
 Full closing time: Skupni čas zaključka
 Full documentation: Celotna dokumentacija
 Full opening time: Skupni čas odpiranja
+Full tilting time: Skupni čas za spremembo naklona
 Fully opened sensor for channel: Kanalski senzor
 Function: Funkcija
+Function disabled: Funkcija je izklopljena
 G5LA1A Relay: G5LA1A rele
 G5LA1A Relay x2: 2xG5LA1A rele
 GENERATE: USTVARITE
@@ -349,6 +458,7 @@ Gate's state verification: Preverjanje statusa prehoda
 Gateway lock operation: Odpiranje vratc
 Gateway opening sensor: Senzor odprtja vratc
 General purpose measurement: Splošni merilni kanal
+General purpose meter: Kanal merilnika za splošne namene
 Generate new password: Ustvarite novo geslo
 Generate new token: Ustvarite nov token
 Generate token: Ustvarite token
@@ -362,12 +472,23 @@ Go to your account: Pojdite na svoj račun
 Grant access: Odobrite dostop
 Guru Meditation: Guru Meditation
 HFD4 Relay: HFD4 rele
+HVAC: HVAC
 Heat meter: Merilnik toplote
+Heat or cold source switch: Stikalo za vir toplote ali hladu
+Heat to: Ogrevaj do
+Heating / ventilation / air conditioning: Ogrevanje / prezračevanje / klimatizacija (HVAC)
+Heating mode: Način ogrevanja
+'Heating: {percent}%': 'Ogrevanje: {percent}%'
 Hide days without aberrations: Skrij dneve brez odstopanj
+High threshold: Visok prag
+High value: Maksimalna vrednost
+History: Zgodovina
 History of measurements: Zgodovina meritev
 Home appliances: Gospodinjski aparati/elektronika
+Home screen content: Vsebina začetnega zaslona
 Home+ Heater: Home+ grelec
 Host: Gostitelj
+Hotel card sensor: Senzor za hotelsko kartico
 However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: Na žalost se je trenutno uporaba naših strežnikov povzpela na nevarno raven. Situacijo nadzorujemo, vrnite se nekoliko kasneje.
 Humidity: Vlažnost
 Humidity Sensor: Senzor vlažnosti
@@ -385,14 +506,18 @@ ID: ID
 INACTIVE: NEAKTIVNA
 IP Address: IP naslov
 Icon: Ikona
+Identify device: Prepoznaj napravo
+Identify request sent.: Zahteva za identifikacijo je bila poslana.
 Idle: Nedejavno
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Če je naprava trenutno v načinu mirovanja, bodo spremembe konfiguracije začele veljati, ko se naprava prebudi.
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: Če naprava zdaj miruje, bo naslednjič, ko se prebudi, vstopila v konfiguracijski način.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Če povezava ne deluje, jo kopirajte v brskalno vrstico ali jo vpišite ročno.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Če ste programer, ki želi zagotoviti dodatne funkcije za SUPLO, ustvarite aplikacijo OAuth, ki jo lahko uporabniki overijo in uporabljajo.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Če ste prepričani, da imate račun na cloud.supla.org, preverite, ali je aplikacija, ki jo poskušate overiti, javna.
+If you confirm the installation and wish to unlock this device, please click the link below.: Če poskušate dodati novo napravo, kliknite spodnjo povezavo in potrdite odklepanje.
 If you did not request this password reset, please ignore this information.: Če niste zahtevali ponastavitve gesla, prezrite to sporočilo.
 If you do not want to delete your account on %cloudHost%, please do not click the link.: Če ne želite izbrisati svojega računa na %cloudHost%, ne klikajte na povezavo.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Če naprave ne poskušate odkleniti vi, tega e-poštnega sporočila ne upoštevajte. Povezava za potrditev samodejno poteče po 24 urah.
 If you do not want to unregister your instance, please do not click the link.: Če ne želite odjaviti svoje stopnje, ne kliknite povezave.
 If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: 'Če se nekaj minut ne povežete s to dostopno točko, se bo naprava znova zagnala in uporabila zadnje nastavitve. '
 If you have doubts or more questions, you can contact us directly at %securityEmail%.: Če imate kakršne koli dvome ali vprašanja, nas lahko kontaktirate tako, da nam pišete na naslov %securityEmail%.
@@ -407,6 +532,7 @@ If you wish not to receive such messages, change it in your account settings [he
 If you wish to register your instance, {clickHereLink}.: Če želite registrirati svojo stopnjo {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Če želite videti dostopne integracije, pojdite na {0}.
 If you wish to unregister your instance, {clickHereLink}.: Če želite preklicati registracijo svoje stopnje {clickHereLink}.
+Image area crop: Območje slike
 Impulse counter: Števec impulzov
 Impulses: Impulzi
 In order to confirm account deletion, enter your password.: Če želite potrditi namen izbrisa računa, vnesite svoje geslo.
@@ -414,9 +540,11 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Neaktiven
 Include energy corrections in new measurements history (not recommended): Vključite vrednost, ki je dodana v zgodovini (ni priporočljivo)
 Incorrect password: Nepravilno geslo
+Increment and decrement: Povečanje in zmanjšanje
 Incremental: Dodatne
 Information: Informacija
 Inherit I/O Device location: Uporabljajte lokacije naprave
+Installer e-mail address: E-poštni naslov monterja
 Integration with MQTT Broker has been disabled.: Integracija s posrednikom MQTT je bila onemogočena.
 Integration with MQTT Broker has been enabled.: Integracija s posrednikom MQTT je bila omogočena.
 Integrations: Integracije
@@ -426,12 +554,15 @@ Interrupt and execute: Prekini in izvedi
 Interval: Interval
 Invalid SUPLA Cloud URL.: Nepravilen URL naslov primerka SUPLA v oblaku.
 Invalid action parameters: Nepravilni parametri izvajanja.
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Naprava je registrirala kanal druge vrste ({typeCaption} - {typeId}) namesto trenutnega.
+Invalid e-mail address.: Nepravilen e-poštni naslov.
 Invalid function for channel.: Nepravilna funkcija za kanal
 'Invalid redirect URI: {uri}': 'Nepravilen povratni URL: {uri}'
 Invalid request: Nepravilna zahteva
 Invalid request.: Nepravilna zahteva.
 Invalid scene: Nepravulna scena
 Invalid token.: Nepravilni žeton.
+Invalid unlock code.: Nepravilna povezava za odklepanje.
 Invalid username or password: Neveljavno uporabniško ime ali geslo
 Inverted logic: Obrnjena logika
 Invisible: Nevidno
@@ -442,22 +573,31 @@ Keep in mind, that the humanized description of the entered crontab is not perfe
 Language is not available: Jezik ni na voljo
 Last access: Zadnja povezava
 Last connection: Zadnja povezava
+Last paired device: Zadnja seznanjena naprava
 Last used: Zadnji uporabljen
 Let me choose later: Dovolite, da izberem kasneje
+Light mode: Svetel način
 Light switch: Stikalo luči
 Lighting: Osvetlitev
+Lighting level: Raven svetlobe
+Lighting mode: Način osvetlitve
 Limit has been exceeded: Omejitev je bila presežena
 Linear: Linearni
 Liquid, Temp: Tekočina, temperatura
+List of available variables: Seznam razpoložljivih spremenljivk
 Location: Lokacija
 Location Identifier: Identifikator lokacije
 Location limit has been exceeded: Omejitev lokacije je bila presežena
 Location name: Ime lokacije
 Locations: Lokacije
+Locked: Zaklenjen
 Log out: Odjavi
 Login: Prijava
 Logs transformation: Preoblikovanje vrednosti
 Longest aberration: Najdaljše odstopanje
+Low threshold: Nizek prag
+Low threshold must be less than high threshold.: Spodnji prag mora biti nižji od visokega praga.
+Low value: Najmanjša vrednost
 Lower voltage threshold: Prag nizke napetosti
 MQTT Broker: Posrednik MQTT
 MQTT Broker Username: Uporabniško ime
@@ -466,6 +606,7 @@ MQTT Broker password: Geslo posrednika MQTT
 MQTT Broker password has been changed.: Geslo posrednika MQTT je bilo spremenjeno.
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Uporabniško ime ali geslo nista konfigurirana v tej stopnji.
 Mail sensor: Senzor pošte
+Main thermometer: Glavni termometer
 Maintenance mode active. You cannot modify any data now.: Delovanje v servisnem načinu. Ne morete spreminjati nobenih podatkov.
 Make sure to copy it now because you won’t be able to see it again!: Prepričajte se, da ju hranite na varnem mestu.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Poskrbite, da je shranjen na varnem mestu, če ga želite uporabiti v prihodnosti. Po zapustitvi te povezave povezava ne bo več prikazana.
@@ -473,17 +614,33 @@ Manage your new client app in the SUPLA-Cloud.: Upravljajte nastavitve aplikacij
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Upravljajte svojo napravo v SUPLA-Cloud ali z aplikacijo SUPLA na pametnem telefonu.
 Manual: Navodila
 Manually closed: Ročno zaprt
+Master thermostat: Glavni termostat
+Max: Maks.
 Maximum delay is 60 minutes.: Največji zamik je 60 minut.
+Maximum duration is one year.: Maksimalno obdobje je eno leto.
 Maximum filesize limit is {limit}.: Največja velikost datoteke je {limit}.
 Maximum voltage: Najvišja napetost
+Measurement settings: Nastavitve meritev
 Measurement window: Čas meritve
 Meter value: Stanje števca
 Meters: Števci
+Min: Min.
+Minimum OFF time before cooling can be turned on: Minimalni čas izklopa pred ponovnim zagonom hlajenja
+Minimum OFF time before heating can be turned on: Minimalni čas izklopa, preden se ogrevanje ponovno vklopi
+Minimum OFF time before heating/cooling can be turned on: Minimalni čas izklopa, preden se ponovno zažene hlajenje/ogrevanje
+Minimum ON time before cooling can be turned off: Minimalni čas izklopa, preden se hlajenje ponovno izklopi
+Minimum ON time before heating can be turned off: Minimalni čas vklopa, preden se ogrevanje ponovno izklopi
+Minimum ON time before heating/cooling can be turned off: Minimalni čas vklopa, preden se hlajenje/ogrevanje ponovno izklopi
+Minimum temperature must be lower than maximum temperature.: Minimalna temperatura mora biti nižja od maksimalne temperature.
 Minimum voltage: Najnižja napetost
 Missing action.: Brez dejanja
 Mode: Način
+'Mode: cool': 'Način: hlajenje'
+'Mode: heat': 'Način: ogrevanje'
+'Mode: off': 'Način: izklopljeno'
 Modification: Modifikacija
 Mondays: Ponedeljki
+Motor upside down: Povratni pogon motorja
 Move down or stop: Navzdol ali ustavi
 Move up or stop: Navzgor ali ustavi
 My OAuth apps: Moje OAuth aplikacije
@@ -504,6 +661,7 @@ New scene: Nova scena
 Newer: Novejše
 'Next limit renewal: {date}': Omejitev bo obnovljena {date}
 Next run date: Prihodnja izvršitev
+'No': Ne
 No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Nimate nobenih aktivnih identifikatorjev dostopa. Pojdite na {accessIdsListLink} ali {newAccessIdLink}.
 No function: Brez funkcije
 No future executions - schedule disabled: Brez načrtovanih nastopov - urnik izklopljen
@@ -514,20 +672,26 @@ No of channels: Število kanalov
 No of client apps: Število odjemalskih aplikacij
 No of devices: Število naprav
 No of operations: Število operacij
+No results: Ni najdenih zadetkov
 No schedule configuration.: Konfiguracija urnika ni bila dodana.
 No, take me back!: Ne, hočem stran!
+None: Ni prisotna
+None (channel disabled): Brez (kanal izklopljen)
+Noop: Brez operacij
+Notification: Obvestilo
+Notification body is set by the firmware.: Vsebino obvestila določi vdelana programska oprema.
+Notification must have a body.: Obvestilo mora imeti vsebino.
+Notification must have recipients.: Obvestilo mora imeti prejemnike.
+Notification title is set by the firmware.: Glavo obvestila nastavi vdelana programska oprema.
+Notifications: Obvestila
+Notifications (defined): Obvestila (opredeljeno)
+Notifications (sent per hour): Obvestila (poslana na uro)
 No{'.'} of Client’s apps: Število odjemalskih aplikacij
 No{'.'} of access identifiers: Število identifikatorjev dostopa
 No{'.'} of channel groups: Število skupin kanalov
 No{'.'} of channels: Število kanalov
 No{'.'} of devices: Število naprav
 No{'.'} of locations: Število lokacij
-None: Ni prisotna
-None (channel disabled): Brez (kanal izklopljen)
-Noop: Brez operacij
-Notification: Obvestilo
-Notification must have a body.: Obvestilo mora imeti vsebino.
-Notifications: Obvestila
 Number of aberrations: Število odstopanj
 Number of attempts to close: Število poskusov zapiranja
 Number of attempts to open: Število poskusov odpiranja
@@ -536,24 +700,36 @@ OAuth application: Aplikacija OAuth
 OAuth apps: Aplikacije OAuth
 OAuth authorization: Overitev OAuth
 OAuth integrations might stop working after the instance is unregistered.: Integracije z aplikacijami OAuth lahko prenehajo delovati po preklicu registracije vaše stopnje.
+'OCR service responded with error: {status}': 'Storitev OCR se je odzvala z napako: {status}.'
+OCR settings: Nastavitve OCR
 OK: OK
+OR: ALI
 'Off': Izklopite
+Off with duration: Izklopi na čas
 Offline access: Dostop brez povezave
 Older: Starejše
 'On': Vklopite
+On with duration: Vklopi na čas
 On/Off switch: Stikalo za vklop
 Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Dovoljena so samo imena domen z izbirno številko vrat. Na primer. mysupla.org ali mysupla.org:88. HTTPS je potreben.
 Open: Odprite
 Open / close: Odprite / Zaprite
 Open partially: Delno odpri
+Open value: Vrednost odpiranja
 Opening sensor: Senzor odprtja
 Operation: Operacija
 Operations: Operacije
 Original location: Originalna lokacija
 Other: Drugo
 Otherwise go to the homepage.: V nasprotnem primeru pojdite na [domačo stran].
+Output value on error: Status izhoda med napako
+Overheat protection: Zaščita pred pregrevanjem
+P/C: P/C
 PIN: PIN
 PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN za Google mora imeti najmanj {minLenght} in največ {maxLenght} številk.
+Pair new devices or sensors: Seznani nove naprave ali senzorje
+Pairing request sent.: Pošiljanje zahtevka za seznanjanje.
+Pairing subdevices is unsupported in the firmware.: Programska oprema naprave ne podpira seznanjanja.
 Partial opening sensor: Senzor posrednjega odprtja
 Partially opened sensor for channel: Kanal za senzor posrednjega odprtja
 Password: Geslo
@@ -573,19 +749,25 @@ Phase: Faza
 Phase 1: Faza 1
 Phase 2: Faza 2
 Phase 3: Faza 3
+Phase LED type: LED indikator faze
 Phase number: Faza
 Phase {phaseNumber}: Faza {phaseNumber}
+Photo interval: Interval fotografiranja
 Please choose the schedule subject first.: Najprej izberite predmet urnika.
 Please click the following link to reset your %cloudHost% password.: Kliknite spodnjo povezavo, da ponastavite geslo za %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Kliknite povezavo s sporočila, ki smo ga vam poslali po ustvaritvi računa.
 Please confirm your SUPLA account.: Aktivirajte svoj račun v SUPLA.
 Please enter a valid email address: Vnesite pravi enaslov
 Please fill a valid email address: Vnesite pravi e-naslov
+Please find the device details below.: Podrobnosti o napravi so na voljo spodaj.
 Please fix the problems with operations and try again.: Odpravite težave pri operacijah in poskusite znova.
 Please log in again to proceed.: Za nadaljevanje se ponovno prijavite.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Upoštevajte, da je zadevna naprava namenjena samo pooblaščenim monterjem.
 Please provide a valid domain name for your private SUPLA Cloud: Vnesite pravo ime domene za vaš zasebni oblak SUPLA
+Please provide the installer e-mail address to request the device unlock.: Če želite napravo odkleniti, vnesite e-poštni naslov, ki ste ga navedli pri pridobivanju namestitvenega potrdila.
 Please read the Terms and Conditions.: Preberite predpise.
 Please select a condition: Izberite pogoj
+Please select and configure the action: Izberite in konfigurirajte dejanje.
 Please wait a moment before the next login attempt.: Počakajte trenutek, preden se spet prijavite.
 Port: Port
 Power active: Aktivna energija
@@ -599,10 +781,14 @@ Private Cloud domain name: Ime domene zasebnega oblaka
 Private instance of the SUPLA cloud with given URL is already registered.: Pod tem naslovom je že registriran privaten oblak SUPLA.
 Proceed: Nadaljujte
 Processing: V obdelavi
+Program {programNo}: Program {programNo}
+Projector screen: Projekcijski zaslon
 Protocol: Protokol
 Public ID: Javni ID
 Publish to integrations: Objavite v stopnjo
 Publishes the event to integrated services like MQTT or webhooks.: Obvesti integracije, kot je MQTT ali webhooks, ko je izvedeno to dejanje.
+Pump switch: Stikalo črpalke
+Push notifications limit has been exceeded: Omejitev za potisna obvestila je bila presežena
 RESET: PONASTAVITE
 RGB led controller: RGB svetlobni regulator
 RGB lighting: RGB osvetlitev
@@ -614,6 +800,9 @@ Read: Branje
 Recipients: Prejemniki
 Reference to the scene will be removed from the items below.: Oznaka scene bo odstranjena iz naslednjih elementov.
 Refresh: Osvežite
+Refresh interval: Interval osveževanja
+Refresh the config: Osveži konfiguracijo
+Refreshing the configuration will overwrite the changes you made here.: Osvežitev konfiguracije bo prepisala spremembe, ki so bile vnesene v obrazec.
 Regeneration starts at: Začetek regeneracije
 Register: Registrirajte se
 Register a new OAuth application: Registrirajte novo aplikacijo OAuth
@@ -624,30 +813,41 @@ Registered: Registrirani
 'Registered from IP address: %deviceRegIp%': 'Naslov IP: %deviceRegIp%'
 Relay: Rele
 Relay switching time: Čas vklopa releja
+Reload last photo: Ponovno naložite zadnjo fotografijo
 Reload the chart: Ponovno naloži grafikon
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Preden izbrišete lokacijo, morate najprej premakniti skupine kanalov v njej. Identifikatorji: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Preden izbrišete lokacijo, morate najprej premakniti kanale v njej. Identifikatorji: {relatedIds}.'
+Remote restart is unsupported in the firmware.: Programska oprema naprave ne podpira oddaljenega ponovnega zagona.
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Preden izbrišete to lokacijo, odstranite povezane naprave. Identifikatorji: {relatedIds}.'
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Izbrišite vse povezane scene, preden izbrišete to lokacijo. Identifikatorji: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Najprej odstranite vse naprave, ki uporabljajo to lokacijo kot prvotno lokacijo. Identifikatorji: {relatedIds}.'
+Remove this item: Odstrani ta element
 Repeat password: Ponovite geslo
+Request device unlock: Uporabite za odklepanje naprave
 Reset Your Password: Nastavite novo geslo
 Reset counter: Ponastavite števec
+Reset to defaults: Obnovitev privzetih vrednosti
+Restart device: Ponovni zaženi napravo
+Restart the device: Ponovni zaženi napravo
 Retry on failure: Ponovite, ko še niste končali
 Reveal: Razkrijte
+Reveal or stop: Razkrij ali zaustavi
 Reveal partially: Delno razkrijte
 Reverse active energy: Vrnjena aktivna energija
 Reverse active energy balance: Bilanca vrnjene aktivne energije
 Reverse active energy balanced: Vrnjena aktivna energija (vektorsko ravnovesje)
 Reverse reactive energy: Vrnjena reaktivna energija
 Revoke: Prekličite
+Roller garage door: Garažna vrata
 Roller shutter opening sensor: Senzor odprtja rolet
 Roller shutter operation: Odpiranje in zapiranje rolet
 Roller shutters: Rolete
 Roof window opening sensor: Senzor odpiranja strešnega okna
 Roof window shutter operation: Odpiranje strešnega okna
+S/N: S/N
 SUPLA - Account Activation: SUPLA - Aktivacija računa
 SUPLA - Account Removal: SUPLA - Brisanje računa
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Odklepanje naprave za pooblaščenega monterja
 SUPLA - Password reset: SUPLA - Ponastavitev gesla
 SUPLA - Private instance unregistration: SUPLA – odjava zasebne stopnje
 SUPLA Cloud is under maintenance.: Poteka posodabljanje SUPLA Cloud.
@@ -658,7 +858,9 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - Obvestilo o neuspešni prijavi na %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA – registracija nove odjemalske aplikacije
 SUPLA – new device has been added to your account: SUPLA – nova naprava je bila dodana v vaš račun
+SUPLA – your device has been unlocked!: SUPLA - Vaša naprava je bila odklenjena!
 SUPLA.ORG Team: Skupina SUPLA.ORG
+Same as on master thermostat.: Nastavitev je enaka kot na glavnem termostatu.
 Saturdays: Sobote
 Save: Shranite
 Save and enable: Shranite in vklopite
@@ -677,6 +879,7 @@ Schedules: Urniki
 Scope: Področje uporabe (scope)
 Scopes: Obsegi
 Scopes define which sections of your account can be accessed when using the token.: Obsegi določajo, do katerih virov računa lahko dostopate s pomočjo tokena.
+Screen brightness: Svetlost zaslona
 Search: Iščite
 Secret: Skrivni ključ (secret)
 Security: Varnost
@@ -687,6 +890,7 @@ See in SUPLA-Cloud: Oglejte si v SUPLA-Cloud
 Seems like a secret place: Nekaj nam govori, da ne bi smeli biti tukaj
 Select icon: Izberite ikono
 Select the item (subject) you want to control using this link: S to povezavo izberite element (subjekt), ki ga želite nadzirati
+Selected: Izbrane
 Selected device has been logged out.: Izbrana naprava je bila odjavljena
 Send a notification: Pošljite obvestilo
 Send notification: Pošljite obvestilo
@@ -695,12 +899,18 @@ Sensors: Senzorji
 Server address: Naslov strežnika
 Server unreachable: Strežnik nedosegljiv
 Service temporarily unavailable: Storitev trenutno ni na voljo
+Set HVAC parameters: Nastavi parametre
+Set the device time: V napravi ni bilo mogoče nastaviti datuma in časa.
 Set value added: Določite dodano vrednost
 Set values for each phase separately: Določite vrednost za vsako fazo posebej
 Setting the number of attempts to 1 disables the retrying behavior completely.: Nastavitev števila poskusov na manj kot 2 lahko povzroči neuspešno zapiranje ali odpiranje.
+Settings: Nastavitve
+Settings have not been saved!: Nastavitve niso bile shranjene!
+Show data: Pokaži podatke
 Show my limits: Prikaži moje omejitve
 Show on the Client’s devices: Pokažite na odjemalskih napravah
 Shut: Zastrite
+Shut or stop: Prikrij ali zaustavi
 Shut partially: Delno zastrite
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Zaprite roleto dokler se ne dotakne spodnjega roba in vnesite odstotek zapiranja v tisto polje. Ta operacija ni obvezna, ampak bo izboljšala vizualizacijo stanja rolete v mobilni aplikaciji.
 Sign In: Prijava
@@ -708,9 +918,11 @@ Sign Out: Odjava
 Sign in temporarily unavailable. Please try again later.: Prijava trenutno ni na voljo. Poskusite znova pozneje.
 Smartphones: Pametni telefoni
 SoftVer: WerOpr
+Some features depend on this channel: Nekatere funkcije so odvisne od tega kanala.
 Some features depend on this channel group: Nekatere funkcije so odvisne od te skupine kanalov.
 Some features depend on this device: Nekatere funkcije so odvisne od te naprave
 Some features depend on this scene: Nekatere funkcije so odvisne od te scene.
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Nekateri podatki, zbrani za vaš račun, bodo po določenem času izbrisani. Seznanite se s spodnjimi omejitvami.
 Some of the features you have configured depend on channels from this device.: Nekatere funkcije uporabljajo kanale te naprave.
 Staircase timer: Stopniščni avtomat
 Start Here: Začnite tukaj
@@ -718,24 +930,38 @@ Start date: Datum začetka
 Start from the homepage.: Začnite z domače strani.
 State: Stanje
 State webhook: Webhook stanja
+Status LED: LED dioda stanja
 Step by step: Korak za korakom
 Stop: Ustavite
+Store active power history: Shrani zgodovino aktivne moči
+Store current history: Shrani zgodovino napetosti toka
 Store measurements history: Shranite zgodovino meritev
+Store voltage history: Shrani zgodovino napetosti
+'Subdevice #{id}': 'Podizvajalska naprava #{id}'
+Subfunction: Podfunkcija
 Subject type: Vrsta subjekta
 Success: Uspeh
 Successful: Uspešno
 Summary for selected time range: Povzetek za izbrano področje uporabe
 Sundays: Nedelje
 Switch the device to configuration mode: Preklopite napravo v konfiguracijski način
+Switch to manual mode: Preklop na ročni način
+Switch to program mode: Preklopi na programski način
+THEN: POTEM
 THIS CANNOT BE UNDONE!: TE OPERACIJE NI MOGOčE UMAKNITI!
 TLS: TLS
 Tab: Tabulator
+Take a photo now: Fotografiraj zdaj
 Target Cloud is not registered, or is registered with another e-mail address.: Ta stopnja SUPLA Cloud ni registrirana ali je registrirana z drugim e-naslovom.
 Temperature: Temperatura
 Temperature & Humidity Sensor: Senzor temperature in vlažnosti
 Temperature Sensor: Temperaturni senzor
 Temperature adjustment: Prilagoditev temperature
 Temperature and humidity sensor: Senzor temperature in vlažnosti
+Temperature difference is too big between {min}°C and {max}°C.: Temperaturna razlika med {min}°C in {max}°C je prevelika.
+Temperature setpoint change switches to manual mode: Sprememba ciljne temperature preklopi na ročni način
+Temporal override: Začasna razveljavitev
+Terrace awning: Terasna markiza
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Hvala za registracijo računa na %cloudHost%. Za dokončanje aktivacije kliknite spodnjo povezavo.
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Zahvaljujoč integracijam lahko v svoj račun enostavno dodate nove funkcije z uporabo rešitev, ki jih nudijo zunanji dobavitelji, programerji ali vi sami.
 'The IP used for login is: %ip%': 'Poskus prijave je bil izveden iz naslova IP: %ip%'
@@ -744,13 +970,21 @@ The SUPLA infrastructure is being updated.: Strežniki SUPLA se posodabljajo.
 The Terms and Conditions have changed: Predpisi so se spremenili
 The Terms and Conditions have changed – please read them and accept.: Predpisi o spletnem mestu so se spremenili - potrebna je njegova odobritev.
 The activation link has been sent again. Check the inbox.: Ponovno je bilo poslano sporočilo s povezavo za aktiviranje vašega računa. Preverite poštni nabiralnik.
+The channel has been deleted.: Kanal je bil odstranjen.
 The client will be automatically logged out when deleted.: Če stranko odstranite, se bo takoj odjavil.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfiguracija je bila spremenjena z drugega mesta (npr. iz drugega okna brskalnika, mobilne aplikacije ali naprave). Pred nadaljnjimi spremembami morate osvežiti konfiguracijo.
 The counter has been reset.: Števec je ponastavljen.
+The device could not be unlocked.: Naprave ni bilo mogoče odkleniti.
+The device has been unlocked already.: Naprava je že odklenjena.
+The device has been unlocked.: Naprava je bila odklenjena.
+The device has channel conflict and cannot work.: Naprava je ustvarila konflikt kanalov in trenutno ne more delovati.
 The device is disabled: Naprava je izklopljena
+The device is locked: Naprava je zaklenjena
 The device might be in a sleep mode.: Naprava lahko deluje v načinu mirovanja.
 The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Naprava, ki bo uporabila to sejo, bo izgubila dostop do storitve SUPLA Cloud. Če želite nadaljevati z uporabo aplikacije, se boste morali vanjo znova prijaviti.
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Odstranjena bo vsa zgodovina aberacije napetosti za fazo {phaseNumber}.
 The entire history of the voltage aberrations will be removed from this channel.: Za ta kanal se odstrani vsa zgodovina aberacije napetosti.
+The following channels will be also removed along with their dependencies.: Odstranjeni bodo tudi naslednji kanali in njihove odvisnosti.
 The following items use the channels of these device. These references will be also removed.: Naslednji elementi uporabljajo kanale iz te naprave. Tudi ti bodo odstranjeni.
 'The following items will be deleted with this device:': Naslednji elementi bodo tudi odstranjeni s to napravo.
 The gate sensor must function properly in order to execute the Open and Close actions.: Senzor odpiranja vrat mora pravilno delovati, da izvede dejanje Odpri ali Zapri.
@@ -761,6 +995,7 @@ The items below depend on this channel group, so they will be deleted.: Naslednj
 The items below depend on this scene, so they will be deleted.: Spodnji elementi temeljijo na tej sceni, zato bodo odstranjeni.
 The latest execution: Zadnja izvršitev
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Rezultat izvajanja je predstavljen kot spletno mesto, ker ste (ali vaš brskalnik) zaprosili za odgovor v obliki HTML.
+The master termostat you chose already has a master.: Glavni termostat, ki ste ga izbrali, že ima drug glavni termostat.
 The measurement history has been deleted.: Zgodovina meritev je izbrisana.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Novo geslo bo zamenjalo obstoječe. Nekatere trenutne integracije morda ne bodo več delovale. Želite nadaljevati?
 The next available executions: Naslednje izvršitve
@@ -777,24 +1012,39 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Strežnik je vrnil napako HTTP 404. To pomeni, da iskani izdelek ne obstaja.
 The server has returned an HTTP {statusCode} error.: Strežnik je vrnil napako {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Izbrane datoteke ikon so prevelike. Največja dovoljena velikost nalaganja je {limit}.
+The thermostat will not work if the main thermometer is not set.: Glavni termometer mora biti nastavljen, da termostat deluje.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Ventila ni mogoče odpreti prek neposredne povezave ali prek API-ja, če je bil ročno zaprt. Za nadaljevanje nadzora ročno odprite ventil.
-valveOpenConfirm_manual: Ventil je bil zaprt ročno ali na daljavo. Preden ga odprete, se prepričajte, da ni zaprt zaradi poplave. Če želite onemogočiti opozorilo, ročno odprite ventil. Ali ste prepričani, da želite ventil odpreti na daljavo?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Ventil se ne bo odprl, če je bil zaprt ročno ali na daljavo, kar bi lahko bilo povezano s poplavljanjem.
 There are no more channels you can add to this group: V to skupino ni mogoče dodati drugih kanalov
 Thermometer: Termometer
+Thermometer error: Napaka termometra
+Thermometers configuration: Konfiguracija termometrov
 Thermostat: Termostat
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Ta termostat uporablja nastavitve glavnega termostata. Pojdite na stran s podrobnostmi in spremenite nastavitve.
+Thermostat programs: Programi termostata
+This action will result in restarting the device. It will not be available for a while.: Če naročite to operacijo, se naprava znova zažene. Med ponovnim zagonom naprava ne bo dostopna.
+This channel was missing during last device registration attempt.: Ta kanal v napravi manjka.
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Ta naprava je namenjena distribuciji in namestitvi, ki jo lahko opravijo le pooblaščeni monterji. Če niste pooblaščeni monter SUPLA in nimate aktivnega potrdila o usposabljanju, ga vrnite prodajalcu.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ta neposredna povezava zahteva določitev parametrov izvajanega dejanja. Oglejte si spodnje primere, če želite izvedeti, katere parametre lahko nastavite.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: To informacijo prejemate zaradi neuspešnega poskusa prijave v SUPLA-CLOUD s svojim e-naslovom.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: To je zadnja faza brisanja računa. Z izpolnitvijo in odobritvijo obrazca bodo vaši podatki nepovratno izbrisani.
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: To je zadnja fotografija, poslana iz naprave. Natančno označite območje, kjer so vidne številke števca.
 This is the list of applications you have granted access to your account.: To je seznam aplikacij, katerim ste odobrili dostop do svojega računa.
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: To je seznam reakcij, ki se izvajajo v vašem računu. Če želite dodati novo reakcijo, pojdite v podrobnosti kanala, ki naj jo sproži.
 This link is only valid for an hour.: Povezava bo aktivna eno uro.
 'This password will protect your home. Therefore, it must:': 'To geslo bo zaščitilo vaš dom. Zato:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ta način urnika je zasnovan za tehnično usposobljene ali zelo potrpežljive uporabnike. Zahteva, da so časi sprožitve urnika določeni v zapisu crontab, obogatenem z več funkcijami, ki jih najdemo le v SUPLI. Če prej še niste naleteli na crontabe in še vedno želite uporabljati ta način, vam bo morda v pomoč spletno mesto crontab.guru.
+This thermostat is controlled by another device.: Ta termostat upravlja glavni termostat.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ta sprožilec uporablja naprava lokalno (npr. prižge luč ali krmili roleto). Če mu dodelite drugo dejanje, bo lokalna funkcija onemogočena.
 Thursdays: Četrtki
+Tilt angle: Kot naklona
+Tilt control type: Vrsta krmiljenja naklona
+Tilt percent: Odstotek naklona
+Time: Čas
 Timezone: Časovni pas
 Title: Naslov
 To: Do
+Today, it would be active from {from} to {to}.: Danes je obdobje dejavnosti med {from} in {to}.
 Toggle: Preklopite
 Token does not exist: Token ne obstaja
 Too many actions in this schedule.: Preveč dejanj v enem urniku.
@@ -803,6 +1053,7 @@ Too many operations in this scene: Preveliko operacij v sceni.
 Total: Skupaj
 Total time: Skupni čas
 Tuesdays: Torki
+Turn off: Izklopi
 Turning this device off will cause its channels not working in the following features.: Če napravo izklopite, bodo njeni kanali prenehali delovati v naslednjih elementih.
 Turning this device off will result in disabling features listed below.: Če napravo izklopite, bodo izklopljeni tudi spodnji elementi.
 Type: Tip
@@ -810,25 +1061,34 @@ Undo registration: Prekliči registracijo
 Unit: Enota
 Unknown: Neznan
 Unknown browser: Neznani brskalnik
+Unlock the device: Odklepanje naprave
 Unregister my private SUPLA Cloud instance: Odjavi mojo zasebno instanco SUPLA Cloud
 Unsuccessful login attempt: Nauspešna prijava
 Unsupported function: Nepodprta funkcija
 Unsupported type: Nepodprti tip
+Until a date and time: Do
+Until the next change: Do naslednje izmene
 Update in progress: Posodobitev v teku
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Poslane datoteke ne kršijo veljavnih običajev spodobnosti, avtorskih pravic in pravic tretjih oseb, in jaz jih imam pravico uporabljati.
 Upper voltage threshold: Prag visoke napetosti
-"Use the {0} server command to change this account's limits. For example:": 'Če želite spremeniti omejitve za ta račun, uporabite ukaz {0} na svojem strežniku. Na primer:'
-Use working schedule for this access identifier: Uporabite urnik razpoložljivost za ta identifikator dostopa
+Use device default: Uporabite privzeto vrednost iz naprave
+'Use the {0} server command to change this account''s limits. For example:': 'Če želite spremeniti omejitve za ta račun, uporabite ukaz {0} na svojem strežniku. Na primer:'
+Use {theMasterThermostat} to control this device.: Uporabite {theMasterThermostat} za nadzor te naprave.
+Used current transformer type: Uporabljen tokovni transformator
 User is already confirmed. Try to log in.: Ta račun je že potrjen. Prijava
 Value: Vrednost
 Value added: Dodana vrednost
+Value divider: Razdelilnik
+Value multiplier: Množitelj
 Value separator: Separator
 Valve: Ventil
 Valve closed manually: Ventil je bil zaprt ročno
 Vector balance: Vektorsko ravnotežje
 Verification method: Način potrjevanja
+Vertical blind: Vertikalne žaluzije
 Visible: Vidno
 Visit app webpage: Odprite spletno mesto aplikacij
+Visit the master thermostat page.: Pojdite v glavni termostat.
 Voltage: Napetost
 Voltage aberrations: Napetostna odstopanja
 Voltage monitoring: Nadzor napetosti
@@ -846,6 +1106,7 @@ We have been asked to unregister your private SUPLA Cloud instance (%targetCloud
 We have just sent you an activation link. You should be receiving it shortly.: Pravkar je bilo poslano sporočilo s povezavo za aktiviranje vašega računa. Bodite potrpežljivi.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Poslali smo vam e-sporočilo s povezavo, s katerim potrdite izbris vašega računa. Morda si boste premislili!
 We have sent you an email with further instructions.: Poslali smo vam sporočilo z nadaljnjimi navodili.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Prejeli smo zahtevo za odblokiranje naprave, namenjene samo certificiranim monterjem. Zahtevo je poslal uporabnik %deviceUserEmail% iz namestitve SUPLA Cloud na naslovu %targetCloudUrl%.
 We should be ready shortly.: Kmalu bomo zaključili.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Podatke o vaših nastavitvah hranimo na vašem brskalniku, da olajšamo uporabo aplikacije (npr. z uporabo piškotkov).
 We try to be faster: Čedalje hitrejši smo
@@ -857,6 +1118,8 @@ We will try to display the received icons the best possible way, however you wil
 We will use it only in justified situations.: Uporabili ga bomo le v upravičenih primerih.
 Weather Station: Vremenska postaja
 Wednesdays: Srede
+Week: Teden
+Weekly schedule: Tedenski urnik
 Weight sensor: Teža
 Welcome!: Pozdravljeni!
 What this token is for?: Kaj naredi ta token?
@@ -869,14 +1132,21 @@ When liquid or lack thereof is detected: Ko se zazna tekočina ali pomanjkanje l
 When the RGB lighting brightness level changes: Ko se spremeni raven svetlosti osvetlitve RGB
 When the RGB lighting reaches a certain level of brightness: Ko osvetlitev RGB doseže določeno raven svetlosti
 When the active power will be: Kdaj bo moč aktivna
+When the alarm is armed: Ko je nastavljen alarm
+When the alarm is armed or disarmed: Ko je alarm deaktiviran ali nastavljen
+When the alarm is disarmed: Ko se sproži alarm
 When the apparent power will be: Kdaj bo moč navidezna
 When the balanced forward active energy will be: Ko je uravnotežena, bo vhodna energija aktivna
 When the balanced reverse active energy will be: Ko je uravnotežena, bo vrnjena energija aktivna
+When the battery cover is opened: Ko odprete pokrov baterije
 When the brightness level changes: Ko se stopnja svetlosti spremeni
 When the brightness will be: Ko bo stopnja svetlosti
+When the clock error has been reported: Ko časovnik sporoči napako
 When the color changes: Ko se barva spremeni
 When the condition is met: Ko je pogoj izpolnjen
 When the current will be: Kdaj bo elektrika
+When the curtain position changes: Ko zavesa spremeni položaj
+When the curtain reaches a certain position: Ko zavesa doseže določen položaj
 When the depth changes: Ko se meritev globine spremeni
 When the depth is: Kdaj bo meritev globine
 When the device is turned off: Ko je naprava izklopljena
@@ -892,6 +1162,8 @@ When the door will be opened or closed: Ko so vrata zaprta ali odprta
 When the electricity meter reaches a certain value: Ko števec energije doseže določeno vrednost
 When the electricity meter value changes: Ko se spremeni vrednost števca električne energije
 When the electricity meter value will be: Ko bo vrednost števca energije
+When the facade blind position changes: Ko fasadna žaluzija spremeni položaj
+When the facade blind reaches a certain position: Ko fasadna žaluzija doseže določen položaj
 When the forward active energy will be: Kdaj bo zbrana energija aktivna
 When the garage door will be closed: Ko so garažna vrata zaprta
 When the garage door will be opened: Ko so garažna vrata odprta
@@ -908,27 +1180,37 @@ When the gateway will be opened or closed: Ko so dvoriščna vrata zaprta ali od
 When the heat meter value changes: Ko se vrednost števca spremeni
 When the heat meter value reaches a certain value: Ko toplotni števec doseže določeno vrednost
 When the heat meter value will be: Ko bo vrednost toplotnega števca
+When the hotel card has been taken: Ob odvzemu hotelske kartice
+When the hotel card is put in: Ko je vstavljena hotelska kartica
+When the hotel card is put in or has been taken: Ob vstavitvi ali izvleku hotelske kartice
 When the humidity changes: Ko se vlažnost spremeni
 When the humidity reaches a certain level: Ko vlažnost doseže določeno raven
 When the humidity will be: Ko bo vlažnost
 When the lighting reaches a certain level of brightness: Ko osvetlitev doseže določeno stopnjo svetlosti
 When the mail comes or is taken: Ko pošta prispe ali je prevzeta
 When the mail has been taken: Kdaj je pošta prejeta
+When the meter reaches a certain value: Ko števec doseže želeno vrednost
+When the meter value changes: Ko se vrednost spremeni
+When the meter value will be: Ko je vrednost
 When the precipitation amount will be: Ko bo izmerjena količina dežja
 When the pressure changes: Ko se tlak spremeni
 When the pressure reaches a certain level: Ko tlak doseže določeno raven
 When the pressure will be: Ko bo pritisk
+When the projector screen position changes: Ko projekcijsko platno spremeni položaj
+When the projector screen reaches a certain position: Ko projekcijsko platno doseže določen položaj
+When the pump is turned off: Ko je črpalka izklopljena
+When the pump is turned on: Ko je črpalka vklopljena
+When the pump is turned on or off: Ob vklopu ali izklopu črpalke
 When the rain amount changes: Ko se spremeni količina padavin
 When the reactive power will be: Ko bo moč neaktivna
 When the reverse active energy will be: Ko bo vrnjena energija aktivna
+When the roller garage door position changes: Ko garažna vrata spremenijo položaj
 When the roller shutter position changes: Ko se spremeni položaj rolete
-When the roller shutter reaches: Ko roleta doseže
 When the roller shutter reaches a certain position: Ko roleta doseže določen položaj
 When the roller shutter will be closed: Ko je roleta zaprta
 When the roller shutter will be opened: Ko je roleta odprta
 When the roller shutter will be opened or closed: Ko je roleta odprta ali zaprta
 When the roof window position changes: Ko se spremeni položaj strešnega okna
-When the roof window reaches: Ko strešno okno doseže
 When the roof window reaches a certain position: Ko strešno okno doseže določen položaj
 When the roof window will be closed: Ko je strešno okno zaprto
 When the roof window will be opened: Ko je strešno okno odprto
@@ -936,11 +1218,25 @@ When the roof window will be opened or closed: Ko je strešno okno zaprto ali od
 When the temperature changes: Ko se spremeni temperatura
 When the temperature reaches a certain value: Ko temperatura doseže določeno vrednost
 When the temperature will be: Ko bo temperatura
+When the terrace awning position changes: Pri spremembi položaja senčila na terasi
+When the terrace awning reaches a certain position: Ko terasna markiza doseže določen položaj
+When the thermometer error has been reported: Ko termometer javi napako
+When the thermostat starts cooling: Ko se termostat začne ohlajati
+When the thermostat starts heating: Ko se termostat začne segrevati
+When the thermostat starts heating or cooling: Ko začne termostat hladiti ali ogrevati
+When the thermostat starts or stops cooling: Ko termostat začne ali preneha hladiti
+When the thermostat starts or stops heating: Ko termostat zažene ali ustavi ogrevanje
+When the thermostat starts or stops heating or cooling: Ko termostat zažene ali ustavi ogrevanje ali hlajenje
+When the thermostat stops cooling: Ko termostat preneha hladiti
+When the thermostat stops heating: Ko termostat preneha ogrevati
+When the thermostat stops heating or cooling: Ko termostat preneha hladiti ali ogrevati
 When the value will be: Ko bo vrednost
 When the valve is closed: Ko je ventil zaprt
 When the valve is manually closed: Ko je ventil ročno zaprt
 When the valve is opened: Ko je ventil odprt
 When the valve is opened or closed: Ko je ventil zaprt ali odprt
+When the vertical blind position changes: Ko navpična žaluzija spremeni položaj
+When the vertical blind reaches a certain position: Ko navpična žaluzija doseže določen položaj
 When the voltage will be: Ko bo napetost
 When the water meter reaches a certain value: Ko števec vode doseže določeno vrednost
 When the water meter value changes: Ko se vrednost števca vode spremeni
@@ -959,21 +1255,26 @@ When you execute the link with HTTP PATCH method, you can omit the random part o
 Where is the JSON?: Kje je JSON?
 Where is your SUPLA Cloud?: Kje se nahaja vaša Supla?
 White: Bel
+Will be deleted after: Odstranitev po
 Wind sensor: Senzor za veter
 Window opening sensor: Senzor odprtja oken
 With SUPLA you can operate the lights in your home or office: S SUPLO lahko nadzorujete osvetlitev v vaši hiši ali pisarni
+With a timer: S časovnikom
 With function: S funkcijo
 Working period: Obdobje delovanja
-Working schedule: Urnik aktivnosti
 YOUR LINK CODE: VAŠ KODEK POVEZAVE
+'Yes': Da
 You are changing the settings too quickly. You have to wait a while before making this change.: Prehitro spreminjate nastavitve. Preden spremenite te nastavitve, morate počakati nekaj časa.
 You can browse only the most recent logs now. Wait a while for the full history.: Trenutno so prikazane samo zadnje meritve. Počakajte nekaj časa, da se prenese celotna zgodovina.
 You can ignore this message, if you have accidentally entered an incorrect password.: To informacijo lahko prezrete, če ste vnesli napačno geslo.
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Tu lahko nastavite relativne vrednosti. Na primer, +10 ali -20 poveča nastavitev za 10 ali zmanjša za 20.
 You can use the application but you will not be able to modify any settings.: Aplikacijo lahko uporabljate, vendar ne morete vnašati sprememb namestitev.
 You cannot delete your last access identifier.: Ne morete izbrisati zadnjega identifikatorja dostopa.
 You cannot delete your last location.: Ne morete izbrisati zadnje lokacije.
+You cannot to set a master thermostat for a channel that is master for others.: Glavnega termostata ne morete nastaviti v glavnem termostatu
 You cannot use SUPLA project name in the domain name.: Imena projekta SUPLA ne morete uporabiti v imenu glavne domene.
 You have exceeded your API Rate Limit: Izrabili ste vašo omejitev zahtev za API
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Zahteva je bila poslana. Ko jo bo namestitveni servis odobril in odklenil napravo, vas bomo o tem obvestili.
 You have requested to unregister your SUPLA Cloud instance: Zahtevali ste odjavo vaše stopnje v SUPLA Cloud
 You have to choose at least one scope.: Izbrati morate vsaj en obseg.
 You just need to execute the following command inside your host terminal.: Samo izvedite naslednji ukaz znotraj terminala vašega gostitelja.
@@ -984,6 +1285,7 @@ You must leave at least one phase enabled.: Vsaj ena faza mora ostati aktivna.
 You must set an action for each reaction.: Za vsako reakcijo morate nastaviti reakcijo.
 You must set an action for each scene operation.: Izberite dejanje za vsako operacijo v sceni.
 You must set sections with transparent or opaque parameters or both.: Izbrati morate prosojnost za vsaj en razdelek.
+You need to provide icons for all states in light mode.: V svetlem načinu morate zagotoviti ikone za vsa stanja.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Svoj primerek SUPLA Cloud morate posodobiti na različico vsaj 2.3.0.
 You will not be able to generate a direct link with the same URL again.: Ustvarjanje povezave z istim URL-jem ne bo mogoče.
 Your account and MQTT Broker connection.: Povezava vašega računa s posrednikom MQTT.
@@ -996,6 +1298,7 @@ Your channel groups are allowed to have a maximum of {max} channels.: Vaše skup
 Your chart is being drawn...: Vaš graf je izrisan...
 Your data are being collected. Please be patient.: Zbiramo vaše podatke, prosimo za potrpežljivost.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Vaši podatki se prenašajo iz strežnika. Pred izvozom počakajte, da se prenosi končajo.
+Your device has been unlocked by the installer.: Vašo napravo je odklenil namestitveni program.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: 'Naprava podpira razširitev svojega delovanja in omogoča izvajanje katerega koli želenega dejanja na kateri koli napravi, ki jo imate. Dostopne možnosti so odvisne od vdelane programske in strojne opreme. '
 Your email: Vaš e-naslov
 Your instance is not registered or you are trying to authorize an application that is not public.: Vaš primerek ni registriran ali poskušate odobriti aplikacijo, ki ni javna.
@@ -1039,11 +1342,20 @@ after: po
 and wait until it reaches: in počakajte, da doseže
 and wait until it will be: in počakajte, da bo
 and wait until the humidity will be: in počakajte, da bo vlažnost
+and wait until the meter will be: in te reakcije ne izvajajte znova, dokler vrednost
 and wait until the temperature will be: in počakajte, da bo temperatura
 and wait until the value will be: in počakajte, da bo vrednost
+auxThermometerType_DISABLED: Izključen
+auxThermometerType_FLOOR: Tla
+auxThermometerType_GENERIC_COOLER: Vir hlajenja
+auxThermometerType_GENERIC_HEATER: Vir toplote
+auxThermometerType_NOT_SET: Ni vzpostavljeno
+auxThermometerType_WATER: Voda
 average: srednja
 be at least {numChars} characters long: imeti mora vsaj {numChars} znakov
 before: pred
+blue, otherwise: v nasprotnem primeru modra
+blue, when voltage lower than the low threshold: modra, ko je napetost pod nizkim pragom
 caption: Ime
 change: spremeni
 channel: Kanal
@@ -1056,16 +1368,21 @@ channelGroup: Skupina kanalov
 choose: Izberite
 choose the access identifiers: izberite identifikatorje za dostop
 choose the action: izberite dejanje
+choose the currency: izberite valuto
 choose the scene: izberite sceno
 choose the schedule: izberi urnik
 choose the timezone: Izberite časovni pas
 click here: kliknite tukaj
+configuration missing: brez konfiguracije
 contains a character that is neither a letter nor a digit: vsebuje znak, ki ni niti črka niti številka
 contains a digit: vsebuje število
 contains lower and upper letters: vsebuje velike in male črke
+cool: hlajenje
 copied: Kopirano
 copy: Kopirajte
+day: dan
 days: dni
+default: privzeto
 directLinkExecutionFailureReason_disabled: Neposredna povezava je izklopljena
 directLinkExecutionFailureReason_executionLimitExceeded: Omejitev izvedb je bila presežena
 directLinkExecutionFailureReason_expired: Neposredna povezava je potekla
@@ -1086,8 +1403,20 @@ executed: opravljeno
 extend: podaljšajte
 from IP: z naslova IP
 from the IP: z naslova
+green, otherwise: v nasprotnem primeru zelena
+green, when power less than the low threshold: zelena, ko je moč nižja od spodnjega praga
+heat: ogrevanje
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Glavna in pomožna temperatura
+homeScreenContent_NONE: Brez
+homeScreenContent_TEMPERATURE: Temperatura
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatura in vlažnost
+homeScreenContent_TEMPERATURE_TIME: Temperatura in čas
+homeScreenContent_TIME: Čas
+homeScreenContent_TIME_DATE: Datum in čas
+hour: h
 hours: ure
 is at least {numChars} characters long: ima vsaj {numChars} znakov
+keepHistoryMeasurementWarningSelected: Ste prepričani, da potrebujete to zgodovino? Supla je open source projekt, ki se vzdržuje z lastnimi sredstvi. Če te zgodbe ne potrebujete, nam pomagajte prihraniti dragoceni prostor za shranjevanje tako, da to možnost pustite onemogočeno.
 last 24 hours: zadnjih 24 ur
 last 30 days: zadnjih 30 dni
 last 6 hours: zadnjih 6 ur
@@ -1096,13 +1425,23 @@ logs_aggregation_day: dni
 logs_aggregation_hour: ur/-e
 logs_aggregation_minute: minut/-e
 logs_aggregation_month: mesecev
+max: maks.
+midnight: sever
+milliseconds: milisekund
+min: min.
 min.: min.
 minutes: minut
 notification: obvestilo
+ocrLightingMode_ALWAYS_ON: Vedno vklopljeno
+ocrLightingMode_AUTO: Samodejno
+ocrLightingMode_OFF: Izklopljeno
+'off': Izklopi
 or another element: ali drugi predmet
 password: geslo
 previous month: prejšnji mesec
 range: področje
+red, when power higher than the high threshold: rdeča, ko je moč nad visokim pragom
+red, when voltage higher than the high threshold: rdeča, ko je napetost višja od visokega praga
 register-slide1-text: Na podlagi razpoložljive elektronike vam bo SUPLA omogočila izdelavo preprostih modulov, ki zagotavljajo nadzor in kontrolo komponent za avtomatizacijo zgradb. Zahvaljujoč SUPLI lahko med drugim nadzorujete osvetlitev, vklopite in izklopite gospodinjske aparate in elektroniko, odprete in zaprete dvoriščna vrata in vrata ali nadzorujete temperaturo v prostorih. Vse to lahko storite z enim premikom prsta.
 register-slide1-title: Lastna inteligentna zgradba
 register-slide2-text: Ena izmed osnovnih predpostavk projekta je preprostost in razpoložljivost. SUPLA vam omogoča, da z enim premikom prsta vklopite luč  ali odprete vhodna vrata, ko želite vstopiti na posest. SUPLA je na voljo povsod, kjer imate dostop do interneta in imate pri roki pametni telefon ali tablico. SUPLA je razvita na osnovi Odprte programske opreme in Odprte opreme, s katerima lahko tudi vi razvijate ta projekt!
@@ -1116,6 +1455,7 @@ scheduleMode_daily: Dnevni cikel
 scheduleMode_minutely: Minutni cikel
 scheduleMode_once: Enkraten
 sec.: sek.
+seconds: sekund
 smartphones, tablets, etc.: pametni telefoni, tablice itp.
 state-closed: Zaprto
 state-default: Privzeto
@@ -1133,24 +1473,78 @@ state-rgb_on_dim_off: RGB vklopljen, zatemnilnik izključen
 state-rgb_on_dim_on: RGB in zatemnilnik vklopljena
 state-shut: Zastrto
 state-temperature: Temperatura
+statusLed_ALWAYS_OFF: Vedno izklopi
+statusLed_OFF_WHEN_CONNECTED: Izklopi, ko je priključen
+statusLed_ON_WHEN_CONNECTED: Vklopi, ko je povezano
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Neznani rezultat
+subdevicePairingResult_NOT_STARTED_BUSY: Naprava je zasedena
+subdevicePairingResult_NOT_STARTED_NOT_READY: Naprava ni pripravljena
+subdevicePairingResult_NOT_SUPPORTED: Nepodprta operacija
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Ni bilo najdene nove opreme
+subdevicePairingResult_ONGOING: V obdelavi
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Neznana posledica izhlapevanja
+subdevicePairingResult_PROCEDURE_STARTED: Postopek se je začel
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Presežena omejitev sredstev
+subdevicePairingResult_SUCCESS: Uspeh
+subdevicePairingResult_UNAUTHORIZED: Neuspešna avtorizacija
 sum: vsota
+sunrise: sončni vzhod
 sunrise-after: vzhodu
 sunrise-before: vzhodom
+sunset: sončni zahod
 sunset-after: zahodu
 sunset-before: zahodom
+swap: zamenjaj
+the master thermostat ID{id}: glavnega termostata ID{id}
 the whole history: celotna zgodovina
 then execute the action: nato izvršite akcijo
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Vklop/izklop z zgornjo nastavitvijo
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Vklop/izklop s srednjo nastavitvijo
+thermostatAlgorithm_PID: PID
+thermostatSubfunction_COOL: Hlajenje
+thermostatSubfunction_HEAT: Ogrevanje
+thermostatTemperature_aboveAlarm: Nad alarmom
+thermostatTemperature_auxMaxSetpoint: Najvišja dodatna temperatura
+thermostatTemperature_auxMinSetpoint: Najnižja dodatna temperatura
+thermostatTemperature_belowAlarm: Pod alarmom
+thermostatTemperature_boost: Povečanje temperature
+thermostatTemperature_comfort: Udobna temperatura
+thermostatTemperature_eco: Temperatura ECO
+thermostatTemperature_freezeProtection: Temperatura zaščite pred zmrzovanjem
+thermostatTemperature_heatProtection: Temperatura zaščite pred pregrevanjem
+thermostatTemperature_histeresis: Histereza
 this month: tekoči mesec
 this year: tekoče leto
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Spreminjanje položaja med spreminjanjem naklona
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Ne spreminja položaja med spreminjanjem naklona
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Spreminja višino le, ko je popolnoma zaprta
+tiltControlType_UNKNOWN: Neznan
+timeMarginMode_custom: Po meri
+timeMarginMode_device: Privzeta vrednost iz naprave
+timeMarginMode_off: Izključen
 today: danes
 unknown: neznan
+usedCTType_100A_33mA: 100 A/33,3 mA
+usedCTType_200A_66mA: 200 A/66,6 mA
+usedCTType_400A_133mA: 400 A/133,3 mA
+usedPhaseLedType_OFF: Izklopljeno
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Smer pretoka energije
+usedPhaseLedType_VOLTAGE_LEVEL: Raven napetosti
+usedPhaseLedType_VOLTAGE_PRESENCE: Prisotnost napetosti
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Prisotnost napetosti (obratna)
 username: naziv uporabnika
 valid until: poteče
 values as seen on chart: vrednosti, kot je prikazano v grafu
 values as seen on counter: vrednosti kot na števcu
+valveOpenConfirm_manual: Ventil je bil zaprt ročno ali na daljavo. Preden ga odprete, se prepričajte, da ni zaprt zaradi poplave. Če želite onemogočiti opozorilo, ročno odprite ventil. Ali ste prepričani, da želite ventil odpreti na daljavo?!
 yesterday: včeraj
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} ne more komunicirati z vašim računom, dokler ponovno ne odobrite dostopa.'
 '{clientName} wants to access your account.': '{clientName} želi dobiti dostop do vašega računa.'
+'{count} minutes after sunrise': '{count} minut po sončnem vzhodu'
+'{count} minutes after sunset': '{count} minut po sončnem zahodu'
+'{count} minutes before sunrise': '{count} minut pred sončnim vzhodom'
+'{count} minutes before sunset': '{count} minut pred sončnim zahodom'
+'{days} days': '{days} dneh'
 '{minutes} minutes after sunrise': '{minutes} minut po sončnem vzhodu'
 '{minutes} minutes after sunset': '{minutes} minut po sončnem zahodu'
 '{minutes} minutes before sunrise': '{minutes} minut pred sončnim vzhodom'
@@ -1174,6 +1568,7 @@ Are you sure you want to disable this device?: Ali ste prepričani, da želite i
 Assigned Locations: Dodeljene lokacije
 Authorized OAuth apps: Overjene aplikacije OAuth
 Calculated value: Stanje števca
+Cannot execute an action when the device is disconnected.: Ko odklopite napravo, ne morete izvajati dejanj.
 Cannot send an activation e-mail. Try again later.: Sporočila ni mogoče poslati s povezavo za aktiviranje. Poskusite znova pozneje.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Sporočilo s povezavo, ki aktivira vaš račun, ni prispelo? Prepričajte se, da ni v mapi SPAM (junk mail). Za ponovno pošiljanje lahko kliknete {clickHereLink}.
 Channel value: Vrednost
@@ -1194,6 +1589,7 @@ Doors, Gates: Vrata, Dvoriščna vrata
 ENABLED: VKLOPLJENO
 Email already exists: E-naslov že obstaja
 Existing schedules: Obstoječi urniki
+Expected maximum increment: Pričakovano največje povečanje
 From IP: Z naslova IP
 Get SUPLA on your devices: Prenesite SUPLA na svoje naprave
 Hi: Pozdravljeni!
@@ -1201,6 +1597,7 @@ Hour: Ura
 Hours: Ure
 I/O: Vstop/Izstop
 If you want to stay here, do something!: Če želite ostati tukaj, naredite nekaj!
+In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Da bi zmanjšali tveganje za napačno odčitavanje, nastavite največji pričakovani prirastek vrednosti števca med zaporednimi slikami.
 Initial value: Začetna vrednost
 Input: Vstop
 Interpolate measurements: Ocenite manjkajoče vrednosti
@@ -1208,6 +1605,8 @@ Languages: Jeziki
 Loading: Polnjenje
 Location password must be at least 4 characters.: Lokacijsko geslo mora vsebovati vsaj 4 znake.
 Location password must be no longer than 32 characters.: Lokacijsko geslo ne sme biti daljše od 32 znakov.
+Maximum temperature that can be set from the device: Najvišja temperatura, ki jo je mogoče nastaviti z napravo
+Minimum temperature that can be set from the device: Minimalna temperatura, ki jo je mogoče nastaviti z napravo
 Minute: Minuta
 Mobile Apps: Stanje števca
 Next: Naprej
@@ -1217,6 +1616,7 @@ Output: Izstop
 Please select an action: Izberite dejanje
 Please select the schedules that should also be enabled.: Izberite urnike, ki naj bi bili tudi vključeni.
 Previous login: Prejšnja prijava
+Reference to the channel will be removed from the items below.: Kazanje na ta kanal bo odstranjeno iz naslednjih elementov.
 Registration: Registracija
 Remove: Izbrišite
 Schedule cannot be enabled: Ni bilo mogoče vklopiti urnika
@@ -1229,12 +1629,33 @@ Status: Status
 Subject: Subjekt
 Sunrise / Sunset: Vzhod / Zahod
 Supla for devices: Supla za naprave
+Temperature adjustment only: Samo nastavitev temperature
 The events in voltage aberrations history will be automatically deleted after {days} days.: Dogodki v zgodovini aberacije napetosti se samodejno izbrišejo po {days} dneh.
+The items below depend on this channel, so they will be deleted.: Naslednji elementi so odvisni od tega kanala, zato bodo odstranjeni.
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Odziv bo aktiven, ko bodo izpolnjeni vsi naslednji pogoji. Če nastavite vse razpoložljive možnosti, se bo reakcija aktivirala le med izbranimi datumi, ob izbranih urah in dnevih v tednu ter ob izpolnitvi ene od referenc sončnega zahoda ali vzhoda.
 Triggers: Sprožilci
 Try again later: Poskusite znova pozneje.
 Turning this device off will result in disabling all the associated schedules.: Če izklopite to napravo, bo tudi izklopljen urnik, ki je z njo povezan.
+Unlocked: Odklenjeno
+Use working schedule for this access identifier: Uporabite urnik razpoložljivost za ta identifikator dostopa
+Use working schedule for this reaction: Za ta odgovor uporabite načrt dejavnosti
+User interface: Uporabniški vmesnik
 Value per unit: Vrednost na enoto
 When: Ko
+When the curtain reaches: Ko se zavesa dvigne
+When the facade blind reaches: Ko fasadna žaluzija doseže
+When the projector screen reaches: Ko projekcijsko platno doseže
+When the roller garage door a certain position: Ko garažna vrata dosežejo določen položaj
+When the roller garage door reaches: Ko garažna vrata dosežejo
+When the roller shutter calibration failed: Če se kalibracija rolet zaključi z napako
+When the roller shutter calibration has been lost: Ko se kalibracija rolet ne more zaključiti
+When the roller shutter calibration has started: Ko se začne kalibracija rolet
+When the roller shutter motor reported a problem: Ko motor rolete javi težavo
+When the roller shutter reaches: Ko roleta doseže
+When the roof window reaches: Ko strešno okno doseže
+When the terrace awning reaches: Ko terasna markiza doseže
+When the vertical blind reaches: Ko navpična žaluzija doseže
+Working schedule: Urnik aktivnosti
 You need to provide icons for all states.: Navesti morate ikone za vsa stanja.
 You will be logged out shortly: Čez trenutek boste odjavljeni
 choose a currency: Izberite valuto
@@ -1247,435 +1668,121 @@ or add a delay: ali dodajte zamik
 prefix: prefiks
 reset chart view: vrni se na začeten pogled
 suffix: sufiks
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-0% tilt angle: Kot lamel, ki ga žaluzija nastavi pri zapiranju
-100% tilt angle: Kot lamel, ki ga žaluzija nastavi pri odpiranju
-A confirmation upon successful device unlocking.: Potrditev odklepanja naprave.
-Active from: Aktivno od
-Active to: Aktivno do
-Activity conditions: Pogoji dejavnosti
-Additional time margin: Dodatna časovna rezerva
-Adjust temperature: Nastavi temperaturo
-Adjust temperatures: Nastavi temperature
-After the delay: Po določenem času
-After the delay, but only when it's dark: Po določenem času, vendar le, ko je tema
-Alarm armament sensor: Senzor za nastavitev alarma
-Algorithm: Algoritem
-All programs must define at least one temperature threshold.: Vsak program mora določiti vsaj en temperaturni prag.
-Always decrement: Vedno se zmanjšuje
-Always increment: Vedno raste
-Anti-freeze and overheat protection: Zaščita pred pregrevanjem in zmrzovanjem
-Anti-freeze protection: Zaščita pred zmrzovanjem
-Are you sure you want to change channel’s location?: Ste prepričani, da želite spremeniti lokacijo kanala?
-Are you sure you want to change channel’s visibility?: Ste prepričani, da želite spremeniti vidnost kanala?
-Are you sure you want to change device’s location?: Ste prepričani, da želite spremeniti lokacijo naprave?
-Are you sure you want to delete this channel?: Ste prepričani, da želite izbrisati ta kanal?
-Automatic: Samodejmo
-Automatic front panel turn off: Samodejni izklop sprednje plošče
-Automatic front panel turn off after: Čas za izklop sprednje plošče
-Automatic thermostat: Samodejni termostat
-Automatic time synchronization: Samodejna sinhronizacija datuma in časa
-Aux thermometer: Dodatni termometer
-Aux thermometer type: Vrsta dodatnega termometra
-Available variables: Razpoložljive spremembe
-Average: Povprečna
-Battery cover open: Odprt pokrov baterije
-Behavior settings: Vedenje
-Binary sensor: Binarni senzor
-Brightness adjustment for automatic mode: Prilagajanje svetlosti v samodejnem načinu
-Brightness level: Stopnja svetlosti
-Button volume: Glasnost gumba
-Buttons upside down: Upravljanje z gumbom za vzvratni pogon
-Candle: Svečni
-Cannot update OCR settings. Try again in a while.: Nastavitev OCR ni bilo mogoče posodobiti. Poskusite znova čez trenutek.
-Change percentage by: Odstotek spremenite za
-Change percentage to: Odstotek spremenite v
-Change tilt by: Spremenite naklon za
-Change tilt to: Spremenite naklon na
-Change to be the same.: Nastavite enako.
-Changing channel’s visibility will also change the visibility of other items.: Če spremenite vidnost kanala, se spremeni tudi vidnost drugih elementov.
-Changing the location will also imply changing the location of the following items.: Sprememba lokacije bo vplivala tudi na spodnje elemente.
-Channels that are meant to work with each other must be in the same location.: Kanali, ki bodo delovali skupaj, morajo biti na isti lokaciji.
-Clock error: Napaka ure
-Close value: Končna vrednost
-Collapse: Zvij
-Collapse or stop: Zvijaj ali zaustavi
-Collapse partially: Delno zvij
-Command has been sent to the device. Try refreshing the photo in a while.: Zahteva je bila poslana napravi. Čez trenutek poskusite osvežiti fotografijo.
-Common currencies: Najpogosteje izbrane valute
-Configuration not available yet. Waiting for the device to connect.: Konfiguracija še ni na voljo. Počakajte, da se naprava poveže.
-Confirm if you want to perform the calibration.: Potrdite, da želite izvesti kalibracijo.
-Conflict: Konflikt
-Cool to: Hladi do
-Cooling mode: Način hlajenja
-'Cooling: {percent}%': 'Hlajenje: {percent}%'
-Costs: Stroški
-Could not restart the device.: Naprave ni bilo mogoče ponovno zagnati.
-Could not send the identify command.: Naročila ni bilo mogoče poslati.
-Could not set the device time.: V napravi ni bilo mogoče nastaviti datuma in časa.
-Counter type: Vrsta števca
-Curtain: Zavesa
-Dark mode: Temni način
-Data: Podatki
-Date range: Obseg podatkov
-Daytime criteria: Merila glede na dolžino dneva
-Dependencies: Odvisnosti
-'Device GUID: %deviceGuid%': 'GUID naprave: %deviceGuid%'
-Device identification is unsupported in the firmware.: Identifikacija naprave ni podprta v vdelani programski opremi.
-Device settings: Nastavitve naprave
-Device should be restarting now.: Naprava se mora znova zagnati.
-Device time has been set.: Datum in čas naprave sta nastavljena.
-Different than on master thermostat.: Nastavitev se razlikuje od nastavitve na glavnem termostatu.
-Differential thermostat: Diferencialni termostat
-Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Ali želite, da so kanali, ki so odvisni od tega termostata (na primer termometri in senzorji), enaki kot v glavnem termostatu?
-Domestic hot water: Topla voda doma
-Dryer: Razvlaževalnik zraka
-Edit area crop: Uredi območje
-Edit program settings: Uredi nastavitev programa
-Electricity meter active power history: Zgodovina moči števca električne energije
-Electricity meter current history: Zgodovina intenzivnosti števca električne energije
-Electricity meter voltage aberrations history: Zgodovina odstopanj napetosti števca električne energije
-Electricity meter voltage history: Zgodovina napetosti števca električne energije
-Enable floor temperature control: Vključite nadzor temperature tal
-Enable generic cooler temperature control: Omogočite nadzor temperature vira hlajenja
-Enable generic heater temperature control: Vključite nadzor temperature vira toplote
-Enable power status LED: Vklopite LED diodo stanja napajanja
-Enable support for OCR readings for this channel: Omogočite podporo OCR za ta kanal
-Enable water temperature control: Vključite nadzor temperature vode
-Example value: Primer
-Expand: Razvij
-Expand or stop: Razvijaj ali zadrži
-Expand partially: Delno razvij
-Expected maximum increment: Pričakovano največje povečanje
-External sensor disabling the thermostat: Zunanji senzor za izklop termostata
-Facade blind operation: Fasadne žaluzije
-Fan: Mlin na veter
-'Field: {propertyPath}.': 'Polje {propertyPath}.'
-Fill missing data: Dopolnite manjkajoče meritve
-Firmware: Vdelana programska oprema
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Vdelana programska oprema te naprave pošilja obvestila v okviru tega kanala. Tu lahko nastavite vsebino in prejemnike. Za več informacij se obrnite na dobavitelja naprave.
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Vdelana programska oprema te naprave pošilja obvestila. Tu lahko nastavite vsebino in prejemnike. Za več informacij se obrnite na dobavitelja naprave.
-For a period: Za obdobje
-Forced off by sensor: Prisilna zaustavitev s senzorjem
-Full tilting time: Skupni čas za spremembo naklona
-Function disabled: Funkcija je izklopljena
-General purpose meter: Kanal merilnika za splošne namene
-HVAC: HVAC
-Heat or cold source switch: Stikalo za vir toplote ali hladu
-Heat to: Ogrevaj do
-Heating / ventilation / air conditioning: Ogrevanje / prezračevanje / klimatizacija (HVAC)
-Heating mode: Način ogrevanja
-'Heating: {percent}%': 'Ogrevanje: {percent}%'
-High threshold: Visok prag
-High value: Maksimalna vrednost
-History: Zgodovina
-Home screen content: Vsebina začetnega zaslona
-Hotel card sensor: Senzor za hotelsko kartico
-Identify device: Prepoznaj napravo
-Identify request sent.: Zahteva za identifikacijo je bila poslana.
-If you confirm the installation and wish to unlock this device, please click the link below.: Če poskušate dodati novo napravo, kliknite spodnjo povezavo in potrdite odklepanje.
-If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Če naprave ne poskušate odkleniti vi, tega e-poštnega sporočila ne upoštevajte. Povezava za potrditev samodejno poteče po 24 urah.
-Image area crop: Območje slike
-In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Da bi zmanjšali tveganje za napačno odčitavanje, nastavite največji pričakovani prirastek vrednosti števca med zaporednimi slikami.
-Increment and decrement: Povečanje in zmanjšanje
-Installer e-mail address: E-poštni naslov monterja
-Invalid channel type ({typeCaption} - {typeId}) received in registration.: Naprava je registrirala kanal druge vrste ({typeCaption} - {typeId}) namesto trenutnega.
-Invalid e-mail address.: Nepravilen e-poštni naslov.
-Invalid unlock code.: Nepravilna povezava za odklepanje.
-Last paired device: Zadnja seznanjena naprava
-Light mode: Svetel način
-Lighting level: Raven svetlobe
-Lighting mode: Način osvetlitve
-List of available variables: Seznam razpoložljivih spremenljivk
-Locked: Zaklenjen
-Low threshold: Nizek prag
-Low threshold must be less than high threshold.: Spodnji prag mora biti nižji od visokega praga.
-Low value: Najmanjša vrednost
-Main thermometer: Glavni termometer
-Master thermostat: Glavni termostat
-Max: Maks.
-Maximum duration is one year.: Maksimalno obdobje je eno leto.
-Maximum temperature that can be set from the device: Najvišja temperatura, ki jo je mogoče nastaviti z napravo
-Measurement settings: Nastavitve meritev
-Min: Min.
-Minimum OFF time before cooling can be turned on: Minimalni čas izklopa pred ponovnim zagonom hlajenja
-Minimum OFF time before heating can be turned on: Minimalni čas izklopa, preden se ogrevanje ponovno vklopi
-Minimum OFF time before heating/cooling can be turned on: Minimalni čas izklopa, preden se ponovno zažene hlajenje/ogrevanje
-Minimum ON time before cooling can be turned off: Minimalni čas izklopa, preden se hlajenje ponovno izklopi
-Minimum ON time before heating can be turned off: Minimalni čas vklopa, preden se ogrevanje ponovno izklopi
-Minimum ON time before heating/cooling can be turned off: Minimalni čas vklopa, preden se hlajenje/ogrevanje ponovno izklopi
-Minimum temperature must be lower than maximum temperature.: Minimalna temperatura mora biti nižja od maksimalne temperature.
-Minimum temperature that can be set from the device: Minimalna temperatura, ki jo je mogoče nastaviti z napravo
-'Mode: cool': 'Način: hlajenje'
-'Mode: heat': 'Način: ogrevanje'
-'Mode: off': 'Način: izklopljeno'
-Motor upside down: Povratni pogon motorja
-'No': 'Ne'
-No results: Ni najdenih zadetkov
-Notification body is set by the firmware.: Vsebino obvestila določi vdelana programska oprema.
-Notification must have recipients.: Obvestilo mora imeti prejemnike.
-Notification title is set by the firmware.: Glavo obvestila nastavi vdelana programska oprema.
-Notifications (defined): Obvestila (opredeljeno)
-Notifications (sent per hour): Obvestila (poslana na uro)
-'OCR service responded with error: {status}': 'Storitev OCR se je odzvala z napako: {status}.'
-OCR settings: Nastavitve OCR
-OR: ALI
-Off with duration: Izklopi na čas
-On with duration: Vklopi na čas
-Open value: Vrednost odpiranja
-Output value on error: Status izhoda med napako
-Overheat protection: Zaščita pred pregrevanjem
-P/C: P/C
-Pair new devices or sensors: Seznani nove naprave ali senzorje
-Pairing request sent.: Pošiljanje zahtevka za seznanjanje.
-Pairing subdevices is unsupported in the firmware.: Programska oprema naprave ne podpira seznanjanja.
-Phase LED type: LED indikator faze
-Photo interval: Interval fotografiranja
-Please find the device details below.: Podrobnosti o napravi so na voljo spodaj.
-Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Upoštevajte, da je zadevna naprava namenjena samo pooblaščenim monterjem.
-Please provide the installer e-mail address to request the device unlock.: Če želite napravo odkleniti, vnesite e-poštni naslov, ki ste ga navedli pri pridobivanju namestitvenega potrdila.
-Please select and configure the action: Izberite in konfigurirajte dejanje.
-Program {programNo}: Program {programNo}
-Projector screen: Projekcijski zaslon
-Pump switch: Stikalo črpalke
-Push notifications limit has been exceeded: Omejitev za potisna obvestila je bila presežena
-Reference to the channel will be removed from the items below.: Kazanje na ta kanal bo odstranjeno iz naslednjih elementov.
-Refresh interval: Interval osveževanja
-Refresh the config: Osveži konfiguracijo
-Refreshing the configuration will overwrite the changes you made here.: Osvežitev konfiguracije bo prepisala spremembe, ki so bile vnesene v obrazec.
-Reload last photo: Ponovno naložite zadnjo fotografijo
-Remote restart is unsupported in the firmware.: Programska oprema naprave ne podpira oddaljenega ponovnega zagona.
-Remove this item: Odstrani ta element
-Request device unlock: Uporabite za odklepanje naprave
-Reset to defaults: Obnovitev privzetih vrednosti
-Restart device: Ponovni zaženi napravo
-Restart the device: Ponovni zaženi napravo
-Reveal or stop: Razkrij ali zaustavi
-Roller garage door: Garažna vrata
-S/N: S/N
-SUPLA - Confirm unlocking device for authorized installers: SUPLA - Odklepanje naprave za pooblaščenega monterja
-SUPLA – your device has been unlocked!: SUPLA - Vaša naprava je bila odklenjena!
-Same as on master thermostat.: Nastavitev je enaka kot na glavnem termostatu.
-Screen brightness: Svetlost zaslona
-Selected: Izbrane
-Set HVAC parameters: Nastavi parametre
-Set the device time: V napravi ni bilo mogoče nastaviti datuma in časa.
-Settings: Nastavitve
-Settings have not been saved!: Nastavitve niso bile shranjene!
-Show data: Pokaži podatke
-Shut or stop: Prikrij ali zaustavi
-Some features depend on this channel: Nekatere funkcije so odvisne od tega kanala.
-Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Nekateri podatki, zbrani za vaš račun, bodo po določenem času izbrisani. Seznanite se s spodnjimi omejitvami.
-Status LED: LED dioda stanja
-Store active power history: Shrani zgodovino aktivne moči
-Store current history: Shrani zgodovino napetosti toka
-Store voltage history: Shrani zgodovino napetosti
-'Subdevice #{id}': 'Podizvajalska naprava #{id}'
-Subfunction: Podfunkcija
-Switch to manual mode: Preklop na ročni način
-Switch to program mode: Preklopi na programski način
-THEN: POTEM
-Take a photo now: Fotografiraj zdaj
-Temperature adjustment only: Samo nastavitev temperature
-Temperature difference is too big between {min}°C and {max}°C.: Temperaturna razlika med {min}°C in {max}°C je prevelika.
-Temperature setpoint change switches to manual mode: Sprememba ciljne temperature preklopi na ročni način
-Temporal override: Začasna razveljavitev
-Terrace awning: Terasna markiza
-The channel has been deleted.: Kanal je bil odstranjen.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfiguracija je bila spremenjena z drugega mesta (npr. iz drugega okna brskalnika, mobilne aplikacije ali naprave). Pred nadaljnjimi spremembami morate osvežiti konfiguracijo.
-The device could not be unlocked.: Naprave ni bilo mogoče odkleniti.
-The device has been unlocked already.: Naprava je že odklenjena.
-The device has been unlocked.: Naprava je bila odklenjena.
-The device has channel conflict and cannot work.: Naprava je ustvarila konflikt kanalov in trenutno ne more delovati.
-The device is locked: Naprava je zaklenjena
-The following channels will be also removed along with their dependencies.: Odstranjeni bodo tudi naslednji kanali in njihove odvisnosti.
-The items below depend on this channel, so they will be deleted.: Naslednji elementi so odvisni od tega kanala, zato bodo odstranjeni.
-The master termostat you chose already has a master.: Glavni termostat, ki ste ga izbrali, že ima drug glavni termostat.
-The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Odziv bo aktiven, ko bodo izpolnjeni vsi naslednji pogoji. Če nastavite vse razpoložljive možnosti, se bo reakcija aktivirala le med izbranimi datumi, ob izbranih urah in dnevih v tednu ter ob izpolnitvi ene od referenc sončnega zahoda ali vzhoda.
-The thermostat will not work if the main thermometer is not set.: Glavni termometer mora biti nastavljen, da termostat deluje.
-Thermometer error: Napaka termometra
-Thermometers configuration: Konfiguracija termometrov
-Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Ta termostat uporablja nastavitve glavnega termostata. Pojdite na stran s podrobnostmi in spremenite nastavitve.
-Thermostat programs: Programi termostata
-This action will result in restarting the device. It will not be available for a while.: Če naročite to operacijo, se naprava znova zažene. Med ponovnim zagonom naprava ne bo dostopna.
-This channel was missing during last device registration attempt.: Ta kanal v napravi manjka.
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Ta naprava je namenjena distribuciji in namestitvi, ki jo lahko opravijo le pooblaščeni monterji. Če niste pooblaščeni monter SUPLA in nimate aktivnega potrdila o usposabljanju, ga vrnite prodajalcu.
-This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: To je zadnja fotografija, poslana iz naprave. Natančno označite območje, kjer so vidne številke števca.
-This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: To je seznam reakcij, ki se izvajajo v vašem računu. Če želite dodati novo reakcijo, pojdite v podrobnosti kanala, ki naj jo sproži.
-This thermostat is controlled by another device.: Ta termostat upravlja glavni termostat.
-Tilt angle: Kot naklona
-Tilt control type: Vrsta krmiljenja naklona
-Tilt percent: Odstotek naklona
-Time: Čas
-Today, it would be active from {from} to {to}.: Danes je obdobje dejavnosti med {from} in {to}.
-Turn off: Izklopi
-Unlock the device: Odklepanje naprave
-Unlocked: Odklenjeno
-Until a date and time: Do
-Until the next change: Do naslednje izmene
-Use device default: Uporabite privzeto vrednost iz naprave
-Use working schedule for this reaction: Za ta odgovor uporabite načrt dejavnosti
-Use {theMasterThermostat} to control this device.: Uporabite {theMasterThermostat} za nadzor te naprave.
-Used current transformer type: Uporabljen tokovni transformator
-User interface: Uporabniški vmesnik
-Value divider: Razdelilnik
-Value multiplier: Množitelj
-Vertical blind: Vertikalne žaluzije
-Visit the master thermostat page.: Pojdite v glavni termostat.
-We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Prejeli smo zahtevo za odblokiranje naprave, namenjene samo certificiranim monterjem. Zahtevo je poslal uporabnik %deviceUserEmail% iz namestitve SUPLA Cloud na naslovu %targetCloudUrl%.
-Week: Teden
-Weekly schedule: Tedenski urnik
-When the alarm is armed: Ko je nastavljen alarm
-When the alarm is armed or disarmed: Ko je alarm deaktiviran ali nastavljen
-When the alarm is disarmed: Ko se sproži alarm
-When the battery cover is opened: Ko odprete pokrov baterije
-When the clock error has been reported: Ko časovnik sporoči napako
-When the curtain position changes: Ko zavesa spremeni položaj
-When the curtain reaches: Ko se zavesa dvigne
-When the curtain reaches a certain position: Ko zavesa doseže določen položaj
-When the facade blind position changes: Ko fasadna žaluzija spremeni položaj
-When the facade blind reaches: Ko fasadna žaluzija doseže
-When the facade blind reaches a certain position: Ko fasadna žaluzija doseže določen položaj
-When the hotel card has been taken: Ob odvzemu hotelske kartice
-When the hotel card is put in: Ko je vstavljena hotelska kartica
-When the hotel card is put in or has been taken: Ob vstavitvi ali izvleku hotelske kartice
-When the meter reaches a certain value: Ko števec doseže želeno vrednost
-When the meter value changes: Ko se vrednost spremeni
-When the meter value will be: Ko je vrednost
-When the projector screen position changes: Ko projekcijsko platno spremeni položaj
-When the projector screen reaches: Ko projekcijsko platno doseže
-When the projector screen reaches a certain position: Ko projekcijsko platno doseže določen položaj
-When the pump is turned off: Ko je črpalka izklopljena
-When the pump is turned on: Ko je črpalka vklopljena
-When the pump is turned on or off: Ob vklopu ali izklopu črpalke
-When the roller garage door a certain position: Ko garažna vrata dosežejo določen položaj
-When the roller garage door position changes: Ko garažna vrata spremenijo položaj
-When the roller garage door reaches: Ko garažna vrata dosežejo
-When the roller shutter calibration failed: Če se kalibracija rolet zaključi z napako
-When the roller shutter calibration has been lost: Ko se kalibracija rolet ne more zaključiti
-When the roller shutter calibration has started: Ko se začne kalibracija rolet
-When the roller shutter motor reported a problem: Ko motor rolete javi težavo
-When the terrace awning position changes: Pri spremembi položaja senčila na terasi
-When the terrace awning reaches: Ko terasna markiza doseže
-When the terrace awning reaches a certain position: Ko terasna markiza doseže določen položaj
-When the thermometer error has been reported: Ko termometer javi napako
-When the thermostat starts cooling: Ko se termostat začne ohlajati
-When the thermostat starts heating: Ko se termostat začne segrevati
-When the thermostat starts heating or cooling: Ko začne termostat hladiti ali ogrevati
-When the thermostat starts or stops cooling: Ko termostat začne ali preneha hladiti
-When the thermostat starts or stops heating: Ko termostat zažene ali ustavi ogrevanje
-When the thermostat starts or stops heating or cooling: Ko termostat zažene ali ustavi ogrevanje ali hlajenje
-When the thermostat stops cooling: Ko termostat preneha hladiti
-When the thermostat stops heating: Ko termostat preneha ogrevati
-When the thermostat stops heating or cooling: Ko termostat preneha hladiti ali ogrevati
-When the vertical blind position changes: Ko navpična žaluzija spremeni položaj
-When the vertical blind reaches: Ko navpična žaluzija doseže
-When the vertical blind reaches a certain position: Ko navpična žaluzija doseže določen položaj
-Will be deleted after: Odstranitev po
-With a timer: S časovnikom
-'Yes': 'Da'
-You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Tu lahko nastavite relativne vrednosti. Na primer, +10 ali -20 poveča nastavitev za 10 ali zmanjša za 20.
-You cannot to set a master thermostat for a channel that is master for others.: Glavnega termostata ne morete nastaviti v glavnem termostatu
-You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Zahteva je bila poslana. Ko jo bo namestitveni servis odobril in odklenil napravo, vas bomo o tem obvestili.
-You need to provide icons for all states in light mode.: V svetlem načinu morate zagotoviti ikone za vsa stanja.
-Your device has been unlocked by the installer.: Vašo napravo je odklenil namestitveni program.
-and wait until the meter will be: in te reakcije ne izvajajte znova, dokler vrednost
-auxThermometerType_DISABLED: Izključen
-auxThermometerType_FLOOR: Tla
-auxThermometerType_GENERIC_COOLER: Vir hlajenja
-auxThermometerType_GENERIC_HEATER: Vir toplote
-auxThermometerType_NOT_SET: Ni vzpostavljeno
-auxThermometerType_WATER: Voda
-blue, otherwise: v nasprotnem primeru modra
-blue, when voltage lower than the low threshold: modra, ko je napetost pod nizkim pragom
-choose the currency: izberite valuto
-configuration missing: brez konfiguracije
-cool: hlajenje
-day: dan
-default: privzeto
-green, otherwise: v nasprotnem primeru zelena
-green, when power less than the low threshold: zelena, ko je moč nižja od spodnjega praga
-heat: ogrevanje
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Glavna in pomožna temperatura
-homeScreenContent_NONE: Brez
-homeScreenContent_TEMPERATURE: Temperatura
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatura in vlažnost
-homeScreenContent_TEMPERATURE_TIME: Temperatura in čas
-homeScreenContent_TIME: Čas
-homeScreenContent_TIME_DATE: Datum in čas
-hour: h
-keepHistoryMeasurementWarningSelected: Ste prepričani, da potrebujete to zgodovino? Supla je open source projekt, ki se vzdržuje z lastnimi sredstvi. Če te zgodbe ne potrebujete, nam pomagajte prihraniti dragoceni prostor za shranjevanje tako, da to možnost pustite onemogočeno.
-max: maks.
-midnight: sever
-milliseconds: milisekund
-min: min.
-ocrLightingMode_ALWAYS_ON: Vedno vklopljeno
-ocrLightingMode_AUTO: Samodejno
-ocrLightingMode_OFF: Izklopljeno
-'off': 'Izklopi'
-red, when power higher than the high threshold: rdeča, ko je moč nad visokim pragom
-red, when voltage higher than the high threshold: rdeča, ko je napetost višja od visokega praga
-seconds: sekund
-statusLed_ALWAYS_OFF: Vedno izklopi
-statusLed_OFF_WHEN_CONNECTED: Izklopi, ko je priključen
-statusLed_ON_WHEN_CONNECTED: Vklopi, ko je povezano
-subdevicePairingResult_CMD_RESULT_UNKNOWN: Neznani rezultat
-subdevicePairingResult_NOT_STARTED_BUSY: Naprava je zasedena
-subdevicePairingResult_NOT_STARTED_NOT_READY: Naprava ni pripravljena
-subdevicePairingResult_NOT_SUPPORTED: Nepodprta operacija
-subdevicePairingResult_NO_NEW_DEVICE_FOUND: Ni bilo najdene nove opreme
-subdevicePairingResult_ONGOING: V obdelavi
-subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Neznana posledica izhlapevanja
-subdevicePairingResult_PROCEDURE_STARTED: Postopek se je začel
-subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Presežena omejitev sredstev
-subdevicePairingResult_SUCCESS: Uspeh
-subdevicePairingResult_UNAUTHORIZED: Neuspešna avtorizacija
-sunrise: sončni vzhod
-sunset: sončni zahod
-swap: zamenjaj
-the master thermostat ID{id}: glavnega termostata ID{id}
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Vklop/izklop z zgornjo nastavitvijo
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Vklop/izklop s srednjo nastavitvijo
-thermostatAlgorithm_PID: PID
 thermostatAlgorithm_help: |
   Algoritmi vklopa/izklopa delujejo na podlagi nastavitve histereze. Histereza se lahko nanaša na sredino območja (srednja nastavitev) ali na nastavljeno temperaturo (zgornja nastavitev).
   Če na primer predpostavimo histerezo 1 °C in ciljno temperaturo 23 °C, bo termostat:
   - vklopi ogrevanje pri 22,5 °C in se ustavi, ko temperatura doseže 23,5 °C za srednjo nastavitev
   - vklopi ogrevanje pri 22 °C in se ustavi, ko temperatura doseže 23 °C za zgornjo nastavitev
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Action trigger for channel: ~
+Activity schedule: ~
+Alarm at level (and above) should be greater than the corresponding warning level.: ~
+Alarm at level (and below) should be lower than the corresponding warning level.: ~
+Alarm level: ~
+Algorithms available on this device: ~
+Are you sure you want to delete this subdevice?: ~
+Aux thermometer for channel: ~
+Binary sensor for channel: ~
+Cannot execute an action when the channel is not available.: ~
+Channels that are meant to work with each other must have the same visibility setting.: ~
+Choose many: ~
+Container: ~
+Container level sensor: ~
+Container supports up to 10 sensors.: ~
+Device interface: ~
+Each container level sensor must have different fill level.: ~
+Fill level: ~
+Flood sensor: ~
+Flood sensor for valve: ~
+Flood sensors: ~
+Image: ~
+Invalid sensor state: ~
+Level sensor: ~
+Level sensor for container: ~
+Level sensors: ~
+Lock type: ~
+Main thermometer for channel: ~
+Master thermostat for channel: ~
+Maximum: ~
+Minimum: ~
+Motor problem: ~
+Mute alarm: ~
+Mute alarm sound without additional auth: ~
+Mute command sent: ~
+Not available: ~
+Opening sensor for channel: ~
+Percentage of extension: ~
+Photo history: ~
+Pump switch for channel: ~
+Reading: ~
+Reference to the deleted channels will be removed from the items below.: ~
+Scene ID{id} is being executed right now.: ~
+Scene ID{id} is inactive right now.: ~
+Septic tank: ~
+Sound alarm on: ~
+Temperature control type: ~
+Temperatures that can be set from local UI: ~
+The items below depend on the deleted channels, so they will be deleted, too.: ~
+The subdevice has been deleted.: ~
+This device cannot be remotely awakened. We are awaiting communication from the device...: ~
+Updating...: ~
+Use activity schedule: ~
+Valve supports up to 20 sensors.: ~
+Waiting: ~
+Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).: ~
+Warning level: ~
+Water tank: ~
+When a flood is detected: ~
+When a flooding state changes: ~
+When a flooding state has been cleared: ~
+When any of the sensors starts to report an invalid state: ~
+When any of the sensors stops to report an invalid state: ~
+When the alarm starts: ~
+When the alarm stops: ~
+When the battery level will be: ~
+When the battery reaches a certain level: ~
+When the calibration fails: ~
+When the calibration has been lost: ~
+When the calibration has started: ~
+When the device starts to be powered from battery: ~
+When the device stops to be powered from battery: ~
+When the fill level changes: ~
+When the fill level reaches a certain value: ~
+When the fill level reading error disappears: ~
+When the fill level reading error occurs: ~
+When the fill level will be: ~
+When the motor reported a problem: ~
+When the position reaches: ~
+When the roller garage door reaches a certain position: ~
+When the sound alarm starts: ~
+When the sound alarm stops: ~
+When the warning starts: ~
+When the warning stops: ~
+You cannot change this function becuase it is required by another channel.: ~
+activityConditions_help: ~
+and wait until the battery level will be: ~
+and wait until the fill level will be: ~
+directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
+localUILock_FULL: ~
+localUILock_TEMPERATURE: ~
+localUILock_UNLOCKED: ~
+state-half: ~
+state-hi: ~
+state-low: ~
+tank_alarm_alarmAboveLevel: ~
+tank_alarm_alarmBelowLevel: ~
+tank_alarm_warningAboveLevel: ~
+tank_alarm_warningBelowLevel: ~
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
+temperatureControlType_ROOM_TEMPERATURE: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: ~
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: ~
+thermostatAlgorithmHelp_PID: ~
 thermostatOutputValue_help: ~
-thermostatSubfunction_COOL: Hlajenje
-thermostatSubfunction_HEAT: Ogrevanje
-thermostatTemperature_aboveAlarm: Nad alarmom
-thermostatTemperature_auxMaxSetpoint: Najvišja dodatna temperatura
-thermostatTemperature_auxMinSetpoint: Najnižja dodatna temperatura
-thermostatTemperature_belowAlarm: Pod alarmom
-thermostatTemperature_boost: Povečanje temperature
-thermostatTemperature_comfort: Udobna temperatura
-thermostatTemperature_eco: Temperatura ECO
-thermostatTemperature_freezeProtection: Temperatura zaščite pred zmrzovanjem
-thermostatTemperature_heatProtection: Temperatura zaščite pred pregrevanjem
-thermostatTemperature_histeresis: Histereza
-tiltControlType_CHANGES_POSITION_WHILE_TILTING: Spreminjanje položaja med spreminjanjem naklona
-tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Ne spreminja položaja med spreminjanjem naklona
-tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Spreminja višino le, ko je popolnoma zaprta
-tiltControlType_UNKNOWN: Neznan
-timeMarginMode_custom: Po meri
-timeMarginMode_device: Privzeta vrednost iz naprave
-timeMarginMode_off: Izključen
-usedCTType_100A_33mA: 100 A/33,3 mA
-usedCTType_200A_66mA: 200 A/66,6 mA
-usedCTType_400A_133mA: 400 A/133,3 mA
-usedPhaseLedType_OFF: Izklopljeno
-usedPhaseLedType_POWER_ACTIVE_DIRECTION: Smer pretoka energije
-usedPhaseLedType_VOLTAGE_LEVEL: Raven napetosti
-usedPhaseLedType_VOLTAGE_PRESENCE: Prisotnost napetosti
-usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Prisotnost napetosti (obratna)
-'{count} minutes after sunrise': '{count} minut po sončnem vzhodu'
-'{count} minutes after sunset': '{count} minut po sončnem zahodu'
-'{count} minutes before sunrise': '{count} minut pred sončnim vzhodom'
-'{count} minutes before sunset': '{count} minut pred sončnim zahodom'
-'{days} days': '{days} dneh'
+valveOpenConfirm_flooding: ~
+valveOpenConfirm_motorProblem: ~
+
 #</editor-fold>
