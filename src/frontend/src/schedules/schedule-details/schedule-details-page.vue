@@ -104,6 +104,7 @@
 
 <script>
     import ChannelTile from "../../channels/channel-tile";
+    import ChannelFunction from "@/common/enums/channel-function";
     import ChannelGroupTile from "../../channel-groups/channel-group-tile";
     import SceneTile from "../../scenes/scene-tile";
     import Toggler from "../../common/gui/toggler";
@@ -172,9 +173,9 @@
         computed: {
             scheduleActionWarning() {
                 if (this.schedule) {
-                    if (['CONTROLLINGTHEGARAGEDOOR', 'CONTROLLINGTHEGATE'].includes(this.schedule.subject.function.name)) {
+                    if ([ChannelFunction.CONTROLLINGTHEGARAGEDOOR, ChannelFunction.CONTROLLINGTHEGATE].includes(this.schedule.subject.functionId)) {
                         return this.$t('The gate sensor must function properly in order to execute the scheduled action.');
-                    } else if (['VALVEOPENCLOSE'].includes(this.schedule.subject.function.name)) {
+                    } else if ([ChannelFunction.VALVEOPENCLOSE].includes(this.schedule.subject.functionId)) {
                         return this.$t('The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.');
                     }
                 }

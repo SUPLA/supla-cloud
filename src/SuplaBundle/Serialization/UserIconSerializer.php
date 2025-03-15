@@ -18,6 +18,7 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Main\UserIcon;
+use SuplaBundle\Model\ApiVersions;
 
 class UserIconSerializer extends AbstractSerializer {
     /**
@@ -29,6 +30,11 @@ class UserIconSerializer extends AbstractSerializer {
         if ($this->isSerializationGroupRequested('images', $context)) {
             $normalized['images'] = array_map('base64_encode', $icon->getImages());
             $normalized['imagesDark'] = array_map('base64_encode', $icon->getImagesDark());
+        }
+        if (ApiVersions::V3()->isRequestedEqualOrGreaterThan($context)) {
+            if (isset($normalized['function'])) {
+                unset($normalized['function']);
+            }
         }
     }
 

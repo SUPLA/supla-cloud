@@ -8,9 +8,6 @@ export function channelGroupTransformer(request, next) {
                 request.body.channelsIds = request.body.channels.map(c => c.id);
                 delete request.body.channels;
             }
-            if (request.body.function) {
-                delete request.body.function;
-            }
             if (request.body.location) {
                 request.body.locationId = request.body.location.id;
                 delete request.body.location;
@@ -24,11 +21,6 @@ export function channelTransformer(request, next) {
     if (request.url.startsWith('channels')) {
         if (request.body && request.body.id) {
             const toSend = Vue.util.extend({}, request.body);
-            delete toSend.supportedFunctions;
-            if (toSend.function) {
-                toSend.functionId = toSend.function.id;
-                delete toSend.function;
-            }
             if (toSend.type) {
                 toSend.typeId = toSend.type.id;
                 delete toSend.type;

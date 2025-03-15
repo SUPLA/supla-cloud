@@ -2,6 +2,7 @@ import Vue from "vue";
 import "./filters-date";
 import {i18n} from "@/locale";
 import {useCurrentUserStore} from "@/stores/current-user-store";
+import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
 export function withBaseUrl(url, absolute = true) {
     if (url[0] != '/') {
@@ -17,7 +18,9 @@ export function withDownloadAccessToken(url) {
 }
 
 export function channelTitle(channel) {
-    return channel.caption || `ID${channel.id} ` + i18n.global.t(channel.function ? channel.function.caption : 'None');
+    const channelFunctionsStore = useChannelFunctionsStore();
+    const channelFunction = channelFunctionsStore.all[channel.functionId];
+    return channel.caption || `ID${channel.id} ` + i18n.global.t(channelFunction ? channelFunction.caption : 'None');
 }
 
 export function channelIconUrl(channel) {
@@ -25,7 +28,7 @@ export function channelIconUrl(channel) {
         return withDownloadAccessToken(`/api/user-icons/${channel.userIconId}/0?`);
     } else {
         const alternative = channel.altIcon ? '_' + channel.altIcon : '';
-        return withBaseUrl(`assets/img/functions/${channel.function.id}${alternative}.svg`);
+        return withBaseUrl(`assets/img/functions/${channel.functionId}${alternative}.svg`);
     }
 }
 

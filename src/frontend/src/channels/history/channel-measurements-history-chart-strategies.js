@@ -1,6 +1,7 @@
 import {measurementUnit} from "@/channels/channel-helpers";
 import {formatGpmValue} from "@/common/filters";
 import {i18n} from "@/locale";
+import ChannelFunction from "@/common/enums/channel-function";
 
 export function fillGaps(logs, expectedInterval, defaultLog) {
     if (logs.length < 2) {
@@ -23,13 +24,13 @@ export function fillGaps(logs, expectedInterval, defaultLog) {
 
 export const CHART_TYPES = {
     forChannel(channel, logsType) {
-        let strategyDescriptor = channel.function.name;
+        let strategyDescriptor = channel.functionId;
         if (['voltageHistory', 'currentHistory', 'powerActiveHistory'].includes(logsType)) {
             strategyDescriptor += logsType;
         }
         return this[strategyDescriptor];
     },
-    THERMOMETER: {
+    [ChannelFunction.THERMOMETER]: {
         chartType: () => 'rangeArea',
         chartOptions() {
             return {
@@ -107,7 +108,7 @@ export const CHART_TYPES = {
         },
         emptyLog: () => ({date_timestamp: null, temperature: null}),
     },
-    HUMIDITYANDTEMPERATURE: {
+    [ChannelFunction.HUMIDITYANDTEMPERATURE]: {
         chartType: () => 'rangeArea',
         chartOptions() {
             return {
@@ -186,7 +187,7 @@ export const CHART_TYPES = {
         },
         emptyLog: () => ({date_timestamp: null, temperature: null, humidity: null}),
     },
-    HUMIDITY: {
+    [ChannelFunction.HUMIDITY]: {
         chartType: () => 'rangeArea',
         chartOptions: () => ({
             fill: {opacity: [1, .25]},
@@ -242,7 +243,7 @@ export const CHART_TYPES = {
         },
         emptyLog: () => ({date_timestamp: null, temperature: null, humidity: null}),
     },
-    IC_GASMETER: {
+    [ChannelFunction.IC_GASMETER]: {
         chartType: () => 'bar',
         chartOptions: () => ({
             legend: {show: false},
@@ -260,7 +261,7 @@ export const CHART_TYPES = {
         },
         aggregateLogs: (logs) => {
             const aggregatedLog = {
-                ...(CHART_TYPES.IC_GASMETER.emptyLog()),
+                ...(CHART_TYPES[ChannelFunction.IC_GASMETER].emptyLog()),
                 date_timestamp: logs[0].date_timestamp,
                 date: logs[0].date
             };
@@ -350,7 +351,7 @@ export const CHART_TYPES = {
         },
         emptyLog: () => ({date_timestamp: null, counter: null, calculated_value: null}),
     },
-    ELECTRICITYMETER: {
+    [ChannelFunction.ELECTRICITYMETER]: {
         chartType: () => 'bar',
         allAttributesArray() {
             return ['fae', 'rae', 'fre', 'rre']
@@ -472,7 +473,7 @@ export const CHART_TYPES = {
             ];
         },
         fixLog: (log) => {
-            CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
+            CHART_TYPES[ChannelFunction.ELECTRICITYMETER].allAttributesArray().forEach((attributeName) => {
                 if (log[attributeName] !== undefined && log[attributeName] !== null) {
                     log[attributeName] = +(+log[attributeName] * 0.00001).toFixed(5);
                 }
@@ -484,12 +485,12 @@ export const CHART_TYPES = {
         },
         aggregateLogs: (logs) => {
             const aggregatedLog = {
-                ...(CHART_TYPES.ELECTRICITYMETER.emptyLog()),
+                ...(CHART_TYPES[ChannelFunction.ELECTRICITYMETER].emptyLog()),
                 date_timestamp: logs[0].date_timestamp,
                 date: logs[0].date
             };
             logs.forEach(log => {
-                CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
+                CHART_TYPES[ChannelFunction.ELECTRICITYMETER].allAttributesArray().forEach((attributeName) => {
                     if (Number.isFinite(log[attributeName])) {
                         aggregatedLog[attributeName] = +aggregatedLog[attributeName] + log[attributeName];
                     }
@@ -508,7 +509,7 @@ export const CHART_TYPES = {
             const adjustedLogs = [logs[0]];
             for (let i = 1; i < logs.length; i++) {
                 let log = {...logs[i]};
-                CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
+                CHART_TYPES[ChannelFunction.ELECTRICITYMETER].allAttributesArray().forEach((attributeName) => {
                     if (Object.prototype.hasOwnProperty.call(log, attributeName)) {
                         if (log[attributeName] === null) {
                             log[attributeName] = 0;
@@ -554,7 +555,7 @@ export const CHART_TYPES = {
                 if (currentValue === null && firstNullLog === undefined) {
                     firstNullLog = currentNonNullLog;
                 } else if (currentValue !== null && firstNullLog !== undefined && lastNonNullLog !== undefined) {
-                    CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attribute) => {
+                    CHART_TYPES[ChannelFunction.ELECTRICITYMETER].allAttributesArray().forEach((attribute) => {
                         const currentValue = logs[currentNonNullLog][attribute];
                         const logsToFill = currentNonNullLog - firstNullLog;
                         const lastKnownValue = logs[lastNonNullLog][attribute];
@@ -583,7 +584,7 @@ export const CHART_TYPES = {
             fae_balanced: null, rae_balanced: null,
         }),
     },
-    'ELECTRICITYMETERvoltageHistory': {
+    [ChannelFunction.ELECTRICITYMETER + 'voltageHistory']: {
         chartType: () => 'line',
         chartOptions() {
             const enabledPhases = this.channel.config.enabledPhases || [1, 2, 3];
@@ -688,7 +689,7 @@ export const CHART_TYPES = {
             phase3_min: null, phase3_max: null, phase3_avg: null,
         }),
     },
-    GENERAL_PURPOSE_MEASUREMENT: {
+    [ChannelFunction.GENERAL_PURPOSE_MEASUREMENT]: {
         chartType: (channel) => ({'CANDLE': 'candlestick', 'LINEAR': 'rangeArea'}[channel?.config?.chartType || ''] || 'bar'),
         chartOptions() {
             const options = {
@@ -796,7 +797,7 @@ export const CHART_TYPES = {
         },
         emptyLog: () => ({date_timestamp: null, avg_value: null, open_value: null, close_value: null, max_value: null, min_value: null}),
     },
-    GENERAL_PURPOSE_METER: {
+    [ChannelFunction.GENERAL_PURPOSE_METER]: {
         chartType: (channel) => channel?.config?.chartType === 'LINEAR' ? 'line' : 'bar',
         chartOptions: () => ({
             legend: {show: false},
@@ -815,7 +816,7 @@ export const CHART_TYPES = {
         },
         aggregateLogs: (logs) => {
             const aggregatedLog = {
-                ...(CHART_TYPES.GENERAL_PURPOSE_METER.emptyLog()),
+                ...(CHART_TYPES[ChannelFunction.GENERAL_PURPOSE_METER].emptyLog()),
                 date_timestamp: logs[0].date_timestamp,
                 date: logs[0].date
             };
@@ -909,11 +910,11 @@ export const CHART_TYPES = {
     },
 };
 
-CHART_TYPES.IC_HEATMETER = CHART_TYPES.IC_GASMETER;
-CHART_TYPES.IC_WATERMETER = CHART_TYPES.IC_GASMETER;
-CHART_TYPES.IC_ELECTRICITYMETER = CHART_TYPES.IC_GASMETER;
-CHART_TYPES['ELECTRICITYMETERcurrentHistory'] = {
-    ...CHART_TYPES.ELECTRICITYMETERvoltageHistory,
+CHART_TYPES[ChannelFunction.IC_HEATMETER] = CHART_TYPES[ChannelFunction.IC_GASMETER];
+CHART_TYPES[ChannelFunction.IC_WATERMETER] = CHART_TYPES[ChannelFunction.IC_GASMETER];
+CHART_TYPES[ChannelFunction.IC_ELECTRICITYMETER] = CHART_TYPES[ChannelFunction.IC_GASMETER];
+CHART_TYPES[ChannelFunction.ELECTRICITYMETER + 'currentHistory'] = {
+    ...CHART_TYPES[ChannelFunction.ELECTRICITYMETER + 'voltageHistory'],
     yaxes: function () {
         return [
             {
@@ -924,8 +925,8 @@ CHART_TYPES['ELECTRICITYMETERcurrentHistory'] = {
         ];
     },
 };
-CHART_TYPES['ELECTRICITYMETERpowerActiveHistory'] = {
-    ...CHART_TYPES.ELECTRICITYMETERvoltageHistory,
+CHART_TYPES[ChannelFunction.ELECTRICITYMETER + 'powerActiveHistory'] = {
+    ...CHART_TYPES[ChannelFunction.ELECTRICITYMETER + 'voltageHistory'],
     yaxes: function () {
         return [
             {

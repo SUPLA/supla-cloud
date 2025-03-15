@@ -12,7 +12,8 @@
                 </a>
             </div>
         </div>
-        <div :class="'mb-3 digiglass-parameters-setter digiglass-' + (subject.function.name.indexOf('HORIZONTAL') > 0 ? 'horizontal' : 'vertical')">
+        <div
+            :class="'mb-3 digiglass-parameters-setter digiglass-' + (subject.functionId === ChannelFunction.DIGIGLASS_HORIZONTAL ? 'horizontal' : 'vertical')">
             <function-icon class="digiglass-bg"
                 :model="subject"
                 width="200"></function-icon>
@@ -44,12 +45,14 @@
 
 <script>
     import FunctionIcon from "../function-icon";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         components: {FunctionIcon},
         props: ['subject', 'value'],
         data() {
             return {
+                ChannelFunction,
                 state: [...Array(7)],
             };
         },

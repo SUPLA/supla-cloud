@@ -30,7 +30,7 @@
                             v-else>
                             <div class="form-group">
                                 <channels-dropdown
-                                    :params="'io=output&hasFunction=1' + (channelGroup.function ? '&function=' + channelGroup.function.id : '')"
+                                    :params="'io=output&hasFunction=1' + (channelGroup.functionId ? '&function=' + channelGroup.functionId : '')"
                                     v-model="newChannel"
                                     @update="channelsToChoose = $event"
                                     hide-none="true"
@@ -93,7 +93,7 @@
                     ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
                     ChannelFunction.THERMOSTAT,
                 ];
-                return !nonGroupingFunctions.includes(channel.function.id);
+                return !nonGroupingFunctions.includes(channel.functionId);
             },
         },
         computed: {

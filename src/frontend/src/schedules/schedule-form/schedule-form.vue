@@ -213,8 +213,8 @@
                 if (subject.possibleActions.length === 0) {
                     return false;
                 }
-                if (subject.ownSubjectType === 'channelGroup'
-                    && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) !== -1) {
+                if (subject.ownSubjectType === ActionableSubjectType.CHANNEL_GROUP
+                    && [ChannelFunction.CONTROLLINGTHEGATE, ChannelFunction.CONTROLLINGTHEGARAGEDOOR].includes(subject.functionId)) {
                     return false;
                 }
                 const nonScheduleFunctions = [

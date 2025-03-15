@@ -93,7 +93,7 @@
                         count: () => this.channel.relationsCount.scenes,
                     });
                 }
-                if (this.channel.function.id > 0 && !isActionTrigger) {
+                if (this.channel.functionId > 0 && !isActionTrigger) {
                     this.availableTabs.push({
                         route: 'channel.directLinks',
                         header: 'Direct links', // i18n
@@ -120,7 +120,7 @@
                         header: 'History of measurements', // i18n
                     });
                 }
-                if (this.channel.function.id === ChannelFunction.ELECTRICITYMETER) {
+                if (this.channel.functionId === ChannelFunction.ELECTRICITYMETER) {
                     this.availableTabs.push({
                         route: 'channel.voltageAberrations',
                         header: 'Voltage aberrations', // i18n

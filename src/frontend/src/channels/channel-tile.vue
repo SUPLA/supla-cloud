@@ -8,7 +8,7 @@
             </div>
             <dl class="ellipsis" v-if="model.caption">
                 <dd></dd>
-                <dt>{{ $t(model.function.caption) }}</dt>
+                <dt>{{ $t(channelFunction.caption) }}</dt>
             </dl>
             <dl>
                 <dd>ID</dd>
@@ -45,6 +45,7 @@
     import {useI18n} from "vue-i18n-bridge";
     import {useDevicesStore} from "@/stores/devices-store";
     import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
+    import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
     const props = defineProps({
         model: Object,
@@ -54,7 +55,6 @@
         }
     });
     const {t} = useI18n();
-    const caption = computed(() => props.model.caption || t(props.model.function.caption));
     const linkSpec = computed(() => props.noLink ? {} : {name: 'channel', params: {id: props.model.id}});
     const hasActionTrigger = computed(() => props.model?.relationsCount?.actionTriggers > 0);
     const backgroundColor = computed(() => {
@@ -68,4 +68,7 @@
     const location = computed(() => locationsStore.all[props.model.locationId]);
     const devicesStore = useDevicesStore();
     const device = computed(() => devicesStore.all[props.model.iodeviceId]);
+    const channelFunctionsStore = useChannelFunctionsStore();
+    const channelFunction = computed(() => channelFunctionsStore.all[props.model.functionId]);
+    const caption = computed(() => props.model.caption || t(channelFunction.value.caption));
 </script>

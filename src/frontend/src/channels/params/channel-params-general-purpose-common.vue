@@ -37,7 +37,7 @@
                         separator: ' ',
                     }"
                     class="form-control text-center"/>
-                <ChannelParamsMeterInitialValuesMode v-if="channel.function.name === 'GENERAL_PURPOSE_METER'"
+                <ChannelParamsMeterInitialValuesMode v-if="channel.functionId === ChannelFunction.GENERAL_PURPOSE_METER"
                     v-model="channel.config.includeValueAddedInHistory" @input="$emit('change')"/>
             </dt>
             <dd>{{ $t('Precision') }}</dd>
@@ -115,12 +115,14 @@
     import {component as VueNumber} from '@coders-tm/vue-number-format'
     import ChannelParamsMeterInitialValuesMode from "@/channels/params/channel-params-meter-initial-values-mode.vue";
     import NumberInput from "@/common/number-input.vue";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         components: {NumberInput, ChannelParamsMeterInitialValuesMode, UnitSymbolHelper, VueNumber},
         props: ['channel'],
         data() {
             return {
+                ChannelFunction,
                 formValues: {
                     valueDivider: 1,
                     valueMultiplier: 1,

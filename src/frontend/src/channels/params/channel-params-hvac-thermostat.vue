@@ -1,6 +1,6 @@
 <template>
     <div>
-        <dl v-if="canDisplaySetting('subfunction') && channel.function.name === 'HVAC_THERMOSTAT'">
+        <dl v-if="canDisplaySetting('subfunction') && channel.functionId === ChannelFunction.HVAC_THERMOSTAT">
             <dd>{{ $t('Subfunction') }}</dd>
             <dt>
                 <!-- i18n:['thermostatSubfunction_HEAT', 'thermostatSubfunction_COOL'] -->
@@ -478,12 +478,14 @@
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import SameDifferentThanMasterThermostat from "@/channels/hvac/same-different-than-master-thermostat.vue";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         components: {SameDifferentThanMasterThermostat, TransitionExpand, ChannelsIdDropdown},
         props: ['channel'],
         data() {
             return {
+                ChannelFunction,
                 group: undefined,
                 algorithmHelpShown: false,
                 outputValueHelpShown: false,

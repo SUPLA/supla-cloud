@@ -152,7 +152,7 @@
                 if (this.targetSubject.ownSubjectType === ActionableSubjectType.NOTIFICATION) {
                     return '';
                 }
-                return this.targetSubject.caption || `ID${this.targetSubject.id} ${this.$t(this.targetSubject.function.caption)}`;
+                return this.targetSubject.caption || `ID${this.targetSubject.id} ${this.$t(this.channelFunctions[this.targetSubject.functionId].caption)}`;
             },
             owningChannel() {
                 return this.item?.owningChannel;

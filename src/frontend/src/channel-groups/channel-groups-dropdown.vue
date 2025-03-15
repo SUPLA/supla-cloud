@@ -14,6 +14,8 @@
 <script>
     import {channelIconUrl} from "../common/filters";
     import SelectForSubjects from "@/devices/select-for-subjects.vue";
+    import {mapState} from "pinia";
+    import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
     export default {
         props: ['params', 'value', 'filter'],
@@ -34,10 +36,10 @@
                 });
             },
             channelGroupCaption(channelGroup) {
-                return channelGroup.caption || `ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
+                return channelGroup.caption || `ID${channelGroup.id} ${this.$t(this.channelFunctions[channelGroup.functionId].caption)}`;
             },
             channelGroupSearchText(channelGroup) {
-                return `${channelGroup.caption || ''} ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
+                return `${channelGroup.caption || ''} ID${channelGroup.id} ${this.$t(this.channelFunctions[channelGroup.functionId].caption)}`;
             },
             channelGroupHtml(channelGroup, escape) {
                 return `<div>
@@ -45,7 +47,7 @@
                                 <div class="flex-grow-1">
                                     <h5 class="my-1">
                                         <span class="line-clamp line-clamp-2">${escape(channelGroup.fullCaption)}</span>
-                                        ${channelGroup.caption ? `<span class="small text-muted">ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}</span>` : ''}
+                                        ${channelGroup.caption ? `<span class="small text-muted">ID${channelGroup.id} ${this.$t(this.channelFunctions[channelGroup.functionId].caption)}</span>` : ''}
                                     </h5>
                                     <p class="line-clamp line-clamp-2 small mb-0 option-extra">${this.$t("No{'.'} of channels")}: ${channelGroup.relationsCount.channels}</p>
                                 </div>
@@ -71,6 +73,7 @@
                     this.$emit('input', channelGroup);
                 }
             },
+            ...mapState(useChannelFunctionsStore, {channelFunctions: 'all'}),
         },
         watch: {
             params() {

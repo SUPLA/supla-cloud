@@ -43,7 +43,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   schema="UserIcon", type="object",
  *   @OA\Property(property="id", type="integer", description="Identifier"),
  *   @OA\Property(property="functionId", type="integer", example=60),
- *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
  *   @OA\Property(property="images", description="Base64-encoded images of this icon in light mode. Returned only if required by the `include` parameter in the single-entity endpoint.", type="array", @OA\Items(type="string")),
  *   @OA\Property(property="imagesDark", description="Base64-encoded images of this icon in dark mode. Returned only if required by the `include` parameter in the single-entity endpoint.", type="array", @OA\Items(type="string")),
  * )

@@ -35,10 +35,12 @@
                                             :class="{disabled: hasPendingChanges}"
                                             @click="changingFunction = true">
                                             <p class="no-margin text-default">
-                                                {{ $t(channel.function.caption) }}
-                                                <span v-if="channel.function.name == 'UNSUPPORTED'">({{ channel.functionId }})</span>
+                                                <span v-if="channelFunction">{{ $t(channelFunction.caption) }}</span>
+                                                <span v-else>
+                                                    {{ $t('Unsupported function') }} ({{ channel.functionId }})
+                                                </span>
                                             </p>
-                                            <span class="small" v-if="channel.function.id">
+                                            <span class="small" v-if="channel.functionId">
                                                 {{ $t('Change function') }}
                                             </span>
                                             <span class="small" v-else>
@@ -58,7 +60,7 @@
                                                 v-model="channelToEdit.caption">
                                         </dt>
                                     </dl>
-                                    <dl v-if="channel.function.id && frozenShownInClientsState !== false">
+                                    <dl v-if="channel.functionId && frozenShownInClientsState !== false">
                                         <dd>{{ $t('Show on the Client’s devices') }}</dd>
                                         <dt class="text-center">
                                             <toggler v-model="channelToEdit.hidden"
@@ -170,7 +172,7 @@
             v-if="changeFunctionConfirmationObject"
             :dependencies="changeFunctionConfirmationObject"
             @cancel="loading = changeFunctionConfirmationObject = undefined"
-            @confirm="changeFunction(changeFunctionConfirmationObject.newFunction, false)"></dependencies-warning-modal>
+            @confirm="changeFunction(changeFunctionConfirmationObject.newFunctionId, false)"></dependencies-warning-modal>
 
         <dependencies-warning-modal
             header-i18n="Are you sure you want to change channel’s location?"
@@ -219,7 +221,7 @@
     import ChannelActionExecutor from "@/channels/action/channel-action-executor";
     import ChannelActionExecutorModal from "./action/channel-action-executor-modal";
     import TransitionExpand from "../common/gui/transition-expand";
-    import {deepCopy, extendObject} from "@/common/utils";
+    import {deepCopy} from "@/common/utils";
     import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
     import ChannelConflictDetailsWarning from "@/channels/channel-conflict-details-warning.vue";
     import ChannelDeleteButton from "@/channels/channel-delete-button.vue";
@@ -229,6 +231,8 @@
     import ChannelMuteAlarmButton from "@/channels/action/channel-mute-alarm-button.vue";
     import {useDevicesStore} from "@/stores/devices-store";
     import {useLocationsStore} from "@/stores/locations-store";
+    import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         props: ['id'],
@@ -293,22 +297,21 @@
             cancelChanges() {
                 this.copyChannelToEdit();
             },
-            changeFunction(newFunction, safe = true) {
+            changeFunction(newFunctionId, safe = true) {
                 const channel = {...this.channel};
-                channel.function = newFunction;
+                channel.functionId = newFunctionId;
                 channel.altIcon = 0;
                 channel.userIconId = null;
                 this.loading = true;
                 this.changeFunctionConfirmationObject = undefined;
                 this.$http.put(`channels/${this.id}` + (safe ? '?safe=1' : ''), channel, {skipErrorHandler: [409]})
-                    .then(response => extendObject(this.channel, response.body))
                     .then(() => this.afterSave())
                     .then(() => this.$router.replace({name: 'channel', params: {id: this.channel.id}}))
                     .catch(response => {
                         if (response.status === 409) {
                             if (response.body.dependencies) {
                                 this.changeFunctionConfirmationObject = response.body;
-                                this.changeFunctionConfirmationObject.newFunction = newFunction;
+                                this.changeFunctionConfirmationObject.newFunctionId = newFunctionId;
                             } else {
                                 this.configConflictDetected = true;
                             }
@@ -384,25 +387,28 @@
             channelLocation() {
                 return this.locationsStore.all[this.channel.locationId];
             },
+            channelFunction() {
+                return this.channelFunctionsStore.all[this.channel.functionId];
+            },
             channelTitle() {
                 return channelTitle(this.channel);
             },
             frozenShownInClientsState() {
                 if (this.channel.config.controllingChannelId || this.channel.config.controllingSecondaryChannelId) {
                     return true;
-                } else if (this.channel.function.name === 'ACTION_TRIGGER') {
+                } else if (this.channel.functionId === ChannelFunction.ACTION_TRIGGER) {
                     return false;
                 }
                 return undefined;
             },
             channelFunctionIsChosen() {
-                return this.channel.function.id > 0 && this.channel.function.name != 'UNSUPPORTED';
+                return this.channel.functionId > 0 && this.channelFunction;
             },
             hasActionsToExecute() {
-                const noApiActionFunctions = ['VALVEPERCENTAGE'];
-                return this.channel.possibleActions?.length && !noApiActionFunctions.includes(this.channel.function.name);
+                const noApiActionFunctions = [ChannelFunction.VALVEPERCENTAGE];
+                return this.channel.possibleActions?.length && !noApiActionFunctions.includes(this.channel.functionId);
             },
-            ...mapStores(useChannelsStore, useDevicesStore, useLocationsStore),
+            ...mapStores(useChannelsStore, useDevicesStore, useLocationsStore, useChannelFunctionsStore),
         },
         watch: {
             id(l, a) {

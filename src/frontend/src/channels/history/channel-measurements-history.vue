@@ -139,7 +139,7 @@
         },
         computed: {
             supportsChart() {
-                return this.channel && CHART_TYPES[this.channel.function.name];
+                return this.channel && CHART_TYPES[this.channel.functionId];
             },
             supportedChartModes() {
                 if (this.channel.functionId === ChannelFunction.ELECTRICITYMETER) {

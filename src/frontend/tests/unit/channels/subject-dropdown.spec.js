@@ -22,6 +22,9 @@ describe('SubjectDropdown', () => {
                     all: channels,
                     ids: cfg.channels?.map(ch => ch.id) || [],
                 },
+                channelFunctions: {
+                    all: require('../enums/enum-functions.json').reduce((acc, curr) => ({...acc, [curr.id]: curr}), {}),
+                },
             }
         }));
         return mount(

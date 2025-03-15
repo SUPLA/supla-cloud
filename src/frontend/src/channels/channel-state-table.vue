@@ -41,7 +41,7 @@
             <dt></dt>
         </dl>
         <dl v-if="!currentState.isCalibrating && currentState.shut !== undefined">
-            <dd v-if="channel.function.name === 'TERRACE_AWNING'">{{ $t('Percentage of extension') }}</dd>
+            <dd v-if="channel.functionId === ChannelFunction.TERRACE_AWNING">{{ $t('Percentage of extension') }}</dd>
             <dd v-else>{{ $t('Percentage of closing') }}</dd>
             <dt>{{ currentState.shut }}%</dt>
         </dl>
@@ -54,7 +54,7 @@
             <dt v-if="channel.config.tiltingTimeS > 0">{{ currentState.tiltAngle }}&deg;</dt>
             <dt v-else>{{ $t('configuration missing') }}</dt>
         </dl>
-        <dl v-if="currentState.closed !== undefined && channel.function.name === 'VALVEPERCENTAGE'">
+        <dl v-if="currentState.closed !== undefined && channel.functionId === ChannelFunction.VALVEPERCENTAGE">
             <dd>{{ $t('Percentage of closing') }}</dd>
             <dt>{{ currentState.closed }}%</dt>
         </dl>
@@ -76,7 +76,7 @@
         <ChannelStateTableHvac v-if="currentState.connected && isHvac" :channel="channel" :state="currentState"/>
         <strong v-if="currentState.value !== undefined">
             <span v-if="currentState.value === null">---</span>
-            <span v-else-if="channel.function.name === 'WEIGHTSENSOR'">
+            <span v-else-if="channel.functionId === ChannelFunction.WEIGHTSENSOR">
                 <span v-if="currentState.value >= 2000">
                     {{ currentState.value / 1000 | roundToDecimals(4) }} kg
                 </span>
@@ -84,16 +84,17 @@
                     {{ currentState.value }} g
                 </span>
             </span>
-            <span v-else-if="channel.function.name === 'RAINSENSOR'">
+            <span v-else-if="channel.functionId === ChannelFunction.RAINSENSOR">
                 {{ currentState.value / 1000 | roundToDecimals(4) }} l/m
             </span>
-            <span v-else-if="channel.function.name === 'PRESSURESENSOR'">
+            <span v-else-if="channel.functionId === ChannelFunction.PRESSURESENSOR">
                 {{ currentState.value }} hPa
             </span>
-            <span v-else-if="channel.function.name === 'WINDSENSOR'">
+            <span v-else-if="channel.functionId === ChannelFunction.WINDSENSOR">
                 {{ currentState.value }} m/s
             </span>
-            <span v-else-if="['GENERAL_PURPOSE_MEASUREMENT', 'GENERAL_PURPOSE_METER'].includes(channel.function.name)">
+            <span
+                v-else-if="[ChannelFunction.GENERAL_PURPOSE_MEASUREMENT, ChannelFunction.GENERAL_PURPOSE_METER].includes(channel.functionId)">
                 {{ currentState.value | formatGpmValue(channel.config) }}
             </span>
             <span v-else>
@@ -157,11 +158,15 @@
     import ChannelStateTableHvac from "@/channels/channel-state-table-hvac.vue";
     import {mapState} from "pinia";
     import {useChannelsStore} from "@/stores/channels-store";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         components: {ChannelStateTableHvac},
         props: ['channel', 'state'],
-        mounted() {
+        data() {
+            return {
+                ChannelFunction,
+            }
         },
         methods: {
             cssColor(hexStringColor) {

@@ -6,7 +6,7 @@
             v-if="previewTimeout"
             @click="editIcon($event)"><i class="pe-7s-note"></i>
         </a>
-        <img v-for="(state, stateIndex) in icon.function.possibleVisualStates"
+        <img v-for="(state, stateIndex) in possibleVisualStates"
             :key="stateIndex"
             :src="`/api/user-icons/${icon.id}/${stateIndex}?` | withDownloadAccessToken"
             v-show="stateIndex == shownIndex">
@@ -14,6 +14,9 @@
 </template>
 
 <script>
+    import {mapState} from "pinia";
+    import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
+
     export default {
         props: ['icon'],
         data() {
@@ -26,7 +29,7 @@
             startPreview() {
                 this.previewTimeout = setTimeout(() => {
                     this.shownIndex++;
-                    if (this.shownIndex >= this.icon.function.possibleVisualStates.length) {
+                    if (this.shownIndex >= this.possibleVisualStates.length) {
                         this.shownIndex = 0;
                     }
                     this.startPreview();
@@ -41,6 +44,12 @@
                 event.stopPropagation();
                 this.icon.edit();
             }
+        },
+        computed: {
+            possibleVisualStates() {
+                return this.channelFunctions[this.icon.functionId].possibleVisualStates;
+            },
+            ...mapState(useChannelFunctionsStore, {channelFunctions: 'all'}),
         }
     };
 </script>

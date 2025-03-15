@@ -1,0 +1,756 @@
+[
+    {
+        "id": -1,
+        "name": "UNSUPPORTED",
+        "caption": "Unsupported function",
+        "possibleVisualStates": [],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 0,
+        "name": "NONE",
+        "caption": "None",
+        "possibleVisualStates": [],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 2000,
+        "name": "SCENE",
+        "caption": "Scene",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 19,
+        "output": true
+    },
+    {
+        "id": 2010,
+        "name": "SCHEDULE",
+        "caption": "Schedule",
+        "possibleVisualStates": [],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 2020,
+        "name": "NOTIFICATION",
+        "caption": "Notification",
+        "possibleVisualStates": [],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 10,
+        "name": "CONTROLLINGTHEGATEWAYLOCK",
+        "caption": "Gateway lock operation",
+        "possibleVisualStates": [
+            "opened",
+            "closed"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 20,
+        "name": "CONTROLLINGTHEGATE",
+        "caption": "Gate operation",
+        "possibleVisualStates": [
+            "opened",
+            "closed",
+            "partially_closed"
+        ],
+        "maxAlternativeIconIndex": 2,
+        "output": true
+    },
+    {
+        "id": 30,
+        "name": "CONTROLLINGTHEGARAGEDOOR",
+        "caption": "Garage door operation",
+        "possibleVisualStates": [
+            "opened",
+            "closed",
+            "partially_closed"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 40,
+        "name": "THERMOMETER",
+        "caption": "Thermometer",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 7,
+        "output": false
+    },
+    {
+        "id": 42,
+        "name": "HUMIDITY",
+        "caption": "Humidity sensor",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 45,
+        "name": "HUMIDITYANDTEMPERATURE",
+        "caption": "Temperature and humidity sensor",
+        "possibleVisualStates": [
+            "humidity",
+            "temperature"
+        ],
+        "maxAlternativeIconIndex": 7,
+        "output": false
+    },
+    {
+        "id": 50,
+        "name": "OPENINGSENSOR_GATEWAY",
+        "caption": "Gateway opening sensor",
+        "possibleVisualStates": [
+            "opened",
+            "closed"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 60,
+        "name": "OPENINGSENSOR_GATE",
+        "caption": "Gate opening sensor",
+        "possibleVisualStates": [
+            "opened",
+            "closed"
+        ],
+        "maxAlternativeIconIndex": 2,
+        "output": false
+    },
+    {
+        "id": 70,
+        "name": "OPENINGSENSOR_GARAGEDOOR",
+        "caption": "Garage door opening sensor",
+        "possibleVisualStates": [
+            "opened",
+            "closed"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 80,
+        "name": "NOLIQUIDSENSOR",
+        "caption": "No liquid sensor",
+        "possibleVisualStates": [
+            "empty",
+            "full"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 90,
+        "name": "CONTROLLINGTHEDOORLOCK",
+        "caption": "Door lock operation",
+        "possibleVisualStates": [
+            "opened",
+            "closed"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 100,
+        "name": "OPENINGSENSOR_DOOR",
+        "caption": "Door opening sensor",
+        "possibleVisualStates": [
+            "opened",
+            "closed"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 110,
+        "name": "CONTROLLINGTHEROLLERSHUTTER",
+        "caption": "Roller shutter operation",
+        "possibleVisualStates": [
+            "revealed",
+            "shut"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 115,
+        "name": "CONTROLLINGTHEROOFWINDOW",
+        "caption": "Roof window shutter operation",
+        "possibleVisualStates": [
+            "revealed",
+            "shut"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 120,
+        "name": "OPENINGSENSOR_ROLLERSHUTTER",
+        "caption": "Roller shutter opening sensor",
+        "possibleVisualStates": [
+            "revealed",
+            "shut"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 125,
+        "name": "OPENINGSENSOR_ROOFWINDOW",
+        "caption": "Roof window opening sensor",
+        "possibleVisualStates": [
+            "revealed",
+            "shut"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 130,
+        "name": "POWERSWITCH",
+        "caption": "On\/Off switch",
+        "possibleVisualStates": [
+            "off",
+            "on"
+        ],
+        "maxAlternativeIconIndex": 4,
+        "output": true
+    },
+    {
+        "id": 140,
+        "name": "LIGHTSWITCH",
+        "caption": "Light switch",
+        "possibleVisualStates": [
+            "off",
+            "on"
+        ],
+        "maxAlternativeIconIndex": 2,
+        "output": true
+    },
+    {
+        "id": 180,
+        "name": "DIMMER",
+        "caption": "Dimmer",
+        "possibleVisualStates": [
+            "off",
+            "on"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 190,
+        "name": "RGBLIGHTING",
+        "caption": "RGB lighting",
+        "possibleVisualStates": [
+            "off",
+            "on"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 200,
+        "name": "DIMMERANDRGBLIGHTING",
+        "caption": "Dimmer and RGB lighting",
+        "possibleVisualStates": [
+            "rgb_off_dim_off",
+            "rgb_off_dim_on",
+            "rgb_on_dim_off",
+            "rgb_on_dim_on"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 210,
+        "name": "DEPTHSENSOR",
+        "caption": "Depth sensor",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 220,
+        "name": "DISTANCESENSOR",
+        "caption": "Distance sensor",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 230,
+        "name": "OPENINGSENSOR_WINDOW",
+        "caption": "Window opening sensor",
+        "possibleVisualStates": [
+            "opened",
+            "closed"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 235,
+        "name": "HOTELCARDSENSOR",
+        "caption": "Hotel card sensor",
+        "possibleVisualStates": [
+            "empty",
+            "full"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 236,
+        "name": "ALARM_ARMAMENT_SENSOR",
+        "caption": "Alarm armament sensor",
+        "possibleVisualStates": [
+            "empty",
+            "full"
+        ],
+        "maxAlternativeIconIndex": 3,
+        "output": false
+    },
+    {
+        "id": 240,
+        "name": "MAILSENSOR",
+        "caption": "Mail sensor",
+        "possibleVisualStates": [
+            "empty",
+            "full"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 250,
+        "name": "WINDSENSOR",
+        "caption": "Wind sensor",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 260,
+        "name": "PRESSURESENSOR",
+        "caption": "Pressure sensor",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 270,
+        "name": "RAINSENSOR",
+        "caption": "Rain sensor",
+        "possibleVisualStates": [
+            "empty",
+            "full"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 280,
+        "name": "WEIGHTSENSOR",
+        "caption": "Weight sensor",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 290,
+        "name": "WEATHER_STATION",
+        "caption": "Weather Station",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 300,
+        "name": "STAIRCASETIMER",
+        "caption": "Staircase timer",
+        "possibleVisualStates": [
+            "off",
+            "on"
+        ],
+        "maxAlternativeIconIndex": 1,
+        "output": true
+    },
+    {
+        "id": 310,
+        "name": "ELECTRICITYMETER",
+        "caption": "Electricity meter",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 1,
+        "output": false
+    },
+    {
+        "id": 315,
+        "name": "IC_ELECTRICITYMETER",
+        "caption": "Electricity meter",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 320,
+        "name": "IC_GASMETER",
+        "caption": "Gas meter",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 330,
+        "name": "IC_WATERMETER",
+        "caption": "Water meter",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 340,
+        "name": "IC_HEATMETER",
+        "caption": "Heat meter",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 400,
+        "name": "THERMOSTAT",
+        "caption": "Thermostat",
+        "possibleVisualStates": [
+            "off",
+            "on"
+        ],
+        "maxAlternativeIconIndex": 3,
+        "output": true
+    },
+    {
+        "id": 410,
+        "name": "THERMOSTATHEATPOLHOMEPLUS",
+        "caption": "Home+ Heater",
+        "possibleVisualStates": [
+            "off",
+            "on"
+        ],
+        "maxAlternativeIconIndex": 3,
+        "output": true
+    },
+    {
+        "id": 420,
+        "name": "HVAC_THERMOSTAT",
+        "caption": "Thermostat",
+        "possibleVisualStates": [
+            "heating",
+            "cooling"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 422,
+        "name": "HVAC_THERMOSTAT_HEAT_COOL",
+        "caption": "Automatic thermostat",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 423,
+        "name": "HVAC_DRYER",
+        "caption": "Dryer",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 424,
+        "name": "HVAC_FAN",
+        "caption": "Fan",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 425,
+        "name": "HVAC_THERMOSTAT_DIFFERENTIAL",
+        "caption": "Differential thermostat",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 426,
+        "name": "HVAC_DOMESTIC_HOT_WATER",
+        "caption": "Domestic hot water",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 500,
+        "name": "VALVEOPENCLOSE",
+        "caption": "Valve",
+        "possibleVisualStates": [
+            "opened",
+            "closed"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 510,
+        "name": "VALVEPERCENTAGE",
+        "caption": "Valve",
+        "possibleVisualStates": [
+            "opened",
+            "closed"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 520,
+        "name": "GENERAL_PURPOSE_MEASUREMENT",
+        "caption": "General purpose measurement",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 31,
+        "output": false
+    },
+    {
+        "id": 530,
+        "name": "GENERAL_PURPOSE_METER",
+        "caption": "General purpose meter",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 14,
+        "output": false
+    },
+    {
+        "id": 700,
+        "name": "ACTION_TRIGGER",
+        "caption": "Action trigger",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 800,
+        "name": "DIGIGLASS_HORIZONTAL",
+        "caption": "Digi Glass Horizontal",
+        "possibleVisualStates": [
+            "revealed",
+            "shut"
+        ],
+        "maxAlternativeIconIndex": 1,
+        "output": true
+    },
+    {
+        "id": 810,
+        "name": "DIGIGLASS_VERTICAL",
+        "caption": "Digi Glass Vertical",
+        "possibleVisualStates": [
+            "revealed",
+            "shut"
+        ],
+        "maxAlternativeIconIndex": 1,
+        "output": true
+    },
+    {
+        "id": 900,
+        "name": "CONTROLLINGTHEFACADEBLIND",
+        "caption": "Facade blind operation",
+        "possibleVisualStates": [
+            "revealed",
+            "shut"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 910,
+        "name": "TERRACE_AWNING",
+        "caption": "Terrace awning",
+        "possibleVisualStates": [
+            "revealed",
+            "shut"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 920,
+        "name": "PROJECTOR_SCREEN",
+        "caption": "Projector screen",
+        "possibleVisualStates": [
+            "revealed",
+            "shut"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 930,
+        "name": "CURTAIN",
+        "caption": "Curtain",
+        "possibleVisualStates": [
+            "revealed",
+            "shut"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 940,
+        "name": "VERTICAL_BLIND",
+        "caption": "Vertical blind",
+        "possibleVisualStates": [
+            "revealed",
+            "shut"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 950,
+        "name": "ROLLER_GARAGE_DOOR",
+        "caption": "Roller garage door",
+        "possibleVisualStates": [
+            "revealed",
+            "shut"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": true
+    },
+    {
+        "id": 960,
+        "name": "PUMPSWITCH",
+        "caption": "Pump switch",
+        "possibleVisualStates": [
+            "off",
+            "on"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 970,
+        "name": "HEATORCOLDSOURCESWITCH",
+        "caption": "Heat or cold source switch",
+        "possibleVisualStates": [
+            "off",
+            "on"
+        ],
+        "maxAlternativeIconIndex": 5,
+        "output": false
+    },
+    {
+        "id": 980,
+        "name": "CONTAINER",
+        "caption": "Container",
+        "possibleVisualStates": [
+            "empty",
+            "half",
+            "full"
+        ],
+        "maxAlternativeIconIndex": 3,
+        "output": false
+    },
+    {
+        "id": 981,
+        "name": "SEPTIC_TANK",
+        "caption": "Septic tank",
+        "possibleVisualStates": [
+            "empty",
+            "half",
+            "full"
+        ],
+        "maxAlternativeIconIndex": 1,
+        "output": false
+    },
+    {
+        "id": 982,
+        "name": "WATER_TANK",
+        "caption": "Water tank",
+        "possibleVisualStates": [
+            "empty",
+            "half",
+            "full"
+        ],
+        "maxAlternativeIconIndex": 3,
+        "output": false
+    },
+    {
+        "id": 990,
+        "name": "CONTAINER_LEVEL_SENSOR",
+        "caption": "Container level sensor",
+        "possibleVisualStates": [
+            "low",
+            "hi"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    {
+        "id": 1000,
+        "name": "FLOOD_SENSOR",
+        "caption": "Flood sensor",
+        "possibleVisualStates": [
+            "low",
+            "hi"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    }
+]

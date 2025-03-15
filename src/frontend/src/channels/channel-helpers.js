@@ -6,11 +6,11 @@ export function measurementUnit(channel) {
     if (channel.config && channel.config.unit) {
         return channel.config.unit;
     }
-    switch (channel.function.name) {
-        case 'IC_HEATMETER':
+    switch (channel.functionId) {
+        case ChannelFunction.IC_HEATMETER:
             return 'GJ';
-        case 'ELECTRICITYMETER':
-        case 'IC_ELECTRICITYMETER':
+        case ChannelFunction.ELECTRICITYMETER:
+        case ChannelFunction.IC_ELECTRICITYMETER:
             return 'kWh';
         default:
             return 'm³';

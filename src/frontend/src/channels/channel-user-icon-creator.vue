@@ -101,6 +101,7 @@
     import {prettyBytes, withDownloadAccessToken} from "../common/filters";
     import {mapState} from "pinia";
     import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+    import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
     export default {
         props: ['model', 'icon'],
@@ -178,7 +179,7 @@
                     }
                 }
                 this.uploading = true;
-                formData.append('function', this.model.function.name);
+                formData.append('function', this.model.functionId);
                 if (this.icon) {
                     formData.append('sourceIcon', this.icon.id);
                 }
@@ -195,7 +196,7 @@
         },
         computed: {
             possibleStates() {
-                return this.model.function.possibleVisualStates;
+                return this.channelFunctions[this.model.functionId].possibleVisualStates;
             },
             maxUploadSizeTotalPretty() {
                 return prettyBytes(this.maxUploadSizeTotal);
@@ -207,6 +208,7 @@
             maxUploadSizeTotal() {
                 return this.frontendConfig.max_upload_size?.total || 0;
             },
+            ...mapState(useChannelFunctionsStore, {channelFunctions: 'all'}),
         }
     };
 </script>

@@ -50,7 +50,8 @@
                                     :subject="subject"></rgbw-parameters-setter>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.SET">
-                                <digiglass-parameters-setter v-if="subject.function.name.match(/^DIGIGLASS.+/)"
+                                <digiglass-parameters-setter
+                                    v-if="[ChannelFunction.DIGIGLASS_HORIZONTAL, ChannelFunction.DIGIGLASS_VERTICAL].includes(subject.functionId)"
                                     v-model="param"
                                     @input="paramsChanged()"
                                     :subject="subject"></digiglass-parameters-setter>
@@ -59,7 +60,7 @@
                                 <channels-id-dropdown v-model="param.sourceChannelId"
                                     :hide-none="true"
                                     @input="paramsChanged()"
-                                    :params="`function=${subject.function.id}&skipIds=${(subject.ownSubjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
+                                    :params="`function=${subject.functionId}&skipIds=${(subject.ownSubjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.TURN_OFF_WITH_DURATION">
                                 <DurationParamSetter v-model="param.durationMs" :with-calendar="executorMode" hide-no-timer disable-ms
@@ -114,6 +115,8 @@
     import HvacSetpointsSetter from "@/channels/action/hvac-setpoints-setter.vue";
     import PartialPercentageParamSetter from "@/channels/action/partial-percentage-param-setter.vue";
     import {actionCaption} from "@/channels/channel-helpers";
+    import {mapState} from "pinia";
+    import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
     export default {
         components: {
@@ -268,7 +271,8 @@
             },
             isDisabled() {
                 return this.disabled || !!this.isSlaveThermostat;
-            }
+            },
+            ...mapState(useChannelFunctionsStore, {channelFunctions: 'all'}),
         },
         watch: {
             subject(newSubject, oldSubject) {

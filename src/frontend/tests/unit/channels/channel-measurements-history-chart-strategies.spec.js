@@ -1,4 +1,5 @@
 import {CHART_TYPES, fillGaps} from "@/channels/history/channel-measurements-history-chart-strategies";
+import ChannelFunction from "@/common/enums/channel-function";
 
 describe('Channel measurement history data strategies', () => {
     describe('fillGaps', function () {
@@ -61,7 +62,7 @@ describe('Channel measurement history data strategies', () => {
     });
 
     describe('ELECTRICITYMETER', function () {
-        const strategy = CHART_TYPES.ELECTRICITYMETER;
+        const strategy = CHART_TYPES[ChannelFunction.ELECTRICITYMETER];
 
         it('does nothing to empty log', () => {
             expect(strategy.fixLog(strategy.emptyLog())).toEqual(strategy.emptyLog());
@@ -105,7 +106,7 @@ describe('Channel measurement history data strategies', () => {
 
         it('interpolates gaps for EM logs', () => {
             const logs = require('./measurement-logs/em_logs_case1.json');
-            const filled = fillGaps(logs, 600, CHART_TYPES.ELECTRICITYMETER.emptyLog());
+            const filled = fillGaps(logs, 600, CHART_TYPES[ChannelFunction.ELECTRICITYMETER].emptyLog());
             expect(filled).toHaveLength(logs.length + 3);
             const interpolated = strategy.interpolateGaps(filled);
             expect(interpolated[1].phase3_rre).toEqual(logs[1].phase3_rre);
@@ -244,7 +245,7 @@ describe('Channel measurement history data strategies', () => {
     });
 
     describe('IC_GASMETER', function () {
-        const strategy = CHART_TYPES.IC_GASMETER;
+        const strategy = CHART_TYPES[ChannelFunction.IC_GASMETER];
 
         it('aggregates simple logs', () => {
             const logs = [
@@ -331,7 +332,7 @@ describe('Channel measurement history data strategies', () => {
     });
 
     describe('GENERAL_PURPOSE_MEASUREMENT', function () {
-        const strategy = CHART_TYPES.GENERAL_PURPOSE_MEASUREMENT;
+        const strategy = CHART_TYPES[ChannelFunction.GENERAL_PURPOSE_MEASUREMENT];
 
         it('aggregates simple logs', () => {
             const logs = [
@@ -349,7 +350,7 @@ describe('Channel measurement history data strategies', () => {
     });
 
     describe('GENERAL_PURPOSE_METER', function () {
-        const strategy = CHART_TYPES.GENERAL_PURPOSE_METER;
+        const strategy = CHART_TYPES[ChannelFunction.GENERAL_PURPOSE_METER];
 
         describe('ALWAYS_INCREMENT', function () {
             const channel = {
@@ -526,7 +527,7 @@ describe('Channel measurement history data strategies', () => {
     });
 
     describe('ELECTRICITYMETER_voltageHistory', function () {
-        const strategy = CHART_TYPES.ELECTRICITYMETERvoltageHistory;
+        const strategy = CHART_TYPES[ChannelFunction.ELECTRICITYMETER + 'voltageHistory'];
 
         it('merges phases logs', () => {
             const logs = [

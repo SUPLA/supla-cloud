@@ -40,6 +40,7 @@
     import {mapState} from "pinia";
     import {useLocationsStore} from "@/stores/locations-store";
     import {useDevicesStore} from "@/stores/devices-store";
+    import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
     export default {
         props: {
@@ -88,7 +89,7 @@
                     const location = this.locations[channel.locationId] || {};
                     const device = this.devices[channel.iodeviceId] || {};
                     const searchString = latinize([channel.id, channel.caption, device.name, this.$t(channel.type.caption),
-                        location.id, location.caption, this.$t(channel.function.caption)].join(' '))
+                        location.id, location.caption, this.$t(this.channelFunctions[channel.functionId].caption)].join(' '))
                         .toLowerCase();
                     return searchString.indexOf(latinize(this.search).toLowerCase()) >= 0;
                 }
@@ -114,7 +115,7 @@
                 }
             },
             captionForSort(channel) {
-                return latinize(channel.caption || (channel.function && this.$t(channel.function.caption)) || '').toLowerCase().trim();
+                return latinize(channel.caption || (this.$t(this.channelFunctions[channel.functionId])) || '').toLowerCase().trim();
             },
         },
         computed: {
@@ -129,6 +130,7 @@
             },
             ...mapState(useLocationsStore, {locations: 'all'}),
             ...mapState(useDevicesStore, {devices: 'all'}),
+            ...mapState(useChannelFunctionsStore, {channelFunctions: 'all'}),
         },
     };
 </script>

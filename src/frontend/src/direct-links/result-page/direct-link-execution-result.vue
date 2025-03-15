@@ -15,11 +15,12 @@
                         <div><code>{{ currentUrl }}?percentage=60</code></div>
                     </div>
                     <div v-if="action === 'SET_RGBW_PARAMETERS'">
-                        <div v-if="['DIMMER', 'DIMMERANDRGBLIGHTING'].indexOf(directLink.subject.function.name) !== -1">
+                        <div v-if="[ChannelFunction.DIMMER, ChannelFunction.DIMMERANDRGBLIGHTING].includes(directLink.subject.functionId)">
                             <div><code>{{ currentUrl }}?brightness=40</code></div>
                             <div><code>{{ currentUrl }}?brightness=100</code></div>
                         </div>
-                        <div v-if="['RGBLIGHTING', 'DIMMERANDRGBLIGHTING'].indexOf(directLink.subject.function.name) !== -1">
+                        <div
+                            v-if="[ChannelFunction.RGBLIGHTING, ChannelFunction.DIMMERANDRGBLIGHTING].indexOf(directLink.subject.functionId)">
                             <div><code>{{ currentUrl }}?color=0xFF6600</code></div>
                             <div><code>{{ currentUrl }}?color_brightness=40&color=16711935</code></div>
                             <div><code>{{ currentUrl }}?color_brightness=60&color=0x00FF00</code></div>
@@ -27,7 +28,8 @@
                         </div>
                     </div>
                     <div v-if="action === 'SET'">
-                        <div v-if="directLink.subject.function.name.match(/^DIGIGLASS.+/)">
+                        <div
+                            v-if="[ChannelFunction.DIGIGLASS_HORIZONTAL, ChannelFunction.DIGIGLASS_VERTICAL].includes(directLink.subject.functionId)">
                             <div><code>{{ currentUrl }}?transparent=1,2</code></div>
                             <div><code>{{ currentUrl }}?opaque=2</code></div>
                             <div><code>{{ currentUrl }}?transparent=1,2&opaque=0,3</code></div>
@@ -47,7 +49,7 @@
             <div v-else-if="failureReason == 'directLinkExecutionFailureReason_invalidChannelState'">
                 <i class="pe-7s-science"
                     style="font-size: 160px"></i>
-                <div v-if="['VALVEOPENCLOSE'].indexOf(directLink.subject.function.name) !== -1">
+                <div v-if="[ChannelFunction.VALVEOPENCLOSE].includes(directLink.subject.functionId)">
                     <p>{{ $t('The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.') }}</p>
                 </div>
             </div>
@@ -128,6 +130,8 @@
         components: {DirectLinkChannelStatus, CopyButton},
         data() {
             return {
+                ChannelFunction,
+                ChannelFunctionAction,
                 directLink: undefined,
                 jsonHintVisible: false
             };
@@ -149,9 +153,9 @@
             exampleUrl(action) {
                 let url = this.currentUrl + '/' + action.nameSlug;
                 if (action.nameSlug === 'set-rgbw-parameters') {
-                    if (this.directLink.subject.function.name === 'RGBLIGHTING') {
+                    if (this.directLink.subject.functionId === ChannelFunction.RGBLIGHTING) {
                         url += '?color_brightness=40&color=0x00FF33';
-                    } else if (this.directLink.subject.function.name === 'DIMMERANDRGBLIGHTING') {
+                    } else if (this.directLink.subject.functionId === ChannelFunction.DIMMERANDRGBLIGHTING) {
                         url += '?color_brightness=40&color=0x00FF33&brightness=60';
                     } else {
                         url += '?brightness=60';
@@ -159,7 +163,7 @@
                 } else if (action.nameSlug === 'reveal-partially') {
                     url += '?percentage=60';
                 } else if (action.nameSlug === 'set') {
-                    if (this.directLink.subject.function.name.match(/^DIGIGLASS.+/)) {
+                    if ([ChannelFunction.DIGIGLASS_VERTICAL, ChannelFunction.DIGIGLASS_HORIZONTAL].includes(this.directLink.subject.functionId)) {
                         url += '?transparent=0,2&opaque=1';
                     }
                 } else if (action.nameSlug === 'copy') {
@@ -169,12 +173,6 @@
             }
         },
         computed: {
-            ChannelFunctionAction() {
-                return ChannelFunctionAction
-            },
-            ChannelFunction() {
-                return ChannelFunction
-            },
             currentUrl() {
                 return window.location.protocol + "//" + window.location.host + window.location.pathname;
             }

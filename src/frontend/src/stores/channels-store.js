@@ -5,6 +5,7 @@ import {useIntervalFn} from "@vueuse/core";
 import {useDevicesStore} from "@/stores/devices-store";
 import ChannelType from "@/common/enums/channel-type";
 import ChannelFunction from "@/common/enums/channel-function";
+import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
 export const useChannelsStore = defineStore('channels', () => {
     const all = ref({});
@@ -91,12 +92,13 @@ export const useChannelsStore = defineStore('channels', () => {
         if (params.hasFunction !== undefined) {
             params.hasFunction = params.hasFunction === '0' ? false : !!params.hasFunction;
         }
+        const channelFunctionsStore = useChannelFunctionsStore();
         return list.value
             .filter((c) => params.type.length === 0 || params.type.includes(c.typeId))
             .filter((c) => params.function.length === 0 || params.function.includes(c.functionId))
             .filter((c) => params.deviceIds.length === 0 || params.deviceIds.includes(c.iodeviceId))
             .filter((c) => params.hasFunction === undefined || c.functionId !== ChannelFunction.NONE)
-            .filter((c) => params.io === undefined || c.function.output === (params.io === 'output'))
+            .filter((c) => params.io === undefined || channelFunctionsStore.all[c.functionId]?.output === (params.io === 'output'))
             .filter((c) => !params.skipIds.includes(c.id));
     }));
 

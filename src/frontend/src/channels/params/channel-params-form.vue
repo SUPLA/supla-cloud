@@ -55,6 +55,8 @@
     import ChannelParamsInvertedLogic from "@/channels/params/channel-params-inverted-logic.vue";
     import ChannelParamsValveopenclose from "@/channels/params/channel-params-valveopenclose.vue";
     import ChannelParamsSepticTank from "@/channels/params/channel-params-septic-tank.vue";
+    import {mapState} from "pinia";
+    import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
     export default {
         props: ['channel'],
@@ -105,7 +107,7 @@
         },
         computed: {
             additionalChannelParamsComponent() {
-                const fncName = changeCase.camelCase(this.channel.function.name);
+                const fncName = changeCase.camelCase(this.channelFunctions[this.channel.functionId].name);
                 let componentName = 'ChannelParams' + changeCase.upperCaseFirst(fncName);
                 // console.log(componentName);
                 if (this.$options.components[componentName]) {
@@ -114,6 +116,7 @@
                     return 'channel-params-none';
                 }
             },
+            ...mapState(useChannelFunctionsStore, {channelFunctions: 'all'}),
         },
         data() {
             return {
@@ -137,6 +140,6 @@
                     });
                 }
             }
-        }
+        },
     };
 </script>

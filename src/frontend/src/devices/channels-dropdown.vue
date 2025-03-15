@@ -21,6 +21,7 @@
     import {useDevicesStore} from "@/stores/devices-store";
     import {useLocationsStore} from "@/stores/locations-store";
     import {useChannelsStore} from "@/stores/channels-store";
+    import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
     export default {
         props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter', 'choosePromptI18n', 'disabled'],
@@ -30,13 +31,13 @@
         },
         methods: {
             channelCaption(channel) {
-                return channel.caption || `ID${channel.id} ${this.$t(channel.function.caption)}`;
+                return channel.caption || `ID${channel.id} ${this.$t(this.channelFunctions[channel.functionId].caption)}`;
             },
             channelSearchText(channel) {
                 const subDevice = this.subDevicesStore.forChannel(channel);
                 const device = this.devices[channel.iodeviceId] || {};
                 const location = this.locations[channel.locationId] || {};
-                return `${channel.caption || ''} ID${channel.id} ${this.$t(channel.function.caption)} ${location.caption} ${device.name} ${subDevice?.name || ''}`;
+                return `${channel.caption || ''} ID${channel.id} ${this.$t(this.channelFunctions[channel.functionId].caption)} ${location.caption} ${device.name} ${subDevice?.name || ''}`;
             },
             channelHtml(channel, escape) {
                 const subDevice = this.subDevicesStore.forChannel(channel);
@@ -48,7 +49,7 @@
                                 <div class="flex-grow-1">
                                     <h5 class="my-1">
                                         <span class="line-clamp line-clamp-2">${escape(channel.fullCaption)}</span>
-                                        ${channel.caption ? `<span class="small text-muted">ID${channel.id} ${this.$t(channel.function.caption)}</span>` : ''}
+                                        ${channel.caption ? `<span class="small text-muted">ID${channel.id} ${this.$t(this.channelFunctions[channel.functionId].caption)}</span>` : ''}
                                     </h5>
                                     <p class="line-clamp line-clamp-2 small mb-0 option-extra">${escape(location.caption)} / ${escape(device.name)}${subDeviceName}</p>
                                 </div>
@@ -85,6 +86,7 @@
             },
             ...mapState(useDevicesStore, {devices: 'all'}),
             ...mapState(useLocationsStore, {locations: 'all'}),
+            ...mapState(useChannelFunctionsStore, {channelFunctions: 'all'}),
             ...mapState(useChannelsStore, {
                 channels(store) {
                     return store.filteredChannels(this.params);

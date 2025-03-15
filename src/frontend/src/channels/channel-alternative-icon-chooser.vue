@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a v-if="channel.function.id"
+        <a v-if="channel.functionId"
             @click="openIconDialog()"
             class="btn btn-link">
             {{ $t('Change icon') }}
@@ -22,10 +22,10 @@
                         <a v-for="icon in icons" :key="icon.id"
                             :class="{active: selectedIcon.id === icon.id}"
                             @click="selectedIcon = icon">
-                            <channel-user-icon-preview :icon="icon" v-if="icon.function"/>
+                            <channel-user-icon-preview :icon="icon" v-if="icon.functionId"/>
                             <function-icon v-else
                                 width="100"
-                                :model="channel.function"
+                                :model="channel.functionId"
                                 :config="channel.config"
                                 :alternative="icon.index"/>
                         </a>
@@ -45,6 +45,8 @@
     import ChannelUserIconCreator from "./channel-user-icon-creator";
     import FunctionIcon from "@/channels/function-icon.vue";
     import ChannelUserIconPreview from "@/channels/channel-user-icon-preview.vue";
+    import {mapStores} from "pinia";
+    import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
     export default {
         components: {ChannelUserIconPreview, FunctionIcon, ChannelUserIconCreator},
@@ -65,7 +67,7 @@
                 this.choosing = true;
             },
             choose(chosenIcon) {
-                if (chosenIcon.function) {
+                if (chosenIcon.functionId) {
                     this.channel.userIconId = chosenIcon.id;
                     this.choosing = false;
                     this.$emit('change');
@@ -81,8 +83,8 @@
                 this.addingNewIcon = false;
                 this.editingIcon = undefined;
                 if (this.channel) {
-                    this.$http.get('user-icons?function=' + this.channel.function.name).then(response => {
-                        for (let index = 0; index <= this.channel.function.maxAlternativeIconIndex; index++) {
+                    this.$http.get('user-icons?function=' + this.channelFunction.name).then(response => {
+                        for (let index = 0; index <= this.channelFunction.maxAlternativeIconIndex; index++) {
                             this.icons.push({id: (-index - 1), channel: this.channel, index});
                         }
                         const userIcons = response.body;
@@ -104,6 +106,12 @@
                 }
             }
         },
+        computed: {
+            ...mapStores(useChannelFunctionsStore),
+            channelFunction() {
+                return this.channelFunctionsStore.all[this.channel.functionId];
+            },
+        }
     };
 </script>
 

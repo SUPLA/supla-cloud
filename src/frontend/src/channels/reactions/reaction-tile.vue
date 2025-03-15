@@ -18,6 +18,8 @@
     import {reactionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
     import {channelTitle} from "@/common/filters";
     import {actionCaption} from "../channel-helpers";
+    import {mapState} from "pinia";
+    import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
     export default {
         methods: {actionCaption},
@@ -33,8 +35,9 @@
                 if (this.model.subject.ownSubjectType === ActionableSubjectType.NOTIFICATION) {
                     return '';
                 }
-                return this.model.subject.caption || `ID${this.model.subject.id} ${this.$t(this.model.subject.function.caption)}`;
+                return this.model.subject.caption || `ID${this.model.subject.id} ${this.$t(this.channelFunctions[this.model.subject.functionId].caption)}`;
             },
+            ...mapState(useChannelFunctionsStore, {channelFunctions: 'all'}),
         }
     };
 </script>

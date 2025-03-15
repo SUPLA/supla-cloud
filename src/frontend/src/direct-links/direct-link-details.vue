@@ -196,6 +196,7 @@
     import {actionCaption} from "@/channels/channel-helpers";
     import {mapState} from "pinia";
     import {useCurrentUserStore} from "@/stores/current-user-store";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         props: ['id', 'item'],
@@ -299,7 +300,7 @@
                 this.fetch();
             },
             filterOutNotDirectLinkingSubjects(subject) {
-                return !['ACTION_TRIGGER'].includes(subject.function.name);
+                return ![ChannelFunction.ACTION_TRIGGER].includes(subject.functionId);
             },
         },
         computed: {
@@ -318,7 +319,7 @@
             possibleActions() {
                 if (this.directLink && this.directLink.subject) {
                     // OPEN and CLOSE actions are not supported for valves via API
-                    const disableOpenClose = ['VALVEPERCENTAGE'].includes(this.directLink.subject.function.name);
+                    const disableOpenClose = [ChannelFunction.VALVEPERCENTAGE].includes(this.directLink.subject.functionId);
                     return [{
                         id: 1000,
                         name: 'READ',
@@ -330,7 +331,8 @@
                 return [];
             },
             displayOpeningSensorWarning() {
-                const isGate = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) >= 0;
+                const isGate = [ChannelFunction.CONTROLLINGTHEGATE, ChannelFunction.CONTROLLINGTHEGARAGEDOOR]
+                    .indexOf(this.directLink.subject.functionId) >= 0;
                 return isGate && (this.currentlyAllowedActions.includes('OPEN') || this.currentlyAllowedActions.includes('CLOSE'));
             },
             fullUrl() {

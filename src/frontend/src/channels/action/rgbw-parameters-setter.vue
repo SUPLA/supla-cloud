@@ -140,7 +140,7 @@
                 return [ChannelFunction.RGBLIGHTING, ChannelFunction.DIMMERANDRGBLIGHTING].includes(this.channelFunctionId);
             },
             channelFunctionId() {
-                return this.subject.function.id;
+                return this.subject.functionId;
             },
         },
         watch: {

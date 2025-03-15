@@ -8,6 +8,7 @@ import {api} from "@/api/api";
 import {useDevicesStore} from "@/stores/devices-store";
 import {useChannelsStore} from "@/stores/channels-store";
 import {useLocationsStore} from "@/stores/locations-store";
+import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
 export const useCurrentUserStore = defineStore('currentUser', () => {
     const userToken = useStorage('supla-user-token');
@@ -80,6 +81,7 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
         try {
             const {body} = await api.get('users/current', {skipErrorHandler: [401, 409, 429]});
             await Promise.all([
+                useChannelFunctionsStore().fetchAll(),
                 useFrontendConfigStore().fetchConfig(),
                 useDevicesStore().fetchAll(),
                 useChannelsStore().fetchAll(),

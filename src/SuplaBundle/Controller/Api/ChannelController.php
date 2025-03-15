@@ -67,7 +67,6 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="locationId", type="integer"),
  *   @OA\Property(property="location", description="Channel location, if requested by the `include` param", ref="#/components/schemas/Location"),
  *   @OA\Property(property="functionId", type="integer", example=60),
- *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
  *   @OA\Property(property="possibleActions", type="array", description="What action can you execute on this subject?", @OA\Items(ref="#/components/schemas/ChannelFunctionAction")),
  *   @OA\Property(property="typeId", type="integer", example=1000),
  *   @OA\Property(property="type", ref="#/components/schemas/ChannelType"),

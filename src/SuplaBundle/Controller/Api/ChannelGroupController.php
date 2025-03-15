@@ -50,7 +50,6 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="hidden", type="boolean", description="Whether this channel group is shown on client apps or not"),
  *   @OA\Property(property="ownSubjectType", type="string", enum={"channelGroup"}),
  *   @OA\Property(property="functionId", type="integer", example=60),
- *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
  *   @OA\Property(property="locationId", type="integer"),
  *   @OA\Property(property="location", description="Channel group location, if requested by the `include` param", ref="#/components/schemas/Location"),
  *   @OA\Property(property="channels", type="array", description="Channel group channels, if requested by the `include` param", @OA\Items(ref="#/components/schemas/Channel")),

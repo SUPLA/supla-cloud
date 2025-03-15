@@ -33,7 +33,10 @@ describe('ChannelsStore', () => {
                         },
                     },
                     ids: [1, 2, 3],
-                }
+                },
+                channelFunctions: {
+                    all: require('../enums/enum-functions.json').reduce((acc, curr) => ({...acc, [curr.id]: curr}), {}),
+                },
             }
         }));
     })

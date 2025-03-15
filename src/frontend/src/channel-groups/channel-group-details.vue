@@ -45,15 +45,15 @@
                                 <div class="col-md-4 col-sm-6">
                                     <div class="details-page-block">
                                         <h3>{{ $t('Function') }}</h3>
-                                        <div v-if="channelGroup.function">
-                                            <function-icon :model="channelGroup" width="100"></function-icon>
-                                            <h4>{{ $t(channelGroup.function.caption) }}</h4>
-                                            <channel-alternative-icon-chooser :channel="channelGroup"
-                                                @change="channelGroupChanged()"></channel-alternative-icon-chooser>
-                                        </div>
-                                        <div v-else-if="isNewGroup">
+                                        <div v-if="isNewGroup">
                                             <i class="pe-7s-help1"
                                                 style="font-size: 3em"></i>
+                                        </div>
+                                        <div v-else>
+                                            <function-icon :model="channelGroup" width="100"></function-icon>
+                                            <h4>{{ $t(channelFunctions[channelGroup.functionId].caption) }}</h4>
+                                            <channel-alternative-icon-chooser :channel="channelGroup"
+                                                @change="channelGroupChanged()"></channel-alternative-icon-chooser>
                                         </div>
                                     </div>
                                     <div class="details-page-block">
@@ -120,6 +120,8 @@
     import AppState from "../router/app-state";
     import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal";
     import ChannelActionExecutor from "../channels/action/channel-action-executor";
+    import {mapState} from "pinia";
+    import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
     export default {
         props: ['id'],
@@ -244,6 +246,7 @@
                     return '';
                 }
             },
+            ...mapState(useChannelFunctionsStore, {channelFunctions: 'all'}),
         },
         watch: {
             id() {

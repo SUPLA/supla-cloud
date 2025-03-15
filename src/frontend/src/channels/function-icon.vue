@@ -21,23 +21,25 @@
 <script>
     import {withDownloadAccessToken} from "../common/filters";
     import ChannelFunction from "@/common/enums/channel-function";
+    import {mapState} from "pinia";
+    import {useChannelFunctionsStore} from "@/stores/channel-functions-store";
 
     export default {
         props: ['model', 'width', 'alternative', 'userIcon', 'config', 'flexibleWidth'],
         computed: {
+            ...mapState(useChannelFunctionsStore, {channelFunctions: 'all'}),
             functionId() {
+                let functionId = 0;
                 if (this.model) {
-                    if (this.model.function) {
-                        return this.model.function.name === 'UNSUPPORTED' ? 0 : this.model.function.id;
-                    } else if (this.model.functionId) {
-                        return this.model.functionId;
+                    if (this.model.functionId) {
+                        functionId = this.model.functionId;
                     } else if (this.model.id) {
-                        return this.model.id;
+                        functionId = this.model.id;
                     } else if (Number.isInteger(this.model)) {
-                        return this.model;
+                        functionId = this.model;
                     }
                 }
-                return 0;
+                return this.channelFunctions[functionId]?.id || 0;
             },
             alternativeSuffix() {
                 if (this.alternative !== undefined) {
