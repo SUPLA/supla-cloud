@@ -306,7 +306,7 @@
                 this.changeFunctionConfirmationObject = undefined;
                 this.$http.put(`channels/${this.id}` + (safe ? '?safe=1' : ''), channel, {skipErrorHandler: [409]})
                     .then(() => this.afterSave())
-                    .then(() => this.$router.replace({name: 'channel', params: {id: this.channel.id}}))
+                    .then(() => this.$router.replace({name: 'channel', params: {id: this.channel.id}}).catch())
                     .catch(response => {
                         if (response.status === 409) {
                             if (response.body.dependencies) {

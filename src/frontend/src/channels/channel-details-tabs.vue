@@ -22,7 +22,6 @@
 <script>
     import ChannelFunction from "../common/enums/channel-function";
     import {getTriggerDefinitionsForChannel} from "@/channels/reactions/channel-function-triggers";
-    import EventBus from "@/common/event-bus";
     import {mapStores} from "pinia";
     import {useChannelsStore} from "@/stores/channels-store";
 
@@ -33,36 +32,53 @@
         data() {
             return {
                 tabVisible: true,
-                availableTabs: [],
-                channelUpdatedListener: undefined,
             };
         },
-        methods: {
-            detectAvailableTabs() {
-                this.availableTabs = [];
+        mounted() {
+            if (this.availableTabs.length) {
+                const isDefaultChannelRoute = this.$router.currentRoute.name === 'channel';
+                const isDefaultTab = this.$router.currentRoute.name === this.availableTabs[0].route;
+                const isAvailableTabRequested = this.availableTabs
+                    .map(t => t.route)
+                    .filter(r => this.$router.currentRoute.name.startsWith(r))
+                    .length > 0;
+                if (isDefaultChannelRoute || !isAvailableTabRequested) {
+                    this.$router.replace({name: this.availableTabs[0].route, params: {id: this.channel.id}}).catch();
+                } else if (!isDefaultTab) {
+                    setTimeout(() => document.getElementById('channel-details-tabs').scrollIntoView({behavior: 'smooth'}));
+                }
+            }
+        },
+        computed: {
+            channel() {
+                return this.channelsStore.all[this.channelId];
+            },
+            ...mapStores(useChannelsStore),
+            availableTabs() {
+                const tabs = [];
                 const hasActions = this.channel.possibleActions?.length > 0;
                 const isActionTrigger = this.channel.functionId === ChannelFunction.ACTION_TRIGGER;
                 if (this.channel.typeId === 6100 && this.channel.config?.weeklySchedule) {
-                    this.availableTabs.push({
+                    tabs.push({
                         route: 'channel.thermostatPrograms',
                         header: 'Week', // i18n
                     });
                 }
                 if (getTriggerDefinitionsForChannel(this.channel).length > 0) {
-                    this.availableTabs.push({
+                    tabs.push({
                         route: 'channel.reactions',
                         header: 'Reactions', // i18n
                         count: () => this.channel.relationsCount.ownReactions,
                     });
                 }
                 if (this.channel.relationsCount.managedNotifications > 0) {
-                    this.availableTabs.push({
+                    tabs.push({
                         route: 'channel.notifications',
                         header: 'Notifications', // i18n
                     });
                 }
                 if (this.channel.relationsCount.actionTriggers > 0 || isActionTrigger) {
-                    this.availableTabs.push({
+                    tabs.push({
                         route: 'channel.actionTriggers',
                         header: 'Action triggers', // i18n
                         count: () => this.channel.relationsCount.actionTriggers + (isActionTrigger ? 1 : 0),
@@ -76,25 +92,25 @@
                         ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
                     ];
                     if (!nonScheduleFunctions.includes(this.channel.functionId)) {
-                        this.availableTabs.push({
+                        tabs.push({
                             route: 'channel.schedules',
                             header: 'Schedules', // i18n
                             count: () => this.channel.relationsCount.schedules,
                         });
                     }
-                    this.availableTabs.push({
+                    tabs.push({
                         route: 'channel.channelGroups',
                         header: 'Channel groups', // i18n
                         count: () => this.channel.relationsCount.channelGroups,
                     });
-                    this.availableTabs.push({
+                    tabs.push({
                         route: 'channel.scenes',
                         header: 'Scenes', // i18n
                         count: () => this.channel.relationsCount.scenes,
                     });
                 }
                 if (this.channel.functionId > 0 && !isActionTrigger) {
-                    this.availableTabs.push({
+                    tabs.push({
                         route: 'channel.directLinks',
                         header: 'Direct links', // i18n
                         count: () => this.channel.relationsCount.directLinks,
@@ -115,51 +131,25 @@
                     ChannelFunction.GENERAL_PURPOSE_MEASUREMENT,
                 ];
                 if (measurementsHistoryFunctions.includes(this.channel.functionId)) {
-                    this.availableTabs.push({
+                    tabs.push({
                         route: 'channel.measurementsHistory',
                         header: 'History of measurements', // i18n
                     });
                 }
                 if (this.channel.functionId === ChannelFunction.ELECTRICITYMETER) {
-                    this.availableTabs.push({
+                    tabs.push({
                         route: 'channel.voltageAberrations',
                         header: 'Voltage aberrations', // i18n
                     });
                 }
                 if (this.channel.config?.ocr) {
-                    this.availableTabs.push({
+                    tabs.push({
                         route: 'channel.ocrSettings',
                         header: 'OCR settings', // i18n
                     });
                 }
-            },
-        },
-        mounted() {
-            this.detectAvailableTabs();
-            if (this.availableTabs.length) {
-                const isDefaultChannelRoute = this.$router.currentRoute.name === 'channel';
-                const isDefaultTab = this.$router.currentRoute.name === this.availableTabs[0].route;
-                const isAvailableTabRequested = this.availableTabs
-                    .map(t => t.route)
-                    .filter(r => this.$router.currentRoute.name.startsWith(r))
-                    .length > 0;
-                if (isDefaultChannelRoute || !isAvailableTabRequested) {
-                    this.$router.replace({name: this.availableTabs[0].route, params: {id: this.channel.id}});
-                } else if (!isDefaultTab) {
-                    setTimeout(() => document.getElementById('channel-details-tabs').scrollIntoView({behavior: 'smooth'}));
-                }
+                return tabs;
             }
-            this.channelUpdatedListener = () => this.detectAvailableTabs();
-            EventBus.$on('channel-updated', this.channelUpdatedListener);
-        },
-        computed: {
-            channel() {
-                return this.channelsStore.all[this.channelId];
-            },
-            ...mapStores(useChannelsStore),
-        },
-        beforeDestroy() {
-            EventBus.$off('channel-updated', this.channelUpdatedListener);
         },
     };
 </script>

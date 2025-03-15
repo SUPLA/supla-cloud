@@ -7,7 +7,7 @@ describe('KPOP', () => {
         cy.login();
         cy.visit('/channels/1/reactions');
         cy.contains('Zmień funkcję').click();
-        cy.contains('Brak (kanał wyłączony)').click();
+        cy.contains('a', 'Brak (kanał wyłączony)').click();
         cy.get('a.confirm').click();
         cy.contains('Wybierz funkcję').click();
         cy.contains('a', 'Ogólny kanał pomiarowy').click();

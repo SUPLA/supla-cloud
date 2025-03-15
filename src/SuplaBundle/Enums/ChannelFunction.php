@@ -424,7 +424,7 @@ final class ChannelFunction extends Enum {
     public static function captions(): array {
         return [
             self::UNSUPPORTED => 'Unsupported function', // i18n
-            self::NONE => 'None', // i18n
+            self::NONE => 'None (channel disabled)', // i18n
             self::SCENE => 'Scene', // i18n
             self::SCHEDULE => 'Schedule', // i18n
             self::NOTIFICATION => 'Notification', // i18n

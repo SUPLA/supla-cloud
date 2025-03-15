@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <div v-else>
+            <div v-else-if="editingSchedule">
                 <transition-expand>
                     <div class="row" v-if="conflictingConfig">
                         <div class="col-sm-6 col-sm-offset-3">
@@ -41,7 +41,8 @@
                     </a>
                 </div>
 
-                <ThermostatProgramsConfigurator v-model="editingSchedule.programSettings" :subject="subject"
+                <ThermostatProgramsConfigurator
+                    v-model="editingSchedule.programSettings" :subject="subject"
                     :default-program-mode="editingMode === 'weeklySchedule' ? 'HEAT' : 'COOL'"
                     @editing="editingPrograms = $event"
                     @input="hasPendingChanges = true"

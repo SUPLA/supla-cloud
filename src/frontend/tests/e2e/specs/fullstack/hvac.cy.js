@@ -34,7 +34,7 @@ describe('HVAC', () => {
         cy.login();
         cy.visit('/channels/5/thermostat-programs');
         cy.contains('Zmień funkcję').click();
-        cy.contains('Brak (kanał wyłączony)').click();
+        cy.contains('a', 'Brak (kanał wyłączony)').click();
         cy.get('a.confirm').click();
         cy.contains('Czy na pewno chcesz zmienić funkcję');
         cy.get('a.confirm').click();
