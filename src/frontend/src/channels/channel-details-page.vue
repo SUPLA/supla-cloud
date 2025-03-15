@@ -1,8 +1,7 @@
 <template>
-    <page-container :error="error">
-        <loading-cover :loading="!channel || loading">
-            <div class="container"
-                v-if="channel">
+    <page-container :error="!channel && 404">
+        <loading-cover :loading="loading">
+            <div class="container" v-if="channelToEdit">
                 <div class="d-flex mt-3">
                     <div class="flex-grow-1">
                         <h1 v-title class="m-0">{{ channelTitle }}</h1>
@@ -20,7 +19,7 @@
                 </div>
                 <ChannelConflictDetailsWarning :channel="channel" v-if="channel.conflictDetails"/>
                 <div class="alert alert-warning"
-                    v-if="channelsStore.all[channel.id]?.state?.connectedCode === 'OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED'">
+                    v-if="channel.state?.connectedCode === 'OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED'">
                     {{ $t('This device cannot be remotely awakened. We are awaiting communication from the device...') }}
                 </div>
                 <div class="row">
@@ -39,12 +38,10 @@
                                                 {{ $t(channel.function.caption) }}
                                                 <span v-if="channel.function.name == 'UNSUPPORTED'">({{ channel.functionId }})</span>
                                             </p>
-                                            <span class="small"
-                                                v-if="channel.function.id">
+                                            <span class="small" v-if="channel.function.id">
                                                 {{ $t('Change function') }}
                                             </span>
-                                            <span class="small"
-                                                v-else>
+                                            <span class="small" v-else>
                                                 {{ $t('Choose channel function') }}
                                             </span>
                                         </a>
@@ -58,19 +55,19 @@
                                                 class="form-control text-center"
                                                 :placeholder="$t('Default')"
                                                 @keydown="updateChannel()"
-                                                v-model="channel.caption">
+                                                v-model="channelToEdit.caption">
                                         </dt>
                                     </dl>
                                     <dl v-if="channel.function.id && frozenShownInClientsState !== false">
                                         <dd>{{ $t('Show on the Client’s devices') }}</dd>
                                         <dt class="text-center">
-                                            <toggler v-model="channel.hidden"
+                                            <toggler v-model="channelToEdit.hidden"
                                                 invert="true"
                                                 :disabled="frozenShownInClientsState !== undefined"
                                                 @input="updateChannel()"></toggler>
                                         </dt>
                                     </dl>
-                                    <channel-params-form :channel="channel"
+                                    <channel-params-form :channel="channelToEdit"
                                         @save="saveChanges()"
                                         @change="updateChannel()"></channel-params-form>
                                     <transition-expand>
@@ -99,14 +96,14 @@
                         <div class="details-page-block">
                             <h3 class="text-center">{{ $t('Device') }}</h3>
                             <div class="form-group">
-                                <device-tile :device="channel.iodevice"></device-tile>
+                                <device-tile :device="channelDevice"></device-tile>
                             </div>
                         </div>
                         <div class="details-page-block">
                             <h3 class="text-center">{{ $t('Location') }}</h3>
                             <div class="form-group"
                                 v-tooltip.bottom="(hasPendingChanges && $t('Save or discard configuration changes first.')) || (channel.inheritedLocation && $t('Channel is assigned to the I/O device location'))">
-                                <SquareLocationChooser v-model="channel.location"
+                                <SquareLocationChooser :value="channelLocation"
                                     :disabled="hasPendingChanges"
                                     :square-link-class="channel.inheritedLocation ? 'yellow' : ''"
                                     @chosen="(location) => changeLocation(location)"/>
@@ -123,21 +120,20 @@
                         <div class="details-page-block">
                             <h3 class="text-center">{{ $t('State') }}</h3>
                             <div class="text-center">
-                                <function-icon :model="channelsStore.all[channel.id] || channel" width="100"
-                                    :flexible-width="true"></function-icon>
+                                <function-icon :model="channel" width="100" :flexible-width="true"/>
                                 <div v-if="channelFunctionIsChosen">
                                     <span v-if="hasPendingChanges"
                                         v-tooltip.bottom="$t('Save or discard configuration changes first.')">
                                         {{ $t('Change icon') }}
                                     </span>
-                                    <channel-alternative-icon-chooser :channel="channel"
+                                    <channel-alternative-icon-chooser :channel="channelToEdit"
                                         v-else
                                         @change="saveChanges()"></channel-alternative-icon-chooser>
                                 </div>
                                 <channel-state-table class="py-3"
                                     :channel="channel"
                                     v-if="channelFunctionIsChosen && !loading"></channel-state-table>
-                                <ChannelMuteAlarmButton :channel="channelsStore.all[channel.id] || channel"/>
+                                <ChannelMuteAlarmButton :channel="channel"/>
                             </div>
                         </div>
                         <div class="details-page-block" v-if="hasActionsToExecute">
@@ -146,7 +142,7 @@
                                 <channel-action-executor :subject="channel"></channel-action-executor>
                             </div>
                         </div>
-                        <ChannelDependenciesList :channel="channelsStore.all[channel.id] || channel"/>
+                        <ChannelDependenciesList :channel="channel"/>
                     </div>
                 </div>
             </div>
@@ -223,7 +219,7 @@
     import ChannelActionExecutor from "@/channels/action/channel-action-executor";
     import ChannelActionExecutorModal from "./action/channel-action-executor-modal";
     import TransitionExpand from "../common/gui/transition-expand";
-    import {extendObject} from "@/common/utils";
+    import {deepCopy, extendObject} from "@/common/utils";
     import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
     import ChannelConflictDetailsWarning from "@/channels/channel-conflict-details-warning.vue";
     import ChannelDeleteButton from "@/channels/channel-delete-button.vue";
@@ -231,6 +227,8 @@
     import {useChannelsStore} from "@/stores/channels-store";
     import ChannelDependenciesList from "@/channels/channel-dependencies-list.vue";
     import ChannelMuteAlarmButton from "@/channels/action/channel-mute-alarm-button.vue";
+    import {useDevicesStore} from "@/stores/devices-store";
+    import {useLocationsStore} from "@/stores/locations-store";
 
     export default {
         props: ['id'],
@@ -257,7 +255,7 @@
         },
         data() {
             return {
-                channel: undefined,
+                channelToEdit: undefined,
                 error: false,
                 loading: false,
                 hasPendingChanges: false,
@@ -272,7 +270,7 @@
             };
         },
         mounted() {
-            this.fetchChannel();
+            this.copyChannelToEdit();
             this.onChangeListener = () => this.refreshChannelConfig(false);
             EventBus.$on('channel-updated', this.onChangeListener);
         },
@@ -280,33 +278,22 @@
             EventBus.$off('channel-updated', this.onChangeListener);
         },
         methods: {
-            channelRequest() {
-                return this.$http.get(`channels/${this.id}?include=iodevice,location,supportedFunctions,iodevice.location,actionTriggers`, {skipErrorHandler: [403, 404]});
-            },
-            fetchChannel() {
-                this.channel = undefined;
-                this.loading = true;
-                this.error = false;
-                this.channelRequest()
-                    .then(response => {
-                        this.channel = response.body;
-                        this.$set(this.channel, 'enabled', !!this.channel.function.id);
-                        this.hasPendingChanges = this.loading = false;
-                    })
-                    .catch(response => this.error = response.status);
+            copyChannelToEdit() {
+                this.channelToEdit = deepCopy(this.channel);
+                this.$set(this.channelToEdit, 'hasPendingChanges', false);
+                this.hasPendingChanges = this.loading = false;
             },
             updateChannel() {
                 if (this.frozenShownInClientsState !== undefined) {
                     this.channel.hidden = !this.frozenShownInClientsState;
                 }
-                this.$set(this.channel, 'hasPendingChanges', true);
+                this.$set(this.channelToEdit, 'hasPendingChanges', true);
                 this.hasPendingChanges = true;
             },
             cancelChanges() {
-                this.fetchChannel();
+                this.copyChannelToEdit();
             },
             changeFunction(newFunction, safe = true) {
-                this.$set(this.channel, 'state', {});
                 const channel = {...this.channel};
                 channel.function = newFunction;
                 channel.altIcon = 0;
@@ -331,13 +318,12 @@
             },
             saveChanges: throttle(function (safe = true) {
                 this.loading = true;
-                return this.$http.put(`channels/${this.id}${safe ? '?safe=1' : ''}`, this.channel, {skipErrorHandler: [409]})
-                    .then(response => extendObject(this.channel, response.body))
+                return this.$http.put(`channels/${this.id}${safe ? '?safe=1' : ''}`, this.channelToEdit, {skipErrorHandler: [409]})
                     .then(() => this.channelsStore.fetchChannel(this.channel.id))
                     .then(() => {
                         this.saveConfigConfirmationObject = undefined;
                         this.hasPendingChanges = false;
-                        this.$set(this.channel, 'hasPendingChanges', false);
+                        this.$set(this.channelToEdit, 'hasPendingChanges', false);
                         EventBus.$emit('channel-updated');
                     })
                     .then(() => this.afterSave())
@@ -360,10 +346,10 @@
                         this.changeLocationConfirmationObject = undefined;
                         this.channel.inheritedLocation = !location;
                         if (!location) {
-                            location = this.channel.iodevice.location;
+                            location = this.locationsStore.all[this.channelDevice.locationId];
                         }
-                        this.$set(this.channel, 'location', location);
                     })
+                    .then(() => this.afterSave())
                     .catch(response => {
                         if (response.status === 409) {
                             this.changeLocationConfirmationObject = response.body;
@@ -373,23 +359,31 @@
                     .finally(() => this.loading = false);
             },
             afterSave() {
-                if (this.channel.iodevice.sleepModeEnabled) {
+                if (this.channelDevice.sleepModeEnabled) {
                     this.sleepingDeviceWarning = true;
                 }
                 return this.channelsStore.fetchAll(true);
             },
             refreshChannelConfig(showLoading = true) {
                 this.loading = showLoading;
-                this.channelsStore.fetchChannel(this.channel.id).then((channel) => {
-                    this.channel.relationsCount = channel.relationsCount;
-                    this.channel.config = channel.config;
-                    this.channel.configBefore = channel.configBefore;
+                this.channelsStore.fetchChannel(this.channel.id).then(() => {
+                    this.copyChannelToEdit();
+                    this.hasPendingChanges = false;
                     this.configConflictDetected = false;
                     this.loading = false;
                 });
             }
         },
         computed: {
+            channel() {
+                return this.channelsStore.all[this.id];
+            },
+            channelDevice() {
+                return this.devicesStore.all[this.channel.iodeviceId];
+            },
+            channelLocation() {
+                return this.locationsStore.all[this.channel.locationId];
+            },
             channelTitle() {
                 return channelTitle(this.channel);
             },
@@ -408,14 +402,21 @@
                 const noApiActionFunctions = ['VALVEPERCENTAGE'];
                 return this.channel.possibleActions?.length && !noApiActionFunctions.includes(this.channel.function.name);
             },
-            ...mapStores(useChannelsStore),
+            ...mapStores(useChannelsStore, useDevicesStore, useLocationsStore),
         },
         watch: {
             id(l, a) {
                 if (+l !== +a) {
-                    this.fetchChannel();
+                    this.copyChannelToEdit();
                 }
-            }
+            },
+            'channel.checksum'() {
+                if (this.hasPendingChanges) {
+                    this.configConflictDetected = true;
+                } else {
+                    this.copyChannelToEdit();
+                }
+            },
         }
     };
 </script>

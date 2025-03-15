@@ -7,7 +7,7 @@ export const channelsApi = {
         return body;
     },
     async getListWithState() {
-        const {body: channels} = await api.get('channels?include=state,connected');
+        const {body: channels} = await api.get('channels?include=state,connected,supportedFunctions');
         channels.forEach(channel => {
             if (channel.config) {
                 channel.configBefore = deepCopy(channel.config);
@@ -16,7 +16,7 @@ export const channelsApi = {
         return channels;
     },
     async getOneWithState(id) {
-        const {body: channel} = await api.get(`channels/${id}?include=state,connected`);
+        const {body: channel} = await api.get(`channels/${id}?include=state,connected,supportedFunctions`);
         if (channel.config) {
             channel.configBefore = deepCopy(channel.config);
         }
