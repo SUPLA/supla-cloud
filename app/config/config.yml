@@ -136,10 +136,10 @@ framework:
     enable_annotations: true
 
 monolog:
-  channels: [supla_api_rate_limit, supla_autodiscover, supla_direct_links, supla_server, supla_migrations, supla_debug, supla_http_client, supla_cli]
+  channels: [supla_api_rate_limit, supla_autodiscover, supla_direct_links, supla_server, supla_migrations, supla_debug, supla_http_client, supla_cli, supla_mails]
   handlers:
     main:
-      channels: ['!supla_direct_links', '!supla_server', '!supla_api_rate_limit', '!supla_migrations', '!supla_debug', '!supla_cli']
+      channels: ['!supla_direct_links', '!supla_server', '!supla_api_rate_limit', '!supla_migrations', '!supla_debug', '!supla_cli', '!supla_mails']
       action_level: error
       handler: main_logger
       type: fingers_crossed
@@ -194,6 +194,12 @@ monolog:
       channels: [supla_cli]
       level: notice
       path: "%kernel.logs_dir%/cli.log"
+      type: rotating_file
+      max_files: 5
+    supla_mails:
+      channels: [supla_mails]
+      level: notice
+      path: "%kernel.logs_dir%/email.log"
       type: rotating_file
       max_files: 5
 

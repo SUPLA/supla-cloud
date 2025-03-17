@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Mailer;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Mailer\SentMessage;
 use Symfony\Component\Mailer\Transport\TransportInterface;
 use Symfony\Component\Mime\Email;
@@ -24,12 +25,33 @@ use Symfony\Component\Mime\Email;
 class SuplaMailer {
     private const DEFAULT_FROM_NAME = 'SUPLA';
 
-    public function __construct(private TransportInterface $transport, private ?string $mailerFrom) {
+    public function __construct(
+        private TransportInterface $transport,
+        private ?string $mailerFrom,
+        private LoggerInterface $logger,
+    ) {
     }
 
     public function send(Email $message): ?SentMessage {
         $message->from($this->mailerFrom);
-        return $this->transport->send($message);
+        $sentMessage = $this->transport->send($message);
+        if ($sentMessage) {
+            $this->logger->notice('E-mail sent.', [
+                'recipient' => $message->getTo()[0]->getAddress(),
+                'subject' => $message->getSubject(),
+            ]);
+            $this->logger->debug('E-mail sent (debug).', [
+                'recipient' => $message->getTo()[0]->getAddress(),
+                'subject' => $message->getSubject(),
+                'debug' => $sentMessage->getDebug(),
+            ]);
+        } else {
+            $this->logger->error('Unable to send email.', [
+                'recipient' => $message->getTo()[0]->getAddress(),
+                'subject' => $message->getSubject(),
+            ]);
+        }
+        return $sentMessage;
     }
 
     private function parseFrom(): array {

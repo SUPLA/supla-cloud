@@ -42,6 +42,7 @@ services:
   SuplaBundle\Mailer\SuplaMailer:
     $transport: '@SuplaBundle\Tests\Integration\TestMailerTransport'
     $mailerFrom: "%mailer_from%"
+    $logger: '@monolog.logger.supla_mails'
   SuplaBundle\Model\TimeProvider:
     class: SuplaBundle\Tests\Integration\Traits\TestTimeProvider
   SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'

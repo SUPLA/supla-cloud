@@ -224,7 +224,10 @@ services:
     $apiRateLimitEnabled: '%supla.api_rate_limit.enabled%'
 
   SuplaBundle\Mailer\SuplaMailer:
-    $mailerFrom: "%mailer_from%"
+    arguments:
+      $mailerFrom: "%mailer_from%"
+    tags:
+      - {name: monolog.logger, channel: supla_mails}
 
   SuplaBundle\Twig\FrontendConfig: ~
 
