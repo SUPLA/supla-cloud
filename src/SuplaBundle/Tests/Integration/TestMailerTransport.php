@@ -2,11 +2,12 @@
 namespace SuplaBundle\Tests\Integration;
 
 use Symfony\Component\Mailer\Envelope;
-use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\SentMessage;
+use Symfony\Component\Mailer\Transport\TransportInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\RawMessage;
 
-class TestMailer implements MailerInterface {
+class TestMailerTransport implements TransportInterface {
     private static $messages = [];
 
     /** @return Email[] */
@@ -14,11 +15,16 @@ class TestMailer implements MailerInterface {
         return self::$messages;
     }
 
-    public function send(RawMessage $message, Envelope $envelope = null): void {
+    public function send(RawMessage $message, Envelope $envelope = null): ?SentMessage {
         self::$messages[] = $message;
+        return new SentMessage($message, $envelope ?: Envelope::create($message));
     }
 
     public static function reset() {
         self::$messages = [];
+    }
+
+    public function __toString(): string {
+        return 'test mailer';
     }
 }

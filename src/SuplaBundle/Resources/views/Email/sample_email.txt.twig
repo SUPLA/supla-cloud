@@ -1,0 +1,11 @@
+{% extends '@Supla/Email/template.txt.twig' %}
+
+{% block subject %}
+  {% trans into userLocale %} SUPLA - Test e-mail {% endtrans %}
+{% endblock %}
+
+{% block body %}
+{% trans into userLocale %} Welcome! {% endtrans %}
+
+{% trans into userLocale %} This is only a test to see if the e-mail configuration is working. {% endtrans %}
+{% endblock %}

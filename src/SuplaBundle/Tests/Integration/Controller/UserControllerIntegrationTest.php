@@ -27,7 +27,7 @@ use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
-use SuplaBundle\Tests\Integration\TestMailer;
+use SuplaBundle\Tests\Integration\TestMailerTransport;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
@@ -53,7 +53,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
         $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
-        $this->assertEmpty(TestMailer::getMessages());
+        $this->assertEmpty(TestMailerTransport::getMessages());
     }
 
     /** @depends testDeletingUserAccountWithInvalidPasswordFails */
@@ -65,7 +65,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
         $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
-        $this->assertEmpty(TestMailer::getMessages());
+        $this->assertEmpty(TestMailerTransport::getMessages());
     }
 
     /** @depends testDeletingUserAccountWithNoPasswordFails */
@@ -77,8 +77,8 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(204, $response);
         $this->assertNotNull($this->user = $this->getEntityManager()->find(User::class, $this->user->getId()));
         $this->flushMessagesQueue($client);
-        $this->assertNotEmpty(TestMailer::getMessages());
-        $confirmationMessage = TestMailer::getMessages()[0];
+        $this->assertNotEmpty(TestMailerTransport::getMessages());
+        $confirmationMessage = TestMailerTransport::getMessages()[0];
         $this->assertEquals($this->user->getEmail(), $confirmationMessage->getTo()[0]->getAddress());
         $this->assertStringContainsString('Removal', $confirmationMessage->getSubject());
         $this->assertStringContainsString($this->user->getToken(), $confirmationMessage->getHtmlBody());
@@ -191,8 +191,8 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         );
         $this->assertStatusCode(204, $client->getResponse());
         $this->flushMessagesQueue($client);
-        $this->assertNotEmpty(TestMailer::getMessages());
-        $confirmationMessage = TestMailer::getMessages()[0];
+        $this->assertNotEmpty(TestMailerTransport::getMessages());
+        $confirmationMessage = TestMailerTransport::getMessages()[0];
         $this->assertEquals($this->user->getEmail(), $confirmationMessage->getTo()[0]->getAddress());
         $this->assertStringContainsString('Removal', $confirmationMessage->getSubject());
         $this->assertStringContainsString($this->user->getToken(), $confirmationMessage->getHtmlBody());

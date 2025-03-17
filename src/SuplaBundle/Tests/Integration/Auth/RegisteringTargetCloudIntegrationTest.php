@@ -20,7 +20,7 @@ namespace SuplaBundle\Tests\Integration\Auth;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
-use SuplaBundle\Tests\Integration\TestMailer;
+use SuplaBundle\Tests\Integration\TestMailerTransport;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use Symfony\Component\HttpFoundation\Response;
@@ -189,8 +189,8 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(204, $response);
         $this->flushMessagesQueue($client);
-        $this->assertCount(1, TestMailer::getMessages());
-        $message = TestMailer::getMessages()[0];
+        $this->assertCount(1, TestMailerTransport::getMessages());
+        $message = TestMailerTransport::getMessages()[0];
         $this->assertStringContainsString('Private instance unregistration', $message->getSubject());
         $this->assertStringContainsString('confirm-target-cloud-deletion/123/ala123', $message->getHtmlBody());
     }
@@ -207,7 +207,7 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(404, $response);
         $this->flushMessagesQueue($client);
-        $this->assertEmpty(TestMailer::getMessages());
+        $this->assertEmpty(TestMailerTransport::getMessages());
     }
 
     public function testTargetCloudRemoval() {

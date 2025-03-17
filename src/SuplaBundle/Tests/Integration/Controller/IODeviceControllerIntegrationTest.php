@@ -36,7 +36,7 @@ use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\AnyFieldSetter;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
-use SuplaBundle\Tests\Integration\TestMailer;
+use SuplaBundle\Tests\Integration\TestMailerTransport;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
@@ -825,8 +825,8 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($lockedDevice->isLocked());
         $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
         $this->flushMessagesQueue($client);
-        $this->assertNotEmpty(TestMailer::getMessages());
-        $confirmationMessage = TestMailer::getMessages()[0];
+        $this->assertNotEmpty(TestMailerTransport::getMessages());
+        $confirmationMessage = TestMailerTransport::getMessages()[0];
         $this->assertEquals('installer@supla.org', $confirmationMessage->getTo()[0]->getAddress());
         $this->assertStringContainsString('Odblokowanie urządzenia przeznaczonego', $confirmationMessage->getSubject());
         $this->assertStringContainsString($lockedDevice->getName(), $confirmationMessage->getHtmlBody());
@@ -856,7 +856,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $lockedDevice = $this->freshEntityById(IODevice::class, $deviceId);
         $client = $this->createAuthenticatedClient();
         $request = ['code' => 'abcdefg'];
-        TestMailer::reset();
+        TestMailerTransport::reset();
         $client->apiRequestV24('PATCH', '/api/confirm-device-unlock/' . $lockedDevice->getId(), $request);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -865,8 +865,8 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($lockedDevice->isLocked());
         $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
         $this->flushMessagesQueue($client);
-        $this->assertNotEmpty(TestMailer::getMessages());
-        $confirmationMessage = TestMailer::getMessages()[0];
+        $this->assertNotEmpty(TestMailerTransport::getMessages());
+        $confirmationMessage = TestMailerTransport::getMessages()[0];
         $this->assertEquals($lockedDevice->getUser()->getEmail(), $confirmationMessage->getTo()[0]->getAddress());
         $this->assertStringContainsString('zostało odblokowane', $confirmationMessage->getSubject());
         $this->assertStringContainsString($lockedDevice->getName(), $confirmationMessage->getHtmlBody());
@@ -885,7 +885,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($lockedDevice->isLocked());
         $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
         $this->flushMessagesQueue($client);
-        $this->assertEmpty(TestMailer::getMessages());
+        $this->assertEmpty(TestMailerTransport::getMessages());
     }
 
     public function testDeletingDeviceWithScheduleAndSceneScheduleDependencies() {

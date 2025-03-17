@@ -21,7 +21,7 @@ use SuplaBundle\Entity\Main\ClientApp;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Message\UserOptOutNotifications;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
-use SuplaBundle\Tests\Integration\TestMailer;
+use SuplaBundle\Tests\Integration\TestMailerTransport;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
@@ -49,12 +49,12 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
             "VALUES('$body', '[]', 'supla-server', NOW(), NOW())"
         );
         $this->flushMessagesQueue();
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
         $this->executeCommand('supla:cyclic:send-server-messages');
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
         $this->flushMessagesQueue();
-        $this->assertCount(1, TestMailer::getMessages());
-        $message = TestMailer::getMessages()[0];
+        $this->assertCount(1, TestMailerTransport::getMessages());
+        $message = TestMailerTransport::getMessages()[0];
         $this->assertStringContainsString('<b>12.23.34.45</b>', $message->getHtmlBody());
         $this->assertStringContainsString('<a href="mailto:security', $message->getHtmlBody());
     }
@@ -80,8 +80,8 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
         $this->assertEquals('ZAMEL-PNW-CHOINKA', $this->getEntityManager()->find(IODevice::class, 1)->getName());
         $this->executeCommand('supla:cyclic:send-server-messages');
         $this->flushMessagesQueue();
-        $this->assertCount(1, TestMailer::getMessages());
-        $message = TestMailer::getMessages()[0];
+        $this->assertCount(1, TestMailerTransport::getMessages());
+        $message = TestMailerTransport::getMessages()[0];
         $this->assertStringContainsString('new device has been added', $message->getSubject());
         $this->assertStringContainsString('ZAMEL-PNW-CHOINKA', $message->getHtmlBody());
         $this->assertStringContainsString('3.33', $message->getHtmlBody());
@@ -134,7 +134,7 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
         $this->assertEquals('ZAMEL-PNW-CHOINKA', $this->getEntityManager()->find(IODevice::class, 1)->getName());
         $this->executeCommand('supla:cyclic:send-server-messages');
         $this->flushMessagesQueue();
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
     }
 
     public function testNewClientAppNotification() {
@@ -154,8 +154,8 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
         $this->assertEquals('My New Ajfon', $this->getEntityManager()->find(ClientApp::class, 1)->getName());
         $this->executeCommand('supla:cyclic:send-server-messages');
         $this->flushMessagesQueue();
-        $this->assertCount(1, TestMailer::getMessages());
-        $message = TestMailer::getMessages()[0];
+        $this->assertCount(1, TestMailerTransport::getMessages());
+        $message = TestMailerTransport::getMessages()[0];
         $this->assertStringContainsString('new client app has been added', $message->getSubject());
         $this->assertStringContainsString('My New Ajfon', $message->getHtmlBody());
         $this->assertStringContainsString('2.22', $message->getHtmlBody());
@@ -179,7 +179,7 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
         $this->executeCommand('supla:cyclic:send-server-messages');
         TestTimeProvider::setTime('+1 hour'); // waiting long to process the queue for some reason
         $this->flushMessagesQueue();
-        $this->assertEmpty(TestMailer::getMessages());
+        $this->assertEmpty(TestMailerTransport::getMessages());
     }
 
     public function testNewIoDeviceNotificationBurningInSuplaServerProcessing() {
@@ -195,11 +195,11 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
             "VALUES('$body', '[]', 'supla-server', '$oneHourAgo', '$oneHourAgo')"
         );
         $this->flushMessagesQueue();
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
         $this->executeCommand('supla:cyclic:send-server-messages');
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
         $this->flushMessagesQueue();
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
     }
 
     public function testSendingSuplaServerEmailInvalid() {
@@ -212,11 +212,11 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
             "VALUES('$body', '[]', 'supla-server', NOW(), NOW())"
         );
         $this->flushMessagesQueue();
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
         $this->executeCommand('supla:cyclic:send-server-messages');
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
         $this->flushMessagesQueue();
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
     }
 
     public function testSendingSuplaServerEmailToInvalidUserId() {
@@ -230,10 +230,10 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
             "VALUES('$body', '[]', 'supla-server', NOW(), NOW())"
         );
         $this->flushMessagesQueue();
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
         $this->executeCommand('supla:cyclic:send-server-messages');
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
         $this->flushMessagesQueue();
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
     }
 }

@@ -28,7 +28,7 @@ use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
-use SuplaBundle\Tests\Integration\TestMailer;
+use SuplaBundle\Tests\Integration\TestMailerTransport;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\TestSuplaHttpClient;
 
@@ -228,8 +228,8 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(204, $response);
         $this->flushMessagesQueue($client);
-        $this->assertCount(1, TestMailer::getMessages());
-        $message = TestMailer::getMessages()[0];
+        $this->assertCount(1, TestMailerTransport::getMessages());
+        $message = TestMailerTransport::getMessages()[0];
         preg_match('#confirm-target-cloud-deletion/([0-9]+)/([^\?]+)#', $message->getHtmlBody(), $match);
         $this->assertCount(3, $match);
         [, $targetCloudId, $token] = $match;

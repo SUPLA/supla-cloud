@@ -24,7 +24,7 @@ use SuplaBundle\Message\Emails\FailedAuthAttemptEmailNotification;
 use SuplaBundle\Message\Emails\ResetPasswordEmailNotification;
 use SuplaBundle\Message\UserOptOutNotifications;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
-use SuplaBundle\Tests\Integration\TestMailer;
+use SuplaBundle\Tests\Integration\TestMailerTransport;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 
 /** @small */
@@ -52,8 +52,8 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
     public function testSendingFailedAuthAttempt() {
         $handler = $this->handler;
         $handler(new FailedAuthAttemptEmailNotification($this->user, '1.2.3.4'));
-        $this->assertCount(1, TestMailer::getMessages());
-        $message = TestMailer::getMessages()[0];
+        $this->assertCount(1, TestMailerTransport::getMessages());
+        $message = TestMailerTransport::getMessages()[0];
         $this->assertStringContainsString('<b>1.2.3.4</b>', $message->getHtmlBody());
         $this->assertStringContainsString('<a href="mailto:security', $message->getHtmlBody());
         $this->assertStringContainsString('The incident was detected at ' . date('n/j/y'), $message->getHtmlBody());
@@ -66,8 +66,8 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->flush();
         $handler = $this->handler;
         $handler(new FailedAuthAttemptEmailNotification($this->user, '1.2.3.4'));
-        $this->assertCount(1, TestMailer::getMessages());
-        $message = TestMailer::getMessages()[0];
+        $this->assertCount(1, TestMailerTransport::getMessages());
+        $message = TestMailerTransport::getMessages()[0];
         $this->assertStringContainsString('<b>1.2.3.4</b>', $message->getHtmlBody());
         $this->assertStringContainsString('<a href="mailto:security', $message->getHtmlBody());
         $this->assertStringContainsString('Zdarzenie miało miejsce ' . date('j.m.Y'), $message->getHtmlBody());
@@ -81,14 +81,14 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->flush();
         $handler = $this->handler;
         $handler(new FailedAuthAttemptEmailNotification($this->user, '1.2.3.4'));
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
     }
 
     public function testSendingResetPasswordLink() {
         $handler = $this->handler;
         $handler(new ResetPasswordEmailNotification($this->user));
-        $this->assertCount(1, TestMailer::getMessages());
-        $message = TestMailer::getMessages()[0];
+        $this->assertCount(1, TestMailerTransport::getMessages());
+        $message = TestMailerTransport::getMessages()[0];
         $this->assertStringContainsString('https://supla.local', $message->getHtmlBody());
     }
 }

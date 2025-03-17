@@ -17,19 +17,19 @@
 
 namespace SuplaBundle\Mailer;
 
-use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\SentMessage;
+use Symfony\Component\Mailer\Transport\TransportInterface;
 use Symfony\Component\Mime\Email;
 
 class SuplaMailer {
     private const DEFAULT_FROM_NAME = 'SUPLA';
 
-    public function __construct(private MailerInterface $mailer, private ?string $mailerFrom) {
+    public function __construct(private TransportInterface $transport, private ?string $mailerFrom) {
     }
 
-    public function send(Email $message): bool {
+    public function send(Email $message): ?SentMessage {
         $message->from($this->mailerFrom);
-        $this->mailer->send($message);
-        return true;
+        return $this->transport->send($message);
     }
 
     private function parseFrom(): array {

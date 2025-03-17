@@ -20,7 +20,7 @@ namespace SuplaBundle\Tests\Integration\Command\Cyclic;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
-use SuplaBundle\Tests\Integration\TestMailer;
+use SuplaBundle\Tests\Integration\TestMailerTransport;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
@@ -42,37 +42,37 @@ class ResendActivationEmailsCommandIntegrationTest extends IntegrationTestCase {
         $user->setPlainPassword('januszowe');
         $userManager->create($user);
         $userManager->sendConfirmationEmailMessage($user);
-        TestMailer::reset();
+        TestMailerTransport::reset();
         $this->user = $user;
     }
 
     public function testNotResendImmediately() {
         $this->executeCommand('supla:user:resend-activation-emails');
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
     }
 
     public function testNotResendAfter15Minutes() {
         TestTimeProvider::setTime('+15 minutes');
         $this->executeCommand('supla:user:resend-activation-emails');
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
     }
 
     public function testResendAfter45Minutes() {
         TestTimeProvider::setTime('+45 minutes');
         $this->executeCommand('supla:user:resend-activation-emails');
-        $this->assertCount(1, TestMailer::getMessages());
+        $this->assertCount(1, TestMailerTransport::getMessages());
     }
 
     public function testNotResendAfter65Minutes() {
         TestTimeProvider::setTime('+65 minutes');
         $this->executeCommand('supla:user:resend-activation-emails');
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
     }
 
     public function testDoNotResendIfAlreadySentTwice() {
         TestTimeProvider::setTime('+55 minutes');
         $this->executeCommand('supla:user:resend-activation-emails');
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
     }
 
     /** @large */
@@ -80,6 +80,6 @@ class ResendActivationEmailsCommandIntegrationTest extends IntegrationTestCase {
         self::$container->get(UserManager::class)->confirm($this->user->getToken());
         TestTimeProvider::setTime('+45 minutes');
         $this->executeCommand('supla:user:resend-activation-emails');
-        $this->assertCount(0, TestMailer::getMessages());
+        $this->assertCount(0, TestMailerTransport::getMessages());
     }
 }

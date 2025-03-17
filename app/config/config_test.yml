@@ -38,9 +38,9 @@ parameters:
   supla_server: supla.local
 
 services:
-  SuplaBundle\Tests\Integration\TestMailer: ~
+  SuplaBundle\Tests\Integration\TestMailerTransport: ~
   SuplaBundle\Mailer\SuplaMailer:
-    $mailer: '@SuplaBundle\Tests\Integration\TestMailer'
+    $transport: '@SuplaBundle\Tests\Integration\TestMailerTransport'
     $mailerFrom: "%mailer_from%"
   SuplaBundle\Model\TimeProvider:
     class: SuplaBundle\Tests\Integration\Traits\TestTimeProvider

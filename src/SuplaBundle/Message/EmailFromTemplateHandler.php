@@ -43,12 +43,20 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
         if ($email->isBurnt($this->timeProvider)) {
             return;
         }
-        $locale = (($email->getData() ?: [])['locale'] ?? null) ?: $this->defaultLocale;
         if ($email->getUserId()) {
             $user = $this->userRepository->find($email->getUserId());
             if (!$user || in_array($email->getTemplateName(), $user->getPreference('optOutNotifications', []))) {
                 return;
             }
+        }
+        $message = $this->renderEmailMessage($email);
+        $this->messageBus->dispatch($message);
+    }
+
+    public function renderEmailMessage(EmailFromTemplate $email): EmailMessage {
+        $locale = (($email->getData() ?: [])['locale'] ?? null) ?: $this->defaultLocale;
+        if ($email->getUserId()) {
+            $user = $this->userRepository->find($email->getUserId());
             $userLocale = $user->getLocale() ?: $locale;
             $data = [
                 'userId' => $user->getId(),
@@ -71,7 +79,7 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
         $textRendered = $this->render($email->getTemplateName() . '.txt', $data);
         [$subject, $text] = explode(self::SUBJECT_DELIMITER, $textRendered);
         $html = $this->render($email->getTemplateName() . '.html', $data);
-        $this->messageBus->dispatch(new EmailMessage($data['userEmail'], trim($subject), trim($text), $html));
+        return new EmailMessage($data['userEmail'], trim($subject), trim($text), $html);
     }
 
     private function render(string $templateName, array $data): ?string {

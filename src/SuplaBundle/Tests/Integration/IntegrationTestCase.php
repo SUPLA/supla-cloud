@@ -45,7 +45,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     public function prepareIntegrationTest() {
         if (!$this->requires()) {
             TestTimeProvider::reset();
-            TestMailer::reset();
+            TestMailerTransport::reset();
             SuplaServerMock::$executedCommands = [];
             SuplaAutodiscoverMock::clear();
         }

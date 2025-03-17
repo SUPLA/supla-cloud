@@ -26,7 +26,7 @@ use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
-use SuplaBundle\Tests\Integration\TestMailer;
+use SuplaBundle\Tests\Integration\TestMailerTransport;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,7 +56,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(self::EMAIL, $entry->getTextParam());
         $this->assertNull($entry->getUser());
         $this->assertEquals(AuthenticationFailureReason::NOT_EXISTS, $entry->getIntParam());
-        $this->assertEmpty(TestMailer::getMessages());
+        $this->assertEmpty(TestMailerTransport::getMessages());
     }
 
     /** @small */
@@ -207,14 +207,14 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
 
     public function testNoFailedAttemptNotificationIfAccountNotConfirmed() {
         $this->testCreatingUser();
-        TestMailer::reset();
+        TestMailerTransport::reset();
         $this->assertFailedLoginRequest($this->createHttpsClient(), self::EMAIL, self::PASSWORD);
-        $this->assertEmpty(TestMailer::getMessages());
+        $this->assertEmpty(TestMailerTransport::getMessages());
     }
 
     public function testSendsEmailWithConfirmationToken() {
         $this->testCreatingUser();
-        $messages = TestMailer::getMessages();
+        $messages = TestMailerTransport::getMessages();
         $this->assertCount(1, $messages);
         $confirmationMessage = end($messages);
         $this->assertEquals(self::EMAIL, $confirmationMessage->getTo()[0]->getAddress());
@@ -237,7 +237,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $client->apiRequest('POST', '/api/register', $userData);
         $this->assertStatusCode(201, $client->getResponse());
-        $messages = TestMailer::getMessages();
+        $messages = TestMailerTransport::getMessages();
         $this->assertCount(1, $messages);
         $confirmationMessage = end($messages);
         $this->assertEquals(self::EMAIL, $confirmationMessage->getTo()[0]->getAddress());
@@ -258,7 +258,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $client->apiRequest('POST', '/api/register', $userData);
         $this->assertStatusCode(201, $client->getResponse());
-        $messages = TestMailer::getMessages();
+        $messages = TestMailerTransport::getMessages();
         $this->assertCount(1, $messages);
         $confirmationMessage = end($messages);
         $this->assertEquals(self::EMAIL, $confirmationMessage->getTo()[0]->getAddress());
@@ -284,7 +284,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $client->apiRequest('POST', '/api/register-resend', ['email' => $createdUser->getEmail()]);
         $this->assertStatusCode(409, $client->getResponse());
-        $this->assertCount(1, TestMailer::getMessages());
+        $this->assertCount(1, TestMailerTransport::getMessages());
     }
 
     /** @depends testAddsAuditEntryAboutSendingConfirmationLink */
@@ -293,31 +293,31 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $client->apiRequest('POST', '/api/register-resend', ['email' => $createdUser->getEmail()]);
         $this->assertStatusCode(202, $client->getResponse());
-        $this->assertCount(2, TestMailer::getMessages());
+        $this->assertCount(2, TestMailerTransport::getMessages());
         return $createdUser;
     }
 
     /** @depends testCanResendActivationEmailAfter5Minutes */
     public function testCannotResendActivationEmailImmediatelyAfterResend(User $createdUser) {
-        $countBefore = count(TestMailer::getMessages());
+        $countBefore = count(TestMailerTransport::getMessages());
         $client = $this->createHttpsClient();
         $client->apiRequest('POST', '/api/register-resend', ['email' => $createdUser->getEmail()]);
         $this->assertStatusCode(409, $client->getResponse());
-        $this->assertCount($countBefore, TestMailer::getMessages());
+        $this->assertCount($countBefore, TestMailerTransport::getMessages());
     }
 
     /** @small */
     public function testPretendsSuccessForRegisterResendForNonexistingUser() {
         $client = $this->createHttpsClient();
-        $countBefore = count(TestMailer::getMessages());
+        $countBefore = count(TestMailerTransport::getMessages());
         $client->apiRequest('POST', '/api/register-resend', ['email' => 'unicorn@supla.org']);
         $this->assertStatusCode(202, $client->getResponse());
-        $this->assertCount($countBefore, TestMailer::getMessages());
+        $this->assertCount($countBefore, TestMailerTransport::getMessages());
     }
 
     /** @small */
     public function testSendsResendRequestToTargetCloud() {
-        $countBefore = count(TestMailer::getMessages());
+        $countBefore = count(TestMailerTransport::getMessages());
         SuplaAutodiscoverMock::clear();
         SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_local';
         SuplaAutodiscoverMock::$userMapping['unicorn@supla.org'] = 'target.cloud';
@@ -334,7 +334,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $client->apiRequest('PATCH', '/api/register-resend', ['email' => 'unicorn@supla.org']);
         $this->assertStatusCode(202, $client->getResponse());
         $this->assertTrue($targetCalled);
-        $this->assertCount($countBefore, TestMailer::getMessages());
+        $this->assertCount($countBefore, TestMailerTransport::getMessages());
     }
 
     /** @depends testSendsEmailWithConfirmationToken */
@@ -358,7 +358,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     /** @depends testConfirmingWithGoodToken */
     public function testNotifyingAdminAboutNewAccount() {
         $this->flushMessagesQueue();
-        $messages = TestMailer::getMessages();
+        $messages = TestMailerTransport::getMessages();
         $this->assertGreaterThanOrEqual(1, count($messages));
         $notifyMessage = end($messages);
         $this->assertEquals('admin@supla.org', $notifyMessage->getTo()[0]->getAddress());
@@ -371,10 +371,10 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     public function testCannotResendActivationEmailForConfirmedUser() {
         TestTimeProvider::setTime('+6 minutes');
         $client = $this->createHttpsClient();
-        $countBefore = count(TestMailer::getMessages());
+        $countBefore = count(TestMailerTransport::getMessages());
         $client->apiRequest('POST', '/api/register-resend', ['email' => self::EMAIL]);
         $this->assertStatusCode(400, $client->getResponse());
-        $this->assertCount($countBefore, TestMailer::getMessages());
+        $this->assertCount($countBefore, TestMailerTransport::getMessages());
     }
 
     public function testConfirmingTwiceWithGoodTokenIsForbidden() {
@@ -416,7 +416,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
 
     public function testSendsInvalidAuthenticationWarningByEmail() {
         $this->testCannotLoginWithInvalidPassword();
-        $messages = TestMailer::getMessages();
+        $messages = TestMailerTransport::getMessages();
         $this->assertGreaterThanOrEqual(1, count($messages));
         $warnMessage = end($messages);
         $this->assertEquals(self::EMAIL, $warnMessage->getTo()[0]->getAddress());
@@ -441,7 +441,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
 
     public function testSendsEmailWithResetPasswordToken() {
         $this->testGeneratesForgottenPasswordTokenForValidUser();
-        $messages = TestMailer::getMessages();
+        $messages = TestMailerTransport::getMessages();
         $message = end($messages);
         $this->assertEquals(self::EMAIL, $message->getTo()[0]->getAddress());
         $this->assertStringContainsString('Password reset', $message->getSubject());
@@ -450,7 +450,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
 
     public function testDoesNotSendResetPasswordEmailTwiceInARow() {
         $this->testConfirmingWithGoodToken();
-        TestMailer::reset();
+        TestMailerTransport::reset();
         $client = $this->createHttpsClient();
         $client->apiRequest('POST', '/api/forgotten-password', ['email' => self::EMAIL]);
         $this->assertStatusCode(200, $client->getResponse());
@@ -458,7 +458,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $initialToken = $this->createdUser->getToken();
         $client->apiRequest('POST', '/api/forgotten-password', ['email' => self::EMAIL]);
         $this->assertStatusCode(200, $client->getResponse());
-        $messages = TestMailer::getMessages();
+        $messages = TestMailerTransport::getMessages();
         $this->assertCount(1, $messages);
         $this->refreshCreatedUser();
         $this->assertEquals($initialToken, $this->createdUser->getToken());
@@ -466,7 +466,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
 
     public function testSendsAnotherResetMessageIfTimePasses() {
         $this->testConfirmingWithGoodToken();
-        TestMailer::reset();
+        TestMailerTransport::reset();
         $client = $this->createHttpsClient();
         $client->apiRequest('POST', '/api/forgotten-password', ['email' => self::EMAIL]);
         $this->assertStatusCode(200, $client->getResponse());
@@ -475,7 +475,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $initialToken = $this->createdUser->getToken();
         $client->apiRequest('POST', '/api/forgotten-password', ['email' => self::EMAIL]);
         $this->assertStatusCode(200, $client->getResponse());
-        $messages = TestMailer::getMessages();
+        $messages = TestMailerTransport::getMessages();
         $this->assertCount(2, $messages);
         $this->refreshCreatedUser();
         $this->assertNotEquals($initialToken, $this->createdUser->getToken());
