@@ -13,10 +13,10 @@
     subDevices.fetchAll();
     const subDevice = computed(() => subDevices.forChannel(props.channels[0]))
 
-    const identify = () => subDevicesApi.identify(props.channel);
+    const identify = () => subDevicesApi.identify(props.channels[0]);
     const identifyAvailable = computed(() => props.channels[0]?.config?.identifySubdeviceAvailable);
 
-    const restart = () => subDevicesApi.restart(props.channel);
+    const restart = () => subDevicesApi.restart(props.channels[0]);
     const restartAvailable = computed(() => props.channels[0]?.config?.restartSubdeviceAvailable);
 
     const deleteAvailable = computed(() => !props.channels.find((ch) => !ch.deletable));
