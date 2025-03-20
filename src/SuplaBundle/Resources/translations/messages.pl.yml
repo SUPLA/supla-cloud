@@ -72,6 +72,9 @@ After this operation, the counter will start counting from 0 regardless of its c
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Link zostanie wygenerowany tuż po wybraniu podmiotu. Wszystkie pozostałe opcje możesz wprowadzić zaraz po jego utworzeniu.
 Aggregation: Agregacja
 Alarm armament sensor: Czujnik uzbrojenia alarmu
+Alarm at level (and above) should be greater than the corresponding warning level.: Alarm dla poziomu (i powyżej) powinien być większy niż odpowiadający mu poziom ostrzeżenia.
+Alarm at level (and below) should be lower than the corresponding warning level.: Alarm dla poziomu (i poniżej) powinien być niższy niż odpowiadający mu poziom ostrzeżenia.
+Alarm level: Poziom alarmu
 Algorithm: Algorytm
 Algorithms available on this device: Algorytmy dostępne na tym urządzeniu
 All: Wszystko
@@ -184,6 +187,7 @@ Cannot change the channel function right now.: Nie można zmienić funkcji tego 
 Cannot delete this I/O Device right now.: Nie można usunąć tego urządzenia w tej chwili.
 Cannot execute an action when the channel is not available.: Nie można wykonywać akcji, gdy kanał jest niedostępny.
 Cannot update OCR settings. Try again in a while.: Nie udało się zaktualizować ustawień OCR. Spróbuj ponownie za chwilę.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Mail nie dotarł? Sprawdź folder SPAM, lub {clickHereLink} aby wysłać ponownie mail aktywacyjny.
 Captcha token is not valid.: Niepoprawna captcha.
 Caption: Podpis
 Caption is too long.: Nazwa jest za długa.
@@ -365,6 +369,7 @@ Distance: Odległość
 Distance sensor: Czujnik odległości
 Do you want to be redirected there? You may be asked to authenticate again.: Czy chcesz, byśmy Cię tam przekierowali? Może być konieczne ponowne zalogowanie się.
 Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Czy chcesz ustawić kanały zależne od tego termostatu (takie jak termometry i czujniki), by były takie same jak w termostacie nadrzędnym?
+Does it look good?: Wygląda dobrze?
 Domestic hot water: Ciepła woda w domu
 Don’t worry, you can always reset your password via email. Click here to do so.: Nie martw się. Zawsze możesz zresetować hasło za pośrednictwem Twojej poczty email. Kliknij tutaj aby to zrobić.
 Door lock operation: Otwieranie drzwi
@@ -412,6 +417,7 @@ Error when communicating the AD. Try again in a while.: Błąd przy komunikacji 
 Error when communicating the server. Try again in a while.: Wystąpił problem w trakcie komunikacji z serwerem. Spróbuj ponownie za chwilę.
 Estimated execution time: Szacowany czas wykonania
 Every: Co
+Everyone makes mistakes!: Każdy popełnia błędy!
 Example Auth URL: Przykładowy URL autoryzacyjny
 Example value: Przykład
 Execute: Wykonaj
@@ -580,6 +586,7 @@ Invalid function for channel.: Niepoprawna funkcja dla kanału.
 Invalid request: Niepoprawne żądanie
 Invalid request.: Niepoprawne żądanie.
 Invalid scene: Niepoprawna scena
+Invalid sensor state: Nieprawidłowy stan czujnika
 Invalid token.: Niepoprawny token.
 Invalid unlock code.: Niepoprawny link odblokowujący.
 Invalid username or password: Niepoprawna nazwa użytkownika lub hasło
@@ -671,7 +678,9 @@ Motor problem: Problem z silnikiem
 Motor upside down: Odwrócone sterowanie silnikiem
 Move down or stop: W dół lub zatrzymaj
 Move up or stop: W górę lub zatrzymaj
+Mute alarm: Wycisz alarm
 Mute alarm sound without additional auth: Wycisz alarm bez dodatkowej autentykacji
+Mute command sent: Polecenie wyciszenia wysłane
 My OAuth apps: Moje aplikacje OAuth
 My SUPLA: Moja SUPLA
 NOTICE!: UWAGA!
@@ -730,6 +739,7 @@ OAuth application: Aplikacja OAuth
 OAuth apps: Aplikacje OAuth
 OAuth authorization: Autoryzacja OAuth
 OAuth integrations might stop working after the instance is unregistered.: Integracje z aplikacjami OAuth mogą przestać działać po wyrejestrowaniu twojej instancji.
+'OCR service responded with error: {statusCode}. {description}': 'Usługa OCR odpowiedziała z błędem: {statusCode}. {description}'
 'OCR service responded with error: {status}': 'Usługa OCR odpowiedziała z błędem: {status}'
 OCR settings: Ustawienia OCR
 OK: OK
@@ -753,6 +763,7 @@ Operations: Operacje
 Original location: Oryginalna lokalizacja
 Other: Inne
 Otherwise go to the homepage.: W innym przypadku przejdź do [strony domowej].
+Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: Nasza wspaniała SUPLA Inteligencja sklasyfikowała wartość {value} jako niepasującą do odczytów tego licznika. Decyzja ta została podjęta w oparciu o historię odczytów, jakość wykonanego zdjęcia oraz inne mniej istotne czynniki.
 Output value on error: Stan wyjścia podczas błędu
 Overheat protection: Ochrona przed przegrzaniem
 P/C: P/C
@@ -789,6 +800,7 @@ Photo interval: Interwał wykonywania zdjęć
 Please choose the schedule subject first.: Najpierw wybierz czym harmonogram ma sterować
 Please click the following link to reset your %cloudHost% password.: Kliknij poniższy link w celu zresetowania Twojego hasła do aplikacji %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Kliknij link z wiadomości, którą wysłaliśmy do Ciebie po założeniu konta.
+Please confirm if you want to do this.: Potwierdź wykonanie tej akcji.
 Please confirm your SUPLA account.: Aktywuj swoje konto w SUPLA.
 Please enter a valid email address: Wprowadź poprawny adres email
 Please fill a valid email address: Wprowadź poprawny adres e-mail
@@ -886,6 +898,7 @@ SUPLA - Account Removal: SUPLA - Usunięcie konta
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Odblokowanie urządzenia przeznaczonego dla certyfikowanego instalatora
 SUPLA - Password reset: SUPLA - Resetowanie hasła
 SUPLA - Private instance unregistration: SUPLA - wyrejestrowanie prywatnej instancji
+SUPLA - Test e-mail: SUPLA - testowa wiadomość
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Błąd przy wykonaniu akcji w SUPLA Server.
 SUPLA Server was unable to execute the scene.: SUPLA Server nie był w stanie wykonać sceny.
@@ -963,6 +976,7 @@ Some features depend on this device: Niektóre funkcjonalności zależą od tego
 Some features depend on this scene: Niektóre funkcjonalności zależą od tej sceny.
 Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Część danych gromadzonych dla twojego konta będzie cyklicznie usuwana po upłynięciu określonego czasu. Zapoznaj się z limitami poniżej.
 Some of the features you have configured depend on channels from this device.: Niektóre funkcjonalności używają kanałów z tego urządzenia.
+Sound alarm on: Dźwiękowy alarm włączony
 Staircase timer: Automat schodowy
 Start Here: Rozpocznij tutaj
 Start date: Data rozpoczęcia
@@ -1072,6 +1086,7 @@ This device cannot be remotely awakened. We are awaiting communication from the 
 This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: To urządzenie jest przeznaczone do dystrybucji i instalacji tylko przez autoryzowanych instalatorów. Jeśli nie jesteś autoryzowanym instalatorem SUPLA i nie dysponujesz aktywnym certyfikatem szkoleniowym zwróć je do sprzedawcy.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz poniższe przykłady aby dowiedzieć się, jakie parametry możesz ustawić.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Otrzymujesz tę informację w związku z nieudaną próbą logowania do SUPLA-CLOUD (%cloudHost%) przy użyciu Twojego adresu email.
+This is only a test to see if the e-mail configuration is working.: To jest tylko test sprawdzający czy konfiguracja poczty wychodzącej działa prawidłowo.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: To jest ostatni etap usuwania Twojego konta. Wypełnienie i zatwierdzenie formularza będzie skutkować nieodwracalnym usunięciem Twoich danych.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: To jest ostatnie zdjęcie przesłane z urządzenia. Zaznacz dokładnie obszar, w którym są widoczne cyfry z licznika.
 This is the list of applications you have granted access to your account.: To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.
@@ -1114,6 +1129,7 @@ Unsupported type: Niewspierany typ
 Until a date and time: Do czasu
 Until the next change: Do następnej zmiany
 Update in progress: Trwa aktualizacja
+Updating...: Aktualizacja...
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Przesłane pliki nie naruszają dobrych obyczajów, praw autorskich oraz praw osób trzecich, a ja mam prawo z nich korzystać.
 Upper voltage threshold: Próg wysokiego napięcia
 Use activity schedule: Użyj harmonogramu aktywności
@@ -1145,6 +1161,8 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Odczekaj chwilę przed wykonaniem kolejnego żądania. Możesz sprawdzić aktualne wykorzystanie Twoich limitów w ustawieniach konta.
 Wait for this scene to finish before proceeding to the next step ({time}).: Czekaj na zakończenie wykonania sceny przed kontynuowaniem akcji ({time}).
 Waiting: Oczekiwanie
+Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).: Ostrzeżenie i alarm dla poziomu (i powyżej) powinny być wyższe niż ostrzeżenie i alarm dla poziomu (i poniżej).
+Warning level: Poziom ostrzeżenia
 Water meter: Licznik wody
 Water tank: Zbiornik na wodę
 'We also strongly advise you to choose a password that:': 'Ponadto, zdecydowanie zalecamy aby wybrać hasło które:'
@@ -1178,6 +1196,8 @@ When a flooding state changes: Kiedy stan zalania zmieni się
 When a flooding state has been cleared: Kiedy stan zalania zostanie wyczyszczony
 When a lack of liquid is detected: Gdy zostanie wykryty brak cieczy
 When a new mail comes: Gdy przyjdzie nowa poczta
+When any of the sensors starts to report an invalid state: Gdy którykolwiek z czujników zacznie zgłaszać nieprawidłowy stan
+When any of the sensors stops to report an invalid state: Gdy którykolwiek z czujników przestanie zgłaszać nieprawidłowy stan
 When flooding is detected: Gdy zostanie wykryte zalanie
 When liquid is detected: Gdy zostanie wykryta ciecz
 When liquid or lack thereof is detected: Gdy zostanie wykryta ciecz lub jej brak
@@ -1187,6 +1207,8 @@ When the active power will be: Gdy moc czynna będzie
 When the alarm is armed: Gdy alarm zostanie uzbrojony
 When the alarm is armed or disarmed: Gdy alarm zostanie wyłączony lub uzbrojony
 When the alarm is disarmed: Gdy alarm zostanie wyłączony
+When the alarm starts: Gdy rozpocznie się alarm
+When the alarm stops: Gdy alarm się zatrzyma
 When the apparent power will be: Gdy moc pozorna będzie
 When the balanced forward active energy will be: Gdy zbilansowana, pobrana energia czynna będzie
 When the balanced reverse active energy will be: Gdy zbilansowana, zwrócona energia czynna będzie
@@ -1223,6 +1245,11 @@ When the electricity meter value changes: Gdy wartość licznika energii elektry
 When the electricity meter value will be: Gdy wartość licznika energii będzie
 When the facade blind position changes: Gdy żaluzja fasadowa zmienia pozycję
 When the facade blind reaches a certain position: Gdy żaluzja fasadowa osiąga określoną pozycję
+When the fill level changes: Gdy poziom napełnienia się zmieni
+When the fill level reaches a certain value: Gdy poziom napełnienia osiągnie określoną wartość
+When the fill level reading error disappears: Gdy błąd odczytu poziomu napełnienia zniknie
+When the fill level reading error occurs: Gdy wystąpi błąd odczytu poziomu napełnienia
+When the fill level will be: Gdy poziom napełnienia będzie wynosił
 When the forward active energy will be: Gdy pobrana energia czynna będzie
 When the garage door will be closed: Gdy brama garażowa zostanie zamknięta
 When the garage door will be opened: Gdy brama garażowa zostanie otwarta
@@ -1252,6 +1279,7 @@ When the meter reaches a certain value: Gdy licznik osiągnie zadaną wartość
 When the meter value changes: Gdy wartość zmieni się
 When the meter value will be: Gdy wartość będzie
 When the motor reported a problem: Gdy silnik zgłosi problem
+When the position reaches: Gdy pozycja osiągnie
 When the precipitation amount will be: Gdy ilość mierzonego deszczu będzie
 When the pressure changes: Gdy ciśnienie się zmieni
 When the pressure reaches a certain level: Gdy ciśnienie osiągnie określony poziom
@@ -1265,6 +1293,7 @@ When the rain amount changes: Gdy zmieni się ilość opadów
 When the reactive power will be: Gdy moc bierna będzie
 When the reverse active energy will be: Gdy zwrócona energia czynna będzie
 When the roller garage door position changes: Gdy brama garażowa zmienia pozycję
+When the roller garage door reaches a certain position: Gdy brama garażowa segmentowa osiągnie określoną pozycję
 When the roller shutter position changes: Gdy zmieni się pozycja rolety
 When the roller shutter reaches a certain position: Gdy roleta osiągnie określoną pozycję
 When the roller shutter will be closed: Gdy roleta zostanie zamknięta
@@ -1275,6 +1304,8 @@ When the roof window reaches a certain position: Gdy okno dachowe osiągnie okre
 When the roof window will be closed: Gdy okno dachowe zostanie zamknięte
 When the roof window will be opened: Gdy okno dachowe zostanie otwarte
 When the roof window will be opened or closed: Gdy okno dachowe zostanie zamknięte lub otwarte
+When the sound alarm starts: Gdy rozpocznie się alarm dźwiękowy
+When the sound alarm stops: Gdy alarm dźwiękowy się zatrzyma
 When the temperature changes: Gdy zmieni się temperatura
 When the temperature reaches a certain value: Gdy temperatura osiągnie określoną wartość
 When the temperature will be: Gdy temperatura będzie
@@ -1298,6 +1329,8 @@ When the valve is opened or closed: Gdy zawór zostanie zamknięty lub otwarty
 When the vertical blind position changes: Gdy żaluzja pionowa zmienia pozycję
 When the vertical blind reaches a certain position: Gdy żaluzja pionowa osiąga określoną pozycję
 When the voltage will be: Gdy napięcie będzie
+When the warning starts: Gdy rozpocznie się ostrzeżenie
+When the warning stops: Gdy ostrzeżenie się zatrzyma
 When the water meter reaches a certain value: Gdy licznik wody osiągnie określoną wartość
 When the water meter value changes: Gdy wartość licznika wody się zmieni
 When the water meter value will be: Gdy wartość licznika wody będzie
@@ -1327,6 +1360,7 @@ YOUR LINK CODE: KOD TWOJEGO LINKU
 You are changing the settings too quickly. You have to wait a while before making this change.: Zmieniasz ustawienia zbyt szybko. Musisz chwilę odczekać przed zmianą tych ustawień.
 You can browse only the most recent logs now. Wait a while for the full history.: Aktualnie wyświetlane są tylko najnowsze pomiary. Poczekaj chwilę na pobranie całej historii.
 You can ignore this message, if you have accidentally entered an incorrect password.: Możesz zignorować tę wiadomość jeżeli to Ty wprowadziłeś(aś) błędne hasło.
+You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: Możesz ręcznie oznaczyć ten odczyt jako poprawny. To NIE spowoduje natychmiastowej aktualizacji wartości odczytanej dla kanału, ale powinno poprawić klasyfikację przyszłych odczytów dla Twojego licznika.
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Możesz ustawić tutaj wartości względne. Przykładowo +10 lub -20 odpowiednio zwiększy ustawienie o 10 lub zmniejszy o 20.
 You can use the application but you will not be able to modify any settings.: Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.
 You cannot change this function becuase it is required by another channel.: Nie można zmienić funkcji, ponieważ jest ona wymagana w ustawieniach innego kanału.
@@ -1404,6 +1438,7 @@ after: po
 and wait until it reaches: i nie wykonuj ponownie tej reakcji, aż osiągnie
 and wait until it will be: i nie wykonuj ponownie tej reakcji, aż będzie
 and wait until the battery level will be: i czekaj, aż poziom baterii będzie
+and wait until the fill level will be: i poczekaj, aż poziom napełnienia będzie wynosił
 and wait until the humidity will be: i nie wykonuj ponownie tej reakcji, aż wilgotność będzie
 and wait until the meter will be: i nie wykonuj ponownie tej reakcji, dopóki wartość nie będzie
 and wait until the temperature will be: i nie wykonuj ponownie tej reakcji, aż temperatura będzie
@@ -1753,31 +1788,5 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Alarm at level (and above) should be greater than the corresponding warning level.: Alarm od poziomu (i powyżej) powinien być większy niż odpowiadający mu poziom ostrzeżenia.
-Alarm at level (and below) should be lower than the corresponding warning level.: Alarm od poziomu (i poniżej) powinien być niższy niż odpowiadający mu poziom ostrzeżenia.
-Alarm level: Poziom alarmu
-Invalid sensor state: Nieprawidłowy stan czujnika
-Mute alarm: Wycisz alarm
-Mute command sent: Polecenie wyciszenia wysłane
-Sound alarm on: Dźwiękowy alarm włączony
-Updating...: Aktualizacja...
-Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).: Ostrzeżenie i alarm od poziomu (i powyżej) powinny być wyższe niż ostrzeżenie i alarm od poziomu (i poniżej).
-Warning level: Poziom ostrzeżenia
-When any of the sensors starts to report an invalid state: Gdy którykolwiek z czujników zacznie zgłaszać nieprawidłowy stan
-When any of the sensors stops to report an invalid state: Gdy którykolwiek z czujników przestanie zgłaszać nieprawidłowy stan
-When the alarm starts: Gdy rozpocznie się alarm
-When the alarm stops: Gdy alarm się zatrzyma
-When the fill level changes: Gdy poziom napełnienia się zmieni
-When the fill level reaches a certain value: Gdy poziom napełnienia osiągnie określoną wartość
-When the fill level reading error disappears: Gdy błąd odczytu poziomu napełnienia zniknie
-When the fill level reading error occurs: Gdy wystąpi błąd odczytu poziomu napełnienia
-When the fill level will be: Gdy poziom napełnienia będzie wynosił
-When the position reaches: Gdy pozycja osiągnie
-When the roller garage door reaches a certain position: Gdy brama garażowa segmentowa osiągnie określoną pozycję
-When the sound alarm starts: Gdy rozpocznie się alarm dźwiękowy
-When the sound alarm stops: Gdy alarm dźwiękowy się zatrzyma
-When the warning starts: Gdy rozpocznie się ostrzeżenie
-When the warning stops: Gdy ostrzeżenie się zatrzyma
-and wait until the fill level will be: i poczekaj, aż poziom napełnienia będzie wynosił
 
 #</editor-fold>

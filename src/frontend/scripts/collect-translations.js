@@ -10,7 +10,7 @@ const regexes = [
     "\\s[^:\\s][a-z0-9-]+-i18n=\"(.+?)\"", // any-i18n="...", but not :any-i18n="..."
     "i18n:\\s?(\\[.+?\\])", // i18n:['...']
     "\\{% trans.+?%\\}(.+?)\\{% endtrans", // {% trans %} ... {% endtrans %}
-    "<i18n-t keypath=\"(.+?)\"", // <i18n-t keypath="..."
+    "<i18n-t\\s+keypath=\"(.+?)\"", // <i18n-t keypath="..."
     "i18n\\.global\\.t\\([\"'](.+?)[\"']", // i18n.global.t('...')
 ];
 
