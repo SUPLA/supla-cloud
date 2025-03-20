@@ -98,51 +98,51 @@
                                 </div>
                             </dt>
                         </dl>
+                    </div>
+                </transition-expand>
+                <transition-expand>
+                    <div v-if="canDisplaySetting('auxMinMaxSetpointEnabled') && channel.config.auxThermometerType !== 'DISABLED'">
+                        <dl class="wide-label">
+                            <dd>
+                                <span v-if="channel.config.auxThermometerType === 'FLOOR'">
+                                    {{ $t('Enable floor temperature control') }}
+                                </span>
+                                <span v-else-if="channel.config.auxThermometerType === 'WATER'">
+                                    {{ $t('Enable water temperature control') }}
+                                </span>
+                                <span v-else-if="channel.config.auxThermometerType === 'GENERIC_HEATER'">
+                                    {{ $t('Enable generic heater temperature control') }}
+                                </span>
+                                <span v-else-if="channel.config.auxThermometerType === 'GENERIC_COOLER'">
+                                    {{ $t('Enable generic cooler temperature control') }}
+                                </span>
+                            </dd>
+                            <dt class="text-center">
+                                <toggler v-model="channel.config.auxMinMaxSetpointEnabled" @input="$emit('change')"
+                                    :disabled="!canChangeSetting('auxMinMaxSetpointEnabled')"/>
+                            </dt>
+                        </dl>
                         <transition-expand>
-                            <div v-if="canDisplaySetting('auxMinMaxSetpointEnabled') && channel.config.auxThermometerType !== 'DISABLED'">
-                                <dl class="wide-label">
-                                    <dd>
-                                        <span v-if="channel.config.auxThermometerType === 'FLOOR'">
-                                            {{ $t('Enable floor temperature control') }}
+                            <dl v-if="channel.config.auxMinMaxSetpointEnabled">
+                                <template v-for="temp in auxMinMaxTemperatures">
+                                    <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
+                                    <dt :key="`dt${temp.name}`">
+                                        <span class="input-group">
+                                            <input type="number"
+                                                step="0.1"
+                                                :min="temp.min"
+                                                :max="temp.max"
+                                                class="form-control text-center"
+                                                :disabled="!canChangeTemperature(temp.name)"
+                                                v-model="channel.config.temperatures[temp.name]"
+                                                @change="temperatureChanged(temp.name)">
+                                            <span class="input-group-addon">&deg;C</span>
                                         </span>
-                                        <span v-else-if="channel.config.auxThermometerType === 'WATER'">
-                                            {{ $t('Enable water temperature control') }}
-                                        </span>
-                                        <span v-else-if="channel.config.auxThermometerType === 'GENERIC_HEATER'">
-                                            {{ $t('Enable generic heater temperature control') }}
-                                        </span>
-                                        <span v-else-if="channel.config.auxThermometerType === 'GENERIC_COOLER'">
-                                            {{ $t('Enable generic cooler temperature control') }}
-                                        </span>
-                                    </dd>
-                                    <dt class="text-center">
-                                        <toggler v-model="channel.config.auxMinMaxSetpointEnabled" @input="$emit('change')"
-                                            :disabled="!canChangeSetting('auxMinMaxSetpointEnabled')"/>
                                     </dt>
-                                </dl>
-                                <transition-expand>
-                                    <dl v-if="channel.config.auxMinMaxSetpointEnabled">
-                                        <template v-for="temp in auxMinMaxTemperatures">
-                                            <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
-                                            <dt :key="`dt${temp.name}`">
-                                                <span class="input-group">
-                                                    <input type="number"
-                                                        step="0.1"
-                                                        :min="temp.min"
-                                                        :max="temp.max"
-                                                        class="form-control text-center"
-                                                        :disabled="!canChangeTemperature(temp.name)"
-                                                        v-model="channel.config.temperatures[temp.name]"
-                                                        @change="temperatureChanged(temp.name)">
-                                                    <span class="input-group-addon">&deg;C</span>
-                                                </span>
-                                            </dt>
-                                        </template>
-                                    </dl>
-                                </transition-expand>
-
-                            </div>
+                                </template>
+                            </dl>
                         </transition-expand>
+
                     </div>
                 </transition-expand>
                 <dl v-for="temp in otherTemperatures" :key="`dd${temp.name}`">
