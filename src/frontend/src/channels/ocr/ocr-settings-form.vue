@@ -181,7 +181,7 @@
             },
             takePhotoNow() {
                 this.takingPhoto = true;
-                this.$http.patch(`channels/${this.subject.id}/settings`, {action: 'takeOcrPhoto'})
+                this.$http.patch(`channels/${this.subject.id}/settings`, {action: 'ocr:takePhoto'})
                     .then(() => successNotification(
                         this.$t('Success'),
                         this.$t('Command has been sent to the device. Try refreshing the photo in a while.')

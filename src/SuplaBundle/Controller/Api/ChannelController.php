@@ -531,7 +531,7 @@ class ChannelController extends RestController {
      *     @OA\RequestBody(
      *       required=true,
      *       @OA\JsonContent(
-     *          @OA\Property(property="action", type="string", enum={"resetCounters", "recalibrate", "takeOcrPhoto"})
+     *          @OA\Property(property="action", type="string", enum={"resetCounters", "recalibrate", "ocr:takePhoto"})
      *       ),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
@@ -573,10 +573,14 @@ class ChannelController extends RestController {
                 Assertion::keyExists($state, 'soundAlarmOn', 'Cannot mute alarm for this channel.');
                 $result = $this->suplaServer->channelAction($channel, 'MUTE-ALARM-SOUND');
                 Assertion::true($result, 'Could not mute alarm.');
-            } elseif ($action === 'takeOcrPhoto') {
-                Assertion::keyExists($channelConfig, 'ocr', 'Cannot take OCR photo.');
+            } elseif ($action === 'ocr:takePhoto') {
+                Assertion::keyExists($channelConfig, 'ocr', 'This channel does not support OCR.');
                 $result = $this->suplaServer->channelAction($channel, 'TAKE-OCR-PHOTO');
                 Assertion::true($result, 'Could not take OCR photo.');
+            } elseif ($action === 'ocr:markLastMeasurementValid') {
+                Assertion::keyExists($channelConfig, 'ocr', 'This channel does not support OCR.');
+                Assertion::keyExists($body, 'imageId');
+                $ocr->markLastMeasurementValid($channel, $body['imageId']);
             } else {
                 throw new ApiException('Invalid action given.');
             }

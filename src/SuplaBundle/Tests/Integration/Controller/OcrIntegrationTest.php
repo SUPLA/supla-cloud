@@ -107,10 +107,26 @@ class OcrIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient();
         $channelId = $this->counter->getId();
         $client->apiRequestV24('PATCH', "/api/channels/{$channelId}/settings", [
-            'action' => 'takeOcrPhoto',
+            'action' => 'ocr:takePhoto',
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertSuplaCommandExecuted('TAKE-OCR-PHOTO:1,1,1');
+    }
+
+    public function testMarkingLastMeasurementValid() {
+        TestSuplaHttpClient::mockHttpRequest('/devices', function (array $request) {
+            $this->assertEquals('PATCH', $request['method']);
+            $this->assertEquals('markLastMeasurementValid', $request['payload']['action']);
+            $this->assertEquals('17ffa4d5-6e9a-4f2e-9df6-251c2ee3de76', $request['payload']['imageId']);
+            return [true, '{}', 200];
+        });
+        $client = $this->createAuthenticatedClient();
+        $channelId = $this->counter->getId();
+        $client->apiRequestV24('PATCH', "/api/channels/{$channelId}/settings", [
+            'action' => 'ocr:markLastMeasurementValid',
+            'imageId' => '17ffa4d5-6e9a-4f2e-9df6-251c2ee3de76',
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
     }
 
     public function testGettingLatestPhotoOfChannelWithoutOcrSupport() {

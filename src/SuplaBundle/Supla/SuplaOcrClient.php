@@ -94,9 +94,26 @@ class SuplaOcrClient {
             'PATCH'
         );
         if ($responseStatus === 200) {
-            return $response;
+            return $response ?: [];
         } else {
             throw new ApiExceptionWithDetails('OCR service responded with error: {status}', $response, $responseStatus); // i18n
+        }
+    }
+
+    public function markLastMeasurementValid(IODeviceChannel $channel, string $imageId): array {
+        $fullUrl = $this->deviceEndpoint($channel);
+        $response = $this->brokerHttpClient->request(
+            $fullUrl,
+            ['action' => 'markLastMeasurementValid', 'imageId' => $imageId],
+            $responseStatus,
+            ['X-AuthKey' => $this->getAuthKey($channel)],
+            'PATCH'
+        );
+        if ($responseStatus === 200) {
+            return $response ?: [];
+        } else {
+            $response['description'] = ($response['error'] ?? [])['description'] ?? '';
+            throw new ApiExceptionWithDetails('OCR service responded with error: {statusCode}. {description}', $response, $responseStatus); // i18n
         }
     }
 
