@@ -621,19 +621,19 @@ const ChannelFunctionTriggers = {
             caption: () => 'When the fill level changes', // i18n
             def: () => ({on_change: {}})
         },
-        {caption: () => 'When the fill level reading error occurs', def: () => ({on_change_to: {eq: 'on', name: 'invalid_value'}})}, // i18n
-        {caption: () => 'When the fill level reading error disappears', def: () => ({on_change_to: {eq: 'off', name: 'invalid_value'}})}, // i18n
+        {caption: () => 'When the fill level becomes unknown', def: () => ({on_change_to: {eq: 'on', name: 'invalid_value'}})}, // i18n
+        {caption: () => 'When the fill level becomes known again', def: () => ({on_change_to: {eq: 'off', name: 'invalid_value'}})}, // i18n
         {caption: () => 'When the alarm starts', def: () => ({on_change_to: {eq: 'on', name: 'alarm'}})}, // i18n
         {caption: () => 'When the alarm stops', def: () => ({on_change_to: {eq: 'off', name: 'alarm'}})}, // i18n
         {caption: () => 'When the warning starts', def: () => ({on_change_to: {eq: 'on', name: 'warning'}})}, // i18n
         {caption: () => 'When the warning stops', def: () => ({on_change_to: {eq: 'off', name: 'warning'}})}, // i18n
         {
-            caption: () => 'When any of the sensors starts to report an invalid state', // i18n
+            caption: () => 'When the sensors state becomes invalid', // i18n
             def: () => ({on_change_to: {eq: 'on', name: 'invalid_sensor_state'}}),
             canBeSetForChannel: (channel) => channel.config.levelSensors?.length > 0,
         },
         {
-            caption: () => 'When any of the sensors stops to report an invalid state', // i18n
+            caption: () => 'When the sensors state becomes valid', // i18n
             def: () => ({on_change_to: {eq: 'off', name: 'invalid_sensor_state'}}),
             canBeSetForChannel: (channel) => channel.config.levelSensors?.length > 0,
         },

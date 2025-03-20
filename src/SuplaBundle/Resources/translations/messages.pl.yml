@@ -1196,8 +1196,6 @@ When a flooding state changes: Kiedy stan zalania zmieni się
 When a flooding state has been cleared: Kiedy stan zalania zostanie wyczyszczony
 When a lack of liquid is detected: Gdy zostanie wykryty brak cieczy
 When a new mail comes: Gdy przyjdzie nowa poczta
-When any of the sensors starts to report an invalid state: Gdy którykolwiek z czujników zacznie zgłaszać nieprawidłowy stan
-When any of the sensors stops to report an invalid state: Gdy którykolwiek z czujników przestanie zgłaszać nieprawidłowy stan
 When flooding is detected: Gdy zostanie wykryte zalanie
 When liquid is detected: Gdy zostanie wykryta ciecz
 When liquid or lack thereof is detected: Gdy zostanie wykryta ciecz lub jej brak
@@ -1245,10 +1243,10 @@ When the electricity meter value changes: Gdy wartość licznika energii elektry
 When the electricity meter value will be: Gdy wartość licznika energii będzie
 When the facade blind position changes: Gdy żaluzja fasadowa zmienia pozycję
 When the facade blind reaches a certain position: Gdy żaluzja fasadowa osiąga określoną pozycję
+When the fill level becomes known again: Gdy poziom napiełnienia przestanie być nieznany
+When the fill level becomes unknown: Gdy poziom napełnienia stanie się nieznany
 When the fill level changes: Gdy poziom napełnienia się zmieni
 When the fill level reaches a certain value: Gdy poziom napełnienia osiągnie określoną wartość
-When the fill level reading error disappears: Gdy błąd odczytu poziomu napełnienia zniknie
-When the fill level reading error occurs: Gdy wystąpi błąd odczytu poziomu napełnienia
 When the fill level will be: Gdy poziom napełnienia będzie wynosił
 When the forward active energy will be: Gdy pobrana energia czynna będzie
 When the garage door will be closed: Gdy brama garażowa zostanie zamknięta
@@ -1304,6 +1302,8 @@ When the roof window reaches a certain position: Gdy okno dachowe osiągnie okre
 When the roof window will be closed: Gdy okno dachowe zostanie zamknięte
 When the roof window will be opened: Gdy okno dachowe zostanie otwarte
 When the roof window will be opened or closed: Gdy okno dachowe zostanie zamknięte lub otwarte
+When the sensors state becomes invalid: Gdy stan czujników stanie się nieprawidłowy
+When the sensors state becomes valid: Gdy stan czujników stanie się prawidłowy
 When the sound alarm starts: Gdy rozpocznie się alarm dźwiękowy
 When the sound alarm stops: Gdy alarm dźwiękowy się zatrzyma
 When the temperature changes: Gdy zmieni się temperatura
@@ -1763,15 +1763,6 @@ Triggers: Wyzwalacze
 Try again later: Spróbuj ponownie później
 Turn off after: Wyłącz po czasie
 Value per unit: Wartość na jednostkę
-When the curtain reaches: Gdy zasłona osiąga
-When the facade blind reaches: Gdy żaluzja fasadowa osiąga
-When the projector screen reaches: Gdy ekran projekcyjny osiąga
-When the roller garage door a certain position: Gdy brama garażowa osiąga określoną pozycję
-When the roller garage door reaches: Gdy brama garażowa osiąga
-When the roller shutter reaches: Gdy roleta osiągnie
-When the roof window reaches: Gdy okno dachowe osiągnie
-When the terrace awning reaches: Gdy markiza tarasowa osiąga
-When the vertical blind reaches: Gdy żaluzja pionowa osiąga
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 choose a currency: wybierz walutę
 choose access identifiers: wybierz identyfikatory dostępu
