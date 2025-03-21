@@ -1110,6 +1110,8 @@ Token does not exist: Token nie istnieje
 Too many actions in this schedule.: Zbyt wiele akcji w jednym harmonogramie.
 Too many channels in this group: Zbyt dużo kanałów w tej grupie
 Too many operations in this scene: Zbyt wiele operacji w scenie.
+Too small difference between aux setpoint temperatures.: Zbyt mała różnica pomiędzy minimalną i maksymalną temperaturą dodatkową.
+Too small difference between freeze and overheat protection temperatures.: Zbyt mała różnica pomiędzy temperaturą ochrony przeciwzamrożeniowej i temperatury ochrony przed przegrzaniem.
 Total: Suma
 Total time: Całkowity czas
 Tuesdays: Wtorki
@@ -1506,6 +1508,7 @@ green, otherwise: w przeciwnym razie zielona
 green, when power less than the low threshold: zielona, gdy moc jest niższa niż niższy próg
 heat: ogrzewanie
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Główna i dodatkowa temperatura
+homeScreenContent_MODE_OR_TEMPERATURE: Tryb pracy lub temperatura
 homeScreenContent_NONE: Brak
 homeScreenContent_TEMPERATURE: Temperatura
 homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatura i wilgotność
@@ -1781,4 +1784,3 @@ suffix: sufiks
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-homeScreenContent_MODE_OR_TEMPERATURE: Tryb pracy lub temperatura

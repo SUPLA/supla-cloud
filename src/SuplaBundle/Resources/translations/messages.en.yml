@@ -53,6 +53,7 @@ directLinkExecutionFailureReason_sceneDuringExecution: Scene is being executed n
 directLinkExecutionFailureReason_sceneDuringInactivePeriod: Scene is inactive right now.
 directLinkExecutionFailureReason_unsupportedAction: The requested action is not supported.
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Main and auxiliary temperature
+homeScreenContent_MODE_OR_TEMPERATURE: Mode or temperature
 homeScreenContent_NONE: None
 homeScreenContent_TEMPERATURE: Temperature
 homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperature and humidity
@@ -171,5 +172,3 @@ valveOpenConfirm_motorProblem: A motor problem has been detected. Make sure noth
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-
-homeScreenContent_MODE_OR_TEMPERATURE: Mode or temperature

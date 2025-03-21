@@ -570,8 +570,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             Assertion::lessOrEqualThan(
                 $temps['auxMinSetpoint'] / 100,
                 ($temps['auxMaxSetpoint'] - $minOffset) / 100,
-                null,
-                'auxMinSetpoint'
+                'Too small difference between aux setpoint temperatures.', // i18n
             );
         }
         if ($subject->getFunction()->getId() === CF::HVAC_THERMOSTAT_HEAT_COOL &&
@@ -580,8 +579,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             Assertion::lessOrEqualThan(
                 $temps['freezeProtection'] / 100,
                 ($temps['heatProtection'] - $minOffset) / 100,
-                null,
-                'freezeProtection'
+                'Too small difference between freeze and overheat protection temperatures.', // i18n
             );
         }
     }

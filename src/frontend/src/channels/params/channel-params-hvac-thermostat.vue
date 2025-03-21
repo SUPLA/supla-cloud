@@ -127,7 +127,6 @@
                                 <template v-for="temp in auxMinMaxTemperatures">
                                     <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
                                     <dt :key="`dt${temp.name}`">
-                                        MIN: {{ temp.min }}, MAX: {{ temp.max }}
                                         <span class="input-group">
                                             <input type="number"
                                                 step="0.1"
