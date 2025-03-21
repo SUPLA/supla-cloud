@@ -12,7 +12,7 @@
                 </option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" v-if="hasOffDelay">
             <label>{{ $t('Automatic front panel turn off') }}</label>
             <div>
                 <div class="btn-group">
@@ -49,7 +49,7 @@
     import 'vue-slider-component/theme/antd.css';
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import {prettyMilliseconds} from "@/common/filters";
-    import {ref, watch} from "vue";
+    import {computed, ref, watch} from "vue";
     import VueSlider from 'vue-slider-component';
 
     const props = defineProps({value: Object, config: Object});
@@ -58,6 +58,8 @@
     const homeScreenContent = ref('NONE');
     const homeScreenOffMode = ref('DISABLE');
     const offDelay = ref(60);
+
+    const hasOffDelay = computed(() => props.value?.offDelayType !== undefined);
 
     const homeScreenOffPossibleDelays = [
         ...[...Array(30).keys()].map(k => k + 1), // s 1 - 30
@@ -87,10 +89,12 @@
 
     function onChange() {
         const value = {content: homeScreenContent.value};
-        if (homeScreenOffMode.value === 'DISABLE') {
-            value.offDelay = 0;
-        } else {
-            value.offDelay = offDelay.value;
+        if (hasOffDelay.value) {
+            if (homeScreenOffMode.value === 'DISABLE') {
+                value.offDelay = 0;
+            } else {
+                value.offDelay = offDelay.value;
+            }
         }
         if (props.value.offDelayType) {
             value.offDelayType = homeScreenOffMode.value === 'DARK' ? 'ENABLED_WHEN_DARK' : 'ALWAYS_ENABLED';
