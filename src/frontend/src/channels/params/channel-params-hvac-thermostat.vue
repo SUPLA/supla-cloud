@@ -127,6 +127,7 @@
                                 <template v-for="temp in auxMinMaxTemperatures">
                                     <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
                                     <dt :key="`dt${temp.name}`">
+                                        MIN: {{ temp.min }}, MAX: {{ temp.max }}
                                         <span class="input-group">
                                             <input type="number"
                                                 step="0.1"
@@ -509,29 +510,25 @@
             temperatureChanged(name) {
                 const autoOffsetMin = this.channel.config.temperatureConstraints.autoOffsetMin || 0;
                 if (this.auxMinMaxTemperatures.length === 2) {
-                    if (name === 'auxMinSetpoint' && this.channel.config.temperatures.auxMaxSetpoint !== '' && this.canChangeTemperature('auxMaxSetpoint')) {
-                        this.channel.config.temperatures.auxMaxSetpoint = Math.max(
-                            this.channel.config.temperatures.auxMaxSetpoint,
-                            +this.channel.config.temperatures.auxMinSetpoint + autoOffsetMin
-                        );
-                    } else if (name === 'auxMaxSetpoint' && this.canChangeTemperature('auxMinSetpoint')) {
-                        this.channel.config.temperatures.auxMinSetpoint = Math.min(
-                            this.channel.config.temperatures.auxMinSetpoint,
-                            +this.channel.config.temperatures.auxMaxSetpoint - autoOffsetMin
-                        );
+                    const currentMin = this.channel.config.temperatures.auxMinSetpoint;
+                    const currentMax = this.channel.config.temperatures.auxMaxSetpoint;
+                    if (name === 'auxMinSetpoint' && currentMax !== '' && this.canChangeTemperature('auxMaxSetpoint')) {
+                        const newMax = Math.max(currentMax, +currentMin + autoOffsetMin);
+                        this.channel.config.temperatures.auxMaxSetpoint = Math.min(newMax, this.auxMinMaxTemperatures[1].max);
+                    } else if (name === 'auxMaxSetpoint' && currentMin !== '' && this.canChangeTemperature('auxMinSetpoint')) {
+                        const newMin = Math.min(currentMin, +currentMax - autoOffsetMin);
+                        this.channel.config.temperatures.auxMinSetpoint = Math.max(newMin, this.auxMinMaxTemperatures[0].min);
                     }
                 }
-                if (this.freezeHeatProtectionTemperatures.length === 2 && this.channel.config.temperatures.heatProtection !== '' && this.channel.config.temperatures.freezeProtection !== '') {
-                    if (name === 'freezeProtection' && this.canChangeTemperature('heatProtection')) {
-                        this.channel.config.temperatures.heatProtection = Math.max(
-                            this.channel.config.temperatures.heatProtection,
-                            +this.channel.config.temperatures.freezeProtection + autoOffsetMin
-                        );
-                    } else if (name === 'heatProtection' && this.canChangeTemperature('freezeProtection')) {
-                        this.channel.config.temperatures.freezeProtection = Math.min(
-                            this.channel.config.temperatures.freezeProtection,
-                            +this.channel.config.temperatures.heatProtection - autoOffsetMin
-                        );
+                if (this.freezeHeatProtectionTemperatures.length === 2) {
+                    const currentFreeze = this.channel.config.temperatures.freezeProtection;
+                    const currentHeat = this.channel.config.temperatures.heatProtection;
+                    if (name === 'freezeProtection' && currentHeat !== '' && this.canChangeTemperature('heatProtection')) {
+                        const newHeat = Math.max(currentHeat, +currentFreeze + autoOffsetMin);
+                        this.channel.config.temperatures.heatProtection = Math.min(newHeat, this.freezeHeatProtectionTemperatures[1].max);
+                    } else if (name === 'heatProtection' && currentFreeze !== '' && this.canChangeTemperature('freezeProtection')) {
+                        const newFreeze = Math.min(currentFreeze, +currentHeat - autoOffsetMin);
+                        this.channel.config.temperatures.freezeProtection = Math.max(newFreeze, this.freezeHeatProtectionTemperatures[0].min);
                     }
                 }
                 this.$emit('change');

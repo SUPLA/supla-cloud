@@ -294,10 +294,22 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         if (array_key_exists('antiFreezeAndOverheatProtectionEnabled', $config)) {
             $enabled = filter_var($config['antiFreezeAndOverheatProtectionEnabled'], FILTER_VALIDATE_BOOLEAN);
             $subject->setUserConfigValue('antiFreezeAndOverheatProtectionEnabled', $enabled);
+            if (!$enabled) {
+                $config['temperatures'] = array_merge($config['temperatures'] ?? [], [
+                    'freezeProtection' => '',
+                    'heatProtection' => '',
+                ]);
+            }
         }
         if (array_key_exists('auxMinMaxSetpointEnabled', $config)) {
             $enabled = filter_var($config['auxMinMaxSetpointEnabled'], FILTER_VALIDATE_BOOLEAN);
             $subject->setUserConfigValue('auxMinMaxSetpointEnabled', $enabled);
+            if (!$enabled) {
+                $config['temperatures'] = array_merge($config['temperatures'] ?? [], [
+                    'auxMinSetpoint' => '',
+                    'auxMaxSetpoint' => '',
+                ]);
+            }
         }
         if (array_key_exists('temperatureSetpointChangeSwitchesToManualMode', $config)) {
             $enabled = filter_var($config['temperatureSetpointChangeSwitchesToManualMode'], FILTER_VALIDATE_BOOLEAN);

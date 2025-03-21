@@ -1254,4 +1254,20 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(10, $newConfig['minAllowedTemperatureSetpointFromLocalUI']);
         $this->assertEquals(22.2, $newConfig['maxAllowedTemperatureSetpointFromLocalUI']);
     }
+
+    public function testIgnoresInvalidAuxTemperaturesWhenAuxIsDisabled() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/' . $this->device->getChannels()[4]->getId(), [
+            'config' => [
+                'auxMinMaxSetpointEnabled' => false,
+                'temperatures' => ['auxMinSetpoint' => -5, 'auxMaxSetpoint' => -5],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $channel = $this->freshEntity($this->device->getChannels()[4]);
+        $this->assertFalse($channel->getUserConfigValue('auxMinMaxSetpointEnabled'));
+        $this->assertNull($channel->getUserConfigValue('temperatures')['auxMinSetpoint']);
+        $this->assertNull($channel->getUserConfigValue('temperatures')['auxMaxSetpoint']);
+    }
 }
