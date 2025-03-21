@@ -5,7 +5,7 @@
             <!-- i18n:["homeScreenContent_NONE", "homeScreenContent_TEMPERATURE"] -->
             <!-- i18n:["homeScreenContent_TEMPERATURE_AND_HUMIDITY"] -->
             <!-- i18n:["homeScreenContent_TIME", "homeScreenContent_TIME_DATE", "homeScreenContent_TEMPERATURE_TIME"] -->
-            <!-- i18n:["homeScreenContent_MAIN_AND_AUX_TEMPERATURE"] -->
+            <!-- i18n:["homeScreenContent_MAIN_AND_AUX_TEMPERATURE", "homeScreenContent_MODE_OR_TEMPERATURE"] -->
             <select id="homeScreen" class="form-control" v-model="homeScreenContent" @change="onChange()">
                 <option v-for="mode in config.homeScreenContentAvailable" :key="mode" :value="mode">
                     {{ $t(`homeScreenContent_${mode}`) }}
