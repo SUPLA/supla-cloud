@@ -102,7 +102,7 @@ class ScenesFixture extends SuplaFixture {
                 $operations[] = $sceneOperation;
             }
             $scene->setEnabled($this->faker->boolean(80));
-            $scene->setCaption($this->faker->colorName);
+            $scene->setCaption($this->faker->colorName());
             $scene->setOpeartions($operations);
             try {
                 SceneUtils::ensureOperationsAreNotCyclic($scene);

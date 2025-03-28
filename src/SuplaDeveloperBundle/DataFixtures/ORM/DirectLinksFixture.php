@@ -55,7 +55,7 @@ class DirectLinksFixture extends SuplaFixture {
             $directLink->generateSlug(new PlaintextPasswordEncoder());
             $action = $this->faker->randomElement(array_merge([ChannelFunctionAction::READ()], $channel->getPossibleActions()));
             $directLink->setAllowedActions([$action]);
-            $directLink->setCaption($this->faker->colorName);
+            $directLink->setCaption($this->faker->colorName());
             $this->entityManager->persist($directLink);
         }
     }
