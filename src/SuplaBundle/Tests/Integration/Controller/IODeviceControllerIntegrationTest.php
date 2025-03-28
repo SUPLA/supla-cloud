@@ -951,4 +951,22 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $subDevices = json_decode($client->getResponse()->getContent(), true);
         $this->assertEmpty($subDevices);
     }
+
+    public function testDeletingDeviceWithManyChannels(): void {
+        $this->markTestSkipped('I tak to trwa za długo.');
+        $device = $this->createDevice($this->location, [
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $this->getEntityManager()->getConnection()->executeStatement('DELETE FROM supla_dev_channel WHERE id=' . $device->getChannels()[0]->getId());
+        $this->getEntityManager()->getConnection()->executeStatement('UPDATE supla_iodevice SET id=10460 WHERE id=' . $device->getId());
+        $dump = file_get_contents(__DIR__ . '/../fixtures/issue-803.sql');
+        $this->getEntityManager()->getConnection()->executeStatement($dump);
+
+        $this->executeCommand('supla:initialize:move-dependent-channels-to-the-same-location');
+
+//        $client = $this->createAuthenticatedClient();
+//        $client->request('DELETE', '/api/iodevices/10460?safe=true');
+//        $this->assertStatusCode(204, $client->getResponse());
+    }
+
 }

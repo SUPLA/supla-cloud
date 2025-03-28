@@ -24,6 +24,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
     private $channelRepository;
     /** @var LoggerInterface */
     private $logger;
+    private array $dependencyCache = [];
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -165,6 +166,10 @@ class ChannelDependencies extends ActionableSubjectDependencies {
     }
 
     private function findDependentChannels(IODeviceChannel $channel, array $skipConfigIds = []): array {
+        $cacheKey = implode('_', [$channel->getId(), implode('_', $skipConfigIds)]);
+        if (array_key_exists($cacheKey, $this->dependencyCache)) {
+            return $this->dependencyCache[$cacheKey];
+        }
         $config = $this->channelParamConfigTranslator->getConfig($channel);
         $dependentChannels = [];
         foreach ($config as $key => $value) {
@@ -198,6 +203,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
                 }
             }
         }
+        $this->dependencyCache[$cacheKey] = $dependentChannels;
         return $dependentChannels;
     }
 }
