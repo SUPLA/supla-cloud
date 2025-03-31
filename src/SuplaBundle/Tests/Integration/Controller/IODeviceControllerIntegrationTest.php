@@ -968,5 +968,4 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
 //        $client->request('DELETE', '/api/iodevices/10460?safe=true');
 //        $this->assertStatusCode(204, $client->getResponse());
     }
-
 }
