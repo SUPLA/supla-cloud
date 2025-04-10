@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -52,7 +52,7 @@ class OAuthClientsFixture extends SuplaFixture {
         $newClient->setRandomId('CALLERzqczpc4wgk0oo4wsoss040k88sks4goc0osow4sk8cgc');
         $newClient->setSecret('CALLERgd2oowo408gws84kwwo88k8ck8kwk4w0kccog444wocc');
         $newClient->setName('SUPLA Caller Tester');
-        $newClient->setRedirectUris(['http://localhost:8080/authorize']);
+        $newClient->setRedirectUris(['http://localhost:8080/authorize', 'http://localhost:5173/authorize']);
         $newClient->setType(ApiClientType::USER());
         $newClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
         $newClient->setUser($user);
