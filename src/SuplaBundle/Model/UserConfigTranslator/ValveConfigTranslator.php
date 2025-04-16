@@ -21,6 +21,9 @@ class ValveConfigTranslator extends UserConfigTranslator {
                     $subject->getUserConfigValue('sensorChannelNumbers', [])
                 )));
             }
+            if ($subject->getUserConfigValue('closeValveOnFloodType')) {
+                $config['closeValveOnFloodType'] = $subject->getUserConfigValue('closeValveOnFloodType');
+            }
         }
         $config['motorAlarmSupported'] = ChannelFlags::VALVE_MOTOR_ALARM_SUPPORTED()->isSupported($subject->getFlags());
         return $config;
@@ -46,6 +49,11 @@ class ValveConfigTranslator extends UserConfigTranslator {
                 'sensorChannelNumbers',
                 array_map(fn(IODeviceChannel $channel) => $channel->getChannelNumber(), $sensors),
             );
+        }
+        if ($config['closeValveOnFloodType'] ?? false) {
+            Assertion::keyExists($this->getConfig($subject), 'closeValveOnFloodType', 'Cannot set close type for this channel.');
+            Assertion::inArray($config['closeValveOnFloodType'], [1, 2]);
+            $subject->setUserConfigValue('closeValveOnFloodType', $config['closeValveOnFloodType']);
         }
     }
 

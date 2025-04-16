@@ -22,17 +22,48 @@
                     :params="{skipIds: floodSensorsIds, deviceIds: channel.iodeviceId, fnc: 'FLOOD_SENSOR'}"/>
             </dt>
         </dl>
+        <dl v-if="channel.config.closeValveOnFloodType">
+            <dd class="valign-top">
+                {{ $t('Auto-close on flood') }}
+                <a @click="closeValveOnFloodTypeHelpShown = !closeValveOnFloodTypeHelpShown"><i class="pe-7s-help1"></i></a>
+            </dd>
+            <dt>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
+                        {{ $t(`closeValveOnFloodType_${channel.config.closeValveOnFloodType}`) }}
+                        <span class="caret"></span>
+                    </button>
+                    <!-- i18n:['closeValveOnFloodType_1', 'closeValveOnFloodType_2'] -->
+                    <ul class="dropdown-menu">
+                        <li v-for="type in [1, 2]" :key="type">
+                            <a @click="channel.config.closeValveOnFloodType = type; $emit('change')"
+                                v-show="type !== channel.config.closeValveOnFloodType">
+                                {{ $t(`closeValveOnFloodType_${type}`) }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <transition-expand>
+                    <div class="well small text-muted p-2 mt-2 display-newlines" v-if="closeValveOnFloodTypeHelpShown">
+                        {{ $t('closeValveOnFloodType_help') }}
+                    </div>
+                </transition-expand>
+            </dt>
+        </dl>
     </div>
 </template>
 
 <script setup>
-    import {computed} from "vue";
+    import {computed, ref} from "vue";
     import {useChannelsStore} from "@/stores/channels-store";
     import ChannelsDropdown from "@/devices/channels-dropdown.vue";
     import {channelTitle} from "@/common/filters";
+    import TransitionExpand from "@/common/gui/transition-expand.vue";
 
     const props = defineProps({channel: Object});
     const emit = defineEmits('change');
+
+    const closeValveOnFloodTypeHelpShown = ref(false);
 
     const channelsStore = useChannelsStore();
 
@@ -55,7 +86,6 @@
     function handleRemoveSensor(sensorToRemove) {
         floodSensors.value = floodSensors.value.filter(ch => ch.id !== sensorToRemove.id);
     }
-
 </script>
 
 <style lang="scss" scoped>

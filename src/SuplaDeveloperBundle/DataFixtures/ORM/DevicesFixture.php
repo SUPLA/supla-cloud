@@ -847,6 +847,11 @@ class DevicesFixture extends SuplaFixture {
                     'buttonsUpsideDown' => false,
                 ]),
             ],
+            ChannelFunction::VALVEOPENCLOSE => [
+                'userConfig' => json_encode([
+                    'closeValveOnFloodType' => 1,
+                ]),
+            ],
         ];
         return $configs[$function->getId()] ?? [];
     }
