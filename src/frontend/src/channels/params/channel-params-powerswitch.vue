@@ -5,17 +5,17 @@
             <dt>
                 <channels-id-dropdown params="function=ELECTRICITYMETER,IC_ELECTRICITYMETER,IC_GASMETER,IC_WATERMETER,IC_HEATMETER"
                     v-model="channel.config.relatedMeterChannelId"
-                    @input="$emit('change')"></channels-id-dropdown>
+                    @input="emit('change')"></channels-id-dropdown>
             </dt>
         </dl>
+        <ChannelParamsOvercurrentThreshold :channel="channel" @change="emit('change')"/>
     </div>
 </template>
 
-<script>
+<script setup>
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
+    import ChannelParamsOvercurrentThreshold from "@/channels/params/channel-params-overcurrent-threshold.vue";
 
-    export default {
-        components: {ChannelsIdDropdown},
-        props: ['channel'],
-    };
+    defineProps({channel: Object});
+    const emit = defineEmits(["change"]);
 </script>

@@ -112,6 +112,19 @@ class CompositeSchedulePlannerTest extends TestCase {
         $this->assertContains('2025-03-31T07:00:00+02:00', $runDates);
     }
 
+    public function testCalculatingCronExpressionWhenDstChangesForward2025At7AMLondon() {
+        $schedule = new ScheduleWithTimezone('0 7 * * *', 'Europe/London');
+        $runDates = array_map(
+            self::formatPlannedTimestamp(),
+            $this->planner->calculateScheduleExecutionsUntil($schedule, '2025-04-02 08:00', '2025-03-27 00:00')
+        );
+        $this->assertContains('2025-03-27T07:00:00+00:00', $runDates);
+        $this->assertContains('2025-03-28T07:00:00+00:00', $runDates);
+        $this->assertContains('2025-03-29T07:00:00+00:00', $runDates);
+        $this->assertContains('2025-03-30T07:00:00+01:00', $runDates);
+        $this->assertContains('2025-03-31T07:00:00+01:00', $runDates);
+    }
+
     public function testCalculatingCronExpressionWhenDstChangesForwardWithSunriseSchedule() {
         $schedule = new ScheduleWithTimezone('SR10 * * * *', 'Europe/Warsaw');
         $runDates = array_map(
