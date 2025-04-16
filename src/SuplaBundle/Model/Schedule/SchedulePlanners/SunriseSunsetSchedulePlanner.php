@@ -61,7 +61,7 @@ class SunriseSunsetSchedulePlanner extends SchedulePlanner {
         $nextRunDate = CompositeSchedulePlanner::roundToClosestMinute($nextSun, $timezone);
         if ($nextRunDate < $currentDate) {
             // PHP sometimes returns past sunset even if we query for midnight of the next day...
-            $nextRunDate->add(new DateInterval('P1D'));
+            $nextRunDate->add(new DateInterval('PT24H'));
         } elseif ($nextRunDate == $currentDate) {
             // if it is sunset now, let's calculate for the next day
             return $this->calculateNextRunDateBasedOnSun($crontab, $nextRunDate->add(new DateInterval('PT12H')));

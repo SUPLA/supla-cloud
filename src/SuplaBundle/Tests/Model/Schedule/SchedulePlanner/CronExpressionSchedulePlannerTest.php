@@ -28,7 +28,7 @@ class CronExpressionSchedulePlannerTest extends TestCase {
     public function testCalculatingNextRunDate($startDate, $cronExpression, $expectedNextRunDate) {
         $schedulePlanner = new CronExpressionSchedulePlanner();
         $format = 'Y-m-d H:i';
-        $startDate = DateTime::createFromFormat($format, $startDate);
+        $startDate = DateTime::createFromFormat($format, $startDate, new \DateTimeZone('Europe/Warsaw'));
         $this->assertTrue($schedulePlanner->canCalculateFor($cronExpression));
         $nextExecution = $schedulePlanner->calculateNextScheduleExecution($cronExpression, $startDate);
         $this->assertEquals($expectedNextRunDate, $nextExecution->format($format));
@@ -44,6 +44,7 @@ class CronExpressionSchedulePlannerTest extends TestCase {
             ['2021-01-01 00:00', '0 3,19 * * *', '2021-01-01 03:00'],
             ['2021-01-01 00:00', '0 3,19 * * WED#2,MON#3', '2021-01-13 03:00'],
             ['2021-01-01 00:00', '0 3,19 L * *', '2021-01-31 03:00'],
+            ['2025-03-29 07:00', '0 7 * * *', '2025-03-30 07:00'],
         ];
     }
 
