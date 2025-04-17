@@ -30,7 +30,8 @@
                 </div>
                 <span class="small">{{ $t('Choose many') }}</span>
                 <ChannelsDropdown @input="handleNewSensor" :hideNone="true"
-                    :params="{skipIds: levelSensorsIds, deviceIds: channel.iodeviceId, fnc: 'CONTAINER_LEVEL_SENSOR'}"/>
+                    :params="{skipIds: levelSensorsIds, deviceIds: channel.iodeviceId, fnc: 'CONTAINER_LEVEL_SENSOR'}"
+                    :filter="onlyFreeSensors"/>
             </dt>
         </dl>
         <!-- i18n: ['tank_alarm_warningAboveLevel', 'tank_alarm_alarmAboveLevel', 'tank_alarm_warningBelowLevel', 'tank_alarm_alarmBelowLevel'] -->
@@ -91,11 +92,13 @@
     import NumberInput from "@/common/number-input.vue";
     import {uniq} from "lodash";
     import Toggler from "../../common/gui/toggler";
+    import {useChannelsDependenciesStore} from "@/stores/channels-dependencies-store";
 
     const props = defineProps({channel: Object});
     const emit = defineEmits('change');
 
     const channelsStore = useChannelsStore();
+    const dependenciesStore = useChannelsDependenciesStore();
 
     const levelSensorsIds = computed(() => props.channel.config.levelSensors?.map(s => s.channelId) || []);
     const levelSensorsDef = computed({
@@ -128,6 +131,12 @@
     function handleRemoveSensor(sensorToRemove) {
         levelSensorsDef.value = levelSensorsDef.value.filter(ch => ch.channelId !== sensorToRemove.channelId);
         levelChanged();
+    }
+
+    function onlyFreeSensors(sensor) {
+        return dependenciesStore.forChannel(sensor.id)
+            .filter(dep => dep.role === 'levelSensorChannelIds')
+            .length === 0;
     }
 
 </script>
