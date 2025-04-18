@@ -118,10 +118,10 @@ sunrise-after: the sunrise
 sunrise-before: the sunrise
 sunset-after: the sunset
 sunset-before: the sunset
-tank_alarm_alarmAboveLevel: Alarm at level (and above)
-tank_alarm_alarmBelowLevel: Alarm at level (and below)
-tank_alarm_warningAboveLevel: Warning at level (and above)
-tank_alarm_warningBelowLevel: Warning at level (and below)
+tank_alarm_fullRange_alarmAboveLevel: Alarm at level (and above)
+tank_alarm_fullRange_alarmBelowLevel: Alarm at level (and below)
+tank_alarm_fullRange_warningAboveLevel: Warning at level (and above)
+tank_alarm_fullRange_warningBelowLevel: Warning at level (and below)
 temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Control based on auxilary thermometer
 temperatureControlType_ROOM_TEMPERATURE: Control based on main thermometer
 thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: operation based on a hysteresis with the temperature setpoint set as the upper hysteresis threshold. For example, assuming a hysteresis of 1°C and a target temperature of 23°C, the thermostat will turn on the heating at 22°C and stop working when the temperature reaches 23°C.
@@ -177,3 +177,8 @@ closeValveOnFloodType_2: On change
 closeValveOnFloodType_help: |
   "Always": The system will close the valve whenever any sensor detects flooding, even if the user reopens it.
   "On change": The valve closes only when a new flooding event is detected. For example, if one sensor triggers flooding, the valve closes. The user can reopen it, and it won’t auto-close again unless that sensor resets and floods again, or another sensor reports flooding.
+
+tank_alarm_warningBelowLevel: Low level warning
+tank_alarm_warningAboveLevel: High level warning
+tank_alarm_alarmAboveLevel: High level alarm
+tank_alarm_alarmBelowLevel: Low level alarm

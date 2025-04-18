@@ -1603,10 +1603,10 @@ sunset: zachód słońca
 sunset-after: zachodzie
 sunset-before: zachodem
 swap: zamień
-tank_alarm_alarmAboveLevel: Alarm dla poziomu (oraz powyżej)
-tank_alarm_alarmBelowLevel: Alarm dla poziomu (oraz poniżej)
-tank_alarm_warningAboveLevel: Ostrzeżenie dla poziomu (oraz powyżej)
-tank_alarm_warningBelowLevel: Ostrzeżenie dla poziomu (oraz poniżej)
+tank_alarm_fullRange_alarmAboveLevel: Alarm dla poziomu (oraz powyżej)
+tank_alarm_fullRange_alarmBelowLevel: Alarm dla poziomu (oraz poniżej)
+tank_alarm_fullRange_warningAboveLevel: Ostrzeżenie dla poziomu (oraz powyżej)
+tank_alarm_fullRange_warningBelowLevel: Ostrzeżenie dla poziomu (oraz poniżej)
 temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Sterowanie oparte o dodatkowy termometr
 temperatureControlType_ROOM_TEMPERATURE: Sterowanie oparte o główny termometr
 the master thermostat ID{id}: termostatu nadrzędnego ID{id}
@@ -1784,3 +1784,8 @@ suffix: sufiks
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+
+tank_alarm_warningBelowLevel: Ostrzeżenie o niskim poziomie
+tank_alarm_warningAboveLevel: Ostrzeżenie o wysokim poziomie
+tank_alarm_alarmAboveLevel: Alarm o wysokim poziomie
+tank_alarm_alarmBelowLevel: Alarm o niskim poziomie

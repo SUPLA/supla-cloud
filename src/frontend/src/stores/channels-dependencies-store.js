@@ -38,6 +38,7 @@ export const useChannelsDependenciesStore = defineStore('channelsDependencies', 
     const forChannel = computed(() => ((channelId) => dependencies.value
             .filter((dep) => dep.channel1Id === channelId || dep.channel2Id === channelId)
             .map((dep) => ({
+                id: dep.id,
                 role: dep.role,
                 channelId: dep.channel1Id === channelId ? dep.channel2Id : dep.channel1Id,
             }))

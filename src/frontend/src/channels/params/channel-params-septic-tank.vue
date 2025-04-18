@@ -35,8 +35,10 @@
             </dt>
         </dl>
         <!-- i18n: ['tank_alarm_warningAboveLevel', 'tank_alarm_alarmAboveLevel', 'tank_alarm_warningBelowLevel', 'tank_alarm_alarmBelowLevel'] -->
+        <!-- i18n: ['tank_alarm_fullRange_warningAboveLevel', 'tank_alarm_fullRange_alarmAboveLevel', 'tank_alarm_fullRange_warningBelowLevel', 'tank_alarm_fullRange_alarmBelowLevel'] -->
         <dl v-for="alarm in availableAlarms" :key="alarm">
-            <dd>{{ $t(`tank_alarm_${alarm}`) }}</dd>
+            <dd v-if="fillLevelInFullRange">{{ $t(`tank_alarm_fullRange_${alarm}`) }}</dd>
+            <dd v-else>{{ $t(`tank_alarm_${alarm}`) }}</dd>
             <dt>
                 <div class="d-flex align-items-center ml-2" v-if="fillLevelInFullRange">
                     <label class="checkbox2 checkbox2-grey">
@@ -53,11 +55,11 @@
                         @input="emit('change')"/>
                     <input type="text" class="form-control text-center" disabled :placeholder="$t('Disabled')" v-else/>
                 </div>
-                <div class="dropdown" v-else>
+                <div class="dropdown" v-else-if="availableFillLevelsPerAlarm[alarm].length > 0">
                     <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"
                         type="button"
                         data-toggle="dropdown">
-                        <span v-if="channel.config[alarm] != null">{{ channel.config[alarm] }} %</span>
+                        <span v-if="channel.config[alarm] != null">{{ rangeLabel(channel.config[alarm], alarm) }}</span>
                         <span v-else>{{ $t('Disabled') }}</span>
                         {{ ' ' }}
                         <span class="caret"></span>
@@ -67,12 +69,13 @@
                             <a @click="channel.config[alarm] = null; emit('change')"
                                 v-show="channel.config[alarm] !== null">{{ $t('Disabled') }}</a>
                         </li>
-                        <li v-for="percent in availableFillLevels" :key="percent">
+                        <li v-for="percent in availableFillLevelsPerAlarm[alarm]" :key="percent">
                             <a @click="channel.config[alarm] = percent; emit('change')"
-                                v-show="percent !== channel.config[alarm]">{{ percent }}%</a>
+                                v-show="percent !== channel.config[alarm]">{{ rangeLabel(percent, alarm) }}</a>
                         </li>
                     </ul>
                 </div>
+                <button v-else class="btn btn-default disabled btn-block btn-wrapped" type="button">{{ $t('Disabled') }}</button>
             </dt>
         </dl>
         <dl>
@@ -113,7 +116,14 @@
     const availableFillLevels = computed(() => uniq([0, ...levelSensorsDef.value.map(def => +def.fillLevel)]).sort((a, b) => a - b));
     const fillLevelInFullRange = computed(() => props.channel.config.fillLevelReportingInFullRange);
 
-    const availableAlarms = ['warningAboveLevel', 'alarmAboveLevel', 'warningBelowLevel', 'alarmBelowLevel'];
+    const availableFillLevelsPerAlarm = computed(() => ({
+        alarmAboveLevel: availableFillLevels.value.filter((fl) => fl > (props.channel.config.warningAboveLevel || props.channel.config.warningBelowLevel || props.channel.config.alarmBelowLevel || 0)),
+        warningAboveLevel: availableFillLevels.value.filter((fl) => fl > (props.channel.config.warningBelowLevel || props.channel.config.alarmBelowLevel || 0) && fl < (props.channel.config.alarmAboveLevel || 101)),
+        warningBelowLevel: availableFillLevels.value.filter((fl) => fl > (props.channel.config.alarmBelowLevel || 0) && fl < (props.channel.config.warningAboveLevel || props.channel.config.alarmAboveLevel || 101)),
+        alarmBelowLevel: availableFillLevels.value.filter((fl) => fl < (props.channel.config.warningBelowLevel || props.channel.config.warningAboveLevel || props.channel.config.alarmAboveLevel || 100)),
+    }));
+
+    const availableAlarms = ['alarmAboveLevel', 'warningAboveLevel', 'warningBelowLevel', 'alarmBelowLevel'];
 
     function levelChanged() {
         availableAlarms.forEach(alarm => {
@@ -137,6 +147,17 @@
         return dependenciesStore.forChannel(sensor.id)
             .filter(dep => dep.role === 'levelSensorChannelIds')
             .length === 0;
+    }
+
+    function rangeLabel(range, alarm) {
+        if (range === 0 || range === 100) {
+            return `${range}%`;
+        }
+        if (alarm.indexOf('Above') > 0) {
+            return `${range}% - 100%`;
+        } else {
+            return `${range}% - 0%`;
+        }
     }
 
 </script>

@@ -3,7 +3,7 @@
         <h3 class="text-center">{{ $t('Dependencies') }}</h3>
         <div class="pt-3">
             <ul class="list-group m-0">
-                <li v-for="dep in dependencies" :key="dep.role" class="list-group-item">
+                <li v-for="dep in dependencies" :key="dep.id" class="list-group-item">
                     <div class="small text-muted">{{ $t(dependencyLabel(dep)) }}</div>
                     <router-link :to="{name: 'channel', params: {id: dep.channelId}}">
                         {{ channelTitle(channels[dep.channelId]) }}
