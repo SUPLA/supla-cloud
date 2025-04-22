@@ -316,24 +316,26 @@
                         </div>
                     </transition-expand>
                 </div>
-                <dl>
-                    <template v-for="temp in histeresisTemperatures">
-                        <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
-                        <dt :key="`dt${temp.name}`">
-                            <span class="input-group">
-                                <input type="number"
-                                    step="0.1"
-                                    :min="temp.min"
-                                    :max="temp.max"
-                                    class="form-control text-center"
-                                    :disabled="!canChangeTemperature(temp.name)"
-                                    v-model="channel.config.temperatures[temp.name]"
-                                    @change="$emit('change')">
-                                <span class="input-group-addon">&deg;C</span>
-                            </span>
-                        </dt>
-                    </template>
-                </dl>
+                <transition-expand>
+                    <dl v-if="channel.config.usedAlgorithm !== 'PID'">
+                        <template v-for="temp in histeresisTemperatures">
+                            <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
+                            <dt :key="`dt${temp.name}`">
+                                <span class="input-group">
+                                    <input type="number"
+                                        step="0.1"
+                                        :min="temp.min"
+                                        :max="temp.max"
+                                        class="form-control text-center"
+                                        :disabled="!canChangeTemperature(temp.name)"
+                                        v-model="channel.config.temperatures[temp.name]"
+                                        @change="$emit('change')">
+                                    <span class="input-group-addon">&deg;C</span>
+                                </span>
+                            </dt>
+                        </template>
+                    </dl>
+                </transition-expand>
                 <dl class="wide-label" v-if="canDisplaySetting('minOnTimeS')">
                     <dd>
                         <span v-if="heatAvailable && !coolAvailable">{{ $t('Minimum ON time before heating can be turned off') }}</span>
