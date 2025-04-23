@@ -588,10 +588,14 @@
                 // i18n:['thermostatTemperature_freezeProtection','thermostatTemperature_eco','thermostatTemperature_comfort']
                 // i18n:['thermostatTemperature_boost','thermostatTemperature_heatProtection','thermostatTemperature_histeresis']
                 // i18n:['thermostatTemperature_belowAlarm','thermostatTemperature_aboveAlarm','thermostatTemperature_auxMinSetpoint']
-                // i18n:['thermostatTemperature_auxMaxSetpoint']
+                // i18n:['thermostatTemperature_auxMaxSetpoint', 'thermostatTemperature_auxHisteresis']
                 return Object.keys(this.channel.config.temperatures || {}).map(name => {
-                    const constraintName = {histeresis: 'histeresis', auxMinSetpoint: 'aux', auxMaxSetpoint: 'aux'}[name]
-                        || this.defaultTemperatureConstraintName;
+                    const constraintName = {
+                        histeresis: 'histeresis',
+                        auxHisteresis: 'histeresis',
+                        auxMinSetpoint: 'aux',
+                        auxMaxSetpoint: 'aux',
+                    }[name] || this.defaultTemperatureConstraintName;
                     const min = this.channel.config.temperatureConstraints?.[`${constraintName}Min`];
                     const max = this.channel.config.temperatureConstraints?.[`${constraintName}Max`];
                     return {name, min, max};
@@ -621,9 +625,13 @@
                 return temps.filter(a => a);
             },
             histeresisTemperatures() {
-                return [
+                const temps = [
                     this.availableTemperatures.find(t => t.name === 'histeresis'),
-                ].filter(a => a);
+                ];
+                if (this.channel.config.auxThermometerChannelId) {
+                    temps.push(this.availableTemperatures.find(t => t.name === 'auxHisteresis'));
+                }
+                return temps.filter(a => a);
             },
             possibleOutputValueOnErrorValues() {
                 const values = [{value: 0, label: 'off'}]; // i18n

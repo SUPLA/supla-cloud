@@ -47,6 +47,7 @@ use SuplaBundle\Utils\NumberUtils;
  *     @OA\Property(property="auxMinSetpoint", type="float"),
  *     @OA\Property(property="auxMaxSetpoint", type="float"),
  *     @OA\Property(property="histeresis", type="float"),
+ *     @OA\Property(property="auxHisteresis", type="float"),
  *     @OA\Property(property="eco", type="float"),
  *     @OA\Property(property="comfort", type="float"),
  *     @OA\Property(property="boost", type="float"),
@@ -382,6 +383,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 Assertion::inArray($tempKey, array_keys($currentTemperatures));
                 $constraintName = [
                     'histeresis' => 'histeresis',
+                    'auxHisteresis' => 'histeresis',
                     'auxMinSetpoint' => 'aux',
                     'auxMaxSetpoint' => 'aux',
                 ][$tempKey] ?? $this->getDefaultTemperatureConstraintName($subject);
@@ -624,7 +626,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
 
     private function buildTemperaturesArray(HasUserConfig $subject): array {
         $temperatures = array_merge(
-            ['auxMinSetpoint' => '', 'auxMaxSetpoint' => '', 'freezeProtection' => '', 'heatProtection' => '', 'histeresis' => ''],
+            array_flip(['auxMinSetpoint', 'auxMaxSetpoint', 'freezeProtection', 'heatProtection', 'histeresis', 'auxHisteresis']),
             array_map([$this, 'adjustTemperature'], $subject->getUserConfigValue('temperatures', []))
         );
         $hiddenTemperatures = $subject->getProperty('hiddenTemperatureConfigFields', []);

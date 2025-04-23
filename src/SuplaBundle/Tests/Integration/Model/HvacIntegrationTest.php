@@ -495,6 +495,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [['temperatures' => ['freezeProtection' => 100]]],
             [['temperatures' => ['unknownTemperature' => 10]]],
             [['temperatures' => ['roomMin' => 10]]],
+            [['temperatures' => ['auxHisteresis' => 10]]],
             [['temperatures' => ['auxMinSetpoint' => 10, 'auxMaxSetpoint' => 9]]],
             [['localUILock' => ['UNICORN']]],
             [
