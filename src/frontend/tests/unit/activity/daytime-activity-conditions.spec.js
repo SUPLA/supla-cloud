@@ -8,6 +8,7 @@ describe('DaytimeActivityConditions', () => {
             [[[]], []],
             [[[-60, 120]], [[{afterSunrise: 0}]]],
             [[[-120, -50]], [[{beforeSunrise: 10}]]],
+            [[[-120, -60]], [[{beforeSunrise: 0}]]],
             [[[-60, 60]], [[{afterSunrise: 0}, {beforeSunset: 0}]]],
             [[[-70, 70]], [[{afterSunrise: -10}, {beforeSunset: 10}]]],
             [[[-1, 1]], [[{afterSunrise: 59}, {beforeSunset: -59}]]],
