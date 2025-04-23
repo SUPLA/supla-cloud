@@ -467,7 +467,7 @@ export const CHART_TYPES = {
                         }
                     },
                     // min: 0,
-                    max: this.chartMode === 'fae_rae' ? undefined : maxRounded,
+                    max: this.chartMode.startsWith('fae_rae') ? undefined : maxRounded,
                 }
             ];
         },
