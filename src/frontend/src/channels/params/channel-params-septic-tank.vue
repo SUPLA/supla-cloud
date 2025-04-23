@@ -119,8 +119,8 @@
     const availableFillLevelsPerAlarm = computed(() => ({
         alarmAboveLevel: availableFillLevels.value.filter((fl) => fl > (props.channel.config.warningAboveLevel || props.channel.config.warningBelowLevel || props.channel.config.alarmBelowLevel || 0)),
         warningAboveLevel: availableFillLevels.value.filter((fl) => fl > (props.channel.config.warningBelowLevel || props.channel.config.alarmBelowLevel || 0) && fl < (props.channel.config.alarmAboveLevel || 101)),
-        warningBelowLevel: availableFillLevels.value.filter((fl) => fl > (props.channel.config.alarmBelowLevel || 0) && fl < (props.channel.config.warningAboveLevel || props.channel.config.alarmAboveLevel || 101)),
-        alarmBelowLevel: availableFillLevels.value.filter((fl) => fl < (props.channel.config.warningBelowLevel || props.channel.config.warningAboveLevel || props.channel.config.alarmAboveLevel || 100)),
+        warningBelowLevel: availableFillLevels.value.filter((fl) => fl > (props.channel.config.alarmBelowLevel || 0) && fl < (props.channel.config.warningAboveLevel || props.channel.config.alarmAboveLevel || 101)).reverse(),
+        alarmBelowLevel: availableFillLevels.value.filter((fl) => fl < (props.channel.config.warningBelowLevel || props.channel.config.warningAboveLevel || props.channel.config.alarmAboveLevel || 100)).reverse(),
     }));
 
     const availableAlarms = ['alarmAboveLevel', 'warningAboveLevel', 'warningBelowLevel', 'alarmBelowLevel'];
@@ -150,13 +150,15 @@
     }
 
     function rangeLabel(range, alarm) {
-        if (range === 0 || range === 100) {
+        if (range === 100) {
             return `${range}%`;
         }
         if (alarm.indexOf('Above') > 0) {
             return `${range}% - 100%`;
         } else {
-            return `${range}% - 0%`;
+            const rangeIndex = availableFillLevels.value.indexOf(range);
+            const nextRange = availableFillLevels.value.length > rangeIndex + 1 ? availableFillLevels.value[rangeIndex + 1] - 1 : 100;
+            return nextRange === 0 ? '0%' : `${nextRange}% - 0%`;
         }
     }
 
