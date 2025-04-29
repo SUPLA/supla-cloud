@@ -24,6 +24,7 @@ use Psr\Log\LoggerInterface;
 use SuplaBundle\Enums\ElectricityMeterSupportBits;
 use SuplaBundle\Enums\HvacIpcActionMode;
 use SuplaBundle\Enums\HvacIpcValueFlags;
+use SuplaBundle\Enums\RollerShutterStateBits;
 use SuplaBundle\Enums\SceneInitiatiorType;
 use SuplaBundle\Model\LocalSuplaCloud;
 
@@ -150,6 +151,8 @@ class SuplaServerMock extends SuplaServer {
         } elseif (preg_match('#^GET-FACADE-BLIND-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             $tiltPercent = rand(0, 100);
             return sprintf('VALUE:%d,%d,%d', rand(0, 100), $tiltPercent, round($tiltPercent * 180 / 100));
+        } elseif (preg_match('#^GET-ROLLERSHUTTER-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
+            return sprintf('VALUE:%d,%d', rand(0, 100), rand(0, RollerShutterStateBits::CALIBRATION_IN_PROGRESS));
         } elseif (preg_match('#^GET-SCENE-SUMMARY:\d+,(\d+)#', $cmd, $match)) {
             $sceneId = $match[1];
             $values = [$sceneId, 0, 0, 0, 0, 0];

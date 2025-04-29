@@ -149,6 +149,9 @@
             <div v-if="currentState.calibrationError === true">
                 <span class="label label-danger">{{ $t('Calibration error') }}</span>
             </div>
+            <div v-if="currentState.calibrationLost === true">
+                <span class="label label-danger">{{ $t('Calibration lost') }}</span>
+            </div>
         </div>
     </div>
 </template>
