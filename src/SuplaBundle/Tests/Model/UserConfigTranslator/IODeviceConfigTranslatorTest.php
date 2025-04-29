@@ -46,6 +46,11 @@ class IODeviceConfigTranslatorTest extends TestCase {
         ]);
         EntityUtils::setField($device, 'properties', json_encode([
             'homeScreenContentAvailable' => ["NONE", "TEMPERATURE", "HUMIDITY", "TIME", "TIME_DATE"],
+            "modbus" => [
+                "availableProtocols" => ["MASTER", "SLAVE", "RTU", "ASCII", "TCP", "UDP"],
+                "availableBaudrates" => [4800, 9600, 19200, 38400, 57600, 115200],
+                "availableStopbits" => ["ONE", "ONE_AND_HALF", "TWO"],
+            ],
         ]));
         $this->translator->setConfig($device, $config);
         $newConfig = $this->translator->getConfig($device);
@@ -124,6 +129,10 @@ class IODeviceConfigTranslatorTest extends TestCase {
             [['homeScreen' => ['offDelay' => 10000]]],
             [['homeScreen' => ['content' => 'NONE', 'offDelay' => 1000, 'extra' => 'unicorn']]],
             [['homeScreen' => 2]],
+            [['modbus' => ['role' => 'UNICORN']]],
+            [['modbus' => ['serial' => ['mode' => 'UNICORN']]]],
+            [['modbus' => ['serial' => ['baudrate' => 666]]]],
+            [['modbus' => ['serial' => ['stopBits' => 'UNICORN']]]],
         ];
     }
 
@@ -176,5 +185,37 @@ class IODeviceConfigTranslatorTest extends TestCase {
         $config = $this->translator->getConfig($device);
         $this->assertArrayHasKey('homeScreen', $config);
         $this->assertEquals('ENABLED_WHEN_DARK', $config['homeScreen']['offDelayType']);
+    }
+
+    public function testSettingOnlyModbusMode() {
+        $device = new IODevice();
+        $device->setUserConfig(['modbus' => ['serial' => ['mode' => 'RTU', 'baudrate' => 9600, 'stopBits' => 'ONE']]]);
+        EntityUtils::setField($device, 'properties', json_encode([
+            "modbus" => [
+                "availableProtocols" => ["MASTER", "SLAVE", "RTU", "ASCII", "TCP", "UDP"],
+                "availableBaudrates" => [4800, 9600, 19200, 38400, 57600, 115200],
+                "availableStopbits" => ["ONE", "ONE_AND_HALF", "TWO"],
+            ],
+        ]));
+        $config = $this->translator->getConfig($device);
+        $this->assertEquals('RTU', $config['modbus']['serial']['mode']);
+        $config['modbus']['serial'] = ['mode' => 'ASCII'];
+        $this->translator->setConfig($device, $config);
+        $this->assertEquals(9600, $device->getUserConfigValue('modbus')['serial']['baudrate']);
+        $this->assertEquals('ASCII', $device->getUserConfigValue('modbus')['serial']['mode']);
+    }
+
+    public function testClearingModbusSerial() {
+        $device = new IODevice();
+        $device->setUserConfig(['modbus' => ['serial' => ['mode' => 'RTU', 'baudrate' => 9600, 'stopBits' => 'ONE']]]);
+        EntityUtils::setField($device, 'properties', json_encode([
+            "modbus" => [
+                "availableProtocols" => ["MASTER", "SLAVE", "RTU", "ASCII", "TCP", "UDP"],
+            ],
+        ]));
+        $config = $this->translator->getConfig($device);
+        $config['modbus']['serial'] = null;//['enabled' => false];
+        $this->translator->setConfig($device, $config);
+        $this->assertEquals('DISABLED', $device->getUserConfigValue('modbus')['serial']['mode']);
     }
 }

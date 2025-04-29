@@ -7,6 +7,9 @@ use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Utils\NumberUtils;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use Symfony\Component\Config\Definition\Processor;
 
 /**
  * @OA\Schema(schema="DeviceConfig", description="Configuration of the IO Device.",
@@ -44,9 +47,9 @@ class IODeviceConfigTranslator {
 
     public function getConfig(IODevice $device): array {
         $config = $device->getUserConfig();
-        $properties = $device->getProperties();
-        if ($properties['homeScreenContentAvailable'] ?? false) {
-            $config['homeScreenContentAvailable'] = $properties['homeScreenContentAvailable'];
+        $props = $device->getProperties();
+        if ($props['homeScreenContentAvailable'] ?? false) {
+            $config['homeScreenContentAvailable'] = $props['homeScreenContentAvailable'];
         }
         if ($config['userInterface'] ?? false) {
             $config['userInterfaceConstraints'] = $this->getUserInterfaceConstraints($device);
@@ -64,11 +67,23 @@ class IODeviceConfigTranslator {
                 'level' => $config['screenBrightness'][$auto ? 'adjustment' : 'level'],
             ];
         }
+        if ($props['modbus'] ?? false) {
+            $config['modbus'] = $config['modbus'] ?? [];
+            if (!($config['modbus']['serial'] ?? false)) {
+                $config['modbus']['serial']['mode'] = 'DISABLED';
+            }
+            if (!($config['modbus']['network'] ?? false)) {
+                $config['modbus']['network']['mode'] = 'DISABLED';
+            }
+            $config['modbus']['availableProtocols'] = $props['availableProtocols'] ?? ["MASTER", "SLAVE", "RTU", "ASCII", "TCP", "UDP"];
+            $config['modbus']['availableBaudrates'] = $props['availableBaudrates'] ?? [4800, 9600, 19200, 38400, 57600, 115200];
+            $config['modbus']['availableStopbits'] = $props['availableStopbits'] ?? ["ONE", "ONE_AND_HALF", "TWO"];
+        }
         return $config;
     }
 
     public function setConfig(IODevice $device, array $config): void {
-        $currentConfig = $device->getUserConfig();
+        $currentConfig = $this->getConfig($device);
         $config = array_diff_key($config, ['homeScreenContentAvailable' => '']);
         Assertion::allInArray(array_keys($config), array_keys($currentConfig));
         foreach ($config as $settingName => $value) {
@@ -145,6 +160,13 @@ class IODeviceConfigTranslator {
                 }
                 $value = $homeScreenConfig;
             }
+            if ($settingName === 'modbus') {
+                try {
+                    $value = $this->buildModbusConfig($device, $value);
+                } catch (InvalidConfigurationException $e) {
+                    throw new \InvalidArgumentException('Invalid configuration for modbus: ' . $e->getMessage(), 400, $e);
+                }
+            }
             $device->setUserConfigValue($settingName, $value);
         }
     }
@@ -168,5 +190,28 @@ class IODeviceConfigTranslator {
             'minAllowedTemperatureSetpoint' => $roomMins ? max($roomMins) : -1000,
             'maxAllowedTemperatureSetpoint' => $roomMaxs ? min($roomMaxs) : 1000,
         ];
+    }
+
+    private function buildModbusConfig(IODevice $device, array $config): array {
+        $currentCfg = $this->getConfig($device)['modbus'] ?? [];
+        $configTree = new TreeBuilder('modbus');
+        $configTree->getRootNode()->ignoreExtraKeys()->children()
+            ->enumNode('role')->values(['MASTER', 'SLAVE', 'NOT_SET'])->defaultValue('NOT_SET')->end()
+            ->integerNode('modbusAddress')->min(1)->max(247)->defaultValue(1)->end()
+            ->integerNode('slaveTimeoutMs')->min(0)->max(10000)->defaultValue(0)->end()
+            ->arrayNode('serial')->ignoreExtraKeys()->addDefaultsIfNotSet()->children()
+            ->enumNode('mode')->values(array_merge($currentCfg['availableProtocols'], ['DISABLED']))->defaultValue('DISABLED')->end()
+            ->enumNode('baudrate')->values($currentCfg['availableBaudrates'])->defaultValue($currentCfg['availableBaudrates'][0])->end()
+            ->enumNode('stopBits')->values($currentCfg['availableStopbits'])->defaultValue($currentCfg['availableStopbits'][0])->end()
+            ->end()->end()
+            ->arrayNode('network')->ignoreExtraKeys()->addDefaultsIfNotSet()->children()
+            ->enumNode('mode')->values(['DISABLED', 'TCP', 'UDP'])->defaultValue('DISABLED')->end()
+            ->integerNode('port')->min(0)->max(65535)->defaultValue(502)->end()
+            ->end()->end()
+            ->end();
+        $processor = new Processor();
+        $fullConfig = array_replace_recursive($currentCfg, $config);
+        $newConfig = $processor->process($configTree->buildTree(), ['modbus' => $fullConfig]);
+        return array_filter($newConfig, fn($v) => !is_array($v) || ($v['enabled'] ?? true));
     }
 }

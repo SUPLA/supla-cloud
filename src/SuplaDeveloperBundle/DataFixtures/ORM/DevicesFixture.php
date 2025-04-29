@@ -72,6 +72,7 @@ class DevicesFixture extends SuplaFixture {
         $this->createDeviceGeneralPurposeMeasurement($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->createDeviceGateway($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->createDeviceSeptic($this->getReference(LocationsFixture::LOCATION_BEDROOM));
+        $this->createDeviceModbus($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->createDevice('EMPTY DEVICE', $location, []);
         $device = $this->createEveryFunctionDevice($location, 'SECOND MEGA DEVICE');
         foreach ($this->faker->randomElements($device->getChannels(), 3) as $noFunctionChannel) {
@@ -742,6 +743,21 @@ class DevicesFixture extends SuplaFixture {
         AnyFieldSetter::set($device, [
             'flags' => IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION,
         ]);
+        $this->entityManager->persist($device);
+        return $device;
+    }
+
+    public function createDeviceModbus(Location $location): IODevice {
+        $device = $this->createDevice('MODBUS-DEVICE', $location, [
+            [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
+        ]);
+        // https://github.com/SUPLA/supla-cloud/issues/973#issuecomment-2824769139
+        // @codingStandardsIgnoreStart
+        AnyFieldSetter::set($device, [
+            'userConfig' => '{"modbus": {"role": "MASTER", "modbusAddress": 1, "slaveTimeoutMs": 0, "serial": {"mode": "RTU", "baudrate": 19200, "stopBits": "ONE"}, "network": {"mode": "TCP", "port": 502}}}',
+            'properties' => '{"modbus": {"availableProtocols": ["MASTER","SLAVE","RTU","ASCII","TCP","UDP"], "availableBaudrates": [4800, 9600, 19200,38400,57600,115200], "availableStopbits": ["ONE", "ONE_AND_HALF", "TWO"]}}',
+        ]);
+        // @codingStandardsIgnoreEnd
         $this->entityManager->persist($device);
         return $device;
     }
