@@ -4,13 +4,11 @@
             <label>{{ $t('Role') }}</label>
             <div>
                 <div class="btn-group">
-                    <button type="button" @click="modbusConfig.role = 'MASTER'; onChange()"
-                        :class="['btn', modbusConfig.role === 'MASTER' ? 'btn-green' : 'btn-white']">
-                        {{ $t('Master (client)') }}
-                    </button>
-                    <button type="button" @click="modbusConfig.role = 'SLAVE'; onChange()"
-                        :class="['btn', modbusConfig.role === 'SLAVE' ? 'btn-green' : 'btn-white']">
-                        {{ $t('Slave (server)') }}
+                    <!-- i18n: ['modbusRole_MASTER', 'modbusRole_SLAVE'] -->
+                    <button v-for="role in modbusConstraints.availableRoles" :key="role" type="button"
+                        @click="modbusConfig.role = role; onChange()"
+                        :class="['btn', modbusConfig.role === role ? 'btn-green' : 'btn-white']">
+                        {{ $t('modbusRole_' + role) }}
                     </button>
                     <button type="button" @click="modbusConfig.role = 'NOT_SET'; onChange()"
                         :class="['btn', modbusConfig.role === 'NOT_SET' ? 'btn-green' : 'btn-white']">
@@ -56,17 +54,17 @@
                     <div v-if="modbusSerialEnabled">
                         <div class="form-group">
                             <label>{{ $t('Mode') }}</label>
-                            <SimpleDropdown v-model="modbusConfig.serial.mode" :options="modbusConfig.availableProtocols"
+                            <SimpleDropdown v-model="modbusConfig.serial.mode" :options="modbusConstraints.availableSerialModes"
                                 @input="onChange()"/>
                         </div>
                         <div class="form-group">
                             <label>{{ $t('Baudrate') }}</label>
-                            <SimpleDropdown v-model="modbusConfig.serial.baudrate" :options="modbusConfig.availableBaudrates"
+                            <SimpleDropdown v-model="modbusConfig.serial.baudrate" :options="modbusConstraints.availableSerialBaudrates"
                                 @input="onChange()"/>
                         </div>
                         <div class="form-group">
                             <label>{{ $t('Stop bits') }}</label>
-                            <SimpleDropdown v-model="modbusConfig.serial.stopBits" :options="modbusConfig.availableStopbits"
+                            <SimpleDropdown v-model="modbusConfig.serial.stopBits" :options="modbusConstraints.availableSerialStopbits"
                                 @input="onChange()"/>
                         </div>
                     </div>
@@ -86,7 +84,8 @@
                     <div v-if="modbusNetworkEnabled">
                         <div class="form-group">
                             <label>{{ $t('Mode') }}</label>
-                            <SimpleDropdown v-model="modbusConfig.network.mode" :options="['TCP', 'UDP']" @input="onChange()"/>
+                            <SimpleDropdown v-model="modbusConfig.network.mode" :options="modbusConstraints.availableNetworkModes"
+                                @input="onChange()"/>
                         </div>
                         <div class="form-group">
                             <label>{{ $t('Port') }}</label>
@@ -110,6 +109,7 @@
     const emit = defineEmits(['input'])
 
     const modbusConfig = ref({});
+    const modbusConstraints = computed(() => props.config.modbusConstraints);
     const readModbusConfig = () => modbusConfig.value = deepCopy(props.value);
     readModbusConfig();
     watch(() => props.value, () => readModbusConfig());
@@ -121,12 +121,12 @@
 
     const modbusSerialEnabled = computed({
         get: () => modbusConfig.value.serial.mode !== 'DISABLED',
-        set: (value) => modbusConfig.value.serial.mode = value ? modbusConfig.value.availableProtocols[0] : 'DISABLED',
+        set: (value) => modbusConfig.value.serial.mode = value ? modbusConstraints.value.availableSerialModes[0] : 'DISABLED',
     });
 
     const modbusNetworkEnabled = computed({
         get: () => modbusConfig.value.network.mode !== 'DISABLED',
-        set: (value) => modbusConfig.value.network.mode = value ? 'TCP' : 'DISABLED',
+        set: (value) => modbusConfig.value.network.mode = value ? modbusConstraints.value.availableNetworkModes[0] : 'DISABLED',
     });
 
     function onChange() {

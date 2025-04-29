@@ -183,3 +183,6 @@ tank_alarm_warningBelowLevel: Low level warning
 tank_alarm_warningAboveLevel: High level warning
 tank_alarm_alarmAboveLevel: High level alarm
 tank_alarm_alarmBelowLevel: Low level alarm
+
+modbusRole_MASTER: Master (client)
+modbusRole_SLAVE: Slave (server)

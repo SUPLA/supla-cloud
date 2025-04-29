@@ -211,6 +211,8 @@ class IODeviceConfigTranslatorTest extends TestCase {
         EntityUtils::setField($device, 'properties', json_encode([
             "modbus" => [
                 "availableProtocols" => ["MASTER", "SLAVE", "RTU", "ASCII", "TCP", "UDP"],
+                "availableBaudrates" => [9600],
+                "availableStopbits" => ['ONE'],
             ],
         ]));
         $config = $this->translator->getConfig($device);
