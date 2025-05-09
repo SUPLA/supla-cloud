@@ -115,6 +115,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(0, $config['outputValueOnError']);
                     $this->assertNull($config['binarySensorChannelId']);
                     $this->assertCount(6, $config['temperatures']);
+                    $this->assertEquals(3.3, $config['temperatures']['auxHisteresis']);
                     $this->assertTrue($config['heatingModeAvailable']);
                     $this->assertTrue($config['coolingModeAvailable']);
                     $this->assertTrue($config['pumpSwitchAvailable']);
@@ -141,7 +142,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(60, $config['minOnTimeS']);
                     $this->assertEquals(120, $config['minOffTimeS']);
                     $this->assertEquals(42, $config['outputValueOnError']);
-                    $this->assertCount(11, $config['temperatures']);
+                    $this->assertCount(10, $config['temperatures']);
                     $this->assertCount(8, $config['temperatureConstraints']);
                     $this->assertTrue($config['heatingModeAvailable']);
                     $this->assertTrue($config['coolingModeAvailable']);
@@ -159,10 +160,10 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(24, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureHeat']);
                     $this->assertEquals('ON_OFF_SETPOINT_AT_MOST', $config['usedAlgorithm']);
                     $this->assertEquals(6, $config['binarySensorChannelId']);
-                    $this->assertCount(8, $config['temperatures']);
+                    $this->assertCount(7, $config['temperatures']);
                     $this->assertEquals(18, $config['temperatures']['eco']);
                     $this->assertArrayNotHasKey('comfort', $config['temperatures']);
-                    $this->assertCount(7, array_filter($config['temperatures']));
+                    $this->assertCount(6, array_filter($config['temperatures']));
                     $this->assertTrue($config['heatingModeAvailable']);
                     $this->assertFalse($config['coolingModeAvailable']);
                     $this->assertArrayNotHasKey('temperatureControlType', $config);
