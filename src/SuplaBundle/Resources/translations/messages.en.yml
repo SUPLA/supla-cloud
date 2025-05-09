@@ -186,3 +186,6 @@ tank_alarm_alarmBelowLevel: Low level alarm
 
 modbusRole_MASTER: Master (client)
 modbusRole_SLAVE: Slave (server)
+modbusSerialStopbits_ONE: One
+modbusSerialStopbits_TWO: Two
+modbusSerialStopbits_ONE_AND_HALF: One and half

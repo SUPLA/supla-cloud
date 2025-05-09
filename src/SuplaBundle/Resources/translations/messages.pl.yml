@@ -1789,3 +1789,7 @@ tank_alarm_warningBelowLevel: Ostrzeżenie o niskim poziomie
 tank_alarm_warningAboveLevel: Ostrzeżenie o wysokim poziomie
 tank_alarm_alarmAboveLevel: Alarm o wysokim poziomie
 tank_alarm_alarmBelowLevel: Alarm o niskim poziomie
+
+modbusSerialStopbits_ONE: Jeden
+modbusSerialStopbits_TWO: Dwa
+modbusSerialStopbits_ONE_AND_HALF: Jeden i pół

@@ -64,13 +64,14 @@
                         </div>
                         <div class="form-group">
                             <label>{{ $t('Stop bits') }}</label>
+                            <!-- i18n: ['modbusSerialStopbits_ONE', 'modbusSerialStopbits_TWO', 'modbusSerialStopbits_ONE_AND_HALF'] -->
                             <SimpleDropdown v-model="modbusConfig.serial.stopBits" :options="modbusConstraints.availableSerialStopbits"
                                 @input="onChange()">
                                 <template #option="{option}">
-                                    {{ option.replace(/_/g, ' ') }}
+                                    {{ $t('modbusSerialStopbits_' + option) }}
                                 </template>
                                 <template #button="{value}">
-                                    {{ value.replace(/_/g, ' ') }}
+                                    {{ $t('modbusSerialStopbits_' + value) }}
                                 </template>
                             </SimpleDropdown>
                         </div>
