@@ -76,6 +76,10 @@ class IODeviceConfigTranslator {
                 $config['modbus']['network']['mode'] = 'DISABLED';
             }
             $config['modbusConstraints'] = $this->getModbusConstraints($device);
+            try {
+                $config['modbus'] = $this->adjustModbusConfig($device, $config['modbus']);
+            } catch (InvalidConfigurationException $e) {
+            }
         }
         return $config;
     }
@@ -192,6 +196,11 @@ class IODeviceConfigTranslator {
 
     private function buildModbusConfig(IODevice $device, array $config): array {
         $currentCfg = $this->getConfig($device)['modbus'] ?? [];
+        $fullConfig = array_replace_recursive($currentCfg, $config);
+        return $this->adjustModbusConfig($device, $fullConfig);
+    }
+
+    private function adjustModbusConfig(IODevice $device, array $config) {
         $constraints = $this->getModbusConstraints($device);
         $configTree = new TreeBuilder('modbus');
         $configTree->getRootNode()->ignoreExtraKeys()->children()
@@ -200,7 +209,8 @@ class IODeviceConfigTranslator {
             ->integerNode('slaveTimeoutMs')->min(0)->max(10000)->defaultValue(0)->end()
             ->arrayNode('serial')->ignoreExtraKeys()->addDefaultsIfNotSet()->children()
             ->enumNode('mode')->values(array_merge($constraints['availableSerialModes'], ['DISABLED']))->defaultValue('DISABLED')->end()
-            ->enumNode('baudrate')->values($constraints['availableSerialBaudrates'])->defaultValue($constraints['availableSerialBaudrates'][0])->end()
+            ->enumNode('baudrate')->values($constraints['availableSerialBaudrates'])
+            ->defaultValue(in_array(19200, $constraints['availableSerialBaudrates']) ? 19200 : $constraints['availableSerialBaudrates'][0])->end()
             ->enumNode('stopBits')->values($constraints['availableSerialStopbits'])->defaultValue($constraints['availableSerialStopbits'][0])->end()
             ->end()->end()
             ->arrayNode('network')->ignoreExtraKeys()->addDefaultsIfNotSet()->children()
@@ -208,16 +218,14 @@ class IODeviceConfigTranslator {
             ->integerNode('port')->min(0)->max(65535)->defaultValue(502)->end()
             ->end()->end()
             ->end();
-        $processor = new Processor();
-        $fullConfig = array_replace_recursive($currentCfg, $config);
         if (!$constraints['availableSerialModes']) {
-            $fullConfig['serial'] = ['mode' => 'DISABLED'];
+            $config['serial'] = ['mode' => 'DISABLED'];
         }
         if (!$constraints['availableNetworkModes']) {
-            $fullConfig['network'] = ['mode' => 'DISABLED'];
+            $config['network'] = ['mode' => 'DISABLED'];
         }
-        $newConfig = $processor->process($configTree->buildTree(), ['modbus' => $fullConfig]);
-        return array_filter($newConfig, fn($v) => !is_array($v) || ($v['enabled'] ?? true));
+        $processor = new Processor();
+        return $processor->process($configTree->buildTree(), ['modbus' => $config]);
     }
 
     private function getModbusConstraints(IODevice $device): array {

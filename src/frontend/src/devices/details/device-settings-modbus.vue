@@ -65,7 +65,14 @@
                         <div class="form-group">
                             <label>{{ $t('Stop bits') }}</label>
                             <SimpleDropdown v-model="modbusConfig.serial.stopBits" :options="modbusConstraints.availableSerialStopbits"
-                                @input="onChange()"/>
+                                @input="onChange()">
+                                <template #option="{option}">
+                                    {{ option.replace(/_/g, ' ') }}
+                                </template>
+                                <template #button="{value}">
+                                    {{ value.replace(/_/g, ' ') }}
+                                </template>
+                            </SimpleDropdown>
                         </div>
                     </div>
                 </transition-expand>
