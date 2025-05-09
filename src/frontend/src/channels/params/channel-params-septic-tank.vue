@@ -119,8 +119,8 @@
     const availableFillLevelsPerAlarm = computed(() => ({
         alarmAboveLevel: availableFillLevels.value.filter((fl) => fl > (props.channel.config.warningAboveLevel || props.channel.config.warningBelowLevel || props.channel.config.alarmBelowLevel || 0)),
         warningAboveLevel: availableFillLevels.value.filter((fl) => fl > (props.channel.config.warningBelowLevel || props.channel.config.alarmBelowLevel || 0) && fl < (props.channel.config.alarmAboveLevel || 101)),
-        warningBelowLevel: availableFillLevels.value.filter((fl) => fl > (props.channel.config.alarmBelowLevel || 0) && fl < (props.channel.config.warningAboveLevel || props.channel.config.alarmAboveLevel || 101)).reverse(),
-        alarmBelowLevel: availableFillLevels.value.filter((fl) => fl < (props.channel.config.warningBelowLevel || props.channel.config.warningAboveLevel || props.channel.config.alarmAboveLevel || 100)).reverse(),
+        warningBelowLevel: availableFillLevels.value.filter((fl) => fl !== props.channel.config.alarmBelowLevel && fl > (props.channel.config.alarmBelowLevel || -1) && fl < (props.channel.config.warningAboveLevel || props.channel.config.alarmAboveLevel || availableFillLevels.value[availableFillLevels.value.length - 1])).reverse(),
+        alarmBelowLevel: availableFillLevels.value.filter((fl) => fl !== props.channel.config.warningBelowLevel && fl < (props.channel.config.warningBelowLevel || props.channel.config.warningAboveLevel || props.channel.config.alarmAboveLevel || availableFillLevels.value[availableFillLevels.value.length - 1])).reverse(),
     }));
 
     const availableAlarms = ['alarmAboveLevel', 'warningAboveLevel', 'warningBelowLevel', 'alarmBelowLevel'];
