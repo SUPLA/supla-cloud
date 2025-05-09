@@ -210,6 +210,12 @@ class IODeviceConfigTranslator {
             ->end();
         $processor = new Processor();
         $fullConfig = array_replace_recursive($currentCfg, $config);
+        if (!$constraints['availableSerialModes']) {
+            $fullConfig['serial'] = ['mode' => 'DISABLED'];
+        }
+        if (!$constraints['availableNetworkModes']) {
+            $fullConfig['network'] = ['mode' => 'DISABLED'];
+        }
         $newConfig = $processor->process($configTree->buildTree(), ['modbus' => $fullConfig]);
         return array_filter($newConfig, fn($v) => !is_array($v) || ($v['enabled'] ?? true));
     }

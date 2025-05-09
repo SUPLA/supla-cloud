@@ -40,7 +40,7 @@
             </div>
         </transition-expand>
         <div v-if="modbusConfig.role !== 'NOT_SET'">
-            <div class="form-group with-border-bottom">
+            <div class="form-group with-border-bottom" v-if="modbusConstraints.availableSerialModes.length > 0">
                 <div class="d-flex">
                     <h4 class="flex-grow-1">{{ $t('Serial') }}</h4>
                     <div>
@@ -70,7 +70,7 @@
                     </div>
                 </transition-expand>
             </div>
-            <div class="form-group">
+            <div class="form-group" v-if="modbusConstraints.availableNetworkModes.length > 0">
                 <div class="d-flex">
                     <h4 class="flex-grow-1">{{ $t('Network') }}</h4>
                     <div>
