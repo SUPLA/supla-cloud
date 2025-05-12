@@ -191,6 +191,39 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         } elseif (preg_match('#/unlock-device#', $endpoint, $match)) {
             $responseStatus = 200;
             return ['unlock_code' => md5(microtime(true))];
+        } elseif (preg_match('#/weather-data/cities#', $endpoint, $match)) {
+            $responseStatus = 200;
+            return [
+                ['id' => 1, 'name' => 'Warszawa', 'country' => 'PL'],
+                ['id' => 2, 'name' => 'Kraków', 'country' => 'PL'],
+                ['id' => 3, 'name' => 'Gdańsk', 'country' => 'PL'],
+                ['id' => 4, 'name' => 'Wrocław', 'country' => 'PL'],
+            ];
+        } elseif (preg_match('#/weather-data#', $endpoint, $match)) {
+            $responseStatus = 200;
+            return array_map(function ($cityId) {
+                return [
+                    'id' => $cityId,
+                    'fetchedAt' => (new \DateTime())->format(\DateTime::ATOM),
+                    'weather' => [
+                        'temp' => rand(0, 3000) / 100,
+                        'feelsLike' => rand(0, 3000) / 100,
+                        'pressure' => rand(970, 1030),
+                        'humidity' => rand(20, 80),
+                        'visibility' => rand(500, 10000),
+                        'windSpeed' => rand(0, 100) / 10,
+                        'clouds' => rand(0, 100),
+                        'rainMmh' => rand(0, 50),
+                        'snowMmh' => rand(0, 50),
+                        'airCo' => rand(100, 1000) / 10,
+                        'airNo' => rand(100, 1000) / 10,
+                        'airNo2' => rand(100, 1000) / 10,
+                        'airO3' => rand(100, 1000) / 10,
+                        'airPm10' => rand(100, 1000) / 10,
+                        'airPm25' => rand(100, 1000) / 10,
+                    ],
+                ];
+            }, $post['cityIds']);
         }
         $responseStatus = 404;
         return false;
