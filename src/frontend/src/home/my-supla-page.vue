@@ -7,7 +7,7 @@
                     <div class="form-group">
                         <btn-filters id="mySuplaListType"
                             v-model="listType"
-                            :filters="[{label: $t('I/O Devices'), value: 'devices'}, {label: $t('Channels'), value: 'channels'}]"
+                            :filters="[{label: $t('I/O Devices'), value: 'devices'}, {label: $t('Channels'), value: 'channels'}, {label: $t('Data sources'), value: 'virtual'}]"
                         />
                     </div>
                 </div>
@@ -18,7 +18,8 @@
         </div>
         <devices-list-page v-if="listType === 'devices'"/>
         <!--        <dashboard v-else-if="listType === 'dashboard'"/>-->
-        <channel-list-page v-else/>
+        <channel-list-page v-else-if="listType === 'channels'"/>
+        <VirtualChannelListPage v-else/>
     </div>
 </template>
 
@@ -29,9 +30,11 @@
     import ChannelListPage from "../channels/channel-list-page";
     import {mapState} from "pinia";
     import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+    import VirtualChannelListPage from "@/channels/virtual/virtual-channel-list-page.vue";
 
     export default {
         components: {
+            VirtualChannelListPage,
             ChannelListPage,
             BtnFilters,
             DevicesListPage,

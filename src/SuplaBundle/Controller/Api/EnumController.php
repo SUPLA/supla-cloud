@@ -64,7 +64,7 @@ class EnumController extends RestController {
      *     path="/enum/virtual-channel-types", operationId="getVirtualChannelTypesEnum", tags={"Enums"},
      *     @OA\Response(response="200", description="Success",  @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/VirtualChannelType"))),
      * )
-     * @Rest\Get("/enum/channel-types")
+     * @Rest\Get("/enum/virtual-channel-types")
      */
     public function getVirtualChannelTypesAction(Request $request) {
         return $this->serializedView(array_values(VirtualChannelType::values()), $request);

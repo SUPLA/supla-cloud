@@ -25,6 +25,7 @@
     import ChannelTile from "./channel-tile";
     import {mapState} from "pinia";
     import {useChannelsStore} from "@/stores/channels-store";
+    import ChannelType from "@/common/enums/channel-type";
 
     export default {
         components: {ChannelTile, ChannelFilters},
@@ -39,7 +40,8 @@
             filteredChannels() {
                 const filteredChannels = this.channels
                     .filter(this.filterFunction)
-                    .filter((channel) => !channel.config.hideInChannelsList);
+                    .filter((channel) => !channel.config.hideInChannelsList)
+                    .filter((channel) => !channel.typeId !== ChannelType.VIRTUAL);
                 filteredChannels.sort(this.compareFunction);
                 return filteredChannels;
             },

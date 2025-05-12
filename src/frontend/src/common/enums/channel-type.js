@@ -38,6 +38,7 @@ const ChannelType = Object.freeze({
     GENERAL_PURPOSE_METER: 9010,
     ACTION_TRIGGER: 11000,
     DIGIGLASS: 12000,
+    VIRTUAL: 13000,
 });
 
 export default ChannelType;
