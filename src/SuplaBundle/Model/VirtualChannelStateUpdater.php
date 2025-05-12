@@ -16,7 +16,7 @@ class VirtualChannelStateUpdater {
      * @param IODeviceChannel[] $channels
      * @return void
      */
-    public function updateChannels(array $channels): void {
+    public function updateChannels($channels): void {
         $tasks = [
             'openWeatherUpdates' => [],
         ];

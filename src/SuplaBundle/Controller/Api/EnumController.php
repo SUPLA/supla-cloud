@@ -22,6 +22,7 @@ use OpenApi\Annotations as OA;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\VirtualChannelType;
 use Symfony\Component\HttpFoundation\Request;
 
 class EnumController extends RestController {
@@ -56,5 +57,16 @@ class EnumController extends RestController {
      */
     public function getChannelTypesAction(Request $request) {
         return $this->serializedView(array_values(ChannelType::values()), $request);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/enum/virtual-channel-types", operationId="getVirtualChannelTypesEnum", tags={"Enums"},
+     *     @OA\Response(response="200", description="Success",  @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/VirtualChannelType"))),
+     * )
+     * @Rest\Get("/enum/channel-types")
+     */
+    public function getVirtualChannelTypesAction(Request $request) {
+        return $this->serializedView(array_values(VirtualChannelType::values()), $request);
     }
 }
