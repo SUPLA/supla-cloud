@@ -58,4 +58,8 @@ class ChannelValue {
     public function getUser(): User {
         return $this->user;
     }
+
+    public function getValue() {
+        return stream_get_contents($this->value);
+    }
 }

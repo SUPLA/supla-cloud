@@ -28,6 +28,7 @@ use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\AmazonAlexaRepository;
 use SuplaBundle\Repository\GoogleHomeRepository;
+use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaOcrClient;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -141,5 +142,17 @@ class IntegrationsController extends RestController {
         }
         $images = $ocr->getLatestImages($channel);
         return $this->view($images);
+    }
+
+    /**
+     * @Rest\Get("/integrations/openweather/cities")
+     * @Security("is_granted('ROLE_CHANNELS_R')")
+     */
+    public function getAvailableOpenWeatherCitiesAction(Request $request, SuplaAutodiscover $ad) {
+        if (!ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        };
+        $cities = $ad->getOpenWeatherCities();
+        return $this->view($cities);
     }
 }

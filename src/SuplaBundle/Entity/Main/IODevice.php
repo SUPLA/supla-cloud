@@ -191,6 +191,12 @@ class IODevice implements HasLocation, HasRelationsCount {
      */
     private $pairingResult;
 
+    /**
+     * @ORM\Column(name="is_virtual", type="boolean", nullable=false, options={"default"=false})
+     * @Groups({"basic"})
+     */
+    private bool $isVirtual = false;
+
     public function __construct() {
         $this->channels = new ArrayCollection();
         $this->pushNotifications = new ArrayCollection();
@@ -353,5 +359,9 @@ class IODevice implements HasLocation, HasRelationsCount {
 
     public function getPairingResult(): ?array {
         return json_decode($this->pairingResult ?: '', true) ?: null;
+    }
+
+    public function isVirtual(): bool {
+        return $this->isVirtual;
     }
 }

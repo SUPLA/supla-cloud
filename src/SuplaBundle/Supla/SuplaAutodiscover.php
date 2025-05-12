@@ -415,4 +415,12 @@ abstract class SuplaAutodiscover {
             throw new ApiException($errors[$responseStatus] ?? $errors[503], $responseStatus);
         }
     }
+
+    public function getOpenWeatherCities(): array {
+        return $this->remoteRequest('/weather-data/cities', null, $responseStatus) ?: [];
+    }
+
+    public function fetchOpenWeatherData(array $cityIds): array {
+        return $this->remoteRequest('/weather-data', ['cityIds' => $cityIds], $responseStatus) ?: [];
+    }
 }

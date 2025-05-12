@@ -18,9 +18,11 @@
 namespace SuplaBundle\Supla;
 
 use Assert\Assertion;
+use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory;
 use Faker\Generator;
 use Psr\Log\LoggerInterface;
+use SuplaBundle\Entity\Main\ChannelValue;
 use SuplaBundle\Enums\ElectricityMeterSupportBits;
 use SuplaBundle\Enums\HvacIpcActionMode;
 use SuplaBundle\Enums\HvacIpcValueFlags;
@@ -38,15 +40,15 @@ class SuplaServerMock extends SuplaServer {
 
     public static $executedCommands = [];
 
-    /** @var SuplaServerMockCommandsCollector */
-    private $commandsCollector;
-    /** @var Generator */
-    private $faker;
+    private SuplaServerMockCommandsCollector $commandsCollector;
+    private Generator $faker;
+    private EntityManagerInterface $em;
 
-    public function __construct(SuplaServerMockCommandsCollector $commandsCollector, LoggerInterface $logger) {
+    public function __construct(SuplaServerMockCommandsCollector $commandsCollector, LoggerInterface $logger, EntityManagerInterface $em) {
         parent::__construct('', new LocalSuplaCloud('http://supla.local'), $logger);
         $this->commandsCollector = $commandsCollector;
         $this->faker = Factory::create();
+        $this->em = $em;
     }
 
     protected function connect() {
@@ -121,7 +123,9 @@ class SuplaServerMock extends SuplaServer {
         } elseif (preg_match('#^GET-(CHAR)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . rand(0, 1);
         } elseif (preg_match('#^GET-(GPM)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            return 'VALUE:' . rand(0, 1000000) / rand(2, 5);
+            $channelId = $match[3];
+            $value = $this->em->getRepository(ChannelValue::class)->findOneBy(['channel' => $channelId]);
+            return 'VALUE:' . ($value ? $value->getValue() : rand(0, 1000000) / rand(2, 5));
         } elseif (preg_match('#^GET-(VALVE)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . rand(0, 1) . ',' . rand(0, 7);
         } elseif (preg_match('#^GET-(CONTAINER)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {

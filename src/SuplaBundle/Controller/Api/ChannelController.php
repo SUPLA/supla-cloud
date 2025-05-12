@@ -33,6 +33,7 @@ use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\VirtualChannelType;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
@@ -723,5 +724,53 @@ class ChannelController extends RestController {
             throw new ApiException('Invalid action given.');
         }
         return $this->getChannelAction($request, $channel->clearRelationsCount());
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/channels", operationId="createVirtualChannel", tags={"Channels"},
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *          @OA\Property(property="virtualChannelType", type="integer"),
+     *       )
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
+     *    ),
+     * )
+     * @Security("is_granted('ROLE_CHANNELS_RW')")
+     * @Rest\Post("/channels")
+     * @UnavailableInMaintenance
+     */
+    public function createVirtualChannelAction(Request $request, IODeviceRepository $deviceRepository) {
+        $body = json_decode($request->getContent(), true);
+        Assertion::keyExists($body, 'virtualChannelType', 'Missing virtual channel type.');
+        Assertion::true(VirtualChannelType::isValid($body['virtualChannelType']), 'Invalid virtual channel type.');
+        $channel = $this->transactional(function (EntityManagerInterface $em) use ($deviceRepository, $body) {
+            $virtualDevice = $deviceRepository->findAllForUser($this->getUser(), function (QueryBuilder $query, string $alias) {
+                $query->andWhere("$alias.isVirtual = true");
+            })->first();
+            if (!$virtualDevice) {
+                $virtualDevice = new IODevice();
+                EntityUtils::setField($virtualDevice, 'user', $this->getUser());
+                EntityUtils::setField($virtualDevice, 'location', $this->getUser()->getLocations()->first());
+                EntityUtils::setField($virtualDevice, 'name', 'SUPLA-VIRTUAL-DEVICE');
+                EntityUtils::setField($virtualDevice, 'guid', random_bytes(16));
+                EntityUtils::setField($virtualDevice, 'regDate', new \DateTime());
+                EntityUtils::setField($virtualDevice, 'protocolVersion', 26);
+                $em->persist($virtualDevice);
+            }
+            $channel = new IODeviceChannel();
+            EntityUtils::setField($channel, 'channelNumber', $virtualDevice->getChannels()->count());
+            EntityUtils::setField($channel, 'iodevice', $virtualDevice);
+            EntityUtils::setField($channel, 'user', $this->getUser());
+            EntityUtils::setField($channel, 'location', $this->getUser()->getLocations()->first());
+            EntityUtils::setField($channel, 'type', ChannelType::VIRTUAL);
+            EntityUtils::setField($channel, 'function', ChannelFunction::GENERAL_PURPOSE_MEASUREMENT);
+            EntityUtils::setField($channel, 'properties', json_encode(['virtualChannelType' => $body['virtualChannelType']]));
+            $em->persist($channel);
+            return $channel;
+        });
+        return $this->serializedView($channel, $request, [], Response::HTTP_CREATED);
     }
 }
