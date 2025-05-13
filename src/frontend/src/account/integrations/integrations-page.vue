@@ -26,6 +26,11 @@
                             class="btn">
                             {{ $t('MQTT Broker') }}
                         </router-link>
+                        <router-link
+                            :to="{name: 'integrations.dataSources'}"
+                            class="btn">
+                            {{ $t('Data sources') }}
+                        </router-link>
                     </div>
                 </div>
             </div>

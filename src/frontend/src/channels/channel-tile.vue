@@ -14,7 +14,7 @@
                 <dd>ID</dd>
                 <dt>{{ model.id }}</dt>
             </dl>
-            <dl class="ellipsis" v-if="device">
+            <dl class="ellipsis" v-if="device && model.typeId !== ChannelType.VIRTUAL">
                 <dd>{{ $t('Device') }}</dd>
                 <dt>{{ device.name }}</dt>
             </dl>
@@ -42,9 +42,10 @@
     import ActionTriggerIndicator from "@/channels/action-trigger/action-trigger-indicator";
     import {computed} from "vue";
     import {useLocationsStore} from "@/stores/locations-store";
-    import {useI18n} from "vue-i18n-bridge";
     import {useDevicesStore} from "@/stores/devices-store";
     import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
+    import ChannelType from "@/common/enums/channel-type";
+    import {channelTitle} from "@/common/filters";
 
     const props = defineProps({
         model: Object,
@@ -53,8 +54,7 @@
             default: false,
         }
     });
-    const {t} = useI18n();
-    const caption = computed(() => props.model.caption || t(props.model.function.caption));
+    const caption = computed(() => channelTitle(props.model));
     const linkSpec = computed(() => props.noLink ? {} : {name: 'channel', params: {id: props.model.id}});
     const hasActionTrigger = computed(() => props.model?.relationsCount?.actionTriggers > 0);
     const backgroundColor = computed(() => {

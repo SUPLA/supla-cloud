@@ -175,7 +175,7 @@ final class ChannelType extends Enum {
             self::GENERAL_PURPOSE_METER => 'General purpose meter', // i18n
             self::ACTION_TRIGGER => 'Action trigger', // i18n
             self::DIGIGLASS => 'Digi Glass', // i18n
-            self::VIRTUAL => 'Virtual', // i18n
+            self::VIRTUAL => 'Data source', // i18n
         ];
     }
 

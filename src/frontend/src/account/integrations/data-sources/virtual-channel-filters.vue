@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import BtnFilters from "../../common/btn-filters";
+    import BtnFilters from "@/common/btn-filters";
     import latinize from "latinize";
     import {DateTime} from "luxon";
     import {mapState} from "pinia";
@@ -52,7 +52,7 @@
                 this.$emit('compare-function', (a, b) => this.compare(a, b));
             },
             matches(channel) {
-                if (this.virtualType && this.functionality !== '*') {
+                if (this.virtualType && this.virtualType !== '*') {
                     if (channel.config.virtualChannelType !== this.virtualType) {
                         return false;
                     }

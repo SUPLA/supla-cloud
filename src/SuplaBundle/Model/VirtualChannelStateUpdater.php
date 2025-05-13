@@ -24,7 +24,7 @@ class VirtualChannelStateUpdater {
         foreach ($channels as $channel) {
             $channelUpdates[] = [$channel->getId(), $channel->getUser()->getId()];
             if ($channel->getProperty('virtualChannelType') === VirtualChannelType::OPEN_WEATHER) {
-                if (($cityId = $channel->getUserConfigValue('cityId')) && ($field = $channel->getUserConfigValue('field'))) {
+                if (($cityId = $channel->getUserConfigValue('cityId')) && ($field = $channel->getUserConfigValue('weatherField'))) {
                     $tasks['openWeatherUpdates'][$cityId][$field][] = $channel->getId();
                 }
             }

@@ -29,4 +29,7 @@ export const channelsApi = {
     async muteAlarm(channel) {
         return await api.patch(`channels/${channel.id}/settings`, {action: 'muteAlarm'});
     },
+    async createVirtualChannel(virtualChannelType) {
+        return await api.post('channels', {virtualChannelType});
+    },
 }

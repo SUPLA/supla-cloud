@@ -51,12 +51,12 @@ class VirtualChannelOpenWeatherConfigTranslator extends UserConfigTranslator {
                 $subject->setUserConfigValue('cityId', null);
             }
         }
-        if (array_key_exists('field', $config)) {
-            if ($config['field']) {
-                Assertion::inArray($config['field'], ['temp']);
-                $subject->setUserConfigValue('field', $config['field']);
+        if (array_key_exists('weatherField', $config)) {
+            if ($config['weatherField']) {
+                Assertion::inArray($config['weatherField'], ['temp']);
+                $subject->setUserConfigValue('weatherField', $config['weatherField']);
             } else {
-                $subject->setUserConfigValue('field', null);
+                $subject->setUserConfigValue('weatherField', null);
             }
         }
         $this->virtualChannelStateUpdater->updateChannels([$subject]);

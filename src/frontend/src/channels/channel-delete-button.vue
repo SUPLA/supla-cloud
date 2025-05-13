@@ -29,6 +29,8 @@
     import {mapState, mapStores} from "pinia";
     import {useChannelsStore} from "@/stores/channels-store";
     import {useDevicesStore} from "@/stores/devices-store";
+    import {deepCopy} from "@/common/utils";
+    import ChannelType from "@/common/enums/channel-type";
 
     export default {
         components: {DependenciesWarningModal},
@@ -46,6 +48,7 @@
         methods: {
             deleteChannel(safe = 'yes') {
                 this.loading = true;
+                const deletedChannel = deepCopy(this.channel);
                 return this.$http.delete(`channels/${this.channel.id}?safe=${safe}`, {skipErrorHandler: [409]})
                     .then(() => this.channelsStore.refetchAll())
                     .then(() => {
@@ -54,7 +57,9 @@
                             this.$t('Successful'),
                             this.deletingSubdevice ? this.$t('The subdevice has been deleted.') : this.$t('The channel has been deleted.')
                         );
-                        if (this.$route.name !== 'device.channels') {
+                        if (deletedChannel.typeId === ChannelType.VIRTUAL) {
+                            this.$router.push({name: 'integrations.dataSources'});
+                        } else if (this.$route.name !== 'device.channels') {
                             this.$router.push({name: 'device.channels', params: {id: this.channel.iodeviceId}});
                         }
                     })

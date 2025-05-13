@@ -20,12 +20,12 @@
 </template>
 
 <script>
-    import ChannelTile from "../channel-tile";
+    import ChannelTile from "@/channels/channel-tile.vue";
     import {mapState} from "pinia";
     import {useChannelsStore} from "@/stores/channels-store";
     import ChannelType from "@/common/enums/channel-type";
-    import VirtualChannelFilters from "@/channels/virtual/virtual-channel-filters.vue";
-    import NewVirtualChannelForm from "@/channels/virtual/new-virtual-channel-form.vue";
+    import VirtualChannelFilters from "./virtual-channel-filters.vue";
+    import NewVirtualChannelForm from "./new-virtual-channel-form.vue";
 
     export default {
         components: {NewVirtualChannelForm, VirtualChannelFilters, ChannelTile},
@@ -40,7 +40,7 @@
             allVirtualChannels() {
                 return this.channels
                     .filter((channel) => !channel.config.hideInChannelsList)
-                    .filter((channel) => !channel.typeId === ChannelType.VIRTUAL);
+                    .filter((channel) => channel.typeId === ChannelType.VIRTUAL);
             },
             filteredChannels() {
                 const filteredChannels = this.allVirtualChannels.filter(this.filterFunction);
