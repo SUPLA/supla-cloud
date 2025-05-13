@@ -177,6 +177,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Nepavyko a
 Cannot change the channel function right now.: Šiuo metu negalima pakeisti šio kanalo funkcijų.
 Cannot delete this I/O Device right now.: Šiuo metu negalima pašalinti šio įrenginio.
 Cannot update OCR settings. Try again in a while.: Nepavyko atnaujinti OCR nustatymų. Netrukus pabandykite dar kartą.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Negavote pranešimo su Jūsų paskyros aktyvavimo nuoroda? Įsitikinkite, kad jis nepateko į SPAM (Šlamštas) aplankalą. Taip pat galite {clickHereLink}, kad jį išsiųstumėte dar kartą.
 Captcha token is not valid.: Neteisingai įvestas captcha kodas.
 Caption: Parašas
 Caption is too long.: Pavadinimas per ilgas.
@@ -1570,7 +1571,6 @@ Authorized OAuth apps: Autorizuotos programos OAuth
 Calculated value: Skaitiklio būsena
 Cannot execute an action when the device is disconnected.: Kai įrenginys atjungtas negalima atlikti veiksmo.
 Cannot send an activation e-mail. Try again later.: Nepavyksta išsiųsti pranešimo su aktyvavimo nuoroda. Bandykite dar kartą vėliau.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Negavote pranešimo su Jūsų paskyros aktyvavimo nuoroda? Įsitikinkite, kad jis nepateko į SPAM (Šlamštas) aplankalą. Taip pat galite {clickHereLink}, kad jį išsiųstumėte dar kartą.
 Channel value: Reikšmė
 Channel will be deleted from the channel group below: Kanalas bus pašalintas iš šių kanalų grupių
 Channels in channel group: Kanalai kanalų grupėse
@@ -1679,25 +1679,33 @@ thermostatAlgorithm_help: |
 # Translations below are missing. You want to translate them.
 Action trigger for channel: ~
 Activity schedule: ~
+Address: ~
 Alarm at level (and above) should be greater than the corresponding warning level.: ~
 Alarm at level (and below) should be lower than the corresponding warning level.: ~
 Alarm level: ~
 Algorithms available on this device: ~
 Are you sure you want to delete this subdevice?: ~
+Auto-close on flood: ~
 Aux thermometer for channel: ~
+Baudrate: ~
 Binary sensor for channel: ~
+Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
 Choose many: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
+Default (exact value depends on a device): ~
 Device interface: ~
+Does it look good?: ~
 Each container level sensor must have different fill level.: ~
+Everyone makes mistakes!: ~
 Fill level: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
+Heat or cold source switch for channel: ~
 Image: ~
 Invalid sensor state: ~
 Level sensor: ~
@@ -1712,22 +1720,36 @@ Motor problem: ~
 Mute alarm: ~
 Mute alarm sound without additional auth: ~
 Mute command sent: ~
+Network: ~
 Not available: ~
+'OCR service responded with error: {statusCode}. {description}': ~
 Opening sensor for channel: ~
+Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
+Overcurrent threshold: ~
 Percentage of extension: ~
 Photo history: ~
+Please confirm if you want to do this.: ~
+Please specify a valid address between 1 and 247.: ~
 Pump switch for channel: ~
 Reading: ~
 Reference to the deleted channels will be removed from the items below.: ~
+Role: ~
+SUPLA - Test e-mail: ~
 Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
 Septic tank: ~
+Serial: ~
+Slave timeout (ms): ~
 Sound alarm on: ~
+Stop bits: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
 The subdevice has been deleted.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
+This is only a test to see if the e-mail configuration is working.: ~
+Too small difference between aux setpoint temperatures.: ~
+Too small difference between freeze and overheat protection temperatures.: ~
 Updating...: ~
 Use activity schedule: ~
 Valve supports up to 20 sensors.: ~
@@ -1738,8 +1760,6 @@ Water tank: ~
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
-When any of the sensors starts to report an invalid state: ~
-When any of the sensors stops to report an invalid state: ~
 When the alarm starts: ~
 When the alarm stops: ~
 When the battery level will be: ~
@@ -1749,31 +1769,47 @@ When the calibration has been lost: ~
 When the calibration has started: ~
 When the device starts to be powered from battery: ~
 When the device stops to be powered from battery: ~
+When the fill level becomes known again: ~
+When the fill level becomes unknown: ~
 When the fill level changes: ~
 When the fill level reaches a certain value: ~
-When the fill level reading error disappears: ~
-When the fill level reading error occurs: ~
 When the fill level will be: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
+When the sensors state becomes invalid: ~
+When the sensors state becomes valid: ~
 When the sound alarm starts: ~
 When the sound alarm stops: ~
 When the warning starts: ~
 When the warning stops: ~
+You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
 You cannot change this function becuase it is required by another channel.: ~
 activityConditions_help: ~
 and wait until the battery level will be: ~
 and wait until the fill level will be: ~
+closeValveOnFloodType_1: ~
+closeValveOnFloodType_2: ~
+closeValveOnFloodType_help: ~
 directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
+homeScreenContent_MODE_OR_TEMPERATURE: ~
 localUILock_FULL: ~
 localUILock_TEMPERATURE: ~
 localUILock_UNLOCKED: ~
+modbusRole_MASTER: ~
+modbusRole_SLAVE: ~
+modbusSerialStopbits_ONE: ~
+modbusSerialStopbits_ONE_AND_HALF: ~
+modbusSerialStopbits_TWO: ~
 state-half: ~
 state-hi: ~
 state-low: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~
+tank_alarm_fullRange_alarmAboveLevel: ~
+tank_alarm_fullRange_alarmBelowLevel: ~
+tank_alarm_fullRange_warningAboveLevel: ~
+tank_alarm_fullRange_warningBelowLevel: ~
 tank_alarm_warningAboveLevel: ~
 tank_alarm_warningBelowLevel: ~
 temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
@@ -1782,6 +1818,7 @@ thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: ~
 thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: ~
 thermostatAlgorithmHelp_PID: ~
 thermostatOutputValue_help: ~
+thermostatTemperature_auxHisteresis: ~
 valveOpenConfirm_flooding: ~
 valveOpenConfirm_motorProblem: ~
 

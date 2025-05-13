@@ -117,6 +117,7 @@ Cancelled: Аннулировано
 Cannot calculate when to run the schedule - incorrect configuration?: Не удалось вычислить дату запуска графика - неправильная конфигурация?
 Cannot change the channel function right now.: Вы не можете изменить функцию этого канала в данный момент.
 Cannot delete this I/O Device right now.: Вы не можете удалить это устройство в данный момент.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Сообщение со ссылкой для активации Вашей учетной записи не пришло? Убедитесь, что оно не попало в папку СПАМ (нежелательная почта). Вы также можете {clickHereLink}, чтобы отправить его снова.
 Captcha token is not valid.: Неправильная капча.
 Caption: Подпись
 Caption is too long.: Название слишком длинное.
@@ -921,7 +922,6 @@ Authorized OAuth apps: Авторизованные приложения OAuth
 Calculated value: Состояние счетчика
 Cannot execute an action when the device is disconnected.: Не удается выполнить действие при отключенном устройстве.
 Cannot send an activation e-mail. Try again later.: Невозможно отправить сообщение со ссылкой для активации. Пожалуйста, попробуйте позже.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Сообщение со ссылкой для активации Вашей учетной записи не пришло? Убедитесь, что оно не попало в папку СПАМ (нежелательная почта). Вы также можете {clickHereLink}, чтобы отправить его снова.
 Channel value: Значение
 Channel will be deleted from the channel group below: Канал будет удален из следующих групп каналов
 Channels in channel group: Каналы в группах каналов
@@ -1010,6 +1010,7 @@ Activity conditions: ~
 Activity schedule: ~
 Add a new action to the scene: ~
 Additional time margin: ~
+Address: ~
 Adjust temperature: ~
 Adjust temperatures: ~
 After the delay: ~
@@ -1041,6 +1042,7 @@ Are you sure you want to log out this device?: ~
 Arithmetic balance: ~
 Authentication failure: ~
 Authentication successful: ~
+Auto-close on flood: ~
 Automatic: ~
 Automatic front panel turn off: ~
 Automatic front panel turn off after: ~
@@ -1052,6 +1054,7 @@ Aux thermometer type: ~
 Available variables: ~
 Average: ~
 Battery cover open: ~
+Baudrate: ~
 Behavior settings: ~
 Binary sensor: ~
 Binary sensor for channel: ~
@@ -1062,6 +1065,7 @@ Button volume: ~
 Buttons upside down: ~
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
 By signing in, you are authorizing {clientName} to control your devices.: ~
+Calibration lost: ~
 Candle: ~
 Cannot execute an action when the channel is not available.: ~
 Cannot update OCR settings. Try again in a while.: ~
@@ -1116,6 +1120,7 @@ Data limits: ~
 Date and time: ~
 Date range: ~
 Daytime criteria: ~
+Default (exact value depends on a device): ~
 Dependencies: ~
 'Device GUID: %deviceGuid%': ~
 Device identification is unsupported in the firmware.: ~
@@ -1126,6 +1131,7 @@ Device time has been set.: ~
 Different than on master thermostat.: ~
 Differential thermostat: ~
 Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
+Does it look good?: ~
 Domestic hot water: ~
 Download measurements history: ~
 Dryer: ~
@@ -1145,6 +1151,7 @@ Enable power status LED: ~
 Enable support for OCR readings for this channel: ~
 Enable water temperature control: ~
 Enabled phases: ~
+Everyone makes mistakes!: ~
 Example value: ~
 Expand: ~
 Expand or stop: ~
@@ -1176,6 +1183,7 @@ Go to the scene: ~
 Go to the schedule: ~
 HVAC: ~
 Heat or cold source switch: ~
+Heat or cold source switch for channel: ~
 Heat to: ~
 Heating / ventilation / air conditioning: ~
 Heating mode: ~
@@ -1244,6 +1252,7 @@ Motor upside down: ~
 Mute alarm: ~
 Mute alarm sound without additional auth: ~
 Mute command sent: ~
+Network: ~
 New reaction: ~
 'No': ~
 No results: ~
@@ -1258,6 +1267,7 @@ Notification title is set by the firmware.: ~
 Notifications: ~
 Notifications (defined): ~
 Notifications (sent per hour): ~
+'OCR service responded with error: {statusCode}. {description}': ~
 'OCR service responded with error: {status}': ~
 OCR settings: ~
 OK: ~
@@ -1267,7 +1277,9 @@ On with duration: ~
 Open value: ~
 Opening sensor for channel: ~
 Operation: ~
+Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Output value on error: ~
+Overcurrent threshold: ~
 Overheat protection: ~
 P/C: ~
 PIN: ~
@@ -1284,12 +1296,14 @@ Phase LED type: ~
 Phase {phaseNumber}: ~
 Photo history: ~
 Photo interval: ~
+Please confirm if you want to do this.: ~
 Please find the device details below.: ~
 Please fix the problems with operations and try again.: ~
 Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: ~
 Please provide the installer e-mail address to request the device unlock.: ~
 Please select a condition: ~
 Please select and configure the action: ~
+Please specify a valid address between 1 and 247.: ~
 Power active: ~
 Power apparent: ~
 Power reactive: ~
@@ -1317,9 +1331,11 @@ Restart device: ~
 Restart the device: ~
 Reveal or stop: ~
 Reverse active energy balance: ~
+Role: ~
 Roller garage door: ~
 S/N: ~
 SUPLA - Confirm unlocking device for authorized installers: ~
+SUPLA - Test e-mail: ~
 SUPLA – your device has been unlocked!: ~
 Same as on master thermostat.: ~
 Scene ID{id} is being executed right now.: ~
@@ -1333,6 +1349,7 @@ Selected device has been logged out.: ~
 Send a notification: ~
 Send notification: ~
 Septic tank: ~
+Serial: ~
 Set HVAC parameters: ~
 Set the device time: ~
 Set values for each phase separately: ~
@@ -1340,10 +1357,12 @@ Settings: ~
 Settings have not been saved!: ~
 Show data: ~
 Shut or stop: ~
+Slave timeout (ms): ~
 Some features depend on this channel: ~
 Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
 Sound alarm on: ~
 Status LED: ~
+Stop bits: ~
 Store active power history: ~
 Store current history: ~
 Store voltage history: ~
@@ -1387,6 +1406,7 @@ This action will result in restarting the device. It will not be available for a
 This channel was missing during last device registration attempt.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
+This is only a test to see if the e-mail configuration is working.: ~
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
@@ -1399,6 +1419,8 @@ Time: ~
 Title: ~
 To: ~
 Today, it would be active from {from} to {to}.: ~
+Too small difference between aux setpoint temperatures.: ~
+Too small difference between freeze and overheat protection temperatures.: ~
 Total: ~
 Turn off: ~
 Unknown browser: ~
@@ -1435,8 +1457,6 @@ When a flooding state changes: ~
 When a flooding state has been cleared: ~
 When a lack of liquid is detected: ~
 When a new mail comes: ~
-When any of the sensors starts to report an invalid state: ~
-When any of the sensors stops to report an invalid state: ~
 When flooding is detected: ~
 When liquid is detected: ~
 When liquid or lack thereof is detected: ~
@@ -1484,10 +1504,10 @@ When the electricity meter value changes: ~
 When the electricity meter value will be: ~
 When the facade blind position changes: ~
 When the facade blind reaches a certain position: ~
+When the fill level becomes known again: ~
+When the fill level becomes unknown: ~
 When the fill level changes: ~
 When the fill level reaches a certain value: ~
-When the fill level reading error disappears: ~
-When the fill level reading error occurs: ~
 When the fill level will be: ~
 When the forward active energy will be: ~
 When the garage door will be closed: ~
@@ -1543,6 +1563,8 @@ When the roof window reaches a certain position: ~
 When the roof window will be closed: ~
 When the roof window will be opened: ~
 When the roof window will be opened or closed: ~
+When the sensors state becomes invalid: ~
+When the sensors state becomes valid: ~
 When the sound alarm starts: ~
 When the sound alarm stops: ~
 When the temperature changes: ~
@@ -1587,6 +1609,7 @@ Will be deleted after: ~
 With a timer: ~
 'Yes': ~
 You can browse only the most recent logs now. Wait a while for the full history.: ~
+You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
 You cannot change this function becuase it is required by another channel.: ~
 You cannot to set a master thermostat for a channel that is master for others.: ~
@@ -1624,6 +1647,9 @@ change: ~
 choose the access identifiers: ~
 choose the currency: ~
 choose the schedule: ~
+closeValveOnFloodType_1: ~
+closeValveOnFloodType_2: ~
+closeValveOnFloodType_help: ~
 configuration missing: ~
 contains a character that is neither a letter nor a digit: ~
 contains a digit: ~
@@ -1636,6 +1662,7 @@ green, otherwise: ~
 green, when power less than the low threshold: ~
 heat: ~
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
+homeScreenContent_MODE_OR_TEMPERATURE: ~
 homeScreenContent_NONE: ~
 homeScreenContent_TEMPERATURE: ~
 homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
@@ -1660,6 +1687,11 @@ max: ~
 midnight: ~
 milliseconds: ~
 min: ~
+modbusRole_MASTER: ~
+modbusRole_SLAVE: ~
+modbusSerialStopbits_ONE: ~
+modbusSerialStopbits_ONE_AND_HALF: ~
+modbusSerialStopbits_TWO: ~
 notification: ~
 ocrLightingMode_ALWAYS_ON: ~
 ocrLightingMode_AUTO: ~
@@ -1695,6 +1727,10 @@ sunset: ~
 swap: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~
+tank_alarm_fullRange_alarmAboveLevel: ~
+tank_alarm_fullRange_alarmBelowLevel: ~
+tank_alarm_fullRange_warningAboveLevel: ~
+tank_alarm_fullRange_warningBelowLevel: ~
 tank_alarm_warningAboveLevel: ~
 tank_alarm_warningBelowLevel: ~
 temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
@@ -1712,6 +1748,7 @@ thermostatOutputValue_help: ~
 thermostatSubfunction_COOL: ~
 thermostatSubfunction_HEAT: ~
 thermostatTemperature_aboveAlarm: ~
+thermostatTemperature_auxHisteresis: ~
 thermostatTemperature_auxMaxSetpoint: ~
 thermostatTemperature_auxMinSetpoint: ~
 thermostatTemperature_belowAlarm: ~

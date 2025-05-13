@@ -167,6 +167,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Non è pos
 Cannot change the channel function right now.: Non è possibile modificare la funzione del canale in questo momento.
 Cannot delete this I/O Device right now.: Non è possibile eliminare il dispositivo I/O in questo momento.
 Cannot update OCR settings. Try again in a while.: Non è possibile aggiornare le impostazioni OCR. Riprovare fra un momento.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Non hai ricevuto il messaggio con il link di attivazione del Tuo account? Assicurati che esso non sia finito nella casella SPAM (posta indesiderata). Puoi anche {clickHereLink}, per inviarlo di nuovo.
 Captcha token is not valid.: Captcha non valido.
 Caption: Titolo
 Caption is too long.: Descrizione troppo lunga
@@ -1409,7 +1410,6 @@ Authorized OAuth apps: Applicazioni OAuth autorizzate
 Calculated value: Stato del contatore
 Cannot execute an action when the device is disconnected.: Non è possibile eseguire le azioni se l’apparecchio è disconnesso.
 Cannot send an activation e-mail. Try again later.: Impossibile inviare il messaggio con il link di attivazione. Riprova più tardi.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Non hai ricevuto il messaggio con il link di attivazione del Tuo account? Assicurati che esso non sia finito nella casella SPAM (posta indesiderata). Puoi anche {clickHereLink}, per inviarlo di nuovo.
 Channel value: Valore del canale
 Channel will be deleted from the channel group below: Il canale verrà eliminato dal seguente gruppo di canali
 Channels in channel group: Canali nei gruppi di canali
@@ -1515,17 +1515,21 @@ Action trigger for channel: ~
 Activity conditions: ~
 Activity schedule: ~
 Additional time margin: ~
+Address: ~
 Alarm armament sensor: ~
 Alarm at level (and above) should be greater than the corresponding warning level.: ~
 Alarm at level (and below) should be lower than the corresponding warning level.: ~
 Alarm level: ~
 Algorithms available on this device: ~
 Are you sure you want to delete this subdevice?: ~
+Auto-close on flood: ~
 Automatic thermostat: ~
 Aux thermometer for channel: ~
 Battery cover open: ~
+Baudrate: ~
 Binary sensor for channel: ~
 Buttons upside down: ~
+Calibration lost: ~
 Candle: ~
 Cannot execute an action when the channel is not available.: ~
 Change percentage by: ~
@@ -1553,12 +1557,14 @@ Could not set the device time.: ~
 Curtain: ~
 Date range: ~
 Daytime criteria: ~
+Default (exact value depends on a device): ~
 Device identification is unsupported in the firmware.: ~
 Device interface: ~
 Device time has been set.: ~
 Different than on master thermostat.: ~
 Differential thermostat: ~
 Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: ~
+Does it look good?: ~
 Dryer: ~
 Each container level sensor must have different fill level.: ~
 Edit area crop: ~
@@ -1568,6 +1574,7 @@ Electricity meter voltage aberrations history: ~
 Electricity meter voltage history: ~
 Enable power status LED: ~
 Enable support for OCR readings for this channel: ~
+Everyone makes mistakes!: ~
 Facade blind operation: ~
 'Field: {propertyPath}.': ~
 Fill level: ~
@@ -1578,6 +1585,7 @@ Flood sensor for valve: ~
 Flood sensors: ~
 Full tilting time: ~
 General purpose meter: ~
+Heat or cold source switch for channel: ~
 High threshold: ~
 High value: ~
 Identify request sent.: ~
@@ -1602,29 +1610,40 @@ Motor upside down: ~
 Mute alarm: ~
 Mute alarm sound without additional auth: ~
 Mute command sent: ~
+Network: ~
 Not available: ~
 Notification must have recipients.: ~
+'OCR service responded with error: {statusCode}. {description}': ~
 'OCR service responded with error: {status}': ~
 Opening sensor for channel: ~
+Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Output value on error: ~
+Overcurrent threshold: ~
 P/C: ~
 Pairing subdevices is unsupported in the firmware.: ~
 Percentage of extension: ~
 Phase LED type: ~
 Photo history: ~
 Photo interval: ~
+Please confirm if you want to do this.: ~
+Please specify a valid address between 1 and 247.: ~
 Pump switch: ~
 Pump switch for channel: ~
 Reading: ~
 Reference to the deleted channels will be removed from the items below.: ~
+Role: ~
 Roller garage door: ~
+SUPLA - Test e-mail: ~
 Same as on master thermostat.: ~
 Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
 Septic tank: ~
+Serial: ~
 Show data: ~
+Slave timeout (ms): ~
 Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: ~
 Sound alarm on: ~
+Stop bits: ~
 Store active power history: ~
 Store current history: ~
 Store voltage history: ~
@@ -1644,12 +1663,15 @@ This action will result in restarting the device. It will not be available for a
 This channel was missing during last device registration attempt.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
+This is only a test to see if the e-mail configuration is working.: ~
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: ~
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: ~
 Tilt angle: ~
 Tilt control type: ~
 Tilt percent: ~
 Today, it would be active from {from} to {to}.: ~
+Too small difference between aux setpoint temperatures.: ~
+Too small difference between freeze and overheat protection temperatures.: ~
 Updating...: ~
 Use activity schedule: ~
 Valve supports up to 20 sensors.: ~
@@ -1662,8 +1684,6 @@ We received an attempt to unlock a SUPLA device distributed for authorized insta
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
-When any of the sensors starts to report an invalid state: ~
-When any of the sensors stops to report an invalid state: ~
 When the alarm starts: ~
 When the alarm stops: ~
 When the battery level will be: ~
@@ -1674,18 +1694,21 @@ When the calibration has started: ~
 When the clock error has been reported: ~
 When the device starts to be powered from battery: ~
 When the device stops to be powered from battery: ~
+When the fill level becomes known again: ~
+When the fill level becomes unknown: ~
 When the fill level changes: ~
 When the fill level reaches a certain value: ~
-When the fill level reading error disappears: ~
-When the fill level reading error occurs: ~
 When the fill level will be: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
+When the sensors state becomes invalid: ~
+When the sensors state becomes valid: ~
 When the sound alarm starts: ~
 When the sound alarm stops: ~
 When the warning starts: ~
 When the warning stops: ~
+You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
 You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: ~
 You cannot change this function becuase it is required by another channel.: ~
 You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
@@ -1700,8 +1723,12 @@ auxThermometerType_GENERIC_COOLER: ~
 auxThermometerType_GENERIC_HEATER: ~
 auxThermometerType_NOT_SET: ~
 auxThermometerType_WATER: ~
+closeValveOnFloodType_1: ~
+closeValveOnFloodType_2: ~
+closeValveOnFloodType_help: ~
 directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
+homeScreenContent_MODE_OR_TEMPERATURE: ~
 homeScreenContent_NONE: ~
 homeScreenContent_TEMPERATURE: ~
 homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
@@ -1712,6 +1739,11 @@ keepHistoryMeasurementWarningSelected: ~
 localUILock_FULL: ~
 localUILock_TEMPERATURE: ~
 localUILock_UNLOCKED: ~
+modbusRole_MASTER: ~
+modbusRole_SLAVE: ~
+modbusSerialStopbits_ONE: ~
+modbusSerialStopbits_ONE_AND_HALF: ~
+modbusSerialStopbits_TWO: ~
 ocrLightingMode_ALWAYS_ON: ~
 ocrLightingMode_AUTO: ~
 ocrLightingMode_OFF: ~
@@ -1735,6 +1767,10 @@ subdevicePairingResult_UNAUTHORIZED: ~
 swap: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~
+tank_alarm_fullRange_alarmAboveLevel: ~
+tank_alarm_fullRange_alarmBelowLevel: ~
+tank_alarm_fullRange_warningAboveLevel: ~
+tank_alarm_fullRange_warningBelowLevel: ~
 tank_alarm_warningAboveLevel: ~
 tank_alarm_warningBelowLevel: ~
 temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: ~
@@ -1750,6 +1786,7 @@ thermostatOutputValue_help: ~
 thermostatSubfunction_COOL: ~
 thermostatSubfunction_HEAT: ~
 thermostatTemperature_aboveAlarm: ~
+thermostatTemperature_auxHisteresis: ~
 thermostatTemperature_auxMaxSetpoint: ~
 thermostatTemperature_auxMinSetpoint: ~
 thermostatTemperature_belowAlarm: ~

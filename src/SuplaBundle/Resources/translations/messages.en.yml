@@ -37,6 +37,11 @@ channelConfigHelp_stateVerificationMethod: 'Active: the first state change repor
 channelConfig_stateVerificationMethod_active: Active
 channelConfig_stateVerificationMethod_passive: Passive
 channelGroup: Channel group
+closeValveOnFloodType_1: Always
+closeValveOnFloodType_2: On change
+closeValveOnFloodType_help: |
+  "Always": The system will close the valve whenever any sensor detects flooding, even if the user reopens it.
+  "On change": The valve closes only when a new flooding event is detected. For example, if one sensor triggers flooding, the valve closes. The user can reopen it, and it won’t auto-close again unless that sensor resets and floods again, or another sensor reports flooding.
 directLinkExecutionFailureReason_disabled: Direct link is disabled.
 directLinkExecutionFailureReason_executionLimitExceeded: Execution limit has been exceeded.
 directLinkExecutionFailureReason_expired: Direct link has expired.
@@ -68,6 +73,11 @@ logs_aggregation_day: Days
 logs_aggregation_hour: Hours
 logs_aggregation_minute: Minutes
 logs_aggregation_month: Months
+modbusRole_MASTER: Master (client)
+modbusRole_SLAVE: Slave (server)
+modbusSerialStopbits_ONE: One
+modbusSerialStopbits_ONE_AND_HALF: One and half
+modbusSerialStopbits_TWO: Two
 ocrLightingMode_ALWAYS_ON: Always on
 ocrLightingMode_AUTO: Automatic
 ocrLightingMode_OFF: 'Off'
@@ -118,10 +128,14 @@ sunrise-after: the sunrise
 sunrise-before: the sunrise
 sunset-after: the sunset
 sunset-before: the sunset
+tank_alarm_alarmAboveLevel: High level alarm
+tank_alarm_alarmBelowLevel: Low level alarm
 tank_alarm_fullRange_alarmAboveLevel: Alarm at level (and above)
 tank_alarm_fullRange_alarmBelowLevel: Alarm at level (and below)
 tank_alarm_fullRange_warningAboveLevel: Warning at level (and above)
 tank_alarm_fullRange_warningBelowLevel: Warning at level (and below)
+tank_alarm_warningAboveLevel: High level warning
+tank_alarm_warningBelowLevel: Low level warning
 temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Control based on auxilary thermometer
 temperatureControlType_ROOM_TEMPERATURE: Control based on main thermometer
 thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: operation based on a hysteresis with the temperature setpoint set as the upper hysteresis threshold. For example, assuming a hysteresis of 1°C and a target temperature of 23°C, the thermostat will turn on the heating at 22°C and stop working when the temperature reaches 23°C.
@@ -135,6 +149,7 @@ thermostatOutputValue_help: |
 thermostatSubfunction_COOL: Cooling
 thermostatSubfunction_HEAT: Heating
 thermostatTemperature_aboveAlarm: Above alarm
+thermostatTemperature_auxHisteresis: Aux thermometer histeresis
 thermostatTemperature_auxMaxSetpoint: Aux max setpoint
 thermostatTemperature_auxMinSetpoint: Aux min setpoint
 thermostatTemperature_belowAlarm: Below alarm
@@ -144,7 +159,6 @@ thermostatTemperature_eco: ECO
 thermostatTemperature_freezeProtection: Anti-freeze temperature
 thermostatTemperature_heatProtection: Overheat temperature
 thermostatTemperature_histeresis: Histeresis
-thermostatTemperature_auxHisteresis: Aux thermometer histeresis
 tiltControlType_CHANGES_POSITION_WHILE_TILTING: Changes position while tilting
 tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Stands in position while tilting
 tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Tilts only when fully closed
@@ -173,19 +187,3 @@ valveOpenConfirm_motorProblem: A motor problem has been detected. Make sure noth
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-closeValveOnFloodType_1: Always
-closeValveOnFloodType_2: On change
-closeValveOnFloodType_help: |
-  "Always": The system will close the valve whenever any sensor detects flooding, even if the user reopens it.
-  "On change": The valve closes only when a new flooding event is detected. For example, if one sensor triggers flooding, the valve closes. The user can reopen it, and it won’t auto-close again unless that sensor resets and floods again, or another sensor reports flooding.
-
-tank_alarm_warningBelowLevel: Low level warning
-tank_alarm_warningAboveLevel: High level warning
-tank_alarm_alarmAboveLevel: High level alarm
-tank_alarm_alarmBelowLevel: Low level alarm
-
-modbusRole_MASTER: Master (client)
-modbusRole_SLAVE: Slave (server)
-modbusSerialStopbits_ONE: One
-modbusSerialStopbits_TWO: Two
-modbusSerialStopbits_ONE_AND_HALF: One and half

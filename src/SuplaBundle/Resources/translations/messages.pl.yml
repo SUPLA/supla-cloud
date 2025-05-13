@@ -59,6 +59,7 @@ Add first channel to set channel group function and save it: Wybierz pierwszy ka
 Add new channel group: Dodaj nową grupę kanałów
 Add new channel to this group: Dodaj nowy kanał do grupy
 Additional time margin: Dodatkowy margines czasu
+Address: Adres
 Adjust parameters: Ustaw parametry
 Adjust temperature: Ustaw temperaturę
 Adjust temperatures: Ustaw temperatury
@@ -138,6 +139,7 @@ Authentication successful: Logowanie udane
 Authorization callback URLs (one per line): Zwrotne URLe autoryzacyjne (jeden na linię)
 Authorize the application, so that it can access your account.: Autoryzuj aplikację, aby mogła uzyskać dostęp do Twojego konta.
 Authorized: Zautoryzowano
+Auto-close on flood: Automatyczne zamknięcie przy zalaniu
 Automatic: Automatyczne
 Automatic calibration: Automatyczna kalibracja
 Automatic closing rule: Automatyczne zamykanie bramy
@@ -156,6 +158,7 @@ Back to apps list: Powrót do listy aplikacji
 Bar: Słupkowy
 Based on sunrise or sunset: W oparciu o wschód / zachód
 Battery cover open: Pokrywa baterii otwarta
+Baudrate: Szybkość transmisji
 Be notified when your channels change state: Powiadamianie o zmianach stanu kanałów
 Be right back!: Wróć za kilka chwil!
 Behavior settings: Zachowanie
@@ -177,6 +180,7 @@ CLICK TO ENABLE: KLIKNIJ ABY WŁĄCZYĆ
 Calibrate: Kalibruj
 Calibration: Kalibracja
 Calibration error: Błąd kalibracji
+Calibration lost: Utracono kalibrację
 Calibration successful.: Kalibracja udana
 Cancel: Anuluj
 Cancel changes: Anuluj zmiany
@@ -322,6 +326,7 @@ Date range: Zakres dat
 Daytime criteria: Kryteria w oparciu o długość dnia
 Decline: Odmów
 Default: domyślnie
+Default (exact value depends on a device): Domyślne (dokładna wartość zależy od urządzenia)
 Delete: Usuń
 Delete measurement history: Usuń historię pomiarów
 Delete my account: Usuń moje konto
@@ -499,6 +504,7 @@ HFD4 Relay: Przekaźnik HFD4
 HVAC: HVAC
 Heat meter: Licznik ciepła
 Heat or cold source switch: Włącznik źródła ciepła lub chłodu
+Heat or cold source switch for channel: Przełącznik źródła ciepła lub chłodu dla kanału
 Heat to: Grzej do
 Heating / ventilation / air conditioning: Ogrzewanie / wentylacja / klimatyzacja (HVAC)
 Heating mode: Tryb ogrzewania
@@ -687,6 +693,7 @@ NOTICE!: UWAGA!
 Name: Nazwa
 'Name: %clientAppName%': 'Nazwa: %clientAppName%'
 Need one of these?: Może Ci się przydać
+Network: Sieć
 Never: Nigdy
 New IO device added to your account: Dodanie nowego urządzenia
 New OAuth application: Nowa aplikacja OAuth
@@ -765,6 +772,7 @@ Other: Inne
 Otherwise go to the homepage.: W innym przypadku przejdź do [strony domowej].
 Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: Nasza wspaniała SUPLA Inteligencja sklasyfikowała wartość {value} jako niepasującą do odczytów tego licznika. Decyzja ta została podjęta w oparciu o historię odczytów, jakość wykonanego zdjęcia oraz inne mniej istotne czynniki.
 Output value on error: Stan wyjścia podczas błędu
+Overcurrent threshold: Próg nadprądowy
 Overheat protection: Ochrona przed przegrzaniem
 P/C: P/C
 PIN: PIN
@@ -813,6 +821,7 @@ Please provide the installer e-mail address to request the device unlock.: Aby o
 Please read the Terms and Conditions.: Przeczytaj regulamin.
 Please select a condition: Proszę wybrać warunek
 Please select and configure the action: Wybierz i skonfiguruj akcję.
+Please specify a valid address between 1 and 247.: Podaj prawidłowy adres między 1 a 247.
 Please wait a moment before the next login attempt.: Zaczekaj chwilę przed kolejną próbą logowania.
 Port: Port
 Power active: Moc czynna
@@ -886,6 +895,7 @@ Reverse active energy balance: Bilans czynnej energii zwróconej
 Reverse active energy balanced: Energia czynna zwrócona (Bilans wektorowy)
 Reverse reactive energy: Energia bierna pojemnościowa
 Revoke: Unieważnij
+Role: Rola
 Roller garage door: Brama garażowa
 Roller shutter opening sensor: Czujnik otwarcia rolet
 Roller shutter operation: Otwieranie i zamykanie rolet
@@ -948,6 +958,7 @@ Send notification: Wyślij powiadomienie
 Sensor disconnected: Brak czujnika
 Sensors: Czujniki
 Septic tank: Szambo
+Serial: Interfejs szeregowy
 Server address: Adres serwera
 Server unreachable: Serwer nieosiągalny
 Service temporarily unavailable: Usługa tymczasowo niedostępna
@@ -968,6 +979,7 @@ Shut the roller until it touches the bottom and type the percentage of closing i
 Sign In: Zaloguj się
 Sign Out: Wyloguj się
 Sign in temporarily unavailable. Please try again later.: Logowanie tymczasowo niedostępne. Spróbuj ponownie później.
+Slave timeout (ms): Czas oczekiwania slave (ms)
 Smartphones: Smartfony
 SoftVer: WerOpr
 Some features depend on this channel: Niektóre funkcje zależą od tego kanału
@@ -986,6 +998,7 @@ State webhook: Webhook stanu
 Status LED: Status LED
 Step by step: Krok po kroku
 Stop: Zatrzymaj
+Stop bits: Stop bits
 Store active power history: Przechowuj historię mocy czynnej
 Store current history: Przechowuj historię natężenia prądu
 Store measurements history: Przechowuj historię pomiarów
@@ -1473,6 +1486,11 @@ choose the scene: wybierz scenę
 choose the schedule: wybierz harmonogram
 choose the timezone: wybierz strefę czasową
 click here: kliknij tutaj
+closeValveOnFloodType_1: Zawsze
+closeValveOnFloodType_2: Przy zmianie
+closeValveOnFloodType_help: |
+  "Zawsze": System zamknie zawór, ilekroć którykolwiek czujnik wykryje zalanie, nawet jeśli użytkownik ponownie go otworzy.
+  "Przy zmianie": Zawór zamyka się tylko wtedy, gdy zostanie wykryte nowe zdarzenie zalania. Na przykład, jeśli jeden czujnik zasygnalizuje zalanie, zawór zamyka się. Użytkownik może go ponownie otworzyć, a system nie zamknie go automatycznie, dopóki ten czujnik nie zresetuje się i nie zgłosi ponownego zalania lub inny czujnik nie zasygnalizuje zalania.
 configuration missing: brak konfiguracji
 contains a character that is neither a letter nor a digit: zawiera znak, który nie jest literą ani cyfrą
 contains a digit: zawiera cyfrę
@@ -1536,6 +1554,11 @@ milliseconds: milisekundy
 min: min.
 min.: min.
 minutes: minut
+modbusRole_MASTER: MASTER (klient)
+modbusRole_SLAVE: SLAVE (serwer)
+modbusSerialStopbits_ONE: Jeden
+modbusSerialStopbits_ONE_AND_HALF: Jeden i pół
+modbusSerialStopbits_TWO: Dwa
 notification: powiadomienie
 ocrLightingMode_ALWAYS_ON: Zawsze włączona
 ocrLightingMode_AUTO: Automatycznie
@@ -1603,10 +1626,14 @@ sunset: zachód słońca
 sunset-after: zachodzie
 sunset-before: zachodem
 swap: zamień
+tank_alarm_alarmAboveLevel: Alarm o wysokim poziomie
+tank_alarm_alarmBelowLevel: Alarm o niskim poziomie
 tank_alarm_fullRange_alarmAboveLevel: Alarm dla poziomu (oraz powyżej)
 tank_alarm_fullRange_alarmBelowLevel: Alarm dla poziomu (oraz poniżej)
 tank_alarm_fullRange_warningAboveLevel: Ostrzeżenie dla poziomu (oraz powyżej)
 tank_alarm_fullRange_warningBelowLevel: Ostrzeżenie dla poziomu (oraz poniżej)
+tank_alarm_warningAboveLevel: Ostrzeżenie o wysokim poziomie
+tank_alarm_warningBelowLevel: Ostrzeżenie o niskim poziomie
 temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Sterowanie oparte o dodatkowy termometr
 temperatureControlType_ROOM_TEMPERATURE: Sterowanie oparte o główny termometr
 the master thermostat ID{id}: termostatu nadrzędnego ID{id}
@@ -1623,6 +1650,7 @@ thermostatOutputValue_help: |
 thermostatSubfunction_COOL: Chłodzenie
 thermostatSubfunction_HEAT: Ogrzewanie
 thermostatTemperature_aboveAlarm: Powyżej alarmu
+thermostatTemperature_auxHisteresis: Histereza temperatury dodatkowej
 thermostatTemperature_auxMaxSetpoint: Maksymalna temperatura dodatkowa
 thermostatTemperature_auxMinSetpoint: Minimalna temperatura dodatkowa
 thermostatTemperature_belowAlarm: Poniżej alarmu
@@ -1680,9 +1708,6 @@ yesterday: wczoraj
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 '% of extension': '% rozwinięcia'
-...and start your adventure with building automation today!: ...i rozpocznij przygodę z inteligentnymi budynkami już dzisiaj!
-Access identifier password must be at least 8 characters.: Hasło dla identyfikatora dostępu musi mieć co najmniej 8 znaków.
-Access identifier password must be no longer than 32 characters.: Hasło dla identyfikatora dostępu nie może być dłuższe niż 32 znaki.
 Action: Akcja
 Add new item to use in the scene: Dodaj nowy element do sceny
 And set the same state for: i ustaw taki sam stan dla
@@ -1730,8 +1755,6 @@ Interpolate measurements: Szacuj brakujące wartości
 Invalid schedule config (incorrect action).: Niepoprawna akcja harmonogramu
 Languages: Języki
 Loading: Ładowanie
-Location password must be at least 4 characters.: Hasło dla lokalizacji musi mieć co najmniej 4 znaki.
-Location password must be no longer than 32 characters.: Hasło dla lokalizacji nie może być dłuższe niż 32 znaki.
 Main thermometer must be set.: Termometr główny musi być ustawiony.
 Maximum temperature that can be set from the device: Maksymalna temperatura, która może być ustawiona za pomocą urządzenia
 Minimum temperature that can be set from the device: Minimalna temperatura, która może być ustawiona za pomocą urządzenia
@@ -1745,8 +1768,6 @@ Output: Wyjście
 Please select an action: Proszę wybrać akcję
 Previous login: Poprzednie logowanie
 Read the following channel's state: Odczytaj stan poniższego kanału
-Reads the state from source channel and sets the same in other channel or channel group.: Odczytuje stan wskazanego kanału i ustawia taki sam stan dla wybranego kanału lub grupy.
-Reference to the channel will be removed from the items below.: Wskazanie na ten kanał będzie usunięte z poniższych elementów.
 Registration: Rejestracja
 Remaining: Pozostało
 Remove: Usuń
@@ -1784,12 +1805,3 @@ suffix: sufiks
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-
-tank_alarm_warningBelowLevel: Ostrzeżenie o niskim poziomie
-tank_alarm_warningAboveLevel: Ostrzeżenie o wysokim poziomie
-tank_alarm_alarmAboveLevel: Alarm o wysokim poziomie
-tank_alarm_alarmBelowLevel: Alarm o niskim poziomie
-
-modbusSerialStopbits_ONE: Jeden
-modbusSerialStopbits_TWO: Dwa
-modbusSerialStopbits_ONE_AND_HALF: Jeden i pół
