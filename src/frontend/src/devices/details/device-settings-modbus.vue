@@ -54,18 +54,20 @@
                     <div v-if="modbusSerialEnabled">
                         <div class="form-group">
                             <label>{{ $t('Mode') }}</label>
-                            <SimpleDropdown v-model="modbusConfig.serial.mode" :options="modbusConstraints.availableSerialModes"
+                            <SimpleDropdown v-model="modbusConfig.serialConfig.mode" :options="modbusConstraints.availableSerialModes"
                                 @input="onChange()"/>
                         </div>
                         <div class="form-group">
                             <label>{{ $t('Baudrate') }}</label>
-                            <SimpleDropdown v-model="modbusConfig.serial.baudrate" :options="modbusConstraints.availableSerialBaudrates"
+                            <SimpleDropdown v-model="modbusConfig.serialConfig.baudrate"
+                                :options="modbusConstraints.availableSerialBaudrates"
                                 @input="onChange()"/>
                         </div>
                         <div class="form-group">
                             <label>{{ $t('Stop bits') }}</label>
                             <!-- i18n: ['modbusSerialStopbits_ONE', 'modbusSerialStopbits_TWO', 'modbusSerialStopbits_ONE_AND_HALF'] -->
-                            <SimpleDropdown v-model="modbusConfig.serial.stopBits" :options="modbusConstraints.availableSerialStopbits"
+                            <SimpleDropdown v-model="modbusConfig.serialConfig.stopBits"
+                                :options="modbusConstraints.availableSerialStopbits"
                                 @input="onChange()">
                                 <template #option="{option}">
                                     {{ $t('modbusSerialStopbits_' + option) }}
@@ -92,12 +94,12 @@
                     <div v-if="modbusNetworkEnabled">
                         <div class="form-group">
                             <label>{{ $t('Mode') }}</label>
-                            <SimpleDropdown v-model="modbusConfig.network.mode" :options="modbusConstraints.availableNetworkModes"
+                            <SimpleDropdown v-model="modbusConfig.networkConfig.mode" :options="modbusConstraints.availableNetworkModes"
                                 @input="onChange()"/>
                         </div>
                         <div class="form-group">
                             <label>{{ $t('Port') }}</label>
-                            <NumberInput v-model="modbusConfig.network.port" :min="1" :max="65535" @input="onChange()"/>
+                            <NumberInput v-model="modbusConfig.networkConfig.port" :min="1" :max="65535" @input="onChange()"/>
                         </div>
                     </div>
                 </transition-expand>
@@ -128,13 +130,13 @@
     });
 
     const modbusSerialEnabled = computed({
-        get: () => modbusConfig.value.serial.mode !== 'DISABLED',
-        set: (value) => modbusConfig.value.serial.mode = value ? modbusConstraints.value.availableSerialModes[0] : 'DISABLED',
+        get: () => modbusConfig.value.serialConfig.mode !== 'DISABLED',
+        set: (value) => modbusConfig.value.serialConfig.mode = value ? modbusConstraints.value.availableSerialModes[0] : 'DISABLED',
     });
 
     const modbusNetworkEnabled = computed({
-        get: () => modbusConfig.value.network.mode !== 'DISABLED',
-        set: (value) => modbusConfig.value.network.mode = value ? modbusConstraints.value.availableNetworkModes[0] : 'DISABLED',
+        get: () => modbusConfig.value.networkConfig.mode !== 'DISABLED',
+        set: (value) => modbusConfig.value.networkConfig.mode = value ? modbusConstraints.value.availableNetworkModes[0] : 'DISABLED',
     });
 
     function onChange() {

@@ -69,11 +69,11 @@ class IODeviceConfigTranslator {
         }
         if ($props['modbus'] ?? false) {
             $config['modbus'] = $config['modbus'] ?? [];
-            if (!($config['modbus']['serial'] ?? false)) {
-                $config['modbus']['serial']['mode'] = 'DISABLED';
+            if (!($config['modbus']['serialConfig'] ?? false)) {
+                $config['modbus']['serialConfig']['mode'] = 'DISABLED';
             }
-            if (!($config['modbus']['network'] ?? false)) {
-                $config['modbus']['network']['mode'] = 'DISABLED';
+            if (!($config['modbus']['networkConfig'] ?? false)) {
+                $config['modbus']['networkConfig']['mode'] = 'DISABLED';
             }
             $config['modbusConstraints'] = $this->getModbusConstraints($device);
             try {
@@ -207,22 +207,22 @@ class IODeviceConfigTranslator {
             ->enumNode('role')->values(array_merge($constraints['availableRoles'], ['NOT_SET']))->defaultValue('NOT_SET')->end()
             ->integerNode('modbusAddress')->min(1)->max(247)->defaultValue(1)->end()
             ->integerNode('slaveTimeoutMs')->min(0)->max(10000)->defaultValue(0)->end()
-            ->arrayNode('serial')->ignoreExtraKeys()->addDefaultsIfNotSet()->children()
+            ->arrayNode('serialConfig')->ignoreExtraKeys()->addDefaultsIfNotSet()->children()
             ->enumNode('mode')->values(array_merge($constraints['availableSerialModes'], ['DISABLED']))->defaultValue('DISABLED')->end()
             ->enumNode('baudrate')->values($constraints['availableSerialBaudrates'])
             ->defaultValue(in_array(19200, $constraints['availableSerialBaudrates']) ? 19200 : $constraints['availableSerialBaudrates'][0])->end()
             ->enumNode('stopBits')->values($constraints['availableSerialStopbits'])->defaultValue($constraints['availableSerialStopbits'][0])->end()
             ->end()->end()
-            ->arrayNode('network')->ignoreExtraKeys()->addDefaultsIfNotSet()->children()
+            ->arrayNode('networkConfig')->ignoreExtraKeys()->addDefaultsIfNotSet()->children()
             ->enumNode('mode')->values(array_merge($constraints['availableNetworkModes'], ['DISABLED']))->defaultValue('DISABLED')->end()
             ->integerNode('port')->min(0)->max(65535)->defaultValue(502)->end()
             ->end()->end()
             ->end();
         if (!$constraints['availableSerialModes']) {
-            $config['serial'] = ['mode' => 'DISABLED'];
+            $config['serialConfig'] = ['mode' => 'DISABLED'];
         }
         if (!$constraints['availableNetworkModes']) {
-            $config['network'] = ['mode' => 'DISABLED'];
+            $config['networkConfig'] = ['mode' => 'DISABLED'];
         }
         $processor = new Processor();
         return $processor->process($configTree->buildTree(), ['modbus' => $config]);
