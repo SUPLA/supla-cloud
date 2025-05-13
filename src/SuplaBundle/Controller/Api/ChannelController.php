@@ -341,6 +341,7 @@ class ChannelController extends RestController {
                         array_merge([ChannelFunction::NONE], EntityUtils::mapToIds(ChannelFunction::forChannel($channel))),
                         'Invalid function for channel.' // i18n
                     );
+                    Assertion::notEq($channel->getType()->getId(), ChannelType::VIRTUAL, 'Cannot change virtual channel function.');
                     if (!$changesConfirmed) {
                         $dependencies = $channelDependencies->getItemsThatDependOnFunction($channel);
                         $visibleDependencies = $channelDependencies->onlyDependenciesVisibleToUser($dependencies);
@@ -768,6 +769,12 @@ class ChannelController extends RestController {
             EntityUtils::setField($channel, 'type', ChannelType::VIRTUAL);
             EntityUtils::setField($channel, 'function', ChannelFunction::GENERAL_PURPOSE_MEASUREMENT);
             EntityUtils::setField($channel, 'properties', json_encode(['virtualChannelType' => $body['virtualChannelType']]));
+            $channel->setUserConfig([
+                'valueMultiplier' => 1,
+                'valueDivider' => 1,
+                'valueAdded' => 0,
+                'keepHistory' => false,
+            ]);
             $em->persist($channel);
             return $channel;
         });

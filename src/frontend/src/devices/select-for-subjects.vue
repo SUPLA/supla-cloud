@@ -49,6 +49,12 @@
         },
         methods: {
             createDropdown() {
+                const plugins = {};
+                if (this.hideNone) {
+                    plugins.remove_button = {
+                        title: this.$t('Remove this item'),
+                    }
+                }
                 this.$nextTick(() => {
                     this.dropdown = new TomSelect(this.$refs.dropdownElement, {
                         valueField: 'id',
@@ -59,11 +65,7 @@
                         maxItems: this.multiple ? null : 1,
                         maxOptions: this.maxOptions,
                         onInitialize: () => this.syncDropdown(),
-                        plugins: {
-                            remove_button: {
-                                title: this.$t('Remove this item'),
-                            }
-                        },
+                        plugins,
                         render: {
                             option: (option, escape) => {
                                 if (option.id === 0) {

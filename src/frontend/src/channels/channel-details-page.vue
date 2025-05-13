@@ -28,29 +28,32 @@
                         <div class="details-page-block">
                             <h3 class="text-center">{{ $t('Configuration') }}</h3>
                             <div class="hover-editable hovered">
-                                <dl>
-                                    <dd>{{ $t('Function') }}</dd>
-                                    <dt class="text-center"
-                                        v-tooltip="hasPendingChanges && $t('Save or discard configuration changes first.')">
-                                        <a class="btn btn-default btn-block btn-wrapped"
-                                            :class="{disabled: hasPendingChanges}"
-                                            @click="changingFunction = true">
-                                            <p class="no-margin text-default">
-                                                {{ $t(channel.function.caption) }}
-                                                <span v-if="channel.function.name == 'UNSUPPORTED'">({{ channel.functionId }})</span>
-                                            </p>
-                                            <span class="small"
-                                                v-if="channel.function.id">
-                                                {{ $t('Change function') }}
-                                            </span>
-                                            <span class="small"
-                                                v-else>
-                                                {{ $t('Choose channel function') }}
-                                            </span>
-                                        </a>
-                                    </dt>
-                                </dl>
                                 <form @submit.prevent="saveChanges()">
+                                    <VirtualChannelParams :channel="channel" @change="updateChannel()"/>
+                                    <dl>
+                                        <dd>{{ $t('Function') }}</dd>
+                                        <dt class="text-center"
+                                            v-if="channel.typeId !== ChannelType.VIRTUAL"
+                                            v-tooltip="hasPendingChanges && $t('Save or discard configuration changes first.')">
+                                            <a class="btn btn-default btn-block btn-wrapped"
+                                                :class="{disabled: hasPendingChanges}"
+                                                @click="changingFunction = true">
+                                                <p class="no-margin text-default">
+                                                    {{ $t(channel.function.caption) }}
+                                                    <span v-if="channel.function.name == 'UNSUPPORTED'">({{ channel.functionId }})</span>
+                                                </p>
+                                                <span class="small"
+                                                    v-if="channel.function.id">
+                                                    {{ $t('Change function') }}
+                                                </span>
+                                                <span class="small"
+                                                    v-else>
+                                                    {{ $t('Choose channel function') }}
+                                                </span>
+                                            </a>
+                                        </dt>
+                                        <dt v-else>{{ $t(channel.function.caption) }}</dt>
+                                    </dl>
                                     <dl>
                                         <dd>{{ $t('Channel name') }}</dd>
                                         <dt>
@@ -96,7 +99,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="details-page-block">
+                        <div class="details-page-block" v-if="channel.typeId !== ChannelType.VIRTUAL">
                             <h3 class="text-center">{{ $t('Device') }}</h3>
                             <div class="form-group">
                                 <device-tile :device="channel.iodevice"></device-tile>
@@ -111,7 +114,7 @@
                                     :square-link-class="channel.inheritedLocation ? 'yellow' : ''"
                                     @chosen="(location) => changeLocation(location)"/>
                             </div>
-                            <div class="text-center">
+                            <div class="text-center" v-if="channel.typeId !== ChannelType.VIRTUAL">
                                 <a v-if="!channel.inheritedLocation && !hasPendingChanges"
                                     @click="changeLocation(null)">
                                     {{ $t('Inherit I/O Device location') }}
@@ -231,10 +234,13 @@
     import {useChannelsStore} from "@/stores/channels-store";
     import ChannelDependenciesList from "@/channels/channel-dependencies-list.vue";
     import ChannelMuteAlarmButton from "@/channels/action/channel-mute-alarm-button.vue";
+    import ChannelType from "@/common/enums/channel-type";
+    import VirtualChannelParams from "@/account/integrations/data-sources/virtual-channel-params.vue";
 
     export default {
         props: ['id'],
         components: {
+            VirtualChannelParams,
             ChannelMuteAlarmButton,
             ChannelDependenciesList,
             ChannelDeleteButton,
@@ -390,6 +396,9 @@
             }
         },
         computed: {
+            ChannelType() {
+                return ChannelType
+            },
             channelTitle() {
                 return channelTitle(this.channel);
             },

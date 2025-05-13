@@ -19,27 +19,12 @@ namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
 use OpenApi\Annotations as OA;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @OA\Schema(
- *   schema="VirtualChannelType", type="object",
- *   @OA\Property(property="id", type="integer", example=1),
- *   @OA\Property(property="name", type="string", example="OPEN_WEATHER"),
- * )
+ * @OA\Schema(schema="VirtualChannelType", type="string", example="OPEN_WEATHER")
  *
- * @method static ChannelType OPEN_WEATHER()
+ * @method static VirtualChannelType OPEN_WEATHER()
  */
 final class VirtualChannelType extends Enum {
-    const OPEN_WEATHER = 1;
-
-    /** @Groups({"basic"}) */
-    public function getId(): int {
-        return $this->value;
-    }
-
-    /** @Groups({"basic"}) */
-    public function getName(): string {
-        return $this->getKey();
-    }
+    const string OPEN_WEATHER = 'OPEN_WEATHER';
 }

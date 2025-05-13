@@ -229,6 +229,11 @@ export default [
                 ]
             },
             {path: 'mqtt-broker', component: () => import("@/account/integrations/mqtt-broker-settings"), name: 'integrations.mqtt'},
+            {
+                path: 'data-sources',
+                component: () => import("@/account/integrations/data-sources/virtual-channel-list-page.vue"),
+                name: 'integrations.dataSources'
+            },
         ]
     },
     {
