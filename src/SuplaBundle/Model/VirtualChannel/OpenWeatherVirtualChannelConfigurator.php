@@ -35,6 +35,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
 
     public function configureChannel(IODeviceChannel $channel, array $config): IODeviceChannel {
         Assertion::keyExists($config, 'weatherField');
+        Assertion::string($config['weatherField']);
         Assertion::keyExists(self::CONFIGS, $config['weatherField']);
         Assertion::keyExists($config, 'cityId');
         Assertion::inArray($config['cityId'], array_column($this->ad->getOpenWeatherCities(), 'id'));

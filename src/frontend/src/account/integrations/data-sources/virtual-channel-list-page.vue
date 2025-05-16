@@ -1,19 +1,24 @@
 <template>
     <div>
         <loading-cover :loading="!channels">
-            <div class="container" v-show="channels && channels.length">
+            <div class="container mb-3">
+                <div class="d-flex">
+                    <h4 class="flex-grow-1">{{ $t('Data sources are virtual channels that can provide data for your account.') }}</h4>
+                    <NewVirtualChannelButton/>
+                </div>
+            </div>
+            <div class="container" v-show="allVirtualChannels && allVirtualChannels.length">
                 <virtual-channel-filters
                     @filter-function="filterFunction = $event"
                     @compare-function="compareFunction = $event"/>
-                <h4 v-if="allVirtualChannels.length === 0">{{ $t('Data sources are virtual channels that can provide data for your account.') }}</h4>
             </div>
             <div>
-                <square-links-grid :count="filteredChannels.length + 1">
+                <square-links-grid :count="filteredChannels.length + 1" v-if="allVirtualChannels?.length > 0">
                     <div v-for="channel in filteredChannels" :key="channel.id">
-                        <NewVirtualChannelForm v-if="channel.id === 'new'"/>
-                        <channel-tile v-else :model="channel"></channel-tile>
+                        <channel-tile :model="channel"></channel-tile>
                     </div>
                 </square-links-grid>
+                <empty-list-placeholder v-else-if="allVirtualChannels"/>
             </div>
         </loading-cover>
     </div>
@@ -25,10 +30,10 @@
     import {useChannelsStore} from "@/stores/channels-store";
     import ChannelType from "@/common/enums/channel-type";
     import VirtualChannelFilters from "./virtual-channel-filters.vue";
-    import NewVirtualChannelForm from "./new-virtual-channel-form.vue";
+    import NewVirtualChannelButton from "@/account/integrations/data-sources/new-virtual-channel-button.vue";
 
     export default {
-        components: {NewVirtualChannelForm, VirtualChannelFilters, ChannelTile},
+        components: {NewVirtualChannelButton, VirtualChannelFilters, ChannelTile},
         data() {
             return {
                 filterFunction: () => true,
@@ -45,7 +50,6 @@
             filteredChannels() {
                 const filteredChannels = this.allVirtualChannels.filter(this.filterFunction);
                 filteredChannels.sort(this.compareFunction);
-                filteredChannels.push({id: 'new'})
                 return filteredChannels;
             },
         },

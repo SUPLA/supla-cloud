@@ -21,7 +21,7 @@ export function channelTitle(channel) {
     if (channel.caption) {
         return channel.caption;
     } else if (channel.typeId === ChannelType.VIRTUAL) {
-        return i18n.global.t('virtualChannelTypeName_' + channel.config.virtualChannelType);
+        return i18n.global.t('virtualChannelTypeName_' + channel.config.virtualChannelConfig.type);
     } else {
         return `ID${channel.id} ` + i18n.global.t(channel.function ? channel.function.caption : 'None');
     }
