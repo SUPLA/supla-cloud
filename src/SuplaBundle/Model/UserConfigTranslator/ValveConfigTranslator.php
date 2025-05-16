@@ -52,7 +52,7 @@ class ValveConfigTranslator extends UserConfigTranslator {
         }
         if ($config['closeValveOnFloodType'] ?? false) {
             Assertion::keyExists($this->getConfig($subject), 'closeValveOnFloodType', 'Cannot set close type for this channel.');
-            Assertion::inArray($config['closeValveOnFloodType'], [1, 2]);
+            Assertion::inArray($config['closeValveOnFloodType'], ['ALWAYS', 'ON_CHANGE']);
             $subject->setUserConfigValue('closeValveOnFloodType', $config['closeValveOnFloodType']);
         }
     }

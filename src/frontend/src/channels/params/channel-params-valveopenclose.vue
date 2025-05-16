@@ -33,9 +33,9 @@
                         {{ $t(`closeValveOnFloodType_${channel.config.closeValveOnFloodType}`) }}
                         <span class="caret"></span>
                     </button>
-                    <!-- i18n:['closeValveOnFloodType_1', 'closeValveOnFloodType_2'] -->
+                    <!-- i18n: ['closeValveOnFloodType_ALWAYS', 'closeValveOnFloodType_ON_CHANGE'] -->
                     <ul class="dropdown-menu">
-                        <li v-for="type in [1, 2]" :key="type">
+                        <li v-for="type in ['ALWAYS', 'ON_CHANGE']" :key="type">
                             <a @click="channel.config.closeValveOnFloodType = type; $emit('change')"
                                 v-show="type !== channel.config.closeValveOnFloodType">
                                 {{ $t(`closeValveOnFloodType_${type}`) }}

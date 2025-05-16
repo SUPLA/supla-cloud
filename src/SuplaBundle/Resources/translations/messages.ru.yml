@@ -1647,8 +1647,8 @@ change: ~
 choose the access identifiers: ~
 choose the currency: ~
 choose the schedule: ~
-closeValveOnFloodType_1: ~
-closeValveOnFloodType_2: ~
+closeValveOnFloodType_ALWAYS: ~
+closeValveOnFloodType_ON_CHANGE: ~
 closeValveOnFloodType_help: ~
 configuration missing: ~
 contains a character that is neither a letter nor a digit: ~

@@ -1788,8 +1788,8 @@ You cannot change this function becuase it is required by another channel.: ~
 activityConditions_help: ~
 and wait until the battery level will be: ~
 and wait until the fill level will be: ~
-closeValveOnFloodType_1: ~
-closeValveOnFloodType_2: ~
+closeValveOnFloodType_ALWAYS: ~
+closeValveOnFloodType_ON_CHANGE: ~
 closeValveOnFloodType_help: ~
 directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
 homeScreenContent_MODE_OR_TEMPERATURE: ~

@@ -37,8 +37,8 @@ channelConfigHelp_stateVerificationMethod: 'Active: the first state change repor
 channelConfig_stateVerificationMethod_active: Active
 channelConfig_stateVerificationMethod_passive: Passive
 channelGroup: Channel group
-closeValveOnFloodType_1: Always
-closeValveOnFloodType_2: On change
+closeValveOnFloodType_ALWAYS: Always
+closeValveOnFloodType_ON_CHANGE: On change
 closeValveOnFloodType_help: |
   "Always": The system will close the valve whenever any sensor detects flooding, even if the user reopens it.
   "On change": The valve closes only when a new flooding event is detected. For example, if one sensor triggers flooding, the valve closes. The user can reopen it, and it won’t auto-close again unless that sensor resets and floods again, or another sensor reports flooding.

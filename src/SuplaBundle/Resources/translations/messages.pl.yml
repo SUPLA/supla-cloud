@@ -1486,8 +1486,8 @@ choose the scene: wybierz scenę
 choose the schedule: wybierz harmonogram
 choose the timezone: wybierz strefę czasową
 click here: kliknij tutaj
-closeValveOnFloodType_1: Zawsze
-closeValveOnFloodType_2: Przy zmianie
+closeValveOnFloodType_ALWAYS: Zawsze
+closeValveOnFloodType_ON_CHANGE: Przy zmianie
 closeValveOnFloodType_help: |
   "Zawsze": System zamknie zawór, ilekroć którykolwiek czujnik wykryje zalanie, nawet jeśli użytkownik ponownie go otworzy.
   "Przy zmianie": Zawór zamyka się tylko wtedy, gdy zostanie wykryte nowe zdarzenie zalania. Na przykład, jeśli jeden czujnik zasygnalizuje zalanie, zawór zamyka się. Użytkownik może go ponownie otworzyć, a system nie zamknie go automatycznie, dopóki ten czujnik nie zresetuje się i nie zgłosi ponownego zalania lub inny czujnik nie zasygnalizuje zalania.

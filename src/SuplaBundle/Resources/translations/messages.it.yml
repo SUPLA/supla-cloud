@@ -1723,8 +1723,8 @@ auxThermometerType_GENERIC_COOLER: ~
 auxThermometerType_GENERIC_HEATER: ~
 auxThermometerType_NOT_SET: ~
 auxThermometerType_WATER: ~
-closeValveOnFloodType_1: ~
-closeValveOnFloodType_2: ~
+closeValveOnFloodType_ALWAYS: ~
+closeValveOnFloodType_ON_CHANGE: ~
 closeValveOnFloodType_help: ~
 directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: ~
