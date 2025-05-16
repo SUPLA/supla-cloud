@@ -7,16 +7,24 @@
                     <div class="flex-grow-1">
                         <h1 v-title class="m-0">{{ channelTitle }}</h1>
                         <h4>
-                            {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',') }}
-                            <span v-if="channel.type.name == 'UNSUPPORTED'">{{ channel.type.id }},</span>
-                            {{ $t('ID') }}:
-                            {{ channel.id }},
-                            {{ $t('Channel No') }}: {{ channel.channelNumber }}
+                            <span v-if="channel.typeId !== ChannelType.VIRTUAL">
+                                {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',') }}
+                                <span v-if="channel.type.name == 'UNSUPPORTED'">{{ channel.type.id }},</span>
+                            </span>
+                            <span v-if="channel.typeId !== ChannelType.VIRTUAL">
+                                {{ $t('Channel No') }}: {{ channel.channelNumber }},
+                            </span>
+                            {{ $t('ID') }}: {{ channel.id }}
                         </h4>
                     </div>
                     <div>
                         <ChannelDeleteButton :channel="channel"/>
                     </div>
+                </div>
+                <div v-if="channel.typeId === ChannelType.VIRTUAL" class="mb-3">
+                    <router-link :to="{name: 'integrations.dataSources'}">
+                        « {{ $t('Go back to data sources') }}
+                    </router-link>
                 </div>
                 <ChannelConflictDetailsWarning :channel="channel" v-if="channel.conflictDetails"/>
                 <div class="alert alert-warning"
@@ -29,7 +37,7 @@
                             <h3 class="text-center">{{ $t('Configuration') }}</h3>
                             <div class="hover-editable hovered">
                                 <form @submit.prevent="saveChanges()">
-                                    <VirtualChannelParams :channel="channel" @change="updateChannel()"/>
+                                    <VirtualChannelInfo :channel="channel" v-if="channel.typeId === ChannelType.VIRTUAL"/>
                                     <dl>
                                         <dd>{{ $t('Function') }}</dd>
                                         <dt class="text-center"
@@ -235,12 +243,12 @@
     import ChannelDependenciesList from "@/channels/channel-dependencies-list.vue";
     import ChannelMuteAlarmButton from "@/channels/action/channel-mute-alarm-button.vue";
     import ChannelType from "@/common/enums/channel-type";
-    import VirtualChannelParams from "@/account/integrations/data-sources/virtual-channel-params.vue";
+    import VirtualChannelInfo from "@/account/integrations/data-sources/virtual-channel-info.vue";
 
     export default {
         props: ['id'],
         components: {
-            VirtualChannelParams,
+            VirtualChannelInfo,
             ChannelMuteAlarmButton,
             ChannelDependenciesList,
             ChannelDeleteButton,
