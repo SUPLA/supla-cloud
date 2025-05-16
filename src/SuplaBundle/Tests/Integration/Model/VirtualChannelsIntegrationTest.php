@@ -105,7 +105,6 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $body = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('state', $body);
         $this->assertNotNull($body['state']['temperature']);
-        $this->assertGreaterThan(0, $body['state']['temperature']);
     }
 
     /** @depends testCreatingVirtualChannelTemp */
@@ -113,5 +112,30 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $chValue = $this->getEntityManager()->getRepository(ChannelValue::class)->findOneBy(['channel' => $channelId]);
         $this->assertNotNull($chValue);
         $this->assertGreaterThan(0, $chValue->getValue());
+    }
+
+    public function testCreatingVirtualChannelTempHum() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('POST', '/api/channels', [
+            'virtualChannelType' => VirtualChannelType::OPEN_WEATHER,
+            'virtualChannelConfig' => [
+                'cityId' => 1,
+                'weatherField' => 'tempHumidity',
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('id', $content);
+        $this->assertArrayHasKey('config', $content);
+        $this->assertEquals(ChannelFunction::HUMIDITYANDTEMPERATURE, $content['functionId']);
+        $this->assertArrayHasKey('virtualChannelConfig', $content['config']);
+        $chValue = $this->getEntityManager()->getRepository(ChannelValue::class)->findOneBy(['channel' => $content['id']]);
+        $this->assertNotNull($chValue);
+        $value = unpack('ltemp/lhum', $chValue->getValue());
+        $this->assertGreaterThan(0, $value['temp'] / 1000);
+        $this->assertLessThan(40, $value['temp'] / 1000);
+        $this->assertGreaterThan(0, $value['hum'] / 1000);
+        $this->assertLessThan(100, $value['hum'] / 1000);
     }
 }

@@ -27,6 +27,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         'airO3' => ['function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
         'airPm10' => ['function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
         'airPm25' => ['function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
+        'tempHumidity' => ['function' => ChannelFunction::HUMIDITYANDTEMPERATURE],
     ];
 
     public function __construct(private SuplaAutodiscover $ad) {
