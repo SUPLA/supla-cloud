@@ -212,6 +212,7 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
                         'humidity' => rand(20, 80),
                         'visibility' => rand(500, 10000),
                         'windSpeed' => rand(0, 100) / 10,
+                        'windGust' => rand(0, 100) / 10,
                         'clouds' => rand(0, 100),
                         'rainMmh' => rand(0, 50),
                         'snowMmh' => rand(0, 50),
