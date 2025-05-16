@@ -19,6 +19,8 @@ services:
       tags: [supla.user_config_translator]
     SuplaBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
       tags: [supla.channel_state_getter]
+    SuplaBundle\Model\VirtualChannel\VirtualChannelConfigurator:
+      tags: [supla.virtual_channel_configurator]
     Symfony\Component\Console\Command\Command:
       tags:
         - {name: monolog.logger, channel: supla_cli}
@@ -125,6 +127,9 @@ services:
       - !tagged supla.channel_state_getter
     tags:
       - {name: monolog.logger, channel: supla_server}
+
+  SuplaBundle\Model\VirtualChannel\VirtualChannelFactory:
+    $configurators: !tagged supla.virtual_channel_configurator
 
   SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker:
     $enabled: '%supla.brute_force_auth_prevention.enabled%'

@@ -19,7 +19,7 @@ namespace SuplaBundle\Command\Cyclic;
 
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\Transactional;
-use SuplaBundle\Model\VirtualChannelStateUpdater;
+use SuplaBundle\Model\VirtualChannel\VirtualChannelStateUpdater;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

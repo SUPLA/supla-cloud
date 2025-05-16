@@ -1,6 +1,6 @@
 <?php
 
-namespace SuplaBundle\Model;
+namespace SuplaBundle\Model\VirtualChannel;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\ChannelValue;
@@ -23,8 +23,9 @@ class VirtualChannelStateUpdater {
         $channelUpdates = [];
         foreach ($channels as $channel) {
             $channelUpdates[] = [$channel->getId(), $channel->getUser()->getId()];
-            if ($channel->getProperty('virtualChannelType') === VirtualChannelType::OPEN_WEATHER) {
-                if (($cityId = $channel->getUserConfigValue('cityId')) && ($field = $channel->getUserConfigValue('weatherField'))) {
+            $cfg = $channel->getProperty('virtualChannelConfig', []);
+            if (($cfg['type'] ?? null) === VirtualChannelType::OPEN_WEATHER) {
+                if (($cityId = $cfg['cityId'] ?? null) && ($field = $cfg['weatherField'] ?? null)) {
                     $tasks['openWeatherUpdates'][$cityId][$field][] = $channel->getId();
                 }
             }

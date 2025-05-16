@@ -17,10 +17,11 @@
 
 namespace SuplaBundle\Tests\Integration\Model;
 
+use SuplaBundle\Entity\Main\ChannelValue;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\VirtualChannelType;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -51,38 +52,51 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $this->assertCount(4, $content);
     }
 
-    public function testCreatingVirtualChannel() {
+    public function testCreatingVirtualChannelTemp() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV3('POST', '/api/channels', [
             'virtualChannelType' => VirtualChannelType::OPEN_WEATHER,
+            'virtualChannelConfig' => [
+                'cityId' => 1,
+                'weatherField' => 'temp',
+            ],
         ]);
         $response = $client->getResponse();
         $this->assertStatusCode(201, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('id', $content);
         $this->assertArrayHasKey('config', $content);
-        $this->assertArrayHasKey('virtualChannelType', $content['config']);
-        $this->assertEquals(VirtualChannelType::OPEN_WEATHER, $content['config']['virtualChannelType']);
+        $this->assertEquals(ChannelFunction::THERMOMETER, $content['functionId']);
+        $this->assertArrayHasKey('virtualChannelConfig', $content['config']);
+        $this->assertEquals(VirtualChannelType::OPEN_WEATHER, $content['config']['virtualChannelConfig']['type']);
+        $this->assertEquals(1, $content['config']['virtualChannelConfig']['cityId']);
+        $this->assertEquals('temp', $content['config']['virtualChannelConfig']['weatherField']);
         return $content['id'];
     }
 
-    /** @depends testCreatingVirtualChannel */
-    public function testSettingChannelConfiguration(int $channelId) {
+    public function testCreatingVirtualChannelWind() {
         $client = $this->createAuthenticatedClient($this->user);
-        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
-        $client->apiRequestV3('PUT', '/api/channels/' . $channelId, [
-            'config' => [
+        $client->apiRequestV3('POST', '/api/channels', [
+            'virtualChannelType' => VirtualChannelType::OPEN_WEATHER,
+            'virtualChannelConfig' => [
                 'cityId' => 1,
-                'field' => 'temp',
+                'weatherField' => 'windSpeed',
             ],
-            'configBefore' => $channelParamConfigTranslator->getConfig($this->freshChannelById($channelId)),
         ]);
         $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        return $channelId;
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('id', $content);
+        $this->assertArrayHasKey('config', $content);
+        $this->assertEquals(ChannelFunction::WINDSENSOR, $content['functionId']);
+        $this->assertArrayHasKey('virtualChannelConfig', $content['config']);
+        $this->assertEquals(VirtualChannelType::OPEN_WEATHER, $content['config']['virtualChannelConfig']['type']);
+        $this->assertEquals(1, $content['config']['virtualChannelConfig']['cityId']);
+        $this->assertEquals('windSpeed', $content['config']['virtualChannelConfig']['weatherField']);
+        return $content['id'];
     }
 
-    /** @depends testSettingChannelConfiguration */
+    /** @depends testCreatingVirtualChannelTemp */
     public function testGettingVirtualChannelState(int $channelId) {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV3('GET', "/api/channels/{$channelId}?include=state");
@@ -90,7 +104,14 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $body = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('state', $body);
-        $this->assertNotNull($body['state']['value']);
-        $this->assertGreaterThan(0, $body['state']['value']);
+        $this->assertNotNull($body['state']['temperature']);
+        $this->assertGreaterThan(0, $body['state']['temperature']);
+    }
+
+    /** @depends testCreatingVirtualChannelTemp */
+    public function testSavesChannelsValueInDatabase(int $channelId) {
+        $chValue = $this->getEntityManager()->getRepository(ChannelValue::class)->findOneBy(['channel' => $channelId]);
+        $this->assertNotNull($chValue);
+        $this->assertGreaterThan(0, $chValue->getValue());
     }
 }
