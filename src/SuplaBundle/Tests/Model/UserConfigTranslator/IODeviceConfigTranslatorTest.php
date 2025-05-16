@@ -130,9 +130,9 @@ class IODeviceConfigTranslatorTest extends TestCase {
             [['homeScreen' => ['content' => 'NONE', 'offDelay' => 1000, 'extra' => 'unicorn']]],
             [['homeScreen' => 2]],
             [['modbus' => ['role' => 'UNICORN']]],
-            [['modbus' => ['serial' => ['mode' => 'UNICORN']]]],
-            [['modbus' => ['serial' => ['baudrate' => 666]]]],
-            [['modbus' => ['serial' => ['stopBits' => 'UNICORN']]]],
+            [['modbus' => ['serialConfig' => ['mode' => 'UNICORN']]]],
+            [['modbus' => ['serialConfig' => ['baudrate' => 666]]]],
+            [['modbus' => ['serialConfig' => ['stopBits' => 'UNICORN']]]],
         ];
     }
 
@@ -189,7 +189,7 @@ class IODeviceConfigTranslatorTest extends TestCase {
 
     public function testSettingOnlyModbusMode() {
         $device = new IODevice();
-        $device->setUserConfig(['modbus' => ['serial' => ['mode' => 'RTU', 'baudrate' => 9600, 'stopBits' => 'ONE']]]);
+        $device->setUserConfig(['modbus' => ['serialConfig' => ['mode' => 'RTU', 'baudrate' => 9600, 'stopBits' => 'ONE']]]);
         EntityUtils::setField($device, 'properties', json_encode([
             "modbus" => [
                 "availableProtocols" => ["MASTER", "SLAVE", "RTU", "ASCII", "TCP", "UDP"],
@@ -198,16 +198,16 @@ class IODeviceConfigTranslatorTest extends TestCase {
             ],
         ]));
         $config = $this->translator->getConfig($device);
-        $this->assertEquals('RTU', $config['modbus']['serial']['mode']);
-        $config['modbus']['serial'] = ['mode' => 'ASCII'];
+        $this->assertEquals('RTU', $config['modbus']['serialConfig']['mode']);
+        $config['modbus']['serialConfig'] = ['mode' => 'ASCII'];
         $this->translator->setConfig($device, $config);
-        $this->assertEquals(9600, $device->getUserConfigValue('modbus')['serial']['baudrate']);
-        $this->assertEquals('ASCII', $device->getUserConfigValue('modbus')['serial']['mode']);
+        $this->assertEquals(9600, $device->getUserConfigValue('modbus')['serialConfig']['baudrate']);
+        $this->assertEquals('ASCII', $device->getUserConfigValue('modbus')['serialConfig']['mode']);
     }
 
     public function testClearingModbusSerial() {
         $device = new IODevice();
-        $device->setUserConfig(['modbus' => ['serial' => ['mode' => 'RTU', 'baudrate' => 9600, 'stopBits' => 'ONE']]]);
+        $device->setUserConfig(['modbus' => ['serialConfig' => ['mode' => 'RTU', 'baudrate' => 9600, 'stopBits' => 'ONE']]]);
         EntityUtils::setField($device, 'properties', json_encode([
             "modbus" => [
                 "availableProtocols" => ["MASTER", "SLAVE", "RTU", "ASCII", "TCP", "UDP"],
@@ -216,9 +216,9 @@ class IODeviceConfigTranslatorTest extends TestCase {
             ],
         ]));
         $config = $this->translator->getConfig($device);
-        $config['modbus']['serial'] = null;//['enabled' => false];
+        $config['modbus']['serialConfig'] = null;//['enabled' => false];
         $this->translator->setConfig($device, $config);
-        $this->assertEquals('DISABLED', $device->getUserConfigValue('modbus')['serial']['mode']);
+        $this->assertEquals('DISABLED', $device->getUserConfigValue('modbus')['serialConfig']['mode']);
     }
 
     public function testGettingModbusDefaults() {
@@ -232,13 +232,13 @@ class IODeviceConfigTranslatorTest extends TestCase {
             ],
         ]));
         $config = $this->translator->getConfig($device);
-        $this->assertEquals('DISABLED', $config['modbus']['serial']['mode']);
-        $this->assertEquals(19200, $config['modbus']['serial']['baudrate']);
+        $this->assertEquals('DISABLED', $config['modbus']['serialConfig']['mode']);
+        $this->assertEquals(19200, $config['modbus']['serialConfig']['baudrate']);
     }
 
     public function testDoesNotFailOnInvalidModbusConfig() {
         $device = new IODevice();
-        $device->setUserConfig(['modbus' => ['serial' => ['mode' => 'RTU', 'baudrate' => 666]]]);
+        $device->setUserConfig(['modbus' => ['serialConfig' => ['mode' => 'RTU', 'baudrate' => 666]]]);
         EntityUtils::setField($device, 'properties', json_encode([
             "modbus" => [
                 "availableProtocols" => ["MASTER", "SLAVE", "RTU", "ASCII", "TCP", "UDP"],
@@ -247,7 +247,7 @@ class IODeviceConfigTranslatorTest extends TestCase {
             ],
         ]));
         $config = $this->translator->getConfig($device);
-        $this->assertEquals('RTU', $config['modbus']['serial']['mode']);
-        $this->assertEquals(666, $config['modbus']['serial']['baudrate']);
+        $this->assertEquals('RTU', $config['modbus']['serialConfig']['mode']);
+        $this->assertEquals(666, $config['modbus']['serialConfig']['baudrate']);
     }
 }
