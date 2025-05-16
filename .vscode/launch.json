@@ -1,0 +1,69 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "SUPLA DEV Init",
+            "type": "php",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "port": 0,
+            "program": "${workspaceRoot}/bin/console",
+            "args": [
+                "supla:dev:dropAndLoadFixtures",
+                "-e",
+                "dev"
+            ],
+            "runtimeArgs": [
+                "-dxdebug.mode=debug",
+                "-dxdebug.start_with_request=yes"
+            ]
+        },
+        {
+            "name": "SUPLA Frontend",
+            "command": "npm run serve",
+            "request": "launch",
+            "type": "node-terminal",
+            "cwd": "${workspaceRoot}/src/frontend"
+        },
+        {
+            "name": "SUPLA Backend",
+            "type": "php",
+            "request": "launch",
+            "runtimeArgs": [
+                "-dxdebug.mode=debug",
+                "-dxdebug.start_with_request=yes",
+                "-S",
+                "127.0.0.1:8008",
+                "-t",
+                "${workspaceRoot}/web",
+                "${workspaceRoot}/web/router.php"
+            ],
+            "program": "",
+            "cwd": "${workspaceRoot}",
+            "port": 9003,
+            "serverReadyAction": {
+                "pattern": "Development Server \\(http://localhost:([0-9]+)\\) started",
+                "uriFormat": "http://localhost:%s",
+                "action": "openExternally"
+            }
+        },
+        {
+            "name": "Launch currently open script",
+            "type": "php",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${fileDirname}",
+            "port": 0,
+            "runtimeArgs": [
+                "-dxdebug.start_with_request=yes"
+            ],
+            "env": {
+                "XDEBUG_MODE": "debug,develop",
+                "XDEBUG_CONFIG": "client_port=${port}"
+            }
+        }
+    ]
+}
