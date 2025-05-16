@@ -277,9 +277,7 @@ final class ChannelType extends Enum {
                 ChannelFunction::SEPTIC_TANK(),
                 ChannelFunction::WATER_TANK(),
             ],
-            self::VIRTUAL => [
-                ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(),
-            ],
+            self::VIRTUAL => [],
         ];
         $map[self::SENSORNC] = $map[self::SENSORNO];
         foreach ([self::DHT11, self::DHT21, self::DHT22, self::AM2301, self::AM2302] as $humidityAndTemperatureType) {
