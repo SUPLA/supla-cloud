@@ -3,6 +3,7 @@ namespace SuplaBundle\Model\ChannelStateGetter;
 
 use InvalidArgumentException;
 use OpenApi\Annotations as OA;
+use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
@@ -45,11 +46,18 @@ class ChannelStateGetter {
     private $sceneStateGetter;
     /** @var ScheduleStateGetter */
     private $scheduleStateGetter;
+    private LoggerInterface $logger;
 
-    public function __construct($stateGetters, SceneStateGetter $sceneStateGetter, ScheduleStateGetter $scheduleStateGetter) {
+    public function __construct(
+        $stateGetters,
+        SceneStateGetter $sceneStateGetter,
+        ScheduleStateGetter $scheduleStateGetter,
+        LoggerInterface $logger
+    ) {
         $this->stateGetters = $stateGetters;
         $this->sceneStateGetter = $sceneStateGetter;
         $this->scheduleStateGetter = $scheduleStateGetter;
+        $this->logger = $logger;
     }
 
     public function getState(ActionableSubject $subject): array {
@@ -62,6 +70,7 @@ class ChannelStateGetter {
                     }
                 }
             } catch (SuplaServerIsDownException $e) {
+                $this->logger->error($e->getMessage());
                 $state = ['connected' => false];
             }
             return $state;

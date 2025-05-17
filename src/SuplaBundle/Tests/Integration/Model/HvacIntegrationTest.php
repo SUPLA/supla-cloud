@@ -725,6 +725,13 @@ class HvacIntegrationTest extends IntegrationTestCase {
         ];
     }
 
+    public function testGettingStateInvalid() {
+        $stateGetter = self::$container->get(ChannelStateGetter::class);
+        SuplaServerMock::mockResponse('GET-HVAC-VALUE:1,1,3', 'VALUE:666,666');
+        $state = $stateGetter->getState($this->hvacChannel);
+        $this->assertEquals(['connected' => false], $state);
+    }
+
     public function testChangingLocationOfThermostatAlsoChangesThermometersLocation() {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
         $device->getChannels()[2]->setUserConfig([]);

@@ -29,7 +29,7 @@ class RollerShutterChannelStateGetter implements SingleChannelStateGetter {
         $value = rtrim($value);
         $values = explode(',', substr($value, strlen('VALUE:')));
         if (count($values) !== 2) {
-            throw new SuplaServerIsDownException();
+            throw new SuplaServerIsDownException('Invalid response for ROLLERSHUTTER: ' . $value);
         }
         [$position, $flags] = array_map('intval', $values);
         return [

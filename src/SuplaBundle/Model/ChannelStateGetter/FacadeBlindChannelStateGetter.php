@@ -30,7 +30,7 @@ class FacadeBlindChannelStateGetter implements SingleChannelStateGetter {
         $value = rtrim($value);
         $values = explode(',', substr($value, strlen('VALUE:')));
         if (count($values) !== 3) {
-            throw new SuplaServerIsDownException();
+            throw new SuplaServerIsDownException('Invalid response for FACADE-BLIND: ' . $value);
         }
         [, $tiltPercent, $tiltAngle] = array_map('intval', $values);
         return [

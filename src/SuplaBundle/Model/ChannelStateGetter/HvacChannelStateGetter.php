@@ -40,7 +40,7 @@ class HvacChannelStateGetter implements SingleChannelStateGetter {
         $value = rtrim($value);
         $values = explode(',', substr($value, strlen('VALUE:')));
         if (count($values) !== 7) {
-            throw new SuplaServerIsDownException();
+            throw new SuplaServerIsDownException('Invalid HVAC channel state: ' . $value);
         }
         [$isOn, $modeId, $tempHeat, $tempCool, $flags, $tempMain, $humidityMain] = $values;
         return [

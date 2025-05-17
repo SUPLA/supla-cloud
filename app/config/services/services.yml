@@ -121,7 +121,10 @@ services:
     - !tagged supla.user_config_translator
 
   SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter:
-    - !tagged supla.channel_state_getter
+    arguments:
+      - !tagged supla.channel_state_getter
+    tags:
+      - {name: monolog.logger, channel: supla_server}
 
   SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker:
     $enabled: '%supla.brute_force_auth_prevention.enabled%'
