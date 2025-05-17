@@ -381,8 +381,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [4, 'GET-ROLLERSHUTTER-VALUE', 'VALUE:-1,16', ['isCalibrating' => true, 'notCalibrated' => true, 'shut' => 0]],
             [4, 'GET-ROLLERSHUTTER-VALUE', 'VALUE:-1,0', ['isCalibrating' => false, 'notCalibrated' => true, 'shut' => 0]],
             [4, 'GET-ROLLERSHUTTER-VALUE', "VALUE:42,0\n", ['isCalibrating' => false, 'shut' => 42]],
-            [10, 'GET-FACADE-BLIND-VALUE:1,1,10', 'VALUE:1,2,3', ['tiltPercent' => 2, 'tiltAngle' => 3]],
-            [10, 'GET-FACADE-BLIND-VALUE:1,1,10', 'VALUE:1,2.234,3.0001', ['tiltPercent' => 2, 'tiltAngle' => 3]],
+            [10, 'GET-FACADE-BLIND-VALUE:1,1,10', 'VALUE:1,2,3,16', ['tiltPercent' => 2, 'isCalibrating' => true, 'shut' => 1]],
+            [10, 'GET-FACADE-BLIND-VALUE:1,1,10', 'VALUE:1,2.234,3.01,0', ['tiltPercent' => 2, 'tiltAngle' => 3, 'isCalibrating' => false]],
         ];
     }
 

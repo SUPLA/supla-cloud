@@ -49,8 +49,6 @@ class RollerShutterChannelStateGetter implements SingleChannelStateGetter {
             ChannelFunction::PROJECTOR_SCREEN(),
             ChannelFunction::CURTAIN(),
             ChannelFunction::ROLLER_GARAGE_DOOR(),
-            ChannelFunction::CONTROLLINGTHEFACADEBLIND(),
-            ChannelFunction::VERTICAL_BLIND(),
         ];
     }
 }
