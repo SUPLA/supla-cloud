@@ -160,10 +160,10 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(24, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureHeat']);
                     $this->assertEquals('ON_OFF_SETPOINT_AT_MOST', $config['usedAlgorithm']);
                     $this->assertEquals(6, $config['binarySensorChannelId']);
-                    $this->assertCount(7, $config['temperatures']);
-                    $this->assertEquals(18, $config['temperatures']['eco']);
+                    $this->assertCount(3, $config['temperatures']);
+                    $this->assertEquals(1800, $config['temperatures']['eco']);
                     $this->assertArrayNotHasKey('comfort', $config['temperatures']);
-                    $this->assertCount(6, array_filter($config['temperatures']));
+                    $this->assertCount(3, array_filter($config['temperatures']));
                     $this->assertTrue($config['heatingModeAvailable']);
                     $this->assertFalse($config['coolingModeAvailable']);
                     $this->assertArrayNotHasKey('temperatureControlType', $config);
@@ -1023,7 +1023,9 @@ class HvacIntegrationTest extends IntegrationTestCase {
             'config' => ['temperatures' => ['eco' => 19]],
         ]);
         $response = $client->getResponse();
-        $this->assertStatusCode(400, $response);
+        $this->assertStatusCode(200, $response);
+        $channel = $this->freshChannelById($this->device->getChannels()[4]->getId());
+        $this->assertEquals(180000, $channel->getUserConfigValue('temperatures')['eco']);
     }
 
     public function testTryingToUpdateTemperatureWithValueHigherThanConstraint() {
@@ -1266,7 +1268,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
 
     public function testIgnoresInvalidAuxTemperaturesWhenAuxIsDisabled() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('PUT', '/api/channels/' . $this->device->getChannels()[4]->getId(), [
+        $client->apiRequestV24('PUT', '/api/channels/' . $this->device->getChannels()[3]->getId(), [
             'config' => [
                 'auxMinMaxSetpointEnabled' => false,
                 'temperatures' => ['auxMinSetpoint' => -5, 'auxMaxSetpoint' => -5],
@@ -1274,9 +1276,27 @@ class HvacIntegrationTest extends IntegrationTestCase {
         ]);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $channel = $this->freshEntity($this->device->getChannels()[4]);
+        $channel = $this->freshEntity($this->device->getChannels()[3]);
         $this->assertFalse($channel->getUserConfigValue('auxMinMaxSetpointEnabled'));
         $this->assertNull($channel->getUserConfigValue('temperatures')['auxMinSetpoint']);
         $this->assertNull($channel->getUserConfigValue('temperatures')['auxMaxSetpoint']);
+    }
+
+    public function testInvalidReadOnlyTemperatureIsNotValidated() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $hvacChannel = $this->device->getChannels()[4];
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $channelConfig = $channelParamConfigTranslator->getConfig($hvacChannel);
+        $newConfig = $channelConfig;
+        $newConfig['temperatures']['boost'] = 23.5;
+        $client->apiRequestV3('PUT', '/api/channels/' . $hvacChannel->getId(), [
+            'config' => $newConfig,
+            'configBefore' => $channelConfig,
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(23.5, $content['config']['temperatures']['boost']);
+        $this->assertEquals(1800, $content['config']['temperatures']['eco']);
     }
 }

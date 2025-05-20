@@ -410,7 +410,7 @@ class DevicesFixture extends SuplaFixture {
                         'antiFreezeAndOverheatProtectionEnabled' => true,
                         'temperatures' => [
                             'freezeProtection' => 1100,
-                            'eco' => 1800,
+                            'eco' => 180000,
                             'comfort' => 2000,
                             'boost' => 2500,
                         ],

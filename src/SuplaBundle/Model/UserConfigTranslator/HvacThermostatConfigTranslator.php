@@ -379,7 +379,11 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $newTemps = $config['temperatures'];
             $temps = $subject->getUserConfigValue('temperatures', []);
             $currentTemperatures = $this->buildTemperaturesArray($subject);
+            $readOnlyTemperatures = $subject->getProperty('readOnlyTemperatureConfigFields', []);
             foreach ($newTemps as $tempKey => $newTemp) {
+                if (in_array($tempKey, $readOnlyTemperatures)) {
+                    continue;
+                }
                 Assertion::inArray($tempKey, array_keys($currentTemperatures));
                 $constraintName = [
                     'histeresis' => 'histeresis',
@@ -392,7 +396,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                     $newTempForConfig = $this->validateTemperature($subject, $newTemp, $constraintName);
                 }
                 if ($newTempForConfig !== ($temps[$tempKey] ?? '')) {
-                    $readOnlyTemperatures = $subject->getProperty('readOnlyTemperatureConfigFields', []);
                     Assertion::notInArray($tempKey, $readOnlyTemperatures, 'Cannot change the temperature %s. It is read only.');
                     if (!$newTemp && $newTemp !== 0) {
                         if (isset($temps[$tempKey])) {
