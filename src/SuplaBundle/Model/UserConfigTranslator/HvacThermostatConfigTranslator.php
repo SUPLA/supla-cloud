@@ -630,7 +630,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
     private function buildTemperaturesArray(HasUserConfig $subject): array {
         $currentTemperatures = $subject->getUserConfigValue('temperatures', []);
         $temperatures = array_merge(
-            array_flip(['auxMinSetpoint', 'auxMaxSetpoint', 'freezeProtection', 'heatProtection', 'histeresis']),
+            ['auxMinSetpoint' => '', 'auxMaxSetpoint' => '', 'freezeProtection' => '', 'heatProtection' => '', 'histeresis' => ''],
             array_map([$this, 'adjustTemperature'], $currentTemperatures)
         );
         $hiddenTemperatures = $subject->getProperty('hiddenTemperatureConfigFields', []);
