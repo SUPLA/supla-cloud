@@ -1299,4 +1299,22 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(23.5, $content['config']['temperatures']['boost']);
         $this->assertEquals(1800, $content['config']['temperatures']['eco']);
     }
+
+    public function testClearingOptionalTemperatureDoesNotRemoveItFromConfig() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $hvacChannel = $this->device->getChannels()[2];
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $channelConfig = $channelParamConfigTranslator->getConfig($hvacChannel);
+        $newConfig = $channelConfig;
+        $newConfig['temperatures']['auxHisteresis'] = '';
+        $client->apiRequestV3('PUT', '/api/channels/' . $hvacChannel->getId(), [
+            'config' => $newConfig,
+            'configBefore' => $channelConfig,
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('auxHisteresis', $content['config']['temperatures']);
+        $this->assertEquals('', $content['config']['temperatures']['auxHisteresis']);
+    }
 }

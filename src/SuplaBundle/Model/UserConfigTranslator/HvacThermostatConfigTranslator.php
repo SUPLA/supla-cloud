@@ -399,7 +399,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                     Assertion::notInArray($tempKey, $readOnlyTemperatures, 'Cannot change the temperature %s. It is read only.');
                     if (!$newTemp && $newTemp !== 0) {
                         if (isset($temps[$tempKey])) {
-                            unset($temps[$tempKey]);
+                            $temps[$tempKey] = null;
                         }
                         continue;
                     }
@@ -631,7 +631,8 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         $currentTemperatures = $subject->getUserConfigValue('temperatures', []);
         $temperatures = array_merge(
             ['auxMinSetpoint' => '', 'auxMaxSetpoint' => '', 'freezeProtection' => '', 'heatProtection' => '', 'histeresis' => ''],
-            array_map([$this, 'adjustTemperature'], $currentTemperatures)
+            $currentTemperatures,
+            array_map([$this, 'adjustTemperature'], array_filter($currentTemperatures))
         );
         $hiddenTemperatures = $subject->getProperty('hiddenTemperatureConfigFields', []);
         return array_diff_key($temperatures, array_flip($hiddenTemperatures));
