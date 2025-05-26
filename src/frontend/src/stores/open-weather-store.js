@@ -3,7 +3,7 @@ import {useSuplaApi} from "@/api/use-supla-api";
 import {ref} from "vue";
 
 export const useOpenWeatherStore = defineStore('openWeather', () => {
-    const {data: availableCities} = useSuplaApi(`/integrations/openweather/cities`).json();
+    const {data: availableCities} = useSuplaApi(`integrations/openweather/cities`).json();
 
     const availableWeatherFields = ref([
         {label: 'Temperature', id: 'temp', unit: '°C'}, // i18n
