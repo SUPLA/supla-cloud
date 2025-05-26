@@ -187,3 +187,4 @@ valveOpenConfirm_motorProblem: A motor problem has been detected. Make sure noth
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+virtualChannelTypeName_OPEN_WEATHER: Weather
