@@ -90,8 +90,8 @@ class ChannelMeasurementLogsController extends RestController {
     ) {
         $table = $this->getLogsTableName($channel, $logsType);
 
-        $unixDate = "UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))";
-        $sql = "SELECT COUNT(*), MIN($unixDate), MAX($unixDate) FROM `$table` WHERE channel_id = ? ";
+        $unixDate = "EXTRACT(EPOCH FROM \"date\")";
+        $sql = "SELECT COUNT(*), MIN($unixDate), MAX($unixDate) FROM \"$table\" WHERE channel_id = ? ";
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             if ($afterTimestamp > 0) {
@@ -137,18 +137,18 @@ class ChannelMeasurementLogsController extends RestController {
             $limit = self::RECORD_LIMIT_PER_REQUEST;
         }
 
-        $order = $orderDesc ? ' ORDER BY `date` DESC ' : ' ORDER BY `date` ASC ';
-        $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, $fields ";
+        $order = $orderDesc ? ' ORDER BY "date" DESC ' : ' ORDER BY "date" ASC ';
+        $sql = "SELECT EXTRACT(EPOCH FROM \"date\") AS date_timestamp, $fields ";
         $sql .= "FROM $table WHERE channel_id = ? ";
         $limitSql = '';
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             if ($afterTimestamp > 0) {
-                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) > ? ";
+                $sql .= "AND \"date\" > ? ";
             }
 
             if ($beforeTimestamp > 0) {
-                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) < ? ";
+                $sql .= "AND \"date\" < ? ";
             }
             if (!$sparse) {
                 $limitSql = 'LIMIT ? OFFSET ?';
@@ -177,11 +177,11 @@ class ChannelMeasurementLogsController extends RestController {
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             $n = 2;
             if ($afterTimestamp > 0) {
-                $stmt->bindValue($n, $afterTimestamp, 'integer');
+                $stmt->bindValue($n, (new \DateTime("@$afterTimestamp"))->format('Y-m-d H:i:s'), 'string');
                 $n++;
             }
             if ($beforeTimestamp > 0) {
-                $stmt->bindValue($n, $beforeTimestamp, 'integer');
+                $stmt->bindValue($n, (new \DateTime("@$beforeTimestamp"))->format('Y-m-d H:i:s'), 'string');
                 $n++;
             }
             if (!$sparse) {
@@ -274,7 +274,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::HUMIDITY:
                 return $this->logItems(
                     $table,
-                    '`temperature`, `humidity`',
+                    '"temperature", "humidity"',
                     $channel,
                     $offset,
                     $limit,
@@ -286,7 +286,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::THERMOMETER:
                 return $this->logItems(
                     $table,
-                    '`temperature`',
+                    '"temperature"',
                     $channel,
                     $offset,
                     $limit,
@@ -296,18 +296,18 @@ class ChannelMeasurementLogsController extends RestController {
                     $sparse
                 );
             case ChannelFunction::ELECTRICITYMETER:
-                $columns = '`phase1_fae`, `phase1_rae`, `phase1_fre`, '
-                    . '`phase1_rre`, `phase2_fae`, `phase2_rae`, `phase2_fre`, `phase2_rre`, `phase3_fae`, '
-                    . '`phase3_rae`, `phase3_fre`, `phase3_rre`, `fae_balanced`, `rae_balanced`';
+                $columns = '"phase1_fae", "phase1_rae", "phase1_fre", '
+                    . '"phase1_rre", "phase2_fae", "phase2_rae", "phase2_fre", "phase2_rre", "phase3_fae", '
+                    . '"phase3_rae", "phase3_fre", "phase3_rre", "fae_balanced", "rae_balanced"';
                 if ($logsType === self::LOGS_TYPE_VOLTAGE_ABERRATIONS) {
-                    $columns = 'phase_no phaseNo, count_total countTotal, count_above countAbove, count_below countBelow, ' .
-                        'sec_below secBelow, sec_above secAbove, max_sec_above maxSecAbove, max_sec_below maxSecBelow,' .
-                        'min_voltage minVoltage, max_voltage maxVoltage, avg_voltage avgVoltage, measurement_time_sec measurementTimeSec';
+                    $columns = 'phase_no "phaseNo", count_total "countTotal", count_above "countAbove", count_below "countBelow", ' .
+                        'sec_below "secBelow", sec_above "secAbove", max_sec_above "maxSecAbove", max_sec_below "maxSecBelow",' .
+                        'min_voltage "minVoltage", max_voltage "maxVoltage", avg_voltage "avgVoltage", measurement_time_sec "measurementTimeSec"';
                 }
                 if (in_array($logsType, [
                     self::LOGS_TYPE_VOLTAGE_HISTORY, self::LOGS_TYPE_CURRENT_HISTORY, self::LOGS_TYPE_POWER_ACTIVE_HISTORY,
                 ])) {
-                    $columns = 'phase_no phaseNo, avg avg, min min, max max';
+                    $columns = 'phase_no "phaseNo", avg avg, min min, max max';
                 }
                 return $this->logItems(
                     $table,
@@ -326,7 +326,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::IC_HEATMETER:
                 return $this->logItems(
                     $table,
-                    '`counter`, `calculated_value` / 1000 calculated_value',
+                    '"counter", "calculated_value"::decimal / 1000 calculated_value',
                     $channel,
                     $offset,
                     $limit,
@@ -339,7 +339,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
                 return $this->logItems(
                     $table,
-                    '`on`,`measured_temperature`,`preset_temperature`',
+                    '"on","measured_temperature","preset_temperature"',
                     $channel,
                     $offset,
                     $limit,
@@ -363,7 +363,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::GENERAL_PURPOSE_METER:
                 return $this->logItems(
                     $table,
-                    '`value`',
+                    '"value"',
                     $channel,
                     $offset,
                     $limit,
@@ -461,7 +461,7 @@ class ChannelMeasurementLogsController extends RestController {
      *     @OA\Parameter(name="afterTimestamp", description="Fetch log items created after this timestamp.", in="query", @OA\Schema(type="integer")),
      *     @OA\Parameter(name="beforeTimestamp", description="Fetch log items created before this timestamp.", in="query", @OA\Schema(type="integer")),
      *     @OA\Parameter(name="order", description="Whether to order items ascending or descending by creation date.", in="query", @OA\Schema(type="string", default="DESC", enum={"ASC", "DESC"})),
-     *     @OA\Parameter(name="sparse", description="Set the maximum items to return from the given period. If specified, the `limit` and `offset` params are ignored. For example, if you fetches the logs from the whole year and set the `sparse` param to `12`, the API will try to return up to 12 log items, equally distributed throug the whole year. Min: 1, Max: 1000.", in="query", @OA\Schema(type="integer", minimum=1, maximum=1000)),
+     *     @OA\Parameter(name="sparse", description="Set the maximum items to return from the given period. If specified, the "limit" and "offset" params are ignored. For example, if you fetches the logs from the whole year and set the "sparse" param to "12", the API will try to return up to 12 log items, equally distributed throug the whole year. Min: 1, Max: 1000.", in="query", @OA\Schema(type="integer", minimum=1, maximum=1000)),
      *     @OA\Parameter(name="logsType", description="Type of the logs to return. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltageHistory", "powerActiveHistory", "currentHistory", "voltageAberrations"})),
      *     @OA\Parameter(name="limit", description="Maximum items count in response, from 1 to 5000.", in="query", @OA\Schema(type="integer", default=5000, minimum=1, maximum=5000)),
      *     @OA\Parameter(name="offset", description="Pagination offset.", in="query", @OA\Schema(type="integer", default=0)),
@@ -473,20 +473,20 @@ class ChannelMeasurementLogsController extends RestController {
      *         @OA\Header(header="X-Max-Timestamp", description="Maximum timestamp of the log items, considering the supplied filters.", @OA\Schema(type="integer")),
      *       },
      *       @OA\JsonContent(oneOf={
-     *          @OA\Schema(type="array", description="Log item for `THERMOMETER`.", @OA\Items(
+     *          @OA\Schema(type="array", description="Log item for "THERMOMETER".", @OA\Items(
      *            @OA\Property(property="date_timestamp", type="integer"),
      *            @OA\Property(property="temperature", type="number", format="float"),
      *          )),
-     *          @OA\Schema(type="array", description="Log item for `HUMIDITYANDTEMPERATURE`.", @OA\Items(
+     *          @OA\Schema(type="array", description="Log item for "HUMIDITYANDTEMPERATURE".", @OA\Items(
      *            @OA\Property(property="date_timestamp", type="integer"),
      *            @OA\Property(property="humidity", type="number", format="float"),
      *            @OA\Property(property="temperature", type="number", format="float"),
      *          )),
-     *          @OA\Schema(type="array", description="Log item for `HUMIDITY`.", @OA\Items(
+     *          @OA\Schema(type="array", description="Log item for "HUMIDITY".", @OA\Items(
      *            @OA\Property(property="date_timestamp", type="integer"),
      *            @OA\Property(property="humidity", type="number", format="float"),
      *          )),
-     *          @OA\Schema(type="array", description="Log item for `ELECTRICITYMETER`.", @OA\Items(
+     *          @OA\Schema(type="array", description="Log item for "ELECTRICITYMETER".", @OA\Items(
      *            @OA\Property(property="date_timestamp", type="integer"),
      *            @OA\Property(property="phase1_fae", type="integer", nullable=true),
      *            @OA\Property(property="phase1_rae", type="integer", nullable=true),
@@ -503,7 +503,7 @@ class ChannelMeasurementLogsController extends RestController {
      *            @OA\Property(property="fae_balanced", type="integer", nullable=true),
      *            @OA\Property(property="rae_balanced", type="integer", nullable=true),
      *          )),
-     *          @OA\Schema(type="array", description="Log item for `ELECTRICITYMETER` voltage log.", @OA\Items(
+     *          @OA\Schema(type="array", description="Log item for "ELECTRICITYMETER" voltage log.", @OA\Items(
      *            @OA\Property(property="date_timestamp", type="integer"),
      *            @OA\Property(property="phaseNo", type="integer"),
      *            @OA\Property(property="countTotal", type="integer"),
@@ -518,12 +518,12 @@ class ChannelMeasurementLogsController extends RestController {
      *            @OA\Property(property="minVoltage", type="number"),
      *            @OA\Property(property="maxVoltage", type="number"),
      *          )),
-     *          @OA\Schema(type="array", description="Log item for impulse counters (`IC_*`).", @OA\Items(
+     *          @OA\Schema(type="array", description="Log item for impulse counters ("IC_*").", @OA\Items(
      *            @OA\Property(property="date_timestamp", type="integer"),
      *            @OA\Property(property="counter", type="integer"),
      *            @OA\Property(property="calculated_value", type="number", format="float"),
      *          )),
-     *          @OA\Schema(type="array", description="Log item for thermostats (`THERMOSTAT*`).", @OA\Items(
+     *          @OA\Schema(type="array", description="Log item for thermostats ("THERMOSTAT*").", @OA\Items(
      *            @OA\Property(property="date_timestamp", type="integer"),
      *            @OA\Property(property="on", type="boolean"),
      *            @OA\Property(property="measured_temperature", type="number", format="float"),
