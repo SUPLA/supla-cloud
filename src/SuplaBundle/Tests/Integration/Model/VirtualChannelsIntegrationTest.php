@@ -22,6 +22,7 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\VirtualChannelType;
+use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -53,6 +54,13 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatingVirtualChannelTemp() {
+        SuplaAutodiscoverMock::mockResponse('weather-data', [
+            [
+                'id' => 1,
+                'fetchedAt' => (new \DateTime())->format(\DateTime::ATOM),
+                'weather' => ['temp' => 22.2, 'humidity' => 66],
+            ],
+        ], 200, 'POST');
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV3('POST', '/api/channels', [
             'virtualChannelType' => VirtualChannelType::OPEN_WEATHER,
@@ -111,11 +119,18 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
     public function testSavesChannelsValueInDatabase(int $channelId) {
         $chValue = $this->getEntityManager()->getRepository(ChannelValue::class)->findOneBy(['channel' => $channelId]);
         $this->assertNotNull($chValue);
-        $this->assertGreaterThan(0, $chValue->getValue());
+        $this->assertEquals(22.2, $chValue->unpackOneValue());
     }
 
     public function testCreatingVirtualChannelTempHum() {
         $client = $this->createAuthenticatedClient($this->user);
+        SuplaAutodiscoverMock::mockResponse('weather-data', [
+            [
+                'id' => 1,
+                'fetchedAt' => (new \DateTime())->format(\DateTime::ATOM),
+                'weather' => ['temp' => 22.2, 'humidity' => 66],
+            ],
+        ], 200, 'POST');
         $client->apiRequestV3('POST', '/api/channels', [
             'virtualChannelType' => VirtualChannelType::OPEN_WEATHER,
             'virtualChannelConfig' => [
@@ -132,10 +147,8 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('virtualChannelConfig', $content['config']);
         $chValue = $this->getEntityManager()->getRepository(ChannelValue::class)->findOneBy(['channel' => $content['id']]);
         $this->assertNotNull($chValue);
-        $value = unpack('ltemp/lhum', $chValue->getValue());
-        $this->assertGreaterThan(0, $value['temp'] / 1000);
-        $this->assertLessThan(40, $value['temp'] / 1000);
-        $this->assertGreaterThan(0, $value['hum'] / 1000);
-        $this->assertLessThan(100, $value['hum'] / 1000);
+        [$temp, $hum] = $chValue->unpackTwoValues();
+        $this->assertEquals(22.2, $temp);
+        $this->assertEquals(66, $hum);
     }
 }
