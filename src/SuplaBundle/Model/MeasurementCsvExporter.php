@@ -63,13 +63,13 @@ class MeasurementCsvExporter {
 
     private function getDataFetchDefinition(IODeviceChannel $channel, string $logsType): array {
         // @codingStandardsIgnoreStart
-        $timestampSelect = "UNIX_TIMESTAMP(date) AS date_ts, IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`) AS date";
+        $timestampSelect = "EXTRACT(EPOCH FROM date)::INTEGER date_ts, to_char(date AT TIME ZONE :timezone, 'YYYY-MM-DD HH24:MI:SS')";
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::THERMOSTAT:
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
                 return [
                     ['Timestamp', 'Date and time', 'On', 'MeasuredTemperature', 'PresetTemperature'],
-                    "SELECT $timestampSelect, `on`, `measured_temperature`, `preset_temperature` FROM `supla_thermostat_log` WHERE channel_id = :channelId",
+                    "SELECT $timestampSelect, \"on\", measured_temperature, preset_temperature FROM supla_thermostat_log WHERE channel_id = :channelId",
                 ];
             case ChannelFunction::IC_ELECTRICITYMETER:
             case ChannelFunction::IC_GASMETER:
@@ -77,7 +77,7 @@ class MeasurementCsvExporter {
             case ChannelFunction::IC_HEATMETER:
                 return [
                     ['Timestamp', 'Date and time', 'Counter', 'CalculatedValue'],
-                    "SELECT $timestampSelect, `counter`, `calculated_value` / 1000 calculated_value FROM `supla_ic_log` WHERE channel_id = :channelId",
+                    "SELECT $timestampSelect, counter, calculated_value::decimal / 1000 calculated_value FROM supla_ic_log WHERE channel_id = :channelId",
                 ];
             case ChannelFunction::ELECTRICITYMETER:
                 if ($logsType === 'voltageAberrations') {
@@ -98,7 +98,7 @@ class MeasurementCsvExporter {
                             'Maximum voltage',
                             'Average voltage',
                         ],
-                        "SELECT $timestampSelect, measurement_time_sec, phase_no, count_total, count_above, count_below, sec_above, sec_below, max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage FROM `supla_em_voltage_aberration_log` WHERE channel_id = :channelId",
+                        "SELECT $timestampSelect, measurement_time_sec, phase_no, count_total, count_above, count_below, sec_above, sec_below, max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage FROM supla_em_voltage_aberration_log WHERE channel_id = :channelId",
                     ];
                 } elseif ($logsType === 'voltageHistory') {
                     return [
@@ -110,7 +110,7 @@ class MeasurementCsvExporter {
                             'Maximum voltage',
                             'Average voltage',
                         ],
-                        "SELECT $timestampSelect, phase_no, min, max, avg FROM `supla_em_voltage_log` WHERE channel_id = :channelId",
+                        "SELECT $timestampSelect, phase_no, min, max, avg FROM supla_em_voltage_log WHERE channel_id = :channelId",
                     ];
                 } else {
                     return [
@@ -132,23 +132,23 @@ class MeasurementCsvExporter {
                             'Forward active Energy kWh - Vector balance',
                             'Reverse active Energy kWh - Vector balance',
                         ],
-                        "SELECT $timestampSelect, IFNULL(`phase1_fae`, 0) / 100000.00 phase1_fae, IFNULL(`phase1_rae`, 0) / 100000.00 phase1_rae, IFNULL(`phase1_fre`, 0) / 100000.00 phase1_fre, IFNULL(`phase1_rre`, 0) / 100000.00 phase1_rre, IFNULL(`phase2_fae`, 0) / 100000.00 phase2_fae, IFNULL(`phase2_rae`, 0) / 100000.00 phase2_rae, IFNULL(`phase2_fre`, 0) / 100000.00 phase2_fre, IFNULL(`phase2_rre`, 0) / 100000.00 phase2_rre, IFNULL(`phase3_fae`, 0) / 100000.00 phase3_fae, IFNULL(`phase3_rae`, 0) / 100000.00 phase3_rae, IFNULL(`phase3_fre`, 0) / 100000.00 phase3_fre, IFNULL(`phase3_rre`, 0) / 100000.00 phase3_rre, IFNULL(`fae_balanced`, 0) / 100000.00 fae_balanced, IFNULL(`rae_balanced`, 0) / 100000.00 rae_balanced FROM `supla_em_log` WHERE channel_id = :channelId",
+                        "SELECT $timestampSelect, IFNULL(phase1_fae, 0) / 100000.00 phase1_fae, IFNULL(phase1_rae, 0) / 100000.00 phase1_rae, IFNULL(phase1_fre, 0) / 100000.00 phase1_fre, IFNULL(phase1_rre, 0) / 100000.00 phase1_rre, IFNULL(phase2_fae, 0) / 100000.00 phase2_fae, IFNULL(phase2_rae, 0) / 100000.00 phase2_rae, IFNULL(phase2_fre, 0) / 100000.00 phase2_fre, IFNULL(phase2_rre, 0) / 100000.00 phase2_rre, IFNULL(phase3_fae, 0) / 100000.00 phase3_fae, IFNULL(phase3_rae, 0) / 100000.00 phase3_rae, IFNULL(phase3_fre, 0) / 100000.00 phase3_fre, IFNULL(phase3_rre, 0) / 100000.00 phase3_rre, IFNULL(fae_balanced, 0) / 100000.00 fae_balanced, IFNULL(rae_balanced, 0) / 100000.00 rae_balanced FROM supla_em_log WHERE channel_id = :channelId",
                     ];
                 }
             case ChannelFunction::THERMOMETER:
                 return [
                     ['Timestamp', 'Date and time', 'Temperature'],
-                    "SELECT $timestampSelect, `temperature` FROM `supla_temperature_log` WHERE channel_id = :channelId",
+                    "SELECT $timestampSelect, temperature FROM supla_temperature_log WHERE channel_id = :channelId",
                 ];
             case ChannelFunction::HUMIDITY:
                 return [
                     ['Timestamp', 'Date and time', 'Humidity'],
-                    "SELECT $timestampSelect, `humidity` FROM `supla_temphumidity_log` WHERE channel_id = :channelId",
+                    "SELECT $timestampSelect, humidity FROM supla_temphumidity_log WHERE channel_id = :channelId",
                 ];
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
                 return [
                     ['Timestamp', 'Date and time', 'Temperature', 'Humidity'],
-                    "SELECT $timestampSelect, `temperature`, `humidity` FROM `supla_temphumidity_log` WHERE channel_id = :channelId",
+                    "SELECT $timestampSelect, temperature, humidity FROM supla_temphumidity_log WHERE channel_id = :channelId",
                 ];
             default:
                 throw new ApiException('Cannot generate CSV from this channel - invalid type.');

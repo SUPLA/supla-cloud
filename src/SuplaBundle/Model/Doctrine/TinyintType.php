@@ -18,6 +18,7 @@
 namespace SuplaBundle\Model\Doctrine;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Types\SmallIntType;
 
 /**
@@ -26,7 +27,7 @@ use Doctrine\DBAL\Types\SmallIntType;
  */
 class TinyintType extends SmallIntType {
     public function getSQLDeclaration(array $column, AbstractPlatform $platform) {
-        return 'TINYINT' . (!empty($column['unsigned']) ? ' UNSIGNED' : '');
+        return $platform instanceof PostgreSQLPlatform ? 'SMALLINT' : 'TINYINT' . (!empty($column['unsigned']) ? ' UNSIGNED' : '');
     }
 
     public function requiresSQLCommentHint(AbstractPlatform $platform) {

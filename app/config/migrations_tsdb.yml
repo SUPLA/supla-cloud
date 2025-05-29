@@ -1,0 +1,10 @@
+migrations_paths:
+  SuplaBundle\Migrations\TsDbMigration: "src/SuplaBundle/Migrations/TsDbMigration"
+custom_template: "src/SuplaBundle/Migrations/migration.tpl"
+#organize_migrations: BY_YEAR
+#all_or_nothing: true
+#storage:
+#  table_storage:
+#    table_name: 'migration_versions'
+#services:
+#  Doctrine\Migrations\Version\MigrationFactory: 'SuplaBundle\Migrations\Factory\MigrationFactoryDecorator'

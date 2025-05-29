@@ -19,14 +19,14 @@ doctrine:
         default_table_options:
           charset: utf8
           collate: utf8_unicode_ci
-      measurement_logs:
-        driver: pdo_mysql
-        dbname: "%database_name%"
-        host: "%database_host%"
-        password: "%database_password%"
-        port: "%database_port%"
-        user: "%database_user%"
-        schema_filter: ~^(migration_versions|supla_(.+)_log)$~
+      tsdb:
+        driver: pdo_pgsql
+        dbname: "supla"
+        host: "localhost"
+        password: postgres
+        port: 5432
+        user: postgres
+        schema_filter: ~^(migration_versions|doctrine_migration_versions|supla_(.+)_log)$~
         charset: utf8
         default_table_options:
           charset: utf8
@@ -53,7 +53,14 @@ doctrine:
             dir: '%kernel.project_dir%/src/SuplaBundle/Entity/Main'
             prefix: 'SuplaBundle\Entity\Main'
       measurement_logs:
-        connection: measurement_logs
+        connection: tsdb
+        mappings:
+          MeasurementLogs:
+            type: annotation
+            dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
+            prefix: 'SuplaBundle\Entity\MeasurementLogs'
+      tsdb:
+        connection: tsdb
         mappings:
           MeasurementLogs:
             type: annotation
