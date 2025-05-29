@@ -62,4 +62,22 @@ class ChannelValue {
     public function getValue() {
         return stream_get_contents($this->value);
     }
+
+    public function unpackOneValue() {
+        $value = unpack('lval', $this->getValue());
+        return $value['val'] / 1000;
+    }
+
+    public function unpackTwoValues(): array {
+        $value = unpack('lone/ltwo', $this->getValue());
+        return [$value['one'] / 1000, $value['two'] / 1000];
+    }
+
+    public static function packOneValue($value): string {
+        return pack('l', round($value * 1000));
+    }
+
+    public static function packTwoValues($value1, $value2): string {
+        return pack('ll', round($value1 * 1000), round($value2 * 1000));
+    }
 }
