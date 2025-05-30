@@ -3,7 +3,7 @@ name: default
 
 steps:
   - name: install-frontend
-    image: node:16.20.2-slim
+    image: node:18.20.3-slim
     depends_on: [clone]
     commands:
       - npm -v
@@ -12,25 +12,25 @@ steps:
       - npm ci
 
   - name: build-frontend
-    image: node:16.20.2-slim
+    image: node:18.20.3-slim
     depends_on: [install-frontend]
     commands:
       - cd src/frontend && npm run build
 
   - name: lint-frontend
-    image: node:16.20.2-slim
+    image: node:18.20.3-slim
     depends_on: [install-frontend]
     commands:
       - cd src/frontend && npm run lint -s
 
   #  - name: audit-frontend
-  #    image: node:16.20.2-slim
+  #    image: node:18.20.3-slim
   #    depends_on: [install-frontend]
   #    commands:
   #      - cd src/frontend && npm audit --production
 
   - name: test-frontend-unit
-    image: node:16.20.2-slim
+    image: node:18.20.3-slim
     depends_on: [build-frontend]
     commands:
       - cd src/frontend
@@ -71,7 +71,7 @@ steps:
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
 
   - name: test-e2e
-    image: cypress/base:16.18.1
+    image: cypress/base:18.20.3
     depends_on: [install-backend, build-frontend]
     environment:
       CYPRESS_DATABASE: mysql://root@database/supla_e2e
@@ -86,7 +86,7 @@ steps:
       - npm run test:e2e:ci
 
   - name: test-e2e-nightly
-    image: cypress/base:16.18.1
+    image: cypress/base:18.20.3
     depends_on: [test-e2e]
     when:
       cron: nightly
@@ -98,7 +98,7 @@ steps:
       - npm run test:e2e:nightly
 
   - name: dump-logs
-    image: cypress/base:16.18.1
+    image: cypress/base:18.20.3
     depends_on: [api-tests, test-e2e]
     failure: ignore
     when:
