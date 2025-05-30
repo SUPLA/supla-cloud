@@ -1,0 +1,25 @@
+services:
+  mariadb:
+    image: mariadb:11.7.2
+    container_name: supla-db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: php
+      MYSQL_DATABASE: supla
+      MYSQL_USER: supla
+      MYSQL_PASSWORD: php
+      TZ: Europe/Warsaw
+    volumes:
+      - supla_db_data:/var/lib/mysql
+
+  smtp_server:
+    profiles: [dev]
+    container_name: supla-smtp
+    image: gessnerfl/fake-smtp-server:2.4.2
+    ports:
+      - "2500:8025"
+      - "6245:8080"
+
+volumes:
+  supla_db_data:
