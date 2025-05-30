@@ -29,4 +29,9 @@ final class DateUtils {
         date_default_timezone_set($defaultTimezone);
         return $result;
     }
+
+    public static function timestampToMysqlUtc(int $timestamp): string {
+        return (new \DateTime("@$timestamp", new \DateTimeZone('UTC')))
+            ->format('Y-m-d H:i:s');
+    }
 }

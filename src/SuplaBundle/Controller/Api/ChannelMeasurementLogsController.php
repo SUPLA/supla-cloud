@@ -45,6 +45,7 @@ use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\DatabaseUtils;
+use SuplaBundle\Utils\DateUtils;
 use SuplaBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -90,15 +91,15 @@ class ChannelMeasurementLogsController extends RestController {
     ) {
         $table = $this->getLogsTableName($channel, $logsType);
 
-        $unixDate = "UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))";
+        $unixDate = 'UNIX_TIMESTAMP(date)';
         $sql = "SELECT COUNT(*), MIN($unixDate), MAX($unixDate) FROM `$table` WHERE channel_id = ? ";
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             if ($afterTimestamp > 0) {
-                $sql .= "AND $unixDate > ? ";
+                $sql .= "AND date > ? ";
             }
             if ($beforeTimestamp > 0) {
-                $sql .= "AND $unixDate < ? ";
+                $sql .= "AND date < ? ";
             }
         }
 
@@ -108,11 +109,11 @@ class ChannelMeasurementLogsController extends RestController {
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             $n = 2;
             if ($afterTimestamp > 0) {
-                $stmt->bindValue($n, $afterTimestamp, 'integer');
+                $stmt->bindValue($n, DateUtils::timestampToMysqlUtc($afterTimestamp), 'string');
                 $n++;
             }
             if ($beforeTimestamp > 0) {
-                $stmt->bindValue($n, $beforeTimestamp, 'integer');
+                $stmt->bindValue($n, DateUtils::timestampToMysqlUtc($beforeTimestamp), 'string');
             }
         }
 
@@ -138,17 +139,17 @@ class ChannelMeasurementLogsController extends RestController {
         }
 
         $order = $orderDesc ? ' ORDER BY `date` DESC ' : ' ORDER BY `date` ASC ';
-        $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, $fields ";
+        $sql = "SELECT UNIX_TIMESTAMP(date) AS date_timestamp, $fields ";
         $sql .= "FROM $table WHERE channel_id = ? ";
         $limitSql = '';
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             if ($afterTimestamp > 0) {
-                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) > ? ";
+                $sql .= "AND date > ? ";
             }
 
             if ($beforeTimestamp > 0) {
-                $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) < ? ";
+                $sql .= "AND date < ? ";
             }
             if (!$sparse) {
                 $limitSql = 'LIMIT ? OFFSET ?';
@@ -177,11 +178,11 @@ class ChannelMeasurementLogsController extends RestController {
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             $n = 2;
             if ($afterTimestamp > 0) {
-                $stmt->bindValue($n, $afterTimestamp, 'integer');
+                $stmt->bindValue($n, DateUtils::timestampToMysqlUtc($afterTimestamp), 'string');
                 $n++;
             }
             if ($beforeTimestamp > 0) {
-                $stmt->bindValue($n, $beforeTimestamp, 'integer');
+                $stmt->bindValue($n, DateUtils::timestampToMysqlUtc($beforeTimestamp), 'string');
                 $n++;
             }
             if (!$sparse) {

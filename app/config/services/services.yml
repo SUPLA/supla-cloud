@@ -211,6 +211,10 @@ services:
   SuplaBundle\EventListener\FlushSuplaServerCommandsOnResponseListener:
     tags: ['kernel.event_listener']
 
+  SuplaBundle\EventListener\DbConnectionTimezoneUtcSetter:
+    tags:
+      - {name: doctrine.event_listener, event: postConnect}
+
   Doctrine\Migrations\Version\DbalMigrationFactory: ~
   SuplaBundle\Migrations\Factory\MigrationFactoryDecorator:
     decorates: Doctrine\Migrations\Version\DbalMigrationFactory
