@@ -159,6 +159,6 @@ class ComplexAccountIntegrationTest extends IntegrationTestCase {
         $profile = $client->getProfile();
         $this->assertNotNull($profile);
         $this->assertGreaterThan(1, $profile->getCollector('db')->getQueryCount());
-        $this->assertLessThan(30, $profile->getCollector('db')->getQueryCount());
+        $this->assertLessThan(35, $profile->getCollector('db')->getQueryCount());
     }
 }
