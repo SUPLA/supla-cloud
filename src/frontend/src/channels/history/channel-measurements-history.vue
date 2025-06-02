@@ -6,7 +6,7 @@
                     <div class="dropdown d-inline-block" v-if="supportedChartModes.length > 1">
                         <button class="btn btn-default dropdown-toggle btn-wrapped" type="button" data-toggle="dropdown">
                             {{ $t('Show data') }}:
-                            {{ $t(chartModeLabels[chartMode]) }}
+                            {{ $t(chartModeLabels[chartMode] || '') }}
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
