@@ -5,7 +5,7 @@ doctrine:
   orm:
     entity_managers:
       measurement_logs:
-        connection: tsdb
+        connection: logs_tsdb
 
 framework:
   profiler:

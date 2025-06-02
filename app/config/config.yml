@@ -31,7 +31,7 @@ doctrine:
         default_table_options:
           charset: utf8
           collate: utf8_unicode_ci
-      tsdb:
+      logs_tsdb:
         driver: pdo_pgsql
         dbname: "%tsdb_name%"
         host: "%tsdb_host%"
