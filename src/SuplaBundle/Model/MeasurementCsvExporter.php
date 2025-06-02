@@ -63,13 +63,18 @@ class MeasurementCsvExporter {
 
     private function getDataFetchDefinition(IODeviceChannel $channel, string $logsType): array {
         // @codingStandardsIgnoreStart
-        $timestampSelect = "EXTRACT(EPOCH FROM date)::INTEGER date_ts, to_char(date AT TIME ZONE :timezone, 'YYYY-MM-DD HH24:MI:SS')";
+        $platform = DatabaseUtils::getPlatform($this->entityManager);
+        $timestampSelect = "UNIX_TIMESTAMP(date) AS date_ts, IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`) AS date";
+        $onColumn = DatabaseUtils::quoteColumnName($this->entityManager, 'on');
+        if ($platform === 'psql') {
+            $timestampSelect = "EXTRACT(EPOCH FROM date)::INTEGER date_ts, to_char(date AT TIME ZONE :timezone, 'YYYY-MM-DD HH24:MI:SS')";
+        }
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::THERMOSTAT:
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
                 return [
                     ['Timestamp', 'Date and time', 'On', 'MeasuredTemperature', 'PresetTemperature'],
-                    "SELECT $timestampSelect, \"on\", measured_temperature, preset_temperature FROM supla_thermostat_log WHERE channel_id = :channelId",
+                    "SELECT $timestampSelect, $onColumn, measured_temperature, preset_temperature FROM supla_thermostat_log WHERE channel_id = :channelId",
                 ];
             case ChannelFunction::IC_ELECTRICITYMETER:
             case ChannelFunction::IC_GASMETER:
@@ -77,7 +82,7 @@ class MeasurementCsvExporter {
             case ChannelFunction::IC_HEATMETER:
                 return [
                     ['Timestamp', 'Date and time', 'Counter', 'CalculatedValue'],
-                    "SELECT $timestampSelect, counter, calculated_value::decimal / 1000 calculated_value FROM supla_ic_log WHERE channel_id = :channelId",
+                    "SELECT $timestampSelect, counter, CAST(calculated_value AS DECIMAL) / 1000 calculated_value FROM supla_ic_log WHERE channel_id = :channelId",
                 ];
             case ChannelFunction::ELECTRICITYMETER:
                 if ($logsType === 'voltageAberrations') {

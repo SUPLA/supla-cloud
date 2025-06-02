@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Utils;
 
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class DatabaseUtils {
@@ -25,5 +26,22 @@ final class DatabaseUtils {
 
     public static function turnOffQueryBuffering(EntityManagerInterface $entityManager): void {
         $entityManager->getConnection()->getNativeConnection()->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
+    }
+
+    public static function getPlatform(EntityManagerInterface $entityManager): string {
+        $platform = $entityManager->getConnection()->getDatabasePlatform();
+        return $platform instanceof PostgreSQLPlatform ? 'psql' : 'mysql';
+    }
+
+    public static function getTimestampFunction(EntityManagerInterface $entityManager, $field = 'date'): string {
+        $platform = self::getPlatform($entityManager);
+        $format = ['psql' => 'EXTRACT(EPOCH FROM %s)'][$platform] ?? 'UNIX_TIMESTAMP(%s)';
+        return sprintf($format, self::quoteColumnName($entityManager, $field));
+    }
+
+    public static function quoteColumnName(EntityManagerInterface $entityManager, mixed $field): string {
+        $platform = self::getPlatform($entityManager);
+        $quoteChar = ['psql' => '"'][$platform] ?? '`';
+        return $quoteChar . addcslashes($field, $quoteChar) . $quoteChar;
     }
 }

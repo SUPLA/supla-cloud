@@ -14,7 +14,7 @@ doctrine:
         password: "%database_password%"
         port: "%database_port%"
         user: "%database_user%"
-        schema_filter: ~^(?!(esp_|supla_email_notifications|supla_(.+)_log))~
+        schema_filter: ~^(?!(esp_|supla_email_notifications))~
         charset: utf8mb4
         default_table_options:
           charset: utf8
@@ -53,7 +53,7 @@ doctrine:
             dir: '%kernel.project_dir%/src/SuplaBundle/Entity/Main'
             prefix: 'SuplaBundle\Entity\Main'
       measurement_logs:
-        connection: tsdb
+        connection: default
         mappings:
           MeasurementLogs:
             type: annotation

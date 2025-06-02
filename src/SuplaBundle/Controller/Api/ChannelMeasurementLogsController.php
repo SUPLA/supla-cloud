@@ -91,7 +91,7 @@ class ChannelMeasurementLogsController extends RestController {
     ) {
         $table = $this->getLogsTableName($channel, $logsType);
 
-        $unixDate = "EXTRACT(EPOCH FROM date)";
+        $unixDate = DatabaseUtils::getTimestampFunction($this->entityManager);
         $sql = "SELECT COUNT(*), MIN($unixDate), MAX($unixDate) FROM $table WHERE channel_id = ? ";
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
@@ -138,7 +138,8 @@ class ChannelMeasurementLogsController extends RestController {
         }
 
         $order = $orderDesc ? ' ORDER BY date DESC ' : ' ORDER BY date ASC ';
-        $sql = "SELECT EXTRACT(EPOCH FROM date) AS date_timestamp, $fields ";
+        $unixDate = DatabaseUtils::getTimestampFunction($this->entityManager);
+        $sql = "SELECT $unixDate AS date_timestamp, $fields ";
         $sql .= "FROM $table WHERE channel_id = ? ";
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
@@ -241,12 +242,13 @@ class ChannelMeasurementLogsController extends RestController {
         string $logsType = ''
     ): array {
         $table = $this->getLogsTableName($channel, $logsType);
+        $enc = fn($str) => DatabaseUtils::quoteColumnName($this->entityManager, $str);
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
             case ChannelFunction::HUMIDITY:
                 return $this->logItems(
                     $table,
-                    '"temperature", "humidity"',
+                    'temperature, humidity',
                     $channel,
                     $offset,
                     $limit,
@@ -257,7 +259,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::THERMOMETER:
                 return $this->logItems(
                     $table,
-                    '"temperature"',
+                    'temperature',
                     $channel,
                     $offset,
                     $limit,
@@ -266,9 +268,9 @@ class ChannelMeasurementLogsController extends RestController {
                     $orderDesc,
                 );
             case ChannelFunction::ELECTRICITYMETER:
-                $columns = '"phase1_fae", "phase1_rae", "phase1_fre", '
-                    . '"phase1_rre", "phase2_fae", "phase2_rae", "phase2_fre", "phase2_rre", "phase3_fae", '
-                    . '"phase3_rae", "phase3_fre", "phase3_rre", "fae_balanced", "rae_balanced"';
+                $columns = 'phase1_fae, phase1_rae, phase1_fre, '
+                    . 'phase1_rre, phase2_fae, phase2_rae, phase2_fre, phase2_rre, phase3_fae, '
+                    . 'phase3_rae, phase3_fre, phase3_rre, fae_balanced, rae_balanced';
                 if ($logsType === self::LOGS_TYPE_VOLTAGE_ABERRATIONS) {
                     $columns = 'phase_no "phaseNo", count_total "countTotal", count_above "countAbove", count_below "countBelow", ' .
                         'sec_below "secBelow", sec_above "secAbove", max_sec_above "maxSecAbove", max_sec_below "maxSecBelow",' .
@@ -295,7 +297,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::IC_HEATMETER:
                 return $this->logItems(
                     $table,
-                    '"counter", "calculated_value"::decimal / 1000 calculated_value',
+                    'counter, CAST(calculated_value AS DECIMAL) / 1000 calculated_value',
                     $channel,
                     $offset,
                     $limit,
@@ -307,7 +309,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
                 return $this->logItems(
                     $table,
-                    '"on","measured_temperature","preset_temperature"',
+                    "{$enc('on')},measured_temperature,preset_temperature",
                     $channel,
                     $offset,
                     $limit,
@@ -329,7 +331,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::GENERAL_PURPOSE_METER:
                 return $this->logItems(
                     $table,
-                    '"value"',
+                    'value',
                     $channel,
                     $offset,
                     $limit,

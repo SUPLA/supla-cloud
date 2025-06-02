@@ -63,9 +63,25 @@ steps:
       - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
 
-  - name: integration-tests
+  - name: measurement-logs-mariadb
     image: supla/supla-cloud:ci-php8.3
     depends_on: [api-tests]
+    commands:
+      - rm -fr var/cache/test
+      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite measurement_logs
+
+  - name: measurement-logs-tsdb
+    image: supla/supla-cloud:ci-php8.3
+    depends_on: [measurement-logs-mariadb]
+    commands:
+      - "sed -i '/measurement_logs:/!b;n;s/connection: default/connection: tsdb/' app/config/config.yml"
+      - rm -fr var/cache/test
+      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite measurement_logs
+      - "sed -i '/measurement_logs:/!b;n;s/connection: tsdb/connection: default/' app/config/config.yml"
+
+  - name: integration-tests
+    image: supla/supla-cloud:ci-php8.3
+    depends_on: [measurement-logs-tsdb]
     commands:
       - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
