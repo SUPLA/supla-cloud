@@ -69,9 +69,9 @@ abstract class IntegrationTestCase extends WebTestCase {
             $this->executeCommand('doctrine:schema:drop --force --full-database --em=default');
             $this->executeCommand('doctrine:schema:drop --force --full-database --em=measurement_logs');
             $this->executeCommand('doctrine:schema:create --em=default');
-            $this->executeCommand('doctrine:schema:create --em=measurement_logs');
             $this->executeCommand('supla:initialize:create-sql-procedures-and-views');
             $this->executeCommand('supla:initialize:create-webapp-client');
+            $this->executeCommand('supla:initialize:tsdb');
             $this->getEntityManager()->getConnection()->executeQuery('TRUNCATE supla_email_notifications;');
             $this->initializeDatabaseForTests();
             $reflection = new ReflectionClass($this);
