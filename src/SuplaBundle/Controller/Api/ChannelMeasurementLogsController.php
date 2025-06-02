@@ -130,7 +130,6 @@ class ChannelMeasurementLogsController extends RestController {
         $afterTimestamp = 0,
         $beforeTimestamp = 0,
         $orderDesc = true,
-        $sparse = null
     ): array {
         $offset = intval($offset);
         $limit = intval($limit);
@@ -141,7 +140,6 @@ class ChannelMeasurementLogsController extends RestController {
         $order = $orderDesc ? ' ORDER BY date DESC ' : ' ORDER BY date ASC ';
         $sql = "SELECT EXTRACT(EPOCH FROM date) AS date_timestamp, $fields ";
         $sql .= "FROM $table WHERE channel_id = ? ";
-        $limitSql = '';
 
         if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
             if ($afterTimestamp > 0) {
@@ -151,50 +149,24 @@ class ChannelMeasurementLogsController extends RestController {
             if ($beforeTimestamp > 0) {
                 $sql .= "AND date < ? ";
             }
-            if (!$sparse) {
-                $limitSql = 'LIMIT ? OFFSET ?';
-            }
-        } elseif (!$sparse) {
-            $limitSql = 'LIMIT ? OFFSET ?';
         }
 
         DatabaseUtils::turnOffQueryBuffering($this->entityManager);
 
-        if ($sparse > 0) {
-            Assertion::between($sparse, 1, 1000, 'Invalid sparse value.');
-            $this->entityManager->getConnection()->executeStatement('SET @nth_log_item_row := 0');
-            [$totalCount,] = $this->getMeasureLogsCount($channel, $afterTimestamp, $beforeTimestamp);
-            if ($totalCount > $sparse) {
-                $nth = floor($totalCount / $sparse);
-                $sql .= "AND (@nth_log_item_row := @nth_log_item_row + 1) % $nth = 0";
-            }
-        }
-
-        $sql .= "$order $limitSql";
+        $sql .= "$order LIMIT ? OFFSET ?";
 
         $stmt = $this->entityManager->getConnection()->prepare($sql);
-        $stmt->bindValue(1, $channel->getId(), 'integer');
-
-        if ($afterTimestamp > 0 || $beforeTimestamp > 0) {
-            $n = 2;
-            if ($afterTimestamp > 0) {
-                $stmt->bindValue($n, DateUtils::timestampToMysqlUtc($afterTimestamp), 'string');
-                $n++;
-            }
-            if ($beforeTimestamp > 0) {
-                $stmt->bindValue($n, DateUtils::timestampToMysqlUtc($beforeTimestamp), 'string');
-                $n++;
-            }
-            if (!$sparse) {
-                $stmt->bindValue($n++, $limit, 'integer');
-                $stmt->bindValue($n, $offset, 'integer');
-            }
-        } elseif (!$sparse) {
-            Assertion::between($limit, 0, self::RECORD_LIMIT_PER_REQUEST, 'Invalid limit.');
-            $stmt->bindValue(2, $limit, 'integer');
-            $stmt->bindValue(3, $offset, 'integer');
+        $n = 1;
+        $stmt->bindValue($n++, $channel->getId(), 'integer');
+        if ($afterTimestamp > 0) {
+            $stmt->bindValue($n++, DateUtils::timestampToMysqlUtc($afterTimestamp), 'string');
         }
-
+        if ($beforeTimestamp > 0) {
+            $stmt->bindValue($n++, DateUtils::timestampToMysqlUtc($beforeTimestamp), 'string');
+        }
+        Assertion::between($limit, 0, self::RECORD_LIMIT_PER_REQUEST, 'Invalid limit.');
+        $stmt->bindValue($n++, $limit, 'integer');
+        $stmt->bindValue($n++, $offset, 'integer');
         $result = $stmt->executeQuery();
         return $result->fetchAllAssociative();
     }
@@ -266,7 +238,6 @@ class ChannelMeasurementLogsController extends RestController {
         $afterTimestamp = 0,
         $beforeTimestamp = 0,
         $orderDesc = true,
-        $sparse = null,
         string $logsType = ''
     ): array {
         $table = $this->getLogsTableName($channel, $logsType);
@@ -282,7 +253,6 @@ class ChannelMeasurementLogsController extends RestController {
                     $afterTimestamp,
                     $beforeTimestamp,
                     $orderDesc,
-                    $sparse
                 );
             case ChannelFunction::THERMOMETER:
                 return $this->logItems(
@@ -294,7 +264,6 @@ class ChannelMeasurementLogsController extends RestController {
                     $afterTimestamp,
                     $beforeTimestamp,
                     $orderDesc,
-                    $sparse
                 );
             case ChannelFunction::ELECTRICITYMETER:
                 $columns = '"phase1_fae", "phase1_rae", "phase1_fre", '
@@ -319,7 +288,6 @@ class ChannelMeasurementLogsController extends RestController {
                     $afterTimestamp,
                     $beforeTimestamp,
                     $orderDesc,
-                    $sparse
                 );
             case ChannelFunction::IC_ELECTRICITYMETER:
             case ChannelFunction::IC_GASMETER:
@@ -334,7 +302,6 @@ class ChannelMeasurementLogsController extends RestController {
                     $afterTimestamp,
                     $beforeTimestamp,
                     $orderDesc,
-                    $sparse
                 );
             case ChannelFunction::THERMOSTAT:
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
@@ -347,7 +314,6 @@ class ChannelMeasurementLogsController extends RestController {
                     $afterTimestamp,
                     $beforeTimestamp,
                     $orderDesc,
-                    $sparse
                 );
             case ChannelFunction::GENERAL_PURPOSE_MEASUREMENT:
                 return $this->logItems(
@@ -359,7 +325,6 @@ class ChannelMeasurementLogsController extends RestController {
                     $afterTimestamp,
                     $beforeTimestamp,
                     $orderDesc,
-                    $sparse
                 );
             case ChannelFunction::GENERAL_PURPOSE_METER:
                 return $this->logItems(
@@ -371,7 +336,6 @@ class ChannelMeasurementLogsController extends RestController {
                     $afterTimestamp,
                     $beforeTimestamp,
                     $orderDesc,
-                    $sparse
                 );
             default:
                 throw new ApiException('Invalid function.');
@@ -462,7 +426,6 @@ class ChannelMeasurementLogsController extends RestController {
      *     @OA\Parameter(name="afterTimestamp", description="Fetch log items created after this timestamp.", in="query", @OA\Schema(type="integer")),
      *     @OA\Parameter(name="beforeTimestamp", description="Fetch log items created before this timestamp.", in="query", @OA\Schema(type="integer")),
      *     @OA\Parameter(name="order", description="Whether to order items ascending or descending by creation date.", in="query", @OA\Schema(type="string", default="DESC", enum={"ASC", "DESC"})),
-     *     @OA\Parameter(name="sparse", description="Set the maximum items to return from the given period. If specified, the `limit` and `offset` params are ignored. For example, if you fetches the logs from the whole year and set the `sparse` param to `12`, the API will try to return up to 12 log items, equally distributed throug the whole year. Min: 1, Max: 1000.", in="query", @OA\Schema(type="integer", minimum=1, maximum=1000)),
      *     @OA\Parameter(name="logsType", description="Type of the logs to return. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltageHistory", "powerActiveHistory", "currentHistory", "voltageAberrations"})),
      *     @OA\Parameter(name="limit", description="Maximum items count in response, from 1 to 5000.", in="query", @OA\Schema(type="integer", default=5000, minimum=1, maximum=5000)),
      *     @OA\Parameter(name="offset", description="Pagination offset.", in="query", @OA\Schema(type="integer", default=0)),
@@ -554,7 +517,6 @@ class ChannelMeasurementLogsController extends RestController {
             $minTimestampParam,
             $maxTimestampParam,
             $request->query->get('order') !== 'ASC',
-            $request->query->get('sparse'),
             $this->getLogsType($request),
         );
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {

@@ -668,83 +668,6 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertNull($maxTimestamp);
     }
 
-    public function testGettingSparseLogsFromChannelWithManyLogs() {
-        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
-        $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?sparse=500");
-        $response = $client->getResponse();
-        $this->assertStatusCode('200', $response);
-        $logItems = json_decode($response->getContent(), true);
-        $this->assertEqualsWithDelta(500, count($logItems), 50);
-        $minTimestamp = $response->headers->get('X-Min-Timestamp');
-        $maxTimestamp = $response->headers->get('X-Max-Timestamp');
-        $firstTimestamp = current($logItems)['date_timestamp'];
-        $lastTimestamp = end($logItems)['date_timestamp'];
-        $this->assertTimestampsGrow(
-            strtotime('-70 days'),
-            $minTimestamp,
-            $lastTimestamp,
-            strtotime('-50 days'),
-            strtotime('-1 days'),
-            $firstTimestamp,
-            $maxTimestamp,
-            time()
-        );
-        $this->assertEqualsWithDelta(60, floor(($firstTimestamp - $lastTimestamp) / 86400), 1);
-    }
-
-    public function testGettingSparseLogsFromChannelWithManyLogsOrderedAsc() {
-        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
-        $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?sparse=500&order=ASC");
-        $response = $client->getResponse();
-        $this->assertStatusCode('200', $response);
-        $logItems = json_decode($response->getContent(), true);
-        $this->assertEqualsWithDelta(500, count($logItems), 50);
-        $minTimestamp = $response->headers->get('X-Min-Timestamp');
-        $maxTimestamp = $response->headers->get('X-Max-Timestamp');
-        $firstTimestamp = current($logItems)['date_timestamp'];
-        $lastTimestamp = end($logItems)['date_timestamp'];
-        $this->assertTimestampsGrow(
-            strtotime('-70 days'),
-            $minTimestamp,
-            $firstTimestamp,
-            strtotime('-50 days'),
-            strtotime('-1 days'),
-            $lastTimestamp,
-            $maxTimestamp,
-            time()
-        );
-        $this->assertEqualsWithDelta(60, floor(($lastTimestamp - $firstTimestamp) / 86400), 1);
-    }
-
-    public function testGettingSparseLogsBetweenTimestamps() {
-        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
-        $client = $this->createAuthenticatedClient($this->user);
-        $afterTimestamp = strtotime('-10 days');
-        $beforeTimestamp = strtotime('-3 days');
-        $params = http_build_query(['sparse' => 100, 'afterTimestamp' => $afterTimestamp, 'beforeTimestamp' => $beforeTimestamp]);
-        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?$params");
-        $response = $client->getResponse();
-        $this->assertStatusCode('200', $response);
-        $logItems = json_decode($response->getContent(), true);
-        $this->assertEqualsWithDelta(100, count($logItems), 15);
-        $minTimestamp = $response->headers->get('X-Min-Timestamp');
-        $maxTimestamp = $response->headers->get('X-Max-Timestamp');
-        $firstTimestamp = current($logItems)['date_timestamp'];
-        $lastTimestamp = end($logItems)['date_timestamp'];
-        $this->assertTimestampsGrow(
-            $afterTimestamp,
-            $minTimestamp,
-            $lastTimestamp,
-            $firstTimestamp,
-            $maxTimestamp,
-            $beforeTimestamp,
-            time()
-        );
-        $this->assertEqualsWithDelta(7, floor(($firstTimestamp - $lastTimestamp) / 86400), 1);
-    }
-
     private function assertTimestampsGrow(...$timestamps) {
         $formatTimestamp = function ($timestamp) {
             return date('Y-m-d H:i:s', $timestamp);
@@ -754,35 +677,6 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $actual = $timestamps[$i + 1];
             $this->assertGreaterThanOrEqual($expected, $actual, "{$formatTimestamp($expected)} < {$formatTimestamp($actual)}");
         }
-    }
-
-    public function testGettingSparseLogsBetweenTimestampsOrderedAsc() {
-        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
-        $client = $this->createAuthenticatedClient($this->user);
-        $afterTimestamp = strtotime('-10 days');
-        $beforeTimestamp = strtotime('-3 days');
-        $params = http_build_query(
-            ['sparse' => 100, 'afterTimestamp' => $afterTimestamp, 'beforeTimestamp' => $beforeTimestamp, 'order' => 'ASC']
-        );
-        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?$params");
-        $response = $client->getResponse();
-        $this->assertStatusCode('200', $response);
-        $logItems = json_decode($response->getContent(), true);
-        $this->assertEqualsWithDelta(100, count($logItems), 15);
-        $minTimestamp = $response->headers->get('X-Min-Timestamp');
-        $maxTimestamp = $response->headers->get('X-Max-Timestamp');
-        $firstTimestamp = current($logItems)['date_timestamp'];
-        $lastTimestamp = end($logItems)['date_timestamp'];
-        $this->assertTimestampsGrow(
-            $afterTimestamp,
-            $minTimestamp,
-            $firstTimestamp,
-            $lastTimestamp,
-            $maxTimestamp,
-            $beforeTimestamp,
-            time()
-        );
-        $this->assertEqualsWithDelta(7, floor(($lastTimestamp - $firstTimestamp) / 86400), 1);
     }
 
     /** @dataProvider invalidLimits */
