@@ -61,11 +61,6 @@ doctrine:
             prefix: 'SuplaBundle\Entity\MeasurementLogs'
       tsdb:
         connection: tsdb
-        mappings:
-          MeasurementLogs:
-            type: annotation
-            dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
-            prefix: 'SuplaBundle\Entity\MeasurementLogs'
 
 doctrine_migrations:
   migrations_paths:

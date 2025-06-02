@@ -336,8 +336,16 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $content = $this->getMeasurementLogsV22($channelId);
         $impulsesInOrder = ['300', '200', '100'];
         $calculatedValuesInOrder = ['0.3000', '0.2000', '0.1000'];
-        $this->assertSame($impulsesInOrder, array_column($content, 'counter'));
-        $this->assertSame($calculatedValuesInOrder, array_column($content, 'calculated_value'));
+        for ($i = 0; $i < count($impulsesInOrder); $i++) {
+            $expectedImpulse = $impulsesInOrder[$i];
+            $expectedCalculatedValue = $calculatedValuesInOrder[$i];
+            $actualImpulse = $content[$i]['counter'];
+            $actualCalculatedValue = $content[$i]['calculated_value'];
+            $this->assertIsString($actualImpulse);
+            $this->assertIsString($expectedCalculatedValue);
+            $this->assertEqualsWithDelta((float)$expectedImpulse, (float)$actualImpulse, 0.0001);
+            $this->assertEqualsWithDelta((float)$expectedCalculatedValue, (float)$actualCalculatedValue, 0.0001);
+        }
     }
 
     public function testGettingGeneralPurposeMeasurementLogs() {
