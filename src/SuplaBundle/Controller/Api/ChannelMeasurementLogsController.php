@@ -639,7 +639,7 @@ class ChannelMeasurementLogsController extends RestController {
     }
 
     private function deleteMeasurementLogs($entityClass, IODeviceChannel $channel, callable $filters = null) {
-        $repo = $this->getDoctrine()->getRepository($entityClass);
+        $repo = $this->getDoctrine()->getRepository($entityClass, 'measurement_logs');
         $qb = $repo->createQueryBuilder('log')
             ->delete()
             ->where('log.channel_id = :channelId')

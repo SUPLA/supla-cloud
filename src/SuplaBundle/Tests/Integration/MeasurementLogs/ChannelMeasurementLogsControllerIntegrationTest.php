@@ -890,12 +890,12 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     public function testDeletingVoltageLogsForSelectedPhase() {
         $channelId = $this->device1->getChannels()[3]->getId();
         $client = $this->createAuthenticatedClient($this->user);
-        $voltageRepository = $this->getDoctrine()->getRepository(ElectricityMeterVoltageAberrationLogItem::class);
+        $voltageRepository = $this->getDoctrine()->getRepository(ElectricityMeterVoltageAberrationLogItem::class, 'measurement_logs');
         $logsBefore = $voltageRepository->findBy(['channel_id' => $channelId]);
         $client->apiRequestV24('DELETE', "/api/channels/{$channelId}/measurement-logs?logsType=voltage&phase=1");
         $response = $client->getResponse();
         $this->assertStatusCode('204', $response);
-        $emLogRepository = $this->getDoctrine()->getRepository(ElectricityMeterLogItem::class);
+        $emLogRepository = $this->getDoctrine()->getRepository(ElectricityMeterLogItem::class, 'measurement_logs');
         $logsAfter = $voltageRepository->findBy(['channel_id' => $channelId]);
         $this->assertNotEmpty($logsAfter);
         $phases = array_unique(array_map(function (ElectricityMeterVoltageAberrationLogItem $log) {
@@ -912,8 +912,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $client->apiRequestV24('DELETE', "/api/channels/{$channelId}/measurement-logs?logsType=voltage");
         $response = $client->getResponse();
         $this->assertStatusCode('204', $response);
-        $voltageRepository = $this->getDoctrine()->getRepository(ElectricityMeterVoltageAberrationLogItem::class);
-        $emLogRepository = $this->getDoctrine()->getRepository(ElectricityMeterLogItem::class);
+        $voltageRepository = $this->getDoctrine()->getRepository(ElectricityMeterVoltageAberrationLogItem::class, 'measurement_logs');
+        $emLogRepository = $this->getDoctrine()->getRepository(ElectricityMeterLogItem::class, 'measurement_logs');
         $this->assertEmpty($voltageRepository->findBy(['channel_id' => $channelId]));
         $this->assertNotEmpty($emLogRepository->findBy(['channel_id' => $channelId]));
     }

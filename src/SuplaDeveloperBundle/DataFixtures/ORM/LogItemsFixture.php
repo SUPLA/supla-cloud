@@ -17,6 +17,7 @@
 
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
+use Doctrine\ORM\Events;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -52,7 +53,16 @@ class LogItemsFixture extends SuplaFixture {
         $this->entityManager = $doctrine->getManager('measurement_logs');
     }
 
+    /**
+     * With the listener enabled, there was an error when initializing log items into the MariaDB database.
+     */
+    public function disableReferenceRepositoryListener(): void {
+        $listeners = $this->entityManager->getEventManager()->getListeners(Events::postPersist);
+        $this->entityManager->getEventManager()->removeEventListener(Events::postPersist, current($listeners));
+    }
+
     public function load(ObjectManager $manager) {
+        $this->disableReferenceRepositoryListener();
         ini_set('memory_limit', '4G');
         $this->createTemperatureLogItems();
         $this->entityManager->flush();

@@ -1,6 +1,12 @@
 imports:
   - { resource: config.yml }
 
+doctrine:
+  orm:
+    entity_managers:
+      measurement_logs:
+        connection: tsdb
+
 framework:
   profiler:
     only_exceptions: false

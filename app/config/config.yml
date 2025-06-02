@@ -52,10 +52,6 @@ doctrine:
             type: annotation
             dir: '%kernel.project_dir%/src/SuplaBundle/Entity/Main'
             prefix: 'SuplaBundle\Entity\Main'
-          MeasurementLogs:
-            type: annotation
-            dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
-            prefix: 'SuplaBundle\Entity\MeasurementLogs'
       measurement_logs:
         connection: default
         mappings:
