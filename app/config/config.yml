@@ -14,7 +14,19 @@ doctrine:
         password: "%database_password%"
         port: "%database_port%"
         user: "%database_user%"
-        schema_filter: ~^(?!(esp_|supla_email_notifications))~
+        schema_filter: ~^(?!(esp_|supla_email_notifications|supla_(.+)_log))~
+        charset: utf8mb4
+        default_table_options:
+          charset: utf8
+          collate: utf8_unicode_ci
+      logs_mariadb:
+        driver: pdo_mysql
+        dbname: "%database_name%"
+        host: "%database_host%"
+        password: "%database_password%"
+        port: "%database_port%"
+        user: "%database_user%"
+        schema_filter: ~^(migration_versions|doctrine_migration_versions|supla_(.+)_log)$~
         charset: utf8mb4
         default_table_options:
           charset: utf8
@@ -53,7 +65,7 @@ doctrine:
             dir: '%kernel.project_dir%/src/SuplaBundle/Entity/Main'
             prefix: 'SuplaBundle\Entity\Main'
       measurement_logs:
-        connection: default
+        connection: logs_mariadb
         mappings:
           MeasurementLogs:
             type: annotation
