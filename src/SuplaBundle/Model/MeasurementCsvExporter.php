@@ -66,7 +66,7 @@ class MeasurementCsvExporter {
         $platform = DatabaseUtils::getPlatform($this->entityManager);
         $timestampSelect = "UNIX_TIMESTAMP(date) AS date_ts, IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`) AS date";
         $onColumn = DatabaseUtils::quoteColumnName($this->entityManager, 'on');
-        if ($platform === 'psql') {
+        if ($platform === DatabaseUtils::PSQL) {
             $timestampSelect = "EXTRACT(EPOCH FROM date)::INTEGER date_ts, to_char(date AT TIME ZONE :timezone, 'YYYY-MM-DD HH24:MI:SS')";
         }
         switch ($channel->getFunction()->getId()) {

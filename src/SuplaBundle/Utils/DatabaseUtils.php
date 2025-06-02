@@ -21,6 +21,9 @@ use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class DatabaseUtils {
+    public const PSQL = 'psql';
+    public const MARIADB = 'mariadb';
+
     private function __construct() {
     }
 
@@ -30,18 +33,18 @@ final class DatabaseUtils {
 
     public static function getPlatform(EntityManagerInterface $entityManager): string {
         $platform = $entityManager->getConnection()->getDatabasePlatform();
-        return $platform instanceof PostgreSQLPlatform ? 'psql' : 'mysql';
+        return $platform instanceof PostgreSQLPlatform ? self::PSQL : self::MARIADB;
     }
 
     public static function getTimestampFunction(EntityManagerInterface $entityManager, $field = 'date'): string {
         $platform = self::getPlatform($entityManager);
-        $format = ['psql' => 'EXTRACT(EPOCH FROM %s)'][$platform] ?? 'UNIX_TIMESTAMP(%s)';
+        $format = [self::PSQL => 'EXTRACT(EPOCH FROM %s)'][$platform] ?? 'UNIX_TIMESTAMP(%s)';
         return sprintf($format, self::quoteColumnName($entityManager, $field));
     }
 
     public static function quoteColumnName(EntityManagerInterface $entityManager, mixed $field): string {
         $platform = self::getPlatform($entityManager);
-        $quoteChar = ['psql' => '"'][$platform] ?? '`';
+        $quoteChar = [self::PSQL => '"'][$platform] ?? '`';
         return $quoteChar . addcslashes($field, $quoteChar) . $quoteChar;
     }
 }
