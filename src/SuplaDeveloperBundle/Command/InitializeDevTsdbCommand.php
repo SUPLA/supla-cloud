@@ -35,9 +35,9 @@ class InitializeDevTsdbCommand extends Command {
     /** @inheritdoc */
     protected function execute(InputInterface $input, OutputInterface $output) {
         $this->getApplication()->setAutoExit(false);
-        $this->getApplication()->run(new StringInput('doctrine:database:create --if-not-exists --connection=tsdb'), $output);
-        $this->getApplication()->run(new StringInput('doctrine:database:drop --force --no-interaction --connection=tsdb'), $output);
-        $this->getApplication()->run(new StringInput('doctrine:database:create --if-not-exists --connection=tsdb'), $output);
+        $this->getApplication()->run(new StringInput('doctrine:database:create --if-not-exists --connection=logs_tsdb'), $output);
+        $this->getApplication()->run(new StringInput('doctrine:database:drop --force --no-interaction --connection=logs_tsdb'), $output);
+        $this->getApplication()->run(new StringInput('doctrine:database:create --if-not-exists --connection=logs_tsdb'), $output);
         $this->getApplication()->run(new StringInput('supla:initialize:tsdb'), $output);
         return 0;
     }

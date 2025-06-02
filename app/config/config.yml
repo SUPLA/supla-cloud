@@ -72,7 +72,7 @@ doctrine:
             dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
             prefix: 'SuplaBundle\Entity\MeasurementLogs'
       tsdb:
-        connection: tsdb
+        connection: logs_tsdb
 
 doctrine_migrations:
   migrations_paths:
