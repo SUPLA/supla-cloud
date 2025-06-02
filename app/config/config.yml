@@ -21,11 +21,11 @@ doctrine:
           collate: utf8_unicode_ci
       tsdb:
         driver: pdo_pgsql
-        dbname: "supla"
-        host: "localhost"
-        password: postgres
-        port: 5432
-        user: postgres
+        dbname: "%tsdb_name%"
+        host: "%tsdb_host%"
+        password: "%tsdb_password%"
+        port: "%tsdb_port%"
+        user: "%tsdb_user%"
         schema_filter: ~^(migration_versions|doctrine_migration_versions|supla_(.+)_log)$~
         charset: utf8
         default_table_options:

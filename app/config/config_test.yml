@@ -35,6 +35,7 @@ parameters:
   admin_email: admin@supla.org
   mailer_from: SUPLA TESTS <noreply@supla.local>
   database_name: supla_test
+  tsdb_name: supla_test
   supla_server: supla.local
 
 services:

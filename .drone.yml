@@ -79,7 +79,7 @@ steps:
       - apt-get update && apt-get install -y ca-certificates apt-transport-https software-properties-common wget gnupg
       - echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/sury-php.list
       - wget -qO - https://packages.sury.org/php/apt.gpg | apt-key add -
-      - apt-get update && apt-get install -y dialog php8.3 php8.3-curl php8.3-dom php8.3-intl php8.3-mbstring php8.3-mysql php8.3-zip
+      - apt-get update && apt-get install -y dialog php8.3 php8.3-curl php8.3-dom php8.3-intl php8.3-mbstring php8.3-mysql php8.3-zip php8.3-pgsql
       - cd src/frontend
       - npm ci
       - node_modules/cypress/bin/cypress install
@@ -133,3 +133,8 @@ services:
       MYSQL_DATABASE: supla_test
       MYSQL_USER: drone
       MYSQL_PASSWORD: ~
+  - name: tsdb
+    image: timescale/timescaledb:2.20.1-pg17
+    environment:
+      POSTGRES_DB: supla_test
+      POSTGRES_PASSWORD: postgres
