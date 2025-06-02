@@ -41,8 +41,7 @@ class CopyMeasurementLogsCommand extends Command {
         $emMariadb = $this->registry->getManager('default');
         $emTsdb = $this->registry->getManager('tsdb');
         $this->getApplication()->setAutoExit(false);
-        $this->getApplication()->run(new StringInput("doctrine:database:create --connection=tsdb --if-not-exists --no-interaction"), $output);
-        $this->getApplication()->run(new StringInput("doctrine:migrations:migrate -v --no-interaction --em=tsdb --configuration=app/config/migrations_tsdb.yml"), $output);
+        $this->getApplication()->run(new StringInput("supla:initialize:tsdb --force"), $output);
 
         $table = new Table($output);
         $table->setHeaders(['Log table', 'MariaDB Count', 'TSDB Count']);

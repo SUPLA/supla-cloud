@@ -5,6 +5,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use SuplaBundle\Utils\DatabaseUtils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -16,14 +17,21 @@ class InitializeTsdbCommand extends Command {
     protected function configure() {
         $this
             ->setName('supla:initialize:tsdb')
-            ->setDescription('Initializes SUPLA Cloud TSDB.');
+            ->setDescription('Initializes SUPLA Cloud TSDB.')
+            ->addOption('force', 'f', InputOption::VALUE_NONE);
     }
 
     /** @inheritdoc */
     protected function execute(InputInterface $input, OutputInterface $output) {
         $this->getApplication()->setAutoExit(false);
         if (DatabaseUtils::getPlatform($this->doctrineRegistry->getManager('measurement_logs')) === DatabaseUtils::PSQL) {
-            $this->getApplication()->run(new StringInput("doctrine:migrations:migrate -v --no-interaction --em=measurement_logs --configuration=app/config/migrations_tsdb.yml"), $output);
+            $migrateCommand =
+                "doctrine:migrations:migrate -v --no-interaction --em=measurement_logs --configuration=app/config/migrations_tsdb.yml";
+            $this->getApplication()->run(new StringInput($migrateCommand), $output);
+        } elseif ($input->getOption('force')) {
+            $migrateCommand =
+                "doctrine:migrations:migrate -v --no-interaction --em=tsdb --configuration=app/config/migrations_tsdb.yml";
+            $this->getApplication()->run(new StringInput($migrateCommand), $output);
         }
         return 0;
     }
