@@ -14,6 +14,9 @@ function toLuxon(anything) {
 }
 
 export function formatDate(datetime, format) {
+    if (!datetime) {
+        return '-';
+    }
     if (typeof format === 'string') {
         format = DateTime[format];
     }
