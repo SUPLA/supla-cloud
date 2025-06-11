@@ -7,6 +7,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\VirtualChannelType;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Supla\SuplaAutodiscover;
 
 class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurator {
@@ -18,19 +19,47 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         'visibility' => ['function' => ChannelFunction::DISTANCESENSOR],
         'windSpeed' => ['function' => ChannelFunction::WINDSENSOR],
         'windGust' => ['function' => ChannelFunction::WINDSENSOR],
-        'clouds' => ['function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
+        'clouds' => [
+            'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => '%'],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => '%'],
+        ],
         'rainMmh' => ['function' => ChannelFunction::RAINSENSOR],
         'snowMmh' => ['function' => ChannelFunction::RAINSENSOR],
-        'airCo' => ['function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
-        'airNo' => ['function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
-        'airNo2' => ['function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
-        'airO3' => ['function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
-        'airPm10' => ['function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
-        'airPm25' => ['function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
+        'airCo' => [
+            'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³'],
+        ],
+        'airNo' => [
+            'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³'],
+        ],
+        'airNo2' => [
+            'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³'],
+        ],
+        'airO3' => [
+            'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³'],
+        ],
+        'airPm10' => [
+            'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³'],
+        ],
+        'airPm25' => [
+            'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³'],
+        ],
         'tempHumidity' => ['function' => ChannelFunction::HUMIDITYANDTEMPERATURE],
     ];
 
-    public function __construct(private SuplaAutodiscover $ad) {
+    public function __construct(private SuplaAutodiscover $ad, private SubjectConfigTranslator $configTranslator) {
     }
 
     public function configureChannel(IODeviceChannel $channel, array $config): IODeviceChannel {
@@ -39,14 +68,16 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         Assertion::keyExists(self::CONFIGS, $config['weatherField']);
         Assertion::keyExists($config, 'cityId');
         Assertion::inArray($config['cityId'], array_column($this->ad->getOpenWeatherCities(), 'id'));
-        EntityUtils::setField($channel, 'properties', json_encode([
+        $fieldConfig = self::CONFIGS[$config['weatherField']];
+        EntityUtils::setField($channel, 'properties', json_encode(array_merge([
             'virtualChannelConfig' => [
                 'type' => VirtualChannelType::OPEN_WEATHER,
                 'cityId' => $config['cityId'],
                 'weatherField' => $config['weatherField'],
             ],
-        ]));
-        EntityUtils::setField($channel, 'function', self::CONFIGS[$config['weatherField']]['function']);
+        ], $fieldConfig['properties'] ?? [])));
+        EntityUtils::setField($channel, 'function', $fieldConfig['function']);
+        $this->configTranslator->setConfig($channel, $fieldConfig['userConfig'] ?? []);
         return $channel;
     }
 

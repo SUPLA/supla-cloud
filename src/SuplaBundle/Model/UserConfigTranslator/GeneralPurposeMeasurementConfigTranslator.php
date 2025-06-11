@@ -52,9 +52,9 @@ class GeneralPurposeMeasurementConfigTranslator extends UserConfigTranslator {
         $config = $subject->getUserConfig();
         if (array_key_exists('valueMultiplier', $config)) {
             return [
-                'valueDivider' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueDivider', 1) / 1000, 3) ?: 1,
+                'valueDivider' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueDivider', 1000) / 1000, 3) ?: 1,
                 'valueMultiplier' =>
-                    NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueMultiplier', 1) / 1000, 3) ?: 1,
+                    NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueMultiplier', 1000) / 1000, 3) ?: 1,
                 'valueAdded' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueAdded', 0) / 1000, 3),
                 'valuePrecision' => $subject->getUserConfigValue('valuePrecision', 0),
                 'refreshIntervalMs' => $subject->getUserConfigValue('refreshIntervalMs', 1000),
@@ -65,8 +65,9 @@ class GeneralPurposeMeasurementConfigTranslator extends UserConfigTranslator {
                 'keepHistory' => $subject->getUserConfigValue('keepHistory', false),
                 'chartType' => $subject->getUserConfigValue('chartType', self::CHART_TYPES[0]),
                 'defaults' => [
-                    'valueDivider' => NumberUtils::maximumDecimalPrecision($subject->getProperty('defaultValueDivider', 1) / 1000, 3),
-                    'valueMultiplier' => NumberUtils::maximumDecimalPrecision($subject->getProperty('defaultValueMultiplier', 1) / 1000, 3),
+                    'valueDivider' => NumberUtils::maximumDecimalPrecision($subject->getProperty('defaultValueDivider', 1000) / 1000, 3),
+                    'valueMultiplier' =>
+                        NumberUtils::maximumDecimalPrecision($subject->getProperty('defaultValueMultiplier', 1000) / 1000, 3),
                     'valueAdded' => NumberUtils::maximumDecimalPrecision($subject->getProperty('defaultValueAdded', 0) / 1000, 3),
                     'valuePrecision' => $subject->getProperty('defaultValuePrecision', 0),
                     'unitBeforeValue' => $subject->getProperty('defaultUnitBeforeValue'),

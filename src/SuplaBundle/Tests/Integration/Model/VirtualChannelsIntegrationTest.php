@@ -22,6 +22,7 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\VirtualChannelType;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -104,6 +105,33 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('windSpeed', $content['config']['virtualChannelConfig']['weatherField']);
         $this->assertEquals(1, $this->getEntityManager()->getRepository(IODevice::class)->count([]));
         return $content['id'];
+    }
+
+    public function testCreatingVirtualChannelAir() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('POST', '/api/channels', [
+            'virtualChannelType' => VirtualChannelType::OPEN_WEATHER,
+            'virtualChannelConfig' => [
+                'cityId' => 2,
+                'weatherField' => 'airCo',
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('id', $content);
+        $this->assertArrayHasKey('config', $content);
+        $this->assertEquals(ChannelFunction::GENERAL_PURPOSE_MEASUREMENT, $content['functionId']);
+        $this->assertArrayHasKey('virtualChannelConfig', $content['config']);
+        $this->assertEquals(VirtualChannelType::OPEN_WEATHER, $content['config']['virtualChannelConfig']['type']);
+        $this->assertEquals(2, $content['config']['virtualChannelConfig']['cityId']);
+        $this->assertEquals('airCo', $content['config']['virtualChannelConfig']['weatherField']);
+        $this->assertEquals(1, $this->getEntityManager()->getRepository(IODevice::class)->count([]));
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $config = $channelParamConfigTranslator->getConfig($this->freshChannelById($content['id']));
+        $this->assertArrayNotHasKey('waitingForConfigInit', $config);
+        $this->assertArrayHasKey('valueMultiplier', $config);
+        $this->assertEquals(1, $config['valueMultiplier']);
     }
 
     /** @depends testCreatingVirtualChannelTemp */
