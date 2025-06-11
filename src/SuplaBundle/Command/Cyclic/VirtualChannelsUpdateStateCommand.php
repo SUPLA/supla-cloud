@@ -45,6 +45,6 @@ class VirtualChannelsUpdateStateCommand extends AbstractCyclicCommand {
     }
 
     public function getIntervalInMinutes(): int {
-        return 2; // every two minutes
+        return 5; // every five minutes
     }
 }

@@ -11,7 +11,7 @@ use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelConfigurator {
     private const CONFIGS = [
-        'rde' => [
+        'rce' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'PLN'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
@@ -42,7 +42,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
         Assertion::string($config['energyField']);
         Assertion::keyExists(self::CONFIGS, $config['energyField']);
         $fieldConfig = self::CONFIGS[$config['energyField']];
-        EntityUtils::setField($channel, 'energyField', json_encode(array_merge([
+        EntityUtils::setField($channel, 'properties', json_encode(array_merge([
             'virtualChannelConfig' => [
                 'type' => VirtualChannelType::ENERGY_PRICE_FORECAST,
                 'energyField' => $config['energyField'],
