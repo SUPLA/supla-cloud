@@ -11,16 +11,17 @@
                 <ChannelParamsGeneralPurposeCommon :channel="props.channel" @change="$emit('change')"/>
             </div>
         </transition-expand>
-        <a class="d-flex accordion-header" @click="displayConfigGroup('history')">
+        <a class="d-flex accordion-header" @click="displayConfigGroup('history')" v-if="canDisplayAnySetting('keepHistory', 'chartType')">
             <span class="flex-grow-1">{{ $t('History') }}</span>
             <span>
                 <fa :icon="configGroupChevron('history')"/>
             </span>
         </a>
         <transition-expand>
-            <div v-show="configGroup === 'history'">
-                <ChannelParamsMeterKeepHistoryMode v-model="props.channel.config.keepHistory" @input="$emit('change')"/>
-                <dl>
+            <div v-show="configGroup === 'history'" v-if="canDisplayAnySetting('keepHistory', 'chartType')">
+                <ChannelParamsMeterKeepHistoryMode v-model="props.channel.config.keepHistory" @input="$emit('change')"
+                    v-if="canDisplaySetting('keepHistory')"/>
+                <dl v-if="canDisplaySetting('chartType')">
                     <dd>{{ $t('Chart type') }}</dd>
                     <dt>
                         <ChannelParamsButtonSelector
@@ -41,7 +42,9 @@
     import ChannelParamsGeneralPurposeCommon from "@/channels/params/channel-params-general-purpose-common.vue";
     import {useConfigGroups} from "@/channels/params/useConfigGroups";
     import ChannelParamsMeterKeepHistoryMode from "@/channels/params/channel-params-meter-keep-history-mode.vue";
+    import {useDisplaySettings} from "@/channels/params/useDisplaySettings";
 
     const props = defineProps({channel: Object});
     const {configGroup, displayConfigGroup, configGroupChevron} = useConfigGroups();
+    const {canDisplayAnySetting, canDisplaySetting} = useDisplaySettings(props.channel);
 </script>

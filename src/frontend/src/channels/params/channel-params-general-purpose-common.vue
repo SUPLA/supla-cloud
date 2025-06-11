@@ -95,6 +95,8 @@
                     </div>
                 </div>
             </dt>
+        </dl>
+        <dl v-if="canDisplaySetting('refreshIntervalMs')">
             <dd>{{ $t('Refresh interval') }}</dd>
             <dt>
                 <toggler v-model="defaultRefreshInterval" :label="$t('Use device default')" @input="$emit('change')"/>
@@ -158,6 +160,9 @@
                 this.channel.config.unitBeforeValue = this.channel.config.defaults.unitBeforeValue || '';
                 this.channel.config.unitAfterValue = this.channel.config.defaults.unitAfterValue || '';
                 this.$emit('change');
+            },
+            canDisplaySetting(settingName) {
+                return !this.channel.config.hiddenConfigFields?.includes(settingName);
             },
         },
         computed: {
