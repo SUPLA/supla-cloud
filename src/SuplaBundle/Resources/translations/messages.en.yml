@@ -188,5 +188,6 @@ valveOpenConfirm_motorProblem: A motor problem has been detected. Make sure noth
 
 #</editor-fold>
 virtualChannelTypeName_OPEN_WEATHER: Weather
-virtualChannelTypeInfo_OPEN_WEATHER: Current weather data fethed from Open Weather API.
-virtualChannelTypeInfoLong_OPEN_WEATHER: The weather data are not updated in real-time. Expect periodical updates of the weather attribute of your choice.
+virtualChannelTypeInfoLong_OPEN_WEATHER: Current weather data fetched from Open Weather API. The weather data are not updated in real-time. Expect periodical updates of the weather attribute of your choice.
+virtualChannelTypeName_ENERGY_PRICE_FORECAST: Energy prices
+virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: Forecast of energy prices in Poland based on external services.

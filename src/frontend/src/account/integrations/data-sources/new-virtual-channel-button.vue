@@ -13,27 +13,26 @@
             :loading="loading"
             @confirm="addNewDataSource()"
             @cancel="adding = false">
-            <!-- i18n: ['virtualChannelTypeName_OPEN_WEATHER', 'virtualChannelTypeInfo_OPEN_WEATHER'] -->
-            <simple-dropdown :options="channelTypes" v-if="type" v-model="type">
-                <template #option="{option}">
-                    <div>
-                        {{ $t('virtualChannelTypeName_' + option) }}
-                        <div class="small">{{ $t('virtualChannelTypeInfo_' + option) }}</div>
-                    </div>
-                </template>
-                <template #button="{value}">{{ $t('virtualChannelTypeName_' + value) }}</template>
-            </simple-dropdown>
-            <div class="small mt-2">
-                {{ $t('virtualChannelTypeInfo_' + type) }}
+            <!-- i18n: ['virtualChannelTypeName_OPEN_WEATHER'] -->
+            <!-- i18n: ['virtualChannelTypeName_ENERGY_PRICE_FORECAST'] -->
+            <div class="d-flex flex-wrap" v-if="channelTypes">
+                <button
+                    v-for="chType in channelTypes"
+                    :key="chType"
+                    type="button"
+                    :class="['btn flex-grow-1 m-1', chType === type ? 'btn-green' : 'btn-default']"
+                    @click="type = chType">
+                    {{ $t('virtualChannelTypeName_' + chType) }}
+                </button>
             </div>
             <NewVirtualChannelParamsOpenWeather v-model="config" v-if="type === 'OPEN_WEATHER'"/>
+            <NewVirtualChannelParamsEnergyPriceForecast v-model="config" v-if="type === 'ENERGY_PRICE_FORECAST'"/>
             <div class="text-danger" v-if="errorMessage">{{ errorMessage }}</div>
         </modal-confirm>
     </div>
 </template>
 
 <script setup>
-    import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
     import {useSuplaApi} from "@/api/use-supla-api";
     import {ref} from "vue";
     import {channelsApi} from "@/api/channels-api";
@@ -41,6 +40,8 @@
     import {useRouter} from "vue-router/composables";
     import NewVirtualChannelParamsOpenWeather from "@/account/integrations/data-sources/new-virtual-channel-params-open-weather.vue";
     import {useI18n} from "vue-i18n-bridge";
+    import NewVirtualChannelParamsEnergyPriceForecast
+        from "@/account/integrations/data-sources/new-virtual-channel-params-energy-price-forecast.vue";
 
     const router = useRouter();
     const i18n = useI18n();
@@ -51,11 +52,7 @@
     const config = ref({});
     const errorMessage = ref('');
 
-    const {data: channelTypes} = useSuplaApi(`enum/virtual-channel-types`, {
-        afterFetch(ctx) {
-            type.value = ctx.data[0];
-        }
-    }).json();
+    const {data: channelTypes} = useSuplaApi(`enum/virtual-channel-types`).json();
 
     async function addNewDataSource() {
         if (!config.value.ready) {

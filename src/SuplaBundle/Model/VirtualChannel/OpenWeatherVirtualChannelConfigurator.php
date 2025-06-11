@@ -22,7 +22,9 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         'clouds' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => '%'],
-            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => '%'],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => '%', 'hiddenConfigFields' => [
+                'keepHistory', 'chartType', 'refreshIntervalMs',
+            ]],
         ],
         'rainMmh' => ['function' => ChannelFunction::RAINSENSOR],
         'snowMmh' => ['function' => ChannelFunction::RAINSENSOR],
@@ -36,32 +38,42 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         'airNo' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
-            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³'],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
+                'keepHistory', 'chartType', 'refreshIntervalMs',
+            ]],
         ],
         'airNo2' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
-            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³'],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
+                'keepHistory', 'chartType', 'refreshIntervalMs',
+            ]],
         ],
         'airO3' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
-            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³'],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
+                'keepHistory', 'chartType', 'refreshIntervalMs',
+            ]],
         ],
         'airPm10' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
-            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³'],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
+                'keepHistory', 'chartType', 'refreshIntervalMs',
+            ]],
         ],
         'airPm25' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
-            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³'],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
+                'keepHistory', 'chartType', 'refreshIntervalMs',
+            ]],
         ],
         'tempHumidity' => ['function' => ChannelFunction::HUMIDITYANDTEMPERATURE],
     ];
 
-    public function __construct(private SuplaAutodiscover $ad, private SubjectConfigTranslator $configTranslator) {
+    public function __construct(private readonly SuplaAutodiscover $ad, private readonly SubjectConfigTranslator $configTranslator) {
     }
 
     public function configureChannel(IODeviceChannel $channel, array $config): IODeviceChannel {
