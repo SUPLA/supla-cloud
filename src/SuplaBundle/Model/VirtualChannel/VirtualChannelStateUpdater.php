@@ -55,11 +55,9 @@ class VirtualChannelStateUpdater {
                 $fetchedAtDate = new \DateTime($fetchedAt);
                 $validToDate = clone $fetchedAtDate;
                 $validToDate->add(new \DateInterval('PT1H'));
-                if ($field === 'tempHumidity') {
-                    $value = ChannelValue::packTwoValues($weather['temp'] ?? 0, $weather['humidity'] ?? 0);
-                } else {
-                    $value = ChannelValue::packOneValue($weather[$field] ?? 0);
-                }
+                $fnc = OpenWeatherVirtualChannelConfigurator::fieldNameToFunction($field);
+                $readField = $field === 'tempHumidity' ? 'temp' : $field;
+                $value = ChannelValue::packValue($fnc, $weather[$readField] ?? 0, $weather['humidity'] ?? 0);
                 $this->entityManager
                     ->createQuery($query)
                     ->execute([

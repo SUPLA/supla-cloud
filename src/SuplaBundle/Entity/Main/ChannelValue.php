@@ -19,6 +19,7 @@ namespace SuplaBundle\Entity\Main;
 
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\BelongsToUser;
+use SuplaBundle\Enums\ChannelFunction;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelValueRepository")
@@ -63,21 +64,14 @@ class ChannelValue {
         return stream_get_contents($this->value);
     }
 
-    public function unpackOneValue() {
-        $value = unpack('lval', $this->getValue());
-        return $value['val'] / 1000;
-    }
-
-    public function unpackTwoValues(): array {
-        $value = unpack('lone/ltwo', $this->getValue());
-        return [$value['one'] / 1000, $value['two'] / 1000];
-    }
-
-    public static function packOneValue($value): string {
-        return pack('l', round($value * 1000));
-    }
-
-    public static function packTwoValues($value1, $value2): string {
-        return pack('ll', round($value1 * 1000), round($value2 * 1000));
+    public static function packValue(ChannelFunction $fnc, $value, $value2 = 0): string {
+        switch ($fnc->getId()) {
+            case ChannelFunction::HUMIDITY:
+                return pack('ll', 0, round($value * 1000));
+            case ChannelFunction::HUMIDITYANDTEMPERATURE:
+                return pack('ll', round($value * 1000), round($value2 * 1000));
+            default:
+                return pack('d', $value);
+        }
     }
 }

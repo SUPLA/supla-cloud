@@ -121,7 +121,7 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
     public function testSavesChannelsValueInDatabase(int $channelId) {
         $chValue = $this->getEntityManager()->getRepository(ChannelValue::class)->findOneBy(['channel' => $channelId]);
         $this->assertNotNull($chValue);
-        $this->assertEquals(22.2, $chValue->unpackOneValue());
+        $this->assertEquals(22.2, current(unpack('d', $chValue->getValue())));
     }
 
     public function testCreatingVirtualChannelTempHum() {
@@ -149,8 +149,8 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('virtualChannelConfig', $content['config']);
         $chValue = $this->getEntityManager()->getRepository(ChannelValue::class)->findOneBy(['channel' => $content['id']]);
         $this->assertNotNull($chValue);
-        [$temp, $hum] = $chValue->unpackTwoValues();
-        $this->assertEquals(22.2, $temp);
-        $this->assertEquals(66, $hum);
+        ['t' => $temp, 'h' => $hum] = unpack('lt/lh', $chValue->getValue());
+        $this->assertEquals(22.2 * 1000, $temp);
+        $this->assertEquals(66 * 1000, $hum);
     }
 }

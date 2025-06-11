@@ -53,4 +53,8 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
     public function supports(VirtualChannelType $type): bool {
         return $type->getValue() === VirtualChannelType::OPEN_WEATHER;
     }
+
+    public static function fieldNameToFunction(string $fieldName): ChannelFunction {
+        return new ChannelFunction(self::CONFIGS[$fieldName]['function']);
+    }
 }
