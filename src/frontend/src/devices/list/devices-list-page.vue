@@ -99,7 +99,8 @@
             ...mapStores(useDevicesStore),
             ...mapState(useDevicesStore, {devices: 'list'}),
             filteredDevices() {
-                const filteredDevices = this.devices ? this.devices.filter(this.filterFunction) : this.devices;
+                const filteredDevices = (this.devices ? this.devices.filter(this.filterFunction) : this.devices)
+                    .filter((device) => !device.isVirtual);
                 if (filteredDevices) {
                     filteredDevices.sort(this.compareFunction);
                 }
