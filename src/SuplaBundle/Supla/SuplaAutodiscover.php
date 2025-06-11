@@ -423,4 +423,8 @@ abstract class SuplaAutodiscover {
     public function fetchOpenWeatherData(array $cityIds): array {
         return $this->remoteRequest('/weather-data', ['cityIds' => $cityIds], $responseStatus) ?: [];
     }
+
+    public function fetchEnergyPriceForecast(): array {
+        return $this->remoteRequest('/energy-price-forecast') ?: [];
+    }
 }

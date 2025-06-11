@@ -225,6 +225,12 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
                     ],
                 ];
             }, $post['cityIds']);
+        } elseif (preg_match('#/energy-price-forecast#', $endpoint, $match)) {
+            $today = date('Y-m-d');
+            $tommorrow = date('Y-m-d', strtotime('+1 day'));
+            $adMockData = json_decode(file_get_contents(__DIR__ . '/SuplaAutodiscoverMock.json'), true);
+            $forecast = json_encode($adMockData['energy-price-forecast']);
+            return json_decode(str_replace('2025-06-11', $today, str_replace('2025-06-12', $tommorrow, $forecast)), true);
         }
         $responseStatus = 404;
         return false;

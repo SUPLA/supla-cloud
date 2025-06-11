@@ -18,6 +18,7 @@
 namespace SuplaBundle\Entity\MeasurementLogs;
 
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Utils\DateUtils;
 
 /**
  * @ORM\Entity
@@ -50,12 +51,11 @@ class EnergyPriceLogItem {
      */
     private ?float $fixing2;
 
-    public function __construct(\DateTime $dateFrom, \DateTime $dateTo, ?float $rce, ?float $fixing1, ?float $fixing2) {
-        $this->dateFrom = $dateFrom;
-        $this->dateTo = $dateTo;
-        $this->rce = $rce;
-        $this->fixing1 = $fixing1;
-        $this->fixing2 = $fixing2;
+    public function __construct(\DateTime $dateFrom, \DateTime $dateTo) {
+        $dateFrom->setTimezone(new \DateTimeZone('UTC'));
+        $dateTo->setTimezone(new \DateTimeZone('UTC'));
+        $this->dateFrom = DateUtils::timestampToMysqlUtc($dateFrom->getTimestamp());
+        $this->dateTo = DateUtils::timestampToMysqlUtc($dateTo->getTimestamp());
     }
 
     public function getDateFrom(): \DateTime {
@@ -76,5 +76,17 @@ class EnergyPriceLogItem {
 
     public function getFixing2(): ?float {
         return $this->fixing2;
+    }
+
+    public function setRce(?float $rce): void {
+        $this->rce = $rce;
+    }
+
+    public function setFixing1(?float $fixing1): void {
+        $this->fixing1 = $fixing1;
+    }
+
+    public function setFixing2(?float $fixing2): void {
+        $this->fixing2 = $fixing2;
     }
 }

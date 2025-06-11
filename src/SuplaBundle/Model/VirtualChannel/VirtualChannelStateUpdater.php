@@ -5,11 +5,17 @@ namespace SuplaBundle\Model\VirtualChannel;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\ChannelValue;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\MeasurementLogs\EnergyPriceLogItem;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\VirtualChannelType;
 use SuplaBundle\Supla\SuplaAutodiscover;
 
 class VirtualChannelStateUpdater {
-    public function __construct(private SuplaAutodiscover $ad, private EntityManagerInterface $entityManager) {
+    public function __construct(
+        private SuplaAutodiscover $ad,
+        private EntityManagerInterface $entityManager,
+        private EntityManagerInterface $measurementLogsEntityManager
+    ) {
     }
 
     /**
@@ -19,20 +25,29 @@ class VirtualChannelStateUpdater {
     public function updateChannels($channels): void {
         $tasks = [
             'openWeatherUpdates' => [],
+            'energyPriceForecastUpdates' => [],
         ];
         $channelUpdates = [];
         foreach ($channels as $channel) {
             $channelUpdates[] = [$channel->getId(), $channel->getUser()->getId()];
             $cfg = $channel->getProperty('virtualChannelConfig', []);
-            if (($cfg['type'] ?? null) === VirtualChannelType::OPEN_WEATHER) {
+            $virtualType = $cfg['type'] ?? null;
+            if ($virtualType === VirtualChannelType::OPEN_WEATHER) {
                 if (($cityId = $cfg['cityId'] ?? null) && ($field = $cfg['weatherField'] ?? null)) {
                     $tasks['openWeatherUpdates'][$cityId][$field][] = $channel->getId();
+                }
+            } elseif ($virtualType === VirtualChannelType::ENERGY_PRICE_FORECAST) {
+                if (($field = $cfg['energyField'] ?? null)) {
+                    $tasks['energyPriceForecastUpdates'][$field][] = $channel->getId();
                 }
             }
         }
         $this->setInitialChannelValues($channelUpdates);
         if ($tasks['openWeatherUpdates']) {
             $this->fetchOpenWeatherUpdates($tasks['openWeatherUpdates']);
+        }
+        if ($tasks['energyPriceForecastUpdates']) {
+            $this->updateEnergyPriceForecastValue($tasks['energyPriceForecastUpdates']);
         }
     }
 
@@ -64,6 +79,40 @@ class VirtualChannelStateUpdater {
                         'value' => $value,
                         'fetchedAt' => $fetchedAtDate,
                         'validTo' => $validToDate,
+                        'channelIds' => $channelIds,
+                    ]);
+            }
+        }
+    }
+
+    private function updateEnergyPriceForecastValue(array $energyPriceForecastUpdates): void {
+        $repo = $this->measurementLogsEntityManager->getRepository(EnergyPriceLogItem::class);
+        $currentEnergyPriceForecast = $repo->createQueryBuilder('e')
+            ->where('e.dateFrom <= CURRENT_TIMESTAMP()')
+            ->setMaxResults(1)
+            ->orderBy('e.dateFrom', 'DESC')
+            ->getQuery()
+            ->getResult();
+        if ($currentEnergyPriceForecast) {
+            /** @var EnergyPriceLogItem $log */
+            $log = current($currentEnergyPriceForecast);
+            $values = [
+                'rce' => $log->getRce(),
+                'fixing1' => $log->getFixing1(),
+                'fixing2' => $log->getFixing2(),
+            ];
+            foreach ($energyPriceForecastUpdates as $field => $channelIds) {
+                $query = sprintf(
+                    'UPDATE %s cv SET cv.updateTime=:fetchedAt, cv.validTo=:validTo, cv.value=:value WHERE cv.channel IN (:channelIds)',
+                    ChannelValue::class
+                );
+                $value = ChannelValue::packValue(ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(), $values[$field]);
+                $this->entityManager
+                    ->createQuery($query)
+                    ->execute([
+                        'value' => $value,
+                        'fetchedAt' => $log->getDateFrom(),
+                        'validTo' => $log->getDateTo(),
                         'channelIds' => $channelIds,
                     ]);
             }
