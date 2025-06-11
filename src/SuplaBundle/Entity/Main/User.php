@@ -200,6 +200,11 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
     private $limitValueBasedTriggers;
 
     /**
+     * @ORM\Column(name="limit_virtual_channels", type="integer", options={"default"=20})
+     */
+    private $limitVirtualChannels;
+
+    /**
      * @ORM\OneToMany(targetEntity="AccessID", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $accessids;
@@ -365,6 +370,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
             'limitPushNotifications' => 200,
             'limitPushNotificationsPerHour' => 20,
             'limitValueBasedTriggers' => 50,
+            'limitVirtualChannels' => 20,
         ],
         'big' => [
             'limitIoDev' => 200,
@@ -382,6 +388,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
             'limitPushNotifications' => 500,
             'limitPushNotificationsPerHour' => 100,
             'limitValueBasedTriggers' => 200,
+            'limitVirtualChannels' => 100,
         ],
     ];
 

@@ -745,13 +745,19 @@ class ChannelController extends RestController {
      * @UnavailableInMaintenance
      */
     public function createVirtualChannelAction(Request $request, VirtualChannelFactory $channelFactory) {
+        $user = $this->getUser();
+        Assertion::lessThan(
+            $user->getChannels()->filter(fn(IODeviceChannel $ch) => $ch->getType()->getId() === ChannelType::VIRTUAL)->count(),
+            $user->getLimits()['virtualChannels'],
+            'Data sources limit has been exceeded' // i18n
+        );
         $body = json_decode($request->getContent(), true);
         Assertion::keyExists($body, 'virtualChannelType', 'Missing virtual channel type.');
         Assertion::keyExists($body, 'virtualChannelConfig', 'Missing virtual channel type.');
         Assertion::true(VirtualChannelType::isValid($body['virtualChannelType']), 'Invalid virtual channel type.');
         Assertion::isArray($body['virtualChannelConfig'], 'Invalid virtual channel config.');
         $type = new VirtualChannelType($body['virtualChannelType']);
-        $channel = $channelFactory->createVirtualChannel($this->getUser(), $type, $body['virtualChannelConfig']);
+        $channel = $channelFactory->createVirtualChannel($user, $type, $body['virtualChannelConfig']);
         return $this->serializedView($channel, $request, [], Response::HTTP_CREATED);
     }
 }
