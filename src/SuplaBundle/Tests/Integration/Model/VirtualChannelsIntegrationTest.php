@@ -79,6 +79,7 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(VirtualChannelType::OPEN_WEATHER, $content['config']['virtualChannelConfig']['type']);
         $this->assertEquals(1, $content['config']['virtualChannelConfig']['cityId']);
         $this->assertEquals('temp', $content['config']['virtualChannelConfig']['weatherField']);
+        $this->assertEquals(1, $this->getEntityManager()->getRepository(IODevice::class)->count([]));
         return $content['id'];
     }
 
@@ -101,6 +102,7 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(VirtualChannelType::OPEN_WEATHER, $content['config']['virtualChannelConfig']['type']);
         $this->assertEquals(1, $content['config']['virtualChannelConfig']['cityId']);
         $this->assertEquals('windSpeed', $content['config']['virtualChannelConfig']['weatherField']);
+        $this->assertEquals(1, $this->getEntityManager()->getRepository(IODevice::class)->count([]));
         return $content['id'];
     }
 

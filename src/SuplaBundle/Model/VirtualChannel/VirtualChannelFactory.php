@@ -50,6 +50,7 @@ class VirtualChannelFactory {
             })->first();
             if (!$virtualDevice) {
                 $virtualDevice = new IODevice();
+                EntityUtils::setField($virtualDevice, 'isVirtual', true);
                 EntityUtils::setField($virtualDevice, 'user', $user);
                 EntityUtils::setField($virtualDevice, 'location', $user->getLocations()->first());
                 EntityUtils::setField($virtualDevice, 'name', 'SUPLA-VIRTUAL-DEVICE');
