@@ -23,7 +23,6 @@
                 </template>
                 <template #button="{value}">{{ $t('virtualChannelTypeName_' + value) }}</template>
             </simple-dropdown>
-            {{ config.ready ? $t('virtualChannelTypeInfo_' + type) : $t('virtualChannelTypeInfo') }}
             <div class="small mt-2">
                 {{ $t('virtualChannelTypeInfo_' + type) }}
             </div>

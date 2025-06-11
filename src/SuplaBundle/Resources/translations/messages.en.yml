@@ -188,3 +188,5 @@ valveOpenConfirm_motorProblem: A motor problem has been detected. Make sure noth
 
 #</editor-fold>
 virtualChannelTypeName_OPEN_WEATHER: Weather
+virtualChannelTypeInfo_OPEN_WEATHER: Current weather data fethed from Open Weather API.
+virtualChannelTypeInfoLong_OPEN_WEATHER: The weather data are not updated in real-time. Expect periodical updates of the weather attribute of your choice.

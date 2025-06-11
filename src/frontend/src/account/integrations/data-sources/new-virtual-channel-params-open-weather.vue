@@ -17,13 +17,16 @@
             <dl>
                 <dt>{{ $t('Weather attribute') }}</dt>
                 <dd>
-                    <SelectForSubjects
-                        :none-option="false"
-                        :options="openWeatherStore.availableWeatherFields"
-                        :caption="(c) => `${$t(c.label)} (${c.unit})`"
-                        :search-text="(c) => $t(c.label)"
-                        choose-prompt-i18n="choose the attribute"
-                        v-model="field"/>
+                    <div class="d-flex flex-wrap">
+                        <button
+                            v-for="weatherField in openWeatherStore.availableWeatherFields"
+                            :key="weatherField.id"
+                            type="button"
+                            :class="['btn flex-grow-1 m-1', weatherField.id === field?.id ? 'btn-green' : 'btn-default']"
+                            @click="field = weatherField">
+                            {{ $t(weatherField.label) }} ({{ weatherField.unit }})
+                        </button>
+                    </div>
                 </dd>
             </dl>
         </div>
