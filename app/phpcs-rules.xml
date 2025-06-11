@@ -15,5 +15,6 @@
             <property name="ignoreComments" value="true"/>
         </properties>
         <exclude-pattern>src/SuplaBundle/Migrations/Migration/*.php</exclude-pattern>
+        <exclude-pattern>src/SuplaBundle/Migrations/TsDbMigration/*.php</exclude-pattern>
     </rule>
 </ruleset>

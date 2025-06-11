@@ -24,7 +24,6 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  */
 class Version20250529192110 extends NoWayBackMigration {
     public function migrate() {
-        // @codingStandardsIgnoreStart
         $this->addSql('CREATE TABLE supla_em_current_log (channel_id INT NOT NULL, date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, phase_no SMALLINT NOT NULL, min NUMERIC(6, 3) NOT NULL, max NUMERIC(6, 3) NOT NULL, avg NUMERIC(6, 3) NOT NULL, PRIMARY KEY(channel_id, date, phase_no)) WITH (tsdb.hypertable, tsdb.partition_column=\'date\')');
         $this->addSql('COMMENT ON COLUMN supla_em_current_log.date IS \'(DC2Type:stringdatetime)\'');
         $this->addSql('COMMENT ON COLUMN supla_em_current_log.phase_no IS \'(DC2Type:tinyint)\'');
@@ -51,6 +50,5 @@ class Version20250529192110 extends NoWayBackMigration {
         $this->addSql('COMMENT ON COLUMN supla_temphumidity_log.date IS \'(DC2Type:stringdatetime)\'');
         $this->addSql('CREATE TABLE supla_thermostat_log (channel_id INT NOT NULL, date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, "on" BOOLEAN NOT NULL, measured_temperature NUMERIC(5, 2) NOT NULL, preset_temperature NUMERIC(5, 2) NOT NULL, PRIMARY KEY(channel_id, date)) WITH (tsdb.hypertable, tsdb.partition_column=\'date\')');
         $this->addSql('COMMENT ON COLUMN supla_thermostat_log.date IS \'(DC2Type:stringdatetime)\'');
-        // @codingStandardsIgnoreEnd
     }
 }

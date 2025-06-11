@@ -16,6 +16,7 @@ class CopyMeasurementLogsCommand extends Command {
         'supla_em_power_active_log',
         'supla_em_voltage_aberration_log',
         'supla_em_voltage_log',
+        'supla_energy_price_log',
         'supla_gp_measurement_log',
         'supla_gp_meter_log',
         'supla_ic_log',
