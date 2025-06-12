@@ -14,25 +14,33 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="btn-filters">
-                    <div class="btn-group btn-group-filters">
+
+            <div class="my-3">
+                <ul class="nav nav-tabs">
+                    <li :class="{active: $route.name === 'integrations.myOauthApps'}">
                         <router-link :to="{name: 'integrations.myOauthApps'}"
-                            class="btn">
+                            class="">
+                            <fa :icon="faTrowelBricks"/>
                             {{ $t('My OAuth apps') }}
                         </router-link>
+                    </li>
+                    <li :class="{active: $route.name === 'integrations.mqtt'}">
                         <router-link v-if="frontendConfig.config.mqttBrokerEnabled"
                             :to="{name: 'integrations.mqtt'}"
-                            class="btn">
+                            class="">
+                            <fa :icon="faPodcast"/>
                             {{ $t('MQTT Broker') }}
                         </router-link>
+                    </li>
+                    <li :class="{active: $route.name === 'integrations.dataSources'}">
                         <router-link
                             :to="{name: 'integrations.dataSources'}"
-                            class="btn">
+                            class="">
+                            <fa :icon="faDatabase"/>
                             {{ $t('Data sources') }}
                         </router-link>
-                    </div>
-                </div>
+                    </li>
+                </ul>
             </div>
         </div>
         <router-view></router-view>
@@ -41,6 +49,7 @@
 
 <script setup>
     import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+    import {faDatabase, faPodcast, faTrowelBricks} from "@fortawesome/free-solid-svg-icons";
 
     const frontendConfig = useFrontendConfigStore();
 </script>
