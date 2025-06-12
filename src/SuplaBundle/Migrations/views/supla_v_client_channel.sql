@@ -31,7 +31,7 @@ select `c`.`id`                         AS `id`,
            ELSE NULL END                AS `validity_time_sec`,
        `c`.`user_config`                AS `user_config`,
        `c`.`properties`                 AS `properties`,
-       `d`.`is_virtual`                 AS `is_virtual`
+       `c`.`is_virtual`                 AS `is_virtual`
 from (((((((`supla_dev_channel` `c` join `supla_iodevice` `d` on (`d`.`id` = `c`.`iodevice_id`)) join `supla_location` `l` on (`l`.`id` =
                                                                                                                                case ifnull(`c`.`location_id`, 0)
                                                                                                                                    when 0
