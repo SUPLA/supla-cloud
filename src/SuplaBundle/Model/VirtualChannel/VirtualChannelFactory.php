@@ -63,5 +63,4 @@ class VirtualChannelFactory {
             return $virtualDevice;
         });
     }
-
 }

@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Supla;
 
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\Main\IODevice;
@@ -42,7 +43,11 @@ class SuplaServerMockTest extends TestCase {
     /** @before */
     public function init() {
         SuplaServerMock::$executedCommands = [];
-        $this->server = new SuplaServerMock(new SuplaServerMockCommandsCollector(), $this->createMock(LoggerInterface::class));
+        $this->server = new SuplaServerMock(
+            new SuplaServerMockCommandsCollector(),
+            $this->createMock(LoggerInterface::class),
+            $this->createMock(EntityManagerInterface::class),
+        );
         $this->user = $this->createMock(User::class);
         $this->user->method('getId')->willReturn(111);
         $this->device = $this->createMock(IODevice::class);
