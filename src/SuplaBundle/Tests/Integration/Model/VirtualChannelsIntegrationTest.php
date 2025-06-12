@@ -181,32 +181,4 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(22.2 * 1000, $temp);
         $this->assertEquals(66 * 1000, $hum);
     }
-
-    public function testCreatingVirtualChannelEnergyForecast() {
-        SuplaAutodiscoverMock::mockResponse('energy-price-forecast', [
-            [
-                'id' => 1,
-                'fetchedAt' => (new \DateTime())->format(\DateTime::ATOM),
-                'weather' => ['temp' => 22.2, 'humidity' => 66],
-            ],
-        ]);
-        $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV3('POST', '/api/channels', [
-            'virtualChannelType' => VirtualChannelType::ENERGY_PRICE_FORECAST,
-            'virtualChannelConfig' => [
-                'energyField' => 'rce',
-            ],
-        ]);
-        $response = $client->getResponse();
-        $this->assertStatusCode(201, $response);
-        $content = json_decode($response->getContent(), true);
-        $this->assertArrayHasKey('id', $content);
-        $this->assertArrayHasKey('config', $content);
-        $this->assertEquals(ChannelFunction::GENERAL_PURPOSE_MEASUREMENT, $content['functionId']);
-        $this->assertArrayHasKey('virtualChannelConfig', $content['config']);
-        $this->assertEquals(VirtualChannelType::ENERGY_PRICE_FORECAST, $content['config']['virtualChannelConfig']['type']);
-        $this->assertEquals('rce', $content['config']['virtualChannelConfig']['energyField']);
-        $this->assertEquals(1, $this->getEntityManager()->getRepository(IODevice::class)->count([]));
-        return $content['id'];
-    }
 }

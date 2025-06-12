@@ -8,13 +8,16 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\MeasurementLogs\EnergyPriceLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\VirtualChannelType;
+use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Supla\SuplaAutodiscover;
+use SuplaBundle\Utils\DateUtils;
 
 class VirtualChannelStateUpdater {
     public function __construct(
         private SuplaAutodiscover $ad,
         private EntityManagerInterface $entityManager,
-        private EntityManagerInterface $measurementLogsEntityManager
+        private EntityManagerInterface $measurementLogsEntityManager,
+        private TimeProvider $timeProvider,
     ) {
     }
 
@@ -52,8 +55,10 @@ class VirtualChannelStateUpdater {
     }
 
     private function setInitialChannelValues(array $channelUpdates) {
-        $query = 'INSERT IGNORE INTO supla_dev_channel_value (channel_id, user_id, value) VALUES ';
-        $query .= implode(',', array_map(fn(array $ch) => "($ch[0], $ch[1], 0)", $channelUpdates));
+        $query = 'INSERT IGNORE INTO supla_dev_channel_value (channel_id, user_id, value, update_time, valid_to) VALUES ';
+        $zero = ChannelValue::packValue(ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(), 0);
+        $now = DateUtils::timestampToMysqlUtc($this->timeProvider->getTimestamp('-1 minute'));
+        $query .= implode(',', array_map(fn(array $ch) => "($ch[0], $ch[1], '$zero', '$now', '$now')", $channelUpdates));
         $this->entityManager->getConnection()->executeQuery($query);
     }
 
@@ -88,7 +93,8 @@ class VirtualChannelStateUpdater {
     private function updateEnergyPriceForecastValue(array $energyPriceForecastUpdates): void {
         $repo = $this->measurementLogsEntityManager->getRepository(EnergyPriceLogItem::class);
         $currentEnergyPriceForecast = $repo->createQueryBuilder('e')
-            ->where('e.dateFrom <= CURRENT_TIMESTAMP()')
+            ->where('e.dateFrom <= :now')
+            ->setParameter('now', $this->timeProvider->getDateTime())
             ->setMaxResults(1)
             ->orderBy('e.dateFrom', 'DESC')
             ->getQuery()

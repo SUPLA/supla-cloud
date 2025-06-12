@@ -21,7 +21,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         'windGust' => ['function' => ChannelFunction::WINDSENSOR],
         'clouds' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => '%'],
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => '%'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => '%', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
@@ -30,42 +30,42 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         'snowMmh' => ['function' => ChannelFunction::RAINSENSOR],
         'airCo' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
         'airNo' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
         'airNo2' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
         'airO3' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
         'airPm10' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
         'airPm25' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'µg/m³'],
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
