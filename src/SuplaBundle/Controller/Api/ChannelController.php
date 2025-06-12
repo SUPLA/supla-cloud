@@ -342,7 +342,7 @@ class ChannelController extends RestController {
                         array_merge([ChannelFunction::NONE], EntityUtils::mapToIds(ChannelFunction::forChannel($channel))),
                         'Invalid function for channel.' // i18n
                     );
-                    Assertion::notEq($channel->getType()->getId(), ChannelType::VIRTUAL, 'Cannot change virtual channel function.');
+                    Assertion::false($channel->isVirtual(), 'Cannot change virtual channel function.');
                     if (!$changesConfirmed) {
                         $dependencies = $channelDependencies->getItemsThatDependOnFunction($channel);
                         $visibleDependencies = $channelDependencies->onlyDependenciesVisibleToUser($dependencies);
@@ -747,7 +747,7 @@ class ChannelController extends RestController {
     public function createVirtualChannelAction(Request $request, VirtualChannelFactory $channelFactory) {
         $user = $this->getUser();
         Assertion::lessThan(
-            $user->getChannels()->filter(fn(IODeviceChannel $ch) => $ch->getType()->getId() === ChannelType::VIRTUAL)->count(),
+            $user->getChannels()->filter(fn(IODeviceChannel $ch) => $ch->isVirtual())->count(),
             $user->getLimits()['virtualChannels'],
             'Data sources limit has been exceeded' // i18n
         );

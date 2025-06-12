@@ -15,7 +15,6 @@ use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Entity\Main\ValueBasedTrigger;
-use SuplaBundle\Enums\ChannelType;
 
 /**
  * @method User|null findOneByEmail(string $email)
@@ -34,15 +33,10 @@ class UserRepository extends EntityWithRelationsRepository {
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s ac WHERE ac.user = u) apiClients', ApiClient::class))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s io WHERE io.user = u) ioDevices', IODevice::class))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s cl WHERE cl.user = u) clientApps', ClientApp::class))
+            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s c WHERE c.user = u AND c.isVirtual = false) channels', IODeviceChannel::class))
             ->addSelect(sprintf(
-                '(SELECT COUNT(1) FROM %s c WHERE c.user = u AND c.type != %d) channels',
+                '(SELECT COUNT(1) FROM %s cv WHERE cv.user = u AND cv.isVirtual = true) virtualChannels',
                 IODeviceChannel::class,
-                ChannelType::VIRTUAL
-            ))
-            ->addSelect(sprintf(
-                '(SELECT COUNT(1) FROM %s cv WHERE cv.user = u AND cv.type = %d) virtualChannels',
-                IODeviceChannel::class,
-                ChannelType::VIRTUAL
             ))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s sc WHERE sc.user = u) scenes', Scene::class))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s pn WHERE pn.user = u) pushNotifications', PushNotification::class))

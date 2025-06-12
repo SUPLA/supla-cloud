@@ -2,7 +2,6 @@ import Vue from "vue";
 import "./filters-date";
 import {i18n} from "@/locale";
 import {useCurrentUserStore} from "@/stores/current-user-store";
-import ChannelType from "@/common/enums/channel-type";
 
 export function withBaseUrl(url, absolute = true) {
     if (url[0] != '/') {
@@ -20,7 +19,7 @@ export function withDownloadAccessToken(url) {
 export function channelTitle(channel) {
     if (channel.caption) {
         return channel.caption;
-    } else if (channel.typeId === ChannelType.VIRTUAL) {
+    } else if (channel.isVirtual) {
         return i18n.global.t('virtualChannelTypeName_' + channel.config.virtualChannelConfig.type);
     } else {
         return `ID${channel.id} ` + i18n.global.t(channel.function ? channel.function.caption : 'None');

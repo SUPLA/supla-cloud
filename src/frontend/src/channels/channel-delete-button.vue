@@ -30,7 +30,6 @@
     import {useChannelsStore} from "@/stores/channels-store";
     import {useDevicesStore} from "@/stores/devices-store";
     import {deepCopy} from "@/common/utils";
-    import ChannelType from "@/common/enums/channel-type";
 
     export default {
         components: {DependenciesWarningModal},
@@ -57,7 +56,7 @@
                             this.$t('Successful'),
                             this.deletingSubdevice ? this.$t('The subdevice has been deleted.') : this.$t('The channel has been deleted.')
                         );
-                        if (deletedChannel.typeId === ChannelType.VIRTUAL) {
+                        if (deletedChannel.isVirtual) {
                             this.$router.push({name: 'integrations.dataSources'});
                         } else if (this.$route.name !== 'device.channels') {
                             this.$router.push({name: 'device.channels', params: {id: this.channel.iodeviceId}});

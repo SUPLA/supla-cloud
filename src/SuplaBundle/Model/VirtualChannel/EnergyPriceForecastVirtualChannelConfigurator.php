@@ -6,12 +6,14 @@ use Assert\Assertion;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\VirtualChannelType;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelConfigurator {
     private const CONFIGS = [
         'rce' => [
+            'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'PLN'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
@@ -19,6 +21,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
             ]],
         ],
         'fixing1' => [
+            'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'PLN'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
@@ -26,6 +29,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
             ]],
         ],
         'fixing2' => [
+            'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'PLN'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
@@ -48,7 +52,9 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
                 'energyField' => $config['energyField'],
             ],
         ], $fieldConfig['properties'] ?? [])));
+        EntityUtils::setField($channel, 'type', $fieldConfig['type']);
         EntityUtils::setField($channel, 'function', $fieldConfig['function']);
+        $channel->setAltIcon($fieldConfig['altIcon'] ?? 0);
         $this->configTranslator->setConfig($channel, $fieldConfig['userConfig'] ?? []);
         return $channel;
     }

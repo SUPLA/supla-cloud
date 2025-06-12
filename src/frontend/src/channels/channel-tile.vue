@@ -14,7 +14,7 @@
                 <dd>ID</dd>
                 <dt>{{ model.id }}</dt>
             </dl>
-            <dl class="ellipsis" v-if="device && model.typeId !== ChannelType.VIRTUAL">
+            <dl class="ellipsis" v-if="device && !model.isVirtual">
                 <dd>{{ $t('Device') }}</dd>
                 <dt>{{ device.name }}</dt>
             </dl>
@@ -44,7 +44,6 @@
     import {useLocationsStore} from "@/stores/locations-store";
     import {useDevicesStore} from "@/stores/devices-store";
     import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
-    import ChannelType from "@/common/enums/channel-type";
     import {channelTitle} from "@/common/filters";
 
     const props = defineProps({

@@ -73,7 +73,6 @@ use UnexpectedValueException;
  * @method static ChannelType GENERAL_PURPOSE_METER()
  * @method static ChannelType ACTION_TRIGGER()
  * @method static ChannelType DIGIGLASS()
- * @method static ChannelType VIRTUAL()
  */
 final class ChannelType extends Enum {
     const UNSUPPORTED = -1;
@@ -115,7 +114,6 @@ final class ChannelType extends Enum {
     const GENERAL_PURPOSE_METER = 9010;
     const ACTION_TRIGGER = 11000;
     const DIGIGLASS = 12000;
-    const VIRTUAL = 13000;
 
     private $unsupportedTypeId;
 
@@ -175,7 +173,6 @@ final class ChannelType extends Enum {
             self::GENERAL_PURPOSE_METER => 'General purpose meter', // i18n
             self::ACTION_TRIGGER => 'Action trigger', // i18n
             self::DIGIGLASS => 'Digi Glass', // i18n
-            self::VIRTUAL => 'Data source', // i18n
         ];
     }
 
@@ -277,7 +274,6 @@ final class ChannelType extends Enum {
                 ChannelFunction::SEPTIC_TANK(),
                 ChannelFunction::WATER_TANK(),
             ],
-            self::VIRTUAL => [],
         ];
         $map[self::SENSORNC] = $map[self::SENSORNO];
         foreach ([self::DHT11, self::DHT21, self::DHT22, self::AM2301, self::AM2302] as $humidityAndTemperatureType) {

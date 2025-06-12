@@ -8,7 +8,6 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\VirtualChannelType;
 use SuplaBundle\Repository\IODeviceRepository;
 
@@ -31,7 +30,7 @@ class VirtualChannelFactory {
         EntityUtils::setField($channel, 'iodevice', $virtualDevice);
         EntityUtils::setField($channel, 'user', $user);
         EntityUtils::setField($channel, 'location', $user->getLocations()->first());
-        EntityUtils::setField($channel, 'type', ChannelType::VIRTUAL);
+        EntityUtils::setField($channel, 'isVirtual', true);
         foreach ($this->configurators as $configurator) {
             if ($configurator->supports($type)) {
                 $channel = $configurator->configureChannel($channel, $config);

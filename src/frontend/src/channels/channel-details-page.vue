@@ -7,11 +7,11 @@
                     <div class="flex-grow-1">
                         <h1 v-title class="m-0">{{ channelTitle }}</h1>
                         <h4>
-                            <span v-if="channel.typeId !== ChannelType.VIRTUAL">
+                            <span v-if="!channel.isVirtual">
                                 {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',') }}
                                 <span v-if="channel.type.name == 'UNSUPPORTED'">{{ channel.type.id }},</span>
                             </span>
-                            <span v-if="channel.typeId !== ChannelType.VIRTUAL">
+                            <span v-if="!channel.isVirtual">
                                 {{ $t('Channel No') }}: {{ channel.channelNumber }},
                             </span>
                             {{ $t('ID') }}: {{ channel.id }}
@@ -21,7 +21,7 @@
                         <ChannelDeleteButton :channel="channel"/>
                     </div>
                 </div>
-                <div v-if="channel.typeId === ChannelType.VIRTUAL" class="mb-3">
+                <div v-if="channel.isVirtual" class="mb-3">
                     <router-link :to="{name: 'integrations.dataSources'}">
                         « {{ $t('Go back to data sources') }}
                     </router-link>
@@ -37,11 +37,11 @@
                             <h3 class="text-center">{{ $t('Configuration') }}</h3>
                             <div class="hover-editable hovered">
                                 <form @submit.prevent="saveChanges()">
-                                    <VirtualChannelInfo :channel="channel" v-if="channel.typeId === ChannelType.VIRTUAL"/>
+                                    <VirtualChannelInfo :channel="channel" v-if="channel.isVirtual"/>
                                     <dl>
                                         <dd>{{ $t('Function') }}</dd>
                                         <dt class="text-center"
-                                            v-if="channel.typeId !== ChannelType.VIRTUAL"
+                                            v-if="channel.isVirtual"
                                             v-tooltip="hasPendingChanges && $t('Save or discard configuration changes first.')">
                                             <a class="btn btn-default btn-block btn-wrapped"
                                                 :class="{disabled: hasPendingChanges}"
@@ -107,7 +107,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="details-page-block" v-if="channel.typeId !== ChannelType.VIRTUAL">
+                        <div class="details-page-block" v-if="!channel.isVirtual">
                             <h3 class="text-center">{{ $t('Device') }}</h3>
                             <div class="form-group">
                                 <device-tile :device="channel.iodevice"></device-tile>
@@ -122,7 +122,7 @@
                                     :square-link-class="channel.inheritedLocation ? 'yellow' : ''"
                                     @chosen="(location) => changeLocation(location)"/>
                             </div>
-                            <div class="text-center" v-if="channel.typeId !== ChannelType.VIRTUAL">
+                            <div class="text-center" v-if="!channel.isVirtual">
                                 <a v-if="!channel.inheritedLocation && !hasPendingChanges"
                                     @click="changeLocation(null)">
                                     {{ $t('Inherit I/O Device location') }}

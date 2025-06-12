@@ -25,7 +25,6 @@
     import EventBus from "@/common/event-bus";
     import {mapStores} from "pinia";
     import {useChannelsStore} from "@/stores/channels-store";
-    import ChannelType from "@/common/enums/channel-type";
 
     export default {
         props: {
@@ -115,7 +114,7 @@
                     ChannelFunction.GENERAL_PURPOSE_METER,
                     ChannelFunction.GENERAL_PURPOSE_MEASUREMENT,
                 ];
-                if (measurementsHistoryFunctions.includes(this.channel.functionId) && this.channel.typeId !== ChannelType.VIRTUAL) {
+                if (measurementsHistoryFunctions.includes(this.channel.functionId) && !this.channel.isVirtual) {
                     this.availableTabs.push({
                         route: 'channel.measurementsHistory',
                         header: 'History of measurements', // i18n
