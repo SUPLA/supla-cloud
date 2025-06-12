@@ -13,22 +13,22 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
     private const CONFIGS = [
         'rce' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'PLN'],
-            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'PLN'],
+            'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
         'fixing1' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'PLN'],
-            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'PLN'],
+            'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
         'fixing2' => [
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'userConfig' => ['valueMultiplier' => 1, 'precision' => 0, 'unitAfterValue' => 'PLN'],
-            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'PLN'],
+            'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],

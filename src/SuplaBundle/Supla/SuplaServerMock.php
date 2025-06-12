@@ -123,9 +123,9 @@ class SuplaServerMock extends SuplaServer {
         } elseif (preg_match('#^GET-(CHAR)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . rand(0, 1);
         } elseif (preg_match('#^GET-(GPM)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            $channelId = $match[3];
+            $channelId = $match[4];
             $value = $this->em->getRepository(ChannelValue::class)->findOneBy(['channel' => $channelId]);
-            return 'VALUE:' . ($value ? $value->getValue() : rand(0, 1000000) / rand(2, 5));
+            return 'VALUE:' . ($value ? current(unpack('d', $value->getValue())) : rand(0, 1000000) / rand(2, 5));
         } elseif (preg_match('#^GET-(VALVE)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . rand(0, 1) . ',' . rand(0, 7);
         } elseif (preg_match('#^GET-(CONTAINER)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {

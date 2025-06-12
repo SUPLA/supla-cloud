@@ -64,6 +64,10 @@ class ChannelValue {
         return stream_get_contents($this->value);
     }
 
+    public function getValidTo(): ?\DateTime {
+        return $this->validTo;
+    }
+
     public static function packValue(ChannelFunction $fnc, $value, $value2 = 0): string {
         switch ($fnc->getId()) {
             case ChannelFunction::HUMIDITY:
