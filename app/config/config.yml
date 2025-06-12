@@ -239,6 +239,11 @@ parameters:
   supla_server_socket: /var/run/supla/supla-server-ctrl.sock
   supla_url: '%supla_protocol%://%supla_server%'
   container.autowiring.strict_mode: true
+  tsdb_host: 127.0.0.1
+  tsdb_port: null
+  tsdb_name: supla
+  tsdb_user: postgres
+  tsdb_password: postgres
 
 sensio_framework_extra:
   request: {converters: true}
