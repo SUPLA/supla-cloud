@@ -191,3 +191,6 @@ virtualChannelTypeName_OPEN_WEATHER: Weather
 virtualChannelTypeInfoLong_OPEN_WEATHER: Current weather data fetched from Open Weather API. The weather data are not updated in real-time. Expect periodical updates of the weather attribute of your choice.
 virtualChannelTypeName_ENERGY_PRICE_FORECAST: Energy prices
 virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: Forecast of energy prices in Poland based on external services.
+energyPriceForecast_field_rce: 'PSE: Market Price of Electrical Energy in Poland (RCE)'
+energyPriceForecast_field_fixing1: 'TGE: RDN Indicator - fixing I'
+energyPriceForecast_field_fixing2: 'TGE: RDN Indicator - fixing II'

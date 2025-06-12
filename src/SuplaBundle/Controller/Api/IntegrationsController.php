@@ -23,7 +23,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Main\AmazonAlexa;
 use SuplaBundle\Entity\Main\GoogleHome;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\MeasurementLogs\EnergyPriceLogItem;
 use SuplaBundle\Model\ApiVersions;
+use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\AmazonAlexaRepository;
@@ -154,5 +156,33 @@ class IntegrationsController extends RestController {
         };
         $cities = $ad->getOpenWeatherCities();
         return $this->view($cities);
+    }
+
+    /**
+     * @Rest\Get("/integrations/energy-price-forecast/parameters")
+     * @Security("is_granted('ROLE_CHANNELS_R')")
+     */
+    public function getAvailableEnergyPriceParameters(
+        Request $request,
+        EntityManagerInterface $measurementLogsEntityManager,
+        TimeProvider $timeProvider,
+    ) {
+        if (!ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        };
+        $parameters = ['rce'];
+        $logsWithFixing = $measurementLogsEntityManager->getRepository(EnergyPriceLogItem::class)
+            ->createQueryBuilder('e')
+            ->where('e.dateFrom >= :date')
+            ->andWhere('e.fixing1 IS NOT NULL')
+            ->setParameter('date', $timeProvider->getDateTime(\DateInterval::createFromDateString("-2 days")))
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+        if ($logsWithFixing) {
+            $parameters[] = 'fixing1';
+            $parameters[] = 'fixing2';
+        }
+        return $this->view($parameters);
     }
 }

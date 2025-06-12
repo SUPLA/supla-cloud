@@ -6,13 +6,14 @@
                 <dt>{{ $t('Energy attribute') }}</dt>
                 <dd>
                     <div class="d-flex flex-wrap">
+                        <!-- i18n: ['energyPriceForecast_field_rce', 'energyPriceForecast_field_fixing1', 'energyPriceForecast_field_fixing2'] -->
                         <button
-                            v-for="energyField in energyPricesForecastStore.availableEnergyPrices"
-                            :key="energyField.id"
+                            v-for="energyField in energyPricesForecastStore.availableParameters"
+                            :key="energyField"
                             type="button"
-                            :class="['btn flex-grow-1 m-1', energyField.id === field?.id ? 'btn-green' : 'btn-default']"
+                            :class="['btn flex-grow-1 m-1', energyField === field ? 'btn-green' : 'btn-default']"
                             @click="field = energyField">
-                            {{ $t(energyField.label) }} ({{ energyField.unit }})
+                            {{ $t(`energyPriceForecast_field_${energyField}`) }}
                         </button>
                     </div>
                 </dd>
@@ -31,8 +32,8 @@
     const energyPricesForecastStore = useEnergyPricesForecastStore();
 
     const field = computed({
-        get: () => energyPricesForecastStore.availableEnergyPrices.find(c => c.id === props.value.energyField),
-        set: (fieldData) => emitConfig({...props.value, energyField: fieldData.id}),
+        get: () => props.value.energyField,
+        set: (field) => emitConfig({...props.value, energyField: field}),
     });
 
     function emitConfig(config) {

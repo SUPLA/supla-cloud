@@ -96,6 +96,10 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
         TestTimeProvider::setTime('2025-06-12T00:11:00+02:00');
         $this->executeCommand('supla:cyclic:energy-price-forecast-fetch');
         $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/integrations/energy-price-forecast/parameters');
+        $this->assertStatusCode(200, $client->getResponse());
+        $parameters = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals(['rce', 'fixing1', 'fixing2'], $parameters);;
         $client->apiRequestV3('POST', '/api/channels', [
             'virtualChannelType' => VirtualChannelType::ENERGY_PRICE_FORECAST,
             'virtualChannelConfig' => [
@@ -150,6 +154,10 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
         TestTimeProvider::setTime('2025-06-12T00:11:00+02:00');
         $this->executeCommand('supla:cyclic:energy-price-forecast-fetch');
         $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/integrations/energy-price-forecast/parameters');
+        $this->assertStatusCode(200, $client->getResponse());
+        $parameters = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals(['rce'], $parameters);
         $client->apiRequestV3('POST', '/api/channels', [
             'virtualChannelType' => VirtualChannelType::ENERGY_PRICE_FORECAST,
             'virtualChannelConfig' => [
