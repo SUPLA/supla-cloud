@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Command\Cyclic;
 
-use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\VirtualChannel\VirtualChannelStateUpdater;
 use SuplaBundle\Repository\IODeviceChannelRepository;
@@ -39,7 +38,7 @@ class VirtualChannelsUpdateStateCommand extends AbstractCyclicCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $channels = $this->channelRepository->findBy(['type' => ChannelType::VIRTUAL]);
+        $channels = $this->channelRepository->findBy(['isVirtual' => true]);
         $this->updater->updateChannels($channels);
         return 0;
     }

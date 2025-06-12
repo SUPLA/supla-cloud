@@ -28,7 +28,6 @@
     import ChannelTile from "@/channels/channel-tile.vue";
     import {mapState} from "pinia";
     import {useChannelsStore} from "@/stores/channels-store";
-    import ChannelType from "@/common/enums/channel-type";
     import VirtualChannelFilters from "./virtual-channel-filters.vue";
     import NewVirtualChannelButton from "@/account/integrations/data-sources/new-virtual-channel-button.vue";
 
@@ -45,7 +44,7 @@
             allVirtualChannels() {
                 return this.channels
                     .filter((channel) => !channel.config.hideInChannelsList)
-                    .filter((channel) => channel.typeId === ChannelType.VIRTUAL);
+                    .filter((channel) => channel.isVirtual);
             },
             filteredChannels() {
                 const filteredChannels = this.allVirtualChannels.filter(this.filterFunction);

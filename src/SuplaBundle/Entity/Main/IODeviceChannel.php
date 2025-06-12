@@ -246,6 +246,12 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
      */
     private string $checksum = '';
 
+    /**
+     * @ORM\Column(name="is_virtual", type="boolean", nullable=false, options={"default"=false})
+     * @Groups({"basic"})
+     */
+    private bool $isVirtual = false;
+
     public function __construct() {
         $this->directLinks = new ArrayCollection();
         $this->schedules = new ArrayCollection();
@@ -456,12 +462,12 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     }
 
     public function getAltIcon(): int {
-        return intval($this->altIcon);
+        return $this->altIcon;
     }
 
-    public function setAltIcon($altIcon) {
+    public function setAltIcon(int $altIcon): void {
         Assertion::between($altIcon, 0, $this->getFunction()->getMaxAlternativeIconIndex(), 'Invalid alternative icon has been chosen.');
-        $this->altIcon = intval($altIcon);
+        $this->altIcon = $altIcon;
     }
 
     public function getUserIcon(): ?UserIcon {
@@ -534,6 +540,10 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         return $this->getConflictDetails() ||
             IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($deviceFlags) ||
             ChannelFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($this->flags) ||
-            $this->type === ChannelType::VIRTUAL;
+            $this->isVirtual;
+    }
+
+    public function isVirtual(): bool {
+        return $this->isVirtual;
     }
 }

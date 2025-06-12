@@ -69,7 +69,8 @@ class VirtualChannelStateUpdater {
             ['id' => $cityId, 'fetchedAt' => $fetchedAt, 'weather' => $weather] = $cityWeather;
             foreach ($openWeatherUpdates[$cityId] as $field => $channelIds) {
                 $query = sprintf(
-                    'UPDATE %s cv SET cv.updateTime=:fetchedAt, cv.validTo=:validTo, cv.value=:value WHERE cv.channel IN (:channelIds)',
+                    'UPDATE %s cv SET cv.updateTime=CURRENT_TIMESTAMP(), cv.validTo=:validTo, cv.value=:value ' .
+                    'WHERE cv.channel IN (:channelIds)',
                     ChannelValue::class
                 );
                 $fetchedAtDate = new \DateTime($fetchedAt);
@@ -82,7 +83,6 @@ class VirtualChannelStateUpdater {
                     ->createQuery($query)
                     ->execute([
                         'value' => $value,
-                        'fetchedAt' => $fetchedAtDate,
                         'validTo' => $validToDate,
                         'channelIds' => $channelIds,
                     ]);
@@ -109,7 +109,8 @@ class VirtualChannelStateUpdater {
             ];
             foreach ($energyPriceForecastUpdates as $field => $channelIds) {
                 $query = sprintf(
-                    'UPDATE %s cv SET cv.updateTime=:fetchedAt, cv.validTo=:validTo, cv.value=:value WHERE cv.channel IN (:channelIds)',
+                    'UPDATE %s cv SET cv.updateTime=CURRENT_TIMESTAMP(), cv.validTo=:validTo, cv.value=:value ' .
+                    'WHERE cv.channel IN (:channelIds)',
                     ChannelValue::class
                 );
                 $value = ChannelValue::packValue(ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(), $values[$field]);
@@ -117,7 +118,6 @@ class VirtualChannelStateUpdater {
                     ->createQuery($query)
                     ->execute([
                         'value' => $value,
-                        'fetchedAt' => $log->getDateFrom(),
                         'validTo' => $log->getDateTo(),
                         'channelIds' => $channelIds,
                     ]);

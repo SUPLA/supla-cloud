@@ -6,36 +6,41 @@ use Assert\Assertion;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\VirtualChannelType;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Supla\SuplaAutodiscover;
 
 class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurator {
     private const CONFIGS = [
-        'temp' => ['function' => ChannelFunction::THERMOMETER],
-        'feelsLike' => ['function' => ChannelFunction::THERMOMETER],
-        'pressure' => ['function' => ChannelFunction::PRESSURESENSOR],
-        'humidity' => ['function' => ChannelFunction::HUMIDITY],
-        'visibility' => ['function' => ChannelFunction::DISTANCESENSOR],
-        'windSpeed' => ['function' => ChannelFunction::WINDSENSOR],
-        'windGust' => ['function' => ChannelFunction::WINDSENSOR],
+        'temp' => ['type' => ChannelType::THERMOMETER, 'function' => ChannelFunction::THERMOMETER],
+        'feelsLike' => ['type' => ChannelFunction::THERMOMETER, 'function' => ChannelFunction::THERMOMETER],
+        'pressure' => ['type' => ChannelType::PRESSURESENSOR, 'function' => ChannelFunction::PRESSURESENSOR],
+        'humidity' => ['type' => ChannelType::HUMIDITYSENSOR, 'function' => ChannelFunction::HUMIDITY],
+        'visibility' => ['type' => ChannelType::DISTANCESENSOR, 'function' => ChannelFunction::DISTANCESENSOR],
+        'windSpeed' => ['type' => ChannelType::WINDSENSOR, 'function' => ChannelFunction::WINDSENSOR],
+        'windGust' => ['type' => ChannelType::WINDSENSOR, 'function' => ChannelFunction::WINDSENSOR],
         'clouds' => [
+            'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => '%'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => '%', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
-        'rainMmh' => ['function' => ChannelFunction::RAINSENSOR],
-        'snowMmh' => ['function' => ChannelFunction::RAINSENSOR],
+        'rainMmh' => ['type' => ChannelType::RAINSENSOR, 'function' => ChannelFunction::RAINSENSOR],
+        'snowMmh' => ['type' => ChannelType::RAINSENSOR, 'function' => ChannelFunction::RAINSENSOR],
         'airCo' => [
+            'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'altIcon' => 6,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
         'airNo' => [
+            'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
@@ -43,6 +48,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             ]],
         ],
         'airNo2' => [
+            'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
@@ -50,6 +56,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             ]],
         ],
         'airO3' => [
+            'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
@@ -57,20 +64,24 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             ]],
         ],
         'airPm10' => [
+            'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'altIcon' => 18,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
         'airPm25' => [
+            'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'altIcon' => 17,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
-        'tempHumidity' => ['function' => ChannelFunction::HUMIDITYANDTEMPERATURE],
+        'tempHumidity' => ['type' => ChannelType::HUMIDITYANDTEMPSENSOR, 'function' => ChannelFunction::HUMIDITYANDTEMPERATURE],
     ];
 
     public function __construct(private readonly SuplaAutodiscover $ad, private readonly SubjectConfigTranslator $configTranslator) {
@@ -90,7 +101,9 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
                 'weatherField' => $config['weatherField'],
             ],
         ], $fieldConfig['properties'] ?? [])));
+        EntityUtils::setField($channel, 'type', $fieldConfig['type']);
         EntityUtils::setField($channel, 'function', $fieldConfig['function']);
+        $channel->setAltIcon($fieldConfig['altIcon'] ?? 0);
         $this->configTranslator->setConfig($channel, $fieldConfig['userConfig'] ?? []);
         return $channel;
     }

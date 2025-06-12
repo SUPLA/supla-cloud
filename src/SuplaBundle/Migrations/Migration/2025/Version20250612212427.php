@@ -15,24 +15,15 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Model\UserConfigTranslator;
+namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Entity\HasUserConfig;
-use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Migrations\NoWayBackMigration;
 
-class VirtualChannelConfigTranslator extends UserConfigTranslator {
-    use FixedRangeParamsTranslator;
-
-    public function getConfig(HasUserConfig $subject): array {
-        return [
-            'virtualChannelConfig' => $subject->getProperty('virtualChannelConfig'),
-        ];
-    }
-
-    public function setConfig(HasUserConfig $subject, array $config) {
-    }
-
-    public function supports(HasUserConfig $subject): bool {
-        return $subject instanceof IODeviceChannel && $subject->isVirtual();
+/**
+ * supla_dev_channel.is_virtual
+ */
+class Version20250612212427 extends NoWayBackMigration {
+    public function migrate() {
+        $this->addSql('ALTER TABLE supla_dev_channel ADD is_virtual TINYINT(1) DEFAULT 0 NOT NULL');
     }
 }
