@@ -11,6 +11,8 @@ class TankChannelStateGetter implements SingleChannelStateGetter {
 
     public function getState(IODeviceChannel $channel): array {
         $result = $this->suplaServer->getRawValue('CONTAINER', $channel);
+        $fillLevel = 0;
+        $flags = 0;
         if ($result !== false) {
             [$fillLevel, $flags] = sscanf($result, "VALUE:%d,%d\n");
         }
