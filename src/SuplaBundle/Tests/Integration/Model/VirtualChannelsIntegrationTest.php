@@ -104,6 +104,7 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(1, $content['config']['virtualChannelConfig']['cityId']);
         $this->assertEquals('windSpeed', $content['config']['virtualChannelConfig']['weatherField']);
         $this->assertEquals(1, $this->getEntityManager()->getRepository(IODevice::class)->count([]));
+        $this->assertSuplaCommandExecuted(sprintf('USER-ON-CHANNEL-ADDED:1,1,%d', $content['id']));
         return $content['id'];
     }
 
