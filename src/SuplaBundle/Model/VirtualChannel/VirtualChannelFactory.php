@@ -10,8 +10,11 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\VirtualChannelType;
 use SuplaBundle\Repository\IODeviceRepository;
+use SuplaBundle\Supla\SuplaServerAware;
 
 class VirtualChannelFactory {
+    use SuplaServerAware;
+
     /**
      * @param VirtualChannelConfigurator[] $configurators
      */
@@ -39,6 +42,7 @@ class VirtualChannelFactory {
         $this->em->persist($channel);
         $this->em->flush();
         $this->stateUpdater->updateChannels([$channel]);
+        $this->suplaServer->userAction('ON-CHANNEL-ADDED', [$virtualDevice->getId(), $channel->getId()]);
         return $channel;
     }
 
