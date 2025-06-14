@@ -56,7 +56,7 @@ class VirtualChannelFactory {
                 EntityUtils::setField($virtualDevice, 'isVirtual', true);
                 EntityUtils::setField($virtualDevice, 'user', $user);
                 EntityUtils::setField($virtualDevice, 'location', $user->getLocations()->first());
-                EntityUtils::setField($virtualDevice, 'name', 'SUPLA-VIRTUAL-DEVICE');
+                EntityUtils::setField($virtualDevice, 'name', 'SUPLA-DATA-SOURCES');
                 EntityUtils::setField($virtualDevice, 'guid', random_bytes(16));
                 EntityUtils::setField($virtualDevice, 'regDate', new \DateTime());
                 EntityUtils::setField($virtualDevice, 'protocolVersion', 26);

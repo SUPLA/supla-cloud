@@ -27,6 +27,8 @@
                                         </dt>
                                         <dd>GUID</dd>
                                         <dt>{{ device.gUIDString }}</dt>
+                                    </dl>
+                                    <dl v-if="!device.isVirtual">
                                         <dd>{{ $t('SoftVer') }}</dd>
                                         <dt>{{ device.softwareVersion }}</dt>
                                         <dd>{{ $t('Registered') }}</dd>
@@ -34,7 +36,7 @@
                                         <dd>{{ $t('Last connection') }}</dd>
                                         <dt>{{ device.lastConnected | formatDateTime }}</dt>
                                     </dl>
-                                    <dl v-if="!device.locked">
+                                    <dl v-if="!device.locked && !device.isVirtual">
                                         <dd>{{ $t('Enabled') }}</dd>
                                         <dt>
                                             <toggler v-model="device.enabled"

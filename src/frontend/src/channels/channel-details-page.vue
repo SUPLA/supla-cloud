@@ -107,7 +107,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="details-page-block" v-if="!channel.isVirtual">
+                        <div class="details-page-block">
                             <h3 class="text-center">{{ $t('Device') }}</h3>
                             <div class="form-group">
                                 <device-tile :device="channel.iodevice"></device-tile>
@@ -122,7 +122,7 @@
                                     :square-link-class="channel.inheritedLocation ? 'yellow' : ''"
                                     @chosen="(location) => changeLocation(location)"/>
                             </div>
-                            <div class="text-center" v-if="!channel.isVirtual">
+                            <div class="text-center">
                                 <a v-if="!channel.inheritedLocation && !hasPendingChanges"
                                     @click="changeLocation(null)">
                                     {{ $t('Inherit I/O Device location') }}
