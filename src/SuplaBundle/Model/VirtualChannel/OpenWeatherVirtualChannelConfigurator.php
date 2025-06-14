@@ -23,6 +23,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         'clouds' => [
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'altIcon' => 21,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => '%'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => '%', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
@@ -33,7 +34,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         'airCo' => [
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'altIcon' => 6,
+            'altIcon' => 25,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
@@ -42,6 +43,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         'airNo' => [
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'altIcon' => 20,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
@@ -50,6 +52,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         'airNo2' => [
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'altIcon' => 20,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
@@ -58,6 +61,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         'airO3' => [
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'altIcon' => 20,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
