@@ -462,7 +462,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     }
 
     public function getAltIcon(): int {
-        return $this->altIcon || 0;
+        return $this->altIcon ?: 0;
     }
 
     public function setAltIcon(int $altIcon): void {
