@@ -23,7 +23,8 @@
                 {label: $t('Meters'), value: '310,315,320,330,340,520,530'},
                 {label: $t('HVAC'), value: '400,410,420,422,423,424,425,426,960,970'},
                 {label: $t('Other'), value: '290,700,920'},
-                {label: $t('No function'), value: '0,-1'}
+                {label: $t('Data sources'), value: 'virtual'},
+                {label: $t('No function'), value: '0,-1'},
             ]"></btn-filters>
         <input type="text"
             @input="filter()"
@@ -78,6 +79,10 @@
                 if (this.functionality && this.functionality !== '*') {
                     if (this.functionality === 'withFunction') {
                         if (!channel.functionId) {
+                            return false;
+                        }
+                    } else if (this.functionality === 'virtual') {
+                        if (!channel.isVirtual) {
                             return false;
                         }
                     } else if (this.functionality.split(',').indexOf('' + channel.functionId) === -1) {
