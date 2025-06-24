@@ -14,7 +14,7 @@ use SuplaBundle\Supla\SuplaAutodiscover;
 class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurator {
     private const CONFIGS = [
         'temp' => ['type' => ChannelType::THERMOMETER, 'function' => ChannelFunction::THERMOMETER],
-        'feelsLike' => ['type' => ChannelFunction::THERMOMETER, 'function' => ChannelFunction::THERMOMETER],
+        'feelsLike' => ['type' => ChannelType::THERMOMETER, 'function' => ChannelFunction::THERMOMETER],
         'pressure' => ['type' => ChannelType::PRESSURESENSOR, 'function' => ChannelFunction::PRESSURESENSOR],
         'humidity' => ['type' => ChannelType::HUMIDITYSENSOR, 'function' => ChannelFunction::HUMIDITY],
         'visibility' => ['type' => ChannelType::DISTANCESENSOR, 'function' => ChannelFunction::DISTANCESENSOR],
