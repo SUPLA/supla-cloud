@@ -71,11 +71,11 @@ class ChannelValue {
     public static function packValue(ChannelFunction $fnc, $value, $value2 = 0): string {
         switch ($fnc->getId()) {
             case ChannelFunction::HUMIDITY:
-                return pack('ll', 0, round($value * 1000));
+                return pack('ll', 0, $value === null ? NAN : round($value * 1000));
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
-                return pack('ll', round($value * 1000), round($value2 * 1000));
+                return pack('ll', $value === null ? NAN : round($value * 1000), $value === null ? NAN : round($value2 * 1000));
             default:
-                return pack('d', $value);
+                return pack('d', $value === null ? NAN : $value);
         }
     }
 }

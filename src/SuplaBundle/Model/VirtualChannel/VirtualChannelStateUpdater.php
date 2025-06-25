@@ -89,7 +89,7 @@ class VirtualChannelStateUpdater {
                 $validToDate->add(new \DateInterval('PT1H'));
                 $fnc = OpenWeatherVirtualChannelConfigurator::fieldNameToFunction($field);
                 $readField = $field === 'tempHumidity' ? 'temp' : $field;
-                $value = ChannelValue::packValue($fnc, $weather[$readField] ?? 0, $weather['humidity'] ?? 0);
+                $value = ChannelValue::packValue($fnc, $weather[$readField] ?? null, $weather['humidity'] ?? null);
                 $this->entityManager
                     ->createQuery($query)
                     ->execute([
@@ -125,7 +125,7 @@ class VirtualChannelStateUpdater {
                     'WHERE cv.channel IN (:channelIds)',
                     ChannelValue::class
                 );
-                $value = ChannelValue::packValue(ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(), $values[$field]);
+                $value = ChannelValue::packValue(ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(), $values[$field] ?? null);
                 $this->entityManager
                     ->createQuery($query)
                     ->execute([
