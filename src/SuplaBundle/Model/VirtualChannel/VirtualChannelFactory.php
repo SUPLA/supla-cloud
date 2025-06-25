@@ -29,7 +29,9 @@ class VirtualChannelFactory {
     public function createVirtualChannel(User $user, VirtualChannelType $type, array $config): IODeviceChannel {
         $virtualDevice = $this->getVirtualDevice($user);
         $channel = new IODeviceChannel();
-        EntityUtils::setField($channel, 'channelNumber', $virtualDevice->getChannels()->count());
+        $nextChannelNumber = $virtualDevice->getChannels()
+                ->reduce(fn(int $max, IODeviceChannel $ch) => max($max, $ch->getChannelNumber()), 0) + 1;
+        EntityUtils::setField($channel, 'channelNumber', $nextChannelNumber);
         EntityUtils::setField($channel, 'iodevice', $virtualDevice);
         EntityUtils::setField($channel, 'user', $user);
         EntityUtils::setField($channel, 'location', $user->getLocations()->first());

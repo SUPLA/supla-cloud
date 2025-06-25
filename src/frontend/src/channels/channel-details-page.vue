@@ -1,8 +1,7 @@
 <template>
     <page-container :error="error">
         <loading-cover :loading="!channel || loading">
-            <div class="container"
-                v-if="channel">
+            <div class="container" v-if="channel">
                 <div class="d-flex mt-3">
                     <div class="flex-grow-1">
                         <h1 v-title class="m-0">{{ channelTitle }}</h1>
