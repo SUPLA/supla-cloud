@@ -273,6 +273,7 @@ CREATE TABLE `supla_dev_channel`
     `sub_device_id` smallint(5) unsigned NOT NULL                         DEFAULT 0,
     `conflict_details` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `checksum`         char(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL       DEFAULT '',
+    `is_virtual`    tinyint(1)           NOT NULL                         DEFAULT 0,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQUE_CHANNEL` (`iodevice_id`, `channel_number`),
     KEY `IDX_81E928C9125F95D6` (`iodevice_id`),
@@ -482,20 +483,20 @@ CREATE TABLE `supla_direct_link`
 (
     `id`               int(11)      NOT NULL AUTO_INCREMENT,
     `user_id`          int(11)      NOT NULL,
-    `channel_id`       int(11)               DEFAULT NULL,
-    `channel_group_id` int(11)               DEFAULT NULL,
+    `channel_id`       int(11)             DEFAULT NULL,
+    `channel_group_id` int(11)             DEFAULT NULL,
     `slug`             varchar(255) NOT NULL,
     `caption`          varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `allowed_actions`  varchar(255) NOT NULL,
     `active_from`      datetime                                                      DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
     `active_to`        datetime                                                      DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
-    `executions_limit` int(11)               DEFAULT NULL,
+    `executions_limit` int(11)             DEFAULT NULL,
     `last_used`        datetime                                                      DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
-    `last_ipv4`        int(10) unsigned      DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
+    `last_ipv4`        int(10) unsigned    DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
     `enabled`          tinyint(1)   NOT NULL,
-    `disable_http_get` tinyint(1)   NOT NULL DEFAULT 0,
-    `scene_id`         int(11)               DEFAULT NULL,
-    `schedule_id`      int(11)               DEFAULT NULL,
+    `disable_http_get` tinyint(1) NOT NULL DEFAULT 0,
+    `scene_id`         int(11)             DEFAULT NULL,
+    `schedule_id`      int(11)             DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY `IDX_6AE7809FA76ED395` (`user_id`),
     KEY `IDX_6AE7809F72F5A1AA` (`channel_id`),
@@ -674,6 +675,7 @@ CREATE TABLE `supla_energy_price_log`
     `rce`       decimal(8, 4) DEFAULT NULL,
     `fixing1`   decimal(8, 4) DEFAULT NULL,
     `fixing2`   decimal(8, 4) DEFAULT NULL,
+    `pdgsz` tinyint(1) DEFAULT NULL COMMENT '(DC2Type:tinyint)',
     PRIMARY KEY (`date_from`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb3
@@ -689,8 +691,8 @@ DROP TABLE IF EXISTS `supla_google_home`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `supla_google_home`
 (
-    `id`           int(11) NOT NULL AUTO_INCREMENT,
-    `user_id`      int(11) NOT NULL,
+    `id`      int(11) NOT NULL AUTO_INCREMENT,
+    `user_id` int(11) NOT NULL,
     `reg_date`     datetime NOT NULL COMMENT '(DC2Type:utcdatetime)',
     `access_token` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`),
@@ -1191,8 +1193,8 @@ DROP TABLE IF EXISTS `supla_scheduled_executions`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `supla_scheduled_executions`
 (
-    `id`                int(11) NOT NULL AUTO_INCREMENT,
-    `schedule_id`       int(11) NOT NULL,
+    `id`          int(11) NOT NULL AUTO_INCREMENT,
+    `schedule_id` int(11) NOT NULL,
     `planned_timestamp` datetime     DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
     `fetched_timestamp` datetime     DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
     `retry_timestamp`   datetime     DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
@@ -1200,7 +1202,7 @@ CREATE TABLE `supla_scheduled_executions`
     `result_timestamp`  datetime     DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
     `consumed`          tinyint(1) NOT NULL,
     `result`            int(11)      DEFAULT NULL,
-    `action`            int(11) NOT NULL,
+    `action`      int(11) NOT NULL,
     `action_param`      varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY `IDX_FB21DBDCA40BC2D5` (`schedule_id`),
@@ -1416,9 +1418,9 @@ DROP TABLE IF EXISTS `supla_user_icons`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `supla_user_icons`
 (
-    `id`          int(11) NOT NULL AUTO_INCREMENT,
-    `user_id`     int(11) NOT NULL,
-    `func`        int(11) NOT NULL,
+    `id`      int(11) NOT NULL AUTO_INCREMENT,
+    `user_id` int(11) NOT NULL,
+    `func`    int(11) NOT NULL,
     `image1`      longblob NOT NULL,
     `image2`      longblob DEFAULT NULL,
     `image3`      longblob DEFAULT NULL,
@@ -1536,7 +1538,8 @@ SELECT 1 AS `id`,
        1 AS `value`,
        1 AS `validity_time_sec`,
        1 AS `user_config`,
-       1 AS `properties`
+       1 AS `properties`,
+       1 AS `is_virtual`
         */;
 SET character_set_client = @saved_cs_client;
 
@@ -3679,7 +3682,8 @@ select `c`.`id`                         AS `id`,
            when `v`.`valid_to` >= utc_timestamp() then time_to_sec(timediff(`v`.`valid_to`, utc_timestamp()))
            else NULL end                AS `validity_time_sec`,
        `c`.`user_config`                AS `user_config`,
-       `c`.`properties`                 AS `properties`
+       `c`.`properties`                 AS `properties`,
+       `c`.`is_virtual`                 AS `is_virtual`
 from ((((((`supla_dev_channel` `c` join `supla_iodevice` `d` on (`d`.`id` = `c`.`iodevice_id`)) join `supla_location` `l` on (`l`.`id` =
                                                                                                                               case ifnull(`c`.`location_id`, 0)
                                                                                                                                   when 0
@@ -3865,4 +3869,4 @@ where `g`.`func` is not null
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-12 14:30:15
+-- Dump completed on 2025-06-25 13:29:06
