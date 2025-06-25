@@ -31,8 +31,12 @@ class VirtualChannelStateUpdater {
             'energyPriceForecastUpdates' => [],
         ];
         $channelUpdates = [];
+        $updatedDeviceIds = [];
         foreach ($channels as $channel) {
             $channelUpdates[] = [$channel->getId(), $channel->getUser()->getId()];
+            if (!in_array($channel->getIodevice()->getId(), $updatedDeviceIds)) {
+                $updatedDeviceIds[] = $channel->getIodevice()->getId();
+            }
             $cfg = $channel->getProperty('virtualChannelConfig', []);
             $virtualType = $cfg['type'] ?? null;
             if ($virtualType === VirtualChannelType::OPEN_WEATHER) {
@@ -46,6 +50,7 @@ class VirtualChannelStateUpdater {
             }
         }
         $this->setInitialChannelValues($channelUpdates);
+        $this->updateLastConnectedAt($updatedDeviceIds);
         if ($tasks['openWeatherUpdates']) {
             $this->fetchOpenWeatherUpdates($tasks['openWeatherUpdates']);
         }
@@ -60,6 +65,11 @@ class VirtualChannelStateUpdater {
         $now = DateUtils::timestampToMysqlUtc($this->timeProvider->getTimestamp('-1 minute'));
         $query .= implode(',', array_map(fn(array $ch) => "($ch[0], $ch[1], '$zero', '$now', '$now')", $channelUpdates));
         $this->entityManager->getConnection()->executeQuery($query);
+    }
+
+    private function updateLastConnectedAt(array $updatedDeviceIds) {
+        $query = 'UPDATE supla_iodevice SET last_connected=CURRENT_TIMESTAMP() WHERE id IN (:ids)';
+        $this->entityManager->getConnection()->executeQuery($query, ['ids' => $updatedDeviceIds]);
     }
 
     private function fetchOpenWeatherUpdates(array $openWeatherUpdates): void {

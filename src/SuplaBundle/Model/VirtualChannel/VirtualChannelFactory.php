@@ -61,6 +61,7 @@ class VirtualChannelFactory {
                 EntityUtils::setField($virtualDevice, 'name', 'Data sources');
                 EntityUtils::setField($virtualDevice, 'guid', random_bytes(16));
                 EntityUtils::setField($virtualDevice, 'regDate', new \DateTime());
+                EntityUtils::setField($virtualDevice, 'lastConnected', new \DateTime());
                 EntityUtils::setField($virtualDevice, 'protocolVersion', 26);
                 EntityUtils::setField($virtualDevice, 'softwareVersion', '1.0');
                 $em->persist($virtualDevice);
