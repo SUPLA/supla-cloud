@@ -1,6 +1,6 @@
 import Vue from "vue";
 import "./filters-date";
-import {i18n} from "@/locale";
+import {escapeI18n, i18n} from "@/locale";
 import {useCurrentUserStore} from "@/stores/current-user-store";
 import {useOpenWeatherStore} from "@/stores/open-weather-store";
 
@@ -42,7 +42,7 @@ export function channelIconUrl(channel) {
 }
 
 export function deviceTitle(device) {
-    return `${device.location.caption} / ${device.comment || device.name}`;
+    return `${device.location.caption} / ${device.comment || i18n.global.t(escapeI18n(device.name))}`;
 }
 
 export function ellipsis(string, length = 20) {

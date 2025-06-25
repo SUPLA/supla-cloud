@@ -24,6 +24,7 @@
     import {DateTime} from "luxon";
     import {mapState} from "pinia";
     import {useLocationsStore} from "@/stores/locations-store";
+    import {escapeI18n} from "@/locale";
 
     export default {
         components: {BtnFilters},
@@ -72,7 +73,7 @@
                 }
             },
             captionForSort(model) {
-                return latinize(model.comment || model.caption || model.name || '').toLowerCase().trim();
+                return latinize(model.comment || model.caption || this.$t(escapeI18n(model.name)) || '').toLowerCase().trim();
             },
         },
         computed: {
