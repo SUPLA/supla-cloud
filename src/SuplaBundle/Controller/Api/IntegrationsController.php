@@ -170,7 +170,7 @@ class IntegrationsController extends RestController {
         if (!ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         };
-        $parameters = ['rce'];
+        $parameters = ['rce', 'pdgsz'];
         $logsWithFixing = $measurementLogsEntityManager->getRepository(EnergyPriceLogItem::class)
             ->createQueryBuilder('e')
             ->where('e.dateFrom >= :date')

@@ -21,6 +21,15 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
+        'pdgsz' => [
+            'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
+            'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'altIcon' => 42,
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => ''],
+            'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => '', 'hiddenConfigFields' => [
+                'keepHistory', 'chartType', 'refreshIntervalMs',
+            ]],
+        ],
         'fixing1' => [
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,

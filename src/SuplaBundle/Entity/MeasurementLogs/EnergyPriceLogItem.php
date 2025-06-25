@@ -42,6 +42,11 @@ class EnergyPriceLogItem {
     private ?float $rce;
 
     /**
+     * @ORM\Column(name="pdgsz", type="tinyint", nullable=true)
+     */
+    private ?int $pdgsz;
+
+    /**
      * @ORM\Column(name="fixing1", type="decimal", precision=8, scale=4, nullable=true)
      */
     private ?float $fixing1;
@@ -70,6 +75,10 @@ class EnergyPriceLogItem {
         return $this->rce;
     }
 
+    public function getPdgsz(): ?int {
+        return $this->pdgsz;
+    }
+
     public function getFixing1(): ?float {
         return $this->fixing1;
     }
@@ -80,6 +89,10 @@ class EnergyPriceLogItem {
 
     public function setRce(?float $rce): void {
         $this->rce = $rce;
+    }
+
+    public function setPdgsz(?int $pdgsz): void {
+        $this->pdgsz = $pdgsz;
     }
 
     public function setFixing1(?float $fixing1): void {

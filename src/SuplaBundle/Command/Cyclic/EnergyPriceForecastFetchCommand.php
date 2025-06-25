@@ -50,6 +50,7 @@ class EnergyPriceForecastFetchCommand extends Command implements CyclicCommand {
                 $log = new EnergyPriceLogItem($dateFrom, new \DateTime($forecastItem['dateTo']));
             }
             $log->setRce($forecastItem['rce'] ?? null);
+            $log->setPdgsz($forecastItem['pdgsz'] ?? null);
             $log->setFixing1($forecastItem['fixing1'] ?? null);
             $log->setFixing2($forecastItem['fixing2'] ?? null);
             $this->measurementLogsEntityManager->persist($log);
@@ -62,6 +63,11 @@ class EnergyPriceForecastFetchCommand extends Command implements CyclicCommand {
         $timestamp = $timeProvider->getTimestamp();
         $minuteInTheDay = intval(date('H', $timestamp)) * 60 + intval(date('i', $timestamp));
         return in_array($minuteInTheDay, [
+            2 * 60 + 10,
+            4 * 60 + 10,
+            8 * 60 + 10,
+            11 * 60 + 10,
+            13 * 60 + 10,
             16 * 60 + 10,
             17 * 60 + 10,
             18 * 60 + 10,
