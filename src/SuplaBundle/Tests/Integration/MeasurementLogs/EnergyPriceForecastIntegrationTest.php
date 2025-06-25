@@ -176,7 +176,7 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(1, $this->getEntityManager()->getRepository(IODevice::class)->count([]));
         $chValue = $this->getEntityManager()->getRepository(ChannelValue::class)->findOneBy(['channel' => $content['id']]);
         $this->assertNotNull($chValue);
-        $this->assertEquals(0, current(unpack('d', $chValue->getValue())));
+        $this->assertNan(current(unpack('d', $chValue->getValue())));
         $this->assertLessThanOrEqual($chValue->getValidTo()->getTimestamp(), strtotime('2025-06-12T00:11:00+02:00'));
     }
 }
