@@ -99,7 +99,7 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV3('GET', '/api/integrations/energy-price-forecast/parameters');
         $this->assertStatusCode(200, $client->getResponse());
         $parameters = json_decode($client->getResponse()->getContent(), true);
-        $this->assertEquals(['rce', 'fixing1', 'fixing2'], $parameters);
+        $this->assertEquals(['rce', 'pdgsz', 'fixing1', 'fixing2'], $parameters);
         $client->apiRequestV3('POST', '/api/channels', [
             'virtualChannelType' => VirtualChannelType::ENERGY_PRICE_FORECAST,
             'virtualChannelConfig' => [
@@ -157,7 +157,7 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV3('GET', '/api/integrations/energy-price-forecast/parameters');
         $this->assertStatusCode(200, $client->getResponse());
         $parameters = json_decode($client->getResponse()->getContent(), true);
-        $this->assertEquals(['rce'], $parameters);
+        $this->assertEquals(['rce', 'pdgsz'], $parameters);
         $client->apiRequestV3('POST', '/api/channels', [
             'virtualChannelType' => VirtualChannelType::ENERGY_PRICE_FORECAST,
             'virtualChannelConfig' => [
