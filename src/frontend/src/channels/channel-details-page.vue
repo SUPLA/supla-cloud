@@ -41,7 +41,7 @@
                                     <dl>
                                         <dd>{{ $t('Function') }}</dd>
                                         <dt class="text-center"
-                                            v-if="channel.isVirtual"
+                                            v-if="!channel.isVirtual"
                                             v-tooltip="hasPendingChanges && $t('Save or discard configuration changes first.')">
                                             <a class="btn btn-default btn-block btn-wrapped"
                                                 :class="{disabled: hasPendingChanges}"
