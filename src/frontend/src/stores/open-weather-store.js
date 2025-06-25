@@ -19,8 +19,8 @@ export const useOpenWeatherStore = defineStore('openWeather', () => {
         {label: 'Snow', id: 'snowMmh', unit: 'mm/h'}, // i18n
         {label: 'Air CO', id: 'airCo', unit: 'µg/m³'}, // i18n
         {label: 'Air NO', id: 'airNo', unit: 'µg/m³'}, // i18n
-        {label: 'Air NO2', id: 'airNo2', unit: 'µg/m³'}, // i18n
-        {label: 'Air O3', id: 'airO3', unit: 'µg/m³'}, // i18n
+        {label: 'Air NO₂', id: 'airNo2', unit: 'µg/m³'}, // i18n
+        {label: 'Air O₃', id: 'airO3', unit: 'µg/m³'}, // i18n
         {label: 'Air PM10', id: 'airPm10', unit: 'µg/m³'}, // i18n
         {label: 'Air PM2.5', id: 'airPm25', unit: 'µg/m³'}, // i18n
     ]);
