@@ -26,6 +26,9 @@ export function channelTitle(channel) {
             const field = availableWeatherFields.find(f => f.id === channel.config.virtualChannelConfig.weatherField);
             return i18n.global.t('virtualChannelTypeName_OPEN_WEATHER') + ': ' + field?.label;
         }
+        if (channel.config.virtualChannelConfig.type === 'ENERGY_PRICE_FORECAST') {
+            return i18n.global.t(`energyPriceForecast_field_${channel.config.virtualChannelConfig.energyField}`);
+        }
         return i18n.global.t('virtualChannelTypeName_' + channel.config.virtualChannelConfig.type);
     } else {
         return `ID${channel.id} ` + i18n.global.t(channel.function ? channel.function.caption : 'None');

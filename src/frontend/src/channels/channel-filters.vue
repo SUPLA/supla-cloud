@@ -41,6 +41,7 @@
     import {mapState} from "pinia";
     import {useLocationsStore} from "@/stores/locations-store";
     import {useDevicesStore} from "@/stores/devices-store";
+    import {channelTitle} from "@/common/filters";
 
     export default {
         props: {
@@ -93,7 +94,7 @@
                     const location = this.locations[channel.locationId] || {};
                     const device = this.devices[channel.iodeviceId] || {};
                     const searchString = latinize([channel.id, channel.caption, device.name, this.$t(channel.type.caption),
-                        location.id, location.caption, this.$t(channel.function.caption)].join(' '))
+                        location.id, location.caption, this.$t(channel.function.caption), channelTitle(channel)].join(' '))
                         .toLowerCase();
                     return searchString.indexOf(latinize(this.search).toLowerCase()) >= 0;
                 }

@@ -85,7 +85,7 @@
                             <account-limit-progressbar :limit="limits.valueBasedTriggers"
                                 :value="relationsCount.valueBasedTriggers"></account-limit-progressbar>
                         </dd>
-                        <dt>{{ $t('Data sources') }}</dt>
+                        <dt>{{ $t('Data source channels') }}</dt>
                         <dd>
                             <account-limit-progressbar :limit="limits.virtualChannels"
                                 :value="relationsCount.virtualChannels"></account-limit-progressbar>
