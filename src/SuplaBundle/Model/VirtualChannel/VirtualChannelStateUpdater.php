@@ -4,6 +4,7 @@ namespace SuplaBundle\Model\VirtualChannel;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\ChannelValue;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\MeasurementLogs\EnergyPriceLogItem;
 use SuplaBundle\Enums\ChannelFunction;
@@ -68,8 +69,8 @@ class VirtualChannelStateUpdater {
     }
 
     private function updateLastConnectedAt(array $updatedDeviceIds) {
-        $query = 'UPDATE supla_iodevice SET last_connected=CURRENT_TIMESTAMP() WHERE id IN (:ids)';
-        $this->entityManager->getConnection()->executeQuery($query, ['ids' => $updatedDeviceIds]);
+        $query = sprintf('UPDATE %s io SET io.lastConnected=CURRENT_TIMESTAMP() WHERE io.id IN (:ids)', IODevice::class);
+        $this->entityManager->createQuery($query)->execute(['ids' => $updatedDeviceIds]);
     }
 
     private function fetchOpenWeatherUpdates(array $openWeatherUpdates): void {
@@ -114,6 +115,7 @@ class VirtualChannelStateUpdater {
             $log = current($currentEnergyPriceForecast);
             $values = [
                 'rce' => $log->getRce(),
+                'pdgsz' => $log->getPdgsz(),
                 'fixing1' => $log->getFixing1(),
                 'fixing2' => $log->getFixing2(),
             ];
