@@ -573,18 +573,18 @@ const ChannelFunctionTriggers = {
     ],
     [ChannelFunction.GENERAL_PURPOSE_MEASUREMENT]: [
         {
-            caption: () => 'When the meter reaches a certain value', // i18n
+            caption: () => 'When the measurement reaches a certain value', // i18n
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
                 unit: (fieldName, subject) => (subject.config.noSpaceAfterValue ? '' : ' ') + subject.config.unitAfterValue,
                 unitBefore: (fieldName, subject) => subject.config.unitBeforeValue + (subject.config.noSpaceBeforeValue ? '' : ' '),
-                labelI18n: () => 'When the meter value will be', // i18n
+                labelI18n: () => 'When the measurement value will be', // i18n
                 resumeLabelI18n: () => 'and wait until the meter will be', // i18n
             },
         },
         {
-            caption: () => 'When the meter value changes', // i18n
+            caption: () => 'When the measurement value changes', // i18n
             def: () => ({on_change: {}})
         },
     ],
