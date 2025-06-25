@@ -35,7 +35,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         'airCo' => [
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'altIcon' => 25,
+            'altIcon' => 43,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',

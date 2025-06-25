@@ -16,7 +16,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
         'rce' => [
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'altIcon' => 42,
+            'altIcon' => 45,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'PLN'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
@@ -25,7 +25,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
         'pdgsz' => [
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'altIcon' => 42,
+            'altIcon' => 45,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => ''],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => '', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
@@ -34,7 +34,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
         'fixing1' => [
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'altIcon' => 42,
+            'altIcon' => 45,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'PLN'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
@@ -43,7 +43,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
         'fixing2' => [
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            'altIcon' => 42,
+            'altIcon' => 45,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'PLN'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
