@@ -39,22 +39,22 @@ class EnergyPriceLogItem {
     /**
      * @ORM\Column(name="rce", type="decimal", precision=8, scale=4, nullable=true)
      */
-    private ?float $rce;
+    private ?float $rce = null;
 
     /**
      * @ORM\Column(name="pdgsz", type="tinyint", nullable=true)
      */
-    private ?int $pdgsz;
+    private ?int $pdgsz = null;
 
     /**
      * @ORM\Column(name="fixing1", type="decimal", precision=8, scale=4, nullable=true)
      */
-    private ?float $fixing1;
+    private ?float $fixing1 = null;
 
     /**
      * @ORM\Column(name="fixing2", type="decimal", precision=8, scale=4, nullable=true)
      */
-    private ?float $fixing2;
+    private ?float $fixing2 = null;
 
     public function __construct(\DateTime $dateFrom, \DateTime $dateTo) {
         $dateFrom->setTimezone(new \DateTimeZone('UTC'));

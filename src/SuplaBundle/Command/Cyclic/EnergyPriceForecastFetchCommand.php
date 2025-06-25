@@ -49,10 +49,18 @@ class EnergyPriceForecastFetchCommand extends Command implements CyclicCommand {
             if (!($log = $repo->find($dateFrom->format(\DateTime::ATOM)))) {
                 $log = new EnergyPriceLogItem($dateFrom, new \DateTime($forecastItem['dateTo']));
             }
-            $log->setRce($forecastItem['rce'] ?? null);
-            $log->setPdgsz($forecastItem['pdgsz'] ?? null);
-            $log->setFixing1($forecastItem['fixing1'] ?? null);
-            $log->setFixing2($forecastItem['fixing2'] ?? null);
+            if (($forecastItem['rce'] ?? null) !== null) {
+                $log->setRce($forecastItem['rce']);
+            }
+            if (($forecastItem['pdgsz'] ?? null) !== null) {
+                $log->setPdgsz($forecastItem['pdgsz']);
+            }
+            if (($forecastItem['fixing1'] ?? null) !== null) {
+                $log->setFixing1($forecastItem['fixing1']);
+            }
+            if (($forecastItem['fixing2'] ?? null) !== null) {
+                $log->setFixing2($forecastItem['fixing2']);
+            }
             $this->measurementLogsEntityManager->persist($log);
         }
         $this->measurementLogsEntityManager->flush();
