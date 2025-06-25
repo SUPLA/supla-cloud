@@ -9,6 +9,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\VirtualChannelType;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelConfigurator {
     private const CONFIGS = [
@@ -50,7 +51,10 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
         ],
     ];
 
-    public function __construct(private readonly SubjectConfigTranslator $configTranslator) {
+    public function __construct(
+        private readonly SubjectConfigTranslator $configTranslator,
+        private readonly TranslatorInterface $translator,
+    ) {
     }
 
     public function configureChannel(IODeviceChannel $channel, array $config): IODeviceChannel {
@@ -68,6 +72,8 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
         EntityUtils::setField($channel, 'function', $fieldConfig['function']);
         $channel->setAltIcon($fieldConfig['altIcon'] ?? 0);
         $this->configTranslator->setConfig($channel, $fieldConfig['userConfig'] ?? []);
+        $locale = $channel->getUser()->getLocale();
+        $channel->setCaption($this->translator->trans('energyPriceForecast_field_' . $config['energyField'], [], null, $locale));
         return $channel;
     }
 

@@ -2,7 +2,6 @@ import Vue from "vue";
 import "./filters-date";
 import {escapeI18n, i18n} from "@/locale";
 import {useCurrentUserStore} from "@/stores/current-user-store";
-import {useOpenWeatherStore} from "@/stores/open-weather-store";
 
 export function withBaseUrl(url, absolute = true) {
     if (url[0] != '/') {
@@ -20,16 +19,6 @@ export function withDownloadAccessToken(url) {
 export function channelTitle(channel) {
     if (channel.caption) {
         return channel.caption;
-    } else if (channel.isVirtual) {
-        if (channel.config.virtualChannelConfig.type === 'OPEN_WEATHER') {
-            const {availableWeatherFields} = useOpenWeatherStore();
-            const field = availableWeatherFields.find(f => f.id === channel.config.virtualChannelConfig.weatherField);
-            return i18n.global.t('virtualChannelTypeName_OPEN_WEATHER') + ': ' + field?.label;
-        }
-        if (channel.config.virtualChannelConfig.type === 'ENERGY_PRICE_FORECAST') {
-            return i18n.global.t(`energyPriceForecast_field_${channel.config.virtualChannelConfig.energyField}`);
-        }
-        return i18n.global.t('virtualChannelTypeName_' + channel.config.virtualChannelConfig.type);
     } else {
         return `ID${channel.id} ` + i18n.global.t(channel.function ? channel.function.caption : 'None');
     }

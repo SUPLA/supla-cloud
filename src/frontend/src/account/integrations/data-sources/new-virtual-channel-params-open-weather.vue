@@ -24,7 +24,7 @@
                             type="button"
                             :class="['btn flex-grow-1 m-1', weatherField.id === field?.id ? 'btn-green' : 'btn-default']"
                             @click="field = weatherField">
-                            {{ $t(weatherField.label) }} ({{ weatherField.unit }})
+                            {{ $t(`openWeatherAttribute_field_${weatherField.id}`) }} ({{ weatherField.unit }})
                         </button>
                     </div>
                 </dd>

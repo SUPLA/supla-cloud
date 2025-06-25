@@ -10,6 +10,7 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\VirtualChannelType;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Supla\SuplaAutodiscover;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurator {
     private const CONFIGS = [
@@ -88,7 +89,11 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         'tempHumidity' => ['type' => ChannelType::HUMIDITYANDTEMPSENSOR, 'function' => ChannelFunction::HUMIDITYANDTEMPERATURE],
     ];
 
-    public function __construct(private readonly SuplaAutodiscover $ad, private readonly SubjectConfigTranslator $configTranslator) {
+    public function __construct(
+        private readonly SuplaAutodiscover $ad,
+        private readonly SubjectConfigTranslator $configTranslator,
+        private readonly TranslatorInterface $translator,
+    ) {
     }
 
     public function configureChannel(IODeviceChannel $channel, array $config): IODeviceChannel {
@@ -96,7 +101,9 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         Assertion::string($config['weatherField']);
         Assertion::keyExists(self::CONFIGS, $config['weatherField']);
         Assertion::keyExists($config, 'cityId');
-        Assertion::inArray($config['cityId'], array_column($this->ad->getOpenWeatherCities(), 'id'));
+        $openWeatherCities = $this->ad->getOpenWeatherCities();
+        $city = current(array_filter($openWeatherCities, fn($city) => $city['id'] === $config['cityId']));
+        Assertion::notNull($city);
         $fieldConfig = self::CONFIGS[$config['weatherField']];
         EntityUtils::setField($channel, 'properties', json_encode(array_merge([
             'virtualChannelConfig' => [
@@ -109,6 +116,9 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
         EntityUtils::setField($channel, 'function', $fieldConfig['function']);
         $channel->setAltIcon($fieldConfig['altIcon'] ?? 0);
         $this->configTranslator->setConfig($channel, $fieldConfig['userConfig'] ?? []);
+        $locale = $channel->getUser()->getLocale();
+        $attributeLabel = $this->translator->trans('openWeatherAttribute_field_' . $config['weatherField'], [], null, $locale);
+        $channel->setCaption(sprintf('%s - %s', $city['name'], $attributeLabel));
         return $channel;
     }
 

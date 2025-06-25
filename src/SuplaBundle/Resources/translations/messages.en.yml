@@ -195,3 +195,21 @@ energyPriceForecast_field_rce: 'Energy price in Poland RCE'
 energyPriceForecast_field_pdgsz: 'Energy price in Poland - peek hours'
 energyPriceForecast_field_fixing1: 'Energy price in Poland RDN fixing I'
 energyPriceForecast_field_fixing2: 'Energy price in Poland RDN fixing II'
+
+openWeatherAttribute_field_temp: Temperature
+openWeatherAttribute_field_humidity: Humidity
+openWeatherAttribute_field_tempHumidity: Temperature and humidity
+openWeatherAttribute_field_feelsLike: Perceived temperature
+openWeatherAttribute_field_pressure: Pressure
+openWeatherAttribute_field_visibility: Visibility
+openWeatherAttribute_field_windSpeed: Wind Speed
+openWeatherAttribute_field_windGust: Wind Gust
+openWeatherAttribute_field_clouds: Clouds
+openWeatherAttribute_field_rainMmh: Rain
+openWeatherAttribute_field_snowMmh: Snow
+openWeatherAttribute_field_airCo: Air CO
+openWeatherAttribute_field_airNo: Air NO
+openWeatherAttribute_field_airNo2: Air NO₂
+openWeatherAttribute_field_airO3: Air O₃
+openWeatherAttribute_field_airPm10: Air PM10
+openWeatherAttribute_field_airPm25: Air PM2.5

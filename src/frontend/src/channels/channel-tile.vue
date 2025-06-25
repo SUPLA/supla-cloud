@@ -3,7 +3,7 @@
         @click="$emit('click')">
         <router-link :to="linkSpec">
             <div class="clearfix">
-                <function-icon :model="model" class="pull-right" width="90"/>
+                <function-icon :model="model" class="pull-right ml-1" width="90"/>
                 <h3 class="no-margin-top line-clamp line-clamp-4">{{ caption }}</h3>
             </div>
             <dl class="ellipsis" v-if="model.caption">

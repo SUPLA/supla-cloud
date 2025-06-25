@@ -1808,6 +1808,22 @@ suffix: sufiks
 energyPriceForecast_field_rce: 'Cena energii RCE'
 energyPriceForecast_field_fixing1: 'Cena energii RDN fixing I'
 energyPriceForecast_field_fixing2: 'Cena energii RDN fixing II'
-Air NO₂: NO₂
 Data sources: Źródła danych
 energyPriceForecast_field_pdgsz: 'Cena energii - Godziny szczytu'
+openWeatherAttribute_field_temp: Temperatura
+openWeatherAttribute_field_humidity: Wilgotność
+openWeatherAttribute_field_tempHumidity: Temperatura i wilgotność
+openWeatherAttribute_field_feelsLike: Temperatura odczuwalna
+openWeatherAttribute_field_pressure: Ciśnienie
+openWeatherAttribute_field_visibility: Widoczność
+openWeatherAttribute_field_windSpeed: Prędkość wiatru
+openWeatherAttribute_field_windGust: Podmuchy wiatru
+openWeatherAttribute_field_clouds: Zachmurzenie
+openWeatherAttribute_field_rainMmh: Opad deszczu
+openWeatherAttribute_field_snowMmh: Opad śniegu
+openWeatherAttribute_field_airCo: CO
+openWeatherAttribute_field_airNo: NO
+openWeatherAttribute_field_airNo2: NO₂
+openWeatherAttribute_field_airO3: O₃
+openWeatherAttribute_field_airPm10: PM10
+openWeatherAttribute_field_airPm25: PM2.5

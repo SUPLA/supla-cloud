@@ -12,7 +12,7 @@
             </dl>
             <dl>
                 <dd>{{ $t('Weather attribute') }}</dd>
-                <dt>{{ $t(field.label) }} ({{ field.unit }})</dt>
+                <dt>{{ $t(`openWeatherAttribute_field_${field.id}`) }} ({{ field.unit }})</dt>
             </dl>
         </div>
     </div>
