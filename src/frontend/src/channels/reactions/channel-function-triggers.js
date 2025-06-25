@@ -279,7 +279,7 @@ const ChannelFunctionTriggers = {
             component: ReactionConditionThreshold,
             props: {
                 min: () => 0,
-                unit: () => 'l/m',
+                unit: () => 'l/m²',
                 labelI18n: () => 'When the precipitation amount will be', // i18n
                 resumeLabelI18n: () => 'and wait until it will be', // i18n
             },

@@ -34,7 +34,6 @@ class VirtualChannelFactory {
         EntityUtils::setField($channel, 'channelNumber', $nextChannelNumber);
         EntityUtils::setField($channel, 'iodevice', $virtualDevice);
         EntityUtils::setField($channel, 'user', $user);
-        EntityUtils::setField($channel, 'location', $user->getLocations()->first());
         EntityUtils::setField($channel, 'isVirtual', true);
         foreach ($this->configurators as $configurator) {
             if ($configurator->supports($type)) {
