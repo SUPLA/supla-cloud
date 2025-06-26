@@ -113,6 +113,8 @@ class VirtualChannelStateUpdater {
         if ($currentEnergyPriceForecast) {
             /** @var EnergyPriceLogItem $log */
             $log = current($currentEnergyPriceForecast);
+            $validTo = clone $log->getDateTo();
+            $validTo->modify('+5 minutes');
             $values = [
                 'rce' => $log->getRce(),
                 'pdgsz' => $log->getPdgsz(),
@@ -130,7 +132,7 @@ class VirtualChannelStateUpdater {
                     ->createQuery($query)
                     ->execute([
                         'value' => $value,
-                        'validTo' => $log->getDateTo(),
+                        'validTo' => $validTo,
                         'channelIds' => $channelIds,
                     ]);
             }
