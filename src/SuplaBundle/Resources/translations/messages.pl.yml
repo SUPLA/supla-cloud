@@ -58,6 +58,7 @@ Add action: Dodaj akcję
 Add first channel to set channel group function and save it: Wybierz pierwszy kanał by określić funkcję grupy i ją zapisać
 Add new channel group: Dodaj nową grupę kanałów
 Add new channel to this group: Dodaj nowy kanał do grupy
+Add new data source: Dodaj nowe źródło danych
 Additional time margin: Dodatkowy margines czasu
 Address: Adres
 Adjust parameters: Ustaw parametry
@@ -134,6 +135,7 @@ At specified time: Dla wskazanej godziny
 At sunrise: o wschodzie słońca
 At sunrise, Monday through Friday: o wschodzie słońca, od poniedziałku do piątku
 At sunset: o zachodzie słońca
+Attribute: Atrybut
 Authentication failure: Błąd logowania
 Authentication successful: Logowanie udane
 Authorization callback URLs (one per line): Zwrotne URLe autoryzacyjne (jeden na linię)
@@ -242,6 +244,7 @@ Choose the channel group: Wybierz grupę kanałów
 Choose the scene: Wybierz scenę
 Choose the schedule: Wybierz harmonogram
 Choose the source channel.: Wybierz kanał źródłowy.
+City: Miejscowość
 Clear: Wyczyść
 Click the following link to confirm removal of your account on %cloudHost%.: Aby potwierdzić chęć usunięcia Twojego konta na %cloudHost%, kliknij poniższy link.
 Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Kliknij poniższy link aby potwierdzić wyrejestrowanie twojej prywatnej instancji SUPLA Cloud (%targetCloudUrl%).
@@ -304,6 +307,7 @@ Create an account: Utwórz konto
 Create new direct link: Utwórz nowy link bezpośredni
 Create new reaction: Utwórz nową reakcję
 Create new scene: Utwórz nową scenę
+Created: Utworzono
 Currency: Waluta
 Current: Prąd
 Current Overload: Przeciążenie
@@ -320,7 +324,11 @@ Dark mode: Tryb ciemny
 Data: Dane
 Data limits: Limity danych
 Data saved: Dane zostały zapisane
+Data source channels: Źródła danych
+Data source type: Typ źródła danych
 Data sources: Źródła danych
+Data sources are virtual channels that can provide data for your account.: Źródła danych to kanały, które mogą dostarczać pomiary do Twojego domu od zewnętrznych dostawców.
+Data sources limit has been exceeded: Limit źródeł danych został wyczerpany
 Date: Data
 Date and time: Data i czas
 Date range: Zakres dat
@@ -410,6 +418,8 @@ Enable water temperature control: Włącz kontrolę temperatury wody
 Enabled: Włączone
 Enabled phases: Aktywne fazy
 End date: Data zakończenia
+Energy attribute: Atrybut energii
+Energy prices: Ceny energii
 Enter new password: Wprowadź nowe hasło
 Enter strong password: Wprowadź silne hasło
 Enter the data below in the settings of your control device (I/O Device).: Poniższe dane wprowadź w ustawieniach Twojego urządzenia sterującego (urządzenie we/wy).
@@ -492,6 +502,7 @@ General purpose meter: Kanał licznikowy ogólnego przeznaczenia
 Generate new password: Wygeneruj nowe hasło
 Generate new token: Generuj nowy token
 Generate token: Generuj token
+Go back to data sources: Wróć do listy źródeł danych
 Go to I/O device details: Przejdź do szczegółów urządzenia
 Go to channel details: Przejdź do szczegółów kanału
 Go to the channel: Przejdź do kanału
@@ -762,6 +773,7 @@ On/Off switch: Włącznik zasilania
 Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Dozwolone są tylko nazwy domen z opcjonalnym numerem portu. Na przykład. mysupla.org lub mysupla.org:88. HTTPS jest wymagany.
 Open: Otwórz
 Open / close: Otwórz / zamknij
+Open Weather Data: Dane z Open Weather
 Open partially: Otwórz częściowo
 Open value: Wartość otwarcia
 Opening sensor: Czujnik otwarcia
@@ -1199,7 +1211,9 @@ We will miss you: Będziemy za Tobą tęsknić
 We will miss you!: Będziemy tęsknić za Tobą!
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Zrobimy co w naszej mocy aby przesłane ikony wyświetlały się jak najlepiej, ale najlepsze rezultaty uzyskasz przesyłając pliki PNG z przezroczystym tłem oraz szerokością {width} i wysokością {height} pikseli.
 We will use it only in justified situations.: Użyjemy go wyłącznie w uzasadnionych przypadkach.
+Weather: Pogoda
 Weather Station: Stacja pogodowa
+Weather attribute: Atrybut pogody
 Wednesdays: Środy
 Week: Tydzień
 Weekly schedule: Harmonogram tygodniowy
@@ -1289,6 +1303,9 @@ When the humidity will be: Gdy wilgotność będzie
 When the lighting reaches a certain level of brightness: Gdy oświetlenie osiągnie określony poziom jasności
 When the mail comes or is taken: Gdy przyjdzie poczta lub zostanie zabrana
 When the mail has been taken: Gdy poczta zostanie odebrana
+When the measurement reaches a certain value: Kiedy pomiar osiągnie określoną wartość
+When the measurement value changes: Kiedy pomiar się zmieni
+When the measurement value will be: Kiedy pomiar będzie
 When the meter reaches a certain value: Gdy licznik osiągnie zadaną wartość
 When the meter value changes: Gdy wartość zmieni się
 When the meter value will be: Gdy wartość będzie
@@ -1482,6 +1499,7 @@ channelGroup: Grupa kanałów
 choose: wybierz
 choose the access identifiers: wybierz identyfikatory dostępu
 choose the action: wybierz akcję
+choose the city: wybierz miasto
 choose the currency: wybierz walutę
 choose the scene: wybierz scenę
 choose the schedule: wybierz harmonogram
@@ -1690,6 +1708,10 @@ values as seen on counter: wartości tak jak na liczniku
 valveOpenConfirm_flooding: Zawór został zamknięty z powodu wykrycia zalania. Upewnij się, że przyczyna zalania została już usunięta. Czy na pewno chcesz otworzyć zawór?
 valveOpenConfirm_manual: Zawór został zamknięty w trybie manualnym lub radiowo. Zanim go otworzysz upewnij się, że nie został zamknięty z powodu zalania. Aby wyłączyć ostrzeżenie otwórz zawór manualnie. Czy na pewno chcesz otworzyć zawór zdalnie?!
 valveOpenConfirm_motorProblem: Wystąpił problem z silnikiem. Upewnij się, czy nic nie blokuje zaworu. Zawór może być częściowo otwarty. Czy na pewno chcesz go otworzyć/zamknąć?
+virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: Ceny energii elektrycznej w Polsce.
+virtualChannelTypeInfoLong_OPEN_WEATHER: Aktualne dane pogodowe pobierane z serwisu Open Weather. Dane nie są pobierane w czasie rzeczywistym. Zakładaj, że odczyty są pobierane cykliczne co kilkanaście minut.
+virtualChannelTypeName_ENERGY_PRICE_FORECAST: Ceny energii
+virtualChannelTypeName_OPEN_WEATHER: Pogoda
 yesterday: wczoraj
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
 '{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
@@ -1825,27 +1847,5 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Add new data source: Dodaj nowe źródło danych
-Attribute: Atrybut
-City: Miejscowość
-Created: Utworzono
-Data source channels: Źródła danych
-Data source type: Typ źródła danych
-Data sources are virtual channels that can provide data for your account.: Źródła danych to kanały, które mogą dostarczać pomiary do Twojego domu od zewnętrznych dostawców.
-Data sources limit has been exceeded: Limit źródeł danych został wyczerpany
-Energy attribute: Atrybut energii
-Energy prices: Ceny energii
-Go back to data sources: Wróć do listy źródeł danych
-Open Weather Data: Dane z Open Weather
-Weather: Pogoda
-Weather attribute: Atrybut pogody
-When the measurement reaches a certain value: Kiedy pomiar osiągnie określoną wartość
-When the measurement value changes: Kiedy pomiar się zmieni
-When the measurement value will be: Kiedy pomiar będzie
-choose the city: wybierz miasto
-virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: Ceny energii elektrycznej w Polsce.
-virtualChannelTypeInfoLong_OPEN_WEATHER: Aktualne dane pogodowe pobierane z serwisu Open Weather. Dane nie są pobierane w czasie rzeczywistym. Zakładaj, że odczyty są pobierane cykliczne co kilkanaście minut.
-virtualChannelTypeName_ENERGY_PRICE_FORECAST: Ceny energii
-virtualChannelTypeName_OPEN_WEATHER: Pogoda
 
 #</editor-fold>
