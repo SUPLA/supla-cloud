@@ -14,10 +14,18 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurator {
     private const CONFIGS = [
-        'temp' => ['type' => ChannelType::THERMOMETER, 'function' => ChannelFunction::THERMOMETER],
+        'temp' => [
+            'type' => ChannelType::THERMOMETER,
+            'function' => ChannelFunction::THERMOMETER,
+            'properties' => ['hiddenConfigFields' => ['temperatureAdjustment']],
+        ],
         'feelsLike' => ['type' => ChannelType::THERMOMETER, 'function' => ChannelFunction::THERMOMETER],
         'pressure' => ['type' => ChannelType::PRESSURESENSOR, 'function' => ChannelFunction::PRESSURESENSOR],
-        'humidity' => ['type' => ChannelType::HUMIDITYSENSOR, 'function' => ChannelFunction::HUMIDITY],
+        'humidity' => [
+            'type' => ChannelType::HUMIDITYSENSOR,
+            'function' => ChannelFunction::HUMIDITY,
+            'properties' => ['hiddenConfigFields' => ['humidityAdjustment']],
+        ],
         'visibility' => ['type' => ChannelType::DISTANCESENSOR, 'function' => ChannelFunction::DISTANCESENSOR],
         'windSpeed' => ['type' => ChannelType::WINDSENSOR, 'function' => ChannelFunction::WINDSENSOR],
         'windGust' => ['type' => ChannelType::WINDSENSOR, 'function' => ChannelFunction::WINDSENSOR],
@@ -86,7 +94,11 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
-        'tempHumidity' => ['type' => ChannelType::HUMIDITYANDTEMPSENSOR, 'function' => ChannelFunction::HUMIDITYANDTEMPERATURE],
+        'tempHumidity' => [
+            'type' => ChannelType::HUMIDITYANDTEMPSENSOR,
+            'function' => ChannelFunction::HUMIDITYANDTEMPERATURE,
+            'properties' => ['hiddenConfigFields' => ['temperatureAdjustment', 'humidityAdjustment']],
+        ],
     ];
 
     public function __construct(

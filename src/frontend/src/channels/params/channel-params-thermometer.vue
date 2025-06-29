@@ -1,5 +1,5 @@
 <template>
-    <dl>
+    <dl v-if="canDisplaySetting('temperatureAdjustment')">
         <dd>{{ $t('Temperature adjustment') }}</dd>
         <dt>
             <span class="input-group">
@@ -20,9 +20,12 @@
 
 <script setup>
     import {computed} from "vue";
+    import {useDisplaySettings} from "@/channels/params/useDisplaySettings";
 
     const props = defineProps({channel: Object});
 
     const minAdjustment = computed(() => props.channel.config.minTemperatureAdjustment || -10);
     const maxAdjustment = computed(() => props.channel.config.maxTemperatureAdjustment || 10);
+
+    const {canDisplaySetting} = useDisplaySettings(props.channel);
 </script>
