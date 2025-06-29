@@ -14,7 +14,7 @@ export const useOpenWeatherStore = defineStore('openWeather', () => {
         {id: 'visibility', unit: 'm'},
         {id: 'windSpeed', unit: 'm/s'},
         {id: 'windGust', unit: 'm/s'},
-        {id: 'clouds', unit: '%'},
+        // {id: 'clouds', unit: '%'},
         {id: 'rainMmh', unit: 'mm/h'},
         {id: 'snowMmh', unit: 'mm/h'},
         {id: 'airCo', unit: 'µg/m³'},
