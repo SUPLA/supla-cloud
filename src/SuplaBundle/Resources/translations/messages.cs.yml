@@ -1679,12 +1679,14 @@ thermostatAlgorithm_help: |
 # Translations below are missing. You want to translate them.
 Action trigger for channel: ~
 Activity schedule: ~
+Add new data source: ~
 Address: ~
 Alarm at level (and above) should be greater than the corresponding warning level.: ~
 Alarm at level (and below) should be lower than the corresponding warning level.: ~
 Alarm level: ~
 Algorithms available on this device: ~
 Are you sure you want to delete this subdevice?: ~
+Attribute: ~
 Auto-close on flood: ~
 Aux thermometer for channel: ~
 Baudrate: ~
@@ -1693,18 +1695,28 @@ Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
 Choose many: ~
+City: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
+Created: ~
+Data source channels: ~
+Data source type: ~
+Data sources: ~
+Data sources are virtual channels that can provide data for your account.: ~
+Data sources limit has been exceeded: ~
 Default (exact value depends on a device): ~
 Device interface: ~
 Does it look good?: ~
 Each container level sensor must have different fill level.: ~
+Energy attribute: ~
+Energy prices: ~
 Everyone makes mistakes!: ~
 Fill level: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
+Go back to data sources: ~
 Heat or cold source switch for channel: ~
 Image: ~
 Invalid sensor state: ~
@@ -1723,6 +1735,7 @@ Mute command sent: ~
 Network: ~
 Not available: ~
 'OCR service responded with error: {statusCode}. {description}': ~
+Open Weather Data: ~
 Opening sensor for channel: ~
 Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Overcurrent threshold: ~
@@ -1757,6 +1770,8 @@ Waiting: ~
 Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).: ~
 Warning level: ~
 Water tank: ~
+Weather: ~
+Weather attribute: ~
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
@@ -1774,6 +1789,9 @@ When the fill level becomes unknown: ~
 When the fill level changes: ~
 When the fill level reaches a certain value: ~
 When the fill level will be: ~
+When the measurement reaches a certain value: ~
+When the measurement value changes: ~
+When the measurement value will be: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
@@ -1788,10 +1806,14 @@ You cannot change this function becuase it is required by another channel.: ~
 activityConditions_help: ~
 and wait until the battery level will be: ~
 and wait until the fill level will be: ~
+choose the city: ~
 closeValveOnFloodType_ALWAYS: ~
 closeValveOnFloodType_ON_CHANGE: ~
 closeValveOnFloodType_help: ~
 directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
+energyPriceForecast_field_fixing1: ~
+energyPriceForecast_field_fixing2: ~
+energyPriceForecast_field_rce: ~
 homeScreenContent_MODE_OR_TEMPERATURE: ~
 localUILock_FULL: ~
 localUILock_TEMPERATURE: ~
@@ -1821,5 +1843,9 @@ thermostatOutputValue_help: ~
 thermostatTemperature_auxHisteresis: ~
 valveOpenConfirm_flooding: ~
 valveOpenConfirm_motorProblem: ~
+virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: ~
+virtualChannelTypeInfoLong_OPEN_WEATHER: ~
+virtualChannelTypeName_ENERGY_PRICE_FORECAST: ~
+virtualChannelTypeName_OPEN_WEATHER: ~
 
 #</editor-fold>

@@ -57,6 +57,9 @@ directLinkExecutionFailureReason_otherFailure: Direct link execution failure.
 directLinkExecutionFailureReason_sceneDuringExecution: Scene is being executed now.
 directLinkExecutionFailureReason_sceneDuringInactivePeriod: Scene is inactive right now.
 directLinkExecutionFailureReason_unsupportedAction: The requested action is not supported.
+energyPriceForecast_field_fixing1: Energy price in Poland RDN fixing I
+energyPriceForecast_field_fixing2: Energy price in Poland RDN fixing II
+energyPriceForecast_field_rce: Energy price in Poland RCE
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Main and auxiliary temperature
 homeScreenContent_MODE_OR_TEMPERATURE: Mode or temperature
 homeScreenContent_NONE: None
@@ -177,39 +180,35 @@ usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Voltage presence (inverted)
 valveOpenConfirm_flooding: The valve has been closed due to the detection of flooding. Make sure that the cause of flooding has already been removed. Are you sure you want to open the valve?
 valveOpenConfirm_manual: valveOpenConfirm_manual
 valveOpenConfirm_motorProblem: A motor problem has been detected. Make sure nothing is blocking the valve. The valve may be partially open. Are you sure you want to open/close it?
+virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: Forecast of energy prices in Poland based on external services.
+virtualChannelTypeInfoLong_OPEN_WEATHER: Current weather data fetched from Open Weather API. The weather data are not updated in real-time. Expect periodical updates of the weather attribute of your choice.
+virtualChannelTypeName_ENERGY_PRICE_FORECAST: Energy prices
+virtualChannelTypeName_OPEN_WEATHER: Weather
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-
-#</editor-fold>
-virtualChannelTypeName_OPEN_WEATHER: Weather
-virtualChannelTypeInfoLong_OPEN_WEATHER: Current weather data fetched from Open Weather API. The weather data are not updated in real-time. Expect periodical updates of the weather attribute of your choice.
-virtualChannelTypeName_ENERGY_PRICE_FORECAST: Energy prices
-virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: Forecast of energy prices in Poland based on external services.
-energyPriceForecast_field_rce: 'Energy price in Poland RCE'
-energyPriceForecast_field_pdgsz: 'Energy price in Poland - peek hours'
-energyPriceForecast_field_fixing1: 'Energy price in Poland RDN fixing I'
-energyPriceForecast_field_fixing2: 'Energy price in Poland RDN fixing II'
-
-openWeatherAttribute_field_temp: Temperature
-openWeatherAttribute_field_humidity: Humidity
-openWeatherAttribute_field_tempHumidity: Temperature and humidity
-openWeatherAttribute_field_feelsLike: Perceived temperature
-openWeatherAttribute_field_pressure: Pressure
-openWeatherAttribute_field_visibility: Visibility
-openWeatherAttribute_field_windSpeed: Wind Speed
-openWeatherAttribute_field_windGust: Wind Gust
-openWeatherAttribute_field_clouds: Clouds
-openWeatherAttribute_field_rainMmh: Rain
-openWeatherAttribute_field_snowMmh: Snow
+energyPriceForecast_field_pdgsz: Energy price in Poland - peek hours
 openWeatherAttribute_field_airCo: Air CO
 openWeatherAttribute_field_airNo: Air NO
 openWeatherAttribute_field_airNo2: Air NO₂
 openWeatherAttribute_field_airO3: Air O₃
 openWeatherAttribute_field_airPm10: Air PM10
 openWeatherAttribute_field_airPm25: Air PM2.5
+openWeatherAttribute_field_clouds: Clouds
+openWeatherAttribute_field_feelsLike: Perceived temperature
+openWeatherAttribute_field_humidity: Humidity
+openWeatherAttribute_field_pressure: Pressure
+openWeatherAttribute_field_rainMmh: Rain
+openWeatherAttribute_field_snowMmh: Snow
+openWeatherAttribute_field_temp: Temperature
+openWeatherAttribute_field_tempHumidity: Temperature and humidity
+openWeatherAttribute_field_visibility: Visibility
+openWeatherAttribute_field_windGust: Wind Gust
+openWeatherAttribute_field_windSpeed: Wind Speed
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+
+#</editor-fold>

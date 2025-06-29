@@ -320,6 +320,7 @@ Dark mode: Tryb ciemny
 Data: Dane
 Data limits: Limity danych
 Data saved: Dane zostały zapisane
+Data sources: Źródła danych
 Date: Data
 Date and time: Data i czas
 Date range: Zakres dat
@@ -1517,6 +1518,9 @@ directLinkExecutionFailureReason_sceneDuringExecution: Scena jest w trakcie wyko
 directLinkExecutionFailureReason_sceneDuringInactivePeriod: Scena jest teraz nieaktywna.
 directLinkExecutionFailureReason_unsupportedAction: Wybrana akcja jest niepoprawna
 empty: pusty
+energyPriceForecast_field_fixing1: Cena energii RDN fixing I
+energyPriceForecast_field_fixing2: Cena energii RDN fixing II
+energyPriceForecast_field_rce: Cena energii RCE
 everyday: codziennie
 executed: wykonano
 extend: przedłuż
@@ -1793,9 +1797,27 @@ choose access identifiers: wybierz identyfikatory dostępu
 choose the channel: wybierz kanał
 choose the channel group: wybierz grupę kanałów
 comment: komentarz
+energyPriceForecast_field_pdgsz: Cena energii - Godziny szczytu
 execute: wykonaj
 for channel: dla kanału
 hourly: Każdy dzień
+openWeatherAttribute_field_airCo: CO
+openWeatherAttribute_field_airNo: 'NO'
+openWeatherAttribute_field_airNo2: NO₂
+openWeatherAttribute_field_airO3: O₃
+openWeatherAttribute_field_airPm10: PM10
+openWeatherAttribute_field_airPm25: PM2.5
+openWeatherAttribute_field_clouds: Zachmurzenie
+openWeatherAttribute_field_feelsLike: Temperatura odczuwalna
+openWeatherAttribute_field_humidity: Wilgotność
+openWeatherAttribute_field_pressure: Ciśnienie
+openWeatherAttribute_field_rainMmh: Opad deszczu
+openWeatherAttribute_field_snowMmh: Opad śniegu
+openWeatherAttribute_field_temp: Temperatura
+openWeatherAttribute_field_tempHumidity: Temperatura i wilgotność
+openWeatherAttribute_field_visibility: Widoczność
+openWeatherAttribute_field_windGust: Podmuchy wiatru
+openWeatherAttribute_field_windSpeed: Prędkość wiatru
 prefix: prefiks
 reset chart view: wróć do początkowego widoku
 suffix: sufiks
@@ -1803,27 +1825,27 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Add new data source: Dodaj nowe źródło danych
+Attribute: Atrybut
+City: Miejscowość
+Created: Utworzono
+Data source channels: Źródła danych
+Data source type: Typ źródła danych
+Data sources are virtual channels that can provide data for your account.: Źródła danych to kanały, które mogą dostarczać pomiary do Twojego domu od zewnętrznych dostawców.
+Data sources limit has been exceeded: Limit źródeł danych został wyczerpany
+Energy attribute: Atrybut energii
+Energy prices: Ceny energii
+Go back to data sources: Wróć do listy źródeł danych
+Open Weather Data: Dane z Open Weather
+Weather: Pogoda
+Weather attribute: Atrybut pogody
+When the measurement reaches a certain value: Kiedy pomiar osiągnie określoną wartość
+When the measurement value changes: Kiedy pomiar się zmieni
+When the measurement value will be: Kiedy pomiar będzie
+choose the city: wybierz miasto
+virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: Ceny energii elektrycznej w Polsce.
+virtualChannelTypeInfoLong_OPEN_WEATHER: Aktualne dane pogodowe pobierane z serwisu Open Weather. Dane nie są pobierane w czasie rzeczywistym. Zakładaj, że odczyty są pobierane cykliczne co kilkanaście minut.
+virtualChannelTypeName_ENERGY_PRICE_FORECAST: Ceny energii
+virtualChannelTypeName_OPEN_WEATHER: Pogoda
 
 #</editor-fold>
-energyPriceForecast_field_rce: 'Cena energii RCE'
-energyPriceForecast_field_fixing1: 'Cena energii RDN fixing I'
-energyPriceForecast_field_fixing2: 'Cena energii RDN fixing II'
-Data sources: Źródła danych
-energyPriceForecast_field_pdgsz: 'Cena energii - Godziny szczytu'
-openWeatherAttribute_field_temp: Temperatura
-openWeatherAttribute_field_humidity: Wilgotność
-openWeatherAttribute_field_tempHumidity: Temperatura i wilgotność
-openWeatherAttribute_field_feelsLike: Temperatura odczuwalna
-openWeatherAttribute_field_pressure: Ciśnienie
-openWeatherAttribute_field_visibility: Widoczność
-openWeatherAttribute_field_windSpeed: Prędkość wiatru
-openWeatherAttribute_field_windGust: Podmuchy wiatru
-openWeatherAttribute_field_clouds: Zachmurzenie
-openWeatherAttribute_field_rainMmh: Opad deszczu
-openWeatherAttribute_field_snowMmh: Opad śniegu
-openWeatherAttribute_field_airCo: CO
-openWeatherAttribute_field_airNo: NO
-openWeatherAttribute_field_airNo2: NO₂
-openWeatherAttribute_field_airO3: O₃
-openWeatherAttribute_field_airPm10: PM10
-openWeatherAttribute_field_airPm25: PM2.5
