@@ -1108,6 +1108,7 @@ Cool to: ~
 Cooling mode: ~
 'Cooling: {percent}%': ~
 Costs: ~
+Could not add the data source. Try again in a while.: ~
 Could not restart the device.: ~
 Could not send the identify command.: ~
 Could not set the device time.: ~
@@ -1310,6 +1311,7 @@ Phase {phaseNumber}: ~
 Photo history: ~
 Photo interval: ~
 Please confirm if you want to do this.: ~
+Please fill all the fields: ~
 Please find the device details below.: ~
 Please fix the problems with operations and try again.: ~
 Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: ~

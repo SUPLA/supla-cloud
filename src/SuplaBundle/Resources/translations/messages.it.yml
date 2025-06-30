@@ -1555,6 +1555,7 @@ Conflict: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
+Could not add the data source. Try again in a while.: ~
 Could not send the identify command.: ~
 Could not set the device time.: ~
 Created: ~
@@ -1639,6 +1640,7 @@ Phase LED type: ~
 Photo history: ~
 Photo interval: ~
 Please confirm if you want to do this.: ~
+Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
 Pump switch: ~
 Pump switch for channel: ~

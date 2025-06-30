@@ -12,6 +12,7 @@ const regexes = [
     "\\{% trans.+?%\\}(.+?)\\{% endtrans", // {% trans %} ... {% endtrans %}
     "<i18n-t\\s+keypath=\"(.+?)\"", // <i18n-t keypath="..."
     "i18n\\.global\\.t\\([\"'](.+?)[\"']", // i18n.global.t('...')
+    "i18n\\.t\\([\"'](.+?)[\"']", // i18n.t('...')
 ];
 
 const locations = [

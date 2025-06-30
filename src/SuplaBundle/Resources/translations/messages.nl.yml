@@ -1700,6 +1700,7 @@ City: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
+Could not add the data source. Try again in a while.: ~
 Created: ~
 Data source channels: ~
 Data source type: ~
@@ -1743,6 +1744,7 @@ Overcurrent threshold: ~
 Percentage of extension: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
+Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
 Pump switch for channel: ~
 Reading: ~

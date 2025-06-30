@@ -290,6 +290,7 @@ Cooling mode: Tryb chłodzenia
 'Cooling: {percent}%': 'Chłodzenie: {percent}%'
 Copy state from other channel: Skopiuj stan z innego kanału
 Costs: Koszty
+Could not add the data source. Try again in a while.: Nie udało się dodać źródła danych. Spróbuj ponownie za chwilę.
 Could not contact Autodiscover service. Try again in a while.: Nie można skontaktować się z usługą rejestracji. Spróbuj ponownie za chwilę.
 Could not enter the configuration mode.: Nie udało się przełączyć urządzenia w tryb konfiguracji.
 Could not reset the password.: Nie udało się zresetować hasła.
@@ -825,6 +826,7 @@ Please confirm if you want to do this.: Potwierdź wykonanie tej akcji.
 Please confirm your SUPLA account.: Aktywuj swoje konto w SUPLA.
 Please enter a valid email address: Wprowadź poprawny adres email
 Please fill a valid email address: Wprowadź poprawny adres e-mail
+Please fill all the fields: Wypełnij wszystkie pola
 Please find the device details below.: Szczegóły urządzenia znajdziesz poniżej.
 Please fix the problems with operations and try again.: Rozwiąż problemy z operacjami i spróbuj ponownie.
 Please log in again to proceed.: Zaloguj się ponownie by kontynuować.
