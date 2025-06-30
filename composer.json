@@ -28,7 +28,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.5",
         "dragonmantank/cron-expression": "3.2.0",
-        "egulias/email-validator": "^4.0",
+        "egulias/email-validator": "^3.2.6",
         "friendsofsymfony/oauth-server-bundle": "dev-master",
         "friendsofsymfony/rest-bundle": "^2.7",
         "google/recaptcha": "^1.1",
