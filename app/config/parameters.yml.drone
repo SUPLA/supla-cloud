@@ -5,12 +5,6 @@ parameters:
   database_user: root
   database_password: ~
 
-  tsdb_host: tsdb
-  tsdb_port: ~
-  tsdb_name: supla_test
-  tsdb_user: postgres
-  tsdb_password: postgres
-
   mailer_dsn: 'smtp://localhost:7777'
   mailer_from: 'SUPLA <no-reply@supla.org>'
   admin_email: ~

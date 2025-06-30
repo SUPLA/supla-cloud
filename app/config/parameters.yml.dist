@@ -6,12 +6,6 @@ parameters:
   database_user: root
   database_password: ~
 
-  tsdb_host: tsdb
-  tsdb_port: ~
-  tsdb_name: supla
-  tsdb_user: postgres
-  tsdb_password: ~
-
   mailer_dsn: smtp://localhost:25
   mailer_from: ~
   admin_email: ~

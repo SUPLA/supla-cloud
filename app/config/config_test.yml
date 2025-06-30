@@ -1,6 +1,15 @@
 imports:
   - { resource: config.yml }
 
+doctrine:
+  dbal:
+    connections:
+      logs_tsdb:
+        dbname: supla_test
+        host: tsdb
+        user: postgres
+        password: postgres
+
 framework:
   profiler:
     collect: false
@@ -35,7 +44,6 @@ parameters:
   admin_email: admin@supla.org
   mailer_from: SUPLA TESTS <noreply@supla.local>
   database_name: supla_test
-  tsdb_name: supla_test
   supla_server: supla.local
 
 services:
