@@ -7,6 +7,8 @@
                     {{ $t('Reset to defaults') }}
                 </button>
             </dt>
+        </dl>
+        <dl v-if="canDisplaySetting('valueMultiplier')">
             <dd>{{ $t('Value multiplier') }}</dd>
             <dt>
                 <VueNumber v-model="valueMultiplier"
@@ -16,6 +18,8 @@
                     v-bind="{decimal: '.', precision: 3, separator: ' '}"
                     class="form-control text-center"/>
             </dt>
+        </dl>
+        <dl v-if="canDisplaySetting('valueDivider')">
             <dd>{{ $t('Value divider') }}</dd>
             <dt>
                 <VueNumber v-model="valueDivider"
@@ -25,6 +29,8 @@
                     v-bind="{decimal: '.', precision: 3, separator: ' '}"
                     class="form-control text-center"/>
             </dt>
+        </dl>
+        <dl v-if="canDisplaySetting('valueAdded')">
             <dd>{{ $t('Value added') }}</dd>
             <dt>
                 <VueNumber v-model="valueAdded"
@@ -40,6 +46,8 @@
                 <ChannelParamsMeterInitialValuesMode v-if="channel.function.name === 'GENERAL_PURPOSE_METER'"
                     v-model="channel.config.includeValueAddedInHistory" @input="$emit('change')"/>
             </dt>
+        </dl>
+        <dl v-if="canDisplaySetting('valuePrecision')">
             <dd>{{ $t('Precision') }}</dd>
             <dt>
                 <div class="btn-group btn-group-flex">
@@ -49,6 +57,8 @@
                     </a>
                 </div>
             </dt>
+        </dl>
+        <dl>
             <dd>{{ $t('Unit') }}</dd>
             <dt>
                 <span class="input-group">
@@ -80,6 +90,8 @@
                     <unit-symbol-helper @typed="channel.config[lastUnitField] += $event; $emit('change')"></unit-symbol-helper>
                 </span>
             </dt>
+        </dl>
+        <dl v-if="canDisplaySetting('valueMultiplier') && canDisplaySetting('valueDivider') && canDisplaySetting('valueAdded')">
             <dd>{{ $t('Example value') }}</dd>
             <dt>
                 <div class="help-block text-center">

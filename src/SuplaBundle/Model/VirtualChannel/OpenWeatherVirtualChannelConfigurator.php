@@ -35,7 +35,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'altIcon' => 21,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => '%'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => '%', 'hiddenConfigFields' => [
-                'keepHistory', 'chartType', 'refreshIntervalMs',
+                'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
             ]],
         ],
         'rainMmh' => ['type' => ChannelType::RAINSENSOR, 'function' => ChannelFunction::RAINSENSOR],
@@ -46,7 +46,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'altIcon' => 43,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
-                'keepHistory', 'chartType', 'refreshIntervalMs',
+                'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
             ]],
         ],
         'airNo' => [
@@ -55,7 +55,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'altIcon' => 34,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
-                'keepHistory', 'chartType', 'refreshIntervalMs',
+                'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
             ]],
         ],
         'airNo2' => [
@@ -64,7 +64,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'altIcon' => 37,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
-                'keepHistory', 'chartType', 'refreshIntervalMs',
+                'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
             ]],
         ],
         'airO3' => [
@@ -73,7 +73,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'altIcon' => 40,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
-                'keepHistory', 'chartType', 'refreshIntervalMs',
+                'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
             ]],
         ],
         'airPm10' => [
@@ -82,7 +82,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'altIcon' => 18,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
-                'keepHistory', 'chartType', 'refreshIntervalMs',
+                'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
             ]],
         ],
         'airPm25' => [
@@ -91,7 +91,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'altIcon' => 17,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
-                'keepHistory', 'chartType', 'refreshIntervalMs',
+                'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
             ]],
         ],
         'tempHumidity' => [

@@ -25,7 +25,7 @@ class HiddenReadOnlyConfigFieldsUserConfigTranslator extends UserConfigTranslato
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
-        if (!in_array($subject->getId(), $this->idsToIgnore)) {
+        if (!in_array($subject->getId(), $this->idsToIgnore) && $subject->getId() > 0) {
             $currentConfig = $this->getConfig($subject);
             $roFields = array_values(array_unique(array_merge(
                 $currentConfig['readOnlyConfigFields'],

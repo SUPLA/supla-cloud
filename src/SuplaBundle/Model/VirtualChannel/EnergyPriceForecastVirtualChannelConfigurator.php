@@ -19,7 +19,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
             'altIcon' => 45,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'zł/MWh'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'zł/MWh', 'hiddenConfigFields' => [
-                'keepHistory', 'chartType', 'refreshIntervalMs',
+                'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
             ]],
         ],
         'pdgsz' => [
@@ -28,7 +28,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
             'altIcon' => 45,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => ''],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => '', 'hiddenConfigFields' => [
-                'keepHistory', 'chartType', 'refreshIntervalMs',
+                'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
             ]],
         ],
         'fixing1' => [
@@ -37,7 +37,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
             'altIcon' => 45,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'zł/MWh'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'zł/MWh', 'hiddenConfigFields' => [
-                'keepHistory', 'chartType', 'refreshIntervalMs',
+                'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
             ]],
         ],
         'fixing2' => [
@@ -46,7 +46,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
             'altIcon' => 45,
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'zł/MWh'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'zł/MWh', 'hiddenConfigFields' => [
-                'keepHistory', 'chartType', 'refreshIntervalMs',
+                'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
             ]],
         ],
     ];
