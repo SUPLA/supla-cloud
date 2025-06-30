@@ -17,8 +17,8 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'altIcon' => 45,
-            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'PLN'],
-            'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'zł/MWh'],
+            'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'zł/MWh', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
@@ -35,8 +35,8 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'altIcon' => 45,
-            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'PLN'],
-            'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'zł/MWh'],
+            'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'zł/MWh', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
@@ -44,8 +44,8 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
             'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
             'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
             'altIcon' => 45,
-            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'PLN'],
-            'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'PLN', 'hiddenConfigFields' => [
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'zł/MWh'],
+            'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'zł/MWh', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs',
             ]],
         ],
