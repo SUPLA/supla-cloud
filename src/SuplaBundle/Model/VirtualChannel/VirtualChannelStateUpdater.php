@@ -50,13 +50,15 @@ class VirtualChannelStateUpdater {
                 }
             }
         }
-        $this->setInitialChannelValues($channelUpdates);
-        $this->updateLastConnectedAt($updatedDeviceIds);
-        if ($tasks['openWeatherUpdates']) {
-            $this->fetchOpenWeatherUpdates($tasks['openWeatherUpdates']);
-        }
-        if ($tasks['energyPriceForecastUpdates']) {
-            $this->updateEnergyPriceForecastValue($tasks['energyPriceForecastUpdates']);
+        if ($updatedDeviceIds) {
+            $this->setInitialChannelValues($channelUpdates);
+            $this->updateLastConnectedAt($updatedDeviceIds);
+            if ($tasks['openWeatherUpdates']) {
+                $this->fetchOpenWeatherUpdates($tasks['openWeatherUpdates']);
+            }
+            if ($tasks['energyPriceForecastUpdates']) {
+                $this->updateEnergyPriceForecastValue($tasks['energyPriceForecastUpdates']);
+            }
         }
     }
 
