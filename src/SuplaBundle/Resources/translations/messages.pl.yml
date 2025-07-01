@@ -702,6 +702,7 @@ Mute alarm sound without additional auth: Wycisz alarm bez dodatkowej autentykac
 Mute command sent: Polecenie wyciszenia wysłane
 My OAuth apps: Moje aplikacje OAuth
 My SUPLA: Moja SUPLA
+NORMAL USE. Use the energy as usual.: NORMALNE UŻYTKOWANIE. Normalnie korzystaj z prądu.
 NOTICE!: UWAGA!
 Name: Nazwa
 'Name: %clientAppName%': 'Nazwa: %clientAppName%'
@@ -859,6 +860,9 @@ Publishes the event to integrated services like MQTT or webhooks.: Powiadamia in
 Pump switch: Włącznik pompy
 Pump switch for channel: '@:{''Pump switch''} @:{''for channel''}'
 Push notifications limit has been exceeded: Limit powiadomień push został przekroczony
+RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ZALECANE OSZCZĘDZANIE. Zaplanuj domowe energochłonne czynności na inne godziny.
+RECOMMENDED USE. Take advantage of excess energy.: ZALECANE UŻYTKOWANIE. Korzystaj z nadmiaru energii.
+REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: WYMAGANE OGRANICZANIE. Ogranicz swoje zużycie prądu do niezbędnego minimum.
 RESET: RESETUJ
 RGB led controller: Kontroler oświetlenia RGB
 RGB lighting: Oświetlenie RGB
@@ -1305,9 +1309,6 @@ When the humidity will be: Gdy wilgotność będzie
 When the lighting reaches a certain level of brightness: Gdy oświetlenie osiągnie określony poziom jasności
 When the mail comes or is taken: Gdy przyjdzie poczta lub zostanie zabrana
 When the mail has been taken: Gdy poczta zostanie odebrana
-When the measurement reaches a certain value: Kiedy pomiar osiągnie określoną wartość
-When the measurement value changes: Kiedy pomiar się zmieni
-When the measurement value will be: Kiedy pomiar będzie
 When the meter reaches a certain value: Gdy licznik osiągnie zadaną wartość
 When the meter value changes: Gdy wartość zmieni się
 When the meter value will be: Gdy wartość będzie
@@ -1356,6 +1357,9 @@ When the thermostat starts or stops heating or cooling: Gdy termostat zacznie lu
 When the thermostat stops cooling: Gdy termostat przestanie chłodzić
 When the thermostat stops heating: Gdy termostat przestanie grzać
 When the thermostat stops heating or cooling: Gdy termostat zatrzyma chłodzenie lub ogrzewanie
+When the value reaches a certain level: Kiedy wartość osiągnie określony poziom
+When the value value changes: Kiedy wartość się zmieni
+When the value value will be: Kiedy wartość będzie
 When the value will be: Gdy wartość będzie
 When the valve is closed: Gdy zawór zostanie zamknięty
 When the valve is manually closed: Gdy zawór zostanie ręcznie zamknięty
@@ -1851,9 +1855,3 @@ suffix: sufiks
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-
-
-RECOMMENDED USE. Take advantage of excess energy.: ZALECANE UŻYTKOWANIE. Korzystaj z nadmiaru energii.
-NORMAL USE. Use the energy as usual.: NORMALNE UŻYTKOWANIE. Normalnie korzystaj z prądu.
-RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ZALECANE OSZCZĘDZANIE. Zaplanuj domowe energochłonne czynności na inne godziny.
-REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: WYMAGANE OGRANICZANIE. Ogranicz swoje zużycie prądu do niezbędnego minimum.

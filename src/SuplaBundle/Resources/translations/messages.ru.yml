@@ -1265,6 +1265,7 @@ Motor upside down: ~
 Mute alarm: ~
 Mute alarm sound without additional auth: ~
 Mute command sent: ~
+NORMAL USE. Use the energy as usual.: ~
 Network: ~
 New reaction: ~
 'No': ~
@@ -1328,6 +1329,9 @@ Projector screen: ~
 Pump switch: ~
 Pump switch for channel: ~
 Push notifications limit has been exceeded: ~
+RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
+RECOMMENDED USE. Take advantage of excess energy.: ~
+REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
 Reactions: ~
 Reactions limit has been exceeded: ~
 Reading: ~
@@ -1551,9 +1555,6 @@ When the humidity will be: ~
 When the lighting reaches a certain level of brightness: ~
 When the mail comes or is taken: ~
 When the mail has been taken: ~
-When the measurement reaches a certain value: ~
-When the measurement value changes: ~
-When the measurement value will be: ~
 When the meter reaches a certain value: ~
 When the meter value changes: ~
 When the meter value will be: ~
@@ -1602,6 +1603,9 @@ When the thermostat starts or stops heating or cooling: ~
 When the thermostat stops cooling: ~
 When the thermostat stops heating: ~
 When the thermostat stops heating or cooling: ~
+When the value reaches a certain level: ~
+When the value value changes: ~
+When the value value will be: ~
 When the value will be: ~
 When the valve is closed: ~
 When the valve is manually closed: ~

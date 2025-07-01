@@ -1688,6 +1688,7 @@ Motor problem: ~
 Mute alarm: ~
 Mute alarm sound without additional auth: ~
 Mute command sent: ~
+NORMAL USE. Use the energy as usual.: ~
 Network: ~
 Not available: ~
 'OCR service responded with error: {statusCode}. {description}': ~
@@ -1701,6 +1702,9 @@ Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
 Pump switch for channel: ~
+RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
+RECOMMENDED USE. Take advantage of excess energy.: ~
+REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
 Reading: ~
 Reference to the deleted channels will be removed from the items below.: ~
 Role: ~
@@ -1746,9 +1750,6 @@ When the fill level becomes unknown: ~
 When the fill level changes: ~
 When the fill level reaches a certain value: ~
 When the fill level will be: ~
-When the measurement reaches a certain value: ~
-When the measurement value changes: ~
-When the measurement value will be: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
@@ -1756,6 +1757,9 @@ When the sensors state becomes invalid: ~
 When the sensors state becomes valid: ~
 When the sound alarm starts: ~
 When the sound alarm stops: ~
+When the value reaches a certain level: ~
+When the value value changes: ~
+When the value value will be: ~
 When the warning starts: ~
 When the warning stops: ~
 You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
