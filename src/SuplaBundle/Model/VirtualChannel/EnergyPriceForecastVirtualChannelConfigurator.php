@@ -20,6 +20,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'zł/MWh'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'zł/MWh', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
+                'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
             ]],
         ],
         'pdgsz' => [
@@ -29,6 +30,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => ''],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => '', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
+                'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
             ]],
         ],
         'fixing1' => [
@@ -38,6 +40,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'zł/MWh'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'zł/MWh', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
+                'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
             ]],
         ],
         'fixing2' => [
@@ -47,6 +50,7 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'zł/MWh'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'zł/MWh', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
+                'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
             ]],
         ],
     ];

@@ -1,6 +1,7 @@
 <template>
     <div>
-        <a class="d-flex accordion-header" @click="displayConfigGroup('measurements')">
+        <a class="d-flex accordion-header" @click="displayConfigGroup('measurements')"
+            v-if="canDisplayAnySetting('valueMultiplier', 'valueDivider', 'valueAdded', 'valuePrecision', 'unitBeforeValue', 'unitAfterValue', 'refreshIntervalMs')">
             <span class="flex-grow-1">{{ $t('Measurement settings') }}</span>
             <span>
                 <fa :icon="configGroupChevron('measurements')"/>

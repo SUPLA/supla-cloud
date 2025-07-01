@@ -58,11 +58,12 @@
                 </div>
             </dt>
         </dl>
-        <dl>
+        <dl v-if="canDisplayAnySetting('unitBeforeValue', 'unitAfterValue')">
             <dd>{{ $t('Unit') }}</dd>
             <dt>
                 <span class="input-group">
                     <input type="text"
+                        v-if="canDisplaySetting('unitBeforeValue')"
                         class="form-control text-right"
                         v-model="channel.config.unitBeforeValue"
                         @focusin="lastUnitField = 'unitBeforeValue'"
@@ -80,6 +81,7 @@
                         </a>
                     </span>
                     <input type="text"
+                        v-if="canDisplaySetting('unitAfterValue')"
                         class="form-control"
                         v-model="channel.config.unitAfterValue"
                         @focusin="lastUnitField = 'unitAfterValue'"
@@ -175,6 +177,9 @@
             },
             canDisplaySetting(settingName) {
                 return !this.channel.config.hiddenConfigFields?.includes(settingName);
+            },
+            canDisplayAnySetting(...settingNames) {
+                return !!settingNames.find((s) => this.canDisplaySetting(s));
             },
         },
         computed: {

@@ -36,6 +36,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 0, 'unitAfterValue' => '%'],
             'properties' => ['defaultValuePrecision' => 0, 'defaultUnitAfterValue' => '%', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
+                'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
             ]],
         ],
         'rainMmh' => ['type' => ChannelType::RAINSENSOR, 'function' => ChannelFunction::RAINSENSOR],
@@ -47,6 +48,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
+                'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
             ]],
         ],
         'airNo' => [
@@ -56,6 +58,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
+                'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
             ]],
         ],
         'airNo2' => [
@@ -65,6 +68,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
+                'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
             ]],
         ],
         'airO3' => [
@@ -74,6 +78,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
+                'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
             ]],
         ],
         'airPm10' => [
@@ -83,6 +88,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
+                'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
             ]],
         ],
         'airPm25' => [
@@ -92,6 +98,7 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'µg/m³'],
             'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'µg/m³', 'hiddenConfigFields' => [
                 'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
+                'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
             ]],
         ],
         'tempHumidity' => [
