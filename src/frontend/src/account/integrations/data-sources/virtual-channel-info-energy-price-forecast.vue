@@ -10,7 +10,7 @@
                 <dd>{{ $t('Attribute') }}</dd>
                 <dt>{{ $t(`energyPriceForecast_field_${channel.config.virtualChannelConfig.energyField}`) }}</dt>
             </dl>
-            <dl v-if="channel.config.virtualChannelConfig.energyField === 'pdgsz'">
+            <dl v-if="channel.config.virtualChannelConfig.energyField === 'pdgsz'" class="mt-2">
                 <dd class="valign-top">{{ $t('Description') }}</dd>
                 <dt>
                     <div class="pdgsz-legend d-flex" v-for="level in levels" :key="level.badge"
@@ -38,7 +38,7 @@
 <style scoped lang="scss">
     .pdgsz-legend {
         border-style: solid;
-        border-width: 1px 0 0 1px;
+        border-width: 1px 0 0 0;
         margin-bottom: 1em;
         .badge {
             margin-top: -3px;
