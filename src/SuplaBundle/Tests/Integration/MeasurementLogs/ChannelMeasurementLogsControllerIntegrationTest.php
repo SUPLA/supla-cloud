@@ -599,6 +599,16 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->ensureGettingThermostatLogsWithTimestampRange(10);
     }
 
+    public function testGettingLogsWithMichalQuestionMarkBug() {
+        $afterDate = new DateTime('2018-09-15');
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV22('GET', '/api/channels/3/measurement-logs?afterTimestamp=' . $afterDate->getTimestamp() . '?&otherParam=123');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(2, $content);
+    }
+
     public function testGettingMeasurementLogsOfUnsupportedChannel() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV22('GET', '/api/channels/1/measurement-logs');

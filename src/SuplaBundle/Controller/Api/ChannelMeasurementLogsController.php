@@ -127,8 +127,8 @@ class ChannelMeasurementLogsController extends RestController {
         IODeviceChannel $channel,
         $offset,
         $limit,
-        $afterTimestamp = 0,
-        $beforeTimestamp = 0,
+        int $afterTimestamp = 0,
+        int $beforeTimestamp = 0,
         $orderDesc = true,
     ): array {
         $offset = intval($offset);
@@ -236,8 +236,8 @@ class ChannelMeasurementLogsController extends RestController {
         IODeviceChannel $channel,
         $offset,
         $limit,
-        $afterTimestamp = 0,
-        $beforeTimestamp = 0,
+        int $afterTimestamp = 0,
+        int $beforeTimestamp = 0,
         $orderDesc = true,
         string $logsType = ''
     ): array {
@@ -506,8 +506,8 @@ class ChannelMeasurementLogsController extends RestController {
         if (!ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         }
-        $minTimestampParam = $request->query->get('afterTimestamp');
-        $maxTimestampParam = $request->query->get('beforeTimestamp');
+        $minTimestampParam = intval($request->query->get('afterTimestamp'));
+        $maxTimestampParam = intval($request->query->get('beforeTimestamp'));
         $channel = $this->findTargetChannel($channel);
         if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
             $this->entityManager->getConnection()->getNativeConnection()->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, true);
