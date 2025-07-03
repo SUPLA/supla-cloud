@@ -85,7 +85,7 @@
                 </span>
             </span>
             <span v-else-if="channel.function.name === 'RAINSENSOR'">
-                {{ currentState.value / 1000 | roundToDecimals(4) }} l/m²
+                {{ currentState.value / 1000 | roundToDecimals(4) }} mm
             </span>
             <span v-else-if="channel.function.name === 'PRESSURESENSOR'">
                 {{ currentState.value }} hPa
