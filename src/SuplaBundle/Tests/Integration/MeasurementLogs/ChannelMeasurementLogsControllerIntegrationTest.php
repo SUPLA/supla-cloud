@@ -191,7 +191,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->addLogItems();
         $this->addLogItems(count($channels));
 
-        for ($timestamp = strtotime('-60 days'); $timestamp < time(); $timestamp += 600) {
+        for ($timestamp = strtotime('-80 days'); $timestamp < time(); $timestamp += 600) {
             $logItem = new TemperatureLogItem();
             EntityUtils::setField($logItem, 'channel_id', $this->deviceWithManyLogs->getChannels()[1]->getId());
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
@@ -645,7 +645,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $response = $client->getResponse();
         $this->assertStatusCode('200', $response);
         $logItems = json_decode($response->getContent(), true);
-        $this->assertCount(5000, $logItems);
+        $this->assertCount(10000, $logItems);
         $this->assertEquals($response->headers->get('X-Count'), $response->headers->get('X-Total-Count'));
         $minTimestamp = $response->headers->get('X-Min-Timestamp');
         $maxTimestamp = $response->headers->get('X-Max-Timestamp');
@@ -653,15 +653,15 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $lastTimestamp = end($logItems)['date_timestamp'];
         $this->assertEquals($maxTimestamp, $firstTimestamp);
         $this->assertTimestampsGrow(
-            strtotime('-70 days'),
+            strtotime('-90 days'),
             $minTimestamp,
-            strtotime('-40 days'),
+            strtotime('-75 days'),
             $lastTimestamp,
             strtotime('-30 days'),
             $firstTimestamp,
             time()
         );
-        $this->assertEqualsWithDelta(35, floor(($firstTimestamp - $lastTimestamp) / 86400), 1); // 5000 logs per 10 minutes each ~= 35 days
+        $this->assertEqualsWithDelta(70, floor(($firstTimestamp - $lastTimestamp) / 86400), 1); // 10k logs per 10 minutes each ~= 70 days
     }
 
     public function testGettingLogsFromChannelWithNoLogs() {
