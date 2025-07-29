@@ -35,6 +35,7 @@ use Symfony\Component\Config\Definition\Processor;
  *     @OA\Property(property="maxAllowedTemperatureSetpoint", type="number"),
  *   ),
  *   @OA\Property(property="homeScreenContentAvailable", type="string"),
+ *   @OA\Property(property="firmwareUpdatePolicy", type="string"),
  * )
  */
 class IODeviceConfigTranslator {
@@ -137,6 +138,9 @@ class IODeviceConfigTranslator {
             }
             if ($settingName === 'automaticTimeSync') {
                 Assert::that($value, null, 'automaticTimeSync')->boolean();
+            }
+            if ($settingName === 'firmwareUpdatePolicy') {
+                Assertion::inArray($value, ['ALL_UPDATES', 'SECURITY_UPDATES', 'MANUAL_UPDATES', 'DISABLED'], null, 'firmwareUpdatePolicy');
             }
             if ($settingName === 'homeScreen') {
                 $homeScreenConfig = [];

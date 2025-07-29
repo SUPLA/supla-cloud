@@ -443,6 +443,7 @@ class DevicesFixture extends SuplaFixture {
                 'automaticTimeSync' => false,
                 'powerStatusLed' => 'DISABLED',
                 'homeScreen' => ['content' => 'TEMPERATURE', 'offDelay' => 0, 'offDelayType' => 'ALWAYS_ENABLED'],
+                'firmwareUpdatePolicy' => 'DISABLED',
             ]),
             'properties' => json_encode([
                 'homeScreenContentAvailable' => [

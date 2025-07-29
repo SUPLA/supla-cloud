@@ -120,6 +120,16 @@
                             {{ $t('Automatic time synchronization') }}
                         </label>
                     </div>
+                    <!-- i18n: ['firmwareUpdatePolicy_ALL_UPDATES', 'firmwareUpdatePolicy_SECURITY_UPDATES', 'firmwareUpdatePolicy_MANUAL_UPDATES', 'firmwareUpdatePolicy_MANUAL_UPDATES'] -->
+                    <div class="form-group with-border-bottom" v-if="config.firmwareUpdatePolicy !== undefined">
+                        <label for="firmwareUpdatePolicy">{{ $t('Firmware update policy') }}</label>
+                        <select id="firmwareUpdatePolicy" class="form-control" v-model="config.firmwareUpdatePolicy" @change="onChange()">
+                            <option v-for="option in ['ALL_UPDATES', 'SECURITY_UPDATES', 'MANUAL_UPDATES', 'DISABLED']" :key="option"
+                                :value="option">
+                                {{ $t('firmwareUpdatePolicy_' + option) }}
+                            </option>
+                        </select>
+                    </div>
                     <div class="form-group with-border-bottom" v-if="powerStatusLedBoolean !== undefined">
                         <label class="checkbox2 checkbox2-grey">
                             <input type="checkbox" v-model="powerStatusLedBoolean" @change="onChange()">

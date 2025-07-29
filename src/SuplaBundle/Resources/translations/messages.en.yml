@@ -212,3 +212,7 @@ openWeatherAttribute_field_windSpeed: Wind Speed
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+firmwareUpdatePolicy_ALL_UPDATES: Install all updates automatically
+firmwareUpdatePolicy_SECURITY_UPDATES: Install only security updates automatically
+firmwareUpdatePolicy_MANUAL_UPDATES: Allow only manual updates
+firmwareUpdatePolicy_DISABLED: Disabled on a device
