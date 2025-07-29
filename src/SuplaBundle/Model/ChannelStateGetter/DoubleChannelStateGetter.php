@@ -29,7 +29,6 @@ class DoubleChannelStateGetter implements SingleChannelStateGetter {
         return [
             ChannelFunction::WINDSENSOR(),
             ChannelFunction::PRESSURESENSOR(),
-            ChannelFunction::RAINSENSOR(),
             ChannelFunction::WEIGHTSENSOR(),
         ];
     }

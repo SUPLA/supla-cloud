@@ -74,6 +74,8 @@ class ChannelValue {
                 return pack('ll', 0, $value === null ? NAN : round($value * 1000));
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
                 return pack('ll', $value === null ? NAN : round($value * 1000), $value === null ? NAN : round($value2 * 1000));
+            case ChannelFunction::RAINSENSOR:
+                return pack('d', $value === null ? NAN : $value * 1000);
             default:
                 return pack('d', $value === null ? NAN : $value);
         }

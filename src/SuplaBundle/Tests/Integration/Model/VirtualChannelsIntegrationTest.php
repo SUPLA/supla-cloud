@@ -153,6 +153,38 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(22.2, current(unpack('d', $chValue->getValue())));
     }
 
+    public function testCreatingVirtualChannelRain() {
+        SuplaAutodiscoverMock::mockResponse('weather-data', [
+            [
+                'id' => 1,
+                'fetchedAt' => (new \DateTime())->format(\DateTime::ATOM),
+                'weather' => ['rainMmh' => 22.3],
+            ],
+        ], 200, 'POST');
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('POST', '/api/channels', [
+            'virtualChannelType' => VirtualChannelType::OPEN_WEATHER,
+            'virtualChannelConfig' => [
+                'cityId' => 1,
+                'weatherField' => 'rainMmh',
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('id', $content);
+        $this->assertArrayHasKey('config', $content);
+        $this->assertEquals(ChannelFunction::RAINSENSOR, $content['functionId']);
+        $this->assertArrayHasKey('virtualChannelConfig', $content['config']);
+        $this->assertEquals(VirtualChannelType::OPEN_WEATHER, $content['config']['virtualChannelConfig']['type']);
+        $this->assertEquals(1, $content['config']['virtualChannelConfig']['cityId']);
+        $this->assertEquals('rainMmh', $content['config']['virtualChannelConfig']['weatherField']);
+        $this->assertEquals(1, $this->getEntityManager()->getRepository(IODevice::class)->count([]));
+        $chValue = $this->getEntityManager()->getRepository(ChannelValue::class)->findOneBy(['channel' => $content['id']]);
+        $this->assertNotNull($chValue);
+        $this->assertEquals(22300, current(unpack('d', $chValue->getValue()))); // mult * 1000
+    }
+
     public function testCreatingVirtualChannelWithUnavailableData() {
         SuplaAutodiscoverMock::mockResponse('weather-data', [
             [
