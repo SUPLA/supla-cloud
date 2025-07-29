@@ -42,24 +42,21 @@ class UserProvider extends EntityUserProvider {
     }
 
     public function loadUserByUsername($username) {
-        $user = null;
-        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
-            if ($this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($username)) {
-                throw new LockedException();
-            }
-            /** @var User $user */
-            $user = parent::loadUserByUsername($username);
-            if ($user) {
-                if (!$user->isEnabled()) {
-                    throw new DisabledException();
-                }
-            }
-        } elseif (preg_match('/^api_[0-9]+$/', $username)) {
+        if (preg_match('/^api_[0-9]+$/', $username)) {
             $user = $this->userRepository->findOneBy(['oauthCompatUserName' => $username]);
             if ($user) {
                 $user->setOAuthOldApiCompatEnabled();
             }
+            return $user;
         }
-        return $user;
+        if ($this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($username)) {
+            throw new LockedException();
+        }
+        /** @var User $user */
+        $user = parent::loadUserByUsername($username);
+        if (!$user->isEnabled()) {
+            throw new DisabledException();
+        }
+        return $username;
     }
 }
