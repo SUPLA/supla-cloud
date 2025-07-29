@@ -57,6 +57,6 @@ class UserProvider extends EntityUserProvider {
         if (!$user->isEnabled()) {
             throw new DisabledException();
         }
-        return $username;
+        return $user;
     }
 }
