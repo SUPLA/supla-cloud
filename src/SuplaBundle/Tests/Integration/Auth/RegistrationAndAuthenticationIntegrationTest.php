@@ -99,11 +99,6 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         return $user;
     }
 
-    public function testCannotLoginWithInvalidEmail() {
-        $client = $this->createHttpsClient();
-        $this->assertFailedLoginRequest($client, 'klew_psuj', self::PASSWORD);
-    }
-
     /** @depends testCannotLoginIfNotConfirmed */
     public function testSavesIncorrectLoginAttemptInAudit(User $createdUser) {
         $entry = $this->getLatestAuditEntry();
@@ -124,6 +119,11 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(self::EMAIL, $content['email']);
         $this->assertFalse($content['enabled']);
         $this->assertArrayHasKey('id', $content);
+    }
+
+    public function testCannotLoginWithInvalidEmail() {
+        $client = $this->createHttpsClient();
+        $this->assertFailedLoginRequest($client, 'klew_psuj', self::PASSWORD);
     }
 
     /** @depends testHandlingQueryForUserDetailsFromBroker */
