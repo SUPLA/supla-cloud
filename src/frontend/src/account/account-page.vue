@@ -24,7 +24,7 @@
                         </dl>
                         <div class="form-group text-center">
                             <a class="btn btn-default"
-                                @click="changingNotifications = true">{{ $t('E-mail notifications') }}</a>
+                                @click="changingNotifications = true">{{ $t('Account notifications') }}</a>
                             <a class="btn btn-default"
                                 @click="showingLimits = true">{{ $t('Show my limits') }}</a>
                         </div>

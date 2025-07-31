@@ -12,7 +12,7 @@ class EmailFromTemplate {
     private $recipient;
     private $eventTimestamp;
 
-    public function __construct(string $templateName, $userIdOrRecipient, ?array $data = []) {
+    public function __construct(string $templateName, $userIdOrRecipient, ?array $data = [], private $burnAfterSeconds = 0) {
         $this->eventTimestamp = time();
         $this->templateName = $templateName;
         if (is_string($userIdOrRecipient)) {
@@ -44,6 +44,6 @@ class EmailFromTemplate {
     }
 
     public function isBurnt(TimeProvider $timeProvider): bool {
-        return $this instanceof BurningMessage && ($timeProvider->getTimestamp() - $this->eventTimestamp) > $this->burnAfterSeconds();
+        return $this->burnAfterSeconds > 0 && ($timeProvider->getTimestamp() - $this->eventTimestamp) > $this->burnAfterSeconds;
     }
 }

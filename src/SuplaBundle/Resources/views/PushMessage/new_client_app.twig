@@ -1,0 +1,11 @@
+{% extends '@Supla/PushMessage/template.twig' %}
+
+{% block title %}
+    {% trans into userLocale %} A new client app has been added to your account {% endtrans %}
+{% endblock %}
+
+{% block body %}
+    {% trans with {'%clientAppId%': clientApp.id} into userLocale %} Client app ID: %clientAppId% {% endtrans %}
+
+    {% trans with {'%clientAppName%': clientApp.name} into userLocale %} Name: %clientAppName% {% endtrans %}
+{% endblock %}

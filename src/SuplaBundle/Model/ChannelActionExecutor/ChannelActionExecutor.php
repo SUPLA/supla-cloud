@@ -40,7 +40,7 @@ class ChannelActionExecutor {
         }
     }
 
-    public function executeAction(ActionableSubject $subject, ChannelFunctionAction $action, array $actionParams = []) {
+    public function executeAction(ActionableSubject $subject, ChannelFunctionAction $action, array $actionParams = []): void {
         $executor = $this->getExecutor($subject, $action);
         [$actionParams, $integrationsParams] = $this->groupActionParams($actionParams);
         $actionParams = $executor->validateAndTransformActionParamsFromApi($subject, $actionParams);

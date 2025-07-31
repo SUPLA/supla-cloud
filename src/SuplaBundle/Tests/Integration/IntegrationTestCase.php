@@ -235,7 +235,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     }
 
     protected function flushMessagesQueue(?TestClient $client = null) {
-        $maxIterations = 5;
+        $maxIterations = 10;
         $messagesQuery = 'SELECT COUNT(*) FROM supla_email_notifications WHERE queue_name != "supla-server"';
         while (($count = $this->getEntityManager()->getConnection()->fetchOne($messagesQuery)) > 0) {
             if (!$maxIterations--) {

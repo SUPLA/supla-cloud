@@ -1,0 +1,13 @@
+{% extends '@Supla/PushMessage/template.twig' %}
+
+{% block title %}
+    {% trans into userLocale %} You have a new device! {% endtrans %}
+{% endblock %}
+
+{% block body %}
+
+    {% trans with {'%deviceId%': device.id} into userLocale %} Device ID: %deviceId% {% endtrans %}
+
+    {% trans with {'%deviceName%': device.name} into userLocale %} Device name: %deviceName% {% endtrans %}
+
+{% endblock %}

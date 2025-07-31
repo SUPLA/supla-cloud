@@ -1,18 +1,16 @@
 <?php
 
-namespace SuplaBundle\Message\Emails;
+namespace SuplaBundle\Message\Common;
 
 use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Message\AsyncMessage;
-use SuplaBundle\Message\BurningMessage;
-use SuplaBundle\Message\EmailFromTemplate;
+use SuplaBundle\Message\CommonMessage;
 use SuplaBundle\Message\UserOptOutNotifications;
 
-class NewIoDeviceEmailNotification extends EmailFromTemplate implements AsyncMessage, BurningMessage {
+readonly class NewIoDeviceNotification extends CommonMessage {
     public function __construct(IODevice $ioDevice) {
         parent::__construct(
-            UserOptOutNotifications::NEW_IO_DEVICE,
             $ioDevice->getUser(),
+            UserOptOutNotifications::NEW_IO_DEVICE,
             [
                 'device' => [
                     'id' => $ioDevice->getId(),
@@ -22,9 +20,5 @@ class NewIoDeviceEmailNotification extends EmailFromTemplate implements AsyncMes
                 ],
             ]
         );
-    }
-
-    public function burnAfterSeconds(): int {
-        return 1800;
     }
 }

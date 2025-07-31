@@ -1,18 +1,16 @@
 <?php
 
-namespace SuplaBundle\Message\Emails;
+namespace SuplaBundle\Message\Common;
 
 use SuplaBundle\Entity\Main\ClientApp;
-use SuplaBundle\Message\AsyncMessage;
-use SuplaBundle\Message\BurningMessage;
-use SuplaBundle\Message\EmailFromTemplate;
+use SuplaBundle\Message\CommonMessage;
 use SuplaBundle\Message\UserOptOutNotifications;
 
-class NewClientAppEmailNotification extends EmailFromTemplate implements AsyncMessage, BurningMessage {
+readonly class NewClientAppNotification extends CommonMessage {
     public function __construct(ClientApp $clientApp) {
         parent::__construct(
-            UserOptOutNotifications::NEW_CLIENT_APP,
             $clientApp->getUser(),
+            UserOptOutNotifications::NEW_CLIENT_APP,
             [
                 'clientApp' => [
                     'id' => $clientApp->getId(),
@@ -20,11 +18,7 @@ class NewClientAppEmailNotification extends EmailFromTemplate implements AsyncMe
                     'softwareVersion' => $clientApp->getSoftwareVersion(),
                     'regIp' => $clientApp->getRegIpv4(),
                 ],
-            ]
+            ],
         );
-    }
-
-    public function burnAfterSeconds(): int {
-        return 1800;
     }
 }

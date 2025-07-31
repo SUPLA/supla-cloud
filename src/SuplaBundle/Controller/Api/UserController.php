@@ -29,8 +29,10 @@ use OpenApi\Annotations as OA;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\BrokerRequestSecurityVoter;
+use SuplaBundle\Entity\Main\AccessID;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
+use SuplaBundle\Enums\UserPreferences;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Mailer\SuplaMailer;
@@ -278,11 +280,26 @@ class UserController extends RestController {
                 }
             } elseif ($data['action'] == 'change:optOutNotifications') {
                 $this->assertNotApiUser();
-                Assertion::keyExists($data, 'optOutNotifications');
-                $enabledNotifications = $data['optOutNotifications'];
-                Assertion::isArray($enabledNotifications);
-                Assertion::allInArray($enabledNotifications, UserOptOutNotifications::toArray());
-                $user->setPreference('optOutNotifications', $enabledNotifications);
+                Assertion::keyExists($data, UserPreferences::OPT_OUT_NOTIFICATIONS_EMAIL);
+                Assertion::keyExists($data, UserPreferences::OPT_OUT_NOTIFICATIONS_PUSH);
+                $optOutNotificationsEmail = $data[UserPreferences::OPT_OUT_NOTIFICATIONS_EMAIL];
+                $optOutNotificationsPush = $data[UserPreferences::OPT_OUT_NOTIFICATIONS_PUSH];
+                Assertion::isArray($optOutNotificationsEmail);
+                Assertion::isArray($optOutNotificationsPush);
+                Assertion::allInArray($optOutNotificationsEmail, UserOptOutNotifications::toArray());
+                Assertion::allInArray($optOutNotificationsPush, UserOptOutNotifications::toArray());
+                $user->setPreference(UserPreferences::OPT_OUT_NOTIFICATIONS_EMAIL, $optOutNotificationsEmail);
+                $user->setPreference(UserPreferences::OPT_OUT_NOTIFICATIONS_PUSH, $optOutNotificationsPush);
+                if (array_key_exists(UserPreferences::ACCOUNT_PUSH_NOTIFICATIONS_ACCESS_IDS_IDS, $data)) {
+                    $accessIdIds = $data[UserPreferences::ACCOUNT_PUSH_NOTIFICATIONS_ACCESS_IDS_IDS];
+                    Assertion::isArray($accessIdIds);
+                    $availableAids = $user->getAccessIDS()->map(fn(AccessID $aid) => $aid->getId())->toArray();
+                    Assertion::allInArray($accessIdIds, $availableAids);
+                    $user->setPreference(
+                        UserPreferences::ACCOUNT_PUSH_NOTIFICATIONS_ACCESS_IDS_IDS,
+                        $data[UserPreferences::ACCOUNT_PUSH_NOTIFICATIONS_ACCESS_IDS_IDS]
+                    );
+                }
             }
             if ($data['action'] == 'change:mqttBrokerPassword') {
                 $this->assertNotApiUser();

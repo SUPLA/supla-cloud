@@ -22,10 +22,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\Main\ClientApp;
 use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Message\EmailFromTemplate;
+use SuplaBundle\Message\Common\NewClientAppNotification;
+use SuplaBundle\Message\Common\NewIoDeviceNotification;
 use SuplaBundle\Message\EmailFromTemplateAsync;
-use SuplaBundle\Message\Emails\NewClientAppEmailNotification;
-use SuplaBundle\Message\Emails\NewIoDeviceEmailNotification;
 use SuplaBundle\Message\UserOptOutNotifications;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -85,18 +84,18 @@ class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
         return 0;
     }
 
-    private function getMessage(string $template, array $data, int $userId): EmailFromTemplate {
+    private function getMessage(string $template, array $data, int $userId) {
         switch ($template) {
             case UserOptOutNotifications::NEW_IO_DEVICE:
                 $ioDevice = $this->entityManager->find(IODevice::class, $data['ioDeviceId'] ?? 0);
                 Assertion::notNull($ioDevice);
                 Assertion::eq($ioDevice->getUser()->getId(), $userId);
-                return new NewIoDeviceEmailNotification($ioDevice);
+                return new NewIoDeviceNotification($ioDevice);
             case UserOptOutNotifications::NEW_CLIENT_APP:
                 $clientApp = $this->entityManager->find(ClientApp::class, $data['clientAppId'] ?? 0);
                 Assertion::notNull($clientApp);
                 Assertion::eq($clientApp->getUser()->getId(), $userId);
-                return new NewClientAppEmailNotification($clientApp);
+                return new NewClientAppNotification($clientApp);
             default:
                 return new EmailFromTemplateAsync($template, $userId, $data);
         }

@@ -10,36 +10,22 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Extra\Intl\IntlExtension;
 
-class EmailFromTemplateHandler implements MessageHandlerInterface {
+readonly class EmailFromTemplateHandler implements MessageHandlerInterface {
     private const SUBJECT_DELIMITER = '#### SUBJECT-DELIMITER ####';
 
-    /** @var Environment */
-    private $twig;
-    /** @var UserRepository */
-    private $userRepository;
-    /** @var MessageBusInterface */
-    private $messageBus;
-    /** @var TimeProvider */
-    private $timeProvider;
-    /** @var string */
-    private $defaultLocale;
-
     public function __construct(
-        MessageBusInterface $messageBus,
-        Environment $twig,
-        UserRepository $userRepository,
-        TimeProvider $timeProvider,
-        string $defaultLocale
+        private MessageBusInterface $messageBus,
+        private Environment $twig,
+        private UserRepository $userRepository,
+        private TimeProvider $timeProvider,
+        private string $defaultLocale
     ) {
-        $this->messageBus = $messageBus;
-        $this->twig = $twig;
-        $twig->addExtension(new IntlExtension());
-        $this->userRepository = $userRepository;
-        $this->timeProvider = $timeProvider;
-        $this->defaultLocale = $defaultLocale;
+        if (!$twig->hasExtension(IntlExtension::class)) {
+            $twig->addExtension(new IntlExtension());
+        }
     }
 
-    public function __invoke(EmailFromTemplate $email) {
+    public function __invoke(EmailFromTemplate $email): void {
         if ($email->isBurnt($this->timeProvider)) {
             return;
         }

@@ -17,12 +17,9 @@
 
 namespace SuplaBundle\Tests\Integration\Messages;
 
-use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Message\EmailFromTemplateHandler;
-use SuplaBundle\Message\Emails\FailedAuthAttemptEmailNotification;
 use SuplaBundle\Message\Emails\ResetPasswordEmailNotification;
-use SuplaBundle\Message\UserOptOutNotifications;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestMailerTransport;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
@@ -33,10 +30,6 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var IODevice */
-    private $device;
-    /** @var \SuplaBundle\Entity\Main\Location */
-    private $location;
     /** @var EmailFromTemplateHandler */
     private $handler;
 
@@ -51,13 +44,11 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
 
     public function testSendingFailedAuthAttempt() {
         $handler = $this->handler;
-        $handler(new FailedAuthAttemptEmailNotification($this->user, '1.2.3.4'));
+        $handler(new ResetPasswordEmailNotification($this->user));
         $this->assertCount(1, TestMailerTransport::getMessages());
         $message = TestMailerTransport::getMessages()[0];
-        $this->assertStringContainsString('<b>1.2.3.4</b>', $message->getHtmlBody());
-        $this->assertStringContainsString('<a href="mailto:security', $message->getHtmlBody());
-        $this->assertStringContainsString('The incident was detected at ' . date('n/j/y'), $message->getHtmlBody());
-        $this->assertStringContainsString('account?optOutNotification=failed_auth_attempt', $message->getHtmlBody());
+        $this->assertStringContainsString('reset-password/', $message->getHtmlBody());
+        $this->assertStringContainsString('If you did not request this password reset', $message->getHtmlBody());
     }
 
     public function testSendingFailedAuthAttemptInPolish() {
@@ -65,23 +56,11 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->persist($this->user);
         $this->getEntityManager()->flush();
         $handler = $this->handler;
-        $handler(new FailedAuthAttemptEmailNotification($this->user, '1.2.3.4'));
+        $handler(new ResetPasswordEmailNotification($this->user, '1.2.3.4'));
         $this->assertCount(1, TestMailerTransport::getMessages());
         $message = TestMailerTransport::getMessages()[0];
-        $this->assertStringContainsString('<b>1.2.3.4</b>', $message->getHtmlBody());
-        $this->assertStringContainsString('<a href="mailto:security', $message->getHtmlBody());
-        $this->assertStringContainsString('Zdarzenie miało miejsce ' . date('j.m.Y'), $message->getHtmlBody());
-        $this->assertStringContainsString('account?optOutNotification=failed_auth_attempt', $message->getHtmlBody());
-    }
-
-    public function testNotSendingFailedAuthAttemptIfUserOptOut() {
-        $this->user = $this->freshEntity($this->user);
-        $this->user->setPreference('optOutNotifications', [UserOptOutNotifications::FAILED_AUTH_ATTEMPT]);
-        $this->getEntityManager()->persist($this->user);
-        $this->getEntityManager()->flush();
-        $handler = $this->handler;
-        $handler(new FailedAuthAttemptEmailNotification($this->user, '1.2.3.4'));
-        $this->assertCount(0, TestMailerTransport::getMessages());
+        $this->assertStringContainsString('reset-password/', $message->getHtmlBody());
+        $this->assertStringContainsString('Jeżeli nie zażądałeś(aś) zresetowania hasła', $message->getHtmlBody());
     }
 
     public function testSendingResetPasswordLink() {

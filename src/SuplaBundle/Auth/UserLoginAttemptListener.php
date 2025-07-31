@@ -20,7 +20,7 @@ namespace SuplaBundle\Auth;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
-use SuplaBundle\Message\Emails\FailedAuthAttemptEmailNotification;
+use SuplaBundle\Message\Common\FailedAuthAttemptNotification;
 use SuplaBundle\Model\Audit\AuditAware;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -71,7 +71,7 @@ class UserLoginAttemptListener {
             'requestServer' => $this->requestStack->getCurrentRequest()->server->all(),
         ]);
         if ($user && $user->isEnabled() && $entry->getIntParam() != AuthenticationFailureReason::BLOCKED) {
-            $this->messageBus->dispatch(new FailedAuthAttemptEmailNotification($user, $entry->getIpv4()));
+            $this->messageBus->dispatch(new FailedAuthAttemptNotification($user, $entry->getIpv4()));
         }
     }
 

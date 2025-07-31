@@ -4,10 +4,9 @@ namespace SuplaBundle\Message\Emails;
 
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Message\AsyncMessage;
-use SuplaBundle\Message\BurningMessage;
 use SuplaBundle\Message\EmailFromTemplate;
 
-class ConfirmationAfterDeviceUnlockEmailNotification extends EmailFromTemplate implements AsyncMessage, BurningMessage {
+class ConfirmationAfterDeviceUnlockEmailNotification extends EmailFromTemplate implements AsyncMessage {
     public function __construct(IODevice $device) {
         parent::__construct(
             'confirmation_after_device_unlock',
@@ -15,7 +14,8 @@ class ConfirmationAfterDeviceUnlockEmailNotification extends EmailFromTemplate i
             [
                 'deviceId' => $device->getId(),
                 'deviceLabel' => $this->getDeviceLabel($device),
-            ]
+            ],
+            3600
         );
     }
 
@@ -25,9 +25,5 @@ class ConfirmationAfterDeviceUnlockEmailNotification extends EmailFromTemplate i
         } else {
             return $device->getName();
         }
-    }
-
-    public function burnAfterSeconds(): int {
-        return 3600;
     }
 }

@@ -4,10 +4,9 @@ namespace SuplaBundle\Message\Emails;
 
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Message\AsyncMessage;
-use SuplaBundle\Message\BurningMessage;
 use SuplaBundle\Message\EmailFromTemplate;
 
-class ConfirmDeviceUnlockEmailNotification extends EmailFromTemplate implements AsyncMessage, BurningMessage {
+class ConfirmDeviceUnlockEmailNotification extends EmailFromTemplate implements AsyncMessage {
     public function __construct(string $emailAddress, IODevice $device, string $unlockCode) {
         parent::__construct(
             'confirm_device_unlock',
@@ -18,11 +17,8 @@ class ConfirmDeviceUnlockEmailNotification extends EmailFromTemplate implements 
                 'deviceGuid' => $device->getGUIDString(),
                 'deviceUserEmail' => $device->getUser()->getEmail(),
                 'confirmationUrl' => '/confirm-device-unlock/' . $device->getId() . '/' . $unlockCode,
-            ]
+            ],
+            3600
         );
-    }
-
-    public function burnAfterSeconds(): int {
-        return 3600;
     }
 }
