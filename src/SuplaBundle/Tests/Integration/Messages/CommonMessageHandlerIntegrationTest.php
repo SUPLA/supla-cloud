@@ -71,7 +71,7 @@ class CommonMessageHandlerIntegrationTest extends IntegrationTestCase {
         $this->flushMessagesQueue();
         $this->assertCount(1, $this->getSentPushNotifications());
         $push = $this->getSentPushNotifications()[0];
-        $this->assertStringContainsString('unsuccessful', $push['title']);
+        $this->assertStringContainsString('Unsuccessful', $push['title']);
         $this->assertStringContainsString('Unsuccessful login', $push['body']);
         $this->assertStringContainsString('cloud.supla.org', $push['body']);
         $this->assertEquals([$this->user->getAccessIDS()[0]->getId()], $push['recipients']['aids']);

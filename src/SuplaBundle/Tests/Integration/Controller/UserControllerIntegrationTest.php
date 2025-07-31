@@ -21,6 +21,7 @@ use SuplaBundle\Entity\Main\AuditEntry;
 use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
+use SuplaBundle\Enums\UserPreferences;
 use SuplaBundle\Message\UserOptOutNotifications;
 use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
@@ -288,7 +289,11 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequest(
             'PATCH',
             '/api/users/current',
-            ['action' => 'change:optOutNotifications', 'optOutNotifications' => [UserOptOutNotifications::FAILED_AUTH_ATTEMPT]]
+            [
+                'action' => 'change:optOutNotifications',
+                UserPreferences::OPT_OUT_NOTIFICATIONS_EMAIL => [UserOptOutNotifications::FAILED_AUTH_ATTEMPT],
+                UserPreferences::OPT_OUT_NOTIFICATIONS_PUSH => [],
+            ]
         );
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);

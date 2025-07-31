@@ -40,7 +40,6 @@
             <div class="form-group">
                 <label>{{ $t('Recipients for push notifications') }}</label>
                 <AccessIdsDropdown v-model="accessIds"/>
-                <div class="help-block help-error">{{ $t('The notification must have a recipient.') }}</div>
             </div>
 
             <button class="hidden" type="submit"></button>

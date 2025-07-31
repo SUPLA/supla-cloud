@@ -4,6 +4,7 @@ namespace SuplaBundle\Message;
 
 use Assert\Assertion;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Enums\UserPreferences;
 use SuplaBundle\Model\TimeProvider;
 
 class PushMessageFromTemplate implements AsyncMessage {
@@ -20,7 +21,7 @@ class PushMessageFromTemplate implements AsyncMessage {
             Assertion::allInteger($this->accessIdIds, 'All accessIdIds must be integers.');
         } else {
             Assertion::isInstanceOf($userOrAccessIds, User::class, 'User must be instance of User.');
-            $this->accessIdIds = $userOrAccessIds->getPreference('accountPushNotificationsAccessIdsIds', []);
+            $this->accessIdIds = $userOrAccessIds->getPreference(UserPreferences::ACCOUNT_PUSH_NOTIFICATIONS_ACCESS_IDS_IDS, []);
         }
         $this->data = $data ?: [];
     }

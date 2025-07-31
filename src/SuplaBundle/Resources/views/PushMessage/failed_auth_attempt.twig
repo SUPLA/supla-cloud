@@ -1,7 +1,7 @@
 {% extends '@Supla/PushMessage/template.twig' %}
 
 {% block title %}
-    {% trans with {'%cloudHost%': cloudHost()} into userLocale %} %cloudHost% unsuccessful login attempt {% endtrans %}
+    {% trans into userLocale %} Unsuccessful login attempt {% endtrans %}
 {% endblock %}
 
 {% block body %}
