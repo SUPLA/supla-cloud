@@ -69,10 +69,10 @@
             $(".close").click(function () {
                 alert.remove();
             });
-            if (localStorage && localStorage.getItem('_token')) {
+            if (localStorage && localStorage.getItem('supla-user-token')) {
                 var btn = $('<button class="btn authorize"><span>Authorize with your webapp token</span><svg width="20" height="20"><use href="#unlocked" xlink:href="#unlocked"></use></svg></button>');
                 btn.click(function () {
-                    ui.preauthorizeApiKey("BearerAuth", localStorage.getItem('_token'));
+                    ui.preauthorizeApiKey("BearerAuth", localStorage.getItem('supla-user-token'));
                     btn.remove();
                 });
                 $(".auth-wrapper").prepend(btn);
