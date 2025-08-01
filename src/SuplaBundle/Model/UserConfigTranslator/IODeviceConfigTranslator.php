@@ -6,6 +6,7 @@ use Assert\Assert;
 use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Utils\NumberUtils;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -38,12 +39,8 @@ use Symfony\Component\Config\Definition\Processor;
  *   @OA\Property(property="firmwareUpdatePolicy", type="string"),
  * )
  */
-class IODeviceConfigTranslator {
-    /** @var HvacThermostatConfigTranslator */
-    private $hvacConfigTranslator;
-
-    public function __construct(HvacThermostatConfigTranslator $hvacConfigTranslator) {
-        $this->hvacConfigTranslator = $hvacConfigTranslator;
+readonly class IODeviceConfigTranslator {
+    public function __construct(private HvacThermostatConfigTranslator $hvacConfigTranslator, private TimeProvider $timeProvider) {
     }
 
     public function getConfig(IODevice $device): array {
@@ -80,6 +77,13 @@ class IODeviceConfigTranslator {
             try {
                 $config['modbus'] = $this->adjustModbusConfig($device, $config['modbus']);
             } catch (InvalidConfigurationException $e) {
+            }
+        }
+        if ($props['otaUpdate'] ?? false) {
+            $otaUpdate = $props['otaUpdate'];
+            $timestamp = $otaUpdate['timestamp'] ?? 0;
+            if ($this->timeProvider->getTimestamp('-1 hour') < $timestamp) {
+                $config['otaUpdate'] = $props['otaUpdate'];
             }
         }
         return $config;

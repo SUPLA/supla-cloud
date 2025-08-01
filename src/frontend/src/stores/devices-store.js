@@ -44,6 +44,18 @@ export const useDevicesStore = defineStore('devices', () => {
             });
     }
 
+    const updateDevice = (device) => {
+        all.value[device.id] = {...all.value[device.id], ...device};
+    }
+
+    const fetchDevice = (deviceId) => {
+        return devicesApi.getOne(deviceId)
+            .then((device) => {
+                updateDevice(device);
+                return device;
+            });
+    };
+
     const list = computed(() => ids.value.map(id => all.value[id]));
 
     const $reset = () => {
@@ -52,5 +64,5 @@ export const useDevicesStore = defineStore('devices', () => {
         fetchAll.promise = undefined;
     };
 
-    return {all, ids, list, $reset, fetchAll, updateConnectedStatuses, remove};
+    return {all, ids, list, $reset, fetchAll, updateConnectedStatuses, remove, fetchDevice};
 });

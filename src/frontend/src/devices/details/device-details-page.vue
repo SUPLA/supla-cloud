@@ -49,6 +49,7 @@
                                     <DeviceEnterConfigurationModeButton :device="device"/>
                                     <DeviceIdentifyDeviceButton :device="device"/>
                                     <DeviceRemoteRestartButton :device="device"/>
+                                    <DeviceOtaUpdatesButtons :device="device"/>
                                     <DeviceSetTimeButton :device="device"/>
                                     <DevicePairSubdeviceButton :device="device"/>
                                 </div>
@@ -154,10 +155,12 @@
     import {useDevicesStore} from "@/stores/devices-store";
     import {useLocationsStore} from "@/stores/locations-store";
     import {useChannelsStore} from "@/stores/channels-store";
+    import DeviceOtaUpdatesButtons from "@/devices/details/device-ota-updates-buttons.vue";
 
     export default {
         props: ['id'],
         components: {
+            DeviceOtaUpdatesButtons,
             DeviceIdentifyDeviceButton,
             DeviceRemoteRestartButton,
             DevicePairSubdeviceButton,

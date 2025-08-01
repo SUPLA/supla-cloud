@@ -22,7 +22,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory;
 use Faker\Generator;
 use Psr\Log\LoggerInterface;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\ChannelValue;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Enums\ElectricityMeterSupportBits;
 use SuplaBundle\Enums\HvacIpcActionMode;
 use SuplaBundle\Enums\HvacIpcValueFlags;
@@ -40,15 +42,15 @@ class SuplaServerMock extends SuplaServer {
 
     public static $executedCommands = [];
 
-    private SuplaServerMockCommandsCollector $commandsCollector;
     private Generator $faker;
-    private EntityManagerInterface $em;
 
-    public function __construct(SuplaServerMockCommandsCollector $commandsCollector, LoggerInterface $logger, EntityManagerInterface $em) {
+    public function __construct(
+        private SuplaServerMockCommandsCollector $commandsCollector,
+        private LoggerInterface $logger,
+        private EntityManagerInterface $em
+    ) {
         parent::__construct('', new LocalSuplaCloud('http://supla.local'), $logger);
-        $this->commandsCollector = $commandsCollector;
         $this->faker = Factory::create();
-        $this->em = $em;
     }
 
     protected function connect() {
@@ -109,6 +111,18 @@ class SuplaServerMock extends SuplaServer {
         } elseif (preg_match('#^ENTER-CONFIGURATION-MODE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         } elseif (preg_match('#^RESTART-(SUB)?DEVICE:.+$#', $cmd, $match)) {
+            return 'OK:HURRA';
+        } elseif (preg_match('#^OTA-CHECK-UPDATES:(\d+),(\d+)$#', $cmd, $match)) {
+            $device = $this->em->find(IODevice::class, $match[2]);
+            $properties = $device->getProperties();
+            if (rand(0, 1) % 2) {
+                $properties['otaUpdate'] = ['status' => 'notAvailable', 'timestamp' => time()];
+            } else {
+                $properties['otaUpdate'] = ['status' => 'available', 'timestamp' => time(), 'version' => '1.2.3', 'url' => '/v123'];
+            }
+            EntityUtils::setField($device, 'properties', json_encode($properties));
+            $this->em->persist($device);
+            $this->em->flush();
             return 'OK:HURRA';
         } elseif (preg_match('#^PAIR-SUBDEVICE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';

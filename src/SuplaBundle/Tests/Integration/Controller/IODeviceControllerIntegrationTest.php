@@ -308,6 +308,15 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
     }
 
+    public function testCheckingOtaUpdates() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'otaCheckUpdates']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertSuplaCommandExecuted('OTA-CHECK-UPDATES:1,' . $device->getId());
+    }
+
     public function testPairingSubdevice() {
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
         AnyFieldSetter::set($device, 'flags', IoDeviceFlags::PAIRING_SUBDEVICES_AVAILABLE);
