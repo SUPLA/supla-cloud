@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="device.flags.automaticFirmwareUpdatesSupported">
         <div v-if="theDevice.config.otaUpdate?.status === 'available'" class="mt-3">
             <div class="alert alert-info text-left">
                 <div>{{ $t('Firmware update is available.') }}</div>

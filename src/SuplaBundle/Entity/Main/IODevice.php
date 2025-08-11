@@ -324,6 +324,7 @@ class IODevice implements HasLocation, HasRelationsCount {
         return [
             'identifyDeviceAvailable' => IoDeviceFlags::IDENTIFY_DEVICE_AVAILABLE()->isOn($this->flags),
             'pairingSubdevicesAvailable' => IoDeviceFlags::PAIRING_SUBDEVICES_AVAILABLE()->isOn($this->flags),
+            'automaticFirmwareUpdatesSupported' => IoDeviceFlags::AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED()->isOn($this->flags),
         ];
     }
 

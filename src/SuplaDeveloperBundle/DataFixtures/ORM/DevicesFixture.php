@@ -756,6 +756,7 @@ class DevicesFixture extends SuplaFixture {
         // https://github.com/SUPLA/supla-cloud/issues/973#issuecomment-2824769139
         // @codingStandardsIgnoreStart
         AnyFieldSetter::set($device, [
+            'flags' => IoDeviceFlags::AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED,
             'userConfig' => '{"modbus": {"role": "MASTER", "modbusAddress": 1, "slaveTimeoutMs": 0, "serial": {"mode": "RTU", "baudrate": 19200, "stopBits": "ONE"}, "network": {"mode": "TCP", "port": 502}}}',
             'properties' => '{"modbus": {"availableProtocols": ["MASTER","SLAVE","RTU","ASCII","TCP","UDP"], "availableBaudrates": [4800,9600,19200,38400,57600,115200], "availableStopbits": ["ONE", "ONE_AND_HALF", "TWO"]}}',
         ]);

@@ -385,11 +385,19 @@ class IODeviceController extends RestController {
                 $result = $this->suplaServer->deviceAction($ioDevice, 'RESTART-DEVICE');
                 Assertion::true($result, 'Could not restart the device.'); // i18n
             } elseif ($action === 'otaCheckUpdates') {
+                Assertion::true(
+                    $ioDevice->getFlags()['automaticFirmwareUpdatesSupported'],
+                    'Automatic firmware updates is unsupported in the firmware.' // i18n
+                );
                 $result = $this->suplaServer->deviceAction($ioDevice, 'OTA-CHECK-UPDATES');
                 Assertion::true($result, 'Could not check updates.'); // i18n
             } elseif ($action === 'otaPerformUpdate') {
+                Assertion::true(
+                    $ioDevice->getFlags()['automaticFirmwareUpdatesSupported'],
+                    'Automatic firmware updates is unsupported in the firmware.' // i18n
+                );
                 $result = $this->suplaServer->deviceAction($ioDevice, 'OTA-PERFORM-UPDATE');
-                Assertion::true($result, 'Could not perorm firmware updates.'); // i18n
+                Assertion::true($result, 'Could not perform firmware update.'); // i18n
             } elseif ($action === 'pairSubdevice') {
                 Assertion::true(
                     $ioDevice->getFlags()['pairingSubdevicesAvailable'],
