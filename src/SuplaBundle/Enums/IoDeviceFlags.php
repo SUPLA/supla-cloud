@@ -42,7 +42,6 @@ final class IoDeviceFlags extends ChannelFunctionBits {
 
     const int PAIRING_SUBDEVICES_AVAILABLE = 0x0200;
     const int ALWAYS_ALLOW_CHANNEL_DELETION = 0x1000;
-    const int ALWAYS_ALLOW_SUBDEVICE_CHANNEL_DELETION = 0x4000;
     const int BLOCK_ADDING_CHANNELS_AFTER_DELETION = 0x2000;
 
     const int FACTORY_RESET_SUPPORTED = 0x4000;

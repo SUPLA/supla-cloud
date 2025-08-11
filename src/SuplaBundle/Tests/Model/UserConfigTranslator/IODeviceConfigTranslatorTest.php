@@ -22,6 +22,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Model\UserConfigTranslator\HvacThermostatConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\IODeviceConfigTranslator;
+use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
 class IODeviceConfigTranslatorTest extends TestCase {
     /** @var IODeviceConfigTranslator */
@@ -30,7 +31,7 @@ class IODeviceConfigTranslatorTest extends TestCase {
     /** @before */
     public function init() {
         $hvacConfigTranslator = $this->createMock(HvacThermostatConfigTranslator::class);
-        $this->translator = new IODeviceConfigTranslator($hvacConfigTranslator);
+        $this->translator = new IODeviceConfigTranslator($hvacConfigTranslator, new TestTimeProvider());
     }
 
     /** @dataProvider validConfigs */
