@@ -18,4 +18,7 @@ export const devicesApi = {
     async otaPerformUpdate(deviceId) {
         return await api.patch(`iodevices/${deviceId}`, {action: 'otaPerformUpdate'});
     },
+    async factoryReset(deviceId) {
+        return await api.patch(`iodevices/${deviceId}`, {action: 'factoryReset'});
+    },
 }

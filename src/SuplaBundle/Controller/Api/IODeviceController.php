@@ -398,6 +398,13 @@ class IODeviceController extends RestController {
                 );
                 $result = $this->suplaServer->deviceAction($ioDevice, 'OTA-PERFORM-UPDATE');
                 Assertion::true($result, 'Could not perform firmware update.'); // i18n
+            } elseif ($action === 'factoryReset') {
+                Assertion::true(
+                    $ioDevice->getFlags()['factoryResetSupported'],
+                    'Factory reset is unsupported in the firmware.' // i18n
+                );
+                $result = $this->suplaServer->deviceAction($ioDevice, 'FACTORY-RESET');
+                Assertion::true($result, 'Could not perform factory reset.'); // i18n
             } elseif ($action === 'pairSubdevice') {
                 Assertion::true(
                     $ioDevice->getFlags()['pairingSubdevicesAvailable'],

@@ -47,27 +47,15 @@
 <script setup>
     import {computed, ref} from "vue";
     import {useDevicesStore} from "@/stores/devices-store";
-    import {useI18n} from "vue-i18n-bridge";
     import {devicesApi} from "@/api/devices-api";
     import {promiseTimeout, useTimeoutPoll} from "@vueuse/core";
+    import {useDisabledActionsReason} from "@/devices/details/disabled-actions-reason";
 
     const props = defineProps({device: Object});
 
     const devicesStore = useDevicesStore();
-    const i18n = useI18n();
 
-    const theDevice = computed(() => devicesStore.all[props.device.id]);
-    const isConnected = computed(() => theDevice.value?.connected);
-
-    const disabledReason = computed(() => {
-        if (!isConnected.value) {
-            return i18n.t('Device is disconnected.');
-        } else if (props.device.hasPendingChanges) {
-            return i18n.t('Save or discard configuration changes first.')
-        } else {
-            return '';
-        }
-    });
+    const {disabledReason, theDevice} = useDisabledActionsReason(props.device);
 
     const checkCount = ref(0);
     const updateConfirm = ref(false);
