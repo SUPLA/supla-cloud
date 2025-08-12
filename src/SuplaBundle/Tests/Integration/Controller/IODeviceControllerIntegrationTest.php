@@ -334,6 +334,8 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
 
     public function testCheckingOtaUpdates() {
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        AnyFieldSetter::set($device, 'flags', IoDeviceFlags::AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED);
+        $this->persist($device);
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'otaCheckUpdates']);
         $response = $client->getResponse();
