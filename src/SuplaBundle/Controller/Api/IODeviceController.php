@@ -17,11 +17,13 @@
 
 namespace SuplaBundle\Controller\Api;
 
+use Assert\Assert;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaBundle\Auth\Token\WebappToken;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
@@ -405,6 +407,17 @@ class IODeviceController extends RestController {
                 );
                 $result = $this->suplaServer->deviceAction($ioDevice, 'FACTORY-RESET');
                 Assertion::true($result, 'Could not perform factory reset.'); // i18n
+            } elseif ($action === 'setCfgModePassword') {
+                $userToken = $this->getCurrentUserToken();
+                Assertion::isInstanceOf($userToken, WebappToken::class, 'Device password can be changed from the web interface only.');
+                Assertion::true(
+                    $ioDevice->getFlags()['setCfgModePasswordSupported'],
+                    'Password set action is unsupported in the firmware.' // i18n
+                );
+                Assertion::keyExists($body, 'password', 'Missing password.');
+                Assert::that($body['password'])->string()->minLength(5, 'Password must be at least 5 characters long.');
+                $result = $this->suplaServer->deviceAction($ioDevice, 'SET-CFG-MODE-PASSWORD', [base64_encode($body['password'])]);
+                Assertion::true($result, 'Could not set device password.'); // i18n
             } elseif ($action === 'pairSubdevice') {
                 Assertion::true(
                     $ioDevice->getFlags()['pairingSubdevicesAvailable'],

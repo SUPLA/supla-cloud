@@ -21,4 +21,7 @@ export const devicesApi = {
     async factoryReset(deviceId) {
         return await api.patch(`iodevices/${deviceId}`, {action: 'factoryReset'});
     },
+    async setCfgModePassword(deviceId, password) {
+        return await api.patch(`iodevices/${deviceId}`, {action: 'setCfgModePassword', password});
+    },
 }

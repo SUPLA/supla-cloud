@@ -326,6 +326,7 @@ class IODevice implements HasLocation, HasRelationsCount {
             'pairingSubdevicesAvailable' => IoDeviceFlags::PAIRING_SUBDEVICES_AVAILABLE()->isOn($this->flags),
             'automaticFirmwareUpdatesSupported' => IoDeviceFlags::AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED()->isOn($this->flags),
             'factoryResetSupported' => IoDeviceFlags::FACTORY_RESET_SUPPORTED()->isOn($this->flags),
+            'setCfgModePasswordSupported' => IoDeviceFlags::SET_CFG_MODE_PASSWORD_SUPPORTED()->isOn($this->flags),
         ];
     }
 

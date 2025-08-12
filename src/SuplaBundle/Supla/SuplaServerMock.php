@@ -108,8 +108,6 @@ class SuplaServerMock extends SuplaServer {
             return 'OK:HURRA';
         } elseif (preg_match('#^ACTION-(CG-)?(.+?):.+$#', $cmd, $match)) {
             return 'OK:HURRA';
-        } elseif (preg_match('#^ENTER-CONFIGURATION-MODE:.+$#', $cmd, $match)) {
-            return 'OK:HURRA';
         } elseif (preg_match('#^RESTART-(SUB)?DEVICE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         } elseif (preg_match('#^OTA-CHECK-UPDATES:(\d+),(\d+)$#', $cmd, $match)) {
@@ -124,11 +122,9 @@ class SuplaServerMock extends SuplaServer {
             $this->em->persist($device);
             $this->em->flush();
             return 'OK:HURRA';
-        } elseif (preg_match('#^PAIR-SUBDEVICE:.+$#', $cmd, $match)) {
+        } elseif (preg_match('#^(PAIR-SUBDEVICE|SET-CFG-MODE-PASSWORD|DEVICE-SET-TIME|ENTER-CONFIGURATION-MODE):.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         } elseif (preg_match('#^IDENTIFY-(SUB)?DEVICE:.+$#', $cmd, $match)) {
-            return 'OK:HURRA';
-        } elseif (preg_match('#^DEVICE-SET-TIME:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         } elseif (preg_match('#^(RESET-COUNTERS|RECALIBRATE|TAKE-OCR-PHOTO|MUTE-ALARM-SOUND):(\d+),(\d+),(\d+)$#', $cmd, $match)) {
             return "OK:$match[4]\n";

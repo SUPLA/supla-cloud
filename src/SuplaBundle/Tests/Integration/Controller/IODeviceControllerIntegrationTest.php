@@ -17,6 +17,9 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use PHPUnit\Framework\Attributes\Depends;
+use SuplaBundle\Auth\OAuthScope;
+use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
@@ -341,6 +344,33 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $this->assertSuplaCommandExecuted('OTA-CHECK-UPDATES:1,' . $device->getId());
+    }
+
+    public function testSettingDeviceCfgPassword() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        AnyFieldSetter::set($device, 'flags', IoDeviceFlags::SET_CFG_MODE_PASSWORD_SUPPORTED);
+        $this->persist($device);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'setCfgModePassword', 'password' => 'ala123']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertSuplaCommandExecuted('SET-CFG-MODE-PASSWORD:1,' . $device->getId() . ',' . base64_encode('ala123'));
+        return $device->getId();
+    }
+
+    #[Depends('testSettingDeviceCfgPassword')]
+    public function testPreventingToSetDevicePasswordFromApiClient(int $deviceId) {
+        $oauth = self::$container->get(SuplaOAuth2::class);
+        $personalToken = $oauth->createPersonalAccessToken($this->user, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
+        $this->persist($personalToken);
+        self::ensureKernelShutdown();
+        $client = self::createClient(
+            ['debug' => false],
+            ['HTTP_AUTHORIZATION' => 'Bearer ' . $personalToken->getToken(), 'HTTPS' => true]
+        );
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $deviceId, ['action' => 'setCfgModePassword', 'password' => 'ala123']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
     }
 
     public function testPairingSubdevice() {

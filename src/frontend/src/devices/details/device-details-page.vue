@@ -52,6 +52,7 @@
                                     <DeviceOtaUpdatesButtons :device="device"/>
                                     <DeviceRemoteFactoryResetButton :device="device"/>
                                     <DeviceSetTimeButton :device="device"/>
+                                    <DeviceSetCfgPasswordButton :device="device"/>
                                     <DevicePairSubdeviceButton :device="device"/>
                                 </div>
                             </div>
@@ -158,10 +159,12 @@
     import {useChannelsStore} from "@/stores/channels-store";
     import DeviceOtaUpdatesButtons from "@/devices/details/device-ota-updates-buttons.vue";
     import DeviceRemoteFactoryResetButton from "@/devices/details/device-remote-factory-reset-button.vue";
+    import DeviceSetCfgPasswordButton from "@/devices/details/device-set-cfg-password-button.vue";
 
     export default {
         props: ['id'],
         components: {
+            DeviceSetCfgPasswordButton,
             DeviceRemoteFactoryResetButton,
             DeviceOtaUpdatesButtons,
             DeviceIdentifyDeviceButton,
