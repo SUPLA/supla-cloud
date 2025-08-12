@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {accessIdsApi} from "@/api/access-ids-api";
 
 export const useAccessIdsStore = defineStore('accessIds', () => {
@@ -23,11 +23,13 @@ export const useAccessIdsStore = defineStore('accessIds', () => {
         }
     };
 
+    const list = computed(() => ids.value.map(id => all.value[id]));
+
     const $reset = () => {
         all.value = {};
         ids.value = [];
         fetchAll.promise = undefined;
     };
 
-    return {all, ids, $reset, fetchAll};
+    return {all, ids, list, $reset, fetchAll};
 });

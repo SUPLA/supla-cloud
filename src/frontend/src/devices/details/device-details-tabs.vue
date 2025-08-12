@@ -1,75 +1,52 @@
 <template>
     <div class="details-tabs">
-        <div class="container">
-            <div class="container" v-if="availableTabs.length > 1">
-                <div class="form-group">
-                    <ul class="nav nav-tabs">
-                        <li v-for="tabDefinition in availableTabs" :key="tabDefinition.id"
-                            :class="{active: $route.name === tabDefinition.route}">
-                            <router-link :to="{name: tabDefinition.route, params: {id: device.id}}">
-                                {{ $t(tabDefinition.header) }}
-                                <span v-if="tabDefinition.count !== undefined">({{ tabDefinition.count() }})</span>
-                            </router-link>
-                        </li>
-                    </ul>
-                </div>
+        <div class="container" v-if="availableTabs.length > 1">
+            <div class="form-group">
+                <ul class="nav nav-tabs">
+                    <li v-for="tabDefinition in availableTabs" :key="tabDefinition.id"
+                        :class="{active: $route.name === tabDefinition.route}">
+                        <router-link :to="{name: tabDefinition.route, params: {id: device.id}}">
+                            {{ $t(tabDefinition.header) }}
+                            <span v-if="tabDefinition.count !== undefined">({{ tabDefinition.count() }})</span>
+                        </router-link>
+                    </li>
+                </ul>
             </div>
         </div>
         <RouterView :device="device"/>
     </div>
 </template>
 
-<script>
-    export default {
-        props: {
-            device: Object,
-        },
-        data() {
-            return {
-                tabVisible: true,
-                availableTabs: [],
-                channelUpdatedListener: undefined,
-            };
-        },
-        methods: {
-            rerender() {
-                this.tabVisible = false;
-                this.$nextTick(() => this.tabVisible = true);
-            },
-            detectAvailableTabs() {
-                this.availableTabs = [];
-                if (this.device.locked) {
-                    this.availableTabs.push({
-                        route: 'device.unlock',
-                        header: 'Unlock the device', // i18n
-                    });
-                } else {
-                    this.availableTabs.push({
-                        route: 'device.channels',
-                        header: 'Channels', // i18n
-                    });
-                    if (this.device.relationsCount.managedNotifications) {
-                        this.availableTabs.push({
-                            route: 'device.notifications',
-                            header: 'Notifications', // i18n
-                        });
-                    }
-                    if (Object.keys(this.device.config || {}).length) {
-                        this.availableTabs.push({
-                            route: 'device.settings',
-                            header: 'Settings', // i18n
-                        });
-                    }
-                }
-            },
-        },
-        mounted() {
-            this.detectAvailableTabs();
-            if (this.availableTabs.length) {
-                if (this.$router.currentRoute.name === 'device' || !this.availableTabs.map(t => t.route).includes(this.$router.currentRoute.name)) {
-                    this.$router.replace({name: this.availableTabs[0].route, params: {id: this.device.id}});
-                }
+<script setup>
+    import {computed, onMounted} from "vue";
+    import {useRouter} from "vue-router/composables";
+
+    const props = defineProps({device: Object});
+    const router = useRouter();
+
+    const availableTabs = computed(() => {
+        const tabs = [];
+        if (props.device.locked) {
+            tabs.push({header: 'Unlock the device', route: 'device.unlock'}); // i18n
+            tabs.push({header: 'Details', route: 'device.details'}); // i18n
+        } else {
+            tabs.push({header: 'Channels', route: 'device.channels'}); // i18n
+            tabs.push({header: 'Details', route: 'device.details'}); // i18n
+            if (props.device.relationsCount.managedNotifications) {
+                tabs.push({header: 'Notifications', route: 'device.notifications'}); // i18n
             }
-        },
-    };
+            if (Object.keys(props.device.config || {}).length) {
+                tabs.push({header: 'Settings', route: 'device.settings'}); // i18n
+            }
+        }
+        return tabs;
+    });
+
+    onMounted(() => {
+        if (availableTabs.value.length) {
+            if (router.currentRoute.name === 'device' || !availableTabs.value.map(t => t.route).includes(router.currentRoute.name)) {
+                router.replace({name: availableTabs.value[0].route, params: {id: props.device.id}});
+            }
+        }
+    })
 </script>

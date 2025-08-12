@@ -1,7 +1,7 @@
 import Vue from "vue";
 import {DateTime} from "luxon";
 
-function toLuxon(anything) {
+export function toLuxon(anything) {
     if (typeof anything === 'string') {
         return DateTime.fromISO(anything);
     } else if (typeof anything === 'number') {

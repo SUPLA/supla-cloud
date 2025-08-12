@@ -39,8 +39,7 @@ export const useDevicesStore = defineStore('devices', () => {
             .then(() => {
                 delete all.value[deviceId];
                 ids.value = ids.value.filter((id) => id !== deviceId);
-                const channelsStore = useChannelsStore();
-                channelsStore.refetchAll();
+                return useChannelsStore().refetchAll();
             });
     }
 

@@ -78,6 +78,15 @@ function post(endpoint, body, config = {}) {
     return fetch(buildAbsoluteUrl(endpoint), requestOptions).then(responseHandler(requestOptions, config));
 }
 
+function put(endpoint, body, config = {}) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: getDefaultHeadersJson(),
+        body: JSON.stringify(body),
+    };
+    return fetch(buildAbsoluteUrl(endpoint), requestOptions).then(responseHandler(requestOptions, config));
+}
+
 function patch(endpoint, body, config = {}) {
     const requestOptions = {
         method: 'PATCH',
@@ -98,6 +107,7 @@ function delete_(endpoint, config = {}) {
 export const api = {
     get,
     post,
+    put,
     patch,
     delete_,
 };

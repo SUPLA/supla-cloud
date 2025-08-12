@@ -8,6 +8,7 @@ import {api} from "@/api/api";
 import {useDevicesStore} from "@/stores/devices-store";
 import {useChannelsStore} from "@/stores/channels-store";
 import {useLocationsStore} from "@/stores/locations-store";
+import {useAccessIdsStore} from "@/stores/access-ids-store";
 
 export const useCurrentUserStore = defineStore('currentUser', () => {
     const userToken = useStorage('supla-user-token');
@@ -84,6 +85,7 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
                 useDevicesStore().fetchAll(),
                 useChannelsStore().fetchAll(),
                 useLocationsStore().fetchAll(),
+                useAccessIdsStore().fetchAll(),
             ]);
             userData.value = body;
         } catch (error) {

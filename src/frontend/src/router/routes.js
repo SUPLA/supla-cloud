@@ -177,13 +177,18 @@ export default [
         path: '/devices/:id',
         component: () => import("@/devices/details/device-details-page"),
         name: 'device',
-        props: true,
+        props: ({params}) => ({id: Number.parseInt(params.id)}),
         children: [
             {
                 path: 'channels',
                 component: () => import("@/devices/details/device-channel-list-page.vue"),
                 name: 'device.channels',
                 props: ({params}) => ({deviceId: Number.parseInt(params.id)}),
+            },
+            {
+                path: 'details',
+                component: () => import("@/devices/details/device-details-tab.vue"),
+                name: 'device.details',
             },
             {
                 path: 'notifications',

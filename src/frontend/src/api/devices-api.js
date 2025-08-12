@@ -12,6 +12,9 @@ export const devicesApi = {
     async remove(deviceId, safe = true) {
         return await api.delete_(`iodevices/${deviceId}?safe=${safe ? '1' : '0'}`, {skipErrorHandler: [409]})
     },
+    async update(deviceId, newSettings, safe = true) {
+        return await api.put(`iodevices/${deviceId}?safe=${safe ? '1' : '0'}`, newSettings, {skipErrorHandler: [409]})
+    },
     async otaCheckUpdates(deviceId) {
         return await api.patch(`iodevices/${deviceId}`, {action: 'otaCheckUpdates'});
     },
