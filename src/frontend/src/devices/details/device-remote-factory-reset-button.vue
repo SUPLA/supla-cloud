@@ -19,16 +19,15 @@
 
 <script setup>
     import {successNotification} from "@/common/notifier";
-    import {ref} from "vue";
+    import {computed, ref} from "vue";
     import {devicesApi} from "@/api/devices-api";
-    import {useDisabledActionsReason} from "@/devices/details/disabled-actions-reason";
 
     const props = defineProps({device: Object});
 
     const showConfirmDialog = ref(false);
     const loading = ref(false);
 
-    const {disabledReason} = useDisabledActionsReason(props.device);
+    const disabledReason = computed(() => props.device.connected ? '' : 'Device is disconnected.');
 
     async function factoryResetDevice() {
         try {

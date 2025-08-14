@@ -1,7 +1,7 @@
 <script setup>
     import {computed} from "vue";
 
-    const props = defineProps({options: Array, value: String});
+    const props = defineProps({options: Array, value: [String, Number]});
     const emit = defineEmits(['input']);
 
     const modelValue = computed({

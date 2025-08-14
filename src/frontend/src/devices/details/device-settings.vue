@@ -65,10 +65,6 @@
                     <div class="form-group with-border-bottom" v-if="config.homeScreen !== undefined">
                         <DeviceSettingsHomeScreen v-model="config.homeScreen" :config="config" @input="onChange()"/>
                     </div>
-                    <div class="form-group details-page-block" v-if="config.modbus !== undefined">
-                        <h3>MODBUS</h3>
-                        <DeviceSettingsModbus v-model="config.modbus" :config="config" @input="onChange()"/>
-                    </div>
                     <div class="form-group with-border-bottom" v-if="config.userInterface">
                         <label>{{ $t('Device interface') }}</label>
                         <div class="dropdown">
@@ -149,11 +145,9 @@
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
     import DeviceSettingsHomeScreen from "@/devices/details/device-settings-home-screen.vue";
-    import DeviceSettingsModbus from "@/devices/details/device-settings-modbus.vue";
 
     export default {
         components: {
-            DeviceSettingsModbus,
             DeviceSettingsHomeScreen,
             ConfigConflictWarning,
             TransitionExpand,

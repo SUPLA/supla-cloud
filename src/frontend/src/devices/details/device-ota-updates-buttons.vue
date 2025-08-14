@@ -1,21 +1,21 @@
 <template>
     <div v-if="!device.locked && device.flags.automaticFirmwareUpdatesSupported">
-        <div v-if="theDevice.config.otaUpdate?.status === 'available'" class="mt-3">
-            <div class="alert alert-info text-left">
+        <div v-if="device.config.otaUpdate?.status === 'available'">
+            <div class="alert alert-info text-left my-1">
                 <div>{{ $t('Firmware update is available.') }}</div>
-                <div>{{ $t('New version') }}: {{ theDevice.config.otaUpdate.version || '?' }}</div>
+                <div>{{ $t('New version') }}: {{ device.config.otaUpdate.version || '?' }}</div>
                 <div v-if="updateUrl">
                     {{ $t('Details') }}:
                     <a :href="updateUrl">{{ updateUrl }}</a>
                 </div>
             </div>
         </div>
-        <div v-else-if="theDevice.config.otaUpdate?.status === 'notAvailable'" class="mt-3">
-            <div class="alert alert-info">
+        <div v-else-if="device.config.otaUpdate?.status === 'notAvailable'">
+            <div class="alert alert-info my-1">
                 <div>{{ $t('You have the newest firmware installed.') }}</div>
             </div>
         </div>
-        <div class="d-flex mt-1">
+        <div class="d-flex mt-2">
             <FormButton :disabled-reason="disabledReason" @click="checkUpdates()" :loading="isCheckingUpdates"
                 button-class="btn-default btn-xs btn-block" class="flex-basis-50 pr-1">
                 {{ $t('Check available updates') }}
@@ -41,20 +41,19 @@
     import {useDevicesStore} from "@/stores/devices-store";
     import {devicesApi} from "@/api/devices-api";
     import {promiseTimeout, useTimeoutPoll} from "@vueuse/core";
-    import {useDisabledActionsReason} from "@/devices/details/disabled-actions-reason";
     import FormButton from "@/common/gui/FormButton.vue";
 
     const props = defineProps({device: Object});
 
     const devicesStore = useDevicesStore();
 
-    const {disabledReason, theDevice} = useDisabledActionsReason(props.device);
+    const disabledReason = computed(() => props.device.connected ? '' : 'Device is disconnected.');
 
     const checkCount = ref(0);
     const updateConfirm = ref(false);
     const isCheckingUpdates = ref(false);
     const updateUrl = computed(() => {
-        const url = theDevice.value?.config.otaUpdate?.url;
+        const url = props.device?.config.otaUpdate?.url;
         if (url) {
             return url.startsWith('http') ? url : 'https://updates.supla.org' + url;
         } else {

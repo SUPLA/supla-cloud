@@ -26,8 +26,7 @@
 </template>
 
 <script setup>
-    import {ref} from "vue";
-    import {useDisabledActionsReason} from "@/devices/details/disabled-actions-reason";
+    import {computed, ref} from "vue";
     import {errorNotification} from "@/common/notifier";
     import {devicesApi} from "@/api/devices-api";
 
@@ -39,7 +38,7 @@
     const password = ref('');
     const passwordConfirmation = ref('');
 
-    const {disabledReason} = useDisabledActionsReason(props.device);
+    const disabledReason = computed(() => props.device.connected ? '' : 'Device is disconnected.');
 
     async function setDevicePassword() {
         if (password.value !== passwordConfirmation.value) {

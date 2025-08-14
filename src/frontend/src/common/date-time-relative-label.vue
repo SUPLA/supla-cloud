@@ -5,7 +5,7 @@
 <script setup>
     import {toLuxon} from "@/common/filters-date";
     import {useIntervalFn} from "@vueuse/core";
-    import {ref} from "vue";
+    import {ref, watch} from "vue";
 
     const props = defineProps({datetime: [Object, String], pattern: {type: String, default: '%s'}});
 
@@ -19,4 +19,5 @@
     }
 
     useIntervalFn(() => relativeLabel.value = formatDateTimeRelative(), 30000, {immediateCallback: true});
+    watch(() => props.datetime, () => relativeLabel.value = formatDateTimeRelative());
 </script>

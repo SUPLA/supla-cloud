@@ -681,9 +681,11 @@ body.warning {
     margin-top: 0;
   }
   @include on-xs-and-down {
-    border: 0;
-    background: white;
-    padding: 5px 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-radius: 0;
+    padding: 0 0 15px 0;
   }
 }
 

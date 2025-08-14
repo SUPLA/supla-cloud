@@ -28,10 +28,10 @@
         const tabs = [];
         if (props.device.locked) {
             tabs.push({header: 'Unlock the device', route: 'device.unlock'}); // i18n
-            tabs.push({header: 'Details', route: 'device.details'}); // i18n
+            tabs.push({header: 'Device', route: 'device.details'}); // i18n
         } else {
             tabs.push({header: 'Channels', route: 'device.channels'}); // i18n
-            tabs.push({header: 'Details', route: 'device.details'}); // i18n
+            tabs.push({header: 'Device', route: 'device.details'}); // i18n
             if (props.device.relationsCount.managedNotifications) {
                 tabs.push({header: 'Notifications', route: 'device.notifications'}); // i18n
             }
