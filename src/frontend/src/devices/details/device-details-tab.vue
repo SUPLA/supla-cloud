@@ -33,6 +33,7 @@
     import DeviceSettingsModbus from "@/devices/details/device-settings-modbus.vue";
     import DeviceSettingsHomeScreen from "@/devices/details/device-settings-home-screen.vue";
     import DeviceDetailsTabSettingsUserInterface from "@/devices/details/device-details-tab-settings-user-interface.vue";
+    import DeviceDetailsTabSettingsScreenBrightness from "@/devices/details/device-details-tab-settings-screen-brightness.vue";
 
     const props = defineProps({device: Object});
 
@@ -48,6 +49,11 @@
             title: 'Device interface',
             component: DeviceDetailsTabSettingsUserInterface,
             show: props.device.config?.userInterface !== undefined
+        },
+        {
+            title: 'Screen brightness',
+            component: DeviceDetailsTabSettingsScreenBrightness,
+            show: props.device.config?.screenBrightness !== undefined
         },
     ];
 

@@ -19,42 +19,6 @@
                             <option value="ON_WHEN_CONNECTED">{{ $t('statusLed_ON_WHEN_CONNECTED') }}</option>
                         </select>
                     </div>
-                    <div v-if="config.screenBrightness !== undefined" class="with-border-bottom">
-                        <div class="form-group">
-                            <label>{{ $t('Screen brightness') }}</label>
-                            <div>
-                                <label class="checkbox2 checkbox2-grey">
-                                    <input type="checkbox" v-model="config.screenBrightness.auto" @change="onScreenBrightnessAutoChange()">
-                                    {{ $t('Automatic') }}
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group" v-if="config.screenBrightness.auto">
-                            <label>{{ $t('Brightness adjustment for automatic mode') }}</label>
-                            <div class="mt-4 mb-6">
-                                <VueSlider v-model="config.screenBrightness.level" :min="-100" :max="100" :interval="10"
-                                    @change="onChange()"
-                                    :process="false" tooltip="always" tooltip-placement="bottom" class="green"
-                                    :tooltip-formatter="(v) => v === 0 ? $t('default') : ((v > 0 ? '+' + v : v) + '%')"
-                                    :marks="{0: {label: ''}}">
-                                    <template #label>
-                                        <div class="vue-slider-mark-label mark-on-top">
-                                            <fa icon="circle-half-stroke"/>
-                                        </div>
-                                    </template>
-                                </VueSlider>
-                            </div>
-                        </div>
-                        <div class="form-group" v-else>
-                            <label>{{ $t('Brightness level') }}</label>
-                            <div class="mt-3 mb-6">
-                                <VueSlider v-model="config.screenBrightness.level" @change="onChange()"
-                                    :min="0" :max="100" :interval="5"
-                                    tooltip="always" tooltip-placement="bottom" class="green"
-                                    :tooltip-formatter="(v) => (v === 0 ? 1 : v) + '%'"/>
-                            </div>
-                        </div>
-                    </div>
                     <div class="form-group with-border-bottom" v-if="config.buttonVolume !== undefined">
                         <label>{{ $t('Button volume') }}</label>
                         <div class="mt-3 mb-6">
@@ -118,14 +82,6 @@
             this.cancelChanges();
         },
         methods: {
-            onScreenBrightnessAutoChange() {
-                if (this.config.screenBrightness.auto) {
-                    this.config.screenBrightness.level = 0;
-                } else {
-                    this.config.screenBrightness.level = 50;
-                }
-                this.onChange();
-            },
             onChange() {
                 this.hasPendingChanges = true;
             },
