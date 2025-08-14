@@ -31,6 +31,7 @@
     import DeviceDetailsTabRemoteButtons from "@/devices/details/device-details-tab-remote-buttons.vue";
     import {computed} from "vue";
     import DeviceSettingsModbus from "@/devices/details/device-settings-modbus.vue";
+    import DeviceSettingsHomeScreen from "@/devices/details/device-settings-home-screen.vue";
 
     const props = defineProps({device: Object});
 
@@ -41,6 +42,7 @@
         {title: 'Access ID', component: DeviceDetailsTabAccessIds, show: !props.device.locked},
         {title: 'Remote access', component: DeviceDetailsTabRemoteButtons, show: !props.device.locked},
         {title: 'MODBUS', component: DeviceSettingsModbus, show: props.device.config?.modbus !== undefined},
+        {title: 'Home screen', component: DeviceSettingsHomeScreen, show: props.device.config?.homeScreen !== undefined},
     ];
 
     const tiles = computed(() => availableTiles.filter(t => t.show));

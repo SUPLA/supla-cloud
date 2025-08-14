@@ -31,7 +31,7 @@
 
 <script setup>
     import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal.vue";
-    import {onMounted, reactive, ref} from "vue";
+    import {onMounted, reactive, ref, watch} from "vue";
     import {devicesApi} from "@/api/devices-api";
     import {useChannelsStore} from "@/stores/channels-store";
     import SaveCancelChangesButtons from "@/devices/details/save-cancel-changes-buttons.vue";
@@ -52,6 +52,7 @@
     }
 
     onMounted(cancelChanges);
+    watch(() => props.device, () => cancelChanges());
 
     async function saveChanges(safe = true) {
         loading.value = true;
