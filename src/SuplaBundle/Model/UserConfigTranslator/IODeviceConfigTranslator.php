@@ -119,7 +119,7 @@ readonly class IODeviceConfigTranslator {
                 Assert::that($value, null, 'userInterface')->isArray()->keyExists('disabled');
                 Assertion::inArray($value['disabled'], [true, false, 'partial'], null, 'userInterface.disabled');
                 if (is_bool($value['disabled'])) {
-                    Assertion::count($value, 1, null, 'userInterface');
+                    $value = ['disabled' => $value['disabled']];
                 } else {
                     $constraints = $this->getUserInterfaceConstraints($device);
                     $tempMin = $value['minAllowedTemperatureSetpointFromLocalUI'] ?? null;
