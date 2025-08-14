@@ -30,10 +30,11 @@
     import DeviceDetailsTabAccessIds from "@/devices/details/device-details-tab-access-ids.vue";
     import DeviceDetailsTabRemoteButtons from "@/devices/details/device-details-tab-remote-buttons.vue";
     import {computed} from "vue";
-    import DeviceSettingsModbus from "@/devices/details/device-settings-modbus.vue";
-    import DeviceSettingsHomeScreen from "@/devices/details/device-settings-home-screen.vue";
     import DeviceDetailsTabSettingsUserInterface from "@/devices/details/device-details-tab-settings-user-interface.vue";
     import DeviceDetailsTabSettingsScreenBrightness from "@/devices/details/device-details-tab-settings-screen-brightness.vue";
+    import DeviceDetailsTabSettingsLed from "@/devices/details/device-details-tab-settings-led.vue";
+    import DeviceDetailsTabSettingsHomeScreen from "@/devices/details/device-details-tab-settings-home-screen.vue";
+    import DeviceDetailsTabSettingsModbus from "@/devices/details/device-details-tab-settings-modbus.vue";
 
     const props = defineProps({device: Object});
 
@@ -43,8 +44,8 @@
         {title: 'Location', component: DeviceDetailsTabLocation, show: !props.device.locked},
         {title: 'Access ID', component: DeviceDetailsTabAccessIds, show: !props.device.locked},
         {title: 'Remote access', component: DeviceDetailsTabRemoteButtons, show: !props.device.locked},
-        {title: 'MODBUS', component: DeviceSettingsModbus, show: props.device.config?.modbus !== undefined},
-        {title: 'Home screen', component: DeviceSettingsHomeScreen, show: props.device.config?.homeScreen !== undefined},
+        {title: 'MODBUS', component: DeviceDetailsTabSettingsModbus, show: props.device.config?.modbus !== undefined},
+        {title: 'Home screen', component: DeviceDetailsTabSettingsHomeScreen, show: props.device.config?.homeScreen !== undefined},
         {
             title: 'Device interface',
             component: DeviceDetailsTabSettingsUserInterface,
@@ -54,6 +55,11 @@
             title: 'Screen brightness',
             component: DeviceDetailsTabSettingsScreenBrightness,
             show: props.device.config?.screenBrightness !== undefined
+        },
+        {
+            title: 'LED settings',
+            component: DeviceDetailsTabSettingsLed,
+            show: props.device.config?.powerStatusLed !== undefined || props.device.config?.statusLed !== undefined,
         },
     ];
 

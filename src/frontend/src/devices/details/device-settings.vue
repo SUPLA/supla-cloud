@@ -11,14 +11,6 @@
                     <transition-expand>
                         <ConfigConflictWarning @refresh="replaceConfigWithConflictingConfig()" v-if="conflictingConfig"/>
                     </transition-expand>
-                    <div class="form-group with-border-bottom" v-if="config.statusLed">
-                        <label for="statusLed">{{ $t('Status LED') }}</label>
-                        <select id="statusLed" class="form-control" v-model="config.statusLed" @change="onChange()">
-                            <option value="OFF_WHEN_CONNECTED">{{ $t('statusLed_OFF_WHEN_CONNECTED') }}</option>
-                            <option value="ALWAYS_OFF">{{ $t('statusLed_ALWAYS_OFF') }}</option>
-                            <option value="ON_WHEN_CONNECTED">{{ $t('statusLed_ON_WHEN_CONNECTED') }}</option>
-                        </select>
-                    </div>
                     <div class="form-group with-border-bottom" v-if="config.buttonVolume !== undefined">
                         <label>{{ $t('Button volume') }}</label>
                         <div class="mt-3 mb-6">
@@ -41,12 +33,6 @@
                                 {{ $t('firmwareUpdatePolicy_' + option) }}
                             </option>
                         </select>
-                    </div>
-                    <div class="form-group with-border-bottom" v-if="powerStatusLedBoolean !== undefined">
-                        <label class="checkbox2 checkbox2-grey">
-                            <input type="checkbox" v-model="powerStatusLedBoolean" @change="onChange()">
-                            {{ $t('Enable power status LED') }}
-                        </label>
                     </div>
                 </div>
             </div>
@@ -91,14 +77,6 @@
             },
             saveDeviceSettings() {
                 const config = deepCopy(this.config);
-                if (config.screenBrightness) {
-                    if (!config.screenBrightness.auto && !this.config.screenBrightness.level) {
-                        config.screenBrightness.level = 1;
-                    }
-                }
-                if (config.userInterface && config.userInterface.disabled !== 'partial') {
-                    config.userInterface = {disabled: config.userInterface.disabled};
-                }
                 this.$http.put(`iodevices/${this.device.id}?safe=true`, {
                     config,
                     configBefore: this.device.configBefore
@@ -121,16 +99,6 @@
                 this.cancelChanges();
             },
         },
-        computed: {
-            powerStatusLedBoolean: {
-                get() {
-                    return this.config.powerStatusLed === undefined ? undefined : this.config.powerStatusLed === 'ENABLED';
-                },
-                set(value) {
-                    this.config.powerStatusLed = value ? 'ENABLED' : 'DISABLED';
-                }
-            },
-        }
     }
 </script>
 

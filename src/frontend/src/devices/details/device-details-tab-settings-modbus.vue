@@ -97,27 +97,27 @@
                 </transition-expand>
             </div>
         </div>
-        <SaveCancelChangesButtons :original="device.config.modbus" :changes="modbusConfig"
-            @cancel="readModbusConfig()" @save="saveChanges()"/>
+        <SaveCancelChangesButtons :original="originalConfig" :changes="newConfig" @cancel="cloneConfig()" @save="saveChanges()"/>
     </div>
 </template>
 
 <script setup>
-    import {computed, ref} from "vue";
+    import {computed} from "vue";
     import {deepCopy} from "@/common/utils";
     import NumberInput from "@/common/number-input.vue";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
     import SaveCancelChangesButtons from "@/devices/details/save-cancel-changes-buttons.vue";
-    import {devicesApi} from "@/api/devices-api";
-    import {useDevicesStore} from "@/stores/devices-store";
+    import {useDeviceSettingsForm} from "@/devices/details/device-details-helpers";
 
     const props = defineProps({device: Object});
 
-    const modbusConfig = ref({});
+    const {newConfig, cloneConfig, saveChanges, originalConfig} = useDeviceSettingsForm(props.device.id, (device) => ({
+        modbus: deepCopy(device.config.modbus),
+    }))
+
+    const modbusConfig = computed(() => newConfig.value.modbus);
     const modbusConstraints = computed(() => props.device.config.modbusConstraints);
-    const readModbusConfig = () => modbusConfig.value = deepCopy(props.device.config.modbus);
-    readModbusConfig();
 
     const slaveTimeoutMsDefault = computed({
         get: () => modbusConfig.value.slaveTimeoutMs === 0,
@@ -133,16 +133,4 @@
         get: () => modbusConfig.value.networkConfig.mode !== 'DISABLED',
         set: (value) => modbusConfig.value.networkConfig.mode = value ? modbusConstraints.value.availableNetworkModes[0] : 'DISABLED',
     });
-
-    async function saveChanges() {
-        try {
-            await devicesApi.update(props.device.id, {
-                config: {modbus: modbusConfig.value},
-                configBefore: props.device.config,
-            });
-        } finally {
-            await useDevicesStore().fetchDevice(props.device.id);
-            readModbusConfig();
-        }
-    }
 </script>
