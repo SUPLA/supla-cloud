@@ -1,5 +1,5 @@
 <template>
-    <div v-if="device.flags.automaticFirmwareUpdatesSupported">
+    <div v-if="!device.locked && device.flags.automaticFirmwareUpdatesSupported">
         <div v-if="theDevice.config.otaUpdate?.status === 'available'" class="mt-3">
             <div class="alert alert-info text-left">
                 <div>{{ $t('Firmware update is available.') }}</div>
@@ -9,29 +9,21 @@
                     <a :href="updateUrl">{{ updateUrl }}</a>
                 </div>
             </div>
-            <div v-tooltip="disabledReason">
-                <button class="btn btn-default btn-block btn-wrapped"
-                    type="button"
-                    :disabled="!!disabledReason || isCheckingUpdates"
-                    @click="updateConfirm = true">
-                    <button-loading-dots v-if="isCheckingUpdates"/>
-                    <span v-else>{{ $t('Perform firmware update') }}</span>
-                </button>
-            </div>
         </div>
         <div v-else-if="theDevice.config.otaUpdate?.status === 'notAvailable'" class="mt-3">
             <div class="alert alert-info">
                 <div>{{ $t('You have the newest firmware installed.') }}</div>
             </div>
         </div>
-        <div v-else v-tooltip="disabledReason">
-            <button class="btn btn-default btn-block btn-wrapped"
-                type="button"
-                :disabled="!!disabledReason || isCheckingUpdates"
-                @click="checkUpdates()">
-                <button-loading-dots v-if="isCheckingUpdates"/>
-                <span v-else>{{ $t('Check available updates') }}</span>
-            </button>
+        <div class="d-flex mt-1">
+            <FormButton :disabled-reason="disabledReason" @click="checkUpdates()" :loading="isCheckingUpdates"
+                button-class="btn-default btn-xs btn-block" class="flex-basis-50 pr-1">
+                {{ $t('Check available updates') }}
+            </FormButton>
+            <FormButton :disabled-reason="disabledReason" @click="updateConfirm = true"
+                button-class="btn-default btn-xs btn-block" class="flex-basis-50 pl-1">
+                {{ $t('Perform firmware update') }}
+            </FormButton>
         </div>
         <modal-confirm v-if="updateConfirm"
             class="modal-warning"
@@ -50,6 +42,7 @@
     import {devicesApi} from "@/api/devices-api";
     import {promiseTimeout, useTimeoutPoll} from "@vueuse/core";
     import {useDisabledActionsReason} from "@/devices/details/disabled-actions-reason";
+    import FormButton from "@/common/gui/FormButton.vue";
 
     const props = defineProps({device: Object});
 
