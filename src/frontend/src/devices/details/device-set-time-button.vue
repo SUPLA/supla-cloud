@@ -1,6 +1,5 @@
 <template>
-    <div v-if="device.config && device.config.automaticTimeSync === false"
-        v-tooltip="disabledReason">
+    <div v-tooltip="disabledReason">
         <button class="btn btn-default btn-block btn-wrapped"
             type="button"
             :disabled="!!disabledReason"

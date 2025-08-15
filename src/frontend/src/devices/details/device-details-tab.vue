@@ -35,6 +35,7 @@
     import DeviceDetailsTabSettingsLed from "@/devices/details/device-details-tab-settings-led.vue";
     import DeviceDetailsTabSettingsHomeScreen from "@/devices/details/device-details-tab-settings-home-screen.vue";
     import DeviceDetailsTabSettingsModbus from "@/devices/details/device-details-tab-settings-modbus.vue";
+    import DeviceDetailsTabSettingsOther from "@/devices/details/device-details-tab-settings-other.vue";
 
     const props = defineProps({device: Object});
 
@@ -43,7 +44,18 @@
         {title: 'Basic settings', component: DeviceDetailsTabBasicSettings, show: true},
         {title: 'Location', component: DeviceDetailsTabLocation, show: !props.device.locked},
         {title: 'Access ID', component: DeviceDetailsTabAccessIds, show: !props.device.locked},
-        {title: 'Remote access', component: DeviceDetailsTabRemoteButtons, show: !props.device.locked},
+        {
+            title: 'Remote access',
+            component: DeviceDetailsTabRemoteButtons,
+            show: !props.device.locked && (
+                props.device.flags.enterConfigurationModeAvailable
+                || props.device.flags.identifyDeviceAvailable
+                || props.device.remoteRestartAvailable
+                || props.device.flags.factoryResetSupported
+                || props.device.flags.setCfgModePasswordSupported
+                || props.device.flags.pairingSubdevicesAvailable
+            )
+        },
         {title: 'MODBUS', component: DeviceDetailsTabSettingsModbus, show: props.device.config?.modbus !== undefined},
         {title: 'Home screen', component: DeviceDetailsTabSettingsHomeScreen, show: props.device.config?.homeScreen !== undefined},
         {
@@ -60,6 +72,13 @@
             title: 'LED settings',
             component: DeviceDetailsTabSettingsLed,
             show: props.device.config?.powerStatusLed !== undefined || props.device.config?.statusLed !== undefined,
+        },
+        {
+            title: 'Other settings',
+            component: DeviceDetailsTabSettingsOther,
+            show: props.device.config?.buttonVolume !== undefined
+                || props.device.config?.automaticTimeSync !== undefined
+                || props.device.config?.firmwareUpdatePolicy !== undefined,
         },
     ];
 

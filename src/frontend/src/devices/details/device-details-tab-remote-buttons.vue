@@ -4,7 +4,6 @@
         <DeviceIdentifyDeviceButton :device="device" class="mb-2"/>
         <DeviceRemoteRestartButton :device="device" class="mb-2"/>
         <DeviceRemoteFactoryResetButton :device="device" class="mb-2"/>
-        <DeviceSetTimeButton :device="device" class="mb-2"/>
         <DeviceSetCfgPasswordButton :device="device" class="mb-2"/>
         <DevicePairSubdeviceButton :device="device" class="mb-2"/>
     </div>
@@ -15,7 +14,6 @@
     import DeviceIdentifyDeviceButton from "@/devices/details/device-identify-device-button.vue";
     import DeviceRemoteRestartButton from "@/devices/details/device-remote-restart-button.vue";
     import DeviceRemoteFactoryResetButton from "@/devices/details/device-remote-factory-reset-button.vue";
-    import DeviceSetTimeButton from "@/devices/details/device-set-time-button.vue";
     import DeviceSetCfgPasswordButton from "@/devices/details/device-set-cfg-password-button.vue";
     import DevicePairSubdeviceButton from "@/devices/details/device-pair-subdevice-button.vue";
 

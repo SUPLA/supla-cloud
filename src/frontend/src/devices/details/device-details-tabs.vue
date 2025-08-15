@@ -35,9 +35,6 @@
             if (props.device.relationsCount.managedNotifications) {
                 tabs.push({header: 'Notifications', route: 'device.notifications'}); // i18n
             }
-            if (Object.keys(props.device.config || {}).length) {
-                tabs.push({header: 'Settings', route: 'device.settings'}); // i18n
-            }
         }
         return tabs;
     });

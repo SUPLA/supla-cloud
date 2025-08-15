@@ -197,11 +197,6 @@ export default [
                 props: true
             },
             {
-                path: 'settings',
-                component: () => import("@/devices/details/device-settings.vue"),
-                name: 'device.settings',
-            },
-            {
                 path: 'unlock',
                 component: () => import("@/devices/details/device-unlock.vue"),
                 name: 'device.unlock',
