@@ -26,8 +26,8 @@ export const useDeviceSettingsForm = (deviceId, configGetter) => {
         } catch (error) {
             if (error.status === 409) {
                 warningNotification(
-                    'Warning', // i18n
-                    'The config was changed from other source. Please make the changes and save again.' // i18n
+                    'Settings have not been saved!', // i18n
+                    'The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.' // i18n
                 )
             }
         } finally {
