@@ -744,6 +744,11 @@ class DevicesFixture extends SuplaFixture {
         ]));
         AnyFieldSetter::set($device, [
             'flags' => IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION,
+            'userConfig' => json_encode([
+                'buttonVolume' => 33,
+                'automaticTimeSync' => true,
+                'firmwareUpdatePolicy' => 'FORCED_OFF',
+            ]),
         ]);
         $this->entityManager->persist($device);
         return $device;

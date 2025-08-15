@@ -2,10 +2,15 @@
     <PageContainer :error="device || loading ? null : 404">
         <div v-if="device">
             <div class="container mt-3">
-                <div class="d-flex">
+                <div class="d-flex mb-3">
                     <div class="flex-grow-1">
-                        <h1 v-title class="mt-0">{{ device.name }}</h1>
-                        <h2 v-if="device.comment">{{ device.comment }}</h2>
+                        <div v-if="device.comment">
+                            <h1 v-title class="mt-0">{{ device.comment }}</h1>
+                            <h4>{{ device.name }}</h4>
+                        </div>
+                        <div v-else>
+                            <h1 v-title class="mt-0">{{ device.name }}</h1>
+                        </div>
                     </div>
                     <div>
                         <ConnectionStatusLabel :model="device"/>

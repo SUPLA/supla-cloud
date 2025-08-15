@@ -1,7 +1,7 @@
 <script setup>
     import {computed} from "vue";
 
-    const props = defineProps({options: Array, value: [String, Number]});
+    const props = defineProps({options: Array, value: [String, Number], disabled: Boolean});
     const emit = defineEmits(['input']);
 
     const modelValue = computed({
@@ -13,7 +13,9 @@
 
 <template>
     <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
+        <button :class="['btn btn-default dropdown-toggle btn-block btn-wrapped', {disabled}]"
+            type="button"
+            :disabled="disabled"
             data-toggle="dropdown">
             <slot name="button" :value="modelValue">{{ modelValue }}</slot>
             {{ ' ' }}
@@ -22,7 +24,7 @@
         <ul class="dropdown-menu">
             <li v-for="option in options" :key="option">
                 <a @click="modelValue = option" v-show="modelValue !== option">
-                    <slot name="option" :option="option">{{ option }}</slot>
+                    <slot name="option" :option="option" :value="option">{{ option }}</slot>
                 </a>
             </li>
         </ul>

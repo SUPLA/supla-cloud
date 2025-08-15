@@ -212,10 +212,10 @@ openWeatherAttribute_field_windSpeed: Wind Speed
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-firmwareUpdatePolicy_ALL_UPDATES: Install all updates automatically
-firmwareUpdatePolicy_SECURITY_UPDATES: Install only security updates automatically
-firmwareUpdatePolicy_MANUAL_UPDATES: Allow only manual updates
-firmwareUpdatePolicy_DISABLED: Disabled on a device
+firmwareUpdatePolicy_ALL_ENABLED: Install all updates automatically
+firmwareUpdatePolicy_SECURITY_ONLY: Install only security updates automatically
+firmwareUpdatePolicy_DISABLED: Allow only manual updates
+firmwareUpdatePolicy_FORCED_OFF: Disabled on a device
 modbusRole_NOT_SET: Disabled
 homeScreenContent_offMode_DISABLE: Disable
 homeScreenContent_offMode_ALWAYS: After the delay

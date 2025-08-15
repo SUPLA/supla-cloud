@@ -144,7 +144,10 @@ readonly class IODeviceConfigTranslator {
                 Assert::that($value, null, 'automaticTimeSync')->boolean();
             }
             if ($settingName === 'firmwareUpdatePolicy') {
-                Assertion::inArray($value, ['ALL_UPDATES', 'SECURITY_UPDATES', 'MANUAL_UPDATES', 'DISABLED'], null, 'firmwareUpdatePolicy');
+                Assertion::inArray($value, ['DISABLED', 'SECURITY_ONLY', 'ALL_ENABLED', 'FORCED_OFF'], null, 'firmwareUpdatePolicy');
+                if ($value === 'FORCED_OFF') {
+                    Assertion::eq($currentConfig['firmwareUpdatePolicy'], 'FORCED_OFF', 'FORCED_OFF policy can be set only on device.');
+                }
             }
             if ($settingName === 'homeScreen') {
                 $homeScreenConfig = [];

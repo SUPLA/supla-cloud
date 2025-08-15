@@ -1,12 +1,5 @@
 <template>
     <div>
-        <div class="form-group" v-if="newConfig.buttonVolume !== undefined">
-            <label>{{ $t('Button volume') }}</label>
-            <div class="mt-3 mb-6">
-                <VueSlider v-model="newConfig.buttonVolume" :min="0" :max="100" tooltip="always"
-                    tooltip-placement="bottom" class="green"/>
-            </div>
-        </div>
         <div class="form-group" v-if="newConfig.automaticTimeSync !== undefined">
             <label class="checkbox2 checkbox2-grey">
                 <input type="checkbox" v-model="newConfig.automaticTimeSync">
@@ -18,15 +11,18 @@
                 <DeviceSetTimeButton :device="device" class="mb-2"/>
             </div>
         </TransitionExpand>
-        <!-- i18n: ['firmwareUpdatePolicy_ALL_UPDATES', 'firmwareUpdatePolicy_SECURITY_UPDATES', 'firmwareUpdatePolicy_MANUAL_UPDATES', 'firmwareUpdatePolicy_MANUAL_UPDATES'] -->
+        <!-- i18n: ['firmwareUpdatePolicy_ALL_ENABLED', 'firmwareUpdatePolicy_SECURITY_ONLY', 'firmwareUpdatePolicy_DISABLED', 'firmwareUpdatePolicy_FORCED_OFF'] -->
         <div class="form-group" v-if="newConfig.firmwareUpdatePolicy !== undefined">
             <label for="firmwareUpdatePolicy">{{ $t('Firmware update policy') }}</label>
-            <select id="firmwareUpdatePolicy" class="form-control" v-model="newConfig.firmwareUpdatePolicy">
-                <option v-for="option in ['ALL_UPDATES', 'SECURITY_UPDATES', 'MANUAL_UPDATES', 'DISABLED']" :key="option"
-                    :value="option">
-                    {{ $t('firmwareUpdatePolicy_' + option) }}
-                </option>
-            </select>
+            <SimpleDropdown v-model="newConfig.firmwareUpdatePolicy" :options="['DISABLED', 'SECURITY_ONLY', 'ALL_ENABLED']"
+                :disabled="!['DISABLED', 'SECURITY_ONLY', 'ALL_ENABLED'].includes(newConfig.firmwareUpdatePolicy)">
+                <template #button="{value}">
+                    {{ $t('firmwareUpdatePolicy_' + value) }}
+                </template>
+                <template #option="{value}">
+                    {{ $t('firmwareUpdatePolicy_' + value) }}
+                </template>
+            </SimpleDropdown>
         </div>
         <SaveCancelChangesButtons :original="originalConfig" :changes="newConfig" @cancel="cloneConfig()" @save="saveChanges()"/>
     </div>
@@ -35,9 +31,9 @@
 <script setup>
     import {useDeviceSettingsForm} from "@/devices/details/device-details-helpers";
     import SaveCancelChangesButtons from "@/devices/details/save-cancel-changes-buttons.vue";
-    import VueSlider from 'vue-slider-component';
     import DeviceSetTimeButton from "@/devices/details/device-set-time-button.vue";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
+    import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
 
     const props = defineProps({device: Object});
 

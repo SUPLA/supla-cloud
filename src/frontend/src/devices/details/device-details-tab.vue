@@ -61,7 +61,7 @@
         {
             title: 'Device interface',
             component: DeviceDetailsTabSettingsUserInterface,
-            show: props.device.config?.userInterface !== undefined
+            show: props.device.config?.userInterface !== undefined || props.device.config?.buttonVolume !== undefined
         },
         {
             title: 'Screen brightness',
@@ -76,8 +76,7 @@
         {
             title: 'Other settings',
             component: DeviceDetailsTabSettingsOther,
-            show: props.device.config?.buttonVolume !== undefined
-                || props.device.config?.automaticTimeSync !== undefined
+            show: props.device.config?.automaticTimeSync !== undefined
                 || props.device.config?.firmwareUpdatePolicy !== undefined,
         },
     ];
