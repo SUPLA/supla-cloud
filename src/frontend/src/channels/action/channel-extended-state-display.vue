@@ -9,8 +9,8 @@
                 <dl>
                     <template v-for="state in availableStates">
                         <template v-if="channel.state.extendedState[state.key] !== undefined">
-                            <dt>{{ $t(state.label) }}</dt>
-                            <dd>{{ state.format(channel.state.extendedState[state.key]) }}</dd>
+                            <dt :key="state.key">{{ $t(state.label) }}</dt>
+                            <dd :key="state.key">{{ state.format(channel.state.extendedState[state.key]) }}</dd>
                         </template>
                     </template>
                 </dl>
