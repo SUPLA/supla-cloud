@@ -1971,7 +1971,6 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $body = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('state', $body);
         $this->assertArrayHasKey('extendedState', $body['state']);
-        $this->assertArrayHasKey('wifiRSSI', $body['state']['extendedState']);;
+        $this->assertArrayHasKey('wifiRSSI', $body['state']['extendedState']);
     }
 }
-
