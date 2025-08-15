@@ -147,7 +147,8 @@
                                 <channel-state-table class="py-3"
                                     :channel="channel"
                                     v-if="channelFunctionIsChosen && !loading"></channel-state-table>
-                                <ChannelMuteAlarmButton :channel="channelsStore.all[channel.id] || channel"/>
+                                <ChannelMuteAlarmButton :channel="channelsStore.all[channel.id] || channel" class="mb-2"/>
+                                <ChannelExtendedStateDisplay :channel="channelsStore.all[channel.id] || channel"/>
                             </div>
                         </div>
                         <div class="details-page-block" v-if="hasActionsToExecute">
@@ -243,10 +244,12 @@
     import ChannelMuteAlarmButton from "@/channels/action/channel-mute-alarm-button.vue";
     import ChannelType from "@/common/enums/channel-type";
     import VirtualChannelInfo from "@/account/integrations/data-sources/virtual-channel-info.vue";
+    import ChannelExtendedStateDisplay from "@/channels/action/channel-extended-state-display.vue";
 
     export default {
         props: ['id'],
         components: {
+            ChannelExtendedStateDisplay,
             VirtualChannelInfo,
             ChannelMuteAlarmButton,
             ChannelDependenciesList,

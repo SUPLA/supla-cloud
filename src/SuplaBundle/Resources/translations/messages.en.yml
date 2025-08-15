@@ -220,3 +220,8 @@ modbusRole_NOT_SET: Disabled
 homeScreenContent_offMode_DISABLE: Disable
 homeScreenContent_offMode_ALWAYS: After the delay
 homeScreenContent_offMode_DARK: After the delay, but only when it's dark
+
+lastConnectionResetCause_0: Unknown
+lastConnectionResetCause_1: Activity timeout
+lastConnectionResetCause_2: WiFi connection lost
+lastConnectionResetCause_3: Server connection lost

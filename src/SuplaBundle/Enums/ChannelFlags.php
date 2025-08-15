@@ -34,6 +34,7 @@ namespace SuplaBundle\Enums;
  * @method static ChannelFlags TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE()
  * @method static ChannelFlags VALVE_MOTOR_ALARM_SUPPORTED()
  * @method static ChannelFlags ALWAYS_ALLOW_CHANNEL_DELETION()
+ * @method static ChannelFlags HAS_EXTENDED_CHANNEL_STATE()
  */
 final class ChannelFlags extends ChannelFunctionBits {
     /** @see https://github.com/SUPLA/supla-core/blob/ffa56e4579812c50ca15202c698d0c1d363a0258/supla-common/proto.h#L458 */
@@ -58,4 +59,5 @@ final class ChannelFlags extends ChannelFunctionBits {
     const TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE = 0x0020;
     const VALVE_MOTOR_ALARM_SUPPORTED = 0x0040;
     const ALWAYS_ALLOW_CHANNEL_DELETION = 0x0200;
+    const HAS_EXTENDED_CHANNEL_STATE = 0x00010000;
 }

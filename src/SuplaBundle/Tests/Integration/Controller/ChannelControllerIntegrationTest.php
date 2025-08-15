@@ -1958,4 +1958,20 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $this->assertSuplaCommandExecuted("RESTART-SUBDEVICE:1,{$device->getId()},{$channel->getId()}");
     }
+
+    public function testGettingExtendedChannelState() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $channel = $device->getChannels()[0];
+        EntityUtils::setField($channel, 'flags', ChannelFlags::HAS_EXTENDED_CHANNEL_STATE);
+        $this->persist($channel);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', "/api/channels/{$channel->getId()}?include=state");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $body = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('state', $body);
+        $this->assertArrayHasKey('extendedState', $body['state']);
+        $this->assertArrayHasKey('wifiRSSI', $body['state']['extendedState']);;
+    }
 }
+

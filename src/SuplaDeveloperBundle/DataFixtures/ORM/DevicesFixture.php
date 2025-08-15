@@ -681,6 +681,7 @@ class DevicesFixture extends SuplaFixture {
                             ['channelNo' => 4, 'fillLevel' => 15],
                         ],
                     ]),
+                    'flags' => ChannelFlags::HAS_EXTENDED_CHANNEL_STATE,
                 ],
             ],
             [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],

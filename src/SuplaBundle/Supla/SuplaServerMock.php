@@ -23,14 +23,17 @@ use Faker\Factory;
 use Faker\Generator;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\Main\ChannelState;
 use SuplaBundle\Entity\Main\ChannelValue;
 use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ElectricityMeterSupportBits;
 use SuplaBundle\Enums\HvacIpcActionMode;
 use SuplaBundle\Enums\HvacIpcValueFlags;
 use SuplaBundle\Enums\RollerShutterStateBits;
 use SuplaBundle\Enums\SceneInitiatiorType;
 use SuplaBundle\Model\LocalSuplaCloud;
+use SuplaBundle\Tests\AnyFieldSetter;
 
 /**
  * SuplaServer implementation to be used during development.
@@ -294,6 +297,31 @@ class SuplaServerMock extends SuplaServer {
                 rand(0, 100000), // PricePerUnit * 10000
                 $this->faker->currencyCode
             );
+        } elseif (preg_match('#^UPDATE-CHANNEL-STATE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
+            $channelId = $match[3];
+            $channel = $this->em->find(IODeviceChannel::class, $channelId);
+            $state = $this->em->find(ChannelState::class, $channelId);
+            if (!$state) {
+                $state = new ChannelState($channel);
+            }
+            AnyFieldSetter::set($state, 'state', json_encode([
+                'switchCycleCount' => rand(1, 4),
+                'ipv4' => $this->faker->ipv4(),
+                'mac' => $this->faker->macAddress(),
+                'batteryLevel' => rand(1, 100),
+                'wifiRSSI' => rand(2, 10),
+                'wifiSignalStrength' => rand(2, 100),
+                'bridgeNodeOnline' => $this->faker->boolean(),
+                'bridgeNodeSignalStrength' => rand(2, 100),
+                'uptime' => rand(2, 999999),
+                'connectionUptime' => rand(2, 999999),
+                'batteryHealth' => rand(2, 100),
+                'lastConnectionResetCause' => rand(0, 3),
+                'lightSourceLifespan' => rand(0, 100),
+            ]));
+            $this->em->persist($state);
+            $this->em->flush();
+            return 'OK:HURRA';
         }
         return false;
     }

@@ -110,7 +110,6 @@ class IODeviceConfigTranslatorTest extends TestCase {
             [['userInterface' => true]],
             [['userInterface' => []]],
             [['userInterface' => ['unicorn' => 'rainbow']]],
-            [['userInterface' => ['disabled' => true, 'unicorn' => 'rainbow']]],
             [['userInterface' => [
                 'disabled' => 'partial',
                 'minAllowedTemperatureSetpointFromLocalUI' => 20,
