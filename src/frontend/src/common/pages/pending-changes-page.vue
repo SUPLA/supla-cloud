@@ -1,25 +1,20 @@
 <template>
     <form @submit.prevent="$emit('save')">
-        <div class="clearfix left-right-header">
+        <div class="clearfix left-right-header mb-1">
             <h2 class="no-margin-top" v-if="header && dontSetPageTitle">{{ header }}</h2>
             <h2 class="no-margin-top" v-else-if="header" v-title>{{ header }}</h2>
-            <div v-else></div>
-            <div class="button-container no-margin-top"
-                v-show="!frontendConfig.maintenanceMode">
+            <h2 class="no-margin-top" v-else>&nbsp;</h2>
+            <div class="button-container no-margin-top " v-show="!frontendConfig.config.maintenanceMode">
                 <transition name="fade">
-                    <div class="btn-toolbar"
-                        v-if="showPendingButtons">
-                        <a class="btn btn-grey"
-                            v-if="cancellable"
-                            @click="$emit('cancel')">
+                    <div v-if="showPendingButtons">
+                        <FormButton v-if="cancellable" :disabled="loading" button-class="btn-grey" class="mr-2" @click="$emit('cancel')">
                             <i class="pe-7s-back"></i>
                             {{ $t('Cancel changes') }}
-                        </a>
-                        <button class="btn btn-white"
-                            type="submit">
+                        </FormButton>
+                        <FormButton :loading="loading" submit button-class="btn-white">
                             <i class="pe-7s-diskette"></i>
                             {{ $t('Save changes') }}
-                        </button>
+                        </FormButton>
                     </div>
                 </transition>
                 <transition name="fade">
@@ -39,62 +34,44 @@
         <div class="form-group">
             <slot></slot>
         </div>
-        <div class="form-group visible-xs">
+        <div class="form-group visible-xs text-center my-3">
             <transition name="fade">
-                <div class="btn-toolbar"
-                    v-if="isPending">
-                    <a class="btn btn-grey"
-                        v-if="cancellable"
-                        @click="$emit('cancel')">
+                <div v-if="isPending">
+                    <FormButton v-if="cancellable" :disabled="loading" button-class="btn-grey" class="mr-3" @click="$emit('cancel')">
                         <i class="pe-7s-back"></i>
                         {{ $t('Cancel changes') }}
-                    </a>
-                    <button class="btn btn-white"
-                        type="submit">
+                    </FormButton>
+                    <FormButton :loading="loading" submit button-class="btn-white">
                         <i class="pe-7s-diskette"></i>
                         {{ $t('Save changes') }}
-                    </button>
+                    </FormButton>
                 </div>
             </transition>
         </div>
     </form>
 </template>
 
-<script>
-    import {mapState} from "pinia";
+<script setup>
     import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+    import {computed} from "vue";
+    import FormButton from "@/common/gui/FormButton.vue";
 
-    export default {
-        props: {
-            header: String,
-            deletable: Boolean,
-            cancellable: {
-                type: Boolean,
-                default: true,
-            },
-            isPending: Boolean,
-            dontSetPageTitle: Boolean,
+    const props = defineProps({
+        header: String,
+        loading: Boolean,
+        deletable: Boolean,
+        cancellable: {
+            type: Boolean,
+            default: true,
         },
-        data() {
-            return {
-                lastPendingState: false,
-                currentTimeout: undefined,
-            };
-        },
-        computed: {
-            showPendingButtons() {
-                return this.isPending && !this.currentTimeout;
-            },
-            showNotPendingButtons() {
-                return !this.isPending && !this.currentTimeout;
-            },
-            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
-        },
-        watch: {
-            isPending() {
-                clearTimeout(this.currentTimeout);
-                this.currentTimeout = setTimeout(() => this.currentTimeout = undefined, 515);
-            }
-        }
-    };
+        isPending: Boolean,
+        dontSetPageTitle: Boolean,
+    })
+
+    defineEmits(['save', 'cancel', 'delete']);
+
+    const frontendConfig = useFrontendConfigStore();
+
+    const showPendingButtons = computed(() => props.isPending);
+    const showNotPendingButtons = computed(() => !props.isPending);
 </script>

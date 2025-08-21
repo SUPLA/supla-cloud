@@ -97,7 +97,6 @@
                 </transition-expand>
             </div>
         </div>
-        <SaveCancelChangesButtons :original="originalConfig" :changes="newConfig" @cancel="cloneConfig()" @save="saveChanges()"/>
     </div>
 </template>
 
@@ -107,12 +106,12 @@
     import NumberInput from "@/common/number-input.vue";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
-    import SaveCancelChangesButtons from "@/devices/details/save-cancel-changes-buttons.vue";
     import {useDeviceSettingsForm} from "@/devices/details/device-details-helpers";
 
     const props = defineProps({device: Object});
+    const emit = defineEmits(['change']);
 
-    const {newConfig, cloneConfig, saveChanges, originalConfig} = useDeviceSettingsForm(props.device.id, (device) => ({
+    const {newConfig} = useDeviceSettingsForm(props.device.id, emit, (device) => ({
         modbus: deepCopy(device.config.modbus),
     }))
 

@@ -33,20 +33,18 @@
                     :tooltip-formatter="(v) => `${v}%`"/>
             </div>
         </div>
-        <SaveCancelChangesButtons :original="originalConfig" :changes="newConfig"
-            @cancel="cloneConfig()" @save="saveChanges()"/>
     </div>
 </template>
 
 <script setup>
     import {deepCopy} from "@/common/utils";
     import VueSlider from 'vue-slider-component';
-    import SaveCancelChangesButtons from "@/devices/details/save-cancel-changes-buttons.vue";
     import {useDeviceSettingsForm} from "@/devices/details/device-details-helpers";
 
     const props = defineProps({device: Object});
+    const emit = defineEmits(['change']);
 
-    const {newConfig, cloneConfig, saveChanges, originalConfig} = useDeviceSettingsForm(props.device.id, (device) => ({
+    const {newConfig} = useDeviceSettingsForm(props.device.id, emit, (device) => ({
         screenBrightness: deepCopy(device.config.screenBrightness),
     }))
 

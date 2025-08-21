@@ -218,8 +218,8 @@ firmwareUpdatePolicy_DISABLED: Allow only manual updates
 firmwareUpdatePolicy_FORCED_OFF: Disabled on a device
 modbusRole_NOT_SET: Disabled
 homeScreenContent_offMode_DISABLE: Disable
-homeScreenContent_offMode_ALWAYS: After the delay
-homeScreenContent_offMode_DARK: After the delay, but only when it's dark
+homeScreenContent_offMode_ALWAYS_ENABLED: After the delay
+homeScreenContent_offMode_ENABLED_WHEN_DARK: After the delay, but only when it's dark
 
 lastConnectionResetCause_0: Unknown
 lastConnectionResetCause_1: Activity timeout

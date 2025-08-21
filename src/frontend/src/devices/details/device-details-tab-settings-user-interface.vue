@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="newConfig.userInterface !== undefined">
+        <div v-if="newConfig.userInterface !== undefined" class="form-group">
             <SimpleDropdown v-model="localUILockMode" :options="['UNLOCKED', 'FULL', 'TEMPERATURE']">
                 <template #button="{value}">
                     {{ $t('Lock type') }}:
@@ -41,21 +41,20 @@
                     tooltip-placement="bottom" class="green"/>
             </div>
         </div>
-        <SaveCancelChangesButtons :original="originalConfig" :changes="newConfig" @cancel="cloneConfig()" @save="saveChanges()"/>
     </div>
 </template>
 
 <script setup>
     import {computed} from "vue";
     import {deepCopy} from "@/common/utils";
-    import SaveCancelChangesButtons from "@/devices/details/save-cancel-changes-buttons.vue";
     import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
     import {useDeviceSettingsForm} from "@/devices/details/device-details-helpers";
     import VueSlider from "vue-slider-component";
 
     const props = defineProps({device: Object});
+    const emit = defineEmits(['change']);
 
-    const {newConfig, cloneConfig, saveChanges, originalConfig} = useDeviceSettingsForm(props.device.id, (device) => ({
+    const {newConfig} = useDeviceSettingsForm(props.device.id, emit, (device) => ({
         userInterface: deepCopy(device.config.userInterface),
         buttonVolume: device.config.buttonVolume,
     }))

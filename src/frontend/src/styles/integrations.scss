@@ -1,0 +1,7 @@
+@import 'vue-slider-component/theme/antd.css';
+
+.vue-slider-mark-label.mark-on-top {
+  top: auto !important;
+  bottom: 100%;
+  margin-bottom: 10px;
+}

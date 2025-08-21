@@ -14,18 +14,18 @@
                 {{ $t('Enable power status LED') }}
             </label>
         </div>
-        <SaveCancelChangesButtons :original="originalConfig" :changes="newConfig" @cancel="cloneConfig()" @save="saveChanges()"/>
     </div>
 </template>
 
 <script setup>
     import {computed} from "vue";
     import {useDeviceSettingsForm} from "@/devices/details/device-details-helpers";
-    import SaveCancelChangesButtons from "@/devices/details/save-cancel-changes-buttons.vue";
 
     const props = defineProps({device: Object});
 
-    const {newConfig, cloneConfig, saveChanges, originalConfig} = useDeviceSettingsForm(props.device.id, (device) => ({
+    const emit = defineEmits(['change']);
+
+    const {newConfig} = useDeviceSettingsForm(props.device.id, emit, (device) => ({
         powerStatusLed: device.config.powerStatusLed,
         statusLed: device.config.statusLed,
     }))

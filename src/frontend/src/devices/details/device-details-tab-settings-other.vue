@@ -24,20 +24,20 @@
                 </template>
             </SimpleDropdown>
         </div>
-        <SaveCancelChangesButtons :original="originalConfig" :changes="newConfig" @cancel="cloneConfig()" @save="saveChanges()"/>
     </div>
 </template>
 
 <script setup>
     import {useDeviceSettingsForm} from "@/devices/details/device-details-helpers";
-    import SaveCancelChangesButtons from "@/devices/details/save-cancel-changes-buttons.vue";
     import DeviceSetTimeButton from "@/devices/details/device-set-time-button.vue";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
 
     const props = defineProps({device: Object});
 
-    const {newConfig, cloneConfig, saveChanges, originalConfig} = useDeviceSettingsForm(props.device.id, (device) => ({
+    const emit = defineEmits(['change']);
+
+    const {newConfig,} = useDeviceSettingsForm(props.device.id, emit, (device) => ({
         buttonVolume: device.config.buttonVolume,
         automaticTimeSync: device.config.automaticTimeSync,
         firmwareUpdatePolicy: device.config.firmwareUpdatePolicy,

@@ -15,8 +15,8 @@
         <div class="form-group" v-if="hasOffDelay">
             <label>{{ $t('Automatic front panel turn off') }}</label>
             <div>
-                <!-- i18n:["homeScreenContent_offMode_DISABLE", "homeScreenContent_offMode_ALWAYS", "homeScreenContent_offMode_DARK"] -->
-                <SimpleDropdown v-model="homeScreenOffMode" :options="['DISABLE', 'ALWAYS', 'DARK']">
+                <!-- i18n:["homeScreenContent_offMode_DISABLE", "homeScreenContent_offMode_ALWAYS_ENABLED", "homeScreenContent_offMode_ENABLED_WHEN_DARK"] -->
+                <SimpleDropdown v-model="homeScreenOffMode" :options="availableOffDelayTypes">
                     <template #button="{value}">
                         {{ $t('homeScreenContent_offMode_' + value) }}
                     </template>
@@ -36,8 +36,6 @@
                 </div>
             </div>
         </transition-expand>
-        <SaveCancelChangesButtons :original="device.config.homeScreen" :changes="newConfig"
-            @cancel="readModelFromProps()" @save="saveChanges()"/>
     </div>
 </template>
 
@@ -45,21 +43,53 @@
     import 'vue-slider-component/theme/antd.css';
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import {prettyMilliseconds} from "@/common/filters";
-    import {computed, ref, watch} from "vue";
+    import {computed} from "vue";
     import VueSlider from 'vue-slider-component';
     import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
-    import SaveCancelChangesButtons from "@/devices/details/save-cancel-changes-buttons.vue";
-    import {devicesApi} from "@/api/devices-api";
-    import {useDevicesStore} from "@/stores/devices-store";
+    import {useDeviceSettingsForm} from "@/devices/details/device-details-helpers";
+    import {deepCopy} from "@/common/utils";
 
     const props = defineProps({device: Object});
+    const emit = defineEmits(['change']);
 
-    const homeScreenContent = ref('NONE');
-    const homeScreenOffMode = ref('DISABLE');
-    const offDelay = ref(60);
+    const {newConfig} = useDeviceSettingsForm(props.device.id, emit, () => ({
+        homeScreen: deepCopy(props.device.config.homeScreen),
+    }));
 
     const hasOffDelay = computed(() => props.device.config.homeScreen?.offDelay !== undefined);
     const hasOffDelayType = computed(() => props.device.config.homeScreen?.offDelayType !== undefined);
+
+    const homeScreenContent = computed({
+        get: () => newConfig.value.homeScreen.content,
+        set: (value) => newConfig.value.homeScreen.content = value,
+    });
+
+    const availableOffDelayTypes = computed(() => ['DISABLE', 'ALWAYS_ENABLED', hasOffDelayType.value && 'ENABLED_WHEN_DARK'].filter(x => x));
+
+    const homeScreenOffMode = computed({
+        get() {
+            if (newConfig.value.homeScreen.offDelay) {
+                return newConfig.value.homeScreen.offDelayType || 'ALWAYS_ENABLED';
+            } else {
+                return 'DISABLE';
+            }
+        },
+        set(mode) {
+            if (mode === 'DISABLE') {
+                newConfig.value.homeScreen.offDelay = 0;
+            } else if (!newConfig.value.homeScreen.offDelay) {
+                newConfig.value.homeScreen.offDelay = 60;
+            }
+            if (hasOffDelayType.value) {
+                newConfig.value.homeScreen.offDelayType = mode === 'ENABLED_WHEN_DARK' ? 'ENABLED_WHEN_DARK' : 'ALWAYS_ENABLED';
+            }
+        },
+    });
+
+    const offDelay = computed({
+        get: () => newConfig.value.homeScreen.offDelay,
+        set: (delay) => newConfig.value.homeScreen.offDelay = delay,
+    });
 
     const homeScreenOffPossibleDelays = [
         ...[...Array(30).keys()].map(k => k + 1), // s 1 - 30
@@ -68,49 +98,7 @@
         ...[6, 7, 8, 9, 10, 15, 20, 30].map(k => k * 60)
     ];
 
-    function readModelFromProps() {
-        homeScreenContent.value = props.device.config.homeScreen.content;
-        if (!props.device.config.homeScreen?.offDelay) {
-            homeScreenOffMode.value = 'DISABLE';
-        } else if (props.device.config.homeScreen?.offDelayType === 'ENABLED_WHEN_DARK') {
-            homeScreenOffMode.value = 'DARK';
-        } else {
-            homeScreenOffMode.value = 'ALWAYS';
-        }
-        offDelay.value = props.device.config.homeScreen?.offDelay || 60;
-    }
-
-    readModelFromProps();
-    watch(() => props.device, () => readModelFromProps());
-
     function formatSeconds(sliderValue) {
         return prettyMilliseconds(+sliderValue * 1000);
-    }
-
-    const newConfig = computed(() => {
-        const value = {content: homeScreenContent.value};
-        if (hasOffDelay.value) {
-            if (homeScreenOffMode.value === 'DISABLE') {
-                value.offDelay = 0;
-            } else {
-                value.offDelay = offDelay.value;
-            }
-        }
-        if (hasOffDelayType.value) {
-            value.offDelayType = homeScreenOffMode.value === 'DARK' ? 'ENABLED_WHEN_DARK' : 'ALWAYS_ENABLED';
-        }
-        return value;
-    })
-
-    async function saveChanges() {
-        try {
-            await devicesApi.update(props.device.id, {
-                config: {homeScreen: newConfig.value},
-                configBefore: props.device.config,
-            });
-        } finally {
-            await useDevicesStore().fetchDevice(props.device.id);
-            readModelFromProps();
-        }
     }
 </script>
