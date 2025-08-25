@@ -148,7 +148,7 @@
                                     :channel="channel"
                                     v-if="channelFunctionIsChosen && !loading"></channel-state-table>
                                 <ChannelMuteAlarmButton :channel="channelsStore.all[channel.id] || channel" class="mb-2"/>
-                                <ChannelExtendedStateDisplay :channel="channelsStore.all[channel.id] || channel"/>
+                                <ChannelExtendedStateDisplay :channel="channelsStore.all[channel.id] || channel" grid/>
                             </div>
                         </div>
                         <div class="details-page-block" v-if="hasActionsToExecute">

@@ -416,7 +416,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode('2xx', $response);
         $body = json_decode($response->getContent(), true);
         $this->assertCount(13, $body['states']);
-        $this->assertEquals(2, $body['devicesCount']);
+        $this->assertCount(2, $body['devices']);
     }
 
     public function testChangingChannelFunctionClearsRelatedSensorInOtherDevices() {
@@ -1965,6 +1965,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         EntityUtils::setField($channel, 'flags', ChannelFlags::HAS_EXTENDED_CHANNEL_STATE);
         $this->persist($channel);
         $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('PATCH', "/api/channels/{$channel->getId()}/settings", ['action' => 'refreshState']);
         $client->apiRequestV3('GET', "/api/channels/{$channel->getId()}?include=state");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <dl>
+        <dl class="m-0">
             <dt>GUID</dt>
             <dd class="text-monospace">{{ device.gUIDString }}</dd>
             <dt>{{ $t('Firmware version') }}</dt>
@@ -19,6 +19,7 @@
                 <DateTimeRelativeLabel :datetime="device.lastConnected" pattern="(%s)" class="small text-muted"/>
             </dd>
         </dl>
+        <ChannelExtendedStateDisplay :device="device"/>
     </div>
 </template>
 
@@ -26,6 +27,7 @@
     import {formatDateTime} from "@/common/filters-date";
     import DateTimeRelativeLabel from "@/common/date-time-relative-label.vue";
     import DeviceOtaUpdatesButtons from "@/devices/details/device-ota-updates-buttons.vue";
+    import ChannelExtendedStateDisplay from "@/channels/action/channel-extended-state-display.vue";
 
     defineProps({device: Object});
 </script>

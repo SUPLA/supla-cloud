@@ -593,6 +593,10 @@ class ChannelController extends RestController {
                 Assertion::keyExists($channelConfig, 'ocr', 'This channel does not support OCR.');
                 Assertion::keyExists($body, 'imageId');
                 $ocr->markLastMeasurementValid($channel, $body['imageId']);
+            } elseif ($action === 'refreshState') {
+                if (ChannelFlags::HAS_EXTENDED_CHANNEL_STATE()->isOn($channel->getFlags())) {
+                    $this->suplaServer->channelAction($channel, 'UPDATE-CHANNEL-STATE');
+                }
             } else {
                 throw new ApiException('Invalid action given.');
             }

@@ -320,6 +320,7 @@ class SuplaServerMock extends SuplaServer {
                 'switchCycleCount' => rand(1, 4),
                 'ipv4' => $this->faker->ipv4(),
                 'mac' => $this->faker->macAddress(),
+                'batteryPowered' => $this->faker->boolean(),
                 'batteryLevel' => rand(1, 100),
                 'wifiRSSI' => rand(2, 10),
                 'wifiSignalStrength' => rand(2, 100),
@@ -328,7 +329,12 @@ class SuplaServerMock extends SuplaServer {
                 'uptime' => rand(2, 999999),
                 'connectionUptime' => rand(2, 999999),
                 'batteryHealth' => rand(2, 100),
-                'lastConnectionResetCause' => rand(0, 3),
+                'lastConnectionResetCause' => $this->faker->randomElement([
+                    'UNKNOWN',
+                    'ACTIVITY_TIMEOUT',
+                    'WIFI_CONNECTION_LOST',
+                    'SERVER_CONNECTION_LOST',
+                ]),
                 'lightSourceLifespan' => rand(0, 100),
             ]));
             $this->em->persist($state);
