@@ -1,6 +1,6 @@
 <template>
     <div v-if="!device.locked && device.flags.automaticFirmwareUpdatesSupported">
-        <div v-if="device.config.otaUpdate?.status === 'available'">
+        <div v-if="device.config.otaUpdate?.status === 'AVAILABLE'">
             <div class="alert alert-info text-left my-1">
                 <div>{{ $t('Firmware update is available.') }}</div>
                 <div>{{ $t('New version') }}: {{ device.config.otaUpdate.version || '?' }}</div>
@@ -10,7 +10,7 @@
                 </div>
             </div>
         </div>
-        <div v-else-if="device.config.otaUpdate?.status === 'notAvailable'">
+        <div v-else-if="device.config.otaUpdate?.status === 'NOT_AVAILABLE'">
             <div class="alert alert-info my-1">
                 <div>{{ $t('You have the newest firmware installed.') }}</div>
             </div>
@@ -20,7 +20,7 @@
                 button-class="btn-default btn-xs btn-block" class="flex-basis-50 pr-1">
                 {{ $t('Check available updates') }}
             </FormButton>
-            <FormButton :disabled-reason="disabledReason" @click="updateConfirm = true"
+            <FormButton :disabled-reason="disabledReason" @click="updateConfirm = true" :loading="isCheckingUpdates"
                 button-class="btn-default btn-xs btn-block" class="flex-basis-50 pl-1">
                 {{ $t('Perform firmware update') }}
             </FormButton>
@@ -42,9 +42,9 @@
     import {devicesApi} from "@/api/devices-api";
     import {promiseTimeout, useTimeoutPoll} from "@vueuse/core";
     import FormButton from "@/common/gui/FormButton.vue";
+    import {successNotification} from "@/common/notifier";
 
     const props = defineProps({device: Object});
-
     const devicesStore = useDevicesStore();
 
     const disabledReason = computed(() => props.device.connected ? '' : 'Device is disconnected.');
@@ -64,6 +64,8 @@
     async function checkUpdates() {
         isCheckingUpdates.value = true;
         await devicesApi.otaCheckUpdates(props.device.id);
+        await promiseTimeout(1000);
+        await devicesStore.fetchDevice(props.device.id);
         checkCount.value = 0;
         startCheckingUpdates();
     }
@@ -74,6 +76,7 @@
             await devicesApi.otaPerformUpdate(props.device.id);
             await promiseTimeout(5000);
             await devicesStore.fetchDevice(props.device.id);
+            successNotification('Successful', 'Device should be restarting now.'); // i18n
         } finally {
             isCheckingUpdates.value = false;
             updateConfirm.value = false;
@@ -81,8 +84,7 @@
     }
 
     const {pause: stopCheckingUpdates, resume: startCheckingUpdates} = useTimeoutPoll(async () => {
-        const device = await devicesStore.fetchDevice(props.device.id);
-        if (['available', 'notAvailable'].includes(device.config?.otaUpdate?.status) || checkCount.value++ > 10) {
+        if (['AVAILABLE', 'NOT_AVAILABLE'].includes(props.device.config?.otaUpdate?.status) || checkCount.value++ > 10) {
             stopCheckingUpdates();
             isCheckingUpdates.value = false;
         }

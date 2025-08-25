@@ -111,15 +111,15 @@ class SuplaServerMock extends SuplaServer {
             return 'OK:HURRA';
         } elseif (preg_match('#^ACTION-(CG-)?(.+?):.+$#', $cmd, $match)) {
             return 'OK:HURRA';
-        } elseif (preg_match('#^RESTART-(SUB)?DEVICE:.+$#', $cmd, $match)) {
+        } elseif (preg_match('#^(RESTART-(SUB)?DEVICE|OTA-PERFORM-UPDATE):.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         } elseif (preg_match('#^OTA-CHECK-UPDATES:(\d+),(\d+)$#', $cmd, $match)) {
             $device = $this->em->find(IODevice::class, $match[2]);
             $properties = $device->getProperties();
             if (rand(0, 1) % 2) {
-                $properties['otaUpdate'] = ['status' => 'notAvailable', 'timestamp' => time()];
+                $properties['otaUpdate'] = ['status' => 'NOT_AVAILABLE', 'timestamp' => time()];
             } else {
-                $properties['otaUpdate'] = ['status' => 'available', 'timestamp' => time(), 'version' => '1.2.3', 'url' => '/v123'];
+                $properties['otaUpdate'] = ['status' => 'AVAILABLE', 'timestamp' => time(), 'version' => '1.2.3', 'url' => '/v123'];
             }
             EntityUtils::setField($device, 'properties', json_encode($properties));
             $this->em->persist($device);
