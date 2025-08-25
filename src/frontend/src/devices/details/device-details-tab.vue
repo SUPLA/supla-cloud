@@ -74,7 +74,6 @@
                 || props.device.remoteRestartAvailable
                 || props.device.flags.factoryResetSupported
                 || props.device.flags.setCfgModePasswordSupported
-                || props.device.flags.pairingSubdevicesAvailable
             )
         },
         {title: 'MODBUS', component: DeviceDetailsTabSettingsModbus, show: props.device.config?.modbus !== undefined}, // i18n
