@@ -27,8 +27,11 @@
 
 <script setup>
     import {computed, ref} from "vue";
-    import {errorNotification} from "@/common/notifier";
+    import {errorNotification, successNotification} from "@/common/notifier";
     import {devicesApi} from "@/api/devices-api";
+    import {promiseTimeout} from "@vueuse/core";
+    import {waitForDeviceOperation} from "@/devices/details/device-details-helpers";
+    import {useDevicesStore} from "@/stores/devices-store";
 
     const props = defineProps({device: Object});
 
@@ -42,23 +45,26 @@
 
     async function setDevicePassword() {
         if (password.value !== passwordConfirmation.value) {
-            return errorNotification(
-                'Error',
-                'Passwords do not match.' // i18n
-            )
+            return errorNotification('Error', 'Passwords do not match.'/*i18n*/);
         }
         if (password.value.length < 5) {
-            return errorNotification(
-                'Error',
-                'Password must be at least 5 characters long.' // i18n
-            )
+            return errorNotification('Error', 'Password must be at least 5 characters long.'/*i18n*/);
         }
         loading.value = true;
         try {
             await devicesApi.setCfgModePassword(props.device.id, password.value);
+            await promiseTimeout(1000);
+            await useDevicesStore().fetchDevice(props.device.id);
+            await waitForDeviceOperation(() => ['TRUE', 'FALSE'].includes(props.device.config?.setCfgModePassword?.status));
+            if (props.device.config?.setCfgModePassword?.status !== 'TRUE') {
+                throw new Error();
+            }
+            successNotification('Success', 'Password was set successfully.'/*i18n*/);
             showDialog.value = false;
             password.value = '';
             passwordConfirmation.value = '';
+        } catch (error) {
+            errorNotification('Error', 'Could not change the password.'/*i18n*/);
         } finally {
             loading.value = false;
         }

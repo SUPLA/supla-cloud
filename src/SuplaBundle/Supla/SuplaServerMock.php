@@ -125,7 +125,19 @@ class SuplaServerMock extends SuplaServer {
             $this->em->persist($device);
             $this->em->flush();
             return 'OK:HURRA';
-        } elseif (preg_match('#^(PAIR-SUBDEVICE|SET-CFG-MODE-PASSWORD|DEVICE-SET-TIME|ENTER-CONFIGURATION-MODE):.+$#', $cmd, $match)) {
+        } elseif (preg_match('#^SET-CFG-MODE-PASSWORD:(\d+),(\d+).*$#', $cmd, $match)) {
+            $device = $this->em->find(IODevice::class, $match[2]);
+            $properties = $device->getProperties();
+            if (rand(0, 1) % 2) {
+                $properties['setCfgModePassword'] = ['status' => 'TRUE'];
+            } else {
+                $properties['setCfgModePassword'] = ['status' => 'FALSE'];
+            }
+            EntityUtils::setField($device, 'properties', json_encode($properties));
+            $this->em->persist($device);
+            $this->em->flush();
+            return 'OK:HURRA';
+        } elseif (preg_match('#^(PAIR-SUBDEVICE|DEVICE-SET-TIME|ENTER-CONFIGURATION-MODE):.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         } elseif (preg_match('#^IDENTIFY-(SUB)?DEVICE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';

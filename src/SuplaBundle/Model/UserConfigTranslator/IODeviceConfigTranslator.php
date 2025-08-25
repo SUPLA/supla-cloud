@@ -86,6 +86,7 @@ readonly class IODeviceConfigTranslator {
                 $config['otaUpdate'] = $props['otaUpdate'];
             }
         }
+        $config = array_merge($config, array_intersect_key($props, array_flip(['setCfgModePassword'])));
         return $config;
     }
 

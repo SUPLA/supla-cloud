@@ -20,7 +20,7 @@
                 button-class="btn-default btn-xs btn-block" class="flex-basis-50 pr-1">
                 {{ $t('Check available updates') }}
             </FormButton>
-            <FormButton :disabled-reason="disabledReason" @click="updateConfirm = true" :loading="isCheckingUpdates"
+            <FormButton :disabled-reason="disabledReason" @click="updateConfirm = true" :loading="isPerformingUpdate"
                 button-class="btn-default btn-xs btn-block" class="flex-basis-50 pl-1">
                 {{ $t('Perform firmware update') }}
             </FormButton>
@@ -40,17 +40,18 @@
     import {computed, ref} from "vue";
     import {useDevicesStore} from "@/stores/devices-store";
     import {devicesApi} from "@/api/devices-api";
-    import {promiseTimeout, useTimeoutPoll} from "@vueuse/core";
+    import {promiseTimeout} from "@vueuse/core";
     import FormButton from "@/common/gui/FormButton.vue";
-    import {successNotification} from "@/common/notifier";
+    import {errorNotification, successNotification} from "@/common/notifier";
+    import {waitForDeviceOperation} from "@/devices/details/device-details-helpers";
 
     const props = defineProps({device: Object});
     const devicesStore = useDevicesStore();
 
     const disabledReason = computed(() => props.device.connected ? '' : 'Device is disconnected.');
 
-    const checkCount = ref(0);
     const updateConfirm = ref(false);
+    const isPerformingUpdate = ref(false);
     const isCheckingUpdates = ref(false);
     const updateUrl = computed(() => {
         const url = props.device?.config.otaUpdate?.url;
@@ -63,30 +64,28 @@
 
     async function checkUpdates() {
         isCheckingUpdates.value = true;
-        await devicesApi.otaCheckUpdates(props.device.id);
-        await promiseTimeout(1000);
-        await devicesStore.fetchDevice(props.device.id);
-        checkCount.value = 0;
-        startCheckingUpdates();
+        try {
+            await devicesApi.otaCheckUpdates(props.device.id);
+            await promiseTimeout(1000);
+            await devicesStore.fetchDevice(props.device.id);
+            await waitForDeviceOperation(() => ['AVAILABLE', 'NOT_AVAILABLE'].includes(props.device.config?.otaUpdate?.status));
+        } catch (error) {
+            errorNotification('Error', 'Could not check updates.'); // i18n
+        } finally {
+            isCheckingUpdates.value = false;
+        }
     }
 
     async function performUpdate() {
-        isCheckingUpdates.value = true;
+        isPerformingUpdate.value = true;
         try {
             await devicesApi.otaPerformUpdate(props.device.id);
             await promiseTimeout(5000);
             await devicesStore.fetchDevice(props.device.id);
             successNotification('Successful', 'Device should be restarting now.'); // i18n
         } finally {
-            isCheckingUpdates.value = false;
+            isPerformingUpdate.value = false;
             updateConfirm.value = false;
         }
     }
-
-    const {pause: stopCheckingUpdates, resume: startCheckingUpdates} = useTimeoutPoll(async () => {
-        if (['AVAILABLE', 'NOT_AVAILABLE'].includes(props.device.config?.otaUpdate?.status) || checkCount.value++ > 10) {
-            stopCheckingUpdates();
-            isCheckingUpdates.value = false;
-        }
-    }, 3000, {immediate: false})
 </script>
