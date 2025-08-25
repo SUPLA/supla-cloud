@@ -50,8 +50,8 @@ export const useChannelsStore = defineStore('channels', () => {
                 let refetch = false;
                 const idsToFetch = [];
                 const devicesStore = useDevicesStore();
-                const {states: channelsStates, devicesCount} = response;
-                devicesStore.updateConnectedStatuses(channelsStates);
+                const {states: channelsStates, devices} = response;
+                const devicesCount = devices?.length || response.devicesCount; // TODO remove after v25.08
                 channelsStates.forEach((channel) => {
                     if (all.value[channel.id]) {
                         all.value[channel.id].connected = channel.state.connected;
@@ -66,7 +66,8 @@ export const useChannelsStore = defineStore('channels', () => {
                 refetch = refetch || channelsStates.length !== ids.value.length || devicesCount !== devicesStore.ids.length;
                 if (refetch || idsToFetch.length > 5) {
                     refetchAll();
-                } else if (idsToFetch.length > 0) {
+                } else {
+                    devicesStore.updateStates(devices || []);
                     idsToFetch.forEach((id) => fetchChannel(id));
                 }
             }).finally(() => fetchStates.promise = undefined);

@@ -771,19 +771,19 @@ DROP TABLE IF EXISTS `supla_iodevice`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `supla_iodevice`
 (
-    `id`                       int(11)    NOT NULL AUTO_INCREMENT,
-    `location_id`              int(11)    NOT NULL,
-    `user_id`                  int(11)    NOT NULL,
-    `guid`                     varbinary(16) NOT NULL,
+    `id`                       int(11)                                        NOT NULL AUTO_INCREMENT,
+    `location_id`              int(11)                                        NOT NULL,
+    `user_id`                  int(11)                                        NOT NULL,
+    `guid`                     varbinary(16)                                  NOT NULL,
     `name`                     varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
-    `enabled`                  tinyint(1) NOT NULL,
+    `enabled`                  tinyint(1)                                     NOT NULL,
     `comment`                  varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
-    `reg_date`                 datetime   NOT NULL COMMENT '(DC2Type:utcdatetime)',
+    `reg_date`                 datetime                                       NOT NULL COMMENT '(DC2Type:utcdatetime)',
     `reg_ipv4`                 int(10) unsigned                                              DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
     `last_connected`           datetime                                                       DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
     `last_ipv4`                int(10) unsigned                                              DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
     `software_version`         varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci   DEFAULT NULL,
-    `protocol_version`         int(11)    NOT NULL,
+    `protocol_version`         int(11)                                        NOT NULL,
     `original_location_id`     int(11)                                                       DEFAULT NULL,
     `auth_key`                 varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci   DEFAULT NULL,
     `flags`                    int(11)                                                       DEFAULT NULL,
@@ -791,9 +791,10 @@ CREATE TABLE `supla_iodevice`
     `product_id`               smallint(6)                                                   DEFAULT NULL,
     `user_config`              varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `properties`               varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `channel_addition_blocked` tinyint(1) NOT NULL                                           DEFAULT 0,
+    `channel_addition_blocked` tinyint(1)                                     NOT NULL       DEFAULT 0,
     `pairing_result`           varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `is_virtual`               tinyint(1) NOT NULL                                           DEFAULT 0,
+    `is_virtual`               tinyint(1)                                     NOT NULL       DEFAULT 0,
+    `checksum`                 char(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL       DEFAULT '',
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQUE_USER_GUID` (`user_id`, `guid`),
     KEY `IDX_793D49D64D218E` (`location_id`),
@@ -806,6 +807,70 @@ CREATE TABLE `supla_iodevice`
   DEFAULT CHARSET = utf8mb3
   COLLATE = utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client = @@character_set_client */;
+/*!50003 SET @saved_cs_results = @@character_set_results */;
+/*!50003 SET @saved_col_connection = @@collation_connection */;
+/*!50003 SET character_set_client = utf8mb4 */;
+/*!50003 SET character_set_results = utf8mb4 */;
+/*!50003 SET collation_connection = utf8mb4_uca1400_ai_ci */;
+/*!50003 SET @saved_sql_mode = @@sql_mode */;
+/*!50003 SET sql_mode = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */;
+DELIMITER ;;
+/*!50003 CREATE */ /*!50017 DEFINER =`root`@`%`*/ /*!50003 TRIGGER update_checksum_on_device_insert
+    BEFORE INSERT
+    ON supla_iodevice
+    FOR EACH ROW
+BEGIN
+    SET NEW.checksum = supla_calculate_device_checksum(
+            NEW.`location_id`,
+            NEW.`name`,
+            NEW.`enabled`,
+            NEW.`comment`,
+            NEW.`last_ipv4`,
+            NEW.`software_version`,
+            NEW.`protocol_version`,
+            NEW.`flags`,
+            NEW.`user_config`,
+            NEW.`properties`
+                       );
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode = @saved_sql_mode */;
+/*!50003 SET character_set_client = @saved_cs_client */;
+/*!50003 SET character_set_results = @saved_cs_results */;
+/*!50003 SET collation_connection = @saved_col_connection */;
+/*!50003 SET @saved_cs_client = @@character_set_client */;
+/*!50003 SET @saved_cs_results = @@character_set_results */;
+/*!50003 SET @saved_col_connection = @@collation_connection */;
+/*!50003 SET character_set_client = utf8mb4 */;
+/*!50003 SET character_set_results = utf8mb4 */;
+/*!50003 SET collation_connection = utf8mb4_uca1400_ai_ci */;
+/*!50003 SET @saved_sql_mode = @@sql_mode */;
+/*!50003 SET sql_mode = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */;
+DELIMITER ;;
+/*!50003 CREATE */ /*!50017 DEFINER =`root`@`%`*/ /*!50003 TRIGGER update_checksum_on_device_update
+    BEFORE UPDATE
+    ON supla_iodevice
+    FOR EACH ROW
+BEGIN
+    SET NEW.checksum = supla_calculate_device_checksum(
+            NEW.`location_id`,
+            NEW.`name`,
+            NEW.`enabled`,
+            NEW.`comment`,
+            NEW.`last_ipv4`,
+            NEW.`software_version`,
+            NEW.`protocol_version`,
+            NEW.`flags`,
+            NEW.`user_config`,
+            NEW.`properties`
+                       );
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode = @saved_sql_mode */;
+/*!50003 SET character_set_client = @saved_cs_client */;
+/*!50003 SET character_set_results = @saved_cs_results */;
+/*!50003 SET collation_connection = @saved_col_connection */;
 
 --
 -- Table structure for table `supla_location`
@@ -1753,6 +1818,51 @@ BEGIN
                          `properties`,
                          `sub_device_id`,
                          `conflict_details`
+               ))
+    INTO checksum;
+    RETURN checksum;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode = @saved_sql_mode */;
+/*!50003 SET character_set_client = @saved_cs_client */;
+/*!50003 SET character_set_results = @saved_cs_results */;
+/*!50003 SET collation_connection = @saved_col_connection */;
+/*!50003 SET @saved_sql_mode = @@sql_mode */;
+/*!50003 SET sql_mode = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */;
+/*!50003 DROP FUNCTION IF EXISTS `supla_calculate_device_checksum` */;
+/*!50003 SET @saved_cs_client = @@character_set_client */;
+/*!50003 SET @saved_cs_results = @@character_set_results */;
+/*!50003 SET @saved_col_connection = @@collation_connection */;
+/*!50003 SET character_set_client = utf8mb4 */;
+/*!50003 SET character_set_results = utf8mb4 */;
+/*!50003 SET collation_connection = utf8mb4_uca1400_ai_ci */;
+DELIMITER ;;
+CREATE
+    DEFINER = `root`@`%` FUNCTION `supla_calculate_device_checksum`(`location_id` int(11),
+                                                                    `name` VARCHAR(100) CHARSET UTF8MB4,
+                                                                    `enabled` tinyint(1),
+                                                                    `comment` VARCHAR(200) CHARSET UTF8MB4,
+                                                                    `last_ipv4` int(10) unsigned,
+                                                                    `software_version` VARCHAR(20) CHARSET UTF8MB4,
+                                                                    `protocol_version` int(11),
+                                                                    `flags` int(11),
+                                                                    `user_config` varchar(4096) CHARSET UTF8MB4,
+                                                                    `properties` varchar(2048) CHARSET UTF8MB4
+) RETURNS char(32) CHARSET utf8mb3 COLLATE utf8mb3_unicode_ci
+    NO SQL
+BEGIN
+    DECLARE checksum CHAR(32) DEFAULT '';
+    SELECT MD5(CONCAT_WS('|',
+                         `location_id`,
+                         `name`,
+                         `enabled`,
+                         `comment`,
+                         `last_ipv4`,
+                         `software_version`,
+                         `protocol_version`,
+                         `flags`,
+                         `user_config`,
+                         `properties`
                ))
     INTO checksum;
     RETURN checksum;
@@ -3869,4 +3979,4 @@ where `g`.`func` is not null
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-25 13:29:06
+-- Dump completed on 2025-08-25 11:21:39

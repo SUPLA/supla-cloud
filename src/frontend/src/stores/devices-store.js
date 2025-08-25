@@ -24,14 +24,24 @@ export const useDevicesStore = defineStore('devices', () => {
         }
     };
 
-    const updateConnectedStatuses = (channelsStates) => {
-        const state = channelsStates.reduce((acc, curr) => {
-            acc[curr.iodeviceId] = !!(acc[curr.iodeviceId] || curr.state.connected);
-            return acc;
-        }, {});
-        Object.keys(state).forEach((deviceId) => {
-            all.value[deviceId].connected = state[deviceId];
+    const updateStates = (devicesStates) => {
+        let refetch = false;
+        const idsToFetch = [];
+        devicesStates.forEach((device) => {
+            if (all.value[device.id]) {
+                all.value[device.id].connected = device.connected;
+                if (all.value[device.id].checksum !== device.checksum) {
+                    idsToFetch.push(device.id);
+                }
+            } else {
+                refetch = true;
+            }
         });
+        if (refetch || idsToFetch.length > 5) {
+            fetchAll(true);
+        } else {
+            idsToFetch.forEach((id) => fetchDevice(id));
+        }
     };
 
     const remove = (deviceId, safe = true) => {
@@ -63,5 +73,5 @@ export const useDevicesStore = defineStore('devices', () => {
         fetchAll.promise = undefined;
     };
 
-    return {all, ids, list, $reset, fetchAll, updateConnectedStatuses, remove, fetchDevice};
+    return {all, ids, list, $reset, fetchAll, updateStates, remove, fetchDevice};
 });

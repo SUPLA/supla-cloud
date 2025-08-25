@@ -197,6 +197,12 @@ class IODevice implements HasLocation, HasRelationsCount {
      */
     private bool $isVirtual = false;
 
+    /**
+     * @ORM\Column(name="checksum", type="string", length=32, nullable=false, options={"charset"="ascii", "collation"="ascii_bin", "default"="", "fixed" = true})
+     * @Groups({"basic"})
+     */
+    private string $checksum = '';
+
     public function __construct() {
         $this->channels = new ArrayCollection();
         $this->pushNotifications = new ArrayCollection();
@@ -366,5 +372,9 @@ class IODevice implements HasLocation, HasRelationsCount {
 
     public function isVirtual(): bool {
         return $this->isVirtual;
+    }
+
+    public function getChecksum(): string {
+        return $this->checksum;
     }
 }

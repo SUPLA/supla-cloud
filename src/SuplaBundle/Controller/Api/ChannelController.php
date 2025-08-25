@@ -237,10 +237,19 @@ class ChannelController extends RestController {
                 ];
             })
             ->toArray();
-        $devicesCount = $deviceRepository->count(['user' => $this->getCurrentUser()]);
+        $devices = $deviceRepository->findAllForUser($this->getUser())
+            ->filter(fn(IODevice $device) => $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $device))
+            ->map(function (IODevice $device) use ($channelStateGetter) {
+                return [
+                    'id' => $device->getId(),
+                    'connected' => $this->suplaServer->isDeviceConnected($device),
+                    'checksum' => $device->getChecksum(),
+                ];
+            })
+            ->toArray();
         return $this->view([
             'states' => $channels,
-            'devicesCount' => $devicesCount,
+            'devices' => $devices,
         ]);
     }
 
