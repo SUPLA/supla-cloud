@@ -13,7 +13,9 @@
 A confirmation upon successful client app registration.: Potwierdzenie rejestracji nowej aplikacji klienckiej.
 A confirmation upon successful device registration.: Potwierdzenie pomyślnej rejestracji urządzenia.
 A confirmation upon successful device unlocking.: Potwierdzenie odblokowania urządzenia.
+A new client app: Nowa aplikacja kliencka (smartfon)
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Nowa aplikacja kliencka (smartfon) została dodana do Twojego konta SUPLA-Cloud.
+A new device: Nowe urządzenie
 A new device has been added to your SUPLA-Cloud account.: Nowe urządzenie zostało dodane do Twojego konta SUPLA-Cloud.
 A new personal access token has been generated.: Wygenerowano nowy osobisty token dostępowy
 A-Z: A-Z
@@ -34,8 +36,10 @@ Access to all of your devices through MQTT Broker: Dostęp do wszystkich Twoich 
 Account: Konto
 Account access when you are unavailable: Dostęp do konta kiedy jesteś niedostępny(a)
 Account has been activated. You can Sign In now.: Konto zostało aktywowane. Możesz się zalogować
+Account notifications: Powiadomienia dotyczące konta
 Action confirmation: Potwierdzenie akcji
 Action execution: Wykonywanie akcji
+Action is unsupported in the firmware.: Akcja nie jest wspierana przez firmware urządzenia.
 Action trigger: Wyzwalacz akcji
 Action trigger for channel: '@:{''Action trigger''} @:{''for channel''}'
 'Action trigger no. #{index}': 'Wyzwalacz #{index}'
@@ -66,8 +70,6 @@ Adjust temperature: Ustaw temperaturę
 Adjust temperatures: Ustaw temperatury
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Wszystkie kanały oraz grupy kanałów, które używają tej ikony, po jej usunięciu otrzymają ikony domyślne.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Po przyznaniu dostępu zawsze możesz zmienić zdanie odbierając dostęp w ustawieniach swojego konta.
-After the delay: Po określonym czasie
-After the delay, but only when it's dark: Po określonym czasie, ale wyłącznie gdy jest ciemno
 After the device enters the configuration mode, it will not be accessible on your account.: Urządzenie nie będzie dostępne z poziomu Twojego konta po wejściu w tryb konfiguracji.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Po aktualizacji aplikacja będzie szybsza, wygodniejsza... Po prostu lepsza!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Licznik rozpocznie liczenie od 0 po tej operacji, niezależnie od jego obecnego stanu. Tej operacji nie da się cofnąć.
@@ -160,6 +162,9 @@ Back to apps list: Powrót do listy aplikacji
 Bar: Słupkowy
 Based on sunrise or sunset: W oparciu o wschód / zachód
 Battery cover open: Pokrywa baterii otwarta
+Battery health: Żywotność baterii
+Battery level: Poziom baterii
+Battery powered: Zasilanie bateryjne
 Baudrate: Szybkość transmisji
 Be notified when your channels change state: Powiadamianie o zmianach stanu kanałów
 Be right back!: Wróć za kilka chwil!
@@ -170,6 +175,8 @@ Binary sensor for channel: '@:{''Binary sensor''} @:{''for channel''}'
 Body: Treść
 Bottom position: Dolna pozycja
 Bridge: Most
+Bridge node online: Węzeł mostu - online
+Bridge node signal strength: Signal strength
 Brightness: Jasność
 Brightness adjustment for automatic mode: Dostosowanie jasności trybu automatycznego
 Brightness level: Poziom jasności
@@ -229,6 +236,7 @@ Channels groups are not supported for this function.: Ta funkcja nie wspiera gru
 Channels that are meant to work with each other must be in the same location.: Kanały, które mają ze sobą współpracować, muszą być w jednej lokalizacji.
 Channels that are meant to work with each other must have the same visibility setting.: Kanały, które mają współpracować, muszą mieć takie same ustawienie widoczności.
 Chart type: Typ wykresu
+Check available updates: Sprawdź dostępność aktualizacji
 Check the direct link you used and try again.: Sprawdź wywołany link bezpośredni i spróbuj ponownie.
 Check your email box: Sprawdź swoją skrzynkę email
 Check your email inbox: Sprawdź Twoją skrzynkę odbiorczą
@@ -277,9 +285,11 @@ Confirm if you want to perform the calibration.: Potwierdź chęć wykonania kal
 Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Identyfikatora Dostępu
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.
 Confirm if you want to remove {deviceName} device and all of its channels.: Potwierdź, że chcesz usunąć urządzenie {deviceName} i wszystkie jego kanały.
+Confirm new password: Potwierdź nowe hasło
 Confirmation: Potwierdzenie
 Conflict: Konflikt
 Connected: Połączony
+Connection uptime: Czas połączenia
 Connection with a private instance of the SUPLA cloud: Połączenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
 Container: Zbiornik
@@ -291,12 +301,17 @@ Cooling mode: Tryb chłodzenia
 Copy state from other channel: Skopiuj stan z innego kanału
 Costs: Koszty
 Could not add the data source. Try again in a while.: Nie udało się dodać źródła danych. Spróbuj ponownie za chwilę.
+Could not change the password.: Nie udało się zmienić hasła.
+Could not check updates.: Nie udało się sprawdzić dostępności aktualizacji.
 Could not contact Autodiscover service. Try again in a while.: Nie można skontaktować się z usługą rejestracji. Spróbuj ponownie za chwilę.
 Could not enter the configuration mode.: Nie udało się przełączyć urządzenia w tryb konfiguracji.
+Could not perform factory reset.: Nie można wykonać przywrócenia ustawień fabrycznych
+Could not perform firmware update.: Nie można wykonać aktualizacji oprogramowania
 Could not reset the password.: Nie udało się zresetować hasła.
 Could not reset the password. Please try again later.: Nie można zresetować hasła. Spróbuj ponownie za chwilę.
 Could not restart the device.: Nie udało sie zrestartować urządzenia.
 Could not send the identify command.: Nie udało się przesłać rozkazu.
+Could not set device password.: Nie można ustawić hasła urządzenia
 Could not set the device time.: Nie udało się ustawić daty i godziny na urządzeniu.
 Counter: Licznik
 Counter reset: Reset licznika
@@ -350,12 +365,11 @@ Details: Szczegóły
 Device: Urządzenie
 'Device GUID: %deviceGuid%': 'GUID urządzenia: %deviceGuid%'
 'Device ID: %deviceId%': 'Identyfikator urządzenia: %deviceId%'
-Device identification is unsupported in the firmware.: Identyfikacja urządzenia nie jest wspierana w firmware.
+Device identification is unsupported in the firmware.: Identyfikacja urządzenia nie jest wspierana przez oprogramowanie
 Device interface: Interfejs urządzenia
 Device is disconnected.: Urządzenie jest rozłączone.
 Device might be sleeping: Urządzenie może być w trybie uśpienia
 'Device name: %deviceName%': 'Nazwa urządzenia: %deviceName%'
-Device settings: Ustawienia urządzenia
 Device should be now in configuration mode.: Urządzenie powinno być teraz w trybie konfiguracji.
 Device should be restarting now.: Urządzenie powinno się uruchamiać ponownie.
 'Device software version: %deviceSoftwareVersion%': 'Wersja oprogramowania: %deviceSoftwareVersion%'
@@ -395,7 +409,7 @@ Download measurements history: Pobierz historię pomiarów
 Download the history of measurement: Pobierz historię pomiarów
 Drag your image(s) here or click to select from the disk: Przeciągnij obraz tutaj lub kliknij aby wybrać z dysku
 Dryer: Osuszacz
-E-mail notifications: Powiadomienia e-mail
+E-mail: E-mail
 Each container level sensor must have different fill level.: Każdy czujnik poziomu musi mieć ustawiony inny poziom napełnienia.
 Edit: Edytuj
 Edit area crop: Edytuj obszar
@@ -428,7 +442,6 @@ Enter the data below in your mobile SUPLA application on your smartphone.: Poni�
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Podaj tylko domenę razem z portem jeśli nie jest standardowy (443). Wymagamy połączenia HTTPS.
 Enter your email address: Wprowadź Twój adres email
 Enter your password to prevent automatic logout.: Podaj swoje hasło by zapobiec automatycznemu wylogowaniu.
-Entering configuration mode is unsupported in the firmware.: Zdalne przełączanie w tryb konfiguracji jest niewspierane przez oprogramowanie sprzętowe urządzenia.
 Error: Błąd
 Error when communicating the AD. Try again in a while.: Błąd przy komunikacji z AD. Spróbuj ponownie za chwilę.
 Error when communicating the server. Try again in a while.: Wystąpił problem w trakcie komunikacji z serwerem. Spróbuj ponownie za chwilę.
@@ -451,6 +464,7 @@ Expired: Przeterminowany
 Expires at: Wygasa
 External sensor disabling the thermostat: Zewnętrzny czujnik wyłączający termostat
 Facade blind operation: Żaluzje fasadowe
+Factory reset: Przywracanie ustawień fabrycznych
 Failed: Nieudane
 Failed (zombie): Nieudane (zombie)
 Fan: Wiatrak
@@ -463,6 +477,9 @@ Fill missing data: Wypełniaj brakujące pomiary
 Firmware: Firmware
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tego urządzenie wysyła powiadomienia w kontekście tego kanału. W tym miejscu możesz skonfigurować treść oraz odbiorców. Aby uzyskać więcej informacji, skontaktuj się z dostawcą urządzenia.
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tego urządzenie wysyła powiadomienia. W tym miejscu możesz skonfigurować treść oraz odbiorców. Aby uzyskać więcej informacji, skontaktuj się z dostawcą urządzenia.
+Firmware update is available.: Aktualizacja jest dostępna
+Firmware update policy: Polityka aktualizacji oprogramowania
+Firmware version: Wersja oprogramowania
 Flood sensor: Czujnik zalania
 Flood sensor for valve: Czujnik zalania dla zaworu
 Flood sensors: Czujniki zalania
@@ -547,6 +564,7 @@ I/O Devices: Urządzenia we/wy
 I/O devices registration: Rejestracja urządzeń
 ID: ID
 INACTIVE: NIEAKTYWNA
+IP: IP
 IP Address: Adres IP
 Icon: Ikona
 Identify device: Identyfikuj urządzenie
@@ -618,6 +636,7 @@ Keep in mind, that the humanized description of the entered crontab is not perfe
 Language is not available: Język jest niedostępny
 Last access: Ostatnie połączenie
 Last connection: Ostatnie połączenie
+Last connection reset cause: Powód restartu połączenia
 Last paired device: Ostatnio sparowane urządzenie
 Last used: Ostatnio użyty
 Let me choose later: Pozwól mi wybrać później
@@ -625,6 +644,8 @@ Level sensor: Czujnik poziomu
 Level sensor for container: Czujnik poziomu dla zbiornika
 Level sensors: Czujniki poziomu
 Light mode: Tryb jasny
+Light source lifespan: Żywotność źródła światła
+Light source operating time: Czas pracy źródła światła
 Light switch: Włącznik światła
 Lighting: Oświetlenie
 Lighting level: Poziom oświetlenia
@@ -648,6 +669,7 @@ Low threshold: Próg niski
 Low threshold must be less than high threshold.: Próg niski musi być niższy od wysokiego
 Low value: Wartość minimalna
 Lower voltage threshold: Próg niskiego napięcia
+MAC: MAC
 MQTT Broker: Broker MQTT
 MQTT Broker Username: Nazwa użytkownika
 MQTT Broker is disabled.: Broker MQTT jest wyłączony.
@@ -717,6 +739,7 @@ New direct link: Nowy link bezpośredni
 New password: Nowe hasło
 New reaction: Nowa reakcja
 New scene: Nowa scena
+New version: Nowa wersja
 Newer: Nowsze
 'Next limit renewal: {date}': Limit zostanie odnowiony {date}
 Next run date: Najbliższe wykonanie
@@ -780,6 +803,7 @@ Open partially: Otwórz częściowo
 Open value: Wartość otwarcia
 Opening sensor: Czujnik otwarcia
 Opening sensor for channel: '@:{''Opening sensor''} @:{''for channel''}'
+Operating time: Czas pracy
 Operation: Operacja
 Operations: Operacje
 Original location: Oryginalna lokalizacja
@@ -794,7 +818,6 @@ PIN: PIN
 PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN dla Google musi mieć co najmniej {minLength} i co najwyżej {maxLength} cyfr.
 Pair new devices or sensors: Sparuj nowe urządzenia lub czujniki
 Pairing request sent.: Wysłano żądanie parowania.
-Pairing subdevices is unsupported in the firmware.: Parowanie jest niewspierane przez oprogramowanie urządzenia.
 Partial opening sensor: Czujnik pośredniego otwarcia
 Partially opened sensor for channel: '@:{''Partial opening sensor''} @:{''for channel''}'
 Password: Hasło
@@ -802,12 +825,16 @@ Password Reset: Resetowanie hasła
 Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Zmiana hasła spowoduje wylogowanie wszystkich aktualnych sesji. Nie wpłynie to jednak na aplikacje, które otrzymały od Ciebie autoryzację. Zgody na logowanie aplikacji musisz wycofać oddzielnie.
 Password changed: Hasło zmienione
 Password has been changed: Hasło zostało zmienione
+Password must be at least 5 characters long.: Hasło musi mieć co najmniej 5 znaków
 Password must be at least {minLength} characters.: Hasło musi mieć co najmniej {minLength} znaków.
 Password must be no longer than {maxLength} characters.: Hasło nie może być dłuższe niż {maxLength} znaki.
 Password reset: Zresetuj hasło
 Password reset instructions.: Instrukcje przywrócenia dostępu do Twojego konta.
+Password was set successfully.: Hasło zostało ustawione pomyślnie
+Passwords do not match.: Hasła nie są identyczne
 Percentage of closing: Procent zamknięcia
 Percentage of extension: Procent rozwinięcia
+Perform firmware update: Zaktualizuj firmware
 Personal access tokens: Osobiste tokeny dostępowe
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Osobiste tokeny dostępowe działają tak jak zwykłe z tą różnicą, że działają bezterminowo.
 Personal token name is required.: Wymagane jest podanie nazwy tokena osobistego.
@@ -859,6 +886,7 @@ Publish to integrations: Publikuj do integracji
 Publishes the event to integrated services like MQTT or webhooks.: Powiadamia integracje takie jak MQTT lub webhooki o wykonaniu tej akcji.
 Pump switch: Włącznik pompy
 Pump switch for channel: '@:{''Pump switch''} @:{''for channel''}'
+Push: Push
 Push notifications limit has been exceeded: Limit powiadomień push został przekroczony
 RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ZALECANE OSZCZĘDZANIE. Zaplanuj domowe energochłonne czynności na inne godziny.
 RECOMMENDED USE. Take advantage of excess energy.: ZALECANE UŻYTKOWANIE. Korzystaj z nadmiaru energii.
@@ -873,6 +901,7 @@ Reactions limit has been exceeded: Przekroczono limit reakcji
 Read: Odczyt
 Reading: Odczyt
 Recipients: Odbiorcy
+Recipients for push notifications: Odbiorcy powiadomień push
 Reference to the deleted channels will be removed from the items below.: Wskazanie na ten kanał zosatnie także usunięte z poniższych elementów.
 Reference to the scene will be removed from the items below.: Wskazanie na scenę zostanie usunięte z poniższych elementów.
 Refresh: Odśwież
@@ -893,7 +922,7 @@ Reload last photo: Przeładuj ostatnie zdjęcie
 Reload the chart: Przeładuj wykres
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Przed usunięciem lokalizacji musisz najpierw przenieść grupy kanałów, które się w niej znajdują. Identyfikatory: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Przed usunięciem lokalizacji musisz najpierw przenieść kanały, które się w niej znajdują. Identyfikatory: {relatedIds}.'
-Remote restart is unsupported in the firmware.: Zdalny restart jest niewspierany przez oprogramowanie urządzenia.
+Remote restart is unsupported in the firmware.: Zdalne restartowanie nie jest wspierane przez oprogramowanie
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Usuń powiązane urządzenia zanim usuniesz tą lokalizację. Identyfikatory: {relatedIds}.'
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Usuń wszystkie powiązane sceny przed usunięciem tej lokalizacji. Identyfikatory: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Najpierw usuń wszystkie urządzenia, które używają tej lokalizacji jako oryginalna lokalizacja. Identyfikatory: {relatedIds}.'
@@ -943,7 +972,6 @@ Saturdays: Soboty
 Save: Zapisz
 Save and enable: Zapisz i włącz
 Save changes: Zapisz zmiany
-Save changes to see Access IDs: Zapisz zmiany by wyświetlić identyfikatory dostępu
 Save or discard configuration changes first.: Najpierw zapisz lub odrzuć zmiany w konfiguracji.
 Scene: Scena
 Scene ID{id} is being executed right now.: Scena ID{id} jest teraz wykonywana.
@@ -982,6 +1010,7 @@ Server address: Adres serwera
 Server unreachable: Serwer nieosiągalny
 Service temporarily unavailable: Usługa tymczasowo niedostępna
 Set HVAC parameters: Ustaw parametry
+Set the configuration password: Ustaw hasło konfiguracyjne
 Set the device time: Ustaw datę i godzinę na urządzeniu
 Set value added: Ustal wartość dodaną
 Set values for each phase separately: Ustal wartość dla każdej fazy osobno
@@ -1059,9 +1088,9 @@ The Terms and Conditions have changed – please read them and accept.: Regulami
 The activation link has been sent again. Check the inbox.: Wiadomość z linkiem aktywującym Twoje konto została wysłana ponownie. Sprawdź skrzynkę odbiorczą.
 The channel has been deleted.: Kanał został usunięty.
 The client will be automatically logged out when deleted.: Usunięcie klienta spowoduje jego natychmiastowe wylogowanie.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: Konfiguracja została zmieniona z innego miejsca (np. inne okno przeglądarki, aplikacja mobilna lub urządzenie). Wprowadź zmiany jeszcze raz i zapisz ponownie.
 The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: |
   Konfiguracja została zmieniona z innego miejsca (np. inne okno przeglądarki, aplikacja mobilna lub urządzenie). Musisz odświeżyć konfigurację zanim wprowadzisz kolejne zmiany.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: Konfiguracja została zmieniona z innego miejsca (np. inne okno przeglądarki, aplikacja mobilna lub urządzenie). Wprowadź zmiany jeszcze raz i zapisz ponownie.
 The counter has been reset.: Licznik został zresetowany.
 The device could not be unlocked.: Nie udało się odblokować urządzenia.
 The device has been unlocked already.: Urządzenie już jest odblokowane.
@@ -1073,6 +1102,7 @@ The device might be in a sleep mode.: Urządzenie może pracować w trybie uśpi
 The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Urządzenie, które używa tej sesji straci dostęp do SUPLA Cloud. W celu dalszego korzystania z aplikacji będzie wymagane na nim ponowne zalogowanie się.
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Cała historia aberracji napięcia dla fazy {phaseNumber} zostanie usunięta.
 The entire history of the voltage aberrations will be removed from this channel.: Cała historia aberracji napięcia zostanie usunięta dla tego kanału.
+The factory reset was successful.: Przywrócenie ustawień fabrycznych powiodło się
 The following channels will be also removed along with their dependencies.: Poniższe kanały także zostaną usunięte razem z ich zależnościami.
 The following items use the channels of these device. These references will be also removed.: Poniższe elementy używają kanałów z tego urządzenia. Odniesienia do nich również zostaną usunięte.
 'The following items will be deleted with this device:': Poniższe elementy zostaną również usunięte razem z tym urządzeniem.
@@ -1089,7 +1119,7 @@ The master termostat you chose already has a master.: Wybrany przez ciebie termo
 The measurement history has been deleted.: Historia pomiarów została usunięta.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Nowe hasło zastąpi to, którego używasz obecnie. Niektóre integracje mogą przestać działać po jego zmianie. Kontynuować?
 The next available executions: Najbliższe wykonania
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Za pomocą ramki zaznaczyliśmy powiadomienie, z którego kliknąłeś/kliknęłaś link do wypisania się.
+The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: Powiadomienie oznaczone pomarańczowym tłem to to, które zobaczyłeś(aś) po kliknięciu w link do wypisania się
 The notification must have a recipient.: Powiadomienie musi posiadać odbiorcę.
 The password and its confirm are not the same.: Hasło i jego potwierdzenie nie są takie same.
 The password should be 8 or more characters.: Hasło powinno mieć minimum 8 znaków.
@@ -1113,7 +1143,9 @@ Thermometers configuration: Konfiguracja termometrów
 Thermostat: Termostat
 Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Ten termostat używa ustawień z termostatu nadrzędnego. Przejdź do strony jego szczegółów, aby zmienić ustawieni.
 Thermostat programs: Programy termostatu
+This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: Ta operacja spowoduje usunięcie wszystkich zapisanych informacji (w tym ustawień Wi-Fi, hasła, poczty, serwera) i nie połączy się automatycznie ponownie
 This action will result in restarting the device. It will not be available for a while.: Zlecenie tej operacji spowoduje restart urządzenia. W trakcie restartu urządzenie będzie niedostępne.
+This action will result in trying to update the device firmware. It will not be available for a while.: Ta operacja spowoduje próbę aktualizacji oprogramowania urządzenia. Nie będzie ono dostępne przez pewien czas
 This channel was missing during last device registration attempt.: Tego kanału brakuje na urządzeniu.
 This device cannot be remotely awakened. We are awaiting communication from the device...: Tego urządzenia nie można zdalnie wybudzić. Oczekujemy na komunikację ze strony urządzenia...
 This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: To urządzenie jest przeznaczone do dystrybucji i instalacji tylko przez autoryzowanych instalatorów. Jeśli nie jesteś autoryzowanym instalatorem SUPLA i nie dysponujesz aktywnym certyfikatem szkoleniowym zwróć je do sprzedawcy.
@@ -1124,6 +1156,7 @@ This is the final step in the deletion process. Completing the form will result 
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: To jest ostatnie zdjęcie przesłane z urządzenia. Zaznacz dokładnie obszar, w którym są widoczne cyfry z licznika.
 This is the list of applications you have granted access to your account.: To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: To jest lista reakcji działających na Twoim koncie. Jeśli chcesz dodać nową reakcję, przejdź do szczegółów kanału, który powinien ją wyzwalać.
+This is the password that was configured during the first device setup. It allows you to access the device configuration page when you are connected to its Wi-Fi.: To jest hasło, które zostało skonfigurowane podczas pierwszej konfiguracji urządzenia. Pozwala ono na dostęp do strony konfiguracyjnej urządzenia, gdy jesteś połączony z jego Wi-Fi
 This link is only valid for an hour.: Link będzie aktywny przez godzinę.
 'This password will protect your home. Therefore, it must:': 'To hasło ochroni Twój dom. Dlatego:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ten tryb harmonogramu jest zaprojektowany z myślą o technicznych lub bardzo cierpliwych użytkownikach. Wymaga on podania momentów wyzwalania harmonogramu w notacji crontab, wzbogaconej o kilka funkcjonalności spotykanych tylko w SUPLI. Jeśli nie spotkałeś/aś się wcześniej z crontabami a nadal chcesz użyć tego trybu, strona crontab.guru może się okazać dla Ciebie pomocna.
@@ -1159,6 +1192,7 @@ Unknown browser: Nieznana przeglądarka
 Unlock the device: Odblokuj urządzenie
 Unregister my private SUPLA Cloud instance: Wyrejestruj moją prywatną instancję SUPLA Cloud
 Unsuccessful login attempt: Nieudane logowanie
+Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Nieudana próba logowania do SUPLA-CLOUD (%cloudHost%) przy użyciu Twojego adresu email
 Unsupported function: Niewspierana funkcja
 Unsupported type: Niewspierany typ
 Until a date and time: Do czasu
@@ -1167,6 +1201,7 @@ Update in progress: Trwa aktualizacja
 Updating...: Aktualizacja...
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Przesłane pliki nie naruszają dobrych obyczajów, praw autorskich oraz praw osób trzecich, a ja mam prawo z nich korzystać.
 Upper voltage threshold: Próg wysokiego napięcia
+Uptime: Czas pracy
 Use activity schedule: Użyj harmonogramu aktywności
 Use device default: Użyj domyślnej wartości z urządzenia
 'Use the {0} server command to change this account''s limits. For example:': 'Aby zmienić limity dla tego konta, użyj komendy {0} na Twoim serwerze. Na przykład:'
@@ -1388,6 +1423,8 @@ When you execute the link with HTTP PATCH method, you can omit the random part o
 Where is the JSON?: Gdzie jest JSON?
 Where is your SUPLA Cloud?: Gdzie znajduje się Twoja Supla?
 White: Biały
+WiFi RSSI: WiFi RSSI
+WiFi signal strength: Siła sygnału WiFi
 Will be deleted after: Usuwanie po
 Wind sensor: Czujnik wiatru
 Window opening sensor: Czujnik otwarcia okna
@@ -1411,6 +1448,7 @@ You cannot use SUPLA project name in the domain name.: Nie możesz używać nazw
 You have exceeded your API Rate Limit: Wykorzystałeś/aś swój limit żądań do API
 You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Prośba została wysłana. Powiadomimy Cię, gdy instalator ja zatwierdzi i odblokuje urządzenie.
 You have requested to unregister your SUPLA Cloud instance: Poprosiłeś/aś o wyrejestrowanie twojej instancji SUPLA Cloud
+You have the newest firmware installed.: Masz zainstalowaną najnowszą wersję oprogramowania
 You have to choose at least one scope.: Musisz wybrać przynajmniej jeden zakres.
 You just need to execute the following command inside your host terminal.: Wystarczy wykonać następujące polecenie wewnątrz terminala Twojego hosta.
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Jeśli nadal chcesz skorzystać z zaawansowanego trybu harmonogramu, rzuć okiem na poniższe przykłady.
@@ -1549,6 +1587,10 @@ energyPriceForecast_field_rce: Cena energii RCE
 everyday: codziennie
 executed: wykonano
 extend: przedłuż
+firmwareUpdatePolicy_ALL_ENABLED: Instaluj aktualizacje automatycznie
+firmwareUpdatePolicy_DISABLED: Tylko ręczne aktualizacje
+firmwareUpdatePolicy_FORCED_OFF: Wyłączone na urządzeniu
+firmwareUpdatePolicy_SECURITY_ONLY: Instaluj automatycznie tylko aktualizacje z poprawkami bezpieczeństwa
 from IP: z adresu IP
 from the IP: z adresu
 green, otherwise: w przeciwnym razie zielona
@@ -1562,6 +1604,9 @@ homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatura i wilgotność
 homeScreenContent_TEMPERATURE_TIME: Temperatura i czas
 homeScreenContent_TIME: Czas
 homeScreenContent_TIME_DATE: Data i czas
+homeScreenContent_offMode_ALWAYS_ENABLED: Po określonym czasie
+homeScreenContent_offMode_DISABLE: Wyłączone
+homeScreenContent_offMode_ENABLED_WHEN_DARK: Po określonym czasie, ale wyłącznie gdy jest ciemno
 hour: godz.
 hours: godz.
 is at least {numChars} characters long: posiada conajmniej {numChars} znaków
@@ -1570,6 +1615,10 @@ last 24 hours: ostatnie 24 godziny
 last 30 days: ostatnie 30 dni
 last 6 hours: ostatnie 6 godzin
 last 7 days: ostatnie 7 dni
+lastConnectionResetCause_ACTIVITY_TIMEOUT: brak odpowiedzi serwera
+lastConnectionResetCause_SERVER_CONNECTION_LOST: reset połączenia z serwerem
+lastConnectionResetCause_UNKNOWN: nieznany
+lastConnectionResetCause_WIFI_CONNECTION_LOST: utrata połączenia WiFi
 localUILock_FULL: Zablokowany
 localUILock_TEMPERATURE: Tylko ustawienie temperatury
 localUILock_UNLOCKED: Odblokowany
@@ -1584,6 +1633,7 @@ min: min.
 min.: min.
 minutes: minut
 modbusRole_MASTER: MASTER (klient)
+modbusRole_NOT_SET: Wyłączone
 modbusRole_SLAVE: SLAVE (serwer)
 modbusSerialStopbits_ONE: Jeden
 modbusSerialStopbits_ONE_AND_HALF: Jeden i pół
@@ -1765,9 +1815,11 @@ Could not perform the calibration.: Nie udało się przeprowadzić kalibracji.
 DISABLED: WYŁĄCZONE
 Days: Dni
 Device channel value: Wartość z urządzenia
+Device settings: Ustawienia urządzenia
 Differential: Różnicowy
 Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
 Doors, Gates: Drzwi, Bramy
+E-mail notifications: Powiadomienia e-mail
 ENABLED: WŁĄCZONE
 Email already exists: Adres e-mail już istnieje
 Execute the scene: Wykonaj scenę
@@ -1805,6 +1857,7 @@ Registration: Rejestracja
 Remaining: Pozostało
 Remove: Usuń
 Requests limit: Limit żądań
+Save changes to see Access IDs: Zapisz zmiany by wyświetlić identyfikatory dostępu
 Schedule cannot be enabled: Nie udało się włączyć harmonogramu
 Schedules below will be deleted: Poniższe harmonogramy zostaną usunięte
 Sensor (normal closed): Czujnik (normalnie zamknięty)
@@ -1816,6 +1869,7 @@ Standard: Standardowe
 Status: Status
 Subject: Podmiot
 Sunrise / Sunset: Wschód / Zachód
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Za pomocą ramki zaznaczyliśmy powiadomienie, z którego kliknąłeś/kliknęłaś link do wypisania się.
 Triggers: Wyzwalacze
 Try again later: Spróbuj ponownie później
 Turn off after: Wyłącz po czasie
