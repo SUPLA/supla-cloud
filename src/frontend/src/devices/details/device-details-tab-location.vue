@@ -9,6 +9,7 @@
             </router-link>
             <SquareLocationChooser v-model="location" @chosen="changeLocation($event)"/>
         </div>
+        <WhoHasAccessList :location-id="device.locationId"/>
         <DependenciesWarningModal
             header-i18n="Are you sure you want to change device’s location?"
             description-i18n="Changing the location will also imply changing the location of the following items."
@@ -29,6 +30,7 @@
     import {useChannelsStore} from "@/stores/channels-store";
     import {useLocationsStore} from "@/stores/locations-store";
     import SquareLocationChooser from "@/locations/square-location-chooser.vue";
+    import WhoHasAccessList from "@/locations/who-has-access-list.vue";
 
     const props = defineProps({device: Object});
 

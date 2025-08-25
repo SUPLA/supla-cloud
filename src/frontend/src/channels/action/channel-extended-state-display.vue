@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="source.state.extendedState">
         <dl :class="['m-0', {'as-grid': grid}]">
             <template v-for="state in availableStates">
                 <template v-if="source.state.extendedState[state.key] !== undefined">

@@ -39,7 +39,6 @@
     import DeviceDetailsTabBasicSettings from "@/devices/details/device-details-tab-basic-settings.vue";
     import DeviceDetailsTabFirmwareInfo from "@/devices/details/device-details-tab-firmware-info.vue";
     import DeviceDetailsTabLocation from "@/devices/details/device-details-tab-location.vue";
-    import DeviceDetailsTabAccessIds from "@/devices/details/device-details-tab-access-ids.vue";
     import DeviceDetailsTabRemoteButtons from "@/devices/details/device-details-tab-remote-buttons.vue";
     import {computed, onMounted, ref} from "vue";
     import DeviceDetailsTabSettingsLed from "@/devices/details/device-details-tab-settings-led.vue";
@@ -58,12 +57,16 @@
     const props = defineProps({device: Object});
 
     const availableTiles = [
-        {title: 'Device information', component: DeviceDetailsTabFirmwareInfo, show: !props.device.isVirtual},
-        {title: 'Basic settings', component: DeviceDetailsTabBasicSettings, show: true},
-        {title: 'Location', component: DeviceDetailsTabLocation, show: !props.device.locked},
-        {title: 'Access ID', component: DeviceDetailsTabAccessIds, show: !props.device.locked},
+        {title: 'Device information', component: DeviceDetailsTabFirmwareInfo, show: !props.device.isVirtual}, // i18n
+        {title: 'Default location', component: DeviceDetailsTabLocation, show: !props.device.locked}, // i18n
+        {title: 'Basic settings', component: DeviceDetailsTabBasicSettings, show: true}, // i18n
         {
-            title: 'Remote access',
+            title: 'LED settings', // i18n
+            component: DeviceDetailsTabSettingsLed,
+            show: props.device.config?.powerStatusLed !== undefined || props.device.config?.statusLed !== undefined,
+        },
+        {
+            title: 'Remote access', // i18n
             component: DeviceDetailsTabRemoteButtons,
             show: !props.device.locked && (
                 props.device.flags.enterConfigurationModeAvailable
@@ -74,29 +77,24 @@
                 || props.device.flags.pairingSubdevicesAvailable
             )
         },
-        {title: 'MODBUS', component: DeviceDetailsTabSettingsModbus, show: props.device.config?.modbus !== undefined},
-        {title: 'Home screen', component: DeviceDetailsTabSettingsHomeScreen, show: props.device.config?.homeScreen !== undefined},
+        {title: 'MODBUS', component: DeviceDetailsTabSettingsModbus, show: props.device.config?.modbus !== undefined}, // i18n
+        {title: 'Home screen', component: DeviceDetailsTabSettingsHomeScreen, show: props.device.config?.homeScreen !== undefined}, // i18n
         {
-            title: 'Device interface',
+            title: 'User interface', // i18n
             component: DeviceDetailsTabSettingsUserInterface,
             show: props.device.config?.userInterface !== undefined || props.device.config?.buttonVolume !== undefined
         },
         {
-            title: 'Screen brightness',
+            title: 'Screen brightness', // i18n
             component: DeviceDetailsTabSettingsScreenBrightness,
             show: props.device.config?.screenBrightness !== undefined
         },
         {
-            title: 'LED settings',
-            component: DeviceDetailsTabSettingsLed,
-            show: props.device.config?.powerStatusLed !== undefined || props.device.config?.statusLed !== undefined,
-        },
-        {
-            title: 'Other settings',
+            title: 'Other settings', // i18n
             component: DeviceDetailsTabSettingsOther,
             show: props.device.config?.automaticTimeSync !== undefined
                 || props.device.config?.firmwareUpdatePolicy !== undefined,
-        },
+        }
     ];
 
     const tiles = computed(() => availableTiles.filter(t => t.show));
