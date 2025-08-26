@@ -1423,8 +1423,8 @@ When you execute the link with HTTP PATCH method, you can omit the random part o
 Where is the JSON?: Gdzie jest JSON?
 Where is your SUPLA Cloud?: Gdzie znajduje się Twoja Supla?
 White: Biały
-WiFi RSSI: WiFi RSSI
-WiFi signal strength: Siła sygnału WiFi
+Wi-Fi RSSI: Wi-Fi RSSI
+Wi-Fi signal strength: Siła sygnału Wi-Fi
 Will be deleted after: Usuwanie po
 Wind sensor: Czujnik wiatru
 Window opening sensor: Czujnik otwarcia okna
@@ -1618,7 +1618,7 @@ last 7 days: ostatnie 7 dni
 lastConnectionResetCause_ACTIVITY_TIMEOUT: brak odpowiedzi serwera
 lastConnectionResetCause_SERVER_CONNECTION_LOST: reset połączenia z serwerem
 lastConnectionResetCause_UNKNOWN: nieznany
-lastConnectionResetCause_WIFI_CONNECTION_LOST: utrata połączenia WiFi
+lastConnectionResetCause_WIFI_CONNECTION_LOST: utrata połączenia Wi-Fi
 localUILock_FULL: Zablokowany
 localUILock_TEMPERATURE: Tylko ustawienie temperatury
 localUILock_UNLOCKED: Odblokowany
@@ -1653,7 +1653,7 @@ register-slide1-text: W oparciu o dostępną elektronikę, SUPLA umożliwi Ci zb
 register-slide1-title: Własny Inteligentny Budynek
 register-slide2-text: Jednymi z podstawowych założeń projektu są prostota i dostępność. SUPLA pozwala jednym przesunięciem palca włączyć światło czy też otworzyć bramę wjazdową w momencie, gdy chcemy wjechać na posesję. SUPLA dostępna jest wszędzie tam, gdzie posiadasz dostęp do sieci Internet i masz pod ręką smartfon lub tablet. SUPLA jest rozwijana na zasadach Otwartego Oprogramowania oraz Otwartego Sprzętu dzięki temu Ty również możesz rozwijać ten projekt!
 register-slide2-title: SUPLA wszędzie!
-register-slide3-text: Dostępne na rynku systemy automatyki budynkowej są zazwyczaj bardzo złożone, zamknięte oraz kosztowne. W wielu przypadkach wymagają instalacji już na etapie budowy obiektu. SUPLA jest prosta, otwarta i bezpłatna. Umożliwia budowanie elementów wykonawczych w oparciu o platformy RaspberryPI, Arduino czy też ESP8266 i łączenie ich z wykorzystaniem sieci LAN oraz WiFi. Dołącz do projektu i zbuduj własną wersję systemu automatyki budynkowej!
+register-slide3-text: Dostępne na rynku systemy automatyki budynkowej są zazwyczaj bardzo złożone, zamknięte oraz kosztowne. W wielu przypadkach wymagają instalacji już na etapie budowy obiektu. SUPLA jest prosta, otwarta i bezpłatna. Umożliwia budowanie elementów wykonawczych w oparciu o platformy RaspberryPI, Arduino czy też ESP8266 i łączenie ich z wykorzystaniem sieci LAN oraz Wi-Fi. Dołącz do projektu i zbuduj własną wersję systemu automatyki budynkowej!
 register-slide3-title: Bezpłatna i otwarta!
 scene: scena
 schedule: harmonogram

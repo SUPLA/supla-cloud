@@ -39,8 +39,8 @@
             return [
                 {label: 'IP', key: 'ipv4', format}, // i18n
                 {label: 'MAC', key: 'mac', format}, // i18n
-                {label: 'WiFi RSSI', key: 'wifiRSSI', format}, // i18n
-                {label: 'WiFi signal strength', key: 'wifiSignalStrength', format: percent}, // i18n
+                {label: 'Wi-Fi RSSI', key: 'wifiRSSI', format: (v) => `${v} dBm`}, // i18n
+                {label: 'Wi-Fi signal strength', key: 'wifiSignalStrength', format: percent}, // i18n
                 {label: 'Uptime', key: 'uptime', format: duration}, // i18n
                 {label: 'Connection uptime', key: 'connectionUptime', format: duration}, // i18n
                 {
