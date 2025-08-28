@@ -16,7 +16,7 @@
 </script>
 
 <template>
-    <span v-tooltip="disabledReason">
+    <span v-tooltip="$t(disabledReason)">
         <button :type="buttonType" :class="['btn', buttonClass, {'disabled': isDisabled}]" :disabled="isDisabled" @click="$emit('click')">
             <button-loading-dots v-if="loading"/>
             <slot v-else/>

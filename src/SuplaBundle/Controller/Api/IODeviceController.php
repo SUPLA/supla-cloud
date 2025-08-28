@@ -397,7 +397,9 @@ class IODeviceController extends RestController {
                 Assertion::isInstanceOf($userToken, WebappToken::class, 'Device password can be changed from the web interface only.');
                 Assertion::true($ioDevice->getFlags()['setCfgModePasswordSupported'], 'Action is unsupported in the firmware.');
                 Assertion::keyExists($body, 'password', 'Missing password.');
-                Assert::that($body['password'])->string()->minLength(5, 'Password must be at least 5 characters long.');
+                Assert::that($body['password'])->string()
+                    ->minLength(5, 'Password is too short.') // i18n
+                    ->maxLength(64, 'Password is too long.'); // i18n
                 $result = $this->suplaServer->deviceAction($ioDevice, 'SET-CFG-MODE-PASSWORD', [base64_encode($body['password'])]);
                 Assertion::true($result, 'Could not set device password.'); // i18n
             } elseif ($action === 'pairSubdevice') {
