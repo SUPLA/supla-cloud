@@ -82,7 +82,7 @@
             await devicesApi.otaPerformUpdate(props.device.id);
             await promiseTimeout(5000);
             await devicesStore.fetchDevice(props.device.id);
-            successNotification('Successful', 'Device should be restarting now.'); // i18n
+            successNotification('Successful', 'Device should be checking and installing updates.'); // i18n
         } finally {
             isPerformingUpdate.value = false;
             updateConfirm.value = false;
