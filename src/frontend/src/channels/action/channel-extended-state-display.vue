@@ -1,6 +1,6 @@
 <template>
     <div v-if="source.state.extendedState">
-        <dl :class="['m-0', {'as-grid': grid}]">
+        <dl class="m-0">
             <template v-for="state in availableStates">
                 <template v-if="source.state.extendedState[state.key] !== undefined">
                     <dt :key="state.key">{{ $t(state.label) }}</dt>
@@ -19,7 +19,7 @@
     import {useSuplaApi} from "@/api/use-supla-api";
     import {useTimeoutPoll} from "@vueuse/core/index";
 
-    const props = defineProps({channel: Object, device: Object, grid: Boolean});
+    const props = defineProps({channel: Object, device: Object});
 
     const channelsStore = useChannelsStore();
 
@@ -66,20 +66,3 @@
     const {execute: updateExtendedState} = useSuplaApi(`channels/${source.value.id}/settings`, {immediate: false}).patch({action: 'refreshState'});
     useTimeoutPoll(updateExtendedState, 10000, {immediate: true});
 </script>
-
-<style lang="scss" scoped>
-    dl.as-grid {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 0.5rem 1rem;
-        margin: 0.5rem 0;
-        align-items: center;
-
-        dt {
-            text-align: right;
-        }
-        dd {
-            text-align: left;
-        }
-    }
-</style>
