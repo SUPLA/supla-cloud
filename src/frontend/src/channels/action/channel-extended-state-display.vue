@@ -1,16 +1,14 @@
 <template>
-    <div v-if="source.state.extendedState" :class="{disconnected: !source.connected}">
+    <div v-if="source.state.extendedState" :class="{disconnected: !source.connected, condensed}">
         <div class="alert alert-warning small py-1 px-5 mb-2" v-if="!source.connected">
             {{ $t('The device is not connected. The values below represent the last known state.') }}
         </div>
-        <dl class="m-0">
-            <template v-for="state in availableStates">
-                <template v-if="source.state.extendedState[state.key] !== undefined">
-                    <dt :key="state.key">{{ $t(state.label) }}</dt>
-                    <dd :key="state.key">{{ state.format(source.state.extendedState[state.key]) }}</dd>
-                </template>
-            </template>
-        </dl>
+        <div v-for="state in availableStates" :key="state.key">
+            <dl class="m-0" v-if="source.state.extendedState[state.key] !== undefined">
+                <dt>{{ $t(state.label) }}</dt>
+                <dd>{{ state.format(source.state.extendedState[state.key]) }}</dd>
+            </dl>
+        </div>
     </div>
 </template>
 
@@ -22,7 +20,7 @@
     import {useSuplaApi} from "@/api/use-supla-api";
     import {useTimeoutPoll} from "@vueuse/core/index";
 
-    const props = defineProps({channel: Object, device: Object});
+    const props = defineProps({channel: Object, device: Object, condensed: Boolean});
 
     const channelsStore = useChannelsStore();
 
@@ -74,5 +72,12 @@
         border: 1px solid #f60;
         padding: 15px;
         opacity: 0.8;
+    }
+
+    .condensed {
+        dt, dd {
+            display: inline-block;
+            margin-right: 10px;
+        }
     }
 </style>
