@@ -1,5 +1,8 @@
 <template>
-    <div v-if="source.state.extendedState">
+    <div v-if="source.state.extendedState" :class="{disconnected: !source.connected}">
+        <div class="alert alert-warning small py-1 px-5 mb-2" v-if="!source.connected">
+            {{ $t('The device is not connected. The values below represent the last known state.') }}
+        </div>
         <dl class="m-0">
             <template v-for="state in availableStates">
                 <template v-if="source.state.extendedState[state.key] !== undefined">
@@ -66,3 +69,10 @@
     const {execute: updateExtendedState} = useSuplaApi(`channels/${source.value.id}/settings`, {immediate: false}).patch({action: 'refreshState'});
     useTimeoutPoll(updateExtendedState, 10000, {immediate: true});
 </script>
+<style scoped>
+    .disconnected {
+        border: 1px solid #f60;
+        padding: 15px;
+        opacity: 0.8;
+    }
+</style>
