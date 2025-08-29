@@ -1,9 +1,10 @@
 <template>
     <div>
+        <DeviceDetailsTabSettingsHomeScreen :device="device" @change="emit('change', $event)"/>
         <div v-if="newConfig.userInterface !== undefined" class="form-group">
+            <label>{{ $t('Lock type') }}</label>
             <SimpleDropdown v-model="localUILockMode" :options="['UNLOCKED', 'FULL', 'TEMPERATURE']">
                 <template #button="{value}">
-                    {{ $t('Lock type') }}:
                     {{ $t(`localUILock_${value}`) }}
                 </template>
                 <template #option="{option}">
@@ -34,6 +35,7 @@
                 </div>
             </div>
         </div>
+        <DeviceDetailsTabSettingsScreenBrightness :device="device" @change="emit('change', $event)"/>
         <div class="form-group" v-if="newConfig.buttonVolume !== undefined">
             <label>{{ $t('Button volume') }}</label>
             <div class="mt-3 mb-6">
@@ -50,6 +52,8 @@
     import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
     import {useDeviceSettingsForm} from "@/devices/details/device-details-helpers";
     import VueSlider from "vue-slider-component";
+    import DeviceDetailsTabSettingsHomeScreen from "@/devices/details/device-details-tab-settings-home-screen.vue";
+    import DeviceDetailsTabSettingsScreenBrightness from "@/devices/details/device-details-tab-settings-screen-brightness.vue";
 
     const props = defineProps({device: Object});
     const emit = defineEmits(['change']);
