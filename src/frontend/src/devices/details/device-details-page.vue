@@ -13,7 +13,6 @@
                         </div>
                     </div>
                     <div>
-                        <ConnectionStatusLabel :model="device"/>
                         <a class="btn btn-danger ml-3" @click="deleteConfirm = true">
                             {{ $t('Delete') }}
                         </a>
@@ -50,7 +49,6 @@
     import DeviceDetailsTabs from "@/devices/details/device-details-tabs.vue";
     import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal.vue";
     import {useRouter} from "vue-router/composables";
-    import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
 
     const props = defineProps({id: Number});
 

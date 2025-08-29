@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div class="text-center mb-2">
+            <ConnectionStatusLabel :model="device"/>
+        </div>
         <dl class="m-0">
             <dt>GUID</dt>
             <dd class="text-monospace">{{ device.gUIDString }}</dd>
@@ -28,6 +31,7 @@
     import DateTimeRelativeLabel from "@/common/date-time-relative-label.vue";
     import DeviceOtaUpdatesButtons from "@/devices/details/device-ota-updates-buttons.vue";
     import ChannelExtendedStateDisplay from "@/channels/action/channel-extended-state-display.vue";
+    import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
 
     defineProps({device: Object});
 </script>
