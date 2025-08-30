@@ -25,7 +25,8 @@ BEGIN
            user_config, properties
       INTO @user_id, @user_config, @properties
       FROM `supla_iodevice` WHERE id = _id
-          AND JSON_VALUE(properties, '$.otaUpdate.version') = _software_version;
+          AND software_version != _software_version
+          AND properties LIKE '%otaUpdate%';
 
     IF @user_id IS NOT NULL THEN
         CALL supla_set_device_json_config(@user_id, _id,
