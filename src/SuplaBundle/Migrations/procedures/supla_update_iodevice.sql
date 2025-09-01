@@ -6,17 +6,6 @@ CREATE PROCEDURE `supla_update_iodevice`(IN `_name` VARCHAR(100) CHARSET utf8mb4
                                          IN `_flags` INT(11))
     NOT DETERMINISTIC MODIFIES SQL DATA SQL SECURITY DEFINER
 BEGIN
-    UPDATE `supla_iodevice`
-      SET `name`                   = _name,
-          `last_connected`         = UTC_TIMESTAMP(),
-          `last_ipv4`              = _last_ipv4,
-          `software_version`       = _software_version,
-          `protocol_version`       = _protocol_version,
-          original_location_id     = _original_location_id,
-          `flags`                  = IFNULL(`flags`, 0) | IFNULL(_flags, 0),
-          channel_addition_blocked = 0
-      WHERE `id` = _id;
-
     SET @user_id = NULL;
     SET @properies = NULL;
     SET @user_config = NULL;
@@ -36,6 +25,17 @@ BEGIN
                                               MD5(IFNULL(@properties, '')));
 
     END IF;
+
+    UPDATE `supla_iodevice`
+    SET `name`                   = _name,
+        `last_connected`         = UTC_TIMESTAMP(),
+        `last_ipv4`              = _last_ipv4,
+        `software_version`       = _software_version,
+        `protocol_version`       = _protocol_version,
+        original_location_id     = _original_location_id,
+        `flags`                  = IFNULL(`flags`, 0) | IFNULL(_flags, 0),
+        channel_addition_blocked = 0
+    WHERE `id` = _id;
 
     IF _auth_key IS NOT NULL THEN
       UPDATE `supla_iodevice`
