@@ -79,7 +79,6 @@
             title: 'Device date and time', // i18n
             component: DeviceDetailsTabSettingsDatetime,
             show: props.device.config?.automaticTimeSync !== undefined
-                || props.device.config?.firmwareUpdatePolicy !== undefined,
         }
     ];
 

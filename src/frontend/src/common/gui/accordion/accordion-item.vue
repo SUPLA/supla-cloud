@@ -34,12 +34,14 @@
 </template>
 
 <style scoped lang="scss">
+    @import "../../../styles/variables";
+
     .accordion-item {
         .accordion-header {
             color: inherit;
             font-size: 1.1em;
-            margin: .5em 0;
-
+            padding: .5em 0;
+            background: white;
         }
         .accordion-header-icon {
             transition: transform .2s;
