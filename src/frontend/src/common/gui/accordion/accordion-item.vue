@@ -41,7 +41,10 @@
             color: inherit;
             font-size: 1.1em;
             padding: .5em 0;
-            background: white;
+            border-top: 1px solid $supla-grey-light;
+        }
+        &:first-child .accordion-header {
+            border-top: none;
         }
         .accordion-header-icon {
             transition: transform .2s;
