@@ -1,30 +1,37 @@
 <template>
-    <div v-if="device.flags.pairingSubdevicesAvailable" v-tooltip="disabledReason">
-        <button class="btn btn-default btn-block btn-wrapped" type="button"
-            :disabled="!!disabledReason || loading"
-            @click="pairSubdevices()">
-            <button-loading-dots v-if="loading"/>
-            <span v-else>{{ $t('Pair new devices or sensors') }}</span>
-        </button>
-        <transition-expand>
-            <div class="text-center mt-2" v-if="(loading && timer) || lastPairingResult">
-                <div v-if="!lastPairingResult" class="small">
-                    {{ $t('Pairing request sent.') }}
-                </div>
-                <div v-else>
-                    <div class="small">
-                        <span v-if="lastPairingResult.result === 'SUCCESS' && lastPairingResult.timedOut">
-                            {{ $t('Last paired device') }}<br>
-                            {{ lastPairingResult.time | formatDateTime }}
-                        </span>
-                        <span v-else>
-                            {{ $t(`subdevicePairingResult_${lastPairingResult.result}`, {resultNum: lastPairingResult.resultNum}) }}
-                        </span>
-                    </div>
-                    <div v-if="lastPairingResult.name">{{ lastPairingResult.name }}</div>
-                </div>
+    <div v-if="device.flags.pairingSubdevicesAvailable" class="d-flex align-items-center">
+        <div class="text-center mr-2" v-if="lastPairingResult">
+            <div class="small">
+                <span v-if="lastPairingResult.result === 'SUCCESS' && lastPairingResult.timedOut">
+                    {{ $t('Last paired device') }}<br>
+                    <span v-if="lastPairingResult.name">{{ lastPairingResult.name }} - </span>
+                    {{ lastPairingResult.time | formatDateTime }}
+                </span>
+                <span v-else-if="!lastPairingResult.timedOut">
+                    {{ $t(`subdevicePairingResult_${lastPairingResult.result}`, {resultNum: lastPairingResult.resultNum}) }}
+                    <span v-if="lastPairingResult.name">({{ lastPairingResult.name }})</span>
+                </span>
             </div>
-        </transition-expand>
+        </div>
+        <FormButton button-class="btn-default btn-wrapped" :disabled-reason="disabledReason" :loading="loading" @click="pairSubdevices()">
+            <template>
+                <div class="d-flex">
+                    <div class="mr-2">
+                        <fa :icon="faPlusCircle"/>
+                    </div>
+                    <div class="flex-grow-1">
+                        {{ $t('Pair new devices or sensors') }}
+                    </div>
+                </div>
+            </template>
+            <template #loading>
+                <div class="d-flex">
+                    <span>{{ $t('Pairing request sent.') }}</span>
+                    <button-loading-dots/>
+                </div>
+            </template>
+        </FormButton>
+
         <!-- i18n: ['subdevicePairingResult_NOT_SUPPORTED', 'subdevicePairingResult_UNAUTHORIZED', 'subdevicePairingResult_ONGOING'] -->
         <!-- i18n: ['subdevicePairingResult_CMD_RESULT_UNKNOWN', 'subdevicePairingResult_PROCEDURE_STARTED', 'subdevicePairingResult_NO_NEW_DEVICE_FOUND'] -->
         <!-- i18n: ['subdevicePairingResult_SUCCESS', 'subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED', 'subdevicePairingResult_NOT_STARTED_BUSY'] -->
@@ -32,77 +39,57 @@
     </div>
 </template>
 
-<script>
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
-    import {mapState} from "pinia";
-    import {useDevicesStore} from "@/stores/devices-store";
+<script setup>
+    import FormButton from "@/common/gui/FormButton.vue";
+    import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
+    import {computed, onMounted, ref} from "vue";
+    import {devicesApi} from "@/api/devices-api";
+    import {useTimeoutPoll} from "@vueuse/core/index";
 
-    export default {
-        components: {TransitionExpand},
-        props: ['device'],
-        data() {
-            return {
-                loading: true,
-                timer: undefined,
-                lastPairingResult: null,
-            };
-        },
-        mounted() {
-            this.fetchState().then(() => {
-                if (this.lastPairingResult?.timedOut && this.lastPairingResult?.result !== 'SUCCESS') {
-                    this.lastPairingResult = null;
-                }
-            });
-        },
-        methods: {
-            pairSubdevices() {
-                this.loading = true;
-                this.lastPairingResult = null;
-                clearTimeout(this.timer);
-                this.$http.patch('iodevices/' + this.device.id, {action: 'pairSubdevice'})
-                    .then(() => this.timer = setTimeout(() => this.fetchState(), 3000))
-                    .catch(() => this.loading = false);
-            },
-            fetchState() {
-                return this.$http.get(`iodevices/${this.device.id}?include=pairingResult`, {skipErrorHandler: true})
-                    .then((response) => {
-                        const pr = response.body.pairingResult;
-                        // const pr = {"time": "2024-07-02T12:34:56Z", "result": "SUCCESS", "name": "ZAMEL", timedOut: true};
-                        // const pr = {"time": "2024-07-02T12:34:56Z", "result": "PROCEDURE_STARTED", "name": "ZAMEL", timedOut: false};
-                        if (pr?.result.startsWith('CMD_RESULT_')) {
-                            pr.resultNum = pr.result.substring('CMD_RESULT_'.length);
-                            pr.result = 'CMD_RESULT_UNKNOWN';
-                        }
-                        if (pr?.result.startsWith('PAIRING_RESULT_')) {
-                            pr.resultNum = pr.result.substring('PAIRING_RESULT_'.length);
-                            pr.result = 'PAIRING_RESULT_UNKNOWN';
-                        }
-                        this.lastPairingResult = pr;
-                        if (!pr || !['PROCEDURE_STARTED', 'ONGOING'].includes(pr.result) || pr.timedOut) {
-                            this.loading = false;
-                        } else {
-                            this.timer = setTimeout(() => this.fetchState(), 3000);
-                        }
-                    });
-            },
-        },
-        computed: {
-            ...mapState(useDevicesStore, {devices: 'all'}),
-            isConnected() {
-                return this.devices[this.device.id]?.connected;
-            },
-            disabledReason() {
-                if (!this.isConnected) {
-                    return this.$t('Device is disconnected.');
-                } else if (this.device.hasPendingChanges) {
-                    return this.$t('Save or discard configuration changes first.')
-                } else {
-                    return '';
-                }
-            }
-        },
-        beforeDestroy() {
-            clearTimeout(this.timer);
+    const props = defineProps({device: Object});
+
+    const loading = ref(true);
+    const lastPairingResult = ref(null);
+
+    async function fetchState() {
+        const {pairingResult: pr} = await devicesApi.getOne(props.device.id, 'pairingResult', {skipErrorHandler: true});
+        // const pr = {"time": "2024-07-02T12:34:56Z", "result": "SUCCESS", "name": "ZAMEL", timedOut: true};
+        // const pr = {"time": "2024-07-02T12:34:56Z", "result": "PROCEDURE_STARTED", "name": "ZAMEL", timedOut: false};
+        // const pr = {"time": "2024-07-02T12:34:56Z", "result": "NO_NEW_DEVICE_FOUND", timedOut: false};
+        if (pr?.result.startsWith('CMD_RESULT_')) {
+            pr.resultNum = pr.result.substring('CMD_RESULT_'.length);
+            pr.result = 'CMD_RESULT_UNKNOWN';
         }
-    };
+        if (pr?.result.startsWith('PAIRING_RESULT_')) {
+            pr.resultNum = pr.result.substring('PAIRING_RESULT_'.length);
+            pr.result = 'PAIRING_RESULT_UNKNOWN';
+        }
+        lastPairingResult.value = pr;
+        if (!pr || !['PROCEDURE_STARTED', 'ONGOING'].includes(pr.result) || pr.timedOut) {
+            loading.value = false;
+            pauseFetchingState();
+        } else {
+            resumeFetchingState();
+        }
+    }
+
+    onMounted(async () => {
+        await fetchState();
+        if (lastPairingResult.value?.timedOut && lastPairingResult.value?.result !== 'SUCCESS') {
+            lastPairingResult.value = null;
+        }
+    });
+
+    const {resume: resumeFetchingState, pause: pauseFetchingState} = useTimeoutPoll(fetchState, 3000, {immediate: false});
+
+    const disabledReason = computed(() => props.device.connected ? '' : 'Device is disconnected.');
+
+    async function pairSubdevices() {
+        loading.value = true;
+        lastPairingResult.value = null;
+        // clearTimeout(timer.value);
+        await devicesApi.pairSubdevice(props.device.id)
+            .then(resumeFetchingState)
+            .catch(() => loading.value = false);
+    }
 </script>

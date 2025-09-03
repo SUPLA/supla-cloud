@@ -2,10 +2,6 @@
     <div>
         <loading-cover :loading="!deviceChannels">
             <div class="container" v-show="deviceChannels && deviceChannels.length">
-                <div class="d-flex justify-content-end mb-3">
-                    <DevicePairSubdeviceButton :device="device" class="mb-2"/>
-                    <NewVirtualChannelButton v-if="device.isVirtual"/>
-                </div>
                 <channel-filters :has-device="true"
                     @filter-function="filterFunction = $event"
                     @compare-function="compareFunction = $event"></channel-filters>
@@ -40,11 +36,9 @@
     import {useChannelsStore} from "@/stores/channels-store";
     import {useDevicesStore} from "@/stores/devices-store";
     import {useSubDevicesStore} from "@/stores/subdevices-store";
-    import NewVirtualChannelButton from "@/account/integrations/data-sources/new-virtual-channel-button.vue";
-    import DevicePairSubdeviceButton from "@/devices/details/device-pair-subdevice-button.vue";
 
     export default {
-        components: {DevicePairSubdeviceButton, NewVirtualChannelButton, SubdeviceDetails, ChannelTile, ChannelFilters},
+        components: {SubdeviceDetails, ChannelTile, ChannelFilters},
         props: {
             deviceId: Number,
         },

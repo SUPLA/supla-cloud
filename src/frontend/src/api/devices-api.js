@@ -5,8 +5,8 @@ export const devicesApi = {
         const {body} = await api.get('iodevices?include=connected');
         return body;
     },
-    async getOne(deviceId) {
-        const {body} = await api.get(`iodevices/${deviceId}?include=connected`);
+    async getOne(deviceId, include = 'connected', config = {}) {
+        const {body} = await api.get(`iodevices/${deviceId}?include=${include}`, config);
         return body;
     },
     async remove(deviceId, safe = true) {
@@ -26,5 +26,8 @@ export const devicesApi = {
     },
     async setCfgModePassword(deviceId, password) {
         return await api.patch(`iodevices/${deviceId}`, {action: 'setCfgModePassword', password});
+    },
+    async pairSubdevice(deviceId) {
+        return await api.patch(`iodevices/${deviceId}`, {action: 'pairSubdevice'});
     },
 }

@@ -18,7 +18,9 @@
 <template>
     <span v-tooltip="disabledReason ? $t(disabledReason) : ''">
         <button :type="buttonType" :class="['btn', buttonClass, {'disabled': isDisabled}]" :disabled="isDisabled" @click="$emit('click')">
-            <button-loading-dots v-if="loading"/>
+            <slot name="loading" v-if="loading">
+                <button-loading-dots/>
+            </slot>
             <slot v-else/>
         </button>
     </span>

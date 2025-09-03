@@ -2,7 +2,7 @@
     <PageContainer :error="device || loading ? null : 404">
         <div v-if="device">
             <div class="container mt-3">
-                <div class="d-flex mb-3">
+                <div class="d-flex mb-3 flex-wrap">
                     <div class="flex-grow-1">
                         <div v-if="device.comment">
                             <h1 v-title class="mt-0">{{ device.comment }}</h1>
@@ -12,7 +12,9 @@
                             <h1 v-title class="mt-0">{{ device.name }}</h1>
                         </div>
                     </div>
-                    <div>
+                    <div class="d-flex align-items-flex-start">
+                        <DevicePairSubdeviceButton :device="device" class="mb-2"/>
+                        <NewVirtualChannelButton v-if="device.isVirtual"/>
                         <a class="btn btn-danger ml-3" @click="deleteConfirm = true">
                             {{ $t('Delete') }}
                         </a>
@@ -49,6 +51,8 @@
     import DeviceDetailsTabs from "@/devices/details/device-details-tabs.vue";
     import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal.vue";
     import {useRouter} from "vue-router/composables";
+    import NewVirtualChannelButton from "@/account/integrations/data-sources/new-virtual-channel-button.vue";
+    import DevicePairSubdeviceButton from "@/devices/details/device-pair-subdevice-button.vue";
 
     const props = defineProps({id: Number});
 

@@ -137,7 +137,20 @@ class SuplaServerMock extends SuplaServer {
             $this->em->persist($device);
             $this->em->flush();
             return 'OK:HURRA';
-        } elseif (preg_match('#^(PAIR-SUBDEVICE|DEVICE-SET-TIME|ENTER-CONFIGURATION-MODE):.+$#', $cmd, $match)) {
+        } elseif (preg_match('#^PAIR-SUBDEVICE:(\d+),(\d+)$#', $cmd, $match)) {
+            $device = $this->em->find(IODevice::class, $match[2]);
+            $statuses = [
+                ['time' => (new \DateTime())->format(\DateTime::ATOM), 'result' => 'NOT_STARTED_BUSY'],
+                ['time' => (new \DateTime())->format(\DateTime::ATOM), 'result' => 'NO_NEW_DEVICE_FOUND'],
+                ['time' => (new \DateTime())->format(\DateTime::ATOM), 'result' => 'PROCEDURE_STARTED', 'name' => $this->faker->company()],
+                ['time' => (new \DateTime())->format(\DateTime::ATOM), 'result' => 'ONGOING', 'name' => $this->faker->company()],
+                ['time' => (new \DateTime())->format(\DateTime::ATOM), 'result' => 'SUCCESS', 'name' => $this->faker->company()],
+            ];
+            EntityUtils::setField($device, 'pairingResult', json_encode($this->faker->randomElement($statuses)));
+            $this->em->persist($device);
+            $this->em->flush();
+            return 'OK:HURRA';
+        } elseif (preg_match('#^(DEVICE-SET-TIME|ENTER-CONFIGURATION-MODE):.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         } elseif (preg_match('#^IDENTIFY-(SUB)?DEVICE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
