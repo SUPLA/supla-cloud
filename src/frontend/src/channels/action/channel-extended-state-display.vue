@@ -1,10 +1,10 @@
 <template>
-    <div v-if="source.state.extendedState" :class="{disconnected: !source.connected, condensed}">
-        <div class="alert alert-warning small py-1 px-5 mb-2" v-if="!source.connected">
+    <div v-if="source.state.extendedState && sourceStates.length > 0" :class="{disconnected: !isConnected && !condensed, condensed}">
+        <div class="alert alert-warning small py-1 px-5 mb-2" v-if="!isConnected">
             {{ $t('The device is not connected. The values below represent the last known state.') }}
         </div>
-        <div v-for="state in availableStates" :key="state.key">
-            <dl class="m-0" v-if="source.state.extendedState[state.key] !== undefined">
+        <div v-for="state in sourceStates" :key="state.key">
+            <dl class="m-0">
                 <dt>{{ $t(state.label) }}</dt>
                 <dd>{{ state.format(source.state.extendedState[state.key]) }}</dd>
             </dl>
@@ -19,10 +19,15 @@
     import {useChannelsStore} from "@/stores/channels-store";
     import {useSuplaApi} from "@/api/use-supla-api";
     import {useTimeoutPoll} from "@vueuse/core/index";
+    import {useDevicesStore} from "@/stores/devices-store";
 
     const props = defineProps({channel: Object, device: Object, condensed: Boolean});
 
     const channelsStore = useChannelsStore();
+    const devicesStore = useDevicesStore();
+
+    const deviceId = computed(() => props.device ? props.device.id : props.channel.iodeviceId);
+    const isConnected = computed(() => devicesStore.all[deviceId.value].connected);
 
     const i18n = useI18n();
 
@@ -52,7 +57,7 @@
             ];
         } else {
             return [
-                {label: 'Battery powered', key: 'batteryPowered', format: yesNo}, // i18n
+                {label: 'Power supply', key: 'batteryPowered', format: (v) => v ? i18n.t('battery') : i18n.t('mains')}, // i18n
                 {label: 'Battery level', key: 'batteryLevel', format: percent}, // i18n
                 {label: 'Battery health', key: 'batteryHealth', format: percent}, // i18n
                 {label: 'Bridge node online', key: 'bridgeNodeOnline', format: yesNo}, // i18n
@@ -63,6 +68,8 @@
             ]
         }
     });
+
+    const sourceStates = computed(() => availableStates.value.filter((state) => source.value.state.extendedState[state.key] !== undefined));
 
     const {execute: updateExtendedState} = useSuplaApi(`channels/${source.value.id}/settings`, {immediate: false}).patch({action: 'refreshState'});
     useTimeoutPoll(updateExtendedState, 10000, {immediate: true});
