@@ -41,8 +41,9 @@
     // i18n: ['lastConnectionResetCause_UNKNOWN', 'lastConnectionResetCause_ACTIVITY_TIMEOUT', 'lastConnectionResetCause_WIFI_CONNECTION_LOST', 'lastConnectionResetCause_SERVER_CONNECTION_LOST']
 
     const availableStates = computed(() => {
+        const states = [];
         if (props.device) {
-            return [
+            states.push(...[
                 {label: 'IP', key: 'ipv4', format}, // i18n
                 {label: 'MAC', key: 'mac', format}, // i18n
                 {label: 'Wi-Fi RSSI', key: 'wifiRSSI', format: (v) => `${v} dBm`}, // i18n
@@ -54,19 +55,24 @@
                     key: 'lastConnectionResetCause',
                     format: (v) => i18n.t(`lastConnectionResetCause_${v}`)
                 },
-            ];
+            ]);
         } else {
-            return [
-                {label: 'Power supply', key: 'batteryPowered', format: (v) => v ? i18n.t('battery') : i18n.t('mains')}, // i18n
-                {label: 'Battery level', key: 'batteryLevel', format: percent}, // i18n
-                {label: 'Battery health', key: 'batteryHealth', format: percent}, // i18n
+            states.push(...[
                 {label: 'Bridge node online', key: 'bridgeNodeOnline', format: yesNo}, // i18n
                 {label: 'Bridge node signal strength', key: 'bridgeNodeSignalStrength', format: percent}, // i18n
                 {label: 'Operating time', key: 'operatingTime', format: duration}, // i18n
                 {label: 'Light source lifespan', key: 'lightSourceLifespan', format: percent}, // i18n
                 {label: 'Light source operating time', key: 'lightSourceOperatingTime', format: duration}, // i18n
-            ]
+            ]);
         }
+        if ((source.value.state.extendedState?.batteryForDevice && props.device) || (!!source.value.state.extendedState?.batteryForDevice && props.channel)) {
+            states.push(...[
+                {label: 'Power supply', key: 'batteryPowered', format: (v) => v ? i18n.t('battery') : i18n.t('mains')}, // i18n
+                {label: 'Battery level', key: 'batteryLevel', format: percent}, // i18n
+                {label: 'Battery health', key: 'batteryHealth', format: percent}, // i18n
+            ]);
+        }
+        return states;
     });
 
     const sourceStates = computed(() => availableStates.value.filter((state) => source.value.state.extendedState[state.key] !== undefined));

@@ -68,7 +68,7 @@
 
     const homeScreenOffMode = computed({
         get() {
-            if (newConfig.value.homeScreen.offDelay) {
+            if (newConfig.value.homeScreen?.offDelay) {
                 return newConfig.value.homeScreen.offDelayType || 'ALWAYS_ENABLED';
             } else {
                 return 'DISABLE';

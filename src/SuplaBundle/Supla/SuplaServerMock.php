@@ -342,6 +342,7 @@ class SuplaServerMock extends SuplaServer {
                 'uptime' => rand(2, 999999),
                 'connectionUptime' => rand(2, 999999),
                 'batteryHealth' => rand(2, 100),
+                'batteryForDevice' => $this->faker->boolean(),
                 'lastConnectionResetCause' => $this->faker->randomElement([
                     'UNKNOWN',
                     'ACTIVITY_TIMEOUT',

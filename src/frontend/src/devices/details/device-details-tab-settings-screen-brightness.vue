@@ -45,7 +45,7 @@
     const emit = defineEmits(['change']);
 
     const {newConfig} = useDeviceSettingsForm(props.device.id, emit, (device) => ({
-        screenBrightness: deepCopy(device.config.screenBrightness),
+        screenBrightness: deepCopy(device.config.screenBrightness) || {},
     }))
 
     const onScreenBrightnessAutoChange = () => newConfig.value.screenBrightness.level = newConfig.value.screenBrightness.auto ? 50 : 0;
