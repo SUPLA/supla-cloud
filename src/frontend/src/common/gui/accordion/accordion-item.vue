@@ -19,7 +19,7 @@
 
 <template>
     <div class="accordion-item" :class="{'open': isOpen}">
-        <a class="d-flex accordion-header" @click="toggle">
+        <a class="d-flex align-items-flex-start accordion-header" @click="toggle">
             <span class="flex-grow-1">{{ $t(titleI18n) }}</span>
             <span class="accordion-header-icon">
                 <fa :icon="faChevronRight"/>
@@ -41,7 +41,8 @@
             color: inherit;
             font-size: 1.1em;
             padding: .5em 0;
-            border-top: 1px solid $supla-grey-light;
+            margin: 0;
+            border-top: 1px solid #ccc;
         }
         &:first-child .accordion-header {
             border-top: none;

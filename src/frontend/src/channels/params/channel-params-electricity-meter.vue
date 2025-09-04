@@ -9,25 +9,11 @@
                     @input="$emit('change')"/>
             </dt>
         </dl>
-        <a class="d-flex accordion-header" @click="displayGroup('costs')">
-            <span class="flex-grow-1">{{ $t('Costs') }}</span>
-            <span>
-                <fa :icon="group === 'costs' ? 'chevron-down' : 'chevron-right'"/>
-            </span>
-        </a>
-        <transition-expand>
-            <div v-show="group === 'costs'">
+        <AccordionRoot>
+            <AccordionItem title-i18n="Costs">
                 <channel-params-meter-cost :channel="channel" unit="kWh" @change="$emit('change')"/>
-            </div>
-        </transition-expand>
-        <a class="d-flex accordion-header" @click="displayGroup('history')">
-            <span class="flex-grow-1">{{ $t('History') }}</span>
-            <span>
-                <fa :icon="group === 'history' ? 'chevron-down' : 'chevron-right'"/>
-            </span>
-        </a>
-        <transition-expand>
-            <div v-show="group === 'history'">
+            </AccordionItem>
+            <AccordionItem title-i18n="History">
                 <ChannelParamsMeterKeepHistoryMode v-model="channel.config.voltageLoggerEnabled" @input="$emit('change')"
                     label-i18n="Store voltage history"/>
                 <ChannelParamsMeterKeepHistoryMode v-model="channel.config.currentLoggerEnabled" @input="$emit('change')"
@@ -35,32 +21,15 @@
                 <ChannelParamsMeterKeepHistoryMode v-model="channel.config.powerActiveLoggerEnabled" @input="$emit('change')"
                     label-i18n="Store active power history"/>
                 <channel-params-electricity-meter-initial-values :channel="channel" @save="$emit('save')"/>
-            </div>
-        </transition-expand>
-        <a class="d-flex accordion-header" @click="displayGroup('voltageMonitoring')">
-            <span class="flex-grow-1">{{ $t('Voltage monitoring') }}</span>
-            <span>
-                <fa :icon="group === 'voltageMonitoring' ? 'chevron-down' : 'chevron-right'"/>
-            </span>
-        </a>
-        <transition-expand>
-            <div v-show="group === 'voltageMonitoring'">
+            </AccordionItem>
+            <AccordionItem title-i18n="Voltage monitoring">
                 <ChannelParamsElectricityMeterVoltageThresholds :channel="channel" @change="$emit('change')"/>
-            </div>
-        </transition-expand>
-        <div v-if="displayOthersTab">
-            <a class="d-flex accordion-header" @click="displayGroup('other')">
-                <span class="flex-grow-1">{{ $t('Other') }}</span>
-                <span>
-                    <fa :icon="group === 'other' ? 'chevron-down' : 'chevron-right'"/>
-                </span>
-            </a>
-            <transition-expand>
-                <div v-show="group === 'other'">
-                    <ChannelParamsElectricityMeterOtherSettings :channel="channel" @change="$emit('change')"/>
-                </div>
-            </transition-expand>
-        </div>
+            </AccordionItem>
+            <AccordionItem title-i18n="Other" v-if="displayOthersTab">
+                <ChannelParamsElectricityMeterOtherSettings :channel="channel" @change="$emit('change')"/>
+            </AccordionItem>
+        </AccordionRoot>
+
         <channel-params-meter-reset :channel="channel" class="mt-4"/>
     </div>
 </template>
@@ -73,25 +42,16 @@
     import ChannelParamsElectricityMeterVoltageThresholds from "@/channels/params/channel-params-electricity-meter-voltage-thresholds";
     import ChannelParamsElectricityMeterEnabledPhases from "@/channels/params/channel-params-electricity-meter-enabled-phases";
     import ChannelParamsMeterKeepHistoryMode from "@/channels/params/channel-params-meter-keep-history-mode.vue";
-    import {computed, ref} from "vue";
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
+    import {computed} from "vue";
     import ChannelParamsElectricityMeterOtherSettings from "@/channels/params/channel-params-electricity-meter-other-settings.vue";
+    import AccordionRoot from "@/common/gui/accordion/accordion-root.vue";
+    import AccordionItem from "@/common/gui/accordion/accordion-item.vue";
 
     const props = defineProps({channel: Object});
-
-    const group = ref(undefined);
 
     const displayOthersTab = computed(() => {
         const hasPhaseLedTypes = props.channel.config.availablePhaseLedTypes && props.channel.config.availablePhaseLedTypes.length > 0;
         const hasCTTypes = props.channel.config.availableCTTypes && props.channel.config.availableCTTypes.length > 0;
         return hasPhaseLedTypes || hasCTTypes;
     })
-
-    function displayGroup(groupName) {
-        if (group.value === groupName) {
-            group.value = undefined;
-        } else {
-            group.value = groupName;
-        }
-    }
 </script>

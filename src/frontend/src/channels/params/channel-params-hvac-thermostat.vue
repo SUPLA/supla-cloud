@@ -40,15 +40,10 @@
                 <a class="mx-1 btn btn-xs btn-default" @click="masterThermostatChannelIdJustChanged = false">{{ $t('No') }}</a>
             </div>
         </transition-expand>
-        <a class="d-flex accordion-header" @click="displayGroup('related')"
-            v-if="canDisplayAnySetting('mainThermometerChannelId', 'auxThermometerChannelId', 'auxThermometerType')">
-            <span class="flex-grow-1">{{ $t('Thermometers configuration') }}</span>
-            <span>
-                <fa :icon="group === 'related' ? 'chevron-down' : 'chevron-right'"/>
-            </span>
-        </a>
-        <transition-expand>
-            <div v-show="group === 'related'">
+
+        <AccordionRoot>
+            <AccordionItem title-i18n="Thermometers configuration"
+                v-if="canDisplayAnySetting('mainThermometerChannelId', 'auxThermometerChannelId', 'auxThermometerType')">
                 <dl v-if="canDisplaySetting('mainThermometerChannelId')">
                     <dd>{{ $t('Main thermometer') }}</dd>
                     <dt>
@@ -185,23 +180,10 @@
                         </dt>
                     </dl>
                 </div>
-            </div>
-        </transition-expand>
-        <a class="d-flex accordion-header" @click="displayGroup('freeze')"
-            v-if="canDisplayAnySetting('antiFreezeAndOverheatProtectionEnabled') || (channel.config.antiFreezeAndOverheatProtectionEnabled && freezeHeatProtectionTemperatures.length)">
-            <span class="flex-grow-1" v-if="freezeHeatProtectionTemperatures.length === 2">
-                {{ $t('Anti-freeze and overheat protection') }}
-            </span>
-            <span class="flex-grow-1" v-else-if="freezeHeatProtectionTemperatures[0].name === 'heatProtection'">
-                {{ $t('Overheat protection') }}
-            </span>
-            <span class="flex-grow-1" v-else>{{ $t('Anti-freeze protection') }}</span>
-            <span>
-                <fa :icon="group === 'freeze' ? 'chevron-down' : 'chevron-right'"/>
-            </span>
-        </a>
-        <transition-expand>
-            <div v-show="group === 'freeze'">
+            </AccordionItem>
+            <AccordionItem
+                v-if="canDisplayAnySetting('antiFreezeAndOverheatProtectionEnabled') || (channel.config.antiFreezeAndOverheatProtectionEnabled && freezeHeatProtectionTemperatures.length)"
+                :title-i18n="freezeHeatProtectionTemperatures.length === 2 ? $t('Anti-freeze and overheat protection') : (freezeHeatProtectionTemperatures[0].name === 'heatProtection' ? $t('Overheat protection') : $t('Anti-freeze protection'))">
                 <dl v-if="canDisplaySetting('antiFreezeAndOverheatProtectionEnabled')">
                     <dd>{{ $t('Enabled') }}</dd>
                     <dt class="text-center">
@@ -229,17 +211,9 @@
                         </template>
                     </dl>
                 </transition-expand>
-            </div>
-        </transition-expand>
-        <a class="d-flex accordion-header" @click="displayGroup('behavior')"
-            v-if="canDisplayAnySetting('binarySensorChannelId', 'pumpSwitchChannelId', 'heatOrColdSourceSwitchChannelId', 'usedAlgorithm', 'minOnTimeS', 'minOffTimeS', 'outputValueOnError', 'temperatureSetpointChangeSwitchesToManualMode')">
-            <span class="flex-grow-1">{{ $t('Behavior settings') }}</span>
-            <span>
-                <fa :icon="group === 'behavior' ? 'chevron-down' : 'chevron-right'"/>
-            </span>
-        </a>
-        <transition-expand>
-            <div v-show="group === 'behavior'">
+            </AccordionItem>
+            <AccordionItem title-i18n="Behavior settings"
+                v-if="canDisplayAnySetting('binarySensorChannelId', 'pumpSwitchChannelId', 'heatOrColdSourceSwitchChannelId', 'usedAlgorithm', 'minOnTimeS', 'minOffTimeS', 'outputValueOnError', 'temperatureSetpointChangeSwitchesToManualMode')">
                 <dl v-if="canDisplaySetting('binarySensorChannelId')">
                     <dd>{{ $t('External sensor disabling the thermostat') }}</dd>
                     <dt>
@@ -412,18 +386,9 @@
                             :disabled="!canChangeSetting('temperatureSetpointChangeSwitchesToManualMode')"/>
                     </dt>
                 </dl>
-            </div>
-        </transition-expand>
-
-        <a class="d-flex accordion-header" @click="displayGroup('userInterface')"
-            v-if="canDisplayAnySetting('localUILock') && channel.config.localUILockingCapabilities">
-            <span class="flex-grow-1">{{ $t('Device interface') }}</span>
-            <span>
-                <fa :icon="group === 'userInterface' ? 'chevron-down' : 'chevron-right'"/>
-            </span>
-        </a>
-        <transition-expand>
-            <div v-show="group === 'userInterface'" v-if="channel.config.localUILockingCapabilities">
+            </AccordionItem>
+            <AccordionItem title-i18n="Device interface"
+                v-if="canDisplayAnySetting('localUILock') && channel.config.localUILockingCapabilities">
                 <dl>
                     <dd>{{ $t('Lock type') }}</dd>
                     <dt>
@@ -471,8 +436,8 @@
                         </dl>
                     </div>
                 </transition-expand>
-            </div>
-        </transition-expand>
+            </AccordionItem>
+        </AccordionRoot>
     </div>
 </template>
 
@@ -480,13 +445,14 @@
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import SameDifferentThanMasterThermostat from "@/channels/hvac/same-different-than-master-thermostat.vue";
+    import AccordionRoot from "@/common/gui/accordion/accordion-root.vue";
+    import AccordionItem from "@/common/gui/accordion/accordion-item.vue";
 
     export default {
-        components: {SameDifferentThanMasterThermostat, TransitionExpand, ChannelsIdDropdown},
+        components: {AccordionItem, AccordionRoot, SameDifferentThanMasterThermostat, TransitionExpand, ChannelsIdDropdown},
         props: ['channel'],
         data() {
             return {
-                group: undefined,
                 algorithmHelpShown: false,
                 outputValueHelpShown: false,
                 masterThermostat: undefined,
@@ -494,13 +460,6 @@
             };
         },
         methods: {
-            displayGroup(group) {
-                if (this.group === group) {
-                    this.group = undefined;
-                } else {
-                    this.group = group;
-                }
-            },
             changeSubfunction(subfunction) {
                 this.channel.config.subfunction = subfunction;
                 if (this.channel.config.outputValueOnError) {
@@ -680,11 +639,3 @@
         }
     };
 </script>
-
-<style lang="scss">
-    .accordion-header {
-        color: inherit;
-        font-size: 1.1em;
-        margin: .5em 0;
-    }
-</style>
