@@ -12,7 +12,8 @@
             :loading="loading"
             @cancel="showDialog = false"
             @confirm="setDevicePassword()">
-            <p>{{ $t('This is the password that was configured during the first device setup. It allows you to access the device configuration page when you are connected to its Wi-Fi.') }}</p>
+            <p>{{ $t('Set the password that restricts access to the device configuration page (https://192.168.4.1).') }}</p>
+            <p>{{ $t('Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.') }}</p>
             <div class="form-group">
                 <label>{{ $t('New password') }}</label>
                 <input type="password" v-model="password" class="form-control">
@@ -40,6 +41,7 @@
 
     const password = ref('');
     const passwordConfirmation = ref('');
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
 
     const disabledReason = computed(() => props.device.connected ? '' : 'Device is disconnected.');
 
@@ -47,8 +49,8 @@
         if (password.value !== passwordConfirmation.value) {
             return errorNotification('Error', 'Passwords do not match.'/*i18n*/);
         }
-        if (password.value.length < 5) {
-            return errorNotification('Error', 'Password must be at least 5 characters long.'/*i18n*/);
+        if (password.value.length < 8 || !passwordRegex.test(password.value)) {
+            return errorNotification('Error', 'Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.'/*i18n*/);
         }
         loading.value = true;
         try {

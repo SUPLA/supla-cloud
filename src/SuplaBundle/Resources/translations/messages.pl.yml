@@ -1910,3 +1910,5 @@ suffix: sufiks
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+Set the password that restricts access to the device configuration page (https://192.168.4.1).: Ustaw hasło, które zabezpiecza urządzenie przed zmianami przez osoby nieuprawnione (hasło do strony https://192.168.4.1).
+Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: Hasło powinno mieć co najmniej 8 znaków i zawierać co najmniej jedną wielką literę, jedną małą literę oraz jedną cyfrę.
