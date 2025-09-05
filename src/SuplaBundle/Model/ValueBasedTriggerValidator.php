@@ -312,15 +312,16 @@ class ValueBasedTriggerValidator {
     }
 
     private function validateFieldName(IODeviceChannel $channel, array $onChangeTo): void {
+        if (isset($onChangeTo['name']) && str_contains($onChangeTo['name'], 'battery')) {
+            return;
+        }
         $possibleFieldNames = array_filter(self::FIELD_NAMES, function ($functionIds) use ($channel) {
             return in_array($channel->getFunction()->getId(), $functionIds);
         });
         if ($possibleFieldNames) {
             $possibleFieldNames = array_keys($possibleFieldNames);
             if (isset($onChangeTo['name'])) {
-                if (!str_contains($onChangeTo['name'], 'battery')) {
-                    Assertion::inArray($onChangeTo['name'], $possibleFieldNames, 'Unsupported field name %s. Supported: %s.');
-                }
+                Assertion::inArray($onChangeTo['name'], $possibleFieldNames, 'Unsupported field name %s. Supported: %s.');
             } else {
                 Assertion::inArray('default', $possibleFieldNames, 'Missing trigger field definition.');
             }
