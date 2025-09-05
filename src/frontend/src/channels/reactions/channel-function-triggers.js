@@ -624,16 +624,16 @@ const REACTIONS = [
     {
         caption: () => 'When the device starts to be powered from battery', // i18n
         def: () => ({on_change_to: {eq: 'on', name: 'battery_powered'}}),
-        canBeSetForChannel: (channel) => channel.config.isBatteryAvailable,
+        canBeSetForChannel: (channel) => channel.config?.isBatteryAvailable,
     },
     {
         caption: () => 'When the device stops to be powered from battery', // i18n
         def: () => ({on_change_to: {eq: 'off', name: 'battery_powered'}}),
-        canBeSetForChannel: (channel) => channel.config.isBatteryAvailable,
+        canBeSetForChannel: (channel) => channel.config?.isBatteryAvailable,
     },
     {
         caption: () => 'When the battery reaches a certain level', // i18n
-        canBeSetForChannel: (channel) => channel.config.isBatteryAvailable,
+        canBeSetForChannel: (channel) => channel.config?.isBatteryAvailable,
         test: ({on_change_to = {}}) => on_change_to.name === 'battery_level',
         component: ReactionConditionThreshold,
         props: {
@@ -647,16 +647,13 @@ const REACTIONS = [
     {
         caption: () => 'When the battery cover is opened', // i18n
         def: () => ({on_change_to: {eq: 'on', name: 'is_battery_cover_open'}}),
-        canBeSetForChannel: (channel) => channel.config.isBatteryCoverAvailable,
+        canBeSetForChannel: (channel) => channel.config?.isBatteryCoverAvailable,
     },
 ];
 
 ChannelFunctionTriggers[ChannelFunction.THERMOMETER] = [
     ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][0],
     ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][1],
-    ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][4],
-    ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][5],
-    ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][6],
 ];
 ChannelFunctionTriggers[ChannelFunction.HUMIDITY] = [
     ChannelFunctionTriggers[ChannelFunction.HUMIDITYANDTEMPERATURE][2],
