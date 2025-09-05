@@ -65,7 +65,7 @@
                 {label: 'Light source operating time', key: 'lightSourceOperatingTime', format: duration}, // i18n
             ]);
         }
-        if ((source.value.state.extendedState?.batteryForDevice && props.device) || (!!source.value.state.extendedState?.batteryForDevice && props.channel)) {
+        if ((source.value.state.extendedState?.batteryForDevice && props.device) || (!source.value.state.extendedState?.batteryForDevice && props.channel)) {
             states.push(...[
                 {label: 'Power supply', key: 'batteryPowered', format: (v) => v ? i18n.t('battery') : i18n.t('mains')}, // i18n
                 {label: 'Battery level', key: 'batteryLevel', format: percent}, // i18n
