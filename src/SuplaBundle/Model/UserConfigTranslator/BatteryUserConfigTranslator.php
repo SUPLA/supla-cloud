@@ -5,14 +5,13 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFlags;
-use SuplaBundle\Enums\ChannelFunction;
 
-class BatteryPoweredUserConfigTranslator extends UserConfigTranslator {
+class BatteryUserConfigTranslator extends UserConfigTranslator {
     public function getConfig(HasUserConfig $subject): array {
         if ($subject instanceof IODeviceChannel) {
             return [
                 'isBatteryCoverAvailable' => ChannelFlags::BATTERY_COVER_AVAILABLE()->isSupported($subject->getFlags()),
-                'isBatteryPowered' => $subject->getLastKnownChannelState()['batteryPowered'] ?? false,
+                'isBatteryAvailable' => array_key_exists('batteryLevel', $subject->getLastKnownChannelState()),
             ];
         } else {
             return [];
@@ -23,13 +22,6 @@ class BatteryPoweredUserConfigTranslator extends UserConfigTranslator {
     }
 
     public function supports(HasUserConfig $subject): bool {
-        return in_array($subject->getFunction()->getId(), [
-            ChannelFunction::THERMOMETER,
-            ChannelFunction::HUMIDITYANDTEMPERATURE,
-            ChannelFunction::HVAC_THERMOSTAT,
-            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
-            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
-            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
-        ]);
+        return true;
     }
 }

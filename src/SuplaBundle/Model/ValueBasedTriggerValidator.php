@@ -129,24 +129,8 @@ class ValueBasedTriggerValidator {
             ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
         ],
-        'battery_powered' => [
-            ChannelFunction::THERMOMETER,
-            ChannelFunction::HUMIDITYANDTEMPERATURE,
-            ChannelFunction::HVAC_THERMOSTAT,
-            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
-            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
-            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
-            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
-        ],
-        'battery_level' => [
-            ChannelFunction::THERMOMETER,
-            ChannelFunction::HUMIDITYANDTEMPERATURE,
-            ChannelFunction::HVAC_THERMOSTAT,
-            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
-            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
-            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
-            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
-        ],
+        'battery_powered' => [],
+        'battery_level' => [],
         'counter' => [
             ChannelFunction::IC_HEATMETER,
             ChannelFunction::IC_WATERMETER,
@@ -335,7 +319,7 @@ class ValueBasedTriggerValidator {
 
     private function validateFieldName(IODeviceChannel $channel, array $onChangeTo): void {
         $possibleFieldNames = array_filter(self::FIELD_NAMES, function ($functionIds) use ($channel) {
-            return in_array($channel->getFunction()->getId(), $functionIds);
+            return !$functionIds || in_array($channel->getFunction()->getId(), $functionIds);
         });
         if ($possibleFieldNames) {
             $possibleFieldNames = array_keys($possibleFieldNames);
