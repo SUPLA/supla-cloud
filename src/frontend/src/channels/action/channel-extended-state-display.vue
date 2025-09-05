@@ -63,6 +63,7 @@
                 {label: 'Operating time', key: 'operatingTime', format: duration}, // i18n
                 {label: 'Light source lifespan', key: 'lightSourceLifespan', format: percent}, // i18n
                 {label: 'Light source operating time', key: 'lightSourceOperatingTime', format: duration}, // i18n
+                {label: 'Switch cycle count', key: 'switchCycleCount', format}, // i18n
             ]);
         }
         if ((source.value.state.extendedState?.batteryForDevice && props.device) || (!source.value.state.extendedState?.batteryForDevice && props.channel)) {

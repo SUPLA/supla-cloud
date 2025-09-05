@@ -28,7 +28,6 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\SubDevice;
-use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFlags as Flags;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist as Functions;
@@ -215,7 +214,7 @@ class DevicesFixture extends SuplaFixture {
                 ChannelFunction::HVAC_THERMOSTAT,
                 [
                     'funcList' => Functions::HVAC_THERMOSTAT | Functions::HVAC_DOMESTIC_HOT_WATER,
-                    'flags' => ChannelFlags::RUNTIME_CHANNEL_CONFIG_UPDATE,
+                    'flags' => Flags::RUNTIME_CHANNEL_CONFIG_UPDATE,
                     'properties' => json_encode([
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST', 'PID'],
                         'temperatures' => [
@@ -569,13 +568,13 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, [
                 'funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH,
                 'subDeviceId' => 1,
-                'flags' => ChannelFlags::IDENTIFY_SUBDEVICE_AVAILABLE | ChannelFlags::RESTART_SUBDEVICE_AVAILABLE,
+                'flags' => Flags::IDENTIFY_SUBDEVICE_AVAILABLE | Flags::RESTART_SUBDEVICE_AVAILABLE,
             ]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER, ['subDeviceId' => 1]],
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, [
                 'funcList' => Functions::LIGHTSWITCH | Functions::POWERSWITCH,
                 'subDeviceId' => 2,
-                'flags' => ChannelFlags::RESTART_SUBDEVICE_AVAILABLE,
+                'flags' => Flags::RESTART_SUBDEVICE_AVAILABLE,
             ]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER, ['subDeviceId' => 2]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => Functions::getAllFeaturesFlag(), 'subDeviceId' => 3]],
@@ -681,10 +680,10 @@ class DevicesFixture extends SuplaFixture {
                             ['channelNo' => 4, 'fillLevel' => 15],
                         ],
                     ]),
-                    'flags' => ChannelFlags::HAS_EXTENDED_CHANNEL_STATE,
+                    'flags' => Flags::HAS_EXTENDED_CHANNEL_STATE,
                 ],
             ],
-            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR, ['flags' => Flags::HAS_EXTENDED_CHANNEL_STATE]],
             [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
             [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
             [ChannelType::SENSORNO, ChannelFunction::CONTAINER_LEVEL_SENSOR],
@@ -702,7 +701,7 @@ class DevicesFixture extends SuplaFixture {
                         'sensorChannelNumbers' => [12, 13, 14],
                         'closeValveOnFloodType' => 'ALWAYS',
                     ]),
-                    'flags' => ChannelFlags::FLOOD_SENSORS_SUPPORTED | ChannelFlags::VALVE_MOTOR_ALARM_SUPPORTED,
+                    'flags' => Flags::FLOOD_SENSORS_SUPPORTED | Flags::VALVE_MOTOR_ALARM_SUPPORTED,
                 ],
             ],
             [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
@@ -730,7 +729,7 @@ class DevicesFixture extends SuplaFixture {
                             ['channelNo' => 1, 'fillLevel' => 20],
                         ],
                     ]),
-                    'flags' => ChannelFlags::TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE,
+                    'flags' => Flags::TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE,
                 ],
             ],
         ]);
