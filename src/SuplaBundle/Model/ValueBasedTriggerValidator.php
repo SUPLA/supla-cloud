@@ -122,13 +122,7 @@ class ValueBasedTriggerValidator {
             ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
         ],
-        'is_battery_cover_open' => [
-            ChannelFunction::HVAC_THERMOSTAT,
-            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
-            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
-            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
-            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
-        ],
+        'is_battery_cover_open' => [],
         'battery_powered' => [],
         'battery_level' => [],
         'counter' => [
@@ -319,12 +313,14 @@ class ValueBasedTriggerValidator {
 
     private function validateFieldName(IODeviceChannel $channel, array $onChangeTo): void {
         $possibleFieldNames = array_filter(self::FIELD_NAMES, function ($functionIds) use ($channel) {
-            return !$functionIds || in_array($channel->getFunction()->getId(), $functionIds);
+            return in_array($channel->getFunction()->getId(), $functionIds);
         });
         if ($possibleFieldNames) {
             $possibleFieldNames = array_keys($possibleFieldNames);
             if (isset($onChangeTo['name'])) {
-                Assertion::inArray($onChangeTo['name'], $possibleFieldNames, 'Unsupported field name %s. Supported: %s.');
+                if (!str_contains($onChangeTo['name'], 'battery')) {
+                    Assertion::inArray($onChangeTo['name'], $possibleFieldNames, 'Unsupported field name %s. Supported: %s.');
+                }
             } else {
                 Assertion::inArray('default', $possibleFieldNames, 'Missing trigger field definition.');
             }
