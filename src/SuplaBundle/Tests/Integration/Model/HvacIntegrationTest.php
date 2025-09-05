@@ -1104,16 +1104,17 @@ class HvacIntegrationTest extends IntegrationTestCase {
 
     public function testGettingBatteryPowered() {
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $this->hvacChannel = $this->freshEntity($this->hvacChannel);
         $config = $channelParamConfigTranslator->getConfig($this->hvacChannel);
         $this->assertFalse($config['isBatteryAvailable']);
-        $this->assertFalse($config['isBatteryCoverAvailable']);
+        $this->assertArrayNotHasKey('isBatteryCoverAvailable', $config);
         $state = new ChannelState($this->hvacChannel);
         EntityUtils::setField($state, 'state', '{"batteryLevel": 72}');
         $this->persist($state);
         $this->getEntityManager()->clear();
         $config = $channelParamConfigTranslator->getConfig($this->freshEntity($this->hvacChannel));
         $this->assertTrue($config['isBatteryAvailable']);
-        $this->assertFalse($config['isBatteryCoverAvailable']);
+        $this->assertArrayNotHasKey('isBatteryCoverAvailable', $config);
     }
 
     /** @see https://github.com/SUPLA/supla-cloud/issues/906 */
