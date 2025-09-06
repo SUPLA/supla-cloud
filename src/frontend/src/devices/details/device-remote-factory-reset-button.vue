@@ -17,12 +17,12 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
     import {successNotification} from "@/common/notifier";
     import {computed, ref} from "vue";
     import {devicesApi} from "@/api/devices-api";
 
-    const props = defineProps({device: Object});
+    const props = defineProps<{ device: IODevice }>();
 
     const showConfirmDialog = ref(false);
     const loading = ref(false);

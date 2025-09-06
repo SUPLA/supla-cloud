@@ -8,12 +8,12 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
     import DeviceEnterConfigurationModeButton from "@/devices/details/device-enter-configuration-mode-button.vue";
     import DeviceIdentifyDeviceButton from "@/devices/details/device-identify-device-button.vue";
     import DeviceRemoteRestartButton from "@/devices/details/device-remote-restart-button.vue";
     import DeviceRemoteFactoryResetButton from "@/devices/details/device-remote-factory-reset-button.vue";
     import DeviceSetCfgPasswordButton from "@/devices/details/device-set-cfg-password-button.vue";
 
-    defineProps({device: Object});
+    defineProps<{ device: IODevice }>();
 </script>
