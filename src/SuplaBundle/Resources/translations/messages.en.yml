@@ -60,6 +60,10 @@ directLinkExecutionFailureReason_unsupportedAction: The requested action is not 
 energyPriceForecast_field_fixing1: Energy price in Poland RDN fixing I
 energyPriceForecast_field_fixing2: Energy price in Poland RDN fixing II
 energyPriceForecast_field_rce: Energy price in Poland RCE
+firmwareUpdatePolicy_ALL_ENABLED: Install all updates automatically
+firmwareUpdatePolicy_DISABLED: Allow only manual updates
+firmwareUpdatePolicy_FORCED_OFF: Disabled on a device
+firmwareUpdatePolicy_SECURITY_ONLY: Install only security updates automatically
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Main and auxiliary temperature
 homeScreenContent_MODE_OR_TEMPERATURE: Mode or temperature
 homeScreenContent_NONE: None
@@ -68,6 +72,9 @@ homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperature and humidity
 homeScreenContent_TEMPERATURE_TIME: Temperature and time
 homeScreenContent_TIME: Time
 homeScreenContent_TIME_DATE: Date and time
+homeScreenContent_offMode_ALWAYS_ENABLED: After the delay
+homeScreenContent_offMode_DISABLE: Disable
+homeScreenContent_offMode_ENABLED_WHEN_DARK: After the delay, but only when it's dark
 keepHistoryMeasurementWarningSelected: Are you sure you need it? Supla is an open source, free project that is being maintained with its own resources. Consider helping the project infrastructure by leaving this option disabled, if you do not plan to use the stored logs.
 localUILock_FULL: Locked
 localUILock_TEMPERATURE: Temperature adjustment only
@@ -77,6 +84,7 @@ logs_aggregation_hour: Hours
 logs_aggregation_minute: Minutes
 logs_aggregation_month: Months
 modbusRole_MASTER: Master (client)
+modbusRole_NOT_SET: Disabled
 modbusRole_SLAVE: Slave (server)
 modbusSerialStopbits_ONE: One
 modbusSerialStopbits_ONE_AND_HALF: One and half
@@ -189,6 +197,10 @@ virtualChannelTypeName_OPEN_WEATHER: Weather
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 energyPriceForecast_field_pdgsz: Energy price in Poland - peek hours
+lastConnectionResetCause_0: Unknown
+lastConnectionResetCause_1: Activity timeout
+lastConnectionResetCause_2: WiFi connection lost
+lastConnectionResetCause_3: Server connection lost
 openWeatherAttribute_field_airCo: Air CO
 openWeatherAttribute_field_airNo: Air NO
 openWeatherAttribute_field_airNo2: Air NO₂
@@ -210,18 +222,9 @@ openWeatherAttribute_field_windSpeed: Wind Speed
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+lastConnectionResetCause_ACTIVITY_TIMEOUT: ~
+lastConnectionResetCause_SERVER_CONNECTION_LOST: ~
+lastConnectionResetCause_UNKNOWN: ~
+lastConnectionResetCause_WIFI_CONNECTION_LOST: ~
 
 #</editor-fold>
-firmwareUpdatePolicy_ALL_ENABLED: Install all updates automatically
-firmwareUpdatePolicy_SECURITY_ONLY: Install only security updates automatically
-firmwareUpdatePolicy_DISABLED: Allow only manual updates
-firmwareUpdatePolicy_FORCED_OFF: Disabled on a device
-modbusRole_NOT_SET: Disabled
-homeScreenContent_offMode_DISABLE: Disable
-homeScreenContent_offMode_ALWAYS_ENABLED: After the delay
-homeScreenContent_offMode_ENABLED_WHEN_DARK: After the delay, but only when it's dark
-
-lastConnectionResetCause_0: Unknown
-lastConnectionResetCause_1: Activity timeout
-lastConnectionResetCause_2: WiFi connection lost
-lastConnectionResetCause_3: Server connection lost

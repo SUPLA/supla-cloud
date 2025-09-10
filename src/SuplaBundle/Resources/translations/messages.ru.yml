@@ -30,6 +30,7 @@ Access to all of your devices through MQTT Broker: Доступ ко всем в
 Account: Учетка
 Account access when you are unavailable: Доступ к учетной записи, когда вы недоступны
 Account has been activated. You can Sign In now.: Аккаунт создан. Можете войти
+Action: Акция
 Action execution: Выполнение действий
 Action trigger: Триггер действия
 'Action trigger no. #{index}': 'Триггер # {index}'
@@ -245,7 +246,6 @@ Doors and gates: Двери и калитки
 Doors, Gates, Windows: Двери, ворота, окна
 Download the history of measurement: Скачать историю измерений
 Drag your image(s) here or click to select from the disk: Перетащите изображение сюда или нажмите, чтобы выбрать с диска
-E-mail notifications: Уведомления по электронной почте
 Edit: Изменить
 Electric: Электрика
 Electricity meter: Счетчик электроэнергии
@@ -260,7 +260,6 @@ Enter the data below in your mobile SUPLA application on your smartphone.: Вв�
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Введите только домен вместе с портом, если он не является стандартным (443). Требуется соединение HTTPS.
 Enter your email address: Введите адрес почты
 Enter your password to prevent automatic logout.: Введите свой пароль, чтобы предотвратить автоматический выход из системы.
-Entering configuration mode is unsupported in the firmware.: Удаленное переключение в режим конфигурации не поддерживается прошивкой устройства.
 Error: Ошибка
 Error when communicating the AD. Try again in a while.: Ошибка при коммуникации с AD. Повторите попытку позже.
 Error when communicating the server. Try again in a while.: Произошла ошибка во время связи с сервером. Повторите попытку позже.
@@ -581,7 +580,6 @@ Saturdays: Субботы
 Save: Сохранить
 Save and enable: Сохранить и включить
 Save changes: Сохранить изменения
-Save changes to see Access IDs: Сохранить изменения для получения идентификаторов доступа
 Save or discard configuration changes first.: Сначала сохраните или отклоните изменения в конфигурации.
 Scene: Сцена
 Scene must consist of at least one operation.: Сцена должна содержать не менее одной операции
@@ -629,6 +627,7 @@ Start date: Дата начала
 Start from the homepage.: Начните с домашней страницы.
 State: Состояние
 State webhook: Webhook состояния
+Status: Статус
 Step by step: Шаг за шагом
 Stop: Остановить
 Store measurements history: Сохранять историю измерений
@@ -670,7 +669,6 @@ The link result is presented as a website response, because you (or your browser
 The measurement history has been deleted.: История измерений удалена.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Новый пароль заменит тот, который вы используете в настоящее время. Некоторые интеграции могут перестать работать после его изменения. Продолжить?
 The next available executions: Ближайшие исполнения
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: С помощью рамки мы отметили уведомление, из которого вы нажали ссылку для отмены регистрации.
 The password and its confirm are not the same.: Пароль и его подтверждение не совпадают.
 The password should be 8 or more characters.: Пароль должен быть 8 или более символов.
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Устройство отключено защитой от перепада напряжения. Прежде чем включить его, убедитесь, что устранена проблема, которая к этому привела. Вы уверены, что хотите включить это устройство удаленно?
@@ -913,7 +911,6 @@ valveOpenConfirm_manual: Клапан был закрыт в ручном или
 ...and start your adventure with building automation today!: ...и начни творить свою домашнюю автоматику!
 Access identifier password must be at least 8 characters.: Пароль для идентификатора доступа должен быть не менее 8 символов.
 Access identifier password must be no longer than 32 characters.: Пароль для идентификатора доступа не может быть длиннее 32 символов.
-Action: Акция
 Add new item to use in the scene: Добавить новый элемент на сцену
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Вы уверены, что хотите удалить всю историю аббераций напряжения этого канала?
 Are you sure you want to disable this device?: Ты уверен, что хочешь выключить это оборудование?
@@ -936,8 +933,10 @@ Device channel value: Значение устройства
 Differential: Дифференциальный
 Direct links below will be deleted: Прямые ссылки, перечисленные ниже, будут удалены
 Doors, Gates: Двери, Калитки
+E-mail notifications: Уведомления по электронной почте
 ENABLED: ИСПОЛЬЗУЕТСЯ
 Email already exists: Адрес электронной почты уже существует
+Entering configuration mode is unsupported in the firmware.: Удаленное переключение в режим конфигурации не поддерживается прошивкой устройства.
 Existing schedules: Существующие графики
 From IP: C IP
 Get SUPLA on your devices: Загрузи SUPLА на свое устройство
@@ -963,16 +962,17 @@ Please select the schedules that should also be enabled.: Отметь граф�
 Previous login: Предидущий вход
 Registration: Регистрация
 Remove: Удалить
+Save changes to see Access IDs: Сохранить изменения для получения идентификаторов доступа
 Schedule cannot be enabled: Не получилось запустить график
 Schedules below will be deleted: Следующие графики будут удалены
 Sensor (normal closed): Датчик (нормально закрытый)
 Sensor (normal open): Датчик (нормально открытый)
 Sources available from: Исходный код доступен на
 Standard: Стандартные
-Status: Статус
 Subject: Субъект
 Sunrise / Sunset: Восход/Закат
 Supla for devices: Supla для устройств
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: С помощью рамки мы отметили уведомление, из которого вы нажали ссылку для отмены регистрации.
 Triggers: Триггеры
 Try again later: Попытайся повторно задать команду
 Turning this device off will result in disabling all the associated schedules.: Выключение этого оборудования приведет  к одновременному выключению графиков, которые с ним соединены.
@@ -999,7 +999,11 @@ suffix: суффикс
 0% tilt angle: ~
 100% tilt angle: ~
 A confirmation upon successful device unlocking.: ~
+A new client app: ~
+A new device: ~
+Account notifications: ~
 Action confirmation: ~
+Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
 Active applications: ~
 Active from: ~
@@ -1014,8 +1018,6 @@ Additional time margin: ~
 Address: ~
 Adjust temperature: ~
 Adjust temperatures: ~
-After the delay: ~
-After the delay, but only when it's dark: ~
 Aggregation: ~
 Alarm armament sensor: ~
 Alarm at level (and above) should be greater than the corresponding warning level.: ~
@@ -1056,11 +1058,15 @@ Aux thermometer type: ~
 Available variables: ~
 Average: ~
 Battery cover open: ~
+Battery health: ~
+Battery level: ~
 Baudrate: ~
 Behavior settings: ~
 Binary sensor: ~
 Binary sensor for channel: ~
 Body: ~
+Bridge node online: ~
+Bridge node signal strength: ~
 Brightness adjustment for automatic mode: ~
 Brightness level: ~
 Button volume: ~
@@ -1082,6 +1088,7 @@ Changing the location will also imply changing the location of the following ite
 Channel available for {serviceName}: ~
 Channels that are meant to work with each other must be in the same location.: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Check available updates: ~
 Choose many: ~
 Choose the channel: ~
 Choose the channel group: ~
@@ -1099,8 +1106,10 @@ Command has been sent to the device. Try refreshing the photo in a while.: ~
 Common currencies: ~
 Configuration not available yet. Waiting for the device to connect.: ~
 Confirm if you want to perform the calibration.: ~
+Confirm new password: ~
 Confirmation: ~
 Conflict: ~
+Connection uptime: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
@@ -1109,8 +1118,13 @@ Cooling mode: ~
 'Cooling: {percent}%': ~
 Costs: ~
 Could not add the data source. Try again in a while.: ~
+Could not change the password.: ~
+Could not check updates.: ~
+Could not perform factory reset.: ~
+Could not perform firmware update.: ~
 Could not restart the device.: ~
 Could not send the identify command.: ~
+Could not set device password.: ~
 Could not set the device time.: ~
 Counter: ~
 Counter reset: ~
@@ -1131,11 +1145,12 @@ Date and time: ~
 Date range: ~
 Daytime criteria: ~
 Default (exact value depends on a device): ~
+Default channels location: ~
 Dependencies: ~
 'Device GUID: %deviceGuid%': ~
+Device date and time: ~
 Device identification is unsupported in the firmware.: ~
 Device interface: ~
-Device settings: ~
 Device should be restarting now.: ~
 Device time has been set.: ~
 Different than on master thermostat.: ~
@@ -1145,6 +1160,7 @@ Does it look good?: ~
 Domestic hot water: ~
 Download measurements history: ~
 Dryer: ~
+E-mail: ~
 Each container level sensor must have different fill level.: ~
 Edit area crop: ~
 Edit program settings: ~
@@ -1171,6 +1187,7 @@ Expand partially: ~
 Expires at: ~
 External sensor disabling the thermostat: ~
 Facade blind operation: ~
+Factory reset: ~
 Fan: ~
 'Field: {propertyPath}.': ~
 File format: ~
@@ -1179,6 +1196,10 @@ Fill missing data: ~
 Firmware: ~
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+Firmware update is available.: ~
+Firmware update policy: ~
+Firmware updates: ~
+Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
@@ -1207,6 +1228,7 @@ History: ~
 Home screen content: ~
 Hotel card sensor: ~
 I understand that my SUPLA account will be permanently deleted.: ~
+IP: ~
 IP Address: ~
 Identify device: ~
 Identify request sent.: ~
@@ -1224,11 +1246,15 @@ Invalid scene: ~
 Invalid sensor state: ~
 Invalid unlock code.: ~
 Invalid username or password: ~
+LED settings: ~
+Last connection reset cause: ~
 Last paired device: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
 Light mode: ~
+Light source lifespan: ~
+Light source operating time: ~
 Lighting level: ~
 Lighting mode: ~
 List of available variables: ~
@@ -1239,6 +1265,8 @@ Logs transformation: ~
 Low threshold: ~
 Low threshold must be less than high threshold.: ~
 Low value: ~
+MAC: ~
+MODBUS: ~
 Main thermometer: ~
 Main thermometer for channel: ~
 Master thermostat: ~
@@ -1268,7 +1296,9 @@ Mute command sent: ~
 NORMAL USE. Use the energy as usual.: ~
 Network: ~
 New reaction: ~
+New version: ~
 'No': ~
+No one: ~
 No results: ~
 No, take me back!: ~
 Noop: ~
@@ -1291,6 +1321,7 @@ On with duration: ~
 Open Weather Data: ~
 Open value: ~
 Opening sensor for channel: ~
+Operating time: ~
 Operation: ~
 Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Output value on error: ~
@@ -1301,11 +1332,16 @@ PIN: ~
 PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
 Pair new devices or sensors: ~
 Pairing request sent.: ~
-Pairing subdevices is unsupported in the firmware.: ~
 Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: ~
 Password changed: ~
+Password is too long.: ~
+Password is too short.: ~
 Password reset: ~
+Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
+Password was set successfully.: ~
+Passwords do not match.: ~
 Percentage of extension: ~
+Perform firmware update: ~
 Phase: ~
 Phase LED type: ~
 Phase {phaseNumber}: ~
@@ -1323,11 +1359,13 @@ Please specify a valid address between 1 and 247.: ~
 Power active: ~
 Power apparent: ~
 Power reactive: ~
+Power supply: ~
 Predefined time ranges: ~
 Program {programNo}: ~
 Projector screen: ~
 Pump switch: ~
 Pump switch for channel: ~
+Push: ~
 Push notifications limit has been exceeded: ~
 RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
@@ -1336,6 +1374,7 @@ Reactions: ~
 Reactions limit has been exceeded: ~
 Reading: ~
 Recipients: ~
+Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
 Refresh interval: ~
 Refresh the config: ~
@@ -1370,7 +1409,9 @@ Send notification: ~
 Septic tank: ~
 Serial: ~
 Set HVAC parameters: ~
+Set the configuration password: ~
 Set the device time: ~
+Set the password that restricts access to the device configuration page (https://192.168.4.1).: ~
 Set values for each phase separately: ~
 Settings: ~
 Settings have not been saved!: ~
@@ -1388,6 +1429,7 @@ Store voltage history: ~
 'Subdevice #{id}': ~
 Subfunction: ~
 Summary for selected time range: ~
+Switch cycle count: ~
 Switch to manual mode: ~
 Switch to program mode: ~
 THEN: ~
@@ -1401,17 +1443,21 @@ Temporal override: ~
 Terrace awning: ~
 The channel has been deleted.: ~
 The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: ~
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
 The device could not be unlocked.: ~
 The device has been unlocked already.: ~
 The device has been unlocked.: ~
 The device has channel conflict and cannot work.: ~
 The device is locked: ~
+The device is not connected. The values below represent the last known state.: ~
 The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: ~
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
 The entire history of the voltage aberrations will be removed from this channel.: ~
+The factory reset was successful.: ~
 The following channels will be also removed along with their dependencies.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
 The master termostat you chose already has a master.: ~
+The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The notification must have a recipient.: ~
 The reaction has been added: ~
 The reaction has been changed: ~
@@ -1421,7 +1467,9 @@ Thermometer error: ~
 Thermometers configuration: ~
 Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: ~
 Thermostat programs: ~
+This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
 This action will result in restarting the device. It will not be available for a while.: ~
+This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This channel was missing during last device registration attempt.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: ~
@@ -1444,13 +1492,16 @@ Total: ~
 Turn off: ~
 Unknown browser: ~
 Unlock the device: ~
+Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
 Until a date and time: ~
 Until the next change: ~
 Updating...: ~
+Uptime: ~
 Use activity schedule: ~
 Use device default: ~
 Use {theMasterThermostat} to control this device.: ~
 Used current transformer type: ~
+User interface: ~
 Value: ~
 Value divider: ~
 Value multiplier: ~
@@ -1629,6 +1680,9 @@ When the window will be opened: ~
 When the window will be opened or closed: ~
 When there is certain amount of rain: ~
 When there weight reaches a certain value: ~
+Who has access?: ~
+Wi-Fi RSSI: ~
+Wi-Fi signal strength: ~
 Will be deleted after: ~
 With a timer: ~
 'Yes': ~
@@ -1638,6 +1692,7 @@ You can set relative values here. For example +10 or -20 will make the setting l
 You cannot change this function becuase it is required by another channel.: ~
 You cannot to set a master thermostat for a channel that is master for others.: ~
 You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: ~
+You have the newest firmware installed.: ~
 You must leave at least one phase enabled.: ~
 You must set an action for each reaction.: ~
 You need to provide icons for all states in light mode.: ~
@@ -1664,6 +1719,7 @@ auxThermometerType_GENERIC_HEATER: ~
 auxThermometerType_NOT_SET: ~
 auxThermometerType_WATER: ~
 average: ~
+battery: ~
 be at least {numChars} characters long: ~
 blue, otherwise: ~
 blue, when voltage lower than the low threshold: ~
@@ -1686,6 +1742,10 @@ directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
 energyPriceForecast_field_fixing1: ~
 energyPriceForecast_field_fixing2: ~
 energyPriceForecast_field_rce: ~
+firmwareUpdatePolicy_ALL_ENABLED: ~
+firmwareUpdatePolicy_DISABLED: ~
+firmwareUpdatePolicy_FORCED_OFF: ~
+firmwareUpdatePolicy_SECURITY_ONLY: ~
 green, otherwise: ~
 green, when power less than the low threshold: ~
 heat: ~
@@ -1697,6 +1757,9 @@ homeScreenContent_TEMPERATURE_AND_HUMIDITY: ~
 homeScreenContent_TEMPERATURE_TIME: ~
 homeScreenContent_TIME: ~
 homeScreenContent_TIME_DATE: ~
+homeScreenContent_offMode_ALWAYS_ENABLED: ~
+homeScreenContent_offMode_DISABLE: ~
+homeScreenContent_offMode_ENABLED_WHEN_DARK: ~
 hour: ~
 is at least {numChars} characters long: ~
 keepHistoryMeasurementWarningSelected: ~
@@ -1704,6 +1767,10 @@ last 24 hours: ~
 last 30 days: ~
 last 6 hours: ~
 last 7 days: ~
+lastConnectionResetCause_ACTIVITY_TIMEOUT: ~
+lastConnectionResetCause_SERVER_CONNECTION_LOST: ~
+lastConnectionResetCause_UNKNOWN: ~
+lastConnectionResetCause_WIFI_CONNECTION_LOST: ~
 localUILock_FULL: ~
 localUILock_TEMPERATURE: ~
 localUILock_UNLOCKED: ~
@@ -1711,11 +1778,13 @@ logs_aggregation_day: ~
 logs_aggregation_hour: ~
 logs_aggregation_minute: ~
 logs_aggregation_month: ~
+mains: ~
 max: ~
 midnight: ~
 milliseconds: ~
 min: ~
 modbusRole_MASTER: ~
+modbusRole_NOT_SET: ~
 modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~

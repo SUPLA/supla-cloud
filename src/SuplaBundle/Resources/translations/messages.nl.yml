@@ -34,6 +34,7 @@ Access to all of your devices through MQTT Broker: Toegang tot al uw apparaten v
 Account: Account
 Account access when you are unavailable: Toegang tot uw account wanneer u niet beschikbaar bent
 Account has been activated. You can Sign In now.: Uw account is geactiveerd. U kunt inloggen
+Action: Actie
 Action confirmation: Bevestigen van de actie
 Action execution: Acties uitvoeren
 Action trigger: Actietrigger
@@ -62,8 +63,6 @@ Adjust temperature: Stel de temperatuur in
 Adjust temperatures: Ingestelde temperatuur
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Alle kanalen en kanaalgroepen die dit pictogram gebruiken, ontvangen de standaardpictogrammen wanneer ze worden verwijderd.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Nadat u toegang hebt verleend, kunt u altijd van gedachten veranderen door de toegang in uw accountinstellingen in te trekken.
-After the delay: Na een bepaalde tijd
-After the delay, but only when it's dark: Na een bepaalde tijd, maar alleen als het donker is
 After the device enters the configuration mode, it will not be accessible on your account.: Het toestel zal niet toegankelijk zijn vanuit uw account wanneer u de configuratiemodus opent.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Na de update, zal de app sneller, handiger zijn, .... Gewoon beter!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: De teller zal beginnen te tellen vanaf 0 na deze operatie, ongeacht zijn huidige toestand. Deze operatie kan niet ongedaan worden gemaakt.
@@ -324,7 +323,6 @@ Device identification is unsupported in the firmware.: Apparaatidentificatie wor
 Device is disconnected.: Het apparaat is losgekoppeld.
 Device might be sleeping: Apparaat staat mogelijk in stand-by.
 'Device name: %deviceName%': 'Apparaatnaam: %deviceName%'
-Device settings: Apparaatinstellingen
 Device should be now in configuration mode.: Het apparaat moet nu in de configuratiemodus staan.
 Device should be restarting now.: Het apparaat moet opnieuw opstarten.
 'Device software version: %deviceSoftwareVersion%': 'Softwareversie: %deviceSoftwareVersion%'
@@ -363,7 +361,6 @@ Download measurements history: Meetgeschiedenis downloaden
 Download the history of measurement: Download meetgeschiedenis
 Drag your image(s) here or click to select from the disk: Sleep het beeld hierheen of klik hier om op de schijf te selecteren
 Dryer: Luchtontvochtiger
-E-mail notifications: Kennisgevingen per e-mail
 Edit: Bewerken
 Edit area crop: Gebied bewerken
 Edit program settings: Programma-instellingen bewerken
@@ -393,7 +390,6 @@ Enter the data below in your mobile SUPLA application on your smartphone.: Onder
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Voer alleen het domein samen met de poort in als dit niet standaard is (443). We hebben een HTTPS-verbinding nodig.
 Enter your email address: Voer je e-mailadres in
 Enter your password to prevent automatic logout.: PVoer uw wachtwoord in om automatisch uitloggen te voorkomen.
-Entering configuration mode is unsupported in the firmware.: Het op afstand omschakelen naar de configuratiemodus wordt niet ondersteund door de firmware van het apparaat.
 Error: Fout
 Error when communicating the AD. Try again in a while.: Fout in communicatie met AD. Probeer zo meteen nogmaals.
 Error when communicating the server. Try again in a while.: Er is een probleem bij de communicatie met de server opgetreden. Probeer het later opnieuw.
@@ -730,7 +726,6 @@ PIN: PIN
 PIN for Google must have a length between {minLength} and {maxLength} digits.: De Google-PIN moet uit minimaal {minLength} en maximaal {maxLength} cijfers bestaan.
 Pair new devices or sensors: Nieuwe apparaten of sensoren koppelen
 Pairing request sent.: Koppelingsverzoek verzonden.
-Pairing subdevices is unsupported in the firmware.: Koppelen wordt niet ondersteund door de software van het toestel.
 Partial opening sensor: Indirecte openingssensor
 Partially opened sensor for channel: Kanaal voor intermediaire openingssensor
 Password: Wachtwoord
@@ -866,7 +861,6 @@ Saturdays: Zaterdagen
 Save: Opslaan
 Save and enable: Opslaan en inschakelen
 Save changes: Wijzigingen opslaan
-Save changes to see Access IDs: Wijzigingen opslaan om toegangs-ID's weer te geven
 Save or discard configuration changes first.: Sla eerst uw configuratiewijzigingen op of weiger ze.
 Scene: Scène
 Scene available for {serviceName}: Scene beschikbaar voor {serviceName}
@@ -931,6 +925,7 @@ Start date: Begindatum
 Start from the homepage.: Begin met de homepage.
 State: Status
 State webhook: Status webhook
+Status: Status
 Status LED: Status-LED
 Step by step: Stap voor stap
 Stop: Stop
@@ -1000,7 +995,6 @@ The master termostat you chose already has a master.: De masterthermostaat die j
 The measurement history has been deleted.: Meetgeschiedenis is verwijderd.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Het nieuwe wachtwoord vervangt het wachtwoord dat u momenteel gebruikt. Sommige integraties kunnen stoppen met werken nadat ze veranderd zijn. Doorgaan?
 The next available executions: Komende uitvoering
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Met behulp van een kader hebben wij de kennisgeving gemarkeerd waarvan u op de afmeldingslink hebt geklikt.
 The notification must have a recipient.: De melding heeft een ontvanger nodig
 The password and its confirm are not the same.: Het wachtwoord en de bevestiging zijn niet hetzelfde.
 The password should be 8 or more characters.: Het wachtwoord moet minimaal 8 tekens bevatten.
@@ -1076,6 +1070,7 @@ Use device default: Gebruik de standaardwaarde van het toestel
 'Use the {0} server command to change this account''s limits. For example:': 'Om de limieten voor deze account te wijzigen, gebruikt u het {0} commando op uw server. Bijvoorbeeld:'
 Use {theMasterThermostat} to control this device.: Gebruik {theMasterThermostat} om dit toestel te bedienen.
 Used current transformer type: Gebruikte stroomtransformator
+User interface: Gebruiker/computer-interface
 User is already confirmed. Try to log in.: Dit account is al bevestigd. Log dan in!
 Value: Waarde
 Value added: Toegevoegde waarde
@@ -1562,8 +1557,9 @@ yesterday: gisteren
 ...and start your adventure with building automation today!: ...en begin je avontuur met intelligente gebouwen al vandaag!
 Access identifier password must be at least 8 characters.: Het wachtwoord voor de toegangs-ID moet minimaal 8 tekens bevatten.
 Access identifier password must be no longer than 32 characters.: Het wachtwoord voor de toegangs-ID mag niet langer zijn dan 32 tekens.
-Action: Actie
 Add new item to use in the scene: Voeg een nieuw element toe aan de scène
+After the delay: Na een bepaalde tijd
+After the delay, but only when it's dark: Na een bepaalde tijd, maar alleen als het donker is
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Weet u zeker dat u de hele geschiedenis van spanningsaberratie van dit kanaal wilt verwijderen?
 Are you sure you want to disable this device?: Weet u zeker dat u dit apparaat wilt uitschakelen?
 Assigned Locations: Wijs locaties toe
@@ -1583,11 +1579,14 @@ Confirm if you want to remove {deviceName} device: Bevestig dat u {deviceName} w
 DISABLED: UITGESCHAKELD
 Days: Dagen
 Device channel value: Waarde van het apparaat
+Device settings: Apparaatinstellingen
 Differential: Differentieel
 Direct links below will be deleted: De hieronder vermelde directe links worden verwijderd
 Doors, Gates: Deuren, poorten
+E-mail notifications: Kennisgevingen per e-mail
 ENABLED: Ingeschakeld
 Email already exists: Email adres bestaat al
+Entering configuration mode is unsupported in the firmware.: Het op afstand omschakelen naar de configuratiemodus wordt niet ondersteund door de firmware van het apparaat.
 Existing schedules: Bestaande schema's
 Expected maximum increment: Verwachte maximale stijging
 From IP: Van een IP-adres
@@ -1613,25 +1612,27 @@ Next: Doorgaan
 No results match {0}: Geen resultaten gevonden die bij {0} passen
 Number: Nummer
 Output: Uitgang
+Pairing subdevices is unsupported in the firmware.: Koppelen wordt niet ondersteund door de software van het toestel.
 Please select an action: Selecteer een actie
 Please select the schedules that should also be enabled.: Selecteer schema's die ook moeten worden opgenomen.
 Previous login: Vorige login
 Reference to the channel will be removed from the items below.: Verwijzingen naar dit kanaal worden uit de onderstaande elementen opgegeven.
 Registration: Registratie
 Remove: Verwijder
+Save changes to see Access IDs: Wijzigingen opslaan om toegangs-ID's weer te geven
 Schedule cannot be enabled: Kan tijdschema niet inschakelen
 Schedules below will be deleted: De volgende tijdschema's worden verwijderd
 Sensor (normal closed): Sensor (normaal gesloten)
 Sensor (normal open): Sensor (normaal open)
 Sources available from: Bronnen beschikbaar in
 Standard: Standaard
-Status: Status
 Subject: Entiteit
 Sunrise / Sunset: Oost-West
 Supla for devices: Supla voor apparaten
 Temperature adjustment only: Alleen temperatuurinstelling
 The events in voltage aberrations history will be automatically deleted after {days} days.: Gebeurtenissen in de spanningsafwijkinggeschiedenis worden automatisch verwijderd na {days} dagen.
 The items below depend on this channel, so they will be deleted.: De volgende items zijn afhankelijk van dit kanaal, dus die worden verwijderd.
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Met behulp van een kader hebben wij de kennisgeving gemarkeerd waarvan u op de afmeldingslink hebt geklikt.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: De reactie is actief als aan alle volgende voorwaarden is voldaan. Als je alle beschikbare opties instelt, wordt de reactie alleen geactiveerd tussen de geselecteerde data, op de geselecteerde tijden en dagen van de week en wanneer aan een van de referenties voor zonsondergang of zonsopgang wordt voldaan.
 Triggers: Triggers
 Try again later: Probeer het later eens opnieuw
@@ -1639,7 +1640,6 @@ Turning this device off will result in disabling all the associated schedules.: 
 Unlocked: Ontgrendeld
 Use working schedule for this access identifier: Gebruik het beschikbaarheidsschema voor deze toegangsidentificatie
 Use working schedule for this reaction: Gebruik het activiteitenschema voor deze reactie
-User interface: Gebruiker/computer-interface
 Value per unit: Waarde per eenheid
 When: Wanneer
 When the curtain reaches: Wanneer het gordijn
@@ -1678,6 +1678,10 @@ thermostatAlgorithm_help: |
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A new client app: ~
+A new device: ~
+Account notifications: ~
+Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
 Activity schedule: ~
 Add new data source: ~
@@ -1690,17 +1694,29 @@ Are you sure you want to delete this subdevice?: ~
 Attribute: ~
 Auto-close on flood: ~
 Aux thermometer for channel: ~
+Battery health: ~
+Battery level: ~
 Baudrate: ~
 Binary sensor for channel: ~
+Bridge node online: ~
+Bridge node signal strength: ~
 Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Check available updates: ~
 Choose many: ~
 City: ~
+Confirm new password: ~
+Connection uptime: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
 Could not add the data source. Try again in a while.: ~
+Could not change the password.: ~
+Could not check updates.: ~
+Could not perform factory reset.: ~
+Could not perform firmware update.: ~
+Could not set device password.: ~
 Created: ~
 Data source channels: ~
 Data source type: ~
@@ -1708,24 +1724,39 @@ Data sources: ~
 Data sources are virtual channels that can provide data for your account.: ~
 Data sources limit has been exceeded: ~
 Default (exact value depends on a device): ~
+Default channels location: ~
+Device date and time: ~
 Device interface: ~
 Does it look good?: ~
+E-mail: ~
 Each container level sensor must have different fill level.: ~
 Energy attribute: ~
 Energy prices: ~
 Everyone makes mistakes!: ~
+Factory reset: ~
 Fill level: ~
+Firmware update is available.: ~
+Firmware update policy: ~
+Firmware updates: ~
+Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
 Go back to data sources: ~
 Heat or cold source switch for channel: ~
+IP: ~
 Image: ~
 Invalid sensor state: ~
+LED settings: ~
+Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
+Light source lifespan: ~
+Light source operating time: ~
 Lock type: ~
+MAC: ~
+MODBUS: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
@@ -1736,22 +1767,34 @@ Mute alarm sound without additional auth: ~
 Mute command sent: ~
 NORMAL USE. Use the energy as usual.: ~
 Network: ~
+New version: ~
+No one: ~
 Not available: ~
 'OCR service responded with error: {statusCode}. {description}': ~
 Open Weather Data: ~
 Opening sensor for channel: ~
+Operating time: ~
 Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Overcurrent threshold: ~
+Password is too long.: ~
+Password is too short.: ~
+Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
+Password was set successfully.: ~
+Passwords do not match.: ~
 Percentage of extension: ~
+Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
+Power supply: ~
 Pump switch for channel: ~
+Push: ~
 RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
 REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
 Reading: ~
+Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
 Role: ~
 SUPLA - Test e-mail: ~
@@ -1759,18 +1802,29 @@ Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
 Septic tank: ~
 Serial: ~
+Set the configuration password: ~
+Set the password that restricts access to the device configuration page (https://192.168.4.1).: ~
 Slave timeout (ms): ~
 Sound alarm on: ~
 Stop bits: ~
+Switch cycle count: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
+The device is not connected. The values below represent the last known state.: ~
+The factory reset was successful.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
+The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The subdevice has been deleted.: ~
+This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
+This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
+Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
 Updating...: ~
+Uptime: ~
 Use activity schedule: ~
 Valve supports up to 20 sensors.: ~
 Waiting: ~
@@ -1808,11 +1862,16 @@ When the value value changes: ~
 When the value value will be: ~
 When the warning starts: ~
 When the warning stops: ~
+Who has access?: ~
+Wi-Fi RSSI: ~
+Wi-Fi signal strength: ~
 You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
 You cannot change this function becuase it is required by another channel.: ~
+You have the newest firmware installed.: ~
 activityConditions_help: ~
 and wait until the battery level will be: ~
 and wait until the fill level will be: ~
+battery: ~
 choose the city: ~
 closeValveOnFloodType_ALWAYS: ~
 closeValveOnFloodType_ON_CHANGE: ~
@@ -1821,11 +1880,24 @@ directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
 energyPriceForecast_field_fixing1: ~
 energyPriceForecast_field_fixing2: ~
 energyPriceForecast_field_rce: ~
+firmwareUpdatePolicy_ALL_ENABLED: ~
+firmwareUpdatePolicy_DISABLED: ~
+firmwareUpdatePolicy_FORCED_OFF: ~
+firmwareUpdatePolicy_SECURITY_ONLY: ~
 homeScreenContent_MODE_OR_TEMPERATURE: ~
+homeScreenContent_offMode_ALWAYS_ENABLED: ~
+homeScreenContent_offMode_DISABLE: ~
+homeScreenContent_offMode_ENABLED_WHEN_DARK: ~
+lastConnectionResetCause_ACTIVITY_TIMEOUT: ~
+lastConnectionResetCause_SERVER_CONNECTION_LOST: ~
+lastConnectionResetCause_UNKNOWN: ~
+lastConnectionResetCause_WIFI_CONNECTION_LOST: ~
 localUILock_FULL: ~
 localUILock_TEMPERATURE: ~
 localUILock_UNLOCKED: ~
+mains: ~
 modbusRole_MASTER: ~
+modbusRole_NOT_SET: ~
 modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~

@@ -34,6 +34,7 @@ Access to all of your devices through MQTT Broker: Hozzáférés az összes eszk
 Account: Felhasznalói fiók
 Account access when you are unavailable: Hozzáférés a fiókhoz, ha nem  elérhető
 Account has been activated. You can Sign In now.: A fiók aktiválva lett. A bejelentkezés megengedett.
+Action: Műveletek
 Action confirmation: Művelet megerősítése
 Action execution: Műveletek végrehajtása
 Action trigger: Eseményindító
@@ -62,8 +63,6 @@ Adjust temperature: Hőmérsékletet beállítás
 Adjust temperatures: Hőmérsékletek beállítása
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Minden csatorna és csatornacsoport, amely ezt az ikont használja, az alapértelmezett ikonokat kapja eltávolításukkor.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: A hozzáférés megadása után bármikor meggondolhatja magát úgy, hogy visszavonja a hozzáférést a fiókbeállításokban.
-After the delay: Megadott idő múlva
-After the delay, but only when it's dark: Megadott idő múlva, kizárólag sötétben.
 After the device enters the configuration mode, it will not be accessible on your account.: Az eszköz fiókjából nem lesz elérhető a konfigurációs módba lépés után.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: A frissítés után az alkalmazás gyorsabb, kényelmesebb.... Egyszerűen jobb lesz!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: A művelet után a számláló a jelenlegi állapotától függetlenül 0-ról indul. A művelet nem visszavonható.
@@ -324,7 +323,6 @@ Device identification is unsupported in the firmware.: A firmware nem támogatja
 Device is disconnected.: A készülék nincs csatlakoztatva
 Device might be sleeping: A készülék alvó üzemmódban lehet
 'Device name: %deviceName%': 'A készülék neve: %eszközNév%'
-Device settings: Készülék beállítások
 Device should be now in configuration mode.: A készüléknek most konfigurációs módban kell lennie.
 Device should be restarting now.: A készüléket újra kell indítani.
 'Device software version: %deviceSoftwareVersion%': 'A készülék szoftver verziója: %deviceSoftwareVersion%'
@@ -363,7 +361,6 @@ Download measurements history: Töltse le a mérési előzményeket
 Download the history of measurement: Töltse le a mérési előzményeket
 Drag your image(s) here or click to select from the disk: Húzza ide a képet, vagy kattintson a lemezről való kiválasztáshoz
 Dryer: Páramentesítő
-E-mail notifications: E-mail értesítések
 Edit: Szerkesztés
 Edit area crop: Terület szerkesztése
 Edit program settings: Program beállítások szerkesztése
@@ -393,7 +390,6 @@ Enter the data below in your mobile SUPLA application on your smartphone.: Írja
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Csak a domaint adja meg a porttal együtt, ha nem szabványos (443). HTTPS kapcsolat szükséges.
 Enter your email address: Írja be e-mail címét
 Enter your password to prevent automatic logout.: Írja be a jelszavát az automatikus kijelentkezés megakadályozására.
-Entering configuration mode is unsupported in the firmware.: A belső vezérlőprogram nem támogatja a konfigurációs üzemmódba való távoli kapcsolatot.
 Error: Hiba
 Error when communicating the AD. Try again in a while.: Hiba az AD-vel való kommunikációban. Próbálja meg újra kicsivel később.
 Error when communicating the server. Try again in a while.: Hiba történt a szerverrel való kommunikáció során. Kérjük, rövidesen próbálja újra.
@@ -730,7 +726,6 @@ PIN: PIN-KÓD
 PIN for Google must have a length between {minLength} and {maxLength} digits.: A Google PIN-kódjának legalább {minLength} és legfeljebb {maxLength} számjegyből kell állnia.
 Pair new devices or sensors: Új eszközök vagy érzékelők párosítása
 Pairing request sent.: Párosítási kérelem elküldve.
-Pairing subdevices is unsupported in the firmware.: A párosítást az eszköz szoftvere nem támogatja.
 Partial opening sensor: Közvetett nyitás érzékelője
 Partially opened sensor for channel: Csatorna az indirekt nyitású érzékelőhöz
 Password: Jelszó
@@ -866,7 +861,6 @@ Saturdays: Szombatok
 Save: Mentés
 Save and enable: Mentés és bekapcsolás
 Save changes: Változtatások mentése
-Save changes to see Access IDs: A változtatások mentése a hozzáférési azonosítók megjelenítéséhez
 Save or discard configuration changes first.: Először mentse vagy utasítsa el a konfigurációs módosításokat.
 Scene: Jelenet
 Scene available for {serviceName}: A {serviceName} számára elérhető jelenet
@@ -931,6 +925,7 @@ Start date: Kezdő dátum
 Start from the homepage.: Kezdje a főoldaltól.
 State: Állapot
 State webhook: Webhook állapotkijelző
+Status: Státusz
 Status LED: LED állapota
 Step by step: Lépésről lépésre
 Stop: Leállítás
@@ -1000,7 +995,6 @@ The master termostat you chose already has a master.: Az Ön által kiválasztot
 The measurement history has been deleted.: A mérési előzményeket törölték.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Az új jelszó a jelenleg használt jelszót felülírja. Előfordulhat, hogy egyes integrációk a módosítás után nem működnek. Folytatja?
 The next available executions: Legközelebbi végrehajtások
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Az értesítést kerettel emeltük ki, amelyen a leiratkozás linkjére kattintott.
 The notification must have a recipient.: Az értesítésnek legyen címzettje.
 The password and its confirm are not the same.: A jelszó és a megerősítése nem egyezik.
 The password should be 8 or more characters.: A jelszónak legalább 8 karakterből kell állnia.
@@ -1076,6 +1070,7 @@ Use device default: Használja a készülék alapértelmezett értékét
 'Use the {0} server command to change this account''s limits. For example:': 'A {0} kiszolgálóparanccsal módosíthatja a fiók korlátozásait. Például:'
 Use {theMasterThermostat} to control this device.: Használja a {theMasterThermostat} eszközt a készülék vezérléséhez.
 Used current transformer type: Használatban lévő áramváltó
+User interface: Felhasználói felület
 User is already confirmed. Try to log in.: Ezt a fiókot már megerősítettük. Belépés
 Value: Érték
 Value added: Hozzáadott érték
@@ -1562,8 +1557,9 @@ yesterday: Tegnap
 ...and start your adventure with building automation today!: ... és kezdje el kalandját intelligens épületekkel már ma!
 Access identifier password must be at least 8 characters.: A hozzáférési azonosító jelszavának legalább 8 karakter hosszúnak kell lennie.
 Access identifier password must be no longer than 32 characters.: A hozzáférési azonosító jelszava nem lehet hosszabb 32 karakternél.
-Action: Műveletek
 Add new item to use in the scene: Új elem hozzáadása a jelenethez
+After the delay: Megadott idő múlva
+After the delay, but only when it's dark: Megadott idő múlva, kizárólag sötétben.
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Biztos, hogy törölni akarja a csatorna teljes feszültségeltérési előzményét?
 Are you sure you want to disable this device?: Biztosan ki akarja kapcsolni ezt az eszközt?
 Assigned Locations: Hozzárendelt Lokálizációk
@@ -1582,11 +1578,14 @@ Confirm if you want to remove {deviceName} device: Erősítse meg, hogy el akarj
 DISABLED: KIKAPCSOLVA
 Days: Napok
 Device channel value: Készülékből nyert érték
+Device settings: Készülék beállítások
 Differential: Differenciális
 Direct links below will be deleted: Az alább felsorolt közvetlen linkek eltávolításra kerülnek
 Doors, Gates: Ajtók,  Kapuk
+E-mail notifications: E-mail értesítések
 ENABLED: BEKAPCSOLVA
 Email already exists: Az e-mail cím már létezik
+Entering configuration mode is unsupported in the firmware.: A belső vezérlőprogram nem támogatja a konfigurációs üzemmódba való távoli kapcsolatot.
 Existing schedules: Meglévő ütemtervek
 Expected maximum increment: Várható maximális kiterjedés
 From IP: IP-címről
@@ -1613,6 +1612,7 @@ Next: Tovább
 No results match {0}: Nincs találat {0}
 Number: Szám
 Output: Kilépés
+Pairing subdevices is unsupported in the firmware.: A párosítást az eszköz szoftvere nem támogatja.
 Please select an action: Válassza ki a műveletet
 Please select the schedules that should also be enabled.: Jelölje be az ütemezéseket, amelyeket szintén be akarja kapcsolni.
 Previous login: Előző bejelentkezés
@@ -1621,19 +1621,20 @@ Registration: Regisztráció
 Registration of new I/O devices: Eszköz regisztráció
 Registration of new clients: Ügyfél regisztráció
 Remove: Eltávolítás
+Save changes to see Access IDs: A változtatások mentése a hozzáférési azonosítók megjelenítéséhez
 Schedule cannot be enabled: Az ütemezés engedélyezése sikertelen
 Schedules below will be deleted: Az alábbi ütemtervek törlésre kerülnek
 Sensor (normal closed): Érzékelő (általában zárt)
 Sensor (normal open): Érzékelő (általában nyitva)
 Sources available from: Források a következő nyelven érhetők el
 Standard: Szabványos
-Status: Státusz
 Subject: Entitás
 Sunrise / Sunset: Kelet / Nyugat
 Supla for devices: Supla bizonyos eszközökre
 Temperature adjustment only: Kizárólag hőmérséklet beállítása
 The events in voltage aberrations history will be automatically deleted after {days} days.: A feszültségeltérési előzmények {days} nap után automatikusan törlődnek.
 The items below depend on this channel, so they will be deleted.: A következő elemek ehhez a csatornához kapcsolódnak, ezért eltávolításra kerülnek.
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Az értesítést kerettel emeltük ki, amelyen a leiratkozás linkjére kattintott.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: A művelet akkor aktiválódik, ha az alábbi feltételek mindegyike teljesül. Amennyiben az összes rendelkezésre álló opciót beállítja, a művelet csak a kiválasztott dátumok között, a kiválasztott időpontokban és hétköznapokon aktiválódik, és csak akkor, ha a napnyugtára vagy napkeltére vonatkozó valamely beállítás teljesül.
 Triggers: Eseményindítók
 Try again later: Kérjük, próbálja meg újra később.
@@ -1641,7 +1642,6 @@ Turning this device off will result in disabling all the associated schedules.: 
 Unlocked: Feloldva
 Use working schedule for this access identifier: Használja a hozzáférési ütemtervet a hozzáférési azonosítóhoz
 Use working schedule for this reaction: Használja a tevékenységi ütemtervet ehhez a művelethez
-User interface: Felhasználói felület
 Value per unit: Egységenkénti érték
 We have just sent you an activation link. Be patient.: Nemrég elküldtük a fiók aktiválására szolgáló linket tartalmazó üzenetet. Köszönjük türelmét.
 When: Mikor
@@ -1681,6 +1681,10 @@ will expire: lejár
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A new client app: ~
+A new device: ~
+Account notifications: ~
+Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
 Activity schedule: ~
 Add new data source: ~
@@ -1693,17 +1697,29 @@ Are you sure you want to delete this subdevice?: ~
 Attribute: ~
 Auto-close on flood: ~
 Aux thermometer for channel: ~
+Battery health: ~
+Battery level: ~
 Baudrate: ~
 Binary sensor for channel: ~
+Bridge node online: ~
+Bridge node signal strength: ~
 Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Check available updates: ~
 Choose many: ~
 City: ~
+Confirm new password: ~
+Connection uptime: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
 Could not add the data source. Try again in a while.: ~
+Could not change the password.: ~
+Could not check updates.: ~
+Could not perform factory reset.: ~
+Could not perform firmware update.: ~
+Could not set device password.: ~
 Created: ~
 Data source channels: ~
 Data source type: ~
@@ -1711,24 +1727,39 @@ Data sources: ~
 Data sources are virtual channels that can provide data for your account.: ~
 Data sources limit has been exceeded: ~
 Default (exact value depends on a device): ~
+Default channels location: ~
+Device date and time: ~
 Device interface: ~
 Does it look good?: ~
+E-mail: ~
 Each container level sensor must have different fill level.: ~
 Energy attribute: ~
 Energy prices: ~
 Everyone makes mistakes!: ~
+Factory reset: ~
 Fill level: ~
+Firmware update is available.: ~
+Firmware update policy: ~
+Firmware updates: ~
+Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
 Go back to data sources: ~
 Heat or cold source switch for channel: ~
+IP: ~
 Image: ~
 Invalid sensor state: ~
+LED settings: ~
+Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
+Light source lifespan: ~
+Light source operating time: ~
 Lock type: ~
+MAC: ~
+MODBUS: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
@@ -1739,22 +1770,34 @@ Mute alarm sound without additional auth: ~
 Mute command sent: ~
 NORMAL USE. Use the energy as usual.: ~
 Network: ~
+New version: ~
+No one: ~
 Not available: ~
 'OCR service responded with error: {statusCode}. {description}': ~
 Open Weather Data: ~
 Opening sensor for channel: ~
+Operating time: ~
 Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Overcurrent threshold: ~
+Password is too long.: ~
+Password is too short.: ~
+Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
+Password was set successfully.: ~
+Passwords do not match.: ~
 Percentage of extension: ~
+Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
+Power supply: ~
 Pump switch for channel: ~
+Push: ~
 RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
 REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
 Reading: ~
+Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
 Role: ~
 SUPLA - Test e-mail: ~
@@ -1762,18 +1805,29 @@ Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
 Septic tank: ~
 Serial: ~
+Set the configuration password: ~
+Set the password that restricts access to the device configuration page (https://192.168.4.1).: ~
 Slave timeout (ms): ~
 Sound alarm on: ~
 Stop bits: ~
+Switch cycle count: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
+The device is not connected. The values below represent the last known state.: ~
+The factory reset was successful.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
+The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The subdevice has been deleted.: ~
+This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
+This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
+Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
 Updating...: ~
+Uptime: ~
 Use activity schedule: ~
 Valve supports up to 20 sensors.: ~
 Waiting: ~
@@ -1811,11 +1865,16 @@ When the value value changes: ~
 When the value value will be: ~
 When the warning starts: ~
 When the warning stops: ~
+Who has access?: ~
+Wi-Fi RSSI: ~
+Wi-Fi signal strength: ~
 You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
 You cannot change this function becuase it is required by another channel.: ~
+You have the newest firmware installed.: ~
 activityConditions_help: ~
 and wait until the battery level will be: ~
 and wait until the fill level will be: ~
+battery: ~
 choose the city: ~
 closeValveOnFloodType_ALWAYS: ~
 closeValveOnFloodType_ON_CHANGE: ~
@@ -1824,11 +1883,24 @@ directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
 energyPriceForecast_field_fixing1: ~
 energyPriceForecast_field_fixing2: ~
 energyPriceForecast_field_rce: ~
+firmwareUpdatePolicy_ALL_ENABLED: ~
+firmwareUpdatePolicy_DISABLED: ~
+firmwareUpdatePolicy_FORCED_OFF: ~
+firmwareUpdatePolicy_SECURITY_ONLY: ~
 homeScreenContent_MODE_OR_TEMPERATURE: ~
+homeScreenContent_offMode_ALWAYS_ENABLED: ~
+homeScreenContent_offMode_DISABLE: ~
+homeScreenContent_offMode_ENABLED_WHEN_DARK: ~
+lastConnectionResetCause_ACTIVITY_TIMEOUT: ~
+lastConnectionResetCause_SERVER_CONNECTION_LOST: ~
+lastConnectionResetCause_UNKNOWN: ~
+lastConnectionResetCause_WIFI_CONNECTION_LOST: ~
 localUILock_FULL: ~
 localUILock_TEMPERATURE: ~
 localUILock_UNLOCKED: ~
+mains: ~
 modbusRole_MASTER: ~
+modbusRole_NOT_SET: ~
 modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~

@@ -34,6 +34,7 @@ Access to all of your devices through MQTT Broker: Přístup ke všem vašim za�
 Account: Ůčet
 Account access when you are unavailable: Přístup k účtu, pokud nejste dostupní
 Account has been activated. You can Sign In now.: Účet byl aktivován. Můžete se přihlásit
+Action: Akce
 Action confirmation: Potvrzení akce
 Action execution: Provedení akce
 Action trigger: Spouštěč akce
@@ -62,8 +63,6 @@ Adjust temperature: Nastavte teplotu
 Adjust temperatures: Nastavit teploty
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Veškeré kanály a skupiny kanálů, které používají tuto ikonu, budou mít po smazání výchozí ikony.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Po udělení přístupu můžete vždy změnit svůj názor tím, že v nastavení účtu zrušíte přístup.
-After the delay: Po určité době
-After the delay, but only when it's dark: Po určité době, ale pouze když je tma.
 After the device enters the configuration mode, it will not be accessible on your account.: Po vstupu do konfiguračního režimu nebude zařízení z vašeho účtu dostupné.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Po aktualizaci bude aplikace rychlejší, pohodlnější ... jednoduše lepší!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Měřič začne po této operaci počítat od 0 bez ohledu na jeho aktuální stav. Tuto operaci nelze vrátit zpět.
@@ -324,7 +323,6 @@ Device identification is unsupported in the firmware.: Identifikace zařízení 
 Device is disconnected.: Zařízení je odpojeno.
 Device might be sleeping: Zařízení může být v režimu spánku
 'Device name: %deviceName%': 'Název zařízení: %deviceName%'
-Device settings: Nastavení zařízení
 Device should be now in configuration mode.: Zařízení by nyní mělo být v konfiguračním režimu.
 Device should be restarting now.: Zařízení by se mělo restartovat.
 'Device software version: %deviceSoftwareVersion%': 'Verze softwaru: %deviceSoftwareVersion%'
@@ -363,7 +361,6 @@ Download measurements history: Stáhni si historii měření
 Download the history of measurement: Stáhnout historii měření
 Drag your image(s) here or click to select from the disk: Přetáhněte obrázek zde nebo klepnutím vyberte z disku
 Dryer: Vysoušeč
-E-mail notifications: E-mailové upozornění
 Edit: Editovat
 Edit area crop: Upravit oblast
 Edit program settings: Úprava nastavení programu
@@ -393,7 +390,6 @@ Enter the data below in your mobile SUPLA application on your smartphone.: Do mo
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Zadejte pouze doménu s portem, pokud není standardní (443). Vyžadujeme připojení HTTPS.
 Enter your email address: Zadejte svou e-mailovou adresu
 Enter your password to prevent automatic logout.: Uveďte své heslo, aby jste zabránili automatickému odhlášení.
-Entering configuration mode is unsupported in the firmware.: Dálkové přepínání do konfiguračního režimu není podporováno firmwarem zařízení.
 Error: Chyba
 Error when communicating the AD. Try again in a while.: Chyba při komunikaci s AD. Zkuste to prosím znovu za chvíli.
 Error when communicating the server. Try again in a while.: Při komunikaci se serverem došlo k problému. Zkuste to prosím znovu.
@@ -730,7 +726,6 @@ PIN: PIN
 PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN pro Google musí mít nejméně {minLength} a nejvýše {maxLength} číslic.
 Pair new devices or sensors: Párování nových zařízení nebo snímačů
 Pairing request sent.: Žádost o spárování odeslána.
-Pairing subdevices is unsupported in the firmware.: Párování není podporováno softwarem zařízení.
 Partial opening sensor: Snímač středního otevření
 Partially opened sensor for channel: Kanál pro snímač nepřímého otevření
 Password: Heslo
@@ -866,7 +861,6 @@ Saturdays: Soboty
 Save: Ulož
 Save and enable: Uložit a povolit
 Save changes: Zapiš změny
-Save changes to see Access IDs: Uložte změny a zobrazte ID přístupu
 Save or discard configuration changes first.: Nejprve uložte nebo zahoďte změny konfigurace.
 Scene: Scéna
 Scene available for {serviceName}: Scéna dostupná pro {serviceName}
@@ -931,6 +925,7 @@ Start date: Datum zahájení
 Start from the homepage.: Začněte z domovské stránky.
 State: Stav
 State webhook: Webhook stavu
+Status: Stav
 Status LED: Stav LED
 Step by step: Krok za krokem
 Stop: Zastavit
@@ -1000,7 +995,6 @@ The master termostat you chose already has a master.: Vybraný hlavní termostat
 The measurement history has been deleted.: Historie měření byla odstraněná.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Nové heslo nahradí to, které aktuálně používáte. Některé integrace mohou po změně přestat fungovat. Pokračovat?
 The next available executions: Nejbližší výkony
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Pomocí rámečku jsme označili oznámení, ze kterého jste klikl/klikla na odkaz pro odhlášení.
 The notification must have a recipient.: Oznámení musí obsahovat odběratele.
 The password and its confirm are not the same.: Heslo a jeho potvrzení nejsou stejné.
 The password should be 8 or more characters.: Heslo musí mít ninimum 8 znaků.
@@ -1076,6 +1070,7 @@ Use device default: Použijte výchozí hodnotu ze zařízení
 'Use the {0} server command to change this account''s limits. For example:': 'Chcete-li změnit limity pro tento účet, použijte příkaz {0} na vašem serveru. Například:'
 Use {theMasterThermostat} to control this device.: K ovládání tohoto zařízení použijte {theMasterThermostat}.
 Used current transformer type: Použitý transformátor proudu
+User interface: Počítačové rozhraní
 User is already confirmed. Try to log in.: Tento účet je již potvrzen. Přihlaste se.
 Value: Hodnota
 Value added: Přidaná hodnota
@@ -1562,8 +1557,9 @@ yesterday: včera
 ...and start your adventure with building automation today!: ... a začněte dobrodružství s inteligentními budovami již dnes!
 Access identifier password must be at least 8 characters.: Heslo pro identifikátor přístupu musí mít délku alespoň 8 znaků.
 Access identifier password must be no longer than 32 characters.: Heslo pro identifikátor přístupu nesmí být delší než 32 znaků.
-Action: Akce
 Add new item to use in the scene: Přidat na scénu novou položku
+After the delay: Po určité době
+After the delay, but only when it's dark: Po určité době, ale pouze když je tma.
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Opravdu chcete vymazat veškerou historii napěťových aberací pro tento kanál?
 Are you sure you want to disable this device?: Opravdu chcete toto zařízení deaktivovat?
 Assigned Locations: Přiřazené umístění
@@ -1583,11 +1579,14 @@ Confirm if you want to remove {deviceName} device: Potvrďte, že chcete odebrat
 DISABLED: VYPNUTO
 Days: Dny
 Device channel value: Hodnota ze zařízení
+Device settings: Nastavení zařízení
 Differential: Rozdíl
 Direct links below will be deleted: Přímý odkaz uvedené níže budou odstraněny
 Doors, Gates: Dveře, Brány
+E-mail notifications: E-mailové upozornění
 ENABLED: ZAPNUTO
 Email already exists: E-mailová adresa již existuje
+Entering configuration mode is unsupported in the firmware.: Dálkové přepínání do konfiguračního režimu není podporováno firmwarem zařízení.
 Existing schedules: Stávající plány
 Expected maximum increment: Očekávané maximální zvýšení
 From IP: Z adresy IP
@@ -1613,25 +1612,27 @@ Next: Dále
 No results match {0}: Žádné výsledky neodpovídají výsledkům {0}
 Number: Číslo
 Output: Výstup
+Pairing subdevices is unsupported in the firmware.: Párování není podporováno softwarem zařízení.
 Please select an action: Vyberte akci prosím
 Please select the schedules that should also be enabled.: Vyberte plány, které by měly být také zahrnuty.
 Previous login: Předchozí přihlášení
 Reference to the channel will be removed from the items below.: Odkazování na tento kanál bude z následujících kanálů odstraněno.
 Registration: Registrace
 Remove: Vymazat
+Save changes to see Access IDs: Uložte změny a zobrazte ID přístupu
 Schedule cannot be enabled: Plán nemohl být zapnutý
 Schedules below will be deleted: Následující plány budou smazány
 Sensor (normal closed): Snímač (normálně zavřený)
 Sensor (normal open): Snímač (normálně otevřený)
 Sources available from: Zdroje dostupné v
 Standard: Standardní
-Status: Stav
 Subject: Předmět
 Sunrise / Sunset: Východ / Západ
 Supla for devices: Supla na zařízeních
 Temperature adjustment only: Pouze nastavení teploty
 The events in voltage aberrations history will be automatically deleted after {days} days.: Události v historii napěťových aberací se automaticky odstraní po {days} dnech.
 The items below depend on this channel, so they will be deleted.: Následující položky závisí na tomto kanálu, proto budou odstraněny.
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Pomocí rámečku jsme označili oznámení, ze kterého jste klikl/klikla na odkaz pro odhlášení.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reakce bude aktivní, pokud jsou splněny všechny následující podmínky. Pokud nastavíte všechny dostupné možnosti, reakce se aktivuje pouze mezi vybranými daty, ve vybraných časech a dnech v týdnu a při splnění jedné z referenčních hodnot západu nebo východu slunce.
 Triggers: Spouštěče
 Try again later: Zkuste to prosím později
@@ -1639,7 +1640,6 @@ Turning this device off will result in disabling all the associated schedules.: 
 Unlocked: Odblokované
 Use working schedule for this access identifier: Použijte plán dostupnosti pro tento přístupový identifikátor
 Use working schedule for this reaction: Pro tuto odpověď použijte plán činností
-User interface: Počítačové rozhraní
 Value per unit: Hodnota na jednotku
 When: Kdy
 When the curtain reaches: Když opona dosáhne
@@ -1677,6 +1677,10 @@ thermostatAlgorithm_help: |
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A new client app: ~
+A new device: ~
+Account notifications: ~
+Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
 Activity schedule: ~
 Add new data source: ~
@@ -1689,17 +1693,29 @@ Are you sure you want to delete this subdevice?: ~
 Attribute: ~
 Auto-close on flood: ~
 Aux thermometer for channel: ~
+Battery health: ~
+Battery level: ~
 Baudrate: ~
 Binary sensor for channel: ~
+Bridge node online: ~
+Bridge node signal strength: ~
 Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Check available updates: ~
 Choose many: ~
 City: ~
+Confirm new password: ~
+Connection uptime: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
 Could not add the data source. Try again in a while.: ~
+Could not change the password.: ~
+Could not check updates.: ~
+Could not perform factory reset.: ~
+Could not perform firmware update.: ~
+Could not set device password.: ~
 Created: ~
 Data source channels: ~
 Data source type: ~
@@ -1707,24 +1723,39 @@ Data sources: ~
 Data sources are virtual channels that can provide data for your account.: ~
 Data sources limit has been exceeded: ~
 Default (exact value depends on a device): ~
+Default channels location: ~
+Device date and time: ~
 Device interface: ~
 Does it look good?: ~
+E-mail: ~
 Each container level sensor must have different fill level.: ~
 Energy attribute: ~
 Energy prices: ~
 Everyone makes mistakes!: ~
+Factory reset: ~
 Fill level: ~
+Firmware update is available.: ~
+Firmware update policy: ~
+Firmware updates: ~
+Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
 Go back to data sources: ~
 Heat or cold source switch for channel: ~
+IP: ~
 Image: ~
 Invalid sensor state: ~
+LED settings: ~
+Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
+Light source lifespan: ~
+Light source operating time: ~
 Lock type: ~
+MAC: ~
+MODBUS: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
@@ -1735,22 +1766,34 @@ Mute alarm sound without additional auth: ~
 Mute command sent: ~
 NORMAL USE. Use the energy as usual.: ~
 Network: ~
+New version: ~
+No one: ~
 Not available: ~
 'OCR service responded with error: {statusCode}. {description}': ~
 Open Weather Data: ~
 Opening sensor for channel: ~
+Operating time: ~
 Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Overcurrent threshold: ~
+Password is too long.: ~
+Password is too short.: ~
+Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
+Password was set successfully.: ~
+Passwords do not match.: ~
 Percentage of extension: ~
+Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
+Power supply: ~
 Pump switch for channel: ~
+Push: ~
 RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
 REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
 Reading: ~
+Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
 Role: ~
 SUPLA - Test e-mail: ~
@@ -1758,18 +1801,29 @@ Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
 Septic tank: ~
 Serial: ~
+Set the configuration password: ~
+Set the password that restricts access to the device configuration page (https://192.168.4.1).: ~
 Slave timeout (ms): ~
 Sound alarm on: ~
 Stop bits: ~
+Switch cycle count: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
+The device is not connected. The values below represent the last known state.: ~
+The factory reset was successful.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
+The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The subdevice has been deleted.: ~
+This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
+This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
+Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
 Updating...: ~
+Uptime: ~
 Use activity schedule: ~
 Valve supports up to 20 sensors.: ~
 Waiting: ~
@@ -1807,11 +1861,16 @@ When the value value changes: ~
 When the value value will be: ~
 When the warning starts: ~
 When the warning stops: ~
+Who has access?: ~
+Wi-Fi RSSI: ~
+Wi-Fi signal strength: ~
 You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
 You cannot change this function becuase it is required by another channel.: ~
+You have the newest firmware installed.: ~
 activityConditions_help: ~
 and wait until the battery level will be: ~
 and wait until the fill level will be: ~
+battery: ~
 choose the city: ~
 closeValveOnFloodType_ALWAYS: ~
 closeValveOnFloodType_ON_CHANGE: ~
@@ -1820,11 +1879,24 @@ directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
 energyPriceForecast_field_fixing1: ~
 energyPriceForecast_field_fixing2: ~
 energyPriceForecast_field_rce: ~
+firmwareUpdatePolicy_ALL_ENABLED: ~
+firmwareUpdatePolicy_DISABLED: ~
+firmwareUpdatePolicy_FORCED_OFF: ~
+firmwareUpdatePolicy_SECURITY_ONLY: ~
 homeScreenContent_MODE_OR_TEMPERATURE: ~
+homeScreenContent_offMode_ALWAYS_ENABLED: ~
+homeScreenContent_offMode_DISABLE: ~
+homeScreenContent_offMode_ENABLED_WHEN_DARK: ~
+lastConnectionResetCause_ACTIVITY_TIMEOUT: ~
+lastConnectionResetCause_SERVER_CONNECTION_LOST: ~
+lastConnectionResetCause_UNKNOWN: ~
+lastConnectionResetCause_WIFI_CONNECTION_LOST: ~
 localUILock_FULL: ~
 localUILock_TEMPERATURE: ~
 localUILock_UNLOCKED: ~
+mains: ~
 modbusRole_MASTER: ~
+modbusRole_NOT_SET: ~
 modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~

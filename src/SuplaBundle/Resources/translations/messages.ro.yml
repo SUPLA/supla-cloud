@@ -34,6 +34,7 @@ Access to all of your devices through MQTT Broker: Acces la toate dispozitivele 
 Account: Cont
 Account access when you are unavailable: Accesul la cont atunci când nu sunteți indisponibil(ă)
 Account has been activated. You can Sign In now.: Contul a fost activat. Vă puteți autentifica
+Action: Acțiune
 Action confirmation: Confirmarea acțiunii
 Action execution: Efectuarea acțiunii
 Action trigger: Declanșator de acțiune
@@ -62,8 +63,6 @@ Adjust temperature: Setați temperatura
 Adjust temperatures: Setați temperaturile
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Toate canalele și grupele de canale care utilizează această pictogramă, vor primi pictograme implicite după eliminarea acesteia.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: După acordarea accesului, puteți oricând să vă răzgândiți revocând accesul în setările contului dvs.
-After the delay: După o anumită perioadă de timp
-After the delay, but only when it's dark: După un anumit timp, dar numai când este întuneric
 After the device enters the configuration mode, it will not be accessible on your account.: Dispozitivul nu va fi disponibil din contul Tău după ce intrați în modul de configurare.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: După actualizare, aplicația va fi mai rapidă, mai convenabilă... Pur și simplu mai bună!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Contorul va începe să socotească de la 0 după această operație, indiferent de starea sa curentă. Această operațiune nu poate fi anulată.
@@ -324,7 +323,6 @@ Device identification is unsupported in the firmware.: Identificarea dispozitivu
 Device is disconnected.: Dispozitivul este deconectat.
 Device might be sleeping: Dispozitivul poate să fie în modul de repaus
 'Device name: %deviceName%': Nume dispozitiv:%deviceName%
-Device settings: Setări dispozitiv
 Device should be now in configuration mode.: Dispozitivul ar trebui să fie acum în modul de configurare.
 Device should be restarting now.: Dispozitivul ar trebui să repornească.
 'Device software version: %deviceSoftwareVersion%': Versiune software:%deviceSoftwareVersion%
@@ -363,7 +361,6 @@ Download measurements history: Descărcați istoricul măsurătorilor
 Download the history of measurement: Descărcați istoricul măsurătorilor
 Drag your image(s) here or click to select from the disk: Trageți imaginea aici sau faceți clic pentru a selecta de pe disc
 Dryer: Uscător
-E-mail notifications: Notificări prin email
 Edit: Editează
 Edit area crop: Zona de editare
 Edit program settings: Editarea setărilor programului
@@ -393,7 +390,6 @@ Enter the data below in your mobile SUPLA application on your smartphone.: Intro
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Introduceți numai domeniul împreună cu numărul portului, dacă nu este standard (443). Este necesară o conexiune HTTPS.
 Enter your email address: Introduceți adresa dvs. de e-mail
 Enter your password to prevent automatic logout.: Introduceți parola pentru a preveni deconectarea automată.
-Entering configuration mode is unsupported in the firmware.: Comutarea de la distanță în modul de configurare nu este acceptată de firmware-ul dispozitivului.
 Error: Eroare
 Error when communicating the AD. Try again in a while.: Eroare la comunicarea cu AD. Încercați din nou peste o clipă.
 Error when communicating the server. Try again in a while.: A apărut o problemă în timpul comunicării cu serverul. Încercați din nou peste câteva momente.
@@ -730,7 +726,6 @@ PIN: PIN
 PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN-ul pentru Google trebuie să conțină cel puțin {minLength} și cel mult {maxLength} cifre.
 Pair new devices or sensors: Asocierea de noi dispozitive sau senzori
 Pairing request sent.: Cerere de împerechere trimisă.
-Pairing subdevices is unsupported in the firmware.: Împerecherea nu este suportată de software-ul dispozitivului.
 Partial opening sensor: Senzor de deschidere indirectă
 Partially opened sensor for channel: Canal pentru senzorul de deschidere intermediară
 Password: Parolă
@@ -866,7 +861,6 @@ Saturdays: Zilele de sâmbătă
 Save: Salvează
 Save and enable: Salvează și activează
 Save changes: Salvează modificările
-Save changes to see Access IDs: Salvați modificările pentru afișarea identificatoarelor de acces
 Save or discard configuration changes first.: Mai întâi, salvați sau renunțați la modificările de configurare.
 Scene: Scena
 Scene available for {serviceName}: Scenă disponibilă pentru {serviceName}
@@ -931,6 +925,7 @@ Start date: Data începerii
 Start from the homepage.: Începeți de la pagina de start.
 State: Stare
 State webhook: Webhook de stare
+Status: Stare
 Status LED: LED de stare
 Step by step: Pas cu pas
 Stop: Oprește
@@ -1000,7 +995,6 @@ The master termostat you chose already has a master.: Termostatul principal pe c
 The measurement history has been deleted.: Istoricul măsurătorilor a fost șters.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Noua parolă o va înlocui pe cea pe care o utilizați în prezent. Unele integrări pot înceta să funcționeze după ce le-au schimbat. A continua?
 The next available executions: Execuțiile următoare
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Cu un cadru, am marcat notificarea din care ați dat clic / ați dat clic pe linkul de dezabonare.
 The notification must have a recipient.: Notificarea trebuie să aibă un destinatar.
 The password and its confirm are not the same.: Parola și confirmarea acesteia nu corespund.
 The password should be 8 or more characters.: Parola trebuie să aibă cel puțin 8 caractere.
@@ -1076,6 +1070,7 @@ Use device default: Utilizați valoarea implicită din dispozitiv
 'Use the {0} server command to change this account''s limits. For example:': 'Pentru a modifica limitele pentru acest cont, utilizați comanda {0} de pe serverul dvs. De exemplu:'
 Use {theMasterThermostat} to control this device.: Utilizați {theMasterThermostat} pentru a controla acest dispozitiv.
 Used current transformer type: Transformator de curent utilizat
+User interface: Configurări interfață cu utilizatorul
 User is already confirmed. Try to log in.: Acest cont a fost deja confirmat. Conectați-vă
 Value: Valoarea
 Value added: Valoare adăugată
@@ -1562,8 +1557,9 @@ yesterday: ieri
 ...and start your adventure with building automation today!: ...și începeți aventura cu clădiri inteligente de astăzi!
 Access identifier password must be at least 8 characters.: Parola pentru identificatorul de acces trebuie să aibă cel puțin 8 caractere.
 Access identifier password must be no longer than 32 characters.: Parola pentru identificatorul de acces nu poate fi mai lungă de 32 de caractere.
-Action: Acțiune
 Add new item to use in the scene: Adăugați un element nou la scenă
+After the delay: După o anumită perioadă de timp
+After the delay, but only when it's dark: După un anumit timp, dar numai când este întuneric
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Sigur doriți să ștergeți întreg istoricul aberațiilor de tensiune pentru acest canal?
 Are you sure you want to disable this device?: Sigur doriți să opriți acest dispozitiv?
 Assigned Locations: Locații atribuite
@@ -1582,11 +1578,14 @@ Confirm if you want to remove {deviceName} device: Confirmați că doriți să e
 DISABLED: DEZACTIVAT
 Days: Zile
 Device channel value: Valoare de pe dispozitiv
+Device settings: Setări dispozitiv
 Differential: Diferenţial
 Direct links below will be deleted: Linkurile directe enumerate mai jos vor fi eliminate
 Doors, Gates: Uși, Porți
+E-mail notifications: Notificări prin email
 ENABLED: ACTIVAT
 Email already exists: Adresa de e-mail există deja
+Entering configuration mode is unsupported in the firmware.: Comutarea de la distanță în modul de configurare nu este acceptată de firmware-ul dispozitivului.
 Existing schedules: Planificări existente
 Expected maximum increment: Creșterea maximă preconizată
 From IP: De la adresa IP
@@ -1613,6 +1612,7 @@ Next: Mai departe
 No results match {0}: Niciun rezultat nu se potrivește cu {0}
 Number: Număr
 Output: Ieșire
+Pairing subdevices is unsupported in the firmware.: Împerecherea nu este suportată de software-ul dispozitivului.
 Please select an action: Vă rugăm să selectați o acțiune
 Please select the schedules that should also be enabled.: Selectați planurile care ar trebui să fie, de asemenea, activate.
 Previous login: Conectarea precedentă
@@ -1621,19 +1621,20 @@ Registration: Înregistrare
 Registration of new I/O devices: Înregistrarea dispozitivelor
 Registration of new clients: Înregistrarea clienților
 Remove: Șterge
+Save changes to see Access IDs: Salvați modificările pentru afișarea identificatoarelor de acces
 Schedule cannot be enabled: Planul de execuție nu a fost activat
 Schedules below will be deleted: Următoarele planuri de execuție vor fi șterse
 Sensor (normal closed): Senzor (normal închis)
 Sensor (normal open): Senzor (normal deschis)
 Sources available from: Sursele disponibile în
 Standard: Standard
-Status: Stare
 Subject: Entitate
 Sunrise / Sunset: Est / Vest
 Supla for devices: Supla pentru dispozitive
 Temperature adjustment only: Numai setarea temperaturii
 The events in voltage aberrations history will be automatically deleted after {days} days.: Evenimentele din istoricul aberațiilor de tensiune vor fi șterse automat după {days} câteva zile.
 The items below depend on this channel, so they will be deleted.: Următoarele elemente depind de acest canal, astfel încât acestea vor fi eliminate.
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Cu un cadru, am marcat notificarea din care ați dat clic / ați dat clic pe linkul de dezabonare.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Răspunsul va fi activ atunci când sunt îndeplinite toate condițiile următoare. Dacă setați toate opțiunile disponibile, reacția se va activa numai între datele selectate, la orele și în zilele săptămânii selectate și atunci când este îndeplinită una dintre referințele de apus sau răsărit.
 Triggers: Declanșatoare
 Try again later: Încercați din nou mai târziu
@@ -1641,7 +1642,6 @@ Turning this device off will result in disabling all the associated schedules.: 
 Unlocked: Deblocat
 Use working schedule for this access identifier: Utilizați un program de disponibilitate pentru acest ID de acces
 Use working schedule for this reaction: Utilizați programul de activitate pentru acest răspuns
-User interface: Configurări interfață cu utilizatorul
 Value per unit: Valoare pe unitate
 We have just sent you an activation link. Be patient.: Tocmai a fost trimis un mesaj cu un link pentru activarea contului dvs. Răbdare.
 When: Când
@@ -1681,6 +1681,10 @@ will expire: expiră
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A new client app: ~
+A new device: ~
+Account notifications: ~
+Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
 Activity schedule: ~
 Add new data source: ~
@@ -1693,17 +1697,29 @@ Are you sure you want to delete this subdevice?: ~
 Attribute: ~
 Auto-close on flood: ~
 Aux thermometer for channel: ~
+Battery health: ~
+Battery level: ~
 Baudrate: ~
 Binary sensor for channel: ~
+Bridge node online: ~
+Bridge node signal strength: ~
 Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Check available updates: ~
 Choose many: ~
 City: ~
+Confirm new password: ~
+Connection uptime: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
 Could not add the data source. Try again in a while.: ~
+Could not change the password.: ~
+Could not check updates.: ~
+Could not perform factory reset.: ~
+Could not perform firmware update.: ~
+Could not set device password.: ~
 Created: ~
 Data source channels: ~
 Data source type: ~
@@ -1711,24 +1727,39 @@ Data sources: ~
 Data sources are virtual channels that can provide data for your account.: ~
 Data sources limit has been exceeded: ~
 Default (exact value depends on a device): ~
+Default channels location: ~
+Device date and time: ~
 Device interface: ~
 Does it look good?: ~
+E-mail: ~
 Each container level sensor must have different fill level.: ~
 Energy attribute: ~
 Energy prices: ~
 Everyone makes mistakes!: ~
+Factory reset: ~
 Fill level: ~
+Firmware update is available.: ~
+Firmware update policy: ~
+Firmware updates: ~
+Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
 Go back to data sources: ~
 Heat or cold source switch for channel: ~
+IP: ~
 Image: ~
 Invalid sensor state: ~
+LED settings: ~
+Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
+Light source lifespan: ~
+Light source operating time: ~
 Lock type: ~
+MAC: ~
+MODBUS: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
@@ -1739,22 +1770,34 @@ Mute alarm sound without additional auth: ~
 Mute command sent: ~
 NORMAL USE. Use the energy as usual.: ~
 Network: ~
+New version: ~
+No one: ~
 Not available: ~
 'OCR service responded with error: {statusCode}. {description}': ~
 Open Weather Data: ~
 Opening sensor for channel: ~
+Operating time: ~
 Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Overcurrent threshold: ~
+Password is too long.: ~
+Password is too short.: ~
+Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
+Password was set successfully.: ~
+Passwords do not match.: ~
 Percentage of extension: ~
+Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
+Power supply: ~
 Pump switch for channel: ~
+Push: ~
 RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
 REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
 Reading: ~
+Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
 Role: ~
 SUPLA - Test e-mail: ~
@@ -1762,18 +1805,29 @@ Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
 Septic tank: ~
 Serial: ~
+Set the configuration password: ~
+Set the password that restricts access to the device configuration page (https://192.168.4.1).: ~
 Slave timeout (ms): ~
 Sound alarm on: ~
 Stop bits: ~
+Switch cycle count: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
+The device is not connected. The values below represent the last known state.: ~
+The factory reset was successful.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
+The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The subdevice has been deleted.: ~
+This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
+This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
+Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
 Updating...: ~
+Uptime: ~
 Use activity schedule: ~
 Valve supports up to 20 sensors.: ~
 Waiting: ~
@@ -1811,11 +1865,16 @@ When the value value changes: ~
 When the value value will be: ~
 When the warning starts: ~
 When the warning stops: ~
+Who has access?: ~
+Wi-Fi RSSI: ~
+Wi-Fi signal strength: ~
 You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
 You cannot change this function becuase it is required by another channel.: ~
+You have the newest firmware installed.: ~
 activityConditions_help: ~
 and wait until the battery level will be: ~
 and wait until the fill level will be: ~
+battery: ~
 choose the city: ~
 closeValveOnFloodType_ALWAYS: ~
 closeValveOnFloodType_ON_CHANGE: ~
@@ -1824,11 +1883,24 @@ directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
 energyPriceForecast_field_fixing1: ~
 energyPriceForecast_field_fixing2: ~
 energyPriceForecast_field_rce: ~
+firmwareUpdatePolicy_ALL_ENABLED: ~
+firmwareUpdatePolicy_DISABLED: ~
+firmwareUpdatePolicy_FORCED_OFF: ~
+firmwareUpdatePolicy_SECURITY_ONLY: ~
 homeScreenContent_MODE_OR_TEMPERATURE: ~
+homeScreenContent_offMode_ALWAYS_ENABLED: ~
+homeScreenContent_offMode_DISABLE: ~
+homeScreenContent_offMode_ENABLED_WHEN_DARK: ~
+lastConnectionResetCause_ACTIVITY_TIMEOUT: ~
+lastConnectionResetCause_SERVER_CONNECTION_LOST: ~
+lastConnectionResetCause_UNKNOWN: ~
+lastConnectionResetCause_WIFI_CONNECTION_LOST: ~
 localUILock_FULL: ~
 localUILock_TEMPERATURE: ~
 localUILock_UNLOCKED: ~
+mains: ~
 modbusRole_MASTER: ~
+modbusRole_NOT_SET: ~
 modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~

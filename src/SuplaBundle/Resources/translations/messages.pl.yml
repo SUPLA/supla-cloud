@@ -37,6 +37,7 @@ Account: Konto
 Account access when you are unavailable: Dostęp do konta kiedy jesteś niedostępny(a)
 Account has been activated. You can Sign In now.: Konto zostało aktywowane. Możesz się zalogować
 Account notifications: Powiadomienia dotyczące konta
+Action: Akcja
 Action confirmation: Potwierdzenie akcji
 Action execution: Wykonywanie akcji
 Action is unsupported in the firmware.: Akcja nie jest wspierana przez firmware urządzenia.
@@ -164,7 +165,6 @@ Based on sunrise or sunset: W oparciu o wschód / zachód
 Battery cover open: Pokrywa baterii otwarta
 Battery health: Żywotność baterii
 Battery level: Poziom baterii
-Battery powered: Zasilanie bateryjne
 Baudrate: Szybkość transmisji
 Be notified when your channels change state: Powiadamianie o zmianach stanu kanałów
 Be right back!: Wróć za kilka chwil!
@@ -352,6 +352,7 @@ Daytime criteria: Kryteria w oparciu o długość dnia
 Decline: Odmów
 Default: domyślnie
 Default (exact value depends on a device): Domyślne (dokładna wartość zależy od urządzenia)
+Default channels location: Domyślna lokalizacja kanałów
 Delete: Usuń
 Delete measurement history: Usuń historię pomiarów
 Delete my account: Usuń moje konto
@@ -365,6 +366,7 @@ Details: Szczegóły
 Device: Urządzenie
 'Device GUID: %deviceGuid%': 'GUID urządzenia: %deviceGuid%'
 'Device ID: %deviceId%': 'Identyfikator urządzenia: %deviceId%'
+Device date and time: Data i godzina na urządzeniu
 Device identification is unsupported in the firmware.: Identyfikacja urządzenia nie jest wspierana przez oprogramowanie
 Device interface: Interfejs urządzenia
 Device is disconnected.: Urządzenie jest rozłączone.
@@ -479,6 +481,7 @@ Firmware of this device sends notifications in context of this channel. You can 
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tego urządzenie wysyła powiadomienia. W tym miejscu możesz skonfigurować treść oraz odbiorców. Aby uzyskać więcej informacji, skontaktuj się z dostawcą urządzenia.
 Firmware update is available.: Aktualizacja jest dostępna
 Firmware update policy: Polityka aktualizacji oprogramowania
+Firmware updates: Aktualizacje firmware
 Firmware version: Wersja oprogramowania
 Flood sensor: Czujnik zalania
 Flood sensor for valve: Czujnik zalania dla zaworu
@@ -633,6 +636,7 @@ It is possible that another user have entered your email address by mistake whil
 It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: W tym trybie urządzenie zacznie rozgłaszać swoją sieć Wi-Fi, której celem jest umożliwienie konfiguracji urządzenia lub aktualizacja oprogramowania sprzętowego za pomocą smartfona, który połączy się z tą siecią.
 Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Pamiętaj, że razem z Twoim kontem usuniemy wszystkie Twoje dane w tym ustawienia, skonfigurowane urządzenia, lokalizacje, harmonogramy i wszystkie inne funkcjonalności oferowane przez SUPLA.
 Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Miej na uwadze, że prezentowany przez aplikację opis podanego wyrażenia nie jest idealny, a jedynym jego zadaniem jest pomóc Ci wprowadzić odpowiednią wartość. Nie służy on do sprawdzenia, czy wprowadzona wartość jest poprawna, ani tym bardziej do chwalenia się, że "znalazło się błąd w SUPLI". Po wprowadzeniu zmian sprawdź sekcję "Najbliższe wykonania" w celu potwierdzenia, że podana konfiguracja harmonogramu spełnia Twoje oczekiwania.
+LED settings: Ustawienia LED
 Language is not available: Język jest niedostępny
 Last access: Ostatnie połączenie
 Last connection: Ostatnie połączenie
@@ -670,6 +674,7 @@ Low threshold must be less than high threshold.: Próg niski musi być niższy o
 Low value: Wartość minimalna
 Lower voltage threshold: Próg niskiego napięcia
 MAC: MAC
+MODBUS: MODBUS
 MQTT Broker: Broker MQTT
 MQTT Broker Username: Nazwa użytkownika
 MQTT Broker is disabled.: Broker MQTT jest wyłączony.
@@ -754,6 +759,7 @@ No of channels: Liczba kanałów
 No of client apps: Liczba aplikacji klienckich
 No of devices: Liczba urządzeń
 No of operations: Liczba operacji
+No one: Nikt
 No results: Brak wyników
 No schedule configuration.: Nie podano konfiguracji harmonogramu.
 No, take me back!: Nie, zabierz mnie stąd!
@@ -825,11 +831,13 @@ Password Reset: Resetowanie hasła
 Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Zmiana hasła spowoduje wylogowanie wszystkich aktualnych sesji. Nie wpłynie to jednak na aplikacje, które otrzymały od Ciebie autoryzację. Zgody na logowanie aplikacji musisz wycofać oddzielnie.
 Password changed: Hasło zmienione
 Password has been changed: Hasło zostało zmienione
-Password must be at least 5 characters long.: Hasło musi mieć co najmniej 5 znaków
+Password is too long.: Hasło jest zbyt długie.
+Password is too short.: Hasło jest zbyt krótkie.
 Password must be at least {minLength} characters.: Hasło musi mieć co najmniej {minLength} znaków.
 Password must be no longer than {maxLength} characters.: Hasło nie może być dłuższe niż {maxLength} znaki.
 Password reset: Zresetuj hasło
 Password reset instructions.: Instrukcje przywrócenia dostępu do Twojego konta.
+Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: Hasło powinno mieć co najmniej 8 znaków i zawierać co najmniej jedną wielką literę, jedną małą literę oraz jedną cyfrę.
 Password was set successfully.: Hasło zostało ustawione pomyślnie
 Passwords do not match.: Hasła nie są identyczne
 Percentage of closing: Procent zamknięcia
@@ -870,6 +878,7 @@ Port: Port
 Power active: Moc czynna
 Power apparent: Moc pozorna
 Power reactive: Moc bierna
+Power supply: Zasilanie
 Precision: Liczba miejsc po przecinku
 Predefined time ranges: Zakresy czasu
 Pressure sensor: Czujnik ciśnienia
@@ -1012,6 +1021,7 @@ Service temporarily unavailable: Usługa tymczasowo niedostępna
 Set HVAC parameters: Ustaw parametry
 Set the configuration password: Ustaw hasło konfiguracyjne
 Set the device time: Ustaw datę i godzinę na urządzeniu
+Set the password that restricts access to the device configuration page (https://192.168.4.1).: Ustaw hasło, które zabezpiecza urządzenie przed zmianami przez osoby nieuprawnione (hasło do strony https://192.168.4.1).
 Set value added: Ustal wartość dodaną
 Set values for each phase separately: Ustal wartość dla każdej fazy osobno
 Setting the number of attempts to 1 disables the retrying behavior completely.: Ustawienie liczby prób poniżej 2 może skutkować tym, że zamknięcie lub otwarcie nie dojdzie do skutku.
@@ -1043,6 +1053,7 @@ Start date: Data rozpoczęcia
 Start from the homepage.: Zacznij od strony głównej.
 State: Stan
 State webhook: Webhook stanu
+Status: Status
 Status LED: Status LED
 Step by step: Krok po kroku
 Stop: Zatrzymaj
@@ -1058,6 +1069,7 @@ Success: Sukces
 Successful: Udane
 Summary for selected time range: Podsumowanie dla wybranego zakresu
 Sundays: Niedziele
+Switch cycle count: Przełączenia przekaźnika
 Switch the device to configuration mode: Przełącz urządzenie w tryb konfiguracyjny
 Switch to manual mode: Przełącz w tryb manualny
 Switch to program mode: Przełącz w tryb programu
@@ -1098,6 +1110,7 @@ The device has been unlocked.: Urządzenie zostało odblokowane.
 The device has channel conflict and cannot work.: Urządzenie wygenerowało konflikt kanałów i nie może aktualnie pracować.
 The device is disabled: Urządzenie jest wyłączone
 The device is locked: Urządzenie zablokowane
+The device is not connected. The values below represent the last known state.: Urządzenie jest rozłączone. Wartości poniżej przedstawiają ostatni znany stan.
 The device might be in a sleep mode.: Urządzenie może pracować w trybie uśpienia.
 The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Urządzenie, które używa tej sesji straci dostęp do SUPLA Cloud. W celu dalszego korzystania z aplikacji będzie wymagane na nim ponowne zalogowanie się.
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Cała historia aberracji napięcia dla fazy {phaseNumber} zostanie usunięta.
@@ -1156,7 +1169,6 @@ This is the final step in the deletion process. Completing the form will result 
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: To jest ostatnie zdjęcie przesłane z urządzenia. Zaznacz dokładnie obszar, w którym są widoczne cyfry z licznika.
 This is the list of applications you have granted access to your account.: To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: To jest lista reakcji działających na Twoim koncie. Jeśli chcesz dodać nową reakcję, przejdź do szczegółów kanału, który powinien ją wyzwalać.
-This is the password that was configured during the first device setup. It allows you to access the device configuration page when you are connected to its Wi-Fi.: To jest hasło, które zostało skonfigurowane podczas pierwszej konfiguracji urządzenia. Pozwala ono na dostęp do strony konfiguracyjnej urządzenia, gdy jesteś połączony z jego Wi-Fi
 This link is only valid for an hour.: Link będzie aktywny przez godzinę.
 'This password will protect your home. Therefore, it must:': 'To hasło ochroni Twój dom. Dlatego:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ten tryb harmonogramu jest zaprojektowany z myślą o technicznych lub bardzo cierpliwych użytkownikach. Wymaga on podania momentów wyzwalania harmonogramu w notacji crontab, wzbogaconej o kilka funkcjonalności spotykanych tylko w SUPLI. Jeśli nie spotkałeś/aś się wcześniej z crontabami a nadal chcesz użyć tego trybu, strona crontab.guru może się okazać dla Ciebie pomocna.
@@ -1207,6 +1219,7 @@ Use device default: Użyj domyślnej wartości z urządzenia
 'Use the {0} server command to change this account''s limits. For example:': 'Aby zmienić limity dla tego konta, użyj komendy {0} na Twoim serwerze. Na przykład:'
 Use {theMasterThermostat} to control this device.: Użyj {theMasterThermostat}, aby sterować tym urządzeniem.
 Used current transformer type: Używany przekładnik prądowy
+User interface: Interfejs użytkownika
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
 Value: Wartość
 Value added: Wartość dodana
@@ -1423,6 +1436,7 @@ When you execute the link with HTTP PATCH method, you can omit the random part o
 Where is the JSON?: Gdzie jest JSON?
 Where is your SUPLA Cloud?: Gdzie znajduje się Twoja Supla?
 White: Biały
+Who has access?: Kto ma dostęp?
 Wi-Fi RSSI: Wi-Fi RSSI
 Wi-Fi signal strength: Siła sygnału Wi-Fi
 Will be deleted after: Usuwanie po
@@ -1528,6 +1542,7 @@ auxThermometerType_GENERIC_HEATER: Źródło ciepła
 auxThermometerType_NOT_SET: Nieustawiony
 auxThermometerType_WATER: Woda
 average: średnia
+battery: bateryjne
 be at least {numChars} characters long: musi mieć co najmniej {numChars} znaków
 before: przed
 blue, otherwise: w przeciwnym razie niebieska
@@ -1626,6 +1641,7 @@ logs_aggregation_day: dni
 logs_aggregation_hour: godziny
 logs_aggregation_minute: minuty
 logs_aggregation_month: miesiące
+mains: sieciowe
 max: maks.
 midnight: północ
 milliseconds: milisekundy
@@ -1791,13 +1807,13 @@ yesterday: wczoraj
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 '% of extension': '% rozwinięcia'
-Action: Akcja
 Add new item to use in the scene: Dodaj nowy element do sceny
 And set the same state for: i ustaw taki sam stan dla
 Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?
 Assigned Locations: Przypisane Lokalizacje
 Authorized OAuth apps: Zautoryzowane aplikacje OAuth
 Available: Dostępne
+Battery powered: Zasilanie bateryjne
 Calculated value: Stan licznika
 Cannot execute an action when the device is disconnected.: Nie można wykonywać akcji gdy urządzenie jest rozłączone.
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
@@ -1850,6 +1866,7 @@ No current API usages: Brak bieżących żądań API
 No results match {0}: Żadne wyniki nie pasują do {0}
 Number: Numer
 Output: Wyjście
+Password must be at least 5 characters long.: Hasło musi mieć co najmniej 5 znaków
 Please select an action: Proszę wybrać akcję
 Previous login: Poprzednie logowanie
 Read the following channel's state: Odczytaj stan poniższego kanału
@@ -1866,10 +1883,10 @@ Set initial values: Ustaw wartości początkowe
 Show days with issues only: Pokaż tylko dni, w których odnotowano naruszenia
 Sources available from: Źródła dostępne w
 Standard: Standardowe
-Status: Status
 Subject: Podmiot
 Sunrise / Sunset: Wschód / Zachód
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Za pomocą ramki zaznaczyliśmy powiadomienie, z którego kliknąłeś/kliknęłaś link do wypisania się.
+This is the password that was configured during the first device setup. It allows you to access the device configuration page when you are connected to its Wi-Fi.: To jest hasło, które zostało skonfigurowane podczas pierwszej konfiguracji urządzenia. Pozwala ono na dostęp do strony konfiguracyjnej urządzenia, gdy jesteś połączony z jego Wi-Fi
 Triggers: Wyzwalacze
 Try again later: Spróbuj ponownie później
 Turn off after: Wyłącz po czasie
@@ -1910,6 +1927,3 @@ suffix: sufiks
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-Set the password that restricts access to the device configuration page (https://192.168.4.1).: Ustaw hasło, które zabezpiecza urządzenie przed zmianami przez osoby nieuprawnione (hasło do strony https://192.168.4.1).
-Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: Hasło powinno mieć co najmniej 8 znaków i zawierać co najmniej jedną wielką literę, jedną małą literę oraz jedną cyfrę.
-Switch cycle count: Przełączenia przekaźnika

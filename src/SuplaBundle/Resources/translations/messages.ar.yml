@@ -34,6 +34,7 @@ Access to all of your devices through MQTT Broker: الوصول إلى جميع 
 Account: الحساب
 Account access when you are unavailable: الوصول إلى حسابك عندما تكون غير متاح
 Account has been activated. You can Sign In now.: تم تفعيل الحساب. يمكنك تسجيل الدخول
+Action: الاجراء
 Action confirmation: تأكيد الإجراء
 Action execution: أداء الاجراء
 Action trigger: مشغل الإجراء
@@ -62,8 +63,6 @@ Adjust temperature: ضبط درجة الحرارة
 Adjust temperatures: ضبط درجات الحرارة
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: ستتلقى جميع القنوات ومجموعات القنوات التي تستخدم هذا الرمز الرموز الافتراضية عند إزالتها.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: بعد منح حق الوصول، يمكنك دائمًا تغيير رأيك عن طريق إلغاء الوصول في إعدادات حسابك.
-After the delay: بعد وقت معين
-After the delay, but only when it's dark: بعد وقت معين، ولكن عندما يحل الظلام فقط
 After the device enters the configuration mode, it will not be accessible on your account.: لن يمكن الوصول إلى الجهاز من مستوى حسابك بعد الدخول في وضع الترتيب.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: بعد التحديث، سيكون التطبيق أسرع وأكثر ملاءمة ... ببساطة أفضل!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: سيبدأ العداد العد من 0 بعد هذه العملية، بغض النظر عن حالته الحالية. لا يمكن التراجع عن هذه العملية.
@@ -324,7 +323,6 @@ Device identification is unsupported in the firmware.: تعريف الجهاز �
 Device is disconnected.: الجهاز غير متصل.
 Device might be sleeping: قد يكون الجهاز في وضع السكون
 'Device name: %deviceName%': 'اسم الجهاز: %deviceName%'
-Device settings: إعدادات الجهاز
 Device should be now in configuration mode.: يجب أن يكون الجهاز الآن في وضع الترتيب.
 Device should be restarting now.: يجب إعادة تشغيل الجهاز.
 'Device software version: %deviceSoftwareVersion%': 'إصدار البرنامج: %deviceSoftwareVersion%'
@@ -363,7 +361,6 @@ Download measurements history: تنزيل سجل القياسات
 Download the history of measurement: تحميل تاريخ القياسات
 Drag your image(s) here or click to select from the disk: اسحب الصورة هنا أو انقر للتحديد من القرص
 Dryer: مزيل الرطوبة
-E-mail notifications: إشعارات البريد الإلكتروني
 Edit: تحرير
 Edit area crop: تعديل المنطقة
 Edit program settings: تعديل إعدادات البرنامج
@@ -393,7 +390,6 @@ Enter the data below in your mobile SUPLA application on your smartphone.: أد�
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: أدخل فقط المجال مع المنفذ إذا كان غير قياسي (443). نطلب اتصال  HTTPS.
 Enter your email address: أدخل عنوان بريدك الإلكتروني
 Enter your password to prevent automatic logout.: أدخل كلمة المرور لمنع تسجيل الخروج التلقائي.
-Entering configuration mode is unsupported in the firmware.: التبديل عن بعد إلى وضع الترتيب غير مدعوم من قبل البرامج الثابتة للجهاز.
 Error: خطأ
 Error when communicating the AD. Try again in a while.: خطأ أثناء الاتصال بـ AD. يرجى المحاولة مرة أخرى في لحظة.
 Error when communicating the server. Try again in a while.: حدثت مشكلة في الاتصال بالخادم. يرجى المحاولة مرة أخرى بعد لحظة.
@@ -730,7 +726,6 @@ PIN: رقم التعريف الشخصي PIN
 PIN for Google must have a length between {minLength} and {maxLength} digits.: يجب ألا يقل رقم التعريف الشخصي (PIN) في Google عن {minLength} رقما، ولا يزيد على {maxLength} رقما.
 Pair new devices or sensors: إقران أجهزة أو مستشعرات جديدة
 Pairing request sent.: تم إرسال طلب الاقتران
-Pairing subdevices is unsupported in the firmware.: الاقتران غير مدعوم من قبل برنامج الجهاز.
 Partial opening sensor: مستشعر الفتح غير المباشر
 Partially opened sensor for channel: قناة لمستشعر الفتح غير المباشر
 Password: كلمة المرور
@@ -866,7 +861,6 @@ Saturdays: السبت
 Save: حفظ
 Save and enable: حفظ وإيقاف التشغيل
 Save changes: حفظ التغييرات
-Save changes to see Access IDs: حفظ التغييرات لعرض معرفات الوصول
 Save or discard configuration changes first.: أولا، احفظ تغييرات التكوين أو تجاهلها.
 Scene: المشهد
 Scene available for {serviceName}: المشهد متاح لـ {serviceName}
@@ -931,6 +925,7 @@ Start date: تاريخ البدء
 Start from the homepage.: ابدأ من الصفحة الرئيسية.
 State: الحالة
 State webhook: حالة الويبهوك
+Status: الحالة
 Status LED: مؤشر ضوئي LED للحالة
 Step by step: خطوة بخطوة
 Stop: إيقاف
@@ -1000,7 +995,6 @@ The master termostat you chose already has a master.: ثرموستات الما�
 The measurement history has been deleted.: تم حذف سجل القياسات.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ستحل كلمة المرور الجديدة محل كلمة المرور التي تستخدمها حاليا. قد تتوقف بعض عمليات الدمج عن العمل بعد تغييرها. هل نستمر؟
 The next available executions: الاجراءات القادمة
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: بمساعدة الإطار، قمنا بوضع علامة على الإشعار الذي نقرت منه على الرابط لإلغاء التسجيل.
 The notification must have a recipient.: يجب أن يكون للإشعار مستلم.
 The password and its confirm are not the same.: كلمة المرور والتأكيد ليست هي نفسها.
 The password should be 8 or more characters.: يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل.
@@ -1076,6 +1070,7 @@ Use device default: استخدم القيمة الافتراضية من الجه
 'Use the {0} server command to change this account''s limits. For example:': 'لتغيير حدود هذا الحساب، استخدم الأمر {0} على الخادم الخاص بك. على سبيل المثال:'
 Use {theMasterThermostat} to control this device.: استخدم {theMasterThermostat} للتحكم في هذا الجهاز.
 Used current transformer type: محول التيار المستعمل
+User interface: واجهة المستخدم
 User is already confirmed. Try to log in.: تم تأكيد هذا الحساب بالفعل. قم بتسجيل الدخول
 Value: القيمة
 Value added: القيمة المضافة
@@ -1561,8 +1556,9 @@ yesterday: أمس
 ...and start your adventure with building automation today!: ... وابدأ مغامرتك مع المباني الذكية اليوم!
 Access identifier password must be at least 8 characters.: يجب أن تتكون كلمة المرور الخاصة بمعرف الوصول من 8 أحرف على الأقل.
 Access identifier password must be no longer than 32 characters.: لا يمكن أن تكون كلمة المرور الخاصة بمعرف الوصول أطول من 32 حرفًا.
-Action: الاجراء
 Add new item to use in the scene: إضافة عنصر جديد إلى المشهد
+After the delay: بعد وقت معين
+After the delay, but only when it's dark: بعد وقت معين، ولكن عندما يحل الظلام فقط
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: هل أنت متأكد أنك تريد حذف كل تاريخ انحراف الجهد لهذه القناة؟
 Are you sure you want to disable this device?: هل أنت متأكد من أنك تريد إيقاف تشغيل هذا الجهاز؟
 Assigned Locations: المواقع المخصصة
@@ -1581,11 +1577,14 @@ Confirm if you want to remove {deviceName} device: أكد أنك تريد إزا
 DISABLED: غير مشغل
 Days: الأيام
 Device channel value: القيمة من الجهاز
+Device settings: إعدادات الجهاز
 Differential: تفاضلي
 Direct links below will be deleted: ستتم إزالة الروابط المباشرة المدرجة أدناه
 Doors, Gates: الأبواب ، البوابات
+E-mail notifications: إشعارات البريد الإلكتروني
 ENABLED: مفعلة
 Email already exists: البريد الإلكتروني موجود بالفعل
+Entering configuration mode is unsupported in the firmware.: التبديل عن بعد إلى وضع الترتيب غير مدعوم من قبل البرامج الثابتة للجهاز.
 Existing schedules: الجداول الزمنية الحالية
 Expected maximum increment: الزيادة القصوى المتوقعة
 From IP: من عنوان  IP
@@ -1612,6 +1611,7 @@ Next: التالي
 No results match {0}: لا توجد نتائج مطابقة مع {0}
 Number: رقم
 Output: خروج
+Pairing subdevices is unsupported in the firmware.: الاقتران غير مدعوم من قبل برنامج الجهاز.
 Please select an action: الرجاء اختيار إجراء
 Please select the schedules that should also be enabled.: حدد الجداول التي ينبغي أن تدرج أيضا.
 Previous login: تسجيل الدخول السابق
@@ -1620,19 +1620,20 @@ Registration: تسجيل
 Registration of new I/O devices: تسجيل الجهاز
 Registration of new clients: تسجيل العملاء
 Remove: حذف
+Save changes to see Access IDs: حفظ التغييرات لعرض معرفات الوصول
 Schedule cannot be enabled: لم يتم تشغيل الجدول الزمني
 Schedules below will be deleted: سيتم حذف الجداول الزمنية التالية
 Sensor (normal closed): مستشعر (مغلق عادة)
 Sensor (normal open): مستشعر (مفتوح بصورة طبيعية)
 Sources available from: المصادر المتاحة في
 Standard: معياري
-Status: الحالة
 Subject: الكيان
 Sunrise / Sunset: الشرق / الغرب
 Supla for devices: Supla على اللأجهزة
 Temperature adjustment only: إعداد درجة الحرارة فقط
 The events in voltage aberrations history will be automatically deleted after {days} days.: سيتم حذف الأحداث في سجل انحراف الجهد تلقائيًا بعد {days} أيام.
 The items below depend on this channel, so they will be deleted.: تعتمد العناصر التالية على هذه القناة، لذلك ستتم إزالتها.
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: بمساعدة الإطار، قمنا بوضع علامة على الإشعار الذي نقرت منه على الرابط لإلغاء التسجيل.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: سيكون التفاعل نشطا عند استيفاء جميع الشروط التالية. إذا قمت بتعيين جميع الخيارات المتاحة، فلن يتم تنشيط التفاعل إلا بين التواريخ المحددة، وفي الأوقات والأيام المحددة من الأسبوع، وعند استيفاء أحد مراجع غروب الشمس أو شروقها.
 Triggers: مشغلات
 Try again later: يرجى المحاولة مرة أخرى لاحقًا
@@ -1640,7 +1641,6 @@ Turning this device off will result in disabling all the associated schedules.: 
 Unlocked: غير مقفول
 Use working schedule for this access identifier: استخدام جدول توفر لمعرف الوصول هذا
 Use working schedule for this reaction: استخدم جدول النشاط لهذا التفاعل
-User interface: واجهة المستخدم
 Value per unit: القيمة لكل وحدة
 We have just sent you an activation link. Be patient.: تم إرسال رسالة تحتوي على رابط لتفعيل حسابك. اصبر.
 When: عندما
@@ -1680,6 +1680,10 @@ will expire: يبطل مفعولها
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A new client app: ~
+A new device: ~
+Account notifications: ~
+Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
 Activity schedule: ~
 Add new data source: ~
@@ -1692,17 +1696,29 @@ Are you sure you want to delete this subdevice?: ~
 Attribute: ~
 Auto-close on flood: ~
 Aux thermometer for channel: ~
+Battery health: ~
+Battery level: ~
 Baudrate: ~
 Binary sensor for channel: ~
+Bridge node online: ~
+Bridge node signal strength: ~
 Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Check available updates: ~
 Choose many: ~
 City: ~
+Confirm new password: ~
+Connection uptime: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
 Could not add the data source. Try again in a while.: ~
+Could not change the password.: ~
+Could not check updates.: ~
+Could not perform factory reset.: ~
+Could not perform firmware update.: ~
+Could not set device password.: ~
 Created: ~
 Data source channels: ~
 Data source type: ~
@@ -1710,24 +1726,39 @@ Data sources: ~
 Data sources are virtual channels that can provide data for your account.: ~
 Data sources limit has been exceeded: ~
 Default (exact value depends on a device): ~
+Default channels location: ~
+Device date and time: ~
 Device interface: ~
 Does it look good?: ~
+E-mail: ~
 Each container level sensor must have different fill level.: ~
 Energy attribute: ~
 Energy prices: ~
 Everyone makes mistakes!: ~
+Factory reset: ~
 Fill level: ~
+Firmware update is available.: ~
+Firmware update policy: ~
+Firmware updates: ~
+Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
 Go back to data sources: ~
 Heat or cold source switch for channel: ~
+IP: ~
 Image: ~
 Invalid sensor state: ~
+LED settings: ~
+Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
+Light source lifespan: ~
+Light source operating time: ~
 Lock type: ~
+MAC: ~
+MODBUS: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
@@ -1738,22 +1769,34 @@ Mute alarm sound without additional auth: ~
 Mute command sent: ~
 NORMAL USE. Use the energy as usual.: ~
 Network: ~
+New version: ~
+No one: ~
 Not available: ~
 'OCR service responded with error: {statusCode}. {description}': ~
 Open Weather Data: ~
 Opening sensor for channel: ~
+Operating time: ~
 Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Overcurrent threshold: ~
+Password is too long.: ~
+Password is too short.: ~
+Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
+Password was set successfully.: ~
+Passwords do not match.: ~
 Percentage of extension: ~
+Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
+Power supply: ~
 Pump switch for channel: ~
+Push: ~
 RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
 REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
 Reading: ~
+Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
 Role: ~
 SUPLA - Test e-mail: ~
@@ -1761,18 +1804,29 @@ Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
 Septic tank: ~
 Serial: ~
+Set the configuration password: ~
+Set the password that restricts access to the device configuration page (https://192.168.4.1).: ~
 Slave timeout (ms): ~
 Sound alarm on: ~
 Stop bits: ~
+Switch cycle count: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
+The device is not connected. The values below represent the last known state.: ~
+The factory reset was successful.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
+The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The subdevice has been deleted.: ~
+This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
+This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
+Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
 Updating...: ~
+Uptime: ~
 Use activity schedule: ~
 Valve supports up to 20 sensors.: ~
 Waiting: ~
@@ -1810,11 +1864,16 @@ When the value value changes: ~
 When the value value will be: ~
 When the warning starts: ~
 When the warning stops: ~
+Who has access?: ~
+Wi-Fi RSSI: ~
+Wi-Fi signal strength: ~
 You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
 You cannot change this function becuase it is required by another channel.: ~
+You have the newest firmware installed.: ~
 activityConditions_help: ~
 and wait until the battery level will be: ~
 and wait until the fill level will be: ~
+battery: ~
 choose the city: ~
 closeValveOnFloodType_ALWAYS: ~
 closeValveOnFloodType_ON_CHANGE: ~
@@ -1823,11 +1882,24 @@ directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
 energyPriceForecast_field_fixing1: ~
 energyPriceForecast_field_fixing2: ~
 energyPriceForecast_field_rce: ~
+firmwareUpdatePolicy_ALL_ENABLED: ~
+firmwareUpdatePolicy_DISABLED: ~
+firmwareUpdatePolicy_FORCED_OFF: ~
+firmwareUpdatePolicy_SECURITY_ONLY: ~
 homeScreenContent_MODE_OR_TEMPERATURE: ~
+homeScreenContent_offMode_ALWAYS_ENABLED: ~
+homeScreenContent_offMode_DISABLE: ~
+homeScreenContent_offMode_ENABLED_WHEN_DARK: ~
+lastConnectionResetCause_ACTIVITY_TIMEOUT: ~
+lastConnectionResetCause_SERVER_CONNECTION_LOST: ~
+lastConnectionResetCause_UNKNOWN: ~
+lastConnectionResetCause_WIFI_CONNECTION_LOST: ~
 localUILock_FULL: ~
 localUILock_TEMPERATURE: ~
 localUILock_UNLOCKED: ~
+mains: ~
 modbusRole_MASTER: ~
+modbusRole_NOT_SET: ~
 modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~

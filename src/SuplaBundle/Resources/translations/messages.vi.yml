@@ -34,6 +34,7 @@ Access to all of your devices through MQTT Broker: Truy cập vào tất cả c�
 Account: Tài khoản
 Account access when you are unavailable: Truy cập tài khoản
 Account has been activated. You can Sign In now.: Tài khoản đã kích hoạt. Hiện tại có thể đăng nhập
+Action: Hoạt động
 Action confirmation: Xác nhận hoạt động
 Action execution: Thực hiện
 Action trigger: Kích hoạt hành động
@@ -62,8 +63,6 @@ Adjust temperature: Đặt nhiệt độ
 Adjust temperatures: Đặt nhiệt độ
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Sau khi xóa icon, tất cả các channels và channel grops sẽ trở lại icon mặc định.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Sau khi cấp quyền truy cập, bạn luôn có thể xóa quyền truy cập bằng cách điều chỉnh cài đặt trong phần cài đặt tài khoản của bạn
-After the delay: Sau khoảng thời gian xác định
-After the delay, but only when it's dark: Sau khoảng thời gian xác định, nhưng chỉ khi trời tối
 After the device enters the configuration mode, it will not be accessible on your account.: Sẽ không vào được thiết bị từ cấp độ tài khoản của bạn sau khi vào chế độ cấu hình.
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Sau khi cập nhật, ứng dụng sẽ nhanh hơn, tiện lợi hơn ... Đơn giản là tốt hơn!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Máy sẽ bắt đầu đếm từ 0 sau hoạt động này, bất kể trạng thái hiện tại của nó. Không thể hồi lại thao tác này.
@@ -324,7 +323,6 @@ Device identification is unsupported in the firmware.: Không hỗ trợ nhận 
 Device is disconnected.: Thiết bị trong tình trạng ngắt kết nối.
 Device might be sleeping: Thiết bị có thể ở chế độ ngủ
 'Device name: %deviceName%': 'Tên thiết bị: %deviceName%'
-Device settings: Cài đặt thiết bị
 Device should be now in configuration mode.: Thiệt bị trong chế độ cài đặt.
 Device should be restarting now.: Thiết bị sẽ khởi động lại.
 'Device software version: %deviceSoftwareVersion%': 'Phiên bản phần mềm: %deviceSoftwareVersion%'
@@ -363,7 +361,6 @@ Download measurements history: Tải lịch sử đo đạc
 Download the history of measurement: Tải xuống lịch sử đo lường
 Drag your image(s) here or click to select from the disk: Kéo hình ảnh ở đây hoặc nhấp để chọn nó từ đĩa
 Dryer: Máy hút ẩm
-E-mail notifications: Thông báo qua e-mail
 Edit: Chỉnh sửa
 Edit area crop: Chỉnh sửa khu vực
 Edit program settings: Chỉnh sửa cài đặt chương trình
@@ -393,7 +390,6 @@ Enter the data below in your mobile SUPLA application on your smartphone.: Nhậ
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Chỉ nhập tên miền với cổng nếu nó không chuẩn (443). Chúng tôi yêu cầu kết nối HTTPS.
 Enter your email address: Nhập địa chỉ email
 Enter your password to prevent automatic logout.: Nhập mật khẩu để ngăn việc tự động đăng xuất.
-Entering configuration mode is unsupported in the firmware.: Chức năng chuyển chế đột từ xa không được hỗ trợ bở phần mềm của thiết b.
 Error: Lỗi
 Error when communicating the AD. Try again in a while.: Lỗi kết nối với AD. Vui lòng thử lại sau giây lát.
 Error when communicating the server. Try again in a while.: Lỗi khi giao tiếp với máy chủ. Hãy thử lại sau một thời gian.
@@ -730,7 +726,6 @@ PIN: Số nhận dạng cá nhân
 PIN for Google must have a length between {minLength} and {maxLength} digits.: Số nhận dạng cá nhân cho Google phải có ít nhất {minLength} và tối đa {maxLength} chữ số.
 Pair new devices or sensors: Ghép nối các thiết bị hoặc cảm biến mới
 Pairing request sent.: Yêu cầu ghép nối đã được gửi.
-Pairing subdevices is unsupported in the firmware.: Phần mềm thiết bị không hỗ trợ ghép nối.
 Partial opening sensor: Cảm biến mở một phần
 Partially opened sensor for channel: Kênh cảm biến một phần
 Password: Mật Khẩu
@@ -866,7 +861,6 @@ Saturdays: Thứ bảy
 Save: Lưu
 Save and enable: Lưu và kích hoạt
 Save changes: Lưu thay đổi
-Save changes to see Access IDs: Lưu các thay đổi để xem ID truy cập
 Save or discard configuration changes first.: Trước tiên hãy lưu lại hoặc hủy bỏ những thay đổi trong cài đặt
 Scene: Hoạt cảnh
 Scene available for {serviceName}: Cảnh có sẵn cho {serviceName}
@@ -931,6 +925,7 @@ Start date: Ngày bắt đầu
 Start from the homepage.: Bắt đầu từ trang chủ
 State: Trạng thái
 State webhook: Trạng thái Webhook
+Status: Trạng thái
 Status LED: Trạng thái đèn LED
 Step by step: Theo từng bước một
 Stop: Dừng
@@ -1000,7 +995,6 @@ The master termostat you chose already has a master.: Bộ điều chỉnh nhi�
 The measurement history has been deleted.: Lịch sử đo lường đã được xóa.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Mật khẩu mới sẽ thay thế mật khẩu bạn đang sử dụng. Một số tích hợp có thể sẽ dừng hoạt động sau thay đổi này. Bạn có tiếp tục?
 The next available executions: Các thực thi có sẵn tiếp theo
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Chúng tôi đã đóng khung nhằm dấu những thông báo mà bạn  đã nhấp  vào liên kết hủy đăng ký.
 The notification must have a recipient.: Thông báo phải có người nhận.
 The password and its confirm are not the same.: Mật khẩu và xác nhận không giống nhau.
 The password should be 8 or more characters.: Mật khẩu phải có 8 ký tự trở lên.
@@ -1076,6 +1070,7 @@ Use device default: Sử dụng giá trị mặc định từ thiết bị
 'Use the {0} server command to change this account''s limits. For example:': 'Để thay đổi các hạn mức cho tài khoản này, hãy sử dụng câu lệnh {0} trên máy chủ của bạn. Ví dụ:'
 Use {theMasterThermostat} to control this device.: Sử dụng {theMasterThermostat} để điều khiển thiết bị này.
 Used current transformer type: Máy biến dòng đã qua sử dụng
+User interface: Giao diện người dùng
 User is already confirmed. Try to log in.: Người dùng đã được xác nhận. Hãy thử đăng nhập.
 Value: Giá trị
 Value added: Giá trị tăng
@@ -1562,8 +1557,9 @@ yesterday: hôm qua
 ...and start your adventure with building automation today!: ...và bắt đầu cuộc phiêu lưu của bạn với tự động hóa tòa nhà ngày hôm nay!
 Access identifier password must be at least 8 characters.: Mật khẩu truy cập tối thiểu 8 kí tự..
 Access identifier password must be no longer than 32 characters.: Mật khẩu truy cập không quá 32 kí tự.
-Action: Hoạt động
 Add new item to use in the scene: Thêm một mục mới vào cảnh
+After the delay: Sau khoảng thời gian xác định
+After the delay, but only when it's dark: Sau khoảng thời gian xác định, nhưng chỉ khi trời tối
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Bạn có chắc chắn muốn xóa toàn bộ lịch sử độ sai lệch điện áp của kênh này không?
 Are you sure you want to disable this device?: Chắc chắn muốn xóa thiết bị này?
 Assigned Locations: Địa điểm được phân công
@@ -1583,11 +1579,14 @@ Confirm if you want to remove {deviceName} device: Xác nhận muốn xóa {devi
 DISABLED: TẮT
 Days: Từ chối.
 Device channel value: Giá trị từ thiết bị
+Device settings: Cài đặt thiết bị
 Differential: Khác biệt
 Direct links below will be deleted: Link liên kết dưới đây sẽ bị xóa
 Doors, Gates: Cửa, Cổng
+E-mail notifications: Thông báo qua e-mail
 ENABLED: BẬT
 Email already exists: Email đã tồn tại
+Entering configuration mode is unsupported in the firmware.: Chức năng chuyển chế đột từ xa không được hỗ trợ bở phần mềm của thiết b.
 Existing schedules: Lịch trình hiện có
 Expected maximum increment: Mức tăng tối đa dự kiến
 From IP: Từ IP
@@ -1613,25 +1612,27 @@ Next: Tiếp theo
 No results match {0}: sKhông có kết quả trùng khớp {0}
 Number: Số
 Output: Đầu ra
+Pairing subdevices is unsupported in the firmware.: Phần mềm thiết bị không hỗ trợ ghép nối.
 Please select an action: Vui lòng chọn hoạt động
 Please select the schedules that should also be enabled.: Vui lòng chọn lịch trình cũng sẽ được kích hoạt.
 Previous login: Đăng nhập trước
 Reference to the channel will be removed from the items below.: Chỉ định cho kênh này sẽ bị xóa khỏi các mục bên dưới.
 Registration: Đăng ký
 Remove: Gỡ bỏ
+Save changes to see Access IDs: Lưu các thay đổi để xem ID truy cập
 Schedule cannot be enabled: Lịch trình không thể được kích hoạt
 Schedules below will be deleted: Lịch trình dưới đây sẽ bị xóa
 Sensor (normal closed): Cảm biến (đóng bình thường)
 Sensor (normal open): Cảm biến (mở bình thường)
 Sources available from: Nguồn có sẵn từ
 Standard: Tiêu chuẩn
-Status: Trạng thái
 Subject: Đối tượng
 Sunrise / Sunset: Sáng / Chiều
 Supla for devices: Supla cho các thiết bị
 Temperature adjustment only: Chỉ cài đặt nhiệt độ
 The events in voltage aberrations history will be automatically deleted after {days} days.: Các sự kiện trong lịch sử sự cố điện áp sẽ tự động bị xóa sau {days} ngày.
 The items below depend on this channel, so they will be deleted.: Các mục sau đây phụ thuộc vào kênh này, vì vậy chúng sẽ bị xóa.
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Chúng tôi đã đóng khung nhằm dấu những thông báo mà bạn  đã nhấp  vào liên kết hủy đăng ký.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Phản ứng sẽ xảy ra khi đáp ứng tất cả các điều kiện sau. Nếu bạn cài đặt chọn tất cả các lựa chọn có sẵn, hoạt động sẽ chỉ bật lên vào các ngày đã chọn, vào khung giờ và ngày trong tuần đã chọn và khi đã điền vào một trong các thông tin phụ lục về hoàng hôn hoặc bình minh.
 Triggers: Công tắc kích hoạt
 Try again later: Thử lại sau
@@ -1639,7 +1640,6 @@ Turning this device off will result in disabling all the associated schedules.: 
 Unlocked: Đã mở khóa
 Use working schedule for this access identifier: Hãy sử dụng lịch biểu cho ID truy cập này
 Use working schedule for this reaction: Sử dụng lịch trình hoạt động cho phản hồi này
-User interface: Giao diện người dùng
 Value per unit: Giá trị mỗi đơn vị
 When: Khi
 When the curtain reaches: Khi rèm được kéo lên
@@ -1677,6 +1677,10 @@ thermostatAlgorithm_help: |
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A new client app: ~
+A new device: ~
+Account notifications: ~
+Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
 Activity schedule: ~
 Add new data source: ~
@@ -1689,17 +1693,29 @@ Are you sure you want to delete this subdevice?: ~
 Attribute: ~
 Auto-close on flood: ~
 Aux thermometer for channel: ~
+Battery health: ~
+Battery level: ~
 Baudrate: ~
 Binary sensor for channel: ~
+Bridge node online: ~
+Bridge node signal strength: ~
 Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Check available updates: ~
 Choose many: ~
 City: ~
+Confirm new password: ~
+Connection uptime: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
 Could not add the data source. Try again in a while.: ~
+Could not change the password.: ~
+Could not check updates.: ~
+Could not perform factory reset.: ~
+Could not perform firmware update.: ~
+Could not set device password.: ~
 Created: ~
 Data source channels: ~
 Data source type: ~
@@ -1707,24 +1723,39 @@ Data sources: ~
 Data sources are virtual channels that can provide data for your account.: ~
 Data sources limit has been exceeded: ~
 Default (exact value depends on a device): ~
+Default channels location: ~
+Device date and time: ~
 Device interface: ~
 Does it look good?: ~
+E-mail: ~
 Each container level sensor must have different fill level.: ~
 Energy attribute: ~
 Energy prices: ~
 Everyone makes mistakes!: ~
+Factory reset: ~
 Fill level: ~
+Firmware update is available.: ~
+Firmware update policy: ~
+Firmware updates: ~
+Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
 Go back to data sources: ~
 Heat or cold source switch for channel: ~
+IP: ~
 Image: ~
 Invalid sensor state: ~
+LED settings: ~
+Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
+Light source lifespan: ~
+Light source operating time: ~
 Lock type: ~
+MAC: ~
+MODBUS: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
@@ -1735,22 +1766,34 @@ Mute alarm sound without additional auth: ~
 Mute command sent: ~
 NORMAL USE. Use the energy as usual.: ~
 Network: ~
+New version: ~
+No one: ~
 Not available: ~
 'OCR service responded with error: {statusCode}. {description}': ~
 Open Weather Data: ~
 Opening sensor for channel: ~
+Operating time: ~
 Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Overcurrent threshold: ~
+Password is too long.: ~
+Password is too short.: ~
+Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
+Password was set successfully.: ~
+Passwords do not match.: ~
 Percentage of extension: ~
+Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
+Power supply: ~
 Pump switch for channel: ~
+Push: ~
 RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
 REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
 Reading: ~
+Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
 Role: ~
 SUPLA - Test e-mail: ~
@@ -1758,18 +1801,29 @@ Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
 Septic tank: ~
 Serial: ~
+Set the configuration password: ~
+Set the password that restricts access to the device configuration page (https://192.168.4.1).: ~
 Slave timeout (ms): ~
 Sound alarm on: ~
 Stop bits: ~
+Switch cycle count: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
+The device is not connected. The values below represent the last known state.: ~
+The factory reset was successful.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
+The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The subdevice has been deleted.: ~
+This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
+This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
+Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
 Updating...: ~
+Uptime: ~
 Use activity schedule: ~
 Valve supports up to 20 sensors.: ~
 Waiting: ~
@@ -1807,11 +1861,16 @@ When the value value changes: ~
 When the value value will be: ~
 When the warning starts: ~
 When the warning stops: ~
+Who has access?: ~
+Wi-Fi RSSI: ~
+Wi-Fi signal strength: ~
 You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
 You cannot change this function becuase it is required by another channel.: ~
+You have the newest firmware installed.: ~
 activityConditions_help: ~
 and wait until the battery level will be: ~
 and wait until the fill level will be: ~
+battery: ~
 choose the city: ~
 closeValveOnFloodType_ALWAYS: ~
 closeValveOnFloodType_ON_CHANGE: ~
@@ -1820,11 +1879,24 @@ directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
 energyPriceForecast_field_fixing1: ~
 energyPriceForecast_field_fixing2: ~
 energyPriceForecast_field_rce: ~
+firmwareUpdatePolicy_ALL_ENABLED: ~
+firmwareUpdatePolicy_DISABLED: ~
+firmwareUpdatePolicy_FORCED_OFF: ~
+firmwareUpdatePolicy_SECURITY_ONLY: ~
 homeScreenContent_MODE_OR_TEMPERATURE: ~
+homeScreenContent_offMode_ALWAYS_ENABLED: ~
+homeScreenContent_offMode_DISABLE: ~
+homeScreenContent_offMode_ENABLED_WHEN_DARK: ~
+lastConnectionResetCause_ACTIVITY_TIMEOUT: ~
+lastConnectionResetCause_SERVER_CONNECTION_LOST: ~
+lastConnectionResetCause_UNKNOWN: ~
+lastConnectionResetCause_WIFI_CONNECTION_LOST: ~
 localUILock_FULL: ~
 localUILock_TEMPERATURE: ~
 localUILock_UNLOCKED: ~
+mains: ~
 modbusRole_MASTER: ~
+modbusRole_NOT_SET: ~
 modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~
