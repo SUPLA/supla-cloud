@@ -51,7 +51,7 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertCount(4, $content);
+        $this->assertCount(20, $content);
     }
 
     public function testCreatingVirtualChannelTemp() {
