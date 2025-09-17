@@ -8,8 +8,8 @@
                     <SelectForSubjects
                         :none-option="false"
                         :options="openWeatherStore.availableCities"
-                        :caption="(c) => c.name"
-                        :search-text="(c) => c.name"
+                        :caption="(c) => c.displayName"
+                        :search-text="(c) => c.displayName"
                         choose-prompt-i18n="choose the city"
                         v-model="city"/>
                 </dd>

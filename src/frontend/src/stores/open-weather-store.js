@@ -1,9 +1,9 @@
 import {defineStore} from "pinia";
 import {useSuplaApi} from "@/api/use-supla-api";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
 export const useOpenWeatherStore = defineStore('openWeather', () => {
-    const {data: availableCities} = useSuplaApi(`integrations/openweather/cities`).json();
+    const {data: availableCitiesFromApi} = useSuplaApi(`integrations/openweather/cities`).json();
 
     const availableWeatherFields = ref([
         {id: 'temp', unit: '°C'},
@@ -27,6 +27,11 @@ export const useOpenWeatherStore = defineStore('openWeather', () => {
 
     const $reset = () => {
     };
+
+    const availableCities = computed(() => (availableCitiesFromApi.value || []).map(city => ({
+        ...city,
+        displayName: city.county && city.name !== city.county ? `${city.name} (${city.county})` : city.name
+    })));
 
     return {availableCities, availableWeatherFields, $reset};
 })

@@ -8,7 +8,7 @@
             <div class="alert alert-info small my-3">{{ $t('virtualChannelTypeInfoLong_OPEN_WEATHER') }}</div>
             <dl>
                 <dd>{{ $t('City') }}</dd>
-                <dt>{{ city?.name || '...' }}</dt>
+                <dt>{{ city?.displayName || '...' }}</dt>
             </dl>
             <dl>
                 <dd>{{ $t('Weather attribute') }}</dd>

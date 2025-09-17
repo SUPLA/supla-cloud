@@ -194,10 +194,26 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         } elseif (preg_match('#/weather-data/cities#', $endpoint, $match)) {
             $responseStatus = 200;
             return [
-                ['id' => 1, 'name' => 'Warszawa', 'country' => 'PL'],
-                ['id' => 2, 'name' => 'Kraków', 'country' => 'PL'],
-                ['id' => 3, 'name' => 'Gdańsk', 'country' => 'PL'],
-                ['id' => 4, 'name' => 'Wrocław', 'country' => 'PL'],
+                ['id' => 1, 'name' => 'Warszawa', 'county' => 'Warszawa', 'region' => 'mazowieckie', 'country' => 'PL'],
+                ['id' => 2, 'name' => 'Kraków', 'county' => 'Kraków', 'region' => 'małopolskie', 'country' => 'PL'],
+                ['id' => 3, 'name' => 'Gdańsk', 'county' => 'Gdańsk', 'region' => 'pomorskie', 'country' => 'PL'],
+                ['id' => 4, 'name' => 'Wrocław', 'county' => 'Wrocław', 'region' => 'dolnośląskie', 'country' => 'PL'],
+                ['id' => 5, 'name' => 'Poznań', 'county' => 'Poznań', 'region' => 'wielkopolskie', 'country' => 'PL'],
+                ['id' => 6, 'name' => 'Łódź', 'county' => 'Łódź', 'region' => 'łódzkie', 'country' => 'PL'],
+                ['id' => 7, 'name' => 'Szczecin', 'county' => 'Szczecin', 'region' => 'zachodniopomorskie', 'country' => 'PL'],
+                ['id' => 8, 'name' => 'Lublin', 'county' => 'Lublin', 'region' => 'lubelskie', 'country' => 'PL'],
+                ['id' => 9, 'name' => 'Białystok', 'county' => 'Białystok', 'region' => 'podlaskie', 'country' => 'PL'],
+                ['id' => 10, 'name' => 'Katowice', 'county' => 'Katowice', 'region' => 'śląskie', 'country' => 'PL'],
+                ['id' => 11, 'name' => 'Siechnice', 'county' => 'wrocławski', 'region' => 'dolnośląskie', 'country' => 'PL'],
+                ['id' => 12, 'name' => 'Piaseczno', 'county' => 'piaseczyński', 'region' => 'mazowieckie', 'country' => 'PL'],
+                ['id' => 13, 'name' => 'Sopot', 'county' => 'Sopot', 'region' => 'pomorskie', 'country' => 'PL'],
+                ['id' => 14, 'name' => 'Zakopane', 'county' => 'tatrzański', 'region' => 'małopolskie', 'country' => 'PL'],
+                ['id' => 15, 'name' => 'Kołobrzeg', 'county' => 'kołobrzeski', 'region' => 'zachodniopomorskie', 'country' => 'PL'],
+                ['id' => 16, 'name' => 'Giżycko', 'county' => 'giżycki', 'region' => 'warmińsko-mazurskie', 'country' => 'PL'],
+                ['id' => 17, 'name' => 'Wieliczka', 'county' => 'wielicki', 'region' => 'małopolskie', 'country' => 'PL'],
+                ['id' => 18, 'name' => 'Świnoujście', 'county' => 'Świnoujście', 'region' => 'zachodniopomorskie', 'country' => 'PL'],
+                ['id' => 19, 'name' => 'Augustów', 'county' => 'augustowski', 'region' => 'podlaskie', 'country' => 'PL'],
+                ['id' => 20, 'name' => 'Sandomierz', 'county' => 'sandomierski', 'region' => 'świętokrzyskie', 'country' => 'PL'],
             ];
         } elseif (preg_match('#/weather-data#', $endpoint, $match)) {
             $responseStatus = 200;
