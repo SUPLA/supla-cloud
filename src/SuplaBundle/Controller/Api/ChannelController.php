@@ -226,27 +226,30 @@ class ChannelController extends RestController {
      * @Security("is_granted('ROLE_CHANNELS_R')")
      */
     public function getChannelsStateAction(ChannelStateGetter $channelStateGetter, IODeviceRepository $deviceRepository) {
-        $channels = $this->channelRepository->findAllForUser($this->getUser())
-            ->filter(fn(IODeviceChannel $channel) => $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channel))
-            ->map(function (IODeviceChannel $channel) use ($channelStateGetter) {
-                return [
-                    'id' => $channel->getId(),
-                    'iodeviceId' => $channel->getIoDevice()->getId(),
-                    'state' => $channelStateGetter->getState($channel),
-                    'checksum' => $channel->getChecksum(),
-                ];
-            })
-            ->toArray();
-        $devices = $deviceRepository->findAllForUser($this->getUser())
-            ->filter(fn(IODevice $device) => $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $device))
-            ->map(function (IODevice $device) use ($channelStateGetter) {
-                return [
-                    'id' => $device->getId(),
-                    'connected' => $this->suplaServer->isDeviceConnected($device),
-                    'checksum' => $device->getChecksum(),
-                ];
-            })
-            ->toArray();
+        [$channels, $devices] = $this->transactional(function () use ($deviceRepository, $channelStateGetter) {
+            $channels = $this->channelRepository->findAllForUser($this->getUser())
+                ->filter(fn(IODeviceChannel $channel) => $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channel))
+                ->map(function (IODeviceChannel $channel) use ($channelStateGetter) {
+                    return [
+                        'id' => $channel->getId(),
+                        'iodeviceId' => $channel->getIoDevice()->getId(),
+                        'state' => $channelStateGetter->getState($channel),
+                        'checksum' => $channel->getChecksum(),
+                    ];
+                })
+                ->toArray();
+            $devices = $deviceRepository->findAllForUser($this->getUser())
+                ->filter(fn(IODevice $device) => $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $device))
+                ->map(function (IODevice $device) use ($channelStateGetter) {
+                    return [
+                        'id' => $device->getId(),
+                        'connected' => $this->suplaServer->isDeviceConnected($device),
+                        'checksum' => $device->getChecksum(),
+                    ];
+                })
+                ->toArray();
+            return [$channels, $devices];
+        });
         return $this->view([
             'states' => $channels,
             'devices' => $devices,
