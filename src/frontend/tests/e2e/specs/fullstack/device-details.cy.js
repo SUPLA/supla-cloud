@@ -3,11 +3,12 @@ describe('Device details', () => {
         cy.task('seed:database', ['01_user.sql', '02_sonoff.sql', '05_locked_module.sql']);
     });
 
-    describe('config', () => {
+    describe.only('config', () => {
         it('can update config', () => {
             cy.login();
             cy.visit('/devices/1/channels');
             cy.contains('Urządzenie').click();
+            cy.contains('Ustawienia LED').click();
             cy.get('#statusLed').should('have.value', 'ON_WHEN_CONNECTED')
             cy.get('#statusLed').select('ALWAYS_OFF');
             cy.contains('Zapisz zmiany').click();
@@ -20,6 +21,7 @@ describe('Device details', () => {
             cy.login();
             cy.visit('/devices/1/channels');
             cy.contains('Urządzenie').click();
+            cy.contains('Ustawienia LED').click();
             cy.get('#statusLed').should('have.value', 'ALWAYS_OFF')
             cy.task('sql', `UPDATE supla_iodevice
                             SET user_config='{"statusLed":"OFF_WHEN_CONNECTED"}'
@@ -27,6 +29,7 @@ describe('Device details', () => {
             cy.get('#statusLed').select('ON_WHEN_CONNECTED');
             cy.contains('Zapisz zmiany').click();
             cy.contains('Ustawienia nie zostały zapisane');
+            cy.contains('Anuluj zmiany').click();
             cy.get('#statusLed').should('have.value', 'OFF_WHEN_CONNECTED');
             cy.get('#statusLed').select('ON_WHEN_CONNECTED');
             cy.contains('Zapisz zmiany').click();

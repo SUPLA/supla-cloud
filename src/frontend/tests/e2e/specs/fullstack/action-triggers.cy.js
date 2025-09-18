@@ -32,7 +32,7 @@ describe('Action Triggers', () => {
         cy.login();
         cy.visit('/channels/1/action-triggers');
         cy.contains('#collapseTOGGLE_X3 .panel-heading', 'Włącz').click();
-        cy.contains('a', 'Anuluj zmiany').click();
+        cy.contains('button', 'Anuluj zmiany').click();
         cy.contains('.panel-success .panel-heading', 'Przełączenie 3x');
         cy.contains('.panel-success .panel-heading', 'Skopiuj stan z innego');
         cy.contains('#collapseTOGGLE_X3 .ts-control .item', 'Et velit dolor');
@@ -44,7 +44,7 @@ describe('Action Triggers', () => {
         cy.contains('#collapseTOGGLE_X3 .panel-heading', 'Włącz').click();
         cy.contains('#collapseTOGGLE_X3 button', 'Wyczyść').click();
         cy.contains('.panel-success .panel-heading', 'Przełączenie 3x').should('not.exist');
-        cy.contains('a', 'Anuluj zmiany').click();
+        cy.contains('button', 'Anuluj zmiany').click();
         cy.contains('.panel-success .panel-heading', 'Przełączenie 3x');
         cy.contains('.panel-success .panel-heading', 'Skopiuj stan z innego');
         cy.contains('#collapseTOGGLE_X3 .ts-control .item', 'Et velit dolor');
