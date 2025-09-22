@@ -61,7 +61,7 @@
                 {label: 'Bridge node online', key: 'bridgeNodeOnline', format: yesNo}, // i18n
                 {label: 'Bridge node signal strength', key: 'bridgeNodeSignalStrength', format: percent}, // i18n
                 {label: 'Operating time', key: 'operatingTime', format: duration}, // i18n
-                {label: 'Light source lifespan', key: 'lightSourceLifespan', format: percent}, // i18n
+                {label: 'Light source lifespan', key: 'lightSourceLifespan', format: (v) => `${v} ${i18n.t('hours')}`}, // i18n
                 {label: 'Light source operating time', key: 'lightSourceOperatingTime', format: duration}, // i18n
                 {label: 'Switch cycle count', key: 'switchCycleCount', format}, // i18n
             ]);
