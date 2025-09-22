@@ -29,7 +29,9 @@
             "caption": "Unknown"
         },
         "productId": null,
-        "enterConfigurationModeAvailable": true,
+        "flags": {
+            "enterConfigurationModeAvailable": true
+        },
         "locationId": 4,
         "originalLocationId": null
     },

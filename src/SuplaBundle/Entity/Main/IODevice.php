@@ -311,16 +311,6 @@ class IODevice implements HasLocation, HasRelationsCount {
         return $this->productId;
     }
 
-    /** @Groups({"basic"}) */
-    public function isEnterConfigurationModeAvailable(): bool {
-        return IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE()->isOn($this->flags);
-    }
-
-    /** @Groups({"basic"}) */
-    public function isRemoteRestartAvailable(): bool {
-        return IoDeviceFlags::REMOTE_RESTART_AVAILABLE()->isOn($this->flags);
-    }
-
     public function isLocked(): bool {
         return IoDeviceFlags::DEVICE_LOCKED()->isOn($this->flags);
     }
@@ -333,6 +323,8 @@ class IODevice implements HasLocation, HasRelationsCount {
             'automaticFirmwareUpdatesSupported' => IoDeviceFlags::AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED()->isOn($this->flags),
             'factoryResetSupported' => IoDeviceFlags::FACTORY_RESET_SUPPORTED()->isOn($this->flags),
             'setCfgModePasswordSupported' => IoDeviceFlags::SET_CFG_MODE_PASSWORD_SUPPORTED()->isOn($this->flags),
+            'enterConfigurationModeAvailable' => IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE()->isOn($this->flags),
+            'remoteRestartAvailable' => IoDeviceFlags::REMOTE_RESTART_AVAILABLE()->isOn($this->flags),
         ];
     }
 

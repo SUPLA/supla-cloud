@@ -183,7 +183,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertEquals($this->device->getId(), $content['id']);
         $this->assertArrayHasKey('relationsCount', $content['location']);
-        $this->assertTrue($content['enterConfigurationModeAvailable']);
+        $this->assertTrue($content['flags']['enterConfigurationModeAvailable']);
         $this->assertArrayHasKey('config', $content);
     }
 
@@ -888,7 +888,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         /** @var IODevice $lockedDevice */
         $lockedDevice = $this->freshEntity($lockedDevice);
         $this->assertTrue($lockedDevice->isLocked());
-        $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
+        $this->assertTrue($lockedDevice->getFlags()['enterConfigurationModeAvailable']);
         $this->flushMessagesQueue($client);
         $this->assertNotEmpty(TestMailerTransport::getMessages());
         $confirmationMessage = TestMailerTransport::getMessages()[0];
@@ -913,7 +913,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         /** @var IODevice $lockedDevice */
         $lockedDevice = $this->freshEntity($lockedDevice);
         $this->assertTrue($lockedDevice->isLocked());
-        $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
+        $this->assertTrue($lockedDevice->getFlags()['enterConfigurationModeAvailable']);
     }
 
     /** @depends testRequestingDeviceUnlockCode */
@@ -928,7 +928,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         /** @var IODevice $lockedDevice */
         $lockedDevice = $this->freshEntity($lockedDevice);
         $this->assertFalse($lockedDevice->isLocked());
-        $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
+        $this->assertTrue($lockedDevice->getFlags()['enterConfigurationModeAvailable']);
         $this->flushMessagesQueue($client);
         $this->assertNotEmpty(TestMailerTransport::getMessages());
         $confirmationMessage = TestMailerTransport::getMessages()[0];
@@ -948,7 +948,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         /** @var IODevice $lockedDevice */
         $lockedDevice = $this->freshEntity($lockedDevice);
         $this->assertTrue($lockedDevice->isLocked());
-        $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
+        $this->assertTrue($lockedDevice->getFlags()['enterConfigurationModeAvailable']);
         $this->flushMessagesQueue($client);
         $this->assertEmpty(TestMailerTransport::getMessages());
     }

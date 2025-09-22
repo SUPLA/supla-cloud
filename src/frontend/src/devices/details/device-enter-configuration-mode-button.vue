@@ -1,5 +1,5 @@
 <template>
-    <div v-if="device.enterConfigurationModeAvailable"
+    <div v-if="device.flags.enterConfigurationModeAvailable"
         v-tooltip="disabledReason">
         <button class="btn btn-default btn-block btn-wrapped"
             type="button"

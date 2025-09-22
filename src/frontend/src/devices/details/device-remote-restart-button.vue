@@ -1,5 +1,5 @@
 <template>
-    <div v-if="device.remoteRestartAvailable" v-tooltip="disabledReason">
+    <div v-if="device.flags.remoteRestartAvailable" v-tooltip="disabledReason">
         <button class="btn btn-default btn-block btn-wrapped"
             type="button"
             :disabled="!!disabledReason"

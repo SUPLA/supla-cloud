@@ -76,7 +76,6 @@ use Symfony\Component\HttpFoundation\Response;
  *     @OA\Property(property="channels", type="integer"),
  *     @OA\Property(property="channelsWithConflict", type="integer"),
  *   ),
- *   @OA\Property(property="enterConfigurationModeAvailable", type="boolean"),
  *   @OA\Property(property="flags", type="object"),
  *   @OA\Property(property="isSleepModeEnabled", type="boolean"),
  *   @OA\Property(property="config", ref="#/components/schemas/DeviceConfig"),
@@ -373,11 +372,11 @@ class IODeviceController extends RestController {
         $device = $this->transactional(function (EntityManagerInterface $em) use ($ad, $body, $ioDevice) {
             $action = $body['action'];
             if ($action === 'enterConfigurationMode') {
-                Assertion::true($ioDevice->isEnterConfigurationModeAvailable(), 'Action is unsupported in the firmware.'); // i18n
+                Assertion::true($ioDevice->getFlags()['enterConfigurationModeAvailable'], 'Action is unsupported in the firmware.'); // i18n
                 $result = $this->suplaServer->deviceAction($ioDevice, 'ENTER-CONFIGURATION-MODE');
                 Assertion::true($result, 'Could not enter the configuration mode.'); // i18n
             } elseif ($action === 'restartDevice') {
-                Assertion::true($ioDevice->isRemoteRestartAvailable(), 'Action is unsupported in the firmware.');
+                Assertion::true($ioDevice->getFlags()['remoteRestartAvailable'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'RESTART-DEVICE');
                 Assertion::true($result, 'Could not restart the device.'); // i18n
             } elseif ($action === 'otaCheckUpdates') {

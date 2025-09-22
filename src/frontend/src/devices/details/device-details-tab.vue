@@ -39,7 +39,7 @@
     const hasRemoteAccessButtons = computed(() => !props.device.locked && (
         props.device.flags.enterConfigurationModeAvailable
         || props.device.flags.identifyDeviceAvailable
-        || props.device.remoteRestartAvailable
+        || props.device.flags.remoteRestartAvailable
         || props.device.flags.factoryResetSupported
         || props.device.flags.setCfgModePasswordSupported));
 </script>
