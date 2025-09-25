@@ -85,7 +85,7 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
             $dates = array_values(array_filter([$pr['timeoutAt'] ?? null, $pr['startedAt'] ?? null, $pr['time'] ?? null]));
             if (count($dates)) {
                 $theDate = $dates[0];
-                $pr['timedOut'] = strtotime($theDate) < $this->timeProvider->getTimestamp('-1 minute');
+                $pr['timedOut'] = strtotime($theDate) < $this->timeProvider->getTimestamp('-2 minutes');
             }
         }
     }

@@ -45,6 +45,7 @@
     import {computed, onMounted, ref} from "vue";
     import {devicesApi} from "@/api/devices-api";
     import {useTimeoutPoll} from "@vueuse/core/index";
+    import {promiseTimeout} from "@vueuse/core";
 
     const props = defineProps({device: Object});
 
@@ -87,8 +88,8 @@
     async function pairSubdevices() {
         loading.value = true;
         lastPairingResult.value = null;
-        // clearTimeout(timer.value);
         await devicesApi.pairSubdevice(props.device.id)
+            .then(() => promiseTimeout(3000))
             .then(resumeFetchingState)
             .catch(() => loading.value = false);
     }
