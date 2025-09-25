@@ -28,7 +28,7 @@
         <modal-confirm v-if="updateConfirm"
             class="modal-warning"
             @confirm="performUpdate()"
-            :loading="isCheckingUpdates"
+            :loading="isPerformingUpdate"
             @cancel="updateConfirm = false"
             :header="$t('Are you sure?')">
             <p>{{ $t('This action will result in trying to update the device firmware. It will not be available for a while.') }}</p>
