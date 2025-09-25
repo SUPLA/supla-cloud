@@ -178,8 +178,12 @@ Duration.prototype.toHuman = function (opts = {}) {
         biggestUnitIndex = allUnits.indexOf(opts.biggestUnit);
     }
     // use seconds and years as default for smallest and biggest unit
-    if (!((smallestUnitIndex >= 0) && (smallestUnitIndex < allUnits.length))) smallestUnitIndex = allUnits.indexOf("seconds");
-    if (!((biggestUnitIndex <= smallestUnitIndex) && (biggestUnitIndex < allUnits.length))) biggestUnitIndex = allUnits.indexOf("years");
+    if (!((smallestUnitIndex >= 0) && (smallestUnitIndex < allUnits.length))) {
+        smallestUnitIndex = allUnits.indexOf("seconds");
+    }
+    if (!((biggestUnitIndex <= smallestUnitIndex) && (biggestUnitIndex < allUnits.length))) {
+        biggestUnitIndex = allUnits.indexOf("years");
+    }
 
     for (let unit of allUnits.slice(biggestUnitIndex, smallestUnitIndex + 1)) {
         const durationInUnit = remainingDuration.as(unit);
@@ -204,13 +208,15 @@ Duration.prototype.toHuman = function (opts = {}) {
     // after gathering of units that shall be displayed has finished, remove the remaining duration to avoid non-integers
     duration = duration.minus(remainingDuration).normalize();
     duration = duration.shiftTo(...durationUnits);
-    if (opts.stripZeroUnits == "all") {
+    if (opts.stripZeroUnits === "all") {
         durationUnits = durationUnits.filter(unit => duration.values[unit] > 0);
-    } else if (opts.stripZeroUnits == "end") {
+    } else if (opts.stripZeroUnits === "end") {
         let mayStrip = true;
-        durationUnits = durationUnits.reverse().filter((unit, index) => {
-            if (!mayStrip) return true;
-            if (duration.values[unit] == 0) {
+        durationUnits = durationUnits.reverse().filter((unit) => {
+            if (!mayStrip) {
+                return true;
+            }
+            if (duration.values[unit] === 0) {
                 return false;
             } else {
                 mayStrip = false;
