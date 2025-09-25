@@ -70,6 +70,8 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), '{"on_change_to": {"eq": "on", "name": "motor_problem"}}'],
             [ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL(), '{"on_change_to": {"eq": "on", "name": "clock_error"}}'],
             [ChannelFunction::HVAC_DOMESTIC_HOT_WATER(), '{"on_change_to": {"ge": 20, "name": "battery_level", "resume": {"lt": 20}}}'],
+            [ChannelFunction::OPENINGSENSOR_DOOR(), '{"on_change_to": {"ge": 20, "name": "battery_level", "resume": {"lt": 20}}}'],
+            [ChannelFunction::OPENINGSENSOR_DOOR(), '{"on_change_to": {"eq": "on", "name": "battery_powered"}}'],
         ];
     }
 

@@ -300,7 +300,10 @@ class ValueBasedTriggerValidator {
             $onChangeTo = $trigger['on_change_to'];
             $this->validateFieldName($channel, $onChangeTo);
             if (array_intersect_key($onChangeTo, array_flip(['lt', 'le', 'gt', 'ge']))) {
-                $this->validateThresholdTrigger($channel, $onChangeTo);
+                if (!isset($onChangeTo['name']) || !str_contains($onChangeTo['name'], 'battery')) {
+                    Assertion::inArray($channel->getFunction()->getId(), self::THRESHOLD_SUPPORT, 'Threshold trigger unsupported for this function.');
+                }
+                $this->validateThresholdTrigger($onChangeTo);
             } elseif (array_intersect_key($onChangeTo, array_flip(['eq', 'ne']))) {
                 $this->validateEqualityTrigger($channel, $onChangeTo);
             } else {
@@ -360,8 +363,7 @@ class ValueBasedTriggerValidator {
      *   )
      * )
      */
-    private function validateThresholdTrigger(IODeviceChannel $channel, array $onChangeTo): void {
-        Assertion::inArray($channel->getFunction()->getId(), self::THRESHOLD_SUPPORT, 'Threshold trigger unsupported for this function.');
+    private function validateThresholdTrigger(array $onChangeTo): void {
         $mainCondition = array_intersect_key($onChangeTo, array_flip(['lt', 'le', 'gt', 'ge']));
         Assertion::count($mainCondition, 1, 'You must define only one condition for the threshold (lt, le, gt or ge).');
         $operator = key($mainCondition);
