@@ -36,6 +36,7 @@
         <!-- i18n: ['subdevicePairingResult_CMD_RESULT_UNKNOWN', 'subdevicePairingResult_PROCEDURE_STARTED', 'subdevicePairingResult_NO_NEW_DEVICE_FOUND'] -->
         <!-- i18n: ['subdevicePairingResult_SUCCESS', 'subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED', 'subdevicePairingResult_NOT_STARTED_BUSY'] -->
         <!-- i18n: ['subdevicePairingResult_PAIRING_RESULT_UNKNOWN', 'subdevicePairingResult_NOT_STARTED_NOT_READY'] -->
+        <!-- i18n: ['subdevicePairingResult_REQUEST_SENT'] -->
     </div>
 </template>
 

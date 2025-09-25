@@ -228,3 +228,5 @@ lastConnectionResetCause_UNKNOWN: ~
 lastConnectionResetCause_WIFI_CONNECTION_LOST: ~
 
 #</editor-fold>
+
+subdevicePairingResult_REQUEST_SENT: Pairing request sent.
