@@ -33,7 +33,7 @@
 
     const format = (v) => v;
     const percent = (v) => `${v}%`;
-    const duration = (v) => Duration.fromObject({seconds: v}).rescale().toHuman({listStyle: 'long'});
+    const duration = (v) => Duration.fromObject({seconds: v}).rescale().toHuman({maxUnits: 2});
     const yesNo = (v) => v ? i18n.t('Yes') : i18n.t('No');
 
     const source = computed(() => props.channel || channelsStore.list.find((c) => c.iodeviceId === props.device.id));
