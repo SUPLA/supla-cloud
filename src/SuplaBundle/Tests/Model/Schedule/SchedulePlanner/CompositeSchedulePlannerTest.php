@@ -131,14 +131,14 @@ class CompositeSchedulePlannerTest extends TestCase {
             self::formatPlannedTimestamp(),
             $this->planner->calculateScheduleExecutionsUntil($schedule, '2025-04-02 08:00', '2025-03-27 00:00')
         );
-        $this->assertContains('2025-03-27T05:30:00+01:00', $runDates);
-        $this->assertContains('2025-03-28T05:30:00+01:00', $runDates);
-        $this->assertContains('2025-03-29T05:27:00+01:00', $runDates);
-        $this->assertContains('2025-03-30T06:25:00+02:00', $runDates);
-        $this->assertContains('2025-03-31T06:23:00+02:00', $runDates);
-        $this->assertContains('2025-04-01T06:20:00+02:00', $runDates);
-        $this->assertNotContains('2025-03-30T05:25:00+02:00', $runDates);
-        $this->assertNotContains('2025-03-30T05:25:00+01:00', $runDates);
+        $this->assertContains('2025-03-27T05:31:00+01:00', $runDates);
+        $this->assertContains('2025-03-28T05:31:00+01:00', $runDates);
+        $this->assertContains('2025-03-29T05:29:00+01:00', $runDates);
+        $this->assertContains('2025-03-30T06:27:00+02:00', $runDates);
+        $this->assertContains('2025-03-31T06:24:00+02:00', $runDates);
+        $this->assertContains('2025-04-01T06:22:00+02:00', $runDates);
+        $this->assertNotContains('2025-03-30T05:31:00+02:00', $runDates);
+        $this->assertNotContains('2025-03-30T05:31:00+01:00', $runDates);
     }
 
     public function testCalculatingIntervalWhenDstChangesBackward() {
@@ -228,9 +228,9 @@ class CompositeSchedulePlannerTest extends TestCase {
         $nextRunDates = $this->planner->calculateScheduleExecutionsUntil($schedule, '2017-04-24 15:00:00', '2017-04-22 15:00:00');
         $formattedNextRunDates = array_map(self::formatPlannedTimestamp('Y-m-d H:i'), $nextRunDates);
         $this->assertEquals([
-            '2017-04-22 19:48',
-            '2017-04-23 19:50',
-            '2017-04-24 19:51',
+            '2017-04-22 19:46',
+            '2017-04-23 19:48',
+            '2017-04-24 19:50',
         ], $formattedNextRunDates);
     }
 
@@ -286,19 +286,19 @@ class CompositeSchedulePlannerTest extends TestCase {
             return ['crontab' => $crontab, 'action' => ['id' => ChannelFunctionAction::TURN_ON]];
         };
         return [
-            ['2017-01-01 00:00', [$def('SR0 * * * *')], '2017-01-01 07:43'],
-            ['2017-01-01 00:00', [$def('SR2 * * * *')], '2017-01-01 07:45'],
-            ['2017-01-01 00:00', [$def('SR0 * * * 3')], '2017-01-04 07:42'],
+            ['2017-01-01 00:00', [$def('SR0 * * * *')], '2017-01-01 07:45'],
+            ['2017-01-01 00:00', [$def('SR2 * * * *')], '2017-01-01 07:47'],
+            ['2017-01-01 00:00', [$def('SR0 * * * 3')], '2017-01-04 07:45'],
             ['2021-05-23 00:00', [$def('10 10 * * 1'), $def('10 10 * * 2')], '2021-05-24 10:10'],
             ['2021-05-23 00:00', [$def('10 10 * * 2'), $def('10 10 * * 1')], '2021-05-24 10:10'],
-            ['2021-05-23 00:00', [$def('SR0 * * * 1'), $def('10 10 * * 1')], '2021-05-24 04:26'],
+            ['2021-05-23 00:00', [$def('SR0 * * * 1'), $def('10 10 * * 1')], '2021-05-24 04:28'],
             ['2021-05-24 04:30', [$def('SR0 * * * 1'), $def('10 10 * * 1')], '2021-05-24 10:10'],
         ];
     }
 
     public function testChoosingAppropriateAction() {
         $startDate = '2021-05-23 00:00';
-        $expectedNextRunDate = '2021-05-24 04:26';
+        $expectedNextRunDate = '2021-05-24 04:28';
         $timezone = 'Europe/Warsaw';
         $config = [
             ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN_PARTIALLY, 'param' => ['percentage' => 50]]],
