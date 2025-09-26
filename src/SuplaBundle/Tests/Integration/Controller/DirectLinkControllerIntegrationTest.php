@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use PHPUnit\Framework\Attributes\Depends;
 use SuplaBundle\Entity\Main\DirectLink;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
@@ -25,6 +26,7 @@ use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ActionableSubjectType;
+use SuplaBundle\Enums\ChannelFlags as Flags;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
@@ -61,7 +63,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
             [ChannelType::DIGIGLASS, ChannelFunction::DIGIGLASS_HORIZONTAL],
             [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
-            [ChannelType::HVAC, ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL],
+            [ChannelType::HVAC, ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL, ['flags' => Flags::HAS_EXTENDED_CHANNEL_STATE]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEFACADEBLIND],
         ]);
         $this->channelGroup = new IODeviceChannelGroup($this->user, $location, [
@@ -689,6 +691,34 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $this->assertSuplaCommandExecuted('ACTION-SHUT-PARTIALLY:1,1,9,50,1,-1,0');
+    }
+
+    public function testReadingDirectLinkWithExtendedState() {
+        $response = $this->createDirectLink([
+            'subjectId' => $this->device->getChannels()[7]->getId(),
+            'allowedActions' => ['read'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read?format=json&extendedState=true");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('heating', $content);
+        $this->assertArrayHasKey('extendedState', $content);
+        $this->assertSuplaCommandExecuted('GET-HVAC-VALUE:1,1,8');
+        return $directLink;
+    }
+
+    #[Depends('testReadingDirectLinkWithExtendedState')]
+    public function testNotReturningExtendedStateIfNotAsked(array $directLink) {
+        $client = $this->createClient();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read?format=json");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('heating', $content);
+        $this->assertArrayNotHasKey('extendedState', $content);
     }
 
     protected static function createClient(array $options = [], array $server = []) {

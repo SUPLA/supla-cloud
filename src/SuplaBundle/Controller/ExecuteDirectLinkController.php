@@ -260,7 +260,14 @@ class ExecuteDirectLinkController extends Controller {
 
     private function executeDirectLink(DirectLink $directLink, Request $request, ChannelFunctionAction $action): array {
         if ($action->getId() === ChannelFunctionAction::READ) {
-            return $this->channelStateGetter->getState($directLink->getSubject());
+            if ($request->get('extendedState') && $directLink->getSubjectType()->getValue() === ActionableSubjectType::CHANNEL) {
+                $this->suplaServer->channelAction($directLink->getSubject(), 'UPDATE-CHANNEL-STATE');
+            }
+            $state = $this->channelStateGetter->getState($directLink->getSubject());
+            if (isset($state['extendedState']) && !$request->get('extendedState')) {
+                unset($state['extendedState']);
+            }
+            return $state;
         } else {
             $params = $request->query->all();
             if (isset($params['format'])) {
