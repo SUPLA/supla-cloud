@@ -19,7 +19,7 @@
                     <DeviceDetailsTabFirmwareInfo :device="device"/>
                 </div>
                 <div class="details-page-block" v-if="hasRemoteAccessButtons">
-                    <h3 class="text-center">{{ $t('Action') }}</h3>
+                    <h3 class="text-center">{{ $t('Actions') }}</h3>
                     <DeviceDetailsTabRemoteButtons :device="device"/>
                 </div>
             </div>

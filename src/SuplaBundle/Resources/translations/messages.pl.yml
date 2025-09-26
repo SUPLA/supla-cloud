@@ -176,7 +176,7 @@ Body: Treść
 Bottom position: Dolna pozycja
 Bridge: Most
 Bridge node online: Węzeł mostu - online
-Bridge node signal strength: Signal strength
+Bridge node signal strength: Węzeł mostu - siła sygnału
 Brightness: Jasność
 Brightness adjustment for automatic mode: Dostosowanie jasności trybu automatycznego
 Brightness level: Poziom jasności
@@ -1156,7 +1156,7 @@ Thermometers configuration: Konfiguracja termometrów
 Thermostat: Termostat
 Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Ten termostat używa ustawień z termostatu nadrzędnego. Przejdź do strony jego szczegółów, aby zmienić ustawieni.
 Thermostat programs: Programy termostatu
-This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: Ta operacja spowoduje usunięcie wszystkich zapisanych informacji (w tym ustawień Wi-Fi, hasła, poczty, serwera) i nie połączy się automatycznie ponownie
+This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: Ta operacja spowoduje usunięcie wszystkich zapisanych informacji (w tym ustawień Wi-Fi, hasła, adresu e-mail, adresu serwera) i nie połączy się automatycznie ponownie
 This action will result in restarting the device. It will not be available for a while.: Zlecenie tej operacji spowoduje restart urządzenia. W trakcie restartu urządzenie będzie niedostępne.
 This action will result in trying to update the device firmware. It will not be available for a while.: Ta operacja spowoduje próbę aktualizacji oprogramowania urządzenia. Nie będzie ono dostępne przez pewien czas
 This channel was missing during last device registration attempt.: Tego kanału brakuje na urządzeniu.
