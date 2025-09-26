@@ -26,7 +26,7 @@
             </span>
         </a>
         <TransitionExpand>
-            <div v-show="isOpen">
+            <div v-show="isOpen" class="mb-3">
                 <slot/>
             </div>
         </TransitionExpand>

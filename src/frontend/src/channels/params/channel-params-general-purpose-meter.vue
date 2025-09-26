@@ -1,24 +1,10 @@
 <template>
     <div>
-        <a class="d-flex accordion-header" @click="displayConfigGroup('measurements')">
-            <span class="flex-grow-1">{{ $t('Measurement settings') }}</span>
-            <span>
-                <fa :icon="configGroupChevron('measurements')"/>
-            </span>
-        </a>
-        <transition-expand>
-            <div v-show="configGroup === 'measurements'">
+        <AccordionRoot>
+            <AccordionItem title-i18n="Measurement settings">
                 <ChannelParamsGeneralPurposeCommon :channel="props.channel" @change="$emit('change')"/>
-            </div>
-        </transition-expand>
-        <a class="d-flex accordion-header" @click="displayConfigGroup('history')">
-            <span class="flex-grow-1">{{ $t('History') }}</span>
-            <span>
-                <fa :icon="configGroupChevron('history')"/>
-            </span>
-        </a>
-        <transition-expand>
-            <div v-show="configGroup === 'history'">
+            </AccordionItem>
+            <AccordionItem title-i18n="History">
                 <ChannelParamsMeterKeepHistoryMode v-model="props.channel.config.keepHistory" @input="$emit('change')"/>
                 <dl>
                     <dd>{{ $t('Chart type') }}</dd>
@@ -43,20 +29,20 @@
                             @input="$emit('change')"></toggler>
                     </dt>
                 </dl>
-            </div>
-        </transition-expand>
+            </AccordionItem>
+        </AccordionRoot>
+
         <ChannelParamsMeterReset :channel="channel"/>
     </div>
 </template>
 
 <script setup>
-    import TransitionExpand from "../../common/gui/transition-expand";
     import ChannelParamsGeneralPurposeCommon from "@/channels/params/channel-params-general-purpose-common.vue";
     import ChannelParamsButtonSelector from "@/channels/params/channel-params-button-selector.vue";
-    import {useConfigGroups} from "@/channels/params/useConfigGroups";
     import ChannelParamsMeterReset from "@/channels/params/channel-params-meter-reset.vue";
     import ChannelParamsMeterKeepHistoryMode from "@/channels/params/channel-params-meter-keep-history-mode.vue";
+    import AccordionItem from "@/common/gui/accordion/accordion-item.vue";
+    import AccordionRoot from "@/common/gui/accordion/accordion-root.vue";
 
     const props = defineProps({channel: Object});
-    const {configGroup, displayConfigGroup, configGroupChevron} = useConfigGroups();
 </script>
