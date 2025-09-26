@@ -37,7 +37,7 @@ steps:
       - npm run test:unit
 
   - name: install-backend
-    image: supla/supla-cloud:ci-php8.3
+    image: supla/supla-cloud:ci-php8.4
     pull: always
     depends_on: [clone]
     commands:
@@ -45,33 +45,33 @@ steps:
       - composer install --optimize-autoloader
 
   - name: lint-backend
-    image: supla/supla-cloud:ci-php8.3
+    image: supla/supla-cloud:ci-php8.4
     depends_on: [install-backend]
     commands:
       - composer run lint-backend
 
   - name: backend-unit-tests
-    image: supla/supla-cloud:ci-php8.3
+    image: supla/supla-cloud:ci-php8.4
     depends_on: [install-backend]
     commands:
       - ./vendor/bin/phpunit -c app --testsuite unit
 
   - name: api-tests
-    image: supla/supla-cloud:ci-php8.3
+    image: supla/supla-cloud:ci-php8.4
     depends_on: [install-backend, build-frontend]
     commands:
       - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
 
   - name: measurement-logs-mariadb
-    image: supla/supla-cloud:ci-php8.3
+    image: supla/supla-cloud:ci-php8.4
     depends_on: [api-tests]
     commands:
       - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite measurement_logs
 
   - name: measurement-logs-tsdb
-    image: supla/supla-cloud:ci-php8.3
+    image: supla/supla-cloud:ci-php8.4
     depends_on: [measurement-logs-mariadb]
     commands:
       - "sed -i '/measurement_logs:/!b;n;s/connection: logs_mariadb/connection: logs_tsdb/' app/config/config.yml"
@@ -80,7 +80,7 @@ steps:
       - "sed -i '/measurement_logs:/!b;n;s/connection: logs_tsdb/connection: logs_mariadb/' app/config/config.yml"
 
   - name: integration-tests
-    image: supla/supla-cloud:ci-php8.3
+    image: supla/supla-cloud:ci-php8.4
     depends_on: [measurement-logs-tsdb]
     commands:
       - rm -fr var/cache/test
@@ -95,7 +95,7 @@ steps:
       - apt-get update && apt-get install -y ca-certificates apt-transport-https software-properties-common wget gnupg
       - echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/sury-php.list
       - wget -qO - https://packages.sury.org/php/apt.gpg | apt-key add -
-      - apt-get update && apt-get install -y dialog php8.3 php8.3-curl php8.3-dom php8.3-intl php8.3-mbstring php8.3-mysql php8.3-zip php8.3-pgsql
+      - apt-get update && apt-get install -y dialog php8.4 php8.4-curl php8.4-dom php8.4-intl php8.4-mbstring php8.4-mysql php8.4-zip php8.4-pgsql
       - cd src/frontend
       - npm ci
       - node_modules/cypress/bin/cypress install
