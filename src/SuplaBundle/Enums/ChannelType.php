@@ -194,6 +194,8 @@ final class ChannelType extends Enum {
                 ChannelFunction::MAILSENSOR(),
                 ChannelFunction::CONTAINER_LEVEL_SENSOR(),
                 ChannelFunction::FLOOD_SENSOR(),
+                ChannelFunction::MOTION_SENSOR(),
+                ChannelFunction::BINARY_SENSOR(),
             ],
             self::RELAYHFD4 => [
                 ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),

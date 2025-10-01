@@ -41,6 +41,8 @@ class InvertedLogicParamTranslator extends UserConfigTranslator {
             ChannelFunction::ALARM_ARMAMENT_SENSOR,
             ChannelFunction::CONTAINER_LEVEL_SENSOR,
             ChannelFunction::FLOOD_SENSOR,
+            ChannelFunction::MOTION_SENSOR,
+            ChannelFunction::BINARY_SENSOR,
         ]);
     }
 }

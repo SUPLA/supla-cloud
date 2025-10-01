@@ -95,6 +95,8 @@ class GoogleHomeConfigTranslator extends UserConfigTranslator {
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
             ChannelFunction::CONTAINER_LEVEL_SENSOR,
             ChannelFunction::FLOOD_SENSOR,
+            ChannelFunction::MOTION_SENSOR,
+            ChannelFunction::BINARY_SENSOR,
         ]);
     }
 }

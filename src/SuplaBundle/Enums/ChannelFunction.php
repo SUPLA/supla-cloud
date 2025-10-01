@@ -107,6 +107,8 @@ use UnexpectedValueException;
  * @method static ChannelFunction WATER_TANK()
  * @method static ChannelFunction CONTAINER_LEVEL_SENSOR()
  * @method static ChannelFunction FLOOD_SENSOR()
+ * @method static ChannelFunction MOTION_SENSOR()
+ * @method static ChannelFunction BINARY_SENSOR()
  */
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
@@ -180,6 +182,8 @@ final class ChannelFunction extends Enum {
     const WATER_TANK = 982;
     const CONTAINER_LEVEL_SENSOR = 990;
     const FLOOD_SENSOR = 1000;
+    const MOTION_SENSOR = 1010;
+    const BINARY_SENSOR = 1020;
 
     private $unsupportedFunctionId;
 
@@ -494,6 +498,8 @@ final class ChannelFunction extends Enum {
             self::WATER_TANK => 'Water tank', // i18n
             self::CONTAINER_LEVEL_SENSOR => 'Container level sensor', // i18n
             self::FLOOD_SENSOR => 'Flood sensor', // i18n
+            self::MOTION_SENSOR => 'Motion sensor', // i18n
+            self::BINARY_SENSOR => 'Binary sensor', // i18n
         ];
     }
 
@@ -519,6 +525,7 @@ final class ChannelFunction extends Enum {
             self::CONTAINER => 3,
             self::SEPTIC_TANK => 1,
             self::WATER_TANK => 3,
+            self::MOTION_SENSOR => 4,
         ];
     }
 
@@ -595,6 +602,8 @@ final class ChannelFunction extends Enum {
             self::WATER_TANK => ['empty', 'half', 'full'],
             self::CONTAINER_LEVEL_SENSOR => ['low', 'hi'],
             self::FLOOD_SENSOR => ['low', 'hi'],
+            self::MOTION_SENSOR => ['low', 'hi'],
+            self::BINARY_SENSOR => ['low', 'hi'],
         ];
     }
 

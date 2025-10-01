@@ -103,25 +103,10 @@ class ChannelFunctionTest extends TestCase {
 
     /**
      * This is dummy test to ensure that frontend filters take every backend function into consideration.
-     * On every new function, add it in frontend and copy code from there to the test.
-     * @see channel-filters.vue in frontend code.
      * @see https://github.com/SUPLA/supla-cloud/issues/480
      */
     public function testEveryFunctionIsMatchedByFrontendFilter() {
-        $t = '';
-        $frontendCode = <<<FRONTEND
-        {label: $t('All'), value: '*'},
-        {label: $t('With function'), value: 'withFunction'},
-        {label: $t('Electric'), value: '130,140,180,190,200,300,310,315'},
-        {label: $t('Doors, Gates, Windows'), value: '10,20,30,50,60,70,90,100,115,125,230,800,810,950'},
-        {label: $t('Roller shutters'), value: '110,120,900,910,930,940'},
-        {label: $t('Liquid, Temp'), value: '40,42,45,80,500,510,980,981,982'},
-        {label: $t('Sensors'), value: '50,60,70,80,100,120,210,220,230,235,236,240,250,260,270,280,990,1000'},
-        {label: $t('Meters'), value: '310,315,320,330,340,520,530'},
-        {label: $t('HVAC'), value: '400,410,420,422,423,424,425,426,960,970'},
-        {label: $t('Other'), value: '290,700,920'},
-        {label: $t('No function'), value: '0,-1'}
-FRONTEND;
+        $frontendCode = file_get_contents(__DIR__ . '/../../../frontend/src/channels/channel-filters.vue');
         preg_match_all("#value: '(.+?)'#", $frontendCode, $matches, PREG_SET_ORDER);
         $functionIdsUsedInFrontend = array_column($matches, 1);
         $functionIdsUsedInFrontend = array_map(function ($ids) {
