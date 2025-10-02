@@ -33,12 +33,7 @@ export default [
         meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'yellow centered-form-page'},
         props: true
     },
-    {
-        path: '/confirm/:token',
-        component: () => import("@/login/confirm-account"),
-        meta: {unrestricted: true, onlyUnauthenticated: true},
-        props: true
-    },
+
     {
         path: '/account-deletion/:token',
         component: () => import("@/login/confirm-account-deletion"),

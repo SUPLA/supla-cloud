@@ -19,9 +19,7 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
     const username = computed(() => userData.value?.email);
 
     const synchronizeAuthState = () => {
-        // Vue.http.headers.common['Authorization'] = userToken.value ? 'Bearer ' + userToken.value : undefined;
         determineServerUrl();
-        // Vue.http.options.root = serverUrl.value + '/api';
         Settings.defaultZone = userData.value && userData.value.timezone || 'system';
     }
 

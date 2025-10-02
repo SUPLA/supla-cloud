@@ -19,7 +19,6 @@ configureCompat({RENDER_FUNCTION: false})
 const app = createApp(App)
 
 app.use(createPinia())
-app.use(router)
 app.use(i18n)
 
 registerDirectives(app)
@@ -32,6 +31,7 @@ frontendConfigStore.fetchConfig()
   .then(() => currentUserStore.fetchUser())
   .then(() => loadLanguage('en'))
   .then(() => detectGuiLocale())
+  .then(() => app.use(router))
   .then(() => app.mount('#vue-container'));
 
 

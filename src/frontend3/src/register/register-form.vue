@@ -97,12 +97,12 @@
                     id="registerRecaptcha"
                     :disabled="isBusy"
                     :form-valid="formIsValid">
-                    <template>
+                  <div>
                         <span v-if="!isBusy">
                             {{ $t('Create an account') }}
                         </span>
                         <button-loading-dots v-else></button-loading-dots>
-                    </template>
+                  </div>
                 </invisible-recaptcha>
             </div>
             <div v-else>
@@ -128,6 +128,7 @@
   import TransitionExpand from "@/common/gui/transition-expand.vue";
   import {mapState} from "pinia";
   import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import {api} from "@/api/api.js";
 
   export default {
         components: {
@@ -206,7 +207,7 @@
                 }
 
                 this.isBusy = true;
-                this.$http.post('register-account', data, {skipErrorHandler: [400, 409]})
+              api.post('register-account', data, {skipErrorHandler: [400, 409]})
                     .then(({body}) => this.$emit('registered', body.email))
                     .catch(({body}) => {
                         this.resendActivationLinkOption = body.accountEnabled === false;

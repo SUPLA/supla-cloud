@@ -10,7 +10,9 @@
 </template>
 
 <script>
-    export default {
+  import {api} from "@/api/api.js";
+
+  export default {
         data() {
             return {
                 rules: '',
@@ -26,7 +28,7 @@
                 if (['pl', 'it', 'es', 'fr', 'ru', 'pt', 'de'].includes(this.$i18n.locale)) {
                     rulesLang = this.$i18n.locale;
                 }
-                this.$http.get(`/privacy/privacy_${rulesLang}.html`).then(response => this.rules = response.body);
+              api.get(`/privacy/privacy_${rulesLang}.html`).then(response => this.rules = response.body);
             }
         },
         watch: {

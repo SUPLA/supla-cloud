@@ -24,7 +24,8 @@ function getDefaultHeadersJson() {
 
 function buildAbsoluteUrl(endpoint) {
     const currentUser = useCurrentUserStore();
-    return (currentUser.serverUrl || '') + '/api/' + endpoint;
+  const urlEndpoint = endpoint.startsWith('/') ? endpoint : '/api/' + endpoint;
+  return (currentUser.serverUrl || '') + urlEndpoint;
 }
 
 function responseHandler(request, config) {
@@ -104,10 +105,19 @@ function delete_(endpoint, config = {}) {
     return fetch(buildAbsoluteUrl(endpoint), requestOptions).then(responseHandler(requestOptions, config));
 }
 
+function head(endpoint, config = {}) {
+  const requestOptions = {
+    method: 'HEAD',
+    headers: getDefaultHeadersJson(),
+  };
+  return fetch(buildAbsoluteUrl(endpoint), requestOptions).then(responseHandler(requestOptions, config));
+}
+
 export const api = {
     get,
     post,
     put,
     patch,
     delete_,
+  head,
 };
