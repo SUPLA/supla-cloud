@@ -14,90 +14,41 @@
             </div>
         </div>
         <div class="container">
-            <client-app-filters @filter-function="filterFunction = $event"
-                @compare-function="compareFunction = $event"
-                @filter="filter()"></client-app-filters>
+            <client-app-filters @filter-function="filterFunction = $event" @compare-function="compareFunction = $event"/>
         </div>
-        <square-links-grid v-if="clientApps && filteredClientApps.length"
-            :count="filteredClientApps.length">
+        <square-links-grid v-if="clientApps && filteredClientApps.length" :count="filteredClientApps.length">
             <client-app-tile-editable
                 v-for="app in filteredClientApps"
                 :key="app.id"
                 :ref="'app-tile-' + app.id"
                 :app="app"
-                @change="filter()"
-                @delete="removeClientFromList(app)"></client-app-tile-editable>
+                @delete="store.fetchAll(true)"/>
         </square-links-grid>
         <empty-list-placeholder v-else-if="clientApps"></empty-list-placeholder>
         <loader-dots v-else></loader-dots>
-        <div class="hidden"
-            v-if="clientApps">
-            <!--allow filtered-out items to still receive status updates-->
-            <client-app-connection-status-label :app="app"
-                :key="app.id"
-                v-for="app in clientApps"></client-app-connection-status-label>
-        </div>
     </div>
 </template>
 
-<script>
+<script setup>
+    import {useClientAppsStore} from "@/stores/client-apps-store";
+    import {storeToRefs} from "pinia";
+    import {useTimeoutPoll} from "@vueuse/core/index";
+    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+    import {computed, ref} from "vue";
     import LoaderDots from "../common/gui/loaders/loader-dots.vue";
     import DevicesRegistrationButton from "../devices/list/devices-registration-button.vue";
-    import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
     import EmptyListPlaceholder from "../common/gui/empty-list-placeholder.vue";
     import ClientAppTileEditable from "./client-app-tile-editable";
     import ClientAppFilters from "./client-app-filters";
-    import EventBus from "../common/event-bus";
-    import {mapState} from "pinia";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
-    export default {
-        components: {
-            ClientAppFilters,
-            ClientAppTileEditable,
-            ClientAppConnectionStatusLabel,
-            DevicesRegistrationButton,
-            EmptyListPlaceholder,
-            LoaderDots,
-        },
-        data() {
-            return {
-                clientApps: undefined,
-                filteredClientApps: [],
-                filterFunction: () => true,
-                compareFunction: () => 1,
-                loadNewClientAppsListener: undefined,
-            };
-        },
-        mounted() {
-            this.loadNewClientAppsListener = () => this.loadClientApps();
-            EventBus.$on('total-count-changed', this.loadNewClientAppsListener);
-            this.loadClientApps();
-        },
-        methods: {
-            filter() {
-                this.filteredClientApps = this.clientApps ? this.clientApps.filter(this.filterFunction) : this.clientApps;
-                if (this.filteredClientApps) {
-                    this.filteredClientApps = this.filteredClientApps.sort(this.compareFunction);
-                }
-            },
-            removeClientFromList(app) {
-                this.clientApps.splice(this.clientApps.indexOf(app), 1);
-                this.filter();
-            },
-            loadClientApps() {
-                this.$http.get('client-apps?include=accessId')
-                    .then(({body}) => {
-                        this.clientApps = body;
-                        this.filter();
-                    });
-            }
-        },
-        computed: {
-            ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
-        },
-        beforeDestroy() {
-            EventBus.$off('total-count-changed', this.loadNewClientAppsListener);
-        }
-    };
+    const {config: frontendConfig} = storeToRefs(useFrontendConfigStore());
+
+    const store = useClientAppsStore();
+    const {list: clientApps} = storeToRefs(store);
+
+    const filterFunction = ref(() => true);
+    const compareFunction = ref(() => 1);
+    const filteredClientApps = computed(() => clientApps.value.filter(filterFunction.value).sort(compareFunction.value));
+
+    useTimeoutPoll(() => store.fetchAll(true), 7000, {immediate: true});
 </script>
