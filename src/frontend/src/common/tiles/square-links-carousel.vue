@@ -44,7 +44,6 @@
 <script>
     import {Carousel, Slide} from 'vue-carousel';
     import EmptyListPlaceholder from "../../common/gui/empty-list-placeholder";
-    import Vue from "vue";
     import {useMediaQuery} from "@vueuse/core";
     import {mapState} from "pinia";
     import {useFrontendConfigStore} from "@/stores/frontend-config-store";
@@ -119,7 +118,7 @@
             },
             selectedItemIndex() {
                 if (this.selected && !this.multiple) {
-                    Vue.nextTick(() => {
+                    this.$nextTick(() => {
                         if (this.$refs.carousel) {
                             const index = this.items.findIndex(item => this.isSelected(item));
                             let desiredPage = index - this.$refs.carousel.perPage + 2;

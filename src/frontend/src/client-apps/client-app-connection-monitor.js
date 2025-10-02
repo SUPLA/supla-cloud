@@ -1,4 +1,3 @@
-import Vue from "vue";
 import EventBus from "../common/event-bus";
 
 export class ClientAppConnectionMonitor {
@@ -18,7 +17,7 @@ export class ClientAppConnectionMonitor {
         if (this.knownStates[clientAppId] !== undefined) {
             callback(this.knownStates[clientAppId]);
         } else {
-            Vue.nextTick(() => this.fetchStates().then(() => callback(this.knownStates[clientAppId])));
+            this.vue.$nextTick(() => this.fetchStates().then(() => callback(this.knownStates[clientAppId])));
         }
     }
 

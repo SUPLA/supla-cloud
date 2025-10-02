@@ -177,7 +177,6 @@
 </template>
 
 <script>
-    import Vue from "vue";
     import FunctionIcon from "../channels/function-icon";
     import EmptyListPlaceholder from "../common/gui/empty-list-placeholder";
     import AccessIdChooser from "../access-ids/access-id-chooser";
@@ -232,7 +231,7 @@
                 this.initForModel();
             },
             saveLocation() {
-                const toSend = Vue.util.extend({}, this.location);
+                const toSend = {...this.location};
                 this.loading = true;
                 this.$http.put('locations/' + this.location.id, toSend)
                     .then(response => this.$emit('update', response.body))

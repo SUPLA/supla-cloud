@@ -103,7 +103,6 @@
 <script>
     import TransitionExpand from "../../common/gui/transition-expand";
     import RgbwParametersSetter from "./rgbw-parameters-setter";
-    import Vue from "vue";
     import DigiglassParametersSetter from "./digiglass-parameters-setter";
     import ChannelsIdDropdown from "../../devices/channels-id-dropdown";
     import ChannelFunction from "../../common/enums/channel-function";
@@ -274,7 +273,7 @@
             subject(newSubject, oldSubject) {
                 if (newSubject?.functionId !== oldSubject?.functionId) {
                     this.changeAction({});
-                    Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
+                    this.$nextTick(() => this.selectFirstActionIfOnlyOne());
                 } else {
                     this.updateAction();
                 }

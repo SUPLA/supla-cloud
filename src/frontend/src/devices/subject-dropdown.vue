@@ -154,7 +154,6 @@
     import ChannelsDropdown from "./channels-dropdown";
     import ChannelGroupsDropdown from "../channel-groups/channel-groups-dropdown";
     import ScenesDropdown from "../scenes/scenes-dropdown";
-    import Vue from "vue";
     import SchedulesDropdown from "@/schedules/schedules-dropdown.vue";
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
     import ChannelFunctionAction from "@/common/enums/channel-function-action";
@@ -203,7 +202,7 @@
                 }
                 this.$emit('input', this.subject);
                 if (this.clearOnSelect && this.subject) {
-                    Vue.nextTick(() => this.subject = this.subjectType = undefined);
+                    this.$nextTick(() => this.subject = this.subjectType = undefined);
                 }
             },
             updateBasedOnValue() {
@@ -211,7 +210,7 @@
                     this.subjectType = this.value.ownSubjectType;
                     this.subject = this.value;
                 } else if (this.subject) {
-                    Vue.nextTick(() => {
+                    this.$nextTick(() => {
                         this.subject = undefined;
                         if (this.subjectType === ActionableSubjectType.NOTIFICATION) {
                             this.changeSubjectType(ActionableSubjectType.NOTIFICATION);

@@ -119,7 +119,6 @@
     import ChannelActionChooser from "../channels/action/channel-action-chooser";
     import draggable from 'vuedraggable';
     import SceneOperationDelaySlider from "./scene-operation-delay-slider";
-    import Vue from 'vue';
     import ChannelFunctionAction from "../common/enums/channel-function-action";
     import ActionableSubjectType from "../common/enums/actionable-subject-type";
     import NotificationForm from "@/notifications/notification-form";
@@ -152,7 +151,7 @@
                 if (this.value != this.lastValue) {
                     this.operations = [];
                     for (const op of (this.value || [])) {
-                        const operation = Vue.util.extend({}, op);
+                        const operation = {...op};
                         operation.action = {id: operation.actionId, param: operation.actionParam};
                         delete operation.actionId;
                         delete operation.actionParam;
@@ -189,7 +188,7 @@
                 const operations = [];
                 let delay = 0;
                 for (const op of this.operations) {
-                    const operation = Vue.util.extend({}, op);
+                    const operation = {...op};
                     if (operation.subjectType) {
                         operation.delayMs = delay;
                         operation.actionId = operation.action?.id;
