@@ -1,3 +1,7 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+@use 'sass:color';
+
 .btn {
   transition: all .2s;
   &-green {
@@ -5,11 +9,11 @@
     color: $supla-white;
     border: 1px $supla-green solid !important;
     &:hover {
-      background: darken($supla-green, 5%);
+      background: color.adjust($supla-green, $lightness: -5%);
       color: $supla-white !important;
     }
     &.active, &:focus {
-      background: darken($supla-green, 5%) !important;
+      background: color.adjust($supla-green, $lightness: -5%) !important;
       color: $supla-white;
     }
   }
@@ -19,7 +23,7 @@
     border: 1px solid $supla-green;
     &:hover, &:focus, &:active {
       border: 1px solid $supla-green;
-      background: darken($supla-white, 5%);
+      background: color.adjust($supla-white, $lightness: -5%);
     }
     &[disabled], &[disabled]:hover {
       border-color: $supla-grey-dark;
@@ -33,7 +37,7 @@
     color: $supla-white;
     border: 1px solid $supla-black;
     &:hover {
-      background: lighten($supla-black, 10%);
+      background: color.adjust($supla-black, $lightness: 10%);
       color: $supla-white;
     }
   }
@@ -43,7 +47,7 @@
     color: $supla-black;
     border: 1px solid $supla-grey-dark;
     &:hover {
-      background: darken($supla-grey-light, 5%);
+      background: color.adjust($supla-grey-light, $lightness: -5%);
     }
     &[disabled], &[disabled]:hover {
       border-color: $supla-grey-dark;
@@ -59,11 +63,11 @@
   }
   &-red, &-danger {
     background: $supla-red;
-    color: darken($supla-white, 5%);
+    color: color.adjust($supla-white, $lightness: -5%);
     border: 1px solid $supla-red;
     &:hover {
       color: $supla-white;
-      background: darken($supla-red, 5%);
+      background: color.adjust($supla-red, $lightness: -5%);
     }
     &-outline {
       border: 1px solid $supla-red;
@@ -116,10 +120,10 @@
       color: $supla-black;
       &:hover {
         color: $supla-white;
-        background: lighten($supla-black, 30%);
+        background: color.adjust($supla-black, $lightness: 30%);
       }
       &.active {
-        background: lighten($supla-black, 10%);
+        background: color.adjust($supla-black, $lightness: 10%);
         color: $supla-white;
       }
     }

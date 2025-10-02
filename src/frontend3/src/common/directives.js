@@ -1,6 +1,6 @@
 export function registerDirectives(app) {
   app.directive('go-to-link-on-row-click', {
-    inserted: function (el) {
+    mounted: function (el) {
       el.classList.add('pointer');
       el.addEventListener('click', event => {
         if (!['a', 'button'].includes(event.target?.nodeName.toLowerCase())) {
@@ -16,13 +16,12 @@ export function registerDirectives(app) {
   };
 
   app.directive('title', {
-    inserted: (el, binding) => updatePageTitle(binding.value || el.innerText),
-    update: (el, binding) => updatePageTitle(binding.value || el.innerText),
-    componentUpdated: (el, binding) => updatePageTitle(binding.value || el.innerText),
+    mounted: (el, binding) => updatePageTitle(binding.value || el.innerText),
+    updated: (el, binding) => updatePageTitle(binding.value || el.innerText),
   });
 
   app.directive('focus', {
-    inserted: function (el, binding) {
+    mounted: function (el, binding) {
       if (binding.value) {
         el.focus();
       } else {
@@ -32,7 +31,7 @@ export function registerDirectives(app) {
   });
 
   app.directive('input-digits-only', {
-    inserted: function (el) {
+    mounted: function (el) {
       el.addEventListener('keypress', event => {
         if (!/\d/.test(event.key)) {
           return event.preventDefault();

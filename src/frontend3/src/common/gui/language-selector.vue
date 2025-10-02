@@ -42,7 +42,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../../styles/variables";
+  @use "../../styles/variables" as *;
 
     select {
         padding: 0px 7px;

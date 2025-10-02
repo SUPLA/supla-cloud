@@ -9,7 +9,7 @@
 </template>
 
 <style lang="scss">
-    @import "../../../styles/variables";
+  @use "../../../styles/variables" as *;
 
     .button-loading-dots {
         cursor: no-drop;

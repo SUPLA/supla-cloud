@@ -1,7 +1,16 @@
-@import "./variables";
-@import "./mixins";
-@import "./fonts";
-@import "./integrations";
+@use "./variables" as *;
+@use "./mixins" as *;
+@use "./fonts";
+@use "./integrations";
+@use "./buttons";
+@use "./checkbox";
+@use "./notifications";
+@use "./register-pages";
+@use "./tooltips";
+@use "./spacing";
+@use "./bootstrap-future";
+@use "./icons";
+@use 'sass:color';
 
 html {
   overflow: -moz-scrollbars-vertical;
@@ -46,7 +55,7 @@ body.green {
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px darken($supla-green, 16.5%) inset !important;
+    -webkit-box-shadow: 0 0 0 30px color.adjust($supla-green, $lightness: -16.5%) inset !important;
     -webkit-text-fill-color: $supla-white !important;
   }
 }
@@ -56,7 +65,7 @@ body.blue {
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px darken($supla-blue, 7%) inset !important;
+    -webkit-box-shadow: 0 0 0 30px color.adjust($supla-blue, $lightness: -7%) inset !important;
     -webkit-text-fill-color: $supla-white !important;
   }
 }
@@ -359,7 +368,7 @@ body.green {
   color: $supla-white;
 
   &.darker {
-    background-color: darken($supla-green, 6%);
+    background-color: color.adjust($supla-green, $lightness: -6%);
   }
 
   ::selection {
@@ -377,7 +386,7 @@ body.green {
   }
 
   @include on-xs-and-down {
-    background: darken($supla-green, 10%) !important;
+    background: color.adjust($supla-green, $lightness: -10%) !important;
   }
 }
 
@@ -391,7 +400,7 @@ body.blue {
 }
 
 body.warning {
-  background-color: lighten($supla-red, 10%);
+  background-color: color.adjust($supla-red, $lightness: 10%);
   color: $supla-white;
 }
 
@@ -408,7 +417,7 @@ body.maintenance-mode {
         color: $supla-black;
       }
       &.active {
-        background: darken($supla-yellow, 15%);
+        background: color.adjust($supla-yellow, $lightness: -15%);
       }
     }
   }
@@ -494,12 +503,12 @@ body.warning {
 
 .alert {
   &.alert-warning {
-    border-color: darken($supla-yellow, 10%);
-    background: lighten($supla-yellow, 10%);
+    border-color: color.adjust($supla-yellow, $lightness: -10%);
+    background: color.adjust($supla-yellow, $lightness: 10%);
   }
   &.alert-danger {
-    border-color: darken($supla-red, 10%);
-    background: lighten($supla-red, 10%);
+    border-color: color.adjust($supla-red, $lightness: -10%);
+    background: color.adjust($supla-red, $lightness: 10%);
     color: $supla-white;
     a {
       color: $supla-yellow;
@@ -549,7 +558,7 @@ body.warning {
   @mixin supla-list-group-item($color) {
     background: $supla-white;
     border-color: $color;
-    color: darken($color, 10%);
+    color: color.adjust($color, $lightness: -10%);
     border-top-color: $supla-grey-light;
     border-bottom-color: $supla-grey-light;
     &:first-child {
@@ -573,7 +582,7 @@ body.warning {
   @mixin supla-panel($color) {
     > .panel-heading {
       background: $color;
-      border-color: darken($color, 10%);
+      border-color: color.adjust($color, $lightness: -10%);
       color: $supla-white;
       font-weight: bold;
     }
@@ -658,7 +667,7 @@ body.warning {
 }
 
 .text-red {
-  color: darken($supla-red, 10%);
+  color: color.adjust($supla-red, $lightness: -10%);
 }
 
 .text-inherit {
@@ -707,7 +716,7 @@ input.no-spinner {
 
 code {
   color: $supla-blue;
-  background-color: lighten($supla-blue, 72%);
+  background-color: color.adjust($supla-blue, $lightness: 72%);
 }
 
 .or-hr {
@@ -746,10 +755,10 @@ code {
   }
   &:hover {
     .vue-slider-process {
-      background-color: darken($supla-green, 10%);
+      background-color: color.adjust($supla-green, $lightness: -10%);
     }
     .vue-slider-dot-handle {
-      border-color: darken($supla-green, 10%);
+      border-color: color.adjust($supla-green, $lightness: -10%);
       &:hover {
         border-color: $supla-green;
       }
@@ -757,11 +766,3 @@ code {
   }
 }
 
-@import "./buttons";
-@import "./checkbox";
-@import "./notifications";
-@import "./register-pages";
-@import "./tooltips";
-@import "./spacing";
-@import "./bootstrap-future";
-@import "./icons";
