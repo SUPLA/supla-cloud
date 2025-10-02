@@ -23,9 +23,10 @@
 </template>
 
 <script>
-  import RegulationsCheckbox from "./regulations-checkbox";
+  import RegulationsCheckbox from "./regulations-checkbox.vue";
   import {mapState} from "pinia";
   import {useCurrentUserStore} from "@/stores/current-user-store";
+  import {api} from "@/api/api.js";
 
   export default {
         components: {RegulationsCheckbox},
@@ -42,7 +43,7 @@
         methods: {
             agree() {
                 this.loading = true;
-                this.$http.patch('users/current', {action: 'agree:rules'})
+              api.patch('users/current', {action: 'agree:rules'})
                     .finally(() => window.location.assign(window.location.toString()));
             },
             disagree() {

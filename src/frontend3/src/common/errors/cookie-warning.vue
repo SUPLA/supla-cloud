@@ -13,7 +13,8 @@
 </template>
 
 <script>
-  import RegulationsModal from "./regulations-modal";
+  import RegulationsModal from "./regulations-modal.vue";
+  import {api} from "@/api/api.js";
 
   export default {
         components: {RegulationsModal},
@@ -26,7 +27,7 @@
         methods: {
             agree() {
                 this.shown = false;
-                this.$http.patch('users/current', {action: 'agree:cookies'});
+              api.patch('users/current', {action: 'agree:cookies'});
             }
         },
     };

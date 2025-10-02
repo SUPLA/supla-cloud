@@ -10,7 +10,12 @@
 </template>
 
 <script>
-    export default {
+  import {api} from "@/api/api.js";
+  import Modal from "@/common/modal.vue";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+
+  export default {
+      components: {LoadingCover, Modal},
         data() {
             return {
                 rules: '',
@@ -23,7 +28,7 @@
             fetch() {
                 this.rules = '';
                 const rulesLang = this.$i18n.locale == 'pl' ? 'pl' : 'en';
-                this.$http.get(`/rules/rules_${rulesLang}.html`).then(response => this.rules = response.body);
+              api.get(`/rules/rules_${rulesLang}.html`).then(response => this.rules = response.body);
             }
         },
         watch: {

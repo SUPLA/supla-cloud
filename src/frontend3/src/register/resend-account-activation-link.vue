@@ -20,6 +20,7 @@
 <script>
   import ButtonLoadingDots from "@/common/gui/loaders/button-loading-dots.vue";
   import {errorNotification, successNotification} from "../common/notifier";
+  import {api} from "@/api/api.js";
 
   export default {
         props: ['username', 'notifications'],
@@ -34,7 +35,7 @@
         methods: {
             resendActivationLink() {
                 this.loading = true;
-                const promise = this.$http.patch('register-resend', {email: this.username}, {skipErrorHandler: [400, 409]})
+              const promise = api.patch('register-resend', {email: this.username}, {skipErrorHandler: [400, 409]})
                     .finally(() => this.loading = false);
                 if (this.notifications) {
                     promise

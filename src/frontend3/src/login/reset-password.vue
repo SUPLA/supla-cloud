@@ -33,6 +33,7 @@
 <script>
   import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
   import {errorNotification, successNotification} from "../common/notifier";
+  import {api} from "@/api/api.js";
 
   export default {
         components: {ButtonLoadingDots},
@@ -46,7 +47,7 @@
             };
         },
         mounted() {
-            this.$http.head('forgotten-password/' + this.token, {skipErrorHandler: [400]})
+          api.head('forgotten-password/' + this.token, {skipErrorHandler: [400]})
                 .then(() => this.tokenValid = true)
                 .catch(() => {
                     errorNotification(this.$t('Error'), this.$t('Token does not exist'));
@@ -61,7 +62,7 @@
                     return errorNotification(this.$t('Error'), this.$t('The password and its confirm are not the same.'));
                 }
                 this.loading = true;
-                this.$http.put('forgotten-password/' + this.token, {password: this.password})
+              api.put('forgotten-password/' + this.token, {password: this.password})
                     .then(() => {
                         successNotification(this.$t('Success'), this.$t('Password has been changed'));
                         this.$router.push({name: 'login'});

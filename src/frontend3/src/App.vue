@@ -11,8 +11,8 @@
             <!--            <LoadingCover :loading="$changingRoute">-->
             <RouterView/>
             <!--            </LoadingCover>-->
-            <!--            <cookie-warning-->
-            <!--                v-if="frontendConfig.config.requireCookiePolicyAcceptance && currentUser.username && !currentUser.userData.agreements.cookies"></cookie-warning>-->
+          <cookie-warning
+            v-if="frontendConfig.config.requireCookiePolicyAcceptance && currentUser.username && !currentUser.userData.agreements.cookies"></cookie-warning>
             <!--            <cloud-version-mismatch-warning-modal></cloud-version-mismatch-warning-modal>-->
         </div>
         <PageFooter :username="currentUser.username"/>
@@ -24,6 +24,7 @@
   import {useCurrentUserStore} from "@/stores/current-user-store";
   import PageFooter from "@/common/gui/page-footer.vue";
   import {onMounted} from "vue";
+  import CookieWarning from "@/common/errors/cookie-warning.vue";
 
   const frontendConfig = useFrontendConfigStore();
     const currentUser = useCurrentUserStore();

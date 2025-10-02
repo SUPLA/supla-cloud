@@ -17,8 +17,6 @@ router.beforeEach((to) => {
     return to.query?.target || '/';
   } else if (frontendConfig.config.maintenanceMode && to.meta.unavailableInMaintenance) {
     return '/';
-  } else {
-    return true;
   }
 });
 

@@ -29,4 +29,10 @@ export default [
     },
     alias: '/account/create_here'
   },
+  {
+    path: '/confirm/:token',
+    component: () => import("@/login/confirm-account.vue"),
+    meta: {unrestricted: true, onlyUnauthenticated: true},
+    props: true,
+  },
 ];
