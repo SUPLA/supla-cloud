@@ -96,7 +96,7 @@
             </router-link>
             <router-link to="/register"
                 class="btn btn-white btn-wrapped">
-                <img src="/assets/img/user.png">
+                <img src="../assets/user.png">
                 {{ $t('Create an account') }}
             </router-link>
         </div>
