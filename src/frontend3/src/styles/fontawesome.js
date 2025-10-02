@@ -1,4 +1,3 @@
-import Vue from "vue";
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {faSquare} from '@fortawesome/free-regular-svg-icons'
@@ -8,7 +7,6 @@ import {
   faAngleDoubleUp,
   faArrowRight,
   faCalendarWeek,
-  faCancel,
   faCaretDown,
   faCaretUp,
   faCheck,
@@ -17,38 +15,30 @@ import {
   faChevronLeft,
   faChevronRight,
   faCircle,
-  faCircleHalfStroke,
   faCircleNotch,
   faClock,
   faDownload,
   faEdit,
   faExclamationTriangle,
-  faGear,
-  faHand,
   faInfoCircle,
   faKey,
   faPlus,
   faPowerOff,
   faPuzzlePiece,
   faQuestionCircle,
-  faRefresh,
-  faRotateLeft,
-  faRotateRight,
   faSave,
-  faShieldHalved,
-  faShuffle,
-  faSignIn,
-  faSignOut,
   faTimesCircle,
   faTrash,
   faUnlock,
-  faVolumeXmark,
   faWrench,
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faSquare, faCheckSquare, faGear, faDownload, faSignOut, faSignIn, faShieldHalved, faPuzzlePiece, faKey, faTimesCircle, faCheck,
-    faChevronLeft, faChevronRight, faChevronDown, faArrowRight, faQuestionCircle, faPlus, faTrash, faShuffle, faInfoCircle, faCircleNotch,
-    faPowerOff, faEdit, faSave, faCancel, faRefresh, faCaretUp, faCaretDown, faAngleDoubleDown, faAngleDoubleRight, faAngleDoubleUp,
-    faCalendarWeek, faHand, faClock, faCircleHalfStroke, faUnlock, faCircle, faRotateLeft, faRotateRight, faExclamationTriangle,
-    faVolumeXmark, faWrench);
-Vue.component('fa', FontAwesomeIcon)
+library.add(faSquare, faCheckSquare, faDownload, faPuzzlePiece, faKey, faTimesCircle, faCheck,
+  faChevronLeft, faChevronRight, faChevronDown, faArrowRight, faQuestionCircle, faPlus, faTrash, faInfoCircle, faCircleNotch,
+  faPowerOff, faEdit, faSave, faCaretUp, faCaretDown, faAngleDoubleDown, faAngleDoubleRight, faAngleDoubleUp,
+  faCalendarWeek, faClock, faUnlock, faCircle, faExclamationTriangle, faWrench);
+
+export function registerFontAwesome(app) {
+  app.component('fa', FontAwesomeIcon)
+}
+

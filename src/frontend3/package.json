@@ -18,6 +18,10 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-regular-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/vue-fontawesome": "^3.1.2",
     "@vueuse/core": "^13.9.0",
     "bootstrap": "^3.4.1",
     "change-case": "^5.4.4",

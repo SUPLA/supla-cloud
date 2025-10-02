@@ -11,6 +11,7 @@ import router from './router'
 import {useFrontendConfigStore} from "@/stores/frontend-config-store.js";
 import {useCurrentUserStore} from "@/stores/current-user-store.js";
 import {registerDirectives} from "@/common/directives.js";
+import {registerFontAwesome} from "@/styles/fontawesome.js";
 
 const app = createApp(App)
 
@@ -19,6 +20,7 @@ app.use(router)
 app.use(i18n)
 
 registerDirectives(app)
+registerFontAwesome(app)
 
 const frontendConfigStore = useFrontendConfigStore();
 const currentUserStore = useCurrentUserStore();
@@ -27,5 +29,6 @@ frontendConfigStore.fetchConfig()
   .then(() => currentUserStore.fetchUser())
   .then(() => loadLanguage('en'))
   .then(() => detectGuiLocale())
+  .then(() => app.mount('#vue-container'));
 
-app.mount('#vue-container')
+

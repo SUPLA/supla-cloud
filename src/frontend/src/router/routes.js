@@ -3,13 +3,7 @@ export default [
     {path: '/me', redirect: '/'}, // backward compat
     {path: '/home', component: () => import("@/home/home-page"), name: 'home'},
     {path: '/old-config', redirect: '/home'}, // backward compat
-    {
-        path: '/login',
-        component: () => import("@/login/login-page"),
-        alias: '/auth/login',
-        meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'centered-form-page'},
-        name: 'login'
-    },
+
     {
         path: '/oauth-authorize',
         component: () => import("@/login/login-page-oauth"),
@@ -27,27 +21,11 @@ export default [
         meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'green'},
     },
     {
-        path: '/register',
-        component: () => import("@/register/create-account"),
-        meta: {
-            unrestricted: true,
-            onlyUnauthenticated: true,
-            unavailableInMaintenance: true,
-            bodyClass: 'green darker register-slider-body',
-        },
-        alias: '/account/create_here'
-    },
-    {
         path: '/apps/:id?',
         component: () => import("@/account/integrations/catalog/public-apps-catalog"),
         name: 'publicApps',
         meta: {unrestricted: true},
         props: true,
-    },
-    {
-        path: '/forgotten-password',
-        component: () => import("@/login/remind-password"),
-        meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'yellow centered-form-page'}
     },
     {
         path: '/reset-password/:token',
