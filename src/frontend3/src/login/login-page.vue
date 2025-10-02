@@ -4,21 +4,22 @@
         ref="loginForm"
         method="post"
         v-title="$t('Login')">
-        <login-form v-model="user"
+
+    <login-form v-model="user"
             :authenticating="authenticating"
             :error="displayError"></login-form>
     </form>
 </template>
 
 <script>
-    import LoginForm from "./login-form.vue";
-    import {errorNotification} from "../common/notifier";
-    import AppState from "../router/app-state";
-    import {mapStores} from "pinia";
-    import {useCurrentUserStore} from "@/stores/current-user-store";
-    import {detectGuiLocale} from "@/locale";
+  import LoginForm from "./login-form.vue";
+  import {errorNotification} from "../common/notifier";
+  import AppState from "../router/app-state";
+  import {mapStores} from "pinia";
+  import {useCurrentUserStore} from "@/stores/current-user-store";
+  import {detectGuiLocale} from "@/locale";
 
-    export default {
+  export default {
         components: {LoginForm},
         data() {
             return {

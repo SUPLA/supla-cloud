@@ -119,17 +119,17 @@
 </template>
 
 <script>
-    import ButtonLoadingDots from '../common/gui/loaders/button-loading-dots.vue';
-    import InvisibleRecaptcha from './invisible-recaptcha.vue';
-    import RegulationsCheckbox from "../common/errors/regulations-checkbox";
-    import ResendAccountActivationLink from "./resend-account-activation-link";
-    import {DateTime} from "luxon";
-    import FaChecklistBullet from "@/register/fa-checklist-bullet";
-    import TransitionExpand from "@/common/gui/transition-expand";
-    import {mapState} from "pinia";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import ButtonLoadingDots from '../common/gui/loaders/button-loading-dots.vue';
+  import InvisibleRecaptcha from './invisible-recaptcha.vue';
+  import RegulationsCheckbox from "../common/errors/regulations-checkbox";
+  import ResendAccountActivationLink from "./resend-account-activation-link";
+  import {DateTime} from "luxon";
+  import FaChecklistBullet from "@/register/fa-checklist-bullet";
+  import TransitionExpand from "@/common/gui/transition-expand";
+  import {mapState} from "pinia";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
-    export default {
+  export default {
         components: {
             TransitionExpand,
             FaChecklistBullet, ResendAccountActivationLink, RegulationsCheckbox, ButtonLoadingDots, InvisibleRecaptcha

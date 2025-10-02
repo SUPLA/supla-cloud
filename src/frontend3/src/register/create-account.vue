@@ -27,14 +27,14 @@
 </template>
 
 <script>
-    import RegisterSlider from './register-slider';
-    import RegisterForm from './register-form';
-    import WholeScreenMessage from "./whole-screen-message";
-    import ResendAccountActivationLink from "./resend-account-activation-link";
-    import {mapState} from "pinia";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import RegisterSlider from './register-slider';
+  import RegisterForm from './register-form';
+  import WholeScreenMessage from "./whole-screen-message";
+  import ResendAccountActivationLink from "./resend-account-activation-link";
+  import {mapState} from "pinia";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
-    export default {
+  export default {
         components: {ResendAccountActivationLink, WholeScreenMessage, RegisterSlider, RegisterForm},
         data() {
             return {

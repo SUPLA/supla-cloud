@@ -12,10 +12,10 @@
 </template>
 
 <script>
-    import {mapStores} from "pinia";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import {mapStores} from "pinia";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
-    export default {
+  export default {
         data() {
             return {
                 shown: true,

@@ -55,7 +55,7 @@
             },
             showRegisterCloud() {
                 return !this.frontendConfigStore.config.actAsBrokerCloud && !this.frontendConfigStore.config.isCloudRegistered
-                    && this.frontendConfigStore.config.suplaUrl.indexOf('https') === 0
+                  && this.frontendConfigStore.config.suplaUrl?.indexOf('https') === 0
                     && this.domain.indexOf('localhost:') !== 0
                     && this.domain !== 'localhost';
             },
