@@ -69,12 +69,12 @@
 </template>
 
 <script>
-    import AppState from "../../router/app-state";
-    import {DateTime} from "luxon";
-    import {useCurrentUserStore} from "@/stores/current-user-store";
-    import {mapStores} from "pinia";
+  import AppState from "../../router/app-state";
+  import {DateTime} from "luxon";
+  import {useCurrentUserStore} from "@/stores/current-user-store";
+  import {mapStores} from "pinia";
 
-    export default {
+  export default {
         data() {
             return {
                 showDialog: false,

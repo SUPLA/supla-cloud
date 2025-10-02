@@ -12,10 +12,9 @@
 </template>
 
 <script>
-    import Vue from "vue";
-    import {setGuiLocale} from "@/locale";
+  import {availableLanguages, setGuiLocale} from "@/locale";
 
-    export default {
+  export default {
         data() {
             return {
                 locale: ''
@@ -23,7 +22,7 @@
         },
         computed: {
             locales() {
-                return Vue.config.availableLanguages;
+              return availableLanguages;
             }
         },
         mounted() {
@@ -42,8 +41,7 @@
     };
 </script>
 
-<style scoped
-    lang="scss">
+<style scoped lang="scss">
     @import "../../styles/variables";
 
     select {

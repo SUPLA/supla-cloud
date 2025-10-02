@@ -4,8 +4,7 @@
     </div>
 </template>
 
-<style lang="scss"
-    rel="stylesheet/scss">
+<style lang="scss">
     .btn-load {
         border-color: #fff;
         height: 44px;
@@ -15,9 +14,9 @@
 </style>
 
 <script>
-    import ButtonLoadingDots from "./button-loading-dots.vue";
+  import ButtonLoadingDots from "./button-loading-dots.vue";
 
-    export default {
+  export default {
         components: {ButtonLoadingDots}
     };
 </script>

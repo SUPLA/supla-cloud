@@ -2,7 +2,7 @@ import {Settings} from "luxon";
 import {createI18n} from 'vue-i18n'
 import {useCurrentUserStore} from "@/stores/current-user-store";
 
-const availableLanguages = [
+export const availableLanguages = [
     {value: 'en', text: 'English'},
     {value: 'pl', text: 'Polski'},
     {value: 'uk', text: 'Українська'},
@@ -67,9 +67,9 @@ const detectGuiLocale = () => {
 };
 
 const setGuiLocale = (lang) => {
-    if (i18n.locale !== lang) {
+  if (i18n.global.locale.value !== lang) {
         Promise.resolve(loadedLanguages.includes(lang) ? true : loadLanguage(lang)).then(() => {
-            i18n.locale = lang;
+          i18n.global.locale.value = lang;
             if (['ar'].includes(lang)) {
                 document.getElementsByTagName("html")[0].setAttribute('dir', 'rtl');
             } else {
