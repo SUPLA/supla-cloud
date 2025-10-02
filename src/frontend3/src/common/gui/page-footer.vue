@@ -33,12 +33,12 @@
 </template>
 
 <script>
-    import LanguageSelector from "./language-selector.vue";
-    import SessionCountdown from "./session-countdown";
-    import {mapStores} from "pinia";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import LanguageSelector from "./language-selector.vue";
+  import SessionCountdown from "./session-countdown.vue";
+  import {mapStores} from "pinia";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
-    export default {
+  export default {
         props: ['username'],
         components: {LanguageSelector, SessionCountdown},
         computed: {

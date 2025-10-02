@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^13.9.0",
+    "bootstrap": "^3.4.1",
     "change-case": "^5.4.4",
     "js-base64": "^3.7.8",
     "luxon": "^3.7.2",
@@ -42,6 +43,7 @@
     "globals": "^16.3.0",
     "jsdom": "^27.0.0",
     "prettier": "3.6.2",
+    "sass-embedded": "^1.93.2",
     "start-server-and-test": "^2.1.2",
     "vite": "^7.1.7",
     "vite-plugin-vue-devtools": "^8.0.2",
