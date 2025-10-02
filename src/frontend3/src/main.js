@@ -1,5 +1,5 @@
-import "./styles/styles.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/styles.scss";
 
 import {detectGuiLocale, i18n, loadLanguage} from './locale';
 
@@ -28,4 +28,4 @@ frontendConfigStore.fetchConfig()
   .then(() => loadLanguage('en'))
   .then(() => detectGuiLocale())
 
-app.mount('#app')
+app.mount('#vue-container')

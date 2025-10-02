@@ -20,12 +20,18 @@
 </template>
 
 <script setup>
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
-    import {useCurrentUserStore} from "@/stores/current-user-store";
-    import PageFooter from "@/common/gui/page-footer.vue";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import {useCurrentUserStore} from "@/stores/current-user-store";
+  import PageFooter from "@/common/gui/page-footer.vue";
+  import {onMounted} from "vue";
 
-    const frontendConfig = useFrontendConfigStore();
+  const frontendConfig = useFrontendConfigStore();
     const currentUser = useCurrentUserStore();
+
+    onMounted(() => {
+      document.getElementById('page-preloader').remove();
+      document.getElementById('vue-container')?.classList.remove('hidden');
+    })
 </script>
 
 <style>
