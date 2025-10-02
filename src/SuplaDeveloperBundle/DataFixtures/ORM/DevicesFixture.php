@@ -882,6 +882,18 @@ class DevicesFixture extends SuplaFixture {
                     'closeValveOnFloodType' => 1,
                 ]),
             ],
+            ChannelFunction::BINARY_SENSOR => [
+                'userConfig' => json_encode([
+                    'filteringTimeMs' => 30,
+                    'timeout' => 1,
+                ]),
+            ],
+            ChannelFunction::MOTION_SENSOR => [
+                'userConfig' => json_encode([
+                    'sensitivity' => 30,
+                    'timeout' => 10,
+                ]),
+            ],
         ];
         return $configs[$function->getId()] ?? [];
     }

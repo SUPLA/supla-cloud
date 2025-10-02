@@ -22,12 +22,12 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Model\UserConfigTranslator\BinarySensorUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\DigiglassParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\GeneralPurposeMeasurementConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\HumidityAdjustmentConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\ImpulseCounterUserConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\InvertedLogicParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\NumberOfAttemptsToOpenOrCloseParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\RelayTimeMsUserConfigTranslator;
@@ -50,7 +50,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             new ImpulseCounterUserConfigTranslator(),
             new HumidityAdjustmentConfigTranslator(),
             new TemperatureAdjustmentConfigTranslator(),
-            new InvertedLogicParamTranslator(),
+            new BinarySensorUserConfigTranslator(),
             new GeneralPurposeMeasurementConfigTranslator(),
             new DigiglassParamTranslator(),
             new NumberOfAttemptsToOpenOrCloseParamTranslator(),

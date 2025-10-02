@@ -6,6 +6,10 @@
         </div>
         <div v-else>
             <ChannelParamsInvertedLogic v-if="channel.config.invertedLogic !== undefined" :channel="channel" @change="$emit('change')"/>
+            <ChannelParamsBinaryFilteringTime v-if="channel.config.filteringTimeMs !== undefined" :channel="channel"
+                @change="$emit('change')"/>
+            <ChannelParamsBinaryTimeout v-if="channel.config.timeoutS !== undefined" :channel="channel" @change="$emit('change')"/>
+            <ChannelParamsBinarySensitivity v-if="channel.config.sensitivity !== undefined" :channel="channel" @change="$emit('change')"/>
             <component :is="additionalChannelParamsComponent"
                 :channel="channel"
                 @change="$emit('change')"
@@ -55,10 +59,16 @@
     import ChannelParamsInvertedLogic from "@/channels/params/channel-params-inverted-logic.vue";
     import ChannelParamsValveopenclose from "@/channels/params/channel-params-valveopenclose.vue";
     import ChannelParamsSepticTank from "@/channels/params/channel-params-septic-tank.vue";
+    import ChannelParamsBinaryFilteringTime from "@/channels/params/channel-params-binary-filtering-time.vue";
+    import ChannelParamsBinaryTimeout from "@/channels/params/channel-params-binary-timeout.vue";
+    import ChannelParamsBinarySensitivity from "@/channels/params/channel-params-binary-sensitivity.vue";
 
     export default {
         props: ['channel'],
         components: {
+            ChannelParamsBinarySensitivity,
+            ChannelParamsBinaryTimeout,
+            ChannelParamsBinaryFilteringTime,
             ChannelParamsInvertedLogic,
             ChannelParamsIntegrationsSettings,
             ChannelParamsControllingthedoorlock,
