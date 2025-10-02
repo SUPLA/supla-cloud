@@ -23,11 +23,11 @@
 </template>
 
 <script>
-    import RegulationsCheckbox from "./regulations-checkbox";
-    import {mapState} from "pinia";
-    import {useCurrentUserStore} from "@/stores/current-user-store";
+  import RegulationsCheckbox from "./regulations-checkbox";
+  import {mapState} from "pinia";
+  import {useCurrentUserStore} from "@/stores/current-user-store";
 
-    export default {
+  export default {
         components: {RegulationsCheckbox},
         data() {
             return {

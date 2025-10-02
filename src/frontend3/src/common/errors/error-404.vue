@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import ErrorPage from "./error-page";
+  import ErrorPage from "./error-page";
 
-    export default {components: {ErrorPage}};
+  export default {components: {ErrorPage}};
 </script>

@@ -104,13 +104,13 @@
 </template>
 
 <script>
-    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
-    import ResendAccountActivationLink from "../register/resend-account-activation-link";
-    import MaintenanceWarning from "../common/errors/maintenance-warning";
-    import {mapState} from "pinia";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+  import ResendAccountActivationLink from "../register/resend-account-activation-link.vue";
+  import MaintenanceWarning from "../common/errors/maintenance-warning.vue";
+  import {mapState} from "pinia";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
-    export default {
+  export default {
         props: ['authenticating', 'oauth', 'error', 'value', 'intitialUsername', 'submitButtonText'],
         components: {ResendAccountActivationLink, ButtonLoadingDots, MaintenanceWarning},
         data() {

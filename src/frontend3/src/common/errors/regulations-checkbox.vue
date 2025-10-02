@@ -21,9 +21,9 @@
 </template>
 
 <script>
-    import RegulationsModal from "./regulations-modal";
+  import RegulationsModal from "./regulations-modal";
 
-    export default {
+  export default {
         props: ['value', 'implicitAgreement'],
         components: {RegulationsModal},
         data() {
