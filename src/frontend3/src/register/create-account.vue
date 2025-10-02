@@ -27,10 +27,10 @@
 </template>
 
 <script>
-  import RegisterSlider from './register-slider';
-  import RegisterForm from './register-form';
-  import WholeScreenMessage from "./whole-screen-message";
-  import ResendAccountActivationLink from "./resend-account-activation-link";
+  import RegisterSlider from './register-slider.vue';
+  import RegisterForm from './register-form.vue';
+  import WholeScreenMessage from "./whole-screen-message.vue";
+  import ResendAccountActivationLink from "./resend-account-activation-link.vue";
   import {mapState} from "pinia";
   import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 

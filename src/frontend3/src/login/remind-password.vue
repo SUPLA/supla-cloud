@@ -34,9 +34,10 @@
 </template>
 
 <script>
-    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+  import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+  import {api} from "@/api/api";
 
-    export default {
+  export default {
         components: {ButtonLoadingDots},
         data() {
             return {
@@ -51,7 +52,7 @@
                 if (!this.loading) {
                     this.loading = true;
                     this.sent = this.sentProblem = false;
-                    this.$http.patch('forgotten-password', {email: this.email}).then(() => {
+                  api.patch('forgotten-password', {email: this.email}).then(() => {
                         this.email = '';
                         this.sent = true;
                     }).catch(() => this.sentProblem = true)

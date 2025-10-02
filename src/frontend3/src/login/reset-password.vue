@@ -31,10 +31,10 @@
 </template>
 
 <script>
-    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
-    import {errorNotification, successNotification} from "../common/notifier";
+  import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+  import {errorNotification, successNotification} from "../common/notifier";
 
-    export default {
+  export default {
         components: {ButtonLoadingDots},
         props: ['token'],
         data() {

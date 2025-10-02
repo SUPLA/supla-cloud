@@ -121,11 +121,11 @@
 <script>
   import ButtonLoadingDots from '../common/gui/loaders/button-loading-dots.vue';
   import InvisibleRecaptcha from './invisible-recaptcha.vue';
-  import RegulationsCheckbox from "../common/errors/regulations-checkbox";
-  import ResendAccountActivationLink from "./resend-account-activation-link";
+  import RegulationsCheckbox from "../common/errors/regulations-checkbox.vue";
+  import ResendAccountActivationLink from "./resend-account-activation-link.vue";
   import {DateTime} from "luxon";
-  import FaChecklistBullet from "@/register/fa-checklist-bullet";
-  import TransitionExpand from "@/common/gui/transition-expand";
+  import FaChecklistBullet from "@/register/fa-checklist-bullet.vue";
+  import TransitionExpand from "@/common/gui/transition-expand.vue";
   import {mapState} from "pinia";
   import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 

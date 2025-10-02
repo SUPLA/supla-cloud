@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import RegulationsModal from "./regulations-modal";
+  import RegulationsModal from "./regulations-modal.vue";
 
   export default {
         props: ['value', 'implicitAgreement'],
