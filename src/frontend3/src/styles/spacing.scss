@@ -1,6 +1,7 @@
 // generate spacing classes from Bootstrap v4
 
 @use 'sass:list';
+@use 'sass:string';
 
 $spacer: 1em;
 $levels: (0, .25, .5, 1, 1.5, 3, 5);
@@ -32,10 +33,10 @@ $pos: (top, bottom, left, right);
     padding-bottom: $value !important;
   }
   @each $p in $pos {
-    .m#{str-slice($p, 0, 1)}-#{$step} {
+    .m#{string.slice($p, 0, 1)}-#{$step} {
       margin-#{$p}: $value !important;
     }
-    .p#{str-slice($p, 0, 1)}-#{$step} {
+    .p#{string.slice($p, 0, 1)}-#{$step} {
       padding-#{$p}: $value !important;
     }
   }

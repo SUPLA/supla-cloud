@@ -129,8 +129,9 @@
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
-    @import "../styles/mixins";
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+  @use 'sass:color';
 
     .login-form {
         .logo {
@@ -192,7 +193,7 @@
             margin-bottom: 20px;
 
             p a {
-                color: darken($supla-green, 10%);
+              color: color.adjust($supla-green, $lightness: -10%);
             }
 
             &.locked {

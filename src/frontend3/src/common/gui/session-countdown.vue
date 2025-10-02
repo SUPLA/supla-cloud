@@ -73,8 +73,11 @@
   import {DateTime} from "luxon";
   import {useCurrentUserStore} from "@/stores/current-user-store";
   import {mapStores} from "pinia";
+  import ButtonLoadingDots from "@/common/gui/loaders/button-loading-dots.vue";
+  import Modal from "@/common/modal.vue";
 
   export default {
+    components: {Modal, ButtonLoadingDots},
         data() {
             return {
                 showDialog: false,
@@ -150,7 +153,7 @@
                 document.getElementById('logoutButton').dispatchEvent(new MouseEvent('click'));
             }
         },
-        beforeDestroy() {
+    beforeUnmount() {
             if (this.interval) {
                 clearInterval(this.interval);
             }
@@ -159,9 +162,6 @@
 </script>
 
 <style lang="scss">
-    @import "../../styles/variables";
-    @import "../../styles/mixins";
-
     .session-countdown-modal {
         &.expiring {
             .cancel {

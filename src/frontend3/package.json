@@ -31,6 +31,7 @@
     "pixeden-stroke-7-icon": "^1.2.3",
     "pnotify": "^5.2.0",
     "vue": "^3.5.22",
+    "@vue/compat": "^3.5.22",
     "vue-i18n": "^11.1.12",
     "vue-router": "^4.5.1"
   },

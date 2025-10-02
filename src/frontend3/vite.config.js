@@ -8,7 +8,15 @@ import ViteYaml from '@modyfi/vite-plugin-yaml';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          compatConfig: {
+            MODE: 2,
+          },
+        },
+      },
+    }),
     ViteYaml(),
     vueDevTools(),
   ],
@@ -26,7 +34,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      vue: '@vue/compat',
     },
   },
   define: {

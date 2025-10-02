@@ -63,14 +63,14 @@
                 this.timeout = setTimeout(() => this.showSlide(this.slideNumber + 1), 12500);
             }
         },
-        beforeDestroy() {
+      beforeUnmount() {
             clearTimeout(this.timeout);
         }
     };
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
+  @use "../styles/variables" as *;
 
     .register-slider {
         a.register-slider-next, a.register-slider-prev {
