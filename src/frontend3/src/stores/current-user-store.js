@@ -1,5 +1,5 @@
 import {defineStore, getActivePinia} from "pinia";
-import Vue, {computed, ref} from "vue";
+import {computed, ref} from "vue";
 import {useStorage} from "@vueuse/core";
 import {DateTime, Settings} from "luxon";
 import {Base64} from "js-base64";
@@ -19,9 +19,9 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
     const username = computed(() => userData.value?.email);
 
     const synchronizeAuthState = () => {
-        Vue.http.headers.common['Authorization'] = userToken.value ? 'Bearer ' + userToken.value : undefined;
+        // Vue.http.headers.common['Authorization'] = userToken.value ? 'Bearer ' + userToken.value : undefined;
         determineServerUrl();
-        Vue.http.options.root = serverUrl.value + '/api';
+        // Vue.http.options.root = serverUrl.value + '/api';
         Settings.defaultZone = userData.value && userData.value.timezone || 'system';
     }
 
