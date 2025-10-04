@@ -41,7 +41,7 @@
                     this.currentUserStore.authenticate(this.user.username, this.user.password)
                         .then(() => {
                             detectGuiLocale();
-                            this.$router.push(this.$router.currentRoute.query.target || '/').catch(() => {
+                            this.$router.push(this.$route.query.target || '/').catch(() => {
                             });
                         })
                         .catch((error) => {

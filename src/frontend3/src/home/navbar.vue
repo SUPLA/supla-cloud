@@ -57,36 +57,36 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <router-link :to="{name: 'schedules'}">
-                                    <i class="hidden-sm hidden-xs pe-7s-clock mr-1"></i>
-                                    {{ $t('Schedules') }}
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link :to="{name: 'channelGroups'}">
-                                    <i class="hidden-sm hidden-xs pe-7s-keypad mr-1"></i>
-                                    {{ $t('Channel groups') }}
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link :to="{name: 'directLinks'}">
-                                    <i class="hidden-sm hidden-xs pe-7s-link mr-1"></i>
-                                    {{ $t('Direct links') }}
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link :to="{name: 'scenes'}">
-                                    <i class="hidden-sm hidden-xs supla-icon supla-icon-scene mr-1"></i>
-                                    {{ $t('Scenes') }}
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link :to="{name: 'reactions'}">
-                                    <i class="hidden-sm hidden-xs pe-7s-arc mr-1"></i>
-                                    {{ $t('Reactions') }}
-                                </router-link>
-                            </li>
+                          <!--                            <li>-->
+                          <!--                                <router-link :to="{name: 'schedules'}">-->
+                          <!--                                    <i class="hidden-sm hidden-xs pe-7s-clock mr-1"></i>-->
+                          <!--                                    {{ $t('Schedules') }}-->
+                          <!--                                </router-link>-->
+                          <!--                            </li>-->
+                          <!--                            <li>-->
+                          <!--                                <router-link :to="{name: 'channelGroups'}">-->
+                          <!--                                    <i class="hidden-sm hidden-xs pe-7s-keypad mr-1"></i>-->
+                          <!--                                    {{ $t('Channel groups') }}-->
+                          <!--                                </router-link>-->
+                          <!--                            </li>-->
+                          <!--                            <li>-->
+                          <!--                                <router-link :to="{name: 'directLinks'}">-->
+                          <!--                                    <i class="hidden-sm hidden-xs pe-7s-link mr-1"></i>-->
+                          <!--                                    {{ $t('Direct links') }}-->
+                          <!--                                </router-link>-->
+                          <!--                            </li>-->
+                          <!--                            <li>-->
+                          <!--                                <router-link :to="{name: 'scenes'}">-->
+                          <!--                                    <i class="hidden-sm hidden-xs supla-icon supla-icon-scene mr-1"></i>-->
+                          <!--                                    {{ $t('Scenes') }}-->
+                          <!--                                </router-link>-->
+                          <!--                            </li>-->
+                          <!--                            <li>-->
+                          <!--                                <router-link :to="{name: 'reactions'}">-->
+                          <!--                                    <i class="hidden-sm hidden-xs pe-7s-arc mr-1"></i>-->
+                          <!--                                    {{ $t('Reactions') }}-->
+                          <!--                                </router-link>-->
+                          <!--                            </li>-->
                             <li role="separator"
                                 class="divider"></li>
                             <li>
@@ -98,13 +98,11 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="dropdown account-dropdown">
-                        <a class="dropdown-toggle"
-                            data-toggle="dropdown">
+                  <DropdownMenu tag="li" class="account-dropdown">
+                    <DropdownMenuTrigger>
                             <i class="hidden-sm hidden-xs pe-7s-user"></i>
                             {{ $t('Account') }}
-                            <span class="caret"></span>
-                        </a>
+                    </DropdownMenuTrigger>
                         <ul class="dropdown-menu">
                             <li>
                                 <router-link to="/account" class="text-center">
@@ -113,27 +111,27 @@
                                 </router-link>
                             </li>
                             <li class="divider"></li>
-                            <li>
-                                <router-link :to="{name: 'integrations.myOauthApps'}">
-                                    <fa icon="puzzle-piece" class="mr-1" fixed-width/>
-                                    {{ $t('Integrations') }}
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link :to="{name: 'safety.log'}">
-                                    <fa icon="shield-halved" class="mr-1" fixed-width/>
-                                    {{ $t('Security') }}
-                                </router-link>
-                            </li>
+                          <!--                            <li>-->
+                          <!--                                <router-link :to="{name: 'integrations.myOauthApps'}">-->
+                          <!--                                    <fa icon="puzzle-piece" class="mr-1" fixed-width/>-->
+                          <!--                                    {{ $t('Integrations') }}-->
+                          <!--                                </router-link>-->
+                          <!--                            </li>-->
+                          <!--                            <li>-->
+                          <!--                                <router-link :to="{name: 'safety.log'}">-->
+                          <!--                                    <fa icon="shield-halved" class="mr-1" fixed-width/>-->
+                          <!--                                    {{ $t('Security') }}-->
+                          <!--                                </router-link>-->
+                          <!--                            </li>-->
                             <li class="divider"></li>
                             <li>
                                 <a id="logoutButton" @click="logout()">
-                                    <fa icon="sign-out" fixed-width/>
+                                  <!--                                    <fa :icon="faSignOutAlt()" fixed-width/>-->
                                     {{ $t('Sign Out') }}
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                  </DropdownMenu>
                 </ul>
             </div>
         </div>
@@ -141,18 +139,25 @@
 </template>
 
 <script>
-    import SuplaLogo from "./supla-logo";
-    import {mapStores} from "pinia";
-    import {useCurrentUserStore} from "@/stores/current-user-store";
+  import SuplaLogo from "./supla-logo.vue";
+  import {mapStores} from "pinia";
+  import {useCurrentUserStore} from "@/stores/current-user-store";
+  import {faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
+  import DropdownMenu from "@/common/gui/dropdown/dropdown-menu.vue";
+  import DropdownMenuTrigger from "@/common/gui/dropdown/dropdown-menu-trigger.vue";
+  import {api} from "@/api/api.js";
 
-    export default {
-        components: {SuplaLogo},
+  export default {
+      components: {DropdownMenuTrigger, DropdownMenu, SuplaLogo},
         data() {
             return {
                 collapsed: true,
             };
         },
         methods: {
+          faSignOutAlt() {
+            return faSignOutAlt
+          },
             subIsActive(input) {
                 const paths = Array.isArray(input) ? input : [input];
                 return paths.some(path => {
@@ -160,7 +165,7 @@
                 });
             },
             logout() {
-                this.$http.post('logout', undefined, {skipErrorHandler: true});
+              api.post('logout', undefined, {skipErrorHandler: true});
                 this.currentUserStore.forget();
                 this.$router.push({name: 'login'});
             }
@@ -177,8 +182,8 @@
 </script>
 
 <style lang="scss">
-    @import '../styles/mixins.scss';
-    @import '../styles/variables.scss';
+  @use '../styles/mixins.scss' as *;
+  @use '../styles/variables.scss' as *;
 
     nav.navbar-top {
         background: $supla-white;

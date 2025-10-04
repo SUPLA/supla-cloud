@@ -1,7 +1,7 @@
 <script setup>
-    import {computed, provide, ref} from "vue";
+  import {computed, provide, ref} from "vue";
 
-    const props = defineProps({
+  const props = defineProps({
         multiple: Boolean,
     });
 

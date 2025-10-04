@@ -1,11 +1,8 @@
-import HomeView from "@/views/HomeView.vue";
-
 export default [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView,
-  },
+  {path: '/me', redirect: '/'}, // backward compat
+  {path: '/old-config', redirect: '/home'}, // backward compat
+  {path: '/', component: () => import("@/home/my-supla-page.vue"), name: 'me'},
+  {path: '/home', component: () => import("@/home/home-page.vue"), name: 'home'},
   {
     path: '/login',
     component: () => import("@/login/login-page.vue"),

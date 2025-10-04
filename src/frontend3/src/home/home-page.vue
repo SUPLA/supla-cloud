@@ -15,7 +15,7 @@
                         v-model="suplaServerHost"
                         readonly>
                     <label>{{ $t('Server address') }}</label>
-                    <loading-cover :loading="loading">
+                  <LoadingCover :loading="loading">
                         <div v-if="location">
                             <input type="text"
                                 v-model="location.id"
@@ -37,7 +37,7 @@
                                 </template>
                             </i18n-t>
                         </div>
-                    </loading-cover>
+                  </LoadingCover>
                 </div>
             </div>
             <div class="col-md-6 step">
@@ -52,7 +52,7 @@
                         v-model="suplaServerHost"
                         readonly>
                     <label>{{ $t('Server address') }}</label>
-                    <loading-cover :loading="loading">
+                  <LoadingCover :loading="loading">
                         <div v-if="accessId">
                             <input type="text"
                                 v-model="accessId.id"
@@ -75,7 +75,7 @@
                                 </template>
                             </i18n-t>
                         </div>
-                    </loading-cover>
+                  </LoadingCover>
                 </div>
             </div>
         </div>
@@ -83,10 +83,12 @@
 </template>
 
 <script>
-    import {mapState} from "pinia";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import {mapState} from "pinia";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
 
-    export default {
+  export default {
+      components: {LoadingCover},
         data() {
             return {
                 location: undefined,
