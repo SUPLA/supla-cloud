@@ -32,4 +32,9 @@ export default [
     meta: {unrestricted: true, onlyUnauthenticated: true},
     props: true,
   },
+  {
+    path: "/:pathMatch(.*)*",
+    component: () => import("@/common/errors/error-404.vue"),
+    meta: {bodyClass: 'red', unrestricted: true}
+  }
 ];
