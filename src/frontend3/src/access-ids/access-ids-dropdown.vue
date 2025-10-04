@@ -11,9 +11,9 @@
 </template>
 
 <script>
-    import SelectForSubjects from "@/devices/select-for-subjects.vue";
+  import SelectForSubjects from "@/devices/select-for-subjects.vue";
 
-    export default {
+  export default {
         props: {
             value: Array,
         },

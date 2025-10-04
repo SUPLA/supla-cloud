@@ -4,7 +4,7 @@
             class="location-details">
             <div v-if="location">
                 <div class="container">
-                    <pending-changes-page :header="$t('Location') + ' ID' + location.id"
+                    <pending-changes-page :header="location.caption || ($t('Location') + ' ID' + location.id)"
                         @cancel="cancelChanges()"
                         @save="saveLocation()"
                         @delete="deleteConfirm = true"
@@ -12,7 +12,7 @@
                         :is-pending="hasPendingChanges">
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-sm-8">
-                                <div class="hover-editable hovered text-left">
+                                <div class="hover-editable hovered details-page-block text-left">
                                     <dl>
                                         <dd>{{ $t('Enabled') }}</dd>
                                         <dt class="text-center">
@@ -54,7 +54,7 @@
                                         :key="ioDevice.id"
                                         v-go-to-link-on-row-click>
                                         <td>
-                                            <router-link :to="{name: 'device', params: {id: ioDevice.id}}">{{ ioDevice.id }}</router-link>
+<!--                                            <router-link :to="{name: 'device', params: {id: ioDevice.id}}">{{ ioDevice.id }}</router-link>-->
                                         </td>
                                         <td>{{ ioDevice.name }}</td>
                                         <td>{{ ioDevice.comment }}</td>
@@ -80,7 +80,7 @@
                                         :key="aid.id"
                                         v-go-to-link-on-row-click>
                                         <td>
-                                            <router-link :to="{name: 'accessId', params: {id: aid.id}}">{{ aid.id }}</router-link>
+<!--                                            <router-link :to="{name: 'accessId', params: {id: aid.id}}">{{ aid.id }}</router-link>-->
                                         </td>
                                         <td>
                                             <password-display :password="aid.password"></password-display>
@@ -120,7 +120,7 @@
                                             <function-icon :model="channelGroup"></function-icon>
                                         </td>
                                         <td>
-                                            <router-link :to="{name: 'channelGroup', params: {id: channelGroup.id}}">{{ channelGroup.id }}</router-link>
+<!--                                            <router-link :to="{name: 'channelGroup', params: {id: channelGroup.id}}">{{ channelGroup.id }}</router-link>-->
                                         </td>
                                         <td>
                                             <span v-if="channelGroup.caption">{{ channelGroup.caption }}</span>
@@ -151,7 +151,7 @@
                                             <function-icon :model="channel"></function-icon>
                                         </td>
                                         <td>
-                                            <router-link :to="{name: 'channel', params: {id: channel.id}}">{{ channel.id }}</router-link>
+<!--                                            <router-link :to="{name: 'channel', params: {id: channel.id}}">{{ channel.id }}</router-link>-->
                                         </td>
                                         <td>{{ channelTitle(channel) }}</td>
                                     </tr>
@@ -177,17 +177,22 @@
 </template>
 
 <script>
-    import FunctionIcon from "../channels/function-icon";
-    import EmptyListPlaceholder from "../common/gui/empty-list-placeholder";
-    import AccessIdChooser from "../access-ids/access-id-chooser";
-    import Toggler from "../common/gui/toggler";
-    import {channelTitle} from "../common/filters";
-    import PasswordDisplay from "../common/gui/password-display";
-    import PendingChangesPage from "../common/pages/pending-changes-page";
-    import PageContainer from "../common/pages/page-container";
+  import FunctionIcon from "../channels/function-icon.vue";
+  import EmptyListPlaceholder from "../common/gui/empty-list-placeholder.vue";
+  import AccessIdChooser from "../access-ids/access-id-chooser.vue";
+  import Toggler from "../common/gui/toggler.vue";
+  import {channelTitle} from "../common/filters";
+  import PasswordDisplay from "../common/gui/password-display.vue";
+  import PendingChangesPage from "../common/pages/pending-changes-page.vue";
+  import PageContainer from "../common/pages/page-container.vue";
+  import {api} from "@/api/api.js";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import ModalConfirm from "@/common/modal-confirm.vue";
 
-    export default {
+  export default {
         components: {
+          ModalConfirm,
+          LoadingCover,
             PageContainer,
             PendingChangesPage,
             PasswordDisplay,
@@ -216,7 +221,7 @@
                 this.loading = true;
                 if (this.id && this.id != 'new') {
                     this.error = false;
-                    this.$http.get(
+                    api.get(
                         `locations/${this.id}?include=iodevices,channelGroups,accessids,password,channels`,
                         {skipErrorHandler: [403, 404]}
                     )
@@ -224,7 +229,7 @@
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
                 } else {
-                    this.$http.post('locations', {}).then(response => this.$emit('add', response.body)).catch(() => this.$emit('delete'));
+                    api.post('locations', {}).then(response => this.$emit('add', response.body)).catch(() => this.$emit('delete'));
                 }
             },
             cancelChanges() {
@@ -232,14 +237,18 @@
             },
             saveLocation() {
                 const toSend = {...this.location};
+                if (toSend.accessIds) {
+                  toSend.accessIdsIds = toSend.accessIds.map(aid => aid.id);
+                  delete toSend.accessIds;
+                }
                 this.loading = true;
-                this.$http.put('locations/' + this.location.id, toSend)
+                api.put('locations/' + this.location.id, toSend)
                     .then(response => this.$emit('update', response.body))
                     .finally(() => this.loading = this.hasPendingChanges = false);
             },
             deleteLocation() {
                 this.loading = true;
-                this.$http.delete('locations/' + this.location.id)
+                api.delete_('locations/' + this.location.id)
                     .then(() => this.$emit('delete'))
                     .then(() => this.location = undefined)
                     .catch(() => this.loading = false);

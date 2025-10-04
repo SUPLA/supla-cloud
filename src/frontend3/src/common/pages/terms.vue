@@ -8,9 +8,9 @@
 </template>
 
 <script>
-    import RegulationsModal from "../errors/regulations-modal";
+  import RegulationsModal from "../errors/regulations-modal";
 
-    export default {
+  export default {
         props: ['value'],
         components: {RegulationsModal},
         data() {

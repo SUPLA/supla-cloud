@@ -173,11 +173,6 @@ export default [
         ]
     },
     {
-        path: '/locations', component: () => import("@/locations/locations-page"), name: 'locations', children: [
-            {path: ':id', component: () => import("@/locations/location-details"), name: 'location', props: true}
-        ]
-    },
-    {
         path: '/direct-links', component: () => import("@/direct-links/direct-links-page"), name: 'directLinks', children: [
             {path: ':id', component: () => import("@/direct-links/direct-link-details"), name: 'directLink', props: true}
         ]

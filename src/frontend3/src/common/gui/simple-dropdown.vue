@@ -1,7 +1,7 @@
 <script setup>
-    import {computed} from "vue";
+  import {computed} from "vue";
 
-    const props = defineProps({options: Array, value: [String, Number], disabled: Boolean});
+  const props = defineProps({options: Array, value: [String, Number], disabled: Boolean});
     const emit = defineEmits(['input']);
 
     const modelValue = computed({

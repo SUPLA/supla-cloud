@@ -8,10 +8,11 @@
 </template>
 
 <script>
-    import LocationTileContent from "./location-tile-content";
+  import LocationTileContent from "./location-tile-content.vue";
+  import SquareLink from "@/common/tiles/square-link.vue";
 
-    export default {
-        components: {LocationTileContent},
+  export default {
+        components: {SquareLink, LocationTileContent},
         props: ['model', 'noLink'],
         computed: {
             linkSpec() {

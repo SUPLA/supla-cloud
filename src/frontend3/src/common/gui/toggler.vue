@@ -1,18 +1,22 @@
 <template>
-    <switches v-model="model"
-        :type-bold="bold"
-        :label="$t(label || '')"
-        :color="model ? trueColorValue : 'default'"
-        :emit-on-mount="false"
-        :disabled="disabled"></switches>
+<!--    <switches v-model="model"-->
+<!--        :type-bold="bold"-->
+<!--        :label="$t(label || '')"-->
+<!--        :color="model ? trueColorValue : 'default'"-->
+<!--        :emit-on-mount="false"-->
+<!--        :disabled="disabled"></switches>-->
+  <label>
+    <input type="checkbox" :disabled="disabled" v-model="model">
+    {{ $t(label || '')}}
+  </label>
 </template>
 
 <script>
-    import Switches from "vue-switches";
+    // import Switches from "vue-switches";
 
     export default {
         props: ['value', 'invert', 'label', 'bold', 'trueColor', 'disabled'],
-        components: {Switches},
+        // components: {Switches},
         computed: {
             trueColorValue() {
                 return this.trueColor || 'green';

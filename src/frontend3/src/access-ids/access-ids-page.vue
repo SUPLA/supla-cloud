@@ -10,15 +10,15 @@
 </template>
 
 <script>
-    import CarouselPage from "../common/pages/carousel-page";
-    import AccessIdTile from "./access-id-tile";
-    import AccessIdFilters from "./access-id-filters";
-    import Vue from "vue";
-    import {mapState, mapStores} from "pinia";
-    import {useCurrentUserStore} from "@/stores/current-user-store";
-    import {useAccessIdsStore} from "@/stores/access-ids-store";
+  import CarouselPage from "../common/pages/carousel-page";
+  import AccessIdTile from "./access-id-tile";
+  import AccessIdFilters from "./access-id-filters";
+  import Vue from "vue";
+  import {mapState, mapStores} from "pinia";
+  import {useCurrentUserStore} from "@/stores/current-user-store";
+  import {useAccessIdsStore} from "@/stores/access-ids-store";
 
-    Vue.component('AccessIdTile', AccessIdTile);
+  Vue.component('AccessIdTile', AccessIdTile);
     Vue.component('AccessIdFilters', AccessIdFilters);
 
     export default {

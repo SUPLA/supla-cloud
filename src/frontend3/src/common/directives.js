@@ -1,3 +1,5 @@
+import {ref} from "vue";
+
 export function registerDirectives(app) {
   app.directive('go-to-link-on-row-click', {
     mounted: function (el) {
@@ -11,9 +13,14 @@ export function registerDirectives(app) {
     }
   });
 
+  const pageTitle = ref('');
+  app.provide('pageTitle', pageTitle);
+
   const updatePageTitle = function (title) {
     document.title = title + ' - SUPLA Cloud';
+    pageTitle.value = title;
   };
+
 
   app.directive('title', {
     mounted: (el, binding) => updatePageTitle(binding.value || el.innerText),

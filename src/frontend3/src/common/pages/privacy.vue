@@ -7,9 +7,9 @@
 </template>
 
 <script>
-    import RegulationsModal from "../errors/privacy-modal";
+  import RegulationsModal from "../errors/privacy-modal";
 
-    export default {
+  export default {
         props: ['value'],
         components: {RegulationsModal},
         data() {

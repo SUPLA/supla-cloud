@@ -20,10 +20,10 @@
 </template>
 
 <script>
-    import LocationTileContent from "./location-tile-content";
-    import LocationChooser from "./location-chooser";
+  import LocationTileContent from "./location-tile-content";
+  import LocationChooser from "./location-chooser";
 
-    export default {
+  export default {
         components: {LocationChooser, LocationTileContent},
         props: ['value', 'squareLinkClass', 'disabled'],
         data() {
