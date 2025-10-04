@@ -48,14 +48,12 @@
                         </router-link>
                     </li>
 
-                    <li class="dropdown"
-                        :class="{'active': subIsActive(['/schedules', '/channel-groups', '/scenes', '/direct-links', '/reactions'])}">
-                        <a class="dropdown-toggle"
-                            data-toggle="dropdown">
+                  <DropdownMenu tag="li" class="account-dropdown"
+                    :class="{'active': subIsActive(['/schedules', '/channel-groups', '/scenes', '/direct-links', '/reactions'])}">
+                    <DropdownMenuTrigger>
                             <i class="hidden-sm hidden-xs pe-7s-config"></i>
                             {{ $t('Automation') }}
-                            <span class="caret"></span>
-                        </a>
+                    </DropdownMenuTrigger>
                         <ul class="dropdown-menu">
                           <!--                            <li>-->
                           <!--                                <router-link :to="{name: 'schedules'}">-->
@@ -97,7 +95,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                  </DropdownMenu>
                   <DropdownMenu tag="li" class="account-dropdown">
                     <DropdownMenuTrigger>
                             <i class="hidden-sm hidden-xs pe-7s-user"></i>
