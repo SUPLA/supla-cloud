@@ -62,12 +62,12 @@
 </template>
 
 <script>
-    import TransitionExpand from "../../common/gui/transition-expand";
-    import ActionTriggerSingleActionSelector from "./action-trigger-single-action-selector";
-    import {forIn} from "lodash";
-    import EventBus from "@/common/event-bus";
+  import TransitionExpand from "../../common/gui/transition-expand";
+  import ActionTriggerSingleActionSelector from "./action-trigger-single-action-selector";
+  import {forIn} from "lodash";
+  import EventBus from "@/common/event-bus";
 
-    export default {
+  export default {
         components: {TransitionExpand, ActionTriggerSingleActionSelector},
         props: ['channel'],
         data() {

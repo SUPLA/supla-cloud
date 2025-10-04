@@ -34,7 +34,8 @@
     "pnotify": "^5.2.0",
     "vue": "^3.5.22",
     "vue-i18n": "^11.1.12",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "vue-tippy": "^6.7.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

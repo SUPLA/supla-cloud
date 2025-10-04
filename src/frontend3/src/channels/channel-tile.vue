@@ -38,15 +38,16 @@
 </template>
 
 <script setup>
-    import FunctionIcon from "./function-icon";
-    import ActionTriggerIndicator from "@/channels/action-trigger/action-trigger-indicator";
-    import {computed} from "vue";
-    import {useLocationsStore} from "@/stores/locations-store";
-    import {useDevicesStore} from "@/stores/devices-store";
-    import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
-    import {channelTitle} from "@/common/filters";
+  import FunctionIcon from "./function-icon.vue";
+  import ActionTriggerIndicator from "@/channels/action-trigger/action-trigger-indicator.vue";
+  import {computed} from "vue";
+  import {useLocationsStore} from "@/stores/locations-store";
+  import {useDevicesStore} from "@/stores/devices-store";
+  import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
+  import {channelTitle} from "@/common/filters";
+  import SquareLink from "@/common/tiles/square-link.vue";
 
-    const props = defineProps({
+  const props = defineProps({
         model: Object,
         noLink: {
             type: Boolean,
@@ -54,7 +55,7 @@
         }
     });
     const caption = computed(() => channelTitle(props.model));
-    const linkSpec = computed(() => props.noLink ? {} : {name: 'channel', params: {id: props.model.id}});
+    const linkSpec = computed(() => props.noLink ? {} : {});//{name: 'channel', params: {id: props.model.id}});
     const hasActionTrigger = computed(() => props.model?.relationsCount?.actionTriggers > 0);
     const backgroundColor = computed(() => {
         if (props.model.conflictDetails || props.model.functionId === 0) {

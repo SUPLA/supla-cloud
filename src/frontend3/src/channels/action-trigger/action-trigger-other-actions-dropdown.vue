@@ -11,11 +11,11 @@
 </template>
 
 <script>
-    import ActionableSubjectType from "@/common/enums/actionable-subject-type";
-    import ChannelFunctionAction from "../../common/enums/channel-function-action";
-    import SelectForSubjects from "@/devices/select-for-subjects.vue";
+  import ActionableSubjectType from "@/common/enums/actionable-subject-type";
+  import ChannelFunctionAction from "../../common/enums/channel-function-action";
+  import SelectForSubjects from "@/devices/select-for-subjects.vue";
 
-    export default {
+  export default {
         props: ['value', 'filter'],
         components: {SelectForSubjects},
         data() {
