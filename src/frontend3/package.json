@@ -27,6 +27,7 @@
     "bootstrap-only-css": "^1.0.0",
     "change-case": "^5.4.4",
     "js-base64": "^3.7.8",
+    "latinize": "^2.0.0",
     "luxon": "^3.7.2",
     "pinia": "^3.0.3",
     "pixeden-stroke-7-icon": "^1.2.3",

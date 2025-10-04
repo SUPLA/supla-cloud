@@ -17,10 +17,10 @@
 </template>
 
 <script>
-    import SquareLinksCarousel from "./square-links-carousel";
-    import {debounce} from "lodash";
+  import SquareLinksCarousel from "./square-links-carousel";
+  import {debounce} from "lodash";
 
-    export default {
+  export default {
         components: {SquareLinksCarousel},
         props: ['items', 'selected', 'tile', 'newItemTile', 'filters', 'noLinks'],
         data() {

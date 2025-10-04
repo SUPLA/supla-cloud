@@ -10,12 +10,12 @@
 
 <style lang="scss">
     @use "sass:math";
-    @import "../../styles/mixins";
+    @use "../../styles/mixins" as *;
 
     $gridGap: 14px;
     $minimumWidthOfOneSquare: 265px;
     $maximumSupportedScreenWidth: 1675px;
-    $maximumSquaresInRow: floor(math.div($maximumSupportedScreenWidth, $minimumWidthOfOneSquare));
+    $maximumSquaresInRow: math.floor(math.div($maximumSupportedScreenWidth, $minimumWidthOfOneSquare));
 
     .square-links-grid-container {
         transition: all .3s;

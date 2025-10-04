@@ -42,13 +42,13 @@
 </template>
 
 <script>
-    import {Carousel, Slide} from 'vue-carousel';
-    import EmptyListPlaceholder from "../../common/gui/empty-list-placeholder";
-    import {useMediaQuery} from "@vueuse/core";
-    import {mapState} from "pinia";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import {Carousel, Slide} from 'vue-carousel';
+  import EmptyListPlaceholder from "../../common/gui/empty-list-placeholder";
+  import {useMediaQuery} from "@vueuse/core";
+  import {mapState} from "pinia";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
-    export default {
+  export default {
         components: {Carousel, Slide, EmptyListPlaceholder},
         props: ['items', 'selected', 'tile', 'newItemTile', 'noLinks'],
         data() {

@@ -182,6 +182,7 @@
 <style lang="scss">
   @use '../styles/mixins.scss' as *;
   @use '../styles/variables.scss' as *;
+  @use 'sass:color';
 
     nav.navbar-top {
         background: $supla-white;
@@ -294,7 +295,7 @@
             color: $supla-white;
         }
         li > a.active, li.open > a, .dropdown-menu > li > a.active, li.dropdown.active > a {
-            background: darken($supla-green, 10%);
+          background: color.adjust($supla-green, $lightness: -10%);
         }
     }
 
@@ -308,7 +309,7 @@
             color: $supla-white;
         }
         li > a.active, li.open > a, .dropdown-menu > li > a.active, li.dropdown.active > a {
-            background: darken($supla-red, 10%);
+          background: color.adjust($supla-red, $lightness: -10%);
         }
     }
 
@@ -322,7 +323,7 @@
             color: $supla-black;
         }
         li > a.active, li.open > a, .dropdown-menu > li > a.active, li.dropdown.active > a {
-            background: darken($supla-yellow, 15%);
+          background: color.adjust($supla-yellow, $lightness: -15%);
         }
     }
 </style>

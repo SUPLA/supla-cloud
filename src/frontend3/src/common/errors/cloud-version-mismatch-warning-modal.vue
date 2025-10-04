@@ -35,9 +35,9 @@
     };
 </script>
 
-<style scoped
-    lang="scss">
-    @import "../../styles/variables";
+<style scoped lang="scss">
+  @use "../../styles/variables" as *;
+  @use "sass:color";
 
     .alert {
         width: 90%;
@@ -47,7 +47,7 @@
         bottom: 45px;
         right: 5px;
         background: $supla-yellow;
-        border-color: darken($supla-yellow, 10%);
+      border-color: color.adjust($supla-yellow, $lightness: -10%);
     }
 </style>
 

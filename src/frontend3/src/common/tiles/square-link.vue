@@ -10,7 +10,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../styles/variables";
+  @use "../../styles/variables" as *;
 
     .square-link {
         position: relative;

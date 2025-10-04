@@ -51,10 +51,11 @@
 </style>
 
 <script>
-    import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
-    import {DateTime} from "luxon";
+  import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
+  import {DateTime} from "luxon";
+  import {api} from "@/api/api.js";
 
-    export default {
+  export default {
         props: ['field', 'captionI18n'],
         components: {ButtonLoadingDots},
         data() {
@@ -74,13 +75,16 @@
         methods: {
             toggle() {
                 this.saving = true;
-                this.$http.patch('users/current', {action: 'change:' + this.field, enable: !this.enabledUntil})
+              api.patch('users/current', {
+                action: 'change:' + this.field,
+                enable: !this.enabledUntil
+              })
                     .then(({body}) => this.enabledUntil = body[this.field])
                     .finally(() => this.saving = false);
             },
             loadUserInfo() {
                 this.saving = true;
-                this.$http.get('users/current')
+              api.get('users/current')
                     .then(({body}) => this.enabledUntil = body[this.field])
                     .finally(() => this.saving = false);
             }

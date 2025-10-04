@@ -17,10 +17,13 @@
 </template>
 
 <script>
-    import SquareLinksCarouselWithFilters from "./square-links-carousel-with-filters";
+  import SquareLinksCarouselWithFilters from "./square-links-carousel-with-filters";
+  import {api} from "@/api/api.js";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import Modal from "@/common/modal.vue";
 
-    export default {
-        components: {SquareLinksCarouselWithFilters},
+  export default {
+      components: {Modal, LoadingCover, SquareLinksCarouselWithFilters},
         props: ['selected', 'titleI18n', 'tile', 'filters', 'endpoint'],
         data() {
             return {
@@ -29,7 +32,7 @@
             };
         },
         mounted() {
-            this.$http.get(this.endpoint).then(response => this.items = response.body);
+          api.get(this.endpoint).then(response => this.items = response.body);
         },
         watch: {
             selected() {

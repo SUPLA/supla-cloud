@@ -38,7 +38,7 @@
         },
         mounted() {
             if (this.id) {
-                const filter = this.defaultSort || this.$localStorage.get(this.localStorageId);
+              const filter = this.defaultSort || localStorage.getItem(this.localStorageId);
                 if (filter) {
                     const index = this.filters.findIndex(f => f.value === filter);
                     if (index >= 0) {
@@ -57,7 +57,7 @@
                     this.$emit('input', this.chosenFilter);
                 }
                 if (this.id && !this.defaultSort) {
-                    this.$localStorage.set(this.localStorageId, filter);
+                  localStorage.setItem(this.localStorageId, filter);
                 }
             }
         },
