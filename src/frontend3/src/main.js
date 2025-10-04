@@ -12,9 +12,6 @@ import {useFrontendConfigStore} from "@/stores/frontend-config-store.js";
 import {useCurrentUserStore} from "@/stores/current-user-store.js";
 import {registerDirectives} from "@/common/directives.js";
 import {registerFontAwesome} from "@/styles/fontawesome.js";
-import {configureCompat} from "@vue/compat";
-
-configureCompat({RENDER_FUNCTION: false})
 
 const app = createApp(App)
 
