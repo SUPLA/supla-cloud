@@ -86,6 +86,7 @@
   import {mapState} from "pinia";
   import {useFrontendConfigStore} from "@/stores/frontend-config-store";
   import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import {api} from "@/api/api.js";
 
   export default {
       components: {LoadingCover},
@@ -97,7 +98,7 @@
             };
         },
         mounted() {
-            this.$http.get('locations?include=accessids,password').then(response => {
+          api.get('locations?include=accessids,password').then(response => {
                 const enabledLocations = response.body.filter(location => location.enabled);
                 for (let location of enabledLocations) {
                     const accessIds = location.accessIds.filter(aid => aid.enabled);
@@ -122,8 +123,8 @@
 </script>
 
 <style lang="scss">
-    @import '../styles/mixins';
-    @import '../styles/variables';
+  @use '../styles/mixins' as *;
+  @use '../styles/variables' as *;
 
     .home-page {
         @include on-and-up(992px) {

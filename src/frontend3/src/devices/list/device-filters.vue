@@ -19,14 +19,14 @@
 </template>
 
 <script>
-    import BtnFilters from "../../common/btn-filters";
-    import latinize from "latinize";
-    import {DateTime} from "luxon";
-    import {mapState} from "pinia";
-    import {useLocationsStore} from "@/stores/locations-store";
-    import {escapeI18n} from "@/locale";
+  import BtnFilters from "../../common/btn-filters.vue";
+  import latinize from "latinize";
+  import {DateTime} from "luxon";
+  import {mapState} from "pinia";
+  import {useLocationsStore} from "@/stores/locations-store";
+  import {escapeI18n} from "@/locale";
 
-    export default {
+  export default {
         components: {BtnFilters},
         data() {
             return {

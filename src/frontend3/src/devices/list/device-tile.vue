@@ -32,13 +32,14 @@
 </template>
 
 <script>
-    import {mapState} from "pinia";
-    import {useLocationsStore} from "@/stores/locations-store";
-    import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
-    import {escapeI18n} from "@/locale";
+  import {mapState} from "pinia";
+  import {useLocationsStore} from "@/stores/locations-store";
+  import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
+  import {escapeI18n} from "@/locale";
+  import SquareLink from "@/common/tiles/square-link.vue";
 
-    export default {
-        components: {ConnectionStatusLabel},
+  export default {
+      components: {SquareLink, ConnectionStatusLabel},
         props: ['device', 'noLink'],
         computed: {
             ...mapState(useLocationsStore, {locations: 'all'}),
@@ -49,7 +50,7 @@
                 return this.device.comment || this.$t(escapeI18n(this.device.name));
             },
             linkSpec() {
-                return this.noLink ? {} : {name: 'device', params: {id: this.device.id}};
+              return this.noLink ? {} : {};//{name: 'device', params: {id: this.device.id}};
             },
             backgroundColor() {
                 if (this.device.relationsCount?.channelsWithConflict > 0) {

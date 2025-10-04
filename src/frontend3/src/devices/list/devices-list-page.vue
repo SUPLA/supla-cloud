@@ -34,14 +34,20 @@
 </template>
 
 <script>
-    import DeviceTile from "./device-tile.vue";
-    import EmptyListPlaceholder from "../../common/gui/empty-list-placeholder.vue";
-    import DeviceFilters from "./device-filters";
-    import {mapState, mapStores} from "pinia";
-    import {useDevicesStore} from "@/stores/devices-store";
+  import DeviceTile from "./device-tile.vue";
+  import EmptyListPlaceholder from "../../common/gui/empty-list-placeholder.vue";
+  import DeviceFilters from "./device-filters.vue";
+  import {mapState, mapStores} from "pinia";
+  import {useDevicesStore} from "@/stores/devices-store";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import SquareLinksGrid from "@/common/tiles/square-links-grid.vue";
+  import SquareLink from "@/common/tiles/square-link.vue";
 
-    export default {
+  export default {
         components: {
+          SquareLink,
+          SquareLinksGrid,
+          LoadingCover,
             DeviceFilters,
             DeviceTile,
             EmptyListPlaceholder,
@@ -110,7 +116,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../styles/variables";
+  @use "../../styles/variables" as *;
 
     .possible-device a {
         text-align: center;
