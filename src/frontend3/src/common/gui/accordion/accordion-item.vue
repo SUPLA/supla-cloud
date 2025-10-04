@@ -1,9 +1,9 @@
 <script setup>
-    import {computed, inject} from "vue";
-    import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import {computed, inject} from "vue";
+  import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
+  import TransitionExpand from "@/common/gui/transition-expand.vue";
 
-    const props = defineProps({
+  const props = defineProps({
         titleI18n: String,
         name: {
             type: String,

@@ -1,9 +1,9 @@
 <template>
     <div class="h-100">
         <div class="page-content">
-            <!--            <transition name="fade">-->
-            <!--                <navbar v-if="currentUser.username"></navbar>-->
-            <!--            </transition>-->
+          <transition name="fade">
+            <Navbar v-if="currentUser.username"/>
+          </transition>
             <!--            <div class="alert alert-warning maintenance-warning"-->
             <!--                v-if="frontendConfig.config.maintenanceMode && currentUser.username">-->
             <!--                <maintenance-warning></maintenance-warning>-->
@@ -25,6 +25,7 @@
   import PageFooter from "@/common/gui/page-footer.vue";
   import {onMounted} from "vue";
   import CookieWarning from "@/common/errors/cookie-warning.vue";
+  import Navbar from "@/home/navbar.vue";
 
   const frontendConfig = useFrontendConfigStore();
     const currentUser = useCurrentUserStore();
