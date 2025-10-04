@@ -1,31 +1,10 @@
 <template>
     <div>
-        <div v-if="item || permanentCarouselView">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h1 class="carousel-title">
-                            <router-link :to="{name: listRouteName}">
-                                <span v-if="dontSetPageTitle">{{ $t(headerI18n) }}</span>
-                                <span v-else>{{ $t(headerI18n) }}</span>
-                            </router-link>
-                        </h1>
-                        <loading-cover :loading="!items">
-                            <div v-if="items">
-                                <square-links-carousel-with-filters
-                                    :filters="filters"
-                                    :tile="tile"
-                                    :items="items"
-                                    :selected="item"
-                                    @select="itemChanged"
-                                    :new-item-tile="createNewLabelI18n"></square-links-carousel-with-filters>
-                            </div>
-                        </loading-cover>
-                    </div>
-                </div>
-            </div>
+        <div v-if="item">
+          <BreadcrumbList>
+              <router-link :to="{name: listRouteName}">{{ $t(headerI18n) }}</router-link>
+          </BreadcrumbList>
             <div v-if="item">
-                <hr>
                 <router-view v-if="items"
                     @add="onItemAdded($event)"
                     @delete="onItemDeleted()"
@@ -47,16 +26,17 @@
 </template>
 
 <script>
-    import SquareLinksCarouselWithFilters from "../tiles/square-links-carousel-with-filters";
-    import {warningNotification} from "../notifier";
-    import ListPage from "./list-page";
-    import {extendObject} from "@/common/utils";
+  import {warningNotification} from "../notifier";
+  import ListPage from "./list-page.vue";
+  import {extendObject} from "@/common/utils";
+  import {api} from "@/api/api.js";
+  import BreadcrumbList from "@/common/gui/breadcrumb/BreadcrumbList.vue";
 
-    export default {
+  export default {
         props: {
             headerI18n: String,
-            tile: String,
-            filters: String,
+            tile: Object,
+            filters: Object,
             endpoint: String,
             createNewLabelI18n: String,
             detailsRoute: String,
@@ -74,7 +54,7 @@
                 default: () => ({}),
             }
         },
-        components: {ListPage, SquareLinksCarouselWithFilters},
+        components: {BreadcrumbList, ListPage},
         data() {
             return {
                 item: undefined,
@@ -82,7 +62,7 @@
             };
         },
         mounted() {
-            this.$http.get(this.endpoint)
+            api.get(this.endpoint)
                 .then(({body}) => {
                     this.items = body;
                     if (this.$route.params[this.idParamName]) {

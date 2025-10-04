@@ -164,18 +164,18 @@
 </template>
 
 <script>
-    import PendingChangesPage from "../common/pages/pending-changes-page";
-    import PasswordDisplay from "../common/gui/password-display";
-    import Toggler from "../common/gui/toggler";
-    import LocationChooser from "../locations/location-chooser";
-    import ClientAppChooser from "../client-apps/client-app-chooser";
-    import PageContainer from "../common/pages/page-container";
-    import DateRangePicker from "@/activity/date-range-picker";
-    import WeekScheduleSelector from "@/activity/week-schedule-selector.vue";
-    import {mapValues, pickBy} from "lodash";
-    import TransitionExpand from "../common/gui/transition-expand";
+  import PendingChangesPage from "../common/pages/pending-changes-page";
+  import PasswordDisplay from "../common/gui/password-display";
+  import Toggler from "../common/gui/toggler";
+  import LocationChooser from "../locations/location-chooser";
+  import ClientAppChooser from "../client-apps/client-app-chooser";
+  import PageContainer from "../common/pages/page-container";
+  import DateRangePicker from "@/activity/date-range-picker";
+  import WeekScheduleSelector from "@/activity/week-schedule-selector.vue";
+  import {mapValues, pickBy} from "lodash";
+  import TransitionExpand from "../common/gui/transition-expand";
 
-    export default {
+  export default {
         components: {
             TransitionExpand,
             WeekScheduleSelector,

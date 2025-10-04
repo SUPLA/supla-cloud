@@ -15,13 +15,13 @@
                     </a>
                 </div>
             </div>
-            <component v-if="filters && items"
+            <Component v-if="filters && items"
                 :is="filters"
                 :items="items"
                 class="mt-3"
                 @filter-function="filterFunction = $event; filter()"
                 @compare-function="compareFunction = $event; filter()"
-                @filter="filter()"></component>
+                @filter="filter()"/>
         </div>
         <loading-cover :loading="!items">
             <div v-if="filteredItems">
@@ -40,11 +40,16 @@
 </template>
 
 <script>
-    import changeCase from "change-case";
-    import AppState from "../../router/app-state";
-    import {debounce} from "lodash";
+  import * as changeCase from "change-case";
+  import AppState from "../../router/app-state";
+  import {debounce} from "lodash";
+  import EmptyListPlaceholder from "@/common/gui/empty-list-placeholder.vue";
+  import SquareLinksGrid from "@/common/tiles/square-links-grid.vue";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import {api} from "@/api/api.js";
 
-    export default {
+  export default {
+      components: {LoadingCover, SquareLinksGrid, EmptyListPlaceholder},
         props: ['subject', 'headerI18n', 'subtitleI18n', 'tile', 'filters', 'endpoint', 'createNewLabelI18n', 'detailsRoute', 'limit'],
         data() {
             return {
@@ -57,9 +62,9 @@
         mounted() {
             let endpoint = this.endpoint;
             if (this.subject) {
-                endpoint = `${changeCase.paramCase(this.subject.ownSubjectType)}s/${this.subject.id}/${endpoint}`;
+                endpoint = `${changeCase.kebabCase(this.subject.ownSubjectType)}s/${this.subject.id}/${endpoint}`;
             }
-            this.$http.get(endpoint)
+            api.get(endpoint)
                 .then(response => this.items = response.body)
                 .then(() => this.filter());
         },

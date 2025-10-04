@@ -2,7 +2,7 @@
     <form @submit.prevent="$emit('save')">
         <div class="clearfix left-right-header mb-1">
             <h2 class="no-margin-top" v-if="header && dontSetPageTitle">{{ header }}</h2>
-            <h2 class="no-margin-top" v-else-if="header" v-title>{{ header }}</h2>
+            <h1 class="no-margin-top" v-else-if="header" v-title>{{ header }}</h1>
             <h2 class="no-margin-top" v-else>&nbsp;</h2>
             <div class="button-container no-margin-top " v-show="!frontendConfig.config.maintenanceMode">
                 <transition name="fade">
@@ -52,11 +52,11 @@
 </template>
 
 <script setup>
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
-    import {computed} from "vue";
-    import FormButton from "@/common/gui/FormButton.vue";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import {computed} from "vue";
+  import FormButton from "@/common/gui/FormButton.vue";
 
-    const props = defineProps({
+  const props = defineProps({
         header: String,
         loading: Boolean,
         deletable: Boolean,

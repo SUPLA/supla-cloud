@@ -25,7 +25,10 @@
 </template>
 
 <script>
-    export default {
+  import SquareLink from "@/common/tiles/square-link.vue";
+
+  export default {
+      components: {SquareLink},
         props: ['model', 'noLink'],
         computed: {
             caption() {

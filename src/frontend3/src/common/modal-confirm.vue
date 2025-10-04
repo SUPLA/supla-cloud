@@ -21,7 +21,11 @@
 </template>
 
 <script>
-    export default {
+  import Modal from "@/common/modal.vue";
+  import ButtonLoadingDots from "@/common/gui/loaders/button-loading-dots.vue";
+
+  export default {
+      components: {ButtonLoadingDots, Modal},
         props: {
             header: String,
             loading: {

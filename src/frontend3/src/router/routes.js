@@ -33,6 +33,11 @@ export default [
     props: true,
   },
   {
+    path: '/locations', component: () => import("@/locations/locations-page.vue"), name: 'locations', children: [
+      {path: ':id', component: () => import("@/locations/location-details.vue"), name: 'location', props: true}
+    ]
+  },
+  {
     path: "/:pathMatch(.*)*",
     component: () => import("@/common/errors/error-404.vue"),
     meta: {bodyClass: 'red', unrestricted: true}

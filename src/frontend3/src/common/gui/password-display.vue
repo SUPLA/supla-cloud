@@ -35,9 +35,11 @@
 </template>
 
 <script>
-    import {generatePassword} from "../utils";
+  import {generatePassword} from "../utils";
+  import Modal from "@/common/modal.vue";
 
-    export default {
+  export default {
+      components: {Modal},
         props: ['password', 'editable'],
         data() {
             return {

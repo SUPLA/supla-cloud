@@ -17,11 +17,11 @@
 </template>
 
 <script setup>
-    import {computed} from "vue";
-    import {useAccessIdsStore} from "@/stores/access-ids-store";
-    import {faGhost} from "@fortawesome/free-solid-svg-icons";
+  import {computed} from "vue";
+  import {useAccessIdsStore} from "@/stores/access-ids-store";
+  import {faGhost} from "@fortawesome/free-solid-svg-icons";
 
-    const props = defineProps({locationId: Number});
+  const props = defineProps({locationId: Number});
 
     const accessIdsStore = useAccessIdsStore();
     const accessIds = computed(() => accessIdsStore.list.filter((aid) => aid.locations.map((l) => l.id).includes(props.locationId)));

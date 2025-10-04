@@ -1,7 +1,7 @@
 <script setup>
-    import {computed} from "vue";
+  import {computed} from "vue";
 
-    const props = defineProps({
+  const props = defineProps({
         loading: Boolean,
         disabled: Boolean,
         disabledReason: String,
