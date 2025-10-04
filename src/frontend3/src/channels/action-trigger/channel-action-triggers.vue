@@ -26,14 +26,14 @@
 </template>
 
 <script>
-    import ActionTriggerPanel from "@/channels/action-trigger/action-trigger-panel";
-    import PendingChangesPage from "@/common/pages/pending-changes-page";
-    import ChannelFunction from "@/common/enums/channel-function";
-    import {mapStores} from "pinia";
-    import {useChannelsStore} from "@/stores/channels-store";
-    import {deepCopy} from "@/common/utils";
+  import ActionTriggerPanel from "@/channels/action-trigger/action-trigger-panel";
+  import PendingChangesPage from "@/common/pages/pending-changes-page";
+  import ChannelFunction from "@/common/enums/channel-function";
+  import {mapStores} from "pinia";
+  import {useChannelsStore} from "@/stores/channels-store";
+  import {deepCopy} from "@/common/utils";
 
-    export default {
+  export default {
         components: {PendingChangesPage, ActionTriggerPanel},
         props: {
             subject: Object,

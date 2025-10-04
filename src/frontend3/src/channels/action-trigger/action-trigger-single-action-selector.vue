@@ -31,16 +31,17 @@
 </template>
 
 <script>
-    import SubjectDropdown from "../../devices/subject-dropdown";
-    import ChannelActionChooser from "../action/channel-action-chooser";
-    import EventBus from "@/common/event-bus";
-    import ActionTriggerOtherActionsDropdown from "@/channels/action-trigger/action-trigger-other-actions-dropdown";
-    import ChannelFunctionAction from "@/common/enums/channel-function-action";
-    import ActionableSubjectType from "@/common/enums/actionable-subject-type";
-    import {subjectEndpointUrl} from "@/common/utils";
-    import ChannelFunction from "@/common/enums/channel-function";
+  import SubjectDropdown from "../../devices/subject-dropdown";
+  import ChannelActionChooser from "../action/channel-action-chooser";
+  import EventBus from "@/common/event-bus";
+  import ActionTriggerOtherActionsDropdown
+    from "@/channels/action-trigger/action-trigger-other-actions-dropdown";
+  import ChannelFunctionAction from "@/common/enums/channel-function-action";
+  import ActionableSubjectType from "@/common/enums/actionable-subject-type";
+  import {subjectEndpointUrl} from "@/common/utils";
+  import ChannelFunction from "@/common/enums/channel-function";
 
-    export default {
+  export default {
         components: {ActionTriggerOtherActionsDropdown, ChannelActionChooser, SubjectDropdown},
         props: ['value', 'trigger', 'channel'],
         data() {

@@ -35,15 +35,15 @@
 </template>
 
 <script>
-    import BtnFilters from "../common/btn-filters";
-    import latinize from "latinize";
-    import {DateTime} from "luxon";
-    import {mapState} from "pinia";
-    import {useLocationsStore} from "@/stores/locations-store";
-    import {useDevicesStore} from "@/stores/devices-store";
-    import {channelTitle} from "@/common/filters";
+  import BtnFilters from "../common/btn-filters.vue";
+  import latinize from "latinize";
+  import {DateTime} from "luxon";
+  import {mapState} from "pinia";
+  import {useLocationsStore} from "@/stores/locations-store";
+  import {useDevicesStore} from "@/stores/devices-store";
+  import {channelTitle} from "@/common/filters";
 
-    export default {
+  export default {
         props: {
             hasDevice: {
                 type: Boolean,

@@ -9,20 +9,20 @@
                 :style="{maxWidth: imageWidth + 'px', maxHeight: imageWidth + 'px'}">
         </template>
         <template v-else>
-            <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + '-hum.svg' | withBaseUrl"
+            <img :src="withBaseUrl('/assets/img/functions/' + functionId + alternativeSuffix + '-hum.svg')"
                 v-if="functionId === 45"
                 :width="imageWidth" :height="imageWidth">
-            <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + stateSuffix + '.svg' | withBaseUrl"
+            <img :src="withBaseUrl('/assets/img/functions/' + functionId + alternativeSuffix + stateSuffix + '.svg')"
                 :width="imageWidth" :height="imageWidth">
         </template>
     </span>
 </template>
 
 <script>
-    import {withDownloadAccessToken} from "../common/filters";
-    import ChannelFunction from "@/common/enums/channel-function";
+  import {withBaseUrl, withDownloadAccessToken} from "../common/filters";
+  import ChannelFunction from "@/common/enums/channel-function";
 
-    export default {
+  export default {
         props: ['model', 'width', 'alternative', 'userIcon', 'config', 'flexibleWidth'],
         computed: {
             functionId() {
@@ -107,6 +107,7 @@
             }
         },
         methods: {
+          withBaseUrl,
             userIconSrcForState(stateIndex) {
                 if (this.userIcon) {
                     return 'data:image/png;base64,' + this.userIcon.images[stateIndex];

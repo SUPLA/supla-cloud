@@ -21,13 +21,18 @@
 </template>
 
 <script>
-    import ChannelFilters from "./channel-filters";
-    import ChannelTile from "./channel-tile";
-    import {mapState} from "pinia";
-    import {useChannelsStore} from "@/stores/channels-store";
+  import ChannelFilters from "./channel-filters.vue";
+  import ChannelTile from "./channel-tile.vue";
+  import {mapState} from "pinia";
+  import {useChannelsStore} from "@/stores/channels-store";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import SquareLinksGrid from "@/common/tiles/square-links-grid.vue";
+  import EmptyListPlaceholder from "@/common/gui/empty-list-placeholder.vue";
 
-    export default {
-        components: {ChannelTile, ChannelFilters},
+  export default {
+        components: {
+          EmptyListPlaceholder,
+          SquareLinksGrid, LoadingCover, ChannelTile, ChannelFilters},
         data() {
             return {
                 filterFunction: () => true,

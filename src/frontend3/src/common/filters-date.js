@@ -1,4 +1,3 @@
-import Vue from "vue";
 import {DateTime} from "luxon";
 
 export function toLuxon(anything) {
@@ -36,7 +35,3 @@ export function formatDateForHtmlInput(datetime) {
         .startOf('minute')
         .toISO({includeOffset: false, suppressSeconds: true, suppressMilliseconds: true});
 }
-
-Vue.filter('formatDate', formatDate);
-Vue.filter('formatDateTime', formatDateTime);
-Vue.filter('formatDateTimeLong', formatDateTimeLong);

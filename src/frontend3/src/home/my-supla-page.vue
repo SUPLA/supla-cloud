@@ -18,7 +18,7 @@
         </div>
       <devices-list-page v-if="listType === 'devices'"/>
         <!--        <dashboard v-else-if="listType === 'dashboard'"/>-->
-      <!--        <channel-list-page v-else/>-->
+              <channel-list-page v-else/>
     </div>
 </template>
 
@@ -26,13 +26,13 @@
   import DevicesRegistrationButton from "../devices/list/devices-registration-button.vue";
   import DevicesListPage from "../devices/list/devices-list-page.vue";
   import BtnFilters from "../common/btn-filters.vue";
-  // import ChannelListPage from "../channels/channel-list-page";
+  import ChannelListPage from "../channels/channel-list-page.vue";
   import {mapState} from "pinia";
   import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
   export default {
     components: {
-      //     ChannelListPage,
+          ChannelListPage,
       BtnFilters,
       DevicesListPage,
       DevicesRegistrationButton

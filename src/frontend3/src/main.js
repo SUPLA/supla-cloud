@@ -6,6 +6,8 @@ import {detectGuiLocale, i18n, loadLanguage} from './locale';
 import {createApp} from 'vue'
 import {createPinia} from 'pinia'
 
+import VueTippy from "vue-tippy";
+
 import App from './App.vue'
 import router from './router'
 import {useFrontendConfigStore} from "@/stores/frontend-config-store.js";
@@ -17,6 +19,7 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(i18n)
+app.use(VueTippy, {directive: 'tooltip'});
 
 registerDirectives(app)
 registerFontAwesome(app)
