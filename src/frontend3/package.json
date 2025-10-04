@@ -22,8 +22,9 @@
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/vue-fontawesome": "^3.1.2",
+    "@vue/compat": "^3.5.22",
     "@vueuse/core": "^13.9.0",
-    "bootstrap": "^3.4.1",
+    "bootstrap-only-css": "^1.0.0",
     "change-case": "^5.4.4",
     "js-base64": "^3.7.8",
     "luxon": "^3.7.2",
@@ -31,7 +32,6 @@
     "pixeden-stroke-7-icon": "^1.2.3",
     "pnotify": "^5.2.0",
     "vue": "^3.5.22",
-    "@vue/compat": "^3.5.22",
     "vue-i18n": "^11.1.12",
     "vue-router": "^4.5.1"
   },

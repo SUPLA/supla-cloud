@@ -1,4 +1,4 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-only-css/dist/bootstrap.min.css";
 import "./styles/styles.scss";
 
 import {detectGuiLocale, i18n, loadLanguage} from './locale';
