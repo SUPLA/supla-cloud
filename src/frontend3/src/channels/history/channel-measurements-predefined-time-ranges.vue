@@ -1,21 +1,23 @@
 <template>
-    <div class="d-inline-block dropdown mx-2 my-2">
-        <button class="btn btn-default dropdown-toggle btn-wrapped" type="button" data-toggle="dropdown">
-            {{ $t('Predefined time ranges') }}
-            <span class="caret"></span>
-        </button>
+  <DropdownMenu class="d-inline-block mx-2 my-2">
+    <DropdownMenuTrigger class="btn btn-default btn-wrapped">
+        {{ $t('Predefined time ranges') }}
+    </DropdownMenuTrigger>
         <ul class="dropdown-menu dropdown-menu-right" v-if="newestLog">
             <li v-for="(range, $index) in availableRanges" :key="$index">
                 <a @click="setRange(range)">{{ $t(range.label) }}</a>
             </li>
         </ul>
-    </div>
+  </DropdownMenu>
 </template>
 
 <script>
   import {DateTime} from "luxon";
+  import DropdownMenu from "@/common/gui/dropdown/dropdown-menu.vue";
+  import DropdownMenuTrigger from "@/common/gui/dropdown/dropdown-menu-trigger.vue";
 
   export default {
+    components: {DropdownMenuTrigger, DropdownMenu},
         props: {
             storage: Object,
         },

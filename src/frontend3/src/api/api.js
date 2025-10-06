@@ -55,7 +55,7 @@ function responseHandler(request, config) {
                     }
                     return Promise.reject({body, status});
                 }
-                return {body, status};
+                return {body, status, headers: response.headers};
             });
         }
 

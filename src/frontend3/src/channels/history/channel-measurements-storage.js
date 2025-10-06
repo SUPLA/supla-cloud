@@ -4,6 +4,7 @@ import {
   CHART_TYPES,
   fillGaps
 } from "@/channels/history/channel-measurements-history-chart-strategies";
+import {api} from "@/api/api.js";
 
 export class IndexedDbMeasurementLogsStorage {
     constructor(channel, logsType) {
@@ -141,8 +142,8 @@ export class IndexedDbMeasurementLogsStorage {
         }
     }
 
-    async init(vue) {
-        return vue.$http.get(`channels/${this.channel.id}/measurement-logs?order=DESC&limit=1000&logsType=${this.getLogsType()}`)
+    async init() {
+        return api.get(`channels/${this.channel.id}/measurement-logs?order=DESC&limit=1000&logsType=${this.getLogsType()}`)
             .then(async ({body: logItems}) => {
                 if (logItems.length) {
                     logItems.reverse();
@@ -161,11 +162,11 @@ export class IndexedDbMeasurementLogsStorage {
             });
     }
 
-    async fetchOlderLogs(vue, progressCallback, somethingDownloaded = false) {
+    async fetchOlderLogs(progressCallback, somethingDownloaded = false) {
         const oldestLog = await this.getOldestLog();
         if (oldestLog) {
             const beforeTimestamp = +oldestLog.date_timestamp - 300;
-            return vue.$http.get(`channels/${this.channel.id}/measurement-logs?order=DESC&limit=2500&beforeTimestamp=${beforeTimestamp}&logsType=${this.getLogsType()}`)
+            return api.get(`channels/${this.channel.id}/measurement-logs?order=DESC&limit=2500&beforeTimestamp=${beforeTimestamp}&logsType=${this.getLogsType()}`)
                 .then(async ({body: logItems, headers}) => {
                     if (logItems.length) {
                         const totalCount = +headers.get('X-Total-Count');
@@ -173,7 +174,7 @@ export class IndexedDbMeasurementLogsStorage {
                         logItems.reverse();
                         await this.storeLogs(logItems);
                         progressCallback(savedCount * 100 / totalCount);
-                        return this.fetchOlderLogs(vue, progressCallback, true);
+                        return this.fetchOlderLogs(progressCallback, true);
                     } else {
                         this.isReady = true;
                     }
