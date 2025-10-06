@@ -2,18 +2,18 @@
     <div class="channel-params-action-trigger-selector">
         <div class="form-group">
             <subject-dropdown v-model="subject"
-                @input="onSubjectChange()"
+                @input="onSubjectChange($event)"
                 :filter="filterOutNotSupportedSubjects"
                 channels-dropdown-params="io=output&hasFunction=1">
                 <template #other="props">
                     <action-trigger-other-actions-dropdown
                         v-model="props.subject"
                         :filter="filterOtherActions"
-                        @input="props.onInput"></action-trigger-other-actions-dropdown>
+                        @input="props.onInput($event)"></action-trigger-other-actions-dropdown>
                 </template>
                 <div v-if="subject && subject.ownSubjectType !== 'other'" class="mt-3">
                     <channel-action-chooser :subject="subject"
-                        @input="onActionChange()"
+                        @input="(a) => onActionChange(a)"
                         :alwaysSelectFirstAction="true"
                         v-model="action"/>
                 </div>
@@ -57,11 +57,12 @@
             EventBus.$on('channel-updated', this.channelSavedListener);
             this.onValueChanged();
         },
-        beforeDestroy() {
+        beforeUnmount() {
             EventBus.$off('channel-updated', this.channelSavedListener);
         },
         methods: {
             onValueChanged() {
+              console.log('onValueChanged', this.value);
                 if (this.value?.subjectType) {
                     if (this.value.subjectType === ActionableSubjectType.OTHER) {
                         if (this.value?.action?.id) {
@@ -83,17 +84,20 @@
                     this.action = undefined;
                 }
             },
-            onSubjectChange() {
+            onSubjectChange(subject) {
+              this.subject = subject;
                 if (this.subject?.ownSubjectType === ActionableSubjectType.OTHER) {
                     this.action = {id: this.subject.id};
                 }
                 if (!this.subject) {
                     this.action = undefined;
                 }
-                this.onActionChange();
+                this.onActionChange(this.action);
             },
-            onActionChange() {
+            onActionChange(action) {
+              console.log('onActionChange', action);
                 if (this.subject) {
+                    this.action = action;
                     this.$emit('input', {
                         subjectId: this.subject.ownSubjectType === ActionableSubjectType.OTHER ? undefined : this.subject.id,
                         subjectType: this.subject.ownSubjectType,

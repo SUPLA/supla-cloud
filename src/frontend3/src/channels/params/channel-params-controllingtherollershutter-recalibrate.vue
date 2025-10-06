@@ -21,8 +21,10 @@
 <script>
   import {successNotification} from "@/common/notifier";
   import {api} from "@/api/api.js";
+  import ModalConfirm from "@/common/modal-confirm.vue";
 
   export default {
+    components: {ModalConfirm},
         props: ['channel'],
         data() {
             return {
