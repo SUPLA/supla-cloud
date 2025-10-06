@@ -1,60 +1,45 @@
 <template>
-    <VueNumber v-model="theValue"
+    <VueNumber
+        :model-value="theValue"
+        @update:model-value="theValue = $event"
+        :min="min"
         :max="max"
-        v-bind="{decimal: '.', separator: ' ', precision,  suffix}"
-        class="form-control text-center"
-        @change="onChange()"
-        @blur="onBlur()"/>
+        :suffix="suffix"
+        decimal="."
+        separator=" "
+        :precision="precision"
+        class="form-control text-center"/>
 </template>
 
 <script>
-  import {component as VueNumber} from '@coders-tm/vue-number-format'
-
   export default {
-        components: {VueNumber},
-        props: {
-            value: {
-                type: Number,
-                default: 0,
-            },
-            min: Number,
-            max: Number,
-            suffix: String,
-            precision: {
-                type: Number,
-                default: 0,
-            },
-        },
-        data() {
-            return {
-                theValue: 0,
-            };
-        },
-        beforeMount() {
-            this.theValue = this.value || 0;
-        },
-        methods: {
-            onChange() {
-                if (this.min === undefined || this.theValue >= this.min) {
-                    this.$emit('input', +this.theValue);
-                }
-            },
-            onBlur() {
-                if (this.theValue === "" && this.min !== undefined) {
-                    this.theValue = 0;
-                }
-                if (this.min !== undefined && this.theValue < this.min) {
-                    this.theValue = this.min;
-                }
-                this.onChange();
-            },
-        },
-        watch: {
-            value(newValue) {
-                if (newValue !== this.theValue) {
-                    this.theValue = newValue;
-                }
-            }
-        }
-    };
+    compatConfig: {
+      MODE: 3,
+    },
+  }
+</script>
+
+<script setup>
+  import {component as VueNumber} from '@coders-tm/vue-number-format'
+  import {computed} from "vue";
+
+  const props = defineProps({
+    min: {
+      type: Number,
+      default: 0,
+    },
+    max: Number,
+    suffix: String,
+    precision: {
+      type: Number,
+      default: 0,
+    },
+  });
+
+  const model = defineModel();
+
+  const theValue = computed({
+    get: () => model.value,
+    set: (value) => model.value = Math.max(props.min, +value),
+  })
 </script>

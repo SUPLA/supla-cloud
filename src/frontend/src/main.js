@@ -17,7 +17,7 @@ import App from "./App";
 import './hello';
 import './styles/fontawesome';
 import FloatingVue from 'floating-vue';
-import 'floating-vue/dist/style.css'
+
 import {createApp} from 'vue-demi'
 import {pinia} from "@/stores";
 import {useFrontendConfigStore} from "@/stores/frontend-config-store";

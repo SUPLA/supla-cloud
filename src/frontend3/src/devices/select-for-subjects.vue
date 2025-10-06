@@ -9,6 +9,7 @@
   import "tom-select/dist/css/tom-select.bootstrap4.min.css";
 
   export default {
+        compatConfig: {WATCH_ARRAY: false},
         props: {
             options: Array,
             optionGroups: {
@@ -158,7 +159,7 @@
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
+    @use "../styles/variables" as *;
 
     .subject-dropdown-option {
         padding: 5px 3px;

@@ -27,6 +27,7 @@
     "@vueuse/core": "^13.9.0",
     "bootstrap-only-css": "^1.0.0",
     "change-case": "^5.4.4",
+    "floating-vue": "^2.0.0",
     "js-base64": "^3.7.8",
     "latinize": "^2.0.0",
     "luxon": "^3.7.2",
@@ -36,6 +37,7 @@
     "tom-select": "^2.4.3",
     "vue": "^3.5.22",
     "vue-i18n": "^11.1.12",
+    "vue-mention": "^2.0.0-alpha.3",
     "vue-router": "^4.5.1",
     "vue-slider-component": "^4.1.0-beta.7",
     "vue-tippy": "^6.7.1"
