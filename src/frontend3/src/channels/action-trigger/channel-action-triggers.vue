@@ -32,6 +32,7 @@
   import {mapStores} from "pinia";
   import {useChannelsStore} from "@/stores/channels-store";
   import {deepCopy} from "@/common/utils";
+  import {api} from "@/api/api.js";
 
   export default {
         components: {PendingChangesPage, ActionTriggerPanel},
@@ -61,7 +62,7 @@
             saveChanges() {
                 this.loading = true;
                 const promises = this.actionTriggers
-                    .map((actionTrigger) => this.$http.put(`channels/${actionTrigger.id}?safe=1`, actionTrigger));
+                    .map((actionTrigger) => api.put(`channels/${actionTrigger.id}?safe=1`, actionTrigger));
                 Promise.all(promises)
                     .then(() => this.loadActionTriggers())
                     .finally(() => this.loading = false);

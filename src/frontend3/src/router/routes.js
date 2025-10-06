@@ -44,6 +44,36 @@ export default [
   },
   {path: '/smartphones', component: () => import("@/client-apps/client-apps-page.vue")},
   {
+    path: '/devices/:id',
+    component: () => import("@/devices/details/device-details-page.vue"),
+    name: 'device',
+    props: ({params}) => ({id: Number.parseInt(params.id)}),
+    children: [
+      {
+        path: 'channels',
+        component: () => import("@/devices/details/device-channel-list-page.vue"),
+        name: 'device.channels',
+        props: ({params}) => ({deviceId: Number.parseInt(params.id)}),
+      },
+      {
+        path: 'details',
+        component: () => import("@/devices/details/device-details-tab.vue"),
+        name: 'device.details',
+      },
+      {
+        path: 'notifications',
+        component: () => import("@/devices/details/device-managed-notifications.vue"),
+        name: 'device.notifications',
+        props: true
+      },
+      {
+        path: 'unlock',
+        component: () => import("@/devices/details/device-unlock.vue"),
+        name: 'device.unlock',
+      },
+    ]
+  },
+  {
     path: "/:pathMatch(.*)*",
     component: () => import("@/common/errors/error-404.vue"),
     meta: {bodyClass: 'red', unrestricted: true}

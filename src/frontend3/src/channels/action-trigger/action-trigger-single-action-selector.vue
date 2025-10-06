@@ -40,6 +40,7 @@
   import ActionableSubjectType from "@/common/enums/actionable-subject-type";
   import {subjectEndpointUrl} from "@/common/utils";
   import ChannelFunction from "@/common/enums/channel-function";
+  import {api} from "@/api/api.js";
 
   export default {
         components: {ActionTriggerOtherActionsDropdown, ChannelActionChooser, SubjectDropdown},
@@ -69,7 +70,7 @@
                             this.action = this.value.action;
                         }
                     } else if (!this.subject || this.value.subjectId !== this.subject.id) {
-                        this.$http.get(subjectEndpointUrl(this.value))
+                        api.get(subjectEndpointUrl(this.value))
                             .then(response => {
                                 this.subject = response.body;
                                 this.action = this.value?.action;

@@ -137,36 +137,7 @@ export default [
             },
         ],
     },
-    {
-        path: '/devices/:id',
-        component: () => import("@/devices/details/device-details-page"),
-        name: 'device',
-        props: ({params}) => ({id: Number.parseInt(params.id)}),
-        children: [
-            {
-                path: 'channels',
-                component: () => import("@/devices/details/device-channel-list-page.vue"),
-                name: 'device.channels',
-                props: ({params}) => ({deviceId: Number.parseInt(params.id)}),
-            },
-            {
-                path: 'details',
-                component: () => import("@/devices/details/device-details-tab.vue"),
-                name: 'device.details',
-            },
-            {
-                path: 'notifications',
-                component: () => import("@/devices/details/device-managed-notifications"),
-                name: 'device.notifications',
-                props: true
-            },
-            {
-                path: 'unlock',
-                component: () => import("@/devices/details/device-unlock.vue"),
-                name: 'device.unlock',
-            },
-        ]
-    },
+
     {
         path: '/direct-links', component: () => import("@/direct-links/direct-links-page"), name: 'directLinks', children: [
             {path: ':id', component: () => import("@/direct-links/direct-link-details"), name: 'directLink', props: true}

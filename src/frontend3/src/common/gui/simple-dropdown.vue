@@ -1,5 +1,7 @@
 <script setup>
   import {computed} from "vue";
+  import DropdownMenu from "@/common/gui/dropdown/dropdown-menu.vue";
+  import DropdownMenuTrigger from "@/common/gui/dropdown/dropdown-menu-trigger.vue";
 
   const props = defineProps({options: Array, value: [String, Number], disabled: Boolean});
     const emit = defineEmits(['input']);
@@ -8,19 +10,13 @@
         get: () => props.value,
         set: (value) => emit('input', value),
     });
-
 </script>
 
 <template>
-    <div class="dropdown">
-        <button :class="['btn btn-default dropdown-toggle btn-block btn-wrapped', {disabled}]"
-            type="button"
-            :disabled="disabled"
-            data-toggle="dropdown">
+    <DropdownMenu>
+        <DropdownMenuTrigger class="btn btn-default btn-block btn-wrapped" :disabled="disabled">
             <slot name="button" :value="modelValue">{{ modelValue }}</slot>
-            {{ ' ' }}
-            <span class="caret"></span>
-        </button>
+        </DropdownMenuTrigger>
         <ul class="dropdown-menu">
             <li v-for="option in options" :key="option">
                 <a @click="modelValue = option" v-show="modelValue !== option">
@@ -28,5 +24,5 @@
                 </a>
             </li>
         </ul>
-    </div>
+    </DropdownMenu>
 </template>

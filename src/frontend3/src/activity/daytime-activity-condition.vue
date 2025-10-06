@@ -49,6 +49,7 @@
   import {DateTime} from "luxon";
   import {formatDate} from "@/common/filters-date";
   import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import {api} from "@/api/api.js";
 
   export default {
         components: {
@@ -77,7 +78,7 @@
         },
         mounted() {
             this.times = deepCopy(this.value || [-60, 60]);
-            this.$http.get('users/current?include=sun').then(({body}) => {
+            api.get('users/current?include=sun').then(({body}) => {
                 if (body.closestSunrise && body.closestSunset) {
                     this.closestSunrise = DateTime.fromSeconds(body.closestSunrise);
                     this.closestSunset = DateTime.fromSeconds(body.closestSunset);

@@ -745,24 +745,3 @@ code {
 .text-normal {
   font-weight: normal;
 }
-
-.vue-slider.green {
-  .vue-slider-process {
-    background-color: $supla-green;
-  }
-  .vue-slider-dot-handle {
-    border-color: $supla-green;
-  }
-  &:hover {
-    .vue-slider-process {
-      background-color: color.adjust($supla-green, $lightness: -10%);
-    }
-    .vue-slider-dot-handle {
-      border-color: color.adjust($supla-green, $lightness: -10%);
-      &:hover {
-        border-color: $supla-green;
-      }
-    }
-  }
-}
-

@@ -5,6 +5,7 @@
             @click="toggle()"
             :disabled="saving">
             <table class="table">
+              <tbody>
                 <tr>
                     <td>
                         <button-loading-dots v-if="saving"></button-loading-dots>
@@ -21,8 +22,8 @@
                         </div>
                     </td>
                 </tr>
+              </tbody>
             </table>
-
         </button>
     </div>
 </template>

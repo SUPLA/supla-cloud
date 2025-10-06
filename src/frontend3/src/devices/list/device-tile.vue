@@ -50,7 +50,7 @@
                 return this.device.comment || this.$t(escapeI18n(this.device.name));
             },
             linkSpec() {
-              return this.noLink ? {} : {};//{name: 'device', params: {id: this.device.id}};
+              return this.noLink ? {} : {name: 'device', params: {id: this.device.id}};
             },
             backgroundColor() {
                 if (this.device.relationsCount?.channelsWithConflict > 0) {

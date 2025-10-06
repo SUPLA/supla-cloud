@@ -12,6 +12,7 @@
 
 <script>
   import SelectForSubjects from "@/devices/select-for-subjects.vue";
+  import {api} from "@/api/api.js";
 
   export default {
         props: {
@@ -28,7 +29,7 @@
         },
         methods: {
             fetchAids() {
-                this.$http.get('accessids').then(({body: aids}) => {
+                api.get('accessids').then(({body: aids}) => {
                     this.aids = aids;
                 });
             },
