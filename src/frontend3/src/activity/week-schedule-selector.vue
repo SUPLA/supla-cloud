@@ -93,10 +93,10 @@
 </template>
 
 <script>
-    import {cloneDeep} from "lodash";
-    import {DateTime, Info} from "luxon";
+  import {cloneDeep} from "lodash";
+  import {DateTime, Info} from "luxon";
 
-    export default {
+  export default {
         components: {},
         props: {
             value: Object,
@@ -130,7 +130,7 @@
             this.getCurrentWeekdayHours();
             this.currentTimeInterval = setInterval(() => this.getCurrentWeekdayHours(), 60000);
         },
-        beforeDestroy() {
+        beforeUnmount() {
             window.removeEventListener('mouseup', this.mouseUpCatcher);
             clearInterval(this.currentTimeInterval);
         },
@@ -228,8 +228,9 @@
 </script>
 
 <style lang="scss">
-    @import '../styles/variables';
-    @import '../styles/mixins';
+    @use '../styles/variables' as *;
+    @use '../styles/mixins' as *;
+    @use 'sass:color';
 
     table.week-schedule-selector {
         user-select: none;
@@ -271,7 +272,7 @@
             border: 1px solid $supla-white;
             @media (hover: hover) {
                 &:hover {
-                    background: darken($supla-grey-light, 10%);
+                    background: color.adjust($supla-grey-light, $lightness: -10%);
                 }
             }
             &:first-child {
@@ -305,7 +306,7 @@
         }
 
         th.current-hover {
-            background: lighten($supla-yellow, 20%);
+            background: color.adjust($supla-yellow, $lightness: 20%);
         }
         td.current-hover {
             opacity: 1;
@@ -345,7 +346,7 @@
             background: $supla-green;
             @media (hover: hover) {
                 &:hover {
-                    background: lighten($supla-green, 20%);
+                    background: color.adjust($supla-green, $lightness: 20%);
                 }
             }
         }

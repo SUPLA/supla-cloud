@@ -1,5 +1,6 @@
 <script setup>
   import {computed} from "vue";
+  import ButtonLoadingDots from "@/common/gui/loaders/button-loading-dots.vue";
 
   const props = defineProps({
         loading: Boolean,

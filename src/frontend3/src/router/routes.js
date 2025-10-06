@@ -38,6 +38,11 @@ export default [
     ]
   },
   {
+    path: '/access-identifiers', component: () => import("@/access-ids/access-ids-page.vue"), name: "accessIds", children: [
+      {path: ':id', component: () => import("@/access-ids/access-id-details.vue"), name: 'accessId', props: true}
+    ]
+  },
+  {
     path: "/:pathMatch(.*)*",
     component: () => import("@/common/errors/error-404.vue"),
     meta: {bodyClass: 'red', unrestricted: true}

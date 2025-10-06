@@ -34,13 +34,14 @@
 </script>
 
 <style lang="scss">
-    @import "../../styles/variables";
+    @use "../../styles/variables" as *;
+    @use 'sass:color';
 
     .vue-switcher-color--white {
         div {
             background-color: $supla-white;
             &:after {
-                background-color: darken($supla-white, 10%);
+                background-color: color.adjust($supla-white, $lightness: -10%);
             }
         }
     }

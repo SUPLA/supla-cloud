@@ -33,6 +33,7 @@
   import SquareLinksGrid from "@/common/tiles/square-links-grid.vue";
 
   export default {
+      compatConfig: {WATCH_ARRAY: false},
       components: {SquareLinksGrid, Modal, LoadingCover},
         props: ['selected', 'titleI18n', 'tile', 'filters', 'endpoint'],
         data() {
@@ -82,7 +83,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../styles/variables";
+    @use "../../styles/variables" as *;
 
     .square-modal-chooser {
         .modal-container {

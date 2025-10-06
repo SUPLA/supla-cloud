@@ -44,13 +44,13 @@
 </template>
 
 <script>
-    import 'vue-slider-component/theme/antd.css';
-    import {deepCopy} from "@/common/utils";
-    import {DateTime} from "luxon";
-    import {formatDate} from "@/common/filters-date";
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import 'vue-slider-component/theme/antd.css';
+  import {deepCopy} from "@/common/utils";
+  import {DateTime} from "luxon";
+  import {formatDate} from "@/common/filters-date";
+  import TransitionExpand from "@/common/gui/transition-expand.vue";
 
-    export default {
+  export default {
         components: {
             TransitionExpand,
             VueSlider: () => import('vue-slider-component'),
@@ -146,11 +146,12 @@
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
+    @use "../styles/variables" as *;
+    @use 'sass:color';
 
     $activeColor: $supla-green;
-    $activeColorHover: lighten($supla-green, 5%);
-    $inactiveColor: darken($supla-grey-light, 10%);
+    $activeColorHover: color.adjust($supla-green, $lightness: 5%);
+    $inactiveColor: color.adjust($supla-grey-light, $lightness: -10%);
 
     .vue-slider {
         .vue-slider-rail {
@@ -160,7 +161,6 @@
             background-color: $activeColor;
         }
         .vue-slider-dot-handle {
-            border-color: $activeColor;
             border-color: $activeColor;
         }
         .vue-slider-mark-step {

@@ -54,11 +54,6 @@ export default [
         props: true
     },
     {
-        path: '/access-identifiers', component: () => import("@/access-ids/access-ids-page"), name: "accessIds", children: [
-            {path: ':id', component: () => import("@/access-ids/access-id-details"), name: 'accessId', props: true}
-        ]
-    },
-    {
         path: '/account',
         component: () => import(/*webpackChunkName:"account-page"*/"@/account/account-page"),
         meta: {bodyClass: 'green'}

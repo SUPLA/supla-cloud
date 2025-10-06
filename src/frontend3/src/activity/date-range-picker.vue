@@ -26,10 +26,10 @@
 </template>
 
 <script>
-    import {DateTime} from "luxon";
-    import {formatDateForHtmlInput} from "../common/filters-date";
+  import {DateTime} from "luxon";
+  import {formatDateForHtmlInput} from "../common/filters-date";
 
-    export default {
+  export default {
         props: {
             value: Object,
             labelDateStart: {type: String},

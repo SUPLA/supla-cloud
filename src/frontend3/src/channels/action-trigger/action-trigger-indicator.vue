@@ -11,7 +11,7 @@
 
 <style lang="scss">
     @use "sass:math";
-    @import "../../styles/variables";
+    @use "../../styles/variables" as *;
 
     $size: 16px;
 

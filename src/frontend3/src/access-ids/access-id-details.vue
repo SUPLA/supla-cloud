@@ -3,7 +3,7 @@
         <loading-cover :loading="loading">
             <div v-if="accessId"
                 class="container">
-                <pending-changes-page :header="$t('Access Identifier') + ' ID' + accessId.id"
+                <pending-changes-page :header="accessId.caption || ($t('Access Identifier') + ' ID' + accessId.id)"
                     @cancel="cancelChanges()"
                     @save="saveAccessId()"
                     :deletable="true"
@@ -99,8 +99,9 @@
                                         v-go-to-link-on-row-click>
                                         <td>
                                             <router-link :to="{name: 'location', params: {id: location.id}}">{{ location.id }}</router-link>
+                                        </td>
                                         <td>
-                                            <password-display :password="location.password"></password-display>
+                                            <password-display :password="location.password" v-if="location.password"></password-display>
                                         </td>
                                         <td>{{ location.caption }}</td>
                                     </tr>
@@ -133,7 +134,7 @@
                                         :key="app.id">
                                         <td>{{ app.id }}</td>
                                         <td>{{ app.caption }}</td>
-                                        <td>{{ app.lastAccessDate | formatDateTime }}</td>
+                                        <td>{{ formatDateTime(app.lastAccessDate) }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -164,19 +165,25 @@
 </template>
 
 <script>
-  import PendingChangesPage from "../common/pages/pending-changes-page";
-  import PasswordDisplay from "../common/gui/password-display";
-  import Toggler from "../common/gui/toggler";
-  import LocationChooser from "../locations/location-chooser";
-  import ClientAppChooser from "../client-apps/client-app-chooser";
-  import PageContainer from "../common/pages/page-container";
-  import DateRangePicker from "@/activity/date-range-picker";
+  import PendingChangesPage from "../common/pages/pending-changes-page.vue";
+  import PasswordDisplay from "../common/gui/password-display.vue";
+  import Toggler from "../common/gui/toggler.vue";
+  import LocationChooser from "../locations/location-chooser.vue";
+  import ClientAppChooser from "../client-apps/client-app-chooser.vue";
+  import PageContainer from "../common/pages/page-container.vue";
+  import DateRangePicker from "@/activity/date-range-picker.vue";
   import WeekScheduleSelector from "@/activity/week-schedule-selector.vue";
   import {mapValues, pickBy} from "lodash";
-  import TransitionExpand from "../common/gui/transition-expand";
+  import TransitionExpand from "../common/gui/transition-expand.vue";
+  import {formatDateTime} from "@/common/filters-date.js";
+  import {api} from "@/api/api.js";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
 
   export default {
         components: {
+          LoadingCover,
+          ModalConfirm,
             TransitionExpand,
             WeekScheduleSelector,
             DateRangePicker,
@@ -204,18 +211,19 @@
             this.initForModel();
         },
         methods: {
+          formatDateTime,
             initForModel() {
                 this.hasPendingChanges = false;
                 this.loading = true;
                 if (this.id && this.id != 'new') {
                     this.error = false;
-                    this.$http.get(`accessids/${this.id}?include=locations,clientApps,password,activeNow`, {skipErrorHandler: [403, 404]})
+                    api.get(`accessids/${this.id}?include=locations,clientApps,password,activeNow`, {skipErrorHandler: [403, 404]})
                         .then(response => this.accessId = response.body)
                         .then(() => this.useWorkingSchedule = !!this.accessId.activeHours)
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
                 } else {
-                    this.$http.post('accessids', {}).then(response => this.$emit('add', response.body)).catch(() => this.$emit('delete'));
+                    api.post('accessids', {}).then(response => this.$emit('add', response.body)).catch(() => this.$emit('delete'));
                 }
             },
             saveAccessId() {
@@ -223,8 +231,16 @@
                     this.accessId.activeHours = {};
                 }
                 const toSend = {...this.accessId};
+                if (toSend.locations) {
+                  toSend.locationsIds = toSend.locations.map(loc => loc.id);
+                  delete toSend.locations;
+                }
+                if (toSend.clientApps) {
+                  toSend.clientAppsIds = toSend.clientApps.map(app => app.id);
+                  delete toSend.clientApps;
+                }
                 this.loading = true;
-                this.$http.put('accessids/' + this.accessId.id, toSend)
+                api.put('accessids/' + this.accessId.id, toSend)
                     .then((response) => {
                         this.$emit('update', response.body);
                         this.initForModel();
@@ -233,7 +249,7 @@
             },
             deleteAccessId() {
                 this.loading = true;
-                this.$http.delete('accessids/' + this.accessId.id)
+                api.delete_('accessids/' + this.accessId.id)
                     .then(() => this.$emit('delete'))
                     .then(() => this.accessId = undefined)
                     .catch(() => this.loading = false);

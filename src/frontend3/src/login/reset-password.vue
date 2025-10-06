@@ -73,9 +73,8 @@
     };
 </script>
 
-<style scoped
-    lang="scss">
-    @import "../styles/variables";
+<style scoped lang="scss">
+    @use "../styles/variables" as *;
 
     .recovery-form {
         input {
