@@ -3,12 +3,11 @@
         <div class="container">
             <div class="clearfix left-right-header reverse">
                 <div class="mb-3">
-                    <div class="dropdown d-inline-block" v-if="supportedChartModes.length > 1">
-                        <button class="btn btn-default dropdown-toggle btn-wrapped" type="button" data-toggle="dropdown">
+                  <DropdownMenu class="d-inline-block" v-if="supportedChartModes.length > 1">
+                    <DropdownMenuTrigger class="btn btn-default btn-wrapped">
                             {{ $t('Show data') }}:
                             {{ $t(chartModeLabels[chartMode] || '') }}
-                            <span class="caret"></span>
-                        </button>
+                    </DropdownMenuTrigger>
                         <ul class="dropdown-menu">
                             <li v-for="mode in supportedChartModes" :key="mode"
                                 :class="{active: mode === chartMode}">
@@ -17,7 +16,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                  </DropdownMenu>
                 </div>
                 <div class="mb-3">
                     <ChannelMeasurementsDownload :channel="channel" @delete="onMeasurementsDelete()" :storage="storage"
@@ -74,9 +73,13 @@
   import ChannelFunction from "@/common/enums/channel-function";
   import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
   import EmptyListPlaceholder from "@/common/gui/empty-list-placeholder.vue";
+  import DropdownMenu from "@/common/gui/dropdown/dropdown-menu.vue";
+  import DropdownMenuTrigger from "@/common/gui/dropdown/dropdown-menu-trigger.vue";
 
   export default {
         components: {
+          DropdownMenuTrigger,
+          DropdownMenu,
           EmptyListPlaceholder,
           LoadingCover,
           ChannelMeasurementsHistoryChart, TransitionExpand, ChannelMeasurementsDownload},

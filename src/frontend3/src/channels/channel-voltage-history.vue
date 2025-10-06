@@ -4,15 +4,12 @@
             <div class="container"
                 v-if="logs && logs.length > 0">
                 <div class="text-right mb-3">
-                    <a :href="`/api/channels/${channel.id}/measurement-logs-csv?logsType=voltage&` | withDownloadAccessToken"
+                    <a :href="withDownloadAccessToken(`/api/channels/${channel.id}/measurement-logs-csv?logsType=voltage&`) "
                         class="btn btn-default mx-1">{{ $t('Download the history of measurement') }}</a>
-                    <div class="d-inline-block dropdown">
-                        <button class="btn btn-danger dropdown-toggle btn-wrapped"
-                            type="button"
-                            data-toggle="dropdown">
+                    <DropdownMenu class="d-inline-block">
+                      <DropdownMenuTrigger class="btn btn-danger btn-wrapped">
                             {{ $t('Delete voltage aberrations history') }}
-                            <span class="caret"></span>
-                        </button>
+                      </DropdownMenuTrigger>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li v-for="phaseNo in enabledPhases"
                                 :key="phaseNo">
@@ -26,7 +23,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </DropdownMenu>
                 </div>
                 <div class="text-center">
                     <label class="checkbox2">
@@ -36,16 +33,8 @@
                         {{ $t('Hide days without aberrations') }}
                     </label>
                 </div>
-                <carousel
-                    :navigation-enabled="true"
-                    :pagination-enabled="false"
-                    navigation-next-label="&gt;"
-                    navigation-prev-label="&lt;"
-                    :scroll-per-page="false"
-                    :per-page-custom="[[1200, 10], [1024, 7], [600, 4], [1, 3]]"
-                    @pageChange="loadMoreIfNeeded($event)"
-                    ref="carousel">
-                    <slide v-for="date in statsToShow"
+                <div class="d-flex voltage-day-stats-container">
+                    <div v-for="date in statsToShow"
                         :key="date.dayFormatted">
                         <a v-if="date !== statsToShow[0] || !fetching"
                             :class="[
@@ -56,16 +45,16 @@
                             @click="selectDay(date)">
                             <p class="day">{{ date.day.toLocaleString({month: 'numeric', day: 'numeric'}) }}</p>
                             <p class="sec" v-if="date.secTotalAboveOrBelow" :title="$t('Number of aberrations')">
-                                <span class="glyphicon glyphicon-arrow-down below-threshold-indicator"></span> {{ date.countBelowTotal }}
-                                <span class="glyphicon glyphicon-arrow-up above-threshold-indicator"></span> {{ date.countAboveTotal }}
+                              <fa :icon="faArrowDown()" class="below-threshold-indicator"/> {{ date.countBelowTotal }}
+                              <fa :icon="faArrowUp()" class="above"/> {{ date.countAboveTotal }}
                             </p>
-                            <p class="sec" v-else><span class="glyphicon glyphicon-ok-sign text-success"></span></p>
+                            <p class="sec" v-else><fa :icon="faCheckCircle()" class="text-success"/></p>
                         </a>
                         <div v-else class="text-center pt-3">
                             <button-loading-dots/>
                         </div>
-                    </slide>
-                </carousel>
+                    </div>
+                </div>
                 <div class="day-parts mb-3">
                     <a :class="[
                             'voltage-day-stat',
@@ -77,10 +66,10 @@
                         :key="$index">
                         <p class="day">{{ v.label }}</p>
                         <p class="sec" v-if="v.secTotalAboveOrBelow" :title="$t('Number of aberrations')">
-                            <span class="glyphicon glyphicon-arrow-down below-threshold-indicator"></span> {{ v.countBelowTotal }}
-                            <span class="glyphicon glyphicon-arrow-up above-threshold-indicator"></span> {{ v.countAboveTotal }}
+                            <fa :icon="faArrowDown()" class="below-threshold-indicator"/> {{ v.countBelowTotal }}
+                          <fa :icon="faArrowUp()" class="above-threshold-indicator"/> {{ v.countAboveTotal }}
                         </p>
-                        <p class="sec" v-else><span class="glyphicon glyphicon-ok-sign text-success"></span></p>
+                        <p class="sec" v-else><fa :icon="faCheckCircle()" class="text-success"/></p>
                     </a>
                 </div>
                 <div class="voltage-logs-list-container">
@@ -91,8 +80,8 @@
                             class="voltage-log panel panel-default">
                             <div class="panel-body">
                                 <h4>
-                                    {{ (log.date_timestamp - log.measurementTimeSec) | formatDate('TIME_WITH_SECONDS') }} &mdash;
-                                    {{ log.date_timestamp | formatDate('TIME_WITH_SECONDS') }}
+                                    {{ formatDate(log.date_timestamp - log.measurementTimeSec, 'TIME_WITH_SECONDS') }} &mdash;
+                                    {{ formatDate(log.date_timestamp, 'TIME_WITH_SECONDS') }}
                                 </h4>
                                 <div class="row">
                                     <div class="col-md-4">
@@ -108,8 +97,7 @@
                                     </div>
                                     <div class="col-md-4 col-sm-6">
                                         <h4>
-                                            <span v-if="log.countBelow > 0"
-                                                class="glyphicon glyphicon-arrow-down below-threshold-indicator"></span>
+                                          <fa v-if="log.countBelow > 0" :icon="faArrowDown()" class="below-threshold-indicator"/>
                                             {{ $t('Below threshold') }}
                                         </h4>
                                         <dl class="dl-grid">
@@ -125,8 +113,7 @@
                                     </div>
                                     <div class="col-md-4 col-sm-6">
                                         <h4>
-                                            <span v-if="log.countAbove > 0"
-                                                class="glyphicon glyphicon-arrow-up above-threshold-indicator"></span>
+                                          <fa v-if="log.countAbove > 0" :icon="faArrowUp()" class="above-threshold-indicator"/>
                                             {{ $t('Above threshold') }}
                                         </h4>
                                         <dl class="dl-grid">
@@ -165,13 +152,25 @@
 </template>
 
 <script>
-    import {DateTime} from "luxon";
-    import {Carousel, Slide} from 'vue-carousel';
-    import {successNotification} from "@/common/notifier";
-    import {api} from "@/api/api.js";
+  import {DateTime} from "luxon";
+  import {successNotification} from "@/common/notifier";
+  import {api} from "@/api/api.js";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import {withDownloadAccessToken} from "@/common/filters.js";
+  import ButtonLoadingDots from "@/common/gui/loaders/button-loading-dots.vue";
+  import EmptyListPlaceholder from "@/common/gui/empty-list-placeholder.vue";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import {formatDate} from "@/common/filters-date.js";
+  import {faArrowDown, faArrowUp, faCheckCircle} from "@fortawesome/free-solid-svg-icons";
+  import DropdownMenu from "@/common/gui/dropdown/dropdown-menu.vue";
+  import DropdownMenuTrigger from "@/common/gui/dropdown/dropdown-menu-trigger.vue";
 
-    export default {
-        components: {Carousel, Slide},
+  export default {
+        components: {
+          DropdownMenuTrigger,
+          DropdownMenu,
+          ModalConfirm,
+          EmptyListPlaceholder, ButtonLoadingDots, LoadingCover},
         props: {
             channel: Object,
         },
@@ -196,6 +195,17 @@
             this.fetchLogs();
         },
         methods: {
+          faCheckCircle() {
+            return faCheckCircle
+          },
+          faArrowUp() {
+            return faArrowUp
+          },
+          faArrowDown() {
+            return faArrowDown
+          },
+          formatDate,
+          withDownloadAccessToken,
             fetchLogs() {
                 this.fetching = true;
                 return api.get(`channels/${this.channel.id}/measurement-logs?logsType=voltage&limit=1000&order=DESC&offset=${this.loadedLogsCount}&behforeTimestamp=${this.beforeTimestamp}`)
@@ -230,7 +240,7 @@
                                 const countBelowTotal = dayStats[day.toFormat('ddMM')]?.countBelowTotal || 0;
                                 const countAboveTotal = dayStats[day.toFormat('ddMM')]?.countAboveTotal || 0;
                                 const dayFormatted = day.toFormat('ddMM');
-                                this.stats.push({day, dayFormatted, secTotalAboveOrBelow, countBelowTotal, countAboveTotal});
+                                this.stats.unshift({day, dayFormatted, secTotalAboveOrBelow, countBelowTotal, countAboveTotal});
                                 this.maxSecTotal = Math.max(this.maxSecTotal, secTotalAboveOrBelow);
                             }
                             if (this.$route.query.day) {
@@ -249,10 +259,10 @@
             },
             loadMoreIfNeeded(page) {
                 if (page === 0 && !this.allLoaded && !this.fetching) {
-                    this.$refs.carousel.dragging = true;
+                    // this.$refs.carousel.dragging = true;
                     this.selectDay(this.stats[0]);
                     this.fetchLogs()
-                        .finally(() => setTimeout(() => this.$refs.carousel.dragging = false));
+                        // .finally(() => setTimeout(() => this.$refs.carousel.dragging = false));
                 }
             },
             selectDay(stat) {
@@ -281,14 +291,14 @@
                     });
                 }
                 this.selectDayPart();
-                const index = this.statsToShow.map(stat => stat.dayFormatted).indexOf(this.selectedDay);
-                if (index !== -1) {
-                    setTimeout(() => {
-                        let desiredPage = index - this.$refs.carousel.perPage + 2;
-                        desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount - 1, desiredPage));
-                        this.$refs.carousel.goToPage(desiredPage);
-                    });
-                }
+                // const index = this.statsToShow.map(stat => stat.dayFormatted).indexOf(this.selectedDay);
+                // if (index !== -1) {
+                //     setTimeout(() => {
+                //         let desiredPage = index - this.$refs.carousel.perPage + 2;
+                //         desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount - 1, desiredPage));
+                //         this.$refs.carousel.goToPage(desiredPage);
+                //     });
+                // }
             },
             selectDayPart(index = undefined) {
                 if (index === undefined) {
@@ -316,7 +326,7 @@
                 api.delete_(`channels/${this.channel.id}/measurement-logs?logsType=voltage&phase=${phaseToDelete}`)
                     .then(() => successNotification(this.$t('Success'), this.$t('The measurement history has been deleted.')))
                     .then(() => {
-                        this.logs = undefined;
+                        this.logs = [];
                         this.stats = [];
                         this.selectedDayViolations = [];
                         this.selectedDay = undefined;
@@ -354,7 +364,7 @@
 
 <style lang="scss">
     @use 'sass:list';
-    @import '../styles/variables';
+    @use '../styles/variables' as *;
 
     .dl-grid {
         width: 100%;
@@ -380,10 +390,18 @@
         min-height: 500px;
     }
 
+    .voltage-day-stats-container {
+      overflow-x: auto;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+    }
+
     .voltage-day-stat {
         border-radius: 5px;
         display: block;
         padding: 5px;
+        margin-right: 5px;
+        min-width: 100px;
         color: $supla-black;
         text-align: center;
         transition: background-color .2s linear, border-color .2s linear;
