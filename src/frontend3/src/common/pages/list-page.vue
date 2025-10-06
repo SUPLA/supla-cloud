@@ -50,7 +50,7 @@
 
   export default {
       components: {LoadingCover, SquareLinksGrid, EmptyListPlaceholder},
-        props: ['subject', 'headerI18n', 'subtitleI18n', 'tile', 'filters', 'endpoint', 'createNewLabelI18n', 'detailsRoute', 'limit'],
+        props: ['subject', 'headerI18n', 'subtitleI18n', 'tile', 'filters', 'endpoint', 'createNewLabelI18n', 'detailsRoute', 'limit', 'idParamName'],
         data() {
             return {
                 items: undefined,
@@ -79,7 +79,8 @@
                     if (this.subject) {
                         AppState.addTask(this.detailsRoute + 'Create', this.subject);
                     }
-                    this.$router.push({name: this.detailsRoute, params: {id: 'new'}});
+                    const idParamName = this.idParamName || 'id';
+                    this.$router.push({name: this.detailsRoute, params: {[idParamName]: 'new'}});
                 } else {
                     this.$emit('add');
                 }

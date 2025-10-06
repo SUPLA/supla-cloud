@@ -62,8 +62,8 @@
 </template>
 
 <script>
-  import TransitionExpand from "../../common/gui/transition-expand";
-  import ActionTriggerSingleActionSelector from "./action-trigger-single-action-selector";
+  import TransitionExpand from "../../common/gui/transition-expand.vue";
+  import ActionTriggerSingleActionSelector from "./action-trigger-single-action-selector.vue";
   import {forIn} from "lodash";
   import EventBus from "@/common/event-bus";
 
@@ -84,7 +84,7 @@
             this.channelSavedListener = () => this.collapseEmptyActions();
             EventBus.$on('channel-updated', this.channelSavedListener);
         },
-        beforeDestroy() {
+        beforeUnmount() {
             EventBus.$off('channel-updated', this.channelSavedListener);
         },
         methods: {

@@ -72,9 +72,9 @@ function get(endpoint, config = {}) {
 
 function post(endpoint, body, config = {}) {
     const requestOptions = {
-        method: 'POST',
-        headers: getDefaultHeadersJson(),
-        body: JSON.stringify(body),
+      method: 'POST',
+      headers: body instanceof FormData ? getDefaultHeaders() : getDefaultHeadersJson(),
+      body: body instanceof FormData ? body : JSON.stringify(body),
     };
     return fetch(buildAbsoluteUrl(endpoint), requestOptions).then(responseHandler(requestOptions, config));
 }

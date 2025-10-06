@@ -11,7 +11,7 @@
                             {{ $t(possibleCondition.caption(subject)) }}
                         </a>
                         <div>
-                            <span v-if="isSelected(possibleCondition)" class="glyphicon glyphicon-ok"></span>
+                            <fa v-if="isSelected(possibleCondition)" :icon="faCheck()"/>
                         </div>
                     </div>
                     <div v-if="isSelected(possibleCondition) && possibleCondition.component">
@@ -36,6 +36,7 @@
     findTriggerDefinition,
     getTriggerDefinitionsForChannel
   } from "@/channels/reactions/channel-function-triggers";
+  import {faCheck} from "@fortawesome/free-solid-svg-icons";
 
   export default {
         components: {TransitionExpand},
@@ -57,6 +58,9 @@
             }
         },
         methods: {
+          faCheck() {
+            return faCheck
+          },
             isSelected(condition) {
                 return condition && (condition.caption === this.currentCondition?.caption);
             },

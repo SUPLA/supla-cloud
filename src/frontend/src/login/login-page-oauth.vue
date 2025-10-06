@@ -84,7 +84,7 @@
 
 <script>
     import LoginForm from "./login-form";
-    import TransitionExpand from "../common/gui/transition-expand";
+    import TransitionExpand from "../common/gui/transition-expand.vue";
 
     export default {
         props: ['lastUsername', 'error', 'askForTargetCloud', 'lastTargetCloud', 'clientName'],

@@ -8,10 +8,11 @@
 </template>
 
 <script>
-  import ChannelActionExecutor from "./channel-action-executor";
+  import ChannelActionExecutor from "./channel-action-executor.vue";
+  import Modal from "@/common/modal.vue";
 
   export default {
-        components: {ChannelActionExecutor},
+        components: {Modal, ChannelActionExecutor},
         props: ['subject'],
     };
 </script>

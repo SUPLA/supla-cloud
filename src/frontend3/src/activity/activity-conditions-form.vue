@@ -64,7 +64,7 @@
         },
         methods: {
             onChanged() {
-                this.$emit('input', this.modelValue);
+                this.$nextTick(() => this.$emit('input', this.modelValue));
             },
             initFromItem() {
                 const item = deepCopy(this.value);

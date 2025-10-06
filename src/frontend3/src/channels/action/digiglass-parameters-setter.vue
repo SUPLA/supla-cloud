@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import FunctionIcon from "../function-icon";
+  import FunctionIcon from "../function-icon.vue";
 
   export default {
         components: {FunctionIcon},

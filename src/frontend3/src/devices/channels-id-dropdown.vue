@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import ChannelsDropdown from "./channels-dropdown";
+  import ChannelsDropdown from "./channels-dropdown.vue";
   import {api} from "@/api/api.js";
 
   export default {
@@ -37,8 +37,10 @@
                 }
             },
             channelChanged() {
-                this.$emit('input', this.channel?.id || 0);
-                this.emitChannel();
+                this.$nextTick(() => {
+                  this.$emit('input', this.channel?.id || 0);
+                  this.emitChannel();
+                });
             },
             emitChannel() {
                 this.$emit('channelChanged', this.channel);

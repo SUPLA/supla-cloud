@@ -1,10 +1,9 @@
 <template>
     <div class="channel-reactions-config container">
         <CarouselPage
-            permanent-carousel-view
             header-i18n="Reactions"
             dont-set-page-title
-            tile="reaction-tile"
+            :tile="ReactionTile"
             :endpoint="`channels/${subject.id}/reactions?include=subject,owningChannel`"
             create-new-label-i18n="Create new reaction"
             list-route="channel.reactions"
@@ -15,32 +14,22 @@
     </div>
 </template>
 
-<script>
-  import ReactionTile from "./reaction-tile";
-  import Vue from "vue";
+<script setup>
+  import ReactionTile from "./reaction-tile.vue";
   import CarouselPage from "@/common/pages/carousel-page.vue";
-  import {mapState} from "pinia";
+  import {storeToRefs} from "pinia";
   import {useCurrentUserStore} from "@/stores/current-user-store";
 
-  Vue.component('ReactionTile', ReactionTile);
+  const props = defineProps({subject: Object});
 
-    export default {
-        components: {CarouselPage},
-        props: {
-            subject: Object,
-        },
-        methods: {
-            newReactionFactory() {
-                return {
-                    owningChannel: this.subject,
-                    enabled: true,
-                };
-            },
-        },
-        computed: {
-            ...mapState(useCurrentUserStore, ['userData']),
-        },
+  function newReactionFactory() {
+    return {
+      owningChannel: props.subject,
+      enabled: true,
     };
+  }
+
+  const {userData} = storeToRefs(useCurrentUserStore());
 </script>
 
 <style lang="scss">

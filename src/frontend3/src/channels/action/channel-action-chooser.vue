@@ -28,13 +28,9 @@
                         </a>
                         <div>
                             <button-loading-dots v-if="executing.includes(possibleAction.id)"></button-loading-dots>
-                            <span v-else-if="isSelected(possibleAction.id)"
-                                class="glyphicon glyphicon-ok">
-                            </span>
-                            <span v-else-if="ChannelFunctionAction.requiresParams(possibleAction.id)"
-                                class="glyphicon glyphicon-cog channel-action-immediate-indicator"></span>
-                            <span v-else
-                                class="glyphicon glyphicon-play channel-action-immediate-indicator"></span>
+                            <fa v-else-if="isSelected(possibleAction.id)" :icon="faCheck()"/>
+                            <fa v-else-if="ChannelFunctionAction.requiresParams(possibleAction.id)" :icon="faCog()"/>
+                            <fa v-else :icon="faPlay()"/>
                         </div>
                     </div>
                     <transition-expand>
@@ -84,11 +80,8 @@
                                     </span>
                                     <span>
                                         <button-loading-dots v-if="executing.includes(possibleAction.id)"></button-loading-dots>
-                                        <span v-else-if="isSelected(possibleAction.id)"
-                                            class="glyphicon glyphicon-ok">
-                                        </span>
-                                        <span v-else
-                                            class="glyphicon glyphicon-play channel-action-immediate-indicator"></span>
+                                        <fa v-else-if="isSelected(possibleAction.id)" :icon="faCheck()"/>
+                                        <fa v-else :icon="faPlay()"/>
                                     </span>
                                 </button>
                             </div>
@@ -101,10 +94,10 @@
 </template>
 
 <script>
-  import TransitionExpand from "../../common/gui/transition-expand";
-  import RgbwParametersSetter from "./rgbw-parameters-setter";
-  import DigiglassParametersSetter from "./digiglass-parameters-setter";
-  import ChannelsIdDropdown from "../../devices/channels-id-dropdown";
+  import TransitionExpand from "../../common/gui/transition-expand.vue";
+  import RgbwParametersSetter from "./rgbw-parameters-setter.vue";
+  import DigiglassParametersSetter from "./digiglass-parameters-setter.vue";
+  import ChannelsIdDropdown from "../../devices/channels-id-dropdown.vue";
   import ChannelFunction from "../../common/enums/channel-function";
   import ChannelFunctionAction from "../../common/enums/channel-function-action";
   import NotificationForm from "@/notifications/notification-form.vue";
@@ -113,9 +106,12 @@
   import HvacSetpointsSetter from "@/channels/action/hvac-setpoints-setter.vue";
   import PartialPercentageParamSetter from "@/channels/action/partial-percentage-param-setter.vue";
   import {actionCaption} from "@/channels/channel-helpers";
+  import ButtonLoadingDots from "@/common/gui/loaders/button-loading-dots.vue";
+  import {faCheck, faCog, faPlay} from "@fortawesome/free-solid-svg-icons";
 
   export default {
         components: {
+          ButtonLoadingDots,
             PartialPercentageParamSetter,
             HvacSetpointsSetter,
             DurationParamSetter,
@@ -150,6 +146,15 @@
             this.selectFirstActionIfOnlyOne();
         },
         methods: {
+          faCog() {
+            return faCog
+          },
+          faPlay() {
+            return faPlay
+          },
+          faCheck() {
+            return faCheck
+          },
             actionCaption,
             changeAction(action) {
                 if (this.isDisabled) {
@@ -176,7 +181,7 @@
             },
             paramsChanged() {
                 if (!this.executorMode) {
-                    this.updateModel();
+                  this.$nextTick(() => this.updateModel());
                 }
             },
             updateAction() {

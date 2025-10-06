@@ -151,9 +151,9 @@
 </template>
 
 <script>
-  import ChannelsDropdown from "./channels-dropdown";
-  import ChannelGroupsDropdown from "../channel-groups/channel-groups-dropdown";
-  import ScenesDropdown from "../scenes/scenes-dropdown";
+  import ChannelsDropdown from "./channels-dropdown.vue";
+  import ChannelGroupsDropdown from "../channel-groups/channel-groups-dropdown.vue";
+  import ScenesDropdown from "../scenes/scenes-dropdown.vue";
   import SchedulesDropdown from "@/schedules/schedules-dropdown.vue";
   import ActionableSubjectType from "@/common/enums/actionable-subject-type";
   import ChannelFunctionAction from "@/common/enums/channel-function-action";
@@ -223,7 +223,7 @@
         },
         computed: {
             hasOthersSlot() {
-                return !!this.$slots['other'] || !!this.$scopedSlots['other'];
+                return !!this.$slots['other'];
             },
             notificationsEnabled() {
                 return !this.disableNotifications && this.frontendConfig.notificationsEnabled;

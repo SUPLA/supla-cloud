@@ -14,7 +14,7 @@
                 </div>
                 <a @click="swapTimes()">
                     {{ $t('swap') }}
-                    <fa icon="shuffle"/>
+                    <fa :icon="faRandom()"/>
                 </a>
             </div>
             <transition-expand>
@@ -25,7 +25,7 @@
         </div>
         <div class="mt-5 mb-5 px-2">
             <vue-slider v-model="times" :enable-cross="true" :min="-120" :max="120" :marks="marks" :order="false"
-                tooltip="none" @change="updateModel()">
+                tooltip="none" @change="updateModel($event)">
                 <template #label="{ label }">
                     <div class="vue-slider-mark-label">
                         <img v-if="label === 'sunset'" src="../assets/icons/sunset.svg" alt="sunset">
@@ -50,11 +50,13 @@
   import {formatDate} from "@/common/filters-date";
   import TransitionExpand from "@/common/gui/transition-expand.vue";
   import {api} from "@/api/api.js";
-
+  import VueSlider from "vue-slider-component";
+  import {faRandom} from "@fortawesome/free-solid-svg-icons";
+// TODO does not work
   export default {
         components: {
             TransitionExpand,
-            VueSlider: () => import('vue-slider-component'),
+            VueSlider,
         },
         props: {
             value: Array,
@@ -86,12 +88,17 @@
             });
         },
         methods: {
+            faRandom() {
+              return faRandom
+            },
             updateModel() {
-                this.changed = true;
-                if (this.times[0] === this.times[1]) {
+                this.$nextTick(() => {
+                  this.changed = true;
+                  if (this.times[0] === this.times[1]) {
                     this.times[0] -= 1;
-                }
-                this.$emit('input', this.times);
+                  }
+                  this.$emit('input', this.times);
+                });
             },
             swapTimes() {
                 this.times = [this.times[1], this.times[0]];

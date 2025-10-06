@@ -67,9 +67,13 @@
   import EventBus from "@/common/event-bus";
   import ActivityConditionsForm from "@/activity/activity-conditions-form.vue";
   import {api} from "@/api/api.js";
+  import Toggler from "@/common/gui/toggler.vue";
+  import ModalConfirm from "@/common/modal-confirm.vue";
 
   export default {
         components: {
+          ModalConfirm,
+          Toggler,
             ActivityConditionsForm,
             TransitionExpand, PendingChangesPage, ChannelActionChooser, SubjectDropdown, ChannelReactionConditionChooser
         },

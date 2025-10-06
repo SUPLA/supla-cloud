@@ -55,7 +55,7 @@
         }
     });
     const caption = computed(() => channelTitle(props.model));
-    const linkSpec = computed(() => props.noLink ? {} : {});//{name: 'channel', params: {id: props.model.id}});
+    const linkSpec = computed(() => props.noLink ? {} : {name: 'channel', params: {id: props.model.id}});
     const hasActionTrigger = computed(() => props.model?.relationsCount?.actionTriggers > 0);
     const backgroundColor = computed(() => {
         if (props.model.conflictDetails || props.model.functionId === 0) {

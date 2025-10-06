@@ -28,9 +28,10 @@
 <script>
   import SubjectDependencies from "./subject-dependencies.vue";
   import {channelTitle} from "@/common/filters";
+  import ModalConfirm from "@/common/modal-confirm.vue";
 
   export default {
-        components: {SubjectDependencies},
+        components: {ModalConfirm, SubjectDependencies},
         props: ['dependencies', 'headerI18n', 'descriptionI18n', 'deletingHeaderI18n', 'removingHeaderI18n', 'loading'],
         methods: {
             channelCaption(channel) {

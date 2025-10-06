@@ -20,6 +20,7 @@
                 :create-new-label-i18n="createNewLabelI18n"
                 :limit="limit"
                 :filters="filters"
+                :idParamName="idParamName"
                 :details-route="detailsRoute"></list-page>
         </div>
     </div>

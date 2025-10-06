@@ -35,8 +35,8 @@
 </template>
 
 <script>
-  import ChannelActionChooser from "./channel-action-chooser";
-  import TransitionExpand from "../../common/gui/transition-expand";
+  import ChannelActionChooser from "./channel-action-chooser.vue";
+  import TransitionExpand from "../../common/gui/transition-expand.vue";
   import ChannelFunctionAction from "../../common/enums/channel-function-action";
   import {removeByValue} from "../../common/utils";
   import ActionableSubjectType from "../../common/enums/actionable-subject-type";
@@ -44,9 +44,10 @@
   import {useChannelsStore} from "@/stores/channels-store";
   import ChannelFunction from "@/common/enums/channel-function";
   import {api} from "@/api/api.js";
+  import ModalConfirm from "@/common/modal-confirm.vue";
 
   export default {
-        components: {TransitionExpand, ChannelActionChooser},
+        components: {ModalConfirm, TransitionExpand, ChannelActionChooser},
         props: {
             subject: Object,
             disabled: {
