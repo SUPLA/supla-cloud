@@ -51,20 +51,6 @@ export function channelTransformer(request, next) {
     }
 }
 
-export function clientAppTransformer(request, next) {
-    if (request.url.startsWith('client-apps')) {
-        if (request.body && request.body.id) {
-            const toSend = {...request.body};
-            if (toSend.accessId) {
-                toSend.accessIdId = toSend.accessId.id;
-                delete toSend.accessId;
-            }
-            request.body = toSend;
-        }
-    }
-    next();
-}
-
 export function iodeviceTransformer(request, next) {
     if (request.url.startsWith('iodevices')) {
         if (request.body && request.body.id) {
