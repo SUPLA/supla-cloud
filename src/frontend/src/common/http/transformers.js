@@ -19,38 +19,6 @@ export function channelGroupTransformer(request, next) {
     next();
 }
 
-export function channelTransformer(request, next) {
-    if (request.url.startsWith('channels')) {
-        if (request.body && request.body.id) {
-            const toSend = {...request.body};
-            delete toSend.supportedFunctions;
-            if (toSend.function) {
-                toSend.functionId = toSend.function.id;
-                delete toSend.function;
-            }
-            if (toSend.type) {
-                toSend.typeId = toSend.type.id;
-                delete toSend.type;
-            }
-            if (toSend.location) {
-                toSend.locationId = toSend.location.id;
-                delete toSend.location;
-            }
-            if (toSend.iodevice) {
-                toSend.iodeviceId = toSend.iodevice.id;
-                delete toSend.iodevice;
-            }
-            request.body = toSend;
-        }
-    }
-    next();
-    return function (response) {
-        if (response.body?.config) {
-            response.body.configBefore = deepCopy(response.body.config);
-        }
-    }
-}
-
 export function iodeviceTransformer(request, next) {
     if (request.url.startsWith('iodevices')) {
         if (request.body && request.body.id) {

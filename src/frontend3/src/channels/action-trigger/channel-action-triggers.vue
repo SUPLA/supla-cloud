@@ -26,16 +26,17 @@
 </template>
 
 <script>
-  import ActionTriggerPanel from "@/channels/action-trigger/action-trigger-panel";
-  import PendingChangesPage from "@/common/pages/pending-changes-page";
+  import ActionTriggerPanel from "@/channels/action-trigger/action-trigger-panel.vue";
+  import PendingChangesPage from "@/common/pages/pending-changes-page.vue";
   import ChannelFunction from "@/common/enums/channel-function";
   import {mapStores} from "pinia";
   import {useChannelsStore} from "@/stores/channels-store";
   import {deepCopy} from "@/common/utils";
   import {api} from "@/api/api.js";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
 
   export default {
-        components: {PendingChangesPage, ActionTriggerPanel},
+        components: {LoadingCover, PendingChangesPage, ActionTriggerPanel},
         props: {
             subject: Object,
         },

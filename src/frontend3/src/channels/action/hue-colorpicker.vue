@@ -1,14 +1,14 @@
 <template>
     <input type="text"
         class="colorpicker"
-        ref="picker">
+        ref="picker"> TODO
 </template>
 
 <script>
-  import "spectrum-colorpicker";
-  import "spectrum-colorpicker/spectrum.css";
-  import $ from "jquery";
-
+  // import "spectrum-colorpicker";
+  // import "spectrum-colorpicker/spectrum.css";
+  // import $ from "jquery";
+// TODO
   export default {
         props: ['value'],
         mounted() {

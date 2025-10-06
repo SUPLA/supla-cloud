@@ -18,8 +18,10 @@
   import {reactionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
   import {channelTitle} from "@/common/filters";
   import {actionCaption} from "../channel-helpers";
+  import SquareLink from "@/common/tiles/square-link.vue";
 
   export default {
+    components: {SquareLink},
         methods: {actionCaption},
         props: ['model'],
         computed: {

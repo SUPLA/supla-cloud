@@ -11,7 +11,7 @@
                             <div class="pull-right">
                                 <a v-if="displayCloseButton"
                                     @click="$emit('cancel')">
-                                    <span class="glyphicon glyphicon-remove"></span>
+                                    <fa :icon="faTimes()"/>
                                 </a>
                             </div>
                             {{ header }}
@@ -42,7 +42,14 @@
 </template>
 
 <script>
+    import {faTimes} from "@fortawesome/free-solid-svg-icons";
+
     export default {
+      methods: {
+        faTimes() {
+          return faTimes
+        }
+      },
         props: {
             header: {type: String},
             cancellable: {type: Boolean, default: false},

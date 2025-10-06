@@ -34,6 +34,7 @@
     "pinia": "^3.0.3",
     "pixeden-stroke-7-icon": "^1.2.3",
     "pnotify": "^5.2.0",
+    "tiny-emitter": "^2.1.0",
     "tom-select": "^2.4.3",
     "vue": "^3.5.22",
     "vue-i18n": "^11.1.12",

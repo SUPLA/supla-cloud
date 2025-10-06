@@ -31,11 +31,11 @@
 </template>
 
 <script>
-  import SubjectDropdown from "../../devices/subject-dropdown";
-  import ChannelActionChooser from "../action/channel-action-chooser";
+  import SubjectDropdown from "../../devices/subject-dropdown.vue";
+  import ChannelActionChooser from "../action/channel-action-chooser.vue";
   import EventBus from "@/common/event-bus";
   import ActionTriggerOtherActionsDropdown
-    from "@/channels/action-trigger/action-trigger-other-actions-dropdown";
+    from "@/channels/action-trigger/action-trigger-other-actions-dropdown.vue";
   import ChannelFunctionAction from "@/common/enums/channel-function-action";
   import ActionableSubjectType from "@/common/enums/actionable-subject-type";
   import {subjectEndpointUrl} from "@/common/utils";

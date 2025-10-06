@@ -74,6 +74,77 @@ export default [
     ]
   },
   {
+    path: '/channels/:id',
+    component: () => import("@/channels/channel-details-page.vue"),
+    name: 'channel',
+    props: true,
+    children: [
+      {
+        path: 'reactions',
+        component: () => import("@/channels/reactions/channel-reactions-config.vue"),
+        name: 'channel.reactions',
+        children: [
+          {
+            path: ':reactionId',
+            component: () => import("@/channels/reactions/channel-reaction.vue"),
+            name: 'channel.reactions.details',
+            props: true
+          },
+        ],
+      },
+      {
+        path: 'direct-links',
+        component: () => import("@/direct-links/direct-links-list.vue"),
+        name: 'channel.directLinks',
+      },
+      {
+        path: 'schedules',
+        component: () => import("@/schedules/schedule-list/schedules-list.vue"),
+        name: 'channel.schedules',
+      },
+      {
+        path: 'channel-groups',
+        component: () => import("@/channel-groups/channel-groups-list.vue"),
+        name: 'channel.channelGroups',
+      },
+      {
+        path: 'scenes',
+        component: () => import("@/scenes/scenes-list.vue"),
+        name: 'channel.scenes',
+      },
+      {
+        path: 'notifications',
+        component: () => import("@/channels/reactions/channel-managed-notifications.vue"),
+        name: 'channel.notifications',
+      },
+      {
+        path: 'thermostat-programs',
+        component: () => import("@/channels/hvac/thermostat-programs-tab.vue"),
+        name: 'channel.thermostatPrograms',
+      },
+      {
+        path: 'ocr-settings',
+        component: () => import("@/channels/ocr/ocr-settings-tab.vue"),
+        name: 'channel.ocrSettings',
+      },
+      {
+        path: 'action-triggers',
+        component: () => import("@/channels/action-trigger/channel-action-triggers.vue"),
+        name: 'channel.actionTriggers',
+      },
+      {
+        path: 'measurements',
+        component: () => import("@/channels/history/channel-measurements-history.vue"),
+        name: 'channel.measurementsHistory',
+      },
+      {
+        path: 'voltage-aberrations',
+        component: () => import("@/channels/channel-voltage-history.vue"),
+        name: 'channel.voltageAberrations',
+      },
+    ],
+  },
+  {
     path: "/:pathMatch(.*)*",
     component: () => import("@/common/errors/error-404.vue"),
     meta: {bodyClass: 'red', unrestricted: true}
