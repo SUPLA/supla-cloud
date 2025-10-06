@@ -10,9 +10,9 @@
 </template>
 
 <script>
-    import {DateTime} from "luxon";
+  import {DateTime} from "luxon";
 
-    export default {
+  export default {
         props: {
             schedule: {
                 type: Object,

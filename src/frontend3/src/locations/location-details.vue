@@ -39,6 +39,7 @@
 
                         <div class="row">
                             <div class="col-sm-6">
+                              <div class="details-page-block">
                                 <h3>{{ $t('I/O Devices') }} ({{ location.ioDevices.length }})</h3>
                                 <table class="table table-hover"
                                     v-if="location.ioDevices.length">
@@ -63,8 +64,10 @@
                                 </table>
                                 <empty-list-placeholder v-else
                                     class="inline"></empty-list-placeholder>
+                              </div>
                             </div>
                             <div class="col-sm-6">
+                              <div class="details-page-block">
                                 <h3>{{ $t('Access Identifiers') }} ({{ location.accessIds.length }})</h3>
                                 <table class="table table-hover"
                                     v-if="location.relationsCount.accessIds > 0">
@@ -98,10 +101,12 @@
                                     :selected="location.accessIds"
                                     @cancel="assignAccessIds = false"
                                     @confirm="updateAccessIds($event)"></access-id-chooser>
+                              </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
+                              <div class="details-page-block">
                                 <h3>{{ $t('Channel groups') }} ({{ location.channelGroups.length }})</h3>
                                 <table class="table table-hover table-valign-middle"
                                     v-if="location.channelGroups.length">
@@ -131,8 +136,11 @@
                                 </table>
                                 <empty-list-placeholder v-else
                                     class="inline"></empty-list-placeholder>
+                              </div>
                             </div>
+                          <!--
                             <div class="col-sm-6">
+                              <div class="details-page-block">
                                 <h3>{{ $t('Channels') }} ({{ location.channels.length }})</h3>
                                 <table class="table table-hover table-valign-middle"
                                     v-if="location.channels.length">
@@ -151,7 +159,7 @@
                                             <function-icon :model="channel"></function-icon>
                                         </td>
                                         <td>
-<!--                                            <router-link :to="{name: 'channel', params: {id: channel.id}}">{{ channel.id }}</router-link>-->
+                                            <router-link :to="{name: 'channel', params: {id: channel.id}}">{{ channel.id }}</router-link>
                                         </td>
                                         <td>{{ channelTitle(channel) }}</td>
                                     </tr>
@@ -159,7 +167,9 @@
                                 </table>
                                 <empty-list-placeholder v-else
                                     class="inline"></empty-list-placeholder>
+                              </div>
                             </div>
+              -->
                         </div>
                     </pending-changes-page>
                 </div>

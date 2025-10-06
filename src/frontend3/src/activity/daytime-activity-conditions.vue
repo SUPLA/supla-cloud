@@ -25,10 +25,10 @@
 </template>
 
 <script>
-    import DaytimeActivityCondition from "@/activity/daytime-activity-condition.vue";
-    import {isEqual, startCase} from "lodash";
+  import DaytimeActivityCondition from "@/activity/daytime-activity-condition.vue";
+  import {isEqual, startCase} from "lodash";
 
-    export default {
+  export default {
         components: {DaytimeActivityCondition},
         props: {
             value: Array,

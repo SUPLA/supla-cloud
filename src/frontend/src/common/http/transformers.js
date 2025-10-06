@@ -51,24 +51,6 @@ export function channelTransformer(request, next) {
     }
 }
 
-export function accessIdTransformer(request, next) {
-    if (request.url.startsWith('accessids')) {
-        if (request.body && request.body.id) {
-            const toSend = {...request.body};
-            if (toSend.locations) {
-                toSend.locationsIds = toSend.locations.map(loc => loc.id);
-                delete toSend.locations;
-            }
-            if (toSend.clientApps) {
-                toSend.clientAppsIds = toSend.clientApps.map(app => app.id);
-                delete toSend.clientApps;
-            }
-            request.body = toSend;
-        }
-    }
-    next();
-}
-
 export function clientAppTransformer(request, next) {
     if (request.url.startsWith('client-apps')) {
         if (request.body && request.body.id) {

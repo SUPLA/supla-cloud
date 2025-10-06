@@ -71,14 +71,14 @@
 </template>
 
 <script>
-    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
-    import Switches from "vue-switches";
-    import {successNotification, warningNotification} from "../common/notifier";
-    import ClientAppTile from "./client-app-tile";
-    import AccessIdChooser from "../access-ids/access-id-chooser";
-    import {assign} from "lodash";
+  import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+  import Switches from "vue-switches";
+  import {successNotification, warningNotification} from "../common/notifier";
+  import ClientAppTile from "./client-app-tile";
+  import AccessIdChooser from "../access-ids/access-id-chooser";
+  import {assign} from "lodash";
 
-    export default {
+  export default {
         props: ['app'],
         components: {
             AccessIdChooser,

@@ -70,8 +70,6 @@
 
 
 <style lang="scss">
-    @import "../../styles/variables";
-
     .password-display {
         .uncover-link {
             display: inline-block;

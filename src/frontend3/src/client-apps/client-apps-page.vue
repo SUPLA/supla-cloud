@@ -30,18 +30,18 @@
 </template>
 
 <script setup>
-    import {useClientAppsStore} from "@/stores/client-apps-store";
-    import {storeToRefs} from "pinia";
-    import {useTimeoutPoll} from "@vueuse/core/index";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
-    import {computed, ref} from "vue";
-    import LoaderDots from "../common/gui/loaders/loader-dots.vue";
-    import DevicesRegistrationButton from "../devices/list/devices-registration-button.vue";
-    import EmptyListPlaceholder from "../common/gui/empty-list-placeholder.vue";
-    import ClientAppTileEditable from "./client-app-tile-editable";
-    import ClientAppFilters from "./client-app-filters";
+  import {useClientAppsStore} from "@/stores/client-apps-store";
+  import {storeToRefs} from "pinia";
+  import {useTimeoutPoll} from "@vueuse/core/index";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import {computed, ref} from "vue";
+  import LoaderDots from "../common/gui/loaders/loader-dots.vue";
+  import DevicesRegistrationButton from "../devices/list/devices-registration-button.vue";
+  import EmptyListPlaceholder from "../common/gui/empty-list-placeholder.vue";
+  import ClientAppTileEditable from "./client-app-tile-editable";
+  import ClientAppFilters from "./client-app-filters";
 
-    const {config: frontendConfig} = storeToRefs(useFrontendConfigStore());
+  const {config: frontendConfig} = storeToRefs(useFrontendConfigStore());
 
     const store = useClientAppsStore();
     const {list: clientApps} = storeToRefs(store);

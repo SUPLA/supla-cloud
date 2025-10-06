@@ -3,14 +3,14 @@
         @click="$emit('click')">
         <h3>{{ model.caption }}</h3>
         <dl>
-            <dd v-if="model.caption != model.name">{{ model.name }} /</dd>
+            <dd v-if="model.caption !== model.name">{{ model.name }} /</dd>
             <dd>{{ model.softwareVersion }} / {{ model.protocolVersion }}</dd>
             <dt></dt>
         </dl>
         <div class="separator invisible"></div>
         <dl>
             <dd>{{ $t('Last access') }}</dd>
-            <dt>{{ model.lastAccessDate | formatDateTime }}</dt>
+            <dt>{{ formatDateTime(model.lastAccessDate) }}</dt>
             <dd>{{ $t('from the IP') }}</dd>
             <dt>{{ model.lastAccessIpv4 }}</dt>
         </dl>
@@ -25,11 +25,10 @@
     </square-link>
 </template>
 
-<script>
-    import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
+<script setup>
+  import ClientAppConnectionStatusLabel from "./client-app-connection-status-label.vue";
+  import {formatDateTime} from "@/common/filters-date.js";
+  import SquareLink from "@/common/tiles/square-link.vue";
 
-    export default {
-        props: ['model'],
-        components: {ClientAppConnectionStatusLabel},
-    };
+  defineProps(['model']);
 </script>

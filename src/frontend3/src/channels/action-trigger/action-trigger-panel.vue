@@ -112,9 +112,8 @@
     };
 </script>
 
-<style scoped
-    lang="scss">
-    @import '../../styles/variables';
+<style scoped lang="scss">
+    @use '../../styles/variables' as *;
 
     .disable-local-operation-warning {
         background: $supla-yellow;
