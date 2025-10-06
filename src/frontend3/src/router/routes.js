@@ -42,6 +42,7 @@ export default [
       {path: ':id', component: () => import("@/access-ids/access-id-details.vue"), name: 'accessId', props: true}
     ]
   },
+  {path: '/smartphones', component: () => import("@/client-apps/client-apps-page.vue")},
   {
     path: "/:pathMatch(.*)*",
     component: () => import("@/common/errors/error-404.vue"),

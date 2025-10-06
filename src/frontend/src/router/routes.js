@@ -241,7 +241,6 @@ export default [
             },
         ]
     },
-    {path: '/smartphones', component: () => import("@/client-apps/client-apps-page")},
     {
         path: "/agree-on-rules",
         component: () => import("@/common/errors/error-agree-on-rules"),

@@ -3,7 +3,7 @@
         :header="$t(titleI18n)"
         :cancellable="true"
         @cancel="$emit('cancel')"
-        @confirm="$emit('confirm', selectedItems)">
+        @confirm="$emit('confirm', multiple ? selectedItems : selectedItems[0])">
         <loading-cover :loading="!items">
             <component v-if="filters && items"
               :is="filters"
@@ -43,12 +43,14 @@
                 filteredItems: undefined,
                 filterFunction: () => true,
                 compareFunction: () => -1,
+                multiple: false,
             };
         },
         mounted() {
           api.get(this.endpoint).then(response => this.items = response.body);
           if (this.selected) {
-            this.selectedIds = this.selected.map(item => item.id);
+            this.multiple = Array.isArray(this.selected);
+            this.selectedIds = this.multiple ? this.selected.map(item => item.id) : [this.selected.id];
           }
         },
         methods: {
@@ -63,6 +65,9 @@
                 this.selectedIds.splice(this.selectedIds.indexOf(item.id), 1);
               } else {
                 this.selectedIds.push(item.id);
+              }
+              if (!this.multiple) {
+                this.selectedIds = this.isSelected(item) ? [item.id] : [];
               }
           },
           isSelected(item) {

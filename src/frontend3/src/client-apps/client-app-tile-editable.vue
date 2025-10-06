@@ -25,12 +25,10 @@
                                 </a>
                             </div>
                         </div>
-                        <switches v-model="editingModel.enabled"
+                        <Toggler v-model="editingModel.enabled"
                             type-bold="true"
                             color="green"
-                            :emit-on-mount="false"
-                            :text-enabled="$t('Enabled')"
-                            :text-disabled="$t('Disabled')"></switches>
+                        :label="$t('Enabled')"/>
                         <div class="form-group text-right">
                             <button type="button"
                                 :disabled="saving"
@@ -72,17 +70,24 @@
 
 <script>
   import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
-  import Switches from "vue-switches";
   import {successNotification, warningNotification} from "../common/notifier";
-  import ClientAppTile from "./client-app-tile";
-  import AccessIdChooser from "../access-ids/access-id-chooser";
-  import {assign} from "lodash";
+  import ClientAppTile from "./client-app-tile.vue";
+  import AccessIdChooser from "../access-ids/access-id-chooser.vue";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import Toggler from "@/common/gui/toggler.vue";
+  import SquareLink from "@/common/tiles/square-link.vue";
+  import Flipper from "@/common/tiles/flipper.vue";
+  import {api} from "@/api/api.js";
 
   export default {
         props: ['app'],
         components: {
+          Flipper,
+          SquareLink,
+          Toggler,
+          ModalConfirm,
             AccessIdChooser,
-            ClientAppTile, Switches, ButtonLoadingDots
+            ClientAppTile, ButtonLoadingDots
         },
         data() {
             return {
@@ -101,8 +106,12 @@
             },
             save() {
                 this.saving = true;
-                this.$http.put(`client-apps/${this.app.id}`, this.editingModel)
-                    .then(({body}) => assign(this.app, body))
+                const toSend = {...this.editingModel};
+                if (toSend.accessId) {
+                  toSend.accessIdId = toSend.accessId.id;
+                  delete toSend.accessId;
+                }
+                api.put(`client-apps/${this.app.id}`, toSend)
                     .then(() => this.editingModel = null)
                     .then(() => successNotification(this.$t('Success'), this.$t('Data saved')))
                     .then(() => this.$emit('change'))
@@ -110,7 +119,7 @@
             },
             deleteClient() {
                 this.saving = true;
-                this.$http.delete(`client-apps/${this.app.id}`)
+                api.delete_(`client-apps/${this.app.id}`)
                     .then(() => this.editingModel = null)
                     .then(() => this.deleteConfirm = false)
                     .then(() => warningNotification(this.$t('Information'), this.$t('Client’s app has been deleted')))
