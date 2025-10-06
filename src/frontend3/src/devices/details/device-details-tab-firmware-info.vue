@@ -27,13 +27,13 @@
 </template>
 
 <script setup>
-    import {formatDateTime} from "@/common/filters-date";
-    import DateTimeRelativeLabel from "@/common/date-time-relative-label.vue";
-    import DeviceOtaUpdatesButtons from "@/devices/details/device-ota-updates-buttons.vue";
-    import ChannelExtendedStateDisplay from "@/channels/action/channel-extended-state-display.vue";
-    import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
+  import {formatDateTime} from "@/common/filters-date";
+  import DateTimeRelativeLabel from "@/common/date-time-relative-label.vue";
+  import DeviceOtaUpdatesButtons from "@/devices/details/device-ota-updates-buttons.vue";
+  import ChannelExtendedStateDisplay from "@/channels/action/channel-extended-state-display.vue";
+  import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
 
-    defineProps({device: Object});
+  defineProps({device: Object});
 </script>
 
 <style lang="scss">

@@ -18,10 +18,11 @@
 </template>
 
 <script>
-    import AccessIdsDropdown from "@/access-ids/access-ids-dropdown.vue";
-    import NotificationInputWithVariables from "@/notifications/notification-input-with-variables.vue";
+  import AccessIdsDropdown from "@/access-ids/access-ids-dropdown.vue";
+  import NotificationInputWithVariables
+    from "@/notifications/notification-input-with-variables.vue";
 
-    export default {
+  export default {
         components: {NotificationInputWithVariables, AccessIdsDropdown},
         props: {
             subject: Object,

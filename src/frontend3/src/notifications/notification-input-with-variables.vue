@@ -46,11 +46,12 @@
 </template>
 
 <script>
-    import {Mentionable} from 'vue-mention'
-    import ChannelFunction from "@/common/enums/channel-function";
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import {Mentionable} from 'vue-mention'
+  import ChannelFunction from "@/common/enums/channel-function";
+  import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import 'floating-vue/dist/style.css'
 
-    export default {
+  export default {
         components: {TransitionExpand, Mentionable},
         props: {
             labelI18n: String,
@@ -209,7 +210,7 @@
 </script>
 
 <style lang="scss">
-    @import '../styles/variables';
+    @use '../styles/variables' as *;
 
     .mention-item {
         padding: 4px 10px;
