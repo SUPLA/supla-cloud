@@ -2,12 +2,11 @@
     <div>
         <div class="text-center my-3">
             <ChannelMeasurementsPredefinedTimeRanges :storage="storage" @choose="setTimeRange($event)"/>
-            <div class="d-inline-block dropdown mx-2 my-2">
-                <button class="btn btn-default dropdown-toggle btn-wrapped" type="button" data-toggle="dropdown">
-                    {{ $t('Aggregation') }}:
-                    {{ $t(`logs_aggregation_${aggregationMethod}`) }}
-                    <span class="caret"></span>
-                </button>
+            <DropdownMenu class="d-inline-block mx-2 my-2">
+                <DropdownMenuTrigger class="btn btn-default btn-wrapped">
+                  {{ $t('Aggregation') }}:
+                  {{ $t(`logs_aggregation_${aggregationMethod}`) }}
+                </DropdownMenuTrigger>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <!-- i18n:['logs_aggregation_minute','logs_aggregation_hour','logs_aggregation_day','logs_aggregation_month'] -->
                     <li v-for="mode in ['minute', 'hour', 'day', 'month']"
@@ -18,7 +17,7 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </DropdownMenu>
         </div>
 
         <div class="history-date-range-picker d-flex my-3" v-if="oldestLog && newestLog">
@@ -64,28 +63,32 @@
     from "@/channels/history/channel-measurements-history-summary-table-electricity-meter.vue";
   import ChannelFunction from "@/common/enums/channel-function";
 
+  import * as en from "apexcharts/dist/locales/en.json";
+  import * as pl from "apexcharts/dist/locales/pl.json";
+  import * as cs from "apexcharts/dist/locales/cs.json";
+  import * as de from "apexcharts/dist/locales/de.json";
+  import * as es from "apexcharts/dist/locales/es.json";
+  import * as el from "apexcharts/dist/locales/el.json";
+  import * as fr from "apexcharts/dist/locales/fr.json";
+  import * as it from "apexcharts/dist/locales/it.json";
+  import * as lt from "apexcharts/dist/locales/lt.json";
+  import * as nl from "apexcharts/dist/locales/nl.json";
+  import * as nb from "apexcharts/dist/locales/nb.json";
+  import * as pt from "apexcharts/dist/locales/pt.json";
+  import * as ru from "apexcharts/dist/locales/ru.json";
+  import * as sk from "apexcharts/dist/locales/sk.json";
+  import * as sl from "apexcharts/dist/locales/sl.json";
+  import DropdownMenu from "@/common/gui/dropdown/dropdown-menu.vue";
+  import DropdownMenuTrigger from "@/common/gui/dropdown/dropdown-menu-trigger.vue";
+
   window.ApexCharts = ApexCharts;
 
-    const locales = [
-        require("apexcharts/dist/locales/en.json"),
-        require("apexcharts/dist/locales/pl.json"),
-        require("apexcharts/dist/locales/cs.json"),
-        require("apexcharts/dist/locales/de.json"),
-        require("apexcharts/dist/locales/es.json"),
-        require("apexcharts/dist/locales/el.json"),
-        require("apexcharts/dist/locales/fr.json"),
-        require("apexcharts/dist/locales/it.json"),
-        require("apexcharts/dist/locales/lt.json"),
-        require("apexcharts/dist/locales/nl.json"),
-        require("apexcharts/dist/locales/nb.json"),
-        require("apexcharts/dist/locales/pt.json"),
-        require("apexcharts/dist/locales/ru.json"),
-        require("apexcharts/dist/locales/sk.json"),
-        require("apexcharts/dist/locales/sl.json"),
-    ];
+    const locales = [en, pl, cs, de, es, el, fr, it, lt, nl, nb, pt, ru, sk, sl];
 
     export default {
         components: {
+          DropdownMenuTrigger,
+          DropdownMenu,
             ChannelMeasurementsHistorySummaryTableElectricityMeter,
             DateRangePicker, ChannelMeasurementsPredefinedTimeRanges
         },

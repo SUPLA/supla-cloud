@@ -34,9 +34,13 @@
   import {defineAsyncComponent} from "vue";
   import LoaderDots from "@/common/gui/loaders/loader-dots.vue";
   import {api} from "@/api/api.js";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import Modal from "@/common/modal.vue";
 
   export default {
         components: {
+          Modal,
+          ModalConfirm,
             ChannelMeasurementsDownloadForm: defineAsyncComponent({
                 loader: () => import(/*webpackChunkName:"measurement-download-form"*/"@/channels/history/channel-measurements-download-form.vue"),
                 loadingComponent: LoaderDots,

@@ -72,9 +72,14 @@
   import ChannelMeasurementsHistoryChart
     from "@/channels/history/channel-measurements-history-chart.vue";
   import ChannelFunction from "@/common/enums/channel-function";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import EmptyListPlaceholder from "@/common/gui/empty-list-placeholder.vue";
 
   export default {
-        components: {ChannelMeasurementsHistoryChart, TransitionExpand, ChannelMeasurementsDownload},
+        components: {
+          EmptyListPlaceholder,
+          LoadingCover,
+          ChannelMeasurementsHistoryChart, TransitionExpand, ChannelMeasurementsDownload},
         props: ['channel'],
         data: function () {
             return {
@@ -115,13 +120,13 @@
                 this.storage = new IndexedDbMeasurementLogsStorage(this.channel, this.chartMode);
                 await this.storage.connect();
                 this.hasStorageSupport = await this.storage.checkSupport();
-                this.hasLogs = (await this.storage.init(this)).length > 1;
+                this.hasLogs = (await this.storage.init()).length > 1;
                 if (this.hasLogs && this.hasStorageSupport) {
                     this.fetchAllLogs();
                 }
             },
             fetchAllLogs() {
-                this.storage.fetchOlderLogs(this, (progress) => this.fetchingLogsProgress = progress)
+                this.storage.fetchOlderLogs((progress) => this.fetchingLogsProgress = progress)
                     .then((downloaded) => this.fetchingLogsProgress = downloaded);
             },
             changeChartMode(newMode) {
@@ -135,7 +140,7 @@
             async rerender() {
                 this.hasLogs = undefined;
                 this.fetchingLogsProgress = false;
-                this.$nextTick(async () => this.hasLogs = (await this.storage.init(this)).length > 1);
+                this.$nextTick(async () => this.hasLogs = (await this.storage.init()).length > 1);
             }
         },
         computed: {
