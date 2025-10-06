@@ -100,9 +100,11 @@
   import TransitionExpand from "@/common/gui/transition-expand.vue";
   import ChannelParamsControllingthefacadeblindTimeMargin
     from "@/channels/params/channel-params-controllingthefacadeblind-time-margin.vue";
+  import Toggler from "@/common/gui/toggler.vue";
 
   export default {
         components: {
+          Toggler,
             ChannelParamsControllingthefacadeblindTimeMargin,
             TransitionExpand, ChannelParamsControllingtherollershutterRecalibrate, ChannelsIdDropdown
         },

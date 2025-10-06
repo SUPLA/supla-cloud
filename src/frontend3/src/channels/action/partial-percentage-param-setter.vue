@@ -49,11 +49,13 @@
         },
         methods: {
             onChange() {
+              this.$nextTick(() => {
                 const data = {percentage: this.percentage};
                 if (this.hasTilt) {
-                    data.tilt = this.tilt;
+                  data.tilt = this.tilt;
                 }
                 this.$emit('input', data);
+              });
             },
             isDelta(value) {
                 if (typeof value === 'string') {

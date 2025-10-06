@@ -16,14 +16,14 @@
                 this.value = 0;
                 this.$emit('input', this.value);
             }
-            $(this.$refs.picker).spectrum({
-                color: this.color,
-                showButtons: false,
-                containerClassName: 'hue-colorpicker'
-            }).change((e) => {
-                let hue = e.target.value.match(/^hsv\(([0-9]+)/)[1];
-                this.$emit('input', hue);
-            });
+            // $(this.$refs.picker).spectrum({
+            //     color: this.color,
+            //     showButtons: false,
+            //     containerClassName: 'hue-colorpicker'
+            // }).change((e) => {
+            //     let hue = e.target.value.match(/^hsv\(([0-9]+)/)[1];
+            //     this.$emit('input', hue);
+            // });
         },
         computed: {
             color() {
@@ -32,7 +32,7 @@
         },
         watch: {
             value() {
-                $(this.$refs.picker).spectrum('set', this.color);
+                // $(this.$refs.picker).spectrum('set', this.color);
             }
         }
     };

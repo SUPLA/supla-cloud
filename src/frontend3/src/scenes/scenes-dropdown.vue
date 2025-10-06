@@ -12,10 +12,11 @@
 </template>
 
 <script>
-    import {channelIconUrl} from "../common/filters";
-    import SelectForSubjects from "@/devices/select-for-subjects.vue";
+  import {channelIconUrl} from "../common/filters";
+  import SelectForSubjects from "@/devices/select-for-subjects.vue";
+  import {api} from "@/api/api.js";
 
-    export default {
+  export default {
         props: ['params', 'value', 'filter'],
         components: {SelectForSubjects},
         data() {
@@ -29,7 +30,7 @@
         methods: {
             fetchScenes() {
                 this.scenes = undefined;
-                this.$http.get('scenes' + (this.params || '')).then(({body: scenes}) => {
+                api.get('scenes' + (this.params || '')).then(({body: scenes}) => {
                     this.scenes = scenes.filter(this.filter || (() => true));
                 });
             },

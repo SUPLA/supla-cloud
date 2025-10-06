@@ -21,7 +21,7 @@
                             </div>
                             <ChannelsDropdown v-model="subject"
                                 :hide-none="true"
-                                @input="subjectChanged"
+                                @input="(channel) => subjectChanged(channel)"
                                 :filter="filter"
                                 :params="channelsDropdownParams"/>
                             <slot></slot>
@@ -47,7 +47,7 @@
                                     <fa icon="arrow-right" class="ml-2"/>
                                 </router-link>
                             </div>
-                            <ChannelGroupsDropdown @input="subjectChanged"
+                            <ChannelGroupsDropdown @input="subjectChanged($event)"
                                 :filter="filter"
                                 :params="channelsDropdownParams"
                                 v-model="subject"/>
@@ -76,7 +76,7 @@
                                 </router-link>
                             </div>
                             <ScenesDropdown
-                                @input="subjectChanged"
+                                @input="subjectChanged($event)"
                                 :filter="filter"
                                 v-model="subject"/>
                             <slot></slot>
@@ -103,7 +103,7 @@
                                 </router-link>
                             </div>
                             <SchedulesDropdown
-                                @input="subjectChanged"
+                                @input="subjectChanged($event)"
                                 :filter="filter"
                                 v-model="subject"/>
                             <slot></slot>
@@ -198,11 +198,11 @@
             },
             subjectChanged(subject) {
                 if (this.subject != subject) {
-                    this.subject = subject;
+                  this.subject = subject;
                 }
                 this.$emit('input', this.subject);
                 if (this.clearOnSelect && this.subject) {
-                    this.$nextTick(() => this.subject = this.subjectType = undefined);
+                  this.$nextTick(() => this.subject = this.subjectType = undefined);
                 }
             },
             updateBasedOnValue() {
