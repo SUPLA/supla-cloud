@@ -18,6 +18,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@coders-tm/vue-number-format": "^3.35.4",
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
@@ -32,9 +33,11 @@
     "pinia": "^3.0.3",
     "pixeden-stroke-7-icon": "^1.2.3",
     "pnotify": "^5.2.0",
+    "tom-select": "^2.4.3",
     "vue": "^3.5.22",
     "vue-i18n": "^11.1.12",
     "vue-router": "^4.5.1",
+    "vue-slider-component": "^4.1.0-beta.7",
     "vue-tippy": "^6.7.1"
   },
   "devDependencies": {

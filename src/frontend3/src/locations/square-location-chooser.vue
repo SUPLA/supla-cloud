@@ -20,11 +20,12 @@
 </template>
 
 <script>
-  import LocationTileContent from "./location-tile-content";
-  import LocationChooser from "./location-chooser";
+  import LocationTileContent from "./location-tile-content.vue";
+  import LocationChooser from "./location-chooser.vue";
+  import SquareLink from "@/common/tiles/square-link.vue";
 
   export default {
-        components: {LocationChooser, LocationTileContent},
+        components: {SquareLink, LocationChooser, LocationTileContent},
         props: ['value', 'squareLinkClass', 'disabled'],
         data() {
             return {

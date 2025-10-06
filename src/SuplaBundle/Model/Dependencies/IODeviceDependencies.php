@@ -41,11 +41,11 @@ class IODeviceDependencies extends ActionableSubjectDependencies {
 
     public function disableDependencies(IODevice $device): void {
         $dependencies = $this->getItemsThatDependOnEnabled($device);
-        foreach ($dependencies['reactions'] as $reaction) {
+        foreach (($dependencies['reactions'] ?? []) as $reaction) {
             $reaction->setEnabled(false);
             $this->entityManager->persist($reaction);
         }
-        foreach ($dependencies['schedules'] as $schedule) {
+        foreach (($dependencies['schedules'] ?? []) as $schedule) {
             if ($schedule->getEnabled()) {
                 $this->scheduleManager->disable($schedule);
             }

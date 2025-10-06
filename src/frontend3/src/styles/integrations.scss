@@ -1,9 +1,2 @@
-//@import 'vue-slider-component/theme/antd.css';
 @use 'pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css';
 @use 'tippy.js/dist/tippy.css';
-
-.vue-slider-mark-label.mark-on-top {
-  top: auto !important;
-  bottom: 100%;
-  margin-bottom: 10px;
-}
