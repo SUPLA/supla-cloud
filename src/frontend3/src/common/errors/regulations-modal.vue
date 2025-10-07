@@ -3,8 +3,7 @@
         @confirm="$emit('confirm')"
         class="text-left modal-800 display-newlines">
         <loading-cover :loading="!rules">
-            <div v-if="rules"
-                v-html="rules"></div>
+            <div v-if="rules" v-html="rules"></div>
         </loading-cover>
     </modal>
 </template>
@@ -28,7 +27,7 @@
             fetch() {
                 this.rules = '';
                 const rulesLang = this.$i18n.locale == 'pl' ? 'pl' : 'en';
-              api.get(`/rules/rules_${rulesLang}.html`).then(response => this.rules = response.body);
+              api.get(`/regulations/rules/rules_${rulesLang}.html`).then(response => this.rules = response.body);
             }
         },
         watch: {

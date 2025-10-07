@@ -8,10 +8,9 @@
 </template>
 
 <script>
-  import RegulationsModal from "../errors/regulations-modal";
+  import RegulationsModal from "../errors/regulations-modal.vue";
 
   export default {
-        props: ['value'],
         components: {RegulationsModal},
         data() {
             return {

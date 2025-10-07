@@ -198,6 +198,16 @@ export default [
     meta: {unrestricted: true, bodyClass: 'centered-form-page'},
   },
   {
+    path: '/terms',
+    component: () => import("@/common/pages/terms-page.vue"),
+    meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'green'},
+  },
+  {
+    path: '/privacy',
+    component: () => import("@/common/pages/privacy-page.vue"),
+    meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'green'},
+  },
+  {
     path: "/:pathMatch(.*)*",
     component: () => import("@/common/errors/error-page-status.vue"),
     meta: {bodyClass: 'red', unrestricted: true}

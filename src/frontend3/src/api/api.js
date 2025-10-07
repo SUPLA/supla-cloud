@@ -37,9 +37,11 @@ function responseHandler(request, config) {
             window.location.assign(window.location.toString());
         } else {
             return response.text().then(text => {
-                let body = text && JSON.parse(text);
-                if (!body) {
-                    body = text;
+                let body;
+                try {
+                  body = JSON.parse(text);
+                } catch (e) {  // eslint-disable-line no-unused-vars
+                  body = text;
                 }
                 const status = response.status;
                 if (!response.ok) {

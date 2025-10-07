@@ -11,8 +11,11 @@
 
 <script>
   import {api} from "@/api/api.js";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import Modal from "@/common/modal.vue";
 
   export default {
+    components: {Modal, LoadingCover},
         data() {
             return {
                 rules: '',
@@ -28,7 +31,7 @@
                 if (['pl', 'it', 'es', 'fr', 'ru', 'pt', 'de'].includes(this.$i18n.locale)) {
                     rulesLang = this.$i18n.locale;
                 }
-              api.get(`/privacy/privacy_${rulesLang}.html`).then(response => this.rules = response.body);
+              api.get(`/regulations/privacy/privacy_${rulesLang}.html`).then(response => this.rules = response.body);
             }
         },
         watch: {
