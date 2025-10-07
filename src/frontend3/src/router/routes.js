@@ -150,6 +150,14 @@ export default [
     ]
   },
   {
+    path: '/reactions', component: () => import("@/channels/reactions/channel-reactions-list.vue"), name: 'reactions',
+  },
+  {
+    path: '/direct-links', component: () => import("@/direct-links/direct-links-page.vue"), name: 'directLinks', children: [
+      {path: ':id', component: () => import("@/direct-links/direct-link-details.vue"), name: 'directLink', props: true}
+    ]
+  },
+  {
     path: "/:pathMatch(.*)*",
     component: () => import("@/common/errors/error-404.vue"),
     meta: {bodyClass: 'red', unrestricted: true}

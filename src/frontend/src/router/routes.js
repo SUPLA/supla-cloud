@@ -59,16 +59,7 @@ export default [
         meta: {bodyClass: 'green'}
     },
 
-    {
-        path: '/reactions', component: () => import("@/channels/reactions/channel-reactions-list.vue"), name: 'reactions',
-    },
 
-
-    {
-        path: '/direct-links', component: () => import("@/direct-links/direct-links-page"), name: 'directLinks', children: [
-            {path: ':id', component: () => import("@/direct-links/direct-link-details"), name: 'directLink', props: true}
-        ]
-    },
     {
         path: '/integrations', component: () => import("@/account/integrations/integrations-page"), children: [
             {
