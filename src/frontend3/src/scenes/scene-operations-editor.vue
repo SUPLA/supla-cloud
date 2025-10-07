@@ -1,21 +1,19 @@
 <template>
     <div>
-        <draggable v-model="operations"
-            handle=".timeline-badge"
-            direction="vertical"
-            animation="200"
-            class="scene-timeline"
-            @start="dragging = true"
-            @end="updateModel()">
+        <TransitionGroup name="list" tag="div" class="scene-timeline">
             <div :class="['timeline-item', {'timeline-item-delay': !operation.subject}]"
                 v-for="operation of operations"
                 :key="operation.id">
                 <template v-if="operation.subject && operation.subjectType !== 'notification'">
+                  <div class="timeline-info">
+                    <a @click="moveOperation(operation, -1)" :class="{invisible: !canMoveUp(operation)}"><fa :icon="faChevronUp()"/></a>
                     <div :class="['timeline-badge action', {'warning': !isOperationValid(operation)}]"
                         v-tooltip="!(operation.action && operation.action.id) ? $t('choose the action') : ''">
                         <function-icon :model="operation.subject"
                             width="38"></function-icon>
                     </div>
+                    <a @click="moveOperation(operation, 1)" :class="{invisible: !canMoveDown(operation)}"><fa :icon="faChevronDown()"/></a>
+                  </div>
                     <div :class="['timeline-panel', {'timeline-panel-danger': displayValidationErrors && !isOperationValid(operation)}]">
                         <div class="timeline-heading">
                             <h4 class="timeline-title">
@@ -23,7 +21,7 @@
                             </h4>
                             <div class="timeline-panel-controls">
                                 <div class="controls">
-                                    <a @click="deleteOperation(operation)"><i class="glyphicon glyphicon-trash"></i></a>
+                                    <a @click="deleteOperation(operation)"><fa :icon="faTrash()"/></a>
                                 </div>
                             </div>
                         </div>
@@ -46,15 +44,19 @@
                     </div>
                 </template>
                 <template v-else-if="operation.subject && operation.subjectType === 'notification'">
+                  <div class="timeline-info">
+                    <a @click="moveOperation(operation, -1)" :class="{invisible: !canMoveUp(operation)}"><fa :icon="faChevronUp()"/></a>
                     <div :class="['timeline-badge action', {'warning': !isOperationValid(operation)}]">
                         <i class="pe-7s-volume"></i>
                     </div>
+                    <a @click="moveOperation(operation, 1)" :class="{invisible: !canMoveDown(operation)}"><fa :icon="faChevronDown()"/></a>
+                  </div>
                     <div :class="['timeline-panel', {'timeline-panel-danger': displayValidationErrors && !isOperationValid(operation)}]">
                         <div class="timeline-heading">
                             <h4 class="timeline-title">{{ $t('Send a notification') }}</h4>
                             <div class="timeline-panel-controls">
                                 <div class="controls">
-                                    <a @click="deleteOperation(operation)"><i class="glyphicon glyphicon-trash"></i></a>
+                                    <a @click="deleteOperation(operation)"><fa :icon="faTrash()"/></a>
                                 </div>
                             </div>
                         </div>
@@ -66,18 +68,24 @@
                     </div>
                 </template>
                 <template v-else>
+                  <div class="timeline-info">
+                    <a @click="moveOperation(operation, -1)" :class="{invisible: !canMoveUp(operation)}"><fa :icon="faChevronUp()"/></a>
                     <div class="timeline-badge"><i class="pe-7s-stopwatch"></i></div>
+                    <a @click="moveOperation(operation, 1)" :class="{invisible: !canMoveDown(operation)}"><fa :icon="faChevronDown()"/></a>
+                  </div>
                     <div class="timeline-panel-container">
                         <scene-operation-delay-slider v-model="operation.delayMs"
                             @delete="deleteOperation(operation)"
-                            @input="updateModel()"></scene-operation-delay-slider>
+                            @update:modelValue="updateModel()"></scene-operation-delay-slider>
                     </div>
                 </template>
             </div>
-        </draggable>
+        </TransitionGroup>
         <div class="scene-timeline">
             <div class="timeline-item timeline-item-new">
+              <div class="timeline-info pt-3">
                 <div class="timeline-badge"><i class="pe-7s-plus"></i></div>
+              </div>
                 <div class="timeline-panel">
                     <div class="timeline-body">
                         <div class="form-group">
@@ -113,19 +121,19 @@
 </template>
 
 <script>
-    import SubjectDropdown from "../devices/subject-dropdown";
-    import FunctionIcon from "../channels/function-icon";
-    import {channelTitle, prettyMilliseconds} from "../common/filters";
-    import ChannelActionChooser from "../channels/action/channel-action-chooser";
-    import draggable from 'vuedraggable';
-    import SceneOperationDelaySlider from "./scene-operation-delay-slider";
-    import ChannelFunctionAction from "../common/enums/channel-function-action";
-    import ActionableSubjectType from "../common/enums/actionable-subject-type";
-    import NotificationForm from "@/notifications/notification-form";
-    import {mapState} from "pinia";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import SubjectDropdown from "../devices/subject-dropdown.vue";
+  import FunctionIcon from "../channels/function-icon.vue";
+  import {channelTitle, prettyMilliseconds} from "../common/filters";
+  import ChannelActionChooser from "../channels/action/channel-action-chooser.vue";
+  import SceneOperationDelaySlider from "./scene-operation-delay-slider.vue";
+  import ChannelFunctionAction from "../common/enums/channel-function-action";
+  import ActionableSubjectType from "../common/enums/actionable-subject-type";
+  import NotificationForm from "@/notifications/notification-form.vue";
+  import {mapState} from "pinia";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import {faChevronDown, faChevronUp, faTrash} from "@fortawesome/free-solid-svg-icons";
 
-    let UNIQUE_OPERATION_ID = 0;
+  let UNIQUE_OPERATION_ID = 0;
 
     export default {
         props: {
@@ -134,11 +142,10 @@
         },
         components: {
             SceneOperationDelaySlider, NotificationForm,
-            ChannelActionChooser, FunctionIcon, SubjectDropdown, draggable
+            ChannelActionChooser, FunctionIcon, SubjectDropdown
         },
         data() {
             return {
-                dragging: false,
                 lastValue: undefined,
                 operations: [],
             };
@@ -147,6 +154,15 @@
             this.buildOperations();
         },
         methods: {
+          faTrash() {
+            return faTrash
+          },
+          faChevronDown() {
+            return faChevronDown
+          },
+          faChevronUp() {
+            return faChevronUp
+          },
             buildOperations() {
                 if (this.value != this.lastValue) {
                     this.operations = [];
@@ -183,8 +199,21 @@
             possibleActionFilter() {
                 return () => true;
             },
+            canMoveUp(operation) {
+              const index = this.operations.indexOf(operation);
+              return index > 0;
+            },
+            canMoveDown(operation) {
+              const index = this.operations.indexOf(operation);
+              return index < this.operations.length - 1;
+            },
+            moveOperation(operation, change) {
+              const index = this.operations.indexOf(operation);
+              this.operations.splice(index, 1);
+              this.operations.splice(index + change, 0, operation);
+              this.updateModel();
+            },
             updateModel() {
-                this.dragging = false;
                 const operations = [];
                 let delay = 0;
                 for (const op of this.operations) {
@@ -246,7 +275,7 @@
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
+    @use "../styles/variables" as *;
 
     .scene-timeline {
         list-style: none;
@@ -324,6 +353,22 @@
                 }
             }
 
+            .timeline-info {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              position: absolute;
+              left: 25px;
+              top: 0;
+              z-index: 100;
+              > a {
+                color: $supla-grey-dark;
+                &:hover {
+                  color: $supla-green;
+                }
+              }
+            }
+
             .timeline-badge {
                 background-color: #999;
                 border-radius: 50%;
@@ -331,13 +376,7 @@
                 font-size: 1.8em;
                 height: 50px;
                 width: 50px;
-                left: 25px;
-                position: absolute;
                 text-align: center;
-                top: 16px;
-                z-index: 100;
-                cursor: move;
-                cursor: -webkit-grabbing;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -372,7 +411,7 @@
 
             }
 
-            .timeline-badge + .timeline-panel {
+            .timeline-info + .timeline-panel {
                 &:before {
                     border-bottom: 15px solid transparent;
                     border-left: 0;
@@ -440,5 +479,32 @@
         .timeline-panel {
             opacity: .5;
         }
+    }
+
+    .list-enter-active,
+    .list-leave-active {
+      transition: all 0.5s ease;
+    }
+    .list-enter-from,
+    .list-leave-to {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    .list-move, /* apply transition to moving elements */
+    .list-enter-active,
+    .list-leave-active {
+      transition: all 0.5s ease;
+    }
+
+    .list-enter-from,
+    .list-leave-to {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+
+    /* ensure leaving items are taken out of layout flow so that moving
+       animations can be calculated correctly. */
+    .list-leave-active {
+      position: absolute;
     }
 </style>

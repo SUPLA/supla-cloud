@@ -107,25 +107,31 @@
 </template>
 
 <script>
-    import Toggler from "../common/gui/toggler";
-    import PendingChangesPage from "../common/pages/pending-changes-page";
-    import PageContainer from "../common/pages/page-container";
-    import SceneOperationsEditor from "./scene-operations-editor";
-    import SquareLocationChooser from "../locations/square-location-chooser";
-    import FunctionIcon from "../channels/function-icon";
-    import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser";
-    import SceneDetailsTabs from "./scene-details-tabs";
-    import AppState from "../router/app-state";
-    import ChannelActionExecutor from "../channels/action/channel-action-executor";
-    import DependenciesWarningModal from "../channels/dependencies/dependencies-warning-modal";
-    import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings.vue";
-    import {warningNotification} from "@/common/notifier";
-    import {deepCopy} from "@/common/utils";
-    import ActivityConditionsForm from "@/activity/activity-conditions-form.vue";
+  import Toggler from "../common/gui/toggler.vue";
+  import PendingChangesPage from "../common/pages/pending-changes-page.vue";
+  import PageContainer from "../common/pages/page-container.vue";
+  import SceneOperationsEditor from "./scene-operations-editor.vue";
+  import SquareLocationChooser from "../locations/square-location-chooser.vue";
+  import FunctionIcon from "../channels/function-icon.vue";
+  import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser.vue";
+  import SceneDetailsTabs from "./scene-details-tabs.vue";
+  import AppState from "../router/app-state";
+  import ChannelActionExecutor from "../channels/action/channel-action-executor.vue";
+  import DependenciesWarningModal from "../channels/dependencies/dependencies-warning-modal.vue";
+  import ChannelParamsIntegrationsSettings
+    from "@/channels/params/channel-params-integrations-settings.vue";
+  import {warningNotification} from "@/common/notifier";
+  import {deepCopy} from "@/common/utils";
+  import ActivityConditionsForm from "@/activity/activity-conditions-form.vue";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import {api} from "@/api/api.js";
 
-    export default {
+  export default {
         props: ['id', 'item'],
         components: {
+          ModalConfirm,
+          LoadingCover,
             ActivityConditionsForm,
             ChannelParamsIntegrationsSettings,
             DependenciesWarningModal,
@@ -161,7 +167,7 @@
                 if (this.id && this.id != 'new') {
                     this.loading = true;
                     this.error = false;
-                    this.$http.get(`scenes/${this.id}?include=operations,subject,location`, {skipErrorHandler: [403, 404]})
+                    api.get(`scenes/${this.id}?include=operations,subject,location`, {skipErrorHandler: [403, 404]})
                         .then(response => {
                             this.scene = response.body;
                             this.activityConditions = {
@@ -185,7 +191,7 @@
                 this.hasPendingChanges = true;
             },
             changeLocation(location) {
-                this.$set(this.scene, 'location', location);
+                this.scene.location = location;
                 this.sceneChanged();
             },
             saveScene() {
@@ -195,13 +201,32 @@
                     return;
                 }
                 const toSend = {...deepCopy(this.scene), ...this.activityConditions};
+                if (toSend.location) {
+                  toSend.locationId = toSend.location.id;
+                  delete toSend.location;
+                }
+                if (toSend.operations) {
+                  toSend.operations.forEach(operation => {
+                    if (operation.id) {
+                      delete operation.id;
+                    }
+                    if (operation.subject) {
+                      operation.subjectId = operation.subject.id;
+                      delete operation.subject;
+                    }
+                    if (operation.action) {
+                      operation.actionId = operation.action.id;
+                      delete operation.action;
+                    }
+                  });
+                }
                 this.loading = true;
                 if (this.isNew) {
-                    this.$http.post('scenes', toSend)
+                  api.post('scenes', toSend)
                         .then(response => this.$emit('add', response.body))
                         .finally(() => this.loading = false);
                 } else {
-                    this.$http
+                  api
                         .put('scenes/' + this.scene.id + '?include=operations,subject', toSend)
                         .then(response => {
                             this.$emit('update', response.body);
@@ -214,7 +239,7 @@
             },
             deleteScene(safe = true) {
                 this.loading = true;
-                this.$http.delete(`scenes/${this.scene.id}?safe=${safe ? 1 : 0}`, {skipErrorHandler: [409]})
+              api.delete_(`scenes/${this.scene.id}?safe=${safe ? 1 : 0}`, {skipErrorHandler: [409]})
                     .then(() => {
                         this.scene = undefined;
                         this.$emit('delete');

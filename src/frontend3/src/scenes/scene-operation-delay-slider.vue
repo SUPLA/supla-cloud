@@ -1,26 +1,22 @@
 <template>
-    <TimeIntervalSlider v-model="modelValue" :max="3600000">
+    <TimeIntervalSlider v-model="model" :max="3600000">
         <template #buttons>
-            <a @click="$emit('delete')"><i class="glyphicon glyphicon-trash"></i></a>
+            <a @click="$emit('delete')"><fa :icon="faTrash"/></a>
         </template>
     </TimeIntervalSlider>
 </template>
 
 <script>
-    import TimeIntervalSlider from "@/scenes/time-interval-slider.vue";
+  export default {
+    compatConfig: {
+      MODE: 3,
+    }
+  }
+</script>
 
-    export default {
-        props: ['value'],
-        components: {TimeIntervalSlider},
-        computed: {
-            modelValue: {
-                get() {
-                    return this.value;
-                },
-                set(value) {
-                    this.$emit('input', value);
-                }
-            }
-        }
-    };
+<script setup>
+    import TimeIntervalSlider from "@/scenes/time-interval-slider.vue";
+    import {faTrash} from "@fortawesome/free-solid-svg-icons";
+
+    const model = defineModel();
 </script>

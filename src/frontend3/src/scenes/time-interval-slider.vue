@@ -1,7 +1,6 @@
 <template>
     <div>
         <FormSlider v-model="sliderValue"
-            @change="updateModel()"
             :data="possibleValues"
             :lazy="true"
             class="green"
@@ -19,14 +18,15 @@
 </template>
 
 <script>
-  import VueSlider from 'vue-slider-component';
-  import 'vue-slider-component/theme/antd.css';
   import {prettyMilliseconds} from "../common/filters";
   import FormSlider from "@/common/form/FormSlider.vue";
 
   export default {
+        compatConfig: {
+          MODE: 3,
+        },
         props: {
-            value: Number,
+            modelValue: Number,
             seconds: Boolean,
             min: {
                 type: Number,
@@ -37,10 +37,9 @@
                 default: 1000 * 60 * 60 * 24 * 365,
             }
         },
-        components: {FormSlider, VueSlider},
+        components: {FormSlider},
         data() {
             return {
-                sliderValue: 0,
                 possibleValues: [250, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, // ms
                     ...[...Array(26).keys()].map(k => k * 1000 + 5000), // s 5 - 30
                     ...[...Array(5).keys()].map(k => k * 5000 + 1000 * 35), // s 35 - 55
@@ -52,8 +51,7 @@
                 ]
             };
         },
-        beforeMount() {
-            this.sliderValue = this.value * this.multiplier;
+        mounted() {
             if (this.sliderValue > 0 && this.possibleValues.indexOf(this.sliderValue) === -1) {
                 this.possibleValues.push(parseInt(this.sliderValue));
                 this.possibleValues.sort((a, b) => a - b);
@@ -67,20 +65,23 @@
             less() {
                 const index = this.possibleValues.indexOf(this.sliderValue);
                 this.sliderValue = this.possibleValues[Math.max(0, index - 1)];
-                this.updateModel();
             },
             more() {
                 const index = this.possibleValues.indexOf(this.sliderValue);
                 this.sliderValue = this.possibleValues[Math.min(this.possibleValues.length - 1, index + 1)];
-                this.updateModel();
             },
-            updateModel() {
-                this.$emit('input', this.sliderValue / this.multiplier);
-            }
         },
         computed: {
             multiplier() {
                 return this.seconds ? 1000 : 1;
+            },
+            sliderValue: {
+              get() {
+                return this.modelValue * this.multiplier;
+              },
+              set(value) {
+                this.$emit('update:modelValue', value / this.multiplier);
+              }
             }
         }
     };

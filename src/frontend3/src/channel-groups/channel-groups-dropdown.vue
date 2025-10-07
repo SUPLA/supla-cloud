@@ -14,6 +14,7 @@
 <script>
   import {channelIconUrl} from "../common/filters";
   import SelectForSubjects from "@/devices/select-for-subjects.vue";
+  import {api} from "@/api/api.js";
 
   export default {
         props: ['params', 'value', 'filter'],
@@ -29,7 +30,7 @@
         methods: {
             fetchChannelGroups() {
                 this.channelGroups = undefined;
-                this.$http.get('channel-groups?' + (this.params || '')).then(({body: channelGroups}) => {
+                api.get('channel-groups?' + (this.params || '')).then(({body: channelGroups}) => {
                     this.channelGroups = channelGroups;
                 });
             },

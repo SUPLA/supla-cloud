@@ -28,11 +28,11 @@
 </template>
 
 <script>
-    import SchedulesList from "../schedules/schedule-list/schedules-list";
-    import DirectLinksList from "../direct-links/direct-links-list";
-    import ScenesList from "../scenes/scenes-list";
+  import SchedulesList from "../schedules/schedule-list/schedules-list.vue";
+  import DirectLinksList from "../direct-links/direct-links-list.vue";
+  import ScenesList from "../scenes/scenes-list.vue";
 
-    export default {
+  export default {
         props: ['scene'],
         components: {ScenesList, DirectLinksList, SchedulesList},
         data() {

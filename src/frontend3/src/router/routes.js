@@ -153,6 +153,11 @@ export default [
     path: '/reactions', component: () => import("@/channels/reactions/channel-reactions-list.vue"), name: 'reactions',
   },
   {
+    path: '/scenes', component: () => import("@/scenes/scenes-page.vue"), name: 'scenes', children: [
+      {path: ':id', component: () => import("@/scenes/scene-details.vue"), name: 'scene', props: true}
+    ]
+  },
+  {
     path: '/direct-links', component: () => import("@/direct-links/direct-links-page.vue"), name: 'directLinks', children: [
       {path: ':id', component: () => import("@/direct-links/direct-link-details.vue"), name: 'directLink', props: true}
     ]
