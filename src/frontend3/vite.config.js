@@ -43,9 +43,9 @@ export default defineConfig({
     FRONTEND_VERSION: "'6.6.6'",//JSON.stringify(require('./scripts/version').version),
   },
   build: {
-    chunkSizeWarningLimit: 600,
-    outDir: path.resolve(__dirname, '../../web/dist'),
+    chunkSizeWarningLimit: 700,
+    outDir: path.resolve(__dirname, '../../web'),
     assetsDir: 'dist',
-    emptyOutDir: true,
+    emptyOutDir: false,
   }
 })
