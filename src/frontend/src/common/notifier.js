@@ -1,32 +1,30 @@
-import {alert, defaultModules} from '@pnotify/core';
-import '@pnotify/core/dist/PNotify.css';
-import * as PNotifyMobile from '@pnotify/mobile';
-import '@pnotify/mobile/dist/PNotifyMobile.css';
-import * as PNotifyBootstrap3 from '@pnotify/bootstrap3';
-import '@pnotify/core/dist/BrightTheme.css';
+import Vue3Toastify, {toast} from 'vue3-toastify';
 import {i18n} from "@/locale";
+import 'vue3-toastify/dist/index.css';
 
-defaultModules.set(PNotifyMobile, {});
-defaultModules.set(PNotifyBootstrap3, {});
+export function registerNotifier(app) {
+  app.use(Vue3Toastify, {
+    autoClose: 5000,
+  });
+}
 
-function showNotification(title, text, type) {
-    title = i18n.global.t(title);
-    text = i18n.global.t(text);
-    return alert({title, text, type});
+function showNotification(text, type) {
+  text = i18n.global.t(text);
+  toast(text, {type});
 }
 
 export function successNotification(title, text = '') {
-    return showNotification(title, text, 'success');
+  return showNotification(text, 'success');
 }
 
 export function warningNotification(title, text = '') {
-    return showNotification(title, text, 'notice');
+  return showNotification(text, 'warning');
 }
 
 export function errorNotification(title, text = '') {
-    return showNotification(title, text, 'error');
+  return showNotification(text, 'error');
 }
 
 export function infoNotification(title, text = '') {
-    return showNotification(title, text, 'info');
+  return showNotification(text, 'info');
 }

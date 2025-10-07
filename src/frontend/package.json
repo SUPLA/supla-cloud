@@ -41,7 +41,6 @@
     "luxon": "^3.7.2",
     "pinia": "^3.0.3",
     "pixeden-stroke-7-icon": "^1.2.3",
-    "pnotify": "^5.2.0",
     "tiny-emitter": "^2.1.0",
     "tom-select": "^2.4.3",
     "vivus": "0.4.4",
@@ -51,6 +50,7 @@
     "vue-router": "^4.5.1",
     "vue-slider-component": "^4.1.0-beta.7",
     "vue-tippy": "^6.7.1",
+    "vue3-toastify": "^0.2.8",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz"
   },
   "devDependencies": {
