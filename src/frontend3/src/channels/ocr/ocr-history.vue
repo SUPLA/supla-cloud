@@ -20,7 +20,7 @@
             </thead>
             <tbody>
             <tr v-for="(image, $index) in images" :key="image.id">
-                <td>{{ image.imageTakenAt | formatDateTime }}</td>
+                <td>{{ formatDateTime(image.imageTakenAt) }}</td>
                 <td>
                     <img :src="`data:image/png;base64,${image.imageCropped}`" class="ocr-image" v-if="image.imageCropped">
                     <span v-else class="label label-danger">{{ $t('Error') }}</span>
@@ -68,10 +68,12 @@
 </template>
 
 <script setup>
-    import {useSuplaApi} from "@/api/use-supla-api";
-    import {computed, ref} from "vue";
+  import {useSuplaApi} from "@/api/use-supla-api";
+  import {computed, ref} from "vue";
+  import {formatDateTime} from "@/common/filters-date.js";
+  import ModalConfirm from "@/common/modal-confirm.vue";
 
-    const props = defineProps({subject: Object});
+  const props = defineProps({subject: Object});
     const fixingLastMeasurement = ref(false);
 
     const {data: images, execute: fetchOcrMeasurements, isFetching} = useSuplaApi(`integrations/ocr/${props.subject.id}/images`).json();

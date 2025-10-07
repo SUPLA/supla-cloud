@@ -8,19 +8,19 @@
             <div :class="[{invisible: !cropperReady}, 'd-flex mt-2']" v-if="editable">
                 <div class="flex-grow-1">
                     <button @click="rotate(-90)" type="button" class="btn btn-default mr-2">
-                        <fa icon="rotate-left"/>
+                        <fa :icon="faRotateLeft()"/>
                         90&deg;
                     </button>
                     <button @click="rotate(-1)" type="button" class="btn btn-default">
-                        <fa icon="rotate-left"/>
+                        <fa :icon="faRotateLeft()"/>
                     </button>
                 </div>
                 <div>
                     <button @click="rotate(1)" type="button" class="btn btn-default mr-2">
-                        <fa icon="rotate-right"/>
+                        <fa :icon="faRotateRight()"/>
                     </button>
                     <button @click="rotate(90)" type="button" class="btn btn-default">
-                        <fa icon="rotate-right"/>
+                        <fa :icon="faRotateRight()"/>
                         90&deg;
                     </button>
                 </div>
@@ -30,12 +30,14 @@
 </template>
 
 <script>
-    import 'cropperjs/dist/cropper.css';
-    import Cropper from 'cropperjs';
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import 'cropperjs/dist/cropper.css';
+  import Cropper from 'cropperjs';
+  import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import {faRotateLeft, faRotateRight} from "@fortawesome/free-solid-svg-icons";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
 
-    export default {
-        components: {TransitionExpand},
+  export default {
+        components: {LoadingCover, TransitionExpand},
         props: {
             editable: Boolean,
             value: Object,
@@ -53,6 +55,12 @@
             this.recreateCropper();
         },
         methods: {
+          faRotateRight() {
+            return faRotateRight
+          },
+          faRotateLeft() {
+            return faRotateLeft
+          },
             recreateCropper() {
                 this.cropperReady = false;
                 this.cropper?.destroy();

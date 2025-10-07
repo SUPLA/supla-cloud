@@ -34,12 +34,10 @@
                     <div v-if="ocrSettings.availableLightingModes.length">
                         <div class="form-group">
                             <label for="">{{ $t('Lighting mode') }}</label>
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
-                                    data-toggle="dropdown">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger class="btn btn-default btn-block btn-wrapped">
                                     {{ $t(`ocrLightingMode_${ocrSettings.lightingMode}`) }}
-                                    <span class="caret"></span>
-                                </button>
+                              </DropdownMenuTrigger>
                                 <!-- i18n: ['ocrLightingMode_OFF', 'ocrLightingMode_AUTO', 'ocrLightingMode_ALWAYS_ON'] -->
                                 <ul class="dropdown-menu">
                                     <li v-for="mode in ocrSettings.availableLightingModes" :key="mode">
@@ -49,7 +47,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </div>
+                            </DropdownMenu>
                         </div>
 
                         <div class="form-group">
@@ -106,20 +104,26 @@
 </template>
 
 <script>
-    import PendingChangesPage from "@/common/pages/pending-changes-page.vue";
-    import OcrPhotoCrop from "@/channels/ocr/ocr-photo-crop.vue";
-    import EventBus from "@/common/event-bus";
-    import {deepCopy} from "@/common/utils";
-    import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
-    import NumberInput from "@/common/number-input.vue";
-    import {successNotification} from "@/common/notifier";
-    import {measurementUnit} from "@/channels/channel-helpers";
-    import TimeIntervalSlider from "@/scenes/time-interval-slider.vue";
-    import {api} from "@/api/api.js";
+  import PendingChangesPage from "@/common/pages/pending-changes-page.vue";
+  import OcrPhotoCrop from "@/channels/ocr/ocr-photo-crop.vue";
+  import EventBus from "@/common/event-bus";
+  import {deepCopy} from "@/common/utils";
+  import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
+  import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import NumberInput from "@/common/number-input.vue";
+  import {successNotification} from "@/common/notifier";
+  import {measurementUnit} from "@/channels/channel-helpers";
+  import TimeIntervalSlider from "@/scenes/time-interval-slider.vue";
+  import {api} from "@/api/api.js";
+  import DropdownMenu from "@/common/gui/dropdown/dropdown-menu.vue";
+  import DropdownMenuTrigger from "@/common/gui/dropdown/dropdown-menu-trigger.vue";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
 
-    export default {
+  export default {
         components: {
+          LoadingCover,
+          DropdownMenuTrigger,
+          DropdownMenu,
             TimeIntervalSlider,
             NumberInput,
             TransitionExpand, ConfigConflictWarning,
