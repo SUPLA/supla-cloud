@@ -131,9 +131,11 @@
   import {mapState} from "pinia";
   import {useFrontendConfigStore} from "@/stores/frontend-config-store";
   import {api} from "@/api/api.js";
+  import TransitionExpand from "@/common/gui/transition-expand.vue";
 
   export default {
         components: {
+          TransitionExpand,
             WholeScreenMessage,
             CopyButton, PageContainer, InvisibleRecaptcha, RegulationsCheckbox, RegisterSlider, ButtonLoadingDots
         },

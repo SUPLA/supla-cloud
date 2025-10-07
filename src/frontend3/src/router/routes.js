@@ -225,6 +225,12 @@ export default [
     props: true
   },
   {
+    path: '/reset-password/:token',
+    component: () => import("@/login/reset-password.vue"),
+    meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'yellow centered-form-page'},
+    props: true
+  },
+  {
     path: '/integrations', component: () => import("@/account/integrations/integrations-page.vue"), children: [
       {
         path: 'apps',
@@ -280,6 +286,24 @@ export default [
     component: () => import("@/common/errors/update-in-progress.vue"),
     name: 'update-in-progress',
     meta: {bodyClass: 'warning'}
+  },
+  {
+    path: '/apps/:id?',
+    component: () => import("@/account/integrations/catalog/public-apps-catalog.vue"),
+    name: 'publicApps',
+    meta: {unrestricted: true},
+    props: true,
+  },
+  {
+    path: '/confirm-target-cloud-deletion/:targetCloudId/:token',
+    component: () => import("@/account/integrations/confirm-target-cloud-deletion.vue"),
+    meta: {unrestricted: true},
+    props: true
+  },
+  {
+    path: '/register-cloud',
+    component: () => import("@/account/integrations/register-target-cloud-form.vue"),
+    meta: {unrestricted: true, unavailableInMaintenance: true, bodyClass: 'register-slider-body'}
   },
   {
     path: "/:pathMatch(.*)*",

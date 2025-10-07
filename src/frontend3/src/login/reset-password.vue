@@ -34,9 +34,10 @@
   import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
   import {errorNotification, successNotification} from "../common/notifier";
   import {api} from "@/api/api.js";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
 
   export default {
-        components: {ButtonLoadingDots},
+        components: {LoadingCover, ButtonLoadingDots},
         props: ['token'],
         data() {
             return {
