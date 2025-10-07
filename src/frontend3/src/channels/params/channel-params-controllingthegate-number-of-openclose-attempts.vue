@@ -102,7 +102,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../styles/variables";
+    @use '../../styles/variables' as *;
 
     .btn-attempt-1.btn-green {
         background: $supla-orange;

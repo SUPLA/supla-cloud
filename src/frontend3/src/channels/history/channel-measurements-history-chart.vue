@@ -366,13 +366,13 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../styles/mixins";
+    @use '../../styles/mixins' as *;
 
-    ::v-deep .apexcharts-menu-item.exportCSV {
+    :deep(.apexcharts-menu-item.exportCSV) {
         display: none;
     }
 
-    ::v-deep .apexcharts-tooltip {
+    :deep(.apexcharts-tooltip) {
         background: #f3f3f3;
         border: 1px solid #e3e3e3;
         .apexcharts-tooltip-text-y-label {
@@ -392,7 +392,7 @@
                 justify-content: center;
             }
         }
-        ::v-deep .apexcharts-toolbar {
+        :deep(.apexcharts-toolbar) {
             top: 25px !important;
         }
     }

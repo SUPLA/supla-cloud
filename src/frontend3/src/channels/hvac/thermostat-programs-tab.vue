@@ -56,19 +56,19 @@
 </template>
 
 <script>
-    import WeekScheduleSelector from "@/activity/week-schedule-selector.vue";
-    import {mapValues} from "lodash";
-    import PendingChangesPage from "@/common/pages/pending-changes-page.vue";
-    import EventBus from "@/common/event-bus";
-    import {deepCopy} from "@/common/utils";
-    import IconHeating from "@/common/icons/icon-heating.vue";
-    import IconCooling from "@/common/icons/icon-cooling.vue";
-    import ThermostatProgramsConfigurator from "@/channels/hvac/thermostat-programs-configurator.vue";
-    import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
-    import {api} from "@/api/api.js";
+  import WeekScheduleSelector from "@/activity/week-schedule-selector.vue";
+  import {mapValues} from "lodash";
+  import PendingChangesPage from "@/common/pages/pending-changes-page.vue";
+  import EventBus from "@/common/event-bus";
+  import {deepCopy} from "@/common/utils";
+  import IconHeating from "@/common/icons/icon-heating.vue";
+  import IconCooling from "@/common/icons/icon-cooling.vue";
+  import ThermostatProgramsConfigurator from "@/channels/hvac/thermostat-programs-configurator.vue";
+  import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
+  import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import {api} from "@/api/api.js";
 
-    export default {
+  export default {
         components: {
             TransitionExpand,
             ConfigConflictWarning,
@@ -150,8 +150,9 @@
 </script>
 
 <style lang="scss">
-    @import '../../styles/variables';
-    @import '../../styles/mixins';
+    @use '../../styles/variables' as *;
+    @use '../../styles/mixins' as *;
+    @use 'sass:color';
 
     @mixin timeSlotColor($programNo, $color, $colorHover) {
         .week-schedule-selector-thermostat table.week-schedule-selector {
@@ -182,9 +183,9 @@
     $program3Color: #ffd19a;
     $program4Color: #ffaa8c;
 
-    @include timeSlotColor(0, $program0Color, lighten($program0Color, 10%));
-    @include timeSlotColor(1, $program1Color, lighten($program1Color, 10%));
-    @include timeSlotColor(2, $program2Color, lighten($program2Color, 10%));
-    @include timeSlotColor(3, $program3Color, lighten($program3Color, 10%));
-    @include timeSlotColor(4, $program4Color, lighten($program4Color, 10%));
+    @include timeSlotColor(0, $program0Color, color.adjust($program0Color, $lightness: 10%));
+    @include timeSlotColor(1, $program1Color, color.adjust($program1Color, $lightness: 10%));
+    @include timeSlotColor(2, $program2Color, color.adjust($program2Color, $lightness: 10%));
+    @include timeSlotColor(3, $program3Color, color.adjust($program3Color, $lightness: 10%));
+    @include timeSlotColor(4, $program4Color, color.adjust($program4Color, $lightness: 10%));
 </style>

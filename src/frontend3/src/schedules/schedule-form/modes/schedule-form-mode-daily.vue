@@ -135,7 +135,7 @@
 </script>
 
 <style lang="scss">
-    @import '../../../styles/variables';
+    @use '../../../styles/variables' as *;
 
     .daily-checkboxes {
         display: flex;

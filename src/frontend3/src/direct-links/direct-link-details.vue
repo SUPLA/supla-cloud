@@ -361,7 +361,7 @@
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
+    @use '../styles/variables' as *;
 
     .executions-limit {
         font-size: 3em;

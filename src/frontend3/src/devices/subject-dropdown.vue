@@ -239,7 +239,7 @@
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
+    @use '../styles/variables' as *;
 
     .subject-dropdown {
         .nav-tabs {

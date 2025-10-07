@@ -165,7 +165,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../styles/variables";
+    @use '../../styles/variables' as *;
 
     .bottom-border {
         border-bottom: 1px solid $supla-grey-light;

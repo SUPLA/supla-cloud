@@ -229,7 +229,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../../styles/variables";
+    @use '../../styles/variables' as *;
 
     .example-measurement-input {
         width: 40px;

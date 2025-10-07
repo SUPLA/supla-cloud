@@ -100,7 +100,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../styles/mixins";
+    @use '../styles/mixins' as *;
 
     p {
         font-size: 1.3em;

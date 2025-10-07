@@ -244,7 +244,7 @@
 </script>
 
 <style lang="scss">
-    @import '../../styles/variables';
+    @use '../../styles/variables' as *;
 
     .schedule-action {
         border-bottom: 1px solid $supla-green;

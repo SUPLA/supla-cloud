@@ -45,10 +45,10 @@
 </template>
 
 <script>
-    import IconHeating from "@/common/icons/icon-heating.vue";
-    import IconCooling from "@/common/icons/icon-cooling.vue";
+  import IconHeating from "@/common/icons/icon-heating.vue";
+  import IconCooling from "@/common/icons/icon-cooling.vue";
 
-    export default {
+  export default {
         components: {IconCooling, IconHeating},
         props: ['channel', 'state'],
         computed: {
@@ -61,7 +61,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../styles/variables";
+    @use '../styles/variables' as *;
 
     .channel-state-table-hvac {
         font-size: 1.3em;

@@ -97,14 +97,14 @@
 </template>
 
 <script>
-    import {errorNotification} from "../common/notifier";
-    import {prettyBytes, withDownloadAccessToken} from "../common/filters";
-    import {mapState} from "pinia";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
-    import {api} from "@/api/api.js";
-    import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import {errorNotification} from "../common/notifier";
+  import {prettyBytes, withDownloadAccessToken} from "../common/filters";
+  import {mapState} from "pinia";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import {api} from "@/api/api.js";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
 
-    export default {
+  export default {
       components: {LoadingCover},
         props: ['model', 'icon'],
         data() {
@@ -215,7 +215,7 @@
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
+    @use '../styles/variables' as *;
 
     .icon-preview {
         max-width: 100%;

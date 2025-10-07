@@ -63,7 +63,7 @@
 </script>
 
 <style lang="scss">
-    @import '../../styles/variables';
+    @use '../../styles/variables' as *;
 
     .schedule-times {
         list-style-type: none;

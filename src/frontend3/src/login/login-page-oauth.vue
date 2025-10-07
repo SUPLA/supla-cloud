@@ -112,7 +112,7 @@
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
+    @use '../styles/variables' as *;
 
     .login-oauth-form-broker {
         .login-password {
