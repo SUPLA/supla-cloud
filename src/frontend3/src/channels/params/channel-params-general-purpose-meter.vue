@@ -26,7 +26,7 @@
                     <dd>{{ $t('Fill missing data') }}</dd>
                     <dt class="text-center">
                         <toggler v-model="props.channel.config.fillMissingData"
-                            @input="$emit('change')"></toggler>
+                            @update:modelValue="$emit('change')"></toggler>
                     </dt>
                 </dl>
             </AccordionItem>

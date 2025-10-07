@@ -115,7 +115,7 @@
         <dl v-if="canDisplaySetting('refreshIntervalMs')">
             <dd>{{ $t('Refresh interval') }}</dd>
             <dt>
-                <toggler v-model="defaultRefreshInterval" :label="$t('Use device default')" @input="$emit('change')"/>
+                <toggler v-model="defaultRefreshInterval" :label="$t('Use device default')" @update:modelValue="$emit('change')"/>
                 <NumberInput v-model="channel.config.refreshIntervalMs"
                     v-if="!defaultRefreshInterval"
                     :min="200"

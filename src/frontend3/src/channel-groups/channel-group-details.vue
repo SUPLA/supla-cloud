@@ -29,8 +29,8 @@
                                                 <dd>{{ $t('Show on the Client’s devices') }}</dd>
                                                 <dt class="text-center">
                                                     <toggler v-model="channelGroup.hidden"
-                                                        invert="true"
-                                                        @input="channelGroupChanged()"></toggler>
+                                                        invert
+                                                        @update:modelValue="channelGroupChanged()"></toggler>
                                                 </dt>
                                             </dl>
                                         </div>

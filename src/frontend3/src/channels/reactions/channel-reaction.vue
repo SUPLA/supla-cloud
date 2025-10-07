@@ -34,7 +34,7 @@
                         <dl>
                             <dd>{{ $t('Enabled') }}</dd>
                             <dt>
-                                <toggler v-model="enabled" @input="onChanged()"/>
+                                <toggler v-model="enabled" @update:modelValue="onChanged()"/>
                             </dt>
                         </dl>
                     </div>

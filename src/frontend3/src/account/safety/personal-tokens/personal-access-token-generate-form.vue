@@ -19,7 +19,7 @@
                         <div v-for="suffix in scope.suffixes"
                             :key="suffix">
                             <toggler :label="scopeSuffixLabels[suffix]"
-                                @input="scopeChanged(scope, suffix)"
+                                @update:modelValue="scopeChanged(scope, suffix)"
                                 v-model="selectedScopes[scopeId(scope, suffix)]"></toggler>
                         </div>
                     </div>
@@ -42,8 +42,10 @@
 
 <script>
   import {availableScopes, scopeId, scopeSuffixLabels} from "../../integrations/oauth-scopes";
+  import Toggler from "@/common/gui/toggler.vue";
 
   export default {
+    components: {Toggler},
         data() {
             return {
                 availableScopes: availableScopes.filter(scope => !['offline', 'mqtt', 'state'].includes(scope.prefix)),

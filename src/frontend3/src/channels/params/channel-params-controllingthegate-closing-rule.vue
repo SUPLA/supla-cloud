@@ -4,7 +4,7 @@
         <dl>
             <dd>{{ $t('Enabled') }}</dd>
             <dt class="text-center">
-                <toggler v-model="props.channel.config.closingRule.enabled" @input="$emit('change')"/>
+                <toggler v-model="props.channel.config.closingRule.enabled" @update:modelValue="$emit('change')"/>
             </dt>
             <dd v-tooltip="$t('channelConfigHelp_gateCloseAfterHelp')">
                 {{ $t('Close after') }}

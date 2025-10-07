@@ -43,18 +43,16 @@
                                                 <dd>{{ $t('Enabled') }}</dd>
                                                 <dt>
                                                     <toggler
-                                                        @input="directLinkChanged()"
+                                                        @update:modelValue="directLinkChanged()"
                                                         v-model="directLink.enabled"></toggler>
                                                 </dt>
                                                 <dd>{{ $t('Allowed actions') }}</dd>
                                                 <dt>
-                                                    <div class="row">
-                                                        <div v-for="action in possibleActions"
-                                                            :key="action.id"
-                                                            class="col-sm-3 text-center">
+                                                    <div>
+                                                        <div v-for="action in possibleActions" :key="action.id">
                                                             <toggler
                                                                 :label="actionCaption(action, directLink.subject)"
-                                                                @input="directLinkChanged()"
+                                                                @update:modelValue="directLinkChanged()"
                                                                 v-model="allowedActions[action.name]"></toggler>
                                                         </div>
                                                     </div>
@@ -75,7 +73,7 @@
                                                 </dd>
                                                 <dt>
                                                     <toggler
-                                                        @input="directLinkChanged()"
+                                                        @update:modelValue="directLinkChanged()"
                                                         v-model="directLink.disableHttpGet"></toggler>
                                                 </dt>
                                             </dl>

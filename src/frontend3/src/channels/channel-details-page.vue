@@ -75,9 +75,9 @@
                                         <dd>{{ $t('Show on the Client’s devices') }}</dd>
                                         <dt class="text-center">
                                             <toggler v-model="channel.hidden"
-                                                invert="true"
+                                                invert
                                                 :disabled="frozenShownInClientsState !== undefined"
-                                                @input="updateChannel()"></toggler>
+                                                @update:modelValue="updateChannel()"></toggler>
                                         </dt>
                                     </dl>
                                     <channel-params-form :channel="channel"

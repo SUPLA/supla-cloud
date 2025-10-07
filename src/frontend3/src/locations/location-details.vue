@@ -17,7 +17,7 @@
                                         <dd>{{ $t('Enabled') }}</dd>
                                         <dt class="text-center">
                                             <toggler v-model="location.enabled"
-                                                @input="locationChanged()"></toggler>
+                                                @update:modelValue="locationChanged()"></toggler>
                                         </dt>
                                         <dd>{{ $t('Location name') }}</dd>
                                         <dt>

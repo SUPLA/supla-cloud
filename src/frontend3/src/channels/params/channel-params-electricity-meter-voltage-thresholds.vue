@@ -5,7 +5,7 @@
                 {{ $t('Enabled') }}
             </dd>
             <dt class="text-center">
-                <toggler v-model="enabled" @input="$emit('change')"/>
+                <toggler v-model="enabled" @update:modelValue="$emit('change')"/>
             </dt>
         </dl>
         <transition-expand>

@@ -4,7 +4,7 @@
             <dd>{{ $t('Inverted logic') }}</dd>
             <dt class="text-center">
                 <toggler v-model="channel.config.invertedLogic"
-                    @input="$emit('change')"></toggler>
+                    @update:modelValue="$emit('change')"></toggler>
             </dt>
         </dl>
     </div>
