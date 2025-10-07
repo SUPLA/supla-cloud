@@ -1,9 +1,9 @@
-const mysql = require('mysql2');
-const {ConnectionString} = require('connection-string');
-const path = require("path");
-const fs = require('fs');
+import {ConnectionString} from "connection-string";
+import * as mysql from "mysql2";
+import * as path from "node:path";
+import * as fs from "node:fs";
 
-module.exports = (on, config) => {
+export default (on, config) => {
     on('task', {
         async 'seed:database'(fixtures) {
             const connectionString = config.env.DATABASE;
