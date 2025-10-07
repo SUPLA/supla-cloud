@@ -1,11 +1,11 @@
 imports:
   - { resource: config.yml }
 
-doctrine:
-  orm:
-    entity_managers:
-      measurement_logs:
-        connection: logs_tsdb
+#doctrine:
+#  orm:
+#    entity_managers:
+#      measurement_logs:
+#        connection: logs_tsdb
 
 framework:
   profiler:
