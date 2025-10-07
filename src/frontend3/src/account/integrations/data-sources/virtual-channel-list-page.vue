@@ -31,9 +31,15 @@
   import VirtualChannelFilters from "./virtual-channel-filters.vue";
   import NewVirtualChannelButton
     from "@/account/integrations/data-sources/new-virtual-channel-button.vue";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import SquareLinksGrid from "@/common/tiles/square-links-grid.vue";
+  import EmptyListPlaceholder from "@/common/gui/empty-list-placeholder.vue";
 
   export default {
-        components: {NewVirtualChannelButton, VirtualChannelFilters, ChannelTile},
+        components: {
+          EmptyListPlaceholder,
+          SquareLinksGrid,
+          LoadingCover, NewVirtualChannelButton, VirtualChannelFilters, ChannelTile},
         data() {
             return {
                 filterFunction: () => true,

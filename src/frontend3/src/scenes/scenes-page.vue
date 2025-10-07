@@ -13,6 +13,7 @@
   import SceneTile from "./scene-tile.vue";
   import SceneFilters from "./scene-filters.vue";
   import {useCurrentUserStore} from "@/stores/current-user-store";
+  import {storeToRefs} from "pinia";
 
-  const {userData} = useCurrentUserStore();
+  const {userData} = storeToRefs(useCurrentUserStore());
 </script>

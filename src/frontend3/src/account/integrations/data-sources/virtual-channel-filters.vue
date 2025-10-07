@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import BtnFilters from "@/common/btn-filters";
+  import BtnFilters from "@/common/btn-filters.vue";
   import latinize from "latinize";
   import {DateTime} from "luxon";
   import {mapState} from "pinia";

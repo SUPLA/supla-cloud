@@ -8,7 +8,7 @@
                         class="btn btn-white">
                         {{ $t('Full documentation') }} @ GitHub
                     </a>
-                    <a :href="'/api-docs/docs.html' | withBaseUrl"
+                    <a :href="withBaseUrl('/api-docs/docs.html')"
                         target="_blank"
                         class="btn btn-white">
                         {{ $t('API documentation') }}
@@ -18,30 +18,24 @@
             </div>
         </div>
         <carousel-page header-i18n="My OAuth apps"
-            tile="my-oauth-app-tile"
+            :tile="MyOauthAppTile"
             endpoint="oauth-clients"
             create-new-label-i18n="Register a new OAuth application"
             details-route="myOauthApp"
+            list-route="integrations.myOauthApps"
             :limit="userData.limits.oauthClient"
             class="my-oauth-apps-page"></carousel-page>
     </div>
 </template>
 
-<script>
+<script setup>
   import CarouselPage from "../../../common/pages/carousel-page.vue";
   import MyOauthAppTile from "./my-oauth-app-tile.vue";
-  import Vue from "vue";
-  import {mapState} from "pinia";
+  import {storeToRefs} from "pinia";
   import {useCurrentUserStore} from "@/stores/current-user-store";
+  import {withBaseUrl} from "@/common/filters.js";
 
-  Vue.component('MyOauthAppTile', MyOauthAppTile);
-
-    export default {
-        components: {CarouselPage},
-        computed: {
-            ...mapState(useCurrentUserStore, ['userData']),
-        },
-    };
+  const {userData} = storeToRefs(useCurrentUserStore());
 </script>
 
 <style>

@@ -4,7 +4,7 @@
             <div v-if="app">
                 <div class="container">
                     <pending-changes-page
-                        :header="app.id ? $t('OAuth application') : $t('New OAuth application') + (app.id ? ' ID'+ app.id : '')"
+                        :header="app.id ? app.name : $t('New OAuth application') + (app.id ? ' ID'+ app.id : '')"
                         @cancel="cancelChanges()"
                         @save="saveOauthApp()"
                         :deletable="!!app.id"
@@ -28,7 +28,6 @@
                                                 <textarea
                                                     class="form-control"
                                                     @keydown="appChanged()"
-                                                    v-autosize
                                                     v-model="app.description"></textarea>
                                         </dt>
                                         <dd>{{ $t('Authorization callback URLs (one per line)') }}</dd>
@@ -36,7 +35,6 @@
                                             <textarea type="text"
                                                 class="form-control"
                                                 @keydown="appChanged()"
-                                                v-autosize
                                                 v-model="redirectUris"></textarea>
                                         </dt>
                                     </dl>
@@ -87,15 +85,16 @@
   import PageContainer from "../../../common/pages/page-container.vue";
   import PendingChangesPage from "../../../common/pages/pending-changes-page.vue";
   import CopyButton from "../../../common/copy-button.vue";
-  import autosize from "autosize";
   import {urlParams} from "@/common/utils";
   import {mapState} from "pinia";
   import {useCurrentUserStore} from "@/stores/current-user-store";
   import {api} from "@/api/api.js";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
 
   export default {
         props: ['id'],
-        components: {CopyButton, PageContainer, PendingChangesPage},
+        components: {LoadingCover, ModalConfirm, CopyButton, PageContainer, PendingChangesPage},
         data() {
             return {
                 loading: false,
@@ -176,18 +175,5 @@
                 this.fetch();
             }
         },
-        directives: {
-            autosize: {
-                bind(el) {
-                    autosize(el);
-                },
-                componentUpdated(el) {
-                    autosize(el);
-                },
-                unbind(el) {
-                    autosize.destroy(el);
-                }
-            }
-        }
     };
 </script>
