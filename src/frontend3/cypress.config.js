@@ -10,8 +10,8 @@ export default defineConfig({
     DATABASE: "mysql://root:php@localhost/supla_e2e",
   },
   e2e: {
-    baseUrl: 'http://localhost:4173',
-    defaultCommandTimeout: 8000,
+    baseUrl: 'http://localhost:5173',
+    defaultCommandTimeout: 10000,
     taskTimeout: 10000,
     pageLoadTimeout: 10000,
     setupNodeEvents(on, config) {

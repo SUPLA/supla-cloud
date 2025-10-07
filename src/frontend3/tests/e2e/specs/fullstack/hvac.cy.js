@@ -38,6 +38,8 @@ describe('HVAC', () => {
         cy.get('a.confirm').click();
         cy.contains('Czy na pewno chcesz zmienić funkcję');
         cy.get('a.confirm').click();
+        cy.contains('Pokaż w urządzeniach').should('not.exist');
+        cy.wait(200); // eslint-disable-line cypress/no-unnecessary-waiting
         cy.contains('Wybierz funkcję').click();
         cy.contains('Termostat automatyczny').click();
         cy.get('a.confirm').click();
