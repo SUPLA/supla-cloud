@@ -13,6 +13,7 @@
 
 <script>
     import SelectForSubjects from "@/devices/select-for-subjects.vue";
+    import {api} from "@/api/api.js";
 
     export default {
         props: ['value', 'filter'],
@@ -28,7 +29,7 @@
         methods: {
             fetchSchedules() {
                 this.schedules = undefined;
-                this.$http.get('schedules?include=closestExecutions').then(({body: schedules}) => {
+                api.get('schedules?include=closestExecutions').then(({body: schedules}) => {
                     this.schedules = schedules.filter(this.filter || (() => true));
                 });
             },

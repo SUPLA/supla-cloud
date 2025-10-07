@@ -31,6 +31,7 @@
   import FunctionIcon from "../../channels/function-icon.vue";
   import ChannelStateTable from "../../channels/channel-state-table.vue";
   import {channelTitle} from "../../common/filters";
+  import {api} from "@/api/api.js";
 
   export default {
         props: ['directLink'],
@@ -48,7 +49,7 @@
         methods: {
             refreshState() {
                 this.refreshingState = true;
-                this.$http.get(this.readStateUrl)
+                api.get(this.readStateUrl)
                     .then(response => this.directLink.state = response.body)
                     .finally(() => this.refreshingState = false);
             }

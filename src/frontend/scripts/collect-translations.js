@@ -1,8 +1,8 @@
-const findInFiles = require('find-in-files');
-const yaml = require('js-yaml');
-const fs = require('fs');
-const chalk = require('chalk');
-const ora = require('ora');
+import ora from "ora";
+import {find} from "find-in-files";
+import chalk from "chalk";
+import * as fs from "node:fs";
+import yaml from "js-yaml";
 
 const regexes = [
     "\\$t\\([\"'](.+?)[\"']\\s*(,.+?)?[\\)\\{]", // $t('...'), $t('...', {})
@@ -28,7 +28,7 @@ async function readFiles() {
     const texts = [];
     for (const regex of regexes) {
         for (const location of locations) {
-            await findInFiles.find(regex, location, '.(vue|js|php|twig|html)$')
+            await find(regex, location, '.(vue|js|php|twig|html)$')
                 .then(function (results) {
                     for (let result in results) {
                         results[result].matches.forEach(match => {

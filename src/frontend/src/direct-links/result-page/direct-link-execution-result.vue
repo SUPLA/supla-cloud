@@ -123,6 +123,7 @@
   import ChannelFunctionAction from "@/common/enums/channel-function-action";
   import {actionCaption} from "../../channels/channel-helpers";
   import Error404 from "@/common/errors/error-404.vue";
+  import {api} from "@/api/api.js";
 
   export default {
         props: {action: String, linkId: Number},
@@ -142,7 +143,7 @@
             actionCaption,
             executeAction(action) {
                 this.$set(action, 'executing', true);
-                this.$http.get(this.currentUrl + '/' + action.nameSlug)
+                api.get(this.currentUrl + '/' + action.nameSlug)
                     .then(() => {
                         this.$set(action, 'executed', true);
                         setTimeout(() => this.$set(action, 'executed', false), 3000);

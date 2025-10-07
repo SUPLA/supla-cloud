@@ -2,6 +2,8 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import chalk from "chalk";
 
+const __dirname = import.meta.dirname;
+
 const ASCII_LOGO_WIDTH = 52;
 const LOGO = fs.readFileSync(path.join(__dirname, 'logo.txt'));
 
