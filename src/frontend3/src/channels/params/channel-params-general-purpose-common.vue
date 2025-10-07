@@ -15,7 +15,9 @@
                     :min="-2000000"
                     :max="2000000"
                     :placeholder="1"
-                    v-bind="{decimal: '.', precision: 3, separator: ' '}"
+                    decimal="."
+                    :precision="3"
+                    separator=" "
                     class="form-control text-center"/>
             </dt>
         </dl>
@@ -26,7 +28,9 @@
                     :min="-2000000"
                     :max="2000000"
                     :placeholder="1"
-                    v-bind="{decimal: '.', precision: 3, separator: ' '}"
+                  decimal="."
+                  :precision="3"
+                  separator=" "
                     class="form-control text-center"/>
             </dt>
         </dl>
@@ -37,11 +41,9 @@
                     :min="-100000000"
                     :max="100000000"
                     :placeholder="0"
-                    v-bind="{
-                        decimal: '.',
-                        precision: 3,
-                        separator: ' ',
-                    }"
+                  decimal="."
+                  :precision="3"
+                  separator=" "
                     class="form-control text-center"/>
                 <ChannelParamsMeterInitialValuesMode v-if="channel.function.name === 'GENERAL_PURPOSE_METER'"
                     v-model="channel.config.includeValueAddedInHistory" @input="$emit('change')"/>
@@ -105,7 +107,7 @@
                     + {{ channel.config.valueAdded }}
                     =
                     <div>
-                        <strong>{{ exampleValue * channel.config.valueMultiplier / (channel.config.valueDivider || 1) + channel.config.valueAdded | formatGpmValue(channel.config) }}</strong>
+                        <strong>{{ formatGpmValue(exampleValue * channel.config.valueMultiplier / (channel.config.valueDivider || 1) + channel.config.valueAdded, channel.config) }}</strong>
                     </div>
                 </div>
             </dt>
@@ -132,9 +134,13 @@
   import ChannelParamsMeterInitialValuesMode
     from "@/channels/params/channel-params-meter-initial-values-mode.vue";
   import NumberInput from "@/common/number-input.vue";
+  import {formatGpmValue} from "@/common/filters.js";
+  import Toggler from "@/common/gui/toggler.vue";
 
   export default {
-        components: {NumberInput, ChannelParamsMeterInitialValuesMode, UnitSymbolHelper, VueNumber},
+        components: {
+          Toggler,
+          NumberInput, ChannelParamsMeterInitialValuesMode, UnitSymbolHelper, VueNumber},
         props: ['channel'],
         data() {
             return {
@@ -152,6 +158,7 @@
             this.initFormFromChannel();
         },
         methods: {
+          formatGpmValue,
             initFormFromChannel() {
                 this.formValues.valueDivider = this.channel.config.valueDivider;
                 this.formValues.valueMultiplier = this.channel.config.valueMultiplier;

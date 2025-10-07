@@ -4,11 +4,11 @@
             <div class="digiglass-parameters-setter-global-btns btn-group">
                 <a class="btn btn-link"
                     @click="setAll(true)">
-                    <img :src="'/assets/img/digiglass/transparent.png' | withBaseUrl">
+                    <img :src="withBaseUrl('/assets/img/digiglass/transparent.png')">
                 </a>
                 <a class="btn btn-link"
                     @click="setAll(false)">
-                    <img :src="'/assets/img/digiglass/opaque.png' | withBaseUrl">
+                    <img :src="withBaseUrl('/assets/img/digiglass/opaque.png')">
                 </a>
             </div>
         </div>
@@ -26,9 +26,9 @@
                         @click="toggleSection(sectionNumber)"></div>
                     <div class="digiglass-icon"
                         @click="toggleSection(sectionNumber)">
-                        <img :src="'/assets/img/digiglass/transparent.png' | withBaseUrl"
+                        <img :src="withBaseUrl('/assets/img/digiglass/transparent.png')"
                             class="transparent-image">
-                        <img :src="'/assets/img/digiglass/opaque.png' | withBaseUrl"
+                        <img :src="withBaseUrl('/assets/img/digiglass/opaque.png')"
                             class="opaque-image">
                     </div>
                     <label class="checkbox2 small">
@@ -44,6 +44,7 @@
 
 <script>
   import FunctionIcon from "../function-icon.vue";
+  import {withBaseUrl} from "@/common/filters.js";
 
   export default {
         components: {FunctionIcon},
@@ -57,6 +58,7 @@
             this.updateState();
         },
         methods: {
+          withBaseUrl,
             updateState() {
                 if (this.value) {
                     if (this.value.transparent) {
