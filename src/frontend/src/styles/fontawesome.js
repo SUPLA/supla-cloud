@@ -7,10 +7,7 @@ import {
   faAngleDoubleUp,
   faArrowRight,
   faCalendarWeek,
-  faCaretDown,
-  faCaretUp,
   faCheck,
-  faCheckSquare,
   faChevronDown,
   faChevronLeft,
   faChevronRight,
@@ -21,21 +18,19 @@ import {
   faEdit,
   faExclamationTriangle,
   faInfoCircle,
-  faKey,
   faPlus,
   faPowerOff,
   faPuzzlePiece,
   faQuestionCircle,
-  faSave,
   faTimesCircle,
   faTrash,
   faUnlock,
   faWrench,
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faSquare, faCheckSquare, faDownload, faPuzzlePiece, faKey, faTimesCircle, faCheck,
+library.add(faSquare, faDownload, faPuzzlePiece, faTimesCircle, faCheck,
   faChevronLeft, faChevronRight, faChevronDown, faArrowRight, faQuestionCircle, faPlus, faTrash, faInfoCircle, faCircleNotch,
-  faPowerOff, faEdit, faSave, faCaretUp, faCaretDown, faAngleDoubleDown, faAngleDoubleRight, faAngleDoubleUp,
+  faPowerOff, faEdit, faAngleDoubleDown, faAngleDoubleRight, faAngleDoubleUp,
   faCalendarWeek, faClock, faUnlock, faCircle, faExclamationTriangle, faWrench);
 
 export function registerFontAwesome(app) {
