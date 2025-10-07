@@ -69,12 +69,15 @@
 
 <script>
   import {errorNotification, successNotification} from "../common/notifier";
-  import InvisibleRecaptcha from "@/register/invisible-recaptcha";
+  import InvisibleRecaptcha from "@/register/invisible-recaptcha.vue";
   import {mapState} from "pinia";
   import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import {api} from "@/api/api.js";
+  import ButtonLoadingDots from "@/common/gui/loaders/button-loading-dots.vue";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
 
   export default {
-        components: {InvisibleRecaptcha},
+        components: {LoadingCover, ButtonLoadingDots, InvisibleRecaptcha},
         props: ['token'],
         data() {
             return {
@@ -86,7 +89,7 @@
             };
         },
         mounted() {
-            this.$http.get('account-deletion/' + this.token, {skipErrorHandler: [400]})
+            api.get('account-deletion/' + this.token, {skipErrorHandler: [400]})
                 .then(() => this.tokenExists = true)
                 .catch(() => {
                     errorNotification(this.$t('Error'), this.$t('Token does not exist'));
@@ -100,7 +103,7 @@
             confirmDeletion(captchaCode) {
                 this.isBusy = true;
                 const requestData = {...this.requestData, captchaCode};
-                this.$http.patch('account-deletion', requestData, {skipErrorHandler: [400]})
+                api.patch('account-deletion', requestData, {skipErrorHandler: [400]})
                     .then(() => {
                         successNotification(this.$t('Successful'), this.$t('Your account has been deleted. We hope you will come back to us soon.'));
                         this.$router.push({name: 'login'});

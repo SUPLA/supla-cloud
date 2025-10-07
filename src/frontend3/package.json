@@ -41,6 +41,7 @@
     "pnotify": "^5.2.0",
     "tiny-emitter": "^2.1.0",
     "tom-select": "^2.4.3",
+    "vivus": "0.4.4",
     "vue": "^3.5.22",
     "vue-i18n": "^11.1.12",
     "vue-mention": "^2.0.0-alpha.3",

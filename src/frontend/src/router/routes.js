@@ -16,17 +16,7 @@ export default [
         props: true
     },
 
-    {
-        path: '/account-deletion/:token',
-        component: () => import("@/login/confirm-account-deletion"),
-        meta: {unrestricted: true, bodyClass: 'account-deletion-page warning'},
-        props: true
-    },
-    {
-        path: '/db99845855b2ecbfecca9a095062b96c3e27703f',
-        component: () => import("@/login/request-account-deletion"),
-        meta: {unrestricted: true, bodyClass: 'account-deletion-page warning smartphone-webview'},
-    },
+
     {
         path: '/confirm-target-cloud-deletion/:targetCloudId/:token',
         component: () => import("@/account/integrations/confirm-target-cloud-deletion"),
@@ -39,11 +29,7 @@ export default [
         meta: {unrestricted: true},
         props: true
     },
-    {
-        path: '/account',
-        component: () => import(/*webpackChunkName:"account-page"*/"@/account/account-page"),
-        meta: {bodyClass: 'green'}
-    },
+
 
 
     {

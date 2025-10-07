@@ -27,11 +27,13 @@
 </template>
 
 <script>
-    import {errorNotification, successNotification} from "../common/notifier";
-    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+  import {errorNotification, successNotification} from "../common/notifier";
+  import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+  import Modal from "@/common/modal.vue";
+  import {api} from "@/api/api.js";
 
-    export default {
-        components: {ButtonLoadingDots},
+  export default {
+        components: {Modal, ButtonLoadingDots},
         data() {
             return {
                 password: '',
@@ -44,7 +46,7 @@
                     return errorNotification(this.$t('Error'), this.$t('Incorrect password'));
                 }
                 this.loading = true;
-                this.$http.patch(`users/current`, {action: 'delete', password: this.password})
+                api.patch(`users/current`, {action: 'delete', password: this.password})
                     .then(() => {
                         successNotification(
                             this.$t('Successful'),

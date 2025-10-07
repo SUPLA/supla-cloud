@@ -208,6 +208,22 @@ export default [
     meta: {unrestricted: true, onlyUnauthenticated: true, bodyClass: 'green'},
   },
   {
+    path: '/account',
+    component: () => import("@/account/account-page.vue"),
+    meta: {bodyClass: 'green'}
+  },
+  {
+    path: '/account-deletion/:token',
+    component: () => import("@/login/confirm-account-deletion.vue"),
+    meta: {unrestricted: true, bodyClass: 'account-deletion-page warning'},
+    props: true
+  },
+  {
+    path: '/db99845855b2ecbfecca9a095062b96c3e27703f',
+    component: () => import("@/login/request-account-deletion.vue"),
+    meta: {unrestricted: true, bodyClass: 'account-deletion-page warning smartphone-webview'},
+  },
+  {
     path: "/:pathMatch(.*)*",
     component: () => import("@/common/errors/error-page-status.vue"),
     meta: {bodyClass: 'red', unrestricted: true}

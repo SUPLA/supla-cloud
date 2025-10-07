@@ -3,9 +3,9 @@
 </template>
 
 <script>
-    import Vivus from "vivus";
+  import Vivus from "vivus";
 
-    export default {
+  export default {
         props: ['file', 'id'],
         mounted() {
             new Vivus(this.id, {

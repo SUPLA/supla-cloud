@@ -69,9 +69,9 @@
 </template>
 
 <script>
-    import {successNotification} from "@/common/notifier";
+  import {successNotification} from "@/common/notifier";
 
-    export default {
+  export default {
         data() {
             return {
                 accessTokens: undefined,
