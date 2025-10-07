@@ -3,13 +3,6 @@
 {% block beforeVue %}
     <script>
         window.directLink = {{ directLink | json_encode | raw }};
+        window.failureReason = {{ failureReason is defined ? (failureReason | json_encode | raw) : '""' }};
     </script>
-{% endblock %}
-
-{% block vue %}
-    <div class="page-content">
-        <direct-link-execution-result {% if failureReason %}failure-reason="{{ failureReason.value }}"{% endif %}
-                action="{{ action.name is defined ? action.name : action }}"></direct-link-execution-result>
-    </div>
-    <page-footer></page-footer>
 {% endblock %}

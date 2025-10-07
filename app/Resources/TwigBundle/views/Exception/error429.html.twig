@@ -1,13 +1,9 @@
 {% extends '@web/dist/index.html' %}
 
-{% block vue %}
-    {% if exception.code == 1 %}
-        <error-page header-i18n="You have exceeded your API Rate Limit"
-                message-i18n="Wait a while before the next request. You can check your limits in the account settings."
-                icon="pe-7s-bicycle"></error-page>
-    {% else %}
-        <error-page header-i18n="We try to be faster"
-                message-i18n="However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while."
-                icon="pe-7s-bicycle"></error-page>
-    {% endif %}
+{% block beforeVue %}
+    <script>
+        window.errorDetails = {
+            statusCode: {{ (exception.code == 1 ? 430 : status_code) | json_encode | raw }}
+        };
+    </script>
 {% endblock %}

@@ -1,11 +1,6 @@
 export default [
 
-    {
-        path: '/oauth-authorize',
-        component: () => import("@/login/login-page-oauth"),
-        meta: {unrestricted: true, bodyClass: 'centered-form-page'},
-        name: 'oauthAuthorize'
-    },
+
     {
         path: '/terms',
         component: () => import("@/common/pages/terms"),

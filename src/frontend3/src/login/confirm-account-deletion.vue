@@ -68,12 +68,12 @@
 </template>
 
 <script>
-    import {errorNotification, successNotification} from "../common/notifier";
-    import InvisibleRecaptcha from "@/register/invisible-recaptcha";
-    import {mapState} from "pinia";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import {errorNotification, successNotification} from "../common/notifier";
+  import InvisibleRecaptcha from "@/register/invisible-recaptcha";
+  import {mapState} from "pinia";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
-    export default {
+  export default {
         components: {InvisibleRecaptcha},
         props: ['token'],
         data() {
