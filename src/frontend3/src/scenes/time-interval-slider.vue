@@ -1,13 +1,13 @@
 <template>
     <div>
-        <vue-slider v-model="sliderValue"
+        <FormSlider v-model="sliderValue"
             @change="updateModel()"
             :data="possibleValues"
             :lazy="true"
             class="green"
             tooltip="always"
             tooltip-placement="top"
-            :tooltip-formatter="formattedValue"></vue-slider>
+            :tooltip-formatter="formattedValue"></FormSlider>
         <div class="pull-right">
             <div class="controls">
                 <a @click="less()" class="mx-1"><i class="glyphicon glyphicon-minus"></i></a>
@@ -19,11 +19,12 @@
 </template>
 
 <script>
-    import VueSlider from 'vue-slider-component';
-    import 'vue-slider-component/theme/antd.css';
-    import {prettyMilliseconds} from "../common/filters";
+  import VueSlider from 'vue-slider-component';
+  import 'vue-slider-component/theme/antd.css';
+  import {prettyMilliseconds} from "../common/filters";
+  import FormSlider from "@/common/form/FormSlider.vue";
 
-    export default {
+  export default {
         props: {
             value: Number,
             seconds: Boolean,
@@ -36,7 +37,7 @@
                 default: 1000 * 60 * 60 * 24 * 365,
             }
         },
-        components: {VueSlider},
+        components: {FormSlider, VueSlider},
         data() {
             return {
                 sliderValue: 0,
