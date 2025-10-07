@@ -4,16 +4,16 @@
           <transition name="fade">
             <Navbar v-if="currentUser.username"/>
           </transition>
-            <!--            <div class="alert alert-warning maintenance-warning"-->
-            <!--                v-if="frontendConfig.config.maintenanceMode && currentUser.username">-->
-            <!--                <maintenance-warning></maintenance-warning>-->
-            <!--            </div>-->
+                        <div class="alert alert-warning maintenance-warning"
+                            v-if="frontendConfig.config.maintenanceMode && currentUser.username">
+                            <maintenance-warning></maintenance-warning>
+                        </div>
             <!--            <LoadingCover :loading="$changingRoute">-->
             <RouterView/>
             <!--            </LoadingCover>-->
           <cookie-warning
             v-if="frontendConfig.config.requireCookiePolicyAcceptance && currentUser.username && !currentUser.userData.agreements.cookies"></cookie-warning>
-            <!--            <cloud-version-mismatch-warning-modal></cloud-version-mismatch-warning-modal>-->
+                        <cloud-version-mismatch-warning-modal/>
         </div>
         <PageFooter :username="currentUser.username"/>
     </div>
@@ -26,6 +26,9 @@
   import {onMounted} from "vue";
   import CookieWarning from "@/common/errors/cookie-warning.vue";
   import Navbar from "@/home/navbar.vue";
+  import CloudVersionMismatchWarningModal
+    from "@/common/errors/cloud-version-mismatch-warning-modal.vue";
+  import MaintenanceWarning from "@/common/errors/maintenance-warning.vue";
 
   const frontendConfig = useFrontendConfigStore();
     const currentUser = useCurrentUserStore();

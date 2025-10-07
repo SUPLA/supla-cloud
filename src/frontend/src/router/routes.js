@@ -77,17 +77,7 @@ export default [
         component: () => import("@/account/integrations/register-target-cloud-form"),
         meta: {unrestricted: true, unavailableInMaintenance: true, bodyClass: 'register-slider-body'}
     },
-    {
-        path: "/agree-on-rules",
-        component: () => import("@/common/errors/error-agree-on-rules"),
-        name: 'agree-on-rules',
-        meta: {bodyClass: 'warning hide-cookies-warning'}
-    },
-    {
-        path: "/update-in-progress",
-        component: () => import("@/common/errors/update-in-progress"),
-        name: 'update-in-progress',
-        meta: {bodyClass: 'warning'}
-    },
+
+
 
 ];

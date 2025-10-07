@@ -5,7 +5,3 @@
         <p>{{ $t('We should be ready shortly.') }}</p>
     </div>
 </template>
-
-<script>
-    export default {};
-</script>

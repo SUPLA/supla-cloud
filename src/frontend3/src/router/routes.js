@@ -224,6 +224,18 @@ export default [
     meta: {unrestricted: true, bodyClass: 'account-deletion-page warning smartphone-webview'},
   },
   {
+    path: "/agree-on-rules",
+    component: () => import("@/common/errors/error-agree-on-rules.vue"),
+    name: 'agree-on-rules',
+    meta: {bodyClass: 'warning hide-cookies-warning'}
+  },
+  {
+    path: "/update-in-progress",
+    component: () => import("@/common/errors/update-in-progress.vue"),
+    name: 'update-in-progress',
+    meta: {bodyClass: 'warning'}
+  },
+  {
     path: "/:pathMatch(.*)*",
     component: () => import("@/common/errors/error-page-status.vue"),
     meta: {bodyClass: 'red', unrestricted: true}
