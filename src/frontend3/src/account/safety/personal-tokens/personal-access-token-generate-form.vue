@@ -41,9 +41,9 @@
 </template>
 
 <script>
-    import {availableScopes, scopeId, scopeSuffixLabels} from "../../integrations/oauth-scopes";
+  import {availableScopes, scopeId, scopeSuffixLabels} from "../../integrations/oauth-scopes";
 
-    export default {
+  export default {
         data() {
             return {
                 availableScopes: availableScopes.filter(scope => !['offline', 'mqtt', 'state'].includes(scope.prefix)),

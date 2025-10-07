@@ -4,26 +4,22 @@
             type="button"
             @click="toggle()"
             :disabled="saving">
-            <table class="table">
-              <tbody>
-                <tr>
-                    <td>
-                        <button-loading-dots v-if="saving"></button-loading-dots>
-                        <i v-else
-                            :class="enabledUntil ? 'pe-7s-attention' : 'pe-7s-close-circle'"></i>
-                    </td>
-                    <td>
-                        <span v-if="saving">{{ $t(captionI18n) }}</span>
-                        <span v-else>{{ $t(captionI18n) }}:
-                            <span class="big">{{ enabledUntil ? $t('ACTIVE') : $t('INACTIVE') }}</span></span>
-                        <div v-if="enabledUntil">{{ $t('valid until') }}: {{ enabledUntilCalendar }}</div>
-                        <div class="small text-muted"
-                            v-if="!saving">{{ enabledUntil ? $t('CLICK TO DISABLE') : $t('CLICK TO ENABLE') }}
-                        </div>
-                    </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="d-flex align-items-center">
+            <div class="mr-3">
+              <button-loading-dots v-if="saving"></button-loading-dots>
+              <i v-else
+                :class="enabledUntil ? 'pe-7s-attention' : 'pe-7s-close-circle'"></i>
+            </div>
+            <div>
+              <span v-if="saving">{{ $t(captionI18n) }}</span>
+              <span v-else>{{ $t(captionI18n) }}:
+                <span class="big">{{ enabledUntil ? $t('ACTIVE') : $t('INACTIVE') }}</span></span>
+              <div v-if="enabledUntil">{{ $t('valid until') }}: {{ enabledUntilCalendar }}</div>
+              <div class="small text-muted"
+                v-if="!saving">{{ enabledUntil ? $t('CLICK TO DISABLE') : $t('CLICK TO ENABLE') }}
+              </div>
+            </div>
+          </div>
         </button>
     </div>
 </template>

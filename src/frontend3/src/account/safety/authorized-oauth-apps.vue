@@ -45,9 +45,9 @@
 </template>
 
 <script>
-    import OauthScopeLabel from "../integrations/oauth-scope-label.vue";
+  import OauthScopeLabel from "../integrations/oauth-scope-label.vue";
 
-    export default {
+  export default {
         components: {OauthScopeLabel},
         data() {
             return {

@@ -185,13 +185,16 @@
 </template>
 
 <script>
-    import AccountLimitProgressbar from "./account-limit-progressbar";
-    import {DateTime} from "luxon";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
-    import {mapStores} from "pinia";
+  import AccountLimitProgressbar from "./account-limit-progressbar.vue";
+  import {DateTime} from "luxon";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import {mapStores} from "pinia";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import Modal from "@/common/modal.vue";
+  import {api} from "@/api/api.js";
 
-    export default {
-        components: {AccountLimitProgressbar},
+  export default {
+        components: {Modal, LoadingCover, AccountLimitProgressbar},
         props: ['user'],
         data() {
             return {
@@ -211,7 +214,7 @@
                     return;
                 }
                 this.fetching = true;
-                this.$http.get('users/current?include=limits,relationsCount').then(response => {
+                api.get('users/current?include=limits,relationsCount').then(response => {
                     this.limits = {
                         ...response.body.limits,
                         apiRateLimit: response.body.apiRateLimit,
@@ -240,7 +243,7 @@
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
+    @use '../styles/variables' as *;
 
     .account-limits-modal {
         dl {

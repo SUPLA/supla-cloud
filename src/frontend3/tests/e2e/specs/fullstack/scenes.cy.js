@@ -28,7 +28,8 @@ describe('Scenes', () => {
         cy.contains('AID #1').click();
         cy.contains('Dodaj opóźnienie').click();
         cy.contains('Zapisz zmiany').click();
-        cy.contains('div.square-link', 'Testowa scena');
+        cy.contains('h1', 'Testowa scena');
+        cy.contains('.breadcrumbs a', 'Sceny').click();
         cy.contains('div.square-link', '10 sek');
         cy.contains('div.square-link dt', '4'); // the number of operations
     });

@@ -2,7 +2,7 @@
     <div class="account-page"
         v-title="$t('Account')">
         <animated-svg id="user-account-bg"
-            :file="'assets/img/user-account-bg.svg' | withBaseUrl(false)"></animated-svg>
+            :file="withBaseUrl('assets/img/user-account-bg.svg', false)"></animated-svg>
         <div :class="'user-account-container ' + (animationFinished ? 'animation-finished' : '')">
             <loading-cover :loading="!user">
                 <span class="supla-version">supla cloud {{ frontendVersion }}</span>
@@ -51,16 +51,20 @@
 </template>
 
 <script>
-    import AnimatedSvg from "./animated-svg";
-    import TimezonePicker from "./timezone-picker";
-    import AccountOptOutNotificationsModal from "./account-opt-out-notifications-modal";
-    import AccountDeleteModal from "./account-delete-modal";
-    import AccountLimitsModal from "./account-limits-modal";
-    import {mapState} from "pinia";
-    import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import AnimatedSvg from "./animated-svg.vue";
+  import TimezonePicker from "./timezone-picker.vue";
+  import AccountOptOutNotificationsModal from "./account-opt-out-notifications-modal.vue";
+  import AccountDeleteModal from "./account-delete-modal.vue";
+  import AccountLimitsModal from "./account-limits-modal.vue";
+  import {mapState} from "pinia";
+  import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import {withBaseUrl} from "@/common/filters.js";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import {api} from "@/api/api.js";
 
-    export default {
+  export default {
         components: {
+          LoadingCover,
             AccountLimitsModal,
             AccountDeleteModal,
             TimezonePicker,
@@ -78,7 +82,7 @@
         },
         mounted() {
             setTimeout(() => this.animationFinished = true, 2000);
-            this.$http.get('users/current').then(response => {
+            api.get('users/current').then(response => {
                 this.user = response.body;
             });
             if (this.$route.query.optOutNotification) {
@@ -86,6 +90,7 @@
             }
         },
         methods: {
+          withBaseUrl,
             closeOptOutNotificationsModal() {
                 this.changingNotifications = false;
                 if (this.$route.query.optOutNotification) {
@@ -103,8 +108,8 @@
 </script>
 
 <style lang="scss">
-    @import '../styles/mixins';
-    @import '../styles/variables';
+    @use '../styles/mixins' as *;
+    @use '../styles/variables' as *;
 
     ._account_view {
         background-color: $supla-green;

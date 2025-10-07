@@ -48,11 +48,13 @@
 </template>
 
 <script>
-    import {successNotification} from "../common/notifier";
-    import AccessIdsDropdown from "@/access-ids/access-ids-dropdown.vue";
+  import {successNotification} from "../common/notifier";
+  import AccessIdsDropdown from "@/access-ids/access-ids-dropdown.vue";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import {api} from "@/api/api.js";
 
-    export default {
-        components: {AccessIdsDropdown},
+  export default {
+        components: {ModalConfirm, AccessIdsDropdown},
         props: ['user'],
         data() {
             return {
@@ -91,7 +93,7 @@
                 const optOutNotifications = this.possibleNotifications.map(({id}) => id).filter((id) => !this.selectedNotificationsEmail[id]);
                 const optOutNotificationsPush = this.possibleNotifications.map(({id}) => id).filter((id) => !this.selectedNotificationsPush[id]);
                 const accountPushNotificationsAccessIdsIds = this.accessIds.map(({id}) => id);
-                this.$http.patch(`users/current`, {
+                api.patch(`users/current`, {
                     action: 'change:optOutNotifications',
                     optOutNotifications,
                     optOutNotificationsPush,
@@ -114,7 +116,7 @@
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
+    @use '../styles/variables' as *;
 
     .opt-out-notifications {
 

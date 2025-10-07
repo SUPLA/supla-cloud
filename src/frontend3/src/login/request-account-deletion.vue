@@ -53,12 +53,14 @@
 
 <script>
   import {errorNotification} from "../common/notifier";
-  import InvisibleRecaptcha from "@/register/invisible-recaptcha";
+  import InvisibleRecaptcha from "@/register/invisible-recaptcha.vue";
   import {mapState} from "pinia";
   import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import ButtonLoadingDots from "@/common/gui/loaders/button-loading-dots.vue";
+  import {api} from "@/api/api.js";
 
   export default {
-        components: {InvisibleRecaptcha},
+        components: {ButtonLoadingDots, InvisibleRecaptcha},
         data() {
             return {
                 username: '',
@@ -74,7 +76,7 @@
             confirmDeletion(captchaCode) {
                 this.isBusy = true;
                 const requestData = {...this.requestData, captchaCode};
-                this.$http.put('account-deletion', requestData, {skipErrorHandler: [400]})
+                api.put('account-deletion', requestData, {skipErrorHandler: [400]})
                     .then(() => this.isSent = true)
                     .catch(() => errorNotification(this.$t('Error'), this.$t('Invalid username or password')))
                     .finally(() => this.isBusy = false);

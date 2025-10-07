@@ -7,16 +7,17 @@
             :caption="(timezone) => `${timezone.name} (UTC${timezone.offset >= 0 ? '+' : ''}${timezone.offset}) ${timezone.currentTime}`"
             choose-prompt-i18n="choose the timezone"
             v-model="chosenTimezone"
-            @input="updateTimezone"/>
+            @input="updateTimezone($event)"/>
     </span>
 </template>
 
 <script>
-    import {DateTime, Settings} from "luxon";
-    import TIMEZONES_LIST from "./timezones-list.json";
-    import SelectForSubjects from "@/devices/select-for-subjects.vue";
+  import {DateTime, Settings} from "luxon";
+  import TIMEZONES_LIST from "./timezones-list.json";
+  import SelectForSubjects from "@/devices/select-for-subjects.vue";
+  import {api} from "@/api/api.js";
 
-    export default {
+  export default {
         components: {SelectForSubjects},
         props: ['timezone'],
         data() {
@@ -26,9 +27,9 @@
             this.chosenTimezone = this.timezone ? {id: this.timezone} : undefined;
         },
         methods: {
-            updateTimezone() {
-                Settings.defaultZone = this.chosenTimezone.id;
-                this.$http.patch('users/current', {timezone: this.chosenTimezone.id, action: 'change:userTimezone'});
+            updateTimezone(newTimezone) {
+                Settings.defaultZone = newTimezone.id;
+                api.patch('users/current', {timezone: newTimezone.id, action: 'change:userTimezone'});
             },
         },
         computed: {
