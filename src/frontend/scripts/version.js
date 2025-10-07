@@ -1,17 +1,15 @@
-const fs = require("fs-extra");
+import * as fs from "node:fs";
 
-let version = process.env.RELEASE_VERSION;
+let theVersion = process.env.RELEASE_VERSION;
 
 const backendBuildConfigPath = '../../app/config/config_build.yml';
-if (!version && fs.existsSync(backendBuildConfigPath)) {
-    version = fs.readFileSync(backendBuildConfigPath, 'utf8').match(/version: (.+)/)[1].trim();
 
+if (!theVersion && fs.existsSync(backendBuildConfigPath)) {
+  theVersion = fs.readFileSync(backendBuildConfigPath, 'utf8').match(/version: (.+)/)[1].trim();
 }
 
-if (!version) {
-    version = 'UNKNOWN_VERSION';
+if (!theVersion) {
+  theVersion = 'UNKNOWN_VERSION';
 }
 
-version = version.replace(/^[v'"]+|['"]+$/g, '');
-
-module.exports = {version};
+export const version = theVersion.replace(/^[v'"]+|['"]+$/g, '');

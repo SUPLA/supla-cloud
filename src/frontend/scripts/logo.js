@@ -1,22 +1,13 @@
-var chalk = require('chalk');
-var fs = require('fs');
-var path = require('path');
+import * as fs from "node:fs";
+import * as path from "node:path";
+import chalk from "chalk";
 
-var ASCII_LOGO_WIDTH = 52;
-var LOGO = fs.readFileSync(path.join(__dirname, 'logo.txt'));
+const ASCII_LOGO_WIDTH = 52;
+const LOGO = fs.readFileSync(path.join(__dirname, 'logo.txt'));
 
-var printAsciiLogoAndVersion = function (version) {
-    var versionWithV = 'v' + version;
-    var versionLine = Array(ASCII_LOGO_WIDTH - versionWithV.length).join(' ') + versionWithV;
-    console.log(chalk.green(LOGO));
-    console.log(chalk.cyan(versionLine));
+export const printAsciiLogoAndVersion = function (version) {
+  const versionWithV = 'v' + version;
+  const versionLine = Array(ASCII_LOGO_WIDTH - versionWithV.length).join(' ') + versionWithV;
+  console.log(chalk.green(LOGO));
+  console.log(chalk.cyan(versionLine));
 };
-
-module.exports = {
-    printAsciiLogoAndVersion: printAsciiLogoAndVersion
-};
-
-var runningAsScript = require.main === module;
-if (runningAsScript) {
-    printAsciiLogoAndVersion();
-}

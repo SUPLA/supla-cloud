@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import ViteYaml from '@modyfi/vite-plugin-yaml';
 import * as path from "node:path";
+import {version} from "./scripts/version";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -40,7 +41,7 @@ export default defineConfig({
     },
   },
   define: {
-    FRONTEND_VERSION: "'6.6.6'",//JSON.stringify(require('./scripts/version').version),
+    FRONTEND_VERSION: JSON.stringify(version),
   },
   build: {
     chunkSizeWarningLimit: 700,
