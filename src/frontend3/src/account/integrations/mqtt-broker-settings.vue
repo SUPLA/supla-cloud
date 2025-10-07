@@ -109,9 +109,12 @@
   import {infoNotification, successNotification} from "../../common/notifier";
   import CopyButton from "../../common/copy-button.vue";
   import {api} from "@/api/api.js";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import ButtonLoadingDots from "@/common/gui/loaders/button-loading-dots.vue";
 
   export default {
-        components: {CopyButton},
+        components: {ButtonLoadingDots, ModalConfirm, LoadingCover, CopyButton},
         data() {
             return {
                 settings: undefined,

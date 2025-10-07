@@ -1,13 +1,13 @@
 <template>
     <square-link class="clearfix pointer lift-up yellow"
         @click="$emit('click')">
-        <router-link :to="linkSpec">
+        <router-link :to="{name: 'myOauthApp', params: {id: model.id}}">
             <div class="clearfix">
                 <h2 class="pull-left">ID<strong>{{ model.id }} </strong></h2>
             </div>
             <dl class="ellipsis">
                 <dd>{{ $t('Public ID') }}</dd>
-                <dt>{{ model.publicId | ellipsis }}</dt>
+                <dt>{{ ellipsis(model.publicId) }}</dt>
             </dl>
             <div class="separator"></div>
             {{ model.name }}
@@ -15,13 +15,9 @@
     </square-link>
 </template>
 
-<script>
-    export default {
-        props: ['model'],
-        computed: {
-            linkSpec() {
-                return this.noLink ? {} : {name: 'myOauthApp', params: {id: this.model.id}};
-            }
-        }
-    };
+<script setup>
+  import {ellipsis} from "@/common/filters";
+  import SquareLink from "@/common/tiles/square-link.vue";
+
+  defineProps({model: Object})
 </script>

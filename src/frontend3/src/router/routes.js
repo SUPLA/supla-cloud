@@ -219,6 +219,29 @@ export default [
     props: true
   },
   {
+    path: '/integrations', component: () => import("@/account/integrations/integrations-page.vue"), children: [
+      {
+        path: 'apps',
+        component: () => import("@/account/integrations/oauth-apps/my-oauth-apps-page.vue"),
+        name: 'integrations.myOauthApps',
+        children: [
+          {
+            path: ':id',
+            component: () => import("@/account/integrations/oauth-apps/my-oauth-app-details.vue"),
+            name: 'myOauthApp',
+            props: true
+          }
+        ]
+      },
+      {path: 'mqtt-broker', component: () => import("@/account/integrations/mqtt-broker-settings.vue"), name: 'integrations.mqtt'},
+      {
+        path: 'data-sources',
+        component: () => import("@/account/integrations/data-sources/virtual-channel-list-page.vue"),
+        name: 'integrations.dataSources'
+      },
+    ]
+  },
+  {
     path: '/security', component: () => import("@/account/safety/safety-page.vue"), children: [
       {path: 'log', component: () => import("@/account/safety/security-log.vue"), name: 'safety.log'},
       {path: 'access-tokens', component: () => import("@/account/safety/security-access-tokens.vue"), name: 'safety.accessTokens'},
