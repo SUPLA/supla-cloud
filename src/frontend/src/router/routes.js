@@ -101,25 +101,6 @@ export default [
         meta: {unrestricted: true, unavailableInMaintenance: true, bodyClass: 'register-slider-body'}
     },
     {
-        path: '/schedules',
-        component: () => import(/*webpackChunkName:"schedules-page"*/"@/schedules/schedule-list/schedules-page"),
-        name: 'schedules',
-        children: [
-            {
-                path: ':id',
-                component: () => import(/*webpackChunkName:"schedules-details-page"*/"@/schedules/schedule-details/schedule-details-page"),
-                name: 'schedule',
-                props: true,
-            },
-            {
-                path: ':id/edit',
-                component: () => import(/*webpackChunkName:"schedules-form"*/"@/schedules/schedule-form/schedule-form"),
-                name: 'schedule.edit',
-                props: true,
-            },
-        ]
-    },
-    {
         path: "/agree-on-rules",
         component: () => import("@/common/errors/error-agree-on-rules"),
         name: 'agree-on-rules',

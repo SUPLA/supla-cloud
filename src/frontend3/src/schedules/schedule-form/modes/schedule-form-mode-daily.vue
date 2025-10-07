@@ -57,15 +57,18 @@
 </template>
 
 <script>
-    import ScheduleFormModeDailyHour from "@/schedules/schedule-form/modes/schedule-form-mode-daily-hour";
-    import ScheduleFormModeDailySun from "@/schedules/schedule-form/modes/schedule-form-mode-daily-sun";
-    import ChannelActionChooser from "@/channels/action/channel-action-chooser";
-    import {cloneDeep, flatten, toArray} from "lodash";
-    import {generatePassword} from "@/common/utils";
-    import ScheduleFormModeDailyDaySelector from "@/schedules/schedule-form/modes/schedule-form-mode-daily-day-selector";
-    import ChannelFunctionAction from "../../../common/enums/channel-function-action";
+  import ScheduleFormModeDailyHour
+    from "@/schedules/schedule-form/modes/schedule-form-mode-daily-hour.vue";
+  import ScheduleFormModeDailySun
+    from "@/schedules/schedule-form/modes/schedule-form-mode-daily-sun.vue";
+  import ChannelActionChooser from "@/channels/action/channel-action-chooser.vue";
+  import {cloneDeep, flatten, toArray} from "lodash";
+  import {generatePassword} from "@/common/utils";
+  import ScheduleFormModeDailyDaySelector
+    from "@/schedules/schedule-form/modes/schedule-form-mode-daily-day-selector.vue";
+  import ChannelFunctionAction from "../../../common/enums/channel-function-action";
 
-    export default {
+  export default {
         components: {ScheduleFormModeDailyDaySelector, ChannelActionChooser, ScheduleFormModeDailySun, ScheduleFormModeDailyHour},
         props: ['value', 'subject'],
         data() {
@@ -77,7 +80,7 @@
         },
         methods: {
             updateConfig() {
-                this.$emit('input', this.scheduleConfig);
+                this.$nextTick(() => this.$emit('input', this.scheduleConfig));
             },
             addAction(type) {
                 if (!this.config[this.weekdayGroupIndex]) {

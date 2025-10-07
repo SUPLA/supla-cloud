@@ -29,13 +29,13 @@
 </template>
 
 <script>
-    import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
-    import Vue from "vue";
-    import {formatDateTimeLong} from "../../common/filters-date";
-    import {DateTime} from "luxon";
-    import {actionCaption} from "../../channels/channel-helpers";
+  import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
+  import {formatDateTimeLong} from "../../common/filters-date";
+  import {DateTime} from "luxon";
+  import {actionCaption} from "../../channels/channel-helpers";
+  import {api} from "@/api/api.js";
 
-    export default {
+  export default {
         props: ['value', 'schedule', 'config'],
         components: {ButtonLoadingDots},
         computed: {
@@ -62,7 +62,7 @@
                     this.$emit('input', []);
                 } else {
                     this.$set(this.value, 'fetching', true);
-                    Vue.http.post('schedules/next-schedule-executions', query)
+                    api.post('schedules/next-schedule-executions', query)
                         .then(({body: nextScheduleExecutions}) => {
                             this.$emit('input', nextScheduleExecutions);
                             if (query != this.nextRunDatesQuery) {

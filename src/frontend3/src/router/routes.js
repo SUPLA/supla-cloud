@@ -158,6 +158,25 @@ export default [
     ]
   },
   {
+    path: '/schedules',
+    component: () => import("@/schedules/schedule-list/schedules-page.vue"),
+    name: 'schedules',
+    children: [
+      {
+        path: ':id',
+        component: () => import("@/schedules/schedule-details/schedule-details-page.vue"),
+        name: 'schedule',
+        props: true,
+      },
+      {
+        path: ':id/edit',
+        component: () => import("@/schedules/schedule-form/schedule-form.vue"),
+        name: 'schedule.edit',
+        props: true,
+      },
+    ]
+  },
+  {
     path: '/direct-links', component: () => import("@/direct-links/direct-links-page.vue"), name: 'directLinks', children: [
       {path: ':id', component: () => import("@/direct-links/direct-link-details.vue"), name: 'directLink', props: true}
     ]

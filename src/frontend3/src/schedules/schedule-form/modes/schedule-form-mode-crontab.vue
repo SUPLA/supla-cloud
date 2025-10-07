@@ -58,14 +58,15 @@
 </template>
 
 <script>
-    import ChannelActionChooser from "@/channels/action/channel-action-chooser";
-    import {generatePassword} from "@/common/utils";
-    import ScheduleFormModeCrontabInput from "@/schedules/schedule-form/modes/schedule-form-mode-crontab-input";
-    import {cloneDeep} from "lodash";
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
-    import ChannelFunctionAction from "../../../common/enums/channel-function-action";
+  import ChannelActionChooser from "@/channels/action/channel-action-chooser.vue";
+  import {generatePassword} from "@/common/utils";
+  import ScheduleFormModeCrontabInput
+    from "@/schedules/schedule-form/modes/schedule-form-mode-crontab-input.vue";
+  import {cloneDeep} from "lodash";
+  import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import ChannelFunctionAction from "../../../common/enums/channel-function-action";
 
-    export default {
+  export default {
         components: {TransitionExpand, ScheduleFormModeCrontabInput, ChannelActionChooser},
         props: ['value', 'subject'],
         data() {
@@ -76,7 +77,7 @@
         },
         methods: {
             updateConfig() {
-                this.$emit('input', this.scheduleConfig);
+                this.$nextTick(() => this.$emit('input', this.scheduleConfig));
             },
             addAction() {
                 const action = {tempId: generatePassword(10, true), crontab: '', action: {}};

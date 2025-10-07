@@ -51,11 +51,11 @@
                                         <dd>{{ $t('Mode') }}</dd>
                                         <dt>{{ $t(`scheduleMode_${schedule.mode}`) }}</dt>
                                         <dd>{{ $t('Start date') }}</dd>
-                                        <dt>{{ schedule.dateStart | formatDateTimeLong }}</dt>
+                                        <dt>{{ formatDateTimeLong(schedule.dateStart) }}</dt>
                                     </dl>
                                     <dl v-if="schedule.dateEnd">
                                         <dd>{{ $t('End date') }}</dd>
-                                        <dt>{{ schedule.dateEnd | formatDateTimeLong }}</dt>
+                                        <dt>{{ formatDateTimeLong(schedule.dateEnd) }}</dt>
                                     </dl>
                                 </div>
                             </div>
@@ -103,19 +103,25 @@
 </template>
 
 <script>
-    import ChannelTile from "../../channels/channel-tile";
-    import ChannelGroupTile from "../../channel-groups/channel-group-tile";
-    import SceneTile from "../../scenes/scene-tile";
-    import Toggler from "../../common/gui/toggler";
-    import PendingChangesPage from "../../common/pages/pending-changes-page";
-    import ScheduleExecutionsDisplay from "./schedule-executions-display";
-    import PageContainer from "../../common/pages/page-container";
-    import ScheduleForm from "../schedule-form/schedule-form";
-    import ActionableSubjectType from "../../common/enums/actionable-subject-type";
-    import {extendObject} from "@/common/utils";
+  import ChannelTile from "../../channels/channel-tile.vue";
+  import ChannelGroupTile from "../../channel-groups/channel-group-tile.vue";
+  import SceneTile from "../../scenes/scene-tile.vue";
+  import Toggler from "../../common/gui/toggler.vue";
+  import PendingChangesPage from "../../common/pages/pending-changes-page.vue";
+  import ScheduleExecutionsDisplay from "./schedule-executions-display.vue";
+  import PageContainer from "../../common/pages/page-container.vue";
+  import ScheduleForm from "../schedule-form/schedule-form.vue";
+  import ActionableSubjectType from "../../common/enums/actionable-subject-type";
+  import {extendObject} from "@/common/utils";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import {api} from "@/api/api.js";
+  import {formatDateTimeLong} from "@/common/filters-date.js";
 
-    export default {
+  export default {
         components: {
+          ModalConfirm,
+          LoadingCover,
             ScheduleForm,
             PageContainer,
             ScheduleExecutionsDisplay,
@@ -139,11 +145,12 @@
             this.fetch();
         },
         methods: {
+          formatDateTimeLong,
             fetch() {
                 if (this.id !== 'new') {
                     this.loading = true;
                     this.error = false;
-                    this.$http.get(`schedules/${this.id}?include=subject`, {skipErrorHandler: [403, 404]})
+                    api.get(`schedules/${this.id}?include=subject`, {skipErrorHandler: [403, 404]})
                         .then(({body}) => {
                             this.schedule = body;
                             this.hasPendingChanges = this.loading = false;
@@ -159,14 +166,14 @@
             },
             saveChanges() {
                 this.loading = true;
-                this.$http.put(`schedules/${this.id}`, this.schedule)
+                api.put(`schedules/${this.id}`, this.schedule)
                     .then(response => extendObject(this.schedule, response.body))
                     .then(() => this.hasPendingChanges = false)
                     .finally(() => this.loading = false);
             },
             deleteSchedule() {
                 this.loading = true;
-                this.$http.delete(`schedules/${this.id}`).then(() => this.$router.push({name: 'schedules'}));
+                api.delete_(`schedules/${this.id}`).then(() => this.$router.push({name: 'schedules'}));
             }
         },
         computed: {

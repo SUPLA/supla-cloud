@@ -8,7 +8,7 @@
                 <div>
                     <span class="label label-default">{{ actionCaption(execution.action, schedule.subject) }}</span>
                 </div>
-                {{ (execution.resultTimestamp || execution.plannedTimestamp) | formatDateTimeLong }}
+                {{ formatDateTimeLong(execution.resultTimestamp || execution.plannedTimestamp) }}
                 <div class="small"
                     v-if="execution.id != 1">
                     {{ $t(execution.result.caption) }}
@@ -21,7 +21,7 @@
                     <div>
                         <span class="label label-default">{{ actionCaption(execution.action, schedule.subject) }}</span>
                     </div>
-                    {{ execution.plannedTimestamp | formatDateTimeLong }}
+                    {{ formatDateTimeLong(execution.plannedTimestamp) }}
                 </li>
             </template>
         </ul>
@@ -29,9 +29,13 @@
 </template>
 
 <script>
-    import {actionCaption} from "../../channels/channel-helpers";
+  import {actionCaption} from "../../channels/channel-helpers";
+  import {api} from "@/api/api.js";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import {formatDateTimeLong} from "@/common/filters-date.js";
 
-    export default {
+  export default {
+      components: {LoadingCover},
         props: ['schedule'],
         data() {
             return {
@@ -44,14 +48,15 @@
             this.fetch();
         },
         methods: {
+          formatDateTimeLong,
             actionCaption,
             fetch() {
-                this.$http.get(`schedules/${this.schedule.id}?include=closestExecutions`).then(({body}) => {
+                api.get(`schedules/${this.schedule.id}?include=closestExecutions`).then(({body}) => {
                     this.executions = body.closestExecutions;
                 });
             }
         },
-        beforeDestroy() {
+        beforeUnmount() {
             clearInterval(this.timer);
         }
     };
