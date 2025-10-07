@@ -13,7 +13,7 @@
                     {{ errorEntryMessage(entry.textParam) }}
                 </div>
                 <div class="text-muted small">
-                    {{ entry.createdAt | formatDateTime }}
+                    {{ formatDateTime(entry.createdAt) }}
                     {{ $t('from IP') }}
                     {{ entry.ipv4 }}
                 </div>
@@ -34,9 +34,14 @@
 </template>
 
 <script>
-    import {safeJsonParse} from "../common/utils";
+  import {safeJsonParse} from "../common/utils";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import EmptyListPlaceholder from "@/common/gui/empty-list-placeholder.vue";
+  import {api} from "@/api/api.js";
+  import {formatDateTime} from "@/common/filters-date.js";
 
-    export default {
+  export default {
+      components: {EmptyListPlaceholder, LoadingCover},
         props: ['directLink'],
         data() {
             return {
@@ -50,10 +55,11 @@
             this.fetch();
         },
         methods: {
+          formatDateTime,
             fetch() {
                 clearTimeout(this.timer);
                 this.timer = undefined;
-                this.$http.get(`direct-links/${this.directLink.id}/audit?pageSize=5&page=` + this.page).then(response => {
+                api.get(`direct-links/${this.directLink.id}/audit?pageSize=5&page=` + this.page).then(response => {
                     this.auditEntries = response.body;
                     this.timer = setTimeout(() => this.fetch(), 15000);
                     this.hasMorePages = +response.headers.get('X-Total-Count') > this.page * 5;
@@ -94,7 +100,7 @@
                 return [];
             },
         },
-        beforeDestroy() {
+        beforeUnmount() {
             clearTimeout(this.timer);
         },
         watch: {

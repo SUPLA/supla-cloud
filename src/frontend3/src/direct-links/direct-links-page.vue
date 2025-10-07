@@ -1,31 +1,21 @@
 <template>
     <carousel-page header-i18n="Direct links"
-        tile="direct-link-tile"
+        :tile="DirectLinkTile"
         endpoint="direct-links?include=subject"
         create-new-label-i18n="Create new direct link"
         :limit="userData.limits.directLink"
-        filters="direct-link-filters"
-        list="direct-links-list"
+        :filters="DirectLinkFilters"
+        :list="DirectLinksList"
         details-route="directLink"></carousel-page>
 </template>
 
-<script>
-    import CarouselPage from "../common/pages/carousel-page";
-    import DirectLinkTile from "./direct-link-tile";
-    import DirectLinksList from "./direct-links-list";
-    import DirectLinkFilters from "./direct-link-filters";
-    import Vue from "vue";
-    import {mapState} from "pinia";
-    import {useCurrentUserStore} from "@/stores/current-user-store";
+<script setup>
+  import CarouselPage from "../common/pages/carousel-page.vue";
+  import DirectLinkTile from "./direct-link-tile.vue";
+  import DirectLinksList from "./direct-links-list.vue";
+  import DirectLinkFilters from "./direct-link-filters.vue";
+  import {storeToRefs} from "pinia";
+  import {useCurrentUserStore} from "@/stores/current-user-store";
 
-    Vue.component('DirectLinkTile', DirectLinkTile);
-    Vue.component('DirectLinksList', DirectLinksList);
-    Vue.component('DirectLinkFilters', DirectLinkFilters);
-
-    export default {
-        components: {CarouselPage},
-        computed: {
-            ...mapState(useCurrentUserStore, ['userData']),
-        },
-    };
+  const {userData} = storeToRefs(useCurrentUserStore());
 </script>

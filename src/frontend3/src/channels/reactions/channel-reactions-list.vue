@@ -7,6 +7,6 @@
 </template>
 
 <script setup>
-  import ListPage from "@/common/pages/list-page";
+  import ListPage from "@/common/pages/list-page.vue";
   import ReactionTile from "@/channels/reactions/reaction-tile.vue";
 </script>

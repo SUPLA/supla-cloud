@@ -32,10 +32,10 @@
 </template>
 
 <script>
-    import CopyButton from "../common/copy-button";
-    import {actionCaption} from "../channels/channel-helpers";
+  import CopyButton from "../common/copy-button.vue";
+  import {actionCaption} from "../channels/channel-helpers";
 
-    export default {
+  export default {
         methods: {actionCaption},
         components: {CopyButton},
         props: ['url', 'allowedActions', 'possibleActions', 'directLink'],

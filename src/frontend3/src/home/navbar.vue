@@ -67,24 +67,24 @@
                                                               {{ $t('Channel groups') }}
                                                           </router-link>
                                                       </li>
-                          <!--                            <li>-->
-                          <!--                                <router-link :to="{name: 'directLinks'}">-->
-                          <!--                                    <i class="hidden-sm hidden-xs pe-7s-link mr-1"></i>-->
-                          <!--                                    {{ $t('Direct links') }}-->
-                          <!--                                </router-link>-->
-                          <!--                            </li>-->
+                                                      <li>
+                                                          <router-link :to="{name: 'directLinks'}">
+                                                              <i class="hidden-sm hidden-xs pe-7s-link mr-1"></i>
+                                                              {{ $t('Direct links') }}
+                                                          </router-link>
+                                                      </li>
                           <!--                            <li>-->
                           <!--                                <router-link :to="{name: 'scenes'}">-->
                           <!--                                    <i class="hidden-sm hidden-xs supla-icon supla-icon-scene mr-1"></i>-->
                           <!--                                    {{ $t('Scenes') }}-->
                           <!--                                </router-link>-->
                           <!--                            </li>-->
-                          <!--                            <li>-->
-                          <!--                                <router-link :to="{name: 'reactions'}">-->
-                          <!--                                    <i class="hidden-sm hidden-xs pe-7s-arc mr-1"></i>-->
-                          <!--                                    {{ $t('Reactions') }}-->
-                          <!--                                </router-link>-->
-                          <!--                            </li>-->
+                                                      <li>
+                                                          <router-link :to="{name: 'reactions'}">
+                                                              <i class="hidden-sm hidden-xs pe-7s-arc mr-1"></i>
+                                                              {{ $t('Reactions') }}
+                                                          </router-link>
+                                                      </li>
                             <li role="separator"
                                 class="divider"></li>
                             <li>

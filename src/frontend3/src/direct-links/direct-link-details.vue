@@ -179,26 +179,31 @@
 </template>
 
 <script>
-    import Toggler from "../common/gui/toggler";
-    import PendingChangesPage from "../common/pages/pending-changes-page";
-    import PageContainer from "../common/pages/page-container";
-    import ChannelTile from "../channels/channel-tile";
-    import SceneTile from "../scenes/scene-tile";
-    import ScheduleTile from "../schedules/schedule-list/schedule-tile";
-    import ChannelGroupTile from "../channel-groups/channel-group-tile";
-    import DirectLinkPreview from "./direct-link-preview";
-    import DateRangePicker from "@/activity/date-range-picker";
-    import DirectLinkAudit from "./direct-link-audit";
-    import SubjectDropdown from "../devices/subject-dropdown";
-    import AppState from "../router/app-state";
-    import TransitionExpand from "../common/gui/transition-expand.vue";
-    import {actionCaption} from "@/channels/channel-helpers";
-    import {mapState} from "pinia";
-    import {useCurrentUserStore} from "@/stores/current-user-store";
+  import Toggler from "../common/gui/toggler.vue";
+  import PendingChangesPage from "../common/pages/pending-changes-page.vue";
+  import PageContainer from "../common/pages/page-container.vue";
+  import ChannelTile from "../channels/channel-tile.vue";
+  import SceneTile from "../scenes/scene-tile.vue";
+  import ScheduleTile from "../schedules/schedule-list/schedule-tile.vue";
+  import ChannelGroupTile from "../channel-groups/channel-group-tile.vue";
+  import DirectLinkPreview from "./direct-link-preview.vue";
+  import DateRangePicker from "@/activity/date-range-picker.vue";
+  import DirectLinkAudit from "./direct-link-audit.vue";
+  import SubjectDropdown from "../devices/subject-dropdown.vue";
+  import AppState from "../router/app-state";
+  import TransitionExpand from "../common/gui/transition-expand.vue";
+  import {actionCaption} from "@/channels/channel-helpers";
+  import {mapState} from "pinia";
+  import {useCurrentUserStore} from "@/stores/current-user-store";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import {api} from "@/api/api.js";
 
-    export default {
+  export default {
         props: ['id', 'item'],
         components: {
+          ModalConfirm,
+          LoadingCover,
             TransitionExpand,
             SubjectDropdown,
             DirectLinkAudit,
@@ -233,7 +238,7 @@
                 if (this.id && this.id != 'new') {
                     this.loading = true;
                     this.error = false;
-                    this.$http.get(`direct-links/${this.id}?include=subject`, {skipErrorHandler: [403, 404]})
+                    api.get(`direct-links/${this.id}?include=subject`, {skipErrorHandler: [403, 404]})
                         .then(response => this.directLink = response.body)
                         .then(() => this.calculateAllowedActions())
                         .catch(response => this.error = response.status)
@@ -260,7 +265,7 @@
                         allowedActions: ['read'],
                     };
                     this.loading = true;
-                    this.$http.post('direct-links?include=subject', toSend).then(response => {
+                    api.post('direct-links?include=subject', toSend).then(response => {
                         const newLink = response.body;
                         this.$emit('add', newLink);
                     }).catch(() => this.$emit('delete'));
@@ -273,7 +278,7 @@
                 const toSend = {...this.directLink};
                 toSend.allowedActions = this.currentlyAllowedActions;
                 this.loading = true;
-                this.$http
+                api
                     .put('direct-links/' + this.directLink.id, toSend)
                     .then(response => {
                         this.$emit('update', response.body);
@@ -286,7 +291,7 @@
             },
             deleteDirectLink() {
                 this.loading = true;
-                this.$http.delete('direct-links/' + this.directLink.id).then(() => this.$emit('delete'));
+                api.delete_('direct-links/' + this.directLink.id).then(() => this.$emit('delete'));
                 this.directLink = undefined;
             },
             setExecutionsLimit(limit) {

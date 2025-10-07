@@ -12,7 +12,7 @@
                 <dd>ID</dd>
                 <dt>{{ model.id }}</dt>
                 <dd>{{ $t('Last used') }}</dd>
-                <dt v-if="model.lastUsed">{{ model.lastUsed | formatDateTime }}</dt>
+                <dt v-if="model.lastUsed">{{ formatDateTime(model.lastUsed) }}</dt>
                 <dt v-else>{{ $t('Never') }}</dt>
                 <dd>{{ $t('Subject type') }}</dd>
                 <dt>{{ $t('actionableSubjectType_' + model.subjectType) }}</dt>
@@ -24,8 +24,10 @@
 <script>
   import FunctionIcon from "../channels/function-icon.vue";
   import SquareLink from "@/common/tiles/square-link.vue";
+  import {formatDateTime} from "@/common/filters-date.js";
 
   export default {
+    methods: {formatDateTime},
         components: {SquareLink, FunctionIcon},
         props: ['model', 'noLink'],
         computed: {
