@@ -23,11 +23,12 @@
 </template>
 
 <script>
-    import FunctionIcon from "../channels/function-icon";
-    import {prettyMilliseconds} from "../common/filters";
+  import FunctionIcon from "../channels/function-icon.vue";
+  import {prettyMilliseconds} from "../common/filters";
+  import SquareLink from "@/common/tiles/square-link.vue";
 
-    export default {
-        components: {FunctionIcon},
+  export default {
+        components: {SquareLink, FunctionIcon},
         props: ['model', 'noLink'],
         computed: {
             caption() {

@@ -145,6 +145,11 @@ export default [
     ],
   },
   {
+    path: '/channel-groups', component: () => import("@/channel-groups/channel-groups-page.vue"), name: 'channelGroups', children: [
+      {path: ':id', component: () => import("@/channel-groups/channel-group-details.vue"), name: 'channelGroup', props: true}
+    ]
+  },
+  {
     path: "/:pathMatch(.*)*",
     component: () => import("@/common/errors/error-404.vue"),
     meta: {bodyClass: 'red', unrestricted: true}

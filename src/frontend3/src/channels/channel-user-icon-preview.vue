@@ -8,13 +8,15 @@
         </a>
         <img v-for="(state, stateIndex) in icon.function.possibleVisualStates"
             :key="stateIndex"
-            :src="`/api/user-icons/${icon.id}/${stateIndex}?` | withDownloadAccessToken"
+            :src="withDownloadAccessToken(`/api/user-icons/${icon.id}/${stateIndex}?`)"
             v-show="stateIndex == shownIndex">
     </div>
 </template>
 
 <script>
-    export default {
+  import {withDownloadAccessToken} from "@/common/filters.js";
+
+  export default {
         props: ['icon'],
         data() {
             return {
@@ -23,6 +25,7 @@
             };
         },
         methods: {
+          withDownloadAccessToken,
             startPreview() {
                 this.previewTimeout = setTimeout(() => {
                     this.shownIndex++;
