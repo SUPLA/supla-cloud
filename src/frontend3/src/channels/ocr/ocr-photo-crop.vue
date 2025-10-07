@@ -125,7 +125,7 @@
         max-width: 100%;
     }
 
-    ::v-deep .cropper-disabled {
+    :deep(.cropper-disabled) {
         .cropper-point {
             display: none;
         }

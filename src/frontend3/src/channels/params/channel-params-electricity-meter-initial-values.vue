@@ -106,7 +106,7 @@
 
 <style lang="scss"
     scoped>
-    @import '../../styles/mixins';
+    @use '../../styles/mixins' as *;
 
 
 </style>

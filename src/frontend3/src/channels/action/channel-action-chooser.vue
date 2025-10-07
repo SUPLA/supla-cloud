@@ -293,7 +293,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../styles/variables";
+    @use '../../styles/variables' as *;
 
     .channel-action-chooser {
         .panel-heading {

@@ -34,10 +34,10 @@
 </template>
 
 <script>
-    import {difference, flatten} from "lodash";
-    import {DateTime} from "luxon";
+  import {difference, flatten} from "lodash";
+  import {DateTime} from "luxon";
 
-    export default {
+  export default {
         props: ['weekdayGroups'],
         data() {
             return {
@@ -115,7 +115,7 @@
 </script>
 
 <style lang="scss">
-    @import '../../../styles/variables';
+    @use '../../../styles/variables' as *;
 
     .daily-checkboxes {
         text-align: center;

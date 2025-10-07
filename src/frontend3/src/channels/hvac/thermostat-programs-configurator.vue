@@ -105,14 +105,14 @@
 </template>
 
 <script>
-    import {mapValues} from "lodash";
-    import {deepCopy} from "@/common/utils";
-    import IconHeating from "@/common/icons/icon-heating.vue";
-    import IconCooling from "@/common/icons/icon-cooling.vue";
-    import ChannelFunction from "@/common/enums/channel-function";
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import {mapValues} from "lodash";
+  import {deepCopy} from "@/common/utils";
+  import IconHeating from "@/common/icons/icon-heating.vue";
+  import IconCooling from "@/common/icons/icon-cooling.vue";
+  import ChannelFunction from "@/common/enums/channel-function";
+  import TransitionExpand from "@/common/gui/transition-expand.vue";
 
-    export default {
+  export default {
         components: {TransitionExpand, IconCooling, IconHeating},
         props: {
             subject: Object,
@@ -231,8 +231,8 @@
 </script>
 
 <style lang="scss">
-    @import '../../styles/variables';
-    @import '../../styles/mixins';
+    @use '../../styles/variables' as *;
+    @use '../../styles/mixins' as *;
 
     .thermostat-program-buttons {
         display: flex;

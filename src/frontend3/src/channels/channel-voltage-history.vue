@@ -364,6 +364,7 @@
 
 <style lang="scss">
     @use 'sass:list';
+    @use 'sass:color';
     @use '../styles/variables' as *;
 
     .dl-grid {
@@ -433,9 +434,9 @@
     $gradientColor: #ff851b;
     @for $i from 1 through 10 {
         .gradient-#{$i * 10} {
-            background-color: lighten($gradientColor, 42% - ($i * 4.2%));
+            background-color: color.adjust($gradientColor, $lightness: 42% - ($i * 4.2%));
             &:hover {
-                background-color: lighten($gradientColor, 47% - ($i * 4.2%));
+                background-color: color.adjust($gradientColor, $lightness: 47% - ($i * 4.2%));
             }
         }
     }
