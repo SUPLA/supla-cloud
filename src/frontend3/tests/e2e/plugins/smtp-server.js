@@ -1,6 +1,6 @@
-const ms = require('smtp-tester')
+import * as ms from 'smtp-tester';
 
-module.exports = (on) => {
+export default (on) => {
     const port = 7777;
     const mailServer = ms.init(port);
     const lastEmail = {};

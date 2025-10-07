@@ -74,6 +74,12 @@ export default [
     ]
   },
   {
+    path: '/confirm-device-unlock/:deviceId/:unlockCode',
+    component: () => import("@/devices/confirm-device-unlock.vue"),
+    meta: {unrestricted: true},
+    props: true
+  },
+  {
     path: '/channels/:id',
     component: () => import("@/channels/channel-details-page.vue"),
     name: 'channel',

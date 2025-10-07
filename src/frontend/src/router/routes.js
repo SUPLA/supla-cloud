@@ -23,12 +23,7 @@ export default [
         meta: {unrestricted: true},
         props: true
     },
-    {
-        path: '/confirm-device-unlock/:deviceId/:unlockCode',
-        component: () => import("@/devices/confirm-device-unlock.vue"),
-        meta: {unrestricted: true},
-        props: true
-    },
+
 
 
 

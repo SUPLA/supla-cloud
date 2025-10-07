@@ -31,8 +31,10 @@
 <script>
   import 'vue-slider-component/theme/antd.css';
   import {api} from "@/api/api.js";
+  import ButtonLoadingDots from "@/common/gui/loaders/button-loading-dots.vue";
 
   export default {
+    components: {ButtonLoadingDots},
         props: {
             device: Object,
         },

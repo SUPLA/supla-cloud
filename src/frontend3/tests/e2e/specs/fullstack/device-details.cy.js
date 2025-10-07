@@ -3,7 +3,7 @@ describe('Device details', () => {
         cy.task('seed:database', ['01_user.sql', '02_sonoff.sql', '05_locked_module.sql']);
     });
 
-    describe.only('config', () => {
+    describe('config', () => {
         it('can update config', () => {
             cy.login();
             cy.visit('/devices/1/channels');
@@ -40,7 +40,7 @@ describe('Device details', () => {
     });
 
     // TODO does not work in CI - don't know why; probably email gateway does not work
-    describe.skip('locked devices', () => {
+    describe('locked devices', () => {
         it('can request device unlock', () => {
             cy.login();
             cy.visit('/devices/4');
