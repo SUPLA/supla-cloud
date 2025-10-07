@@ -26,8 +26,6 @@
                             </div>
                         </div>
                         <Toggler v-model="editingModel.enabled"
-                            type-bold="true"
-                            color="green"
                         :label="$t('Enabled')"/>
                         <div class="form-group text-right">
                             <button type="button"

@@ -29,14 +29,14 @@
                                                 <dd>{{ $t('Enabled') }}</dd>
                                                 <dt class="text-center">
                                                     <toggler
-                                                        @input="sceneChanged()"
+                                                        @update:modelValue="sceneChanged()"
                                                         v-model="scene.enabled"></toggler>
                                                 </dt>
                                                 <dd>{{ $t('Show on the Client’s devices') }}</dd>
                                                 <dt class="text-center">
                                                     <toggler v-model="scene.hidden"
-                                                        invert="true"
-                                                        @input="sceneChanged()"></toggler>
+                                                        invert
+                                                        @update:modelValue="sceneChanged()"></toggler>
                                                 </dt>
                                             </dl>
                                             <ChannelParamsIntegrationsSettings :subject="scene" @change="sceneChanged()"/>

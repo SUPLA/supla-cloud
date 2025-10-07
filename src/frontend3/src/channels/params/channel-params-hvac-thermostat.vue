@@ -113,7 +113,7 @@
                                 </span>
                             </dd>
                             <dt class="text-center">
-                                <toggler v-model="channel.config.auxMinMaxSetpointEnabled" @input="$emit('change')"
+                                <toggler v-model="channel.config.auxMinMaxSetpointEnabled" @update:modelValue="$emit('change')"
                                     :disabled="!canChangeSetting('auxMinMaxSetpointEnabled')"/>
                             </dt>
                         </dl>
@@ -187,7 +187,7 @@
                 <dl v-if="canDisplaySetting('antiFreezeAndOverheatProtectionEnabled')">
                     <dd>{{ $t('Enabled') }}</dd>
                     <dt class="text-center">
-                        <toggler v-model="channel.config.antiFreezeAndOverheatProtectionEnabled" @input="$emit('change')"
+                        <toggler v-model="channel.config.antiFreezeAndOverheatProtectionEnabled" @update:modelValue="$emit('change')"
                             :disabled="!canChangeSetting('antiFreezeAndOverheatProtectionEnabled')"/>
                     </dt>
                 </dl>
@@ -382,7 +382,7 @@
                     v-if="canDisplaySetting('temperatureSetpointChangeSwitchesToManualMode') && !channel.config.masterThermostatChannelId">
                     <dd>{{ $t('Temperature setpoint change switches to manual mode') }}</dd>
                     <dt class="text-center">
-                        <toggler v-model="channel.config.temperatureSetpointChangeSwitchesToManualMode" @input="$emit('change')"
+                        <toggler v-model="channel.config.temperatureSetpointChangeSwitchesToManualMode" @update:modelValue="$emit('change')"
                             :disabled="!canChangeSetting('temperatureSetpointChangeSwitchesToManualMode')"/>
                     </dt>
                 </dl>

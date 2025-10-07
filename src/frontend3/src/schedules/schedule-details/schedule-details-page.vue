@@ -37,14 +37,14 @@
                                         <dd>{{ $t('Enabled') }}</dd>
                                         <dt>
                                             <toggler v-model="schedule.enabled"
-                                                @input="updateSchedule()"></toggler>
+                                                @update:modelValue="updateSchedule()"></toggler>
                                         </dt>
                                     </dl>
                                     <dl v-if="!retryOptionDisabled">
                                         <dd>{{ $t('Retry on failure') }}</dd>
                                         <dt>
                                             <toggler v-model="schedule.retry"
-                                                @input="updateSchedule()"></toggler>
+                                                @update:modelValue="updateSchedule()"></toggler>
                                         </dt>
                                     </dl>
                                     <dl>

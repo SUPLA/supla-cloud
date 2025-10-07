@@ -81,7 +81,7 @@
         <dl>
             <dd>{{ $t('Mute alarm sound without additional auth') }}</dd>
             <dt class="text-center">
-                <Toggler v-model="channel.config.muteAlarmSoundWithoutAdditionalAuth" @input="$emit('change')"/>
+                <Toggler v-model="channel.config.muteAlarmSoundWithoutAdditionalAuth" @update:modelValue="$emit('change')"/>
             </dt>
         </dl>
     </div>

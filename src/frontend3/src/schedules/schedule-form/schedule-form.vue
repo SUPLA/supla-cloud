@@ -69,7 +69,7 @@
                                 :schedule="schedule"></next-run-dates-preview>
                             <toggler v-model="schedule.retry"
                                 v-if="canSetRetry"
-                                label="Retry on failure"></toggler>
+                                :label="$t('Retry on failure')"></toggler>
                         </div>
                     </div>
                     <div class="col-md-6">

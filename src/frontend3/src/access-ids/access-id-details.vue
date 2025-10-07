@@ -28,7 +28,7 @@
                                         <dd>{{ $t('Enabled') }}</dd>
                                         <dt class="text-center">
                                             <toggler v-model="accessId.enabled"
-                                                @input="accessIdChanged()"></toggler>
+                                                @update:modelValue="accessIdChanged()"></toggler>
                                         </dt>
                                         <dd>{{ $t('Caption') }}</dd>
                                         <dt>

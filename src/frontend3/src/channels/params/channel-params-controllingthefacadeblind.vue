@@ -27,7 +27,7 @@
             <dd>{{ $t('Automatic calibration') }}</dd>
             <dt class="text-center">
                 <toggler v-model="automaticCalibration"
-                    @input="$emit('change')"></toggler>
+                    @update:modelValue="$emit('change')"></toggler>
             </dt>
         </dl>
         <transition-expand>
@@ -106,14 +106,14 @@
             <dd>{{ $t('Motor upside down') }}</dd>
             <dt class="text-center">
                 <toggler v-model="channel.config.motorUpsideDown"
-                    @input="$emit('change')"></toggler>
+                    @update:modelValue="$emit('change')"></toggler>
             </dt>
         </dl>
         <dl v-if="channel.config.buttonsUpsideDown !== undefined" class="wide-label">
             <dd>{{ $t('Buttons upside down') }}</dd>
             <dt class="text-center">
                 <toggler v-model="channel.config.buttonsUpsideDown"
-                    @input="$emit('change')"></toggler>
+                    @update:modelValue="$emit('change')"></toggler>
             </dt>
         </dl>
         <dl v-if="channel.config.timeMargin !== undefined" class="wide-label">

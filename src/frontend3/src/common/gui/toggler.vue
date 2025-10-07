@@ -1,48 +1,131 @@
 <template>
-<!--    <switches v-model="model"-->
-<!--        :type-bold="bold"-->
-<!--        :label="$t(label || '')"-->
-<!--        :color="model ? trueColorValue : 'default'"-->
-<!--        :emit-on-mount="false"-->
-<!--        :disabled="disabled"></switches>-->
-  <label>
-    <input type="checkbox" :disabled="disabled" v-model="model">
-    {{ $t(label || '')}}
+  <label
+    :class="[
+      'form-switch',
+      {
+        disabled: disabled,
+      },
+    ]"
+  >
+    <input type="checkbox" v-model="theValue" :disabled="disabled" />
+    <span class="check"></span>
+    <span class="ml-2">
+      <span v-if="label">{{ label }}</span>
+      <slot v-else />
+    </span>
   </label>
 </template>
 
 <script>
-    // import Switches from "vue-switches";
+  export default {
+    compatConfig: {
+      MODE: 3,
+    },
+  }
+</script>
 
-    export default {
-        props: ['value', 'invert', 'label', 'bold', 'trueColor', 'disabled'],
-        // components: {Switches},
-        computed: {
-            trueColorValue() {
-                return this.trueColor || 'green';
-            },
-            model: {
-                set(value) {
-                    this.$emit('input', this.invert ? !value : value);
-                },
-                get() {
-                    return this.invert ? !this.value : !!this.value;
-                }
-            }
-        }
-    };
+<script setup>
+  import {computed} from "vue";
+
+  const props = defineProps({
+    label: String,
+    disabled: Boolean,
+    invert: Boolean,
+  });
+
+  const model = defineModel();
+
+  const theValue = computed({
+    get: () => props.invert ? !model.value : model.value,
+    set: (value) => model.value = props.invert ? !value : value,
+  })
 </script>
 
 <style lang="scss">
-    @use "../../styles/variables" as *;
-    @use 'sass:color';
+  @use "../../styles/variables" as *;
 
-    .vue-switcher-color--white {
-        div {
-            background-color: $supla-white;
-            &:after {
-                background-color: color.adjust($supla-white, $lightness: -10%);
-            }
-        }
+  $switch-width-number: 2.75 !default;
+  $switch-width: $switch-width-number * 1em !default;
+  $switch-padding: 0.2em !default;
+  $speed-slow: 150ms;
+  $easing: ease-out;
+  $radius: 15px;
+
+  .form-switch {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    margin-right: 0.5em;
+
+    & + .form-switch:last-child {
+      margin-right: 0;
     }
+
+    input[type='checkbox'] {
+      position: absolute;
+      left: 0;
+      opacity: 0;
+      outline: none;
+      z-index: -1;
+
+      + .check {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        width: $switch-width;
+        height: #{$switch-width * 0.5 + $switch-padding};
+        padding: $switch-padding;
+        background: $supla-grey-dark;
+        border-radius: $radius;
+        transition:
+          background $speed-slow $easing,
+          box-shadow $speed-slow $easing;
+
+        &:before {
+          content: '';
+          display: block;
+          border-radius: $radius;
+          width: #{($switch-width - $switch-padding * 2) * 0.5};
+          height: #{($switch-width - $switch-padding * 2) * 0.5};
+          background: $supla-white;
+          box-shadow:
+            0 3px 1px 0 rgba(0, 0, 0, 0.05),
+            0 2px 2px 0 rgba(0, 0, 0, 0.1),
+            0 3px 3px 0 rgba(0, 0, 0, 0.05);
+          transition: transform $speed-slow $easing;
+          will-change: transform;
+          transform-origin: left;
+        }
+      }
+
+      &:checked + .check {
+        background: $supla-green;
+
+        &:before {
+          transform: translate3d(100%, 0, 0);
+        }
+      }
+
+      &:focus,
+      &:active {
+        outline: none;
+
+        + .check {
+          box-shadow: 0 0 0.5em $supla-grey-dark;
+        }
+
+        &:checked + .check {
+          box-shadow: 0 0 0.5em $supla-green;
+        }
+      }
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      color: $supla-grey-light;
+    }
+  }
 </style>
+
