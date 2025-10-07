@@ -5,7 +5,7 @@
             <h1 class="no-margin-top" v-else-if="header" v-title>{{ header }}</h1>
             <h2 class="no-margin-top" v-else>&nbsp;</h2>
             <div class="button-container no-margin-top " v-show="!frontendConfig.config.maintenanceMode">
-                <transition name="fade">
+                <Transition name="fade" mode="out-in">
                     <div v-if="showPendingButtons">
                         <FormButton v-if="cancellable" :disabled="loading" button-class="btn-grey" class="mr-2" @click="$emit('cancel')">
                             <i class="pe-7s-back"></i>
@@ -16,9 +16,7 @@
                             {{ $t('Save changes') }}
                         </FormButton>
                     </div>
-                </transition>
-                <transition name="fade">
-                    <div v-if="showNotPendingButtons">
+                    <div v-else>
                         <slot name="buttons"></slot>
                         <div class="btn-toolbar"
                             v-if="deletable">
@@ -28,7 +26,7 @@
                             </a>
                         </div>
                     </div>
-                </transition>
+                </Transition>
             </div>
         </div>
         <div class="form-group">
@@ -73,5 +71,4 @@
     const frontendConfig = useFrontendConfigStore();
 
     const showPendingButtons = computed(() => props.isPending);
-    const showNotPendingButtons = computed(() => !props.isPending);
 </script>
