@@ -3,11 +3,11 @@
 This directory contains sources of frontend components used in SUPLA CLOUD.
 
 They are written with [Vue.js](https://vuejs.org/).
-The sources are built with [webpack](https://webpack.github.io/).
+The sources are built with [Vite](https://vite.dev).
 
 ## How to build the sources?
 
-Install [Node.js](https://nodejs.org/) at least v14 and NPM at least v7.
+Install [Node.js](https://nodejs.org/) at least v22.
 
 ```bash
 npm install
@@ -19,8 +19,8 @@ to the output directory (`web/dist`).
 
 ## How to develop the frontend components?
 
-In order to start the webpack dev server with continuous building and hot reloads:
+In order to start the dev server with continuous building and hot reloads:
 
 ```bash
-npm run serve
+npm run dev
 ```
