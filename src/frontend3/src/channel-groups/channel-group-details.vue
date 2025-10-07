@@ -109,20 +109,27 @@
 <script>
   import FunctionIcon from "../channels/function-icon.vue";
   import ChannelGroupNewChannelChooser from "./channel-group-new-channel-chooser.vue";
-  import ChannelGroupChannelTile from "./channel-group-channel-tile";
-  import SquareLocationChooser from "../locations/square-location-chooser";
-  import Toggler from "../common/gui/toggler";
-  import PendingChangesPage from "../common/pages/pending-changes-page";
-  import PageContainer from "../common/pages/page-container";
-  import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser";
-  import ChannelGroupDetailsTabs from "./channel-group-details-tabs";
+  import ChannelGroupChannelTile from "./channel-group-channel-tile.vue";
+  import SquareLocationChooser from "../locations/square-location-chooser.vue";
+  import Toggler from "../common/gui/toggler.vue";
+  import PendingChangesPage from "../common/pages/pending-changes-page.vue";
+  import PageContainer from "../common/pages/page-container.vue";
+  import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser.vue";
+  import ChannelGroupDetailsTabs from "./channel-group-details-tabs.vue";
   import AppState from "../router/app-state";
-  import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal";
-  import ChannelActionExecutor from "../channels/action/channel-action-executor";
+  import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal.vue";
+  import ChannelActionExecutor from "../channels/action/channel-action-executor.vue";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import SquareLinksGrid from "@/common/tiles/square-links-grid.vue";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import {api} from "@/api/api.js";
 
   export default {
         props: ['id'],
         components: {
+          ModalConfirm,
+          SquareLinksGrid,
+          LoadingCover,
             ChannelActionExecutor,
             DependenciesWarningModal,
             ChannelGroupDetailsTabs,
@@ -154,7 +161,7 @@
                 if (this.id && this.id != 'new') {
                     this.loading = true;
                     this.error = false;
-                    this.$http.get(`channel-groups/${this.id}?include=channels,iodevice,location`, {skipErrorHandler: [403, 404]})
+                    api.get(`channel-groups/${this.id}?include=channels,iodevice,location`, {skipErrorHandler: [403, 404]})
                         .then(response => this.channelGroup = response.body)
                         .then(() => {
                             if (AppState.shiftTask('channelGroupNew')) {
@@ -185,16 +192,27 @@
             },
             saveChannelGroup() {
                 const toSend = {...this.channelGroup};
+                if (toSend.channels) {
+                  toSend.channelsIds = toSend.channels.map(c => c.id);
+                  delete toSend.channels;
+                }
+                if (toSend.function) {
+                  delete toSend.function;
+                }
+                if (toSend.location) {
+                  toSend.locationId = toSend.location.id;
+                  delete toSend.location;
+                }
                 this.loading = true;
                 if (this.isNewGroup) {
-                    this.$http.post('channel-groups', toSend).then(response => {
+                    api.post('channel-groups', toSend).then(response => {
                         const newGroup = response.body;
                         newGroup.channels = this.channelGroup.channels;
                         this.$emit('add', newGroup);
                         AppState.addTask('channelGroupNew', true);
                     }).catch(() => this.$emit('delete'));
                 } else {
-                    this.$http
+                    api
                         .put('channel-groups/' + this.channelGroup.id, toSend)
                         .then(response => this.$emit('update', response.body))
                         .then(() => this.hasPendingChanges = false)
@@ -207,7 +225,7 @@
             },
             deleteGroup(safe = true) {
                 this.loading = true;
-                this.$http.delete(`channel-groups/${this.channelGroup.id}?safe=${safe ? '1' : '0'}`, {skipErrorHandler: [409]})
+                api.delete_(`channel-groups/${this.channelGroup.id}?safe=${safe ? '1' : '0'}`, {skipErrorHandler: [409]})
                     .then(() => {
                         this.$emit('delete');
                         this.channelGroup = undefined;

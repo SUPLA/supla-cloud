@@ -16,11 +16,11 @@
 </template>
 
 <script>
-    import BtnFilters from "../common/btn-filters";
-    import latinize from "latinize";
-    import {DateTime} from "luxon";
+  import BtnFilters from "../common/btn-filters.vue";
+  import latinize from "latinize";
+  import {DateTime} from "luxon";
 
-    export default {
+  export default {
         components: {BtnFilters},
         data() {
             return {

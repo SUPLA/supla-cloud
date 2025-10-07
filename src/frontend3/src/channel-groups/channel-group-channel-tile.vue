@@ -30,8 +30,10 @@
 </template>
 
 <script setup>
-  import ChannelTile from "../channels/channel-tile";
+  import ChannelTile from "../channels/channel-tile.vue";
   import {ref} from "vue";
+  import SquareLink from "@/common/tiles/square-link.vue";
+  import Flipper from "@/common/tiles/flipper.vue";
 
   defineProps({
         channel: Object,

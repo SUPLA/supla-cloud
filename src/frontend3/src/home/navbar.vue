@@ -61,12 +61,12 @@
                           <!--                                    {{ $t('Schedules') }}-->
                           <!--                                </router-link>-->
                           <!--                            </li>-->
-                          <!--                            <li>-->
-                          <!--                                <router-link :to="{name: 'channelGroups'}">-->
-                          <!--                                    <i class="hidden-sm hidden-xs pe-7s-keypad mr-1"></i>-->
-                          <!--                                    {{ $t('Channel groups') }}-->
-                          <!--                                </router-link>-->
-                          <!--                            </li>-->
+                                                      <li>
+                                                          <router-link :to="{name: 'channelGroups'}">
+                                                              <i class="hidden-sm hidden-xs pe-7s-keypad mr-1"></i>
+                                                              {{ $t('Channel groups') }}
+                                                          </router-link>
+                                                      </li>
                           <!--                            <li>-->
                           <!--                                <router-link :to="{name: 'directLinks'}">-->
                           <!--                                    <i class="hidden-sm hidden-xs pe-7s-link mr-1"></i>-->

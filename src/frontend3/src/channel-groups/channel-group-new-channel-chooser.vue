@@ -63,10 +63,12 @@
   import ChannelsDropdown from "../devices/channels-dropdown.vue";
   import {mapState} from "pinia";
   import {useCurrentUserStore} from "@/stores/current-user-store";
+  import SquareLink from "@/common/tiles/square-link.vue";
+  import Flipper from "@/common/tiles/flipper.vue";
 
   export default {
         props: ['channelGroup'],
-        components: {ChannelsDropdown},
+        components: {Flipper, SquareLink, ChannelsDropdown},
         data() {
             return {
                 newChannel: undefined,

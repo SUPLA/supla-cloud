@@ -22,9 +22,10 @@
 
 <script>
   import FunctionIcon from "../channels/function-icon.vue";
+  import SquareLink from "@/common/tiles/square-link.vue";
 
   export default {
-        components: {FunctionIcon},
+        components: {SquareLink, FunctionIcon},
         props: ['model', 'noLink'],
         computed: {
             caption() {

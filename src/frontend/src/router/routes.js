@@ -58,11 +58,7 @@ export default [
         component: () => import(/*webpackChunkName:"account-page"*/"@/account/account-page"),
         meta: {bodyClass: 'green'}
     },
-    {
-        path: '/channel-groups', component: () => import("@/channel-groups/channel-groups-page"), name: 'channelGroups', children: [
-            {path: ':id', component: () => import("@/channel-groups/channel-group-details"), name: 'channelGroup', props: true}
-        ]
-    },
+
     {
         path: '/reactions', component: () => import("@/channels/reactions/channel-reactions-list.vue"), name: 'reactions',
     },
