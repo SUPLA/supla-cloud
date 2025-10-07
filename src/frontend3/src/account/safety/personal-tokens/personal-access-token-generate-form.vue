@@ -19,7 +19,7 @@
                         <div v-for="suffix in scope.suffixes"
                             :key="suffix">
                             <toggler :label="scopeSuffixLabels[suffix]"
-                                @update:modelValue="scopeChanged(scope, suffix)"
+                                @update:modelValue="scopeChanged(scope, suffix, $event)"
                                 v-model="selectedScopes[scopeId(scope, suffix)]"></toggler>
                         </div>
                     </div>
@@ -43,6 +43,7 @@
 <script>
   import {availableScopes, scopeId, scopeSuffixLabels} from "../../integrations/oauth-scopes";
   import Toggler from "@/common/gui/toggler.vue";
+  import {api} from "@/api/api.js";
 
   export default {
     components: {Toggler},
@@ -67,17 +68,16 @@
                         this.token.scope.push(scope);
                     }
                 }
-                this.$http.post('oauth-personal-tokens', this.token).then(response => {
+                api.post('oauth-personal-tokens', this.token).then(response => {
                     this.$emit('generated', response.body);
                 });
             },
-            scopeChanged(scope, suffix) {
+            scopeChanged(scope, suffix, set) {
                 const scopeId = this.scopeId(scope, suffix);
-                if (suffix == 'r' && !this.selectedScopes[scopeId]) {
-                    this.$set(this.selectedScopes, this.scopeId(scope, 'rw'), false);
-
-                } else if (suffix == 'rw' && this.selectedScopes[scopeId]) {
-                    this.$set(this.selectedScopes, this.scopeId(scope, 'r'), true);
+                if (suffix == 'r' && !set) {
+                    this.selectedScopes[this.scopeId(scope, 'rw')] = false;
+                } else if (suffix == 'rw' && set) {
+                    this.selectedScopes[this.scopeId(scope, 'r')] = true;
                 }
             },
             scopeId,

@@ -23,11 +23,11 @@
                         <span v-if="accessToken.issuerIp">/ {{ accessToken.issuerIp }}</span>
                     </td>
                     <td>
-                        {{ accessToken.expiresAt | formatDateTime }}
+                        {{ formatDateTime(accessToken.expiresAt) }}
                     </td>
                     <td>
                         <a @click="accessTokenToDelete = accessToken" class="btn btn-default btn-xs">
-                            <fa icon="sign-out"/>
+                            <fa :icon="faSignOut()"/>
                             {{ $t('Log out') }}
                         </a>
                     </td>
@@ -49,7 +49,7 @@
                         {{ accessToken.apiClient.name }}
                     </td>
                     <td>
-                        {{ accessToken.expiresAt | formatDateTime }}
+                        {{ formatDateTime(accessToken.expiresAt) }}
                     </td>
                     <td></td>
                 </tr>
@@ -70,8 +70,15 @@
 
 <script>
   import {successNotification} from "@/common/notifier";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import {formatDateTime} from "@/common/filters-date";
+  import EmptyListPlaceholder from "@/common/gui/empty-list-placeholder.vue";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import {api} from "@/api/api.js";
+  import {faSignOut} from "@fortawesome/free-solid-svg-icons";
 
   export default {
+    components: {ModalConfirm, EmptyListPlaceholder, LoadingCover},
         data() {
             return {
                 accessTokens: undefined,
@@ -83,16 +90,20 @@
             this.fetchTokens();
         },
         methods: {
+          faSignOut() {
+            return faSignOut
+          },
+          formatDateTime,
             fetchTokens() {
                 this.accessTokens = undefined;
-                return this.$http.get('access-tokens')
+                return api.get('access-tokens')
                     .then(response => {
                         this.accessTokens = response.body;
                     });
             },
             deleteAccessToken(token) {
                 this.deleting = true;
-                this.$http.delete(`access-tokens/${token.id}`)
+                api.delete(`access-tokens/${token.id}`)
                     .then(() => successNotification(this.$t('Success'), this.$t('Selected device has been logged out.')))
                     .then(() => this.fetchTokens())
                     .then(() => this.accessTokenToDelete = undefined)

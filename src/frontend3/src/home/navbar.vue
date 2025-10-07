@@ -115,12 +115,12 @@
                           <!--                                    {{ $t('Integrations') }}-->
                           <!--                                </router-link>-->
                           <!--                            </li>-->
-                          <!--                            <li>-->
-                          <!--                                <router-link :to="{name: 'safety.log'}">-->
-                          <!--                                    <fa icon="shield-halved" class="mr-1" fixed-width/>-->
-                          <!--                                    {{ $t('Security') }}-->
-                          <!--                                </router-link>-->
-                          <!--                            </li>-->
+                                                      <li>
+                                                          <router-link :to="{name: 'safety.log'}">
+                                                              <fa :icon="faShieldHalved()" class="mr-1" fixed-width/>
+                                                              {{ $t('Security') }}
+                                                          </router-link>
+                                                      </li>
                             <li class="divider"></li>
                             <li>
                                 <a id="logoutButton" @click="logout()">
@@ -140,7 +140,7 @@
   import SuplaLogo from "./supla-logo.vue";
   import {mapStores} from "pinia";
   import {useCurrentUserStore} from "@/stores/current-user-store";
-  import {faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
+  import {faShieldHalved, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
   import DropdownMenu from "@/common/gui/dropdown/dropdown-menu.vue";
   import DropdownMenuTrigger from "@/common/gui/dropdown/dropdown-menu-trigger.vue";
   import {api} from "@/api/api.js";
@@ -153,6 +153,9 @@
             };
         },
         methods: {
+          faShieldHalved() {
+            return faShieldHalved
+          },
           faSignOutAlt() {
             return faSignOutAlt
           },

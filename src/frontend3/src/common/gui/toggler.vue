@@ -10,7 +10,7 @@
     <input type="checkbox" v-model="theValue" :disabled="disabled" />
     <span class="check"></span>
     <span class="ml-2">
-      <span v-if="label">{{ label }}</span>
+      <span v-if="label">{{ $t(label) }}</span>
       <slot v-else />
     </span>
   </label>
