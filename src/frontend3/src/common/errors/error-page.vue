@@ -5,7 +5,7 @@
             <i :class="[icon, 'error-page-icon']"
                 style="font-size: 160px"></i>
             <div class="my-3">
-                <h5>{{ $t(messageI18n) }}</h5>
+                <h5>{{ $t(messageI18n, {statusCode}) }}</h5>
             </div>
             <div v-if="guruMeditation">
                 <button type="button"
@@ -31,7 +31,7 @@
 
 <script>
     export default {
-        props: ['headerI18n', 'messageI18n', 'icon', 'guruMeditation'],
+        props: ['headerI18n', 'messageI18n', 'icon', 'guruMeditation', 'statusCode'],
         data() {
             return {
                 guruMeditationVisible: false

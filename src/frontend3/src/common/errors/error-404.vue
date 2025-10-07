@@ -1,11 +1,7 @@
 <template>
-    <error-page header-i18n="Are you lost?"
-        message-i18n="The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist."
-        icon="pe-7s-way"></error-page>
+  <ErrorPageStatus :status-code="404"/>
 </template>
 
-<script>
-  import ErrorPage from "./error-page.vue";
-
-  export default {components: {ErrorPage}};
+<script setup>
+  import ErrorPageStatus from "@/common/errors/error-page-status.vue";
 </script>

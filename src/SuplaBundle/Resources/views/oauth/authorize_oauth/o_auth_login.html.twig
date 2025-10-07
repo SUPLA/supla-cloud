@@ -1,12 +1,1 @@
 {% extends '@web/dist/index.html' %}
-
-{% block vue %}
-    <div class="page-content">
-        <router-view last-username="{{ last_username }}"
-                error="{{ error }}"
-                :ask-for-target-cloud="{{ askForTargetCloud ? 'true' : 'false' }}"
-                last-target-cloud="{{ lastTargetCloud }}"
-                client-name="{{ clientName }}"></router-view>
-    </div>
-    <page-footer></page-footer>
-{% endblock %}

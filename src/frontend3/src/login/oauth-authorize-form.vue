@@ -36,21 +36,41 @@
             </div>
 
             <div class="buttons">
-                <slot></slot>
+              <form :name="formName" method="post" action="/oauth/v2/auth">
+                <input type="submit"
+                  name="rejected"
+                  class="btn btn-white btn-lg"
+                  :value="$t('Decline')">
+                <input type="submit"
+                  name="accepted"
+                  class="btn btn-green btn-lg pull-right"
+                  :value="$t('Grant access')">
+                <input v-for="field in formFields" :key="field.name" type="hidden" :id="`${formName}_${field.name}`" :name="`${formName}[${field.name}]`" :value="field.value" />
+              </form>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import {addImplicitScopes, arrayOfScopes, availableScopes, scopeId, scopeSuffixLabels} from "../account/integrations/oauth-scopes";
-    import {cloneDeep} from "lodash";
-    import {setGuiLocale} from "@/locale";
+  import {
+    addImplicitScopes,
+    arrayOfScopes,
+    availableScopes,
+    scopeId,
+    scopeSuffixLabels
+  } from "../account/integrations/oauth-scopes";
+  import {setGuiLocale} from "@/locale";
+  import {deepCopy} from "@/common/utils.js";
 
-    export default {
-        props: ['desiredScopes', 'clientName', 'locale'],
+  export default {
         data() {
             return {
+              desiredScopes: undefined,
+              clientName: undefined,
+              locale: undefined,
+              formName: undefined,
+              formFields: [],
                 desiredAvailableScopes: [],
                 scopeSuffixLabels,
                 additionalInfo: {
@@ -67,8 +87,9 @@
             };
         },
         mounted() {
+          this.readRequestFromWindow();
             const desiredScopes = addImplicitScopes(arrayOfScopes(this.desiredScopes));
-            const desiredAvailableScopes = cloneDeep(availableScopes);
+            const desiredAvailableScopes = deepCopy(availableScopes);
             desiredAvailableScopes.forEach(
                 scope => scope.suffixes = scope.suffixes.filter(suffix => desiredScopes.indexOf(scopeId(scope, suffix)) !== -1)
             );
@@ -78,14 +99,20 @@
             }
         },
         methods: {
-            scopeId,
+            readRequestFromWindow() {
+              this.desiredScopes = window.oauthAuthorizeRequest?.desiredScopes;
+              this.clientName = window.oauthAuthorizeRequest?.clientName;
+              this.locale = window.oauthAuthorizeRequest?.locale;
+              this.formName = window.oauthAuthorizeRequest?.formName;
+              this.formFields = window.oauthAuthorizeRequest?.formFields;
+            },
         }
     };
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
-    @import "../styles/mixins";
+    @use "../styles/variables" as *;
+    @use "../styles/mixins" as *;
 
     .authorize-form {
         width: 90%;

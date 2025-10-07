@@ -28,11 +28,11 @@
 </template>
 
 <script>
-    import FunctionIcon from "../../channels/function-icon";
-    import ChannelStateTable from "../../channels/channel-state-table";
-    import {channelTitle} from "../../common/filters";
+  import FunctionIcon from "../../channels/function-icon.vue";
+  import ChannelStateTable from "../../channels/channel-state-table.vue";
+  import {channelTitle} from "../../common/filters";
 
-    export default {
+  export default {
         props: ['directLink'],
         components: {ChannelStateTable, FunctionIcon},
         data() {

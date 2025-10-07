@@ -1,6 +1,5 @@
 <template>
-    <div class="container text-center"
-        v-if="directLink">
+    <div class="container text-center" v-if="directLink && directLink.id === linkId">
         <div v-if="failureReason">
             <span class="hidden"
                 v-title>{{ $t('Error') }}</span>
@@ -114,26 +113,30 @@
             <pre><code>{{ currentUrl }}?format=json</code></pre>
         </div>
     </div>
+    <Error404 v-else/>
 </template>
 
 <script>
-    import CopyButton from "../../common/copy-button";
-    import DirectLinkChannelStatus from "./direct-link-channel-status";
-    import ChannelFunction from "@/common/enums/channel-function";
-    import ChannelFunctionAction from "@/common/enums/channel-function-action";
-    import {actionCaption} from "../../channels/channel-helpers";
+  import CopyButton from "../../common/copy-button.vue";
+  import DirectLinkChannelStatus from "./direct-link-channel-status.vue";
+  import ChannelFunction from "@/common/enums/channel-function";
+  import ChannelFunctionAction from "@/common/enums/channel-function-action";
+  import {actionCaption} from "../../channels/channel-helpers";
+  import Error404 from "@/common/errors/error-404.vue";
 
-    export default {
-        props: ['failureReason', 'action'],
-        components: {DirectLinkChannelStatus, CopyButton},
+  export default {
+        props: {action: String, linkId: Number},
+        components: {Error404, DirectLinkChannelStatus, CopyButton},
         data() {
             return {
                 directLink: undefined,
-                jsonHintVisible: false
+                jsonHintVisible: false,
+              failureReason: undefined,
             };
         },
         mounted() {
             this.directLink = window.directLink;
+            this.failureReason = window.failureReason;
         },
         methods: {
             actionCaption,

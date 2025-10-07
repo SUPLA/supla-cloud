@@ -18,10 +18,16 @@
 </template>
 
 <script>
-    import {addImplicitScopes, arrayOfScopes, availableScopes, scopeId, scopeSuffixLabels} from "../account/integrations/oauth-scopes";
-    import {cloneDeep} from "lodash";
+  import {
+    addImplicitScopes,
+    arrayOfScopes,
+    availableScopes,
+    scopeId,
+    scopeSuffixLabels
+  } from "../account/integrations/oauth-scopes";
+  import {cloneDeep} from "lodash";
 
-    export default {
+  export default {
         props: ['desiredScopes'],
         data() {
             return {

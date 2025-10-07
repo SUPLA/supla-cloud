@@ -158,8 +158,24 @@ export default [
     ]
   },
   {
+    path: '/direct/:linkId/:slug/:action?',
+    component: () => import("@/direct-links/result-page/direct-link-execution-result.vue"),
+    props: ({params}) => ({...params, linkId: Number.parseInt(params.linkId)}),
+    meta: {unrestricted: true}
+  },
+  {
+    path: '/oauth-authorize',
+    component: () => import("@/login/login-page-oauth.vue"),
+    meta: {unrestricted: true, bodyClass: 'centered-form-page'},
+  },
+  {
+    path: '/oauth/v2/auth',
+    component: () => import("@/login/oauth-authorize-form.vue"),
+    meta: {unrestricted: true, bodyClass: 'centered-form-page'},
+  },
+  {
     path: "/:pathMatch(.*)*",
-    component: () => import("@/common/errors/error-404.vue"),
+    component: () => import("@/common/errors/error-page-status.vue"),
     meta: {bodyClass: 'red', unrestricted: true}
   }
 ];
