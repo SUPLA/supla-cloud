@@ -1,51 +1,49 @@
-const project = require("./logo");
-const chalk = require('chalk');
-const ora = require('ora');
-const fs = require('fs-extra');
-const async = require('async');
-const del = require('del');
-const exec = require('child_process').exec;
-const version = require('./version').version;
+import {printAsciiLogoAndVersion} from "./logo.js";
+import {version} from "./version.js";
+import ora from "ora";
+import {deleteAsync, deleteSync} from 'del';
+import * as fs from "node:fs";
+import * as async from 'async';
+import * as child from 'child_process';
+import chalk from "chalk";
 
 process.chdir('../../');
 console.log(process.cwd());
 
 const releasePackageName = process.env.RELEASE_FILENAME || 'supla-cloud-v' + version + (process.env.NODE_ENV === 'development' ? '-dev' : '') + '.tar.gz';
 
-project.printAsciiLogoAndVersion(version);
+printAsciiLogoAndVersion(version);
 
 console.log('');
 console.log("Preparing release package.");
 console.log('');
 
-function start() {
-    clearVendorDirectory();
+async function start() {
+    await clearVendorDirectory();
 }
 
-function clearVendorDirectory() {
+async function clearVendorDirectory() {
     const spinner = ora({text: 'Cleaning vendor directory.', color: 'yellow'}).start();
-    del('vendor/**/.git')
-        .then(() => {
-            spinner.succeed('Vendor directory cleaned.');
-            clearReleaseDirectory();
-        })
-        .catch((err) => {
-            console.log(err);
-            spinner.fail();
-        });
+    try {
+        await deleteAsync('vendor/**/.git');
+        spinner.succeed('Vendor directory cleaned.');
+        await clearReleaseDirectory();
+    } catch (error) {
+        spinner.fail();
+        console.log(error);
+    }
 }
 
-function clearReleaseDirectory() {
+async function clearReleaseDirectory() {
     const spinner = ora({text: 'Deleting release directory.', color: 'yellow'}).start();
-    fs.remove('release/', function (err) {
-        if (err) {
-            spinner.fail();
-            console.error(err);
-        } else {
-            spinner.succeed('Release directory deleted.');
-            copyToReleaseDirectory();
-        }
-    });
+    try {
+        await deleteAsync('release');
+        spinner.succeed('Release directory deleted.');
+        copyToReleaseDirectory();
+    } catch (error) {
+        spinner.fail();
+        console.error(error);
+    }
 }
 
 function copyToReleaseDirectory() {
@@ -63,8 +61,8 @@ function copyToReleaseDirectory() {
     }
     directories.forEach(function (filename) {
         calls.push(function (callback) {
-            fs.mkdirsSync('release/' + filename);
-            fs.copy(filename, 'release/' + filename, function (err) {
+            fs.mkdirSync('release/' + filename, {recursive: true});
+            fs.cp(filename, 'release/' + filename, {recursive: true}, function (err) {
                 if (!err) {
                     callback(err);
                 } else {
@@ -95,14 +93,14 @@ function createRequiredDirectories() {
         'var/logs',
         'var/sessions',
     ].forEach(function (dirname) {
-        fs.mkdirsSync('release/' + dirname);
+        fs.mkdirSync('release/' + dirname, {recursive: true});
     });
 }
 
 function copySingleRequiredFiles() {
-    fs.copySync('src/.htaccess', 'release/src/.htaccess');
-    fs.copySync('README.md', 'release/README.md');
-    fs.copySync('composer.json', 'release/composer.json');
+    fs.copyFileSync('src/.htaccess', 'release/src/.htaccess');
+    fs.copyFileSync('README.md', 'release/README.md');
+    fs.copyFileSync('composer.json', 'release/composer.json');
 }
 
 function clearLocalConfigFiles() {
@@ -120,12 +118,12 @@ function clearLocalConfigFiles() {
         pathsToDelete.push('release/app/config/config_dev.yml');
         pathsToDelete.push('release/app/config/routing_dev.yml');
     }
-    del.sync(pathsToDelete);
+    deleteSync(pathsToDelete);
 }
 
 function createZipArchive() {
     const spinner = ora({text: 'Creating release archive.', color: 'yellow'}).start();
-    exec('tar -czf ' + releasePackageName + ' -C release .', function (err) {
+    child.exec('tar -czf ' + releasePackageName + ' -C release .', function (err) {
         if (err) {
             spinner.fail();
             console.log(err);
@@ -139,4 +137,4 @@ function createZipArchive() {
     });
 }
 
-start();
+await start();
