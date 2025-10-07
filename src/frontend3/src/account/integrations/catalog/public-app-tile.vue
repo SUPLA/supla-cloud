@@ -14,9 +14,10 @@
 <script>
 
   import I18nText from "./i18n-text.vue";
+  import SquareLink from "@/common/tiles/square-link.vue";
 
   export default {
-        components: {I18nText},
+        components: {SquareLink, I18nText},
         props: ['app', 'noLink'],
         computed: {
             linkSpec() {

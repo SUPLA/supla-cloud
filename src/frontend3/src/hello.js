@@ -13,6 +13,6 @@ ${ISSUES} https://github.com/SUPLA/supla-cloud/issues
 `, 'font-size: 2em; padding-top: 0.5em', 'padding: 0.5em 0');
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (import.meta.env.MODE === 'production') {
     consoleHello();
 }

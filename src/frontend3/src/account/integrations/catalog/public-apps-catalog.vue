@@ -51,10 +51,17 @@
   import PublicAppDetails from "./public-app-details.vue";
   import PageContainer from "../../../common/pages/page-container.vue";
   import {api} from "@/api/api.js";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import SquareLinksGrid from "@/common/tiles/square-links-grid.vue";
+  import EmptyListPlaceholder from "@/common/gui/empty-list-placeholder.vue";
 
   export default {
         props: ['id'],
-        components: {PageContainer, PublicAppDetails, PublicAppTile, PublicAppsCatalogNotRegisteredMessage},
+        components: {
+          EmptyListPlaceholder,
+          SquareLinksGrid,
+          LoadingCover,
+          PageContainer, PublicAppDetails, PublicAppTile, PublicAppsCatalogNotRegisteredMessage},
         data() {
             return {
                 app: undefined,
