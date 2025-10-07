@@ -19,7 +19,7 @@
                     <td>
                         <oauth-scope-label :scope="authorizedApp.scope"></oauth-scope-label>
                     </td>
-                    <td>{{ authorizedApp.authorizationDate | formatDateTime }}</td>
+                    <td>{{ formatDateTime(authorizedApp.authorizationDate) }}</td>
                     <td class="text-right">
                         <button type="button"
                             class="btn btn-red btn-xs"
@@ -46,9 +46,14 @@
 
 <script>
   import OauthScopeLabel from "../integrations/oauth-scope-label.vue";
+  import {api} from "@/api/api.js";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import EmptyListPlaceholder from "@/common/gui/empty-list-placeholder.vue";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import {formatDateTime} from "@/common/filters-date.js";
 
   export default {
-        components: {OauthScopeLabel},
+        components: {ModalConfirm, EmptyListPlaceholder, LoadingCover, OauthScopeLabel},
         data() {
             return {
                 authorizedApps: undefined,
@@ -57,14 +62,15 @@
             };
         },
         mounted() {
-            this.$http.get('oauth-authorized-clients?include=client').then(response => {
+            api.get('oauth-authorized-clients?include=client').then(response => {
                 this.authorizedApps = response.body;
             });
         },
         methods: {
+          formatDateTime,
             revokeApp(app) {
                 this.revoking = true;
-                this.$http.delete('oauth-authorized-clients/' + app.id)
+                api.delete_('oauth-authorized-clients/' + app.id)
                     .then(() => this.authorizedApps.splice(this.authorizedApps.indexOf(app), 1))
                     .then(() => this.appToRevoke = undefined)
                     .finally(() => this.revoking = false);

@@ -219,6 +219,23 @@ export default [
     props: true
   },
   {
+    path: '/security', component: () => import("@/account/safety/safety-page.vue"), children: [
+      {path: 'log', component: () => import("@/account/safety/security-log.vue"), name: 'safety.log'},
+      {path: 'access-tokens', component: () => import("@/account/safety/security-access-tokens.vue"), name: 'safety.accessTokens'},
+      {
+        path: 'authorized-apps',
+        component: () => import("@/account/safety/authorized-oauth-apps.vue"),
+        name: 'safety.authorizedOAuthApps'
+      },
+      {
+        path: 'personal-access-tokens',
+        component: () => import("@/account/safety/personal-tokens/personal-access-tokens.vue"),
+        name: 'safety.personalTokens'
+      },
+      {path: 'change-password', component: () => import("@/account/safety/account-password-change.vue"), name: 'safety.changePassword'},
+    ]
+  },
+  {
     path: '/db99845855b2ecbfecca9a095062b96c3e27703f',
     component: () => import("@/login/request-account-deletion.vue"),
     meta: {unrestricted: true, bodyClass: 'account-deletion-page warning smartphone-webview'},

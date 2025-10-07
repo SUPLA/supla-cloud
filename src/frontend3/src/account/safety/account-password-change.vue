@@ -41,8 +41,11 @@
 
 <script>
   import {errorNotification, successNotification} from "../../common/notifier";
+  import ButtonLoadingDots from "@/common/gui/loaders/button-loading-dots.vue";
+  import {api} from "@/api/api.js";
 
   export default {
+    components: {ButtonLoadingDots},
         data() {
             return {
                 oldPassword: '',
@@ -60,7 +63,7 @@
                     return errorNotification(this.$t('Error'), this.$t('The password and its confirm are not the same.'));
                 }
                 this.loading = true;
-                this.$http.patch(`users/current`, {
+                api.patch(`users/current`, {
                     action: 'change:password',
                     newPassword: this.newPassword,
                     oldPassword: this.oldPassword

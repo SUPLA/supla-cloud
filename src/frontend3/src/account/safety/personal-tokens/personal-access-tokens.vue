@@ -9,7 +9,7 @@
                             class="btn btn-white">
                             {{ $t('Full documentation') }} @ GitHub
                         </a>
-                        <a :href="'/api-docs/docs.html' | withBaseUrl"
+                        <a :href="withBaseUrl('/api-docs/docs.html')"
                             target="_blank"
                             class="btn btn-white">
                             {{ $t('API documentation') }}
@@ -88,9 +88,17 @@
   import PersonalAccessTokenGenerateForm from "./personal-access-token-generate-form.vue";
   import OauthScopeLabel from "../../integrations/oauth-scope-label.vue";
   import CopyButton from "../../../common/copy-button.vue";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import EmptyListPlaceholder from "@/common/gui/empty-list-placeholder.vue";
+  import ModalConfirm from "@/common/modal-confirm.vue";
+  import {api} from "@/api/api.js";
+  import {withBaseUrl} from "@/common/filters.js";
 
   export default {
-        components: {CopyButton, OauthScopeLabel, PersonalAccessTokenGenerateForm},
+        components: {
+          ModalConfirm,
+          EmptyListPlaceholder,
+          LoadingCover, CopyButton, OauthScopeLabel, PersonalAccessTokenGenerateForm},
         data() {
             return {
                 tokens: undefined,
@@ -101,11 +109,12 @@
             };
         },
         mounted() {
-            this.$http.get('oauth-personal-tokens').then(response => {
+            api.get('oauth-personal-tokens').then(response => {
                 this.tokens = response.body;
             });
         },
         methods: {
+          withBaseUrl,
             onNewToken(token) {
                 this.tokens.unshift(token);
                 this.latestToken = token;
@@ -113,7 +122,7 @@
             },
             revokeToken(token) {
                 this.revoking = true;
-                this.$http.delete('oauth-personal-tokens/' + token.id)
+                api.delete_('oauth-personal-tokens/' + token.id)
                     .then(() => this.tokens.splice(this.tokens.indexOf(token), 1))
                     .then(() => this.tokenToRevoke = undefined)
                     .finally(() => this.revoking = false);

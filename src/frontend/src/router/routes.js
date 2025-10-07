@@ -55,23 +55,7 @@ export default [
             },
         ]
     },
-    {
-        path: '/security', component: () => import(/*webpackChunkName:"safety"*/"@/account/safety/safety-page"), children: [
-            {path: 'log', component: () => import("@/account/safety/security-log"), name: 'safety.log'},
-            {path: 'access-tokens', component: () => import("@/account/safety/security-access-tokens"), name: 'safety.accessTokens'},
-            {
-                path: 'authorized-apps',
-                component: () => import("@/account/safety/authorized-oauth-apps"),
-                name: 'safety.authorizedOAuthApps'
-            },
-            {
-                path: 'personal-access-tokens',
-                component: () => import("@/account/safety/personal-tokens/personal-access-tokens"),
-                name: 'safety.personalTokens'
-            },
-            {path: 'change-password', component: () => import("@/account/safety/account-password-change"), name: 'safety.changePassword'},
-        ]
-    },
+
     {
         path: '/register-cloud',
         component: () => import("@/account/integrations/register-target-cloud-form"),
