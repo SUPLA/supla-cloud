@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from './routes';
-import {useCurrentUserStore} from "@/stores/current-user-store";
-import {useFrontendConfigStore} from "@/stores/frontend-config-store";
 
 Vue.use(VueRouter);
 
@@ -23,26 +21,7 @@ const router = new VueRouter({
     },
 });
 
-router.beforeEach((to, from, next) => {
-    const currentUser = useCurrentUserStore();
-    const frontendConfig = useFrontendConfigStore();
-    if (frontendConfig.config.regulationsAcceptRequired) {
-        if (currentUser.username && !currentUser.userData.agreements.rules && to.name != 'agree-on-rules') {
-            next({name: 'agree-on-rules'});
-            return;
-        }
-    }
-    next();
-});
 
-router.beforeEach((to, from, next) => {
-    const frontendConfig = useFrontendConfigStore();
-    if (to.meta.requireBackendAndFrontendVersionMatches && !frontendConfig.backendAndFrontendVersionMatches) {
-        next({name: 'update-in-progress'});
-    } else {
-        next();
-    }
-});
 
 router.beforeEach((to, from, next) => {
     Vue.prototype.$changingRoute = true;

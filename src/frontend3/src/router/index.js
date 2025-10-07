@@ -33,4 +33,17 @@ router.afterEach((to) => {
   }
 });
 
+router.beforeEach((to) => {
+  const currentUser = useCurrentUserStore();
+  const frontendConfig = useFrontendConfigStore();
+  if (frontendConfig.config.regulationsAcceptRequired) {
+    if (currentUser.username && !currentUser.userData.agreements.rules && to.name != 'agree-on-rules') {
+      return {name: 'agree-on-rules'};
+    }
+  }
+  if (to.meta.requireBackendAndFrontendVersionMatches && !frontendConfig.backendAndFrontendVersionMatches) {
+    return {name: 'update-in-progress'};
+  }
+});
+
 export default router

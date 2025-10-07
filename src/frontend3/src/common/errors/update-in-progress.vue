@@ -7,7 +7,3 @@
         <h5>{{ $t('Be right back!') }}</h5>
     </div>
 </template>
-
-<script>
-    export default {};
-</script>

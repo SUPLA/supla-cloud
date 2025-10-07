@@ -14,8 +14,10 @@
 <script>
   import {mapStores} from "pinia";
   import {useFrontendConfigStore} from "@/stores/frontend-config-store";
+  import ModalConfirm from "@/common/modal-confirm.vue";
 
   export default {
+    components: {ModalConfirm},
         data() {
             return {
                 shown: true,

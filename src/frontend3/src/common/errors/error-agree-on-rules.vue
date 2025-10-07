@@ -27,9 +27,10 @@
   import {mapState} from "pinia";
   import {useCurrentUserStore} from "@/stores/current-user-store";
   import {api} from "@/api/api.js";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
 
   export default {
-        components: {RegulationsCheckbox},
+        components: {LoadingCover, RegulationsCheckbox},
         data() {
             return {
                 loading: false,
