@@ -8,9 +8,11 @@
                             v-if="frontendConfig.config.maintenanceMode && currentUser.username">
                             <maintenance-warning></maintenance-warning>
                         </div>
-            <!--            <LoadingCover :loading="$changingRoute">-->
-            <RouterView/>
-            <!--            </LoadingCover>-->
+          <router-view v-slot="{ Component }">
+            <transition name="fade" mode="out-in">
+              <component :is="Component" />
+            </transition>
+          </router-view>
           <cookie-warning
             v-if="frontendConfig.config.requireCookiePolicyAcceptance && currentUser.username && !currentUser.userData.agreements.cookies"></cookie-warning>
                         <cloud-version-mismatch-warning-modal/>
