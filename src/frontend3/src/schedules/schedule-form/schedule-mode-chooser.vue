@@ -23,7 +23,6 @@
         },
         methods: {
             changeMode(mode) {
-                this.$emit('beforeChange', mode);
                 this.$emit('input', mode);
             }
         }

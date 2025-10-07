@@ -20,7 +20,7 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
 
     const synchronizeAuthState = () => {
         determineServerUrl();
-        Settings.defaultZone = userData.value && userData.value.timezone || 'system';
+        Settings.defaultZone = userData.value?.timezone || 'system';
     }
 
     const determineServerUrl = () => {
@@ -68,8 +68,8 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
 
     const fetchUser = async () => {
         if (userToken.value) {
-            synchronizeAuthState();
             await fetchUserData();
+            synchronizeAuthState();
         } else {
             return false;
         }

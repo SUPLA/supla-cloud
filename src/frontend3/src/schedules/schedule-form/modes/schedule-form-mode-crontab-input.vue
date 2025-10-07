@@ -4,7 +4,7 @@
             class="form-control text-center crontab-input"
             placeholder="23 0-20/2 * * *"
             v-model="crontab"
-            @input="updateValue()">
+            @change="updateValue()">
         <div class="help-block text-right">
             {{ humanizedCrontab }}
         </div>
@@ -12,10 +12,10 @@
 </template>
 
 <script>
-    import cronstrue from 'cronstrue/i18n';
-    import {i18n} from "@/locale";
+  import cronstrue from 'cronstrue/i18n';
+  import {i18n} from "@/locale";
 
-    if (!cronstrue.prototype.getTimeOfDayDescriptionOriginal) {
+  if (!cronstrue.prototype.getTimeOfDayDescriptionOriginal) {
         cronstrue.prototype.getTimeOfDayDescriptionOriginal = cronstrue.prototype.getTimeOfDayDescription;
         cronstrue.prototype.getTimeOfDayDescription = function () {
             const minutePart = this.expressionParts[1];
@@ -77,6 +77,7 @@
                     }
                     return description;
                 } catch (error) {
+                    console.warn(error);
                     return '';
                 }
             },

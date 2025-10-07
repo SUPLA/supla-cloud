@@ -44,8 +44,7 @@
                             <label>{{ $t("Schedule mode") }}</label>
                             <div class="clearfix"></div>
                             <schedule-mode-chooser v-model="schedule.mode"
-                                @beforeChange="beforeModeChange($event)"
-                                @input="modeChanged()"></schedule-mode-chooser>
+                                @input="modeChanged($event)"></schedule-mode-chooser>
                         </div>
                     </div>
                 </div>
@@ -106,29 +105,31 @@
 </template>
 
 <script>
-    import ScheduleModeChooser from "./schedule-mode-chooser.vue";
-    import ScheduleFormModeOnce from "./modes/schedule-form-mode-once.vue";
-    import ScheduleFormModeMinutely from "./modes/schedule-form-mode-minutely.vue";
-    import ScheduleFormModeDaily from "./modes/schedule-form-mode-daily.vue";
-    import ScheduleFormModeCrontab from "./modes/schedule-form-mode-crontab.vue";
-    import NextRunDatesPreview from "./next-run-dates-preview.vue";
-    import Toggler from "../../common/gui/toggler";
-    import PageContainer from "../../common/pages/page-container";
-    import PendingChangesPage from "../../common/pages/pending-changes-page";
-    import AppState from "../../router/app-state";
-    import SubjectDropdown from "../../devices/subject-dropdown";
-    import ChannelActionChooser from "../../channels/action/channel-action-chooser";
-    import Vue from "vue";
-    import {cloneDeep} from "lodash";
-    import ActionableSubjectType from "../../common/enums/actionable-subject-type";
-    import ChannelFunctionAction from "../../common/enums/channel-function-action";
-    import DateRangePicker from "@/activity/date-range-picker";
-    import {DateTime} from "luxon";
-    import ChannelFunction from "@/common/enums/channel-function";
+  import ScheduleModeChooser from "./schedule-mode-chooser.vue";
+  import ScheduleFormModeOnce from "./modes/schedule-form-mode-once.vue";
+  import ScheduleFormModeMinutely from "./modes/schedule-form-mode-minutely.vue";
+  import ScheduleFormModeDaily from "./modes/schedule-form-mode-daily.vue";
+  import ScheduleFormModeCrontab from "./modes/schedule-form-mode-crontab.vue";
+  import NextRunDatesPreview from "./next-run-dates-preview.vue";
+  import Toggler from "../../common/gui/toggler.vue";
+  import PageContainer from "../../common/pages/page-container.vue";
+  import PendingChangesPage from "../../common/pages/pending-changes-page.vue";
+  import AppState from "../../router/app-state";
+  import SubjectDropdown from "../../devices/subject-dropdown.vue";
+  import ChannelActionChooser from "../../channels/action/channel-action-chooser.vue";
+  import {cloneDeep} from "lodash";
+  import ActionableSubjectType from "../../common/enums/actionable-subject-type";
+  import ChannelFunctionAction from "../../common/enums/channel-function-action";
+  import DateRangePicker from "@/activity/date-range-picker.vue";
+  import {DateTime} from "luxon";
+  import ChannelFunction from "@/common/enums/channel-function";
+  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
+  import {api} from "@/api/api.js";
 
-    export default {
+  export default {
         props: ['id'],
         components: {
+          LoadingCover,
             DateRangePicker,
             ChannelActionChooser,
             SubjectDropdown,
@@ -175,7 +176,7 @@
         mounted() {
             if (this.id) {
                 this.error = false;
-                this.$http.get('schedules/' + this.id, {params: {include: 'subject'}, skipErrorHandler: [403, 404]})
+                api.get(`schedules/${this.id}?include=subject`, {skipErrorHandler: [403, 404]})
                     .then(({body}) => {
                         this.schedule = body;
                         this.configs[body.mode] = body.config;
@@ -191,7 +192,7 @@
                 };
                 const subjectForNewSchedule = AppState.shiftTask('scheduleCreate');
                 if (subjectForNewSchedule) {
-                    this.$set(this.schedule, 'subject', subjectForNewSchedule);
+                    this.schedule.subject = subjectForNewSchedule;
                 }
             }
         },
@@ -200,9 +201,9 @@
                 this.submitting = true;
                 let promise;
                 if (this.schedule.id) {
-                    promise = Vue.http.put(`schedules/${this.schedule.id}` + (enableIfDisabled ? '?enable=true' : ''), this.schedule);
+                    promise = api.put(`schedules/${this.schedule.id}` + (enableIfDisabled ? '?enable=true' : ''), this.schedule);
                 } else {
-                    promise = Vue.http.post('schedules?include=subject,closestExecutions', this.schedule);
+                    promise = api.post('schedules?include=subject,closestExecutions', this.schedule);
                 }
                 promise
                     .then(({body: schedule}) => this.$emit('update', schedule) && schedule)
@@ -230,14 +231,13 @@
             possibleActionFilter(possibleAction) {
                 return ChannelFunctionAction.availableInSchedules(possibleAction.id);
             },
-            beforeModeChange(targetMode) {
-                this.configs[this.schedule.mode] = this.schedule.config;
-                if (targetMode === 'crontab' && !this.configs.crontab.length) {
-                    this.configs.crontab = cloneDeep(this.schedule.config);
-                }
-            },
-            modeChanged() {
-                this.schedule.config = this.configs[this.schedule.mode];
+            modeChanged(targetMode) {
+              this.configs[this.schedule.mode] = this.schedule.config;
+              if (targetMode === 'crontab' && !this.configs.crontab.length) {
+                this.configs.crontab = cloneDeep(this.schedule.config);
+              }
+              this.schedule.mode = targetMode;
+              this.schedule.config = this.configs[targetMode];
             },
         }
     };

@@ -24,12 +24,12 @@
                 <dt v-if="latestExecution && latestExecution.resultTimestamp"
                     :class="latestExecution.failed ? 'text-danger' : ''"
                     :title="$t(latestExecution.result.caption)">
-                    {{ latestExecution.resultTimestamp | formatDateTime }}
+                    {{ formatDateTime(latestExecution.resultTimestamp) }}
                 </dt>
                 <dt v-else>-</dt>
                 <dd>{{ $t('Next run date') }}</dd>
                 <dt v-if="nearestExecution">
-                    {{ nearestExecution.plannedTimestamp | formatDateTime }}
+                    {{ formatDateTime(nearestExecution.plannedTimestamp) }}
                 </dt>
                 <dt v-else>-</dt>
             </dl>
@@ -38,11 +38,14 @@
 </template>
 
 <script>
-    import FunctionIcon from "../../channels/function-icon.vue";
-    import {channelTitle} from "../../common/filters";
+  import FunctionIcon from "../../channels/function-icon.vue";
+  import {channelTitle} from "../../common/filters";
+  import SquareLink from "@/common/tiles/square-link.vue";
+  import {formatDateTime} from "@/common/filters-date.js";
 
-    export default {
-        components: {FunctionIcon},
+  export default {
+      methods: {formatDateTime},
+        components: {SquareLink, FunctionIcon},
         props: ['model'],
         computed: {
             caption() {
