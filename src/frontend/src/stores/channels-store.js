@@ -51,7 +51,7 @@ export const useChannelsStore = defineStore('channels', () => {
                 const idsToFetch = [];
                 const devicesStore = useDevicesStore();
                 const {states: channelsStates, devices} = response;
-                const devicesCount = devices?.length || response.devicesCount; // TODO remove after v25.08
+                const devicesCount = devices?.length;
                 channelsStates.forEach((channel) => {
                     if (all.value[channel.id]) {
                         all.value[channel.id].connected = channel.state.connected;
