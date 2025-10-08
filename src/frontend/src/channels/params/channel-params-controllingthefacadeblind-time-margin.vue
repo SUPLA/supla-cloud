@@ -1,23 +1,19 @@
 <template>
     <div>
-
-
-        <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
-                data-toggle="dropdown">
-                {{ $t(`timeMarginMode_${timeMarginMode}`) }}
-                <span class="caret"></span>
-            </button>
-            <!-- i18n: ['timeMarginMode_off', 'timeMarginMode_device', 'timeMarginMode_custom'] -->
-            <ul class="dropdown-menu">
-                <li v-for="mode in ['off', 'device', 'custom']" :key="mode">
-                    <a @click="timeMarginMode = mode; onChange()"
-                        v-show="mode !== timeMarginMode">
-                        {{ $t(`timeMarginMode_${mode}`) }}
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <!-- i18n: ['timeMarginMode_off', 'timeMarginMode_device', 'timeMarginMode_custom'] -->
+        <DropdownMenu>
+          <DropdownMenuTrigger button>
+            {{ $t(`timeMarginMode_${timeMarginMode}`) }}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <li v-for="mode in ['off', 'device', 'custom']" :key="mode">
+              <a @click="timeMarginMode = mode; onChange()"
+                v-show="mode !== timeMarginMode">
+                {{ $t(`timeMarginMode_${mode}`) }}
+              </a>
+            </li>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         <transition-expand>
             <NumberInput v-model="timeMarginValue"
@@ -32,9 +28,14 @@
 <script>
   import NumberInput from "@/common/number-input.vue";
   import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import DropdownMenu from "@/common/gui/dropdown/dropdown-menu.vue";
+  import DropdownMenuTrigger from "@/common/gui/dropdown/dropdown-menu-trigger.vue";
+  import DropdownMenuContent from "@/common/gui/dropdown/dropdown-menu-content.vue";
 
   export default {
-        components: {TransitionExpand, NumberInput},
+        components: {
+          DropdownMenuContent,
+          DropdownMenuTrigger, DropdownMenu, TransitionExpand, NumberInput},
         props: {
             value: [Number, String],
         },

@@ -1,51 +1,29 @@
 <template>
     <div>
         <dl v-if="channel.config.availableCTTypes && channel.config.availableCTTypes.length > 0">
-            <dd>
-                {{ $t('Used current transformer type') }}
-                <!--                        <a @click="algorithmHelpShown = !algorithmHelpShown"><i class="pe-7s-help1"></i></a>-->
-            </dd>
+            <dd>{{ $t('Used current transformer type') }}</dd>
             <dt>
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
-                        <span v-if="channel.config.usedCTType">{{ $t(`usedCTType_${channel.config.usedCTType}`) }}</span>
-                        <span v-else>?</span>
-                        <span class="caret ml-2"></span>
-                    </button>
-                    <!-- i18n:['usedCTType_100A_33mA', 'usedCTType_200A_66mA', 'usedCTType_400A_133mA'] -->
-                    <ul class="dropdown-menu">
-                        <li v-for="type in channel.config.availableCTTypes" :key="type">
-                            <a @click="channel.config.usedCTType = type; $emit('change')"
-                                v-show="type !== channel.config.usedCTType">
-                                {{ $t(`usedCTType_${type}`) }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+              <!-- i18n:['usedCTType_100A_33mA', 'usedCTType_200A_66mA', 'usedCTType_400A_133mA'] -->
+              <SimpleDropdown v-model="channel.config.usedCTType" @input="$emit('change')"
+                :options="channel.config.availableCTTypes">
+                <template #button="{value}">
+                  <span v-if="channel.config.usedCTType">{{ $t(`usedCTType_${value}`) }}</span>
+                  <span v-else>?</span>
+                </template>
+                <template #default="{value}">{{ $t(`usedCTType_${value}`) }}</template>
+              </SimpleDropdown>
             </dt>
         </dl>
         <dl v-if="channel.config.availablePhaseLedTypes && channel.config.availablePhaseLedTypes.length > 0">
-            <dd>
-                {{ $t('Phase LED type') }}
-                <!--                        <a @click="algorithmHelpShown = !algorithmHelpShown"><i class="pe-7s-help1"></i></a>-->
-            </dd>
+            <dd>{{ $t('Phase LED type') }}</dd>
             <dt>
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
-                        <span>{{ $t(`usedPhaseLedType_${channel.config.usedPhaseLedType}`) }}</span>
-                        <span class="caret ml-2"></span>
-                    </button>
-                    <!-- i18n:['usedPhaseLedType_OFF', 'usedPhaseLedType_VOLTAGE_PRESENCE', 'usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED'] -->
-                    <!-- i18n:['usedPhaseLedType_VOLTAGE_LEVEL', 'usedPhaseLedType_POWER_ACTIVE_DIRECTION'] -->
-                    <ul class="dropdown-menu">
-                        <li v-for="type in channel.config.availablePhaseLedTypes" :key="type">
-                            <a @click="channel.config.usedPhaseLedType = type; $emit('change')"
-                                v-show="type !== channel.config.usedPhaseLedType">
-                                {{ $t(`usedPhaseLedType_${type}`) }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+              <!-- i18n:['usedPhaseLedType_OFF', 'usedPhaseLedType_VOLTAGE_PRESENCE', 'usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED'] -->
+              <!-- i18n:['usedPhaseLedType_VOLTAGE_LEVEL', 'usedPhaseLedType_POWER_ACTIVE_DIRECTION'] -->
+              <SimpleDropdown v-model="channel.config.usedPhaseLedType" @input="$emit('change')"
+                :options="channel.config.availablePhaseLedTypes"
+                v-slot="{value}">
+                {{ $t(`usedPhaseLedType_${value}`) }}
+              </SimpleDropdown>
             </dt>
         </dl>
         <transition-expand>
@@ -139,6 +117,7 @@
   import TransitionExpand from "@/common/gui/transition-expand.vue";
   import NumberInput from "@/common/number-input.vue";
   import {ref, watch} from "vue";
+  import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
 
   const props = defineProps({channel: Object});
 

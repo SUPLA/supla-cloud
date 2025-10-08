@@ -35,8 +35,8 @@
   import {mapState} from "pinia";
   import {useLocationsStore} from "@/stores/locations-store";
   import ConnectionStatusLabel from "@/devices/list/connection-status-label.vue";
-  import {escapeI18n} from "@/locale";
   import SquareLink from "@/common/tiles/square-link.vue";
+  import {deviceTitle} from "@/common/filters.js";
 
   export default {
       components: {SquareLink, ConnectionStatusLabel},
@@ -47,7 +47,7 @@
                 return this.locations[this.device.locationId] || {};
             },
             caption() {
-                return this.device.comment || this.$t(escapeI18n(this.device.name));
+                return deviceTitle(this.device);
             },
             linkSpec() {
               return this.noLink ? {} : {name: 'device', params: {id: this.device.id}};

@@ -10,26 +10,28 @@
             </button>
         </div>
         <div class="btn-group-filters btn-group-filters-dropdown">
-            <div class="dropdown">
-                <button class="btn dropdown-toggle"
-                    type="button"
-                    data-toggle="dropdown">
-                    {{ chosenFilterLabel }}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li v-for="filter in filters"
-                        :key="filter.label">
-                        <a @click="setFilter(filter.value)">{{ filter.label }}</a>
-                    </li>
-                </ul>
-            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger button>
+                {{ chosenFilterLabel }}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <li v-for="filter in filters"
+                  :key="filter.label">
+                  <a @click="setFilter(filter.value)">{{ filter.label }}</a>
+                </li>
+              </DropdownMenuContent>
+            </DropdownMenu>
         </div>
     </div>
 </template>
 
 <script>
-    export default {
+  import DropdownMenu from "@/common/gui/dropdown/dropdown-menu.vue";
+  import DropdownMenuTrigger from "@/common/gui/dropdown/dropdown-menu-trigger.vue";
+  import DropdownMenuContent from "@/common/gui/dropdown/dropdown-menu-content.vue";
+
+  export default {
+      components: {DropdownMenuContent, DropdownMenuTrigger, DropdownMenu},
         props: ['id', 'value', 'filters', 'defaultSort'],
         data() {
             return {

@@ -73,30 +73,19 @@
                         <dl>
                             <dd>{{ $t('Aux thermometer type') }}</dd>
                             <dt>
-                                <div class="dropdown">
-                                    <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
-                                        :disabled="!canChangeSetting('auxThermometerType')"
-                                        data-toggle="dropdown">
-                                        {{ $t(`auxThermometerType_${channel.config.auxThermometerType}`) }}
-                                        <span class="caret"></span>
-                                    </button>
-                                    <!-- i18n:['auxThermometerType_NOT_SET', 'auxThermometerType_DISABLED', 'auxThermometerType_FLOOR'] -->
-                                    <!-- i18n:['auxThermometerType_WATER', 'auxThermometerType_GENERIC_HEATER', 'auxThermometerType_GENERIC_COOLER'] -->
-                                    <ul class="dropdown-menu">
-                                        <li v-for="type in ['DISABLED', 'FLOOR', 'WATER', 'GENERIC_HEATER', 'GENERIC_COOLER']" :key="type">
-                                            <a @click="channel.config.auxThermometerType = type; $emit('change')"
-                                                v-show="type !== channel.config.auxThermometerType">
-                                                {{ $t(`auxThermometerType_${type}`) }}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                              <!-- i18n:['auxThermometerType_NOT_SET', 'auxThermometerType_DISABLED', 'auxThermometerType_FLOOR'] -->
+                              <!-- i18n:['auxThermometerType_WATER', 'auxThermometerType_GENERIC_HEATER', 'auxThermometerType_GENERIC_COOLER'] -->
+                              <SimpleDropdown v-model="channel.config.auxThermometerType" @input="$emit('change')" v-slot="{value}"
+                                :disabled="!canChangeSetting('auxThermometerType')"
+                                :options="['DISABLED', 'FLOOR', 'WATER', 'GENERIC_HEATER', 'GENERIC_COOLER']">
+                                  {{ $t(`auxThermometerType_${value}`) }}
+                              </SimpleDropdown>
                             </dt>
                         </dl>
                     </div>
                 </transition-expand>
                 <transition-expand>
-                    <div v-if="canDisplaySetting('auxMinMaxSetpointEnabled') && channel.config.auxThermometerType !== 'DISABLED'">
+                    <div v-if="['FLOOR', 'WATER', 'GENERIC_HEATER', 'GENERIC_COOLER'].includes(channel.config.auxThermometerType) && canDisplaySetting('auxMinMaxSetpointEnabled') && channel.config.auxThermometerType !== 'DISABLED'">
                         <dl class="wide-label">
                             <dd>
                                 <span v-if="channel.config.auxThermometerType === 'FLOOR'">
@@ -160,23 +149,12 @@
                     <dl>
                         <dd>{{ $t('Temperature control type') }}</dd>
                         <dt>
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
-                                    :disabled="!canChangeSetting('temperatureControlType')"
-                                    data-toggle="dropdown">
-                                    {{ $t(`temperatureControlType_${channel.config.temperatureControlType}`) }}
-                                    <span class="caret"></span>
-                                </button>
-                                <!-- i18n:['temperatureControlType_ROOM_TEMPERATURE', 'temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE'] -->
-                                <ul class="dropdown-menu">
-                                    <li v-for="type in ['ROOM_TEMPERATURE', 'AUX_HEATER_COOLER_TEMPERATURE']" :key="type">
-                                        <a @click="channel.config.temperatureControlType = type; $emit('change')"
-                                            v-show="type !== channel.config.temperatureControlType">
-                                            {{ $t(`temperatureControlType_${type}`) }}
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                          <!-- i18n:['temperatureControlType_ROOM_TEMPERATURE', 'temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE'] -->
+                          <SimpleDropdown v-slot="{value}" v-model="channel.config.temperatureControlType" @input="$emit('change')"
+                            :disabled="!canChangeSetting('temperatureControlType')"
+                            :options="['ROOM_TEMPERATURE', 'AUX_HEATER_COOLER_TEMPERATURE']">
+                            {{ $t(`temperatureControlType_${value}`) }}
+                          </SimpleDropdown>
                         </dt>
                     </dl>
                 </div>
@@ -257,23 +235,13 @@
                             <a @click="algorithmHelpShown = !algorithmHelpShown"><i class="pe-7s-help1"></i></a>
                         </dd>
                         <dt>
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown"
-                                    :disabled="!canChangeSetting('usedAlgorithm')">
-                                    {{ $t(`thermostatAlgorithm_${channel.config.usedAlgorithm}`) }}
-                                    <span class="caret"></span>
-                                </button>
-                                <!-- i18n:['thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE', 'thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST'] -->
-                                <!-- i18n:['thermostatAlgorithm_PID'] -->
-                                <ul class="dropdown-menu">
-                                    <li v-for="type in channel.config.availableAlgorithms" :key="type">
-                                        <a @click="channel.config.usedAlgorithm = type; $emit('change')"
-                                            v-show="type !== channel.config.usedAlgorithm">
-                                            {{ $t(`thermostatAlgorithm_${type}`) }}
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                          <!-- i18n:['thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE', 'thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST'] -->
+                          <!-- i18n:['thermostatAlgorithm_PID'] -->
+                          <SimpleDropdown v-slot="{value}" v-model="channel.config.usedAlgorithm" @input="$emit('change')"
+                            :disabled="!canChangeSetting('usedAlgorithm')"
+                             :options="channel.config.availableAlgorithms">
+                            {{ $t(`thermostatAlgorithm_${value}`) }}
+                          </SimpleDropdown>
                         </dt>
                     </dl>
                     <transition-expand>
@@ -392,23 +360,12 @@
                 <dl>
                     <dd>{{ $t('Lock type') }}</dd>
                     <dt>
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
+                      <!-- i18n:['localUILock_UNLOCKED', 'localUILock_FULL', 'localUILock_TEMPERATURE'] -->
+                      <SimpleDropdown v-slot="{value}" v-model="localUILockMode" @input="$emit('change')"
                                 :disabled="!canChangeSetting('localUILock')"
-                                data-toggle="dropdown">
-                                {{ $t(`localUILock_${localUILockMode}`) }}
-                                <span class="caret"></span>
-                            </button>
-                            <!-- i18n:['localUILock_UNLOCKED', 'localUILock_FULL', 'localUILock_TEMPERATURE'] -->
-                            <ul class="dropdown-menu">
-                                <li v-for="type in localUILockingCapabilities" :key="type">
-                                    <a @click="localUILockMode = type; $emit('change')"
-                                        v-show="type !== localUILockMode">
-                                        {{ $t(`localUILock_${type}`) }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                        :options="localUILockingCapabilities">
+                        {{ $t(`localUILock_${value}`) }}
+                      </SimpleDropdown>
                     </dt>
                 </dl>
                 <transition-expand>
@@ -449,9 +406,11 @@
   import AccordionRoot from "@/common/gui/accordion/accordion-root.vue";
   import AccordionItem from "@/common/gui/accordion/accordion-item.vue";
   import Toggler from "@/common/gui/toggler.vue";
+  import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
 
   export default {
         components: {
+          SimpleDropdown,
           Toggler,
           AccordionItem, AccordionRoot, SameDifferentThanMasterThermostat, TransitionExpand, ChannelsIdDropdown},
         props: ['channel'],

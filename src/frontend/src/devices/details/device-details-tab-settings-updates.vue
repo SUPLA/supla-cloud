@@ -4,13 +4,8 @@
         <div class="form-group" v-if="newConfig.firmwareUpdatePolicy !== undefined">
             <label for="firmwareUpdatePolicy">{{ $t('Firmware update policy') }}</label>
             <SimpleDropdown v-model="newConfig.firmwareUpdatePolicy" :options="['DISABLED', 'SECURITY_ONLY', 'ALL_ENABLED']"
-                :disabled="!['DISABLED', 'SECURITY_ONLY', 'ALL_ENABLED'].includes(newConfig.firmwareUpdatePolicy)">
-                <template #button="{value}">
-                    {{ $t('firmwareUpdatePolicy_' + value) }}
-                </template>
-                <template #option="{value}">
-                    {{ $t('firmwareUpdatePolicy_' + value) }}
-                </template>
+                :disabled="!['DISABLED', 'SECURITY_ONLY', 'ALL_ENABLED'].includes(newConfig.firmwareUpdatePolicy)" v-slot="{value}">
+                  {{ $t('firmwareUpdatePolicy_' + value) }}
             </SimpleDropdown>
         </div>
     </div>

@@ -3,24 +3,12 @@
         <dl>
             <dd>{{ $t('Tilt control type') }}</dd>
             <dt>
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
-                        data-toggle="dropdown">
-                        {{ $t(`tiltControlType_${channel.config.tiltControlType}`) }}
-                        <span class="caret"></span>
-                    </button>
-                    <!-- i18n:['tiltControlType_STANDS_IN_POSITION_WHILE_TILTING', 'tiltControlType_CHANGES_POSITION_WHILE_TILTING'] -->
-                    <!-- i18n:['tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED', 'tiltControlType_UNKNOWN'] -->
-                    <ul class="dropdown-menu">
-                        <li v-for="type in ['STANDS_IN_POSITION_WHILE_TILTING', 'CHANGES_POSITION_WHILE_TILTING', 'TILTS_ONLY_WHEN_FULLY_CLOSED']"
-                            :key="type">
-                            <a @click="channel.config.tiltControlType = type; $emit('change')"
-                                v-show="type !== channel.config.tiltControlType">
-                                {{ $t(`tiltControlType_${type}`) }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+              <!-- i18n:['tiltControlType_STANDS_IN_POSITION_WHILE_TILTING', 'tiltControlType_CHANGES_POSITION_WHILE_TILTING'] -->
+              <!-- i18n:['tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED', 'tiltControlType_UNKNOWN'] -->
+              <SimpleDropdown :options="['STANDS_IN_POSITION_WHILE_TILTING', 'CHANGES_POSITION_WHILE_TILTING', 'TILTS_ONLY_WHEN_FULLY_CLOSED']"
+                v-model="channel.config.tiltControlType" @input="$emit('change')" v-slot="{value}">
+                 {{ $t(`tiltControlType_${value}`) }}
+              </SimpleDropdown>
             </dt>
         </dl>
         <dl v-if="channel.config.timeSettingAvailable && channel.config.autoCalibrationAvailable" class="wide-label">
@@ -135,9 +123,13 @@
   import NumberInput from "@/common/number-input.vue";
   import ChannelParamsControllingthefacadeblindTimeMargin
     from "@/channels/params/channel-params-controllingthefacadeblind-time-margin.vue";
+  import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
+  import Toggler from "@/common/gui/toggler.vue";
 
   export default {
         components: {
+          Toggler,
+          SimpleDropdown,
             ChannelParamsControllingthefacadeblindTimeMargin,
             NumberInput,
             TransitionExpand, ChannelParamsControllingtherollershutterRecalibrate

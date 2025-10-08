@@ -1,15 +1,15 @@
 <template>
     <PageContainer :error="device || loading ? null : 404">
         <div v-if="device">
+          <BreadcrumbList :current="deviceTitle(device)">
+            <router-link :to="{name: 'me'}">{{ $t('My SUPLA') }}</router-link>
+          </BreadcrumbList>
             <div class="container mt-3">
                 <div class="d-flex mb-3 flex-wrap">
                     <div class="flex-grow-1">
+                        <h1 v-title class="mt-0">{{ deviceTitle(device) }}</h1>
                         <div v-if="device.comment">
-                            <h1 v-title class="mt-0">{{ device.comment }}</h1>
                             <h4>{{ device.name }}</h4>
-                        </div>
-                        <div v-else>
-                            <h1 v-title class="mt-0">{{ device.name }}</h1>
                         </div>
                     </div>
                     <div class="d-flex align-items-flex-start">
@@ -55,6 +55,8 @@
     from "@/account/integrations/data-sources/new-virtual-channel-button.vue";
   import DevicePairSubdeviceButton from "@/devices/details/device-pair-subdevice-button.vue";
   import ModalConfirm from "@/common/modal-confirm.vue";
+  import BreadcrumbList from "@/common/gui/breadcrumb/BreadcrumbList.vue";
+  import {deviceTitle} from "@/common/filters.js";
 
   const props = defineProps({id: Number});
 

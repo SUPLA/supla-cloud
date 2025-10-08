@@ -1,27 +1,26 @@
 <script setup>
-  import {provide, ref, useTemplateRef} from "vue";
-  import {onClickOutside} from "@vueuse/core";
+  import {provide, ref} from "vue";
 
-  defineProps({
+  const props = defineProps({
     tag: {
       type: String,
       default: "div",
-    }
+    },
+    disabled: Boolean,
   })
 
   const isOpened = ref(false);
 
-  const target = useTemplateRef('target');
-  onClickOutside(target, () => isOpened.value = false);
-
   provide("dropdownMenu", {
     isOpened,
+    disabled: props.disabled,
     toggle: () => isOpened.value = !isOpened.value,
+    hide: () => isOpened.value = false,
   });
 </script>
 
 <template>
-  <Component :is="tag" class="dropdown" :class="{open: isOpened}" ref="target">
+  <Component :is="tag" class="dropdown" :class="{open: isOpened}">
     <slot/>
   </Component>
 </template>

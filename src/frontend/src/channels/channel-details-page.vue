@@ -1,6 +1,10 @@
 <template>
     <page-container :error="error">
         <loading-cover :loading="!channel || loading">
+            <BreadcrumbList v-if="channel" :current="channelTitle">
+              <router-link :to="{name: 'me'}">{{ $t('My SUPLA') }}</router-link>
+              <router-link :to="{name: 'device', params: {id: channel.iodeviceId}}">{{ deviceTitle(devices[channel.iodeviceId]) }}</router-link>
+            </BreadcrumbList>
             <div class="container" v-if="channel">
                 <div class="d-flex mt-3">
                     <div class="flex-grow-1">
@@ -217,7 +221,7 @@
 </template>
 
 <script>
-  import {channelTitle} from "../common/filters";
+  import {channelTitle, deviceTitle} from "../common/filters";
   import FunctionIcon from "./function-icon.vue";
   import ChannelParamsForm from "./params/channel-params-form.vue";
   import SquareLocationChooser from "../locations/square-location-chooser.vue";
@@ -238,7 +242,7 @@
   import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
   import ChannelConflictDetailsWarning from "@/channels/channel-conflict-details-warning.vue";
   import ChannelDeleteButton from "@/channels/channel-delete-button.vue";
-  import {mapStores} from "pinia";
+  import {mapState, mapStores} from "pinia";
   import {useChannelsStore} from "@/stores/channels-store";
   import ChannelDependenciesList from "@/channels/channel-dependencies-list.vue";
   import ChannelMuteAlarmButton from "@/channels/action/channel-mute-alarm-button.vue";
@@ -248,10 +252,13 @@
   import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
   import Modal from "@/common/modal.vue";
   import {api} from "@/api/api.js";
+  import BreadcrumbList from "@/common/gui/breadcrumb/BreadcrumbList.vue";
+  import {useDevicesStore} from "@/stores/devices-store.js";
 
   export default {
         props: ['id'],
         components: {
+          BreadcrumbList,
           Modal,
           LoadingCover,
             ChannelExtendedStateDisplay,
@@ -301,6 +308,7 @@
             EventBus.$off('channel-updated', this.onChangeListener);
         },
         methods: {
+          deviceTitle,
             channelRequest() {
                 return api.get(`channels/${this.id}?include=iodevice,location,supportedFunctions,iodevice.location,actionTriggers`, {skipErrorHandler: [403, 404]});
             },
@@ -434,6 +442,7 @@
                 return this.channel.possibleActions?.length && !noApiActionFunctions.includes(this.channel.function.name);
             },
             ...mapStores(useChannelsStore),
+            ...mapState(useDevicesStore, {devices: 'all'}),
         },
         watch: {
             id(l, a) {

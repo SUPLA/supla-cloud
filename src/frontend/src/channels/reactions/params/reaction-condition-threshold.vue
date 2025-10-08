@@ -14,20 +14,9 @@
                     </a>
                 </span>
                 <span class="input-group-addon" v-if="unitBefore(field, subject)">{{ $t(unitBefore(field, subject)) }}</span>
-                <div class="dropdown" v-if="valuesForDropdown.length">
-                    <button class="btn btn-default dropdown-toggle btn-wrapped border-left-radius-0" type="button" data-toggle="dropdown">
-                        <span>{{ threshold }} {{ $t(unit(field, subject)) }}</span>
-                        {{ ' ' }}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li v-for="v in valuesForDropdown" :key="v">
-                            <a @click="threshold = resumeThreshold = v; updateModel(false)" v-show="threshold !== v">
-                                {{ v }} {{ $t(unit(field, subject)) }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <SimpleDropdown v-if="valuesForDropdown.length" v-model="threshold" @input="updateModel(false)" :options="valuesForDropdown" v-slot="{value}">
+                  {{ value }} {{ $t(unit(field, subject)) }}
+                </SimpleDropdown>
                 <input v-else
                     type="number"
                     required
@@ -66,7 +55,10 @@
 </template>
 
 <script>
-    export default {
+  import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
+
+  export default {
+      components: {SimpleDropdown},
         props: {
             value: Object,
             subject: Object,

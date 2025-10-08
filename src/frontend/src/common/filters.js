@@ -33,7 +33,7 @@ export function channelIconUrl(channel) {
 }
 
 export function deviceTitle(device) {
-    return `${device.location.caption} / ${device.comment || i18n.global.t(escapeI18n(device.name))}`;
+    return device.comment || i18n.global.t(escapeI18n(device.name));
 }
 
 export function ellipsis(string, length = 20) {
