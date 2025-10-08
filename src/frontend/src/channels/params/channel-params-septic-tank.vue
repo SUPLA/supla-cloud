@@ -55,27 +55,18 @@
                         @input="emit('change')"/>
                     <input type="text" class="form-control text-center" disabled :placeholder="$t('Disabled')" v-else/>
                 </div>
-                <div class="dropdown" v-else-if="availableFillLevelsPerAlarm[alarm].length > 0">
-                    <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"
-                        type="button"
-                        data-toggle="dropdown">
-                        <span v-if="channel.config[alarm] != null">{{ rangeLabel(channel.config[alarm], alarm) }}</span>
-                        <span v-else>{{ $t('Disabled') }}</span>
-                        {{ ' ' }}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a @click="channel.config[alarm] = null; emit('change')"
-                                v-show="channel.config[alarm] !== null">{{ $t('Disabled') }}</a>
-                        </li>
-                        <li v-for="percent in availableFillLevelsPerAlarm[alarm]" :key="percent">
-                            <a @click="channel.config[alarm] = percent; emit('change')"
-                                v-show="percent !== channel.config[alarm]">{{ rangeLabel(percent, alarm) }}</a>
-                        </li>
-                    </ul>
-                </div>
-                <button v-else class="btn btn-default disabled btn-block btn-wrapped" type="button">{{ $t('Disabled') }}</button>
+                <SimpleDropdown v-else-if="availableFillLevelsPerAlarm[alarm].length > 0" v-model="channel.config[alarm]" @input="$emit('change')"
+                  :options="[null, ...availableFillLevelsPerAlarm[alarm]]">
+                  <template #button="{value}">
+                    <span v-if="value != null">{{ rangeLabel(value, alarm) }}</span>
+                    <span v-else>{{ $t('Disabled') }}</span>
+                  </template>
+                  <template #default="{value}">
+                    <span v-if="value != null">{{ rangeLabel(value, alarm) }}</span>
+                    <span v-else>{{ $t('Disabled') }}</span>
+                  </template>
+                </SimpleDropdown>
+                <button v-else class="btn btn-default disabled btn-block btn-wrapped" type="button" disabled>{{ $t('Disabled') }}</button>
             </dt>
         </dl>
         <dl>
@@ -96,6 +87,7 @@
   import {uniq} from "lodash";
   import Toggler from "../../common/gui/toggler.vue";
   import {useChannelsDependenciesStore} from "@/stores/channels-dependencies-store";
+  import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
 
   const props = defineProps({channel: Object});
     const emit = defineEmits('change');

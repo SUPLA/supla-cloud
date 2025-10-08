@@ -3,13 +3,8 @@
         <DeviceDetailsTabSettingsHomeScreen :device="device" @change="emit('change', $event)"/>
         <div v-if="newConfig.userInterface !== undefined" class="form-group">
             <label>{{ $t('Lock type') }}</label>
-            <SimpleDropdown v-model="localUILockMode" :options="['UNLOCKED', 'FULL', 'TEMPERATURE']">
-                <template #button="{value}">
-                    {{ $t(`localUILock_${value}`) }}
-                </template>
-                <template #option="{option}">
-                    {{ $t(`localUILock_${option}`) }}
-                </template>
+            <SimpleDropdown v-model="localUILockMode" :options="['UNLOCKED', 'FULL', 'TEMPERATURE']" v-slot="{value}">
+                {{ $t(`localUILock_${value}`) }}
             </SimpleDropdown>
             <div class="mt-3" v-if="newConfig.userInterface.disabled === 'partial'">
                 <label>{{ $t('Temperatures that can be set from local UI') }}</label>

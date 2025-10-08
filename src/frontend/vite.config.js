@@ -7,6 +7,8 @@ import ViteYaml from '@modyfi/vite-plugin-yaml';
 import * as path from "node:path";
 import {version} from "./scripts/version";
 
+const __dirname = import.meta.dirname;
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -20,7 +22,9 @@ export default defineConfig({
       },
     }),
     ViteYaml(),
-    vueDevTools(),
+    vueDevTools({
+      launchEditor: 'phpstorm',
+    }),
   ],
   server: {
     proxy: {

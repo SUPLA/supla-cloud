@@ -465,30 +465,6 @@ body.warning {
   }
 }
 
-// TODO remove after migrating away from bootstrap select
-.bootstrap-select {
-  max-width: 100%;
-  .text {
-    width: 100%;
-  }
-  .dropdown-toggle {
-    color: $supla-black;
-  }
-  .subject-dropdown-option {
-    padding: 5px 3px;
-    .icon {
-      margin-left: 10px;
-      display: flex;
-      align-items: center;
-      padding-left: .25em;
-      padding-right: .25em;
-      img {
-        height: 60px;
-      }
-    }
-  }
-}
-
 .select-loader {
   position: relative;
   text-align: center;

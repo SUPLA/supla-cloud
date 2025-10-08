@@ -11,28 +11,29 @@
                     {{ timeInSeconds(time) }}
                 </a>
             </div>
-            <div class="dropdown"
-                v-else>
-                <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"
-                    type="button"
-                    data-toggle="dropdown">
-                    {{ timeInSeconds(value) }}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li v-for="time in times"
-                        :key="time">
-                        <a @click="$emit('input', time)"
-                            v-show="time != value">{{ timeInSeconds(time) }}</a>
-                    </li>
-                </ul>
-            </div>
+            <DropdownMenu v-else>
+              <DropdownMenuTrigger button>
+                {{ timeInSeconds(value) }}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <li v-for="time in times"
+                  :key="time">
+                  <a @click="$emit('input', time)"
+                    v-show="time != value">{{ timeInSeconds(time) }}</a>
+                </li>
+              </DropdownMenuContent>
+            </DropdownMenu>
         </dt>
     </dl>
 </template>
 
 <script>
-    export default {
+  import DropdownMenu from "@/common/gui/dropdown/dropdown-menu.vue";
+  import DropdownMenuTrigger from "@/common/gui/dropdown/dropdown-menu-trigger.vue";
+  import DropdownMenuContent from "@/common/gui/dropdown/dropdown-menu-content.vue";
+
+  export default {
+      components: {DropdownMenuContent, DropdownMenuTrigger, DropdownMenu},
         props: ['value', 'times'],
         methods: {
             timeInSeconds(time) {

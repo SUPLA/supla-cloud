@@ -9,7 +9,7 @@
                             <maintenance-warning></maintenance-warning>
                         </div>
           <router-view v-slot="{ Component }">
-            <transition name="fade" mode="out-in">
+            <transition name="fade" mode="out-in" :duration="100">
               <component :is="Component" />
             </transition>
           </router-view>

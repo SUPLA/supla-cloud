@@ -1,17 +1,9 @@
 <template>
     <div class="reaction-condition-em">
         <div class="form-group">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
-                    {{ $t(field.label) }}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li v-for="f in fields" :key="f.name">
-                        <a @click="field = f">{{ $t(f.label) }}</a>
-                    </li>
-                </ul>
-            </div>
+          <SimpleDropdown v-slot="{value}" v-model="field" :options="fields">
+            {{ $t(value.label) }}
+          </SimpleDropdown>
         </div>
         <transition-expand>
             <div class="form-group d-flex align-items-center" v-if="subject.config.enabledPhases.length > 1 && !field.disablePhases">
@@ -37,9 +29,10 @@
   import ReactionConditionThreshold
     from "@/channels/reactions/params/reaction-condition-threshold.vue";
   import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
 
   export default {
-        components: {TransitionExpand, ReactionConditionThreshold},
+        components: {SimpleDropdown, TransitionExpand, ReactionConditionThreshold},
         props: {
             value: Object,
             subject: Object,

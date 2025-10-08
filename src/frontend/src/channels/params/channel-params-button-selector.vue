@@ -9,27 +9,28 @@
                 {{ valueDef.label }}
             </a>
         </div>
-        <div class="dropdown"
-            v-else>
-            <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"
-                type="button"
-                data-toggle="dropdown">
-                {{ currentValueDef.label }}
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
+        <DropdownMenu>
+          <DropdownMenuTrigger button>
+            {{ currentValueDef.label }}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
                 <li v-for="valueDef in values"
                     :key="valueDef.id">
                     <a @click="$emit('input', valueDef.id)"
                         v-show="valueDef.id != value">{{ valueDef.label }}</a>
                 </li>
-            </ul>
-        </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
     </div>
 </template>
 
 <script>
-    export default {
+  import DropdownMenu from "@/common/gui/dropdown/dropdown-menu.vue";
+  import DropdownMenuTrigger from "@/common/gui/dropdown/dropdown-menu-trigger.vue";
+  import DropdownMenuContent from "@/common/gui/dropdown/dropdown-menu-content.vue";
+
+  export default {
+      components: {DropdownMenuContent, DropdownMenuTrigger, DropdownMenu},
         props: {
             value: String,
             values: Array,

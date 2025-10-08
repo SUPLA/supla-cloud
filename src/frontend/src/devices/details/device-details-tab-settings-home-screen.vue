@@ -16,13 +16,8 @@
             <label>{{ $t('Automatic front panel turn off') }}</label>
             <div>
                 <!-- i18n:["homeScreenContent_offMode_DISABLE", "homeScreenContent_offMode_ALWAYS_ENABLED", "homeScreenContent_offMode_ENABLED_WHEN_DARK"] -->
-                <SimpleDropdown v-model="homeScreenOffMode" :options="availableOffDelayTypes">
-                    <template #button="{value}">
-                        {{ $t('homeScreenContent_offMode_' + value) }}
-                    </template>
-                    <template #option="{option}">
-                        {{ $t('homeScreenContent_offMode_' + option) }}
-                    </template>
+                <SimpleDropdown v-model="homeScreenOffMode" :options="availableOffDelayTypes" v-slot="{value}">
+                      {{ $t('homeScreenContent_offMode_' + value) }}
                 </SimpleDropdown>
             </div>
         </div>

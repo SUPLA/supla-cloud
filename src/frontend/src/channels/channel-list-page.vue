@@ -6,7 +6,7 @@
                     @filter-function="filterFunction = $event"
                     @compare-function="compareFunction = $event"></channel-filters>
             </div>
-            <div v-if="channels && channels.length">
+            <div v-if="compareFunction && channels && channels.length">
                 <square-links-grid v-if="filteredChannels.length"
                     :count="filteredChannels.length">
                     <div v-for="channel in filteredChannels" :key="channel.id">
@@ -36,7 +36,7 @@
         data() {
             return {
                 filterFunction: () => true,
-                compareFunction: () => -1,
+                compareFunction: undefined,
             };
         },
         computed: {
@@ -45,7 +45,9 @@
                 const filteredChannels = this.channels
                     .filter(this.filterFunction)
                     .filter((channel) => !channel.config.hideInChannelsList);
-                filteredChannels.sort(this.compareFunction);
+                if (this.compareFunction) {
+                  filteredChannels.sort(this.compareFunction);
+                }
                 return filteredChannels;
             },
         },

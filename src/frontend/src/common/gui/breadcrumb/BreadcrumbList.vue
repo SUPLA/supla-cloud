@@ -1,14 +1,18 @@
 <script setup>
-  import {inject} from "vue";
+  import {computed, inject} from "vue";
 
   const pageTitle = inject("pageTitle");
+
+  const props = defineProps({current: String});
+
+  const currentPageTitle = computed(() => props.current || pageTitle.value);
 </script>
 
 <template>
   <div class="container">
     <div class="breadcrumbs">
       <slot/>
-      <span>{{ pageTitle }}</span>
+      <span>{{ currentPageTitle }}</span>
     </div>
   </div>
 </template>

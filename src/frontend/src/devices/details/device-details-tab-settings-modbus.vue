@@ -4,13 +4,8 @@
             <label>{{ $t('Role') }}</label>
             <div>
                 <!-- i18n: ['modbusRole_MASTER', 'modbusRole_SLAVE', 'modbusRole_NOT_SET'] -->
-                <SimpleDropdown v-model="modbusConfig.role" :options="[...modbusConstraints.availableRoles, 'NOT_SET']">
-                    <template #button="{value}">
-                        {{ $t('modbusRole_' + value) }}
-                    </template>
-                    <template #option="{option}">
-                        {{ $t('modbusRole_' + option) }}
-                    </template>
+                <SimpleDropdown v-model="modbusConfig.role" :options="[...modbusConstraints.availableRoles, 'NOT_SET']" v-slot="{value}">
+                    {{ $t('modbusRole_' + value) }}
                 </SimpleDropdown>
             </div>
         </div>
@@ -61,13 +56,8 @@
                             <label>{{ $t('Stop bits') }}</label>
                             <!-- i18n: ['modbusSerialStopbits_ONE', 'modbusSerialStopbits_TWO', 'modbusSerialStopbits_ONE_AND_HALF'] -->
                             <SimpleDropdown v-model="modbusConfig.serialConfig.stopBits"
-                                :options="modbusConstraints.availableSerialStopbits">
-                                <template #option="{option}">
-                                    {{ $t('modbusSerialStopbits_' + option) }}
-                                </template>
-                                <template #button="{value}">
-                                    {{ $t('modbusSerialStopbits_' + value) }}
-                                </template>
+                                :options="modbusConstraints.availableSerialStopbits" v-slot="{value}">
+                                  {{ $t('modbusSerialStopbits_' + value) }}
                             </SimpleDropdown>
                         </div>
                     </div>

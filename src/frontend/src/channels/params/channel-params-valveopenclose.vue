@@ -28,21 +28,11 @@
                 <a @click="closeValveOnFloodTypeHelpShown = !closeValveOnFloodTypeHelpShown"><i class="pe-7s-help1"></i></a>
             </dd>
             <dt>
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
-                        {{ $t(`closeValveOnFloodType_${channel.config.closeValveOnFloodType}`) }}
-                        <span class="caret"></span>
-                    </button>
-                    <!-- i18n: ['closeValveOnFloodType_ALWAYS', 'closeValveOnFloodType_ON_CHANGE'] -->
-                    <ul class="dropdown-menu">
-                        <li v-for="type in ['ALWAYS', 'ON_CHANGE']" :key="type">
-                            <a @click="channel.config.closeValveOnFloodType = type; $emit('change')"
-                                v-show="type !== channel.config.closeValveOnFloodType">
-                                {{ $t(`closeValveOnFloodType_${type}`) }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+              <!-- i18n: ['closeValveOnFloodType_ALWAYS', 'closeValveOnFloodType_ON_CHANGE'] -->
+              <SimpleDropdown v-slot="{value}" v-model="channel.config.closeValveOnFloodType" @input="$emit('change')"
+              :options="['ALWAYS', 'ON_CHANGE']">
+                {{ $t(`closeValveOnFloodType_${value}`) }}
+              </SimpleDropdown>
                 <transition-expand>
                     <div class="well small text-muted p-2 mt-2 display-newlines" v-if="closeValveOnFloodTypeHelpShown">
                         {{ $t('closeValveOnFloodType_help') }}
@@ -59,6 +49,7 @@
   import ChannelsDropdown from "@/devices/channels-dropdown.vue";
   import {channelTitle} from "@/common/filters";
   import TransitionExpand from "@/common/gui/transition-expand.vue";
+  import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
 
   const props = defineProps({channel: Object});
     const emit = defineEmits('change');

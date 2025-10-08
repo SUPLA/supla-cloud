@@ -5,7 +5,7 @@
                 <device-filters @filter-function="filterFunction = $event"
                     @compare-function="compareFunction = $event"></device-filters>
             </div>
-            <square-links-grid v-if="filteredDevices && filteredDevices.length || (showPossibleDevices && !devices.length)"
+            <square-links-grid v-if="compareFunction && filteredDevices && filteredDevices.length || (showPossibleDevices && !devices.length)"
                 :count="filteredDevices.length + (showPossibleDevices ? possibleDevices.length : 0)">
                 <div v-for="device in filteredDevices"
                     :key="device.id"
@@ -55,7 +55,7 @@
         data() {
             return {
                 filterFunction: () => true,
-                compareFunction: () => -1,
+                compareFunction: undefined,
                 possibleDevices: [
                     {
                         icon: 'pe-7s-light',
@@ -106,7 +106,7 @@
             ...mapState(useDevicesStore, {devices: 'list'}),
             filteredDevices() {
                 const filteredDevices = (this.devices ? this.devices.filter(this.filterFunction) : this.devices);
-                if (filteredDevices) {
+                if (filteredDevices && this.compareFunction) {
                     filteredDevices.sort(this.compareFunction);
                 }
                 return filteredDevices;
