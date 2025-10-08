@@ -1,6 +1,10 @@
 <template>
     <div class="grid-filters"
         v-if="items.length">
+        <btn-filters v-model="sort"
+          id="locationsSort"
+          @input="$emit('filter')"
+          :filters="[{label: $t('A-Z'), value: 'caption'}, {label: $t('ID'), value: 'id'}]"></btn-filters>
         <btn-filters v-model="enabled"
             @input="$emit('filter')"
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
@@ -23,10 +27,12 @@
             return {
                 enabled: undefined,
                 search: '',
+                sort: 'caption',
             };
         },
         mounted() {
             this.$emit('filter-function', (scene) => this.matches(scene));
+            this.$emit('compare-function', (a, b) => this.compare(a, b));
         },
         methods: {
             matches(scene) {
@@ -38,7 +44,17 @@
                     return searchString.indexOf(latinize(this.search).toLowerCase()) >= 0;
                 }
                 return true;
-            }
+            },
+            compare(a, b) {
+              if (this.sort === 'caption') {
+                return this.captionForSort(a) < this.captionForSort(b) ? -1 : 1;
+              } else {
+                return +a.id - +b.id;
+              }
+            },
+            captionForSort(model) {
+              return latinize(model.caption).toLowerCase().trim();
+            },
         }
     };
 </script>

@@ -24,7 +24,11 @@
 <template>
   <VueSlider v-model="model" :min="min" :max="max" :interval="interval" :disabled="disabled"
     tooltip="always" tooltip-placement="bottom"
-    :tooltip-formatter="tooltipFormatter" class="green"/>
+    :tooltip-formatter="tooltipFormatter" class="green">
+    <template #label="{label}">
+      <slot name="label" :label="label"/>
+    </template>
+  </VueSlider>
 </template>
 
 <style lang="scss">

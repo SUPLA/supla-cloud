@@ -6,7 +6,7 @@
         <div>
             <div v-for="(t, $index) in times" :key="t.id">
                 <div>
-                    <DaytimeActivityCondition v-model="t.times" @input="updateModel()" class="flex-grow-1"/>
+                    <DaytimeActivityCondition v-model="t.times" @update:modelValue="updateModel()" class="flex-grow-1"/>
                     <div class="text-right">
                         <a class="text-default small" @click="removeTime($index)">
                             <fa icon="trash" class="text-muted"/>
