@@ -9,12 +9,26 @@
             formName: {{ form.vars.name | json_encode | raw }},
             formFields: [
                 {name: {{ form.client_id.vars.name | json_encode | raw }}, value: {{ form.client_id.vars.value | json_encode | raw }}},
-                {name: {{ form.response_type.vars.name | json_encode | raw }}, value: {{ form.response_type.vars.value | json_encode | raw }}},
-                {name: {{ form.redirect_uri.vars.name | json_encode | raw }}, value: {{ form.redirect_uri.vars.value | json_encode | raw }}},
+                {
+                    name: {{ form.response_type.vars.name | json_encode | raw }},
+                    value: {{ form.response_type.vars.value | json_encode | raw }}},
+                {
+                    name: {{ form.redirect_uri.vars.name | json_encode | raw }},
+                    value: {{ form.redirect_uri.vars.value | json_encode | raw }}},
                 {name: {{ form.state.vars.name | json_encode | raw }}, value: {{ form.state.vars.value | json_encode | raw }}},
                 {name: {{ form.scope.vars.name | json_encode | raw }}, value: {{ form.scope.vars.value | json_encode | raw }}},
                 {name: {{ form._token.vars.name | json_encode | raw }}, value: {{ form._token.vars.value | json_encode | raw }}},
             ]
         };
     </script>
+    {{ form_start(form, {'method': 'POST', 'action': path('fos_oauth_server_authorize') }) }}
+    <input type="submit" name="rejected" value="Decline">
+    <input type="submit" name="accepted" value="Grant access">
+    {{ form_row(form.client_id) }}
+    {{ form_row(form.response_type) }}
+    {{ form_row(form.redirect_uri) }}
+    {{ form_row(form.state) }}
+    {{ form_row(form.scope, {attr: {ref: 'scopeField'}}) }}
+    {{ form_rest(form) }}
+    </form>
 {% endblock %}

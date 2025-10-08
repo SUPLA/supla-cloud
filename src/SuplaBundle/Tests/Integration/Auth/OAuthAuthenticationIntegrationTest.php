@@ -128,7 +128,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->makeOAuthAuthorizeRequest(['client_id' => '1_local'], ['login' => false]);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('ask-for-target-cloud', $response->getContent());
+        $this->assertStringContainsString('askForTargetCloud: true', $response->getContent());
     }
 
     private function issueTokenBasedOnAuthCode($authCode = null, array $params = []) {

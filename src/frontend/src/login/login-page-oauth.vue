@@ -90,13 +90,17 @@
 
   export default {
     components: {TransitionExpand, LoginForm},
-    props: ['lastUsername', 'error', 'askForTargetCloud', 'lastTargetCloud', 'clientName'],
     data() {
       return {
         ownCloud: false,
         authenticating: false,
         displayError: false,
         targetCloud: '',
+        lastUsername: undefined,
+        error: undefined,
+        askForTargetCloud: undefined,
+        lastTargetCloud: undefined,
+        clientName: undefined,
       };
     },
     computed: {
@@ -105,17 +109,25 @@
       },
     },
     mounted() {
+      this.readRequestFromWindow();
       if (this.lastTargetCloud) {
         this.ownCloud = true;
         this.targetCloud = this.lastTargetCloud;
       }
     },
+    methods: {
+      readRequestFromWindow() {
+        this.lastUsername = window.oauthAuthorizeRequest?.lastUsername;
+        this.error = window.oauthAuthorizeRequest?.error;
+        this.askForTargetCloud = window.oauthAuthorizeRequest?.askForTargetCloud;
+        this.lastTargetCloud = window.oauthAuthorizeRequest?.lastTargetCloud;
+        this.clientName = window.oauthAuthorizeRequest?.clientName;
+      },
+    },
   };
 </script>
 
 <style lang="scss">
-  @use '../styles/variables' as *;
-
   .login-oauth-form-broker {
     .login-password {
       display: none;

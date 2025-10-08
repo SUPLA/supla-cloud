@@ -408,7 +408,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
         $this->assertEquals(3, $response->headers->get('X-RateLimit-Remaining'));
         $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,1');
-        $this->assertStringContainsString('<direct-link-execution-result', $response->getContent());
+        $this->assertStringContainsString('window.directLink = {"id":1', $response->getContent());
         return $slug;
     }
 
@@ -459,9 +459,9 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $client->request('GET', "/direct/1/$slug/read");
         $response = $client->getResponse();
         $this->assertStatusCode(429, $response);
-        $this->assertStringNotContainsString('<direct-link-execution-result', $response->getContent());
+        $this->assertStringNotContainsString('window.directLink', $response->getContent());
         $this->assertStringNotContainsString('We try to be faster', $response->getContent());
-        $this->assertStringContainsString('You have exceeded your API Rate Limit', $response->getContent());
+        $this->assertStringContainsString('statusCode: 430', $response->getContent());
         $this->assertEquals(1, $response->headers->get('X-RateLimit-Limit'));
         $this->assertEquals(0, $response->headers->get('X-RateLimit-Remaining'));
         $this->assertNoSuplaCommandsExecuted();
@@ -479,8 +479,8 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $client->request('GET', "/direct/1/$slug/read");
         $response = $client->getResponse();
         $this->assertStatusCode(429, $response);
-        $this->assertStringNotContainsString('<direct-link-execution-result', $response->getContent());
-        $this->assertStringContainsString('We try to be faster', $response->getContent());
+        $this->assertStringNotContainsString('window.directLink', $response->getContent());
+        $this->assertStringContainsString('statusCode: 429', $response->getContent());
         $this->assertStringNotContainsString('You have exceeded your API Rate Limit', $response->getContent());
     }
 

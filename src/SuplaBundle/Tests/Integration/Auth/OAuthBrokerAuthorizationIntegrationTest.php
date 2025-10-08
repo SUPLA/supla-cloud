@@ -29,7 +29,6 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\TestSuplaHttpClient;
-use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
@@ -56,18 +55,18 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $localClient->setName('Local App');
         $this->clientManager->updateClient($localClient);
         $client = $this->createHttpsInsulatedClient();
-        $crawler = $client->request('GET', $this->oauthAuthorizeUrl($localClient->getPublicId()));
-        $routerView = $crawler->filter('router-view')->getNode(0);
-        $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
-        $this->assertEquals('false', $askForTargetCloud);
+        $client->request('GET', $this->oauthAuthorizeUrl($localClient->getPublicId()));
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertStringContainsString('askForTargetCloud: false', $response->getContent());
     }
 
     public function testDisplaysBrokerLoginFormIfLocalClientDoesNotExist() {
         $client = $this->createHttpsInsulatedClient();
-        $crawler = $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        $routerView = $crawler->filter('router-view')->getNode(0);
-        $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
-        $this->assertEquals('true', $askForTargetCloud);
+        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertStringContainsString('askForTargetCloud: true', $response->getContent());
     }
 
     public function testDisplaysNormalLoginFormIfLocalClientDoesNotExistButCloudIsNotBroker() {
@@ -75,9 +74,10 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         self::ensureKernelShutdown();
         $client = self::createClient(['debug' => false], ['HTTPS' => true, 'HTTP_Accept' => 'text/html']);
         $client->followRedirects();
-        $crawler = $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        $errorPage = $crawler->filter('error-page')->getNode(0);
-        $this->assertNotNull($errorPage);
+        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
+        $this->assertStringContainsString('statusCode: 404', $response->getContent());
     }
 
     public function testRedirectsToGivenTargetCloudIfAutodiscoverKnowsIt() {
@@ -105,10 +105,12 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             function () {
                 return [null, Response::HTTP_SERVICE_UNAVAILABLE];
             };
-        $crawler = $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
-        $routerView = $crawler->filter('router-view')->getNode(0);
-        $errorName = $routerView->getAttribute('error');
-        $this->assertEquals('private_cloud_fail', $errorName);
+        $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertStringContainsString('error: "private_cloud_fail"', $response->getContent());
+        $this->assertStringContainsString('lastTargetCloud: "target.cloud"', $response->getContent());
+        $this->assertStringContainsString('lastUsername: "ala@supla.org"', $response->getContent());
     }
 
     public function testRedirectsToTargetCloudByAutodiscoveredUsername() {
@@ -131,28 +133,46 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     public function testDisplaysErrorIfTargetCloudIsNotRegisteredInAutodiscover() {
         $client = $this->createHttpsInsulatedClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        $crawler = $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
-        $routerView = $crawler->filter('router-view')->getNode(0);
-        $errorName = $routerView->getAttribute('error');
-        $this->assertEquals('autodiscover_fail', $errorName);
+        $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertStringContainsString('error: "autodiscover_fail"', $response->getContent());
+        $this->assertStringContainsString('lastTargetCloud: "target.cloud"', $response->getContent());
+        $this->assertStringContainsString('lastUsername: "ala@supla.org"', $response->getContent());
     }
 
     public function testDisplaysErrorIfTargetCloudUrlIsWrong() {
         $client = $this->createHttpsInsulatedClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        $crawler = $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'xxx']);
-        $routerView = $crawler->filter('router-view')->getNode(0);
-        $errorName = $routerView->getAttribute('error');
-        $this->assertEquals('autodiscover_fail', $errorName);
+        $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'xxx']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertStringContainsString('error: "autodiscover_fail"', $response->getContent());
+        $this->assertStringContainsString('lastTargetCloud: "xxx"', $response->getContent());
+        $this->assertStringContainsString('lastUsername: "ala@supla.org"', $response->getContent());
+    }
+
+    public function testEscapesTargetCloudUrl() {
+        $client = $this->createHttpsInsulatedClient();
+        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
+        $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'x"x\'x']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertStringContainsString('error: "autodiscover_fail"', $response->getContent());
+        $this->assertStringContainsString('lastTargetCloud: "x\\"x\'x"', $response->getContent());
+        $this->assertStringContainsString('lastUsername: "ala@supla.org"', $response->getContent());
     }
 
     public function testDisplaysErrorIfUserCannotBeAutodiscovered() {
         $client = $this->createHttpsInsulatedClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        $crawler = $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org']);
-        $routerView = $crawler->filter('router-view')->getNode(0);
-        $askForTargetCloud = $routerView->getAttribute('error');
-        $this->assertEquals('autodiscover_fail', $askForTargetCloud);
+        $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertStringContainsString('askForTargetCloud: true', $response->getContent());
+        $this->assertStringContainsString('error: "autodiscover_fail"', $response->getContent());
+        $this->assertStringContainsString('lastTargetCloud: null', $response->getContent());
+        $this->assertStringContainsString('lastUsername: "ala@supla.org"', $response->getContent());
     }
 
     public function testCreatesNewApiClientForPublicClientInTargetCloudDuringTheFirstRequest() {
@@ -411,17 +431,18 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         ];
         $client = $this->createHttpsClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_local'));
-        /** @var Crawler $crawler */
-        $crawler = $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
-        $this->assertCount(1, $crawler->filter('oauth-authorize-form'));
+        $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertStringContainsString('desiredScopes: "account_r"', $response->getContent());
+        $this->assertStringContainsString('clientName: "Unicorn App"', $response->getContent());
         // now, try again with the public id
-        $crawler = $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
+        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         // the broker login form should be displayed
-        $routerView = $crawler->filter('router-view')->getNode(0);
-        $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
-        $this->assertEquals('true', $askForTargetCloud);
-        $clientName = $routerView->getAttribute('client-name');
-        $this->assertEquals('Unicorn App', $clientName);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertStringContainsString('askForTargetCloud: true', $response->getContent());
+        $this->assertStringContainsString('clientName: "Unicorn App"', $response->getContent());
     }
 
     public function testForcesReauthrozatoinIfUserIsAlreadyLoggedInButHitsIdNotMappedYet() {
@@ -435,19 +456,19 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         SuplaAutodiscoverMock::$publicClients['2_public'] = SuplaAutodiscoverMock::$publicClients['1_public'];
         $client = $this->createHttpsClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_local'));
-        /** @var Crawler $crawler */
-        $crawler = $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
-        $this->assertCount(1, $crawler->filter('oauth-authorize-form'));
+        $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertStringContainsString('desiredScopes: "account_r"', $response->getContent());
+        $this->assertStringContainsString('clientName: "Unicorn App"', $response->getContent());
         // now, try again with the not-mapped-yet client id
-        $crawler = $client->request('GET', $this->oauthAuthorizeUrl('2_local'));
+        $client->request('GET', $this->oauthAuthorizeUrl('2_local'));
         $this->assertStatusCode(200, $client->getResponse());
         // the normal login form with newely mapped client should be displayed
-        $routerView = $crawler->filter('router-view')->getNode(0);
-        $this->assertNotNull($routerView);
-        $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
-        $this->assertEquals('false', $askForTargetCloud);
-        $clientName = $routerView->getAttribute('client-name');
-        $this->assertEquals('Unicorn App', $clientName);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertStringContainsString('askForTargetCloud: false', $response->getContent());
+        $this->assertStringContainsString('clientName: "Unicorn App"', $response->getContent());
     }
 
     /** @large */
