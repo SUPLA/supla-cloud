@@ -31,7 +31,7 @@ describe('Device details', () => {
       );
       cy.get('#statusLed').select('ON_WHEN_CONNECTED');
       cy.contains('Zapisz zmiany').click();
-      cy.contains('Ustawienia nie zostały zapisane');
+      cy.contains('Konfiguracja została zmieniona z innego miejsca');
       cy.contains('Anuluj zmiany').click();
       cy.get('#statusLed').should('have.value', 'OFF_WHEN_CONNECTED');
       cy.get('#statusLed').select('ON_WHEN_CONNECTED');
@@ -59,7 +59,7 @@ describe('Device details', () => {
 
     it('can unlock the device with the link', () => {
       cy.visit('/confirm-device-unlock/4/abcdef?lang=pl');
-      cy.contains('Sukces');
+      cy.contains('Urządzenie zostało odblokowane');
       cy.task('getLastEmail', 'user@supla.org').then((email) => {
         expect(email).not.to.be.null;
         expect(email.headers.subject).to.contain('odblokowane');
