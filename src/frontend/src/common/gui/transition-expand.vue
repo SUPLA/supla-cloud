@@ -1,6 +1,7 @@
 <!-- https://medium.com/@sultondev/building-a-smooth-building-a-smooth-collapse-expand-animation-in-vue-3-a-deep-dive-into-2ac68a2aeb50 -->
 <script setup>
   import {computed, ref, watch} from "vue";
+  import {noop} from "@vueuse/core";
 
   const {
     name = "collapse",
@@ -14,19 +15,23 @@
     easing: String,
   });
 
-  /**
-   * Define emitted events – note that all events now use `Element` as the type.
-   */
-  const emit = defineEmits([]);
+  const emit = defineEmits([
+    'before-appear',
+    'appear',
+    'after-appear',
+    'appear-cancelled',
+    'before-enter',
+    'enter',
+    'after-enter',
+    'enter-cancelled',
+    'before-leave',
+    'leave',
+    'after-leave',
+    'leave-cancelled',
+  ]);
 
-  /**
-   * This ref will cache the dimensions (and related paddings) of the transitioning element.
-   */
   const cachedStyles = ref(null);
 
-  /**
-   * Computed property that returns a CSS transition string for each property that will be animated.
-   */
   const transition = computed(() => {
     if (!cachedStyles.value) return "";
     const transitions = [];
@@ -36,9 +41,6 @@
     return transitions.join(", ");
   });
 
-  /**
-   * When the `dimension` prop changes, clear the cached dimensions.
-   */
   watch(
     () => dimension,
     () => {
@@ -202,7 +204,7 @@
   function forceRepaint(el) {
     // Accessing a property forces the browser to repaint.
     const b = getComputedStyle(el)[dimension];
-    console.log(b, "repaint");
+    noop(b);
   }
 
   function getCssValue(el, styleProp) {
