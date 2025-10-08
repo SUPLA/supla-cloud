@@ -158,7 +158,7 @@
                         <div class="details-page-block" v-if="hasActionsToExecute">
                             <h3 class="text-center">{{ $t('Actions') }}</h3>
                             <div class="pt-3">
-                                <channel-action-executor :subject="channel"></channel-action-executor>
+                                <channel-action-executor :subject="channelsStore.all[channel.id]"></channel-action-executor>
                             </div>
                         </div>
                         <ChannelDependenciesList :channel="channelsStore.all[channel.id] || channel"/>

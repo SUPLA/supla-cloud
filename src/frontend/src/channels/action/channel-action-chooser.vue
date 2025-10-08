@@ -41,9 +41,9 @@
                                 <PartialPercentageParamSetter v-model="param" :subject="subject" @input="paramsChanged()"/>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.SET_RGBW_PARAMETERS">
-                                <rgbw-parameters-setter v-model="param"
-                                    @input="paramsChanged()"
-                                    :subject="subject"></rgbw-parameters-setter>
+                                <RgbwParametersSetter v-model="param"
+                                    @update:modelValue="paramsChanged()"
+                                    :subject="subject"/>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.SET">
                                 <digiglass-parameters-setter v-if="subject.function.name.match(/^DIGIGLASS.+/)"

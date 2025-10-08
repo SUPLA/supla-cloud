@@ -1,52 +1,42 @@
 <template>
-    <input type="text"
-        class="colorpicker"
-        ref="picker"> TODO
+  <div ref="picker"></div>
 </template>
 
 <script>
-  // import "spectrum-colorpicker";
-  // import "spectrum-colorpicker/spectrum.css";
-  // import $ from "jquery";
-// TODO
   export default {
-        props: ['value'],
-        mounted() {
-            if (this.value === undefined) {
-                this.value = 0;
-                this.$emit('input', this.value);
-            }
-            // $(this.$refs.picker).spectrum({
-            //     color: this.color,
-            //     showButtons: false,
-            //     containerClassName: 'hue-colorpicker'
-            // }).change((e) => {
-            //     let hue = e.target.value.match(/^hsv\(([0-9]+)/)[1];
-            //     this.$emit('input', hue);
-            // });
-        },
-        computed: {
-            color() {
-                return `hsv(${this.value}, 100%, 100%)`;
-            }
-        },
-        watch: {
-            value() {
-                // $(this.$refs.picker).spectrum('set', this.color);
-            }
-        }
-    };
+    compatConfig: {
+      MODE: 3,
+    }
+  }
 </script>
 
-<style lang="scss"
-    rel="stylesheet/scss">
-    .hue-colorpicker {
-        .sp-color {
-            display: none;
-        }
+<script setup>
+  import iro from '@jaames/iro';
+  import {onMounted, useTemplateRef, watch} from "vue";
 
-        .sp-hue {
-            left: 0;
-        }
-    }
-</style>
+  const pickerElement = useTemplateRef('picker');
+
+  let colorPicker;
+
+  const model = defineModel({type: Number});
+
+  onMounted(() => {
+    colorPicker = new iro.ColorPicker(pickerElement.value, {
+      layout: [
+        {
+          component: iro.ui.Slider,
+          options: {sliderType: 'hue'}
+        },
+      ],
+      color: {h: model.value, s: 100, v: 100},
+    });
+    colorPicker.on('color:change', function (color) {
+      const value = Math.round(color.hue);
+      if (value !== model.value) {
+        model.value = value > 360 ? 0 : value;
+      }
+    });
+  });
+
+  watch(() => model.value, (h) => colorPicker.color.hsv = {h, s: 100, v: 100});
+</script>
