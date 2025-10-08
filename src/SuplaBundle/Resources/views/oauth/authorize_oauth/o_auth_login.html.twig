@@ -1,1 +1,13 @@
 {% extends '@web/index.html' %}
+
+{% block beforeVue %}
+    <script>
+        window.oauthAuthorizeRequest = {
+            lastUsername: {{ last_username | json_encode | raw }},
+            error: {{ error | json_encode | raw }},
+            askForTargetCloud: {{ askForTargetCloud ? 'true' : 'false' }},
+            lastTargetCloud: {{ lastTargetCloud | json_encode | raw }},
+            clientName: {{ clientName | json_encode | raw }}
+        };
+    </script>
+{% endblock %}
