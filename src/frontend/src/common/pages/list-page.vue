@@ -1,9 +1,12 @@
 <template>
     <div>
         <div class="container">
-            <div class="clearfix left-right-header">
-                <div>
-                    <h1 v-if="!subject" v-title>{{ $t(headerI18n) }}</h1>
+            <div class="d-flex my-3 align-items-center">
+                <div class="flex-grow-1">
+                    <h1 v-if="!subject" class="m-0">
+                      <span v-if="dontSetPageTitle">{{ $t(headerI18n) }}</span>
+                      <span v-else v-title>{{ $t(headerI18n) }}</span>
+                    </h1>
                     <h4 v-if="subtitleI18n">{{ $t(subtitleI18n) }}</h4>
                 </div>
                 <div :class="subject ? 'mt-0' : ''">
@@ -24,7 +27,7 @@
                 @filter="filter()"/>
         </div>
         <loading-cover :loading="!items">
-            <div v-if="filteredItems">
+            <div v-if="(!filters || compareFunction) && filteredItems">
                 <square-links-grid v-if="filteredItems.length"
                     :count="filteredItems.length">
                     <div v-for="item in filteredItems"
@@ -50,13 +53,13 @@
 
   export default {
       components: {LoadingCover, SquareLinksGrid, EmptyListPlaceholder},
-        props: ['subject', 'headerI18n', 'subtitleI18n', 'tile', 'filters', 'endpoint', 'createNewLabelI18n', 'detailsRoute', 'limit', 'idParamName'],
+        props: ['subject', 'headerI18n', 'subtitleI18n', 'tile', 'filters', 'endpoint', 'createNewLabelI18n', 'detailsRoute', 'limit', 'idParamName', 'dontSetPageTitle'],
         data() {
             return {
                 items: undefined,
                 filteredItems: undefined,
                 filterFunction: () => true,
-                compareFunction: () => -1,
+                compareFunction: undefined,
             };
         },
         mounted() {
@@ -87,7 +90,7 @@
             },
             filter: debounce(function () {
                 this.filteredItems = this.items ? this.items.filter(this.filterFunction) : this.items;
-                if (this.filteredItems) {
+                if (this.filteredItems && this.compareFunction) {
                     this.filteredItems = this.filteredItems.sort(this.compareFunction);
                 }
             }, 50),

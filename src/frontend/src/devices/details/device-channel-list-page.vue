@@ -6,7 +6,7 @@
                     @filter-function="filterFunction = $event"
                     @compare-function="compareFunction = $event"></channel-filters>
             </div>
-            <div v-if="deviceChannels && deviceChannels.length">
+            <div v-if="compareFunction && deviceChannels && deviceChannels.length">
                 <div v-if="filteredChannels.length">
                     <div v-for="channelsGroup in channelsBySubDevice" :key="channelsGroup[0].subDeviceId">
                         <div class="container" v-if="channelsGroup[0].subDeviceId > 0">
@@ -51,7 +51,7 @@
         data() {
             return {
                 filterFunction: () => true,
-                compareFunction: () => -1,
+                compareFunction: undefined,
             };
         },
         computed: {
@@ -79,7 +79,9 @@
                 const filteredChannels = this.deviceChannels
                     .filter(this.filterFunction)
                     .filter((channel) => !channel.config.hideInChannelsList);
-                filteredChannels.sort(this.compareFunction);
+                if (this.compareFunction) {
+                  filteredChannels.sort(this.compareFunction);
+                }
                 return filteredChannels;
             }
         },

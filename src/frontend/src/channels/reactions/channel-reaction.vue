@@ -1,4 +1,7 @@
 <template>
+  <BreadcrumbList :current="item.id ? reactionTriggerCaption(item) : $t('New reaction')">
+    <router-link :to="{name: 'channel.reactions', params: {id: item.channelId}}">{{ $t('Reactions') }}</router-link>
+  </BreadcrumbList>
     <PendingChangesPage
         :header="item.id ? $t('Edit reaction') : $t('New reaction')" :is-pending="hasPendingChanges"
         dont-set-page-title
@@ -6,6 +9,7 @@
         @delete="deleteConfirm = true"
         @cancel="cancelChanges()"
         @save="submitForm()">
+
         <div class="channel-reaction row mt-3">
             <div class="col-sm-6">
                 <transition-expand>
@@ -69,9 +73,12 @@
   import {api} from "@/api/api.js";
   import Toggler from "@/common/gui/toggler.vue";
   import ModalConfirm from "@/common/modal-confirm.vue";
+  import BreadcrumbList from "@/common/gui/breadcrumb/BreadcrumbList.vue";
+  import {reactionTriggerCaption} from "@/channels/reactions/channel-function-triggers.js";
 
   export default {
         components: {
+          BreadcrumbList,
           ModalConfirm,
           Toggler,
             ActivityConditionsForm,
@@ -98,6 +105,7 @@
             this.initFromItem();
         },
         methods: {
+          reactionTriggerCaption,
             onChanged() {
                 this.hasPendingChanges = true;
             },

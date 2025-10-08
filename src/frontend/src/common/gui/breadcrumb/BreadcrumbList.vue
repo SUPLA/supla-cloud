@@ -9,11 +9,9 @@
 </script>
 
 <template>
-  <div class="container">
-    <div class="breadcrumbs">
-      <slot/>
-      <span>{{ currentPageTitle }}</span>
-    </div>
+  <div class="breadcrumbs">
+    <slot/>
+    <span>{{ currentPageTitle }}</span>
   </div>
 </template>
 
