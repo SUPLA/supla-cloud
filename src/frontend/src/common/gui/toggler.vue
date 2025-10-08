@@ -7,7 +7,7 @@
       },
     ]"
   >
-    <input type="checkbox" v-model="theValue" :disabled="disabled" />
+    <input v-model="theValue" type="checkbox" :disabled="disabled" />
     <span class="check"></span>
     <span class="ml-2">
       <span v-if="label">{{ $t(label) }}</span>
@@ -21,11 +21,11 @@
     compatConfig: {
       MODE: 3,
     },
-  }
+  };
 </script>
 
 <script setup>
-  import {computed} from "vue";
+  import {computed} from 'vue';
 
   const props = defineProps({
     label: String,
@@ -36,13 +36,13 @@
   const model = defineModel();
 
   const theValue = computed({
-    get: () => props.invert ? !model.value : model.value,
-    set: (value) => model.value = props.invert ? !value : value,
-  })
+    get: () => (props.invert ? !model.value : model.value),
+    set: (value) => (model.value = props.invert ? !value : value),
+  });
 </script>
 
 <style lang="scss">
-  @use "../../styles/variables" as *;
+  @use '../../styles/variables' as *;
 
   $switch-width-number: 2.75 !default;
   $switch-width: $switch-width-number * 1em !default;
@@ -128,4 +128,3 @@
     }
   }
 </style>
-

@@ -16,7 +16,7 @@
     "test:e2e:dev": "start-test test:e2e:run-backend http://localhost:8008/api/server-info 'cypress open'",
     "test:e2e:run-backend": "rm -fr ../../var/cache/e2e && cross-env APPLICATION_ENV=e2e php8.4 -S 127.0.0.1:8008 -q -t ../../web",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/",
+    "format": "prettier --write src/ tests/",
     "collect-translations": "node scripts/collect-translations.js",
     "release": "node scripts/release.js",
     "release-dev": "cross-env NODE_ENV=development node scripts/release.js"
@@ -66,7 +66,6 @@
     "connection-string": "^5.0.0",
     "cross-env": "^10.1.0",
     "cypress": "^15.3.0",
-    "cypress-plugin-tab": "^1.0.5",
     "del": "^8.0.1",
     "eslint": "^9.33.0",
     "eslint-plugin-cypress": "^5.1.1",

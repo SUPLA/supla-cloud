@@ -1,14 +1,15 @@
 <template>
-    <VueNumber
-        :model-value="theValue"
-        @update:model-value="theValue = $event"
-        :min="min"
-        :max="max"
-        :suffix="suffix"
-        decimal="."
-        separator=" "
-        :precision="precision"
-        class="form-control text-center"/>
+  <VueNumber
+    :model-value="theValue"
+    :min="min"
+    :max="max"
+    :suffix="suffix"
+    decimal="."
+    separator=" "
+    :precision="precision"
+    class="form-control text-center"
+    @update:model-value="theValue = $event"
+  />
 </template>
 
 <script>
@@ -16,12 +17,12 @@
     compatConfig: {
       MODE: 3,
     },
-  }
+  };
 </script>
 
 <script setup>
-  import {component as VueNumber} from '@coders-tm/vue-number-format'
-  import {computed} from "vue";
+  import {component as VueNumber} from '@coders-tm/vue-number-format';
+  import {computed} from 'vue';
 
   const props = defineProps({
     min: {
@@ -40,6 +41,6 @@
 
   const theValue = computed({
     get: () => model.value,
-    set: (value) => model.value = Math.max(props.min, +value),
-  })
+    set: (value) => (model.value = Math.max(props.min, +value)),
+  });
 </script>

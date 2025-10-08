@@ -1,26 +1,26 @@
 <script setup>
-  import {provide, ref} from "vue";
+  import {provide, ref} from 'vue';
 
   const props = defineProps({
     tag: {
       type: String,
-      default: "div",
+      default: 'div',
     },
     disabled: Boolean,
-  })
+  });
 
   const isOpened = ref(false);
 
-  provide("dropdownMenu", {
+  provide('dropdownMenu', {
     isOpened,
     disabled: props.disabled,
-    toggle: () => isOpened.value = !isOpened.value,
-    hide: () => isOpened.value = false,
+    toggle: () => (isOpened.value = !isOpened.value),
+    hide: () => (isOpened.value = false),
   });
 </script>
 
 <template>
   <Component :is="tag" class="dropdown" :class="{open: isOpened}">
-    <slot/>
+    <slot />
   </Component>
 </template>

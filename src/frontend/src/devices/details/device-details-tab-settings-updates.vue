@@ -1,25 +1,28 @@
 <template>
-    <div>
-        <!-- i18n: ['firmwareUpdatePolicy_ALL_ENABLED', 'firmwareUpdatePolicy_SECURITY_ONLY', 'firmwareUpdatePolicy_DISABLED', 'firmwareUpdatePolicy_FORCED_OFF'] -->
-        <div class="form-group" v-if="newConfig.firmwareUpdatePolicy !== undefined">
-            <label for="firmwareUpdatePolicy">{{ $t('Firmware update policy') }}</label>
-            <SimpleDropdown v-model="newConfig.firmwareUpdatePolicy" :options="['DISABLED', 'SECURITY_ONLY', 'ALL_ENABLED']"
-                :disabled="!['DISABLED', 'SECURITY_ONLY', 'ALL_ENABLED'].includes(newConfig.firmwareUpdatePolicy)" v-slot="{value}">
-                  {{ $t('firmwareUpdatePolicy_' + value) }}
-            </SimpleDropdown>
-        </div>
+  <div>
+    <!-- i18n: ['firmwareUpdatePolicy_ALL_ENABLED', 'firmwareUpdatePolicy_SECURITY_ONLY', 'firmwareUpdatePolicy_DISABLED', 'firmwareUpdatePolicy_FORCED_OFF'] -->
+    <div v-if="newConfig.firmwareUpdatePolicy !== undefined" class="form-group">
+      <label for="firmwareUpdatePolicy">{{ $t('Firmware update policy') }}</label>
+      <SimpleDropdown
+        v-slot="{value}"
+        v-model="newConfig.firmwareUpdatePolicy"
+        :options="['DISABLED', 'SECURITY_ONLY', 'ALL_ENABLED']"
+        :disabled="!['DISABLED', 'SECURITY_ONLY', 'ALL_ENABLED'].includes(newConfig.firmwareUpdatePolicy)"
+      >
+        {{ $t('firmwareUpdatePolicy_' + value) }}
+      </SimpleDropdown>
     </div>
+  </div>
 </template>
 
 <script setup>
-  import {useDeviceSettingsForm} from "@/devices/details/device-details-helpers";
-  import SimpleDropdown from "@/common/gui/simple-dropdown.vue";
+  import {useDeviceSettingsForm} from '@/devices/details/device-details-helpers';
+  import SimpleDropdown from '@/common/gui/simple-dropdown.vue';
 
   const props = defineProps({device: Object});
 
-    const emit = defineEmits(['change']);
-    const {newConfig} = useDeviceSettingsForm(props.device.id, emit, (device) => ({
-        firmwareUpdatePolicy: device.config.firmwareUpdatePolicy,
-    }));
+  const emit = defineEmits(['change']);
+  const {newConfig} = useDeviceSettingsForm(props.device.id, emit, (device) => ({
+    firmwareUpdatePolicy: device.config.firmwareUpdatePolicy,
+  }));
 </script>
-

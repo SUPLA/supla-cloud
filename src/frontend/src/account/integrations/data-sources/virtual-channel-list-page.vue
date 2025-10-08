@@ -1,63 +1,62 @@
 <template>
-    <div>
-        <loading-cover :loading="!channels">
-            <div class="container mb-3">
-                <div class="d-flex">
-                    <h4 class="flex-grow-1">{{ $t('Data sources are virtual channels that can provide data for your account.') }}</h4>
-                    <NewVirtualChannelButton/>
-                </div>
-            </div>
-            <div class="container" v-show="allVirtualChannels && allVirtualChannels.length">
-                <virtual-channel-filters
-                    @filter-function="filterFunction = $event"
-                    @compare-function="compareFunction = $event"/>
-            </div>
-            <div>
-                <square-links-grid :count="filteredChannels.length + 1" v-if="allVirtualChannels?.length > 0">
-                    <div v-for="channel in filteredChannels" :key="channel.id">
-                        <channel-tile :model="channel"></channel-tile>
-                    </div>
-                </square-links-grid>
-                <empty-list-placeholder v-else-if="allVirtualChannels"/>
-            </div>
-        </loading-cover>
-    </div>
+  <div>
+    <loading-cover :loading="!channels">
+      <div class="container mb-3">
+        <div class="d-flex">
+          <h4 class="flex-grow-1">{{ $t('Data sources are virtual channels that can provide data for your account.') }}</h4>
+          <NewVirtualChannelButton />
+        </div>
+      </div>
+      <div v-show="allVirtualChannels && allVirtualChannels.length" class="container">
+        <virtual-channel-filters @filter-function="filterFunction = $event" @compare-function="compareFunction = $event" />
+      </div>
+      <div>
+        <square-links-grid v-if="allVirtualChannels?.length > 0" :count="filteredChannels.length + 1">
+          <div v-for="channel in filteredChannels" :key="channel.id">
+            <channel-tile :model="channel"></channel-tile>
+          </div>
+        </square-links-grid>
+        <empty-list-placeholder v-else-if="allVirtualChannels" />
+      </div>
+    </loading-cover>
+  </div>
 </template>
 
 <script>
-  import ChannelTile from "@/channels/channel-tile.vue";
-  import {mapState} from "pinia";
-  import {useChannelsStore} from "@/stores/channels-store";
-  import VirtualChannelFilters from "./virtual-channel-filters.vue";
-  import NewVirtualChannelButton
-    from "@/account/integrations/data-sources/new-virtual-channel-button.vue";
-  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
-  import SquareLinksGrid from "@/common/tiles/square-links-grid.vue";
-  import EmptyListPlaceholder from "@/common/gui/empty-list-placeholder.vue";
+  import ChannelTile from '@/channels/channel-tile.vue';
+  import {mapState} from 'pinia';
+  import {useChannelsStore} from '@/stores/channels-store';
+  import VirtualChannelFilters from './virtual-channel-filters.vue';
+  import NewVirtualChannelButton from '@/account/integrations/data-sources/new-virtual-channel-button.vue';
+  import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
+  import SquareLinksGrid from '@/common/tiles/square-links-grid.vue';
+  import EmptyListPlaceholder from '@/common/gui/empty-list-placeholder.vue';
 
   export default {
-        components: {
-          EmptyListPlaceholder,
-          SquareLinksGrid,
-          LoadingCover, NewVirtualChannelButton, VirtualChannelFilters, ChannelTile},
-        data() {
-            return {
-                filterFunction: () => true,
-                compareFunction: () => -1,
-            };
-        },
-        computed: {
-            ...mapState(useChannelsStore, {channels: 'list'}),
-            allVirtualChannels() {
-                return this.channels
-                    .filter((channel) => !channel.config.hideInChannelsList)
-                    .filter((channel) => channel.isVirtual);
-            },
-            filteredChannels() {
-                const filteredChannels = this.allVirtualChannels.filter(this.filterFunction);
-                filteredChannels.sort(this.compareFunction);
-                return filteredChannels;
-            },
-        },
-    };
+    components: {
+      EmptyListPlaceholder,
+      SquareLinksGrid,
+      LoadingCover,
+      NewVirtualChannelButton,
+      VirtualChannelFilters,
+      ChannelTile,
+    },
+    data() {
+      return {
+        filterFunction: () => true,
+        compareFunction: () => -1,
+      };
+    },
+    computed: {
+      ...mapState(useChannelsStore, {channels: 'list'}),
+      allVirtualChannels() {
+        return this.channels.filter((channel) => !channel.config.hideInChannelsList).filter((channel) => channel.isVirtual);
+      },
+      filteredChannels() {
+        const filteredChannels = this.allVirtualChannels.filter(this.filterFunction);
+        filteredChannels.sort(this.compareFunction);
+        return filteredChannels;
+      },
+    },
+  };
 </script>

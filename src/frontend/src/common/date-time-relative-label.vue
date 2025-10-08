@@ -1,23 +1,26 @@
 <template>
-    <span>{{ relativeLabel }}</span>
+  <span>{{ relativeLabel }}</span>
 </template>
 
 <script setup>
-  import {toLuxon} from "@/common/filters-date";
-  import {useIntervalFn} from "@vueuse/core";
-  import {ref, watch} from "vue";
+  import {toLuxon} from '@/common/filters-date';
+  import {useIntervalFn} from '@vueuse/core';
+  import {ref, watch} from 'vue';
 
   const props = defineProps({datetime: [Object, String], pattern: {type: String, default: '%s'}});
 
-    const relativeLabel = ref('');
+  const relativeLabel = ref('');
 
-    function formatDateTimeRelative() {
-        if (!props.datetime) {
-            return '';
-        }
-        return props.pattern.replace('%s', toLuxon(props.datetime).toRelative());
+  function formatDateTimeRelative() {
+    if (!props.datetime) {
+      return '';
     }
+    return props.pattern.replace('%s', toLuxon(props.datetime).toRelative());
+  }
 
-    useIntervalFn(() => relativeLabel.value = formatDateTimeRelative(), 30000, {immediateCallback: true});
-    watch(() => props.datetime, () => relativeLabel.value = formatDateTimeRelative());
+  useIntervalFn(() => (relativeLabel.value = formatDateTimeRelative()), 30000, {immediateCallback: true});
+  watch(
+    () => props.datetime,
+    () => (relativeLabel.value = formatDateTimeRelative())
+  );
 </script>

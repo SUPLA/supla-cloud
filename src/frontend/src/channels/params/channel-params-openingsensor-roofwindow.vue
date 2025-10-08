@@ -1,14 +1,16 @@
 <template>
-    <channel-params-openingsensor-any :channel="channel"
-        @change="$emit('change')"
-        related-channel-function="CONTROLLINGTHEROOFWINDOW"></channel-params-openingsensor-any>
+  <channel-params-openingsensor-any
+    :channel="channel"
+    related-channel-function="CONTROLLINGTHEROOFWINDOW"
+    @change="$emit('change')"
+  ></channel-params-openingsensor-any>
 </template>
 
 <script>
-  import ChannelParamsOpeningsensorAny from "./channel-params-openingsensor-any.vue";
+  import ChannelParamsOpeningsensorAny from './channel-params-openingsensor-any.vue';
 
   export default {
-        components: {ChannelParamsOpeningsensorAny},
-        props: ['channel']
-    };
+    components: {ChannelParamsOpeningsensorAny},
+    props: ['channel'],
+  };
 </script>

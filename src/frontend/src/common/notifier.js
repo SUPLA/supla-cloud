@@ -1,5 +1,5 @@
 import Vue3Toastify, {toast} from 'vue3-toastify';
-import {i18n} from "@/locale";
+import {i18n} from '@/locale';
 import 'vue3-toastify/dist/index.css';
 
 export function registerNotifier(app) {

@@ -1,122 +1,126 @@
-import {defineStore, getActivePinia} from "pinia";
-import {computed, ref} from "vue";
-import {useStorage} from "@vueuse/core";
-import {DateTime, Settings} from "luxon";
-import {Base64} from "js-base64";
-import {useFrontendConfigStore} from "@/stores/frontend-config-store";
-import {api} from "@/api/api";
-import {useDevicesStore} from "@/stores/devices-store";
-import {useChannelsStore} from "@/stores/channels-store";
-import {useLocationsStore} from "@/stores/locations-store";
-import {useAccessIdsStore} from "@/stores/access-ids-store";
+import {defineStore, getActivePinia} from 'pinia';
+import {computed, ref} from 'vue';
+import {useStorage} from '@vueuse/core';
+import {DateTime, Settings} from 'luxon';
+import {Base64} from 'js-base64';
+import {useFrontendConfigStore} from '@/stores/frontend-config-store';
+import {api} from '@/api/api';
+import {useDevicesStore} from '@/stores/devices-store';
+import {useChannelsStore} from '@/stores/channels-store';
+import {useLocationsStore} from '@/stores/locations-store';
+import {useAccessIdsStore} from '@/stores/access-ids-store';
 
 export const useCurrentUserStore = defineStore('currentUser', () => {
-    const userToken = useStorage('supla-user-token');
-    const filesToken = useStorage('supla-user-token-files');
-    const tokenExpiration = useStorage('supla-token-expiration');
-    const serverUrl = useStorage('supla-user-server-url');
-    const userData = ref({});
-    const username = computed(() => userData.value?.email);
+  const userToken = useStorage('supla-user-token');
+  const filesToken = useStorage('supla-user-token-files');
+  const tokenExpiration = useStorage('supla-token-expiration');
+  const serverUrl = useStorage('supla-user-server-url');
+  const userData = ref({});
+  const username = computed(() => userData.value?.email);
 
-    const synchronizeAuthState = () => {
-        determineServerUrl();
-        Settings.defaultZone = userData.value?.timezone || 'system';
+  const synchronizeAuthState = () => {
+    determineServerUrl();
+    Settings.defaultZone = userData.value?.timezone || 'system';
+  };
+
+  const determineServerUrl = () => {
+    const frontendConfigStore = useFrontendConfigStore();
+    const {actAsBrokerCloud, suplaUrl} = frontendConfigStore.config;
+    if (actAsBrokerCloud) {
+      serverUrl.value = Base64.decode((userToken.value || '').split('.')[1] || '') || suplaUrl;
+    } else {
+      serverUrl.value = '';
     }
-
-    const determineServerUrl = () => {
-        const frontendConfigStore = useFrontendConfigStore();
-        const {actAsBrokerCloud, suplaUrl} = frontendConfigStore.config;
-        if (actAsBrokerCloud) {
-            serverUrl.value = Base64.decode((userToken.value || '').split('.')[1] || '') || suplaUrl;
-        } else {
-            serverUrl.value = '';
-        }
-        if (!serverUrl.value) {
-            serverUrl.value = (location && location.origin) || '';
-        }
+    if (!serverUrl.value) {
+      serverUrl.value = (location && location.origin) || '';
     }
+  };
 
-    const clearStores = () => {
-        getActivePinia()._s.forEach(store => store.$reset());
-    }
+  const clearStores = () => {
+    getActivePinia()._s.forEach((store) => store.$reset());
+  };
 
-    const authenticate = async (username, password) => {
-        const {body} = await api.post('webapp-auth', {username, password}, {skipErrorHandler: [401, 409, 429]});
-        handleNewToken(body);
-        clearStores();
-        return await fetchUser();
-    }
-
-    const handleNewToken = (body) => {
-        userToken.value = body.access_token;
-        tokenExpiration.value = DateTime.now()
-            .plus({seconds: body.expires_in})
-            .startOf('second')
-            .toISO({suppressMilliseconds: true});
-        filesToken.value = body.download_token;
-    }
-
-    const forget = () => {
-        userToken.value = null;
-        filesToken.value = null;
-        serverUrl.value = null;
-        tokenExpiration.value = null;
-        userData.value = undefined;
-        clearStores();
-        synchronizeAuthState();
-    }
-
-    const fetchUser = async () => {
-        if (userToken.value) {
-            await fetchUserData();
-            synchronizeAuthState();
-        } else {
-            return false;
-        }
-    };
-
-    const fetchUserData = async () => {
-        try {
-            const {body} = await api.get('users/current', {skipErrorHandler: [401, 409, 429]});
-            await Promise.all([
-                useFrontendConfigStore().fetchConfig(),
-                useDevicesStore().fetchAll(),
-                useChannelsStore().fetchAll(),
-                useLocationsStore().fetchAll(),
-                useAccessIdsStore().fetchAll(),
-            ]);
-            userData.value = body;
-        } catch (error) {
-            forget();
-        }
-    }
-
-    const updateUserLocale = async (lang) => {
-        await api.patch('users/current', {locale: lang, action: 'change:userLocale'});
-        userData.value = {...userData.value, locale: lang};
-    }
-
-    const $reset = () => {
-    };
-
-    // TODO the code below tries to sync auth state between tabs, but it prevents login
-    // window.addEventListener('storage', (e) => {
-    //     if (e.key === 'supla-user-token') {
-    //         setTimeout(() => window.location.href = window.location.toString());
-    //     }
-    // });
-
-    return {
-        $reset,
-        fetchUser,
-        authenticate,
-        updateUserLocale,
-        forget,
+  const authenticate = async (username, password) => {
+    const {body} = await api.post(
+      'webapp-auth',
+      {
         username,
-        userToken,
-        filesToken,
-        userData,
-        serverUrl,
-        tokenExpiration
-    };
-})
+        password,
+      },
+      {skipErrorHandler: [401, 409, 429]}
+    );
+    handleNewToken(body);
+    clearStores();
+    return await fetchUser();
+  };
+
+  const handleNewToken = (body) => {
+    userToken.value = body.access_token;
+    tokenExpiration.value = DateTime.now().plus({seconds: body.expires_in}).startOf('second').toISO({suppressMilliseconds: true});
+    filesToken.value = body.download_token;
+  };
+
+  const forget = () => {
+    userToken.value = null;
+    filesToken.value = null;
+    serverUrl.value = null;
+    tokenExpiration.value = null;
+    userData.value = undefined;
+    clearStores();
+    synchronizeAuthState();
+  };
+
+  const fetchUser = async () => {
+    if (userToken.value) {
+      await fetchUserData();
+      synchronizeAuthState();
+    } else {
+      return false;
+    }
+  };
+
+  const fetchUserData = async () => {
+    try {
+      const {body} = await api.get('users/current', {skipErrorHandler: [401, 409, 429]});
+      await Promise.all([
+        useFrontendConfigStore().fetchConfig(),
+        useDevicesStore().fetchAll(),
+        useChannelsStore().fetchAll(),
+        useLocationsStore().fetchAll(),
+        useAccessIdsStore().fetchAll(),
+      ]);
+      userData.value = body;
+    } catch (error) {
+      console.warn(error);
+      forget();
+    }
+  };
+
+  const updateUserLocale = async (lang) => {
+    await api.patch('users/current', {locale: lang, action: 'change:userLocale'});
+    userData.value = {...userData.value, locale: lang};
+  };
+
+  const $reset = () => {};
+
+  // TODO the code below tries to sync auth state between tabs, but it prevents login
+  // window.addEventListener('storage', (e) => {
+  //     if (e.key === 'supla-user-token') {
+  //         setTimeout(() => window.location.href = window.location.toString());
+  //     }
+  // });
+
+  return {
+    $reset,
+    fetchUser,
+    authenticate,
+    updateUserLocale,
+    forget,
+    username,
+    userToken,
+    filesToken,
+    userData,
+    serverUrl,
+    tokenExpiration,
+  };
+});

@@ -6,13 +6,13 @@
   export default {
     compatConfig: {
       MODE: 3,
-    }
-  }
+    },
+  };
 </script>
 
 <script setup>
   import iro from '@jaames/iro';
-  import {onMounted, useTemplateRef, watch} from "vue";
+  import {onMounted, useTemplateRef, watch} from 'vue';
 
   const pickerElement = useTemplateRef('picker');
 
@@ -25,7 +25,7 @@
       layout: [
         {
           component: iro.ui.Slider,
-          options: {sliderType: 'hue'}
+          options: {sliderType: 'hue'},
         },
       ],
       color: {h: model.value, s: 100, v: 100},
@@ -38,5 +38,8 @@
     });
   });
 
-  watch(() => model.value, (h) => colorPicker.color.hsv = {h, s: 100, v: 100});
+  watch(
+    () => model.value,
+    (h) => (colorPicker.color.hsv = {h, s: 100, v: 100})
+  );
 </script>

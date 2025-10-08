@@ -1,10 +1,9 @@
 <template>
-    <span :class="'label ' + (app.connected ? 'label-success' : 'label-grey')"
-        v-if="app.connected !== undefined">
-        {{ $t(app.connected ? 'Active' : 'Idle') }}
-    </span>
+  <span v-if="app.connected !== undefined" :class="'label ' + (app.connected ? 'label-success' : 'label-grey')">
+    {{ $t(app.connected ? 'Active' : 'Idle') }}
+  </span>
 </template>
 
 <script setup>
-    defineProps({app: Object});
+  defineProps({app: Object});
 </script>

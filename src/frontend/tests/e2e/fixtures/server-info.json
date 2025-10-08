@@ -1,36 +1,31 @@
 {
-    "address": "supla.local",
-    "time": "2022-08-17T00:00:00+02:00",
-    "timezone": {
-        "name": "Europe\/Berlin",
-        "offset": 7200
-    },
-    "authenticated": false,
-    "cloudVersion": "23.05.01",
-    "cloudVersionFull": "23.05.01",
-    "apiVersion": "2.4.0",
-    "env": "e2e",
-    "supportedApiVersions": [
-        "2.1.0",
-        "2.2.0",
-        "2.3.0",
-        "2.4.0"
-    ],
-    "config": {
-        "regulationsAcceptRequired": true,
-        "requireCookiePolicyAcceptance": true,
-        "recaptchaEnabled": false,
-        "recaptchaSiteKey": "6LecW08UAAAAANuQbt4eMxPb7BSqb1SK6AQzx6s6",
-        "actAsBrokerCloud": false,
-        "suplaUrl": "http:\/\/supla.local",
-        "maintenanceMode": false,
-        "accountsRegistrationEnabled": true,
-        "notificationsEnabled": true,
-        "mqttBrokerEnabled": true,
-        "max_upload_size": {
-            "file": 2097152,
-            "total": 8388608
-        }
-    },
-    "serverStatus": "OK"
+  "address": "supla.local",
+  "time": "2022-08-17T00:00:00+02:00",
+  "timezone": {
+    "name": "Europe\/Berlin",
+    "offset": 7200
+  },
+  "authenticated": false,
+  "cloudVersion": "23.05.01",
+  "cloudVersionFull": "23.05.01",
+  "apiVersion": "2.4.0",
+  "env": "e2e",
+  "supportedApiVersions": ["2.1.0", "2.2.0", "2.3.0", "2.4.0"],
+  "config": {
+    "regulationsAcceptRequired": true,
+    "requireCookiePolicyAcceptance": true,
+    "recaptchaEnabled": false,
+    "recaptchaSiteKey": "6LecW08UAAAAANuQbt4eMxPb7BSqb1SK6AQzx6s6",
+    "actAsBrokerCloud": false,
+    "suplaUrl": "http:\/\/supla.local",
+    "maintenanceMode": false,
+    "accountsRegistrationEnabled": true,
+    "notificationsEnabled": true,
+    "mqttBrokerEnabled": true,
+    "max_upload_size": {
+      "file": 2097152,
+      "total": 8388608
+    }
+  },
+  "serverStatus": "OK"
 }

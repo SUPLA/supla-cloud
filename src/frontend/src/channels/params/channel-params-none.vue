@@ -1,7 +1,7 @@
 <template>
-    <span></span>
+  <span></span>
 </template>
 
 <script>
-    export default {};
+  export default {};
 </script>

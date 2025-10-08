@@ -1,5 +1,5 @@
-@use "./variables" as *;
-@use "./mixins" as *;
+@use './variables' as *;
+@use './mixins' as *;
 @use 'sass:color';
 
 .register-page {
@@ -39,7 +39,7 @@
 }
 
 .register-slider-body {
-  transition: background .4s linear;
+  transition: background 0.4s linear;
   &.register-slide- {
     &0 {
       background-image: url('../assets/register-bg-1.svg');
@@ -56,7 +56,6 @@
 .account-deletion-page {
   background-image: url('../assets/register-bg-1.svg');
 }
-
 
 .create-form {
   color: $supla-white;

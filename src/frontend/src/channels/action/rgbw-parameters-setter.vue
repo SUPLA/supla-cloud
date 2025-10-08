@@ -1,37 +1,37 @@
 <template>
   <div>
-    <div class="rgbw-parameter" v-if="hasBrightness">
+    <div v-if="hasBrightness" class="rgbw-parameter">
       <label>{{ $t('Brightness') }}</label>
-      <NumberInput v-model="colorBrightness" :min="0" :max="100"/>
+      <NumberInput v-model="colorBrightness" :min="0" :max="100" />
     </div>
-    <hr v-if="hasBrightness && hasColor">
-    <div class="rgbw-parameter" v-if="hasColor">
+    <hr v-if="hasBrightness && hasColor" />
+    <div v-if="hasColor" class="rgbw-parameter">
       <label>{{ $t('Color') }}</label>
       <div class="radio">
         <label>
-          <input type="radio" value="choose" v-model="hueMode">
+          <input v-model="hueMode" type="radio" value="choose" />
           {{ $t('Choose') }}
         </label>
       </div>
       <div v-if="hueMode === 'choose'">
-        <HueColorpicker v-model="hue"/>
+        <HueColorpicker v-model="hue" />
       </div>
       <div class="radio">
         <label>
-          <input type="radio" value="random" v-model="hueMode">
+          <input v-model="hueMode" type="radio" value="random" />
           {{ $t('Random') }}
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" value="white" v-model="hueMode">
+          <input v-model="hueMode" type="radio" value="white" />
           {{ $t('White') }}
         </label>
       </div>
     </div>
-    <div class="rgbw-parameter" v-if="hasColor">
+    <div v-if="hasColor" class="rgbw-parameter">
       <label>{{ $t('Color brightness') }}</label>
-      <NumberInput v-model="colorBrightness" :min="0" :max="100"/>
+      <NumberInput v-model="colorBrightness" :min="0" :max="100" />
     </div>
   </div>
 </template>
@@ -40,38 +40,38 @@
   export default {
     compatConfig: {
       MODE: 3,
-    }
-  }
+    },
+  };
 </script>
 
 <script setup>
-  import HueColorpicker from "./hue-colorpicker.vue";
-  import ChannelFunction from "../../common/enums/channel-function";
-  import {computed, nextTick, onMounted} from "vue";
-  import NumberInput from "@/common/number-input.vue";
+  import HueColorpicker from './hue-colorpicker.vue';
+  import ChannelFunction from '../../common/enums/channel-function';
+  import {computed, nextTick, onMounted} from 'vue';
+  import NumberInput from '@/common/number-input.vue';
 
   const props = defineProps({subject: Object});
 
   const model = defineModel();
 
   const hueMode = computed({
-    get: () => ['random', 'white'].includes(model.value.hue) ? model.value.hue : 'choose',
-    set: (value) => hue.value = value === 'choose' ? 0 : value,
+    get: () => (['random', 'white'].includes(model.value.hue) ? model.value.hue : 'choose'),
+    set: (value) => (hue.value = value === 'choose' ? 0 : value),
   });
 
   const hue = computed({
     get: () => model.value?.hue || 0,
-    set: (hue) => model.value = {...currentModelValue.value, hue},
+    set: (hue) => (model.value = {...currentModelValue.value, hue}),
   });
 
   const colorBrightness = computed({
     get: () => model.value?.color_brightness || 100,
-    set: (color_brightness) => model.value = {...currentModelValue.value, color_brightness},
+    set: (color_brightness) => (model.value = {...currentModelValue.value, color_brightness}),
   });
 
   const brightness = computed({
     get: () => model.value?.brightness || 100,
-    set: (brightness) => model.value = {...currentModelValue.value, brightness},
+    set: (brightness) => (model.value = {...currentModelValue.value, brightness}),
   });
 
   const functionId = computed(() => props.subject.functionId);
@@ -97,11 +97,11 @@
           color_brightness: props.subject.state.color_brightness || 0,
           brightness: props.subject.state.brightness || 0,
           hue: props.subject.state.hue || 0,
-        }
+        };
       }
-      nextTick(() => model.value = currentModelValue.value);
+      nextTick(() => (model.value = currentModelValue.value));
     }
-  })
+  });
 
   // export default {
   //   methods: {

@@ -1,13 +1,13 @@
 <!-- https://medium.com/@sultondev/building-a-smooth-building-a-smooth-collapse-expand-animation-in-vue-3-a-deep-dive-into-2ac68a2aeb50 -->
 <script setup>
-  import {computed, ref, watch} from "vue";
-  import {noop} from "@vueuse/core";
+  import {computed, ref, watch} from 'vue';
+  import {noop} from '@vueuse/core';
 
   const {
-    name = "collapse",
-    dimension = "height",
+    name = 'collapse',
+    dimension = 'height',
     duration = 200,
-    easing = "ease-in-out",
+    easing = 'ease-in-out',
   } = defineProps({
     name: String,
     dimension: String,
@@ -33,19 +33,19 @@
   const cachedStyles = ref(null);
 
   const transition = computed(() => {
-    if (!cachedStyles.value) return "";
+    if (!cachedStyles.value) return '';
     const transitions = [];
     for (const key in cachedStyles.value) {
       transitions.push(`${convertToCssProperty(key)} ${duration}ms ${easing}`);
     }
-    return transitions.join(", ");
+    return transitions.join(', ');
   });
 
   watch(
     () => dimension,
     () => {
       clearCachedDimensions();
-    },
+    }
   );
 
   /* Transition hook methods – note that the parameter is now of type `Element`.
@@ -53,23 +53,23 @@
      you can cast the element to HTMLElement. */
 
   function beforeAppear(el) {
-    emit("before-appear", el);
+    emit('before-appear', el);
   }
 
   function appear(el) {
-    emit("appear", el);
+    emit('appear', el);
   }
 
   function afterAppear(el) {
-    emit("after-appear", el);
+    emit('after-appear', el);
   }
 
   function appearCancelled(el) {
-    emit("appear-cancelled", el);
+    emit('appear-cancelled', el);
   }
 
   function beforeEnter(el) {
-    emit("before-enter", el);
+    emit('before-enter', el);
   }
 
   function enter(el, done) {
@@ -81,7 +81,7 @@
     setTransition(htmlEl);
     setOpenedDimensions(htmlEl);
 
-    emit("enter", el, done);
+    emit('enter', el, done);
     setTimeout(done, duration);
   }
 
@@ -91,15 +91,15 @@
     unsetTransition(htmlEl);
     unsetDimensions(htmlEl);
     clearCachedDimensions();
-    emit("after-enter", el);
+    emit('after-enter', el);
   }
 
   function enterCancelled(el) {
-    emit("enter-cancelled", el);
+    emit('enter-cancelled', el);
   }
 
   function beforeLeave(el) {
-    emit("before-leave", el);
+    emit('before-leave', el);
   }
 
   function leave(el, done) {
@@ -111,7 +111,7 @@
     setTransition(htmlEl);
     setClosedDimensions(htmlEl);
 
-    emit("leave", el, done);
+    emit('leave', el, done);
     setTimeout(done, duration);
   }
 
@@ -121,11 +121,11 @@
     unsetTransition(htmlEl);
     unsetDimensions(htmlEl);
     clearCachedDimensions();
-    emit("after-leave", el);
+    emit('after-leave', el);
   }
 
   function leaveCancelled(el) {
-    emit("leave-cancelled", el);
+    emit('leave-cancelled', el);
   }
 
   /* Utility functions – these continue to work with HTMLElement since they access DOM-specific properties. */
@@ -136,8 +136,8 @@
     const originalVisibility = el.style.visibility;
     const originalDisplay = el.style.display;
 
-    el.style.visibility = "hidden";
-    el.style.display = "";
+    el.style.visibility = 'hidden';
+    el.style.display = '';
     cachedStyles.value = detectRelevantDimensions(el);
     el.style.visibility = originalVisibility;
     el.style.display = originalDisplay;
@@ -148,17 +148,17 @@
   }
 
   function detectRelevantDimensions(el) {
-    if (dimension === "height") {
+    if (dimension === 'height') {
       return {
-        height: el.offsetHeight + "px",
-        paddingTop: el.style.paddingTop || getCssValue(el, "padding-top"),
-        paddingBottom: el.style.paddingBottom || getCssValue(el, "padding-bottom"),
+        height: el.offsetHeight + 'px',
+        paddingTop: el.style.paddingTop || getCssValue(el, 'padding-top'),
+        paddingBottom: el.style.paddingBottom || getCssValue(el, 'padding-bottom'),
       };
-    } else if (dimension === "width") {
+    } else if (dimension === 'width') {
       return {
-        width: el.offsetWidth + "px",
-        paddingLeft: el.style.paddingLeft || getCssValue(el, "padding-left"),
-        paddingRight: el.style.paddingRight || getCssValue(el, "padding-right"),
+        width: el.offsetWidth + 'px',
+        paddingLeft: el.style.paddingLeft || getCssValue(el, 'padding-left'),
+        paddingRight: el.style.paddingRight || getCssValue(el, 'padding-right'),
       };
     }
     return {};
@@ -169,21 +169,21 @@
   }
 
   function unsetTransition(el) {
-    el.style.transition = "";
+    el.style.transition = '';
   }
 
   function hideOverflow(el) {
-    el.style.overflow = "hidden";
+    el.style.overflow = 'hidden';
   }
 
   function unsetOverflow(el) {
-    el.style.overflow = "";
+    el.style.overflow = '';
   }
 
   function setClosedDimensions(el) {
     if (!cachedStyles.value) return;
     Object.keys(cachedStyles.value).forEach((key) => {
-      el.style.setProperty(convertToCssProperty(key), "0");
+      el.style.setProperty(convertToCssProperty(key), '0');
     });
   }
 
@@ -217,9 +217,9 @@
       return style;
     }
     for (const char of upperChars) {
-      style = style.replace(new RegExp(char), "-" + char.toLowerCase());
+      style = style.replace(new RegExp(char), '-' + char.toLowerCase());
     }
-    if (style.startsWith("-")) {
+    if (style.startsWith('-')) {
       style = style.slice(1);
     }
     return style;

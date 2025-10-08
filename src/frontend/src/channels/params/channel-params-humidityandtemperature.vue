@@ -1,18 +1,16 @@
 <template>
-    <div>
-        <channel-params-thermometer :channel="channel"
-            @change="$emit('change')"></channel-params-thermometer>
-        <channel-params-humidity :channel="channel"
-            @change="$emit('change')"></channel-params-humidity>
-    </div>
+  <div>
+    <channel-params-thermometer :channel="channel" @change="$emit('change')"></channel-params-thermometer>
+    <channel-params-humidity :channel="channel" @change="$emit('change')"></channel-params-humidity>
+  </div>
 </template>
 
 <script>
-  import ChannelParamsThermometer from "./channel-params-thermometer.vue";
-  import ChannelParamsHumidity from "./channel-params-humidity.vue";
+  import ChannelParamsThermometer from './channel-params-thermometer.vue';
+  import ChannelParamsHumidity from './channel-params-humidity.vue';
 
   export default {
-        components: {ChannelParamsHumidity, ChannelParamsThermometer},
-        props: ['channel'],
-    };
+    components: {ChannelParamsHumidity, ChannelParamsThermometer},
+    props: ['channel'],
+  };
 </script>
