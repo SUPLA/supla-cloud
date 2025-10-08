@@ -55,7 +55,7 @@
                                         :key="ioDevice.id"
                                         v-go-to-link-on-row-click>
                                         <td>
-<!--                                            <router-link :to="{name: 'device', params: {id: ioDevice.id}}">{{ ioDevice.id }}</router-link>-->
+                                            <router-link :to="{name: 'device', params: {id: ioDevice.id}}">{{ ioDevice.id }}</router-link>
                                         </td>
                                         <td>{{ ioDevice.name }}</td>
                                         <td>{{ ioDevice.comment }}</td>
@@ -83,7 +83,7 @@
                                         :key="aid.id"
                                         v-go-to-link-on-row-click>
                                         <td>
-<!--                                            <router-link :to="{name: 'accessId', params: {id: aid.id}}">{{ aid.id }}</router-link>-->
+                                            <router-link :to="{name: 'accessId', params: {id: aid.id}}">{{ aid.id }}</router-link>
                                         </td>
                                         <td>
                                             <password-display :password="aid.password"></password-display>
@@ -125,7 +125,7 @@
                                             <function-icon :model="channelGroup"></function-icon>
                                         </td>
                                         <td>
-<!--                                            <router-link :to="{name: 'channelGroup', params: {id: channelGroup.id}}">{{ channelGroup.id }}</router-link>-->
+                                            <router-link :to="{name: 'channelGroup', params: {id: channelGroup.id}}">{{ channelGroup.id }}</router-link>
                                         </td>
                                         <td>
                                             <span v-if="channelGroup.caption">{{ channelGroup.caption }}</span>

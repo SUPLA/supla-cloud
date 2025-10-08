@@ -16,7 +16,7 @@
         <div class="container">
             <client-app-filters @filter-function="filterFunction = $event" @compare-function="compareFunction = $event"/>
         </div>
-        <square-links-grid v-if="clientApps && filteredClientApps.length" :count="filteredClientApps.length">
+        <square-links-grid v-if="compareFunction && clientApps && filteredClientApps.length" :count="filteredClientApps.length">
             <client-app-tile-editable
                 v-for="app in filteredClientApps"
                 :key="app.id"
@@ -49,8 +49,8 @@
     const {list: clientApps} = storeToRefs(store);
 
     const filterFunction = ref(() => true);
-    const compareFunction = ref(() => 1);
-    const filteredClientApps = computed(() => clientApps.value.filter(filterFunction.value).sort(compareFunction.value));
+    const compareFunction = ref(undefined);
+    const filteredClientApps = computed(() => clientApps.value.filter(filterFunction.value).sort(compareFunction.value || (() => 1)));
 
-    useTimeoutPoll(() => store.fetchAll(true), 7000, {immediate: true});
+    useTimeoutPoll(() => store.fetchAll(true), 7000, {immediate: true, immediateCallback: true});
 </script>

@@ -1,11 +1,11 @@
 <template>
     <page-container :error="error">
         <loading-cover :loading="!channel || loading">
-            <BreadcrumbList v-if="channel" :current="channelTitle">
-              <router-link :to="{name: 'me'}">{{ $t('My SUPLA') }}</router-link>
-              <router-link :to="{name: 'device', params: {id: channel.iodeviceId}}">{{ deviceTitle(devices[channel.iodeviceId]) }}</router-link>
-            </BreadcrumbList>
             <div class="container" v-if="channel">
+              <BreadcrumbList :current="channelTitle">
+                <router-link :to="{name: 'me'}">{{ $t('My SUPLA') }}</router-link>
+                <router-link :to="{name: 'device', params: {id: channel.iodeviceId}}">{{ deviceTitle(devices[channel.iodeviceId]) }}</router-link>
+              </BreadcrumbList>
                 <div class="d-flex mt-3">
                     <div class="flex-grow-1">
                         <h1 v-title class="m-0">{{ channelTitle }}</h1>

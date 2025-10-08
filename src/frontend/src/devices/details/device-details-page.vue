@@ -1,11 +1,11 @@
 <template>
     <PageContainer :error="device || loading ? null : 404">
         <div v-if="device">
-          <BreadcrumbList :current="deviceTitle(device)">
-            <router-link :to="{name: 'me'}">{{ $t('My SUPLA') }}</router-link>
-          </BreadcrumbList>
             <div class="container mt-3">
-                <div class="d-flex mb-3 flex-wrap">
+              <BreadcrumbList :current="deviceTitle(device)">
+                <router-link :to="{name: 'me'}">{{ $t('My SUPLA') }}</router-link>
+              </BreadcrumbList>
+                <div class="d-flex my-3 flex-wrap">
                     <div class="flex-grow-1">
                         <h1 v-title class="mt-0">{{ deviceTitle(device) }}</h1>
                         <div v-if="device.comment">

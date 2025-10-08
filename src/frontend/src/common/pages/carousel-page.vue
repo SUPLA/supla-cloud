@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="item">
-          <BreadcrumbList>
+          <BreadcrumbList v-if="!dontSetPageTitle" class="container">
               <router-link :to="{name: listRouteName}">{{ $t(headerI18n) }}</router-link>
           </BreadcrumbList>
             <div v-if="item">
@@ -21,6 +21,7 @@
                 :limit="limit"
                 :filters="filters"
                 :idParamName="idParamName"
+                :dontSetPageTitle="dontSetPageTitle"
                 :details-route="detailsRoute"></list-page>
         </div>
     </div>
