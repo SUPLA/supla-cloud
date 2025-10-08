@@ -1,18 +1,18 @@
-import {createRouter, createWebHistory} from 'vue-router'
-import {useFrontendConfigStore} from "@/stores/frontend-config-store.js";
+import {createRouter, createWebHistory} from 'vue-router';
+import {useFrontendConfigStore} from '@/stores/frontend-config-store.js';
 import routes from './routes';
-import {useCurrentUserStore} from "@/stores/current-user-store.js";
+import {useCurrentUserStore} from '@/stores/current-user-store.js';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-})
+});
 
 router.beforeEach((to) => {
   const currentUser = useCurrentUserStore();
   const frontendConfig = useFrontendConfigStore();
   if (!currentUser.username && !to.meta.unrestricted) {
-    return {name: 'login', query: {target: (to.fullPath?.length > 2 ? to.fullPath : undefined)}};
+    return {name: 'login', query: {target: to.fullPath?.length > 2 ? to.fullPath : undefined}};
   } else if (currentUser.username && to.meta.onlyUnauthenticated) {
     return to.query?.target || '/';
   } else if (frontendConfig.config.maintenanceMode && to.meta.unavailableInMaintenance) {
@@ -46,4 +46,4 @@ router.beforeEach((to) => {
   }
 });
 
-export default router
+export default router;

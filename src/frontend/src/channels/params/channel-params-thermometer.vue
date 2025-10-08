@@ -1,31 +1,31 @@
 <template>
-    <dl v-if="canDisplaySetting('temperatureAdjustment')">
-        <dd>{{ $t('Temperature adjustment') }}</dd>
-        <dt>
-            <span class="input-group">
-                <input type="number"
-                    step="0.1"
-                    :min="minAdjustment"
-                    :max="maxAdjustment"
-                    class="form-control text-center"
-                    v-model="channel.config.temperatureAdjustment"
-                    @change="$emit('change')">
-                <span class="input-group-addon">
-                    &deg;C
-                </span>
-            </span>
-        </dt>
-    </dl>
+  <dl v-if="canDisplaySetting('temperatureAdjustment')">
+    <dd>{{ $t('Temperature adjustment') }}</dd>
+    <dt>
+      <span class="input-group">
+        <input
+          v-model="channel.config.temperatureAdjustment"
+          type="number"
+          step="0.1"
+          :min="minAdjustment"
+          :max="maxAdjustment"
+          class="form-control text-center"
+          @change="$emit('change')"
+        />
+        <span class="input-group-addon"> &deg;C </span>
+      </span>
+    </dt>
+  </dl>
 </template>
 
 <script setup>
-  import {computed} from "vue";
-  import {useDisplaySettings} from "@/channels/params/useDisplaySettings";
+  import {computed} from 'vue';
+  import {useDisplaySettings} from '@/channels/params/useDisplaySettings';
 
   const props = defineProps({channel: Object});
 
-    const minAdjustment = computed(() => props.channel.config.minTemperatureAdjustment || -10);
-    const maxAdjustment = computed(() => props.channel.config.maxTemperatureAdjustment || 10);
+  const minAdjustment = computed(() => props.channel.config.minTemperatureAdjustment || -10);
+  const maxAdjustment = computed(() => props.channel.config.maxTemperatureAdjustment || 10);
 
-    const {canDisplaySetting} = useDisplaySettings(props.channel);
+  const {canDisplaySetting} = useDisplaySettings(props.channel);
 </script>

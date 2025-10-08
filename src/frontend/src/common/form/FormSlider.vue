@@ -1,5 +1,5 @@
 <script setup>
-  import VueSlider from "vue-slider-component";
+  import VueSlider from 'vue-slider-component';
   import 'vue-slider-component/theme/antd.css';
 
   defineProps({
@@ -17,23 +17,31 @@
   export default {
     compatConfig: {
       MODE: 3,
-    }
-  }
+    },
+  };
 </script>
 
 <template>
-  <VueSlider v-model="model" :min="min" :max="max" :interval="interval" :disabled="disabled"
-    tooltip="always" tooltip-placement="bottom"
-    :tooltip-formatter="tooltipFormatter" class="green">
+  <VueSlider
+    v-model="model"
+    :min="min"
+    :max="max"
+    :interval="interval"
+    :disabled="disabled"
+    tooltip="always"
+    tooltip-placement="bottom"
+    :tooltip-formatter="tooltipFormatter"
+    class="green"
+  >
     <template #label="{label}">
-      <slot name="label" :label="label"/>
+      <slot name="label" :label="label" />
     </template>
   </VueSlider>
 </template>
 
 <style lang="scss">
-  @use "../../styles/variables" as *;
-  @use "sass:color";
+  @use '../../styles/variables' as *;
+  @use 'sass:color';
 
   .vue-slider-mark-label.mark-on-top {
     top: auto !important;
@@ -60,5 +68,4 @@
       }
     }
   }
-
 </style>

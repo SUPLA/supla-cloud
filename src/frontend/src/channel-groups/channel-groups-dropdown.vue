@@ -1,47 +1,71 @@
 <template>
-    <div>
-        <SelectForSubjects
-            none-option
-            :options="channelGroupsForDropdown"
-            :caption="channelGroupCaption"
-            :search-text="channelGroupSearchText"
-            :option-html="channelGroupHtml"
-            :choose-prompt-i18n="'choose the channel group'"
-            v-model="chosenChannelGroup"/>
-    </div>
+  <div>
+    <SelectForSubjects
+      v-model="chosenChannelGroup"
+      none-option
+      :options="channelGroupsForDropdown"
+      :caption="channelGroupCaption"
+      :search-text="channelGroupSearchText"
+      :option-html="channelGroupHtml"
+      :choose-prompt-i18n="'choose the channel group'"
+    />
+  </div>
 </template>
 
 <script>
-  import {channelIconUrl} from "../common/filters";
-  import SelectForSubjects from "@/devices/select-for-subjects.vue";
-  import {api} from "@/api/api.js";
+  import {channelIconUrl} from '../common/filters';
+  import SelectForSubjects from '@/devices/select-for-subjects.vue';
+  import {api} from '@/api/api.js';
 
   export default {
-        props: ['params', 'value', 'filter'],
-        components: {SelectForSubjects},
-        data() {
-            return {
-                channelGroups: undefined,
-            };
+    components: {SelectForSubjects},
+    props: ['params', 'value', 'filter'],
+    data() {
+      return {
+        channelGroups: undefined,
+      };
+    },
+    computed: {
+      channelGroupsForDropdown() {
+        if (!this.channelGroups) {
+          return [];
+        }
+        const channelGroups = this.channelGroups.filter(this.filter || (() => true));
+        this.$emit('update', channelGroups);
+        return channelGroups;
+      },
+      chosenChannelGroup: {
+        get() {
+          return this.value;
         },
-        mounted() {
-            this.fetchChannelGroups();
+        set(channelGroup) {
+          this.$emit('input', channelGroup);
         },
-        methods: {
-            fetchChannelGroups() {
-                this.channelGroups = undefined;
-                api.get('channel-groups?' + (this.params || '')).then(({body: channelGroups}) => {
-                    this.channelGroups = channelGroups;
-                });
-            },
-            channelGroupCaption(channelGroup) {
-                return channelGroup.caption || `ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
-            },
-            channelGroupSearchText(channelGroup) {
-                return `${channelGroup.caption || ''} ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
-            },
-            channelGroupHtml(channelGroup, escape) {
-                return `<div>
+      },
+    },
+    watch: {
+      params() {
+        this.fetchChannelGroups();
+      },
+    },
+    mounted() {
+      this.fetchChannelGroups();
+    },
+    methods: {
+      fetchChannelGroups() {
+        this.channelGroups = undefined;
+        api.get('channel-groups?' + (this.params || '')).then(({body: channelGroups}) => {
+          this.channelGroups = channelGroups;
+        });
+      },
+      channelGroupCaption(channelGroup) {
+        return channelGroup.caption || `ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
+      },
+      channelGroupSearchText(channelGroup) {
+        return `${channelGroup.caption || ''} ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
+      },
+      channelGroupHtml(channelGroup, escape) {
+        return `<div>
                             <div class="subject-dropdown-option d-flex">
                                 <div class="flex-grow-1">
                                     <h5 class="my-1">
@@ -53,30 +77,7 @@
                                 <div class="icon option-extra"><img src="${channelIconUrl(channelGroup)}"></div></div>
                             </div>
                         </div>`;
-            },
-        },
-        computed: {
-            channelGroupsForDropdown() {
-                if (!this.channelGroups) {
-                    return [];
-                }
-                const channelGroups = this.channelGroups.filter(this.filter || (() => true));
-                this.$emit('update', channelGroups);
-                return channelGroups;
-            },
-            chosenChannelGroup: {
-                get() {
-                    return this.value;
-                },
-                set(channelGroup) {
-                    this.$emit('input', channelGroup);
-                }
-            },
-        },
-        watch: {
-            params() {
-                this.fetchChannelGroups();
-            },
-        }
-    };
+      },
+    },
+  };
 </script>

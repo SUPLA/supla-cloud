@@ -1,7 +1,7 @@
 <script setup>
-  import {computed, inject} from "vue";
+  import {computed, inject} from 'vue';
 
-  const pageTitle = inject("pageTitle");
+  const pageTitle = inject('pageTitle');
 
   const props = defineProps({current: String});
 
@@ -10,7 +10,7 @@
 
 <template>
   <div class="breadcrumbs">
-    <slot/>
+    <slot />
     <span>{{ currentPageTitle }}</span>
   </div>
 </template>
@@ -28,7 +28,7 @@
         color: $supla-black;
         display: inline-block;
         margin: 0 1em;
-        content: ">";
+        content: '>';
         font-weight: 100;
       }
     }

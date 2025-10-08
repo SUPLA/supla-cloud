@@ -1,9 +1,9 @@
-@use "./variables" as *;
-@use "./mixins" as *;
+@use './variables' as *;
+@use './mixins' as *;
 @use 'sass:color';
 
 .btn {
-  transition: all .2s;
+  transition: all 0.2s;
   &-green {
     background: $supla-green;
     color: $supla-white;
@@ -12,20 +12,25 @@
       background: color.adjust($supla-green, $lightness: -5%);
       color: $supla-white !important;
     }
-    &.active, &:focus {
+    &.active,
+    &:focus {
       background: color.adjust($supla-green, $lightness: -5%) !important;
       color: $supla-white;
     }
   }
-  &-white, &-default {
+  &-white,
+  &-default {
     background: $supla-white;
     color: $supla-green;
     border: 1px solid $supla-green;
-    &:hover, &:focus, &:active {
+    &:hover,
+    &:focus,
+    &:active {
       border: 1px solid $supla-green;
       background: color.adjust($supla-white, $lightness: -5%);
     }
-    &[disabled], &[disabled]:hover {
+    &[disabled],
+    &[disabled]:hover {
       border-color: $supla-grey-dark;
       background-color: $supla-white;
       color: $supla-grey-dark;
@@ -49,7 +54,8 @@
     &:hover {
       background: color.adjust($supla-grey-light, $lightness: -5%);
     }
-    &[disabled], &[disabled]:hover {
+    &[disabled],
+    &[disabled]:hover {
       border-color: $supla-grey-dark;
       background-color: $supla-white;
       color: $supla-grey-dark;
@@ -61,7 +67,8 @@
     border: 1px solid $supla-yellow;
     outline-color: $supla-yellow !important;
   }
-  &-red, &-danger {
+  &-red,
+  &-danger {
     background: $supla-red;
     color: color.adjust($supla-white, $lightness: -5%);
     border: 1px solid $supla-red;
@@ -133,17 +140,17 @@
   }
   .text-muted {
     color: inherit;
-    opacity: .8;
+    opacity: 0.8;
   }
   &.active {
     box-shadow: none;
   }
   // FA icons
   > svg:first-child {
-    margin-right: .3em;
+    margin-right: 0.3em;
   }
   > svg:last-child {
-    margin-left: .3em;
+    margin-left: 0.3em;
   }
 }
 
@@ -170,7 +177,7 @@
     text-transform: uppercase;
     line-height: 26px;
     padding: 4px 10px;
-    font-size: .8em;
+    font-size: 0.8em;
     background: $supla-white;
     font-weight: 400;
     border-radius: 3px;

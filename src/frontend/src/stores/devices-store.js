@@ -1,77 +1,78 @@
-import {defineStore} from "pinia";
-import {computed, ref} from "vue";
-import {devicesApi} from "@/api/devices-api";
-import {useChannelsStore} from "@/stores/channels-store";
+import {defineStore} from 'pinia';
+import {computed, ref} from 'vue';
+import {devicesApi} from '@/api/devices-api';
+import {useChannelsStore} from '@/stores/channels-store';
 
 export const useDevicesStore = defineStore('devices', () => {
-    const all = ref({});
-    const ids = ref([]);
+  const all = ref({});
+  const ids = ref([]);
 
-    const fetchAll = (force = false) => {
-        if (fetchAll.promise && !force) {
-            return fetchAll.promise;
-        } else {
-            return fetchAll.promise = devicesApi.getList().then((devices) => {
-                const state = devices.reduce((acc, curr) => {
-                    return {
-                        ids: acc.ids.concat(curr.id),
-                        all: {...acc.all, [curr.id]: curr}
-                    }
-                }, {ids: [], all: {}});
-                all.value = state.all;
-                ids.value = state.ids;
-            })
-        }
-    };
-
-    const updateStates = (devicesStates) => {
-        let refetch = false;
-        const idsToFetch = [];
-        devicesStates.forEach((device) => {
-            if (all.value[device.id]) {
-                all.value[device.id].connected = device.connected;
-                if (all.value[device.id].checksum !== device.checksum) {
-                    idsToFetch.push(device.id);
-                }
-            } else {
-                refetch = true;
-            }
-        });
-        if (refetch || idsToFetch.length > 5) {
-            fetchAll(true);
-        } else {
-            idsToFetch.forEach((id) => fetchDevice(id));
-        }
-    };
-
-    const remove = (deviceId, safe = true) => {
-        return devicesApi.remove(deviceId, safe)
-            .then(() => {
-                delete all.value[deviceId];
-                ids.value = ids.value.filter((id) => id !== deviceId);
-                return useChannelsStore().refetchAll();
-            });
+  const fetchAll = (force = false) => {
+    if (fetchAll.promise && !force) {
+      return fetchAll.promise;
+    } else {
+      return (fetchAll.promise = devicesApi.getList().then((devices) => {
+        const state = devices.reduce(
+          (acc, curr) => {
+            return {
+              ids: acc.ids.concat(curr.id),
+              all: {...acc.all, [curr.id]: curr},
+            };
+          },
+          {ids: [], all: {}}
+        );
+        all.value = state.all;
+        ids.value = state.ids;
+      }));
     }
+  };
 
-    const updateDevice = (device) => {
-        all.value[device.id] = {...all.value[device.id], ...device};
+  const updateStates = (devicesStates) => {
+    let refetch = false;
+    const idsToFetch = [];
+    devicesStates.forEach((device) => {
+      if (all.value[device.id]) {
+        all.value[device.id].connected = device.connected;
+        if (all.value[device.id].checksum !== device.checksum) {
+          idsToFetch.push(device.id);
+        }
+      } else {
+        refetch = true;
+      }
+    });
+    if (refetch || idsToFetch.length > 5) {
+      fetchAll(true);
+    } else {
+      idsToFetch.forEach((id) => fetchDevice(id));
     }
+  };
 
-    const fetchDevice = (deviceId) => {
-        return devicesApi.getOne(deviceId)
-            .then((device) => {
-                updateDevice(device);
-                return device;
-            });
-    };
+  const remove = (deviceId, safe = true) => {
+    return devicesApi.remove(deviceId, safe).then(() => {
+      delete all.value[deviceId];
+      ids.value = ids.value.filter((id) => id !== deviceId);
+      return useChannelsStore().refetchAll();
+    });
+  };
 
-    const list = computed(() => ids.value.map(id => all.value[id]));
+  const updateDevice = (device) => {
+    all.value[device.id] = {...all.value[device.id], ...device};
+  };
 
-    const $reset = () => {
-        all.value = {};
-        ids.value = [];
-        fetchAll.promise = undefined;
-    };
+  const fetchDevice = (deviceId) => {
+    return devicesApi.getOne(deviceId).then((device) => {
+      updateDevice(device);
+      return device;
+    });
+  };
 
-    return {all, ids, list, $reset, fetchAll, updateStates, remove, fetchDevice};
+  const list = computed(() => ids.value.map((id) => all.value[id]));
+
+  const $reset = () => {
+    all.value = {};
+    ids.value = [];
+    fetchAll.promise = undefined;
+  };
+
+  return {all, ids, list, $reset, fetchAll, updateStates, remove, fetchDevice};
 });

@@ -1,15 +1,15 @@
-@use "./variables" as *;
-@use "./mixins" as *;
-@use "./fonts";
-@use "./integrations";
-@use "./buttons";
-@use "./checkbox";
-@use "./notifications";
-@use "./register-pages";
-@use "./tooltips";
-@use "./spacing";
-@use "./bootstrap-future";
-@use "./icons";
+@use './variables' as *;
+@use './mixins' as *;
+@use './fonts';
+@use './integrations';
+@use './buttons';
+@use './checkbox';
+@use './notifications';
+@use './register-pages';
+@use './tooltips';
+@use './spacing';
+@use './bootstrap-future';
+@use './icons';
 @use 'sass:color';
 
 html {
@@ -25,7 +25,7 @@ body {
   background: $supla-bg;
   font-weight: 400;
   -webkit-font-smoothing: subpixel-antialiased;
-  transition: background-color .5s;
+  transition: background-color 0.5s;
   margin: 0;
   padding: 0;
 }
@@ -78,7 +78,7 @@ body.blue {
 }
 
 .form-group > .btn {
-  margin-left: .3em;
+  margin-left: 0.3em;
 }
 
 .help-block.help-error {
@@ -99,7 +99,11 @@ h1 {
   }
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-family: $supla-font-special;
   word-break: break-word;
 }
@@ -110,17 +114,19 @@ h5 {
 
 a {
   color: $supla-green;
-  transition: color .3s;
+  transition: color 0.3s;
   cursor: pointer;
 
-  &:active, &:focus, &:hover {
+  &:active,
+  &:focus,
+  &:hover {
     text-decoration: none;
     color: $supla-grey-dark;
     outline: none;
     box-shadow: none;
   }
   &.disabled {
-    opacity: .8;
+    opacity: 0.8;
     pointer-events: none;
   }
 }
@@ -145,9 +151,10 @@ h1 > a {
   margin: 0 !important;
 }
 
-.low-z-index { // fixes some problems with elements appearing incorrectly above the others
+.low-z-index {
+  // fixes some problems with elements appearing incorrectly above the others
   position: relative;
-  z-index: 1
+  z-index: 1;
 }
 
 .input-group-addon {
@@ -157,7 +164,10 @@ h1 > a {
   border-radius: 0 !important;
 }
 
-input[type=text], input[type=password], input[type=email], input[type=number] {
+input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='number'] {
   &.form-control {
     box-shadow: initial;
 
@@ -168,33 +178,37 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
 }
 
 .fade {
-  &-enter-active, &-leave-active {
-    transition: opacity .5s
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.5s;
   }
 
-  &-enter, &-leave-to {
-    opacity: 0
+  &-enter,
+  &-leave-to {
+    opacity: 0;
   }
 }
 
 .fade-router {
-  &-enter-active, &-leave-active {
-    transition: opacity .3s;
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.3s;
   }
 
   &-enter-active {
-    transition-delay: .3s;
+    transition-delay: 0.3s;
   }
 
-  &-enter, &-leave-to {
-    opacity: 0
+  &-enter,
+  &-leave-to {
+    opacity: 0;
   }
 }
 
 .label {
   font-family: $supla-font-special;
   text-transform: uppercase;
-  font-size: .9em;
+  font-size: 0.9em;
   line-height: initial;
 
   &.label-danger {
@@ -215,7 +229,8 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
   height: initial !important;
 }
 
-[class^="pe-7s-"], [class*=" pe-7s-"] {
+[class^='pe-7s-'],
+[class*=' pe-7s-'] {
   outline: none !important;
 }
 
@@ -234,7 +249,7 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
     text-align: center;
   }
 
-  input[type=text] {
+  input[type='text'] {
     max-width: 150px;
     display: inline-block;
     margin-left: 5px;
@@ -278,15 +293,19 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
 .hover-editable {
   @include on-md-and-up {
     &:not(:hover):not(.hovered) {
-      .form-control, .dropdown:not(.hovered) .btn, .chosen-container .chosen-single {
+      .form-control,
+      .dropdown:not(.hovered) .btn,
+      .chosen-container .chosen-single {
         color: $supla-black;
         border-color: transparent;
         box-shadow: none;
-        transition: border-color .3s;
+        transition: border-color 0.3s;
         background-color: transparent;
       }
 
-      .dropdown:not(.hovered) .caret, .chosen-single > div > b, .help-block {
+      .dropdown:not(.hovered) .caret,
+      .chosen-single > div > b,
+      .help-block {
         visibility: hidden;
       }
     }
@@ -294,8 +313,9 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
 
   dl {
     margin-bottom: 0;
-    font-size: .95em;
-    dd, dt {
+    font-size: 0.95em;
+    dd,
+    dt {
       display: inline-block;
       vertical-align: middle;
       margin-bottom: 4px;
@@ -333,12 +353,13 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
 
 dl {
   dd:not(:empty) {
-    padding-right: .3em;
+    padding-right: 0.3em;
   }
 }
 
 .nav-tabs {
-  li.active a, li.active a:hover {
+  li.active a,
+  li.active a:hover {
     background: $supla-bg;
   }
 }
@@ -349,7 +370,8 @@ dl {
 
 .modal-body {
   .nav-tabs {
-    li.active a, li.active a:hover {
+    li.active a,
+    li.active a:hover {
       background: $supla-white;
     }
   }
@@ -429,7 +451,7 @@ body.maintenance-mode {
 
 .text-muted {
   color: inherit !important;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 body.warning {
@@ -448,7 +470,8 @@ body.warning {
   text-overflow: ellipsis;
 }
 
-.in-app-register, .smartphone-webview {
+.in-app-register,
+.smartphone-webview {
   .page-footer {
     display: none;
   }
@@ -459,7 +482,9 @@ body.warning {
     white-space: normal;
   }
   &.active > a {
-    &, &:focus, &:hover {
+    &,
+    &:focus,
+    &:hover {
       background-color: $supla-green;
     }
   }
@@ -499,7 +524,8 @@ body.warning {
     border-radius: 0;
   }
 
-  > .full, > pre {
+  > .full,
+  > pre {
     flex: 1;
   }
 
@@ -509,7 +535,8 @@ body.warning {
     border-right: 0;
   }
 
-  .btn, .label {
+  .btn,
+  .label {
     border-radius: 0;
     display: flex;
     justify-content: center;
@@ -524,7 +551,8 @@ body.warning {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
   }
-  > :last-child, .btn:last-child {
+  > :last-child,
+  .btn:last-child {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
   }
@@ -567,7 +595,8 @@ body.warning {
   &-success {
     @include supla-panel($supla-green);
     > .panel-heading a {
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         color: white;
       }
     }
@@ -578,9 +607,10 @@ body.warning {
       cursor: pointer;
     }
     &-disabled {
-      opacity: .5;
+      opacity: 0.5;
       .panel-heading {
-        &, * {
+        &,
+        * {
           cursor: not-allowed !important;
         }
       }
@@ -593,7 +623,10 @@ body.warning {
 }
 
 .centered-form-page {
-  .page-content, .loading-cover, .loading-content, .centered-form-container {
+  .page-content,
+  .loading-cover,
+  .loading-content,
+  .centered-form-container {
     height: 100%;
   }
   .centered-form-container {

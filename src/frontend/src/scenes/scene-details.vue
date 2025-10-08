@@ -1,274 +1,266 @@
 <template>
-    <page-container :error="error">
-        <loading-cover :loading="loading">
-            <div v-if="scene">
-                <div class="container">
-                    <pending-changes-page
-                        :header="scene.id ? (scene.caption || `${$t('Scene')} ID${scene.id}`) : $t('New scene')"
-                        @cancel="cancelChanges()"
-                        @save="saveScene()"
-                        :deletable="!isNew"
-                        @delete="deleteConfirm = true"
-                        :is-pending="hasPendingChanges">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="details-page-block">
-                                        <h3 class="text-center">{{ $t('Details') }}</h3>
-                                        <div class="hover-editable hovered text-left">
-                                            <dl>
-                                                <dd>{{ $t('Caption') }}</dd>
-                                                <dt>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        @keydown="sceneChanged()"
-                                                        v-model="scene.caption">
-                                                </dt>
-                                            </dl>
-                                            <dl class="mt-2">
-                                                <dd>{{ $t('Enabled') }}</dd>
-                                                <dt class="text-center">
-                                                    <toggler
-                                                        @update:modelValue="sceneChanged()"
-                                                        v-model="scene.enabled"></toggler>
-                                                </dt>
-                                                <dd>{{ $t('Show on the Client’s devices') }}</dd>
-                                                <dt class="text-center">
-                                                    <toggler v-model="scene.hidden"
-                                                        invert
-                                                        @update:modelValue="sceneChanged()"></toggler>
-                                                </dt>
-                                            </dl>
-                                            <ChannelParamsIntegrationsSettings :subject="scene" @change="sceneChanged()"/>
-                                        </div>
-                                    </div>
-                                    <div class="details-page-block text-center">
-                                        <h3 class="text-center">{{ $t('Location') }}</h3>
-                                        <SquareLocationChooser v-model="scene.location"
-                                            @chosen="changeLocation($event)"></SquareLocationChooser>
-                                    </div>
-                                    <div v-if="scene.id"
-                                        class="details-page-block">
-                                        <h3 class="text-center">{{ $t('Icon') }}</h3>
-                                        <div class="form-group text-center">
-                                            <function-icon :model="scene"
-                                                width="100"></function-icon>
-                                            <channel-alternative-icon-chooser
-                                                :channel="scene"
-                                                @change="sceneChanged()"/>
-                                        </div>
-                                    </div>
-                                    <div v-if="scene.id" class="details-page-block">
-                                        <ActivityConditionsForm v-model="activityConditions" @input="sceneChanged()"/>
-                                    </div>
-                                    <div v-if="scene.id && scene.enabled"
-                                        class="details-page-block">
-                                        <h3 class="text-center">{{ $t('Actions') }}</h3>
-                                        <div class="pt-3">
-                                            <channel-action-executor :subject="scene" :disabled="hasPendingChanges"/>
-                                            <div class="alert alert-warning text-center m-0 mt-3"
-                                                v-if="hasPendingChanges">
-                                                {{ $t('Save or discard configuration changes first.') }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="">
-                                        <h3 class="text-center">{{ $t('Operations') }}</h3>
-                                        <SceneOperationsEditor v-model="scene.operations" @input="sceneChanged()"
-                                            :display-validation-errors="displayValidationErrors"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </pending-changes-page>
+  <page-container :error="error">
+    <loading-cover :loading="loading">
+      <div v-if="scene">
+        <div class="container">
+          <pending-changes-page
+            :header="scene.id ? scene.caption || `${$t('Scene')} ID${scene.id}` : $t('New scene')"
+            :deletable="!isNew"
+            :is-pending="hasPendingChanges"
+            @cancel="cancelChanges()"
+            @save="saveScene()"
+            @delete="deleteConfirm = true"
+          >
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="details-page-block">
+                    <h3 class="text-center">{{ $t('Details') }}</h3>
+                    <div class="hover-editable hovered text-left">
+                      <dl>
+                        <dd>{{ $t('Caption') }}</dd>
+                        <dt>
+                          <input v-model="scene.caption" type="text" class="form-control" @keydown="sceneChanged()" />
+                        </dt>
+                      </dl>
+                      <dl class="mt-2">
+                        <dd>{{ $t('Enabled') }}</dd>
+                        <dt class="text-center">
+                          <toggler v-model="scene.enabled" @update:model-value="sceneChanged()"></toggler>
+                        </dt>
+                        <dd>{{ $t('Show on the Client’s devices') }}</dd>
+                        <dt class="text-center">
+                          <toggler v-model="scene.hidden" invert @update:model-value="sceneChanged()"></toggler>
+                        </dt>
+                      </dl>
+                      <ChannelParamsIntegrationsSettings :subject="scene" @change="sceneChanged()" />
+                    </div>
+                  </div>
+                  <div class="details-page-block text-center">
+                    <h3 class="text-center">{{ $t('Location') }}</h3>
+                    <SquareLocationChooser v-model="scene.location" @chosen="changeLocation($event)"></SquareLocationChooser>
+                  </div>
+                  <div v-if="scene.id" class="details-page-block">
+                    <h3 class="text-center">{{ $t('Icon') }}</h3>
+                    <div class="form-group text-center">
+                      <function-icon :model="scene" width="100"></function-icon>
+                      <channel-alternative-icon-chooser :channel="scene" @change="sceneChanged()" />
+                    </div>
+                  </div>
+                  <div v-if="scene.id" class="details-page-block">
+                    <ActivityConditionsForm v-model="activityConditions" @input="sceneChanged()" />
+                  </div>
+                  <div v-if="scene.id && scene.enabled" class="details-page-block">
+                    <h3 class="text-center">{{ $t('Actions') }}</h3>
+                    <div class="pt-3">
+                      <channel-action-executor :subject="scene" :disabled="hasPendingChanges" />
+                      <div v-if="hasPendingChanges" class="alert alert-warning text-center m-0 mt-3">
+                        {{ $t('Save or discard configuration changes first.') }}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <scene-details-tabs v-if="!hasPendingChanges && !isNew"
-                    :scene="scene"></scene-details-tabs>
+                <div class="col-md-8">
+                  <div class="">
+                    <h3 class="text-center">{{ $t('Operations') }}</h3>
+                    <SceneOperationsEditor v-model="scene.operations" :display-validation-errors="displayValidationErrors" @input="sceneChanged()" />
+                  </div>
+                </div>
+              </div>
             </div>
-        </loading-cover>
-        <modal-confirm v-if="deleteConfirm"
-            class="modal-warning"
-            @confirm="deleteScene()"
-            @cancel="deleteConfirm = false"
-            :header="$t('Are you sure you want to delete this scene?')"
-            :loading="loading">
-        </modal-confirm>
-        <dependencies-warning-modal
-            header-i18n="Some features depend on this scene"
-            deleting-header-i18n="The items below depend on this scene, so they will be deleted."
-            removing-header-i18n="Reference to the scene will be removed from the items below."
-            v-if="dependenciesThatPreventsDeletion"
-            :dependencies="dependenciesThatPreventsDeletion"
-            @confirm="deleteScene(false)"
-            @cancel="dependenciesThatPreventsDeletion = undefined"/>
-    </page-container>
+          </pending-changes-page>
+        </div>
+        <scene-details-tabs v-if="!hasPendingChanges && !isNew" :scene="scene"></scene-details-tabs>
+      </div>
+    </loading-cover>
+    <modal-confirm
+      v-if="deleteConfirm"
+      class="modal-warning"
+      :header="$t('Are you sure you want to delete this scene?')"
+      :loading="loading"
+      @confirm="deleteScene()"
+      @cancel="deleteConfirm = false"
+    >
+    </modal-confirm>
+    <dependencies-warning-modal
+      v-if="dependenciesThatPreventsDeletion"
+      header-i18n="Some features depend on this scene"
+      deleting-header-i18n="The items below depend on this scene, so they will be deleted."
+      removing-header-i18n="Reference to the scene will be removed from the items below."
+      :dependencies="dependenciesThatPreventsDeletion"
+      @confirm="deleteScene(false)"
+      @cancel="dependenciesThatPreventsDeletion = undefined"
+    />
+  </page-container>
 </template>
 
 <script>
-  import Toggler from "../common/gui/toggler.vue";
-  import PendingChangesPage from "../common/pages/pending-changes-page.vue";
-  import PageContainer from "../common/pages/page-container.vue";
-  import SceneOperationsEditor from "./scene-operations-editor.vue";
-  import SquareLocationChooser from "../locations/square-location-chooser.vue";
-  import FunctionIcon from "../channels/function-icon.vue";
-  import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser.vue";
-  import SceneDetailsTabs from "./scene-details-tabs.vue";
-  import AppState from "../router/app-state";
-  import ChannelActionExecutor from "../channels/action/channel-action-executor.vue";
-  import DependenciesWarningModal from "../channels/dependencies/dependencies-warning-modal.vue";
-  import ChannelParamsIntegrationsSettings
-    from "@/channels/params/channel-params-integrations-settings.vue";
-  import {warningNotification} from "@/common/notifier";
-  import {deepCopy} from "@/common/utils";
-  import ActivityConditionsForm from "@/activity/activity-conditions-form.vue";
-  import LoadingCover from "@/common/gui/loaders/loading-cover.vue";
-  import ModalConfirm from "@/common/modal-confirm.vue";
-  import {api} from "@/api/api.js";
+  import Toggler from '../common/gui/toggler.vue';
+  import PendingChangesPage from '../common/pages/pending-changes-page.vue';
+  import PageContainer from '../common/pages/page-container.vue';
+  import SceneOperationsEditor from './scene-operations-editor.vue';
+  import SquareLocationChooser from '../locations/square-location-chooser.vue';
+  import FunctionIcon from '../channels/function-icon.vue';
+  import ChannelAlternativeIconChooser from '../channels/channel-alternative-icon-chooser.vue';
+  import SceneDetailsTabs from './scene-details-tabs.vue';
+  import AppState from '../router/app-state';
+  import ChannelActionExecutor from '../channels/action/channel-action-executor.vue';
+  import DependenciesWarningModal from '../channels/dependencies/dependencies-warning-modal.vue';
+  import ChannelParamsIntegrationsSettings from '@/channels/params/channel-params-integrations-settings.vue';
+  import {warningNotification} from '@/common/notifier';
+  import {deepCopy} from '@/common/utils';
+  import ActivityConditionsForm from '@/activity/activity-conditions-form.vue';
+  import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
+  import ModalConfirm from '@/common/modal-confirm.vue';
+  import {api} from '@/api/api.js';
 
   export default {
-        props: ['id', 'item'],
-        components: {
-          ModalConfirm,
-          LoadingCover,
-            ActivityConditionsForm,
-            ChannelParamsIntegrationsSettings,
-            DependenciesWarningModal,
-            ChannelActionExecutor,
-            SceneDetailsTabs,
-            ChannelAlternativeIconChooser,
-            FunctionIcon,
-            SquareLocationChooser,
-            SceneOperationsEditor,
-            PageContainer,
-            PendingChangesPage,
-            Toggler,
-        },
-        data() {
-            return {
-                loading: false,
-                scene: undefined,
-                error: false,
-                deleteConfirm: false,
-                hasPendingChanges: false,
-                displayValidationErrors: false,
-                dependenciesThatPreventsDeletion: undefined,
-                activityConditions: {},
-            };
-        },
-        mounted() {
-            this.fetch();
-        },
-        methods: {
-            fetch() {
-                this.hasPendingChanges = false;
-                this.displayValidationErrors = false;
-                if (this.id && this.id != 'new') {
-                    this.loading = true;
-                    this.error = false;
-                    api.get(`scenes/${this.id}?include=operations,subject,location`, {skipErrorHandler: [403, 404]})
-                        .then(response => {
-                            this.scene = response.body;
-                            this.activityConditions = {
-                                activeFrom: this.scene.activeFrom,
-                                activeTo: this.scene.activeTo,
-                                activeHours: this.scene.activeHours,
-                                activityConditions: this.scene.activityConditions,
-                            };
-                        })
-                        .catch(response => this.error = response.status)
-                        .finally(() => this.loading = false);
-                } else {
-                    this.scene = {enabled: true, operations: [], config: {}};
-                    const subjectForNewScene = AppState.shiftTask('sceneCreate');
-                    if (subjectForNewScene) {
-                        this.scene.operations.push({subject: subjectForNewScene, type: subjectForNewScene.ownSubjectType});
-                    }
-                }
-            },
-            sceneChanged() {
-                this.hasPendingChanges = true;
-            },
-            changeLocation(location) {
-                this.scene.location = location;
-                this.sceneChanged();
-            },
-            saveScene() {
-                this.displayValidationErrors = true;
-                if (this.scene.operations.find(o => o.isValid === false)) {
-                    warningNotification(this.$t('Invalid scene'), this.$t('Please fix the problems with operations and try again.'));
-                    return;
-                }
-                const toSend = {...deepCopy(this.scene), ...this.activityConditions};
-                if (toSend.location) {
-                  toSend.locationId = toSend.location.id;
-                  delete toSend.location;
-                }
-                if (toSend.operations) {
-                  toSend.operations.forEach(operation => {
-                    if (operation.id) {
-                      delete operation.id;
-                    }
-                    if (operation.subject) {
-                      operation.subjectId = operation.subject.id;
-                      delete operation.subject;
-                    }
-                    if (operation.action) {
-                      operation.actionId = operation.action.id;
-                      delete operation.action;
-                    }
-                  });
-                }
-                this.loading = true;
-                if (this.isNew) {
-                  api.post('scenes', toSend)
-                        .then(response => this.$emit('add', response.body))
-                        .finally(() => this.loading = false);
-                } else {
-                  api
-                        .put('scenes/' + this.scene.id + '?include=operations,subject', toSend)
-                        .then(response => {
-                            this.$emit('update', response.body);
-                            this.scene.operations = response.body.operations;
-                            this.displayValidationErrors = false;
-                        })
-                        .then(() => this.hasPendingChanges = false)
-                        .finally(() => this.loading = false);
-                }
-            },
-            deleteScene(safe = true) {
-                this.loading = true;
-              api.delete_(`scenes/${this.scene.id}?safe=${safe ? 1 : 0}`, {skipErrorHandler: [409]})
-                    .then(() => {
-                        this.scene = undefined;
-                        this.$emit('delete');
-                    })
-                    .catch(({body, status}) => {
-                        if (status === 409) {
-                            this.dependenciesThatPreventsDeletion = body;
-                        }
-                    })
-                    .finally(() => this.loading = this.deleteConfirm = false);
-            },
-            cancelChanges() {
-                this.fetch();
-            },
-        },
-        computed: {
-            isNew() {
-                return !this.scene.id;
-            },
-        },
-        watch: {
-            id() {
-                this.fetch();
-            }
+    components: {
+      ModalConfirm,
+      LoadingCover,
+      ActivityConditionsForm,
+      ChannelParamsIntegrationsSettings,
+      DependenciesWarningModal,
+      ChannelActionExecutor,
+      SceneDetailsTabs,
+      ChannelAlternativeIconChooser,
+      FunctionIcon,
+      SquareLocationChooser,
+      SceneOperationsEditor,
+      PageContainer,
+      PendingChangesPage,
+      Toggler,
+    },
+    props: ['id', 'item'],
+    data() {
+      return {
+        loading: false,
+        scene: undefined,
+        error: false,
+        deleteConfirm: false,
+        hasPendingChanges: false,
+        displayValidationErrors: false,
+        dependenciesThatPreventsDeletion: undefined,
+        activityConditions: {},
+      };
+    },
+    computed: {
+      isNew() {
+        return !this.scene.id;
+      },
+    },
+    watch: {
+      id() {
+        this.fetch();
+      },
+    },
+    mounted() {
+      this.fetch();
+    },
+    methods: {
+      fetch() {
+        this.hasPendingChanges = false;
+        this.displayValidationErrors = false;
+        if (this.id && this.id != 'new') {
+          this.loading = true;
+          this.error = false;
+          api
+            .get(`scenes/${this.id}?include=operations,subject,location`, {skipErrorHandler: [403, 404]})
+            .then((response) => {
+              this.scene = response.body;
+              this.activityConditions = {
+                activeFrom: this.scene.activeFrom,
+                activeTo: this.scene.activeTo,
+                activeHours: this.scene.activeHours,
+                activityConditions: this.scene.activityConditions,
+              };
+            })
+            .catch((response) => (this.error = response.status))
+            .finally(() => (this.loading = false));
+        } else {
+          this.scene = {enabled: true, operations: [], config: {}};
+          const subjectForNewScene = AppState.shiftTask('sceneCreate');
+          if (subjectForNewScene) {
+            this.scene.operations.push({
+              subject: subjectForNewScene,
+              type: subjectForNewScene.ownSubjectType,
+            });
+          }
         }
-    };
+      },
+      sceneChanged() {
+        this.hasPendingChanges = true;
+      },
+      changeLocation(location) {
+        this.scene.location = location;
+        this.sceneChanged();
+      },
+      saveScene() {
+        this.displayValidationErrors = true;
+        if (this.scene.operations.find((o) => o.isValid === false)) {
+          warningNotification(this.$t('Invalid scene'), this.$t('Please fix the problems with operations and try again.'));
+          return;
+        }
+        const toSend = {...deepCopy(this.scene), ...this.activityConditions};
+        if (toSend.location) {
+          toSend.locationId = toSend.location.id;
+          delete toSend.location;
+        }
+        if (toSend.operations) {
+          toSend.operations.forEach((operation) => {
+            if (operation.id) {
+              delete operation.id;
+            }
+            if (operation.subject) {
+              operation.subjectId = operation.subject.id;
+              delete operation.subject;
+            }
+            if (operation.action) {
+              operation.actionId = operation.action.id;
+              delete operation.action;
+            }
+          });
+        }
+        this.loading = true;
+        if (this.isNew) {
+          api
+            .post('scenes', toSend)
+            .then((response) => this.$emit('add', response.body))
+            .finally(() => (this.loading = false));
+        } else {
+          api
+            .put('scenes/' + this.scene.id + '?include=operations,subject', toSend)
+            .then((response) => {
+              this.$emit('update', response.body);
+              this.scene.operations = response.body.operations;
+              this.displayValidationErrors = false;
+            })
+            .then(() => (this.hasPendingChanges = false))
+            .finally(() => (this.loading = false));
+        }
+      },
+      deleteScene(safe = true) {
+        this.loading = true;
+        api
+          .delete_(`scenes/${this.scene.id}?safe=${safe ? 1 : 0}`, {skipErrorHandler: [409]})
+          .then(() => {
+            this.scene = undefined;
+            this.$emit('delete');
+          })
+          .catch(({body, status}) => {
+            if (status === 409) {
+              this.dependenciesThatPreventsDeletion = body;
+            }
+          })
+          .finally(() => (this.loading = this.deleteConfirm = false));
+      },
+      cancelChanges() {
+        this.fetch();
+      },
+    },
+  };
 </script>
 
 <style lang="scss">
-    @use '../styles/variables' as *;
-
+  @use '../styles/variables' as *;
 </style>

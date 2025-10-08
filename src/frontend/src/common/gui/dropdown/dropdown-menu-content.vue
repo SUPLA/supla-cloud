@@ -1,11 +1,11 @@
 <script setup>
-  import {inject} from "vue";
+  import {inject} from 'vue';
 
-  const dropdownMenu = inject("dropdownMenu");
+  const dropdownMenu = inject('dropdownMenu');
 </script>
 
 <template>
   <ul class="dropdown-menu" @click="dropdownMenu.hide()">
-    <slot/>
+    <slot />
   </ul>
 </template>

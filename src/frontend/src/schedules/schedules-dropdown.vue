@@ -1,46 +1,64 @@
 <template>
-    <div>
-        <SelectForSubjects
-            class="schedules-dropdown"
-            :options="schedulesForDropdown"
-            :caption="scheduleCaption"
-            :search-text="scheduleSearchText"
-            :option-html="scheduleHtml"
-            choose-prompt-i18n="choose the schedule"
-            v-model="chosenSchedule"/>
-    </div>
+  <div>
+    <SelectForSubjects
+      v-model="chosenSchedule"
+      class="schedules-dropdown"
+      :options="schedulesForDropdown"
+      :caption="scheduleCaption"
+      :search-text="scheduleSearchText"
+      :option-html="scheduleHtml"
+      choose-prompt-i18n="choose the schedule"
+    />
+  </div>
 </template>
 
 <script>
-    import SelectForSubjects from "@/devices/select-for-subjects.vue";
-    import {api} from "@/api/api.js";
+  import SelectForSubjects from '@/devices/select-for-subjects.vue';
+  import {api} from '@/api/api.js';
 
-    export default {
-        props: ['value', 'filter'],
-        components: {SelectForSubjects},
-        data() {
-            return {
-                schedules: undefined,
-            };
+  export default {
+    components: {SelectForSubjects},
+    props: ['value', 'filter'],
+    data() {
+      return {
+        schedules: undefined,
+      };
+    },
+    computed: {
+      schedulesForDropdown() {
+        if (!this.schedules) {
+          return [];
+        }
+        this.$emit('update', this.schedules);
+        return this.schedules;
+      },
+      chosenSchedule: {
+        get() {
+          return this.value;
         },
-        mounted() {
-            this.fetchSchedules();
+        set(schedule) {
+          this.$emit('input', schedule);
         },
-        methods: {
-            fetchSchedules() {
-                this.schedules = undefined;
-                api.get('schedules?include=closestExecutions').then(({body: schedules}) => {
-                    this.schedules = schedules.filter(this.filter || (() => true));
-                });
-            },
-            scheduleCaption(schedule) {
-                return schedule.caption || `ID${schedule.id}`;
-            },
-            scheduleSearchText(schedule) {
-                return `${schedule.caption || ''} ID${schedule.id}`;
-            },
-            scheduleHtml(schedule, escape) {
-                return `<div>
+      },
+    },
+    mounted() {
+      this.fetchSchedules();
+    },
+    methods: {
+      fetchSchedules() {
+        this.schedules = undefined;
+        api.get('schedules?include=closestExecutions').then(({body: schedules}) => {
+          this.schedules = schedules.filter(this.filter || (() => true));
+        });
+      },
+      scheduleCaption(schedule) {
+        return schedule.caption || `ID${schedule.id}`;
+      },
+      scheduleSearchText(schedule) {
+        return `${schedule.caption || ''} ID${schedule.id}`;
+      },
+      scheduleHtml(schedule, escape) {
+        return `<div>
                             <div class="subject-dropdown-option d-flex">
                                 <div class="flex-grow-1">
                                     <h5 class="my-1">
@@ -50,24 +68,7 @@
                                 </div>
                             </div>
                         </div>`;
-            },
-        },
-        computed: {
-            schedulesForDropdown() {
-                if (!this.schedules) {
-                    return [];
-                }
-                this.$emit('update', this.schedules);
-                return this.schedules;
-            },
-            chosenSchedule: {
-                get() {
-                    return this.value;
-                },
-                set(schedule) {
-                    this.$emit('input', schedule);
-                }
-            }
-        },
-    };
+      },
+    },
+  };
 </script>

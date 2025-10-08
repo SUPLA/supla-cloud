@@ -1,15 +1,17 @@
-@use "./variables" as *;
+@use './variables' as *;
 
 .pnotify-container {
   background: $supla-white;
   padding: 20px;
-  &, .pnotify-title {
+  &,
+  .pnotify-title {
     font-weight: 300;
   }
   .pnotify-title {
     text-transform: uppercase;
   }
-  .pnotify-title, .pnotify-icon {
+  .pnotify-title,
+  .pnotify-icon {
     font-size: 26px;
   }
 
@@ -19,7 +21,7 @@
       font-family: 'Pe-icon-7-stroke';
       font-size: 30px;
       &:after {
-        content: "\e680"; // pe-7s-close
+        content: '\e680'; // pe-7s-close
       }
     }
   }
