@@ -27,7 +27,7 @@ steps:
     image: node:22.20.0-slim
     depends_on: [install-frontend]
     commands:
-      - cd src/frontend && npm audit --production
+      - cd src/frontend && npm audit --omit=dev
 
 #  - name: test-frontend-unit
 #    image: node:22.20.0-slim
@@ -92,9 +92,9 @@ steps:
     environment:
       CYPRESS_DATABASE: mysql://root@database/supla_e2e
     commands:
-      - apt-get update && apt-get install -y ca-certificates apt-transport-https software-properties-common wget gnupg
-      - echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/sury-php.list
-      - wget -qO - https://packages.sury.org/php/apt.gpg | apt-key add -
+      - apt-get update && apt-get install -y ca-certificates apt-transport-https build-essential lsb-release wget gnupg
+      - echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/sury-php.list
+      - wget -qO /etc/apt/trusted.gpg.d/sury-php.gpg https://packages.sury.org/php/apt.gpg
       - apt-get update && apt-get install -y dialog php8.4 php8.4-curl php8.4-dom php8.4-intl php8.4-mbstring php8.4-mysql php8.4-zip php8.4-pgsql
       - cd src/frontend
       - npm ci

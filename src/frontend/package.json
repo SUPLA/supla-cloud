@@ -1,6 +1,5 @@
 {
-  "name": "frontend3",
-  "version": "0.0.0",
+  "name": "supla-cloud",
   "private": true,
   "type": "module",
   "engines": {
