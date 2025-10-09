@@ -3,15 +3,18 @@
 
   const pageTitle = inject('pageTitle');
 
-  const props = defineProps({current: String});
+  const props = defineProps({current: [String, Boolean]});
 
   const currentPageTitle = computed(() => props.current || pageTitle.value);
 </script>
 
 <template>
-  <div class="breadcrumbs">
-    <slot />
-    <span>{{ currentPageTitle }}</span>
+  <div class="breadcrumbs mb-3">
+    <slot name="alt" />
+    <div class="breadcrumbs-list">
+      <slot />
+      <span v-if="current !== false">{{ currentPageTitle }}</span>
+    </div>
   </div>
 </template>
 
@@ -19,11 +22,10 @@
   @use '@/styles/variables' as *;
 
   .breadcrumbs {
-    margin-bottom: 1em;
     font-family: $supla-font-special;
     text-transform: uppercase;
 
-    > * {
+    .breadcrumbs-list > * {
       &:not(:last-child)::after {
         color: $supla-black;
         display: inline-block;

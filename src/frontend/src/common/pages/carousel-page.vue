@@ -1,8 +1,10 @@
 <template>
   <div>
     <div v-if="item">
-      <BreadcrumbList v-if="!dontSetPageTitle" class="container">
-        <router-link :to="{name: listRouteName}">{{ $t(headerI18n) }}</router-link>
+      <BreadcrumbList v-if="breadcrumbs" :current="false" class="container">
+        <template #alt>
+          <router-link :to="{name: listRouteName}">&laquo; {{ $t(headerI18n) }}</router-link>
+        </template>
       </BreadcrumbList>
       <div v-if="item">
         <router-view
@@ -60,6 +62,7 @@
         type: Function,
         default: () => ({}),
       },
+      breadcrumbs: Boolean,
     },
     data() {
       return {

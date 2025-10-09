@@ -8,6 +8,7 @@
     create-new-label-i18n="Create New Access Identifier"
     :limit="userData.limits.accessId"
     details-route="accessId"
+    breadcrumbs
   ></carousel-page>
 </template>
 

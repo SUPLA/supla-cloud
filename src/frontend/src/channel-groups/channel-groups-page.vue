@@ -7,6 +7,7 @@
     create-new-label-i18n="Add new channel group"
     :limit="userData.limits.channelGroup"
     details-route="channelGroup"
+    breadcrumbs
   ></carousel-page>
 </template>
 

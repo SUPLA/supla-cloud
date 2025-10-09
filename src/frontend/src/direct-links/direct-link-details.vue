@@ -3,6 +3,9 @@
     <loading-cover :loading="loading">
       <div v-if="directLink">
         <div class="container">
+          <SubjectBreadcrumb :entity="directLink" :current="directLink.caption || `${$t('Direct link')} ID${directLink.id}`">
+            <RouterLink :to="{name: 'directLinks'}">&laquo; {{ $t('Direct links') }}</RouterLink>
+          </SubjectBreadcrumb>
           <pending-changes-page
             :header="directLink.id ? directLink.caption || `${$t('Direct link')} ID${directLink.id}` : $t('New direct link')"
             :deletable="!isNew"
@@ -180,14 +183,18 @@
   import AppState from '../router/app-state';
   import TransitionExpand from '../common/gui/transition-expand.vue';
   import {actionCaption} from '@/channels/channel-helpers';
-  import {mapState} from 'pinia';
+  import {mapState, mapStores} from 'pinia';
   import {useCurrentUserStore} from '@/stores/current-user-store';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import ModalConfirm from '@/common/modal-confirm.vue';
   import {api} from '@/api/api.js';
+  import {useChannelsStore} from '@/stores/channels-store.js';
+  import {useDevicesStore} from '@/stores/devices-store.js';
+  import SubjectBreadcrumb from '@/channels/subject-breadcrumb.vue';
 
   export default {
     components: {
+      SubjectBreadcrumb,
       ModalConfirm,
       LoadingCover,
       TransitionExpand,
@@ -346,6 +353,8 @@
         );
       },
       ...mapState(useCurrentUserStore, ['serverUrl']),
+      ...mapStores(useChannelsStore, {channels: 'all'}),
+      ...mapState(useDevicesStore, {devices: 'all'}),
     },
     watch: {
       id() {

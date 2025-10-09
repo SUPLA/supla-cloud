@@ -23,6 +23,7 @@
       list-route="integrations.myOauthApps"
       :limit="userData.limits.oauthClient"
       class="my-oauth-apps-page"
+      breadcrumbs
     ></carousel-page>
   </div>
 </template>

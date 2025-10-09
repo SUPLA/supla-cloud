@@ -2,6 +2,9 @@
   <page-container :error="error">
     <loading-cover v-if="id !== 'new'" :loading="!schedule || loading">
       <div v-if="schedule" class="container">
+        <SubjectBreadcrumb :entity="schedule" :current="scheduleCaption">
+          <RouterLink :to="{name: 'schedules'}">&laquo; {{ $t('Schedules') }}</RouterLink>
+        </SubjectBreadcrumb>
         <pending-changes-page :header="scheduleCaption" :is-pending="hasPendingChanges" @cancel="cancelChanges()" @save="saveChanges()">
           <template #buttons>
             <div class="btn-toolbar">
@@ -99,9 +102,11 @@
   import ModalConfirm from '@/common/modal-confirm.vue';
   import {api} from '@/api/api.js';
   import {formatDateTimeLong} from '@/common/filters-date.js';
+  import SubjectBreadcrumb from '@/channels/subject-breadcrumb.vue';
 
   export default {
     components: {
+      SubjectBreadcrumb,
       ModalConfirm,
       LoadingCover,
       ScheduleForm,

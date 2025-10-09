@@ -8,6 +8,7 @@
     create-new-label-i18n="Create New Location"
     :limit="userData.limits.location"
     details-route="location"
+    breadcrumbs
   ></carousel-page>
 </template>
 
