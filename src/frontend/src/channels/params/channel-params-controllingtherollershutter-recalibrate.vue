@@ -50,7 +50,7 @@
     watch: {
       notCalibrated(newState, oldState) {
         if (!newState && oldState === true && this.isConnected) {
-          successNotification(this.$t('Successful'), this.$t('Calibration successful.'));
+          successNotification(this.$t('Calibration successful.'));
         }
       },
     },

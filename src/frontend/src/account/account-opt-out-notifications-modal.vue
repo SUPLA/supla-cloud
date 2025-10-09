@@ -106,7 +106,7 @@
           })
           .then(({body}) => {
             this.user.preferences = body.preferences;
-            successNotification(this.$t('Successful'), this.$t('Your preferences has been updated.'));
+            successNotification(this.$t('Your preferences has been updated.'));
             this.$emit('cancel');
           })
           .finally(() => (this.loading = false));

@@ -16,8 +16,8 @@
     mounted() {
       api
         .patch('confirm-device-unlock/' + this.deviceId, {code: this.unlockCode}, {skipErrorHandler: [400, 404]})
-        .then(() => successNotification(this.$t('Success'), this.$t('The device has been unlocked.')))
-        .catch(() => errorNotification(this.$t('Error'), this.$t('The device could not be unlocked.')))
+        .then(() => successNotification(this.$t('The device has been unlocked.')))
+        .catch(() => errorNotification(this.$t('The device could not be unlocked.')))
         .finally(() => this.$router.push('/').catch(() => {}));
     },
   };

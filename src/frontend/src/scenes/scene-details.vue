@@ -198,7 +198,7 @@
       saveScene() {
         this.displayValidationErrors = true;
         if (this.scene.operations.find((o) => o.isValid === false)) {
-          warningNotification(this.$t('Invalid scene'), this.$t('Please fix the problems with operations and try again.'));
+          warningNotification(this.$t('Please fix the problems with operations and try again.'));
           return;
         }
         const toSend = {...deepCopy(this.scene), ...this.activityConditions};

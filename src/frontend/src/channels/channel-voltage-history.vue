@@ -360,7 +360,7 @@
         this.deleteConfirm = false;
         api
           .delete_(`channels/${this.channel.id}/measurement-logs?logsType=voltage&phase=${phaseToDelete}`)
-          .then(() => successNotification(this.$t('Success'), this.$t('The measurement history has been deleted.')))
+          .then(() => successNotification(this.$t('The measurement history has been deleted.')))
           .then(() => {
             this.logs = [];
             this.stats = [];

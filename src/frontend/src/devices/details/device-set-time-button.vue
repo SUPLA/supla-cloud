@@ -45,7 +45,7 @@
             .patch(`iodevices/${this.device.id}`, {action: 'setTime', time})
             .then(() => {
               this.deviceTime = undefined;
-              successNotification(this.$t('Success'), this.$t('Device time has been set.'));
+              successNotification(this.$t('Device time has been set.'));
             })
             .finally(() => (this.settingDeviceTime = false));
         } else {

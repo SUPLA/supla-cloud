@@ -97,7 +97,7 @@
         .get('account-deletion/' + this.token, {skipErrorHandler: [400]})
         .then(() => (this.tokenExists = true))
         .catch(() => {
-          errorNotification(this.$t('Error'), this.$t('Token does not exist'));
+          errorNotification(this.$t('Token does not exist'));
           this.$router.push({name: 'login'});
         });
     },
@@ -111,10 +111,10 @@
         api
           .patch('account-deletion', requestData, {skipErrorHandler: [400]})
           .then(() => {
-            successNotification(this.$t('Successful'), this.$t('Your account has been deleted. We hope you will come back to us soon.'));
+            successNotification(this.$t('Your account has been deleted. We hope you will come back to us soon.'));
             this.$router.push({name: 'login'});
           })
-          .catch(() => errorNotification(this.$t('Error'), this.$t('Invalid username or password')))
+          .catch(() => errorNotification(this.$t('Invalid username or password')))
           .finally(() => (this.isBusy = false));
       },
     },

@@ -52,7 +52,7 @@
         this.loading = true;
         api
           .put(`notifications/${this.notification.id}`, this.notificationFields)
-          .then(() => successNotification(this.$t('Success'), this.$t('Data saved')))
+          .then(() => successNotification(this.$t('Data saved')))
           .finally(() => (this.loading = false));
       },
     },

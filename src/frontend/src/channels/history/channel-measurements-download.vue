@@ -61,7 +61,7 @@
         this.deleteConfirm = false;
         api
           .delete_(`channels/${this.channel.id}/measurement-logs`)
-          .then(() => successNotification(this.$t('Success'), this.$t('The measurement history has been deleted.')))
+          .then(() => successNotification(this.$t('The measurement history has been deleted.')))
           .then(() => this.$emit('delete'));
       },
     },

@@ -106,7 +106,7 @@
         api
           .put(`client-apps/${this.app.id}`, toSend)
           .then(() => (this.editingModel = null))
-          .then(() => successNotification(this.$t('Success'), this.$t('Data saved')))
+          .then(() => successNotification(this.$t('Data saved')))
           .then(() => this.$emit('change'))
           .finally(() => (this.saving = false));
       },
@@ -116,7 +116,7 @@
           .delete_(`client-apps/${this.app.id}`)
           .then(() => (this.editingModel = null))
           .then(() => (this.deleteConfirm = false))
-          .then(() => warningNotification(this.$t('Information'), this.$t('Client’s app has been deleted')))
+          .then(() => warningNotification(this.$t('Client’s app has been deleted')))
           .then(() => this.$emit('delete'))
           .finally(() => (this.saving = false));
       },

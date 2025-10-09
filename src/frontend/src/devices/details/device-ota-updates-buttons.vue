@@ -83,7 +83,7 @@
       await devicesStore.fetchDevice(props.device.id);
       await waitForDeviceOperation(() => ['AVAILABLE', 'NOT_AVAILABLE'].includes(props.device.config?.otaUpdate?.status));
     } catch (error) {
-      errorNotification('Error', 'Could not check updates.'); // i18n
+      errorNotification('Could not check updates.'); // i18n
     } finally {
       isCheckingUpdates.value = false;
     }
@@ -95,7 +95,7 @@
       await devicesApi.otaPerformUpdate(props.device.id);
       await promiseTimeout(5000);
       await devicesStore.fetchDevice(props.device.id);
-      successNotification('Successful', 'Device should be checking and installing updates.'); // i18n
+      successNotification('Device should be checking and installing updates.'); // i18n
     } finally {
       isPerformingUpdate.value = false;
       updateConfirm.value = false;

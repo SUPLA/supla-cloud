@@ -55,7 +55,7 @@
       assumeEntered() {
         this.enterConfirm = false;
         this.loading = false;
-        successNotification(this.$t('Successful'), this.$t('Device should be now in configuration mode.'));
+        successNotification(this.$t('Device should be now in configuration mode.'));
       },
     },
     computed: {

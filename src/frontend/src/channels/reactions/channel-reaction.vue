@@ -177,13 +177,13 @@
         return api.post(`channels/${this.owningChannel.id}/reactions?include=subject,owningChannel`, this.reaction).then((response) => {
           this.$emit('add', response.body);
           EventBus.$emit('channel-updated');
-          successNotification(this.$t('Success'), this.$t('The reaction has been added'));
+          successNotification(this.$t('The reaction has been added'));
         });
       },
       updateReaction() {
         return api.put(`channels/${this.owningChannel.id}/reactions/${this.item.id}?include=subject,owningChannel`, this.reaction).then((response) => {
           this.$emit('update', response.body);
-          successNotification(this.$t('Success'), this.$t('The reaction has been changed'));
+          successNotification(this.$t('The reaction has been changed'));
         });
       },
       deleteReaction() {

@@ -13,8 +13,8 @@
     mounted() {
       api
         .patch('confirm/' + this.token, {}, {skipErrorHandler: [400]})
-        .then(() => successNotification(this.$t('Success'), this.$t('Account has been activated. You can Sign In now.')))
-        .catch(() => errorNotification(this.$t('Error'), this.$t('Token does not exist')))
+        .then(() => successNotification(this.$t('Account has been activated. You can Sign In now.')))
+        .catch(() => errorNotification(this.$t('Token does not exist')))
         .finally(() => this.$router.push({name: 'login'}));
     },
   };

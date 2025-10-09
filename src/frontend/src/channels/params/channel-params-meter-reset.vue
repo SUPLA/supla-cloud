@@ -34,7 +34,7 @@
         this.resetConfirm = false;
         api
           .patch('channels/' + this.channel.id + '/settings', {action: 'resetCounters'})
-          .then(() => successNotification(this.$t('Success'), this.$t('The counter has been reset.')));
+          .then(() => successNotification(this.$t('The counter has been reset.')));
       },
     },
   };

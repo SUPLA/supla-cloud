@@ -51,7 +51,7 @@ function responseHandler(request, config) {
             if (details.propertyPath && message.indexOf('{propertyPath}') === -1) {
               message += ' ' + i18n.global.t('Field: {propertyPath}.', details);
             }
-            errorNotification(i18n.global.t('Error'), i18n.global.t(message, details));
+            errorNotification(i18n.global.t(message, details));
           }
           return Promise.reject({body, status});
         }

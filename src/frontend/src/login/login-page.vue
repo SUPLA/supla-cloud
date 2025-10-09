@@ -46,7 +46,7 @@
                 this.displayError = 'locked';
               } else {
                 console.warn(error);
-                errorNotification(this.$t('Information'), this.$t('Sign in temporarily unavailable. Please try again later.'));
+                errorNotification(this.$t('Sign in temporarily unavailable. Please try again later.'));
               }
               this.authenticating = false;
             });

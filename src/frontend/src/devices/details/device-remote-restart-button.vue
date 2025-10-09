@@ -43,7 +43,7 @@
       assumeEntered() {
         this.restartConfirm = false;
         this.loading = false;
-        successNotification(this.$t('Successful'), this.$t('Device should be restarting now.'));
+        successNotification(this.$t('Device should be restarting now.'));
       },
     },
     computed: {

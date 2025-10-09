@@ -119,7 +119,7 @@
           .then((response) => (this.generatedPassword = response.headers.get('SUPLA-MQTT-Password')))
           .then(() => {
             this.generatingPassword = false;
-            successNotification(this.$t('Successful'), this.$t('MQTT Broker password has been changed.'));
+            successNotification(this.$t('MQTT Broker password has been changed.'));
             return this.fetchSettings();
           });
       },
@@ -128,14 +128,14 @@
         return api
           .patch(`users/current`, {action: 'change:mqttBrokerEnabled', enabled: true})
           .then((response) => (this.generatedPassword = response.headers.get('SUPLA-MQTT-Password')))
-          .then(() => successNotification(this.$t('Successful'), this.$t('Integration with MQTT Broker has been enabled.')))
+          .then(() => successNotification(this.$t('Integration with MQTT Broker has been enabled.')))
           .finally(this.fetchSettings);
       },
       disableMqttBrokerSupport() {
         this.fetching = true;
         return api
           .patch(`users/current`, {action: 'change:mqttBrokerEnabled', enabled: false})
-          .then(() => infoNotification(this.$t('Successful'), this.$t('Integration with MQTT Broker has been disabled.')))
+          .then(() => infoNotification(this.$t('Integration with MQTT Broker has been disabled.')))
           .finally(this.fetchSettings);
       },
     },

@@ -14,18 +14,18 @@ function showNotification(text, type) {
   toast(text, {type});
 }
 
-export function successNotification(title, text = '') {
+export function successNotification(text) {
   return showNotification(text, 'success');
 }
 
-export function warningNotification(title, text = '') {
+export function warningNotification(text) {
   return showNotification(text, 'warning');
 }
 
-export function errorNotification(title, text = '') {
+export function errorNotification(text) {
   return showNotification(text, 'error');
 }
 
-export function infoNotification(title, text = '') {
+export function infoNotification(text) {
   return showNotification(text, 'info');
 }

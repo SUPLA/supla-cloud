@@ -46,13 +46,10 @@
 
   async function setDevicePassword() {
     if (password.value !== passwordConfirmation.value) {
-      return errorNotification('Error', 'Passwords do not match.' /*i18n*/);
+      return errorNotification('Passwords do not match.');
     }
     if (password.value.length < 8 || !passwordRegex.test(password.value)) {
-      return errorNotification(
-        'Error',
-        'Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.' /*i18n*/
-      );
+      return errorNotification('Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.');
     }
     loading.value = true;
     try {
@@ -63,12 +60,12 @@
       if (props.device.config?.setCfgModePassword?.status !== 'TRUE') {
         throw new Error();
       }
-      successNotification('Success', 'Password was set successfully.' /*i18n*/);
+      successNotification('Password was set successfully.');
       showDialog.value = false;
       password.value = '';
       passwordConfirmation.value = '';
     } catch (error) {
-      errorNotification('Error', 'Could not change the password.' /*i18n*/);
+      errorNotification('Could not change the password.');
     } finally {
       loading.value = false;
     }

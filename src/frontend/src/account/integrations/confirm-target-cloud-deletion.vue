@@ -13,8 +13,8 @@
     mounted() {
       api
         .delete_(`remove-target-cloud/${this.targetCloudId}/${this.token}`, {skipErrorHandler: true})
-        .then(() => successNotification(this.$t('Success'), this.$t('Your private SUPLA Cloud instance has been unregistered.')))
-        .catch(() => errorNotification(this.$t('Error'), this.$t('Token does not exist')))
+        .then(() => successNotification(this.$t('Your private SUPLA Cloud instance has been unregistered.')))
+        .catch(() => errorNotification(this.$t('Token does not exist')))
         .finally(() => this.$router.push({name: 'login'}));
     },
   };

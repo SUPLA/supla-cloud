@@ -40,10 +40,7 @@
       loading.value = true;
       await devicesApi.factoryReset(props.device.id);
       loading.value = false;
-      successNotification(
-        'Successful', // i18n
-        'The factory reset was successful.' // i18n
-      );
+      successNotification('The factory reset was successful.');
     } finally {
       showConfirmDialog.value = false;
       loading.value = false;

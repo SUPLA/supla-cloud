@@ -83,7 +83,7 @@
         api
           .put('account-deletion', requestData, {skipErrorHandler: [400]})
           .then(() => (this.isSent = true))
-          .catch(() => errorNotification(this.$t('Error'), this.$t('Invalid username or password')))
+          .catch(() => errorNotification(this.$t('Invalid username or password')))
           .finally(() => (this.isBusy = false));
       },
     },

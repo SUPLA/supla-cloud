@@ -41,13 +41,13 @@
     methods: {
       deleteAccount() {
         if (!this.password) {
-          return errorNotification(this.$t('Error'), this.$t('Incorrect password'));
+          return errorNotification(this.$t('Incorrect password'));
         }
         this.loading = true;
         api
           .patch(`users/current`, {action: 'delete', password: this.password})
           .then(() => {
-            successNotification(this.$t('Successful'), this.$t('We have sent you an e-mail message with a delete confirmation link. Just to be sure!'));
+            successNotification(this.$t('We have sent you an e-mail message with a delete confirmation link. Just to be sure!'));
             this.$emit('cancel');
             document.getElementById('logoutButton').dispatchEvent(new MouseEvent('click'));
           })

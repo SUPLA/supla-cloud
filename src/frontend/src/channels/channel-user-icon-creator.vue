@@ -124,7 +124,7 @@
         for (let file of files) {
           if (['image/jpg', 'image/jpeg', 'image/png', 'image/gif'].indexOf(file.type.toLowerCase()) >= 0) {
             if (this.maxUploadSizePerFile && file.size > this.maxUploadSizePerFile) {
-              errorNotification(this.$t('File is too large'), this.$t('Maximum filesize limit is {limit}.', {limit: prettyBytes(this.maxUploadSizePerFile)}));
+              errorNotification(this.$t('Maximum filesize limit is {limit}.', {limit: prettyBytes(this.maxUploadSizePerFile)}));
             } else {
               if (isDark) {
                 this.imagesDark[index] = file;
@@ -161,7 +161,7 @@
           }
         }
         if (!this.icon && addedImages < this.possibleStates.length) {
-          return errorNotification(this.$t('Error'), this.$t('You need to provide icons for all states in light mode.'));
+          return errorNotification(this.$t('You need to provide icons for all states in light mode.'));
         }
         for (let [index, image] of this.imagesDark.entries()) {
           if (image) {

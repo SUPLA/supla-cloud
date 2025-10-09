@@ -51,10 +51,10 @@
     methods: {
       changePassword() {
         if (!this.oldPassword) {
-          return errorNotification(this.$t('Error'), this.$t('Current password is incorrect'));
+          return errorNotification(this.$t('Current password is incorrect'));
         }
         if (this.newPassword != this.newPasswordConfirm) {
-          return errorNotification(this.$t('Error'), this.$t('The password and its confirm are not the same.'));
+          return errorNotification(this.$t('The password and its confirm are not the same.'));
         }
         this.loading = true;
         api
@@ -64,7 +64,7 @@
             oldPassword: this.oldPassword,
           })
           .then(() => {
-            successNotification(this.$t('Successful'), this.$t('Password has been changed'));
+            successNotification(this.$t('Password has been changed'));
             document.getElementById('logoutButton').dispatchEvent(new MouseEvent('click'));
           })
           .finally(() => (this.loading = false));

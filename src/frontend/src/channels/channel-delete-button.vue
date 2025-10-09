@@ -58,10 +58,7 @@
           .then(() => this.channelsStore.refetchAll())
           .then(() => {
             this.dependenciesThatPreventsDeletion = undefined;
-            successNotification(
-              this.$t('Successful'),
-              this.deletingSubdevice ? this.$t('The subdevice has been deleted.') : this.$t('The channel has been deleted.')
-            );
+            successNotification(this.deletingSubdevice ? this.$t('The subdevice has been deleted.') : this.$t('The channel has been deleted.'));
             if (deletedChannel.isVirtual) {
               this.$router.push({name: 'integrations.dataSources'});
             } else if (this.$route.name !== 'device.channels') {
