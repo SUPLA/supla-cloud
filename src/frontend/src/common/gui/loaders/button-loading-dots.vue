@@ -62,7 +62,7 @@
   }
 
   .btn-orange.btn-outline:not(:hover),
-  .btn-danger {
+  .btn-danger, .modal-warning, .dialog-warning {
     @include loading-dots-color($supla-orange);
   }
 

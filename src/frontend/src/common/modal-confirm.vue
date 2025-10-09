@@ -15,27 +15,30 @@
   </modal>
 </template>
 
-<script>
+<script setup>
   import Modal from '@/common/modal.vue';
   import ButtonLoadingDots from '@/common/gui/loaders/button-loading-dots.vue';
+  import {onKeyStroke} from '@vueuse/core';
 
-  export default {
-    components: {ButtonLoadingDots, Modal},
-    props: {
-      header: String,
-      loading: {
-        type: Boolean,
-        required: false,
-      },
-      cancellable: {
-        type: Boolean,
-        required: false,
-        default: true,
-      },
-      confirmable: {
-        type: Boolean,
-        default: true,
-      },
+  const props = defineProps({
+    header: String,
+    loading: {
+      type: Boolean,
+      required: false,
     },
-  };
+    cancellable: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    confirmable: {
+      type: Boolean,
+      default: true,
+    },
+  });
+
+  const emit = defineEmits(['cancel', 'confirm']);
+
+  onKeyStroke('Escape', () => !props.loading && emit('cancel'));
+  onKeyStroke('Enter', () => !props.loading && emit('confirm'));
 </script>

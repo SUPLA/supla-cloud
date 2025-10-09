@@ -8,7 +8,7 @@
           <h4>
             <div class="pull-right">
               <a v-if="displayCloseButton" @click="$emit('cancel')">
-                <fa :icon="faTimes()" />
+                <fa :icon="faTimes" />
               </a>
             </div>
             {{ header }}
@@ -34,21 +34,20 @@
   </div>
 </template>
 
-<script>
+<script setup>
   import {faTimes} from '@fortawesome/free-solid-svg-icons';
+  import {onKeyStroke} from '@vueuse/core';
 
-  export default {
-    props: {
-      header: {type: String},
-      cancellable: {type: Boolean, default: false},
-      displayCloseButton: {type: Boolean, default: false},
-    },
-    methods: {
-      faTimes() {
-        return faTimes;
-      },
-    },
-  };
+  defineProps({
+    header: {type: String},
+    cancellable: {type: Boolean, default: false},
+    displayCloseButton: {type: Boolean, default: false},
+  });
+
+  const emit = defineEmits(['cancel', 'confirm']);
+
+  onKeyStroke('Escape', () => emit('cancel'));
+  onKeyStroke('Enter', () => emit('confirm'));
 </script>
 
 <style lang="scss">

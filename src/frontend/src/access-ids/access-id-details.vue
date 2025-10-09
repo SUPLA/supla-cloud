@@ -4,12 +4,21 @@
       <div v-if="accessId" class="container">
         <pending-changes-page
           :header="accessId.caption || $t('Access Identifier') + ' ID' + accessId.id"
-          :deletable="true"
           :is-pending="hasPendingChanges"
           @cancel="cancelChanges()"
           @save="saveAccessId()"
-          @delete="deleteConfirm = true"
         >
+          <template #buttons>
+            <Dialog warning cancellable @confirm="deleteAccessId($event)">
+              <DialogTrigger class="btn btn-danger">{{ $t('Delete') }}</DialogTrigger>
+              <DialogContent>
+                <template #header>
+                  <h4>{{ $t('Are you sure?') }}</h4>
+                </template>
+                {{ $t('Confirm if you want to remove Access Identifier') }}
+              </DialogContent>
+            </Dialog>
+          </template>
           <div v-if="!accessId.activeNow" class="row">
             <div class="col-sm-6 col-sm-offset-3">
               <div class="alert alert-warning mt-3">
@@ -87,7 +96,7 @@
                   <tbody>
                     <tr v-for="location in accessId.locations" :key="location.id" v-go-to-link-on-row-click>
                       <td>
-                        <router-link :to="{name: 'location', params: {id: location.id}}">{{ location.id }} </router-link>
+                        <router-link :to="{name: 'location', params: {id: location.id}}">{{ location.id }}</router-link>
                       </td>
                       <td>
                         <password-display v-if="location.password" :password="location.password"></password-display>
@@ -142,17 +151,6 @@
           </div>
         </pending-changes-page>
       </div>
-
-      <modal-confirm
-        v-if="deleteConfirm"
-        class="modal-warning"
-        :header="$t('Are you sure?')"
-        :loading="loading"
-        @confirm="deleteAccessId()"
-        @cancel="deleteConfirm = false"
-      >
-        {{ $t('Confirm if you want to remove Access Identifier') }}
-      </modal-confirm>
     </loading-cover>
   </page-container>
 </template>
@@ -170,13 +168,15 @@
   import TransitionExpand from '../common/gui/transition-expand.vue';
   import {formatDateTime} from '@/common/filters-date.js';
   import {api} from '@/api/api.js';
-  import ModalConfirm from '@/common/modal-confirm.vue';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
+  import {Dialog, DialogContent, DialogTrigger} from '@/common/gui/dialog/index.js';
 
   export default {
     components: {
+      DialogContent,
+      DialogTrigger,
+      Dialog,
       LoadingCover,
-      ModalConfirm,
       TransitionExpand,
       WeekScheduleSelector,
       DateRangePicker,
@@ -193,7 +193,6 @@
         loading: false,
         accessId: undefined,
         error: false,
-        deleteConfirm: false,
         hasPendingChanges: false,
         assignLocations: false,
         assignClientApps: false,
@@ -279,13 +278,13 @@
           })
           .finally(() => (this.loading = this.hasPendingChanges = false));
       },
-      deleteAccessId() {
-        this.loading = true;
+      deleteAccessId(dialog) {
         api
           .delete_('accessids/' + this.accessId.id)
           .then(() => this.$emit('delete'))
           .then(() => (this.accessId = undefined))
-          .catch(() => (this.loading = false));
+          .then(() => dialog.close())
+          .finally(() => dialog.setLoading(false));
       },
       accessIdChanged() {
         this.hasPendingChanges = true;
