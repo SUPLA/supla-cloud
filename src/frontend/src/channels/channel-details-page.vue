@@ -5,6 +5,9 @@
         <BreadcrumbList :current="channelTitle">
           <router-link :to="{name: 'me'}">{{ $t('My SUPLA') }}</router-link>
           <router-link :to="{name: 'device', params: {id: channel.iodeviceId}}">{{ deviceTitle(devices[channel.iodeviceId]) }} </router-link>
+          <template #alt v-if="channel.isVirtual">
+            <router-link :to="{name: 'integrations.dataSources'}"> « {{ $t('Data sources') }} </router-link>
+          </template>
         </BreadcrumbList>
         <div class="d-flex mt-3">
           <div class="flex-grow-1">
@@ -21,9 +24,6 @@
           <div>
             <ChannelDeleteButton :channel="channel" />
           </div>
-        </div>
-        <div v-if="channel.isVirtual" class="mb-3">
-          <router-link :to="{name: 'integrations.dataSources'}"> « {{ $t('Go back to data sources') }} </router-link>
         </div>
         <ChannelConflictDetailsWarning v-if="channel.conflictDetails" :channel="channel" />
         <div v-if="channelsStore.all[channel.id]?.state?.connectedCode === 'OFFLINE_REMOTE_WAKEUP_NOT_SUPPORTED'" class="alert alert-warning">

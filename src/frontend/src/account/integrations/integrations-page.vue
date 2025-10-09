@@ -19,24 +19,30 @@
 
       <div class="my-3">
         <ul class="nav nav-tabs">
-          <li :class="{active: $route.name === 'integrations.myOauthApps'}">
-            <router-link :to="{name: 'integrations.myOauthApps'}" class="">
-              <fa :icon="faTrowelBricks" />
-              {{ $t('My OAuth apps') }}
-            </router-link>
-          </li>
-          <li :class="{active: $route.name === 'integrations.mqtt'}">
-            <router-link v-if="frontendConfig.config.mqttBrokerEnabled" :to="{name: 'integrations.mqtt'}" class="">
-              <fa :icon="faPodcast" />
-              {{ $t('MQTT Broker') }}
-            </router-link>
-          </li>
-          <li :class="{active: $route.name === 'integrations.dataSources'}">
-            <router-link :to="{name: 'integrations.dataSources'}" class="">
-              <fa :icon="faDatabase" />
-              {{ $t('Data sources') }}
-            </router-link>
-          </li>
+          <router-link :to="{name: 'integrations.myOauthApps'}" v-slot="{href, navigate, isActive}" custom>
+            <li :class="{active: isActive}">
+              <a :href="href" @click="navigate">
+                <fa :icon="faTrowelBricks" />
+                {{ $t('My OAuth apps') }}
+              </a>
+            </li>
+          </router-link>
+          <router-link v-if="frontendConfig.config.mqttBrokerEnabled" :to="{name: 'integrations.mqtt'}" v-slot="{href, navigate, isActive}" custom>
+            <li :class="{active: isActive}">
+              <a :href="href" @click="navigate">
+                <fa :icon="faPodcast" />
+                {{ $t('MQTT Broker') }}
+              </a>
+            </li>
+          </router-link>
+          <router-link :to="{name: 'integrations.dataSources'}" v-slot="{href, navigate, isActive}" custom>
+            <li :class="{active: isActive}">
+              <a :href="href" @click="navigate">
+                <fa :icon="faDatabase" />
+                {{ $t('Data sources') }}
+              </a>
+            </li>
+          </router-link>
         </ul>
       </div>
     </div>
