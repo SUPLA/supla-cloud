@@ -18,10 +18,11 @@
 
 <script setup>
   import {computed, onMounted} from 'vue';
-  import {useRouter} from 'vue-router';
+  import {useRoute, useRouter} from 'vue-router';
 
   const props = defineProps({device: Object});
   const router = useRouter();
+  const route = useRoute();
 
   const availableTabs = computed(() => {
     const tabs = [];
@@ -40,7 +41,7 @@
 
   onMounted(() => {
     if (availableTabs.value.length) {
-      if (router.currentRoute.name === 'device' || !availableTabs.value.map((t) => t.route).includes(router.currentRoute.name)) {
+      if (route.name === 'device' || !availableTabs.value.map((t) => t.route).includes(route.name)) {
         router.replace({name: availableTabs.value[0].route, params: {id: props.device.id}});
       }
     }
