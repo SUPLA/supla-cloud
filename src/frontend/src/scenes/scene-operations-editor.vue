@@ -36,7 +36,7 @@
                 :subject="operation.subject"
                 :always-select-first-action="true"
                 :possible-action-filter="possibleActionFilter(operation.subject)"
-                @input="updateModel()"
+                @input="updateModel((operation.action = $event))"
               >
               </channel-action-chooser>
               <div v-if="waitForCompletionAvailable(operation)" class="mt-2">
@@ -193,6 +193,7 @@
             operation.id = UNIQUE_OPERATION_ID++;
             if (operation.subject && !operation.subjectType) {
               operation.subjectType = operation.subject.ownSubjectType;
+              operation.subjectId = operation.subject.id;
             }
             if (operation.delayMs) {
               this.operations.push({id: UNIQUE_OPERATION_ID++, delayMs: operation.delayMs});

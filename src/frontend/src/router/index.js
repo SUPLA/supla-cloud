@@ -9,7 +9,7 @@ const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        if (savedPosition || to.name?.indexOf('.') > 0) {
+        if (savedPosition || to.name?.indexOf('.') > 0 || to.query.tab) {
           resolve({...savedPosition});
         } else {
           resolve({top: 0});
