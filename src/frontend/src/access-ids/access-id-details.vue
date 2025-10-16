@@ -9,7 +9,7 @@
           @save="saveAccessId()"
         >
           <template #buttons>
-            <Dialog warning cancellable @confirm="deleteAccessId($event)">
+            <DialogWindow warning cancellable @confirm="deleteAccessId($event)">
               <DialogTrigger class="btn btn-danger">{{ $t('Delete') }}</DialogTrigger>
               <DialogContent>
                 <template #header>
@@ -17,7 +17,7 @@
                 </template>
                 {{ $t('Confirm if you want to remove Access Identifier') }}
               </DialogContent>
-            </Dialog>
+            </DialogWindow>
           </template>
           <div v-if="!accessId.activeNow" class="row">
             <div class="col-sm-6 col-sm-offset-3">
@@ -169,13 +169,13 @@
   import {formatDateTime} from '@/common/filters-date.js';
   import {api} from '@/api/api.js';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
-  import {Dialog, DialogContent, DialogTrigger} from '@/common/gui/dialog/index.js';
+  import {DialogContent, DialogTrigger, DialogWindow} from '@/common/gui/dialog/index.js';
 
   export default {
     components: {
       DialogContent,
       DialogTrigger,
-      Dialog,
+      DialogWindow,
       LoadingCover,
       TransitionExpand,
       WeekScheduleSelector,
