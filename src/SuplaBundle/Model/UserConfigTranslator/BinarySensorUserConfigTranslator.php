@@ -23,7 +23,7 @@ class BinarySensorUserConfigTranslator extends UserConfigTranslator {
         $config = [
             'invertedLogic' => $subject->getUserConfigValue('invertedLogic', false),
         ];
-        if ($subject->getUserConfigValue('filteringTimeMs') !== null) {
+        if ($subject->getUserConfigValue('filteringTimeMs') > 0) {
             $config['filteringTimeMs'] = $subject->getUserConfigValue('filteringTimeMs');
         }
         if ($subject->getUserConfigValue('timeout') !== null) {
