@@ -76,6 +76,10 @@ homeScreenContent_offMode_ALWAYS_ENABLED: After the delay
 homeScreenContent_offMode_DISABLE: Disable
 homeScreenContent_offMode_ENABLED_WHEN_DARK: After the delay, but only when it's dark
 keepHistoryMeasurementWarningSelected: Are you sure you need it? Supla is an open source, free project that is being maintained with its own resources. Consider helping the project infrastructure by leaving this option disabled, if you do not plan to use the stored logs.
+lastConnectionResetCause_ACTIVITY_TIMEOUT: Activity timeout
+lastConnectionResetCause_SERVER_CONNECTION_LOST: Server connection lost
+lastConnectionResetCause_UNKNOWN: Unknown
+lastConnectionResetCause_WIFI_CONNECTION_LOST: WiFi connection lost
 localUILock_FULL: Locked
 localUILock_TEMPERATURE: Temperature adjustment only
 localUILock_UNLOCKED: Unlocked
@@ -132,6 +136,7 @@ subdevicePairingResult_NO_NEW_DEVICE_FOUND: No new device found.
 subdevicePairingResult_ONGOING: Pairing in progress.
 subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Unknown pairing result ({resultNum}).
 subdevicePairingResult_PROCEDURE_STARTED: Pairing procedure started.
+subdevicePairingResult_REQUEST_SENT: Pairing request sent.
 subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Pairing resources limit exceeded.
 subdevicePairingResult_SUCCESS: Pairing successful.
 subdevicePairingResult_UNAUTHORIZED: Pairing unauthorized.
@@ -197,10 +202,6 @@ virtualChannelTypeName_OPEN_WEATHER: Weather
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 energyPriceForecast_field_pdgsz: Energy price in Poland - peek hours
-lastConnectionResetCause_0: Unknown
-lastConnectionResetCause_1: Activity timeout
-lastConnectionResetCause_2: WiFi connection lost
-lastConnectionResetCause_3: Server connection lost
 openWeatherAttribute_field_airCo: Air CO
 openWeatherAttribute_field_airNo: Air NO
 openWeatherAttribute_field_airNo2: Air NO₂
@@ -222,11 +223,5 @@ openWeatherAttribute_field_windSpeed: Wind Speed
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-lastConnectionResetCause_ACTIVITY_TIMEOUT: ~
-lastConnectionResetCause_SERVER_CONNECTION_LOST: ~
-lastConnectionResetCause_UNKNOWN: ~
-lastConnectionResetCause_WIFI_CONNECTION_LOST: ~
 
 #</editor-fold>
-
-subdevicePairingResult_REQUEST_SENT: Pairing request sent.

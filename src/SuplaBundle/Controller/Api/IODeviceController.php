@@ -372,7 +372,7 @@ class IODeviceController extends RestController {
         $device = $this->transactional(function (EntityManagerInterface $em) use ($ad, $body, $ioDevice) {
             $action = $body['action'];
             if ($action === 'enterConfigurationMode') {
-                Assertion::true($ioDevice->getFlags()['enterConfigurationModeAvailable'], 'Action is unsupported in the firmware.'); // i18n
+                Assertion::true($ioDevice->getFlags()['enterConfigurationModeAvailable'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'ENTER-CONFIGURATION-MODE');
                 Assertion::true($result, 'Could not enter the configuration mode.'); // i18n
             } elseif ($action === 'restartDevice') {
