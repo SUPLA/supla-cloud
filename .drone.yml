@@ -21,7 +21,9 @@ steps:
     image: node:22.20.0-slim
     depends_on: [install-frontend]
     commands:
-      - cd src/frontend && npm run lint -s
+      - cd src/frontend
+      - npm run lint
+      - npm run format:check
 
   - name: audit-frontend
     image: node:22.20.0-slim

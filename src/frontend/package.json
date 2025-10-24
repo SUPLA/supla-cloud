@@ -17,6 +17,7 @@
     "test:e2e:nightly": "cypress run --config baseUrl=https://nightly.supla.org,defaultCommandTimeout=10000 --spec=tests/e2e/specs/nightly/*.js",
     "lint": "eslint . --fix",
     "format": "prettier --write src/ tests/",
+    "format:check": "prettier --check src/ tests/",
     "collect-translations": "node scripts/collect-translations.js",
     "release": "node scripts/release.js",
     "release-dev": "cross-env NODE_ENV=development node scripts/release.js"
