@@ -10,7 +10,7 @@
           :precision="1"
           suffix=" %"
           class="form-control text-center mt-2"
-          @input="emit('change')"
+          @update:modelValue="emit('change')"
         />
       </dt>
     </dl>

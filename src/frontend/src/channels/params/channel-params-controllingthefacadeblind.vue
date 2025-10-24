@@ -73,11 +73,25 @@
     <dl class="wide-label">
       <dd>{{ $t('0% tilt angle') }}</dd>
       <dt>
-        <NumberInput v-model="channel.config.tilt0Angle" :min="0" :max="180" suffix="°" class="form-control text-center mt-2" @input="$emit('change')" />
+        <NumberInput
+          v-model="channel.config.tilt0Angle"
+          :min="0"
+          :max="180"
+          suffix="°"
+          class="form-control text-center mt-2"
+          @update:modelValue="$emit('change')"
+        />
       </dt>
       <dd>{{ $t('100% tilt angle') }}</dd>
       <dt>
-        <NumberInput v-model="channel.config.tilt100Angle" :min="0" :max="180" suffix="°" class="form-control text-center mt-2" @input="$emit('change')" />
+        <NumberInput
+          v-model="channel.config.tilt100Angle"
+          :min="0"
+          :max="180"
+          suffix="°"
+          class="form-control text-center mt-2"
+          @update:modelValue="$emit('change')"
+        />
       </dt>
     </dl>
     <dl v-if="channel.config.motorUpsideDown !== undefined" class="wide-label">

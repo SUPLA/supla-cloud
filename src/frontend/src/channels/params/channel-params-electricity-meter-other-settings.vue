@@ -35,7 +35,7 @@
               :precision="2"
               suffix=" V"
               class="form-control text-center mt-2"
-              @input="$emit('change')"
+              @update:modelValue="$emit('change')"
             />
           </dt>
         </dl>
@@ -49,7 +49,7 @@
               :precision="2"
               suffix=" V"
               class="form-control text-center mt-2"
-              @input="$emit('change')"
+              @update:modelValue="$emit('change')"
             />
           </dt>
         </dl>
@@ -81,7 +81,7 @@
               :precision="2"
               suffix=" W"
               class="form-control text-center mt-2"
-              @input="$emit('change')"
+              @update:modelValue="$emit('change')"
             />
           </dt>
         </dl>
@@ -95,7 +95,7 @@
               :precision="2"
               suffix=" W"
               class="form-control text-center mt-2"
-              @input="$emit('change')"
+              @update:modelValue="$emit('change')"
             />
           </dt>
         </dl>

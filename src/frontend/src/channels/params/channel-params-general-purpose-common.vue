@@ -154,7 +154,7 @@
           :max="65535"
           suffix=" ms"
           class="form-control text-center mt-2"
-          @input="$emit('change')"
+          @update:modelValue="$emit('change')"
         />
       </dt>
     </dl>
