@@ -190,4 +190,19 @@ class NotificationController extends RestController {
         $notifications = $device->getPushNotifications();
         return $this->serializedView($notifications, $request);
     }
+
+    /**
+     * @OA\Get(
+     *   path="/notifications", operationId="getNotifications", tags={"Notifications"},
+     *   @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Notification"))),
+     * )
+     * @Rest\Get("/notifications")
+     */
+    public function getNotificationsAction(Request $request) {
+        $user = $this->getCurrentUser();
+        $notifications = array_values($user->getPushNotifications()
+            ->filter(fn(PushNotification $notification) => $notification->getAccessIds()->count() > 0)
+            ->toArray());
+        return $this->serializedView($notifications, $request);
+    }
 }

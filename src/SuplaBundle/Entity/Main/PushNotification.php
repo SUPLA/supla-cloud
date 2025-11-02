@@ -57,6 +57,16 @@ class PushNotification implements ActionableSubject {
     private $channel;
 
     /**
+     * @ORM\OneToOne(targetEntity="SceneOperation", mappedBy="pushNotification")
+     */
+    private ?SceneOperation $sceneOperation = null;
+
+    /**
+     * @ORM\OneToOne(targetEntity="ValueBasedTrigger", mappedBy="pushNotification")
+     */
+    private ?ValueBasedTrigger $reaction = null;
+
+    /**
      * @ORM\ManyToOne(targetEntity="IODevice", inversedBy="pushNotifications")
      * @ORM\JoinColumn(name="iodevice_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
@@ -122,6 +132,13 @@ class PushNotification implements ActionableSubject {
     /** @Groups({"basic"}) */
     public function getOwnSubjectType(): string {
         return ActionableSubjectType::NOTIFICATION;
+    }
+
+    public function getSubject() {
+        if ($this->sceneOperation) {
+            return $this->sceneOperation->getOwningScene();
+        }
+        return $this->reaction ?: $this->channel ?: $this->device;
     }
 
     public function getTitle(): ?string {

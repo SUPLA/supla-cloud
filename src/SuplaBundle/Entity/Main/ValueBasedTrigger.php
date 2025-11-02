@@ -85,7 +85,7 @@ class ValueBasedTrigger implements HasSubject, HasActivityConditions {
     private $schedule;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PushNotification", inversedBy="reactions", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="PushNotification", inversedBy="reaction", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="push_notification_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $pushNotification;

@@ -570,8 +570,8 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         return $this->valueBasedTriggers;
     }
 
-    /** @return Collection|Scene[] */
-    public function getPushNotifications() {
+    /** @return Collection|PushNotification[] */
+    public function getPushNotifications(): Collection {
         return $this->pushNotifications;
     }
 

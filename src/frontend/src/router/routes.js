@@ -185,6 +185,11 @@ export default [
     name: 'reactions',
   },
   {
+    path: '/notifications',
+    component: () => import('@/notifications/notifications-list.vue'),
+    name: 'notifications',
+  },
+  {
     path: '/scenes',
     component: () => import('@/scenes/scenes-page.vue'),
     name: 'scenes',

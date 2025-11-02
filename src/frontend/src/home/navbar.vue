@@ -44,7 +44,7 @@
           <DropdownMenu
             tag="li"
             class="account-dropdown"
-            :class="{active: subIsActive(['/schedules', '/channel-groups', '/scenes', '/direct-links', '/reactions'])}"
+            :class="{active: subIsActive(['/schedules', '/channel-groups', '/scenes', '/direct-links', '/reactions', '/notifications'])}"
           >
             <DropdownMenuTrigger>
               <i class="hidden-sm hidden-xs pe-7s-config"></i>
@@ -79,6 +79,12 @@
                 <router-link :to="{name: 'reactions'}">
                   <i class="hidden-sm hidden-xs pe-7s-arc mr-1"></i>
                   {{ $t('Reactions') }}
+                </router-link>
+              </li>
+              <li>
+                <router-link :to="{name: 'notifications'}">
+                  <fa :icon="faBell()" />
+                  {{ $t('Notifications') }}
                 </router-link>
               </li>
               <li role="separator" class="divider"></li>
@@ -134,7 +140,7 @@
   import SuplaLogo from './supla-logo.vue';
   import {mapStores} from 'pinia';
   import {useCurrentUserStore} from '@/stores/current-user-store';
-  import {faShieldHalved, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
+  import {faBell, faShieldHalved, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
   import DropdownMenu from '@/common/gui/dropdown/dropdown-menu.vue';
   import DropdownMenuTrigger from '@/common/gui/dropdown/dropdown-menu-trigger.vue';
   import {api} from '@/api/api.js';
@@ -147,6 +153,9 @@
       };
     },
     methods: {
+      faBell() {
+        return faBell;
+      },
       faShieldHalved() {
         return faShieldHalved;
       },
