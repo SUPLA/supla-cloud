@@ -1,8 +1,9 @@
 <template>
   <page-container :error="error" class="container">
-    <SubjectBreadcrumb>
-      <RouterLink :to="{name: 'schedules'}">&laquo; {{ $t('Schedules') }}</RouterLink>
-    </SubjectBreadcrumb>
+    <BreadcrumbList v-if="schedule" :current="$t('Edit')">
+      <RouterLink :to="{name: 'schedules'}">{{ $t('Schedules') }}</RouterLink>
+      <RouterLink :to="{name: 'schedule', params: {id: schedule.id}}" v-if="schedule.id">{{ $t('Schedule') + ' ID' + id }}</RouterLink>
+    </BreadcrumbList>
     <loading-cover :loading="!schedule || submitting">
       <pending-changes-page v-if="schedule" :header="schedule.id ? $t('Schedule') + ' ID' + id : $t('Create New Schedule')">
         <template #buttons>
@@ -116,11 +117,11 @@
   import ChannelFunction from '@/common/enums/channel-function';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import {api} from '@/api/api.js';
-  import SubjectBreadcrumb from '@/channels/subject-breadcrumb.vue';
+  import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
 
   export default {
     components: {
-      SubjectBreadcrumb,
+      BreadcrumbList,
       LoadingCover,
       DateRangePicker,
       ChannelActionChooser,

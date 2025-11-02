@@ -3,9 +3,9 @@
     <loading-cover :loading="loading">
       <div v-if="directLink">
         <div class="container">
-          <SubjectBreadcrumb :entity="directLink" :current="directLink.caption || `${$t('Direct link')} ID${directLink.id}`">
-            <RouterLink :to="{name: 'directLinks'}">&laquo; {{ $t('Direct links') }}</RouterLink>
-          </SubjectBreadcrumb>
+          <BreadcrumbList current>
+            <RouterLink :to="{name: 'directLinks'}">{{ $t('Direct links') }}</RouterLink>
+          </BreadcrumbList>
           <pending-changes-page
             :header="directLink.id ? directLink.caption || `${$t('Direct link')} ID${directLink.id}` : $t('New direct link')"
             :deletable="!isNew"
@@ -190,11 +190,12 @@
   import {api} from '@/api/api.js';
   import {useChannelsStore} from '@/stores/channels-store.js';
   import {useDevicesStore} from '@/stores/devices-store.js';
-  import SubjectBreadcrumb from '@/channels/subject-breadcrumb.vue';
+  import ActionableSubjectType from '@/common/enums/actionable-subject-type.js';
+  import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
 
   export default {
     components: {
-      SubjectBreadcrumb,
+      BreadcrumbList,
       ModalConfirm,
       LoadingCover,
       TransitionExpand,
@@ -304,6 +305,9 @@
       },
     },
     computed: {
+      ActionableSubjectType() {
+        return ActionableSubjectType;
+      },
       isNew() {
         return !this.directLink.id;
       },

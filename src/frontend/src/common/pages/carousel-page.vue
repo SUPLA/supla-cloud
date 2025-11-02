@@ -1,10 +1,8 @@
 <template>
   <div>
     <div v-if="item">
-      <BreadcrumbList v-if="breadcrumbs" :current="false" class="container">
-        <template #alt>
-          <router-link :to="{name: listRouteName}">&laquo; {{ $t(headerI18n) }}</router-link>
-        </template>
+      <BreadcrumbList v-if="breadcrumbs" current class="container">
+        <router-link :to="{name: listRouteName}">{{ $t(headerI18n) }}</router-link>
       </BreadcrumbList>
       <div v-if="item">
         <router-view

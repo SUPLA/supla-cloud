@@ -3,6 +3,9 @@
     <loading-cover :loading="loading">
       <div v-if="scene">
         <div class="container">
+          <BreadcrumbList current>
+            <RouterLink :to="{name: 'scenes'}">{{ $t('Scenes') }}</RouterLink>
+          </BreadcrumbList>
           <pending-changes-page
             :header="scene.id ? scene.caption || `${$t('Scene')} ID${scene.id}` : $t('New scene')"
             :deletable="!isNew"
@@ -113,9 +116,11 @@
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import ModalConfirm from '@/common/modal-confirm.vue';
   import {api} from '@/api/api.js';
+  import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
 
   export default {
     components: {
+      BreadcrumbList,
       ModalConfirm,
       LoadingCover,
       ActivityConditionsForm,
