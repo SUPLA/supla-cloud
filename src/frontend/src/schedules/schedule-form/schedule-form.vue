@@ -196,10 +196,14 @@
       submit(enableIfDisabled) {
         this.submitting = true;
         let promise;
+        const toSend = {...this.schedule};
+        toSend.subjectId = toSend.subject.id;
+        toSend.subjectType = toSend.subject.ownSubjectType;
+        delete toSend.subject;
         if (this.schedule.id) {
-          promise = api.put(`schedules/${this.schedule.id}` + (enableIfDisabled ? '?enable=true' : ''), this.schedule);
+          promise = api.put(`schedules/${this.schedule.id}` + (enableIfDisabled ? '?enable=true' : ''), toSend);
         } else {
-          promise = api.post('schedules?include=subject,closestExecutions', this.schedule);
+          promise = api.post('schedules?include=subject,closestExecutions', toSend);
         }
         promise
           .then(({body: schedule}) => this.$emit('update', schedule) && schedule)
