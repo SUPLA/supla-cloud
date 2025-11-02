@@ -33,6 +33,7 @@ class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
         $this->migratedRollerShutterTimesToUserConfig();
         $this->migratedIcConfigFromParams();
         $this->migratedRelaysRelatedChannelsConfigFromParams();
+        $this->migratedStaircaseTimerRelayTime();
     }
 
     /**
@@ -93,10 +94,19 @@ class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
         $gasMeter = $this->freshEntityById(IODeviceChannel::class, 78);
         $this->assertEquals(0, $gasMeter->getParam4());
         $staircaseTimer = $this->freshEntityById(IODeviceChannel::class, 49);
-        $this->assertEquals(250, $staircaseTimer->getParam1());
         $this->assertEquals(0, $staircaseTimer->getParam2());
         $this->assertEquals(80, $staircaseTimer->getUserConfigValue('relatedMeterChannelId'));
         $heatMeter = $this->freshEntityById(IODeviceChannel::class, 80);
         $this->assertEquals(0, $heatMeter->getParam4());
+    }
+
+    /**
+     * @see Version20251102202544
+     */
+    private function migratedStaircaseTimerRelayTime() {
+        /** @var IODeviceChannel $staircaseTimer */
+        $staircaseTimer = $this->freshEntityById(IODeviceChannel::class, 49);
+        $this->assertEquals(0, $staircaseTimer->getParam1());
+        $this->assertEquals(250, $staircaseTimer->getUserConfigValue('relayTime'));
     }
 }
