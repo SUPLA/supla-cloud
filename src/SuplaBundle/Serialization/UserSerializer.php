@@ -80,6 +80,9 @@ class UserSerializer extends AbstractSerializer {
             if (!isset($normalized['relationsCount']) && $this->isSerializationGroupRequested('user.relationsCount', $context)) {
                 $normalized['relationsCount'] = $this->userRepository->find($user->getId())->getRelationsCount();
             }
+            if ($user->getTechnicalPasswordValidTo() && $user->getTechnicalPasswordValidTo() > $this->timeProvider->getDateTime()) {
+                $normalized['technicalPasswordValidTo'] = $user->getTechnicalPasswordValidTo()->format(\DateTime::ATOM);
+            }
         }
         if ($this->isSerializationGroupRequested('sun', $context)) {
             $time = $this->timeProvider->getTimestamp();

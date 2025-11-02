@@ -7,6 +7,7 @@
       <div v-if="frontendConfig.config.maintenanceMode && currentUser.username" class="alert alert-warning maintenance-warning">
         <maintenance-warning></maintenance-warning>
       </div>
+      <TechnicalAccessWarning v-if="currentUser.username && currentUser.technicalAccess" />
       <router-view v-slot="{Component}">
         <transition name="fade" mode="out-in" :duration="100">
           <component :is="Component" />
@@ -30,6 +31,7 @@
   import Navbar from '@/home/navbar.vue';
   import CloudVersionMismatchWarningModal from '@/common/errors/cloud-version-mismatch-warning-modal.vue';
   import MaintenanceWarning from '@/common/errors/maintenance-warning.vue';
+  import TechnicalAccessWarning from '@/common/errors/technical-access-warning.vue';
 
   const frontendConfig = useFrontendConfigStore();
   const currentUser = useCurrentUserStore();

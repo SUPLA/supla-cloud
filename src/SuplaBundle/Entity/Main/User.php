@@ -353,6 +353,16 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
      */
     private $homeLongitude;
 
+    /**
+     * @ORM\Column(name="technical_password", type="string", length=255, nullable=true)
+     */
+    private ?string $technicalPassword = null;
+
+    /**
+     * @ORM\Column(name="technical_password_valid_to", type="utcdatetime", nullable=true)
+     */
+    private ?DateTime $technicalPasswordValidTo = null;
+
     const PREDEFINED_LIMITS = [
         'default' => [
             'limitIoDev' => 100,
@@ -867,5 +877,21 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
 
     public function getHomeLongitude(): float {
         return $this->homeLongitude;
+    }
+
+    public function getTechnicalPassword(): ?string {
+        return $this->technicalPassword;
+    }
+
+    public function setTechnicalPassword(?string $technicalPassword): void {
+        $this->technicalPassword = $technicalPassword;
+    }
+
+    public function getTechnicalPasswordValidTo(): ?DateTime {
+        return $this->technicalPasswordValidTo;
+    }
+
+    public function setTechnicalPasswordValidTo(?DateTime $technicalPasswordValidTo): void {
+        $this->technicalPasswordValidTo = $technicalPasswordValidTo;
     }
 }

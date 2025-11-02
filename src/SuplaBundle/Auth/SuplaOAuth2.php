@@ -85,6 +85,11 @@ class SuplaOAuth2 extends OAuth2 {
             $refreshToken = $this->storage->getRefreshToken($this->oldRefreshToken);
             $this->oldRefreshToken = null;
         }
+        $isTechnical = false;
+        if ($user instanceof TechnicalUserAccess) {
+            $user = $user->getUser();
+            $isTechnical = true;
+        }
         $token = parent::createAccessToken(
             $client,
             $user,
@@ -108,6 +113,9 @@ class SuplaOAuth2 extends OAuth2 {
             $token['download_token'] = $tokenUsedForFilesDownload['access_token'];
         }
         $token['target_url'] = $this->localSuplaCloud->getAddress();
+        if ($isTechnical) {
+            $token['technical_access'] = true;
+        }
         return $token;
     }
 

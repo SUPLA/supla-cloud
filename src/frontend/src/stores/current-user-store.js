@@ -14,6 +14,7 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
   const userToken = useStorage('supla-user-token');
   const filesToken = useStorage('supla-user-token-files');
   const tokenExpiration = useStorage('supla-token-expiration');
+  const technicalAccess = useStorage('supla-technical-access');
   const serverUrl = useStorage('supla-user-server-url');
   const userData = ref({});
   const username = computed(() => userData.value?.email);
@@ -58,6 +59,7 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
     userToken.value = body.access_token;
     tokenExpiration.value = DateTime.now().plus({seconds: body.expires_in}).startOf('second').toISO({suppressMilliseconds: true});
     filesToken.value = body.download_token;
+    technicalAccess.value = body.technical_access || false;
   };
 
   const forget = () => {
@@ -122,5 +124,6 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
     userData,
     serverUrl,
     tokenExpiration,
+    technicalAccess,
   };
 });

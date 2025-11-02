@@ -353,4 +353,86 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     public function testChangingUserPasswordClearsWebappTokens() {
         $this->assertEquals(0, $this->getEntityManager()->getRepository(AccessToken::class)->count([]));
     }
+
+    public function testTurningOnTechnicalAccess() {
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequest('PATCH', '/api/users/current', ['action' => 'technicalAccess:on', 'password' => 'supla123']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertNotNull($content['technicalPasswordValidTo']);
+        $user = $this->freshEntity($this->user);
+        $password = $response->headers->get('SUPLA-Technical-Password');
+        $this->assertNotNull($password);
+        $this->assertNotEquals($password, $user->getTechnicalPassword());
+        $this->assertNotNull($user->getTechnicalPassword());
+        $this->assertNotNull($user->getTechnicalPasswordValidTo());
+        $this->assertGreaterThan(new \DateTime(), $user->getTechnicalPasswordValidTo());
+        return $password;
+    }
+
+    /** @depends testTurningOnTechnicalAccess */
+    public function testAuthenticationWithTechnicalPassword(string $password) {
+        $client = self::createClient([], ['HTTPS' => true]);
+        $client->request('POST', '/api/webapp-auth', [
+            'username' => 'supler@supla.org',
+            'password' => $password,
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('access_token', $content);
+        $this->assertArrayNotHasKey('refresh_token', $content);
+        $this->assertArrayHasKey('technical_access', $content);
+    }
+
+    /** @depends testTurningOnTechnicalAccess */
+    public function testCannotAuthenticationWithWrongTechnicalPassword(string $password) {
+        $client = self::createClient([], ['HTTPS' => true]);
+        $client->request('POST', '/api/webapp-auth', [
+            'username' => 'supler@supla.org',
+            'password' => $password . 'X',
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(401, $response);
+    }
+
+    /** @depends testTurningOnTechnicalAccess */
+    public function testCannotAuthenticationWithExpiredTechnicalPassword(string $password) {
+        TestTimeProvider::setTime('+1 week');
+        $client = self::createClient([], ['HTTPS' => true]);
+        $client->request('POST', '/api/webapp-auth', [
+            'username' => 'supler@supla.org',
+            'password' => $password,
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(401, $response);
+    }
+
+    /** @depends testTurningOnTechnicalAccess */
+    public function testTurningOffTechnicalAccess(string $password) {
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequest('PATCH', '/api/users/current', ['action' => 'technicalAccess:off']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertNull($content['technicalPasswordValidTo']);
+        $user = $this->freshEntity($this->user);
+        $this->assertNull($user->getTechnicalPassword());
+        $this->assertNull($user->getTechnicalPasswordValidTo());
+        return $password;
+    }
+
+    /** @depends testTurningOffTechnicalAccess */
+    public function testCannotAuthenticationWhenTurnedOff(string $password) {
+        $client = self::createClient([], ['HTTPS' => true]);
+        $client->request('POST', '/api/webapp-auth', [
+            'username' => 'supler@supla.org',
+            'password' => $password,
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(401, $response);
+    }
 }

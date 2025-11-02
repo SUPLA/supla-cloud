@@ -41,12 +41,14 @@ use SuplaBundle\Message\EmailToAdmin;
 use SuplaBundle\Message\UserOptOutNotifications;
 use SuplaBundle\Model\Audit\AuditAware;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
+use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\PasswordStrengthValidator;
+use SuplaBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -137,8 +139,7 @@ class UserController extends RestController {
     private $mqttBrokerEnabled;
     /** @var bool */
     private $mqttAuthEnabled;
-    /** @var EncoderFactoryInterface */
-    private $encoderFactory;
+    private TimeProvider $timeProvider;
 
     public function __construct(
         UserManager $userManager,
@@ -146,7 +147,6 @@ class UserController extends RestController {
         SuplaAutodiscover $autodiscover,
         SuplaMailer $mailer,
         TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder,
-        EncoderFactoryInterface $encoderFactory,
         int $clientsRegistrationEnableTime,
         int $ioDevicesRegistrationEnableTime,
         bool $requireRegulationsAcceptance,
@@ -155,7 +155,8 @@ class UserController extends RestController {
         array $availableLanguages,
         bool $accountsRegistrationEnabled,
         bool $mqttBrokerEnabled,
-        bool $mqttAuthEnabled
+        bool $mqttAuthEnabled,
+        TimeProvider $timeProvider
     ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
@@ -171,7 +172,7 @@ class UserController extends RestController {
         $this->accountsRegistrationEnabled = $accountsRegistrationEnabled;
         $this->mqttBrokerEnabled = $mqttBrokerEnabled;
         $this->mqttAuthEnabled = $mqttAuthEnabled;
-        $this->encoderFactory = $encoderFactory;
+        $this->timeProvider = $timeProvider;
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
@@ -210,7 +211,7 @@ class UserController extends RestController {
      * @Security("is_granted('ROLE_ACCOUNT_RW')")
      * @UnavailableInMaintenance
      */
-    public function patchUsersCurrentAction(Request $request) {
+    public function patchUsersCurrentAction(Request $request, EncoderFactoryInterface $encoderFactory) {
         $data = $request->request->all();
         $user = $this->getUser();
         if ($data['action'] == 'delete') {
@@ -220,7 +221,7 @@ class UserController extends RestController {
             return $this->view(null, Response::HTTP_NO_CONTENT);
         }
         $headers = [];
-        $user = $this->transactional(function (EntityManagerInterface $em) use ($user, $data, &$headers) {
+        $user = $this->transactional(function (EntityManagerInterface $em) use ($encoderFactory, $user, $data, &$headers) {
             if ($data['action'] == 'change:clientsRegistrationEnabled') {
                 $enable = $data['enable'] ?? false;
                 if ($enable) {
@@ -300,14 +301,25 @@ class UserController extends RestController {
                         $data[UserPreferences::ACCOUNT_PUSH_NOTIFICATIONS_ACCESS_IDS_IDS]
                     );
                 }
-            }
-            if ($data['action'] == 'change:mqttBrokerPassword') {
+            } elseif ($data['action'] == 'change:mqttBrokerPassword') {
                 $this->assertNotApiUser();
                 Assertion::true($this->mqttBrokerEnabled, 'MQTT Broker is disabled.'); // i18n
                 Assertion::true($user->isMqttBrokerEnabled(), 'You must enable MQTT Broker first.'); // i18n
                 [$rawPassword, $encodedPassword] = MqttSettingsController::generateMqttBrokerPassword();
                 $user->setMqttBrokerAuthPassword($encodedPassword);
                 $headers['SUPLA-MQTT-Password'] = $rawPassword;
+            } elseif ($data['action'] == 'technicalAccess:on') {
+                Assertion::keyExists($data, 'password');
+                Assertion::true($this->userManager->isPasswordValid($user, $data['password']), 'Current password is incorrect'); // i18n
+                $password = StringUtils::randomString(10);
+                $encoder = $encoderFactory->getEncoder($user);
+                $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
+                $user->setTechnicalPassword($encodedPassword);
+                $user->setTechnicalPasswordValidTo($this->timeProvider->getDateTime(\DateInterval::createFromDateString("+3 days")));
+                $headers['SUPLA-Technical-Password'] = $password;
+            } elseif ($data['action'] == 'technicalAccess:off') {
+                $user->setTechnicalPassword(null);
+                $user->setTechnicalPasswordValidTo(null);
             }
             $em->persist($user);
             return $user;
