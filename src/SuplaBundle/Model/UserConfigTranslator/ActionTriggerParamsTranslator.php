@@ -6,6 +6,7 @@ use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
@@ -38,13 +39,17 @@ class ActionTriggerParamsTranslator extends UserConfigTranslator {
     }
 
     public function getConfig(HasUserConfig $subject): array {
-        return [
-            'actionTriggerCapabilities' => $subject->getProperties()['actionTriggerCapabilities'] ?? [],
-            'disablesLocalOperation' => $subject->getProperties()['disablesLocalOperation'] ?? [],
-            'relatedChannelId' => $subject->getParam1() ?: null,
-            'hideInChannelsList' => !!$subject->getParam1(),
-            'actions' => new JsonArrayObject($this->getActions($subject)),
-        ];
+        if ($subject instanceof IODeviceChannel) {
+            return [
+                'actionTriggerCapabilities' => $subject->getProperties()['actionTriggerCapabilities'] ?? [],
+                'disablesLocalOperation' => $subject->getProperties()['disablesLocalOperation'] ?? [],
+                'relatedChannelId' => $subject->getParam1() ?: null,
+                'hideInChannelsList' => !!$subject->getParam1() && !$subject->getConflictDetails(),
+                'actions' => new JsonArrayObject($this->getActions($subject)),
+            ];
+        } else {
+            return [];
+        }
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
