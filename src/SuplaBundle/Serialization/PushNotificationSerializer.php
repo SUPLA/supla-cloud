@@ -33,14 +33,14 @@ class PushNotificationSerializer extends AbstractSerializer {
         if ($subject instanceof ValueBasedTrigger) {
             $normalized['subjectId'] = $subject->getId();
             $normalized['subjectType'] = 'reaction';
-        }elseif ($subject instanceof ActionableSubject) {
+        } elseif ($subject instanceof ActionableSubject) {
             $normalized['subjectId'] = $subject->getId();
             $normalized['subjectType'] = $subject->getOwnSubjectType();
         } elseif ($subject instanceof IODevice) {
             $normalized['subjectId'] = $subject->getId();
             $normalized['subjectType'] = 'device';
         }
-        $normalized['accessIdsIds'] = $notification->getAccessIds()->map(fn (AccessId $accessId) => $accessId->getId())->toArray();
+        $normalized['accessIdsIds'] = $notification->getAccessIds()->map(fn(AccessId $accessId) => $accessId->getId())->toArray();
     }
 
     public function supportsNormalization($entity, $format = null) {
