@@ -6,7 +6,7 @@
       <div class="line-clamp line-clamp-4">{{ model.body }}</div>
       <h5>{{ $t('Recipients') }}</h5>
       <ul>
-        <li v-for="aid in model.accessIdsIds">{{ accessIds[aid].caption }}</li>
+        <li v-for="aid in model.accessIdsIds" :key="aid.id">{{ accessIds[aid].caption }}</li>
       </ul>
     </router-link>
   </square-link>
