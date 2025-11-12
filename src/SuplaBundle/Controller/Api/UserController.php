@@ -31,6 +31,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\SuplaOAuthStorage;
 use SuplaBundle\Auth\Voter\BrokerRequestSecurityVoter;
 use SuplaBundle\Entity\Main\AccessID;
+use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\UserPreferences;
@@ -325,6 +326,11 @@ class UserController extends RestController {
             } elseif ($data['action'] == 'technicalAccess:off') {
                 $user->setTechnicalPassword(null);
                 $user->setTechnicalPasswordValidTo(null);
+                $accessTokenRepo = $this->entityManager->getRepository(AccessToken::class);
+                $accessTokens = $accessTokenRepo->findTechnicalPasswordTokens($user);
+                foreach ($accessTokens as $accessToken) {
+                    $em->remove($accessToken);
+                }
             }
             $em->persist($user);
             return $user;

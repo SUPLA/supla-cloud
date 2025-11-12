@@ -7,6 +7,7 @@
           <tr>
             <th>{{ $t('Device') }}</th>
             <th>{{ $t('Expires at') }}</th>
+            <th>{{ $t('Info') }}</th>
             <th>{{ $t('Actions') }}</th>
           </tr>
         </thead>
@@ -24,6 +25,11 @@
             </td>
             <td>
               {{ formatDateTime(accessToken.expiresAt) }}
+            </td>
+            <td>
+              <span v-if="!accessToken.issuedFor">{{ $t('normal session') }}</span>
+              <span v-else-if="accessToken.issuedFor === '__technical_access__'">{{ $t('technical password access') }}</span>
+              <span v-else>{{ accessToken.issuedFor }}</span>
             </td>
             <td>
               <a class="btn btn-default btn-xs" @click="accessTokenToDelete = accessToken">
