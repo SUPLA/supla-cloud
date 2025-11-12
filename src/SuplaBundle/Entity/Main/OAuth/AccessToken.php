@@ -34,6 +34,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class AccessToken extends BaseAccessToken {
     use BelongsToUser;
 
+    public const ISSUED_FOR_TECHNICAL_ACCESS = '__technical_access__';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -87,6 +89,12 @@ class AccessToken extends BaseAccessToken {
      * @ORM\Column(name="issuer_browser_string", type="string", length=255, nullable=true)
      */
     private $issuerBrowserString;
+
+    /**
+     * @ORM\Column(name="issued_for", type="string", length=255, nullable=true)
+     * @Groups({"basic"})
+     */
+    private $issuedFor;
 
     public function __construct(Request $request = null) {
         if ($request) {
@@ -156,5 +164,13 @@ class AccessToken extends BaseAccessToken {
 
     public function getIssuerBrowserString(): ?string {
         return $this->issuerBrowserString;
+    }
+
+    public function getIssuedFor(): ?string {
+        return $this->issuedFor;
+    }
+
+    public function setIssuedFor(string $issuedFor): void {
+        $this->issuedFor = $issuedFor;
     }
 }

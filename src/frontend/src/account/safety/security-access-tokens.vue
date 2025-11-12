@@ -113,7 +113,7 @@
       deleteAccessToken(token) {
         this.deleting = true;
         api
-          .delete(`access-tokens/${token.id}`)
+          .delete_(`access-tokens/${token.id}`)
           .then(() => successNotification(this.$t('Selected device has been logged out.')))
           .then(() => this.fetchTokens())
           .then(() => (this.accessTokenToDelete = undefined))

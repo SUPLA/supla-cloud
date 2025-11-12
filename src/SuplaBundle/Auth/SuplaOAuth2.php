@@ -114,7 +114,8 @@ class SuplaOAuth2 extends OAuth2 {
         }
         $token['target_url'] = $this->localSuplaCloud->getAddress();
         if ($isTechnical) {
-            $token['technical_access'] = true;
+            $accessToken = $this->storage->getAccessToken($token['access_token']);
+            $this->storage->markAccessTokenIssuedFor($accessToken, AccessToken::ISSUED_FOR_TECHNICAL_ACCESS);
         }
         return $token;
     }

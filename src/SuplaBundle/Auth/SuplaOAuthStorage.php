@@ -185,6 +185,11 @@ class SuplaOAuthStorage extends OAuthStorage {
         $this->accessTokenManager->updateToken($accessToken);
     }
 
+    public function markAccessTokenIssuedFor(AccessToken $accessToken, string $issuedFor): void {
+        $accessToken->setIssuedFor($issuedFor);
+        $this->accessTokenManager->updateToken($accessToken);
+    }
+
     /**
      * @param \SuplaBundle\Entity\Main\OAuth\AccessToken|RefreshToken $token
      * @param ApiClient $client

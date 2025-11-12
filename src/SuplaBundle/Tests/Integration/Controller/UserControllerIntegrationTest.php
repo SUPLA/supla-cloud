@@ -357,7 +357,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     public function testTurningOnTechnicalAccess() {
         /** @var TestClient $client */
         $client = self::createAuthenticatedClient();
-        $client->apiRequest('PATCH', '/api/users/current', ['action' => 'technicalAccess:on', 'password' => 'supla123']);
+        $client->apiRequestV3('PATCH', '/api/users/current', ['action' => 'technicalAccess:on', 'password' => 'supla123']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
@@ -384,7 +384,12 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('access_token', $content);
         $this->assertArrayNotHasKey('refresh_token', $content);
-        $this->assertArrayHasKey('technical_access', $content);
+        $client->apiRequest('GET', '/api/users/current', [], [], [], ['HTTP_AUTHORIZATION' => 'Bearer ' . $content['access_token']]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $body = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('accessToken', $body);
+        $this->assertEquals(AccessToken::ISSUED_FOR_TECHNICAL_ACCESS, $body['accessToken']['issuedFor']);
     }
 
     /** @depends testTurningOnTechnicalAccess */

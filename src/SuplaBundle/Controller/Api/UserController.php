@@ -28,6 +28,7 @@ use InvalidArgumentException;
 use OpenApi\Annotations as OA;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaBundle\Auth\SuplaOAuthStorage;
 use SuplaBundle\Auth\Voter\BrokerRequestSecurityVoter;
 use SuplaBundle\Entity\Main\AccessID;
 use SuplaBundle\Entity\Main\User;
@@ -202,8 +203,12 @@ class UserController extends RestController {
      * @Rest\Get("/users/current")
      * @Security("is_granted('ROLE_ACCOUNT_R')")
      */
-    public function currentUserAction(Request $request) {
-        return $this->serializedView($this->getUser(), $request);
+    public function currentUserAction(Request $request, SuplaOAuthStorage $oauthStorage) {
+        $token = $this->getCurrentUserToken();
+        $accessToken = $oauthStorage->getAccessToken($token->getToken());
+        $view = $this->serializedView($this->getUser(), $request);
+        $view->getContext()->setAttribute('accessToken', $accessToken);
+        return $view;
     }
 
     /**

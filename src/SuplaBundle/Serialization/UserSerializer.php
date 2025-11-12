@@ -25,9 +25,12 @@ use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\UserRepository;
 use SuplaBundle\Supla\SuplaServerAware;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
-class UserSerializer extends AbstractSerializer {
+class UserSerializer extends AbstractSerializer implements NormalizerAwareInterface {
     use SuplaServerAware;
+    use NormalizerAwareTrait;
 
     /** @var ApiRateLimitStorage */
     private $apiRateLimitStorage;
@@ -91,6 +94,9 @@ class UserSerializer extends AbstractSerializer {
             $sunInfo = date_sun_info($time, $lat, $lng) ?: [];
             $normalized['closestSunset'] = is_int($sunInfo['sunset'] ?? null) ? $sunInfo['sunset'] : null;
             $normalized['closestSunrise'] = is_int($sunInfo['sunrise'] ?? null) ? $sunInfo['sunrise'] : null;
+        }
+        if ($context['accessToken'] ?? null) {
+            $normalized['accessToken'] = $this->normalizer->normalize($context['accessToken'], context: $context);
         }
     }
 
