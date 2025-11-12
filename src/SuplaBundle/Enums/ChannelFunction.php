@@ -527,6 +527,7 @@ final class ChannelFunction extends Enum {
             self::WATER_TANK => 3,
             self::MOTION_SENSOR => 4,
             self::BINARY_SENSOR => 9,
+            self::ACTION_TRIGGER => 45,
         ];
     }
 
