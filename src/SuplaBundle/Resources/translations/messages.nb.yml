@@ -6,9 +6,9 @@
 ...open gateways, gates or doors: ...åpne hageport, port eller dør
 ...or control home appliances: ...styre hvitevarer og elektronikk
 ...you can monitor temperature: ...kontrollere temperaturen
-0% tilt angle: Vinkelen på lamellene som persiennen stiller inn ved lukking
+Slat angle that the blind sets when closing: Vinkelen på lamellene som persiennen stiller inn ved lukking
 10 minutes before sunset, on day 10 of the month, May through August: 10 minutter før solnedgang, kun på den 10. dagen i måneden, fra mai til august
-100% tilt angle: Vinkelen på lamellene som persiennen stiller inn ved åpning
+Slat angle that the blind sets when opening: Vinkelen på lamellene som persiennen stiller inn ved åpning
 15 minutes after sunrise, every 2 days: 15 minutter etter soloppgang, annenhver dag
 A confirmation upon successful client app registration.: Bekreftelse på registrering av ny klientapplikasjon.
 A confirmation upon successful device registration.: Bekreftelse på vellykket enhetsregistrering.

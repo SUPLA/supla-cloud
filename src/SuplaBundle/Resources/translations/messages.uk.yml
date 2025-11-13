@@ -6,9 +6,9 @@
 ...open gateways, gates or doors: ...відкрити хвіртку, ворота або двері
 ...or control home appliances: ...або керувати побутовими приладами/аудіо/відеопристроями
 ...you can monitor temperature: ...можна стежити за температурою
-0% tilt angle: Кут нахилу ламелей, який встановлюють жалюзі при закриванні
+Slat angle that the blind sets when closing: Кут нахилу ламелей, який встановлюють жалюзі при закриванні
 10 minutes before sunset, on day 10 of the month, May through August: за 10 хвилин до заходу сонця, лише у 10-й день місяця, з травня по серпень
-100% tilt angle: Кут нахилу ламелей, який встановлюють жалюзі при відкриванні
+Slat angle that the blind sets when opening: Кут нахилу ламелей, який встановлюють жалюзі при відкриванні
 15 minutes after sunrise, every 2 days: 15 хвилин після сходу сонця, через день
 A confirmation upon successful client app registration.: Підтвердження реєстрації  заявки нового клієнта.
 A confirmation upon successful device registration.: Підтвердження успішної реєстрації пристрою.

@@ -6,9 +6,9 @@
 ...open gateways, gates or doors: ...open de tuinpoort, poort of deur
 ...or control home appliances: ...of bedien huishoudelijke apparaten/elektronica
 ...you can monitor temperature: ...u kunt de temperatuur volgen
-0% tilt angle: Hoek van de lamellen die de jaloezie bij het sluiten maakt
+Slat angle that the blind sets when closing: Hoek van de lamellen die de jaloezie bij het sluiten maakt
 10 minutes before sunset, on day 10 of the month, May through August: 10 minuten voor zonsondergang, alleen op de 10e van de maand, van mei tot augustus
-100% tilt angle: De hoek van de lamellen die de jaloezie  bij het openen maakt
+Slat angle that the blind sets when opening: De hoek van de lamellen die de jaloezie  bij het openen maakt
 15 minutes after sunrise, every 2 days: 15 minuten na zonsopgang, om de andere dag
 A confirmation upon successful client app registration.: Bevestiging van de registratie van de nieuwe cliëntapplicatie.
 A confirmation upon successful device registration.: Bevestiging van succesvolle apparaatregistratie.

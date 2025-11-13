@@ -6,9 +6,9 @@
 ...open gateways, gates or doors: ...deschiderea portiței, porții sau ușii
 ...or control home appliances: ...sau controlul dispozitivelor electrocasnice/electronice
 ...you can monitor temperature: ...puteți monitoriza temperatura
-0% tilt angle: Unghiul lamelelor pe care jaluzeaua le fixează la închidere
+Slat angle that the blind sets when closing: Unghiul lamelelor pe care jaluzeaua le fixează la închidere
 10 minutes before sunset, on day 10 of the month, May through August: Cu 10 minute înainte de apus, numai în a 10-a zi a lunii, din mai până în august
-100% tilt angle: Unghiul lamelelor pe care jaluzeaua le fixează la deschidere
+Slat angle that the blind sets when opening: Unghiul lamelelor pe care jaluzeaua le fixează la deschidere
 15 minutes after sunrise, every 2 days: La 15 minute după răsărit, o dată la două zile
 A confirmation upon successful client app registration.: Confirmarea înregistrării unei noi aplicații de client.
 A confirmation upon successful device registration.: Confirmarea înregistrării cu succes a dispozitivului.

@@ -28,7 +28,7 @@
         :max="100"
         suffix=" %"
         class="form-control text-center mt-2"
-        @update:modelValue="$emit('change')"
+        @update:modelValue="onChange()"
       />
     </transition-expand>
   </div>

@@ -71,7 +71,7 @@
       </dt>
     </dl>
     <dl class="wide-label">
-      <dd>{{ $t('0% tilt angle') }}</dd>
+      <dd>{{ $t('Slat angle that the blind sets when closing') }}</dd>
       <dt>
         <NumberInput
           v-model="channel.config.tilt0Angle"
@@ -82,7 +82,7 @@
           @update:modelValue="$emit('change')"
         />
       </dt>
-      <dd>{{ $t('100% tilt angle') }}</dd>
+      <dd>{{ $t('Slat angle that the blind sets when opening') }}</dd>
       <dt>
         <NumberInput
           v-model="channel.config.tilt100Angle"

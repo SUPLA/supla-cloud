@@ -6,9 +6,9 @@
 ...open gateways, gates or doors: ...du kannst die Pforte, die Tür und der Tor aufmachen
 ...or control home appliances: ...oder Haushaltwaren steuern
 ...you can monitor temperature: ...du kannst die Temperatur überwachen
-0% tilt angle: Der Winkel der Lamellen, den die Jalousie beim Schließen einstellt.
+Slat angle that the blind sets when closing: Der Winkel der Lamellen, den die Jalousie beim Schließen einstellt.
 10 minutes before sunset, on day 10 of the month, May through August: 10 Minuten vor dem Sonnenuntergang, nur am 10. Monatstag, von Mai bis August
-100% tilt angle: Der Winkel der Lamellen, den die Jalousie beim Öffnen einstellt.
+Slat angle that the blind sets when opening: Der Winkel der Lamellen, den die Jalousie beim Öffnen einstellt.
 15 minutes after sunrise, every 2 days: 15 Minuten nach dem Sonnenaufgang, jeden zweiten Tag
 A confirmation upon successful client app registration.: Registrierungsbestätigung der neuen Client-Anwendung.
 A confirmation upon successful device registration.: Bestätigung der erfolgreichen Geräteregistrierung.

@@ -6,9 +6,9 @@
 ...open gateways, gates or doors: ... vous pouvez ouvrir portillon, portail ou porte
 ...or control home appliances: ... vous pouvez gérer votre équipement ménager
 ...you can monitor temperature: ...vous pouvez suivre la température
-0% tilt angle: Angle des lamelles que le store fixe lors de la fermeture
+Slat angle that the blind sets when closing: Angle des lamelles que le store fixe lors de la fermeture
 10 minutes before sunset, on day 10 of the month, May through August: 10 minutes avant le coucher du soleil, uniquement le 10 du mois, de mai à août
-100% tilt angle: Angle des lamelles que le store fixe lors de l’ouverture
+Slat angle that the blind sets when opening: Angle des lamelles que le store fixe lors de l’ouverture
 15 minutes after sunrise, every 2 days: 15 minutes après le lever du soleil, tous les deux jours
 A confirmation upon successful client app registration.: Confirmation de l’enregistrement de la nouvelle application cliente.
 A confirmation upon successful device registration.: Confirmation de l’enregistrement réussi de l’appareil.

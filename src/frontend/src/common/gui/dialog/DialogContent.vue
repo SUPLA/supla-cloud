@@ -31,10 +31,9 @@
           <div class="dialog-body">
             <slot>default body</slot>
           </div>
-          <div class="dialog-footer text-right">
+          <div class="dialog-footer d-flex align-items-center justify-content-end">
             <slot name="footer">
-              <button-loading-dots v-if="loading"></button-loading-dots>
-              <div v-else>
+              <div :class="{invisible: loading}">
                 <a v-if="cancellable" class="cancel" @click="close()">
                   <i class="pe-7s-close"></i>
                 </a>
@@ -42,6 +41,7 @@
                   <i class="pe-7s-check"></i>
                 </a>
               </div>
+              <button-loading-dots v-if="loading"></button-loading-dots>
             </slot>
           </div>
         </div>

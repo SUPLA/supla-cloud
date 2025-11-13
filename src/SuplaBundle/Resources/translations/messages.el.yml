@@ -6,9 +6,9 @@
 ...open gateways, gates or doors: ...να ανοίξετε την αυλόπορτα, την πύλη ή την πόρτα
 ...or control home appliances: ...ή να ελέγχετε οικιακές συσκευές/συσκευές RTV
 ...you can monitor temperature: ...μπορείτε να παρακολουθείτε τη θερμοκρασία
-0% tilt angle: Γωνία ελασμάτων που καθορίζει η περσίδα κατά το κλείσιμο
+Slat angle that the blind sets when closing: Γωνία ελασμάτων που καθορίζει η περσίδα κατά το κλείσιμο
 10 minutes before sunset, on day 10 of the month, May through August: 10 λεπτά πριν από τη δύση του ηλίου, μόνο τη 10η ημέρα του μήνα, από Μάιο έως Αύγουστο
-100% tilt angle: Γωνία ελασμάτων που καθορίζει η περσίδα κατά το άνοιγμα
+Slat angle that the blind sets when opening: Γωνία ελασμάτων που καθορίζει η περσίδα κατά το άνοιγμα
 15 minutes after sunrise, every 2 days: 15 λεπτά μετά την ανατολή του ηλίου, κάθε δεύτερη μέρα
 A confirmation upon successful client app registration.: Επιβεβαίωση εγγραφής της νέας εφαρμογής πελάτη.
 A confirmation upon successful device registration.: Επιβεβαιώστε ότι η συσκευή έχει εγγραφεί με επιτυχία.

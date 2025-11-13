@@ -6,9 +6,9 @@
 ...open gateways, gates or doors: ...atidaryti dureles, vartus ar duris
 ...or control home appliances: ...ar valdyti buitinę techniką/RTV įrangą
 ...you can monitor temperature: ...galite stebėti temperatūrą
-0% tilt angle: Juostelės kampas, kurį žaliuzės nustato uždarymo metu
+Slat angle that the blind sets when closing: Juostelės kampas, kurį žaliuzės nustato uždarymo metu
 10 minutes before sunset, on day 10 of the month, May through August: 10 minučių iki saulėlydžio, tik mėnesio 10 dieną, nuo gegužės iki rugpjūčio
-100% tilt angle: Juostelės kampas, kurį žaliuzės nustato atidarymo metu
+Slat angle that the blind sets when opening: Juostelės kampas, kurį žaliuzės nustato atidarymo metu
 15 minutes after sunrise, every 2 days: 15 minučių po saulėtekio, kas antrą dieną
 A confirmation upon successful client app registration.: Naujos kliento programos registracijos patvirtinimas.
 A confirmation upon successful device registration.: Sėkmingos įrenginio registracijos patvirtinimas.

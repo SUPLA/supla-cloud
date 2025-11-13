@@ -6,9 +6,9 @@
 ...open gateways, gates or doors: ...kinyitni a kiskaput, a nagykaput vagy az ajtót
 ...or control home appliances: ... vagy háztartási készülékeket / elektronikát működtethet
 ...you can monitor temperature: ... megfigyelheti a hőmérsékletet
-0% tilt angle: A lamellák a zsaluzia záráskor beállított szöge
+Slat angle that the blind sets when closing: A lamellák a zsaluzia záráskor beállított szöge
 10 minutes before sunset, on day 10 of the month, May through August: 10 perccel napnyugta előtt, májustól augusztusig csak a hónap 10. napján
-100% tilt angle: A lamellák a zsaluzia nyitásakor beállított szöge
+Slat angle that the blind sets when opening: A lamellák a zsaluzia nyitásakor beállított szöge
 15 minutes after sunrise, every 2 days: 15 perccel napfelkelte után, minden második nap
 A confirmation upon successful client app registration.: Az új ügyfélalkalmazás regisztrációjának megerősítése.
 A confirmation upon successful device registration.: A készülék sikeres regisztrációjának megerősítése.

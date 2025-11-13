@@ -6,9 +6,9 @@
 ...open gateways, gates or doors: ...otvoriť bráničku, bránu alebo dvere
 ...or control home appliances: ...alebo ovládať spotrebiče
 ...you can monitor temperature: ...môžete monitorovať teplotu
-0% tilt angle: Uhol lamiel, ktorý žalúzia nastaví pri zatváraní
+Slat angle that the blind sets when closing: Uhol lamiel, ktorý žalúzia nastaví pri zatváraní
 10 minutes before sunset, on day 10 of the month, May through August: 10 minút pred západom slnka, iba v 10. deň v mesiaci, od mája do augusta
-100% tilt angle: Uhol lamiel, ktorý žalúzia nastaví pri otvorení
+Slat angle that the blind sets when opening: Uhol lamiel, ktorý žalúzia nastaví pri otvorení
 15 minutes after sunrise, every 2 days: 15 minút po východe slnka, každý druhý deň
 A confirmation upon successful client app registration.: Potvrdenie registrácie novej klientskej aplikácie.
 A confirmation upon successful device registration.: Potvrdenie úspešnej registrácie zariadenia.

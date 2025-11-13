@@ -6,9 +6,9 @@
 ...open gateways, gates or doors: ...odpreti vratca, dvoriščna vrata ali vrata
 ...or control home appliances: ...ali nadzirati z gospodinjskimi aparati/elektroniko
 ...you can monitor temperature: ...lahko spremljate temperaturo
-0% tilt angle: Kot lamel, ki ga žaluzija nastavi pri zapiranju
+Slat angle that the blind sets when closing: Kot lamel, ki ga žaluzija nastavi pri zapiranju
 10 minutes before sunset, on day 10 of the month, May through August: 10 minut pred sončnim zahodom, samo 10. dan v mesecu, od maja do avgusta
-100% tilt angle: Kot lamel, ki ga žaluzija nastavi pri odpiranju
+Slat angle that the blind sets when opening: Kot lamel, ki ga žaluzija nastavi pri odpiranju
 15 minutes after sunrise, every 2 days: 15 minut po sončnem vzhodu, vsak drugi dan
 A confirmation upon successful client app registration.: Potrdilo registracije nove odjemalske aplikacije.
 A confirmation upon successful device registration.: Potrdilo uspešne registracije naprave.

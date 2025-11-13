@@ -9,13 +9,15 @@
 <script setup>
   import {inject, onBeforeMount} from 'vue';
 
+  defineProps({disabled: Boolean});
+
   const dialog = inject('dialog');
 
   onBeforeMount(() => dialog.setOpened(false));
 </script>
 
 <template>
-  <a @click="dialog.open()">
+  <a @click="dialog.open()" :class="{disabled}">
     <slot />
   </a>
 </template>

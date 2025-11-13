@@ -6,9 +6,9 @@
 ...open gateways, gates or doors: ...abrir el portillo, la cancela o la puerta
 ...or control home appliances: ...o controlar tus electrodómesticos a distancia
 ...you can monitor temperature: ...puedes controlar la temperatura
-0% tilt angle: El ángulo de las lamas que establece la persiana al cerrar
+Slat angle that the blind sets when closing: El ángulo de las lamas que establece la persiana al cerrar
 10 minutes before sunset, on day 10 of the month, May through August: 10 minutos antes del atardecer, solo el día 10 del mes, de mayo a agosto
-100% tilt angle: El ángulo de las lamas que establece la persiana al abrir
+Slat angle that the blind sets when opening: El ángulo de las lamas que establece la persiana al abrir
 15 minutes after sunrise, every 2 days: 15 minutos después del amanecer, cada dos días
 A confirmation upon successful client app registration.: Confirmación de registro de una nueva aplicación cliente.
 A confirmation upon successful device registration.: Confirmación de registro exitoso del dispositivo.

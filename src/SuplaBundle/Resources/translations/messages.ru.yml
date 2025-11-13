@@ -996,8 +996,8 @@ suffix: суффикс
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 '% of closing': ~
-0% tilt angle: ~
-100% tilt angle: ~
+Slat angle that the blind sets when closing: ~
+Slat angle that the blind sets when opening: ~
 A confirmation upon successful device unlocking.: ~
 A new client app: ~
 A new device: ~
