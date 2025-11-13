@@ -13,20 +13,18 @@
 </template>
 
 <script setup>
-  import {computed, watch} from 'vue';
-  import {successNotification} from '@/common/notifier';
+  import {computed} from 'vue';
   import {api} from '@/api/api.js';
   import {useChannelsStore} from '@/stores/channels-store.js';
   import {DialogContent, DialogTrigger, DialogWindow} from '@/common/gui/dialog/index.js';
+  import {successNotification} from '@/common/notifier.js';
 
   const props = defineProps(['channel']);
 
   const channelsStore = useChannelsStore();
   const channel = computed(() => channelsStore.all[props.channel.id]);
   const channelState = computed(() => channel.value?.state || {});
-
   const isConnected = computed(() => channelState.value.connectedCode === 'CONNECTED');
-  const notCalibrated = computed(() => channelState.value.not_calibrated);
 
   const calibrationDisabledReason = computed(() => {
     if (props.channel.hasPendingChanges) {
@@ -38,16 +36,13 @@
     }
   });
 
-  watch(notCalibrated, (newState, oldState) => {
-    if (!newState && oldState === true && isConnected.value) {
-      successNotification(props.$t('Calibration successful.'));
-    }
-  });
-
   const calibrate = (dialog) => {
     api
       .patch('channels/' + props.channel.id + '/settings', {action: 'recalibrate'})
-      .then(() => setTimeout(() => dialog.close(), 5000))
+      .then(() => {
+        dialog.close();
+        successNotification('Calibration request has been sent.');
+      })
       .catch(() => dialog.setLoading(false));
   };
 </script>
