@@ -48,11 +48,11 @@
 <script>
   import * as changeCase from 'change-case';
   import AppState from '../../router/app-state';
-  import {debounce} from 'lodash';
   import EmptyListPlaceholder from '@/common/gui/empty-list-placeholder.vue';
   import SquareLinksGrid from '@/common/tiles/square-links-grid.vue';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import {api} from '@/api/api.js';
+  import {useDebounceFn} from '@vueuse/core';
 
   export default {
     components: {LoadingCover, SquareLinksGrid, EmptyListPlaceholder},
@@ -104,7 +104,7 @@
           this.$emit('add');
         }
       },
-      filter: debounce(function () {
+      filter: useDebounceFn(function () {
         this.filteredItems = this.items ? this.items.filter(this.filterFunction) : this.items;
         if (this.filteredItems && this.compareFunction) {
           this.filteredItems = this.filteredItems.sort(this.compareFunction);

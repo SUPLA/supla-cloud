@@ -148,6 +148,7 @@
   import {mapState} from 'pinia';
   import {useFrontendConfigStore} from '@/stores/frontend-config-store';
   import {faChevronDown, faChevronUp, faTrash} from '@fortawesome/free-solid-svg-icons';
+  import {useDebounceFn} from '@vueuse/core';
 
   let UNIQUE_OPERATION_ID = 0;
 
@@ -238,7 +239,7 @@
         this.operations.splice(index + change, 0, operation);
         this.updateModel();
       },
-      updateModel() {
+      updateModel: useDebounceFn(function () {
         const operations = [];
         let delay = 0;
         for (const op of this.operations) {
@@ -259,7 +260,7 @@
         }
         this.lastValue = operations;
         this.$emit('input', operations);
-      },
+      }),
       isOperationValid(operation) {
         return (
           !operation.subjectType ||

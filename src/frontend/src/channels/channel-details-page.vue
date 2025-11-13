@@ -210,7 +210,6 @@
   import ChannelAlternativeIconChooser from './channel-alternative-icon-chooser.vue';
   import ChannelStateTable from './channel-state-table.vue';
   import ChannelDetailsTabs from './channel-details-tabs.vue';
-  import {throttle} from 'lodash';
   import Toggler from '../common/gui/toggler.vue';
   import PageContainer from '../common/pages/page-container.vue';
   import ChannelFunctionEditModal from '@/channels/channel-function-edit-modal.vue';
@@ -236,6 +235,7 @@
   import {api} from '@/api/api.js';
   import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
   import {useDevicesStore} from '@/stores/devices-store.js';
+  import {useThrottleFn} from '@vueuse/core';
 
   export default {
     components: {
@@ -342,7 +342,7 @@
           })
           .finally(() => (this.changingFunction = this.loading = false));
       },
-      saveChanges: throttle(function (safe = true) {
+      saveChanges: useThrottleFn(function (safe = true) {
         this.loading = true;
         return api
           .put(`channels/${this.id}${safe ? '?safe=1' : ''}`, this.channel, {skipErrorHandler: [409]})
