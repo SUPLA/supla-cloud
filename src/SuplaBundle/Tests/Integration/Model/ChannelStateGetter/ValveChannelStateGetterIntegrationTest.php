@@ -52,7 +52,7 @@ class ValveChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($expectedState, $state);
     }
 
-    public function valveStates() {
+    public static function valveStates() {
         return [
             [0, '1,2', ['closed' => true, 'manuallyClosed' => true, 'flooding' => false, 'motorProblem' => false]],
             [0, '1,3', ['closed' => true, 'manuallyClosed' => true, 'flooding' => true, 'motorProblem' => false]],

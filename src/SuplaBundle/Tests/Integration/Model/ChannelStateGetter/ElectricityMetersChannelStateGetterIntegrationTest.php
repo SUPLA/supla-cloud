@@ -177,7 +177,7 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
         $this->assertEquals($expectedState, array_intersect_key($state, $expectedState));
     }
 
-    public function transformingNonImpulseCounterElectricityMeterResponsesExamples() {
+    public static function transformingNonImpulseCounterElectricityMeterResponsesExamples() {
         $fullSupportMask = array_reduce(ElectricityMeterSupportBits::toArray(), function (int $acc, int $bit) {
             return $acc | $bit;
         }, 0);

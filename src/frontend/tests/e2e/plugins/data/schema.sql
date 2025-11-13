@@ -915,6 +915,7 @@ CREATE TABLE `supla_oauth_access_tokens`
     `issued_with_refresh_token_id` int(11)          DEFAULT NULL,
     `issuer_ip`                    int(10) unsigned DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
     `issuer_browser_string` varchar(255) DEFAULT NULL,
+    `issued_for`            varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQ_2402564B5F37A13B` (`token`),
     KEY `IDX_2402564B19EB6921` (`client_id`),
@@ -1193,12 +1194,12 @@ CREATE TABLE `supla_scene_operation`
     `schedule_id`          int(11)             DEFAULT NULL,
     `push_notification_id` int(11)             DEFAULT NULL,
     PRIMARY KEY (`id`),
+    UNIQUE KEY `UNIQ_64A50CF54E328CBE` (`push_notification_id`),
     KEY `IDX_64A50CF5E019BC26` (`owning_scene_id`),
     KEY `IDX_64A50CF572F5A1AA` (`channel_id`),
     KEY `IDX_64A50CF589E4AAEE` (`channel_group_id`),
     KEY `IDX_64A50CF5166053B4` (`scene_id`),
     KEY `IDX_64A50CF5A40BC2D5` (`schedule_id`),
-    KEY `IDX_64A50CF54E328CBE` (`push_notification_id`),
     CONSTRAINT `FK_64A50CF5166053B4` FOREIGN KEY (`scene_id`) REFERENCES `supla_scene` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_64A50CF54E328CBE` FOREIGN KEY (`push_notification_id`) REFERENCES `supla_push_notification` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_64A50CF572F5A1AA` FOREIGN KEY (`channel_id`) REFERENCES `supla_dev_channel` (`id`) ON DELETE CASCADE,
@@ -1463,6 +1464,8 @@ CREATE TABLE `supla_user`
     `home_latitude`                     decimal(9, 6) NOT NULL,
     `home_longitude`                    decimal(9, 6) NOT NULL,
     `limit_virtual_channels`            int(11)       NOT NULL DEFAULT 20,
+    `technical_password`          varchar(255) DEFAULT NULL,
+    `technical_password_valid_to` datetime     DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQ_71BAEAC6E7927C74` (`email`),
     UNIQUE KEY `UNIQ_71BAEAC69DAF5974` (`short_unique_id`),
@@ -1742,13 +1745,13 @@ CREATE TABLE `supla_value_based_trigger`
     `active_hours`         varchar(768) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
     `activity_conditions`  varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     PRIMARY KEY (`id`),
+    UNIQUE KEY `UNIQ_1DFF99CA4E328CBE` (`push_notification_id`),
     KEY `IDX_1DFF99CAA76ED395` (`user_id`),
     KEY `IDX_1DFF99CA13740A2` (`owning_channel_id`),
     KEY `IDX_1DFF99CA72F5A1AA` (`channel_id`),
     KEY `IDX_1DFF99CA89E4AAEE` (`channel_group_id`),
     KEY `IDX_1DFF99CA166053B4` (`scene_id`),
     KEY `IDX_1DFF99CAA40BC2D5` (`schedule_id`),
-    KEY `IDX_1DFF99CA4E328CBE` (`push_notification_id`),
     CONSTRAINT `FK_1DFF99CA13740A2` FOREIGN KEY (`owning_channel_id`) REFERENCES `supla_dev_channel` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_1DFF99CA166053B4` FOREIGN KEY (`scene_id`) REFERENCES `supla_scene` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_1DFF99CA4E328CBE` FOREIGN KEY (`push_notification_id`) REFERENCES `supla_push_notification` (`id`) ON DELETE CASCADE,
@@ -3536,6 +3539,28 @@ CREATE
                                                            IN `_flags` INT(11))
     MODIFIES SQL DATA
 BEGIN
+    SET @user_id = NULL;
+    SET @properies = NULL;
+    SET @user_config = NULL;
+
+    SELECT user_id,
+           user_config,
+           properties
+    INTO @user_id, @user_config, @properties
+    FROM `supla_iodevice`
+    WHERE id = _id
+      AND software_version != _software_version
+      AND properties LIKE '%otaUpdate%';
+
+    IF @user_id IS NOT NULL THEN
+        CALL supla_set_device_json_config(@user_id, _id,
+                                          @user_config,
+                                          MD5(IFNULL(@user_config, '')),
+                                          JSON_REMOVE(@properties, '$.otaUpdate'),
+                                          MD5(IFNULL(@properties, '')));
+
+    END IF;
+
     UPDATE `supla_iodevice`
     SET `name`                   = _name,
         `last_connected`         = UTC_TIMESTAMP(),
@@ -3547,8 +3572,7 @@ BEGIN
         channel_addition_blocked = 0
     WHERE `id` = _id;
 
-    IF
-        _auth_key IS NOT NULL THEN
+    IF _auth_key IS NOT NULL THEN
         UPDATE `supla_iodevice`
         SET `auth_key` = _auth_key
         WHERE `id` = _id
@@ -3559,7 +3583,6 @@ BEGIN
     SET conflict_details = NULL
     WHERE `iodevice_id` = _id
       AND conflict_details IS NOT NULL;
-
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode = @saved_sql_mode */;
@@ -3979,4 +4002,4 @@ where `g`.`func` is not null
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-25 11:21:39
+-- Dump completed on 2025-11-13  8:28:34

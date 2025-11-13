@@ -51,7 +51,7 @@ class TankChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($expectedState, array_intersect_key($state, $expectedState));
     }
 
-    public function valveStates() {
+    public static function valveStates() {
         // @codingStandardsIgnoreStart
         return [
             ['0', ['fillLevel' => null]],

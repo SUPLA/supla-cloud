@@ -307,13 +307,6 @@ class UserController extends RestController {
                         $data[UserPreferences::ACCOUNT_PUSH_NOTIFICATIONS_ACCESS_IDS_IDS]
                     );
                 }
-            } elseif ($data['action'] == 'change:mqttBrokerPassword') {
-                $this->assertNotApiUser();
-                Assertion::true($this->mqttBrokerEnabled, 'MQTT Broker is disabled.'); // i18n
-                Assertion::true($user->isMqttBrokerEnabled(), 'You must enable MQTT Broker first.'); // i18n
-                [$rawPassword, $encodedPassword] = MqttSettingsController::generateMqttBrokerPassword();
-                $user->setMqttBrokerAuthPassword($encodedPassword);
-                $headers['SUPLA-MQTT-Password'] = $rawPassword;
             } elseif ($data['action'] == 'technicalAccess:on') {
                 Assertion::keyExists($data, 'password');
                 Assertion::true($this->userManager->isPasswordValid($user, $data['password']), 'Current password is incorrect'); // i18n
@@ -331,6 +324,14 @@ class UserController extends RestController {
                 foreach ($accessTokens as $accessToken) {
                     $em->remove($accessToken);
                 }
+            }
+            if ($data['action'] == 'change:mqttBrokerPassword') {
+                $this->assertNotApiUser();
+                Assertion::true($this->mqttBrokerEnabled, 'MQTT Broker is disabled.'); // i18n
+                Assertion::true($user->isMqttBrokerEnabled(), 'You must enable MQTT Broker first.'); // i18n
+                [$rawPassword, $encodedPassword] = MqttSettingsController::generateMqttBrokerPassword();
+                $user->setMqttBrokerAuthPassword($encodedPassword);
+                $headers['SUPLA-MQTT-Password'] = $rawPassword;
             }
             $em->persist($user);
             return $user;
