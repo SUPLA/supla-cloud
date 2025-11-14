@@ -31,7 +31,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\SuplaOAuthStorage;
 use SuplaBundle\Auth\Voter\BrokerRequestSecurityVoter;
 use SuplaBundle\Entity\Main\AccessID;
-use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\UserPreferences;
@@ -50,7 +49,6 @@ use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\PasswordStrengthValidator;
-use SuplaBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -306,23 +304,6 @@ class UserController extends RestController {
                         UserPreferences::ACCOUNT_PUSH_NOTIFICATIONS_ACCESS_IDS_IDS,
                         $data[UserPreferences::ACCOUNT_PUSH_NOTIFICATIONS_ACCESS_IDS_IDS]
                     );
-                }
-            } elseif ($data['action'] == 'technicalAccess:on') {
-                Assertion::keyExists($data, 'password');
-                Assertion::true($this->userManager->isPasswordValid($user, $data['password']), 'Current password is incorrect'); // i18n
-                $password = StringUtils::randomString(10);
-                $encoder = $encoderFactory->getEncoder($user);
-                $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
-                $user->setTechnicalPassword($encodedPassword);
-                $user->setTechnicalPasswordValidTo($this->timeProvider->getDateTime(\DateInterval::createFromDateString("+3 days")));
-                $headers['SUPLA-Technical-Password'] = $password;
-            } elseif ($data['action'] == 'technicalAccess:off') {
-                $user->setTechnicalPassword(null);
-                $user->setTechnicalPasswordValidTo(null);
-                $accessTokenRepo = $this->entityManager->getRepository(AccessToken::class);
-                $accessTokens = $accessTokenRepo->findTechnicalPasswordTokens($user);
-                foreach ($accessTokens as $accessToken) {
-                    $em->remove($accessToken);
                 }
             }
             if ($data['action'] == 'change:mqttBrokerPassword') {

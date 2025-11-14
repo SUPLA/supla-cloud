@@ -21,12 +21,10 @@ use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * OneToOne relations for push notifications.
- * User technical password.
  */
 class Version20251102210217 extends NoWayBackMigration {
     public function migrate() {
         $this->addSql('ALTER TABLE supla_scene_operation DROP INDEX IDX_64A50CF54E328CBE, ADD UNIQUE INDEX UNIQ_64A50CF54E328CBE (push_notification_id)');
         $this->addSql('ALTER TABLE supla_value_based_trigger DROP INDEX IDX_1DFF99CA4E328CBE, ADD UNIQUE INDEX UNIQ_1DFF99CA4E328CBE (push_notification_id)');
-        $this->addSql('ALTER TABLE supla_user ADD technical_password VARCHAR(255) DEFAULT NULL, ADD technical_password_valid_to DATETIME DEFAULT NULL COMMENT \'(DC2Type:utcdatetime)\'');
     }
 }

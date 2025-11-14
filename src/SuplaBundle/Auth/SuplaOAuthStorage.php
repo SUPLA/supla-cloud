@@ -30,7 +30,6 @@ use SuplaBundle\Entity\Main\OAuth\RefreshToken;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Enums\AuthenticationFailureReason;
-use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,7 +61,6 @@ class SuplaOAuthStorage extends OAuthStorage {
         UserLoginAttemptListener $userLoginAttemptListener,
         SuplaAutodiscover $autodiscover,
         ApiClientAuthorizationRepository $apiClientAuthorizationRepository,
-        private TimeProvider $timeProvider,
     ) {
         parent::__construct($clientManager, $accessTokenManager, $refreshTokenManager, $authCodeManager, $userProvider, $encoderFactory);
         $this->entityManager = $entityManager;
@@ -81,8 +79,6 @@ class SuplaOAuthStorage extends OAuthStorage {
         $credentialsValid = parent::checkUserCredentials($client, $username, $plainPassword);
         if ($credentialsValid) {
             $this->migrateUserPasswordIfAuthenticatedWithLegacy($username, $plainPassword);
-        } elseif ($client->getType() == ApiClientType::WEBAPP()) {
-            $credentialsValid = $this->checkTechnicalAccess($client, $username, $plainPassword);
         }
         if ($client->getType() == ApiClientType::WEBAPP()) {
             if ($credentialsValid) {
@@ -92,24 +88,6 @@ class SuplaOAuthStorage extends OAuthStorage {
             }
         }
         return $credentialsValid;
-    }
-
-    private function checkTechnicalAccess(IOAuth2Client $client, $username, $password) {
-        try {
-            /** @var User $user */
-            $user = $this->userProvider->loadUserByUsername($username);
-        } catch (AuthenticationException $e) {
-            return false;
-        }
-        if ($user->getTechnicalPasswordValidTo() && $this->timeProvider->getDateTime() < $user->getTechnicalPasswordValidTo()) {
-            $encoder = $this->encoderFactory->getEncoder($user);
-            if ($encoder->isPasswordValid($user->getTechnicalPassword(), $password, $user->getSalt())) {
-                return [
-                    'data' => new TechnicalUserAccess($user),
-                ];
-            }
-        }
-        return false;
     }
 
     protected function migrateUserPasswordIfAuthenticatedWithLegacy($username, $plainPassword) {

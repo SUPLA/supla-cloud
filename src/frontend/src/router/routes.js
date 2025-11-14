@@ -331,11 +331,6 @@ export default [
         name: 'safety.personalTokens',
       },
       {
-        path: 'support-access',
-        component: () => import('@/account/safety/support-access-form.vue'),
-        name: 'safety.supportAccess',
-      },
-      {
         path: 'change-password',
         component: () => import('@/account/safety/account-password-change.vue'),
         name: 'safety.changePassword',

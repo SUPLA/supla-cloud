@@ -34,8 +34,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class AccessToken extends BaseAccessToken {
     use BelongsToUser;
 
-    public const ISSUED_FOR_TECHNICAL_ACCESS = '__technical_access__';
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

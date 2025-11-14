@@ -18,9 +18,6 @@
             <router-link :to="{name: 'safety.personalTokens'}" class="btn">
               {{ $t('Personal access tokens') }}
             </router-link>
-            <router-link :to="{name: 'safety.supportAccess'}" class="btn" v-if="!currentUser.technicalAccess">
-              {{ $t('Support access') }}
-            </router-link>
             <router-link :to="{name: 'safety.changePassword'}" class="btn" v-if="!currentUser.technicalAccess">
               {{ $t('Change Password') }}
             </router-link>
