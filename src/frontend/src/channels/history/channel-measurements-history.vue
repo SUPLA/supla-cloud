@@ -117,6 +117,7 @@
           rre: 'Reverse reactive energy', // i18n
           fae_rae: 'Arithmetic balance', // i18n
           fae_rae_vector: 'Vector balance', // i18n
+          fae_rae_balanced: 'Chart aggregated balance', // i18n
           voltageHistory: 'Voltage', // i18n
           currentHistory: 'Current', // i18n
           powerActiveHistory: 'Power active', // i18n
@@ -143,6 +144,7 @@
           const modes = availableModes.filter((mode) => modesMap[mode]).map((mode) => modesMap[mode]);
           if (modes.includes('fae') && modes.includes('rae')) {
             modes.push('fae_rae');
+            modes.push('fae_rae_balanced');
           }
           if (availableModes.includes('forwardActiveEnergyBalanced') && availableModes.includes('reverseActiveEnergyBalanced')) {
             modes.push('fae_rae_vector');

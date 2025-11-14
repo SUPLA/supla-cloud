@@ -69,7 +69,12 @@ export const CHART_TYPES = {
         },
       ];
       if (allLogs[0].min !== undefined) {
-        const rangeSeries = allLogs.filter((item) => item.min !== null).map((item) => ({x: item.date_timestamp * 1000, y: [item.min, item.max]}));
+        const rangeSeries = allLogs
+          .filter((item) => item.min !== null)
+          .map((item) => ({
+            x: item.date_timestamp * 1000,
+            y: [item.min, item.max],
+          }));
         series.push({
           name: `${this.$t('Temperature')} - ${this.$t('range')}`,
           type: 'rangeArea',
@@ -208,7 +213,12 @@ export const CHART_TYPES = {
       }));
       const series = [{name: `${this.$t('Humidity')}`, type: 'line', data: humiditySeries}];
       if (allLogs[0].min !== undefined) {
-        const rangeSeries = allLogs.filter((item) => item.min !== null).map((item) => ({x: item.date_timestamp * 1000, y: [item.min, item.max]}));
+        const rangeSeries = allLogs
+          .filter((item) => item.min !== null)
+          .map((item) => ({
+            x: item.date_timestamp * 1000,
+            y: [item.min, item.max],
+          }));
         series.push({
           name: `${this.$t('Humidity')} - ${this.$t('range')}`,
           type: 'rangeArea',
@@ -375,7 +385,7 @@ export const CHART_TYPES = {
     },
     chartOptions() {
       const options = {chart: {stacked: true}};
-      if (['fae_rae_vector', 'fae_rae'].includes(this.chartMode)) {
+      if (['fae_rae_balanced'].includes(this.chartMode)) {
         options.colors = ['#ff7373', '#aaa', '#00d150', '#aaa'];
         options.tooltip = {
           custom(ctx) {
@@ -385,6 +395,10 @@ export const CHART_TYPES = {
           },
         };
         options.legend = {show: false};
+      } else if (['fae_rae_vector', 'fae_rae'].includes(this.chartMode)) {
+        options.colors = ['#ff7373', '#00d150'];
+        options.legend = {show: true};
+        options.tooltip = {custom: undefined};
       } else {
         options.legend = {show: true};
         options.tooltip = {custom: undefined};
@@ -394,7 +408,7 @@ export const CHART_TYPES = {
     },
     series: function (allLogs) {
       const enabledPhases = this.channel.config.enabledPhases || [1, 2, 3];
-      if (this.chartMode === 'fae_rae') {
+      if (this.chartMode === 'fae_rae_balanced') {
         const series = [
           {name: 'Forward active energy balance', data: []},
           {name: 'Forward active energy', data: []},
@@ -411,25 +425,27 @@ export const CHART_TYPES = {
           series[3].data.push({x, y: y[3]});
         });
         return series;
+      } else if (this.chartMode === 'fae_rae') {
+        const series = [
+          {name: this.$t('Forward active energy'), data: []},
+          {name: this.$t('Reverse active energy'), data: []},
+        ];
+        allLogs.forEach((item) => {
+          const x = item.date_timestamp * 1000;
+          const y = [item.fae_total, -item.rae_total];
+          series[0].data.push({x, y: y[0]});
+          series[1].data.push({x, y: y[1]});
+        });
+        return series;
       } else if (this.chartMode === 'fae_rae_vector') {
         const series = [
           {name: 'Forward active energy balance', data: []},
-          {name: 'Forward active energy', data: []},
           {name: 'Reverse active energy balance', data: []},
-          {name: 'Reverse active energy', data: []},
         ];
         allLogs.forEach((item) => {
-          const balance = item.fae_balanced - item.rae_balanced;
-          series[0].data.push({x: item.date_timestamp * 1000, y: balance > 0 ? balance : 0});
-          series[1].data.push({
-            x: item.date_timestamp * 1000,
-            y: item.fae_balanced - (balance > 0 ? balance : 0),
-          });
-          series[2].data.push({x: item.date_timestamp * 1000, y: balance < 0 ? balance : 0});
-          series[3].data.push({
-            x: item.date_timestamp * 1000,
-            y: -item.rae_balanced - (balance < 0 ? balance : 0),
-          });
+          const x = item.date_timestamp * 1000;
+          series[0].data.push({x, y: item.fae_balanced});
+          series[1].data.push({x, y: -item.rae_balanced});
         });
         return series;
       } else {

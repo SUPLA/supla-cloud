@@ -1,7 +1,7 @@
 <template>
   <div>
     <a class="btn btn-default mx-1 my-1" @click="showDownloadConfig = true">
-      <fa icon="gear" class="mr-1" />
+      <fa :icon="faGear()" class="mr-1" />
       {{ $t('Download the history of measurement') }}
     </a>
     <button type="button" class="btn btn-red ml-1 my-1" @click="deleteConfirm = true">
@@ -34,6 +34,7 @@
   import {api} from '@/api/api.js';
   import ModalConfirm from '@/common/modal-confirm.vue';
   import Modal from '@/common/modal.vue';
+  import {faGear} from '@fortawesome/free-solid-svg-icons';
 
   export default {
     components: {
@@ -57,6 +58,9 @@
       };
     },
     methods: {
+      faGear() {
+        return faGear;
+      },
       deleteMeasurements() {
         this.deleteConfirm = false;
         api
