@@ -396,31 +396,27 @@ export const CHART_TYPES = {
       const enabledPhases = this.channel.config.enabledPhases || [1, 2, 3];
       if (this.chartMode === 'fae_rae') {
         const series = [
-          {name: `${this.$t('Forward active energy')}`, data: []},
-          {name: `${this.$t('Forward active energy')}`, data: []},
-          {name: `${this.$t('Reverse active energy')}`, data: []},
-          {name: `${this.$t('Reverse active energy')}`, data: []},
+          {name: 'Forward active energy balance', data: []},
+          {name: 'Forward active energy', data: []},
+          {name: 'Reverse active energy balance', data: []},
+          {name: 'Reverse active energy', data: []},
         ];
         allLogs.forEach((item) => {
-          const balance = item.fae_rae_balance;
-          series[0].data.push({x: item.date_timestamp * 1000, y: balance > 0 ? balance : 0});
-          series[1].data.push({
-            x: item.date_timestamp * 1000,
-            y: item.fae_total - (balance > 0 ? balance : 0),
-          });
-          series[2].data.push({x: item.date_timestamp * 1000, y: balance < 0 ? balance : 0});
-          series[3].data.push({
-            x: item.date_timestamp * 1000,
-            y: -item.rae_total - (balance < 0 ? balance : 0),
-          });
+          const x = item.date_timestamp * 1000;
+          const min = Math.min(item.fae_total, item.rae_total);
+          const y = [item.fae_total - min || null, min, -(item.rae_total - min) || null, -min];
+          series[0].data.push({x, y: y[0]});
+          series[1].data.push({x, y: y[1]});
+          series[2].data.push({x, y: y[2]});
+          series[3].data.push({x, y: y[3]});
         });
         return series;
       } else if (this.chartMode === 'fae_rae_vector') {
         const series = [
-          {name: `${this.$t('Forward active energy balance')}`, data: []},
-          {name: `${this.$t('Forward active energy')}`, data: []},
-          {name: `${this.$t('Reverse active energy balance')}`, data: []},
-          {name: `${this.$t('Reverse active energy')}`, data: []},
+          {name: 'Forward active energy balance', data: []},
+          {name: 'Forward active energy', data: []},
+          {name: 'Reverse active energy balance', data: []},
+          {name: 'Reverse active energy', data: []},
         ];
         allLogs.forEach((item) => {
           const balance = item.fae_balanced - item.rae_balanced;
