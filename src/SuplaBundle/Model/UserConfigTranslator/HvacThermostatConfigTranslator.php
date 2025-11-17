@@ -12,6 +12,7 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction as CF;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
+use SuplaBundle\Utils\JsonArrayObject;
 use SuplaBundle\Utils\NumberUtils;
 
 /**
@@ -150,7 +151,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 'weeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('weeklySchedule')),
                 'temperatures' => $this->buildTemperaturesArray($subject),
                 'temperatureConstraints' =>
-                    array_map([$this, 'adjustTemperature'], $subject->getProperties()['temperatures'] ?? []) ?: new \stdClass(),
+                    array_map([$this, 'adjustTemperature'], $subject->getProperties()['temperatures'] ?? []) ?: new JsonArrayObject([]),
                 'pumpSwitchAvailable' => $this->deviceChannelWithFunctionCount($subject, [CF::PUMPSWITCH()]) > 0,
                 'pumpSwitchChannelId' => $pumpSwitch ? $pumpSwitch->getId() : null,
                 'masterThermostatAvailable' => $masterThermostatAvailable,

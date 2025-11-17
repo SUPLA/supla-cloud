@@ -89,7 +89,6 @@
         if (this.coolAvailable && this.hasCool) {
           modelValue.cool = +this.temperatureCool;
         }
-        console.log('input', modelValue);
         return modelValue;
       },
     },
@@ -122,10 +121,8 @@
           if (this.hasHeat && this.hasCool) {
             if (changed === 'heat' && this.hasCool) {
               const minCool = +this.temperatureHeat + this.offsetMin;
-              console.log(minCool);
               if (this.temperatureCool < minCool) {
                 this.temperatureCool = minCool;
-                console.log(this.temperatureCool, minCool);
               }
             }
             if (changed === 'cool' && this.hasHeat) {

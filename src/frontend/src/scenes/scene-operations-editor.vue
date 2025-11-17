@@ -37,8 +37,7 @@
                 :always-select-first-action="true"
                 :possible-action-filter="possibleActionFilter(operation.subject)"
                 @input="updateModel((operation.action = $event))"
-              >
-              </channel-action-chooser>
+              />
               <div v-if="waitForCompletionAvailable(operation)" class="mt-2">
                 <label class="checkbox2 text-left">
                   <input v-model="operation.waitForCompletion" type="checkbox" @change="updateModel()" />
@@ -203,6 +202,7 @@
               this.operations.push(operation);
             }
           }
+          this.lastValue = undefined;
         }
       },
       deleteOperation(operation) {
@@ -299,8 +299,10 @@
       ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
     },
     watch: {
-      value() {
-        this.buildOperations();
+      value(newValue) {
+        if (this.lastValue && newValue != this.lastValue) {
+          this.buildOperations();
+        }
       },
     },
   };
