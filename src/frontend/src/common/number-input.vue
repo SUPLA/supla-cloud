@@ -35,6 +35,7 @@
     suffix: String,
     placeholder: String,
     noSpinner: Boolean,
+    required: Boolean,
     precision: {
       type: Number,
       default: 0,
@@ -46,7 +47,7 @@
 
   function validateMinMax() {
     if (model.value === '') {
-      model.value = undefined;
+      model.value = props.required ? props.min || 0 : undefined;
     } else {
       if (props.min !== undefined && model.value < props.min) {
         model.value = props.min;

@@ -1570,7 +1570,7 @@ closeValveOnFloodType_ON_CHANGE: Przy zmianie
 closeValveOnFloodType_help: |
   "Zawsze": System zamknie zawór, ilekroć którykolwiek czujnik wykryje zalanie, nawet jeśli użytkownik ponownie go otworzy.
   "Przy zmianie": Zawór zamyka się tylko wtedy, gdy zostanie wykryte nowe zdarzenie zalania. Na przykład, jeśli jeden czujnik zasygnalizuje zalanie, zawór zamyka się. Użytkownik może go ponownie otworzyć, a system nie zamknie go automatycznie, dopóki ten czujnik nie zresetuje się i nie zgłosi ponownego zalania lub inny czujnik nie zasygnalizuje zalania.
-configuration missing: brak konfiguracji
+configuration missing: niepełna konfiguracja
 contains a character that is neither a letter nor a digit: zawiera znak, który nie jest literą ani cyfrą
 contains a digit: zawiera cyfrę
 contains lower and upper letters: zawiera małe i duże litery

@@ -6,7 +6,7 @@
         <template #header>
           <h4>{{ $t('Are you sure?') }}</h4>
         </template>
-        {{ $t('Confirm if you want to remove Access Identifier') }}
+        {{ $t('Confirm if you want to perform the calibration.') }}
       </DialogContent>
     </DialogWindow>
   </div>

@@ -39,20 +39,26 @@
       <dd>{{ $t('Calibration') }}</dd>
       <dt></dt>
     </dl>
-    <dl v-if="!currentState.isCalibrating && currentState.shut !== undefined">
-      <dd v-if="channel.function.name === 'TERRACE_AWNING'">{{ $t('Percentage of extension') }}</dd>
-      <dd v-else>{{ $t('Percentage of closing') }}</dd>
-      <dt>{{ currentState.shut }}%</dt>
+    <dl v-else-if="currentState.notCalibrated">
+      <dd>{{ $t('Not calibrated') }}</dd>
+      <dt></dt>
     </dl>
-    <dl v-if="!currentState.isCalibrating && currentState.tiltPercent !== undefined && channel.config.tiltingTimeS > 0">
-      <dd>{{ $t('Tilt percent') }}</dd>
-      <dt>{{ currentState.tiltPercent }}%</dt>
-    </dl>
-    <dl v-if="!currentState.isCalibrating && currentState.tiltAngle !== undefined">
-      <dd>{{ $t('Tilt angle') }}</dd>
-      <dt v-if="channel.config.tiltingTimeS > 0">{{ currentState.tiltAngle }}&deg;</dt>
-      <dt v-else>{{ $t('configuration missing') }}</dt>
-    </dl>
+    <div v-if="!currentState.isCalibrating && !currentState.notCalibrated">
+      <dl v-if="currentState.shut > -1">
+        <dd v-if="channel.functionId === ChannelFunction.TERRACE_AWNING">{{ $t('Percentage of extension') }}</dd>
+        <dd v-else>{{ $t('Percentage of closing') }}</dd>
+        <dt>{{ currentState.shut }}%</dt>
+      </dl>
+      <dl v-if="currentState.tiltPercent > -1">
+        <dd>{{ $t('Tilt percent') }}</dd>
+        <dt>{{ currentState.tiltPercent }}%</dt>
+      </dl>
+      <dl v-if="currentState.tiltAngle > -1">
+        <dd>{{ $t('Tilt angle') }}</dd>
+        <dt v-if="channel.config.tiltingTimeS > 0">{{ currentState.tiltAngle }}&deg;</dt>
+        <dt v-else>{{ $t('configuration missing') }}</dt>
+      </dl>
+    </div>
     <dl v-if="currentState.closed !== undefined && channel.function.name === 'VALVEPERCENTAGE'">
       <dd>{{ $t('Percentage of closing') }}</dd>
       <dt>{{ currentState.closed }}%</dt>
@@ -150,36 +156,25 @@
   </div>
 </template>
 
-<script>
+<script setup>
   import ChannelStateTableHvac from '@/channels/channel-state-table-hvac.vue';
-  import {mapState} from 'pinia';
   import {useChannelsStore} from '@/stores/channels-store';
   import {formatGpmValue, roundToDecimals} from '@/common/filters.js';
+  import ChannelFunction from '@/common/enums/channel-function.js';
+  import {computed} from 'vue';
 
-  export default {
-    components: {ChannelStateTableHvac},
-    props: ['channel', 'state'],
-    mounted() {},
-    methods: {
-      formatGpmValue,
-      roundToDecimals,
-      cssColor(hexStringColor) {
-        return hexStringColor.replace('0x', '#');
-      },
-    },
-    computed: {
-      currentState() {
-        return this.state || this.stateFromStore;
-      },
-      isHvac() {
-        return ['HVAC', 'THERMOSTATHEATPOLHOMEPLUS'].includes(this.channel.type.name);
-      },
-      ...mapState(useChannelsStore, {channels: 'all'}),
-      stateFromStore() {
-        return this.channels[this.channel.id]?.state;
-      },
-    },
-  };
+  const props = defineProps({
+    channel: Object,
+    state: Object,
+  });
+
+  const channelsStore = useChannelsStore();
+  const stateFromStore = computed(() => channelsStore.all[props.channel.id]?.state);
+  const currentState = computed(() => props.state || stateFromStore.value);
+
+  function cssColor(hexStringColor) {
+    return hexStringColor.replace('0x', '#');
+  }
 </script>
 
 <style lang="scss">

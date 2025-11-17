@@ -21,7 +21,16 @@
     </DropdownMenu>
 
     <transition-expand>
-      <NumberInput v-if="timeMarginMode === 'custom'" v-model="timeMarginValue" :min="1" :max="100" suffix="%" @update:modelValue="onChange()" />
+      <NumberInput
+        v-if="timeMarginMode === 'custom'"
+        v-model="timeMarginValue"
+        :min="1"
+        :max="100"
+        suffix="%"
+        @update:modelValue="onChange()"
+        required
+        class="mt-2"
+      />
     </transition-expand>
   </div>
 </template>
