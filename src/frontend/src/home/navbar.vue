@@ -83,7 +83,7 @@
               </li>
               <li>
                 <router-link :to="{name: 'notifications'}">
-                  <fa :icon="faBell()" />
+                  <i class="hidden-sm hidden-xs pe-7s-bell mr-1"></i>
                   {{ $t('Notifications') }}
                 </router-link>
               </li>
