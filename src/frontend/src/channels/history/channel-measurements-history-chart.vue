@@ -179,6 +179,7 @@
         if (this.currentMaxTimestamp <= this.currentMinTimestamp || this.currentMaxTimestamp > this.newestLog.date_timestamp * 1000) {
           this.currentMaxTimestamp = this.newestLog.date_timestamp * 1000;
         }
+        sessionStorage.setItem(`channel${this.channel.id}_dateRange`, JSON.stringify({afterTimestampMs, beforeTimestampMs}));
         // the random below forces date range picker to rerender even if the same 10-minute slot was set
         this.currentMinTimestamp += Math.floor(Math.random() * 100);
         this.fetchingDenseLogs = true;
@@ -193,10 +194,15 @@
         this.newestLog = await this.storage.getNewestLog();
         this.oldestLog = await this.storage.getOldestLog();
         this.renderCharts();
-        this.setTimeRange({
-          afterTimestampMs: Math.max(this.oldestLog.date_timestamp * 1000, this.newestLog.date_timestamp * 1000 - 86_400_000 * 7),
-          beforeTimestampMs: this.newestLog.date_timestamp * 1000,
-        });
+        const dateRange = JSON.parse(sessionStorage.getItem(`channel${this.channel.id}_dateRange`));
+        if (dateRange) {
+          this.setTimeRange(dateRange);
+        } else {
+          this.setTimeRange({
+            afterTimestampMs: Math.max(this.oldestLog.date_timestamp * 1000, this.newestLog.date_timestamp * 1000 - 86_400_000 * 7),
+            beforeTimestampMs: this.newestLog.date_timestamp * 1000,
+          });
+        }
       },
       getBigChartSeries() {
         if (this.denseLogs.length) {
