@@ -1464,8 +1464,6 @@ CREATE TABLE `supla_user`
     `home_latitude`                     decimal(9, 6) NOT NULL,
     `home_longitude`                    decimal(9, 6) NOT NULL,
     `limit_virtual_channels`            int(11)       NOT NULL DEFAULT 20,
-    `technical_password`          varchar(255) DEFAULT NULL,
-    `technical_password_valid_to` datetime     DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQ_71BAEAC6E7927C74` (`email`),
     UNIQUE KEY `UNIQ_71BAEAC69DAF5974` (`short_unique_id`),
@@ -4002,4 +4000,4 @@ where `g`.`func` is not null
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-13  8:28:34
+-- Dump completed on 2025-11-17 16:23:11
