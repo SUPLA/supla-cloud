@@ -254,6 +254,14 @@ const ChannelFunctionTriggers = {
     }, // i18n
     {caption: () => 'When a flooding state changes', def: () => ({on_change: {}})}, // i18n
   ],
+  [ChannelFunction.CONTAINER_LEVEL_SENSOR]: [
+    {caption: () => 'When the sensor state changes to hi', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
+    {
+      caption: () => 'When the sensor state changes to low',
+      def: () => ({on_change_to: {eq: 'lo'}}),
+    }, // i18n
+    {caption: () => 'When the sensor state changes', def: () => ({on_change: {}})}, // i18n
+  ],
   [ChannelFunction.WINDSENSOR]: [
     {
       caption: () => 'When the wind reaches a certain speed', // i18n

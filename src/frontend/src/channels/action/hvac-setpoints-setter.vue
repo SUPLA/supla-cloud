@@ -1,24 +1,38 @@
 <template>
   <div class="hvac-setpoints-setter">
     <div v-if="heatAvailable" class="form-group form-group-sm my-1">
-      <span class="input-group">
-        <span class="input-group-addon">
+      <div class="d-flex align-items-center">
+        <div class="mr-3">
           <IconHeating />
           {{ $t('Heat to') }}
-        </span>
-        <input v-model="temperatureHeat" type="number" step="0.1" :min="roomMin" :max="roomMax" class="form-control text-center" @change="onChange('heat')" />
-        <span class="input-group-addon"> &deg;C </span>
-      </span>
+        </div>
+        <NumberInput
+          v-model="temperatureHeat"
+          :precision="1"
+          :min="roomMin"
+          :max="roomMax - offsetMin"
+          @update:modelValue="onChange('heat')"
+          suffix="&deg;C"
+          class="flex-grow-1"
+        />
+      </div>
     </div>
     <div v-if="coolAvailable" class="form-group form-group-sm my-1">
-      <span class="input-group">
-        <span class="input-group-addon">
+      <div class="d-flex align-items-center">
+        <div class="mr-3">
           <IconCooling />
           {{ $t('Cool to') }}
-        </span>
-        <input v-model="temperatureCool" type="number" step="0.1" :min="roomMin" :max="roomMax" class="form-control text-center" @change="onChange('cool')" />
-        <span class="input-group-addon"> &deg;C </span>
-      </span>
+        </div>
+        <NumberInput
+          v-model="temperatureCool"
+          :precision="1"
+          :min="roomMin + offsetMin"
+          :max="roomMax"
+          @update:modelValue="onChange('cool')"
+          suffix="&deg;C"
+          class="flex-grow-1"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -26,9 +40,10 @@
 <script>
   import IconHeating from '@/common/icons/icon-heating.vue';
   import IconCooling from '@/common/icons/icon-cooling.vue';
+  import NumberInput from '@/common/number-input.vue';
 
   export default {
-    components: {IconCooling, IconHeating},
+    components: {NumberInput, IconCooling, IconHeating},
     props: {
       subject: Object,
       value: Object,
@@ -74,6 +89,7 @@
         if (this.coolAvailable && this.hasCool) {
           modelValue.cool = +this.temperatureCool;
         }
+        console.log('input', modelValue);
         return modelValue;
       },
     },
@@ -102,15 +118,25 @@
         this.temperatureCool = this.value.cool;
       },
       onChange(changed) {
-        if (this.hasHeat && this.hasCool) {
-          if (changed === 'heat' && this.hasCool) {
-            this.temperatureCool = Math.max(this.temperatureCool, +this.temperatureHeat + this.offsetMin);
+        this.$nextTick(() => {
+          if (this.hasHeat && this.hasCool) {
+            if (changed === 'heat' && this.hasCool) {
+              const minCool = +this.temperatureHeat + this.offsetMin;
+              console.log(minCool);
+              if (this.temperatureCool < minCool) {
+                this.temperatureCool = minCool;
+                console.log(this.temperatureCool, minCool);
+              }
+            }
+            if (changed === 'cool' && this.hasHeat) {
+              const maxHeat = +this.temperatureCool - this.offsetMin;
+              if (this.temperatureHeat > maxHeat) {
+                this.temperatureHeat = maxHeat;
+              }
+            }
           }
-          if (changed === 'cool' && this.hasHeat) {
-            this.temperatureHeat = Math.min(this.temperatureHeat, +this.temperatureCool - this.offsetMin);
-          }
-        }
-        this.$emit('input', this.modelValue);
+          this.$emit('input', this.modelValue);
+        });
       },
     },
   };

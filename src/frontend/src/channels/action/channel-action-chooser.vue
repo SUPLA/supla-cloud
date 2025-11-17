@@ -180,10 +180,10 @@
         },
         set(setpoints) {
           if (this.action.id === ChannelFunctionAction.HVAC_SET_TEMPERATURE) {
-            this.$set(this.param, 'temperature', Number.isFinite(setpoints.heat) ? setpoints.heat : setpoints.cool);
+            this.param.temperature = Number.isFinite(setpoints.heat) ? setpoints.heat : setpoints.cool;
           } else {
-            this.$set(this.param, 'temperatureHeat', setpoints.heat);
-            this.$set(this.param, 'temperatureCool', setpoints.cool);
+            this.param.temperatureHeat = setpoints.heat;
+            this.param.temperatureCool = setpoints.cool;
           }
         },
       },
