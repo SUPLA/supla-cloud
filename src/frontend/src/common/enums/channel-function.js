@@ -68,6 +68,8 @@ const ChannelFunction = Object.freeze({
   WATER_TANK: 982,
   CONTAINER_LEVEL_SENSOR: 990,
   FLOOD_SENSOR: 1000,
+  MOTION_SENSOR: 1010,
+  BINARY_SENSOR: 1020,
 });
 
 export default ChannelFunction;

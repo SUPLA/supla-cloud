@@ -256,10 +256,17 @@ const ChannelFunctionTriggers = {
   ],
   [ChannelFunction.CONTAINER_LEVEL_SENSOR]: [
     {caption: () => 'When the sensor state changes to hi', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
-    {
-      caption: () => 'When the sensor state changes to low',
-      def: () => ({on_change_to: {eq: 'lo'}}),
-    }, // i18n
+    {caption: () => 'When the sensor state changes to low', def: () => ({on_change_to: {eq: 'lo'}})}, // i18n
+    {caption: () => 'When the sensor state changes', def: () => ({on_change: {}})}, // i18n
+  ],
+  [ChannelFunction.BINARY_SENSOR]: [
+    {caption: () => 'When the sensor state changes to hi', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
+    {caption: () => 'When the sensor state changes to low', def: () => ({on_change_to: {eq: 'lo'}})}, // i18n
+    {caption: () => 'When the sensor state changes', def: () => ({on_change: {}})}, // i18n
+  ],
+  [ChannelFunction.MOTION_SENSOR]: [
+    {caption: () => 'When motion starts to be detected', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
+    {caption: () => 'When motion stops to be detected', def: () => ({on_change_to: {eq: 'lo'}})}, // i18n
     {caption: () => 'When the sensor state changes', def: () => ({on_change: {}})}, // i18n
   ],
   [ChannelFunction.WINDSENSOR]: [
