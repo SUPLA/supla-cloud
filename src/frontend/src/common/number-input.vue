@@ -1,15 +1,18 @@
 <template>
-  <VueNumber
-    :model-value="theValue"
-    :min="min"
-    :max="max"
-    :suffix="suffix"
-    decimal="."
-    separator=" "
-    :precision="precision"
-    class="form-control text-center"
-    @update:model-value="theValue = $event"
-  />
+  <span :class="{'input-group': suffix}">
+    <input
+      type="number"
+      class="form-control text-center"
+      :class="{'no-spinner': noSpinner}"
+      v-model="model"
+      :placeholder="placeholder"
+      :min="min"
+      :max="max"
+      :step="step"
+      @blur="validateMinMax()"
+    />
+    <span v-if="suffix" class="input-group-addon">{{ suffix }}</span>
+  </span>
 </template>
 
 <script>
@@ -21,7 +24,6 @@
 </script>
 
 <script setup>
-  import {component as VueNumber} from '@coders-tm/vue-number-format';
   import {computed} from 'vue';
 
   const props = defineProps({
@@ -31,16 +33,39 @@
     },
     max: Number,
     suffix: String,
+    placeholder: String,
+    noSpinner: Boolean,
     precision: {
       type: Number,
       default: 0,
     },
   });
 
+  const step = computed(() => Math.pow(10, -props.precision));
   const model = defineModel();
 
-  const theValue = computed({
-    get: () => model.value,
-    set: (value) => (model.value = Math.max(props.min, +value)),
-  });
+  function validateMinMax() {
+    if (model.value === '') {
+      model.value = undefined;
+    } else {
+      if (props.min !== undefined && model.value < props.min) {
+        model.value = props.min;
+      }
+      if (props.max !== undefined && model.value > props.max) {
+        model.value = props.max;
+      }
+    }
+  }
 </script>
+
+<style lang="scss" scoped>
+  input.no-spinner::-webkit-outer-spin-button,
+  input.no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input.no-spinner[type='number'] {
+    -moz-appearance: textfield; /* Firefox */
+  }
+</style>

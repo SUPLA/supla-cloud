@@ -23,7 +23,6 @@
     "release-dev": "cross-env NODE_ENV=development node scripts/release.js"
   },
   "dependencies": {
-    "@coders-tm/vue-number-format": "^3.35.4",
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",

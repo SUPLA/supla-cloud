@@ -21,7 +21,6 @@
             :max="channel.config.overcurrentMaxAllowed"
             suffix=" A"
             :precision="2"
-            class="form-control text-center"
             @update:model-value="emit('change')"
           />
           <input v-else type="text" class="form-control text-center" disabled :placeholder="$t('Disabled')" />

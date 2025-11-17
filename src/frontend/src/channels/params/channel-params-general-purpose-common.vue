@@ -11,46 +11,19 @@
     <dl v-if="canDisplaySetting('valueMultiplier')">
       <dd>{{ $t('Value multiplier') }}</dd>
       <dt>
-        <VueNumber
-          v-model="valueMultiplier"
-          :min="-2000000"
-          :max="2000000"
-          :placeholder="1"
-          decimal="."
-          :precision="3"
-          separator=" "
-          class="form-control text-center"
-        />
+        <NumberInput v-model="valueMultiplier" :min="-2000000" :max="2000000" :placeholder="1" :precision="3" />
       </dt>
     </dl>
     <dl v-if="canDisplaySetting('valueDivider')">
       <dd>{{ $t('Value divider') }}</dd>
       <dt>
-        <VueNumber
-          v-model="valueDivider"
-          :min="-2000000"
-          :max="2000000"
-          :placeholder="1"
-          decimal="."
-          :precision="3"
-          separator=" "
-          class="form-control text-center"
-        />
+        <NumberInput v-model="valueDivider" :min="-2000000" :max="2000000" :placeholder="1" :precision="3" />
       </dt>
     </dl>
     <dl v-if="canDisplaySetting('valueAdded')">
       <dd>{{ $t('Value added') }}</dd>
       <dt>
-        <VueNumber
-          v-model="valueAdded"
-          :min="-100000000"
-          :max="100000000"
-          :placeholder="0"
-          decimal="."
-          :precision="3"
-          separator=" "
-          class="form-control text-center"
-        />
+        <NumberInput v-model="valueAdded" :min="-100000000" :max="100000000" :placeholder="0" :precision="3" />
         <ChannelParamsMeterInitialValuesMode
           v-if="channel.function.name === 'GENERAL_PURPOSE_METER'"
           v-model="channel.config.includeValueAddedInHistory"
@@ -152,8 +125,7 @@
           v-model="channel.config.refreshIntervalMs"
           :min="200"
           :max="65535"
-          suffix=" ms"
-          class="form-control text-center mt-2"
+          suffix="ms"
           @update:modelValue="$emit('change')"
         />
       </dt>
@@ -163,7 +135,6 @@
 
 <script>
   import UnitSymbolHelper from './unit-symbol-helper.vue';
-  import {component as VueNumber} from '@coders-tm/vue-number-format';
   import ChannelParamsMeterInitialValuesMode from '@/channels/params/channel-params-meter-initial-values-mode.vue';
   import NumberInput from '@/common/number-input.vue';
   import {formatGpmValue} from '@/common/filters.js';
@@ -175,7 +146,6 @@
       NumberInput,
       ChannelParamsMeterInitialValuesMode,
       UnitSymbolHelper,
-      VueNumber,
     },
     props: ['channel'],
     data() {

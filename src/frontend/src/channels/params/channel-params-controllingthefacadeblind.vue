@@ -73,25 +73,11 @@
     <dl class="wide-label">
       <dd>{{ $t('Slat angle that the blind sets when closing') }}</dd>
       <dt>
-        <NumberInput
-          v-model="channel.config.tilt0Angle"
-          :min="0"
-          :max="180"
-          suffix="°"
-          class="form-control text-center mt-2"
-          @update:modelValue="$emit('change')"
-        />
+        <NumberInput v-model="channel.config.tilt0Angle" :min="0" :max="180" suffix="°" @update:modelValue="$emit('change')" />
       </dt>
       <dd>{{ $t('Slat angle that the blind sets when opening') }}</dd>
       <dt>
-        <NumberInput
-          v-model="channel.config.tilt100Angle"
-          :min="0"
-          :max="180"
-          suffix="°"
-          class="form-control text-center mt-2"
-          @update:modelValue="$emit('change')"
-        />
+        <NumberInput v-model="channel.config.tilt100Angle" :min="0" :max="180" suffix="°" @update:modelValue="$emit('change')" />
       </dt>
     </dl>
     <dl v-if="channel.config.motorUpsideDown !== undefined" class="wide-label">

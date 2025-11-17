@@ -3,14 +3,7 @@
     <dl>
       <dd>{{ $t('Filtering time') }}</dd>
       <dt>
-        <NumberInput
-          v-model="channel.config.filteringTimeMs"
-          :min="30"
-          :max="3000"
-          suffix=" ms"
-          class="form-control text-center mt-2"
-          @update:modelValue="emit('change')"
-        />
+        <NumberInput v-model="channel.config.filteringTimeMs" :min="30" :max="3000" suffix="ms" @update:modelValue="emit('change')" />
       </dt>
     </dl>
   </div>
