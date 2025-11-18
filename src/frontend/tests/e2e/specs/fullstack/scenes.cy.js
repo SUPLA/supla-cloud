@@ -27,6 +27,8 @@ describe('Scenes', () => {
     cy.get('.aid-dropdown .ts-control').click();
     cy.contains('AID #1').click();
     cy.contains('Dodaj opóźnienie').click();
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(100);
     cy.contains('Zapisz zmiany').click();
     cy.contains('h1', 'Testowa scena');
     cy.contains('.breadcrumbs a', 'Sceny').click();
