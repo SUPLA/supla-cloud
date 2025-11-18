@@ -6,9 +6,7 @@
 ...open gateways, gates or doors: ...åpne hageport, port eller dør
 ...or control home appliances: ...styre hvitevarer og elektronikk
 ...you can monitor temperature: ...kontrollere temperaturen
-Slat angle that the blind sets when closing: Vinkelen på lamellene som persiennen stiller inn ved lukking
 10 minutes before sunset, on day 10 of the month, May through August: 10 minutter før solnedgang, kun på den 10. dagen i måneden, fra mai til august
-Slat angle that the blind sets when opening: Vinkelen på lamellene som persiennen stiller inn ved åpning
 15 minutes after sunrise, every 2 days: 15 minutter etter soloppgang, annenhver dag
 A confirmation upon successful client app registration.: Bekreftelse på registrering av ny klientapplikasjon.
 A confirmation upon successful device registration.: Bekreftelse på vellykket enhetsregistrering.
@@ -34,7 +32,6 @@ Access to all of your devices through MQTT Broker: Tilgang til alle enhetene din
 Account: Konto
 Account access when you are unavailable: Tilgang til konto når du ikke er tilgjengelig
 Account has been activated. You can Sign In now.: Konto ble aktivert. Du kan logge inn
-Action: Handling
 Action confirmation: Bekreftelse på handling
 Action execution: Utfør handlingen
 Action trigger: Handlingsutløser
@@ -160,14 +157,12 @@ Brightness adjustment for automatic mode: Justere lysstyrken i automatisk modus
 Brightness level: Lysstyrkenivå
 Button volume: Volum på knappene
 Buttons upside down: Invertert knappestyring
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Deaktivering av dette alternativet vil tillate deg å kontrollere denne innretningen fra integreringsnivået uten ytterligere bekreftelse. Dette kan lede til usikre eller mindre sikre tilstand (f.eks. utilsiktet åpning av en port).
 By signing in, you are authorizing {clientName} to control your devices.: Ved å logge på tillater du {clientName}-applikasjonen til å kontrollere innretningene dine.
 CLICK TO DISABLE: TRYKK FOR Å SKRU AV
 CLICK TO ENABLE: TRYKK FOR Å SKRU PÅ
 Calibrate: Kalibrer
 Calibration: Kalibrering
 Calibration error: Kalibreringsfeil
-Calibration successful.: Kalibrering vellykket
 Cancel: Avbryt
 Cancel changes: Avbryt endringer
 Cancelled: Avbrutt
@@ -176,7 +171,6 @@ Cannot calculate when to run the schedule - incorrect configuration?: Kunne ikke
 Cannot change the channel function right now.: Funksjonene til denne kanalen kan ikke endres for øyeblikket.
 Cannot delete this I/O Device right now.: Denne enheten kan ikke fjernes for øyeblikket.
 Cannot update OCR settings. Try again in a while.: OCR-innstillingene kunne ikke oppdateres. Prøv igjen om et øyeblikk.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Finner du ikke meldingen med en lenke for å aktivere din konto i innboksen? Se om den ikke er i mappen SPAM (søppelpost). Du kan også {clickHereLink} for å sende den på nytt.
 Captcha token is not valid.: Feil captcha.
 Caption: Underskrift
 Caption is too long.: Navnet er for langt.
@@ -203,7 +197,6 @@ Channel group must consist of at least one channel.: Kanalgruppe må inneholde m
 Channel group reference will be removed from the items below.: Indikasjonen av kanalgruppen vil bli fjernet fra følgende elementer.
 Channel groups: Kanalgrupper
 Channel is assigned to the I/O device location: Kanal er tilpasset enhetens lokalisering
-Channel is disconnected.: Kanalen er frakoblet.
 Channel name: Kanalnavn
 Channel reference will be removed from the items below.: Kanalen vil bli fjernet fra følgende elementer.
 Channel with action triggers: Kanal med handlingstriggere
@@ -310,7 +303,6 @@ Delete: Fjern
 Delete measurement history: Fjern målingshistorie
 Delete my account: Fjern min konto
 Delete voltage aberrations history: Slett historie om spenningsavvik
-Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Fjerning av din konto vil føre til fjerning av alle dine data, blant annet linket enheter, konfigurerte kanaler, direkte lenker og målingshistorie. Fjerning av konto er irreversibel.
 Dependencies: Avhengigheter
 Depth: Dybde
 Depth sensor: Dybdesensor
@@ -417,11 +409,8 @@ Fan: Vindmølle
 Feature limits: Driftsgrenser
 'Field: {propertyPath}.': Felt {propertyPath}.
 File format: Feil filformat
-File is too large: Filen er for stor
 Fill missing data: Fyll inn manglende målinger
 Firmware: Fastvare
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Fastvaren til denne enheten sender varsler i forbindelse med denne kanalen. Her kan du konfigurere innhold og mottakere. Ta kontakt med leverandøren av enheten for mer informasjon.
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Fastvaren til denne enheten sender varsler. Her kan du konfigurere innhold og mottakere. Ta kontakt med leverandøren av enheten for mer informasjon.
 Flooding: Vannskader
 For a period: For perioden
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Det anbefales å bruke {suplaUrl}-adressen under oppdateringen.
@@ -430,7 +419,6 @@ For security reasons, the full URL of this direct link will be displayed only on
 Forced off by sensor: Tvungen nedstengning gjennom sensor
 Forgot your password?: Husker du ikke passordet?
 Forward active energy: Aktiv energi nedlastet
-Forward active energy balance: Balanse av aktiv energi absorbert
 Forward active energy balanced: Aktivt energiforbruk (vektorbalanse)
 Forward reactive energy: Passiv energi nedlastet
 Fridays: Fredager
@@ -526,9 +514,7 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: JDersom du ønsker å integrere din privat SUPLA Cloud med offentlig applikasjon OAuth, må du {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: JDersom du ønsker å bruke dirkete lenke i et annet program, legg til tilsvarende forespørsel overskrift for å motta et svar som er enklere å prosessere.
 If you wish not to receive such messages, change it in your account settings [here].: Hvis du ikke ønsker å motta slike varsler fra oss, vennligst se kontoinnstillingene dine [her].
-If you wish to register your instance, {clickHereLink}.: Hvis du vil registrere din cloud, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: JDersom du vil sjekke ut tilgjengelige integrasjoner gå til {0}.
-If you wish to unregister your instance, {clickHereLink}.: Hvis du vil avregistrere din cloud, vennligst ikke {clickHereLink}.
 Image area crop: Bildeområde
 Impulse counter: Impulsmåler
 Impulses: Impulser
@@ -539,7 +525,6 @@ Include energy corrections in new measurements history (not recommended): Inklud
 Incorrect password: Feil passord
 Increment and decrement: Økende og synkende
 Incremental: Inkrementell
-Information: Informasjon
 Inherit I/O Device location: Benytt deg av enhetens lokalisering
 Installer e-mail address: Installatørens e-postadresse
 Integration with MQTT Broker has been disabled.: Integrasjon med MQTT er deaktivert.
@@ -557,16 +542,13 @@ Invalid function for channel.: Ugyldig funksjon for kanale
 'Invalid redirect URI: {uri}': 'Ugyldig omdirigering URL: {uri}'
 Invalid request: Ugyldig forespørsel
 Invalid request.: Feil handling.
-Invalid scene: Feil scene
 Invalid token.: Feil token.
 Invalid unlock code.: Feil opplåsingslenke.
 Invalid username or password: Feil brukernavnet eller passordet
 Inverted logic: Omvendt logikk
 Invisible: Usynlig
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Det er mulig at en annen bruker tastet inn ved en feil din e-post for å tilbakestille passordet til sin egen konto.
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: I denne modusen vil enheten begynne å fordele sitt Wi-Fi-nettverk, hvis formål er å tillate enhetskonfigurasjon eller fastvareoppdatering ved hjelp av en smarttelefon som kobler til dette nettverket.
 Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Husk at sammen med din konto fjerner vi alle dine opplysninger inkludert innstillinger, konfigurerte enheter, lokaliseringer, planer og alle andre funksjoner tilbudt av SUPLA.
-Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Husk at appens beskrivelse av setningen ikke er perfekt, og dens eneste formål er å hjelpe deg med å angi riktig verdi. Den brukes ikke til å sjekke om den angitte verdien er riktig, enn si skryte av at "det var en feil i SUPLA". Etter at du har gjort endringene, sjekk delen "Kommende aktiviteter" for å bekrefte at tidsplankonfigurasjonen du anga oppfyller forventningene dine.
 Language is not available: Språk ikke tilgjengelig
 Last access: Sist kobling
 Last connection: Sist kobling
@@ -693,7 +675,6 @@ Number of aberrations: Antall avvik
 Number of attempts to close: Antall lukeforsøk
 Number of attempts to open: Antall åpningsforsøk
 Number of sections: Antall seksjoner
-OAuth application: Applikasjon OAuth
 OAuth apps: Appene OAuth
 OAuth authorization: Autorisasjon OAuth
 OAuth integrations might stop working after the instance is unregistered.: Integrasjoner med Oauth-apper kan slutte å fungere etter avregistrering av cloud.
@@ -730,7 +711,6 @@ Partial opening sensor: Delvisåpning sensor
 Partially opened sensor for channel: Kanal for delvisåpning sensor
 Password: Passord
 Password Reset: Tilbakestilling av passordet
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Endring av passord vil logge ut alle aktuelle økter. Dette vil imidlertid ikke påvirke på apper som har fått godkjenning fra deg. Samtykke til pålogging til appen må trekkes tilbake separat.
 Password changed: Passordet har blitt byttet
 Password has been changed: Passordet ble endret
 Password must be at least {minLength} characters.: Passord må ha minst {minLength} tegn.
@@ -830,7 +810,6 @@ Reveal: Avdekk
 Reveal or stop: Avdekk eller stopp
 Reveal partially: Avdekk delvis
 Reverse active energy: Aktiv energi returnert
-Reverse active energy balance: Balanse av aktiv energi som returneres
 Reverse active energy balanced: Aktiv energi returnert (vektorbalanse)Aktivt energiforbruk (vektorbalanse)
 Reverse reactive energy: Passiv energi returnert
 Revoke: Opphev
@@ -907,10 +886,11 @@ Show on the Client’s devices: Vis i kundeenheter
 Shut: Lukke
 Shut or stop: Dekk over eller stopp
 Shut partially: Dekke delvis
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Lukk rullegardinen til den berører den nederste kanten og skriv inn sluttprosenten i dette feltet. Denne operasjonen er ikke nødvendig, men forutsatt at den forbedrer visualiseringen av rullegardinens  posisjon i mobilapplikasjonen.
 Sign In: Logg inn
 Sign Out: Logg ut
 Sign in temporarily unavailable. Please try again later.: Logg inn midlertidig utilgjengelig. Prøv igjen senere.
+Slat angle that the blind sets when closing: Vinkelen på lamellene som persiennen stiller inn ved lukking
+Slat angle that the blind sets when opening: Vinkelen på lamellene som persiennen stiller inn ved åpning
 Smartphones: Smarttelefoner
 SoftVer: WerOpr
 Some features depend on this channel: Noen funksjoner avhenger av denne kanalen
@@ -959,7 +939,6 @@ Temperature setpoint change switches to manual mode: Endring av bryterens målem
 Temporal override: Midlertidig overstyring
 Terrace awning: Terrassemarkise
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Takk for at du registrerer din konto i %cloudHost%. For å avslutte aktiviseringen trykk på lenken nedenfor.
-Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Integrasjoner gir deg mulighet til å legge til nye funksjoner til din konto på et enkelt vis ved hjelp av løsninger levert av eksterne leverandører, programmerere eller deg selv.
 'The IP used for login is: %ip%': 'Forsøket på å logge inn ble gjort fra IP adressen: %ip%'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Passordet til MQTT er kun synlig for øyeblikket. Sørg for å skrive det ned på et trygt sted. Det vil ikke være mulig å vise det igjen.
 The SUPLA infrastructure is being updated.: SUPLA-servere oppdatering pågår.
@@ -968,7 +947,6 @@ The Terms and Conditions have changed – please read them and accept.: Tjeneste
 The activation link has been sent again. Check the inbox.: Melding med aktiveringslenke til din konto ble sendt på nytt. Sjekk din innboks.
 The channel has been deleted.: Kanalen er fjernet.
 The client will be automatically logged out when deleted.: Fjerning av kunden betyr at den blir logget ut med en gang
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfigurasjonen er endret fra et annet sted (f.eks. et annet nettleservindu, mobilapp eller enhet). Du må oppdatere konfigurasjonen før du gjør videre endringer.
 The counter has been reset.: Telleren er tilbakestilt.
 The device could not be unlocked.: Enheten kunne ikke låses opp.
 The device has been unlocked already.: Enheten er allerede låst opp.
@@ -1000,7 +978,6 @@ The password and its confirm are not the same.: Passord og bekreftelse er ikke l
 The password should be 8 or more characters.: Passord bør ha minimum 8 tegn.
 The reaction has been added: Reaksjon er lagt til
 The reaction has been changed: Reaksjonen er endret
-The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Enheten er slått av av overstrømsbeskyttelse. Før du aktiverer den, må du kontrollere at problemet som førte til det er løst. Er du sikker på at du vil slå på denne enheten eksternt?
 The scene would execute too many operations.: Scenen utfører for mange operasjoner.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Server viser feil 400, dette betyr at innsendt forespørsel er feil.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Server viser feil HTTP 403. Dette betyr at du ikke har nok rettigheter til å se dette elementet.
@@ -1019,7 +996,6 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Termostatens programmer
 This action will result in restarting the device. It will not be available for a while.: Bestilling av denne operasjonen vil starte enheten på nytt. Under omstart vil enheten være utilgjengelig.
 This channel was missing during last device registration attempt.: Denne kanalen er ikke tilgjengelig på enheten.
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Dette apparatet er kun beregnet for distribusjon og installasjon av autoriserte installatører. Hvis du ikke er en autorisert SUPLA-installatør og ikke har et aktivt opplæringsbevis, returner den til forhandleren.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Denne lenken krever en presisering av parameter av den utførte handlingen. Se parameterne nedenfor for å finne ut hvilke parameter du kan sette.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Du mottar denne meldingen fordi det har vært et mislykket forsøk på å logge inn til SUPLA-CLOUD med din adresse.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Dette er den siste etappen i slettingen av kontoen din. Hvis du fyller ut og bekrefter skjemaet, slettes opplysningene dine ugjenkallelig.
@@ -1028,9 +1004,7 @@ This is the list of applications you have granted access to your account.: Dette
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Dette er en liste over reaksjoner som fungerer på kontoen din. Hvis du vil legge til en ny reaksjon, går du til kanaldetaljene som bør  utløse den.
 This link is only valid for an hour.: Lenken er aktiv i en time.
 'This password will protect your home. Therefore, it must:': 'Dette passordet vil verne hjemmet ditt. Derfor:'
-This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Denne tidsplanmodusen er designet for tekniske eller svært tålmodige brukere. Det krever at tidsplanens utløsertider spesifiseres i crontab-notasjon, beriket med flere funksjoner som bare finnes i SUPLI. Hvis du ikke har sett crontabs før og fortsatt ønsker å bruke denne modusen, kan nettstedet crontab.guru være til hjelp for deg.
 This thermostat is controlled by another device.: Denne termostaten kontrolleres av hovedtermostaten.
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Denne utløseren brukes lokalt av enheten (f.eks. slår den på lyset, kontrollerer rullegardinen osv.). Hvis du tilordner den en annen handling, vil den lokale funksjonen bli deaktivert.
 Thursdays: Torsdager
 Tilt angle: Hellingsvinkel
 Tilt control type: Type hellingskontroll
@@ -1110,7 +1084,6 @@ We were not able to find your account.: Vi klarte ikke å finne din konto.
 We were not able to prepare your data. Please see the error details below.: Det oppstod en feil under klargjøring av data. Bli kjent med detaljene nedenfor.
 We will miss you: Vi kommer til å savne deg
 We will miss you!: Vi kommer til å savne deg!
-We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Vi gjør alt vi kan for at ikonene du sendte skal synes godt, men du vil få de beste resultatene hvis du sender PNG filer med gjennomsiktig bakgrunn og bredden {width} og høyden {height} piksler.
 We will use it only in justified situations.: Vi vil kun bruke den i berettiget situasjoner.
 Weather Station: Værstasjon
 Wednesdays: Onsdager
@@ -1247,7 +1220,6 @@ When the window will be opened: Når vinduet åpnes
 When the window will be opened or closed: Når et vindu lukkes eller åpnes
 When there is certain amount of rain: Når det regner en viss mengde
 When there weight reaches a certain value: Når vekten rekker en viss verdi
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Du kan utføre handlingen til direkte lenke ved å oppgi dens unik identifikator i HTTP PATCH forespørselen. Det er sikrere da det hindrer lagring av full adresse til din lenke i loggbøkene til tilgjengelige servere din forespørsel går gjennom. Nedenfor ser du eksempel på handlingen utført ved hjelp av verktøyet cURL.
 Where is the JSON?: Hvor er JSON?
 Where is your SUPLA Cloud?: Hvor er din SUPLA?
 White: Hvit
@@ -1289,13 +1261,11 @@ Your account has been deleted. We hope you will come back to us soon.: Konto ble
 Your account has been locked.: Din konto er sperret.
 Your account has not been confirmed yet.: Din konto er ikke bekreftet enda.
 Your account limits: Dine begrensninger
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Nettleseren din støtter ikke klientdatabasemekanismen (IndexedDB). Denne funksjonaliteten er nødvendig for å vise diagrammer og støtte avanserte innstillinger for dataeksport. Oppdater nettleseren din eller gå ut av privatmodus for å benytte seg av disse funksjonene.
 Your channel groups are allowed to have a maximum of {max} channels.: Kanalgruppene dine kan ha maksimalt {max} kanaler.
 Your chart is being drawn...: Diagrammet ditt tegnes akkurat nå...
 Your data are being collected. Please be patient.: Vi samler inn dataene dine, vent et øyeblikk.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Dataene dine lastes ned fra serveren. Vent til nedlastningene er fullført før du eksporterer dem.
 Your device has been unlocked by the installer.: Enheten din har blitt låst opp av installatøren.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Enheten lar deg utvide funksjonaliteten og lar deg utføre enhver handling på hvilken som helst enhet du eier. De tilgjengelige alternativene avhenger av fastvaren og enheten du bruker.
 Your email: Din e-post
 Your instance is not registered or you are trying to authorize an application that is not public.: Din cloud er enten ikke registrert eller prøver du å autorisere en applikasjon som ikke er offentlig.
 Your password must contain at least one special character.: Passordet må inneholde minst ett spesialtegn.
@@ -1557,6 +1527,7 @@ yesterday: i går
 ...and start your adventure with building automation today!: ...start ditt eventyr med smarte hus allerede i dag!
 Access identifier password must be at least 8 characters.: Passord for tilgang Identifikator må ha minst 8 tegn.
 Access identifier password must be no longer than 32 characters.: Passord for tilgang Identifikator kan ikke være lengre enn 32 tegn.
+Action: Handling
 Add new item to use in the scene: Legg til et nytt element til scenen
 After the delay: Etter en bestemt tidsperiode
 After the delay, but only when it's dark: Etter en bestemt tid, men bare når det er mørkt
@@ -1564,9 +1535,13 @@ Are you sure you want to delete the entire voltage aberrations history saved for
 Are you sure you want to disable this device?: Er du sikker på at du ønsker å skru av denne enheten?
 Assigned Locations: Tildelte lokaliseringer
 Authorized OAuth apps: Autoriserte OAuth applikasjoner
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Deaktivering av dette alternativet vil tillate deg å kontrollere denne innretningen fra integreringsnivået uten ytterligere bekreftelse. Dette kan lede til usikre eller mindre sikre tilstand (f.eks. utilsiktet åpning av en port).
 Calculated value: Målerstatus
+Calibration successful.: Kalibrering vellykket
 Cannot execute an action when the device is disconnected.: Ikke mulig å utføre handlingen når enheten er frakoblet.
 Cannot send an activation e-mail. Try again later.: Sending av melding med aktiviseringslenken var ikke mulig. Vennligst prøv senere.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Finner du ikke meldingen med en lenke for å aktivere din konto i innboksen? Se om den ikke er i mappen SPAM (søppelpost). Du kan også {clickHereLink} for å sende den på nytt.
+Channel is disconnected.: Kanalen er frakoblet.
 Channel value: Verdi
 Channel will be deleted from the channel group below: Kanalen blir fjernet fra kanalgruppene nedenfor
 Channels in channel group: Kanaler i kanalgrupper
@@ -1578,6 +1553,7 @@ Confirm if you want to perform the roller shutter calibration.: Bekreft at modul
 Confirm if you want to remove {deviceName} device: Bekreft at du vil fjerne enheten {deviceName}
 DISABLED: AV
 Days: Dager
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Fjerning av din konto vil føre til fjerning av alle dine data, blant annet linket enheter, konfigurerte kanaler, direkte lenker og målingshistorie. Fjerning av konto er irreversibel.
 Device channel value: Verdi fra enheten
 Device settings: Innstillinger for enheten
 Differential: Differensial
@@ -1589,6 +1565,10 @@ Email already exists: Denne e-post adressen eksisterer allerede
 Entering configuration mode is unsupported in the firmware.: Ekstern bytte til konfigurasjonsmodus støttes ikke av enhetens fastvare.
 Existing schedules: Eksisterende planer
 Expected maximum increment: Forventet maksimal økning
+File is too large: Filen er for stor
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Fastvaren til denne enheten sender varsler i forbindelse med denne kanalen. Her kan du konfigurere innhold og mottakere. Ta kontakt med leverandøren av enheten for mer informasjon.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Fastvaren til denne enheten sender varsler. Her kan du konfigurere innhold og mottakere. Ta kontakt med leverandøren av enheten for mer informasjon.
+Forward active energy balance: Balanse av aktiv energi absorbert
 From IP: Fra IP adressen
 Get SUPLA on your devices: Last ned SUPLA på dine enheter
 Hi: Hei
@@ -1596,10 +1576,16 @@ Hour: Time
 Hours: Timer
 I/O: Inngang/Utgang
 If you want to stay here, do something!: Hvis du ønsker å bli igjen her, gjør noe!
+If you wish to register your instance, {clickHereLink}.: Hvis du vil registrere din cloud, {clickHereLink}.
+If you wish to unregister your instance, {clickHereLink}.: Hvis du vil avregistrere din cloud, vennligst ikke {clickHereLink}.
 In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: For å minimere risikoen for feilaktig avlesning, sett den maksimale forventede økningen av tellerverdien mellom påfølgende bilder.
+Information: Informasjon
 Initial value: Startverdi
 Input: Inngang
 Interpolate measurements: Estimer de manglende verdiene
+Invalid scene: Feil scene
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: I denne modusen vil enheten begynne å fordele sitt Wi-Fi-nettverk, hvis formål er å tillate enhetskonfigurasjon eller fastvareoppdatering ved hjelp av en smarttelefon som kobler til dette nettverket.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Husk at appens beskrivelse av setningen ikke er perfekt, og dens eneste formål er å hjelpe deg med å angi riktig verdi. Den brukes ikke til å sjekke om den angitte verdien er riktig, enn si skryte av at "det var en feil i SUPLA". Etter at du har gjort endringene, sjekk delen "Kommende aktiviteter" for å bekrefte at tidsplankonfigurasjonen du anga oppfyller forventningene dine.
 Languages: Språk
 Loading: Lading
 Location password must be at least 4 characters.: Passord for lokalisering må ha minst 4 tegn.
@@ -1611,29 +1597,39 @@ Mobile Apps: Mobilapper
 Next: Videre
 No results match {0}: Ingen resultater passer til {0}
 Number: Nummer
+OAuth application: Applikasjon OAuth
 Output: Utgang
 Pairing subdevices is unsupported in the firmware.: Paring støttes ikke av enhetens programvare.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Endring av passord vil logge ut alle aktuelle økter. Dette vil imidlertid ikke påvirke på apper som har fått godkjenning fra deg. Samtykke til pålogging til appen må trekkes tilbake separat.
 Please select an action: Velg en handling
 Please select the schedules that should also be enabled.: Velg planer som bør aktiveres på.
 Previous login: Sist innlogging
 Reference to the channel will be removed from the items below.: Indikasjonen for denne kanalen vil bli fjernet fra de følgende elementene.
 Registration: Registrering
 Remove: Fjern
+Reverse active energy balance: Balanse av aktiv energi som returneres
 Save changes to see Access IDs: Lagre endringer for å vise tilgang identifikator
 Schedule cannot be enabled: Aktivering av planen mislykket
 Schedules below will be deleted: Planene nedenfor blir fjernet
 Sensor (normal closed): Sensor (vanligvis stengt)
 Sensor (normal open): Sensor (vanligvis åpen)
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Lukk rullegardinen til den berører den nederste kanten og skriv inn sluttprosenten i dette feltet. Denne operasjonen er ikke nødvendig, men forutsatt at den forbedrer visualiseringen av rullegardinens  posisjon i mobilapplikasjonen.
 Sources available from: Kilder tilgjengelig i
 Standard: Standard
 Subject: Enhet
 Sunrise / Sunset: Soloppgang / Solnedgang
 Supla for devices: SUPLA for enheter
 Temperature adjustment only: Kun temperaturinnstilling
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Integrasjoner gir deg mulighet til å legge til nye funksjoner til din konto på et enkelt vis ved hjelp av løsninger levert av eksterne leverandører, programmerere eller deg selv.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfigurasjonen er endret fra et annet sted (f.eks. et annet nettleservindu, mobilapp eller enhet). Du må oppdatere konfigurasjonen før du gjør videre endringer.
 The events in voltage aberrations history will be automatically deleted after {days} days.: Hendelser i spenningsavvikshistorikken slettes automatisk etter {days} dager.
 The items below depend on this channel, so they will be deleted.: Følgende elementer avhenger av denne kanalen, så de vil bli fjernet.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Ved hjelp av en ramme markerte vi varselet du klikket / klikket på avmeldingslenken fra.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reaksjonen vil være aktiv når alle de følgende betingelsene er oppfylt. Hvis du angir alle tilgjengelige alternativer, vil reaksjonen bare aktiveres mellom de valgte datoene, på de valgte klokkeslettene og ukedagene, og når en av solnedgangs- eller soloppgangsreferansene er oppfylt.
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Enheten er slått av av overstrømsbeskyttelse. Før du aktiverer den, må du kontrollere at problemet som førte til det er løst. Er du sikker på at du vil slå på denne enheten eksternt?
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Dette apparatet er kun beregnet for distribusjon og installasjon av autoriserte installatører. Hvis du ikke er en autorisert SUPLA-installatør og ikke har et aktivt opplæringsbevis, returner den til forhandleren.
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Denne tidsplanmodusen er designet for tekniske eller svært tålmodige brukere. Det krever at tidsplanens utløsertider spesifiseres i crontab-notasjon, beriket med flere funksjoner som bare finnes i SUPLI. Hvis du ikke har sett crontabs før og fortsatt ønsker å bruke denne modusen, kan nettstedet crontab.guru være til hjelp for deg.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Denne utløseren brukes lokalt av enheten (f.eks. slår den på lyset, kontrollerer rullegardinen osv.). Hvis du tilordner den en annen handling, vil den lokale funksjonen bli deaktivert.
 Triggers: Utløsere
 Try again later: Prøv en gang til senere
 Turning this device off will result in disabling all the associated schedules.: Dersom denne enheten blir skrudd av vil alle planene som er relatert til den også bli skrudd av.
@@ -1641,6 +1637,7 @@ Unlocked: Avblokkert
 Use working schedule for this access identifier: bruk tilgjengelighetsplanen for denne tilgangs-IDen
 Use working schedule for this reaction: Bruk en aktivitetsplan for denne reaksjonen
 Value per unit: Verdi per enhet
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Vi gjør alt vi kan for at ikonene du sendte skal synes godt, men du vil få de beste resultatene hvis du sender PNG filer med gjennomsiktig bakgrunn og bredden {width} og høyden {height} piksler.
 When: Når
 When the curtain reaches: Når gardinen når
 When the facade blind reaches: Når fasadepersiennen når
@@ -1655,9 +1652,12 @@ When the roller shutter reaches: Når rullegardinen rekker
 When the roof window reaches: Når takvinduet rekker
 When the terrace awning reaches: Når terrassemarkisen når
 When the vertical blind reaches: Når den vertikale persiennen når
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Du kan utføre handlingen til direkte lenke ved å oppgi dens unik identifikator i HTTP PATCH forespørselen. Det er sikrere da det hindrer lagring av full adresse til din lenke i loggbøkene til tilgjengelige servere din forespørsel går gjennom. Nedenfor ser du eksempel på handlingen utført ved hjelp av verktøyet cURL.
 Working schedule: Aktivitetsplan
 You need to provide icons for all states.: Du må levere ikoner for alle tilstander.
 You will be logged out shortly: Snart blir du logget ut.
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Nettleseren din støtter ikke klientdatabasemekanismen (IndexedDB). Denne funksjonaliteten er nødvendig for å vise diagrammer og støtte avanserte innstillinger for dataeksport. Oppdater nettleseren din eller gå ut av privatmodus for å benytte seg av disse funksjonene.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Enheten lar deg utvide funksjonaliteten og lar deg utføre enhver handling på hvilken som helst enhet du eier. De tilgjengelige alternativene avhenger av fastvaren og enheten du bruker.
 choose a currency: velg valuta
 choose access identifiers: Velg tilgangs-IDer
 choose the channel: velg kanal
@@ -1680,8 +1680,8 @@ thermostatAlgorithm_help: |
 A new client app: ~
 A new device: ~
 Account notifications: ~
-Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
+Action trigger notification: ~
 Activity schedule: ~
 Add new data source: ~
 Address: ~
@@ -1701,7 +1701,9 @@ Bridge node online: ~
 Bridge node signal strength: ~
 Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
+Channel notification: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Chart aggregated balance: ~
 Check available updates: ~
 Choose many: ~
 City: ~
@@ -1711,7 +1713,6 @@ Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
 Could not add the data source. Try again in a while.: ~
-Could not change the password.: ~
 Could not check updates.: ~
 Could not perform factory reset.: ~
 Could not perform firmware update.: ~
@@ -1726,6 +1727,8 @@ Default (exact value depends on a device): ~
 Default channels location: ~
 Device date and time: ~
 Device interface: ~
+Device notification: ~
+Device should be checking and installing updates.: ~
 Does it look good?: ~
 E-mail: ~
 Each container level sensor must have different fill level.: ~
@@ -1734,6 +1737,7 @@ Energy prices: ~
 Everyone makes mistakes!: ~
 Factory reset: ~
 Fill level: ~
+Filtering time: ~
 Firmware update is available.: ~
 Firmware update policy: ~
 Firmware updates: ~
@@ -1741,25 +1745,24 @@ Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
-Go back to data sources: ~
 Heat or cold source switch for channel: ~
 IP: ~
 Image: ~
+Info: ~
 Invalid sensor state: ~
 LED settings: ~
 Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
-Light source lifespan: ~
 Light source operating time: ~
 Lock type: ~
 MAC: ~
-MODBUS: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
 Minimum: ~
+Motion sensor: ~
 Motor problem: ~
 Mute alarm: ~
 Mute alarm sound without additional auth: ~
@@ -1769,6 +1772,7 @@ Network: ~
 New version: ~
 No one: ~
 Not available: ~
+Not calibrated: ~
 'OCR service responded with error: {statusCode}. {description}': ~
 Open Weather Data: ~
 Opening sensor for channel: ~
@@ -1778,27 +1782,26 @@ Overcurrent threshold: ~
 Password is too long.: ~
 Password is too short.: ~
 Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
-Password was set successfully.: ~
-Passwords do not match.: ~
 Percentage of extension: ~
 Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
-Power supply: ~
 Pump switch for channel: ~
 Push: ~
-RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
-REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
+Reaction notification: ~
 Reading: ~
 Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
+Remember that this is not your account. You have been trusted by the user when you were given the technical access password.: ~
 Role: ~
 SUPLA - Test e-mail: ~
 Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
+Scene notification: ~
+Sensitivity: ~
 Septic tank: ~
 Serial: ~
 Set the configuration password: ~
@@ -1809,16 +1812,15 @@ Stop bits: ~
 Switch cycle count: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
 The device is not connected. The values below represent the last known state.: ~
-The factory reset was successful.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
 The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The subdevice has been deleted.: ~
-This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
 This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
+This is the list of configured notifications. If you want to add a new notification or alter the existing one, go to the channel details that should trigger it.: ~
+Timeout: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
 Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
@@ -1835,6 +1837,8 @@ Weather attribute: ~
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
+When motion starts to be detected: ~
+When motion stops to be detected: ~
 When the alarm starts: ~
 When the alarm stops: ~
 When the battery level will be: ~
@@ -1852,6 +1856,9 @@ When the fill level will be: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
+When the sensor state changes: ~
+When the sensor state changes to hi: ~
+When the sensor state changes to low: ~
 When the sensors state becomes invalid: ~
 When the sensors state becomes valid: ~
 When the sound alarm starts: ~
@@ -1864,7 +1871,8 @@ When the warning stops: ~
 Who has access?: ~
 Wi-Fi RSSI: ~
 Wi-Fi signal strength: ~
-You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
+With great power comes great responsibility.: ~
+You are using technical access.: ~
 You cannot change this function becuase it is required by another channel.: ~
 You have the newest firmware installed.: ~
 activityConditions_help: ~
@@ -1901,9 +1909,27 @@ modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~
 modbusSerialStopbits_TWO: ~
+normal session: ~
+openWeatherAttribute_field_airCo: ~
+openWeatherAttribute_field_airNo: ~
+openWeatherAttribute_field_airNo2: ~
+openWeatherAttribute_field_airO3: ~
+openWeatherAttribute_field_airPm10: ~
+openWeatherAttribute_field_airPm25: ~
+openWeatherAttribute_field_feelsLike: ~
+openWeatherAttribute_field_humidity: ~
+openWeatherAttribute_field_pressure: ~
+openWeatherAttribute_field_rainMmh: ~
+openWeatherAttribute_field_snowMmh: ~
+openWeatherAttribute_field_temp: ~
+openWeatherAttribute_field_tempHumidity: ~
+openWeatherAttribute_field_visibility: ~
+openWeatherAttribute_field_windGust: ~
+openWeatherAttribute_field_windSpeed: ~
 state-half: ~
 state-hi: ~
 state-low: ~
+subdevicePairingResult_REQUEST_SENT: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~
 tank_alarm_fullRange_alarmAboveLevel: ~

@@ -96,6 +96,22 @@ modbusSerialStopbits_TWO: Two
 ocrLightingMode_ALWAYS_ON: Always on
 ocrLightingMode_AUTO: Automatic
 ocrLightingMode_OFF: 'Off'
+openWeatherAttribute_field_airCo: Air CO
+openWeatherAttribute_field_airNo: Air NO
+openWeatherAttribute_field_airNo2: Air NO₂
+openWeatherAttribute_field_airO3: Air O₃
+openWeatherAttribute_field_airPm10: Air PM10
+openWeatherAttribute_field_airPm25: Air PM2.5
+openWeatherAttribute_field_feelsLike: Perceived temperature
+openWeatherAttribute_field_humidity: Humidity
+openWeatherAttribute_field_pressure: Pressure
+openWeatherAttribute_field_rainMmh: Rain
+openWeatherAttribute_field_snowMmh: Snow
+openWeatherAttribute_field_temp: Temperature
+openWeatherAttribute_field_tempHumidity: Temperature and humidity
+openWeatherAttribute_field_visibility: Visibility
+openWeatherAttribute_field_windGust: Wind Gust
+openWeatherAttribute_field_windSpeed: Wind Speed
 register-slide1-text: Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.
 register-slide1-title: Develop your own building automation
 register-slide2-text: One of the main assumptions of this project is simplicity and availability. SUPLA allows simple light operation or gate opening, when you want to leave your premises, with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Hardware. This way, you can also develop this project!
@@ -202,23 +218,7 @@ virtualChannelTypeName_OPEN_WEATHER: Weather
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 energyPriceForecast_field_pdgsz: Energy price in Poland - peek hours
-openWeatherAttribute_field_airCo: Air CO
-openWeatherAttribute_field_airNo: Air NO
-openWeatherAttribute_field_airNo2: Air NO₂
-openWeatherAttribute_field_airO3: Air O₃
-openWeatherAttribute_field_airPm10: Air PM10
-openWeatherAttribute_field_airPm25: Air PM2.5
 openWeatherAttribute_field_clouds: Clouds
-openWeatherAttribute_field_feelsLike: Perceived temperature
-openWeatherAttribute_field_humidity: Humidity
-openWeatherAttribute_field_pressure: Pressure
-openWeatherAttribute_field_rainMmh: Rain
-openWeatherAttribute_field_snowMmh: Snow
-openWeatherAttribute_field_temp: Temperature
-openWeatherAttribute_field_tempHumidity: Temperature and humidity
-openWeatherAttribute_field_visibility: Visibility
-openWeatherAttribute_field_windGust: Wind Gust
-openWeatherAttribute_field_windSpeed: Wind Speed
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">

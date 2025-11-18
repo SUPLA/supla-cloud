@@ -6,9 +6,7 @@
 ...open gateways, gates or doors: ...atidaryti dureles, vartus ar duris
 ...or control home appliances: ...ar valdyti buitinę techniką/RTV įrangą
 ...you can monitor temperature: ...galite stebėti temperatūrą
-Slat angle that the blind sets when closing: Juostelės kampas, kurį žaliuzės nustato uždarymo metu
 10 minutes before sunset, on day 10 of the month, May through August: 10 minučių iki saulėlydžio, tik mėnesio 10 dieną, nuo gegužės iki rugpjūčio
-Slat angle that the blind sets when opening: Juostelės kampas, kurį žaliuzės nustato atidarymo metu
 15 minutes after sunrise, every 2 days: 15 minučių po saulėtekio, kas antrą dieną
 A confirmation upon successful client app registration.: Naujos kliento programos registracijos patvirtinimas.
 A confirmation upon successful device registration.: Sėkmingos įrenginio registracijos patvirtinimas.
@@ -34,7 +32,6 @@ Access to all of your devices through MQTT Broker: Prieiga prie visų Jūsų įr
 Account: Paskyra
 Account access when you are unavailable: Prieiga prie paskyros kuomet esate neprieinami
 Account has been activated. You can Sign In now.: Paskyra aktyvuota. Galite prisijungti
-Action: Veiksmas
 Action confirmation: Veiksmo patvirtinimas
 Action execution: Akcijos vykdymas
 Action trigger: Veiksmo trigeris
@@ -160,14 +157,12 @@ Brightness adjustment for automatic mode: Ryškumo automatinio režimo pritaikym
 Brightness level: Ryškumo lygis
 Button volume: Mygtuko garsumas
 Buttons upside down: Atvirkštinis valdymas mygtukais
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Išjungę šią parinktį galėsite valdyti šį įrenginį iš integravimo lygio be papildomo patvirtinimo. Tai gali sukelti pavojingą ar mažiau saugią būklę (pvz., netyčia atidarius vartus).
 By signing in, you are authorizing {clientName} to control your devices.: Prisijungdami įgaliojate {clientName} valdyti Jūsų įrenginius.
 CLICK TO DISABLE: SPUSTELĖKITE, KAD IŠJUNGTI
 CLICK TO ENABLE: SPUSTELĖKITE, KAD ĮJUNGTI
 Calibrate: Kalibruoti
 Calibration: Kalibravimas
 Calibration error: Kalibravimo klaida
-Calibration successful.: Kalibravimas sėkmingas
 Cancel: Atšaukti
 Cancel changes: Atšaukti pakeitimus
 Cancelled: Atšaukta
@@ -176,7 +171,6 @@ Cannot calculate when to run the schedule - incorrect configuration?: Nepavyko a
 Cannot change the channel function right now.: Šiuo metu negalima pakeisti šio kanalo funkcijų.
 Cannot delete this I/O Device right now.: Šiuo metu negalima pašalinti šio įrenginio.
 Cannot update OCR settings. Try again in a while.: Nepavyko atnaujinti OCR nustatymų. Netrukus pabandykite dar kartą.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Negavote pranešimo su Jūsų paskyros aktyvavimo nuoroda? Įsitikinkite, kad jis nepateko į SPAM (Šlamštas) aplankalą. Taip pat galite {clickHereLink}, kad jį išsiųstumėte dar kartą.
 Captcha token is not valid.: Neteisingai įvestas captcha kodas.
 Caption: Parašas
 Caption is too long.: Pavadinimas per ilgas.
@@ -203,7 +197,6 @@ Channel group must consist of at least one channel.: Kanālu grupā jābūt iek�
 Channel group reference will be removed from the items below.: Nurodymas į kanalų grupę bus pašalintas iš žemiau nurodytų elementų.
 Channel groups: Kanalų grupės
 Channel is assigned to the I/O device location: Kanalas priskirtas prie įrenginio vietos
-Channel is disconnected.: Kanalas atjungtas.
 Channel name: Kanalo pavadinimas
 Channel reference will be removed from the items below.: Kanalas bus pašalintas iš žemiau nurodytų elementų.
 Channel with action triggers: Kanalas su akcijų trigeriais
@@ -310,7 +303,6 @@ Delete: Pašalinti
 Delete measurement history: Pašalinti matavimų istoriją
 Delete my account: Pašalinti mano paskyrą
 Delete voltage aberrations history: Pašalinti įtampos aberacijų istoriją
-Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: 'Su Jūsų paskyros pašalinimu taip pat bus pašalinti visi Jūsų duomenys, be kita ko Jūsų suporuoti įrenginiai, konfigūruoti kanalai, tiesioginės nuorodos ir matavimo istorija. Paskyros pašalinimas yra negrįžtamas. '
 Dependencies: Priklausomybės
 Depth: Gylis
 Depth sensor: Gilio jutiklis
@@ -417,11 +409,8 @@ Fan: Ventiliatorius
 Feature limits: Funkcionalumo limitai
 'Field: {propertyPath}.': Laukas {propertyPath}.
 File format: Failo formatas
-File is too large: Failas yra per didelis
 Fill missing data: Užpildyti trūkstamus matmenis
 Firmware: Programinė apatinė įranga (firmware)
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Šio įrenginio programinė apatinė įranga (firmware) siunčia pranešimus atsižvelgiant į šį kanalą. Šioje vietoje galite konfigūruoti turinį ir gavėjus. Norėdami gauti daugiau informacijos, susisiekite su įrenginio tiekėju.
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Šio įrenginio programinė apatinė įranga (firmware) siunčia pranešimus. Šioje vietoje galite konfigūruoti turinį ir gavėjus. Norėdami gauti daugiau informacijos, susisiekite su įrenginio tiekėju.
 Flooding: Užliejimas
 For a period: Laikotarpiui
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Atnaujinimo metu rekomenduojama naudotis adresu {suplaUrl}.
@@ -430,7 +419,6 @@ For security reasons, the full URL of this direct link will be displayed only on
 Forced off by sensor: Priverstinis išjungimas dėl jutiklio
 Forgot your password?: Pamiršote slaptažodį?
 Forward active energy: Aktyvioji energija parsisiųsta
-Forward active energy balance: Aktyviosios energijos sąnaudų balansas
 Forward active energy balanced: Aktyvioji energija atsisiųsta (Vektorinis balansas)
 Forward reactive energy: Reaktyvioji energija parsisiųsta
 Fridays: Penktadieniai
@@ -526,9 +514,7 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Jeigu norite suderinti privatų debesį SUPLA su viešąja programa OAuth, turite {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Jei nori pasinaudoti tiesiogine nuoroda kitoje programinėje įrangoje, pridėk atitinkamą užklausos antraštę, kad gauti lengviau apdorojamą atsakymą.
 If you wish not to receive such messages, change it in your account settings [here].: Jei nenorite iš mūsų gauti tokių pranešimų, <br> apsilankykite savo paskyros nustatymuose [čia].
-If you wish to register your instance, {clickHereLink}.: Jei norite užregistruoti savo paskyrą, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Jeigu norite pamatyti prieinamas integracijas, pereikite į {0}.
-If you wish to unregister your instance, {clickHereLink}.: Jei norite išregistruoti savo paskyrą, {clickHereLink}.
 Image area crop: Nuotraukos laukas
 Impulse counter: Impulsų skaitiklis
 Impulses: Impulsai
@@ -539,7 +525,6 @@ Include energy corrections in new measurements history (not recommended): Įtrau
 Incorrect password: Neteisingas slaptažodis
 Increment and decrement: Didėjantis ir mažėjantis
 Incremental: Inkrementinis
-Information: Informacija
 Inherit I/O Device location: Naudokitės įrenginio vietos aptikimu
 Installer e-mail address: Montuotojo el. pašto adresas
 Integration with MQTT Broker has been disabled.: Integracija su MQTT brokeriu buvo išjungta.
@@ -557,16 +542,13 @@ Invalid function for channel.: Neteisinga kanalo funkcija
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 Invalid request: Neteisinga užklausa
 Invalid request.: Neteisingas reikalavimas.
-Invalid scene: Neteisinga scena
 Invalid token.: Neteisingas tokenas.
 Invalid unlock code.: Neteisinga atrakinimo nuoroda.
 Invalid username or password: Neteisingas naudotojo vardas arba slaptažodis
 Inverted logic: Atvirkštinė logika
 Invisible: Nematomi
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Gali būti, kad kitas vartotojas, norėdamas atstatyti savo paskyros slaptažodį per klaidą įvedė Jūsų el. pašto adresą.
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: Šiame režime įrenginys pradės transliuoti savo Wi-Fi tinklą, kurio tikslas yra leisti konfigūruoti įrenginį arba įrenginio programinės įrangos atnaujinimas naudojant išmanųjį telefoną, kuris prisijungs prie šio tinklo.
 Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Atmink, kad kartu su Tavo paskyra taip pat pašalinsime visus Tavo duomenis, įskaitant nustatymus, sukonfigūruotus įrenginius, vietas, grafikus ir visas Kitas funkcijas, kurias siūlo SUPLA.
-Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Atminkite, kad programoje vaizduojamas nurodytos reikšmės aprašymas nėra idealus, o vienintelis jo tikslas tai padėti Jums įvesti teisingą reikšmę. Jis nėra skirtas tikrinimui, ar įvesta reikšmė teisinga, o tuo labiau pasigirti, kad „buvo rasta klaida SUPLA programoje“. Įvedę pakeitimus patikinkite skyrių „Būsimi atlikimai“, kad patvirtintumėte, jog įvesta tvarkaraščio konfigūracija atitinka Jūsų lūkesčius.
 Language is not available: Valoda nav pieejama
 Last access: Paskutinis prisijungimas
 Last connection: Paskutinis sujungimas
@@ -693,7 +675,6 @@ Number of aberrations: Aberacijų skaičius
 Number of attempts to close: Uždarymo bandymų skaičius
 Number of attempts to open: Atidarymo bandymų skaičius
 Number of sections: Skyrių skaičius
-OAuth application: OAuth programa
 OAuth apps: OAuth programėlės
 OAuth authorization: Autorizacija OAuth
 OAuth integrations might stop working after the instance is unregistered.: Išregistravus Jūsų paskyrą, integracijos su OAuth programomis gali nustoti veikti.
@@ -730,7 +711,6 @@ Partial opening sensor: Netiesioginio atidarymo jutiklis
 Partially opened sensor for channel: Netiesioginio atidarymo jutiklio kanalas
 Password: Slaptažodis
 Password Reset: Slaptažodžio atstatymas
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Pakeitus slaptažodį bus atsijungta nuo visų dabartinių sesijų. Tačiau tai neturės įtakos paraiškoms, kurioms buvo suteiktas Jūsų leidimas. Programėlės prisijungimo teises reikia panaikinti atskirai.
 Password changed: Pakeistas slaptažodis
 Password has been changed: Slaptažodis pakeistas
 Password must be at least {minLength} characters.: Slaptažodį turi sudaryti bent {minLenght} simboliai.
@@ -830,7 +810,6 @@ Reveal: Atidengti
 Reveal or stop: Atidengti arba sustabdyti
 Reveal partially: Dalinai atidengti
 Reverse active energy: Aktyvioji energija grąžinta
-Reverse active energy balance: Grąžintos aktyviosios energijos balansas
 Reverse active energy balanced: Aktyvioji energija grąžinta (Vektorinis balansas)
 Reverse reactive energy: Reaktyvioji energija grąžinta
 Revoke: Atšaukti
@@ -907,10 +886,11 @@ Show on the Client’s devices: Rodyti klientų įrenginiuose
 Shut: Uždengti
 Shut or stop: Uždengti arba sustabdyti
 Shut partially: Uždengti dalinai
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Žaliuzę uždaryti iki tol, kol palies apatinį kraštą ir įrašyti jos uždarymo procentinę vertę į šį laukelį. Ši operacija nėra privaloma, bet jos nurodymas pagerins žaliuzės padėties vizualizavimą mobilioje programoje.
 Sign In: Prisijungti
 Sign Out: Atsijungti
 Sign in temporarily unavailable. Please try again later.: Prisijungimas laikinai negalimas. Pabandykite dar kartą vėliau.
+Slat angle that the blind sets when closing: Juostelės kampas, kurį žaliuzės nustato uždarymo metu
+Slat angle that the blind sets when opening: Juostelės kampas, kurį žaliuzės nustato atidarymo metu
 Smartphones: Išmanieji telefonai
 SoftVer: ProgĮrVer
 Some features depend on this channel: Kai kurios funkcijos priklauso nuo šio kanalo
@@ -959,7 +939,6 @@ Temperature setpoint change switches to manual mode: Tikslinės temperatūros pa
 Temporal override: Laikinas įrašymas ant viršaus
 Terrace awning: Terasos markizė
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Ačiū, kad užregistravote paskyrą %cloudHost% svetainėje. Norėdami baigti aktyvavimą, spustelėkite žemiau esančią nuorodą.
-Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Dėl integracijų galite lengvu būdu pridėti naujas funkcijas prie savo paskyros, panaudojant sprendimus, kuriuos teikia išoriniai tiekėjai, programuotojai arba asmeniškai.
 'The IP used for login is: %ip%': 'Prisijungti buvo bandyta iš IP adreso: %ip%'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: MQTT brokerio slaptažodis matomas tik šiuo metu. Įsitikinkite, kad užrašėte jį saugioje vietoje. Nebus galimybės jo parodyti dar kartą.
 The SUPLA infrastructure is being updated.: SUPLA serveriai atnaujinami.
@@ -968,7 +947,6 @@ The Terms and Conditions have changed – please read them and accept.: Svetain�
 The activation link has been sent again. Check the inbox.: Pranešimas su Jūsų paskyros aktyvavimo nuoroda buvo išsiųstas dar kartą. Patikrinkite el. pašto dėžutę.
 The channel has been deleted.: Kanalas buvo pašalintas.
 The client will be automatically logged out when deleted.: Kliento pašalinimas sukels, kad jis iškart bus atjungtas.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfigūracija buvo pakeista iš kitos vietos (pvz. kitas naršyklės langas, mobilioji programėlė arba įrenginys). Prieš atlikdami sekančius pakeitimus, turite atnaujinti konfigūraciją.
 The counter has been reset.: Skaitiklis nustatytas iš naujo.
 The device could not be unlocked.: Nepavyko atrakinti įrenginio.
 The device has been unlocked already.: Įrenginys jau atrakintas.
@@ -1000,7 +978,6 @@ The password and its confirm are not the same.: Slaptažodis ir jo patvirtinimas
 The password should be 8 or more characters.: Slaptažodį turi sudaryti mažiausiai 8 simboliai.
 The reaction has been added: Reakcija buvo pridėta
 The reaction has been changed: Reakcija buvo pakeista
-The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: 'Įrenginys buvo išjungtas dėl srovės perkrovos. Prieš jį išjungdami, įsitikinkite, kad problema, kurį tai sukėlė, buvo išspręsta. Ar tikrai norite išjungti šį įrenginį nuotoliniu būdu? '
 The scene would execute too many operations.: Scena atlieka per daug operacijų.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serveris grąžino 400 klaidą, kas reiškia, kad siunčiama užklausa yra klaidinga.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Serveris grąžino HTTP 403 klaidą. Tai reiškia, kad neturite pakankamai įgaliojimu šio elemento peržiūrai.
@@ -1019,7 +996,6 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Termostato programos
 This action will result in restarting the device. It will not be available for a while.: Aktyvavus šią operaciją, įrenginys bus paleistas iš naujo. Paleidimo iš naujo metu įrenginys bus nepasiekiamas.
 This channel was missing during last device registration attempt.: Šio kanalo įrenginyje nėra.
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Šis įrenginys skirtas platinti ir montuoti tik įgaliotiems montuotojams. Jei nesate įgaliotas SUPLA montuotojas ir neturite aktyvaus mokymo sertifikato, grąžinkite jį pardavėjui.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ši tiesioginė nuoroda reikalauja išsamesnių atliekamo veiksmo parametrų. Pažiūrėk žemiau pateiktus pavyzdžius, kad sužinotum, kokius parametrus gali nustatyti.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Gavote šią informaciją dėl nesėkmingo bandymo prisijungti prie SUPLA-CLOUD naudojant Jūsų el. pašto adresą.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Tai paskutinis Jūsų paskyros ištrynimo veiksmas. Užpildžius ir patvirtinus formą Jūsų duomenys bus negrįžtamai ištrinti.
@@ -1028,9 +1004,7 @@ This is the list of applications you have granted access to your account.: Tai p
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Tai Jūsų paskyroje veikiančių reakcijų sąrašas. Jei norite pridėti naują reakciją, pereikite į išsamią informaciją apie kanalą, kuris turi ją suaktyvinti.
 This link is only valid for an hour.: Nuoroda bus aktyvi vieną valandą.
 'This password will protect your home. Therefore, it must:': 'Šis slaptažodis apsaugo Jūsų namus. Todėl:'
-This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Šis tvarkaraščio režimas suprojektuotas galvojant apie technikus arba labai kantrius naudotojus. Jame reikia nurodyti tvarkaraščio paleidimo momentus crontab įraše, kuriame yra kelios papildomos funkcijos, kurios prieinamos tik SUPLA programoje. Jei anksčiau nedirbote su crontab‘ais, bet ir toliau norite naudotis šiuo režimu, crontab.guru svetainė gali būti Jums naudinga.
 This thermostat is controlled by another device.: Šį termostatą valdo pagrindinis termostatas.
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Šį trigerį įrenginys naudoja tik lokaliai (pvz. įjungia šviesą, valdo žaliuzę ir t.t.). Jei jam priskirsite kitą veiksmą tai lokali funkcija bus išjungta.
 Thursdays: Ketvirtadieniai
 Tilt angle: Pakrypimo kampas
 Tilt control type: Pakrypimo valdymo tipas
@@ -1110,7 +1084,6 @@ We were not able to find your account.: Mums nepavyko surasti Jūsų paskyros.
 We were not able to prepare your data. Please see the error details below.: Rengiant duomenis įvyko klaida. Išsamią informaciją žr. toliau.
 We will miss you: Ilgėsimės Jūsų
 We will miss you!: Mes Jūsų pasiilgsime!
-We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Mes padarysime viską, kas įmanoma,kad persiųstos piktogramos būtų rodomos kuo geriausiai, bet geriausius rezultatus pasieksite, siunčiant  PNG failus su skaidriu fonu, o taip pat {width} pločio ir {height} aukščio pikseliais.
 We will use it only in justified situations.: Panaudosime jį tik pagrįstais atvejais.
 Weather Station: Meteorologijos stotis
 Wednesdays: Trečiadieniai
@@ -1247,7 +1220,6 @@ When the window will be opened: Atidarius langą
 When the window will be opened or closed: Uždarius arba atidarius langą
 When there is certain amount of rain: Kai iškrenta tam tikras lietaus kiekis
 When there weight reaches a certain value: Svoriui pasiekus tam tikrą vertę
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Tiesioginės nuorodos akciją gali atlikti nurodant jos unikalųjį identifikatorių HTTP PATCH užklausos turinyje. Tai yra saugiau, nes tai neleidžia išsaugoti pilno Tavo nuorodos adreso prieigos serverių, per kuriuos perduodama Tavo užklausa, žurnale. Žemiau pateikiamas pavyzdinis atlikimas cURL įrankio pagalba.
 Where is the JSON?: Kur yra JSON?
 Where is your SUPLA Cloud?: Kur yra Jūsų SUPLA?
 White: Balta
@@ -1289,13 +1261,11 @@ Your account has been deleted. We hope you will come back to us soon.: Paskyra b
 Your account has been locked.: El. pašto adresas jau egzistuoja
 Your account has not been confirmed yet.: Jūsų paskyra dar nepatvirtinta.
 Your account limits: Jūsų limitai
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Jūsų naršyklė nepalaiko kliento duomenų bazės mechanizmo (IndexedDB). Ši funkcija reikalinga norint rodyti grafikus ir palaikyti išplėstinius duomenų eksporto nustatymus. Atnaujinkite naršyklę arba išeikite iš inkognito režimo, kad galėtumėte naudotis šiomis funkcijomis.
 Your channel groups are allowed to have a maximum of {max} channels.: Jūsų kanalų grupėse gali būti daugiausiai {max} kanalų.
 Your chart is being drawn...: Jūsų diagrama yra brėžiama...
 Your data are being collected. Please be patient.: Renkame Jūsų duomenis, prašome kantrybės.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Jūsų duomenys parsiunčiami iš serverio. Prieš eksportuodami palaukite, kol parsiuntimas bus baigtas.
 Your device has been unlocked by the installer.: Jūsų įrenginį atrakino montuotojas.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Įrenginys leidžia išplėsti jo funkcionalumą ir atlikti bet kokį veiksmą bet kuriame turimame Jūsų įrenginyje. Galimi pasirinkimai priklauso nuo naudojamos programinės įrangos ir įrenginio.
 Your email: Jūsų el. paštas
 Your instance is not registered or you are trying to authorize an application that is not public.: Jūsų instancija nėra įregistruota arba bandote autorizuoti programą, kuri nėra vieša.
 Your password must contain at least one special character.: Slaptažodyje turi būti bent vienas specialus simbolis.
@@ -1557,6 +1527,7 @@ yesterday: vakar
 ...and start your adventure with building automation today!: ...ir pradėkite savo nuotykius su išmaniaisiais pastatais jau šiandien!
 Access identifier password must be at least 8 characters.: Piekļuves identifikatora parolei jābūt vismaz 8 rakstzīmēm.
 Access identifier password must be no longer than 32 characters.: Piekļuves identifikatora parole nedrīkst būt garāka par 32 rakstzīmēm.
+Action: Veiksmas
 Add new item to use in the scene: Pridėti naują elementą prie scenos
 After the delay: Po nustatyto laiko
 After the delay, but only when it's dark: Po nustatyto laiko, tačiau tik kai yra tamsu
@@ -1564,9 +1535,13 @@ Are you sure you want to delete the entire voltage aberrations history saved for
 Are you sure you want to disable this device?: Ar tikrai norite išjungti šį įrenginį?
 Assigned Locations: Priskirtos Vietos
 Authorized OAuth apps: Autorizuotos programos OAuth
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Išjungę šią parinktį galėsite valdyti šį įrenginį iš integravimo lygio be papildomo patvirtinimo. Tai gali sukelti pavojingą ar mažiau saugią būklę (pvz., netyčia atidarius vartus).
 Calculated value: Skaitiklio būsena
+Calibration successful.: Kalibravimas sėkmingas
 Cannot execute an action when the device is disconnected.: Kai įrenginys atjungtas negalima atlikti veiksmo.
 Cannot send an activation e-mail. Try again later.: Nepavyksta išsiųsti pranešimo su aktyvavimo nuoroda. Bandykite dar kartą vėliau.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Negavote pranešimo su Jūsų paskyros aktyvavimo nuoroda? Įsitikinkite, kad jis nepateko į SPAM (Šlamštas) aplankalą. Taip pat galite {clickHereLink}, kad jį išsiųstumėte dar kartą.
+Channel is disconnected.: Kanalas atjungtas.
 Channel value: Reikšmė
 Channel will be deleted from the channel group below: Kanalas bus pašalintas iš šių kanalų grupių
 Channels in channel group: Kanalai kanalų grupėse
@@ -1578,6 +1553,7 @@ Confirm if you want to perform the roller shutter calibration.: Patvirtinti kali
 Confirm if you want to remove {deviceName} device: Patvirtinkite, kad norite pašalinti įrenginį {deviceName}
 DISABLED: IŠJUNGTA
 Days: Dienos
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: 'Su Jūsų paskyros pašalinimu taip pat bus pašalinti visi Jūsų duomenys, be kita ko Jūsų suporuoti įrenginiai, konfigūruoti kanalai, tiesioginės nuorodos ir matavimo istorija. Paskyros pašalinimas yra negrįžtamas. '
 Device channel value: Reikšmė iš įrenginio
 Device settings: Įrenginio nustatymai
 Differential: Diferencialinis
@@ -1589,6 +1565,10 @@ Email already exists: El. pašto adresas jau egzistuoja
 Entering configuration mode is unsupported in the firmware.: Įrenginio programinė įranga nepalaiko nuotolinio perjungimo į konfigūravimo režimą.
 Existing schedules: Egzistuojantys tvarkaraščiai
 Expected maximum increment: Tikėtinas maksimalus padidėjimas
+File is too large: Failas yra per didelis
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Šio įrenginio programinė apatinė įranga (firmware) siunčia pranešimus atsižvelgiant į šį kanalą. Šioje vietoje galite konfigūruoti turinį ir gavėjus. Norėdami gauti daugiau informacijos, susisiekite su įrenginio tiekėju.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Šio įrenginio programinė apatinė įranga (firmware) siunčia pranešimus. Šioje vietoje galite konfigūruoti turinį ir gavėjus. Norėdami gauti daugiau informacijos, susisiekite su įrenginio tiekėju.
+Forward active energy balance: Aktyviosios energijos sąnaudų balansas
 From IP: Iš IP adreso
 Get SUPLA on your devices: Atsisiųskite SUPLA į savo įrenginius
 Hi: Sveiki
@@ -1596,10 +1576,16 @@ Hour: Laikas
 Hours: Valandos
 I/O: Įvestis/Išvestis
 If you want to stay here, do something!: Jei norite likti čia, padarykite ką nors!
+If you wish to register your instance, {clickHereLink}.: Jei norite užregistruoti savo paskyrą, {clickHereLink}.
+If you wish to unregister your instance, {clickHereLink}.: Jei norite išregistruoti savo paskyrą, {clickHereLink}.
 In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Norėdami sumažinti neteisingo nuskaitymo riziką, nustatykite maksimalų numatomą skaitiklio vertės padidėjimą tarp sekančių nuotraukų.
+Information: Informacija
 Initial value: Pradinė vertė
 Input: Įvestis
 Interpolate measurements: Įvertinti trūkstamas reikšmes
+Invalid scene: Neteisinga scena
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: Šiame režime įrenginys pradės transliuoti savo Wi-Fi tinklą, kurio tikslas yra leisti konfigūruoti įrenginį arba įrenginio programinės įrangos atnaujinimas naudojant išmanųjį telefoną, kuris prisijungs prie šio tinklo.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Atminkite, kad programoje vaizduojamas nurodytos reikšmės aprašymas nėra idealus, o vienintelis jo tikslas tai padėti Jums įvesti teisingą reikšmę. Jis nėra skirtas tikrinimui, ar įvesta reikšmė teisinga, o tuo labiau pasigirti, kad „buvo rasta klaida SUPLA programoje“. Įvedę pakeitimus patikinkite skyrių „Būsimi atlikimai“, kad patvirtintumėte, jog įvesta tvarkaraščio konfigūracija atitinka Jūsų lūkesčius.
 Languages: Kalbos
 Loading: Krovimas
 Location password must be at least 4 characters.: Atrašanās vietas parolei jābūt vismaz 4 rakstzīmēm.
@@ -1611,29 +1597,39 @@ Mobile Apps: Mobiliosios programos
 Next: Toliau
 No results match {0}: Jokie rezultatai netinka su {0}
 Number: Numeris
+OAuth application: OAuth programa
 Output: Išvestis
 Pairing subdevices is unsupported in the firmware.: Įrenginio programinė įranga nepalaiko siejimo.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Pakeitus slaptažodį bus atsijungta nuo visų dabartinių sesijų. Tačiau tai neturės įtakos paraiškoms, kurioms buvo suteiktas Jūsų leidimas. Programėlės prisijungimo teises reikia panaikinti atskirai.
 Please select an action: Pasirinkite veiksmą
 Please select the schedules that should also be enabled.: Pažymėkite tvarkaraščius, kurie taip pat turi būti išjungti.
 Previous login: Ankstesnis prisijungimas
 Reference to the channel will be removed from the items below.: Nuoroda į šį kanalą bus pašalinta iš žemiau nurodytų elementų.
 Registration: Registracija
 Remove: Pašalinti
+Reverse active energy balance: Grąžintos aktyviosios energijos balansas
 Save changes to see Access IDs: Išsaugoti pakeitimus, kad peržiūrėti prieigos identifikatorius
 Schedule cannot be enabled: Nepavyko įjungti tvarkaraščio
 Schedules below will be deleted: Šie tvarkaraščiai bus pašalinti
 Sensor (normal closed): Jutiklis (normaliai uždarytas)
 Sensor (normal open): Jutiklis (normaliai atidarytas)
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Žaliuzę uždaryti iki tol, kol palies apatinį kraštą ir įrašyti jos uždarymo procentinę vertę į šį laukelį. Ši operacija nėra privaloma, bet jos nurodymas pagerins žaliuzės padėties vizualizavimą mobilioje programoje.
 Sources available from: Šaltiniai prieinami
 Standard: Standartiniai
 Subject: Subjektas
 Sunrise / Sunset: Saulėtekis / Saulėlydis
 Supla for devices: Supla įrenginiams
 Temperature adjustment only: Tik temperatūros nustatymas
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Dėl integracijų galite lengvu būdu pridėti naujas funkcijas prie savo paskyros, panaudojant sprendimus, kuriuos teikia išoriniai tiekėjai, programuotojai arba asmeniškai.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfigūracija buvo pakeista iš kitos vietos (pvz. kitas naršyklės langas, mobilioji programėlė arba įrenginys). Prieš atlikdami sekančius pakeitimus, turite atnaujinti konfigūraciją.
 The events in voltage aberrations history will be automatically deleted after {days} days.: Įvykiai įtampos aberacijos istorijoje bus automatiškai ištrinti po {days} dienų.
 The items below depend on this channel, so they will be deleted.: Žemiau nurodyti elementai priklauso nuo šio kanalo, todėl bus pašalinti.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Naudojant rėmelį pažymėjome pranešimą, iš kurio spustelėjote nuorodą išsiregistravimui.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reakcija bus aktyvi, kai visos žemiau nurodytos sąlygos bus įvykdytos. Jei nustatysite visas galimas parinktis, reakcija bus aktyvuota tik tarp pasirinktų datų, pasirinktomis valandomis ir savaitės dienomis bei kai bus įvykdyta viena iš saulėlydžio ar saulėtekio atžvilgiu nuorodų.
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: 'Įrenginys buvo išjungtas dėl srovės perkrovos. Prieš jį išjungdami, įsitikinkite, kad problema, kurį tai sukėlė, buvo išspręsta. Ar tikrai norite išjungti šį įrenginį nuotoliniu būdu? '
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Šis įrenginys skirtas platinti ir montuoti tik įgaliotiems montuotojams. Jei nesate įgaliotas SUPLA montuotojas ir neturite aktyvaus mokymo sertifikato, grąžinkite jį pardavėjui.
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Šis tvarkaraščio režimas suprojektuotas galvojant apie technikus arba labai kantrius naudotojus. Jame reikia nurodyti tvarkaraščio paleidimo momentus crontab įraše, kuriame yra kelios papildomos funkcijos, kurios prieinamos tik SUPLA programoje. Jei anksčiau nedirbote su crontab‘ais, bet ir toliau norite naudotis šiuo režimu, crontab.guru svetainė gali būti Jums naudinga.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Šį trigerį įrenginys naudoja tik lokaliai (pvz. įjungia šviesą, valdo žaliuzę ir t.t.). Jei jam priskirsite kitą veiksmą tai lokali funkcija bus išjungta.
 Triggers: Trigeriai
 Try again later: Pabandykite dar kartą vėliau
 Turning this device off will result in disabling all the associated schedules.: Šio įrenginio išjungimas taip pat sukels tvarkaraščių, kurie yra susieti su juo, išjungimą.
@@ -1641,6 +1637,7 @@ Unlocked: Atrakintas
 Use working schedule for this access identifier: Šiam prieigos identifikatoriui naudoti prieinamumo tvarkaraštį
 Use working schedule for this reaction: Šiai reakcijai naudokite aktyvumo grafiką
 Value per unit: Reikmė vienetui
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Mes padarysime viską, kas įmanoma,kad persiųstos piktogramos būtų rodomos kuo geriausiai, bet geriausius rezultatus pasieksite, siunčiant  PNG failus su skaidriu fonu, o taip pat {width} pločio ir {height} aukščio pikseliais.
 When: Kada
 When the curtain reaches: Kai užuolaida pasiekia
 When the facade blind reaches: Kai fasado žaliuzės pasiekia
@@ -1655,9 +1652,12 @@ When the roller shutter reaches: Kai žaliuzė pasieks
 When the roof window reaches: Kai stogo langas pasieks
 When the terrace awning reaches: Kai terasos markizė pasiekia
 When the vertical blind reaches: Kai vertikalios žaliuzės pasiekia
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Tiesioginės nuorodos akciją gali atlikti nurodant jos unikalųjį identifikatorių HTTP PATCH užklausos turinyje. Tai yra saugiau, nes tai neleidžia išsaugoti pilno Tavo nuorodos adreso prieigos serverių, per kuriuos perduodama Tavo užklausa, žurnale. Žemiau pateikiamas pavyzdinis atlikimas cURL įrankio pagalba.
 Working schedule: Aktyvumo tvarkaraštis
 You need to provide icons for all states.: Turite pristatyti ikonas visoms būklėms.
 You will be logged out shortly: Netrukus busite atjungti
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Jūsų naršyklė nepalaiko kliento duomenų bazės mechanizmo (IndexedDB). Ši funkcija reikalinga norint rodyti grafikus ir palaikyti išplėstinius duomenų eksporto nustatymus. Atnaujinkite naršyklę arba išeikite iš inkognito režimo, kad galėtumėte naudotis šiomis funkcijomis.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Įrenginys leidžia išplėsti jo funkcionalumą ir atlikti bet kokį veiksmą bet kuriame turimame Jūsų įrenginyje. Galimi pasirinkimai priklauso nuo naudojamos programinės įrangos ir įrenginio.
 choose a currency: pasirinkti valiutą
 choose access identifiers: pasirinkite prieigos ID
 choose the channel: pasirinkite kanalą
@@ -1680,8 +1680,8 @@ thermostatAlgorithm_help: |
 A new client app: ~
 A new device: ~
 Account notifications: ~
-Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
+Action trigger notification: ~
 Activity schedule: ~
 Add new data source: ~
 Address: ~
@@ -1701,7 +1701,9 @@ Bridge node online: ~
 Bridge node signal strength: ~
 Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
+Channel notification: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Chart aggregated balance: ~
 Check available updates: ~
 Choose many: ~
 City: ~
@@ -1711,7 +1713,6 @@ Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
 Could not add the data source. Try again in a while.: ~
-Could not change the password.: ~
 Could not check updates.: ~
 Could not perform factory reset.: ~
 Could not perform firmware update.: ~
@@ -1726,6 +1727,8 @@ Default (exact value depends on a device): ~
 Default channels location: ~
 Device date and time: ~
 Device interface: ~
+Device notification: ~
+Device should be checking and installing updates.: ~
 Does it look good?: ~
 E-mail: ~
 Each container level sensor must have different fill level.: ~
@@ -1734,6 +1737,7 @@ Energy prices: ~
 Everyone makes mistakes!: ~
 Factory reset: ~
 Fill level: ~
+Filtering time: ~
 Firmware update is available.: ~
 Firmware update policy: ~
 Firmware updates: ~
@@ -1741,25 +1745,24 @@ Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
-Go back to data sources: ~
 Heat or cold source switch for channel: ~
 IP: ~
 Image: ~
+Info: ~
 Invalid sensor state: ~
 LED settings: ~
 Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
-Light source lifespan: ~
 Light source operating time: ~
 Lock type: ~
 MAC: ~
-MODBUS: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
 Minimum: ~
+Motion sensor: ~
 Motor problem: ~
 Mute alarm: ~
 Mute alarm sound without additional auth: ~
@@ -1769,6 +1772,7 @@ Network: ~
 New version: ~
 No one: ~
 Not available: ~
+Not calibrated: ~
 'OCR service responded with error: {statusCode}. {description}': ~
 Open Weather Data: ~
 Opening sensor for channel: ~
@@ -1778,27 +1782,26 @@ Overcurrent threshold: ~
 Password is too long.: ~
 Password is too short.: ~
 Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
-Password was set successfully.: ~
-Passwords do not match.: ~
 Percentage of extension: ~
 Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
-Power supply: ~
 Pump switch for channel: ~
 Push: ~
-RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
-REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
+Reaction notification: ~
 Reading: ~
 Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
+Remember that this is not your account. You have been trusted by the user when you were given the technical access password.: ~
 Role: ~
 SUPLA - Test e-mail: ~
 Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
+Scene notification: ~
+Sensitivity: ~
 Septic tank: ~
 Serial: ~
 Set the configuration password: ~
@@ -1809,16 +1812,15 @@ Stop bits: ~
 Switch cycle count: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
 The device is not connected. The values below represent the last known state.: ~
-The factory reset was successful.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
 The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The subdevice has been deleted.: ~
-This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
 This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
+This is the list of configured notifications. If you want to add a new notification or alter the existing one, go to the channel details that should trigger it.: ~
+Timeout: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
 Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
@@ -1835,6 +1837,8 @@ Weather attribute: ~
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
+When motion starts to be detected: ~
+When motion stops to be detected: ~
 When the alarm starts: ~
 When the alarm stops: ~
 When the battery level will be: ~
@@ -1852,6 +1856,9 @@ When the fill level will be: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
+When the sensor state changes: ~
+When the sensor state changes to hi: ~
+When the sensor state changes to low: ~
 When the sensors state becomes invalid: ~
 When the sensors state becomes valid: ~
 When the sound alarm starts: ~
@@ -1864,7 +1871,8 @@ When the warning stops: ~
 Who has access?: ~
 Wi-Fi RSSI: ~
 Wi-Fi signal strength: ~
-You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
+With great power comes great responsibility.: ~
+You are using technical access.: ~
 You cannot change this function becuase it is required by another channel.: ~
 You have the newest firmware installed.: ~
 activityConditions_help: ~
@@ -1901,9 +1909,27 @@ modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~
 modbusSerialStopbits_TWO: ~
+normal session: ~
+openWeatherAttribute_field_airCo: ~
+openWeatherAttribute_field_airNo: ~
+openWeatherAttribute_field_airNo2: ~
+openWeatherAttribute_field_airO3: ~
+openWeatherAttribute_field_airPm10: ~
+openWeatherAttribute_field_airPm25: ~
+openWeatherAttribute_field_feelsLike: ~
+openWeatherAttribute_field_humidity: ~
+openWeatherAttribute_field_pressure: ~
+openWeatherAttribute_field_rainMmh: ~
+openWeatherAttribute_field_snowMmh: ~
+openWeatherAttribute_field_temp: ~
+openWeatherAttribute_field_tempHumidity: ~
+openWeatherAttribute_field_visibility: ~
+openWeatherAttribute_field_windGust: ~
+openWeatherAttribute_field_windSpeed: ~
 state-half: ~
 state-hi: ~
 state-low: ~
+subdevicePairingResult_REQUEST_SENT: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~
 tank_alarm_fullRange_alarmAboveLevel: ~

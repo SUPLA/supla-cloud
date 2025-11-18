@@ -6,9 +6,7 @@
 ...open gateways, gates or doors: ...abrir el portillo, la cancela o la puerta
 ...or control home appliances: ...o controlar tus electrodómesticos a distancia
 ...you can monitor temperature: ...puedes controlar la temperatura
-Slat angle that the blind sets when closing: El ángulo de las lamas que establece la persiana al cerrar
 10 minutes before sunset, on day 10 of the month, May through August: 10 minutos antes del atardecer, solo el día 10 del mes, de mayo a agosto
-Slat angle that the blind sets when opening: El ángulo de las lamas que establece la persiana al abrir
 15 minutes after sunrise, every 2 days: 15 minutos después del amanecer, cada dos días
 A confirmation upon successful client app registration.: Confirmación de registro de una nueva aplicación cliente.
 A confirmation upon successful device registration.: Confirmación de registro exitoso del dispositivo.
@@ -34,7 +32,6 @@ Access to all of your devices through MQTT Broker: Acceso a todos tus dispositiv
 Account: Cuenta
 Account access when you are unavailable: Acceso a la cuenta cuando estás desconectado/a
 Account has been activated. You can Sign In now.: Se ha activado la cuenta. Puedes entrar en sesión
-Action: Acción
 Action confirmation: Confirmación de la acción
 Action execution: Realizar acción
 Action trigger: Activador de acción
@@ -160,14 +157,12 @@ Brightness adjustment for automatic mode: Ajuste de la luminosidad del modo auto
 Brightness level: Nivel de la luminosidad
 Button volume: Volumen del botón
 Buttons upside down: Control del botón de marcha atrás
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Si desactivas esta opción, este dispositivo podrá controlarse desde la integración sin confirmación adicional. Esto puede dar lugar a una situación insegura o menos segura (por ejemplo, la apertura accidental de una puerta).
 By signing in, you are authorizing {clientName} to control your devices.: Al iniciar sesión, autorizas a la aplicación {clientName} a controlar tus dispositivos.
 CLICK TO DISABLE: HAZ CLIC PARA DESACTIVAR
 CLICK TO ENABLE: HAZ CLIC PARA ACTIVAR
 Calibrate: Calibrar
 Calibration: Calibración
 Calibration error: Error de calibración
-Calibration successful.: Calibración exitosa
 Cancel: Cancelar
 Cancel changes: Anula los cambios
 Cancelled: Anulado
@@ -176,7 +171,6 @@ Cannot calculate when to run the schedule - incorrect configuration?: 'No se pud
 Cannot change the channel function right now.: Las funciones de este canal no se pueden cambiar en este momento.
 Cannot delete this I/O Device right now.: Este dispositivo no se puede eliminar en este momento.
 Cannot update OCR settings. Try again in a while.: No se ha podido actualizar la configuración del OCR. Intentar de nuevo dentro de un momento.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: ¿El mensaje con el enlace para activar tu cuenta no ha llegado? Asegúrate de que no esté en la bandeja de correo no deseado. También puedes hacer {clickHereLink} para enviarlo de nuevo.
 Captcha token is not valid.: Captcha incorrecto.
 Caption: Título
 Caption is too long.: El nombre es demasiado largo.
@@ -203,7 +197,6 @@ Channel group must consist of at least one channel.: El grupo de canales debe co
 Channel group reference will be removed from the items below.: La indicación del grupo de canales se eliminará de los siguientes elementos.
 Channel groups: Conjunto de canales
 Channel is assigned to the I/O device location: El canal es asignado a la localización del dispositivo
-Channel is disconnected.: El canal está desconectado.
 Channel name: Nombre del canal
 Channel reference will be removed from the items below.: El canal se eliminará de los siguientes elementos.
 Channel with action triggers: Canal con activadores de acción
@@ -310,7 +303,6 @@ Delete: Eliminar
 Delete measurement history: Eliminar historial de mediciones
 Delete my account: Eliminar cuenta.
 Delete voltage aberrations history: Eliminar el historial de aberraciones de voltaje
-Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: La eliminación de tu cuenta causará también la eliminación de todos tus datos, incluyendo los dispositivos conectados, canales configurados, enlaces directos y el historial de mediciones. La eliminación de tu cuenta es irreversible.
 Dependencies: Relaciones
 Depth: Profundidad
 Depth sensor: Sensor de profundidad
@@ -417,11 +409,8 @@ Fan: El ventilador
 Feature limits: Límites funcionales
 'Field: {propertyPath}.': Campo {propertyPath}.
 File format: Formato de archivo
-File is too large: El archivo es demasiado grande
 Fill missing data: Rellenar las medidas que faltan
 Firmware: Firmware
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: El firmware de este dispositivo envía notificaciones en el contexto de este canal. Aquí es donde puedes configurar el contenido y los destinatarios. Para más información, ponte en contacto con el proveedor del dispositivo.
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: El firmware de este dispositivo envía notificaciones. Aquí es donde puedes configurar el contenido y los destinatarios. Para más información, ponte en contacto con el proveedor del dispositivo.
 Flooding: Inundación
 For a period: Para el período
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Se recomienda utilizar la dirección {suplaUrl} durante la actualización.
@@ -430,7 +419,6 @@ For security reasons, the full URL of this direct link will be displayed only on
 Forced off by sensor: Apagado forzado por el sensor
 Forgot your password?: ¿No recuerdas tu contraseña?
 Forward active energy: Energía activa recibida
-Forward active energy balance: Balance de entrada de energía activa
 Forward active energy balanced: Energía activa consumida (Balance vectorial)
 Forward reactive energy: Energía pasiva recibida
 Fridays: Los viernes
@@ -526,9 +514,7 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Si deseas integrar una nube privada SUPLA con una aplicación pública OAuth, debes {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Si quiere utilizar el enlace directo en otro software, añade el título adecuado de la orden, para recibir una respuesta más fácil para procesar.
 If you wish not to receive such messages, change it in your account settings [here].: Si no deseas recibir por nuestra parte tales notificaciones <br>, consulta la configuración de tu cuenta [aquí].
-If you wish to register your instance, {clickHereLink}.: Si deseas registrar tu instancia, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Si deseas ver las integraciones disponibles, ve a {0}.
-If you wish to unregister your instance, {clickHereLink}.: Si deseas cancelar el registro de tu instancia, {clickHereLink}.
 Image area crop: Área de imagen
 Impulse counter: Contador de impulsos
 Impulses: Impulsos
@@ -539,7 +525,6 @@ Include energy corrections in new measurements history (not recommended): Inclui
 Incorrect password: Contraseña incorrecta.
 Increment and decrement: Ascendente y descendente
 Incremental: Incremental
-Information: Información
 Inherit I/O Device location: Usa la localización del dispositivo
 Installer e-mail address: Dirección de correo electrónico del instalador
 Integration with MQTT Broker has been disabled.: Se ha apagado la integración con el bróker MQTT.
@@ -557,16 +542,13 @@ Invalid function for channel.: Función incorrecta para el canal
 'Invalid redirect URI: {uri}': 'URI de redireccionamiento no válido: {uri}'
 Invalid request: La solicitud incorrecta
 Invalid request.: Solicitud inválida.
-Invalid scene: Escena incorrecta
 Invalid token.: Token no valido.
 Invalid unlock code.: Enlace de desbloqueo incorrecto.
 Invalid username or password: Nombre de usuario o contraseña no válidos
 Inverted logic: Lógica inversa
 Invisible: Invisible
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Es posible que otro usuario haya introducido por equivocación la dirección de tu correo electrónico para restablecer su propia contraseña.
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: En este modo, el dispositivo comenzará a transmitir su red Wi-Fi, cuyo objetivo es permitir la configuración del dispositivo o la actualización del firmware mediante un smartphone que se conectará a esta red.
 Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Recuerda que, al eliminar tu cuenta, eliminaremos también todos tus datos, incluidas las configuraciones, los dispositivos configurados, las ubicaciones, los horarios y todas las demás funciones que ofrece SUPLA.
-Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Ten en cuenta que la descripción de la frase de la aplicación no es perfecta y su único propósito es ayudarte a ingresar el valor apropiado. No sirve para comprobar si el valor introducido es correcto y mucho menos para jactarse de que "se ha encontrado un error en SUPLA". Después de realizar los cambios, consulta la sección "Próximas ejecuciones" para confirmar que la configuración de programación que ingresó cumple tus expectativas.
 Language is not available: El idioma no está disponible.
 Last access: Última conexión
 Last connection: Última conexión
@@ -693,7 +675,6 @@ Number of aberrations: Número de aberraciones
 Number of attempts to close: Número de intentos de cierre
 Number of attempts to open: Número de intentos de apertura
 Number of sections: Número de secciones
-OAuth application: Aplicación OAuth
 OAuth apps: Aplicaciones OAuth
 OAuth authorization: Autorización OAuth
 OAuth integrations might stop working after the instance is unregistered.: Las integraciones de la aplicación OAuth pueden dejar de funcionar después de cancelar el registro de tu instancia.
@@ -730,7 +711,6 @@ Partial opening sensor: Sensor de apertura intermedia
 Partially opened sensor for channel: Canal para el sensor de apertura intermedia
 Password: Contraseña
 Password Reset: Restablecimiento de contraseña
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Al cambiar la contraseña, se cerrarán todas las sesiones actuales. Sin embargo, esto no afectará a las solicitudes que hayan recibido tu autorización. Debes retirar los consentimientos de acceso a la solicitud por separado.
 Password changed: Contraseña modificada
 Password has been changed: Se ha cambiado la contraseña
 Password must be at least {minLength} characters.: La contraseña debe tener al menos {minLength} caracteres.
@@ -830,7 +810,6 @@ Reveal: Abrir
 Reveal or stop: Revelar o detener
 Reveal partially: Abrir parcialmente
 Reverse active energy: Energía activa devuelta
-Reverse active energy balance: Balance de energía activa devuelta
 Reverse active energy balanced: Energía activa devuelta (Balance vectorial)
 Reverse reactive energy: Energía pasiva devuelta
 Revoke: Anular
@@ -907,10 +886,11 @@ Show on the Client’s devices: Muestra en dispositivos de cliente
 Shut: Cerrar
 Shut or stop: Encubrir o detener
 Shut partially: Cubrir parcialmente
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Cierra la persiana hasta que toque el borde inferior e ingresa su porcentaje de cierre en este campo. Esta operación no es necesaria, pero al facilitarla, mejorarás la visualización de la posición de la persiana enrollable en la aplicación móvil.
 Sign In: Entra en sesión
 Sign Out: Cierra la sesión
 Sign in temporarily unavailable. Please try again later.: Iniciar sesión no está disponible temporalmente. Vuelve a intentarlo más tarde.
+Slat angle that the blind sets when closing: El ángulo de las lamas que establece la persiana al cerrar
+Slat angle that the blind sets when opening: El ángulo de las lamas que establece la persiana al abrir
 Smartphones: Smartphones
 SoftVer: VerSoft
 Some features depend on this channel: Algunas funciones dependen de este canal
@@ -959,7 +939,6 @@ Temperature setpoint change switches to manual mode: Al cambiar la temperatura o
 Temporal override: Sobrescrito temporal
 Terrace awning: Toldo de terraza
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Gracias por registrar tu cuenta en la página web %cloudHost%. Para finalizar la activación, haz clic en el siguiente enlace:'
-Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Gracias a las integraciones puedes agregar fácilmente nuevas funciones a tu cuenta utilizando soluciones proporcionadas por proveedores externos, programadores o por tí mismo/a.
 'The IP used for login is: %ip%': 'Dirección IP de la que se ha intentado iniciar la sesión: %ip%'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: La contraseña del bróker MQTT solo está visible en este momento. Asegúrate de anotarla en un lugar seguro. No será posible mostrarla de nuevo.
 The SUPLA infrastructure is being updated.: Los servidores SUPLA se están actualizando.
@@ -968,7 +947,6 @@ The Terms and Conditions have changed – please read them and accept.: El regla
 The activation link has been sent again. Check the inbox.: Hemos vuelto a enviar el mensaje con el enlace para activar tu cuenta. Revisa tu bandeja de entrada.
 The channel has been deleted.: El canal ha sido eliminado.
 The client will be automatically logged out when deleted.: Eliminar un cliente dará lugar al cierre inmediato de la sesión.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: La configuración se cambió desde otro lugar (por ejemplo, otra ventana del navegador, aplicación móvil o dispositivo). Es necesario actualizar la configuración antes de realizar más cambios.
 The counter has been reset.: El contador se ha puesto a cero.
 The device could not be unlocked.: No se ha podido desbloquear el dispositivo.
 The device has been unlocked already.: El dispositivo ya está desbloqueado.
@@ -1000,7 +978,6 @@ The password and its confirm are not the same.: La contraseña y su confirmació
 The password should be 8 or more characters.: La contraseña debe tener al menos 8 carácteres.
 The reaction has been added: Se ha añadido la reacción
 The reaction has been changed: Se ha cambiado la reacción
-The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: El dispositivo ha sido apagado por protección contra sobrecorriente. Antes de encenderlo, asegúrate de que el problema que lo provocó se haya resuelto. ¿Seguro que quieres encender este dispositivo de forma remota?
 The scene would execute too many operations.: La escena está realizando demasiadas operaciones.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: El servidor devolvió el error 400, lo que significa que la solicitud solicitada es incorrecta.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: El servidor ha devuelto el error HTTP 403. Esto quiere decir que no tienes los permisos necesarios para visualizar este elemento.
@@ -1019,7 +996,6 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Programas de termostato
 This action will result in restarting the device. It will not be available for a while.: Al ordenar esta operación se reiniciará el dispositivo. Durante el reinicio, el dispositivo estará inaccesible.
 This channel was missing during last device registration attempt.: Falta este canal en el dispositivo.
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Este dispositivo está destinado a ser distribuido e instalado únicamente por instaladores autorizados. Si no eres un instalador autorizado SUPLA y no tienes un certificado de formación activo, devuélvelo a su distribuidor.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Este enlace directo requiere una mayor aclaración de los parámetros de la acción que se está realizando. Vea los ejemplos a continuación para averiguar qué parámetros puede configurar.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ha recibido esta notificación debido al error de acceso a la cuenta de SUPLA-CLOUD que se ha producido al intentar iniciar la sesión a través de la dirección de su correo electrónico.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Esta es la etapa final de la eliminación de tu cuenta. La cumplimentación y aprobación del formulario conllevará la supresión irreversible de tus datos.
@@ -1028,9 +1004,7 @@ This is the list of applications you have granted access to your account.: Esta 
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Esta es una lista de las reacciones que se están ejecutando en tu cuenta. Si quieres añadir una nueva reacción, ve a los detalles del canal que deberían activarla.
 This link is only valid for an hour.: El enlace estará activo durante una hora.
 'This password will protect your home. Therefore, it must:': 'Este contraseña protegerá tu hogar. Por lo tanto:'
-This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Este modo de programación está diseñado para usuarios técnicos o muy pacientes. Requiere que se especifiquen los tiempos de activación del horario en notación crontab, enriquecida con varias funcionalidades que solo se encuentran en SUPLA. Si no has visto crontabs antes y todavía quieres usar este modo, el sitio web crontab.guru puede serte de ayuda.
 This thermostat is controlled by another device.: Este termostato está controlado por el termostato principal.
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Este activador es utilizado localmente por el dispositivo (por ejemplo, enciende la luz, controla la persiana, etc.) Si le asigna una acción diferente, la función local se desactivará.
 Thursdays: Los jueves
 Tilt angle: Ángulo de inclinación
 Tilt control type: Tipo de control de inclinación
@@ -1110,7 +1084,6 @@ We were not able to find your account.: No pudimos encontrar tu cuenta.
 We were not able to prepare your data. Please see the error details below.: Se ha producido un error durante la preparación de los datos. Lee tus detalles a continuación.
 We will miss you: Te echaremos de menos
 We will miss you!: Te extrañaremos.
-We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Haremos todo lo posible para que los iconos enviados se muestren de la mejor manera, pero obtendrás los mejores resultados al enviar archivos PNG con un fondo transparente y con  un  ancho de {width} y un alto de {height} píxeles.
 We will use it only in justified situations.: La utilizaremos solo en casos justificados.
 Weather Station: Estación meteorológica
 Wednesdays: Los miércoles
@@ -1247,7 +1220,6 @@ When the window will be opened: Cuando la ventana esté abierta
 When the window will be opened or closed: Cuando la ventana esté cerrada o abierta
 When there is certain amount of rain: Cuando caiga una cierta cantidad de lluvia
 When there weight reaches a certain value: Cuando el peso alcance un cierto valor
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Puedes realizar la acción del enlace directo, dando su identificador único en el testo de la orden HTTP PATCH.  Esto es más seguro, ya que hace imposible grabar tu dirección completa de Tu enlace entre los logos de acceso a servidores, por los que pasa Tu orden. A continuación encontraras una acción ejemplo, realizada a través de la herramienta cURL.
 Where is the JSON?: ¿Dónde está JSON?
 Where is your SUPLA Cloud?: ¿Dónde está tu Supla?
 White: Blanco
@@ -1289,13 +1261,11 @@ Your account has been deleted. We hope you will come back to us soon.: La cuenta
 Your account has been locked.: Su cuenta está bloqueada.
 Your account has not been confirmed yet.: Tu cuenta aún no ha sido confirmada.
 Your account limits: Tus límites
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Tu navegador no soporta el mecanismo de base de datos cliente (IndexedDB). Esta funcionalidad es necesaria para mostrar gráficos y admitir configuraciones avanzadas de exportación de datos. Actualiza tu navegador o sal del modo incógnito para aprovechar estas funciones.
 Your channel groups are allowed to have a maximum of {max} channels.: Tus grupos de canales pueden tener un máximo de {max} canales.
 Your chart is being drawn...: Tu gráfico está dibujado...
 Your data are being collected. Please be patient.: Estamos recopilando tus datos, un poco de paciencia.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Tus datos se descargan del servidor. Espere a que finalicen las descargas antes de exportarlas.
 Your device has been unlocked by the installer.: Tu dispositivo ha sido desbloqueado por el instalador.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: El dispositivo te permite ampliar su funcionalidad y te permite realizar cualquier acción en cualquier dispositivo que tengas. Las opciones disponibles dependerán del firmware y el dispositivo que estés utilizando.
 Your email: Tu correo electrónico
 Your instance is not registered or you are trying to authorize an application that is not public.: Tu instancia no está registrada o estás intentando autorizar una aplicación que no es pública.
 Your password must contain at least one special character.: La contraseña debe contener al menos un carácter especial.
@@ -1557,6 +1527,7 @@ yesterday: ayer
 ...and start your adventure with building automation today!: ...y ¡empieza la aventura con edificios inteligentes ahora mismo!
 Access identifier password must be at least 8 characters.: La contraseña para el identificador de acceso debe tener al menos 8 caracteres.
 Access identifier password must be no longer than 32 characters.: La contraseña para el identificador de acceso no puede tener más de 32 caracteres.
+Action: Acción
 Add new item to use in the scene: Agregar un nuevo elemento a la escena
 After the delay: Después de un cierto tiempo
 After the delay, but only when it's dark: Después de un cierto tiempo, pero solo cuando está oscuro
@@ -1564,9 +1535,13 @@ Are you sure you want to delete the entire voltage aberrations history saved for
 Are you sure you want to disable this device?: ¿Seguro de que quieres apagar este dispositivo?
 Assigned Locations: Localizaciones asignadas
 Authorized OAuth apps: Aplicaciones autorizadas OAuth
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Si desactivas esta opción, este dispositivo podrá controlarse desde la integración sin confirmación adicional. Esto puede dar lugar a una situación insegura o menos segura (por ejemplo, la apertura accidental de una puerta).
 Calculated value: Lectura del contador
+Calibration successful.: Calibración exitosa
 Cannot execute an action when the device is disconnected.: No se pueden realizar acciones cuando el dispositivo está desconectado.
 Cannot send an activation e-mail. Try again later.: No se puede enviar el mensaje con el enlace de activación. Por favor inténtalo de nuevo más tarde.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: ¿El mensaje con el enlace para activar tu cuenta no ha llegado? Asegúrate de que no esté en la bandeja de correo no deseado. También puedes hacer {clickHereLink} para enviarlo de nuevo.
+Channel is disconnected.: El canal está desconectado.
 Channel value: Valor
 Channel will be deleted from the channel group below: El canal será borrado de los grupos de canales siguientes
 Channels in channel group: Canales en grupos de canales
@@ -1578,6 +1553,7 @@ Confirm if you want to perform the roller shutter calibration.: Confirmar que el
 Confirm if you want to remove {deviceName} device: Confirma que quieres eliminar el dispositivo {deviceName}
 DISABLED: DESACTIVADO
 Days: Días
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: La eliminación de tu cuenta causará también la eliminación de todos tus datos, incluyendo los dispositivos conectados, canales configurados, enlaces directos y el historial de mediciones. La eliminación de tu cuenta es irreversible.
 Device channel value: Valor del dispositivo
 Device settings: Configuraciones del dispositivo
 Differential: Diferencial
@@ -1589,6 +1565,10 @@ Email already exists: El Email ya existe
 Entering configuration mode is unsupported in the firmware.: El firmware del dispositivo no admite el cambio remoto al modo de configuración.
 Existing schedules: Horarios existentes
 Expected maximum increment: Incremento máximo esperado
+File is too large: El archivo es demasiado grande
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: El firmware de este dispositivo envía notificaciones en el contexto de este canal. Aquí es donde puedes configurar el contenido y los destinatarios. Para más información, ponte en contacto con el proveedor del dispositivo.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: El firmware de este dispositivo envía notificaciones. Aquí es donde puedes configurar el contenido y los destinatarios. Para más información, ponte en contacto con el proveedor del dispositivo.
+Forward active energy balance: Balance de entrada de energía activa
 From IP: Desde la dirección IP
 Get SUPLA on your devices: Descarga SUPLA en tus dispositivos
 Hi: Hola
@@ -1596,10 +1576,16 @@ Hour: Hora
 Hours: Horas
 I/O: Entrada/Salida
 If you want to stay here, do something!: Si quieres quedarte aquí, ¡haz algo!
+If you wish to register your instance, {clickHereLink}.: Si deseas registrar tu instancia, {clickHereLink}.
+If you wish to unregister your instance, {clickHereLink}.: Si deseas cancelar el registro de tu instancia, {clickHereLink}.
 In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Para minimizar el riesgo de una lectura incorrecta, fija el incremento máximo esperado del valor del contador entre imágenes sucesivas.
+Information: Información
 Initial value: Valor inicial
 Input: Entrada
 Interpolate measurements: Estimar los valores faltantes
+Invalid scene: Escena incorrecta
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: En este modo, el dispositivo comenzará a transmitir su red Wi-Fi, cuyo objetivo es permitir la configuración del dispositivo o la actualización del firmware mediante un smartphone que se conectará a esta red.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Ten en cuenta que la descripción de la frase de la aplicación no es perfecta y su único propósito es ayudarte a ingresar el valor apropiado. No sirve para comprobar si el valor introducido es correcto y mucho menos para jactarse de que "se ha encontrado un error en SUPLA". Después de realizar los cambios, consulta la sección "Próximas ejecuciones" para confirmar que la configuración de programación que ingresó cumple tus expectativas.
 Languages: Idiomas
 Loading: Carga
 Location password must be at least 4 characters.: La contraseña para la ubicación debe tener al menos 4 caracteres.
@@ -1611,29 +1597,39 @@ Mobile Apps: Aplicaciones móviles
 Next: Siguiente
 No results match {0}: No hay resultados que coincidan con {0}
 Number: Número
+OAuth application: Aplicación OAuth
 Output: Salida
 Pairing subdevices is unsupported in the firmware.: El emparejamiento no es compatible con el software del dispositivo.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Al cambiar la contraseña, se cerrarán todas las sesiones actuales. Sin embargo, esto no afectará a las solicitudes que hayan recibido tu autorización. Debes retirar los consentimientos de acceso a la solicitud por separado.
 Please select an action: Seleccionar una acción
 Please select the schedules that should also be enabled.: ZSeñala los horarios que también deben estar activados.
 Previous login: Sesión anterior
 Reference to the channel will be removed from the items below.: La indicación de este canal se eliminará de los siguientes elementos.
 Registration: Registro
 Remove: Eliminar
+Reverse active energy balance: Balance de energía activa devuelta
 Save changes to see Access IDs: Guarda los cambios para mostrar los identificadores de acceso
 Schedule cannot be enabled: No se ha podido activar el horario
 Schedules below will be deleted: Las programaciones siguientes  serán borrados
 Sensor (normal closed): Sensor (normalmente cerrado)
 Sensor (normal open): Sensor (normalmente abierto)
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Cierra la persiana hasta que toque el borde inferior e ingresa su porcentaje de cierre en este campo. Esta operación no es necesaria, pero al facilitarla, mejorarás la visualización de la posición de la persiana enrollable en la aplicación móvil.
 Sources available from: Fuentes disponibles en
 Standard: Estándar
 Subject: Sujeto
 Sunrise / Sunset: Puesta del sol / Salida del sol
 Supla for devices: Supla para dispositivos
 Temperature adjustment only: Sólo ajuste de temperatura
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Gracias a las integraciones puedes agregar fácilmente nuevas funciones a tu cuenta utilizando soluciones proporcionadas por proveedores externos, programadores o por tí mismo/a.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: La configuración se cambió desde otro lugar (por ejemplo, otra ventana del navegador, aplicación móvil o dispositivo). Es necesario actualizar la configuración antes de realizar más cambios.
 The events in voltage aberrations history will be automatically deleted after {days} days.: Los eventos del historial de aberraciones de tensión se borrarán automáticamente al cabo de {days}.
 The items below depend on this channel, so they will be deleted.: Los siguientes elementos dependen de este canal, por lo que serán eliminados.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Con un marco, marcamos la notificación desde la que hizo clic en el enlace para darse de baja.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: La respuesta estará activa cuando se cumplan todas las condiciones siguientes. Si configures todas las opciones disponibles, la reacción sólo se activará entre las fechas seleccionadas, a las horas y días de la semana seleccionados y cuando se cumpla una de las referencias de puesta o salida del sol.
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: El dispositivo ha sido apagado por protección contra sobrecorriente. Antes de encenderlo, asegúrate de que el problema que lo provocó se haya resuelto. ¿Seguro que quieres encender este dispositivo de forma remota?
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Este dispositivo está destinado a ser distribuido e instalado únicamente por instaladores autorizados. Si no eres un instalador autorizado SUPLA y no tienes un certificado de formación activo, devuélvelo a su distribuidor.
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Este modo de programación está diseñado para usuarios técnicos o muy pacientes. Requiere que se especifiquen los tiempos de activación del horario en notación crontab, enriquecida con varias funcionalidades que solo se encuentran en SUPLA. Si no has visto crontabs antes y todavía quieres usar este modo, el sitio web crontab.guru puede serte de ayuda.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Este activador es utilizado localmente por el dispositivo (por ejemplo, enciende la luz, controla la persiana, etc.) Si le asigna una acción diferente, la función local se desactivará.
 Triggers: Activadores
 Try again later: Intenta más tarde
 Turning this device off will result in disabling all the associated schedules.: La desconexión de este dispositivo ocasionará también la desactivación de los horarios asignados.
@@ -1641,6 +1637,7 @@ Unlocked: Desbloqueado
 Use working schedule for this access identifier: Usar un horario de disponibilidad para este ID de acceso
 Use working schedule for this reaction: Usar programa de actividades para esta respuesta
 Value per unit: Valor por unidad
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Haremos todo lo posible para que los iconos enviados se muestren de la mejor manera, pero obtendrás los mejores resultados al enviar archivos PNG con un fondo transparente y con  un  ancho de {width} y un alto de {height} píxeles.
 When: Cuando
 When the curtain reaches: Cuando la cortina alcanza
 When the facade blind reaches: Cuando la persiana de fachada alcanza
@@ -1655,9 +1652,12 @@ When the roller shutter reaches: Cuando la persiana alcance
 When the roof window reaches: Cuando la ventana de techo alcance
 When the terrace awning reaches: Cuando un toldo de terraza alcanza
 When the vertical blind reaches: Cuando la persiana vertical alcanza
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Puedes realizar la acción del enlace directo, dando su identificador único en el testo de la orden HTTP PATCH.  Esto es más seguro, ya que hace imposible grabar tu dirección completa de Tu enlace entre los logos de acceso a servidores, por los que pasa Tu orden. A continuación encontraras una acción ejemplo, realizada a través de la herramienta cURL.
 Working schedule: Horario de actividades
 You need to provide icons for all states.: Debes proporcionar iconos para todos los estados.
 You will be logged out shortly: Tu sesión se cerrará dentro de un rato
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Tu navegador no soporta el mecanismo de base de datos cliente (IndexedDB). Esta funcionalidad es necesaria para mostrar gráficos y admitir configuraciones avanzadas de exportación de datos. Actualiza tu navegador o sal del modo incógnito para aprovechar estas funciones.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: El dispositivo te permite ampliar su funcionalidad y te permite realizar cualquier acción en cualquier dispositivo que tengas. Las opciones disponibles dependerán del firmware y el dispositivo que estés utilizando.
 choose a currency: elegir divisa
 choose access identifiers: seleccionar ID de acceso
 choose the channel: selecciona canal
@@ -1680,8 +1680,8 @@ thermostatAlgorithm_help: |
 A new client app: ~
 A new device: ~
 Account notifications: ~
-Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
+Action trigger notification: ~
 Activity schedule: ~
 Add new data source: ~
 Address: ~
@@ -1701,7 +1701,9 @@ Bridge node online: ~
 Bridge node signal strength: ~
 Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
+Channel notification: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Chart aggregated balance: ~
 Check available updates: ~
 Choose many: ~
 City: ~
@@ -1711,7 +1713,6 @@ Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
 Could not add the data source. Try again in a while.: ~
-Could not change the password.: ~
 Could not check updates.: ~
 Could not perform factory reset.: ~
 Could not perform firmware update.: ~
@@ -1726,6 +1727,8 @@ Default (exact value depends on a device): ~
 Default channels location: ~
 Device date and time: ~
 Device interface: ~
+Device notification: ~
+Device should be checking and installing updates.: ~
 Does it look good?: ~
 E-mail: ~
 Each container level sensor must have different fill level.: ~
@@ -1734,6 +1737,7 @@ Energy prices: ~
 Everyone makes mistakes!: ~
 Factory reset: ~
 Fill level: ~
+Filtering time: ~
 Firmware update is available.: ~
 Firmware update policy: ~
 Firmware updates: ~
@@ -1741,25 +1745,24 @@ Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
-Go back to data sources: ~
 Heat or cold source switch for channel: ~
 IP: ~
 Image: ~
+Info: ~
 Invalid sensor state: ~
 LED settings: ~
 Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
-Light source lifespan: ~
 Light source operating time: ~
 Lock type: ~
 MAC: ~
-MODBUS: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
 Minimum: ~
+Motion sensor: ~
 Motor problem: ~
 Mute alarm: ~
 Mute alarm sound without additional auth: ~
@@ -1769,6 +1772,7 @@ Network: ~
 New version: ~
 No one: ~
 Not available: ~
+Not calibrated: ~
 'OCR service responded with error: {statusCode}. {description}': ~
 Open Weather Data: ~
 Opening sensor for channel: ~
@@ -1778,27 +1782,26 @@ Overcurrent threshold: ~
 Password is too long.: ~
 Password is too short.: ~
 Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
-Password was set successfully.: ~
-Passwords do not match.: ~
 Percentage of extension: ~
 Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
-Power supply: ~
 Pump switch for channel: ~
 Push: ~
-RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
-REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
+Reaction notification: ~
 Reading: ~
 Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
+Remember that this is not your account. You have been trusted by the user when you were given the technical access password.: ~
 Role: ~
 SUPLA - Test e-mail: ~
 Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
+Scene notification: ~
+Sensitivity: ~
 Septic tank: ~
 Serial: ~
 Set the configuration password: ~
@@ -1809,16 +1812,15 @@ Stop bits: ~
 Switch cycle count: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
 The device is not connected. The values below represent the last known state.: ~
-The factory reset was successful.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
 The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The subdevice has been deleted.: ~
-This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
 This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
+This is the list of configured notifications. If you want to add a new notification or alter the existing one, go to the channel details that should trigger it.: ~
+Timeout: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
 Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
@@ -1835,6 +1837,8 @@ Weather attribute: ~
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
+When motion starts to be detected: ~
+When motion stops to be detected: ~
 When the alarm starts: ~
 When the alarm stops: ~
 When the battery level will be: ~
@@ -1852,6 +1856,9 @@ When the fill level will be: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
+When the sensor state changes: ~
+When the sensor state changes to hi: ~
+When the sensor state changes to low: ~
 When the sensors state becomes invalid: ~
 When the sensors state becomes valid: ~
 When the sound alarm starts: ~
@@ -1864,7 +1871,8 @@ When the warning stops: ~
 Who has access?: ~
 Wi-Fi RSSI: ~
 Wi-Fi signal strength: ~
-You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
+With great power comes great responsibility.: ~
+You are using technical access.: ~
 You cannot change this function becuase it is required by another channel.: ~
 You have the newest firmware installed.: ~
 activityConditions_help: ~
@@ -1901,9 +1909,27 @@ modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~
 modbusSerialStopbits_TWO: ~
+normal session: ~
+openWeatherAttribute_field_airCo: ~
+openWeatherAttribute_field_airNo: ~
+openWeatherAttribute_field_airNo2: ~
+openWeatherAttribute_field_airO3: ~
+openWeatherAttribute_field_airPm10: ~
+openWeatherAttribute_field_airPm25: ~
+openWeatherAttribute_field_feelsLike: ~
+openWeatherAttribute_field_humidity: ~
+openWeatherAttribute_field_pressure: ~
+openWeatherAttribute_field_rainMmh: ~
+openWeatherAttribute_field_snowMmh: ~
+openWeatherAttribute_field_temp: ~
+openWeatherAttribute_field_tempHumidity: ~
+openWeatherAttribute_field_visibility: ~
+openWeatherAttribute_field_windGust: ~
+openWeatherAttribute_field_windSpeed: ~
 state-half: ~
 state-hi: ~
 state-low: ~
+subdevicePairingResult_REQUEST_SENT: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~
 tank_alarm_fullRange_alarmAboveLevel: ~

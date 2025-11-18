@@ -6,9 +6,7 @@
 ...open gateways, gates or doors: ...odpreti vratca, dvoriščna vrata ali vrata
 ...or control home appliances: ...ali nadzirati z gospodinjskimi aparati/elektroniko
 ...you can monitor temperature: ...lahko spremljate temperaturo
-Slat angle that the blind sets when closing: Kot lamel, ki ga žaluzija nastavi pri zapiranju
 10 minutes before sunset, on day 10 of the month, May through August: 10 minut pred sončnim zahodom, samo 10. dan v mesecu, od maja do avgusta
-Slat angle that the blind sets when opening: Kot lamel, ki ga žaluzija nastavi pri odpiranju
 15 minutes after sunrise, every 2 days: 15 minut po sončnem vzhodu, vsak drugi dan
 A confirmation upon successful client app registration.: Potrdilo registracije nove odjemalske aplikacije.
 A confirmation upon successful device registration.: Potrdilo uspešne registracije naprave.
@@ -34,7 +32,6 @@ Access to all of your devices through MQTT Broker: Dostop do vseh vaših naprav 
 Account: Račun
 Account access when you are unavailable: Dostop do vašega računa, ko niste na voljo
 Account has been activated. You can Sign In now.: Račun je aktiviran. Lahko se prijavite
-Action: Dejanje
 Action confirmation: Potrditev dejanja
 Action execution: Izvajanje dejanj
 Action trigger: Sprožilec dejanja
@@ -160,14 +157,12 @@ Brightness adjustment for automatic mode: Prilagajanje svetlosti v samodejnem na
 Brightness level: Stopnja svetlosti
 Button volume: Glasnost gumba
 Buttons upside down: Upravljanje z gumbom za vzvratni pogon
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Če to možnost onemogočite, bo to napravo mogoče upravljati iz ravni integracije brez dodatne potrditve. To lahko povzroči nevarno ali manj varno stanje (npr. nenamerno odpiranje vrat).
 By signing in, you are authorizing {clientName} to control your devices.: S prijavo pooblastite aplikacijo {clientName} za nadzor vaših naprav.
 CLICK TO DISABLE: KLIKNITE, DA SE IZKLOPITE
 CLICK TO ENABLE: KLIKNITE, DA VKLOPITE
 Calibrate: Umeri
 Calibration: Kalibracija
 Calibration error: Napaka kalibracije
-Calibration successful.: Umerjanje uspešno
 Cancel: Prekličite
 Cancel changes: Prekličite spremembe
 Cancelled: Prekinjeno
@@ -176,7 +171,6 @@ Cannot calculate when to run the schedule - incorrect configuration?: Ni bilo mo
 Cannot change the channel function right now.: Trenutno ni mogoče spremeniti funkcije tega kanala.
 Cannot delete this I/O Device right now.: Trenutno ni mogoče odstraniti te naprave.
 Cannot update OCR settings. Try again in a while.: Nastavitev OCR ni bilo mogoče posodobiti. Poskusite znova čez trenutek.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Sporočilo s povezavo, ki aktivira vaš račun, ni prispelo? Prepričajte se, da ni v mapi SPAM (junk mail). Za ponovno pošiljanje lahko kliknete {clickHereLink}.
 Captcha token is not valid.: Nepravilna captcha.
 Caption: Podpis
 Caption is too long.: Ime je predolgo.
@@ -203,7 +197,6 @@ Channel group must consist of at least one channel.: Skupina kanalov mora vsebov
 Channel group reference will be removed from the items below.: Referenca skupine kanalov bo odstranjena iz spodnjih elementov.
 Channel groups: Skupina kanalov mora vsebovati vsaj en kanal.
 Channel is assigned to the I/O device location: Kanal je dodeljen lokaciji naprave
-Channel is disconnected.: Kanal je prekinjen.
 Channel name: Ime kanala
 Channel reference will be removed from the items below.: Kanal bo odstranjen iz spodnjih elementov.
 Channel with action triggers: Kanal s sprožilci dejanja
@@ -310,7 +303,6 @@ Delete: Izbrišite
 Delete measurement history: Izbrišite zgodovino meritev
 Delete my account: Izbrišite moj račun
 Delete voltage aberrations history: Izbriši zgodovino napetostnih odstopanj
-Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Če izbrišete račun, bodo izbrisani tudi vsi vaši podatki, vključno s povezanimi napravami, konfiguriranimi kanali, neposrednimi povezavami in zgodovino meritev. Izbris računa je trajen.
 Dependencies: Odvisnosti
 Depth: Globina
 Depth sensor: Senzor globine
@@ -417,11 +409,8 @@ Fan: Mlin na veter
 Feature limits: Omejitve funkcij
 'Field: {propertyPath}.': Polje {propertyPath}.
 File format: Format datoteke
-File is too large: Datoteka je prevelika
 Fill missing data: Dopolnite manjkajoče meritve
 Firmware: Vdelana programska oprema
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Vdelana programska oprema te naprave pošilja obvestila v okviru tega kanala. Tu lahko nastavite vsebino in prejemnike. Za več informacij se obrnite na dobavitelja naprave.
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Vdelana programska oprema te naprave pošilja obvestila. Tu lahko nastavite vsebino in prejemnike. Za več informacij se obrnite na dobavitelja naprave.
 Flooding: Poplava
 For a period: Za obdobje
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: V času posodobitve je priporočljivo, da uporabite naslov {suplaUrl}.
@@ -430,7 +419,6 @@ For security reasons, the full URL of this direct link will be displayed only on
 Forced off by sensor: Prisilna zaustavitev s senzorjem
 Forgot your password?: Pozabili ste geslo?
 Forward active energy: Aktivna porabljena energija
-Forward active energy balance: Bilanca vložene aktivne energije
 Forward active energy balanced: Porabljena aktivna energija (vektorsko ravnotežje)
 Forward reactive energy: Zbrana reaktivna energija
 Fridays: Petki
@@ -526,9 +514,7 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Če želite zasebni oblak SUPLA integrirati z javno aplikacijo OAuth, morate {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Če želite neposredno povezavo uporabiti v drugi programski opremi, dodajte ustrezno glavo zahteve, da dobite odgovor, ki ga je lažje obdelati.
 If you wish not to receive such messages, change it in your account settings [here].: Če od nas ne želite prejemati tovrstnih sporočil, <br> si oglejte nastavitve svojega računa [tukaj].
-If you wish to register your instance, {clickHereLink}.: Če želite registrirati svojo stopnjo {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Če želite videti dostopne integracije, pojdite na {0}.
-If you wish to unregister your instance, {clickHereLink}.: Če želite preklicati registracijo svoje stopnje {clickHereLink}.
 Image area crop: Območje slike
 Impulse counter: Števec impulzov
 Impulses: Impulzi
@@ -539,7 +525,6 @@ Include energy corrections in new measurements history (not recommended): Vklju�
 Incorrect password: Nepravilno geslo
 Increment and decrement: Povečanje in zmanjšanje
 Incremental: Dodatne
-Information: Informacija
 Inherit I/O Device location: Uporabljajte lokacije naprave
 Installer e-mail address: E-poštni naslov monterja
 Integration with MQTT Broker has been disabled.: Integracija s posrednikom MQTT je bila onemogočena.
@@ -557,16 +542,13 @@ Invalid function for channel.: Nepravilna funkcija za kanal
 'Invalid redirect URI: {uri}': 'Nepravilen povratni URL: {uri}'
 Invalid request: Nepravilna zahteva
 Invalid request.: Nepravilna zahteva.
-Invalid scene: Nepravulna scena
 Invalid token.: Nepravilni žeton.
 Invalid unlock code.: Nepravilna povezava za odklepanje.
 Invalid username or password: Neveljavno uporabniško ime ali geslo
 Inverted logic: Obrnjena logika
 Invisible: Nevidno
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Mogoče je, da je drug uporabnik pomotoma vnesel vaš e-naslov, da bi ponastavil geslo za svoj račun.
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: V tem načinu bo naprava začela oddajati svoje Wi-Fi omrežje, katerega namen je omogočiti konfiguracijo naprave ali posodobitev vdelane programske opreme s pametnim telefonom, ki se bo povezal s tem omrežjem.
 Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Ne pozabite, da bomo skupaj z vašim računom izbrisali vse vaše podatke, vključno z nastavitvami, konfiguriranimi napravami, lokacijami, urnikami in vsemi drugimi funkcionalnostmi, ki jih nudi SUPLA.
-Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Ne pozabite, da opis besedne zveze v aplikaciji ni popoln in je njegov edini namen pomagati pri vnosu določene vrednosti. Ne uporablja se za preverjanje pravilnosti vpisane vrednosti, kaj šele za sporočanje, da je „prišlo do napake v SUPLI”. Ko vnesete spremembe, preverite razdelek „Prihajajoče izvedbe”, da potrdite, da urnik, ki ste ga konfigurirali, izpolnjuje vaša pričakovanja.
 Language is not available: Jezik ni na voljo
 Last access: Zadnja povezava
 Last connection: Zadnja povezava
@@ -693,7 +675,6 @@ Number of aberrations: Število odstopanj
 Number of attempts to close: Število poskusov zapiranja
 Number of attempts to open: Število poskusov odpiranja
 Number of sections: Število odsekov
-OAuth application: Aplikacija OAuth
 OAuth apps: Aplikacije OAuth
 OAuth authorization: Overitev OAuth
 OAuth integrations might stop working after the instance is unregistered.: Integracije z aplikacijami OAuth lahko prenehajo delovati po preklicu registracije vaše stopnje.
@@ -730,7 +711,6 @@ Partial opening sensor: Senzor posrednjega odprtja
 Partially opened sensor for channel: Kanal za senzor posrednjega odprtja
 Password: Geslo
 Password Reset: Ponastavitev gesla
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Če spremenite geslo, se odjavijo vse trenutne seje. Vendar to ne bo vplivalo na vloge, za katere ste prejeli dovoljenje. Soglasja za prijavo morate umakniti ločeno.
 Password changed: Geslo je spremenjeno
 Password has been changed: Geslo je bila spremenjeno
 Password must be at least {minLength} characters.: Geslo mora imeti vsaj {minLength} znakov.
@@ -830,7 +810,6 @@ Reveal: Razkrijte
 Reveal or stop: Razkrij ali zaustavi
 Reveal partially: Delno razkrijte
 Reverse active energy: Vrnjena aktivna energija
-Reverse active energy balance: Bilanca vrnjene aktivne energije
 Reverse active energy balanced: Vrnjena aktivna energija (vektorsko ravnovesje)
 Reverse reactive energy: Vrnjena reaktivna energija
 Revoke: Prekličite
@@ -907,10 +886,11 @@ Show on the Client’s devices: Pokažite na odjemalskih napravah
 Shut: Zastrite
 Shut or stop: Prikrij ali zaustavi
 Shut partially: Delno zastrite
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Zaprite roleto dokler se ne dotakne spodnjega roba in vnesite odstotek zapiranja v tisto polje. Ta operacija ni obvezna, ampak bo izboljšala vizualizacijo stanja rolete v mobilni aplikaciji.
 Sign In: Prijava
 Sign Out: Odjava
 Sign in temporarily unavailable. Please try again later.: Prijava trenutno ni na voljo. Poskusite znova pozneje.
+Slat angle that the blind sets when closing: Kot lamel, ki ga žaluzija nastavi pri zapiranju
+Slat angle that the blind sets when opening: Kot lamel, ki ga žaluzija nastavi pri odpiranju
 Smartphones: Pametni telefoni
 SoftVer: WerOpr
 Some features depend on this channel: Nekatere funkcije so odvisne od tega kanala.
@@ -959,7 +939,6 @@ Temperature setpoint change switches to manual mode: Sprememba ciljne temperatur
 Temporal override: Začasna razveljavitev
 Terrace awning: Terasna markiza
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Hvala za registracijo računa na %cloudHost%. Za dokončanje aktivacije kliknite spodnjo povezavo.
-Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Zahvaljujoč integracijam lahko v svoj račun enostavno dodate nove funkcije z uporabo rešitev, ki jih nudijo zunanji dobavitelji, programerji ali vi sami.
 'The IP used for login is: %ip%': 'Poskus prijave je bil izveden iz naslova IP: %ip%'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Geslo za posrednika MQTT je vidno samo zdaj. Poskrbite, da ga shranite na varno mesto. Ponovno ga ne bo mogoče prikazati.
 The SUPLA infrastructure is being updated.: Strežniki SUPLA se posodabljajo.
@@ -968,7 +947,6 @@ The Terms and Conditions have changed – please read them and accept.: Predpisi
 The activation link has been sent again. Check the inbox.: Ponovno je bilo poslano sporočilo s povezavo za aktiviranje vašega računa. Preverite poštni nabiralnik.
 The channel has been deleted.: Kanal je bil odstranjen.
 The client will be automatically logged out when deleted.: Če stranko odstranite, se bo takoj odjavil.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfiguracija je bila spremenjena z drugega mesta (npr. iz drugega okna brskalnika, mobilne aplikacije ali naprave). Pred nadaljnjimi spremembami morate osvežiti konfiguracijo.
 The counter has been reset.: Števec je ponastavljen.
 The device could not be unlocked.: Naprave ni bilo mogoče odkleniti.
 The device has been unlocked already.: Naprava je že odklenjena.
@@ -1000,7 +978,6 @@ The password and its confirm are not the same.: Geslo in potrditev nista enaka.
 The password should be 8 or more characters.: Geslo mora imeti najmanj 8 znakov.
 The reaction has been added: Reakcija je dodana
 The reaction has been changed: Reakcija je spremenjena
-The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Naprava je bila izklopljena zaradi pretokovne zaščite. Preden jo vklopite, se prepričajte, da je težava, ki je to povzročila, odpravljena. Ali ste prepričani, da želite vklopiti to napravo na daljavo?
 The scene would execute too many operations.: Scena izvaja preveč operacij.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Strežnik je vrnil napako 400, kar pomeni, da poslana zahteva ni prava.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Strežnik je vrnil napako HTTP 403. To pomeni, da nimate zadostnih dovoljenj za ogled tega elementa.
@@ -1019,7 +996,6 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Programi termostata
 This action will result in restarting the device. It will not be available for a while.: Če naročite to operacijo, se naprava znova zažene. Med ponovnim zagonom naprava ne bo dostopna.
 This channel was missing during last device registration attempt.: Ta kanal v napravi manjka.
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Ta naprava je namenjena distribuciji in namestitvi, ki jo lahko opravijo le pooblaščeni monterji. Če niste pooblaščeni monter SUPLA in nimate aktivnega potrdila o usposabljanju, ga vrnite prodajalcu.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ta neposredna povezava zahteva določitev parametrov izvajanega dejanja. Oglejte si spodnje primere, če želite izvedeti, katere parametre lahko nastavite.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: To informacijo prejemate zaradi neuspešnega poskusa prijave v SUPLA-CLOUD s svojim e-naslovom.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: To je zadnja faza brisanja računa. Z izpolnitvijo in odobritvijo obrazca bodo vaši podatki nepovratno izbrisani.
@@ -1028,9 +1004,7 @@ This is the list of applications you have granted access to your account.: To je
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: To je seznam reakcij, ki se izvajajo v vašem računu. Če želite dodati novo reakcijo, pojdite v podrobnosti kanala, ki naj jo sproži.
 This link is only valid for an hour.: Povezava bo aktivna eno uro.
 'This password will protect your home. Therefore, it must:': 'To geslo bo zaščitilo vaš dom. Zato:'
-This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ta način urnika je zasnovan za tehnično usposobljene ali zelo potrpežljive uporabnike. Zahteva, da so časi sprožitve urnika določeni v zapisu crontab, obogatenem z več funkcijami, ki jih najdemo le v SUPLI. Če prej še niste naleteli na crontabe in še vedno želite uporabljati ta način, vam bo morda v pomoč spletno mesto crontab.guru.
 This thermostat is controlled by another device.: Ta termostat upravlja glavni termostat.
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ta sprožilec uporablja naprava lokalno (npr. prižge luč ali krmili roleto). Če mu dodelite drugo dejanje, bo lokalna funkcija onemogočena.
 Thursdays: Četrtki
 Tilt angle: Kot naklona
 Tilt control type: Vrsta krmiljenja naklona
@@ -1110,7 +1084,6 @@ We were not able to find your account.: Nismo našli vašega računa.
 We were not able to prepare your data. Please see the error details below.: Med pripravo podatkov je prišlo do napake. Podrobnosti si lahko preberete spodaj.
 We will miss you: Pogrešali te bomo
 We will miss you!: Pogrešali vas bomo!
-We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Potrudili se bomo, da bi se ikone prikazale na najboljši način, vendar najboljše rezultate boste dosegli, če boste poslali datoteke PNG s prozornim ozadjem ter širino {width} in višino {height} slikovnih pik.
 We will use it only in justified situations.: Uporabili ga bomo le v upravičenih primerih.
 Weather Station: Vremenska postaja
 Wednesdays: Srede
@@ -1247,7 +1220,6 @@ When the window will be opened: Ko je okno odprto
 When the window will be opened or closed: Ko je okno zaprto ali odprto
 When there is certain amount of rain: Ko pade določena količina dežja
 When there weight reaches a certain value: Ko teža doseže določeno vrednost
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Dejanje neposredne povezave lahko izvedete tako, da v vsebino zahteve HTTP PATCH vnesete svoj edinstven identifikator. To je varnejše, ker preprečuje, da bi se celotni naslov vaše povezave shranil v dnevnikih za dostop do strežnika, skozi katere gre vaša zahteva. Spodaj boste našli primer izvršitve s pomočjo orodja cURL.
 Where is the JSON?: Kje je JSON?
 Where is your SUPLA Cloud?: Kje se nahaja vaša Supla?
 White: Bel
@@ -1289,13 +1261,11 @@ Your account has been deleted. We hope you will come back to us soon.: Račun je
 Your account has been locked.: Vaš račun je bil blokiran.
 Your account has not been confirmed yet.: Vaš račun še ni bil potrjen.
 Your account limits: Vaše omejitve
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Vaš brskalnik ne podpira mehanizma odjemalčeve baze podatkov (IndexedDB). Ta funkcija je potrebna za prikaz grafov in podporo naprednim nastavitvam izvoza podatkov. Če želite izkoristiti te funkcije, posodobite brskalnik ali zapustite način incognito.
 Your channel groups are allowed to have a maximum of {max} channels.: Vaše skupine kanalov imajo lahko največ {max} kanalov.
 Your chart is being drawn...: Vaš graf je izrisan...
 Your data are being collected. Please be patient.: Zbiramo vaše podatke, prosimo za potrpežljivost.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Vaši podatki se prenašajo iz strežnika. Pred izvozom počakajte, da se prenosi končajo.
 Your device has been unlocked by the installer.: Vašo napravo je odklenil namestitveni program.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: 'Naprava podpira razširitev svojega delovanja in omogoča izvajanje katerega koli želenega dejanja na kateri koli napravi, ki jo imate. Dostopne možnosti so odvisne od vdelane programske in strojne opreme. '
 Your email: Vaš e-naslov
 Your instance is not registered or you are trying to authorize an application that is not public.: Vaš primerek ni registriran ali poskušate odobriti aplikacijo, ki ni javna.
 Your password must contain at least one special character.: Geslo mora vsebovati vsaj en poseben znak.
@@ -1557,6 +1527,7 @@ yesterday: včeraj
 ...and start your adventure with building automation today!: ... in začnite svojo pustolovščino z inteligentnimi zgradbami že danes!
 Access identifier password must be at least 8 characters.: Geslo za identifikator dostopa mora imeti vsaj 8 znakov.
 Access identifier password must be no longer than 32 characters.: Geslo za identifikator dostopa ne sme biti daljše od 32 znakov.
+Action: Dejanje
 Add new item to use in the scene: Dodajte nov element na sceno
 After the delay: Po določenem času
 After the delay, but only when it's dark: Po določenem času, vendar le, ko je tema
@@ -1564,9 +1535,13 @@ Are you sure you want to delete the entire voltage aberrations history saved for
 Are you sure you want to disable this device?: Ali ste prepričani, da želite izklopiti to napravo?
 Assigned Locations: Dodeljene lokacije
 Authorized OAuth apps: Overjene aplikacije OAuth
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Če to možnost onemogočite, bo to napravo mogoče upravljati iz ravni integracije brez dodatne potrditve. To lahko povzroči nevarno ali manj varno stanje (npr. nenamerno odpiranje vrat).
 Calculated value: Stanje števca
+Calibration successful.: Umerjanje uspešno
 Cannot execute an action when the device is disconnected.: Ko odklopite napravo, ne morete izvajati dejanj.
 Cannot send an activation e-mail. Try again later.: Sporočila ni mogoče poslati s povezavo za aktiviranje. Poskusite znova pozneje.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Sporočilo s povezavo, ki aktivira vaš račun, ni prispelo? Prepričajte se, da ni v mapi SPAM (junk mail). Za ponovno pošiljanje lahko kliknete {clickHereLink}.
+Channel is disconnected.: Kanal je prekinjen.
 Channel value: Vrednost
 Channel will be deleted from the channel group below: Kanal bo odstranjen z naslednjih skupin kanalov
 Channels in channel group: Kanali v skupinah kanalov
@@ -1578,6 +1553,7 @@ Confirm if you want to perform the roller shutter calibration.: Potrdite, da je 
 Confirm if you want to remove {deviceName} device: Potrdite, da želite odstraniti napravo {deviceName}
 DISABLED: IZKLOPLJENO
 Days: Dni
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Če izbrišete račun, bodo izbrisani tudi vsi vaši podatki, vključno s povezanimi napravami, konfiguriranimi kanali, neposrednimi povezavami in zgodovino meritev. Izbris računa je trajen.
 Device channel value: Vrednost iz naprave.
 Device settings: Nastavitve naprave
 Differential: Diferencialni
@@ -1589,6 +1565,10 @@ Email already exists: E-naslov že obstaja
 Entering configuration mode is unsupported in the firmware.: Vdelana programska oprema naprave ne podpira oddaljenega preklopa v način konfiuracije.
 Existing schedules: Obstoječi urniki
 Expected maximum increment: Pričakovano največje povečanje
+File is too large: Datoteka je prevelika
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Vdelana programska oprema te naprave pošilja obvestila v okviru tega kanala. Tu lahko nastavite vsebino in prejemnike. Za več informacij se obrnite na dobavitelja naprave.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Vdelana programska oprema te naprave pošilja obvestila. Tu lahko nastavite vsebino in prejemnike. Za več informacij se obrnite na dobavitelja naprave.
+Forward active energy balance: Bilanca vložene aktivne energije
 From IP: Z naslova IP
 Get SUPLA on your devices: Prenesite SUPLA na svoje naprave
 Hi: Pozdravljeni!
@@ -1596,10 +1576,16 @@ Hour: Ura
 Hours: Ure
 I/O: Vstop/Izstop
 If you want to stay here, do something!: Če želite ostati tukaj, naredite nekaj!
+If you wish to register your instance, {clickHereLink}.: Če želite registrirati svojo stopnjo {clickHereLink}.
+If you wish to unregister your instance, {clickHereLink}.: Če želite preklicati registracijo svoje stopnje {clickHereLink}.
 In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Da bi zmanjšali tveganje za napačno odčitavanje, nastavite največji pričakovani prirastek vrednosti števca med zaporednimi slikami.
+Information: Informacija
 Initial value: Začetna vrednost
 Input: Vstop
 Interpolate measurements: Ocenite manjkajoče vrednosti
+Invalid scene: Nepravulna scena
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: V tem načinu bo naprava začela oddajati svoje Wi-Fi omrežje, katerega namen je omogočiti konfiguracijo naprave ali posodobitev vdelane programske opreme s pametnim telefonom, ki se bo povezal s tem omrežjem.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Ne pozabite, da opis besedne zveze v aplikaciji ni popoln in je njegov edini namen pomagati pri vnosu določene vrednosti. Ne uporablja se za preverjanje pravilnosti vpisane vrednosti, kaj šele za sporočanje, da je „prišlo do napake v SUPLI”. Ko vnesete spremembe, preverite razdelek „Prihajajoče izvedbe”, da potrdite, da urnik, ki ste ga konfigurirali, izpolnjuje vaša pričakovanja.
 Languages: Jeziki
 Loading: Polnjenje
 Location password must be at least 4 characters.: Lokacijsko geslo mora vsebovati vsaj 4 znake.
@@ -1611,29 +1597,39 @@ Mobile Apps: Stanje števca
 Next: Naprej
 No results match {0}: Noben rezultat se ne ujema z {0}
 Number: Številka
+OAuth application: Aplikacija OAuth
 Output: Izstop
 Pairing subdevices is unsupported in the firmware.: Programska oprema naprave ne podpira seznanjanja.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Če spremenite geslo, se odjavijo vse trenutne seje. Vendar to ne bo vplivalo na vloge, za katere ste prejeli dovoljenje. Soglasja za prijavo morate umakniti ločeno.
 Please select an action: Izberite dejanje
 Please select the schedules that should also be enabled.: Izberite urnike, ki naj bi bili tudi vključeni.
 Previous login: Prejšnja prijava
 Reference to the channel will be removed from the items below.: Kazanje na ta kanal bo odstranjeno iz naslednjih elementov.
 Registration: Registracija
 Remove: Izbrišite
+Reverse active energy balance: Bilanca vrnjene aktivne energije
 Save changes to see Access IDs: Spremembe shranite, da prikažete identifikatorje dostopa
 Schedule cannot be enabled: Ni bilo mogoče vklopiti urnika
 Schedules below will be deleted: Spodnji urniki bodo izbrisani
 Sensor (normal closed): Senzor (normalno zaprt)
 Sensor (normal open): Senzor (normalno odprt)
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Zaprite roleto dokler se ne dotakne spodnjega roba in vnesite odstotek zapiranja v tisto polje. Ta operacija ni obvezna, ampak bo izboljšala vizualizacijo stanja rolete v mobilni aplikaciji.
 Sources available from: Viri, ki so na voljo v
 Standard: Standardni
 Subject: Subjekt
 Sunrise / Sunset: Vzhod / Zahod
 Supla for devices: Supla za naprave
 Temperature adjustment only: Samo nastavitev temperature
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Zahvaljujoč integracijam lahko v svoj račun enostavno dodate nove funkcije z uporabo rešitev, ki jih nudijo zunanji dobavitelji, programerji ali vi sami.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfiguracija je bila spremenjena z drugega mesta (npr. iz drugega okna brskalnika, mobilne aplikacije ali naprave). Pred nadaljnjimi spremembami morate osvežiti konfiguracijo.
 The events in voltage aberrations history will be automatically deleted after {days} days.: Dogodki v zgodovini aberacije napetosti se samodejno izbrišejo po {days} dneh.
 The items below depend on this channel, so they will be deleted.: Naslednji elementi so odvisni od tega kanala, zato bodo odstranjeni.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Z okvirjem smo označili obvestilo, iz katerega ste kliknili na povezavo za odjavo.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Odziv bo aktiven, ko bodo izpolnjeni vsi naslednji pogoji. Če nastavite vse razpoložljive možnosti, se bo reakcija aktivirala le med izbranimi datumi, ob izbranih urah in dnevih v tednu ter ob izpolnitvi ene od referenc sončnega zahoda ali vzhoda.
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Naprava je bila izklopljena zaradi pretokovne zaščite. Preden jo vklopite, se prepričajte, da je težava, ki je to povzročila, odpravljena. Ali ste prepričani, da želite vklopiti to napravo na daljavo?
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Ta naprava je namenjena distribuciji in namestitvi, ki jo lahko opravijo le pooblaščeni monterji. Če niste pooblaščeni monter SUPLA in nimate aktivnega potrdila o usposabljanju, ga vrnite prodajalcu.
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ta način urnika je zasnovan za tehnično usposobljene ali zelo potrpežljive uporabnike. Zahteva, da so časi sprožitve urnika določeni v zapisu crontab, obogatenem z več funkcijami, ki jih najdemo le v SUPLI. Če prej še niste naleteli na crontabe in še vedno želite uporabljati ta način, vam bo morda v pomoč spletno mesto crontab.guru.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ta sprožilec uporablja naprava lokalno (npr. prižge luč ali krmili roleto). Če mu dodelite drugo dejanje, bo lokalna funkcija onemogočena.
 Triggers: Sprožilci
 Try again later: Poskusite znova pozneje.
 Turning this device off will result in disabling all the associated schedules.: Če izklopite to napravo, bo tudi izklopljen urnik, ki je z njo povezan.
@@ -1641,6 +1637,7 @@ Unlocked: Odklenjeno
 Use working schedule for this access identifier: Uporabite urnik razpoložljivost za ta identifikator dostopa
 Use working schedule for this reaction: Za ta odgovor uporabite načrt dejavnosti
 Value per unit: Vrednost na enoto
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Potrudili se bomo, da bi se ikone prikazale na najboljši način, vendar najboljše rezultate boste dosegli, če boste poslali datoteke PNG s prozornim ozadjem ter širino {width} in višino {height} slikovnih pik.
 When: Ko
 When the curtain reaches: Ko se zavesa dvigne
 When the facade blind reaches: Ko fasadna žaluzija doseže
@@ -1655,9 +1652,12 @@ When the roller shutter reaches: Ko roleta doseže
 When the roof window reaches: Ko strešno okno doseže
 When the terrace awning reaches: Ko terasna markiza doseže
 When the vertical blind reaches: Ko navpična žaluzija doseže
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Dejanje neposredne povezave lahko izvedete tako, da v vsebino zahteve HTTP PATCH vnesete svoj edinstven identifikator. To je varnejše, ker preprečuje, da bi se celotni naslov vaše povezave shranil v dnevnikih za dostop do strežnika, skozi katere gre vaša zahteva. Spodaj boste našli primer izvršitve s pomočjo orodja cURL.
 Working schedule: Urnik aktivnosti
 You need to provide icons for all states.: Navesti morate ikone za vsa stanja.
 You will be logged out shortly: Čez trenutek boste odjavljeni
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Vaš brskalnik ne podpira mehanizma odjemalčeve baze podatkov (IndexedDB). Ta funkcija je potrebna za prikaz grafov in podporo naprednim nastavitvam izvoza podatkov. Če želite izkoristiti te funkcije, posodobite brskalnik ali zapustite način incognito.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: 'Naprava podpira razširitev svojega delovanja in omogoča izvajanje katerega koli želenega dejanja na kateri koli napravi, ki jo imate. Dostopne možnosti so odvisne od vdelane programske in strojne opreme. '
 choose a currency: Izberite valuto
 choose access identifiers: izberite identifikatorje za dostop
 choose the channel: Izberite kanal
@@ -1680,8 +1680,8 @@ thermostatAlgorithm_help: |
 A new client app: ~
 A new device: ~
 Account notifications: ~
-Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
+Action trigger notification: ~
 Activity schedule: ~
 Add new data source: ~
 Address: ~
@@ -1701,7 +1701,9 @@ Bridge node online: ~
 Bridge node signal strength: ~
 Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
+Channel notification: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Chart aggregated balance: ~
 Check available updates: ~
 Choose many: ~
 City: ~
@@ -1711,7 +1713,6 @@ Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
 Could not add the data source. Try again in a while.: ~
-Could not change the password.: ~
 Could not check updates.: ~
 Could not perform factory reset.: ~
 Could not perform firmware update.: ~
@@ -1726,6 +1727,8 @@ Default (exact value depends on a device): ~
 Default channels location: ~
 Device date and time: ~
 Device interface: ~
+Device notification: ~
+Device should be checking and installing updates.: ~
 Does it look good?: ~
 E-mail: ~
 Each container level sensor must have different fill level.: ~
@@ -1734,6 +1737,7 @@ Energy prices: ~
 Everyone makes mistakes!: ~
 Factory reset: ~
 Fill level: ~
+Filtering time: ~
 Firmware update is available.: ~
 Firmware update policy: ~
 Firmware updates: ~
@@ -1741,25 +1745,24 @@ Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
-Go back to data sources: ~
 Heat or cold source switch for channel: ~
 IP: ~
 Image: ~
+Info: ~
 Invalid sensor state: ~
 LED settings: ~
 Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
-Light source lifespan: ~
 Light source operating time: ~
 Lock type: ~
 MAC: ~
-MODBUS: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
 Minimum: ~
+Motion sensor: ~
 Motor problem: ~
 Mute alarm: ~
 Mute alarm sound without additional auth: ~
@@ -1769,6 +1772,7 @@ Network: ~
 New version: ~
 No one: ~
 Not available: ~
+Not calibrated: ~
 'OCR service responded with error: {statusCode}. {description}': ~
 Open Weather Data: ~
 Opening sensor for channel: ~
@@ -1778,27 +1782,26 @@ Overcurrent threshold: ~
 Password is too long.: ~
 Password is too short.: ~
 Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
-Password was set successfully.: ~
-Passwords do not match.: ~
 Percentage of extension: ~
 Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
-Power supply: ~
 Pump switch for channel: ~
 Push: ~
-RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
-REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
+Reaction notification: ~
 Reading: ~
 Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
+Remember that this is not your account. You have been trusted by the user when you were given the technical access password.: ~
 Role: ~
 SUPLA - Test e-mail: ~
 Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
+Scene notification: ~
+Sensitivity: ~
 Septic tank: ~
 Serial: ~
 Set the configuration password: ~
@@ -1809,16 +1812,15 @@ Stop bits: ~
 Switch cycle count: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
 The device is not connected. The values below represent the last known state.: ~
-The factory reset was successful.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
 The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The subdevice has been deleted.: ~
-This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
 This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
+This is the list of configured notifications. If you want to add a new notification or alter the existing one, go to the channel details that should trigger it.: ~
+Timeout: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
 Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
@@ -1835,6 +1837,8 @@ Weather attribute: ~
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
+When motion starts to be detected: ~
+When motion stops to be detected: ~
 When the alarm starts: ~
 When the alarm stops: ~
 When the battery level will be: ~
@@ -1852,6 +1856,9 @@ When the fill level will be: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
+When the sensor state changes: ~
+When the sensor state changes to hi: ~
+When the sensor state changes to low: ~
 When the sensors state becomes invalid: ~
 When the sensors state becomes valid: ~
 When the sound alarm starts: ~
@@ -1864,7 +1871,8 @@ When the warning stops: ~
 Who has access?: ~
 Wi-Fi RSSI: ~
 Wi-Fi signal strength: ~
-You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
+With great power comes great responsibility.: ~
+You are using technical access.: ~
 You cannot change this function becuase it is required by another channel.: ~
 You have the newest firmware installed.: ~
 activityConditions_help: ~
@@ -1901,9 +1909,27 @@ modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~
 modbusSerialStopbits_TWO: ~
+normal session: ~
+openWeatherAttribute_field_airCo: ~
+openWeatherAttribute_field_airNo: ~
+openWeatherAttribute_field_airNo2: ~
+openWeatherAttribute_field_airO3: ~
+openWeatherAttribute_field_airPm10: ~
+openWeatherAttribute_field_airPm25: ~
+openWeatherAttribute_field_feelsLike: ~
+openWeatherAttribute_field_humidity: ~
+openWeatherAttribute_field_pressure: ~
+openWeatherAttribute_field_rainMmh: ~
+openWeatherAttribute_field_snowMmh: ~
+openWeatherAttribute_field_temp: ~
+openWeatherAttribute_field_tempHumidity: ~
+openWeatherAttribute_field_visibility: ~
+openWeatherAttribute_field_windGust: ~
+openWeatherAttribute_field_windSpeed: ~
 state-half: ~
 state-hi: ~
 state-low: ~
+subdevicePairingResult_REQUEST_SENT: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~
 tank_alarm_fullRange_alarmAboveLevel: ~

@@ -6,9 +6,7 @@
 ...open gateways, gates or doors: ...να ανοίξετε την αυλόπορτα, την πύλη ή την πόρτα
 ...or control home appliances: ...ή να ελέγχετε οικιακές συσκευές/συσκευές RTV
 ...you can monitor temperature: ...μπορείτε να παρακολουθείτε τη θερμοκρασία
-Slat angle that the blind sets when closing: Γωνία ελασμάτων που καθορίζει η περσίδα κατά το κλείσιμο
 10 minutes before sunset, on day 10 of the month, May through August: 10 λεπτά πριν από τη δύση του ηλίου, μόνο τη 10η ημέρα του μήνα, από Μάιο έως Αύγουστο
-Slat angle that the blind sets when opening: Γωνία ελασμάτων που καθορίζει η περσίδα κατά το άνοιγμα
 15 minutes after sunrise, every 2 days: 15 λεπτά μετά την ανατολή του ηλίου, κάθε δεύτερη μέρα
 A confirmation upon successful client app registration.: Επιβεβαίωση εγγραφής της νέας εφαρμογής πελάτη.
 A confirmation upon successful device registration.: Επιβεβαιώστε ότι η συσκευή έχει εγγραφεί με επιτυχία.
@@ -34,7 +32,6 @@ Access to all of your devices through MQTT Broker: Πρόσβαση σε όλε�
 Account: Λογαριασμός
 Account access when you are unavailable: Πρόσβαση στο λογαριασμό σας όταν δεν είστε διαθέσιμ-ος /-η
 Account has been activated. You can Sign In now.: Ο λογαριασμός έχει ενεργοποιηθεί. Μπορείτε να συνδεθείτε
-Action: Ενέργεια
 Action confirmation: Επιβεβαίωση ενέργειας
 Action execution: Εκτέλεση ενέργειας
 Action trigger: Έναυσμα δράσης
@@ -160,14 +157,12 @@ Brightness adjustment for automatic mode: Ρύθμιση φωτεινότητα�
 Brightness level: Επίπεδο φωτεινότητας
 Button volume: Ένταση κουμπιού
 Buttons upside down: Αντίστροφος έλεγχος κουμιών
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Η απενεργοποίηση αυτής της επιλογής θα επιτρέψει τον έλεγχο αυτής της συσκευής από το επίπεδο της ενσωμάτωσης χωρίς να χρειάζεται η πρόσθετη επιβεβαίωση. Αυτό μπορεί να οδηγήσει σε μη ασφαλή ή λιγότερο ασφαλή κατάσταση (π.χ. τυχαίο άνοιγμα μιας πύλης).
 By signing in, you are authorizing {clientName} to control your devices.: Με τη σύνδεση, δίνετε την εξουσιοδότηση στην εφαρμογή {clientName} να ελέγχει τις συσκευές σας.
 CLICK TO DISABLE: ΚΑΝΤΕ ΚΛΙΚ ΓΙΑ ΝΑ ΚΛΕΙΣΕΤΕ
 CLICK TO ENABLE: ΚΑΝΤΕ ΚΛΙΚ ΓΙΑ ΝΑ ΕΝΕΡΓΟΠΟΙΗΣΕΤΕ
 Calibrate: Βαθμονόμηση
 Calibration: Βαθμονόμηση
 Calibration error: Σφάλμα βαθμονόμησης
-Calibration successful.: Επιτυχής βαθμονόμηση
 Cancel: Ακύρωση
 Cancel changes: Ακύρωση αλλαγών
 Cancelled: Ακυρώθηκε
@@ -176,7 +171,6 @@ Cannot calculate when to run the schedule - incorrect configuration?: Αποτυ
 Cannot change the channel function right now.: Δεν μπορείτε να αλλάξετε τη λειτουργία αυτού του καναλιού αυτήν τη στιγμή.
 Cannot delete this I/O Device right now.: Αυτή η συσκευή δεν μπορεί να καταργηθεί αυτήν τη στιγμή.
 Cannot update OCR settings. Try again in a while.: Δεν πέτυχε η ενημέρωση των ρυθμίσεων OCR. Δοκιμάστε ξανά σε λίγο.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Δε λάβατε το μήνυμα με το σύνδεσμο ενεργοποίησης του λογαριασμού σας; Βεβαιωθείτε ότι δεν βρίσκεται στο φάκελο SPAM (ανεπιθύμητη αλληλογραφία). Μπορείτε επίσης να κάνετε {clickHereLink} για να το στείλετε ξανά.
 Captcha token is not valid.: Μη έγκυρο captcha.
 Caption: Υπογραφή
 Caption is too long.: Το όνομα είναι πολύ μεγάλο.
@@ -203,7 +197,6 @@ Channel group must consist of at least one channel.: Η ομάδα καναλι�
 Channel group reference will be removed from the items below.: Η ένδειξη της ομάδας καναλιών καταργείται από τα παρακάτω στοιχεία.
 Channel groups: Ομάδες καναλιών
 Channel is assigned to the I/O device location: Το κανάλι συνδέεται με την τοποθεσία της συσκευής
-Channel is disconnected.: Το κανάλι είναι αποσυνδεδεμένο.
 Channel name: Όνομα καναλιού
 Channel reference will be removed from the items below.: Το κανάλι καταργείται από τα παρακάτω στοιχεία.
 Channel with action triggers: Κανάλι με εναύσματα δράσης
@@ -310,7 +303,6 @@ Delete: Διαγραφή
 Delete measurement history: Διαγραφή ιστορικού μετρήσεων
 Delete my account: Διαγραφή του λογαριασμού
 Delete voltage aberrations history: Διαγραφή ιστορικού παρεκκλίσεων τάσης
-Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Η διαγραφή του λογαριασμού σας θα διαγράψει επίσης όλα τα δεδομένα σας, συμπεριλαμβανομένων των συνδεδεμένων συσκευών, των διαμορφωμένων καναλιών, των απευθείας συνδέσμων και του ιστορικού μετρήσεων. Η διαγραφή λογαριασμού είναι μόνιμη.
 Dependencies: Εξαρτήσεις
 Depth: Βάθος
 Depth sensor: Αισθητήρας βάθους
@@ -417,11 +409,8 @@ Fan: Ανεμόμυλος
 Feature limits: Όρια λειτουργικότητας
 'Field: {propertyPath}.': Πεδίο {propertyPath}.
 File format: Μορφή αρχείου
-File is too large: Το αρχείο είναι πολύ μεγάλο
 Fill missing data: Συμπληρώστε τις ελλείπουσες μετρήσεις
 Firmware: Υλικολογισμικό
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Το υλικολογισμικό αυτής της συσκευής αποστέλλει ειδοποιήσεις στο πλαίσιο αυτού του καναλιού. Εδώ μπορείτε να ρυθμίσετε το περιεχόμενο και τους παραλήπτες. Για περισσότερες πληροφορίες, επικοινωνήστε με τον προμηθευτή της συσκευής.
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Το υλικολογισμικό αυτής της συσκευής αποστέλλει ειδοποιήσεις. Εδώ μπορείτε να ρυθμίσετε το περιεχόμενο και τους παραλήπτες. Για περισσότερες πληροφορίες, επικοινωνήστε με τον προμηθευτή της συσκευής.
 Flooding: Πλημμύρα
 For a period: Για την περίοδο
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Κατά τη διάρκεια της ενημέρωσης, συνιστάται να χρησιμοποιήσετε τη διεύθυνση {suplaUrl}.
@@ -430,7 +419,6 @@ For security reasons, the full URL of this direct link will be displayed only on
 Forced off by sensor: Αναγκαστική διακοπή λειτουργίας από αισθητήρα
 Forgot your password?: Ξεχάσατε τον κωδικό πρόσβασης;
 Forward active energy: Ληφθείσα ενεργή ενέργεια
-Forward active energy balance: Ισολογισμός ενεργής λήφθεισας ενέργειας
 Forward active energy balanced: Ενεργή ενέργεια που λαμβάνεται (Διανυσματική ισορροπία)
 Forward reactive energy: Ληφθείσα παθητική ενέργεια
 Fridays: Παρασκευές
@@ -526,9 +514,7 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Αν θέλετε να ενώσετε το ιδιωτικό SUPLA με τη δημόσια εφαρμογή OAuth, θα πρέπει πρώτα να καταχωρήσετε την ιδιότητά σας.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Αν θέλετε να χρησιμοποιήσετε τον απευθείας σύνδεσμο σε άλλο λογισμικό, προσθέστε την κατάλληλη κεφαλίδα στο αίτημά σας για να λάβετε πιο εύκολη απάντηση προς επεξεργασία.
 If you wish not to receive such messages, change it in your account settings [here].: Εάν δεν θέλετε να λαμβάνετε τέτοιες ειδοποιήσεις από εμάς, <br> ανατρέξτε στις ρυθμίσεις του λογαριασμού σας [εδώ].
-If you wish to register your instance, {clickHereLink}.: Αν θέλετε να καταχωρήσετε την παρουσία σας, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Εάν θέλετε να δείτε κάποιους διαθέσιμους συνδέσμους, μεταβείτε στο {0}.
-If you wish to unregister your instance, {clickHereLink}.: Αν θέλετε να καταργήσετε την καταχώρηση της παρουσίας σας, {clickHereLink}.
 Image area crop: Περιοχή εικόνας
 Impulse counter: Μετρητής παλμών
 Impulses: Παλμοί
@@ -539,7 +525,6 @@ Include energy corrections in new measurements history (not recommended): Να �
 Incorrect password: Εσφαλμένος κωδικός πρόσβασης.
 Increment and decrement: Αύξουσα και φθίνουσα
 Incremental: Aυξ.
-Information: Πληροφορία
 Inherit I/O Device location: Χρησιμοποιήστε την τοποθεσία της συσκευής
 Installer e-mail address: Διεύθυνση ηλεκτρονικού ταχυδρομείου του εγκαταστάτη
 Integration with MQTT Broker has been disabled.: Η ενσωμάτωση με τον μεσίτη MQTT έχει απενεργοποιηθεί.
@@ -557,16 +542,13 @@ Invalid function for channel.: Μη έγκυρη λειτουργία καναλ
 'Invalid redirect URI: {uri}': 'Μη έγκυρη διεύθυνση URL επιστροφής: {uri}'
 Invalid request: Μη έγκυρο αίτημα
 Invalid request.: Μη έγκυρο αίτημα.
-Invalid scene: Λάθος σκηνή
 Invalid token.: Μη έγκυρο διακριτικό.
 Invalid unlock code.: Λανθασμένος σύνδεσμος ξεμπλοκαρίσματος.
 Invalid username or password: Λάθος όνομα χρήστη ή κωδικός πρόσβασης
 Inverted logic: Αντίστροφη λογική
 Invisible: Αόρατο
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Είναι πιθανό ότι κάποιος άλλος χρήστης καταχώρησε λάθος τη διεύθυνση ηλεκτρονικού ταχυδρομείου σας για να επαναφέρει τον κωδικό πρόσβασης του λογαριασμού σας.
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: Σε αυτήν τη λειτουργία, η συσκευή θα αρχίσει να μεταδίδει το δικό της δίκτυό Wi-Fi, σκοπός του οποίου είναι να σας επιτρέψει να διαμορφώσετε τη συσκευή ή να ενημερώσετε το υλικολογισμικό χρησιμοποιώντας ένα smartphone που θα συνδεθεί σε αυτό το δίκτυο.
 Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Να θυμάστε ότι μαζί με το λογαριασμό σας, θα διαγράψουμε όλα τα στοιχεία σας μαζί με τις σχετικές ρυθμίσεις συσκευών, τοποθεσιών, χρονοδιαγραμμάτων και όλων των υπόλοιπων λειτουργιών που προσφέρει το SUPLA cloud.
-Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Λάβετε υπόψη ότι η περιγραφή της δεδομένης έκφρασης που παρουσιάζεται από την εφαρμογή δεν είναι τέλεια και η μόνη της εργασία είναι να σας βοηθήσει να εισαγάγετε την κατάλληλη τιμή. Δεν χρησιμοποιείται για να ελέγξει αν η τιμή που έχει εισαχθεί είναι σωστή, πολύ λιγότερο για να καυχηθεί ότι «υπάρχει σφάλμα στο SUPLA». Αφού πραγματοποιήσετε τις αλλαγές σας, ανατρέξτε στην ενότητα «Επερχόμενες εκτελέσεις» για να επιβεβαιώσετε ότι η διαμόρφωση του χρονοδιαγράμματος ανταποκρίνεται στις προσδοκίες σας.
 Language is not available: Η γλώσσα δεν είναι διαθέσιμη
 Last access: Τελευταία σύνδεση
 Last connection: Τελευταία σύνδεση
@@ -693,7 +675,6 @@ Number of aberrations: Αριθμός παρεκκλίσεων
 Number of attempts to close: Αριθμός προσπαθειών κλεισίματος
 Number of attempts to open: Αριθμός προσπαθειών ανοίγματος
 Number of sections: Αριθμός ενοτήτων
-OAuth application: Εφαρμογή OAuth
 OAuth apps: Εφαρμογές OAuth
 OAuth authorization: Έγκριση της OAuth
 OAuth integrations might stop working after the instance is unregistered.: Οι ενσωματώσεις με εφαρμογές OAuth  ενδέχεται να σταματήσουν να λειτουργούν μετά την κατάργηση της καταχώρησης της παρουσίας σας.
@@ -730,7 +711,6 @@ Partial opening sensor: Αισθητήρας έμμεσου ανοίγματος
 Partially opened sensor for channel: Κανάλι αισθητήρα έμμεσου ανοίγματος
 Password: Κωδικός πρόσβασης
 Password Reset: Επαναφορά κωδικού πρόσβασης
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Η αλλαγή του κωδικού πρόσβασης θα έχει ως αποτέλεσμα την αποσύνδεση όλων των τρέχουσων συνεδρίων. Ωστόσο, αυτό δεν θα επηρεάσει τις εφαρμογές που έχουν εγκριθεί από εσάς. Τις εγκρίσεις για τη σύνδεση των εφαρμογών πρέπει να τις ακυρώσετε ξεχωριστά.
 Password changed: Ο κωδικός πρόσβασης έχει αλλάξει
 Password has been changed: Ο κωδικός πρόσβασης άλλαξες
 Password must be at least {minLength} characters.: Ο κωδικός πρόσβασης πρέπει να έχει τουλάχιστον {minLength} χαρακτήρες.
@@ -830,7 +810,6 @@ Reveal: Αποκάλυψη
 Reveal or stop: Αποκάλυψη ή σταμάτημα
 Reveal partially: Εν μέρει αποκάλυψη
 Reverse active energy: Ενεργή ενέργεια επιστροφής
-Reverse active energy balance: Ισολιγισμός ενεργής επιστραφήσας ενέργειας
 Reverse active energy balanced: Επιστρεφόμενη ενεργή ενέργεια (Διανυσματικό ισοζύγιο)
 Reverse reactive energy: Παθητική ενέργεια επιστροφής
 Revoke: Ανάκληση
@@ -907,10 +886,11 @@ Show on the Client’s devices: Εμφάνιση σε συσκευές του π
 Shut: Κάλυψη
 Shut or stop: Κάλυψη ή σταμάτημα
 Shut partially: Μερικό κάλυμμα
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Κλείστε το ρολό μέχρι να αγγίξει το κάτω άκρο και ξαναγράψτε το ποσοστό κλεισίματος σε αυτό το πεδίο. Αυτή η λειτουργία δεν απαιτείται, αλλά η παροχή της θα βελτιώσει την απεικόνιση της θέσης του ρολού στην κινητή εφαρμογή.
 Sign In: ZΣύνδεση
 Sign Out: Αποσύνδεση
 Sign in temporarily unavailable. Please try again later.: Η σύνδεση προσωρινά δεν είναι διαθέσιμη. Δοκιμάστε ξανά αργότερα.
+Slat angle that the blind sets when closing: Γωνία ελασμάτων που καθορίζει η περσίδα κατά το κλείσιμο
+Slat angle that the blind sets when opening: Γωνία ελασμάτων που καθορίζει η περσίδα κατά το άνοιγμα
 Smartphones: Smartphones
 SoftVer: WerOpr
 Some features depend on this channel: Ορισμένες λειτουργίες εξαρτώνται από αυτό το κανάλι
@@ -959,7 +939,6 @@ Temperature setpoint change switches to manual mode: Η αλλαγή της θε
 Temporal override: Προσωρινή αντικατάσταση
 Terrace awning: Τέντα ταράτσας
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Σας ευχαριστούμε για την εγγραφή λογαριασμού στο %cloudHost%. Για να ολοκληρώσετε την ενεργοποίηση, κάντε κλικ στον παρακάτω σύνδεσμο.
-Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Χάρη στις ενσωματώσεις, μπορείτε εύκολα να προσθέσετε νέες λειτουργίες στο λογαριασμό σας, χρησιμοποιώντας λύσεις που παρέχονται από τους εξωτερικούς προμηθευτές, προγραμματιστές ή δικές σας.
 'The IP used for login is: %ip%': 'Η προσπάθεια σύνδεσης πραγματοποιήθηκε από τη διεύθυνση IP: %ip%'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Ο κωδικός πρόσβασης για τον μεσίτη MQTT είναι ορατός μόνο αυτή τη στιγμή. Βεβαιωθείτε ότι τον έχετε αποθηκεύσει σε ασφαλές μέρος. Δεν θα μπορείτε να το δείτε ξανά.
 The SUPLA infrastructure is being updated.: Οι διακομιστές SUPLA ενημερώνονται.
@@ -968,7 +947,6 @@ The Terms and Conditions have changed – please read them and accept.: Ο Κα�
 The activation link has been sent again. Check the inbox.: To μήνυμα με το σύνδεσμο για την ενεργοποίηση του λογαριασμού σας έχει σταλεί ξανά. Ελέγξτε τα εισερχόμενά σας.
 The channel has been deleted.: Το κανάλι έχει αφαιρεθεί.
 The client will be automatically logged out when deleted.: Η διαγραφή του πελάτη θα οδηγήσει στην άμεση αποσύνδεσή του.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Η διαμόρφωση άλλαξε από άλλη τοποθεσία (π.χ. άλλο παράθυρο προγράμματος περιήγησης, κινητή εφαρμογή ή συσκευή). Πρέπει να ανανεώσετε τη διαμόρφωση πριν κάνετε περαιτέρω αλλαγές.
 The counter has been reset.: Ο μετρητής έχει μηδενιστεί.
 The device could not be unlocked.: Απέτυχε το ξεκλείδωμα συσκευής.
 The device has been unlocked already.: Η συσκευή είναι ήδη ξεκλειδωμένη.
@@ -1000,7 +978,6 @@ The password and its confirm are not the same.: Ο κωδικός πρόσβασ
 The password should be 8 or more characters.: Ο κωδικός πρόσβασης πρέπει να έχει τουλάχιστον 8 χαρακτήρες.
 The reaction has been added: Η αντίδραση έχει προστεθεί
 The reaction has been changed: Η αντίδραση έχει αλλάξει
-The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Η συσκευή έχει απενεργοποιηθεί με προστασία από υπερένταση. Πριν τις ενεργοποιήσετε, βεβαιωθείτε ότι το πρόβλημα που οδήγησε σε αυτό έχει επιλυθεί. Είστε βέβαιοι ότι θέλετε να ενεργοποιήσετε αυτήν τη συσκευή από απόσταση;
 The scene would execute too many operations.: Η σκηνή εκτελεί πάρα πολλές επεμβάσεις.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Ο διακομιστής επέστρεψε το σφάλμα 400,  που σημαίνει ότι το απεσταλμένο αίτημα δεν είναι έγκυρο.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Ο διακομιστής επέστρεψε το σφάλμα HTTP 403. Αυτό σημαίνει ότι δεν έχετε επαρκή δικαιώματα για να εμφανίσετε αυτό το στοιχείο.
@@ -1019,7 +996,6 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Προγράμματα θερμοστάτη
 This action will result in restarting the device. It will not be available for a while.: Η εντολή αυτής της λειτουργίας θα επανεκκινήσει τη συσκευή. Κατά τη διάρκεια της επανεκκίνησης, η συσκευή δεν θα είναι προσβάσιμη.
 This channel was missing during last device registration attempt.: Αυτό το κανάλι λείπει από τη συσκευή.
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Αυτή η συσκευή προορίζεται για διανομή και εγκατάσταση μόνο από εξουσιοδοτημένους εγκαταστάτες. Εάν δεν είστε εξουσιοδοτημένος εγκαταστάτης της SUPLA και δεν έχετε ενεργό πιστοποιητικό εκπαίδευσης, επικοινωνήστε με τον πωλήτη.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ο απευθείας σύνδεσμος απαιτεί κάποια αποσαφήνιση των παραμέτρων της ενέργειας που εκτελείται. Δείτε τα παρακάτω παραδείγματα για να μάθετε ποιες παράμετροι μπορείτε να ορίσετε.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Λαμβάνετε αυτές τις πληροφορίες εξαιτίας μιας ανεπιτυχούς προσπάθειας σύνδεσης στο SUPLA-CLOUD με χρήση της διεύθυνσης ηλεκτρονικού σας ταχυδρομείου.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Αυτή είναι η τελική φάση της διαγραφής του λογαριασμού σας. Η συμπλήρωση και η έγκριση της φόρμας θα έχει ως αποτέλεσμα τη μη αναστρέψιμη διαγραφή των δεδομένων σας.
@@ -1028,9 +1004,7 @@ This is the list of applications you have granted access to your account.: Αυ�
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Αυτή είναι μια λίστα με τις αποκρίσεις που εκτελούνται στον λογαριασμό σας. Αν θέλετε να προσθέσετε μια νέα απόκριση, μεταβείτε στις λεπτομέρειες του καναλιού που θα την ενεργοποιήσει.
 This link is only valid for an hour.: Ο σύνδεσμος θα είναι ενεργός για μία ώρα.
 'This password will protect your home. Therefore, it must:': 'Αυτός ο κωδικός θα προστατεύσει το σπίτι σας. Επομένως:'
-This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Αυτή η λειτουργία χρονοδιαγράμματος έχει σχεδιαστεί για τεχνικούς ή πολύ υπομονετικούς χρήστες. Απαιτεί τον καθορισμό των στιγμών ενεργοποίησης του χρονοδιαγράμματος σε συμβολισμό crontab, εμπλουτισμένο με διάφορες λειτουργίες που βρίσκονται μόνο στο SUPLI. Εάν δεν έχετε συναντήσει crontabs στο παρελθόν  και εξακολουθείτε να θέλετε να χρησιμοποιήσετε αυτήν τη λειτουργία, ο ιστότοπος crontab.guru  μπορεί να σας βοηθήσει.
 This thermostat is controlled by another device.: Αυτός ο θερμοστάτης ελέγχεται από έναν κύριο θερμοστάτη.
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Αυτό το έναυσμα χρησιμοποιείται τοπικά από τη συσκευή (π.χ. ανάβει το φως, ελέγχει τους τυφλούς κ.λπ.) Εάν του εκχωρήσετε μια διαφορετική ενέργεια, η τοπική λειτουργία απενεργοποιείται.
 Thursdays: Πέμπτες
 Tilt angle: Γωνία κλίσης
 Tilt control type: Τύπος ελέγχου κλίσης
@@ -1110,7 +1084,6 @@ We were not able to find your account.: Δεν καταφέραμε να βρο�
 We were not able to prepare your data. Please see the error details below.: Κατά την προετοιμασία των δεδομένων προέκυψε σφάλμα. Διαβάστε τις λεπτομέρειες παρακάτω.
 We will miss you: Θα μας λείψετε
 We will miss you!: Θα μας λείψετε!
-We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Θα βάλουμε τα δυνατά μας ώστε τα απεσταλμένα εικονίδια να εμφανίζονται με τον καλύτερο τρόπο, αλλά τα καλύτερα αποτελέσματα θα πετύχετε στέλνοντας αρχεία PNG με διάφανο φόντο και πλάτος {width} και ύψος {height}εικονοστοιχείων.
 We will use it only in justified situations.: Θα το χρησιμοποιήσουμε μόνο σε δικαιολογημένες περιπτώσεις.
 Weather Station: Μετεωρολογικός σταθμός
 Wednesdays: Τετάρτες
@@ -1247,7 +1220,6 @@ When the window will be opened: Όταν ανοίξει το παράθυρο
 When the window will be opened or closed: Όταν κλείσει ή ανοίξει το παράθυρο
 When there is certain amount of rain: Όταν βρέξει μια ορισμένη ποσότητα
 When there weight reaches a certain value: Όταν το βάρος φτάσει σε μια ορισμένη τιμή
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Μπορείτε να εκτελέσετε την ενέργεια του απευθείας συνδέσμου, παρέχοντας το μοναδικό αναγνωριστικό της στο περιεχόμενο του αιτήματος HTTP PATCH. Αυτός τρόπος είναι πιο ασφαλής επειδή εμποδίζει την αποθήκευση της πλήρους διεύθυνσης του συνδέσμου σας στα αρχεία καταγραφής πρόσβασης του διακομιστή, μέσω των οποίων περνάει το αίτημά σας. Παρακάτω θα βρείτε ένα παράδειγμα εκτέλεσης με τη χρήση του εργαλείου cURL.
 Where is the JSON?: Πού είναι το JSON;
 Where is your SUPLA Cloud?: Πού βρίσκεται το δικό σας Supla-cloud;
 White: Λευκό
@@ -1289,13 +1261,11 @@ Your account has been deleted. We hope you will come back to us soon.: Ο λογ
 Your account has been locked.: Ο λογαριασμός σας κλειδώθηκε.
 Your account has not been confirmed yet.: Ο λογαριασμός σας δεν έχει επιβεβαιωθεί ακόμη.
 Your account limits: Τα όριά σας
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Το πρόγραμμα περιήγησής σας δεν υποστηρίζει το μηχανισμό βάσης δεδομένων πελάτη (IndexedDB). Αυτή η λειτουργία απαιτείται για την εμφάνιση γραφημάτων και την υποστήριξη προηγμένων ρυθμίσεων εξαγωγής δεδομένων. Ενημερώστε το πρόγραμμα περιήγησής σας ή βγείτε από τη λειτουργία incognito για να επωφεληθείτε από αυτές τις λειτουργίες.
 Your channel groups are allowed to have a maximum of {max} channels.: Οι ομάδες καναλιών σας μπορούν να έχουν έως και {max} κανάλια.
 Your chart is being drawn...: Το γράφημά σας σχεδιάζεται...
 Your data are being collected. Please be patient.: Συλλέγουμε τα δεδομένα σας, περιμένετε.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Γίνεται λήψη των δεδομέμνων σας από τον διακομιστή. Περιμένετε να ολοκληρωθούν οι λήψεις πριν τα εξάγετε.
 Your device has been unlocked by the installer.: Η συσκευή σας έχει ξεκλειδωθεί από τον εγκαταστάτη.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Η συσκευή σάς επιτρέπει να επεκτείνετε τη λειτουργικότητά της και σας επιτρέπει να εκτελέσετε οποιαδήποτε ενέργεια σε οποιαδήποτε συσκευή διαθέτετε. Οι επιλογές που έχετε στη διάθεσή σας εξαρτώνται από το υλικολογισμικό και τη συσκευή που χρησιμοποιείτε.
 Your email: Το email σας
 Your instance is not registered or you are trying to authorize an application that is not public.: Η παρουσίαση σας δεν είναι καταχωρημένη ή προσπαθείτε να εγκρίνετε μια εφαρμογή που δεν είναι δημόσια.
 Your password must contain at least one special character.: Ο κωδικός πρόσβασης πρέπει να περιέχει τουλάχιστον έναν ειδικό χαρακτήρα.
@@ -1557,6 +1527,7 @@ yesterday: χθες
 ...and start your adventure with building automation today!: ...και ξεκινήστε την περιπέτειά σας με τα έξυπνα κτίρια από σήμερα !
 Access identifier password must be at least 8 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης πρέπει να αποτελείται τουλάχιστον από 8 χαρακτήρες.
 Access identifier password must be no longer than 32 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης δεν μπορεί να υπερβαίνει τους 32 χαρακτήρες.
+Action: Ενέργεια
 Add new item to use in the scene: Προσθήκη νέου στοιχείου στη σκηνή
 After the delay: Μετά από ορισμένη ώρα
 After the delay, but only when it's dark: Μετά από ορισμένη ώρα, αλλά μόνο όταν είναι σκοτάδι
@@ -1564,9 +1535,13 @@ Are you sure you want to delete the entire voltage aberrations history saved for
 Are you sure you want to disable this device?: Είστε βέβαιοι ότι θέλετε να απενεργοποιήσετε αυτή τη συσκευή;
 Assigned Locations: Παραχωρημένες τοποθεσίες
 Authorized OAuth apps: Εγκεκριμένες εφαρμογές OAuth
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Η απενεργοποίηση αυτής της επιλογής θα επιτρέψει τον έλεγχο αυτής της συσκευής από το επίπεδο της ενσωμάτωσης χωρίς να χρειάζεται η πρόσθετη επιβεβαίωση. Αυτό μπορεί να οδηγήσει σε μη ασφαλή ή λιγότερο ασφαλή κατάσταση (π.χ. τυχαίο άνοιγμα μιας πύλης).
 Calculated value: Ανάγνωση μετρητή
+Calibration successful.: Επιτυχής βαθμονόμηση
 Cannot execute an action when the device is disconnected.: Δεν μπορείτε να εκτελείτε ενέργειες, όταν η συσκευή είναι αποσυνδεδεμένη.
 Cannot send an activation e-mail. Try again later.: Δεν είναι δυνατή η αποστολή μηνύματος με το σύνδεσμο ενεργοποίησης. Δοκιμάστε ξανά αργότερα.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Δε λάβατε το μήνυμα με το σύνδεσμο ενεργοποίησης του λογαριασμού σας; Βεβαιωθείτε ότι δεν βρίσκεται στο φάκελο SPAM (ανεπιθύμητη αλληλογραφία). Μπορείτε επίσης να κάνετε {clickHereLink} για να το στείλετε ξανά.
+Channel is disconnected.: Το κανάλι είναι αποσυνδεδεμένο.
 Channel value: Τιμή
 Channel will be deleted from the channel group below: Το κανάλι θα αφαιρεθεί από τις ακόλουθες ομάδες καναλιών
 Channels in channel group: Κανάλια σε ομάδες καναλιών
@@ -1578,6 +1553,7 @@ Confirm if you want to perform the roller shutter calibration.: Επιβεβαι
 Confirm if you want to remove {deviceName} device: Επιβεβαιώστε ότι θέλετε να διαγράψετε τη συσκευή {deviceName}
 DISABLED: ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΟ
 Days: Ημέρες
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Η διαγραφή του λογαριασμού σας θα διαγράψει επίσης όλα τα δεδομένα σας, συμπεριλαμβανομένων των συνδεδεμένων συσκευών, των διαμορφωμένων καναλιών, των απευθείας συνδέσμων και του ιστορικού μετρήσεων. Η διαγραφή λογαριασμού είναι μόνιμη.
 Device channel value: Αξία από τη συσκευή
 Device settings: Ρυθμίσεις συσκευής
 Differential: Διαφορικό
@@ -1589,6 +1565,10 @@ Email already exists: Αυτή η διεύθυνση ηλεκτρονικού τ
 Entering configuration mode is unsupported in the firmware.: Η απομακρυσμένη εναλλαγή σε λειτουργία διαμόρφωσης δεν υποστηρίζεται από το υλικολογισμικό της συσκευής.
 Existing schedules: Υπάρχοντα χρονοδιαγράμματα
 Expected maximum increment: Αναμενόμενη μέγιστη αύξηση
+File is too large: Το αρχείο είναι πολύ μεγάλο
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Το υλικολογισμικό αυτής της συσκευής αποστέλλει ειδοποιήσεις στο πλαίσιο αυτού του καναλιού. Εδώ μπορείτε να ρυθμίσετε το περιεχόμενο και τους παραλήπτες. Για περισσότερες πληροφορίες, επικοινωνήστε με τον προμηθευτή της συσκευής.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Το υλικολογισμικό αυτής της συσκευής αποστέλλει ειδοποιήσεις. Εδώ μπορείτε να ρυθμίσετε το περιεχόμενο και τους παραλήπτες. Για περισσότερες πληροφορίες, επικοινωνήστε με τον προμηθευτή της συσκευής.
+Forward active energy balance: Ισολογισμός ενεργής λήφθεισας ενέργειας
 From IP: Από τη διεύθυνση IP
 Get SUPLA on your devices: Κατεβάστε το SUPLA στις συσκευές σας
 Hi: Γεια σας!
@@ -1596,10 +1576,16 @@ Hour: Ώρα
 Hours: Ώρες
 I/O: Είσοδος/Έξοδος
 If you want to stay here, do something!: Αν θέλετε να μείνετε εδώ, κάντε κάτι!
+If you wish to register your instance, {clickHereLink}.: Αν θέλετε να καταχωρήσετε την παρουσία σας, {clickHereLink}.
+If you wish to unregister your instance, {clickHereLink}.: Αν θέλετε να καταργήσετε την καταχώρηση της παρουσίας σας, {clickHereLink}.
 In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Για να ελαχιστοποιήσετε τον κίνδυνο λανθασμένης ανάγνωσης, ορίστε τη μέγιστη αναμενόμενη αύξηση της τιμής του μετρητή μεταξύ διαδοχικών εικόνων.
+Information: Πληροφορία
 Initial value: Αρχική τιμή
 Input: Είσοδος
 Interpolate measurements: Εκτίμηση τιμών που λείπουν
+Invalid scene: Λάθος σκηνή
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: Σε αυτήν τη λειτουργία, η συσκευή θα αρχίσει να μεταδίδει το δικό της δίκτυό Wi-Fi, σκοπός του οποίου είναι να σας επιτρέψει να διαμορφώσετε τη συσκευή ή να ενημερώσετε το υλικολογισμικό χρησιμοποιώντας ένα smartphone που θα συνδεθεί σε αυτό το δίκτυο.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Λάβετε υπόψη ότι η περιγραφή της δεδομένης έκφρασης που παρουσιάζεται από την εφαρμογή δεν είναι τέλεια και η μόνη της εργασία είναι να σας βοηθήσει να εισαγάγετε την κατάλληλη τιμή. Δεν χρησιμοποιείται για να ελέγξει αν η τιμή που έχει εισαχθεί είναι σωστή, πολύ λιγότερο για να καυχηθεί ότι «υπάρχει σφάλμα στο SUPLA». Αφού πραγματοποιήσετε τις αλλαγές σας, ανατρέξτε στην ενότητα «Επερχόμενες εκτελέσεις» για να επιβεβαιώσετε ότι η διαμόρφωση του χρονοδιαγράμματος ανταποκρίνεται στις προσδοκίες σας.
 Languages: Γλώσσες
 Loading: Φόρτωση
 Location password must be at least 4 characters.: Ο κωδικός πρόσβασης για την τοποθεσία πρέπει να έχει τουλάχιστον 4 χαρακτήρες.
@@ -1611,29 +1597,39 @@ Mobile Apps: Κινητές εφαρμογές
 Next: Επόμενο
 No results match {0}: Δεν συμφωνούν αποτελέσματα με {0}
 Number: Αριθμός
+OAuth application: Εφαρμογή OAuth
 Output: Έξοδος
 Pairing subdevices is unsupported in the firmware.: Η ζεύξη δεν υποστηρίζεται από το λογισμικό της συσκευής.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Η αλλαγή του κωδικού πρόσβασης θα έχει ως αποτέλεσμα την αποσύνδεση όλων των τρέχουσων συνεδρίων. Ωστόσο, αυτό δεν θα επηρεάσει τις εφαρμογές που έχουν εγκριθεί από εσάς. Τις εγκρίσεις για τη σύνδεση των εφαρμογών πρέπει να τις ακυρώσετε ξεχωριστά.
 Please select an action: Επιλογή δράσης
 Please select the schedules that should also be enabled.: Επιλέξτε προγράμματα που επίσης πρέπει να συμπεριληφθούν.
 Previous login: Προηγούμενη σύνδεση
 Reference to the channel will be removed from the items below.: Η παραπομπή σε αυτό το κανάλι θα αφαιρεθεί από τα ακόλουθα.
 Registration: Εγγραφή
 Remove: Διαγραφή
+Reverse active energy balance: Ισολιγισμός ενεργής επιστραφήσας ενέργειας
 Save changes to see Access IDs: Αποθηκεύσετε αλλαγές για να εμφανίσετε τα αναγνωριστικά πρόσβασης
 Schedule cannot be enabled: Αποτυχία ενεργοποίησης του χρονοδιαγράμματος
 Schedules below will be deleted: Τα παρακάτω χρονοδιαγράμματα θα διαγραφούν
 Sensor (normal closed): Αισθητήρας (κανονικά κλειστός)
 Sensor (normal open): Αισθητήρας (κανονικά ανοικτός)
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Κλείστε το ρολό μέχρι να αγγίξει το κάτω άκρο και ξαναγράψτε το ποσοστό κλεισίματος σε αυτό το πεδίο. Αυτή η λειτουργία δεν απαιτείται, αλλά η παροχή της θα βελτιώσει την απεικόνιση της θέσης του ρολού στην κινητή εφαρμογή.
 Sources available from: Οι διαθέσιμες πηγές στο
 Standard: Πρότυπο
 Subject: Υποκείμενο
 Sunrise / Sunset: Ανατολή / Δύση
 Supla for devices: Supla για συσκευές
 Temperature adjustment only: Μόνο ρύθμιση θερμοκρασίας
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Χάρη στις ενσωματώσεις, μπορείτε εύκολα να προσθέσετε νέες λειτουργίες στο λογαριασμό σας, χρησιμοποιώντας λύσεις που παρέχονται από τους εξωτερικούς προμηθευτές, προγραμματιστές ή δικές σας.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Η διαμόρφωση άλλαξε από άλλη τοποθεσία (π.χ. άλλο παράθυρο προγράμματος περιήγησης, κινητή εφαρμογή ή συσκευή). Πρέπει να ανανεώσετε τη διαμόρφωση πριν κάνετε περαιτέρω αλλαγές.
 The events in voltage aberrations history will be automatically deleted after {days} days.: Τα συμβάντα στο ιστορικό εκτροπών τάσης θα διαγραφούν αυτόματα μετά από {days} ημέρες.
 The items below depend on this channel, so they will be deleted.: Τα ακόλουθα στοιχεία εξαρτώνται από αυτό το κανάλι, οπότε θα αφαιρεθούν.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Με τη βοήθεια του πλαισίου, έχουμε επισημάνει την ειδοποίηση από την οποία κάνατε κλικ στον σύνδεσμο για να καταργήσετε την εγγραφή σας.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Η απόκριση θα είναι ενεργή όταν πληρούνται όλες οι ακόλουθες συνθήκες. Εάν ορίσετε όλες τις διαθέσιμες επιλογές, η απόκριση θα ενεργοποιείται μόνο μεταξύ των επιλεγμένων ημερομηνιών, στις επιλεγμένες ώρες και ημέρες της εβδομάδας και όταν πληρούται μία από τις αναφορές ηλιοβασιλέματος ή ανατολής.
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Η συσκευή έχει απενεργοποιηθεί με προστασία από υπερένταση. Πριν τις ενεργοποιήσετε, βεβαιωθείτε ότι το πρόβλημα που οδήγησε σε αυτό έχει επιλυθεί. Είστε βέβαιοι ότι θέλετε να ενεργοποιήσετε αυτήν τη συσκευή από απόσταση;
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Αυτή η συσκευή προορίζεται για διανομή και εγκατάσταση μόνο από εξουσιοδοτημένους εγκαταστάτες. Εάν δεν είστε εξουσιοδοτημένος εγκαταστάτης της SUPLA και δεν έχετε ενεργό πιστοποιητικό εκπαίδευσης, επικοινωνήστε με τον πωλήτη.
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Αυτή η λειτουργία χρονοδιαγράμματος έχει σχεδιαστεί για τεχνικούς ή πολύ υπομονετικούς χρήστες. Απαιτεί τον καθορισμό των στιγμών ενεργοποίησης του χρονοδιαγράμματος σε συμβολισμό crontab, εμπλουτισμένο με διάφορες λειτουργίες που βρίσκονται μόνο στο SUPLI. Εάν δεν έχετε συναντήσει crontabs στο παρελθόν  και εξακολουθείτε να θέλετε να χρησιμοποιήσετε αυτήν τη λειτουργία, ο ιστότοπος crontab.guru  μπορεί να σας βοηθήσει.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Αυτό το έναυσμα χρησιμοποιείται τοπικά από τη συσκευή (π.χ. ανάβει το φως, ελέγχει τους τυφλούς κ.λπ.) Εάν του εκχωρήσετε μια διαφορετική ενέργεια, η τοπική λειτουργία απενεργοποιείται.
 Triggers: Εναύσματα
 Try again later: Δοκιμάστε αργότερα ξανά
 Turning this device off will result in disabling all the associated schedules.: Η απενεργοποίηση αυτής της συσκευής θα οδηγήσει στην απενεργοποίηση επίσης των χρονοδιαγραμμάτων που σχετίζονται με αυτήν.
@@ -1641,6 +1637,7 @@ Unlocked: Ξεμπλοκαρισμένο
 Use working schedule for this access identifier: Χρήση χρονοδιαγράμματος διαθεσιμότητας για αυτό το αναγνωριστικό πρόσβασης
 Use working schedule for this reaction: Χρήση χρονοδιαγραμμάτος ενεργειών για αυτήν την απόκριση
 Value per unit: Τιμή ανά μονάδα
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Θα βάλουμε τα δυνατά μας ώστε τα απεσταλμένα εικονίδια να εμφανίζονται με τον καλύτερο τρόπο, αλλά τα καλύτερα αποτελέσματα θα πετύχετε στέλνοντας αρχεία PNG με διάφανο φόντο και πλάτος {width} και ύψος {height}εικονοστοιχείων.
 When: Πότε
 When the curtain reaches: Όταν η κουρτίνα φτάσει
 When the facade blind reaches: Όταν η περσίδα πρόσοψης φτάσει
@@ -1655,9 +1652,12 @@ When the roller shutter reaches: Όταν οι περσίδες φτάσουν
 When the roof window reaches: Όταν το παράθυρο οροφής φτάσει
 When the terrace awning reaches: Όταν ή τέντα βεράντας φτάσει
 When the vertical blind reaches: Όταν η κατακόρυφη περσίδα φτάσει
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Μπορείτε να εκτελέσετε την ενέργεια του απευθείας συνδέσμου, παρέχοντας το μοναδικό αναγνωριστικό της στο περιεχόμενο του αιτήματος HTTP PATCH. Αυτός τρόπος είναι πιο ασφαλής επειδή εμποδίζει την αποθήκευση της πλήρους διεύθυνσης του συνδέσμου σας στα αρχεία καταγραφής πρόσβασης του διακομιστή, μέσω των οποίων περνάει το αίτημά σας. Παρακάτω θα βρείτε ένα παράδειγμα εκτέλεσης με τη χρήση του εργαλείου cURL.
 Working schedule: Χρονοδιάγραμμα δραστηριοτήτων
 You need to provide icons for all states.: Θα πρέπει να στείλετε εικονίδια για την κάθε κατάσταση.
 You will be logged out shortly: Σε λίγο θα αποσυνδεθείτε
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Το πρόγραμμα περιήγησής σας δεν υποστηρίζει το μηχανισμό βάσης δεδομένων πελάτη (IndexedDB). Αυτή η λειτουργία απαιτείται για την εμφάνιση γραφημάτων και την υποστήριξη προηγμένων ρυθμίσεων εξαγωγής δεδομένων. Ενημερώστε το πρόγραμμα περιήγησής σας ή βγείτε από τη λειτουργία incognito για να επωφεληθείτε από αυτές τις λειτουργίες.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Η συσκευή σάς επιτρέπει να επεκτείνετε τη λειτουργικότητά της και σας επιτρέπει να εκτελέσετε οποιαδήποτε ενέργεια σε οποιαδήποτε συσκευή διαθέτετε. Οι επιλογές που έχετε στη διάθεσή σας εξαρτώνται από το υλικολογισμικό και τη συσκευή που χρησιμοποιείτε.
 choose a currency: επιλογή νομίσματος
 choose access identifiers: επέλεξε αναγνωριστικά πρόσβασης
 choose the channel: επιλογή καναλιού
@@ -1680,8 +1680,8 @@ thermostatAlgorithm_help: |
 A new client app: ~
 A new device: ~
 Account notifications: ~
-Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
+Action trigger notification: ~
 Activity schedule: ~
 Add new data source: ~
 Address: ~
@@ -1701,7 +1701,9 @@ Bridge node online: ~
 Bridge node signal strength: ~
 Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
+Channel notification: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Chart aggregated balance: ~
 Check available updates: ~
 Choose many: ~
 City: ~
@@ -1711,7 +1713,6 @@ Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
 Could not add the data source. Try again in a while.: ~
-Could not change the password.: ~
 Could not check updates.: ~
 Could not perform factory reset.: ~
 Could not perform firmware update.: ~
@@ -1726,6 +1727,8 @@ Default (exact value depends on a device): ~
 Default channels location: ~
 Device date and time: ~
 Device interface: ~
+Device notification: ~
+Device should be checking and installing updates.: ~
 Does it look good?: ~
 E-mail: ~
 Each container level sensor must have different fill level.: ~
@@ -1734,6 +1737,7 @@ Energy prices: ~
 Everyone makes mistakes!: ~
 Factory reset: ~
 Fill level: ~
+Filtering time: ~
 Firmware update is available.: ~
 Firmware update policy: ~
 Firmware updates: ~
@@ -1741,25 +1745,24 @@ Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
-Go back to data sources: ~
 Heat or cold source switch for channel: ~
 IP: ~
 Image: ~
+Info: ~
 Invalid sensor state: ~
 LED settings: ~
 Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
-Light source lifespan: ~
 Light source operating time: ~
 Lock type: ~
 MAC: ~
-MODBUS: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
 Minimum: ~
+Motion sensor: ~
 Motor problem: ~
 Mute alarm: ~
 Mute alarm sound without additional auth: ~
@@ -1769,6 +1772,7 @@ Network: ~
 New version: ~
 No one: ~
 Not available: ~
+Not calibrated: ~
 'OCR service responded with error: {statusCode}. {description}': ~
 Open Weather Data: ~
 Opening sensor for channel: ~
@@ -1778,27 +1782,26 @@ Overcurrent threshold: ~
 Password is too long.: ~
 Password is too short.: ~
 Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
-Password was set successfully.: ~
-Passwords do not match.: ~
 Percentage of extension: ~
 Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
-Power supply: ~
 Pump switch for channel: ~
 Push: ~
-RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
-REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
+Reaction notification: ~
 Reading: ~
 Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
+Remember that this is not your account. You have been trusted by the user when you were given the technical access password.: ~
 Role: ~
 SUPLA - Test e-mail: ~
 Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
+Scene notification: ~
+Sensitivity: ~
 Septic tank: ~
 Serial: ~
 Set the configuration password: ~
@@ -1809,16 +1812,15 @@ Stop bits: ~
 Switch cycle count: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
 The device is not connected. The values below represent the last known state.: ~
-The factory reset was successful.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
 The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The subdevice has been deleted.: ~
-This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
 This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
+This is the list of configured notifications. If you want to add a new notification or alter the existing one, go to the channel details that should trigger it.: ~
+Timeout: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
 Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
@@ -1835,6 +1837,8 @@ Weather attribute: ~
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
+When motion starts to be detected: ~
+When motion stops to be detected: ~
 When the alarm starts: ~
 When the alarm stops: ~
 When the battery level will be: ~
@@ -1852,6 +1856,9 @@ When the fill level will be: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
+When the sensor state changes: ~
+When the sensor state changes to hi: ~
+When the sensor state changes to low: ~
 When the sensors state becomes invalid: ~
 When the sensors state becomes valid: ~
 When the sound alarm starts: ~
@@ -1864,7 +1871,8 @@ When the warning stops: ~
 Who has access?: ~
 Wi-Fi RSSI: ~
 Wi-Fi signal strength: ~
-You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
+With great power comes great responsibility.: ~
+You are using technical access.: ~
 You cannot change this function becuase it is required by another channel.: ~
 You have the newest firmware installed.: ~
 activityConditions_help: ~
@@ -1901,9 +1909,27 @@ modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~
 modbusSerialStopbits_TWO: ~
+normal session: ~
+openWeatherAttribute_field_airCo: ~
+openWeatherAttribute_field_airNo: ~
+openWeatherAttribute_field_airNo2: ~
+openWeatherAttribute_field_airO3: ~
+openWeatherAttribute_field_airPm10: ~
+openWeatherAttribute_field_airPm25: ~
+openWeatherAttribute_field_feelsLike: ~
+openWeatherAttribute_field_humidity: ~
+openWeatherAttribute_field_pressure: ~
+openWeatherAttribute_field_rainMmh: ~
+openWeatherAttribute_field_snowMmh: ~
+openWeatherAttribute_field_temp: ~
+openWeatherAttribute_field_tempHumidity: ~
+openWeatherAttribute_field_visibility: ~
+openWeatherAttribute_field_windGust: ~
+openWeatherAttribute_field_windSpeed: ~
 state-half: ~
 state-hi: ~
 state-low: ~
+subdevicePairingResult_REQUEST_SENT: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~
 tank_alarm_fullRange_alarmAboveLevel: ~

@@ -43,13 +43,13 @@ const ChannelFunctionTriggers = {
   ],
   [ChannelFunction.OPENINGSENSOR_GARAGEDOOR]: [
     {
-      caption: () => 'When the garage door will be opened',
+      caption: () => 'When the garage door will be opened', // i18n
       def: () => ({on_change_to: {eq: 'open'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the garage door will be closed',
+      caption: () => 'When the garage door will be closed', // i18n
       def: () => ({on_change_to: {eq: 'closed'}}),
-    }, // i18n
+    },
     {caption: () => 'When the garage door will be opened or closed', def: () => ({on_change: {}})}, // i18n
   ],
   [ChannelFunction.OPENINGSENSOR_GATE]: [
@@ -69,27 +69,27 @@ const ChannelFunctionTriggers = {
   ],
   [ChannelFunction.OPENINGSENSOR_ROLLERSHUTTER]: [
     {
-      caption: () => 'When the roller shutter will be opened',
+      caption: () => 'When the roller shutter will be opened', // i18n
       def: () => ({on_change_to: {eq: 'open'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the roller shutter will be closed',
+      caption: () => 'When the roller shutter will be closed', // i18n
       def: () => ({on_change_to: {eq: 'closed'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the roller shutter will be opened or closed',
+      caption: () => 'When the roller shutter will be opened or closed', // i18n
       def: () => ({on_change: {}}),
-    }, // i18n
+    },
   ],
   [ChannelFunction.OPENINGSENSOR_ROOFWINDOW]: [
     {
-      caption: () => 'When the roof window will be opened',
+      caption: () => 'When the roof window will be opened', // i18n
       def: () => ({on_change_to: {eq: 'open'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the roof window will be closed',
+      caption: () => 'When the roof window will be closed', // i18n
       def: () => ({on_change_to: {eq: 'closed'}}),
-    }, // i18n
+    },
     {caption: () => 'When the roof window will be opened or closed', def: () => ({on_change: {}})}, // i18n
   ],
   [ChannelFunction.OPENINGSENSOR_WINDOW]: [
@@ -237,9 +237,9 @@ const ChannelFunctionTriggers = {
     {caption: () => 'When the hotel card is put in', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
     {caption: () => 'When the hotel card has been taken', def: () => ({on_change_to: {eq: 'lo'}})}, // i18n
     {
-      caption: () => 'When the hotel card is put in or has been taken',
+      caption: () => 'When the hotel card is put in or has been taken', // i18n
       def: () => ({on_change: {}}),
-    }, // i18n
+    },
   ],
   [ChannelFunction.ALARM_ARMAMENT_SENSOR]: [
     {caption: () => 'When the alarm is armed', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
@@ -249,9 +249,9 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.FLOOD_SENSOR]: [
     {caption: () => 'When a flood is detected', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
     {
-      caption: () => 'When a flooding state has been cleared',
+      caption: () => 'When a flooding state has been cleared', // i18n
       def: () => ({on_change_to: {eq: 'lo'}}),
-    }, // i18n
+    },
     {caption: () => 'When a flooding state changes', def: () => ({on_change: {}})}, // i18n
   ],
   [ChannelFunction.CONTAINER_LEVEL_SENSOR]: [
@@ -499,53 +499,53 @@ const ChannelFunctionTriggers = {
     {caption: () => 'When the valve is opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
     {caption: () => 'When the valve is opened or closed', def: () => ({on_change: {}})}, // i18n
     {
-      caption: () => 'When the valve is manually closed',
+      caption: () => 'When the valve is manually closed', // i18n
       def: () => ({on_change_to: {eq: 'closed', name: 'manually_closed'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When flooding is detected',
+      caption: () => 'When flooding is detected', // i18n
       def: () => ({on_change_to: {eq: 'hi', name: 'flooding'}}),
-    }, // i18n
+    },
   ],
   [ChannelFunction.HVAC_DOMESTIC_HOT_WATER]: [
     {
-      caption: () => 'When the thermostat starts heating',
+      caption: () => 'When the thermostat starts heating', // i18n
       def: () => ({on_change_to: {eq: 'on', name: 'is_on'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the thermostat stops heating',
+      caption: () => 'When the thermostat stops heating', // i18n
       def: () => ({on_change_to: {eq: 'off', name: 'is_on'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the thermostat starts or stops heating',
+      caption: () => 'When the thermostat starts or stops heating', // i18n
       def: () => ({on_change: {name: 'is_on'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the thermometer error has been reported',
+      caption: () => 'When the thermometer error has been reported', // i18n
       def: () => ({on_change_to: {eq: 'on', name: 'thermometer_error'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the clock error has been reported',
+      caption: () => 'When the clock error has been reported', // i18n
       def: () => ({on_change_to: {eq: 'on', name: 'clock_error'}}),
-    }, // i18n
+    },
   ],
   [ChannelFunction.HVAC_THERMOSTAT]: [
     {
-      caption: () => 'When the thermostat starts heating',
+      caption: () => 'When the thermostat starts heating', // i18n
       def: () => ({on_change_to: {eq: 'on', name: 'heating'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the thermostat starts cooling',
+      caption: () => 'When the thermostat starts cooling', // i18n
       def: () => ({on_change_to: {eq: 'on', name: 'cooling'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the thermostat stops heating',
+      caption: () => 'When the thermostat stops heating', // i18n
       def: () => ({on_change_to: {eq: 'off', name: 'heating'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the thermostat stops cooling',
+      caption: () => 'When the thermostat stops cooling', // i18n
       def: () => ({on_change_to: {eq: 'off', name: 'cooling'}}),
-    }, // i18n
+    },
     {
       caption: () => 'When the thermostat starts heating or cooling', // i18n
       def: () => ({on_change_to: {eq: 'on', name: 'heating_or_cooling'}}),
@@ -555,25 +555,25 @@ const ChannelFunctionTriggers = {
       def: () => ({on_change_to: {eq: 'off', name: 'heating_or_cooling'}}),
     },
     {
-      caption: () => 'When the thermostat starts or stops heating',
+      caption: () => 'When the thermostat starts or stops heating', // i18n
       def: () => ({on_change: {name: 'heating'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the thermostat starts or stops cooling',
+      caption: () => 'When the thermostat starts or stops cooling', // i18n
       def: () => ({on_change: {name: 'cooling'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the thermostat starts or stops heating or cooling',
+      caption: () => 'When the thermostat starts or stops heating or cooling', // i18n
       def: () => ({on_change: {name: 'heating_or_cooling'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the thermometer error has been reported',
+      caption: () => 'When the thermometer error has been reported', // i18n
       def: () => ({on_change_to: {eq: 'on', name: 'thermometer_error'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the clock error has been reported',
+      caption: () => 'When the clock error has been reported', // i18n
       def: () => ({on_change_to: {eq: 'on', name: 'clock_error'}}),
-    }, // i18n
+    },
   ],
   [ChannelFunction.GENERAL_PURPOSE_METER]: [
     {
@@ -647,29 +647,29 @@ const ChannelFunctionTriggers = {
       def: () => ({on_change: {}}),
     },
     {
-      caption: () => 'When the fill level becomes unknown',
+      caption: () => 'When the fill level becomes unknown', // i18n
       def: () => ({on_change_to: {eq: 'on', name: 'invalid_value'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the fill level becomes known again',
+      caption: () => 'When the fill level becomes known again', // i18n
       def: () => ({on_change_to: {eq: 'off', name: 'invalid_value'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the alarm starts',
+      caption: () => 'When the alarm starts', // i18n
       def: () => ({on_change_to: {eq: 'on', name: 'alarm'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the alarm stops',
+      caption: () => 'When the alarm stops', // i18n
       def: () => ({on_change_to: {eq: 'off', name: 'alarm'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the warning starts',
+      caption: () => 'When the warning starts', // i18n
       def: () => ({on_change_to: {eq: 'on', name: 'warning'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the warning stops',
+      caption: () => 'When the warning stops', // i18n
       def: () => ({on_change_to: {eq: 'off', name: 'warning'}}),
-    }, // i18n
+    },
     {
       caption: () => 'When the sensors state becomes invalid', // i18n
       def: () => ({on_change_to: {eq: 'on', name: 'invalid_sensor_state'}}),
@@ -681,13 +681,13 @@ const ChannelFunctionTriggers = {
       canBeSetForChannel: (channel) => channel.config.levelSensors?.length > 0,
     },
     {
-      caption: () => 'When the sound alarm starts',
+      caption: () => 'When the sound alarm starts', // i18n
       def: () => ({on_change_to: {eq: 'on', name: 'sound_alarm_on'}}),
-    }, // i18n
+    },
     {
-      caption: () => 'When the sound alarm stops',
+      caption: () => 'When the sound alarm stops', // i18n
       def: () => ({on_change_to: {eq: 'off', name: 'sound_alarm_on'}}),
-    }, // i18n
+    },
   ],
 };
 

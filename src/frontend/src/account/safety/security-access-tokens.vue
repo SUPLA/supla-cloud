@@ -28,7 +28,6 @@
             </td>
             <td>
               <span v-if="!accessToken.issuedFor">{{ $t('normal session') }}</span>
-              <span v-else-if="accessToken.issuedFor === '__technical_access__'">{{ $t('technical password access') }}</span>
               <span v-else>{{ accessToken.issuedFor }}</span>
             </td>
             <td>

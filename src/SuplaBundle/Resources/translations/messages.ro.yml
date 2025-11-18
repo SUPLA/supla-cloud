@@ -6,9 +6,7 @@
 ...open gateways, gates or doors: ...deschiderea portiței, porții sau ușii
 ...or control home appliances: ...sau controlul dispozitivelor electrocasnice/electronice
 ...you can monitor temperature: ...puteți monitoriza temperatura
-Slat angle that the blind sets when closing: Unghiul lamelelor pe care jaluzeaua le fixează la închidere
 10 minutes before sunset, on day 10 of the month, May through August: Cu 10 minute înainte de apus, numai în a 10-a zi a lunii, din mai până în august
-Slat angle that the blind sets when opening: Unghiul lamelelor pe care jaluzeaua le fixează la deschidere
 15 minutes after sunrise, every 2 days: La 15 minute după răsărit, o dată la două zile
 A confirmation upon successful client app registration.: Confirmarea înregistrării unei noi aplicații de client.
 A confirmation upon successful device registration.: Confirmarea înregistrării cu succes a dispozitivului.
@@ -34,7 +32,6 @@ Access to all of your devices through MQTT Broker: Acces la toate dispozitivele 
 Account: Cont
 Account access when you are unavailable: Accesul la cont atunci când nu sunteți indisponibil(ă)
 Account has been activated. You can Sign In now.: Contul a fost activat. Vă puteți autentifica
-Action: Acțiune
 Action confirmation: Confirmarea acțiunii
 Action execution: Efectuarea acțiunii
 Action trigger: Declanșator de acțiune
@@ -160,14 +157,12 @@ Brightness adjustment for automatic mode: Reglarea luminozității în modul aut
 Brightness level: Nivelul de luminozitate
 Button volume: Volumul butonului
 Buttons upside down: Controlul butonului de mers înapoi
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Dezactivarea acestei opțiuni permite controlul acestui dispozitiv de la nivelul de integrare fără confirmare suplimentară. Acest lucru poate conduce la o stare periculoasă sau mai puțin sigură (de exemplu, deschiderea accidentală a unei porți).
 By signing in, you are authorizing {clientName} to control your devices.: Prin conectare, autorizezi aplicația {clientName} pentru controlul dispozitivelor tale.
 CLICK TO DISABLE: FACEȚI CLIC PENTRU A DEZACTIVA
 CLICK TO ENABLE: FACEȚI CLIC PENTRU A ACTIVA
 Calibrate: Calibrează
 Calibration: Calibrare
 Calibration error: Eroare de calibrare
-Calibration successful.: Calibrare reușită
 Cancel: Anulează
 Cancel changes: Anulează modificările
 Cancelled: Anulate
@@ -176,7 +171,6 @@ Cannot calculate when to run the schedule - incorrect configuration?: Nu s-a put
 Cannot change the channel function right now.: Funcțiile acestui canal nu pot fi modificate momentan.
 Cannot delete this I/O Device right now.: Acest dispozitiv nu poate fi demontat în acest moment.
 Cannot update OCR settings. Try again in a while.: Setările OCR nu au putut fi actualizate. Încercați din nou peste câteva momente.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Nu ați primit mesajul cu linkul de activare pentru contul dvs.? Asigurați-vă că nu a ajuns în dosarul SPAM poșta nedorită). De asemenea, puteți face {clickHereLink} pentru a-l retrimite.
 Captcha token is not valid.: Captcha incorectă.
 Caption: Semnătură
 Caption is too long.: Numele este prea lung.
@@ -203,7 +197,6 @@ Channel group must consist of at least one channel.: Grupa de canale trebuie să
 Channel group reference will be removed from the items below.: Indicarea grupului de canale va fi eliminată din următoarele elemente.
 Channel groups: Grupe de canale
 Channel is assigned to the I/O device location: Canalul este atribuit locației dispozitivului
-Channel is disconnected.: Canalul este deconectat.
 Channel name: Numele canalului
 Channel reference will be removed from the items below.: Canalul va fi șters din următoarele elemente.
 Channel with action triggers: Canal de declanșatoare de acțiuni
@@ -310,7 +303,6 @@ Delete: Șterge
 Delete measurement history: Șterge istoricul măsurătorilor
 Delete my account: Șterge contul meu
 Delete voltage aberrations history: Șterge istoricul aberațiilor de tensiune
-Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Ștergerea contului dvs. va duce la ștergerea tuturor datelor, inclusiv a dispozitivelor conectate, canalelor configurate, linkurilor directe și istoricului măsurătorilor. Ștergerea contului este permanentă.
 Dependencies: Dependențe
 Depth: Adâncime
 Depth sensor: Senzor de adâncime
@@ -417,11 +409,8 @@ Fan: Ventilator
 Feature limits: Limite funcționale
 'Field: {propertyPath}.': Câmp {propertyPath}.
 File format: Formatul fișierului
-File is too large: Fișierul este prea mare
 Fill missing data: Completați măsurătorile lipsă
 Firmware: Firmware
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware-ul acestui dispozitiv trimite notificări în contextul acestui canal. Aici puteți configura conținutul și destinatarii. Pentru mai multe informații, contactați furnizorul dispozitivului.
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware-ul acestui dispozitiv trimite notificări. Aici puteți configura conținutul și destinatarii. Pentru mai multe informații, contactați furnizorul dispozitivului.
 Flooding: Inundare
 For a period: Pentru perioada
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Este recomandat să utilizați adresa {suplaUrl} în timpul actualizării.
@@ -430,7 +419,6 @@ For security reasons, the full URL of this direct link will be displayed only on
 Forced off by sensor: Oprire forțată de către senzor
 Forgot your password?: Ați uitat parola?
 Forward active energy: Energie activă consumată
-Forward active energy balance: Balanță a energiei active consumate
 Forward active energy balanced: Energia activă preluată (Balanță vectorială)
 Forward reactive energy: Energie reactivă preluată
 Fridays: Zilele de vineri
@@ -526,9 +514,7 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Dacă doriți să integrați cloud-ul privat SUPLA cu aplicația publică OAuth, trebuie {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Dacă doriți să utilizați linkul direct în alt software, adăugați antetul de solicitare corespunzător pentru a obține un răspuns mai ușor de procesat.
 If you wish not to receive such messages, change it in your account settings [here].: Dacă nu doriți să primiți astfel de notificări de la noi, vă rugăm să consultați setările contului dvs. [aici].
-If you wish to register your instance, {clickHereLink}.: Dacă doriți să vă înregistrați instanța, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Dacă doriți să vedeți integrările disponibile, treceți la {0}.
-If you wish to unregister your instance, {clickHereLink}.: Dacă doriți să vă anulați înregistrarea instanței, faceți {clickHereLink}.
 Image area crop: Zona imaginii
 Impulse counter: Contor de impulsuri
 Impulses: Impulsuri
@@ -539,7 +525,6 @@ Include energy corrections in new measurements history (not recommended): Includ
 Incorrect password: Parolă incorectă
 Increment and decrement: Creștere și descreștere
 Incremental: Incrementală
-Information: Informație
 Inherit I/O Device location: Utilizați locația dispozitivului
 Installer e-mail address: Adresa de e-mail a instalatorului
 Integration with MQTT Broker has been disabled.: Integrarea cu brokerul MQTT a fost dezactivată.
@@ -557,16 +542,13 @@ Invalid function for channel.: Funcție nevalidă pentru canal.
 'Invalid redirect URI: {uri}': 'Adresa URL de returnare este incorectă: {uri}'
 Invalid request: Cerere nevalidă
 Invalid request.: Cerere nevalidă.
-Invalid scene: Scenă incorectă
 Invalid token.: Token nevalid.
 Invalid unlock code.: Legătură de deblocare incorectă.
 Invalid username or password: Nume de utilizator sau parolă incorectă
 Inverted logic: Logică inversă
 Invisible: Invizibil
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Este posibil ca un alt utilizator să fi introdus adresa dvs. de e-mail din greșeală pentru a reseta parola pentru propriul cont.
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: În acest mod, dispozitivul va începe să-și difuzeze rețeaua Wi-Fi, al cărei scop este să permită configurarea dispozitivului sau actualizarea firmware-ului folosind un smartphone care se va conecta la această rețea.
 Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Nu uitați că, împreună cu contul dvs., vom șterge toate datele, inclusiv setările, dispozitivele configurate, locațiile, planurile de executare și toate celelalte funcționalități oferite de SUPLA.
-Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Rețineți că descrierea expresiei din aplicație nu este perfectă și singurul scop este să vă ajute să introduceți valoarea corespunzătoare. Nu este folosit pentru a verifica dacă valoarea introdusă este corectă, darămite să ne lăudăm că „a fost o eroare în SUPLI”. După ce ați făcut modificările, verificați secțiunea „Upcoming Executes” pentru a confirma că configurația de program pe care ați introdus-o satisface așteptările dvs.
 Language is not available: Limba nu este disponibilă
 Last access: Ultima conexiune
 Last connection: Ultima conexiune
@@ -693,7 +675,6 @@ Number of aberrations: Numărul de aberații
 Number of attempts to close: Numărul de încercări de închidere
 Number of attempts to open: Numărul de încercări de deschidere
 Number of sections: Numărul de secțiuni
-OAuth application: Aplicație OAuth
 OAuth apps: Aplicații OAuth
 OAuth authorization: Autorizație OAuth
 OAuth integrations might stop working after the instance is unregistered.: Integrarea aplicației OAuth poate înceta să funcționeze după anularea înregistrării instanței dvs.
@@ -730,7 +711,6 @@ Partial opening sensor: Senzor de deschidere indirectă
 Partially opened sensor for channel: Canal pentru senzorul de deschidere intermediară
 Password: Parolă
 Password Reset: Resetarea parolei
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Schimbarea parolei va deconecta toate sesiunile curente. Cu toate acestea, acest lucru nu va afecta aplicațiile care au fost autorizate de tine. Consimțământul pentru conectarea la aplicație trebuie retras separat.
 Password changed: Parolă modificată
 Password has been changed: Parola a fost modificată
 Password must be at least {minLength} characters.: Parola trebuie să aibă cel puțin {minLength} caractere.
@@ -830,7 +810,6 @@ Reveal: Dezvăluie
 Reveal or stop: Dezvăluiți sau opriți
 Reveal partially: Dezvăluie parțial
 Reverse active energy: Energia activă returnată
-Reverse active energy balance: Balanța energiei active returnate
 Reverse active energy balanced: Energia activă returnată (bilanț vectorial)
 Reverse reactive energy: Energia reactivă returnată
 Revoke: Revocare
@@ -907,10 +886,11 @@ Show on the Client’s devices: Afișează pe dispozitivele de client
 Shut: Ascunde
 Shut or stop: Acoperiți sau opriți
 Shut partially: Acoperiți parțial
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Închideți jaluzeaua până când atinge marginea de jos și introduceți procentul de închidere în acest câmp. Această operațiune nu este necesară, dar furnizarea acesteia va îmbunătăți vizualizarea poziției jaluzelei în aplicația mobilă.
 Sign In: Conectați-vă
 Sign Out: Deconectați-vă
 Sign in temporarily unavailable. Please try again later.: Conectare indisponibilă temporar. Încercați din nou mai târziu.
+Slat angle that the blind sets when closing: Unghiul lamelelor pe care jaluzeaua le fixează la închidere
+Slat angle that the blind sets when opening: Unghiul lamelelor pe care jaluzeaua le fixează la deschidere
 Smartphones: Smartphone-uri
 SoftVer: WerOpr
 Some features depend on this channel: Unele funcții depind de acest canal
@@ -959,7 +939,6 @@ Temperature setpoint change switches to manual mode: Modificarea temperaturii ț
 Temporal override: Suprascriere temporară
 Terrace awning: Copertină de terasă
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Vă mulțumim pentru înregistrarea unui cont în serviciul %cloudHost%. Pentru a finaliza activarea, faceți clic pe linkul de mai jos.
-Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Datorită integrărilor, puteți adăuga cu ușurință noi funcții la contul dvs., folosind soluții furnizate de furnizori externi, programatori sau de către dvs.
 'The IP used for login is: %ip%': 'Încercarea de conectare a fost făcută de la adresa IP: %ip%'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Parola pentru brokerul MQTT este vizibilă doar în acest moment. Asigurați-vă că le ați scris într-un loc sigur. Nu va fi posibil să-l afișați din nou.
 The SUPLA infrastructure is being updated.: Serverele SUPLA sunt în curs de actualizare.
@@ -968,7 +947,6 @@ The Terms and Conditions have changed – please read them and accept.: Regulame
 The activation link has been sent again. Check the inbox.: Mesajul cu linkul de activare a contului dvs. a fost trimis din nou. Verificați căsuța de e-mail.
 The channel has been deleted.: Canalul a fost eliminat.
 The client will be automatically logged out when deleted.: Ștergerea clientului va duce la deconectarea imediată a acestuia.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Configurația a fost modificată dintr-o altă locație (de exemplu, o altă fereastră de browser, aplicație sau dispozitiv mobil). Trebuie să actualizați configurația înainte de a efectua alte modificări.
 The counter has been reset.: Contorul a fost resetat.
 The device could not be unlocked.: Dispozitivul nu a putut fi deblocat.
 The device has been unlocked already.: Dispozitivul este deja deblocat.
@@ -1000,7 +978,6 @@ The password and its confirm are not the same.: Parola și confirmarea acesteia 
 The password should be 8 or more characters.: Parola trebuie să aibă cel puțin 8 caractere.
 The reaction has been added: Reacția a fost adăugată
 The reaction has been changed: Reacția a fost modificată
-The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Dispozitivul a fost oprit prin protecție la supracurent. Înainte de a le activa, asigurați-vă că problema care a dus la aceasta a fost rezolvată. Sigur doriți să porniți acest dispozitiv de la distanță?
 The scene would execute too many operations.: Scena efectuează prea multe operații.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serverul a returnat o eroare 400, ceea ce înseamnă că solicitarea trimisă nu este validă.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Serverul a returnat eroarea HTTP 403. Aceasta înseamnă că nu aveți permisiuni suficiente pentru a vizualiza acest element.
@@ -1019,7 +996,6 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Programe de termostat
 This action will result in restarting the device. It will not be available for a while.: Comandarea acestei operațiuni va reporni dispozitivul. În timpul repornirii, dispozitivul va fi inaccesibil.
 This channel was missing during last device registration attempt.: Acest canal lipsește din dispozitiv.
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Acest aparat este destinat distribuției și instalării numai de către instalatori autorizați. Dacă nu sunteți un instalator SUPLA autorizat și nu dețineți un certificat de formare activ, returnați-l dealerului.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Acest link direct necesită clarificarea parametrilor acțiunii efectuate. Consultați exemplele de mai jos pentru a afla ce parametri puteți seta.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Primiți această informație în legătură cu o încercare nereușită de conectare la SUPLA-CLOUD folosind adresa dvs. de e-mail.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Aceasta este etapa finală de ștergere a contului tău. Completarea și aprobarea formularului va duce la ștergerea ireversibilă a datelor tale.
@@ -1028,9 +1004,7 @@ This is the list of applications you have granted access to your account.: Aceas
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Aceasta este o listă a reacțiilor care rulează pe contul dvs. Dacă doriți să adăugați o nouă reacție, accesați detaliile canalului care ar trebui să o declanșeze.
 This link is only valid for an hour.: Linkul va fi activ timp de o oră.
 'This password will protect your home. Therefore, it must:': 'Această parolă va proteja casa ta. Prin urmare:'
-This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Acest mod de programare este conceput pentru utilizatorii tehnici sau foarte răbdători. Necesită indicarea momentelor de declanșare a programului în notația crontab, îmbogățită cu mai multe funcționalități găsite doar în SUPLI. Dacă nu ați întâlnit crontab-uri înainte și încă doriți să utilizați acest mod, site-ul web crontab.guru vă poate fi de ajutor.
 This thermostat is controlled by another device.: Acest termostat este controlat de un termostat principal.
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Acest declanșator este utilizat local de dispozitiv (de exemplu, aprinde lumina, comandă jaluzea etc.). Dacă îi atribuiți o altă acțiune, funcția locală va fi dezactivată.
 Thursdays: Zilele de joi
 Tilt angle: Unghiul de înclinare
 Tilt control type: Tip de control al înclinării
@@ -1110,7 +1084,6 @@ We were not able to find your account.: Nu am reușit să găsim contul dvs.
 We were not able to prepare your data. Please see the error details below.: Pe parcursul pregătirii datelor a apărut o eroare Vezi mai jos detaliile acestuia.
 We will miss you: Ne va fi dor de tine
 We will miss you!: Ne va fi dor de tine!
-We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Vom face tot posibilul pentru ca pictogramele trimise să fie afișate cât mai bine, dar veți obține cele mai bune rezultate trimițând fișiere PNG cu un fond transparent și o lățime de {width} și o înălțime de {height} pixeli.
 We will use it only in justified situations.: Îl vom folosi numai în cazuri justificate.
 Weather Station: Stație meteorologică
 Wednesdays: Zilele de miercuri
@@ -1247,7 +1220,6 @@ When the window will be opened: Când fereastra va deschisă
 When the window will be opened or closed: Când fereastra va fi deschisă sau închisă
 When there is certain amount of rain: Când cade o anumită cantitate de ploaie
 When there weight reaches a certain value: Când greutatea atinge o anumită valoare
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Puteți efectua acțiunea linkului direct, completând identificatorul său unic direct în corpul cererii HTTP PATCH. Acest lucru este mai sigur, deoarece împiedică salvarea adresei complete a linkului dvs. în jurnalele de acces ale serverelor prin care trece solicitarea. Mai jos veți găsi un exemplu de executare folosind instrumentul cURL.
 Where is the JSON?: Unde este JSON?
 Where is your SUPLA Cloud?: Unde se află Supla ta?
 White: Alb
@@ -1289,13 +1261,11 @@ Your account has been deleted. We hope you will come back to us soon.: Contul a 
 Your account has been locked.: Contul dvs. a fost blocat.
 Your account has not been confirmed yet.: Contul dvs. nu a fost încă confirmat.
 Your account limits: Limitele dvs.
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Browserul tău nu susține mecanismul bazei de date client (IndexedDB). Această funcționalitate este necesară pentru a afișa grafice și pentru a susține setările avansate de export de date. Actualizează browserul tău sau ieși din modul incognito pentru a beneficia de aceste funcții.
 Your channel groups are allowed to have a maximum of {max} channels.: Grupurile dvs. de canale pot avea maximum {max} canale.
 Your chart is being drawn...: Graficul tău este în curs de desenare...
 Your data are being collected. Please be patient.: Colectăm datele tale, răbdare.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Datele tale sunt descărcate de pe server. Așteptați finalizarea descărcărilor înainte de a le exporta.
 Your device has been unlocked by the installer.: Dispozitivul dvs. a fost deblocat de către instalator.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Dispozitivul vă permite să-și extindeți funcționalitatea și vă permite să efectuați orice acțiune pe orice dispozitiv pe care îl aveți. Opțiunile disponibile depind de firmware-ul și dispozitivul pe care îl utilizați.
 Your email: E-mailul dvs.
 Your instance is not registered or you are trying to authorize an application that is not public.: Instanța dvs. nu este înregistrată sau încercați să autorizați o aplicație care nu este publică.
 Your password must contain at least one special character.: Parola trebuie să conțină cel puțin un caracter special.
@@ -1557,6 +1527,7 @@ yesterday: ieri
 ...and start your adventure with building automation today!: ...și începeți aventura cu clădiri inteligente de astăzi!
 Access identifier password must be at least 8 characters.: Parola pentru identificatorul de acces trebuie să aibă cel puțin 8 caractere.
 Access identifier password must be no longer than 32 characters.: Parola pentru identificatorul de acces nu poate fi mai lungă de 32 de caractere.
+Action: Acțiune
 Add new item to use in the scene: Adăugați un element nou la scenă
 After the delay: După o anumită perioadă de timp
 After the delay, but only when it's dark: După un anumit timp, dar numai când este întuneric
@@ -1564,9 +1535,13 @@ Are you sure you want to delete the entire voltage aberrations history saved for
 Are you sure you want to disable this device?: Sigur doriți să opriți acest dispozitiv?
 Assigned Locations: Locații atribuite
 Authorized OAuth apps: Aplicații autorizate OAuth
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Dezactivarea acestei opțiuni permite controlul acestui dispozitiv de la nivelul de integrare fără confirmare suplimentară. Acest lucru poate conduce la o stare periculoasă sau mai puțin sigură (de exemplu, deschiderea accidentală a unei porți).
 Calculated value: Citirea contorului
+Calibration successful.: Calibrare reușită
 Cannot execute an action when the device is disconnected.: Nu puteți efectua acțiuni atunci când dispozitivul este deconectat.
 Cannot send an activation e-mail. Try again later.: Mesajul cu link-ul de activare nu poate fi trimis. Încercați din nou mai târziu.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Nu ați primit mesajul cu linkul de activare pentru contul dvs.? Asigurați-vă că nu a ajuns în dosarul SPAM poșta nedorită). De asemenea, puteți face {clickHereLink} pentru a-l retrimite.
+Channel is disconnected.: Canalul este deconectat.
 Channel value: Valoare
 Channel will be deleted from the channel group below: Canalul va fi eliminat din următoarele grupe de canale
 Chart data source type: Tipul sursei de date
@@ -1577,6 +1552,7 @@ Confirm if you want to perform the roller shutter calibration.: Confirmați că 
 Confirm if you want to remove {deviceName} device: Confirmați că doriți să eliminați dispozitivul {deviceName}
 DISABLED: DEZACTIVAT
 Days: Zile
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Ștergerea contului dvs. va duce la ștergerea tuturor datelor, inclusiv a dispozitivelor conectate, canalelor configurate, linkurilor directe și istoricului măsurătorilor. Ștergerea contului este permanentă.
 Device channel value: Valoare de pe dispozitiv
 Device settings: Setări dispozitiv
 Differential: Diferenţial
@@ -1588,6 +1564,10 @@ Email already exists: Adresa de e-mail există deja
 Entering configuration mode is unsupported in the firmware.: Comutarea de la distanță în modul de configurare nu este acceptată de firmware-ul dispozitivului.
 Existing schedules: Planificări existente
 Expected maximum increment: Creșterea maximă preconizată
+File is too large: Fișierul este prea mare
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware-ul acestui dispozitiv trimite notificări în contextul acestui canal. Aici puteți configura conținutul și destinatarii. Pentru mai multe informații, contactați furnizorul dispozitivului.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware-ul acestui dispozitiv trimite notificări. Aici puteți configura conținutul și destinatarii. Pentru mai multe informații, contactați furnizorul dispozitivului.
+Forward active energy balance: Balanță a energiei active consumate
 From IP: De la adresa IP
 Get SUPLA on your devices: Descărcați SUPLA pe dispozitivele dvs.
 Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.: Mesajul cu linkul de activare a contul dvs. nu a sosit? Asigurați-vă că nu se află în folderul SPAM (junk mail). Puteți, de asemenea, să faceți clic [aici] pentru a-l retrimite.
@@ -1596,10 +1576,16 @@ Hour: Ora
 Hours: Ore
 I/O: Intrare/Ieșire
 If you want to stay here, do something!: Dacă vrei să rămâi aici, fă ceva!
+If you wish to register your instance, {clickHereLink}.: Dacă doriți să vă înregistrați instanța, {clickHereLink}.
+If you wish to unregister your instance, {clickHereLink}.: Dacă doriți să vă anulați înregistrarea instanței, faceți {clickHereLink}.
 In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Pentru a minimiza riscul unei citiri incorecte, setați creșterea maximă așteptată a valorii contorului între imagini succesive.
+Information: Informație
 Initial value: Valoarea inițială
 Input: Intrare
 Interpolate measurements: Estimați valorile lipsă
+Invalid scene: Scenă incorectă
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: În acest mod, dispozitivul va începe să-și difuzeze rețeaua Wi-Fi, al cărei scop este să permită configurarea dispozitivului sau actualizarea firmware-ului folosind un smartphone care se va conecta la această rețea.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Rețineți că descrierea expresiei din aplicație nu este perfectă și singurul scop este să vă ajute să introduceți valoarea corespunzătoare. Nu este folosit pentru a verifica dacă valoarea introdusă este corectă, darămite să ne lăudăm că „a fost o eroare în SUPLI”. După ce ați făcut modificările, verificați secțiunea „Upcoming Executes” pentru a confirma că configurația de program pe care ați introdus-o satisface așteptările dvs.
 Languages: Limbi
 Loading: Încărcare
 Location password must be at least 4 characters.: Parola pentru locație trebuie să aibă cel puțin 4 caractere.
@@ -1611,8 +1597,10 @@ Mobile Apps: Aplicații mobile
 Next: Mai departe
 No results match {0}: Niciun rezultat nu se potrivește cu {0}
 Number: Număr
+OAuth application: Aplicație OAuth
 Output: Ieșire
 Pairing subdevices is unsupported in the firmware.: Împerecherea nu este suportată de software-ul dispozitivului.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Schimbarea parolei va deconecta toate sesiunile curente. Cu toate acestea, acest lucru nu va afecta aplicațiile care au fost autorizate de tine. Consimțământul pentru conectarea la aplicație trebuie retras separat.
 Please select an action: Vă rugăm să selectați o acțiune
 Please select the schedules that should also be enabled.: Selectați planurile care ar trebui să fie, de asemenea, activate.
 Previous login: Conectarea precedentă
@@ -1621,21 +1609,29 @@ Registration: Înregistrare
 Registration of new I/O devices: Înregistrarea dispozitivelor
 Registration of new clients: Înregistrarea clienților
 Remove: Șterge
+Reverse active energy balance: Balanța energiei active returnate
 Save changes to see Access IDs: Salvați modificările pentru afișarea identificatoarelor de acces
 Schedule cannot be enabled: Planul de execuție nu a fost activat
 Schedules below will be deleted: Următoarele planuri de execuție vor fi șterse
 Sensor (normal closed): Senzor (normal închis)
 Sensor (normal open): Senzor (normal deschis)
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Închideți jaluzeaua până când atinge marginea de jos și introduceți procentul de închidere în acest câmp. Această operațiune nu este necesară, dar furnizarea acesteia va îmbunătăți vizualizarea poziției jaluzelei în aplicația mobilă.
 Sources available from: Sursele disponibile în
 Standard: Standard
 Subject: Entitate
 Sunrise / Sunset: Est / Vest
 Supla for devices: Supla pentru dispozitive
 Temperature adjustment only: Numai setarea temperaturii
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Datorită integrărilor, puteți adăuga cu ușurință noi funcții la contul dvs., folosind soluții furnizate de furnizori externi, programatori sau de către dvs.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Configurația a fost modificată dintr-o altă locație (de exemplu, o altă fereastră de browser, aplicație sau dispozitiv mobil). Trebuie să actualizați configurația înainte de a efectua alte modificări.
 The events in voltage aberrations history will be automatically deleted after {days} days.: Evenimentele din istoricul aberațiilor de tensiune vor fi șterse automat după {days} câteva zile.
 The items below depend on this channel, so they will be deleted.: Următoarele elemente depind de acest canal, astfel încât acestea vor fi eliminate.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Cu un cadru, am marcat notificarea din care ați dat clic / ați dat clic pe linkul de dezabonare.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Răspunsul va fi activ atunci când sunt îndeplinite toate condițiile următoare. Dacă setați toate opțiunile disponibile, reacția se va activa numai între datele selectate, la orele și în zilele săptămânii selectate și atunci când este îndeplinită una dintre referințele de apus sau răsărit.
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Dispozitivul a fost oprit prin protecție la supracurent. Înainte de a le activa, asigurați-vă că problema care a dus la aceasta a fost rezolvată. Sigur doriți să porniți acest dispozitiv de la distanță?
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Acest aparat este destinat distribuției și instalării numai de către instalatori autorizați. Dacă nu sunteți un instalator SUPLA autorizat și nu dețineți un certificat de formare activ, returnați-l dealerului.
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Acest mod de programare este conceput pentru utilizatorii tehnici sau foarte răbdători. Necesită indicarea momentelor de declanșare a programului în notația crontab, îmbogățită cu mai multe funcționalități găsite doar în SUPLI. Dacă nu ați întâlnit crontab-uri înainte și încă doriți să utilizați acest mod, site-ul web crontab.guru vă poate fi de ajutor.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Acest declanșator este utilizat local de dispozitiv (de exemplu, aprinde lumina, comandă jaluzea etc.). Dacă îi atribuiți o altă acțiune, funcția locală va fi dezactivată.
 Triggers: Declanșatoare
 Try again later: Încercați din nou mai târziu
 Turning this device off will result in disabling all the associated schedules.: Dezactivarea acestui dispozitiv va dezactiva, de asemenea, planurile de executare asociate cu acesta.
@@ -1644,6 +1640,7 @@ Use working schedule for this access identifier: Utilizați un program de dispon
 Use working schedule for this reaction: Utilizați programul de activitate pentru acest răspuns
 Value per unit: Valoare pe unitate
 We have just sent you an activation link. Be patient.: Tocmai a fost trimis un mesaj cu un link pentru activarea contului dvs. Răbdare.
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Vom face tot posibilul pentru ca pictogramele trimise să fie afișate cât mai bine, dar veți obține cele mai bune rezultate trimițând fișiere PNG cu un fond transparent și o lățime de {width} și o înălțime de {height} pixeli.
 When: Când
 When the curtain reaches: Când cortina ajunge la
 When the facade blind reaches: Atunci când grilajul fațadei atinge
@@ -1658,9 +1655,12 @@ When the roller shutter reaches: Când jaluzea atinge
 When the roof window reaches: Când fereastra de la mansardă ajunge
 When the terrace awning reaches: Atunci când o copertină de terasă atinge
 When the vertical blind reaches: Când jaluzelele verticale ajung la
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Puteți efectua acțiunea linkului direct, completând identificatorul său unic direct în corpul cererii HTTP PATCH. Acest lucru este mai sigur, deoarece împiedică salvarea adresei complete a linkului dvs. în jurnalele de acces ale serverelor prin care trece solicitarea. Mai jos veți găsi un exemplu de executare folosind instrumentul cURL.
 Working schedule: Program de activitate
 You need to provide icons for all states.: Trebuie să furnizați pictograme pentru toate stările.
 You will be logged out shortly: Îndată veți fi deconectat
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Browserul tău nu susține mecanismul bazei de date client (IndexedDB). Această funcționalitate este necesară pentru a afișa grafice și pentru a susține setările avansate de export de date. Actualizează browserul tău sau ieși din modul incognito pentru a beneficia de aceste funcții.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Dispozitivul vă permite să-și extindeți funcționalitatea și vă permite să efectuați orice acțiune pe orice dispozitiv pe care îl aveți. Opțiunile disponibile depind de firmware-ul și dispozitivul pe care îl utilizați.
 choose a currency: alegeți valuta
 choose access identifiers: selectează ID-urile de acces
 choose the channel: selectați un canal
@@ -1684,8 +1684,8 @@ will expire: expiră
 A new client app: ~
 A new device: ~
 Account notifications: ~
-Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
+Action trigger notification: ~
 Activity schedule: ~
 Add new data source: ~
 Address: ~
@@ -1705,7 +1705,9 @@ Bridge node online: ~
 Bridge node signal strength: ~
 Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
+Channel notification: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Chart aggregated balance: ~
 Check available updates: ~
 Choose many: ~
 City: ~
@@ -1715,7 +1717,6 @@ Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
 Could not add the data source. Try again in a while.: ~
-Could not change the password.: ~
 Could not check updates.: ~
 Could not perform factory reset.: ~
 Could not perform firmware update.: ~
@@ -1730,6 +1731,8 @@ Default (exact value depends on a device): ~
 Default channels location: ~
 Device date and time: ~
 Device interface: ~
+Device notification: ~
+Device should be checking and installing updates.: ~
 Does it look good?: ~
 E-mail: ~
 Each container level sensor must have different fill level.: ~
@@ -1738,6 +1741,7 @@ Energy prices: ~
 Everyone makes mistakes!: ~
 Factory reset: ~
 Fill level: ~
+Filtering time: ~
 Firmware update is available.: ~
 Firmware update policy: ~
 Firmware updates: ~
@@ -1745,25 +1749,24 @@ Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
-Go back to data sources: ~
 Heat or cold source switch for channel: ~
 IP: ~
 Image: ~
+Info: ~
 Invalid sensor state: ~
 LED settings: ~
 Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
-Light source lifespan: ~
 Light source operating time: ~
 Lock type: ~
 MAC: ~
-MODBUS: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
 Minimum: ~
+Motion sensor: ~
 Motor problem: ~
 Mute alarm: ~
 Mute alarm sound without additional auth: ~
@@ -1773,6 +1776,7 @@ Network: ~
 New version: ~
 No one: ~
 Not available: ~
+Not calibrated: ~
 'OCR service responded with error: {statusCode}. {description}': ~
 Open Weather Data: ~
 Opening sensor for channel: ~
@@ -1782,27 +1786,26 @@ Overcurrent threshold: ~
 Password is too long.: ~
 Password is too short.: ~
 Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
-Password was set successfully.: ~
-Passwords do not match.: ~
 Percentage of extension: ~
 Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
-Power supply: ~
 Pump switch for channel: ~
 Push: ~
-RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
-REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
+Reaction notification: ~
 Reading: ~
 Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
+Remember that this is not your account. You have been trusted by the user when you were given the technical access password.: ~
 Role: ~
 SUPLA - Test e-mail: ~
 Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
+Scene notification: ~
+Sensitivity: ~
 Septic tank: ~
 Serial: ~
 Set the configuration password: ~
@@ -1813,16 +1816,15 @@ Stop bits: ~
 Switch cycle count: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
 The device is not connected. The values below represent the last known state.: ~
-The factory reset was successful.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
 The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The subdevice has been deleted.: ~
-This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
 This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
+This is the list of configured notifications. If you want to add a new notification or alter the existing one, go to the channel details that should trigger it.: ~
+Timeout: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
 Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
@@ -1839,6 +1841,8 @@ Weather attribute: ~
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
+When motion starts to be detected: ~
+When motion stops to be detected: ~
 When the alarm starts: ~
 When the alarm stops: ~
 When the battery level will be: ~
@@ -1856,6 +1860,9 @@ When the fill level will be: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
+When the sensor state changes: ~
+When the sensor state changes to hi: ~
+When the sensor state changes to low: ~
 When the sensors state becomes invalid: ~
 When the sensors state becomes valid: ~
 When the sound alarm starts: ~
@@ -1868,7 +1875,8 @@ When the warning stops: ~
 Who has access?: ~
 Wi-Fi RSSI: ~
 Wi-Fi signal strength: ~
-You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
+With great power comes great responsibility.: ~
+You are using technical access.: ~
 You cannot change this function becuase it is required by another channel.: ~
 You have the newest firmware installed.: ~
 activityConditions_help: ~
@@ -1905,9 +1913,27 @@ modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~
 modbusSerialStopbits_TWO: ~
+normal session: ~
+openWeatherAttribute_field_airCo: ~
+openWeatherAttribute_field_airNo: ~
+openWeatherAttribute_field_airNo2: ~
+openWeatherAttribute_field_airO3: ~
+openWeatherAttribute_field_airPm10: ~
+openWeatherAttribute_field_airPm25: ~
+openWeatherAttribute_field_feelsLike: ~
+openWeatherAttribute_field_humidity: ~
+openWeatherAttribute_field_pressure: ~
+openWeatherAttribute_field_rainMmh: ~
+openWeatherAttribute_field_snowMmh: ~
+openWeatherAttribute_field_temp: ~
+openWeatherAttribute_field_tempHumidity: ~
+openWeatherAttribute_field_visibility: ~
+openWeatherAttribute_field_windGust: ~
+openWeatherAttribute_field_windSpeed: ~
 state-half: ~
 state-hi: ~
 state-low: ~
+subdevicePairingResult_REQUEST_SENT: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~
 tank_alarm_fullRange_alarmAboveLevel: ~

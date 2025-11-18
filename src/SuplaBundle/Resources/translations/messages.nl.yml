@@ -6,9 +6,7 @@
 ...open gateways, gates or doors: ...open de tuinpoort, poort of deur
 ...or control home appliances: ...of bedien huishoudelijke apparaten/elektronica
 ...you can monitor temperature: ...u kunt de temperatuur volgen
-Slat angle that the blind sets when closing: Hoek van de lamellen die de jaloezie bij het sluiten maakt
 10 minutes before sunset, on day 10 of the month, May through August: 10 minuten voor zonsondergang, alleen op de 10e van de maand, van mei tot augustus
-Slat angle that the blind sets when opening: De hoek van de lamellen die de jaloezie  bij het openen maakt
 15 minutes after sunrise, every 2 days: 15 minuten na zonsopgang, om de andere dag
 A confirmation upon successful client app registration.: Bevestiging van de registratie van de nieuwe cliëntapplicatie.
 A confirmation upon successful device registration.: Bevestiging van succesvolle apparaatregistratie.
@@ -34,7 +32,6 @@ Access to all of your devices through MQTT Broker: Toegang tot al uw apparaten v
 Account: Account
 Account access when you are unavailable: Toegang tot uw account wanneer u niet beschikbaar bent
 Account has been activated. You can Sign In now.: Uw account is geactiveerd. U kunt inloggen
-Action: Actie
 Action confirmation: Bevestigen van de actie
 Action execution: Acties uitvoeren
 Action trigger: Actietrigger
@@ -160,14 +157,12 @@ Brightness adjustment for automatic mode: De helderheid van de automatische modu
 Brightness level: Helderheidsniveau
 Button volume: Volume knop
 Buttons upside down: Omgekeerde knopbediening
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Door deze optie uit te schakelen, kan dit apparaat worden bestuurd via integratie zonder extra bevestiging. Dit kan leiden tot een gevaarlijke of minder veilige situatie (bijv. per ongeluk openen van een poort).
 By signing in, you are authorizing {clientName} to control your devices.: Door in te loggen, machtig je de {clientName}-applicatie om je apparaten te bedienen.
 CLICK TO DISABLE: KLIK OM UIT TE ZETTEN
 CLICK TO ENABLE: KLIK OM IN TE SCHAKELEN
 Calibrate: Kalibreer
 Calibration: Kalibreren
 Calibration error: Kalibratiefout
-Calibration successful.: Kalibratie succesvol
 Cancel: Annuleren
 Cancel changes: Wijzigingen annuleren
 Cancelled: Geannuleerd
@@ -176,7 +171,6 @@ Cannot calculate when to run the schedule - incorrect configuration?: Kan geen s
 Cannot change the channel function right now.: De functie van dit kanaal kan op dit moment niet worden gewijzigd.
 Cannot delete this I/O Device right now.: Dit apparaat kan op dit moment niet worden verwijderd.
 Cannot update OCR settings. Try again in a while.: OCR-instellingen konden niet worden bijgewerkt. Probeer het later opnieuw.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Geen bericht ontvangen met de activatie link voor uw account? Zorg ervoor dat deze niet in de map SPAM (ongewenste e-mail) staat. U kunt ook {clickHereLink} om het opnieuw te verzenden.
 Captcha token is not valid.: Ongeldige captcha.
 Caption: Handtekening
 Caption is too long.: De naam is te lang.
@@ -203,7 +197,6 @@ Channel group must consist of at least one channel.: Kanaalgroep moet ten minste
 Channel group reference will be removed from the items below.: Het verwijzen naar een kanaalgroep wordt verwijderd uit onderstaande elementen.
 Channel groups: Kanaalgroepen
 Channel is assigned to the I/O device location: Het kanaal is reeds aan de apparaatlocatie toegewezen
-Channel is disconnected.: Het kanaal is losgekoppeld.
 Channel name: Naam kanaal
 Channel reference will be removed from the items below.: Het kanaal zal worden verwijderd uit onderstaande elementen.
 Channel with action triggers: Kanaal met actietriggers
@@ -310,7 +303,6 @@ Delete: Verwijder
 Delete measurement history: Verwijder meetgeschiedenis
 Delete my account: Verwijder Mijn account
 Delete voltage aberrations history: Verwijder geschiedenis spanningsaberratie
-Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Als u uw account verwijdert, worden ook al uw gegevens verwijderd, inclusief de gegevens over uw verbonden apparaten, geconfigureerde kanalen, directe links en meetgeschiedenis. Het verwijderen van de account kan niet ongedaan worden.
 Dependencies: Relaties
 Depth: Diepte
 Depth sensor: Dieptesensor
@@ -417,11 +409,8 @@ Fan: Windmolen
 Feature limits: Functionele grenzen
 'Field: {propertyPath}.': Veld {propertyPath}.
 File format: Bestandsformaat
-File is too large: Het bestand is te groot
 Fill missing data: Vul ontbrekende metingen in
 Firmware: Firmware
-Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: De firmware van dit apparaat verstuurt meldingen in de context van dit kanaal. Hier kun je de inhoud en ontvangers configureren. Neem voor meer informatie contact op met de leverancier van je toestel.
-Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: De firmware van dit apparaat verzendt meldingen. Hier kun je de inhoud en ontvangers configureren. Neem voor meer informatie contact op met de leverancier van je toestel.
 Flooding: Overstroming
 For a period: Voor de periode
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Bij het bijwerken wordt aanbevolen het {suplaUrl} adres te gebruiken.
@@ -430,7 +419,6 @@ For security reasons, the full URL of this direct link will be displayed only on
 Forced off by sensor: Gedwongen uitschakeling door sensor
 Forgot your password?: Wachtwoord vergeten?
 Forward active energy: Opgenomen actieve energie
-Forward active energy balance: Balans van actieve afgenomen energie
 Forward active energy balanced: Toevoer van actieve energie (vectorbalans)
 Forward reactive energy: Reactieve energie opgenomen
 Fridays: Vrijdagen
@@ -526,9 +514,7 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Als u de private SUPLA-cloud met de openbare OAuth-toepassing wilt integreren, moet u {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Als u de directe link in andere software wilt gebruiken, voegt de juiste koptekst toe om een antwoord te krijgen dat gemakkelijker te verwerken is.
 If you wish not to receive such messages, change it in your account settings [here].: Indien u dergelijke meldingen van ons niet wenst te ontvangen,<br> gelieve uw accountinstellingen [hier] te raadplegen.
-If you wish to register your instance, {clickHereLink}.: Als u uw instantie wilt registreren, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Als u beschikbare integraties wilt zien, ga naar {0}.
-If you wish to unregister your instance, {clickHereLink}.: Indien u uw instantie wenst te deregistreren, {clickHereLink}.
 Image area crop: Afbeeldingsgebied
 Impulse counter: Pulsteller
 Impulses: Pulsen
@@ -539,7 +525,6 @@ Include energy corrections in new measurements history (not recommended): Toegev
 Incorrect password: Het wachtwoord is onjuist
 Increment and decrement: Oplopend en aflopend
 Incremental: Incrementele
-Information: Informatie
 Inherit I/O Device location: Gebruik apparaatlocatie
 Installer e-mail address: E-mailadres installateur
 Integration with MQTT Broker has been disabled.: Integratie met de MQTT-makelaar is uitgeschakeld.
@@ -557,16 +542,13 @@ Invalid function for channel.: Ongeldige functie voor kanaal.
 'Invalid redirect URI: {uri}': 'Ongeldige retour-URL: {uri}'
 Invalid request: Ongeldig verzoek
 Invalid request.: Verkeerd verzoek.
-Invalid scene: Verkeerde scène
 Invalid token.: Verkeerde token.
 Invalid unlock code.: Onjuiste deblokkeringslink.
 Invalid username or password: Ongeldige gebruikersnaam of wachtwoord
 Inverted logic: Omgekeerde logica
 Invisible: Onzichtbaar
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Het is mogelijk dat een andere gebruiker per ongeluk uw e-mailadres heeft ingevoerd om uw accountwachtwoord opnieuw in te stellen.
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: In deze modus begint het toestel zijn Wi-Fi-netwerk uit te zenden, zodat het toestel kan worden geconfigureerd of de firmware kan worden bijgewerkt met behulp van een smartphone die verbinding maakt met dit netwerk.
 Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Vergeet niet dat we samen met uw account al uw gegevens, inclusief instellingen, geconfigureerde apparaten, locaties, schema's en alle andere functionaliteiten aangeboden door SUPLA.
-Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Bedenk dat de beschrijving van de gegeven uitdrukking die de applicatie geeft niet perfect is, en alleen bedoeld is om u te helpen de juiste waarde in te voeren. Het is er niet om te controleren of de ingevoerde waarde correct is, laat staan om op te scheppen dat er "een fout is gevonden in SUPLI". Nadat u uw wijzigingen hebt aangebracht, controleert u de sectie "Dichtsbijzijnde uitvoeringen" om te bevestigen dat de gegeven planningsconfiguratie aan uw verwachtingen voldoet.
 Language is not available: Taal niet beschikbaar
 Last access: Recente verbinding
 Last connection: Recente verbinding
@@ -693,7 +675,6 @@ Number of aberrations: Aantal aberraties
 Number of attempts to close: Aantal pogingen tot afsluiting
 Number of attempts to open: Aantal openingspogingen
 Number of sections: Aantal secties
-OAuth application: OAuth-toepassing
 OAuth apps: OAuth apps
 OAuth authorization: OAuth-autorisatie
 OAuth integrations might stop working after the instance is unregistered.: Integraties met OAuth-applicaties kunnen stoppen met werken wanneer uw instantie wordt uitgeschreven.
@@ -730,7 +711,6 @@ Partial opening sensor: Indirecte openingssensor
 Partially opened sensor for channel: Kanaal voor intermediaire openingssensor
 Password: Wachtwoord
 Password Reset: Wachtwoord opnieuw instellen
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Het wijzigen van het wachtwoord zal alle huidige sessies uitloggen. Dit heeft echter geen invloed op applicaties die je gemachtigd hebt. Toestemmingen voor applicatie-inlog moeten afzonderlijk worden ingetrokken.
 Password changed: Wachtwoord gewijzigd
 Password has been changed: Het wachtwoord is gewijzigd
 Password must be at least {minLength} characters.: Het wachtwoord moet minstens {minLength} tekens bevatten.
@@ -830,7 +810,6 @@ Reveal: Laat zien
 Reveal or stop: Onthullen of stoppen
 Reveal partially: Laat gedeeltelijk zien
 Reverse active energy: Teruggegeven actieve energie
-Reverse active energy balance: Balans van actief teruggeleverde energie
 Reverse active energy balanced: Teruggekaatste energie (Vectorbalans)
 Reverse reactive energy: Teruggegeven reactieve energie
 Revoke: Herroepen
@@ -907,10 +886,11 @@ Show on the Client’s devices: Geef weer op klantgenapparaten
 Shut: Sluit
 Shut or stop: Bedek of stop
 Shut partially: Gedeeltelijk bedekken
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Sluit het rolluik totdat het de onderrand raakt en voer het sluitingspercentage in dit veld in. Deze handeling is niet vereist, maar het invoeren ervan zal de visualisatie van de positie van het rolluik in de mobiele app verbeteren.
 Sign In: Inloggen
 Sign Out: Uitloggen
 Sign in temporarily unavailable. Please try again later.: Inloggen tijdelijk niet beschikbaar. Probeer het later eens opnieuw.
+Slat angle that the blind sets when closing: Hoek van de lamellen die de jaloezie bij het sluiten maakt
+Slat angle that the blind sets when opening: De hoek van de lamellen die de jaloezie  bij het openen maakt
 Smartphones: Smartphones
 SoftVer: WerOpr
 Some features depend on this channel: Sommige functies zijn afhankelijk van dit kanaal
@@ -959,7 +939,6 @@ Temperature setpoint change switches to manual mode: Door de doeltemperatuur te 
 Temporal override: Tijdelijke opheffing
 Terrace awning: Terraszonwering
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Bedankt voor het registreren van een account op %cloudHost%. Klik op de onderstaande link om de activering te voltooien.
-Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Dankzij integraties kunt u eenvoudig aan uw account nieuwe functies toevoegen met behulp van oplossingen van externe leveranciers, programmeurs of uzelf.
 'The IP used for login is: %ip%': 'De inlogpoging is gedaan vanaf het IP-adres: %ip%'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Het wachtwoord van uw MQTT-makelaar is alleen op dit moment zichtbaar. Zorg ervoor dat u het op een veilige plaats bewaart. Het zal niet mogelijk zijn om het opnieuw te bekijken.
 The SUPLA infrastructure is being updated.: Er wordt gewerkt aan een update van de SUPLA-servers.
@@ -968,7 +947,6 @@ The Terms and Conditions have changed – please read them and accept.: Website 
 The activation link has been sent again. Check the inbox.: Een bericht met een link om uw account te activeren is opnieuw verzonden. Controleer je inbox.
 The channel has been deleted.: Het kanaal is verwijderd.
 The client will be automatically logged out when deleted.: Als de klant wordt verwijderd, wordt hij onmiddellijk uitgelogd.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: De configuratie is gewijzigd vanaf een andere locatie (bijv. een ander browservenster, mobiele app of apparaat). Je moet de configuratie vernieuwen voordat je verdere wijzigingen aanbrengt.
 The counter has been reset.: De teller is teruggezet.
 The device could not be unlocked.: Het toestel kon niet worden ontgrendeld.
 The device has been unlocked already.: Het toestel is al ontgrendeld.
@@ -1000,7 +978,6 @@ The password and its confirm are not the same.: Het wachtwoord en de bevestiging
 The password should be 8 or more characters.: Het wachtwoord moet minimaal 8 tekens bevatten.
 The reaction has been added: De reactie is toegevoegd
 The reaction has been changed: De reactie is gewijzigd
-The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Het toestel is uitgeschakeld door de overstroombeveiliging. Voordat u het inschakelt, moet u ervoor zorgen dat het probleem dat hiertoe heeft geleid, is opgelost. Weet u zeker dat u dit apparaat op afstand wilt inschakelen?
 The scene would execute too many operations.: De scène voert teveel operaties uit.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: De server heeft een 400-fout verzonden, wat betekent dat het verzonden verzoek ongeldig is.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: De server heeft een HTTP 403-fout verzonden. Dit betekent dat u niet voldoende rechten hebt om dit item te bekijken.
@@ -1019,7 +996,6 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Thermostaatprogramma's
 This action will result in restarting the device. It will not be available for a while.: Door deze handeling uit te voeren, wordt het toestel opnieuw opgestart. Tijdens het herstarten is het toestel niet toegankelijk.
 This channel was missing during last device registration attempt.: Dit kanaal ontbreekt op het toestel.
-This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Dit toestel is uitsluitend bedoeld voor distributie en installatie door erkende installateurs. Als u geen erkende SUPLA-installateur bent en geen actief trainingscertificaat hebt, retourneer dit dan aan uw dealer.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Deze directe link vereist verduidelijking van de parameters van de actie die wordt uitgevoerd. Zie de onderstaande voorbeelden om erachter te komen welke parameters u kunt instellen.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: U ontvangt deze informatie vanwege een mislukte poging om met uw e-mailadres in te loggen op SUPLA-CLOUD.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Dit is de laatste stap om je account te verwijderen. Het invullen en verzenden van het formulier zal resulteren in onherstelbaar verlies van je gegevens.
@@ -1028,9 +1004,7 @@ This is the list of applications you have granted access to your account.: Dit i
 This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Dit is een lijst met reacties die op je account worden uitgevoerd. Als je een nieuwe reactie wilt toevoegen, ga dan naar de details van het kanaal dat de reactie moet veroorzaken.
 This link is only valid for an hour.: De link blijft één uur actief.
 'This password will protect your home. Therefore, it must:': 'Dit wachtwoord zal je huis beschermen. Daarom:'
-This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Deze planningsmodus is ontworpen met technische of zeer geduldige gebruikers in gedachten. Het vereist dat de tijdstippen waarop het schema wordt gestart worden opgegeven in crontab notatie, uitgebreid met enkele functionaliteiten die alleen in SUPLI te vinden zijn. Als u nog niet eerder met crontabs in aanraking bent gekomen en toch deze modus wilt gebruiken, kan de crontab.guru website nuttig voor u zijn.
 This thermostat is controlled by another device.: Deze thermostaat wordt aangestuurd door een hoofdthermostaat.
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Deze trigger wordt lokaal door het apparaat gebruikt (b.v. steekt een licht aan, bedient een rolluik, etc.) Als u er een andere actie aan toewijst, wordt de lokale functie uitgeschakeld.
 Thursdays: Donderdagen
 Tilt angle: Hellingshoek
 Tilt control type: Type kantelbesturing
@@ -1110,7 +1084,6 @@ We were not able to find your account.: We konden uw account niet vinden.
 We were not able to prepare your data. Please see the error details below.: Tijdens het voorbereiden van de gegevens is er een fout opgetreden. Bekijk hieronder de details van de fout.
 We will miss you: We zullen je missen
 We will miss you!: We zullen je missen!
-We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: We zullen ons best doen om de weergegeven pictogrammen op de beste manier te verzenden, maar u krijgt de beste resultaten door PNG-bestanden met een transparante achtergrond en pixels met breedte {width} en hoogte {height} te verzenden.
 We will use it only in justified situations.: We zullen het alleen gebruiken in gerechtvaardigde gevallen
 Weather Station: Weerstation
 Wednesdays: Woensdagen
@@ -1247,7 +1220,6 @@ When the window will be opened: Als het raam geopend is
 When the window will be opened or closed: Als het raam gesloten of geopend is
 When there is certain amount of rain: Als een gespecificeerde hoeveelheid regen is gevallen
 When there weight reaches a certain value: Als het gewicht een gespecificeerde waarde bereikt
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: U kunt de directe link-actie uitvoeren door de unieke ID ervan op te geven in de body van het HTTP PATCH-verzoek. Dit is veiliger omdat hierdoor wordt voorkomen dat het volledige adres van uw link wordt opgeslagen in de logs voor toegang tot de server waardoor uw verzoek wordt verwerkt. Hieronder vindt u een voorbeeld met behulp van de cURL-tool.
 Where is the JSON?: Waar is JSON?
 Where is your SUPLA Cloud?: Waar bevindt uw-Supla zich?
 White: Wit
@@ -1289,13 +1261,11 @@ Your account has been deleted. We hope you will come back to us soon.: Account i
 Your account has been locked.: Uw account is geblokkeerd.
 Your account has not been confirmed yet.: Uw account is nog niet bevestigd.
 Your account limits: Uw limieten.
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Je browser ondersteunt geen client-side database mechanisme (IndexedDB). Deze functionaliteit is vereist voor het weergeven van grafieken en ondersteuning van geavanceerde gegevensexportinstellingen. Werk je browser bij of verlaat de incognitomodus om van deze functionaliteiten gebruik te kunnen maken.
 Your channel groups are allowed to have a maximum of {max} channels.: Uw kanaalgroepen kunnen een maximum van {max} kanalen hebben.
 Your chart is being drawn...: Je grafiek wordt getekend...
 Your data are being collected. Please be patient.: We verzamelen je gegevens, even geduld.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Je gegevens worden van de server opgehaald. Wacht tot het ophalen is voltooid voordat je ze exporteert.
 Your device has been unlocked by the installer.: Je toestel is ontgrendeld door de installateur
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: U kunt de functionaliteit van het apparaat uitbreiden en u kunt elke actie uitvoeren op elk apparaat dat u bezit. De beschikbare opties zijn afhankelijk van de firmware en het toestel dat u gebruikt.
 Your email: Uw e-mailadres
 Your instance is not registered or you are trying to authorize an application that is not public.: Uw exemplaar is niet geregistreerd of u probeert een toepassing te autoriseren die niet openbaar is.
 Your password must contain at least one special character.: Het wachtwoord moet ten minste één speciaal teken bevatten.
@@ -1557,6 +1527,7 @@ yesterday: gisteren
 ...and start your adventure with building automation today!: ...en begin je avontuur met intelligente gebouwen al vandaag!
 Access identifier password must be at least 8 characters.: Het wachtwoord voor de toegangs-ID moet minimaal 8 tekens bevatten.
 Access identifier password must be no longer than 32 characters.: Het wachtwoord voor de toegangs-ID mag niet langer zijn dan 32 tekens.
+Action: Actie
 Add new item to use in the scene: Voeg een nieuw element toe aan de scène
 After the delay: Na een bepaalde tijd
 After the delay, but only when it's dark: Na een bepaalde tijd, maar alleen als het donker is
@@ -1564,9 +1535,13 @@ Are you sure you want to delete the entire voltage aberrations history saved for
 Are you sure you want to disable this device?: Weet u zeker dat u dit apparaat wilt uitschakelen?
 Assigned Locations: Wijs locaties toe
 Authorized OAuth apps: Geautoriseerde OAuth-applicaties
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Door deze optie uit te schakelen, kan dit apparaat worden bestuurd via integratie zonder extra bevestiging. Dit kan leiden tot een gevaarlijke of minder veilige situatie (bijv. per ongeluk openen van een poort).
 Calculated value: Meterstand
+Calibration successful.: Kalibratie succesvol
 Cannot execute an action when the device is disconnected.: Wanneer het apparaat is losgekoppeld kunt u geen acties uitvoeren.
 Cannot send an activation e-mail. Try again later.: Het bericht met activeringslink kan niet verzonden worden. Probeer het later eens opnieuw.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Geen bericht ontvangen met de activatie link voor uw account? Zorg ervoor dat deze niet in de map SPAM (ongewenste e-mail) staat. U kunt ook {clickHereLink} om het opnieuw te verzenden.
+Channel is disconnected.: Het kanaal is losgekoppeld.
 Channel value: Waarde
 Channel will be deleted from the channel group below: Het kanaal wordt uit de volgende kanaalgroepen verwijderd
 Channels in channel group: Kanalen in kanalengroep
@@ -1578,6 +1553,7 @@ Confirm if you want to perform the roller shutter calibration.: Controleer of de
 Confirm if you want to remove {deviceName} device: Bevestig dat u {deviceName} wilt verwijderen
 DISABLED: UITGESCHAKELD
 Days: Dagen
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Als u uw account verwijdert, worden ook al uw gegevens verwijderd, inclusief de gegevens over uw verbonden apparaten, geconfigureerde kanalen, directe links en meetgeschiedenis. Het verwijderen van de account kan niet ongedaan worden.
 Device channel value: Waarde van het apparaat
 Device settings: Apparaatinstellingen
 Differential: Differentieel
@@ -1589,6 +1565,10 @@ Email already exists: Email adres bestaat al
 Entering configuration mode is unsupported in the firmware.: Het op afstand omschakelen naar de configuratiemodus wordt niet ondersteund door de firmware van het apparaat.
 Existing schedules: Bestaande schema's
 Expected maximum increment: Verwachte maximale stijging
+File is too large: Het bestand is te groot
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: De firmware van dit apparaat verstuurt meldingen in de context van dit kanaal. Hier kun je de inhoud en ontvangers configureren. Neem voor meer informatie contact op met de leverancier van je toestel.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: De firmware van dit apparaat verzendt meldingen. Hier kun je de inhoud en ontvangers configureren. Neem voor meer informatie contact op met de leverancier van je toestel.
+Forward active energy balance: Balans van actieve afgenomen energie
 From IP: Van een IP-adres
 Get SUPLA on your devices: Download SUPLA voor uw apparaten
 Hi: Hoi
@@ -1596,10 +1576,16 @@ Hour: Uur
 Hours: Uren
 I/O: Input / Outpt
 If you want to stay here, do something!: Als je hier wilt blijven, doe dan iets!
+If you wish to register your instance, {clickHereLink}.: Als u uw instantie wilt registreren, {clickHereLink}.
+If you wish to unregister your instance, {clickHereLink}.: Indien u uw instantie wenst te deregistreren, {clickHereLink}.
 In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Om het risico op een onjuiste aflezing te minimaliseren, stel je de maximale verwachte toename van de tellerwaarde tussen opeenvolgende afbeeldingen in.
+Information: Informatie
 Initial value: Beginwaarde
 Input: Ingang
 Interpolate measurements: Schat de ontbrekende waarden
+Invalid scene: Verkeerde scène
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: In deze modus begint het toestel zijn Wi-Fi-netwerk uit te zenden, zodat het toestel kan worden geconfigureerd of de firmware kan worden bijgewerkt met behulp van een smartphone die verbinding maakt met dit netwerk.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Bedenk dat de beschrijving van de gegeven uitdrukking die de applicatie geeft niet perfect is, en alleen bedoeld is om u te helpen de juiste waarde in te voeren. Het is er niet om te controleren of de ingevoerde waarde correct is, laat staan om op te scheppen dat er "een fout is gevonden in SUPLI". Nadat u uw wijzigingen hebt aangebracht, controleert u de sectie "Dichtsbijzijnde uitvoeringen" om te bevestigen dat de gegeven planningsconfiguratie aan uw verwachtingen voldoet.
 Languages: Talen
 Loading: Opladen
 Location password must be at least 4 characters.: Locatiewachtwoord moet minimaal 4 tekens lang zijn.
@@ -1611,29 +1597,39 @@ Mobile Apps: Mobiele applicaties
 Next: Doorgaan
 No results match {0}: Geen resultaten gevonden die bij {0} passen
 Number: Nummer
+OAuth application: OAuth-toepassing
 Output: Uitgang
 Pairing subdevices is unsupported in the firmware.: Koppelen wordt niet ondersteund door de software van het toestel.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Het wijzigen van het wachtwoord zal alle huidige sessies uitloggen. Dit heeft echter geen invloed op applicaties die je gemachtigd hebt. Toestemmingen voor applicatie-inlog moeten afzonderlijk worden ingetrokken.
 Please select an action: Selecteer een actie
 Please select the schedules that should also be enabled.: Selecteer schema's die ook moeten worden opgenomen.
 Previous login: Vorige login
 Reference to the channel will be removed from the items below.: Verwijzingen naar dit kanaal worden uit de onderstaande elementen opgegeven.
 Registration: Registratie
 Remove: Verwijder
+Reverse active energy balance: Balans van actief teruggeleverde energie
 Save changes to see Access IDs: Wijzigingen opslaan om toegangs-ID's weer te geven
 Schedule cannot be enabled: Kan tijdschema niet inschakelen
 Schedules below will be deleted: De volgende tijdschema's worden verwijderd
 Sensor (normal closed): Sensor (normaal gesloten)
 Sensor (normal open): Sensor (normaal open)
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Sluit het rolluik totdat het de onderrand raakt en voer het sluitingspercentage in dit veld in. Deze handeling is niet vereist, maar het invoeren ervan zal de visualisatie van de positie van het rolluik in de mobiele app verbeteren.
 Sources available from: Bronnen beschikbaar in
 Standard: Standaard
 Subject: Entiteit
 Sunrise / Sunset: Oost-West
 Supla for devices: Supla voor apparaten
 Temperature adjustment only: Alleen temperatuurinstelling
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Dankzij integraties kunt u eenvoudig aan uw account nieuwe functies toevoegen met behulp van oplossingen van externe leveranciers, programmeurs of uzelf.
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: De configuratie is gewijzigd vanaf een andere locatie (bijv. een ander browservenster, mobiele app of apparaat). Je moet de configuratie vernieuwen voordat je verdere wijzigingen aanbrengt.
 The events in voltage aberrations history will be automatically deleted after {days} days.: Gebeurtenissen in de spanningsafwijkinggeschiedenis worden automatisch verwijderd na {days} dagen.
 The items below depend on this channel, so they will be deleted.: De volgende items zijn afhankelijk van dit kanaal, dus die worden verwijderd.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Met behulp van een kader hebben wij de kennisgeving gemarkeerd waarvan u op de afmeldingslink hebt geklikt.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: De reactie is actief als aan alle volgende voorwaarden is voldaan. Als je alle beschikbare opties instelt, wordt de reactie alleen geactiveerd tussen de geselecteerde data, op de geselecteerde tijden en dagen van de week en wanneer aan een van de referenties voor zonsondergang of zonsopgang wordt voldaan.
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Het toestel is uitgeschakeld door de overstroombeveiliging. Voordat u het inschakelt, moet u ervoor zorgen dat het probleem dat hiertoe heeft geleid, is opgelost. Weet u zeker dat u dit apparaat op afstand wilt inschakelen?
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Dit toestel is uitsluitend bedoeld voor distributie en installatie door erkende installateurs. Als u geen erkende SUPLA-installateur bent en geen actief trainingscertificaat hebt, retourneer dit dan aan uw dealer.
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Deze planningsmodus is ontworpen met technische of zeer geduldige gebruikers in gedachten. Het vereist dat de tijdstippen waarop het schema wordt gestart worden opgegeven in crontab notatie, uitgebreid met enkele functionaliteiten die alleen in SUPLI te vinden zijn. Als u nog niet eerder met crontabs in aanraking bent gekomen en toch deze modus wilt gebruiken, kan de crontab.guru website nuttig voor u zijn.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Deze trigger wordt lokaal door het apparaat gebruikt (b.v. steekt een licht aan, bedient een rolluik, etc.) Als u er een andere actie aan toewijst, wordt de lokale functie uitgeschakeld.
 Triggers: Triggers
 Try again later: Probeer het later eens opnieuw
 Turning this device off will result in disabling all the associated schedules.: Als u dit apparaat uitschakelt, wordt ook de bijbehorende harmongoram uitgeschakeld.
@@ -1641,6 +1637,7 @@ Unlocked: Ontgrendeld
 Use working schedule for this access identifier: Gebruik het beschikbaarheidsschema voor deze toegangsidentificatie
 Use working schedule for this reaction: Gebruik het activiteitenschema voor deze reactie
 Value per unit: Waarde per eenheid
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: We zullen ons best doen om de weergegeven pictogrammen op de beste manier te verzenden, maar u krijgt de beste resultaten door PNG-bestanden met een transparante achtergrond en pixels met breedte {width} en hoogte {height} te verzenden.
 When: Wanneer
 When the curtain reaches: Wanneer het gordijn
 When the facade blind reaches: Wanneer de externe jaloezie
@@ -1655,9 +1652,12 @@ When the roller shutter reaches: Als het rolluik een positie bereikt van
 When the roof window reaches: Als het dakraam een positie bereikt van
 When the terrace awning reaches: Wanneer een terraszonwering
 When the vertical blind reaches: Wanneer de verticale jaloezie
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: U kunt de directe link-actie uitvoeren door de unieke ID ervan op te geven in de body van het HTTP PATCH-verzoek. Dit is veiliger omdat hierdoor wordt voorkomen dat het volledige adres van uw link wordt opgeslagen in de logs voor toegang tot de server waardoor uw verzoek wordt verwerkt. Hieronder vindt u een voorbeeld met behulp van de cURL-tool.
 Working schedule: Activiteitenschema
 You need to provide icons for all states.: U moet pictogrammen voor alle staten opgeven.
 You will be logged out shortly: U wordt zo uitgelogd
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Je browser ondersteunt geen client-side database mechanisme (IndexedDB). Deze functionaliteit is vereist voor het weergeven van grafieken en ondersteuning van geavanceerde gegevensexportinstellingen. Werk je browser bij of verlaat de incognitomodus om van deze functionaliteiten gebruik te kunnen maken.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: U kunt de functionaliteit van het apparaat uitbreiden en u kunt elke actie uitvoeren op elk apparaat dat u bezit. De beschikbare opties zijn afhankelijk van de firmware en het toestel dat u gebruikt.
 choose a currency: selecteer valuta
 choose access identifiers: selecteer toegangs-ID’s
 choose the channel: selecteer kanaal
@@ -1681,8 +1681,8 @@ thermostatAlgorithm_help: |
 A new client app: ~
 A new device: ~
 Account notifications: ~
-Action is unsupported in the firmware.: ~
 Action trigger for channel: ~
+Action trigger notification: ~
 Activity schedule: ~
 Add new data source: ~
 Address: ~
@@ -1702,7 +1702,9 @@ Bridge node online: ~
 Bridge node signal strength: ~
 Calibration lost: ~
 Cannot execute an action when the channel is not available.: ~
+Channel notification: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
+Chart aggregated balance: ~
 Check available updates: ~
 Choose many: ~
 City: ~
@@ -1712,7 +1714,6 @@ Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
 Could not add the data source. Try again in a while.: ~
-Could not change the password.: ~
 Could not check updates.: ~
 Could not perform factory reset.: ~
 Could not perform firmware update.: ~
@@ -1727,6 +1728,8 @@ Default (exact value depends on a device): ~
 Default channels location: ~
 Device date and time: ~
 Device interface: ~
+Device notification: ~
+Device should be checking and installing updates.: ~
 Does it look good?: ~
 E-mail: ~
 Each container level sensor must have different fill level.: ~
@@ -1735,6 +1738,7 @@ Energy prices: ~
 Everyone makes mistakes!: ~
 Factory reset: ~
 Fill level: ~
+Filtering time: ~
 Firmware update is available.: ~
 Firmware update policy: ~
 Firmware updates: ~
@@ -1742,25 +1746,24 @@ Firmware version: ~
 Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
-Go back to data sources: ~
 Heat or cold source switch for channel: ~
 IP: ~
 Image: ~
+Info: ~
 Invalid sensor state: ~
 LED settings: ~
 Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
-Light source lifespan: ~
 Light source operating time: ~
 Lock type: ~
 MAC: ~
-MODBUS: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
 Minimum: ~
+Motion sensor: ~
 Motor problem: ~
 Mute alarm: ~
 Mute alarm sound without additional auth: ~
@@ -1770,6 +1773,7 @@ Network: ~
 New version: ~
 No one: ~
 Not available: ~
+Not calibrated: ~
 'OCR service responded with error: {statusCode}. {description}': ~
 Open Weather Data: ~
 Opening sensor for channel: ~
@@ -1779,27 +1783,26 @@ Overcurrent threshold: ~
 Password is too long.: ~
 Password is too short.: ~
 Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
-Password was set successfully.: ~
-Passwords do not match.: ~
 Percentage of extension: ~
 Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
 Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
-Power supply: ~
 Pump switch for channel: ~
 Push: ~
-RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
-REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: ~
+Reaction notification: ~
 Reading: ~
 Recipients for push notifications: ~
 Reference to the deleted channels will be removed from the items below.: ~
+Remember that this is not your account. You have been trusted by the user when you were given the technical access password.: ~
 Role: ~
 SUPLA - Test e-mail: ~
 Scene ID{id} is being executed right now.: ~
 Scene ID{id} is inactive right now.: ~
+Scene notification: ~
+Sensitivity: ~
 Septic tank: ~
 Serial: ~
 Set the configuration password: ~
@@ -1810,16 +1813,15 @@ Stop bits: ~
 Switch cycle count: ~
 Temperature control type: ~
 Temperatures that can be set from local UI: ~
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: ~
 The device is not connected. The values below represent the last known state.: ~
-The factory reset was successful.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
 The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
 The subdevice has been deleted.: ~
-This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: ~
 This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
+This is the list of configured notifications. If you want to add a new notification or alter the existing one, go to the channel details that should trigger it.: ~
+Timeout: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
 Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
@@ -1836,6 +1838,8 @@ Weather attribute: ~
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
+When motion starts to be detected: ~
+When motion stops to be detected: ~
 When the alarm starts: ~
 When the alarm stops: ~
 When the battery level will be: ~
@@ -1853,6 +1857,9 @@ When the fill level will be: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
+When the sensor state changes: ~
+When the sensor state changes to hi: ~
+When the sensor state changes to low: ~
 When the sensors state becomes invalid: ~
 When the sensors state becomes valid: ~
 When the sound alarm starts: ~
@@ -1865,7 +1872,8 @@ When the warning stops: ~
 Who has access?: ~
 Wi-Fi RSSI: ~
 Wi-Fi signal strength: ~
-You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: ~
+With great power comes great responsibility.: ~
+You are using technical access.: ~
 You cannot change this function becuase it is required by another channel.: ~
 You have the newest firmware installed.: ~
 activityConditions_help: ~
@@ -1902,9 +1910,27 @@ modbusRole_SLAVE: ~
 modbusSerialStopbits_ONE: ~
 modbusSerialStopbits_ONE_AND_HALF: ~
 modbusSerialStopbits_TWO: ~
+normal session: ~
+openWeatherAttribute_field_airCo: ~
+openWeatherAttribute_field_airNo: ~
+openWeatherAttribute_field_airNo2: ~
+openWeatherAttribute_field_airO3: ~
+openWeatherAttribute_field_airPm10: ~
+openWeatherAttribute_field_airPm25: ~
+openWeatherAttribute_field_feelsLike: ~
+openWeatherAttribute_field_humidity: ~
+openWeatherAttribute_field_pressure: ~
+openWeatherAttribute_field_rainMmh: ~
+openWeatherAttribute_field_snowMmh: ~
+openWeatherAttribute_field_temp: ~
+openWeatherAttribute_field_tempHumidity: ~
+openWeatherAttribute_field_visibility: ~
+openWeatherAttribute_field_windGust: ~
+openWeatherAttribute_field_windSpeed: ~
 state-half: ~
 state-hi: ~
 state-low: ~
+subdevicePairingResult_REQUEST_SENT: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~
 tank_alarm_fullRange_alarmAboveLevel: ~
