@@ -3,7 +3,7 @@
     <dl>
       <dd>{{ $t('Timeout') }}</dd>
       <dt>
-        <NumberInput v-model="channel.config.timeoutS" :min="0.1" :max="3600" :precision="1" suffix="s" @update:modelValue="emit('change')" />
+        <NumberInput v-model="channel.config.timeoutS" :min="0.1" :max="3600" :precision="1" suffix="s" @update:modelValue="emit('change')" required />
       </dt>
     </dl>
   </div>

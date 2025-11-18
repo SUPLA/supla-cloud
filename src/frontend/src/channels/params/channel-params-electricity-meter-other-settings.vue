@@ -28,13 +28,13 @@
         <dl>
           <dd>{{ $t('Low threshold') }}</dd>
           <dt>
-            <NumberInput v-model="lowV" :min="0" :max="highV || 1000" :precision="2" suffix=" V" @update:modelValue="$emit('change')" />
+            <NumberInput v-model="lowV" :min="0" :max="highV || 1000" :precision="2" suffix="V" @update:modelValue="$emit('change')" required />
           </dt>
         </dl>
         <dl>
           <dd>{{ $t('High threshold') }}</dd>
           <dt>
-            <NumberInput v-model="highV" :min="lowV || 0" :max="1000" :precision="2" suffix=" V" @update:modelValue="$emit('change')" />
+            <NumberInput v-model="highV" :min="lowV || 0" :max="1000" :precision="2" suffix="V" @update:modelValue="$emit('change')" required />
           </dt>
         </dl>
         <div class="small">
@@ -58,13 +58,31 @@
         <dl>
           <dd>{{ $t('Low threshold') }}</dd>
           <dt>
-            <NumberInput v-model="lowW" :min="-100000" :max="highW || 100000" :precision="2" suffix="W" @update:modelValue="$emit('change')" />
+            <NumberInput
+              v-model="lowW"
+              :min="-100000"
+              :max="highW || 100000"
+              :precision="2"
+              suffix="W"
+              @update:modelValue="$emit('change')"
+              required
+              :default-value="-100"
+            />
           </dt>
         </dl>
         <dl>
           <dd>{{ $t('High threshold') }}</dd>
           <dt>
-            <NumberInput v-model="highW" :min="lowW || -100000" :max="100000" :precision="2" suffix="W" @update:modelValue="$emit('change')" />
+            <NumberInput
+              v-model="highW"
+              :min="lowW || -100000"
+              :max="100000"
+              :precision="2"
+              suffix="W"
+              @update:modelValue="$emit('change')"
+              required
+              :default-value="100"
+            />
           </dt>
         </dl>
         <div class="small">

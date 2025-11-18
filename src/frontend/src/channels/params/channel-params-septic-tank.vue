@@ -12,7 +12,7 @@
               <dl>
                 <dt>{{ $t('Fill level') }}</dt>
                 <dd>
-                  <NumberInput v-model="lvl.fillLevel" :min="1" :max="100" suffix=" %" @update:modelValue="levelChanged()" />
+                  <NumberInput v-model="lvl.fillLevel" :min="1" :max="100" suffix=" %" @update:modelValue="levelChanged()" required />
                 </dd>
               </dl>
             </div>
@@ -56,6 +56,7 @@
             :max="100"
             suffix=" %"
             @update:modelValue="$emit('change')"
+            required
           />
           <input v-else type="text" class="form-control text-center" disabled :placeholder="$t('Disabled')" />
         </div>

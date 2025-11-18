@@ -22,6 +22,7 @@
             suffix=" A"
             :precision="2"
             @update:model-value="emit('change')"
+            required
           />
           <input v-else type="text" class="form-control text-center" disabled :placeholder="$t('Disabled')" />
         </div>

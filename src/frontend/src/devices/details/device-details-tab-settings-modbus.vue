@@ -12,7 +12,7 @@
     <transition-expand>
       <div v-if="modbusConfig.role === 'SLAVE'" class="form-group with-border-bottom">
         <label>{{ $t('Address') }}</label>
-        <NumberInput v-model="modbusConfig.modbusAddress" :min="1" :max="247" />
+        <NumberInput v-model="modbusConfig.modbusAddress" :min="1" :max="247" required />
         <div class="help-block">{{ $t('Please specify a valid address between 1 and 247.') }}</div>
       </div>
     </transition-expand>
@@ -26,7 +26,7 @@
           </label>
         </div>
         <transition-expand>
-          <NumberInput v-if="!slaveTimeoutMsDefault" v-model="modbusConfig.slaveTimeoutMs" :min="1" :max="10000" suffix=" ms" />
+          <NumberInput v-if="!slaveTimeoutMsDefault" v-model="modbusConfig.slaveTimeoutMs" :min="1" :max="10000" suffix="ms" required />
         </transition-expand>
       </div>
     </transition-expand>
@@ -79,7 +79,7 @@
             </div>
             <div class="form-group">
               <label>{{ $t('Port') }}</label>
-              <NumberInput v-model="modbusConfig.networkConfig.port" :min="1" :max="65535" />
+              <NumberInput v-model="modbusConfig.networkConfig.port" :min="1" :max="65535" required :default-value="502" />
             </div>
           </div>
         </transition-expand>

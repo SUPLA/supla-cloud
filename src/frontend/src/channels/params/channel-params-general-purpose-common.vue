@@ -11,19 +11,19 @@
     <dl v-if="canDisplaySetting('valueMultiplier')">
       <dd>{{ $t('Value multiplier') }}</dd>
       <dt>
-        <NumberInput v-model="valueMultiplier" :min="-2000000" :max="2000000" :placeholder="1" :precision="3" />
+        <NumberInput v-model="valueMultiplier" :min="-2000000" :max="2000000" :placeholder="1" :precision="3" required :default-value="1" />
       </dt>
     </dl>
     <dl v-if="canDisplaySetting('valueDivider')">
       <dd>{{ $t('Value divider') }}</dd>
       <dt>
-        <NumberInput v-model="valueDivider" :min="-2000000" :max="2000000" :placeholder="1" :precision="3" />
+        <NumberInput v-model="valueDivider" :min="-2000000" :max="2000000" :placeholder="1" :precision="3" required :default-value="1" />
       </dt>
     </dl>
     <dl v-if="canDisplaySetting('valueAdded')">
       <dd>{{ $t('Value added') }}</dd>
       <dt>
-        <NumberInput v-model="valueAdded" :min="-100000000" :max="100000000" :placeholder="0" :precision="3" />
+        <NumberInput v-model="valueAdded" :min="-100000000" :max="100000000" :placeholder="0" :precision="3" required :default-value="0" />
         <ChannelParamsMeterInitialValuesMode
           v-if="channel.function.name === 'GENERAL_PURPOSE_METER'"
           v-model="channel.config.includeValueAddedInHistory"

@@ -50,7 +50,7 @@
 
             <div class="form-group">
               <label for="">{{ $t('Lighting level') }}</label>
-              <NumberInput v-model="ocrSettings.lightingLevel" :min="1" :max="100" suffix="%" class="mt-2" @update:modelValue="$emit('change')" />
+              <NumberInput v-model="ocrSettings.lightingLevel" :min="1" :max="100" suffix="%" class="mt-2" @update:modelValue="$emit('change')" required />
             </div>
           </div>
 
