@@ -84,6 +84,32 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         return $content['id'];
     }
 
+    public function testCreatingVirtualChannelTempMinusDegree() {
+        SuplaAutodiscoverMock::mockResponse('weather-data', [
+            [
+                'id' => 1,
+                'fetchedAt' => (new \DateTime())->format(\DateTime::ATOM),
+                'weather' => ['temp' => -21.2, 'humidity' => 66],
+            ],
+        ], 200, 'POST');
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('POST', '/api/channels', [
+            'virtualChannelType' => VirtualChannelType::OPEN_WEATHER,
+            'virtualChannelConfig' => [
+                'cityId' => 1,
+                'weatherField' => 'temp',
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('id', $content);
+        $chValue = $this->getEntityManager()->getRepository(ChannelValue::class)->findOneBy(['channel' => $content['id']]);
+        $this->assertNotNull($chValue);
+        $this->assertEquals(-21.2, current(unpack('d', $chValue->getValue()))); // mult * 1000
+        return $content['id'];
+    }
+
     public function testCreatingVirtualChannelWind() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV3('POST', '/api/channels', [
@@ -223,7 +249,7 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
             [
                 'id' => 1,
                 'fetchedAt' => (new \DateTime())->format(\DateTime::ATOM),
-                'weather' => ['temp' => 22.2, 'humidity' => 66],
+                'weather' => ['temp' => -22.2, 'humidity' => 66],
             ],
         ], 200, 'POST');
         $client->apiRequestV3('POST', '/api/channels', [
@@ -243,7 +269,7 @@ class VirtualChannelsIntegrationTest extends IntegrationTestCase {
         $chValue = $this->getEntityManager()->getRepository(ChannelValue::class)->findOneBy(['channel' => $content['id']]);
         $this->assertNotNull($chValue);
         ['t' => $temp, 'h' => $hum] = unpack('lt/lh', $chValue->getValue());
-        $this->assertEquals(22.2 * 1000, $temp);
+        $this->assertEquals(-22.2 * 1000, $temp);
         $this->assertEquals(66 * 1000, $hum);
     }
 }
