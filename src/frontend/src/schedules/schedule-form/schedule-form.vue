@@ -114,7 +114,6 @@
   import ChannelFunctionAction from '../../common/enums/channel-function-action';
   import DateRangePicker from '@/activity/date-range-picker.vue';
   import {DateTime} from 'luxon';
-  import ChannelFunction from '@/common/enums/channel-function';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import {api} from '@/api/api.js';
   import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
@@ -218,14 +217,7 @@
         if (subject.ownSubjectType === 'channelGroup' && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) !== -1) {
           return false;
         }
-        const nonScheduleFunctions = [
-          ChannelFunction.HVAC_THERMOSTAT,
-          ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
-          ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
-          ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
-          ChannelFunction.THERMOSTATHEATPOLHOMEPLUS,
-        ];
-        return !nonScheduleFunctions.includes(subject.functionId);
+        return true;
       },
       possibleActionFilter(possibleAction) {
         return ChannelFunctionAction.availableInSchedules(possibleAction.id);

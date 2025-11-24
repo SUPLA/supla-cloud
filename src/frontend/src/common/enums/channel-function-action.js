@@ -93,6 +93,8 @@ const ChannelFunctionAction = Object.freeze({
       ChannelFunctionAction.DOWN_OR_STOP,
       ChannelFunctionAction.STEP_BY_STEP,
       ChannelFunctionAction.SEND,
+      ChannelFunctionAction.HVAC_SET_TEMPERATURE,
+      ChannelFunctionAction.HVAC_SET_TEMPERATURES,
     ].includes(actionId);
   },
 });
