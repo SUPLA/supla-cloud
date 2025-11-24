@@ -12,14 +12,14 @@
     <dl v-if="currentState.depth !== undefined">
       <dd>{{ $t('Depth') }}</dd>
       <dt>
-        <span v-if="currentState.value === null">---</span>
+        <span v-if="currentState.depth === null">---</span>
         <span v-else>{{ currentState.depth }} m</span>
       </dt>
     </dl>
     <dl v-if="currentState.distance !== undefined">
       <dd>{{ $t('Distance') }}</dd>
       <dt>
-        <span v-if="currentState.value === null">---</span>
+        <span v-if="currentState.distance === null">---</span>
         <span v-else>{{ currentState.distance }} m</span>
       </dt>
     </dl>
@@ -94,7 +94,7 @@
       <span v-else-if="channel.function.name === 'PRESSURESENSOR'"> {{ currentState.value }} hPa </span>
       <span v-else-if="channel.function.name === 'WINDSENSOR'"> {{ currentState.value }} m/s </span>
       <span v-else-if="['GENERAL_PURPOSE_MEASUREMENT', 'GENERAL_PURPOSE_METER'].includes(channel.function.name)">
-        {{ formatGpmValue(currentState.value) }}
+        {{ formatGpmValue(currentState.value, channel.config) }}
       </span>
       <span v-else>
         {{ currentState.value }}
