@@ -171,6 +171,7 @@
   const channelsStore = useChannelsStore();
   const stateFromStore = computed(() => channelsStore.all[props.channel.id]?.state);
   const currentState = computed(() => props.state || stateFromStore.value);
+  const isHvac = computed(() => ['HVAC', 'THERMOSTATHEATPOLHOMEPLUS'].includes(props.channel.type.name));
 
   function cssColor(hexStringColor) {
     return hexStringColor.replace('0x', '#');
