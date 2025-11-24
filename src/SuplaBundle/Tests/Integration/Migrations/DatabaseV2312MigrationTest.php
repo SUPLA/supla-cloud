@@ -107,6 +107,6 @@ class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
         /** @var IODeviceChannel $staircaseTimer */
         $staircaseTimer = $this->freshEntityById(IODeviceChannel::class, 49);
         $this->assertEquals(0, $staircaseTimer->getParam1());
-        $this->assertEquals(250, $staircaseTimer->getUserConfigValue('relayTime'));
+        $this->assertEquals(25000, $staircaseTimer->getUserConfigValue('relayTimeMs'));
     }
 }

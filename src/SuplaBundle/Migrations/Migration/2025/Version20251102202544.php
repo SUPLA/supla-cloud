@@ -31,7 +31,7 @@ class Version20251102202544 extends NoWayBackMigration {
             $id = $channel['id'];
             $param1 = $channel['param1'];
             $userConfig = json_decode($channel['user_config'], true);
-            $userConfig['relayTime'] = $param1;
+            $userConfig['relayTimeMs'] = $param1 * 100;
             $this->addSql(
                 'UPDATE supla_dev_channel SET param1=0, user_config=:config WHERE id=:id',
                 ['id' => $id, 'config' => json_encode($userConfig)]

@@ -20,14 +20,14 @@ class RelayTimeSUserConfigTranslator extends UserConfigTranslator {
 
     public function getConfig(HasUserConfig $subject): array {
         return [
-            'relayTimeS' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('relayTime') / 10, 1),
+            'relayTimeS' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('relayTimeMs') / 1000, 1),
             'timeSettingAvailable' => !ChannelFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($subject->getFlags()),
         ];
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('relayTimeS', $config)) {
-            $subject->setUserConfigValue('relayTime', intval($this->getValueInRange($config['relayTimeS'], 0, 7200) * 10));
+            $subject->setUserConfigValue('relayTimeMs', intval($this->getValueInRange($config['relayTimeS'], 0, 7200) * 1000));
         }
     }
 
