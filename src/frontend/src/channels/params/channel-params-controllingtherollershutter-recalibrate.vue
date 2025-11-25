@@ -41,7 +41,7 @@
       .patch('channels/' + props.channel.id + '/settings', {action: 'recalibrate'})
       .then(() => {
         dialog.close();
-        successNotification('Calibration request has been sent.');
+        successNotification('Calibration request has been sent.'); // i18n
       })
       .catch(() => dialog.setLoading(false));
   };
