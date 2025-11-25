@@ -6,6 +6,7 @@ export const availableLanguages = [
   {value: 'en', text: 'English'},
   {value: 'pl', text: 'Polski'},
   {value: 'uk', text: 'Українська'},
+  {value: 'az', text: 'Azerbaijani'},
   {value: 'cs', text: 'Čeština'},
   {value: 'de', text: 'Deutsch'},
   {value: 'es', text: 'Español'},

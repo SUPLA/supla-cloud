@@ -1,0 +1,1953 @@
+# Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
+#<editor-fold desc="Complete translations" defaultstate="collapsed">
+'% of closing': '% bağlanma'
+'%s trigger is not supported by the hardware.': '%s tətik avadanlıq tərəfindən dəstəklənmir.'
+...open and shut roller shutters: ...jalüzləri açmaq və bağlamaq
+...open gateways, gates or doors: ...keçidi, darvazanı və ya qapını açmaq
+...or control home appliances: ...və ya məişət cihazlarını idarə etmək
+...you can monitor temperature: ...temperaturanı izləyə bilərsiniz
+10 minutes before sunset, on day 10 of the month, May through August: Gün batımından 10 dəqiqə əvvəl, ayın 10-u, may–avqust aylarında
+15 minutes after sunrise, every 2 days: Gün doğuşundan 15 dəqiqə sonra, hər 2 gündə bir
+A confirmation upon successful client app registration.: Yeni müştəri tətbiqinin uğurlu qeydiyyat təsdiqi.
+A confirmation upon successful device registration.: Cihazın uğurla qeydiyyat təsdiqi.
+A confirmation upon successful device unlocking.: Cihazın uğurla açılması təsdiqi.
+A new client app: Yeni müştəri tətbiqi (smartfon)
+A new client app (smartphone) been added to your SUPLA-Cloud account.: Yeni müştəri tətbiqi (smartfon) SUPLA-Cloud hesabınıza əlavə olundu.
+A new device: Yeni cihaz
+A new device has been added to your SUPLA-Cloud account.: Yeni cihaz SUPLA-Cloud hesabınıza əlavə olundu.
+A new personal access token has been generated.: Yeni şəxsi giriş tokeni yaradıldı.
+A-Z: A-Z
+ACTIVE: AKTİV
+AM2301 Temperature & Humidity Sensor: AM2301 Temperatur və Rütubət Sensoru
+AM2302 Temperature & Humidity Sensor: AM2302 Temperatur və Rütubət Sensoru
+API documentation: API sənədləşməsi
+API rate limits: API sorğu limitləri
+Aberration info: Aberrasiya məlumatı
+Aberrations count: Aberrasiyaların sayı
+Above threshold: Həddən yuxarı
+Access ID: Giriş ID
+Access ID is not active right now.: Giriş identifikatoru hazırda aktiv deyil.
+Access Identifier: Giriş identifikatoru
+Access Identifiers: Giriş identifikatorları
+Access identifier limit has been exceeded: Giriş identifikatoru limiti aşılıb
+Access to all of your devices through MQTT Broker: Bütün cihazlarınıza MQTT Broker vasitəsilə giriş
+Account: Hesab
+Account access when you are unavailable: Siz olmadıqda hesaba giriş
+Account has been activated. You can Sign In now.: Hesab aktivləşdirildi. Daxil ola bilərsiniz.
+Account notifications: Hesab bildirişləri
+Action confirmation: Əməliyyat təsdiqi
+Action execution: Əməliyyat icrası
+Action trigger: Əməliyyat tətiki
+Action trigger for channel: '@:{''Əməliyyat tətiki''} @:{''kanal üçün''}'
+'Action trigger no. #{index}': 'Tətik № #{index}'
+Action triggers: Əməliyyat tətikləri
+Actions: Əməliyyatlar
+Active: Aktiv
+Active applications: Aktiv tətbiqlər
+Active from: Aktivlik başlanğıcı
+Active period: Aktivlik dövrü
+Active sessions: Aktiv sessiyalar
+Active to: Aktivlik bitişi
+Active web sessions: Aktiv veb sessiyalar
+Activity conditions: Aktivlik şərtləri
+Activity schedule: Aktivlik cədvəli
+Add: Əlavə et
+Add a delay: Gecikmə əlavə et
+Add a new action to the scene: Ssenariyə yeni əməliyyat əlavə et
+Add a new icon: Yeni ikon əlavə et
+Add action: Əməliyyat əlavə et
+Add first channel to set channel group function and save it: Qrup funksiyasını təyin etmək üçün ilk kanalı seçin və yadda saxlayın
+Add new channel group: Yeni kanal qrupu əlavə et
+Add new channel to this group: Bu qrupa yeni kanal əlavə et
+Add new data source: Yeni məlumat mənbəyi əlavə et
+Additional time margin: Əlavə vaxt marjası
+Address: Ünvan
+Adjust parameters: Parametrləri tənzimlə
+Adjust temperature: Temperaturu tənzimlə
+Adjust temperatures: Temperatur dəyərlərini tənzimlə
+After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Bu ikon silindikdən sonra onu istifadə edən bütün kanallar və kanal qrupları standart ikon alacaq.
+After granting the access, you can always remove it by adjusting the settings in your account settings section.: Girişi verdikdən sonra istənilən vaxt hesab ayarlarında onu ləğv edə bilərsiniz.
+After the device enters the configuration mode, it will not be accessible on your account.: Cihaz konfiqurasiya rejiminə keçdikdən sonra hesabınızdan əlçatan olmayacaq.
+After the update, the application will be faster, more comfortable, more powerful... Just better!: Yeniləmə sonrası tətbiq daha sürətli, daha rahat və daha güclü olacaq... Sadəcə daha yaxşı!
+After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Bu əməliyyatdan sonra sayğac hazırkı vəziyyətindən asılı olmayaraq 0-dan başlayacaq. Bu əməliyyat geri qaytarıla bilməz.
+After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Mövzunu seçdikdən dərhal sonra bağlantı yaradılacaq. Digər bütün seçimləri sonradan edə bilərsiniz.
+Aggregation: Aqreqasiya
+Alarm armament sensor: Siqnalizasiya aktivləşdirmə sensoru
+Alarm at level (and above) should be greater than the corresponding warning level.: Bu səviyyədə (və yuxarı) olan alarm uyğun xəbərdarlıq səviyyəsindən yüksək olmalıdır.
+Alarm at level (and below) should be lower than the corresponding warning level.: Bu səviyyədə (və aşağı) olan alarm uyğun xəbərdarlıq səviyyəsindən aşağı olmalıdır.
+Alarm level: Alarm səviyyəsi
+Algorithm: Alqoritm
+Algorithms available on this device: Bu cihazda mövcud alqoritmlər
+All: Hamısı
+All events: Bütün hadisələr
+All logs has been downloaded. Reload the chart to see them.: Bütün loqlar yükləndi. Görmək üçün qrafiki yeniləyin.
+All programs must define at least one temperature threshold.: Bütün proqramlar ən azı bir temperatur həddi təyin etməlidir.
+All the above and many more can be done from your phone or tablet: Bunların hamısını və daha çoxunu telefon və ya planşetdən edə bilərsiniz.
+Allowed actions: İcazə verilən əməliyyatlar
+Allows to perform an action only using the HTTP PATCH request.: Əməliyyatın yalnız HTTP PATCH sorğusu ilə edilməsinə imkan verir.
+Alternatively, you can add a GET parameter to specify response format.: Cavab formatını göstərmək üçün GET parametri də əlavə edə bilərsiniz.
+Always decrement: Həmişə azalan
+Always increment: Həmişə artan
+And more: Və daha çox
+Anti-freeze and overheat protection: Donma və həddindən artıq qızma qorunması
+Anti-freeze protection: Donma qorunması
+Any application or device that uses the {tokenName} token will not work anymore.: '{tokenName} tokenindən istifadə edən bütün tətbiqlər və cihazlar işləməyəcək.'
+'App version: %clientAppSoftwareVersion%': 'Tətbiq versiyası: %clientAppSoftwareVersion%'
+Application: Tətbiq
+Application name cannot be blank.: Tətbiq adı boş ola bilməz
+Application requirements: Tətbiq tələbləri
+Applications: Tətbiqlər
+Applications with access: Giriş icazəsi olan tətbiqlər
+Are you lost?: Azmısınız? Nə axtarırsınız?
+Are you sure you want to change channel’s function?: Kanalın funksiyasını dəyişdirmək istədiyinizə əminsiniz?
+Are you sure you want to change channel’s location?: Kanalın yerini dəyişdirmək istədiyinizə əminsiniz?
+Are you sure you want to change channel’s visibility?: Kanalın görünürlüğünü dəyişdirmək istədiyinizə əminsiniz?
+Are you sure you want to change device’s location?: Cihazın yerini dəyişdirmək istədiyinizə əminsiniz?
+Are you sure you want to delete the entire measurement history saved for this channel?: Bu kanal üçün saxlanmış bütün ölçü tarixçəsini silmək istədiyinizə əminsiniz?
+Are you sure you want to delete the events from the voltage aberrations history?: Gərginlik anomaliyaları tarixçəsindəki bütün hadisələri silmək istədiyinizə əminsiniz?
+Are you sure you want to delete this OAuth application?: Bu OAuth tətbiqini silmək istədiyinizə əminsiniz?
+Are you sure you want to delete this channel group?: Bu kanal qrupunu silmək istədiyinizə əminsiniz?
+Are you sure you want to delete this channel?: Bu kanalı silmək istədiyinizə əminsiniz?
+Are you sure you want to delete this client?: Bu müştəri tətbiqini silmək istədiyinizə əminsiniz?
+Are you sure you want to delete this direct link?: Bu birbaşa linki silmək istədiyinizə əminsiniz?
+Are you sure you want to delete this icon?: Bu ikonu silmək istədiyinizə əminsiniz?
+Are you sure you want to delete this reaction?: Bu reaksiyanı silmək istədiyinizə əminsiniz?
+Are you sure you want to delete this scene?: Bu səhnəni silmək istədiyinizə əminsiniz?
+Are you sure you want to delete this schedule?: Bu cədvəli silmək istədiyinizə əminsiniz?
+Are you sure you want to delete this subdevice?: Bu alt cihazı silmək istədiyinizə əminsiniz?
+Are you sure you want to log out this device?: Bu cihazdan çıxış etmək istədiyinizə əminsiniz?
+Are you sure you want to reset the counter state?: Sayğacı sıfırlamaq istədiyinizə əminsiniz?
+Are you sure you want to revoke permissions granted to this OAuth application?: Bu OAuth tətbiqinə verilmiş icazələri geri almaq istədiyinizə əminsiniz?
+Are you sure you want to revoke this token?: Bu tokeni geri almaq istədiyinizə əminsiniz?
+Are you sure?: Əminsiniz?
+Arithmetic balance: Aritmetik balans
+As in device: Cihazda olduğu kimi
+Assign Access Identifiers: Giriş identifikatorlarını təyin et
+Assign Client apps: Müştəri tətbiqlərini təyin et
+Assign Locations: Yerləri təyin et
+Associated measured channel: Əlaqəli ölçmə kanalı
+Associated measurement channel: Əlaqəli ölçmə kanalı
+At 05:45 PM, on the last day of the month: Ayın son günü saat 17:45-də
+At 11:30 AM, on the third Wednesday of the month: Ayın üçüncü çərşənbə günü saat 11:30-da
+At every 5th minute on day-of-month 30 in May: Mayın 30-u, hər 5 dəqiqədə bir
+At specified time: Müəyyən edilmiş vaxtda
+At sunrise: Gün doğumunda
+At sunrise, Monday through Friday: Bazar ertəsindən cümə gününə qədər gün doğumunda
+At sunset: Gün batımında
+Attribute: Atribut
+Authentication failure: Avtorizasiya xətası
+Authentication successful: Avtorizasiya uğurlu
+Authorization callback URLs (one per line): Avtorizasiya geri çağırış URL-ləri (hər sətrdə bir)
+Authorize the application, so that it can access your account.: Tətbiqə hesabınıza giriş icazəsi verin.
+Authorized: İcazə verildi
+Auto-close on flood: Su basanda avtomatik bağlanma
+Automatic: Avtomatik
+Automatic calibration: Avtomatik kalibrləmə
+Automatic closing rule: Avtomatik bağlanma qaydası
+Automatic front panel turn off: Ön panelin avtomatik söndürülməsi
+Automatic front panel turn off after: Ön panelin söndürülmə müddəti
+Automatic thermostat: Avtomatik termostat
+Automatic time synchronization: Avtomatik vaxt sinxronizasiyası
+Automation: Avtomatika
+Aux thermometer: Əlavə termometr
+Aux thermometer for channel: Əlavə termometr kanal üçün
+Aux thermometer type: Əlavə termometr növü
+Available variables: Mövcud dəyişənlər
+Average: Orta
+Average voltage: Orta gərginlik
+Back to apps list: Tətbiqlər siyahısına geri qayıt
+Bar: Sütun
+Based on sunrise or sunset: Gün doğumu və ya batımına əsasən
+Battery cover open: Batareya qapağı açıq
+Battery health: Batareya sağlamlığı
+Battery level: Batareya səviyyəsi
+Baudrate: Baud sürəti
+Be notified when your channels change state: Kanalın vəziyyəti dəyişdikdə bildiriş alın
+Be right back!: Tezliklə qayıdıram!
+Behavior settings: Davranış parametrləri
+Below threshold: Limitdən aşağı
+Binary sensor: İkili sensor
+Binary sensor for channel: '@:{''İkili sensor''} @:{''kanal üçün''}'
+Body: Məzmun
+Bottom position: Aşağı mövqe
+Bridge: Körpü
+Bridge node online: Körpü düyünü – onlayn
+Bridge node signal strength: Körpü düyünü siqnal gücü
+Brightness: Parlaqlıq
+Brightness adjustment for automatic mode: Avtomatik rejim üçün parlaqlıq tənzimləməsi
+Brightness level: Parlaqlıq səviyyəsi
+Button volume: Düymə səsi
+Buttons upside down: Düymələrin tərs yerləşməsi
+By signing in, you are authorizing {clientName} to control your devices.: Daxil olaraq {clientName} tətbiqinə cihazlarınızı idarə etməyə icazə verirsiniz.
+CLICK TO DISABLE: SÖNDÜRMƏK ÜÇÜN TIKLAYIN
+CLICK TO ENABLE: AKTİV ETMƏK ÜÇÜN TIKLAYIN
+Calibrate: Kalibrlə
+Calibration: Kalibrləmə
+Calibration error: Kalibrləmə xətası
+Calibration lost: Kalibrləmə itirildi
+Cancel: Ləğv et
+Cancel changes: Dəyişiklikləri ləğv et
+Cancelled: Ləğv edildi
+Candle: Şam
+Cannot calculate when to run the schedule - incorrect configuration?: Cədvəli işə salmaq mümkün olmadı – səhv konfiqurasiya?
+Cannot change the channel function right now.: Kanalın funksiyasını indi dəyişmək mümkün deyil.
+Cannot delete this I/O Device right now.: Bu I/O cihazını indi silmək mümkün deyil.
+Cannot execute an action when the channel is not available.: Kanal mövcud olmadıqda əməliyyat yerinə yetirilə bilməz.
+Cannot update OCR settings. Try again in a while.: OCR parametrlərini yeniləmək mümkün olmadı. Bir azdan yenidən cəhd edin.
+Captcha token is not valid.: Captcha tokeni etibarsızdır.
+Caption: Başlıq
+Caption is too long.: Başlıq çox uzundur
+Change: Dəyiş
+Change Password: Şifrəni dəyiş
+Change channel function: Kanal funksiyasını dəyiş
+Change function: Funksiyanı dəyiş
+Change icon: İkonu dəyiş
+Change percentage by: Faizi qədər dəyiş
+Change percentage to: Faizi olaraq dəyiş
+Change the password and log out: Şifrəni dəyiş və çıxış et
+Change tilt by: Meyli qədər dəyiş
+Change tilt to: Meyli olaraq dəyiş
+Change to be the same.: Eyni et
+Changing channel’s function will also result in the following changes.: Kanal funksiyasının dəyişdirilməsi aşağıdakı dəyişikliklərə səbəb olacaq.
+Changing channel’s visibility will also change the visibility of other items.: Kanal görünürlüğünün dəyişdirilməsi digər elementlərin görünürlüğünü də dəyişəcək.
+Changing the location will also imply changing the location of the following items.: Yerin dəyişdirilməsi aşağıdakı elementlərin yerlərinin dəyişməsini də nəzərdə tutur.
+Channel: Kanal
+Channel No: Kanal №
+Channel available for {serviceName}: '{serviceName} üçün mövcud kanal'
+Channel group: Kanal qrupu
+Channel group limit has been exceeded: Kanal qrupu limiti aşılmışdır
+Channel group must consist of at least one channel.: Kanal qrupu ən azı bir kanaldan ibarət olmalıdır.
+Channel group reference will be removed from the items below.: Kanal qrupu istinadları aşağıdakı elementlərdən silinəcək.
+Channel groups: Kanal qrupları
+Channel is assigned to the I/O device location: Kanal I/O cihaz yerinə təyin edilib
+Channel name: Kanalın adı
+Channel reference will be removed from the items below.: Kanal istinadı aşağıdakı elementlərdən silinəcək.
+Channel with action triggers: Əməliyyat tetikleyicilərinə malik kanal
+Channels: Kanallar
+Channels groups are not supported for this function.: Bu funksiya üçün kanal qrupları dəstəklənmir.
+Channels that are meant to work with each other must be in the same location.: Bir-biri ilə işləməli olan kanallar eyni yerdə olmalıdır.
+Channels that are meant to work with each other must have the same visibility setting.: Bir-biri ilə işləməli olan kanallar eyni görünürlük parametri ilə olmalıdır.
+Chart type: Qrafik tipi
+Check available updates: Mövcud yeniləmələri yoxla
+Check the direct link you used and try again.: İstifadə etdiyiniz birbaşa linki yoxlayın və yenidən cəhd edin.
+Check your email box: Email qutunuzu yoxlayın
+Check your email inbox: Email poçtunuzu yoxlayın
+Choose: Seç
+Choose Access Identifier: Giriş identifikatorunu seç
+Choose Access Identifiers to be assigned to this Location: Bu yerə təyin ediləcək giriş identifikatorlarını seç
+Choose channel function: Kanal funksiyasını seç
+Choose client apps: Müştəri tətbiqlərini seç
+Choose location: Yeri seç
+Choose many: Çoxlu seç
+Choose the channel: Kanalı seç
+Choose the channel group: Kanal qrupunu seç
+Choose the scene: Səhnəni seç
+Choose the schedule: Cədvəli seç
+Choose the source channel.: Mənbə kanalını seç
+City: Şəhər
+Clear: Təmizlə
+Click the following link to confirm removal of your account on %cloudHost%.: Hesabınızı %cloudHost%-da silmək istədiyinizi təsdiqləmək üçün aşağıdakı linkə klikləyin.
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Özəl SUPLA Cloud instansiyanızın (%targetCloudUrl%) qeydiyyatını ləğv etmək istədiyinizi təsdiqləmək üçün aşağıdakı linkə klikləyin.
+'Client app ID: %clientAppId%': 'Müştəri tətbiqi ID: %clientAppId%'
+Client registration: Müştəri qeydiyyatı
+Client’s Apps: Müştərinin tətbiqləri
+Client’s app has been deleted: Müştəri tətbiqi silindi
+Clock error: Saat xətası
+Close: Bağla
+Close after: Sonra bağla
+Close automatically: Avtomatik bağla
+Close partially: Qismən bağla
+Close value: Bağlanma dəyəri
+Collapse: Yığ
+Collapse or stop: Yığ və ya dayandır
+Collapse partially: Qismən yığ
+Colon: İki nöqtə
+Color: Rəng
+Color brightness: Rəng parlaqlığı
+Comma: Vergül
+Command has been sent to the device. Try refreshing the photo in a while.: Əmr cihazına göndərildi. Bir azdan şəkli yeniləyin.
+Comment: Şərh
+Common currencies: Ən çox istifadə olunan valyutalar
+Config of the schedule is too complicated.: Cədvəl konfiqurasiyası çox mürəkkəbdir.
+Configuration: Konfiqurasiya
+Configuration not available yet. Waiting for the device to connect.: Konfiqurasiya hələ mövcud deyil. Cihazın qoşulmasını gözləyin.
+Confirm My Account: Hesabımı təsdiqlə
+Confirm Password: Şifrəni təsdiqlə
+Confirm if you want to perform the calibration.: Kalibrləməni etmək istədiyinizi təsdiqləyin.
+Confirm if you want to remove Access Identifier: Giriş identifikatorunu silmək istədiyinizi təsdiqləyin
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Lokasiya ID{locationId}-ni silmək istədiyinizi təsdiqləyin. Bu lokasiyaya i/o cihazları artıq qoşa bilməyəcəksiniz.
+Confirm if you want to remove {deviceName} device and all of its channels.: '{deviceName} cihazını və bütün kanallarını silmək istədiyinizi təsdiqləyin.'
+Confirm new password: Yeni şifrəni təsdiqlə
+Confirmation: Təsdiq
+Conflict: Ziddiyyət
+Connected: Qoşulub
+Connection uptime: Qoşulma müddəti
+Connection with a private instance of the SUPLA cloud: SUPLA buludunun özəl instansiyası ilə əlaqə
+Constraints: Məhdudiyyətlər
+Container: Konteyner
+Container level sensor: Konteyner səviyyə sensoru
+Container supports up to 10 sensors.: Konteyner 10 sensoru dəstəkləyir.
+Cool to: Soyut
+Cooling mode: Soyutma rejimi
+'Cooling: {percent}%': 'Soyutma: {percent}%'
+Copy state from other channel: Digər kanaldan vəziyyəti kopyala
+Costs: Xərclər
+Could not add the data source. Try again in a while.: Məlumat mənbəyini əlavə etmək mümkün olmadı. Bir azdan yenidən cəhd edin.
+Could not check updates.: Yeniləmələri yoxlamaq mümkün olmadı.
+Could not contact Autodiscover service. Try again in a while.: Avtodiscover xidməti ilə əlaqə qurmaq mümkün olmadı. Bir azdan yenidən cəhd edin.
+Could not enter the configuration mode.: Konfiqurasiya rejiminə daxil olmaq mümkün olmadı.
+Could not perform factory reset.: Fabrik parametrlərinə qaytarmaq mümkün olmadı.
+Could not perform firmware update.: Firmware yeniləməsini yerinə yetirmək mümkün olmadı.
+Could not reset the password.: Şifrəni sıfırlamaq mümkün olmadı.
+Could not reset the password. Please try again later.: Şifrəni sıfırlamaq mümkün olmadı. Bir azdan yenidən cəhd edin.
+Could not restart the device.: Cihazı yenidən başlatmaq mümkün olmadı.
+Could not send the identify command.: Tanıma əmrini göndərmək mümkün olmadı.
+Could not set device password.: Cihaz şifrəsini təyin etmək mümkün olmadı.
+Could not set the device time.: Cihazın vaxtını təyin etmək mümkün olmadı.
+Counter: Sayğac
+Counter reset: Sayğac sıfırlandı
+Counter type: Sayğac növü
+Create New Access Identifier: Yeni giriş identifikatoru yarat
+Create New Location: Yeni lokasiya yarat
+Create New Schedule: Yeni cədvəl yarat
+Create an account: Hesab yarat
+Create new direct link: Yeni birbaşa link yarat
+Create new reaction: Yeni reaksiya yarat
+Create new scene: Yeni səhnə yarat
+Created: Yaradıldı
+Currency: Valyuta
+Current: Cari
+Current Overload: Cari yüklənmə
+Current Password: Cari şifrə
+Current password is incorrect: Cari şifrə yanlışdır
+Curtain: Pərdə
+Custom: Fərdi
+Custom execution limit: Fərdi icra limiti
+DHT11 Temperature & Humidity Sensor: DHT11 Temperatur və Rütubət Sensoru
+DHT21 Temperature & Humidity Sensor: DHT21 Temperatur və Rütubət Sensoru
+DHT22 Temperature & Humidity Sensor: DHT22 Temperatur və Rütubət Sensoru
+DS18B20 Thermometer: DS18B20 Termometri
+Dark mode: Qaranlıq rejim
+Data: Məlumat
+Data limits: Məlumat limitləri
+Data saved: Məlumatlar saxlanıldı
+Data source channels: Məlumat mənbəyi kanalları
+Data source type: Məlumat mənbəyi növü
+Data sources: Məlumat mənbələri
+Data sources are virtual channels that can provide data for your account.: Məlumat mənbələri sizin hesabınıza məlumat verə bilən virtual kanallardır.
+Data sources limit has been exceeded: Məlumat mənbələri limiti aşılıb
+Date: Tarix
+Date and time: Tarix və vaxt
+Date range: Tarix aralığı
+Daytime criteria: Gün işığı kriteriyaları
+Decline: Rədd et
+Default: Defolt
+Default (exact value depends on a device): Defolt (dəqiq dəyər cihazdan asılıdır)
+Default channels location: Kanalın defolt lokasiyası
+Delete: Sil
+Delete measurement history: Ölçü tarixçəsini sil
+Delete my account: Hesabımı sil
+Delete voltage aberrations history: Gərginlik anomaliyaları tarixçəsini sil
+Dependencies: Asılılıqlar
+Depth: Dərinlik
+Depth sensor: Dərinlik sensoru
+Description: Təsvir
+Details: Təfərrüatlar
+Device: Cihaz
+'Device GUID: %deviceGuid%': 'Cihaz GUID: %deviceGuid%'
+'Device ID: %deviceId%': 'Cihaz ID: %deviceId%'
+Device date and time: Cihazın tarixi və vaxtı
+Device identification is unsupported in the firmware.: Cihaz identifikasiyası firmware tərəfindən dəstəklənmir.
+Device interface: Cihaz interfeysi
+Device is disconnected.: Cihaz ayrılıb.
+Device might be sleeping: Cihaz yuxu rejimində ola bilər
+'Device name: %deviceName%': 'Cihaz adı: %deviceName%'
+Device should be now in configuration mode.: Cihaz hazırda konfiqurasiya rejimində olmalıdır.
+Device should be restarting now.: Cihaz hazırda yenidən başladılır.
+'Device software version: %deviceSoftwareVersion%': 'Cihaz proqram təminatı versiyası: %deviceSoftwareVersion%'
+Device time has been set.: Cihazın vaxtı təyin olundu.
+Device unavailable: Cihaz mövcud deyil
+Different than on master thermostat.: Master termostatla fərqlidir.
+Differential thermostat: Diferensial termostat
+Digi Glass: Digi Glass
+Digi Glass Horizontal: Digi Glass üfüqi
+Digi Glass Vertical: Digi Glass şaquli
+Dimmer: Dimmer
+Dimmer & RGB led controller: Dimmer və RGB LED idarəedicisi
+Dimmer and RGB lighting: Dimmer və RGB işıqlandırma
+Direct link: Birbaşa link
+Direct link has been created successfully!: Birbaşa link uğurla yaradıldı!
+Direct link has been executed: Birbaşa link icra olundu
+'Direct link is not working right now. Reason:': 'Birbaşa link hazırda işləmir. Səbəb:'
+Direct links: Birbaşa linklər
+Direct links limit has been exceeded: Birbaşa link limiti aşılıb
+Disable: Söndür
+Disable local function: Lokal funksiyanı söndür
+Disabled: Söndürülüb
+Disables local device function and does nothing more.: Lokal cihaz funksiyasını söndürür və başqa heç nə etmir.
+Disconnected: Ayrılıb
+Distance: Məsafə
+Distance sensor: Məsafə sensoru
+Do you want to be redirected there? You may be asked to authenticate again.: Ora yönləndirilmək istəyirsiniz? Yenidən avtorizasiya tələb oluna bilər.
+Do you want to set related channels like thermometers and sensors to be the same as in the master channel?: Termometrlər və sensorlar kimi əlaqəli kanalları master kanal ilə eyni etmək istəyirsiniz?
+Does it look good?: Yaxşı görünür?
+Domestic hot water: İsti su
+Don’t worry, you can always reset your password via email. Click here to do so.: Narahat olmayın, şifrənizi həmişə email vasitəsilə sıfırlaya bilərsiniz. Bunu etmək üçün buraya klikləyin.
+Door lock operation: Qapı kilid əməliyyatı
+Door opening sensor: Qapı açma sensoru
+Doors and gates: Qapılar və darvazalar
+Doors, Gates, Windows: Qapılar, darvazalar, pəncərələr
+Download measurements history: Ölçü tarixçəsini yüklə
+Download the history of measurement: Ölçü tarixçəsini yüklə
+Drag your image(s) here or click to select from the disk: Şəkilinizi buraya sürükləyin və ya diskdən seçmək üçün klikləyin
+Dryer: Qurutma cihazı
+E-mail: E-mail
+Each container level sensor must have different fill level.: Hər konteyner səviyyə sensoru fərqli doluluq səviyyəsinə malik olmalıdır.
+Edit: Redaktə et
+Edit area crop: Sahəni redaktə et
+Edit program settings: Proqram parametrlərini redaktə et
+Edit reaction: Reaksiyanı redaktə et
+Electric: Elektrik
+Electricity meter: Elektrik sayğacı
+Electricity meter active power history: Elektrik sayğacı aktiv güc tarixçəsi
+Electricity meter current history: Elektrik sayğacı cərəyan tarixçəsi
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Elektrik sayğacında istifadə edilə biləcək sayğaclar konfiqurasiya olunmayıb. Cihazın firmware-ni yeniləyin və yenidən cəhd edin.
+Electricity meter voltage aberrations history: Elektrik sayğacı gərginlik anomaliyaları tarixçəsi
+Electricity meter voltage history: Elektrik sayğacı gərginlik tarixçəsi
+Empty!: Boş!
+Enable: Aktiv et
+Enable floor temperature control: Döşəmə istiliyi nəzarətini aktiv et
+Enable generic cooler temperature control: Ümumi soyuducu temperatur nəzarətini aktiv et
+Enable generic heater temperature control: Ümumi istilik mənbəyi temperatur nəzarətini aktiv et
+Enable power status LED: Enerji vəziyyəti LED-ni aktiv et
+Enable support for OCR readings for this channel: Bu kanal üçün OCR oxunuş dəstəyini aktiv et
+Enable water temperature control: Su istiliyi nəzarətini aktiv et
+Enabled: Aktivdir
+Enabled phases: Aktiv fazalar
+End date: Bitmə tarixi
+Energy attribute: Enerji atributu
+Energy prices: Enerji qiymətləri
+Enter new password: Yeni şifrə daxil et
+Enter strong password: Güclü şifrə daxil et
+Enter the data below in the settings of your control device (I/O Device).: Aşağıdakı məlumatları idarəetmə cihazınızın (I/O cihaz) parametrlərinə daxil edin.
+Enter the data below in your mobile SUPLA application on your smartphone.: Aşağıdakı məlumatları smartfonunuzdakı SUPLA mobil tətbiqinə daxil edin.
+Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Domeni və portu yalnız standart deyilsə (443) daxil edin. HTTPS bağlantısı tələb olunur.
+Enter your email address: Email ünvanınızı daxil edin
+Enter your password to prevent automatic logout.: Avtomatik çıxışı qarşısını almaq üçün şifrənizi daxil edin.
+Error: Xəta
+Error when communicating the AD. Try again in a while.: AD ilə ünsiyyət zamanı xəta baş verdi. Bir azdan yenidən cəhd edin.
+Error when communicating the server. Try again in a while.: Server ilə ünsiyyət zamanı xəta baş verdi. Bir azdan yenidən cəhd edin.
+Estimated execution time: Təxmini icra vaxtı
+Every: Hər
+Everyone makes mistakes!: Hər kəs səhv edə bilər!
+Example Auth URL: Nümunə avtorizasiya URL-i
+Example value: Nümunə dəyər
+Execute: İcra et
+Execute an action: Əməliyyat icra et
+Executed action: İcra edilmiş əməliyyat
+Executed without confirmation: Təsdiq olmadan icra edildi
+Execution history: İcra tarixi
+Execution limit: İcra limiti
+Executions: İcra
+Expand: Genişləndir
+Expand or stop: Genişləndir və ya dayandır
+Expand partially: Qismən genişləndir
+Expired: Vaxtı bitmiş
+Expires at: Bitmə tarixi
+External sensor disabling the thermostat: Termostatı söndürən xarici sensor
+Facade blind operation: Fasad jalüz əməliyyatı
+Factory reset: Zavod parametrlərinə qaytar
+Failed: Uğursuz
+Failed (zombie): Uğursuz (zombie)
+Fan: Ventilyator
+Feature limits: Funksiya limitləri
+'Field: {propertyPath}.': 'Sahə: {propertyPath}.'
+File format: Fayl formatı
+Fill level: Doldurma səviyyəsi
+Fill missing data: Əskik məlumatları doldur
+Firmware: Firmware
+Firmware update is available.: Firmware yeniləməsi mövcuddur
+Firmware update policy: Firmware yeniləmə siyasəti
+Firmware updates: Firmware yeniləmələri
+Firmware version: Firmware versiyası
+Flood sensor: Su basması sensoru
+Flood sensor for valve: Klapan üçün su basması sensoru
+Flood sensors: Su basması sensorları
+Flooding: Su basması
+For a period: Müddət üçün
+For a short period of time, it is recommended for you to use the {suplaUrl} address.: Qısa müddət ərzində {suplaUrl} ünvanından istifadə etməyiniz tövsiyə olunur.
+For devices: Cihazlar üçün
+For security reasons, the full URL of this direct link will be displayed only once, during creation.: Təhlükəsizlik səbəblərinə görə, bu birbaşa linkin tam URL-i yalnız yaradılma zamanı göstəriləcək.
+Forced off by sensor: Sensor tərəfindən məcburi söndürülüb
+Forgot your password?: Şifrənizi unutmusunuz?
+Forward active energy: Aktiv enerjinin alınması
+Forward active energy balanced: Aktiv enerji balanslaşdırıldı
+Forward reactive energy: Reaktiv enerji (induksiya)
+Fridays: Cümələr
+From: Kimdən
+From anywhere: Hər yerdən
+Full closing time: Tam bağlanma vaxtı
+Full documentation: Tam sənədlər
+Full opening time: Tam açılma vaxtı
+Full tilting time: Tam əyilmə vaxtı
+Fully opened sensor for channel: Kanal üçün tam açılmış sensor
+Function: Funksiya
+Function disabled: Funksiya söndürülüb
+G5LA1A Relay: G5LA1A rele
+G5LA1A Relay x2: 2xG5LA1A rele
+GENERATE: YARAT
+Garage door opening sensor: Qaraj qapısı açılma sensoru
+Garage door operation: Qaraj qapısı əməliyyatı
+Gas meter: Qaz sayğacı
+Gate opening sensor: Darvaza açılma sensoru
+Gate operation: Darvaza əməliyyatı
+Gate's state verification: Darvazanın vəziyyətinin yoxlanması
+Gateway lock operation: Qapı kilid əməliyyatı
+Gateway opening sensor: Qapı açılma sensoru
+General purpose measurement: Ümumi ölçü kanalı
+General purpose meter: Ümumi ölçü sayğacı
+Generate new password: Yeni şifrə yarat
+Generate new token: Yeni token yarat
+Generate token: Token yarat
+Go to I/O device details: I/O cihaz detallarına keç
+Go to channel details: Kanal detallarına keç
+Go to the channel: Kanala keç
+Go to the channel group: Kanal qrupuna keç
+Go to the scene: Səhnəyə keç
+Go to the schedule: Cədvələ keç
+Go to your account: Hesabınıza keç
+Grant access: Giriş icazəsi ver
+Guru Meditation: Guru Meditasiyası
+HFD4 Relay: HFD4 rele
+HVAC: HVAC
+Heat meter: İstilik sayğacı
+Heat or cold source switch: İstilik və ya soyutma mənbəyi açarı
+Heat or cold source switch for channel: Kanal üçün istilik və ya soyutma mənbəyi açarı
+Heat to: İstiləyin
+Heating / ventilation / air conditioning: İstilik / ventilyasiya / kondisioner (HVAC)
+Heating mode: İstilik rejimi
+'Heating: {percent}%': 'İstilik: {percent}%'
+Hide days without aberrations: Anomaliyasız günləri gizlət
+High threshold: Yüksək hədd
+High value: Maksimum dəyər
+History: Tarixçə
+History of measurements: Ölçmələr tarixçəsi
+Home appliances: Ev texnikası
+Home screen content: Ana ekran məzmunu
+Home+ Heater: Home+ isitici
+Host: Host
+Hotel card sensor: Otel kartı sensoru
+However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: Hal-hazırda serverlərimizdə çox yüksək yüklənmə var. Biz vəziyyəti izləyirik. Bir az sonra yenidən yoxlayın.
+Humidity: Rütubət
+Humidity Sensor: Rütubət sensoru
+Humidity adjustment: Rütubət tənzimlənməsi
+Humidity sensor: Rütubət sensoru
+I accept the Terms and Conditions and hereby agree for processing of my personal data for the purposes included in the said Terms and Conditions.: Mən Qaydaları qəbul edirəm və şəxsi məlumatlarımın bu Qaydaların məqsədləri üçün emal olunmasına razıyam.
+I agree: Razıyam
+I agree, take me to the app: Razıyam, məni tətbiqə apar
+I confirm! Delete my account.: Təsdiqləyirəm! Hesabımı sil
+I do not agree, get me out of here: Razı deyiləm, məni buradan çıxar
+I understand that my SUPLA account will be permanently deleted.: Başa düşürəm ki, SUPLA hesabım daimi olaraq silinəcək.
+I/O Devices: Giriş/çıxış cihazları
+I/O devices registration: Giriş/çıxış cihazlarının qeydiyyatı
+ID: ID
+INACTIVE: FAİLSİZ
+IP: IP
+IP Address: IP ünvanı
+Icon: İkona
+Identify device: Cihazı tanı
+Identify request sent.: Tanıma sorğusu göndərildi.
+Idle: Boşda
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Əgər cihaz hazırda yuxu rejimindədirsə, etdiyiniz konfiqurasiya dəyişiklikləri onu oyatdıqdan sonra tətbiq olunacaq.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Əgər cihaz indi yuxudadırsa, növbəti oyandıqda konfiqurasiya rejiminə keçəcək.
+If the link is not working, please copy and paste it or enter manually in a new browser window.: Əgər link işləmirsa, onu kopyalayın və yapışdırın və ya yeni brauzer pəncərəsində əllə daxil edin.
+If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Əgər siz SUPLA üçün əlavə funksiyalar təmin etmək istəyən tərtibatçısınızsa, istifadəçilərin avtorizasiya edə biləcəyi OAuth tətbiqi yaradın.
+If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Əgər cloud.supla.org-da hesabınızın olduğuna əminsinizsə, avtorizasiya etməyə çalışdığınız tətbiqin açıq olub-olmadığını yoxlayın.
+If you confirm the installation and wish to unlock this device, please click the link below.: Əgər quraşdırmanı təsdiqləyirsinizsə və cihazın kilidini açmaq istəyirsinizsə, aşağıdakı linki klikləyin.
+If you did not request this password reset, please ignore this information.: Əgər bu şifrə sıfırlama sorğusunu etməmisinizsə, bu məlumatı nəzərə almayın.
+If you do not want to delete your account on %cloudHost%, please do not click the link.: Əgər %cloudHost% hesabınızı silmək istəmirsinizsə, linki klikləməyin.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Əgər cihazın kilidini açmaq istəmirsinizsə, linki klikləməyin. O, 24 saat sonra avtomatik olaraq etibarsız olacaq.
+If you do not want to unregister your instance, please do not click the link.: Əgər instansiyanızı qeydə almaq istəmirsinizsə, linki klikləməyin.
+If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Əgər bu AP-yə bir neçə dəqiqə qoşula bilməsəniz, cihaz öz-özünə yenidən başlayacaq və son parametrləri istifadə edəcək.
+If you have doubts or more questions, you can contact us directly at %securityEmail%.: Əgər şübhələriniz varsa və ya əlavə suallarınız varsa, birbaşa %securityEmail% ünvanına müraciət edə bilərsiniz.
+If you have lost your instance token and you are going to re-register your instance, it's the right thing to do.: Əgər instansiyanızın token-i itibsə və onu yenidən qeydiyyatdan keçirmək istəyirsinizsə, bu düzgün addımdır.
+If you have not used this email address with %cloudHost%, please do not click the link.: Əgər bu email ünvanını %cloudHost%-da istifadə etməmisinizsə, linki klikləməyin.
+If you really want to delete the account, here are the instructions.: Hesabı həqiqətən silmək istəyirsinizsə, təlimatlar burada.
+If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Əgər şəxsi SUPLA Cloud instansiyanızı həqiqətən qeydə almaq istəmirsinizsə, təlimatlar burada.
+If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Gələcəkdə özünüzü yenidən qeydiyyatdan keçirsəniz, bəzi cihazlar yenidən konfiqurasiya tələb edə bilər, hətta eyni email ünvanından istifadə etsəniz də.
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Əgər Cloud-unuzu açıq OAuth tətbiqləri ilə inteqrasiya etmək istəyirsinizsə, {registerYourSuplaCloudLink}.
+If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Əgər linki proqram vasitəsilə istifadə etmək istəyirsinizsə, uyğun sorğu başlığını əlavə edin ki, asanlıqla emal edilə bilən cavab alınsın.
+If you wish not to receive such messages, change it in your account settings [here].: Belə mesajlar almaq istəmirsinizsə, bunu hesab parametrlərində [burada] dəyişdirin.
+If you wish to see the available integrations, go to {0}.: Mövcud inteqrasiyaları görmək istəyirsinizsə, {0}-a keçin.
+Image: Şəkil
+Image area crop: Şəkil sahəsini kəsmək
+Impulse counter: İmpuls sayğacı
+Impulses: İmpulslar
+In order to confirm account deletion, enter your password.: Hesabın silinməsini təsdiqləmək üçün şifrənizi daxil edin.
+In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.: MQTT Broker məlumatlarını almaq üçün bu SUPLA Cloud instansiyasının administratoru ilə əlaqə saxlayın.
+Inactive: Aktiv deyil
+Include energy corrections in new measurements history (not recommended): Yeni ölçmələr tarixçəsinə enerji düzəlişlərini əlavə et (tövsiyə edilmir)
+Incorrect password: Yanlış şifrə
+Increment and decrement: Artım və azalma
+Incremental: Artımlı
+Inherit I/O Device location: Giriş/çıxış cihazının yerləşməsini miras al
+Installer e-mail address: Quraşdırıcı email ünvanı
+Integration with MQTT Broker has been disabled.: MQTT Broker ilə inteqrasiya söndürülüb.
+Integration with MQTT Broker has been enabled.: MQTT Broker ilə inteqrasiya aktiv edilib.
+Integrations: İntegrasiyalar
+Integrations settings: İntegrasiya parametrləri
+Interrupt: Kəs
+Interrupt and execute: Kəs və icra et
+Interval: Aralıq
+Invalid SUPLA Cloud URL.: Yanlış SUPLA Cloud URL
+Invalid action parameters: Yanlış əməliyyat parametrləri
+Invalid channel type ({typeCaption} - {typeId}) received in registration.: Qeydiyyat zamanı yanlış kanal tipi ({typeCaption} - {typeId}) alındı.
+Invalid e-mail address.: Yanlış email ünvanı
+Invalid function for channel.: Kanal üçün yanlış funksiya
+'Invalid redirect URI: {uri}': 'Yanlış yönləndirmə URI-si: {uri}'
+Invalid request: Yanlış sorğu
+Invalid request.: Yanlış sorğu
+Invalid sensor state: Yanlış sensor vəziyyəti
+Invalid token.: Yanlış token
+Invalid unlock code.: Yanlış kilidi açma kodu
+Invalid username or password: Yanlış istifadəçi adı və ya şifrə
+Inverted logic: Tərs məntiq
+Invisible: Görünməz
+It is possible that another user have entered your email address by mistake while resetting password to their own account.: Mümkündür ki, başqa istifadəçi öz hesabının şifrəsini sıfırlayarkən təsadüfən sizin email ünvanınızı daxil edib.
+Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Unutmayın ki, hesabınızla birlikdə SUPLA-da istifadə etdiyiniz bütün parametrlər, konfiqurasiya olunmuş cihazlar, yerləşmələr, cədvəllər və digər bütün funksiyalar silinəcək.
+LED settings: LED parametrləri
+Language is not available: Dil mövcud deyil
+Last access: Son giriş
+Last connection: Son əlaqə
+Last connection reset cause: Əlaqənin yenidən başlatılma səbəbi
+Last paired device: Son cütləşdirilmiş cihaz
+Last used: Son istifadə
+Let me choose later: Sonra seçməyə icazə ver
+Level sensor: Səviyyə sensoru
+Level sensor for container: Qab üçün səviyyə sensoru
+Level sensors: Səviyyə sensorları
+Light mode: İşıq rejimi
+Light source operating time: İşıq mənbəyinin işləmə vaxtı
+Light switch: İşıq açarı
+Lighting: İşıqlandırma
+Lighting level: İşıq səviyyəsi
+Lighting mode: İşıqlandırma rejimi
+Limit has been exceeded: Limit aşılmışdır
+Linear: Xətti
+Liquid, Temp: Maye, Temperatur
+List of available variables: Mövcud dəyişənlərin siyahısı
+Location: Məkan
+Location Identifier: Məkan identifikatoru
+Location limit has been exceeded: Məkan limiti aşılmışdır
+Location name: Məkanın adı
+Locations: Məkanlar
+Lock type: Kilid növü
+Locked: Kilidlənmiş
+Log out: Çıxış
+Login: Giriş
+Logs transformation: Jurnalların çevrilməsi
+Longest aberration: Ən uzun anomaliya
+Low threshold: Aşağı hədd
+Low threshold must be less than high threshold.: Aşağı hədd yüksək hədddən aşağı olmalıdır.
+Low value: Minimum dəyər
+Lower voltage threshold: Aşağı gərginlik həddi
+MAC: MAC
+MQTT Broker: MQTT Broker
+MQTT Broker Username: İstifadəçi adı
+MQTT Broker is disabled.: MQTT Broker söndürülüb.
+MQTT Broker password: MQTT Broker şifrəsi
+MQTT Broker password has been changed.: MQTT Broker şifrəsi dəyişdirilib.
+MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Bu SUPLA Cloud instansiyasında istifadəçi adı və şifrə konfiqurasiya olunmayıb.
+Mail sensor: Poçt sensoru
+Main thermometer: Əsas termometr
+Main thermometer for channel: '@:{''Əsas termometr''} @:{''kanal üçün''}'
+Maintenance mode active. You cannot modify any data now.: Baxım rejimi aktivdir. İndi heç bir məlumatı dəyişə bilməzsiniz.
+Make sure to copy it now because you won’t be able to see it again!: İndi kopyaladığınızdan əmin olun, çünki bir daha görməyəcəksiniz!
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Əgər gələcəkdə ona daxil olmaq istəyirsinizsə, onu təhlükəsiz yerdə saxladığınızdan əmin olun. Səhifəni tərk etdikdən sonra link yenidən göstərilməyəcək.
+Manage your new client app in the SUPLA-Cloud.: Yeni müştəri tətbiqinizi SUPLA-Cloud-da idarə edin.
+Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Yeni cihazınızı SUPLA-Cloud-da və ya smartfonunuzdakı SUPLA tətbiqi ilə idarə edin.
+Manual: Təlimat
+Manually closed: Əl ilə bağlanmış
+Master thermostat: Əsas termostat
+Master thermostat for channel: '@:{''Əsas termostat''} @:{''kanal üçün''}'
+Max: Maks.
+Maximum: Maksimum
+Maximum delay is 60 minutes.: Maksimum gecikmə 60 dəqiqədir.
+Maximum duration is one year.: Maksimum müddət bir ildir.
+Maximum filesize limit is {limit}.: Maksimum fayl ölçüsü {limit}-dir.
+Maximum voltage: Maksimum gərginlik
+Measurement settings: Ölçmə parametrləri
+Measurement window: Ölçmə vaxtı
+Meter value: Sayğac dəyəri
+Meters: Sayğaclar
+Min: Min.
+Minimum: Minimum
+Minimum OFF time before cooling can be turned on: Soyutma işə salınmazdan əvvəl minimum SÖNÜK vaxtı
+Minimum OFF time before heating can be turned on: İstilik işə salınmazdan əvvəl minimum SÖNÜK vaxtı
+Minimum OFF time before heating/cooling can be turned on: İstilik/soyutma işə salınmazdan əvvəl minimum SÖNÜK vaxtı
+Minimum ON time before cooling can be turned off: Soyutma söndürülmədən əvvəl minimum AÇIQ vaxtı
+Minimum ON time before heating can be turned off: İstilik söndürülmədən əvvəl minimum AÇIQ vaxtı
+Minimum ON time before heating/cooling can be turned off: İstilik/soyutma söndürülmədən əvvəl minimum AÇIQ vaxtı
+Minimum temperature must be lower than maximum temperature.: Minimum temperatur maksimum temperaturdan aşağı olmalıdır.
+Minimum voltage: Minimum gərginlik
+Missing action.: Əməliyyat yoxdur
+Mode: Rejim
+'Mode: cool': 'Rejim: soyutma'
+'Mode: heat': 'Rejim: istilik'
+'Mode: off': 'Rejim: söndürülmüş'
+Modification: Dəyişiklik
+Mondays: Bazar ertəsi
+Motor problem: Motor problemi
+Motor upside down: Motorun tərs işləməsi
+Move down or stop: Aşağı hərəkət et və ya dayandır
+Move up or stop: Yuxarı hərəkət et və ya dayandır
+Mute alarm: Siqnalı səssiz et
+Mute alarm sound without additional auth: Əlavə təsdiqləmə olmadan siqnalı səssiz et
+Mute command sent: Səssiz əmri göndərildi
+My OAuth apps: Mənim OAuth tətbiqlərim
+My SUPLA: Mənim SUPLA
+NORMAL USE. Use the energy as usual.: NORMAL İSTİFADƏ. Enerjini adi qaydada istifadə edin.
+NOTICE!: DIQQƏT!
+Name: Ad
+'Name: %clientAppName%': 'Ad: %clientAppName%'
+Need one of these?: Bunlardan birinə ehtiyacınız var?
+Network: Şəbəkə
+Never: Heç vaxt
+New IO device added to your account: Hesabınıza yeni giriş/çıxış cihazı əlavə edildi
+New OAuth application: Yeni OAuth tətbiqi
+New channel group: Yeni kanal qrupu
+New client app (smartphone) added to your account: Hesabınıza yeni müştəri tətbiqi (smartfon) əlavə edildi
+New direct link: Yeni birbaşa link
+New password: Yeni şifrə
+New reaction: Yeni reaksiya
+New scene: Yeni səhnə
+New version: Yeni versiya
+Newer: Daha yeni
+'Next limit renewal: {date}': 'Növbəti limit yenilənməsi: {date}'
+Next run date: Növbəti icra tarixi
+'No': Xeyr
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Aktiv giriş identifikatorunuz yoxdur. {accessIdsListLink} və ya {newAccessIdLink}-ə keçin.
+No function: Funksiya yoxdur
+No future executions - schedule disabled: Gələcək icralar yoxdur - cədvəl deaktivdir
+No limit: Limit yoxdur
+No liquid sensor: Maye sensoru yoxdur
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Aktiv məkan yoxdur. {locationsListLink} və ya {newLocationLink}-ə keçin.
+No of channels: Kanal sayı
+No of client apps: Müştəri tətbiqlərinin sayı
+No of devices: Cihaz sayı
+No of operations: Əməliyyat sayı
+No one: Heç kəs
+No results: Nəticə yoxdur
+No schedule configuration.: Cədvəl konfiqurasiyası yoxdur
+No, take me back!: Xeyr, məni geri apar!
+None: Heç biri
+None (channel disabled): Heç biri (kanal söndürülüb)
+Noop: Əməliyyat yoxdur
+Not available: Mövcud deyil
+Notification: Bildiriş
+Notification body is set by the firmware.: Bildirişin mətni firmware tərəfindən təyin olunur.
+Notification must have a body.: Bildirişin mətni olmalıdır
+Notification must have recipients.: Bildirişin alıcıları olmalıdır
+Notification title is set by the firmware.: Bildirişin başlığı firmware tərəfindən təyin olunur.
+Notifications: Bildirişlər
+Notifications (defined): Bildirişlər (təyin olunmuş)
+Notifications (sent per hour): Bildirişlər (saatda göndərilən)
+No{'.'} of Client’s apps: Müştərinin tətbiqlərinin sayı
+No{'.'} of access identifiers: Giriş identifikatorlarının sayı
+No{'.'} of channel groups: Kanal qruplarının sayı
+No{'.'} of channels: Kanalların sayı
+No{'.'} of devices: Cihazların sayı
+No{'.'} of locations: Məkanların sayı
+Number of aberrations: Anomaliyaların sayı
+Number of attempts to close: Bağlama cəhdlərinin sayı
+Number of attempts to open: Açma cəhdlərinin sayı
+Number of sections: Bölmələrin sayı
+OAuth apps: OAuth tətbiqləri
+OAuth authorization: OAuth avtorizasiyası
+OAuth integrations might stop working after the instance is unregistered.: Instansiyanız qeydə alınmadıqdan sonra OAuth inteqrasiyaları işləməyə bilər.
+'OCR service responded with error: {statusCode}. {description}': 'OCR xidməti xətayla cavab verdi: {statusCode}. {description}'
+'OCR service responded with error: {status}': 'OCR xidməti xətayla cavab verdi: {status}'
+OCR settings: OCR parametrləri
+OK: OK
+OR: VƏ YA
+'Off': Söndür
+Off with duration: Müddət üçün söndür
+Offline access: Offline giriş
+Older: Köhnə
+'On': Yandır
+On with duration: Müddət üçün yandır
+On/Off switch: Açar (On/Off)
+Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: 'Yalnız opsional port nömrəsi olan domen adlarına icazə verilir. Məsələn: mysupla.org və ya mysupla.org:88. HTTPS tələb olunur.'
+Open: Aç
+Open / close: Aç / bağla
+Open Weather Data: Open Weather məlumatları
+Open partially: Qismən aç
+Open value: Açıq dəyər
+Opening sensor: Açılma sensoru
+Opening sensor for channel: '@:{''Açılma sensoru''} @:{''kanal üçün''}'
+Operating time: İşləmə vaxtı
+Operation: Əməliyyat
+Operations: Əməliyyatlar
+Original location: Orijinal məkan
+Other: Digər
+Otherwise go to the homepage.: Əks halda əsas səhifəyə keçin.
+Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: Əla SUPLA kodumuz {value} dəyərinin sayğac tarixçəsi, şəkil keyfiyyəti və digər kiçik faktorlar əsasında düzgün ölçü kimi qəbul edilməməli olduğunu aşkar etdi.
+Output value on error: Xətada çıxış dəyəri
+Overcurrent threshold: Artıq cərəyan həddi
+Overheat protection: Həddindən artıq isidilmədən qorunma
+P/C: P/C
+PIN: PIN
+PIN for Google must have a length between {minLength} and {maxLength} digits.: Google üçün PIN uzunluğu {minLength} ilə {maxLength} rəqəm arasında olmalıdır.
+Pair new devices or sensors: Yeni cihazları və ya sensorları cütləşdir
+Pairing request sent.: Cütləşdirmə sorğusu göndərildi.
+Partial opening sensor: Qismən açılma sensoru
+Partially opened sensor for channel: '@:{''Qismən açılma sensoru''} @:{''kanal üçün''}'
+Password: Şifrə
+Password Reset: Şifrəni sıfırla
+Password changed: Şifrə dəyişdirildi
+Password has been changed: Şifrə dəyişdirildi
+Password is too long.: Şifrə çox uzundur.
+Password is too short.: Şifrə çox qısadır.
+Password must be at least {minLength} characters.: Şifrə ən azı {minLength} simvol olmalıdır.
+Password must be no longer than {maxLength} characters.: Şifrə {maxLength} simvoldan uzun olmamalıdır.
+Password reset: Şifrəni sıfırla
+Password reset instructions.: Şifrə sıfırlama təlimatları
+Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: Şifrə ən azı 8 simvol uzunluğunda olmalı, ən azı bir böyük hərf, bir kiçik hərf və bir rəqəm içerməlidir.
+Percentage of closing: Bağlanma faizi
+Percentage of extension: Uzatma faizi
+Perform firmware update: Firmware yeniləməsini apar
+Personal access tokens: Şəxsi giriş tokenləri
+Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Şəxsi giriş tokenləri adi OAuth tokenləri kimi işləyir, lakin onların vaxt məhdudiyyəti yoxdur.
+Personal token name is required.: Şəxsi token adı tələb olunur.
+Phase: Faza
+Phase 1: Faza 1
+Phase 2: Faza 2
+Phase 3: Faza 3
+Phase LED type: Faza LED göstəricisi
+Phase number: Faza
+Phase {phaseNumber}: Faza {phaseNumber}
+Photo history: Şəkil tarixi
+Photo interval: Şəkil intervalı
+Please choose the schedule subject first.: Əvvəlcə cədvəl üçün obyekt seçin
+Please click the following link to reset your %cloudHost% password.: '%cloudHost% şifrənizi sıfırlamaq üçün aşağıdakı linkə klikləyin'
+Please click the link we have sent you after the registration to proceed.: Qeydiyyatdan sonra göndərdiyimiz linkə klikləyin
+Please confirm if you want to do this.: Bunun icra olunmasını təsdiqləyin
+Please confirm your SUPLA account.: SUPLA hesabınızı təsdiqləyin
+Please enter a valid email address: Düzgün email ünvanı daxil edin
+Please fill a valid email address: Düzgün email ünvanı daxil edin
+Please fill all the fields: Bütün sahələri doldurun
+Please find the device details below.: Cihaz detalları aşağıda təqdim olunub
+Please fix the problems with operations and try again.: Əməliyyat problemlərini həll edin və yenidən cəhd edin
+Please log in again to proceed.: Davam etmək üçün yenidən daxil olun
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Qeyd olunan cihaz yalnız sertifikatlı SUPLA quraşdırıcıları tərəfindən quraşdırılmalıdır
+Please provide a valid domain name for your private SUPLA Cloud: Öz şəxsi SUPLA Cloud domen adınızı daxil edin
+Please provide the installer e-mail address to request the device unlock.: Cihazın açılması üçün quraşdırıcı email ünvanını daxil edin
+Please read the Terms and Conditions.: Qaydaları və şərtləri oxuyun
+Please select a condition: Şərti seçin
+Please select and configure the action: Əməliyyatı seçin və konfiqurasiya edin
+Please specify a valid address between 1 and 247.: 1 ilə 247 arasında düzgün ünvan daxil edin
+Please wait a moment before the next login attempt.: Növbəti giriş cəhdindən əvvəl bir qədər gözləyin
+Port: Port
+Power active: Aktiv güc
+Power apparent: Görünən güc
+Power reactive: Reaktiv güc
+Precision: Dəqiqlik
+Predefined time ranges: Əvvəlcədən təyin olunmuş vaxt aralıqları
+Pressure sensor: Təzyiq sensoru
+Price per: Qiymət birim başına
+Private Cloud domain name: Şəxsi Cloud domen adı
+Private instance of the SUPLA cloud with given URL is already registered.: Verilmiş URL ilə şəxsi SUPLA Cloud artıq qeydiyyatdan keçib
+Proceed: Davam et
+Processing: Emal olunur
+Program {programNo}: Proqram {programNo}
+Projector screen: Proyektor ekranı
+Protocol: Protokol
+Public ID: Publik ID
+Publish to integrations: İnteqrasiyalara göndər
+Publishes the event to integrated services like MQTT or webhooks.: Hadisəni MQTT və ya webhook kimi inteqrasiya olunmuş xidmətlərə göndərir
+Pump switch: Pompa açarı
+Pump switch for channel: '@:{''Pompa açarı''} @:{''kanal üçün''}'
+Push: Push
+Push notifications limit has been exceeded: Push bildiriş limiti aşılmışdır
+RECOMMENDED USE. Take advantage of excess energy.: TÖVSİYYƏ OLUNAN İSTİFADƏ. Artıq enerjidən istifadə edin.
+RESET: SIFIRLA
+RGB led controller: RGB LED kontrolleri
+RGB lighting: RGB işıqlandırma
+Rain sensor: Yağış sensoru
+Random: Təsadüfi
+Reactions: Reaksiyalar
+Reactions limit has been exceeded: Reaksiyalar limiti aşılmışdır
+Read: Oxu
+Reading: Oxu
+Recipients: Qəbul edənlər
+Recipients for push notifications: Push bildirişlərinin qəbul edənləri
+Reference to the deleted channels will be removed from the items below.: Silinmiş kanallara istinad aşağıdakı elementlərdən silinəcək
+Reference to the scene will be removed from the items below.: Səhnəyə istinad aşağıdakı elementlərdən silinəcək
+Refresh: Yenilə
+Refresh interval: Yeniləmə intervalı
+Refresh the config: Konfiqurasiyanı yenilə
+Refreshing the configuration will overwrite the changes you made here.: Konfiqurasiyanın yenilənməsi burada etdiyiniz dəyişiklikləri əvəz edəcək
+Regeneration starts at: Regenerasiya başlanır
+Register: Qeydiyyat
+Register a new OAuth application: Yeni OAuth tətbiqi qeydiyyatdan keçirin
+Register private SUPLA Cloud: Özəl SUPLA Cloud qeydiyyatı
+Register your SUPLA Cloud: SUPLA Cloud instansiyanızı qeydiyyatdan keçirin
+Registered: Qeydiyyatdan keçmiş
+'Registered from IP address: %clientAppRegIp%': 'IP ünvanından qeydiyyatdan keçdi: %clientAppRegIp%'
+'Registered from IP address: %deviceRegIp%': 'IP ünvanı: %deviceRegIp%'
+Relay: Relye
+Relay switching time: Relye keçid vaxtı
+Reload last photo: Son şəkli yenidən yüklə
+Reload the chart: Qrafiki yenidən yüklə
+'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Bu məkanı silməzdən əvvəl bütün əlaqəli kanal qruplarını köçürün. İdentifikatorlar: {relatedIds}.'
+'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Bu məkanı silməzdən əvvəl bütün əlaqəli kanalları köçürün. İdentifikatorlar: {relatedIds}.'
+Remote restart is unsupported in the firmware.: Firmware-də uzaqdan yenidən başlatma dəstəklənmir
+'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Bu məkanı silməzdən əvvəl bütün əlaqəli cihazları silin. İdentifikatorlar: {relatedIds}.'
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Bu məkanı silməzdən əvvəl bütün əlaqəli səhnələri silin. İdentifikatorlar: {relatedIds}.'
+'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Bu məkanı silməzdən əvvəl bu məkanı rəsmi olaraq istifadə edən bütün cihazları silin. İdentifikatorlar: {relatedIds}.'
+Remove this item: Bu elementi sil
+Repeat password: Şifrəni təkrar et
+Request device unlock: Cihazın açılmasını tələb et
+Reset Your Password: Şifrənizi sıfırlayın
+Reset counter: Sayğacı sıfırla
+Reset to defaults: Varsayılanlara qaytar
+Restart device: Cihazı yenidən başlat
+Restart the device: Cihazı yenidən başlat
+Retry on failure: Uğursuz olduqda təkrar et
+Reveal: Açıqlamaq
+Reveal or stop: Açıqlamaq və ya dayandırmaq
+Reveal partially: Qismən açıqlamaq
+Reverse active energy: Aktiv enerjini geri çevir
+Reverse active energy balanced: Aktiv enerjinin geri çevrilməsi (vektor balansı)
+Reverse reactive energy: Reaktiv enerjini geri çevir
+Revoke: Ləğv et
+Role: Rol
+Roller garage door: Qatlanan qaraj qapısı
+Roller shutter opening sensor: Qatlanan pərdə açılma sensoru
+Roller shutter operation: Qatlanan pərdə əməliyyatı
+Roller shutters: Qatlanan pərdələr
+Roof window opening sensor: Dam pəncərəsi açılma sensoru
+Roof window shutter operation: Dam pəncərəsi əməliyyatı
+S/N: S/N
+SUPLA - Account Activation: SUPLA - Hesabın aktivləşdirilməsi
+SUPLA - Account Removal: SUPLA - Hesabın silinməsi
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Sertifikatlı quraşdırıcılar üçün cihazın açılmasını təsdiqləyin
+SUPLA - Password reset: SUPLA - Şifrə sıfırlama
+SUPLA - Private instance unregistration: SUPLA - Özəl instansiyanın qeydə alınmaması
+SUPLA - Test e-mail: SUPLA - Test e-poçt
+SUPLA Cloud is under maintenance.: SUPLA Cloud xidməti yenilənir
+SUPLA Server was unable to execute the action.: SUPLA Server əməliyyatı icra edə bilmədi
+SUPLA Server was unable to execute the scene.: SUPLA Server səhnəni icra edə bilmədi
+SUPLA Server was unable to query for the scene state.: SUPLA Server səhnə vəziyyətini sorğulaya bilmədi
+SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA hər yerdən və istənilən vaxt mövcuddur, ona görə növbəti dəfə işıqları söndürməyi unutsanız narahat olmayın
+SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – %cloudHost%-də uğursuz giriş cəhdinin bildirişi
+SUPLA – new client app has been added to your account: SUPLA – Hesabınıza yeni müştəri tətbiqi əlavə edildi
+SUPLA – new device has been added to your account: SUPLA – Hesabınıza yeni cihaz əlavə edildi
+SUPLA – your device has been unlocked!: SUPLA – Cihazınız açıldı!
+SUPLA.ORG Team: SUPLA.ORG komandası
+Same as on master thermostat.: Əsas termostatla eyni
+Saturdays: Şənbələr
+Save: Yadda saxla
+Save and enable: Yadda saxla və aktiv et
+Save changes: Dəyişiklikləri yadda saxla
+Save or discard configuration changes first.: Əvvəlcə konfiqurasiya dəyişikliklərini yadda saxlayın və ya ləğv edin
+Scene: Səhnə
+Scene ID{id} is being executed right now.: Səhnə ID{id} hazırda icra olunur
+Scene ID{id} is inactive right now.: Səhnə ID{id} hazırda aktiv deyil
+Scene available for {serviceName}: Səhnə {serviceName} üçün mövcuddur
+Scene must consist of at least one operation.: Səhnə ən azı bir əməliyyatdan ibarət olmalıdır
+Scenes: Səhnələr
+Scenes limit has been exceeded: Səhnələr limiti aşılmışdır
+Schedule: Cədvəl
+Schedule limit has been exceeded: Cədvəl limiti aşılmışdır
+Schedule mode: Cədvəl rejimi
+Schedules: Cədvəllər
+Scope: Əhatə dairəsi
+Scopes: Əhatə dairələri
+Scopes define which sections of your account can be accessed when using the token.: Əhatə dairəsi token istifadə edildikdə hesabınızın hansı bölmələrinə daxil ola biləcəyinizi müəyyən edir
+Screen brightness: Ekran parlaqlığı
+Search: Axtar
+Secret: Gizli açar (secret)
+Security: Təhlükəsizlik
+Security log: Təhlükəsizlik jurnalı
+See available integrations: Mövcud inteqrasiyaları gör
+See direct link possibilities: Birbaşa link imkanlarını gör
+See in SUPLA-Cloud: SUPLA-Cloud-da gör
+Seems like a secret place: Görünür, buraya girməməlisiniz
+Select icon: İkon seç
+Select the item (subject) you want to control using this link: Bu link vasitəsilə idarə etmək istədiyiniz elementi seçin
+Selected: Seçilmiş
+Selected device has been logged out.: Seçilmiş cihazdan çıxış edilib
+Send a notification: Bildiriş göndər
+Send notification: Bildiriş göndər
+Sensor disconnected: Sensor kəsildi
+Sensors: Sensorlar
+Septic tank: Septik çən
+Serial: Seriya interfeysi
+Server address: Server ünvanı
+Server unreachable: Serverə çatmaq mümkün deyil
+Service temporarily unavailable: Xidmət müvəqqəti əlçatmazdır
+Set HVAC parameters: HVAC parametrlərini təyin et
+Set the configuration password: Konfiqurasiya şifrəsini təyin et
+Set the device time: Cihazın vaxtını təyin et
+Set the password that restricts access to the device configuration page (https://192.168.4.1).: Cihaz konfiqurasiya səhifəsinə (https://192.168.4.1) giriş üçün şifrə təyin edin
+Set value added: Əlavə dəyəri təyin et
+Set values for each phase separately: Hər faza üçün ayrı dəyər təyin et
+Setting the number of attempts to 1 disables the retrying behavior completely.: Cəhd sayını 1 təyin etmək təkrar etməni tamamilə ləğv edir
+Settings: Parametrlər
+Settings have not been saved!: Parametrlər yadda saxlanılmayıb!
+Show data: Məlumatı göstər
+Show my limits: Limitlərimi göstər
+Show on the Client’s devices: Müştərinin cihazlarında göstər
+Shut: Bağla
+Shut or stop: Bağla və ya dayandır
+Shut partially: Qismən bağla
+Sign In: Daxil ol
+Sign Out: Çıxış et
+Sign in temporarily unavailable. Please try again later.: Daxil olmaq müvəqqəti əlçatmazdır. Zəhmət olmasa daha sonra cəhd edin
+Slave timeout (ms): Slave vaxt aşımı (ms)
+Smartphones: Smartfonlar
+SoftVer: Firmware versiyası
+Some features depend on this channel: Bəzi funksiyalar bu kanaldan asılıdır
+Some features depend on this channel group: Bəzi funksiyalar bu kanal qrupundan asılıdır
+Some features depend on this device: Bəzi funksiyalar bu cihazdan asılıdır
+Some features depend on this scene: Bəzi funksiyalar bu səhnədən asılıdır
+Some of the data collected for your account will be automatically cleared after certain period of time. Please find the details below.: Hesabınız üçün toplanan bəzi məlumatlar müəyyən müddətdən sonra avtomatik silinəcək. Ətraflı məlumat aşağıda verilmişdir.
+Some of the features you have configured depend on channels from this device.: Konfiqurasiya etdiyiniz bəzi funksiyalar bu cihazın kanallarından asılıdır
+Sound alarm on: Səsli siqnal aktivdir
+Staircase timer: Pilləkən taymeri
+Start Here: Buradan başlayın
+Start date: Başlanğıc tarixi
+Start from the homepage.: Ana səhifədən başlayın
+State: Vəziyyət
+State webhook: Vəziyyət webhook-u
+Status: Status
+Status LED: Status LED-i
+Step by step: Addım-addım
+Stop: Dayandır
+Stop bits: Dayandırma biti
+Store active power history: Aktiv enerji tarixçəsini saxla
+Store current history: Cərəyan tarixçəsini saxla
+Store measurements history: Ölçmələr tarixçəsini saxla
+Store voltage history: Gərginlik tarixçəsini saxla
+'Subdevice #{id}': 'Alt cihaz #{id}'
+Subfunction: Alt funksiyası
+Subject type: Mövzu tipi
+Success: Uğur
+Successful: Uğurlu
+Summary for selected time range: Seçilmiş zaman aralığı üçün xülasə
+Sundays: Bazar günləri
+Switch cycle count: Relye dövrlərinin sayı
+Switch the device to configuration mode: Cihazı konfiqurasiya rejiminə keçirin
+Switch to manual mode: Manual rejimə keçin
+Switch to program mode: Proqram rejiminə keçin
+THEN: SONRA
+THIS CANNOT BE UNDONE!: BU ƏMƏLİYYATI GERİ ALMAQ OLMAZ!
+TLS: TLS
+Tab: Tab
+Take a photo now: İndi şəkil çəkin
+Target Cloud is not registered, or is registered with another e-mail address.: Hədəf SUPLA Cloud qeydə alınmayıb və ya başqa e-poçt ünvanı ilə qeydə alınıb
+Temperature: Temperatur
+Temperature & Humidity Sensor: Temperatur və rütubət sensoru
+Temperature Sensor: Temperatur sensoru
+Temperature adjustment: Temperatur tənzimləməsi
+Temperature and humidity sensor: Temperatur və rütubət sensoru
+Temperature control type: Temperatur nəzarət tipi
+Temperature difference is too big between {min}°C and {max}°C.: '{min}°C və {max}°C arasında temperatur fərqi çox böyükdür'
+Temperature setpoint change switches to manual mode: Temperatur dəyişikliyi manual rejimə keçir
+Temperatures that can be set from local UI: Lokal interfeysdən təyin edilə bilən temperaturlar
+Temporal override: Müvəqqəti üstələmə
+Terrace awning: Eyvan tentesi
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: '%cloudHost%-da hesabınızı qeydiyyatdan keçirdiyiniz üçün təşəkkür edirik. Hesabınızı aktivləşdirmək üçün aşağıdakı linkə klikləyin'
+'The IP used for login is: %ip%': 'Giriş üçün istifadə olunan IP: %ip%'
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: MQTT Broker şifrəsi yalnız indi görünür. Təhlükəsiz yerdə saxladığınızdan əmin olun. Sonra onu görmək mümkün olmayacaq
+The SUPLA infrastructure is being updated.: SUPLA infrastrukturu yenilənir
+The Terms and Conditions have changed: Şərtlər və qaydalar dəyişib
+The Terms and Conditions have changed – please read them and accept.: Şərtlər və qaydalar dəyişib – zəhmət olmasa oxuyun və qəbul edin
+The activation link has been sent again. Check the inbox.: Aktivasiya linki yenidən göndərilib. Gələnlər qutusunu yoxlayın
+The channel has been deleted.: Kanal silinib
+The client will be automatically logged out when deleted.: Müştəri silindikdə avtomatik çıxış ediləcək
+The counter has been reset.: Sayğac sıfırlanıb
+The device could not be unlocked.: Cihazı açmaq mümkün olmadı
+The device has been unlocked already.: Cihaz artıq açılıb
+The device has been unlocked.: Cihaz açılıb
+The device has channel conflict and cannot work.: Cihaz kanallar arasında konflikt yaranıb və işləyə bilmir
+The device is disabled: Cihaz deaktivdir
+The device is locked: Cihaz kilidlənib
+The device is not connected. The values below represent the last known state.: Cihaz qoşulmayıb. Aşağıdakı dəyərlər son məlum vəziyyəti göstərir
+The device might be in a sleep mode.: Cihaz yuxu rejimində ola bilər
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Bu sessiyanı istifadə edən cihaz SUPLA Cloud-a girişini itirəcək və yenidən autentifikasiya etməlidir
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: '{phaseNumber} fazasına aid bütün gərginlik anomaliyaları bu kanaldan silinəcək'
+The entire history of the voltage aberrations will be removed from this channel.: Bu kanaldan bütün gərginlik anomaliyaları silinəcək
+The following channels will be also removed along with their dependencies.: Aşağıdakı kanallar və onlara bağlı asılılıqlar da silinəcək
+The following items use the channels of these device. These references will be also removed.: Aşağıdakı elementlər bu cihazın kanallarından istifadə edir. Bu istinadlar da silinəcək
+'The following items will be deleted with this device:': 'Aşağıdakı elementlər də bu cihazla birlikdə silinəcək:'
+The gate sensor must function properly in order to execute the Open and Close actions.: Qapı sensoru aç və bağla əməliyyatlarını yerinə yetirmək üçün düzgün işləməlidir
+The gate sensor must function properly in order to execute the scheduled action.: Planlaşdırılmış əməliyyatı yerinə yetirmək üçün qapı sensoru düzgün işləməlidir
+The incident was detected at %datetime%.: Hadisə %datetime%-də aşkarlandı
+The items below depend on the deleted channels, so they will be deleted, too.: Aşağıdakı elementlər silinmiş kanallardan asılıdır, ona görə də onlar da silinəcək
+The items below depend on this channel function, so they will be deleted.: Aşağıdakı elementlər bu kanal funksiyasından asılıdır, ona görə də silinəcək
+The items below depend on this channel group, so they will be deleted.: Aşağıdakı elementlər bu kanal qrupundan asılıdır, ona görə də silinəcək
+The items below depend on this scene, so they will be deleted.: Aşağıdakı elementlər bu səhnədən asılıdır, ona görə də silinəcək
+The latest execution: Son icra
+The link result is presented as a website response, because you (or your browser) asked for HTML output.: Link nəticəsi vebsayt cavabı kimi göstərilib, çünki siz (və ya brauzeriniz) HTML çıxışı istəmisiniz
+The master termostat you chose already has a master.: Seçdiyiniz master termostatın artıq master-i var
+The measurement history has been deleted.: Ölçmə tarixçəsi silinib
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Yeni şifrə mövcud şifrəni əvəz edəcək. Bəzi mövcud inteqrasiyalar işləməyə bilər. Davam edilsin?
+The next available executions: Növbəti mövcud icralar
+The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: Narıncı fonlu bildiriş, abonəlikdən çıxma linkinə kliklədiyiniz zaman gördüyünüzdür
+The notification must have a recipient.: Bildirişdə bir alıcı olmalıdır
+The password and its confirm are not the same.: Şifrə və təsdiqi eyni deyil
+The password should be 8 or more characters.: Şifrə 8 və ya daha çox simvol olmalıdır
+The reaction has been added: Reaksiya əlavə edildi
+The reaction has been changed: Reaksiya dəyişdirildi
+The scene would execute too many operations.: Səhnə çox sayda əməliyyat yerinə yetirir
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Server HTTP 400 xətası qaytardı. Bu, göndərdiyiniz sorğunun düzgün olmadığını göstərir
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Server HTTP 403 xətası qaytardı. Bu, axtardığınız elementi göstərmək icazənizin olmadığını göstərir
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Server HTTP 404 xətası qaytardı. Bu, axtardığınız elementin mövcud olmadığını göstərir
+The server has returned an HTTP {statusCode} error.: Server HTTP {statusCode} xətası qaytardı
+The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Seçdiyiniz ikonalar çox böyükdür. Maksimum yükləmə limiti {limit}-dir
+The subdevice has been deleted.: Alt cihaz silindi
+The thermostat will not work if the main thermometer is not set.: Əsas termometr təyin edilməyibsə, termostat işləməyəcək
+The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Valf manual bağlandıqdan sonra birbaşa link və ya API vasitəsilə açıla bilməz. Nəzarəti bərpa etmək üçün valfi manual açın
+The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Valf manual və ya uzaqdan bağlanıbsa açılmayacaq, bu su basması səbəbi ilə ola bilər
+There are no more channels you can add to this group: Bu qrupa əlavə edilə biləcək başqa kanal yoxdur
+Thermometer: Termometr
+Thermometer error: Termometr xətası
+Thermometers configuration: Termometrlərin konfiqurasiyası
+Thermostat: Termostat
+Thermostat program settings are inherited from the master thermostat for this channel. Please visit its configuration to alter it.: Bu kanal üçün termostat proqramı əsas termostatdan miras alınır. Dəyişdirmək üçün onun konfiqurasiyasına daxil olun
+Thermostat programs: Termostat proqramları
+This action will result in restarting the device. It will not be available for a while.: Bu əməliyyat cihazın yenidən başlamasına səbəb olacaq. Cihaz bir müddət istifadə olunmayacaq
+This action will result in trying to update the device firmware. It will not be available for a while.: Bu əməliyyat cihazın proqram təminatının yenilənməsinə səbəb olacaq. Cihaz bir müddət istifadə olunmayacaq
+This channel was missing during last device registration attempt.: Son cihaz qeydiyyatı zamanı bu kanal tapılmadı
+This device cannot be remotely awakened. We are awaiting communication from the device...: Bu cihazı uzaqdan oyatmaq mümkün deyil. Cihazdan cavab gözləyirik…
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Bu birbaşa link düzgün işləməsi üçün əlavə parametrlər tələb edir. Aşağıdakı nümunələrə baxın
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Bu məlumat e-poçt ünvanınız istifadə edilərək SUPLA-CLOUD (%cloudHost%) uğursuz giriş cəhdi səbəbilə avtomatik yaradılıb
+This is only a test to see if the e-mail configuration is working.: Bu yalnız e-poçt konfiqurasiyasının işlədiyini yoxlamaq üçün testdir
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Bu silmə prosesinin son mərhələsidir. Formanı doldurmaq geri dönməyəcək məlumat itkisinə səbəb olacaq
+This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Bu foto cihazından göndərilən son şəkildir. Sistemimizin ölçməni axtarması üçün sahəni seçin
+This is the list of applications you have granted access to your account.: Bu, hesabınıza giriş icazəsi verdiyiniz tətbiqlərin siyahısıdır
+This is the list of configured reactions. If you want to add a new reaction, go to the channel details that should trigger it.: Bu, konfiqurasiya edilmiş reaksiyaların siyahısıdır. Yeni reaksiya əlavə etmək üçün onu tetikleməli kanalın detalları səhifəsinə keçin
+This link is only valid for an hour.: Bu link yalnız bir saat etibarlıdır
+'This password will protect your home. Therefore, it must:': 'Bu şifrə evinizi qoruyacaq. Ona görə:'
+This thermostat is controlled by another device.: Bu termostat başqa cihaz tərəfindən idarə olunur
+Thursdays: Cümə günləri
+Tilt angle: Eğim bucağı
+Tilt control type: Eğim idarəetmə növü
+Tilt percent: Eğim faizi
+Time: Vaxt
+Timezone: Zaman zonası
+Title: Başlıq
+To: Ünvana
+Today, it would be active from {from} to {to}.: Bugün {from}–{to} saatları arasında aktiv olacaq
+Toggle: Keçid
+Token does not exist: Token mövcud deyil
+Too many actions in this schedule.: Bu cədvəldə çox sayda əməliyyat var
+Too many channels in this group: Bu qrupda çox sayda kanal var
+Too many operations in this scene: Bu səhnədə çox sayda əməliyyat var
+Too small difference between aux setpoint temperatures.: Yardımçı təyin edilmiş temperaturlar arasında fərq çox kiçikdir
+Too small difference between freeze and overheat protection temperatures.: Donma və həddindən artıq qızdırma qoruma temperaturları arasında fərq çox kiçikdir
+Total: Cəmi
+Total time: Ümumi vaxt
+Tuesdays: Çərşənbə günləri
+Turn off: Söndür
+Turning this device off will cause its channels not working in the following features.: Cihazı söndürmək onun kanallarının aşağıdakı funksiyalarda işləməməsinə səbəb olacaq
+Turning this device off will result in disabling features listed below.: Cihazı söndürmək aşağıdakı funksiyaların da deaktiv edilməsinə səbəb olacaq
+Type: Növ
+Undo registration: Qeydiyyatı geri al
+Unit: Vahid
+Unknown: Naməlum
+Unknown browser: Naməlum brauzer
+Unlock the device: Cihazın kilidini aç
+Unregister my private SUPLA Cloud instance: Şəxsi SUPLA Cloud instansiyamı qeydiyyatdan çıxar
+Unsuccessful login attempt: Uğursuz giriş cəhdi
+Unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: E-poçt ünvanınız istifadə edilərək SUPLA-CLOUD (%cloudHost%) uğursuz giriş cəhdi
+Unsupported function: Dəstəklənməyən funksiya
+Unsupported type: Dəstəklənməyən növ
+Until a date and time: Tarix və vaxta qədər
+Until the next change: Növbəti dəyişiklikədək
+Update in progress: Yenilənir
+Updating...: Yenilənir...
+Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Yüklənmiş fayllar qeyri-etik və ya müəllif hüquqları ilə qorunan məzmun, üçüncü tərəf hüquqlarını pozmur və onlardan istifadə etmək hüququm var
+Upper voltage threshold: Yüksək gərginlik həddi
+Uptime: İşləmə müddəti
+Use activity schedule: Fəaliyyət cədvəlindən istifadə et
+Use device default: Cihazın defolt dəyərindən istifadə et
+'Use the {0} server command to change this account''s limits. For example:': 'Bu hesabın limitlərini dəyişdirmək üçün {0} server əmri istifadə edin. Məsələn:'
+Use {theMasterThermostat} to control this device.: Bu cihazı idarə etmək üçün {theMasterThermostat}-dan istifadə edin
+Used current transformer type: İstifadə edilən cərəyan transformatoru növü
+User interface: İstifadəçi interfeysi
+User is already confirmed. Try to log in.: İstifadəçi artıq təsdiqlənib. Giriş edin
+Value: Dəyər
+Value added: Əlavə dəyər
+Value divider: Dəyər bölücüsü
+Value multiplier: Dəyər çoxaldıcısı
+Value separator: Dəyər ayırıcı
+Valve: Valf
+Valve closed manually: Valf manual bağlanıb
+Valve supports up to 20 sensors.: Valf maksimum 20 sensoru dəstəkləyir
+Vector balance: Vektor balansı
+Verification method: Yoxlama üsulu
+Vertical blind: Şaquli jalüz
+Visible: Görünən
+Visit app webpage: Tətbiqin veb səhifəsini aç
+Visit the master thermostat page.: Əsas termostat səhifəsinə keç
+Voltage: Gərginlik
+Voltage aberrations: Gərginlik anomaliyaları
+Voltage monitoring: Gərginlik monitorinqi
+WELCOME_MESSAGE: |
+  Evinizi və ya ofisinizi SUPLA-ya qoşmaq asandır. Bütün etməli olduğunuz
+  idarəetmə cihazlarına (giriş/çıxış) və smartfonlara aşağıdakı məlumatları daxil etməkdir
+Wait a while before the next request. You can check your limits in the account settings.: Növbəti sorğuya başlamazdan əvvəl bir az gözləyin. Limitlərinizi hesab parametrlərində yoxlaya bilərsiniz
+Wait for this scene to finish before proceeding to the next step ({time}).: Növbəti addıma keçməzdən əvvəl bu səhnənin bitməsini gözləyin ({time})
+Waiting: Gözləyir
+Warning and alarm at level (and above) should be higher than the warning and alarm at level (and below).: Bu səviyyədəki (və yuxarı) xəbərdarlıq və alarm səviyyəsi bu səviyyədən (və aşağı) olanlardan yüksək olmalıdır
+Warning level: Xəbərdarlıq səviyyəsi
+Water meter: Su sayğacı
+Water tank: Su çəni
+'We also strongly advise you to choose a password that:': 'Həmçinin, sizə məsləhət görürük ki, belə bir şifrə seçəsiniz:'
+We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Hesabınızla bağlı bəzi hadisələr barədə sizə xəbər verə bilərik. İstəmirsinizsə, imtina edin
+We could not connect to your SUPLA Cloud instance.: Şəxsi SUPLA Cloud instansiyanıza qoşula bilmədik
+We have been asked to delete your SUPLA Cloud account (%cloudHost%).: SUPLA Cloud (%cloudHost%) hesabınızın silinməsi tələb olunub
+We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Şəxsi SUPLA Cloud instansiyanızın (%targetCloudUrl%) qeydiyyatdan çıxarılması tələb olunub
+We have just sent you an activation link. You should be receiving it shortly.: Aktivasiya linki göndərildi. Tezliklə alacaqsınız
+We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Hesabın silinməsini təsdiqləyən linki ehtiva edən e-poçt göndərdik. Əmin olun!
+We have sent you an email with further instructions.: Əlavə təlimatları ehtiva edən e-poçt göndərdik
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Yalnız səlahiyyətli quraşdırıcılar üçün paylanmış SUPLA cihazının kilidini açmaq cəhdi alındı. Sorğu %targetCloudUrl% ünvanlı SUPLA Cloud instansiyasından %deviceUserEmail% istifadəçisindən gəldi
+We should be ready shortly.: Tezliklə hazır olmalıyıq
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Tətbiqi daha rahat istifadə etmək və üstünlüklərinizi yadda saxlamaq üçün brauzerinizdə bəzi məlumatlar (məsələn, cookies) saxlayırıq
+We try to be faster: Daha sürətli olmağa çalışırıq
+We were not able to find your account.: Hesabınızı tapa bilmədik
+We were not able to prepare your data. Please see the error details below.: Məlumatlarınızı hazırlaya bilmədik. Aşağıdakı xəta detallara baxın
+We will miss you: Sizi darıxacağıq
+We will miss you!: Sizi darıxacağıq!
+We will use it only in justified situations.: Yalnız əsaslı hallarda istifadə olunacaq
+Weather: Hava
+Weather Station: Hava Stansiyası
+Weather attribute: Hava göstəricisi
+Wednesdays: Çərşənbələr
+Week: Həftə
+Weekly schedule: Həftəlik cədvəl
+Weight sensor: Çəki sensoru
+Welcome!: Xoş gəlmisiniz!
+What this token is for?: Bu token nə üçündür?
+When a certain distance is reached: Müəyyən məsafəyə çatdıqda
+When a flood is detected: Su basması aşkarlandıqda
+When a flooding state changes: Su basması vəziyyəti dəyişdikdə
+When a flooding state has been cleared: Su basması vəziyyəti aradan qalxdıqda
+When a lack of liquid is detected: Maye çatışmazlığı aşkarlandıqda
+When a new mail comes: Yeni poçt gəldikdə
+When flooding is detected: Su basması aşkarlandıqda
+When liquid is detected: Maye aşkarlandıqda
+When liquid or lack thereof is detected: Maye və ya maye çatışmazlığı aşkarlandıqda
+When the RGB lighting brightness level changes: RGB işıqlandırmanın parlaqlıq səviyyəsi dəyişdikdə
+When the RGB lighting reaches a certain level of brightness: RGB işıqlandırma müəyyən parlaqlığa çatdıqda
+When the active power will be: Aktiv güc olarkən
+When the alarm is armed: Siqnalizasiya qoşulduqda
+When the alarm is armed or disarmed: Siqnalizasiya qoşulub və ya söndürüldükdə
+When the alarm is disarmed: Siqnalizasiya söndürüldükdə
+When the alarm starts: Siqnalizasiya başladıqda
+When the alarm stops: Siqnalizasiya dayandıqda
+When the apparent power will be: Görünən güc olarkən
+When the balanced forward active energy will be: Tənzimlənmiş alınan aktiv enerji olarkən
+When the balanced reverse active energy will be: Tənzimlənmiş qaytarılan aktiv enerji olarkən
+When the battery cover is opened: Batareya qapağı açıldıqda
+When the battery level will be: Batareya səviyyəsi olarkən
+When the battery reaches a certain level: Batareya müəyyən səviyyəyə çatdıqda
+When the brightness level changes: Parlaqlıq səviyyəsi dəyişdikdə
+When the brightness will be: Parlaqlıq olarkən
+When the calibration fails: Kalibrləmə uğursuz olduqda
+When the calibration has been lost: Kalibrləmə itdikdə
+When the calibration has started: Kalibrləmə başladıqda
+When the clock error has been reported: Saat xətası bildirildikdə
+When the color changes: Rəng dəyişdikdə
+When the condition is met: Şərt ödəndikdə
+When the current will be: Cərəyan olarkən
+When the curtain position changes: Pərdə mövqeyi dəyişdikdə
+When the curtain reaches a certain position: Pərdə müəyyən mövqeyə çatdıqda
+When the depth changes: Dərinlik ölçüsü dəyişdikdə
+When the depth is: Dərinlik olarkən
+When the device is turned off: Cihaz söndürüldükdə
+When the device is turned on: Cihaz açıldıqda
+When the device is turned on or off: Cihaz açılıb və ya söndürüldükdə
+When the device starts to be powered from battery: Cihaz batareyadan enerji alanda
+When the device stops to be powered from battery: Cihaz batareyadan enerji almanı dayandıranda
+When the dimmer brightness level changes: Dimmer parlaqlıq səviyyəsi dəyişdikdə
+When the dimmer reaches a certain brightness level: Dimmer müəyyən parlaqlığa çatdıqda
+When the distance changes: Məsafə dəyişdikdə
+When the distance will be: Məsafə olarkən
+When the door will be closed: Qapı bağlandıqda
+When the door will be opened: Qapı açıldıqda
+When the door will be opened or closed: Qapı açılıb və ya bağlandıqda
+When the electricity meter reaches a certain value: Elektrik sayğacı müəyyən dəyərə çatdıqda
+When the electricity meter value changes: Elektrik sayğacı dəyəri dəyişdikdə
+When the electricity meter value will be: Elektrik sayğacı dəyəri olarkən
+When the facade blind position changes: Fasad jalüz mövqeyi dəyişdikdə
+When the facade blind reaches a certain position: Fasad jalüz müəyyən mövqeyə çatdıqda
+When the fill level becomes known again: Səviyyə yenidən məlum olduqda
+When the fill level becomes unknown: Səviyyə naməlum olduqda
+When the fill level changes: Səviyyə dəyişdikdə
+When the fill level reaches a certain value: Səviyyə müəyyən dəyərə çatdıqda
+When the fill level will be: Səviyyə olarkən
+When the forward active energy will be: Alınan aktiv enerji olarkən
+When the garage door will be closed: Qaraj qapısı bağlandıqda
+When the garage door will be opened: Qaraj qapısı açıldıqda
+When the garage door will be opened or closed: Qaraj qapısı açılıb və ya bağlandıqda
+When the gas meter value changes: Qaz sayğacı dəyəri dəyişdikdə
+When the gas meter value reaches a certain value: Qaz sayğacı müəyyən dəyərə çatdıqda
+When the gas meter value will be: Qaz sayğacı dəyəri olarkən
+When the gate will be closed: Darvaza bağlandıqda
+When the gate will be opened: Darvaza açıldıqda
+When the gate will be opened or closed: Darvaza açılıb və ya bağlandıqda
+When the gateway will be closed: Qapı bağlandıqda
+When the gateway will be opened: Qapı açıldıqda
+When the gateway will be opened or closed: Qapı açılıb və ya bağlandıqda
+When the heat meter value changes: İstilik sayğacı dəyəri dəyişdikdə
+When the heat meter value reaches a certain value: İstilik sayğacı müəyyən dəyərə çatdıqda
+When the heat meter value will be: İstilik sayğacı dəyəri olarkən
+When the hotel card has been taken: Otel kartı götürüldükdə
+When the hotel card is put in: Otel kartı daxil edildikdə
+When the hotel card is put in or has been taken: Otel kartı daxil edilib və ya götürüldükdə
+When the humidity changes: Rütubət dəyişdikdə
+When the humidity reaches a certain level: Rütubət müəyyən səviyyəyə çatdıqda
+When the humidity will be: Rütubət olarkən
+When the lighting reaches a certain level of brightness: İşıq müəyyən parlaqlığa çatdıqda
+When the mail comes or is taken: Poçt gələndə və ya götürüldükdə
+When the mail has been taken: Poçt götürüldükdə
+When the meter reaches a certain value: Sayğac müəyyən dəyərə çatdıqda
+When the meter value changes: Sayğac dəyəri dəyişdikdə
+When the meter value will be: Sayğac dəyəri olarkən
+When the motor reported a problem: Motor problem bildirdikdə
+When the position reaches: Mövqe çatdıqda
+When the precipitation amount will be: Yağış miqdarı olarkən
+When the pressure changes: Təzyiq dəyişdikdə
+When the pressure reaches a certain level: Təzyiq müəyyən səviyyəyə çatdıqda
+When the pressure will be: Təzyiq olarkən
+When the projector screen position changes: Proyektor ekranının mövqeyi dəyişdikdə
+When the projector screen reaches a certain position: Proyektor ekranı müəyyən mövqeyə çatdıqda
+When the pump is turned off: Pompa söndürüldükdə
+When the pump is turned on: Pompa açıldıqda
+When the pump is turned on or off: Pompa açılıb və ya söndürüldükdə
+When the rain amount changes: Yağış miqdarı dəyişdikdə
+When the reactive power will be: Reaktiv güc olarkən
+When the reverse active energy will be: Qaytarılan aktiv enerji olarkən
+When the roller garage door position changes: Qaraj qapısının mövqeyi dəyişdikdə
+When the roller garage door reaches a certain position: Qaraj qapısı müəyyən mövqeyə çatdıqda
+When the roller shutter position changes: Rolo pərdə mövqeyi dəyişdikdə
+When the roller shutter reaches a certain position: Rolo pərdə müəyyən mövqeyə çatdıqda
+When the roller shutter will be closed: Rolo pərdə bağlandıqda
+When the roller shutter will be opened: Rolo pərdə açıldıqda
+When the roller shutter will be opened or closed: Rolo pərdə açılıb və ya bağlandıqda
+When the roof window position changes: Dam pəncərəsinin mövqeyi dəyişdikdə
+When the roof window reaches a certain position: Dam pəncərəsi müəyyən mövqeyə çatdıqda
+When the roof window will be closed: Dam pəncərəsi bağlandıqda
+When the roof window will be opened: Dam pəncərəsi açıldıqda
+When the roof window will be opened or closed: Dam pəncərəsi açılıb və ya bağlandıqda
+When the sensors state becomes invalid: Sensorların vəziyyəti etibarsız olduqda
+When the sensors state becomes valid: Sensorların vəziyyəti etibarlı olduqda
+When the sound alarm starts: Səsli siqnalizasiya başladıqda
+When the sound alarm stops: Səsli siqnalizasiya dayandıqda
+When the temperature changes: Temperatur dəyişdikdə
+When the temperature reaches a certain value: Temperatur müəyyən dəyərə çatdıqda
+When the temperature will be: Temperatur olarkən
+When the terrace awning position changes: Təras markizasının mövqeyi dəyişdikdə
+When the terrace awning reaches a certain position: Təras markizası müəyyən mövqeyə çatdıqda
+When the thermometer error has been reported: Termometr xətası bildirildikdə
+When the thermostat starts cooling: Termostat soyutma başladıqda
+When the thermostat starts heating: Termostat qızdırma başladıqda
+When the thermostat starts heating or cooling: Termostat qızdırma və ya soyutma başladıqda
+When the thermostat starts or stops cooling: Termostat soyutma başladıqda və ya dayandıqda
+When the thermostat starts or stops heating: Termostat qızdırma başladıqda və ya dayandıqda
+When the thermostat starts or stops heating or cooling: Termostat qızdırma və ya soyutma başladı və ya dayandı
+When the thermostat stops cooling: Termostat soyutma dayandıqda
+When the thermostat stops heating: Termostat qızdırma dayandıqda
+When the thermostat stops heating or cooling: Termostat qızdırma və ya soyutma dayandıqda
+When the value reaches a certain level: Dəyər müəyyən səviyyəyə çatdıqda
+When the value value changes: Dəyər dəyişdikdə
+When the value value will be: Dəyər olarkən
+When the value will be: Dəyər olarkən
+When the valve is closed: Valf bağlandıqda
+When the valve is manually closed: Valf əl ilə bağlandıqda
+When the valve is opened: Valf açıldıqda
+When the valve is opened or closed: Valf açılıb və ya bağlandıqda
+When the vertical blind position changes: Şaquli jalüz mövqeyi dəyişdikdə
+When the vertical blind reaches a certain position: Şaquli jalüz müəyyən mövqeyə çatdıqda
+When the voltage will be: Gərginlik olarkən
+When the warning starts: Xəbərdarlıq başladıqda
+When the warning stops: Xəbərdarlıq dayandıqda
+When the water meter reaches a certain value: Su sayğacı müəyyən dəyərə çatdıqda
+When the water meter value changes: Su sayğacı dəyəri dəyişdikdə
+When the water meter value will be: Su sayğacı dəyəri olarkən
+When the weight changes: Çəki dəyişdikdə
+When the weight will be: Çəki olarkən
+When the wind reaches a certain speed: Külək müəyyən sürətə çatdıqda
+When the wind speed changes: Külək sürəti dəyişdikdə
+When the wind speed will be: Külək sürəti olarkən
+When the window will be closed: Pəncərə bağlandıqda
+When the window will be opened: Pəncərə açıldıqda
+When the window will be opened or closed: Pəncərə açılıb və ya bağlandıqda
+When there is certain amount of rain: Müəyyən miqdarda yağış yağdıqda
+When there weight reaches a certain value: Çəki müəyyən dəyərə çatdıqda
+Where is the JSON?: JSON haradadır?
+Where is your SUPLA Cloud?: Sizin SUPLA Cloud haradadır?
+White: Ağ
+Who has access?: Kim daxil ola bilər?
+Wi-Fi RSSI: Wi-Fi RSSI
+Wi-Fi signal strength: Wi-Fi siqnal gücü
+Will be deleted after: Sonra silinəcək
+Wind sensor: Külək sensoru
+Window opening sensor: Pəncərə açılma sensoru
+With SUPLA you can operate the lights in your home or office: SUPLA ilə evinizdə və ya ofisinizdə işıqları idarə edə bilərsiniz
+With a timer: Vaxt taymeri ilə
+With function: Funksiya ilə
+Working period: İşləmə müddəti
+YOUR LINK CODE: SİZİN LINK KODUNUZ
+'Yes': Bəli
+You are changing the settings too quickly. You have to wait a while before making this change.: Ayarları çox tez dəyişdirirsiniz. Bu dəyişikliyi etmədən əvvəl bir az gözləməlisiniz.
+You can browse only the most recent logs now. Wait a while for the full history.: Hal-hazırda yalnız ən son qeydləri görə bilərsiniz. Tam tarixçənin yüklənməsini gözləyin.
+You can ignore this message, if you have accidentally entered an incorrect password.: Bu mesajı diqqətə almayın, əgər təsadüfən səhv şifrə daxil etmisinizsə.
+You can set relative values here. For example +10 or -20 will make the setting larger by 10 or smaller by 20, respectively.: Burada nisbi dəyərləri təyin edə bilərsiniz. Məsələn, +10 və ya -20 müvafiq olaraq ayarı 10 artıracaq və ya 20 azaldacaq.
+You can use the application but you will not be able to modify any settings.: Tətbiqdən istifadə edə bilərsiniz, amma heç bir ayarı dəyişə bilməyəcəksiniz.
+You cannot change this function becuase it is required by another channel.: Bu funksiyanı dəyişə bilməzsiniz, çünki başqa bir kanal tərəfindən tələb olunur.
+You cannot delete your last access identifier.: Son giriş identifikatorunuzu silə bilməzsiniz.
+You cannot delete your last location.: Son lokasiyanızı silə bilməzsiniz.
+You cannot to set a master thermostat for a channel that is master for others.: Başqa kanallar üçün master olan kanalda master termostat təyin edə bilməzsiniz.
+You cannot use SUPLA project name in the domain name.: Domen adında SUPLA layihə adını istifadə edə bilməzsiniz.
+You have exceeded your API Rate Limit: API sorğu limitinizi aşmısınız
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Cihazın quraşdırıcı tərəfindən açılmasını istədiniz. Təsdiqləndikdə sizi xəbərdar edəcəyik.
+You have requested to unregister your SUPLA Cloud instance: SUPLA Cloud instansiyanızın qeydiyyatını ləğv etməyi istədiniz
+You have the newest firmware installed.: Ən son firmware quraşdırılıb
+You have to choose at least one scope.: Ən azı bir sahə seçməlisiniz.
+You just need to execute the following command inside your host terminal.: Host terminalinizdə aşağıdakı əmri işlətməyiniz kifayətdir.
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Aşağıdakı nümunələr faydalı ola bilər, əgər hələ də inkişaf etmiş cədvəl rejimini istifadə etmək istəyirsinizsə.
+You must agree to the Terms and Conditions.: Şərtləri qəbul etməlisiniz.
+You must enable MQTT Broker first.: Əvvəlcə MQTT Broker-i aktivləşdirməlisiniz.
+You must leave at least one phase enabled.: Ən azı bir fazanı aktiv saxlamalısınız.
+You must set an action for each reaction.: Hər reaksiya üçün bir hərəkət təyin etməlisiniz.
+You must set an action for each scene operation.: Hər səhnə əməliyyatı üçün hərəkət təyin etməlisiniz.
+You must set sections with transparent or opaque parameters or both.: Hissələri şəffaf və ya qeyri-şəffaf parametrlərlə, ya da hər ikisi ilə təyin etməlisiniz.
+You need to provide icons for all states in light mode.: Bütün vəziyyətlər üçün işıqlı rejimdə ikonalar təqdim etməlisiniz.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: SUPLA Cloud-u 2.3.0 və ya daha yeni versiyaya yeniləməlisiniz.
+You will not be able to generate a direct link with the same URL again.: Eyni URL ilə birbaşa link yarada bilməyəcəksiniz.
+Your account and MQTT Broker connection.: Hesabınız və MQTT Broker bağlantısı
+Your account has been deleted. We hope you will come back to us soon.: Hesabınız silindi. Ümid edirik tezliklə geri dönəcəksiniz.
+Your account has been locked.: Hesabınız bloklanıb.
+Your account has not been confirmed yet.: Hesabınız hələ təsdiqlənməyib.
+Your account limits: Hesab limitləriniz
+Your channel groups are allowed to have a maximum of {max} channels.: Kanal qruplarınız maksimum {max} kanala malik ola bilər.
+Your chart is being drawn...: Qrafikiniz çəkilir...
+Your data are being collected. Please be patient.: Məlumatlar toplanır. Zəhmət olmasa səbr edin.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Məlumatlar serverdən alınır. Qeydləri ixrac etmədən əvvəl bitməsini gözləyin.
+Your device has been unlocked by the installer.: Cihazınız quraşdırıcı tərəfindən açıldı.
+Your email: Sizin emailiniz
+Your instance is not registered or you are trying to authorize an application that is not public.: Sizin instansiyanız qeydiyyatdan keçməyib və ya ictimai olmayan tətbiqi avtorizasiya etməyə çalışırsınız.
+Your password must contain at least one special character.: Şifrənizdə ən azı bir xüsusi simvol olmalıdır.
+Your password must include at least one letter.: Şifrənizdə ən azı bir hərf olmalıdır.
+Your password must include at least one number.: Şifrənizdə ən azı bir rəqəm olmalıdır.
+Your password must include both upper and lower case letters.: Şifrəniz həm böyük, həm də kiçik hərfləri ehtiva etməlidir.
+Your preferences has been updated.: Seçimləriniz yeniləndi.
+Your private SUPLA Cloud instance has been unregistered.: Şəxsi SUPLA Cloud instansiyanızın qeydiyyatı ləğv edildi.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Şəxsi SUPLA Cloud instansiyanız mövcud deyil. Serverinizin onlayn olduğunu və HTTPS bağlantınızın düzgün işlədiyini yoxlayın.
+Your private SUPLA Cloud is almost registered.: Şəxsi SUPLA Cloud instansiyanız demək olar ki, qeydiyyatdan keçib.
+Your private SUPLA Cloud is not registered.: Şəxsi SUPLA Cloud qeydiyyatdan keçməyib.
+Your scenes are allowed to have a maximum of {max} operations.: Sizin səhnələriniz maksimum {max} əməliyyat ola bilər.
+Your schedules are allowed to have a maximum of {max} actions.: Sizin cədvəlləriniz maksimum {max} hərəkətə malik ola bilər.
+Your session has been expired.: Sessiyanızın müddəti bitib.
+Your session is about to expire: Sessiyanızın müddəti bitmək üzrədir
+Your session will expire in {0}.: Sessiyanız {0} sonra bitəcək.
+Yours faithfully,: Hörmətlə,
+access to your e-mail address: Email ünvanınıza giriş
+actionTrigger_HOLD: Düyməni basıb saxla
+actionTrigger_SHORT_PRESS_X1: 1 dəfə bas
+actionTrigger_SHORT_PRESS_X2: 2 dəfə bas
+actionTrigger_SHORT_PRESS_X3: 3 dəfə bas
+actionTrigger_SHORT_PRESS_X4: 4 dəfə bas
+actionTrigger_SHORT_PRESS_X5: 5 dəfə bas
+actionTrigger_TOGGLE_X1: 1 dəfə dəyiş
+actionTrigger_TOGGLE_X2: 2 dəfə dəyiş
+actionTrigger_TOGGLE_X3: 3 dəfə dəyiş
+actionTrigger_TOGGLE_X4: 4 dəfə dəyiş
+actionTrigger_TOGGLE_X5: 5 dəfə dəyiş
+actionTrigger_TURN_OFF: Söndür
+actionTrigger_TURN_ON: Yandır
+actionableSubjectType_channel: Kanal
+actionableSubjectType_channelGroup: Kanal qrupu
+actionableSubjectType_notification: Bildiriş
+actionableSubjectType_scene: Səhnə
+actionableSubjectType_schedule: Cədvəl
+activityConditions_help: Element yalnız bütün şərtlər ödəndikdə aktiv olacaq. Bütün mövcud zaman parametrlərini təyin etsəniz, element yalnız “aktivdən aktivə qədər” vaxt aralığında, seçilmiş fəaliyyət cədvəlində və günün vaxt meyarlarından biri ödəndikdə aktiv olacaq.
+addToHistoryMeasurementWarningSelected: Bu seçimi işarələsəniz, təyin olunmuş dəyərlər gələcək ölçülərdə tarixçəyə əlavə olunacaq. Qrafiklərdə ani artım kimi görünə bilər. Bu parametrləri yalnız sayğacın ilk quraşdırılması zamanı təyin etməyi tövsiyə edirik. Mövcud sayğaclarda, bu parametrləri dəyişdikdən sonra ölçü tarixçəsini silmək məsləhətdir.
+addToHistoryMeasurementWarningUnselected: Bu seçimi ləğv etsəniz, təyin olunmuş dəyərlər gələcək ölçülərdə tarixçəyə əlavə edilməyəcək. Qrafiklərdə ani azalma kimi görünə bilər. Bu parametrləri yalnız sayğacın ilk quraşdırılması zamanı təyin etməyi tövsiyə edirik. Mövcud sayğaclarda, bu parametrləri dəyişdikdən sonra ölçü tarixçəsini silmək məsləhətdir.
+after: sonra
+and wait until it reaches: və təkrar icra etmə, dəyər çatana qədər
+and wait until it will be: və təkrar icra etmə, dəyər olana qədər
+and wait until the battery level will be: və gözlə, batareya səviyyəsi olana qədər
+and wait until the fill level will be: və gözlə, dolum səviyyəsi olana qədər
+and wait until the humidity will be: və təkrar icra etmə, rütubət olana qədər
+and wait until the meter will be: və təkrar icra etmə, sayğac dəyəri olana qədər
+and wait until the temperature will be: və təkrar icra etmə, temperatur olana qədər
+and wait until the value will be: və təkrar icra etmə, dəyər olana qədər
+auxThermometerType_DISABLED: Söndürülüb
+auxThermometerType_FLOOR: Döşəmə
+auxThermometerType_GENERIC_COOLER: Soyuducu mənbə
+auxThermometerType_GENERIC_HEATER: İstilik mənbəyi
+auxThermometerType_NOT_SET: Təyin olunmayıb
+auxThermometerType_WATER: Su
+average: orta
+battery: batareya
+be at least {numChars} characters long: ən azı {numChars} simvoldan ibarət olmalıdır
+before: əvvəl
+blue, otherwise: əks halda mavi
+blue, when voltage lower than the low threshold: aşağı gərginlik səviyyəsindən aşağı olduqda mavi
+caption: başlıq
+change: dəyiş
+channel: Kanal
+channelConfigHelp_gateCloseAfterHelp: Qapını bağlama əməliyyatını başlatan agent, təyin edilmiş vaxtdan ən çox bir dəqiqə gecikə bilər.
+channelConfigHelp_numberOfAttemptsGate: Qapını açma və ya bağlama əmri verildikdən sonra sistem qapının istənilən vəziyyətə çatmasını yoxlamaq üçün 60 saniyə gözləyəcək. Əgər qapı hələ istənilən vəziyyətdə deyilsə, sistem yenidən cəhd edəcək. Bu parametr, sistemin maksimum cəhd sayını müəyyən edir. Tövsiyə olunan dəyər 5-dir. Bu parametr cədvəllərin işləməsinə təsir etmir.
+channelConfigHelp_stateVerificationMethod: 'Aktiv: Sensorun istənilən vəziyyətə ilk dəyişməsi cəhdlərin dayandırılmasına səbəb olur. Passiv: Hər 60 saniyədən bir sensor vəziyyəti yoxlanılır və istənilən vəziyyət təsdiqlənəndə cəhdlər dayandırılır.'
+channelConfig_stateVerificationMethod_active: Aktiv
+channelConfig_stateVerificationMethod_passive: Passiv
+channelGroup: Kanal qrupu
+choose: seç
+choose the access identifiers: giriş identifikatorlarını seç
+choose the action: hərəkəti seç
+choose the city: şəhəri seç
+choose the currency: valyutanı seç
+choose the scene: səhnəni seç
+choose the schedule: cədvəli seç
+choose the timezone: saat qurşağını seç
+click here: buraya kliklə
+closeValveOnFloodType_ALWAYS: Həmişə
+closeValveOnFloodType_ON_CHANGE: Dəyişiklik zamanı
+closeValveOnFloodType_help: |
+  "Həmişə": Sistem hər hansı bir sensor su basmağı aşkar etdikdə vana bağlayacaq, hətta istifadəçi onu yenidən açsa belə.
+  "Dəyişiklik zamanı": Vana yalnız yeni su basma hadisəsi aşkar edildikdə bağlanır. Məsələn, bir sensor su basmağı bildirirsə, vana bağlanır. İstifadəçi onu yenidən aça bilər, sistem isə yalnız sensor yenidən su basmağı bildirəndə və ya başqa sensor su basdığını aşkar edəndə vana bağlayacaq.
+configuration missing: Konfiqurasiya yoxdur
+contains a character that is neither a letter nor a digit: Hərf və rəqəm olmayan simvol var
+contains a digit: Rəqəm var
+contains lower and upper letters: Kiçik və böyük hərflər var
+cool: soyutma
+copied: kopyalandı
+copy: kopyala
+day: gün
+days: günlər
+default: standart
+directLinkExecutionFailureReason_disabled: Birbaşa link deaktivdir
+directLinkExecutionFailureReason_executionLimitExceeded: İcra limiti aşılıb
+directLinkExecutionFailureReason_expired: Birbaşa linkin müddəti bitib
+directLinkExecutionFailureReason_forbiddenAction: Link bu əməliyyatı icra etməyə icazə vermir
+directLinkExecutionFailureReason_httpGetForbidden: Qadağan olunmuş HTTP GET metodu ilə əməliyyat icazəsi yoxdur
+directLinkExecutionFailureReason_invalidActionParameters: Yanlış birbaşa link parametrləri
+directLinkExecutionFailureReason_invalidChannelState: Kanal vəziyyəti səbəbindən əməliyyat icra edilə bilmir
+directLinkExecutionFailureReason_invalidSlug: Göndərilən identifikator yanlışdır
+directLinkExecutionFailureReason_noAllowedActions: Heç bir icazəli əməliyyat seçilməyib
+directLinkExecutionFailureReason_noSlugOrAction: Yanlış sorğu - link kodu və əməliyyat tələb olunur
+directLinkExecutionFailureReason_notActiveYet: Birbaşa link hələ aktiv deyil
+directLinkExecutionFailureReason_otherFailure: Əməliyyat zamanı səhv
+directLinkExecutionFailureReason_sceneDuringExecution: Səhnə icra olunur
+directLinkExecutionFailureReason_sceneDuringInactivePeriod: Səhnə hal-hazırda aktiv deyil
+directLinkExecutionFailureReason_unsupportedAction: Seçilmiş əməliyyat düzgün deyil
+empty: boş
+energyPriceForecast_field_fixing1: Enerji qiyməti RDN fixing I
+energyPriceForecast_field_fixing2: Enerji qiyməti RDN fixing II
+energyPriceForecast_field_rce: Enerji qiyməti RCE
+everyday: hər gün
+executed: icra edildi
+extend: uzat
+firmwareUpdatePolicy_ALL_ENABLED: Yeniləmələri avtomatik quraşdır
+firmwareUpdatePolicy_DISABLED: Yalnız əl ilə yeniləmələr
+firmwareUpdatePolicy_FORCED_OFF: Cihazda söndürülüb
+firmwareUpdatePolicy_SECURITY_ONLY: Yalnız təhlükəsizlik yeniləmələrini avtomatik quraşdır
+from IP: IP ünvanından
+from the IP: IP-dən
+green, otherwise: əks halda yaşıl
+green, when power less than the low threshold: güc aşağı həddən aşağı olduqda yaşıl
+heat: isitmə
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Əsas və əlavə temperatur
+homeScreenContent_MODE_OR_TEMPERATURE: İş rejimi və ya temperatur
+homeScreenContent_NONE: Heç biri
+homeScreenContent_TEMPERATURE: Temperatur
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatur və rütubət
+homeScreenContent_TEMPERATURE_TIME: Temperatur və vaxt
+homeScreenContent_TIME: Vaxt
+homeScreenContent_TIME_DATE: Tarix və vaxt
+homeScreenContent_offMode_ALWAYS_ENABLED: Müəyyən vaxtdan sonra
+homeScreenContent_offMode_DISABLE: Söndürülüb
+homeScreenContent_offMode_ENABLED_WHEN_DARK: Müəyyən vaxtdan sonra, yalnız qaranlıq olduqda
+hour: saat
+hours: saatlar
+is at least {numChars} characters long: ən az {numChars} simvol olmalıdır
+keepHistoryMeasurementWarningSelected: Bu tarixçəyə həqiqətən ehtiyacınız varmı? Supla açıq mənbəli layihədir və öz resurslarımızla idarə olunur. Əgər bu tarixçəyə ehtiyacınız yoxdursa, boş buraxaraq disk yaddaşımızı qorumağa kömək edin.
+last 24 hours: son 24 saat
+last 30 days: son 30 gün
+last 6 hours: son 6 saat
+last 7 days: son 7 gün
+lastConnectionResetCause_ACTIVITY_TIMEOUT: server cavab vermədi
+lastConnectionResetCause_SERVER_CONNECTION_LOST: server əlaqəsi kəsildi
+lastConnectionResetCause_UNKNOWN: naməlum
+lastConnectionResetCause_WIFI_CONNECTION_LOST: Wi-Fi bağlantısı kəsildi
+localUILock_FULL: Bloklanıb
+localUILock_TEMPERATURE: Yalnız temperatur təyini
+localUILock_UNLOCKED: Açıq
+logs_aggregation_day: günlər
+logs_aggregation_hour: saatlar
+logs_aggregation_minute: dəqiqələr
+logs_aggregation_month: aylar
+mains: şəbəkə
+max: maks.
+midnight: yarımşəhər
+milliseconds: millisekund
+min: dəq.
+min.: dəq.
+minutes: dəqiqələr
+modbusRole_MASTER: MASTER (müştəri)
+modbusRole_NOT_SET: Söndürülüb
+modbusRole_SLAVE: SLAVE (server)
+modbusSerialStopbits_ONE: Bir
+modbusSerialStopbits_ONE_AND_HALF: Bir və yarım
+modbusSerialStopbits_TWO: İki
+notification: bildiriş
+ocrLightingMode_ALWAYS_ON: Həmişə açıq
+ocrLightingMode_AUTO: Avtomatik
+ocrLightingMode_OFF: Söndürülüb
+'off': söndür
+openWeatherAttribute_field_airCo: CO
+openWeatherAttribute_field_airNo: 'NO'
+openWeatherAttribute_field_airNo2: NO₂
+openWeatherAttribute_field_airO3: O₃
+openWeatherAttribute_field_airPm10: PM10
+openWeatherAttribute_field_airPm25: PM2.5
+openWeatherAttribute_field_feelsLike: Hiss olunan temperatur
+openWeatherAttribute_field_humidity: Rütubət
+openWeatherAttribute_field_pressure: Təzyiq
+openWeatherAttribute_field_rainMmh: Yağış (mm/s)
+openWeatherAttribute_field_snowMmh: Qar (mm/s)
+openWeatherAttribute_field_temp: Temperatur
+openWeatherAttribute_field_tempHumidity: Temperatur və rütubət
+openWeatherAttribute_field_visibility: Görünürlük
+openWeatherAttribute_field_windGust: Külək zərbəsi
+openWeatherAttribute_field_windSpeed: Külək sürəti
+or another element: və ya başqa element
+password: parol
+previous month: əvvəlki ay
+range: diapazon
+red, when power higher than the high threshold: güc yüksək həddən yuxarı olduqda qırmızı
+red, when voltage higher than the high threshold: gərginlik yüksək həddən yuxarı olduqda qırmızı
+register-slide1-text: Mövcud elektronika əsasında SUPLA sizə sadə modullar yaratmağa imkan verir, bunlarla ev avtomatikası elementlərini idarə edə və nəzarət edə bilərsiniz. SUPLA ilə işıqı idarə etmək, məişət texnikasını açıb-söndürmək, qapı və darvazaları idarə etmək və otaqların temperaturunu tənzimləmək mümkündür. Bütün bunları bir barmağın sürüşdürməsi ilə edə bilərsiniz.
+register-slide1-title: Öz Ağıllı Bina
+register-slide2-text: Layihənin əsas prinsipləri sadəlik və əlçatanlıqdır. SUPLA ilə bir barmaq sürüşdürməsi ilə işığı yandırmaq və ya giriş qapısını açmaq mümkündür. SUPLA hər yerdə mövcuddur, harada internet və smartfon/tabletiniz varsa. SUPLA Açıq Mənbə və Açıq Aparat prinsipləri ilə inkişaf etdirilir, siz də layihəni inkişaf etdirə bilərsiniz!
+register-slide2-title: SUPLA hər yerdə!
+register-slide3-text: Bazarda mövcud bina avtomatikası sistemləri adətən mürəkkəb, qapalı və bahalıdır. Çox hallarda quraşdırma tikinti mərhələsində tələb olunur. SUPLA sadə, açıq və pulsuzdur. RaspberryPI, Arduino və ya ESP8266 platformaları əsasında elementlər qurmaq və LAN/Wi-Fi ilə birləşdirmək mümkündür. Layihəyə qoşulun və öz bina avtomatikası sisteminizi yaradın!
+register-slide3-title: Pulsuz və açıq!
+scene: səhnə
+schedule: cədvəl
+scheduleMode_crontab: Qabaqcıl
+scheduleMode_daily: Həftə
+scheduleMode_minutely: Interval
+scheduleMode_once: Bir dəfə
+sec.: san.
+seconds: saniyə
+smartphones, tablets, etc.: smartfonlar, planşetlər və s.
+state-closed: Bağlı
+state-default: Varsayılan
+state-empty: Boş
+state-full: Tam
+state-half: Qismən dolu
+state-hi: Yüksək vəziyyət
+state-humidity: Rütubət
+state-low: Aşağı vəziyyət
+state-off: Söndürülüb
+state-on: Yandırılıb
+state-opened: Açıq
+state-partially_closed: Qismən bağlı
+state-revealed: Aşkar
+state-rgb_off_dim_off: RGB və dimmer söndürülüb
+state-rgb_off_dim_on: RGB söndürülüb, dimmer açıq
+state-rgb_on_dim_off: RGB açıq, dimmer söndürülüb
+state-rgb_on_dim_on: RGB və dimmer açıq
+state-shut: Qapalı
+state-temperature: Temperatur
+statusLed_ALWAYS_OFF: Həmişə söndürülüb
+statusLed_OFF_WHEN_CONNECTED: Qoşulduqda söndür
+statusLed_ON_WHEN_CONNECTED: Qoşulduqda yandır
+subdevicePairingResult_CMD_RESULT_UNKNOWN: Naməlum nəticə
+subdevicePairingResult_NOT_STARTED_BUSY: Cihaz məşğuldur
+subdevicePairingResult_NOT_STARTED_NOT_READY: Cihaz hazır deyil
+subdevicePairingResult_NOT_SUPPORTED: Əməliyyat dəstəklənmir
+subdevicePairingResult_NO_NEW_DEVICE_FOUND: Yeni cihaz tapılmadı
+subdevicePairingResult_ONGOING: Davam edir
+subdevicePairingResult_PAIRING_RESULT_UNKNOWN: Cütləşmə nəticəsi naməlumdur
+subdevicePairingResult_PROCEDURE_STARTED: Prosedur başlandı
+subdevicePairingResult_REQUEST_SENT: Qoşulma sorğusu göndərildi
+subdevicePairingResult_RESOURCES_LIMIT_EXCEEDED: Resurs limiti aşılıb
+subdevicePairingResult_SUCCESS: Uğur
+subdevicePairingResult_UNAUTHORIZED: Avtorizasiya uğursuz oldu
+sum: cəmi
+sunrise: gün doğumu
+sunrise-after: gün doğumundan sonra
+sunrise-before: gün doğumundan əvvəl
+sunset: gün batımı
+sunset-after: gün batımından sonra
+sunset-before: gün batımından əvvəl
+swap: dəyiş
+tank_alarm_alarmAboveLevel: Yüksək səviyyə alarmı
+tank_alarm_alarmBelowLevel: Aşağı səviyyə alarmı
+tank_alarm_fullRange_alarmAboveLevel: Səviyyə üçün alarm (və yuxarı)
+tank_alarm_fullRange_alarmBelowLevel: Səviyyə üçün alarm (və aşağı)
+tank_alarm_fullRange_warningAboveLevel: Səviyyə üçün xəbərdarlıq (və yuxarı)
+tank_alarm_fullRange_warningBelowLevel: Səviyyə üçün xəbərdarlıq (və aşağı)
+tank_alarm_warningAboveLevel: Yüksək səviyyə xəbərdarlığı
+tank_alarm_warningBelowLevel: Aşağı səviyyə xəbərdarlığı
+temperatureControlType_AUX_HEATER_COOLER_TEMPERATURE: Əlavə termometr əsasında idarə
+temperatureControlType_ROOM_TEMPERATURE: Əsas termometr əsasında idarə
+the master thermostat ID{id}: Master termostat ID{id}
+the whole history: Bütün tarixçə
+then execute the action: Sonra əməliyyatı icra et
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_AT_MOST: 'Histerez əsaslı, temperatur hədəfi yuxarı hədd kimi təyin olunub. Məsələn, histerez 1°C, hədəf 23°C: istilik 22°C-də açılır, 23°C-də bağlanır.'
+thermostatAlgorithmHelp_ON_OFF_SETPOINT_MIDDLE: 'Histerez əsaslı, temperatur hədəfi orta nöqtədə təyin olunub. Məsələn, histerez 1°C, hədəf 23°C: istilik 22.5°C-də açılır, 23.5°C-də bağlanır.'
+thermostatAlgorithmHelp_PID: Hədəf temperatur ətrafında sabitləşdirmək üçün hamar tənzimləmə alqoritmi.
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Yandır/söndür (yuxarı hədd)
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Yandır/söndür (orta nöqtə)
+thermostatAlgorithm_PID: PID
+thermostatOutputValue_help: Varsayılan olaraq, termostat səhv aşkar edərsə söndürülməlidir (məs. əsas termometr nasaz olduqda). Əmin deyilsinizsə, bu davranışı dəyişdirməyin.
+thermostatSubfunction_COOL: Soyutma
+thermostatSubfunction_HEAT: İstilik
+thermostatTemperature_aboveAlarm: Alarm səviyyəsindən yuxarı
+thermostatTemperature_auxHisteresis: Əlavə temperatur histerezi
+thermostatTemperature_auxMaxSetpoint: Maksimum əlavə temperatur
+thermostatTemperature_auxMinSetpoint: Minimum əlavə temperatur
+thermostatTemperature_belowAlarm: Alarm səviyyəsindən aşağı
+thermostatTemperature_boost: Boost temperatur
+thermostatTemperature_comfort: Komfort temperatur
+thermostatTemperature_eco: ECO temperatur
+thermostatTemperature_freezeProtection: Donmaya qarşı temperatur
+thermostatTemperature_heatProtection: Yüksək temperaturdan qoruma
+thermostatTemperature_histeresis: Histerez
+this month: Bu ay
+this year: Bu il
+tiltControlType_CHANGES_POSITION_WHILE_TILTING: Əyilərkən mövqeyini dəyişir
+tiltControlType_STANDS_IN_POSITION_WHILE_TILTING: Əyilərkən mövqeyini saxlayır
+tiltControlType_TILTS_ONLY_WHEN_FULLY_CLOSED: Tam bağlı olduqda əyilir
+tiltControlType_UNKNOWN: Naməlum
+timeMarginMode_custom: Xüsusi
+timeMarginMode_device: Cihazın varsayılan dəyəri
+timeMarginMode_off: Söndürülüb
+today: bu gün
+unknown: naməlum
+usedCTType_100A_33mA: 100A/33.3mA
+usedCTType_200A_66mA: 200A/66.6mA
+usedCTType_400A_133mA: 400A/133.3mA
+usedPhaseLedType_OFF: Söndürülüb
+usedPhaseLedType_POWER_ACTIVE_DIRECTION: Güc axını istiqaməti
+usedPhaseLedType_VOLTAGE_LEVEL: Gərginlik səviyyəsi
+usedPhaseLedType_VOLTAGE_PRESENCE: Gərginlik mövcudluğu
+usedPhaseLedType_VOLTAGE_PRESENCE_INVERTED: Gərginlik mövcudluğu (tərs)
+username: istifadəçi adı
+valid until: etibarlıdır
+values as seen on chart: Qrafikdəki kimi dəyərlər
+values as seen on counter: Sayğacdakı kimi dəyərlər
+valveOpenConfirm_flooding: Zənginlik səbəbi ilə valf bağlandı. Səbəb aradan qaldırılıb? Valfi açmaq istədiyinizə əminsiniz?
+valveOpenConfirm_manual: Valf əl ilə və ya radio rejimində bağlandı. Zalım səbəbi olmadığından əmin olun. Uzaqdan açmaq istədiyinizə əminsiniz?
+valveOpenConfirm_motorProblem: Motor problemi. Valfi bloklayan bir şey yoxdur? Valf qismən açıq ola bilər. Açmaq/qapamaq istədiyinizə əminsiniz?
+virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: Polşada elektrik enerjisi qiymətləri.
+virtualChannelTypeInfoLong_OPEN_WEATHER: Open Weather servisi vasitəsilə hava məlumatları. Məlumat real vaxtda deyil, hər 10-15 dəqiqədən bir yenilənir.
+virtualChannelTypeName_ENERGY_PRICE_FORECAST: Enerji qiymətləri
+virtualChannelTypeName_OPEN_WEATHER: Hava
+yesterday: dünən
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} hesabınızla qarşılıqlı əlaqə qura bilməyəcək, təkrar icazə verməyinizə qədər.'
+'{clientName} wants to access your account.': '{clientName} hesabınıza daxil olmaq istəyir.'
+'{count} minutes after sunrise': '{count} dəqiqə gün doğumundan sonra'
+'{count} minutes after sunset': '{count} dəqiqə gün batımından sonra'
+'{count} minutes before sunrise': '{count} dəqiqə gün doğumundan əvvəl'
+'{count} minutes before sunset': '{count} dəqiqə gün batımından əvvəl'
+'{days} days': '{days} gün'
+'{minutes} minutes after sunrise': '{minutes} dəqiqə gün doğumundan sonra'
+'{minutes} minutes after sunset': '{minutes} dəqiqə gün batımından sonra'
+'{minutes} minutes before sunrise': '{minutes} dəqiqə gün doğumundan əvvəl'
+'{minutes} minutes before sunset': '{minutes} dəqiqə gün batımından əvvəl'
+'{requests} out of {limit} / day': '{requests} / {limit} gündə'
+'{requests} out of {limit} / h': '{requests} / {limit} saatda'
+'{requests} out of {limit} / min': '{requests} / {limit} dəq.'
+'{requests} out of {limit} / {seconds} sec.': '{requests} / {limit} / {seconds} san.'
+'{serviceName} integration': '{serviceName} inteqrasiyası'
+
+#</editor-fold>
+#<editor-fold desc="Extra translations">
+# Translations below have not been found in sources. You might want to delete them.
+'% of extension': '% uzanma'
+0% tilt angle: Jalüzün bağlanarkən lamelin bucağı
+100% tilt angle: Jalüzün açılarkən lamelin bucağı
+Action: Əməliyyat
+Action is unsupported in the firmware.: Əməliyyat cihazın firmware-i tərəfindən dəstəklənmir.
+Add new item to use in the scene: Səhnəyə yeni element əlavə et
+And set the same state for: və eyni vəziyyəti təyin et
+Are you sure you want to disable this device?: Bu cihazı söndürmək istədiyinizə əminsiniz?
+Assigned Locations: Təyin edilmiş yerlər
+Authorized OAuth apps: Təsdiqlənmiş OAuth tətbiqləri
+Available: Mövcuddur
+Battery powered: Batareyalı
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Bu seçimi söndürməklə, cihazınızın əlavə istifadəçi təsdiqi olmadan idarə oluna biləcəyini qəbul edirsiniz, bu isə təhlükəsiz olmayan vəziyyətə səbəb ola bilər.
+Calculated value: Sayğac dəyəri
+Calibration successful.: Kalibrləmə uğurlu
+Cannot execute an action when the device is disconnected.: Cihaz ayrılıbsa əməliyyat icra edilə bilməz.
+Cannot send an activation e-mail. Try again later.: Aktivasiya emaili göndərilə bilmədi. Sonra yenidən cəhd edin.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Aktivasiya mailini tapa bilmirsiniz? SPAM və ya Zibil qovluqlarınızı yoxlayın və ya {clickHereLink} vasitəsilə yenidən göndərin.
+Channel is disconnected.: Kanal əlaqəsi kəsilib.
+Channel value: Kanal dəyəri
+Channel will be deleted from the channel group below: Kanal aşağıdakı qrupdan silinəcək
+Channels in channel group: Kanal qruplarında olan kanallar
+Chart data source type: Qrafik məlumat mənbəyi tipi
+Chart mode: Qrafik tipi
+Chosen hour: Seçilmiş saat
+Coming Soon: Tezliklə
+Confirm if you want to perform the roller shutter calibration.: Rolletin kalibrlənməsini etmək istədiyinizə əminsiniz?
+Confirm if you want to remove {deviceName} device: '{deviceName} cihazını silmək istədiyinizə əminsiniz?'
+Copy channel state: Kanal vəziyyətini kopyala
+Could not change the password.: Şifrəni dəyişmək mümkün olmadı.
+Could not perform the calibration.: Kalibrləmə icra edilə bilmədi.
+DISABLED: SÖNDÜRÜLÜB
+Days: Günlər
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Hesabınızın silinməsi bütün məlumatlarınızın, qoşulmuş cihazlarınızın, konfiqurasiya edilmiş kanallarınızın, birbaşa linklərinizin və ölçü tarixçənizin silinməsinə səbəb olacaq. Hesabın silinməsi geri qaytarılmaz.
+Device channel value: Cihaz kanalı dəyəri
+Device settings: Cihaz parametrləri
+Differential: Diferensial
+Direct links below will be deleted: Aşağıdakı birbaşa linklər silinəcək
+Doors, Gates: Qapılar, Darvazalar
+E-mail notifications: E-poçt bildirişləri
+ENABLED: AÇIQ
+Email already exists: Bu e-poçt artıq mövcuddur
+Execute the scene: Səhnəni icra et
+Existing schedules: Mövcud cədvəllər
+Expected maximum increment: Gözlənilən maksimum artım
+File is too large: Fayl çox böyükdür
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Bu cihazın firmware-i bu kanal kontekstində bildirişlər göndərir. Burada qəbul edənləri və məzmunu konfiqurasiya edə bilərsiniz. Daha ətraflı məlumat üçün firmware təminatçısına müraciət edin.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Bu cihazın firmware-i bildirişlər göndərir. Burada qəbul edənləri və məzmunu konfiqurasiya edə bilərsiniz. Daha ətraflı məlumat üçün firmware təminatçısına müraciət edin.
+Forward active energy balance: Aktiv enerji balansı
+From IP: IP-dən
+Generic action: Digər əməliyyat
+Get SUPLA on your devices: Cihazlarınıza SUPLA yükləyin
+Go back to data sources: Məlumat mənbələrinə qayıt
+Hi: Salam
+Hour: Saat
+Hours: Saatlar
+I/O: Giriş/Çıxış
+If you want to stay here, do something!: Burada qalmaq istəyirsənsə, bir şey et!
+If you wish to register your instance, {clickHereLink}.: Əgər instansiyanızı qeydiyyatdan keçirmək istəyirsinizsə, {clickHereLink}.
+If you wish to unregister your instance, {clickHereLink}.: Əgər instansiyanızı qeydə almaq istəmirsinizsə, {clickHereLink}.
+Information: Məlumat
+Initial value: Başlanğıc dəyər
+Initial values: Başlanğıc dəyərlər
+Input: Giriş
+Interpolate measurements: Çatışmayan dəyərləri təxmin et
+Invalid scene: Yanlış səhnə
+Invalid schedule config (incorrect action).: Cədvəl konfiqurasiyası səhvdir (yanlış əməliyyat)
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: Bu rejimdə cihaz öz Wi-Fi nöqtəsini yayacaq ki, smartfonunuzla qoşularaq bağlantı parametrlərini tənzimləyəsiniz və ya firmware-i yeniləyəsiniz.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Unutmayın ki, daxil etdiyiniz crontab-ın insan oxunuşlu təsviri mükəmməl deyil. Bu, yalnız düzgün dəyəri tapmaqda sizə kömək etmək üçündür, girişinizi yoxlamaq üçün deyil. Daxil etdiyiniz cədvəlin gözlənildiyi kimi işlədiyini təsdiqləmək üçün "Ən yaxın icra" bölməsinə diqqət yetirin.
+Languages: Dillər
+Light source lifespan: İşıq mənbəyinin ömrü
+Loading: Yüklənir
+MODBUS: MODBUS
+Main thermometer must be set.: Əsas termometr təyin edilməlidir.
+Maximum temperature that can be set from the device: Cihazdan təyin edilə biləcək maksimum temperatur
+Minimum temperature that can be set from the device: Cihazdan təyin edilə biləcək minimum temperatur
+Minute: Dəqiqə
+Mobile Apps: Mobil tətbiqlər
+Next: Növbəti
+No current API usages: Hal-hazırda API istifadəsi yoxdur
+No results match {0}: Heç bir nəticə {0}-ə uyğun deyil
+Number: Nömrə
+OAuth application: OAuth tətbiqi
+Output: Çıxış
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Şifrəni dəyişdirmək bütün aktiv sessiyaları təmizləyəcək. Lakin hesabınıza giriş icazəsi olan tətbiqlər icazələrini geri götürmədiyiniz müddətcə avtorizasiya oluna biləcəklər.
+Password must be at least 5 characters long.: Şifrə ən azı 5 simvol olmalıdır.
+Password was set successfully.: Şifrə uğurla təyin edildi
+Passwords do not match.: Şifrələr uyğun gəlmir
+Please select an action: Zəhmət olmasa əməliyyat seçin
+Power supply: Qidalanma
+Previous login: Əvvəlki giriş
+RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: TÖVSİYYƏ OLUNAN YIĞIM. Enerji tələb edən ev işlərini digər saatlara planlaşdırın.
+REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: TƏLƏB OLUNAN MƏHDUDİYYƏT. Elektrik istehlakınızı yalnız zəruri minimuma endirin.
+Read the following channel's state: Aşağıdakı kanalın vəziyyətini oxu
+Registration: Qeydiyyat
+Remaining: Qalıq
+Remove: Sil
+Requests limit: Sorğu limiti
+Reverse active energy balance: Aktiv enerjinin balansı
+Save changes to see Access IDs: Dəyişiklikləri yadda saxlayın ki, Giriş ID-ləri görünsün
+Schedule cannot be enabled: Cədvəl aktiv edilə bilmir
+Schedules below will be deleted: Aşağıdakı cədvəllər silinəcək
+Sensor (normal closed): Sensor (normal bağlı)
+Sensor (normal open): Sensor (normal açıq)
+Set initial values: Başlanğıc dəyərləri təyin et
+Show days with issues only: Yalnız problemli günləri göstər
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Rolu alt hissəyə qədər bağlayın və bağlanma faizini daxil edin. Bu tələb olunmur, lakin mobil tətbiqdə rolun vəziyyətinin vizualizasiyasını yaxşılaşdırır
+Sources available from: Mövcud mənbələr
+Standard: Standart
+Subject: Mövzu
+Sunrise / Sunset: Gün doğumu / Gün batımı
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: İntegrasiyaların köməyi ilə hesabınıza xarici tədarükçülər, inkişafçılar və ya özünüz tərəfindən təqdim olunan həllərlə yeni funksiyalar əlavə edə bilərsiniz
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfiqurasiya başqa mənbədən (məsələn, başqa brauzer tabı, mobil tətbiq, cihaz) dəyişdirilib. Məlumat itkisini önləmək üçün əvvəlcə konfiqurasiyanı yeniləyin
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: Konfiqurasiya başqa mənbədən dəyişdirilib. Zəhmət olmasa parametrləri yenidən tənzimləyin və yadda saxlayın
+The factory reset was successful.: Fabrik sıfırlaması uğurla başa çatdı
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Kənar xətt ilə işarələnmiş bildiriş, abunəlikdən çıxmaq üçün kliklədiyiniz bildirişdir.
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Relye cərəyan həddindən artıq olduqda söndürülüb. Onu yenidən açmazdan əvvəl problemi həll etdiyinizə əmin olun. Onu uzaqdan açmaq istəyirsiniz?
+This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: Bu əməliyyat bütün saxlanılmış məlumatları (Wi-Fi parametrləri, şifrə, e-poçt, server daxil olmaqla) siləcək və avtomatik yenidən qoşulmayacaq
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: Bu cihaz yalnız səlahiyyətli quraşdırıcılar tərəfindən paylanmalı və quraşdırılmalıdır. Əgər siz SUPLA cihazlarının quraşdırıcısı deyilsinizsə və etibarlı quraşdırıcı sertifikatına sahib deyilsinizsə, cihazı satıcıya qaytarın
+This is the password that was configured during the first device setup. It allows you to access the device configuration page when you are connected to its Wi-Fi.: Bu, cihazın ilkin quraşdırılması zamanı təyin olunmuş şifrədir. Wi-Fi-ya qoşulduğunuz zaman cihazın konfiqurasiya səhifəsinə daxil olmağa imkan verir.
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Bu cədvəl rejimi yalnız texniki və ya səbrli istifadəçilər üçün nəzərdə tutulub. Cədvəlin icra davranışını Crontab notasiya ilə göstərin (bəzən SUPLA versiyaları tərəfindən genişləndirilir). Əgər Crontab ilə tanış deyilsinizsə, crontab.guru saytından istifadə edə bilərsiniz
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Bu tetikleyici cihaz tərəfindən istifadə olunur (məsələn, işığı yandırır və ya jaluzi açır). Bu tetikleyici üçün hər hansı əməliyyat təyin etmək lokal funksiyanı söndürəcək
+Triggers: Tətikləyicilər
+Try again later: Sonra yenidən cəhd edin
+Turn off after: Vaxt bitdikdən sonra söndür
+Value per unit: Hər vahid üçün dəyər
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Aldığımız ikonları ən yaxşı şəkildə göstərməyə çalışacağıq, lakin ən yaxşı nəticə üçün şəffaf fonlu, eni {width}px və hündürlüyü {height} olan PNG faylı göndərin
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: HTTP PATCH metodu ilə linki işə saldıqda, linkin təsadüfi hissəsini ötürmədən, onu sorğu mətnində göndərə bilərsiniz. Bu daha təhlükəsizdir, çünki bu sorğu server və ya proksi qeydlərində saxlanılmayacaq. Aşağıda cURL nümunəsi verilmişdir.
+You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: Bu oxunu əl ilə düzgün kimi işarələyə bilərsiniz. Bu əməliyyat sayğac dəyərini dərhal yeniləməyəcək, amma gələcək oxumaları yaxşılaşdırmalıdır.
+You will be logged out shortly: Tezliklə çıxış ediləcəksiniz
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Brauzeriniz müştəri tərəfli verilənlər bazası mexanizmini (IndexedDB) dəstəkləmir. Bu, qrafiklərin göstərilməsi və inkişaf etmiş ixrac rejimlərinin aktivləşdirilməsi üçün tələb olunur. Bu xüsusiyyətlərdən istifadə etmək üçün brauzerinizi yeniləyin və ya gizli rejimdən çıxın.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Cihazınızın funksionallığını artırmaq və sahib olduğunuz istənilən cihazda hərəkət icra etmək mümkündür. Firmware-dən asılı olaraq müxtəlif tetikleyicilər dəstəklənə bilər (tez-tez aparatla məhdudlaşdırılır).
+choose a currency: Valyuta seçin
+choose access identifiers: Giriş identifikatorlarını seçin
+choose the channel: Kanalı seçin
+choose the channel group: Kanal qrupunu seçin
+comment: Şərh
+energyPriceForecast_field_pdgsz: Enerji qiyməti – Pik saatlar
+execute: İcra et
+for channel: Kanal üçün
+hourly: Saatlıq
+openWeatherAttribute_field_clouds: Buludluq
+prefix: Prefiks
+reset chart view: Qrafik görünüşünü sıfırla
+suffix: Sufiks
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Action trigger notification: ~
+Channel notification: ~
+Chart aggregated balance: ~
+Device notification: ~
+Device should be checking and installing updates.: ~
+Filtering time: ~
+Info: ~
+Motion sensor: ~
+Not calibrated: ~
+Reaction notification: ~
+Remember that this is not your account. You have been trusted by the user when you were given the technical access password.: ~
+Scene notification: ~
+Sensitivity: ~
+Slat angle that the blind sets when closing: ~
+Slat angle that the blind sets when opening: ~
+This is the list of configured notifications. If you want to add a new notification or alter the existing one, go to the channel details that should trigger it.: ~
+Timeout: ~
+When motion starts to be detected: ~
+When motion stops to be detected: ~
+When the sensor state changes: ~
+When the sensor state changes to hi: ~
+When the sensor state changes to low: ~
+With great power comes great responsibility.: ~
+You are using technical access.: ~
+normal session: ~
+
+#</editor-fold>
