@@ -49,14 +49,20 @@
         <dd v-else>{{ $t('Percentage of closing') }}</dd>
         <dt>{{ currentState.shut }}%</dt>
       </dl>
-      <dl v-if="currentState.tiltPercent > -1">
-        <dd>{{ $t('Tilt percent') }}</dd>
-        <dt>{{ currentState.tiltPercent }}%</dt>
-      </dl>
-      <dl v-if="currentState.tiltAngle > -1">
-        <dd>{{ $t('Tilt angle') }}</dd>
-        <dt v-if="channel.config.tiltingTimeS > 0">{{ currentState.tiltAngle }}&deg;</dt>
-        <dt v-else>{{ $t('configuration missing') }}</dt>
+      <div v-if="currentState.tiltPercent > -1">
+        <dl>
+          <dd>{{ $t('Tilt percent') }}</dd>
+          <dt>{{ currentState.tiltPercent }}%</dt>
+        </dl>
+        <dl v-if="currentState.tiltAngle > -1">
+          <dd>{{ $t('Tilt angle') }}</dd>
+          <dt v-if="channel.config.tiltingTimeS > 0">{{ currentState.tiltAngle }}&deg;</dt>
+          <dt v-else>{{ $t('configuration missing') }}</dt>
+        </dl>
+      </div>
+      <dl v-else-if="currentState.tiltPercent === -1">
+        <dd>{{ $t('Not calibrated') }}</dd>
+        <dt></dt>
       </dl>
     </div>
     <dl v-if="currentState.closed !== undefined && channel.function.name === 'VALVEPERCENTAGE'">
