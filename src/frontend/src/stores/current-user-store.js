@@ -27,13 +27,13 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
   const determineServerUrl = () => {
     const frontendConfigStore = useFrontendConfigStore();
     const {actAsBrokerCloud, suplaUrl} = frontendConfigStore.config;
-    if (actAsBrokerCloud) {
+    if (actAsBrokerCloud && userToken.value) {
       serverUrl.value = Base64.decode((userToken.value || '').split('.')[1] || '') || suplaUrl;
     } else {
       serverUrl.value = '';
     }
     if (!serverUrl.value) {
-      serverUrl.value = (location && location.origin) || '';
+      serverUrl.value = '';
     }
   };
 
@@ -73,6 +73,7 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
 
   const fetchUser = async () => {
     if (userToken.value) {
+      synchronizeAuthState();
       await fetchUserData();
       synchronizeAuthState();
     } else {
