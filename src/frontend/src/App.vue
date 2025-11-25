@@ -16,7 +16,7 @@
       <cookie-warning
         v-if="frontendConfig.config.requireCookiePolicyAcceptance && currentUser.username && !currentUser.userData.agreements.cookies"
       ></cookie-warning>
-      <cloud-version-mismatch-warning-modal />
+      <cloud-version-mismatch-warning-modal v-if="currentUser.username" />
     </div>
     <PageFooter :username="currentUser.username" />
   </div>
