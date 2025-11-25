@@ -67,6 +67,9 @@ class ChannelStateGetter {
                 foreach ($this->stateGetters as $stateGetter) {
                     if (in_array($subject->getFunction(), $stateGetter->supportedFunctions())) {
                         $state = array_merge($state, $stateGetter->getState($subject));
+                        if (!($state['connected'] ?? true)) {
+                            break;
+                        }
                     }
                 }
             } catch (SuplaServerIsDownException $e) {

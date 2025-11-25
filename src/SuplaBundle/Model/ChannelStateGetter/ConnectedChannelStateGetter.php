@@ -25,4 +25,8 @@ class ConnectedChannelStateGetter implements SingleChannelStateGetter {
     public function supportedFunctions(): array {
         return ChannelFunction::values();
     }
+
+    public static function getDefaultPriority(): int {
+        return 1000;
+    }
 }
