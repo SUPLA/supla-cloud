@@ -117,6 +117,7 @@
   import ModalConfirm from '@/common/modal-confirm.vue';
   import {api} from '@/api/api.js';
   import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
+  import {useDebounceFn} from '@vueuse/core';
 
   export default {
     components: {
@@ -200,7 +201,7 @@
         this.scene.location = location;
         this.sceneChanged();
       },
-      saveScene() {
+      saveScene: useDebounceFn(function () {
         this.displayValidationErrors = true;
         if (this.scene.operations.find((o) => o.isValid === false)) {
           warningNotification(this.$t('Please fix the problems with operations and try again.'));
@@ -243,7 +244,7 @@
             .then(() => (this.hasPendingChanges = false))
             .finally(() => (this.loading = false));
         }
-      },
+      }),
       deleteScene(safe = true) {
         this.loading = true;
         api
