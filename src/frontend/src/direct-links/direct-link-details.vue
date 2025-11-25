@@ -146,7 +146,8 @@
                 channels-dropdown-params="hasFunction=1"
                 :filter="filterOutNotDirectLinkingSubjects"
                 @input="chooseSubjectForNewLink($event)"
-              ></subject-dropdown>
+                disable-notifications
+              />
               <span class="help-block">
                 {{ $t('After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.') }}
               </span>
