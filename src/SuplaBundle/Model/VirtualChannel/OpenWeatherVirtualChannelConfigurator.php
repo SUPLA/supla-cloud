@@ -19,7 +19,11 @@ class OpenWeatherVirtualChannelConfigurator implements VirtualChannelConfigurato
             'function' => ChannelFunction::THERMOMETER,
             'properties' => ['hiddenConfigFields' => ['temperatureAdjustment']],
         ],
-        'feelsLike' => ['type' => ChannelType::THERMOMETER, 'function' => ChannelFunction::THERMOMETER],
+        'feelsLike' => [
+            'type' => ChannelType::THERMOMETER,
+            'function' => ChannelFunction::THERMOMETER,
+            'properties' => ['hiddenConfigFields' => ['temperatureAdjustment']],
+        ],
         'pressure' => ['type' => ChannelType::PRESSURESENSOR, 'function' => ChannelFunction::PRESSURESENSOR],
         'humidity' => [
             'type' => ChannelType::HUMIDITYSENSOR,
