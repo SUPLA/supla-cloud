@@ -699,6 +699,7 @@ Minimum ON time before heating/cooling can be turned off: Minimalny czas WŁĄCZ
 Minimum temperature must be lower than maximum temperature.: Minimalna temperatura musi być mniejsza od maksymalnej
 Minimum voltage: Najniższe napięcie
 Missing action.: Brak akcji
+Missing trigger field definition.: Nie wybrano warunku reakcji.
 Mode: Tryb
 'Mode: cool': 'Tryb: chłodzenie'
 'Mode: heat': 'Tryb: ogrzewanie'

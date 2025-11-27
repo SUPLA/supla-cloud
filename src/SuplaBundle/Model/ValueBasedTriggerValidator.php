@@ -326,7 +326,7 @@ class ValueBasedTriggerValidator {
             if (isset($onChangeTo['name'])) {
                 Assertion::inArray($onChangeTo['name'], $possibleFieldNames, 'Unsupported field name %s. Supported: %s.');
             } else {
-                Assertion::inArray('default', $possibleFieldNames, 'Missing trigger field definition.');
+                Assertion::inArray('default', $possibleFieldNames, 'Missing trigger field definition.' /* i18n */);
             }
         } else {
             Assertion::keyNotExists($onChangeTo, 'name', 'Field name is not required for this channel. Remove it.');
