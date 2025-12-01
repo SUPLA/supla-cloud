@@ -24,8 +24,10 @@ function getDefaultHeadersJson() {
 
 function buildAbsoluteUrl(endpoint) {
   const currentUser = useCurrentUserStore();
-  const urlEndpoint = endpoint.startsWith('/') ? endpoint : '/api/' + endpoint;
-  return (currentUser.serverUrl || '') + urlEndpoint;
+  const isFullLink = endpoint.startsWith('http://') || endpoint.startsWith('https://');
+  const isAbsolute = isFullLink || endpoint.startsWith('/');
+  const urlEndpoint = isAbsolute ? endpoint : '/api/' + endpoint;
+  return ((!isFullLink && currentUser.serverUrl) || '') + urlEndpoint;
 }
 
 function responseHandler(request, config) {
