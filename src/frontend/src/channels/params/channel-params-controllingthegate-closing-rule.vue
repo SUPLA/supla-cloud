@@ -12,7 +12,7 @@
       </dd>
       <dt>
         <span class="input-group">
-          <input v-model="maxTimeOpenMin" type="number" step="1" min="5" max="480" class="form-control text-center" @change="$emit('change')" />
+          <NumberInput v-model="maxTimeOpenMin" :min="5" :max="480" @update:modelValue="$emit('change')" />
           <span class="input-group-addon">{{ $t('min.') }}</span>
         </span>
       </dt>
@@ -38,6 +38,8 @@
   import {mapValues, pickBy} from 'lodash';
   import WeekScheduleCaption from '@/activity/week-schedule-caption.vue';
   import Modal from '@/common/modal.vue';
+  import NumberInput from '@/common/number-input.vue';
+  import Toggler from '@/common/gui/toggler.vue';
 
   const props = defineProps({channel: Object});
   const emit = defineEmits(['change']);
