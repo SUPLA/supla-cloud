@@ -80,7 +80,8 @@
                 v-model="googleSettings.pin"
                 v-focus
                 v-input-digits-only
-                type="number"
+                type="text"
+                maxlength="8"
                 class="form-control text-center pin-input no-spinner d-inline-block"
               />
               <a v-else @click="googleSettings.changingPin = true">{{ $t('change') }}</a>
