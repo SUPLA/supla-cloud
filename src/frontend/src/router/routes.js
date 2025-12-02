@@ -236,6 +236,7 @@ export default [
   },
   {
     path: '/direct/:linkId/:slug/:action?',
+    name: 'directLinkExecution',
     component: () => import('@/direct-links/result-page/direct-link-execution-result.vue'),
     props: ({params}) => ({...params, linkId: Number.parseInt(params.linkId)}),
     meta: {unrestricted: true},
