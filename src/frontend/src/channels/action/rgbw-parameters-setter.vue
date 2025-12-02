@@ -2,7 +2,7 @@
   <div>
     <div v-if="hasBrightness" class="rgbw-parameter">
       <label>{{ $t('Brightness') }}</label>
-      <NumberInput v-model="colorBrightness" :min="0" :max="100" />
+      <NumberInput v-model="brightness" :min="0" :max="100" />
     </div>
     <hr v-if="hasBrightness && hasColor" />
     <div v-if="hasColor" class="rgbw-parameter">
@@ -65,12 +65,12 @@
   });
 
   const colorBrightness = computed({
-    get: () => model.value?.color_brightness || 100,
+    get: () => model.value?.color_brightness,
     set: (color_brightness) => (model.value = {...currentModelValue.value, color_brightness}),
   });
 
   const brightness = computed({
-    get: () => model.value?.brightness || 100,
+    get: () => model.value?.brightness,
     set: (brightness) => (model.value = {...currentModelValue.value, brightness}),
   });
 
