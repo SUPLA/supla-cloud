@@ -1699,6 +1699,7 @@ statusLed_ALWAYS_OFF: Zawsze wyłącz
 statusLed_OFF_WHEN_CONNECTED: Wyłącz gdy połączono
 statusLed_ON_WHEN_CONNECTED: Włącz gdy połączono
 subdevicePairingResult_CMD_RESULT_UNKNOWN: Nieznany rezultat
+subdevicePairingResult_DEVICE_NOT_SUPPORTED: Wykryto niewspierane urządzenie. Sprawdź, czy masz aktualną wersję oprogramowania.
 subdevicePairingResult_NOT_STARTED_BUSY: Urządzenie jest zajęte
 subdevicePairingResult_NOT_STARTED_NOT_READY: Urządzenie jest niegotowe
 subdevicePairingResult_NOT_SUPPORTED: Operacja niewspierana
