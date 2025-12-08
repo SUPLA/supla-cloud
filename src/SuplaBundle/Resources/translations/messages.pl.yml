@@ -1804,7 +1804,6 @@ yesterday: wczoraj
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
-'% of extension': '% rozwinięcia'
 Action: Akcja
 Action is unsupported in the firmware.: Akcja nie jest wspierana przez firmware urządzenia.
 Add new item to use in the scene: Dodaj nowy element do sceny
@@ -1954,3 +1953,5 @@ suffix: sufiks
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+
+Extension: Rozwinięcie

@@ -46,6 +46,7 @@
     <div v-if="!currentState.isCalibrating && !currentState.notCalibrated">
       <dl v-if="currentState.shut > -1">
         <dd v-if="channel.functionId === ChannelFunction.TERRACE_AWNING">{{ $t('Percentage of extension') }}</dd>
+        <dd v-else-if="channel.functionId === ChannelFunction.PROJECTOR_SCREEN">{{ $t('Extension') }}</dd>
         <dd v-else>{{ $t('Percentage of closing') }}</dd>
         <dt>{{ currentState.shut }}%</dt>
       </dl>
