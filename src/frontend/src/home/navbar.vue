@@ -9,8 +9,10 @@
           <span class="icon-bar"></span>
         </button>
         <router-link :to="{name: 'home'}" class="navbar-brand">
-          <supla-logo></supla-logo>
-          supla
+          <div class="d-flex align-items-center">
+            <SuplaLogo class="mr-1" :size="45" />
+            supla
+          </div>
         </router-link>
       </div>
 

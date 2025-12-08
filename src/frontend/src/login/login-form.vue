@@ -1,7 +1,7 @@
 <template>
   <div class="centered-form login-form">
-    <div class="logo">
-      <img src="../assets/img/logo.svg" alt="SUPLA" />
+    <div class="text-center mb-4">
+      <SuplaLogo :size="150" />
     </div>
     <slot name="aboveForm"></slot>
     <div class="form-group form-group-lg">
@@ -95,9 +95,10 @@
   import MaintenanceWarning from '../common/errors/maintenance-warning.vue';
   import {mapState} from 'pinia';
   import {useFrontendConfigStore} from '@/stores/frontend-config-store';
+  import SuplaLogo from '@/home/supla-logo.vue';
 
   export default {
-    components: {ResendAccountActivationLink, ButtonLoadingDots, MaintenanceWarning},
+    components: {SuplaLogo, ResendAccountActivationLink, ButtonLoadingDots, MaintenanceWarning},
     props: ['authenticating', 'oauth', 'error', 'value', 'intitialUsername', 'submitButtonText'],
     data() {
       return {
@@ -120,16 +121,6 @@
   @use 'sass:color';
 
   .login-form {
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-
-      img {
-        width: 150px;
-        height: 150px;
-      }
-    }
-
     .input-group-addon > span {
       font-size: 2em;
     }
