@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input v-model="crontab" type="text" class="form-control text-center crontab-input" placeholder="23 0-20/2 * * *" @change="updateValue()" />
+    <input v-model="crontab" type="text" class="form-control text-center crontab-input" placeholder="23 0-20/2 * * *" @input="updateValue()" />
     <div class="help-block text-right">
       {{ humanizedCrontab }}
     </div>
@@ -8,77 +8,72 @@
 </template>
 
 <script>
-  import cronstrue from 'cronstrue/i18n';
-  import {i18n} from '@/locale';
-
-  if (!cronstrue.prototype.getTimeOfDayDescriptionOriginal) {
-    cronstrue.prototype.getTimeOfDayDescriptionOriginal = cronstrue.prototype.getTimeOfDayDescription;
-    cronstrue.prototype.getTimeOfDayDescription = function () {
-      const minutePart = this.expressionParts[1];
-      if (minutePart.match(/^S[SR]-?[0-9]+/)) {
-        const sunset = minutePart.charAt(1) === 'S';
-        const delay = parseInt(minutePart.substr(2));
-        if (delay === 0) {
-          if (sunset) {
-            return i18n.global.t('At sunset');
-          } else {
-            return i18n.global.t('At sunrise');
-          }
-        } else if (delay > 0) {
-          if (sunset) {
-            return i18n.global.t('{minutes} minutes after sunset', {minutes: delay});
-          } else {
-            return i18n.global.t('{minutes} minutes after sunrise', {minutes: delay});
-          }
-        } else {
-          if (sunset) {
-            return i18n.global.t('{minutes} minutes before sunset', {minutes: -delay});
-          } else {
-            return i18n.global.t('{minutes} minutes before sunrise', {minutes: -delay});
-          }
-        }
-      } else {
-        return this.getTimeOfDayDescriptionOriginal();
-      }
-    };
-  }
-
   export default {
-    props: ['value'],
-    data() {
-      return {
-        crontab: '',
-      };
-    },
-    computed: {
-      humanizedCrontab() {
-        try {
-          const description = cronstrue.toString(this.crontab, {locale: this.$i18n.locale});
-          if (description.indexOf('undefined') !== -1 || description.indexOf('null') !== -1) {
-            return '';
-          }
-          return description;
-        } catch (error) {
-          console.warn(error);
-          return '';
-        }
-      },
-    },
-    mounted() {
-      if (this.value) {
-        this.crontab = this.value;
-      }
-    },
-    methods: {
-      updateValue() {
-        if (this.humanizedCrontab) {
-          this.$emit('input', this.crontab);
-        } else {
-          this.$emit('input', undefined);
-        }
-      },
+    compatConfig: {
+      MODE: 3,
     },
   };
+</script>
+
+<script setup>
+  import cronstrue from 'cronstrue/i18n';
+  import {computed, ref} from 'vue';
+  import {useI18n} from 'vue-i18n';
+
+  const model = defineModel();
+  const i18n = useI18n();
+
+  const crontab = ref(model.value || '');
+
+  const humanizedCrontab = computed(() => {
+    try {
+      let currentCrontab = crontab.value;
+      let sunsetMatch = currentCrontab.match(/^S[SR]-?[0-9]+/);
+      if (sunsetMatch) {
+        currentCrontab = currentCrontab.replace(/^S[SR]-?[0-9]+/, '*/25');
+      }
+      let description = cronstrue.toString(currentCrontab, {locale: i18n.locale.value});
+      if (description.indexOf('undefined') !== -1 || description.indexOf('null') !== -1) {
+        return '';
+      }
+      if (sunsetMatch) {
+        const constDescription = cronstrue.toString('*/25 * * * *', {locale: i18n.locale.value});
+        description = description.replace(constDescription, sunDescription(sunsetMatch[0]));
+      }
+      return description;
+    } catch (error) {
+      console.warn(error);
+      return '';
+    }
+  });
+
+  function sunDescription(minutePart) {
+    const sunset = minutePart.charAt(1) === 'S';
+    const delay = parseInt(minutePart.substr(2));
+    if (delay === 0) {
+      if (sunset) {
+        return i18n.t('At sunset');
+      } else {
+        return i18n.t('At sunrise');
+      }
+    } else if (delay > 0) {
+      if (sunset) {
+        return i18n.t('{minutes} minutes after sunset', {minutes: delay});
+      } else {
+        return i18n.t('{minutes} minutes after sunrise', {minutes: delay});
+      }
+    } else {
+      if (sunset) {
+        return i18n.t('{minutes} minutes before sunset', {minutes: -delay});
+      } else {
+        return i18n.t('{minutes} minutes before sunrise', {minutes: -delay});
+      }
+    }
+  }
+
+  function updateValue() {
+    model.value = humanizedCrontab.value ? crontab.value : '';
+  }
 </script>
 
 <style lang="scss">

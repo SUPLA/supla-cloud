@@ -33,7 +33,7 @@
     "apexcharts": "^5.3.6",
     "bootstrap-only-css": "^1.0.0",
     "change-case": "^5.4.4",
-    "cronstrue": "^2.61.0",
+    "cronstrue": "^3.9.0",
     "cropperjs": "^1.6.2",
     "floating-vue": "^2.0.0",
     "idb": "^7.1.1",

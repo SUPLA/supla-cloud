@@ -38,7 +38,7 @@
     <div v-for="action in config" :key="action.tempId" class="schedule-action">
       <div class="schedule-action-row">
         <div class="schedule-action-time-chooser">
-          <schedule-form-mode-crontab-input v-model="action.crontab" @input="updateConfig()"></schedule-form-mode-crontab-input>
+          <schedule-form-mode-crontab-input v-model="action.crontab" @update:modelValue="updateConfig()" />
         </div>
         <div class="schedule-action-actions">
           <channel-action-chooser
