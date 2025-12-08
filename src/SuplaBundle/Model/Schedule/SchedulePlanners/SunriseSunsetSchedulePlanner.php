@@ -83,7 +83,7 @@ class SunriseSunsetSchedulePlanner extends SchedulePlanner {
 
     /** @return CronExpression */
     private function getEveryMinuteCronExpression(string $crontab) {
-        $parts = explode(' ', $crontab);
+        $parts = preg_split('/\s/', $crontab, -1, PREG_SPLIT_NO_EMPTY);
         $parts[0] = '*';
         $parts[1] = '*';
         return new CronExpression(implode(' ', $parts));

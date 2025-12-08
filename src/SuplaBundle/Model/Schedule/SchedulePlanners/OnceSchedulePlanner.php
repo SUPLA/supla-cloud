@@ -23,7 +23,7 @@ use DateTime;
 
 class OnceSchedulePlanner extends SchedulePlanner {
     public function calculateNextScheduleExecution(string $crontab, DateTime $currentDate): DateTime {
-        $parts = explode(' ', $crontab);
+        $parts = preg_split('/\s/', $crontab, -1, PREG_SPLIT_NO_EMPTY);
         $year = array_pop($parts);
         $withoutAYear = implode(' ', $parts);
         if ($currentDate->format('Y') < $year) {
@@ -36,11 +36,11 @@ class OnceSchedulePlanner extends SchedulePlanner {
     }
 
     public function canCalculateFor(string $crontab): bool {
-        return count(explode(' ', $crontab)) === 6;
+        return count(preg_split('/\s/', $crontab, -1, PREG_SPLIT_NO_EMPTY)) === 6;
     }
 
     public function validate(string $crontab) {
-        $parts = explode(' ', $crontab);
+        $parts = preg_split('/\s/', $crontab, -1, PREG_SPLIT_NO_EMPTY);
         Assertion::count($parts, 6);
         $year = array_pop($parts);
         $withoutAYear = implode(' ', $parts);
