@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION supla_add_em_voltage_aberration_log_item(
-    _date                   TIMESTAMP,
+    _date                   TIMESTAMPTZ,
     _channel_id             INTEGER,
     _phase_no               SMALLINT,
     _count_total            INTEGER,

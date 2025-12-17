@@ -24,7 +24,7 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  */
 class Version20250611074734 extends NoWayBackMigration {
     public function migrate() {
-        $this->addSql('CREATE TABLE supla_energy_price_log (date_from TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_to TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, rce NUMERIC(8, 4) DEFAULT NULL, fixing1 NUMERIC(8, 4) DEFAULT NULL, fixing2 NUMERIC(8, 4) DEFAULT NULL, PRIMARY KEY(date_from))');
+        $this->addSql('CREATE TABLE supla_energy_price_log (date_from TIMESTAMPTZ(0) NOT NULL, date_to TIMESTAMPTZ(0) NOT NULL, rce NUMERIC(8, 4) DEFAULT NULL, fixing1 NUMERIC(8, 4) DEFAULT NULL, fixing2 NUMERIC(8, 4) DEFAULT NULL, PRIMARY KEY(date_from))');
         $this->addSql('COMMENT ON COLUMN supla_energy_price_log.date_from IS \'(DC2Type:stringdatetime)\'');
         $this->addSql('COMMENT ON COLUMN supla_energy_price_log.date_to IS \'(DC2Type:stringdatetime)\'');
         $this->addSql('SELECT create_hypertable(\'supla_energy_price_log\', \'date_from\')');

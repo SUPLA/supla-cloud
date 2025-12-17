@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION supla_add_em_power_active_log_item(
-    _date timestamp,
+    _date TIMESTAMPTZ,
     _channel_id integer,
     _phase_no smallint,
     _min numeric(11,5),
