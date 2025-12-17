@@ -41,6 +41,7 @@
   import IconHeating from '@/common/icons/icon-heating.vue';
   import IconCooling from '@/common/icons/icon-cooling.vue';
   import NumberInput from '@/common/number-input.vue';
+  import ChannelFunction from '@/common/enums/channel-function.js';
 
   export default {
     components: {NumberInput, IconCooling, IconHeating},
@@ -58,7 +59,7 @@
     },
     computed: {
       offsetMin() {
-        return this.subject.config.temperatureConstraints?.autoOffsetMin || 0;
+        return this.subject.config?.temperatureConstraints?.autoOffsetMin || 0;
       },
       temperatureConstraintName() {
         return this.subject.config?.defaultTemperatureConstraintName || 'room';
@@ -70,10 +71,10 @@
         return this.subject.config?.temperatureConstraints?.[`${this.temperatureConstraintName}Max`] || 100;
       },
       heatAvailable() {
-        return !this.hideHeat && this.subject.config.heatingModeAvailable;
+        return !this.hideHeat && (this.subject.functionId === ChannelFunction.THERMOSTATHEATPOLHOMEPLUS || this.subject.config?.heatingModeAvailable);
       },
       coolAvailable() {
-        return !this.hideCool && this.subject.config.coolingModeAvailable;
+        return !this.hideCool && this.subject.config?.coolingModeAvailable;
       },
       hasHeat() {
         return this.temperatureHeat !== null && this.temperatureHeat !== '';
