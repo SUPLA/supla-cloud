@@ -205,7 +205,6 @@ class ChannelGroupController extends RestController {
                 ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
                 ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
                 ChannelFunction::THERMOSTAT,
-                ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
             ],
             'Channels groups are not supported for this function.' // i18n
         );
