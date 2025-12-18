@@ -91,6 +91,7 @@ class CopyMeasurementLogsCommand extends Command {
                     }
                 }
                 $placeholders = '(' . implode(',', array_fill(0, count($columns), '?')) . ')';
+                $columns = array_map(fn($col) => '"' . $col . '"', $columns);
                 $sql = sprintf(
                     'INSERT INTO %s (%s) VALUES %s ON CONFLICT (%s) DO NOTHING;',
                     $tableName,
