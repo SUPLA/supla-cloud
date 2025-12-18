@@ -32,7 +32,7 @@ class CopyMeasurementLogsCommand extends Command {
     protected function configure() {
         $this
             ->setName('supla:copy-measurement-logs')
-            ->setDescription('Copies measurement logs from MariaDB to TSDB and vice versa.')
+            ->setDescription('Copies measurement logs from MariaDB to TSDB.')
             ->setHidden(true);
     }
 
@@ -84,7 +84,12 @@ class CopyMeasurementLogsCommand extends Command {
                 }
 
                 $columns = array_keys($rows[0]);
-                $uniqueColumns = in_array('phase_no', $columns) ? ['channel_id', 'date', 'phase_no'] : ['channel_id', 'date'];
+                $uniqueColumns = [];
+                foreach (['date', 'date_from', 'channel_id', 'phase_no'] as $possibleUniqueColumn) {
+                    if (in_array($possibleUniqueColumn, $columns)) {
+                        $uniqueColumns[] = $possibleUniqueColumn;
+                    }
+                }
                 $placeholders = '(' . implode(',', array_fill(0, count($columns), '?')) . ')';
                 $sql = sprintf(
                     'INSERT INTO %s (%s) VALUES %s ON CONFLICT (%s) DO NOTHING;',
