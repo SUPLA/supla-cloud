@@ -5,6 +5,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -33,6 +34,8 @@ class CopyMeasurementLogsCommand extends Command {
         $this
             ->setName('supla:copy-measurement-logs')
             ->setDescription('Copies measurement logs from MariaDB to TSDB.')
+            ->addOption('all', null, InputOption::VALUE_NONE, 'Copy all logs (ignore existing data, but do not override them)')
+            ->addOption('from-date', null, InputOption::VALUE_REQUIRED, 'Start date for copying logs (Y-m-d format)')
             ->setHidden(true);
     }
 
@@ -74,9 +77,27 @@ class CopyMeasurementLogsCommand extends Command {
             $batchSize = 1000;
             $offset = 0;
 
+            $fromDate = null;
+            if ($input->getOption('from-date')) {
+                $fromDate = new \DateTime($input->getOption('from-date'));
+            } elseif ($input->getOption('all') === false) {
+                $latestTsdbDate = $emTsdb->getConnection()
+                    ->executeQuery("SELECT MAX(date) as max_date FROM $tableName")
+                    ->fetchAssociative();
+                if ($latestTsdbDate['max_date']) {
+                    $fromDate = new \DateTime($latestTsdbDate['max_date']);
+                }
+            }
+
             while (true) {
+                $query = "SELECT * FROM $tableName";
+                if ($fromDate) {
+                    $query .= " WHERE date >= '" . $fromDate->format('Y-m-d H:i:s') . "'";
+                }
+                $query .= " LIMIT $batchSize OFFSET $offset";
+
                 $rows = $emMariadb->getConnection()
-                    ->executeQuery("SELECT * FROM $tableName LIMIT $batchSize OFFSET $offset")
+                    ->executeQuery($query)
                     ->fetchAllAssociative();
 
                 if (empty($rows)) {
