@@ -97,6 +97,16 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertStringContainsString('state=some-state', $targetUrl);
     }
 
+    public function testTriesToBrokerLoginWithInvalidSession() {
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_local';
+        $client = $this->createHttpsClient(false);
+        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
+        $client->followRedirect();
+        $client = $this->createHttpsClient(false);
+        $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
+        $this->assertResponseStatusCodeSame(404);
+    }
+
     public function testDoesNotRedirectToGivenTargetCloudIfItDoesNotWork() {
         SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_local';
         $client = $this->createHttpsClient();
