@@ -36,6 +36,7 @@ class CopyMeasurementLogsCommand extends Command {
             ->setDescription('Copies measurement logs from MariaDB to TSDB.')
             ->addOption('all', null, InputOption::VALUE_NONE, 'Copy all logs (ignore existing data, but do not override them)')
             ->addOption('from-date', null, InputOption::VALUE_REQUIRED, 'Start date for copying logs (Y-m-d format)')
+            ->addOption('table', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Comma-separated list of tables to copy')
             ->setHidden(true);
     }
 
@@ -49,8 +50,9 @@ class CopyMeasurementLogsCommand extends Command {
 
         $table = new Table($output);
         $table->setHeaders(['Log table', 'MariaDB Count', 'TSDB Count']);
+        $selectedTables = $this->getSelectedTables($input);
 
-        foreach (self::LOG_TABLES as $tableName) {
+        foreach ($selectedTables as $tableName) {
             $mariadbCount = $emMariadb->getConnection()
                 ->executeQuery("SELECT COUNT(*) count FROM $tableName")
                 ->fetchAssociative();
@@ -71,7 +73,7 @@ class CopyMeasurementLogsCommand extends Command {
             return 0;
         }
 
-        foreach (self::LOG_TABLES as $tableName) {
+        foreach ($selectedTables as $tableName) {
             $output->writeln("\nCopying $tableName...");
 
             $batchSize = 1000;
@@ -140,5 +142,13 @@ class CopyMeasurementLogsCommand extends Command {
         }
 
         return 0;
+    }
+
+    private function getSelectedTables(InputInterface $input): array {
+        if ($input->getOption('table')) {
+            $selectedTables = $input->getOption('table');
+            return array_intersect(self::LOG_TABLES, $selectedTables);
+        }
+        return self::LOG_TABLES;
     }
 }
