@@ -52,6 +52,11 @@ class CopyMeasurementLogsCommand extends Command {
         $table->setHeaders(['Log table', 'MariaDB Count', 'TSDB Count']);
         $selectedTables = $this->getSelectedTables($input);
 
+        if (!count($selectedTables)) {
+            $io->error('No tables selected.');
+            return 2;
+        }
+
         foreach ($selectedTables as $tableName) {
             $mariadbCount = $emMariadb->getConnection()
                 ->executeQuery("SELECT COUNT(*) count FROM $tableName")
@@ -80,21 +85,25 @@ class CopyMeasurementLogsCommand extends Command {
             $offset = 0;
 
             $fromDate = null;
+            $dateColumnName = $tableName === 'supla_energy_price_log' ? 'date_from' : 'date';
             if ($input->getOption('from-date')) {
                 $fromDate = new \DateTime($input->getOption('from-date'));
             } elseif ($input->getOption('all') === false) {
                 $latestTsdbDate = $emTsdb->getConnection()
-                    ->executeQuery("SELECT MAX(date) as max_date FROM $tableName")
+                    ->executeQuery("SELECT MAX($dateColumnName) as max_date FROM $tableName")
                     ->fetchAssociative();
                 if ($latestTsdbDate['max_date']) {
                     $fromDate = new \DateTime($latestTsdbDate['max_date']);
                 }
             }
+            if ($fromDate) {
+                $output->writeln("From date: {$fromDate->format('Y-m-d H:i:s')}");
+            }
 
             while (true) {
                 $query = "SELECT * FROM $tableName";
                 if ($fromDate) {
-                    $query .= " WHERE date >= '" . $fromDate->format('Y-m-d H:i:s') . "'";
+                    $query .= " WHERE $dateColumnName >= '" . $fromDate->format('Y-m-d H:i:s') . "'";
                 }
                 $query .= " LIMIT $batchSize OFFSET $offset";
 
