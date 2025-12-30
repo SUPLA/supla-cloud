@@ -37,6 +37,7 @@ class CopyMeasurementLogsCommand extends Command {
             ->addOption('all', null, InputOption::VALUE_NONE, 'Copy all logs (ignore existing data, but do not override them)')
             ->addOption('from-date', null, InputOption::VALUE_REQUIRED, 'Start date for copying logs (Y-m-d format)')
             ->addOption('table', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Comma-separated list of tables to copy')
+            ->addOption('batch-size', null, InputOption::VALUE_REQUIRED, 'Number of records to process in one batch', 1000)
             ->setHidden(true);
     }
 
@@ -81,7 +82,7 @@ class CopyMeasurementLogsCommand extends Command {
         foreach ($selectedTables as $tableName) {
             $output->writeln("\nCopying $tableName...");
 
-            $batchSize = 1000;
+            $batchSize = (int)$input->getOption('batch-size');
             $offset = 0;
 
             $fromDate = null;
@@ -142,7 +143,7 @@ class CopyMeasurementLogsCommand extends Command {
                 $emTsdb->getConnection()->executeStatement($sql, $values);
 
                 $offset += $batchSize;
-                if ($offset % 10000 === 0) {
+                if ($offset % ($batchSize * 10) === 0) {
                     $output->write('.');
                 }
             }
