@@ -38,11 +38,13 @@ class CopyMeasurementLogsCommand extends Command {
             ->addOption('from-date', null, InputOption::VALUE_REQUIRED, 'Start date for copying logs (Y-m-d format)')
             ->addOption('table', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Comma-separated list of tables to copy')
             ->addOption('batch-size', null, InputOption::VALUE_REQUIRED, 'Number of records to process in one batch', 1000)
+            ->addOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for the script', '2G')
             ->setHidden(true);
     }
 
     /** @inheritdoc */
     protected function execute(InputInterface $input, OutputInterface $output) {
+        ini_set('memory_limit', $input->getOption('memory-limit'));
         $io = new SymfonyStyle($input, $output);
         $emMariadb = $this->registry->getManager('default');
         $emTsdb = $this->registry->getManager('tsdb');
