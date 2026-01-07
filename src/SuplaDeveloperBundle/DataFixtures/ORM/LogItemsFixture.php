@@ -310,7 +310,7 @@ class LogItemsFixture extends SuplaFixture {
         }
     }
 
-    public function createElectricityMeterVoltageAberrationLogItems(?int $channelId = null, ?string $since = null, int $phaseNo = null) {
+    public function createElectricityMeterVoltageAberrationLogItems(?int $channelId = null, ?string $since = null, ?int $phaseNo = null) {
         if (!$channelId) {
             $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
             $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {

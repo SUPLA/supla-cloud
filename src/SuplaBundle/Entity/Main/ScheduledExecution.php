@@ -101,8 +101,8 @@ class ScheduledExecution {
     public function __construct(
         Schedule $schedule,
         DateTime $plannedTimestamp,
-        ChannelFunctionAction $action = null,
-        array $actionParam = null
+        ?ChannelFunctionAction $action = null,
+        ?array $actionParam = null
     ) {
         $this->schedule = $schedule;
         $this->plannedTimestamp = $plannedTimestamp;

@@ -18,7 +18,7 @@
 namespace SuplaBundle\Supla;
 
 class SuplaAutodiscoverReal extends SuplaAutodiscover {
-    protected function remoteRequest($endpoint, $post = false, &$responseStatus = null, array $headers = [], string $method = null) {
+    protected function remoteRequest($endpoint, $post = false, &$responseStatus = null, array $headers = [], ?string $method = null) {
         if (!$this->enabled()) {
             return null;
         }

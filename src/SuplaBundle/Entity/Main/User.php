@@ -499,7 +499,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         return $this;
     }
 
-    public function setPasswordRequestedAt(DateTime $date = null) {
+    public function setPasswordRequestedAt(?DateTime $date = null) {
         $this->passwordRequestedAt = $date;
         return $this;
     }

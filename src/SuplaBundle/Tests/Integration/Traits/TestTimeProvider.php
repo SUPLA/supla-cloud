@@ -6,7 +6,7 @@ use SuplaBundle\Model\TimeProvider;
 class TestTimeProvider extends TimeProvider {
     private static $timestamp;
 
-    public function getTimestamp(string $relative = null): int {
+    public function getTimestamp(?string $relative = null): int {
         return $relative ? strtotime($relative, self::getTimestamp()) : (self::$timestamp ?: parent::getTimestamp($relative));
     }
 

@@ -124,7 +124,7 @@ class Schedule implements HasSubject, ActionableSubject {
      */
     protected $retry = true;
 
-    public function __construct(User $user = null, array $data = []) {
+    public function __construct(?User $user = null, array $data = []) {
         $this->user = $user;
         if (count($data)) {
             $this->fill($data);

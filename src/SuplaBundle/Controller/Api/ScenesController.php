@@ -109,7 +109,7 @@ class ScenesController extends RestController {
         return $groups;
     }
 
-    private function returnScenes(callable $additionalConditions = null): Collection {
+    private function returnScenes(?callable $additionalConditions = null): Collection {
         return $this->sceneRepository->findAllForUser($this->getUser(), $additionalConditions)
             ->filter(function (Scene $scene) {
                 return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $scene);

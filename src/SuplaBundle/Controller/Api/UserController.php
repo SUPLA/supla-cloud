@@ -559,7 +559,7 @@ class UserController extends RestController {
      * @Rest\Put("/forgotten-password/{token}", name="forgot_passwd_put")
      * @UnavailableInMaintenance
      */
-    public function forgotPasswordAction(Request $request, string $token = null) {
+    public function forgotPasswordAction(Request $request, ?string $token = null) {
         $data = json_decode($request->getContent(), true);
         $username = $data['email'] ?? '';
         if (preg_match('/@/', $username) || $token) {

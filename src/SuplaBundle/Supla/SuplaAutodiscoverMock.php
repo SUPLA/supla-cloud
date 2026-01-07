@@ -97,7 +97,7 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         return self::$isTarget;
     }
 
-    protected function remoteRequest($endpoint, $post = false, &$responseStatus = null, array $headers = [], string $method = null) {
+    protected function remoteRequest($endpoint, $post = false, &$responseStatus = null, array $headers = [], ?string $method = null) {
         $method = $method ?: ($post ? 'POST' : 'GET');
         self::$requests[] = ['endpoint' => $endpoint, 'post' => $post, 'headers' => $headers];
         foreach (self::$mockedResponses as $mockedEndpoint => $responseSpec) {

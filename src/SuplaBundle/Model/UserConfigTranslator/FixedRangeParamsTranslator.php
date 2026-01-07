@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\UserConfigTranslator;
 
 trait FixedRangeParamsTranslator {
-    protected function getValueInRange($value, float $min, float $max, float $default = null): float {
+    protected function getValueInRange($value, float $min, float $max, ?float $default = null): float {
         if (is_null($value) || $value === '') {
             return $default ?? 0;
         }

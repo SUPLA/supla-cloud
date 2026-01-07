@@ -638,7 +638,7 @@ class ChannelMeasurementLogsController extends RestController {
         return $targetChannel ?: $channel;
     }
 
-    private function deleteMeasurementLogs($entityClass, IODeviceChannel $channel, callable $filters = null) {
+    private function deleteMeasurementLogs($entityClass, IODeviceChannel $channel, ?callable $filters = null) {
         $repo = $this->getDoctrine()->getRepository($entityClass, 'measurement_logs');
         $qb = $repo->createQueryBuilder('log')
             ->delete()

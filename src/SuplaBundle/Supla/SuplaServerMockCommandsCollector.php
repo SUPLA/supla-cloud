@@ -29,7 +29,7 @@ class SuplaServerMockCommandsCollector extends DataCollector {
         $this->reset();
     }
 
-    public function collect(Request $request, Response $response, Exception $exception = null) {
+    public function collect(Request $request, Response $response, ?Exception $exception = null) {
     }
 
     public function addCommand(string $command) {

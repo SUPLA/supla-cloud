@@ -15,7 +15,7 @@ class TestMailerTransport implements TransportInterface {
         return self::$messages;
     }
 
-    public function send(RawMessage $message, Envelope $envelope = null): ?SentMessage {
+    public function send(RawMessage $message, ?Envelope $envelope = null): ?SentMessage {
         self::$messages[] = $message;
         return new SentMessage($message, $envelope ?: Envelope::create($message));
     }

@@ -94,7 +94,7 @@ class AccessToken extends BaseAccessToken {
      */
     private $issuedFor;
 
-    public function __construct(Request $request = null) {
+    public function __construct(?Request $request = null) {
         if ($request) {
             $this->issuerIp = $request->getClientIp();
             $this->issuerBrowserString = $request->headers->get('User-Agent');

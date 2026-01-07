@@ -42,7 +42,7 @@ class Audit {
     }
 
     /** @return AuditEntry|null */
-    public function recentEntry(AuditedEvent $event, $period = 'PT5M', User $user = null) {
+    public function recentEntry(AuditedEvent $event, $period = 'PT5M', ?User $user = null) {
         $date = $this->timeProvider->getDateTime();
         $date->setTimeZone(new \DateTimeZone('UTC'));
         $date->sub(new \DateInterval($period));

@@ -22,7 +22,7 @@ class AuditEntryBuilder {
     private $timeProvider;
     private $ipv4;
 
-    public function __construct(EntityManagerInterface $entityManager, TimeProvider $timeProvider = null) {
+    public function __construct(EntityManagerInterface $entityManager, ?TimeProvider $timeProvider = null) {
         $this->entityManager = $entityManager;
         $this->timeProvider = $timeProvider ?: new TimeProvider();
     }

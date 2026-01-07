@@ -12,7 +12,7 @@ class TestClient extends KernelBrowser {
         array $params = [],
         array $files = [],
         array $server = [],
-        string $version = null
+        ?string $version = null
     ) {
         if (is_array($content)) {
             $content = json_encode($content);

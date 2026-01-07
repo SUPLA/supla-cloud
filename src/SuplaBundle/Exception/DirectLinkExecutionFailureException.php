@@ -28,7 +28,7 @@ class DirectLinkExecutionFailureException extends ApiExceptionWithDetails {
         DirectLinkExecutionFailureReason $reason,
         array $data = [],
         int $statusCode = Response::HTTP_BAD_REQUEST,
-        \Exception $previous = null
+        ?\Exception $previous = null
     ) {
         parent::__construct($reason->getValue(), $data, $statusCode, $previous);
         $this->reason = $reason;

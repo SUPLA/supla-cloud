@@ -90,7 +90,7 @@ abstract class SuplaAutodiscover {
         $post = false,
         &$responseStatus = null,
         array $headers = [],
-        string $method = null
+        ?string $method = null
     );
 
     public function getAuthServerForUser(string $username): TargetSuplaCloud {
@@ -350,7 +350,7 @@ abstract class SuplaAutodiscover {
         return false;
     }
 
-    public function getInfo(string $brokerToken = null): array {
+    public function getInfo(?string $brokerToken = null): array {
         $response = $this->remoteRequest('/about', null, $responseStatus, ['Authorization' => $brokerToken]);
         return $response ?: ['isBroker' => false, 'isTarget' => false];
     }

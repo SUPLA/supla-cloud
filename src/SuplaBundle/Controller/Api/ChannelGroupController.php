@@ -96,7 +96,7 @@ class ChannelGroupController extends RestController {
     }
 
     /** @return Collection|\SuplaBundle\Entity\Main\IODeviceChannelGroup[] */
-    private function returnChannelGroups(callable $filters = null): Collection {
+    private function returnChannelGroups(?callable $filters = null): Collection {
         return $this->channelGroupRepository->findAllForUser($this->getUser(), $filters)
             ->filter(function (IODeviceChannelGroup $channelGroup) {
                 return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channelGroup);

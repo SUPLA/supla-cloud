@@ -18,7 +18,7 @@
 namespace SuplaBundle\Supla;
 
 class SuplaHttpClient {
-    public function request(string $fullUrl, string $method = null, ?array $payload = null, array $headers = []): array {
+    public function request(string $fullUrl, ?string $method = null, ?array $payload = null, array $headers = []): array {
         $ch = curl_init($fullUrl);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         if ($payload) {

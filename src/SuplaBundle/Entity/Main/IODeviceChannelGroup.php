@@ -131,7 +131,7 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
     private $reactions;
 
     /** @param IODeviceChannel[] $channels */
-    public function __construct(User $user = null, Location $location = null, array $channels = []) {
+    public function __construct(?User $user = null, ?Location $location = null, array $channels = []) {
         $this->channels = new ArrayCollection();
         $this->directLinks = new ArrayCollection();
         $this->schedules = new ArrayCollection();

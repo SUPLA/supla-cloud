@@ -85,8 +85,8 @@ class TargetSuplaCloudRequestForwarder {
     private function sendRequest(
         TargetSuplaCloud $target,
         string $apiEndpoint,
-        array $data = null,
-        string $method = null,
+        ?array $data = null,
+        ?string $method = null,
         array $headers = []
     ): array {
         if (self::$requestExecutor) {

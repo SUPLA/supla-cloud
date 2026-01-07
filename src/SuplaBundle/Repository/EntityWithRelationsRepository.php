@@ -49,7 +49,7 @@ abstract class EntityWithRelationsRepository extends EntityRepository {
         }
     }
 
-    public function findAllForUser(User $user, callable $additionalConditions = null): Collection {
+    public function findAllForUser(User $user, ?callable $additionalConditions = null): Collection {
         $query = $this->getEntityWithRelationsCountQuery()
             ->where($this->alias . '.user = :user')
             ->setParameter('user', $user);

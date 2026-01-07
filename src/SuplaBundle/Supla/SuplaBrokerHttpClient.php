@@ -38,9 +38,9 @@ class SuplaBrokerHttpClient {
     public function request(
         string $fullUrl,
         ?array $payload = null,
-        int &$responseStatus = null,
+        ?int &$responseStatus = null,
         array $headers = [],
-        string $method = null,
+        ?string $method = null,
         string $authorizationHeaderName = 'Authorization'
     ): ?array {
         $method = $method ?: ($payload ? 'POST' : 'GET');

@@ -163,7 +163,7 @@ abstract class SuplaServer {
         return $this->getConnectionStatus('CHANNEL', $channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId());
     }
 
-    public function userAction($action, $params = [], User $user = null): bool {
+    public function userAction($action, $params = [], ?User $user = null): bool {
         $userId = $user ? $user->getId() : $this->getCurrentUserOrThrow()->getId();
         $command = "USER-{$action}:{$userId}";
         if ($params) {
@@ -174,7 +174,7 @@ abstract class SuplaServer {
         return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1;
     }
 
-    public function postponeUserAction($action, $params = [], User $user = null): void {
+    public function postponeUserAction($action, $params = [], ?User $user = null): void {
         $userId = $user ? $user->getId() : $this->getCurrentUserOrThrow()->getId();
         $command = "USER-{$action}:{$userId}";
         if ($params) {
@@ -206,7 +206,7 @@ abstract class SuplaServer {
         return $result !== false && str_starts_with($result, 'OK:');
     }
 
-    public function reconnect(User $user = null): void {
+    public function reconnect(?User $user = null): void {
         $userId = $user ? $user->getId() : $this->getCurrentUserOrThrow()->getId();
         $this->postponeCommand('USER-RECONNECT', [$userId]);
     }
@@ -227,7 +227,7 @@ abstract class SuplaServer {
         return $this->userAction('GOOGLE-HOME-CREDENTIALS-CHANGED');
     }
 
-    public function getPushNotificationLimit(User $user = null): array {
+    public function getPushNotificationLimit(?User $user = null): array {
         $userId = $user ? $user->getId() : $this->getCurrentUserOrThrow()->getId();
         $command = "PN-GET-LIMIT:$userId";
         $result = $this->doExecuteCommand($command);

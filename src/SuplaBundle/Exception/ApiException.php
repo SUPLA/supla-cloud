@@ -4,7 +4,7 @@ namespace SuplaBundle\Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ApiException extends HttpException {
-    public function __construct(string $message, int $statusCode = 400, \Exception $previous = null) {
+    public function __construct(string $message, int $statusCode = 400, ?\Exception $previous = null) {
         parent::__construct($statusCode, $message, $previous, [], $statusCode);
     }
 

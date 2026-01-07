@@ -308,7 +308,7 @@ class ExecuteDirectLinkController extends Controller {
         string $responseType,
         int $responseCode,
         array $data = [],
-        DirectLinkExecutionFailureReason $failureReason = null
+        ?DirectLinkExecutionFailureReason $failureReason = null
     ): Response {
         if ($responseType == 'html') {
             $exposeLinkReasons = [
