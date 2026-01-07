@@ -220,7 +220,7 @@ class SuplaServerMock extends SuplaServer {
                 $impulsesPerUnit, // ImpulsesPerUnit
                 $counter, // Counter
                 round($counter * 1000 / $impulsesPerUnit), // CalculatedValue * 1000
-                $this->faker->boolean() ? $this->faker->currencyCode : '', // currency
+                $this->faker->boolean() ? $this->faker->currencyCode() : '', // currency
                 $this->faker->boolean() ? base64_encode($this->faker->randomElement(['m³', 'wahnięć', 'l'])) : '' // base-64 unit name
             );
         } elseif (preg_match('#^GET-HVAC-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // HVAC

@@ -41,7 +41,7 @@ class Version20220208164512 extends NoWayBackMigration {
         $icQuery = $this->getConnection()->executeQuery("SELECT id, user_config FROM supla_dev_channel WHERE type = $icType");
         while ($icChannel = $icQuery->fetchAssociative()) {
             $id = $icChannel['id'];
-            $userConfig = json_decode($icChannel['user_config'], true);
+            $userConfig = json_decode($icChannel['user_config'] ?: '{}', true);
             $initialValue = $userConfig['initialValue'] ?? 0;
             $userConfig['addToHistory'] = $initialValue > 0;
             $this->addSql(
@@ -56,7 +56,7 @@ class Version20220208164512 extends NoWayBackMigration {
         $ecQuery = $this->getConnection()->executeQuery("SELECT id, user_config FROM supla_dev_channel WHERE func = $ecFunction");
         while ($ecChannel = $ecQuery->fetchAssociative()) {
             $id = $ecChannel['id'];
-            $userConfig = json_decode($ecChannel['user_config'], true);
+            $userConfig = json_decode($ecChannel['user_config'] ?: '{}', true);
             $initialValues = $userConfig['electricityMeterInitialValues'] ?? [];
             $nonZeroInitialValue = array_filter($initialValues);
             $userConfig['addToHistory'] = count($nonZeroInitialValue) > 0;
@@ -72,7 +72,7 @@ class Version20220208164512 extends NoWayBackMigration {
         $gatesQuery = $this->getConnection()->executeQuery("SELECT id, user_config FROM supla_dev_channel WHERE func IN($gateFunctions)");
         while ($gateChannel = $gatesQuery->fetchAssociative()) {
             $id = $gateChannel['id'];
-            $userConfig = json_decode($gateChannel['user_config'], true);
+            $userConfig = json_decode($gateChannel['user_config'] ?: '{}', true);
             if (isset($userConfig['numberOfAttemptsToOpenOrClose'])) {
                 $numberOfAttempts = intval($userConfig['numberOfAttemptsToOpenOrClose']) ?: 1;
                 unset($userConfig['numberOfAttemptsToOpenOrClose']);

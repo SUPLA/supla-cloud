@@ -58,7 +58,7 @@ class AccessIDActiveNowIntegrationTest extends IntegrationTestCase {
         }
     }
 
-    public function activeNowAccessIds() {
+    public static function activeNowAccessIds(): array {
         return [
 //            'no constraints' => [function (AccessID $aid) {
 //                return $aid;

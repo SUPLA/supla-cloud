@@ -81,7 +81,7 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
         $this->assertEquals($expectedState, array_intersect_key($state, $expectedState));
     }
 
-    public function transformingImpulseCounterResponsesExamples() {
+    public static function transformingImpulseCounterResponsesExamples(): array {
         return [
             [
                 'VALUE:10000,2000000,300,400,500000,PLN,dW5pY29ybgo=',

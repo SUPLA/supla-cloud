@@ -75,7 +75,7 @@ class SecurityIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode($expectedStatusCode, $client->getResponse(), $message);
     }
 
-    public function urlUserAssignments() {
+    public static function urlUserAssignments(): array {
         $specs = [
             'locations' => [
                 'url' => '/locations/%d',

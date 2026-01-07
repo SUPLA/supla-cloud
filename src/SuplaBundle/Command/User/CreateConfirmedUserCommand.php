@@ -48,7 +48,7 @@ class CreateConfirmedUserCommand extends Command {
             } catch (\RuntimeException $e) {
                 if ($e->getCode() == self::USERNAME_EXISTS_CODE && $input->getOption('if-not-exists')) {
                     $output->writeln("User $username already exists.");
-                    return;
+                    return 1;
                 } else {
                     throw $e;
                 }

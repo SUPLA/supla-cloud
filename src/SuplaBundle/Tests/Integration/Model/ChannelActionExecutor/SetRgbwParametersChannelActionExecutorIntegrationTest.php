@@ -55,7 +55,7 @@ class SetRgbwParametersChannelActionExecutorIntegrationTest extends IntegrationT
         $this->assertEquals($expectedCommand, $setCommand);
     }
 
-    public function colorParamsExamples() {
+    public static function colorParamsExamples(): array {
         return [
             [['color' => '0xFF0000', 'color_brightness' => 55], 'SET-RGBW-VALUE:1,1,1,16711680,55,0,0'],
             [['color' => '16711680', 'color_brightness' => 55], 'SET-RGBW-VALUE:1,1,1,16711680,55,0,0'],

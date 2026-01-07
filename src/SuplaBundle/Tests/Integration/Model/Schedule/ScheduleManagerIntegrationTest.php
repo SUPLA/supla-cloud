@@ -109,7 +109,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue(true);
     }
 
-    public function exampleConfigs(): array {
+    public static function exampleConfigs(): array {
         return [
             [[]],
             [[[]]],

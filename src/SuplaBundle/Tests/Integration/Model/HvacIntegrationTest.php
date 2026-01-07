@@ -78,7 +78,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($config['weeklySchedule']);
         $this->assertCount(24 * 4 * 7, $config['weeklySchedule']['quarters']);
         $this->assertCount(4, $config['weeklySchedule']['programSettings']);
-        $configValidator($config);
+        $configValidator($this, $config);
     }
 
     /** @dataProvider hvacChannelConfigs */
@@ -97,76 +97,76 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(json_decode(json_encode($channelConfig), true), $content['config']);
     }
 
-    public function hvacChannelConfigs() {
+    public static function hvacChannelConfigs(): array {
         return [
             'THERMOSTAT' => [
                 2,
-                function (array $config) {
-                    $this->assertEquals('HEAT', $config['subfunction']);
-                    $this->assertEquals(2, $config['mainThermometerChannelId']);
-                    $this->assertEquals(21, $config['weeklySchedule']['programSettings'][2]['setpointTemperatureHeat']);
-                    $this->assertNull($config['weeklySchedule']['programSettings'][2]['setpointTemperatureCool']);
-                    $this->assertEquals(21, $config['altWeeklySchedule']['programSettings'][2]['setpointTemperatureCool']);
-                    $this->assertEquals('NOT_SET', $config['auxThermometerType']);
-                    $this->assertFalse($config['antiFreezeAndOverheatProtectionEnabled']);
-                    $this->assertFalse($config['temperatureSetpointChangeSwitchesToManualMode']);
-                    $this->assertCount(3, $config['availableAlgorithms']);
-                    $this->assertEquals(0, $config['minOnTimeS']);
-                    $this->assertEquals(0, $config['outputValueOnError']);
-                    $this->assertNull($config['binarySensorChannelId']);
-                    $this->assertCount(6, $config['temperatures']);
-                    $this->assertEquals(3.3, $config['temperatures']['auxHisteresis']);
-                    $this->assertTrue($config['heatingModeAvailable']);
-                    $this->assertTrue($config['coolingModeAvailable']);
-                    $this->assertTrue($config['pumpSwitchAvailable']);
-                    $this->assertTrue($config['masterThermostatAvailable']);
-                    $this->assertTrue($config['heatOrColdSourceSwitchAvailable']);
-                    $this->assertEquals('ROOM_TEMPERATURE', $config['temperatureControlType']);
-                    $this->assertEquals('room', $config['defaultTemperatureConstraintName']);
+                function (HvacIntegrationTest $that, array $config) {
+                    $that->assertEquals('HEAT', $config['subfunction']);
+                    $that->assertEquals(2, $config['mainThermometerChannelId']);
+                    $that->assertEquals(21, $config['weeklySchedule']['programSettings'][2]['setpointTemperatureHeat']);
+                    $that->assertNull($config['weeklySchedule']['programSettings'][2]['setpointTemperatureCool']);
+                    $that->assertEquals(21, $config['altWeeklySchedule']['programSettings'][2]['setpointTemperatureCool']);
+                    $that->assertEquals('NOT_SET', $config['auxThermometerType']);
+                    $that->assertFalse($config['antiFreezeAndOverheatProtectionEnabled']);
+                    $that->assertFalse($config['temperatureSetpointChangeSwitchesToManualMode']);
+                    $that->assertCount(3, $config['availableAlgorithms']);
+                    $that->assertEquals(0, $config['minOnTimeS']);
+                    $that->assertEquals(0, $config['outputValueOnError']);
+                    $that->assertNull($config['binarySensorChannelId']);
+                    $that->assertCount(6, $config['temperatures']);
+                    $that->assertEquals(3.3, $config['temperatures']['auxHisteresis']);
+                    $that->assertTrue($config['heatingModeAvailable']);
+                    $that->assertTrue($config['coolingModeAvailable']);
+                    $that->assertTrue($config['pumpSwitchAvailable']);
+                    $that->assertTrue($config['masterThermostatAvailable']);
+                    $that->assertTrue($config['heatOrColdSourceSwitchAvailable']);
+                    $that->assertEquals('ROOM_TEMPERATURE', $config['temperatureControlType']);
+                    $that->assertEquals('room', $config['defaultTemperatureConstraintName']);
                 },
             ],
             'THERMOSTAT_HEAT_COOL' => [
                 3,
-                function (array $config) {
-                    $this->assertArrayNotHasKey('subfunction', $config);
-                    $this->assertArrayNotHasKey('altWeeklySchedule', $config);
-                    $this->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][1]['mode']);
-                    $this->assertEquals('COOL', $config['weeklySchedule']['programSettings'][2]['mode']);
-                    $this->assertEquals('HEAT_COOL', $config['weeklySchedule']['programSettings'][3]['mode']);
-                    $this->assertEquals(21, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureHeat']);
-                    $this->assertEquals(2, $config['auxThermometerChannelId']);
-                    $this->assertEquals('FLOOR', $config['auxThermometerType']);
-                    $this->assertTrue($config['antiFreezeAndOverheatProtectionEnabled']);
-                    $this->assertTrue($config['temperatureSetpointChangeSwitchesToManualMode']);
-                    $this->assertCount(1, $config['availableAlgorithms']);
-                    $this->assertEquals(60, $config['minOnTimeS']);
-                    $this->assertEquals(120, $config['minOffTimeS']);
-                    $this->assertEquals(42, $config['outputValueOnError']);
-                    $this->assertCount(10, $config['temperatures']);
-                    $this->assertCount(8, $config['temperatureConstraints']);
-                    $this->assertTrue($config['heatingModeAvailable']);
-                    $this->assertTrue($config['coolingModeAvailable']);
-                    $this->assertArrayNotHasKey('temperatureControlType', $config);
-                    $this->assertEquals('room', $config['defaultTemperatureConstraintName']);
+                function (HvacIntegrationTest $that, array $config) {
+                    $that->assertArrayNotHasKey('subfunction', $config);
+                    $that->assertArrayNotHasKey('altWeeklySchedule', $config);
+                    $that->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][1]['mode']);
+                    $that->assertEquals('COOL', $config['weeklySchedule']['programSettings'][2]['mode']);
+                    $that->assertEquals('HEAT_COOL', $config['weeklySchedule']['programSettings'][3]['mode']);
+                    $that->assertEquals(21, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureHeat']);
+                    $that->assertEquals(2, $config['auxThermometerChannelId']);
+                    $that->assertEquals('FLOOR', $config['auxThermometerType']);
+                    $that->assertTrue($config['antiFreezeAndOverheatProtectionEnabled']);
+                    $that->assertTrue($config['temperatureSetpointChangeSwitchesToManualMode']);
+                    $that->assertCount(1, $config['availableAlgorithms']);
+                    $that->assertEquals(60, $config['minOnTimeS']);
+                    $that->assertEquals(120, $config['minOffTimeS']);
+                    $that->assertEquals(42, $config['outputValueOnError']);
+                    $that->assertCount(10, $config['temperatures']);
+                    $that->assertCount(8, $config['temperatureConstraints']);
+                    $that->assertTrue($config['heatingModeAvailable']);
+                    $that->assertTrue($config['coolingModeAvailable']);
+                    $that->assertArrayNotHasKey('temperatureControlType', $config);
+                    $that->assertEquals('room', $config['defaultTemperatureConstraintName']);
                 },
             ],
             'DOMESTIC_HOT_WATER' => [
                 4,
-                function (array $config) {
-                    $this->assertArrayNotHasKey('subfunction', $config);
-                    $this->assertArrayNotHasKey('altWeeklySchedule', $config);
-                    $this->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][1]['mode']);
-                    $this->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][2]['mode']);
-                    $this->assertEquals(24, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureHeat']);
-                    $this->assertEquals('ON_OFF_SETPOINT_AT_MOST', $config['usedAlgorithm']);
-                    $this->assertEquals(6, $config['binarySensorChannelId']);
-                    $this->assertCount(7, $config['temperatures']);
-                    $this->assertEquals(1800, $config['temperatures']['eco']);
-                    $this->assertArrayNotHasKey('comfort', $config['temperatures']);
-                    $this->assertCount(3, array_filter($config['temperatures']));
-                    $this->assertTrue($config['heatingModeAvailable']);
-                    $this->assertFalse($config['coolingModeAvailable']);
-                    $this->assertArrayNotHasKey('temperatureControlType', $config);
+                function (HvacIntegrationTest $that, array $config) {
+                    $that->assertArrayNotHasKey('subfunction', $config);
+                    $that->assertArrayNotHasKey('altWeeklySchedule', $config);
+                    $that->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][1]['mode']);
+                    $that->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][2]['mode']);
+                    $that->assertEquals(24, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureHeat']);
+                    $that->assertEquals('ON_OFF_SETPOINT_AT_MOST', $config['usedAlgorithm']);
+                    $that->assertEquals(6, $config['binarySensorChannelId']);
+                    $that->assertCount(7, $config['temperatures']);
+                    $that->assertEquals(1800, $config['temperatures']['eco']);
+                    $that->assertArrayNotHasKey('comfort', $config['temperatures']);
+                    $that->assertCount(3, array_filter($config['temperatures']));
+                    $that->assertTrue($config['heatingModeAvailable']);
+                    $that->assertFalse($config['coolingModeAvailable']);
+                    $that->assertArrayNotHasKey('temperatureControlType', $config);
                 },
             ],
         ];
@@ -474,7 +474,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
     }
 
-    public function invalidConfigRequests() {
+    public static function invalidConfigRequests(): array {
         return [
             [['usedAlgorithm' => 'unicorn']],
             [['auxThermometerType' => 'unicorn']],
@@ -602,7 +602,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertSuplaCommandExecuted($expectedCommand);
     }
 
-    public function hvacActionsProvider() {
+    public static function hvacActionsProvider(): array {
         // @codingStandardsIgnoreStart
         return [
             [3, ['action' => 'TURN_ON'], 'ACTION-TURN-ON:1,1,3'],
@@ -649,7 +649,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
     }
 
-    public function hvacInvalidActionsProvider() {
+    public static function hvacInvalidActionsProvider(): array {
         // @codingStandardsIgnoreStart
         return [
             [3, ['action' => 'OPEN']],
@@ -692,7 +692,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($expectedState, array_intersect_key($state, $expectedState));
     }
 
-    public function stateExamples() {
+    public static function stateExamples(): array {
         return [
             ['VALUE:0,1,2,3,0,2010,5010', [
                 'heating' => false,

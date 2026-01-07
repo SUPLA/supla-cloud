@@ -96,7 +96,8 @@ class AuthorizeOAuthController extends AbstractController {
         $publicClientName = null;
         if ($this->autodiscover->enabled()) {
             $targetPath = $this->getTargetPath($session, 'oauth_authorize');
-            if (preg_match('#/oauth/v2/auth/?\?(.+)#', $targetPath, $match)) {
+            $oauthParams = [];
+            if ($targetPath && preg_match('#/oauth/v2/auth/?\?(.+)#', $targetPath, $match)) {
                 parse_str($match[1], $oauthParams);
             }
             if (isset($oauthParams['client_id'])) {

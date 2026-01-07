@@ -31,7 +31,7 @@ class Version20231219083453 extends NoWayBackMigration {
             "SELECT id, user_config FROM supla_dev_channel WHERE func IN($hvacAutoFunctions) AND user_config LIKE '%\"AUTO\"%'"
         );
         foreach ($channels as $channelData) {
-            $userConfig = json_decode($channelData['user_config'], true);
+            $userConfig = json_decode($channelData['user_config'] ?: '{}', true);
             if ($userConfig) {
                 $changed = false;
                 if (isset($userConfig['weeklySchedule']) && isset($userConfig['weeklySchedule']['programSettings'])) {

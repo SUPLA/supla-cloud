@@ -153,7 +153,7 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
     }
 
-    public function invalidConfigRequests() {
+    public static function invalidConfigRequests(): array {
         return [
             [['valueDivider' => 3_000_000]],
             [['valueDivider' => [1]]],

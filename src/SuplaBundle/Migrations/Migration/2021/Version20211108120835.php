@@ -28,7 +28,7 @@ class Version20211108120835 extends NoWayBackMigration {
         while ($icChannel = $icQuery->fetchAssociative()) {
             $id = $icChannel['id'];
             $param1 = $icChannel['param1'];
-            $userConfig = json_decode($icChannel['user_config'], true);
+            $userConfig = json_decode($icChannel['user_config'] ?: '{}', true);
             $userConfig['initialValue'] = NumberUtils::maximumDecimalPrecision($param1 / 100, 2);
             $this->addSql(
                 'UPDATE supla_dev_channel SET param1=0, user_config=:config WHERE id=:id',
