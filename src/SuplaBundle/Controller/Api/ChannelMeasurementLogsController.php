@@ -55,12 +55,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ChannelMeasurementLogsController extends RestController {
     use SuplaServerAware;
 
-    private const int RECORD_LIMIT_PER_REQUEST = 10000;
+    private const RECORD_LIMIT_PER_REQUEST = 10000;
 
-    private const string LOGS_TYPE_VOLTAGE_ABERRATIONS = 'voltageAberrations';
-    private const string LOGS_TYPE_VOLTAGE_HISTORY = 'voltageHistory';
-    private const string LOGS_TYPE_CURRENT_HISTORY = 'currentHistory';
-    private const string LOGS_TYPE_POWER_ACTIVE_HISTORY = 'powerActiveHistory';
+    private const LOGS_TYPE_VOLTAGE_ABERRATIONS = 'voltageAberrations';
+    private const LOGS_TYPE_VOLTAGE_HISTORY = 'voltageHistory';
+    private const LOGS_TYPE_CURRENT_HISTORY = 'currentHistory';
+    private const LOGS_TYPE_POWER_ACTIVE_HISTORY = 'powerActiveHistory';
 
     /** @var IODeviceManager */
     private $deviceManager;

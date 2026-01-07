@@ -18,7 +18,7 @@
 namespace SuplaBundle\Enums;
 
 final readonly class UserPreferences {
-    public const string OPT_OUT_NOTIFICATIONS_EMAIL = 'optOutNotifications';
-    public const string OPT_OUT_NOTIFICATIONS_PUSH = 'optOutNotificationsPush';
-    public const string ACCOUNT_PUSH_NOTIFICATIONS_ACCESS_IDS_IDS = 'accountPushNotificationsAccessIdsIds';
+    public const OPT_OUT_NOTIFICATIONS_EMAIL = 'optOutNotifications';
+    public const OPT_OUT_NOTIFICATIONS_PUSH = 'optOutNotificationsPush';
+    public const ACCOUNT_PUSH_NOTIFICATIONS_ACCESS_IDS_IDS = 'accountPushNotificationsAccessIdsIds';
 }

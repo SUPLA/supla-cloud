@@ -26,6 +26,6 @@ use OpenApi\Annotations as OA;
  * @method static VirtualChannelType OPEN_WEATHER()
  */
 final class VirtualChannelType extends Enum {
-    const string OPEN_WEATHER = 'OPEN_WEATHER';
-    const string ENERGY_PRICE_FORECAST = 'ENERGY_PRICE_FORECAST';
+    const OPEN_WEATHER = 'OPEN_WEATHER';
+    const ENERGY_PRICE_FORECAST = 'ENERGY_PRICE_FORECAST';
 }
