@@ -122,7 +122,7 @@ class ApiClient extends Client {
     }
 
     public function getDescription() {
-        return @json_decode($this->description, true) ?: $this->description;
+        return $this->description ? (json_decode($this->description, true) ?: $this->description) : [];
     }
 
     public function setDescription($description) {
@@ -133,7 +133,7 @@ class ApiClient extends Client {
     }
 
     public function getLongDescription() {
-        return @json_decode($this->longDescription, true) ?: $this->longDescription;
+        return $this->longDescription ? (json_decode($this->longDescription, true) ?: $this->longDescription) : [];
     }
 
     private function setLongDescription($longDescription) {

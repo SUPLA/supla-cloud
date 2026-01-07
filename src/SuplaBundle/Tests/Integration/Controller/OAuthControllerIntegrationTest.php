@@ -150,4 +150,9 @@ class OAuthControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('scope', $content[0]);
         $this->assertArrayNotHasKey('token', $content[0]);
     }
+
+    protected static function createClient(array $options = [], array $server = []) {
+        self::ensureKernelShutdown();
+        return parent::createClient($options, $server);
+    }
 }

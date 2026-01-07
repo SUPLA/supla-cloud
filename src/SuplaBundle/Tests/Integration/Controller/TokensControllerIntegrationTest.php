@@ -114,4 +114,9 @@ class TokensControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('scope', $content);
         $this->assertArrayHasKey('expiresAt', $content);
     }
+
+    protected static function createClient(array $options = [], array $server = []) {
+        self::ensureKernelShutdown();
+        return parent::createClient($options, $server);
+    }
 }

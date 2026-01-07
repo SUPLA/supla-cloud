@@ -111,4 +111,9 @@ class ServerControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotEmpty($content->time);
         $this->assertEquals('OK', $content->serverStatus);
     }
+
+    protected static function createClient(array $options = [], array $server = []) {
+        self::ensureKernelShutdown();
+        return parent::createClient($options, $server);
+    }
 }
