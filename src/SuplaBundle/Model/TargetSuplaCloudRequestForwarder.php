@@ -92,7 +92,7 @@ class TargetSuplaCloudRequestForwarder {
         if (self::$requestExecutor) {
             return (self::$requestExecutor)($target->getAddress(), $apiEndpoint, $data);
         }
-        if (strpos($apiEndpoint, '/') !== 0) {
+        if (!str_starts_with($apiEndpoint, '/')) {
             $apiEndpoint = '/api/v' . ApiVersions::V2_3 . '/' . $apiEndpoint;
         }
         if ($ip = $this->clientIpResolver->getRealIp()) {

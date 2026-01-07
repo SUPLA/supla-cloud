@@ -91,7 +91,7 @@ class ScheduleManager {
             $sortKey = $slugify->slugify(implode(' ', [
                 $this->ioDeviceManager->channelFunctionToString($channel->getFunction()),
                 // Default zzzzz caption places the items without caption at the end. Lame, but works :-D
-                $channel->getCaption() ? $channel->getCaption() : 'zzzzzz',
+                $channel->getCaption() ?: 'zzzzzz',
                 $channel->getId(),
             ]));
             $channelsList[$sortKey] = $channel;

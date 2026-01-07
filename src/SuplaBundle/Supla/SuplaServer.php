@@ -378,7 +378,7 @@ abstract class SuplaServer {
         $command = sprintf('GET-SCENE-SUMMARY:%d,%d', $scene->getUser()->getId(), $scene->getId());
         $result = $this->doExecuteCommand($command);
         $prefix = sprintf('SUMMARY:%d,', $scene->getId());
-        if (strpos($result, $prefix) === 0) {
+        if (str_starts_with($result, $prefix)) {
             return explode(',', substr($result, strlen($prefix)));
         } else {
             throw new ApiExceptionWithDetails(

@@ -96,7 +96,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
     public function testSettingBrokerIps() {
         $this->testRegisteringTargetCloud();
         $this->treatAsBroker();
-        $randomIp = long2ip(rand(0, "4294967295"));
+        $randomIp = long2ip(random_int(0, "4294967295"));
         $success = $this->autodiscover->setBrokerIpAddresses([$randomIp, '2.3.4.5']);
         $this->assertTrue($success);
         $brokerClouds = $this->autodiscover->getBrokerClouds();

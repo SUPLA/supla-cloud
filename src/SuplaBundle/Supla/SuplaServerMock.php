@@ -116,7 +116,7 @@ class SuplaServerMock extends SuplaServer {
         } elseif (preg_match('#^OTA-CHECK-UPDATES:(\d+),(\d+)$#', $cmd, $match)) {
             $device = $this->em->find(IODevice::class, $match[2]);
             $properties = $device->getProperties();
-            if (rand(0, 1) % 2) {
+            if (random_int(0, 1) % 2) {
                 $properties['otaUpdate'] = ['status' => 'NOT_AVAILABLE', 'timestamp' => time()];
             } else {
                 $properties['otaUpdate'] = ['status' => 'AVAILABLE', 'timestamp' => time(), 'version' => '1.2.3', 'url' => '/v123'];
@@ -128,7 +128,7 @@ class SuplaServerMock extends SuplaServer {
         } elseif (preg_match('#^SET-CFG-MODE-PASSWORD:(\d+),(\d+).*$#', $cmd, $match)) {
             $device = $this->em->find(IODevice::class, $match[2]);
             $properties = $device->getProperties();
-            if (rand(0, 1) % 2) {
+            if (random_int(0, 1) % 2) {
                 $properties['setCfgModePassword'] = ['status' => 'TRUE'];
             } else {
                 $properties['setCfgModePassword'] = ['status' => 'FALSE'];
@@ -159,42 +159,42 @@ class SuplaServerMock extends SuplaServer {
         } elseif (preg_match('#^(EXECUTE|INTERRUPT|INTERRUPT-AND-EXECUTE)-SCENE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         } elseif (preg_match('#^GET-(CHAR)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            return 'VALUE:' . rand(0, 1);
+            return 'VALUE:' . random_int(0, 1);
         } elseif (preg_match('#^GET-(GPM)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             $channelId = $match[4];
             $value = $this->em->getRepository(ChannelValue::class)->findOneBy(['channel' => $channelId]);
-            return 'VALUE:' . ($value ? current(unpack('d', $value->getValue())) : rand(0, 1000000) / rand(2, 5));
+            return 'VALUE:' . ($value ? current(unpack('d', $value->getValue())) : random_int(0, 1000000) / random_int(2, 5));
         } elseif (preg_match('#^GET-(VALVE)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            return 'VALUE:' . rand(0, 1) . ',' . rand(0, 7);
+            return 'VALUE:' . random_int(0, 1) . ',' . random_int(0, 7);
         } elseif (preg_match('#^GET-(CONTAINER)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            return 'VALUE:' . rand(0, 101) . ',' . rand(0, 16);
+            return 'VALUE:' . random_int(0, 101) . ',' . random_int(0, 16);
         } elseif (preg_match('#^GET-(RELAY)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            $flag = $isTests ? 0 : rand(0, 1);
-            return 'VALUE:' . rand(0, 1) . ',' . $flag;
+            $flag = $isTests ? 0 : random_int(0, 1);
+            return 'VALUE:' . random_int(0, 1) . ',' . $flag;
         } elseif (preg_match('#^GET-(DIGIGLASS)-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            return 'VALUE:' . rand(0, (1 << 7) - 1);
+            return 'VALUE:' . random_int(0, (1 << 7) - 1);
         } elseif (preg_match('#^PN-GET-LIMIT:(\d+)#', $cmd, $match)) {
-            return 'PN-LIMIT:100,' . rand(-10, 100);
+            return 'PN-LIMIT:100,' . random_int(-10, 100);
         } elseif (preg_match('#^GET-RGBW-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            $values = [rand(0, 0xFFFFFF), rand(0, 100), rand(0, 100)];
-            if (rand(0, 1)) {
+            $values = [random_int(0, 0xFFFFFF), random_int(0, 100), random_int(0, 100)];
+            if (random_int(0, 1)) {
                 $values[1] = 0; // simulate RGB turn off
             }
-            if (rand(0, 1)) {
+            if (random_int(0, 1)) {
                 $values[2] = 0; // simulate DIMMER turn off
             }
             return 'VALUE:' . implode(',', $values);
         } elseif (preg_match('#^GET-TEMPERATURE-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            return 'VALUE:' . (rand(-500, 3000) / 100);
+            return 'VALUE:' . (random_int(-500, 3000) / 100);
         } elseif (preg_match('#^GET-HUMIDITY-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            return 'VALUE:' . (rand(0, 1000) / 10);
+            return 'VALUE:' . (random_int(0, 1000) / 10);
         } elseif (preg_match('#^GET-DOUBLE-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            return 'VALUE:' . (rand(0, 1000000) / 100);
+            return 'VALUE:' . (random_int(0, 1000000) / 100);
         } elseif (preg_match('#^GET-FACADE-BLIND-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            $tiltPercent = rand(0, 100);
-            return sprintf('VALUE:%d,%d,%d', rand(0, 100), $tiltPercent, round($tiltPercent * 180 / 100));
+            $tiltPercent = random_int(0, 100);
+            return sprintf('VALUE:%d,%d,%d', random_int(0, 100), $tiltPercent, round($tiltPercent * 180 / 100));
         } elseif (preg_match('#^GET-ROLLERSHUTTER-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            return sprintf('VALUE:%d,%d', rand(0, 100), rand(0, RollerShutterStateBits::CALIBRATION_IN_PROGRESS));
+            return sprintf('VALUE:%d,%d', random_int(0, 100), random_int(0, RollerShutterStateBits::CALIBRATION_IN_PROGRESS));
         } elseif (preg_match('#^GET-SCENE-SUMMARY:\d+,(\d+)#', $cmd, $match)) {
             $sceneId = $match[1];
             $values = [$sceneId, 0, 0, 0, 0, 0];
@@ -202,11 +202,11 @@ class SuplaServerMock extends SuplaServer {
                 // SUMMARY:%SceneId,%InitiatorType,%InitiatorId,%InitiatorName_Base64,%MillisecondsFromStart,%MillisecondsToEnd
                 $values = [
                     $sceneId,
-                    rand(0, SceneInitiatiorType::SCENE),
-                    rand(0, 10),
+                    random_int(0, SceneInitiatiorType::SCENE),
+                    random_int(0, 10),
                     base64_encode('Unicorn initiator'),
-                    rand(0, 1000),
-                    rand(0, 10000),
+                    random_int(0, 1000),
+                    random_int(0, 10000),
                 ];
             }
             return vsprintf('SUMMARY:%d,%d,%d,%d,%d,%d', $values);
@@ -284,42 +284,42 @@ class SuplaServerMock extends SuplaServer {
             return sprintf(
                 'VALUE:' . str_repeat('%d,', 37) . '%s',
                 $fullSupportMask,
-                rand(4950, 5500), // Freq * 100
-                rand(22000, 24000), // VoltagePhase1 * 100
-                rand(22000, 24000), // VoltagePhase2 * 100
-                rand(22000, 24000), // VoltagePhase3 * 100
-                rand(0, 30000), // CurrentPhase1 * 1000
-                rand(0, 30000), // CurrentPhase2 * 1000
-                rand(0, 30000), // CurrentPhase3 * 1000
-                rand(0, 30000000), // PowerActivePhase1 * 100000
-                rand(0, 30000000), // PowerActivePhase2 * 100000
-                rand(0, 30000000), // PowerActivePhase3 * 100000
-                rand(0, 10000000), // PowerRectivePhase1 * 100000
-                rand(0, 10000000), // PowerRectivePhase2 * 100000
-                rand(0, 10000000), // PowerRectivePhase3 * 100000
-                rand(0, 10000000), // PowerApparentPhase1 * 100000
-                rand(0, 10000000), // PowerApparentPhase2 * 100000
-                rand(0, 10000000), // PowerApparentPhase3 * 100000
-                rand(0, 100000), // PowerFactorPhase1 * 1000
-                rand(0, 100000), // PowerFactorPhase2 * 1000
-                rand(0, 100000), // PowerFactorPhase3 * 1000
-                rand(0, 3600), // PhaseAnglePhase1 * 10
-                rand(0, 3600), // PhaseAnglePhase2 * 10
-                rand(0, 3600), // PhaseAnglePhase2 * 10
-                rand(0, 100000000), // TotalForwardActiveEnergyPhase1 * 100000
-                rand(0, 100000000), // TotalForwardActiveEnergyPhase2 * 100000
-                rand(0, 100000000), // TotalForwardActiveEnergyPhase3 * 100000
-                rand(0, 10000000), // TotalReverseActiveEnergyPhase1 * 100000
-                rand(0, 10000000), // TotalReverseActiveEnergyPhase2 * 100000
-                rand(0, 10000000), // TotalReverseActiveEnergyPhase3 * 100000
-                rand(0, 10000000), // TotalForwardReactiveEnergyPhase1 * 100000
-                rand(0, 10000000), // TotalForwardReactiveEnergyPhase2 * 100000
-                rand(0, 10000000), // TotalForwardReactiveEnergyPhase3 * 100000
-                rand(0, 10000000), // TotalReverseReactiveEnergyPhase1 * 100000
-                rand(0, 10000000), // TotalReverseReactiveEnergyPhase2 * 100000
-                rand(0, 10000000), // TotalReverseReactiveEnergyPhase3 * 100000
-                rand(0, 10000), // TotalCost * 100
-                rand(0, 100000), // PricePerUnit * 10000
+                random_int(4950, 5500), // Freq * 100
+                random_int(22000, 24000), // VoltagePhase1 * 100
+                random_int(22000, 24000), // VoltagePhase2 * 100
+                random_int(22000, 24000), // VoltagePhase3 * 100
+                random_int(0, 30000), // CurrentPhase1 * 1000
+                random_int(0, 30000), // CurrentPhase2 * 1000
+                random_int(0, 30000), // CurrentPhase3 * 1000
+                random_int(0, 30000000), // PowerActivePhase1 * 100000
+                random_int(0, 30000000), // PowerActivePhase2 * 100000
+                random_int(0, 30000000), // PowerActivePhase3 * 100000
+                random_int(0, 10000000), // PowerRectivePhase1 * 100000
+                random_int(0, 10000000), // PowerRectivePhase2 * 100000
+                random_int(0, 10000000), // PowerRectivePhase3 * 100000
+                random_int(0, 10000000), // PowerApparentPhase1 * 100000
+                random_int(0, 10000000), // PowerApparentPhase2 * 100000
+                random_int(0, 10000000), // PowerApparentPhase3 * 100000
+                random_int(0, 100000), // PowerFactorPhase1 * 1000
+                random_int(0, 100000), // PowerFactorPhase2 * 1000
+                random_int(0, 100000), // PowerFactorPhase3 * 1000
+                random_int(0, 3600), // PhaseAnglePhase1 * 10
+                random_int(0, 3600), // PhaseAnglePhase2 * 10
+                random_int(0, 3600), // PhaseAnglePhase2 * 10
+                random_int(0, 100000000), // TotalForwardActiveEnergyPhase1 * 100000
+                random_int(0, 100000000), // TotalForwardActiveEnergyPhase2 * 100000
+                random_int(0, 100000000), // TotalForwardActiveEnergyPhase3 * 100000
+                random_int(0, 10000000), // TotalReverseActiveEnergyPhase1 * 100000
+                random_int(0, 10000000), // TotalReverseActiveEnergyPhase2 * 100000
+                random_int(0, 10000000), // TotalReverseActiveEnergyPhase3 * 100000
+                random_int(0, 10000000), // TotalForwardReactiveEnergyPhase1 * 100000
+                random_int(0, 10000000), // TotalForwardReactiveEnergyPhase2 * 100000
+                random_int(0, 10000000), // TotalForwardReactiveEnergyPhase3 * 100000
+                random_int(0, 10000000), // TotalReverseReactiveEnergyPhase1 * 100000
+                random_int(0, 10000000), // TotalReverseReactiveEnergyPhase2 * 100000
+                random_int(0, 10000000), // TotalReverseReactiveEnergyPhase3 * 100000
+                random_int(0, 10000), // TotalCost * 100
+                random_int(0, 100000), // PricePerUnit * 10000
                 $this->faker->currencyCode()
             );
         } elseif (preg_match('#^UPDATE-CHANNEL-STATE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
@@ -330,18 +330,18 @@ class SuplaServerMock extends SuplaServer {
                 $state = new ChannelState($channel);
             }
             AnyFieldSetter::set($state, 'state', json_encode([
-                'switchCycleCount' => rand(1, 4),
+                'switchCycleCount' => random_int(1, 4),
                 'ipv4' => $this->faker->ipv4(),
                 'mac' => $this->faker->macAddress(),
                 'batteryPowered' => $this->faker->boolean(),
-                'batteryLevel' => rand(1, 100),
-                'wifiRSSI' => rand(2, 10),
-                'wifiSignalStrength' => rand(2, 100),
+                'batteryLevel' => random_int(1, 100),
+                'wifiRSSI' => random_int(2, 10),
+                'wifiSignalStrength' => random_int(2, 100),
                 'bridgeNodeOnline' => $this->faker->boolean(),
-                'bridgeNodeSignalStrength' => rand(2, 100),
-                'uptime' => rand(2, 999999),
-                'connectionUptime' => rand(2, 999999),
-                'batteryHealth' => rand(2, 100),
+                'bridgeNodeSignalStrength' => random_int(2, 100),
+                'uptime' => random_int(2, 999999),
+                'connectionUptime' => random_int(2, 999999),
+                'batteryHealth' => random_int(2, 100),
                 'batteryForDevice' => $this->faker->boolean(),
                 'lastConnectionResetCause' => $this->faker->randomElement([
                     'UNKNOWN',
@@ -349,7 +349,7 @@ class SuplaServerMock extends SuplaServer {
                     'WIFI_CONNECTION_LOST',
                     'SERVER_CONNECTION_LOST',
                 ]),
-                'lightSourceLifespan' => rand(0, 100),
+                'lightSourceLifespan' => random_int(0, 100),
             ]));
             $this->em->persist($state);
             $this->em->flush();

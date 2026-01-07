@@ -460,7 +460,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         if ($this->oauthOldApiCompatEnabled) {
             return $this->oauthCompatUserPassword;
         }
-        return null === $this->password ? $this->legacyPassword : $this->password;
+        return $this->password ?? $this->legacyPassword;
     }
 
     public function setPassword($password) {

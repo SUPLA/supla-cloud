@@ -27,7 +27,7 @@ class SuplaOcrClient {
 
     public function __construct(string $ocrUrl, SuplaBrokerHttpClient $brokerHttpClient) {
         $this->suplaOcrUrl = $ocrUrl;
-        if (strpos($this->suplaOcrUrl, 'http') !== 0) {
+        if (!str_starts_with($this->suplaOcrUrl, 'http')) {
             $this->suplaOcrUrl = 'https://' . $this->suplaOcrUrl;
         }
         $this->brokerHttpClient = $brokerHttpClient;

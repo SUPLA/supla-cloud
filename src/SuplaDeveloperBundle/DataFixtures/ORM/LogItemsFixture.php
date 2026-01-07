@@ -368,9 +368,9 @@ class LogItemsFixture extends SuplaFixture {
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
             $openValue = $temperature;
             $temperature += ($this->faker->boolean() ? -1 : 1) * $this->faker->biasedNumberBetween(0, 100) / 111;
-            $avgValue = ($openValue + $temperature) / 2 * (0.9 + rand(1, 20) / 100);
-            $maxValue = max($openValue, $temperature) * (1 + rand(0, 99) / 100);
-            $minValue = min($openValue, $temperature) * (1 - rand(0, 99) / 100);
+            $avgValue = ($openValue + $temperature) / 2 * (0.9 + random_int(1, 20) / 100);
+            $maxValue = max($openValue, $temperature) * (1 + random_int(0, 99) / 100);
+            $minValue = min($openValue, $temperature) * (1 - random_int(0, 99) / 100);
             $temperature = max(-270, $temperature);
             EntityUtils::setField($logItem, 'open_value', $openValue);
             EntityUtils::setField($logItem, 'close_value', $temperature);

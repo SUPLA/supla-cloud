@@ -82,10 +82,10 @@ trait UserFixtures {
             'guid' => StringUtils::randomString(10),
             'regDate' => new \DateTime(),
             'lastAccessDate' => new \DateTime(),
-            'softwareVersion' => '1.' . rand(0, 100),
-            'protocolVersion' => rand(0, 100),
+            'softwareVersion' => '1.' . random_int(0, 100),
+            'protocolVersion' => random_int(0, 100),
             'user' => $user,
-            'name' => 'iPhone ' . rand(0, 100),
+            'name' => 'iPhone ' . random_int(0, 100),
         ]);
         $this->getEntityManager()->persist($clientApp);
         $this->getEntityManager()->flush();
@@ -123,12 +123,12 @@ trait UserFixtures {
         };
 
         $device = new IODevice();
-        $fieldSetter->call($device, 'guid', rand(0, 9999999));
+        $fieldSetter->call($device, 'guid', random_int(0, 9999999));
         $fieldSetter->call($device, 'regDate', new DateTime());
         $fieldSetter->call($device, 'lastConnected', new DateTime());
-        $fieldSetter->call($device, 'regIpv4', implode('.', [rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255)]));
-        $fieldSetter->call($device, 'softwareVersion', '2.' . rand(0, 50));
-        $fieldSetter->call($device, 'protocolVersion', '2.' . rand(0, 50));
+        $fieldSetter->call($device, 'regIpv4', implode('.', [random_int(0, 255), random_int(0, 255), random_int(0, 255), random_int(0, 255)]));
+        $fieldSetter->call($device, 'softwareVersion', '2.' . random_int(0, 50));
+        $fieldSetter->call($device, 'protocolVersion', '2.' . random_int(0, 50));
         $fieldSetter->call($device, 'location', $location);
         $fieldSetter->call($device, 'user', $location->getUser());
         $fieldSetter->call($device, 'flags', IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE);

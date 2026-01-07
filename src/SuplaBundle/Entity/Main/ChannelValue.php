@@ -77,7 +77,7 @@ class ChannelValue {
             case ChannelFunction::RAINSENSOR:
                 return pack('d', $value === null ? NAN : $value * 1000);
             default:
-                return pack('d', $value === null ? NAN : $value);
+                return pack('d', $value ?? NAN);
         }
     }
 }

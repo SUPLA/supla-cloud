@@ -96,7 +96,7 @@ class DigiglassState {
 
     public function setMask(int $mask): self {
         $this->mask = $mask;
-        $this->activeBits = pow(2, $this->sectionsQuantity) - 1;
+        $this->activeBits = 2 ** $this->sectionsQuantity - 1;
         return $this;
     }
 

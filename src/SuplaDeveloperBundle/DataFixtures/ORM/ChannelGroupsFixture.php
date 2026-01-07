@@ -61,14 +61,14 @@ class ChannelGroupsFixture extends SuplaFixture {
             $this->getReference(LocationsFixture::LOCATION_BEDROOM),
         ];
         for ($i = 0; $i < 10; $i++) {
-            $numberOfChannels = rand(1, DevicesFixture::NUMBER_OF_RANDOM_DEVICES);
+            $numberOfChannels = random_int(1, DevicesFixture::NUMBER_OF_RANDOM_DEVICES);
             shuffle($randomDevices);
             $channels = [];
-            $function = rand(0, 3);
+            $function = random_int(0, 3);
             for ($j = 0; $j < $numberOfChannels; $j++) {
                 $channels[] = $randomDevices[$j]->getChannels()[$function];
             }
-            $location = $locations[rand(0, count($locations) - 1)];
+            $location = $locations[random_int(0, count($locations) - 1)];
             $group = new IODeviceChannelGroup($this->getReference(DevicesFixture::DEVICE_SONOFF)->getUser(), $location, $channels);
             $group->setCaption($this->faker->sentence(3));
             $this->entityManager->persist($group);

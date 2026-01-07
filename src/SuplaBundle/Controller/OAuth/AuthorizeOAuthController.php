@@ -228,7 +228,7 @@ class AuthorizeOAuthController extends AbstractController {
         $parts = explode('.', $targetCloud->getHost());
         $parts = array_reverse($parts);
         Assertion::true(
-            (strpos($parts[0], 'supla') === false && strpos($parts[1], 'supla') === false) || "$parts[1].$parts[0]" === 'supla.io',
+            (!str_contains($parts[0], 'supla') && !str_contains($parts[1], 'supla')) || "$parts[1].$parts[0]" === 'supla.io',
             'You cannot use SUPLA project name in the domain name.' // i18n
         );
 

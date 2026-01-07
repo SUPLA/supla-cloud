@@ -28,7 +28,7 @@ class ClientAppsFixture extends SuplaFixture {
         $user = $this->getReference(UsersFixture::USER);
         $accessIds = [null, $this->getReference(AccessIdsFixture::ACCESS_ID_CHILDREN), $this->getReference(AccessIdsFixture::ACCESS_ID_COMMON)];
         foreach (['HTC One M8', 'iPhone 6s', 'Nokia 3310', 'Samsung Galaxy Tab S2', 'Apple iPad'] as $name) {
-            $accessId = $accessIds[rand(0, count($accessIds) - 1)];
+            $accessId = $accessIds[random_int(0, count($accessIds) - 1)];
             $clientApp = $this->createClientApp($user, $name, $accessId);
             $manager->persist($clientApp);
         }
@@ -44,16 +44,16 @@ class ClientAppsFixture extends SuplaFixture {
     private function createClientApp($user, $name, $accessId): ClientApp {
         $clientApp = new ClientApp();
         AnyFieldSetter::set($clientApp, [
-            'guid' => rand(0, 9999999),
-            'regDate' => new \DateTime('-' . rand(86400 * 7, 86400 * 60) . 'seconds'),
-            'regIpv4' => implode('.', [rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255)]),
-            'lastAccessDate' => new \DateTime('-' . rand(86400, 86400 * 7) . 'seconds'),
-            'lastAccessIpv4' => implode('.', [rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255)]),
-            'softwareVersion' => '1.' . rand(1, 100),
-            'protocolVersion' => rand(1, 100),
+            'guid' => random_int(0, 9999999),
+            'regDate' => new \DateTime('-' . random_int(86400 * 7, 86400 * 60) . 'seconds'),
+            'regIpv4' => implode('.', [random_int(0, 255), random_int(0, 255), random_int(0, 255), random_int(0, 255)]),
+            'lastAccessDate' => new \DateTime('-' . random_int(86400, 86400 * 7) . 'seconds'),
+            'lastAccessIpv4' => implode('.', [random_int(0, 255), random_int(0, 255), random_int(0, 255), random_int(0, 255)]),
+            'softwareVersion' => '1.' . random_int(1, 100),
+            'protocolVersion' => random_int(1, 100),
             'user' => $user,
             'name' => $name,
-            'enabled' => rand() % 2,
+            'enabled' => random_int(0, mt_getrandmax()) % 2,
             'accessId' => $accessId,
         ]);
         return $clientApp;

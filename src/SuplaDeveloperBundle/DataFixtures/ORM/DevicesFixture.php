@@ -84,7 +84,7 @@ class DevicesFixture extends SuplaFixture {
             $name = strtoupper(implode('-', $this->faker->words($this->faker->numberBetween(1, 3))));
             $device = $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE), $name);
             foreach ($device->getChannels() as $channel) {
-                $channel->setLocation($nonDeviceLocations[rand(0, count($nonDeviceLocations) - 1)]);
+                $channel->setLocation($nonDeviceLocations[random_int(0, count($nonDeviceLocations) - 1)]);
                 $manager->persist($channel);
             }
             $this->setReference(self::RANDOM_DEVICE_PREFIX . $i, $device);
@@ -460,7 +460,7 @@ class DevicesFixture extends SuplaFixture {
             'device' => $hvac,
             'regDate' => new DateTime(),
             'name' => 'Thermostat with hotel card sensor',
-            'softwareVersion' => '2.' . rand(0, 50),
+            'softwareVersion' => '2.' . random_int(0, 50),
             'productCode' => strtoupper($this->faker->randomLetter() . $this->faker->randomLetter()),
             'serialNumber' => $this->faker->uuid(),
         ]));
@@ -635,7 +635,7 @@ class DevicesFixture extends SuplaFixture {
             'device' => $device,
             'regDate' => new DateTime(),
             'name' => 'My Cool Subdevice',
-            'softwareVersion' => '2.' . rand(0, 50),
+            'softwareVersion' => '2.' . random_int(0, 50),
             'productCode' => strtoupper($this->faker->randomLetter() . $this->faker->randomLetter()),
             'serialNumber' => $this->faker->uuid(),
         ]));
@@ -644,7 +644,7 @@ class DevicesFixture extends SuplaFixture {
             'device' => $device,
             'regDate' => new DateTime(),
             'name' => 'Two Channels Subdeivce',
-            'softwareVersion' => '3.' . rand(0, 50),
+            'softwareVersion' => '3.' . random_int(0, 50),
             'productCode' => strtoupper($this->faker->randomLetter() . $this->faker->randomLetter()),
             'serialNumber' => $this->faker->uuid(),
         ]));
@@ -653,7 +653,7 @@ class DevicesFixture extends SuplaFixture {
             'device' => $device,
             'regDate' => new DateTime(),
             'name' => 'Floor Heating Controller',
-            'softwareVersion' => '6.' . rand(0, 50),
+            'softwareVersion' => '6.' . random_int(0, 50),
             'productCode' => strtoupper($this->faker->randomLetter() . $this->faker->randomLetter()),
             'serialNumber' => $this->faker->uuid(),
         ]));
@@ -738,7 +738,7 @@ class DevicesFixture extends SuplaFixture {
             'device' => $device,
             'regDate' => new DateTime(),
             'name' => 'Flood sensor sub device',
-            'softwareVersion' => '6.' . rand(0, 50),
+            'softwareVersion' => '6.' . random_int(0, 50),
             'productCode' => strtoupper($this->faker->randomLetter() . $this->faker->randomLetter()),
             'serialNumber' => $this->faker->uuid(),
         ]));
@@ -785,12 +785,12 @@ class DevicesFixture extends SuplaFixture {
         $device = new IODevice();
         AnyFieldSetter::set($device, [
             'name' => $name,
-            'guid' => rand(0, 9999999),
+            'guid' => random_int(0, 9999999),
             'regDate' => new DateTime(),
             'lastConnected' => new DateTime(),
-            'regIpv4' => implode('.', [rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255)]),
-            'softwareVersion' => '2.' . rand(0, 50),
-            'protocolVersion' => '2.' . rand(0, 50),
+            'regIpv4' => implode('.', [random_int(0, 255), random_int(0, 255), random_int(0, 255), random_int(0, 255)]),
+            'softwareVersion' => '2.' . random_int(0, 50),
+            'protocolVersion' => '2.' . random_int(0, 50),
             'location' => $location,
             'user' => $location->getUser(),
             'flags' => IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE

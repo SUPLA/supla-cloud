@@ -38,7 +38,7 @@ class TargetSuplaCloud {
         Assertion::notBlank($domainName, 'Invalid SUPLA Cloud URL.'); // i18n
         $scheme .= '://';
         $url = mb_strtolower($domainName, 'UTF-8');
-        if (strpos($domainName, $scheme) !== 0) {
+        if (!str_starts_with($domainName, $scheme)) {
             $url = $scheme . $domainName;
         }
         $domainName = parse_url($url, PHP_URL_HOST);

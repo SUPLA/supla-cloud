@@ -109,7 +109,7 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
         $executor->setSuplaServer($suplaServer);
         $suplaServer->expects($this->once())->method('executeCommand')->willReturnCallback(
             function (string $command) use ($expectedCommand) {
-                if (strpos($expectedCommand, 'SET-') !== 0) {
+                if (!str_starts_with($expectedCommand, 'SET-')) {
                     $expectedCommand = 'SET-RGBW-VALUE:1,1,1,' . $expectedCommand;
                 }
                 $this->assertEquals($expectedCommand, $command);

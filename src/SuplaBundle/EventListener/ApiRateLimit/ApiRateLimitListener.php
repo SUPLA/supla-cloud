@@ -138,10 +138,10 @@ class ApiRateLimitListener {
             return false;
         }
         $uri = $event->getRequest()->getRequestUri();
-        if (substr($uri, 0, 5) === '/api/') {
+        if (str_starts_with($uri, '/api/')) {
             return !in_array($uri, ['/api/server-status', '/api/webapp-tokens']);
         }
-        if (substr($uri, 0, 8) === '/direct/') {
+        if (str_starts_with($uri, '/direct/')) {
             return true;
         }
         return false;
@@ -186,7 +186,7 @@ class ApiRateLimitListener {
     private function getCurrentUserOrId(KernelEvent $event) {
         if ($user = $this->getCurrentUser()) {
             return $user;
-        } elseif (substr($event->getRequest()->getRequestUri(), 0, 8) === '/direct/') {
+        } elseif (str_starts_with($event->getRequest()->getRequestUri(), '/direct/')) {
             preg_match('#^/direct/(\d+)#', $event->getRequest()->getRequestUri(), $match);
             if ($match) {
                 $directLinkId = intval($match[1]);

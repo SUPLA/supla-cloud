@@ -86,7 +86,7 @@ abstract class IntegrationTestCase extends WebTestCase {
         }
         if (isset(self::$dataForTests[static::class])) {
             foreach (self::$dataForTests[static::class] as $fieldName => $value) {
-                if (is_object($value) && strpos(get_class($value), 'SuplaBundle\Entity') === 0) {
+                if (is_object($value) && str_starts_with(get_class($value), 'SuplaBundle\Entity')) {
                     $value = $this->freshEntity($value);
                 }
                 EntityUtils::setField($this, $fieldName, $value);
@@ -178,7 +178,7 @@ abstract class IntegrationTestCase extends WebTestCase {
         $this->application = null;
         $refl = new ReflectionObject($this);
         foreach ($refl->getProperties() as $prop) {
-            if (!$prop->isStatic() && 0 !== strpos($prop->getDeclaringClass()->getName(), 'PHPUnit_')) {
+            if (!$prop->isStatic() && !str_starts_with($prop->getDeclaringClass()->getName(), 'PHPUnit_')) {
                 $prop->setAccessible(true);
                 $prop->setValue($this, null);
             }

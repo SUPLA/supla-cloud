@@ -63,7 +63,7 @@ abstract class SuplaAutodiscover {
         $this->actAsBrokerCloud = $actAsBrokerCloud;
         $this->logger = $logger;
         $this->settingsStringRepository = $settingsStringRepository;
-        if (strpos($this->autodiscoverUrl, 'http') !== 0) {
+        if (!str_starts_with($this->autodiscoverUrl, 'http')) {
             $this->autodiscoverUrl = 'https://' . $this->autodiscoverUrl;
         }
         $this->brokerHttpClient = $brokerHttpClient;
@@ -101,7 +101,7 @@ abstract class SuplaAutodiscover {
             }
             if ($domainFromAutodiscover) {
                 $serverUrl = $domainFromAutodiscover;
-                if (strpos($serverUrl, 'http') !== 0) {
+                if (!str_starts_with($serverUrl, 'http')) {
                     $serverUrl = $this->localSuplaCloud->getProtocol() . '://' . $serverUrl;
                 }
                 return new TargetSuplaCloud($serverUrl);
@@ -141,7 +141,7 @@ abstract class SuplaAutodiscover {
             $result = $this->remoteRequest('/users/' . urlencode($username));
             $this->logger->debug(__FUNCTION__, ['response' => $result]);
             $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
-            if ($domainFromAutodiscover && strpos($domainFromAutodiscover, 'http') !== 0) {
+            if ($domainFromAutodiscover && !str_starts_with($domainFromAutodiscover, 'http')) {
                 $domainFromAutodiscover = $this->localSuplaCloud->getProtocol() . '://' . $domainFromAutodiscover;
             }
             return $domainFromAutodiscover;

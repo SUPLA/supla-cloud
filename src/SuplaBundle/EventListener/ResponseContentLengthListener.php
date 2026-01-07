@@ -6,7 +6,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class ResponseContentLengthListener {
     public function __invoke(ResponseEvent $event) {
-        if (strpos($event->getRequest()->getPathInfo(), '/direct/') === 0) {
+        if (str_starts_with($event->getRequest()->getPathInfo(), '/direct/')) {
             $response = $event->getResponse();
             $content = $response->getContent();
             if ($content[0] === '{') {

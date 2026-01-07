@@ -195,15 +195,15 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $logItem = new TemperatureLogItem();
             EntityUtils::setField($logItem, 'channel_id', $this->deviceWithManyLogs->getChannels()[1]->getId());
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
-            EntityUtils::setField($logItem, 'temperature', rand(0, 200) / 10);
-            if (rand(0, 100) < 99) {
+            EntityUtils::setField($logItem, 'temperature', random_int(0, 200) / 10);
+            if (random_int(0, 100) < 99) {
                 $this->getMeasurementLogsEntityManager()->persist($logItem);
             }
-            if (rand() % 2 == 0) {
+            if (random_int(0, mt_getrandmax()) % 2 == 0) {
                 $logItem = new TemperatureLogItem();
                 EntityUtils::setField($logItem, 'channel_id', 5000);
                 EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
-                EntityUtils::setField($logItem, 'temperature', rand(0, 200) / 10);
+                EntityUtils::setField($logItem, 'temperature', random_int(0, 200) / 10);
                 $this->getMeasurementLogsEntityManager()->persist($logItem);
             }
         }

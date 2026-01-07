@@ -76,11 +76,11 @@ class FrontendConfig {
     }
 
     private function getMaxUploadSizePerFile(): int {
-        $perFileLimit = 1024 * (int)ini_get('upload_max_filesize') * (substr(ini_get('upload_max_filesize'), -1) == 'M' ? 1024 : 1);
+        $perFileLimit = 1024 * (int)ini_get('upload_max_filesize') * (str_ends_with(ini_get('upload_max_filesize'), 'M') ? 1024 : 1);
         return min($perFileLimit, $this->getMaxUploadSize());
     }
 
     private function getMaxUploadSize(): int {
-        return 1024 * (int)ini_get('post_max_size') * (substr(ini_get('post_max_size'), -1) == 'M' ? 1024 : 1);
+        return 1024 * (int)ini_get('post_max_size') * (str_ends_with(ini_get('post_max_size'), 'M') ? 1024 : 1);
     }
 }

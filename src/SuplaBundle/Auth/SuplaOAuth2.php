@@ -121,7 +121,7 @@ class SuplaOAuth2 extends OAuth2 {
     }
 
     private function randomizeTokenLifetime(int $lifetime): int {
-        return $lifetime + floor($lifetime * .001 * rand(1, 100));
+        return $lifetime + floor($lifetime * .001 * random_int(1, 100));
     }
 
     protected function grantAccessTokenAuthCode(IOAuth2Client $client, array $input) {
