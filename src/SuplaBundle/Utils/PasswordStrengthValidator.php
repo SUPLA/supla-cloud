@@ -97,9 +97,7 @@ final class PasswordStrengthValidator {
         try {
             $this->validate($invalidPassword);
             return true;
-        } catch (InvalidArgumentException $e) {
-            return false;
-        } catch (ApiException $e) {
+        } catch (InvalidArgumentException|ApiException $e) {
             return false;
         }
     }

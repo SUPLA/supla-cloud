@@ -36,7 +36,7 @@ final class AuthenticationFailureReason extends Enum {
         if ($e instanceof AuthenticationServiceException) {
             $e = $e->getPrevious();
         }
-        switch (get_class($e)) {
+        switch ($e !== null ? get_class($e) : self::class) {
             case UsernameNotFoundException::class:
                 return self::NOT_EXISTS();
             case BadCredentialsException::class:

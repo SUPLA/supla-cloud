@@ -89,7 +89,7 @@ class DevicesFixture extends SuplaFixture {
             }
             $this->setReference(self::RANDOM_DEVICE_PREFIX . $i, $device);
         }
-        $suplerDevice = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_SUPLER), 'SUPLER MEGA DEVICE', '');
+        $suplerDevice = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_SUPLER), 'SUPLER MEGA DEVICE');
         $this->setReference(self::DEVICE_SUPLER, $suplerDevice);
         $this->createDeviceLocked($location);
         $manager->flush();
