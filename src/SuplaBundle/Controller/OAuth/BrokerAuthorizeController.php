@@ -22,7 +22,6 @@ use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
 use OAuth2\OAuth2RedirectException;
 use OAuth2\OAuth2ServerException;
-use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Supla\SuplaAutodiscover;
@@ -33,6 +32,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Twig\Environment;
 
 class BrokerAuthorizeController extends AuthorizeController {
     /** @var SuplaAutodiscover */
@@ -45,6 +45,8 @@ class BrokerAuthorizeController extends AuthorizeController {
     private $clientManager;
     /** @var OAuth2 */
     private $oauth2Server;
+    /** @var Environment */
+    private $twig;
 
     /**
      * @Route("/oauth/v2/auth", name="fos_oauth_server_authorize", methods={"GET", "POST"})
@@ -70,6 +72,12 @@ class BrokerAuthorizeController extends AuthorizeController {
         }
     }
 
+    protected function renderAuthorize(array $context): Response {
+        return new Response(
+            $this->twig->render('@Supla/oauth/authorize.html.twig', $context)
+        );
+    }
+
     /** @required */
     public function setAutodiscover(SuplaAutodiscover $autodiscover) {
         $this->autodiscover = $autodiscover;
@@ -93,6 +101,11 @@ class BrokerAuthorizeController extends AuthorizeController {
     /** @required */
     public function setOAuth2Server(OAuth2 $oauth2Server) {
         $this->oauth2Server = $oauth2Server;
+    }
+
+    /** @required */
+    public function setTwig(Environment $twig) {
+        $this->twig = $twig;
     }
 
     protected function getClient() {

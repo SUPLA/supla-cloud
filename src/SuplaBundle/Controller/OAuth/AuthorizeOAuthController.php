@@ -85,7 +85,7 @@ class AuthorizeOAuthController extends AbstractController {
      * @Route("/oauth-authorize", name="_oauth_login", methods={"GET", "POST"})
      * @Route("/oauth/v2/auth_login", name="_oauth_login_check", methods={"GET", "POST"})
      * @Route("/oauth/v2/broker_login", name="_oauth_broker_check", methods={"POST"})
-     * @Template()
+     * @Template("@Supla/oauth/o_auth_login.html.twig")
      */
     public function oAuthLoginAction(Request $request) {
         $session = $request->getSession();

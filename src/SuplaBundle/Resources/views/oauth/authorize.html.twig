@@ -21,14 +21,5 @@
             ]
         };
     </script>
-    {{ form_start(form, {'method': 'POST', 'action': path('fos_oauth_server_authorize') }) }}
-    <input type="submit" name="rejected" value="Decline">
-    <input type="submit" name="accepted" value="Grant access">
-    {{ form_row(form.client_id) }}
-    {{ form_row(form.response_type) }}
-    {{ form_row(form.redirect_uri) }}
-    {{ form_row(form.state) }}
-    {{ form_row(form.scope, {attr: {ref: 'scopeField'}}) }}
-    {{ form_rest(form) }}
-    </form>
+    {{ include('@FOSOAuthServer/Authorize/authorize_content.html.twig') }}
 {% endblock %}
