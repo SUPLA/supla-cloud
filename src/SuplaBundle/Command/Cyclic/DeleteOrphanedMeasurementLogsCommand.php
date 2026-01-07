@@ -18,24 +18,17 @@
 namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
-use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
-use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ThermostatLogItem;
+use Doctrine\Persistence\ManagerRegistry;
+use SuplaBundle\Command\CopyMeasurementLogsCommand;
 use SuplaBundle\Model\TimeProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class DeleteOrphanedMeasurementLogsCommand extends Command implements CyclicCommand {
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    public function __construct($measurementLogsEntityManager) {
+    public function __construct(private readonly ManagerRegistry $registry) {
         parent::__construct();
-        $this->entityManager = $measurementLogsEntityManager;
     }
 
     protected function configure() {
@@ -45,27 +38,39 @@ class DeleteOrphanedMeasurementLogsCommand extends Command implements CyclicComm
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $this->logClean($output, ElectricityMeterLogItem::class);
-        $this->logClean($output, ElectricityMeterVoltageAberrationLogItem::class);
-        $this->logClean($output, ImpulseCounterLogItem::class);
-        $this->logClean($output, TemperatureLogItem::class);
-        $this->logClean($output, TempHumidityLogItem::class);
-        $this->logClean($output, ThermostatLogItem::class);
+        $channelIds = $this->getExistingChannelIds();
+        $logsManager = $this->registry->getManager('measurement_logs');
+        $io = new SymfonyStyle($input, $output);
+        foreach (CopyMeasurementLogsCommand::LOG_TABLES as $logTable) {
+            $this->logClean($logsManager, $channelIds, $logTable, $io);
+        }
         return 0;
     }
 
-    protected function logClean(OutputInterface $output, string $entity): void {
-        $sql = "DELETE t FROM `" . $this->entityManager->getClassMetadata($entity)->getTableName()
-            . "` AS t LEFT JOIN supla_dev_channel AS c ON c.id = t.channel_id WHERE c.id IS NULL";
-        $stmt = $this->entityManager->getConnection()->prepare($sql);
-        $rowCount = $stmt->executeStatement();
-        if ($rowCount || $output->isVerbose()) {
-            $className = basename(str_replace('\\', '/', $entity));
-            $output->writeln(sprintf('Deleted <info>%d</info> items from <comment>%s</comment> storage.', $rowCount, $className));
+    private function getExistingChannelIds(): array {
+        $emMariadb = $this->registry->getManager('default');
+        $ids = $emMariadb->getConnection()->executeQuery('SELECT id FROM supla_dev_channel')->fetchFirstColumn();
+        return $ids;
+    }
+
+    protected function logClean(EntityManagerInterface $em, array $existingChannelIds, string $logTable, SymfonyStyle $io): void {
+        $firstRow = $em->getConnection()->executeQuery(sprintf("SELECT * FROM %s LIMIT 1", $logTable))->fetchAssociative();
+        if ($firstRow && array_key_exists('channel_id', $firstRow)) {
+            $channelIdsWithLogs = $em->getConnection()
+                ->executeQuery(sprintf("SELECT DISTINCT channel_id FROM %s", $logTable))
+                ->fetchFirstColumn();
+            $extraChannelIds = array_diff($channelIdsWithLogs, $existingChannelIds);
+            if ($extraChannelIds) {
+                $io->writeln(sprintf('Deleting history from %s, channel IDs: %s', $logTable, implode(', ', $extraChannelIds)));
+                $stmt = $em->getConnection()
+                    ->prepare(sprintf("DELETE FROM %s WHERE channel_id IN (%s)", $logTable, implode(',', $extraChannelIds)));
+                $rowCount = $stmt->executeStatement();
+                $io->writeln(sprintf('Deleted <info>%d</info> items from <comment>%s</comment>.', $rowCount, $logTable));
+            }
         }
     }
 
     public function shouldRunNow(TimeProvider $timeProvider): bool {
-        return date('H:i', $timeProvider->getTimestamp()) === '01:20';
+        return true;//date('H:i', $timeProvider->getTimestamp()) === '01:20';
     }
 }

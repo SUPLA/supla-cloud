@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CopyMeasurementLogsCommand extends Command {
-    private const LOG_TABLES = [
+    public const LOG_TABLES = [
         'supla_em_current_log',
         'supla_em_log',
         'supla_em_power_active_log',
