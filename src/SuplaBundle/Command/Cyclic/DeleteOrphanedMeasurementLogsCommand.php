@@ -71,6 +71,6 @@ class DeleteOrphanedMeasurementLogsCommand extends Command implements CyclicComm
     }
 
     public function shouldRunNow(TimeProvider $timeProvider): bool {
-        return true;//date('H:i', $timeProvider->getTimestamp()) === '01:20';
+        return date('H:i', $timeProvider->getTimestamp()) === '01:20';
     }
 }

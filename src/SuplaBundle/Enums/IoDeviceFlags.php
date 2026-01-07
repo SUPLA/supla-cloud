@@ -32,19 +32,19 @@ namespace SuplaBundle\Enums;
  */
 final class IoDeviceFlags extends ChannelFunctionBits {
     /** @see https://github.com/SUPLA/supla-cloud/issues/448 */
-    const int ENTER_CONFIGURATION_MODE_AVAILABLE = 0x0010;
+    const ENTER_CONFIGURATION_MODE_AVAILABLE = 0x0010;
     /** @see https://github.com/SUPLA/supla-cloud/issues/622 */
-    const int SLEEP_MODE_ENABLED = 0x0020;
-    const int IDENTIFY_DEVICE_AVAILABLE = 0x0400;
-    const int REMOTE_RESTART_AVAILABLE = 0x0800;
+    const SLEEP_MODE_ENABLED = 0x0020;
+    const IDENTIFY_DEVICE_AVAILABLE = 0x0400;
+    const REMOTE_RESTART_AVAILABLE = 0x0800;
 
-    const int DEVICE_LOCKED = 0x0100;
+    const DEVICE_LOCKED = 0x0100;
 
-    const int PAIRING_SUBDEVICES_AVAILABLE = 0x0200;
-    const int ALWAYS_ALLOW_CHANNEL_DELETION = 0x1000;
-    const int BLOCK_ADDING_CHANNELS_AFTER_DELETION = 0x2000;
+    const PAIRING_SUBDEVICES_AVAILABLE = 0x0200;
+    const ALWAYS_ALLOW_CHANNEL_DELETION = 0x1000;
+    const BLOCK_ADDING_CHANNELS_AFTER_DELETION = 0x2000;
 
-    const int FACTORY_RESET_SUPPORTED = 0x4000;
-    const int AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED = 0x8000;
-    const int SET_CFG_MODE_PASSWORD_SUPPORTED = 0x10000;
+    const FACTORY_RESET_SUPPORTED = 0x4000;
+    const AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED = 0x8000;
+    const SET_CFG_MODE_PASSWORD_SUPPORTED = 0x10000;
 }
