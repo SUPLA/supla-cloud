@@ -34,14 +34,17 @@
         "google/recaptcha": "^1.1",
         "gumlet/php-image-resize": "^2.0",
         "incenteev/composer-parameter-handler": "~2.0",
+        "monolog/monolog": "^2.11",
         "myclabs/php-enum": "1.5.*",
-        "nelmio/cors-bundle": "^1.5",
+        "nelmio/cors-bundle": "^2.6.0",
         "sensio/framework-extra-bundle": "^6.0",
-        "symfony/mailer": "^4.4",
-        "symfony/messenger": "^4.4",
+        "symfony/doctrine-messenger": "^5.4",
+        "symfony/mailer": "^5.4",
+        "symfony/messenger": "^5.4",
         "symfony/monolog-bundle": "^3.2",
         "symfony/polyfill-apcu": "^1.0",
-        "symfony/symfony": "^4.4",
+        "symfony/runtime": "^5.4",
+        "symfony/symfony": "^5.4",
         "twig/intl-extra": "^3.3",
         "twig/twig": "^3.3",
         "ua-parser/uap-php": "^3.9",
@@ -111,7 +114,10 @@
             "php": "8.2.26"
         },
         "process-timeout": 0,
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/runtime": true
+        }
     },
     "extra": {
         "symfony-app-dir": "app",

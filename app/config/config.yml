@@ -103,6 +103,7 @@ fos_rest:
   body_listener:
     enabled: true
   format_listener:
+    enabled: true
     rules:
       - {path: ^/api/, fallback_format: json}
       - {path: ^/, fallback_format: html}
@@ -135,7 +136,7 @@ framework:
         options:
           table_name: supla_email_notifications
   router:
-    resource: "%kernel.root_dir%/config/routing.yml"
+    resource: "%kernel.project_dir%/app/config/routing.yml"
     strict_requirements: ~
   secret: "%secret%"
   serializer:
