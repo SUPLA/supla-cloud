@@ -320,7 +320,7 @@ class SuplaServerMock extends SuplaServer {
                 rand(0, 10000000), // TotalReverseReactiveEnergyPhase3 * 100000
                 rand(0, 10000), // TotalCost * 100
                 rand(0, 100000), // PricePerUnit * 10000
-                $this->faker->currencyCode
+                $this->faker->currencyCode()
             );
         } elseif (preg_match('#^UPDATE-CHANNEL-STATE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             $channelId = $match[3];
