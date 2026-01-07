@@ -19,7 +19,7 @@ namespace SuplaBundle\Model;
 
 use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class IODeviceManager {
     protected $translator;
