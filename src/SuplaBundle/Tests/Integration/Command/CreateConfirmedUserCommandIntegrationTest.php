@@ -46,7 +46,7 @@ class CreateConfirmedUserCommandIntegrationTest extends IntegrationTestCase {
         $command = $this->application->find('supla:user:create');
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute(['username' => 'newuser@supla.org', '--if-not-exists' => true]);
-        $this->assertEquals(0, $exitCode);
+        $this->assertEquals(1, $exitCode);
         $output = $commandTester->getDisplay();
         $this->assertStringContainsString('already exists', $output);
     }
