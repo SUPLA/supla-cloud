@@ -538,8 +538,10 @@ class ChannelMeasurementLogsController extends RestController {
         }
         $view->setHeader('X-Total-Count', $totalCount);
         $view->setHeader('X-Count', $totalCountWithCondition);
-        $view->setHeader('X-Min-Timestamp', $minTimestamp);
-        $view->setHeader('X-Max-Timestamp', $maxTimestamp);
+        if ($minTimestamp && $maxTimestamp) {
+            $view->setHeader('X-Min-Timestamp', $minTimestamp);
+            $view->setHeader('X-Max-Timestamp', $maxTimestamp);
+        }
         return $view;
     }
 

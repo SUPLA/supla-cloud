@@ -102,6 +102,10 @@ fos_oauth_server:
 fos_rest:
   body_listener:
     enabled: true
+  format_listener:
+    rules:
+      - {path: ^/api/, fallback_format: json}
+      - {path: ^/, fallback_format: html}
   serializer:
     groups: ['basic']
     serialize_null: true
