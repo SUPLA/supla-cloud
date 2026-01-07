@@ -102,8 +102,6 @@ fos_oauth_server:
 fos_rest:
   body_listener:
     enabled: true
-  routing_loader:
-    enabled: false
   serializer:
     groups: ['basic']
     serialize_null: true
