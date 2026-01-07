@@ -2,6 +2,7 @@
 namespace SuplaBundle\Command\Cyclic;
 
 use SuplaBundle\Model\TimeProvider;
+use SuplaBundle\Utils\TimestampConsoleOutput;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -30,7 +31,7 @@ class DispatchCyclicTasksCommand extends Command {
 
     /** @inheritdoc */
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $io = new SymfonyStyle($input, $output);
+        $io = new SymfonyStyle($input, new TimestampConsoleOutput($output));
         $this->getApplication()->setAutoExit(false);
         $runAll = $input->getOption('all');
         $notRunCommands = [];
@@ -39,7 +40,7 @@ class DispatchCyclicTasksCommand extends Command {
                 if (!$output->isQuiet()) {
                     $io->section($command->getName());
                 }
-                $this->getApplication()->run(new StringInput($command->getName()), $output);
+                $this->getApplication()->run(new StringInput($command->getName()), new TimestampConsoleOutput($output));
                 if (!$output->isQuiet()) {
                     $io->newLine();
                 }
