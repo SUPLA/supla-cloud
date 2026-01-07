@@ -1,11 +1,11 @@
-import {fileURLToPath, URL} from 'node:url'
+import {fileURLToPath, URL} from 'node:url';
 
-import {defineConfig} from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
+import {defineConfig} from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vueDevTools from 'vite-plugin-vue-devtools';
 import ViteYaml from '@modyfi/vite-plugin-yaml';
-import * as path from "node:path";
-import {version} from "./scripts/version";
+import * as path from 'node:path';
+import {version} from './scripts/version';
 
 const __dirname = import.meta.dirname;
 
@@ -27,6 +27,7 @@ export default defineConfig({
     }),
   ],
   server: {
+    port: 25787,
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:8008',
@@ -35,8 +36,8 @@ export default defineConfig({
       '/assets': {
         target: 'http://127.0.0.1:8008',
         changeOrigin: true,
-      }
-    }
+      },
+    },
   },
   resolve: {
     alias: {
@@ -52,5 +53,5 @@ export default defineConfig({
     outDir: path.resolve(__dirname, '../../web'),
     assetsDir: 'dist',
     emptyOutDir: false,
-  }
-})
+  },
+});
