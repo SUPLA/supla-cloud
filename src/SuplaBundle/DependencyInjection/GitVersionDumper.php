@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\DependencyInjection;
 
-use AppKernel;
 use Symfony\Component\Yaml\Yaml;
 
 class GitVersionDumper {
@@ -41,6 +40,7 @@ class GitVersionDumper {
         ];
         $buildConfig = '# Config generated automatically by Composer - changes will be overwritten' . PHP_EOL . PHP_EOL;
         $buildConfig .= Yaml::dump($config);
-        file_put_contents(AppKernel::ROOT_PATH . '/config/config_build.yml', $buildConfig);
+        // TODO
+        //        file_put_contents(__DIR__ . '/../../../config/config_build.yml', $buildConfig);
     }
 }
