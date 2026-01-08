@@ -1,0 +1,24 @@
+services:
+  SuplaBundle\Tests\Integration\TestMailerTransport: ~
+  SuplaBundle\Mailer\SuplaMailer:
+    $transport: '@SuplaBundle\Tests\Integration\TestMailerTransport'
+    $mailerFrom: "%mailer_from%"
+    $logger: '@monolog.logger.supla_mails'
+  SuplaBundle\Model\TimeProvider:
+    class: SuplaBundle\Tests\Integration\Traits\TestTimeProvider
+  SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
+  SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverMock'
+  SuplaBundle\Supla\SuplaHttpClient:
+    class: SuplaBundle\Tests\Integration\Traits\TestSuplaHttpClient
+  SuplaBundle\Supla\SuplaServerMockCommandsCollector:
+    public: false
+    tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
+  test.client:
+    class: SuplaBundle\Tests\Integration\TestClient
+    shared: false
+    public: true
+    arguments:
+      - '@kernel'
+      - '%test.client.parameters%'
+      - '@test.client.history'
+      - '@test.client.cookiejar'
