@@ -125,26 +125,24 @@ class CopyMeasurementLogsCommand extends Command {
                         $uniqueColumns[] = $possibleUniqueColumn;
                     }
                 }
-
-                $values = array_map(function (array $row) use ($columns) {
-                    $singleRow = [];
-                    foreach ($columns as $column) {
-                        $singleRow[] = "'" . $row[$column] . "'";
-                    }
-                    return '(' . implode(',', $singleRow) . ')';
-                }, $rows);
-
+                $placeholders = '(' . implode(',', array_fill(0, count($columns), '?')) . ')';
                 $columns = array_map(fn($col) => '"' . $col . '"', $columns);
-
                 $sql = sprintf(
                     'INSERT INTO %s (%s) VALUES %s ON CONFLICT (%s) DO NOTHING;',
                     $tableName,
                     implode(',', $columns),
-                    implode(',', $values),
+                    implode(',', array_fill(0, count($rows), $placeholders)),
                     implode(',', $uniqueColumns),
                 );
 
-                $emTsdb->getConnection()->executeStatement($sql);
+                $values = [];
+                foreach ($rows as $row) {
+                    foreach ($row as $value) {
+                        $values[] = $value;
+                    }
+                }
+
+                $emTsdb->getConnection()->executeStatement($sql, $values);
 
                 $offset += $batchSize;
                 if ($offset % ($batchSize * 10) === 0) {
