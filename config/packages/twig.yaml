@@ -4,7 +4,7 @@ twig:
     debug: "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     paths:
-        '%kernel.project_dir%/web': web
+        '%kernel.project_dir%/public': web
         '%kernel.project_dir%/src/SuplaBundle/Resources/views': Supla
 
 when@test:

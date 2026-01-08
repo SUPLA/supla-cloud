@@ -50,7 +50,7 @@ export default defineConfig({
   },
   build: {
     chunkSizeWarningLimit: 700,
-    outDir: path.resolve(__dirname, '../../web'),
+    outDir: path.resolve(__dirname, '../../public'),
     assetsDir: 'dist',
     emptyOutDir: false,
   },
