@@ -3,17 +3,21 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
          colors="true"
          beStrictAboutOutputDuringTests="true"
-         bootstrap="autoload.php"
+         bootstrap="../tests/bootstrap.php"
          displayDetailsOnTestsThatTriggerDeprecations="true"
          displayDetailsOnTestsThatTriggerErrors="true"
          displayDetailsOnTestsThatTriggerNotices="true"
          displayDetailsOnTestsThatTriggerWarnings="true"
          displayDetailsOnPhpunitDeprecations="true">
     <php>
-        <const name="APPLICATION_ENV" value="test"/>
-        <env name="KERNEL_CLASS" value="AppKernel"/>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=0"/>
+        <!--        <const name="APPLICATION_ENV" value="test"/>-->
+        <!--        <env name="KERNEL_CLASS" value="AppKernel"/>-->
+        <!--        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=0"/>-->
         <ini name="memory_limit" value="192M"/>
+        <ini name="display_errors" value="1"/>
+        <ini name="error_reporting" value="-1"/>
+        <server name="APP_ENV" value="test" force="true"/>
+        <server name="SHELL_VERBOSITY" value="-1"/>
     </php>
     <testsuites>
         <testsuite name="unit">
