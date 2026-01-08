@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use AppKernel;
+use App\Kernel;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SettingsString;
@@ -27,7 +27,7 @@ use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\SettingsStringRepository;
 
 class DatabaseV2207MigrationTest extends DatabaseMigrationTestCase {
-    private const PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH = AppKernel::VAR_PATH . '/local/target-cloud-token';
+    private const PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH = Kernel::VAR_PATH . '/local/target-cloud-token';
 
     /** @before */
     public function prepare() {

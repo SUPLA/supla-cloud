@@ -1,8 +1,14 @@
 # Read the documentation: https://github.com/FriendsOfSymfony/FOSOAuthServerBundle/blob/master/Resources/doc/index.md#step-5-configure-fosoauthserverbundle
-fos_oauth_server:
-    db_driver: orm
 
-    client_class: App\Entity\Client
-    access_token_class: App\Entity\AccessToken
-    refresh_token_class: App\Entity\RefreshToken
-    auth_code_class: App\Entity\AuthCode
+fos_oauth_server:
+    access_token_class: SuplaBundle\Entity\Main\OAuth\AccessToken
+    auth_code_class: SuplaBundle\Entity\Main\OAuth\AuthCode
+    client_class: SuplaBundle\Entity\Main\OAuth\ApiClient
+    refresh_token_class: SuplaBundle\Entity\Main\OAuth\RefreshToken
+    db_driver: orm
+    service:
+        options:
+            access_token_lifetime: 300
+            refresh_token_lifetime: 500
+        access_token_manager: SuplaBundle\Auth\SuplaAccessTokenManager
+        storage: SuplaBundle\Auth\SuplaOAuthStorage

@@ -1,3 +1,25 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+oauthAuthorize:
+  resource: "@SuplaBundle/Controller/OAuth"
+  type: annotation
+
+supla_default:
+  resource: "@SuplaBundle/Controller/DefaultController.php"
+  type: annotation
+
+directLinksExecutore:
+  resource: "@SuplaBundle/Controller/ExecuteDirectLinkController.php"
+  type: annotation
+
+supla_api:
+  type: annotation
+  prefix: /api/{version}
+  resource: "@SuplaBundle/Controller/Api"
+  name_prefix: api_
+  defaults: {_format: json}
+
+supla_api_default:
+  type: annotation
+  prefix: /api
+  resource: "@SuplaBundle/Controller/Api"
+  name_prefix: api_default_
+  defaults: {_format: json}

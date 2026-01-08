@@ -1,6 +1,81 @@
 monolog:
     channels:
-        - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
+      - supla_api_rate_limit
+      - supla_autodiscover
+      - supla_direct_links
+      - supla_server
+      - supla_migrations
+      - supla_debug
+      - supla_http_client
+      - supla_cli
+      - supla_mails
+      - deprecation
+
+    handlers:
+      main:
+        channels: ['!supla_direct_links', '!supla_server', '!supla_api_rate_limit', '!supla_migrations', '!supla_debug', '!supla_cli', '!supla_mails']
+        action_level: error
+        handler: main_logger
+        type: fingers_crossed
+      main_logger:
+        level: warning
+        path: "%kernel.logs_dir%/%kernel.environment%.log"
+        type: rotating_file
+        max_files: 14
+      api_rate_limit:
+        channels: [supla_api_rate_limit]
+        level: warning
+        path: "%kernel.logs_dir%/api_rate_limit.log"
+        type: rotating_file
+        max_files: 14
+      autodiscover:
+        channels: [supla_autodiscover]
+        level: notice
+        path: "%kernel.logs_dir%/autodiscover.log"
+        type: rotating_file
+        max_files: 14
+      direct_links:
+        channels: [supla_direct_links]
+        level: notice
+        path: "%kernel.logs_dir%/direct-links.log"
+        type: rotating_file
+        max_files: 14
+      supla_server:
+        channels: [supla_server]
+        level: warning
+        path: "%kernel.logs_dir%/supla-server.log"
+        type: rotating_file
+        max_files: 14
+      supla_migrations:
+        channels: [supla_migrations]
+        level: debug
+        path: "%kernel.logs_dir%/migrations.log"
+        type: rotating_file
+        max_files: 5
+      supla_debug:
+        channels: [supla_debug]
+        level: warning
+        path: "%kernel.logs_dir%/debug.log"
+        type: rotating_file
+        max_files: 1
+      supla_http_client:
+        channels: [supla_http_client]
+        level: notice
+        path: "%kernel.logs_dir%/http-client.log"
+        type: rotating_file
+        max_files: 5
+      supla_cli:
+        channels: [supla_cli]
+        level: notice
+        path: "%kernel.logs_dir%/cli.log"
+        type: rotating_file
+        max_files: 5
+      supla_mails:
+        channels: [supla_mails]
+        level: notice
+        path: "%kernel.logs_dir%/email.log"
+        type: rotating_file
+        max_files: 5
 
 when@dev:
     monolog:

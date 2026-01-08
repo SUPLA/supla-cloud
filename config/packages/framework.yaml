@@ -1,8 +1,8 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
     secret: '%env(APP_SECRET)%'
-    #csrf_protection: true
-    http_method_override: false
+    csrf_protection: false
+    http_method_override: true
 
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
@@ -11,11 +11,28 @@ framework:
         cookie_secure: auto
         cookie_samesite: lax
         storage_factory_id: session.storage.factory.native
+        cookie_lifetime: 0
 
     #esi: true
     #fragments: true
     php_errors:
         log: true
+
+    form: ~
+    fragments: ~
+
+    serializer:
+        enable_annotations: true
+        enabled: true
+        circular_reference_handler: SuplaBundle\Serialization\ObjectIdCircularReferenceHandler
+
+# TODO FROM v4
+#    trusted_hosts: ~
+
+sensio_framework_extra:
+    request: {converters: true}
+    router:
+        annotations: false
 
 when@test:
     framework:
