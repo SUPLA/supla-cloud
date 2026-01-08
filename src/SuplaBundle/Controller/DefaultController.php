@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Controller;
 
+use App\Kernel;
 use OpenApi\Annotations as OA;
 use OpenApi\Generator;
 use Psr\Cache\CacheItemPoolInterface;
@@ -72,7 +73,7 @@ class DefaultController extends AbstractController {
      * @Route("/api-docs/supla-api-docs.yaml", methods={"GET"})
      */
     public function getApiDocsSchemaAction() {
-        $yaml = file_get_contents(\AppKernel::ROOT_PATH . '/config/supla-api-docs.yaml');
+        $yaml = file_get_contents(Kernel::ROOT_PATH . '/config/supla-api-docs.yaml');
         $yaml = str_replace('https://cloud.supla.org', $this->suplaUrl, $yaml);
         return new Response($yaml, Response::HTTP_OK, ['Content-Type' => 'application/yaml']);
     }

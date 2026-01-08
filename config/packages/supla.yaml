@@ -1,0 +1,49 @@
+supla:
+  accounts_registration_enabled: true
+  autodiscover_url: https://autodiscover.supla.org
+  api_rate_limit:
+    enabled: true
+    blocking: false
+    user_default_limit: 1000/3600
+    global_limit: 320/60
+  brute_force_auth_prevention:
+    enabled: '%brute_force_auth_prevention_enabled%'
+    max_failed_attempts: 3
+    block_time_seconds: 1200
+  clients_registration:
+    registration_active_time:
+      initial: 604800 # 1 week
+      manual: 86400 # 24 hours
+  io_devices_registration:
+    registration_active_time:
+      initial: 604800 # 1 week
+      manual: 86400 # 24 hours
+  maintenance:
+    delete_non_confirmed_users_older_than_hours: 24
+    delete_audit_entries_older_than_days: 60
+    delete_audit_entries_older_than_days_custom:
+      DIRECT_LINK_EXECUTION: 2
+  oauth:
+    tokens_lifetime:
+      webapp: {access: 1200}
+      client_app: {access: 3600, refresh: 5184000} # 60 days
+      admin: {access: 3600, refresh: 5184000}
+      user: {access: 3600, refresh: 5184000}
+      broker: {access: 3600, refresh: 5184000}
+
+when@test:
+  supla:
+    brute_force_auth_prevention:
+      enabled: true
+    api_rate_limit:
+      enabled: true
+      blocking: true
+      global_limit: 10000/5
+      user_default_limit: 20000/5
+    state_webhooks:
+      only_for_public_apps: true
+    mqtt_broker:
+      enabled: true
+      integrated_auth: true
+    ocr:
+      enabled: true

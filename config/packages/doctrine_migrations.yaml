@@ -1,6 +1,16 @@
 doctrine_migrations:
+    enable_profiler: false
     migrations_paths:
         # namespace is arbitrary but should be different from App\Migrations
         # as migrations classes should NOT be autoloaded
-        'DoctrineMigrations': '%kernel.project_dir%/migrations'
-    enable_profiler: false
+        # TODO
+        #        'DoctrineMigrations': '%kernel.project_dir%/migrations'
+        SuplaBundle\Migrations\Migration: "%kernel.project_dir%/src/SuplaBundle/Migrations/Migration"
+    custom_template: "%kernel.project_dir%/src/SuplaBundle/Migrations/migration.tpl"
+    organize_migrations: BY_YEAR
+    all_or_nothing: true
+    storage:
+        table_storage:
+            table_name: 'migration_versions'
+    services:
+        Doctrine\Migrations\Version\MigrationFactory: 'SuplaBundle\Migrations\Factory\MigrationFactoryDecorator'

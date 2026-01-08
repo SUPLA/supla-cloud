@@ -7,7 +7,7 @@ require __DIR__ . '/../app/autoload.php';
 defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ?: 'prod'));
 
 ini_set('log_errors', 1);
-ini_set('error_log', AppKernel::VAR_PATH . '/logs/php_error.log');
+ini_set('error_log', \App\Kernel::VAR_PATH . '/logs/php_error.log');
 
 $kernel = new AppKernel(APPLICATION_ENV, APPLICATION_ENV === 'dev');
 if (APPLICATION_ENV === 'dev') {

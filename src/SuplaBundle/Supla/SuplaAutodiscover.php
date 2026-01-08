@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Supla;
 
-use AppKernel;
+use App\Kernel;
 use Assert\Assertion;
 use DateTime;
 use FOS\OAuthServerBundle\Model\ClientInterface;
@@ -35,8 +35,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class SuplaAutodiscover {
-    const PUBLIC_CLIENTS_SAVE_PATH = AppKernel::VAR_PATH . '/local/public-clients';
-    const BROKER_CLOUDS_SAVE_PATH = AppKernel::VAR_PATH . '/local/broker-clouds';
+    const PUBLIC_CLIENTS_SAVE_PATH = Kernel::VAR_PATH . '/local/public-clients';
+    const BROKER_CLOUDS_SAVE_PATH = Kernel::VAR_PATH . '/local/broker-clouds';
 
     protected $autodiscoverUrl = null;
 

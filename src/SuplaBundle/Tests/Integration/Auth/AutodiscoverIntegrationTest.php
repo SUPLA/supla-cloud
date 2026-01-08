@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Auth;
 
-use AppKernel;
+use App\Kernel;
 use SuplaBundle\Auth\AutodiscoverPublicClientStub;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\OAuth\ApiClient;
@@ -56,7 +56,7 @@ services:
 class AutodiscoverIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
 
-    const AD_PROJECT_PATH = AppKernel::VAR_PATH . '/../../supla-autodiscover';
+    const AD_PROJECT_PATH = Kernel::VAR_PATH . '/../../supla-autodiscover';
 
     /** @var SuplaAutodiscover */
     private $autodiscover;

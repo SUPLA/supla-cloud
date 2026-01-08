@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use App\Kernel;
 use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use SuplaBundle\Entity\Main\User;
@@ -36,8 +37,8 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
     use SuplaAssertions;
     use ResponseAssertions;
 
-    private const SAMPLE_PNG_FILEPATH = \AppKernel::ROOT_PATH . '/../src/SuplaBundle/Tests/Utils/sample-icon.png';
-    private const SAMPLE_PNG_FILEPATH2 = \AppKernel::ROOT_PATH . '/../src/SuplaBundle/Tests/Utils/sample-icon2.png';
+    private const SAMPLE_PNG_FILEPATH = Kernel::ROOT_PATH . '/src/SuplaBundle/Tests/Utils/sample-icon.png';
+    private const SAMPLE_PNG_FILEPATH2 = Kernel::ROOT_PATH . '/src/SuplaBundle/Tests/Utils/sample-icon2.png';
 
     /** @var User */
     private $user;
@@ -117,7 +118,7 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
         $this->markTestSkipped('libpng warning: Interlace handling should be turned on when using png_read_image');
         $client = $this->createAuthenticatedClient($this->user);
         $image1 = new UploadedFile(self::SAMPLE_PNG_FILEPATH, 'devices.png');
-        $image2 = new UploadedFile(\AppKernel::ROOT_PATH . '/../web/assets/img/digiglass/opaque.png', 'user.png');
+        $image2 = new UploadedFile(Kernel::ROOT_PATH . '/web/assets/img/digiglass/opaque.png', 'user.png');
         $client->apiRequestV24(
             'POST',
             '/api/user-icons',
