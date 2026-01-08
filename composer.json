@@ -68,6 +68,7 @@
         "phpunit/phpunit": "^10.0",
         "rector/rector": "^2.3",
         "squizlabs/php_codesniffer": "^3.6",
+        "symfony/browser-kit": "^5.4",
         "symfony/phpunit-bridge": "^5.4"
     },
     "scripts": {
@@ -90,7 +91,7 @@
             "phpunit -c app --testdox"
         ],
         "lint-backend": [
-            "phpcs src/SuplaBundle --standard=app/phpcs-rules.xml"
+            "phpcs src/SuplaBundle --standard=config/phpcs-rules.xml"
         ],
         "lint-frontend": [
             "cd src/frontend && npm run lint -s"
@@ -100,7 +101,7 @@
             "@lint-backend"
         ],
         "phpcbf": [
-            "phpcbf src/SuplaBundle --standard=app/phpcs-rules.xml"
+            "phpcbf src/SuplaBundle --standard=config/phpcs-rules.xml"
         ],
         "webpack": [
             "cd src/frontend && npm install",

@@ -1,5 +1,9 @@
 kind: pipeline
+type: docker
 name: default
+
+environment:
+  DATABASE_URL: 'mysql://root:@database:3306/supla_test?serverVersion=11&charset=utf8mb4'
 
 steps:
   - name: install-frontend
@@ -43,7 +47,6 @@ steps:
     pull: always
     depends_on: [clone]
     commands:
-      - cp app/config/parameters.yml.drone app/config/parameters.yml
       - composer install --optimize-autoloader
 
   - name: lint-backend
@@ -56,21 +59,21 @@ steps:
     image: supla/supla-cloud:ci-php8.2
     depends_on: [install-backend]
     commands:
-      - ./vendor/bin/phpunit -c app --testsuite unit
+      - ./vendor/bin/phpunit -c config --testsuite unit
 
   - name: api-tests
     image: supla/supla-cloud:ci-php8.2
     depends_on: [install-backend, build-frontend]
     commands:
       - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
+      - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite api
 
   - name: measurement-logs-mariadb
     image: supla/supla-cloud:ci-php8.2
     depends_on: [api-tests]
     commands:
       - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite measurement_logs
+      - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite measurement_logs
 
   - name: measurement-logs-tsdb
     image: supla/supla-cloud:ci-php8.2
@@ -78,7 +81,7 @@ steps:
     commands:
       - "sed -i '/measurement_logs:/!b;n;s/connection: logs_mariadb/connection: logs_tsdb/' app/config/config.yml"
       - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite measurement_logs
+      - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite measurement_logs
       - "sed -i '/measurement_logs:/!b;n;s/connection: logs_tsdb/connection: logs_mariadb/' app/config/config.yml"
 
   - name: integration-tests
@@ -86,7 +89,7 @@ steps:
     depends_on: [measurement-logs-tsdb]
     commands:
       - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
+      - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite integration
 
   - name: test-e2e
     image: cypress/base:22.20.0
