@@ -1,405 +1,396 @@
 parameters:
-    act_as_broker_cloud: false
-    fos_oauth_server.security.authentication.provider.class: SuplaBundle\Auth\SuplaOAuthProvider
-    google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
-    supla_protocol: https
-    supla_server_socket: /var/run/supla/supla-server-ctrl.sock
-    supla_url: '%supla_protocol%://%supla_server%'
-    container.autowiring.strict_mode: true
-    database_host: 127.0.0.1
-    database_port: null
-    database_name: supla
-    database_user: root
-    database_password: php
-    mailer_dsn: 'smtp://localhost:2500'
-    mailer_from: 'SUPLA <noreply@supla.org>'
-    admin_email: null
-    supla_server: 'localhost:8008'
-    supla_require_regulations_acceptance: true
-    supla_require_cookie_policy_acceptance: true
-    brute_force_auth_prevention_enabled: true
-    recaptcha_enabled: false
-    recaptcha_site_key: 6LcOFeIrAAAAALB46sr__8hcICo7Oc1W2CY_jUDz
-    recaptcha_secret: 6LcOFeIrAAAAALn-RI4JWrWqvX9gpt1vsoZ7rhl4
-    locale: en
-    secret: ThisTokenIsNotSoSecretChangeIt
-    cors_allow_origin_regex:
-        - localhost
+  act_as_broker_cloud: '%env(bool:SUPLA_ACT_AS_BROKER_CLOUD)%'
+  fos_oauth_server.security.authentication.provider.class: SuplaBundle\Auth\SuplaOAuthProvider
+  google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
+  supla_protocol: '%env(SUPLA_PROTOCOL)%'
+  supla_server_socket: /var/run/supla/supla-server-ctrl.sock
+  supla_url: '%supla_protocol%://%supla_server%'
+  container.autowiring.strict_mode: true
+  mailer_from: '%env(SUPLA_MAILER_FROM)%'
+  supla_server: '%env(SUPLA_SERVER_ADDRESS)%'
+  supla_require_regulations_acceptance: '%env(bool:SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE)%'
+  supla_require_cookie_policy_acceptance: '%env(bool:SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE)%'
+  brute_force_auth_prevention_enabled: '%env(bool:SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED)%'
+  recaptcha_enabled: '%env(bool:SUPLA_RECAPTCHA_ENABLED)%'
 
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
-        bind:
-            $suplaUrl: '%supla_url%'
-            $recaptchaSecret: '%recaptcha_secret%'
-            $recaptchaEnabled: '%recaptcha_enabled%'
-            $secret: '%secret%'
-            $measurementLogsEntityManager: '@doctrine.orm.measurement_logs_entity_manager'
-
-    _instanceof:
-        SuplaBundle\ParamConverter\AbstractBodyParamConverter:
-            tags: [request.param_converter]
-        SuplaBundle\Model\ChannelActionExecutor\SingleChannelActionExecutor:
-            tags: [supla.channel_action_executor]
-        SuplaBundle\Model\UserConfigTranslator\UserConfigTranslator:
-            tags: [supla.user_config_translator]
-        SuplaBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
-            tags: [supla.channel_state_getter]
-        SuplaBundle\Model\VirtualChannel\VirtualChannelConfigurator:
-            tags: [supla.virtual_channel_configurator]
-        Symfony\Component\Console\Command\Command:
-            tags:
-                - {name: monolog.logger, channel: supla_cli}
-        SuplaBundle\Command\Cyclic\CyclicCommand:
-            tags: [supla.cyclic_command]
-        SuplaBundle\Command\Initialization\InitializationCommand:
-            tags: [supla.initialization_command]
-        SuplaBundle\Model\Schedule\SchedulePlanners\SchedulePlanner:
-            tags: [supla.schedule_planner]
-
-    Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
-    Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
-    Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
-    Symfony\Component\Serializer\NameConverter\NameConverterInterface: '@serializer.name_converter.metadata_aware'
-
-    SuplaBundle\Command\:
-        resource: '../src/SuplaBundle/Command'
-    SuplaBundle\Command\Cyclic\DispatchCyclicTasksCommand:
-        - !tagged supla.cyclic_command
-    SuplaBundle\Command\Cyclic\DeleteNotConfirmedUsersCommand:
-        $deleteOlderThanHours: '%supla.maintenance.delete_non_confirmed_users_older_than_hours%'
-    SuplaBundle\Command\Cyclic\DeleteOldMeasurementLogsCommand:
-        $logsRetentionConfig: '%supla.measurement_logs_retention%'
-    SuplaBundle\Command\Cyclic\ClearObsoleteAuditEntriesCommand:
-        $deleteOlderThanDays: '%supla.maintenance.delete_audit_entries_older_than_days%'
-        $deleteOlderThanDaysCustom: '%supla.maintenance.delete_audit_entries_older_than_days_custom%'
-    SuplaBundle\Command\Initialization\InitializeCommand:
-        - !tagged supla.initialization_command
-    SuplaBundle\Command\User\ApiInfoCommand:
-        $enabled: '%supla.api_rate_limit.enabled%'
-        $blocking: '%supla.api_rate_limit.blocking%'
-
-    SuplaBundle\Controller\:
-        resource: '../src/SuplaBundle/Controller'
-        public: true
-
-    SuplaBundle\Controller\DefaultController:
-        $openApiCache: '@openapi_docs_cache'
-
-    SuplaBundle\Controller\Api\ServerController:
-        $suplaServerHost: '%supla_server%'
-        $suplaVersion: '%supla.version%'
-        $suplaVersionFull: '%supla.version_full%'
-        $actAsBrokerCloud: '%act_as_broker_cloud%'
-
-    SuplaBundle\Controller\Api\StateWebhookController:
-        $stateWebhooksForPublicAppsOnly: '%supla.state_webhooks.only_for_public_apps%'
-
-    SuplaBundle\Controller\Api\UserController:
-        $clientsRegistrationEnableTime: '%supla.clients_registration.registration_active_time.manual%'
-        $ioDevicesRegistrationEnableTime: '%supla.io_devices_registration.registration_active_time.manual%'
-        $requireRegulationsAcceptance: '%supla_require_regulations_acceptance%'
-        $availableLanguages: '%supla.available_languages%'
-        $accountsRegistrationEnabled: '%supla.accounts_registration_enabled%'
-        $mqttBrokerEnabled: '%supla.mqtt_broker.enabled%'
-        $mqttAuthEnabled: '%supla.mqtt_broker.integrated_auth%'
-
-    SuplaBundle\Controller\ExecuteDirectLinkController:
-        $logger: '@monolog.logger.supla_direct_links'
-
-    SuplaBundle\Controller\OAuth\BrokerAuthorizeController:
-        public: true
-        arguments:
-            $authorizeForm: '@fos_oauth_server.authorize.form'
-            $authorizeFormHandler: '@fos_oauth_server.authorize.form.handler.default'
-
-    SuplaBundle\Entity\Main\Listeners\:
-        resource: '../src/SuplaBundle/Entity/Main/Listeners'
-        tags:
-            - {name: doctrine.orm.entity_listener}
-
-    SuplaBundle\Message\:
-        resource: '../src/SuplaBundle/Message'
-
-    SuplaBundle\Message\EmailFromTemplateHandler:
-        $defaultLocale: "%locale%"
-    SuplaBundle\Message\EmailToAdminHandler:
-        $adminEmail: "%admin_email%"
-
-    SuplaBundle\Model\:
-        resource: '../src/SuplaBundle/Model'
-
-    SuplaBundle\Model\LocalSuplaCloud:
-        $address: '%supla_url%'
-
-    SuplaBundle\Model\UserManager:
-        $defaultClientsRegistrationTime: '%supla.clients_registration.registration_active_time.initial%'
-        $defaultIoDevicesRegistrationTime: '%supla.io_devices_registration.registration_active_time.initial%'
-
-
-    SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner:
-        tags: [{name: supla.schedule_planner, priority: -10}]
-    SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner:
-        $planners: !tagged supla.schedule_planner
-
-    SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor:
-        - !tagged supla.channel_action_executor
-
-    SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator:
-        - !tagged supla.user_config_translator
-
-    SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter:
-        arguments:
-            - !tagged supla.channel_state_getter
-        tags:
-            - {name: monolog.logger, channel: supla_server}
-
-    SuplaBundle\Model\VirtualChannel\VirtualChannelFactory:
-        $configurators: !tagged supla.virtual_channel_configurator
-
-    SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker:
-        $enabled: '%supla.brute_force_auth_prevention.enabled%'
-        $maxFailedAttempts: '%supla.brute_force_auth_prevention.max_failed_attempts%'
-        $blockTimeInSeconds: '%supla.brute_force_auth_prevention.block_time_seconds%'
-
-
-    SuplaBundle\Supla\:
-        resource: '../src/SuplaBundle/Supla'
-
-    SuplaBundle\Supla\SuplaServerMock:
-        tags:
-            - {name: monolog.logger, channel: supla_server}
-    SuplaBundle\Supla\SuplaServerReal:
-        arguments:
-            $socketPath: '%supla_server_socket%'
-        tags:
-            - {name: monolog.logger, channel: supla_server}
-
-    SuplaBundle\Supla\SuplaAutodiscoverMock:
-        tags:
-            - {name: monolog.logger, channel: supla_autodiscover}
-
-    SuplaBundle\Supla\SuplaAutodiscoverReal:
-        arguments:
-            $autodiscoverUrl: "%supla.autodiscover_url%"
-            $actAsBrokerCloud: '%act_as_broker_cloud%'
-        tags:
-            - {name: monolog.logger, channel: supla_autodiscover}
-
-    SuplaBundle\Supla\SuplaBrokerHttpClient:
-        tags:
-            - {name: monolog.logger, channel: supla_http_client}
-
-    SuplaBundle\Supla\SuplaOcrClient:
-        $ocrUrl: '%supla.ocr.url%'
-
-    SuplaBundle\Auth\Voter\:
-        resource: '../src/SuplaBundle/Auth/Voter'
-
-    SuplaBundle\Auth\UserProvider: ~
-    SuplaBundle\Auth\SuplaAccessTokenManager: ~
-    SuplaBundle\Auth\UserLoginAttemptListener:
-        tags:
-            - {name: kernel.event_listener, event: security.authentication.failure, method: onInteractiveAuthenticationFailure}
-            - {name: kernel.event_listener, event: security.interactive_login, method: onInteractiveAuthenticationSuccess}
-            - {name: monolog.logger, channel: supla_debug}
-
-    SuplaBundle\Auth\SuplaOAuthStorage:
-        $userProvider: '@SuplaBundle\Auth\UserProvider'
-
-    SuplaBundle\Auth\OAuthEventListener: ~
-
-    SuplaBundle\EventListener\ApiExceptionHandler:
-        arguments:
-            - "%kernel.debug%"
-        tags:
-            - {name: kernel.event_subscriber}
-
-    SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitListener:
-        arguments:
-            $enabled: '%supla.api_rate_limit.enabled%'
-            $blocking: '%supla.api_rate_limit.blocking%'
-            $logger: '@monolog.logger.supla_api_rate_limit'
-        tags:
-            - {name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
-            - {name: kernel.event_listener, event: kernel.response, method: onKernelResponse}
-    SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage:
-        $cache: '@api_rate_limit'
-    SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit:
-        $rule: '%supla.api_rate_limit.user_default_limit%'
-    SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit:
-        $rule: '%supla.api_rate_limit.global_limit%'
-
-    SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener:
-        arguments:
-            $maintenanceMode: "%supla.maintenance_mode%"
-        tags:
-            - {name: kernel.event_listener, event: kernel.controller, method: onKernelController}
-
-    SuplaBundle\EventListener\ResponseContentLengthListener:
-        tags: ['kernel.event_listener']
-
-    SuplaBundle\EventListener\FlushSuplaServerCommandsOnResponseListener:
-        tags: ['kernel.event_listener']
-
-    SuplaBundle\EventListener\DbConnectionTimezoneUtcSetter:
-        tags:
-            - {name: doctrine.event_listener, event: postConnect}
-
-    Doctrine\Migrations\Version\DbalMigrationFactory: ~
-    SuplaBundle\Migrations\Factory\MigrationFactoryDecorator:
-        decorates: Doctrine\Migrations\Version\DbalMigrationFactory
-        arguments: ['@SuplaBundle\Migrations\Factory\MigrationFactoryDecorator.inner', '@service_container']
-        tags:
-            - {name: monolog.logger, channel: supla_migrations}
-
-    SuplaBundle\ParamConverter\:
-        resource: '../src/SuplaBundle/ParamConverter'
-
-    SuplaBundle\Serialization\:
-        resource: '../src/SuplaBundle/Serialization'
-    SuplaBundle\Serialization\UserSerializer:
-        $apiRateLimitEnabled: '%supla.api_rate_limit.enabled%'
-
-    SuplaBundle\Mailer\SuplaMailer:
-        arguments:
-            $mailerFrom: "%mailer_from%"
-        tags:
-            - {name: monolog.logger, channel: supla_mails}
-
-    SuplaBundle\Twig\FrontendConfig: ~
-
-    SuplaBundle\Auth\SuplaOAuth2:
-        arguments:
-            - '@fos_oauth_server.storage'
-            - '%fos_oauth_server.server.options%'
-            - '%supla.oauth.tokens_lifetime%'
-
-    fos_oauth_server.server: '@SuplaBundle\Auth\SuplaOAuth2'
-    OAuth2\OAuth2: '@SuplaBundle\Auth\SuplaOAuth2'
-
-    ## REPOSITORIES ##
-
-    SuplaBundle\Repository\:
-        resource: '../src/SuplaBundle/Repository'
-
-    SuplaBundle\Repository\AccessIdRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\AccessID]
-
-    SuplaBundle\Repository\AccessTokenRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\OAuth\AccessToken]
-
-    SuplaBundle\Repository\ApiClientRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\OAuth\ApiClient]
-
-    SuplaBundle\Repository\ApiClientAuthorizationRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization]
-
-    SuplaBundle\Repository\AuditEntryRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\AuditEntry]
-
-    SuplaBundle\Repository\ChannelGroupRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\IODeviceChannelGroup]
-
-    SuplaBundle\Repository\SceneRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\Scene]
-
-    SuplaBundle\Repository\UserIconRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\UserIcon]
-
-    SuplaBundle\Repository\ClientAppRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\ClientApp]
-
-    SuplaBundle\Repository\LocationRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\Location]
-
-    SuplaBundle\Repository\ScheduleRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\Schedule]
-
-    SuplaBundle\Repository\StateWebhookRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\StateWebhook]
-
-    SuplaBundle\Repository\UserRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\User]
-
-    SuplaBundle\Repository\IODeviceRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\IODevice]
-
-    SuplaBundle\Repository\IODeviceChannelRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\IODeviceChannel]
-
-    SuplaBundle\Repository\AmazonAlexaRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\AmazonAlexa]
-
-    SuplaBundle\Repository\GoogleHomeRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\GoogleHome]
-
-    SuplaBundle\Repository\DirectLinkRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\DirectLink]
-
-    SuplaBundle\Repository\SettingsStringRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\SettingsString]
-
-    SuplaBundle\Repository\PushNotificationRepository:
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments: [SuplaBundle\Entity\Main\PushNotification]
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+    bind:
+      $suplaUrl: '%supla_url%'
+      $recaptchaSecret: '%env(GOOGLE_RECAPTCHA_SECRET)%'
+      $recaptchaEnabled: '%recaptcha_enabled%'
+      $measurementLogsEntityManager: '@doctrine.orm.measurement_logs_entity_manager'
+
+  _instanceof:
+    SuplaBundle\ParamConverter\AbstractBodyParamConverter:
+      tags: [request.param_converter]
+    SuplaBundle\Model\ChannelActionExecutor\SingleChannelActionExecutor:
+      tags: [supla.channel_action_executor]
+    SuplaBundle\Model\UserConfigTranslator\UserConfigTranslator:
+      tags: [supla.user_config_translator]
+    SuplaBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
+      tags: [supla.channel_state_getter]
+    SuplaBundle\Model\VirtualChannel\VirtualChannelConfigurator:
+      tags: [supla.virtual_channel_configurator]
+    Symfony\Component\Console\Command\Command:
+      tags:
+        - {name: monolog.logger, channel: supla_cli}
+    SuplaBundle\Command\Cyclic\CyclicCommand:
+      tags: [supla.cyclic_command]
+    SuplaBundle\Command\Initialization\InitializationCommand:
+      tags: [supla.initialization_command]
+    SuplaBundle\Model\Schedule\SchedulePlanners\SchedulePlanner:
+      tags: [supla.schedule_planner]
+
+  Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
+  Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
+  Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
+  Symfony\Component\Serializer\NameConverter\NameConverterInterface: '@serializer.name_converter.metadata_aware'
+
+  SuplaBundle\Command\:
+    resource: '../src/SuplaBundle/Command'
+  SuplaBundle\Command\Cyclic\DispatchCyclicTasksCommand:
+    - !tagged supla.cyclic_command
+  SuplaBundle\Command\Cyclic\DeleteNotConfirmedUsersCommand:
+    $deleteOlderThanHours: '%supla.maintenance.delete_non_confirmed_users_older_than_hours%'
+  SuplaBundle\Command\Cyclic\DeleteOldMeasurementLogsCommand:
+    $logsRetentionConfig: '%supla.measurement_logs_retention%'
+  SuplaBundle\Command\Cyclic\ClearObsoleteAuditEntriesCommand:
+    $deleteOlderThanDays: '%supla.maintenance.delete_audit_entries_older_than_days%'
+    $deleteOlderThanDaysCustom: '%supla.maintenance.delete_audit_entries_older_than_days_custom%'
+  SuplaBundle\Command\Initialization\InitializeCommand:
+    - !tagged supla.initialization_command
+  SuplaBundle\Command\User\ApiInfoCommand:
+    $enabled: '%supla.api_rate_limit.enabled%'
+    $blocking: '%supla.api_rate_limit.blocking%'
+
+  SuplaBundle\Controller\:
+    resource: '../src/SuplaBundle/Controller'
+    public: true
+
+  SuplaBundle\Controller\DefaultController:
+    $openApiCache: '@openapi_docs_cache'
+
+  SuplaBundle\Controller\Api\ServerController:
+    $suplaServerHost: '%supla_server%'
+    $suplaVersion: '%supla.version%'
+    $suplaVersionFull: '%supla.version_full%'
+    $actAsBrokerCloud: '%act_as_broker_cloud%'
+
+  SuplaBundle\Controller\Api\StateWebhookController:
+    $stateWebhooksForPublicAppsOnly: '%supla.state_webhooks.only_for_public_apps%'
+
+  SuplaBundle\Controller\Api\UserController:
+    $clientsRegistrationEnableTime: '%supla.clients_registration.registration_active_time.manual%'
+    $ioDevicesRegistrationEnableTime: '%supla.io_devices_registration.registration_active_time.manual%'
+    $requireRegulationsAcceptance: '%supla_require_regulations_acceptance%'
+    $availableLanguages: '%supla.available_languages%'
+    $accountsRegistrationEnabled: '%supla.accounts_registration_enabled%'
+    $mqttBrokerEnabled: '%supla.mqtt_broker.enabled%'
+    $mqttAuthEnabled: '%supla.mqtt_broker.integrated_auth%'
+
+  SuplaBundle\Controller\ExecuteDirectLinkController:
+    $logger: '@monolog.logger.supla_direct_links'
+
+  SuplaBundle\Controller\OAuth\BrokerAuthorizeController:
+    public: true
+    arguments:
+      $authorizeForm: '@fos_oauth_server.authorize.form'
+      $authorizeFormHandler: '@fos_oauth_server.authorize.form.handler.default'
+
+  SuplaBundle\Entity\Main\Listeners\:
+    resource: '../src/SuplaBundle/Entity/Main/Listeners'
+    tags:
+      - {name: doctrine.orm.entity_listener}
+
+  SuplaBundle\Message\:
+    resource: '../src/SuplaBundle/Message'
+
+  SuplaBundle\Message\EmailFromTemplateHandler:
+    $defaultLocale: "%kernel.default_locale%"
+  SuplaBundle\Message\EmailToAdminHandler:
+    $adminEmail: "%env(SUPLA_ADMIN_EMAIL)%"
+
+  SuplaBundle\Model\:
+    resource: '../src/SuplaBundle/Model'
+
+  SuplaBundle\Model\LocalSuplaCloud:
+    $address: '%supla_url%'
+
+  SuplaBundle\Model\UserManager:
+    $defaultClientsRegistrationTime: '%supla.clients_registration.registration_active_time.initial%'
+    $defaultIoDevicesRegistrationTime: '%supla.io_devices_registration.registration_active_time.initial%'
+
+
+  SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner:
+    tags: [{name: supla.schedule_planner, priority: -10}]
+  SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner:
+    $planners: !tagged supla.schedule_planner
+
+  SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor:
+    - !tagged supla.channel_action_executor
+
+  SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator:
+    - !tagged supla.user_config_translator
+
+  SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter:
+    arguments:
+      - !tagged supla.channel_state_getter
+    tags:
+      - {name: monolog.logger, channel: supla_server}
+
+  SuplaBundle\Model\VirtualChannel\VirtualChannelFactory:
+    $configurators: !tagged supla.virtual_channel_configurator
+
+  SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker:
+    $enabled: '%supla.brute_force_auth_prevention.enabled%'
+    $maxFailedAttempts: '%supla.brute_force_auth_prevention.max_failed_attempts%'
+    $blockTimeInSeconds: '%supla.brute_force_auth_prevention.block_time_seconds%'
+
+
+  SuplaBundle\Supla\:
+    resource: '../src/SuplaBundle/Supla'
+
+  SuplaBundle\Supla\SuplaServerMock:
+    tags:
+      - {name: monolog.logger, channel: supla_server}
+  SuplaBundle\Supla\SuplaServerReal:
+    arguments:
+      $socketPath: '%supla_server_socket%'
+    tags:
+      - {name: monolog.logger, channel: supla_server}
+
+  SuplaBundle\Supla\SuplaAutodiscoverMock:
+    tags:
+      - {name: monolog.logger, channel: supla_autodiscover}
+
+  SuplaBundle\Supla\SuplaAutodiscoverReal:
+    arguments:
+      $autodiscoverUrl: "%supla.autodiscover_url%"
+      $actAsBrokerCloud: '%act_as_broker_cloud%'
+    tags:
+      - {name: monolog.logger, channel: supla_autodiscover}
+
+  SuplaBundle\Supla\SuplaBrokerHttpClient:
+    tags:
+      - {name: monolog.logger, channel: supla_http_client}
+
+  SuplaBundle\Supla\SuplaOcrClient:
+    $ocrUrl: '%supla.ocr.url%'
+
+  SuplaBundle\Auth\Voter\:
+    resource: '../src/SuplaBundle/Auth/Voter'
+
+  SuplaBundle\Auth\UserProvider: ~
+  SuplaBundle\Auth\SuplaAccessTokenManager: ~
+  SuplaBundle\Auth\UserLoginAttemptListener:
+    tags:
+      - {name: kernel.event_listener, event: security.authentication.failure, method: onInteractiveAuthenticationFailure}
+      - {name: kernel.event_listener, event: security.interactive_login, method: onInteractiveAuthenticationSuccess}
+      - {name: monolog.logger, channel: supla_debug}
+
+  SuplaBundle\Auth\SuplaOAuthStorage:
+    $userProvider: '@SuplaBundle\Auth\UserProvider'
+
+  SuplaBundle\Auth\OAuthEventListener: ~
+
+  SuplaBundle\EventListener\ApiExceptionHandler:
+    arguments:
+      - "%kernel.debug%"
+    tags:
+      - {name: kernel.event_subscriber}
+
+  SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitListener:
+    arguments:
+      $enabled: '%supla.api_rate_limit.enabled%'
+      $blocking: '%supla.api_rate_limit.blocking%'
+      $logger: '@monolog.logger.supla_api_rate_limit'
+    tags:
+      - {name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
+      - {name: kernel.event_listener, event: kernel.response, method: onKernelResponse}
+  SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage:
+    $cache: '@api_rate_limit'
+  SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit:
+    $rule: '%supla.api_rate_limit.user_default_limit%'
+  SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit:
+    $rule: '%supla.api_rate_limit.global_limit%'
+
+  SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener:
+    arguments:
+      $maintenanceMode: "%supla.maintenance_mode%"
+    tags:
+      - {name: kernel.event_listener, event: kernel.controller, method: onKernelController}
+
+  SuplaBundle\EventListener\ResponseContentLengthListener:
+    tags: ['kernel.event_listener']
+
+  SuplaBundle\EventListener\FlushSuplaServerCommandsOnResponseListener:
+    tags: ['kernel.event_listener']
+
+  SuplaBundle\EventListener\DbConnectionTimezoneUtcSetter:
+    tags:
+      - {name: doctrine.event_listener, event: postConnect}
+
+  Doctrine\Migrations\Version\DbalMigrationFactory: ~
+  SuplaBundle\Migrations\Factory\MigrationFactoryDecorator:
+    decorates: Doctrine\Migrations\Version\DbalMigrationFactory
+    arguments: ['@SuplaBundle\Migrations\Factory\MigrationFactoryDecorator.inner', '@service_container']
+    tags:
+      - {name: monolog.logger, channel: supla_migrations}
+
+  SuplaBundle\ParamConverter\:
+    resource: '../src/SuplaBundle/ParamConverter'
+
+  SuplaBundle\Serialization\:
+    resource: '../src/SuplaBundle/Serialization'
+  SuplaBundle\Serialization\UserSerializer:
+    $apiRateLimitEnabled: '%supla.api_rate_limit.enabled%'
+
+  SuplaBundle\Mailer\SuplaMailer:
+    arguments:
+      $mailerFrom: "%mailer_from%"
+    tags:
+      - {name: monolog.logger, channel: supla_mails}
+
+  SuplaBundle\Twig\FrontendConfig: ~
+
+  SuplaBundle\Auth\SuplaOAuth2:
+    arguments:
+      - '@fos_oauth_server.storage'
+      - '%fos_oauth_server.server.options%'
+      - '%supla.oauth.tokens_lifetime%'
+
+  fos_oauth_server.server: '@SuplaBundle\Auth\SuplaOAuth2'
+  OAuth2\OAuth2: '@SuplaBundle\Auth\SuplaOAuth2'
+
+  ## REPOSITORIES ##
+
+  SuplaBundle\Repository\:
+    resource: '../src/SuplaBundle/Repository'
+
+  SuplaBundle\Repository\AccessIdRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\AccessID]
+
+  SuplaBundle\Repository\AccessTokenRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\OAuth\AccessToken]
+
+  SuplaBundle\Repository\ApiClientRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\OAuth\ApiClient]
+
+  SuplaBundle\Repository\ApiClientAuthorizationRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization]
+
+  SuplaBundle\Repository\AuditEntryRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\AuditEntry]
+
+  SuplaBundle\Repository\ChannelGroupRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\IODeviceChannelGroup]
+
+  SuplaBundle\Repository\SceneRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\Scene]
+
+  SuplaBundle\Repository\UserIconRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\UserIcon]
+
+  SuplaBundle\Repository\ClientAppRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\ClientApp]
+
+  SuplaBundle\Repository\LocationRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\Location]
+
+  SuplaBundle\Repository\ScheduleRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\Schedule]
+
+  SuplaBundle\Repository\StateWebhookRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\StateWebhook]
+
+  SuplaBundle\Repository\UserRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\User]
+
+  SuplaBundle\Repository\IODeviceRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\IODevice]
+
+  SuplaBundle\Repository\IODeviceChannelRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\IODeviceChannel]
+
+  SuplaBundle\Repository\AmazonAlexaRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\AmazonAlexa]
+
+  SuplaBundle\Repository\GoogleHomeRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\GoogleHome]
+
+  SuplaBundle\Repository\DirectLinkRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\DirectLink]
+
+  SuplaBundle\Repository\SettingsStringRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\SettingsString]
+
+  SuplaBundle\Repository\PushNotificationRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\PushNotification]
 
 when@dev:
-    services:
-        SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
-        SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverMock'
-        SuplaBundle\Supla\SuplaServerMockCommandsCollector:
-            public: false
-            tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
+  services:
+    SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
+    SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverMock'
+    SuplaBundle\Supla\SuplaServerMockCommandsCollector:
+      public: false
+      tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
 
 when@test:
-    services:
-        SuplaBundle\Tests\Integration\TestMailerTransport: ~
-        SuplaBundle\Mailer\SuplaMailer:
-            $transport: '@SuplaBundle\Tests\Integration\TestMailerTransport'
-            $mailerFrom: "%mailer_from%"
-            $logger: '@monolog.logger.supla_mails'
-        SuplaBundle\Model\TimeProvider:
-            class: SuplaBundle\Tests\Integration\Traits\TestTimeProvider
-        SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
-        SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverMock'
-        SuplaBundle\Supla\SuplaHttpClient:
-            class: SuplaBundle\Tests\Integration\Traits\TestSuplaHttpClient
-        SuplaBundle\Supla\SuplaServerMockCommandsCollector:
-            public: false
-            tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
-        test.client:
-            class: SuplaBundle\Tests\Integration\TestClient
-            shared: false
-            public: true
-            arguments:
-                - '@kernel'
-                - '%test.client.parameters%'
-                - '@test.client.history'
-                - '@test.client.cookiejar'
+  services:
+    SuplaBundle\Tests\Integration\TestMailerTransport: ~
+    SuplaBundle\Mailer\SuplaMailer:
+      $transport: '@SuplaBundle\Tests\Integration\TestMailerTransport'
+      $mailerFrom: "%mailer_from%"
+      $logger: '@monolog.logger.supla_mails'
+    SuplaBundle\Model\TimeProvider:
+      class: SuplaBundle\Tests\Integration\Traits\TestTimeProvider
+    SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
+    SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverMock'
+    SuplaBundle\Supla\SuplaHttpClient:
+      class: SuplaBundle\Tests\Integration\Traits\TestSuplaHttpClient
+    SuplaBundle\Supla\SuplaServerMockCommandsCollector:
+      public: false
+      tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
+    test.client:
+      class: SuplaBundle\Tests\Integration\TestClient
+      shared: false
+      public: true
+      arguments:
+        - '@kernel'
+        - '%test.client.parameters%'
+        - '@test.client.history'
+        - '@test.client.cookiejar'
+
+when@e2e:
+  services:
+    SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
+    SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverMock'
 
 when@prod:
-    services:
-        SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerReal'
-        SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverReal'
+  services:
+    SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerReal'
+    SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverReal'
