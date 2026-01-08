@@ -355,10 +355,10 @@ class ChannelMeasurementLogsController extends RestController {
         }
         Assertion::eq($channel->getFunction()->getId(), ChannelFunction::THERMOMETER);
         [$count,] = $this->getMeasureLogsCount($channel);
-        return [
+        return $this->view([
             'count' => $count,
             'record_limit_per_request' => self::RECORD_LIMIT_PER_REQUEST,
-        ];
+        ]);
     }
 
     /**
@@ -372,10 +372,10 @@ class ChannelMeasurementLogsController extends RestController {
         }
         Assertion::eq($channel->getFunction()->getId(), ChannelFunction::HUMIDITYANDTEMPERATURE);
         [$count,] = $this->getMeasureLogsCount($channel);
-        return [
+        return $this->view([
             'count' => $count,
             'record_limit_per_request' => self::RECORD_LIMIT_PER_REQUEST,
-        ];
+        ]);
     }
 
     /**
