@@ -28,7 +28,7 @@ class FrontendConfig {
         'regulationsAcceptRequired' => 'supla_require_regulations_acceptance',
         'requireCookiePolicyAcceptance' => 'supla_require_cookie_policy_acceptance',
         'recaptchaEnabled' => 'recaptcha_enabled',
-        'recaptchaSiteKey' => 'recaptcha_site_key',
+//        'recaptchaSiteKey' => 'recaptcha_site_key',
         'actAsBrokerCloud' => 'act_as_broker_cloud',
         'suplaUrl' => 'supla_url',
         'maintenanceMode' => 'supla.maintenance_mode',

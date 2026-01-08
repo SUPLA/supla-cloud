@@ -1,13 +1,7 @@
-/app/config/parameters.yml
-/app/config/config_build.yml
-/app/config/config_docker.yml
-/app/config/config_local.yml
 /bin/
 /composer.phar
-/vendor/
-/var/
-/web/dist/
-/web/index.html
+/public/dist/
+/public/index.html
 .idea/
 *.log
 release/
