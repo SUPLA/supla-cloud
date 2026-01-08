@@ -31,6 +31,21 @@ supla:
       user: {access: 3600, refresh: 5184000}
       broker: {access: 3600, refresh: 5184000}
 
+when@dev:
+  supla:
+    autodiscover_url: http://localhost:8010
+    mqtt_broker:
+      enabled: true
+      host: supla.org
+      integrated_auth: true
+    oauth:
+      tokens_lifetime:
+        webapp: {access: 28800}
+    #      webapp: {access: 60}
+    ocr:
+      enabled: true
+      url: 'http://localhost:8044'
+
 when@test:
   supla:
     brute_force_auth_prevention:
