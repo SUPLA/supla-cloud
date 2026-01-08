@@ -1,21 +1,60 @@
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
+        #        use_savepoints: true
+        connections:
+            default:
+                url: '%env(resolve:DATABASE_URL)%'
+                schema_filter: ~^(?!(esp_|supla_email_notifications|supla_(.+)_log))~
+                charset: utf8mb4
+                default_table_options:
+                    charset: utf8
+                    collate: utf8_unicode_ci
+            logs_mariadb:
+                url: '%env(resolve:DATABASE_URL)%'
+                schema_filter: ~^(migration_versions|doctrine_migration_versions|supla_(.+)_log)$~
+                charset: utf8mb4
+                default_table_options:
+                    charset: utf8
+                    collate: utf8_unicode_ci
+            logs_tsdb:
+                url: '%env(resolve:TSDB_URL)%'
+                schema_filter: ~^(migration_versions|doctrine_migration_versions|supla_(.+)_log)$~
+                charset: utf8
+                default_table_options:
+                    charset: utf8
+                    collate: utf8_unicode_ci
+        default_connection: default
+        types:
+            ipaddress: SuplaBundle\Model\Doctrine\IpAddressType
+            stringdatetime: SuplaBundle\Model\Doctrine\StringDateTime
+            tinyint: SuplaBundle\Model\Doctrine\TinyintType
+            utcdatetime: SuplaBundle\Model\Doctrine\UTCDateTimeType
 
-        # IMPORTANT: You MUST configure your server version,
-        # either here or in the DATABASE_URL env var (see .env file)
-        #server_version: '16'
-        use_savepoints: true
     orm:
-        auto_generate_proxy_classes: true
-        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        auto_mapping: true
-        mappings:
-            App:
-                is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
+        auto_generate_proxy_classes: "%kernel.debug%"
+        #        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        #        auto_mapping: true
+        entity_managers:
+            default:
+                connection: default
+                dql:
+                    numeric_functions:
+                        supla_is_now_active: SuplaBundle\Model\Doctrine\IsNowActive
+                mappings:
+                    FOSOAuthServerBundle: ~
+                    Main:
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/SuplaBundle/Entity/Main'
+                        prefix: 'SuplaBundle\Entity\Main'
+            measurement_logs:
+                connection: logs_mariadb
+                mappings:
+                    MeasurementLogs:
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
+                        prefix: 'SuplaBundle\Entity\MeasurementLogs'
+            tsdb:
+                connection: logs_tsdb
 
 when@test:
     doctrine:

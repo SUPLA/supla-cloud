@@ -1,5 +1,11 @@
 framework:
     cache:
+      app: cache.adapter.filesystem
+      pools:
+        api_rate_limit:
+          adapter: cache.app
+        openapi_docs_cache:
+          adapter: cache.app
         # Unique name of your app: used to compute stable namespaces for cache keys.
         #prefix_seed: your_vendor_name/app_name
 

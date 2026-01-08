@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\DependencyInjection;
 
-use AppKernel;
+use App\Kernel;
 use SuplaBundle\Enums\ApiClientType;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
@@ -103,7 +103,7 @@ class SuplaExtension extends ConfigurableExtension {
     }
 
     private function detectAvailableLanguages() {
-        $files = scandir(AppKernel::ROOT_PATH . '/../src/SuplaBundle/Resources/translations');
+        $files = scandir(Kernel::ROOT_PATH . '/src/SuplaBundle/Resources/translations');
         $languages = array_map(function ($path) {
             preg_match('#\.([a-z]{2})\.yml$#', $path, $match);
             return $match ? $match[1] ?? null : null;
