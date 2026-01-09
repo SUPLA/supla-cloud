@@ -45,6 +45,7 @@ async function readFiles() {
     .map((t) => t.replace("\\'", "'"));
 }
 
+<<<<<<< HEAD
 readFiles().then((textsInSources) => {
   spinner.succeed(chalk.green('Total strings to translate found: ' + textsInSources.length));
   console.log('');
@@ -57,6 +58,34 @@ readFiles().then((textsInSources) => {
   fs.readdirSync(translationsDirectory).forEach((file) => {
     let translationFilePath = `${translationsDirectory}/${file}`;
     const existingMessages = yaml.load(fs.readFileSync(translationFilePath, 'utf8'));
+||||||| parent of 3bc79b3c4 (Rename translation files)
+readFiles()
+    .then(textsInSources => {
+        spinner.succeed(chalk.green('Total strings to translate found: ' + textsInSources.length));
+        console.log('');
+        const translationsDirectory = '../SuplaBundle/Resources/translations/';
+        const yamlDumpConfig = {
+            styles: {'!!null': 'canonical'},
+            sortKeys: true,
+            lineWidth: 1000
+        };
+        fs.readdirSync(translationsDirectory).forEach(file => {
+            let translationFilePath = `${translationsDirectory}/${file}`;
+            const existingMessages = yaml.load(fs.readFileSync(translationFilePath, 'utf8'));
+=======
+readFiles().then((textsInSources) => {
+  spinner.succeed(chalk.green('Total strings to translate found: ' + textsInSources.length));
+  console.log('');
+  const translationsDirectory = '../../translations/';
+  const yamlDumpConfig = {
+    styles: {'!!null': 'canonical'},
+    sortKeys: true,
+    lineWidth: 1000,
+  };
+  fs.readdirSync(translationsDirectory).forEach((file) => {
+    let translationFilePath = `${translationsDirectory}/${file}`;
+    const existingMessages = yaml.load(fs.readFileSync(translationFilePath, 'utf8'));
+>>>>>>> 3bc79b3c4 (Rename translation files)
 
     const matched = {};
     let missing = {};
