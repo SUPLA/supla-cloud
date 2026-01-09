@@ -103,7 +103,7 @@ class SuplaExtension extends ConfigurableExtension {
     }
 
     private function detectAvailableLanguages() {
-        $files = scandir(Kernel::ROOT_PATH . '/src/SuplaBundle/Resources/translations');
+        $files = scandir(Kernel::ROOT_PATH . '/translations');
         $languages = array_map(function ($path) {
             preg_match('#\.([a-z]{2})\.yml$#', $path, $match);
             return $match ? $match[1] ?? null : null;

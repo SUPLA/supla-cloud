@@ -36,7 +36,7 @@ const i18n = createI18n({
 const loadedLanguages = [];
 
 const loadLanguage = (lang) => {
-  return import(`../../SuplaBundle/Resources/translations/messages.${lang}.yml`)
+  return import(`../../../translations/messages.${lang}.yml`)
     .then((translations) => {
       i18n.global.setLocaleMessage(lang, translations.default);
       loadedLanguages.push(lang);
