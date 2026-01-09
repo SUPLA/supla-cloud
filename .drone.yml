@@ -3,7 +3,7 @@ type: docker
 name: default
 
 environment:
-  DATABASE_URL: 'mysql://root:@database:3306/supla_test?serverVersion=11&charset=utf8mb4'
+  DATABASE_URL: 'mysql://root:@database:3306/supla_test?serverVersion=mariadb-11.7.2&charset=utf8mb4'
 
 steps:
   - name: install-frontend
@@ -78,11 +78,10 @@ steps:
   - name: measurement-logs-tsdb
     image: supla/supla-cloud:ci-php8.2
     depends_on: [measurement-logs-mariadb]
+    environment:
+      DATABASE_TSDB_URL: 'postgresql://postgres:postgres@tsdb:5432/supla_test?serverVersion=17&charset=utf8'
     commands:
-      - "sed -i '/measurement_logs:/!b;n;s/connection: logs_mariadb/connection: logs_tsdb/' app/config/config.yml"
-      - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite measurement_logs
-      - "sed -i '/measurement_logs:/!b;n;s/connection: logs_tsdb/connection: logs_mariadb/' app/config/config.yml"
 
   - name: integration-tests
     image: supla/supla-cloud:ci-php8.2
@@ -100,6 +99,8 @@ steps:
       - apt-get update && apt-get install -y ca-certificates apt-transport-https build-essential lsb-release wget gnupg
       - echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/sury-php.list
       - wget -qO /etc/apt/trusted.gpg.d/sury-php.gpg https://packages.sury.org/php/apt.gpg
+      - wget https://get.symfony.com/cli/installer -O - | bash
+      - mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
       - apt-get update && apt-get install -y dialog php8.2 php8.2-curl php8.2-dom php8.2-intl php8.2-mbstring php8.2-mysql php8.2-zip php8.2-pgsql
       - cd src/frontend
       - npm ci

@@ -77,7 +77,7 @@ class ServerController extends RestController {
      * )
      * @Get("/server-info")
      */
-    public function getServerInfoAction(Request $request, RealClientIpResolver $clientIpResolver) {
+    public function getServerInfoAction(Request $request, RealClientIpResolver $clientIpResolver, string $appEnv) {
         $dt = new DateTime();
         $result = [
             'address' => $this->suplaServerHost,
@@ -97,8 +97,8 @@ class ServerController extends RestController {
             $result['cloudVersionFull'] = $this->suplaVersionFull;
             $result['apiVersion'] = ApiVersions::fromRequest($request)->getValue();
             $result['supportedApiVersions'] = array_values(array_unique(ApiVersions::toArray()));
-            if (defined('APPLICATION_ENV') && APPLICATION_ENV !== 'prod') {
-                $result['env'] = APPLICATION_ENV;
+            if ($appEnv !== 'prod') {
+                $result['env'] = $appEnv;
             }
             if ($this->actAsBrokerCloud) {
                 $result['broker'] = true;

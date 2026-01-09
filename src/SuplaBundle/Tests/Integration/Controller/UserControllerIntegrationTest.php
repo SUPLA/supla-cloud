@@ -149,7 +149,6 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
             ['token' => $this->user->getToken(), 'username' => 'supler@supla.org', 'password' => 'supla123']
         );
         $this->assertStatusCode(204, $client->getResponse());
-        $this->getDoctrine()->resetManager();
         $this->assertNull($this->getEntityManager()->find(User::class, $userId));
     }
 
