@@ -45,13 +45,20 @@ services:
     SuplaBundle\Model\Schedule\SchedulePlanners\SchedulePlanner:
       tags: [supla.schedule_planner]
 
+  App\:
+    resource: '../src/'
+    exclude:
+      - '../src/DependencyInjection/'
+      - '../src/frontend/'
+      - '../src/Entity/'
+      - '../src/SuplaBundle/'
+      - '../src/Kernel.php'
+
+
   Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
   Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
   Symfony\Component\Serializer\NameConverter\NameConverterInterface: '@serializer.name_converter.metadata_aware'
-
-  App\DataFixtures\:
-    resource: '../src/DataFixtures'
 
   SuplaBundle\Command\:
     resource: '../src/SuplaBundle/Command'
