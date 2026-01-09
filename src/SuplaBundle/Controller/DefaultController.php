@@ -119,10 +119,10 @@ class DefaultController extends AbstractController {
      * ))
      * @Route("/api-docs/supla-api-docs-v3.yaml", methods={"GET"})
      */
-    public function getApiDocsSchemaActionV24() {
+    public function getApiDocsSchemaActionV24(string $appEnv) {
         $version = $this->getParameter('supla.version');
         $cacheItem = $this->openApiCache->getItem('openApi' . $version);
-        if ($cacheItem->isHit() && defined('APPLICATION_ENV') && APPLICATION_ENV === 'prod') {
+        if ($cacheItem->isHit() && $appEnv === 'prod') {
             $yaml = $cacheItem->get();
         } else {
             $openapi = Generator::scan([

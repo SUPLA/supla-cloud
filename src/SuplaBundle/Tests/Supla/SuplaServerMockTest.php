@@ -47,6 +47,7 @@ class SuplaServerMockTest extends TestCase {
             new SuplaServerMockCommandsCollector(),
             $this->createMock(LoggerInterface::class),
             $this->createMock(EntityManagerInterface::class),
+            'test',
         );
         $this->user = $this->createMock(User::class);
         $this->user->method('getId')->willReturn(111);

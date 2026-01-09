@@ -37,11 +37,9 @@ abstract class DatabaseMigrationTestCase extends IntegrationTestCase {
     protected function migrate(string $toVersion = '') {
         $result = $this->executeCommand(trim('doctrine:migrations:migrate ' . $toVersion));
         $this->assertStringContainsString('Migrating up to', $result);
-        self::$container->get('doctrine')->resetManager();
     }
 
     protected function initialize() {
         $this->executeCommand('supla:initialize');
-        self::$container->get('doctrine')->resetManager();
     }
 }

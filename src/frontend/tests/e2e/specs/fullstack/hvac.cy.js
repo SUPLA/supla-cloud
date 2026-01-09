@@ -12,6 +12,7 @@ describe('HVAC', () => {
     cy.contains('Zapisz zmiany').click();
     cy.contains('Sceny (0)').click();
     cy.contains('Tydzień').click();
+    cy.visit('/channels/4');
     cy.contains('.thermostat-program-button-4', '20°C');
   });
 
@@ -25,6 +26,7 @@ describe('HVAC', () => {
     cy.contains('Zapisz zmiany').click();
     cy.contains('Sceny (0)').click();
     cy.contains('Tydzień').click();
+    cy.visit('/channels/4');
     for (let i = 0; i < 5; i++) {
       cy.get('.time-slot')
         .eq(i)

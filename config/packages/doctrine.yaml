@@ -3,21 +3,21 @@ doctrine:
     #        use_savepoints: true
     connections:
       default:
-        url: '%env(resolve:DATABASE_URL)%'
+        url: '%supla.mariadb_url%'
         schema_filter: ~^(?!(esp_|supla_email_notifications|supla_(.+)_log))~
         charset: utf8mb4
         default_table_options:
           charset: utf8
           collate: utf8_unicode_ci
-      logs_mariadb:
-        url: '%env(resolve:DATABASE_URL)%'
+      logs:
+        url: '%supla.logs_database_url%'
         schema_filter: ~^(migration_versions|doctrine_migration_versions|supla_(.+)_log)$~
         charset: utf8mb4
         default_table_options:
           charset: utf8
           collate: utf8_unicode_ci
-      logs_tsdb:
-        url: '%env(resolve:TSDB_URL)%'
+      tsdb:
+        url: '%supla.tsdb_url%'
         schema_filter: ~^(migration_versions|doctrine_migration_versions|supla_(.+)_log)$~
         charset: utf8
         default_table_options:
@@ -47,14 +47,14 @@ doctrine:
             dir: '%kernel.project_dir%/src/SuplaBundle/Entity/Main'
             prefix: 'SuplaBundle\Entity\Main'
       measurement_logs:
-        connection: logs_mariadb
+        connection: logs
         mappings:
           MeasurementLogs:
             type: annotation
             dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
             prefix: 'SuplaBundle\Entity\MeasurementLogs'
       tsdb:
-        connection: logs_tsdb
+        connection: tsdb
 
 when@test:
   doctrine:
@@ -62,14 +62,10 @@ when@test:
       # "TEST_TOKEN" is typically set by ParaTest
       dbname_suffix: '_test%env(default::TEST_TOKEN)%'
 
-#    doctrine:
-#        dbal:
-#            connections:
-#                logs_tsdb:
-#                    dbname: supla_test
-#                    host: tsdb
-#                    user: postgres
-#                    password: postgres
+when@e2e:
+  doctrine:
+    dbal:
+      dbname_suffix: '_e2e'
 
 when@prod:
   doctrine:
