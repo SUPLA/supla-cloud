@@ -17,7 +17,6 @@
                     value: {{ form.redirect_uri.vars.value | json_encode | raw }}},
                 {name: {{ form.state.vars.name | json_encode | raw }}, value: {{ form.state.vars.value | json_encode | raw }}},
                 {name: {{ form.scope.vars.name | json_encode | raw }}, value: {{ form.scope.vars.value | json_encode | raw }}},
-                {name: {{ form._token.vars.name | json_encode | raw }}, value: {{ form._token.vars.value | json_encode | raw }}},
             ]
         };
     </script>

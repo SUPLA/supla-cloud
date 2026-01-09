@@ -49,8 +49,9 @@ class SuplaServerMock extends SuplaServer {
 
     public function __construct(
         private SuplaServerMockCommandsCollector $commandsCollector,
-        private LoggerInterface $logger,
-        private EntityManagerInterface $em
+        LoggerInterface $logger,
+        private EntityManagerInterface $em,
+        private readonly string $appEnv,
     ) {
         parent::__construct('', new LocalSuplaCloud('http://supla.local'), $logger);
         $this->faker = Factory::create();
@@ -80,7 +81,7 @@ class SuplaServerMock extends SuplaServer {
                 return $response;
             }
         }
-        $isTests = defined('APPLICATION_ENV') && in_array(APPLICATION_ENV, ['e2e', 'test']);
+        $isTests = in_array($this->appEnv, ['e2e', 'test']);
         if (preg_match('#^IS-(IODEV|CLIENT|CHANNEL)-CONNECTED:(\d+),(\d+),?(\d+)?$#', $cmd, $match)) {
             if ($match[1] === 'CHANNEL') {
                 if ($this->faker->boolean($isTests ? 100 : 95)) {

@@ -62,7 +62,8 @@ class FrontendConfig {
 
     private function isNotificationsEnabled(): bool {
         return $this->container->getParameter('act_as_broker_cloud')
-            || ($this->container->hasParameter('notifications_enabled') && $this->container->getParameter('notifications_enabled'));
+            || ($this->container->hasParameter('supla.notifications_enabled')
+                && $this->container->getParameter('supla.notifications_enabled'));
     }
 
     private function mapParameters(array $parameters): array {

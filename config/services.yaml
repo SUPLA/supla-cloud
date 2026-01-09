@@ -13,6 +13,13 @@ parameters:
   brute_force_auth_prevention_enabled: '%env(bool:SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED)%'
   recaptcha_enabled: '%env(bool:SUPLA_RECAPTCHA_ENABLED)%'
 
+  supla.notifications_enabled: '%env(bool:SUPLA_NOTIFICATIONS_ENABLED)%'
+
+  env(DATABASE_TSDB_URL): ''
+  supla.mariadb_url: '%env(resolve:DATABASE_URL)%'
+  supla.tsdb_url: '%env(resolve:DATABASE_TSDB_URL)%'
+  supla.logs_database_url: '%env(string:default:supla.mariadb_url:DATABASE_TSDB_URL)%'
+
 services:
   _defaults:
     autowire: true
@@ -23,6 +30,7 @@ services:
       $recaptchaSecret: '%env(GOOGLE_RECAPTCHA_SECRET)%'
       $recaptchaEnabled: '%recaptcha_enabled%'
       $measurementLogsEntityManager: '@doctrine.orm.measurement_logs_entity_manager'
+      $appEnv: '%kernel.environment%'
 
   _instanceof:
     SuplaBundle\ParamConverter\AbstractBodyParamConverter:

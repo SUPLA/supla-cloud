@@ -10,8 +10,6 @@
          displayDetailsOnTestsThatTriggerWarnings="true"
          displayDetailsOnPhpunitDeprecations="true">
     <php>
-        <!--        <const name="APPLICATION_ENV" value="test"/>-->
-        <!--        <env name="KERNEL_CLASS" value="AppKernel"/>-->
         <!--        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=0"/>-->
         <ini name="memory_limit" value="192M"/>
         <ini name="display_errors" value="1"/>

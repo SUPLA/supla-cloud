@@ -21,14 +21,10 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class InitializeAndLoadFixturesCommand extends Command {
-    private readonly string $env;
-
-    public function __construct(ParameterBagInterface $parameters) {
+    public function __construct(private readonly string $appEnv) {
         parent::__construct();
-        $this->env = $parameters->get('kernel.environment');
     }
 
     protected function configure(): void {
@@ -39,7 +35,7 @@ class InitializeAndLoadFixturesCommand extends Command {
 
     /** @inheritdoc */
     protected function execute(InputInterface $input, OutputInterface $output): int {
-        if ($this->env !== 'dev') {
+        if ($this->appEnv !== 'dev') {
             $output->writeln('This command is only available in dev environment.');
             return self::FAILURE;
         }
