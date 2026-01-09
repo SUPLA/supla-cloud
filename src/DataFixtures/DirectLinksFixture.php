@@ -15,13 +15,14 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\DataFixtures\ORM;
+namespace App\DataFixtures;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
@@ -34,7 +35,7 @@ class DirectLinksFixture extends SuplaFixture {
     /** @var Generator */
     private $faker;
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager): void {
         $this->faker = Factory::create('pl_PL');
         $this->entityManager = $manager;
         $this->createRandomLinks();
@@ -45,7 +46,7 @@ class DirectLinksFixture extends SuplaFixture {
     private function createRandomLinks() {
         $randomDevices = [];
         for ($i = 0; $i < DevicesFixture::NUMBER_OF_RANDOM_DEVICES; $i++) {
-            $randomDevices[] = $this->getReference(DevicesFixture::RANDOM_DEVICE_PREFIX . $i);
+            $randomDevices[] = $this->getReference(DevicesFixture::RANDOM_DEVICE_PREFIX . $i, IODevice::class);
         }
         for ($i = 0; $i < 20; $i++) {
             $channels = $this->faker->randomElement($randomDevices)->getChannels();
@@ -61,7 +62,7 @@ class DirectLinksFixture extends SuplaFixture {
     }
 
     private function createSuplerLink() {
-        $channel = $this->getReference(DevicesFixture::DEVICE_SUPLER)->getChannels()[0];
+        $channel = $this->getReference(DevicesFixture::DEVICE_SUPLER, IODevice::class)->getChannels()[0];
         $directLink = new DirectLink($channel);
         $directLink->generateSlug(new PlaintextPasswordEncoder());
         $directLink->setAllowedActions([ChannelFunctionAction::READ()]);

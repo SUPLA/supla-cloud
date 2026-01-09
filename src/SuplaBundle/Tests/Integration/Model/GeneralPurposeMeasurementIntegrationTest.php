@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Model;
 
+use App\DataFixtures\DevicesFixture;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelConfigChangeScope;
@@ -26,7 +27,6 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
-use SuplaDeveloperBundle\DataFixtures\ORM\DevicesFixture;
 
 /** @small */
 class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {

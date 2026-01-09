@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Model;
 
+use App\DataFixtures\DevicesFixture;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\ChannelState;
 use SuplaBundle\Entity\Main\IODevice;
@@ -40,7 +41,6 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
-use SuplaDeveloperBundle\DataFixtures\ORM\DevicesFixture;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

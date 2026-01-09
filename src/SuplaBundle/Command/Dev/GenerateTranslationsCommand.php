@@ -15,8 +15,9 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\Command;
+namespace SuplaBundle\Command\Dev;
 
+use App\Kernel;
 use SuplaBundle\Enums\RgbwCommand;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\Console\Command\Command;
@@ -39,7 +40,7 @@ class GenerateTranslationsCommand extends Command {
             return "rgbwCommand_label_{$command->name}";
         }, RgbwCommand::cases()));
         $translations = array_map(fn(string $t) => "// i18n: ['$t']", $translations);
-        file_put_contents(\AppKernel::VAR_PATH . '/local/translations.php', '<?php' . PHP_EOL . implode("\n", $translations) . PHP_EOL);
+        file_put_contents(Kernel::VAR_PATH . '/local/translations.php', '<?php' . PHP_EOL . implode("\n", $translations) . PHP_EOL);
         return 0;
     }
 }

@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use App\DataFixtures\DevicesFixture;
+use App\DataFixtures\NotificationsFixture;
 use PHPUnit\Framework\Attributes\Depends;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Auth\SuplaOAuth2;
@@ -43,8 +45,6 @@ use SuplaBundle\Tests\Integration\TestMailerTransport;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
-use SuplaDeveloperBundle\DataFixtures\ORM\DevicesFixture;
-use SuplaDeveloperBundle\DataFixtures\ORM\NotificationsFixture;
 
 /** @small */
 class IODeviceControllerIntegrationTest extends IntegrationTestCase {

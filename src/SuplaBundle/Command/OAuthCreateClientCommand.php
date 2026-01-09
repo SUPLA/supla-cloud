@@ -11,18 +11,13 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class OAuthCreateClientCommand extends Command {
 
-    private $clientManager;
-
-    public function __construct(ClientManagerInterface $clientManager) {
+    public function __construct(private readonly ClientManagerInterface $clientManager) {
         parent::__construct();
-        $this->clientManager = $clientManager;
     }
 
     protected function configure() {
-        parent::configure();
-
         $this
-            ->setName('supla:oauth:create-client [--redirect-uri=...]')
+            ->setName('supla:dev:create-client [--redirect-uri=...]')
             ->setDescription('OAuth Create Client')
             ->addOption(
                 'redirect-uri',
