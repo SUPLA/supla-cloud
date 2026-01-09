@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\DataFixtures\ORM;
+namespace App\DataFixtures;
 
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -59,19 +59,19 @@ class DevicesFixture extends SuplaFixture {
         return $this;
     }
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager): void {
         $this->setObjectManager($manager);
-        $location = $this->getReference(LocationsFixture::LOCATION_OUTSIDE);
+        $location = $this->getReference(LocationsFixture::LOCATION_OUTSIDE, Location::class);
         $this->createDeviceSonoff($location);
-        $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE));
-        $this->createDeviceRgb($this->getReference(LocationsFixture::LOCATION_BEDROOM));
+        $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE, Location::class));
+        $this->createDeviceRgb($this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class));
         $this->createEveryFunctionDevice($location, self::DEVICE_EVERY_FUNCTION);
-        $hvac = $this->createDeviceHvac($this->getReference(LocationsFixture::LOCATION_BEDROOM));
+        $hvac = $this->createDeviceHvac($this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class));
         $this->setReference(self::DEVICE_HVAC, $hvac);
-        $this->createDeviceGeneralPurposeMeasurement($this->getReference(LocationsFixture::LOCATION_BEDROOM));
-        $this->createDeviceGateway($this->getReference(LocationsFixture::LOCATION_BEDROOM));
-        $this->createDeviceSeptic($this->getReference(LocationsFixture::LOCATION_BEDROOM));
-        $this->createDeviceModbus($this->getReference(LocationsFixture::LOCATION_BEDROOM));
+        $this->createDeviceGeneralPurposeMeasurement($this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class));
+        $this->createDeviceGateway($this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class));
+        $this->createDeviceSeptic($this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class));
+        $this->createDeviceModbus($this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class));
         $this->createDevice('EMPTY DEVICE', $location, []);
         $device = $this->createEveryFunctionDevice($location, 'SECOND MEGA DEVICE');
         foreach ($this->faker->randomElements($device->getChannels(), 3) as $noFunctionChannel) {
@@ -79,17 +79,18 @@ class DevicesFixture extends SuplaFixture {
             $this->entityManager->persist($noFunctionChannel);
         }
         $this->createDeviceManyGates($location);
-        $nonDeviceLocations = [null, $location, $this->getReference(LocationsFixture::LOCATION_BEDROOM)];
+        $nonDeviceLocations = [null, $location, $this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class)];
         for ($i = 0; $i < self::NUMBER_OF_RANDOM_DEVICES; $i++) {
             $name = strtoupper(implode('-', $this->faker->words($this->faker->numberBetween(1, 3))));
-            $device = $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE), $name);
+            $device = $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE, Location::class), $name);
             foreach ($device->getChannels() as $channel) {
                 $channel->setLocation($nonDeviceLocations[random_int(0, count($nonDeviceLocations) - 1)]);
                 $manager->persist($channel);
             }
             $this->setReference(self::RANDOM_DEVICE_PREFIX . $i, $device);
         }
-        $suplerDevice = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_SUPLER), 'SUPLER MEGA DEVICE');
+        $locationSupler = $this->getReference(LocationsFixture::LOCATION_SUPLER, Location::class);
+        $suplerDevice = $this->createEveryFunctionDevice($locationSupler, 'SUPLER MEGA DEVICE');
         $this->setReference(self::DEVICE_SUPLER, $suplerDevice);
         $this->createDeviceLocked($location);
         $manager->flush();

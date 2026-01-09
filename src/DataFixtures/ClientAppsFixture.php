@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -15,27 +15,33 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\DataFixtures\ORM;
+namespace App\DataFixtures;
 
 use Doctrine\Persistence\ObjectManager;
+use SuplaBundle\Entity\Main\AccessID;
 use SuplaBundle\Entity\Main\ClientApp;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Tests\AnyFieldSetter;
 
 class ClientAppsFixture extends SuplaFixture {
     const ORDER = AccessIdsFixture::ORDER + 1;
 
-    public function load(ObjectManager $manager) {
-        $user = $this->getReference(UsersFixture::USER);
-        $accessIds = [null, $this->getReference(AccessIdsFixture::ACCESS_ID_CHILDREN), $this->getReference(AccessIdsFixture::ACCESS_ID_COMMON)];
+    public function load(ObjectManager $manager): void {
+        $user = $this->getReference(UsersFixture::USER, User::class);
+        $accessIds = [
+            null,
+            $this->getReference(AccessIdsFixture::ACCESS_ID_CHILDREN, AccessID::class),
+            $this->getReference(AccessIdsFixture::ACCESS_ID_COMMON, AccessID::class),
+        ];
         foreach (['HTC One M8', 'iPhone 6s', 'Nokia 3310', 'Samsung Galaxy Tab S2', 'Apple iPad'] as $name) {
             $accessId = $accessIds[random_int(0, count($accessIds) - 1)];
             $clientApp = $this->createClientApp($user, $name, $accessId);
             $manager->persist($clientApp);
         }
         $clientApp = $this->createClientApp(
-            $this->getReference(UsersFixture::USER2),
+            $this->getReference(UsersFixture::USER2, User::class),
             'SUPLER PHONE',
-            $this->getReference(AccessIdsFixture::ACCESS_ID_SUPLER)
+            $this->getReference(AccessIdsFixture::ACCESS_ID_SUPLER, AccessID::class)
         );
         $manager->persist($clientApp);
         $manager->flush();

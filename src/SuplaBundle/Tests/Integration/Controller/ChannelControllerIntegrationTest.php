@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use App\DataFixtures\DevicesFixture;
+use App\DataFixtures\NotificationsFixture;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Entity\EntityUtils;
@@ -45,8 +47,6 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
-use SuplaDeveloperBundle\DataFixtures\ORM\DevicesFixture;
-use SuplaDeveloperBundle\DataFixtures\ORM\NotificationsFixture;
 use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 
 /** @small */

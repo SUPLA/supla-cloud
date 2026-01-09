@@ -63,7 +63,7 @@
         "zircote/swagger-php": "^4.0"
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^3.2",
+        "doctrine/doctrine-fixtures-bundle": "^4.0",
         "fakerphp/faker": "^1.23",
         "phpunit/phpunit": "^10.0",
         "rector/rector": "^2.3",

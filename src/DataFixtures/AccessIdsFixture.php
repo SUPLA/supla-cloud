@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -15,10 +15,10 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\DataFixtures\ORM;
+namespace App\DataFixtures;
 
 use Doctrine\Persistence\ObjectManager;
-use SuplaBundle\Entity\Main\AccessID;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\AccessIdManager;
 
 class AccessIdsFixture extends SuplaFixture {
@@ -28,23 +28,18 @@ class AccessIdsFixture extends SuplaFixture {
     const ACCESS_ID_CHILDREN = 'accessIdDzieci';
     const ACCESS_ID_SUPLER = 'accessIdSupler';
 
-    /** @var AccessIdManager */
-    private $accessIdManager;
-
-    public function __construct(AccessIdManager $accessIdManager) {
-        $this->accessIdManager = $accessIdManager;
+    public function __construct(private readonly AccessIdManager $accessIdManager) {
     }
 
-    public function load(ObjectManager $manager) {
-        $user = $this->getReference(UsersFixture::USER);
+    public function load(ObjectManager $manager): void {
+        $user = $this->getReference(UsersFixture::USER, User::class);
         foreach (['Wspólny', 'Dzieci'] as $caption) {
-            /** @var AccessID $accessId */
             $accessId = $this->accessIdManager->createID($user);
             $accessId->setCaption($caption);
             $manager->persist($accessId);
             $this->setReference('accessId' . $caption, $accessId);
         }
-        $accessId = $this->accessIdManager->createID($this->getReference(UsersFixture::USER2));
+        $accessId = $this->accessIdManager->createID($this->getReference(UsersFixture::USER2, User::class));
         $accessId->setCaption('Supler Access ID');
         $manager->persist($accessId);
         $this->setReference(self::ACCESS_ID_SUPLER, $accessId);

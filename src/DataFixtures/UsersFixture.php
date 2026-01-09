@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\DataFixtures\ORM;
+namespace App\DataFixtures;
 
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,30 +28,24 @@ use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\ApiClientRepository;
 
 class UsersFixture extends SuplaFixture {
-    const ORDER = 0;
+    public const ORDER = 1;
 
-    const USER = 'user';
-    const USER2 = 'user2';
+    public const USER = 'user';
+    public const USER2 = 'user2';
 
-    /** @var UserManager */
-    private $userManager;
-    /** @var ApiClientRepository */
-    private $apiClientRepository;
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    public function __construct(UserManager $userManager, ApiClientRepository $apiClientRepository, EntityManagerInterface $entityManager) {
-        $this->userManager = $userManager;
-        $this->apiClientRepository = $apiClientRepository;
-        $this->entityManager = $entityManager;
+    public function __construct(
+        readonly private UserManager $userManager,
+        readonly private ApiClientRepository $apiClientRepository,
+        readonly private EntityManagerInterface $entityManager
+    ) {
     }
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager): void {
         $this->createUser1();
         $this->createUser2();
     }
 
-    private function createUser1() {
+    private function createUser1(): void {
         $user = new User();
         $user->setEmail('user@supla.org');
         $user->agreeOnRules();
@@ -74,7 +68,7 @@ class UsersFixture extends SuplaFixture {
         $this->entityManager->flush();
     }
 
-    private function createUser2() {
+    private function createUser2(): void {
         $user = new User();
         $user->setEmail('supler@supla.org');
         $user->agreeOnRules();

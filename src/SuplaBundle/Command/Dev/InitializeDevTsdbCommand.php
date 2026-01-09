@@ -15,16 +15,14 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\Command;
+namespace SuplaBundle\Command\Dev;
 
-use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class InitializeDevTsdbCommand extends Command {
-    use SuplaServerAware;
 
     protected function configure() {
         $this

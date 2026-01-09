@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -15,36 +15,32 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\DataFixtures\ORM;
+namespace App\DataFixtures;
 
 use Doctrine\Persistence\ObjectManager;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\LocationManager;
 
 class LocationsFixture extends SuplaFixture {
-    const ORDER = UsersFixture::ORDER + 1;
+    public const ORDER = UsersFixture::ORDER + 1;
 
-    const LOCATION_BEDROOM = 'locationSypialnia';
-    const LOCATION_OUTSIDE = 'locationNa zewnątrz';
-    const LOCATION_GARAGE = 'locationGaraż';
-    const LOCATION_SUPLER = 'locationSupler';
+    public const LOCATION_BEDROOM = 'locationSypialnia';
+    public const LOCATION_OUTSIDE = 'locationNa zewnątrz';
+    public const LOCATION_GARAGE = 'locationGaraż';
+    public const LOCATION_SUPLER = 'locationSupler';
 
-    /** @var LocationManager */
-    private $locationManager;
-
-    public function __construct(LocationManager $locationManager) {
-        $this->locationManager = $locationManager;
+    public function __construct(private readonly LocationManager $locationManager) {
     }
 
-    public function load(ObjectManager $manager) {
-        $user = $this->getReference(UsersFixture::USER);
+    public function load(ObjectManager $manager): void {
+        $user = $this->getReference(UsersFixture::USER, User::class);
         foreach (['Sypialnia', 'Na zewnątrz', 'Garaż'] as $caption) {
-            /** @var \SuplaBundle\Entity\Main\Location $location */
             $location = $this->locationManager->createLocation($user);
             $location->setCaption($caption);
             $manager->persist($location);
             $this->setReference('location' . $caption, $location);
         }
-        $location = $this->locationManager->createLocation($this->getReference(UsersFixture::USER2));
+        $location = $this->locationManager->createLocation($this->getReference(UsersFixture::USER2, User::class));
         $location->setCaption('Supler\'s location');
         $manager->persist($location);
         $this->setReference(self::LOCATION_SUPLER, $location);

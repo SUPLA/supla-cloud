@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\DataFixtures\ORM;
+namespace App\DataFixtures;
 
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -24,6 +24,7 @@ use InvalidArgumentException;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Entity\Main\User;
@@ -37,7 +38,7 @@ class ScenesFixture extends SuplaFixture {
     /** @var Generator */
     private $faker;
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager): void {
         $this->faker = Factory::create('pl_PL');
         $this->createSampleScene($manager);
         $this->createRandomScenes($manager);
@@ -45,16 +46,17 @@ class ScenesFixture extends SuplaFixture {
     }
 
     private function createSampleScene(ObjectManager $manager) {
-        $scene = new Scene($this->getReference(UsersFixture::USER)->getLocations()[0]);
+        $scene = new Scene($this->getReference(UsersFixture::USER, User::class)->getLocations()[0]);
         /** @var IODevice $deviceFull */
-        $deviceFull = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+        $deviceFull = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
         $rgb = $deviceFull->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() == ChannelFunction::DIMMERANDRGBLIGHTING;
         })->first();
         $gate = $deviceFull->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() == ChannelFunction::CONTROLLINGTHEGATE;
         })->first();
-        $op1 = new SceneOperation($this->getReference(DevicesFixture::DEVICE_SONOFF)->getChannels()[0], ChannelFunctionAction::TOGGLE());
+        $deviceSonoff = $this->getReference(DevicesFixture::DEVICE_SONOFF, IODevice::class);
+        $op1 = new SceneOperation($deviceSonoff->getChannels()[0], ChannelFunctionAction::TOGGLE());
         $op2 = new SceneOperation($rgb, ChannelFunctionAction::SET_RGBW_PARAMETERS(), ['brightness' => 55], 2000);
         $op3 = new SceneOperation($gate, ChannelFunctionAction::OPEN_CLOSE());
         $scene->setEnabled(true);
@@ -65,11 +67,11 @@ class ScenesFixture extends SuplaFixture {
 
     private function createRandomScenes(ObjectManager $manager) {
         $locations = [
-            $this->getReference(LocationsFixture::LOCATION_GARAGE),
-            $this->getReference(LocationsFixture::LOCATION_OUTSIDE),
-            $this->getReference(LocationsFixture::LOCATION_BEDROOM),
+            $this->getReference(LocationsFixture::LOCATION_GARAGE, Location::class),
+            $this->getReference(LocationsFixture::LOCATION_OUTSIDE, Location::class),
+            $this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class),
         ];
-        $user = $this->getReference(UsersFixture::USER);
+        $user = $this->getReference(UsersFixture::USER, User::class);
         $subjectFactories = [
             function (User $user) {
                 do {

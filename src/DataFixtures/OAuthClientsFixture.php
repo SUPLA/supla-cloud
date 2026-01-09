@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\DataFixtures\ORM;
+namespace App\DataFixtures;
 
 use Doctrine\Persistence\ObjectManager;
 use OAuth2\OAuth2;
@@ -26,9 +26,8 @@ use SuplaBundle\Enums\ApiClientType;
 class OAuthClientsFixture extends SuplaFixture {
     const ORDER = UsersFixture::ORDER + 1;
 
-    public function load(ObjectManager $manager) {
-        /** @var User $user */
-        $user = $this->getReference(UsersFixture::USER);
+    public function load(ObjectManager $manager): void {
+        $user = $this->getReference(UsersFixture::USER, User::class);
         $this->createLocalSuplaScriptsClient($manager, $user);
         $this->createLocalSuplaCallerClient($manager, $user);
         $this->createLocalSuplaIconsClient($manager, $user);

@@ -17,10 +17,10 @@
 
 namespace SuplaBundle\Tests\Integration\Model\UserConfigTranslator;
 
+use App\DataFixtures\DevicesFixture;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaDeveloperBundle\DataFixtures\ORM\DevicesFixture;
 
 /** @small */
 class UserConfigTranslatorIntegrationTest extends IntegrationTestCase {
