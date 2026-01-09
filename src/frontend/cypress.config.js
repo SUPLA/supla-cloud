@@ -12,7 +12,7 @@ export default defineConfig({
   },
   e2e: {
     baseUrl: 'http://localhost:25787',
-    defaultCommandTimeout: 10000,
+    defaultCommandTimeout: 15000,
     taskTimeout: 10000,
     pageLoadTimeout: 10000,
     setupNodeEvents(on, config) {

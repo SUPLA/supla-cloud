@@ -32,8 +32,8 @@ class ApiExceptionHandler implements EventSubscriberInterface {
     /** @var LoggerInterface */
     private $logger;
 
-    public function __construct($isDebug, LoggerInterface $logger) {
-        $this->isDebug = $isDebug || getenv('APPLICATION_ENV') === 'dev';
+    public function __construct($isDebug, LoggerInterface $logger, string $appEnv) {
+        $this->isDebug = $isDebug || $appEnv === 'dev';
         $this->logger = $logger;
     }
 

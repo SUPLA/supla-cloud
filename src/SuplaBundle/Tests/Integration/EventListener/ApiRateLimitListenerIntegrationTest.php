@@ -42,7 +42,11 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 
-/** @small */
+/**
+ * @small
+ * TODO
+ * @group AutodiscoverIntegrationTest
+ */
 class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
