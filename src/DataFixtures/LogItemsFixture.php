@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\DataFixtures\ORM;
+namespace App\DataFixtures;
 
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
@@ -52,7 +52,7 @@ class LogItemsFixture extends SuplaFixture {
         $this->entityManager = $doctrine->getManager('measurement_logs');
     }
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager): void {
         ini_set('memory_limit', '4G');
         $this->createTemperatureLogItems();
         $this->entityManager->flush();
@@ -79,8 +79,7 @@ class LogItemsFixture extends SuplaFixture {
     }
 
     private function createTemperatureLogItems() {
-        $sonoff = $this->getReference(DevicesFixture::DEVICE_SONOFF);
-        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $thermometer */
+        $sonoff = $this->getReference(DevicesFixture::DEVICE_SONOFF, IODevice::class);
         $thermometer = $sonoff->getChannels()[1];
         $thermometerId = $thermometer->getId();
         $from = strtotime(self::SINCE);
@@ -100,8 +99,7 @@ class LogItemsFixture extends SuplaFixture {
     }
 
     private function createHumidityLogItems() {
-        /** @var \SuplaBundle\Entity\Main\IODevice $device */
-        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
         $humidity = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() === ChannelFunction::HUMIDITY;
         })->first();
@@ -124,8 +122,7 @@ class LogItemsFixture extends SuplaFixture {
     }
 
     private function createTemperatureAndHumidityLogItems() {
-        /** @var \SuplaBundle\Entity\Main\IODevice $device */
-        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
         $tempAndHumidity = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() === ChannelFunction::HUMIDITYANDTEMPERATURE;
         })->first();
@@ -150,7 +147,7 @@ class LogItemsFixture extends SuplaFixture {
     }
 
     private function createImpulseCounterLogItems() {
-        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
         $gasMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() === ChannelFunction::IC_GASMETER;
         })->first();
@@ -160,7 +157,8 @@ class LogItemsFixture extends SuplaFixture {
         $electricityMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() === ChannelFunction::IC_ELECTRICITYMETER;
         })->first();
-        $waterMeterIc = $this->getReference(DevicesFixture::DEVICE_FULL)->getChannels()->filter(function (IODeviceChannel $channel) {
+        $deviceFull = $this->getReference(DevicesFixture::DEVICE_FULL, IODevice::class);
+        $waterMeterIc = $deviceFull->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() === ChannelFunction::IC_WATERMETER;
         })->first();
         foreach ([$gasMeterIc, $heatMeterIc, $electricityMeterIc, $waterMeterIc] as $channel) {
@@ -186,7 +184,7 @@ class LogItemsFixture extends SuplaFixture {
     }
 
     private function createElectricityMeterLogItems() {
-        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
         $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER;
         })->first();
@@ -228,7 +226,7 @@ class LogItemsFixture extends SuplaFixture {
 
     public function createElectricityMeterVoltageLogItems(?int $channelId = null, ?string $since = null) {
         if (!$channelId) {
-            $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+            $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
             $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
                 return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER;
             })->first();
@@ -258,7 +256,7 @@ class LogItemsFixture extends SuplaFixture {
 
     public function createElectricityMeterCurrentLogItems(?int $channelId = null, ?string $since = null) {
         if (!$channelId) {
-            $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+            $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
             $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
                 return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER;
             })->first();
@@ -285,7 +283,7 @@ class LogItemsFixture extends SuplaFixture {
 
     public function createElectricityMeterPowerActiveLogItems(?int $channelId = null, ?string $since = null) {
         if (!$channelId) {
-            $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+            $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
             $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
                 return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER;
             })->first();
@@ -312,7 +310,7 @@ class LogItemsFixture extends SuplaFixture {
 
     public function createElectricityMeterVoltageAberrationLogItems(?int $channelId = null, ?string $since = null, ?int $phaseNo = null) {
         if (!$channelId) {
-            $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+            $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
             $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
                 return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER;
             })->first();
@@ -355,7 +353,7 @@ class LogItemsFixture extends SuplaFixture {
     }
 
     private function createGeneralPurposeMeasurementLogItems() {
-        $device = $this->getReference(DevicesFixture::DEVICE_MEASUREMENTS);
+        $device = $this->getReference(DevicesFixture::DEVICE_MEASUREMENTS, IODevice::class);
         /** @var \SuplaBundle\Entity\Main\IODeviceChannel $gpm */
         $gpm = $device->getChannels()[0];
         $gpmId = $gpm->getId();
@@ -385,7 +383,7 @@ class LogItemsFixture extends SuplaFixture {
 
     private function createGeneralPurposeMeterLogItems() {
         /** @var IODevice $device */
-        $device = $this->getReference(DevicesFixture::DEVICE_MEASUREMENTS);
+        $device = $this->getReference(DevicesFixture::DEVICE_MEASUREMENTS, IODevice::class);
         $gpmInc = $device->getChannels()[1];
         $gpmIncId = $gpmInc->getId();
         $gpmDec = $device->getChannels()[2];

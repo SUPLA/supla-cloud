@@ -15,11 +15,10 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\DataFixtures\ORM;
+namespace App\DataFixtures;
 
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
-use Faker\Generator;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\ValueBasedTrigger;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -28,21 +27,16 @@ use SuplaBundle\Serialization\RequestFiller\ValueBasedTriggerRequestFiller;
 class ReactionsFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;
 
-    private Generator $faker;
-    private ValueBasedTriggerRequestFiller $requestFiller;
-
-    public function __construct(ValueBasedTriggerRequestFiller $requestFiller) {
-        $this->faker = Factory::create('pl_PL');;
-        $this->requestFiller = $requestFiller;
+    public function __construct(private readonly ValueBasedTriggerRequestFiller $requestFiller) {
     }
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager): void {
         $this->createTemperatureReactions($manager);
         $manager->flush();
     }
 
     private function createTemperatureReactions(ObjectManager $manager) {
-        $sonoff = $this->getReference(DevicesFixture::DEVICE_SONOFF);
+        $sonoff = $this->getReference(DevicesFixture::DEVICE_SONOFF, IODevice::class);
         $thermometer = $sonoff->getChannels()[1];
         $vbt = new ValueBasedTrigger($thermometer);
         $this->requestFiller->fillFromData([

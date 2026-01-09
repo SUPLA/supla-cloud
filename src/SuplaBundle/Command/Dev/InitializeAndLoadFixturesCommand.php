@@ -15,31 +15,40 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\Command;
+namespace SuplaBundle\Command\Dev;
 
-use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class InitializeAndLoadFixturesCommand extends Command {
-    use SuplaServerAware;
+    private readonly string $env;
 
-    protected function configure() {
+    public function __construct(ParameterBagInterface $parameters) {
+        parent::__construct();
+        $this->env = $parameters->get('kernel.environment');
+    }
+
+    protected function configure(): void {
         $this
             ->setName('supla:dev:dropAndLoadFixtures')
             ->setDescription('Purge database and load fixtures.');
     }
 
     /** @inheritdoc */
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output): int {
+        if ($this->env !== 'dev') {
+            $output->writeln('This command is only available in dev environment.');
+            return self::FAILURE;
+        }
         $this->getApplication()->setAutoExit(false);
         $this->getApplication()->run(new StringInput('doctrine:database:create --if-not-exists'), $output);
         $this->getApplication()->run(new StringInput('doctrine:database:drop --force --no-interaction'), $output);
         $this->getApplication()->run(new StringInput('doctrine:database:create --if-not-exists'), $output);
         $this->getApplication()->run(new StringInput('supla:initialize'), $output);
         $this->getApplication()->run(new StringInput('doctrine:fixtures:load --no-interaction --append -vvv'), $output);
-        return 0;
+        return self::SUCCESS;
     }
 }

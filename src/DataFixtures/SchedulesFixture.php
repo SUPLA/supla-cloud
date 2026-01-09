@@ -15,12 +15,13 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\DataFixtures\ORM;
+namespace App\DataFixtures;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Enums\ScheduleMode;
@@ -34,14 +35,11 @@ class SchedulesFixture extends SuplaFixture {
     /** @var Generator */
     private $faker;
     private $scheduleFactories;
-    /** @var ScheduleManager */
-    private $scheduleManager;
 
-    public function __construct(ScheduleManager $scheduleManager) {
-        $this->scheduleManager = $scheduleManager;
+    public function __construct(private readonly ScheduleManager $scheduleManager) {
     }
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager): void {
         $this->faker = Factory::create('pl_PL');
         $this->entityManager = $manager;
         $this->scheduleFactories = [
@@ -75,7 +73,7 @@ class SchedulesFixture extends SuplaFixture {
     private function createRandomSchedules() {
         $randomDevices = [];
         for ($i = 0; $i < DevicesFixture::NUMBER_OF_RANDOM_DEVICES; $i++) {
-            $randomDevices[] = $this->getReference(DevicesFixture::RANDOM_DEVICE_PREFIX . $i);
+            $randomDevices[] = $this->getReference(DevicesFixture::RANDOM_DEVICE_PREFIX . $i, IODevice::class);
         }
         for ($i = 0; $i < 15; $i++) {
             /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */

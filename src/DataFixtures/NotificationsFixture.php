@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\DataFixtures\ORM;
+namespace App\DataFixtures;
 
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -35,16 +35,19 @@ class NotificationsFixture extends SuplaFixture {
         $this->faker = Factory::create('pl_PL');;
     }
 
-    public function load(ObjectManager $manager) {
-        $this->createChannelNotification($manager, $this->getReference(DevicesFixture::DEVICE_SONOFF)->getChannels()[0]);
-        $this->createChannelNotification($manager, $this->getReference(DevicesFixture::DEVICE_SONOFF)->getChannels()[1]);
-        $this->createChannelNotification($manager, $this->getReference(DevicesFixture::DEVICE_FULL)->getChannels()[0]);
-        $this->createChannelNotification($manager, $this->getReference(DevicesFixture::DEVICE_FULL)->getChannels()[1]);
-        $this->createChannelNotification($manager, $this->getReference(DevicesFixture::DEVICE_FULL)->getChannels()[2]);
-        $this->createChannelNotification($manager, $this->getReference(DevicesFixture::DEVICE_FULL)->getChannels()[3]);
-        $this->createDeviceNotification($manager, $this->getReference(DevicesFixture::DEVICE_SONOFF));
-        $this->createDeviceNotification($manager, $this->getReference(DevicesFixture::DEVICE_FULL));
-        $this->createDeviceNotification($manager, $this->getReference(DevicesFixture::DEVICE_RGB));
+    public function load(ObjectManager $manager): void {
+        $deviceSonoff = $this->getReference(DevicesFixture::DEVICE_SONOFF, IODevice::class);
+        $deviceFull = $this->getReference(DevicesFixture::DEVICE_FULL, IODevice::class);
+        $deviceRgb = $this->getReference(DevicesFixture::DEVICE_RGB, IODevice::class);
+        $this->createChannelNotification($manager, $deviceSonoff->getChannels()[0]);
+        $this->createChannelNotification($manager, $deviceSonoff->getChannels()[1]);
+        $this->createChannelNotification($manager, $deviceFull->getChannels()[0]);
+        $this->createChannelNotification($manager, $deviceFull->getChannels()[1]);
+        $this->createChannelNotification($manager, $deviceFull->getChannels()[2]);
+        $this->createChannelNotification($manager, $deviceFull->getChannels()[3]);
+        $this->createDeviceNotification($manager, $deviceSonoff);
+        $this->createDeviceNotification($manager, $deviceFull);
+        $this->createDeviceNotification($manager, $deviceRgb);
         $manager->flush();
     }
 

@@ -15,12 +15,14 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaDeveloperBundle\DataFixtures\ORM;
+namespace App\DataFixtures;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\Location;
 
 class ChannelGroupsFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;
@@ -30,7 +32,7 @@ class ChannelGroupsFixture extends SuplaFixture {
     /** @var \Faker\Generator */
     private $faker;
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager): void {
         $this->faker = Factory::create('pl_PL');
         $this->entityManager = $manager;
         $this->createLightGroup();
@@ -40,9 +42,9 @@ class ChannelGroupsFixture extends SuplaFixture {
 
     private function createLightGroup() {
         /** @var \SuplaBundle\Entity\Main\IODevice $sonoff */
-        $sonoff = $this->getReference(DevicesFixture::DEVICE_SONOFF);
+        $sonoff = $this->getReference(DevicesFixture::DEVICE_SONOFF, IODevice::class);
         /** @var \SuplaBundle\Entity\Main\IODevice $full */
-        $full = $this->getReference(DevicesFixture::DEVICE_FULL);
+        $full = $this->getReference(DevicesFixture::DEVICE_FULL, IODevice::class);
         $lightChannelFromSonoff = $sonoff->getChannels()[0];
         $lightChannelFromFull = $full->getChannels()[0];
         $group = new IODeviceChannelGroup($sonoff->getUser(), $sonoff->getLocation(), [$lightChannelFromSonoff, $lightChannelFromFull]);
@@ -53,12 +55,12 @@ class ChannelGroupsFixture extends SuplaFixture {
     private function createRandomGroups() {
         $randomDevices = [];
         for ($i = 0; $i < DevicesFixture::NUMBER_OF_RANDOM_DEVICES; $i++) {
-            $randomDevices[] = $this->getReference(DevicesFixture::RANDOM_DEVICE_PREFIX . $i);
+            $randomDevices[] = $this->getReference(DevicesFixture::RANDOM_DEVICE_PREFIX . $i, IODevice::class);
         }
         $locations = [
-            $this->getReference(LocationsFixture::LOCATION_GARAGE),
-            $this->getReference(LocationsFixture::LOCATION_OUTSIDE),
-            $this->getReference(LocationsFixture::LOCATION_BEDROOM),
+            $this->getReference(LocationsFixture::LOCATION_GARAGE, Location::class),
+            $this->getReference(LocationsFixture::LOCATION_OUTSIDE, Location::class),
+            $this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class),
         ];
         for ($i = 0; $i < 10; $i++) {
             $numberOfChannels = random_int(1, DevicesFixture::NUMBER_OF_RANDOM_DEVICES);
@@ -69,7 +71,8 @@ class ChannelGroupsFixture extends SuplaFixture {
                 $channels[] = $randomDevices[$j]->getChannels()[$function];
             }
             $location = $locations[random_int(0, count($locations) - 1)];
-            $group = new IODeviceChannelGroup($this->getReference(DevicesFixture::DEVICE_SONOFF)->getUser(), $location, $channels);
+            $device = $this->getReference(DevicesFixture::DEVICE_SONOFF, IODevice::class);
+            $group = new IODeviceChannelGroup($device->getUser(), $location, $channels);
             $group->setCaption($this->faker->sentence(3));
             $this->entityManager->persist($group);
         }

@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\MeasurementLogs;
 
+use App\DataFixtures\LogItemsFixture;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,7 +38,6 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaDeveloperBundle\DataFixtures\ORM\LogItemsFixture;
 
 /** @small */
 class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCase {

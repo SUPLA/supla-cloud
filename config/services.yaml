@@ -50,6 +50,9 @@ services:
   Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
   Symfony\Component\Serializer\NameConverter\NameConverterInterface: '@serializer.name_converter.metadata_aware'
 
+  App\DataFixtures\:
+    resource: '../src/DataFixtures'
+
   SuplaBundle\Command\:
     resource: '../src/SuplaBundle/Command'
   SuplaBundle\Command\Cyclic\DispatchCyclicTasksCommand:
