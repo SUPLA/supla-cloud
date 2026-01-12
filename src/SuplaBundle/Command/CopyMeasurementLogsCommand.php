@@ -2,6 +2,7 @@
 namespace SuplaBundle\Command;
 
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -118,33 +119,7 @@ class CopyMeasurementLogsCommand extends Command {
                     break;
                 }
 
-                $columns = array_keys($rows[0]);
-                $uniqueColumns = [];
-                foreach (['date', 'date_from', 'channel_id', 'phase_no'] as $possibleUniqueColumn) {
-                    if (in_array($possibleUniqueColumn, $columns)) {
-                        $uniqueColumns[] = $possibleUniqueColumn;
-                    }
-                }
-
-                $values = array_map(function (array $row) use ($columns) {
-                    $singleRow = [];
-                    foreach ($columns as $column) {
-                        $singleRow[] = "'" . $row[$column] . "'";
-                    }
-                    return '(' . implode(',', $singleRow) . ')';
-                }, $rows);
-
-                $columns = array_map(fn($col) => '"' . $col . '"', $columns);
-
-                $sql = sprintf(
-                    'INSERT INTO %s (%s) VALUES %s ON CONFLICT (%s) DO NOTHING;',
-                    $tableName,
-                    implode(',', $columns),
-                    implode(',', $values),
-                    implode(',', $uniqueColumns),
-                );
-
-                $emTsdb->getConnection()->executeStatement($sql);
+                self::insertIgnoreLogsIntoTsdb($rows, $tableName, $emTsdb);
 
                 $offset += $batchSize;
                 if ($offset % ($batchSize * 10) === 0) {
@@ -164,5 +139,45 @@ class CopyMeasurementLogsCommand extends Command {
             return array_intersect(self::LOG_TABLES, $selectedTables);
         }
         return self::LOG_TABLES;
+    }
+
+    public static function getLogPrimaryKeyColumns(array $sampleLog): array {
+        $columns = array_keys($sampleLog);
+        $uniqueColumns = [];
+        foreach (['channel_id', 'date', 'phase_no', 'date_from'] as $possibleUniqueColumn) {
+            if (in_array($possibleUniqueColumn, $columns)) {
+                $uniqueColumns[] = $possibleUniqueColumn;
+            }
+        }
+        return $uniqueColumns;
+    }
+
+    public static function insertIgnoreLogsIntoTsdb(array $rows, string $tableName, ObjectManager $emTsdb): void {
+        if (!$rows) {
+            return;
+        }
+
+        $columns = array_keys($rows[0]);
+        $uniqueColumns = self::getLogPrimaryKeyColumns($rows[0]);
+
+        $values = array_map(function (array $row) use ($columns) {
+            $singleRow = [];
+            foreach ($columns as $column) {
+                $singleRow[] = "'" . $row[$column] . "'";
+            }
+            return '(' . implode(',', $singleRow) . ')';
+        }, $rows);
+
+        $columns = array_map(fn($col) => '"' . $col . '"', $columns);
+
+        $sql = sprintf(
+            'INSERT INTO %s (%s) VALUES %s ON CONFLICT (%s) DO NOTHING;',
+            $tableName,
+            implode(',', $columns),
+            implode(',', $values),
+            implode(',', $uniqueColumns),
+        );
+
+        $emTsdb->getConnection()->executeStatement($sql);
     }
 }
