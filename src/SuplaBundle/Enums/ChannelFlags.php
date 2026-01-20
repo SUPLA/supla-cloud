@@ -36,7 +36,7 @@ namespace SuplaBundle\Enums;
  * @method static ChannelFlags ALWAYS_ALLOW_CHANNEL_DELETION()
  * @method static ChannelFlags HAS_EXTENDED_CHANNEL_STATE()
  */
-final class ChannelFlags extends ChannelFunctionBits {
+final class ChannelFlags extends ChannelBits {
     /** @see https://github.com/SUPLA/supla-core/blob/ffa56e4579812c50ca15202c698d0c1d363a0258/supla-common/proto.h#L458 */
     const RESET_COUNTERS_ACTION_AVAILABLE = 0x2000;
     /** @see https://github.com/SUPLA/supla-core/blob/ffa56e4579812c50ca15202c698d0c1d363a0258/supla-common/proto.h#L464 */

@@ -30,7 +30,7 @@ namespace SuplaBundle\Enums;
  * @method static ChannelConfigChangeScope ALEXA_INTEGRATION_ENABLED()
  * @method static ChannelConfigChangeScope OCR()
  */
-final class ChannelConfigChangeScope extends ChannelFunctionBits {
+final class ChannelConfigChangeScope extends ChannelBits {
     const CHANNEL_FUNCTION = 0x1;
     const CAPTION = 0x2;
     const LOCATION = 0x4;

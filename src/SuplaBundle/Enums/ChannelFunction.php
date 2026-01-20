@@ -60,7 +60,9 @@ use UnexpectedValueException;
  * @method static ChannelFunction POWERSWITCH()
  * @method static ChannelFunction LIGHTSWITCH()
  * @method static ChannelFunction DIMMER()
+ * @method static ChannelFunction DIMMER_CCT()
  * @method static ChannelFunction RGBLIGHTING()
+ * @method static ChannelFunction DIMMER_CCT_AND_RGB()
  * @method static ChannelFunction DIMMERANDRGBLIGHTING()
  * @method static ChannelFunction DEPTHSENSOR()
  * @method static ChannelFunction DISTANCESENSOR()
@@ -135,6 +137,8 @@ final class ChannelFunction extends Enum {
     const POWERSWITCH = 130;
     const LIGHTSWITCH = 140;
     const DIMMER = 180;
+    const DIMMER_CCT = 185;
+    const DIMMER_CCT_AND_RGB = 205;
     const RGBLIGHTING = 190;
     const DIMMERANDRGBLIGHTING = 200;
     const DEPTHSENSOR = 210;
@@ -231,7 +235,10 @@ final class ChannelFunction extends Enum {
     public static function forChannel(IODeviceChannel $channel): array {
         $type = $channel->getType();
         if (in_array($type->getId(), [ChannelType::RELAY, ChannelType::BRIDGE, ChannelType::HVAC])) {
-            return ChannelFunctionBitsFlist::getSupportedFunctions($channel->getFuncList());
+            return ChannelFlistRelay::getSupportedFunctions($channel->getFuncList());
+        } elseif (in_array($type->getId(), [ChannelType::DIMMER, ChannelType::RGBLEDCONTROLLER, ChannelType::DIMMERANDRGBLED])
+            && $channel->getFuncList() > 0) {
+            return ChannelFlistRgbw::getSupportedFunctions($channel->getFuncList());
         } else {
             return ChannelType::functions()[$type->getValue()];
         }
@@ -323,7 +330,21 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TOGGLE(),
                 ChannelFunctionAction::COPY(),
             ],
+            self::DIMMER_CCT => [
+                ChannelFunctionAction::SET_RGBW_PARAMETERS(),
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+                ChannelFunctionAction::COPY(),
+            ],
             self::RGBLIGHTING => [
+                ChannelFunctionAction::SET_RGBW_PARAMETERS(),
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+                ChannelFunctionAction::COPY(),
+            ],
+            self::DIMMER_CCT_AND_RGB => [
                 ChannelFunctionAction::SET_RGBW_PARAMETERS(),
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
@@ -452,6 +473,8 @@ final class ChannelFunction extends Enum {
             self::HUMIDITY => 'Humidity sensor', // i18n
             self::HUMIDITYANDTEMPERATURE => 'Temperature and humidity sensor', // i18n
             self::DIMMER => 'Dimmer', // i18n
+            self::DIMMER_CCT => 'Dimmer CCT', // i18n
+            self::DIMMER_CCT_AND_RGB => 'Dimmer CCT and RGB', // i18n
             self::RGBLIGHTING => 'RGB lighting', // i18n
             self::DIMMERANDRGBLIGHTING => 'Dimmer and RGB lighting', // i18n
             self::DISTANCESENSOR => 'Distance sensor', // i18n
@@ -558,8 +581,10 @@ final class ChannelFunction extends Enum {
             self::HUMIDITY => ['default'],
             self::HUMIDITYANDTEMPERATURE => ['humidity', 'temperature'],
             self::DIMMER => ['off', 'on'],
+            self::DIMMER_CCT => ['off', 'on'],
             self::RGBLIGHTING => ['off', 'on'],
             self::DIMMERANDRGBLIGHTING => ['rgb_off_dim_off', 'rgb_off_dim_on', 'rgb_on_dim_off', 'rgb_on_dim_on'],
+            self::DIMMER_CCT_AND_RGB => ['rgb_off_dim_off', 'rgb_off_dim_on', 'rgb_on_dim_off', 'rgb_on_dim_on'],
             self::DISTANCESENSOR => ['default'],
             self::DEPTHSENSOR => ['default'],
             self::OPENINGSENSOR_WINDOW => ['opened', 'closed'],

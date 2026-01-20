@@ -8,7 +8,7 @@ class PrzemekBitsBuilder {
     private $value = 0;
 
     public function add($bit): self {
-        $bitValue = $bit instanceof ChannelFunctionBits ? $bit->getValue() : $bit;
+        $bitValue = $bit instanceof ChannelBits ? $bit->getValue() : $bit;
         Assertion::integer($bitValue);
         $this->value |= $bitValue;
         return $this;

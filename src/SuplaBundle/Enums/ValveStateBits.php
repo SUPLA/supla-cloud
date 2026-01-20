@@ -22,7 +22,7 @@ namespace SuplaBundle\Enums;
  * @method static ValveStateBits MANUALLY_CLOSED()
  * @method static ValveStateBits MOTOR_PROBLEM()
  */
-final class ValveStateBits extends ChannelFunctionBits {
+final class ValveStateBits extends ChannelBits {
     const FLOODING = 1 << 0;
     const MANUALLY_CLOSED = 1 << 1;
     const MOTOR_PROBLEM = 0x4;

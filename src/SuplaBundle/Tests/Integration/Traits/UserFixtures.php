@@ -30,9 +30,9 @@ use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Enums\ChannelFlistRelay;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\IoDeviceFlags;
 use SuplaBundle\Enums\ScheduleMode;
@@ -143,7 +143,7 @@ trait UserFixtures {
             $fieldSetter->call($channel, 'function', $channelData[1]);
             $fieldSetter->call($channel, 'channelNumber', $channelNumber++);
             if (in_array($channel->getType()->getId(), [ChannelType::RELAY, ChannelType::HVAC])) {
-                $fieldSetter->call($channel, 'funcList', ChannelFunctionBitsFlist::getAllFeaturesFlag());
+                $fieldSetter->call($channel, 'funcList', ChannelFlistRelay::getAllFeaturesFlag());
             }
             if (isset($channelData[2])) {
                 AnyFieldSetter::set($channel, $channelData[2]);

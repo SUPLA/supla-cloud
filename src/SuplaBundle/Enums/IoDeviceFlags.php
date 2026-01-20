@@ -30,7 +30,7 @@ namespace SuplaBundle\Enums;
  * @method static IoDeviceFlags AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED()
  * @method static IoDeviceFlags SET_CFG_MODE_PASSWORD_SUPPORTED()
  */
-final class IoDeviceFlags extends ChannelFunctionBits {
+final class IoDeviceFlags extends ChannelBits {
     /** @see https://github.com/SUPLA/supla-cloud/issues/448 */
     const ENTER_CONFIGURATION_MODE_AVAILABLE = 0x0010;
     /** @see https://github.com/SUPLA/supla-cloud/issues/622 */

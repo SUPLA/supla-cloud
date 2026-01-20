@@ -130,4 +130,22 @@ class ChannelFunctionTest extends TestCase {
         $this->assertNotContains(ChannelFunction::UNSUPPORTED, ChannelFunction::inputFunctions());
         $this->assertNotContains(ChannelFunction::UNSUPPORTED, ChannelFunction::outputFunctions());
     }
+
+    public function testSupportedFunctionsForDimmerLegacy() {
+        $channel = $this->createMock(IODeviceChannel::class);
+        $channel->method('getType')->willReturn(ChannelType::DIMMER());
+        $channel->method('getFuncList')->willReturn(0);
+        $supportedFunctions = EntityUtils::mapToIds(ChannelFunction::forChannel($channel));
+        $expectedSupportedFunctions = [ChannelFunction::DIMMER];
+        $this->assertEquals($expectedSupportedFunctions, $supportedFunctions);
+    }
+
+    public function testSupportedFunctionsForDimmerFuncList() {
+        $channel = $this->createMock(IODeviceChannel::class);
+        $channel->method('getType')->willReturn(ChannelType::DIMMER());
+        $channel->method('getFuncList')->willReturn(3);
+        $supportedFunctions = EntityUtils::mapToIds(ChannelFunction::forChannel($channel));
+        $expectedSupportedFunctions = [ChannelFunction::DIMMER, ChannelFunction::RGBLIGHTING];
+        $this->assertEquals($expectedSupportedFunctions, $supportedFunctions);
+    }
 }

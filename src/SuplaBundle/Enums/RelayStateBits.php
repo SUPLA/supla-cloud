@@ -20,7 +20,7 @@ namespace SuplaBundle\Enums;
 /**
  * @method static RelayStateBits OVERCURRENT_RELAY_OFF()
  */
-final class RelayStateBits extends ChannelFunctionBits {
+final class RelayStateBits extends ChannelBits {
     /**
      * Has been turned off because of an overcurrent.
      * @var int

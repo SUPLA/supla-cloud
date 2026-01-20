@@ -18,7 +18,7 @@
       :filters="[
         {label: $t('All'), value: '*'},
         {label: $t('With function'), value: 'withFunction'},
-        {label: $t('Electric'), value: '130,140,180,190,200,300,310,315'},
+        {label: $t('Electric'), value: '130,140,180,185,190,200,205,300,310,315'},
         {label: $t('Doors, Gates, Windows'), value: '10,20,30,50,60,70,90,100,115,125,230,800,810,950'},
         {label: $t('Roller shutters'), value: '110,120,900,910,930,940'},
         {label: $t('Liquid, Temp'), value: '40,42,45,80,500,510,980,981,982'},

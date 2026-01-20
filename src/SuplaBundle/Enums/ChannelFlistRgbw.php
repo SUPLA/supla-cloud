@@ -17,15 +17,16 @@
 
 namespace SuplaBundle\Enums;
 
-/**
- * @method static RollerShutterStateBits CALIBRATION_FAILED()
- * @method static RollerShutterStateBits CALIBRATION_LOST()
- * @method static RollerShutterStateBits MOTOR_PROBLEM()
- * @method static RollerShutterStateBits CALIBRATION_IN_PROGRESS()
- */
-final class RollerShutterStateBits extends ChannelBits {
-    public const CALIBRATION_FAILED = 0x2;
-    public const CALIBRATION_LOST = 0x4;
-    public const MOTOR_PROBLEM = 0x8;
-    public const CALIBRATION_IN_PROGRESS = 0x10;
+final class ChannelFlistRgbw extends ChannelBits {
+    const DIMMER = 0x00000001;
+    const RGBLIGHTING = 0x00000002;
+    const DIMMERANDRGBLIGHTING = 0x00000004;
+    const DIMMER_CCT = 0x00000008;
+    const DIMMER_CCT_AND_RGB = 0x00000010;
+
+    public static function getSupportedFunctions(int $functionList): array {
+        return array_map(function (ChannelFlistRgbw $bit) {
+            return ChannelFunction::values()[$bit->getKey()];
+        }, self::getSupportedFeatures($functionList));
+    }
 }

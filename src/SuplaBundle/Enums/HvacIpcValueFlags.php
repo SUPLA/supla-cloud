@@ -33,7 +33,7 @@ namespace SuplaBundle\Enums;
  * @method static HvacIpcValueFlags BATTERY_COVER_OPEN()
  * @method static HvacIpcValueFlags CALIBRATION_ERROR()
  */
-final class HvacIpcValueFlags extends ChannelFunctionBits {
+final class HvacIpcValueFlags extends ChannelBits {
     const TEMPERATURE_HEAT_SET = 1 << 0;
     const TEMPERATURE_COOL_SET = 1 << 1;
     const HEATING = 1 << 2;

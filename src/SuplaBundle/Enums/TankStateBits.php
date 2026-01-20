@@ -23,7 +23,7 @@ namespace SuplaBundle\Enums;
  * @method static TankStateBits INVALID_SENSOR_STATE()
  * @method static TankStateBits SOUND_ALARM_ON()
  */
-final class TankStateBits extends ChannelFunctionBits {
+final class TankStateBits extends ChannelBits {
     const WARNING_LEVEL = 1 << 0;
     const ALARM_LEVEL = 1 << 1;
     const INVALID_SENSOR_STATE = 1 << 2;

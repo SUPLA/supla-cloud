@@ -32,9 +32,9 @@ use SuplaBundle\Entity\HasUserConfigTrait;
 use SuplaBundle\Entity\Main\Listeners\IODeviceChannelEntityListener;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFlags;
+use SuplaBundle\Enums\ChannelFlistRelay;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\IoDeviceFlags;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -352,7 +352,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
 
     /**
      * @return int
-     * @see ChannelFunctionBitsFlist
+     * @see ChannelFlistRelay
      */
     public function getFuncList(): int {
         return $this->funcList ?: 0;

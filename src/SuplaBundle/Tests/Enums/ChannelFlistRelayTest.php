@@ -18,13 +18,13 @@
 namespace SuplaBundle\Tests\Enums;
 
 use PHPUnit\Framework\TestCase;
+use SuplaBundle\Enums\ChannelFlistRelay;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 
-class ChannelFunctionBitsFlistTest extends TestCase {
+class ChannelFlistRelayTest extends TestCase {
     /** @dataProvider supportedFunctionsTestCases */
     public function testGettingSupportedFunctions(int $functionList, array $expectedFuncions) {
-        $this->assertEquals($expectedFuncions, ChannelFunctionBitsFlist::getSupportedFunctions($functionList));
+        $this->assertEquals($expectedFuncions, ChannelFlistRelay::getSupportedFunctions($functionList));
     }
 
     public static function supportedFunctionsTestCases() {
@@ -33,7 +33,6 @@ class ChannelFunctionBitsFlistTest extends TestCase {
             [1, [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK()]],
             [2, [ChannelFunction::CONTROLLINGTHEGATE()]],
             [3, [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), ChannelFunction::CONTROLLINGTHEGATE()]],
-            [16, [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER()]],
             [16, [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER()]],
             [27, [
                 ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
@@ -68,7 +67,7 @@ class ChannelFunctionBitsFlistTest extends TestCase {
 
     public function testEveryBitIsExclusive() {
         $bitsSum = 0;
-        foreach (ChannelFunctionBitsFlist::values() as $bit) {
+        foreach (ChannelFlistRelay::values() as $bit) {
             $newBitsSum = $bitsSum | $bit->getValue();
             $this->assertNotEquals($newBitsSum, $bitsSum, 'Non exclusive detected on ' . $bit->getKey());
             $bitsSum = $newBitsSum;
