@@ -28,6 +28,7 @@
   import {DateTime} from 'luxon';
   import {actionCaption} from '../../channels/channel-helpers';
   import {api} from '@/api/api.js';
+  import {useDebounceFn} from '@vueuse/core';
 
   export default {
     components: {ButtonLoadingDots},
@@ -61,7 +62,7 @@
     },
     methods: {
       actionCaption,
-      fetchNextScheduleExecutions() {
+      fetchNextScheduleExecutions: useDebounceFn(function () {
         const query = this.nextRunDatesQuery;
         if (!query.config) {
           this.$emit('input', []);
@@ -77,7 +78,7 @@
             })
             .catch(() => this.$emit('input', []));
         }
-      },
+      }, 500),
       humanizeNextRunDate(dateString) {
         return {
           date: formatDateTimeLong(dateString),
