@@ -20,26 +20,24 @@
 
   const model = defineModel({type: Number});
 
+  function updateColorFromModel() {
+    colorPicker.color.kelvin = model.value;
+  }
+
   onMounted(() => {
     colorPicker = new iro.ColorPicker(pickerElement.value, {
       layout: [
         {
           component: iro.ui.Slider,
-          options: {sliderType: 'hue'},
+          options: {sliderType: 'kelvin', minTemperature: 2200, maxTemperature: 11000},
         },
       ],
-      color: {h: model.value, s: 100, v: 100},
     });
+    colorPicker.on('mount', updateColorFromModel);
     colorPicker.on('color:change', function (color) {
-      const value = Math.round(color.hue);
-      if (value !== model.value) {
-        model.value = value > 360 ? 0 : value;
-      }
+      model.value = Math.round(((color.kelvin - 2200) * 100) / 8800);
     });
   });
 
-  watch(
-    () => model.value,
-    (h) => (colorPicker.color.hsv = {h, s: 100, v: 100})
-  );
+  // watch(() => model.value, updateColorFromModel);
 </script>

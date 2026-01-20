@@ -6,15 +6,17 @@
   });
 
   const openItems = ref([]);
-  const toggleItem = (name) => {
+  const toggleItem = (name, openOrClose = undefined) => {
+    const isOpened = openItems.value.includes(name);
+    const action = openOrClose === undefined ? !isOpened : openOrClose;
     if (props.multiple) {
-      if (openItems.value.includes(name)) {
+      if (!action) {
         openItems.value = openItems.value.filter((item) => item !== name);
-      } else {
+      } else if (!isOpened) {
         openItems.value.push(name);
       }
     } else {
-      openItems.value = openItems.value.includes(name) ? [] : [name];
+      openItems.value = action ? [] : [name];
     }
   };
   provide('accordion', {
@@ -24,10 +26,16 @@
   });
 </script>
 
+<script>
+  export default {
+    compatConfig: {
+      MODE: 3,
+    },
+  };
+</script>
+
 <template>
   <div class="accordion-wrapper">
     <slot />
   </div>
 </template>
-
-<style scoped lang="scss"></style>
