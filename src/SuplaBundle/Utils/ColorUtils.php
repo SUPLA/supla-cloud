@@ -129,6 +129,9 @@ final class ColorUtils {
     }
 
     public static function hexToDec(string $color): int {
+        if (str_starts_with($color, '#')) {
+            $color = substr($color, 1);
+        }
         return hexdec($color);
     }
 

@@ -14,43 +14,7 @@
         <WhiteTemperatureColorpicker v-if="whiteTemperatureOpened" v-model="whiteTemperature" />
       </AccordionItem>
     </AccordionRoot>
-    {{ model }}
   </div>
-  <!--    <div v-if="hasBrightness" class="rgbw-parameter">-->
-  <!--      <label>{{ $t('Brightness') }}</label>-->
-  <!--      <NumberInput v-model="brightness" :min="0" :max="100" />-->
-  <!--    </div>-->
-  <!--    <hr v-if="hasBrightness && hasColor" />-->
-  <!--    <div v-if="hasColor" class="rgbw-parameter">-->
-  <!--      <label>{{ $t('Color') }}</label>-->
-  <!--      <div class="radio">-->
-  <!--        <label>-->
-  <!--          <input v-model="hueMode" type="radio" value="choose" />-->
-  <!--          {{ $t('Choose') }}-->
-  <!--        </label>-->
-  <!--      </div>-->
-  <!--      <div v-if="hueMode === 'choose'">-->
-  <!--        <ColorColorpicker v-model="color" />-->
-  <!--      </div>-->
-  <!--      {{ model }}-->
-  <!--      <div class="radio">-->
-  <!--        <label>-->
-  <!--          <input v-model="hueMode" type="radio" value="random" />-->
-  <!--          {{ $t('Random') }}-->
-  <!--        </label>-->
-  <!--      </div>-->
-  <!--      &lt;!&ndash;      <div class="radio">&ndash;&gt;-->
-  <!--      &lt;!&ndash;        <label>&ndash;&gt;-->
-  <!--      &lt;!&ndash;          <input v-model="hueMode" type="radio" value="white" />&ndash;&gt;-->
-  <!--      &lt;!&ndash;          {{ $t('White') }}&ndash;&gt;-->
-  <!--      &lt;!&ndash;        </label>&ndash;&gt;-->
-  <!--      &lt;!&ndash;      </div>&ndash;&gt;-->
-  <!--    </div>-->
-  <!--    &lt;!&ndash;    <div v-if="hasColor" class="rgbw-parameter">&ndash;&gt;-->
-  <!--    &lt;!&ndash;      <label>{{ $t('Color brightness') }}</label>&ndash;&gt;-->
-  <!--    &lt;!&ndash;      <NumberInput v-model="colorBrightness" :min="0" :max="100" />&ndash;&gt;-->
-  <!--    &lt;!&ndash;    </div>&ndash;&gt;-->
-  <!--  </div>-->
 </template>
 
 <script>
@@ -63,14 +27,13 @@
 
 <script setup>
   import ChannelFunction from '../../common/enums/channel-function';
-  import {computed, nextTick, onMounted} from 'vue';
-  import NumberInput from '@/common/number-input.vue';
+  import {computed} from 'vue';
   import ColorColorpicker from '@/channels/action/color/color-colorpicker.vue';
   import AccordionRoot from '@/common/gui/accordion/accordion-root.vue';
   import AccordionItem from '@/common/gui/accordion/accordion-item.vue';
   import ColorBrightnessColorpicker from '@/channels/action/color/color-brightness-colorpicker.vue';
   import WhiteTemperatureColorpicker from '@/channels/action/color/white-temperature-colorpicker.vue';
-  import {faCheck, faCheckCircle} from '@fortawesome/free-solid-svg-icons';
+  import {faCheckCircle} from '@fortawesome/free-solid-svg-icons';
 
   const props = defineProps({subject: Object});
 

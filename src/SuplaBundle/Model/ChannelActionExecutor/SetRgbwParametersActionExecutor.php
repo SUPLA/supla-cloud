@@ -36,6 +36,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         'hue',
         'color_brightness',
         'brightness',
+        'white_temperature',
         'color',
         'hsv',
         'rgb',
@@ -57,7 +58,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
-        Assertion::between(count($actionParams), 1, 4, 'You need to specify at least brightness or color for this action.');
+        Assertion::between(count($actionParams), 1, 5, 'You need to specify at least brightness or color for this action.');
         Assertion::count(
             array_intersect_key(
                 $actionParams,
@@ -128,6 +129,10 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
             Assert::that($actionParams['brightness'])->numeric()->between(0, 100);
             $params['brightness'] = intval($actionParams['brightness']);
         }
+        if (isset($actionParams['white_temperature'])) {
+            Assert::that($actionParams['white_temperature'])->numeric()->between(0, 100);
+            $params['white_temperature'] = intval($actionParams['white_temperature']);
+        }
         if (isset($actionParams['hsv'])) {
             $hsv = $actionParams['hsv'];
             Assert::that($hsv)->isArray()->keyIsset('hue')->keyIsset('saturation')->keyIsset('value');
@@ -159,9 +164,13 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         $colorBrightness = $actionParams['color_brightness'] ?? -1;
         $brightness = $actionParams['brightness'] ?? -1;
         $turnOnOff = $actionParams['turnOnOff'] ?? -1;
-        $command = $subject->buildServerActionCommand('SET-RGBW-VALUE', [$color, $colorBrightness, $brightness, $turnOnOff]);
+        $rgbCommand = -1;
+        $whiteTemperature = $actionParams['white_temperature'] ?? -1;
+        $cmdParams = [$color, $colorBrightness, $brightness, $turnOnOff, $rgbCommand, $whiteTemperature];
+        $command = $subject->buildServerActionCommand('SET-RGBW-VALUE', $cmdParams);
         if ($color == 'random') {
-            $command = $subject->buildServerActionCommand('SET-RAND-RGBW-VALUE', [$colorBrightness, $brightness]);
+            array_shift($cmdParams);
+            $command = $subject->buildServerActionCommand('SET-RAND-RGBW-VALUE', $cmdParams);
         }
         $this->suplaServer->executeCommand($command);
     }

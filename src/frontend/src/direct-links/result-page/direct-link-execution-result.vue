@@ -161,9 +161,6 @@
       ChannelFunctionAction() {
         return ChannelFunctionAction;
       },
-      ChannelFunction() {
-        return ChannelFunction;
-      },
       currentUrl() {
         return window.location.protocol + '//' + window.location.host + window.location.pathname;
       },
@@ -187,10 +184,14 @@
       exampleUrl(action) {
         let url = this.currentUrl + '/' + action.nameSlug;
         if (action.nameSlug === 'set-rgbw-parameters') {
-          if (this.directLink.subject.function.name === 'RGBLIGHTING') {
+          if (this.directLink.subject.functionId === ChannelFunction.RGBLIGHTING) {
             url += '?color_brightness=40&color=0x00FF33';
-          } else if (this.directLink.subject.function.name === 'DIMMERANDRGBLIGHTING') {
+          } else if (this.directLink.subject.functionId === ChannelFunction.DIMMERANDRGBLIGHTING) {
             url += '?color_brightness=40&color=0x00FF33&brightness=60';
+          } else if (this.directLink.subject.functionId === ChannelFunction.DIMMER_CCT_AND_RGB) {
+            url += '?color_brightness=40&color=0x00FF33&brightness=60&white_temperature=33';
+          } else if (this.directLink.subject.functionId === ChannelFunction.DIMMER_CCT) {
+            url += '?brightness=60&white_temperature=33';
           } else {
             url += '?brightness=60';
           }
