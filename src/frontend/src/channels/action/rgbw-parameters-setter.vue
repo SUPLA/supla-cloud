@@ -1,16 +1,16 @@
 <template>
   <div>
     <AccordionRoot multiple>
-      <AccordionItem v-if="hasColor" title-i18n="Color" v-model="rgbOpened">
+      <AccordionItem v-if="hasColor" title-i18n="Color" v-model="rgbOpened" :iconOpened="faCheckCircle">
         <ColorColorpicker v-if="rgbOpened" v-model="rgb" :brightness="colorBrightness" @manual-color-change="model.color_brightness = $event.v" />
       </AccordionItem>
-      <AccordionItem v-if="hasColor" title-i18n="Color brightness" v-model="colorBrightnessOpened">
+      <AccordionItem v-if="hasColor" title-i18n="Color brightness" v-model="colorBrightnessOpened" :iconOpened="faCheckCircle">
         <ColorBrightnessColorpicker v-if="colorBrightnessOpened" v-model="colorBrightness" :color="rgb" />
       </AccordionItem>
-      <AccordionItem v-if="hasBrightness" title-i18n="White brightness" v-model="brightnessOpened">
+      <AccordionItem v-if="hasBrightness" title-i18n="White brightness" v-model="brightnessOpened" :iconOpened="faCheckCircle">
         <ColorBrightnessColorpicker v-if="brightnessOpened" v-model="brightness" />
       </AccordionItem>
-      <AccordionItem v-if="hasWhiteTemperature" title-i18n="White temperature" v-model="whiteTemperatureOpened">
+      <AccordionItem v-if="hasWhiteTemperature" title-i18n="White temperature" v-model="whiteTemperatureOpened" :iconOpened="faCheckCircle">
         <WhiteTemperatureColorpicker v-if="whiteTemperatureOpened" v-model="whiteTemperature" />
       </AccordionItem>
     </AccordionRoot>
@@ -70,30 +70,21 @@
   import AccordionItem from '@/common/gui/accordion/accordion-item.vue';
   import ColorBrightnessColorpicker from '@/channels/action/color/color-brightness-colorpicker.vue';
   import WhiteTemperatureColorpicker from '@/channels/action/color/white-temperature-colorpicker.vue';
+  import {faCheck, faCheckCircle} from '@fortawesome/free-solid-svg-icons';
 
   const props = defineProps({subject: Object});
 
   const model = defineModel();
-  //
-  // const hueMode = computed({
-  //   get: () => (['random', 'white'].includes(model.value.hue) ? model.value.hue : 'choose'),
-  //   set: (value) => (model.value = {...currentModelValue, hue: value === 'choose' ? 0 : value}),
-  // });
 
   const rgb = computed({
-    get: () => model.value.rgb || '#FFFFFF',
-    set: (value) => (model.value = {...model.value, rgb: value}),
+    get: () => model.value.color || '#FFFFFF',
+    set: (color) => (model.value = {...model.value, color}),
   });
 
   const rgbOpened = computed({
-    get: () => model.value.rgb !== undefined,
-    set: (value) => (model.value = {...model.value, rgb: value ? '#FFFFFF' : undefined}),
+    get: () => model.value.color !== undefined,
+    set: (value) => (model.value = {...model.value, color: value ? '#FFFFFF' : undefined}),
   });
-
-  // const hue = computed({
-  //   get: () => model.value?.hue || 0,
-  //   set: (hue) => (model.value = {...currentModelValue.value, hue}),
-  // });
 
   const colorBrightness = computed({
     get: () => model.value?.color_brightness || 100,
@@ -133,19 +124,7 @@
     [ChannelFunction.RGBLIGHTING, ChannelFunction.DIMMERANDRGBLIGHTING, ChannelFunction.DIMMER_CCT_AND_RGB].includes(functionId.value)
   );
   const hasWhiteTemperature = computed(() => [ChannelFunction.DIMMER_CCT, ChannelFunction.DIMMER_CCT_AND_RGB].includes(functionId.value));
-  //
-  // const currentModelValue = computed(() => {
-  //   const value = {};
-  //   if (hasBrightness.value) {
-  //     value.brightness = brightness.value;
-  //   }
-  //   if (hasColor.value) {
-  //     value.hue = color.value.hue;
-  //     value.color_brightness = color.value.colorBrightness;
-  //   }
-  //   return value;
-  // });
-  //
+
   // onMounted(() => {
   //   if (Object.keys(model.value || {}).length === 0) {
   //     if (props.subject.state) {
@@ -158,47 +137,4 @@
   //     nextTick(() => (model.value = currentModelValue.value));
   //   }
   // });
-
-  // export default {
-  //   methods: {
-  //     onChange() {
-  //       let value = {};
-  //       if (this.hasBrightness) {
-  //         this.brightness = this.ensureBetween(this.brightness, 0, 100);
-  //         value.brightness = this.brightness;
-  //       }
-  //       if (this.hasColor) {
-  //         if (this.hueMode === 'choose') {
-  //           value.hue = this.ensureBetween(this.hue, 0, 360);
-  //         } else {
-  //           value.hue = this.hueMode === 'random' ? 'random' : 'white';
-  //         }
-  //         this.colorBrightness = this.ensureBetween(this.colorBrightness, 0, 100);
-  //         value.color_brightness = this.colorBrightness;
-  //       }
-  //       this.$emit('input', value);
-  //     },
-  //     ensureBetween(value, min, max) {
-  //       if (value < min) {
-  //         return min;
-  //       } else if (value > max) {
-  //         return max;
-  //       } else {
-  //         return +value;
-  //       }
-  //     }
-  //   },
-  //   computed: {},
-  // };
 </script>
-
-<style lang="scss">
-  //.rgbw-parameter {
-  //  clear: both;
-  //  width: 100%;
-  //  margin-bottom: 1em;
-  //  &:last-child {
-  //    margin-bottom: 0;
-  //  }
-  //}
-</style>

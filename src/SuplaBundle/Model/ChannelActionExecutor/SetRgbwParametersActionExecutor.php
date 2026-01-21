@@ -5,10 +5,8 @@ use Assert\Assert;
 use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Model\ChannelStateGetter\ColorAndBrightnessChannelStateGetter;
 use SuplaBundle\Utils\ColorUtils;
 
 /**
@@ -44,18 +42,13 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         'turnOnOff',
     ];
 
-    /** @var ColorAndBrightnessChannelStateGetter */
-    private $channelStateGetter;
-
-    public function __construct(ColorAndBrightnessChannelStateGetter $channelStateGetter) {
-        $this->channelStateGetter = $channelStateGetter;
-    }
-
     public function getSupportedFunctions(): array {
         return [
             ChannelFunction::DIMMER(),
             ChannelFunction::RGBLIGHTING(),
             ChannelFunction::DIMMERANDRGBLIGHTING(),
+            ChannelFunction::DIMMER_CCT(),
+            ChannelFunction::DIMMER_CCT_AND_RGB(),
         ];
     }
 
@@ -99,99 +92,73 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
                 }
             }
         }
+        $params = [];
         if (isset($actionParams['hue']) || isset($actionParams['color'])) {
-            if (isset($actionParams['hue'])) { // hue is supported in schedules only
+            if (isset($actionParams['color'])) {
+                $color = $actionParams['color'];
+                if (is_string($color) && preg_match('/^(0x|#)([0-9A-F]+)$/i', $color, $colorMatch)) {
+                    $color = hexdec($colorMatch[2]);
+                }
+                if (is_numeric($color)) {
+                    Assertion::between($color, 1, 0xFFFFFF);
+                    $params['color'] = ColorUtils::decToHex(intval($color), '#');
+                } else {
+                    Assertion::inArray($color, ['random'], 'Invalid color definition "%s".');
+                    $params['color'] = 'random';
+                }
+            } else {
                 Assertion::true(is_numeric($actionParams['hue']) || in_array($actionParams['hue'], ['random', 'white']));
                 if (is_numeric($actionParams['hue'])) {
                     Assertion::between($actionParams['hue'], 0, 359);
                     $actionParams['hue'] = intval($actionParams['hue']);
-                }
-            } else {
-                $color = $actionParams['color'] ?? 1;
-                if (is_string($color) && preg_match('#^0x[0-9A-F]+$#i', $color)) {
-                    $color = hexdec($color);
-                }
-                if (is_numeric($color)) {
-                    Assertion::between($color, 1, 0xFFFFFF);
-                    $actionParams['color'] = intval($color);
-                    if (!isset($actionParams['color_brightness'])) {
-                        [, , $v] = ColorUtils::decToHsv($color);
-                        $actionParams['color_brightness'] = $v;
-                    }
+                    $color = ColorUtils::hueToDec($actionParams['hue']);
+                    $params['color'] = ColorUtils::decToHex($color, '#');
+                } elseif ($actionParams['hue'] === 'white') {
+                    $params['color'] = '#FFFFFF';
                 } else {
-                    Assertion::inArray($color, ['random'], 'Invalid color definition "%s".');
+                    $params['color'] = 'random';
                 }
             }
-            $colorBrightness = $actionParams['color_brightness'] ?? 100;
-            Assert::that($colorBrightness)->numeric()->between(0, 100);
-            $actionParams['color_brightness'] = intval($colorBrightness);
+        }
+        if (isset($actionParams['color_brightness'])) {
+            Assert::that($actionParams['color_brightness'])->numeric()->between(0, 100);
+            $params['color_brightness'] = intval($actionParams['color_brightness']);
         }
         if (isset($actionParams['brightness'])) {
             Assert::that($actionParams['brightness'])->numeric()->between(0, 100);
-            $actionParams['brightness'] = intval($actionParams['brightness']);
+            $params['brightness'] = intval($actionParams['brightness']);
         }
         if (isset($actionParams['hsv'])) {
             $hsv = $actionParams['hsv'];
             Assert::that($hsv)->isArray()->keyIsset('hue')->keyIsset('saturation')->keyIsset('value');
-            $actionParams['hsv'] = [
-                'hue' => intval($hsv['hue']),
-                'saturation' => intval($hsv['saturation']),
-                'value' => intval($hsv['value']),
-            ];
-            Assertion::between($actionParams['hsv']['hue'], 0, 359);
-            Assertion::between($actionParams['hsv']['saturation'], 0, 100);
-            Assertion::between($actionParams['hsv']['value'], 0, 100);
+            Assertion::between($hsv['hue'], 0, 359);
+            Assertion::between($hsv['saturation'], 0, 100);
+            Assertion::between($hsv['value'], 0, 100);
+            $color = ColorUtils::hsvToDec([$hsv['hue'], $hsv['saturation'], $hsv['value']]);
+            $params['color'] = ColorUtils::decToHex($color, '#');
+            $params['color_brightness'] = $hsv['value'];
         }
         if (isset($actionParams['rgb'])) {
             $rgb = $actionParams['rgb'];
-            Assert::that($rgb)->isArray()->keyIsset('red')->keyIsset('green')->keyIsset('blue');
-            $actionParams['rgb'] = [
-                'red' => intval($rgb['red']),
-                'green' => intval($rgb['green']),
-                'blue' => intval($rgb['blue']),
-            ];
-            Assertion::between($actionParams['rgb']['red'], 0, 255);
-            Assertion::between($actionParams['rgb']['green'], 0, 255);
-            Assertion::between($actionParams['rgb']['blue'], 0, 255);
+            Assert::that($rgb)->isArray()->keyIsset('red')->keyIsset('green')->keyIsset('blue')->all()->between(0, 255);
+            $color = ColorUtils::rgbToDec([$rgb['red'], $rgb['green'], $rgb['blue']]);
+            $params['color'] = ColorUtils::decToHex($color, '#');
+            $params['color_brightness'] = ColorUtils::decToHsv($color)[2] ?? 0;
         }
-        return $actionParams;
+        if (isset($actionParams['turnOnOff'])) {
+            $params['turnOnOff'] = $this->chooseTurnOnOffBit($subject, $actionParams['turnOnOff']);
+        }
+        return $params;
     }
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
+        $color = -1;
         if (isset($actionParams['color'])) {
-            $color = $actionParams['color'];
-            if (stripos($color, '0x') === 0) {
-                $color = ColorUtils::hexToDec($color);
-            }
-        } elseif (isset($actionParams['hue'])) {
-            $color = $actionParams['hue'];
-            if ($color !== 'random') {
-                if ($color === 'white') {
-                    $color = 0xFFFFFF;
-                } else {
-                    $color = ColorUtils::hueToDec($actionParams['hue']);
-                }
-            }
-        } elseif (isset($actionParams['rgb'])) {
-            $rgb = $actionParams['rgb'];
-            $color = ColorUtils::rgbToDec([$rgb['red'], $rgb['green'], $rgb['blue']]);
-            [$h, $s, $v] = ColorUtils::decToHsv($color);
-            $actionParams['hsv'] = ['hue' => $h, 'saturation' => $s, 'value' => $v];
+            $color = $actionParams['color'] === 'random' ? 'random' : ColorUtils::hexToDec($actionParams['color']);
         }
-        if (isset($actionParams['hsv'])) {
-            $hsv = $actionParams['hsv'];
-            $color = ColorUtils::hsvToDec([$hsv['hue'], $hsv['saturation'], 100]);
-            $actionParams['color_brightness'] = $hsv['value'];
-        }
-        $channel = $subject instanceof IODeviceChannel ? $subject : $subject->getChannels()[0];
-        $currentState = $this->channelStateGetter->getState($channel);
-        $actionParams = array_merge($currentState, $actionParams);
-        if (!isset($color)) {
-            $color = ColorUtils::hexToDec($currentState['color'] ?? '0x1');
-        }
-        $colorBrightness = $actionParams['color_brightness'] ?? 0;
-        $brightness = $actionParams['brightness'] ?? 0;
-        $turnOnOff = $this->chooseTurnOnOffBit($subject, $actionParams['turnOnOff'] ?? false);
+        $colorBrightness = $actionParams['color_brightness'] ?? -1;
+        $brightness = $actionParams['brightness'] ?? -1;
+        $turnOnOff = $actionParams['turnOnOff'] ?? -1;
         $command = $subject->buildServerActionCommand('SET-RGBW-VALUE', [$color, $colorBrightness, $brightness, $turnOnOff]);
         if ($color == 'random') {
             $command = $subject->buildServerActionCommand('SET-RAND-RGBW-VALUE', [$colorBrightness, $brightness]);

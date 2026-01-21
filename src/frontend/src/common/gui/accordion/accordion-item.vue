@@ -9,6 +9,9 @@
       type: String,
       default: () => self.crypto.randomUUID(),
     },
+    iconOpened: {
+      type: Object,
+    },
   });
 
   const opened = defineModel({type: Boolean});
@@ -40,8 +43,8 @@
   <div class="accordion-item" :class="{open: isOpen}">
     <a class="d-flex align-items-flex-start accordion-header" @click="toggle">
       <span class="flex-grow-1">{{ $t(titleI18n) }}</span>
-      <span class="accordion-header-icon">
-        <fa :icon="faChevronRight" />
+      <span :class="{'accordion-header-icon': !iconOpened}">
+        <fa :icon="(isOpen && iconOpened) || faChevronRight" />
       </span>
     </a>
     <TransitionExpand>

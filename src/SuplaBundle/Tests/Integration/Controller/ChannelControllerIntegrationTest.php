@@ -305,12 +305,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [4, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,4,-60,1,-1,0', ['percent' => '-60']],
             [4, 'reveal-partially', 'ACTION-SHUT-PARTIALLY:1,1,4,-60,1,-1,0', ['percent' => '+60']],
             [4, 'reveal-partially', 'ACTION-SHUT-PARTIALLY:1,1,4,88,1,-1,0', ['percent' => '-88']],
-            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,0',
+            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,-1',
                 ['color' => 0xFF00FF, 'color_brightness' => 58, 'brightness' => 42]],
-            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,100,0,0', ['color' => '0xFF00FF', 'brightness' => 0]],
-            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,100,0,0', ['color' => 0xFF00FF, 'brightness' => 0]],
-            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,11141290,67,0,0', ['color' => '0xAA00AA', 'brightness' => 0]],
-            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,0',
+            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,-1,0,-1', ['color' => '0xFF00FF', 'brightness' => 0]],
+            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,-1,0,-1', ['color' => 0xFF00FF, 'brightness' => 0]],
+            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,11141290,-1,0,-1', ['color' => '0xAA00AA', 'brightness' => 0]],
+            [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,-1',
                 ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42]],
             [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,1',
                 ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42, 'turnOnOff' => 1]],
@@ -406,7 +406,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequest('PUT', '/api/channels/5', $request, [], [], [], ApiVersions::V2_1);
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,5,16711935,58,42,0');
+        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,5,16711935,58,42,-1');
     }
 
     public function testFetchingStates() {

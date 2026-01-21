@@ -168,7 +168,7 @@ class DevicesFixture extends SuplaFixture {
         return $this->createDevice('RGB-801', $location, [
             [ChannelType::RGBLEDCONTROLLER, ChannelFunction::DIMMERANDRGBLIGHTING],
             [ChannelType::RGBLEDCONTROLLER, ChannelFunction::RGBLIGHTING],
-            [ChannelType::RGBLEDCONTROLLER, ChannelFunction::DIMMER_CCT_AND_RGB, ['funclist' => ChannelFlistRgbw::getAllFeaturesFlag()]],
+            [ChannelType::RGBLEDCONTROLLER, ChannelFunction::DIMMER_CCT_AND_RGB, ['funcList' => ChannelFlistRgbw::getAllFeaturesFlag()]],
         ], self::DEVICE_RGB);
     }
 

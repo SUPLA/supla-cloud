@@ -69,7 +69,7 @@
       layout: [
         {
           component: iro.ui.Wheel,
-          options: {wheelLightness: false, width: 150},
+          options: {wheelLightness: false, width: 150, wheelDirection: 'clockwise'},
         },
       ],
       // color: model.value,
