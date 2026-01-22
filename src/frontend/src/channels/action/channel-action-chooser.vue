@@ -52,7 +52,6 @@
                 <PartialPercentageParamSetter v-model="param" :subject="subject" @input="paramsChanged()" />
               </div>
               <div v-if="action.id === ChannelFunctionAction.SET_RGBW_PARAMETERS">
-                {{ param }}
                 <RgbwParametersSetter v-model="param" :subject="subject" @update:model-value="paramsChanged()" />
               </div>
               <div v-if="action.id === ChannelFunctionAction.SET">

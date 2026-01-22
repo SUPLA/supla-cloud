@@ -18,7 +18,7 @@
   import {computed, onMounted, ref, useTemplateRef, watch} from 'vue';
 
   const props = defineProps({brightness: Number});
-  const emit = defineEmits(['manualColorChange']);
+  const emit = defineEmits(['onNewBrightness']);
 
   const pickerElement = useTemplateRef('picker');
   const colorInput = useTemplateRef('colorInput');
@@ -27,9 +27,6 @@
 
   const model = defineModel({type: String});
 
-  // const color = computed(() => ({h: model.value.hue, s: 100, v: model.value.colorBrightness}));
-
-  // const colorFromPicker = ref('');
   const hexFieldUserEdit = ref('');
   const editingHex = ref(false);
   const startEditHex = () => {
@@ -41,7 +38,7 @@
       colorInput.value.blur();
       editingHex.value = false;
       hexFieldValue.value = hexFieldUserEdit.value;
-      emit('manualColorChange', colorPicker.color.hsv);
+      emit('onNewBrightness', Math.round(colorPicker.color.hsv.v));
     }
   };
 
@@ -72,17 +69,35 @@
           options: {wheelLightness: false, width: 150, wheelDirection: 'clockwise'},
         },
       ],
-      // color: model.value,
     });
     colorPicker.on('mount', updateColorFromModel);
-    // colorPicker.on('color:init', function (color) {
-    //   colorFromPicker.value = color.hexString;
-    // });
     colorPicker.on('color:change', function (color) {
-      setTimeout(() => (model.value = color.hexString.toUpperCase()));
+      const v = color.hexString.toUpperCase();
+      if (model.value !== v) {
+        model.value = v;
+      }
     });
   });
 
-  watch(() => model.value, updateColorFromModel);
-  watch(() => props.brightness, updateColorFromModel);
+  watch(
+    () => model.value,
+    (v) => {
+      if (!colorPicker || v == null) return;
+      const pickerV = colorPicker.color.hexString.toUpperCase();
+      if (pickerV !== v) {
+        colorPicker.color.set(v);
+      }
+    }
+  );
+  watch(
+    () => props.brightness,
+    (v) => {
+      if (!colorPicker || v == null) return;
+      const pickerV = Math.round(colorPicker.color.hsv.v);
+      const theV = Math.round(v);
+      if (pickerV !== theV) {
+        colorPicker.color.hsv = {...colorPicker.color.hsv, v: theV};
+      }
+    }
+  );
 </script>

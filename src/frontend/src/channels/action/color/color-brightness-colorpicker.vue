@@ -24,11 +24,6 @@
 
   const model = defineModel({type: Number});
 
-  function updateColorFromModel(v) {
-    colorPicker.color.set(props.color || '#FFFFFF');
-    colorPicker.color.hsv = {...colorPicker.color.hsv, v: v || model.value};
-  }
-
   onMounted(() => {
     colorPicker = new iro.ColorPicker(pickerElement.value, {
       layout: [
@@ -38,18 +33,37 @@
         },
       ],
     });
-    colorPicker.on('mount', () => updateColorFromModel());
+    colorPicker.on('mount', () => {
+      colorPicker.color.set(props.color || '#FFFFFF');
+      colorPicker.color.hsv = {...colorPicker.color.hsv, v: model.value};
+    });
     colorPicker.on('color:change', function (color) {
-      model.value = Math.max(Math.round(color.hsv.v), 1);
+      const v = Math.max(Math.round(color.hsv.v), 1);
+      if (model.value !== v) {
+        model.value = v;
+      }
     });
   });
 
   watch(
     () => model.value,
-    (v) => updateColorFromModel(v)
+    (v) => {
+      if (!colorPicker || v === undefined) return;
+      const pickerV = Math.round(colorPicker.color.hsv.v);
+      const theV = Math.round(v);
+      if (pickerV !== theV) {
+        colorPicker.color.hsv = {...colorPicker.color.hsv, v: theV};
+      }
+    }
   );
   watch(
     () => props.color,
-    () => updateColorFromModel()
+    (v) => {
+      if (!colorPicker || v === undefined) return;
+      const pickerV = colorPicker.color.hexString.toUpperCase();
+      if (pickerV !== v) {
+        colorPicker.color.set(v);
+      }
+    }
   );
 </script>

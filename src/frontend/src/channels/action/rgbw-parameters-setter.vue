@@ -2,7 +2,7 @@
   <div>
     <AccordionRoot multiple>
       <AccordionItem v-if="hasColor" title-i18n="Color" v-model="rgbOpened" :iconOpened="faCheckCircle">
-        <ColorColorpicker v-if="rgbOpened" v-model="rgb" :brightness="colorBrightness" @manual-color-change="model.color_brightness = $event.v" />
+        <ColorColorpicker v-if="rgbOpened" v-model="rgb" :brightness="colorBrightness" @onNewBrightness="model.color_brightness = $event" />
       </AccordionItem>
       <AccordionItem v-if="hasColor" title-i18n="Color brightness" v-model="colorBrightnessOpened" :iconOpened="faCheckCircle">
         <ColorBrightnessColorpicker v-if="colorBrightnessOpened" v-model="colorBrightness" :color="rgb" />
@@ -14,7 +14,6 @@
         <WhiteTemperatureColorpicker v-if="whiteTemperatureOpened" v-model="whiteTemperature" />
       </AccordionItem>
     </AccordionRoot>
-    {{ model }}
   </div>
 </template>
 
@@ -28,7 +27,7 @@
 
 <script setup>
   import ChannelFunction from '../../common/enums/channel-function';
-  import {computed} from 'vue';
+  import {computed, reactive} from 'vue';
   import ColorColorpicker from '@/channels/action/color/color-colorpicker.vue';
   import AccordionRoot from '@/common/gui/accordion/accordion-root.vue';
   import AccordionItem from '@/common/gui/accordion/accordion-item.vue';
@@ -41,23 +40,13 @@
   const model = defineModel();
 
   const rgb = computed({
-    get: () => model.value.color || '#FFFFFF',
+    get: () => model.value?.color,
     set: (color) => (model.value = {...model.value, color}),
   });
 
-  const rgbOpened = computed({
-    get: () => model.value.color !== undefined,
-    set: (value) => (model.value = {...model.value, color: value ? model.value.color || '#FFFFFF' : undefined}),
-  });
-
   const colorBrightness = computed({
-    get: () => model.value?.color_brightness || 100,
+    get: () => model.value?.color_brightness,
     set: (color_brightness) => (model.value = {...model.value, color_brightness}),
-  });
-
-  const colorBrightnessOpened = computed({
-    get: () => model.value.color_brightness !== undefined,
-    set: (value) => (model.value = {...model.value, color_brightness: value ? model.value.color_brightness || 100 : undefined}),
   });
 
   const brightness = computed({
@@ -65,20 +54,35 @@
     set: (brightness) => (model.value = {...model.value, brightness}),
   });
 
-  const brightnessOpened = computed({
-    get: () => model.value.brightness !== undefined,
-    set: (value) => (model.value = {...model.value, brightness: value ? model.value.brightness || 100 : undefined}),
-  });
-
   const whiteTemperature = computed({
     get: () => model.value?.white_temperature,
     set: (white_temperature) => (model.value = {...model.value, white_temperature}),
   });
 
-  const whiteTemperatureOpened = computed({
-    get: () => model.value.white_temperature !== undefined,
-    set: (value) => (model.value = {...model.value, white_temperature: value ? model.value.white_temperature || 100 : undefined}),
+  const defaultValues = reactive({
+    color: '#FFFFFF',
+    color_brightness: 100,
+    brightness: 100,
+    white_temperature: 100,
   });
+
+  const useSectionOpened = (field) =>
+    computed({
+      get: () => model.value[field] !== undefined,
+      set: (value) => {
+        if (value && model.value[field] !== undefined) return;
+        if (!value && model.value[field] === undefined) return;
+        if (!value) {
+          defaultValues[field] = model.value[field];
+        }
+        model.value = {...model.value, [field]: value ? defaultValues[field] : undefined};
+      },
+    });
+
+  const rgbOpened = useSectionOpened('color');
+  const colorBrightnessOpened = useSectionOpened('color_brightness');
+  const brightnessOpened = useSectionOpened('brightness');
+  const whiteTemperatureOpened = useSectionOpened('white_temperature');
 
   const functionId = computed(() => props.subject.functionId);
   const hasBrightness = computed(() =>
@@ -88,17 +92,4 @@
     [ChannelFunction.RGBLIGHTING, ChannelFunction.DIMMERANDRGBLIGHTING, ChannelFunction.DIMMER_CCT_AND_RGB].includes(functionId.value)
   );
   const hasWhiteTemperature = computed(() => [ChannelFunction.DIMMER_CCT, ChannelFunction.DIMMER_CCT_AND_RGB].includes(functionId.value));
-
-  // onMounted(() => {
-  //   if (Object.keys(model.value || {}).length === 0) {
-  //     if (props.subject.state) {
-  //       model.value = {
-  //         color_brightness: props.subject.state.color_brightness || 0,
-  //         brightness: props.subject.state.brightness || 0,
-  //         hue: props.subject.state.hue || 0,
-  //       };
-  //     }
-  //     nextTick(() => (model.value = currentModelValue.value));
-  //   }
-  // });
 </script>

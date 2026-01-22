@@ -22,10 +22,8 @@
 
   const model = defineModel({type: Number});
 
-  function updateColorFromModel(v) {
-    const value = v === undefined ? model.value : v;
-    colorPicker.color.kelvin = (value * 8800) / 100 + 2200;
-  }
+  const kelvinToPercent = (kelvin) => Math.round(((kelvin - 2200) * 100) / 8800);
+  const percentToKelvin = (percent) => (percent * 8800) / 100 + 2200;
 
   onMounted(() => {
     colorPicker = new iro.ColorPicker(pickerElement.value, {
@@ -36,14 +34,23 @@
         },
       ],
     });
-    colorPicker.on('mount', () => updateColorFromModel());
+    colorPicker.on('mount', () => (colorPicker.color.kelvin = percentToKelvin(model.value)));
     colorPicker.on('color:change', function (color) {
-      model.value = Math.round(((color.kelvin - 2200) * 100) / 8800);
+      const value = kelvinToPercent(color.kelvin);
+      if (value !== model.value) {
+        model.value = value;
+      }
     });
   });
 
   watch(
     () => model.value,
-    (v) => updateColorFromModel(v)
+    (v) => {
+      if (!colorPicker || v == null) return;
+      const pickerV = kelvinToPercent(colorPicker.color.kelvin);
+      if (pickerV !== v) {
+        colorPicker.color.kelvin = percentToKelvin(v);
+      }
+    }
   );
 </script>
