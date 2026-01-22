@@ -20,8 +20,8 @@
 
   const model = defineModel({type: Number});
 
-  function updateColorFromModel() {
-    colorPicker.color.kelvin = model.value;
+  function updateColorFromModel(v) {
+    colorPicker.color.kelvin = v || model.value;
   }
 
   onMounted(() => {
@@ -33,11 +33,14 @@
         },
       ],
     });
-    colorPicker.on('mount', updateColorFromModel);
+    colorPicker.on('mount', () => updateColorFromModel());
     colorPicker.on('color:change', function (color) {
       model.value = Math.round(((color.kelvin - 2200) * 100) / 8800);
     });
   });
 
-  // watch(() => model.value, updateColorFromModel);
+  watch(
+    () => model.value,
+    (v) => updateColorFromModel(v)
+  );
 </script>

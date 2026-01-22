@@ -61,10 +61,11 @@ const ChannelFunctionAction = Object.freeze({
         return !!(
           params.brightness >= 0 ||
           params.brightness <= 100 ||
-          params.hue ||
-          params.hue === 0 ||
-          params.colorBrightness >= 0 ||
-          params.colorBrightness <= 100
+          params.color ||
+          params.color_brightness >= 0 ||
+          params.color_brightness <= 100 ||
+          params.white_temperature >= 0 ||
+          params.white_temperature <= 100
         );
       case ChannelFunctionAction.REVEAL_PARTIALLY:
       case ChannelFunctionAction.SHUT_PARTIALLY:

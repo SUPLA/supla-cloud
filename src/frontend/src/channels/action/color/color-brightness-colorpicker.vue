@@ -1,5 +1,7 @@
 <template>
-  <div ref="picker"></div>
+  <div class="d-flex justify-content-center">
+    <div ref="picker"></div>
+  </div>
 </template>
 
 <script>
@@ -22,9 +24,9 @@
 
   const model = defineModel({type: Number});
 
-  function updateColorFromModel() {
+  function updateColorFromModel(v) {
     colorPicker.color.set(props.color || '#FFFFFF');
-    colorPicker.color.hsv = {...colorPicker.color.hsv, v: Math.round(model.value)};
+    colorPicker.color.hsv = {...colorPicker.color.hsv, v: v || model.value};
   }
 
   onMounted(() => {
@@ -36,12 +38,18 @@
         },
       ],
     });
-    colorPicker.on('mount', updateColorFromModel);
+    colorPicker.on('mount', () => updateColorFromModel());
     colorPicker.on('color:change', function (color) {
       model.value = Math.max(Math.round(color.hsv.v), 1);
     });
   });
 
-  watch(() => model.value, updateColorFromModel);
-  watch(() => props.color, updateColorFromModel);
+  watch(
+    () => model.value,
+    (v) => updateColorFromModel(v)
+  );
+  watch(
+    () => props.color,
+    () => updateColorFromModel()
+  );
 </script>

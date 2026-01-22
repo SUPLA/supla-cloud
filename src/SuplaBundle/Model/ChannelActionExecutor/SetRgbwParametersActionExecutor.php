@@ -193,4 +193,13 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
                 return 0;
         }
     }
+
+    public function transformActionParamsForApi(ActionableSubject $subject, array $actionParams): array {
+        if (isset($actionParams['hue'])) {
+            $color = ColorUtils::hueToDec($actionParams['hue'], 100, $actionParams['color_brightness'] ?? 100);
+            $actionParams['color'] = ColorUtils::decToHex($color, '#');
+            unset($actionParams['hue']);
+        }
+        return $actionParams;
+    }
 }

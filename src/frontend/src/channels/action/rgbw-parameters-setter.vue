@@ -14,6 +14,7 @@
         <WhiteTemperatureColorpicker v-if="whiteTemperatureOpened" v-model="whiteTemperature" />
       </AccordionItem>
     </AccordionRoot>
+    {{ model }}
   </div>
 </template>
 
@@ -46,7 +47,7 @@
 
   const rgbOpened = computed({
     get: () => model.value.color !== undefined,
-    set: (value) => (model.value = {...model.value, color: value ? '#FFFFFF' : undefined}),
+    set: (value) => (model.value = {...model.value, color: value ? model.value.color || '#FFFFFF' : undefined}),
   });
 
   const colorBrightness = computed({
@@ -56,7 +57,7 @@
 
   const colorBrightnessOpened = computed({
     get: () => model.value.color_brightness !== undefined,
-    set: (value) => (model.value = {...model.value, color_brightness: value ? 100 : undefined}),
+    set: (value) => (model.value = {...model.value, color_brightness: value ? model.value.color_brightness || 100 : undefined}),
   });
 
   const brightness = computed({
@@ -66,7 +67,7 @@
 
   const brightnessOpened = computed({
     get: () => model.value.brightness !== undefined,
-    set: (value) => (model.value = {...model.value, brightness: value ? 100 : undefined}),
+    set: (value) => (model.value = {...model.value, brightness: value ? model.value.brightness || 100 : undefined}),
   });
 
   const whiteTemperature = computed({
@@ -76,7 +77,7 @@
 
   const whiteTemperatureOpened = computed({
     get: () => model.value.white_temperature !== undefined,
-    set: (value) => (model.value = {...model.value, white_temperature: value ? 100 : undefined}),
+    set: (value) => (model.value = {...model.value, white_temperature: value ? model.value.white_temperature || 100 : undefined}),
   });
 
   const functionId = computed(() => props.subject.functionId);

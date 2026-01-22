@@ -1,5 +1,5 @@
 <script setup>
-  import {computed, inject, watch} from 'vue';
+  import {computed, inject, onMounted, watch} from 'vue';
   import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
   import TransitionExpand from '@/common/gui/transition-expand.vue';
 
@@ -29,6 +29,12 @@
     () => isOpen.value,
     (newVal) => (opened.value = newVal)
   );
+
+  onMounted(() => {
+    if (opened.value) {
+      accordion.toggleItem(props.name, true);
+    }
+  });
 </script>
 
 <script>

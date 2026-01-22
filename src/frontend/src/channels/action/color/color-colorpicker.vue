@@ -79,7 +79,7 @@
     //   colorFromPicker.value = color.hexString;
     // });
     colorPicker.on('color:change', function (color) {
-      setTimeout(() => (model.value = color.hexString));
+      setTimeout(() => (model.value = color.hexString.toUpperCase()));
     });
   });
 
