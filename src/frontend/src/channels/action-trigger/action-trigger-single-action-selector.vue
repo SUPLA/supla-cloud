@@ -63,7 +63,6 @@
     },
     methods: {
       onValueChanged() {
-        console.log('onValueChanged', this.value);
         if (this.value?.subjectType) {
           if (this.value.subjectType === ActionableSubjectType.OTHER) {
             if (this.value?.action?.id) {
@@ -95,7 +94,6 @@
         this.onActionChange(this.action);
       },
       onActionChange(action) {
-        console.log('onActionChange', action);
         if (this.subject) {
           this.action = action;
           this.$emit('input', {

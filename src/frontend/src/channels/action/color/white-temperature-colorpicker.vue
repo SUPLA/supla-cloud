@@ -1,5 +1,7 @@
 <template>
-  <div ref="picker"></div>
+  <div class="d-flex justify-content-center">
+    <div ref="picker"></div>
+  </div>
 </template>
 
 <script>
@@ -21,7 +23,8 @@
   const model = defineModel({type: Number});
 
   function updateColorFromModel(v) {
-    colorPicker.color.kelvin = v || model.value;
+    const value = v === undefined ? model.value : v;
+    colorPicker.color.kelvin = (value * 8800) / 100 + 2200;
   }
 
   onMounted(() => {
