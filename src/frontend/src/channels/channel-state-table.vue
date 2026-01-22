@@ -35,6 +35,10 @@
       <dd>{{ $t('Brightness') }}</dd>
       <dt>{{ currentState.brightness }}%</dt>
     </dl>
+    <dl v-if="currentState.white_temperature">
+      <dd>{{ $t('White temperature') }}</dd>
+      <dt>{{ currentState.white_temperature }}%</dt>
+    </dl>
     <dl v-if="currentState.isCalibrating">
       <dd>{{ $t('Calibration') }}</dd>
       <dt></dt>

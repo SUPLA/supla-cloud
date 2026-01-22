@@ -3,7 +3,7 @@ namespace SuplaBundle\Model\ChannelStateGetter;
 
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunction as CF;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\ColorUtils;
 
@@ -27,6 +27,7 @@ use SuplaBundle\Utils\ColorUtils;
  *     @OA\Property(property="color", type="string", description="integer (hex) value of a current color, ranging from `0x000001` to `0xFFFFFF`"),
  *     @OA\Property(property="color_brightness", type="integer", minimum=0, maximum=100, description="color brightness in percent"),
  *     @OA\Property(property="brightness", type="integer", minimum=0, maximum=100, description="current dimmer brightness value in percent"),
+ *     @OA\Property(property="white_temperature", type="integer", minimum=0, maximum=100, description="current dimmer white temperature value in percent"),
  *     @OA\Property(property="on", type="boolean"),
  * )
  */
@@ -37,7 +38,19 @@ class ColorAndBrightnessChannelStateGetter implements SingleChannelStateGetter {
         $value = $this->suplaServer->getRgbwValue($channel);
         $result = [];
         if ($value !== false) {
-            if (in_array($channel->getFunction(), [ChannelFunction::RGBLIGHTING(), ChannelFunction::DIMMERANDRGBLIGHTING()])) {
+            $hasColor = in_array(
+                $channel->getFunction(),
+                [CF::RGBLIGHTING(), CF::DIMMERANDRGBLIGHTING(), CF::DIMMER_CCT_AND_RGB()]
+            );
+            $hasBrightness = in_array(
+                $channel->getFunction(),
+                [CF::DIMMERANDRGBLIGHTING(), CF::DIMMER_CCT_AND_RGB(), CF::DIMMER(), CF::DIMMER_CCT()]
+            );
+            $hasWhiteTemperature = in_array(
+                $channel->getFunction(),
+                [CF::DIMMER_CCT_AND_RGB(), CF::DIMMER_CCT()]
+            );
+            if ($hasColor) {
                 $result['color'] = ColorUtils::decToHex($value['color']);
                 $result['color_brightness'] = $value['color_brightness'];
                 $result['hue'] = ColorUtils::decToHue($value['color']);
@@ -47,9 +60,12 @@ class ColorAndBrightnessChannelStateGetter implements SingleChannelStateGetter {
                 $result['rgb'] = ['red' => $r, 'green' => $g, 'blue' => $b];
                 $result['on'] = $value['color_brightness'] > 0;
             }
-            if (in_array($channel->getFunction(), [ChannelFunction::DIMMER(), ChannelFunction::DIMMERANDRGBLIGHTING()])) {
+            if ($hasBrightness) {
                 $result['brightness'] = $value['brightness'];
                 $result['on'] = ($result['on'] ?? false) || $value['brightness'] > 0;
+            }
+            if ($hasWhiteTemperature) {
+                $result['white_temperature'] = $value['white_temperature'];
             }
         }
         return $result;
@@ -57,9 +73,11 @@ class ColorAndBrightnessChannelStateGetter implements SingleChannelStateGetter {
 
     public function supportedFunctions(): array {
         return [
-            ChannelFunction::DIMMER(),
-            ChannelFunction::RGBLIGHTING(),
-            ChannelFunction::DIMMERANDRGBLIGHTING(),
+            CF::DIMMER(),
+            CF::RGBLIGHTING(),
+            CF::DIMMERANDRGBLIGHTING(),
+            CF::DIMMER_CCT(),
+            CF::DIMMER_CCT_AND_RGB(),
         ];
     }
 }

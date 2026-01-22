@@ -297,9 +297,14 @@ abstract class SuplaServer {
     public function getRgbwValue(IODeviceChannel $channel) {
         $value = $this->getRawValue('RGBW', $channel);
         if ($value !== false) {
-            [$color, $color_brightness, $brightness] = sscanf($value, "VALUE:%i,%i,%i\n");
-            if (is_numeric($color) && is_numeric($color_brightness) && is_numeric($brightness)) {
-                return ['color' => $color, 'color_brightness' => $color_brightness, 'brightness' => $brightness];
+            [$color, $colorBrightness, $brightness, $whiteTemperature] = sscanf($value, "VALUE:%i,%i,%i,%i\n");
+            if (is_numeric($color) && is_numeric($colorBrightness) && is_numeric($brightness) && is_numeric($whiteTemperature)) {
+                return [
+                    'color' => $color,
+                    'color_brightness' => $colorBrightness,
+                    'brightness' => $brightness,
+                    'white_temperature' => $whiteTemperature,
+                ];
             }
         }
         return false;

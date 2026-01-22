@@ -176,7 +176,7 @@ class SuplaServerMock extends SuplaServer {
         } elseif (preg_match('#^PN-GET-LIMIT:(\d+)#', $cmd, $match)) {
             return 'PN-LIMIT:100,' . random_int(-10, 100);
         } elseif (preg_match('#^GET-RGBW-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            $values = [random_int(0, 0xFFFFFF), random_int(0, 100), random_int(0, 100)];
+            $values = [random_int(0, 0xFFFFFF), random_int(0, 100), random_int(0, 100), random_int(0, 100)];
             if (random_int(0, 1)) {
                 $values[1] = 0; // simulate RGB turn off
             }

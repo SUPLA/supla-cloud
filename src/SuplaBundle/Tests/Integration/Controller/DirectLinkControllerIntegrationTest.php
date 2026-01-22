@@ -453,7 +453,6 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testExecutingDirectLinkWithParameters() {
-        SuplaServerMock::mockResponse('GET-RGBW', "VALUE:1,0,100\n");
         $response = $this->createDirectLink([
             'subjectId' => $this->device->getChannels()[3]->getId(),
             'allowedActions' => ['set-rgbw-parameters'],
@@ -467,7 +466,6 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testExecutingDirectLinkWithTurnOnOffParameter() {
-        SuplaServerMock::mockResponse('GET-RGBW', "VALUE:1,0,100\n");
         $response = $this->createDirectLink([
             'subjectId' => $this->device->getChannels()[3]->getId(),
             'allowedActions' => ['set-rgbw-parameters'],
@@ -481,7 +479,6 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testExecutingDirectLinkWithComplexParameters() {
-        SuplaServerMock::mockResponse('GET-RGBW', "VALUE:1,0,100\n");
         $response = $this->createDirectLink([
             'subjectId' => $this->device->getChannels()[3]->getId(),
             'allowedActions' => ['set-rgbw-parameters'],

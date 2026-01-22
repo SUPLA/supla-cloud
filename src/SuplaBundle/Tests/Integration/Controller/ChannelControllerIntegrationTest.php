@@ -408,7 +408,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequest('PUT', '/api/channels/5', $request, [], [], [], ApiVersions::V2_1);
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,5,16711935,58,42,-1');
+        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,5,16711935,58,42,-1,-1,-1');
     }
 
     public function testFetchingStates() {

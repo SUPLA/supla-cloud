@@ -38,12 +38,13 @@ class ColorAndBrightnessChannelStateGetterIntegrationTest extends IntegrationTes
         $location = $this->createLocation($user);
         $this->device = $this->createDevice($location, [
             [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMERANDRGBLIGHTING],
+            [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMER_CCT_AND_RGB],
         ]);
         $this->channelStateGetter = self::$container->get(ChannelStateGetter::class);
     }
 
     public function testGettingRgbValue() {
-        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:16711680,80,90\n");
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:16711680,80,90,0\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $this->assertArrayHasKey('color', $state);
         $this->assertArrayHasKey('hue', $state);
@@ -60,10 +61,21 @@ class ColorAndBrightnessChannelStateGetterIntegrationTest extends IntegrationTes
     }
 
     public function testGettingRgbValueForAnotherColor() {
-        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:5635840,80,90\n");
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:5635840,80,90,0\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $this->assertEquals('0x55FF00', $state['color']);
         $this->assertEquals(80, $state['color_brightness']);
+        $this->assertEquals(100, $state['hue']);
+        $this->assertEquals(['hue' => 100, 'saturation' => 100, 'value' => 80], $state['hsv']);
+        $this->assertEquals(['red' => 68, 'green' => 204, 'blue' => 0], $state['rgb']);
+    }
+
+    public function testGettingRgbValueWithWhiteTemperature() {
+        SuplaServerMock::mockResponse('GET-RGBW-VALUE', "VALUE:5635840,80,90,55\n");
+        $state = $this->channelStateGetter->getState($this->device->getChannels()[1]);
+        $this->assertEquals('0x55FF00', $state['color']);
+        $this->assertEquals(80, $state['color_brightness']);
+        $this->assertEquals(55, $state['white_temperature']);
         $this->assertEquals(100, $state['hue']);
         $this->assertEquals(['hue' => 100, 'saturation' => 100, 'value' => 80], $state['hsv']);
         $this->assertEquals(['red' => 68, 'green' => 204, 'blue' => 0], $state['rgb']);
