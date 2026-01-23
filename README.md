@@ -1,6 +1,7 @@
 # supla-cloud
 
-SUPLA is an open smart home platform for building and operating connected devices and systems.
+> Part of **SUPLA** — an open smart home platform that brings together hardware manufacturers, the community, and users.  
+> Learn more at https://www.supla.org
 
 `supla-cloud` is the **Cloud web application and REST API** of the SUPLA platform.  
 It provides user-facing services such as configuration, automations, and integrations,
