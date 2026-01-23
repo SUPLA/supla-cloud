@@ -118,6 +118,25 @@ class MeasurementCsvExporter {
                         "SELECT $timestampSelect, phase_no, min, max, avg FROM supla_em_voltage_log WHERE channel_id = :channelId",
                     ];
                 } else {
+                    $ifNullBigInt = fn(string $field) => $platform === DatabaseUtils::PSQL
+                        ? "COALESCE($field, 0)"
+                        : "IFNULL($field, 0)";
+                    $columns = implode(', ', [
+                        $ifNullBigInt('phase1_fae') . ' / 100000.00 phase1_fae',
+                        $ifNullBigInt('phase1_rae') . ' / 100000.00 phase1_rae',
+                        $ifNullBigInt('phase1_fre') . ' / 100000.00 phase1_fre',
+                        $ifNullBigInt('phase1_rre') . ' / 100000.00 phase1_rre',
+                        $ifNullBigInt('phase2_fae') . ' / 100000.00 phase2_fae',
+                        $ifNullBigInt('phase2_rae') . ' / 100000.00 phase2_rae',
+                        $ifNullBigInt('phase2_fre') . ' / 100000.00 phase2_fre',
+                        $ifNullBigInt('phase2_rre') . ' / 100000.00 phase2_rre',
+                        $ifNullBigInt('phase3_fae') . ' / 100000.00 phase3_fae',
+                        $ifNullBigInt('phase3_rae') . ' / 100000.00 phase3_rae',
+                        $ifNullBigInt('phase3_fre') . ' / 100000.00 phase3_fre',
+                        $ifNullBigInt('phase3_rre') . ' / 100000.00 phase3_rre',
+                        $ifNullBigInt('fae_balanced') . ' / 100000.00 fae_balanced',
+                        $ifNullBigInt('rae_balanced') . ' / 100000.00 rae_balanced',
+                    ]);
                     return [
                         [
                             'Timestamp',
@@ -137,7 +156,7 @@ class MeasurementCsvExporter {
                             'Forward active Energy kWh - Vector balance',
                             'Reverse active Energy kWh - Vector balance',
                         ],
-                        "SELECT $timestampSelect, IFNULL(phase1_fae, 0) / 100000.00 phase1_fae, IFNULL(phase1_rae, 0) / 100000.00 phase1_rae, IFNULL(phase1_fre, 0) / 100000.00 phase1_fre, IFNULL(phase1_rre, 0) / 100000.00 phase1_rre, IFNULL(phase2_fae, 0) / 100000.00 phase2_fae, IFNULL(phase2_rae, 0) / 100000.00 phase2_rae, IFNULL(phase2_fre, 0) / 100000.00 phase2_fre, IFNULL(phase2_rre, 0) / 100000.00 phase2_rre, IFNULL(phase3_fae, 0) / 100000.00 phase3_fae, IFNULL(phase3_rae, 0) / 100000.00 phase3_rae, IFNULL(phase3_fre, 0) / 100000.00 phase3_fre, IFNULL(phase3_rre, 0) / 100000.00 phase3_rre, IFNULL(fae_balanced, 0) / 100000.00 fae_balanced, IFNULL(rae_balanced, 0) / 100000.00 rae_balanced FROM supla_em_log WHERE channel_id = :channelId",
+                        "SELECT $timestampSelect, $columns FROM supla_em_log WHERE channel_id = :channelId",
                     ];
                 }
             case ChannelFunction::THERMOMETER:
