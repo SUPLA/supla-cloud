@@ -717,7 +717,7 @@ class ChannelMeasurementLogsController extends RestController {
 
     /**
      * @OA\Get(
-     *     path="/channels/{channel}/measurement-logs-download", operationId="downloadChannelMeasurementLogs",
+     *     path="/channels/{channel}/measurement-logs-csv", operationId="downloadChannelMeasurementLogs",
      *     summary="Get measurement logs as a zipped CSV file.", tags={"Channels"},
      *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
      *     @OA\Parameter(name="logsType", description="Type of the logs to delete. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltageAberrations", "voltageHistory", "powerActiveHistory", "currentHistory"})),

@@ -801,6 +801,36 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertStringContainsString($expectedRow, $csv);
     }
 
+    public function testGeneratingCsvFromChannelElectricityMeter() {
+        $channelId = $this->device1->getChannels()[3]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs");
+        $memBefore = memory_get_usage();
+        ob_start();
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs-csv");
+        $data = ob_get_contents();
+        ob_end_clean();
+        $memAfter = memory_get_usage();
+        $memDiff = ($memAfter - $memBefore) / 1024;
+        $this->assertLessThan(5000, $memDiff); // less than ~5MB memory consumption
+        // https://stackoverflow.com/a/23113182/878514
+        $head = unpack("Vsig/vver/vflag/vmeth/vmodt/vmodd/Vcrc/Vcsize/Vsize/vnamelen/vexlen", substr($data, 0, 30));
+        $filename = substr($data, 30, $head['namelen']);
+        $this->assertStringContainsString('measurement', $filename);
+        $csv = gzinflate(substr($data, 30 + $head['namelen'] + $head['exlen'], $head['csize']));
+        $this->assertStringContainsString("Phase 1 Forward", $csv);
+        $this->assertStringContainsString("kWh", $csv);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?limit=10");
+        $response = $client->getResponse();
+        $content = json_decode($response->getContent(), true);
+        $testItem = $content[1];
+        $dateTime = new \DateTime('@' . $testItem['date_timestamp'], new \DateTimeZone($this->user->getTimezone()));
+        $fae = floor($testItem['phase1_fae'] / 100000);
+        $expectedRow = "$testItem[date_timestamp],\"" . $dateTime->format('Y-m-d H:i:s') . "\",$fae.";
+        $this->assertStringContainsString($expectedRow, $csv);
+    }
+
     public function testGettingVoltageLogsFromNotSupportedDevice() {
         $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
         $client = $this->createAuthenticatedClient($this->user);
