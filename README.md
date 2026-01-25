@@ -99,6 +99,8 @@ Please read:
 
 ## Releases
 
+SUPLA Cloud releases are tagged using CalVer versioning variant: 0Y.0M[.MICRO] (see [calver.org](https://calver.org/)).
+
 Versioned releases and release notes are available on GitHub:
 
 - [SUPLA Cloud releases](https://github.com/SUPLA/supla-cloud/releases)
