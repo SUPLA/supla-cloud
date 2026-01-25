@@ -73,7 +73,7 @@ SUPLA Cloud exposes a public REST API used by:
 
 API documentation is available via Swagger:
 
-- [Swagger / API documentation](https://app.swaggerhub.com/apis/supla/supla-cloud-api/2.3.0)
+- [API documentation](https://svr1.supla.org/api-docs/docs.html)
 
 Changes to public API endpoints must remain backward compatible whenever possible.
 
