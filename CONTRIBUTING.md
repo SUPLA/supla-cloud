@@ -60,7 +60,7 @@ Changes should be made with production stability and upgrade paths in mind.
 
 ### Development
 - PHP (Symfony)
-- JavaScript / TypeScript
+- JavaScript
 - Vue.js (frontend)
 
 Exact versions and setup instructions are described in `Development.md`.

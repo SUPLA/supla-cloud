@@ -14,6 +14,7 @@ Describe the problem clearly.
 - [ ] Self-hosted instance
 
 If self-hosted, please provide server related information.
+Cloud version: ... (take it from web page footer)
 
 ---
 
