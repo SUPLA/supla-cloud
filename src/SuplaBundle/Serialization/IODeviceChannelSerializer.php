@@ -62,7 +62,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
         if ($this->isSerializationGroupRequested('connected', $context) || $this->isSerializationGroupRequested('state', $context)) {
             $state = $this->channelStateGetter->getState($channel);
             if ($this->isSerializationGroupRequested('connected', $context)) {
-                $normalized['connected'] = $state['connected'];
+                $normalized['connected'] = $state['connected'] ?? false;
             }
             if ($this->isSerializationGroupRequested('state', $context)) {
                 $normalized['state'] = new JsonArrayObject($state);
