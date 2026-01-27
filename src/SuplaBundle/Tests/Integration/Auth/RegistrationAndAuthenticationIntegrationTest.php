@@ -397,6 +397,13 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertSuccessfulLoginRequest($client);
     }
 
+    public function testFirstLocationName() {
+        $user = $this->testConfirmingWithGoodToken();
+        $this->assertCount(1, $user->getLocations());
+        $location = $user->getLocations()->first();
+        $this->assertEquals('Location #1', $location->getCaption());
+    }
+
     public function testSavesCorrectLoginAttemptInAudit() {
         $this->testCanLoginIfConfirmed();
         $entry = $this->getLatestAuditEntry();

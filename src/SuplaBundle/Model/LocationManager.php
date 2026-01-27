@@ -29,10 +29,11 @@ class LocationManager {
     }
 
     public function createLocation(User $user): Location {
+        $locationsCount = $user->getLocations()->count();
         $location = new Location($user);
         $location->generatePassword();
         $caption = $this->translator->trans('Location', [], null, $user->getLocale());
-        $location->setCaption($caption . " #" . ($user->getLocations()->count() + 1));
+        $location->setCaption($caption . " #" . ($locationsCount + 1));
         return $location;
     }
 }
