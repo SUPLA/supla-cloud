@@ -227,7 +227,7 @@ class LocationController extends RestController {
      * @UnavailableInMaintenance
      */
     public function putLocationAction(Request $request, Location $location, Location $updatedLocation) {
-        $location->setCaption($updatedLocation->getCaption());
+        $location->setCaption(trim($updatedLocation->getCaption()));
         $location->setEnabled($updatedLocation->getEnabled());
         if ($updatedLocation->getPassword()) {
             $newPassword = $updatedLocation->getPassword();

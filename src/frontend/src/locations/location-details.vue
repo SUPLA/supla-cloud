@@ -1,5 +1,5 @@
 <template>
-  <page-container :error="error">
+  <page-container :error="!location && !loading && 404">
     <loading-cover :loading="loading" class="location-details">
       <div v-if="location">
         <div class="container">
@@ -7,7 +7,7 @@
             :header="location.caption || $t('Location') + ' ID' + location.id"
             :deletable="true"
             :is-pending="hasPendingChanges"
-            @cancel="cancelChanges()"
+            @cancel="initCfg()"
             @save="saveLocation()"
             @delete="deleteConfirm = true"
           >
@@ -17,26 +17,25 @@
                   <dl>
                     <dd>{{ $t('Enabled') }}</dd>
                     <dt class="text-center">
-                      <toggler v-model="location.enabled" @update:model-value="locationChanged()"></toggler>
+                      <toggler v-model="cfg.enabled"></toggler>
                     </dt>
                     <dd>{{ $t('Location name') }}</dd>
                     <dt>
-                      <input v-model="location.caption" type="text" class="form-control" @keydown="locationChanged()" />
+                      <input v-model="cfg.caption" type="text" class="form-control" />
                     </dt>
                     <dd>{{ $t('Password') }}</dd>
                     <dt>
-                      <password-display :password="location.password" editable="true" @change="updatePassword($event)"></password-display>
+                      <PasswordDisplay :fetch-password="fetchPassword" editable @change="(password) => (cfg.password = password)" />
                     </dt>
                   </dl>
                 </div>
               </div>
             </div>
-
             <div class="row">
               <div class="col-sm-6">
                 <div class="details-page-block">
-                  <h3>{{ $t('I/O Devices') }} ({{ location.ioDevices.length }})</h3>
-                  <table v-if="location.ioDevices.length" class="table table-hover">
+                  <h3>{{ $t('I/O Devices') }} ({{ devices.length }})</h3>
+                  <table v-if="devices.length" class="table table-hover">
                     <thead>
                       <tr>
                         <th>ID</th>
@@ -45,7 +44,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="ioDevice in location.ioDevices" :key="ioDevice.id" v-go-to-link-on-row-click>
+                      <tr v-for="ioDevice in devices" :key="ioDevice.id" v-go-to-link-on-row-click>
                         <td>
                           <router-link :to="{name: 'device', params: {id: ioDevice.id}}">{{ ioDevice.id }} </router-link>
                         </td>
@@ -54,29 +53,25 @@
                       </tr>
                     </tbody>
                   </table>
-                  <empty-list-placeholder v-else class="inline"></empty-list-placeholder>
+                  <EmptyListPlaceholder v-else class="inline" />
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="details-page-block">
-                  <h3>{{ $t('Access Identifiers') }} ({{ location.accessIds.length }})</h3>
-                  <table v-if="location.relationsCount.accessIds > 0" class="table table-hover">
+                  <h3>{{ $t('Access Identifiers') }} ({{ cfg.accessIdsIds.length }})</h3>
+                  <table v-if="cfg.accessIdsIds.length > 0" class="table table-hover">
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>{{ $t('Password') }}</th>
                         <th>{{ $t('Caption') }}</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="aid in location.accessIds" :key="aid.id" v-go-to-link-on-row-click>
+                      <tr v-for="aid in cfg.accessIdsIds" :key="aid" v-go-to-link-on-row-click>
                         <td>
-                          <router-link :to="{name: 'accessId', params: {id: aid.id}}">{{ aid.id }} </router-link>
+                          <router-link :to="{name: 'accessId', params: {id: aid}}">{{ aid }}</router-link>
                         </td>
-                        <td>
-                          <password-display :password="aid.password"></password-display>
-                        </td>
-                        <td>{{ aid.caption }}</td>
+                        <td>{{ accessIdsMap[aid].caption }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -84,21 +79,21 @@
                     <i class="pe-7s-more"></i>
                     {{ $t('Assign Access Identifiers') }}
                   </a>
-                  <access-id-chooser
+                  <AccessIdChooser
                     v-if="assignAccessIds"
                     title-i18n="Choose Access Identifiers to be assigned to this Location"
-                    :selected="location.accessIds"
+                    :selected="cfg.accessIdsIds"
                     @cancel="assignAccessIds = false"
                     @confirm="updateAccessIds($event)"
-                  ></access-id-chooser>
+                  />
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-6">
                 <div class="details-page-block">
-                  <h3>{{ $t('Channel groups') }} ({{ location.channelGroups.length }})</h3>
-                  <table v-if="location.channelGroups.length" class="table table-hover table-valign-middle">
+                  <h3>{{ $t('Channel groups') }} ({{ channelGroups.length }})</h3>
+                  <table v-if="channelGroups.length" class="table table-hover table-valign-middle">
                     <thead>
                       <tr>
                         <th></th>
@@ -107,7 +102,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="channelGroup in location.channelGroups" :key="channelGroup.id" v-go-to-link-on-row-click>
+                      <tr v-for="channelGroup in channelGroups" :key="channelGroup.id" v-go-to-link-on-row-click>
                         <td style="width: 45px">
                           <function-icon :model="channelGroup"></function-icon>
                         </td>
@@ -124,38 +119,32 @@
                   <empty-list-placeholder v-else class="inline"></empty-list-placeholder>
                 </div>
               </div>
-              <!--
-                <div class="col-sm-6">
-                  <div class="details-page-block">
-                    <h3>{{ $t('Channels') }} ({{ location.channels.length }})</h3>
-                    <table class="table table-hover table-valign-middle"
-                        v-if="location.channels.length">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>ID</th>
-                            <th>{{ $t('Caption') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="channel in location.channels"
-                            :key="channel.id"
-                            v-go-to-link-on-row-click>
-                            <td style="width: 45px">
-                                <function-icon :model="channel"></function-icon>
-                            </td>
-                            <td>
-                                <router-link :to="{name: 'channel', params: {id: channel.id}}">{{ channel.id }}</router-link>
-                            </td>
-                            <td>{{ channelTitle(channel) }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <empty-list-placeholder v-else
-                        class="inline"></empty-list-placeholder>
-                  </div>
+              <div class="col-sm-6">
+                <div class="details-page-block">
+                  <h3>{{ $t('Channels') }} ({{ channels.length }})</h3>
+                  <table class="table table-hover table-valign-middle" v-if="channels.length">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>{{ $t('Caption') }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="channel in channels" :key="channel.id" v-go-to-link-on-row-click>
+                        <td style="width: 45px">
+                          <function-icon :model="channel"></function-icon>
+                        </td>
+                        <td>
+                          <router-link :to="{name: 'channel', params: {id: channel.id}}">{{ channel.id }}</router-link>
+                        </td>
+                        <td>{{ channelTitle(channel) }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <empty-list-placeholder v-else class="inline"></empty-list-placeholder>
                 </div>
-  -->
+              </div>
             </div>
           </pending-changes-page>
         </div>
@@ -178,106 +167,101 @@
   </page-container>
 </template>
 
-<script>
-  import FunctionIcon from '../channels/function-icon.vue';
-  import EmptyListPlaceholder from '../common/gui/empty-list-placeholder.vue';
-  import AccessIdChooser from '../access-ids/access-id-chooser.vue';
+<script setup>
+  import {computed, onMounted, ref, watch} from 'vue';
   import Toggler from '../common/gui/toggler.vue';
-  import {channelTitle} from '../common/filters';
-  import PasswordDisplay from '../common/gui/password-display.vue';
+  import {channelTitle as channelTitleFilter} from '../common/filters';
   import PendingChangesPage from '../common/pages/pending-changes-page.vue';
   import PageContainer from '../common/pages/page-container.vue';
-  import {api} from '@/api/api.js';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import ModalConfirm from '@/common/modal-confirm.vue';
+  import {useLocationsStore} from '@/stores/locations-store.js';
+  import {isEqual} from 'lodash';
+  import {locationsApi} from '@/api/locations-api.js';
+  import PasswordDisplay from '@/common/gui/password-display.vue';
+  import AppState from '@/router/app-state.js';
+  import {useDevicesStore} from '@/stores/devices-store.js';
+  import {storeToRefs} from 'pinia';
+  import EmptyListPlaceholder from '@/common/gui/empty-list-placeholder.vue';
+  import {useAccessIdsStore} from '@/stores/access-ids-store.js';
+  import AccessIdChooser from '@/access-ids/access-id-chooser.vue';
+  import FunctionIcon from '@/channels/function-icon.vue';
+  import {useChannelGroupsStore} from '@/stores/channel-groups-store.js';
+  import {useChannelsStore} from '@/stores/channels-store.js';
 
-  export default {
-    components: {
-      ModalConfirm,
-      LoadingCover,
-      PageContainer,
-      PendingChangesPage,
-      PasswordDisplay,
-      Toggler,
-      AccessIdChooser,
-      FunctionIcon,
-      EmptyListPlaceholder,
-    },
-    props: ['id'],
-    data() {
-      return {
-        loading: false,
-        location: undefined,
-        error: false,
-        deleteConfirm: false,
-        hasPendingChanges: false,
-        assignAccessIds: false,
-      };
-    },
-    watch: {
-      id() {
-        this.initForModel();
-      },
-    },
-    mounted() {
-      this.initForModel();
-    },
-    methods: {
-      initForModel() {
-        this.hasPendingChanges = false;
-        this.loading = true;
-        if (this.id && this.id != 'new') {
-          this.error = false;
-          api
-            .get(`locations/${this.id}?include=iodevices,channelGroups,accessids,password,channels`, {skipErrorHandler: [403, 404]})
-            .then((response) => (this.location = response.body))
-            .catch((response) => (this.error = response.status))
-            .finally(() => (this.loading = false));
-        } else {
-          api
-            .post('locations', {})
-            .then((response) => this.$emit('add', response.body))
-            .catch(() => this.$emit('delete'));
-        }
-      },
-      cancelChanges() {
-        this.initForModel();
-      },
-      saveLocation() {
-        const toSend = {...this.location};
-        if (toSend.accessIds) {
-          toSend.accessIdsIds = toSend.accessIds.map((aid) => aid.id);
-          delete toSend.accessIds;
-        }
-        this.loading = true;
-        api
-          .put('locations/' + this.location.id, toSend)
-          .then((response) => this.$emit('update', response.body))
-          .finally(() => (this.loading = this.hasPendingChanges = false));
-      },
-      deleteLocation() {
-        this.loading = true;
-        api
-          .delete_('locations/' + this.location.id)
-          .then(() => this.$emit('delete'))
-          .then(() => (this.location = undefined))
-          .catch(() => (this.loading = false));
-      },
-      updateAccessIds(accessIds) {
-        this.location.accessIds = accessIds;
-        this.locationChanged();
-        this.assignAccessIds = false;
-      },
-      updatePassword(password) {
-        this.location.password = password;
-        this.locationChanged();
-      },
-      locationChanged() {
-        this.hasPendingChanges = true;
-      },
-      channelTitle(channel) {
-        return channelTitle(channel).replace(/^ID[0-9]+ /, '');
-      },
-    },
-  };
+  const props = defineProps({id: String});
+  const emit = defineEmits(['add', 'update', 'delete']);
+
+  const loading = ref(false);
+  const deleteConfirm = ref(false);
+  const assignAccessIds = ref(false);
+
+  const locationsStore = useLocationsStore();
+  const location = computed(() => locationsStore.all[props.id]);
+  const fetchPassword = () => locationsApi.getOneWithPassword(props.id).then(({password}) => password);
+
+  const {list: allDevices} = storeToRefs(useDevicesStore());
+  const devices = computed(() => allDevices.value.filter((d) => d.locationId === location.value?.id));
+
+  const {list: allAccessIds, all: accessIdsMap} = storeToRefs(useAccessIdsStore());
+  const accessIds = computed(() => allAccessIds.value.filter((aid) => !!aid.locations.find((l) => l.id === location.value?.id)));
+
+  useChannelGroupsStore().fetchAll();
+  const {list: allChannelGroups} = storeToRefs(useChannelGroupsStore());
+  const channelGroups = computed(() => allChannelGroups.value.filter((d) => d.locationId === location.value?.id));
+
+  const {list: allChannels} = storeToRefs(useChannelsStore());
+  const channels = computed(() => allChannels.value.filter((d) => d.locationId === location.value?.id));
+
+  const locationConfig = computed(() => ({
+    enabled: location.value?.enabled,
+    caption: location.value?.caption,
+    password: '',
+    accessIdsIds: accessIds.value?.map((aid) => aid.id),
+  }));
+
+  const cfg = ref({});
+
+  const hasPendingChanges = computed(() => !isEqual(cfg.value, locationConfig.value));
+  const initCfg = () => (cfg.value = {...locationConfig.value});
+
+  watch(() => props.id, initCfg, {immediate: true});
+
+  onMounted(async () => {
+    if (AppState.shiftTask('locationCreate')) {
+      if (props.id === 'new') {
+        loading.value = true;
+        const newLoc = await locationsApi.create();
+        emit('add', newLoc);
+      }
+    }
+  });
+
+  function saveLocation() {
+    const toSend = {...cfg.value};
+    loading.value = true;
+    locationsApi
+      .update(location.value.id, toSend)
+      .then((newLoc) => locationsStore.updateOne(newLoc))
+      .then(() => useAccessIdsStore().fetchAll(true))
+      .finally(() => (loading.value = false))
+      .finally(() => initCfg());
+  }
+
+  function deleteLocation() {
+    loading.value = true;
+    locationsApi
+      .delete_(location.value.id)
+      .then(() => emit('delete'))
+      .catch(() => (loading.value = false));
+  }
+
+  function updateAccessIds(accessIds) {
+    cfg.value.accessIdsIds = accessIds.map((aid) => aid.id);
+    assignAccessIds.value = false;
+  }
+
+  function channelTitle(channel) {
+    return channelTitleFilter(channel).replace(/^ID[0-9]+ /, '');
+  }
 </script>

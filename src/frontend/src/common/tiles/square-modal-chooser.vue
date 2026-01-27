@@ -55,7 +55,7 @@
       api.get(this.endpoint).then((response) => (this.items = response.body));
       if (this.selected) {
         this.multiple = Array.isArray(this.selected);
-        this.selectedIds = this.multiple ? this.selected.map((item) => item.id) : [this.selected.id];
+        this.selectedIds = this.multiple ? this.selected.map((item) => item.id || item) : [this.selected.id || this.selected];
       }
     },
     methods: {

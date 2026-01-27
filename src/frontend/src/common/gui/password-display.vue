@@ -1,16 +1,16 @@
 <template>
   <span class="password-display" @click.stop="">
-    <span class="password text-monospace">{{ thePassword }}</span>
     <a
       class="uncover-link password-link"
-      @mousedown="uncovered = true"
-      @touchstart="uncovered = true"
+      @mousedown="uncover()"
+      @touchstart="uncover()"
       @mouseleave="uncovered = false"
       @touchend="uncovered = false"
       @mouseup="uncovered = false"
     >
       <i class="pe-7s-look"></i>
     </a>
+    <span class="password text-monospace">{{ thePassword }}</span>
     <a v-if="editable" class="password-link" @click="editing = true">
       <i class="pe-7s-note"></i>
     </a>
@@ -25,7 +25,7 @@
       <span class="input-group">
         <input v-model="newPassword" type="text" class="form-control" />
         <span class="input-group-btn">
-          <a class="btn btn-white" @click="generatePassword(password.length || 5)">{{ $t('GENERATE') }}</a>
+          <a class="btn btn-white" @click="generatePassword(6)">{{ $t('GENERATE') }}</a>
         </span>
       </span>
     </modal>
@@ -38,9 +38,14 @@
 
   export default {
     components: {Modal},
-    props: ['password', 'editable'],
+    props: {
+      password: String,
+      editable: Boolean,
+      fetchPassword: Function,
+    },
     data() {
       return {
+        fetchedPassword: '',
         uncovered: false,
         editing: false,
         newPassword: '',
@@ -48,10 +53,16 @@
     },
     computed: {
       thePassword() {
-        return this.uncovered ? this.password : this.password.replace(/./g, '*');
+        return this.uncovered ? this.password || this.fetchedPassword : '******';
       },
     },
     methods: {
+      async uncover() {
+        if (!this.fetchedPassword && this.fetchPassword) {
+          this.fetchedPassword = await this.fetchPassword();
+        }
+        this.uncovered = true;
+      },
       generatePassword(length) {
         this.newPassword = generatePassword(length);
       },
@@ -59,6 +70,7 @@
         if (this.newPassword) {
           this.$emit('change', this.newPassword);
           this.newPassword = '';
+          this.fetchedPassword = '';
         }
         this.editing = false;
       },
