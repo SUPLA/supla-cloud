@@ -118,11 +118,11 @@
         }
         this.item = item;
       },
-      onItemAdded(item) {
+      async onItemAdded(item) {
         this.items.push(item);
         this.item = item;
-        this.$router.push({name: this.detailsRoute, params: {[this.idParamName]: item.id}});
-        this.store?.fetchAll(true);
+        await this.store?.fetchAll(true);
+        this.$router.replace({name: this.detailsRoute, params: {[this.idParamName]: item.id}});
       },
       onItemUpdated(item) {
         const itemToUpdate = this.items.find((c) => item.id == c.id);
