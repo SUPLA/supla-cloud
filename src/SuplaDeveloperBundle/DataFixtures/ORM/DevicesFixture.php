@@ -28,6 +28,7 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\SubDevice;
+use SuplaBundle\Enums\ChannelFlags;
 use SuplaBundle\Enums\ChannelFlags as Flags;
 use SuplaBundle\Enums\ChannelFlistRelay as Functions;
 use SuplaBundle\Enums\ChannelFlistRgbw;
@@ -166,7 +167,7 @@ class DevicesFixture extends SuplaFixture {
 
     protected function createDeviceRgb(Location $location): IODevice {
         return $this->createDevice('RGB-801', $location, [
-            [ChannelType::RGBLEDCONTROLLER, ChannelFunction::DIMMERANDRGBLIGHTING],
+            [ChannelType::RGBLEDCONTROLLER, ChannelFunction::DIMMERANDRGBLIGHTING, ['flags' => ChannelFlags::RGBW_COMMANDS_SUPPORTED]],
             [ChannelType::RGBLEDCONTROLLER, ChannelFunction::RGBLIGHTING],
             [ChannelType::RGBLEDCONTROLLER, ChannelFunction::DIMMER_CCT_AND_RGB, ['funcList' => ChannelFlistRgbw::getAllFeaturesFlag()]],
         ], self::DEVICE_RGB);

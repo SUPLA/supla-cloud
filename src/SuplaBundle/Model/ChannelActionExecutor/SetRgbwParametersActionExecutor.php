@@ -7,6 +7,7 @@ use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\RgbwCommand;
 use SuplaBundle\Utils\ColorUtils;
 
 /**
@@ -33,6 +34,7 @@ use SuplaBundle\Utils\ColorUtils;
  */
 class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     const POSSIBLE_ACTION_KEYS = [
+        'rgbw_command',
         'hue',
         'color_brightness',
         'brightness',
@@ -58,7 +60,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
-        Assertion::between(count($actionParams), 1, 5, 'You need to specify at least brightness or color for this action.');
+        Assertion::between(count($actionParams), 1, 6, 'You need to specify at least brightness or color for this action.');
         Assertion::count(
             array_intersect_key(
                 $actionParams,
@@ -153,6 +155,14 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         if (isset($actionParams['turnOnOff'])) {
             $params['turnOnOff'] = $this->chooseTurnOnOffBit($subject, $actionParams['turnOnOff']);
         }
+        if (isset($actionParams['rgbw_command'])) {
+            $command = RgbwCommand::tryFromName($actionParams['rgbw_command']);
+            $possibleCommands = RgbwCommand::forFunction($subject->getFunction()->getId());
+            Assert::that($command)
+                ->notNull('Invalid rgbw_command "%s".', $actionParams['rgbw_command'])
+                ->inArray($possibleCommands, 'Unsupported rgbw_command "%s".', $actionParams['rgbw_command']);
+            $params['rgbw_command'] = $command->value;
+        }
         return $params;
     }
 
@@ -164,9 +174,9 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         $colorBrightness = $actionParams['color_brightness'] ?? -1;
         $brightness = $actionParams['brightness'] ?? -1;
         $turnOnOff = $actionParams['turnOnOff'] ?? -1;
-        $rgbCommand = -1;
+        $rgbwCommand = RgbwCommand::from($actionParams['rgbw_command'] ?? RgbwCommand::NOT_SET->value);
         $whiteTemperature = $actionParams['white_temperature'] ?? -1;
-        $cmdParams = [$color, $colorBrightness, $brightness, $turnOnOff, $rgbCommand, $whiteTemperature];
+        $cmdParams = [$color, $colorBrightness, $brightness, $turnOnOff, $rgbwCommand->value, $whiteTemperature];
         $command = $subject->buildServerActionCommand('SET-RGBW-VALUE', $cmdParams);
         if ($color == 'random') {
             array_shift($cmdParams);
@@ -196,9 +206,12 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
 
     public function transformActionParamsForApi(ActionableSubject $subject, array $actionParams): array {
         if (isset($actionParams['hue'])) {
-            $color = ColorUtils::hueToDec($actionParams['hue'], 100, $actionParams['color_brightness'] ?? 100);
+            $color = ColorUtils::hueToDec($actionParams['hue']);
             $actionParams['color'] = ColorUtils::decToHex($color, '#');
             unset($actionParams['hue']);
+        }
+        if (isset($actionParams['rgbw_command'])) {
+            $actionParams['rgbw_command'] = RgbwCommand::from($actionParams['rgbw_command'])->name;
         }
         return $actionParams;
     }

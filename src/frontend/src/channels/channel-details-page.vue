@@ -137,7 +137,7 @@
                 <ChannelExtendedStateDisplay :channel="channelsStore.all[channel.id] || channel" condensed />
               </div>
             </div>
-            <div v-if="hasActionsToExecute" class="details-page-block">
+            <div v-if="hasActionsToExecute" class="details-page-block channel-actions">
               <h3 class="text-center">{{ $t('Actions') }}</h3>
               <div class="pt-3">
                 <channel-action-executor :subject="channelsStore.all[channel.id]"></channel-action-executor>
@@ -438,3 +438,9 @@
     },
   };
 </script>
+
+<style scoped>
+  :deep(.channel-actions .rgbw-parameters-command-selector) {
+    display: none;
+  }
+</style>

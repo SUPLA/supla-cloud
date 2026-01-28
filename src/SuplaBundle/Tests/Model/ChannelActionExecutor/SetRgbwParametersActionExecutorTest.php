@@ -9,6 +9,7 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\RgbwCommand;
 use SuplaBundle\Model\ChannelActionExecutor\SetRgbwParametersActionExecutor;
 use SuplaBundle\Model\ChannelStateGetter\ColorAndBrightnessChannelStateGetter;
 use SuplaBundle\Supla\SuplaServer;
@@ -95,6 +96,12 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
             [['white_temperature' => '33'], ['white_temperature' => 33]],
             [['brightness' => 55, 'white_temperature' => '33'], ['brightness' => 55, 'white_temperature' => 33]],
             [['white_temperature' => 101], false],
+            [
+                ['white_temperature' => '33', 'rgbw_command' => 'start-iterate-rgb'],
+                ['white_temperature' => 33, 'rgbw_command' => RgbwCommand::START_ITERATE_RGB->value],
+            ],
+            [['white_temperature' => 101, 'rgbw_command' => RgbwCommand::SET_DIMMER_CCT_WITHOUT_TURN_ON->name], false],
+            [['white_temperature' => 101, 'rgbw_command' => 'unicorn'], false],
         ];
     }
 
@@ -142,37 +149,42 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
 
     public static function exampleRgbwParameters() {
         return [
-            [['hue' => 0], '16711680,-1,-1,-1,-1,-1'],
-            [['hue' => 0, 'color_brightness' => 0], '16711680,0,-1,-1,-1,-1'],
-            [['color_brightness' => 33], '-1,33,-1,-1,-1,-1'],
-            [['hue' => 'white', 'color_brightness' => 12], '16777215,12,-1,-1,-1,-1'],
-            [['color' => '0xFF0000'], '16711680,-1,-1,-1,-1,-1'],
-            [['rgb' => ['red' => 255, 'green' => 0, 'blue' => 0]], '16711680,100,-1,-1,-1,-1'],
-            [['color' => '0xAA0000'], '11141120,-1,-1,-1,-1,-1'],
-            [['color' => '0xAA0000', 'color_brightness' => 70], '11141120,70,-1,-1,-1,-1'],
-            [['color' => '0xAA0000', 'brightness' => 70], '11141120,-1,70,-1,-1,-1'],
-            [['rgb' => ['red' => 170, 'green' => 0, 'blue' => 0]], '11141120,67,-1,-1,-1,-1'],
-            [['color' => '0xFF0000', 'brightness' => 40], '16711680,-1,40,-1,-1,-1'],
-            [['rgb' => ['red' => 255, 'green' => 0, 'blue' => 0], 'brightness' => 40], '16711680,100,40,-1,-1,-1'],
-            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 100]], '16711680,100,-1,-1,-1,-1'],
-            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '10027008,60,-1,-1,-1,-1'],
-            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '10027008,60,-1,-1,-1,-1'],
-            [['color_brightness' => 40], '-1,40,-1,-1,-1,-1'],
-            [['color' => 'random'], 'SET-RAND-RGBW-VALUE:1,1,1,-1,-1,-1,-1,-1'],
-            [['hue' => 'random', 'color_brightness' => 88], 'SET-RAND-RGBW-VALUE:1,1,1,88,-1,-1,-1,-1'],
-            [['color' => 'random', 'color_brightness' => 98], 'SET-RAND-RGBW-VALUE:1,1,1,98,-1,-1,-1,-1'],
-            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => true], '16711680,0,-1,3,-1,-1', ChannelFunction::DIMMERANDRGBLIGHTING],
-            [['hue' => 0, 'turnOnOff' => 2], '16711680,-1,-1,2,-1,-1', ChannelFunction::DIMMERANDRGBLIGHTING],
-            [['hue' => 0, 'turnOnOff' => 1], '16711680,-1,-1,1,-1,-1', ChannelFunction::DIMMERANDRGBLIGHTING],
-            [['hue' => 0, 'turnOnOff' => true], '16711680,-1,-1,1,-1,-1', ChannelFunction::DIMMER],
-            [['hue' => 0, 'turnOnOff' => 2], '16711680,-1,-1,1,-1,-1', ChannelFunction::DIMMER],
-            [['hue' => 0, 'turnOnOff' => 23], '16711680,-1,-1,1,-1,-1', ChannelFunction::DIMMER],
-            [['hue' => 0, 'turnOnOff' => true], '16711680,-1,-1,2,-1,-1', ChannelFunction::RGBLIGHTING],
-            [['hue' => 0, 'turnOnOff' => 1], '16711680,-1,-1,2,-1,-1', ChannelFunction::RGBLIGHTING],
-            [['hue' => 0, 'turnOnOff' => false], '16711680,-1,-1,0,-1,-1'],
-            [['white_temperature' => 33], '-1,-1,-1,-1,-1,33'],
-            [['brightness' => 55, 'white_temperature' => 33], '-1,-1,55,-1,-1,33'],
-            [['color' => '#87cefa', 'white_temperature' => 33], '8900346,-1,-1,-1,-1,33'],
+            [['hue' => 0], '16711680,-1,-1,-1,0,-1'],
+            [['hue' => 0, 'color_brightness' => 0], '16711680,0,-1,-1,0,-1'],
+            [['color_brightness' => 33], '-1,33,-1,-1,0,-1'],
+            [['hue' => 'white', 'color_brightness' => 12], '16777215,12,-1,-1,0,-1'],
+            [['color' => '0xFF0000'], '16711680,-1,-1,-1,0,-1'],
+            [['color' => '0xFF0000', 'rgbw_command' => RgbwCommand::TURN_ON_ALL->name], '16711680,-1,-1,-1,7,-1'],
+            [['color' => '0xFF0000', 'rgbw_command' => 'TURN_ON_ALL'], '16711680,-1,-1,-1,7,-1'],
+            [['color' => '0xFF0000', 'rgbw_command' => 'TURN-ON-ALL'], '16711680,-1,-1,-1,7,-1'],
+            [['color' => '0xFF0000', 'rgbw_command' => 'turn-on-all'], '16711680,-1,-1,-1,7,-1'],
+            [['color' => '0xFF0000', 'rgbw_command' => 'start-iterate-rgb'], '16711680,-1,-1,-1,14,-1'],
+            [['rgb' => ['red' => 255, 'green' => 0, 'blue' => 0]], '16711680,100,-1,-1,0,-1'],
+            [['color' => '0xAA0000'], '11141120,-1,-1,-1,0,-1'],
+            [['color' => '0xAA0000', 'color_brightness' => 70], '11141120,70,-1,-1,0,-1'],
+            [['color' => '0xAA0000', 'brightness' => 70], '11141120,-1,70,-1,0,-1'],
+            [['rgb' => ['red' => 170, 'green' => 0, 'blue' => 0]], '11141120,67,-1,-1,0,-1'],
+            [['color' => '0xFF0000', 'brightness' => 40], '16711680,-1,40,-1,0,-1'],
+            [['rgb' => ['red' => 255, 'green' => 0, 'blue' => 0], 'brightness' => 40], '16711680,100,40,-1,0,-1'],
+            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 100]], '16711680,100,-1,-1,0,-1'],
+            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '10027008,60,-1,-1,0,-1'],
+            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 60]], '10027008,60,-1,-1,0,-1'],
+            [['color_brightness' => 40], '-1,40,-1,-1,0,-1'],
+            [['color' => 'random'], 'SET-RAND-RGBW-VALUE:1,1,1,-1,-1,-1,0,-1'],
+            [['hue' => 'random', 'color_brightness' => 88], 'SET-RAND-RGBW-VALUE:1,1,1,88,-1,-1,0,-1'],
+            [['color' => 'random', 'color_brightness' => 98], 'SET-RAND-RGBW-VALUE:1,1,1,98,-1,-1,0,-1'],
+            [['hue' => 0, 'color_brightness' => 0, 'turnOnOff' => true], '16711680,0,-1,3,0,-1', ChannelFunction::DIMMERANDRGBLIGHTING],
+            [['hue' => 0, 'turnOnOff' => 2], '16711680,-1,-1,2,0,-1', ChannelFunction::DIMMERANDRGBLIGHTING],
+            [['hue' => 0, 'turnOnOff' => 1], '16711680,-1,-1,1,0,-1', ChannelFunction::DIMMERANDRGBLIGHTING],
+            [['hue' => 0, 'turnOnOff' => true], '16711680,-1,-1,1,0,-1', ChannelFunction::DIMMER],
+            [['hue' => 0, 'turnOnOff' => 2], '16711680,-1,-1,1,0,-1', ChannelFunction::DIMMER],
+            [['hue' => 0, 'turnOnOff' => 23], '16711680,-1,-1,1,0,-1', ChannelFunction::DIMMER],
+            [['hue' => 0, 'turnOnOff' => true], '16711680,-1,-1,2,0,-1', ChannelFunction::RGBLIGHTING],
+            [['hue' => 0, 'turnOnOff' => 1], '16711680,-1,-1,2,0,-1', ChannelFunction::RGBLIGHTING],
+            [['hue' => 0, 'turnOnOff' => false], '16711680,-1,-1,0,0,-1'],
+            [['white_temperature' => 33], '-1,-1,-1,-1,0,33'],
+            [['brightness' => 55, 'white_temperature' => 33], '-1,-1,55,-1,0,33'],
+            [['color' => '#87cefa', 'white_temperature' => 33], '8900346,-1,-1,-1,0,33'],
         ];
     }
 }
