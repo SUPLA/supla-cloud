@@ -14,7 +14,7 @@ and is used by official SUPLA services as well as self-hosted deployments.
 This repository contains:
 - the Cloud backend application,
 - the REST API used by mobile apps, integrations, and partners,
-- the web-based user interface.
+- the web-based user interface (frontend).
 
 It is a **core backend component** of the SUPLA ecosystem, but **not a complete SUPLA server stack on its own**.
 
