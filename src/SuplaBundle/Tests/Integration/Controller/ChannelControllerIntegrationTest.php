@@ -38,6 +38,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\ConnectionStatus;
 use SuplaBundle\Enums\IoDeviceFlags;
+use SuplaBundle\Enums\RgbwCommand;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Supla\SuplaServerMock;
@@ -305,21 +306,23 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [4, 'shut-partially', 'ACTION-SHUT-PARTIALLY:1,1,4,-60,1,-1,0', ['percent' => '-60']],
             [4, 'reveal-partially', 'ACTION-SHUT-PARTIALLY:1,1,4,-60,1,-1,0', ['percent' => '+60']],
             [4, 'reveal-partially', 'ACTION-SHUT-PARTIALLY:1,1,4,88,1,-1,0', ['percent' => '-88']],
-            'rgb1' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,-1,-1,-1',
+            'rgb1' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,-1,0,-1',
                 ['color' => 0xFF00FF, 'color_brightness' => 58, 'brightness' => 42]],
-            'rgb2' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,-1,0,-1,-1,-1', ['color' => '0xFF00FF', 'brightness' => 0]],
-            'rgb3' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,-1,0,-1,-1,-1', ['color' => 0xFF00FF, 'brightness' => 0]],
-            'rgb4' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,11141290,-1,0,-1,-1,-1', ['color' => '0xAA00AA', 'brightness' => 0]],
-            'rgb5' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,-1,-1,-1',
+            'rgb2' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,-1,0,-1,0,-1', ['color' => '0xFF00FF', 'brightness' => 0]],
+            'rgb3' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,-1,0,-1,0,-1', ['color' => 0xFF00FF, 'brightness' => 0]],
+            'rgb4' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,11141290,-1,0,-1,0,-1', ['color' => '0xAA00AA', 'brightness' => 0]],
+            'rgb5' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,-1,0,-1',
                 ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42]],
-            'rgb6' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,1,-1,-1',
+            'rgb6' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,1,0,-1',
                 ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42, 'turnOnOff' => 1]],
-            'rgb7' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,3,-1,-1',
+            'rgb7' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,3,0,-1',
                 ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42, 'turnOnOff' => 3]],
-            'rgb8' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,3,-1,23',
+            'rgb8' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,3,0,23',
                 ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42, 'turnOnOff' => 3, 'white_temperature' => 23]],
-            'rgb9' => [5, 'set-rgbw-parameters', 'SET-RAND-RGBW-VALUE:1,1,5,58,42,-1,-1,-1',
+            'rgb9' => [5, 'set-rgbw-parameters', 'SET-RAND-RGBW-VALUE:1,1,5,58,42,-1,0,-1',
                 ['color' => 'random', 'color_brightness' => 58, 'brightness' => 42]],
+            'rgb10' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,-1,58,-1,-1,11,-1',
+                ['color_brightness' => 58, 'rgbw_command' => RgbwCommand::SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON->name]],
             [6, 'open', 'SET-CHAR-VALUE:1,1,6,1'],
             [6, 'close', 'SET-CHAR-VALUE:1,1,6,0'],
             [1, 'copy', 'ACTION-COPY:1,1,1,1,9', ['sourceChannelId' => 9]],
@@ -408,7 +411,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequest('PUT', '/api/channels/5', $request, [], [], [], ApiVersions::V2_1);
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,5,16711935,58,42,-1,-1,-1');
+        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,5,16711935,58,42,-1,0,-1');
     }
 
     public function testFetchingStates() {

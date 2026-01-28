@@ -462,7 +462,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set-rgbw-parameters?brightness=66");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,4,-1,-1,66,-1,-1,-1');
+        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,4,-1,-1,66,-1,0,-1');
     }
 
     public function testExecutingDirectLinkWithTurnOnOffParameter() {
@@ -475,7 +475,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set-rgbw-parameters?brightness=66&turnOnOff=2");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,4,-1,-1,66,2,-1,-1');
+        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,4,-1,-1,66,2,0,-1');
     }
 
     public function testExecutingDirectLinkWithComplexParameters() {
@@ -489,7 +489,20 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
             . '/set-rgbw-parameters?hsv[saturation]=66&hsv[value]=67&hsv[hue]=100&brightness=55&white_temperature=22');
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,4,6335290,67,55,-1,-1,22');
+        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,4,6335290,67,55,-1,0,22');
+    }
+
+    public function testExecutingDirectLinkWithRgbwCommand() {
+        $response = $this->createDirectLink([
+            'subjectId' => $this->device->getChannels()[3]->getId(),
+            'allowedActions' => ['set-rgbw-parameters'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set-rgbw-parameters?rgbw_command=turn-off-all");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,4,-1,-1,-1,-1,8,-1');
     }
 
     public function testExecutingDirectLinkToOpenValve() {
