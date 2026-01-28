@@ -236,7 +236,6 @@ Check available updates: Sprawdź dostępność aktualizacji
 Check the direct link you used and try again.: Sprawdź wywołany link bezpośredni i spróbuj ponownie.
 Check your email box: Sprawdź swoją skrzynkę email
 Check your email inbox: Sprawdź Twoją skrzynkę odbiorczą
-Choose: Wybierz
 Choose Access Identifier: Wybierz Identyfikator Dostępu
 Choose Access Identifiers to be assigned to this Location: Wybierz Identyfikatory Dostępu, które zostaną przypisane do tej Lokalizacji
 Choose channel function: Wybierz funkcję kanału
@@ -460,6 +459,7 @@ Expand or stop: Rozwijaj albo zatrzymaj
 Expand partially: Rozwiń częściowo
 Expired: Przeterminowany
 Expires at: Wygasa
+Extension: Rozwinięcie
 External sensor disabling the thermostat: Zewnętrzny czujnik wyłączający termostat
 Facade blind operation: Żaluzje fasadowe
 Factory reset: Przywracanie ustawień fabrycznych
@@ -885,7 +885,6 @@ RESET: RESETUJ
 RGB led controller: Kontroler oświetlenia RGB
 RGB lighting: Oświetlenie RGB
 Rain sensor: Czujnik deszczu
-Random: Losowy
 Reaction notification: Powiadomienie o reakcji
 Reactions: Reakcje
 Reactions limit has been exceeded: Przekroczono limit reakcji
@@ -1415,7 +1414,6 @@ When there is certain amount of rain: Gdy pada określona ilość deszczu
 When there weight reaches a certain value: Gdy waga osiągnie określoną wartość
 Where is the JSON?: Gdzie jest JSON?
 Where is your SUPLA Cloud?: Gdzie znajduje się Twoja Supla?
-White: Biały
 Who has access?: Kto ma dostęp?
 Wi-Fi RSSI: Wi-Fi RSSI
 Wi-Fi signal strength: Siła sygnału Wi-Fi
@@ -1825,6 +1823,7 @@ Channel will be deleted from the channel group below: Kanał zostanie usunięty 
 Channels in channel group: Kanały w grupach kanałów
 Chart data source type: Rodzaj źródła danych
 Chart mode: Typ wykresu
+Choose: Wybierz
 Chosen hour: Wybrana godzina
 Coming Soon: Dostępne wkrótce
 Confirm if you want to perform the roller shutter calibration.: Potwierdź przeprowadzenie kalibracji modułu.
@@ -1894,6 +1893,7 @@ Power supply: Zasilanie
 Previous login: Poprzednie logowanie
 RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ZALECANE OSZCZĘDZANIE. Zaplanuj domowe energochłonne czynności na inne godziny.
 REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: WYMAGANE OGRANICZANIE. Ogranicz swoje zużycie prądu do niezbędnego minimum.
+Random: Losowy
 Read the following channel's state: Odczytaj stan poniższego kanału
 Registration: Rejestracja
 Remaining: Pozostało
@@ -1930,6 +1930,7 @@ Turn off after: Wyłącz po czasie
 Value per unit: Wartość na jednostkę
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Zrobimy co w naszej mocy aby przesłane ikony wyświetlały się jak najlepiej, ale najlepsze rezultaty uzyskasz przesyłając pliki PNG z przezroczystym tłem oraz szerokością {width} i wysokością {height} pikseli.
 When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Możesz wykonać akcję linku bezpośredniego podając jego unikalny identyfikator w treści żądania HTTP PATCH. Jest to bezpieczniejsze, gdyż uniemożliwia to zapisanie pełnego adresu Twojego linku w logach dostępowych serwerów, przez które przechodzi Twoje żądanie. Poniżej znajdziesz przykładowe wykonanie za pomocą narzędzia cURL.
+White: Biały
 You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: Możesz ręcznie oznaczyć ten odczyt jako poprawny. To NIE spowoduje natychmiastowej aktualizacji wartości odczytanej dla kanału, ale powinno poprawić klasyfikację przyszłych odczytów dla Twojego licznika.
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Twoja przeglądarka nie wspiera mechanizmu klienckiej bazy danych (IndexedDB). Funkcjonalność ta jest wymagana do wyświetlenia wykresów i wsparcia dla zaawansowanych ustawień eksportu danych. Zaktualizuj swoją przeglądarkę lub opuść tryb incognito by móc skorzystać z tych funkcjonalności.
@@ -1951,7 +1952,29 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Dimmer CCT: Ściemniacz CCT
+Dimmer CCT and RGB: Ściemniacz CCT i RGB
+White brightness: Jasność białego
+White temperature: Temperatura białego
+rgbwCommand_label_NOT_SET: Ustaw dowolnie
+rgbwCommand_label_SET_BRIGHTNESS_WITHOUT_TURN_ON: Ustaw jasność bez włączenia
+rgbwCommand_label_SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON: Ustaw jasność koloru bez włączenia
+rgbwCommand_label_SET_DIMMER_CCT_WITHOUT_TURN_ON: Ustaw jasność CCT bez włączenia
+rgbwCommand_label_SET_RGB_WITHOUT_TURN_ON: Ustaw kolor bez włączenia
+rgbwCommand_label_START_ITERATE_ALL: Iteruj po wszystkim
+rgbwCommand_label_START_ITERATE_DIMMER: Iteruj po ściemniaczu
+rgbwCommand_label_START_ITERATE_RGB: Iteruj po kolorze
+rgbwCommand_label_STOP_ITERATE_ALL: Przestań iterować po wszystkim
+rgbwCommand_label_STOP_ITERATE_DIMMER: Przestań iterować po ściemniaczu
+rgbwCommand_label_STOP_ITERATE_RGB: Przestań iterować po kolorze
+rgbwCommand_label_TOGGLE_ALL: Przełącz wszystko
+rgbwCommand_label_TOGGLE_DIMMER: Przełącz ściemniacz
+rgbwCommand_label_TOGGLE_RGB: Przełącz kolor
+rgbwCommand_label_TURN_OFF_ALL: Wyłącz wszystko
+rgbwCommand_label_TURN_OFF_DIMMER: Wyłącz ściemniacz
+rgbwCommand_label_TURN_OFF_RGB: Wyłącz kolor
+rgbwCommand_label_TURN_ON_ALL: Włącz wszystko
+rgbwCommand_label_TURN_ON_DIMMER: Włącz ściemniacz
+rgbwCommand_label_TURN_ON_RGB: Włącz kolor
 
 #</editor-fold>
-
-Extension: Rozwinięcie
