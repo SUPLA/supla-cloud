@@ -1,28 +1,40 @@
 <script setup>
-  import {computed, provide, ref} from 'vue';
+  import {computed, provide} from 'vue';
 
   const props = defineProps({
     multiple: Boolean,
   });
 
-  const openItems = ref([]);
-  const toggleItem = (name, openOrClose = undefined) => {
-    const isOpened = openItems.value.includes(name);
-    const action = openOrClose === undefined ? !isOpened : openOrClose;
-    if (props.multiple) {
-      if (!action) {
-        openItems.value = openItems.value.filter((item) => item !== name);
-      } else if (!isOpened) {
-        openItems.value.push(name);
+  const model = defineModel();
+
+  const openItems = computed({
+    get() {
+      if (props.multiple) {
+        return Array.isArray(model.value) ? model.value : [];
       }
+      return model.value ? [model.value] : [];
+    },
+    set(val) {
+      if (props.multiple) {
+        model.value = val;
+      } else {
+        model.value = val[0] ?? null;
+      }
+    },
+  });
+
+  function toggleItem(name) {
+    const isOpen = openItems.value.includes(name);
+    if (props.multiple) {
+      openItems.value = isOpen ? openItems.value.filter((n) => n !== name) : [...openItems.value, name];
     } else {
-      openItems.value = action ? [name] : [];
+      openItems.value = isOpen ? [] : [name];
     }
-  };
+  }
+
   provide('accordion', {
     openItems,
     toggleItem,
-    props: computed(() => props),
   });
 </script>
 

@@ -5,20 +5,20 @@
         <option v-for="command in rgbwCommands" :key="command" :value="command">{{ $t(`rgbwCommand_label_${command}`) }}</option>
       </select>
     </div>
-    <AccordionRoot multiple>
-      <AccordionItem v-if="hasColor && shouldDisplayColor" title-i18n="Color" v-model="rgbOpened" :iconOpened="faCheckCircle">
+    <AccordionRoot multiple v-model="openedSections">
+      <AccordionItem v-if="hasColor && shouldDisplayColor" title-i18n="Color" name="color" :iconOpened="faCheckCircle">
         <ColorColorpicker v-if="rgbOpened" v-model="rgb" :brightness="colorBrightness" @onNewBrightness="model.color_brightness = $event" />
       </AccordionItem>
-      <AccordionItem v-if="hasColor && shouldDisplayColorBrightness" title-i18n="Color brightness" v-model="colorBrightnessOpened" :iconOpened="faCheckCircle">
+      <AccordionItem v-if="hasColor && shouldDisplayColorBrightness" title-i18n="Color brightness" name="colorBrightness" :iconOpened="faCheckCircle">
         <ColorBrightnessColorpicker v-if="colorBrightnessOpened" v-model="colorBrightness" :color="rgb" />
       </AccordionItem>
-      <AccordionItem v-if="hasBrightness && shouldDisplayBrightness" title-i18n="White brightness" v-model="brightnessOpened" :iconOpened="faCheckCircle">
+      <AccordionItem v-if="hasBrightness && shouldDisplayBrightness" title-i18n="White brightness" name="brightness" :iconOpened="faCheckCircle">
         <ColorBrightnessColorpicker v-if="brightnessOpened" v-model="brightness" />
       </AccordionItem>
       <AccordionItem
         v-if="hasWhiteTemperature && shouldDisplayWhiteTemperature"
         title-i18n="White temperature"
-        v-model="whiteTemperatureOpened"
+        name="whiteTemperature"
         :iconOpened="faCheckCircle"
       >
         <WhiteTemperatureColorpicker v-if="whiteTemperatureOpened" v-model="whiteTemperature" />
@@ -98,6 +98,24 @@
   const colorBrightnessOpened = useSectionOpened('color_brightness');
   const brightnessOpened = useSectionOpened('brightness');
   const whiteTemperatureOpened = useSectionOpened('white_temperature');
+
+  const openedSections = computed({
+    get: () =>
+      Object.entries({
+        color: rgbOpened.value,
+        colorBrightness: colorBrightnessOpened.value,
+        brightness: brightnessOpened.value,
+        whiteTemperature: whiteTemperatureOpened.value,
+      })
+        .filter(([, v]) => v)
+        .map(([k]) => k),
+    set: (sections) => {
+      rgbOpened.value = sections.includes('color');
+      colorBrightnessOpened.value = sections.includes('colorBrightness');
+      brightnessOpened.value = sections.includes('brightness');
+      whiteTemperatureOpened.value = sections.includes('whiteTemperature');
+    },
+  });
 
   const functionId = computed(() => props.subject.functionId);
   const hasBrightness = computed(() =>

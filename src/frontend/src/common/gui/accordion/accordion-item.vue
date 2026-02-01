@@ -1,5 +1,5 @@
 <script setup>
-  import {computed, inject, onMounted, watch} from 'vue';
+  import {computed, inject} from 'vue';
   import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
   import TransitionExpand from '@/common/gui/transition-expand.vue';
 
@@ -14,27 +14,13 @@
     },
   });
 
-  const opened = defineModel({type: Boolean});
-
   const accordion = inject('accordion');
+  if (!accordion) {
+    throw new Error("AccordionItem must be used inside AccordionRoot (missing provide('accordion')).");
+  }
 
   const isOpen = computed(() => accordion.openItems.value.includes(props.name));
   const toggle = () => accordion.toggleItem(props.name);
-
-  watch(
-    () => opened.value,
-    (newVal) => accordion.toggleItem(props.name, newVal)
-  );
-  watch(
-    () => isOpen.value,
-    (newVal) => (opened.value = newVal)
-  );
-
-  onMounted(() => {
-    if (opened.value) {
-      accordion.toggleItem(props.name, true);
-    }
-  });
 </script>
 
 <script>
@@ -62,8 +48,6 @@
 </template>
 
 <style scoped lang="scss">
-  @use '../../../styles/variables' as *;
-
   .accordion-item {
     .accordion-header {
       color: inherit;
