@@ -16,7 +16,7 @@
         openItems.value.push(name);
       }
     } else {
-      openItems.value = action ? [] : [name];
+      openItems.value = action ? [name] : [];
     }
   };
   provide('accordion', {
