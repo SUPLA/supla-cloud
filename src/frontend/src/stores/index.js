@@ -3,7 +3,7 @@ import {computed, ref} from 'vue';
 
 export const pinia = createPinia();
 
-export const useFetchList = (fetchListFn) => {
+export const useFetchList = (fetchListFn, idFactory = (item) => item.id) => {
   const all = ref({});
   const ids = ref([]);
 
@@ -14,9 +14,10 @@ export const useFetchList = (fetchListFn) => {
       return (fetchAll.promise = fetchListFn().then((items) => {
         const state = items.reduce(
           (acc, curr) => {
+            const id = idFactory(curr);
             return {
-              ids: acc.ids.concat(curr.id),
-              all: {...acc.all, [curr.id]: curr},
+              ids: acc.ids.concat(id),
+              all: {...acc.all, [id]: curr},
             };
           },
           {ids: [], all: {}}
