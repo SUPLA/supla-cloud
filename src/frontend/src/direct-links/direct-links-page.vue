@@ -4,6 +4,7 @@
     :tile="DirectLinkTile"
     endpoint="direct-links?include=subject"
     create-new-label-i18n="Create new direct link"
+    :store="directLinksStore"
     :limit="userData.limits.directLink"
     :filters="DirectLinkFilters"
     :list="DirectLinksList"
@@ -18,6 +19,9 @@
   import DirectLinkFilters from './direct-link-filters.vue';
   import {storeToRefs} from 'pinia';
   import {useCurrentUserStore} from '@/stores/current-user-store';
+  import {useDirectLinksStore} from '@/stores/direct-links-store.js';
+
+  const directLinksStore = useDirectLinksStore();
 
   const {userData} = storeToRefs(useCurrentUserStore());
 </script>

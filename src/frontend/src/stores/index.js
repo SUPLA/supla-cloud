@@ -7,6 +7,8 @@ export const useFetchList = (fetchListFn, idFactory = (item) => item.id) => {
   const all = ref({});
   const ids = ref([]);
 
+  const ready = ref(false);
+
   const fetchAll = (force = false) => {
     if (fetchAll.promise && !force) {
       return fetchAll.promise;
@@ -24,6 +26,7 @@ export const useFetchList = (fetchListFn, idFactory = (item) => item.id) => {
         );
         all.value = state.all;
         ids.value = state.ids;
+        ready.value = true;
       }));
     }
   };
@@ -42,5 +45,5 @@ export const useFetchList = (fetchListFn, idFactory = (item) => item.id) => {
     fetchAll.promise = undefined;
   };
 
-  return {all, ids, list, updateOne, $reset, fetchAll};
+  return {all, ids, list, ready, updateOne, $reset, fetchAll};
 };
