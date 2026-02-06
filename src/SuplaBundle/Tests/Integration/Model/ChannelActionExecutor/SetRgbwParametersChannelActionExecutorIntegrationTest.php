@@ -58,21 +58,21 @@ class SetRgbwParametersChannelActionExecutorIntegrationTest extends IntegrationT
 
     public static function colorParamsExamples(): array {
         return [
-            [['color' => '0xFF0000', 'color_brightness' => 55], 'SET-RGBW-VALUE:1,1,1,16711680,55,-1,-1'],
-            [['color' => '16711680', 'color_brightness' => 55], 'SET-RGBW-VALUE:1,1,1,16711680,55,-1,-1'],
-            [['color' => 'random', 'color_brightness' => 55], 'SET-RAND-RGBW-VALUE:1,1,1,55,-1'],
-            [['hue' => 0, 'color_brightness' => 55], 'SET-RGBW-VALUE:1,1,1,16711680,55,-1,-1'],
-            [['hue' => 'random', 'color_brightness' => 55], 'SET-RAND-RGBW-VALUE:1,1,1,55,-1'],
-            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 55]], 'SET-RGBW-VALUE:1,1,1,9175040,55,-1,-1'],
-            [['rgb' => ['red' => 140, 'green' => 0, 'blue' => 0]], 'SET-RGBW-VALUE:1,1,1,9175040,55,-1,-1'],
-            [['color' => '0xFF0000', 'turnOnOff' => true], 'SET-RGBW-VALUE:1,1,1,16711680,-1,-1,2'],
+            [['color' => '0xFF0000', 'color_brightness' => 55], 'SET-RGBW-VALUE:1,1,1,16711680,55,-1,-1,0,-1'],
+            [['color' => '16711680', 'color_brightness' => 55], 'SET-RGBW-VALUE:1,1,1,16711680,55,-1,-1,0,-1'],
+            [['color' => 'random', 'color_brightness' => 55], 'SET-RAND-RGBW-VALUE:1,1,1,55,-1,-1,0,-1'],
+            [['hue' => 0, 'color_brightness' => 55], 'SET-RGBW-VALUE:1,1,1,16711680,55,-1,-1,0,-1'],
+            [['hue' => 'random', 'color_brightness' => 55], 'SET-RAND-RGBW-VALUE:1,1,1,55,-1,-1,0,-1'],
+            [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 55]], 'SET-RGBW-VALUE:1,1,1,9175040,55,-1,-1,0,-1'],
+            [['rgb' => ['red' => 140, 'green' => 0, 'blue' => 0]], 'SET-RGBW-VALUE:1,1,1,9175040,55,-1,-1,0,-1'],
+            [['color' => '0xFF0000', 'turnOnOff' => true], 'SET-RGBW-VALUE:1,1,1,16711680,-1,-1,2,0,-1'],
             [
                 ['color' => '0xFF0000', 'turnOnOff' => true, 'alexaCorrelationToken' => 'unicorn'],
-                'SET-RGBW-VALUE:1,1,1,16711680,-1,-1,2,ALEXA-CORRELATION-TOKEN=dW5pY29ybg==',
+                'SET-RGBW-VALUE:1,1,1,16711680,-1,-1,2,0,-1,ALEXA-CORRELATION-TOKEN=dW5pY29ybg==',
             ],
             [
                 ['color' => '0xFF0000', 'turnOnOff' => true, 'googleRequestId' => 'unicorn'],
-                'SET-RGBW-VALUE:1,1,1,16711680,-1,-1,2,GOOGLE-REQUEST-ID=dW5pY29ybg==',
+                'SET-RGBW-VALUE:1,1,1,16711680,-1,-1,2,0,-1,GOOGLE-REQUEST-ID=dW5pY29ybg==',
             ],
         ];
     }
