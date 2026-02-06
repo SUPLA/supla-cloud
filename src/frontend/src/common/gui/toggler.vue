@@ -31,13 +31,31 @@
     label: String,
     disabled: Boolean,
     invert: Boolean,
+    value: [String, Number, Boolean, Object],
   });
 
   const model = defineModel();
 
   const theValue = computed({
-    get: () => (props.invert ? !model.value : model.value),
-    set: (value) => (model.value = props.invert ? !value : value),
+    get: () => {
+      if (Array.isArray(model.value)) {
+        const isIncluded = model.value.includes(props.value);
+        return props.invert ? !isIncluded : isIncluded;
+      }
+      return props.invert ? !model.value : model.value;
+    },
+    set: (value) => {
+      if (Array.isArray(model.value)) {
+        const shouldInclude = props.invert ? !value : value;
+        if (shouldInclude && !model.value.includes(props.value)) {
+          model.value = [...model.value, props.value];
+        } else if (!shouldInclude && model.value.includes(props.value)) {
+          model.value = model.value.filter((item) => item !== props.value);
+        }
+      } else {
+        model.value = props.invert ? !value : value;
+      }
+    },
   });
 </script>
 
