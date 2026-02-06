@@ -243,7 +243,7 @@
         } else {
           this.directLink = {};
           const subjectForNewLink = AppState.shiftTask('directLinkCreate');
-          if (subjectForNewLink) {
+          if (subjectForNewLink && subjectForNewLink !== 'new') {
             this.chooseSubjectForNewLink(subjectForNewLink);
           }
         }
