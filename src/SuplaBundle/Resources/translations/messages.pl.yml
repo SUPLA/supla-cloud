@@ -379,6 +379,8 @@ Digi Glass Horizontal: Digi Glass poziomy
 Digi Glass Vertical: Digi Glass pionowy
 Dimmer: Ściemniacz
 Dimmer & RGB led controller: Ściemniacz i kontroler oświetlenia RGB
+Dimmer CCT: Ściemniacz CCT
+Dimmer CCT and RGB: Ściemniacz CCT i RGB
 Dimmer and RGB lighting: Ściemniacz i oświetlenie RGB
 Direct link: Link bezpośredni
 Direct link has been created successfully!: Link bezpośredni został z powodzeniem utworzony!
@@ -1106,6 +1108,7 @@ The items below depend on this channel function, so they will be deleted.: Poni�
 The items below depend on this channel group, so they will be deleted.: Poniższe elementy korzystają z tej grupy kanałów, więc po jej usunięciu zostaną również usunięte.
 The items below depend on this scene, so they will be deleted.: Poniższe elementy opierają się o tę scenę, więc zostaną usunięte.
 The latest execution: Ostatnie wykonanie
+The light will not turn on if you adjust the color only.: Światło nie włączy się, jeśli zmienisz tylko kolor.
 The link result is presented as a website response, because you (or your browser) asked for HTML output.: Rezultat wykonania jest zaprezentowany jako strona internetowa, ponieważ Ty (lub Twoja przeglądarka) poprosiła o odpowiedź w formacie HTML.
 The master termostat you chose already has a master.: Wybrany przez ciebie termostat nadrzędny ma już inny termostat nadrzędny
 The measurement history has been deleted.: Historia pomiarów została usunięta.
@@ -1414,6 +1417,8 @@ When there is certain amount of rain: Gdy pada określona ilość deszczu
 When there weight reaches a certain value: Gdy waga osiągnie określoną wartość
 Where is the JSON?: Gdzie jest JSON?
 Where is your SUPLA Cloud?: Gdzie znajduje się Twoja Supla?
+White brightness: Jasność białego
+White temperature: Temperatura białego
 Who has access?: Kto ma dostęp?
 Wi-Fi RSSI: Wi-Fi RSSI
 Wi-Fi signal strength: Siła sygnału Wi-Fi
@@ -1665,6 +1670,26 @@ register-slide2-text: Jednymi z podstawowych założeń projektu są prostota i 
 register-slide2-title: SUPLA wszędzie!
 register-slide3-text: Dostępne na rynku systemy automatyki budynkowej są zazwyczaj bardzo złożone, zamknięte oraz kosztowne. W wielu przypadkach wymagają instalacji już na etapie budowy obiektu. SUPLA jest prosta, otwarta i bezpłatna. Umożliwia budowanie elementów wykonawczych w oparciu o platformy RaspberryPI, Arduino czy też ESP8266 i łączenie ich z wykorzystaniem sieci LAN oraz Wi-Fi. Dołącz do projektu i zbuduj własną wersję systemu automatyki budynkowej!
 register-slide3-title: Bezpłatna i otwarta!
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_START: Reguluj jasność światła
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_STOP: Zatrzymaj regulację jasności światła
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_START: Reguluj jasność koloru
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_STOP: Zatrzymaj regulację jasności koloru
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_START: Reguluj jasność ściemniacza
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_STOP: Zatrzymaj regulację jasności ściemniacza
+rgbwCommand_label_NOT_SET: Ustaw dowolnie
+rgbwCommand_label_SET_BRIGHTNESS_WITHOUT_TURN_ON: Ustaw jasność bez włączenia
+rgbwCommand_label_SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON: Ustaw jasność koloru bez włączenia
+rgbwCommand_label_SET_DIMMER_CCT_WITHOUT_TURN_ON: Ustaw jasność CCT bez włączenia
+rgbwCommand_label_SET_RGB_WITHOUT_TURN_ON: Ustaw kolor bez włączenia
+rgbwCommand_label_TOGGLE_ALL: Przełącz wszystko
+rgbwCommand_label_TOGGLE_DIMMER: Przełącz ściemniacz
+rgbwCommand_label_TOGGLE_RGB: Przełącz kolor
+rgbwCommand_label_TURN_OFF_ALL: Wyłącz wszystko
+rgbwCommand_label_TURN_OFF_DIMMER: Wyłącz ściemniacz
+rgbwCommand_label_TURN_OFF_RGB: Wyłącz kolor
+rgbwCommand_label_TURN_ON_ALL: Włącz wszystko
+rgbwCommand_label_TURN_ON_DIMMER: Włącz ściemniacz
+rgbwCommand_label_TURN_ON_RGB: Włącz kolor
 scene: scena
 schedule: harmonogram
 scheduleMode_crontab: Zaawansowany
@@ -1952,29 +1977,5 @@ suffix: sufiks
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Dimmer CCT: Ściemniacz CCT
-Dimmer CCT and RGB: Ściemniacz CCT i RGB
-White brightness: Jasność białego
-White temperature: Temperatura białego
-rgbwCommand_label_NOT_SET: Ustaw dowolnie
-rgbwCommand_label_SET_BRIGHTNESS_WITHOUT_TURN_ON: Ustaw jasność bez włączenia
-rgbwCommand_label_SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON: Ustaw jasność koloru bez włączenia
-rgbwCommand_label_SET_DIMMER_CCT_WITHOUT_TURN_ON: Ustaw jasność CCT bez włączenia
-rgbwCommand_label_SET_RGB_WITHOUT_TURN_ON: Ustaw kolor bez włączenia
-rgbwCommand_label_START_ITERATE_ALL: Iteruj po wszystkim
-rgbwCommand_label_START_ITERATE_DIMMER: Iteruj po ściemniaczu
-rgbwCommand_label_START_ITERATE_RGB: Iteruj po kolorze
-rgbwCommand_label_STOP_ITERATE_ALL: Przestań iterować po wszystkim
-rgbwCommand_label_STOP_ITERATE_DIMMER: Przestań iterować po ściemniaczu
-rgbwCommand_label_STOP_ITERATE_RGB: Przestań iterować po kolorze
-rgbwCommand_label_TOGGLE_ALL: Przełącz wszystko
-rgbwCommand_label_TOGGLE_DIMMER: Przełącz ściemniacz
-rgbwCommand_label_TOGGLE_RGB: Przełącz kolor
-rgbwCommand_label_TURN_OFF_ALL: Wyłącz wszystko
-rgbwCommand_label_TURN_OFF_DIMMER: Wyłącz ściemniacz
-rgbwCommand_label_TURN_OFF_RGB: Wyłącz kolor
-rgbwCommand_label_TURN_ON_ALL: Włącz wszystko
-rgbwCommand_label_TURN_ON_DIMMER: Włącz ściemniacz
-rgbwCommand_label_TURN_ON_RGB: Włącz kolor
 
 #</editor-fold>

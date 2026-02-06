@@ -158,7 +158,7 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
             [['color' => '0xFF0000', 'rgbw_command' => 'TURN_ON_ALL'], '16711680,-1,-1,-1,7,-1'],
             [['color' => '0xFF0000', 'rgbw_command' => 'TURN-ON-ALL'], '16711680,-1,-1,-1,7,-1'],
             [['color' => '0xFF0000', 'rgbw_command' => 'turn-on-all'], '16711680,-1,-1,-1,7,-1'],
-            [['color' => '0xFF0000', 'rgbw_command' => 'start-iterate-rgb'], '16711680,-1,-1,-1,14,-1'],
+            [['color' => '0xFF0000', 'rgbw_command' => 'brightness-adjustment-color-start'], '16711680,-1,-1,-1,14,-1'],
             [['rgb' => ['red' => 255, 'green' => 0, 'blue' => 0]], '16711680,100,-1,-1,0,-1'],
             [['color' => '0xAA0000'], '11141120,-1,-1,-1,0,-1'],
             [['color' => '0xAA0000', 'color_brightness' => 70], '11141120,70,-1,-1,0,-1'],

@@ -159,7 +159,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
             $command = RgbwCommand::tryFromName($actionParams['rgbw_command']);
             $possibleCommands = RgbwCommand::forFunction($subject->getFunction()->getId());
             Assert::that($command)
-                ->notNull('Invalid rgbw_command "%s".', $actionParams['rgbw_command'])
+                ->notNull(sprintf('Invalid rgbw_command "%s".', $actionParams['rgbw_command']))
                 ->inArray($possibleCommands, 'Unsupported rgbw_command "%s".', $actionParams['rgbw_command']);
             $params['rgbw_command'] = $command->value;
         }

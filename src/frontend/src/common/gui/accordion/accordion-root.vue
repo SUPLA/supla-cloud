@@ -3,6 +3,7 @@
 
   const props = defineProps({
     multiple: Boolean,
+    disabled: Boolean,
   });
 
   const model = defineModel();
@@ -24,6 +25,9 @@
   });
 
   function toggleItem(name) {
+    if (props.disabled) {
+      return;
+    }
     const isOpen = openItems.value.includes(name);
     if (props.multiple) {
       openItems.value = isOpen ? openItems.value.filter((n) => n !== name) : [...openItems.value, name];
@@ -35,6 +39,7 @@
   provide('accordion', {
     openItems,
     toggleItem,
+    disabled: computed(() => props.disabled),
   });
 </script>
 

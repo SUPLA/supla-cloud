@@ -118,6 +118,26 @@ register-slide2-text: One of the main assumptions of this project is simplicity 
 register-slide2-title: SUPLA everywhere!
 register-slide3-text: Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!
 register-slide3-title: Free of charge and open!
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_START: Adjust light brightness
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_STOP: Stop adjusting light brightness
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_START: Adjust color brightness
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_STOP: Stop adjusting color brightness
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_START: Adjust dimmer brightness
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_STOP: Stop adjusting dimmer brightness
+rgbwCommand_label_NOT_SET: Set freely
+rgbwCommand_label_SET_BRIGHTNESS_WITHOUT_TURN_ON: Set brightness without turning on
+rgbwCommand_label_SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON: Set color brightness without turning on
+rgbwCommand_label_SET_DIMMER_CCT_WITHOUT_TURN_ON: Set CCT brightness without turning on
+rgbwCommand_label_SET_RGB_WITHOUT_TURN_ON: Set color without turning on
+rgbwCommand_label_TOGGLE_ALL: Toggle all
+rgbwCommand_label_TOGGLE_DIMMER: Toggle dimmer
+rgbwCommand_label_TOGGLE_RGB: Toggle color
+rgbwCommand_label_TURN_OFF_ALL: Turn off all
+rgbwCommand_label_TURN_OFF_DIMMER: Turn off dimmer
+rgbwCommand_label_TURN_OFF_RGB: Turn off color
+rgbwCommand_label_TURN_ON_ALL: Turn on all
+rgbwCommand_label_TURN_ON_DIMMER: Turn on dimmer
+rgbwCommand_label_TURN_ON_RGB: Turn on color
 scheduleMode_crontab: Advanced (crontab)
 scheduleMode_daily: Week
 scheduleMode_minutely: Interval

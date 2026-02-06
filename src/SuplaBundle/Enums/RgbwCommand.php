@@ -22,12 +22,12 @@ enum RgbwCommand: int {
     case SET_BRIGHTNESS_WITHOUT_TURN_ON = 10;
     case SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON = 11;
     case SET_RGB_WITHOUT_TURN_ON = 12;
-    case START_ITERATE_DIMMER = 13;
-    case START_ITERATE_RGB = 14;
-    case START_ITERATE_ALL = 15;
-    case STOP_ITERATE_DIMMER = 16;
-    case STOP_ITERATE_RGB = 17;
-    case STOP_ITERATE_ALL = 18;
+    case BRIGHTNESS_ADJUSTMENT_DIMMER_START = 13;
+    case BRIGHTNESS_ADJUSTMENT_COLOR_START = 14;
+    case BRIGHTNESS_ADJUSTMENT_ALL_START = 15;
+    case BRIGHTNESS_ADJUSTMENT_DIMMER_STOP = 16;
+    case BRIGHTNESS_ADJUSTMENT_COLOR_STOP = 17;
+    case BRIGHTNESS_ADJUSTMENT_ALL_STOP = 18;
     case SET_DIMMER_CCT_WITHOUT_TURN_ON = 19;
 
     public static function tryFromName(string $name): ?self {
@@ -49,8 +49,8 @@ enum RgbwCommand: int {
                 self::TOGGLE_RGB,
                 self::SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON,
                 self::SET_RGB_WITHOUT_TURN_ON,
-                self::START_ITERATE_RGB,
-                self::STOP_ITERATE_RGB,
+                self::BRIGHTNESS_ADJUSTMENT_COLOR_START,
+                self::BRIGHTNESS_ADJUSTMENT_COLOR_STOP,
             ],
             ChannelFunction::DIMMER => [
                 self::NOT_SET,
@@ -58,8 +58,8 @@ enum RgbwCommand: int {
                 self::TURN_OFF_DIMMER,
                 self::TOGGLE_DIMMER,
                 self::SET_BRIGHTNESS_WITHOUT_TURN_ON,
-                self::START_ITERATE_DIMMER,
-                self::STOP_ITERATE_DIMMER,
+                self::BRIGHTNESS_ADJUSTMENT_DIMMER_START,
+                self::BRIGHTNESS_ADJUSTMENT_DIMMER_STOP,
             ],
             ChannelFunction::DIMMERANDRGBLIGHTING => [
                 self::NOT_SET,
@@ -67,20 +67,20 @@ enum RgbwCommand: int {
                 self::TURN_OFF_DIMMER,
                 self::TOGGLE_DIMMER,
                 self::SET_BRIGHTNESS_WITHOUT_TURN_ON,
-                self::START_ITERATE_DIMMER,
-                self::STOP_ITERATE_DIMMER,
+                self::BRIGHTNESS_ADJUSTMENT_DIMMER_START,
+                self::BRIGHTNESS_ADJUSTMENT_DIMMER_STOP,
                 self::TURN_ON_RGB,
                 self::TURN_OFF_RGB,
                 self::TOGGLE_RGB,
                 self::SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON,
                 self::SET_RGB_WITHOUT_TURN_ON,
-                self::START_ITERATE_RGB,
-                self::STOP_ITERATE_RGB,
+                self::BRIGHTNESS_ADJUSTMENT_COLOR_START,
+                self::BRIGHTNESS_ADJUSTMENT_COLOR_STOP,
                 self::TURN_ON_ALL,
                 self::TURN_OFF_ALL,
                 self::TOGGLE_ALL,
-                self::START_ITERATE_ALL,
-                self::STOP_ITERATE_ALL,
+                self::BRIGHTNESS_ADJUSTMENT_ALL_START,
+                self::BRIGHTNESS_ADJUSTMENT_ALL_STOP,
             ],
             ChannelFunction::DIMMER_CCT => [
                 self::NOT_SET,
@@ -88,8 +88,8 @@ enum RgbwCommand: int {
                 self::TURN_OFF_DIMMER,
                 self::TOGGLE_DIMMER,
                 self::SET_BRIGHTNESS_WITHOUT_TURN_ON,
-                self::START_ITERATE_DIMMER,
-                self::STOP_ITERATE_DIMMER,
+                self::BRIGHTNESS_ADJUSTMENT_DIMMER_START,
+                self::BRIGHTNESS_ADJUSTMENT_DIMMER_STOP,
                 self::SET_DIMMER_CCT_WITHOUT_TURN_ON,
             ],
             ChannelFunction::DIMMER_CCT_AND_RGB => [
@@ -98,21 +98,21 @@ enum RgbwCommand: int {
                 self::TURN_OFF_DIMMER,
                 self::TOGGLE_DIMMER,
                 self::SET_BRIGHTNESS_WITHOUT_TURN_ON,
-                self::START_ITERATE_DIMMER,
-                self::STOP_ITERATE_DIMMER,
+                self::BRIGHTNESS_ADJUSTMENT_DIMMER_START,
+                self::BRIGHTNESS_ADJUSTMENT_DIMMER_STOP,
                 self::SET_DIMMER_CCT_WITHOUT_TURN_ON,
                 self::TURN_ON_RGB,
                 self::TURN_OFF_RGB,
                 self::TOGGLE_RGB,
                 self::SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON,
                 self::SET_RGB_WITHOUT_TURN_ON,
-                self::START_ITERATE_RGB,
-                self::STOP_ITERATE_RGB,
+                self::BRIGHTNESS_ADJUSTMENT_COLOR_START,
+                self::BRIGHTNESS_ADJUSTMENT_COLOR_STOP,
                 self::TURN_ON_ALL,
                 self::TURN_OFF_ALL,
                 self::TOGGLE_ALL,
-                self::START_ITERATE_ALL,
-                self::STOP_ITERATE_ALL,
+                self::BRIGHTNESS_ADJUSTMENT_ALL_START,
+                self::BRIGHTNESS_ADJUSTMENT_ALL_STOP,
             ],
             default => [],
         };

@@ -23,21 +23,23 @@
         <span v-else>{{ currentState.distance }} m</span>
       </dt>
     </dl>
-    <dl v-if="currentState.color_brightness">
+    <dl v-if="currentState.color_brightness !== undefined">
       <dd>{{ $t('Color') }}</dd>
       <dt>
-        <span class="rgb-color-preview" :style="{'background-color': cssColor(currentState.color)}"></span>
+        <ChannelStateColorPreview :color="currentState.color" />
       </dt>
       <dd>{{ $t('Color brightness') }}</dd>
       <dt>{{ currentState.color_brightness }}%</dt>
     </dl>
-    <dl v-if="currentState.brightness">
+    <dl v-if="currentState.brightness !== undefined">
       <dd>{{ $t('Brightness') }}</dd>
       <dt>{{ currentState.brightness }}%</dt>
     </dl>
-    <dl v-if="currentState.white_temperature">
+    <dl v-if="currentState.white_temperature !== undefined">
       <dd>{{ $t('White temperature') }}</dd>
-      <dt>{{ currentState.white_temperature }}%</dt>
+      <dt>
+        <ChannelStateWhiteTemperature :temperature="currentState.white_temperature" />
+      </dt>
     </dl>
     <dl v-if="currentState.isCalibrating">
       <dd>{{ $t('Calibration') }}</dd>
@@ -173,6 +175,8 @@
   import {formatGpmValue, roundToDecimals} from '@/common/filters.js';
   import ChannelFunction from '@/common/enums/channel-function.js';
   import {computed} from 'vue';
+  import ChannelStateWhiteTemperature from '@/channels/state/ChannelStateWhiteTemperature.vue';
+  import ChannelStateColorPreview from '@/channels/state/ChannelStateColorPreview.vue';
 
   const props = defineProps({
     channel: Object,
@@ -183,15 +187,9 @@
   const stateFromStore = computed(() => channelsStore.all[props.channel.id]?.state);
   const currentState = computed(() => props.state || stateFromStore.value);
   const isHvac = computed(() => ['HVAC', 'THERMOSTATHEATPOLHOMEPLUS'].includes(props.channel.type.name));
-
-  function cssColor(hexStringColor) {
-    return hexStringColor.replace('0x', '#');
-  }
 </script>
 
 <style lang="scss">
-  @use '../styles/variables' as *;
-
   .channel-state-table {
     dl {
       margin-bottom: 0;

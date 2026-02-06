@@ -5,7 +5,7 @@
         <option v-for="command in rgbwCommands" :key="command" :value="command">{{ $t(`rgbwCommand_label_${command}`) }}</option>
       </select>
     </div>
-    <AccordionRoot multiple v-model="openedSections">
+    <AccordionRoot multiple v-model="openedSections" :disabled="disabled || rgbwCommand !== 'NOT_SET'">
       <AccordionItem v-if="hasColor && shouldDisplayColor" title-i18n="Color" name="color" :iconOpened="faCheckCircle">
         <ColorColorpicker v-if="rgbOpened" v-model="rgb" :brightness="colorBrightness" @onNewBrightness="model.color_brightness = $event" />
       </AccordionItem>
@@ -24,6 +24,13 @@
         <WhiteTemperatureColorpicker v-if="whiteTemperatureOpened" v-model="whiteTemperature" />
       </AccordionItem>
     </AccordionRoot>
+
+    <TransitionExpand>
+      <div class="alert alert-info d-flex align-items-center mt-2" v-if="(rgbOpened || whiteTemperatureOpened) && !brightnessOpened && !colorBrightnessOpened">
+        <fa :icon="faLightbulb" size="xl" />
+        <p class="ml-3">{{ $t('The light will not turn on if you adjust the color only.') }}</p>
+      </div>
+    </TransitionExpand>
   </div>
 </template>
 
@@ -37,15 +44,16 @@
 
 <script setup>
   import ChannelFunction from '../../common/enums/channel-function';
-  import {computed, reactive} from 'vue';
+  import {computed, reactive, watch} from 'vue';
   import ColorColorpicker from '@/channels/action/color/color-colorpicker.vue';
   import AccordionRoot from '@/common/gui/accordion/accordion-root.vue';
   import AccordionItem from '@/common/gui/accordion/accordion-item.vue';
   import ColorBrightnessColorpicker from '@/channels/action/color/color-brightness-colorpicker.vue';
   import WhiteTemperatureColorpicker from '@/channels/action/color/white-temperature-colorpicker.vue';
-  import {faCheckCircle} from '@fortawesome/free-solid-svg-icons';
+  import {faCheckCircle, faLightbulb} from '@fortawesome/free-solid-svg-icons';
+  import TransitionExpand from '@/common/gui/transition-expand.vue';
 
-  const props = defineProps({subject: Object});
+  const props = defineProps({subject: Object, disabled: Boolean});
 
   const model = defineModel();
 
@@ -55,7 +63,7 @@
   });
 
   const rgb = computed({
-    get: () => model.value?.color,
+    get: () => model.value?.color?.replace('0x', '#'),
     set: (color) => (model.value = {...model.value, color}),
   });
 
@@ -81,6 +89,13 @@
     white_temperature: 100,
   });
 
+  const rememberedValues = reactive({
+    color: undefined,
+    color_brightness: undefined,
+    brightness: undefined,
+    white_temperature: undefined,
+  });
+
   const useSectionOpened = (field) =>
     computed({
       get: () => model.value[field] !== undefined,
@@ -88,9 +103,13 @@
         if (value && model.value[field] !== undefined) return;
         if (!value && model.value[field] === undefined) return;
         if (!value) {
-          defaultValues[field] = model.value[field];
+          rememberedValues[field] = model.value[field];
         }
-        model.value = {...model.value, [field]: value ? defaultValues[field] : undefined};
+        let valueToSet = undefined;
+        if (value) {
+          valueToSet = rememberedValues[field] ?? props.subject?.state?.[field] ?? defaultValues[field];
+        }
+        model.value = {...model.value, [field]: valueToSet};
       },
     });
 
@@ -132,4 +151,19 @@
   const shouldDisplayColorBrightness = computed(() => ['NOT_SET', 'SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON'].includes(rgbwCommand.value));
   const shouldDisplayBrightness = computed(() => ['NOT_SET', 'SET_BRIGHTNESS_WITHOUT_TURN_ON'].includes(rgbwCommand.value));
   const shouldDisplayWhiteTemperature = computed(() => ['NOT_SET', 'SET_DIMMER_CCT_WITHOUT_TURN_ON'].includes(rgbwCommand.value));
+
+  watch(
+    () => rgbwCommand.value,
+    (newValue) => {
+      if (newValue === 'SET_BRIGHTNESS_WITHOUT_TURN_ON') {
+        brightnessOpened.value = true;
+      } else if (newValue === 'SET_RGB_WITHOUT_TURN_ON') {
+        rgbOpened.value = true;
+      } else if (newValue === 'SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON') {
+        colorBrightnessOpened.value = true;
+      } else if (newValue === 'SET_DIMMER_CCT_WITHOUT_TURN_ON') {
+        whiteTemperatureOpened.value = true;
+      }
+    }
+  );
 </script>
