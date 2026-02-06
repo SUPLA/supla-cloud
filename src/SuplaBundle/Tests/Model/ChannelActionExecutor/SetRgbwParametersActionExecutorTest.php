@@ -97,8 +97,8 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
             [['brightness' => 55, 'white_temperature' => '33'], ['brightness' => 55, 'white_temperature' => 33]],
             [['white_temperature' => 101], false],
             [
-                ['white_temperature' => '33', 'rgbw_command' => 'start-iterate-rgb'],
-                ['white_temperature' => 33, 'rgbw_command' => RgbwCommand::START_ITERATE_RGB->value],
+                ['white_temperature' => '33', 'rgbw_command' => 'brightness-adjustment-color-start'],
+                ['white_temperature' => 33, 'rgbw_command' => RgbwCommand::BRIGHTNESS_ADJUSTMENT_COLOR_START->value],
             ],
             [['white_temperature' => 101, 'rgbw_command' => RgbwCommand::SET_DIMMER_CCT_WITHOUT_TURN_ON->name], false],
             [['white_temperature' => 101, 'rgbw_command' => 'unicorn'], false],
