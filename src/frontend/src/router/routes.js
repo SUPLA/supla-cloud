@@ -116,7 +116,7 @@ export default [
       },
       {
         path: 'direct-links',
-        component: () => import('@/direct-links/direct-links-list.vue'),
+        component: () => import('@/direct-links/direct-links-list-for-subject.vue'),
         name: 'channel.directLinks',
       },
       {

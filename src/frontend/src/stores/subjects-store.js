@@ -74,7 +74,13 @@ export const useSubjectsStore = defineStore('subjects', () => {
     await Promise.all(tasks);
   };
 
-  return {getByTypeAndId, ensureSubjectsLoaded};
+  const fetchOne = async (subject) => {
+    if (subject.ownSubjectType === ActionableSubjectType.CHANNEL) {
+      await channelsStore.fetchChannel(subject.id);
+    }
+  };
+
+  return {getByTypeAndId, ensureSubjectsLoaded, fetchOne};
 });
 
 export function useSubject(model) {

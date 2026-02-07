@@ -2,6 +2,7 @@ import {defineStore} from 'pinia';
 import {useFetchList} from '@/stores/index.js';
 import {directLinksApi} from '@/api/direct-links-api.js';
 import {ref} from 'vue';
+import {useSubjectsStore} from '@/stores/subjects-store.js';
 
 export const useDirectLinksStore = defineStore('directLinks', () => {
   const {all, ids, list, ready, $reset, fetchAll} = useFetchList(directLinksApi.getList);
@@ -10,6 +11,7 @@ export const useDirectLinksStore = defineStore('directLinks', () => {
 
   async function create(subject) {
     const newLink = await directLinksApi.create(subject.ownSubjectType, subject.id);
+    useSubjectsStore().fetchOne(subject);
     all.value[newLink.id] = newLink;
     slugs.value[newLink.id] = newLink.slug;
     return newLink;
@@ -34,5 +36,9 @@ export const useDirectLinksStore = defineStore('directLinks', () => {
     all.value = rest;
   }
 
-  return {all, ids, list, ready, slugs, create, update, remove, $reset, fetchAll};
+  function listForSubject(subject) {
+    return list.value.filter((link) => link.subjectId === subject.id && link.subjectType === subject.ownSubjectType);
+  }
+
+  return {all, ids, list, listForSubject, ready, slugs, create, update, remove, $reset, fetchAll};
 });
