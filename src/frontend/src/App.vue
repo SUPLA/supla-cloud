@@ -8,11 +8,7 @@
         <maintenance-warning></maintenance-warning>
       </div>
       <TechnicalAccessWarning v-if="currentUser.username && currentUser.technicalAccess" />
-      <router-view v-slot="{Component}">
-        <transition name="fade" mode="out-in" :duration="100">
-          <component :is="Component" />
-        </transition>
-      </router-view>
+      <RouterView />
       <cookie-warning
         v-if="frontendConfig.config.requireCookiePolicyAcceptance && currentUser.username && !currentUser.userData.agreements.cookies"
       ></cookie-warning>

@@ -225,14 +225,17 @@ export default [
     path: '/direct-links',
     component: () => import('@/direct-links/direct-links-page.vue'),
     name: 'directLinks',
-    children: [
-      {
-        path: ':id',
-        component: () => import('@/direct-links/direct-link-details.vue'),
-        name: 'directLink',
-        props: true,
-      },
-    ],
+  },
+  {
+    path: '/direct-links/new',
+    component: () => import('@/direct-links/direct-link-new-form.vue'),
+    name: 'directLink.new',
+  },
+  {
+    path: '/direct-links/:id',
+    component: () => import('@/direct-links/direct-link-details.vue'),
+    name: 'directLink',
+    props: true,
   },
   {
     path: '/direct/:linkId/:slug/:action?',
