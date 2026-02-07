@@ -8,7 +8,7 @@
         type="button"
         @click="setFilter(filter.value)"
       >
-        {{ filter.label }}
+        {{ $t(filter.label) }}
       </button>
     </div>
     <div class="btn-group-filters btn-group-filters-dropdown">

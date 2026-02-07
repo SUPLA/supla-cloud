@@ -3,7 +3,14 @@
     <ListFilters v-model="filters" :def="filtersDef" />
   </div>
   <div v-if="items.length > 0" class="square-links-list-container">
-    <TransitionGroup name="list" tag="div" class="square-links-list px-3" :class="{narrow: items.length < 9}" @before-leave="beforeLeave">
+    <TransitionGroup
+      :name="animate ? 'list' : ''"
+      tag="div"
+      class="square-links-list px-3"
+      :class="{narrow: items.length < 9}"
+      @before-leave="beforeLeave"
+      @after-leave="afterLeave"
+    >
       <div v-for="item in items" :key="item.id">
         <slot name="item" :item="item" />
       </div>
@@ -13,7 +20,7 @@
 </template>
 
 <script setup>
-  import {onMounted, ref} from 'vue';
+  import {nextTick, onMounted, ref} from 'vue';
   import EmptyListPlaceholder from '@/common/gui/empty-list-placeholder.vue';
   import ListFilters from '@/common/list/list-filters.vue';
 
@@ -27,7 +34,13 @@
 
   const filters = defineModel('filters');
 
-  onMounted(() => (defaultFilters.value = {...filters.value}));
+  onMounted(async () => {
+    defaultFilters.value = {...filters.value};
+    await nextTick();
+    animate.value = true;
+  });
+
+  const animate = ref(false);
 
   const beforeLeave = (el) => {
     const {top, left, width, height} = el.getBoundingClientRect();
@@ -37,6 +50,14 @@
     el.style.width = `${width}px`;
     el.style.height = `${height}px`;
     el.classList.add('list-leave-absolute');
+  };
+
+  const afterLeave = (el) => {
+    el.classList.remove('list-leave-absolute');
+    el.style.left = '';
+    el.style.top = '';
+    el.style.width = '';
+    el.style.height = '';
   };
 </script>
 
