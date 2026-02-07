@@ -9,7 +9,7 @@ class ResponseContentLengthListener {
         if (str_starts_with($event->getRequest()->getPathInfo(), '/direct/')) {
             $response = $event->getResponse();
             $content = $response->getContent();
-            if ($content[0] === '{') {
+            if (str_starts_with($content, '{')) {
                 // fix for malfunction clients on arduino that read direct links responses
                 // @see https://forum.supla.org/viewtopic.php?t=12156
                 $response->headers->set('Content-Length', mb_strlen($content));

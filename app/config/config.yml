@@ -233,6 +233,11 @@ nelmio_cors:
         - 'X-Max-Timestamp'
         - 'SUPLA-MQTT-Password'
       max_age: 3600
+    '^/direct/':
+      allow_origin: ['*']
+      allow_headers: ['*']
+      allow_methods: ['OPTIONS', 'PATCH']
+      max_age: 3600
 
 parameters:
   act_as_broker_cloud: false
