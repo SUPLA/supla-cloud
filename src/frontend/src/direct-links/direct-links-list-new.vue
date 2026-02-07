@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mb-3">
     <ListFilters v-model="filters" :def="filtersDef" />
   </div>
   <div v-if="filteredItems.length > 0">
