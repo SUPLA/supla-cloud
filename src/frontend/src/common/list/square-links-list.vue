@@ -2,7 +2,7 @@
   <div class="container mb-3" v-if="filtersDef">
     <ListFilters v-model="filters" :def="filtersDef" />
   </div>
-  <div v-if="items.length > 0">
+  <div v-if="items.length > 0" class="square-links-list-container">
     <TransitionGroup name="list" tag="div" class="square-links-list px-3" :class="{narrow: items.length < 9}" @before-leave="beforeLeave">
       <div v-for="item in items" :key="item.id">
         <slot name="item" :item="item" />
@@ -49,6 +49,10 @@
 </script>
 
 <style scoped>
+  .square-links-list-container {
+    padding: 0 1em;
+  }
+
   .square-links-list {
     position: relative;
     display: grid;
@@ -97,10 +101,37 @@
 
   @media (min-width: 1200px) {
     .square-links-list {
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(5, 1fr);
     }
     .square-links-list.narrow {
       grid-template-columns: repeat(4, 1fr);
+    }
+    .square-links-list-container {
+      padding: 0 3em;
+    }
+  }
+
+  @media (min-width: 1500px) {
+    .square-links-list {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  @media (min-width: 1800px) {
+    .square-links-list {
+      grid-template-columns: repeat(7, 1fr);
+    }
+  }
+
+  @media (min-width: 2100px) {
+    .square-links-list {
+      grid-template-columns: repeat(8, 1fr);
+    }
+  }
+
+  @media (min-width: 2400px) {
+    .square-links-list {
+      grid-template-columns: repeat(9, 1fr);
     }
   }
 </style>

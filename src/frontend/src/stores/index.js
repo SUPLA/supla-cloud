@@ -34,7 +34,6 @@ export const useFetchList = (fetchListFn, idFactory = (item) => item.id) => {
   const $reset = () => {
     ready.value = false;
     all.value = {};
-    ids.value = [];
     fetchAll.promise = undefined;
   };
 

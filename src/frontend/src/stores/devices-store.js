@@ -1,31 +1,10 @@
 import {defineStore} from 'pinia';
-import {computed, ref} from 'vue';
 import {devicesApi} from '@/api/devices-api';
 import {useChannelsStore} from '@/stores/channels-store';
+import {useFetchList} from '@/stores/index.js';
 
 export const useDevicesStore = defineStore('devices', () => {
-  const all = ref({});
-  const ids = ref([]);
-
-  const fetchAll = (force = false) => {
-    if (fetchAll.promise && !force) {
-      return fetchAll.promise;
-    } else {
-      return (fetchAll.promise = devicesApi.getList().then((devices) => {
-        const state = devices.reduce(
-          (acc, curr) => {
-            return {
-              ids: acc.ids.concat(curr.id),
-              all: {...acc.all, [curr.id]: curr},
-            };
-          },
-          {ids: [], all: {}}
-        );
-        all.value = state.all;
-        ids.value = state.ids;
-      }));
-    }
-  };
+  const {all, ids, list, ready, $reset, fetchAll} = useFetchList(devicesApi.getList);
 
   const updateStates = (devicesStates) => {
     let refetch = false;
@@ -66,13 +45,5 @@ export const useDevicesStore = defineStore('devices', () => {
     });
   };
 
-  const list = computed(() => ids.value.map((id) => all.value[id]));
-
-  const $reset = () => {
-    all.value = {};
-    ids.value = [];
-    fetchAll.promise = undefined;
-  };
-
-  return {all, ids, list, $reset, fetchAll, updateStates, remove, fetchDevice};
+  return {all, ids, list, ready, $reset, fetchAll, updateStates, remove, fetchDevice};
 });
