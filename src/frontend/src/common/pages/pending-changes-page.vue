@@ -19,9 +19,15 @@
           <div v-else>
             <slot name="buttons"></slot>
             <div v-if="deletable" class="btn-toolbar">
-              <a class="btn btn-danger" @click="$emit('delete')">
-                {{ $t('Delete') }}
-              </a>
+              <DialogWindow warning cancellable @confirm="$emit('delete')">
+                <DialogTrigger class="btn btn-danger">{{ $t('Delete') }}</DialogTrigger>
+                <DialogContent>
+                  <template #header>
+                    <h4>{{ $t('Are you sure?') }}</h4>
+                  </template>
+                  <slot name="deleteConfirm" />
+                </DialogContent>
+              </DialogWindow>
             </div>
           </div>
         </Transition>
@@ -51,6 +57,7 @@
   import {useFrontendConfigStore} from '@/stores/frontend-config-store';
   import {computed} from 'vue';
   import FormButton from '@/common/gui/FormButton.vue';
+  import {DialogContent, DialogTrigger, DialogWindow} from '@/common/gui/dialog/index.js';
 
   const props = defineProps({
     header: String,

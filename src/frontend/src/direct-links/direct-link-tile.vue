@@ -2,7 +2,7 @@
   <square-link :class="'clearfix pointer lift-up ' + (model.active ? 'green' : 'grey')" @click="$emit('click')">
     <router-link :to="linkSpec">
       <div class="clearfix">
-        <function-icon :model="subject" class="pull-right" width="60"></function-icon>
+        <function-icon v-if="subject" :model="subject" class="pull-right" width="60"></function-icon>
         <h3>{{ caption }}</h3>
       </div>
       <dl>

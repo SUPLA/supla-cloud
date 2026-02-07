@@ -5,8 +5,6 @@ export const pinia = createPinia();
 
 export const useFetchList = (fetchListFn, idFactory = (item) => item.id) => {
   const all = ref({});
-  const ids = ref([]);
-
   const ready = ref(false);
 
   const fetchAll = (force = false) => {
@@ -17,23 +15,15 @@ export const useFetchList = (fetchListFn, idFactory = (item) => item.id) => {
       return fetchAll.promise;
     }
     return (fetchAll.promise = fetchListFn().then((items) => {
-      const state = items.reduce(
-        (acc, curr) => {
-          const id = idFactory(curr);
-          return {
-            ids: acc.ids.concat(id),
-            all: {...acc.all, [id]: curr},
-          };
-        },
-        {ids: [], all: {}}
-      );
-      all.value = state.all;
-      ids.value = state.ids;
+      const state = {};
+      items.forEach((item) => (state[idFactory(item)] = item));
+      all.value = state;
       ready.value = true;
     }));
   };
 
-  const list = computed(() => ids.value.map((id) => all.value[id]));
+  const list = computed(() => Object.values(all.value));
+  const ids = computed(() => Object.keys(all.value));
 
   const updateOne = (newData) => {
     if (all.value[newData.id]) {

@@ -1,28 +1,24 @@
 <template>
-  <page-container :error="error">
-    <loading-cover :loading="loading">
+  <PageContainer :error="error">
+    <LoadingCover :loading="!ready">
       <div v-if="directLink">
         <div class="container">
           <BreadcrumbList current>
             <RouterLink :to="{name: 'directLinks'}">{{ $t('Direct links') }}</RouterLink>
           </BreadcrumbList>
-          <pending-changes-page
+          <PendingChangesPage
             :header="directLink.id ? directLink.caption || `${$t('Direct link')} ID${directLink.id}` : $t('New direct link')"
-            :deletable="!isNew"
-            :is-pending="hasPendingChanges && !isNew"
-            @cancel="cancelChanges()"
-            @save="saveDirectLink()"
-            @delete="deleteConfirm = true"
+            deletable
+            :is-pending="dirty"
+            @cancel="cancel()"
+            @save="save()"
+            @delete="deleteDirectLink()"
           >
-            <direct-link-preview
-              v-if="fullUrl"
-              :url="fullUrl"
-              :direct-link="directLink"
-              :possible-actions="possibleActions"
-              :allowed-actions="allowedActions"
-            ></direct-link-preview>
-            <div v-if="!directLink.active && directLink.inactiveReason" class="row">
-              <div class="form-group"></div>
+            <template #deleteConfirm>
+              <p>{{ $t('Are you sure you want to delete this direct link?') }}</p>
+              <p>{{ $t('You will not be able to generate a direct link with the same URL again.') }}</p>
+            </template>
+            <div v-if="!directLink.active && directLink.inactiveReason" class="row my-3">
               <div class="col-sm-6 col-sm-offset-3">
                 <div class="alert alert-warning">
                   {{ $t('Direct link is not working right now. Reason:') }}
@@ -30,7 +26,7 @@
                 </div>
               </div>
             </div>
-            <div v-if="!isNew" class="form-group">
+            <div class="form-group">
               <div class="row text-center">
                 <div class="col-sm-4">
                   <div class="details-page-block">
@@ -39,42 +35,23 @@
                       <dl>
                         <dd>{{ $t('Caption') }}</dd>
                         <dt>
-                          <input v-model="directLink.caption" type="text" class="form-control" @keydown="directLinkChanged()" />
+                          <input v-model="draft.caption" type="text" class="form-control" />
                         </dt>
                         <dd>{{ $t('Enabled') }}</dd>
                         <dt>
-                          <toggler v-model="directLink.enabled" @update:model-value="directLinkChanged()"></toggler>
-                        </dt>
-                        <dd>{{ $t('Allowed actions') }}</dd>
-                        <dt>
-                          <div>
-                            <div v-for="action in possibleActions" :key="action.id">
-                              <toggler
-                                v-model="allowedActions[action.name]"
-                                :label="actionCaption(action, directLink.subject)"
-                                @update:model-value="directLinkChanged()"
-                              ></toggler>
-                            </div>
-                          </div>
+                          <Toggler v-model="draft.enabled" />
                         </dt>
                       </dl>
-                      <transition-expand>
-                        <div v-if="displayOpeningSensorWarning" class="form-group">
-                          <div class="alert alert-warning text-center">
-                            {{ $t('The gate sensor must function properly in order to execute the Open and Close actions.') }}
-                          </div>
-                        </div>
-                      </transition-expand>
                       <dl>
                         <dd v-tooltip="$t('Allows to perform an action only using the HTTP PATCH request.')">
                           {{ $t('For devices') }}
                           <i class="pe-7s-help1"></i>
                         </dd>
                         <dt>
-                          <toggler v-model="directLink.disableHttpGet" @update:model-value="directLinkChanged()"></toggler>
+                          <toggler v-model="draft.disableHttpGet"></toggler>
                         </dt>
                       </dl>
-                      <div v-if="directLink.disableHttpGet" class="help-block small">
+                      <div v-if="draft.disableHttpGet" class="small">
                         {{
                           $t(
                             'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.'
@@ -89,86 +66,95 @@
                   <div class="details-page-block">
                     <h3 class="text-center">{{ $t('actionableSubjectType_' + directLink.subjectType) }}</h3>
                     <div class="text-left">
-                      <channel-tile v-if="directLink.subjectType == 'channel'" :model="directLink.subject"></channel-tile>
-                      <channel-group-tile v-if="directLink.subjectType == 'channelGroup'" :model="directLink.subject"></channel-group-tile>
-                      <scene-tile v-if="directLink.subjectType == 'scene'" :model="directLink.subject"></scene-tile>
-                      <ScheduleTile v-if="directLink.subjectType === 'schedule'" :model="directLink.subject" />
+                      <SubjectTile :model="directLink" />
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <div class="details-page-block">
                     <h3>{{ $t('Execution history') }}</h3>
-                    <direct-link-audit :direct-link="directLink"></direct-link-audit>
-                  </div>
-                </div>
-              </div>
-              <h2>{{ $t('Constraints') }}</h2>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="details-page-block">
-                    <h3 class="text-center">{{ $t('Working period') }}</h3>
-                    <date-range-picker v-model="directLink.activeDateRange" @input="directLinkChanged()"></date-range-picker>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="details-page-block">
-                    <h3 class="text-center">{{ $t('Execution limit') }}</h3>
-                    <div class="executions-limit">
-                      {{ directLink.executionsLimit }}
-                    </div>
-                    <div class="text-center">
-                      <a class="btn btn-default mx-1" @click="setExecutionsLimit(undefined)">{{ $t('No limit') }}</a>
-                      <a class="btn btn-default mx-1" @click="setExecutionsLimit(1)">1</a>
-                      <a class="btn btn-default mx-1" @click="setExecutionsLimit(2)">2</a>
-                      <a class="btn btn-default mx-1" @click="setExecutionsLimit(10)">10</a>
-                      <a class="btn btn-default mx-1" @click="setExecutionsLimit(100)">100</a>
-                      <a :class="'btn btn-default mx-1 ' + (choosingCustomLimit ? 'active' : '')" @click="choosingCustomLimit = !choosingCustomLimit">{{
-                        $t('Custom')
-                      }}</a>
-                    </div>
-                    <div v-if="choosingCustomLimit">
-                      <div class="form-group"></div>
-                      <label>{{ $t('Custom execution limit') }}</label>
-                      <input v-model="directLink.executionsLimit" class="form-control" type="number" min="0" @input="directLinkChanged()" />
-                    </div>
+                    <DirectLinkAudit :direct-link="directLink" />
                   </div>
                 </div>
               </div>
             </div>
-          </pending-changes-page>
-        </div>
-        <div v-if="isNew">
-          <h3 class="text-center">{{ $t('Select the item (subject) you want to control using this link') }}</h3>
-          <div class="row">
-            <div class="col-lg-4 col-lg-offset-4">
-              <subject-dropdown
-                channels-dropdown-params="hasFunction=1"
-                :filter="filterOutNotDirectLinkingSubjects"
-                @input="chooseSubjectForNewLink($event)"
-                disable-notifications
-              />
-              <span class="help-block">
-                {{ $t('After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.') }}
-              </span>
-            </div>
-          </div>
+            <DirectLinkDetailsConstraints v-model:activeDateRange="draft.activeDateRange" v-model:executionsLimit="draft.executionsLimit" />
+            <!--            <direct-link-preview-->
+            <!--              v-if="fullUrl"-->
+            <!--              :url="fullUrl"-->
+            <!--              :direct-link="directLink"-->
+            <!--              :possible-actions="possibleActions"-->
+            <!--              :allowed-actions="allowedActions"-->
+            <!--            ></direct-link-preview>-->
+          </PendingChangesPage>
         </div>
       </div>
-    </loading-cover>
-    <modal-confirm
-      v-if="deleteConfirm"
-      class="modal-warning"
-      :header="$t('Are you sure you want to delete this direct link?')"
-      :loading="loading"
-      @confirm="deleteDirectLink()"
-      @cancel="deleteConfirm = false"
-    >
-      {{ $t('You will not be able to generate a direct link with the same URL again.') }}
-    </modal-confirm>
-  </page-container>
+    </LoadingCover>
+  </PageContainer>
 </template>
 
+<script setup>
+  import {useDirectLinksStore} from '@/stores/direct-links-store.js';
+  import {storeToRefs} from 'pinia';
+  import {computed, onMounted} from 'vue';
+  import PageContainer from '@/common/pages/page-container.vue';
+  import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
+  import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
+  import PendingChangesPage from '@/common/pages/pending-changes-page.vue';
+  import {useEditableFields} from '@/common/editable-fields.js';
+  import Toggler from '@/common/gui/toggler.vue';
+  import SubjectTile from '@/direct-links/subject-tile.vue';
+  import DirectLinkAudit from '@/direct-links/direct-link-audit.vue';
+  import {useRouter} from 'vue-router';
+  import {successNotification} from '@/common/notifier.js';
+  import DirectLinkDetailsConstraints from '@/direct-links/direct-link-details-constraints.vue';
+
+  const props = defineProps({id: Number});
+  const router = useRouter();
+
+  const directLinksStore = useDirectLinksStore();
+  const {ready, all, slugs} = storeToRefs(directLinksStore);
+  onMounted(() => directLinksStore.fetchAll());
+
+  const error = computed(() => ready.value && !directLink.value && 404);
+  const directLink = computed(() => all.value[props.id]);
+
+  const {draft, dirty, cancel, markSaved, getPatch} = useEditableFields(
+    directLink,
+    ['caption', 'enabled', 'disableHttpGet', 'executionsLimit', 'activeDateRange'],
+    {
+      mapIn: (src) => ({
+        caption: src?.caption ?? '',
+        enabled: !!src?.enabled,
+        disableHttpGet: !!src?.disableHttpGet,
+        executionsLimit: src.executionsLimit,
+        activeDateRange: src.activeDateRange,
+      }),
+    }
+  );
+
+  async function save() {
+    await directLinksStore.update(directLink.value.id, {...directLink.value, ...getPatch()});
+    markSaved();
+  }
+
+  async function deleteDirectLink() {
+    await directLinksStore.remove(directLink.value.id);
+    successNotification('Direct link deleted successfully.'); // i18n
+    await router.push({name: 'directLinks'});
+  }
+
+  const urlWithoutSecret = computed(() => '/link/balbla');
+
+  const examplePatchBody = computed(() => {
+    return (
+      `curl -s -H "Content-Type: application/json" -H "Accept: application/json" -X PATCH ` +
+      `-d '{"code":"${'SECRET'}","action":"read"}' ${urlWithoutSecret.value}`
+    );
+  });
+</script>
+
+<!--
 <script>
   import Toggler from '../common/gui/toggler.vue';
   import PendingChangesPage from '../common/pages/pending-changes-page.vue';
@@ -193,6 +179,7 @@
   import {useDevicesStore} from '@/stores/devices-store.js';
   import ActionableSubjectType from '@/common/enums/actionable-subject-type.js';
   import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
+  import {useDirectLinksStore} from '@/stores/direct-links-store.js';
 
   export default {
     components: {
@@ -200,7 +187,6 @@
       ModalConfirm,
       LoadingCover,
       TransitionExpand,
-      SubjectDropdown,
       DirectLinkAudit,
       DateRangePicker,
       DirectLinkPreview,
@@ -216,7 +202,6 @@
     data() {
       return {
         loading: false,
-        directLink: undefined,
         error: false,
         deleteConfirm: false,
         hasPendingChanges: false,
@@ -225,7 +210,7 @@
       };
     },
     mounted() {
-      this.fetch();
+      this.directLinksStore.fetchAll();
     },
     methods: {
       actionCaption,
@@ -253,23 +238,6 @@
         this.possibleActions.forEach((possibleAction) => {
           this.$set(this.allowedActions, possibleAction.name, this.directLink.allowedActions.indexOf(possibleAction.name) >= 0);
         });
-      },
-      chooseSubjectForNewLink(subject) {
-        if (subject) {
-          const toSend = {
-            subjectType: subject.ownSubjectType,
-            subjectId: subject.id,
-            allowedActions: ['read'],
-          };
-          this.loading = true;
-          api
-            .post('direct-links?include=subject', toSend)
-            .then((response) => {
-              const newLink = response.body;
-              this.$emit('add', newLink);
-            })
-            .catch(() => this.$emit('delete'));
-        }
       },
       directLinkChanged() {
         this.hasPendingChanges = true;
@@ -301,16 +269,11 @@
       cancelChanges() {
         this.fetch();
       },
-      filterOutNotDirectLinkingSubjects(subject) {
-        return !['ACTION_TRIGGER'].includes(subject.function.name);
-      },
+
     },
     computed: {
       ActionableSubjectType() {
         return ActionableSubjectType;
-      },
-      isNew() {
-        return !this.directLink.id;
       },
       currentlyAllowedActions() {
         const actions = [];
@@ -351,15 +314,14 @@
       linkSecret() {
         return this.fullUrl ? this.fullUrl.substr(this.fullUrl.lastIndexOf('/') + 1) : this.$t('YOUR LINK CODE');
       },
-      examplePatchBody() {
-        return (
-          `curl -s -H "Content-Type: application/json" -H "Accept: application/json" -X PATCH ` +
-          `-d '{"code":"${this.linkSecret}","action":"read"}' ${this.urlWithoutSecret}`
-        );
-      },
+
       ...mapState(useCurrentUserStore, ['serverUrl']),
       ...mapStores(useChannelsStore, {channels: 'all'}),
       ...mapState(useDevicesStore, {devices: 'all'}),
+      ...mapStores(useDirectLinksStore),
+      directLink() {
+        return this.directLinksStore.all[this.id];
+      },
     },
     watch: {
       id() {
@@ -380,3 +342,4 @@
     margin-bottom: 10px;
   }
 </style>
+-->

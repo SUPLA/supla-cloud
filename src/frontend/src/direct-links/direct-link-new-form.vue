@@ -22,13 +22,13 @@
 </template>
 
 <script setup>
-  import {api} from '@/api/api.js';
   import SubjectDropdown from '@/devices/subject-dropdown.vue';
   import {useRouter} from 'vue-router';
   import {useDirectLinksStore} from '@/stores/direct-links-store.js';
   import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
 
   const router = useRouter();
+  const directLinksStore = useDirectLinksStore();
 
   function filterOutNotDirectLinkingSubjects(subject) {
     return !['ACTION_TRIGGER'].includes(subject.function.name);
@@ -36,13 +36,7 @@
 
   async function chooseSubjectForNewLink(subject) {
     if (subject) {
-      const toSend = {
-        subjectType: subject.ownSubjectType,
-        subjectId: subject.id,
-        allowedActions: ['read'],
-      };
-      const {body: newLink} = await api.post('direct-links', toSend);
-      await useDirectLinksStore().fetchAll(true);
+      const newLink = await directLinksStore.create(subject);
       await router.push({name: 'directLink', params: {id: newLink.id}});
     }
   }

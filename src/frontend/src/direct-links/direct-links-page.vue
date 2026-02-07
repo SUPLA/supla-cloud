@@ -12,7 +12,9 @@
       </div>
     </div>
   </div>
-  <DirectLinksListNew :items="list" />
+  <LoadingCover :loading="!ready">
+    <DirectLinksListNew :items="list" />
+  </LoadingCover>
 </template>
 
 <script setup>
@@ -20,8 +22,9 @@
   import DirectLinksListNew from '@/direct-links/direct-links-list-new.vue';
   import {storeToRefs} from 'pinia';
   import {onMounted} from 'vue';
+  import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
 
   const directLinksStore = useDirectLinksStore();
-  const {list} = storeToRefs(directLinksStore);
+  const {list, ready} = storeToRefs(directLinksStore);
   onMounted(() => directLinksStore.fetchAll());
 </script>
