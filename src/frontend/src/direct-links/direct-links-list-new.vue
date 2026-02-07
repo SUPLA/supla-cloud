@@ -1,32 +1,25 @@
 <template>
-  <div class="container mb-3">
-    <ListFilters v-model="filters" :def="filtersDef" />
-  </div>
-  <div v-if="filteredItems.length > 0">
-    <TransitionGroup name="list" tag="div" class="direct-links-grid px-3" :class="{narrow: filteredItems.length < 9}">
-      <DirectLinkTile v-for="item in filteredItems" :key="item.id" :model="item" />
-    </TransitionGroup>
-  </div>
-  <EmptyListPlaceholder v-else :total="items.length" @clear="filters = {...defaultFilters}" />
+  <SquareLinksList :filters-def="filtersDef" :items="filteredItems" :total="items.length" v-model:filters="filters">
+    <template #item="{item}">
+      <DirectLinkTile :model="item" />
+    </template>
+  </SquareLinksList>
 </template>
 
 <script setup>
-  import DirectLinkTile from './direct-link-tile.vue';
-  import ListFilters from '@/direct-links/list-filters.vue';
   import {computed, ref} from 'vue';
   import latinize from 'latinize';
   import {DateTime} from 'luxon';
-  import EmptyListPlaceholder from '@/common/gui/empty-list-placeholder.vue';
+  import SquareLinksList from '@/direct-links/square-links-list.vue';
+  import DirectLinkTile from '@/direct-links/direct-link-tile.vue';
 
   const props = defineProps({items: Array});
 
-  const defaultFilters = {
+  const filters = ref({
     sort: 'caption',
     active: 'all',
     search: '',
-  };
-
-  const filters = ref({...defaultFilters});
+  });
 
   const filtersDef = ref({
     sort: [
@@ -63,59 +56,3 @@
     return out;
   });
 </script>
-
-<style scoped>
-  .direct-links-grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1rem;
-  }
-
-  .direct-links-grid.narrow {
-    margin: 0 auto;
-    max-width: 1170px;
-  }
-
-  .list-move,
-  .list-enter-active,
-  .list-leave-active {
-    transition: all 0.3s ease;
-  }
-
-  .list-enter-from,
-  .list-leave-to {
-    opacity: 0;
-    transform: scale(0.2);
-  }
-
-  .list-leave-active {
-    position: absolute;
-  }
-
-  @media (min-width: 576px) {
-    .direct-links-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 768px) {
-    .direct-links-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media (min-width: 992px) {
-    .direct-links-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  @media (min-width: 1200px) {
-    .direct-links-grid {
-      grid-template-columns: repeat(6, 1fr);
-    }
-    .direct-links-grid.narrow {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-</style>

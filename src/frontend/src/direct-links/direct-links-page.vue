@@ -13,7 +13,7 @@
     </div>
   </div>
   <LoadingCover :loading="!ready">
-    <DirectLinksListNew :items="list" />
+    <DirectLinksListNew :items="list" v-if="ready" />
   </LoadingCover>
 </template>
 
