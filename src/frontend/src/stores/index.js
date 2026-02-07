@@ -10,25 +10,27 @@ export const useFetchList = (fetchListFn, idFactory = (item) => item.id) => {
   const ready = ref(false);
 
   const fetchAll = (force = false) => {
+    if (ready.value && !force) {
+      return fetchAll.promise || Promise.resolve();
+    }
     if (fetchAll.promise && !force) {
       return fetchAll.promise;
-    } else {
-      return (fetchAll.promise = fetchListFn().then((items) => {
-        const state = items.reduce(
-          (acc, curr) => {
-            const id = idFactory(curr);
-            return {
-              ids: acc.ids.concat(id),
-              all: {...acc.all, [id]: curr},
-            };
-          },
-          {ids: [], all: {}}
-        );
-        all.value = state.all;
-        ids.value = state.ids;
-        ready.value = true;
-      }));
     }
+    return (fetchAll.promise = fetchListFn().then((items) => {
+      const state = items.reduce(
+        (acc, curr) => {
+          const id = idFactory(curr);
+          return {
+            ids: acc.ids.concat(id),
+            all: {...acc.all, [id]: curr},
+          };
+        },
+        {ids: [], all: {}}
+      );
+      all.value = state.all;
+      ids.value = state.ids;
+      ready.value = true;
+    }));
   };
 
   const list = computed(() => ids.value.map((id) => all.value[id]));
@@ -40,6 +42,7 @@ export const useFetchList = (fetchListFn, idFactory = (item) => item.id) => {
   };
 
   const $reset = () => {
+    ready.value = false;
     all.value = {};
     ids.value = [];
     fetchAll.promise = undefined;

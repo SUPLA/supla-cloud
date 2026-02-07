@@ -10,6 +10,7 @@ export const useChannelsStore = defineStore('channels', () => {
   const all = ref({});
   const ids = ref([]);
   const fetchingStates = useIntervalFn(() => fetchStates(), 7777, {immediate: false});
+  const ready = ref(false);
 
   const fetchAll = (force = false) => {
     if (fetchAll.promise && !force) {
@@ -28,6 +29,7 @@ export const useChannelsStore = defineStore('channels', () => {
         );
         all.value = state.all;
         ids.value = state.ids;
+        ready.value = true;
         if (!fetchingStates.isActive.value) {
           fetchingStates.resume();
         }
@@ -119,6 +121,7 @@ export const useChannelsStore = defineStore('channels', () => {
   });
 
   const $reset = () => {
+    ready.value = false;
     fetchingStates.pause();
     all.value = {};
     ids.value = [];
@@ -129,6 +132,7 @@ export const useChannelsStore = defineStore('channels', () => {
     all,
     ids,
     list,
+    ready,
     filteredChannels,
     $reset,
     fetchAll,

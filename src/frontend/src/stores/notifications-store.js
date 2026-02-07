@@ -2,7 +2,7 @@ import {defineStore} from 'pinia';
 import {scenesApi} from '@/api/scenes-api.js';
 import {useFetchList} from '@/stores/index.js';
 
-export const useScenesStore = defineStore('scenes', () => {
+export const useNotificationsStore = defineStore('notifications', () => {
   const {all, ids, list, ready, $reset, fetchAll} = useFetchList(scenesApi.getList);
   return {all, ids, list, ready, $reset, fetchAll};
 });
