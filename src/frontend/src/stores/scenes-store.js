@@ -3,6 +3,14 @@ import {scenesApi} from '@/api/scenes-api.js';
 import {useFetchList} from '@/stores/index.js';
 
 export const useScenesStore = defineStore('scenes', () => {
-  const {all, ids, list, ready, $reset, fetchAll} = useFetchList(scenesApi.getList);
-  return {all, ids, list, ready, $reset, fetchAll};
+  const {all, ids, list, ready, updateOne, $reset, fetchAll} = useFetchList(scenesApi.getList);
+
+  const fetchOne = (id) => {
+    return scenesApi.getOne(id).then((scene) => {
+      updateOne(scene);
+      return scene;
+    });
+  };
+
+  return {all, ids, list, ready, fetchOne, $reset, fetchAll};
 });

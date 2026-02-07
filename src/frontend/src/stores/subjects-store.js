@@ -77,6 +77,10 @@ export const useSubjectsStore = defineStore('subjects', () => {
   const fetchOne = async (subject) => {
     if (subject.ownSubjectType === ActionableSubjectType.CHANNEL) {
       await channelsStore.fetchChannel(subject.id);
+    } else if (subject.ownSubjectType === ActionableSubjectType.SCENE) {
+      await scenesStore.fetchOne(subject.id);
+    } else if (subject.ownSubjectType === ActionableSubjectType.CHANNEL_GROUP) {
+      await channelGroupsStore.fetchOne(subject.id);
     }
   };
 

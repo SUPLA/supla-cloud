@@ -6,18 +6,18 @@
     </FormButton>
   </div>
   <LoadingCover :loading="!ready">
-    <DirectLinksListNew :items="list" v-if="ready" />
+    <DirectLinksList :items="list" v-if="ready" />
   </LoadingCover>
 </template>
 
 <script setup>
   import {useDirectLinksStore} from '@/stores/direct-links-store.js';
-  import DirectLinksListNew from '@/direct-links/direct-links-list-new.vue';
   import {storeToRefs} from 'pinia';
   import {computed, onMounted} from 'vue';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import {useRouter} from 'vue-router';
   import FormButton from '@/common/gui/FormButton.vue';
+  import DirectLinksList from '@/direct-links/direct-links-list.vue';
 
   const props = defineProps({subject: Object});
 

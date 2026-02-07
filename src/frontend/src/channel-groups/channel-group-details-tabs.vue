@@ -19,19 +19,19 @@
       <scenes-list :subject="channelGroup"></scenes-list>
     </div>
     <div v-if="currentTab == 'directLinks'">
-      <direct-links-list :subject="channelGroup"></direct-links-list>
+      <DirectLinksListForSubject :subject="channelGroup" />
     </div>
   </div>
 </template>
 
 <script>
   import SchedulesList from '../schedules/schedule-list/schedules-list.vue';
-  import DirectLinksList from '../direct-links/direct-links-list.vue';
   import ScenesList from '../scenes/scenes-list.vue';
   import ChannelFunction from '@/common/enums/channel-function';
+  import DirectLinksListForSubject from '@/direct-links/direct-links-list-for-subject.vue';
 
   export default {
-    components: {ScenesList, DirectLinksList, SchedulesList},
+    components: {DirectLinksListForSubject, ScenesList, SchedulesList},
     props: ['channelGroup'],
     data() {
       return {

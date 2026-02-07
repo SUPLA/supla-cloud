@@ -12,25 +12,25 @@
         </ul>
       </div>
     </div>
-    <div v-if="currentTab == 'schedules'">
+    <div v-if="currentTab === 'schedules'">
       <schedules-list :subject="scene"></schedules-list>
     </div>
-    <div v-if="currentTab == 'scenes'">
+    <div v-if="currentTab === 'scenes'">
       <scenes-list :subject="scene"></scenes-list>
     </div>
-    <div v-if="currentTab == 'directLinks'">
-      <direct-links-list :subject="scene"></direct-links-list>
+    <div v-if="currentTab === 'directLinks'">
+      <DirectLinksListForSubject :subject="scene" />
     </div>
   </div>
 </template>
 
 <script>
   import SchedulesList from '../schedules/schedule-list/schedules-list.vue';
-  import DirectLinksList from '../direct-links/direct-links-list.vue';
   import ScenesList from '../scenes/scenes-list.vue';
+  import DirectLinksListForSubject from '@/direct-links/direct-links-list-for-subject.vue';
 
   export default {
-    components: {ScenesList, DirectLinksList, SchedulesList},
+    components: {DirectLinksListForSubject, ScenesList, SchedulesList},
     props: ['scene'],
     data() {
       return {

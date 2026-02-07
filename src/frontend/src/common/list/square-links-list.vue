@@ -13,9 +13,9 @@
 </template>
 
 <script setup>
-  import ListFilters from '@/direct-links/list-filters.vue';
   import {onMounted, ref} from 'vue';
   import EmptyListPlaceholder from '@/common/gui/empty-list-placeholder.vue';
+  import ListFilters from '@/common/list/list-filters.vue';
 
   defineProps({
     items: Array,
