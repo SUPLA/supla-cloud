@@ -1,6 +1,13 @@
 <template>
   <div class="grid-filters">
-    <BtnFilters v-for="btnKey in btnKeys" :key="btnKey" :filters="def[btnKey]" :id="btnKey + 'Filters'" @input="setField(btnKey, $event)" />
+    <BtnFilters
+      v-for="btnKey in btnKeys"
+      :value="model[btnKey]"
+      :key="btnKey"
+      :filters="def[btnKey]"
+      :id="btnKey + 'Filters'"
+      @input="setField(btnKey, $event)"
+    />
     <input
       v-if="hasSearch"
       :value="model.search || ''"

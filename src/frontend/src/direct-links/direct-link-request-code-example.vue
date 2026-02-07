@@ -32,7 +32,7 @@
 
 <style scoped>
   .code-block {
-    height: 200px;
+    height: 100px;
     overflow-y: auto;
     width: 100%;
     font-family: monospace;

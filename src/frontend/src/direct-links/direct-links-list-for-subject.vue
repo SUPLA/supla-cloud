@@ -1,12 +1,12 @@
 <template>
   <div class="container text-right mb-3">
-    <button class="btn btn-green btn-lg btn-wrapped" @click="createNewDirectLink()">
+    <FormButton button-class="btn-green btn-lg btn-wrapped" @click="createNewDirectLink()" :loading="updating">
       <i class="pe-7s-plus"></i>
       {{ $t('Create new direct link') }}
-    </button>
+    </FormButton>
   </div>
   <LoadingCover :loading="!ready">
-    <DirectLinksListNew :items="list" />
+    <DirectLinksListNew :items="list" v-if="ready" />
   </LoadingCover>
 </template>
 
@@ -17,12 +17,13 @@
   import {computed, onMounted} from 'vue';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import {useRouter} from 'vue-router';
+  import FormButton from '@/common/gui/FormButton.vue';
 
   const props = defineProps({subject: Object});
 
   const router = useRouter();
   const directLinksStore = useDirectLinksStore();
-  const {ready} = storeToRefs(directLinksStore);
+  const {ready, updating} = storeToRefs(directLinksStore);
   onMounted(() => directLinksStore.fetchAll());
 
   const list = computed(() => directLinksStore.listForSubject(props.subject));
