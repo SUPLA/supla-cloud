@@ -107,12 +107,10 @@
   import ChannelActionExecutor from '../channels/action/channel-action-executor.vue';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import SquareLinksGrid from '@/common/tiles/square-links-grid.vue';
-  import ModalConfirm from '@/common/modal-confirm.vue';
   import {api} from '@/api/api.js';
 
   export default {
     components: {
-      ModalConfirm,
       SquareLinksGrid,
       LoadingCover,
       ChannelActionExecutor,

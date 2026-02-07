@@ -36,13 +36,14 @@
   const actionParamsJson = computed(() => actionParams.value.reduce((acc, param) => ({...acc, [param.name]: param.example}), {}));
   const exampleJsonRequest = computed(() => ({code: slug.value, action: props.action.nameSlug, ...actionParamsJson.value}));
   const snippet = computed(() => snippets[props.mode]?.(urlBeginning.value, exampleJsonRequest.value) ?? '');
+  const isAllowed = computed(() => props.directLink.allowedActions.includes(props.action.name));
 </script>
 
 <template>
   <div v-if="mode === 'link'" class="d-flex align-items-center">
     <div class="flex-grow-1">
-      <a :href="fullLink" target="_blank" v-if="slug !== 'TOKEN'" class="text-monospace link">{{ fullLink }}</a>
-      <span v-else class="link"> {{ fullLink }}</span>
+      <a :href="fullLink" target="_blank" v-if="isAllowed && slug !== 'TOKEN'" class="text-monospace link">{{ fullLink }}</a>
+      <span v-else class="link text-monospace"> {{ fullLink }}</span>
     </div>
     <CopyButton :text="fullLink" />
   </div>

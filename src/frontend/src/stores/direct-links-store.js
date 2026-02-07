@@ -7,7 +7,7 @@ import {useSubjectsStore} from '@/stores/subjects-store.js';
 export const useDirectLinksStore = defineStore('directLinks', () => {
   const {all, ids, list, ready, $reset, fetchAll} = useFetchList(directLinksApi.getList);
 
-  const slugs = ref({25: 'U2nwwYPcREg'});
+  const slugs = ref({});
   const updating = ref(false);
 
   async function create(subject) {
@@ -43,6 +43,7 @@ export const useDirectLinksStore = defineStore('directLinks', () => {
     updating.value = true;
     try {
       await directLinksApi.delete_(id);
+      // eslint-disable-next-line no-unused-vars
       const {[id]: _, ...rest} = all.value;
       all.value = rest;
     } finally {

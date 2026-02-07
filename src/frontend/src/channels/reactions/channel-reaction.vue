@@ -177,7 +177,7 @@
           successNotification(this.$t('The reaction has been changed'));
         });
       },
-      deleteReaction(dialog) {
+      deleteReaction() {
         this.loading = true;
         api
           .delete_(`channels/${this.owningChannel.id}/reactions/${this.item.id}`)
