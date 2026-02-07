@@ -78,6 +78,8 @@
                 </div>
               </div>
             </div>
+            <h2>{{ $t('Allowed actions') }}</h2>
+            <DirectLinkAllowedActions :direct-link="directLink" v-model="draft.allowedActions" />
             <DirectLinkDetailsConstraints v-model:activeDateRange="draft.activeDateRange" v-model:executionsLimit="draft.executionsLimit" />
             <!--            <direct-link-preview-->
             <!--              v-if="fullUrl"-->
@@ -108,6 +110,7 @@
   import {useRouter} from 'vue-router';
   import {successNotification} from '@/common/notifier.js';
   import DirectLinkDetailsConstraints from '@/direct-links/direct-link-details-constraints.vue';
+  import DirectLinkAllowedActions from '@/direct-links/direct-link-allowed-actions.vue';
 
   const props = defineProps({id: Number});
   const router = useRouter();
@@ -121,7 +124,7 @@
 
   const {draft, dirty, cancel, markSaved, getPatch} = useEditableFields(
     directLink,
-    ['caption', 'enabled', 'disableHttpGet', 'executionsLimit', 'activeDateRange'],
+    ['caption', 'enabled', 'disableHttpGet', 'executionsLimit', 'activeDateRange', 'allowedActions'],
     {
       mapIn: (src) => ({
         caption: src?.caption ?? '',
@@ -129,6 +132,7 @@
         disableHttpGet: !!src?.disableHttpGet,
         executionsLimit: src.executionsLimit,
         activeDateRange: src.activeDateRange,
+        allowedActions: src.allowedActions,
       }),
     }
   );
