@@ -8,10 +8,13 @@
     dont-set-page-title
     :deletable="!!item.id"
     :cancellable="!!item.id"
-    @delete="deleteConfirm = true"
+    @delete="deleteReaction($event)"
     @cancel="cancelChanges()"
     @save="submitForm()"
   >
+    <template #deleteConfirm>
+      {{ $t('Are you sure you want to delete this reaction?') }}
+    </template>
     <div class="channel-reaction row mt-3">
       <div class="col-sm-6">
         <transition-expand>
@@ -55,15 +58,6 @@
         </div>
       </div>
     </div>
-    <modal-confirm
-      v-if="deleteConfirm"
-      class="modal-warning"
-      :header="$t('Are you sure you want to delete this reaction?')"
-      :loading="loading"
-      @confirm="deleteReaction()"
-      @cancel="deleteConfirm = false"
-    >
-    </modal-confirm>
   </PendingChangesPage>
 </template>
 
@@ -80,14 +74,12 @@
   import ActivityConditionsForm from '@/activity/activity-conditions-form.vue';
   import {api} from '@/api/api.js';
   import Toggler from '@/common/gui/toggler.vue';
-  import ModalConfirm from '@/common/modal-confirm.vue';
   import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
   import {reactionTriggerCaption} from '@/channels/reactions/channel-function-triggers.js';
 
   export default {
     components: {
       BreadcrumbList,
-      ModalConfirm,
       Toggler,
       ActivityConditionsForm,
       TransitionExpand,
@@ -106,7 +98,6 @@
         action: undefined,
         enabled: undefined,
         hasPendingChanges: false,
-        deleteConfirm: false,
         loading: false,
         displayValidationErrors: false,
         activityConditions: {},
@@ -186,7 +177,7 @@
           successNotification(this.$t('The reaction has been changed'));
         });
       },
-      deleteReaction() {
+      deleteReaction(dialog) {
         this.loading = true;
         api
           .delete_(`channels/${this.owningChannel.id}/reactions/${this.item.id}`)

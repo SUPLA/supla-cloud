@@ -12,7 +12,7 @@
             :is-pending="dirty"
             @cancel="cancel()"
             @save="save()"
-            @delete="deleteDirectLink()"
+            @delete="deleteDirectLink($event)"
           >
             <template #deleteConfirm>
               <p>{{ $t('Are you sure you want to delete this direct link?') }}</p>
@@ -142,9 +142,10 @@
     markSaved();
   }
 
-  async function deleteDirectLink() {
+  async function deleteDirectLink(dialog) {
     await directLinksStore.remove(directLink.value.id);
     successNotification('Direct link deleted successfully.'); // i18n
+    dialog.close();
     await router.push({name: 'directLinks'});
   }
 

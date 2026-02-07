@@ -7,17 +7,11 @@
           :is-pending="hasPendingChanges"
           @cancel="cancelChanges()"
           @save="saveAccessId()"
+          deletable
+          @delete="deleteAccessId($event)"
         >
-          <template #buttons>
-            <DialogWindow warning cancellable @confirm="deleteAccessId($event)">
-              <DialogTrigger class="btn btn-danger">{{ $t('Delete') }}</DialogTrigger>
-              <DialogContent>
-                <template #header>
-                  <h4>{{ $t('Are you sure?') }}</h4>
-                </template>
-                {{ $t('Confirm if you want to remove Access Identifier') }}
-              </DialogContent>
-            </DialogWindow>
+          <template #deleteConfirm>
+            {{ $t('Confirm if you want to remove Access Identifier') }}
           </template>
           <div v-if="!accessId.activeNow" class="row">
             <div class="col-sm-6 col-sm-offset-3">
@@ -169,13 +163,10 @@
   import {formatDateTime} from '@/common/filters-date.js';
   import {api} from '@/api/api.js';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
-  import {DialogContent, DialogTrigger, DialogWindow} from '@/common/gui/dialog/index.js';
+  import AppState from '@/router/app-state.js';
 
   export default {
     components: {
-      DialogContent,
-      DialogTrigger,
-      DialogWindow,
       LoadingCover,
       TransitionExpand,
       WeekScheduleSelector,
@@ -249,7 +240,7 @@
             .then(() => (this.useWorkingSchedule = !!this.accessId.activeHours))
             .catch((response) => (this.error = response.status))
             .finally(() => (this.loading = false));
-        } else {
+        } else if (AppState.shiftTask('accessIdCreate')) {
           api
             .post('accessids', {})
             .then((response) => this.$emit('add', response.body))

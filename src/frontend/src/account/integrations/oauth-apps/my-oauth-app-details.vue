@@ -9,8 +9,11 @@
             :is-pending="hasPendingChanges && !isNew"
             @cancel="cancelChanges()"
             @save="saveOauthApp()"
-            @delete="deleteConfirm = true"
+            @delete="deleteApp()"
           >
+            <template #deleteConfirm>
+              {{ $t('Are you sure you want to delete this OAuth application?') }}
+            </template>
             <div class="row">
               <div class="col-sm-6" :class="isNew ? 'col-sm-offset-3' : ''">
                 <h3 class="text-center">{{ $t('Details') }}</h3>
@@ -55,15 +58,6 @@
               </div>
             </div>
           </pending-changes-page>
-          <modal-confirm
-            v-if="deleteConfirm"
-            class="modal-warning"
-            :header="$t('Are you sure you want to delete this OAuth application?')"
-            :loading="loading"
-            @confirm="deleteApp()"
-            @cancel="deleteConfirm = false"
-          >
-          </modal-confirm>
         </div>
       </div>
     </loading-cover>
@@ -78,18 +72,16 @@
   import {mapState} from 'pinia';
   import {useCurrentUserStore} from '@/stores/current-user-store';
   import {api} from '@/api/api.js';
-  import ModalConfirm from '@/common/modal-confirm.vue';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
 
   export default {
-    components: {LoadingCover, ModalConfirm, CopyButton, PageContainer, PendingChangesPage},
+    components: {LoadingCover, CopyButton, PageContainer, PendingChangesPage},
     props: ['id'],
     data() {
       return {
         loading: false,
         app: undefined,
         error: false,
-        deleteConfirm: false,
         hasPendingChanges: false,
         redirectUris: '',
       };

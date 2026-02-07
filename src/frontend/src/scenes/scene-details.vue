@@ -12,8 +12,11 @@
             :is-pending="hasPendingChanges"
             @cancel="cancelChanges()"
             @save="saveScene()"
-            @delete="deleteConfirm = true"
+            @delete="deleteScene(true, $event)"
           >
+            <template #deleteConfirm>
+              {{ $t('Are you sure you want to delete this scene?') }}
+            </template>
             <div class="form-group">
               <div class="row">
                 <div class="col-sm-4">
@@ -76,15 +79,6 @@
         <scene-details-tabs v-if="!hasPendingChanges && !isNew" :scene="scene"></scene-details-tabs>
       </div>
     </loading-cover>
-    <modal-confirm
-      v-if="deleteConfirm"
-      class="modal-warning"
-      :header="$t('Are you sure you want to delete this scene?')"
-      :loading="loading"
-      @confirm="deleteScene()"
-      @cancel="deleteConfirm = false"
-    >
-    </modal-confirm>
     <dependencies-warning-modal
       v-if="dependenciesThatPreventsDeletion"
       header-i18n="Some features depend on this scene"
@@ -114,7 +108,6 @@
   import {deepCopy} from '@/common/utils';
   import ActivityConditionsForm from '@/activity/activity-conditions-form.vue';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
-  import ModalConfirm from '@/common/modal-confirm.vue';
   import {api} from '@/api/api.js';
   import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
   import {useDebounceFn} from '@vueuse/core';
@@ -122,7 +115,6 @@
   export default {
     components: {
       BreadcrumbList,
-      ModalConfirm,
       LoadingCover,
       ActivityConditionsForm,
       ChannelParamsIntegrationsSettings,
@@ -143,7 +135,6 @@
         loading: false,
         scene: undefined,
         error: false,
-        deleteConfirm: false,
         hasPendingChanges: false,
         displayValidationErrors: false,
         dependenciesThatPreventsDeletion: undefined,
@@ -245,7 +236,7 @@
             .finally(() => (this.loading = false));
         }
       }),
-      deleteScene(safe = true) {
+      deleteScene(safe = true, dialog) {
         this.loading = true;
         api
           .delete_(`scenes/${this.scene.id}?safe=${safe ? 1 : 0}`, {skipErrorHandler: [409]})
@@ -254,11 +245,12 @@
             this.$emit('delete');
           })
           .catch(({body, status}) => {
+            dialog?.close();
             if (status === 409) {
               this.dependenciesThatPreventsDeletion = body;
             }
           })
-          .finally(() => (this.loading = this.deleteConfirm = false));
+          .finally(() => (this.loading = false));
       },
       cancelChanges() {
         this.fetch();

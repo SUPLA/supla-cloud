@@ -6,7 +6,7 @@ import {ref} from 'vue';
 export const useDirectLinksStore = defineStore('directLinks', () => {
   const {all, ids, list, ready, $reset, fetchAll} = useFetchList(directLinksApi.getList);
 
-  const slugs = ref({24: 'KVSdmQCggd7'});
+  const slugs = ref({25: 'U2nwwYPcREg'});
 
   async function create(subject) {
     const newLink = await directLinksApi.create(subject.ownSubjectType, subject.id);
@@ -34,11 +34,5 @@ export const useDirectLinksStore = defineStore('directLinks', () => {
     all.value = rest;
   }
 
-  const _fetchAll = fetchAll;
-  async function fetchAllWrapped(...args) {
-    console.count('directLinks.fetchAll');
-    return _fetchAll(...args);
-  }
-
-  return {all, ids, list, ready, slugs, create, update, remove, $reset, fetchAll: fetchAllWrapped};
+  return {all, ids, list, ready, slugs, create, update, remove, $reset, fetchAll};
 });

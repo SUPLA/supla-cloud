@@ -9,8 +9,15 @@
             :is-pending="hasPendingChanges"
             @cancel="initCfg()"
             @save="saveLocation()"
-            @delete="deleteConfirm = true"
+            @delete="deleteLocation($event)"
           >
+            <template #deleteConfirm>
+              {{
+                $t('Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.', {
+                  locationId: location.id,
+                })
+              }}
+            </template>
             <div class="row">
               <div class="col-lg-4 col-md-6 col-sm-8">
                 <div class="hover-editable hovered details-page-block text-left">
@@ -149,20 +156,6 @@
           </pending-changes-page>
         </div>
       </div>
-      <modal-confirm
-        v-if="deleteConfirm"
-        class="modal-warning"
-        :header="$t('Are you sure?')"
-        :loading="loading"
-        @confirm="deleteLocation()"
-        @cancel="deleteConfirm = false"
-      >
-        {{
-          $t('Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.', {
-            locationId: location.id,
-          })
-        }}
-      </modal-confirm>
     </loading-cover>
   </page-container>
 </template>
@@ -174,7 +167,6 @@
   import PendingChangesPage from '../common/pages/pending-changes-page.vue';
   import PageContainer from '../common/pages/page-container.vue';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
-  import ModalConfirm from '@/common/modal-confirm.vue';
   import {useLocationsStore} from '@/stores/locations-store.js';
   import {isEqual} from 'lodash';
   import {locationsApi} from '@/api/locations-api.js';
@@ -193,7 +185,6 @@
   const emit = defineEmits(['add', 'update', 'delete']);
 
   const loading = ref(false);
-  const deleteConfirm = ref(false);
   const assignAccessIds = ref(false);
 
   const locationsStore = useLocationsStore();
@@ -248,12 +239,13 @@
       .finally(() => initCfg());
   }
 
-  function deleteLocation() {
+  function deleteLocation(dialog) {
     loading.value = true;
     locationsApi
       .delete_(location.value.id)
       .then(() => emit('delete'))
-      .catch(() => (loading.value = false));
+      .catch(() => (loading.value = false))
+      .finally(() => dialog.close());
   }
 
   function updateAccessIds(accessIds) {

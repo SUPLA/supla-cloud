@@ -9,8 +9,11 @@
             :is-pending="hasPendingChanges && !isNewGroup"
             @cancel="cancelChanges()"
             @save="saveChannelGroup()"
-            @delete="deleteConfirm = true"
+            @delete="deleteGroup(true, $event)"
           >
+            <template #deleteConfirm>
+              {{ $t('Are you sure you want to delete this channel group?') }}
+            </template>
             <div v-if="!isNewGroup" class="form-group">
               <div class="row text-center">
                 <div class="col-md-4 col-sm-12">
@@ -76,15 +79,6 @@
       </div>
       <channel-group-details-tabs v-if="!isNewGroup" :channel-group="channelGroup"></channel-group-details-tabs>
     </loading-cover>
-    <modal-confirm
-      v-if="deleteConfirm"
-      class="modal-warning"
-      :header="$t('Are you sure you want to delete this channel group?')"
-      :loading="loading"
-      @confirm="deleteGroup()"
-      @cancel="deleteConfirm = false"
-    >
-    </modal-confirm>
     <dependencies-warning-modal
       v-if="dependenciesThatPreventsDeletion"
       header-i18n="Some features depend on this channel group"
@@ -139,7 +133,6 @@
         loading: false,
         channelGroup: undefined,
         error: false,
-        deleteConfirm: false,
         hasPendingChanges: false,
         dependenciesThatPreventsDeletion: undefined,
       };
@@ -190,7 +183,7 @@
             this.$set(this.channelGroup, 'channels', []);
           }
           const channelForNewGroup = AppState.shiftTask('channelGroupCreate');
-          if (channelForNewGroup) {
+          if (channelForNewGroup && channelForNewGroup !== 'new') {
             this.channelGroup.channels.push(channelForNewGroup);
             this.channelGroupChanged();
           }
@@ -240,7 +233,7 @@
         this.channelGroup.channels.splice(this.channelGroup.channels.indexOf(channel), 1);
         this.channelGroupChanged();
       },
-      deleteGroup(safe = true) {
+      deleteGroup(safe = true, dialog) {
         this.loading = true;
         api
           .delete_(`channel-groups/${this.channelGroup.id}?safe=${safe ? '1' : '0'}`, {skipErrorHandler: [409]})
@@ -250,10 +243,11 @@
           })
           .catch(({body, status}) => {
             if (status == 409) {
+              dialog?.close();
               this.dependenciesThatPreventsDeletion = body;
             }
           })
-          .finally(() => (this.loading = this.deleteConfirm = false));
+          .finally(() => (this.loading = false));
       },
       onLocationChange(location) {
         this.$set(this.channelGroup, 'location', location);

@@ -19,7 +19,7 @@
           <div v-else>
             <slot name="buttons"></slot>
             <div v-if="deletable" class="btn-toolbar">
-              <DialogWindow warning cancellable @confirm="$emit('delete')">
+              <DialogWindow warning cancellable @confirm="$emit('delete', $event)">
                 <DialogTrigger class="btn btn-danger">{{ $t('Delete') }}</DialogTrigger>
                 <DialogContent>
                   <template #header>

@@ -38,6 +38,8 @@
   import EmptyListPlaceholder from '@/common/gui/empty-list-placeholder.vue';
   import {api} from '@/api/api.js';
   import {formatDateTime} from '@/common/filters-date.js';
+  import {useSubject} from '@/stores/subjects-store.js';
+  import {toRef} from 'vue';
 
   export default {
     components: {EmptyListPlaceholder, LoadingCover},
@@ -50,6 +52,10 @@
         hasMorePages: false,
       };
     },
+    setup(props) {
+      const {subject} = useSubject(toRef(props, 'directLink'));
+      return {subject};
+    },
     computed: {
       possibleActions() {
         if (this.directLink) {
@@ -60,7 +66,7 @@
               caption: 'Read',
               nameSlug: 'read',
             },
-          ].concat(this.directLink.subject.possibleActions);
+          ].concat(this.subject?.possibleActions || []);
         }
         return [];
       },
