@@ -486,7 +486,9 @@ Flooding: Zalanie
 For a period: Na okres
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: W trakcie aktualizacji zalecane jest korzystanie z adresu {suplaUrl}.
 For devices: Dla urządzeń
-For security reasons, the full URL of this direct link will be displayed only once, during creation.: Ze względów bezpieczeństwa, pełny URL tego bezpośredniego linka będzie wyświetlany tylko raz podczas jego tworzenia.
+directLink_slugInfo: |
+  Ze względów bezpieczeństwa, pełny URL tego bezpośredniego jest wyświetlany tylko zaraz po jego utworzeniu (do wylogowania się lub odświeżenia strony).
+  Upewnij się, że jest zapisany w bezpiecznym miejscu.
 Forced off by sensor: Wymuszone wyłączenie przez czujnik
 Forgot your password?: Nie pamiętasz hasła?
 Forward active energy: Energia czynna pobrana

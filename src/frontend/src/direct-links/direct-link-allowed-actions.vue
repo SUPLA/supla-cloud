@@ -1,15 +1,16 @@
 <script setup>
-  import {computed} from 'vue';
+  import {computed, ref} from 'vue';
   import ChannelFunction from '@/common/enums/channel-function.js';
   import Toggler from '../common/gui/toggler.vue';
-  import {useFrontendConfigStore} from '@/stores/frontend-config-store.js';
-  import {storeToRefs} from 'pinia';
   import {useSubject} from '@/stores/subjects-store.js';
-  import {useDirectLinksStore} from '@/stores/direct-links-store.js';
-  import CopyButton from '@/common/copy-button.vue';
+  import DropdownMenu from '@/common/gui/dropdown/dropdown-menu.vue';
+  import DropdownMenuTrigger from '@/common/gui/dropdown/dropdown-menu-trigger.vue';
+  import DirectLinkRequestExample from '@/direct-links/direct-link-request-example.vue';
+  import DirectLinkRequestCodeExample from '@/direct-links/direct-link-request-code-example.vue';
+  import TransitionExpand from '@/common/gui/transition-expand.vue';
+  import {useDirectLinkExamples} from '@/direct-links/direct-link-examples.js';
 
   const props = defineProps({directLink: Object});
-  const {slugs} = storeToRefs(useDirectLinksStore());
   const {subject} = useSubject(props.directLink);
   const selectedActions = defineModel({default: []});
 
@@ -31,12 +32,9 @@
     return [];
   });
 
-  const {config} = storeToRefs(useFrontendConfigStore());
+  const exampleMode = ref('link');
 
-  const urlBeginning = computed(() => {
-    const slug = slugs.value[props.directLink.id] ?? 'TOKEN';
-    return `${config.value.suplaUrl}/direct/${props.directLink.id}/${slug}`;
-  });
+  const {exampleModeLabels} = useDirectLinkExamples();
 </script>
 
 <script>
@@ -48,16 +46,30 @@
 </script>
 
 <template>
-  <div v-for="action in possibleActions" :key="action.id" class="direct-link-action-row">
+  <div class="text-right mb-3">
+    <DropdownMenu class="d-inline-block">
+      <DropdownMenuTrigger class="btn btn-default btn-wrapped"> {{ $t('Show examples') }}: {{ $t(exampleModeLabels[exampleMode]) }} </DropdownMenuTrigger>
+      <ul class="dropdown-menu">
+        <li v-for="mode in Object.keys(exampleModeLabels)" :key="mode" :class="{active: mode === exampleMode}">
+          <a @click="exampleMode = mode">
+            {{ $t(exampleModeLabels[mode]) }}
+          </a>
+        </li>
+      </ul>
+    </DropdownMenu>
+  </div>
+  <TransitionExpand>
+    <DirectLinkRequestCodeExample v-if="exampleMode !== 'link'" :mode="exampleMode" :direct-link="directLink" />
+  </TransitionExpand>
+  <div v-for="action in possibleActions" :key="action.id" class="direct-link-action-row py-3">
     <div class="action-column action-toggler">
       <toggler v-model="selectedActions" :value="action.name" />
     </div>
     <div class="action-column action-caption">
       {{ $t(action.caption) }}
     </div>
-    <div class="action-column action-url">{{ urlBeginning }}/{{ action.nameSlug }}</div>
-    <div class="action-column action-copy">
-      <copy-button :text="urlBeginning"></copy-button>
+    <div class="action-column action-url">
+      <DirectLinkRequestExample :action="action" :mode="exampleMode" :direct-link="directLink" />
     </div>
   </div>
 </template>
@@ -85,10 +97,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-      }
-
-      &.action-copy {
-        flex: 0 0 auto;
       }
     }
 

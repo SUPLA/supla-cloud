@@ -6,7 +6,7 @@
     </span>
     <span v-else>
       <i class="pe-7s-copy-file"></i>
-      {{ $t('copy') }}
+      {{ copyTextI18n ? $t(copyTextI18n) : $t('copy') }}
     </span>
   </a>
 </template>
@@ -15,7 +15,7 @@
   import {computed, ref} from 'vue';
   import {useClipboard} from '@vueuse/core';
 
-  const props = defineProps(['text', 'copiedClass', 'defaultClass']);
+  const props = defineProps(['text', 'copiedClass', 'defaultClass', 'copyTextI18n']);
 
   const source = ref('');
   const {copy, copied} = useClipboard({source});

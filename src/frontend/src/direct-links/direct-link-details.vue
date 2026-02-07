@@ -18,6 +18,17 @@
               <p>{{ $t('Are you sure you want to delete this direct link?') }}</p>
               <p>{{ $t('You will not be able to generate a direct link with the same URL again.') }}</p>
             </template>
+            <div v-if="slugs[directLink.id]" class="alert alert-info d-flex align-items-center">
+              <div class="mr-3">
+                <fa :icon="faLightbulb" size="2xl" />
+              </div>
+              <div class="flex-grow-1">
+                <p class="display-newlines">{{ $t('directLink_slugInfo') }}</p>
+                <p class="text-center link-preview text-monospace">
+                  <a :href="directLinkUrl" target="_blank">{{ directLinkUrl }}</a>
+                </p>
+              </div>
+            </div>
             <div v-if="!directLink.active && directLink.inactiveReason" class="row my-3">
               <div class="col-sm-6 col-sm-offset-3">
                 <div class="alert alert-warning">
@@ -51,14 +62,6 @@
                           <toggler v-model="draft.disableHttpGet"></toggler>
                         </dt>
                       </dl>
-                      <div v-if="draft.disableHttpGet" class="small">
-                        {{
-                          $t(
-                            'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.'
-                          )
-                        }}
-                        <pre style="margin-top: 5px"><code>{{ examplePatchBody }}</code></pre>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -78,16 +81,9 @@
                 </div>
               </div>
             </div>
+            <DirectLinkDetailsConstraints v-model:activeDateRange="draft.activeDateRange" v-model:executionsLimit="draft.executionsLimit" />
             <h2>{{ $t('Allowed actions') }}</h2>
             <DirectLinkAllowedActions :direct-link="directLink" v-model="draft.allowedActions" />
-            <DirectLinkDetailsConstraints v-model:activeDateRange="draft.activeDateRange" v-model:executionsLimit="draft.executionsLimit" />
-            <!--            <direct-link-preview-->
-            <!--              v-if="fullUrl"-->
-            <!--              :url="fullUrl"-->
-            <!--              :direct-link="directLink"-->
-            <!--              :possible-actions="possibleActions"-->
-            <!--              :allowed-actions="allowedActions"-->
-            <!--            ></direct-link-preview>-->
           </PendingChangesPage>
         </div>
       </div>
@@ -111,9 +107,15 @@
   import {successNotification} from '@/common/notifier.js';
   import DirectLinkDetailsConstraints from '@/direct-links/direct-link-details-constraints.vue';
   import DirectLinkAllowedActions from '@/direct-links/direct-link-allowed-actions.vue';
+  import {faLightbulb} from '@fortawesome/free-solid-svg-icons';
+  import {useFrontendConfigStore} from '@/stores/frontend-config-store.js';
 
   const props = defineProps({id: Number});
   const router = useRouter();
+  const {config} = storeToRefs(useFrontendConfigStore());
+  const directLinkUrl = computed(() => {
+    return `${config.value.suplaUrl}/direct/${directLink.value.id}/${slugs.value[directLink.value.id]}`;
+  });
 
   const directLinksStore = useDirectLinksStore();
   const {ready, all, slugs} = storeToRefs(directLinksStore);
@@ -148,203 +150,10 @@
     dialog.close();
     await router.push({name: 'directLinks'});
   }
-
-  const urlWithoutSecret = computed(() => '/link/balbla');
-
-  const examplePatchBody = computed(() => {
-    return (
-      `curl -s -H "Content-Type: application/json" -H "Accept: application/json" -X PATCH ` +
-      `-d '{"code":"${'SECRET'}","action":"read"}' ${urlWithoutSecret.value}`
-    );
-  });
 </script>
 
-<!--
-<script>
-  import Toggler from '../common/gui/toggler.vue';
-  import PendingChangesPage from '../common/pages/pending-changes-page.vue';
-  import PageContainer from '../common/pages/page-container.vue';
-  import ChannelTile from '../channels/channel-tile.vue';
-  import SceneTile from '../scenes/scene-tile.vue';
-  import ScheduleTile from '../schedules/schedule-list/schedule-tile.vue';
-  import ChannelGroupTile from '../channel-groups/channel-group-tile.vue';
-  import DirectLinkPreview from './direct-link-preview.vue';
-  import DateRangePicker from '@/activity/date-range-picker.vue';
-  import DirectLinkAudit from './direct-link-audit.vue';
-  import SubjectDropdown from '../devices/subject-dropdown.vue';
-  import AppState from '../router/app-state';
-  import TransitionExpand from '../common/gui/transition-expand.vue';
-  import {actionCaption} from '@/channels/channel-helpers';
-  import {mapState, mapStores} from 'pinia';
-  import {useCurrentUserStore} from '@/stores/current-user-store';
-  import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
-  import ModalConfirm from '@/common/modal-confirm.vue';
-  import {api} from '@/api/api.js';
-  import {useChannelsStore} from '@/stores/channels-store.js';
-  import {useDevicesStore} from '@/stores/devices-store.js';
-  import ActionableSubjectType from '@/common/enums/actionable-subject-type.js';
-  import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
-  import {useDirectLinksStore} from '@/stores/direct-links-store.js';
-
-  export default {
-    components: {
-      BreadcrumbList,
-      ModalConfirm,
-      LoadingCover,
-      TransitionExpand,
-      DirectLinkAudit,
-      DateRangePicker,
-      DirectLinkPreview,
-      ChannelTile,
-      ScheduleTile,
-      SceneTile,
-      ChannelGroupTile,
-      PageContainer,
-      PendingChangesPage,
-      Toggler,
-    },
-    props: ['id', 'item'],
-    data() {
-      return {
-        loading: false,
-        error: false,
-        deleteConfirm: false,
-        hasPendingChanges: false,
-        allowedActions: {},
-        choosingCustomLimit: false,
-      };
-    },
-    mounted() {
-      this.directLinksStore.fetchAll();
-    },
-    methods: {
-      actionCaption,
-      fetch() {
-        this.hasPendingChanges = false;
-        if (this.id && this.id != 'new') {
-          this.loading = true;
-          this.error = false;
-          api
-            .get(`direct-links/${this.id}?include=subject`, {skipErrorHandler: [403, 404]})
-            .then((response) => (this.directLink = response.body))
-            .then(() => this.calculateAllowedActions())
-            .catch((response) => (this.error = response.status))
-            .finally(() => (this.loading = false));
-        } else {
-          this.directLink = {};
-          const subjectForNewLink = AppState.shiftTask('directLinkCreate');
-          if (subjectForNewLink && subjectForNewLink !== 'new') {
-            this.chooseSubjectForNewLink(subjectForNewLink);
-          }
-        }
-      },
-      calculateAllowedActions() {
-        this.allowedActions = {};
-        this.possibleActions.forEach((possibleAction) => {
-          this.$set(this.allowedActions, possibleAction.name, this.directLink.allowedActions.indexOf(possibleAction.name) >= 0);
-        });
-      },
-      directLinkChanged() {
-        this.hasPendingChanges = true;
-      },
-      saveDirectLink() {
-        const toSend = {...this.directLink};
-        toSend.allowedActions = this.currentlyAllowedActions;
-        this.loading = true;
-        api
-          .put('direct-links/' + this.directLink.id, toSend)
-          .then((response) => {
-            this.$emit('update', response.body);
-            this.directLink.active = response.body.active;
-            this.directLink.inactiveReason = response.body.inactiveReason;
-          })
-          .then(() => (this.hasPendingChanges = false))
-          .finally(() => (this.loading = false));
-      },
-      deleteDirectLink() {
-        this.loading = true;
-        api.delete_('direct-links/' + this.directLink.id).then(() => this.$emit('delete'));
-        this.directLink = undefined;
-      },
-      setExecutionsLimit(limit) {
-        this.choosingCustomLimit = false;
-        this.directLink.executionsLimit = limit;
-        this.directLinkChanged();
-      },
-      cancelChanges() {
-        this.fetch();
-      },
-
-    },
-    computed: {
-      ActionableSubjectType() {
-        return ActionableSubjectType;
-      },
-      currentlyAllowedActions() {
-        const actions = [];
-        for (let action in this.allowedActions) {
-          if (this.allowedActions[action]) {
-            actions.push(action);
-          }
-        }
-        return actions;
-      },
-      possibleActions() {
-        if (this.directLink && this.directLink.subject) {
-          // OPEN and CLOSE actions are not supported for valves via API
-          const disableOpenClose = ['VALVEPERCENTAGE'].includes(this.directLink.subject.function.name);
-          return [
-            {
-              id: 1000,
-              name: 'READ',
-              caption: 'Read',
-              nameSlug: 'read',
-            },
-          ]
-            .concat(this.directLink.subject.possibleActions)
-            .filter((action) => !disableOpenClose || (action.name != 'OPEN' && action.name != 'CLOSE'));
-        }
-        return [];
-      },
-      displayOpeningSensorWarning() {
-        const isGate = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) >= 0;
-        return isGate && (this.currentlyAllowedActions.includes('OPEN') || this.currentlyAllowedActions.includes('CLOSE'));
-      },
-      fullUrl() {
-        return (this.item && this.item.url) || '';
-      },
-      urlWithoutSecret() {
-        return this.serverUrl + '/direct/' + this.directLink.id;
-      },
-      linkSecret() {
-        return this.fullUrl ? this.fullUrl.substr(this.fullUrl.lastIndexOf('/') + 1) : this.$t('YOUR LINK CODE');
-      },
-
-      ...mapState(useCurrentUserStore, ['serverUrl']),
-      ...mapStores(useChannelsStore, {channels: 'all'}),
-      ...mapState(useDevicesStore, {devices: 'all'}),
-      ...mapStores(useDirectLinksStore),
-      directLink() {
-        return this.directLinksStore.all[this.id];
-      },
-    },
-    watch: {
-      id() {
-        this.fetch();
-      },
-    },
-  };
-</script>
-
-<style lang="scss">
-  @use '../styles/variables' as *;
-
-  .executions-limit {
-    font-size: 3em;
-    font-weight: bold;
-    color: $supla-orange;
-    text-align: center;
-    margin-bottom: 10px;
+<style scoped>
+  .link-preview {
+    font-size: 1.5em;
   }
 </style>
--->
