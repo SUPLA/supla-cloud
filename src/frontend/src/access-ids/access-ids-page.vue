@@ -1,25 +1,37 @@
 <template>
-  <carousel-page
-    header-i18n="Access Identifiers"
-    :tile="AccessIdTile"
-    :filters="AccessIdFilters"
-    endpoint="accessids"
-    :store="accessIdsStore"
-    create-new-label-i18n="Create New Access Identifier"
-    :limit="userData.limits.accessId"
-    details-route="accessId"
-    breadcrumbs
-  ></carousel-page>
+  <div class="container">
+    <div class="d-flex mb-5 my-3">
+      <div class="flex-grow-1">
+        <h1 class="m-0">{{ $t('Access Identifiers') }}</h1>
+      </div>
+      <div>
+        <FormButton button-class="btn-green btn-lg btn-wrapped" @click="createNewAid()" :loading="updating">
+          <i class="pe-7s-plus"></i>
+          {{ $t('Create New Access Identifier') }}
+        </FormButton>
+      </div>
+    </div>
+  </div>
+  <LoadingCover :loading="!ready">
+    <AccessIdsList :items="list" v-if="ready" />
+  </LoadingCover>
 </template>
 
 <script setup>
-  import CarouselPage from '../common/pages/carousel-page.vue';
-  import AccessIdTile from './access-id-tile.vue';
-  import AccessIdFilters from './access-id-filters.vue';
-  import {storeToRefs} from 'pinia';
-  import {useCurrentUserStore} from '@/stores/current-user-store';
   import {useAccessIds} from '@/stores/access-ids-store';
+  import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
+  import AccessIdsList from '@/access-ids/access-ids-list.vue';
+  import {storeToRefs} from 'pinia';
+  import FormButton from '@/common/gui/FormButton.vue';
+  import {useRouter} from 'vue-router';
 
-  const {userData} = storeToRefs(useCurrentUserStore());
-  const accessIdsStore = useAccessIds();
+  const router = useRouter();
+
+  const aidsStore = useAccessIds();
+  const {list, ready, updating} = storeToRefs(aidsStore);
+
+  async function createNewAid() {
+    const newItem = await aidsStore.create();
+    await router.push({name: 'accessId', params: {id: newItem.id}});
+  }
 </script>

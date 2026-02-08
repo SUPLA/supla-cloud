@@ -2,6 +2,9 @@
   <page-container :error="error">
     <loading-cover :loading="loading">
       <div v-if="accessId" class="container">
+        <BreadcrumbList current>
+          <RouterLink :to="{name: 'accessIds'}">{{ $t('Access Identifiers') }}</RouterLink>
+        </BreadcrumbList>
         <pending-changes-page
           :header="accessId.caption || $t('Access Identifier') + ' ID' + accessId.id"
           :is-pending="hasPendingChanges"
@@ -163,10 +166,13 @@
   import {formatDateTime} from '@/common/filters-date.js';
   import {api} from '@/api/api.js';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
-  import AppState from '@/router/app-state.js';
+  import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
+  import {mapStores} from 'pinia';
+  import {useAccessIdsStore} from '@/stores/access-ids-store.js';
 
   export default {
     components: {
+      BreadcrumbList,
       LoadingCover,
       TransitionExpand,
       WeekScheduleSelector,
@@ -218,6 +224,7 @@
           });
         },
       },
+      ...mapStores(useAccessIdsStore),
     },
     watch: {
       id() {
@@ -232,20 +239,13 @@
       initForModel() {
         this.hasPendingChanges = false;
         this.loading = true;
-        if (this.id && this.id != 'new') {
-          this.error = false;
-          api
-            .get(`accessids/${this.id}?include=locations,clientApps,password,activeNow`, {skipErrorHandler: [403, 404]})
-            .then((response) => (this.accessId = response.body))
-            .then(() => (this.useWorkingSchedule = !!this.accessId.activeHours))
-            .catch((response) => (this.error = response.status))
-            .finally(() => (this.loading = false));
-        } else if (AppState.shiftTask('accessIdCreate')) {
-          api
-            .post('accessids', {})
-            .then((response) => this.$emit('add', response.body))
-            .catch(() => this.$emit('delete'));
-        }
+        this.error = false;
+        api
+          .get(`accessids/${this.id}?include=locations,clientApps,password,activeNow`, {skipErrorHandler: [403, 404]})
+          .then((response) => (this.accessId = response.body))
+          .then(() => (this.useWorkingSchedule = !!this.accessId.activeHours))
+          .catch((response) => (this.error = response.status))
+          .finally(() => (this.loading = false));
       },
       saveAccessId() {
         if (!this.useWorkingSchedule) {
@@ -263,8 +263,8 @@
         this.loading = true;
         api
           .put('accessids/' + this.accessId.id, toSend)
-          .then((response) => {
-            this.$emit('update', response.body);
+          .then(() => {
+            this.accessIdsStore.fetchAll(true);
             this.initForModel();
           })
           .finally(() => (this.loading = this.hasPendingChanges = false));
@@ -272,9 +272,9 @@
       deleteAccessId(dialog) {
         api
           .delete_('accessids/' + this.accessId.id)
-          .then(() => this.$emit('delete'))
-          .then(() => (this.accessId = undefined))
+          .then(() => this.accessIdsStore.fetchAll(true))
           .then(() => dialog.close())
+          .then(() => this.$router.push({name: 'accessIds'}))
           .finally(() => dialog.setLoading(false));
       },
       accessIdChanged() {

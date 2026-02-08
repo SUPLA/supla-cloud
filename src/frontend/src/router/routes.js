@@ -49,14 +49,12 @@ export default [
     path: '/access-identifiers',
     component: () => import('@/access-ids/access-ids-page.vue'),
     name: 'accessIds',
-    children: [
-      {
-        path: ':id',
-        component: () => import('@/access-ids/access-id-details.vue'),
-        name: 'accessId',
-        props: true,
-      },
-    ],
+  },
+  {
+    path: '/access-identifiers/:id',
+    component: () => import('@/access-ids/access-id-details.vue'),
+    name: 'accessId',
+    props: true,
   },
   {path: '/smartphones', component: () => import('@/client-apps/client-apps-page.vue')},
   {

@@ -5,4 +5,8 @@ export const accessIdsApi = {
     const {body} = await api.get('accessids');
     return body;
   },
+  async create() {
+    const {body} = await api.post('accessids', {});
+    return body;
+  },
 };
