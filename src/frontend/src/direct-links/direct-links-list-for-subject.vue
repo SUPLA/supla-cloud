@@ -11,9 +11,9 @@
 </template>
 
 <script setup>
-  import {useDirectLinksStore} from '@/stores/direct-links-store.js';
+  import {useDirectLinks} from '@/stores/direct-links-store.js';
   import {storeToRefs} from 'pinia';
-  import {computed, onMounted} from 'vue';
+  import {computed} from 'vue';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import {useRouter} from 'vue-router';
   import FormButton from '@/common/gui/FormButton.vue';
@@ -22,14 +22,13 @@
   const props = defineProps({subject: Object});
 
   const router = useRouter();
-  const directLinksStore = useDirectLinksStore();
+  const directLinksStore = useDirectLinks();
   const {ready, updating} = storeToRefs(directLinksStore);
-  onMounted(() => directLinksStore.fetchAll());
 
   const list = computed(() => directLinksStore.listForSubject(props.subject));
 
   async function createNewDirectLink() {
     const newLink = await directLinksStore.create(props.subject);
-    await router.push({name: 'directLink', params: {id: newLink.id}});
+    void router.push({name: 'directLink', params: {id: newLink.id}});
   }
 </script>

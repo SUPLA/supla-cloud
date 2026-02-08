@@ -15,19 +15,25 @@ export const useFetchList = (theApi, options = {}) => {
     ...options,
   };
 
+  let fetchAllInFlight = null;
+
   const fetchAll = (force = false) => {
-    if (ready.value && !force) {
-      return fetchAll.promise || Promise.resolve();
+    if (!force) {
+      if (ready.value) return fetchAllInFlight || Promise.resolve();
+      if (fetchAllInFlight) return fetchAllInFlight;
     }
-    if (fetchAll.promise && !force) {
-      return fetchAll.promise;
-    }
-    return (fetchAll.promise = theApi.getList().then((items) => {
-      const state = {};
-      items.forEach((item) => (state[opts.idFactory(item)] = item));
-      all.value = state;
-      ready.value = true;
-    }));
+    fetchAllInFlight = theApi
+      .getList()
+      .then((items) => {
+        const state = {};
+        for (const item of items) state[opts.idFactory(item)] = item;
+        all.value = state;
+        ready.value = true;
+      })
+      .finally(() => {
+        fetchAllInFlight = null;
+      });
+    return fetchAllInFlight;
   };
 
   const list = computed(() => Object.values(all.value));
@@ -35,9 +41,54 @@ export const useFetchList = (theApi, options = {}) => {
 
   const updateOne = (newData) => {
     if (all.value[newData.id]) {
-      all.value = {...all.value, [newData.id]: {...all.value[newData.id], ...newData}};
+      all.value[newData.id] = {...all.value[newData.id], ...newData};
     }
   };
+
+  async function createInternal(...args) {
+    updating.value = true;
+    try {
+      const lastArg = args[args.length - 1];
+      const isCallback = typeof lastArg === 'function';
+      const apiArgs = isCallback ? args.slice(0, -1) : args;
+      const newItem = await theApi.create(...apiArgs);
+      if (isCallback) {
+        await lastArg(newItem);
+      }
+      all.value[newItem.id] = newItem;
+      return newItem;
+    } finally {
+      updating.value = false;
+    }
+  }
+
+  async function updateInternal(id, data) {
+    const prev = all.value[id];
+    all.value[id] = {...prev, ...data};
+    updating.value = true;
+    try {
+      const item = await theApi.update(id, data);
+      all.value[id] = item;
+      return item;
+    } catch (e) {
+      all.value[id] = prev;
+      throw e;
+    } finally {
+      updating.value = false;
+    }
+  }
+
+  async function removeInternal(id) {
+    updating.value = true;
+    try {
+      await theApi.delete_(id);
+      // eslint-disable-next-line no-unused-vars
+      const {[id]: _, ...rest} = all.value;
+      all.value = rest;
+    } finally {
+      updating.value = false;
+    }
+  }
 
   const $reset = () => {
     ready.value = false;
@@ -46,7 +97,7 @@ export const useFetchList = (theApi, options = {}) => {
     fetchAll.promise = undefined;
   };
 
-  return {all, ids, list, ready, updating, updateOne, $reset, fetchAll};
+  return {all, ids, list, ready, updating, updateOne, createInternal, updateInternal, removeInternal, $reset, fetchAll};
 };
 
 export function useEnsureStoreLoaded(store, options = {}) {

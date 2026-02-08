@@ -92,9 +92,9 @@
 </template>
 
 <script setup>
-  import {useDirectLinksStore} from '@/stores/direct-links-store.js';
+  import {useDirectLinks} from '@/stores/direct-links-store.js';
   import {storeToRefs} from 'pinia';
-  import {computed, onMounted} from 'vue';
+  import {computed} from 'vue';
   import PageContainer from '@/common/pages/page-container.vue';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
@@ -117,9 +117,8 @@
     return `${config.value.suplaUrl}/direct/${directLink.value.id}/${slugs.value[directLink.value.id]}`;
   });
 
-  const directLinksStore = useDirectLinksStore();
+  const directLinksStore = useDirectLinks();
   const {ready, all, slugs} = storeToRefs(directLinksStore);
-  onMounted(() => directLinksStore.fetchAll());
 
   const error = computed(() => ready.value && !directLink.value && 404);
   const directLink = computed(() => all.value[props.id]);
@@ -148,7 +147,7 @@
     await directLinksStore.remove(directLink.value.id);
     successNotification('Direct link deleted successfully.'); // i18n
     dialog.close();
-    await router.push({name: 'directLinks'});
+    void router.push({name: 'directLinks'});
   }
 </script>
 
