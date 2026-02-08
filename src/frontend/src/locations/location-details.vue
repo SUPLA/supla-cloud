@@ -3,6 +3,9 @@
     <loading-cover :loading="loading" class="location-details">
       <div v-if="location">
         <div class="container">
+          <BreadcrumbList current>
+            <RouterLink :to="{name: 'locations'}">{{ $t('Locations') }}</RouterLink>
+          </BreadcrumbList>
           <pending-changes-page
             :header="location.caption || $t('Location') + ' ID' + location.id"
             :deletable="true"
@@ -161,7 +164,7 @@
 </template>
 
 <script setup>
-  import {computed, onMounted, ref, watch} from 'vue';
+  import {computed, ref, watch} from 'vue';
   import Toggler from '../common/gui/toggler.vue';
   import {channelTitle as channelTitleFilter} from '../common/filters';
   import PendingChangesPage from '../common/pages/pending-changes-page.vue';
@@ -171,18 +174,19 @@
   import {isEqual} from 'lodash';
   import {locationsApi} from '@/api/locations-api.js';
   import PasswordDisplay from '@/common/gui/password-display.vue';
-  import AppState from '@/router/app-state.js';
   import {useDevicesStore} from '@/stores/devices-store.js';
   import {storeToRefs} from 'pinia';
   import EmptyListPlaceholder from '@/common/gui/empty-list-placeholder.vue';
-  import {useAccessIds, useAccessIdsStore} from '@/stores/access-ids-store.js';
+  import {useAccessIds} from '@/stores/access-ids-store.js';
   import AccessIdChooser from '@/access-ids/access-id-chooser.vue';
   import FunctionIcon from '@/channels/function-icon.vue';
   import {useChannelGroups} from '@/stores/channel-groups-store.js';
   import {useChannelsStore} from '@/stores/channels-store.js';
+  import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
+  import {useRouter} from 'vue-router';
 
   const props = defineProps({id: String});
-  const emit = defineEmits(['add', 'update', 'delete']);
+  const router = useRouter();
 
   const loading = ref(false);
   const assignAccessIds = ref(false);
@@ -219,34 +223,24 @@
   watch(() => props.id, initCfg, {immediate: true});
   watch(() => accessIdsReady.value, initCfg);
 
-  onMounted(async () => {
-    if (AppState.shiftTask('locationCreate')) {
-      if (props.id === 'new') {
-        loading.value = true;
-        const newLoc = await locationsApi.create();
-        emit('add', newLoc);
-      }
-    }
-  });
-
   function saveLocation() {
     const toSend = {...cfg.value};
     loading.value = true;
-    locationsApi
+    locationsStore
       .update(location.value.id, toSend)
-      .then((newLoc) => locationsStore.updateOne(newLoc))
-      .then(() => useAccessIdsStore().fetchAll(true))
       .finally(() => (loading.value = false))
       .finally(() => initCfg());
   }
 
-  function deleteLocation(dialog) {
+  async function deleteLocation(dialog) {
     loading.value = true;
-    locationsApi
-      .delete_(location.value.id)
-      .then(() => emit('delete'))
-      .catch(() => (loading.value = false))
-      .finally(() => dialog.close());
+    try {
+      await locationsStore.remove(location.value.id);
+      void router.push({name: 'locations'});
+    } finally {
+      loading.value = false;
+      dialog.close();
+    }
   }
 
   function updateAccessIds(accessIds) {

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="d-flex mb-5 my-3">
       <div class="flex-grow-1">
-        <h1 class="m-0">{{ $t('Direct links') }}</h1>
+        <h1 class="m-0" v-title>{{ $t('Direct links') }}</h1>
       </div>
       <div>
         <RouterLink class="btn btn-green btn-lg btn-wrapped" :to="{name: 'directLink.new'}">

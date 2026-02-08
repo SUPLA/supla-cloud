@@ -36,14 +36,12 @@ export default [
     path: '/locations',
     component: () => import('@/locations/locations-page.vue'),
     name: 'locations',
-    children: [
-      {
-        path: ':id',
-        component: () => import('@/locations/location-details.vue'),
-        name: 'location',
-        props: true,
-      },
-    ],
+  },
+  {
+    path: '/locations/:id',
+    component: () => import('@/locations/location-details.vue'),
+    name: 'location',
+    props: true,
   },
   {
     path: '/access-identifiers',

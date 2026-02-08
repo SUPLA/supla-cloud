@@ -2,7 +2,7 @@
   <div class="container">
     <div class="d-flex mb-5 my-3">
       <div class="flex-grow-1">
-        <h1 class="m-0">{{ $t('Access Identifiers') }}</h1>
+        <h1 class="m-0" v-title>{{ $t('Access Identifiers') }}</h1>
       </div>
       <div>
         <FormButton button-class="btn-green btn-lg btn-wrapped" @click="createNewAid()" :loading="updating">
