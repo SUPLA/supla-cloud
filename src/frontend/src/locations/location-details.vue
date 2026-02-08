@@ -194,8 +194,9 @@
   const {list: allDevices} = storeToRefs(useDevicesStore());
   const devices = computed(() => allDevices.value.filter((d) => d.locationId === location.value?.id));
 
-  const {list: allAccessIds, all: accessIdsMap, ready: accessIdsReady} = storeToRefs(useAccessIds());
-  const accessIds = computed(() => allAccessIds.value.filter((aid) => !!aid.locations.find((l) => l.id === location.value?.id)));
+  const accessIdsStore = useAccessIds();
+  const {all: accessIdsMap, ready: accessIdsReady} = storeToRefs(accessIdsStore);
+  const accessIds = computed(() => accessIdsStore.forLocation(location.value));
 
   const {list: allChannelGroups} = storeToRefs(useChannelGroups());
   const channelGroups = computed(() => allChannelGroups.value.filter((d) => d.locationId === location.value?.id));

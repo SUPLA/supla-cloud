@@ -21,5 +21,5 @@
   const props = defineProps({locationId: Number});
 
   const accessIdsStore = useAccessIds();
-  const accessIds = computed(() => accessIdsStore.list.filter((aid) => aid.locations.map((l) => l.id).includes(props.locationId)));
+  const accessIds = computed(() => accessIdsStore.forLocation({id: props.locationId}));
 </script>

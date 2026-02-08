@@ -60,6 +60,21 @@ class AccessIDControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(2, $content);
         $first = $content[0];
         $this->assertArrayHasKey('activeNow', $first);
+        $this->assertArrayNotHasKey('locationsIds', $first);
+        $this->assertTrue($first['activeNow']);
+    }
+
+    /** @depends testCreatingAid */
+    public function testGettingAidsV3() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/accessids?include=activeNow');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(2, $content);
+        $first = $content[0];
+        $this->assertArrayHasKey('activeNow', $first);
+        $this->assertArrayHasKey('locationsIds', $first);
         $this->assertTrue($first['activeNow']);
     }
 

@@ -42,6 +42,9 @@ class AccessIdSerializer extends AbstractSerializer {
             if ($this->isSerializationGroupRequested('accessId.activeNow', $context) && !isset($normalized['activeNow'])) {
                 $normalized['activeNow'] = $this->accessIdRepository->find($accessId->getId())->isActiveNow();
             }
+            if (ApiVersions::V3()->isRequestedEqualOrGreaterThan($context)) {
+                $normalized['locationsIds'] = $this->toIds($accessId->getLocations());
+            }
         } else {
             $normalized['locationsIds'] = $this->toIds($accessId->getLocations());
             $normalized['clientAppsIds'] = $this->toIds($accessId->getClientApps());
