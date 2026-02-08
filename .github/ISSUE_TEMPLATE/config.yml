@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions / Support (self-hosting)
+    url: https://github.com/SUPLA/supla-docker/issues
+    about: Self-hosting is usually managed via supla-docker.
+  - name: SUPLA Forum
+    url: https://forum.supla.org/
+    about: Community support and discussions.
+
