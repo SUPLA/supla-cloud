@@ -4,7 +4,7 @@ import {useEnsureStoreLoaded, useFetchList} from '@/stores/index.js';
 import {ref} from 'vue';
 
 export const useAccessIdsStore = defineStore('accessIds', () => {
-  const {all, ids, list, ready, $reset, fetchAll} = useFetchList(accessIdsApi.getList);
+  const {all, ids, list, ready, $reset, fetchAll} = useFetchList(accessIdsApi);
 
   const updating = ref(false);
 

@@ -5,7 +5,7 @@ import {ref} from 'vue';
 import {useSubjectsStore} from '@/stores/subjects-store.js';
 
 export const useDirectLinksStore = defineStore('directLinks', () => {
-  const {all, ids, list, ready, $reset, fetchAll} = useFetchList(directLinksApi.getList);
+  const {all, ids, list, ready, $reset, fetchAll} = useFetchList(directLinksApi);
 
   const slugs = ref({});
   const updating = ref(false);

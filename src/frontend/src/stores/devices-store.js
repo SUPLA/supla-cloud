@@ -4,7 +4,7 @@ import {useChannelsStore} from '@/stores/channels-store';
 import {useFetchList} from '@/stores/index.js';
 
 export const useDevicesStore = defineStore('devices', () => {
-  const {all, ids, list, ready, $reset, fetchAll} = useFetchList(devicesApi.getList);
+  const {all, ids, list, ready, $reset, fetchAll} = useFetchList(devicesApi);
 
   const updateStates = (devicesStates) => {
     let refetch = false;

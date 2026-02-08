@@ -3,9 +3,17 @@ import {computed, onMounted, ref} from 'vue';
 
 export const pinia = createPinia();
 
-export const useFetchList = (fetchListFn, idFactory = (item) => item.id) => {
+export const useFetchList = (theApi, options = {}) => {
   const all = ref({});
   const ready = ref(false);
+  const updating = ref(false);
+
+  const opts = {
+    ...{
+      idFactory: (item) => item.id,
+    },
+    ...options,
+  };
 
   const fetchAll = (force = false) => {
     if (ready.value && !force) {
@@ -14,9 +22,9 @@ export const useFetchList = (fetchListFn, idFactory = (item) => item.id) => {
     if (fetchAll.promise && !force) {
       return fetchAll.promise;
     }
-    return (fetchAll.promise = fetchListFn().then((items) => {
+    return (fetchAll.promise = theApi.getList().then((items) => {
       const state = {};
-      items.forEach((item) => (state[idFactory(item)] = item));
+      items.forEach((item) => (state[opts.idFactory(item)] = item));
       all.value = state;
       ready.value = true;
     }));
@@ -33,11 +41,12 @@ export const useFetchList = (fetchListFn, idFactory = (item) => item.id) => {
 
   const $reset = () => {
     ready.value = false;
+    updating.value = false;
     all.value = {};
     fetchAll.promise = undefined;
   };
 
-  return {all, ids, list, ready, updateOne, $reset, fetchAll};
+  return {all, ids, list, ready, updating, updateOne, $reset, fetchAll};
 };
 
 export function useEnsureStoreLoaded(store, options = {}) {

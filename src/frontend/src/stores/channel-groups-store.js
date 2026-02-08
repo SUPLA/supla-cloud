@@ -3,7 +3,7 @@ import {channelGroupsApi} from '@/api/channel-groups-api.js';
 import {useEnsureStoreLoaded, useFetchList} from '@/stores/index.js';
 
 export const useChannelGroupsStore = defineStore('channelGroups', () => {
-  const {all, ids, list, ready, updateOne, $reset, fetchAll} = useFetchList(channelGroupsApi.getList);
+  const {all, ids, list, ready, updateOne, $reset, fetchAll} = useFetchList(channelGroupsApi);
 
   const fetchOne = (id) => {
     return channelGroupsApi.getOne(id).then((scene) => {
