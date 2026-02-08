@@ -6,7 +6,7 @@
       <div class="line-clamp line-clamp-4">{{ model.body }}</div>
       <h5>{{ $t('Recipients') }}</h5>
       <ul>
-        <li v-for="aid in model.accessIdsIds" :key="aid.id">{{ accessIds[aid].caption }}</li>
+        <li v-for="aid in model.accessIdsIds" :key="aid.id">{{ accessIds[aid]?.caption }}</li>
       </ul>
     </router-link>
   </square-link>
@@ -19,12 +19,12 @@
   import {useChannelsStore} from '@/stores/channels-store.js';
   import ChannelFunction from '@/common/enums/channel-function.js';
   import {useReactionsStore} from '@/stores/reactions-store.js';
-  import {useAccessIdsStore} from '@/stores/access-ids-store.js';
+  import {useAccessIds} from '@/stores/access-ids-store.js';
 
   const props = defineProps({model: Object});
 
   const {all: channels} = storeToRefs(useChannelsStore());
-  const {all: accessIds} = storeToRefs(useAccessIdsStore());
+  const {all: accessIds} = storeToRefs(useAccessIds());
 
   const notificationTypeLabels = {
     scene: 'Scene notification', // i18n

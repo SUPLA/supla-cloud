@@ -8,7 +8,6 @@ import {api} from '@/api/api';
 import {useDevicesStore} from '@/stores/devices-store';
 import {useChannelsStore} from '@/stores/channels-store';
 import {useLocationsStore} from '@/stores/locations-store';
-import {useAccessIdsStore} from '@/stores/access-ids-store';
 
 export const useCurrentUserStore = defineStore('currentUser', () => {
   const userToken = useStorage('supla-user-token');
@@ -84,13 +83,7 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
   const fetchUserData = async () => {
     try {
       const {body} = await api.get('users/current', {skipErrorHandler: [401, 409, 429]});
-      await Promise.all([
-        useFrontendConfigStore().fetchConfig(),
-        useDevicesStore().fetchAll(),
-        useChannelsStore().fetchAll(),
-        useLocationsStore().fetchAll(),
-        useAccessIdsStore().fetchAll(),
-      ]);
+      await Promise.all([useFrontendConfigStore().fetchConfig(), useDevicesStore().fetchAll(), useChannelsStore().fetchAll(), useLocationsStore().fetchAll()]);
       userData.value = body;
     } catch (error) {
       console.warn(error);

@@ -18,8 +18,8 @@
   import AccessIdFilters from './access-id-filters.vue';
   import {storeToRefs} from 'pinia';
   import {useCurrentUserStore} from '@/stores/current-user-store';
-  import {useAccessIdsStore} from '@/stores/access-ids-store';
+  import {useAccessIds} from '@/stores/access-ids-store';
 
   const {userData} = storeToRefs(useCurrentUserStore());
-  const accessIdsStore = useAccessIdsStore();
+  const accessIdsStore = useAccessIds();
 </script>

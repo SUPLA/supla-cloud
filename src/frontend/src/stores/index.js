@@ -1,5 +1,5 @@
 import {createPinia} from 'pinia';
-import {computed, ref} from 'vue';
+import {computed, onMounted, ref} from 'vue';
 
 export const pinia = createPinia();
 
@@ -39,3 +39,18 @@ export const useFetchList = (fetchListFn, idFactory = (item) => item.id) => {
 
   return {all, ids, list, ready, updateOne, $reset, fetchAll};
 };
+
+export function useEnsureStoreLoaded(store, options = {}) {
+  const {immediate = true, force = false} = options;
+
+  const ensure = () => store.fetchAll(force);
+
+  if (immediate) {
+    onMounted(() => {
+      if (store.ready) return;
+      ensure();
+    });
+  }
+
+  return {store, ensure};
+}

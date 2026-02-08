@@ -78,7 +78,7 @@
                         <td>
                           <router-link :to="{name: 'accessId', params: {id: aid}}">{{ aid }}</router-link>
                         </td>
-                        <td>{{ accessIdsMap[aid].caption }}</td>
+                        <td>{{ accessIdsMap[aid]?.caption }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -175,10 +175,10 @@
   import {useDevicesStore} from '@/stores/devices-store.js';
   import {storeToRefs} from 'pinia';
   import EmptyListPlaceholder from '@/common/gui/empty-list-placeholder.vue';
-  import {useAccessIdsStore} from '@/stores/access-ids-store.js';
+  import {useAccessIds, useAccessIdsStore} from '@/stores/access-ids-store.js';
   import AccessIdChooser from '@/access-ids/access-id-chooser.vue';
   import FunctionIcon from '@/channels/function-icon.vue';
-  import {useChannelGroupsStore} from '@/stores/channel-groups-store.js';
+  import {useChannelGroups} from '@/stores/channel-groups-store.js';
   import {useChannelsStore} from '@/stores/channels-store.js';
 
   const props = defineProps({id: String});
@@ -194,11 +194,10 @@
   const {list: allDevices} = storeToRefs(useDevicesStore());
   const devices = computed(() => allDevices.value.filter((d) => d.locationId === location.value?.id));
 
-  const {list: allAccessIds, all: accessIdsMap} = storeToRefs(useAccessIdsStore());
+  const {list: allAccessIds, all: accessIdsMap, ready: accessIdsReady} = storeToRefs(useAccessIds());
   const accessIds = computed(() => allAccessIds.value.filter((aid) => !!aid.locations.find((l) => l.id === location.value?.id)));
 
-  useChannelGroupsStore().fetchAll();
-  const {list: allChannelGroups} = storeToRefs(useChannelGroupsStore());
+  const {list: allChannelGroups} = storeToRefs(useChannelGroups());
   const channelGroups = computed(() => allChannelGroups.value.filter((d) => d.locationId === location.value?.id));
 
   const {list: allChannels} = storeToRefs(useChannelsStore());
@@ -217,6 +216,7 @@
   const initCfg = () => (cfg.value = {...locationConfig.value});
 
   watch(() => props.id, initCfg, {immediate: true});
+  watch(() => accessIdsReady.value, initCfg);
 
   onMounted(async () => {
     if (AppState.shiftTask('locationCreate')) {
