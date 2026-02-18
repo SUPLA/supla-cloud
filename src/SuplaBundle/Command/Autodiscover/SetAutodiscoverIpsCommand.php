@@ -1,5 +1,5 @@
 <?php
-namespace SuplaBundle\Command;
+namespace SuplaBundle\Command\Autodiscover;
 
 use Assert\Assertion;
 use InvalidArgumentException;

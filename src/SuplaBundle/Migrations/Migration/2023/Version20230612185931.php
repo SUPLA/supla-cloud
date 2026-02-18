@@ -37,7 +37,7 @@ class Version20230612185931 extends NoWayBackMigration {
         if (file_exists(self::PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH)) {
             $token = file_get_contents(self::PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH);
             $this->addSql('INSERT INTO supla_settings_string (name, value) VALUES (:name, :value)', [
-                'name' => InstanceSettings::TARGET_TOKEN,
+                'name' => InstanceSettings::TARGET_TOKEN->value,
                 'value' => $token,
             ]);
         }

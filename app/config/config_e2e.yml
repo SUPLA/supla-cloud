@@ -4,7 +4,6 @@ imports:
 parameters:
   supla_protocol: http
   database_name: supla_e2e
-  notifications_enabled: true
 
 framework:
   mailer:

@@ -18,6 +18,8 @@
 namespace SuplaBundle\Twig;
 
 use Psr\Container\ContainerInterface;
+use SuplaBundle\Enums\InstanceSettings;
+use SuplaBundle\Repository\SettingsStringRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
@@ -37,12 +39,12 @@ class FrontendConfig {
         'measurementLogsRetention' => 'supla.measurement_logs_retention',
     ];
 
-    /** @var SuplaAutodiscover */
-    private $autodiscover;
-
-    public function __construct(ContainerInterface $container, SuplaAutodiscover $autodiscover) {
+    public function __construct(
+        ContainerInterface $container,
+        private SuplaAutodiscover $autodiscover,
+        private SettingsStringRepository $settingsRepository
+    ) {
         $this->container = $container;
-        $this->autodiscover = $autodiscover;
     }
 
     public function getConfig() {
@@ -62,7 +64,7 @@ class FrontendConfig {
 
     private function isNotificationsEnabled(): bool {
         return $this->container->getParameter('act_as_broker_cloud')
-            || ($this->container->hasParameter('notifications_enabled') && $this->container->getParameter('notifications_enabled'));
+            || $this->settingsRepository->getValueBoolean(InstanceSettings::ALLOW_NOTIFICATIONS, false);
     }
 
     private function mapParameters(array $parameters): array {

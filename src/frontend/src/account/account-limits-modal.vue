@@ -60,17 +60,6 @@
             <dd>
               <account-limit-progressbar :limit="limits.directLink" :value="relationsCount.directLinks"></account-limit-progressbar>
             </dd>
-            <dt>{{ $t('Notifications (defined)') }}</dt>
-            <dd>
-              <account-limit-progressbar :limit="limits.pushNotifications" :value="relationsCount.pushNotifications"></account-limit-progressbar>
-            </dd>
-            <dt>{{ $t('Notifications (sent per hour)') }}</dt>
-            <dd>
-              <account-limit-progressbar
-                :limit="limits.pushNotificationsPerHour.limit"
-                :value="limits.pushNotificationsPerHour.limit - limits.pushNotificationsPerHour.left"
-              />
-            </dd>
             <dt>{{ $t('Reactions') }}</dt>
             <dd>
               <account-limit-progressbar :limit="limits.valueBasedTriggers" :value="relationsCount.valueBasedTriggers"></account-limit-progressbar>
@@ -82,6 +71,19 @@
             <dt>{{ $t('OAuth apps') }}</dt>
             <dd>
               <account-limit-progressbar :limit="limits.oauthClient" :value="relationsCount.apiClients"></account-limit-progressbar>
+            </dd>
+          </dl>
+          <dl v-if="notificationsEnabled">
+            <dt>{{ $t('Notifications (defined)') }}</dt>
+            <dd>
+              <account-limit-progressbar :limit="limits.pushNotifications" :value="relationsCount.pushNotifications"></account-limit-progressbar>
+            </dd>
+            <dt>{{ $t('Notifications (sent per hour)') }}</dt>
+            <dd>
+              <account-limit-progressbar
+                :limit="limits.pushNotificationsPerHour.limit"
+                :value="limits.pushNotificationsPerHour.limit - limits.pushNotificationsPerHour.left"
+              />
             </dd>
           </dl>
         </div>
@@ -156,7 +158,7 @@
           <code>supla:user:change-limits</code>
         </i18n-t>
       </p>
-      <pre><code>docker-compose exec -u www-data supla-cloud php bin/console supla:user:change-limits {{ user.email }}</code></pre>
+      <pre><code>docker compose exec -u www-data supla-cloud php bin/console supla:user:change-limits {{ user.email }}</code></pre>
     </div>
     <template #footer>
       <a class="cancel small" @click="fetchLimits()">
@@ -226,6 +228,9 @@
         return DateTime.fromSeconds(this.limits.apiRateLimit.status.reset).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
       },
       ...mapStores(useFrontendConfigStore),
+      notificationsEnabled() {
+        return this.frontendConfigStore.config.notificationsEnabled;
+      },
     },
   };
 </script>

@@ -83,7 +83,7 @@
                   {{ $t('Reactions') }}
                 </router-link>
               </li>
-              <li>
+              <li v-if="notificationsEnabled">
                 <router-link :to="{name: 'notifications'}">
                   <i class="hidden-sm hidden-xs pe-7s-bell mr-1"></i>
                   {{ $t('Notifications') }}
@@ -140,12 +140,13 @@
 
 <script>
   import SuplaLogo from './supla-logo.vue';
-  import {mapStores} from 'pinia';
+  import {mapState, mapStores} from 'pinia';
   import {useCurrentUserStore} from '@/stores/current-user-store';
   import {faBell, faShieldHalved, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
   import DropdownMenu from '@/common/gui/dropdown/dropdown-menu.vue';
   import DropdownMenuTrigger from '@/common/gui/dropdown/dropdown-menu-trigger.vue';
   import {api} from '@/api/api.js';
+  import {useFrontendConfigStore} from '@/stores/frontend-config-store.js';
 
   export default {
     components: {DropdownMenuTrigger, DropdownMenu, SuplaLogo},
@@ -178,6 +179,10 @@
     },
     computed: {
       ...mapStores(useCurrentUserStore),
+      notificationsEnabled() {
+        return this.frontendConfig.notificationsEnabled;
+      },
+      ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
     },
     watch: {
       $route() {

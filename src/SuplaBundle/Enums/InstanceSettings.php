@@ -17,11 +17,9 @@
 
 namespace SuplaBundle\Enums;
 
-use MyCLabs\Enum\Enum;
-
-/**
- * @method static InstanceSettings TARGET_TOKEN()
- */
-final class InstanceSettings extends Enum {
-    const TARGET_TOKEN = 'target_token';
+enum InstanceSettings: string {
+    case TARGET_TOKEN = 'target_token';
+    case ALLOW_TGE_REPORTS = 'allow_tge_reports';
+    case ALLOW_NOTIFICATIONS = 'allow_notifications';
+    case AD_NOTIFICATIONS_LIMIT = 'ad_notifications_limit';
 }
