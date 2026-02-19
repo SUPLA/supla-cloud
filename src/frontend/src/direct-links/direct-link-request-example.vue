@@ -7,6 +7,8 @@
   import {useDirectLinkExamples} from '@/direct-links/direct-link-examples.js';
   import {useSubject} from '@/stores/subjects-store.js';
   import {urlParams} from '@/common/utils';
+  import AccordionRoot from '@/common/gui/accordion/accordion-root.vue';
+  import AccordionItem from '@/common/gui/accordion/accordion-item.vue';
 
   const props = defineProps({
     mode: String,
@@ -64,6 +66,13 @@
     <p class="small">{{ $t('Parameters') }}</p>
     <div v-for="param in actionParams" :key="param.name">
       <code>{{ param.name }}</code> - {{ $t(param.description, {example: param.example}) }}
+      <AccordionRoot v-if="param.name === 'rgbw_command'" class="pt-2">
+        <AccordionItem title-i18n="Available commands">
+          <div v-for="command in subject.config.availableRgbwCommands" :key="command">
+            <code>{{ command }}</code> - {{ $t(`rgbwCommand_label_${command}`) }}
+          </div>
+        </AccordionItem>
+      </AccordionRoot>
     </div>
   </div>
 </template>

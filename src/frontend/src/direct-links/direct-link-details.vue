@@ -154,5 +154,7 @@
 <style scoped>
   .link-preview {
     font-size: 1.5em;
+    word-break: break-all;
+    overflow-wrap: break-word;
   }
 </style>

@@ -108,6 +108,13 @@ const exampleParams = {
         description: 'White temperature in percent, 0 - warmest, 100 - coolest (e.g. {example})', // i18n
       });
     }
+    if (subject?.config?.availableRgbwCommands?.length > 0) {
+      params.push({
+        name: 'rgbw_command',
+        example: subject.config.availableRgbwCommands[0],
+        description: 'An RGBW command that modified the action behavior.', // i18n
+      });
+    }
     return params;
   },
 };
