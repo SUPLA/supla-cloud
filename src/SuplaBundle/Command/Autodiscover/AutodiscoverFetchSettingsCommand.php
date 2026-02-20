@@ -29,7 +29,13 @@ class AutodiscoverFetchSettingsCommand extends Command implements Initialization
             }
             return 0;
         }
-        $info = $this->autodiscover->getInfo();
+        try {
+            $info = $this->autodiscover->getInfo();
+        } catch (\Exception $e) {
+            $io->error('Could not contact AD.');
+            $io->error($e->getMessage());
+            return 1;
+        }
         if (!($info['isTarget'] ?? false) || !isset($info['settings'])) {
             $io->error('Invalid AD response. Could not fetch settings.');
             $io->comment(json_encode($info, JSON_PRETTY_PRINT));
