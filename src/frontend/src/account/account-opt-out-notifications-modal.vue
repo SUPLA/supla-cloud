@@ -12,7 +12,7 @@
           <tr>
             <th></th>
             <th>{{ $t('E-mail') }}</th>
-            <th>{{ $t('Push') }}</th>
+            <th v-if="notificationsEnabled">{{ $t('Push') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
                 <input v-model="selectedNotificationsEmail[notification.id]" type="checkbox" />
               </label>
             </td>
-            <td>
+            <td v-if="notificationsEnabled">
               <label class="checkbox2">
                 <input v-model="selectedNotificationsPush[notification.id]" type="checkbox" />
               </label>
@@ -51,6 +51,8 @@
   import AccessIdsDropdown from '@/access-ids/access-ids-dropdown.vue';
   import ModalConfirm from '@/common/modal-confirm.vue';
   import {api} from '@/api/api.js';
+  import {mapState} from 'pinia';
+  import {useFrontendConfigStore} from '@/stores/frontend-config-store.js';
 
   export default {
     components: {ModalConfirm, AccessIdsDropdown},
@@ -81,6 +83,10 @@
       currentOptOutNotification() {
         return this.$route.query.optOutNotification;
       },
+      notificationsEnabled() {
+        return this.frontendConfig.notificationsEnabled;
+      },
+      ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
     },
     mounted() {
       this.possibleNotifications.forEach(({id}) => {

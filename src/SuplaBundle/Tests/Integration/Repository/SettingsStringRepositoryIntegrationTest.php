@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Integration\Repository;
 
 use SuplaBundle\Entity\Main\SettingsString;
+use SuplaBundle\Enums\InstanceSettings;
 use SuplaBundle\Repository\SettingsStringRepository;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 
@@ -31,15 +32,15 @@ class SettingsStringRepositoryIntegrationTest extends IntegrationTestCase {
     }
 
     public function testUpdatingSettings() {
-        $this->repository->setValue('unicorn', 'snail');
-        $this->assertEquals('snail', $this->repository->getValue('unicorn'));
-        $this->repository->setValue('unicorn', 'rainbow');
-        $this->assertEquals('rainbow', $this->repository->getValue('unicorn'));
+        $this->repository->setValue(InstanceSettings::TARGET_TOKEN, 'snail');
+        $this->assertEquals('snail', $this->repository->getValue(InstanceSettings::TARGET_TOKEN));
+        $this->repository->setValue(InstanceSettings::TARGET_TOKEN, 'rainbow');
+        $this->assertEquals('rainbow', $this->repository->getValue(InstanceSettings::TARGET_TOKEN));
     }
 
     /** @depends testUpdatingSettings */
     public function testCheckingForSettingsExist() {
-        $this->assertFalse($this->repository->hasValue('rainbow'));
-        $this->assertTrue($this->repository->hasValue('unicorn'));
+        $this->assertFalse($this->repository->hasValue(InstanceSettings::ALLOW_TGE_REPORTS));
+        $this->assertTrue($this->repository->hasValue(InstanceSettings::TARGET_TOKEN));
     }
 }

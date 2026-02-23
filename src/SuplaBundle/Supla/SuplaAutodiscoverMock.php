@@ -172,11 +172,19 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             ];
         } elseif (preg_match('#/about#', $endpoint, $match)) {
             $responseStatus = 200;
-            $authorization = $headers['Authorization'] ?? '';
+            $authorization = $headers['Authorization'] ?? ($this->isTarget() ? 'Bearer TARGET' : '');
             if ($authorization === 'Bearer BROKER') {
                 return ['isBroker' => true, 'isTarget' => true];
             } elseif ($authorization === 'Bearer TARGET') {
-                return ['isBroker' => false, 'isTarget' => true];
+                return [
+                    'isBroker' => false,
+                    'isTarget' => true,
+                    'settings' => [
+                        'allowTgeReports' => false,
+                        'allowNotifications' => true,
+                        'limitTotalPushNotifications' => 100,
+                    ],
+                ];
             } elseif ($authorization) {
                 $responseStatus = 403;
                 return null;
