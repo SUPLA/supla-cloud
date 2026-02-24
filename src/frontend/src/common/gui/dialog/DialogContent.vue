@@ -14,10 +14,16 @@
   const {opened, close, confirm, loading, cancellable, dialogCssClasses} = inject('dialog');
 
   const dialogContainer = useTemplateRef('dialogContainer');
-  onClickOutside(dialogContainer, close);
+  onClickOutside(dialogContainer, () => opened.value && !loading.value && close);
 
-  onKeyStroke('Escape', () => !loading.value && close());
-  onKeyStroke('Enter', () => !loading.value && confirm());
+  onKeyStroke('Escape', () => opened.value && !loading.value && close());
+  onKeyStroke('Enter', (e) => {
+    if (opened.value && !loading.value) {
+      e.preventDefault();
+      e.stopPropagation();
+      confirm();
+    }
+  });
 </script>
 
 <template>
