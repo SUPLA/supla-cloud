@@ -283,7 +283,7 @@ supla:
       client_app: {access: 3600, refresh: 5184000} # 60 days
       admin: {access: 3600, refresh: 5184000}
       user: {access: 3600, refresh: 5184000}
-      broker: {access: 3600, refresh: 5184000}
+      broker: {access: 86400, refresh: 5184000}
 
 twig:
   exception_controller: null
