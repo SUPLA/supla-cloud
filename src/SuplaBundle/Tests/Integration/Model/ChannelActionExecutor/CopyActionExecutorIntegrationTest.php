@@ -26,7 +26,6 @@ use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /** @small */
 class CopyActionExecutorIntegrationTest extends IntegrationTestCase {
@@ -81,7 +80,7 @@ class CopyActionExecutorIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCopyingFromNotExistingChannel() {
-        $this->expectException(NotFoundHttpException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $subject = $this->device->getChannels()[0];
         $this->channelActionExecutor->executeAction($subject, ChannelFunctionAction::COPY(), ['sourceChannelId' => 4]);
     }
