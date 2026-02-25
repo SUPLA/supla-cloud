@@ -320,12 +320,16 @@ class ExecuteDirectLinkController extends Controller {
             } else {
                 $normalizationContext = ['groups' => ['basic', 'images'], 'version' => ApiVersions::V2_4];
                 $subject = $directLink->getSubject();
-//                if (!$data) {
-//                    try {
-//                        $data = $this->channelStateGetter->getState($subject);
-//                    } catch (\Exception $e) {
-//                    }
-//                }
+                if (!$data && !$action) {
+                    $allowedActionsIds = array_map(fn(ChannelFunctionAction $action) => $action->getId(), $directLink->getAllowedActions());
+                    $readAllowed = in_array(ChannelFunctionAction::READ()->getId(), $allowedActionsIds);
+                    if ($readAllowed) {
+                        try {
+                            $data = $this->channelStateGetter->getState($subject);
+                        } catch (\Exception) {
+                        }
+                    }
+                }
                 $normalized = [
                     'id' => $directLink->getId(),
                     'caption' => $directLink->getCaption(),
