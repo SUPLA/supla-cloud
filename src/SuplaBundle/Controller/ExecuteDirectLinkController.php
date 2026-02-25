@@ -303,7 +303,7 @@ class ExecuteDirectLinkController extends Controller {
      * @param \SuplaBundle\Entity\Main\DirectLink|null $directLink
      */
     private function directLinkResponse(
-        DirectLink $directLink,
+        ?DirectLink $directLink,
         ?ChannelFunctionAction $action,
         string $responseType,
         int $responseCode,
