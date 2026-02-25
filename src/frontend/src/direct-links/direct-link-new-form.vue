@@ -4,7 +4,7 @@
       <RouterLink :to="{name: 'directLinks'}">{{ $t('Direct links') }}</RouterLink>
     </BreadcrumbList>
     <h1 v-title>{{ $t('New direct link') }}</h1>
-    <h3 class="text-center">{{ $t('Select the item (subject) you want to control using this link') }}</h3>
+    <h3 class="text-center">{{ $t('What the link is for?') }}</h3>
     <div class="row">
       <div class="col-lg-6 col-lg-offset-3">
         <SubjectDropdown

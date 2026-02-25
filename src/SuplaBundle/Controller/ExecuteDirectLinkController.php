@@ -275,7 +275,7 @@ class ExecuteDirectLinkController extends Controller {
             }
             try {
                 $this->channelActionExecutor->validateAndTransformActionParamsFromApi($directLink->getSubject(), $action, $params);
-            } catch (InvalidArgumentException $e) {
+            } catch (InvalidArgumentException) {
                 throw new DirectLinkExecutionFailureException(DirectLinkExecutionFailureReason::INVALID_ACTION_PARAMETERS());
             }
             $this->channelActionExecutor->executeAction($directLink->getSubject(), $action, $params);
@@ -303,8 +303,8 @@ class ExecuteDirectLinkController extends Controller {
      * @param \SuplaBundle\Entity\Main\DirectLink|null $directLink
      */
     private function directLinkResponse(
-        $directLink,
-        $action,
+        DirectLink $directLink,
+        ?ChannelFunctionAction $action,
         string $responseType,
         int $responseCode,
         array $data = [],
@@ -320,18 +320,18 @@ class ExecuteDirectLinkController extends Controller {
             } else {
                 $normalizationContext = ['groups' => ['basic', 'images'], 'version' => ApiVersions::V2_4];
                 $subject = $directLink->getSubject();
-                if (!$data) {
-                    try {
-                        $data = $this->channelStateGetter->getState($subject);
-                    } catch (\Exception $e) {
-                    }
-                }
+//                if (!$data) {
+//                    try {
+//                        $data = $this->channelStateGetter->getState($subject);
+//                    } catch (\Exception $e) {
+//                    }
+//                }
                 $normalized = [
                     'id' => $directLink->getId(),
                     'caption' => $directLink->getCaption(),
                     'allowedActions' => $this->normalizer->normalize($directLink->getAllowedActions(), null, $normalizationContext),
                     'subject' => $this->normalizer->normalize($subject, null, $normalizationContext),
-                    'state' => $data,
+                    'state' => $data ?: null,
                 ];
                 if ($subject instanceof HasIcon) {
                     $normalized['subject']['userIcon'] = $this->normalizer->normalize($subject->getUserIcon(), null, $normalizationContext);

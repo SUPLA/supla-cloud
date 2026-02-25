@@ -7,6 +7,7 @@ use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Repository\ActionableSubjectRepository;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @OA\Schema(schema="ChannelActionParamsCopy",
@@ -57,8 +58,12 @@ class CopyActionExecutor extends SingleChannelActionExecutor {
         if ($subject->getOwnSubjectType() === ActionableSubjectType::CHANNEL) {
             Assertion::notEq($sourceChannelId, $subject->getId(), 'Source and target channel must be different.');
         }
-        $sourceChannel = $this->subjectRepository
-            ->findForUser($subject->getUser(), ActionableSubjectType::CHANNEL, $sourceChannelId);
+        try {
+            $sourceChannel = $this->subjectRepository
+                ->findForUser($subject->getUser(), ActionableSubjectType::CHANNEL, $sourceChannelId);
+        } catch (NotFoundHttpException) {
+            $sourceChannel = null;
+        }
         Assertion::notNull($sourceChannel, 'Invalid source channel.');
         Assertion::eq(
             $subject->getFunction()->getId(),
