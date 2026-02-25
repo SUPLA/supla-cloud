@@ -24,15 +24,15 @@
       </dt>
     </dl>
     <dl v-if="currentState.color_brightness !== undefined">
+      <dd>{{ $t('Color brightness') }}</dd>
+      <dt>{{ currentState.color_brightness }}%</dt>
       <dd>{{ $t('Color') }}</dd>
       <dt>
         <ChannelStateColorPreview :color="currentState.color" />
       </dt>
-      <dd>{{ $t('Color brightness') }}</dd>
-      <dt>{{ currentState.color_brightness }}%</dt>
     </dl>
     <dl v-if="currentState.brightness !== undefined">
-      <dd>{{ $t('Brightness') }}</dd>
+      <dd>{{ $t('White brightness') }}</dd>
       <dt>{{ currentState.brightness }}%</dt>
     </dl>
     <dl v-if="currentState.white_temperature !== undefined">
