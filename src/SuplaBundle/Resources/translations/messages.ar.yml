@@ -863,7 +863,7 @@ See direct link possibilities: أنظر إمكانيات الرابط المبا
 See in SUPLA-Cloud: عرض في SUPLA-Cloud
 Seems like a secret place: هناك شيء يخبرنا أنه يجب ألا تكون هنا
 Select icon: اختر الأيقونة
-Select the item (subject) you want to control using this link: حدد العنصر (الكيان) الذي تريد التحكم به باستخدام هذا الرابط
+What the link is for?: حدد العنصر (الكيان) الذي تريد التحكم به باستخدام هذا الرابط
 Selected: المختارة
 Selected device has been logged out.: تم تسجيل خروج الجهاز المعين
 Send a notification: إرسال إشعار
@@ -996,7 +996,7 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: برامج الثرموستات
 This action will result in restarting the device. It will not be available for a while.: سيؤدي طلب هذه العملية إلى إعادة تشغيل الجهاز. أثناء إعادة التشغيل، سيتعذر الوصول إلى الجهاز.
 This channel was missing during last device registration attempt.: هذه القناة مفقودة من الجهاز.
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: يتطلب هذا الرابط المباشر توضيح معلمات الإجراء الذي يتم تنفيذه. انظر الأمثلة أدناه لمعرفة المعلمات التي يمكنك تعيينها.
+directLinkExecutionFailureReason_invalidActionParameters_info: يتطلب هذا الرابط المباشر توضيح معلمات الإجراء الذي يتم تنفيذه. انظر الأمثلة أدناه لمعرفة المعلمات التي يمكنك تعيينها.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: استلمت هذه المعلومات بسبب محاولة فاشلة لتسجيل الدخول إلى SUPLA-CLOUD باستخدام عنوان بريدك الإلكتروني.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: هذه هي الخطوة الأخيرة في حذف حسابك. سيؤدي إكمال النموذج وتأكيده إلى حذف بياناتك بشكل لا رجعة فيه.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: هذه آخر صورة تم تحميلها من الجهاز. حدد المنطقة التي تظهر فيها أرقام العداد بالضبط.

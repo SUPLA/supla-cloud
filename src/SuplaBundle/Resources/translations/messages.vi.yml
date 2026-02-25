@@ -863,7 +863,7 @@ See direct link possibilities: Xem tình trạng link liên kết.
 See in SUPLA-Cloud: Xem trong SUPLA-Cloud
 Seems like a secret place: Có vẻ như là một nơi bí mật
 Select icon: Chọn biểu tượng
-Select the item (subject) you want to control using this link: Chọn mục (chủ đề) bạn muốn kiểm soát bằng liên kết này.
+What the link is for?: Chọn mục (chủ đề) bạn muốn kiểm soát bằng liên kết này.
 Selected: Đã chọn
 Selected device has been logged out.: Thiết bị được chọn đã đăng xuất
 Send a notification: Gửi thông báo
@@ -996,7 +996,7 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Chương trình điều nhiệt
 This action will result in restarting the device. It will not be available for a while.: Sắp xếp thao tác này sẽ khởi động lại thiết bị. Trong quá trình khởi động lại thiết bị sẽ không vào được
 This channel was missing during last device registration attempt.: Thiết bị của bạn bị thiếu kênh này.
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Liên kết trực tiếp này yêu cầu các tham số tiếp theo để được thực hiện đúng. Xem các ví dụ dưới đây để có ý tưởng về những gì bạn có thể làm.
+directLinkExecutionFailureReason_invalidActionParameters_info: Liên kết trực tiếp này yêu cầu các tham số tiếp theo để được thực hiện đúng. Xem các ví dụ dưới đây để có ý tưởng về những gì bạn có thể làm.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: thông tin này đã được tạo tự động do nỗ lực đăng nhập không thành công vào SUPLA-CLOUD với việc sử dụng địa chỉ email của bạn.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Đây là giai đoạn cuối cùng trong quá trình xóa tài khoản của bạn. Việc điền và xác nhận biểu mẫu sẽ giúp xóa dữ liệu của bạn ở mức không thể phục hồi.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Đây là ảnh cuối cùng được tải lên từ thiết bị. Đánh dấu chính xác khu vực có thể nhìn thấy các chữ số từ máy đếm.

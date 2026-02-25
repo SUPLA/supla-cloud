@@ -863,7 +863,7 @@ See direct link possibilities: Lássa meg a közvetlen link lehetőségeit
 See in SUPLA-Cloud: Nézze meg a SUPLA-felhőben
 Seems like a secret place: Valami azt súgja, hogy nem szabad itt lennie
 Select icon: Ikon kiválasztása
-Select the item (subject) you want to control using this link: Válassza ki az elemet  (entitást), amelyet ellenőrizni szeretne ezzel a linkkel
+What the link is for?: Válassza ki az elemet  (entitást), amelyet ellenőrizni szeretne ezzel a linkkel
 Selected: Kijelölve
 Selected device has been logged out.: A kiválasztott eszköz kijelentkezett
 Send a notification: Küldjön értesítést
@@ -996,7 +996,7 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Termosztát programok
 This action will result in restarting the device. It will not be available for a while.: A művelet elküldése újraindítja a készüléket. A készülék nem lesz elérhető az újraindítás során.
 This channel was missing during last device registration attempt.: Ez a csatorna nem található a készüléken.
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ez a közvetlen link megköveteli a végrehajtandó művelet paramétereinek pontosítását. Nézze meg az alábbi példákat, hogy megtudja, milyen paramétereket állíthat be.
+directLinkExecutionFailureReason_invalidActionParameters_info: Ez a közvetlen link megköveteli a végrehajtandó művelet paramétereinek pontosítását. Nézze meg az alábbi példákat, hogy megtudja, milyen paramétereket állíthat be.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ezt az információt azért kapja meg, mert az e-mail címével sikertelenül megkisérelt bejelentkezni a SUPLA-CLOUD-ba.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Ez a fiók törlésének utolsó szakasza. Az űrlap kitöltése és jóváhagyása az Ön adatainak visszafordíthatatlan törlését eredményezi.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Ez az eszközről utoljára feltöltött fénykép. Jelölje meg pontosan azt a területet, ahol a mérőóra számjegyei láthatóak.

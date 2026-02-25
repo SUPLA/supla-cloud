@@ -863,7 +863,7 @@ See direct link possibilities: Vezi posibilitățile linkului direct
 See in SUPLA-Cloud: Vizualizare la SUPLA-Cloud
 Seems like a secret place: Credem că nu ar trebui să fii aici
 Select icon: Alegeți pictograma
-Select the item (subject) you want to control using this link: Selectați elementul (entitatea) pe care doriți să îl controlați folosind acest link
+What the link is for?: Selectați elementul (entitatea) pe care doriți să îl controlați folosind acest link
 Selected: Selectat
 Selected device has been logged out.: Dispozitivul selectat a fost deconectat
 Send a notification: Trimite notificare
@@ -996,7 +996,7 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Programe de termostat
 This action will result in restarting the device. It will not be available for a while.: Comandarea acestei operațiuni va reporni dispozitivul. În timpul repornirii, dispozitivul va fi inaccesibil.
 This channel was missing during last device registration attempt.: Acest canal lipsește din dispozitiv.
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Acest link direct necesită clarificarea parametrilor acțiunii efectuate. Consultați exemplele de mai jos pentru a afla ce parametri puteți seta.
+directLinkExecutionFailureReason_invalidActionParameters_info: Acest link direct necesită clarificarea parametrilor acțiunii efectuate. Consultați exemplele de mai jos pentru a afla ce parametri puteți seta.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Primiți această informație în legătură cu o încercare nereușită de conectare la SUPLA-CLOUD folosind adresa dvs. de e-mail.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Aceasta este etapa finală de ștergere a contului tău. Completarea și aprobarea formularului va duce la ștergerea ireversibilă a datelor tale.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Aceasta este ultima fotografie încărcată de pe dispozitiv. Marcați exact zona în care sunt vizibile cifrele contorului.

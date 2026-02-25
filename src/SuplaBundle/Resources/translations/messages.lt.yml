@@ -863,7 +863,7 @@ See direct link possibilities: Pamatyk tiesioginės nuorodos galimybes
 See in SUPLA-Cloud: Žiūrėti SUPLA-Cloud
 Seems like a secret place: Kažkas mums sako, kad Jūs neturėtumėte čia būti
 Select icon: Pasirinkti piktogramą
-Select the item (subject) you want to control using this link: Pasirinkite elementą (subjektas), kurį norite kontroliuoti su šios nuorodos pagalba
+What the link is for?: Pasirinkite elementą (subjektas), kurį norite kontroliuoti su šios nuorodos pagalba
 Selected: Pasirinkta
 Selected device has been logged out.: Pasirinktas įrenginys buvo išregistruotas
 Send a notification: Siųsti pranešimą
@@ -996,7 +996,7 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Termostato programos
 This action will result in restarting the device. It will not be available for a while.: Aktyvavus šią operaciją, įrenginys bus paleistas iš naujo. Paleidimo iš naujo metu įrenginys bus nepasiekiamas.
 This channel was missing during last device registration attempt.: Šio kanalo įrenginyje nėra.
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ši tiesioginė nuoroda reikalauja išsamesnių atliekamo veiksmo parametrų. Pažiūrėk žemiau pateiktus pavyzdžius, kad sužinotum, kokius parametrus gali nustatyti.
+directLinkExecutionFailureReason_invalidActionParameters_info: Ši tiesioginė nuoroda reikalauja išsamesnių atliekamo veiksmo parametrų. Pažiūrėk žemiau pateiktus pavyzdžius, kad sužinotum, kokius parametrus gali nustatyti.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Gavote šią informaciją dėl nesėkmingo bandymo prisijungti prie SUPLA-CLOUD naudojant Jūsų el. pašto adresą.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Tai paskutinis Jūsų paskyros ištrynimo veiksmas. Užpildžius ir patvirtinus formą Jūsų duomenys bus negrįžtamai ištrinti.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Tai paskutinė įrenginio atsiųsta nuotrauka. Pažymėkite tiksliai sritį, kurioje matomi skaitmenys iš skaitiklio.

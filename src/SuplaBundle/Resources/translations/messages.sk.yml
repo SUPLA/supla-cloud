@@ -863,7 +863,7 @@ See direct link possibilities: Pozrite si možnosti priameho odkazu
 See in SUPLA-Cloud: Zobraziť na SUPLA-Cloud
 Seems like a secret place: Niečo nám hovorí, že by ste tu nemali byť
 Select icon: Vybrať ikonu
-Select the item (subject) you want to control using this link: Vyberte prvok (subjekt), ktorý chcete kontrolovať prostredníctvom tohto odkazu
+What the link is for?: Vyberte prvok (subjekt), ktorý chcete kontrolovať prostredníctvom tohto odkazu
 Selected: Vybrané
 Selected device has been logged out.: Vybrané zariadenie bolo odhlásené
 Send a notification: Odoslať oznámenie
@@ -996,7 +996,7 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Programy termostatu
 This action will result in restarting the device. It will not be available for a while.: Objednaním tejto operácie sa zariadenie reštartuje. Počas reštartu bude zariadenie nedostupné.
 This channel was missing during last device registration attempt.: Tento kanál v zariadení chýba.
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Tento priamy odkaz vyžaduje ďalšie upresnenie parametrov vykonávané akcie. Na nižšie uvedenom príklade zistíte, ktoré parametre môžete nastaviť.
+directLinkExecutionFailureReason_invalidActionParameters_info: Tento priamy odkaz vyžaduje ďalšie upresnenie parametrov vykonávané akcie. Na nižšie uvedenom príklade zistíte, ktoré parametre môžete nastaviť.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Dostávate túto informáciu, pretože s použitím vašej emailovej adresy bol vykonaný neúspešný pokus o prihlásenie do SUPLA-CLOUD.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Toto je posledná fáza vymazania vášho účtu. Vyplnením a schválením formulára dôjde k nezvratnému vymazaniu vašich údajov.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Toto je posledná fotografia nahraná zo zariadenia. Označte presnú oblasť, kde sú viditeľné číslice počítadla.

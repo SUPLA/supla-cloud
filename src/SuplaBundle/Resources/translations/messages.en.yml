@@ -246,3 +246,4 @@ openWeatherAttribute_field_clouds: Clouds
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+directLinkExecutionFailureReason_invalidActionParameters_info: This direct link requires further parameters in order to be executed properly. See the examples on direct link details page.

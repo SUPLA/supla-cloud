@@ -992,7 +992,7 @@ See direct link possibilities: Zobacz możliwości linku bezpośredniego
 See in SUPLA-Cloud: Zobacz w SUPLA-Cloud
 Seems like a secret place: Coś nam mówi, że nie powinno Cię tu być
 Select icon: Wybierz ikonę
-Select the item (subject) you want to control using this link: Wybierz element (podmiot), który chcesz kontrolować za pomocą tego linka
+What the link is for?: Wybierz, czego ma dotyczyć link?
 Selected: Wybrane
 Selected device has been logged out.: Wybrane urządzenie zostało wylogowane
 Send a notification: Wyślij powiadomienie
@@ -1143,7 +1143,7 @@ This action will result in restarting the device. It will not be available for a
 This action will result in trying to update the device firmware. It will not be available for a while.: Ta operacja spowoduje próbę aktualizacji oprogramowania urządzenia. Nie będzie ono dostępne przez pewien czas
 This channel was missing during last device registration attempt.: Tego kanału brakuje na urządzeniu.
 This device cannot be remotely awakened. We are awaiting communication from the device...: Tego urządzenia nie można zdalnie wybudzić. Oczekujemy na komunikację ze strony urządzenia...
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz poniższe przykłady aby dowiedzieć się, jakie parametry możesz ustawić.
+directLinkExecutionFailureReason_invalidActionParameters_info: Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz przykłady wykonania na stronie szczegółów linku bezpośredniego.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Otrzymujesz tę informację w związku z nieudaną próbą logowania do SUPLA-CLOUD (%cloudHost%) przy użyciu Twojego adresu email.
 This is only a test to see if the e-mail configuration is working.: To jest tylko test sprawdzający czy konfiguracja poczty wychodzącej działa prawidłowo.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: To jest ostatni etap usuwania Twojego konta. Wypełnienie i zatwierdzenie formularza będzie skutkować nieodwracalnym usunięciem Twoich danych.
@@ -1681,7 +1681,7 @@ rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_STOP: Zatrzymaj regulację jasno�
 rgbwCommand_label_NOT_SET: Ustaw dowolnie
 rgbwCommand_label_SET_BRIGHTNESS_WITHOUT_TURN_ON: Ustaw jasność bez włączenia
 rgbwCommand_label_SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON: Ustaw jasność koloru bez włączenia
-rgbwCommand_label_SET_DIMMER_CCT_WITHOUT_TURN_ON: Ustaw jasność CCT bez włączenia
+rgbwCommand_label_SET_DIMMER_CCT_WITHOUT_TURN_ON: Ustaw barwę białego światła bez włączania
 rgbwCommand_label_SET_RGB_WITHOUT_TURN_ON: Ustaw kolor bez włączenia
 rgbwCommand_label_TOGGLE_ALL: Przełącz wszystko
 rgbwCommand_label_TOGGLE_DIMMER: Przełącz ściemniacz

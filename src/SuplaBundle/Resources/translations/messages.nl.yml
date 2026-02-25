@@ -863,7 +863,7 @@ See direct link possibilities: Bekijk de mogelijkheden van de directe link
 See in SUPLA-Cloud: Zie bij SUPLA-Cloud
 Seems like a secret place: Iets zegt ons dat je hier niet zou moeten zijn
 Select icon: Kies pictogram
-Select the item (subject) you want to control using this link: Selecteer het item (entiteit) dat u met behulp van deze link wilt beheren.
+What the link is for?: Selecteer het item (entiteit) dat u met behulp van deze link wilt beheren.
 Selected: Geselecteerd
 Selected device has been logged out.: Het geselecteerde apparaat is uitgelogd
 Send a notification: Stuur een melding
@@ -996,7 +996,7 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Thermostaatprogramma's
 This action will result in restarting the device. It will not be available for a while.: Door deze handeling uit te voeren, wordt het toestel opnieuw opgestart. Tijdens het herstarten is het toestel niet toegankelijk.
 This channel was missing during last device registration attempt.: Dit kanaal ontbreekt op het toestel.
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Deze directe link vereist verduidelijking van de parameters van de actie die wordt uitgevoerd. Zie de onderstaande voorbeelden om erachter te komen welke parameters u kunt instellen.
+directLinkExecutionFailureReason_invalidActionParameters_info: Deze directe link vereist verduidelijking van de parameters van de actie die wordt uitgevoerd. Zie de onderstaande voorbeelden om erachter te komen welke parameters u kunt instellen.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: U ontvangt deze informatie vanwege een mislukte poging om met uw e-mailadres in te loggen op SUPLA-CLOUD.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Dit is de laatste stap om je account te verwijderen. Het invullen en verzenden van het formulier zal resulteren in onherstelbaar verlies van je gegevens.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Dit is de laatste foto die is geüpload vanaf het toestel. Markeer het exacte gebied waar de tellercijfers zichtbaar zijn.

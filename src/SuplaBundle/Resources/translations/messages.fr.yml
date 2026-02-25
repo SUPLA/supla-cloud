@@ -863,7 +863,7 @@ See direct link possibilities: Voir les possibilités d'un lien direct
 See in SUPLA-Cloud: Voir sur SUPLA-Cloud
 Seems like a secret place: On a l’impression que tu ne devrais pas être ici
 Select icon: Sélectionnez l'icône
-Select the item (subject) you want to control using this link: Sélectionnez le(s) élément(s) que vous voulez contrôler à l'aide de ce lien.
+What the link is for?: Sélectionnez le(s) élément(s) que vous voulez contrôler à l'aide de ce lien.
 Selected: Sélectionné
 Selected device has been logged out.: L’appareil sélectionné a été déconnecté
 Send a notification: Envoyer une notification
@@ -996,7 +996,7 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Programmes du thermostat
 This action will result in restarting the device. It will not be available for a while.: Exécuter cette opération entraînera un redémarrage de l’appareil. Pendant le redémarrage, l’appareil sera indisponible.
 This channel was missing during last device registration attempt.: Ce canal manque sur l’appareil.
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ce lien direct nécessite des précisions sur les paramètres de l’action exécutée. Voir les exemples ci-dessous pour savoir quels paramètres vous pouvez définir.
+directLinkExecutionFailureReason_invalidActionParameters_info: Ce lien direct nécessite des précisions sur les paramètres de l’action exécutée. Voir les exemples ci-dessous pour savoir quels paramètres vous pouvez définir.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Vous recevez cette information en raison d'une tentative infructueuse de connexion à SUPLA-CLOUD en utilisant votre adresse e-mail.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: C’est l’étape finale de la suppression de votre compte. Le fait de remplir et d’approuver le formulaire entraînera la suppression irréversible de vos données.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: C’est la dernière photo envoyée depuis l’appareil. Sélectionnez précisément la zone où les chiffres du compteur sont visibles.
