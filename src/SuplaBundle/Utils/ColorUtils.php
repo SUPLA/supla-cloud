@@ -101,6 +101,9 @@ final class ColorUtils {
         if ($hex[1] == 'x') {
             $hex = substr($hex, 2);
         }
+        if ($hex[0] == '#') {
+            $hex = substr($hex, 1);
+        }
         $hex = [$hex[0] . $hex[1], $hex[2] . $hex[3], $hex[4] . $hex[5]];
         [$R, $G, $B] = array_map(function ($part) {
             return hexdec($part) / 255;

@@ -169,7 +169,12 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     public function execute(ActionableSubject $subject, array $actionParams = []) {
         $color = -1;
         if (isset($actionParams['color'])) {
-            $color = $actionParams['color'] === 'random' ? 'random' : ColorUtils::hexToDec($actionParams['color']);
+            if ($actionParams['color'] === 'random') {
+                $color = 'random';
+            } else {
+                [$h, $s,] = ColorUtils::hexToHsv($actionParams['color']);
+                $color = ColorUtils::hsvToDec([$h, $s, 100]);
+            }
         }
         $colorBrightness = $actionParams['color_brightness'] ?? -1;
         $brightness = $actionParams['brightness'] ?? -1;
