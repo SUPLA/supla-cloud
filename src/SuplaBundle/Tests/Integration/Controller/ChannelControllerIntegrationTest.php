@@ -310,7 +310,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
                 ['color' => 0xFF00FF, 'color_brightness' => 58, 'brightness' => 42]],
             'rgb2' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,-1,0,-1,0,-1', ['color' => '0xFF00FF', 'brightness' => 0]],
             'rgb3' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,-1,0,-1,0,-1', ['color' => 0xFF00FF, 'brightness' => 0]],
-            'rgb4' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,11141290,-1,0,-1,0,-1', ['color' => '0xAA00AA', 'brightness' => 0]],
+            'rgb4' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,-1,0,-1,0,-1', ['color' => '0xAA00AA', 'brightness' => 0]],
             'rgb5' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,-1,0,-1',
                 ['color' => '0xFF00FF', 'color_brightness' => 58, 'brightness' => 42]],
             'rgb6' => [5, 'set-rgbw-parameters', 'SET-RGBW-VALUE:1,1,5,16711935,58,42,1,0,-1',

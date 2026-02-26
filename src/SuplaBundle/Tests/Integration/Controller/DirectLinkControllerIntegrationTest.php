@@ -489,7 +489,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
             . '/set-rgbw-parameters?hsv[saturation]=66&hsv[value]=67&hsv[hue]=100&brightness=55&white_temperature=22');
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,4,6335290,67,55,-1,0,22');
+        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,4,9437015,67,55,-1,0,22');
     }
 
     public function testExecutingDirectLinkWithRgbwCommand() {
