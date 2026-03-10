@@ -39,6 +39,7 @@
       editingHex.value = false;
       hexFieldValue.value = hexFieldUserEdit.value;
       emit('onNewBrightness', Math.round(colorPicker.color.hsv.v));
+      colorPicker.color.hsv = {...colorPicker.color.hsv, v: props.brightness !== undefined ? props.brightness : 100};
     }
   };
 

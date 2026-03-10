@@ -10,7 +10,7 @@
         <ColorBrightnessColorpicker v-if="colorBrightnessOpened" v-model="colorBrightness" />
       </AccordionItem>
       <AccordionItem v-if="hasColor && shouldDisplayColor" title-i18n="Color" name="color" :iconOpened="faCheckCircle">
-        <ColorColorpicker v-if="rgbOpened" v-model="rgb" @onNewBrightness="model.color_brightness = $event" />
+        <ColorColorpicker v-if="rgbOpened" v-model="rgb" />
       </AccordionItem>
       <AccordionItem v-if="hasBrightness && shouldDisplayBrightness" title-i18n="White brightness" name="brightness" :iconOpened="faCheckCircle">
         <ColorBrightnessColorpicker v-if="brightnessOpened" v-model="brightness" />
