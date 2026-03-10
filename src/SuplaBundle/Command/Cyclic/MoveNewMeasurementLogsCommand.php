@@ -18,7 +18,7 @@ class MoveNewMeasurementLogsCommand extends AbstractCyclicCommand {
         $this
             ->setName('supla:cyclic:move-new-measurement-logs')
             ->setDescription('Copies new measurement logs from MariaDB to TSDB if exist.')
-            ->addOption('batch-size', null, InputOption::VALUE_REQUIRED, 'Number of records to process in one batch', 100)
+            ->addOption('batch-size', null, InputOption::VALUE_REQUIRED, 'Number of records to process in one batch', 500)
             ->addOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for the script', '2G')
             ->setHidden(true);
     }
@@ -68,6 +68,6 @@ class MoveNewMeasurementLogsCommand extends AbstractCyclicCommand {
     }
 
     protected function getIntervalInMinutes(): int {
-        return 60;
+        return 5;
     }
 }
