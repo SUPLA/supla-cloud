@@ -7,10 +7,10 @@
     </div>
     <AccordionRoot multiple v-model="openedSections" :disabled="disabled || rgbwCommand !== 'NOT_SET'">
       <AccordionItem v-if="hasColor && shouldDisplayColorBrightness" title-i18n="Color brightness" name="colorBrightness" :iconOpened="faCheckCircle">
-        <ColorBrightnessColorpicker v-if="colorBrightnessOpened" v-model="colorBrightness" :color="rgb" />
+        <ColorBrightnessColorpicker v-if="colorBrightnessOpened" v-model="colorBrightness" />
       </AccordionItem>
       <AccordionItem v-if="hasColor && shouldDisplayColor" title-i18n="Color" name="color" :iconOpened="faCheckCircle">
-        <ColorColorpicker v-if="rgbOpened" v-model="rgb" :brightness="colorBrightness" @onNewBrightness="model.color_brightness = $event" />
+        <ColorColorpicker v-if="rgbOpened" v-model="rgb" @onNewBrightness="model.color_brightness = $event" />
       </AccordionItem>
       <AccordionItem v-if="hasBrightness && shouldDisplayBrightness" title-i18n="White brightness" name="brightness" :iconOpened="faCheckCircle">
         <ColorBrightnessColorpicker v-if="brightnessOpened" v-model="brightness" />
