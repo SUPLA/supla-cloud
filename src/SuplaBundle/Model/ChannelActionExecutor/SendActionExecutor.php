@@ -67,4 +67,15 @@ class SendActionExecutor extends SingleChannelActionExecutor {
         }, $actionParams['accessIds']);
         return $actionParams;
     }
+
+    public function transformActionParamsForApi(ActionableSubject $subject, array $actionParams): array {
+        if ($subject instanceof PushNotification) {
+            return [
+                'title' => $subject->getTitle(),
+                'body' => $subject->getBody(),
+                'accessIds' => $subject->getAccessIds()->map(fn($aid) => $aid->getId())->toArray(),
+            ];
+        }
+        return parent::transformActionParamsForApi($subject, $actionParams);
+    }
 }

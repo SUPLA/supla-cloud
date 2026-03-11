@@ -22,8 +22,7 @@ use SuplaBundle\Entity\Main\ValueBasedTrigger;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 
 trait ActionParamSerializer {
-    /** @var ChannelActionExecutor */
-    private $channelActionExecutor;
+    private ChannelActionExecutor $channelActionExecutor;
 
     /** @required */
     public function setChannelActionExecutor(ChannelActionExecutor $channelActionExecutor): void {
@@ -32,12 +31,13 @@ trait ActionParamSerializer {
 
     /** @param SceneOperation|ValueBasedTrigger $entity */
     protected function transformActionParam(array &$normalized, $entity) {
-        if (isset($normalized['actionParam']) && $normalized['actionParam']) {
-            $normalized['actionParam'] = $this->channelActionExecutor->transformActionParamsForApi(
+        if (array_key_exists('actionParam', $normalized)) {
+            $ap = $this->channelActionExecutor->transformActionParamsForApi(
                 $entity->getSubject(),
                 $entity->getAction(),
-                $entity->getActionParam()
+                $entity->getActionParam() ?: [],
             );
+            $normalized['actionParam'] = $ap ?: null;
         }
     }
 }

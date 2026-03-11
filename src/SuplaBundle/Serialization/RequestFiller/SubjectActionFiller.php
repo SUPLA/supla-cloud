@@ -62,7 +62,7 @@ class SubjectActionFiller {
             $actionParam
         );
         $notification->initFromValidatedActionParams($actionParam, $this->aidRepository);
-        return [$notification, ChannelFunctionAction::SEND(), $actionParam];
+        return [$notification, ChannelFunctionAction::SEND(), []];
     }
 
     private function fetchExistingSubject(User $user, array $data) {

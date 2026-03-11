@@ -215,4 +215,16 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->thermometer->getId(), $notification->getChannel()->getId());
         $this->assertNull($this->getEntityManager()->find(PushNotification::class, $vbt['subjectId']));
     }
+
+    /** @depends testCreatingReactionWithNotification */
+    public function testReadingReactionWithNotification(array $vbt) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$this->thermometer->getId()}/reactions/{$vbt['id']}");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertIsArray($content['actionParam']);
+        $this->assertArrayHasKey('body', $content['actionParam']);
+        $this->assertStringContainsString('Test', $content['actionParam']['body']);
+    }
 }
