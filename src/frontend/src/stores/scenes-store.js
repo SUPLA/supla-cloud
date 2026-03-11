@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia';
 import {scenesApi} from '@/api/scenes-api.js';
-import {useFetchList} from '@/stores/index.js';
+import {useEnsureStoreLoaded, useFetchList} from '@/stores/index.js';
 
 export const useScenesStore = defineStore('scenes', () => {
   const {all, ids, list, ready, updateOne, $reset, fetchAll} = useFetchList(scenesApi);
@@ -14,3 +14,8 @@ export const useScenesStore = defineStore('scenes', () => {
 
   return {all, ids, list, ready, fetchOne, $reset, fetchAll};
 });
+
+export function useScenes(options) {
+  const {store} = useEnsureStoreLoaded(useScenesStore(), options);
+  return store;
+}

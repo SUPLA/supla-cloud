@@ -107,7 +107,7 @@ export function useEnsureStoreLoaded(store, options = {}) {
 
   if (immediate) {
     onMounted(() => {
-      if (store.ready) return;
+      if (store.ready && !force) return;
       ensure();
     });
   }

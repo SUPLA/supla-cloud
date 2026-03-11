@@ -18,13 +18,14 @@
   import {storeToRefs} from 'pinia';
   import {useChannelsStore} from '@/stores/channels-store.js';
   import ChannelFunction from '@/common/enums/channel-function.js';
-  import {useReactionsStore} from '@/stores/reactions-store.js';
+  import {useReactions} from '@/stores/reactions-store.js';
   import {useAccessIds} from '@/stores/access-ids-store.js';
 
   const props = defineProps({model: Object});
 
   const {all: channels} = storeToRefs(useChannelsStore());
   const {all: accessIds} = storeToRefs(useAccessIds());
+  const {all: reactions} = storeToRefs(useReactions());
 
   const notificationTypeLabels = {
     scene: 'Scene notification', // i18n
@@ -32,6 +33,7 @@
     reaction: 'Reaction notification', // i18n
     actionTrigger: 'Action trigger notification', // i18n
     channel: 'Channel notification', // i18n
+    unknown: '',
   };
 
   const notificationType = computed(() => {
@@ -41,10 +43,11 @@
       return 'device';
     } else if (props.model.subjectType === 'reaction') {
       return 'reaction';
-    } else {
+    } else if (channels.value[props.model.subjectId]) {
       const channel = channels.value[props.model.subjectId];
-      return channel.functionId === ChannelFunction.ACTION_TRIGGER ? 'actionTrigger' : 'channel';
+      return channel?.functionId === ChannelFunction.ACTION_TRIGGER ? 'actionTrigger' : 'channel';
     }
+    return 'unknown';
   });
 
   const linkSpec = computed(() => {
@@ -54,8 +57,8 @@
       case 'device':
         return {name: 'device.notifications', params: {id: props.model.subjectId}};
       case 'reaction': {
-        const reaction = useReactionsStore().all[props.model.subjectId];
-        return {name: 'channel.reactions.details', params: {id: reaction.owningChannelId, reactionId: props.model.subjectId}};
+        const reaction = reactions.value[props.model.subjectId];
+        return reaction ? {name: 'channel.reactions.details', params: {id: reaction.owningChannelId, reactionId: props.model.subjectId}} : {};
       }
       case 'actionTrigger': {
         const channel = channels.value[props.model.subjectId];
@@ -65,8 +68,10 @@
           return {name: 'channel.actionTriggers', params: {id: props.model.subjectId}};
         }
       }
-      default:
+      case 'channel':
         return {name: 'channel.notifications', params: {id: props.model.subjectId}};
+      default:
+        return {};
     }
   });
 </script>

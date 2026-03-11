@@ -182,7 +182,7 @@ export default [
   },
   {
     path: '/notifications',
-    component: () => import('@/notifications/notifications-list.vue'),
+    component: () => import('@/notifications/notifications-page.vue'),
     name: 'notifications',
   },
   {
