@@ -23,21 +23,19 @@
       </div>
     </transition-expand>
     <div class="variable-field-container">
-      <div ref="preview" class="preview" v-html="modelHighlighted"></div>
+      <!--      <div ref="preview" class="preview" v-html="modelHighlighted"></div>-->
       <Mentionable :keys="['{']" :items="allVariables" :limit="7" insert-space>
-        <input
+        <textarea
           ref="input"
           v-model="model"
-          type="text"
           class="form-control"
           :disabled="disabled"
-          maxlength="100"
-          autocomplete="off"
+          :maxlength="maxlength"
           @input="model = $event.currentTarget.value"
           @scroll="syncScroll()"
           @keyup="syncScroll()"
           @click="syncScroll()"
-        />
+        ></textarea>
         <template #no-result>
           <div>{{ $t('No results') }}</div>
         </template>
@@ -64,6 +62,10 @@
       value: String,
       disabled: Boolean,
       subject: Object,
+      maxlength: {
+        type: Number,
+        default: 200,
+      },
     },
     data() {
       return {
@@ -257,8 +259,8 @@
   .variable-field-container {
     position: relative;
     .form-control {
-      color: transparent;
-      background: transparent;
+      //color: transparent;
+      //background: transparent;
       caret-color: black;
     }
     .preview {

@@ -87,13 +87,13 @@ class PushNotification implements ActionableSubject {
     private $managedByDevice = false;
 
     /**
-     * @ORM\Column(name="title", type="string", length=100, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
+     * @ORM\Column(name="title", type="string", length=255, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      * @Groups({"basic"})
      */
     private $title;
 
     /**
-     * @ORM\Column(name="body", type="string", length=255, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
+     * @ORM\Column(name="body", type="string", length=1024, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      * @Groups({"basic"})
      */
     private $body;
@@ -146,7 +146,7 @@ class PushNotification implements ActionableSubject {
     }
 
     public function setTitle(string $title): void {
-        Assertion::maxLength($title, 100);
+        Assertion::maxLength($title, 200);
         $this->title = $title;
     }
 
@@ -155,7 +155,7 @@ class PushNotification implements ActionableSubject {
     }
 
     public function setBody(string $body): void {
-        Assertion::maxLength($body, 255);
+        Assertion::maxLength($body, 500);
         $this->body = $body;
     }
 
