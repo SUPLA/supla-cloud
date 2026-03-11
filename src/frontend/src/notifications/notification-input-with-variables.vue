@@ -17,14 +17,14 @@
         </div>
         <ul>
           <li v-for="item in allVariables" :key="item.value">
-            {{ item.label }} <code class="pointer" @click="insertVariable(item)">{{ '{' + item.value }}</code>
+            {{ item.label }} <code class="pointer" @click="insertVariable(item)">{{ '{{' + item.value }}</code>
           </li>
         </ul>
       </div>
     </transition-expand>
     <div class="variable-field-container">
       <!--      <div ref="preview" class="preview" v-html="modelHighlighted"></div>-->
-      <Mentionable :keys="['{']" :items="allVariables" :limit="7" insert-space>
+      <Mentionable :keys="['{{']" :items="allVariables" :limit="7" insert-space>
         <textarea
           ref="input"
           v-model="model"
@@ -41,7 +41,7 @@
         </template>
         <template #item="{item}">
           <div class="variable-hint">
-            {{ item.label }} <code>{{ '{' + item.value }}</code>
+            {{ item.label }} <code>{{ '{{' + item.value }}</code>
           </div>
         </template>
       </Mentionable>
@@ -89,13 +89,13 @@
       subjectVariables() {
         switch (this.subject?.functionId) {
           case ChannelFunction.THERMOMETER:
-            return [{label: this.$t('Temperature'), value: '{temperature}'}];
+            return [{label: this.$t('Temperature'), value: '{{temperature}}'}];
           case ChannelFunction.HUMIDITY:
-            return [{label: this.$t('Humidity'), value: '{humidity}'}];
+            return [{label: this.$t('Humidity'), value: '{{humidity}}'}];
           case ChannelFunction.HUMIDITYANDTEMPERATURE:
             return [
-              {label: this.$t('Temperature'), value: '{temperature}'},
-              {label: this.$t('Humidity'), value: '{humidity}'},
+              {label: this.$t('Temperature'), value: '{{temperature}}'},
+              {label: this.$t('Humidity'), value: '{{humidity}}'},
             ];
           case ChannelFunction.ELECTRICITYMETER: {
             const enabledPhases = this.subject.config.enabledPhases || [1, 2, 3];
@@ -105,65 +105,65 @@
             const variables = [];
             variables.push({
               label: this.$t('Voltage') + (onePhase ? '' : ` (${this.$t('average')})`),
-              value: '{voltage_avg}',
+              value: '{{voltage_avg}}',
             });
             variables.push({
               label: this.$t('Current') + (onePhase ? '' : ` (${this.$t('sum')})`),
-              value: '{current_sum}',
+              value: '{{current_sum}}',
             });
             variables.push({
               label: this.$t('Power active') + (onePhase ? '' : ` (${this.$t('sum')})`),
-              value: '{power_active_sum}',
+              value: '{{power_active_sum}}',
             });
             variables.push({
               label: this.$t('Power reactive') + (onePhase ? '' : ` (${this.$t('sum')})`),
-              value: '{power_reactive_sum}',
+              value: '{{power_reactive_sum}}',
             });
             variables.push({
               label: this.$t('Power apparent') + (onePhase ? '' : ` (${this.$t('sum')})`),
-              value: '{power_apparent_sum}',
+              value: '{{power_apparent_sum}}',
             });
             if (availableModes.includes('forwardActiveEnergy')) {
               variables.push({
                 label: this.$t('Forward active energy') + (onePhase ? '' : ` (${this.$t('sum')})`),
-                value: '{fae_sum}',
+                value: '{{fae_sum}}',
               });
             }
             if (availableModes.includes('reverseActiveEnergy')) {
               variables.push({
                 label: this.$t('Reverse active energy') + (onePhase ? '' : ` (${this.$t('sum')})`),
-                value: '{rae_sum}',
+                value: '{{rae_sum}}',
               });
             }
             if (!onePhase) {
               enabledPhases.forEach((phaseNo) =>
                 variables.push({
                   label: `${this.$t('Voltage')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                  value: `{voltage${phaseNo}}`,
+                  value: `{{voltage${phaseNo}}}`,
                 })
               );
               enabledPhases.forEach((phaseNo) =>
                 variables.push({
                   label: `${this.$t('Current')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                  value: `{current${phaseNo}}`,
+                  value: `{{current${phaseNo}}}`,
                 })
               );
               enabledPhases.forEach((phaseNo) =>
                 variables.push({
                   label: `${this.$t('Power active')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                  value: `{power_active${phaseNo}}`,
+                  value: `{{power_active${phaseNo}}}`,
                 })
               );
               enabledPhases.forEach((phaseNo) =>
                 variables.push({
                   label: `${this.$t('Power reactive')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                  value: `{power_reactive${phaseNo}}`,
+                  value: `{{power_reactive${phaseNo}}}`,
                 })
               );
               enabledPhases.forEach((phaseNo) =>
                 variables.push({
                   label: `${this.$t('Power apparent')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                  value: `{power_apparent${phaseNo}}`,
+                  value: `{{power_apparent${phaseNo}}}`,
                 })
               );
             }
@@ -171,14 +171,14 @@
               if (availableModes.includes('forwardActiveEnergyBalanced')) {
                 variables.push({
                   label: this.$t('Forward active energy balanced'),
-                  value: '{fae_balanced}',
+                  value: '{{fae_balanced}}',
                 });
               }
               if (!onePhase) {
                 enabledPhases.forEach((phaseNo) =>
                   variables.push({
                     label: `${this.$t('Forward active energy')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                    value: `{fae${phaseNo}}`,
+                    value: `{{fae${phaseNo}}}`,
                   })
                 );
               }
@@ -187,14 +187,14 @@
               if (availableModes.includes('reverseActiveEnergyBalanced')) {
                 variables.push({
                   label: this.$t('Reverse active energy balanced'),
-                  value: '{rae_balanced}',
+                  value: '{{rae_balanced}}',
                 });
               }
               if (!onePhase) {
                 enabledPhases.forEach((phaseNo) =>
                   variables.push({
                     label: `${this.$t('Reverse active energy')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                    value: `{rae${phaseNo}}`,
+                    value: `{{rae${phaseNo}}}`,
                   })
                 );
               }
@@ -208,22 +208,22 @@
       allVariables() {
         return [
           ...this.subjectVariables,
-          {label: this.$t('Date'), value: '{date}'},
-          {label: this.$t('Time'), value: '{time}'},
-          {label: this.$t('Date and time'), value: '{date_time}'},
+          {label: this.$t('Date'), value: '{{date}}'},
+          {label: this.$t('Time'), value: '{{time}}'},
+          {label: this.$t('Date and time'), value: '{{date_time}}'},
         ].map((v) => ({
           label: v.label,
-          value: v.value.substring(1),
+          value: v.value.substring(2),
           searchText: `${v.label} ${v.value}`,
         }));
       },
     },
     methods: {
       insertVariable(variable) {
-        this.model = (this.model.substring(0, this.lastCaretPosition) + '{' + variable.value + this.model.substring(this.lastCaretPosition)).substring(0, 100);
+        this.model = (this.model.substring(0, this.lastCaretPosition) + '{{' + variable.value + this.model.substring(this.lastCaretPosition)).substring(0, 100);
         this.$nextTick(() => {
           this.$refs.input.focus();
-          const caretPosition = Math.min(this.lastCaretPosition + variable.value.length + 1, 100);
+          const caretPosition = Math.min(this.lastCaretPosition + variable.value.length + 2, 100);
           this.$refs.input.selectionStart = caretPosition;
           this.$refs.input.selectionEnd = caretPosition;
           this.lastCaretPosition = caretPosition;
