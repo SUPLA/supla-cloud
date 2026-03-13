@@ -115,7 +115,7 @@ class ActionTriggerParamsTranslator extends UserConfigTranslator {
     private function getActions(HasUserConfig $channel): array {
         $triggers = $channel->getUserConfig()['actions'] ?? [];
         return array_map(function (array $triggerDef) use ($channel) {
-            if ($triggerDef['subjectId']) {
+            if ($triggerDef['subjectId'] ?? false) {
                 $subject = $this->subjectRepository->findForUser($channel->getUser(), $triggerDef['subjectType'], $triggerDef['subjectId']);
                 $ap = $this->channelActionExecutor->transformActionParamsForApi(
                     $subject,
