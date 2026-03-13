@@ -160,13 +160,7 @@ class CopyMeasurementLogsCommand extends Command {
         $columns = array_keys($rows[0]);
         $uniqueColumns = self::getLogPrimaryKeyColumns($rows[0]);
 
-        $values = array_map(function (array $row) use ($columns) {
-            $singleRow = [];
-            foreach ($columns as $column) {
-                $singleRow[] = "'" . $row[$column] . "'";
-            }
-            return '(' . implode(',', $singleRow) . ')';
-        }, $rows);
+        $placeholders = '(' . implode(',', array_fill(0, count($columns), '?')) . ')';
 
         $columns = array_map(fn($col) => '"' . $col . '"', $columns);
 
@@ -174,10 +168,17 @@ class CopyMeasurementLogsCommand extends Command {
             'INSERT INTO %s (%s) VALUES %s ON CONFLICT (%s) DO NOTHING;',
             $tableName,
             implode(',', $columns),
-            implode(',', $values),
+            implode(',', array_fill(0, count($rows), $placeholders)),
             implode(',', $uniqueColumns),
         );
 
-        $emTsdb->getConnection()->executeStatement($sql);
+        $values = [];
+        foreach ($rows as $row) {
+            foreach ($row as $value) {
+                $values[] = $value;
+            }
+        }
+
+        $emTsdb->getConnection()->executeStatement($sql, $values);
     }
 }
