@@ -262,6 +262,7 @@
       //color: transparent;
       //background: transparent;
       caret-color: black;
+      resize: vertical;
     }
     .preview {
       position: absolute;
