@@ -12,7 +12,11 @@ export const useScenesStore = defineStore('scenes', () => {
     });
   };
 
-  return {all, ids, list, ready, fetchOne, $reset, fetchAll};
+  function listForSubject(subject) {
+    return list.value.filter((link) => link.subjectId === subject.id && link.subjectType === subject.ownSubjectType);
+  }
+
+  return {all, ids, list, ready, listForSubject, fetchOne, $reset, fetchAll};
 });
 
 export function useScenes(options) {

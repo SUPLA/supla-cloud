@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TransitionGroup name="list" tag="div" class="scene-timeline">
+    <TransitionGroup :name="transitionName" tag="div" class="scene-timeline">
       <div v-for="operation of operations" :key="operation.id" :class="['timeline-item', {'timeline-item-delay': !operation.subject}]">
         <template v-if="operation.subject && operation.subjectType !== 'notification'">
           <div class="timeline-info">
@@ -167,10 +167,14 @@
       return {
         lastValue: undefined,
         operations: [],
+        isMounted: false,
       };
     },
     mounted() {
       this.buildOperations();
+      setTimeout(() => {
+        this.isMounted = true;
+      }, 100);
     },
     methods: {
       faTrash() {
@@ -295,6 +299,9 @@
     computed: {
       notificationsEnabled() {
         return this.frontendConfig.notificationsEnabled;
+      },
+      transitionName() {
+        return this.isMounted ? 'list' : '';
       },
       ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
     },

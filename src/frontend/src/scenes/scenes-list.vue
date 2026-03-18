@@ -1,24 +1,54 @@
 <template>
-  <list-page
-    header-i18n="Scenes"
-    :tile="SceneTile"
-    :filters="SceneFilters"
-    endpoint="scenes"
-    create-new-label-i18n="Create new scene"
-    :limit="userData.limits.scene"
-    details-route="scene"
-    :subject="subject"
-  ></list-page>
+  <SquareLinksList :filters-def="filtersDef" :items="filteredItems" :total="items.length" v-model:filters="filters">
+    <template #item="{item}">
+      <SceneTile :model="item" />
+    </template>
+  </SquareLinksList>
 </template>
 
 <script setup>
-  import SceneTile from './scene-tile.vue';
-  import SceneFilters from './scene-filters.vue';
-  import ListPage from '../common/pages/list-page.vue';
-  import {storeToRefs} from 'pinia';
-  import {useCurrentUserStore} from '@/stores/current-user-store';
+  import {computed, ref} from 'vue';
+  import latinize from 'latinize';
+  import SquareLinksList from '@/common/list/square-links-list.vue';
+  import SceneTile from '@/scenes/scene-tile.vue';
 
-  defineProps({subject: Object});
+  const props = defineProps({items: Array});
 
-  const {userData} = storeToRefs(useCurrentUserStore());
+  const filters = ref({
+    sort: 'caption',
+    enabled: 'all',
+    search: '',
+  });
+
+  const filtersDef = ref({
+    sort: [
+      {label: 'A-Z', value: 'caption'},
+      {label: 'ID', value: 'id'},
+    ],
+    enabled: [
+      {label: 'All', value: 'all'},
+      {label: 'Enabled', value: true},
+      {label: 'Disabled', value: false},
+    ],
+  });
+
+  const filteredItems = computed(() => {
+    const f = filters.value;
+    let arr = props.items;
+    if (f.enabled !== 'all') {
+      arr = arr.filter((i) => i.enabled === f.enabled);
+    }
+    const q = latinize(f.search.trim().toLowerCase());
+    if (q) {
+      const searchString = (item) => latinize([item.id, item.caption].join(' ')).toLowerCase();
+      arr = arr.filter((i) => searchString(i).includes(q));
+    }
+    const out = [...arr];
+    if (f.sort === 'caption') {
+      out.sort((a, b) => (a.caption ?? '').localeCompare(b.caption ?? ''));
+    } else {
+      out.sort((a, b) => +a.id - +b.id);
+    }
+    return out;
+  });
 </script>

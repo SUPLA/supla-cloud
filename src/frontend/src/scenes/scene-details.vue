@@ -222,13 +222,12 @@
         if (this.isNew) {
           api
             .post('scenes', toSend)
-            .then((response) => this.$emit('add', response.body))
+            .then(({body}) => this.$router.push({name: 'scene', params: {id: body.id}}))
             .finally(() => (this.loading = false));
         } else {
           api
             .put('scenes/' + this.scene.id + '?include=operations,subject', toSend)
             .then((response) => {
-              this.$emit('update', response.body);
               this.scene.operations = response.body.operations;
               this.displayValidationErrors = false;
             })
@@ -242,7 +241,7 @@
           .delete_(`scenes/${this.scene.id}?safe=${safe ? 1 : 0}`, {skipErrorHandler: [409]})
           .then(() => {
             this.scene = undefined;
-            this.$emit('delete');
+            return this.$router.push({name: 'scenes'});
           })
           .catch(({body, status}) => {
             dialog?.close();

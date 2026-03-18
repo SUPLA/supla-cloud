@@ -127,7 +127,7 @@ export default [
       },
       {
         path: 'scenes',
-        component: () => import('@/scenes/scenes-list.vue'),
+        component: () => import('@/scenes/scenes-list-for-subject.vue'),
         name: 'channel.scenes',
       },
       {
@@ -189,14 +189,12 @@ export default [
     path: '/scenes',
     component: () => import('@/scenes/scenes-page.vue'),
     name: 'scenes',
-    children: [
-      {
-        path: ':id',
-        component: () => import('@/scenes/scene-details.vue'),
-        name: 'scene',
-        props: true,
-      },
-    ],
+  },
+  {
+    path: '/scenes/:id',
+    component: () => import('@/scenes/scene-details.vue'),
+    name: 'scene',
+    props: true,
   },
   {
     path: '/schedules',

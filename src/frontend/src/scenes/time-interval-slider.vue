@@ -9,7 +9,7 @@
       tooltip-placement="top"
       :tooltip-formatter="formattedValue"
     ></FormSlider>
-    <div class="d-flex">
+    <div class="d-flex justify-content-end">
       <a class="mx-1" @click.stop="less()"><fa :icon="faMinus()" /></a>
       <a class="mx-1" @click.stop="more()"><fa :icon="faPlus()" /></a>
       <slot name="buttons"></slot>

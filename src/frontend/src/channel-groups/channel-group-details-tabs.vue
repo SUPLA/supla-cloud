@@ -16,7 +16,7 @@
       <schedules-list :subject="channelGroup"></schedules-list>
     </div>
     <div v-if="currentTab == 'scenes'">
-      <scenes-list :subject="channelGroup"></scenes-list>
+      <scenes-list-for-subject :subject="channelGroup"></scenes-list-for-subject>
     </div>
     <div v-if="currentTab == 'directLinks'">
       <DirectLinksListForSubject :subject="channelGroup" />
@@ -29,9 +29,10 @@
   import ScenesList from '../scenes/scenes-list.vue';
   import ChannelFunction from '@/common/enums/channel-function';
   import DirectLinksListForSubject from '@/direct-links/direct-links-list-for-subject.vue';
+  import ScenesListForSubject from '@/scenes/scenes-list-for-subject.vue';
 
   export default {
-    components: {DirectLinksListForSubject, ScenesList, SchedulesList},
+    components: {ScenesListForSubject, DirectLinksListForSubject, ScenesList, SchedulesList},
     props: ['channelGroup'],
     data() {
       return {
