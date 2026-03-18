@@ -4,6 +4,7 @@ import ReactionConditionElectricitymeter from '@/channels/reactions/params/react
 import {isEqual, uniq} from 'lodash';
 import {measurementUnit} from '@/channels/channel-helpers';
 import {i18n} from '@/locale';
+import ReactionConditionDurationWrapper from '@/channels/reactions/params/reaction-condition-duration-wrapper.vue';
 
 const ChannelFunctionTriggers = {
   [ChannelFunction.HUMIDITYANDTEMPERATURE]: [
@@ -439,8 +440,9 @@ const ChannelFunctionTriggers = {
   ],
   [ChannelFunction.ELECTRICITYMETER]: [
     {
-      test: ({on_change_to = {}}) => on_change_to.name,
+      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
       component: ReactionConditionElectricitymeter,
+      caption: () => 'When the measurements change', // i18n
       props: {
         labelI18n: (fieldName) => {
           if (fieldName.startsWith('voltage')) {
@@ -884,11 +886,13 @@ const REACTIONS = [
     caption: () => 'When the device connects', // i18n
     def: () => ({on_change_to: {eq: '1', name: 'connected'}}),
     canBeSetForChannel: () => true,
+    props: {defaultDuration: 10},
   },
   {
     caption: () => 'When the device disconnects', // i18n
     def: () => ({on_change_to: {eq: '0', name: 'connected'}}),
     canBeSetForChannel: () => true,
+    props: {defaultDuration: 10},
   },
 ];
 
@@ -915,14 +919,26 @@ export function getTriggerDefinitionsForChannel(channel) {
   const reactions = [...(ChannelFunctionTriggers[channel.functionId] || []), ...REACTIONS]
     .filter((trigger) => !trigger.canBeSetForChannel || trigger.canBeSetForChannel(channel))
     .filter((trigger) => !trigger.captions || trigger.captions[channel.functionId]);
-  return reactions.map((def) => {
-    if (def.captions && !def.caption) {
-      def.caption = function (channel) {
-        return this.captions[channel.functionId];
-      };
-    }
-    return def;
-  });
+  return reactions
+    .map((def) => {
+      if (def.captions && !def.caption) {
+        def.caption = function (channel) {
+          return this.captions[channel.functionId];
+        };
+      }
+      return def;
+    })
+    .map((def) => {
+      if (def.def) {
+        const triggerDef = def.def();
+        if (triggerDef.on_change_to) {
+          def.test = ({on_change_to = {}}) => on_change_to.name === triggerDef.on_change_to.name && on_change_to.eq === triggerDef.on_change_to.eq;
+          def.component = ReactionConditionDurationWrapper;
+          def.props = {...(def.props || {}), field: triggerDef.on_change_to.name, eq: triggerDef.on_change_to.eq};
+        }
+      }
+      return def;
+    });
 }
 
 export function findTriggerDefinition(channel, trigger) {

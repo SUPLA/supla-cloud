@@ -6,7 +6,7 @@
   const {
     name = 'collapse',
     dimension = 'height',
-    duration = 200,
+    duration = 150,
     easing = 'ease-in-out',
   } = defineProps({
     name: String,

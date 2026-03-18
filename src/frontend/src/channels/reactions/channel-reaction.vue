@@ -22,7 +22,7 @@
             {{ $t('Please select a condition') }}
           </div>
         </transition-expand>
-        <ChannelReactionConditionChooser v-model="trigger" :subject="owningChannel" class="mb-3" @input="onChanged()" />
+        <ChannelReactionConditionChooser v-model="trigger" :subject="owningChannel" class="mb-3" @update:modelValue="onChanged()" />
         <div class="or-hr">{{ $t('THEN') }}</div>
         <transition-expand>
           <div v-if="displayValidationErrors && (!action || !targetSubject)" class="alert alert-danger">

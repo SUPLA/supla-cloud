@@ -9,12 +9,10 @@
       tooltip-placement="top"
       :tooltip-formatter="formattedValue"
     ></FormSlider>
-    <div class="pull-right">
-      <div class="controls">
-        <a class="mx-1" @click="less()"><i class="glyphicon glyphicon-minus"></i></a>
-        <a class="mx-1" @click="more()"><i class="glyphicon glyphicon-plus"></i></a>
-        <slot name="buttons"></slot>
-      </div>
+    <div class="d-flex">
+      <a class="mx-1" @click.stop="less()"><fa :icon="faMinus()" /></a>
+      <a class="mx-1" @click.stop="more()"><fa :icon="faPlus()" /></a>
+      <slot name="buttons"></slot>
     </div>
   </div>
 </template>
@@ -22,6 +20,7 @@
 <script>
   import {prettyMilliseconds} from '../common/filters';
   import FormSlider from '@/common/form/FormSlider.vue';
+  import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
 
   export default {
     compatConfig: {
@@ -31,6 +30,7 @@
     props: {
       modelValue: Number,
       seconds: Boolean,
+      noFractions: Boolean,
       min: {
         type: Number,
         default: 0,
@@ -77,13 +77,21 @@
       },
     },
     mounted() {
+      this.possibleValues = this.possibleValues
+        .filter((v) => v >= this.min * this.multiplier && v <= this.max * this.multiplier)
+        .filter((v) => !this.noFractions || v % 1000 === 0);
       if (this.sliderValue > 0 && this.possibleValues.indexOf(this.sliderValue) === -1) {
         this.possibleValues.push(parseInt(this.sliderValue));
         this.possibleValues.sort((a, b) => a - b);
       }
-      this.possibleValues = this.possibleValues.filter((v) => v >= this.min * this.multiplier && v <= this.max * this.multiplier);
     },
     methods: {
+      faPlus() {
+        return faPlus;
+      },
+      faMinus() {
+        return faMinus;
+      },
       formattedValue(sliderValue = this.sliderValue) {
         return prettyMilliseconds(+sliderValue);
       },

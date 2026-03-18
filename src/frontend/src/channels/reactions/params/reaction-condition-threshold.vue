@@ -51,16 +51,23 @@
         <span v-if="unit(field, subject)" class="input-group-addon">{{ $t(unit(field, subject)) }}</span>
       </span>
     </div>
+    <div>
+      <ReactionConditionDuration v-model="duration" />
+    </div>
   </div>
 </template>
 
 <script>
   import SimpleDropdown from '@/common/gui/simple-dropdown.vue';
+  import ReactionConditionDuration from '@/channels/reactions/params/reaction-condition-duration.vue';
 
   export default {
-    components: {SimpleDropdown},
+    compatConfig: {
+      MODE: 3,
+    },
+    components: {ReactionConditionDuration, SimpleDropdown},
     props: {
-      value: Object,
+      modelValue: Object,
       subject: Object,
       field: String,
       operators: {
@@ -103,6 +110,10 @@
         type: Number,
         default: 20,
       },
+      defaultDurationSec: {
+        type: Number,
+        default: 0,
+      },
       disableResume: Boolean,
     },
     data() {
@@ -110,6 +121,7 @@
         operator: 'lt',
         threshold: this.defaultThreshold,
         resumeThreshold: this.defaultThreshold,
+        duration: 0,
       };
     },
     computed: {
@@ -118,10 +130,10 @@
       },
       onChangeTo: {
         get() {
-          return this.value?.on_change_to || {};
+          return this.modelValue?.on_change_to || {};
         },
         set(value) {
-          this.$emit('input', value ? {on_change_to: {...value, name: this.field}} : undefined);
+          this.$emit('update:modelValue', value ? {on_change_to: {...value, name: this.field, duration_sec: this.duration}} : undefined);
         },
       },
       resumeMin() {
@@ -148,6 +160,12 @@
       field() {
         this.updateModel();
       },
+      operator() {
+        this.updateModel();
+      },
+      duration() {
+        this.updateModel();
+      },
       defaultThreshold(currentValue, previousValue) {
         if (this.threshold == previousValue && (!this.resumeOperator || this.resumeThreshold == previousValue)) {
           this.threshold = currentValue;
@@ -160,10 +178,13 @@
           this.operator = this.operators[0];
         }
       },
+      modelValue() {
+        this.updateInternalState();
+      },
     },
     mounted() {
       this.updateInternalState();
-      if (!this.value) {
+      if (!this.modelValue) {
         this.updateModel();
       }
       if (!this.resumeThreshold) {
@@ -174,6 +195,7 @@
       updateInternalState() {
         this.operator = this.operators.find((op) => Object.hasOwn(this.onChangeTo, op)) || this.operators[0];
         this.threshold = Number.isFinite(this.onChangeTo[this.operator]) ? this.onChangeTo[this.operator] : this.defaultThreshold;
+        this.duration = Number.isFinite(this.onChangeTo?.duration_sec) ? this.onChangeTo.duration_sec : this.defaultDurationSec;
         const resume = this.onChangeTo.resume || {};
         this.resumeThreshold = Number.isFinite(resume[this.resumeOperator]) ? resume[this.resumeOperator] : this.defaultThreshold;
         if (this.valuesForDropdown.length && !this.valuesForDropdown.includes(this.threshold)) {
@@ -182,6 +204,7 @@
         }
       },
       updateModel(adjustResumeThreshold = false) {
+        console.log('updating model');
         if (adjustResumeThreshold && this.resumeOperator) {
           this.adjustResumeThreshold();
         }

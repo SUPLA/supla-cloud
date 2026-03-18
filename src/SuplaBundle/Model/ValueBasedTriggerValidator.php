@@ -2,6 +2,7 @@
 
 namespace SuplaBundle\Model;
 
+use Assert\Assert;
 use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\Main\IODeviceChannel;
@@ -310,7 +311,10 @@ class ValueBasedTriggerValidator {
         } elseif (isset($trigger['on_change_to'])) {
             Assertion::isArray($trigger['on_change_to'], 'on_change_to must be an object');
             $onChangeTo = $trigger['on_change_to'];
+            $extraKeys = array_diff_key($onChangeTo, array_flip(['lt', 'le', 'gt', 'ge', 'eq', 'ne', 'name', 'resume', 'duration_sec']));
+            Assertion::noContent(array_keys($extraKeys), 'Unknown trigger keys: ' . implode(', ', array_keys($extraKeys)));
             $this->validateFieldName($channel, $onChangeTo);
+            $this->validateDuration($onChangeTo);
             if (array_intersect_key($onChangeTo, array_flip(['lt', 'le', 'gt', 'ge']))) {
                 if (!isset($onChangeTo['name']) || !str_contains($onChangeTo['name'], 'battery')) {
                     Assertion::inArray($channel->getFunction()->getId(), self::THRESHOLD_SUPPORT, 'Threshold trigger unsupported for this function.');
@@ -433,6 +437,12 @@ class ValueBasedTriggerValidator {
                 ['hi', 'closed', 'on', 'lo', 'low', 'open', 'off', '1', '0'],
                 'Invalid comparison value: ' . var_export($onChangeTo[$operator], true)
             );
+        }
+    }
+
+    private function validateDuration(array $onChangeTo): void {
+        if (isset($onChangeTo['duration_sec'])) {
+            Assert::that($onChangeTo['duration_sec'])->integer()->greaterOrEqualThan(0)->lessOrEqualThan(3600);
         }
     }
 }

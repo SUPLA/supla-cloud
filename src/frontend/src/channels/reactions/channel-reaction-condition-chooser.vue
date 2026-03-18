@@ -5,7 +5,7 @@
         <div :class="['panel panel-default', {'panel-success': isSelected(possibleCondition)}]">
           <div v-if="possibleConditions.length > 1" class="panel-heading d-flex" @click="changeCondition(possibleCondition)">
             <a role="button" tabindex="0" class="text-inherit flex-grow-1" @keydown.enter.stop="changeCondition(possibleCondition)">
-              {{ $t(possibleCondition.caption(subject)) }}
+              {{ $t(possibleCondition?.caption(subject)) }}
             </a>
             <div>
               <fa v-if="isSelected(possibleCondition)" :icon="faCheck()" />
@@ -30,10 +30,13 @@
   import {faCheck} from '@fortawesome/free-solid-svg-icons';
 
   export default {
+    compatConfig: {
+      MODE: 3,
+    },
     components: {TransitionExpand},
     props: {
       subject: Object,
-      value: Object,
+      modelValue: Object,
     },
     data() {
       return {
@@ -43,10 +46,10 @@
     computed: {
       currentConditionJson: {
         get() {
-          return this.value;
+          return this.modelValue;
         },
         set(def) {
-          this.$emit('input', def);
+          this.$emit('update:modelValue', def);
         },
       },
       possibleConditions() {
@@ -54,15 +57,15 @@
       },
     },
     watch: {
-      value() {
-        if (this.value) {
-          this.currentCondition = findTriggerDefinition(this.subject, this.value);
+      modelValue() {
+        if (this.modelValue) {
+          this.currentCondition = findTriggerDefinition(this.subject, this.modelValue);
         }
       },
     },
     beforeMount() {
-      if (!this.currentCondition && this.value) {
-        this.currentCondition = findTriggerDefinition(this.subject, this.value);
+      if (!this.currentCondition && this.modelValue) {
+        this.currentCondition = findTriggerDefinition(this.subject, this.modelValue);
       }
       if (!this.currentCondition && this.possibleConditions.length === 1) {
         this.changeCondition(this.possibleConditions[0]);

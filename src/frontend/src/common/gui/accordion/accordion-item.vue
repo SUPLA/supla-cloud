@@ -1,5 +1,5 @@
 <script setup>
-  import {computed, inject} from 'vue';
+  import {computed, inject, watch} from 'vue';
   import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
   import TransitionExpand from '@/common/gui/transition-expand.vue';
 
@@ -13,6 +13,7 @@
       type: Object,
     },
   });
+  const model = defineModel({type: Boolean});
 
   const accordion = inject('accordion');
   if (!accordion) {
@@ -20,7 +21,36 @@
   }
 
   const isOpen = computed(() => accordion.openItems.value.includes(props.name));
+
+  const setOpen = (open) => {
+    if (open === isOpen.value) {
+      return;
+    }
+    accordion.toggleItem(props.name);
+  };
+
   const toggle = () => accordion.toggleItem(props.name);
+
+  watch(
+    isOpen,
+    (v) => {
+      if (model.value !== v) {
+        model.value = v;
+      }
+    },
+    {immediate: true}
+  );
+
+  watch(
+    model,
+    (v) => {
+      const next = !!v;
+      if (next !== isOpen.value) {
+        setOpen(next);
+      }
+    },
+    {immediate: true}
+  );
 </script>
 
 <script>

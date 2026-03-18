@@ -35,9 +35,12 @@
   import SimpleDropdown from '@/common/gui/simple-dropdown.vue';
 
   export default {
+    compatConfig: {
+      MODE: 3,
+    },
     components: {SimpleDropdown, TransitionExpand, ReactionConditionThreshold},
     props: {
-      value: Object,
+      modelValue: Object,
       subject: Object,
       unit: Function,
       labelI18n: Function,
@@ -80,10 +83,10 @@
       },
       trigger: {
         get() {
-          return this.value;
+          return this.modelValue;
         },
         set(value) {
-          this.$emit('input', value);
+          this.$emit('update:modelValue', value);
         },
       },
       fieldName() {
@@ -106,7 +109,7 @@
       },
     },
     watch: {
-      value() {
+      modelValue() {
         this.initFromValue();
       },
     },
@@ -115,8 +118,8 @@
     },
     methods: {
       initFromValue() {
-        if (this.value?.on_change_to) {
-          const name = this.value.on_change_to.name;
+        if (this.modelValue?.on_change_to) {
+          const name = this.modelValue.on_change_to.name;
           this.field = this.fields.find((f) => name === f.name);
           if (!this.field) {
             this.field = this.fields.find((f) => name.startsWith(f.name));
