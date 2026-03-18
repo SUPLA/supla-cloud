@@ -1,13 +1,10 @@
 import {config} from '@vue/test-utils';
-import '@/common/common-directives';
-import Vue from 'vue';
 
-Vue.config.external = {};
-
-config.mocks.$t = (key) => key;
-config.mocks.$http = {
-  get: () => Promise.resolve([]),
+config.global.mocks.$t = (key) => key;
+config.global.mocks.$http = {
+  get: () => Promise.resolve({data: []}),
 };
-config.stubs.fa = true;
-config.stubs['router-link'] = true;
-config.stubs['button-loading-dots'] = true;
+config.global.stubs.fa = true;
+config.global.stubs['router-link'] = true;
+config.global.stubs['button-loading-dots'] = true;
+config.global.stubs['transition-expand'] = true;
