@@ -1,36 +1,7 @@
 import ChannelFunction from '@/common/enums/channel-function';
-import {getTriggerDefinitionsForChannel, reactionTriggerCaption} from '@/channels/reactions/channel-function-triggers';
+import {reactionTriggerCaption} from '@/channels/reactions/channel-function-triggers';
 
 describe('ChannelFunctionTriggers', () => {
-  it('defines triggers for all functions', () => {
-    const functionsToSkip = [
-      ChannelFunction.UNSUPPORTED,
-      ChannelFunction.NONE,
-      ChannelFunction.SCENE,
-      ChannelFunction.SCHEDULE,
-      ChannelFunction.NOTIFICATION,
-      ChannelFunction.CONTROLLINGTHEGATEWAYLOCK,
-      ChannelFunction.CONTROLLINGTHEGATE,
-      ChannelFunction.CONTROLLINGTHEGARAGEDOOR,
-      ChannelFunction.CONTROLLINGTHEDOORLOCK,
-      ChannelFunction.WEATHER_STATION,
-      ChannelFunction.THERMOSTAT,
-      ChannelFunction.VALVEPERCENTAGE,
-      ChannelFunction.ACTION_TRIGGER,
-      ChannelFunction.DIGIGLASS_HORIZONTAL,
-      ChannelFunction.DIGIGLASS_VERTICAL,
-    ];
-    for (const fncName in ChannelFunction) {
-      const functionId = ChannelFunction[fncName];
-      if (!functionsToSkip.includes(functionId)) {
-        expect(getTriggerDefinitionsForChannel({functionId, config: {}}), functionId).not.empty;
-      }
-    }
-    for (const functionId of functionsToSkip) {
-      expect(getTriggerDefinitionsForChannel({functionId, config: {}}), functionId).empty;
-    }
-  });
-
   describe('channelFunctionTriggerCaption', () => {
     const tests = [
       ['When the temperature will be = 20°C', ChannelFunction.THERMOMETER, {on_change_to: {eq: 20, name: 'temperature'}}],

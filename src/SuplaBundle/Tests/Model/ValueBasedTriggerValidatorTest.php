@@ -72,6 +72,7 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::HVAC_DOMESTIC_HOT_WATER(), '{"on_change_to": {"ge": 20, "name": "battery_level", "resume": {"lt": 20}}}'],
             [ChannelFunction::OPENINGSENSOR_DOOR(), '{"on_change_to": {"ge": 20, "name": "battery_level", "resume": {"lt": 20}}}'],
             [ChannelFunction::OPENINGSENSOR_DOOR(), '{"on_change_to": {"eq": "on", "name": "battery_powered"}}'],
+            [ChannelFunction::THERMOMETER(), '{"on_change_to": {"eq": "1", "name": "connected"}}'],
         ];
     }
 
@@ -103,7 +104,7 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"gt": 20, "name": "temperature", "resume": {"le": 21}}}', 'must be less'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"gt": 20, "name": "unicorn", "resume": {"le": 20}}}', 'Unsupported'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"gt": 20, "name": "humidity", "resume": {"le": 20}}}', 'Unsupported'],
-            [ChannelFunction::DEPTHSENSOR(), '{"on_change_to": {"gt": 20, "name": "depth", "resume": {"le": 20}}}', 'not required'],
+            [ChannelFunction::DEPTHSENSOR(), '{"on_change_to": {"gt": 20, "name": "depth", "resume": {"le": 20}}}', 'Unsupported'],
             [ChannelFunction::HUMIDITYANDTEMPERATURE(), '{"on_change_to": {"gt": 20}}', 'Missing trigger field'],
             [ChannelFunction::MAILSENSOR(), '{"on_change_to": {"gt": 20}}', 'trigger unsupported for this function'],
             [ChannelFunction::MAILSENSOR(), '{"on_change_to": {"eq": "lo", "ne": "lo"}}', 'only one condition'],

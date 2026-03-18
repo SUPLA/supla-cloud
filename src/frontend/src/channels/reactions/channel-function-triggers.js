@@ -880,6 +880,16 @@ const REACTIONS = [
     def: () => ({on_change_to: {eq: 'on', name: 'is_battery_cover_open'}}),
     canBeSetForChannel: (channel) => channel.config?.isBatteryCoverAvailable,
   },
+  {
+    caption: () => 'When the device connects', // i18n
+    def: () => ({on_change_to: {eq: '1', name: 'connected'}}),
+    canBeSetForChannel: () => true,
+  },
+  {
+    caption: () => 'When the device disconnects', // i18n
+    def: () => ({on_change_to: {eq: '0', name: 'connected'}}),
+    canBeSetForChannel: () => true,
+  },
 ];
 
 ChannelFunctionTriggers[ChannelFunction.THERMOMETER] = [

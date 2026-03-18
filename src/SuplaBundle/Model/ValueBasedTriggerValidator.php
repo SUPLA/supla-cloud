@@ -203,20 +203,30 @@ class ValueBasedTriggerValidator {
             ChannelFunction::SEPTIC_TANK,
             ChannelFunction::WATER_TANK,
         ],
-        'default' => [
-            ChannelFunction::VALVEOPENCLOSE,
-            ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
-            ChannelFunction::CONTROLLINGTHEROOFWINDOW,
-            ChannelFunction::CONTROLLINGTHEFACADEBLIND,
-            ChannelFunction::TERRACE_AWNING,
-            ChannelFunction::PROJECTOR_SCREEN,
-            ChannelFunction::CURTAIN,
-            ChannelFunction::ROLLER_GARAGE_DOOR,
-            ChannelFunction::VERTICAL_BLIND,
-            ChannelFunction::CONTAINER,
-            ChannelFunction::SEPTIC_TANK,
-            ChannelFunction::WATER_TANK,
-        ],
+    ];
+
+    private const REQUIRES_FIELD_NAME = [
+        ChannelFunction::THERMOMETER,
+        ChannelFunction::HUMIDITY,
+        ChannelFunction::HUMIDITYANDTEMPERATURE,
+        ChannelFunction::DIMMER,
+        ChannelFunction::DIMMER_CCT,
+        ChannelFunction::DIMMER_CCT_AND_RGB,
+        ChannelFunction::DIMMERANDRGBLIGHTING,
+        ChannelFunction::ELECTRICITYMETER,
+        ChannelFunction::IC_ELECTRICITYMETER,
+        ChannelFunction::IC_GASMETER,
+        ChannelFunction::IC_HEATMETER,
+        ChannelFunction::IC_WATERMETER,
+        ChannelFunction::CONTAINER,
+        ChannelFunction::SEPTIC_TANK,
+        ChannelFunction::WATER_TANK,
+        ChannelFunction::HVAC_THERMOSTAT,
+        ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+        ChannelFunction::HVAC_DRYER,
+        ChannelFunction::HVAC_FAN,
+        ChannelFunction::THERMOSTAT,
+        ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
     ];
 
     private const THRESHOLD_SUPPORT = [
@@ -277,6 +287,7 @@ class ValueBasedTriggerValidator {
         'warning',
         'invalid_sensor_state',
         'sound_alarm_on',
+        'connected',
     ];
 
     /**
@@ -321,15 +332,12 @@ class ValueBasedTriggerValidator {
         $possibleFieldNames = array_filter(self::FIELD_NAMES, function ($functionIds) use ($channel) {
             return in_array($channel->getFunction()->getId(), $functionIds);
         });
-        if ($possibleFieldNames) {
-            $possibleFieldNames = array_keys($possibleFieldNames);
-            if (isset($onChangeTo['name'])) {
-                Assertion::inArray($onChangeTo['name'], $possibleFieldNames, 'Unsupported field name %s. Supported: %s.');
-            } else {
-                Assertion::inArray('default', $possibleFieldNames, 'Missing trigger field definition.' /* i18n */);
-            }
-        } else {
-            Assertion::keyNotExists($onChangeTo, 'name', 'Field name is not required for this channel. Remove it.');
+        $possibleFieldNames['connected'] = [];
+        $possibleFieldNames = array_keys($possibleFieldNames);
+        if (isset($onChangeTo['name'])) {
+            Assertion::inArray($onChangeTo['name'], $possibleFieldNames, 'Unsupported field name %s. Supported: %s.');
+        } elseif (in_array($channel->getFunction()->getId(), self::REQUIRES_FIELD_NAME)) {
+            Assertion::inArray('default', $possibleFieldNames, 'Missing trigger field definition.' /* i18n */);
         }
     }
 
@@ -421,7 +429,7 @@ class ValueBasedTriggerValidator {
         } else {
             Assertion::inArray(
                 $onChangeTo[$operator],
-                ['hi', 'closed', 'on', 'lo', 'low', 'open', 'off'],
+                ['hi', 'closed', 'on', 'lo', 'low', 'open', 'off', '1', '0'],
                 'Invalid comparison value: ' . var_export($onChangeTo[$operator], true)
             );
         }
