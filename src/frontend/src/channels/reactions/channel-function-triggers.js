@@ -161,8 +161,8 @@ const ChannelFunctionTriggers = {
       },
     },
     {
-      caption: () => 'When the brightness level changes', // i18n
-      def: () => ({on_change: {name: 'brightness'}}),
+      caption: () => 'When the white temperature level changes', // i18n
+      def: () => ({on_change: {name: 'white_temperature'}}),
     },
   ],
   [ChannelFunction.RGBLIGHTING]: [
@@ -293,8 +293,8 @@ const ChannelFunctionTriggers = {
       },
     },
     {
-      caption: () => 'When the brightness level changes', // i18n
-      def: () => ({on_change: {name: 'brightness'}}),
+      caption: () => 'When the white temperature level changes', // i18n
+      def: () => ({on_change: {name: 'white_temperature'}}),
     },
   ],
   [ChannelFunction.DEPTHSENSOR]: [

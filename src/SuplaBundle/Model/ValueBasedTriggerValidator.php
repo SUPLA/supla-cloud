@@ -68,6 +68,7 @@ class ValueBasedTriggerValidator {
         'brightness' => [ChannelFunction::DIMMER, ChannelFunction::DIMMERANDRGBLIGHTING],
         'color_brightness' => [ChannelFunction::RGBLIGHTING, ChannelFunction::DIMMERANDRGBLIGHTING],
         'color' => [ChannelFunction::RGBLIGHTING, ChannelFunction::DIMMERANDRGBLIGHTING],
+        'white_temperature' => [ChannelFunction::DIMMER_CCT_AND_RGB, ChannelFunction::DIMMER_CCT],
         'voltage_avg' => [ChannelFunction::ELECTRICITYMETER],
         'voltage1' => [ChannelFunction::ELECTRICITYMETER],
         'voltage2' => [ChannelFunction::ELECTRICITYMETER],
