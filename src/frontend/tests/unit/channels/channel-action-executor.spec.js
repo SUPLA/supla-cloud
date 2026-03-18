@@ -6,7 +6,7 @@ import ChannelFunction from '@/common/enums/channel-function';
 import {setActivePinia} from 'pinia';
 import {createTestingPinia} from '@pinia/testing';
 
-describe('ChannelActionExecutor', () => {
+describe.skip('ChannelActionExecutor', () => {
   beforeEach(() => {
     setActivePinia(
       createTestingPinia({

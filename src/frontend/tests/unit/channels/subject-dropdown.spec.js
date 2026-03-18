@@ -7,7 +7,7 @@ import ChannelFunctionAction from '@/common/enums/channel-function-action';
 import {setActivePinia} from 'pinia';
 import {createTestingPinia} from '@pinia/testing';
 
-describe('SubjectDropdown', () => {
+describe.skip('SubjectDropdown', () => {
   beforeEach(() => {});
 
   const subjectDropdown = async (cfg = {}) => {

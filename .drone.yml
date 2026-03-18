@@ -31,12 +31,12 @@ steps:
     commands:
       - cd src/frontend && npm audit --omit=dev
 
-#  - name: test-frontend-unit
-#    image: node:22.20.0-slim
-#    depends_on: [build-frontend]
-#    commands:
-#      - cd src/frontend
-#      - npm run test:unit
+  - name: test-frontend-unit
+    image: node:22.20.0-slim
+    depends_on: [build-frontend]
+    commands:
+      - cd src/frontend
+      - npm run test:unit
 
   - name: install-backend
     image: supla/supla-cloud:ci-php8.2

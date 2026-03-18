@@ -19,16 +19,15 @@ describe('ChannelFunctionTriggers', () => {
       ChannelFunction.ACTION_TRIGGER,
       ChannelFunction.DIGIGLASS_HORIZONTAL,
       ChannelFunction.DIGIGLASS_VERTICAL,
-      ChannelFunction.CONTAINER_LEVEL_SENSOR,
     ];
     for (const fncName in ChannelFunction) {
       const functionId = ChannelFunction[fncName];
       if (!functionsToSkip.includes(functionId)) {
-        expect(getTriggerDefinitionsForChannel({functionId, config: {}})).not.empty;
+        expect(getTriggerDefinitionsForChannel({functionId, config: {}}), functionId).not.empty;
       }
     }
     for (const functionId of functionsToSkip) {
-      expect(getTriggerDefinitionsForChannel({functionId, config: {}})).empty;
+      expect(getTriggerDefinitionsForChannel({functionId, config: {}}), functionId).empty;
     }
   });
 

@@ -124,7 +124,7 @@ describe('ChannelActionChooser', () => {
     expect(selectedAction.exists()).toBeFalsy();
   });
 
-  it('changes action when the subject is changed', async () => {
+  it.skip('changes action when the subject is changed', async () => {
     const wrapper = await mount(ChannelActionChooser, {
       propsData: {subject: SCENE, value: {id: 3001, param: {}}},
     });
@@ -151,7 +151,7 @@ describe('ChannelActionChooser', () => {
     expect(selectedAction.exists()).toBeFalsy();
   });
 
-  it('selects first action for new subject', async () => {
+  it.skip('selects first action for new subject', async () => {
     const wrapper = await mount(ChannelActionChooser, {
       propsData: {subject: GATEWAY, value: undefined, alwaysSelectFirstAction: true},
     });

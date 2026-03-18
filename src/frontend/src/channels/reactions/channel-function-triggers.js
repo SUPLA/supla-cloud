@@ -127,6 +127,44 @@ const ChannelFunctionTriggers = {
       def: () => ({on_change: {name: 'brightness'}}),
     },
   ],
+  [ChannelFunction.DIMMER_CCT]: [
+    {
+      caption: () => 'When the lighting reaches a certain level of brightness', // i18n
+      test: (t) => !!t.on_change_to,
+      component: ReactionConditionThreshold,
+      props: {
+        field: 'brightness',
+        min: () => 0,
+        max: () => 100,
+        step: () => 1,
+        unit: () => '%',
+        labelI18n: () => 'When the brightness will be', // i18n
+        resumeLabelI18n: () => 'and wait until it will be', // i18n
+      },
+    },
+    {
+      caption: () => 'When the brightness level changes', // i18n
+      def: () => ({on_change: {name: 'brightness'}}),
+    },
+    {
+      caption: () => 'When the white color reaches a certain level of temperature', // i18n
+      test: (t) => !!t.on_change_to,
+      component: ReactionConditionThreshold,
+      props: {
+        field: 'white_temperature',
+        min: () => 0,
+        max: () => 100,
+        step: () => 1,
+        unit: () => '%',
+        labelI18n: () => 'When the white temperature will be', // i18n
+        resumeLabelI18n: () => 'and wait until it will be', // i18n
+      },
+    },
+    {
+      caption: () => 'When the brightness level changes', // i18n
+      def: () => ({on_change: {name: 'brightness'}}),
+    },
+  ],
   [ChannelFunction.RGBLIGHTING]: [
     {
       caption: () => 'When the RGB lighting reaches a certain level of brightness', // i18n
@@ -194,6 +232,69 @@ const ChannelFunctionTriggers = {
     {
       caption: () => 'When the color changes', // i18n
       def: () => ({on_change: {name: 'color'}}),
+    },
+  ],
+  [ChannelFunction.DIMMER_CCT_AND_RGB]: [
+    {
+      min: () => 0,
+      max: () => 100,
+      step: () => 1,
+      caption: () => 'When the dimmer reaches a certain brightness level', // i18n
+      test: (t) => t.on_change_to?.name === 'brightness',
+      component: ReactionConditionThreshold,
+      props: {
+        min: () => 0,
+        max: () => 100,
+        step: () => 1,
+        unit: () => '%',
+        field: 'brightness',
+        labelI18n: () => 'When the brightness will be', // i18n
+        resumeLabelI18n: () => 'and wait until it will be', // i18n
+      },
+    },
+    {
+      caption: () => 'When the dimmer brightness level changes', // i18n
+      def: () => ({on_change: {name: 'brightness'}}),
+    },
+    {
+      caption: () => 'When the RGB lighting reaches a certain level of brightness', // i18n
+      test: (t) => t.on_change_to?.name === 'color_brightness',
+      component: ReactionConditionThreshold,
+      props: {
+        min: () => 0,
+        max: () => 100,
+        step: () => 1,
+        unit: () => '%',
+        field: 'color_brightness',
+        labelI18n: () => 'When the brightness will be', // i18n
+        resumeLabelI18n: () => 'and wait until it will be', // i18n
+      },
+    },
+    {
+      caption: () => 'When the RGB lighting brightness level changes', // i18n
+      def: () => ({on_change: {name: 'color_brightness'}}),
+    },
+    {
+      caption: () => 'When the color changes', // i18n
+      def: () => ({on_change: {name: 'color'}}),
+    },
+    {
+      caption: () => 'When the white color reaches a certain level of temperature', // i18n
+      test: (t) => !!t.on_change_to,
+      component: ReactionConditionThreshold,
+      props: {
+        field: 'white_temperature',
+        min: () => 0,
+        max: () => 100,
+        step: () => 1,
+        unit: () => '%',
+        labelI18n: () => 'When the white temperature will be', // i18n
+        resumeLabelI18n: () => 'and wait until it will be', // i18n
+      },
+    },
+    {
+      caption: () => 'When the brightness level changes', // i18n
+      def: () => ({on_change: {name: 'brightness'}}),
     },
   ],
   [ChannelFunction.DEPTHSENSOR]: [
