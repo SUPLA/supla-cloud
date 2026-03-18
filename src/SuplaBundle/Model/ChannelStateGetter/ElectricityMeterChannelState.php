@@ -72,8 +72,9 @@ class ElectricityMeterChannelState {
                 $this->state['phases'][$phase]['frequency'] = $frequency;
             }
         }
-        foreach (self::$SUPLA_SERVER_VALUES_MULTIPLIERS as $name => $multiplier) {
+        foreach (array_keys(self::$SUPLA_SERVER_VALUES_MULTIPLIERS) as $name) {
             if ($this->isSupported($name)) {
+                $multiplier = $this->getMultiplier($name);
                 for ($phase = 0; $phase < $numberOfPhases; $phase++) {
                     $value = ($valuesFromSuplaServer[$measurementIndex + $phase] ?? 0) / $multiplier;
                     $this->state['phases'][$phase][$name] =
@@ -89,11 +90,37 @@ class ElectricityMeterChannelState {
             return $this->state['support'] & ElectricityMeterSupportBits::CURRENT
                 || $this->state['support'] & ElectricityMeterSupportBits::CURRENT_OVER64A;
         }
+        if ($name === 'powerActive') {
+            return $this->state['support'] & ElectricityMeterSupportBits::POWER_ACTIVE
+                || $this->state['support'] & ElectricityMeterSupportBits::POWER_ACTIVE_KW;
+        }
+        if ($name === 'powerReactive') {
+            return $this->state['support'] & ElectricityMeterSupportBits::POWER_REACTIVE
+                || $this->state['support'] & ElectricityMeterSupportBits::POWER_REACTIVE_KVAR;
+        }
+        if ($name === 'powerApparent') {
+            return $this->state['support'] & ElectricityMeterSupportBits::POWER_APPARENT
+                || $this->state['support'] & ElectricityMeterSupportBits::POWER_APPARENT_KVA;
+        }
         $bitName = StringUtils::camelCaseToSnakeCase($name);
         return $this->state['support'] & ElectricityMeterSupportBits::$bitName()->getValue();
     }
 
     public function toArray(): array {
         return $this->state;
+    }
+
+    private function getMultiplier(string $name): int {
+        $multiplier = self::$SUPLA_SERVER_VALUES_MULTIPLIERS[$name];
+        if ($name === 'powerActive' && $this->state['support'] & ElectricityMeterSupportBits::POWER_ACTIVE_KW) {
+            $multiplier /= 1000;
+        } elseif ($name === 'powerReactive' && $this->state['support'] & ElectricityMeterSupportBits::POWER_REACTIVE_KVAR) {
+            $multiplier /= 1000;
+        } elseif ($name === 'powerApparent' && $this->state['support'] & ElectricityMeterSupportBits::POWER_APPARENT_KVA) {
+            $multiplier /= 1000;
+        } elseif ($name === 'current' && $this->state['support'] & ElectricityMeterSupportBits::CURRENT_OVER64A) {
+            $multiplier /= 10;
+        }
+        return $multiplier;
     }
 }
