@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <div class="d-flex my-3 align-items-center">
+      <div class="d-flex my-3 align-items-center flex-wrap flex-gap-1">
         <div class="flex-grow-1">
           <h1 v-if="!subject" class="m-0">
             <span v-if="dontSetPageTitle">{{ $t(headerI18n) }}</span>

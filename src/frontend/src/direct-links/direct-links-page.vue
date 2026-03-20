@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="d-flex mb-5 my-3">
+    <div class="d-flex mb-5 my-3 flex-wrap flex-gap-1">
       <div class="flex-grow-1">
         <h1 class="m-0" v-title>{{ $t('Direct links') }}</h1>
       </div>
