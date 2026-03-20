@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ model }}
     <div class="form-group">
       <div class="btn-group btn-group-justified">
         <div class="btn-group">
