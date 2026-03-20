@@ -886,7 +886,7 @@ const REACTIONS = [
   {
     caption: () => 'When the channel connection status changes', // i18n
     test: ({on_change_to = {}}) => on_change_to.name === 'connected',
-    canBeSetForChannel: () => true,
+    canBeSetForChannel: (channel) => channel && !channel.isVirtual,
     component: ReactionConditionConnected,
   },
 ];
