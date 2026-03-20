@@ -48,6 +48,7 @@ directLinkExecutionFailureReason_expired: Direct link has expired.
 directLinkExecutionFailureReason_forbiddenAction: The requested action is not allowed for this direct link.
 directLinkExecutionFailureReason_httpGetForbidden: The action was prevented from being performed using an HTTP GET method that is not permitted.
 directLinkExecutionFailureReason_invalidActionParameters: Incorrect direct link parameters
+directLinkExecutionFailureReason_invalidActionParameters_info: This direct link requires further parameters in order to be executed properly. See the examples on direct link details page.
 directLinkExecutionFailureReason_invalidChannelState: Invalid channel state.
 directLinkExecutionFailureReason_invalidSlug: Given verification code is not valid.
 directLinkExecutionFailureReason_noAllowedActions: No allowed actions have been chosen.
@@ -57,6 +58,9 @@ directLinkExecutionFailureReason_otherFailure: Direct link execution failure.
 directLinkExecutionFailureReason_sceneDuringExecution: Scene is being executed now.
 directLinkExecutionFailureReason_sceneDuringInactivePeriod: Scene is inactive right now.
 directLinkExecutionFailureReason_unsupportedAction: The requested action is not supported.
+directLink_slugInfo: |
+  For security reasons, the full URL of this direct link is displayed only immediately after its creation (until log out or refreshing the page).
+  Make sure it is saved in a safe place.
 energyPriceForecast_field_fixing1: Energy price in Poland RDN fixing I
 energyPriceForecast_field_fixing2: Energy price in Poland RDN fixing II
 energyPriceForecast_field_rce: Energy price in Poland RCE
@@ -246,4 +250,3 @@ openWeatherAttribute_field_clouds: Clouds
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-directLinkExecutionFailureReason_invalidActionParameters_info: This direct link requires further parameters in order to be executed properly. See the examples on direct link details page.
