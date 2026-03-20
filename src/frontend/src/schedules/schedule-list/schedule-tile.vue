@@ -13,7 +13,7 @@
         <dd>ID</dd>
         <dt>{{ model.id }}</dt>
         <dd>{{ $t('Subject type') }}</dd>
-        <dt>{{ model.subjectType == 'channel' ? $t('Channel') : $t('Channel group') }}</dt>
+        <dt>{{ $t(`actionableSubjectType_${model.subjectType}`) }}</dt>
       </dl>
       <dl v-if="model.closestExecutions">
         <dd>{{ $t('The latest execution') }}</dd>
