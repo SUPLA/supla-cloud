@@ -434,7 +434,7 @@ class ValueBasedTriggerValidator {
         } else {
             Assertion::inArray(
                 $onChangeTo[$operator],
-                ['hi', 'closed', 'on', 'lo', 'low', 'open', 'off', '1', '0'],
+                ['hi', 'closed', 'on', 'lo', 'low', 'open', 'off'],
                 'Invalid comparison value: ' . var_export($onChangeTo[$operator], true)
             );
         }

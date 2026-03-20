@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ReactionConditionDuration v-model="duration" />
+    <ReactionConditionDuration v-model="duration" :default-duration="defaultDuration" :min-duration="minDuration" />
   </div>
 </template>
 
@@ -18,6 +18,7 @@
 
   const props = defineProps({
     defaultDuration: {type: Number, default: 0},
+    minDuration: {type: Number, default: 1},
     field: String,
     eq: String,
   });

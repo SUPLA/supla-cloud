@@ -26,13 +26,12 @@
 
 <script>
   import SchedulesList from '../schedules/schedule-list/schedules-list.vue';
-  import ScenesList from '../scenes/scenes-list.vue';
   import ChannelFunction from '@/common/enums/channel-function';
   import DirectLinksListForSubject from '@/direct-links/direct-links-list-for-subject.vue';
   import ScenesListForSubject from '@/scenes/scenes-list-for-subject.vue';
 
   export default {
-    components: {ScenesListForSubject, DirectLinksListForSubject, ScenesList, SchedulesList},
+    components: {ScenesListForSubject, DirectLinksListForSubject, SchedulesList},
     props: ['channelGroup'],
     data() {
       return {

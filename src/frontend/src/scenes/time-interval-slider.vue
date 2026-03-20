@@ -10,8 +10,8 @@
       :tooltip-formatter="formattedValue"
     ></FormSlider>
     <div class="d-flex justify-content-end">
-      <a class="mx-1" @click.stop="less()"><fa :icon="faMinus()" /></a>
-      <a class="mx-1" @click.stop="more()"><fa :icon="faPlus()" /></a>
+      <button type="button" class="btn btn-xs btn-link mx-1" @click.prevent="less()"><fa :icon="faMinus()" /></button>
+      <button type="button" class="btn btn-xs btn-link mx-1" @click.stop="more()"><fa :icon="faPlus()" /></button>
       <slot name="buttons"></slot>
     </div>
   </div>
@@ -43,6 +43,7 @@
     data() {
       return {
         possibleValues: [
+          0,
           250,
           500,
           1000,
@@ -93,6 +94,9 @@
         return faMinus;
       },
       formattedValue(sliderValue = this.sliderValue) {
+        if (sliderValue === 0 && this.seconds) {
+          return '0 ' + this.$t('sec.');
+        }
         return prettyMilliseconds(+sliderValue);
       },
       less() {

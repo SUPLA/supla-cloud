@@ -31,15 +31,11 @@
 
   const toggle = () => accordion.toggleItem(props.name);
 
-  watch(
-    isOpen,
-    (v) => {
-      if (model.value !== v) {
-        model.value = v;
-      }
-    },
-    {immediate: true}
-  );
+  watch(isOpen, (v) => {
+    if (model.value !== v) {
+      model.value = v;
+    }
+  });
 
   watch(
     model,
