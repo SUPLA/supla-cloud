@@ -6,7 +6,7 @@ class JsonArrayObject implements \JsonSerializable, \ArrayAccess, \Countable {
     private array $array;
 
     public function __construct($array) {
-        $this->array = is_array($array) ? $array : [];
+        $this->array = $array instanceof JsonArrayObject ? $array->toArray() : (is_array($array) ? $array : []);
     }
 
     public function jsonSerialize(): mixed {

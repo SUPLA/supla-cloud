@@ -9,6 +9,7 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
+use SuplaBundle\Utils\JsonArrayObject;
 
 abstract class ActionableSubjectDependencies {
 
@@ -48,7 +49,7 @@ abstract class ActionableSubjectDependencies {
     protected function clearActionTriggersThatReferencesSubject(ActionableSubject $subject): void {
         foreach ($this->findActionTriggersForSubject($subject) as $actionTrigger) {
             $config = $this->channelParamConfigTranslator->getConfig($actionTrigger);
-            $actions = $actionTrigger->getUserConfig()['actions'] ?? [];
+            $actions = (new JsonArrayObject($config['actions'] ?? []))->toArray();
             $config['actions'] = array_filter($actions, function (array $action) use ($subject) {
                 $referencesThisSubject = $action['subjectType'] === $subject->getOwnSubjectType()
                     && $action['subjectId'] === $subject->getId();

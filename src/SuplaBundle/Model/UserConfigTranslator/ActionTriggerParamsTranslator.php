@@ -16,6 +16,7 @@ use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Serialization\RequestFiller\SubjectActionFiller;
 use SuplaBundle\Utils\JsonArrayObject;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @OA\Schema(schema="ChannelConfigActionTrigger",
@@ -114,17 +115,21 @@ class ActionTriggerParamsTranslator extends UserConfigTranslator {
 
     private function getActions(HasUserConfig $channel): array {
         $triggers = $channel->getUserConfig()['actions'] ?? [];
-        return array_map(function (array $triggerDef) use ($channel) {
+        return array_filter(array_map(function (array $triggerDef) use ($channel) {
             if ($triggerDef['subjectId'] ?? false) {
-                $subject = $this->subjectRepository->findForUser($channel->getUser(), $triggerDef['subjectType'], $triggerDef['subjectId']);
-                $ap = $this->channelActionExecutor->transformActionParamsForApi(
-                    $subject,
-                    new ChannelFunctionAction($triggerDef['action']['id']),
-                    $triggerDef['action']['param'] ?: []
-                );
-                $triggerDef['action']['param'] = $ap ?: null;
+                try {
+                    $subject = $this->subjectRepository->findForUser($channel->getUser(), $triggerDef['subjectType'], $triggerDef['subjectId']);
+                    $ap = $this->channelActionExecutor->transformActionParamsForApi(
+                        $subject,
+                        new ChannelFunctionAction($triggerDef['action']['id']),
+                        $triggerDef['action']['param'] ?: []
+                    );
+                    $triggerDef['action']['param'] = $ap ?: null;
+                } catch (NotFoundHttpException) {
+                    return null;
+                }
             }
             return $triggerDef;
-        }, $triggers);
+        }, $triggers));
     }
 }
