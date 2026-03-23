@@ -32,9 +32,6 @@
           :disabled="disabled"
           :maxlength="maxlength"
           @input="model = $event.currentTarget.value"
-          @scroll="syncScroll()"
-          @keyup="syncScroll()"
-          @click="syncScroll()"
         ></textarea>
         <template #no-result>
           <div>{{ $t('No results') }}</div>

@@ -13,6 +13,7 @@ describe('Scenes', () => {
     cy.login();
     cy.visit('/scenes');
     cy.contains('Utwórz nową scenę').click();
+    cy.contains('Nowa scena').click();
     cy.get('[type=text]').type('Testowa scena');
     cy.contains('Kanały').click();
     cy.get('.channel-dropdown .ts-control').click();
@@ -23,7 +24,7 @@ describe('Scenes', () => {
     cy.get('.channel-dropdown .ts-control').click();
     cy.contains('ID1 Włącznik światła').click();
     cy.contains('Wyślij powiadomienie').click();
-    cy.contains('.form-group', 'Treść').find('.form-control').type('Testowe powiadomienie');
+    cy.contains('.form-group', 'Treść').find('textarea').type('Testowe powiadomienie');
     cy.get('.aid-dropdown .ts-control').click();
     cy.contains('AID #1').click();
     cy.contains('Dodaj opóźnienie').click();

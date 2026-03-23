@@ -111,6 +111,8 @@
   import {api} from '@/api/api.js';
   import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
   import {useDebounceFn} from '@vueuse/core';
+  import {mapStores} from 'pinia';
+  import {useScenesStore} from '@/stores/scenes-store.js';
 
   export default {
     components: {
@@ -145,6 +147,7 @@
       isNew() {
         return !this.scene.id;
       },
+      ...mapStores(useScenesStore),
     },
     watch: {
       id() {
@@ -223,6 +226,7 @@
           api
             .post('scenes', toSend)
             .then(({body}) => this.$router.push({name: 'scene', params: {id: body.id}}))
+            .then(() => this.scenesStore.fetchAll(true))
             .finally(() => (this.loading = false));
         } else {
           api
@@ -232,6 +236,7 @@
               this.displayValidationErrors = false;
             })
             .then(() => (this.hasPendingChanges = false))
+            .then(() => this.scenesStore.fetchAll(true))
             .finally(() => (this.loading = false));
         }
       }),
