@@ -212,7 +212,6 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     public function transformActionParamsForApi(ActionableSubject $subject, array $actionParams): array {
         if (isset($actionParams['hue'])) {
             $hue = $actionParams['hue'];
-            unset($actionParams['hue']);
             if ($hue === 'white') {
                 $actionParams['color'] = '#FFFFFF';
             } elseif ($hue === 'random') {
@@ -221,6 +220,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
                 $color = ColorUtils::hueToDec($actionParams['hue']);
                 $actionParams['color'] = ColorUtils::decToHex($color, '#');
             }
+            unset($actionParams['hue']);
         }
         if (isset($actionParams['rgbw_command'])) {
             $actionParams['rgbw_command'] = RgbwCommand::from($actionParams['rgbw_command'])->name;
