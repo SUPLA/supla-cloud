@@ -21,8 +21,8 @@ use SuplaBundle\Utils\ColorUtils;
  *     @OA\Schema(
  *       @OA\Property(property="color", oneOf={
  *         @OA\Schema(type="integer"),
- *         @OA\Schema(type="string", pattern="^0x[0-9A-F]{6}$", description="Hex color value"),
- *         @OA\Schema(type="string", enum={"white", "random"}),
+ *         @OA\Schema(type="string", pattern="^#[0-9A-F]{6}$", description="Hex color value"),
+ *         @OA\Schema(type="string", enum={"random"}),
  *       }),
  *       @OA\Property(property="color_brightness", type="integer", minimum=0, maximum=100, deprecated=true),
  *     ),
@@ -211,9 +211,16 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
 
     public function transformActionParamsForApi(ActionableSubject $subject, array $actionParams): array {
         if (isset($actionParams['hue'])) {
-            $color = ColorUtils::hueToDec($actionParams['hue']);
-            $actionParams['color'] = ColorUtils::decToHex($color, '#');
+            $hue = $actionParams['hue'];
             unset($actionParams['hue']);
+            if ($hue === 'white') {
+                $actionParams['color'] = '#FFFFFF';
+            } elseif ($hue === 'random') {
+                $actionParams['color'] = 'random';
+            } else {
+                $color = ColorUtils::hueToDec($actionParams['hue']);
+                $actionParams['color'] = ColorUtils::decToHex($color, '#');
+            }
         }
         if (isset($actionParams['rgbw_command'])) {
             $actionParams['rgbw_command'] = RgbwCommand::from($actionParams['rgbw_command'])->name;

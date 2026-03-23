@@ -9,8 +9,16 @@
       <AccordionItem v-if="hasColor && shouldDisplayColorBrightness" title-i18n="Color brightness" name="colorBrightness" :iconOpened="faCheckCircle">
         <ColorBrightnessColorpicker v-if="colorBrightnessOpened" v-model="colorBrightness" />
       </AccordionItem>
+
       <AccordionItem v-if="hasColor && shouldDisplayColor" title-i18n="Color" name="color" :iconOpened="faCheckCircle">
-        <ColorColorpicker v-if="rgbOpened" v-model="rgb" />
+        <RadioButtons
+          v-model="colorMode"
+          :options="[
+            {label: $t('Chosen'), value: 'CHOSEN'},
+            {label: $t('Random'), value: 'RANDOM'},
+          ]"
+        />
+        <ColorColorpicker v-if="rgbOpened && colorMode === 'CHOSEN'" v-model="rgb" class="mt-3" />
       </AccordionItem>
       <AccordionItem v-if="hasBrightness && shouldDisplayBrightness" title-i18n="White brightness" name="brightness" :iconOpened="faCheckCircle">
         <ColorBrightnessColorpicker v-if="brightnessOpened" v-model="brightness" />
@@ -52,10 +60,23 @@
   import WhiteTemperatureColorpicker from '@/channels/action/color/white-temperature-colorpicker.vue';
   import {faCheckCircle, faLightbulb} from '@fortawesome/free-solid-svg-icons';
   import TransitionExpand from '@/common/gui/transition-expand.vue';
+  import RadioButtons from '@/common/gui/RadioButtons.vue';
 
   const props = defineProps({subject: Object, disabled: Boolean});
 
   const model = defineModel();
+
+  const colorMode = computed({
+    get: () => (model.value?.color === 'random' ? 'RANDOM' : 'CHOSEN'),
+    set: (mode) => {
+      if (mode === 'RANDOM') {
+        rememberedValues.color = rgb.value;
+        model.value = {...model.value, color: 'random'};
+      } else {
+        model.value = {...model.value, color: rememberedValues.color || defaultValues.color};
+      }
+    },
+  });
 
   const rgbwCommand = computed({
     get: () => model.value?.rgbw_command || 'NOT_SET',

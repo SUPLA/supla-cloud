@@ -13,7 +13,7 @@
       type: Object,
     },
   });
-  const model = defineModel({type: Boolean});
+  const model = defineModel();
 
   const accordion = inject('accordion');
   if (!accordion) {
@@ -32,7 +32,7 @@
   const toggle = () => accordion.toggleItem(props.name);
 
   watch(isOpen, (v) => {
-    if (model.value !== v) {
+    if (model.value !== undefined && model.value !== v) {
       model.value = v;
     }
   });
@@ -40,6 +40,9 @@
   watch(
     model,
     (v) => {
+      if (v === undefined) {
+        return;
+      }
       const next = !!v;
       if (next !== isOpen.value) {
         setOpen(next);

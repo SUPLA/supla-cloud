@@ -42,6 +42,7 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
             [['color' => 1, 'color_brightness' => 0], ['color' => '#000001', 'color_brightness' => 0]],
             [['color_brightness' => 0], ['color_brightness' => 0]],
             [['hue' => 359, 'color_brightness' => 100], ['color' => '#FF0004', 'color_brightness' => 100]],
+            [['hue' => '359', 'color_brightness' => 100], ['color' => '#FF0004', 'color_brightness' => 100]],
             [['hue' => 'random', 'color_brightness' => 100], ['color' => 'random', 'color_brightness' => 100]],
             [['hue' => 'white', 'color_brightness' => 100], ['color' => '#FFFFFF', 'color_brightness' => 100]],
             [['color' => 'random'], ['color' => 'random']],
