@@ -302,7 +302,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.DEPTHSENSOR]: [
     {
       caption: () => 'When the depth is', // i18n
-      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
+      test: ({on_change_to = undefined}) => on_change_to && on_change_to.name !== 'connected',
       component: ReactionConditionThreshold,
       props: {
         unit: () => 'm',
@@ -318,7 +318,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.DISTANCESENSOR]: [
     {
       caption: () => 'When a certain distance is reached', // i18n
-      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
+      test: ({on_change_to = undefined}) => on_change_to && on_change_to.name !== 'connected',
       component: ReactionConditionThreshold,
       props: {
         unit: () => 'm',
@@ -375,7 +375,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.WINDSENSOR]: [
     {
       caption: () => 'When the wind reaches a certain speed', // i18n
-      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
+      test: ({on_change_to = undefined}) => on_change_to && on_change_to.name !== 'connected',
       component: ReactionConditionThreshold,
       props: {
         min: () => 0,
@@ -392,7 +392,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.PRESSURESENSOR]: [
     {
       caption: () => 'When the pressure reaches a certain level', // i18n
-      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
+      test: ({on_change_to = undefined}) => on_change_to && on_change_to.name !== 'connected',
       component: ReactionConditionThreshold,
       props: {
         min: () => 0,
@@ -409,7 +409,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.RAINSENSOR]: [
     {
       caption: () => 'When there is certain amount of rain', // i18n
-      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
+      test: ({on_change_to = undefined}) => on_change_to && on_change_to.name !== 'connected',
       component: ReactionConditionThreshold,
       props: {
         min: () => 0,
@@ -426,7 +426,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.WEIGHTSENSOR]: [
     {
       caption: () => 'When there weight reaches a certain value', // i18n
-      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
+      test: ({on_change_to = undefined}) => on_change_to && on_change_to.name !== 'connected',
       component: ReactionConditionThreshold,
       props: {
         unit: () => 'g',
@@ -441,7 +441,7 @@ const ChannelFunctionTriggers = {
   ],
   [ChannelFunction.ELECTRICITYMETER]: [
     {
-      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
+      test: ({on_change_to = undefined}) => on_change_to && on_change_to.name !== 'connected',
       component: ReactionConditionElectricitymeter,
       caption: () => 'When the measurements change', // i18n
       props: {
@@ -529,7 +529,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.IC_ELECTRICITYMETER]: [
     {
       caption: () => 'When the electricity meter reaches a certain value', // i18n
-      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
+      test: ({on_change_to = undefined}) => on_change_to && on_change_to?.name !== 'connected',
       component: ReactionConditionThreshold,
       props: {
         unit: (fieldName, subject) => measurementUnit(subject),
@@ -547,7 +547,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.IC_GASMETER]: [
     {
       caption: () => 'When the gas meter value reaches a certain value', // i18n
-      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
+      test: ({on_change_to = undefined}) => on_change_to && on_change_to.name !== 'connected',
       component: ReactionConditionThreshold,
       props: {
         unit: (fieldName, subject) => measurementUnit(subject),
@@ -565,7 +565,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.IC_WATERMETER]: [
     {
       caption: () => 'When the water meter reaches a certain value', // i18n
-      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
+      test: ({on_change_to = undefined}) => on_change_to && on_change_to.name !== 'connected',
       component: ReactionConditionThreshold,
       props: {
         unit: (fieldName, subject) => measurementUnit(subject),
@@ -583,7 +583,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.IC_HEATMETER]: [
     {
       caption: () => 'When the heat meter value reaches a certain value', // i18n
-      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
+      test: ({on_change_to = undefined}) => on_change_to && on_change_to.name !== 'connected',
       component: ReactionConditionThreshold,
       props: {
         unit: (fieldName, subject) => measurementUnit(subject),
@@ -682,7 +682,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.GENERAL_PURPOSE_METER]: [
     {
       caption: () => 'When the meter reaches a certain value', // i18n
-      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
+      test: ({on_change_to = undefined}) => on_change_to && on_change_to.name !== 'connected',
       component: ReactionConditionThreshold,
       props: {
         unit: (fieldName, subject) => (subject.config.noSpaceAfterValue ? '' : ' ') + subject.config.unitAfterValue,
@@ -701,7 +701,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.GENERAL_PURPOSE_MEASUREMENT]: [
     {
       caption: () => 'When the value reaches a certain level', // i18n
-      test: ({on_change_to = {}}) => on_change_to.name !== 'connected',
+      test: ({on_change_to = undefined}) => on_change_to && on_change_to.name !== 'connected',
       component: ReactionConditionThreshold,
       props: {
         unit: (fieldName, subject) => (subject.config.noSpaceAfterValue ? '' : ' ') + subject.config.unitAfterValue,
