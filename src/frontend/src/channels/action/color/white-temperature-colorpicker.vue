@@ -1,6 +1,9 @@
 <template>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center flex-column align-items-flex-end">
     <div ref="picker"></div>
+    <div class="mt-2">
+      <input v-model.number="model" type="number" min="0" max="100" step="1" class="form-control" />
+    </div>
   </div>
 </template>
 
@@ -22,15 +25,18 @@
 
   const model = defineModel({type: Number});
 
-  const kelvinToPercent = (kelvin) => Math.round(((kelvin - 2200) * 100) / 8800);
-  const percentToKelvin = (percent) => (percent * 8800) / 100 + 2200;
+  const MIN_K = 2200;
+  const MAX_K = 11000;
+
+  const kelvinToPercent = (kelvin) => Math.round(((kelvin - MIN_K) / (MAX_K - MIN_K)) * 100);
+  const percentToKelvin = (percent) => Math.round((percent / 100) * (MAX_K - MIN_K) + MIN_K);
 
   onMounted(() => {
     colorPicker = new iro.ColorPicker(pickerElement.value, {
       layout: [
         {
           component: iro.ui.Slider,
-          options: {sliderType: 'kelvin', minTemperature: 2200, maxTemperature: 11000},
+          options: {sliderType: 'kelvin', minTemperature: MIN_K, maxTemperature: MAX_K},
         },
       ],
     });
@@ -54,3 +60,9 @@
     }
   );
 </script>
+
+<style scoped>
+  input[type='number'] {
+    max-width: 70px;
+  }
+</style>

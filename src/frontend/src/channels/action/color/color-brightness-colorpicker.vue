@@ -1,6 +1,10 @@
 <template>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center flex-column align-items-flex-end">
     <div ref="picker"></div>
+    <div class="d-flex align-items-center flex-gap-1 mt-2">
+      <input v-model.number="model" type="number" min="0" max="100" step="1" class="form-control" />
+      <div>%</div>
+    </div>
   </div>
 </template>
 
@@ -38,7 +42,7 @@
       colorPicker.color.hsv = {...colorPicker.color.hsv, v: model.value};
     });
     colorPicker.on('color:change', function (color) {
-      const v = Math.max(Math.round(color.hsv.v), 1);
+      const v = Math.max(Math.round(color.hsv.v), 0);
       if (model.value !== v) {
         model.value = v;
       }
@@ -67,3 +71,9 @@
     }
   );
 </script>
+
+<style scoped>
+  input[type='number'] {
+    max-width: 70px;
+  }
+</style>
