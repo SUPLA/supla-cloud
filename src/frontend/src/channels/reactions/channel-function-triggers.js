@@ -112,7 +112,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.DIMMER]: [
     {
       caption: () => 'When the lighting reaches a certain level of brightness', // i18n
-      test: (t) => !!t.on_change_to,
+      test: ({on_change_to = {}}) => on_change_to.name === 'brightness',
       component: ReactionConditionThreshold,
       props: {
         field: 'brightness',
@@ -132,7 +132,7 @@ const ChannelFunctionTriggers = {
   [ChannelFunction.DIMMER_CCT]: [
     {
       caption: () => 'When the lighting reaches a certain level of brightness', // i18n
-      test: (t) => !!t.on_change_to,
+      test: ({on_change_to = {}}) => on_change_to.name === 'brightness',
       component: ReactionConditionThreshold,
       props: {
         field: 'brightness',
@@ -150,7 +150,7 @@ const ChannelFunctionTriggers = {
     },
     {
       caption: () => 'When the white color reaches a certain level of temperature', // i18n
-      test: (t) => !!t.on_change_to,
+      test: ({on_change_to = {}}) => on_change_to.name === 'white_temperature',
       component: ReactionConditionThreshold,
       props: {
         field: 'white_temperature',
@@ -282,7 +282,7 @@ const ChannelFunctionTriggers = {
     },
     {
       caption: () => 'When the white color reaches a certain level of temperature', // i18n
-      test: (t) => !!t.on_change_to,
+      test: ({on_change_to = {}}) => on_change_to.name === 'white_temperature',
       component: ReactionConditionThreshold,
       props: {
         field: 'white_temperature',
