@@ -1,11 +1,11 @@
 <template>
   <div class="notification-subject-form">
     <div class="form-group">
-      <NotificationInputWithVariables v-model="title" label-i18n="Title" :disabled="!!disableTitleMessage" :subject="subject" :maxlength="200" />
+      <NotificationInputWithVariables v-model="title" label-i18n="Title" :disabled="!!disableTitleMessage" :subject="subject" :maxlength="2000" />
       <div v-if="disableTitleMessage" class="help-block">{{ disableTitleMessage }}</div>
     </div>
     <div :class="['form-group', {'has-error': displayValidationErrors && !disableBodyMessage && !body}]">
-      <NotificationInputWithVariables v-model="body" label-i18n="Body" :disabled="!!disableBodyMessage" :subject="subject" :maxlength="500" />
+      <NotificationInputWithVariables v-model="body" label-i18n="Body" :disabled="!!disableBodyMessage" :subject="subject" :maxlength="4000" />
       <div v-if="disableBodyMessage" class="help-block">{{ disableBodyMessage }}</div>
       <div v-else class="help-block help-error">{{ $t('Notification must have a body.') }}</div>
     </div>
