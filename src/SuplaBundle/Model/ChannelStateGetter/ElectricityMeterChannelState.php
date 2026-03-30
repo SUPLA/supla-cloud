@@ -111,16 +111,6 @@ class ElectricityMeterChannelState {
     }
 
     private function getMultiplier(string $name): int {
-        $multiplier = self::$SUPLA_SERVER_VALUES_MULTIPLIERS[$name];
-        if ($name === 'powerActive' && $this->state['support'] & ElectricityMeterSupportBits::POWER_ACTIVE_KW) {
-            $multiplier /= 1000;
-        } elseif ($name === 'powerReactive' && $this->state['support'] & ElectricityMeterSupportBits::POWER_REACTIVE_KVAR) {
-            $multiplier /= 1000;
-        } elseif ($name === 'powerApparent' && $this->state['support'] & ElectricityMeterSupportBits::POWER_APPARENT_KVA) {
-            $multiplier /= 1000;
-        } elseif ($name === 'current' && $this->state['support'] & ElectricityMeterSupportBits::CURRENT_OVER65A) {
-            $multiplier /= 10;
-        }
-        return $multiplier;
+        return self::$SUPLA_SERVER_VALUES_MULTIPLIERS[$name];
     }
 }

@@ -82,7 +82,7 @@ class ElectricityMeterChannelStateTest extends TestCase {
                     ...array_fill(0, 31, "0"),
                     "PLN",
                 ],
-                fn(TestCase $t, array $state) => $t->assertEquals(186943.17, $state['phases'][0]['current']),
+                fn(TestCase $t, array $state) => $t->assertEquals(18694.317, $state['phases'][0]['current']),
             ],
             [
                 [
@@ -102,7 +102,7 @@ class ElectricityMeterChannelStateTest extends TestCase {
                     ...array_fill(0, 28, "0"),
                     "PLN",
                 ],
-                fn(TestCase $t, array $state) => $t->assertEquals(186943.17, $state['phases'][0]['powerActive']),
+                fn(TestCase $t, array $state) => $t->assertEquals(186.94317, $state['phases'][0]['powerActive']),
             ],
             [
                 [
@@ -122,7 +122,7 @@ class ElectricityMeterChannelStateTest extends TestCase {
                     ...array_fill(0, 25, "0"),
                     "PLN",
                 ],
-                fn(TestCase $t, array $state) => $t->assertEquals(186943.17, $state['phases'][0]['powerReactive']),
+                fn(TestCase $t, array $state) => $t->assertEquals(186.94317, $state['phases'][0]['powerReactive']),
             ],
         ];
     }
