@@ -32,7 +32,7 @@ final class ElectricityMeterSupportBits extends Enum {
     const TOTAL_REVERSE_ACTIVE_ENERGY = 0x0200;
     const TOTAL_FORWARD_REACTIVE_ENERGY = 0x0400;
     const TOTAL_REVERSE_REACTIVE_ENERGY = 0x0800;
-    const CURRENT_OVER64A = 0x1000;
+    const CURRENT_OVER65A = 0x1000;
     const POWER_ACTIVE_KW = 0x100000;
     const POWER_REACTIVE_KVAR = 0x200000;
     const POWER_APPARENT_KVA = 0x400000;

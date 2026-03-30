@@ -88,7 +88,7 @@ class ElectricityMeterChannelState {
     private function isSupported(string $name): bool {
         if ($name === 'current') {
             return $this->state['support'] & ElectricityMeterSupportBits::CURRENT
-                || $this->state['support'] & ElectricityMeterSupportBits::CURRENT_OVER64A;
+                || $this->state['support'] & ElectricityMeterSupportBits::CURRENT_OVER65A;
         }
         if ($name === 'powerActive') {
             return $this->state['support'] & ElectricityMeterSupportBits::POWER_ACTIVE
@@ -118,7 +118,7 @@ class ElectricityMeterChannelState {
             $multiplier /= 1000;
         } elseif ($name === 'powerApparent' && $this->state['support'] & ElectricityMeterSupportBits::POWER_APPARENT_KVA) {
             $multiplier /= 1000;
-        } elseif ($name === 'current' && $this->state['support'] & ElectricityMeterSupportBits::CURRENT_OVER64A) {
+        } elseif ($name === 'current' && $this->state['support'] & ElectricityMeterSupportBits::CURRENT_OVER65A) {
             $multiplier /= 10;
         }
         return $multiplier;

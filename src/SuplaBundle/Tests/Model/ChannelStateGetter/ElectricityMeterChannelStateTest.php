@@ -42,7 +42,7 @@ class ElectricityMeterChannelStateTest extends TestCase {
         return [
             [0, []],
             [ElectricityMeterSupportBits::CURRENT, ['current']],
-            [ElectricityMeterSupportBits::CURRENT_OVER64A, ['current']],
+            [ElectricityMeterSupportBits::CURRENT_OVER65A, ['current']],
             [ElectricityMeterSupportBits::POWER_ACTIVE, ['powerActive']],
             [ElectricityMeterSupportBits::POWER_ACTIVE_KW, ['powerActive']],
             [ElectricityMeterSupportBits::POWER_REACTIVE, ['powerReactive']],
@@ -50,7 +50,7 @@ class ElectricityMeterChannelStateTest extends TestCase {
             [ElectricityMeterSupportBits::POWER_APPARENT, ['powerApparent']],
             [ElectricityMeterSupportBits::POWER_APPARENT_KVA, ['powerApparent']],
             [ElectricityMeterSupportBits::CURRENT | ElectricityMeterSupportBits::FREQUENCY, ['frequency', 'current']],
-            [ElectricityMeterSupportBits::CURRENT_OVER64A | ElectricityMeterSupportBits::FREQUENCY, ['frequency', 'current']],
+            [ElectricityMeterSupportBits::CURRENT_OVER65A | ElectricityMeterSupportBits::FREQUENCY, ['frequency', 'current']],
             [ElectricityMeterSupportBits::TOTAL_FORWARD_REACTIVE_ENERGY, ['totalForwardReactiveEnergy']],
         ];
     }
@@ -76,7 +76,7 @@ class ElectricityMeterChannelStateTest extends TestCase {
             ],
             [
                 [
-                    ElectricityMeterSupportBits::CURRENT_OVER64A,
+                    ElectricityMeterSupportBits::CURRENT_OVER65A,
                     ...array_fill(0, 4, "0"),
                     "18694317",
                     ...array_fill(0, 31, "0"),
