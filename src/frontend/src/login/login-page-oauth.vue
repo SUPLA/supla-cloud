@@ -108,8 +108,10 @@
         return this.clientName?.toLowerCase().indexOf('google') !== -1;
       },
     },
-    mounted() {
+    beforeMount() {
       this.readRequestFromWindow();
+    },
+    mounted() {
       if (this.lastTargetCloud) {
         this.ownCloud = true;
         this.targetCloud = this.lastTargetCloud;
