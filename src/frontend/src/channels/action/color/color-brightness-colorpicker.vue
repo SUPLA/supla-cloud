@@ -52,6 +52,13 @@
   watch(
     () => model.value,
     (v) => {
+      if (v !== undefined) {
+        const clamped = Math.max(0, Math.min(100, v));
+        if (clamped !== v) {
+          model.value = clamped;
+          return;
+        }
+      }
       if (!colorPicker || v === undefined) return;
       const pickerV = Math.round(colorPicker.color.hsv.v);
       const theV = Math.round(v);

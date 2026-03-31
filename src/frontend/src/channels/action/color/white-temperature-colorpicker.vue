@@ -73,6 +73,14 @@
     (v) => {
       if (!colorPicker || v == null || updatingFromPicker) return;
 
+      if (v !== undefined) {
+        const clamped = Math.max(0, Math.min(100, v));
+        if (clamped !== v) {
+          model.value = clamped;
+          return;
+        }
+      }
+
       const normalized = clampPercent(v);
 
       if (normalized !== v) {
