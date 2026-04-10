@@ -13,7 +13,7 @@ ARG RELEASE_VERSION
 ENV RELEASE_FILENAME=$RELEASE_FILENAME
 ENV RELEASE_VERSION=$RELEASE_VERSION
 COPY --from=backend /var/app /var/app
-WORKDIR /var/app/src/frontend
+WORKDIR /var/app/frontend
 RUN npm ci && npm run build && npm run release
 WORKDIR /var/app/
 RUN find *.tar.gz -type f -exec sh -c "eval sha1sum {} > {}.sha1" \;

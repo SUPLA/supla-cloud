@@ -13,20 +13,20 @@ steps:
     commands:
       - npm -v
       - node -v
-      - cd src/frontend
+      - cd frontend
       - npm ci
 
   - name: build-frontend
     image: node:22.20.0-slim
     depends_on: [install-frontend]
     commands:
-      - cd src/frontend && npm run build
+      - cd frontend && npm run build
 
   - name: lint-frontend
     image: node:22.20.0-slim
     depends_on: [install-frontend]
     commands:
-      - cd src/frontend
+      - cd frontend
       - npm run lint
       - npm run format:check
 
@@ -34,13 +34,13 @@ steps:
     image: node:22.20.0-slim
     depends_on: [install-frontend]
     commands:
-      - cd src/frontend && npm audit --omit=dev
+      - cd frontend && npm audit --omit=dev
 
   - name: test-frontend-unit
     image: node:22.20.0-slim
     depends_on: [build-frontend]
     commands:
-      - cd src/frontend
+      - cd frontend
       - npm run test:unit
 
   - name: install-backend
@@ -103,7 +103,7 @@ steps:
       - wget https://get.symfony.com/cli/installer -O - | bash
       - mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
       - apt-get update && apt-get install -y dialog php8.2 php8.2-curl php8.2-dom php8.2-intl php8.2-mbstring php8.2-mysql php8.2-zip php8.2-pgsql
-      - cd src/frontend
+      - cd frontend
       - npm ci
       - node_modules/cypress/bin/cypress install
       - npm run test:e2e:ci
@@ -115,7 +115,7 @@ steps:
       cron: nightly
       event: cron
     commands:
-      - cd src/frontend
+      - cd frontend
       - npm ci
       - node_modules/cypress/bin/cypress install
       - npm run test:e2e:nightly
