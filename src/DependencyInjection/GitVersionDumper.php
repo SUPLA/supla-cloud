@@ -17,8 +17,6 @@
 
 namespace App\DependencyInjection;
 
-use Symfony\Component\Yaml\Yaml;
-
 class GitVersionDumper {
     public static function dumpVersion() {
         $versionFromEnv = getenv('RELEASE_VERSION');
@@ -33,14 +31,11 @@ class GitVersionDumper {
 
     private static function dumpBuildConfig(string $version, ?string $versionFull = null): void {
         $config = [
-            'supla' => [
-                'version' => ltrim($version, 'v'),
-                'version_full' => ltrim($versionFull ?: $version, 'v'),
-            ],
+            'supla.version' => ltrim($version, 'v'),
+            'supla.version_full' => ltrim($versionFull ?: $version, 'v'),
         ];
-        $buildConfig = '# Config generated automatically by Composer - changes will be overwritten' . PHP_EOL . PHP_EOL;
-        $buildConfig .= Yaml::dump($config);
-        // TODO
-        //        file_put_contents(__DIR__ . '/../../../config/config_build.yml', $buildConfig);
+        $buildConfig = "<?php\n// Config generated automatically by Composer - changes will be overwritten\n\nreturn ";
+        $buildConfig .= var_export($config, true) . ';';
+        file_put_contents(__DIR__ . '/../../config/build/version-meta.php', $buildConfig);
     }
 }

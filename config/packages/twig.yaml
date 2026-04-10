@@ -9,4 +9,4 @@ twig:
 
 when@test:
     twig:
-        strict_variables: false # TODO should be true in tests
+        strict_variables: true

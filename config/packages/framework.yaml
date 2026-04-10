@@ -26,9 +26,6 @@ framework:
     enabled: true
     circular_reference_handler: SuplaBundle\Serialization\ObjectIdCircularReferenceHandler
 
-# TODO FROM v4
-#    trusted_hosts: ~
-
 sensio_framework_extra:
   request: {converters: true}
   router:
