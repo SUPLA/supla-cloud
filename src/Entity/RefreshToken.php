@@ -8,8 +8,7 @@ use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
 /**
  * @ORM\Entity
  */
-class RefreshToken extends BaseRefreshToken
-{
+class RefreshToken extends BaseRefreshToken {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

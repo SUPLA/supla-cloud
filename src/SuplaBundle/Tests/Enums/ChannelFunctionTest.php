@@ -106,7 +106,7 @@ class ChannelFunctionTest extends TestCase {
      * @see https://github.com/SUPLA/supla-cloud/issues/480
      */
     public function testEveryFunctionIsMatchedByFrontendFilter() {
-        $frontendCode = file_get_contents(__DIR__ . '/../../../frontend/src/channels/channel-filters.vue');
+        $frontendCode = file_get_contents(__DIR__ . '/../../../../frontend/src/channels/channel-filters.vue');
         preg_match_all("#value: '(.+?)'#", $frontendCode, $matches, PREG_SET_ORDER);
         $functionIdsUsedInFrontend = array_column($matches, 1);
         $functionIdsUsedInFrontend = array_map(function ($ids) {

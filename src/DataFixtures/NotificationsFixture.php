@@ -32,7 +32,7 @@ class NotificationsFixture extends SuplaFixture {
     private $faker;
 
     public function __construct() {
-        $this->faker = Factory::create('pl_PL');;
+        $this->faker = Factory::create('pl_PL');
     }
 
     public function load(ObjectManager $manager): void {

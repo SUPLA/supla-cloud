@@ -8,8 +8,7 @@ use FOS\OAuthServerBundle\Entity\Client as BaseClient;
 /**
  * @ORM\Entity
  */
-class Client extends BaseClient
-{
+class Client extends BaseClient {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

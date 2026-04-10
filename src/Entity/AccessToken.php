@@ -8,8 +8,7 @@ use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
 /**
  * @ORM\Entity
  */
-class AccessToken extends BaseAccessToken
-{
+class AccessToken extends BaseAccessToken {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

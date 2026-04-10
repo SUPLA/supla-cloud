@@ -8,8 +8,7 @@ use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
 /**
  * @ORM\Entity
  */
-class AuthCode extends BaseAuthCode
-{
+class AuthCode extends BaseAuthCode {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
