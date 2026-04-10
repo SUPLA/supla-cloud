@@ -86,7 +86,7 @@
             "@dump-version"
         ],
         "dump-version": [
-            "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
+            "App\\DependencyInjection\\GitVersionDumper::dumpVersion"
         ],
         "test": [
             "phpunit -c app --testdox"

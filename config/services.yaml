@@ -1,3 +1,6 @@
+imports:
+  - {resource: build/version.php}
+
 parameters:
   act_as_broker_cloud: '%env(bool:SUPLA_ACT_AS_BROKER_CLOUD)%'
   fos_oauth_server.security.authentication.provider.class: SuplaBundle\Auth\SuplaOAuthProvider
