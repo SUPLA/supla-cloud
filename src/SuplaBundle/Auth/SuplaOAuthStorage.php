@@ -92,7 +92,7 @@ class SuplaOAuthStorage extends OAuthStorage {
 
     protected function migrateUserPasswordIfAuthenticatedWithLegacy($username, $plainPassword) {
         /** @var \SuplaBundle\Entity\Main\User $user */
-        $user = $this->userProvider->loadUserByUsername($username);
+        $user = $this->userProvider->loadUserByIdentifier($username);
         if ($user->hasLegacyPassword()) {
             $user->clearLegacyPassword();
             $encoder = $this->encoderFactory->getEncoder($user);
@@ -105,7 +105,7 @@ class SuplaOAuthStorage extends OAuthStorage {
     private function onAuthenticationFailure($username) {
         $reason = AuthenticationFailureReason::UNKNOWN();
         try {
-            $this->userProvider->loadUserByUsername($username);
+            $this->userProvider->loadUserByIdentifier($username);
             $reason = AuthenticationFailureReason::BAD_CREDENTIALS();
         } catch (UsernameNotFoundException $e) {
             $reason = AuthenticationFailureReason::NOT_EXISTS();
