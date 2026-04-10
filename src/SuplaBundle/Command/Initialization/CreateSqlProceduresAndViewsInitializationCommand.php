@@ -11,8 +11,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CreateSqlProceduresAndViewsInitializationCommand extends Command implements InitializationCommand {
-    private const PROCEDURES_PATH = __DIR__ . '/../../Migrations/procedures';
-    private const VIEWS_PATH = __DIR__ . '/../../Migrations/views';
+    private const PROCEDURES_PATH = __DIR__ . '/../../../../migrations/mariadb/procedures';
+    private const VIEWS_PATH = __DIR__ . '/../../../../migrations/mariadb/views';
 
     private EntityManagerInterface $entityManager;
 

@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CreateTsdbSqlProceduresAndViewsInitializationCommand extends Command {
-    private const PROCEDURES_PATH = __DIR__ . '/../../Migrations/TsDbProcedures';
+    private const PROCEDURES_PATH = __DIR__ . '/../../../../migrations/tsdb/procedures';
 
     private EntityManagerInterface $entityManager;
 
@@ -34,11 +34,8 @@ class CreateTsdbSqlProceduresAndViewsInitializationCommand extends Command {
             $io->writeln('Number of scripts to execute: ' . (count($procedures)));
         }
         foreach ($procedures as $file) {
-            $procedureName = pathinfo($file, PATHINFO_FILENAME);
-//            $procedurePermissions = $this->getProcedurePermissions($procedureName);
             $fullPath = StringUtils::joinPaths(self::PROCEDURES_PATH, $file);
             $this->executeSqlFile($fullPath);
-//            $this->restoreProcedurePermissions($procedureName, $procedurePermissions);
             if (!$io->isQuiet()) {
                 $io->writeln('✅ ' . $file);
             }
