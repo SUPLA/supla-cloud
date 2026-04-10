@@ -8,7 +8,7 @@ updates:
       interval: daily
 
   - package-ecosystem: npm
-    directory: src/frontend/
+    directory: frontend/
     target-branch: develop
     open-pull-requests-limit: 0
     schedule:

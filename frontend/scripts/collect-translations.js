@@ -16,7 +16,7 @@ const regexes = [
   '["\']([^"\']+?)["\']\\s*/\\*\\s*i18n\\s*\\*/', // '...'/*i18n*/
 ];
 
-const locations = ['src', '../SuplaBundle', '../../templates', '../../var/local'];
+const locations = ['src', '../src/SuplaBundle', '../templates', '../var/local'];
 
 let spinner = ora({text: 'Search for strings to translate in sources...', color: 'yellow'}).start();
 
@@ -48,7 +48,7 @@ async function readFiles() {
 readFiles().then((textsInSources) => {
   spinner.succeed(chalk.green('Total strings to translate found: ' + textsInSources.length));
   console.log('');
-  const translationsDirectory = '../../translations/';
+  const translationsDirectory = '../translations/';
   const yamlDumpConfig = {
     styles: {'!!null': 'canonical'},
     sortKeys: true,

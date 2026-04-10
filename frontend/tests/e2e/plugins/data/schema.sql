@@ -1,4 +1,4 @@
--- mysqldump -h 127.0.0.1 --routines -u root --no-data -p supla | sed 's/ AUTO_INCREMENT=[0-9]*//g' > src/frontend/tests/e2e/plugins/data/schema.sql
+-- mysqldump -h 127.0.0.1 --routines -u root --no-data -p supla | sed 's/ AUTO_INCREMENT=[0-9]*//g' > frontend/tests/e2e/plugins/data/schema.sql
 --
 -- MariaDB dump 10.19  Distrib 10.6.11-MariaDB, for debian-linux-gnu (x86_64)
 --

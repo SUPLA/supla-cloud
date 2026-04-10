@@ -92,10 +92,10 @@
             "phpunit -c app --testdox"
         ],
         "lint-backend": [
-            "phpcs src/SuplaBundle --standard=config/phpcs-rules.xml"
+            "phpcs SuplaBundle --standard=config/phpcs-rules.xml"
         ],
         "lint-frontend": [
-            "cd src/frontend && npm run lint -s"
+            "cd frontend && npm run lint -s"
         ],
         "lint": [
             "@lint-frontend",
@@ -105,24 +105,24 @@
             "phpcbf src/SuplaBundle --standard=config/phpcs-rules.xml"
         ],
         "webpack": [
-            "cd src/frontend && npm install",
-            "cd src/frontend && npm run build"
+            "cd frontend && npm install",
+            "cd frontend && npm run build"
         ],
         "release": [
             "@dump-version",
             "APP_ENV=prod APP_DEBUG=0 composer install --no-dev --optimize-autoloader",
             "composer run-script webpack",
-            "cd src/frontend && npm run release"
+            "cd frontend && npm run release"
         ],
         "release-dev": [
             "@dump-version",
             "composer install --optimize-autoloader",
             "composer run-script webpack",
-            "cd src/frontend && npm run release-dev"
+            "cd frontend && npm run release-dev"
         ],
         "collect-translations": [
             "php bin/console supla:dev:generateTranslations",
-            "cd src/frontend && npm run collect-translations"
+            "cd frontend && npm run collect-translations"
         ]
     },
     "config": {

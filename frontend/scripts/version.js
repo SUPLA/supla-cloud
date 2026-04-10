@@ -1,11 +1,14 @@
-import * as fs from "node:fs";
+import * as fs from 'node:fs';
 
 let theVersion = process.env.RELEASE_VERSION;
 
-const backendBuildConfigPath = '../../app/config/config_build.yml';
+const backendBuildConfigPath = '../config/build/version-meta.php';
 
 if (!theVersion && fs.existsSync(backendBuildConfigPath)) {
-  theVersion = fs.readFileSync(backendBuildConfigPath, 'utf8').match(/version: (.+)/)[1].trim();
+  theVersion = fs
+    .readFileSync(backendBuildConfigPath, 'utf8')
+    .match(/version' => '(.+)'/)[1]
+    .trim();
 }
 
 if (!theVersion) {
