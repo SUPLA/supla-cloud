@@ -26,12 +26,12 @@ class InitializeTsdbCommand extends Command {
         $this->getApplication()->setAutoExit(false);
         if (DatabaseUtils::getPlatform($this->doctrineRegistry->getManager('measurement_logs')) === DatabaseUtils::PSQL) {
             $migrateCommand =
-                "doctrine:migrations:migrate -v --no-interaction --em=measurement_logs --configuration=app/config/migrations_tsdb.yml";
+                "doctrine:migrations:migrate -v --no-interaction --em=measurement_logs --configuration=config/packages/doctrine_migrations_tsdb.yml";
             $this->getApplication()->run(new StringInput($migrateCommand), $output);
             $this->getApplication()->run(new StringInput('supla:initialize:create-tsdb-procedures'), $output);
         } elseif ($input->getOption('force')) {
             $migrateCommand =
-                "doctrine:migrations:migrate -v --no-interaction --em=tsdb --configuration=app/config/migrations_tsdb.yml";
+                "doctrine:migrations:migrate -v --no-interaction --em=tsdb --configuration=config/packages/doctrine_migrations_tsdb.yml";
             $this->getApplication()->run(new StringInput($migrateCommand), $output);
             $this->getApplication()->run(new StringInput('supla:initialize:create-tsdb-procedures'), $output);
         }

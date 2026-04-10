@@ -80,7 +80,7 @@ steps:
     image: supla/supla-cloud:ci-php8.2
     depends_on: [measurement-logs-mariadb]
     environment:
-      DATABASE_TSDB_URL: 'postgresql://postgres:postgres@tsdb:5432/supla_test?serverVersion=17&charset=utf8'
+      DATABASE_TSDB_URL: 'postgresql://postgres:postgres@tsdb:5432/supla?serverVersion=17&charset=utf8'
     commands:
       - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite measurement_logs
 
