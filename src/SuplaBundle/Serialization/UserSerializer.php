@@ -18,9 +18,9 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRules;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStatus;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
-use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\UserRepository;
@@ -32,30 +32,14 @@ class UserSerializer extends AbstractSerializer implements NormalizerAwareInterf
     use SuplaServerAware;
     use NormalizerAwareTrait;
 
-    /** @var ApiRateLimitStorage */
-    private $apiRateLimitStorage;
-    /** @var DefaultUserApiRateLimit */
-    private $defaultUserApiRateLimit;
-    /** @var TimeProvider */
-    private $timeProvider;
-    /** @var UserRepository */
-    private $userRepository;
-    /** @var bool */
-    private $apiRateLimitEnabled;
-
     public function __construct(
-        ApiRateLimitStorage $apiRateLimitStorage,
-        DefaultUserApiRateLimit $defaultUserApiRateLimit,
-        TimeProvider $timeProvider,
-        UserRepository $userRepository,
-        bool $apiRateLimitEnabled
+        private readonly ApiRateLimitStorage $apiRateLimitStorage,
+        private readonly ApiRateLimitRules $rateLimitRules,
+        private readonly TimeProvider $timeProvider,
+        private readonly UserRepository $userRepository,
+        private readonly bool $apiRateLimitEnabled
     ) {
         parent::__construct();
-        $this->apiRateLimitStorage = $apiRateLimitStorage;
-        $this->defaultUserApiRateLimit = $defaultUserApiRateLimit;
-        $this->timeProvider = $timeProvider;
-        $this->userRepository = $userRepository;
-        $this->apiRateLimitEnabled = $apiRateLimitEnabled;
     }
 
     /**
@@ -64,7 +48,7 @@ class UserSerializer extends AbstractSerializer implements NormalizerAwareInterf
      */
     protected function addExtraFields(array &$normalized, $user, array $context) {
         if ($this->isSerializationGroupRequested('limits', $context) && $this->apiRateLimitEnabled) {
-            $rule = $user->getApiRateLimit() ?: $this->defaultUserApiRateLimit;
+            $rule = $user->getApiRateLimit() ?: $this->rateLimitRules->getDefaultUserRule();
             $cacheItem = $this->apiRateLimitStorage->getItem($this->apiRateLimitStorage->getUserKey($user));
             $status = null;
             if ($cacheItem->isHit()) {

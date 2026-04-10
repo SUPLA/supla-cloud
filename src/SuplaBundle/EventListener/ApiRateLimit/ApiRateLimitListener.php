@@ -38,48 +38,18 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 class ApiRateLimitListener {
     use CurrentUserAware;
 
-    /** @var ApiRateLimitStorage */
-    private $storage;
-    /** @var bool */
-    private $enabled;
-    /** @var bool */
-    private $blocking;
-    /** @var GlobalApiRateLimit */
-    private $globalApiRateLimit;
-    /** @var DefaultUserApiRateLimit */
-    private $defaultUserApiRateLimit;
-    /** @var TimeProvider */
-    private $timeProvider;
-    /** @var EntityManagerInterface */
-    private $entityManager;
-    /** @var EncoderFactoryInterface */
-    private $encoderFactory;
-
-    /** @var ApiRateLimitStatus */
-    private $currentUserRateLimit;
-    /** @var LoggerInterface */
-    private $logger;
+    private ?ApiRateLimitStatus $currentUserRateLimit = null;
 
     public function __construct(
-        bool $enabled,
-        bool $blocking,
-        GlobalApiRateLimit $globalApiRateLimit,
-        DefaultUserApiRateLimit $defaultUserApiRateLimit,
-        ApiRateLimitStorage $storage,
-        TimeProvider $timeProvider,
-        EntityManagerInterface $entityManager,
-        LoggerInterface $logger,
-        EncoderFactoryInterface $encoderFactory
+        private readonly bool $enabled,
+        private readonly bool $blocking,
+        private readonly ApiRateLimitRules $rateLimitRules,
+        private readonly ApiRateLimitStorage $storage,
+        private readonly TimeProvider $timeProvider,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly LoggerInterface $logger,
+        private readonly EncoderFactoryInterface $encoderFactory
     ) {
-        $this->storage = $storage;
-        $this->blocking = $blocking;
-        $this->globalApiRateLimit = $globalApiRateLimit;
-        $this->defaultUserApiRateLimit = $defaultUserApiRateLimit;
-        $this->enabled = $enabled;
-        $this->timeProvider = $timeProvider;
-        $this->entityManager = $entityManager;
-        $this->logger = $logger;
-        $this->encoderFactory = $encoderFactory;
     }
 
     public function onKernelRequest(RequestEvent $event) {
@@ -148,15 +118,13 @@ class ApiRateLimitListener {
     }
 
     private function incAndCheckGlobalRate(): ApiRateLimitStatus {
-        return $this->incAndCheck($this->storage->getGlobalKey(), function () {
-            return $this->globalApiRateLimit;
-        });
+        return $this->incAndCheck($this->storage->getGlobalKey(), fn() => $this->rateLimitRules->getGlobalRule());
     }
 
     private function incAndCheckUserRate($userOrId): ApiRateLimitStatus {
         return $this->incAndCheck($this->storage->getUserKey($userOrId), function () use ($userOrId) {
             $user = $userOrId instanceof User ? $userOrId : $this->entityManager->find(User::class, $userOrId);
-            return $user->getApiRateLimit() ?: $this->defaultUserApiRateLimit;
+            return $user->getApiRateLimit() ?: $this->rateLimitRules->getDefaultUserRule();
         });
     }
 

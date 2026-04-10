@@ -4,9 +4,9 @@ namespace SuplaBundle\Command\User;
 use Assert\Assertion;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRules;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStatus;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
-use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Console\Command\Command;
@@ -18,26 +18,13 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class UserInfoCommand extends Command {
-    /** @var UserRepository */
-    private $userRepository;
-    /** @var DefaultUserApiRateLimit */
-    private $defaultUserApiRateLimit;
-    /** @var ApiRateLimitStorage */
-    private $apiRateLimitStorage;
-    /** @var TimeProvider */
-    private $timeProvider;
-
     public function __construct(
-        UserRepository $userRepository,
-        ApiRateLimitStorage $apiRateLimitStorage,
-        DefaultUserApiRateLimit $defaultUserApiRateLimit,
-        TimeProvider $timeProvider
+        private readonly UserRepository $userRepository,
+        private readonly ApiRateLimitStorage $apiRateLimitStorage,
+        private readonly ApiRateLimitRules $rateLimitRules,
+        private readonly TimeProvider $timeProvider,
     ) {
         parent::__construct();
-        $this->userRepository = $userRepository;
-        $this->apiRateLimitStorage = $apiRateLimitStorage;
-        $this->defaultUserApiRateLimit = $defaultUserApiRateLimit;
-        $this->timeProvider = $timeProvider;
     }
 
     protected function configure() {
@@ -70,7 +57,7 @@ class UserInfoCommand extends Command {
 
     private function apiRateLimitInfo(SymfonyStyle $io, User $user) {
         $io->section('API Rate Limit');
-        $rateLimitRule = $user->getApiRateLimit() ?: $this->defaultUserApiRateLimit;
+        $rateLimitRule = $user->getApiRateLimit() ?: $this->rateLimitRules->getDefaultUserRule();
         $io->writeln('Rule: ' . $rateLimitRule->toString() . ($user->getApiRateLimit() ? '' : ' (default)'));
         $cacheItem = $this->apiRateLimitStorage->getItem($this->apiRateLimitStorage->getUserKey($user));
         if ($cacheItem->isHit()) {
