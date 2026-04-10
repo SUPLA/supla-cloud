@@ -234,10 +234,9 @@ services:
       - {name: kernel.event_listener, event: kernel.response, method: onKernelResponse}
   SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage:
     $cache: '@api_rate_limit'
-  SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit:
-    $rule: '%supla.api_rate_limit.user_default_limit%'
-  SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit:
-    $rule: '%supla.api_rate_limit.global_limit%'
+  SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRules:
+    $globalRule: '%supla.api_rate_limit.global_limit%'
+    $defaultUserRule: '%supla.api_rate_limit.user_default_limit%'
 
   SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener:
     arguments:

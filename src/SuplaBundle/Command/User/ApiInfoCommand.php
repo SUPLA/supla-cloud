@@ -3,12 +3,10 @@ namespace SuplaBundle\Command\User;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRules;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStatus;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
-use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
-use SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit;
 use SuplaBundle\Model\TimeProvider;
-use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -16,42 +14,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ApiInfoCommand extends Command {
-    /** @var UserRepository */
-    private $userRepository;
-    /** @var DefaultUserApiRateLimit */
-    private $defaultUserApiRateLimit;
-    /** @var ApiRateLimitStorage */
-    private $apiRateLimitStorage;
-    /** @var TimeProvider */
-    private $timeProvider;
-    /** @var GlobalApiRateLimit */
-    private $globalApiRateLimit;
-    /** @var EntityManagerInterface */
-    private $entityManager;
-    /** @var bool */
-    private $enabled;
-    /** @var bool */
-    private $blocking;
-
     public function __construct(
-        UserRepository $userRepository,
-        ApiRateLimitStorage $apiRateLimitStorage,
-        EntityManagerInterface $entityManager,
-        GlobalApiRateLimit $globalApiRateLimit,
-        DefaultUserApiRateLimit $defaultUserApiRateLimit,
-        TimeProvider $timeProvider,
-        bool $enabled,
-        bool $blocking
+        private readonly ApiRateLimitStorage $apiRateLimitStorage,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly ApiRateLimitRules $rateLimitRules,
+        private readonly TimeProvider $timeProvider,
+        private readonly bool $enabled,
+        private readonly bool $blocking
     ) {
         parent::__construct();
-        $this->userRepository = $userRepository;
-        $this->apiRateLimitStorage = $apiRateLimitStorage;
-        $this->defaultUserApiRateLimit = $defaultUserApiRateLimit;
-        $this->timeProvider = $timeProvider;
-        $this->globalApiRateLimit = $globalApiRateLimit;
-        $this->entityManager = $entityManager;
-        $this->enabled = $enabled;
-        $this->blocking = $blocking;
     }
 
     protected function configure() {
@@ -82,12 +53,13 @@ class ApiInfoCommand extends Command {
     protected function displayGlobalLimitStatus(SymfonyStyle $io) {
         $io->section('Global Limit');
         $item = $this->apiRateLimitStorage->getItem($this->apiRateLimitStorage->getGlobalKey());
+        $globalRule = $this->rateLimitRules->getGlobalRule();
         if ($item->isHit()) {
             $globalRateLimitStatus = new ApiRateLimitStatus($item->get());
         } else {
-            $globalRateLimitStatus = ApiRateLimitStatus::fromRule($this->globalApiRateLimit, $this->timeProvider);
+            $globalRateLimitStatus = ApiRateLimitStatus::fromRule($globalRule, $this->timeProvider);
         }
-        $io->writeln('Rule: ' . $this->globalApiRateLimit->toString());
+        $io->writeln('Rule: ' . $globalRule->toString());
         $io->writeln('Remaining: ' . $globalRateLimitStatus->getRemaining());
         $io->writeln('Excess: ' . $globalRateLimitStatus->getExcess());
         $io->writeln('Reset: ' . $this->resetInfo($globalRateLimitStatus));
@@ -159,7 +131,7 @@ class ApiInfoCommand extends Command {
             }
         }
         if (!$rateLimitStatus) {
-            $rateLimitStatus = ApiRateLimitStatus::fromRule($this->defaultUserApiRateLimit, $this->timeProvider);
+            $rateLimitStatus = ApiRateLimitStatus::fromRule($this->rateLimitRules->getDefaultUserRule(), $this->timeProvider);
         }
         return $rateLimitStatus;
     }

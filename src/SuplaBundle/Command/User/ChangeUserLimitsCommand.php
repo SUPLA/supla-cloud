@@ -6,8 +6,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
+use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRules;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
-use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -17,26 +17,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
 class ChangeUserLimitsCommand extends Command {
-    /** @var UserRepository */
-    private $userRepository;
-    /** @var EntityManagerInterface */
-    private $entityManager;
-    /** @var DefaultUserApiRateLimit */
-    private $defaultUserApiRateLimit;
-    /** @var ApiRateLimitStorage */
-    private $apiRateLimitStorage;
 
     public function __construct(
-        UserRepository $userRepository,
-        EntityManagerInterface $entityManager,
-        ApiRateLimitStorage $apiRateLimitStorage,
-        DefaultUserApiRateLimit $defaultUserApiRateLimit
+        private readonly UserRepository $userRepository,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly ApiRateLimitStorage $apiRateLimitStorage,
+        private readonly ApiRateLimitRules $rateLimitRules,
     ) {
         parent::__construct();
-        $this->userRepository = $userRepository;
-        $this->entityManager = $entityManager;
-        $this->apiRateLimitStorage = $apiRateLimitStorage;
-        $this->defaultUserApiRateLimit = $defaultUserApiRateLimit;
     }
 
     protected function configure() {
@@ -81,10 +69,10 @@ class ChangeUserLimitsCommand extends Command {
             EntityUtils::setField($user, $field, $newLimit);
         }
         if (!$limitForAll) {
-            $currentRule = $user->getApiRateLimit() ?: $this->defaultUserApiRateLimit;
+            $currentRule = $user->getApiRateLimit() ?: $this->rateLimitRules->getDefaultUserRule();
             $newRule = $helper->ask($input, $output, $this->apiRateLimitQuestion($currentRule));
             if ($newRule != $currentRule) {
-                $user->setApiRateLimit($newRule == $this->defaultUserApiRateLimit ? null : $newRule);
+                $user->setApiRateLimit($newRule == $this->rateLimitRules->getDefaultUserRule() ? null : $newRule);
                 $this->apiRateLimitStorage->clearUserLimit($user);
             }
         }
@@ -98,7 +86,7 @@ class ChangeUserLimitsCommand extends Command {
         $q = new Question("API Rate limit (req/sec or default) [$currentLimit]: ", $currentLimit);
         $q->setValidator(function ($v) {
             if ($v === 'default') {
-                return $this->defaultUserApiRateLimit;
+                return $this->rateLimitRules->getDefaultUserRule();
             } else {
                 $rule = new ApiRateLimitRule($v);
                 Assertion::true($rule->isValid(), 'Invalid API rate limit rule. Format: limit/seconds');

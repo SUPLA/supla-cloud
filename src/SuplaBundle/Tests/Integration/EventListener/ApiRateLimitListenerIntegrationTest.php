@@ -30,7 +30,7 @@ use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
-use SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit;
+use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRules;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
@@ -44,8 +44,6 @@ use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 
 /**
  * @small
- * TODO
- * @group AutodiscoverIntegrationTest
  */
 class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
@@ -68,9 +66,9 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     private $smartphoneToken;
 
     protected function initializeDatabaseForTests() {
-        $this->clientManager = self::$container->get(ClientManagerInterface::class);
+        $this->clientManager = self::getContainer()->get(ClientManagerInterface::class);
         $this->user = $this->createConfirmedUser();
-        $oauth = self::$container->get(SuplaOAuth2::class);
+        $oauth = self::getContainer()->get(SuplaOAuth2::class);
         $this->apiClient = $this->clientManager->createClient();
         $this->apiClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
         $this->clientManager->updateClient($this->apiClient);
@@ -106,11 +104,8 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     }
 
     private function setGlobalApiRateLimit(ContainerInterface $container, string $limit) {
-        $globalLimitClearer = function () {
-            unset($this->services[GlobalApiRateLimit::class]);
-        };
-        $globalLimitClearer->call($container);
-        $container->set(GlobalApiRateLimit::class, new GlobalApiRateLimit($limit));
+        $rules = $container->get(ApiRateLimitRules::class);
+        EntityUtils::setField($rules, 'globalRule', $limit);
     }
 
     public function testWebappTokenIgnoresApiQuotaGlobal() {
@@ -344,7 +339,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         TestTimeProvider::setTime($now);
         $client->apiRequestV24('GET', '/api/locations');
         /** @var TestHandler $logger */
-        $logger = self::$container->get('monolog.handler.test_handler');
+        $logger = self::getContainer()->get('monolog.handler.test_handler');
         $this->assertTrue($logger->hasWarningThatContains('exceeded API rate limit'));
         $this->assertTrue($logger->hasWarningThatPasses(function ($log) {
             $context = $log['context'] ?? [];
@@ -354,7 +349,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
     public function testLimitsOfOneUserDoesNotInfluenceOtherUser() {
         $anotherUser = $this->createConfirmedUser('another@supla.org');
-        $token = self::$container->get(SuplaOAuth2::class)
+        $token = self::getContainer()->get(SuplaOAuth2::class)
             ->createPersonalAccessToken($anotherUser, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
         $this->getEntityManager()->persist($token);
         $this->getEntityManager()->flush();
@@ -406,7 +401,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
         $this->assertEquals(4, $response->headers->get('X-RateLimit-Remaining'));
-        $client->request('GET', "/direct/{$directLink->getId()}/$slug/read");
+        $client->request('GET', "/direct/{$directLink->getId()}/$slug/read?format=html");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
