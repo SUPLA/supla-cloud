@@ -16,9 +16,14 @@ parameters:
   brute_force_auth_prevention_enabled: '%env(bool:SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED)%'
   recaptcha_enabled: '%env(bool:SUPLA_RECAPTCHA_ENABLED)%'
 
-  supla.notifications_enabled: '%env(bool:SUPLA_NOTIFICATIONS_ENABLED)%'
-
   env(DATABASE_TSDB_URL): ''
+  env(SUPLA_ACT_AS_BROKER_CLOUD): 'false'
+  env(SUPLA_RECAPTCHA_ENABLED): 'false'
+  env(SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED): 'true'
+  env(SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE): 'true'
+  env(SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE): 'true'
+  env(SUPLA_PROTOCOL): 'https'
+
   supla.mariadb_url: '%env(resolve:DATABASE_URL)%'
   supla.tsdb_url: '%env(resolve:DATABASE_TSDB_URL)%'
   supla.logs_database_url: '%env(string:default:supla.mariadb_url:DATABASE_TSDB_URL)%'
