@@ -110,7 +110,7 @@
         ],
         "release": [
             "@dump-version",
-            "composer install --no-dev --optimize-autoloader",
+            "APP_ENV=prod APP_DEBUG=0 composer install --no-dev --optimize-autoloader",
             "composer run-script webpack",
             "cd src/frontend && npm run release"
         ],
