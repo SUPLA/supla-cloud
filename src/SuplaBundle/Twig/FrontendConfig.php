@@ -27,12 +27,11 @@ class FrontendConfig {
     use ContainerAwareTrait;
 
     const PUBLIC_PARAMETERS = [
-        'regulationsAcceptRequired' => 'supla_require_regulations_acceptance',
-        'requireCookiePolicyAcceptance' => 'supla_require_cookie_policy_acceptance',
-        'recaptchaEnabled' => 'recaptcha_enabled',
-//        'recaptchaSiteKey' => 'recaptcha_site_key',
-        'actAsBrokerCloud' => 'act_as_broker_cloud',
-        'suplaUrl' => 'supla_url',
+        'regulationsAcceptRequired' => 'supla.require_regulations_acceptance',
+        'requireCookiePolicyAcceptance' => 'supla.require_cookie_policy_acceptance',
+        'recaptchaSiteKey' => 'google_recaptcha_site_key',
+        'actAsBrokerCloud' => 'supla.act_as_broker_cloud',
+        'suplaUrl' => 'supla.url',
         'maintenanceMode' => 'supla.maintenance_mode',
         'accountsRegistrationEnabled' => 'supla.accounts_registration_enabled',
         'mqttBrokerEnabled' => 'supla.mqtt_broker.enabled',
@@ -63,7 +62,7 @@ class FrontendConfig {
     }
 
     private function isNotificationsEnabled(): bool {
-        return $this->container->getParameter('act_as_broker_cloud')
+        return $this->container->getParameter('supla.act_as_broker_cloud')
             || $this->settingsRepository->getValueBoolean(InstanceSettings::ALLOW_NOTIFICATIONS, false);
     }
 

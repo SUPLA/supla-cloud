@@ -97,7 +97,7 @@
       },
       ...mapState(useFrontendConfigStore, {frontendConfig: 'config'}),
       captchaEnabled() {
-        return this.frontendConfig.recaptchaEnabled;
+        return !!this.frontendConfig.recaptchaSiteKey;
       },
       captchaSiteKey() {
         return this.frontendConfig.recaptchaSiteKey;

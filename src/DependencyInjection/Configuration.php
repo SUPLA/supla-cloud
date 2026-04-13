@@ -17,7 +17,6 @@
 
 namespace App\DependencyInjection;
 
-use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -84,14 +83,10 @@ class Configuration implements ConfigurationInterface {
                     ->info('Should the API rate limit excess result in blocking requests? If false, the excesses will be logged only.')->end()
                 ->scalarNode('user_default_limit')
                     ->info('Default limit of API requests for users. In format: requests/seconds')
-                    ->example('100/60')->defaultValue('1000/3600')->validate()
-                    ->ifTrue(function($v) { return !(new ApiRateLimitRule($v))->isValid(); })->thenInvalid('Rate limit format: requests/seconds')
-                ->end()->end()
+                    ->example('100/60')->defaultValue('1000/3600')->end()
                 ->scalarNode('global_limit')
                     ->info('Global limit of API requests. If exceeded, all requests will be considered as exceeding the limit until the reset. In format: requests/seconds')
-                    ->example('100/60')->defaultValue('1000/60')->validate()
-                    ->ifTrue(function($v) { return !(new ApiRateLimitRule($v))->isValid(); })->thenInvalid('Rate limit format: requests/seconds')
-                ->end()->end()
+                    ->example('100/60')->defaultValue('1000/60')->end()
             ->end()->end()
             ->arrayNode('state_webhooks')->children()
                 ->booleanNode('only_for_public_apps')->defaultFalse()

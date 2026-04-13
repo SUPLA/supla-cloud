@@ -61,10 +61,9 @@ when@test:
     dbal:
       connections:
         default:
-          # "TEST_TOKEN" is typically set by ParaTest
-          dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+          dbname_suffix: '_test'
         logs:
-          dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+          dbname_suffix: '_test'
 
 when@e2e:
   doctrine:

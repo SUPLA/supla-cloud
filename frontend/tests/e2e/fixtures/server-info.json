@@ -14,8 +14,7 @@
   "config": {
     "regulationsAcceptRequired": true,
     "requireCookiePolicyAcceptance": true,
-    "recaptchaEnabled": false,
-    "recaptchaSiteKey": "6LecW08UAAAAANuQbt4eMxPb7BSqb1SK6AQzx6s6",
+    "recaptchaSiteKey": "",
     "actAsBrokerCloud": false,
     "suplaUrl": "http:\/\/supla.local",
     "maintenanceMode": false,

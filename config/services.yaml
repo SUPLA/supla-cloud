@@ -2,31 +2,13 @@ imports:
   - {resource: build/version.php}
 
 parameters:
-  act_as_broker_cloud: '%env(bool:SUPLA_ACT_AS_BROKER_CLOUD)%'
   fos_oauth_server.security.authentication.provider.class: SuplaBundle\Auth\SuplaOAuthProvider
-  google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
-  supla_protocol: '%env(SUPLA_PROTOCOL)%'
-  supla_server_socket: /var/run/supla/supla-server-ctrl.sock
-  supla_url: '%supla_protocol%://%supla_server%'
   container.autowiring.strict_mode: true
-  mailer_from: '%env(SUPLA_MAILER_FROM)%'
-  supla_server: '%env(SUPLA_SERVER_ADDRESS)%'
-  supla_require_regulations_acceptance: '%env(bool:SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE)%'
-  supla_require_cookie_policy_acceptance: '%env(bool:SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE)%'
-  brute_force_auth_prevention_enabled: '%env(bool:SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED)%'
-  recaptcha_enabled: '%env(bool:SUPLA_RECAPTCHA_ENABLED)%'
 
-  env(DATABASE_TSDB_URL): ''
-  env(SUPLA_ACT_AS_BROKER_CLOUD): 'false'
-  env(SUPLA_RECAPTCHA_ENABLED): 'false'
-  env(SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED): 'true'
-  env(SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE): 'true'
-  env(SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE): 'true'
-  env(SUPLA_PROTOCOL): 'https'
+  env(GOOGLE_RECAPTCHA_SECRET): ''
+  env(GOOGLE_RECAPTCHA_SITE_KEY): ''
+  env(CORS_ALLOW_ORIGIN): '^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
 
-  supla.mariadb_url: '%env(resolve:DATABASE_URL)%'
-  supla.tsdb_url: '%env(resolve:DATABASE_TSDB_URL)%'
-  supla.logs_database_url: '%env(string:default:supla.mariadb_url:DATABASE_TSDB_URL)%'
 
 services:
   _defaults:
@@ -34,9 +16,9 @@ services:
     autoconfigure: true
     public: false
     bind:
-      $suplaUrl: '%supla_url%'
+      $suplaUrl: '%supla.url%'
       $recaptchaSecret: '%env(GOOGLE_RECAPTCHA_SECRET)%'
-      $recaptchaEnabled: '%recaptcha_enabled%'
+      $recaptchaSiteKey: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
       $measurementLogsEntityManager: '@doctrine.orm.measurement_logs_entity_manager'
       $appEnv: '%kernel.environment%'
 
@@ -101,10 +83,10 @@ services:
     $openApiCache: '@openapi_docs_cache'
 
   SuplaBundle\Controller\Api\ServerController:
-    $suplaServerHost: '%supla_server%'
+    $suplaServerHost: '%supla.host%'
     $suplaVersion: '%supla.version%'
     $suplaVersionFull: '%supla.version_full%'
-    $actAsBrokerCloud: '%act_as_broker_cloud%'
+    $actAsBrokerCloud: '%supla.act_as_broker_cloud%'
 
   SuplaBundle\Controller\Api\StateWebhookController:
     $stateWebhooksForPublicAppsOnly: '%supla.state_webhooks.only_for_public_apps%'
@@ -112,7 +94,7 @@ services:
   SuplaBundle\Controller\Api\UserController:
     $clientsRegistrationEnableTime: '%supla.clients_registration.registration_active_time.manual%'
     $ioDevicesRegistrationEnableTime: '%supla.io_devices_registration.registration_active_time.manual%'
-    $requireRegulationsAcceptance: '%supla_require_regulations_acceptance%'
+    $requireRegulationsAcceptance: '%supla.require_regulations_acceptance%'
     $availableLanguages: '%supla.available_languages%'
     $accountsRegistrationEnabled: '%supla.accounts_registration_enabled%'
     $mqttBrokerEnabled: '%supla.mqtt_broker.enabled%'
@@ -144,7 +126,7 @@ services:
     resource: '../src/SuplaBundle/Model'
 
   SuplaBundle\Model\LocalSuplaCloud:
-    $address: '%supla_url%'
+    $address: '%supla.url%'
 
   SuplaBundle\Model\UserManager:
     $defaultClientsRegistrationTime: '%supla.clients_registration.registration_active_time.initial%'
@@ -185,7 +167,7 @@ services:
       - {name: monolog.logger, channel: supla_server}
   SuplaBundle\Supla\SuplaServerReal:
     arguments:
-      $socketPath: '%supla_server_socket%'
+      $socketPath: '%supla.server_socket%'
     tags:
       - {name: monolog.logger, channel: supla_server}
 
@@ -196,7 +178,7 @@ services:
   SuplaBundle\Supla\SuplaAutodiscoverReal:
     arguments:
       $autodiscoverUrl: "%supla.autodiscover_url%"
-      $actAsBrokerCloud: '%act_as_broker_cloud%'
+      $actAsBrokerCloud: '%supla.act_as_broker_cloud%'
     tags:
       - {name: monolog.logger, channel: supla_autodiscover}
 
@@ -276,7 +258,7 @@ services:
 
   SuplaBundle\Mailer\SuplaMailer:
     arguments:
-      $mailerFrom: "%mailer_from%"
+      $mailerFrom: "%supla.mailer_from%"
     tags:
       - {name: monolog.logger, channel: supla_mails}
 
