@@ -70,7 +70,7 @@ class AuthorizeOAuthController extends AbstractController {
         LocalSuplaCloud $localSuplaCloud,
         TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder,
         ?string $recaptchaSecret,
-        bool $recaptchaEnabled
+        ?string $recaptchaSiteKey,
     ) {
         $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
         $this->autodiscover = $autodiscover;
@@ -78,7 +78,7 @@ class AuthorizeOAuthController extends AbstractController {
         $this->localSuplaCloud = $localSuplaCloud;
         $this->suplaCloudRequestForwarder = $suplaCloudRequestForwarder;
         $this->recaptchaSecret = $recaptchaSecret;
-        $this->recaptchaEnabled = $recaptchaEnabled;
+        $this->recaptchaEnabled = !!$recaptchaSiteKey;
     }
 
     /**

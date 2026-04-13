@@ -150,7 +150,7 @@ class UserController extends RestController {
         int $clientsRegistrationEnableTime,
         int $ioDevicesRegistrationEnableTime,
         bool $requireRegulationsAcceptance,
-        bool $recaptchaEnabled,
+        ?string $recaptchaSiteKey,
         ?string $recaptchaSecret,
         array $availableLanguages,
         bool $accountsRegistrationEnabled,
@@ -166,7 +166,7 @@ class UserController extends RestController {
         $this->clientsRegistrationEnableTime = $clientsRegistrationEnableTime;
         $this->ioDevicesRegistrationEnableTime = $ioDevicesRegistrationEnableTime;
         $this->requireRegulationsAcceptance = $requireRegulationsAcceptance;
-        $this->recaptchaEnabled = $recaptchaEnabled;
+        $this->recaptchaEnabled = !!$recaptchaSiteKey;
         $this->recaptchaSecret = $recaptchaSecret;
         $this->availableLanguages = $availableLanguages;
         $this->accountsRegistrationEnabled = $accountsRegistrationEnabled;
