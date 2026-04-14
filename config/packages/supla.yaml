@@ -84,7 +84,6 @@ when@dev:
     oauth:
       tokens_lifetime:
         webapp: {access: 28800}
-    #      webapp: {access: 60}
     ocr:
       enabled: true
       url: 'http://localhost:8044'
