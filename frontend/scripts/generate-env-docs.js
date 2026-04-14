@@ -36,6 +36,7 @@ const DESCRIPTIONS = {
   SUPLA_MQTT_BROKER_USERNAME: 'MQTT broker username.',
   SUPLA_MQTT_BROKER_PASSWORD: 'MQTT broker password.',
   SUPLA_MQTT_BROKER_INTEGRATED_AUTH: 'Whether to use integrated authentication for MQTT broker. Use `true` or `false`.',
+  SUPLA_MQTT_BROKER_CLIENT_ID: 'MQTT broker client ID.',
   SUPLA_PROTOCOL: 'Protocol that should be used for web application and API. Must be `http` or `https`.',
   SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE: 'Whether to require cookie policy acceptance. Use `true` or `false`.',
   SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE: 'Whether to require regulations acceptance. Use `true` or `false`.',
@@ -119,7 +120,7 @@ const required = [];
 const optional = [];
 
 for (const envVar of allEnvVars) {
-  if (defaultsMap.hasOwnProperty(envVar)) {
+  if (Object.prototype.hasOwnProperty.call(defaultsMap, envVar)) {
     optional.push(envVar);
   } else {
     required.push(envVar);
@@ -130,6 +131,8 @@ required.sort();
 optional.sort();
 required.unshift('APP_DEBUG');
 required.unshift('APP_ENV');
+optional.push('SUPLA_MQTT_BROKER_CLIENT_ID');
+defaultsMap['SUPLA_MQTT_BROKER_CLIENT_ID'] = '';
 
 // === SORT BY DESCRIPTIONS ORDER ===
 
