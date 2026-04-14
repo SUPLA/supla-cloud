@@ -29,7 +29,6 @@ class FrontendConfig {
     const PUBLIC_PARAMETERS = [
         'regulationsAcceptRequired' => 'supla.require_regulations_acceptance',
         'requireCookiePolicyAcceptance' => 'supla.require_cookie_policy_acceptance',
-        'recaptchaSiteKey' => 'google_recaptcha_site_key',
         'actAsBrokerCloud' => 'supla.act_as_broker_cloud',
         'suplaUrl' => 'supla.url',
         'maintenanceMode' => 'supla.maintenance_mode',
@@ -40,8 +39,9 @@ class FrontendConfig {
 
     public function __construct(
         ContainerInterface $container,
-        private SuplaAutodiscover $autodiscover,
-        private SettingsStringRepository $settingsRepository
+        private readonly SuplaAutodiscover $autodiscover,
+        private readonly SettingsStringRepository $settingsRepository,
+        private readonly ?string $recaptchaSiteKey = null,
     ) {
         $this->container = $container;
     }
@@ -57,6 +57,7 @@ class FrontendConfig {
                     'file' => $this->getMaxUploadSizePerFile(),
                     'total' => $this->getMaxUploadSize(),
                 ],
+                'recaptchaSiteKey' => $this->recaptchaSiteKey,
             ]
         );
     }
