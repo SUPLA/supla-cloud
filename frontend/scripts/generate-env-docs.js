@@ -22,6 +22,7 @@ const DESCRIPTIONS = {
   GOOGLE_RECAPTCHA_SITE_KEY: 'Public site key for Google reCAPTCHA. Must be set in deployment if you want to use reCAPTCHA.',
   GOOGLE_RECAPTCHA_SECRET: 'Secret key for Google reCAPTCHA. Must be set in deployment if you want to use reCAPTCHA.',
   SUPLA_ACCOUNTS_REGISTRATION_ENABLED: 'Whether accounts registration is enabled or not. Use `true` or `false`.',
+  SUPLA_TOKEN_LIFETIME_WEBAPP: 'Duration in seconds for which access tokens are valid for web applications (the session length).',
   SUPLA_ACT_AS_BROKER_CLOUD: 'Whether the server should work as an official broker. Use `true` or `false`.',
   SUPLA_API_RATE_LIMIT_ENABLED: 'Whether to enable API rate limiting. Use `true` or `false`.',
   SUPLA_API_RATE_LIMIT_GLOBAL_LIMIT: 'Global limit for API requests (if used). Use format `requests/seconds`.',
@@ -152,7 +153,6 @@ function sortByDescriptionsOrder(vars) {
 
 sortByDescriptionsOrder(required);
 sortByDescriptionsOrder(optional);
-
 
 function formatDefault(value) {
   if (value === '') return '"" (empty)';

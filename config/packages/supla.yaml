@@ -17,6 +17,7 @@ parameters:
   env(SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE): 'true'
   env(SUPLA_ACCOUNTS_REGISTRATION_ENABLED): 'true'
   env(DATABASE_TSDB_URL): ''
+  env(SUPLA_TOKEN_LIFETIME_WEBAPP): '1200'
 
   env(SUPLA_API_RATE_LIMIT_ENABLED): 'true'
   env(SUPLA_API_RATE_LIMIT_USER_DEFAULT_LIMIT): '1000/3600'
@@ -67,7 +68,7 @@ supla:
     password: '%env(string:SUPLA_MQTT_BROKER_PASSWORD)%'
   oauth:
     tokens_lifetime:
-      webapp: {access: 1200}
+      webapp: {access: '%env(int:SUPLA_TOKEN_LIFETIME_WEBAPP)%'}
       client_app: {access: 3600, refresh: 5184000} # 60 days
       admin: {access: 3600, refresh: 5184000}
       user: {access: 3600, refresh: 5184000}
