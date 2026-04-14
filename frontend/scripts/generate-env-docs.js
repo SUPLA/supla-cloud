@@ -3,6 +3,43 @@ import * as path from 'node:path';
 
 const ROOT_DIRS = ['../../config', '../../src'];
 
+const DESCRIPTIONS = {
+  APP_ENV:
+    'The application environment. Must be set to `prod` in deployment. See more at [Configuring Symfony](https://symfony.com/doc/current/configuration.html#selecting-the-active-environment).',
+  APP_DEBUG: 'Whether to enable debug mode or not. Must be set to `0` in deployment.',
+  APP_SECRET:
+    'Random, at least 32-chars, at best 64-chars length secret for the application. Must be set in deployment. You may generate it with `openssl rand -hex 32`.',
+  DATABASE_URL: 'Database connection string. Example: `mysql://root:php@127.0.0.1:3306/supla?serverVersion=mariadb-11.7.2&charset=utf8mb4`.',
+  SUPLA_HOST_ADDRESS: 'Host (and possibly port) where SUPLA Cloud is running. E.g. `svr44.supla.org` or `mycloudinstance.local:8080`.',
+  MAILER_DSN:
+    'Mailer DSN connection string.<br> For Gmail as a transport, use: `gmail://username:password@localhost`<br>' +
+    'For a generic SMTP server, use: `smtp://localhost:25?encryption=&auth_mode=`<br>' +
+    'With username and password, use: `smtp://username:password@localhost:25?encryption=&auth_mode=`',
+  SUPLA_MAILER_FROM: 'From field for emails sent by SUPLA Cloud.',
+  SUPLA_ADMIN_EMAIL: 'Email address of the admin user.',
+  CORS_ALLOW_ORIGIN: 'Regex for hosts that should be enabled for CORS requests.',
+  DATABASE_TSDB_URL: 'Database connection string for TimescaleDB, if used.',
+  GOOGLE_RECAPTCHA_SITE_KEY: 'Public site key for Google reCAPTCHA. Must be set in deployment if you want to use reCAPTCHA.',
+  GOOGLE_RECAPTCHA_SECRET: 'Secret key for Google reCAPTCHA. Must be set in deployment if you want to use reCAPTCHA.',
+  SUPLA_ACCOUNTS_REGISTRATION_ENABLED: 'Whether accounts registration is enabled or not. Use `true` or `false`.',
+  SUPLA_ACT_AS_BROKER_CLOUD: 'Whether the server should work as an official broker. Use `true` or `false`.',
+  SUPLA_API_RATE_LIMIT_ENABLED: 'Whether to enable API rate limiting. Use `true` or `false`.',
+  SUPLA_API_RATE_LIMIT_GLOBAL_LIMIT: 'Global limit for API requests (if used). Use format `requests/seconds`.',
+  SUPLA_API_RATE_LIMIT_USER_DEFAULT_LIMIT: 'Default per-user limit for API requests (if used). Use format `requests/seconds`.',
+  SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED:
+    'Whether to enable brute force prevention for authentication (blocking user for some time after unsuccessful login attempts). Use `true` or `false`.',
+  SUPLA_MQTT_BROKER_ENABLED: 'Whether to enable MQTT broker. Use `true` or `false`.',
+  SUPLA_MQTT_BROKER_HOST: 'MQTT broker host.',
+  SUPLA_MQTT_BROKER_PORT: 'MQTT broker port.',
+  SUPLA_MQTT_BROKER_TLS: 'Whether to use TLS encryption for MQTT broker. Use `true` or `false`.',
+  SUPLA_MQTT_BROKER_USERNAME: 'MQTT broker username.',
+  SUPLA_MQTT_BROKER_PASSWORD: 'MQTT broker password.',
+  SUPLA_MQTT_BROKER_INTEGRATED_AUTH: 'Whether to use integrated authentication for MQTT broker. Use `true` or `false`.',
+  SUPLA_PROTOCOL: 'Protocol that should be used for web application and API. Must be `http` or `https`.',
+  SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE: 'Whether to require cookie policy acceptance. Use `true` or `false`.',
+  SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE: 'Whether to require regulations acceptance. Use `true` or `false`.',
+};
+
 const envUsageRegex = /%env\(([^)]+)\)%/g;
 const envDefaultRegex = /env\(([^)]+)\):\s*['"]?([^'"\n]*)['"]?/g;
 
@@ -90,34 +127,53 @@ for (const envVar of allEnvVars) {
 
 required.sort();
 optional.sort();
+required.unshift('APP_DEBUG');
 required.unshift('APP_ENV');
 
-// === FORMAT DEFAULT ===
+// === SORT BY DESCRIPTIONS ORDER ===
+
+function sortByDescriptionsOrder(vars) {
+  const descriptionsKeys = Object.keys(DESCRIPTIONS);
+  return vars.sort((a, b) => {
+    const indexA = descriptionsKeys.indexOf(a);
+    const indexB = descriptionsKeys.indexOf(b);
+    if (indexA !== -1 && indexB !== -1) {
+      return indexA - indexB;
+    }
+    if (indexA !== -1) {
+      return -1;
+    }
+    if (indexB !== -1) {
+      return 1;
+    }
+    return a.localeCompare(b);
+  });
+}
+
+sortByDescriptionsOrder(required);
+sortByDescriptionsOrder(optional);
+
 
 function formatDefault(value) {
   if (value === '') return '"" (empty)';
   return value;
 }
 
-// === OUTPUT ===
-
 console.log('# Environment Variables\n');
 
-// REQUIRED
 console.log('## Required variables\n');
 console.log('| Variable | Description |');
 console.log('|----------|-------------|');
 
 required.forEach((v) => {
-  console.log(`| ${v} | |`);
+  console.log(`| \`${v}\` | ${DESCRIPTIONS[v] ?? ''} |`);
 });
 
-// OPTIONAL
 console.log('\n## Optional variables (with defaults)\n');
 console.log('| Variable | Default | Description |');
 console.log('|----------|---------|-------------|');
 
 optional.forEach((v) => {
   const def = formatDefault(defaultsMap[v]);
-  console.log(`| ${v} | ${def.replace(/\|/g, '\\|')} | |`);
+  console.log(`| \`${v}\` | ${def.replace(/\|/g, '\\|')} | ${DESCRIPTIONS[v] ?? ''} |`);
 });
