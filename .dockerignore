@@ -25,3 +25,5 @@ var/sessions/*
 public/dist/
 
 **/.DS_Store
+
+.env.local*
