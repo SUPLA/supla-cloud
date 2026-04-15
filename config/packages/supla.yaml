@@ -7,16 +7,12 @@ parameters:
   supla.mailer_from: '%env(SUPLA_MAILER_FROM)%'
   supla.require_regulations_acceptance: '%env(bool:SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE)%'
   supla.require_cookie_policy_acceptance: '%env(bool:SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE)%'
-  supla.mariadb_url: '%env(resolve:DATABASE_URL)%'
-  supla.tsdb_url: '%env(resolve:DATABASE_TSDB_URL)%'
-  supla.logs_database_url: '%env(string:default:supla.mariadb_url:DATABASE_TSDB_URL)%'
 
   env(SUPLA_ACT_AS_BROKER_CLOUD): 'false'
   env(SUPLA_PROTOCOL): 'https'
   env(SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE): 'true'
   env(SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE): 'true'
   env(SUPLA_ACCOUNTS_REGISTRATION_ENABLED): 'true'
-  env(DATABASE_TSDB_URL): ''
   env(SUPLA_TOKEN_LIFETIME_WEBAPP): '1200'
 
   env(SUPLA_API_RATE_LIMIT_ENABLED): 'true'

@@ -9,7 +9,7 @@ const DESCRIPTIONS = {
   APP_DEBUG: 'Whether to enable debug mode or not. Must be set to `0` in deployment.',
   APP_SECRET:
     'Random, at least 32-chars, at best 64-chars length secret for the application. Must be set in deployment. You may generate it with `openssl rand -hex 32`.',
-  DATABASE_URL: 'Database connection string. Example: `mysql://root:php@127.0.0.1:3306/supla?serverVersion=mariadb-11.7.2&charset=utf8mb4`.',
+  DATABASE_PASSWORD: 'MariaDB database password.',
   SUPLA_HOST_ADDRESS: 'Host (and possibly port) where SUPLA Cloud is running. E.g. `svr44.supla.org` or `mycloudinstance.local:8080`.',
   MAILER_DSN:
     'Mailer DSN connection string.<br> For Gmail as a transport, use: `gmail://username:password@localhost`<br>' +
@@ -17,8 +17,12 @@ const DESCRIPTIONS = {
     'With username and password, use: `smtp://username:password@localhost:25?encryption=&auth_mode=`',
   SUPLA_MAILER_FROM: 'From field for emails sent by SUPLA Cloud.',
   SUPLA_ADMIN_EMAIL: 'Email address of the admin user.',
+  DATABASE_HOST: 'MariaDB database host.',
+  DATABASE_PORT: 'MariaDB database port.',
+  DATABASE_NAME: 'MariaDB database name.',
+  DATABASE_USER: 'MariaDB database user.',
+  DATABASE_VERSION: 'MariaDB database version.',
   CORS_ALLOW_ORIGIN: 'Regex for hosts that should be enabled for CORS requests.',
-  DATABASE_TSDB_URL: 'Database connection string for TimescaleDB, if used.',
   GOOGLE_RECAPTCHA_SITE_KEY: 'Public site key for Google reCAPTCHA. Must be set in deployment if you want to use reCAPTCHA.',
   GOOGLE_RECAPTCHA_SECRET: 'Secret key for Google reCAPTCHA. Must be set in deployment if you want to use reCAPTCHA.',
   SUPLA_ACCOUNTS_REGISTRATION_ENABLED: 'Whether accounts registration is enabled or not. Use `true` or `false`.',
@@ -40,6 +44,8 @@ const DESCRIPTIONS = {
   SUPLA_PROTOCOL: 'Protocol that should be used for web application and API. Must be `http` or `https`.',
   SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE: 'Whether to require cookie policy acceptance. Use `true` or `false`.',
   SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE: 'Whether to require regulations acceptance. Use `true` or `false`.',
+  DATABASE_TSDB_URL: 'Database connection string for TimescaleDB, if used.',
+  DATABASE_FOR_LOGS: 'Which connection to use for storing logs. Use either `mariadb` (default) or `tsdb`.',
 };
 
 const envUsageRegex = /%env\(([^)]+)\)%/g;
