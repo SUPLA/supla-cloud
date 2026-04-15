@@ -3,7 +3,10 @@ type: docker
 name: default
 
 environment:
-  DATABASE_URL: 'mysql://root:@database:3306/supla_test?serverVersion=mariadb-11.7.2&charset=utf8mb4'
+  DATABASE_HOST: database
+  DATABASE_NAME: supla_test
+  DATABASE_USER: root
+  DATABASE_PASSWORD: drone
   APP_ENV: test
 
 steps:
@@ -81,6 +84,7 @@ steps:
     depends_on: [measurement-logs-mariadb]
     environment:
       DATABASE_TSDB_URL: 'postgresql://postgres:postgres@tsdb:5432/supla?serverVersion=17&charset=utf8'
+      DATABASE_FOR_LOGS: tsdb
     commands:
       - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite measurement_logs
 
@@ -151,12 +155,12 @@ steps:
 
 services:
   - name: database
-    image: mariadb:11.7.2
+    image: mariadb:12.2.2
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       MYSQL_DATABASE: supla_test
       MYSQL_USER: drone
-      MYSQL_PASSWORD: ~
+      MYSQL_PASSWORD: drone
+      MYSQL_ROOT_PASSWORD: drone
   - name: tsdb
     image: timescale/timescaledb:2.20.1-pg17
     environment:

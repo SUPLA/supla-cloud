@@ -1,23 +1,43 @@
+parameters:
+  env(DATABASE_HOST): supla-db
+  env(DATABASE_PORT): 3306
+  env(DATABASE_NAME): supla
+  env(DATABASE_USER): supla
+  env(DATABASE_VERSION): mariadb-12.2.2
+  env(DATABASE_TSDB_URL): ''
+  env(DATABASE_FOR_LOGS): 'mariadb'
+
 doctrine:
   dbal:
-    #        use_savepoints: true
     connections:
       default:
-        url: '%supla.mariadb_url%'
+        driver: pdo_mysql
+        host: '%env(DATABASE_HOST)%'
+        port: '%env(int:DATABASE_PORT)%'
+        dbname: '%env(DATABASE_NAME)%'
+        user: '%env(DATABASE_USER)%'
+        password: '%env(DATABASE_PASSWORD)%'
+        server_version: '%env(DATABASE_VERSION)%'
+        charset: utf8mb4
         schema_filter: ~^(?!(esp_|supla_email_notifications|supla_(.+)_log))~
-        charset: utf8mb4
         default_table_options:
           charset: utf8
           collate: utf8_unicode_ci
-      logs:
-        url: '%supla.logs_database_url%'
+      logs_mariadb:
+        driver: pdo_mysql
+        host: '%env(DATABASE_HOST)%'
+        port: '%env(int:DATABASE_PORT)%'
+        dbname: '%env(DATABASE_NAME)%'
+        user: '%env(DATABASE_USER)%'
+        password: '%env(DATABASE_PASSWORD)%'
+        server_version: '%env(DATABASE_VERSION)%'
+        charset: utf8mb4
         schema_filter: ~^(migration_versions|doctrine_migration_versions|supla_(.+)_log)$~
-        charset: utf8mb4
         default_table_options:
           charset: utf8
           collate: utf8_unicode_ci
-      tsdb:
-        url: '%supla.tsdb_url%'
+      logs_tsdb:
+        url: '%env(resolve:DATABASE_TSDB_URL)%'
         schema_filter: ~^(migration_versions|doctrine_migration_versions|supla_(.+)_log)$~
         charset: utf8
         default_table_options:
@@ -47,14 +67,14 @@ doctrine:
             dir: '%kernel.project_dir%/src/SuplaBundle/Entity/Main'
             prefix: 'SuplaBundle\Entity\Main'
       measurement_logs:
-        connection: logs
+        connection: 'logs_%env(DATABASE_FOR_LOGS)%'
         mappings:
           MeasurementLogs:
             type: annotation
             dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
             prefix: 'SuplaBundle\Entity\MeasurementLogs'
       tsdb:
-        connection: tsdb
+        connection: logs_tsdb
 
 when@test:
   doctrine:
