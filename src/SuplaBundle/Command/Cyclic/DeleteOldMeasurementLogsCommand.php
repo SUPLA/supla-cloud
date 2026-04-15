@@ -23,6 +23,7 @@ use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterPowerActiveLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Model\TimeProvider;
+use SuplaBundle\Utils\DatabaseUtils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,7 +32,7 @@ class DeleteOldMeasurementLogsCommand extends Command implements CyclicCommand {
     private EntityManagerInterface $entityManager;
     private array $logsRetentionConfig;
 
-    public function __construct($measurementLogsEntityManager, array $logsRetentionConfig) {
+    public function __construct(EntityManagerInterface $measurementLogsEntityManager, array $logsRetentionConfig) {
         parent::__construct();
         $this->entityManager = $measurementLogsEntityManager;
         $this->logsRetentionConfig = $logsRetentionConfig;
@@ -52,13 +53,14 @@ class DeleteOldMeasurementLogsCommand extends Command implements CyclicCommand {
     }
 
     protected function logClean(OutputInterface $output, string $entity, int $olderThanDays): void {
+        $date = (new \DateTime("-$olderThanDays days", new \DateTimeZone('UTC')))->format('Y-m-d');
         $sql = sprintf(
-            'DELETE FROM `%s` WHERE `date` < DATE_SUB(CURRENT_DATE, INTERVAL %d DAY)',
-            $this->entityManager->getClassMetadata($entity)->getTableName(),
-            $olderThanDays
+            'DELETE FROM %s WHERE %s < :date',
+            DatabaseUtils::quoteColumnName($this->entityManager, $this->entityManager->getClassMetadata($entity)->getTableName()),
+            DatabaseUtils::quoteColumnName($this->entityManager, 'date')
         );
         $stmt = $this->entityManager->getConnection()->prepare($sql);
-        $rowCount = $stmt->executeStatement();
+        $rowCount = $stmt->executeStatement(['date' => $date]);
         if ($rowCount || $output->isVerbose()) {
             $className = basename(str_replace('\\', '/', $entity));
             $output->writeln(sprintf('Deleted <info>%d</info> items from <comment>%s</comment> storage.', $rowCount, $className));

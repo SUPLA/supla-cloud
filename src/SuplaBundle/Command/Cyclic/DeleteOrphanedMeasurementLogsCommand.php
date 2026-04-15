@@ -18,7 +18,6 @@
 namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use SuplaBundle\Command\CopyMeasurementLogsCommand;
 use SuplaBundle\Model\TimeProvider;
 use Symfony\Component\Console\Command\Command;
@@ -27,7 +26,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class DeleteOrphanedMeasurementLogsCommand extends Command implements CyclicCommand {
-    public function __construct(private readonly ManagerRegistry $registry) {
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly EntityManagerInterface $measurementLogsEntityManager,
+    ) {
         parent::__construct();
     }
 
@@ -39,21 +41,20 @@ class DeleteOrphanedMeasurementLogsCommand extends Command implements CyclicComm
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $channelIds = $this->getExistingChannelIds();
-        $logsManager = $this->registry->getManager('measurement_logs');
         $io = new SymfonyStyle($input, $output);
         foreach (CopyMeasurementLogsCommand::LOG_TABLES as $logTable) {
-            $this->logClean($logsManager, $channelIds, $logTable, $io);
+            $this->logClean($channelIds, $logTable, $io);
         }
         return 0;
     }
 
     private function getExistingChannelIds(): array {
-        $emMariadb = $this->registry->getManager('default');
-        $ids = $emMariadb->getConnection()->executeQuery('SELECT id FROM supla_dev_channel')->fetchFirstColumn();
+        $ids = $this->em->getConnection()->executeQuery('SELECT id FROM supla_dev_channel')->fetchFirstColumn();
         return $ids;
     }
 
-    protected function logClean(EntityManagerInterface $em, array $existingChannelIds, string $logTable, SymfonyStyle $io): void {
+    protected function logClean(array $existingChannelIds, string $logTable, SymfonyStyle $io): void {
+        $em = $this->measurementLogsEntityManager;
         $firstRow = $em->getConnection()->executeQuery(sprintf("SELECT * FROM %s LIMIT 1", $logTable))->fetchAssociative();
         if ($firstRow && array_key_exists('channel_id', $firstRow)) {
             $channelIdsWithLogs = $em->getConnection()

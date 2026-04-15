@@ -25,6 +25,7 @@ use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Entity\MeasurementLogs\EnergyPriceLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\VirtualChannelType;
+use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -91,7 +92,7 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
         ]);
         // @codingStandardsIgnoreEnd
         $output = $this->executeCommand('supla:cyclic:energy-price-forecast-fetch');
-        $em = $this->getEntityManager('measurement_logs');
+        $em = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
         $logsRepo = $em->getRepository(EnergyPriceLogItem::class);
         $this->assertEquals(3, $logsRepo->count([]));
         /** @var EnergyPriceLogItem $firstLog */
@@ -112,7 +113,7 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
         ]);
         // @codingStandardsIgnoreEnd
         $this->executeCommand('supla:cyclic:energy-price-forecast-fetch');
-        $em = $this->getEntityManager('measurement_logs');
+        $em = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
         $logsRepo = $em->getRepository(EnergyPriceLogItem::class);
         $this->assertEquals(3, $logsRepo->count([]));
         /** @var EnergyPriceLogItem $firstLog */
@@ -130,7 +131,7 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
             ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'fixing1' => 436.2, 'fixing2' => 448.91],
         ]);
         $this->executeCommand('supla:cyclic:energy-price-forecast-fetch');
-        $em = $this->getEntityManager('measurement_logs');
+        $em = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
         $logsRepo = $em->getRepository(EnergyPriceLogItem::class);
         $this->assertEquals(3, $logsRepo->count([]));
         /** @var EnergyPriceLogItem $firstLog */

@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Integration\Command\Cyclic;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
+use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -31,7 +32,7 @@ class DeleteOldMeasurementLogsCommandIntegrationTest extends IntegrationTestCase
 
     /** @before */
     protected function initializeEntityManager() {
-        $this->entityManager = $this->getEntityManager('measurement_logs');
+        $this->entityManager = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
     }
 
     public function testDeletingOrphanedTemperatureLog() {

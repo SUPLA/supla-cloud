@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration\Command\Cyclic;
 
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
+use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -30,7 +31,7 @@ class DeleteOrphanedMeasurementLogsCommandIntegrationTest extends IntegrationTes
         EntityUtils::setField($logItem, 'channel_id', 2);
         EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString(new \DateTime()));
         EntityUtils::setField($logItem, 'temperature', 20);
-        $entityManager = $this->getEntityManager('measurement_logs');
+        $entityManager = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
         $entityManager->persist($logItem);
         $entityManager->flush();
         $command = $this->application->find('supla:clean:orphaned-measurement-logs');

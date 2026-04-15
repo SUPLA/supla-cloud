@@ -3,14 +3,14 @@ namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\Persistence\ManagerRegistry;
 use SuplaBundle\Command\CopyMeasurementLogsCommand;
-use SuplaBundle\Utils\DatabaseUtils;
+use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class MoveNewMeasurementLogsCommand extends AbstractCyclicCommand {
-    public function __construct(private ManagerRegistry $registry) {
+    public function __construct(private ManagerRegistry $registry, private MeasurementLogsEntityManagerProvider $emProvider) {
         parent::__construct();
     }
 
@@ -27,9 +27,8 @@ class MoveNewMeasurementLogsCommand extends AbstractCyclicCommand {
     protected function execute(InputInterface $input, OutputInterface $output) {
         $io = new SymfonyStyle($input, $output);
         $emMariadb = $this->registry->getManager('default');
-        $emTsdb = $this->registry->getManager('tsdb');
-        $emLogs = $this->registry->getManager('measurement_logs');
-        if (DatabaseUtils::getPlatform($emLogs) !== DatabaseUtils::PSQL) {
+        $emTsdb = $this->registry->getManager('logs_tsdb');
+        if ($this->emProvider->isMariaDb()) {
             $io->warning('Measurement logs database is not TSDB. Skipping copy operation.');
             return 0;
         }

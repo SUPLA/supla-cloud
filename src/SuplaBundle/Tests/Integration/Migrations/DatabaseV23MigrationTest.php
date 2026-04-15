@@ -153,7 +153,7 @@ class DatabaseV23MigrationTest extends DatabaseMigrationTestCase {
 
     private function assertHasLogItems() {
         /** @var \SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem $log */
-        $log = $this->getEntityManager('measurement_logs')->createQuery('SELECT t FROM ' . TemperatureLogItem::class . ' t')
+        $log = $this->getEntityManager('logs_mariadb')->createQuery('SELECT t FROM ' . TemperatureLogItem::class . ' t')
             ->setMaxResults(1)
             ->getSingleResult();
         $this->assertEquals(2, $log->getChannelId());
@@ -161,7 +161,7 @@ class DatabaseV23MigrationTest extends DatabaseMigrationTestCase {
     }
 
     private function assertRemovingDuplicates() {
-        $logsCount = $this->getEntityManager('measurement_logs')
+        $logsCount = $this->getEntityManager('logs_mariadb')
             ->createQuery('SELECT COUNT(t.channel_id) FROM ' . TemperatureLogItem::class . ' t')
             ->getSingleScalarResult();
         $this->assertEquals(2, $logsCount);

@@ -41,6 +41,7 @@ use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\MeasurementCsvExporter;
+use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -74,8 +75,9 @@ class ChannelMeasurementLogsController extends RestController {
     public function __construct(
         IODeviceManager $deviceManager,
         IODeviceChannelRepository $channelRepository,
-        $measurementLogsEntityManager,
-        SubjectConfigTranslator $channelParamConfigTranslator
+        EntityManagerInterface $measurementLogsEntityManager,
+        SubjectConfigTranslator $channelParamConfigTranslator,
+        private MeasurementLogsEntityManagerProvider $logsEmProvider,
     ) {
         $this->deviceManager = $deviceManager;
         $this->entityManager = $measurementLogsEntityManager;
@@ -641,7 +643,7 @@ class ChannelMeasurementLogsController extends RestController {
     }
 
     private function deleteMeasurementLogs($entityClass, IODeviceChannel $channel, ?callable $filters = null) {
-        $repo = $this->getDoctrine()->getRepository($entityClass, 'measurement_logs');
+        $repo = $this->logsEmProvider->getRepository($entityClass);
         $qb = $repo->createQueryBuilder('log')
             ->delete()
             ->where('log.channel_id = :channelId')

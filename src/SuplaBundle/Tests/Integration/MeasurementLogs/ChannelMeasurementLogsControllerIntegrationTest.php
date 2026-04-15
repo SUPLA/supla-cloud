@@ -33,6 +33,7 @@ use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ThermostatLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
@@ -154,7 +155,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $date->add($oneday);
         }
 
-        $fixture = new LogItemsFixture($this->getDoctrine());
+        $fixture = new LogItemsFixture($this->getMeasurementLogsEntityManager());
         $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-1 days', 1);
         $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-1 days', 2);
         $fixture->createElectricityMeterVoltageLogItems($offset + 4, '-3 hours');
@@ -930,12 +931,12 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     public function testDeletingVoltageLogsForSelectedPhase() {
         $channelId = $this->device1->getChannels()[3]->getId();
         $client = $this->createAuthenticatedClient($this->user);
-        $voltageRepository = $this->getDoctrine()->getRepository(ElectricityMeterVoltageAberrationLogItem::class, 'measurement_logs');
+        $voltageRepository = $this->getMeasurementLogsEntityManager()->getRepository(ElectricityMeterVoltageAberrationLogItem::class);
         $logsBefore = $voltageRepository->findBy(['channel_id' => $channelId]);
         $client->apiRequestV24('DELETE', "/api/channels/{$channelId}/measurement-logs?logsType=voltage&phase=1");
         $response = $client->getResponse();
         $this->assertStatusCode('204', $response);
-        $emLogRepository = $this->getDoctrine()->getRepository(ElectricityMeterLogItem::class, 'measurement_logs');
+        $emLogRepository = $this->getMeasurementLogsEntityManager()->getRepository(ElectricityMeterLogItem::class);
         $logsAfter = $voltageRepository->findBy(['channel_id' => $channelId]);
         $this->assertNotEmpty($logsAfter);
         $phases = array_unique(array_map(function (ElectricityMeterVoltageAberrationLogItem $log) {
@@ -952,8 +953,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $client->apiRequestV24('DELETE', "/api/channels/{$channelId}/measurement-logs?logsType=voltage");
         $response = $client->getResponse();
         $this->assertStatusCode('204', $response);
-        $voltageRepository = $this->getDoctrine()->getRepository(ElectricityMeterVoltageAberrationLogItem::class, 'measurement_logs');
-        $emLogRepository = $this->getDoctrine()->getRepository(ElectricityMeterLogItem::class, 'measurement_logs');
+        $voltageRepository = $this->getMeasurementLogsEntityManager()->getRepository(ElectricityMeterVoltageAberrationLogItem::class);
+        $emLogRepository = $this->getMeasurementLogsEntityManager()->getRepository(ElectricityMeterLogItem::class);
         $this->assertEmpty($voltageRepository->findBy(['channel_id' => $channelId]));
         $this->assertNotEmpty($emLogRepository->findBy(['channel_id' => $channelId]));
     }
@@ -982,6 +983,6 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     protected function getMeasurementLogsEntityManager(): EntityManagerInterface {
-        return $this->getEntityManager('measurement_logs');
+        return $this->getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
     }
 }

@@ -25,6 +25,7 @@ use ReflectionObject;
 use ReflectionProperty;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\Traits\TestSuplaHttpClient;
@@ -66,11 +67,12 @@ abstract class IntegrationTestCase extends WebTestCase {
         self::$dataForTests = array_intersect_key(self::$dataForTests, [static::class => '']);
         $initializedAtLeastOnce = isset(self::$dataForTests[static::class]);
         if (!$initializedAtLeastOnce || $this->size()->isLarge() || (!$this->requires() && !$this->size()->isSmall())) {
+            $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->getManagerName();
             $this->executeCommand('doctrine:schema:drop --force --full-database --em=default');
-            $this->executeCommand('doctrine:schema:drop --force --full-database --em=measurement_logs');
+            $this->executeCommand('doctrine:schema:drop --force --full-database --em=' . $logsEm);
             $this->getEntityManager()->getConnection()->executeQuery('DROP TABLE supla_email_notifications;');
             $this->executeCommand('doctrine:schema:create --em=default');
-            $this->executeCommand('doctrine:schema:create --em=measurement_logs');
+            $this->executeCommand('doctrine:schema:create --em=' . $logsEm);
             $this->executeCommand('supla:initialize:create-sql-procedures-and-views');
             $this->executeCommand('supla:initialize:create-webapp-client');
             $this->getEntityManager()->getConnection()->executeQuery('TRUNCATE supla_email_notifications;');

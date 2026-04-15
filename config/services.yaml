@@ -19,8 +19,8 @@ services:
       $suplaUrl: '%supla.url%'
       $recaptchaSecret: '%env(GOOGLE_RECAPTCHA_SECRET)%'
       $recaptchaSiteKey: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
-      $measurementLogsEntityManager: '@doctrine.orm.measurement_logs_entity_manager'
       $appEnv: '%kernel.environment%'
+      Doctrine\ORM\EntityManagerInterface $measurementLogsEntityManager: '@supla.logs_entity_manager'
 
   _instanceof:
     SuplaBundle\ParamConverter\AbstractBodyParamConverter:
@@ -124,6 +124,13 @@ services:
 
   SuplaBundle\Model\:
     resource: '../src/SuplaBundle/Model'
+
+  SuplaBundle\Model\MeasurementLogsEntityManagerProvider:
+    $databaseForLogs: '%supla.database_for_logs%'
+
+  supla.logs_entity_manager:
+    class: Doctrine\ORM\EntityManagerInterface
+    factory: ['@SuplaBundle\Model\MeasurementLogsEntityManagerProvider', 'get']
 
   SuplaBundle\Model\LocalSuplaCloud:
     $address: '%supla.url%'
