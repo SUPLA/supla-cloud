@@ -99,7 +99,7 @@ steps:
     image: cypress/base:22.20.0
     depends_on: [install-backend, build-frontend]
     environment:
-      CYPRESS_DATABASE: mysql://root@database/supla_test_e2e
+      CYPRESS_DATABASE: mysql://root:drone@database/supla_test_e2e
     commands:
       - apt-get update && apt-get install -y ca-certificates apt-transport-https build-essential lsb-release wget gnupg
       - echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/sury-php.list

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'em' => 'measurement_logs',
+    'em' => 'logs_tsdb',
     'migrations_paths' => [
         'SuplaBundle\Migrations\TsDbMigration' => __DIR__ . '/../migrations/tsdb',
     ],

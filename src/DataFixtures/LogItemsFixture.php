@@ -17,7 +17,7 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
@@ -47,9 +47,9 @@ class LogItemsFixture extends SuplaFixture {
 
     const SINCE = '-14 day';
 
-    public function __construct(ManagerRegistry $doctrine) {
+    public function __construct(EntityManagerInterface $measurementLogsEntityProvider) {
         $this->faker = Factory::create('pl_PL');
-        $this->entityManager = $doctrine->getManager('measurement_logs');
+        $this->entityManager = $measurementLogsEntityProvider;
     }
 
     public function load(ObjectManager $manager): void {

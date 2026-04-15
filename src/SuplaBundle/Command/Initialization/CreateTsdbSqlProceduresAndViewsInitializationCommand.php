@@ -16,7 +16,7 @@ class CreateTsdbSqlProceduresAndViewsInitializationCommand extends Command {
 
     public function __construct(ManagerRegistry $doctrineRegistry) {
         parent::__construct();
-        $this->entityManager = $doctrineRegistry->getManager('tsdb');
+        $this->entityManager = $doctrineRegistry->getManager('logs_tsdb');
     }
 
     protected function configure() {

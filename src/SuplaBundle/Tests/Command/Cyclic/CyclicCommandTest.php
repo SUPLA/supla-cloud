@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Command\Cyclic;
 
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Command\Cyclic\DeleteNotConfirmedUsersCommand;
 use SuplaBundle\Command\Cyclic\DeleteOrphanedMeasurementLogsCommand;
@@ -46,7 +46,10 @@ class CyclicCommandTest extends TestCase {
     }
 
     public function testCustomRun() {
-        $command = new DeleteOrphanedMeasurementLogsCommand($this->createMock(ManagerRegistry::class));
+        $command = new DeleteOrphanedMeasurementLogsCommand(
+            $this->createMock(EntityManagerInterface::class),
+            $this->createMock(EntityManagerInterface::class)
+        );
         $timeProvider = new TestTimeProvider();
         TestTimeProvider::setTime('2018-11-02 00:00:00');
         $this->assertFalse($command->shouldRunNow($timeProvider));

@@ -7,6 +7,8 @@ parameters:
   env(DATABASE_TSDB_URL): ''
   env(DATABASE_FOR_LOGS): 'mariadb'
 
+  supla.database_for_logs: '%env(string:DATABASE_FOR_LOGS)%'
+
 doctrine:
   dbal:
     connections:
@@ -52,8 +54,7 @@ doctrine:
 
   orm:
     auto_generate_proxy_classes: "%kernel.debug%"
-    #        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-    #        auto_mapping: true
+    default_entity_manager: default
     entity_managers:
       default:
         connection: default
@@ -66,15 +67,20 @@ doctrine:
             type: annotation
             dir: '%kernel.project_dir%/src/SuplaBundle/Entity/Main'
             prefix: 'SuplaBundle\Entity\Main'
-      measurement_logs:
-        connection: 'logs_%env(DATABASE_FOR_LOGS)%'
+      logs_mariadb:
+        connection: logs_mariadb
         mappings:
           MeasurementLogs:
             type: annotation
             dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
             prefix: 'SuplaBundle\Entity\MeasurementLogs'
-      tsdb:
+      logs_tsdb:
         connection: logs_tsdb
+        mappings:
+          MeasurementLogs:
+            type: annotation
+            dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
+            prefix: 'SuplaBundle\Entity\MeasurementLogs'
 
 when@test:
   doctrine:
@@ -82,13 +88,17 @@ when@test:
       connections:
         default:
           dbname_suffix: '_test'
-        logs:
+        logs_mariadb:
+          dbname_suffix: '_test'
+        logs_tsdb:
           dbname_suffix: '_test'
 
 when@e2e:
   doctrine:
     dbal:
-      dbname_suffix: '_e2e'
+      connections:
+        default:
+          dbname_suffix: '_e2e'
 
 when@prod:
   doctrine:

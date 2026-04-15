@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Integration\Migrations;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\GateClosingRule;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
+use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 
@@ -69,8 +70,9 @@ class SuplaServerSqlProceduresIntegrationTest extends IntegrationTestCase {
         $this->markTestSkipped('Not working yet, dont know why.');
         $parameters = ['"2022-10-26 16:09:00"', 1, 2, 3, 4, 5, 6, 7, 8, 9, 11.5, 12.5, 13.5, 14];
         $query = 'CALL supla_add_em_voltage_aberration_log_item(' . implode(', ', $parameters) . ')';
-        $this->getEntityManager('measurement_logs')->getConnection()->executeQuery($query);
-        $logItems = $this->getEntityManager('measurement_logs')->getRepository(ElectricityMeterVoltageAberrationLogItem::class)->findAll();
+        $em = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
+        $em->getConnection()->executeQuery($query);
+        $logItems = $em->getRepository(ElectricityMeterVoltageAberrationLogItem::class)->findAll();
         $this->assertCount(1, $logItems);
         /** @var \SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem $logItem */
         $logItem = $logItems[0];
