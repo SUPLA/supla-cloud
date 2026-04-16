@@ -4,6 +4,7 @@ namespace SuplaBundle\Auth;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\OAuthServerBundle\Entity\AccessTokenManager;
+use FOS\OAuthServerBundle\Model\TokenInterface;
 use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -20,7 +21,7 @@ class SuplaAccessTokenManager extends AccessTokenManager {
         $this->requestStack = $requestStack;
     }
 
-    public function createToken() {
+    public function createToken(): TokenInterface {
         return new AccessToken($this->requestStack->getCurrentRequest());
     }
 }

@@ -18,6 +18,7 @@
 namespace SuplaBundle\Controller\OAuth;
 
 use FOS\OAuthServerBundle\Controller\AuthorizeController;
+use FOS\OAuthServerBundle\Model\ClientInterface;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
 use OAuth2\OAuth2RedirectException;
@@ -52,7 +53,7 @@ class BrokerAuthorizeController extends AuthorizeController {
      * @Route("/oauth/v2/auth", name="fos_oauth_server_authorize", methods={"GET", "POST"})
      * @UnavailableInMaintenance
      */
-    public function authorizeAction(Request $request) {
+    public function authorizeAction(Request $request): Response {
         try {
             try {
                 try {
@@ -66,6 +67,7 @@ class BrokerAuthorizeController extends AuthorizeController {
                 }
             } catch (ApiException $e) {
                 $this->oauth2Server->finishClientAuthorization(false);
+                throw $e;
             }
         } catch (OAuth2RedirectException $redirectException) {
             return new Response('', Response::HTTP_FOUND, $redirectException->getResponseHeaders());
@@ -108,7 +110,7 @@ class BrokerAuthorizeController extends AuthorizeController {
         $this->twig = $twig;
     }
 
-    protected function getClient() {
+    protected function getClient(): ClientInterface {
         try {
             /** @var \SuplaBundle\Entity\Main\OAuth\ApiClient $client */
             $client = parent::getClient();

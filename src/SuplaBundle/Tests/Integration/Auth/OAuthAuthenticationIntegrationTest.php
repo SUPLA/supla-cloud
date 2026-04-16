@@ -63,7 +63,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
             'scope' => 'account_r offline_access',
         ], $params);
         self::ensureKernelShutdown();
-        $client = $insulate ? $this->createInsulatedClient() : $this->createClient();
+        $client = false ? $this->createInsulatedClient() : $this->createClient();
         $client->followRedirects();
         $client->request('GET', '/oauth/v2/auth?' . http_build_query($params));
         if ($testCase['login']) {

@@ -20,9 +20,9 @@ namespace SuplaBundle\Entity\Main\OAuth;
 use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\Client;
-use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ApiClientType;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -33,8 +33,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * })
  */
 class ApiClient extends Client {
-    use BelongsToUser;
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -104,7 +102,7 @@ class ApiClient extends Client {
     }
 
     /** @Groups({"secret"}) */
-    public function getSecret() {
+    public function getSecret(): string {
         return parent::getSecret();
     }
 
@@ -143,7 +141,7 @@ class ApiClient extends Client {
         $this->longDescription = $longDescription;
     }
 
-    public function getUser() {
+    public function getUser(): ?UserInterface {
         return $this->user;
     }
 
