@@ -48,7 +48,7 @@ class CreateConfirmedUserCommand extends Command {
             } catch (\RuntimeException $e) {
                 if ($e->getCode() == self::USERNAME_EXISTS_CODE && $input->getOption('if-not-exists')) {
                     $output->writeln("User $username already exists.");
-                    return 1;
+                    return self::SUCCESS;
                 } else {
                     throw $e;
                 }
@@ -64,7 +64,7 @@ class CreateConfirmedUserCommand extends Command {
             $this->createConfirmedUser($username, $password);
             $output->writeln("New account has been created.");
         }
-        return 0;
+        return self::SUCCESS;
     }
 
     private function usernameQuestion(): Question {
