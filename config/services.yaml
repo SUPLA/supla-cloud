@@ -2,7 +2,6 @@ imports:
   - {resource: build/version.php}
 
 parameters:
-  fos_oauth_server.security.authentication.provider.class: SuplaBundle\Auth\SuplaOAuthProvider
   container.autowiring.strict_mode: true
 
   env(GOOGLE_RECAPTCHA_SECRET): ''

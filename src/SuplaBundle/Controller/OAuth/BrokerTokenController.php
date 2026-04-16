@@ -67,7 +67,7 @@ class BrokerTokenController extends TokenController {
      * @Route("/api/{version}/oauth/v2/token", methods={"GET", "POST"})
      * @Route("/api/oauth/v2/token", methods={"GET", "POST"})
      */
-    public function tokenAction(Request $request) {
+    public function tokenAction(Request $request): Response {
         try {
             return parent::tokenAction($request);
         } catch (ForwardRequestToTargetCloudException $e) {

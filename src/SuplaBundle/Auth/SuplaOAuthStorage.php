@@ -19,6 +19,7 @@ namespace SuplaBundle\Auth;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\OAuthServerBundle\Model\AuthCodeManagerInterface;
+use FOS\OAuthServerBundle\Model\ClientInterface;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use FOS\OAuthServerBundle\Model\RefreshTokenManagerInterface;
 use FOS\OAuthServerBundle\Storage\OAuthStorage;
@@ -33,7 +34,7 @@ use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\Exception\LockedException;
@@ -56,13 +57,13 @@ class SuplaOAuthStorage extends OAuthStorage {
         RefreshTokenManagerInterface $refreshTokenManager,
         AuthCodeManagerInterface $authCodeManager,
         UserProviderInterface $userProvider,
-        EncoderFactoryInterface $encoderFactory,
+        PasswordHasherFactoryInterface $passwordHasherFactory,
         EntityManagerInterface $entityManager,
         UserLoginAttemptListener $userLoginAttemptListener,
         SuplaAutodiscover $autodiscover,
         ApiClientAuthorizationRepository $apiClientAuthorizationRepository,
     ) {
-        parent::__construct($clientManager, $accessTokenManager, $refreshTokenManager, $authCodeManager, $userProvider, $encoderFactory);
+        parent::__construct($clientManager, $accessTokenManager, $refreshTokenManager, $authCodeManager, $userProvider, $passwordHasherFactory);
         $this->entityManager = $entityManager;
         $this->userLoginAttemptListener = $userLoginAttemptListener;
         $this->autodiscover = $autodiscover;
@@ -118,7 +119,7 @@ class SuplaOAuthStorage extends OAuthStorage {
         $this->userLoginAttemptListener->onAuthenticationFailure($username, $reason);
     }
 
-    public function getClient($clientId) {
+    public function getClient($clientId): ?ClientInterface {
         $client = parent::getClient($clientId);
         if (!$client && $this->autodiscover->isBroker()) { // maybe it exists in AD?
             $client = new AutodiscoverPublicClientStub($clientId);

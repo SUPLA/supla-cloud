@@ -56,23 +56,6 @@
             "migrations/.gitignore"
         ]
     },
-    "friendsofsymfony/oauth-server-bundle": {
-        "version": "2.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "1.6",
-            "ref": "7300db1277b1ba025cdc2791171d9bf3e7adcc42"
-        },
-        "files": [
-            "config/packages/fos_oauth_server.yaml",
-            "config/routes/fos_oauth_server.yaml",
-            "src/Entity/AccessToken.php",
-            "src/Entity/AuthCode.php",
-            "src/Entity/Client.php",
-            "src/Entity/RefreshToken.php"
-        ]
-    },
     "friendsofsymfony/rest-bundle": {
         "version": "3.5",
         "recipe": {
@@ -96,6 +79,9 @@
         "files": [
             "config/packages/google_recaptcha.yaml"
         ]
+    },
+    "klapaudius/oauth-server-bundle": {
+        "version": "3.0.1"
     },
     "nelmio/cors-bundle": {
         "version": "2.6",
