@@ -50,9 +50,10 @@ security:
                 use_referer: true
 
         api:
-            fos_oauth: true
             pattern: ^/api/
             stateless: true
+            custom_authenticators:
+                - SuplaBundle\Auth\SuplaOAuth2Authenticator
 
     access_control:
         - {path: ^/oauth/v2/auth, roles: IS_AUTHENTICATED_FULLY}

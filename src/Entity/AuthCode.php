@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -26,5 +27,5 @@ class AuthCode extends BaseAuthCode {
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    protected $user;
+    protected ?UserInterface $user;
 }

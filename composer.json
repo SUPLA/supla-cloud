@@ -34,7 +34,7 @@
         "google/recaptcha": "^1.1",
         "gumlet/php-image-resize": "^2.0",
         "incenteev/composer-parameter-handler": "~2.0",
-        "klapaudius/oauth-server-bundle": "3.0.1",
+        "klapaudius/oauth-server-bundle": "^3.0",
         "monolog/monolog": "^2.11",
         "myclabs/php-enum": "1.5.*",
         "nelmio/cors-bundle": "^2.6.0",

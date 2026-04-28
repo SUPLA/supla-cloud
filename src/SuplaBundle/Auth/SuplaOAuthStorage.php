@@ -127,7 +127,7 @@ class SuplaOAuthStorage extends OAuthStorage {
         return $client;
     }
 
-    public function checkClientCredentials(IOAuth2Client $client, $clientSecret = null) {
+    public function checkClientCredentials(IOAuth2Client $client, $clientSecret = null): bool {
         if ($client instanceof AutodiscoverPublicClientStub) {
             $client->setSecret($clientSecret);
             return true;

@@ -270,6 +270,7 @@ services:
 
   SuplaBundle\Twig\FrontendConfig: ~
 
+  SuplaBundle\Auth\SuplaOAuth2Authenticator: ~
   SuplaBundle\Auth\SuplaOAuth2:
     arguments:
       - '@fos_oauth_server.storage'

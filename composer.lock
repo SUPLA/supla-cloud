@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef37135dd517d7380612638822da5589",
+    "content-hash": "694b590239bbc06bf6fd839db60c09d7",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2019,25 +2019,25 @@
         },
         {
             "name": "klapaudius/oauth-server-bundle",
-            "version": "3.0.1",
+            "version": "3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/klapaudius/FOSOAuthServerBundle.git",
-                "reference": "428700d1f5d6e99fae46848ea1bf0b7b9b5e3250"
+                "reference": "4511b55e193118d580c7ce671487b5a89176d56e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/klapaudius/FOSOAuthServerBundle/zipball/428700d1f5d6e99fae46848ea1bf0b7b9b5e3250",
-                "reference": "428700d1f5d6e99fae46848ea1bf0b7b9b5e3250",
+                "url": "https://api.github.com/repos/klapaudius/FOSOAuthServerBundle/zipball/4511b55e193118d580c7ce671487b5a89176d56e",
+                "reference": "4511b55e193118d580c7ce671487b5a89176d56e",
                 "shasum": ""
             },
             "require": {
                 "klapaudius/oauth2-php": "~1.4",
-                "php": "^7.2.5|^8.0",
-                "symfony/dependency-injection": "~5.3",
-                "symfony/framework-bundle": "~5.3",
-                "symfony/security-bundle": "~5.3",
-                "symfony/twig-bundle": "~5.3"
+                "php": "^7.4.25|^8.0",
+                "symfony/dependency-injection": "~5.3|~6.0",
+                "symfony/framework-bundle": "~5.3|~6.0",
+                "symfony/security-bundle": "~5.3|~6.0",
+                "symfony/twig-bundle": "~5.3|~6.0"
             },
             "require-dev": {
                 "doctrine/doctrine-bundle": "~2.0",
@@ -2102,7 +2102,7 @@
             ],
             "support": {
                 "issues": "https://github.com/klapaudius/FOSOAuthServerBundle/issues",
-                "source": "https://github.com/klapaudius/FOSOAuthServerBundle/tree/3.0.1"
+                "source": "https://github.com/klapaudius/FOSOAuthServerBundle/tree/3.1.6"
             },
             "funding": [
                 {
@@ -2110,7 +2110,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-09-17T13:29:59+00:00"
+            "time": "2025-09-02T13:18:35+00:00"
         },
         {
             "name": "klapaudius/oauth2-php",
