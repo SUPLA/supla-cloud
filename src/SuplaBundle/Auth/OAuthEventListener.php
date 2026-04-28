@@ -18,9 +18,7 @@
 namespace SuplaBundle\Auth;
 
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\OAuthServerBundle\Event\AbstractAuthorizationEvent;
-use FOS\OAuthServerBundle\Event\PostAuthorizationEvent;
-use FOS\OAuthServerBundle\Event\PreAuthorizationEvent;
+use FOS\OAuthServerBundle\Event\OAuthEvent;
 use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\Transactional;
@@ -38,35 +36,22 @@ class OAuthEventListener implements EventSubscriberInterface {
     use Transactional;
     use SuplaServerAware;
 
-    /** @var ApiClientAuthorizationRepository */
-    private $authorizationRepository;
-    /** @var UserRepository */
-    private $userRepository;
-    /** @var RequestStack */
-    private $requestStack;
-    /** @var TokenStorageInterface */
-    private $tokenStorage;
-
     public function __construct(
-        ApiClientAuthorizationRepository $authorizationRepository,
-        UserRepository $userRepository,
-        RequestStack $requestStack,
-        TokenStorageInterface $tokenStorage
+        private readonly ApiClientAuthorizationRepository $authorizationRepository,
+        private readonly UserRepository $userRepository,
+        private readonly RequestStack $requestStack,
+        private readonly TokenStorageInterface $tokenStorage,
     ) {
-        $this->authorizationRepository = $authorizationRepository;
-        $this->userRepository = $userRepository;
-        $this->requestStack = $requestStack;
-        $this->tokenStorage = $tokenStorage;
     }
 
-    public static function getSubscribedEvents() {
+    public static function getSubscribedEvents(): array {
         return [
-            PreAuthorizationEvent::class => 'onPreAuthorization',
-            PostAuthorizationEvent::class => 'onPostAuthorization',
+            OAuthEvent::PRE_AUTHORIZATION_PROCESS => 'onPreAuthorization',
+            OAuthEvent::POST_AUTHORIZATION_PROCESS => 'onPostAuthorization',
         ];
     }
 
-    public function onPreAuthorization(PreAuthorizationEvent $event) {
+    public function onPreAuthorization(OAuthEvent $event): void {
         if ($user = $this->getUser($event)) {
             $scope = $this->requestStack->getCurrentRequest()->get('scope', null);
             $authorization = $this->authorizationRepository->findOneByUserAndApiClient($user, $event->getClient());
@@ -77,7 +62,7 @@ class OAuthEventListener implements EventSubscriberInterface {
         }
     }
 
-    public function onPostAuthorization(PostAuthorizationEvent $event) {
+    public function onPostAuthorization(OAuthEvent $event): void {
         if ($event->isAuthorizedClient()) {
             if (null !== $client = $event->getClient()) {
                 $user = $this->getUser($event);
@@ -103,7 +88,7 @@ class OAuthEventListener implements EventSubscriberInterface {
         $this->invalidateSession();
     }
 
-    private function onAuthorizationCreated(ApiClientAuthorization $authorization) {
+    private function onAuthorizationCreated(ApiClientAuthorization $authorization): void {
         $scope = new OAuthScope($authorization->getScope());
         $user = $authorization->getUser();
         if ($scope->hasScope('mqtt_broker') && !$user->isMqttBrokerEnabled()) {
@@ -115,7 +100,7 @@ class OAuthEventListener implements EventSubscriberInterface {
         }
     }
 
-    private function invalidateSession() {
+    private function invalidateSession(): void {
         $this->tokenStorage->setToken(null);
         $request = $this->requestStack->getCurrentRequest();
         if ($request && ($session = $request->getSession())) {
@@ -123,7 +108,7 @@ class OAuthEventListener implements EventSubscriberInterface {
         }
     }
 
-    private function getUser(AbstractAuthorizationEvent $event): ?User {
+    private function getUser(OAuthEvent $event): ?User {
         return $this->userRepository->findOneByEmail($event->getUser()->getUsername());
     }
 }
