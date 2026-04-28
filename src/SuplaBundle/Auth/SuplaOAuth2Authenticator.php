@@ -17,13 +17,20 @@
 
 namespace SuplaBundle\Auth;
 
+use FOS\OAuthServerBundle\Model\AccessToken;
 use FOS\OAuthServerBundle\Security\Authenticator\Oauth2Authenticator;
 use FOS\OAuthServerBundle\Security\Authenticator\Passport\Badge\AccessTokenBadge;
+use OAuth2\OAuth2;
+use OAuth2\OAuth2AuthenticateException;
+use OAuth2\OAuth2ServerException;
 use SuplaBundle\Auth\Token\AccessIdAwareToken;
 use SuplaBundle\Auth\Token\PublicOauthAppToken;
 use SuplaBundle\Auth\Token\WebappToken;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\AccountStatusException;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
@@ -31,12 +38,45 @@ use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPasspor
 
 class SuplaOAuth2Authenticator extends Oauth2Authenticator {
     public function authenticate(Request $request): Passport {
-        $passport = parent::authenticate($request);
-        /** @var AccessTokenBadge $badge */
-        $accessTokenBadge = $passport->getBadge(AccessTokenBadge::class);
-        $user = $accessTokenBadge->getAccessToken()->getUser();
-        $username = $user->getUsername();
-        return new SelfValidatingPassport(new UserBadge($username, static fn() => $user), [$accessTokenBadge]);
+        try {
+            $tokenString = str_replace('Bearer ', '', $request->headers->get('Authorization'));
+
+            /** @var AccessToken $accessToken */
+            $accessToken = $this->serverService->verifyAccessToken($tokenString);
+
+            $user = $accessToken->getUser();
+
+            if (null !== $user) {
+                try {
+                    $this->userChecker->checkPreAuth($user);
+                } catch (AccountStatusException $e) {
+                    throw new OAuth2AuthenticateException(
+                        Response::HTTP_UNAUTHORIZED,
+                        OAuth2::TOKEN_TYPE_BEARER,
+                        $this->serverService->getVariable(OAuth2::CONFIG_WWW_REALM),
+                        'access_denied',
+                        $e->getMessage()
+                    );
+                }
+            }
+
+            $roles = (null !== $user) ? $user->getRoles() : [];
+            $scope = $accessToken->getScope();
+
+            if (!empty($scope)) {
+                foreach (explode(' ', $scope) as $role) {
+                    $roles[] = 'ROLE_' . mb_strtoupper($role);
+                }
+            }
+
+            $roles = array_unique($roles, SORT_REGULAR);
+
+            $accessTokenBadge = new AccessTokenBadge($accessToken, $roles);
+
+            return new SelfValidatingPassport(new UserBadge($user->getUsername()), [$accessTokenBadge]);
+        } catch (OAuth2ServerException $e) {
+            throw new AuthenticationException('OAuth2 authentication failed', 0, $e);
+        }
     }
 
     public function createAuthenticatedToken(PassportInterface $passport, string $firewallName): TokenInterface {
