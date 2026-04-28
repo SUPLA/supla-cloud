@@ -140,6 +140,7 @@ class UserController extends RestController {
     /** @var bool */
     private $mqttAuthEnabled;
     private TimeProvider $timeProvider;
+    private BrokerRequestSecurityVoter $brokerRequestSecurityVoter;
 
     public function __construct(
         UserManager $userManager,
@@ -156,7 +157,8 @@ class UserController extends RestController {
         bool $accountsRegistrationEnabled,
         bool $mqttBrokerEnabled,
         bool $mqttAuthEnabled,
-        TimeProvider $timeProvider
+        TimeProvider $timeProvider,
+        BrokerRequestSecurityVoter $brokerRequestSecurityVoter
     ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
@@ -173,6 +175,7 @@ class UserController extends RestController {
         $this->mqttBrokerEnabled = $mqttBrokerEnabled;
         $this->mqttAuthEnabled = $mqttAuthEnabled;
         $this->timeProvider = $timeProvider;
+        $this->brokerRequestSecurityVoter = $brokerRequestSecurityVoter;
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
@@ -183,9 +186,11 @@ class UserController extends RestController {
 
     /**
      * @Rest\Patch("/user-info")
-     * @Security("is_granted('isRequestFromBroker', request)")
      */
-    public function getUserAction(Request $request) {
+    public function getUserAction(Request $request, BrokerRequestSecurityVoter $brokerRequestSecurityVoter) {
+        if (!$brokerRequestSecurityVoter->isRequestFromBroker($request)) {
+            throw $this->createAccessDeniedException();
+        }
         $username = $request->get('username');
         $user = $this->userManager->userByEmail($username);
         if (!$user) {

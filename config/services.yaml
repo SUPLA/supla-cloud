@@ -189,7 +189,7 @@ services:
       - {name: monolog.logger, channel: supla_autodiscover}
 
   SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
-  SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverReal'
+  SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverMock'
 
   SuplaBundle\Supla\SuplaBrokerHttpClient:
     tags:
