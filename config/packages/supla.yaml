@@ -90,6 +90,7 @@ when@dev:
 
 when@test:
   supla:
+    autodiscover_url: http://localhost:8010
     brute_force_auth_prevention:
       enabled: true
     api_rate_limit:

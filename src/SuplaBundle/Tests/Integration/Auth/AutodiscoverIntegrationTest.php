@@ -35,22 +35,22 @@ use SuplaBundle\Tests\Integration\Traits\TestSuplaHttpClient;
 /**
  * For these tests to run, you need to launch your local instance of SUPLA Autodiscover from https://github.com/SUPLA/supla-autodiscover
  * The directories supla-cloud and supla-autodiscover should be next to each other (in the same parent dir).
- * Run AD with php7.4 -S localhost:8010 -t web web/app.php
- * Then, update app/config/config_local.yml so the "Real" Autodiscover is being used in the tests instead of the Mocked one:
- */
-/*
-supla:
-  autodiscover_url: http://localhost:8010
-parameters:
-  act_as_broker_cloud: true
-  supla_protocol: http
-services:
-  SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverReal'
-*/
-
-/**
+ * Run AD with php8.4 -S localhost:8010 -t web web/app.php
+ * Then run also the Cloud instance on its default port 8008.
+ *
+ * Then, update config/services.yml so the "Real" Autodiscover is being used in the tests instead of the Mocked one:
+ *
+ * SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverReal'
+ *
+ * In .env.local add these:
+ *
+ * SUPLA_HOST_ADDRESS=localhost:8008
+ * SUPLA_ACT_AS_BROKER_CLOUD=true
+ * SUPLA_PROTOCOL=http
+ *
  * These tests are disabled by default because of the demand for the specific environment. To run them, change the group name below
  * (this group name is excluded in the app/phpunit.xml configuration file).
+ *
  * @group AutodiscoverIntegrationTest
  */
 class AutodiscoverIntegrationTest extends IntegrationTestCase {
@@ -84,7 +84,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRegisteringTargetCloud() {
-        $result = $this->executeAdCommand("target-clouds:registration-tokens:issue http://supla.local local@supla.org");
+        $result = $this->executeAdCommand("target-clouds:registration-tokens:issue http://localhost:8008 local@supla.org");
         $this->assertCount(3, $result);
         $command = $result[2];
         $this->assertStringStartsWith('php bin/console supla:register-target-cloud ', $command);
@@ -121,6 +121,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
             'password' => 'alamakota',
             'timezone' => 'Europe/Warsaw',
         ];
+        self::ensureKernelShutdown();
         $client = $this->createClient();
         $client->apiRequest('POST', '/api/register-account', $userData);
         $this->assertStatusCode(409, $client->getResponse());
@@ -139,7 +140,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
     public function testGetTargetCloudClientId() {
         $this->testRegisteringTargetCloud();
         $this->treatAsBroker();
-        $targetCloud = new TargetSuplaCloud('http://supla.local', true);
+        $targetCloud = new TargetSuplaCloud('http://localhost:8008', true);
         $localClientId = $this->autodiscover->getTargetCloudClientId($targetCloud, $this->clientId);
         $this->assertNotNull($localClientId);
         return $localClientId;
@@ -165,7 +166,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $this->testUpdateTargetCloudCredentials();
         $client = new AutodiscoverPublicClientStub($this->clientId);
         $client->setSecret($this->clientSecret);
-        $data = $this->autodiscover->fetchTargetCloudClientSecret($client, new TargetSuplaCloud('http://supla.local', true));
+        $data = $this->autodiscover->fetchTargetCloudClientSecret($client, new TargetSuplaCloud('http://localhost:8008', true));
         $this->assertEquals('XXX', $data['secret']);
         $this->assertEquals('1_local', $data['mappedClientId']);
     }
@@ -193,6 +194,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
             'email' => 'chief@supla.org',
             'targetCloud' => 'supla.private.pl',
         ];
+        self::ensureKernelShutdown();
         $client = $this->createClient();
         $client->apiRequest('POST', '/api/register-target-cloud', $userData);
         $response = $client->getResponse();
@@ -215,6 +217,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
             'email' => 'chief@supla.org',
             'targetCloud' => 'supla.private.pl',
         ];
+        self::ensureKernelShutdown();
         $client = $this->createClient();
         $client->apiRequest('POST', '/api/register-target-cloud', $userData);
         $response = $client->getResponse();
@@ -223,6 +226,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
 
     public function testUnregisteringTargetCloud() {
         $this->testRegisteringAnotherTargetCloudThroughBroker();
+        self::ensureKernelShutdown();
         $client = $this->createClient();
         $client->apiRequest('POST', '/api/remove-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'supla.private.pl']);
         $response = $client->getResponse();
@@ -245,6 +249,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
             'email' => 'chief@supla.org',
             'targetCloud' => 'supla.private.pl',
         ];
+        self::ensureKernelShutdown();
         $client = $this->createClient();
         $client->apiRequest('POST', '/api/register-target-cloud', $userData);
         $response = $client->getResponse();
@@ -260,13 +265,14 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
             'password' => 'supla123',
             'timezone' => 'Europe/Warsaw',
         ];
+        self::ensureKernelShutdown();
         $client = $this->createClient();
         $client->apiRequest('POST', '/api/register', $userData);
         $this->assertStatusCode(201, $client->getResponse());
         return $client;
     }
 
-    private function treatAsBroker(string $targetCloudUrl = 'http://supla.local') {
+    private function treatAsBroker(string $targetCloudUrl = 'http://localhost:8008') {
         $this->executeAdCommand("target-clouds:update $targetCloudUrl --set-broker --no-interaction");
     }
 

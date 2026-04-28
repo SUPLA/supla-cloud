@@ -6,8 +6,6 @@ services:
     $logger: '@monolog.logger.supla_mails'
   SuplaBundle\Model\TimeProvider:
     class: SuplaBundle\Tests\Integration\Traits\TestTimeProvider
-  SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
-  SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverMock'
   SuplaBundle\Supla\SuplaHttpClient:
     class: SuplaBundle\Tests\Integration\Traits\TestSuplaHttpClient
   SuplaBundle\Supla\SuplaServerMockCommandsCollector:
