@@ -34,11 +34,12 @@ class MigratingUserMd5PasswordToBcryptIntegrationTest extends IntegrationTestCas
 
     protected function setUp(): void {
         $this->user = $this->createConfirmedUser();
-        $this->encoderFactory = self::$container->get('security.encoder_factory');
+        $this->encoderFactory = self::getContainer()->get('security.encoder_factory');
         $encoderFactory = $this->encoderFactory;
-        $legacyPasswordSetter = function ($password) use ($encoderFactory) {
+        $legacyEncoder = $encoderFactory->getEncoder('legacy_encoder');
+        $legacyPasswordSetter = function ($password) use ($legacyEncoder) {
             $this->password = null;
-            $this->legacyPassword = $encoderFactory->getEncoder('legacy_encoder')->encodePassword($password, $this->getSalt());
+            $this->legacyPassword = $legacyEncoder->encodePassword($password, $this->getSalt());
         };
         $legacyPasswordSetter->call($this->user, 'supla123');
         $this->assertTrue($this->user->hasLegacyPassword());

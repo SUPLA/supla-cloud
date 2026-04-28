@@ -77,7 +77,7 @@ class SuplaOAuthStorage extends OAuthStorage {
      * @return array|bool
      */
     public function checkUserCredentials(IOAuth2Client $client, $username, $plainPassword) {
-        $credentialsValid = parent::checkUserCredentials($client, $username, $plainPassword);
+        $credentialsValid = $this->checkUserCredentialsWithSalt($client, $username, $plainPassword);
         if ($credentialsValid) {
             $this->migrateUserPasswordIfAuthenticatedWithLegacy($username, $plainPassword);
         }
@@ -91,13 +91,34 @@ class SuplaOAuthStorage extends OAuthStorage {
         return $credentialsValid;
     }
 
+    /**
+     * This is a copy-pase of the parent function but fixes using salt for migrating old passwords.
+     */
+    private function checkUserCredentialsWithSalt(IOAuth2Client $client, $username, $plainPassword) {
+        if (!$client instanceof ClientInterface) {
+            throw new \InvalidArgumentException('Client has to implement the ClientInterface');
+        }
+        try {
+            $user = $this->userProvider->loadUserByIdentifier($username);
+        } catch (AuthenticationException $e) {
+            return false;
+        }
+        $encoder = $this->passwordHasherFactory->getPasswordHasher($user);
+        if ($encoder->verify($user->getPassword(), $plainPassword, $user->getSalt())) {
+            return [
+                'data' => $user,
+            ];
+        }
+        return false;
+    }
+
     protected function migrateUserPasswordIfAuthenticatedWithLegacy($username, $plainPassword) {
         /** @var \SuplaBundle\Entity\Main\User $user */
         $user = $this->userProvider->loadUserByIdentifier($username);
         if ($user->hasLegacyPassword()) {
             $user->clearLegacyPassword();
-            $encoder = $this->encoderFactory->getEncoder($user);
-            $user->setPassword($encoder->encodePassword($plainPassword, $user->getSalt()));
+            $encoder = $this->passwordHasherFactory->getPasswordHasher($user);
+            $user->setPassword($encoder->hash($plainPassword));
             $this->entityManager->persist($user);
             $this->entityManager->flush();
         }
