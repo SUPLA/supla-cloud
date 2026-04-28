@@ -87,7 +87,7 @@ function copySingleRequiredFiles() {
   fs.copyFileSync('src/.htaccess', 'release/src/.htaccess');
   fs.copyFileSync('README.md', 'release/README.md');
   fs.copyFileSync('composer.json', 'release/composer.json');
-  fs.copyFileSync('.env.local.php', 'release/.env.local.php');
+  fs.copyFileSync('.env', 'release/.env');
 }
 
 function clearLocalConfigFiles() {

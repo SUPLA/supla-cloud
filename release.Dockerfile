@@ -6,8 +6,7 @@ ENV RELEASE_VERSION=$RELEASE_VERSION
 ENV APP_ENV=prod
 ENV APP_DEBUG=0
 RUN composer install --optimize-autoloader --ignore-platform-req=ext-gd --ignore-platform-req=ext-intl --no-dev \
-    && composer dump-version \
-    && composer dump-env prod --empty
+    && composer dump-version
 
 FROM node:22.20.0-alpine AS frontend
 ARG RELEASE_FILENAME
