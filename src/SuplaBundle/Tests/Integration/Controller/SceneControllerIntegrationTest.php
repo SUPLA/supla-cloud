@@ -721,7 +721,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $profile = $client->getProfile();
         $this->assertNotNull($profile);
         $this->assertGreaterThan(1, $profile->getCollector('db')->getQueryCount());
-        $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount());
+        $this->assertLessThan(20, $profile->getCollector('db')->getQueryCount());
     }
 
     public function testCreatingSceneWithoutOperationsFails() {

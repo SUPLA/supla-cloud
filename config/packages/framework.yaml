@@ -22,11 +22,6 @@ framework:
     enabled: true
     circular_reference_handler: SuplaBundle\Serialization\ObjectIdCircularReferenceHandler
 
-sensio_framework_extra:
-  request: {converters: true}
-  router:
-    annotations: false
-
 when@dev:
   framework:
     php_errors:
