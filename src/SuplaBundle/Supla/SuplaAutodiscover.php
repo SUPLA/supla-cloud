@@ -235,14 +235,17 @@ abstract class SuplaAutodiscover {
                 'response' => array_diff_key(is_array($response) ? $response : [], ['token' => '']),
             ]
         );
+        if (!is_array($response)) {
+            $response = [];
+        }
         if ($responseStatus !== 201) {
             $errors = [
-                404 => 'Invalid token.', // i18n
-                503 => 'Could not contact Autodiscover service. Try again in a while.', // i18n
+                404 => 'Invalid token.',
+                503 => 'Could not contact Autodiscover service. Try again in a while.',
             ];
-            throw new ApiException($errors[$responseStatus] ?? $errors[503], $responseStatus);
+            throw new ApiException($response['error'] ?? $errors[$responseStatus] ?? $errors[503], $responseStatus);
         }
-        $token = is_array($response) && isset($response['token']) ? $response['token'] : '';
+        $token = $response['token'] ?? '';
         Assertion::notEmpty($token, "Could not contact Autodiscover service. Try again in a while. (Error: $responseStatus)");
         return $token;
     }
