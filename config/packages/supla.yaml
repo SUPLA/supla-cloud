@@ -16,10 +16,12 @@ parameters:
   env(SUPLA_TOKEN_LIFETIME_WEBAPP): '1200'
 
   env(SUPLA_API_RATE_LIMIT_ENABLED): 'true'
+  env(SUPLA_API_RATE_LIMIT_BLOCKING): 'false'
   env(SUPLA_API_RATE_LIMIT_USER_DEFAULT_LIMIT): '1000/3600'
   env(SUPLA_API_RATE_LIMIT_GLOBAL_LIMIT): '320/60'
 
   env(SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED): 'true'
+  env(SUPLA_STATE_WEBHOOKS_ONLY_FOR_PUBLIC_APPS): 'false'
 
   env(SUPLA_MQTT_BROKER_ENABLED): 'false'
   env(SUPLA_MQTT_BROKER_TLS): 'true'
@@ -34,7 +36,7 @@ supla:
   autodiscover_url: https://autodiscover.supla.org
   api_rate_limit:
     enabled: '%env(bool:SUPLA_API_RATE_LIMIT_ENABLED)%'
-    blocking: false
+    blocking: '%env(bool:SUPLA_API_RATE_LIMIT_BLOCKING)%'
     user_default_limit: '%env(string:SUPLA_API_RATE_LIMIT_USER_DEFAULT_LIMIT)%'
     global_limit: '%env(string:SUPLA_API_RATE_LIMIT_GLOBAL_LIMIT)%'
   brute_force_auth_prevention:
@@ -69,6 +71,8 @@ supla:
       admin: {access: 3600, refresh: 5184000}
       user: {access: 3600, refresh: 5184000}
       broker: {access: 86400, refresh: 5184000}
+  state_webhooks:
+    only_for_public_apps: '%env(bool:SUPLA_STATE_WEBHOOKS_ONLY_FOR_PUBLIC_APPS)%'
 
 when@dev:
   supla:
