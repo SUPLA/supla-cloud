@@ -45,8 +45,8 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     private $user;
 
     public function initializeDatabaseForTests() {
-        $this->autodiscover = self::$container->get(SuplaAutodiscover::class);
-        $this->clientManager = self::$container->get(ClientManagerInterface::class);
+        $this->autodiscover = self::getContainer()->get(SuplaAutodiscover::class);
+        $this->clientManager = self::getContainer()->get(ClientManagerInterface::class);
         $this->user = $this->createConfirmedUser();
     }
 
@@ -62,7 +62,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDisplaysBrokerLoginFormIfLocalClientDoesNotExist() {
-        $client = $this->createHttpsInsulatedClient();
+        $client = $this->createHttpsClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
