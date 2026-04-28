@@ -29,6 +29,7 @@ const DESCRIPTIONS = {
   SUPLA_TOKEN_LIFETIME_WEBAPP: 'Duration in seconds for which access tokens are valid for web applications (the session length).',
   SUPLA_ACT_AS_BROKER_CLOUD: 'Whether the server should work as an official broker. Use `true` or `false`.',
   SUPLA_API_RATE_LIMIT_ENABLED: 'Whether to enable API rate limiting. Use `true` or `false`.',
+  SUPLA_API_RATE_LIMIT_BLOCKING: 'Whether to block requests exceeding rate limit (`true`) or only log them (`false`).',
   SUPLA_API_RATE_LIMIT_GLOBAL_LIMIT: 'Global limit for API requests (if used). Use format `requests/seconds`.',
   SUPLA_API_RATE_LIMIT_USER_DEFAULT_LIMIT: 'Default per-user limit for API requests (if used). Use format `requests/seconds`.',
   SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED:
@@ -44,6 +45,7 @@ const DESCRIPTIONS = {
   SUPLA_PROTOCOL: 'Protocol that should be used for web application and API. Must be `http` or `https`.',
   SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE: 'Whether to require cookie policy acceptance. Use `true` or `false`.',
   SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE: 'Whether to require regulations acceptance. Use `true` or `false`.',
+  SUPLA_STATE_WEBHOOKS_ONLY_FOR_PUBLIC_APPS: 'Whether to suport state webhooks only for public apps (`true`) or for all apps (`false`).',
   DATABASE_TSDB_URL: 'Database connection string for TimescaleDB, if used.',
   DATABASE_FOR_LOGS: 'Which connection to use for storing logs. Use either `mariadb` (default) or `tsdb`.',
 };
