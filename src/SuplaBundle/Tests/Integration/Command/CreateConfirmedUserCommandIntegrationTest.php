@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Integration\Command;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /** @small */
@@ -46,7 +47,7 @@ class CreateConfirmedUserCommandIntegrationTest extends IntegrationTestCase {
         $command = $this->application->find('supla:user:create');
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute(['username' => 'newuser@supla.org', '--if-not-exists' => true]);
-        $this->assertEquals(1, $exitCode);
+        $this->assertEquals(Command::SUCCESS, $exitCode);
         $output = $commandTester->getDisplay();
         $this->assertStringContainsString('already exists', $output);
     }
