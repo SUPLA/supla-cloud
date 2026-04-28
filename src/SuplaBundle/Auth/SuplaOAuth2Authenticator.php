@@ -17,17 +17,33 @@
 
 namespace SuplaBundle\Auth;
 
-use FOS\OAuthServerBundle\Security\Authentication\Provider\OAuthProvider;
+use FOS\OAuthServerBundle\Security\Authenticator\Oauth2Authenticator;
+use FOS\OAuthServerBundle\Security\Authenticator\Passport\Badge\AccessTokenBadge;
 use SuplaBundle\Auth\Token\AccessIdAwareToken;
 use SuplaBundle\Auth\Token\PublicOauthAppToken;
 use SuplaBundle\Auth\Token\WebappToken;
-use SuplaBundle\Entity\Main\OAuth\AccessToken;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
-class SuplaOAuthProvider extends OAuthProvider {
-    public function authenticate(TokenInterface $token) {
-        $authenticatedToken = parent::authenticate($token);
-        $accessToken = $this->serverService->verifyAccessToken($token->getToken());
+class SuplaOAuth2Authenticator extends Oauth2Authenticator {
+    public function authenticate(Request $request): Passport {
+        $passport = parent::authenticate($request);
+        /** @var AccessTokenBadge $badge */
+        $accessTokenBadge = $passport->getBadge(AccessTokenBadge::class);
+        $user = $accessTokenBadge->getAccessToken()->getUser();
+        $username = $user->getUsername();
+        return new SelfValidatingPassport(new UserBadge($username, static fn() => $user), [$accessTokenBadge]);
+    }
+
+    public function createAuthenticatedToken(PassportInterface $passport, string $firewallName): TokenInterface {
+        $authenticatedToken = parent::createAuthenticatedToken($passport, $firewallName);
+        $accessToken = $this->serverService->verifyAccessToken($authenticatedToken->getToken());
+        $authenticatedToken->setUser($accessToken->getUser());
+        $authenticatedToken->setAuthenticated(true);
         /** @var \SuplaBundle\Entity\Main\OAuth\AccessToken $accessToken */
         if ($accessToken->getIssuedWithRefreshToken()) {
             /** @var SuplaOAuthStorage $storage */

@@ -24,6 +24,7 @@ use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\Main\AccessID;
 use SuplaBundle\Enums\ApiClientType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -52,7 +53,7 @@ class AccessToken extends BaseAccessToken {
      * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\Main\User")
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
-    protected $user;
+    protected ?UserInterface $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="RefreshToken")
@@ -102,12 +103,12 @@ class AccessToken extends BaseAccessToken {
     }
 
     /** @Groups({"basic"}) */
-    public function getScope() {
+    public function getScope(): string {
         return parent::getScope();
     }
 
     /** @Groups({"token"}) */
-    public function getToken() {
+    public function getToken(): string {
         return parent::getToken();
     }
 

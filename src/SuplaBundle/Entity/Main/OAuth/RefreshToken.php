@@ -20,6 +20,7 @@ namespace SuplaBundle\Entity\Main\OAuth;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
 use SuplaBundle\Auth\OAuthScope;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -44,7 +45,7 @@ class RefreshToken extends BaseRefreshToken {
      * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\Main\User")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    protected $user;
+    protected ?UserInterface $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization")

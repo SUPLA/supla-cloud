@@ -145,7 +145,8 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
             'redirect_uri' => 'https://unicorns.pl',
             'code' => $authCode->getToken(),
         ], $params);
-        $client = $this->createInsulatedClient();
+        self::ensureKernelShutdown();
+        $client = $this->createClient();
         $client->followRedirects();
         $client->apiRequest('POST', '/oauth/v2/token', $params);
         $this->assertStatusCode(200, $client->getResponse());
@@ -232,7 +233,8 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
     public function testAccessingApiWithGivenToken() {
         $this->makeOAuthAuthorizeRequest(['scope' => 'account_r']);
         $response = $this->issueTokenBasedOnAuthCode();
-        $client = $this->createInsulatedClient(
+        self::ensureKernelShutdown();
+        $client = $this->createClient(
             ['debug' => false],
             ['HTTP_AUTHORIZATION' => 'Bearer ' . $response['access_token'], 'HTTPS' => true]
         );

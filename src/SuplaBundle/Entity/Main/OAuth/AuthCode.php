@@ -20,6 +20,7 @@ namespace SuplaBundle\Entity\Main\OAuth;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
 use SuplaBundle\Auth\OAuthScope;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -43,7 +44,7 @@ class AuthCode extends BaseAuthCode {
      * @ORM\ManyToOne(targetEntity="SuplaBundle\Entity\Main\User")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    protected $user;
+    protected ?UserInterface $user;
 
     public function setScope($scope) {
         parent::setScope((string)(new OAuthScope($scope))->ensureThatAllScopesAreSupported()->addImplicitScopes());

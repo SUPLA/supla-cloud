@@ -97,7 +97,7 @@ class ApiClient extends Client {
     }
 
     /** @Groups({"basic"}) */
-    public function getPublicId() {
+    public function getPublicId(): string {
         return parent::getPublicId();
     }
 
@@ -107,7 +107,7 @@ class ApiClient extends Client {
     }
 
     /** @Groups({"basic"}) */
-    public function getRedirectUris() {
+    public function getRedirectUris(): array {
         return parent::getRedirectUris();
     }
 
