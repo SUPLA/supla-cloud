@@ -26,11 +26,12 @@ class AutodiscoverPublicClientStub extends ApiClient {
     private $publicId;
 
     public function __construct(string $publicId) {
+        parent::__construct();
         $this->publicId = $publicId;
         $this->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
     }
 
-    public function getPublicId() {
+    public function getPublicId(): string {
         return $this->publicId;
     }
 }

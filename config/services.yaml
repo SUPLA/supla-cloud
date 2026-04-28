@@ -188,6 +188,9 @@ services:
     tags:
       - {name: monolog.logger, channel: supla_autodiscover}
 
+  SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
+  SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverReal'
+
   SuplaBundle\Supla\SuplaBrokerHttpClient:
     tags:
       - {name: monolog.logger, channel: supla_http_client}
@@ -367,16 +370,9 @@ services:
 
 when@dev:
   services:
-    SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
-    SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverMock'
     SuplaBundle\Supla\SuplaServerMockCommandsCollector:
       public: false
       tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
-
-when@e2e:
-  services:
-    SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
-    SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverMock'
 
 when@prod:
   services:
