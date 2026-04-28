@@ -20,13 +20,6 @@ class AlexaSettingsParamsTranslator extends UserConfigTranslator {
     private const MIN_PIN_LENGTH = 4;
     private const MAX_PIN_LENGTH = 8;
 
-    /** @var string */
-    private $secret;
-
-    public function __construct(string $secret) {
-        $this->secret = $secret;
-    }
-
     public function getConfig(HasUserConfig $subject): array {
         $alexaSettings = $subject->getUserConfigValue('alexa', []);
         return [

@@ -1,0 +1,12 @@
+doctrine_migrations:
+    enable_profiler: false
+    migrations_paths:
+        SuplaBundle\Migrations\Migration: "%kernel.project_dir%/migrations/mariadb"
+    custom_template: "%kernel.project_dir%/migrations/migration.tpl"
+    organize_migrations: BY_YEAR
+    all_or_nothing: true
+    storage:
+        table_storage:
+            table_name: 'migration_versions'
+    services:
+        Doctrine\Migrations\Version\MigrationFactory: 'SuplaBundle\Migrations\Factory\MigrationFactoryDecorator'

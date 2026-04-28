@@ -1,0 +1,106 @@
+parameters:
+  supla.act_as_broker_cloud: '%env(bool:SUPLA_ACT_AS_BROKER_CLOUD)%'
+  supla.protocol: '%env(SUPLA_PROTOCOL)%'
+  supla.server_socket: /var/run/supla/supla-server-ctrl.sock
+  supla.url: '%supla.protocol%://%supla.host%'
+  supla.host: '%env(SUPLA_HOST_ADDRESS)%'
+  supla.mailer_from: '%env(SUPLA_MAILER_FROM)%'
+  supla.require_regulations_acceptance: '%env(bool:SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE)%'
+  supla.require_cookie_policy_acceptance: '%env(bool:SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE)%'
+
+  env(SUPLA_ACT_AS_BROKER_CLOUD): 'false'
+  env(SUPLA_PROTOCOL): 'https'
+  env(SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE): 'true'
+  env(SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE): 'true'
+  env(SUPLA_ACCOUNTS_REGISTRATION_ENABLED): 'true'
+  env(SUPLA_TOKEN_LIFETIME_WEBAPP): '1200'
+
+  env(SUPLA_API_RATE_LIMIT_ENABLED): 'true'
+  env(SUPLA_API_RATE_LIMIT_BLOCKING): 'false'
+  env(SUPLA_API_RATE_LIMIT_USER_DEFAULT_LIMIT): '1000/3600'
+  env(SUPLA_API_RATE_LIMIT_GLOBAL_LIMIT): '320/60'
+
+  env(SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED): 'true'
+  env(SUPLA_STATE_WEBHOOKS_ONLY_FOR_PUBLIC_APPS): 'false'
+
+  env(SUPLA_MQTT_BROKER_ENABLED): 'false'
+  env(SUPLA_MQTT_BROKER_TLS): 'true'
+  env(SUPLA_MQTT_BROKER_INTEGRATED_AUTH): 'false'
+  env(SUPLA_MQTT_BROKER_HOST): ''
+  env(SUPLA_MQTT_BROKER_PORT): '8883'
+  env(SUPLA_MQTT_BROKER_USERNAME): ''
+  env(SUPLA_MQTT_BROKER_PASSWORD): ''
+
+supla:
+  accounts_registration_enabled: '%env(bool:SUPLA_ACCOUNTS_REGISTRATION_ENABLED)%'
+  autodiscover_url: https://autodiscover.supla.org
+  api_rate_limit:
+    enabled: '%env(bool:SUPLA_API_RATE_LIMIT_ENABLED)%'
+    blocking: '%env(bool:SUPLA_API_RATE_LIMIT_BLOCKING)%'
+    user_default_limit: '%env(string:SUPLA_API_RATE_LIMIT_USER_DEFAULT_LIMIT)%'
+    global_limit: '%env(string:SUPLA_API_RATE_LIMIT_GLOBAL_LIMIT)%'
+  brute_force_auth_prevention:
+    enabled: '%env(bool:SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED)%'
+    max_failed_attempts: 3
+    block_time_seconds: 1200
+  clients_registration:
+    registration_active_time:
+      initial: 604800 # 1 week
+      manual: 86400 # 24 hours
+  io_devices_registration:
+    registration_active_time:
+      initial: 604800 # 1 week
+      manual: 86400 # 24 hours
+  maintenance:
+    delete_non_confirmed_users_older_than_hours: 24
+    delete_audit_entries_older_than_days: 60
+    delete_audit_entries_older_than_days_custom:
+      DIRECT_LINK_EXECUTION: 2
+  mqtt_broker:
+    enabled: '%env(bool:SUPLA_MQTT_BROKER_ENABLED)%'
+    tls: '%env(bool:SUPLA_MQTT_BROKER_TLS)%'
+    integrated_auth: '%env(bool:SUPLA_MQTT_BROKER_INTEGRATED_AUTH)%'
+    host: '%env(string:SUPLA_MQTT_BROKER_HOST)%'
+    port: '%env(int:SUPLA_MQTT_BROKER_PORT)%'
+    username: '%env(string:SUPLA_MQTT_BROKER_USERNAME)%'
+    password: '%env(string:SUPLA_MQTT_BROKER_PASSWORD)%'
+  oauth:
+    tokens_lifetime:
+      webapp: {access: '%env(int:SUPLA_TOKEN_LIFETIME_WEBAPP)%'}
+      client_app: {access: 3600, refresh: 5184000} # 60 days
+      admin: {access: 3600, refresh: 5184000}
+      user: {access: 3600, refresh: 5184000}
+      broker: {access: 86400, refresh: 5184000}
+  state_webhooks:
+    only_for_public_apps: '%env(bool:SUPLA_STATE_WEBHOOKS_ONLY_FOR_PUBLIC_APPS)%'
+
+when@dev:
+  supla:
+    autodiscover_url: http://localhost:8010
+    mqtt_broker:
+      enabled: true
+      host: supla.org
+      integrated_auth: true
+    oauth:
+      tokens_lifetime:
+        webapp: {access: 28800}
+    ocr:
+      enabled: true
+      url: 'http://localhost:8044'
+
+when@test:
+  supla:
+    brute_force_auth_prevention:
+      enabled: true
+    api_rate_limit:
+      enabled: true
+      blocking: true
+      global_limit: 10000/5
+      user_default_limit: 20000/5
+    state_webhooks:
+      only_for_public_apps: true
+    mqtt_broker:
+      enabled: true
+      integrated_auth: true
+    ocr:
+      enabled: true

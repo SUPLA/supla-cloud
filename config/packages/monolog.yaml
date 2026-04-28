@@ -1,0 +1,162 @@
+monolog:
+  channels:
+    - supla_api_rate_limit
+    - supla_autodiscover
+    - supla_direct_links
+    - supla_server
+    - supla_migrations
+    - supla_debug
+    - supla_http_client
+    - supla_cli
+    - supla_mails
+    - deprecation
+
+  handlers:
+    main:
+      type: fingers_crossed
+      action_level: error
+      handler: main_logger
+      excluded_http_codes: [401, 404, 405]
+      channels:
+        - '!deprecation'
+        - '!supla_direct_links'
+        - '!supla_server'
+        - '!supla_api_rate_limit'
+        - '!supla_migrations'
+        - '!supla_debug'
+        - '!supla_cli'
+        - '!supla_mails'
+
+    main_logger:
+      type: rotating_file
+      path: "%kernel.logs_dir%/%kernel.environment%.log"
+      level: warning
+      max_files: 14
+
+    api_rate_limit:
+      type: rotating_file
+      path: "%kernel.logs_dir%/api_rate_limit.log"
+      level: warning
+      max_files: 14
+      channels: [supla_api_rate_limit]
+
+    autodiscover:
+      type: rotating_file
+      path: "%kernel.logs_dir%/autodiscover.log"
+      level: notice
+      max_files: 14
+      channels: [supla_autodiscover]
+
+    direct_links:
+      type: rotating_file
+      path: "%kernel.logs_dir%/direct-links.log"
+      level: notice
+      max_files: 14
+      channels: [supla_direct_links]
+
+    supla_server:
+      type: rotating_file
+      path: "%kernel.logs_dir%/supla-server.log"
+      level: warning
+      max_files: 14
+      channels: [supla_server]
+
+    supla_migrations:
+      type: rotating_file
+      path: "%kernel.logs_dir%/migrations.log"
+      level: debug
+      max_files: 5
+      channels: [supla_migrations]
+
+    supla_debug:
+      type: rotating_file
+      path: "%kernel.logs_dir%/debug.log"
+      level: warning
+      max_files: 1
+      channels: [supla_debug]
+
+    supla_http_client:
+      type: rotating_file
+      path: "%kernel.logs_dir%/http-client.log"
+      level: notice
+      max_files: 5
+      channels: [supla_http_client]
+
+    supla_cli:
+      type: rotating_file
+      path: "%kernel.logs_dir%/cli.log"
+      level: notice
+      max_files: 5
+      channels: [supla_cli]
+
+    supla_mails:
+      type: rotating_file
+      path: "%kernel.logs_dir%/email.log"
+      level: notice
+      max_files: 5
+      channels: [supla_mails]
+
+    console:
+      type: console
+      process_psr_3_messages: false
+      channels:
+        - '!deprecation'
+        - '!event'
+        - '!doctrine'
+
+when@dev:
+  monolog:
+    handlers:
+      main:
+        action_level: notice
+
+      main_logger:
+        max_files: 2
+
+      autodiscover:
+        level: debug
+        max_files: 2
+
+      direct_links:
+        max_files: 2
+
+      supla_server:
+        level: debug
+        max_files: 2
+
+      deprecations:
+        type: rotating_file
+        path: "%kernel.logs_dir%/deprecations.log"
+        level: info
+        max_files: 2
+        channels: [deprecation]
+
+when@test:
+  monolog:
+    handlers:
+      main:
+        action_level: notice
+
+      main_logger:
+        max_files: 1
+
+      autodiscover:
+        level: debug
+        max_files: 1
+
+      direct_links:
+        max_files: 1
+
+      supla_server:
+        level: debug
+        max_files: 1
+
+      test_handler:
+        type: test
+        level: debug
+
+when@prod:
+  monolog:
+    handlers:
+      main:
+        buffer_size: 50
