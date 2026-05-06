@@ -103,6 +103,33 @@ class AccessToken extends BaseAccessToken {
         }
     }
 
+    /**
+     * Klapaudius/oauth-server-bundle declares Token::$expiresAt as a typed
+     * `int` while keeping the column nullable in the Doctrine mapping. NULL
+     * cannot be hydrated into a non-nullable typed property, so the property
+     * stays uninitialized for legacy non-expiring tokens (`expires_at IS NULL`).
+     * Reading it from the parent's hasExpired() then throws "must not be
+     * accessed before initialization".
+     *
+     * isset() returns false on an uninitialized typed property without
+     * triggering the error. Treating 0 / unset as "never expires" matches the
+     * legacy semantics of NULL expires_at = personal / non-expiring token.
+     */
+    public function hasExpired(): bool {
+        if (!isset($this->expiresAt) || $this->expiresAt <= 0) {
+            return false;
+        }
+        return time() > $this->expiresAt;
+    }
+
+    /**
+     * Defensive against an uninitialized typed `int $expiresAt` after Doctrine
+     * hydration of a row with NULL expires_at — same reason as in hasExpired().
+     */
+    public function getExpiresAt(): int {
+        return $this->expiresAt ?? 0;
+    }
+
     /** @Groups({"basic"}) */
     public function getScope(): string {
         return parent::getScope();

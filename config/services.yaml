@@ -203,6 +203,12 @@ services:
 
   SuplaBundle\Auth\UserProvider: ~
   SuplaBundle\Auth\SuplaAccessTokenManager: ~
+
+  # Make sure typehinted AccessTokenManagerInterface (e.g. in
+  # DeleteObsoleteOauthTokensCommand) resolves to our custom manager,
+  # not FOS' default — otherwise the deleteExpired() override is bypassed
+  # and personal/non-expiring tokens get wiped hourly.
+  FOS\OAuthServerBundle\Model\AccessTokenManagerInterface: '@SuplaBundle\Auth\SuplaAccessTokenManager'
   SuplaBundle\Auth\UserLoginAttemptListener:
     tags:
       - {name: kernel.event_listener, event: security.authentication.failure, method: onInteractiveAuthenticationFailure}
