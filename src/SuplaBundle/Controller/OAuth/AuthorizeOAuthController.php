@@ -70,7 +70,7 @@ class AuthorizeOAuthController extends AbstractController {
         LocalSuplaCloud $localSuplaCloud,
         TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder,
         ?string $recaptchaSecret,
-        bool $recaptchaEnabled
+        ?string $recaptchaSiteKey,
     ) {
         $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
         $this->autodiscover = $autodiscover;
@@ -78,14 +78,14 @@ class AuthorizeOAuthController extends AbstractController {
         $this->localSuplaCloud = $localSuplaCloud;
         $this->suplaCloudRequestForwarder = $suplaCloudRequestForwarder;
         $this->recaptchaSecret = $recaptchaSecret;
-        $this->recaptchaEnabled = $recaptchaEnabled;
+        $this->recaptchaEnabled = !!$recaptchaSiteKey;
     }
 
     /**
      * @Route("/oauth-authorize", name="_oauth_login", methods={"GET", "POST"})
      * @Route("/oauth/v2/auth_login", name="_oauth_login_check", methods={"GET", "POST"})
      * @Route("/oauth/v2/broker_login", name="_oauth_broker_check", methods={"POST"})
-     * @Template("@Supla/oauth/o_auth_login.html.twig")
+     * @Template("oauth/o_auth_login.html.twig")
      */
     public function oAuthLoginAction(Request $request) {
         $session = $request->getSession();

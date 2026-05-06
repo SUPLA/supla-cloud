@@ -74,7 +74,7 @@ class BrokerAuthorizeController extends AuthorizeController {
 
     protected function renderAuthorize(array $context): Response {
         return new Response(
-            $this->twig->render('@Supla/oauth/authorize.html.twig', $context)
+            $this->twig->render('oauth/authorize.html.twig', $context)
         );
     }
 

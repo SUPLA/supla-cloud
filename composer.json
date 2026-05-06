@@ -5,13 +5,14 @@
     "description": "SUPLA-CLOUD is a central point joining the executive devices for indirect and direct operation of your household or office appliances and other elements with client applications which you can install on your tablets and smartphones.",
     "autoload": {
         "psr-4": {
-            "Supla\\Migrations\\": "app/DoctrineMigrations",
-            "": "src/"
-        },
-        "classmap": [
-            "app/AppKernel.php",
-            "app/AppCache.php"
-        ]
+            "SuplaBundle\\": "src/SuplaBundle",
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
     },
     "require": {
         "php": ">=8.2.10",
@@ -25,7 +26,7 @@
         "beberlei/assert": "^3.3.3",
         "cocur/slugify": "^2.3",
         "doctrine/doctrine-bundle": "^2.7.0",
-        "doctrine/doctrine-migrations-bundle": "^3.1",
+        "doctrine/doctrine-migrations-bundle": "^3.7",
         "doctrine/orm": "^2.5",
         "dragonmantank/cron-expression": "^3.6.0",
         "egulias/email-validator": "^3.2.6",
@@ -34,77 +35,94 @@
         "google/recaptcha": "^1.1",
         "gumlet/php-image-resize": "^2.0",
         "incenteev/composer-parameter-handler": "~2.0",
+        "monolog/monolog": "^2.11",
         "myclabs/php-enum": "1.5.*",
-        "nelmio/cors-bundle": "^1.5",
+        "nelmio/cors-bundle": "^2.6.0",
         "sensio/framework-extra-bundle": "^6.0",
-        "symfony/mailer": "^4.4",
-        "symfony/messenger": "^4.4",
+        "symfony/console": "^5.4",
+        "symfony/doctrine-messenger": "^5.4",
+        "symfony/dotenv": "^5.4",
+        "symfony/expression-language": "^5.4",
+        "symfony/flex": "^2.10",
+        "symfony/form": "^5.4",
+        "symfony/framework-bundle": "^5.4",
+        "symfony/mailer": "^5.4",
+        "symfony/messenger": "^5.4",
+        "symfony/mime": "^5.4",
         "symfony/monolog-bundle": "^3.2",
         "symfony/polyfill-apcu": "^1.0",
-        "symfony/symfony": "^4.4",
+        "symfony/runtime": "^5.4",
+        "symfony/security-bundle": "^5.4",
+        "symfony/serializer": "^5.4",
+        "symfony/translation": "^5.4",
+        "symfony/validator": "^5.4",
+        "symfony/yaml": "^5.4",
         "twig/intl-extra": "^3.3",
         "twig/twig": "^3.3",
         "ua-parser/uap-php": "^3.9",
         "zircote/swagger-php": "^4.0"
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^3.2",
+        "doctrine/doctrine-fixtures-bundle": "^4.0",
         "fakerphp/faker": "^1.23",
         "phpunit/phpunit": "^10.0",
         "rector/rector": "^2.3",
         "squizlabs/php_codesniffer": "^3.6",
-        "symfony/phpunit-bridge": "^5.4"
+        "symfony/browser-kit": "^5.4",
+        "symfony/phpunit-bridge": "^5.4",
+        "symfony/process": "^5.4"
     },
     "scripts": {
-        "dump-version": [
-            "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
-        ],
-        "build-parameters": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
-        ],
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
         "post-install-cmd": [
-            "@build-parameters",
+            "@auto-scripts",
             "@dump-version"
         ],
         "post-update-cmd": [
-            "@build-parameters",
+            "@auto-scripts",
             "@dump-version"
+        ],
+        "dump-version": [
+            "App\\DependencyInjection\\GitVersionDumper::dumpVersion"
         ],
         "test": [
             "phpunit -c app --testdox"
         ],
         "lint-backend": [
-            "phpcs src/SuplaBundle --standard=app/phpcs-rules.xml"
+            "phpcs src --standard=config/phpcs-rules.xml"
         ],
         "lint-frontend": [
-            "cd src/frontend && npm run lint -s"
+            "cd frontend && npm run lint -s"
         ],
         "lint": [
             "@lint-frontend",
             "@lint-backend"
         ],
         "phpcbf": [
-            "phpcbf src/SuplaBundle --standard=app/phpcs-rules.xml"
+            "phpcbf src --standard=config/phpcs-rules.xml"
         ],
         "webpack": [
-            "cd src/frontend && npm install",
-            "cd src/frontend && npm run build"
+            "cd frontend && npm install",
+            "cd frontend && npm run build"
         ],
         "release": [
             "@dump-version",
-            "composer install --no-dev --optimize-autoloader",
+            "APP_ENV=prod APP_DEBUG=0 composer install --no-dev --optimize-autoloader",
             "composer run-script webpack",
-            "cd src/frontend && npm run release"
+            "cd frontend && npm run release"
         ],
         "release-dev": [
             "@dump-version",
             "composer install --optimize-autoloader",
             "composer run-script webpack",
-            "cd src/frontend && npm run release-dev"
+            "cd frontend && npm run release-dev"
         ],
         "collect-translations": [
             "php bin/console supla:dev:generateTranslations",
-            "cd src/frontend && npm run collect-translations"
+            "cd frontend && npm run collect-translations"
         ]
     },
     "config": {
@@ -112,16 +130,22 @@
             "php": "8.2.26"
         },
         "process-timeout": 0,
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
+        "preferred-install": {
+            "*": "dist"
+        }
+    },
+    "conflict": {
+        "symfony/symfony": "*"
     },
     "extra": {
-        "symfony-app-dir": "app",
-        "symfony-bin-dir": "bin",
-        "symfony-var-dir": "var",
-        "symfony-web-dir": "web",
-        "symfony-tests-dir": "tests",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
+        "symfony": {
+            "allow-contrib": false,
+            "require": "^5.4"
         }
     }
 }

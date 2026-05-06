@@ -15,7 +15,15 @@ data: YfeWIC5+xnuHS+dTDeM3OQvH78oRpIAcNWR6vmM6aw61qzow5VNw42oWPf8tkQYrvmo4xrhUO/
 
 ---
 kind: pipeline
+type: docker
 name: default
+
+environment:
+  DATABASE_HOST: database
+  DATABASE_NAME: supla_test
+  DATABASE_USER: root
+  DATABASE_PASSWORD: drone
+  APP_ENV: test
 
 steps:
   - name: install-frontend
@@ -24,20 +32,20 @@ steps:
     commands:
       - npm -v
       - node -v
-      - cd src/frontend
+      - cd frontend
       - npm ci
 
   - name: build-frontend
     image: node:22.20.0-slim
     depends_on: [install-frontend]
     commands:
-      - cd src/frontend && npm run build
+      - cd frontend && npm run build
 
   - name: lint-frontend
     image: node:22.20.0-slim
     depends_on: [install-frontend]
     commands:
-      - cd src/frontend
+      - cd frontend
       - npm run lint
       - npm run format:check
 
@@ -45,13 +53,13 @@ steps:
     image: node:22.20.0-slim
     depends_on: [install-frontend]
     commands:
-      - cd src/frontend && npm audit --omit=dev
+      - cd frontend && npm audit --omit=dev
 
   - name: test-frontend-unit
     image: node:22.20.0-slim
     depends_on: [build-frontend]
     commands:
-      - cd src/frontend
+      - cd frontend
       - npm run test:unit
 
   - name: install-backend
@@ -59,7 +67,6 @@ steps:
     pull: always
     depends_on: [clone]
     commands:
-      - cp app/config/parameters.yml.drone app/config/parameters.yml
       - composer install --optimize-autoloader
 
   - name: lint-backend
@@ -72,49 +79,51 @@ steps:
     image: supla/supla-cloud:ci-php8.2
     depends_on: [install-backend]
     commands:
-      - ./vendor/bin/phpunit -c app --testsuite unit
+      - ./vendor/bin/phpunit -c config --testsuite unit
 
   - name: api-tests
     image: supla/supla-cloud:ci-php8.2
     depends_on: [install-backend, build-frontend]
     commands:
       - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
+      - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite api
 
   - name: measurement-logs-mariadb
     image: supla/supla-cloud:ci-php8.2
     depends_on: [api-tests]
     commands:
       - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite measurement_logs
+      - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite measurement_logs
 
   - name: measurement-logs-tsdb
     image: supla/supla-cloud:ci-php8.2
     depends_on: [measurement-logs-mariadb]
+    environment:
+      DATABASE_TSDB_URL: 'postgresql://postgres:postgres@tsdb:5432/supla?serverVersion=17&charset=utf8'
+      DATABASE_FOR_LOGS: tsdb
     commands:
-      - "sed -i '/measurement_logs:/!b;n;s/connection: logs_mariadb/connection: logs_tsdb/' app/config/config.yml"
-      - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite measurement_logs
-      - "sed -i '/measurement_logs:/!b;n;s/connection: logs_tsdb/connection: logs_mariadb/' app/config/config.yml"
+      - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite measurement_logs
 
   - name: integration-tests
     image: supla/supla-cloud:ci-php8.2
     depends_on: [measurement-logs-tsdb]
     commands:
       - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
+      - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite integration
 
   - name: test-e2e
     image: cypress/base:22.20.0
     depends_on: [install-backend, build-frontend]
     environment:
-      CYPRESS_DATABASE: mysql://root@database/supla_e2e
+      CYPRESS_DATABASE: mysql://root:drone@database/supla_test_e2e
     commands:
       - apt-get update && apt-get install -y ca-certificates apt-transport-https build-essential lsb-release wget gnupg
       - echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/sury-php.list
       - wget -qO /etc/apt/trusted.gpg.d/sury-php.gpg https://packages.sury.org/php/apt.gpg
+      - wget https://get.symfony.com/cli/installer -O - | bash
+      - mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
       - apt-get update && apt-get install -y dialog php8.2 php8.2-curl php8.2-dom php8.2-intl php8.2-mbstring php8.2-mysql php8.2-zip php8.2-pgsql
-      - cd src/frontend
+      - cd frontend
       - npm ci
       - node_modules/cypress/bin/cypress install
       - npm run test:e2e:ci
@@ -126,7 +135,7 @@ steps:
       cron: nightly
       event: cron
     commands:
-      - cd src/frontend
+      - cd frontend
       - npm ci
       - node_modules/cypress/bin/cypress install
       - npm run test:e2e:nightly
@@ -141,6 +150,7 @@ steps:
       status: [success, failure]
     commands:
       - ls var/logs
+      - find var/log/ -type f | xargs cat
       - find var/logs/ -type f | xargs cat
 
   - name: notify
@@ -161,12 +171,12 @@ steps:
 
 services:
   - name: database
-    image: mariadb:11.7.2
+    image: mariadb:12.2.2
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       MYSQL_DATABASE: supla_test
       MYSQL_USER: drone
-      MYSQL_PASSWORD: ~
+      MYSQL_PASSWORD: drone
+      MYSQL_ROOT_PASSWORD: drone
   - name: tsdb
     image: timescale/timescaledb:2.20.1-pg17
     environment:

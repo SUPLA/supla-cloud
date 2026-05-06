@@ -1,0 +1,121 @@
+parameters:
+  env(DATABASE_HOST): supla-db
+  env(DATABASE_PORT): 3306
+  env(DATABASE_NAME): supla
+  env(DATABASE_USER): supla
+  env(DATABASE_VERSION): mariadb-12.2.2
+  env(DATABASE_TSDB_URL): ''
+  env(DATABASE_FOR_LOGS): 'mariadb'
+
+  supla.database_for_logs: '%env(string:DATABASE_FOR_LOGS)%'
+
+doctrine:
+  dbal:
+    connections:
+      default:
+        driver: pdo_mysql
+        host: '%env(DATABASE_HOST)%'
+        port: '%env(int:DATABASE_PORT)%'
+        dbname: '%env(DATABASE_NAME)%'
+        user: '%env(DATABASE_USER)%'
+        password: '%env(DATABASE_PASSWORD)%'
+        server_version: '%env(DATABASE_VERSION)%'
+        charset: utf8mb4
+        schema_filter: ~^(?!(esp_|supla_email_notifications|supla_(.+)_log))~
+        default_table_options:
+          charset: utf8
+          collate: utf8_unicode_ci
+      logs_mariadb:
+        driver: pdo_mysql
+        host: '%env(DATABASE_HOST)%'
+        port: '%env(int:DATABASE_PORT)%'
+        dbname: '%env(DATABASE_NAME)%'
+        user: '%env(DATABASE_USER)%'
+        password: '%env(DATABASE_PASSWORD)%'
+        server_version: '%env(DATABASE_VERSION)%'
+        charset: utf8mb4
+        schema_filter: ~^(migration_versions|doctrine_migration_versions|supla_(.+)_log)$~
+        default_table_options:
+          charset: utf8
+          collate: utf8_unicode_ci
+      logs_tsdb:
+        url: '%env(resolve:DATABASE_TSDB_URL)%'
+        schema_filter: ~^(migration_versions|doctrine_migration_versions|supla_(.+)_log)$~
+        charset: utf8
+        default_table_options:
+          charset: utf8
+          collate: utf8_unicode_ci
+    default_connection: default
+    types:
+      ipaddress: SuplaBundle\Model\Doctrine\IpAddressType
+      stringdatetime: SuplaBundle\Model\Doctrine\StringDateTime
+      tinyint: SuplaBundle\Model\Doctrine\TinyintType
+      utcdatetime: SuplaBundle\Model\Doctrine\UTCDateTimeType
+
+  orm:
+    auto_generate_proxy_classes: "%kernel.debug%"
+    default_entity_manager: default
+    entity_managers:
+      default:
+        connection: default
+        dql:
+          numeric_functions:
+            supla_is_now_active: SuplaBundle\Model\Doctrine\IsNowActive
+        mappings:
+          FOSOAuthServerBundle: ~
+          Main:
+            type: annotation
+            dir: '%kernel.project_dir%/src/SuplaBundle/Entity/Main'
+            prefix: 'SuplaBundle\Entity\Main'
+      logs_mariadb:
+        connection: logs_mariadb
+        mappings:
+          MeasurementLogs:
+            type: annotation
+            dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
+            prefix: 'SuplaBundle\Entity\MeasurementLogs'
+      logs_tsdb:
+        connection: logs_tsdb
+        mappings:
+          MeasurementLogs:
+            type: annotation
+            dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
+            prefix: 'SuplaBundle\Entity\MeasurementLogs'
+
+when@test:
+  doctrine:
+    dbal:
+      connections:
+        default:
+          dbname_suffix: '_test'
+        logs_mariadb:
+          dbname_suffix: '_test'
+        logs_tsdb:
+          dbname_suffix: '_test'
+
+when@e2e:
+  doctrine:
+    dbal:
+      connections:
+        default:
+          dbname_suffix: '_e2e'
+
+when@prod:
+  doctrine:
+    orm:
+      auto_generate_proxy_classes: false
+      proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+      query_cache_driver:
+        type: pool
+        pool: doctrine.system_cache_pool
+      result_cache_driver:
+        type: pool
+        pool: doctrine.result_cache_pool
+
+  framework:
+    cache:
+      pools:
+        doctrine.result_cache_pool:
+          adapter: cache.app
+        doctrine.system_cache_pool:
+          adapter: cache.system

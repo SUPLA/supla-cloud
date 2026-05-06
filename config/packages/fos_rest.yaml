@@ -1,0 +1,16 @@
+# Read the documentation: https://fosrestbundle.readthedocs.io/en/3.x/
+
+fos_rest:
+    body_listener:
+        enabled: true
+    format_listener:
+        enabled: true
+        rules:
+            - {path: ^/api/, fallback_format: json}
+            - {path: ^/, fallback_format: html}
+    serializer:
+        groups: ['basic']
+        serialize_null: true
+    versioning: true
+    view:
+        view_response_listener: true

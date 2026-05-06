@@ -2,6 +2,7 @@
 
 namespace SuplaBundle\Message;
 
+use App\Kernel;
 use Assert\Assertion;
 use SuplaBundle\Mailer\SuplaMailer;
 use Symfony\Component\Mailer\SentMessage;
@@ -23,7 +24,7 @@ class EmailMessageHandler implements MessageHandlerInterface {
             ->text($email->getTextContent());
         if ($email->hasHtmlContent()) {
             $message->html($email->getHtmlContent());
-            $message->embedFromPath(\AppKernel::ROOT_PATH . '/../src/SuplaBundle/Resources/views/Email/supla-logo.png', 'logo@supla.org');
+            $message->embedFromPath(Kernel::ROOT_PATH . '/src/SuplaBundle/Resources/views/Email/supla-logo.png', 'logo@supla.org');
         }
         $sentMessage = $this->mailer->send($message);
         Assertion::notNull($sentMessage, 'Could not send an e-mail.');

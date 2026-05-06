@@ -29,11 +29,7 @@ use ZipArchive;
 class MeasurementCsvExporter {
     use CurrentUserAware;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    public function __construct($measurementLogsEntityManager) {
-        $this->entityManager = $measurementLogsEntityManager;
+    public function __construct(private readonly EntityManagerInterface $measurementLogsEntityManager) {
     }
 
     public function createZipArchiveWithLogs(IODeviceChannel $channel, string $logsType): string {
@@ -47,11 +43,11 @@ class MeasurementCsvExporter {
     private function dumpLogsToCsv(IODeviceChannel $channel, string $logsType): string {
         $tempFile = tempnam(sys_get_temp_dir(), 'supla_csv_');
         Assertion::string($tempFile, 'Could not generate temporary file.');
-        DatabaseUtils::turnOffQueryBuffering($this->entityManager);
+        DatabaseUtils::turnOffQueryBuffering($this->measurementLogsEntityManager);
         [$csvHeaders, $sqlQuery] = $this->getDataFetchDefinition($channel, $logsType ?: 'default');
         $handle = fopen($tempFile, 'w+');
         fputcsv($handle, $csvHeaders);
-        $stmt = $this->entityManager->getConnection()->prepare($sqlQuery);
+        $stmt = $this->measurementLogsEntityManager->getConnection()->prepare($sqlQuery);
         $timezone = $this->getCurrentUserOrThrow()->getTimezone();
         $result = $stmt->executeQuery([':timezone' => $timezone, ':channelId' => $channel->getId()]);
         while ($row = $result->fetchNumeric()) {
@@ -63,9 +59,9 @@ class MeasurementCsvExporter {
 
     private function getDataFetchDefinition(IODeviceChannel $channel, string $logsType): array {
         // @codingStandardsIgnoreStart
-        $platform = DatabaseUtils::getPlatform($this->entityManager);
+        $platform = DatabaseUtils::getPlatform($this->measurementLogsEntityManager);
         $timestampSelect = "UNIX_TIMESTAMP(date) AS date_ts, IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`) AS date";
-        $onColumn = DatabaseUtils::quoteColumnName($this->entityManager, 'on');
+        $onColumn = DatabaseUtils::quoteColumnName($this->measurementLogsEntityManager, 'on');
         if ($platform === DatabaseUtils::PSQL) {
             $timestampSelect = "EXTRACT(EPOCH FROM date)::INTEGER date_ts, to_char(date AT TIME ZONE :timezone, 'YYYY-MM-DD HH24:MI:SS')";
         }

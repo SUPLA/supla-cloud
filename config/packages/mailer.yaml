@@ -1,0 +1,13 @@
+framework:
+  mailer:
+    dsn: '%env(MAILER_DSN)%'
+
+when@test:
+  framework:
+    mailer:
+      dsn: 'smtp://localhost:7777'
+
+when@e2e:
+  framework:
+    mailer:
+      dsn: 'smtp://localhost:7777'

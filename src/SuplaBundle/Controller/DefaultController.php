@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Controller;
 
+use App\Kernel;
 use OpenApi\Annotations as OA;
 use OpenApi\Generator;
 use Psr\Cache\CacheItemPoolInterface;
@@ -72,7 +73,7 @@ class DefaultController extends AbstractController {
      * @Route("/api-docs/supla-api-docs.yaml", methods={"GET"})
      */
     public function getApiDocsSchemaAction() {
-        $yaml = file_get_contents(\AppKernel::ROOT_PATH . '/config/supla-api-docs.yaml');
+        $yaml = file_get_contents(Kernel::ROOT_PATH . '/config/supla-api-docs.yaml');
         $yaml = str_replace('https://cloud.supla.org', $this->suplaUrl, $yaml);
         return new Response($yaml, Response::HTTP_OK, ['Content-Type' => 'application/yaml']);
     }
@@ -118,10 +119,10 @@ class DefaultController extends AbstractController {
      * ))
      * @Route("/api-docs/supla-api-docs-v3.yaml", methods={"GET"})
      */
-    public function getApiDocsSchemaActionV24() {
+    public function getApiDocsSchemaActionV24(string $appEnv) {
         $version = $this->getParameter('supla.version');
         $cacheItem = $this->openApiCache->getItem('openApi' . $version);
-        if ($cacheItem->isHit() && defined('APPLICATION_ENV') && APPLICATION_ENV === 'prod') {
+        if ($cacheItem->isHit() && $appEnv === 'prod') {
             $yaml = $cacheItem->get();
         } else {
             $openapi = Generator::scan([

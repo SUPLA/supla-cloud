@@ -24,6 +24,7 @@ use SuplaBundle\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\Exception\LockedException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserProvider extends EntityUserProvider {
     /** @var FailedAuthAttemptsUserBlocker */
@@ -41,19 +42,18 @@ class UserProvider extends EntityUserProvider {
         $this->userRepository = $userRepository;
     }
 
-    public function loadUserByUsername($username) {
-        if (preg_match('/^api_[0-9]+$/', $username)) {
-            $user = $this->userRepository->findOneBy(['oauthCompatUserName' => $username]);
+    public function loadUserByIdentifier(string $identifier): UserInterface {
+        if (preg_match('/^api_[0-9]+$/', $identifier)) {
+            $user = $this->userRepository->findOneBy(['oauthCompatUserName' => $identifier]);
             if ($user) {
                 $user->setOAuthOldApiCompatEnabled();
             }
             return $user;
         }
-        if ($this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($username)) {
+        if ($this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($identifier)) {
             throw new LockedException();
         }
-        /** @var User $user */
-        $user = parent::loadUserByUsername($username);
+        $user = parent::loadUserByIdentifier($identifier);
         if (!$user->isEnabled()) {
             throw new DisabledException();
         }

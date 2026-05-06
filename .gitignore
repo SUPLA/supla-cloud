@@ -1,13 +1,7 @@
-/app/config/parameters.yml
-/app/config/config_build.yml
-/app/config/config_docker.yml
-/app/config/config_local.yml
 /bin/
 /composer.phar
-/vendor/
-/var/
-/web/dist/
-/web/index.html
+/public/dist/
+/public/index.html
 .idea/
 *.log
 release/
@@ -18,3 +12,33 @@ release/
 .buildpath
 .project
 .phpunit.result.cache
+app/
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
