@@ -1,13 +1,22 @@
+---
+kind: secret
+name: rocket_url
+data: MhfqoADbDOSHsvuEqK0Rxi+6t4V6eMs5zjcmf5j6QOh6yw+BYI5ujPz3tBJ6/fHtNabI2w==
+
+---
+kind: secret
+name: rocket_user
+data: h94q78u8q9JfrsJjQ9L5He5wxnZ3Q+j8ldqNxUWd8xc30kiTUaa187o9CAAX
+
+---
+kind: secret
+name: rocket_token
+data: YfeWIC5+xnuHS+dTDeM3OQvH78oRpIAcNWR6vmM6aw61qzow5VNw42oWPf8tkQYrvmo4xrhUO/hX7Y5LPzSU86AvxzItffA=
+
+---
 kind: pipeline
 type: docker
 name: default
-
-environment:
-  DATABASE_HOST: database
-  DATABASE_NAME: supla_test
-  DATABASE_USER: root
-  DATABASE_PASSWORD: drone
-  APP_ENV: test
 
 steps:
   - name: install-frontend
@@ -69,6 +78,8 @@ steps:
     image: supla/supla-cloud:ci-php8.2
     depends_on: [install-backend, build-frontend]
     commands:
+      - sh bin/write-ci-env.sh
+      - sh bin/wait-for-service.sh database mariadb
       - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite api
 
@@ -76,22 +87,27 @@ steps:
     image: supla/supla-cloud:ci-php8.2
     depends_on: [api-tests]
     commands:
+      - sh bin/write-ci-env.sh
+      - sh bin/wait-for-service.sh database mariadb
       - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite measurement_logs
 
   - name: measurement-logs-tsdb
     image: supla/supla-cloud:ci-php8.2
     depends_on: [measurement-logs-mariadb]
-    environment:
-      DATABASE_TSDB_URL: 'postgresql://postgres:postgres@tsdb:5432/supla?serverVersion=17&charset=utf8'
-      DATABASE_FOR_LOGS: tsdb
     commands:
+      - sh bin/write-ci-env.sh
+      - 'printf "DATABASE_TSDB_URL=postgresql://postgres:postgres@tsdb:5432/supla?serverVersion=17&charset=utf8\nDATABASE_FOR_LOGS=tsdb\n" >> .env.test.local'
+      - sh bin/wait-for-service.sh database mariadb
+      - sh bin/wait-for-service.sh tsdb postgres
       - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite measurement_logs
 
   - name: integration-tests
     image: supla/supla-cloud:ci-php8.2
     depends_on: [measurement-logs-tsdb]
     commands:
+      - sh bin/write-ci-env.sh
+      - sh bin/wait-for-service.sh database mariadb
       - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite integration
 
@@ -107,10 +123,13 @@ steps:
       - wget https://get.symfony.com/cli/installer -O - | bash
       - mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
       - apt-get update && apt-get install -y dialog php8.2 php8.2-curl php8.2-dom php8.2-intl php8.2-mbstring php8.2-mysql php8.2-zip php8.2-pgsql
+      - sh bin/write-ci-env.sh .env.e2e.local
+      - sh bin/wait-for-service.sh database mariadb
+      - export CYPRESS_DATABASE="mysql://root:drone@database/supla_test_e2e"
       - cd frontend
       - npm ci
       - node_modules/cypress/bin/cypress install
-      - npm run test:e2e:ci
+      - npm run test:e2e:ci 
 
   - name: test-e2e-nightly
     image: cypress/base:22.20.0

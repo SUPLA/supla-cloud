@@ -37,9 +37,18 @@ use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
 class SuplaOAuth2Authenticator extends Oauth2Authenticator {
+    private const SOURCE_HEADER = 'header';
+    private const SOURCE_URL = 'url';
+    private const SOURCE_BODY = 'body';
+
+    public function supports(Request $request): ?bool {
+        return $this->extractBearerToken($request) !== null;
+    }
+
     public function authenticate(Request $request): Passport {
         try {
-            $tokenString = str_replace('Bearer ', '', $request->headers->get('Authorization'));
+            $source = null;
+            $tokenString = $this->extractBearerToken($request, $source);
 
             /** @var AccessToken $accessToken */
             $accessToken = $this->serverService->verifyAccessToken($tokenString);
@@ -60,13 +69,29 @@ class SuplaOAuth2Authenticator extends Oauth2Authenticator {
                 }
             }
 
-            $roles = (null !== $user) ? $user->getRoles() : [];
             $scope = $accessToken->getScope();
+            $tokenScopes = $scope ? explode(' ', $scope) : [];
 
-            if (!empty($scope)) {
-                foreach (explode(' ', $scope) as $role) {
-                    $roles[] = 'ROLE_' . mb_strtoupper($role);
+            if ($source === self::SOURCE_HEADER) {
+                // Trusted transport — full set of roles derived from token scopes.
+                $roles = (null !== $user) ? $user->getRoles() : [];
+                foreach ($tokenScopes as $scopeName) {
+                    $roles[] = 'ROLE_' . mb_strtoupper($scopeName);
                 }
+            } else {
+                // Token sent via URL query string or form body — leaks easily into
+                // server logs, browser history and Referer headers, so we restrict
+                // it to file-serving endpoints (ROLE_CHANNELS_FILES) only.
+                if (!in_array('channels_files', $tokenScopes, true)) {
+                    throw new OAuth2AuthenticateException(
+                        Response::HTTP_UNAUTHORIZED,
+                        OAuth2::TOKEN_TYPE_BEARER,
+                        $this->serverService->getVariable(OAuth2::CONFIG_WWW_REALM),
+                        'insufficient_scope',
+                        'Access token passed via URL is allowed only for the channels_files scope.'
+                    );
+                }
+                $roles = ['ROLE_CHANNELS_FILES'];
             }
 
             $roles = array_unique($roles, SORT_REGULAR);
@@ -77,6 +102,33 @@ class SuplaOAuth2Authenticator extends Oauth2Authenticator {
         } catch (OAuth2ServerException $e) {
             throw new AuthenticationException('OAuth2 authentication failed', 0, $e);
         }
+    }
+
+    /**
+     * RFC 6750 §2 — bearer token can be sent in:
+     *   1) Authorization header,
+     *   2) `access_token` query string parameter,
+     *   3) `access_token` form-encoded body parameter.
+     *
+     * The $source out-parameter tells the caller which transport carried the
+     * token, so it can apply different trust levels (see authenticate()).
+     */
+    private function extractBearerToken(Request $request, ?string &$source = null): ?string {
+        $authorization = $request->headers->get('Authorization');
+        if ($authorization && stripos($authorization, 'Bearer ') === 0) {
+            $source = self::SOURCE_HEADER;
+            return substr($authorization, 7);
+        }
+        if ($token = $request->query->get('access_token')) {
+            $source = self::SOURCE_URL;
+            return $token;
+        }
+        if ($token = $request->request->get('access_token')) {
+            $source = self::SOURCE_BODY;
+            return $token;
+        }
+        $source = null;
+        return null;
     }
 
     public function createAuthenticatedToken(PassportInterface $passport, string $firewallName): TokenInterface {
