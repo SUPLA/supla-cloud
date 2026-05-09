@@ -24,7 +24,7 @@
         "ext-zip": "*",
         "composer-runtime-api": "^2",
         "beberlei/assert": "^3.3.3",
-        "cocur/slugify": "^2.3",
+        "cocur/slugify": "^4.7",
         "doctrine/doctrine-bundle": "^2.7.0",
         "doctrine/doctrine-migrations-bundle": "^3.7",
         "doctrine/orm": "^2.5",

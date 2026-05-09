@@ -31,7 +31,7 @@ class IsNowActive extends FunctionNode {
     public $activeHours = null;
     public $timezone = null;
 
-    public function getSql(SqlWalker $sqlWalker) {
+    public function getSql(SqlWalker $sqlWalker): string {
         return sprintf(
             'supla_is_now_active(%s, %s, %s, %s)',
             $this->activeFrom->dispatch($sqlWalker),
@@ -41,7 +41,7 @@ class IsNowActive extends FunctionNode {
         );
     }
 
-    public function parse(Parser $parser) {
+    public function parse(Parser $parser): void {
         $parser->match(Lexer::T_IDENTIFIER);
         $parser->match(Lexer::T_OPEN_PARENTHESIS);
         $this->activeFrom = $parser->ArithmeticPrimary();

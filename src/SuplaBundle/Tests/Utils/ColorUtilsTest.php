@@ -17,11 +17,12 @@
 
 namespace SuplaBundle\Tests\Utils;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Utils\ColorUtils;
 
 class ColorUtilsTest extends TestCase {
-    /** @dataProvider colorExamples */
+    #[DataProvider('colorExamples')]
     public function testHueToDec(array $hsv, int $dec) {
         if ($hsv[1] == 100 && $hsv[2] == 100) {
             $this->assertEquals($dec, ColorUtils::hueToDec($hsv[0]));
@@ -30,42 +31,42 @@ class ColorUtilsTest extends TestCase {
         }
     }
 
-    /** @dataProvider colorExamples */
+    #[DataProvider('colorExamples')]
     public function testDecToHue(array $hsv, int $dec) {
         $this->assertEquals($hsv[0], ColorUtils::decToHue($dec));
     }
 
-    /** @dataProvider colorExamples */
+    #[DataProvider('colorExamples')]
     public function testDecToHex(array $hsv, int $dec, string $hex) {
         $this->assertEquals($hex, ColorUtils::decToHex($dec));
     }
 
-    /** @dataProvider colorExamples */
+    #[DataProvider('colorExamples')]
     public function testHexToDec(array $hsv, int $dec, string $hex) {
         $this->assertEquals($dec, ColorUtils::hexToDec($hex));
     }
 
-    /** @dataProvider colorExamples */
+    #[DataProvider('colorExamples')]
     public function testDecToHsv(array $hsv, int $dec, string $hex) {
         $this->assertEquals($hsv, ColorUtils::decToHsv($dec));
     }
 
-    /** @dataProvider colorExamples */
+    #[DataProvider('colorExamples')]
     public function testHsvToDec(array $hsv, int $dec, string $hex) {
         $this->assertEqualsWithDelta($dec, ColorUtils::hsvToDec($hsv), 1.0);
     }
 
-    /** @dataProvider colorExamples */
+    #[DataProvider('colorExamples')]
     public function testHexToHsv(array $hsv, int $dec, string $hex) {
         $this->assertEquals($hsv, ColorUtils::hexToHsv($hex));
     }
 
-    /** @dataProvider colorExamples */
+    #[DataProvider('colorExamples')]
     public function testHsvToRgb(array $hsv, int $dec, string $hex, array $rgb) {
         $this->assertEquals($rgb, ColorUtils::hsvToRgb($hsv));
     }
 
-    /** @dataProvider colorExamples */
+    #[DataProvider('colorExamples')]
     public function testRgbToDec(array $hsv, int $dec, string $hex, array $rgb) {
         $this->assertEqualsWithDelta($dec, ColorUtils::rgbToDec($rgb), 1);
     }
@@ -84,5 +85,10 @@ class ColorUtilsTest extends TestCase {
             [[143, 100, 82], 53585, '0x00D151', [0, 209, 80]],
             [[116, 100, 100], 1179392, '0x11FF00', [17, 255, 0]],
         ];
+    }
+
+    public function testHsvToDecAcceptsStrings() {
+        $hsv = ['100', '100', '100'];
+        $this->assertEquals(5635840, ColorUtils::hsvToDec($hsv));
     }
 }

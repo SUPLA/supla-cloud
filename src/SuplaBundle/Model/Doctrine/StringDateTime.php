@@ -24,7 +24,7 @@ class StringDateTime extends UTCDateTimeType {
         return $value;
     }
 
-    public function getName() {
+    public function getName(): string {
         return 'stringdatetime';
     }
 }
