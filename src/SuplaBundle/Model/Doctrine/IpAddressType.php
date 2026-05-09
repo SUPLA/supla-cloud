@@ -21,27 +21,27 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 
 class IpAddressType extends Type {
-    public function getName() {
+    public function getName(): string {
         return 'ipaddress';
     }
 
-    public function getSqlDeclaration(array $fieldDeclaration, AbstractPlatform $platform) {
+    public function getSqlDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string {
         return $platform->getIntegerTypeDeclarationSQL(array_replace($fieldDeclaration, ['unsigned' => true]));
     }
 
-    public function canRequireSQLConversion() {
+    public function canRequireSQLConversion(): true {
         return true;
     }
 
-    public function requiresSQLCommentHint(AbstractPlatform $platform) {
+    public function requiresSQLCommentHint(AbstractPlatform $platform): true {
         return true;
     }
 
-    public function convertToPHPValueSQL($sqlExpr, $platform) {
+    public function convertToPHPValueSQL($sqlExpr, $platform): string {
         return sprintf('INET_NTOA(%s)', $sqlExpr);
     }
 
-    public function convertToDatabaseValueSQL($sqlExpr, AbstractPlatform $platform) {
+    public function convertToDatabaseValueSQL($sqlExpr, AbstractPlatform $platform): string {
         return sprintf('INET_ATON(%s)', $sqlExpr);
     }
 }

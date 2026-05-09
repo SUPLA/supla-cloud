@@ -26,15 +26,15 @@ use Doctrine\DBAL\Types\SmallIntType;
  * @see https://stackoverflow.com/a/72896468/878514
  */
 class TinyintType extends SmallIntType {
-    public function getSQLDeclaration(array $column, AbstractPlatform $platform) {
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string {
         return $platform instanceof PostgreSQLPlatform ? 'SMALLINT' : 'TINYINT' . (!empty($column['unsigned']) ? ' UNSIGNED' : '');
     }
 
-    public function requiresSQLCommentHint(AbstractPlatform $platform) {
+    public function requiresSQLCommentHint(AbstractPlatform $platform): true {
         return true;
     }
 
-    public function getName() {
+    public function getName(): string {
         return 'tinyint';
     }
 }

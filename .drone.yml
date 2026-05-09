@@ -56,26 +56,26 @@ steps:
       - npm run test:unit
 
   - name: install-backend
-    image: supla/supla-cloud:ci-php8.2
+    image: supla/supla-cloud:ci-php8.4
     pull: always
     depends_on: [clone]
     commands:
       - composer install --optimize-autoloader
 
   - name: lint-backend
-    image: supla/supla-cloud:ci-php8.2
+    image: supla/supla-cloud:ci-php8.4
     depends_on: [install-backend]
     commands:
       - composer run lint-backend
 
   - name: backend-unit-tests
-    image: supla/supla-cloud:ci-php8.2
+    image: supla/supla-cloud:ci-php8.4
     depends_on: [install-backend]
     commands:
       - ./vendor/bin/phpunit -c config --testsuite unit
 
   - name: api-tests
-    image: supla/supla-cloud:ci-php8.2
+    image: supla/supla-cloud:ci-php8.4
     depends_on: [install-backend, build-frontend]
     commands:
       - sh bin/write-ci-env.sh
@@ -84,7 +84,7 @@ steps:
       - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite api
 
   - name: measurement-logs-mariadb
-    image: supla/supla-cloud:ci-php8.2
+    image: supla/supla-cloud:ci-php8.4
     depends_on: [api-tests]
     commands:
       - sh bin/write-ci-env.sh
@@ -93,7 +93,7 @@ steps:
       - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite measurement_logs
 
   - name: measurement-logs-tsdb
-    image: supla/supla-cloud:ci-php8.2
+    image: supla/supla-cloud:ci-php8.4
     depends_on: [measurement-logs-mariadb]
     commands:
       - sh bin/write-ci-env.sh
@@ -103,7 +103,7 @@ steps:
       - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite measurement_logs
 
   - name: integration-tests
-    image: supla/supla-cloud:ci-php8.2
+    image: supla/supla-cloud:ci-php8.4
     depends_on: [measurement-logs-tsdb]
     commands:
       - sh bin/write-ci-env.sh
@@ -122,14 +122,14 @@ steps:
       - wget -qO /etc/apt/trusted.gpg.d/sury-php.gpg https://packages.sury.org/php/apt.gpg
       - wget https://get.symfony.com/cli/installer -O - | bash
       - mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
-      - apt-get update && apt-get install -y dialog php8.2 php8.2-curl php8.2-dom php8.2-intl php8.2-mbstring php8.2-mysql php8.2-zip php8.2-pgsql
+      - apt-get update && apt-get install -y dialog php8.4 php8.4-curl php8.4-dom php8.4-intl php8.4-mbstring php8.4-mysql php8.4-zip php8.4-pgsql
       - sh bin/write-ci-env.sh .env.e2e.local
       - sh bin/wait-for-service.sh database mariadb
       - export CYPRESS_DATABASE="mysql://root:drone@database/supla_test_e2e"
       - cd frontend
       - npm ci
       - node_modules/cypress/bin/cypress install
-      - npm run test:e2e:ci 
+      - npm run test:e2e:ci
 
   - name: test-e2e-nightly
     image: cypress/base:22.20.0
