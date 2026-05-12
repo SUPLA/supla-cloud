@@ -29,8 +29,10 @@ class MoveNewMeasurementLogsCommand extends AbstractCyclicCommand {
         $emMariadb = $this->registry->getManager('default');
         $emTsdb = $this->registry->getManager('logs_tsdb');
         if ($this->emProvider->isMariaDb()) {
-            $io->warning('Measurement logs database is not TSDB. Skipping copy operation.');
-            return 0;
+            if ($input->isInteractive() || $output->isVerbose()) {
+                $io->info('Measurement logs database is not TSDB. Skipping copy operation.');
+            }
+            return self::SUCCESS;
         }
 
         ini_set('memory_limit', $input->getOption('memory-limit'));
@@ -63,7 +65,7 @@ class MoveNewMeasurementLogsCommand extends AbstractCyclicCommand {
             }
         }
 
-        return 0;
+        return self::SUCCESS;
     }
 
     protected function getIntervalInMinutes(): int {

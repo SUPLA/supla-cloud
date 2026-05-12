@@ -55,10 +55,12 @@ class ClearPassedRegistrationDatesCommand extends AbstractCyclicCommand {
             ->where('u.' . $field . ' IS NOT NULL AND u.' . $field . ' < ?2')
             ->setParameters([1 => null, 2 => $now]);
         $result = $qb->getQuery()->execute();
-        $output->writeln(sprintf(
-            ($scope == 'client' ? 'Client' : 'I/O Device') . ' registration expiration date - cleared: <info>%d</info>',
-            $result
-        ));
+        if ($result > 0 || $output->isVerbose()) {
+            $output->writeln(sprintf(
+                ($scope == 'client' ? 'Client' : 'I/O Device') . ' registration expiration date - cleared: <info>%d</info>',
+                $result
+            ));
+        }
     }
 
     public function getIntervalInMinutes(): int {

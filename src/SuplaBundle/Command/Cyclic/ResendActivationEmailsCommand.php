@@ -75,7 +75,9 @@ class ResendActivationEmailsCommand extends AbstractCyclicCommand {
 
         /** @var \SuplaBundle\Entity\Main\User[] $usersToNotify */
         $usersToNotify = $qb->getQuery()->execute();
-        $output->writeln(sprintf('Users to resend activation e-mail: <info>%d</info>.', count($usersToNotify)));
+        if (count($usersToNotify) || $output->isVerbose()) {
+            $output->writeln(sprintf('Users to resend activation e-mail: <info>%d</info>.', count($usersToNotify)));
+        }
 
         foreach ($usersToNotify as $userToNotify) {
             try {

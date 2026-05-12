@@ -37,11 +37,13 @@ class DispatchCyclicTasksCommand extends Command {
         $notRunCommands = [];
         foreach ($this->cyclicCommands as $command) {
             if ($runAll || $command->shouldRunNow($this->timeProvider)) {
-                if (!$output->isQuiet()) {
+                if ($input->isInteractive() || $output->isVerbose()) {
                     $io->section($command->getName());
                 }
-                $this->getApplication()->run(new StringInput($command->getName()), new TimestampConsoleOutput($output));
-                if (!$output->isQuiet()) {
+                $commandInput = new StringInput($command->getName());
+                $commandInput->setInteractive($input->isInteractive());
+                $this->getApplication()->run($commandInput, new TimestampConsoleOutput($output));
+                if ($input->isInteractive() || $output->isVerbose()) {
                     $io->newLine();
                 }
             } else {
@@ -53,6 +55,6 @@ class DispatchCyclicTasksCommand extends Command {
             $io->writeln(implode(PHP_EOL, $notRunCommands));
             $io->note('Add -a to run these commands anyway.');
         }
-        return 0;
+        return self::SUCCESS;
     }
 }

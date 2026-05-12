@@ -55,7 +55,9 @@ class DisableDemoClientAppsCommand extends AbstractCyclicCommand {
             ->where($criteria->expr()->eq('enabled', true))
             ->andWhere($criteria->expr()->lte('disableAfterDate', $now));
         $clients = $this->clientAppRepository->matching($criteria);
-        $output->writeln('Clients to disable: ' . count($clients));
+        if (count($clients) > 0 || $output->isVerbose()) {
+            $output->writeln('Clients to disable: ' . count($clients));
+        }
         foreach ($clients as $clientApp) {
             $output->writeln($clientApp->getId());
             $this->suplaServer->clientReconnect($clientApp);
@@ -63,7 +65,7 @@ class DisableDemoClientAppsCommand extends AbstractCyclicCommand {
             $this->entityManager->persist($clientApp);
             $this->entityManager->flush();
         }
-        return 0;
+        return self::SUCCESS;
     }
 
     protected function getIntervalInMinutes(): int {

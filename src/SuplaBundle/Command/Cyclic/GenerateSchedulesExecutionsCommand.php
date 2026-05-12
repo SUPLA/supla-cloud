@@ -56,7 +56,7 @@ class GenerateSchedulesExecutionsCommand extends AbstractCyclicCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $this->generateFutureExecutions($output);
-        return 0;
+        return self::SUCCESS;
     }
 
     private function generateFutureExecutions(OutputInterface $output) {
@@ -67,14 +67,18 @@ class GenerateSchedulesExecutionsCommand extends AbstractCyclicCommand {
             ->andWhere($criteria->expr()->lte('nextCalculationDate', $now))
             ->andWhere($criteria->expr()->neq('mode', ScheduleMode::ONCE));
         $schedules = $this->scheduleRepository->matching($criteria);
-        $output->writeln('Schedules to regenerate: ' . count($schedules));
+        if (count($schedules) > 0 || $output->isVerbose()) {
+            $output->writeln('Schedules to regenerate: ' . count($schedules));
+        }
         $expired = 0;
         foreach ($schedules as $schedule) {
             $output->writeln($schedule->getId());
             $this->scheduleManager->generateScheduledExecutions($schedule);
             $expired += $this->clearOldExecutions($schedule);
         }
-        $output->writeln('Deleted expired scheduled executions: ' . $expired);
+        if ($expired > 0 || $output->isVerbose()) {
+            $output->writeln('Deleted expired scheduled executions: ' . $expired);
+        }
     }
 
     private function clearOldExecutions(Schedule $schedule): int {
