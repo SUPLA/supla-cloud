@@ -3,7 +3,6 @@ parameters:
   env(DATABASE_PORT): 3306
   env(DATABASE_NAME): supla
   env(DATABASE_USER): supla
-  env(DATABASE_VERSION): mariadb-12.2.2
   env(DATABASE_TSDB_URL): ''
   env(DATABASE_FOR_LOGS): 'mariadb'
 

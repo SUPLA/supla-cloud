@@ -94,8 +94,8 @@ function clearLocalConfigFiles() {
   let pathsToDelete = ['release/**/.gitignore'];
   if (process.env.NODE_ENV !== 'development') {
     pathsToDelete.push('release/src/*/Tests');
-    pathsToDelete.push('release/app/config/config_dev.yml');
-    pathsToDelete.push('release/app/config/routing_dev.yml');
+    pathsToDelete.push('release/src/DataFixtures');
+    pathsToDelete.push('release/src/SuplaBundle/Command/Dev');
   }
   deleteSync(pathsToDelete);
 }

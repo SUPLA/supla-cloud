@@ -17,7 +17,6 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
@@ -36,6 +35,7 @@ use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
 use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 
 class LogItemsFixture extends SuplaFixture {
@@ -47,9 +47,9 @@ class LogItemsFixture extends SuplaFixture {
 
     const SINCE = '-14 day';
 
-    public function __construct(EntityManagerInterface $measurementLogsEntityProvider) {
+    public function __construct(MeasurementLogsEntityManagerProvider $measurementLogsEntityProvider) {
         $this->faker = Factory::create('pl_PL');
-        $this->entityManager = $measurementLogsEntityProvider;
+        $this->entityManager = $measurementLogsEntityProvider->get();
     }
 
     public function load(ObjectManager $manager): void {

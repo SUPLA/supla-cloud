@@ -21,7 +21,7 @@ const DESCRIPTIONS = {
   DATABASE_PORT: 'MariaDB database port.',
   DATABASE_NAME: 'MariaDB database name.',
   DATABASE_USER: 'MariaDB database user.',
-  DATABASE_VERSION: 'MariaDB database version.',
+  DATABASE_VERSION: 'MariaDB database version. It must match the version of the server. Example: `mariadb-12.2.2`',
   CORS_ALLOW_ORIGIN: 'Regex for hosts that should be enabled for CORS requests.',
   GOOGLE_RECAPTCHA_SITE_KEY: 'Public site key for Google reCAPTCHA. Must be set in deployment if you want to use reCAPTCHA.',
   GOOGLE_RECAPTCHA_SECRET: 'Secret key for Google reCAPTCHA. Must be set in deployment if you want to use reCAPTCHA.',
