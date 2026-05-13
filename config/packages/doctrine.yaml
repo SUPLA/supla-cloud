@@ -1,6 +1,6 @@
 parameters:
   env(DATABASE_HOST): supla-db
-  env(DATABASE_PORT): 3306
+  env(DATABASE_PORT): '3306'
   env(DATABASE_NAME): supla
   env(DATABASE_USER): supla
   env(DATABASE_TSDB_URL): ''

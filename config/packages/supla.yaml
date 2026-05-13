@@ -2,7 +2,8 @@ parameters:
   supla.act_as_broker_cloud: '%env(bool:SUPLA_ACT_AS_BROKER_CLOUD)%'
   supla.protocol: '%env(SUPLA_PROTOCOL)%'
   supla.server_socket: /var/run/supla/supla-server-ctrl.sock
-  supla.url: '%supla.protocol%://%supla.host%'
+  supla.url: '%env(default:supla.default_url:SUPLA_URL)%'
+  supla.default_url: '%supla.protocol%://%supla.host%'
   supla.host: '%env(SUPLA_HOST_ADDRESS)%'
   supla.mailer_from: '%env(SUPLA_MAILER_FROM)%'
   supla.require_regulations_acceptance: '%env(bool:SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE)%'
