@@ -155,7 +155,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $date->add($oneday);
         }
 
-        $fixture = new LogItemsFixture($this->getMeasurementLogsEntityManager());
+        $fixture = new LogItemsFixture($this->getContainer()->get(MeasurementLogsEntityManagerProvider::class));
         $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-1 days', 1);
         $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-1 days', 2);
         $fixture->createElectricityMeterVoltageLogItems($offset + 4, '-3 hours');
