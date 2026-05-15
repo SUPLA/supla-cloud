@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Supla;
 
+use App\Tests\AnyFieldSetter;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory;
@@ -33,7 +34,6 @@ use SuplaBundle\Enums\HvacIpcValueFlags;
 use SuplaBundle\Enums\RollerShutterStateBits;
 use SuplaBundle\Enums\SceneInitiatiorType;
 use SuplaBundle\Model\LocalSuplaCloud;
-use SuplaBundle\Tests\AnyFieldSetter;
 
 /**
  * SuplaServer implementation to be used during development.

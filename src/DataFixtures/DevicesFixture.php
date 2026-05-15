@@ -17,6 +17,7 @@
 
 namespace App\DataFixtures;
 
+use App\Tests\AnyFieldSetter;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -35,7 +36,6 @@ use SuplaBundle\Enums\ChannelFlistRgbw;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\IoDeviceFlags;
-use SuplaBundle\Tests\AnyFieldSetter;
 
 class DevicesFixture extends SuplaFixture {
     const ORDER = LocationsFixture::ORDER + 1;

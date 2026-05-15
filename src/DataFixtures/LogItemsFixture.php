@@ -17,6 +17,7 @@
 
 namespace App\DataFixtures;
 
+use App\Tests\Integration\Traits\MysqlUtcDate;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
@@ -36,7 +37,6 @@ use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
-use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 
 class LogItemsFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;

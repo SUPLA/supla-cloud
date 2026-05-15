@@ -72,7 +72,7 @@ steps:
     image: supla/supla-cloud:ci-php8.4
     depends_on: [install-backend]
     commands:
-      - ./vendor/bin/phpunit -c config --testsuite unit
+      - ./vendor/bin/phpunit --testsuite unit
 
   - name: api-tests
     image: supla/supla-cloud:ci-php8.4
@@ -81,7 +81,7 @@ steps:
       - sh bin/write-ci-env.sh
       - sh bin/wait-for-service.sh database mariadb
       - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite api
+      - ./vendor/bin/phpunit --stop-on-error --stop-on-failure --testsuite api
 
   - name: measurement-logs-mariadb
     image: supla/supla-cloud:ci-php8.4
@@ -90,7 +90,7 @@ steps:
       - sh bin/write-ci-env.sh
       - sh bin/wait-for-service.sh database mariadb
       - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite measurement_logs
+      - ./vendor/bin/phpunit --stop-on-error --stop-on-failure --testsuite measurement_logs
 
   - name: measurement-logs-tsdb
     image: supla/supla-cloud:ci-php8.4
@@ -100,7 +100,7 @@ steps:
       - 'printf "DATABASE_TSDB_URL=postgresql://postgres:postgres@tsdb:5432/supla?serverVersion=17&charset=utf8\nDATABASE_FOR_LOGS=tsdb\n" >> .env.test.local'
       - sh bin/wait-for-service.sh database mariadb
       - sh bin/wait-for-service.sh tsdb postgres
-      - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite measurement_logs
+      - ./vendor/bin/phpunit --stop-on-error --stop-on-failure --testsuite measurement_logs
 
   - name: integration-tests
     image: supla/supla-cloud:ci-php8.4
@@ -109,7 +109,7 @@ steps:
       - sh bin/write-ci-env.sh
       - sh bin/wait-for-service.sh database mariadb
       - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c config --stop-on-error --stop-on-failure --testsuite integration
+      - ./vendor/bin/phpunit --stop-on-error --stop-on-failure --testsuite integration
 
   - name: test-e2e
     image: cypress/base:22.20.0
