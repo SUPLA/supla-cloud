@@ -4,6 +4,7 @@ namespace SuplaBundle\Model\Dependencies;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
@@ -24,7 +25,10 @@ class ChannelDependencies extends ActionableSubjectDependencies {
     private $channelRepository;
     /** @var LoggerInterface */
     private $logger;
+
     private array $dependencyCache = [];
+    private array $deviceDependencyIndexCache = [];
+    private array $actionTriggersCache = [];
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -135,7 +139,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
                     $this->channelParamConfigTranslator->setConfig($depChannel, [$key => null]);
                     $this->entityManager->persist($depChannel);
                 }
-                if (str_ends_with($key, 'ChannelIds') && in_array($channel->getId(), $value, true)) {
+                if (str_ends_with($key, 'ChannelIds') && is_array($value) && in_array($channel->getId(), $value, true)) {
                     $newIds = ArrayUtils::filter($value, fn(int $channelId) => $channelId !== $channel->getId());
                     $this->channelParamConfigTranslator->setConfig($depChannel, [$key => $newIds]);
                     $this->entityManager->persist($depChannel);
@@ -159,9 +163,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
                 );
             }
         }
-        if (isset($dependentChannels[$channel->getId()])) {
-            unset($dependentChannels[$channel->getId()]);
-        }
+        unset($dependentChannels[$channel->getId()]);
         return $dependentChannels;
     }
 
@@ -170,10 +172,12 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         if (array_key_exists($cacheKey, $this->dependencyCache)) {
             return $this->dependencyCache[$cacheKey];
         }
-        $config = $this->channelParamConfigTranslator->getConfig($channel);
+
         $dependentChannels = [];
+        $config = $this->channelParamConfigTranslator->getConfig($channel);
+
         foreach ($config as $key => $value) {
-            if (str_ends_with($key, 'ChannelId') && is_int($value) && $value > 0 && !in_array($key, $skipConfigIds)) {
+            if (str_ends_with($key, 'ChannelId') && is_int($value) && $value > 0 && !in_array($key, $skipConfigIds, true)) {
                 $depChannel = $this->entityManager->find(IODeviceChannel::class, $value);
                 if ($depChannel) {
                     $dependentChannels[$depChannel->getId()] = $depChannel;
@@ -188,22 +192,53 @@ class ChannelDependencies extends ActionableSubjectDependencies {
                 }
             }
         }
-        foreach ($this->channelRepository->findActionTriggers($channel) as $atChannel) {
+
+        foreach ($this->findActionTriggers($channel) as $atChannel) {
             $dependentChannels[$atChannel->getId()] = $atChannel;
         }
-        $possibleDeviceRelationFilters = ['iodevice' => $channel->getIoDevice()];
-        foreach ($this->channelRepository->findBy($possibleDeviceRelationFilters) as $possibleChannel) {
+
+        foreach ($this->getDeviceDependencyIndex($channel->getIoDevice(), $skipConfigIds)[$channel->getId()] ?? [] as $possibleChannel) {
+            $dependentChannels[$possibleChannel->getId()] = $possibleChannel;
+        }
+
+        $this->dependencyCache[$cacheKey] = $dependentChannels;
+        return $dependentChannels;
+    }
+
+    private function getDeviceDependencyIndex(IODevice $device, array $skipConfigIds = []): array {
+        $cacheKey = $device->getId() . '_' . implode('_', $skipConfigIds);
+        if (array_key_exists($cacheKey, $this->deviceDependencyIndexCache)) {
+            return $this->deviceDependencyIndexCache[$cacheKey];
+        }
+
+        $index = [];
+        foreach ($this->channelRepository->findBy(['iodevice' => $device]) as $possibleChannel) {
             $config = $this->channelParamConfigTranslator->getConfig($possibleChannel);
             foreach ($config as $key => $value) {
-                if (str_ends_with($key, 'ChannelId') && $value === $channel->getId() && !in_array($key, $skipConfigIds)) {
-                    $dependentChannels[$possibleChannel->getId()] = $possibleChannel;
+                if (in_array($key, $skipConfigIds, true)) {
+                    continue;
                 }
-                if (str_ends_with($key, 'ChannelIds') && in_array($channel->getId(), $value, true) && !in_array($key, $skipConfigIds)) {
-                    $dependentChannels[$possibleChannel->getId()] = $possibleChannel;
+                if (str_ends_with($key, 'ChannelId') && is_int($value) && $value > 0) {
+                    $index[$value][$possibleChannel->getId()] = $possibleChannel;
+                }
+                if (str_ends_with($key, 'ChannelIds') && is_array($value)) {
+                    foreach ($value as $channelId) {
+                        if (is_int($channelId) && $channelId > 0) {
+                            $index[$channelId][$possibleChannel->getId()] = $possibleChannel;
+                        }
+                    }
                 }
             }
         }
-        $this->dependencyCache[$cacheKey] = $dependentChannels;
-        return $dependentChannels;
+
+        $this->deviceDependencyIndexCache[$cacheKey] = $index;
+        return $index;
+    }
+
+    private function findActionTriggers(IODeviceChannel $channel): array {
+        if (!array_key_exists($channel->getId(), $this->actionTriggersCache)) {
+            $this->actionTriggersCache[$channel->getId()] = $this->channelRepository->findActionTriggers($channel);
+        }
+        return $this->actionTriggersCache[$channel->getId()];
     }
 }

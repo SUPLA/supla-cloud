@@ -8,11 +8,13 @@ use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 /**
- * This class is responsible for detecting and possibly clearing all items that depend on the given channel (and its function).
+ * This class is responsible for detecting and possibly clearing all items that depend on the given channel group.
  */
 class ChannelGroupDependencies extends ActionableSubjectDependencies {
     /** @var ScheduleManager */
     private $scheduleManager;
+
+    private array $dependenciesCache = [];
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -24,13 +26,23 @@ class ChannelGroupDependencies extends ActionableSubjectDependencies {
     }
 
     public function getDependencies(IODeviceChannelGroup $channelGroup): array {
-        return [
+        $cacheKey = $channelGroup->getId();
+
+        if ($cacheKey && array_key_exists($cacheKey, $this->dependenciesCache)) {
+            return $this->dependenciesCache[$cacheKey];
+        }
+
+        $dependencies = [
             'directLinks' => $channelGroup->getDirectLinks()->toArray(),
             'schedules' => $channelGroup->getSchedules()->toArray(),
             'sceneOperations' => $channelGroup->getSceneOperations()->toArray(),
             'actionTriggers' => $this->findActionTriggersForSubject($channelGroup)->getValues(),
             'reactions' => $channelGroup->getReactions()->toArray(),
         ];
+        if ($cacheKey) {
+            $this->dependenciesCache[$cacheKey] = $dependencies;
+        }
+        return $dependencies;
     }
 
     public function clearDependencies(IODeviceChannelGroup $channelGroup): void {
@@ -47,5 +59,8 @@ class ChannelGroupDependencies extends ActionableSubjectDependencies {
             $this->entityManager->remove($reaction);
         }
         $this->clearActionTriggersThatReferencesSubject($channelGroup);
+        if ($channelGroup->getId()) {
+            unset($this->dependenciesCache[$channelGroup->getId()]);
+        }
     }
 }

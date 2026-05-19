@@ -30,21 +30,37 @@ class IODeviceDependencies extends ActionableSubjectDependencies {
     }
 
     public function getItemsThatDependOnEnabled(IODevice $device): array {
-        $dependencies = [];
+        $dependencies = [
+            'channels' => [],
+            'channelGroups' => [],
+            'directLinks' => [],
+            'schedules' => [],
+            'sceneOperations' => [],
+            'actionTriggers' => [],
+            'ownReactions' => [],
+            'reactions' => [],
+        ];
+
         foreach ($device->getChannels() as $channel) {
-            $dependencies = array_merge_recursive($dependencies, $this->channelDependencies->getItemsThatDependOnFunction($channel));
+            foreach ($this->channelDependencies->getItemsThatDependOnFunction($channel) as $key => $items) {
+                $dependencies[$key] = array_merge($dependencies[$key] ?? [], $items);
+            }
         }
-        return array_map(function (array $deps) {
-            return EntityUtils::uniqueByIds($deps);
-        }, $dependencies);
+
+        return array_map(
+            fn(array $deps) => EntityUtils::uniqueByIds($deps),
+            $dependencies
+        );
     }
 
     public function disableDependencies(IODevice $device): void {
         $dependencies = $this->getItemsThatDependOnEnabled($device);
+
         foreach (($dependencies['reactions'] ?? []) as $reaction) {
             $reaction->setEnabled(false);
             $this->entityManager->persist($reaction);
         }
+
         foreach (($dependencies['schedules'] ?? []) as $schedule) {
             if ($schedule->getEnabled()) {
                 $this->scheduleManager->disable($schedule);
@@ -60,13 +76,16 @@ class IODeviceDependencies extends ActionableSubjectDependencies {
 
     private function findDependentChannels(IODevice $device): array {
         $dependentChannels = [];
+
         foreach ($device->getChannels() as $channel) {
-            if ($channel->hasInheritedLocation()) {
-                $deps = $this->channelDependencies->getItemsThatDependOnLocation($channel);
-                if ($deps['channels']) {
-                    $dependentChannels[] = $channel;
-                    $dependentChannels = array_merge_recursive($dependentChannels, $deps['channels']);
-                }
+            if (!$channel->hasInheritedLocation()) {
+                continue;
+            }
+
+            $deps = $this->channelDependencies->getItemsThatDependOnLocation($channel);
+            if ($deps['channels']) {
+                $dependentChannels[] = $channel;
+                $dependentChannels = array_merge($dependentChannels, $deps['channels']);
             }
         }
         return EntityUtils::uniqueByIds($dependentChannels);
