@@ -2,7 +2,7 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Migrations\NoWayBackMigration;
+use App\Migrations\NoWayBackMigration;
 
 /**
  * New fields text_param2, text_param3 for supla_dev_channel,

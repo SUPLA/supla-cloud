@@ -2,10 +2,10 @@
 
 namespace App\Tests\Traits;
 
+use App\Entity\Main\Scene;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
 use PHPUnit\Framework\MockObject\MockObject;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
 
 /**
  * @method MockObject createMock(string $className)

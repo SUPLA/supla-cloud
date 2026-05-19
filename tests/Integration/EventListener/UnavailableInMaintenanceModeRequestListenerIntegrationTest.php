@@ -17,18 +17,18 @@
 
 namespace App\Tests\Integration\EventListener;
 
+use App\Entity\EntityUtils;
+use App\EventListener\UnavailableInMaintenanceRequestListener;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener;
 
 /** @small */
 class UnavailableInMaintenanceModeRequestListenerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     protected function initializeDatabaseForTests() {

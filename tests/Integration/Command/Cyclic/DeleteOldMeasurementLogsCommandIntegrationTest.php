@@ -17,12 +17,12 @@
 
 namespace App\Tests\Integration\Command\Cyclic;
 
+use App\Entity\EntityUtils;
+use App\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
+use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\MysqlUtcDate;
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
-use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /** @small */

@@ -17,16 +17,16 @@
 
 namespace App\Tests\Integration\Model;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\AccessID;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\UserFixtures;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\AccessID;
 
 /** @small */
 class AccessIDActiveNowIntegrationTest extends IntegrationTestCase {
     use UserFixtures;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     protected function initializeDatabaseForTests() {

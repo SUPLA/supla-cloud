@@ -1,14 +1,14 @@
 services:
   App\Tests\Integration\TestMailerTransport: ~
-  SuplaBundle\Mailer\SuplaMailer:
+  App\Mailer\SuplaMailer:
     $transport: '@App\Tests\Integration\TestMailerTransport'
     $mailerFrom: "%supla.mailer_from%"
     $logger: '@monolog.logger.supla_mails'
-  SuplaBundle\Model\TimeProvider:
+  App\Model\TimeProvider:
     class: App\Tests\Integration\Traits\TestTimeProvider
-  SuplaBundle\Supla\SuplaHttpClient:
+  App\Supla\SuplaHttpClient:
     class: App\Tests\Integration\Traits\TestSuplaHttpClient
-  SuplaBundle\Supla\SuplaServerMockCommandsCollector:
+  App\Supla\SuplaServerMockCommandsCollector:
     public: false
     tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
   test.client:

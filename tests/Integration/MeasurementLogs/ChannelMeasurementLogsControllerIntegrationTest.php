@@ -18,6 +18,20 @@
 namespace App\Tests\Integration\MeasurementLogs;
 
 use App\DataFixtures\LogItemsFixture;
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODevice;
+use App\Entity\MeasurementLogs\ElectricityMeterLogItem;
+use App\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
+use App\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
+use App\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
+use App\Entity\MeasurementLogs\ImpulseCounterLogItem;
+use App\Entity\MeasurementLogs\TemperatureLogItem;
+use App\Entity\MeasurementLogs\TempHumidityLogItem;
+use App\Entity\MeasurementLogs\ThermostatLogItem;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Model\MeasurementLogsEntityManagerProvider;
+use App\Model\UserConfigTranslator\SubjectConfigTranslator;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\MysqlUtcDate;
 use App\Tests\Integration\Traits\ResponseAssertions;
@@ -25,33 +39,19 @@ use App\Tests\Integration\Traits\SuplaApiHelper;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
-use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
-use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
-use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
-use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ThermostatLogItem;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 /** @small */
 class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
-    /** @var \SuplaBundle\Entity\Main\IODevice */
+    /** @var \App\Entity\Main\IODevice */
     private $device1;
     /** @var IODevice */
     private $device2;
-    /** @var \SuplaBundle\Entity\Main\IODevice */
+    /** @var \App\Entity\Main\IODevice */
     private $deviceWithManyLogs;
 
     protected function addLogItems($offset = 0) {

@@ -17,15 +17,15 @@
 
 namespace App\Tests\Integration\Model\ChannelActionExecutor;
 
+use App\Entity\Main\IODeviceChannelGroup;
+use App\Entity\Main\User;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
+use App\Model\ChannelActionExecutor\ChannelActionExecutor;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
-use SuplaBundle\Supla\SuplaServerMock;
 
 /** @small */
 class CopyActionExecutorIntegrationTest extends IntegrationTestCase {
@@ -33,11 +33,11 @@ class CopyActionExecutorIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var \SuplaBundle\Entity\Main\IODevice */
+    /** @var \App\Entity\Main\IODevice */
     private $device;
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
-    /** @var \SuplaBundle\Entity\Main\IODeviceChannelGroup */
+    /** @var \App\Entity\Main\IODeviceChannelGroup */
     private $channelGroup;
 
     public function initializeDatabaseForTests() {

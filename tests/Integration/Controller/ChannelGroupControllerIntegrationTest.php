@@ -17,20 +17,20 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\Main\DirectLink;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\IODeviceChannelGroup;
+use App\Entity\Main\User;
+use App\Enums\ActionableSubjectType;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
-use SuplaBundle\Entity\Main\DirectLink;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ActionableSubjectType;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Supla\SuplaServerMock;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 /** @small */
@@ -39,7 +39,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
     use SuplaAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
     /** @var IODevice */
     private $device;

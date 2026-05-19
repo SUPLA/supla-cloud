@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Migrations\NoWayBackMigration;
+use App\Enums\ChannelFunction;
+use App\Migrations\NoWayBackMigration;
 
 /**
  * Move openingTime (param1) and closingTime (param3) to user_config for roller shutters.

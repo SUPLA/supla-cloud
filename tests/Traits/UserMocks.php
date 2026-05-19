@@ -2,9 +2,9 @@
 
 namespace App\Tests\Traits;
 
+use App\Auth\Token\WebappToken;
+use App\Entity\Main\User;
 use PHPUnit\Framework\MockObject\MockObject;
-use SuplaBundle\Auth\Token\WebappToken;
-use SuplaBundle\Entity\Main\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**

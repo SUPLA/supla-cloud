@@ -17,10 +17,10 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\Main\AmazonAlexa;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\AmazonAlexa;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /** @small */
@@ -28,7 +28,7 @@ class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     /** @var Client $client */

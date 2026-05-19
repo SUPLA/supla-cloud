@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Migrations\NoWayBackMigration;
+use App\Migrations\NoWayBackMigration;
 
 /**
  * Delete supla_em_voltage_log.sec_total.

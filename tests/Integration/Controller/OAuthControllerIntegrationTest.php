@@ -17,12 +17,12 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Auth\OAuthScope;
+use App\Entity\Main\User;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use PHPUnit\Framework\Attributes\Depends;
-use SuplaBundle\Auth\OAuthScope;
-use SuplaBundle\Entity\Main\User;
 
 /** @small */
 class OAuthControllerIntegrationTest extends IntegrationTestCase {

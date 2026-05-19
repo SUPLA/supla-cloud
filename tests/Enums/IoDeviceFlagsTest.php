@@ -17,8 +17,8 @@
 
 namespace App\Tests\Enums;
 
+use App\Enums\IoDeviceFlags;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Enums\IoDeviceFlags;
 
 class IoDeviceFlagsTest extends TestCase {
     public function testEveryBitIsExclusive() {

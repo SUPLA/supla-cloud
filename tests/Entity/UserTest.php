@@ -17,11 +17,11 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Main\User;
+use App\EventListener\ApiRateLimit\ApiRateLimitRule;
 use App\Tests\AnyFieldSetter;
 use DateTime;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 
 class UserTest extends TestCase {
     public function testSettingDefaultTimezoneByDefault() {
@@ -42,7 +42,7 @@ class UserTest extends TestCase {
     }
 
     public function testSettingCustomTimezone() {
-        $user = new \SuplaBundle\Entity\Main\User();
+        $user = new \App\Entity\Main\User();
         $user->setTimezone('Europe/Skopje');
         $this->assertEquals('Europe/Skopje', $user->getTimezone());
     }
@@ -69,7 +69,7 @@ class UserTest extends TestCase {
     }
 
     public function testSettingApiRateLimit() {
-        $user = new \SuplaBundle\Entity\Main\User();
+        $user = new \App\Entity\Main\User();
         $this->assertNull($user->getApiRateLimit());
         $user->setApiRateLimit(new ApiRateLimitRule('5/10'));
         $this->assertEquals(new ApiRateLimitRule('5/10'), $user->getApiRateLimit());

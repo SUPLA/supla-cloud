@@ -17,10 +17,10 @@
 
 namespace App\Tests\Model\Schedule\SchedulePlanner;
 
+use App\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
+use App\Model\Schedule\SchedulePlanners\OnceSchedulePlanner;
 use DateTime;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
-use SuplaBundle\Model\Schedule\SchedulePlanners\OnceSchedulePlanner;
 
 class OnceSchedulePlannerTest extends TestCase {
     /**

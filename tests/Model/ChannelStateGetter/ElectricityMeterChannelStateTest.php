@@ -17,10 +17,10 @@
 
 namespace App\Tests\Model\ChannelStateGetter;
 
+use App\Enums\ElectricityMeterSupportBits;
+use App\Model\ChannelStateGetter\ElectricityMeterChannelState;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Enums\ElectricityMeterSupportBits;
-use SuplaBundle\Model\ChannelStateGetter\ElectricityMeterChannelState;
 
 class ElectricityMeterChannelStateTest extends TestCase {
     /** @dataProvider clearUnsupportedMeasurementsTestCases */

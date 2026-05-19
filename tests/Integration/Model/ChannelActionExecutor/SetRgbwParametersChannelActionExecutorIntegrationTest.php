@@ -17,25 +17,25 @@
 
 namespace App\Tests\Integration\Model\ChannelActionExecutor;
 
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
+use App\Model\ChannelActionExecutor\ChannelActionExecutor;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
-use SuplaBundle\Supla\SuplaServerMock;
 
 /** @small */
 class SetRgbwParametersChannelActionExecutorIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use SuplaAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\IODevice */
+    /** @var \App\Entity\Main\IODevice */
     private $device;
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     public function initializeDatabaseForTests() {

@@ -17,12 +17,12 @@
 
 namespace App\Tests\Integration\Model\UserConfigTranslator;
 
+use App\Entity\Main\IODevice;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Model\UserConfigTranslator\SubjectConfigTranslator;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 /**
  * Application allows to pair CONTROLLING* and OPENING* channels with each other so it knows which channel it should use to display the
@@ -43,11 +43,11 @@ use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
-    /** @var \SuplaBundle\Entity\Main\IODevice */
+    /** @var \App\Entity\Main\IODevice */
     private $device;
     /** @var SubjectConfigTranslator */
     private $paramsTranslator;
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     public function initializeDatabaseForTests() {

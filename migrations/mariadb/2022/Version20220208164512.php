@@ -17,9 +17,9 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Migrations\NoWayBackMigration;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Migrations\NoWayBackMigration;
 
 /**
  * New channel.config.addToHistory for EM and IC.

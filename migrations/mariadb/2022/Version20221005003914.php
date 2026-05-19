@@ -2,8 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use App\Migrations\NoWayBackMigration;
 use Doctrine\DBAL\Migrations\AbstractMigration;
-use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * 1. New procedure added "supla_set_scene_caption"

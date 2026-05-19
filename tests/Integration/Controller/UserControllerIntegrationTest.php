@@ -17,27 +17,27 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\Main\AuditEntry;
+use App\Entity\Main\OAuth\AccessToken;
+use App\Entity\Main\User;
+use App\Enums\AuditedEvent;
+use App\Enums\UserPreferences;
+use App\Message\UserOptOutNotifications;
+use App\Repository\AuditEntryRepository;
+use App\Supla\SuplaAutodiscoverMock;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\TestClient;
 use App\Tests\Integration\TestMailerTransport;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\TestTimeProvider;
-use SuplaBundle\Entity\Main\AuditEntry;
-use SuplaBundle\Entity\Main\OAuth\AccessToken;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\AuditedEvent;
-use SuplaBundle\Enums\UserPreferences;
-use SuplaBundle\Message\UserOptOutNotifications;
-use SuplaBundle\Repository\AuditEntryRepository;
-use SuplaBundle\Supla\SuplaAutodiscoverMock;
-use SuplaBundle\Supla\SuplaServerMock;
 
 class UserControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     protected function initializeDatabaseForTests() {

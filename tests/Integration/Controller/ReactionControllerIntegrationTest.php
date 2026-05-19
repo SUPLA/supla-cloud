@@ -17,20 +17,20 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\Location;
+use App\Entity\Main\PushNotification;
+use App\Entity\Main\User;
+use App\Entity\Main\ValueBasedTrigger;
+use App\Enums\ActionableSubjectType;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Entity\Main\PushNotification;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Entity\Main\ValueBasedTrigger;
-use SuplaBundle\Enums\ActionableSubjectType;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Supla\SuplaServerMock;
 
 /** @small */
 class ReactionControllerIntegrationTest extends IntegrationTestCase {

@@ -17,20 +17,20 @@
 
 namespace App\Tests\Integration\Command;
 
+use App\Entity\Main\Location;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Supla\SuplaAutodiscoverMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Supla\SuplaAutodiscoverMock;
 
 /** @small */
 class DeleteUserCommandIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     protected function setUp(): void {

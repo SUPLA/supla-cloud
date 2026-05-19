@@ -2,8 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Enums\AuditedEvent;
-use SuplaBundle\Migrations\NoWayBackMigration;
+use App\Enums\AuditedEvent;
+use App\Migrations\NoWayBackMigration;
 
 /**
  * User login attempts table.

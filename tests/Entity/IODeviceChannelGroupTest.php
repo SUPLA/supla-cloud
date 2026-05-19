@@ -17,21 +17,21 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODeviceChannelGroup;
+use App\Entity\Main\Location;
+use App\Entity\Main\User;
+use App\Enums\ChannelFunction;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use Assert\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelFunction;
 
 class IODeviceChannelGroupTest extends TestCase {
     use UnitTestHelper;
 
     /** @var User */
     private $user;
-    /** @var \SuplaBundle\Entity\Main\Location */
+    /** @var \App\Entity\Main\Location */
     private $location;
 
     /** @before */
@@ -41,17 +41,17 @@ class IODeviceChannelGroupTest extends TestCase {
     }
 
     public function testDeterminingGroupFunction() {
-        $channel1 = $this->createMock(\SuplaBundle\Entity\Main\IODeviceChannel::class);
-        $channel2 = $this->createMock(\SuplaBundle\Entity\Main\IODeviceChannel::class);
+        $channel1 = $this->createMock(\App\Entity\Main\IODeviceChannel::class);
+        $channel2 = $this->createMock(\App\Entity\Main\IODeviceChannel::class);
         $channel1->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEGATE());
         $channel2->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEGATE());
-        $group = new \SuplaBundle\Entity\Main\IODeviceChannelGroup($this->user, $this->location, [$channel1, $channel2]);
+        $group = new \App\Entity\Main\IODeviceChannelGroup($this->user, $this->location, [$channel1, $channel2]);
         $this->assertEquals(ChannelFunction::CONTROLLINGTHEGATE(), $group->getFunction());
     }
 
     public function testSettingChannels() {
-        $channel1 = $this->createMock(\SuplaBundle\Entity\Main\IODeviceChannel::class);
-        $channel2 = $this->createMock(\SuplaBundle\Entity\Main\IODeviceChannel::class);
+        $channel1 = $this->createMock(\App\Entity\Main\IODeviceChannel::class);
+        $channel2 = $this->createMock(\App\Entity\Main\IODeviceChannel::class);
         $channel1->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEGATE());
         $channel2->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEGATE());
         $group = new IODeviceChannelGroup($this->user, $this->location, [$channel1, $channel2]);
@@ -65,8 +65,8 @@ class IODeviceChannelGroupTest extends TestCase {
 
     public function testForbidsMixingChannelFunctions() {
         $this->expectException(InvalidArgumentException::class);
-        $channel1 = $this->createMock(\SuplaBundle\Entity\Main\IODeviceChannel::class);
-        $channel2 = $this->createMock(\SuplaBundle\Entity\Main\IODeviceChannel::class);
+        $channel1 = $this->createMock(\App\Entity\Main\IODeviceChannel::class);
+        $channel2 = $this->createMock(\App\Entity\Main\IODeviceChannel::class);
         $channel1->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEGATE());
         $channel2->method('getFunction')->willReturn(ChannelFunction::CONTROLLINGTHEDOORLOCK());
         new IODeviceChannelGroup($this->user, $this->location, [$channel1, $channel2]);
@@ -74,12 +74,12 @@ class IODeviceChannelGroupTest extends TestCase {
 
     public function testForbidsSettingEmptyChannels() {
         $this->expectException(InvalidArgumentException::class);
-        (new \SuplaBundle\Entity\Main\IODeviceChannelGroup())->setChannels([]);
+        (new \App\Entity\Main\IODeviceChannelGroup())->setChannels([]);
     }
 
     public function testForbidsSettingNotChannelsAsChannels() {
         $this->expectException(InvalidArgumentException::class);
-        new IODeviceChannelGroup($this->user, $this->location, [$this->createMock(\SuplaBundle\Entity\Main\Location::class)]);
+        new IODeviceChannelGroup($this->user, $this->location, [$this->createMock(\App\Entity\Main\Location::class)]);
     }
 
     public function testBuildingServerActionCommand() {

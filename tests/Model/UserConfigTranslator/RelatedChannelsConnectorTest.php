@@ -17,12 +17,12 @@
 
 namespace App\Tests\Model\UserConfigTranslator;
 
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ChannelFunction as CF;
+use App\Model\UserConfigTranslator\RelatedChannelsConnector;
+use App\Repository\IODeviceChannelRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction as CF;
-use SuplaBundle\Model\UserConfigTranslator\RelatedChannelsConnector;
-use SuplaBundle\Repository\IODeviceChannelRepository;
 
 class RelatedChannelsConnectorTest extends TestCase {
     /** @var RelatedChannelsConnector */

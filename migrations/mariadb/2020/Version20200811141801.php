@@ -2,7 +2,7 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Migrations\NoWayBackMigration;
+use App\Migrations\NoWayBackMigration;
 
 /**
  * Renaming the supla_channel_value table and giud column to supla_dev_channel_value, value

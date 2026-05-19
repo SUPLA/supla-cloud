@@ -17,14 +17,14 @@
 
 namespace App\Tests\Supla;
 
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\User;
+use App\Supla\SuplaServerMock;
+use App\Supla\SuplaServerMockCommandsCollector;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Supla\SuplaServerMock;
-use SuplaBundle\Supla\SuplaServerMockCommandsCollector;
 
 /**
  * We are testing the mocked implementation here in order to be sure in behaves correctly in integration tests.
@@ -35,9 +35,9 @@ class SuplaServerMockTest extends TestCase {
 
     /** @var User */
     private $user;
-    /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
+    /** @var \App\Entity\Main\IODeviceChannel */
     private $device;
-    /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
+    /** @var \App\Entity\Main\IODeviceChannel */
     private $channel;
 
     /** @before */

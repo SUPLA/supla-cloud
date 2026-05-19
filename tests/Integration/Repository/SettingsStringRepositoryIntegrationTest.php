@@ -17,10 +17,10 @@
 
 namespace App\Tests\Integration\Repository;
 
+use App\Entity\Main\SettingsString;
+use App\Enums\InstanceSettings;
+use App\Repository\SettingsStringRepository;
 use App\Tests\Integration\IntegrationTestCase;
-use SuplaBundle\Entity\Main\SettingsString;
-use SuplaBundle\Enums\InstanceSettings;
-use SuplaBundle\Repository\SettingsStringRepository;
 
 /** @small */
 class SettingsStringRepositoryIntegrationTest extends IntegrationTestCase {

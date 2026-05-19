@@ -2,7 +2,7 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Migrations\NoWayBackMigration;
+use App\Migrations\NoWayBackMigration;
 
 /**
  * user_id field added to supla_dev_channel_value table

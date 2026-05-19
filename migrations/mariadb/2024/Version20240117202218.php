@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Migrations\NoWayBackMigration;
+use App\Migrations\NoWayBackMigration;
 
 /**
  * New table: supla_gp_measurement_log.

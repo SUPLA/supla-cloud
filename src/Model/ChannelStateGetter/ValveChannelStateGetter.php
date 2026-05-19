@@ -1,0 +1,42 @@
+<?php
+namespace App\Model\ChannelStateGetter;
+
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ChannelFunction;
+use App\Enums\ValveStateBits;
+use App\Supla\SuplaServerAware;
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Schema(schema="ChannelStateValve",
+ *     description="State of `VALVEOPENCLOSE`.",
+ *     @OA\Property(property="connected", type="boolean"),
+ *     @OA\Property(property="closed", type="boolean"),
+ *     @OA\Property(property="manuallyClosed", type="boolean"),
+ *     @OA\Property(property="flooding", type="boolean"),
+ * )
+ */
+class ValveChannelStateGetter implements SingleChannelStateGetter {
+    use SuplaServerAware;
+
+    public function getState(IODeviceChannel $channel): array {
+        [$closed, $flags] = $this->suplaServer->getValveValue($channel);
+        if ($closed !== null && $flags !== null) {
+            return [
+                'closed' => $channel->getFunction()->getId() === ChannelFunction::VALVEOPENCLOSE ? boolval($closed) : $closed,
+                'manuallyClosed' => ValveStateBits::MANUALLY_CLOSED()->isSupported($flags),
+                'flooding' => ValveStateBits::FLOODING()->isSupported($flags),
+                'motorProblem' => ValveStateBits::MOTOR_PROBLEM()->isSupported($flags),
+            ];
+        } else {
+            return [];
+        }
+    }
+
+    public function supportedFunctions(): array {
+        return [
+            ChannelFunction::VALVEOPENCLOSE(),
+            ChannelFunction::VALVEPERCENTAGE(),
+        ];
+    }
+}

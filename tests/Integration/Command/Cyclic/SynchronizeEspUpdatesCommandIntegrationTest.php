@@ -17,9 +17,9 @@
 
 namespace App\Tests\Integration\Command\Cyclic;
 
+use App\Supla\SuplaAutodiscoverMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Supla\SuplaAutodiscoverMock;
 
 /**
  * @small

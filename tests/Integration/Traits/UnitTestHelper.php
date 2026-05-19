@@ -17,10 +17,10 @@
 
 namespace App\Tests\Integration\Traits;
 
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\Scene;
+use App\Enums\ActionableSubjectType;
 use PHPUnit\Framework\MockObject\MockObject;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Enums\ActionableSubjectType;
 
 trait UnitTestHelper {
     public function createEntityMock(string $entityClass, int $id = 1): MockObject {

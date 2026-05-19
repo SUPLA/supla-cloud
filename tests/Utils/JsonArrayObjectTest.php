@@ -16,8 +16,8 @@
 
 namespace App\Tests\Utils;
 
+use App\Utils\JsonArrayObject;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Utils\JsonArrayObject;
 
 class JsonArrayObjectTest extends TestCase {
     /** @dataProvider serializingExamples */

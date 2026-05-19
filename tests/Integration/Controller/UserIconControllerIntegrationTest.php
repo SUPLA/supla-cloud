@@ -17,18 +17,18 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\Main\Location;
+use App\Entity\Main\OAuth\AccessToken;
+use App\Entity\Main\User;
+use App\Enums\ChannelConfigChangeScope;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
 use App\Kernel;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Entity\Main\OAuth\AccessToken;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelConfigChangeScope;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Supla\SuplaServerMock;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /** @small */
@@ -42,7 +42,7 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var \SuplaBundle\Entity\Main\IODevice */
+    /** @var \App\Entity\Main\IODevice */
     private $device;
     /** @var Location */
     private $location;

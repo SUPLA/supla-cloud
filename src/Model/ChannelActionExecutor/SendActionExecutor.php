@@ -1,0 +1,81 @@
+<?php
+namespace App\Model\ChannelActionExecutor;
+
+use App\Entity\ActionableSubject;
+use App\Entity\Main\PushNotification;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Repository\AccessIdRepository;
+use Assert\Assertion;
+
+/**
+ * @OA\Schema(schema="ChannelActionParamsSend",
+ *     description="Action params for `SEND` action.",
+ *     @OA\Property(property="title", type="string"),
+ *     @OA\Property(property="body", type="string"),
+ *     @OA\Property(property="accessIds", type="array", @OA\Items(type="integer")),
+ * )
+ */
+class SendActionExecutor extends SingleChannelActionExecutor {
+
+    /**
+     * @var AccessIdRepository
+     */
+    private $accessIdRepository;
+
+    public function __construct(AccessIdRepository $accessIdRepository) {
+        $this->accessIdRepository = $accessIdRepository;
+    }
+
+    public function getSupportedAction(): ChannelFunctionAction {
+        return ChannelFunctionAction::SEND();
+    }
+
+    public function getSupportedFunctions(): array {
+        return [
+            ChannelFunction::NOTIFICATION(),
+        ];
+    }
+
+    /** @param PushNotification $notification */
+    public function execute(ActionableSubject $notification, array $actionParams = []) {
+        $payload = [
+            'title' => $actionParams['title'] ?? '',
+            'body' => $actionParams['body'],
+            'recipients' => [
+                'aids' => $actionParams['accessIds'],
+            ],
+        ];
+        $command = $notification->buildServerActionCommand('SEND-PUSH', $payload);
+        $this->suplaServer->executeCommand($command);
+    }
+
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $notification, array $actionParams): array {
+        $actionParams = array_intersect_key($actionParams, array_flip(['title', 'body', 'accessIds']));
+        if (isset($actionParams['title'])) {
+            Assertion::string($actionParams['title']);
+        }
+        Assertion::keyExists($actionParams, 'body', 'Notification must have a body.');
+        Assertion::string($actionParams['body']);
+        Assertion::notBlank($actionParams['body'], 'Notification must have a body.');
+        Assertion::keyExists($actionParams, 'accessIds', 'Notification must have recipients.');
+        Assertion::isArray($actionParams['accessIds'], 'Notification must have recipients.');
+        $actionParams['accessIds'] = array_map(function ($aid) use ($notification) {
+            $aid = intval(is_array($aid) ? ($aid['id'] ?? 0) : $aid);
+            $this->accessIdRepository->findForUser($notification->getUser(), $aid);
+            return $aid;
+        }, $actionParams['accessIds']);
+        return $actionParams;
+    }
+
+    public function transformActionParamsForApi(ActionableSubject $subject, array $actionParams): array {
+        if ($subject instanceof PushNotification) {
+            return [
+                'title' => $subject->getTitle(),
+                'body' => $subject->getBody(),
+                'accessIds' => $subject->getAccessIds()->map(fn($aid) => $aid->getId())->toArray(),
+            ];
+        }
+        return parent::transformActionParamsForApi($subject, $actionParams);
+    }
+}

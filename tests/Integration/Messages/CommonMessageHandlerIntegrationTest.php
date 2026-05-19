@@ -17,15 +17,15 @@
 
 namespace App\Tests\Integration\Messages;
 
+use App\Entity\Main\User;
+use App\Enums\UserPreferences;
+use App\Message\Common\FailedAuthAttemptNotification;
+use App\Message\CommonMessageHandler;
+use App\Message\UserOptOutNotifications;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\TestMailerTransport;
 use App\Tests\Integration\Traits\UserFixtures;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\UserPreferences;
-use SuplaBundle\Message\Common\FailedAuthAttemptNotification;
-use SuplaBundle\Message\CommonMessageHandler;
-use SuplaBundle\Message\UserOptOutNotifications;
-use SuplaBundle\Supla\SuplaServerMock;
 
 /** @small */
 class CommonMessageHandlerIntegrationTest extends IntegrationTestCase {

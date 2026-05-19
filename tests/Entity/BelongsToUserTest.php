@@ -17,10 +17,10 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\BelongsToUser;
+use App\Entity\Main\Schedule;
+use App\Entity\Main\User;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\BelongsToUser;
-use SuplaBundle\Entity\Main\Schedule;
-use SuplaBundle\Entity\Main\User;
 
 class BelongsToUserTest extends TestCase {
     /** @var User */
@@ -30,7 +30,7 @@ class BelongsToUserTest extends TestCase {
     private $entity;
 
     protected function setUp(): void {
-        $this->user = $user = $this->createMock(\SuplaBundle\Entity\Main\User::class);
+        $this->user = $user = $this->createMock(\App\Entity\Main\User::class);
         $this->user->method('getId')->willReturn(1);
         $this->entity = new Schedule($this->user);
     }
@@ -40,7 +40,7 @@ class BelongsToUserTest extends TestCase {
     }
 
     public function testFalseIfNotMatches() {
-        $user2 = $this->createMock(\SuplaBundle\Entity\Main\User::class);
+        $user2 = $this->createMock(\App\Entity\Main\User::class);
         $user2->method('getId')->willReturn(2);
         $this->assertFalse($this->entity->belongsToUser($user2));
     }

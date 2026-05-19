@@ -18,12 +18,12 @@
 namespace App\Tests\Integration\Controller;
 
 use App\DataFixtures\NotificationsFixture;
+use App\Entity\EntityUtils;
+use App\Entity\Main\User;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Supla\SuplaServerMock;
 
 /** @small */
 class NotificationControllerIntegrationTest extends IntegrationTestCase {

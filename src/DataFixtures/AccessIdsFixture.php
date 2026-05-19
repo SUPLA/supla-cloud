@@ -17,9 +17,9 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Main\User;
+use App\Model\AccessIdManager;
 use Doctrine\Persistence\ObjectManager;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Model\AccessIdManager;
 
 class AccessIdsFixture extends SuplaFixture {
     const ORDER = UsersFixture::ORDER + 1;

@@ -2,7 +2,7 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Migrations\NoWayBackMigration;
+use App\Migrations\NoWayBackMigration;
 
 class Version20171013140904 extends NoWayBackMigration {
     public function migrate() {

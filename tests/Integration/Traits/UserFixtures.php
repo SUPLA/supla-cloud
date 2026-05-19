@@ -17,31 +17,31 @@
 
 namespace App\Tests\Integration\Traits;
 
+use App\Auth\OAuthScope;
+use App\Entity\ActionableSubject;
+use App\Entity\EntityUtils;
+use App\Entity\Main\ClientApp;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\Location;
+use App\Entity\Main\OAuth\AccessToken;
+use App\Entity\Main\Scene;
+use App\Entity\Main\SceneOperation;
+use App\Entity\Main\Schedule;
+use App\Entity\Main\User;
+use App\Enums\ChannelFlistRelay;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
+use App\Enums\IoDeviceFlags;
+use App\Enums\ScheduleMode;
+use App\Model\LocationManager;
+use App\Model\Schedule\ScheduleManager;
+use App\Model\UserManager;
+use App\Repository\ApiClientRepository;
 use App\Tests\AnyFieldSetter;
+use App\Utils\StringUtils;
 use DateTime;
-use SuplaBundle\Auth\OAuthScope;
-use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\ClientApp;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Entity\Main\OAuth\AccessToken;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Entity\Main\SceneOperation;
-use SuplaBundle\Entity\Main\Schedule;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelFlistRelay;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Enums\IoDeviceFlags;
-use SuplaBundle\Enums\ScheduleMode;
-use SuplaBundle\Model\LocationManager;
-use SuplaBundle\Model\Schedule\ScheduleManager;
-use SuplaBundle\Model\UserManager;
-use SuplaBundle\Repository\ApiClientRepository;
-use SuplaBundle\Utils\StringUtils;
 
 trait UserFixtures {
     protected function createConfirmedUser(string $username = 'supler@supla.org', string $password = 'supla123'): User {

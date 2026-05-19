@@ -9,4 +9,4 @@ doctrine_migrations:
         table_storage:
             table_name: 'migration_versions'
     services:
-        Doctrine\Migrations\Version\MigrationFactory: 'SuplaBundle\Migrations\Factory\MigrationFactoryDecorator'
+        Doctrine\Migrations\Version\MigrationFactory: 'App\Migrations\Factory\MigrationFactoryDecorator'

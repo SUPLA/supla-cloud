@@ -17,7 +17,7 @@
 
 namespace App\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\Main\IODeviceChannel;
+use App\Entity\Main\IODeviceChannel;
 
 class MoveDependentChannelsToTheSameLocationCommandIntegrationTest extends DatabaseMigrationTestCase {
     /** @before */

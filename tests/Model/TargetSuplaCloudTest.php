@@ -17,8 +17,8 @@
 
 namespace App\Tests\Model;
 
+use App\Model\TargetSuplaCloud;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Model\TargetSuplaCloud;
 
 class TargetSuplaCloudTest extends TestCase {
 

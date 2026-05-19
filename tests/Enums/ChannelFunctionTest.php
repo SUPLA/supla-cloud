@@ -17,14 +17,14 @@
 
 namespace App\Tests\Enums;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Exception\ApiException;
 use App\Kernel;
+use App\Utils\ArrayUtils;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Exception\ApiException;
-use SuplaBundle\Utils\ArrayUtils;
 
 class ChannelFunctionTest extends TestCase {
     public function testEveryFunctionHasCaption() {

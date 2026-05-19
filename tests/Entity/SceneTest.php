@@ -17,13 +17,13 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\Location;
+use App\Entity\Main\Scene;
+use App\Entity\Main\SceneOperation;
+use App\Enums\ChannelFunctionAction;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Entity\Main\SceneOperation;
-use SuplaBundle\Enums\ChannelFunctionAction;
 
 class SceneTest extends TestCase {
     use UnitTestHelper;

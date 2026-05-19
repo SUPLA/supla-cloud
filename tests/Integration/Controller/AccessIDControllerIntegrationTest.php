@@ -17,20 +17,20 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\Location;
+use App\Entity\Main\User;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Entity\Main\User;
 
 /** @small */
 class AccessIDControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
     /** @var IODevice */
     private $device;

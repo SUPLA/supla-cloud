@@ -17,6 +17,12 @@
 
 namespace App\Tests\Integration\Auth;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\OAuth\AccessToken;
+use App\Entity\Main\OAuth\ApiClient;
+use App\Entity\Main\OAuth\ApiClientAuthorization;
+use App\Entity\Main\OAuth\AuthCode;
+use App\Entity\Main\User;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\TestClient;
 use App\Tests\Integration\Traits\ResponseAssertions;
@@ -24,12 +30,6 @@ use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\OAuth\AccessToken;
-use SuplaBundle\Entity\Main\OAuth\ApiClient;
-use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
-use SuplaBundle\Entity\Main\OAuth\AuthCode;
-use SuplaBundle\Entity\Main\User;
 use Symfony\Component\DomCrawler\Crawler;
 
 class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
@@ -40,7 +40,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
     /** @var ApiClient */
     private $client;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     /** @before */

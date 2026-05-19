@@ -17,15 +17,15 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\Schedule;
+use App\Enums\ScheduleMode;
+use App\Model\Schedule\ScheduleManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\Schedule;
-use SuplaBundle\Enums\ScheduleMode;
-use SuplaBundle\Model\Schedule\ScheduleManager;
 
 class SchedulesFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;
@@ -76,7 +76,7 @@ class SchedulesFixture extends SuplaFixture {
             $randomDevices[] = $this->getReference(DevicesFixture::RANDOM_DEVICE_PREFIX . $i, IODevice::class);
         }
         for ($i = 0; $i < 15; $i++) {
-            /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
+            /** @var \App\Entity\Main\IODeviceChannel $channel */
             do {
                 $channel = $this->faker->randomElement($randomDevices)->getChannels()[$this->faker->numberBetween(0, 3)];
             } while (!$channel->getPossibleActions());

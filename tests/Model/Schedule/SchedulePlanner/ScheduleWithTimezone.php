@@ -17,10 +17,10 @@
 
 namespace App\Tests\Model\Schedule\SchedulePlanner;
 
+use App\Entity\Main\Schedule;
+use App\Entity\Main\User;
+use App\Enums\ChannelFunctionAction;
 use DateTime;
-use SuplaBundle\Entity\Main\Schedule;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelFunctionAction;
 
 class ScheduleWithTimezone extends Schedule {
     public function __construct($config = '*/5 * * * *', $timezone = 'Europe/Warsaw') {

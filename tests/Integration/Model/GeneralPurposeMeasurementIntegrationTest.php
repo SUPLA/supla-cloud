@@ -18,15 +18,15 @@
 namespace App\Tests\Integration\Model;
 
 use App\DataFixtures\DevicesFixture;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\User;
+use App\Enums\ChannelConfigChangeScope;
+use App\Enums\ChannelFunction;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelConfigChangeScope;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Supla\SuplaServerMock;
 
 /** @small */
 class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {

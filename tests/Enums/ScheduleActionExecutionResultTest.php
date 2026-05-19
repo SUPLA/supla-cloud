@@ -17,8 +17,8 @@
 
 namespace App\Tests\Enums;
 
+use App\Enums\ScheduleActionExecutionResult;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Enums\ScheduleActionExecutionResult;
 
 class ScheduleActionExecutionResultTest extends TestCase {
     public function testEveryValueHasCaption() {

@@ -16,8 +16,8 @@
 
 namespace App\Tests\Utils;
 
+use App\Utils\PasswordStrengthValidator;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Utils\PasswordStrengthValidator;
 
 class PasswordStrengthValidatorTest extends TestCase {
     /** @dataProvider examples */

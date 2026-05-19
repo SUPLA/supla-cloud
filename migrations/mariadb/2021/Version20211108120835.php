@@ -17,9 +17,9 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Migrations\NoWayBackMigration;
-use SuplaBundle\Utils\NumberUtils;
+use App\Enums\ChannelType;
+use App\Migrations\NoWayBackMigration;
+use App\Utils\NumberUtils;
 
 class Version20211108120835 extends NoWayBackMigration {
     public function migrate() {

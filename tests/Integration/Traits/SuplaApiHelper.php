@@ -17,9 +17,9 @@
 
 namespace App\Tests\Integration\Traits;
 
+use App\Entity\Main\User;
+use App\Model\ApiVersions;
 use App\Tests\Integration\TestClient;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Model\ApiVersions;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;

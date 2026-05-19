@@ -17,11 +17,11 @@
 
 namespace App\Tests\Model;
 
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ChannelFunction;
+use App\Model\ValueBasedTriggerValidator;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Model\ValueBasedTriggerValidator;
 
 class ValueBasedTriggerValidatorTest extends TestCase {
     use UnitTestHelper;

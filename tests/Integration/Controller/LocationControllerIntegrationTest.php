@@ -17,14 +17,14 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\Main\IODeviceChannelGroup;
+use App\Entity\Main\Scene;
+use App\Entity\Main\User;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
 
 /** @small */
 class LocationControllerIntegrationTest extends IntegrationTestCase {
@@ -33,9 +33,9 @@ class LocationControllerIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var \SuplaBundle\Entity\Main\IODevice */
+    /** @var \App\Entity\Main\IODevice */
     private $device;
-    /** @var \SuplaBundle\Entity\Main\Location */
+    /** @var \App\Entity\Main\Location */
     private $location;
 
     protected function initializeDatabaseForTests() {

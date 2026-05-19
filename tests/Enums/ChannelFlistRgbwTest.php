@@ -17,9 +17,9 @@
 
 namespace App\Tests\Enums;
 
+use App\Enums\ChannelFlistRgbw;
+use App\Enums\ChannelFunction;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Enums\ChannelFlistRgbw;
-use SuplaBundle\Enums\ChannelFunction;
 
 class ChannelFlistRgbwTest extends TestCase {
     /** @dataProvider supportedFunctionsTestCases */

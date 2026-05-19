@@ -17,10 +17,10 @@
 
 namespace App\Tests\EventListener\ApiRateLimit;
 
+use App\EventListener\ApiRateLimit\ApiRateLimitRule;
+use App\EventListener\ApiRateLimit\ApiRateLimitStatus;
 use App\Tests\Integration\Traits\TestTimeProvider;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
-use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStatus;
 
 class ApiRateLimitStatusTest extends TestCase {
     /** @afterClass */

@@ -16,7 +16,7 @@ const regexes = [
   '["\']([^"\']+?)["\']\\s*/\\*\\s*i18n\\s*\\*/', // '...'/*i18n*/
 ];
 
-const locations = ['src', '../src/SuplaBundle', '../templates', '../var/local'];
+const locations = ['src', '../src', '../templates', '../var/local'];
 
 let spinner = ora({text: 'Search for strings to translate in sources...', color: 'yellow'}).start();
 

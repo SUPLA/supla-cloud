@@ -17,9 +17,9 @@
 
 namespace App\Tests\Enums;
 
+use App\Enums\ElectricityMeterSupportBits;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Enums\ElectricityMeterSupportBits;
 
 class ElectricityMeterSupportBitsTest extends TestCase {
     use UnitTestHelper;

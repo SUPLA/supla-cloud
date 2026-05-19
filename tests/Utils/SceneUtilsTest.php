@@ -16,18 +16,18 @@
 
 namespace App\Tests\Utils;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\Location;
+use App\Entity\Main\Scene;
+use App\Entity\Main\SceneOperation;
+use App\Enums\ActionableSubjectType;
+use App\Enums\ChannelFunctionAction;
 use App\Tests\Integration\Traits\UnitTestHelper;
+use App\Utils\SceneUtils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Entity\Main\SceneOperation;
-use SuplaBundle\Enums\ActionableSubjectType;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Utils\SceneUtils;
 
 class SceneUtilsTest extends TestCase {
     use UnitTestHelper;

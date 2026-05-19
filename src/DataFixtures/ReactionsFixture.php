@@ -17,12 +17,12 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Main\IODevice;
+use App\Entity\Main\ValueBasedTrigger;
+use App\Enums\ActionableSubjectType;
+use App\Enums\ChannelFunctionAction;
+use App\Serialization\RequestFiller\ValueBasedTriggerRequestFiller;
 use Doctrine\Persistence\ObjectManager;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\ValueBasedTrigger;
-use SuplaBundle\Enums\ActionableSubjectType;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Serialization\RequestFiller\ValueBasedTriggerRequestFiller;
 
 class ReactionsFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;

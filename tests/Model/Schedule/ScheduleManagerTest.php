@@ -17,18 +17,18 @@
 
 namespace App\Tests\Model\Schedule;
 
+use App\Entity\Main\ScheduledExecution;
+use App\Enums\ChannelFunctionAction;
+use App\Model\ChannelActionExecutor\ChannelActionExecutor;
+use App\Model\IODeviceManager;
+use App\Model\Schedule\ScheduleManager;
+use App\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use App\Tests\Integration\Traits\TestTimeProvider;
 use DateTime;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\ScheduledExecution;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
-use SuplaBundle\Model\IODeviceManager;
-use SuplaBundle\Model\Schedule\ScheduleManager;
-use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 
 class ScheduleManagerTest extends TestCase {
     private $doctrine;

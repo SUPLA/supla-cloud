@@ -17,12 +17,12 @@
 
 namespace App\Tests\Integration\Auth;
 
+use App\Model\TargetSuplaCloudRequestForwarder;
+use App\Supla\SuplaAutodiscoverMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\TestMailerTransport;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
-use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
@@ -30,7 +30,7 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     public function initializeDatabaseForTests() {

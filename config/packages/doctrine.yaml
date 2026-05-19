@@ -46,10 +46,10 @@ doctrine:
           collate: utf8_unicode_ci
     default_connection: default
     types:
-      ipaddress: SuplaBundle\Model\Doctrine\IpAddressType
-      stringdatetime: SuplaBundle\Model\Doctrine\StringDateTime
-      tinyint: SuplaBundle\Model\Doctrine\TinyintType
-      utcdatetime: SuplaBundle\Model\Doctrine\UTCDateTimeType
+      ipaddress: App\Model\Doctrine\IpAddressType
+      stringdatetime: App\Model\Doctrine\StringDateTime
+      tinyint: App\Model\Doctrine\TinyintType
+      utcdatetime: App\Model\Doctrine\UTCDateTimeType
 
   orm:
     auto_generate_proxy_classes: "%kernel.debug%"
@@ -59,27 +59,27 @@ doctrine:
         connection: default
         dql:
           numeric_functions:
-            supla_is_now_active: SuplaBundle\Model\Doctrine\IsNowActive
+            supla_is_now_active: App\Model\Doctrine\IsNowActive
         mappings:
           FOSOAuthServerBundle: ~
           Main:
             type: annotation
-            dir: '%kernel.project_dir%/src/SuplaBundle/Entity/Main'
-            prefix: 'SuplaBundle\Entity\Main'
+            dir: '%kernel.project_dir%/src/Entity/Main'
+            prefix: 'App\Entity\Main'
       logs_mariadb:
         connection: logs_mariadb
         mappings:
           MeasurementLogs:
             type: annotation
-            dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
-            prefix: 'SuplaBundle\Entity\MeasurementLogs'
+            dir: '%kernel.project_dir%/src/Entity/MeasurementLogs'
+            prefix: 'App\Entity\MeasurementLogs'
       logs_tsdb:
         connection: logs_tsdb
         mappings:
           MeasurementLogs:
             type: annotation
-            dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
-            prefix: 'SuplaBundle\Entity\MeasurementLogs'
+            dir: '%kernel.project_dir%/src/Entity/MeasurementLogs'
+            prefix: 'App\Entity\MeasurementLogs'
 
 when@test:
   doctrine:

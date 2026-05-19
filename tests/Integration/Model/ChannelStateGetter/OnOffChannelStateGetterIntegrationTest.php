@@ -17,13 +17,13 @@
 
 namespace App\Tests\Integration\Model\ChannelStateGetter;
 
+use App\Entity\Main\IODevice;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Model\ChannelStateGetter\ChannelStateGetter;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
-use SuplaBundle\Supla\SuplaServerMock;
 
 /** @small */
 class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {

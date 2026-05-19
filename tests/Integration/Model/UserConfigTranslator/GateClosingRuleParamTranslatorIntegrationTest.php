@@ -17,15 +17,15 @@
 
 namespace App\Tests\Integration\Model\UserConfigTranslator;
 
+use App\Entity\Main\GateClosingRule;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Model\UserConfigTranslator\SubjectConfigTranslator;
+use App\Repository\GateClosingRuleRepository;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\GateClosingRule;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
-use SuplaBundle\Repository\GateClosingRuleRepository;
 
 /** @small */
 class GateClosingRuleParamTranslatorIntegrationTest extends IntegrationTestCase {
@@ -35,7 +35,7 @@ class GateClosingRuleParamTranslatorIntegrationTest extends IntegrationTestCase 
     private $device;
     /** @var SubjectConfigTranslator */
     private $paramsTranslator;
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
     /** @var IODeviceChannel */
     private $gate;

@@ -17,16 +17,16 @@
 
 namespace App\Tests\Supla;
 
+use App\Entity\Main\OAuth\ApiClient;
+use App\Model\LocalSuplaCloud;
+use App\Model\TargetSuplaCloud;
+use App\Model\UserManager;
+use App\Repository\SettingsStringRepository;
+use App\Supla\SuplaAutodiscoverMock;
+use App\Supla\SuplaBrokerHttpClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use SuplaBundle\Entity\Main\OAuth\ApiClient;
-use SuplaBundle\Model\LocalSuplaCloud;
-use SuplaBundle\Model\TargetSuplaCloud;
-use SuplaBundle\Model\UserManager;
-use SuplaBundle\Repository\SettingsStringRepository;
-use SuplaBundle\Supla\SuplaAutodiscoverMock;
-use SuplaBundle\Supla\SuplaBrokerHttpClient;
 
 /**
  * We are testing the mocked implementation here in order to be sure in behaves correctly in integration tests.

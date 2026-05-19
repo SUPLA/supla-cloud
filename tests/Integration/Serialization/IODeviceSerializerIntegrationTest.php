@@ -17,17 +17,17 @@
 
 namespace App\Tests\Integration\Serialization;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODevice;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\TestTimeProvider;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODevice;
 
 /** @small */
 class IODeviceSerializerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
     /** @var IODevice */
     private $device;

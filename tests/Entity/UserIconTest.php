@@ -17,19 +17,19 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\User;
+use App\Enums\ChannelFunction;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelFunction;
 
 class UserIconTest extends TestCase {
 
-    /** @var \SuplaBundle\Entity\Main\UserIcon */
+    /** @var \App\Entity\Main\UserIcon */
     private $userIcon;
 
     /** @before */
     public function init() {
-        $this->userIcon = new \SuplaBundle\Entity\Main\UserIcon($this->createMock(User::class), ChannelFunction::POWERSWITCH());
+        $this->userIcon = new \App\Entity\Main\UserIcon($this->createMock(User::class), ChannelFunction::POWERSWITCH());
     }
 
     public function testReturningIconsInDesiredOrder() {

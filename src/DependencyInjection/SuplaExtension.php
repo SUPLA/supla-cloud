@@ -17,8 +17,8 @@
 
 namespace App\DependencyInjection;
 
+use App\Enums\ApiClientType;
 use App\Kernel;
-use SuplaBundle\Enums\ApiClientType;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 

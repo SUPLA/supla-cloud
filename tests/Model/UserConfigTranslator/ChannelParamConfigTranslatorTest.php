@@ -17,24 +17,24 @@
 
 namespace App\Tests\Model\UserConfigTranslator;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ChannelFlags;
+use App\Enums\ChannelFunction;
+use App\Model\UserConfigTranslator\BinarySensorUserConfigTranslator;
+use App\Model\UserConfigTranslator\DigiglassParamTranslator;
+use App\Model\UserConfigTranslator\ElectricityMeterUserConfigTranslator;
+use App\Model\UserConfigTranslator\GeneralPurposeMeasurementConfigTranslator;
+use App\Model\UserConfigTranslator\HumidityAdjustmentConfigTranslator;
+use App\Model\UserConfigTranslator\ImpulseCounterUserConfigTranslator;
+use App\Model\UserConfigTranslator\NumberOfAttemptsToOpenOrCloseParamTranslator;
+use App\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
+use App\Model\UserConfigTranslator\RelayTimeMsUserConfigTranslator;
+use App\Model\UserConfigTranslator\RelayTimeSUserConfigTranslator;
+use App\Model\UserConfigTranslator\RollerShutterUserConfigTranslator;
+use App\Model\UserConfigTranslator\SubjectConfigTranslator;
+use App\Model\UserConfigTranslator\TemperatureAdjustmentConfigTranslator;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFlags;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Model\UserConfigTranslator\BinarySensorUserConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\DigiglassParamTranslator;
-use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterUserConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\GeneralPurposeMeasurementConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\HumidityAdjustmentConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\ImpulseCounterUserConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\NumberOfAttemptsToOpenOrCloseParamTranslator;
-use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\RelayTimeMsUserConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\RelayTimeSUserConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\RollerShutterUserConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\TemperatureAdjustmentConfigTranslator;
 
 class ChannelParamConfigTranslatorTest extends TestCase {
     /** @var SubjectConfigTranslator */

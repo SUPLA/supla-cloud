@@ -17,19 +17,19 @@
 
 namespace App\Tests\Model\UserConfigTranslator;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODeviceChannel;
+use App\Model\UserConfigTranslator\ElectricityMeterUserConfigTranslator;
+use App\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterUserConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
 
 class ElectricityMeterUserConfigTranslatorTest extends TestCase {
     use UnitTestHelper;
 
     /** @var OpeningClosingTimeUserConfigTranslator */
     private $configTranslator;
-    /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
+    /** @var \App\Entity\Main\IODeviceChannel */
     private $channel;
 
     /** @before */

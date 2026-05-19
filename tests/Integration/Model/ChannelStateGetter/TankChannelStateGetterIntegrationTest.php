@@ -17,18 +17,18 @@
 
 namespace App\Tests\Integration\Model\ChannelStateGetter;
 
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Model\ChannelStateGetter\ChannelStateGetter;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
-use SuplaBundle\Supla\SuplaServerMock;
 
 /** @small */
 class TankChannelStateGetterIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
-    /** @var \SuplaBundle\Entity\Main\IODevice */
+    /** @var \App\Entity\Main\IODevice */
     private $device;
     /** @var ChannelStateGetter */
     private $channelStateGetter;

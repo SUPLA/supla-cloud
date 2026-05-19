@@ -17,13 +17,13 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\Main\IODeviceChannelGroup;
+use App\Entity\Main\User;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
 
 /**
  * Also known as @wsosniak case.

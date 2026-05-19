@@ -18,19 +18,19 @@
 namespace App\Tests\Integration\Model\UserConfigTranslator;
 
 use App\DataFixtures\DevicesFixture;
+use App\Model\UserConfigTranslator\SubjectConfigTranslator;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 /** @small */
 class UserConfigTranslatorIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
-    /** @var \SuplaBundle\Entity\Main\IODevice */
+    /** @var \App\Entity\Main\IODevice */
     private $device;
     /** @var SubjectConfigTranslator */
     private $configTranslator;
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     public function initializeDatabaseForTests() {

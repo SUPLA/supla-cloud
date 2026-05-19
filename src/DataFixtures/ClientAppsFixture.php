@@ -17,11 +17,11 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Main\AccessID;
+use App\Entity\Main\ClientApp;
+use App\Entity\Main\User;
 use App\Tests\AnyFieldSetter;
 use Doctrine\Persistence\ObjectManager;
-use SuplaBundle\Entity\Main\AccessID;
-use SuplaBundle\Entity\Main\ClientApp;
-use SuplaBundle\Entity\Main\User;
 
 class ClientAppsFixture extends SuplaFixture {
     const ORDER = AccessIdsFixture::ORDER + 1;

@@ -17,10 +17,10 @@
 
 namespace App\Tests\Integration\User;
 
+use App\Entity\Main\User;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\User;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class MigratingUserMd5PasswordToBcryptIntegrationTest extends IntegrationTestCase {

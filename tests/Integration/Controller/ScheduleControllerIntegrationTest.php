@@ -17,18 +17,18 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\Schedule;
+use App\Entity\Main\ScheduledExecution;
+use App\Entity\Main\User;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
+use App\Enums\ScheduleMode;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use DateTime;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\Schedule;
-use SuplaBundle\Entity\Main\ScheduledExecution;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Enums\ScheduleMode;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -39,7 +39,7 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var \SuplaBundle\Entity\Main\IODevice */
+    /** @var \App\Entity\Main\IODevice */
     private $device;
 
     protected function initializeDatabaseForTests() {
@@ -111,7 +111,7 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
 
     /** @depends testCreatingMinutelySchedule */
     public function testEditingStartDateOfScheduleThatHasExecutedExecutions(Schedule $schedule) {
-        /** @var \SuplaBundle\Entity\Main\ScheduledExecution[] $executions */
+        /** @var \App\Entity\Main\ScheduledExecution[] $executions */
         $scheduledExecutionsRepository = $this->getDoctrine()->getRepository(ScheduledExecution::class);
         $executions = $scheduledExecutionsRepository->findBy(['schedule' => $schedule]);
         $execution = $executions[0];

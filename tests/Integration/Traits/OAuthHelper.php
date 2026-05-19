@@ -17,15 +17,15 @@
 
 namespace App\Tests\Integration\Traits;
 
+use App\Auth\OAuthScope;
+use App\Entity\Main\OAuth\AccessToken;
+use App\Entity\Main\OAuth\ApiClient;
+use App\Entity\Main\OAuth\ApiClientAuthorization;
+use App\Entity\Main\User;
+use App\Repository\ApiClientAuthorizationRepository;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
 use Psr\Container\ContainerInterface;
-use SuplaBundle\Auth\OAuthScope;
-use SuplaBundle\Entity\Main\OAuth\AccessToken;
-use SuplaBundle\Entity\Main\OAuth\ApiClient;
-use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 
 /**
  * @property ContainerInterface $container

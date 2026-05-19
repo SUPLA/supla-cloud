@@ -17,12 +17,12 @@
 
 namespace App\Tests\Command\Cyclic;
 
+use App\Command\Cyclic\DeleteNotConfirmedUsersCommand;
+use App\Command\Cyclic\DeleteOrphanedMeasurementLogsCommand;
+use App\Repository\UserRepository;
 use App\Tests\Integration\Traits\TestTimeProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Command\Cyclic\DeleteNotConfirmedUsersCommand;
-use SuplaBundle\Command\Cyclic\DeleteOrphanedMeasurementLogsCommand;
-use SuplaBundle\Repository\UserRepository;
 
 class CyclicCommandTest extends TestCase {
     /** @after */

@@ -1,14 +1,14 @@
 <?php
 namespace App\Tests\Model\ChannelActionExecutor;
 
+use App\Entity\ActionableSubject;
+use App\Enums\ChannelFunction;
+use App\Model\ChannelActionExecutor\RevealPartiallyActionExecutor;
+use App\Supla\SuplaServer;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use App\Tests\Traits\ChannelStub;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Model\ChannelActionExecutor\RevealPartiallyActionExecutor;
-use SuplaBundle\Supla\SuplaServer;
 
 class RevealPartiallyActionExecutorTest extends TestCase {
     use UnitTestHelper;

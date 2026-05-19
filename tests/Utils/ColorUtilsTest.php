@@ -17,9 +17,9 @@
 
 namespace App\Tests\Utils;
 
+use App\Utils\ColorUtils;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Utils\ColorUtils;
 
 class ColorUtilsTest extends TestCase {
     #[DataProvider('colorExamples')]

@@ -17,6 +17,11 @@
 
 namespace App\Tests\Integration\Auth;
 
+use App\Entity\Main\OAuth\AuthCode;
+use App\Entity\Main\User;
+use App\Model\TargetSuplaCloudRequestForwarder;
+use App\Supla\SuplaAutodiscover;
+use App\Supla\SuplaAutodiscoverMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
@@ -24,11 +29,6 @@ use App\Tests\Integration\Traits\TestSuplaHttpClient;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
 use PHPUnit\Framework\ExpectationFailedException;
-use SuplaBundle\Entity\Main\OAuth\AuthCode;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
-use SuplaBundle\Supla\SuplaAutodiscover;
-use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
@@ -198,7 +198,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertTrue($response->isRedirect()); // to new client id
         $targetUrl = $response->headers->get('Location');
-        /** @var \SuplaBundle\Entity\Main\OAuth\ApiClient $createdClient */
+        /** @var \App\Entity\Main\OAuth\ApiClient $createdClient */
         $createdClient = $this->clientManager->findClientBy(['name' => 'unicorn']);
         $this->assertStringContainsString('https://supla.local/oauth/v2/auth?', $targetUrl);
         $this->assertStringContainsString('client_id=' . $createdClient->getPublicId(), $targetUrl);

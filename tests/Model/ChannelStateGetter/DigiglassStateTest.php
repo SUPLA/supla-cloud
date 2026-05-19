@@ -17,9 +17,9 @@
 
 namespace App\Tests\Model\ChannelStateGetter;
 
+use App\Model\ChannelStateGetter\DigiglassState;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Model\ChannelStateGetter\DigiglassState;
 
 class DigiglassStateTest extends TestCase {
     public function testCannotSetNonExistingSection() {

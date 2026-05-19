@@ -20,7 +20,7 @@ framework:
   serializer:
     enable_annotations: true
     enabled: true
-    circular_reference_handler: SuplaBundle\Serialization\ObjectIdCircularReferenceHandler
+    circular_reference_handler: App\Serialization\ObjectIdCircularReferenceHandler
 
 when@dev:
   framework:

@@ -17,9 +17,9 @@
 
 namespace App\Tests\Enums;
 
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
 
 class ChannelFunctionActionTest extends TestCase {
     public function testEveryValueHasCaption() {

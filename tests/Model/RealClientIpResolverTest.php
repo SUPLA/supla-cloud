@@ -17,10 +17,10 @@
 
 namespace App\Tests\Model;
 
+use App\Model\RealClientIpResolver;
+use App\Supla\SuplaAutodiscover;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Model\RealClientIpResolver;
-use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;

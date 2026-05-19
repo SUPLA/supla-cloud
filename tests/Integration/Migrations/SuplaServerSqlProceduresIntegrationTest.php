@@ -17,12 +17,12 @@
 
 namespace App\Tests\Integration\Migrations;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\GateClosingRule;
+use App\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
+use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\UserFixtures;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\GateClosingRule;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
-use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
 
 /** @small */
 class SuplaServerSqlProceduresIntegrationTest extends IntegrationTestCase {
@@ -74,7 +74,7 @@ class SuplaServerSqlProceduresIntegrationTest extends IntegrationTestCase {
         $em->getConnection()->executeQuery($query);
         $logItems = $em->getRepository(ElectricityMeterVoltageAberrationLogItem::class)->findAll();
         $this->assertCount(1, $logItems);
-        /** @var \SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem $logItem */
+        /** @var \App\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem $logItem */
         $logItem = $logItems[0];
         $this->assertNotNull($logItem);
         $this->assertEquals(1, $logItem->getChannelId());

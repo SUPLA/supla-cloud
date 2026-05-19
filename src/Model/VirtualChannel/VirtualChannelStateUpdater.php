@@ -1,0 +1,143 @@
+<?php
+
+namespace App\Model\VirtualChannel;
+
+use App\Entity\Main\ChannelValue;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\MeasurementLogs\EnergyPriceLogItem;
+use App\Enums\ChannelFunction;
+use App\Enums\VirtualChannelType;
+use App\Model\TimeProvider;
+use App\Supla\SuplaAutodiscover;
+use App\Utils\DateUtils;
+use Doctrine\ORM\EntityManagerInterface;
+
+class VirtualChannelStateUpdater {
+    public function __construct(
+        private SuplaAutodiscover $ad,
+        private EntityManagerInterface $entityManager,
+        private EntityManagerInterface $measurementLogsEntityManager,
+        private TimeProvider $timeProvider,
+    ) {
+    }
+
+    /**
+     * @param IODeviceChannel[] $channels
+     * @return void
+     */
+    public function updateChannels($channels): void {
+        $tasks = [
+            'openWeatherUpdates' => [],
+            'energyPriceForecastUpdates' => [],
+        ];
+        $channelUpdates = [];
+        $updatedDeviceIds = [];
+        foreach ($channels as $channel) {
+            $channelUpdates[] = [$channel->getId(), $channel->getUser()->getId()];
+            if (!in_array($channel->getIodevice()->getId(), $updatedDeviceIds)) {
+                $updatedDeviceIds[] = $channel->getIodevice()->getId();
+            }
+            $cfg = $channel->getProperty('virtualChannelConfig', []);
+            $virtualType = $cfg['type'] ?? null;
+            if ($virtualType === VirtualChannelType::OPEN_WEATHER) {
+                if (($cityId = $cfg['cityId'] ?? null) && ($field = $cfg['weatherField'] ?? null)) {
+                    $tasks['openWeatherUpdates'][$cityId][$field][] = $channel->getId();
+                }
+            } elseif ($virtualType === VirtualChannelType::ENERGY_PRICE_FORECAST) {
+                if (($field = $cfg['energyField'] ?? null)) {
+                    $tasks['energyPriceForecastUpdates'][$field][] = $channel->getId();
+                }
+            }
+        }
+        if ($updatedDeviceIds) {
+            $this->setInitialChannelValues($channelUpdates);
+            $this->updateLastConnectedAt($updatedDeviceIds);
+            if ($tasks['openWeatherUpdates']) {
+                $this->fetchOpenWeatherUpdates($tasks['openWeatherUpdates']);
+            }
+            if ($tasks['energyPriceForecastUpdates']) {
+                $this->updateEnergyPriceForecastValue($tasks['energyPriceForecastUpdates']);
+            }
+        }
+    }
+
+    private function setInitialChannelValues(array $channelUpdates) {
+        $query = 'INSERT IGNORE INTO supla_dev_channel_value (channel_id, user_id, value, update_time, valid_to) VALUES ';
+        $zero = ChannelValue::packValue(ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(), 0);
+        $now = DateUtils::timestampToMysqlUtc($this->timeProvider->getTimestamp('-1 minute'));
+        $query .= implode(',', array_map(fn(array $ch) => "($ch[0], $ch[1], '$zero', '$now', '$now')", $channelUpdates));
+        $this->entityManager->getConnection()->executeQuery($query);
+    }
+
+    private function updateLastConnectedAt(array $updatedDeviceIds) {
+        $query = sprintf('UPDATE %s io SET io.lastConnected=CURRENT_TIMESTAMP() WHERE io.id IN (:ids)', IODevice::class);
+        $this->entityManager->createQuery($query)->execute(['ids' => $updatedDeviceIds]);
+    }
+
+    private function fetchOpenWeatherUpdates(array $openWeatherUpdates): void {
+        $cityIds = array_keys($openWeatherUpdates);
+        $weatherData = $this->ad->fetchOpenWeatherData($cityIds);
+        foreach ($weatherData as $cityWeather) {
+            ['id' => $cityId, 'fetchedAt' => $fetchedAt, 'weather' => $weather] = $cityWeather;
+            foreach ($openWeatherUpdates[$cityId] as $field => $channelIds) {
+                $query = sprintf(
+                    'UPDATE %s cv SET cv.updateTime=CURRENT_TIMESTAMP(), cv.validTo=:validTo, cv.value=:value ' .
+                    'WHERE cv.channel IN (:channelIds)',
+                    ChannelValue::class
+                );
+                $fetchedAtDate = new \DateTime($fetchedAt);
+                $validToDate = clone $fetchedAtDate;
+                $validToDate->add(new \DateInterval('PT1H'));
+                $fnc = OpenWeatherVirtualChannelConfigurator::fieldNameToFunction($field);
+                $readField = $field === 'tempHumidity' ? 'temp' : $field;
+                $value = ChannelValue::packValue($fnc, $weather[$readField] ?? null, $weather['humidity'] ?? null);
+                $this->entityManager
+                    ->createQuery($query)
+                    ->execute([
+                        'value' => $value,
+                        'validTo' => $validToDate,
+                        'channelIds' => $channelIds,
+                    ]);
+            }
+        }
+    }
+
+    private function updateEnergyPriceForecastValue(array $energyPriceForecastUpdates): void {
+        $repo = $this->measurementLogsEntityManager->getRepository(EnergyPriceLogItem::class);
+        $currentEnergyPriceForecast = $repo->createQueryBuilder('e')
+            ->where('e.dateFrom <= :now')
+            ->setParameter('now', $this->timeProvider->getDateTime())
+            ->setMaxResults(1)
+            ->orderBy('e.dateFrom', 'DESC')
+            ->getQuery()
+            ->getResult();
+        if ($currentEnergyPriceForecast) {
+            /** @var EnergyPriceLogItem $log */
+            $log = current($currentEnergyPriceForecast);
+            $validTo = clone $log->getDateTo();
+            $validTo->modify('+5 minutes');
+            $values = [
+                'rce' => $log->getRce(),
+                'pdgsz' => $log->getPdgsz(),
+                'fixing1' => $log->getFixing1(),
+                'fixing2' => $log->getFixing2(),
+            ];
+            foreach ($energyPriceForecastUpdates as $field => $channelIds) {
+                $query = sprintf(
+                    'UPDATE %s cv SET cv.updateTime=CURRENT_TIMESTAMP(), cv.validTo=:validTo, cv.value=:value ' .
+                    'WHERE cv.channel IN (:channelIds)',
+                    ChannelValue::class
+                );
+                $value = ChannelValue::packValue(ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(), $values[$field] ?? null);
+                $this->entityManager
+                    ->createQuery($query)
+                    ->execute([
+                        'value' => $value,
+                        'validTo' => $validTo,
+                        'channelIds' => $channelIds,
+                    ]);
+            }
+        }
+    }
+}

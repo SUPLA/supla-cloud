@@ -17,8 +17,8 @@
 
 namespace App\Tests\Utils;
 
+use App\Utils\NumberUtils;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Utils\NumberUtils;
 
 class NumberUtilsTest extends TestCase {
     /** @dataProvider maximumDecimalPrecisionExamples */

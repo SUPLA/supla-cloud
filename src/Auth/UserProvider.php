@@ -1,0 +1,62 @@
+<?php
+/*
+ Copyright (C) AC SOFTWARE SP. Z O.O.
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+namespace App\Auth;
+
+use App\Entity\Main\User;
+use App\Model\Audit\FailedAuthAttemptsUserBlocker;
+use App\Repository\UserRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
+use Symfony\Component\Security\Core\Exception\DisabledException;
+use Symfony\Component\Security\Core\Exception\LockedException;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+class UserProvider extends EntityUserProvider {
+    /** @var FailedAuthAttemptsUserBlocker */
+    private $failedAuthAttemptsUserBlocker;
+    /** @var UserRepository */
+    private $userRepository;
+
+    public function __construct(
+        ManagerRegistry $registry,
+        FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker,
+        UserRepository $userRepository
+    ) {
+        parent::__construct($registry, User::class, 'email');
+        $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
+        $this->userRepository = $userRepository;
+    }
+
+    public function loadUserByIdentifier(string $identifier): UserInterface {
+        if (preg_match('/^api_[0-9]+$/', $identifier)) {
+            $user = $this->userRepository->findOneBy(['oauthCompatUserName' => $identifier]);
+            if ($user) {
+                $user->setOAuthOldApiCompatEnabled();
+            }
+            return $user;
+        }
+        if ($this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($identifier)) {
+            throw new LockedException();
+        }
+        $user = parent::loadUserByIdentifier($identifier);
+        if (!$user->isEnabled()) {
+            throw new DisabledException();
+        }
+        return $user;
+    }
+}

@@ -1,0 +1,36 @@
+<?php
+namespace App\Model\ChannelStateGetter;
+
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ChannelFunction;
+use App\Enums\TankStateBits;
+use App\Supla\SuplaServerAware;
+
+class TankChannelStateGetter implements SingleChannelStateGetter {
+    use SuplaServerAware;
+
+    public function getState(IODeviceChannel $channel): array {
+        $result = $this->suplaServer->getRawValue('CONTAINER', $channel);
+        $fillLevel = 0;
+        $flags = 0;
+        if ($result !== false) {
+            [$fillLevel, $flags] = sscanf($result, "VALUE:%d,%d\n");
+        }
+        $fillLevelKnown = $fillLevel > 0;
+        return [
+            'fillLevel' => $fillLevelKnown ? $fillLevel - 1 : null,
+            'warningLevel' => TankStateBits::WARNING_LEVEL()->isOn($flags),
+            'alarmLevel' => TankStateBits::ALARM_LEVEL()->isOn($flags),
+            'invalidSensorState' => TankStateBits::INVALID_SENSOR_STATE()->isOn($flags),
+            'soundAlarmOn' => TankStateBits::SOUND_ALARM_ON()->isOn($flags),
+        ];
+    }
+
+    public function supportedFunctions(): array {
+        return [
+            ChannelFunction::CONTAINER(),
+            ChannelFunction::SEPTIC_TANK(),
+            ChannelFunction::WATER_TANK(),
+        ];
+    }
+}

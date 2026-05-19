@@ -17,14 +17,14 @@
 
 namespace App\Tests\Integration\Auth;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\OAuth\AccessToken;
+use App\Entity\Main\OAuth\ApiClient;
+use App\Entity\Main\User;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\OAuthHelper;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\OAuth\AccessToken;
-use SuplaBundle\Entity\Main\OAuth\ApiClient;
-use SuplaBundle\Entity\Main\User;
 
 /**
  * Pins down the contract for non-expiring access tokens after the migration

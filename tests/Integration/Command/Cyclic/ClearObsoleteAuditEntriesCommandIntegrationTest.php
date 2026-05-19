@@ -17,12 +17,12 @@
 
 namespace App\Tests\Integration\Command\Cyclic;
 
+use App\Enums\AuditedEvent;
+use App\Model\Audit\Audit;
+use App\Repository\AuditEntryRepository;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\TestTimeProvider;
-use SuplaBundle\Enums\AuditedEvent;
-use SuplaBundle\Model\Audit\Audit;
-use SuplaBundle\Repository\AuditEntryRepository;
 
 /**
  * @small

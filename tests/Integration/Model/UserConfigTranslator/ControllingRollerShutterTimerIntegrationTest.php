@@ -17,12 +17,12 @@
 
 namespace App\Tests\Integration\Model\UserConfigTranslator;
 
+use App\Entity\Main\IODevice;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Model\UserConfigTranslator\SubjectConfigTranslator;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 /** @small */
 class ControllingRollerShutterTimerIntegrationTest extends IntegrationTestCase {
@@ -32,7 +32,7 @@ class ControllingRollerShutterTimerIntegrationTest extends IntegrationTestCase {
     private $device;
     /** @var SubjectConfigTranslator */
     private $paramsTranslator;
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     public function initializeDatabaseForTests() {

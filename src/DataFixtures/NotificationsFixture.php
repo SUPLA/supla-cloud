@@ -17,13 +17,13 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\PushNotification;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\PushNotification;
 
 class NotificationsFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;

@@ -17,20 +17,20 @@
 
 namespace App\Tests\Integration\Migrations;
 
+use App\Entity\Main\AuditEntry;
+use App\Entity\Main\ClientApp;
+use App\Entity\Main\DirectLink;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\Schedule;
+use App\Entity\Main\UserIcon;
+use App\Entity\MeasurementLogs\TemperatureLogItem;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Enums\ScheduleMode;
+use App\Model\UserConfigTranslator\SubjectConfigTranslator;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\AuditEntry;
-use SuplaBundle\Entity\Main\ClientApp;
-use SuplaBundle\Entity\Main\DirectLink;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\Schedule;
-use SuplaBundle\Entity\Main\UserIcon;
-use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Enums\ScheduleMode;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 class DatabaseV23MigrationTest extends DatabaseMigrationTestCase {
     use ResponseAssertions;
@@ -62,7 +62,7 @@ class DatabaseV23MigrationTest extends DatabaseMigrationTestCase {
     }
 
     private function assertChannelParamsConfigIsSet() {
-        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
+        /** @var \App\Entity\Main\IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 150);
         $paramsTranslator = self::$container->get(SubjectConfigTranslator::class);
         $this->assertNotEmpty($channel->getUserConfig());
@@ -70,7 +70,7 @@ class DatabaseV23MigrationTest extends DatabaseMigrationTestCase {
     }
 
     private function assertChannelParamsConfigDefault() {
-        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
+        /** @var \App\Entity\Main\IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 151);
         $this->assertEquals(
             [
@@ -152,7 +152,7 @@ class DatabaseV23MigrationTest extends DatabaseMigrationTestCase {
     }
 
     private function assertHasLogItems() {
-        /** @var \SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem $log */
+        /** @var \App\Entity\MeasurementLogs\TemperatureLogItem $log */
         $log = $this->getEntityManager('logs_mariadb')->createQuery('SELECT t FROM ' . TemperatureLogItem::class . ' t')
             ->setMaxResults(1)
             ->getSingleResult();
@@ -189,7 +189,7 @@ class DatabaseV23MigrationTest extends DatabaseMigrationTestCase {
     }
 
     private function assertMigratedDailyScheduleWithDays() {
-        /** @var \SuplaBundle\Entity\Main\Schedule $schedule */
+        /** @var \App\Entity\Main\Schedule $schedule */
         $schedule = $this->getEntityManager()->find(Schedule::class, 6);
         $this->assertEquals(ScheduleMode::DAILY, $schedule->getMode()->getValue());
         $config = $schedule->getConfig();
@@ -213,7 +213,7 @@ class DatabaseV23MigrationTest extends DatabaseMigrationTestCase {
     }
 
     private function assertMigratedMinutelyScheduleToDaily() {
-        /** @var \SuplaBundle\Entity\Main\Schedule $schedule */
+        /** @var \App\Entity\Main\Schedule $schedule */
         $schedule = $this->getEntityManager()->find(Schedule::class, 2);
         $this->assertEquals(ScheduleMode::MINUTELY, $schedule->getMode()->getValue());
         $config = $schedule->getConfig();
@@ -227,7 +227,7 @@ class DatabaseV23MigrationTest extends DatabaseMigrationTestCase {
      * @see Version20211108120835
      */
     private function assertMigratedDailyScheduleWithAsteriskVersion20211108120835() {
-        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
+        /** @var \App\Entity\Main\IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 67);
         $this->assertEquals(ChannelType::IMPULSECOUNTER, $channel->getType()->getId());
         $this->assertEquals(0, $channel->getParam1());

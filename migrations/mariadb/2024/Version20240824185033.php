@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Migrations\NoWayBackMigration;
+use App\Enums\ChannelFunction;
+use App\Migrations\NoWayBackMigration;
 
 /**
  * Migrate related meters for relays config from params.

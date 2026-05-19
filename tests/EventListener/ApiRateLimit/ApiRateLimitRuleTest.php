@@ -17,8 +17,8 @@
 
 namespace App\Tests\EventListener\ApiRateLimit;
 
+use App\EventListener\ApiRateLimit\ApiRateLimitRule;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 
 class ApiRateLimitRuleTest extends TestCase {
     public function testFromString() {

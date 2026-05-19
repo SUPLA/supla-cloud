@@ -17,14 +17,14 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\OAuth\ApiClientAuthorization;
+use App\Entity\Main\User;
+use App\Repository\ApiClientAuthorizationRepository;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\OAuthHelper;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 
 /** @small */
 class MqttSettingsControllerIntegrationTest extends IntegrationTestCase {
@@ -32,9 +32,9 @@ class MqttSettingsControllerIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
     use OAuthHelper;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
-    /** @var \SuplaBundle\Entity\Main\OAuth\ApiClient */
+    /** @var \App\Entity\Main\OAuth\ApiClient */
     private $client;
     /** @var ApiClientAuthorizationRepository */
     private $apiClientAuthorizationRepository;

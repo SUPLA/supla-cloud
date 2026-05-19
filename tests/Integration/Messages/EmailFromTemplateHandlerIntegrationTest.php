@@ -17,12 +17,12 @@
 
 namespace App\Tests\Integration\Messages;
 
+use App\Entity\Main\User;
+use App\Message\EmailFromTemplateHandler;
+use App\Message\Emails\ResetPasswordEmailNotification;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\TestMailerTransport;
 use App\Tests\Integration\Traits\UserFixtures;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Message\EmailFromTemplateHandler;
-use SuplaBundle\Message\Emails\ResetPasswordEmailNotification;
 
 /** @small */
 class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {

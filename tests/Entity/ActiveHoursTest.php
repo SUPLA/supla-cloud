@@ -17,8 +17,8 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\ActiveHours;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\ActiveHours;
 
 class ActiveHoursTest extends TestCase {
     /** @dataProvider validActiveHours */

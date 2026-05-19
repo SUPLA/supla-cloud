@@ -2,8 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
-use SuplaBundle\Enums\ApiClientType;
-use SuplaBundle\Migrations\NoWayBackMigration;
+use App\Enums\ApiClientType;
+use App\Migrations\NoWayBackMigration;
 
 /**
  * Set all existing API clients to USER type.

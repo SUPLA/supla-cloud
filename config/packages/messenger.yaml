@@ -21,10 +21,10 @@ when@prod:
   framework:
     messenger:
       routing:
-        SuplaBundle\Message\AsyncMessage: 'async'
+        App\Message\AsyncMessage: 'async'
 
 when@test:
   framework:
     messenger:
       routing:
-        SuplaBundle\Message\AsyncMessage: 'async'
+        App\Message\AsyncMessage: 'async'

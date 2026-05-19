@@ -17,8 +17,8 @@
 
 namespace App\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\PushNotification;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\PushNotification;
 
 class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
     /** @before */

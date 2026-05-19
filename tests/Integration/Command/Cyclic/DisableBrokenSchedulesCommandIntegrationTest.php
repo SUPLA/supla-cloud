@@ -17,23 +17,23 @@
 
 namespace App\Tests\Integration\Command\Cyclic;
 
+use App\Entity\Main\AuditEntry;
+use App\Enums\AuditedEvent;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Enums\ScheduleActionExecutionResult;
+use App\Enums\ScheduleMode;
+use App\Model\Audit\Audit;
+use App\Model\Schedule\ScheduleManager;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\AuditEntry;
-use SuplaBundle\Enums\AuditedEvent;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Enums\ScheduleActionExecutionResult;
-use SuplaBundle\Enums\ScheduleMode;
-use SuplaBundle\Model\Audit\Audit;
-use SuplaBundle\Model\Schedule\ScheduleManager;
 
 class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
-    /** @var \SuplaBundle\Entity\Main\Schedule */
+    /** @var \App\Entity\Main\Schedule */
     private $schedule;
 
     private $resultSuccess = ScheduleActionExecutionResult::SUCCESS;
@@ -102,7 +102,7 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
     private function getLatestAuditEntry(): AuditEntry {
         $entries = self::$container->get(Audit::class)->getRepository()->findAll();
         $this->assertGreaterThanOrEqual(1, count($entries));
-        /** @var \SuplaBundle\Entity\Main\AuditEntry $entry */
+        /** @var \App\Entity\Main\AuditEntry $entry */
         $entry = end($entries);
         return $entry;
     }

@@ -1,7 +1,7 @@
 <?php
 namespace App\Tests\Integration;
 
-use SuplaBundle\Model\ApiVersions;
+use App\Model\ApiVersions;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class TestClient extends KernelBrowser {

@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Migrations\TsDbMigration;
 
-use SuplaBundle\Migrations\NoWayBackMigration;
+use App\Migrations\NoWayBackMigration;
 
 /**
  * TSDB supla_energy_price_log.

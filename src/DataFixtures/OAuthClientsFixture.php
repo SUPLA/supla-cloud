@@ -17,11 +17,11 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Main\OAuth\ApiClient;
+use App\Entity\Main\User;
+use App\Enums\ApiClientType;
 use Doctrine\Persistence\ObjectManager;
 use OAuth2\OAuth2;
-use SuplaBundle\Entity\Main\OAuth\ApiClient;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ApiClientType;
 
 class OAuthClientsFixture extends SuplaFixture {
     const ORDER = UsersFixture::ORDER + 1;

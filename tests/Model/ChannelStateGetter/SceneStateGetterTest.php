@@ -17,12 +17,12 @@
 
 namespace App\Tests\Model\ChannelStateGetter;
 
+use App\Entity\Main\Scene;
+use App\Enums\SceneInitiatiorType;
+use App\Model\ChannelStateGetter\SceneStateGetter;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Enums\SceneInitiatiorType;
-use SuplaBundle\Model\ChannelStateGetter\SceneStateGetter;
-use SuplaBundle\Supla\SuplaServerMock;
 
 class SceneStateGetterTest extends TestCase {
     use UnitTestHelper;

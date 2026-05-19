@@ -17,20 +17,20 @@
 
 namespace App\Tests\Model\UserConfigTranslator;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ChannelFunction;
+use App\Model\UserConfigTranslator\OcrSettingsUserConfigTranslator;
+use App\Supla\SuplaOcrClient;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Model\UserConfigTranslator\OcrSettingsUserConfigTranslator;
-use SuplaBundle\Supla\SuplaOcrClient;
 
 class OcrSettingsUserConfigTranslatorTest extends TestCase {
     use UnitTestHelper;
 
     /** @var OcrSettingsUserConfigTranslator */
     private $configTranslator;
-    /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
+    /** @var \App\Entity\Main\IODeviceChannel */
     private $channel;
 
     /** @before */

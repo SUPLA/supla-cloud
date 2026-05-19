@@ -17,19 +17,19 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ChannelFlags;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
 use Assert\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFlags;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
 
 class IODeviceChannelTest extends TestCase {
     public function testSettingParams() {
-        $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
+        $channel = new \App\Entity\Main\IODeviceChannel();
         $channel->setParam(2, 3);
         $this->assertEquals(3, $channel->getParam2());
         $this->assertEquals(3, $channel->getParam(2));
@@ -42,16 +42,16 @@ class IODeviceChannelTest extends TestCase {
     }
 
     public function testSettingLocation() {
-        $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
-        $location = $this->createMock(\SuplaBundle\Entity\Main\Location::class);
+        $channel = new \App\Entity\Main\IODeviceChannel();
+        $location = $this->createMock(\App\Entity\Main\Location::class);
         $channel->setLocation($location);
         $this->assertEquals($location, $channel->getLocation());
         $this->assertFalse($channel->hasInheritedLocation());
     }
 
     public function testGettingLocationFromDevice() {
-        $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
-        $location = $this->createMock(\SuplaBundle\Entity\Main\Location::class);
+        $channel = new \App\Entity\Main\IODeviceChannel();
+        $location = $this->createMock(\App\Entity\Main\Location::class);
         $ioDevice = $this->createMock(IODevice::class);
         $ioDevice->method('getLocation')->willReturn($location);
         EntityUtils::setField($channel, 'iodevice', $ioDevice);
@@ -60,8 +60,8 @@ class IODeviceChannelTest extends TestCase {
     }
 
     public function testSettingTheSameLocationAsDeviceClearsInheritance() {
-        $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
-        $location = $this->createMock(\SuplaBundle\Entity\Main\Location::class);
+        $channel = new \App\Entity\Main\IODeviceChannel();
+        $location = $this->createMock(\App\Entity\Main\Location::class);
         $ioDevice = $this->createMock(IODevice::class);
         $ioDevice->method('getLocation')->willReturn($location);
         EntityUtils::setField($channel, 'iodevice', $ioDevice);
@@ -71,21 +71,21 @@ class IODeviceChannelTest extends TestCase {
     }
 
     public function testGettingUnknownFunction() {
-        $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
+        $channel = new \App\Entity\Main\IODeviceChannel();
         EntityUtils::setField($channel, 'function', 123);
         $this->assertEquals(ChannelFunction::UNSUPPORTED()->getName(), $channel->getFunction()->getName());
         $this->assertEquals(123, $channel->getFunction()->getId());
     }
 
     public function testGettingUnknownType() {
-        $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
+        $channel = new \App\Entity\Main\IODeviceChannel();
         EntityUtils::setField($channel, 'type', 123);
         $this->assertEquals(ChannelType::UNSUPPORTED()->getName(), $channel->getType()->getName());
         $this->assertEquals(123, $channel->getType()->getId());
     }
 
     public function testSettingChannelParams() {
-        $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
+        $channel = new \App\Entity\Main\IODeviceChannel();
         $channel->setParam(1, 1);
         $this->assertEquals(1, $channel->getParam(1));
         $channel->setParam(2, 10);
@@ -98,18 +98,18 @@ class IODeviceChannelTest extends TestCase {
 
     public function testSettingInvalidChannelParam0() {
         $this->expectException(InvalidArgumentException::class);
-        $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
+        $channel = new \App\Entity\Main\IODeviceChannel();
         $channel->setParam(0, 111);
     }
 
     public function testSettingInvalidChannelParam5() {
         $this->expectException(InvalidArgumentException::class);
-        $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
+        $channel = new \App\Entity\Main\IODeviceChannel();
         $channel->setParam(5, 111);
     }
 
     public function testGettingPossibleActions() {
-        $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
+        $channel = new \App\Entity\Main\IODeviceChannel();
         $channel->setFunction(ChannelFunction::LIGHTSWITCH());
         $functionIds = EntityUtils::mapToIds($channel->getPossibleActions());
         $this->assertEquals([
@@ -121,7 +121,7 @@ class IODeviceChannelTest extends TestCase {
     }
 
     public function testGettingPossibleActionsForRollerShutter() {
-        $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
+        $channel = new \App\Entity\Main\IODeviceChannel();
         $channel->setFunction(ChannelFunction::CONTROLLINGTHEROLLERSHUTTER());
         $functionIds = EntityUtils::mapToIds($channel->getPossibleActions());
         $this->assertEquals([
@@ -135,7 +135,7 @@ class IODeviceChannelTest extends TestCase {
     }
 
     public function testGettingPossibleActionsForRollerShutterWithStartStopActionsSupported() {
-        $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
+        $channel = new \App\Entity\Main\IODeviceChannel();
         $channel->setFunction(ChannelFunction::CONTROLLINGTHEROLLERSHUTTER());
         EntityUtils::setField($channel, 'flags', ChannelFlags::getAllFeaturesFlag());
         $functionIds = EntityUtils::mapToIds($channel->getPossibleActions());
@@ -159,7 +159,7 @@ class IODeviceChannelTest extends TestCase {
     }
 
     public function testCantChangeAtHidden() {
-        $channel = new \SuplaBundle\Entity\Main\IODeviceChannel();
+        $channel = new \App\Entity\Main\IODeviceChannel();
         $channel->setFunction(ChannelFunction::ACTION_TRIGGER());
         $channel->setHidden(true);
         $this->assertTrue($channel->getHidden());

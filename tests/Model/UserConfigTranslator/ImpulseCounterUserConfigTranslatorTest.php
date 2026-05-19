@@ -17,18 +17,18 @@
 
 namespace App\Tests\Model\UserConfigTranslator;
 
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ChannelFunction;
+use App\Model\UserConfigTranslator\ImpulseCounterUserConfigTranslator;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Model\UserConfigTranslator\ImpulseCounterUserConfigTranslator;
 
 class ImpulseCounterUserConfigTranslatorTest extends TestCase {
     use UnitTestHelper;
 
     /** @var ImpulseCounterUserConfigTranslator */
     private $configTranslator;
-    /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
+    /** @var \App\Entity\Main\IODeviceChannel */
     private $channel;
 
     /** @before */

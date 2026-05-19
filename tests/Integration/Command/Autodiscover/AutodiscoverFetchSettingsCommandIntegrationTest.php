@@ -17,11 +17,11 @@
 
 namespace App\Tests\Integration\Command\Autodiscover;
 
+use App\Entity\Main\SettingsString;
+use App\Enums\InstanceSettings;
+use App\Repository\SettingsStringRepository;
+use App\Supla\SuplaAutodiscoverMock;
 use App\Tests\Integration\IntegrationTestCase;
-use SuplaBundle\Entity\Main\SettingsString;
-use SuplaBundle\Enums\InstanceSettings;
-use SuplaBundle\Repository\SettingsStringRepository;
-use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /** @small */

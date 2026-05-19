@@ -1,19 +1,19 @@
 <?php
 namespace App\Tests\Model\ChannelActionExecutor;
 
+use App\Entity\ActionableSubject;
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\User;
+use App\Enums\ChannelFunction;
+use App\Enums\RgbwCommand;
+use App\Model\ChannelActionExecutor\SetRgbwParametersActionExecutor;
+use App\Model\ChannelStateGetter\ColorAndBrightnessChannelStateGetter;
+use App\Supla\SuplaServer;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\RgbwCommand;
-use SuplaBundle\Model\ChannelActionExecutor\SetRgbwParametersActionExecutor;
-use SuplaBundle\Model\ChannelStateGetter\ColorAndBrightnessChannelStateGetter;
-use SuplaBundle\Supla\SuplaServer;
 
 class SetRgbwParametersActionExecutorTest extends TestCase {
     use UnitTestHelper;

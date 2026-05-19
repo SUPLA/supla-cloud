@@ -17,9 +17,9 @@
 
 namespace App\Tests\Entity\OAuth;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\OAuth\AccessToken;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\OAuth\AccessToken;
 
 class AccessTokenTest extends TestCase {
     public function testConstructorInitializesExpiresAtToZero() {

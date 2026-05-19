@@ -17,9 +17,9 @@
 
 namespace App\Tests\Auth;
 
+use App\Auth\OAuthScope;
+use App\Exception\ApiException;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Auth\OAuthScope;
-use SuplaBundle\Exception\ApiException;
 
 class OauthScopeTest extends TestCase {
     public function testGetSupportedScopes() {

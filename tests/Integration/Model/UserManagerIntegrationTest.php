@@ -17,9 +17,9 @@
 
 namespace App\Tests\Integration\Model;
 
+use App\Entity\Main\User;
+use App\Model\UserManager;
 use App\Tests\Integration\IntegrationTestCase;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Model\UserManager;
 
 /** @small */
 class UserManagerIntegrationTest extends IntegrationTestCase {

@@ -17,13 +17,13 @@
 
 namespace App\Tests\Integration\Command\Cyclic;
 
+use App\Entity\Main\ClientApp;
+use App\Entity\Main\IODevice;
+use App\Message\UserOptOutNotifications;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\TestMailerTransport;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\TestTimeProvider;
-use SuplaBundle\Entity\Main\ClientApp;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Message\UserOptOutNotifications;
 
 /**
  * @small
@@ -31,7 +31,7 @@ use SuplaBundle\Message\UserOptOutNotifications;
 class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     protected function initializeDatabaseForTests() {

@@ -17,6 +17,14 @@
 
 namespace App\Tests\Integration\MeasurementLogs;
 
+use App\Entity\Main\ChannelValue;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\User;
+use App\Entity\MeasurementLogs\EnergyPriceLogItem;
+use App\Enums\ChannelFunction;
+use App\Enums\VirtualChannelType;
+use App\Model\MeasurementLogsEntityManagerProvider;
+use App\Supla\SuplaAutodiscoverMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
@@ -24,14 +32,6 @@ use App\Tests\Integration\Traits\SuplaAssertions;
 use App\Tests\Integration\Traits\TestTimeProvider;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\Small;
-use SuplaBundle\Entity\Main\ChannelValue;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Entity\MeasurementLogs\EnergyPriceLogItem;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\VirtualChannelType;
-use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
-use SuplaBundle\Supla\SuplaAutodiscoverMock;
 
 #[Small]
 class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {

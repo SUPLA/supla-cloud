@@ -17,6 +17,11 @@
 
 namespace App\Tests\Integration;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODeviceChannel;
+use App\Model\MeasurementLogsEntityManagerProvider;
+use App\Supla\SuplaAutodiscoverMock;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\Traits\TestSuplaHttpClient;
 use App\Tests\Integration\Traits\TestTimeProvider;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,11 +30,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
-use SuplaBundle\Supla\SuplaAutodiscoverMock;
-use SuplaBundle\Supla\SuplaServerMock;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -89,7 +89,7 @@ abstract class IntegrationTestCase extends WebTestCase {
         }
         if (isset(self::$dataForTests[static::class])) {
             foreach (self::$dataForTests[static::class] as $fieldName => $value) {
-                if (is_object($value) && str_starts_with(get_class($value), 'SuplaBundle\Entity')) {
+                if (is_object($value) && str_starts_with(get_class($value), 'App\Entity')) {
                     $value = $this->freshEntity($value);
                 }
                 EntityUtils::setField($this, $fieldName, $value);

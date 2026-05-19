@@ -1,10 +1,10 @@
 <?php
 namespace App\Tests\Model\ChannelActionExecutor;
 
+use App\Entity\ActionableSubject;
+use App\Model\ChannelActionExecutor\TurnOnActionExecutor;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Model\ChannelActionExecutor\TurnOnActionExecutor;
 
 class TurnOnActionExecutorTest extends TestCase {
     /**

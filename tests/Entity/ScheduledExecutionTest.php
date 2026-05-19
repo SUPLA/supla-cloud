@@ -17,12 +17,12 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Main\Schedule;
+use App\Entity\Main\ScheduledExecution;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ScheduleActionExecutionResult;
 use DateTime;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\Schedule;
-use SuplaBundle\Entity\Main\ScheduledExecution;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ScheduleActionExecutionResult;
 
 class ScheduledExecutionTest extends TestCase {
     public function testUnknownResultByDefault() {

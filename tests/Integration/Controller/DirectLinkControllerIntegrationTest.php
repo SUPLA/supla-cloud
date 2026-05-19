@@ -17,26 +17,26 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\Main\DirectLink;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannelGroup;
+use App\Entity\Main\Scene;
+use App\Entity\Main\SceneOperation;
+use App\Entity\Main\Schedule;
+use App\Entity\Main\User;
+use App\Enums\ActionableSubjectType;
+use App\Enums\ChannelFlags as Flags;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
+use App\Enums\DirectLinkExecutionFailureReason;
+use App\Enums\ScheduleMode;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
 use PHPUnit\Framework\Attributes\Depends;
-use SuplaBundle\Entity\Main\DirectLink;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Entity\Main\SceneOperation;
-use SuplaBundle\Entity\Main\Schedule;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ActionableSubjectType;
-use SuplaBundle\Enums\ChannelFlags as Flags;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Enums\DirectLinkExecutionFailureReason;
-use SuplaBundle\Enums\ScheduleMode;
-use SuplaBundle\Supla\SuplaServerMock;
 use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
@@ -45,11 +45,11 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
     use SuplaAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
     /** @var IODevice */
     private $device;
-    /** @var \SuplaBundle\Entity\Main\IODeviceChannelGroup */
+    /** @var \App\Entity\Main\IODeviceChannelGroup */
     private $channelGroup;
 
     protected function initializeDatabaseForTests() {

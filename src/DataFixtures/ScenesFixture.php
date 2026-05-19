@@ -17,20 +17,20 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\ActionableSubject;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\Location;
+use App\Entity\Main\Scene;
+use App\Entity\Main\SceneOperation;
+use App\Entity\Main\User;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Utils\SceneUtils;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 use InvalidArgumentException;
-use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Entity\Main\SceneOperation;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Utils\SceneUtils;
 
 class ScenesFixture extends SuplaFixture {
     const ORDER = ChannelGroupsFixture::ORDER + 1;
@@ -75,7 +75,7 @@ class ScenesFixture extends SuplaFixture {
         $subjectFactories = [
             function (User $user) {
                 do {
-                    /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
+                    /** @var \App\Entity\Main\IODeviceChannel $channel */
                     $channel = $this->faker->randomElement($user->getChannels());
                 } while (!$channel->getFunction()->isOutput());
                 return $channel;

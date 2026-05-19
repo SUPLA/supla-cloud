@@ -2,9 +2,9 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use App\Enums\ChannelFunction;
+use App\Migrations\NoWayBackMigration;
 use Doctrine\DBAL\Connection;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * Fix order of user icons.

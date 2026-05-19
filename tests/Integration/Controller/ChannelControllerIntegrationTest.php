@@ -17,37 +17,37 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Auth\OAuthScope;
+use App\Auth\SuplaOAuth2;
 use App\DataFixtures\DevicesFixture;
 use App\DataFixtures\NotificationsFixture;
+use App\Entity\EntityUtils;
+use App\Entity\Main\DirectLink;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\IODeviceChannelGroup;
+use App\Entity\Main\Location;
+use App\Entity\Main\PushNotification;
+use App\Entity\Main\Scene;
+use App\Entity\Main\SceneOperation;
+use App\Entity\Main\SubDevice;
+use App\Entity\Main\User;
+use App\Enums\ActionableSubjectType;
+use App\Enums\ChannelConfigChangeScope;
+use App\Enums\ChannelFlags;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
+use App\Enums\ConnectionStatus;
+use App\Enums\IoDeviceFlags;
+use App\Enums\RgbwCommand;
+use App\Model\ApiVersions;
+use App\Model\UserConfigTranslator\SubjectConfigTranslator;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
-use SuplaBundle\Auth\OAuthScope;
-use SuplaBundle\Auth\SuplaOAuth2;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\DirectLink;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Entity\Main\PushNotification;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Entity\Main\SceneOperation;
-use SuplaBundle\Entity\Main\SubDevice;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ActionableSubjectType;
-use SuplaBundle\Enums\ChannelConfigChangeScope;
-use SuplaBundle\Enums\ChannelFlags;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Enums\ConnectionStatus;
-use SuplaBundle\Enums\IoDeviceFlags;
-use SuplaBundle\Enums\RgbwCommand;
-use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
-use SuplaBundle\Supla\SuplaServerMock;
 use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 
 /** @small */
@@ -58,11 +58,11 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var \SuplaBundle\Entity\Main\IODevice */
+    /** @var \App\Entity\Main\IODevice */
     private $device;
-    /** @var \SuplaBundle\Entity\Main\Location */
+    /** @var \App\Entity\Main\Location */
     private $location;
-    /** @var \SuplaBundle\Entity\Main\OAuth\AccessToken */
+    /** @var \App\Entity\Main\OAuth\AccessToken */
     private $peronsalToken;
 
     protected function initializeDatabaseForTests() {

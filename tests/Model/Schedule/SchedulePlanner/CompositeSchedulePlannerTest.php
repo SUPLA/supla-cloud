@@ -17,17 +17,17 @@
 
 namespace App\Tests\Model\Schedule\SchedulePlanner;
 
+use App\Entity\Main\ScheduledExecution;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ScheduleMode;
+use App\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
+use App\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
+use App\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
+use App\Model\Schedule\SchedulePlanners\OnceSchedulePlanner;
+use App\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 use DateTime;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\ScheduledExecution;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ScheduleMode;
-use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
-use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
-use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
-use SuplaBundle\Model\Schedule\SchedulePlanners\OnceSchedulePlanner;
-use SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 
 class CompositeSchedulePlannerTest extends TestCase {
     /** @var CompositeSchedulePlanner */

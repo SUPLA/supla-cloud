@@ -17,22 +17,22 @@
 
 namespace App\Tests\Integration\Model\Schedule;
 
+use App\Entity\Main\Schedule;
+use App\Entity\Main\ScheduledExecution;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ScheduleMode;
+use App\Model\Schedule\ScheduleManager;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\TestTimeProvider;
 use App\Tests\Integration\Traits\UserFixtures;
 use DateTime;
 use InvalidArgumentException;
-use SuplaBundle\Entity\Main\Schedule;
-use SuplaBundle\Entity\Main\ScheduledExecution;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ScheduleMode;
-use SuplaBundle\Model\Schedule\ScheduleManager;
 
 /** @small */
 class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     use UserFixtures;
 
-    /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
+    /** @var \App\Entity\Main\IODeviceChannel */
     private $channel;
 
     protected function initializeDatabaseForTests() {

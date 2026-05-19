@@ -17,16 +17,16 @@
 
 namespace App\Tests\Controller\Api;
 
+use App\Controller\Api\ClientAppController;
+use App\Entity\Main\ClientApp;
+use App\Entity\Main\User;
+use App\Supla\SuplaServer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\View\View;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Controller\Api\ClientAppController;
-use SuplaBundle\Entity\Main\ClientApp;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Supla\SuplaServer;
 use Symfony\Component\HttpFoundation\Request;
 
 class ClientAppControllerTest extends TestCase {

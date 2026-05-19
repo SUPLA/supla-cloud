@@ -17,13 +17,13 @@
 
 namespace App\Tests\Integration\Command\Cyclic;
 
+use App\Entity\Main\User;
+use App\Model\UserManager;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\TestMailerTransport;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\TestTimeProvider;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Model\UserManager;
 
 /**
  * @small
@@ -32,7 +32,7 @@ class ResendActivationEmailsCommandIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     protected function initializeDatabaseForTests() {

@@ -17,7 +17,7 @@
 
 namespace App\Tests\Integration\Traits;
 
-use SuplaBundle\Supla\SuplaServerMock;
+use App\Supla\SuplaServerMock;
 
 trait SuplaAssertions {
     protected function assertSuplaCommandExecuted(string $command) {

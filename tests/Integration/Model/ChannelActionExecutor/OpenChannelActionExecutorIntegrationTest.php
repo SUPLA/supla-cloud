@@ -17,15 +17,15 @@
 
 namespace App\Tests\Integration\Model\ChannelActionExecutor;
 
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannelGroup;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
+use App\Model\ChannelActionExecutor\ChannelActionExecutor;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
-use SuplaBundle\Supla\SuplaServerMock;
 
 /** @small */
 class OpenChannelActionExecutorIntegrationTest extends IntegrationTestCase {
@@ -35,7 +35,7 @@ class OpenChannelActionExecutorIntegrationTest extends IntegrationTestCase {
     private $device;
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
-    /** @var \SuplaBundle\Entity\Main\IODeviceChannelGroup */
+    /** @var \App\Entity\Main\IODeviceChannelGroup */
     private $channelGroupGarageDoor;
     /** @var IODeviceChannelGroup */
     private $channelGroupDoor;

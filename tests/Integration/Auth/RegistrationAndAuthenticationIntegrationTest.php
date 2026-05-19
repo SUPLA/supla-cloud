@@ -17,18 +17,18 @@
 
 namespace App\Tests\Integration\Auth;
 
+use App\Entity\Main\AuditEntry;
+use App\Entity\Main\User;
+use App\Enums\AuditedEvent;
+use App\Enums\AuthenticationFailureReason;
+use App\Model\Audit\Audit;
+use App\Model\TargetSuplaCloudRequestForwarder;
+use App\Supla\SuplaAutodiscoverMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\TestClient;
 use App\Tests\Integration\TestMailerTransport;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\TestTimeProvider;
-use SuplaBundle\Entity\Main\AuditEntry;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\AuditedEvent;
-use SuplaBundle\Enums\AuthenticationFailureReason;
-use SuplaBundle\Model\Audit\Audit;
-use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
-use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use Symfony\Component\HttpFoundation\Response;
 
 class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
@@ -37,7 +37,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     const EMAIL = 'cooltester@supla.org';
     const PASSWORD = 'alamakota';
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $createdUser;
 
     /** @var Audit */
@@ -662,7 +662,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     private function getLatestAuditEntry(): AuditEntry {
         $entries = $this->audit->getRepository()->findAll();
         $this->assertGreaterThanOrEqual(1, count($entries));
-        /** @var \SuplaBundle\Entity\Main\AuditEntry $entry */
+        /** @var \App\Entity\Main\AuditEntry $entry */
         $entry = end($entries);
         return $entry;
     }

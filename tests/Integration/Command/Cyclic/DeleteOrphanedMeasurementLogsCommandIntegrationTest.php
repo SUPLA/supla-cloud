@@ -17,11 +17,11 @@
 
 namespace App\Tests\Integration\Command\Cyclic;
 
+use App\Entity\EntityUtils;
+use App\Entity\MeasurementLogs\TemperatureLogItem;
+use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\MysqlUtcDate;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
-use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /** @small */

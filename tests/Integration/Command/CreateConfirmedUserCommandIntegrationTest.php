@@ -17,9 +17,9 @@
 
 namespace App\Tests\Integration\Command;
 
+use App\Entity\Main\User;
+use App\Supla\SuplaAutodiscoverMock;
 use App\Tests\Integration\IntegrationTestCase;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 

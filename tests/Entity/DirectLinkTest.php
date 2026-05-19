@@ -17,18 +17,18 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Main\DirectLink;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\IODeviceChannelGroup;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\DirectLink;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 class DirectLinkTest extends TestCase {
     public function testGeneratingSlug() {
-        $directLink = new \SuplaBundle\Entity\Main\DirectLink($this->createMock(IODeviceChannel::class));
+        $directLink = new \App\Entity\Main\DirectLink($this->createMock(IODeviceChannel::class));
         $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());
-        $this->assertGreaterThanOrEqual(\SuplaBundle\Entity\Main\DirectLink::SLUG_LENGTH_MIN, strlen($slug));
-        $this->assertLessThanOrEqual(\SuplaBundle\Entity\Main\DirectLink::SLUG_LENGTH_MAX, strlen($slug));
+        $this->assertGreaterThanOrEqual(\App\Entity\Main\DirectLink::SLUG_LENGTH_MIN, strlen($slug));
+        $this->assertLessThanOrEqual(\App\Entity\Main\DirectLink::SLUG_LENGTH_MAX, strlen($slug));
         $this->assertStringNotContainsString('0', $slug);
     }
 
@@ -36,19 +36,19 @@ class DirectLinkTest extends TestCase {
         $directLink = new DirectLink($this->createMock(IODeviceChannelGroup::class));
         $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());
         $this->assertGreaterThanOrEqual(DirectLink::SLUG_LENGTH_MIN, strlen($slug));
-        $this->assertLessThanOrEqual(\SuplaBundle\Entity\Main\DirectLink::SLUG_LENGTH_MAX, strlen($slug));
+        $this->assertLessThanOrEqual(\App\Entity\Main\DirectLink::SLUG_LENGTH_MAX, strlen($slug));
         $this->assertStringNotContainsString('0', $slug);
     }
 
     public function testCannotGenerateSlugTwice() {
         $this->expectException(\InvalidArgumentException::class);
-        $directLink = new \SuplaBundle\Entity\Main\DirectLink($this->createMock(IODeviceChannel::class));
+        $directLink = new \App\Entity\Main\DirectLink($this->createMock(IODeviceChannel::class));
         $directLink->generateSlug(new PlaintextPasswordEncoder());
         $directLink->generateSlug(new PlaintextPasswordEncoder());
     }
 
     public function testCheckingSlug() {
-        $directLink = new \SuplaBundle\Entity\Main\DirectLink($this->createMock(\SuplaBundle\Entity\Main\IODeviceChannel::class));
+        $directLink = new \App\Entity\Main\DirectLink($this->createMock(\App\Entity\Main\IODeviceChannel::class));
         $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());
         $this->assertTrue($directLink->isValidSlug($slug, new PlaintextPasswordEncoder()));
         $this->assertFalse($directLink->isValidSlug($slug . 'X', new PlaintextPasswordEncoder()));

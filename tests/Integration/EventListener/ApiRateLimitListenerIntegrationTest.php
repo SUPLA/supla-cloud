@@ -17,6 +17,16 @@
 
 namespace App\Tests\Integration\EventListener;
 
+use App\Auth\OAuthScope;
+use App\Auth\SuplaOAuth2;
+use App\Entity\EntityUtils;
+use App\Entity\Main\DirectLink;
+use App\Entity\Main\User;
+use App\Enums\ApiClientType;
+use App\Enums\ChannelFunctionAction;
+use App\EventListener\ApiRateLimit\ApiRateLimitRule;
+use App\EventListener\ApiRateLimit\ApiRateLimitRules;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\TestClient;
 use App\Tests\Integration\Traits\ResponseAssertions;
@@ -28,16 +38,6 @@ use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use Monolog\Handler\TestHandler;
 use OAuth2\OAuth2;
 use Psr\Container\ContainerInterface;
-use SuplaBundle\Auth\OAuthScope;
-use SuplaBundle\Auth\SuplaOAuth2;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\DirectLink;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ApiClientType;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
-use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRules;
-use SuplaBundle\Supla\SuplaServerMock;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
@@ -54,15 +54,15 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     private $clientManager;
     /** @var User */
     private $user;
-    /** @var \SuplaBundle\Entity\Main\OAuth\AccessToken */
+    /** @var \App\Entity\Main\OAuth\AccessToken */
     private $peronsalToken;
     /** @var array */
     private $appToken;
     /** @var array */
     private $publicAppToken;
-    /** @var \SuplaBundle\Entity\Main\OAuth\ApiClient */
+    /** @var \App\Entity\Main\OAuth\ApiClient */
     private $apiClient;
-    /** @var \SuplaBundle\Entity\Main\OAuth\AccessToken */
+    /** @var \App\Entity\Main\OAuth\AccessToken */
     private $smartphoneToken;
 
     protected function initializeDatabaseForTests() {

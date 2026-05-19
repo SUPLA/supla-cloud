@@ -17,13 +17,13 @@
 
 namespace App\Tests\Model\Audit;
 
+use App\Entity\Main\User;
+use App\Enums\AuditedEvent;
+use App\Enums\ChannelFunction;
+use App\Model\Audit\AuditEntryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\AuditedEvent;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Model\Audit\AuditEntryBuilder;
 
 class AuditEntryBuilderTest extends TestCase {
     /** @var EntityManagerInterface|MockObject */

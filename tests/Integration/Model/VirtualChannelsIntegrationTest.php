@@ -17,17 +17,17 @@
 
 namespace App\Tests\Integration\Model;
 
+use App\Entity\Main\ChannelValue;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\User;
+use App\Enums\ChannelFunction;
+use App\Enums\VirtualChannelType;
+use App\Model\UserConfigTranslator\SubjectConfigTranslator;
+use App\Supla\SuplaAutodiscoverMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
-use SuplaBundle\Entity\Main\ChannelValue;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\VirtualChannelType;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
-use SuplaBundle\Supla\SuplaAutodiscoverMock;
 
 /** @small */
 class VirtualChannelsIntegrationTest extends IntegrationTestCase {

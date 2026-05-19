@@ -17,8 +17,8 @@
 
 namespace App\Tests\Enums;
 
+use App\Enums\ChannelFlags;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Enums\ChannelFlags;
 
 class ChannelFlagsTest extends TestCase {
     public function testEveryBitIsExclusive() {

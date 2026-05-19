@@ -17,10 +17,10 @@
 
 namespace App\Tests\Integration\Command;
 
+use App\Entity\Main\StateWebhook;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\StateWebhook;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /** @small */
@@ -28,7 +28,7 @@ class UserWebhookCommandIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
 
     protected function initializeDatabaseForTests() {

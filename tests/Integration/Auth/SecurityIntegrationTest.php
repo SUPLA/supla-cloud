@@ -17,18 +17,18 @@
 
 namespace App\Tests\Integration\Auth;
 
+use App\Entity\Main\DirectLink;
+use App\Entity\Main\IODeviceChannelGroup;
+use App\Entity\Main\Scene;
+use App\Entity\Main\SceneOperation;
+use App\Entity\Main\Schedule;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
+use App\Enums\ScheduleMode;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\DirectLink;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Entity\Main\SceneOperation;
-use SuplaBundle\Entity\Main\Schedule;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Enums\ScheduleMode;
 use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 
 class SecurityIntegrationTest extends IntegrationTestCase {

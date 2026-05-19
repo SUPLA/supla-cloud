@@ -17,10 +17,10 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use App\Enums\InstanceSettings;
 use App\Kernel;
+use App\Migrations\NoWayBackMigration;
 use Doctrine\DBAL\Schema\Schema;
-use SuplaBundle\Enums\InstanceSettings;
-use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * supla_settings_string.

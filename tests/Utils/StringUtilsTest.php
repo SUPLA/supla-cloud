@@ -17,8 +17,8 @@
 
 namespace App\Tests\Utils;
 
+use App\Utils\StringUtils;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Utils\StringUtils;
 
 class StringUtilsTest extends TestCase {
     /** @dataProvider snakeCaseToCamelCaseExamples */

@@ -1,15 +1,15 @@
 <?php
 namespace App\Tests\Model\ChannelActionExecutor;
 
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Model\ChannelActionExecutor\SetDigiglassParametersActionExecutor;
+use App\Supla\SuplaServer;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use App\Tests\Traits\ChannelStub;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelActionExecutor\SetDigiglassParametersActionExecutor;
-use SuplaBundle\Supla\SuplaServer;
 
 class SetDigiglassParametersActionExecutorTest extends TestCase {
     use UnitTestHelper;

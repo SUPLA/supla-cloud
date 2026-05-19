@@ -17,8 +17,27 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Auth\OAuthScope;
+use App\Auth\SuplaOAuth2;
 use App\DataFixtures\DevicesFixture;
 use App\DataFixtures\NotificationsFixture;
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\IODeviceChannelGroup;
+use App\Entity\Main\Location;
+use App\Entity\Main\Scene;
+use App\Entity\Main\SceneOperation;
+use App\Entity\Main\ValueBasedTrigger;
+use App\Enums\ChannelConfigChangeScope;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
+use App\Enums\IoDeviceFlags;
+use App\Model\ApiVersions;
+use App\Model\UserConfigTranslator\SubjectConfigTranslator;
+use App\Supla\SuplaAutodiscoverMock;
+use App\Supla\SuplaServerMock;
 use App\Tests\AnyFieldSetter;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\TestMailerTransport;
@@ -26,25 +45,6 @@ use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
 use PHPUnit\Framework\Attributes\Depends;
-use SuplaBundle\Auth\OAuthScope;
-use SuplaBundle\Auth\SuplaOAuth2;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Entity\Main\SceneOperation;
-use SuplaBundle\Entity\Main\ValueBasedTrigger;
-use SuplaBundle\Enums\ChannelConfigChangeScope;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Enums\IoDeviceFlags;
-use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
-use SuplaBundle\Supla\SuplaAutodiscoverMock;
-use SuplaBundle\Supla\SuplaServerMock;
 
 /** @small */
 class IODeviceControllerIntegrationTest extends IntegrationTestCase {
@@ -52,7 +52,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
     use SuplaAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
     /** @var IODevice */
     private $device;

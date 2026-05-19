@@ -17,25 +17,25 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\ChannelState;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\Location;
+use App\Entity\Main\SubDevice;
+use App\Enums\ChannelFlags;
+use App\Enums\ChannelFlags as Flags;
+use App\Enums\ChannelFlistRelay as Functions;
+use App\Enums\ChannelFlistRgbw;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Enums\IoDeviceFlags;
 use App\Tests\AnyFieldSetter;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\ChannelState;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Entity\Main\SubDevice;
-use SuplaBundle\Enums\ChannelFlags;
-use SuplaBundle\Enums\ChannelFlags as Flags;
-use SuplaBundle\Enums\ChannelFlistRelay as Functions;
-use SuplaBundle\Enums\ChannelFlistRgbw;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Enums\IoDeviceFlags;
 
 class DevicesFixture extends SuplaFixture {
     const ORDER = LocationsFixture::ORDER + 1;

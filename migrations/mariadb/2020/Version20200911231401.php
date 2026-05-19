@@ -2,8 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use App\Migrations\NoWayBackMigration;
 use Doctrine\DBAL\Migrations\AbstractMigration;
-use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * New supla_update_state_webhook PROCEDURE

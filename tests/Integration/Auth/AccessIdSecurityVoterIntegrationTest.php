@@ -17,24 +17,24 @@
 
 namespace App\Tests\Integration\Auth;
 
+use App\Auth\OAuthScope;
+use App\Entity\EntityUtils;
+use App\Entity\Main\AccessID;
+use App\Entity\Main\Location;
+use App\Entity\Main\OAuth\AccessToken;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Repository\ApiClientRepository;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use DateTime;
-use SuplaBundle\Auth\OAuthScope;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\AccessID;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Entity\Main\OAuth\AccessToken;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Repository\ApiClientRepository;
 
 class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
     /** @var Location */
     private $location1;

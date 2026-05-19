@@ -17,8 +17,8 @@
 
 namespace App\Tests\Enums;
 
+use App\Enums\ChannelType;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Enums\ChannelType;
 
 class ChannelTypeTest extends TestCase {
     public function testEveryTypeHasFunctions() {

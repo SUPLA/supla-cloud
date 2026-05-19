@@ -17,18 +17,18 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\User;
+use App\Enums\ChannelConfigChangeScope;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
 use App\Tests\Integration\Traits\TestSuplaHttpClient;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelConfigChangeScope;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /** @small */

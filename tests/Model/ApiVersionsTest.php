@@ -17,8 +17,8 @@
 
 namespace App\Tests\Model;
 
+use App\Model\ApiVersions;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Model\ApiVersions;
 use Symfony\Component\HttpFoundation\Request;
 
 class ApiVersionsTest extends TestCase {

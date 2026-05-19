@@ -17,26 +17,26 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\MeasurementLogs\ElectricityMeterCurrentLogItem;
+use App\Entity\MeasurementLogs\ElectricityMeterLogItem;
+use App\Entity\MeasurementLogs\ElectricityMeterPowerActiveLogItem;
+use App\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
+use App\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
+use App\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
+use App\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
+use App\Entity\MeasurementLogs\ImpulseCounterLogItem;
+use App\Entity\MeasurementLogs\TemperatureLogItem;
+use App\Entity\MeasurementLogs\TempHumidityLogItem;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelType;
+use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\Traits\MysqlUtcDate;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterCurrentLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterPowerActiveLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
-use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
-use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
-use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
-use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\MeasurementLogsEntityManagerProvider;
 
 class LogItemsFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;
@@ -354,7 +354,7 @@ class LogItemsFixture extends SuplaFixture {
 
     private function createGeneralPurposeMeasurementLogItems() {
         $device = $this->getReference(DevicesFixture::DEVICE_MEASUREMENTS, IODevice::class);
-        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $gpm */
+        /** @var \App\Entity\Main\IODeviceChannel $gpm */
         $gpm = $device->getChannels()[0];
         $gpmId = $gpm->getId();
         $from = strtotime(self::SINCE);

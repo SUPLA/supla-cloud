@@ -17,9 +17,9 @@
 
 namespace App\Tests\Enums;
 
+use App\Enums\ChannelFlistRelay;
+use App\Enums\ChannelFunction;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Enums\ChannelFlistRelay;
-use SuplaBundle\Enums\ChannelFunction;
 
 class ChannelFlistRelayTest extends TestCase {
     /** @dataProvider supportedFunctionsTestCases */

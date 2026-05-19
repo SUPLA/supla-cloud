@@ -19,11 +19,11 @@ namespace App\Tests\Model\Schedule\SchedulePlanner;
 
 // @codingStandardsIgnoreFile
 
+use App\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
+use App\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 use DateTime;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
-use SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 
 date_default_timezone_set('UTC');
 

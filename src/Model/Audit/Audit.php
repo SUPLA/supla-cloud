@@ -1,0 +1,68 @@
+<?php
+namespace App\Model\Audit;
+
+use App\Entity\Main\AuditEntry;
+use App\Entity\Main\User;
+use App\Enums\AuditedEvent;
+use App\Model\CurrentUserAware;
+use App\Model\RealClientIpResolver;
+use App\Model\TimeProvider;
+use App\Repository\AuditEntryRepository;
+use Doctrine\ORM\EntityManagerInterface;
+
+class Audit {
+    use CurrentUserAware;
+
+    /** @var EntityManagerInterface */
+    private $entityManager;
+    /** @var AuditEntryRepository */
+    private $auditEntryRepository;
+    /** @var TimeProvider */
+    private $timeProvider;
+    /** @var RealClientIpResolver */
+    private $clientIpResolver;
+
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        AuditEntryRepository $auditEntryRepository,
+        TimeProvider $timeProvider,
+        RealClientIpResolver $clientIpResolver
+    ) {
+        $this->entityManager = $entityManager;
+        $this->auditEntryRepository = $auditEntryRepository;
+        $this->timeProvider = $timeProvider;
+        $this->clientIpResolver = $clientIpResolver;
+    }
+
+    public function newEntry(AuditedEvent $event): AuditEntryBuilder {
+        return (new AuditEntryBuilder($this->entityManager, $this->timeProvider))
+            ->setUser($this->getCurrentUser())
+            ->setIpv4($this->clientIpResolver->getRealIp())
+            ->setEvent($event);
+    }
+
+    /** @return AuditEntry|null */
+    public function recentEntry(AuditedEvent $event, $period = 'PT5M', ?User $user = null) {
+        $date = $this->timeProvider->getDateTime();
+        $date->setTimeZone(new \DateTimeZone('UTC'));
+        $date->sub(new \DateInterval($period));
+        $user = $user ?: $this->getCurrentUserOrThrow();
+        $qb = $this->getRepository()->createQueryBuilder('ae');
+        $recentEntry = $qb
+            ->where('ae.event IN(:events)')
+            ->andWhere('ae.user = :user')
+            ->andWhere($qb->expr()->gte('ae.createdAt', ':date'))
+            ->setParameters([
+                'user' => $user,
+                'events' => [$event->getId()],
+                'date' => $date,
+            ])
+            ->getQuery()
+            ->getResult()[0] ?? null;
+        return $recentEntry;
+    }
+
+    public function getRepository(): AuditEntryRepository {
+        return $this->auditEntryRepository;
+    }
+}

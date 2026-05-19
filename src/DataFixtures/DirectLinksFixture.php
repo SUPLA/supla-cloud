@@ -17,14 +17,14 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Main\DirectLink;
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ChannelFunctionAction;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
-use SuplaBundle\Entity\Main\DirectLink;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 class DirectLinksFixture extends SuplaFixture {

@@ -17,16 +17,16 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\OAuth\ApiClient;
+use App\Entity\Main\StateWebhook;
+use App\Enums\ChannelFunction;
+use App\Repository\StateWebhookRepository;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\TestClient;
 use App\Tests\Integration\Traits\OAuthHelper;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\OAuth\ApiClient;
-use SuplaBundle\Entity\Main\StateWebhook;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Repository\StateWebhookRepository;
 
 /** @small */
 class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
@@ -37,7 +37,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
     /** @var ApiClient */
     private $client;
 
-    /** @var \SuplaBundle\Entity\Main\User */
+    /** @var \App\Entity\Main\User */
     private $user;
     /** @var StateWebhookRepository */
     private $stateWebhookRepository;

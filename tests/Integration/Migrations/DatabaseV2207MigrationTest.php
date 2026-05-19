@@ -17,14 +17,14 @@
 
 namespace App\Tests\Integration\Migrations;
 
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\Scene;
+use App\Entity\Main\SettingsString;
+use App\Entity\Main\User;
+use App\Enums\InstanceSettings;
 use App\Kernel;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Entity\Main\SettingsString;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\InstanceSettings;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
-use SuplaBundle\Repository\SettingsStringRepository;
+use App\Model\UserConfigTranslator\SubjectConfigTranslator;
+use App\Repository\SettingsStringRepository;
 
 class DatabaseV2207MigrationTest extends DatabaseMigrationTestCase {
     private const PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH = Kernel::VAR_PATH . '/local/target-cloud-token';

@@ -17,9 +17,9 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Main\User;
+use App\Model\LocationManager;
 use Doctrine\Persistence\ObjectManager;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Model\LocationManager;
 
 class LocationsFixture extends SuplaFixture {
     public const ORDER = UsersFixture::ORDER + 1;

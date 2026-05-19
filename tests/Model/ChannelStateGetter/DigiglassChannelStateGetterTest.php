@@ -17,12 +17,12 @@
 
 namespace App\Tests\Model\ChannelStateGetter;
 
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ChannelType;
+use App\Model\ChannelStateGetter\DigiglassChannelStateGetter;
+use App\Supla\SuplaServer;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelStateGetter\DigiglassChannelStateGetter;
-use SuplaBundle\Supla\SuplaServer;
 
 class DigiglassChannelStateGetterTest extends TestCase {
     use UnitTestHelper;

@@ -16,9 +16,9 @@
 
 namespace App\Tests\Utils;
 
+use App\Exception\ApiExceptionWithDetails;
+use App\Utils\ArrayUtils;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Exception\ApiExceptionWithDetails;
-use SuplaBundle\Utils\ArrayUtils;
 
 class ArrayUtilsTest extends TestCase {
     public function testFlattenOnce() {

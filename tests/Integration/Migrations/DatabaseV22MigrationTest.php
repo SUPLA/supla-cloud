@@ -17,9 +17,9 @@
 
 namespace App\Tests\Integration\Migrations;
 
+use App\Entity\Main\User;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\User;
 
 class DatabaseV22MigrationTest extends DatabaseMigrationTestCase {
     use ResponseAssertions;

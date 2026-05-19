@@ -1,8 +1,8 @@
 <?php
 namespace App\Tests\Integration\Traits;
 
+use App\Supla\SuplaHttpClient;
 use Assert\Assertion;
-use SuplaBundle\Supla\SuplaHttpClient;
 
 class TestSuplaHttpClient extends SuplaHttpClient {
     public static $mockedResponses = [];

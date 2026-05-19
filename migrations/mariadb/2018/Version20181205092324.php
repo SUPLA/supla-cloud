@@ -2,8 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use App\Migrations\NoWayBackMigration;
 use Doctrine\DBAL\Migrations\AbstractMigration;
-use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * enabled replaced with access_token

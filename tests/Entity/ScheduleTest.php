@@ -17,15 +17,15 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Main\Schedule;
+use App\Enums\ScheduleMode;
 use Assert\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\Schedule;
-use SuplaBundle\Enums\ScheduleMode;
 
 class ScheduleTest extends TestCase {
     public function testErrorWhenNoMode() {
         $this->expectException(InvalidArgumentException::class);
-        $schedule = new \SuplaBundle\Entity\Main\Schedule();
+        $schedule = new \App\Entity\Main\Schedule();
         $schedule->fill([]);
     }
 

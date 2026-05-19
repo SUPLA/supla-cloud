@@ -17,6 +17,15 @@
 
 namespace App\Tests\Model\UserConfigTranslator;
 
+use App\Entity\Main\IODeviceChannel;
+use App\Enums\ActionableSubjectType;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
+use App\Model\ChannelActionExecutor\ChannelActionExecutor;
+use App\Model\UserConfigTranslator\ActionTriggerParamsTranslator;
+use App\Repository\ActionableSubjectRepository;
+use App\Serialization\RequestFiller\SubjectActionFiller;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use App\Tests\Traits\ChannelStub;
 use App\Tests\Traits\SceneMocks;
@@ -24,15 +33,6 @@ use App\Tests\Traits\UserMocks;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Enums\ActionableSubjectType;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
-use SuplaBundle\Model\UserConfigTranslator\ActionTriggerParamsTranslator;
-use SuplaBundle\Repository\ActionableSubjectRepository;
-use SuplaBundle\Serialization\RequestFiller\SubjectActionFiller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ActionTriggerParamsTranslatorTest extends TestCase {

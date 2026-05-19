@@ -17,10 +17,10 @@
 
 namespace App\Tests\Integration\Model\Audit;
 
+use App\Entity\Main\AuditEntry;
+use App\Enums\AuditedEvent;
+use App\Model\Audit\Audit;
 use App\Tests\Integration\IntegrationTestCase;
-use SuplaBundle\Entity\Main\AuditEntry;
-use SuplaBundle\Enums\AuditedEvent;
-use SuplaBundle\Model\Audit\Audit;
 
 class AuditIntegrationTest extends IntegrationTestCase {
     /** @var Audit */

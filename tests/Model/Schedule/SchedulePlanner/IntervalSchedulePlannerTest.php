@@ -17,9 +17,9 @@
 
 namespace App\Tests\Model\Schedule\SchedulePlanner;
 
+use App\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
 use DateTime;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
 
 class IntervalSchedulePlannerTest extends TestCase {
     /**

@@ -17,20 +17,20 @@
 
 namespace App\Tests\Integration\Auth;
 
+use App\Auth\AutodiscoverPublicClientStub;
+use App\Entity\EntityUtils;
+use App\Entity\Main\OAuth\ApiClient;
+use App\Entity\Main\SettingsString;
+use App\Entity\Main\User;
+use App\Enums\InstanceSettings;
 use App\Kernel;
+use App\Model\TargetSuplaCloud;
+use App\Supla\SuplaAutodiscover;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\TestClient;
 use App\Tests\Integration\TestMailerTransport;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\TestSuplaHttpClient;
-use SuplaBundle\Auth\AutodiscoverPublicClientStub;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\OAuth\ApiClient;
-use SuplaBundle\Entity\Main\SettingsString;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\InstanceSettings;
-use SuplaBundle\Model\TargetSuplaCloud;
-use SuplaBundle\Supla\SuplaAutodiscover;
 
 /**
  * For these tests to run, you need to launch your local instance of SUPLA Autodiscover from https://github.com/SUPLA/supla-autodiscover
@@ -40,7 +40,7 @@ use SuplaBundle\Supla\SuplaAutodiscover;
  *
  * Then, update config/services.yml so the "Real" Autodiscover is being used in the tests instead of the Mocked one:
  *
- * SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverReal'
+ * App\Supla\SuplaAutodiscover: '@App\Supla\SuplaAutodiscoverReal'
  *
  * In .env.local add these:
  *

@@ -17,18 +17,18 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannelGroup;
+use App\Entity\Main\Scene;
+use App\Entity\Main\SceneOperation;
+use App\Entity\Main\User;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Entity\Main\SceneOperation;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
 use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
@@ -41,9 +41,9 @@ class AlexaIntegrationTest extends IntegrationTestCase {
     private $user;
     /** @var IODevice */
     private $device;
-    /** @var \SuplaBundle\Entity\Main\Location */
+    /** @var \App\Entity\Main\Location */
     private $location;
-    /** @var \SuplaBundle\Entity\Main\IODeviceChannelGroup */
+    /** @var \App\Entity\Main\IODeviceChannelGroup */
     private $channelGroup;
     /** @var Scene */
     private $scene;

@@ -1,7 +1,7 @@
 <?php
 namespace App\Tests\Integration\Traits;
 
-use SuplaBundle\Model\TimeProvider;
+use App\Model\TimeProvider;
 
 class TestTimeProvider extends TimeProvider {
     private static $timestamp;

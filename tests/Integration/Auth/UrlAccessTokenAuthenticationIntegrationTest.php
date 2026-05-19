@@ -17,15 +17,15 @@
 
 namespace App\Tests\Integration\Auth;
 
+use App\Entity\Main\OAuth\ApiClient;
+use App\Entity\Main\User;
+use App\Entity\Main\UserIcon;
+use App\Enums\ChannelFunction;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\TestClient;
 use App\Tests\Integration\Traits\OAuthHelper;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\OAuth\ApiClient;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Entity\Main\UserIcon;
-use SuplaBundle\Enums\ChannelFunction;
 
 /**
  * Verifies that bearer tokens can be transported via the Authorization header

@@ -17,10 +17,10 @@
 
 namespace App\Tests\Model\UserConfigTranslator;
 
+use App\Entity\Main\IODeviceChannel;
+use App\Model\UserConfigTranslator\FacadeBlindsUserConfigTranslator;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Model\UserConfigTranslator\FacadeBlindsUserConfigTranslator;
 
 class FacadeBlindsUserConfigTranslatorTest extends TestCase {
     use UnitTestHelper;

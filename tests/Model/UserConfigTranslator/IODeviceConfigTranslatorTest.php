@@ -17,12 +17,12 @@
 
 namespace App\Tests\Model\UserConfigTranslator;
 
+use App\Entity\EntityUtils;
+use App\Entity\Main\IODevice;
+use App\Model\UserConfigTranslator\HvacThermostatConfigTranslator;
+use App\Model\UserConfigTranslator\IODeviceConfigTranslator;
 use App\Tests\Integration\Traits\TestTimeProvider;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Model\UserConfigTranslator\HvacThermostatConfigTranslator;
-use SuplaBundle\Model\UserConfigTranslator\IODeviceConfigTranslator;
 
 class IODeviceConfigTranslatorTest extends TestCase {
     /** @var IODeviceConfigTranslator */

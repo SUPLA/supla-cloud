@@ -17,20 +17,20 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\Main\DirectLink;
+use App\Entity\Main\IODeviceChannelGroup;
+use App\Entity\Main\PushNotification;
+use App\Entity\Main\Scene;
+use App\Entity\Main\User;
+use App\Enums\ActionableSubjectType;
+use App\Enums\ChannelFunction;
+use App\Enums\ChannelFunctionAction;
+use App\Enums\ChannelType;
+use App\Enums\ScheduleMode;
+use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\DirectLink;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
-use SuplaBundle\Entity\Main\PushNotification;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ActionableSubjectType;
-use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Enums\ScheduleMode;
-use SuplaBundle\Supla\SuplaServerMock;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 /** @small */
@@ -40,7 +40,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var \SuplaBundle\Entity\Main\IODevice */
+    /** @var \App\Entity\Main\IODevice */
     private $device;
     /** @var IODeviceChannelGroup */
     private $channelGroup;

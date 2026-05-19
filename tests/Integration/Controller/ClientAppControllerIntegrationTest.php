@@ -17,11 +17,11 @@
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\Main\ClientApp;
 use App\Tests\AnyFieldSetter;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\ClientApp;
 
 /** @small */
 class ClientAppControllerIntegrationTest extends IntegrationTestCase {

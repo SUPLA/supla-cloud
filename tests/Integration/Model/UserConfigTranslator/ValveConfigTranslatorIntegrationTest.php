@@ -18,11 +18,11 @@
 namespace App\Tests\Integration\Model\UserConfigTranslator;
 
 use App\DataFixtures\DevicesFixture;
+use App\Entity\Main\Location;
+use App\Entity\Main\User;
+use App\Model\UserConfigTranslator\SubjectConfigTranslator;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use SuplaBundle\Entity\Main\Location;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 /** @small */
 class ValveConfigTranslatorIntegrationTest extends IntegrationTestCase {
