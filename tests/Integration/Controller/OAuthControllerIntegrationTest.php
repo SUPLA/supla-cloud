@@ -20,6 +20,7 @@ namespace App\Tests\Integration\Controller;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
+use PHPUnit\Framework\Attributes\Depends;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\Main\User;
 
@@ -134,6 +135,36 @@ class OAuthControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $client->request('GET', '/api/oauth-personal-tokens');
         $this->assertStatusCode(403, $client->getResponse());
+    }
+
+    public function testCreatingOAuthApp() {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequest('POST', '/api/oauth-clients', [
+            'name' => 'My Sample OAuth App',
+            'description' => 'Sample OAuth App description',
+            'redirectUris' => ['https://sample.app/authorize'],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('name', $content);
+        $this->assertArrayHasKey('description', $content);
+        $this->assertArrayHasKey('publicId', $content);
+        $this->assertArrayHasKey('redirectUris', $content);
+        $this->assertEquals('My Sample OAuth App', $content['name']);
+        $this->assertCount(1, $content['redirectUris']);
+        return $content;
+    }
+
+    #[Depends('testCreatingOAuthApp')]
+    public function testFetchingOAuthAppDetails(array $content): void {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequest('GET', "/api/oauth-clients/$content[id]?include=secret");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('name', $content);
+        $this->assertArrayHasKey('secret', $content);
     }
 
     /** @large */
