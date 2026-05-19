@@ -46,6 +46,10 @@ const DESCRIPTIONS = {
   SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE: 'Whether to require cookie policy acceptance. Use `true` or `false`.',
   SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE: 'Whether to require regulations acceptance. Use `true` or `false`.',
   SUPLA_STATE_WEBHOOKS_ONLY_FOR_PUBLIC_APPS: 'Whether to suport state webhooks only for public apps (`true`) or for all apps (`false`).',
+  SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_VOLTAGE_ABERRATIONS: 'Number of days to retain electricity meter voltage aberrations measurement logs.',
+  SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_VOLTAGE: 'Number of days to retain electricity meter voltage measurement logs.',
+  SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_CURRENT: 'Number of days to retain electricity meter current measurement logs.',
+  SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_POWER_ACTIVE: 'Number of days to retain electricity meter active power measurement logs.',
   DATABASE_TSDB_URL: 'Database connection string for TimescaleDB, if used.',
   DATABASE_FOR_LOGS: 'Which connection to use for storing logs. Use either `mariadb` (default) or `tsdb`.',
 };
