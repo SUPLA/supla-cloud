@@ -97,7 +97,7 @@ class SuplaOAuth2 extends OAuth2 {
             $accessToken = $this->storage->getAccessToken($token['access_token']);
             $this->storage->markAccessTokenIssuedWithRefreshToken($accessToken, $refreshToken);
         }
-        if ($clientType == ApiClientType::WEBAPP) {
+        if ($clientType === ApiClientType::WEBAPP) {
             $tokenUsedForFilesDownload = parent::createAccessToken(
                 $client,
                 $user,

@@ -88,6 +88,15 @@ class TokensControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(200, $response->getStatusCode());
     }
 
+    public function testCannotAccessWebappOnlyApiWithIssuedWebappFilesToken() {
+        $token = $this->testIssuingTokenForWebapp()['download_token'];
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token, 'HTTPS' => true]);
+        $client->followRedirects();
+        $client->request('GET', '/api/oauth-personal-tokens', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $response = $client->getResponse();
+        $this->assertEquals(403, $response->getStatusCode());
+    }
+
     public function testIssuingTokenForWebappViaWebappAuthBroker() {
         $client = self::createClient([], ['HTTPS' => true]);
         $client->request('POST', '/api/webapp-auth', [

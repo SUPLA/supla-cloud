@@ -157,7 +157,8 @@ class AccessToken extends BaseAccessToken {
     }
 
     public function isForWebapp(): bool {
-        return $this->client && $this->client->getType()->getValue() === ApiClientType::WEBAPP;
+        return $this->client && $this->client->getType()->getValue() === ApiClientType::WEBAPP
+            && (new OAuthScope($this->scope))->hasScope('channels_ea');
     }
 
     public function isForPublicApp(): bool {
