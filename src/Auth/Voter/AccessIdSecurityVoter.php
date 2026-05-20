@@ -17,7 +17,7 @@
 
 namespace App\Auth\Voter;
 
-use App\Auth\Token\AccessIdAwareToken;
+use App\Auth\SuplaOAuth2Authenticator;
 use App\Entity\EntityUtils;
 use App\Entity\HasLocation;
 use App\Entity\Main\Location;
@@ -28,23 +28,21 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class AccessIdSecurityVoter extends Voter {
     const PERMISSION_NAME = 'accessIdContains';
 
-    /** @inheritdoc */
     protected function supports($attribute, $subject) {
         return $attribute == self::PERMISSION_NAME;
     }
 
-    /** @inheritdoc */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token) {
-        if ($token instanceof AccessIdAwareToken) {
-            /** @var Location $location */
-            $location = $subject;
-            if ($subject instanceof HasLocation) {
-                $location = $subject->getLocation();
-            }
-            Assertion::isInstanceOf($location, Location::class, 'Invalid voter subject: ' . get_class($subject));
-            $accessId = $token->getAccessId();
-            return in_array($location->getId(), EntityUtils::mapToIds($accessId->getLocations()));
+        $accessId = $token->getAttribute(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_ACCESS_ID);
+        if (!$accessId) {
+            return true;
         }
-        return true;
+        /** @var Location $location */
+        $location = $subject;
+        if ($subject instanceof HasLocation) {
+            $location = $subject->getLocation();
+        }
+        Assertion::isInstanceOf($location, Location::class, 'Invalid voter subject: ' . get_class($subject));
+        return in_array($location->getId(), EntityUtils::mapToIds($accessId->getLocations()));
     }
 }

@@ -17,9 +17,6 @@
 
 namespace App\Auth;
 
-use App\Auth\Token\AccessIdAwareToken;
-use App\Auth\Token\PublicOauthAppToken;
-use App\Auth\Token\WebappToken;
 use FOS\OAuthServerBundle\Model\AccessToken;
 use FOS\OAuthServerBundle\Security\Authenticator\Oauth2Authenticator;
 use FOS\OAuthServerBundle\Security\Authenticator\Passport\Badge\AccessTokenBadge;
@@ -35,8 +32,15 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken;
 
 class SuplaOAuth2Authenticator extends Oauth2Authenticator {
+    public const REQUEST_ATTRIBUTE_ACCESS_TOKEN = '_supla_oauth_access_token';
+    public const REQUEST_ATTRIBUTE_TOKEN_STRING = '_supla_oauth_token_string';
+    public const REQUEST_ATTRIBUTE_IS_WEBAPP = '_supla_oauth_is_webapp';
+    public const REQUEST_ATTRIBUTE_IS_PUBLIC_APP = '_supla_oauth_is_public_app';
+    public const REQUEST_ATTRIBUTE_ACCESS_ID = '_supla_oauth_access_id';
+
     private const SOURCE_HEADER = 'header';
     private const SOURCE_URL = 'url';
     private const SOURCE_BODY = 'body';
@@ -50,69 +54,108 @@ class SuplaOAuth2Authenticator extends Oauth2Authenticator {
             $source = null;
             $tokenString = $this->extractBearerToken($request, $source);
 
-            /** @var AccessToken $accessToken */
+            /** @var AccessToken|\App\Entity\Main\OAuth\AccessToken $accessToken */
             $accessToken = $this->serverService->verifyAccessToken($tokenString);
 
             $user = $accessToken->getUser();
+            if (null === $user) {
+                throw new OAuth2AuthenticateException(
+                    Response::HTTP_UNAUTHORIZED,
+                    OAuth2::TOKEN_TYPE_BEARER,
+                    $this->serverService->getVariable(OAuth2::CONFIG_WWW_REALM),
+                    'invalid_token',
+                    'The access token is not associated with a user.'
+                );
+            }
 
-            if (null !== $user) {
-                try {
-                    $this->userChecker->checkPreAuth($user);
-                } catch (AccountStatusException $e) {
-                    throw new OAuth2AuthenticateException(
-                        Response::HTTP_UNAUTHORIZED,
-                        OAuth2::TOKEN_TYPE_BEARER,
-                        $this->serverService->getVariable(OAuth2::CONFIG_WWW_REALM),
-                        'access_denied',
-                        $e->getMessage()
-                    );
-                }
+            try {
+                $this->userChecker->checkPreAuth($user);
+            } catch (AccountStatusException $e) {
+                throw new OAuth2AuthenticateException(
+                    Response::HTTP_UNAUTHORIZED,
+                    OAuth2::TOKEN_TYPE_BEARER,
+                    $this->serverService->getVariable(OAuth2::CONFIG_WWW_REALM),
+                    'access_denied',
+                    $e->getMessage()
+                );
             }
 
             $scope = $accessToken->getScope();
             $tokenScopes = $scope ? explode(' ', $scope) : [];
 
             if ($source === self::SOURCE_HEADER) {
-                // Trusted transport — full set of roles derived from token scopes.
-                $roles = (null !== $user) ? $user->getRoles() : [];
+                $roles = $user->getRoles();
                 foreach ($tokenScopes as $scopeName) {
                     $roles[] = 'ROLE_' . mb_strtoupper($scopeName);
                 }
+                if ($accessToken->isForWebapp()) {
+                    $roles[] = 'ROLE_WEBAPP';
+                }
+                if ($accessToken->isForPublicApp()) {
+                    $roles[] = 'ROLE_PUBLIC_OAUTH_APP';
+                }
             } else {
-                // Token sent via URL query string or form body — leaks easily into
-                // server logs, browser history and Referer headers, so we restrict
-                // it to file-serving endpoints (ROLE_CHANNELS_FILES) only.
                 if (!in_array('channels_files', $tokenScopes, true)) {
                     throw new OAuth2AuthenticateException(
                         Response::HTTP_UNAUTHORIZED,
                         OAuth2::TOKEN_TYPE_BEARER,
                         $this->serverService->getVariable(OAuth2::CONFIG_WWW_REALM),
                         'insufficient_scope',
-                        'Access token passed via URL is allowed only for the channels_files scope.'
+                        'Access token passed via URL or form body is allowed only for the channels_files scope.'
                     );
                 }
+
                 $roles = ['ROLE_CHANNELS_FILES'];
             }
 
-            $roles = array_unique($roles, SORT_REGULAR);
+            $roles = array_values(array_unique($roles, SORT_REGULAR));
+
+            $request->attributes->set(self::REQUEST_ATTRIBUTE_ACCESS_TOKEN, $accessToken);
+            $request->attributes->set(self::REQUEST_ATTRIBUTE_TOKEN_STRING, $tokenString);
+            $request->attributes->set(self::REQUEST_ATTRIBUTE_IS_WEBAPP, $accessToken->isForWebapp());
+            $request->attributes->set(self::REQUEST_ATTRIBUTE_IS_PUBLIC_APP, $accessToken->isForPublicApp());
+            $request->attributes->set(self::REQUEST_ATTRIBUTE_ACCESS_ID, $accessToken->getAccessId());
 
             $accessTokenBadge = new AccessTokenBadge($accessToken, $roles);
 
-            return new SelfValidatingPassport(new UserBadge($user->getUsername()), [$accessTokenBadge]);
+            $passport = new SelfValidatingPassport(
+                new UserBadge($user->getUsername(), fn() => $user),
+                [$accessTokenBadge]
+            );
+
+            $passport->setAttribute('supla_oauth_access_token', $accessToken);
+            $passport->setAttribute('supla_oauth_token_string', $tokenString);
+            $passport->setAttribute('supla_oauth_roles', $roles);
+
+            return $passport;
         } catch (OAuth2ServerException $e) {
             throw new AuthenticationException('OAuth2 authentication failed', 0, $e);
         }
     }
 
-    /**
-     * RFC 6750 §2 — bearer token can be sent in:
-     *   1) Authorization header,
-     *   2) `access_token` query string parameter,
-     *   3) `access_token` form-encoded body parameter.
-     *
-     * The $source out-parameter tells the caller which transport carried the
-     * token, so it can apply different trust levels (see authenticate()).
-     */
+    public function createAuthenticatedToken(PassportInterface $passport, string $firewallName): TokenInterface {
+        /** @var AccessToken|\App\Entity\Main\OAuth\AccessToken $accessToken */
+        $accessToken = $passport->getAttribute('supla_oauth_access_token');
+        $tokenString = $passport->getAttribute('supla_oauth_token_string');
+        $roles = $passport->getAttribute('supla_oauth_roles');
+
+        $this->consumeRefreshTokenIfNeeded($accessToken);
+
+        $token = new PostAuthenticationToken(
+            $passport->getUser(),
+            $firewallName,
+            $roles
+        );
+
+        $token->setAttribute(self::REQUEST_ATTRIBUTE_ACCESS_TOKEN, $accessToken);
+        $token->setAttribute(self::REQUEST_ATTRIBUTE_TOKEN_STRING, $tokenString);
+        $token->setAttribute(self::REQUEST_ATTRIBUTE_IS_WEBAPP, $accessToken->isForWebapp());
+        $token->setAttribute(self::REQUEST_ATTRIBUTE_IS_PUBLIC_APP, $accessToken->isForPublicApp());
+        $token->setAttribute(self::REQUEST_ATTRIBUTE_ACCESS_ID, $accessToken->getAccessId());
+
+        return $token;
+    }
+
     private function extractBearerToken(Request $request, ?string &$source = null): ?string {
         $authorization = $request->headers->get('Authorization');
         if ($authorization && stripos($authorization, 'Bearer ') === 0) {
@@ -131,26 +174,18 @@ class SuplaOAuth2Authenticator extends Oauth2Authenticator {
         return null;
     }
 
-    public function createAuthenticatedToken(PassportInterface $passport, string $firewallName): TokenInterface {
-        $authenticatedToken = parent::createAuthenticatedToken($passport, $firewallName);
-        $accessToken = $this->serverService->verifyAccessToken($authenticatedToken->getToken());
-        $authenticatedToken->setUser($accessToken->getUser());
-        $authenticatedToken->setAuthenticated(true);
-        /** @var \App\Entity\Main\OAuth\AccessToken $accessToken */
-        if ($accessToken->getIssuedWithRefreshToken()) {
-            /** @var SuplaOAuthStorage $storage */
-            $storage = $this->serverService->getStorage();
-            $storage->unsetRefreshToken($accessToken->getIssuedWithRefreshToken()->getToken());
-            $storage->markAccessTokenIssuedWithRefreshToken($accessToken, null);
+    /**
+     * @param AccessToken|\APp\Entity\Main\OAuth\AccessToken $accessToken
+     */
+    private function consumeRefreshTokenIfNeeded(AccessToken $accessToken): void {
+        if (!$accessToken->getIssuedWithRefreshToken()) {
+            return;
         }
-        if ($accessToken->isForWebapp()) {
-            $authenticatedToken = new WebappToken($authenticatedToken);
-        } elseif ($accessToken->isForPublicApp()) {
-            $authenticatedToken = new PublicOauthAppToken($authenticatedToken);
-        }
-        if ($accessId = $accessToken->getAccessId()) {
-            $authenticatedToken = new AccessIdAwareToken($authenticatedToken, $accessId);
-        }
-        return $authenticatedToken;
+
+        /** @var SuplaOAuthStorage $storage */
+        $storage = $this->serverService->getStorage();
+
+        $storage->unsetRefreshToken($accessToken->getIssuedWithRefreshToken()->getToken());
+        $storage->markAccessTokenIssuedWithRefreshToken($accessToken, null);
     }
 }

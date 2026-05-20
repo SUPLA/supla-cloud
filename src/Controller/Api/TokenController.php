@@ -19,6 +19,7 @@ namespace App\Controller\Api;
 
 use App\Auth\OAuthScope;
 use App\Auth\SuplaOAuth2;
+use App\Auth\SuplaOAuth2Authenticator;
 use App\Model\Audit\FailedAuthAttemptsUserBlocker;
 use App\Model\TargetSuplaCloudRequestForwarder;
 use App\Repository\ApiClientRepository;
@@ -146,9 +147,8 @@ class TokenController extends RestController {
      * )
      * @Rest\Get("/token-info")
      */
-    public function tokenInfoAction() {
-        $token = $this->tokenStorage->getToken()->getCredentials();
-        $accessToken = $this->server->getStorage()->getAccessToken($token);
+    public function tokenInfoAction(Request $request) {
+        $accessToken = $request->attributes->get(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_ACCESS_TOKEN);
         return $this->view([
             'userShortUniqueId' => $this->getUser()->getShortUniqueId(),
             'scope' => $accessToken->getScope(),

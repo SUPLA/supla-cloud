@@ -17,10 +17,12 @@
 
 namespace App\Model;
 
+use App\Auth\SuplaOAuth2Authenticator;
+use App\Entity\Main\OAuth\AccessToken;
+use App\Entity\Main\OAuth\ApiClient;
 use App\Entity\Main\User;
 use Assert\Assertion;
 use FOS\OAuthServerBundle\Model\AccessTokenManagerInterface;
-use OAuth2\Model\OAuth2AccessToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -40,12 +42,12 @@ trait CurrentUserAware {
         $this->accessTokenManager = $accessTokenManager;
     }
 
-    /** @return \App\Entity\Main\User|null */
-    protected function getCurrentUser() {
+    protected function getCurrentUser(): ?User {
         if (null === $token = $this->getCurrentUserToken()) {
             return null;
         }
-        if (!is_object($user = $token->getUser())) {
+        $user = $token->getUser();
+        if (!is_object($user)) {
             return null;
         }
         return $user;
@@ -57,19 +59,23 @@ trait CurrentUserAware {
         return $user;
     }
 
-    /** @return TokenInterface|null */
-    protected function getCurrentUserToken() {
+    protected function getCurrentUserToken(): ?TokenInterface {
         return $this->tokenStorage->getToken();
     }
 
-    /** @return \App\Entity\Main\OAuth\ApiClient|null */
-    protected function getCurrentApiClient() {
-        /** @var OAuth2AccessToken $token */
+    protected function getCurrentAccessToken(): ?AccessToken {
         if (null === $token = $this->getCurrentUserToken()) {
             return null;
         }
-        /** @var \App\Entity\Main\OAuth\AccessToken $accessToken */
-        $accessToken = $this->accessTokenManager->findTokenByToken($token->getToken());
+        $accessToken = $token->getAttribute(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_ACCESS_TOKEN);
+        if (!$accessToken) {
+            return null;
+        }
+        return $accessToken;
+    }
+
+    protected function getCurrentApiClient(): ?ApiClient {
+        $accessToken = $this->getCurrentAccessToken();
         return $accessToken ? $accessToken->getClient() : null;
     }
 }

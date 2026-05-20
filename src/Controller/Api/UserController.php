@@ -17,7 +17,7 @@
 
 namespace App\Controller\Api;
 
-use App\Auth\SuplaOAuthStorage;
+use App\Auth\SuplaOAuth2Authenticator;
 use App\Auth\Voter\BrokerRequestSecurityVoter;
 use App\Entity\Main\AccessID;
 use App\Entity\Main\User;
@@ -207,9 +207,11 @@ class UserController extends RestController {
      * @Rest\Get("/users/current")
      * @Security("is_granted('ROLE_ACCOUNT_R')")
      */
-    public function currentUserAction(Request $request, SuplaOAuthStorage $oauthStorage) {
+    public function currentUserAction(Request $request) {
         $token = $this->getCurrentUserToken();
-        $accessToken = $oauthStorage->getAccessToken($token->getToken());
+        $accessToken = $token
+            ? $token->getAttribute(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_ACCESS_TOKEN)
+            : null;
         $view = $this->serializedView($this->getUser(), $request);
         $view->getContext()->setAttribute('accessToken', $accessToken);
         return $view;

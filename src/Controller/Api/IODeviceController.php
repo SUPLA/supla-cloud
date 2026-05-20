@@ -17,7 +17,6 @@
 
 namespace App\Controller\Api;
 
-use App\Auth\Token\WebappToken;
 use App\Auth\Voter\AccessIdSecurityVoter;
 use App\Entity\EntityUtils;
 use App\Entity\Main\IODevice;
@@ -393,7 +392,7 @@ class IODeviceController extends RestController {
                 Assertion::true($result, 'Could not perform factory reset.'); // i18n
             } elseif ($action === 'setCfgModePassword') {
                 $userToken = $this->getCurrentUserToken();
-                Assertion::isInstanceOf($userToken, WebappToken::class, 'Device password can be changed from the web interface only.');
+                Assertion::true($this->isGranted('ROLE_WEBAPP'), 'Device password can be changed from the web interface only.');
                 Assertion::true($ioDevice->getFlags()['setCfgModePasswordSupported'], 'Action is unsupported in the firmware.');
                 Assertion::keyExists($body, 'password', 'Missing password.');
                 Assert::that($body['password'])->string()

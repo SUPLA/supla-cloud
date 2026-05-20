@@ -19,6 +19,7 @@ namespace App\Tests\Integration\Controller;
 
 use App\Auth\OAuthScope;
 use App\Entity\Main\User;
+use App\Model\ApiVersions;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
@@ -165,6 +166,24 @@ class OAuthControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('name', $content);
         $this->assertArrayHasKey('secret', $content);
+    }
+
+    public function testLogout() {
+        $client = self::createClient([], ['HTTPS' => true]);
+        $client->request('POST', '/api/webapp-tokens', [
+            'username' => 'supler@supla.org',
+            'password' => 'supla123',
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $accessToken = $content['access_token'];
+        $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $accessToken, 'HTTPS' => true]);
+        $client->followRedirects();
+        $client->request('POST', '/api/logout', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $response = $client->getResponse();
+        $this->assertEquals(204, $response->getStatusCode());
+        // TODO sprawdz czy nie da sie ju znim logowac
     }
 
     /** @large */

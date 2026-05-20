@@ -19,8 +19,7 @@ namespace App\Controller\Api;
 
 use App\Auth\OAuthScope;
 use App\Auth\SuplaOAuth2;
-use App\Auth\SuplaOAuthStorage;
-use App\Auth\Token\WebappToken;
+use App\Auth\SuplaOAuth2Authenticator;
 use App\Entity\Main\OAuth\AccessToken;
 use App\Entity\Main\OAuth\ApiClient;
 use App\Entity\Main\OAuth\ApiClientAuthorization;
@@ -195,12 +194,13 @@ class OAuthController extends RestController {
      * @Security("is_granted('ROLE_WEBAPP')")
      * @Rest\Post("/logout")
      */
-    public function logoutAction(SuplaOAuthStorage $storage) {
-        return $this->transactional(function (EntityManagerInterface $em) use ($storage) {
-            /** @var WebappToken $webappToken */
-            $webappToken = $this->getCurrentUserToken();
-            $accessToken = $storage->getAccessToken($webappToken->getToken());
-            $em->remove($accessToken);
+    public function logoutAction() {
+        return $this->transactional(function (EntityManagerInterface $em) {
+            $token = $this->getCurrentUserToken();
+            $accessToken = $token->getAttribute(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_ACCESS_TOKEN);
+            if ($accessToken) {
+                $em->remove($accessToken);
+            }
             return new Response('', Response::HTTP_NO_CONTENT);
         });
     }

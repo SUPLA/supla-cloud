@@ -17,9 +17,7 @@
 
 namespace App\EventListener\ApiRateLimit;
 
-use App\Auth\Token\AccessIdAwareToken;
-use App\Auth\Token\PublicOauthAppToken;
-use App\Auth\Token\WebappToken;
+use App\Auth\SuplaOAuth2Authenticator;
 use App\Controller\ExecuteDirectLinkController;
 use App\Entity\Main\DirectLink;
 use App\Entity\Main\User;
@@ -104,7 +102,10 @@ class ApiRateLimitListener {
             return false;
         }
         $userToken = $this->getCurrentUserToken();
-        if ($userToken instanceof WebappToken || $userToken instanceof AccessIdAwareToken || $userToken instanceof PublicOauthAppToken) {
+        if ($event->getRequest()->attributes->get(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_IS_WEBAPP)
+            || $event->getRequest()->attributes->get(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_IS_PUBLIC_APP)
+            || $event->getRequest()->attributes->get(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_ACCESS_ID)
+        ) {
             return false;
         }
         $uri = $event->getRequest()->getRequestUri();
