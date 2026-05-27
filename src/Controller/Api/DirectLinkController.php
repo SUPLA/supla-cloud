@@ -38,6 +38,7 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -203,15 +204,20 @@ class DirectLinkController extends RestController {
      * @Security("is_granted('ROLE_DIRECTLINKS_RW')")
      * @UnavailableInMaintenance
      */
-    public function postDirectLinkAction(Request $request, DirectLink $directLink, TranslatorInterface $translator) {
+    public function postDirectLinkAction(
+        Request $request,
+        DirectLink $directLink,
+        TranslatorInterface $translator,
+        PasswordHasherFactoryInterface $passwordHasherFactory
+    ) {
         $user = $this->getUser();
         if (!$directLink->getCaption()) {
             $caption = $translator->trans('Direct link', [], null, $user->getLocale());
             $directLink->setCaption($caption . ' #' . ($user->getDirectLinks()->count() + 1));
         }
         Assertion::false($user->isLimitDirectLinkExceeded(), 'Direct links limit has been exceeded'); // i18n
-        $slug = $this->transactional(function (EntityManagerInterface $em) use ($directLink) {
-            $slug = $directLink->generateSlug($this->encoderFactory->getEncoder($directLink));
+        $slug = $this->transactional(function (EntityManagerInterface $em) use ($passwordHasherFactory, $directLink) {
+            $slug = $directLink->generateSlug($passwordHasherFactory->getPasswordHasher($directLink));
             $directLink->setEnabled(true);
             $em->persist($directLink);
             return $slug;

@@ -28,12 +28,14 @@
 
 security:
     enable_authenticator_manager: true
-    encoders:
-      App\Entity\Main\User: bcrypt # changing this to auto, as deprecation suggests, breaks our OAuth tests
-      App\Entity\Main\DirectLink:
-            algorithm: bcrypt
-            cost: 4
-      legacy_encoder: md5
+    password_hashers:
+      SuplaBundle\Entity\Main\User:
+        algorithm: bcrypt
+      SuplaBundle\Entity\Main\DirectLink:
+        algorithm: bcrypt
+        cost: 4
+      legacy_encoder:
+        algorithm: md5
     hide_user_not_found: false
 
     firewalls:

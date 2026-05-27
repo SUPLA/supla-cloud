@@ -31,7 +31,7 @@ use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
+use Symfony\Component\PasswordHasher\Hasher\PlaintextPasswordHasher;
 
 /** @small */
 class SceneControllerIntegrationTest extends IntegrationTestCase {
@@ -430,7 +430,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $sceneDetails = $this->testCreatingScene();
         $scene = $this->getEntityManager()->find(Scene::class, $sceneDetails['id']);
         $link = new DirectLink($scene);
-        $link->generateSlug(new PlaintextPasswordEncoder());
+        $link->generateSlug(new PlaintextPasswordHasher());
         $this->persist($link);
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('DELETE', '/api/scenes/' . $sceneDetails['id'] . '?safe=true');

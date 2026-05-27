@@ -31,7 +31,7 @@ use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
-use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
+use Symfony\Component\PasswordHasher\Hasher\PlaintextPasswordHasher;
 
 /** @small */
 class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
@@ -273,7 +273,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
     public function testGettingValidRelationsCountV24() {
         $cg = $this->getDoctrine()->getRepository(IODeviceChannelGroup::class)->find(1);
         $dl = new DirectLink($cg);
-        $dl->generateSlug(new PlaintextPasswordEncoder());
+        $dl->generateSlug(new PlaintextPasswordHasher());
         $this->getEntityManager()->persist($dl);
         $this->getEntityManager()->flush();
         $client = $this->createAuthenticatedClient($this->user);

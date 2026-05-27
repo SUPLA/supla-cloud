@@ -40,7 +40,7 @@ use OAuth2\OAuth2;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
+use Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher;
 
 /**
  * @small
@@ -391,10 +391,11 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $device = $this->createDeviceSonoff($this->createLocation($this->user));
         $directLink = new DirectLink($device->getChannels()[0]);
         $directLink->setAllowedActions([ChannelFunctionAction::READ()]);
-        $slug = $directLink->generateSlug(new NativePasswordEncoder(4));
+        $slug = $directLink->generateSlug(new NativePasswordHasher(4));
         $this->getEntityManager()->persist($directLink);
         $this->getEntityManager()->flush();
         self::ensureKernelShutdown();
+
         $client = $this->freshApiRateLimitClient($this->createClient());
         $client->request('GET', "/direct/{$directLink->getId()}/$slug/read");
         $response = $client->getResponse();

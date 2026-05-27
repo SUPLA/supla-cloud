@@ -38,6 +38,7 @@ use Doctrine\ORM\NoResultException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserManager {
@@ -75,7 +76,7 @@ class UserManager {
 
     public function __construct(
         UserRepository $userRepository,
-        EncoderFactoryInterface $encoder_factory,
+        private readonly PasswordHasherFactoryInterface $passwordHasherFactory,
         AccessIdManager $accessid_manager,
         LocationManager $location_manager,
         ScheduleManager $scheduleManager,
@@ -87,7 +88,6 @@ class UserManager {
         int $defaultClientsRegistrationTime,
         int $defaultIoDevicesRegistrationTime
     ) {
-        $this->encoder_factory = $encoder_factory;
         $this->rep = $userRepository;
         $this->loc_man = $location_manager;
         $this->aid_man = $accessid_manager;

@@ -21,12 +21,12 @@ use App\Entity\Main\DirectLink;
 use App\Entity\Main\IODeviceChannel;
 use App\Entity\Main\IODeviceChannelGroup;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
+use Symfony\Component\PasswordHasher\Hasher\PlaintextPasswordHasher;
 
 class DirectLinkTest extends TestCase {
     public function testGeneratingSlug() {
         $directLink = new \App\Entity\Main\DirectLink($this->createMock(IODeviceChannel::class));
-        $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());
+        $slug = $directLink->generateSlug(new PlaintextPasswordHasher());
         $this->assertGreaterThanOrEqual(\App\Entity\Main\DirectLink::SLUG_LENGTH_MIN, strlen($slug));
         $this->assertLessThanOrEqual(\App\Entity\Main\DirectLink::SLUG_LENGTH_MAX, strlen($slug));
         $this->assertStringNotContainsString('0', $slug);
@@ -34,7 +34,7 @@ class DirectLinkTest extends TestCase {
 
     public function testCreatingForChannelGroup() {
         $directLink = new DirectLink($this->createMock(IODeviceChannelGroup::class));
-        $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());
+        $slug = $directLink->generateSlug(new PlaintextPasswordHasher());
         $this->assertGreaterThanOrEqual(DirectLink::SLUG_LENGTH_MIN, strlen($slug));
         $this->assertLessThanOrEqual(\App\Entity\Main\DirectLink::SLUG_LENGTH_MAX, strlen($slug));
         $this->assertStringNotContainsString('0', $slug);
@@ -43,14 +43,14 @@ class DirectLinkTest extends TestCase {
     public function testCannotGenerateSlugTwice() {
         $this->expectException(\InvalidArgumentException::class);
         $directLink = new \App\Entity\Main\DirectLink($this->createMock(IODeviceChannel::class));
-        $directLink->generateSlug(new PlaintextPasswordEncoder());
-        $directLink->generateSlug(new PlaintextPasswordEncoder());
+        $directLink->generateSlug(new PlaintextPasswordHasher());
+        $directLink->generateSlug(new PlaintextPasswordHasher());
     }
 
     public function testCheckingSlug() {
         $directLink = new \App\Entity\Main\DirectLink($this->createMock(\App\Entity\Main\IODeviceChannel::class));
-        $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());
-        $this->assertTrue($directLink->isValidSlug($slug, new PlaintextPasswordEncoder()));
-        $this->assertFalse($directLink->isValidSlug($slug . 'X', new PlaintextPasswordEncoder()));
+        $slug = $directLink->generateSlug(new PlaintextPasswordHasher());
+        $this->assertTrue($directLink->isValidSlug($slug, new PlaintextPasswordHasher()));
+        $this->assertFalse($directLink->isValidSlug($slug . 'X', new PlaintextPasswordHasher()));
     }
 }

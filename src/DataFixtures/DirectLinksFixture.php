@@ -25,7 +25,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
-use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
+use Symfony\Component\PasswordHasher\Hasher\PlaintextPasswordHasher;
 
 class DirectLinksFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;
@@ -53,7 +53,7 @@ class DirectLinksFixture extends SuplaFixture {
             /** @var IODeviceChannel $channel */
             $channel = $this->faker->randomElement($channels);
             $directLink = new DirectLink($channel);
-            $directLink->generateSlug(new PlaintextPasswordEncoder());
+            $directLink->generateSlug(new PlaintextPasswordHasher());
             $action = $this->faker->randomElement(array_merge([ChannelFunctionAction::READ()], $channel->getPossibleActions()));
             $directLink->setAllowedActions([$action]);
             $directLink->setCaption($this->faker->colorName());
@@ -64,7 +64,7 @@ class DirectLinksFixture extends SuplaFixture {
     private function createSuplerLink() {
         $channel = $this->getReference(DevicesFixture::DEVICE_SUPLER, IODevice::class)->getChannels()[0];
         $directLink = new DirectLink($channel);
-        $directLink->generateSlug(new PlaintextPasswordEncoder());
+        $directLink->generateSlug(new PlaintextPasswordHasher());
         $directLink->setAllowedActions([ChannelFunctionAction::READ()]);
         $directLink->setCaption('SUPLAER Direct Link');
         $this->entityManager->persist($directLink);

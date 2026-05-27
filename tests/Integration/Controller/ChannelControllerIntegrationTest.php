@@ -48,7 +48,7 @@ use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
-use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
+use Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher;
 
 /** @small */
 class ChannelControllerIntegrationTest extends IntegrationTestCase {
@@ -675,7 +675,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $sensorChannel = $anotherDevice->getChannels()[0];
         $directLink = new DirectLink($sensorChannel);
-        $directLink->generateSlug(new NativePasswordEncoder(4));
+        $directLink->generateSlug(new NativePasswordHasher(4));
         $this->getEntityManager()->persist($directLink);
         $this->getEntityManager()->flush();
         $client = $this->createAuthenticatedClient();

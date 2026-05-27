@@ -29,7 +29,7 @@ use Assert\Assertion;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
@@ -216,16 +216,16 @@ class DirectLink implements HasSubject {
         $this->enabled = $enabled;
     }
 
-    public function generateSlug(PasswordEncoderInterface $slugEncoder) {
+    public function generateSlug(PasswordHasherInterface $slugEncoder) {
         Assertion::null($this->slug);
         $slugLength = random_int(self::SLUG_LENGTH_MIN, self::SLUG_LENGTH_MAX);
         $slug = StringUtils::randomString($slugLength, self::SLUG_KEYSPACE);
-        $this->slug = $slugEncoder->encodePassword($slug, null);
+        $this->slug = $slugEncoder->hash($slug);
         return $slug;
     }
 
-    public function isValidSlug(string $slug, PasswordEncoderInterface $slugEncoder): bool {
-        return $slugEncoder->isPasswordValid($this->slug, $slug, null);
+    public function isValidSlug(string $slug, PasswordHasherInterface $slugEncoder): bool {
+        return $slugEncoder->verify($this->slug, $slug);
     }
 
     public function getSlug() {
