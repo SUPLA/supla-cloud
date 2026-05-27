@@ -21,7 +21,7 @@ use App\Entity\Main\User;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 
 class MigratingUserMd5PasswordToBcryptIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
@@ -29,17 +29,17 @@ class MigratingUserMd5PasswordToBcryptIntegrationTest extends IntegrationTestCas
 
     /** @var User */
     private $user;
-    /** @var EncoderFactoryInterface */
-    private $encoderFactory;
+    /** @var PasswordHasherFactoryInterface */
+    private $passwordHasherFactory;
 
     protected function setUp(): void {
         $this->user = $this->createConfirmedUser();
-        $this->encoderFactory = self::getContainer()->get('security.encoder_factory');
-        $encoderFactory = $this->encoderFactory;
-        $legacyEncoder = $encoderFactory->getEncoder('legacy_encoder');
+        $this->passwordHasherFactory = self::getContainer()->get('security.password_hasher_factory');
+        $passwordHasherFactory = $this->passwordHasherFactory;
+        $legacyEncoder = $passwordHasherFactory->getPasswordHasher('legacy_encoder');
         $legacyPasswordSetter = function ($password) use ($legacyEncoder) {
             $this->password = null;
-            $this->legacyPassword = $legacyEncoder->encodePassword($password, $this->getSalt());
+            $this->legacyPassword = $legacyEncoder->hash($password, $this->getSalt());
         };
         $legacyPasswordSetter->call($this->user, 'supla123');
         $this->assertTrue($this->user->hasLegacyPassword());
@@ -52,19 +52,19 @@ class MigratingUserMd5PasswordToBcryptIntegrationTest extends IntegrationTestCas
         $user = $this->getDoctrine()->getRepository(User::class)->findOneByEmail('supler@supla.org');
         $this->assertEquals('supler@supla.org', $user->getEmail());
         $this->assertFalse($user->hasLegacyPassword());
-        $this->assertTrue($this->encoderFactory->getEncoder(User::class)
-            ->isPasswordValid($user->getPassword(), 'supla123', $user->getSalt()));
-        $this->assertFalse($this->encoderFactory->getEncoder('legacy_encoder')
-            ->isPasswordValid($user->getPassword(), 'supla123', $user->getSalt()));
+        $this->assertTrue($this->passwordHasherFactory->getPasswordHasher(User::class)
+            ->verify($user->getPassword(), 'supla123', $user->getSalt()));
+        $this->assertFalse($this->passwordHasherFactory->getPasswordHasher('legacy_encoder')
+            ->verify($user->getPassword(), 'supla123', $user->getSalt()));
     }
 
     public function testDoNotMigratePasswordOnAuthFailure() {
         $this->authenticate('supler@supla.org', 'supla321');
         $user = $this->getDoctrine()->getRepository(User::class)->findOneByEmail('supler@supla.org');
         $this->assertTrue($user->hasLegacyPassword());
-        $this->assertFalse($this->encoderFactory->getEncoder(User::class)
-            ->isPasswordValid($user->getPassword(), 'supla123', $user->getSalt()));
-        $this->assertTrue($this->encoderFactory->getEncoder('legacy_encoder')
-            ->isPasswordValid($user->getPassword(), 'supla123', $user->getSalt()));
+        $this->assertFalse($this->passwordHasherFactory->getPasswordHasher(User::class)
+            ->verify($user->getPassword(), 'supla123', $user->getSalt()));
+        $this->assertTrue($this->passwordHasherFactory->getPasswordHasher('legacy_encoder')
+            ->verify($user->getPassword(), 'supla123', $user->getSalt()));
     }
 }

@@ -31,7 +31,7 @@ use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 
 class ApiRateLimitListener {
     use CurrentUserAware;
@@ -46,7 +46,7 @@ class ApiRateLimitListener {
         private readonly TimeProvider $timeProvider,
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
-        private readonly EncoderFactoryInterface $encoderFactory
+        private readonly PasswordHasherFactoryInterface $passwordHasherFactory,
     ) {
     }
 
@@ -175,7 +175,7 @@ class ApiRateLimitListener {
                 }
                 if (isset($directLinkData)) {
                     $directLinkVerifier = new DirectLinkForRateLimitStub($directLinkData['slug']);
-                    $encoder = $this->encoderFactory->getEncoder($directLinkVerifier);
+                    $encoder = $this->passwordHasherFactory->getPasswordHasher($directLinkVerifier);
                     if ($directLinkVerifier->isValidSlug($slug, $encoder)) {
                         return $directLinkData['ownerId'];
                     }

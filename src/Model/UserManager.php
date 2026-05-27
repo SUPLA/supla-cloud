@@ -39,13 +39,11 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserManager {
     use Transactional;
     use SuplaServerAware;
 
-    protected $encoder_factory;
     /** @var UserRepository */
     protected $rep;
     protected $loc_man;
@@ -132,8 +130,8 @@ class UserManager {
 
     public function setPassword($password, User $user, $flush = false) {
         $user->setPlainPassword($password);
-        $encoder = $this->encoder_factory->getEncoder($user);
-        $password = $encoder->encodePassword($password, $user->getSalt());
+        $encoder = $this->passwordHasherFactory->getPasswordHasher($user);
+        $password = $encoder->hash($password, $user->getSalt());
         $user->setPassword($password);
 
         if ($flush === true) {
@@ -154,8 +152,8 @@ class UserManager {
     }
 
     public function isPasswordValid(User $user, string $password): bool {
-        $encoder = $this->encoder_factory->getEncoder($user);
-        return $encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt());
+        $encoder = $this->passwordHasherFactory->getPasswordHasher($user);
+        return $encoder->verify($user->getPassword(), $password, $user->getSalt());
     }
 
     public function passwordResetRequest(User $user): void {

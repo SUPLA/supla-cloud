@@ -39,8 +39,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -68,13 +66,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DirectLinkController extends RestController {
     use Transactional;
 
-    /** @var EncoderFactory */
-    private $encoderFactory;
     /** @var AuditEntryRepository */
     private $auditEntryRepository;
 
-    public function __construct(EncoderFactoryInterface $encoderFactory, AuditEntryRepository $auditEntryRepository) {
-        $this->encoderFactory = $encoderFactory;
+    public function __construct(AuditEntryRepository $auditEntryRepository) {
         $this->auditEntryRepository = $auditEntryRepository;
     }
 

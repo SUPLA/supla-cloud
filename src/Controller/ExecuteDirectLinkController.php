@@ -45,7 +45,6 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -55,8 +54,6 @@ class ExecuteDirectLinkController extends AbstractController {
 
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
-    /** @var EncoderFactoryInterface */
-    private $encoderFactory;
     /** @var ChannelStateGetter */
     private $channelStateGetter;
     /** @var Audit */
@@ -70,15 +67,14 @@ class ExecuteDirectLinkController extends AbstractController {
 
     public function __construct(
         ChannelActionExecutor $channelActionExecutor,
-        EncoderFactoryInterface $encoderFactory,
         ChannelStateGetter $channelStateGetter,
         Audit $audit,
         TranslatorInterface $translator,
         LoggerInterface $logger,
-        NormalizerInterface $normalizer
+        NormalizerInterface $normalizer,
+        private PasswordHasherFactoryInterface $passwordHasherFactory,
     ) {
         $this->channelActionExecutor = $channelActionExecutor;
-        $this->encoderFactory = $encoderFactory;
         $this->channelStateGetter = $channelStateGetter;
         $this->audit = $audit;
         $this->translator = $translator;
@@ -223,12 +219,7 @@ class ExecuteDirectLinkController extends AbstractController {
         }
     }
 
-    private function ensureLinkCanBeUsed(
-        Request $request,
-        PasswordHasherFactoryInterface $passwordHasherFactory,
-        DirectLink $directLink,
-        string $slug
-    ) {
+    private function ensureLinkCanBeUsed(Request $request, DirectLink $directLink, string $slug) {
         if ($directLink->getDisableHttpGet() && $request->isMethod(Request::METHOD_GET)) {
             throw new DirectLinkExecutionFailureException(
                 DirectLinkExecutionFailureReason::HTTP_GET_FORBIDDEN(),
@@ -236,7 +227,7 @@ class ExecuteDirectLinkController extends AbstractController {
                 Response::HTTP_METHOD_NOT_ALLOWED
             );
         }
-        if (!$directLink->isValidSlug($slug, $passwordHasherFactory->getPasswordHasher($directLink))) {
+        if (!$directLink->isValidSlug($slug, $this->passwordHasherFactory->getPasswordHasher($directLink))) {
             throw new DirectLinkExecutionFailureException(DirectLinkExecutionFailureReason::INVALID_SLUG(), [], Response::HTTP_FORBIDDEN);
         }
         $directLink->ensureIsActive();

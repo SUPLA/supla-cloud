@@ -28,7 +28,7 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
+use Symfony\Component\PasswordHasher\Hasher\MessageDigestPasswordHasher;
 
 class MqttSettingsController extends RestController {
     use Transactional;
@@ -118,8 +118,8 @@ class MqttSettingsController extends RestController {
 
     public static function generateMqttBrokerPassword(int $lenght = 32): array {
         $rawPassword = StringUtils::randomString($lenght);
-        $mqttEncoder = new MessageDigestPasswordEncoder('sha512', false, 1);
-        $encodedPassword = $mqttEncoder->encodePassword($rawPassword, null);
+        $mqttEncoder = new MessageDigestPasswordHasher('sha512', false, 1);
+        $encodedPassword = $mqttEncoder->hash($rawPassword);
         return [$rawPassword, $encodedPassword];
     }
 }

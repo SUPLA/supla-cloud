@@ -55,7 +55,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 /**
  * @OA\Schema(
@@ -222,7 +221,7 @@ class UserController extends RestController {
      * @Security("is_granted('ROLE_ACCOUNT_RW')")
      * @UnavailableInMaintenance
      */
-    public function patchUsersCurrentAction(Request $request, EncoderFactoryInterface $encoderFactory) {
+    public function patchUsersCurrentAction(Request $request) {
         $data = $request->request->all();
         $user = $this->getUser();
         if ($data['action'] == 'delete') {
@@ -232,7 +231,7 @@ class UserController extends RestController {
             return $this->view(null, Response::HTTP_NO_CONTENT);
         }
         $headers = [];
-        $user = $this->transactional(function (EntityManagerInterface $em) use ($encoderFactory, $user, $data, &$headers) {
+        $user = $this->transactional(function (EntityManagerInterface $em) use ($user, $data, &$headers) {
             if ($data['action'] == 'change:clientsRegistrationEnabled') {
                 $enable = $data['enable'] ?? false;
                 if ($enable) {
