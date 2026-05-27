@@ -31,7 +31,7 @@ use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -43,7 +43,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     @ORM\Index(name="iodevice_reg_enabled_idx", columns={"iodevice_reg_enabled"})
  * })
  */
-class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
+class User implements UserInterface, PasswordHasherAwareInterface, HasRelationsCount {
     use HasRelationsCountTrait;
 
     /**
@@ -434,6 +434,10 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         return $this->oauthOldApiCompatEnabled ? $this->oauthCompatUserName : $this->email;
     }
 
+    public function getUserIdentifier(): string {
+        return $this->getUsername();
+    }
+
     public function getRecaptcha() {
         return $this->recaptcha;
     }
@@ -745,11 +749,11 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         $this->legacyPassword = null;
     }
 
-    public function getEncoderName() {
+    public function getPasswordHasherName(): ?string {
         if ($this->hasLegacyPassword()) {
             return 'legacy_encoder';
         }
-        return null; // uses the default encoder
+        return null;
     }
 
     public function getOauthCompatUserName() {
