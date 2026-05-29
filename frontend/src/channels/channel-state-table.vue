@@ -109,6 +109,9 @@
       <span v-else-if="['GENERAL_PURPOSE_MEASUREMENT', 'GENERAL_PURPOSE_METER'].includes(channel.function.name)">
         {{ formatGpmValue(currentState.value, channel.config) }}
       </span>
+      <span v-else-if="channel.function.name === 'GENERAL_PURPOSE_TEXT'">
+        {{ currentState.value !== null && currentState.value !== undefined ? currentState.value : '---' }}
+      </span>
       <span v-else>
         {{ currentState.value }}
       </span>

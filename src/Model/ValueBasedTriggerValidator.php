@@ -296,6 +296,7 @@ class ValueBasedTriggerValidator {
      * @OA\Schema(schema="ReactionTriggerChange", description="Reaction trigger based any state (on every change).",
      *   @OA\Property(property="on_change", type="object",
      *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
+     *     @OA\Property(property="duration_sec", type="integer", minimum=0, maximum=3600),
      *   )
      * )
      */
@@ -304,10 +305,15 @@ class ValueBasedTriggerValidator {
         if (isset($trigger['on_change'])) {
             Assertion::isArray($trigger['on_change'], 'on_change_to must be an object');
             if ($trigger['on_change']) {
-                Assertion::count($trigger['on_change'], 1, 'Only name can be defined inside on_change trigger.');
-                Assertion::keyExists($trigger['on_change'], 'name', 'Only name can be defined inside on_change trigger.');
+                $extraKeys = array_diff_key($trigger['on_change'], array_flip(['name', 'duration_sec']));
+                Assertion::noContent(array_keys($extraKeys), 'Unknown trigger keys: ' . implode(', ', array_keys($extraKeys)));
+                Assertion::true(
+                    isset($trigger['on_change']['name']) || isset($trigger['on_change']['duration_sec']),
+                    'Only name and duration_sec can be defined inside on_change trigger.'
+                );
             }
             $this->validateFieldName($channel, $trigger['on_change']);
+            $this->validateDuration($trigger['on_change']);
         } elseif (isset($trigger['on_change_to'])) {
             Assertion::isArray($trigger['on_change_to'], 'on_change_to must be an object');
             $onChangeTo = $trigger['on_change_to'];
@@ -405,20 +411,20 @@ class ValueBasedTriggerValidator {
     }
 
     /**
-     * @OA\Schema(schema="ReactionTriggerEq", description="Reaction trigger based on numeric or binary state (equal).",
+     * @OA\Schema(schema="ReactionTriggerEq", description="Reaction trigger based on numeric, binary or text state (equal).",
      *   @OA\Property(property="on_change_to", type="object",  required={"eq"},
      *     @OA\Property(property="eq", oneOf={
      *       @OA\Schema(type="number"),
-     *       @OA\Schema(type="string", enum={"hi", "closed", "on", "lo", "low", "open", "off"}),
+     *       @OA\Schema(type="string"),
      *     }),
      *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
      *   )
      * )
-     * @OA\Schema(schema="ReactionTriggerNe", description="Reaction trigger based on numeric or binary state (not equal).",
+     * @OA\Schema(schema="ReactionTriggerNe", description="Reaction trigger based on numeric, binary or text state (not equal).",
      *   @OA\Property(property="on_change_to", type="object",  required={"ne"},
      *     @OA\Property(property="ne", oneOf={
      *       @OA\Schema(type="number"),
-     *       @OA\Schema(type="string", enum={"hi", "closed", "on", "lo", "low", "open", "off"}),
+     *       @OA\Schema(type="string"),
      *     }),
      *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
      *   )
@@ -429,7 +435,9 @@ class ValueBasedTriggerValidator {
         Assertion::count($mainCondition, 1, 'You must define only one condition for the threshold (eq, ne).');
         $operator = key($mainCondition);
         $fieldName = $onChangeTo['name'] ?? 'default';
-        if (in_array($channel->getFunction()->getId(), self::THRESHOLD_SUPPORT) && !in_array($fieldName, self::BOOLEAN_FIELD_NAMES)) {
+        if ($channel->getFunction()->getId() === ChannelFunction::GENERAL_PURPOSE_TEXT) {
+            Assertion::string($onChangeTo[$operator], 'Text comparison value must be a string.');
+        } elseif (in_array($channel->getFunction()->getId(), self::THRESHOLD_SUPPORT) && !in_array($fieldName, self::BOOLEAN_FIELD_NAMES)) {
             Assertion::numeric($onChangeTo[$operator], 'Threshold must be numeric.');
         } else {
             Assertion::inArray(

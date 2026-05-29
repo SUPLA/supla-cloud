@@ -69,6 +69,12 @@
 
       <empty-list-placeholder v-if="hasLogs === false" class="my-5"></empty-list-placeholder>
 
+      <ChannelMeasurementsHistoryText
+        v-if="isGeneralPurposeText && hasLogs !== false"
+        :channel="channel"
+        @has-logs="(v) => (hasLogs = v ? true : false)"
+      />
+
       <div v-if="!hasStorageSupport" class="alert alert-warning my-5">
         {{
           $t(
@@ -83,6 +89,7 @@
 <script>
   import {CHART_TYPES} from './channel-measurements-history-chart-strategies';
   import ChannelMeasurementsDownload from '@/channels/history/channel-measurements-download.vue';
+  import ChannelMeasurementsHistoryText from '@/channels/history/channel-measurements-history-text.vue';
   import {IndexedDbMeasurementLogsStorage} from '@/channels/history/channel-measurements-storage';
   import TransitionExpand from '@/common/gui/transition-expand.vue';
   import ChannelMeasurementsHistoryChart from '@/channels/history/channel-measurements-history-chart.vue';
@@ -99,6 +106,7 @@
       EmptyListPlaceholder,
       LoadingCover,
       ChannelMeasurementsHistoryChart,
+      ChannelMeasurementsHistoryText,
       TransitionExpand,
       ChannelMeasurementsDownload,
     },
@@ -131,6 +139,9 @@
       supportsChart() {
         return this.channel && CHART_TYPES[this.channel.function.name];
       },
+      isGeneralPurposeText() {
+        return this.channel && this.channel.function.name === 'GENERAL_PURPOSE_TEXT';
+      },
       supportedChartModes() {
         if (this.channel.functionId === ChannelFunction.ELECTRICITYMETER) {
           const modesMap = {
@@ -160,7 +171,7 @@
     async mounted() {
       if (this.supportsChart) {
         await this.initializeStorage();
-      } else {
+      } else if (!this.isGeneralPurposeText) {
         this.hasLogs = true;
       }
       if (this.supportedChartModes.length > 0) {

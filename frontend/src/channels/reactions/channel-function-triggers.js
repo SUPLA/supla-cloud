@@ -1,5 +1,6 @@
 import ChannelFunction from '@/common/enums/channel-function';
 import ReactionConditionThreshold from '@/channels/reactions/params/reaction-condition-threshold.vue';
+import ReactionConditionText from '@/channels/reactions/params/reaction-condition-text.vue';
 import ReactionConditionElectricitymeter from '@/channels/reactions/params/reaction-condition-electricitymeter.vue';
 import {isEqual, uniq} from 'lodash';
 import {measurementUnit} from '@/channels/channel-helpers';
@@ -715,6 +716,32 @@ const ChannelFunctionTriggers = {
       def: () => ({on_change: {}}),
     },
   ],
+  [ChannelFunction.GENERAL_PURPOSE_TEXT]: [
+    {
+      caption: () => 'When the text value is equal to a given value', // i18n
+      test: ({on_change_to = undefined}) => on_change_to && typeof on_change_to.eq === 'string',
+      component: ReactionConditionText,
+      props: {
+        operators: ['eq'],
+        labelI18n: () => 'When the text value will be', // i18n
+      },
+    },
+    {
+      caption: () => "When the text value doesn't change", // i18n
+      test: ({on_change = undefined}) => Number.isFinite(on_change?.duration_sec),
+      component: ReactionConditionDurationWrapper,
+      props: {
+        triggerType: 'on_change',
+        defaultDuration: 10,
+        minDuration: 1,
+      },
+      def: () => ({on_change: {duration_sec: 10}}),
+    },
+    {
+      caption: () => 'When the text value changes', // i18n
+      def: () => ({on_change: {}}),
+    },
+  ],
   [ChannelFunction.PUMPSWITCH]: [
     {caption: () => 'When the pump is turned on', def: () => ({on_change_to: {eq: 'on'}})}, // i18n
     {caption: () => 'When the pump is turned off', def: () => ({on_change_to: {eq: 'off'}})}, // i18n
@@ -955,6 +982,13 @@ export function reactionTriggerCaption(reaction) {
       const unit = triggerDef.props.unit ? i18n.global.t(triggerDef.props.unit(onChangeTo.name, reaction.owningChannel)) : '';
       const unitBefore = triggerDef.props.unitBefore ? i18n.global.t(triggerDef.props.unitBefore(onChangeTo.name, reaction.owningChannel)) : '';
       return i18n.global.t(triggerDef.props.labelI18n(onChangeTo.name)) + ` ${operatorLabel} ${unitBefore}${onChangeTo[operator]}${unit}`;
+    } else if (triggerDef.component === ReactionConditionText) {
+      const onChangeTo = reaction.trigger?.on_change_to || {};
+      const operator = Object.hasOwn(onChangeTo, 'ne') ? 'ne' : 'eq';
+      const operatorLabel = {eq: '=', ne: '≠'}[operator];
+      return i18n.global.t(triggerDef.props.labelI18n(onChangeTo.name)) + ` ${operatorLabel} ${onChangeTo[operator]}`;
+    } else if (triggerDef.component === ReactionConditionDurationWrapper && reaction.trigger?.on_change?.duration_sec) {
+      return i18n.global.t(triggerDef.caption(reaction.owningChannel));
     } else {
       return i18n.global.t(triggerDef.caption(reaction.owningChannel));
     }
