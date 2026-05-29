@@ -69,11 +69,7 @@
 
       <empty-list-placeholder v-if="hasLogs === false" class="my-5"></empty-list-placeholder>
 
-      <ChannelMeasurementsHistoryText
-        v-if="isGeneralPurposeText && hasLogs !== false"
-        :channel="channel"
-        @has-logs="(v) => (hasLogs = v ? true : false)"
-      />
+      <ChannelMeasurementsHistoryText v-if="isGeneralPurposeText && hasLogs !== false" :channel="channel" @has-logs="(v) => (hasLogs = v ? true : false)" />
 
       <div v-if="!hasStorageSupport" class="alert alert-warning my-5">
         {{
