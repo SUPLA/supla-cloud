@@ -85,6 +85,8 @@
       },
       subjectVariables() {
         switch (this.subject?.functionId) {
+          case ChannelFunction.GENERAL_PURPOSE_TEXT:
+            return [{label: this.$t('Value'), value: '{{value}}'}];
           case ChannelFunction.THERMOMETER:
             return [{label: this.$t('Temperature'), value: '{{temperature}}'}];
           case ChannelFunction.HUMIDITY:

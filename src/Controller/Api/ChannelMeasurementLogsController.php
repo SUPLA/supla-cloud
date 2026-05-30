@@ -25,6 +25,7 @@ use App\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
 use App\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
 use App\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
 use App\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
+use App\Entity\MeasurementLogs\GeneralPurposeTextLogItem;
 use App\Entity\MeasurementLogs\ImpulseCounterLogItem;
 use App\Entity\MeasurementLogs\TemperatureLogItem;
 use App\Entity\MeasurementLogs\TempHumidityLogItem;
@@ -205,6 +206,8 @@ class ChannelMeasurementLogsController extends RestController {
                 return 'supla_gp_measurement_log';
             case ChannelFunction::GENERAL_PURPOSE_METER:
                 return 'supla_gp_meter_log';
+            case ChannelFunction::GENERAL_PURPOSE_TEXT:
+                return 'supla_gp_text_log';
             default:
                 throw new ApiException('Invalid function.');
         }
@@ -225,6 +228,7 @@ class ChannelMeasurementLogsController extends RestController {
                 ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
                 ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
                 ChannelFunction::GENERAL_PURPOSE_METER,
+                ChannelFunction::GENERAL_PURPOSE_TEXT,
             ];
         }
         Assertion::inArray(
@@ -331,6 +335,17 @@ class ChannelMeasurementLogsController extends RestController {
                     $orderDesc,
                 );
             case ChannelFunction::GENERAL_PURPOSE_METER:
+                return $this->logItems(
+                    $table,
+                    'value',
+                    $channel,
+                    $offset,
+                    $limit,
+                    $afterTimestamp,
+                    $beforeTimestamp,
+                    $orderDesc,
+                );
+            case ChannelFunction::GENERAL_PURPOSE_TEXT:
                 return $this->logItems(
                     $table,
                     'value',
@@ -600,6 +615,13 @@ class ChannelMeasurementLogsController extends RestController {
                         'value' => floatval($item['value']),
                     ];
                 }, $logs);
+            case ChannelFunction::GENERAL_PURPOSE_TEXT:
+                return array_map(function (array $item) {
+                    return [
+                        'date_timestamp' => intval($item['date_timestamp']),
+                        'value' => $item['value'],
+                    ];
+                }, $logs);
             case ChannelFunction::THERMOSTAT:
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
                 return array_map(function (array $item) {
@@ -693,6 +715,7 @@ class ChannelMeasurementLogsController extends RestController {
             $this->deleteMeasurementLogs(TempHumidityLogItem::class, $channel);
             $this->deleteMeasurementLogs(GeneralPurposeMeasurementLogItem::class, $channel);
             $this->deleteMeasurementLogs(GeneralPurposeMeterLogItem::class, $channel);
+            $this->deleteMeasurementLogs(GeneralPurposeTextLogItem::class, $channel);
             $this->deleteMeasurementLogs(ElectricityMeterVoltageLogItem::class, $channel);
             $this->deleteMeasurementLogs(ElectricityMeterCurrentLogItem::class, $channel);
             $this->deleteMeasurementLogs(ElectricityMeterPowerActiveLogItem::class, $channel);
