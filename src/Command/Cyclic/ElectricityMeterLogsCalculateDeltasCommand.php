@@ -53,6 +53,10 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand {
         foreach ($channelsWithLogs as $row) {
             $channelId = $row['channel_id'];
 
+            if ($output->isVerbose()) {
+                $output->writeln("Processing channel ID: $channelId");
+            }
+
             $lastDelta = $this->measurementLogsEntityManager->createQueryBuilder()
                 ->select('d')
                 ->from(ElectricityMeterDeltaLogItem::class, 'd')
@@ -97,11 +101,21 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand {
                 $logs = $qb->getQuery()->getResult();
             }
 
+            if ($output->isVerbose()) {
+                $output->writeln("  Fetched " . count($logs) . " logs for processing");
+            }
+
             if (count($logs) < 2) {
+                if ($output->isVerbose()) {
+                    $output->writeln("  Skipping channel $channelId - insufficient logs (less than 2)");
+                }
                 continue;
             }
 
-            $this->calculateDeltasForChannel($channelId, $logs, $startDate);
+            $this->calculateDeltasForChannel($channelId, $logs, $startDate, $output);
+            if ($output->isVerbose()) {
+                $output->writeln("  Flushing changes to database");
+            }
             $this->measurementLogsEntityManager->flush();
             $this->measurementLogsEntityManager->clear();
         }
@@ -114,7 +128,7 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand {
      * @param ElectricityMeterLogItem[] $logs
      * @param \DateTime|null $startDate
      */
-    private function calculateDeltasForChannel(int $channelId, array $logs, ?\DateTime $startDate): void {
+    private function calculateDeltasForChannel(int $channelId, array $logs, ?\DateTime $startDate, OutputInterface $output): void {
         $firstLogDate = new \DateTime($logs[0]->getDate(), new \DateTimeZone('UTC'));
 
         // Target dates should be :00, :15, :30, :45
