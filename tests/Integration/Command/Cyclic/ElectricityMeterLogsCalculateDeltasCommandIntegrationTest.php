@@ -227,28 +227,26 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
 
         $deltas = $this->entityManager->getRepository(ElectricityMeterDeltaLogItem::class)->findBy(['channel_id' => 8], ['date' => 'ASC']);
 
-        // Slots:
-        // 12:15: [12:00, 12:15]
-        // val(12:00) = 1000.
-        // 12:15 is between 12:10 (1100) and 12:20 (50).
-        // ratio = (12:15 - 12:10) / (12:20 - 12:10) = 5 / 10 = 0.5
-        // val(12:15) = 1100 + 0.5 * (50 - 1100) = 1100 - 525 = 575.
-        // Delta 12:15 = 575 - 1000 = -425.
-        // Wait, if it's -425, my fix `if ($v < 0)` will change it to `val(12:15) = 575`.
-        // So Delta 12:15 = 575.
+        // Between 12:10 (1100) and 12:20 (50) there was a reset.
+        // Energy consumed in this 10 min interval = 50.
+        // Distributed energy: 5 units per minute (50 / 10).
 
-        // Next slot 12:30: [12:15, 12:30]
-        // val(12:15) = 575.
-        // val(12:30) = 150.
-        // Delta 12:30 = 150 - 575 = -425.
-        // Fixed to val(12:30) = 150.
+        // Slot 12:15: [12:00, 12:15]
+        // [12:00-12:10]: 1100 - 1000 = 100 units.
+        // [12:10-12:15]: 5 mins out of 10 min interval [12:10, 12:20].
+        // Energy in [12:10, 12:20] is 50.
+        // Proportional energy for 5 mins = 5/10 * 50 = 25.
+        // Total Delta 12:15 = 100 + 25 = 125.
 
-        // This behavior is a bit weird but it's consistent with "do your best to estimate" and "don't lose energy".
-        // Actually, if a reset happens between logs, linear interpolation IS weird.
+        // Slot 12:30: [12:15, 12:30]
+        // [12:15-12:20]: 5 mins out of 10 min interval [12:10, 12:20].
+        // Proportional energy for 5 mins = 5/10 * 50 = 25.
+        // [12:20-12:30]: 150 - 50 = 100.
+        // Total Delta 12:30 = 25 + 100 = 125.
 
         $this->assertCount(2, $deltas);
-        $this->assertEquals(575, $deltas[0]->getTotalForwardActiveEnergy());
-        $this->assertEquals(150, $deltas[1]->getTotalForwardActiveEnergy());
+        $this->assertEquals(125, $deltas[0]->getTotalForwardActiveEnergy());
+        $this->assertEquals(125, $deltas[1]->getTotalForwardActiveEnergy());
     }
 
     public function testSparseLogsOnceADay() {

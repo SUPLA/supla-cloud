@@ -148,23 +148,10 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand {
                 break;
             }
 
-            $logB = $logs[$logIndex + 1];
-            $logA = $logs[$logIndex];
-
             $prevSlotDate = clone $currentSlotDate;
             $prevSlotDate->modify("-15 minutes");
 
-            $logIndexA = $logIndex;
-            while ($logIndexA > 0 && new \DateTime($logs[$logIndexA]->getDate(), new \DateTimeZone('UTC')) > $prevSlotDate) {
-                $logIndexA--;
-            }
-            $logAForA = $logs[$logIndexA];
-            $logBForA = $logs[$logIndexA + 1];
-
-            $valA = $this->estimateValuesAt($logAForA, $logBForA, $prevSlotDate);
-            $valB = $this->estimateValuesAt($logA, $logB, $currentSlotDate);
-
-            if ($valA === null || $valB === null || $prevSlotDate->getTimestamp() < $firstLogDate->getTimestamp()) {
+            if ($prevSlotDate->getTimestamp() < $firstLogDate->getTimestamp()) {
                 $currentSlotDate->modify("+15 minutes");
                 continue;
             }
@@ -172,11 +159,7 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand {
             $delta = new ElectricityMeterDeltaLogItem($channelId, $currentSlotDate->format('Y-m-d H:i:s'));
 
             foreach (['phase1_fae', 'phase1_rae', 'phase2_fae', 'phase2_rae', 'phase3_fae', 'phase3_rae'] as $field) {
-                $v = $valB[$field] - $valA[$field];
-                if ($v < 0) {
-                    // Counter reset detected. We don't know the exact reset point or max value.
-                    $v = $valB[$field];
-                }
+                $v = $this->calculateEnergyInInterval($logs, $prevSlotDate, $currentSlotDate, $field);
                 EntityUtils::setField($delta, $field, (int)round($v));
             }
 
@@ -186,25 +169,38 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand {
         }
     }
 
-    private function estimateValuesAt(ElectricityMeterLogItem $logA, ElectricityMeterLogItem $logB, \DateTime $targetDate): ?array {
-        $dateA = new \DateTime($logA->getDate(), new \DateTimeZone('UTC'));
-        $dateB = new \DateTime($logB->getDate(), new \DateTimeZone('UTC'));
+    private function calculateEnergyInInterval(array $logs, \DateTime $start, \DateTime $end, string $field): float {
+        $totalEnergy = 0.0;
+        $tStart = $start->getTimestamp();
+        $tEnd = $end->getTimestamp();
 
-        $tA = $dateA->getTimestamp();
-        $tB = $dateB->getTimestamp();
-        $tT = $targetDate->getTimestamp();
+        for ($i = 0; $i < count($logs) - 1; $i++) {
+            $logA = $logs[$i];
+            $logB = $logs[$i + 1];
+            $tA = (new \DateTime($logA->getDate(), new \DateTimeZone('UTC')))->getTimestamp();
+            $tB = (new \DateTime($logB->getDate(), new \DateTimeZone('UTC')))->getTimestamp();
 
-        $ratio = ($tB === $tA) ? 0 : ($tT - $tA) / ($tB - $tA);
+            // Interval [tA, tB]
+            $overlapStart = max($tStart, $tA);
+            $overlapEnd = min($tEnd, $tB);
 
-        $values = [];
-        foreach (['phase1_fae', 'phase1_rae', 'phase2_fae', 'phase2_rae', 'phase3_fae', 'phase3_rae'] as $field) {
-            $valA = EntityUtils::getField($logA, $field) ?: 0;
-            $valB = EntityUtils::getField($logB, $field) ?: 0;
-            $v = $valA + $ratio * ($valB - $valA);
-            $values[$field] = $v;
+            if ($overlapStart < $overlapEnd) {
+                $valA = EntityUtils::getField($logA, $field) ?: 0;
+                $valB = EntityUtils::getField($logB, $field) ?: 0;
+                $intervalDuration = $tB - $tA;
+                $overlapDuration = $overlapEnd - $overlapStart;
+
+                if ($valB < $valA) {
+                    // Reset! Energy consumed is valB.
+                    $energyInInterval = $valB * ($overlapDuration / $intervalDuration);
+                } else {
+                    $energyInInterval = ($valB - $valA) * ($overlapDuration / $intervalDuration);
+                }
+                $totalEnergy += $energyInInterval;
+            }
         }
 
-        return $values;
+        return $totalEnergy;
     }
 
     protected function getIntervalInMinutes(): int {
