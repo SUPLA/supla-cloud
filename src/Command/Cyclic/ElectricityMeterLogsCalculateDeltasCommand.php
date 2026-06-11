@@ -191,8 +191,8 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand {
                 $overlapDuration = $overlapEnd - $overlapStart;
 
                 if ($valB < $valA) {
-                    // Reset! Energy consumed is valB.
-                    $energyInInterval = $valB * ($overlapDuration / $intervalDuration);
+                    // Reset! Treat logB as a new baseline. Energy consumed in this interval is 0.
+                    $energyInInterval = 0;
                 } else {
                     $energyInInterval = ($valB - $valA) * ($overlapDuration / $intervalDuration);
                 }

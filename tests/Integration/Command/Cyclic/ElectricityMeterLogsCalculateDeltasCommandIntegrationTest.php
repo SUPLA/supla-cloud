@@ -183,7 +183,7 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
     public function testCounterReset() {
         // Log 1: 12:00 - 1000
         // Log 2: 12:15 - 1200 (Delta 200)
-        // Log 3: 12:30 - 100 (Reset! Delta should probably be 100)
+        // Log 3: 12:30 - 100 (Reset! Should be treated as baseline)
         // Log 4: 12:45 - 250 (Delta 150)
         $this->createEmLog(7, '2026-06-11 12:00:00', 1000);
         $this->createEmLog(7, '2026-06-11 12:15:00', 1200);
@@ -200,12 +200,12 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
 
         // Slots:
         // 12:15: [12:00, 12:15] -> 1200 - 1000 = 200.
-        // 12:30: [12:15, 12:30] -> Reset occurred. 100 is the new energy.
+        // 12:30: [12:15, 12:30] -> Reset occurred at 12:30 = 0
         // 12:45: [12:30, 12:45] -> 250 - 100 = 150.
 
         $this->assertCount(3, $deltas);
         $this->assertEquals(200, $deltas[0]->getTotalForwardActiveEnergy());
-        $this->assertEquals(100, $deltas[1]->getTotalForwardActiveEnergy());
+        $this->assertEquals(0, $deltas[1]->getTotalForwardActiveEnergy());
         $this->assertEquals(150, $deltas[2]->getTotalForwardActiveEnergy());
     }
 
@@ -227,26 +227,19 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
 
         $deltas = $this->entityManager->getRepository(ElectricityMeterDeltaLogItem::class)->findBy(['channel_id' => 8], ['date' => 'ASC']);
 
-        // Between 12:10 (1100) and 12:20 (50) there was a reset.
-        // Energy consumed in this 10 min interval = 50.
-        // Distributed energy: 5 units per minute (50 / 10).
-
         // Slot 12:15: [12:00, 12:15]
-        // [12:00-12:10]: 1100 - 1000 = 100 units.
-        // [12:10-12:15]: 5 mins out of 10 min interval [12:10, 12:20].
-        // Energy in [12:10, 12:20] is 50.
-        // Proportional energy for 5 mins = 5/10 * 50 = 25.
-        // Total Delta 12:15 = 100 + 25 = 125.
+        // [12:00-12:10]: 1100 - 1000 = 100.
+        // [12:10-12:15]: Part of [12:10, 12:20] where reset happened. Should be 0.
+        // Total 12:15 = 100.
 
         // Slot 12:30: [12:15, 12:30]
-        // [12:15-12:20]: 5 mins out of 10 min interval [12:10, 12:20].
-        // Proportional energy for 5 mins = 5/10 * 50 = 25.
+        // [12:15-12:20]: Part of [12:10, 12:20] where reset happened. Should be 0.
         // [12:20-12:30]: 150 - 50 = 100.
-        // Total Delta 12:30 = 25 + 100 = 125.
+        // Total 12:30 = 100.
 
         $this->assertCount(2, $deltas);
-        $this->assertEquals(125, $deltas[0]->getTotalForwardActiveEnergy());
-        $this->assertEquals(125, $deltas[1]->getTotalForwardActiveEnergy());
+        $this->assertEquals(100, $deltas[0]->getTotalForwardActiveEnergy());
+        $this->assertEquals(100, $deltas[1]->getTotalForwardActiveEnergy());
     }
 
     public function testSparseLogsOnceADay() {
@@ -280,6 +273,95 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         // floor(10.4166) = 10.
         // 96 * 10 = 960.
         $this->assertEquals(960, $totalDelta);
+    }
+
+    public function testConsequentSameLogs() {
+        // Log 1: 12:00 - 1000 (Baseline)
+        // Log 2: 12:15 - 1000 (Delta 0)
+        // Log 3: 12:30 - 1000 (Delta 0)
+        // Log 4: 12:45 - 1100 (Delta 100)
+        $this->createEmLog(10, '2026-06-11 12:00:00', 1000);
+        $this->createEmLog(10, '2026-06-11 12:15:00', 1000);
+        $this->createEmLog(10, '2026-06-11 12:30:00', 1000);
+        $this->createEmLog(10, '2026-06-11 12:45:00', 1100);
+
+        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager);
+        EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
+        $this->application->add($command);
+        $commandTester = new CommandTester($command);
+        $commandTester->execute([]);
+
+        $deltas = $this->entityManager->getRepository(ElectricityMeterDeltaLogItem::class)->findBy(['channel_id' => 10], ['date' => 'ASC']);
+
+        $this->assertCount(3, $deltas);
+        $this->assertEquals('2026-06-11 12:15:00', $deltas[0]->getDate());
+        $this->assertEquals(0, $deltas[0]->getTotalForwardActiveEnergy());
+        $this->assertEquals('2026-06-11 12:30:00', $deltas[1]->getDate());
+        $this->assertEquals(0, $deltas[1]->getTotalForwardActiveEnergy());
+        $this->assertEquals('2026-06-11 12:45:00', $deltas[2]->getDate());
+        $this->assertEquals(100, $deltas[2]->getTotalForwardActiveEnergy());
+    }
+
+    public function testPhaseAndEnergySums() {
+        $channelId = 11;
+        // Log 1: 12:00
+        $log1 = new ElectricityMeterLogItem();
+        EntityUtils::setField($log1, 'channel_id', $channelId);
+        EntityUtils::setField($log1, 'date', '2026-06-11 12:00:00');
+        EntityUtils::setField($log1, 'phase1_fae', 1000);
+        EntityUtils::setField($log1, 'phase1_rae', 500);
+        EntityUtils::setField($log1, 'phase2_fae', 2000);
+        EntityUtils::setField($log1, 'phase2_rae', 1000);
+        EntityUtils::setField($log1, 'phase3_fae', 3000);
+        EntityUtils::setField($log1, 'phase3_rae', 1500);
+        $this->entityManager->persist($log1);
+
+        // Log 2: 12:15
+        $log2 = new ElectricityMeterLogItem();
+        EntityUtils::setField($log2, 'channel_id', $channelId);
+        EntityUtils::setField($log2, 'date', '2026-06-11 12:15:00');
+        EntityUtils::setField($log2, 'phase1_fae', 1100); // delta 100
+        EntityUtils::setField($log2, 'phase1_rae', 550);  // delta 50
+        EntityUtils::setField($log2, 'phase2_fae', 2200); // delta 200
+        EntityUtils::setField($log2, 'phase2_rae', 1100); // delta 100
+        EntityUtils::setField($log2, 'phase3_fae', 3300); // delta 300
+        EntityUtils::setField($log2, 'phase3_rae', 1650); // delta 150
+        $this->entityManager->persist($log2);
+
+        $this->entityManager->flush();
+
+        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager);
+        EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
+        $this->application->add($command);
+        $commandTester = new CommandTester($command);
+        $commandTester->execute([]);
+
+        $deltas = $this->entityManager->getRepository(ElectricityMeterDeltaLogItem::class)->findBy(['channel_id' => $channelId], ['date' => 'ASC']);
+
+        $this->assertCount(1, $deltas);
+        $delta = $deltas[0];
+
+        $this->assertEquals(100, EntityUtils::getField($delta, 'phase1_fae'));
+        $this->assertEquals(50, EntityUtils::getField($delta, 'phase1_rae'));
+        $this->assertEquals(200, EntityUtils::getField($delta, 'phase2_fae'));
+        $this->assertEquals(100, EntityUtils::getField($delta, 'phase2_rae'));
+        $this->assertEquals(300, EntityUtils::getField($delta, 'phase3_fae'));
+        $this->assertEquals(150, EntityUtils::getField($delta, 'phase3_rae'));
+
+        // Sums
+        // FAE: 100 + 200 + 300 = 600
+        // RAE: 50 + 100 + 150 = 300
+        $this->assertEquals(600, $delta->getTotalForwardActiveEnergy());
+        $this->assertEquals(300, $delta->getTotalReverseActiveEnergy());
+
+        // Individual phase sums via getter
+        $this->assertEquals(100, $delta->getTotalForwardActiveEnergy(1));
+        $this->assertEquals(200, $delta->getTotalForwardActiveEnergy(2));
+        $this->assertEquals(300, $delta->getTotalForwardActiveEnergy(3));
+
+        $this->assertEquals(50, $delta->getTotalReverseActiveEnergy(1));
+        $this->assertEquals(100, $delta->getTotalReverseActiveEnergy(2));
+        $this->assertEquals(150, $delta->getTotalReverseActiveEnergy(3));
     }
 
     private function createEmLog(int $channelId, string $date, int $fae) {
