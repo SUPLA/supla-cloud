@@ -83,9 +83,9 @@
     "sass-embedded": "^1.93.2",
     "smtp-tester": "^2.1.0",
     "start-server-and-test": "^2.1.2",
-    "vite": "^7.1.7",
+    "vite": "^8.0.16",
     "vite-plugin-vue-devtools": "^8.0.2",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.8"
   },
   "overrides": {
     "js-yaml": "^4.1.1"
