@@ -25,13 +25,17 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Lock\LockFactory;
 
 class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand {
     use Transactional;
 
     private const DEFAULT_BATCH_SIZE = 1000;
 
-    public function __construct(private readonly EntityManagerInterface $measurementLogsEntityManager) {
+    public function __construct(
+        private readonly EntityManagerInterface $measurementLogsEntityManager,
+        private readonly LockFactory $lockFactory,
+    ) {
         parent::__construct();
     }
 
@@ -44,80 +48,90 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int {
-        $channelsWithLogs = $this->measurementLogsEntityManager->createQueryBuilder()
-            ->select('DISTINCT l.channel_id')
-            ->from(ElectricityMeterLogItem::class, 'l')
-            ->getQuery()
-            ->getScalarResult();
+        $lock = $this->lockFactory->createLock('supla-electricity-meter-logs-calculate-deltas');
+        if (!$lock->acquire()) {
+            $output->writeln("The command is already running.");
+            return 0;
+        }
 
-        foreach ($channelsWithLogs as $row) {
-            $channelId = $row['channel_id'];
-
-            if ($output->isVerbose()) {
-                $output->writeln("Processing channel ID: $channelId");
-            }
-
-            $lastDelta = $this->measurementLogsEntityManager->createQueryBuilder()
-                ->select('d')
-                ->from(ElectricityMeterDeltaLogItem::class, 'd')
-                ->where('d.channel_id = :channelId')
-                ->setParameter('channelId', $channelId)
-                ->orderBy('d.date', 'DESC')
-                ->setMaxResults(1)
-                ->getQuery()
-                ->getOneOrNullResult();
-
-            $startDate = $lastDelta ? new \DateTime($lastDelta->getDate(), new \DateTimeZone('UTC')) : null;
-
-            $qb = $this->measurementLogsEntityManager->createQueryBuilder()
-                ->select('l')
+        try {
+            $channelsWithLogs = $this->measurementLogsEntityManager->createQueryBuilder()
+                ->select('DISTINCT l.channel_id')
                 ->from(ElectricityMeterLogItem::class, 'l')
-                ->where('l.channel_id = :channelId')
-                ->setParameter('channelId', $channelId)
-                ->orderBy('l.date', 'ASC')
-                ->setMaxResults((int)$input->getOption('batch-size'));
+                ->getQuery()
+                ->getScalarResult();
 
-            if ($startDate) {
-                $precedingLog = $this->measurementLogsEntityManager->createQueryBuilder()
-                    ->select('l')
-                    ->from(ElectricityMeterLogItem::class, 'l')
-                    ->where('l.channel_id = :channelId')
-                    ->andWhere('l.date <= :startDate')
+            foreach ($channelsWithLogs as $row) {
+                $channelId = $row['channel_id'];
+
+                if ($output->isVerbose()) {
+                    $output->writeln("Processing channel ID: $channelId");
+                }
+
+                $lastDelta = $this->measurementLogsEntityManager->createQueryBuilder()
+                    ->select('d')
+                    ->from(ElectricityMeterDeltaLogItem::class, 'd')
+                    ->where('d.channel_id = :channelId')
                     ->setParameter('channelId', $channelId)
-                    ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
-                    ->orderBy('l.date', 'DESC')
+                    ->orderBy('d.date', 'DESC')
                     ->setMaxResults(1)
                     ->getQuery()
                     ->getOneOrNullResult();
 
-                $qb->andWhere('l.date > :startDate')
-                    ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'));
+                $startDate = $lastDelta ? new \DateTime($lastDelta->getDate(), new \DateTimeZone('UTC')) : null;
 
-                $logs = $qb->getQuery()->getResult();
-                if ($precedingLog) {
-                    array_unshift($logs, $precedingLog);
+                $qb = $this->measurementLogsEntityManager->createQueryBuilder()
+                    ->select('l')
+                    ->from(ElectricityMeterLogItem::class, 'l')
+                    ->where('l.channel_id = :channelId')
+                    ->setParameter('channelId', $channelId)
+                    ->orderBy('l.date', 'ASC')
+                    ->setMaxResults((int)$input->getOption('batch-size'));
+
+                if ($startDate) {
+                    $precedingLog = $this->measurementLogsEntityManager->createQueryBuilder()
+                        ->select('l')
+                        ->from(ElectricityMeterLogItem::class, 'l')
+                        ->where('l.channel_id = :channelId')
+                        ->andWhere('l.date <= :startDate')
+                        ->setParameter('channelId', $channelId)
+                        ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
+                        ->orderBy('l.date', 'DESC')
+                        ->setMaxResults(1)
+                        ->getQuery()
+                        ->getOneOrNullResult();
+
+                    $qb->andWhere('l.date > :startDate')
+                        ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'));
+
+                    $logs = $qb->getQuery()->getResult();
+                    if ($precedingLog) {
+                        array_unshift($logs, $precedingLog);
+                    }
+                } else {
+                    $logs = $qb->getQuery()->getResult();
                 }
-            } else {
-                $logs = $qb->getQuery()->getResult();
-            }
 
-            if ($output->isVerbose()) {
-                $output->writeln("  Fetched " . count($logs) . " logs for processing");
-            }
-
-            if (count($logs) < 2) {
                 if ($output->isVerbose()) {
-                    $output->writeln("  Skipping channel $channelId - insufficient logs (less than 2)");
+                    $output->writeln("  Fetched " . count($logs) . " logs for processing");
                 }
-                continue;
-            }
 
-            $this->calculateDeltasForChannel($channelId, $logs, $startDate, $output);
-            if ($output->isVerbose()) {
-                $output->writeln("  Flushing changes to database");
+                if (count($logs) < 2) {
+                    if ($output->isVerbose()) {
+                        $output->writeln("  Skipping channel $channelId - insufficient logs (less than 2)");
+                    }
+                    continue;
+                }
+
+                $this->calculateDeltasForChannel($channelId, $logs, $startDate, $output);
+                if ($output->isVerbose()) {
+                    $output->writeln("  Flushing changes to database");
+                }
+                $this->measurementLogsEntityManager->flush();
+                $this->measurementLogsEntityManager->clear();
             }
-            $this->measurementLogsEntityManager->flush();
-            $this->measurementLogsEntityManager->clear();
+        } finally {
+            $lock->release();
         }
 
         return self::SUCCESS;
