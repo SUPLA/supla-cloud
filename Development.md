@@ -96,7 +96,7 @@ php -S 127.0.0.1:8008 -t web web/router.php
 2. Run the frontend development server:
 
 ```bash
-cd src/frontend
+cd frontend
 npm run serve
 ```
 
