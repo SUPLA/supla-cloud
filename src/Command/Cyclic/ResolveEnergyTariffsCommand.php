@@ -28,9 +28,9 @@ use Symfony\Component\Lock\LockFactory;
 
 class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
     private const DEFAULT_MONTHS_AHEAD = 3;
-    private const SCHEMA_ZONE_PROFILE_V1 = 'supla.energy.zone_profile.v1';
-    private const TARIFF_TYPE_FIXED = 'fixed';
     private const DAY_NAMES = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    private const DEFAULT_RULE_PRIORITY = 500;
+    private const POLISH_FIXED_HOLIDAYS = ['01-01', '01-06', '05-01', '05-03', '08-15', '11-01', '11-11', '12-25', '12-26'];
 
     public function __construct(
         private readonly EntityManagerInterface $measurementLogsEntityManager,
@@ -120,7 +120,7 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
         \DateTime $periodEnd,
         \DateTimeZone $timezone
     ): array {
-        $intervals = [];
+        $ruleIntervals = [];
         $localCursor = clone $periodStart;
         $localCursor->setTimezone($timezone);
         $localCursor->setTime(0, 0, 0);
@@ -132,13 +132,45 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
         $localLimit->modify('+1 day');
 
         while ($localCursor < $localLimit) {
-            foreach ($this->buildIntervalsForDay($tariff->getConfig()['rules'] ?? [], $localCursor, $periodStart, $periodEnd, $timezone) as $interval) {
-                $intervals[] = $interval;
+            foreach ($this->buildIntervalsForDay($tariff->getConfig(), $localCursor, $periodStart, $periodEnd, $timezone) as $interval) {
+                $ruleIntervals[] = $interval;
             }
             $localCursor->modify('+1 day');
         }
 
-        usort($intervals, fn(array $a, array $b) => $a['start'] <=> $b['start']);
+        if (!$ruleIntervals) {
+            return [];
+        }
+
+        $boundaries = [$periodStart->getTimestamp(), $periodEnd->getTimestamp()];
+        foreach ($ruleIntervals as $interval) {
+            $boundaries[] = $interval['start']->getTimestamp();
+            $boundaries[] = $interval['end']->getTimestamp();
+        }
+        sort($boundaries);
+        $boundaries = array_values(array_unique($boundaries));
+
+        $intervals = [];
+        for ($i = 0; $i < count($boundaries) - 1; $i++) {
+            $segmentStartTs = $boundaries[$i];
+            $segmentEndTs = $boundaries[$i + 1];
+            if ($segmentStartTs >= $segmentEndTs) {
+                continue;
+            }
+
+            $winner = $this->resolveWinningInterval($ruleIntervals, $segmentStartTs, $segmentEndTs);
+            if (!$winner) {
+                continue;
+            }
+
+            $intervals[] = [
+                'zone' => $winner['zone'],
+                'start' => new \DateTime('@' . $segmentStartTs),
+                'end' => new \DateTime('@' . $segmentEndTs),
+            ];
+            $intervals[array_key_last($intervals)]['start']->setTimezone(new \DateTimeZone('UTC'));
+            $intervals[array_key_last($intervals)]['end']->setTimezone(new \DateTimeZone('UTC'));
+        }
 
         $merged = [];
         foreach ($intervals as $interval) {
@@ -165,28 +197,40 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
      * @return array<int, array{zone: string, start: \DateTime, end: \DateTime}>
      */
     private function buildIntervalsForDay(
-        array $rules,
+        array $config,
         \DateTime $localDay,
         \DateTime $periodStart,
         \DateTime $periodEnd,
         \DateTimeZone $timezone
     ): array {
+        $rules = $config['rules'] ?? [];
         $dayName = self::DAY_NAMES[(int)$localDay->format('w')];
+        $seasonId = $this->resolveSeasonId($config['seasons'] ?? [], $localDay);
+        $isHoliday = $this->isPolishPublicHoliday($localDay);
         $intervals = [];
-        foreach ($rules as $rule) {
-            if (!in_array($dayName, $rule['days'] ?? [], true)) {
+        foreach (array_values($rules) as $ruleIndex => $rule) {
+            if (!$this->matchesDay($rule['days'] ?? [], $dayName, $isHoliday)) {
+                continue;
+            }
+            if (!$this->matchesSeason($rule['season'] ?? null, $seasonId)) {
                 continue;
             }
 
             foreach ($rule['time_ranges'] ?? [] as $timeRange) {
-                [$fromHour, $fromMinute] = array_map('intval', explode(':', $timeRange['from']));
-                [$toHour, $toMinute] = array_map('intval', explode(':', $timeRange['to']));
+                [$fromHour, $fromMinute, $fromNextDay] = $this->parseTime($timeRange['from']);
+                [$toHour, $toMinute, $toNextDay] = $this->parseTime($timeRange['to']);
 
                 $localStart = new \DateTime($localDay->format('Y-m-d H:i:s'), $timezone);
                 $localStart->setTime($fromHour, $fromMinute, 0);
+                if ($fromNextDay) {
+                    $localStart->modify('+1 day');
+                }
 
                 $localEnd = new \DateTime($localDay->format('Y-m-d H:i:s'), $timezone);
                 $localEnd->setTime($toHour, $toMinute, 0);
+                if ($toNextDay) {
+                    $localEnd->modify('+1 day');
+                }
                 if ($localEnd <= $localStart) {
                     $localEnd->modify('+1 day');
                 }
@@ -208,6 +252,8 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
 
                 $intervals[] = [
                     'zone' => (string)$rule['zone'],
+                    'priority' => (int)($rule['priority'] ?? self::DEFAULT_RULE_PRIORITY),
+                    'ruleOrder' => $ruleIndex,
                     'start' => $startUtc,
                     'end' => $endUtc,
                 ];
@@ -217,7 +263,90 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
         return $intervals;
     }
 
+    private function resolveWinningInterval(array $ruleIntervals, int $segmentStartTs, int $segmentEndTs): ?array {
+        $winner = null;
+        foreach ($ruleIntervals as $interval) {
+            if ($interval['start']->getTimestamp() > $segmentStartTs || $interval['end']->getTimestamp() < $segmentEndTs) {
+                continue;
+            }
+            if (!$winner
+                || $interval['priority'] < $winner['priority']
+                || ($interval['priority'] === $winner['priority'] && $interval['ruleOrder'] < $winner['ruleOrder'])
+            ) {
+                $winner = $interval;
+            }
+        }
+        return $winner;
+    }
+
+    private function matchesDay(array $ruleDays, string $dayName, bool $isHoliday): bool {
+        return in_array($dayName, $ruleDays, true) || ($isHoliday && in_array('holiday', $ruleDays, true));
+    }
+
+    private function matchesSeason(?string $seasonRule, ?string $seasonId): bool {
+        return $seasonRule === null || $seasonRule === '*' || $seasonRule === $seasonId;
+    }
+
+    private function resolveSeasonId(array $seasons, \DateTime $localDay): ?string {
+        foreach ($seasons as $season) {
+            if ($this->isWithinSeason($localDay, (string)$season['from'], (string)$season['to'])) {
+                return $season['id'] ?? null;
+            }
+        }
+
+        return null;
+    }
+
+    private function isWithinSeason(\DateTime $localDay, string $from, string $to): bool {
+        $dayMd = $localDay->format('m-d');
+        $fromMd = substr($from, 2);
+        $toMd = substr($to, 2);
+
+        if ($fromMd === $toMd) {
+            return true;
+        }
+        if ($fromMd < $toMd) {
+            return $dayMd >= $fromMd && $dayMd < $toMd;
+        }
+
+        return $dayMd >= $fromMd || $dayMd < $toMd;
+    }
+
+    private function isPolishPublicHoliday(\DateTime $localDay): bool {
+        if (in_array($localDay->format('m-d'), self::POLISH_FIXED_HOLIDAYS, true)) {
+            return true;
+        }
+
+        $easterSunday = $this->getEasterSunday((int)$localDay->format('Y'), $localDay->getTimezone());
+        $holidays = [
+            $easterSunday->format('Y-m-d'),
+            (clone $easterSunday)->modify('+1 day')->format('Y-m-d'),
+            (clone $easterSunday)->modify('+60 days')->format('Y-m-d'),
+        ];
+
+        return in_array($localDay->format('Y-m-d'), $holidays, true);
+    }
+
+    private function getEasterSunday(int $year, \DateTimeZone $timezone): \DateTime {
+        $easter = new \DateTime('@' . easter_date($year));
+        $easter->setTimezone($timezone);
+        $easter->setTime(0, 0, 0);
+        return $easter;
+    }
+
+    /**
+     * @return array{0: int, 1: int, 2: bool}
+     */
+    private function parseTime(string $time): array {
+        [$hour, $minute] = array_map('intval', explode(':', $time));
+        if ($hour === 24 && $minute === 0) {
+            return [0, 0, true];
+        }
+
+        return [$hour, $minute, false];
+    }
+
     protected function getIntervalInMinutes(): int {
-        return 1000;
+        return 24 * 60;
     }
 }

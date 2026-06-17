@@ -53,6 +53,37 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
         $this->assertResolvedZone($zones[62], 'NIGHT', '2026-01-31 22:00:00', '2026-02-01 00:00:00');
     }
 
+    public function testMaterializingG13WinterTariffZones(): void {
+        $tariff = $this->createTariffFromFixture('PL_G13_TAURON', 'Polish G13 Tauron', 'g13-zone-profile.json');
+
+        TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
+        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1');
+
+        $zones = $this->fetchResolvedZones($tariff);
+
+        $this->assertResolvedZone($zones[0], 'OFF_PEAK', '2025-12-31 23:00:00', '2026-01-02 06:00:00');
+        $this->assertResolvedZone($zones[1], 'MORNING_PEAK', '2026-01-02 06:00:00', '2026-01-02 12:00:00');
+        $this->assertResolvedZone($zones[2], 'OFF_PEAK', '2026-01-02 12:00:00', '2026-01-02 15:00:00');
+        $this->assertResolvedZone($zones[3], 'AFTERNOON_PEAK', '2026-01-02 15:00:00', '2026-01-02 20:00:00');
+        $this->assertResolvedZone($zones[4], 'OFF_PEAK', '2026-01-02 20:00:00', '2026-01-05 06:00:00');
+        $this->assertResolvedZone($zones[8], 'OFF_PEAK', '2026-01-05 20:00:00', '2026-01-07 06:00:00');
+    }
+
+    public function testMaterializingG13SummerTariffZones(): void {
+        $tariff = $this->createTariffFromFixture('PL_G13_TAURON', 'Polish G13 Tauron', 'g13-zone-profile.json');
+
+        TestTimeProvider::setTime('2026-07-01 00:00:00 UTC');
+        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1');
+
+        $zones = $this->fetchResolvedZones($tariff);
+
+        $this->assertResolvedZone($zones[0], 'OFF_PEAK', '2026-06-30 22:00:00', '2026-07-01 05:00:00');
+        $this->assertResolvedZone($zones[1], 'MORNING_PEAK', '2026-07-01 05:00:00', '2026-07-01 11:00:00');
+        $this->assertResolvedZone($zones[2], 'OFF_PEAK', '2026-07-01 11:00:00', '2026-07-01 17:00:00');
+        $this->assertResolvedZone($zones[3], 'AFTERNOON_PEAK', '2026-07-01 17:00:00', '2026-07-01 20:00:00');
+        $this->assertResolvedZone($zones[4], 'OFF_PEAK', '2026-07-01 20:00:00', '2026-07-02 05:00:00');
+    }
+
     /**
      * @return EnergyTariffResolvedZone[]
      */
