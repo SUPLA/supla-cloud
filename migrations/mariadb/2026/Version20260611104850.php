@@ -24,6 +24,7 @@ use App\Migrations\NoWayBackMigration;
  * supla_energy_tariff
  * supla_energy_tariff_assignment
  * supla_energy_tariff_resolved_zone
+ * supla_energy_tariff_holidays
  */
 class Version20260611104850 extends NoWayBackMigration {
     public function migrate(): void {
@@ -32,5 +33,6 @@ class Version20260611104850 extends NoWayBackMigration {
         $this->addSql('CREATE TABLE supla_energy_tariff_assignment (id BIGINT AUTO_INCREMENT NOT NULL, tariff_id BIGINT NOT NULL, channel_id INT NOT NULL, valid_from DATETIME NOT NULL COMMENT \'(DC2Type:utcdatetime)\', valid_to DATETIME DEFAULT NULL COMMENT \'(DC2Type:utcdatetime)\', INDEX IDX_C7C949B292348FD2 (tariff_id), INDEX idx_assignment_channel_time (channel_id, valid_from, valid_to), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE supla_energy_tariff_assignment ADD CONSTRAINT FK_C7C949B292348FD2 FOREIGN KEY (tariff_id) REFERENCES supla_energy_tariff (id) ON DELETE CASCADE');
         $this->addSql('CREATE TABLE supla_energy_tariff_resolved_zone (id BIGINT AUTO_INCREMENT NOT NULL, tariff_id BIGINT NOT NULL, zone_code VARCHAR(100) NOT NULL, period_start DATETIME NOT NULL COMMENT \'(DC2Type:utcdatetime)\', period_end DATETIME NOT NULL COMMENT \'(DC2Type:utcdatetime)\', INDEX idx_tariff_period (tariff_id, period_start, period_end), UNIQUE INDEX uq_tariff_zone_start (tariff_id, zone_code, period_start), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE supla_energy_tariff_holidays (id BIGINT AUTO_INCREMENT NOT NULL, timezone VARCHAR(100) NOT NULL, date DATE NOT NULL COMMENT \'(DC2Type:date_immutable)\', UNIQUE INDEX uq_timezone_date (timezone, date), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB');
     }
 }

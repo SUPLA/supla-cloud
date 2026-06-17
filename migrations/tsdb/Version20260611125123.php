@@ -23,6 +23,8 @@ use App\Migrations\NoWayBackMigration;
  * supla_em_delta_log
  * supla_energy_tariff
  * supla_energy_tariff_assignment
+ * supla_energy_tariff_resolved_zone
+ * supla_energy_tariff_holidays
  */
 class Version20260611125123 extends NoWayBackMigration {
     public function migrate(): void {
@@ -45,5 +47,7 @@ class Version20260611125123 extends NoWayBackMigration {
         $this->addSql('CREATE UNIQUE INDEX uq_tariff_zone_start ON supla_energy_tariff_resolved_zone (tariff_id, zone_code, period_start)');
         $this->addSql('COMMENT ON COLUMN supla_energy_tariff_resolved_zone.period_start IS \'(DC2Type:utcdatetime)\'');
         $this->addSql('COMMENT ON COLUMN supla_energy_tariff_resolved_zone.period_end IS \'(DC2Type:utcdatetime)\'');
+        $this->addSql('CREATE TABLE supla_energy_tariff_holidays (id BIGINT NOT NULL, timezone VARCHAR(100) NOT NULL, date DATE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE UNIQUE INDEX uq_timezone_date ON supla_energy_tariff_holidays (timezone, date)');
     }
 }

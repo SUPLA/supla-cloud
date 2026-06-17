@@ -18,6 +18,7 @@
 namespace App\Command\Cyclic;
 
 use App\Entity\MeasurementLogs\EnergyTariff;
+use App\Entity\MeasurementLogs\EnergyTariffHoliday;
 use App\Entity\MeasurementLogs\EnergyTariffResolvedZone;
 use App\Model\TimeProvider;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,7 +31,6 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
     private const DEFAULT_MONTHS_AHEAD = 3;
     private const DAY_NAMES = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
     private const DEFAULT_RULE_PRIORITY = 500;
-    private const POLISH_FIXED_HOLIDAYS = ['01-01', '01-06', '05-01', '05-03', '08-15', '11-01', '11-11', '12-25', '12-26'];
 
     public function __construct(
         private readonly EntityManagerInterface $measurementLogsEntityManager,
@@ -121,6 +121,7 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
         \DateTimeZone $timezone
     ): array {
         $ruleIntervals = [];
+        $holidayDates = $this->loadHolidayDates($timezone, $periodStart, $periodEnd);
         $localCursor = clone $periodStart;
         $localCursor->setTimezone($timezone);
         $localCursor->setTime(0, 0, 0);
@@ -132,7 +133,7 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
         $localLimit->modify('+1 day');
 
         while ($localCursor < $localLimit) {
-            foreach ($this->buildIntervalsForDay($tariff->getConfig(), $localCursor, $periodStart, $periodEnd, $timezone) as $interval) {
+            foreach ($this->buildIntervalsForDay($tariff->getConfig(), $localCursor, $periodStart, $periodEnd, $timezone, $holidayDates) as $interval) {
                 $ruleIntervals[] = $interval;
             }
             $localCursor->modify('+1 day');
@@ -201,12 +202,13 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
         \DateTime $localDay,
         \DateTime $periodStart,
         \DateTime $periodEnd,
-        \DateTimeZone $timezone
+        \DateTimeZone $timezone,
+        array $holidayDates
     ): array {
         $rules = $config['rules'] ?? [];
         $dayName = self::DAY_NAMES[(int)$localDay->format('w')];
         $seasonId = $this->resolveSeasonId($config['seasons'] ?? [], $localDay);
-        $isHoliday = $this->isPolishPublicHoliday($localDay);
+        $isHoliday = isset($holidayDates[$localDay->format('Y-m-d')]);
         $intervals = [];
         foreach (array_values($rules) as $ruleIndex => $rule) {
             if (!$this->matchesDay($rule['days'] ?? [], $dayName, $isHoliday)) {
@@ -297,6 +299,38 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
         return null;
     }
 
+    /**
+     * @return array<string, true>
+     */
+    private function loadHolidayDates(\DateTimeZone $timezone, \DateTime $periodStart, \DateTime $periodEnd): array {
+        $localStart = clone $periodStart;
+        $localStart->setTimezone($timezone);
+        $localStart = new \DateTimeImmutable($localStart->format('Y-m-d'));
+
+        $localEnd = clone $periodEnd;
+        $localEnd->setTimezone($timezone);
+        $localEnd = new \DateTimeImmutable($localEnd->format('Y-m-d'));
+
+        $holidays = $this->measurementLogsEntityManager->createQueryBuilder()
+            ->select('h')
+            ->from(EnergyTariffHoliday::class, 'h')
+            ->where('h.timezone = :timezone')
+            ->andWhere('h.date >= :startDate')
+            ->andWhere('h.date <= :endDate')
+            ->setParameter('timezone', $timezone->getName())
+            ->setParameter('startDate', $localStart)
+            ->setParameter('endDate', $localEnd)
+            ->getQuery()
+            ->getResult();
+
+        $holidayDates = [];
+        foreach ($holidays as $holiday) {
+            $holidayDates[$holiday->getDate()->format('Y-m-d')] = true;
+        }
+
+        return $holidayDates;
+    }
+
     private function isWithinSeason(\DateTime $localDay, string $from, string $to): bool {
         $dayMd = $localDay->format('m-d');
         $fromMd = substr($from, 2);
@@ -311,29 +345,6 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
 
         return $dayMd >= $fromMd || $dayMd < $toMd;
     }
-
-    private function isPolishPublicHoliday(\DateTime $localDay): bool {
-        if (in_array($localDay->format('m-d'), self::POLISH_FIXED_HOLIDAYS, true)) {
-            return true;
-        }
-
-        $easterSunday = $this->getEasterSunday((int)$localDay->format('Y'), $localDay->getTimezone());
-        $holidays = [
-            $easterSunday->format('Y-m-d'),
-            (clone $easterSunday)->modify('+1 day')->format('Y-m-d'),
-            (clone $easterSunday)->modify('+60 days')->format('Y-m-d'),
-        ];
-
-        return in_array($localDay->format('Y-m-d'), $holidays, true);
-    }
-
-    private function getEasterSunday(int $year, \DateTimeZone $timezone): \DateTime {
-        $easter = new \DateTime('@' . easter_date($year));
-        $easter->setTimezone($timezone);
-        $easter->setTime(0, 0, 0);
-        return $easter;
-    }
-
     /**
      * @return array{0: int, 1: int, 2: bool}
      */

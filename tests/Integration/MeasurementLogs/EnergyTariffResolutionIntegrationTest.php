@@ -18,6 +18,7 @@
 namespace App\Tests\Integration\MeasurementLogs;
 
 use App\Entity\MeasurementLogs\EnergyTariff;
+use App\Entity\MeasurementLogs\EnergyTariffHoliday;
 use App\Entity\MeasurementLogs\EnergyTariffResolvedZone;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
@@ -26,10 +27,26 @@ use PHPUnit\Framework\Attributes\Small;
 
 #[Small]
 class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
+    public function testGeneratingWarsawTariffHolidays(): void {
+        $this->createTariffFromFixture('PL_G13_TAURON', 'Polish G13 Tauron', 'g13-zone-profile.json');
+
+        TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
+        $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
+
+        $holidays = $this->fetchHolidays('Europe/Warsaw');
+
+        $this->assertContains('2026-01-01', $holidays);
+        $this->assertContains('2026-01-06', $holidays);
+        $this->assertContains('2026-04-05', $holidays);
+        $this->assertContains('2026-04-06', $holidays);
+        $this->assertContains('2026-06-04', $holidays);
+    }
+
     public function testMaterializingG11TariffZones(): void {
         $tariff = $this->createTariffFromFixture('PL_G11', 'Polish G11', 'g11-zone-profile.json');
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
+        $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
         $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1');
 
         $zones = $this->fetchResolvedZones($tariff);
@@ -42,6 +59,7 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
         $tariff = $this->createTariffFromFixture('PL_G12', 'Polish G12', 'g12-zone-profile.json');
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
+        $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
         $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1');
 
         $zones = $this->fetchResolvedZones($tariff);
@@ -57,6 +75,7 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
         $tariff = $this->createTariffFromFixture('PL_G13_TAURON', 'Polish G13 Tauron', 'g13-zone-profile.json');
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
+        $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
         $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1');
 
         $zones = $this->fetchResolvedZones($tariff);
@@ -73,6 +92,7 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
         $tariff = $this->createTariffFromFixture('PL_G13_TAURON', 'Polish G13 Tauron', 'g13-zone-profile.json');
 
         TestTimeProvider::setTime('2026-07-01 00:00:00 UTC');
+        $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
         $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1');
 
         $zones = $this->fetchResolvedZones($tariff);
@@ -98,6 +118,25 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
             ->orderBy('z.periodStart', 'ASC')
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @return string[]
+     */
+    private function fetchHolidays(string $timezone): array {
+        $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
+
+        return array_map(
+            fn(EnergyTariffHoliday $holiday) => $holiday->getDate()->format('Y-m-d'),
+            $logsEm->createQueryBuilder()
+                ->select('h')
+                ->from(EnergyTariffHoliday::class, 'h')
+                ->where('h.timezone = :timezone')
+                ->setParameter('timezone', $timezone)
+                ->orderBy('h.date', 'ASC')
+                ->getQuery()
+                ->getResult()
+        );
     }
 
     private function createTariffFromFixture(string $code, string $name, string $fixtureName): EnergyTariff {
