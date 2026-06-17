@@ -17,6 +17,7 @@
 
 namespace App\Command\Cyclic;
 
+use App\Command\Initialization\InitializationCommand;
 use App\Entity\EntityUtils;
 use App\Entity\MeasurementLogs\ElectricityMeterDeltaLogItem;
 use App\Entity\MeasurementLogs\ElectricityMeterLogItem;
@@ -27,7 +28,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Lock\LockFactory;
 
-class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand {
+class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand implements InitializationCommand {
     use Transactional;
 
     private const DEFAULT_BATCH_SIZE = 1000;

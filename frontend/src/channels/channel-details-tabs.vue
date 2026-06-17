@@ -139,6 +139,10 @@
             header: 'Tariffs', // i18n
           });
           this.availableTabs.push({
+            route: 'channel.costs',
+            header: 'Costs', // i18n
+          });
+          this.availableTabs.push({
             route: 'channel.voltageAberrations',
             header: 'Voltage aberrations', // i18n
           });

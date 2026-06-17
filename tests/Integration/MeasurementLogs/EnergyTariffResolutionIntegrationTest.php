@@ -47,7 +47,7 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
-        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1');
+        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1 --from="2026-01-01 00:00:00"');
 
         $zones = $this->fetchResolvedZones($tariff);
 
@@ -60,7 +60,7 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
-        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1');
+        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1 --from="2026-01-01 00:00:00"');
 
         $zones = $this->fetchResolvedZones($tariff);
 
@@ -76,11 +76,11 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
-        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1');
+        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1 --from="2026-01-01 00:00:00"');
 
         $zones = $this->fetchResolvedZones($tariff);
 
-        $this->assertResolvedZone($zones[0], 'OFF_PEAK', '2025-12-31 23:00:00', '2026-01-02 06:00:00');
+        $this->assertResolvedZone($zones[0], 'OFF_PEAK', '2026-01-01 00:00:00', '2026-01-02 06:00:00');
         $this->assertResolvedZone($zones[1], 'MORNING_PEAK', '2026-01-02 06:00:00', '2026-01-02 12:00:00');
         $this->assertResolvedZone($zones[2], 'OFF_PEAK', '2026-01-02 12:00:00', '2026-01-02 15:00:00');
         $this->assertResolvedZone($zones[3], 'AFTERNOON_PEAK', '2026-01-02 15:00:00', '2026-01-02 20:00:00');
@@ -93,11 +93,11 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
 
         TestTimeProvider::setTime('2026-07-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
-        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1');
+        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1 --from="2026-07-01 00:00:00"');
 
         $zones = $this->fetchResolvedZones($tariff);
 
-        $this->assertResolvedZone($zones[0], 'OFF_PEAK', '2026-06-30 22:00:00', '2026-07-01 05:00:00');
+        $this->assertResolvedZone($zones[0], 'OFF_PEAK', '2026-07-01 00:00:00', '2026-07-01 05:00:00');
         $this->assertResolvedZone($zones[1], 'MORNING_PEAK', '2026-07-01 05:00:00', '2026-07-01 11:00:00');
         $this->assertResolvedZone($zones[2], 'OFF_PEAK', '2026-07-01 11:00:00', '2026-07-01 17:00:00');
         $this->assertResolvedZone($zones[3], 'AFTERNOON_PEAK', '2026-07-01 17:00:00', '2026-07-01 20:00:00');

@@ -17,7 +17,14 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Main\IODevice;
+use App\Entity\Main\IODeviceChannel;
 use App\Entity\MeasurementLogs\EnergyTariff;
+use App\Entity\MeasurementLogs\EnergyTariffAssignment;
+use App\Entity\MeasurementLogs\EnergyTariffPriceList;
+use App\Entity\MeasurementLogs\EnergyTariffPriceListAssignment;
+use App\Entity\MeasurementLogs\EnergyTariffPriceListItem;
+use App\Enums\ChannelType;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use Doctrine\Persistence\ObjectManager;
 
@@ -29,14 +36,59 @@ class TariffsFixture extends SuplaFixture {
 
     public function load(ObjectManager $manager): void {
         $logsEm = $this->measurementLogsEntityManagerProvider->get();
+        $tariffs = [];
         foreach ($this->getTariffDefinitions() as $definition) {
             $tariff = new EnergyTariff();
             $tariff->setCode($definition['code']);
             $tariff->setName($definition['name']);
             $tariff->setConfig($definition['config']);
             $logsEm->persist($tariff);
+            $tariffs[$definition['code']] = $tariff;
         }
         $logsEm->flush();
+        $this->createSampleAssignment($logsEm, $tariffs['PL_G11']);
+        $logsEm->flush();
+    }
+
+    private function createSampleAssignment($logsEm, EnergyTariff $tariff): void {
+        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
+        $channel = $device->getChannels()->filter(fn(IODeviceChannel $channel
+        ) => $channel->getType()->getId() === ChannelType::ELECTRICITYMETER)->first();
+        if (!$channel) {
+            return;
+        }
+
+        $tariffAssignment = new EnergyTariffAssignment();
+        $tariffAssignment->setChannelId($channel->getId());
+        $tariffAssignment->setTariff($tariff);
+        $tariffAssignment->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
+        $logsEm->persist($tariffAssignment);
+
+        $priceList = new EnergyTariffPriceList();
+        $priceList->setTariff($tariff);
+        $priceList->setUserId($channel->getUser()->getId());
+        $priceList->setName('Sample G11 price list');
+        $priceList->setBillingPeriodStartDay(1);
+        $priceList->addItem($this->createPriceListItem('ENERGY_ACTIVE_IMPORT', 'ALL_DAY', 0.95, 'kWh'));
+        $priceList->addItem($this->createPriceListItem('DISTRIBUTION_VARIABLE', 'ALL_DAY', 0.11, 'kWh'));
+        $priceList->addItem($this->createPriceListItem('DISTRIBUTION_FIXED', null, 12.12, 'month'));
+        $logsEm->persist($priceList);
+
+        $priceListAssignment = new EnergyTariffPriceListAssignment();
+        $priceListAssignment->setChannelId($channel->getId());
+        $priceListAssignment->setPriceList($priceList);
+        $priceListAssignment->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
+        $logsEm->persist($priceListAssignment);
+    }
+
+    private function createPriceListItem(string $componentCode, ?string $zoneCode, float $amount, string $unit): EnergyTariffPriceListItem {
+        $item = new EnergyTariffPriceListItem();
+        $item->setComponentCode($componentCode);
+        $item->setZoneCode($zoneCode);
+        $item->setAmount($amount);
+        $item->setUnit($unit);
+        $item->setCurrency('PLN');
+        return $item;
     }
 
     private function getTariffDefinitions(): array {

@@ -165,6 +165,11 @@ export default [
         component: () => import('@/channels/tariffs/channel-tariffs-tab.vue'),
         name: 'channel.tariffs',
       },
+      {
+        path: 'costs',
+        component: () => import('@/channels/tariffs/channel-costs-tab.vue'),
+        name: 'channel.costs',
+      },
     ],
   },
   {

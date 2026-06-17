@@ -50,4 +50,22 @@ export const energyTariffsApi = {
   async deletePriceListAssignment(channelId, assignmentId) {
     return await api.delete_(`channels/${channelId}/energy-price-list-assignments/${assignmentId}`);
   },
+  async getEnergyCostLogs(channelId, params = {}) {
+    const query = new URLSearchParams(
+      Object.entries(params)
+        .filter(([, value]) => value !== undefined && value !== null && value !== '')
+        .map(([key, value]) => [key, String(value)])
+    ).toString();
+    const {body} = await api.get(`channels/${channelId}/energy-cost-logs${query ? `?${query}` : ''}`);
+    return body;
+  },
+  async getEnergyCostSummaries(channelId, params = {}) {
+    const query = new URLSearchParams(
+      Object.entries(params)
+        .filter(([, value]) => value !== undefined && value !== null && value !== '')
+        .map(([key, value]) => [key, String(value)])
+    ).toString();
+    const {body} = await api.get(`channels/${channelId}/energy-cost-summaries${query ? `?${query}` : ''}`);
+    return body;
+  },
 };

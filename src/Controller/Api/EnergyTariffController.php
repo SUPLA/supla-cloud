@@ -284,7 +284,7 @@ class EnergyTariffController extends RestController {
         $this->ensureElectricityMeterChannel($channel);
         $afterTimestamp = (int)$request->query->get('afterTimestamp');
         $beforeTimestamp = (int)$request->query->get('beforeTimestamp');
-        $rows = $this->fetchElectricityCostRows($channel->getId(), $afterTimestamp, $beforeTimestamp, false, self::RECORD_LIMIT_PER_REQUEST, 0);
+        $rows = $this->fetchAllElectricityCostRows($channel->getId(), $afterTimestamp, $beforeTimestamp);
 
         return $this->view(array_values($this->buildEnergyCostSummaries($channel->getId(), $rows, $afterTimestamp, $beforeTimestamp)));
     }
@@ -376,6 +376,25 @@ class EnergyTariffController extends RestController {
         $stmt->bindValue('offset', max($offset, 0), 'integer');
 
         return $stmt->executeQuery()->fetchAllAssociative();
+    }
+
+    private function fetchAllElectricityCostRows(int $channelId, int $afterTimestamp, int $beforeTimestamp): array {
+        $offset = 0;
+        $rows = [];
+        do {
+            $batch = $this->fetchElectricityCostRows(
+                $channelId,
+                $afterTimestamp,
+                $beforeTimestamp,
+                false,
+                self::RECORD_LIMIT_PER_REQUEST,
+                $offset
+            );
+            $rows = array_merge($rows, $batch);
+            $offset += self::RECORD_LIMIT_PER_REQUEST;
+        } while (count($batch) === self::RECORD_LIMIT_PER_REQUEST);
+
+        return $rows;
     }
 
     private function hydrateCostLogs(array $rows): array {
@@ -657,9 +676,9 @@ class EnergyTariffController extends RestController {
         $periodEndUtc->setTimezone(new \DateTimeZone('UTC'));
 
         return [
-            'key' => $periodStartUtc->format('Y-m-d H:i:s') . '|' . $timezone->getName(),
-            'periodStart' => $periodStartUtc->format('Y-m-d H:i:s'),
-            'periodEnd' => $periodEndUtc->format('Y-m-d H:i:s'),
+            'key' => $periodStartUtc->format(\DateTime::ATOM) . '|' . $timezone->getName(),
+            'periodStart' => $periodStartUtc->format(\DateTime::ATOM),
+            'periodEnd' => $periodEndUtc->format(\DateTime::ATOM),
             'timezone' => $timezone->getName(),
         ];
     }
@@ -775,8 +794,8 @@ class EnergyTariffController extends RestController {
             'channelId' => $assignment->getChannelId(),
             'tariffId' => $assignment->getTariff()?->getId(),
             'tariff' => $assignment->getTariff() ? $this->serializeTariff($assignment->getTariff()) : null,
-            'validFrom' => $assignment->getValidFrom()->format('Y-m-d H:i:s'),
-            'validTo' => $assignment->getValidTo()?->format('Y-m-d H:i:s'),
+            'validFrom' => $assignment->getValidFrom()->format(\DateTime::ATOM),
+            'validTo' => $assignment->getValidTo()?->format(\DateTime::ATOM),
         ];
     }
 
@@ -786,8 +805,8 @@ class EnergyTariffController extends RestController {
             'channelId' => $assignment->getChannelId(),
             'priceListId' => $assignment->getPriceList()?->getId(),
             'priceList' => $assignment->getPriceList() ? $this->serializePriceList($assignment->getPriceList()) : null,
-            'validFrom' => $assignment->getValidFrom()->format('Y-m-d H:i:s'),
-            'validTo' => $assignment->getValidTo()?->format('Y-m-d H:i:s'),
+            'validFrom' => $assignment->getValidFrom()->format(\DateTime::ATOM),
+            'validTo' => $assignment->getValidTo()?->format(\DateTime::ATOM),
         ];
     }
 }

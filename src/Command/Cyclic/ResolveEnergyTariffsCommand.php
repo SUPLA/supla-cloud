@@ -17,6 +17,7 @@
 
 namespace App\Command\Cyclic;
 
+use App\Command\Initialization\InitializationCommand;
 use App\Entity\MeasurementLogs\EnergyTariff;
 use App\Entity\MeasurementLogs\EnergyTariffHoliday;
 use App\Entity\MeasurementLogs\EnergyTariffResolvedZone;
@@ -27,8 +28,9 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Lock\LockFactory;
 
-class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
+class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements InitializationCommand {
     private const DEFAULT_MONTHS_AHEAD = 3;
+    private const DEFAULT_MONTHS_BACK = 1;
     private const DAY_NAMES = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
     private const DEFAULT_RULE_PRIORITY = 500;
 
@@ -77,6 +79,9 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
 
         $timezone = new \DateTimeZone($config['timezone'] ?? 'UTC');
         $periodStart = $this->resolvePeriodStart($fromOption, $timezone);
+        if (!$fromOption && ($assignmentStart = $this->findEarliestTariffAssignmentStart($tariff))) {
+            $periodStart = $assignmentStart < $periodStart ? $assignmentStart : $periodStart;
+        }
         $periodEnd = (clone $periodStart)->add(new \DateInterval('P' . $monthsAhead . 'M'));
 
         if ($output->isVerbose()) {
@@ -107,8 +112,18 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand {
         $localStart = clone $nowUtc;
         $localStart->setTimezone($timezone);
         $localStart->setTime(0, 0, 0);
+        $localStart->sub(new \DateInterval('P' . self::DEFAULT_MONTHS_BACK . 'M'));
         $localStart->setTimezone(new \DateTimeZone('UTC'));
         return $localStart;
+    }
+
+    private function findEarliestTariffAssignmentStart(EnergyTariff $tariff): ?\DateTime {
+        $assignment = $this->measurementLogsEntityManager->getRepository(EnergyTariffAssignment::class)->findOneBy(
+            ['tariff' => $tariff],
+            ['validFrom' => 'ASC']
+        );
+
+        return $assignment?->getValidFrom();
     }
 
     /**

@@ -119,8 +119,8 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
 
         $this->assertCount(1, $content);
         $summary = $content[0];
-        $this->assertEquals('2026-01-10 00:00:00', $summary['periodStart']);
-        $this->assertEquals('2026-02-10 00:00:00', $summary['periodEnd']);
+        $this->assertEquals('2026-01-10T00:00:00+00:00', $summary['periodStart']);
+        $this->assertEquals('2026-02-10T00:00:00+00:00', $summary['periodEnd']);
         $this->assertEquals(0.3, $summary['usage']['totalKwh']);
         $this->assertEquals(12.55, $summary['costs']['total']);
         $this->assertEquals(0.5, $summary['costs']['byComponent']['ENERGY_ACTIVE_IMPORT']);

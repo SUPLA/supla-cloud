@@ -189,7 +189,7 @@ class LogItemsFixture extends SuplaFixture {
             return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER;
         })->first();
         $channelId = $ecChannel->getId();
-        $from = strtotime(self::SINCE);
+        $from = strtotime('-5 months');
         $to = time();
         $state = $initialState = [
             'phase1_fae' => 1,
@@ -212,7 +212,7 @@ class LogItemsFixture extends SuplaFixture {
             EntityUtils::setField($logItem, 'channel_id', $channelId);
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
             foreach ($state as $stateName => $value) {
-                $state[$stateName] += $this->faker->biasedNumberBetween(0, 10);
+                $state[$stateName] += $this->faker->biasedNumberBetween(0, 100);
                 EntityUtils::setField($logItem, $stateName, $state[$stateName]);
             }
             if ($this->faker->boolean(95)) {

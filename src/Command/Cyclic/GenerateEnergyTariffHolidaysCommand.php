@@ -17,6 +17,7 @@
 
 namespace App\Command\Cyclic;
 
+use App\Command\Initialization\InitializationCommand;
 use App\Entity\MeasurementLogs\EnergyTariff;
 use App\Entity\MeasurementLogs\EnergyTariffHoliday;
 use App\Model\TimeProvider;
@@ -26,7 +27,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Lock\LockFactory;
 
-class GenerateEnergyTariffHolidaysCommand extends AbstractCyclicCommand {
+class GenerateEnergyTariffHolidaysCommand extends AbstractCyclicCommand implements InitializationCommand {
     private const DEFAULT_YEARS_AHEAD = 2;
     private const POLISH_FIXED_HOLIDAYS = ['01-01', '01-06', '05-01', '05-03', '08-15', '11-01', '11-11', '12-25', '12-26'];
 
