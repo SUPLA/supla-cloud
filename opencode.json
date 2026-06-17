@@ -1,0 +1,33 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "share": "manual",
+  "autoupdate": "notify",
+  "snapshot": true,
+  "formatter": {
+    "prettier": {
+      "command": [
+        "npx",
+        "--prefix",
+        "frontend",
+        "prettier",
+        "--write",
+        "$FILE"
+      ]
+    },
+    "phpcbf": {
+      "command": [
+        "vendor/bin/phpcbf",
+        "--standard=config/phpcs-rules.xml",
+        "$FILE"
+      ],
+      "extensions": [
+        ".php"
+      ]
+    }
+  },
+  "lsp": true,
+  "compaction": {
+    "auto": true,
+    "tail_turns": 6
+  }
+}
