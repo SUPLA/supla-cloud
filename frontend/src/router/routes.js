@@ -160,6 +160,11 @@ export default [
         component: () => import('@/channels/channel-voltage-history.vue'),
         name: 'channel.voltageAberrations',
       },
+      {
+        path: 'tariffs',
+        component: () => import('@/channels/tariffs/channel-tariffs-tab.vue'),
+        name: 'channel.tariffs',
+      },
     ],
   },
   {

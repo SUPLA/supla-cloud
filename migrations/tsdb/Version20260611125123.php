@@ -48,7 +48,7 @@ class Version20260611125123 extends NoWayBackMigration {
         $this->addSql('CREATE TABLE supla_energy_tariff_holidays (id BIGINT NOT NULL, timezone VARCHAR(100) NOT NULL, date DATE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX uq_timezone_date ON supla_energy_tariff_holidays (timezone, date)');
         $this->addSql('COMMENT ON COLUMN supla_energy_tariff_holidays.date IS \'(DC2Type:date_immutable)\'');
-        $this->addSql('CREATE TABLE supla_energy_tariff_price_list (id BIGINT NOT NULL, tariff_id BIGINT NOT NULL, name VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE supla_energy_tariff_price_list (id BIGINT NOT NULL, tariff_id BIGINT NOT NULL, user_id INT NOT NULL, name VARCHAR(255) NOT NULL, billing_period_start_day INT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_CE9607AA92348FD2 ON supla_energy_tariff_price_list (tariff_id)');
         $this->addSql('COMMENT ON COLUMN supla_energy_tariff_price_list.created_at IS \'(DC2Type:utcdatetime)\'');
         $this->addSql('COMMENT ON COLUMN supla_energy_tariff_price_list.updated_at IS \'(DC2Type:utcdatetime)\'');

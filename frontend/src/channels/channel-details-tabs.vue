@@ -135,6 +135,10 @@
         }
         if (this.channel.function.id === ChannelFunction.ELECTRICITYMETER) {
           this.availableTabs.push({
+            route: 'channel.tariffs',
+            header: 'Tariffs', // i18n
+          });
+          this.availableTabs.push({
             route: 'channel.voltageAberrations',
             header: 'Voltage aberrations', // i18n
           });
