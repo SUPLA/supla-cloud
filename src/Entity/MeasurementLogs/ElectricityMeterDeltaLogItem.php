@@ -37,32 +37,32 @@ class ElectricityMeterDeltaLogItem {
     private string $date;
 
     /**
-     * @ORM\Column(name="phase1_fae", type="bigint", nullable=true)
+     * @ORM\Column(name="phase1_fae", nullable=true)
      */
     private $phase1_fae;
 
     /**
-     * @ORM\Column(name="phase1_rae", type="bigint", nullable=true)
+     * @ORM\Column(name="phase1_rae", nullable=true)
      */
     private $phase1_rae;
 
     /**
-     * @ORM\Column(name="phase2_fae", type="bigint", nullable=true)
+     * @ORM\Column(name="phase2_fae", nullable=true)
      */
     private $phase2_fae;
 
     /**
-     * @ORM\Column(name="phase2_rae", type="bigint", nullable=true)
+     * @ORM\Column(name="phase2_rae",nullable=true)
      */
     private $phase2_rae;
 
     /**
-     * @ORM\Column(name="phase3_fae", type="bigint", nullable=true)
+     * @ORM\Column(name="phase3_fae", nullable=true)
      */
     private $phase3_fae;
 
     /**
-     * @ORM\Column(name="phase3_rae", type="bigint", nullable=true)
+     * @ORM\Column(name="phase3_rae", nullable=true)
      */
     private $phase3_rae;
 

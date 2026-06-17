@@ -1,0 +1,134 @@
+<?php
+/*
+ Copyright (C) AC SOFTWARE SP. Z O.O.
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+namespace App\Entity\MeasurementLogs;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="supla_energy_tariff")
+ * @ORM\HasLifecycleCallbacks
+ */
+class EnergyTariff {
+    /**
+     * @ORM\Id
+     * @ORM\Column(name="id", type="bigint")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /** @ORM\Column(name="code", type="string", length=100) */
+    private string $code = '';
+
+    /** @ORM\Column(name="name", type="string", length=255) */
+    private string $name = '';
+
+    /** @ORM\Column(name="config_json", type="json") */
+    private array $config = [];
+
+    /** @ORM\Column(name="created_at", type="utcdatetime") */
+    private \DateTime $createdAt;
+
+    /** @ORM\Column(name="updated_at", type="utcdatetime") */
+    private \DateTime $updatedAt;
+
+    /**
+     * @var Collection<int, EnergyTariffAssignment>
+     * @ORM\OneToMany(targetEntity="EnergyTariffAssignment", mappedBy="tariff", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private Collection $assignments;
+
+    public function __construct() {
+        $this->assignments = new ArrayCollection();
+        $this->updateTimestamps();
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getCode(): string {
+        return $this->code;
+    }
+
+    public function setCode(string $code): void {
+        $this->code = $code;
+    }
+
+    public function getName(): string {
+        return $this->name;
+    }
+
+    public function setName(string $name): void {
+        $this->name = $name;
+    }
+
+    public function getConfig(): array {
+        return $this->config;
+    }
+
+    public function setConfig(array $config): void {
+        $this->config = $config;
+    }
+
+    public function getCreatedAt(): \DateTime {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): \DateTime {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @return Collection<int, EnergyTariffAssignment>
+     */
+    public function getAssignments(): Collection {
+        return $this->assignments;
+    }
+
+    public function addAssignment(EnergyTariffAssignment $assignment): void {
+        if (!$this->assignments->contains($assignment)) {
+            $this->assignments->add($assignment);
+            $assignment->setTariff($this);
+        }
+    }
+
+    public function removeAssignment(EnergyTariffAssignment $assignment): void {
+        if ($this->assignments->removeElement($assignment) && $assignment->getTariff() === $this) {
+            $assignment->setTariff(null);
+        }
+    }
+
+    /** @ORM\PrePersist */
+    public function onPrePersist(): void {
+        $this->updateTimestamps();
+    }
+
+    /** @ORM\PreUpdate */
+    public function onPreUpdate(): void {
+        $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
+    }
+
+    private function updateTimestamps(): void {
+        $now = new \DateTime('now', new \DateTimeZone('UTC'));
+        $this->createdAt = $this->createdAt ?? $now;
+        $this->updatedAt = $now;
+    }
+}
