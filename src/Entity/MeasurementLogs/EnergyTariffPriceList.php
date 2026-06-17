@@ -42,6 +42,9 @@ class EnergyTariffPriceList {
     /** @ORM\Column(name="name", type="string", length=255) */
     private string $name = '';
 
+    /** @ORM\Column(name="billing_period_start_day", type="integer") */
+    private int $billingPeriodStartDay = 1;
+
     /** @ORM\Column(name="created_at", type="utcdatetime") */
     private \DateTime $createdAt;
 
@@ -92,6 +95,14 @@ class EnergyTariffPriceList {
 
     public function setName(string $name): void {
         $this->name = $name;
+    }
+
+    public function getBillingPeriodStartDay(): int {
+        return $this->billingPeriodStartDay;
+    }
+
+    public function setBillingPeriodStartDay(int $billingPeriodStartDay): void {
+        $this->billingPeriodStartDay = $billingPeriodStartDay;
     }
 
     public function getCreatedAt(): \DateTime {
