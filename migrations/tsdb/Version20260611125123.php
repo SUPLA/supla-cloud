@@ -40,5 +40,10 @@ class Version20260611125123 extends NoWayBackMigration {
         $this->addSql('COMMENT ON COLUMN supla_energy_tariff_assignment.valid_from IS \'(DC2Type:utcdatetime)\'');
         $this->addSql('COMMENT ON COLUMN supla_energy_tariff_assignment.valid_to IS \'(DC2Type:utcdatetime)\'');
         $this->addSql('ALTER TABLE supla_energy_tariff_assignment ADD CONSTRAINT FK_C7C949B292348FD2 FOREIGN KEY (tariff_id) REFERENCES supla_energy_tariff (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('CREATE TABLE supla_energy_tariff_resolved_zone (id BIGINT NOT NULL, tariff_id BIGINT NOT NULL, zone_code VARCHAR(100) NOT NULL, period_start TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, period_end TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX idx_tariff_period ON supla_energy_tariff_resolved_zone (tariff_id, period_start, period_end)');
+        $this->addSql('CREATE UNIQUE INDEX uq_tariff_zone_start ON supla_energy_tariff_resolved_zone (tariff_id, zone_code, period_start)');
+        $this->addSql('COMMENT ON COLUMN supla_energy_tariff_resolved_zone.period_start IS \'(DC2Type:utcdatetime)\'');
+        $this->addSql('COMMENT ON COLUMN supla_energy_tariff_resolved_zone.period_end IS \'(DC2Type:utcdatetime)\'');
     }
 }
