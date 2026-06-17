@@ -30,6 +30,9 @@ class EnergyTariffPriceList {
     /** @ORM\Id @ORM\Column(name="id", type="bigint") @ORM\GeneratedValue(strategy="AUTO") */
     private $id;
 
+    /** @ORM\Column(name="user_id", type="integer") */
+    private int $userId;
+
     /**
      * @ORM\ManyToOne(targetEntity="EnergyTariff", inversedBy="priceLists")
      * @ORM\JoinColumn(name="tariff_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
@@ -69,6 +72,14 @@ class EnergyTariffPriceList {
 
     public function getTariff(): ?EnergyTariff {
         return $this->tariff;
+    }
+
+    public function getUserId(): int {
+        return $this->userId;
+    }
+
+    public function setUserId(int $userId): void {
+        $this->userId = $userId;
     }
 
     public function setTariff(?EnergyTariff $tariff): void {

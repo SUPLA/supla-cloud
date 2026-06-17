@@ -4,10 +4,9 @@ imports:
 parameters:
   container.autowiring.strict_mode: true
 
-  env(GOOGLE_RECAPTCHA_SECRET): ''
-  env(GOOGLE_RECAPTCHA_SITE_KEY): ''
+  env(GOOGLE_RECAPTCHA_SECRET): ""
+  env(GOOGLE_RECAPTCHA_SITE_KEY): ""
   env(CORS_ALLOW_ORIGIN): '^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
-
 
 services:
   _defaults:
@@ -15,11 +14,11 @@ services:
     autoconfigure: true
     public: false
     bind:
-      $suplaUrl: '%supla.url%'
-      $recaptchaSecret: '%env(GOOGLE_RECAPTCHA_SECRET)%'
-      $recaptchaSiteKey: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
-      $appEnv: '%kernel.environment%'
-      Doctrine\ORM\EntityManagerInterface $measurementLogsEntityManager: '@supla.logs_entity_manager'
+      $suplaUrl: "%supla.url%"
+      $recaptchaSecret: "%env(GOOGLE_RECAPTCHA_SECRET)%"
+      $recaptchaSiteKey: "%env(GOOGLE_RECAPTCHA_SITE_KEY)%"
+      $appEnv: "%kernel.environment%"
+      Doctrine\ORM\EntityManagerInterface $measurementLogsEntityManager: "@supla.logs_entity_manager"
 
   _instanceof:
     App\ParamConverter\AbstractBodyParamConverter:
@@ -43,68 +42,71 @@ services:
       tags: [supla.schedule_planner]
 
   App\:
-    resource: '../src/'
+    resource: "../src/"
     exclude:
       - '../src/DependencyInjection/'
       - '../src/Entity/'
       - '../src/Kernel.php'
 
-
-  Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
-  Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
-  Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
-  Symfony\Component\Serializer\NameConverter\NameConverterInterface: '@serializer.name_converter.metadata_aware'
+  Doctrine\ORM\EntityManager: "@doctrine.orm.default_entity_manager"
+  Doctrine\ORM\EntityManagerInterface: "@doctrine.orm.default_entity_manager"
+  Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: "@serializer.mapping.class_metadata_factory"
+  Symfony\Component\Serializer\NameConverter\NameConverterInterface: "@serializer.name_converter.metadata_aware"
 
   App\Command\Cyclic\DispatchCyclicTasksCommand:
     - !tagged supla.cyclic_command
   App\Command\Cyclic\DeleteNotConfirmedUsersCommand:
-    $deleteOlderThanHours: '%supla.maintenance.delete_non_confirmed_users_older_than_hours%'
+    $deleteOlderThanHours: "%supla.maintenance.delete_non_confirmed_users_older_than_hours%"
   App\Command\Cyclic\DeleteOldMeasurementLogsCommand:
-    $logsRetentionConfig: '%supla.measurement_logs_retention%'
+    $logsRetentionConfig: "%supla.measurement_logs_retention%"
   App\Command\Cyclic\ClearObsoleteAuditEntriesCommand:
-    $deleteOlderThanDays: '%supla.maintenance.delete_audit_entries_older_than_days%'
-    $deleteOlderThanDaysCustom: '%supla.maintenance.delete_audit_entries_older_than_days_custom%'
+    $deleteOlderThanDays: "%supla.maintenance.delete_audit_entries_older_than_days%"
+    $deleteOlderThanDaysCustom: "%supla.maintenance.delete_audit_entries_older_than_days_custom%"
   App\Command\Initialization\InitializeCommand:
     - !tagged supla.initialization_command
   App\Command\User\ApiInfoCommand:
-    $enabled: '%supla.api_rate_limit.enabled%'
-    $blocking: '%supla.api_rate_limit.blocking%'
+    $enabled: "%supla.api_rate_limit.enabled%"
+    $blocking: "%supla.api_rate_limit.blocking%"
 
   App\Controller\DefaultController:
-    $openApiCache: '@openapi_docs_cache'
+    $openApiCache: "@openapi_docs_cache"
 
   App\Controller\Api\ServerController:
-    $suplaServerHost: '%supla.host%'
-    $suplaVersion: '%supla.version%'
-    $suplaVersionFull: '%supla.version_full%'
-    $actAsBrokerCloud: '%supla.act_as_broker_cloud%'
+    $suplaServerHost: "%supla.host%"
+    $suplaVersion: "%supla.version%"
+    $suplaVersionFull: "%supla.version_full%"
+    $actAsBrokerCloud: "%supla.act_as_broker_cloud%"
 
   App\Controller\Api\StateWebhookController:
-    $stateWebhooksForPublicAppsOnly: '%supla.state_webhooks.only_for_public_apps%'
+    $stateWebhooksForPublicAppsOnly: "%supla.state_webhooks.only_for_public_apps%"
+
+  App\Controller\Api\EnergyTariffController:
+    public: true
+    tags: ["controller.service_arguments"]
 
   App\Controller\Api\UserController:
-    $clientsRegistrationEnableTime: '%supla.clients_registration.registration_active_time.manual%'
-    $ioDevicesRegistrationEnableTime: '%supla.io_devices_registration.registration_active_time.manual%'
-    $requireRegulationsAcceptance: '%supla.require_regulations_acceptance%'
-    $availableLanguages: '%supla.available_languages%'
-    $accountsRegistrationEnabled: '%supla.accounts_registration_enabled%'
-    $mqttBrokerEnabled: '%supla.mqtt_broker.enabled%'
-    $mqttAuthEnabled: '%supla.mqtt_broker.integrated_auth%'
+    $clientsRegistrationEnableTime: "%supla.clients_registration.registration_active_time.manual%"
+    $ioDevicesRegistrationEnableTime: "%supla.io_devices_registration.registration_active_time.manual%"
+    $requireRegulationsAcceptance: "%supla.require_regulations_acceptance%"
+    $availableLanguages: "%supla.available_languages%"
+    $accountsRegistrationEnabled: "%supla.accounts_registration_enabled%"
+    $mqttBrokerEnabled: "%supla.mqtt_broker.enabled%"
+    $mqttAuthEnabled: "%supla.mqtt_broker.integrated_auth%"
 
   App\Controller\ExecuteDirectLinkController:
-    $logger: '@monolog.logger.supla_direct_links'
+    $logger: "@monolog.logger.supla_direct_links"
 
   App\Controller\OAuth\BrokerAuthorizeController:
     tags: ["controller.service_arguments"]
     arguments:
-      $authorizeForm: '@fos_oauth_server.authorize.form'
-      $authorizeFormHandler: '@fos_oauth_server.authorize.form.handler.default'
+      $authorizeForm: "@fos_oauth_server.authorize.form"
+      $authorizeFormHandler: "@fos_oauth_server.authorize.form.handler.default"
 
   App\Controller\OAuth\BrokerTokenController:
     tags: ["controller.service_arguments"]
 
   App\Entity\Main\Listeners\:
-    resource: '../src/Entity/Main/Listeners'
+    resource: "../src/Entity/Main/Listeners"
     tags:
       - {name: doctrine.orm.entity_listener}
 
@@ -114,19 +116,18 @@ services:
     $adminEmail: "%env(SUPLA_ADMIN_EMAIL)%"
 
   App\Model\MeasurementLogsEntityManagerProvider:
-    $databaseForLogs: '%supla.database_for_logs%'
+    $databaseForLogs: "%supla.database_for_logs%"
 
   supla.logs_entity_manager:
     class: Doctrine\ORM\EntityManagerInterface
-    factory: ['@App\Model\MeasurementLogsEntityManagerProvider', 'get']
+    factory: ['@App\Model\MeasurementLogsEntityManagerProvider', "get"]
 
   App\Model\LocalSuplaCloud:
-    $address: '%supla.url%'
+    $address: "%supla.url%"
 
   App\Model\UserManager:
-    $defaultClientsRegistrationTime: '%supla.clients_registration.registration_active_time.initial%'
-    $defaultIoDevicesRegistrationTime: '%supla.io_devices_registration.registration_active_time.initial%'
-
+    $defaultClientsRegistrationTime: "%supla.clients_registration.registration_active_time.initial%"
+    $defaultIoDevicesRegistrationTime: "%supla.io_devices_registration.registration_active_time.initial%"
 
   App\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner:
     tags: [{name: supla.schedule_planner, priority: -10}]
@@ -149,17 +150,16 @@ services:
     $configurators: !tagged supla.virtual_channel_configurator
 
   App\Model\Audit\FailedAuthAttemptsUserBlocker:
-    $enabled: '%supla.brute_force_auth_prevention.enabled%'
-    $maxFailedAttempts: '%supla.brute_force_auth_prevention.max_failed_attempts%'
-    $blockTimeInSeconds: '%supla.brute_force_auth_prevention.block_time_seconds%'
-
+    $enabled: "%supla.brute_force_auth_prevention.enabled%"
+    $maxFailedAttempts: "%supla.brute_force_auth_prevention.max_failed_attempts%"
+    $blockTimeInSeconds: "%supla.brute_force_auth_prevention.block_time_seconds%"
 
   App\Supla\SuplaServerMock:
     tags:
       - {name: monolog.logger, channel: supla_server}
   App\Supla\SuplaServerReal:
     arguments:
-      $socketPath: '%supla.server_socket%'
+      $socketPath: "%supla.server_socket%"
     tags:
       - {name: monolog.logger, channel: supla_server}
 
@@ -170,7 +170,7 @@ services:
   App\Supla\SuplaAutodiscoverReal:
     arguments:
       $autodiscoverUrl: "%supla.autodiscover_url%"
-      $actAsBrokerCloud: '%supla.act_as_broker_cloud%'
+      $actAsBrokerCloud: "%supla.act_as_broker_cloud%"
     tags:
       - {name: monolog.logger, channel: supla_autodiscover}
 
@@ -182,7 +182,7 @@ services:
       - {name: monolog.logger, channel: supla_http_client}
 
   App\Supla\SuplaOcrClient:
-    $ocrUrl: '%supla.ocr.url%'
+    $ocrUrl: "%supla.ocr.url%"
 
   App\Auth\UserProvider: ~
   App\Auth\SuplaAccessTokenManager: ~
@@ -194,8 +194,16 @@ services:
   FOS\OAuthServerBundle\Model\AccessTokenManagerInterface: '@App\Auth\SuplaAccessTokenManager'
   App\Auth\UserLoginAttemptListener:
     tags:
-      - {name: kernel.event_listener, event: security.authentication.failure, method: onInteractiveAuthenticationFailure}
-      - {name: kernel.event_listener, event: security.interactive_login, method: onInteractiveAuthenticationSuccess}
+      - {
+        name: kernel.event_listener,
+        event: security.authentication.failure,
+        method: onInteractiveAuthenticationFailure,
+      }
+      - {
+        name: kernel.event_listener,
+        event: security.interactive_login,
+        method: onInteractiveAuthenticationSuccess,
+      }
       - {name: monolog.logger, channel: supla_debug}
 
   App\Auth\SuplaOAuthStorage:
@@ -211,29 +219,41 @@ services:
 
   App\EventListener\ApiRateLimit\ApiRateLimitListener:
     arguments:
-      $enabled: '%supla.api_rate_limit.enabled%'
-      $blocking: '%supla.api_rate_limit.blocking%'
-      $logger: '@monolog.logger.supla_api_rate_limit'
+      $enabled: "%supla.api_rate_limit.enabled%"
+      $blocking: "%supla.api_rate_limit.blocking%"
+      $logger: "@monolog.logger.supla_api_rate_limit"
     tags:
-      - {name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
-      - {name: kernel.event_listener, event: kernel.response, method: onKernelResponse}
+      - {
+        name: kernel.event_listener,
+        event: kernel.request,
+        method: onKernelRequest,
+      }
+      - {
+        name: kernel.event_listener,
+        event: kernel.response,
+        method: onKernelResponse,
+      }
   App\EventListener\ApiRateLimit\ApiRateLimitStorage:
-    $cache: '@api_rate_limit'
+    $cache: "@api_rate_limit"
   App\EventListener\ApiRateLimit\ApiRateLimitRules:
-    $globalRule: '%supla.api_rate_limit.global_limit%'
-    $defaultUserRule: '%supla.api_rate_limit.user_default_limit%'
+    $globalRule: "%supla.api_rate_limit.global_limit%"
+    $defaultUserRule: "%supla.api_rate_limit.user_default_limit%"
 
   App\EventListener\UnavailableInMaintenanceRequestListener:
     arguments:
       $maintenanceMode: "%supla.maintenance_mode%"
     tags:
-      - {name: kernel.event_listener, event: kernel.controller, method: onKernelController}
+      - {
+        name: kernel.event_listener,
+        event: kernel.controller,
+        method: onKernelController,
+      }
 
   App\EventListener\ResponseContentLengthListener:
-    tags: ['kernel.event_listener']
+    tags: ["kernel.event_listener"]
 
   App\EventListener\FlushSuplaServerCommandsOnResponseListener:
-    tags: ['kernel.event_listener']
+    tags: ["kernel.event_listener"]
 
   App\EventListener\DbConnectionTimezoneUtcSetter:
     tags:
@@ -242,12 +262,16 @@ services:
   Doctrine\Migrations\Version\DbalMigrationFactory: ~
   App\Migrations\Factory\MigrationFactoryDecorator:
     decorates: Doctrine\Migrations\Version\DbalMigrationFactory
-    arguments: ['@App\Migrations\Factory\MigrationFactoryDecorator.inner', '@service_container']
+    arguments:
+      [
+        '@App\Migrations\Factory\MigrationFactoryDecorator.inner',
+        "@service_container",
+      ]
     tags:
       - {name: monolog.logger, channel: supla_migrations}
 
   App\Serialization\UserSerializer:
-    $apiRateLimitEnabled: '%supla.api_rate_limit.enabled%'
+    $apiRateLimitEnabled: "%supla.api_rate_limit.enabled%"
 
   App\Mailer\SuplaMailer:
     arguments:
@@ -257,9 +281,9 @@ services:
 
   App\Auth\SuplaOAuth2:
     arguments:
-      - '@fos_oauth_server.storage'
-      - '%fos_oauth_server.server.options%'
-      - '%supla.oauth.tokens_lifetime%'
+      - "@fos_oauth_server.storage"
+      - "%fos_oauth_server.server.options%"
+      - "%supla.oauth.tokens_lifetime%"
 
   fos_oauth_server.server: '@App\Auth\SuplaOAuth2'
   OAuth2\OAuth2: '@App\Auth\SuplaOAuth2'
@@ -350,7 +374,14 @@ when@dev:
   services:
     App\Supla\SuplaServerMockCommandsCollector:
       public: false
-      tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
+      tags:
+        [
+          {
+            name: data_collector,
+            template: "@Supla/Supla/supla-server-mock-data-collector.html.twig",
+            id: "supla.supla_server_mock_data_collector",
+          },
+        ]
 
 when@prod:
   services:
