@@ -23,25 +23,21 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_energy_tariff")
+ * @ORM\Table(name="supla_energy_tariff_price_list")
  * @ORM\HasLifecycleCallbacks
  */
-class EnergyTariff {
-    /**
-     * @ORM\Id
-     * @ORM\Column(name="id", type="bigint")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+class EnergyTariffPriceList {
+    /** @ORM\Id @ORM\Column(name="id", type="bigint") @ORM\GeneratedValue(strategy="AUTO") */
     private $id;
 
-    /** @ORM\Column(name="code", type="string", length=100) */
-    private string $code = '';
+    /**
+     * @ORM\ManyToOne(targetEntity="EnergyTariff", inversedBy="priceLists")
+     * @ORM\JoinColumn(name="tariff_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     */
+    private ?EnergyTariff $tariff = null;
 
     /** @ORM\Column(name="name", type="string", length=255) */
     private string $name = '';
-
-    /** @ORM\Column(name="config_json", type="json") */
-    private array $config = [];
 
     /** @ORM\Column(name="created_at", type="utcdatetime") */
     private \DateTime $createdAt;
@@ -50,20 +46,20 @@ class EnergyTariff {
     private \DateTime $updatedAt;
 
     /**
-     * @var Collection<int, EnergyTariffAssignment>
-     * @ORM\OneToMany(targetEntity="EnergyTariffAssignment", mappedBy="tariff", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @var Collection<int, EnergyTariffPriceListItem>
+     * @ORM\OneToMany(targetEntity="EnergyTariffPriceListItem", mappedBy="priceList", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private Collection $items;
+
+    /**
+     * @var Collection<int, EnergyTariffPriceListAssignment>
+     * @ORM\OneToMany(targetEntity="EnergyTariffPriceListAssignment", mappedBy="priceList", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private Collection $assignments;
 
-    /**
-     * @var Collection<int, EnergyTariffPriceList>
-     * @ORM\OneToMany(targetEntity="EnergyTariffPriceList", mappedBy="tariff", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    private Collection $priceLists;
-
     public function __construct() {
+        $this->items = new ArrayCollection();
         $this->assignments = new ArrayCollection();
-        $this->priceLists = new ArrayCollection();
         $this->updateTimestamps();
     }
 
@@ -71,12 +67,12 @@ class EnergyTariff {
         return $this->id;
     }
 
-    public function getCode(): string {
-        return $this->code;
+    public function getTariff(): ?EnergyTariff {
+        return $this->tariff;
     }
 
-    public function setCode(string $code): void {
-        $this->code = $code;
+    public function setTariff(?EnergyTariff $tariff): void {
+        $this->tariff = $tariff;
     }
 
     public function getName(): string {
@@ -85,14 +81,6 @@ class EnergyTariff {
 
     public function setName(string $name): void {
         $this->name = $name;
-    }
-
-    public function getConfig(): array {
-        return $this->config;
-    }
-
-    public function setConfig(array $config): void {
-        $this->config = $config;
     }
 
     public function getCreatedAt(): \DateTime {
@@ -104,42 +92,42 @@ class EnergyTariff {
     }
 
     /**
-     * @return Collection<int, EnergyTariffAssignment>
+     * @return Collection<int, EnergyTariffPriceListItem>
+     */
+    public function getItems(): Collection {
+        return $this->items;
+    }
+
+    public function addItem(EnergyTariffPriceListItem $item): void {
+        if (!$this->items->contains($item)) {
+            $this->items->add($item);
+            $item->setPriceList($this);
+        }
+    }
+
+    public function removeItem(EnergyTariffPriceListItem $item): void {
+        if ($this->items->removeElement($item) && $item->getPriceList() === $this) {
+            $item->setPriceList(null);
+        }
+    }
+
+    /**
+     * @return Collection<int, EnergyTariffPriceListAssignment>
      */
     public function getAssignments(): Collection {
         return $this->assignments;
     }
 
-    public function addAssignment(EnergyTariffAssignment $assignment): void {
+    public function addAssignment(EnergyTariffPriceListAssignment $assignment): void {
         if (!$this->assignments->contains($assignment)) {
             $this->assignments->add($assignment);
-            $assignment->setTariff($this);
+            $assignment->setPriceList($this);
         }
     }
 
-    public function removeAssignment(EnergyTariffAssignment $assignment): void {
-        if ($this->assignments->removeElement($assignment) && $assignment->getTariff() === $this) {
-            $assignment->setTariff(null);
-        }
-    }
-
-    /**
-     * @return Collection<int, EnergyTariffPriceList>
-     */
-    public function getPriceLists(): Collection {
-        return $this->priceLists;
-    }
-
-    public function addPriceList(EnergyTariffPriceList $priceList): void {
-        if (!$this->priceLists->contains($priceList)) {
-            $this->priceLists->add($priceList);
-            $priceList->setTariff($this);
-        }
-    }
-
-    public function removePriceList(EnergyTariffPriceList $priceList): void {
-        if ($this->priceLists->removeElement($priceList) && $priceList->getTariff() === $this) {
-            $priceList->setTariff(null);
+    public function removeAssignment(EnergyTariffPriceListAssignment $assignment): void {
+        if ($this->assignments->removeElement($assignment) && $assignment->getPriceList() === $this) {
+            $assignment->setPriceList(null);
         }
     }
 
