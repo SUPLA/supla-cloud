@@ -25,11 +25,13 @@ use App\Enums\ScheduleActionExecutionResult;
 use App\Model\Audit\Audit;
 use App\Model\Schedule\ScheduleManager;
 use App\Model\TimeProvider;
+use App\Message\Common\ScheduleDisabledDueToFailuresNotification;
 use App\Repository\ScheduleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class DisableBrokenSchedulesCommand extends Command implements CyclicCommand {
     /** @var EntityManagerInterface */
@@ -40,18 +42,22 @@ class DisableBrokenSchedulesCommand extends Command implements CyclicCommand {
     private $scheduleRepository;
     /** @var Audit */
     private $audit;
+    /** @var MessageBusInterface */
+    private $messageBus;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ScheduleManager $scheduleManager,
         ScheduleRepository $scheduleRepository,
-        Audit $audit
+        Audit $audit,
+        MessageBusInterface $messageBus
     ) {
         parent::__construct();
         $this->entityManager = $entityManager;
         $this->scheduleManager = $scheduleManager;
         $this->scheduleRepository = $scheduleRepository;
         $this->audit = $audit;
+        $this->messageBus = $messageBus;
     }
 
     protected function configure() {
@@ -89,11 +95,12 @@ QUERY;
         while ($scheduleToDisable = $result->fetchAssociative()) {
             /** @var Schedule $schedule */
             $schedule = $this->scheduleRepository->find($scheduleToDisable['id']);
-            $this->scheduleManager->disable($schedule);
+            $this->scheduleManager->disableDueToFailedExecutions($schedule);
             $this->audit->newEntry(AuditedEvent::SCHEDULE_BROKEN_DISABLED())
                 ->setIntParam($schedule->getId())
                 ->setUser($schedule->getUser())
                 ->buildAndFlush();
+            $this->messageBus->dispatch(new ScheduleDisabledDueToFailuresNotification($schedule));
             ++$disabledCount;
         }
         $output->writeln(sprintf('Disabled <info>%d</info> schedules due to failed executions.', $disabledCount));

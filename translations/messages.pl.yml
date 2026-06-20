@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...możesz monitorować temperaturę
 10 minutes before sunset, on day 10 of the month, May through August: 10 minut przed zachodem słońca, tylko 10. dnia miesiąca, od maja do sierpnia
 15 minutes after sunrise, every 2 days: 15 minut po wschodzie słońca, co drugi dzień
+A confirmation that your schedule has been disabled automatically.: Potwierdzenie automatycznego wyłączenia harmonogramu.
 A confirmation upon successful client app registration.: Potwierdzenie rejestracji nowej aplikacji klienckiej.
 A confirmation upon successful device registration.: Potwierdzenie pomyślnej rejestracji urządzenia.
 A confirmation upon successful device unlocking.: Potwierdzenie odblokowania urządzenia.
@@ -183,6 +184,7 @@ Button volume: Głośność przycisku
 Buttons upside down: Odwrócone sterowanie przyciskami
 By signing in, you are authorizing {clientName} to control your devices.: Logując się, upoważniasz aplikację {clientName} do kontrolowania Twoich urządzeń.
 C++: C++
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Sprawdź historię harmonogramu i włącz go ponownie po usunięciu problemu.
 CLICK TO DISABLE: KLIKNIJ ABY WYŁĄCZYĆ
 CLICK TO ENABLE: KLIKNIJ ABY WŁĄCZYĆ
 Calibrate: Kalibruj
@@ -337,6 +339,7 @@ Custom execution limit: Niestandardowy limit wykonań
 DHT11 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT11
 DHT21 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT21
 DHT22 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT22
+Disabled due to failed executions: Wyłączono z powodu nieudanych wykonań
 DS18B20 Thermometer: Termometr DS18B20
 Dark mode: Tryb ciemny
 Data: Dane
@@ -959,6 +962,10 @@ Roller shutters: Rolety
 Roof window opening sensor: Czujnik otwarcia okna dachowego
 Roof window shutter operation: Otwieranie okna dachowego
 S/N: S/N
+Schedule disabled: Harmonogram wyłączony
+Schedule disabled due to failed executions: Wyłączenie harmonogramu z powodu nieudanych wykonań
+Schedule ID: %scheduleId%: ID harmonogramu: %scheduleId%
+Schedule name: %scheduleCaption%: Nazwa harmonogramu: %scheduleCaption%
 SUPLA - Account Activation: SUPLA - Aktywacja konta
 SUPLA - Account Removal: SUPLA - Usunięcie konta
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Odblokowanie urządzenia przeznaczonego dla certyfikowanego instalatora
@@ -973,6 +980,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Powiadomienie o nieudanym logowaniu do %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA – zarejestrowano nową aplikację kliencką
 SUPLA – new device has been added to your account: SUPLA - nowe urządzenie zostało dodane do Twojego konta
+SUPLA – schedule disabled due to failed executions: SUPLA – harmonogram wyłączony z powodu nieudanych wykonań
 SUPLA – your device has been unlocked!: SUPLA - Twoje urządzenie zostało odblokowane!
 SUPLA.ORG Team: Zespół SUPLA.ORG
 Same as on master thermostat.: Ustawienie takie samo jak w termostacie nadrzędnym.
@@ -1504,6 +1512,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Twoja prywatna chmura SUPLA jest prawie zarejestrowana.
 Your private SUPLA Cloud is not registered.: Twoja prywatna chmura SUPLA nie jest zarejestrowana.
 Your scenes are allowed to have a maximum of {max} operations.: Twoje sceny mogą mieć maksymalnie {max} operacji.
+Your schedule has been disabled automatically due to repeated failed executions.: Twój harmonogram został automatycznie wyłączony z powodu wielokrotnych nieudanych wykonań.
 Your schedules are allowed to have a maximum of {max} actions.: Twoje harmonogramy mogą mieć maksymalnie {max} akcji.
 Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: Twoja sesja za chwilę wygaśnie

@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...galite stebėti temperatūrą
 10 minutes before sunset, on day 10 of the month, May through August: 10 minučių iki saulėlydžio, tik mėnesio 10 dieną, nuo gegužės iki rugpjūčio
 15 minutes after sunrise, every 2 days: 15 minučių po saulėtekio, kas antrą dieną
+A confirmation that your schedule has been disabled automatically.: Patvirtinimas, kad tvarkaraštis buvo automatiškai išjungtas.
 A confirmation upon successful client app registration.: Naujos kliento programos registracijos patvirtinimas.
 A confirmation upon successful device registration.: Sėkmingos įrenginio registracijos patvirtinimas.
 A confirmation upon successful device unlocking.: Įrenginio atrakinimo patvirtinimas.
@@ -158,6 +159,7 @@ Brightness level: Ryškumo lygis
 Button volume: Mygtuko garsumas
 Buttons upside down: Atvirkštinis valdymas mygtukais
 By signing in, you are authorizing {clientName} to control your devices.: Prisijungdami įgaliojate {clientName} valdyti Jūsų įrenginius.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Norėdami sužinoti daugiau, patikrinkite tvarkaraščio istoriją ir įjunkite jį iš naujo išsprendę problemą.
 CLICK TO DISABLE: SPUSTELĖKITE, KAD IŠJUNGTI
 CLICK TO ENABLE: SPUSTELĖKITE, KAD ĮJUNGTI
 Calibrate: Kalibruoti
@@ -288,6 +290,7 @@ Custom execution limit: Nestandartinis atlikimų limitas
 DHT11 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis DHT11
 DHT21 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis DHT21
 DHT22 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis DHT22
+Disabled due to failed executions: Išjungta dėl nepavykusių vykdymų
 DS18B20 Thermometer: Termometras DS18B20
 Dark mode: Tamsus režimas
 Data: Duomenys
@@ -820,6 +823,10 @@ Roller shutters: Žaliuzės
 Roof window opening sensor: Stoglangio atidarymo jutiklis
 Roof window shutter operation: Stoglangio atidarymas
 S/N: S/N
+Schedule disabled: Tvarkaraštis išjungtas
+Schedule disabled due to failed executions: Tvarkaraščio išjungimas dėl nepavykusių vykdymų
+Schedule ID: %scheduleId%: Tvarkaraščio identifikatorius: %scheduleId%
+Schedule name: %scheduleCaption%: Tvarkaraščio pavadinimas: %scheduleCaption%
 SUPLA - Account Activation: SUPLA – Paskyros aktyvavimas
 SUPLA - Account Removal: SUPLA – Paskyros šalinimas
 SUPLA - Confirm unlocking device for authorized installers: SUPLA – Įrenginio, skirto sertifikuotam montuotojui, atrakinimas
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Pranešimas apie nesėkmingą prisijungimą prie %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA – užregistruota nauja kliento programa
 SUPLA – new device has been added to your account: SUPLA – naujas įrenginys pridėtas prie Jūsų paskyros
+SUPLA – schedule disabled due to failed executions: SUPLA – tvarkaraštis išjungtas dėl nepavykusių vykdymų
 SUPLA – your device has been unlocked!: SUPLA – Jūsų įrenginys atrakintas!
 SUPLA.ORG Team: SUPLA.ORG komanda
 Same as on master thermostat.: Nustatymas toks pat kaip ir pagrindiniame termostate.
@@ -1278,6 +1286,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Jūsų privatus debesis SUPLA yra beveik užregistruotas.
 Your private SUPLA Cloud is not registered.: Jūsu privātais mākonis SUPLA nav reģistrēts.
 Your scenes are allowed to have a maximum of {max} operations.: Jūsų scenose gali būti daugiausiai {max} operacijų.
+Your schedule has been disabled automatically due to repeated failed executions.: Jūsų tvarkaraštis buvo automatiškai išjungtas dėl pakartotinių nepavykusių vykdymų.
 Your schedules are allowed to have a maximum of {max} actions.: Jūsų tvarkaraščiuose gali būti daugiausiai {max} veiksmų.
 Your session has been expired.: Jūsų sesija baigėsi.
 Your session is about to expire: Jūsų sesija baigsis.

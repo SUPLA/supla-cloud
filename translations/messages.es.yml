@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...puedes controlar la temperatura
 10 minutes before sunset, on day 10 of the month, May through August: 10 minutos antes del atardecer, solo el día 10 del mes, de mayo a agosto
 15 minutes after sunrise, every 2 days: 15 minutos después del amanecer, cada dos días
+A confirmation that your schedule has been disabled automatically.: Confirmación de la desactivación automática del horario.
 A confirmation upon successful client app registration.: Confirmación de registro de una nueva aplicación cliente.
 A confirmation upon successful device registration.: Confirmación de registro exitoso del dispositivo.
 A confirmation upon successful device unlocking.: Confirmación del desbloqueo del dispositivo.
@@ -158,6 +159,7 @@ Brightness level: Nivel de la luminosidad
 Button volume: Volumen del botón
 Buttons upside down: Control del botón de marcha atrás
 By signing in, you are authorizing {clientName} to control your devices.: Al iniciar sesión, autorizas a la aplicación {clientName} a controlar tus dispositivos.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Consulte el historial del horario para más detalles y vuelva a activarlo después de solucionar el problema.
 CLICK TO DISABLE: HAZ CLIC PARA DESACTIVAR
 CLICK TO ENABLE: HAZ CLIC PARA ACTIVAR
 Calibrate: Calibrar
@@ -288,6 +290,7 @@ Custom execution limit: Límite de acciones personalizado
 DHT11 Temperature & Humidity Sensor: Sensor de temperatura y humedad DHT11
 DHT21 Temperature & Humidity Sensor: Sensor de temperatura y humedad DHT21
 DHT22 Temperature & Humidity Sensor: Sensor de temperatura y humedad DHT22
+Disabled due to failed executions: Desactivado por ejecuciones fallidas
 DS18B20 Thermometer: Termómetro DS18B20
 Dark mode: Modo oscuro
 Data: Datos
@@ -820,6 +823,10 @@ Roller shutters: Persianas
 Roof window opening sensor: Sensor de apertura del techo solar
 Roof window shutter operation: Apertura del techo corredizo
 S/N: S/N
+Schedule disabled: Horario desactivado
+Schedule disabled due to failed executions: Horario desactivado por ejecuciones fallidas
+Schedule ID: %scheduleId%: ID del horario: %scheduleId%
+Schedule name: %scheduleCaption%: Nombre del horario: %scheduleCaption%
 SUPLA - Account Activation: SUPLA – Activación de la cuenta
 SUPLA - Account Removal: SUPLA - Eliminación de la cuenta
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Desbloqueo del dispositivo destinado a un instalador certificado
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: 'SUPLA: Aviso del error de acceso a la cuenta de %cloudHost%'
 SUPLA – new client app has been added to your account: SUPLA - registrada una nueva aplicación cliente
 SUPLA – new device has been added to your account: 'SUPLA: se ha agregado un nuevo dispositivo a tu cuenta'
+SUPLA – schedule disabled due to failed executions: SUPLA – horario desactivado por ejecuciones fallidas
 SUPLA – your device has been unlocked!: SUPLA - ¡Tu dispositivo ha sido desbloqueado!
 SUPLA.ORG Team: Grupo SUPLA.ORG
 Same as on master thermostat.: El ajuste es el mismo que en el termostato principal.
@@ -1278,6 +1286,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Tu nube privada SUPLA está casi registrada.
 Your private SUPLA Cloud is not registered.: Tu nube privada SUPLA no está registrada.
 Your scenes are allowed to have a maximum of {max} operations.: Tus escenas pueden tener un máximo de {max} operaciones.
+Your schedule has been disabled automatically due to repeated failed executions.: Su horario se ha desactivado automáticamente debido a ejecuciones fallidas repetidas.
 Your schedules are allowed to have a maximum of {max} actions.: Tus programaciones pueden tener un máximo de {max} acciones.
 Your session has been expired.: Tu sesión ha expirado.
 Your session is about to expire: Tu sesión está a punto de caducar

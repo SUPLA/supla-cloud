@@ -234,6 +234,12 @@ class ScheduleManager {
         $this->entityManager->flush();
     }
 
+    public function disableDueToFailedExecutions(Schedule $schedule) {
+        $historyEntry = ScheduledExecution::createDisabledDueToFailedExecutionsRecord($schedule, $this->getNow());
+        $this->entityManager->persist($historyEntry);
+        $this->disable($schedule);
+    }
+
     public function deleteScheduledExecutions(Schedule $schedule) {
         $this->entityManager->createQueryBuilder()
             ->delete(ScheduledExecution::class, 's')

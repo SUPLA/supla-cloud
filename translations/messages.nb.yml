@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...kontrollere temperaturen
 10 minutes before sunset, on day 10 of the month, May through August: 10 minutter før solnedgang, kun på den 10. dagen i måneden, fra mai til august
 15 minutes after sunrise, every 2 days: 15 minutter etter soloppgang, annenhver dag
+A confirmation that your schedule has been disabled automatically.: Bekreftelse på at planen ble automatisk deaktivert.
 A confirmation upon successful client app registration.: Bekreftelse på registrering av ny klientapplikasjon.
 A confirmation upon successful device registration.: Bekreftelse på vellykket enhetsregistrering.
 A confirmation upon successful device unlocking.: Bekreftelse på opplåsing av enheten.
@@ -158,6 +159,7 @@ Brightness level: Lysstyrkenivå
 Button volume: Volum på knappene
 Buttons upside down: Invertert knappestyring
 By signing in, you are authorizing {clientName} to control your devices.: Ved å logge på tillater du {clientName}-applikasjonen til å kontrollere innretningene dine.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Sjekk planhistorikken for detaljer og aktiver planen på nytt etter at problemet er løst.
 CLICK TO DISABLE: TRYKK FOR Å SKRU AV
 CLICK TO ENABLE: TRYKK FOR Å SKRU PÅ
 Calibrate: Kalibrer
@@ -288,6 +290,7 @@ Custom execution limit: Tilpasset grense på utførelser
 DHT11 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor DHT11
 DHT21 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor DHT21
 DHT22 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor DHT22
+Disabled due to failed executions: Deaktivert på grunn av mislykkede kjøringer
 DS18B20 Thermometer: Termometer DS18B20
 Dark mode: Mørk modus
 Data: Data
@@ -820,6 +823,10 @@ Roller shutters: Rullegardiner
 Roof window opening sensor: Sensor for åpning av takvindu
 Roof window shutter operation: Åpning av takvindu
 S/N: S/N
+Schedule disabled: Plan deaktivert
+Schedule disabled due to failed executions: Plan deaktivert på grunn av mislykkede kjøringer
+Schedule ID: %scheduleId%: Plan-ID: %scheduleId%
+Schedule name: %scheduleCaption%: Plannavn: %scheduleCaption%
 SUPLA - Account Activation: SUPLA – Aktivering av konto
 SUPLA - Account Removal: SUPLA – Fjerning av konto
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Låser opp en enhet som er beregnet til en sertifisert installatør
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – beskjed om mislykket innlogging til %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - en ny klientapplikasjon er registrert
 SUPLA – new device has been added to your account: SUPLA - en ny enhet er lagt til kontoen din
+SUPLA – schedule disabled due to failed executions: SUPLA – plan deaktivert på grunn av mislykkede kjøringer
 SUPLA – your device has been unlocked!: SUPLA - Enheten din har blitt låst opp!
 SUPLA.ORG Team: SUPLA.ORG Team
 Same as on master thermostat.: Innstillingen er den samme som på hovedtermostaten.
@@ -1278,6 +1286,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Din privat SUPLA cloud er nesten registrert.
 Your private SUPLA Cloud is not registered.: Din privat SUPLA cloud er ikke registrert.
 Your scenes are allowed to have a maximum of {max} operations.: Dine scener kan ha maksimalt {max} operasjoner.
+Your schedule has been disabled automatically due to repeated failed executions.: Planen din ble automatisk deaktivert på grunn av gjentatte mislykkede kjøringer.
 Your schedules are allowed to have a maximum of {max} actions.: Dine ruter kan ha maksimalt {max} aksjoner.
 Your session has been expired.: Din sesjon er over.
 Your session is about to expire: Din sesjon er snart over.

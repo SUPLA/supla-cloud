@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...temperaturanı izləyə bilərsiniz
 10 minutes before sunset, on day 10 of the month, May through August: Gün batımından 10 dəqiqə əvvəl, ayın 10-u, may–avqust aylarında
 15 minutes after sunrise, every 2 days: Gün doğuşundan 15 dəqiqə sonra, hər 2 gündə bir
+A confirmation that your schedule has been disabled automatically.: Cədvəlin avtomatik söndürüldüyünə dair təsdiq.
 A confirmation upon successful client app registration.: Yeni müştəri tətbiqinin uğurlu qeydiyyat təsdiqi.
 A confirmation upon successful device registration.: Cihazın uğurla qeydiyyat təsdiqi.
 A confirmation upon successful device unlocking.: Cihazın uğurla açılması təsdiqi.
@@ -179,6 +180,7 @@ Brightness level: Parlaqlıq səviyyəsi
 Button volume: Düymə səsi
 Buttons upside down: Düymələrin tərs yerləşməsi
 By signing in, you are authorizing {clientName} to control your devices.: Daxil olaraq {clientName} tətbiqinə cihazlarınızı idarə etməyə icazə verirsiniz.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Ətraflı məlumat üçün cədvəl tarixçəsinə baxın və problemi həll etdikdən sonra cədvəli yenidən aktivləşdirin.
 CLICK TO DISABLE: SÖNDÜRMƏK ÜÇÜN TIKLAYIN
 CLICK TO ENABLE: AKTİV ETMƏK ÜÇÜN TIKLAYIN
 Calibrate: Kalibrlə
@@ -326,6 +328,7 @@ Custom execution limit: Fərdi icra limiti
 DHT11 Temperature & Humidity Sensor: DHT11 Temperatur və Rütubət Sensoru
 DHT21 Temperature & Humidity Sensor: DHT21 Temperatur və Rütubət Sensoru
 DHT22 Temperature & Humidity Sensor: DHT22 Temperatur və Rütubət Sensoru
+Disabled due to failed executions: Uğursuz icralar səbəbindən söndürüldü
 DS18B20 Thermometer: DS18B20 Termometri
 Dark mode: Qaranlıq rejim
 Data: Məlumat
@@ -929,6 +932,10 @@ Roller shutters: Qatlanan pərdələr
 Roof window opening sensor: Dam pəncərəsi açılma sensoru
 Roof window shutter operation: Dam pəncərəsi əməliyyatı
 S/N: S/N
+Schedule disabled: Cədvəl söndürüldü
+Schedule disabled due to failed executions: Uğursuz icralar səbəbindən cədvəl söndürüldü
+Schedule ID: %scheduleId%: Cədvəl ID: %scheduleId%
+Schedule name: %scheduleCaption%: Cədvəl adı: %scheduleCaption%
 SUPLA - Account Activation: SUPLA - Hesabın aktivləşdirilməsi
 SUPLA - Account Removal: SUPLA - Hesabın silinməsi
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Sertifikatlı quraşdırıcılar üçün cihazın açılmasını təsdiqləyin
@@ -943,6 +950,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – %cloudHost%-də uğursuz giriş cəhdinin bildirişi
 SUPLA – new client app has been added to your account: SUPLA – Hesabınıza yeni müştəri tətbiqi əlavə edildi
 SUPLA – new device has been added to your account: SUPLA – Hesabınıza yeni cihaz əlavə edildi
+SUPLA – schedule disabled due to failed executions: SUPLA – cədvəl uğursuz icralar səbəbindən söndürüldü
 SUPLA – your device has been unlocked!: SUPLA – Cihazınız açıldı!
 SUPLA.ORG Team: SUPLA.ORG komandası
 Same as on master thermostat.: Əsas termostatla eyni
@@ -1452,6 +1460,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Şəxsi SUPLA Cloud instansiyanız demək olar ki, qeydiyyatdan keçib.
 Your private SUPLA Cloud is not registered.: Şəxsi SUPLA Cloud qeydiyyatdan keçməyib.
 Your scenes are allowed to have a maximum of {max} operations.: Sizin səhnələriniz maksimum {max} əməliyyat ola bilər.
+Your schedule has been disabled automatically due to repeated failed executions.: Cədvəliniz təkrarlanan uğursuz icralar səbəbindən avtomatik söndürüldü.
 Your schedules are allowed to have a maximum of {max} actions.: Sizin cədvəlləriniz maksimum {max} hərəkətə malik ola bilər.
 Your session has been expired.: Sessiyanızın müddəti bitib.
 Your session is about to expire: Sessiyanızın müddəti bitmək üzrədir

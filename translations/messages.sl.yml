@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...lahko spremljate temperaturo
 10 minutes before sunset, on day 10 of the month, May through August: 10 minut pred sončnim zahodom, samo 10. dan v mesecu, od maja do avgusta
 15 minutes after sunrise, every 2 days: 15 minut po sončnem vzhodu, vsak drugi dan
+A confirmation that your schedule has been disabled automatically.: Potrditev samodejnega izklopa urnika.
 A confirmation upon successful client app registration.: Potrdilo registracije nove odjemalske aplikacije.
 A confirmation upon successful device registration.: Potrdilo uspešne registracije naprave.
 A confirmation upon successful device unlocking.: Potrditev odklepanja naprave.
@@ -158,6 +159,7 @@ Brightness level: Stopnja svetlosti
 Button volume: Glasnost gumba
 Buttons upside down: Upravljanje z gumbom za vzvratni pogon
 By signing in, you are authorizing {clientName} to control your devices.: S prijavo pooblastite aplikacijo {clientName} za nadzor vaših naprav.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Podrobnosti preverite v zgodovini urnika in urnik znova vklopite po odpravi težave.
 CLICK TO DISABLE: KLIKNITE, DA SE IZKLOPITE
 CLICK TO ENABLE: KLIKNITE, DA VKLOPITE
 Calibrate: Umeri
@@ -288,6 +290,7 @@ Custom execution limit: Omejitev zmogljivosti po meri
 DHT11 Temperature & Humidity Sensor: DHT11 senzor temperature in vlažnosti
 DHT21 Temperature & Humidity Sensor: DHT21 senzor temperature in vlažnosti
 DHT22 Temperature & Humidity Sensor: DHT22 senzor temperature in vlažnosti
+Disabled due to failed executions: Onemogočeno zaradi neuspešnih izvedb
 DS18B20 Thermometer: DS18B20 termometer
 Dark mode: Temni način
 Data: Podatki
@@ -820,6 +823,10 @@ Roller shutters: Rolete
 Roof window opening sensor: Senzor odpiranja strešnega okna
 Roof window shutter operation: Odpiranje strešnega okna
 S/N: S/N
+Schedule disabled: Urnik izklopljen
+Schedule disabled due to failed executions: Urnik onemogočen zaradi neuspešnih izvedb
+Schedule ID: %scheduleId%: Identifikator urnika: %scheduleId%
+Schedule name: %scheduleCaption%: Ime urnika: %scheduleCaption%
 SUPLA - Account Activation: SUPLA - Aktivacija računa
 SUPLA - Account Removal: SUPLA - Brisanje računa
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Odklepanje naprave za pooblaščenega monterja
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - Obvestilo o neuspešni prijavi na %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA – registracija nove odjemalske aplikacije
 SUPLA – new device has been added to your account: SUPLA – nova naprava je bila dodana v vaš račun
+SUPLA – schedule disabled due to failed executions: SUPLA – urnik onemogočen zaradi neuspešnih izvedb
 SUPLA – your device has been unlocked!: SUPLA - Vaša naprava je bila odklenjena!
 SUPLA.ORG Team: Skupina SUPLA.ORG
 Same as on master thermostat.: Nastavitev je enaka kot na glavnem termostatu.
@@ -1278,6 +1286,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Vaš zasebni oblak SUPLA je skoraj registriran.
 Your private SUPLA Cloud is not registered.: Vaš zasebni oblak SUPLA ni registriran.
 Your scenes are allowed to have a maximum of {max} operations.: Vaše scene lahko imajo največ {max} operacij.
+Your schedule has been disabled automatically due to repeated failed executions.: Vaš urnik je bil samodejno onemogočen zaradi ponavljajočih se neuspešnih izvedb.
 Your schedules are allowed to have a maximum of {max} actions.: Vaši urniki lahko imajo največ {max} dejanj.
 Your session has been expired.: Vaša seja je potekla.
 Your session is about to expire: Vaša seja poteče čez trenutek

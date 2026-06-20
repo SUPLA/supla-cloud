@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...puoi monitorare la temperatura
 10 minutes before sunset, on day 10 of the month, May through August: 10’ prima del tramonto, il giorno 10 del mese, da Maggio ad Agosto
 15 minutes after sunrise, every 2 days: 15’ dopo l’alba, ogni 2 giorni
+A confirmation that your schedule has been disabled automatically.: Conferma della disattivazione automatica dello scadenzario.
 A confirmation upon successful client app registration.: Conferma dopo registrazione app avvenuta con successo
 A confirmation upon successful device registration.: conferma dopo registrazione dispositivo avvenuta con successo
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Una nuova app (smartphone) è stata aggiunta al tuo account SUPLA-Cloud
@@ -151,6 +152,7 @@ Brightness adjustment for automatic mode: Impostazione luminosità per modo auto
 Brightness level: Livello luminosità
 Button volume: Volume pulsanti
 By signing in, you are authorizing {clientName} to control your devices.: Accedendo, stai autorizzando l'applicazione {clientName} a controllare i tuoi dispositivi.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Controlla la cronologia dello scadenzario per i dettagli e riattivalo dopo aver risolto il problema.
 CLICK TO DISABLE: CLICCA PER DISABILITARE
 CLICK TO ENABLE: CLICCA PER ABILITARE
 Calibrate: Calibrare
@@ -262,6 +264,7 @@ Custom execution limit: Limite delle esecuzioni non standard
 DHT11 Temperature & Humidity Sensor: Termometro di temperatura e umidità DHT11
 DHT21 Temperature & Humidity Sensor: Termometro di temperatura e umidità DHT21
 DHT22 Temperature & Humidity Sensor: Termometro di temperatura e umidità DHT22
+Disabled due to failed executions: Disattivato a causa di esecuzioni fallite
 DS18B20 Thermometer: Termometro DS18B20
 Dark mode: Modalità Scuro
 Data: Dati
@@ -757,6 +760,10 @@ Roller shutters: Avvolgibili
 Roof window opening sensor: Sensore apertura lucernario
 Roof window shutter operation: Funzionamento lucernario
 S/N: S/N
+Schedule disabled: Scadenzario disattivato
+Schedule disabled due to failed executions: Scadenzario disattivato a causa di esecuzioni fallite
+Schedule ID: %scheduleId%: ID scadenzario: %scheduleId%
+Schedule name: %scheduleCaption%: Nome scadenzario: %scheduleCaption%
 SUPLA - Account Activation: SUPLA – Attivazione dell’account
 SUPLA - Account Removal: SUPLA – Cancellazione dell’account
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Conferma sblocco dispositivi per installatori autorizzati
@@ -770,6 +777,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Notifica di accesso al %cloudHost% non riuscito
 SUPLA – new client app has been added to your account: SUPLA - nuova app aggiunta al tuo account
 SUPLA – new device has been added to your account: SUPLA - nuovo dispositivo aggiunto al tuo account
+SUPLA – schedule disabled due to failed executions: SUPLA – scadenzario disattivato a causa di esecuzioni fallite
 SUPLA – your device has been unlocked!: SUPLA - il tuo dispositivo è stato sbloccato!
 SUPLA.ORG Team: Squadra di SUPLA.ORG
 Saturdays: Sabato
@@ -1186,6 +1194,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: La Tua nuvola privata SUPLA è quasi registrata.
 Your private SUPLA Cloud is not registered.: Il tuo cloud privato SUPLA non è registrato.
 Your scenes are allowed to have a maximum of {max} operations.: E’ possibile inserire negli scenari un massimo di {max} azioni
+Your schedule has been disabled automatically due to repeated failed executions.: Il tuo scadenzario è stato disattivato automaticamente a causa di ripetute esecuzioni fallite.
 Your schedules are allowed to have a maximum of {max} actions.: I tuoi scadenzari possono eseguire massimo {max} azioni.
 Your session has been expired.: La Tua sessione è scaduta.
 Your session is about to expire: La tua sessione sta per scadere

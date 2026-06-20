@@ -1,0 +1,22 @@
+{% extends '@Supla/Email/template.html.twig' %}
+
+{% block subject %}
+    {% trans into userLocale %} SUPLA – schedule disabled due to failed executions {% endtrans %}
+{% endblock %}
+
+{% block preheader %}
+    {% trans into userLocale %} A confirmation that your schedule has been disabled automatically. {% endtrans %}
+{% endblock %}
+
+{% block body %}
+    {% apply paragraph %} {% trans into userLocale %} Your schedule has been disabled automatically due to repeated failed executions. {% endtrans %} {% endapply %}
+    {% apply paragraph %}
+        {% trans with {'%scheduleId%': '<b>' ~ schedule.id ~ '</b>'} into userLocale %} Schedule ID: %scheduleId% {% endtrans %}
+        <br>
+        {% if schedule.caption %}
+            {% trans with {'%scheduleCaption%': '<b>' ~ schedule.caption ~ '</b>'} into userLocale %} Schedule name: %scheduleCaption% {% endtrans %}
+        {% endif %}
+    {% endapply %}
+    {% apply paragraph %} {% trans into userLocale %} Check the schedule history for details and re-enable the schedule after fixing the problem. {% endtrans %} {% endapply %}
+    {% apply linkButton(cloudUrl('schedules/' ~ schedule.id)) %} {% trans into userLocale %} See in SUPLA-Cloud {% endtrans %} {% endapply %}
+{% endblock %}

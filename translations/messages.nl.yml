@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...u kunt de temperatuur volgen
 10 minutes before sunset, on day 10 of the month, May through August: 10 minuten voor zonsondergang, alleen op de 10e van de maand, van mei tot augustus
 15 minutes after sunrise, every 2 days: 15 minuten na zonsopgang, om de andere dag
+A confirmation that your schedule has been disabled automatically.: Bevestiging dat het schema automatisch is uitgeschakeld.
 A confirmation upon successful client app registration.: Bevestiging van de registratie van de nieuwe cliëntapplicatie.
 A confirmation upon successful device registration.: Bevestiging van succesvolle apparaatregistratie.
 A confirmation upon successful device unlocking.: Bevestiging van ontgrendeling van toestel.
@@ -158,6 +159,7 @@ Brightness level: Helderheidsniveau
 Button volume: Volume knop
 Buttons upside down: Omgekeerde knopbediening
 By signing in, you are authorizing {clientName} to control your devices.: Door in te loggen, machtig je de {clientName}-applicatie om je apparaten te bedienen.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Bekijk de schemageschiedenis voor details en schakel het schema opnieuw in nadat het probleem is opgelost.
 CLICK TO DISABLE: KLIK OM UIT TE ZETTEN
 CLICK TO ENABLE: KLIK OM IN TE SCHAKELEN
 Calibrate: Kalibreer
@@ -288,6 +290,7 @@ Custom execution limit: Afwijkend prestatielimiet
 DHT11 Temperature & Humidity Sensor: DHT11 temperatuur- en vochtigheidssensor
 DHT21 Temperature & Humidity Sensor: DHT21 temperatuur- en vochtigheidssensor
 DHT22 Temperature & Humidity Sensor: DHT12 temperatuur- en vochtigheidssensor
+Disabled due to failed executions: Uitgeschakeld vanwege mislukte uitvoeringen
 DS18B20 Thermometer: DS18B20-thermometer
 Dark mode: Donkere modus
 Data: Details
@@ -820,6 +823,10 @@ Roller shutters: Rolluiken
 Roof window opening sensor: Openingssensor dakvenster
 Roof window shutter operation: Openen van het dakvenster
 S/N: S/N
+Schedule disabled: Schema uitgeschakeld
+Schedule disabled due to failed executions: Schema uitgeschakeld vanwege mislukte uitvoeringen
+Schedule ID: %scheduleId%: Schema-identificatie: %scheduleId%
+Schedule name: %scheduleCaption%: Schemanaam: %scheduleCaption%
 SUPLA - Account Activation: SUPLA - Accountactivering
 SUPLA - Account Removal: SUPLA - Account verwijderen
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Toestel ontgrendelen voor een gecertificeerde installateur
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - melding over mislukte aanmelding bij %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - nieuwe cliëntapplicatie geregistreerd
 SUPLA – new device has been added to your account: SUPLA - een nieuw apparaat is toegevoegd aan uw account
+SUPLA – schedule disabled due to failed executions: SUPLA – schema uitgeschakeld vanwege mislukte uitvoeringen
 SUPLA – your device has been unlocked!: SUPLA - Uw toestel is ontgrendeld!
 SUPLA.ORG Team: Het SUPLA.ORG-team
 Same as on master thermostat.: Dezelfde instelling als op de hoofdthermostaat.
@@ -1278,6 +1286,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Uw privé SUPLA cloud is bijna geregistreerd.
 Your private SUPLA Cloud is not registered.: Uw private cloud SUPLA is niet geregistreerd.
 Your scenes are allowed to have a maximum of {max} operations.: Uw scènes kunnen een maximum hebben van {max} operaties.
+Your schedule has been disabled automatically due to repeated failed executions.: Uw schema is automatisch uitgeschakeld vanwege herhaaldelijk mislukte uitvoeringen.
 Your schedules are allowed to have a maximum of {max} actions.: Uw schema's kunnen een maximum van {max} aandelen hebben.
 Your session has been expired.: Uw sessie is verlopen.
 Your session is about to expire: Je sessie verloopt zo

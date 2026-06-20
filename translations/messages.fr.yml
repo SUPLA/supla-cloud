@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...vous pouvez suivre la température
 10 minutes before sunset, on day 10 of the month, May through August: 10 minutes avant le coucher du soleil, uniquement le 10 du mois, de mai à août
 15 minutes after sunrise, every 2 days: 15 minutes après le lever du soleil, tous les deux jours
+A confirmation that your schedule has been disabled automatically.: Confirmation de la désactivation automatique du calendrier de prog.
 A confirmation upon successful client app registration.: Confirmation de l’enregistrement de la nouvelle application cliente.
 A confirmation upon successful device registration.: Confirmation de l’enregistrement réussi de l’appareil.
 A confirmation upon successful device unlocking.: Confirmation du déverrouillage de l’appareil.
@@ -158,6 +159,7 @@ Brightness level: Niveau de luminosité
 Button volume: Volume du bouton
 Buttons upside down: Commande des boutons inversée
 By signing in, you are authorizing {clientName} to control your devices.: En vous connectant, vous autorisez l’application {clientName} à contrôler vos appareils.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Consultez l'historique du calendrier de prog. pour plus de détails et réactivez-le après avoir corrigé le problème.
 CLICK TO DISABLE: CLIQUER ICI POUR DÉSACTIVER
 CLICK TO ENABLE: CLIQUER ICI POUR ACTIVER
 Calibrate: Étalonner
@@ -288,6 +290,7 @@ Custom execution limit: Limite des exécutions non standard
 DHT11 Temperature & Humidity Sensor: Capteur de température et d'humidité DHT11
 DHT21 Temperature & Humidity Sensor: Capteur de température et d'humidité DHT21
 DHT22 Temperature & Humidity Sensor: Capteur de température et d'humidité DHT22
+Disabled due to failed executions: Désactivé en raison d'exécutions échouées
 DS18B20 Thermometer: Termometr DS18B20
 Dark mode: Mode sombre
 Data: Données
@@ -820,6 +823,10 @@ Roller shutters: Volets roulants
 Roof window opening sensor: Capteur d’ouverture de toit ouvrant
 Roof window shutter operation: Ouverture du toit ouvrant
 S/N: S/N
+Schedule disabled: Calendrier de prog. désactivé
+Schedule disabled due to failed executions: Calendrier de prog. désactivé en raison d'exécutions échouées
+Schedule ID: %scheduleId%: Identifiant du calendrier de prog. : %scheduleId%
+Schedule name: %scheduleCaption%: Nom du calendrier de prog. : %scheduleCaption%
 SUPLA - Account Activation: SUPLA - Activation de votre compte
 SUPLA - Account Removal: SUPLA - Suppression de compte
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Déverrouillage de l’appareil réservé à l’installateur certifié
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Notification d'échec de connexion à %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - une nouvelle application client a été enregistrée
 SUPLA – new device has been added to your account: SUPLA - un nouvel appareil a été ajouté à votre compte
+SUPLA – schedule disabled due to failed executions: SUPLA – calendrier de prog. désactivé en raison d'exécutions échouées
 SUPLA – your device has been unlocked!: SUPLA - Votre appareil a été déverrouillé !
 SUPLA.ORG Team: Équipe SUPLA.ORG
 Same as on master thermostat.: Réglage identique à celui du thermostat principal.
@@ -1278,6 +1286,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Votre nuage SUPLA privé est presque enregistré.
 Your private SUPLA Cloud is not registered.: Votre cloud personnel SUPLA n'est pas enregistré.
 Your scenes are allowed to have a maximum of {max} operations.: Vos scènes peuvent avoir un maximum de {max} opérations.
+Your schedule has been disabled automatically due to repeated failed executions.: Votre calendrier de prog. a été désactivé automatiquement en raison d'exécutions échouées répétées.
 Your schedules are allowed to have a maximum of {max} actions.: Vos calendriers peuvent avoir un maximum de {max} actions.
 Your session has been expired.: Votre session a expiré.
 Your session is about to expire: Votre session est sur le point d'expirer

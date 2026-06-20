@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...bạn có thể theo dõi nhiệt độ
 10 minutes before sunset, on day 10 of the month, May through August: 10 phút trước khi mặt trời lặn, chỉ vào ngày mùng 10 của tháng, từ tháng 5 đến tháng 8
 15 minutes after sunrise, every 2 days: 15 phút sau khi mặt trời mọc, đều đặn cách 1 ngày
+A confirmation that your schedule has been disabled automatically.: Xác nhận lịch trình đã bị vô hiệu hóa tự động.
 A confirmation upon successful client app registration.: Xác nhận đăng ký ứng dụng khách hàng mới
 A confirmation upon successful device registration.: Xác nhận đăng ký thiết bị thành công.
 A confirmation upon successful device unlocking.: Xác nhận mở khóa thiết bị.
@@ -158,6 +159,7 @@ Brightness level: Mức độ sáng
 Button volume: Âm lượng nút bấm
 Buttons upside down: Điều khiển nút đảo ngược
 By signing in, you are authorizing {clientName} to control your devices.: Bằng cách đăng nhập, bạn cho phép ứng dụng {clientName} kiểm soát các thiết bị của bạn.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Kiểm tra lịch sử lịch trình để biết chi tiết và bật lại lịch trình sau khi khắc phục sự cố.
 CLICK TO DISABLE: CLICK TẮT
 CLICK TO ENABLE: CLICK BẬT
 Calibrate: Hiệu chỉnh
@@ -288,6 +290,7 @@ Custom execution limit: Giới hạn tùy chỉnh
 DHT11 Temperature & Humidity Sensor: Cảm biến nhiệt & độ ẩm DHT11
 DHT21 Temperature & Humidity Sensor: Cảm biến nhiệt & độ ẩm DHT21
 DHT22 Temperature & Humidity Sensor: Cảm biến nhiệt & độ ẩm DHT22
+Disabled due to failed executions: Đã vô hiệu hóa do thực thi không thành công
 DS18B20 Thermometer: Nhiệt kế DS18B20
 Dark mode: Chế độ tối
 Data: Dữ liệu
@@ -820,6 +823,10 @@ Roller shutters: Cửa chớp lăn
 Roof window opening sensor: Cảm biến mở của sổ mái nhà
 Roof window shutter operation: Mở của sổ mái nhà
 S/N: Tỷ lệ tín hiệu trên tạp âm
+Schedule disabled: Lịch trình đã bị vô hiệu hóa
+Schedule disabled due to failed executions: Lịch trình bị vô hiệu hóa do thực thi không thành công
+Schedule ID: %scheduleId%: ID lịch trình: %scheduleId%
+Schedule name: %scheduleCaption%: Tên lịch trình: %scheduleCaption%
 SUPLA - Account Activation: SUPLA - Kích hoạt tài khoản
 SUPLA - Account Removal: SUPLA - Xóa tài khoản
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Mở khóa thiết bị dành cho người được chứng nhận cài đặt
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - %cloudHost% thông báo cố gắng đăng nhập không thành công
 SUPLA – new client app has been added to your account: SUPLA – đã đăng kí một ứng dụng client mới
 SUPLA – new device has been added to your account: SUPLA – đã thêm một thiết bị mới vào tài khoản của bạn
+SUPLA – schedule disabled due to failed executions: SUPLA – lịch trình bị vô hiệu hóa do thực thi không thành công
 SUPLA – your device has been unlocked!: SUPLA - Thiết bị của bạn đã được mở khóa!
 SUPLA.ORG Team: Đội SUPLA.ORG
 Same as on master thermostat.: Cài đặt giống như trong bộ điều chỉnh nhiệt chính.
@@ -1278,6 +1286,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Đám mây SUPLA riêng tư của bạn gần như đã được đăng ký.
 Your private SUPLA Cloud is not registered.: Đám mây SUPLA riêng tư của bạn chưa được đăng ký.
 Your scenes are allowed to have a maximum of {max} operations.: Những hoạt cảnh của bạn có thể có tối đa {max} thao tác.
+Your schedule has been disabled automatically due to repeated failed executions.: Lịch trình của bạn đã bị vô hiệu hóa tự động do nhiều lần thực thi không thành công.
 Your schedules are allowed to have a maximum of {max} actions.: Những lịch biểu của bạn có thể có tối đa {max} hành động.
 Your session has been expired.: Phiên của bạn đã hết hạn.
 Your session is about to expire: Phiên bản của bạn sắp hết hạn
