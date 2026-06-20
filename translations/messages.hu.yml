@@ -249,7 +249,7 @@ Confirm Password: Jelszó megerősítése
 Confirm if you want to perform the calibration.: Erősítse meg, hogy el kívánja végezni a kalibrálást.
 Confirm if you want to remove Access Identifier: Erősítse meg, hogy el akarja távolítani a Hozzáférési Azonosítót
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Erősítse meg, hogy el akarja távolítani a {locationId} helyazonosítót. Nincs további I / O eszköz csatlakozási lehetőség ehhez a lokálizációhoz.
-Confirm if you want to remove {deviceName} device and all of its channels.: Erősítse meg, hogy törölni kívánja a {eszközNév} eszközt és annak összes csatornáját.
+Confirm if you want to remove {deviceName} device and all of its channels.: Erősítse meg, hogy törölni kívánja a {deviceName} eszközt és annak összes csatornáját.
 Confirmation: Megerősítés
 Conflict: Konfliktus
 Connected: Csatlakozva
