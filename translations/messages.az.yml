@@ -672,7 +672,7 @@ Master thermostat: Əsas termostat
 Master thermostat for channel: '@:{''Əsas termostat''} @:{''kanal üçün''}'
 Max: Maks.
 Maximum: Maksimum
-Maximum delay is 60 minutes.: Maksimum gecikmə 60 dəqiqədir.
+Maximum delay is 48 hours.: Maksimum gecikmə 48 saatdır.
 Maximum duration is one year.: Maksimum müddət bir ildir.
 Maximum filesize limit is {limit}.: Maksimum fayl ölçüsü {limit}-dir.
 Maximum voltage: Maksimum gərginlik

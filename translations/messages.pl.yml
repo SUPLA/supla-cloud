@@ -692,7 +692,7 @@ Master thermostat: Termostat nadrzędny
 Master thermostat for channel: '@:{''Master thermostat''} @:{''for channel''}'
 Max: Maks.
 Maximum: Maksimum
-Maximum delay is 60 minutes.: Maksymalne opóźnienie to 60 minut.
+Maximum delay is 48 hours.: Maksymalne opóźnienie to 48 godzin.
 Maximum duration is one year.: Maksymalny okres to jeden rok.
 Maximum filesize limit is {limit}.: Maksymalny rozmiar pliku to {limit}.
 Maximum voltage: Najwyższe napięcie
