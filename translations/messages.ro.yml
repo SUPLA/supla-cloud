@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...puteți monitoriza temperatura
 10 minutes before sunset, on day 10 of the month, May through August: Cu 10 minute înainte de apus, numai în a 10-a zi a lunii, din mai până în august
 15 minutes after sunrise, every 2 days: La 15 minute după răsărit, o dată la două zile
+A confirmation that your schedule has been disabled automatically.: Confirmarea dezactivării automate a planului de execuție.
 A confirmation upon successful client app registration.: Confirmarea înregistrării unei noi aplicații de client.
 A confirmation upon successful device registration.: Confirmarea înregistrării cu succes a dispozitivului.
 A confirmation upon successful device unlocking.: Confirmarea deblocării dispozitivului.
@@ -158,6 +159,7 @@ Brightness level: Nivelul de luminozitate
 Button volume: Volumul butonului
 Buttons upside down: Controlul butonului de mers înapoi
 By signing in, you are authorizing {clientName} to control your devices.: Prin conectare, autorizezi aplicația {clientName} pentru controlul dispozitivelor tale.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Verificați istoricul planului pentru detalii și reactivați planul după remedierea problemei.
 CLICK TO DISABLE: FACEȚI CLIC PENTRU A DEZACTIVA
 CLICK TO ENABLE: FACEȚI CLIC PENTRU A ACTIVA
 Calibrate: Calibrează
@@ -288,6 +290,7 @@ Custom execution limit: Limită de executări particularizată
 DHT11 Temperature & Humidity Sensor: Senzor de temperatură și umiditate DHT11
 DHT21 Temperature & Humidity Sensor: Senzor de temperatură și umiditate DHT21
 DHT22 Temperature & Humidity Sensor: Senzor de temperatură și umiditate DHT22
+Disabled due to failed executions: Dezactivat din cauza execuțiilor eșuate
 DS18B20 Thermometer: Termometru DS18B20
 Dark mode: Mod întunecat
 Data: Date
@@ -820,6 +823,10 @@ Roller shutters: Jaluzele
 Roof window opening sensor: Senzor deschidere fereastră de mansardă
 Roof window shutter operation: Deschidere fereastră de mansardă
 S/N: S/N
+Schedule disabled: Plan de execuție dezactivat
+Schedule disabled due to failed executions: Plan de execuție dezactivat din cauza execuțiilor eșuate
+Schedule ID: %scheduleId%: Identificator plan: %scheduleId%
+Schedule name: %scheduleCaption%: Nume plan: %scheduleCaption%
 SUPLA - Account Activation: SUPLA - Activarea contului
 SUPLA - Account Removal: SUPLA - Ștergerea contului
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Deblocarea unui dispozitiv pentru un instalator certificat
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Notificare despre o conectare eșuată la %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - a fost înregistrată o nouă aplicație client
 SUPLA – new device has been added to your account: SUPLA - un dispozitiv nou a fost adăugat în contul dvs
+SUPLA – schedule disabled due to failed executions: SUPLA – plan de execuție dezactivat din cauza execuțiilor eșuate
 SUPLA – your device has been unlocked!: SUPLA - Dispozitivul dvs. a fost deblocat!
 SUPLA.ORG Team: Echipa SUPLA.ORG
 Same as on master thermostat.: Aceeași setare ca la termostatul principal.
@@ -1278,6 +1286,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Norul dvs. privat SUPLA este aproape înregistrat.
 Your private SUPLA Cloud is not registered.: Norul dvs. privat SUPLA nu este înregistrat.
 Your scenes are allowed to have a maximum of {max} operations.: Scenele dvs. pot avea maximum {max} operații.
+Your schedule has been disabled automatically due to repeated failed executions.: Planul dvs. a fost dezactivat automat din cauza execuțiilor eșuate repetate.
 Your schedules are allowed to have a maximum of {max} actions.: Programele dvs. pot avea maximum {max} acțiuni.
 Your session has been expired.: Sesiunea dvs. a expirat.
 Your session is about to expire: Sesiunea dvs. va expira îndată

@@ -142,4 +142,12 @@ class ScheduledExecution {
     public function getActionParam(): ?array {
         return $this->actionParam ? json_decode($this->actionParam, true) : $this->actionParam;
     }
+
+    public static function createDisabledDueToFailedExecutionsRecord(Schedule $schedule, DateTime $timestamp): self {
+        $execution = new self($schedule, $timestamp, ChannelFunctionAction::DISABLE());
+        $execution->result = ScheduleActionExecutionResult::DISABLED_DUE_TO_FAILED_EXECUTIONS;
+        $execution->resultTimestamp = $timestamp;
+        $execution->consumed = true;
+        return $execution;
+    }
 }

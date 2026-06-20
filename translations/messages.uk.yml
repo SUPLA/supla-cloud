@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...можна стежити за температурою
 10 minutes before sunset, on day 10 of the month, May through August: за 10 хвилин до заходу сонця, лише у 10-й день місяця, з травня по серпень
 15 minutes after sunrise, every 2 days: 15 хвилин після сходу сонця, через день
+A confirmation that your schedule has been disabled automatically.: Підтвердження автоматичного вимкнення розкладу.
 A confirmation upon successful client app registration.: Підтвердження реєстрації  заявки нового клієнта.
 A confirmation upon successful device registration.: Підтвердження успішної реєстрації пристрою.
 A confirmation upon successful device unlocking.: Підтвердження розблокування пристрою.
@@ -158,6 +159,7 @@ Brightness level: Рівень яскравості
 Button volume: Кнопка гучності
 Buttons upside down: Керування кнопкою реверсу
 By signing in, you are authorizing {clientName} to control your devices.: Увійшовши в систему, ви дозволяєте додатку {clientName} керувати вашими пристроями.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Перегляньте історію розкладу для деталей і увімкніть розклад знову після усунення проблеми.
 CLICK TO DISABLE: НАТИСНІТЬ, ЩОБ ВИМКНУТИ
 CLICK TO ENABLE: НАТИСНІТЬ, ЩОБ УВІМКНУТИ
 Calibrate: Відкалібрувати
@@ -288,6 +290,7 @@ Custom execution limit: Користувацький ліміт виконанн
 DHT11 Temperature & Humidity Sensor: Датчик температури та вологості DHT11
 DHT21 Temperature & Humidity Sensor: Датчик температури та вологості DHT21
 DHT22 Temperature & Humidity Sensor: Датчик температури та вологості DHT22
+Disabled due to failed executions: Вимкнено через невдалі виконання
 DS18B20 Thermometer: Термометр DS18B20
 Dark mode: Темний режим
 Data: Дані
@@ -820,6 +823,10 @@ Roller shutters: Ролети
 Roof window opening sensor: Датчик відкриття вікна даху
 Roof window shutter operation: Відкриття вікна даху
 S/N: Серійний номер
+Schedule disabled: Розклад вимкнено
+Schedule disabled due to failed executions: Розклад вимкнено через невдалі виконання
+Schedule ID: %scheduleId%: Ідентифікатор розкладу: %scheduleId%
+Schedule name: %scheduleCaption%: Назва розкладу: %scheduleCaption%
 SUPLA - Account Activation: SUPLA - активація облікового запису
 SUPLA - Account Removal: SUPLA - Видалення облікового запису
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Розблокування пристрою для сертифікованого інсталятора
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - Сповіщення про невдалий вхід до %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - зареєстровано новий клієнтський додаток
 SUPLA – new device has been added to your account: SUPLA - до вашого облікового запису додано новий пристрій
+SUPLA – schedule disabled due to failed executions: SUPLA – розклад вимкнено через невдалі виконання
 SUPLA – your device has been unlocked!: SUPLA - Ваш пристрій розблоковано!
 SUPLA.ORG Team: Команда SUPLA.ORG
 Same as on master thermostat.: Ті самі налаштування, що й на головному термостаті.
@@ -1277,6 +1285,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Ваша приватна хмара SUPLA майже зареєстрована.
 Your private SUPLA Cloud is not registered.: Ваша приватна хмара SUPLA не зареєстрована.
 Your scenes are allowed to have a maximum of {max} operations.: Ваші сцени можуть мати максимум {max} операцій.
+Your schedule has been disabled automatically due to repeated failed executions.: Ваш розклад було автоматично вимкнено через повторювані невдалі виконання.
 Your schedules are allowed to have a maximum of {max} actions.: Ваші розклади можуть мати максимум {max} дій.
 Your session has been expired.: Ваш сеанс закінчився.
 Your session is about to expire: Ваш сеанс скоро закінчиться

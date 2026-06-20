@@ -1,0 +1,17 @@
+{% extends '@Supla/PushMessage/template.twig' %}
+
+{% block title %}
+    {% trans into userLocale %} Schedule disabled {% endtrans %}
+{% endblock %}
+
+{% block body %}
+
+    {% trans with {'%scheduleId%': schedule.id} into userLocale %} Schedule ID: %scheduleId% {% endtrans %}
+
+    {% if schedule.caption %}
+        {% trans with {'%scheduleCaption%': schedule.caption} into userLocale %} Schedule name: %scheduleCaption% {% endtrans %}
+    {% endif %}
+
+    {% trans into userLocale %} Disabled due to failed executions {% endtrans %}
+
+{% endblock %}

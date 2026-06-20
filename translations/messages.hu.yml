@@ -8,6 +8,7 @@
 ...you can monitor temperature: ... megfigyelheti a hőmérsékletet
 10 minutes before sunset, on day 10 of the month, May through August: 10 perccel napnyugta előtt, májustól augusztusig csak a hónap 10. napján
 15 minutes after sunrise, every 2 days: 15 perccel napfelkelte után, minden második nap
+A confirmation that your schedule has been disabled automatically.: Az ütemterv automatikus kikapcsolásának megerősítése.
 A confirmation upon successful client app registration.: Az új ügyfélalkalmazás regisztrációjának megerősítése.
 A confirmation upon successful device registration.: A készülék sikeres regisztrációjának megerősítése.
 A confirmation upon successful device unlocking.: A készülék feloldásának megerősítése.
@@ -158,6 +159,7 @@ Brightness level: Fényerőszint
 Button volume: Kapcsológomb hangerő
 Buttons upside down: Fordított vezérlés kapcsológombokkal
 By signing in, you are authorizing {clientName} to control your devices.: A bejelentkezéssel Ön engedélyezi a {clientName} alkalmazásnak, hogy irányítsa az eszközeit.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: A részletekért ellenőrizze az ütemterv előzményeit, és a probléma megoldása után kapcsolja be újra az ütemtervet.
 CLICK TO DISABLE: KATTINTSON KIKAPCSOLÁSHOZ
 CLICK TO ENABLE: KATTINTSON A BEKAPCSOLÁSHOZ
 Calibrate: Kalibrálás
@@ -288,6 +290,7 @@ Custom execution limit: Szokásostól eltérú teljesítménykorlát
 DHT11 Temperature & Humidity Sensor: DHT 11 hőmérséklet- és páratartalom-érzékelő
 DHT21 Temperature & Humidity Sensor: DHT21 hőmérséklet- és páratartalom-érzékelő
 DHT22 Temperature & Humidity Sensor: DHT22  hőmérséklet- és páratartalom-érzékelő
+Disabled due to failed executions: Sikertelen végrehajtások miatt kikapcsolva
 DS18B20 Thermometer: DS18B20 hőmérő
 Dark mode: Sötét üzemmód
 Data: Adatok
@@ -820,6 +823,10 @@ Roller shutters: Redőnyök
 Roof window opening sensor: A tetőablak nyitás érzékelő
 Roof window shutter operation: A tetőablak nyitása
 S/N: S/N (sorozat szám)
+Schedule disabled: Ütemterv kikapcsolva
+Schedule disabled due to failed executions: Ütemterv kikapcsolása sikertelen végrehajtások miatt
+Schedule ID: %scheduleId%: Ütemterv azonosító: %scheduleId%
+Schedule name: %scheduleCaption%: Ütemterv neve: %scheduleCaption%
 SUPLA - Account Activation: SUPLA - Fiók aktiválása
 SUPLA - Account Removal: SUPLA - Fiók törlése
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Készülék feloldása hivatalos tanúsítvánnyal rendelkező telepítő által engedélyezett
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - Értesítés a %cloudHost% oldalra történő sikertelen bejelentkezésről
 SUPLA – new client app has been added to your account: SUPLA – új ügyfélalkalmazás regisztrálva
 SUPLA – new device has been added to your account: SUPLA - új eszköz hozzáadva a fiókjához
+SUPLA – schedule disabled due to failed executions: SUPLA – ütemterv kikapcsolva sikertelen végrehajtások miatt
 SUPLA – your device has been unlocked!: SUPLA - A készüléke feloldva!
 SUPLA.ORG Team: A SUPLA.ORG Csapata
 Same as on master thermostat.: A beállítás megegyezik a főtermosztáton lévő beállításokkal.
@@ -1278,6 +1286,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: A saját SUPLA felhője majdnem regisztrált.
 Your private SUPLA Cloud is not registered.: A saját SUPLA felhője nincs regisztrálva.
 Your scenes are allowed to have a maximum of {max} operations.: 'Jelenetein legfeljebb {max} művelet hajtható végre. '
+Your schedule has been disabled automatically due to repeated failed executions.: Az ütemterv automatikusan kikapcsolásra került az ismételt sikertelen végrehajtások miatt.
 Your schedules are allowed to have a maximum of {max} actions.: Az Ön ütemterve maximum {max} műveletet tartalmazhat.
 Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: A munkamenete hamarosan lejár

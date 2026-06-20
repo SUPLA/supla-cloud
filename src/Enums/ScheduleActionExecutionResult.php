@@ -32,6 +32,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ScheduleActionExecutionResult CANCELLED()
  * @method static ScheduleActionExecutionResult EXECUTED_WITHOUT_CONFIRMATION()
  * @method static ScheduleActionExecutionResult VALVE_CLOSED_MANUALLY_OR_FLOODING()
+ * @method static ScheduleActionExecutionResult DISABLED_DUE_TO_FAILED_EXECUTIONS()
  */
 final class ScheduleActionExecutionResult extends Enum {
     const UNKNOWN = 0;
@@ -45,6 +46,7 @@ final class ScheduleActionExecutionResult extends Enum {
     const CANCELLED = 8;
     const EXECUTED_WITHOUT_CONFIRMATION = 9;
     const VALVE_CLOSED_MANUALLY_OR_FLOODING = 10;
+    const DISABLED_DUE_TO_FAILED_EXECUTIONS = 11;
 
     public function __construct($value) {
         parent::__construct($value ?: 0);
@@ -73,6 +75,7 @@ final class ScheduleActionExecutionResult extends Enum {
             self::CANCELLED => 'Cancelled', // i18n
             self::EXECUTED_WITHOUT_CONFIRMATION => 'Executed without confirmation', // i18n
             self::VALVE_CLOSED_MANUALLY_OR_FLOODING => 'Valve closed manually', // i18n
+            self::DISABLED_DUE_TO_FAILED_EXECUTIONS => 'Disabled due to failed executions', // i18n
         ];
     }
 

@@ -73,6 +73,10 @@
             id: 'new_client_app',
             label: 'New client app (smartphone) added to your account', // i18n
           },
+          {
+            id: 'schedule_disabled_due_to_failed_executions',
+            label: 'Schedule disabled due to failed executions', // i18n
+          },
         ],
         selectedNotificationsEmail: {},
         selectedNotificationsPush: {},

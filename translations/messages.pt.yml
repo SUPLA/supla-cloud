@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...pode controlar a temperatura
 10 minutes before sunset, on day 10 of the month, May through August: 10 minutos antes do pôr do sol, apenas no dia 10 de cada mês, de maio a agosto
 15 minutes after sunrise, every 2 days: 15 minutos após o nascer do sol, em dias alternados
+A confirmation that your schedule has been disabled automatically.: Confirmação de que a agenda foi desativada automaticamente.
 A confirmation upon successful client app registration.: Confirmação do registo duma nova aplicação de um cliente.
 A confirmation upon successful device registration.: Confirmação do registo bem-sucedido do dispositivo.
 A confirmation upon successful device unlocking.: Confirmação do desbloqueio do dispositivo.
@@ -158,6 +159,7 @@ Brightness level: Nível de brilho
 Button volume: Volume do botão
 Buttons upside down: Controlo invertido por botões
 By signing in, you are authorizing {clientName} to control your devices.: Ao iniciar a sessão, autoriza a aplicação {clientName} a controlar os seus dispositivos.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Consulte o histórico da agenda para obter detalhes e reative-a depois de corrigir o problema.
 CLICK TO DISABLE: CLIQUE PARA DESLIGAR
 CLICK TO ENABLE: CLIQUE PARA LIGAR
 Calibrate: Calibrar
@@ -288,6 +290,7 @@ Custom execution limit: Limite de execuções personalizadas
 DHT11 Temperature & Humidity Sensor: Sensor da temperatura e da humidade DHT11
 DHT21 Temperature & Humidity Sensor: Sensor da temperatura e da humidade DHT21
 DHT22 Temperature & Humidity Sensor: Sensor da temperatura e da humidade DHT22
+Disabled due to failed executions: Desativada devido a execuções falhadas
 DS18B20 Thermometer: Termómetro DS18B20
 Dark mode: Modo escuro
 Data: Dados
@@ -820,6 +823,10 @@ Roller shutters: Estores
 Roof window opening sensor: Sensor de abertura do teto solar
 Roof window shutter operation: Abertura do teto solar
 S/N: S/N
+Schedule disabled: Agenda desativada
+Schedule disabled due to failed executions: Agenda desativada devido a execuções falhadas
+Schedule ID: %scheduleId%: Identificador da agenda: %scheduleId%
+Schedule name: %scheduleCaption%: Nome da agenda: %scheduleCaption%
 SUPLA - Account Activation: SUPLA – Ativar a conta
 SUPLA - Account Removal: Supla - deleção da conta
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Desbloqueio do dispositivo destinado a um instalador certificado
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Aviso de erro de login para %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - uma nova aplicação cliente foi registada
 SUPLA – new device has been added to your account: SUPLA - um novo dispositivo foi adicionado à sua conta
+SUPLA – schedule disabled due to failed executions: SUPLA – agenda desativada devido a execuções falhadas
 SUPLA – your device has been unlocked!: SUPLA - O seu dispositivo foi desbloqueado!
 SUPLA.ORG Team: Equipe da SUPLA.ORG
 Same as on master thermostat.: Configuração igual à do termóstato principal.
@@ -1278,6 +1286,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Sua nuvem SUPLA privada está quase registrada.
 Your private SUPLA Cloud is not registered.: Sua nuvem SUPLA privada não está registrada.
 Your scenes are allowed to have a maximum of {max} operations.: Os seus cenários podem ter no máximo {max} operações.
+Your schedule has been disabled automatically due to repeated failed executions.: A sua agenda foi desativada automaticamente devido a execuções falhadas repetidas.
 Your schedules are allowed to have a maximum of {max} actions.: Os seus agendamentos podem ter no máximo {max} ações.
 Your session has been expired.: A sua sessão expirou.
 Your session is about to expire: Sua sessão está prestes a expirar

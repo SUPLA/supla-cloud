@@ -29,4 +29,15 @@ class ScheduledExecutionTest extends TestCase {
         $execution = new ScheduledExecution($this->createMock(Schedule::class), new DateTime(), ChannelFunctionAction::CLOSE());
         $this->assertEquals(ScheduleActionExecutionResult::UNKNOWN(), $execution->getResult());
     }
+
+    public function testDisabledDueToFailedExecutionsRecord() {
+        $schedule = $this->createMock(Schedule::class);
+        $timestamp = new DateTime('2026-06-20 12:00:00');
+        $execution = ScheduledExecution::createDisabledDueToFailedExecutionsRecord($schedule, $timestamp);
+        $this->assertEquals(ScheduleActionExecutionResult::DISABLED_DUE_TO_FAILED_EXECUTIONS(), $execution->getResult());
+        $this->assertEquals($timestamp, $execution->getPlannedTimestamp());
+        $this->assertEquals($timestamp, $execution->getResultTimestamp());
+        $this->assertEquals(ChannelFunctionAction::DISABLE(), $execution->getAction());
+        $this->assertTrue($execution->isFailed());
+    }
 }

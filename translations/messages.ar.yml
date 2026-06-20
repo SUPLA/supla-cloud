@@ -8,6 +8,7 @@
 ...you can monitor temperature: ... يمكنك مراقبة درجة الحرارة
 10 minutes before sunset, on day 10 of the month, May through August: 10 دقائق قبل غروب الشمس، فقط في اليوم العاشر من الشهر، من مايو إلى أغسطس
 15 minutes after sunrise, every 2 days: بعد 15 دقيقة من شروق الشمس، كل يومين
+A confirmation that your schedule has been disabled automatically.: تأكيد بأنه تم تعطيل الجدول الزمني تلقائياً.
 A confirmation upon successful client app registration.: تأكيد تسجيل تطبيق عملاء جديد.
 A confirmation upon successful device registration.: تأكيد تسجيل الجهاز بنجاح.
 A confirmation upon successful device unlocking.: تأكيد إلغاء قفل الجهاز.
@@ -158,6 +159,7 @@ Brightness level: مستوى السطوع
 Button volume: مستوى صوت الزر
 Buttons upside down: التحكم العكسي في الأزرار
 By signing in, you are authorizing {clientName} to control your devices.: من خلال تسجيل الدخول، فإنك تفوض التطبيق {clientName} للتحكم في أجهزتك.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: راجع سجل الجدول الزمني للتفاصيل وأعد تفعيل الجدول بعد إصلاح المشكلة.
 CLICK TO DISABLE: أنقر لإيقاف التشغيل
 CLICK TO ENABLE: أنقر للتشغيل
 Calibrate: معايرة
@@ -288,6 +290,7 @@ Custom execution limit: حد الاجراءات غير قياسي
 DHT11 Temperature & Humidity Sensor: مستشعر درجة الحرارة والرطوبة  DHT11
 DHT21 Temperature & Humidity Sensor: مستشعر درجة الحرارة والرطوبة  DHT21
 DHT22 Temperature & Humidity Sensor: مستشعر درجة الحرارة والرطوبة  DHT22
+Disabled due to failed executions: تم التعطيل بسبب عمليات التنفيذ الفاشلة
 DS18B20 Thermometer: ميزان الحرارة DS18B20
 Dark mode: الوضع المظلم
 Data: البيانات
@@ -820,6 +823,10 @@ Roller shutters: الأبجور
 Roof window opening sensor: مستشعر فتح نافذة السقف
 Roof window shutter operation: فتح نافذة السقف
 S/N: S/N
+Schedule disabled: تم تعطيل الجدول الزمني
+Schedule disabled due to failed executions: تعطيل الجدول الزمني بسبب عمليات التنفيذ الفاشلة
+Schedule ID: %scheduleId%: معرف الجدول الزمني: %scheduleId%
+Schedule name: %scheduleCaption%: اسم الجدول الزمني: %scheduleCaption%
 SUPLA - Account Activation: 'SUPLA:  تفعيل الحساب'
 SUPLA - Account Removal: SUPLA - حذف الحساب
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - إلغاء قفل جهاز لمثبت معتمد
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: 'SUPLA:  إخطار حول فشل تسجيل الدخول إلى %cloudHost%'
 SUPLA – new client app has been added to your account: SUPLA – تم تسجيل تطبيق عملاء جديد
 SUPLA – new device has been added to your account: SUPLA - تمت إضافة جهاز جديد إلى حسابك
+SUPLA – schedule disabled due to failed executions: SUPLA – تم تعطيل الجدول الزمني بسبب عمليات التنفيذ الفاشلة
 SUPLA – your device has been unlocked!: SUPLA - تم إلغاء قفل جهازك!
 SUPLA.ORG Team: فريق SUPLA.ORG
 Same as on master thermostat.: نفس الإعداد الموجود في ثرموستات الماستر.
@@ -1277,6 +1285,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: تم تسجيل سحابة SUPLA الخاصة بك تقريبًا.
 Your private SUPLA Cloud is not registered.: سحابة  SUPLA الخاصة غير مسجلة.
 Your scenes are allowed to have a maximum of {max} operations.: يُسمح أن تحتوي مشاهدك على ما يصل إلى {max} عمليات.
+Your schedule has been disabled automatically due to repeated failed executions.: تم تعطيل الجدول الزمني تلقائياً بسبب تكرار عمليات التنفيذ الفاشلة.
 Your schedules are allowed to have a maximum of {max} actions.: يُسمح أن تحتوي جداولك على ما يصل إلى {max} إجراءات.
 Your session has been expired.: انتهت جلستك.
 Your session is about to expire: سوف تنتهي جلستك بعد لحظة

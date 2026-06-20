@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...du kannst die Temperatur überwachen
 10 minutes before sunset, on day 10 of the month, May through August: 10 Minuten vor dem Sonnenuntergang, nur am 10. Monatstag, von Mai bis August
 15 minutes after sunrise, every 2 days: 15 Minuten nach dem Sonnenaufgang, jeden zweiten Tag
+A confirmation that your schedule has been disabled automatically.: Bestätigung der automatischen Deaktivierung des Harmonogramms.
 A confirmation upon successful client app registration.: Registrierungsbestätigung der neuen Client-Anwendung.
 A confirmation upon successful device registration.: Bestätigung der erfolgreichen Geräteregistrierung.
 A confirmation upon successful device unlocking.: Bestätigung der Gerätefreigabe.
@@ -158,6 +159,7 @@ Brightness level: Helligkeitsstufe
 Button volume: Tastentonlautstärke
 Buttons upside down: Umgekehrte Tastensteuerung
 By signing in, you are authorizing {clientName} to control your devices.: Wenn Sie sich einloggen, ermächtigen Sie die Anwendung {clientName}, Ihre Geräte zu steuern.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Prüfen Sie den Harmonogramm-Verlauf auf Details und aktivieren Sie das Harmonogramm nach Behebung des Problems erneut.
 CLICK TO DISABLE: KLICKEN UM AUSZUSCHALTEN
 CLICK TO ENABLE: KLICKEN UM EINZUSCHALTEN
 Calibrate: Kalibrieren
@@ -288,6 +290,7 @@ Custom execution limit: Benutzerdefinierter Ausführungslimit
 DHT11 Temperature & Humidity Sensor: DHT11 Temperatur- und Feuchtigkeitssensor
 DHT21 Temperature & Humidity Sensor: DHT21 Temperatur- und Feuchtigkeitssensor
 DHT22 Temperature & Humidity Sensor: DHT22 Temperatur- und Feuchtigkeitssensor
+Disabled due to failed executions: Aufgrund fehlgeschlagener Ausführungen deaktiviert
 DS18B20 Thermometer: DS18B20 Thermometer
 Dark mode: Dunkelmodus
 Data: Daten
@@ -820,6 +823,10 @@ Roller shutters: Rolladen
 Roof window opening sensor: Dachfenster-Öffnungssensor
 Roof window shutter operation: Öffnen des Dachfensters
 S/N: Seriennummer
+Schedule disabled: Harmonogramm deaktiviert
+Schedule disabled due to failed executions: Harmonogramm aufgrund fehlgeschlagener Ausführungen deaktiviert
+Schedule ID: %scheduleId%: Kennung des Harmonogramms: %scheduleId%
+Schedule name: %scheduleCaption%: Name des Harmonogramms: %scheduleCaption%
 SUPLA - Account Activation: SUPLA - Kontoaktivierung
 SUPLA - Account Removal: SUPLA – Löschen des Accounts
 SUPLA - Confirm unlocking device for authorized installers: SUPLA – Freischaltung eines Geräts für zertifizierte Installateure
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Benachrichtigung über fehlgeschlagene Anmeldung bei %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - neue Client-App wurde registriert
 SUPLA – new device has been added to your account: SUPLA - ein neues Gerät wurde zu Ihrem Konto hinzugefügt
+SUPLA – schedule disabled due to failed executions: SUPLA – Harmonogramm aufgrund fehlgeschlagener Ausführungen deaktiviert
 SUPLA – your device has been unlocked!: SUPLA – Ihr Gerät ist jetzt freigeschaltet!
 SUPLA.ORG Team: Team SUPLA.ORG
 Same as on master thermostat.: Einstellung wie beim übergeordneten Thermostat.
@@ -1278,6 +1286,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Ihre private SUPLA-Cloud ist fast registriert.
 Your private SUPLA Cloud is not registered.: Ihre private SUPLA-Cloud ist nicht registriert
 Your scenes are allowed to have a maximum of {max} operations.: Ihre Szenen dürfen maximal {max} Vorgänge haben.
+Your schedule has been disabled automatically due to repeated failed executions.: Ihr Harmonogramm wurde aufgrund wiederholter fehlgeschlagener Ausführungen automatisch deaktiviert.
 Your schedules are allowed to have a maximum of {max} actions.: Ihre Zeitpläne dürfen maximal {max} Aktionen haben.
 Your session has been expired.: Deine Sitzung ist abgelaufen.
 Your session is about to expire: Deine Sitzung wird in kürze ablaufen

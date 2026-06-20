@@ -18,6 +18,7 @@
 namespace App\Tests\Integration\Command\Cyclic;
 
 use App\Entity\Main\AuditEntry;
+use App\Entity\Main\ScheduledExecution;
 use App\Enums\AuditedEvent;
 use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
@@ -26,6 +27,7 @@ use App\Enums\ScheduleMode;
 use App\Model\Audit\Audit;
 use App\Model\Schedule\ScheduleManager;
 use App\Tests\Integration\IntegrationTestCase;
+use App\Tests\Integration\TestMailerTransport;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 
 class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
@@ -97,6 +99,28 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
         $entry = $this->getLatestAuditEntry();
         $this->assertEquals(AuditedEvent::SCHEDULE_BROKEN_DISABLED(), $entry->getEvent());
         $this->assertEquals($this->schedule->getId(), $entry->getIntParam());
+    }
+
+    /** @depends testDisablingScheduleIfALotOfFailedExecutions */
+    public function testCreatesHistoryEntryWhenScheduleDisabledDueToFailedExecutions() {
+        $historyEntry = $this->getEntityManager()->getRepository(ScheduledExecution::class)->findOneBy([
+            'schedule' => $this->schedule,
+            'result' => ScheduleActionExecutionResult::DISABLED_DUE_TO_FAILED_EXECUTIONS,
+        ]);
+        $this->assertNotNull($historyEntry);
+        $this->assertTrue($historyEntry->getResult()->equals(ScheduleActionExecutionResult::DISABLED_DUE_TO_FAILED_EXECUTIONS()));
+        $this->assertNotNull($historyEntry->getResultTimestamp());
+    }
+
+    /** @depends testDisablingScheduleIfALotOfFailedExecutions */
+    public function testSendsEmailWhenScheduleDisabledDueToFailedExecutions() {
+        $this->flushMessagesQueue();
+        $this->assertCount(1, TestMailerTransport::getMessages());
+        $message = TestMailerTransport::getMessages()[0];
+        $this->assertStringContainsString('schedule disabled due to failed executions', strtolower($message->getSubject()));
+        $this->assertStringContainsString((string)$this->schedule->getId(), $message->getHtmlBody());
+        $this->assertStringContainsString('schedules/' . $this->schedule->getId(), $message->getHtmlBody());
+        $this->assertStringContainsString('optOutNotification=schedule_disabled_due_to_failed_executions', $message->getHtmlBody());
     }
 
     private function getLatestAuditEntry(): AuditEntry {

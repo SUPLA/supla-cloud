@@ -7,6 +7,7 @@
 ...you can monitor temperature: ...узнать температуру
 10 minutes before sunset, on day 10 of the month, May through August: За 10 минут до заката солнца, только 10. числа месяца, с мая по август
 15 minutes after sunrise, every 2 days: Через 15 минут после восхода солнца, через день
+A confirmation that your schedule has been disabled automatically.: Подтверждение автоматического отключения графика.
 A confirmation upon successful client app registration.: Подтверждение регистрации нового клиентского приложения.
 A confirmation upon successful device registration.: Подтверждение успешной регистрации устройства.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Новое клиентское приложение (смартфон) добавлено в вашу учетную запись SUPLA-Cloud.
@@ -105,6 +106,7 @@ Below threshold: Ниже порога
 Bottom position: Нижнее положение
 Bridge: Мост
 Brightness: Яркость
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Подробности см. в истории графика; после устранения проблемы включите график снова.
 CLICK TO DISABLE: ОТКЛЮЧИТЬ
 CLICK TO ENABLE: ИСПОЛЬЗОВАТЬ
 Calibrate: Калибровка
@@ -193,6 +195,7 @@ Custom execution limit: Нестандартный лимит исполнени
 DHT11 Temperature & Humidity Sensor: Датчик температуры и влажности DHT11
 DHT21 Temperature & Humidity Sensor: Датчик температуры и влажности DHT21
 DHT22 Temperature & Humidity Sensor: Датчик температуры и влажности DHT22
+Disabled due to failed executions: Отключено из-за неудачных выполнений
 DS18B20 Thermometer: Термометр DS18B20
 Data saved: Данные сохранены
 Date: Дата
@@ -551,6 +554,10 @@ Roller shutter operation: Управление роллетами
 Roller shutters: Роллеты
 Roof window opening sensor: Датчик открытия окна крыши
 Roof window shutter operation: Открытие окна крыши
+Schedule disabled: График отключен
+Schedule disabled due to failed executions: График отключен из-за неудачных выполнений
+Schedule ID: %scheduleId%: Идентификатор графика: %scheduleId%
+Schedule name: %scheduleCaption%: Название графика: %scheduleCaption%
 SUPLA - Account Activation: Активация аккаунта SUPLA
 SUPLA - Account Removal: SUPLA - Удаление учетной записи
 SUPLA - Password reset: Сброс пароля для SUPLA
@@ -563,6 +570,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Уведомление о неудачной попытке входа в %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - зарегистрировано новое клиентское приложение
 SUPLA – new device has been added to your account: SUPLA - новое устройство добавлено в вашу учетную запись
+SUPLA – schedule disabled due to failed executions: SUPLA – график отключен из-за неудачных выполнений
 SUPLA.ORG Team: Команда SUPLA.ORG
 Saturdays: Субботы
 Save: Сохранить
@@ -772,6 +780,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Ваше персональное облако SUPLA почти зарегистрировано.
 Your private SUPLA Cloud is not registered.: Ваше личное облако SUPLA не зарегистрировано.
 Your scenes are allowed to have a maximum of {max} operations.: Ваши сцены могут иметь максимум {max} операций.
+Your schedule has been disabled automatically due to repeated failed executions.: Ваш график был автоматически отключен из-за повторяющихся неудачных выполнений.
 Your schedules are allowed to have a maximum of {max} actions.: Ваши графики могут иметь максимум {max} действий.
 Your session has been expired.: Ваш сеанс завершен.
 Your session is about to expire: Ваша сессия истекает

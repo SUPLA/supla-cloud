@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...μπορείτε να παρακολουθείτε τη θερμοκρασία
 10 minutes before sunset, on day 10 of the month, May through August: 10 λεπτά πριν από τη δύση του ηλίου, μόνο τη 10η ημέρα του μήνα, από Μάιο έως Αύγουστο
 15 minutes after sunrise, every 2 days: 15 λεπτά μετά την ανατολή του ηλίου, κάθε δεύτερη μέρα
+A confirmation that your schedule has been disabled automatically.: Επιβεβαίωση αυτόματης απενεργοποίησης του χρονοδιαγράμματος.
 A confirmation upon successful client app registration.: Επιβεβαίωση εγγραφής της νέας εφαρμογής πελάτη.
 A confirmation upon successful device registration.: Επιβεβαιώστε ότι η συσκευή έχει εγγραφεί με επιτυχία.
 A confirmation upon successful device unlocking.: Επιβεβαίωση ξεκλειδώματος συσκευής.
@@ -158,6 +159,7 @@ Brightness level: Επίπεδο φωτεινότητας
 Button volume: Ένταση κουμπιού
 Buttons upside down: Αντίστροφος έλεγχος κουμιών
 By signing in, you are authorizing {clientName} to control your devices.: Με τη σύνδεση, δίνετε την εξουσιοδότηση στην εφαρμογή {clientName} να ελέγχει τις συσκευές σας.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Ελέγξτε το ιστορικό του χρονοδιαγράμματος για λεπτομέρειες και ενεργοποιήστε το ξανά αφού διορθώσετε το πρόβλημα.
 CLICK TO DISABLE: ΚΑΝΤΕ ΚΛΙΚ ΓΙΑ ΝΑ ΚΛΕΙΣΕΤΕ
 CLICK TO ENABLE: ΚΑΝΤΕ ΚΛΙΚ ΓΙΑ ΝΑ ΕΝΕΡΓΟΠΟΙΗΣΕΤΕ
 Calibrate: Βαθμονόμηση
@@ -288,6 +290,7 @@ Custom execution limit: Προσαρμοσμένο όριο εκτελέσεων
 DHT11 Temperature & Humidity Sensor: Αισθητήρας θερμοκρασίας και υγρασίας DHT11
 DHT21 Temperature & Humidity Sensor: Αισθητήρας θερμοκρασίας και υγρασίας DHT21
 DHT22 Temperature & Humidity Sensor: Αισθητήρας θερμοκρασίας και υγρασίας DHT22
+Disabled due to failed executions: Απενεργοποιήθηκε λόγω αποτυχημένων εκτελέσεων
 DS18B20 Thermometer: Θερμόμετρο DS18B20
 Dark mode: Σκοτεινή λειτουργία
 Data: Δεδομένα
@@ -820,6 +823,10 @@ Roller shutters: Περσίδες
 Roof window opening sensor: Αισθητήρας ανοίγματος παραθύρου οροφής
 Roof window shutter operation: Άνοιγμα παραθύρου οροφής
 S/N: S/N
+Schedule disabled: Το χρονοδιάγραμμα απενεργοποιήθηκε
+Schedule disabled due to failed executions: Απενεργοποίηση χρονοδιαγράμματος λόγω αποτυχημένων εκτελέσεων
+Schedule ID: %scheduleId%: Αναγνωριστικό χρονοδιαγράμματος: %scheduleId%
+Schedule name: %scheduleCaption%: Όνομα χρονοδιαγράμματος: %scheduleCaption%
 SUPLA - Account Activation: SUPLA - Ενεργοποίηση λογαριασμού
 SUPLA - Account Removal: SUPLA - Διαγραφή λογαριασμού
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Ξεκλείδωμα συσκευής που προορίζεται για πιστοποιημένο εγκαταστάτη
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - Ειδοποίηση για αποτυχημένη σύνδεση στο %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - μια νέα εφαρμογή πελάτη έχει καταχωρηθεί
 SUPLA – new device has been added to your account: SUPLA - μια νέα συσκευή έχει προστεθεί στο λογαριασμό σας
+SUPLA – schedule disabled due to failed executions: SUPLA – το χρονοδιάγραμμα απενεργοποιήθηκε λόγω αποτυχημένων εκτελέσεων
 SUPLA – your device has been unlocked!: SUPLA - Η συσκευή σας έχει ξεκλειδωθεί!
 SUPLA.ORG Team: Η ομάδα SUPLA.ORG
 Same as on master thermostat.: Ίδια ρύθμιση με αυτή του κύριου θερμοστάτη.
@@ -1278,6 +1286,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Το ιδιωτικό σας SUPLA cloud είναι σχεδόν εγγεγραμμένο.
 Your private SUPLA Cloud is not registered.: Το ιδιωτικό σας SUPLA cloud δεν είναι εγγεγραμμένο.
 Your scenes are allowed to have a maximum of {max} operations.: Οι σκηνές σας μπορεί να έχουν έως και {max} ενέργειες.
+Your schedule has been disabled automatically due to repeated failed executions.: Το χρονοδιάγραμμά σας απενεργοποιήθηκε αυτόματα λόγω επαναλαμβανόμενων αποτυχημένων εκτελέσεων.
 Your schedules are allowed to have a maximum of {max} actions.: Τα χρονοδιαγράμματά σας μπορούν να έχουν το πολύ {max} κοινόχρηστα στοιχεία.
 Your session has been expired.: Η συνεδρία σας έχει λήξει.
 Your session is about to expire: Η συνεδρία σας θα λήξει σε λίγο

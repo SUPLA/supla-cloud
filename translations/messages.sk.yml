@@ -8,6 +8,7 @@
 ...you can monitor temperature: ...môžete monitorovať teplotu
 10 minutes before sunset, on day 10 of the month, May through August: 10 minút pred západom slnka, iba v 10. deň v mesiaci, od mája do augusta
 15 minutes after sunrise, every 2 days: 15 minút po východe slnka, každý druhý deň
+A confirmation that your schedule has been disabled automatically.: Potvrdenie automatického vypnutia harmonogramu.
 A confirmation upon successful client app registration.: Potvrdenie registrácie novej klientskej aplikácie.
 A confirmation upon successful device registration.: Potvrdenie úspešnej registrácie zariadenia.
 A confirmation upon successful device unlocking.: Potvrdenie odomknutia zariadenia.
@@ -158,6 +159,7 @@ Brightness level: Úroveň jasu
 Button volume: Hlasitosť tlačidla
 Buttons upside down: Ovládanie tlačidla spätného chodu
 By signing in, you are authorizing {clientName} to control your devices.: Prihlásením autorizujete aplikáciu {clientName} na kontrolu vašich zariadení.
+Check the schedule history for details and re-enable the schedule after fixing the problem.: Podrobnosti nájdete v histórii harmonogramu a harmonogram znova zapnite po odstránení problému.
 CLICK TO DISABLE: STLAČENÍM VYPNETE
 CLICK TO ENABLE: STLAČENÍM ZAPNETE
 Calibrate: Kalibrovať
@@ -288,6 +290,7 @@ Custom execution limit: Neštandardný limit vykonaní
 DHT11 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT11
 DHT21 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT21
 DHT22 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT22
+Disabled due to failed executions: Vypnuté kvôli neúspešným vykonaniam
 DS18B20 Thermometer: Teplomer DS18B20
 Dark mode: Tmavý režim
 Data: Údaje
@@ -820,6 +823,10 @@ Roller shutters: Rolety
 Roof window opening sensor: Senzor otvárania strešného okna
 Roof window shutter operation: Otváranie strešného okna
 S/N: S/N
+Schedule disabled: Harmonogram vypnutý
+Schedule disabled due to failed executions: Harmonogram vypnutý kvôli neúspešným vykonaniam
+Schedule ID: %scheduleId%: Identifikátor harmonogramu: %scheduleId%
+Schedule name: %scheduleCaption%: Názov harmonogramu: %scheduleCaption%
 SUPLA - Account Activation: SUPLA - Aktivácia účtu
 SUPLA - Account Removal: SUPLA – Zrušenie účtu
 SUPLA - Confirm unlocking device for authorized installers: SUPLA - Odblokovanie zariadenia pre certifikovaného inštalatéra
@@ -833,6 +840,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Oznámenie o neúspešnom prihlásení do %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - bola zaregistrovaná nová klientská aplikácia
 SUPLA – new device has been added to your account: SUPLA – do vášho účtu bolo pridané nové zariadenie
+SUPLA – schedule disabled due to failed executions: SUPLA – harmonogram vypnutý kvôli neúspešným vykonaniam
 SUPLA – your device has been unlocked!: SUPLA - Vaše zariadenie bolo odomknuté!
 SUPLA.ORG Team: Tím SUPLA.ORG
 Same as on master thermostat.: Rovnaké nastavenie ako na hlavnom termostate.
@@ -1278,6 +1286,7 @@ Your private SUPLA Cloud instance is not available. Make sure your server is onl
 Your private SUPLA Cloud is almost registered.: Váš súkromný mrak SUPLA je skoro zaregistrovaný.
 Your private SUPLA Cloud is not registered.: Váš súkromný cloud SUPLA nie je registrovaný.
 Your scenes are allowed to have a maximum of {max} operations.: Vaše scény môžu mať maximálne {max} operácií.
+Your schedule has been disabled automatically due to repeated failed executions.: Váš harmonogram bol automaticky vypnutý kvôli opakovaným neúspešným vykonaniam.
 Your schedules are allowed to have a maximum of {max} actions.: Vaše harmonogramy môžu obsahovať maximálne {max} akcií.
 Your session has been expired.: Vaša relácia vypršala.
 Your session is about to expire: Vaša relácia čoskoro vyprší
