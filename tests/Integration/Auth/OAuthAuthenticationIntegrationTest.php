@@ -122,6 +122,24 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertFalse($response->isRedirection());
         $this->assertStatusCode(400, $response);
+        $this->assertStringContainsString('redirect URI', $response->getContent());
+    }
+
+    public function testTokenRequestForInvalidRedirectUriResultsInError() {
+        $this->makeOAuthAuthorizeRequest();
+        $authCodes = $this->getDoctrine()->getRepository(AuthCode::class)->findByClient($this->client);
+        $client = $this->createClient();
+        $client->apiRequest('POST', '/oauth/v2/token', [
+            'grant_type' => 'authorization_code',
+            'client_id' => $this->client->getPublicId(),
+            'client_secret' => $this->client->getSecret(),
+            'redirect_uri' => 'https://horses.pl',
+            'code' => $authCodes[0]->getToken(),
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals('redirect_uri_mismatch', $content['error']);
     }
 
     public function testLogsOutAfterGrantingAccess() {
