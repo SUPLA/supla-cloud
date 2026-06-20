@@ -1,5 +1,11 @@
 <template>
-  <ErrorPage :header-i18n="header" :message-i18n="message" :icon="icon" :status-code="statusCode" />
+  <ErrorPage
+    :header-i18n="header"
+    :message-i18n="message"
+    :icon="icon"
+    :status-code="statusCode"
+    :guru-meditation="guruMeditation"
+  />
 </template>
 
 <script setup>
@@ -8,6 +14,7 @@
   const props = defineProps({statusCode: Number});
 
   const statusCode = window.errorDetails?.statusCode || props.statusCode || 404;
+  const guruMeditation = window.errorDetails?.guruMeditation || '';
 
   const header =
     {

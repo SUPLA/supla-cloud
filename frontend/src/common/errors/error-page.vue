@@ -4,16 +4,8 @@
       <h1 class="nocapitalize">{{ $t(headerI18n) }}</h1>
       <i :class="[icon, 'error-page-icon']" style="font-size: 160px"></i>
       <div class="my-3">
-        <h5>{{ $t(messageI18n, {statusCode}) }}</h5>
-      </div>
-      <div v-if="guruMeditation">
-        <button v-if="!guruMeditationVisible" type="button" class="btn btn-link" @click="guruMeditationVisible = true">
-          Guru Meditation <i class="pe-7s-help1"></i>
-        </button>
-        <div v-if="guruMeditationVisible" class="well" style="max-width: 600px; margin: 0 auto">
-          <h3 class="no-margin-top">{{ $t('Guru Meditation') }}</h3>
-          <pre><code>{{ guruMeditation }}</code></pre>
-        </div>
+        <h5 v-if="guruMeditation">{{ guruMeditation }}</h5>
+        <h5 v-else>{{ $t(messageI18n, {statusCode}) }}</h5>
       </div>
       <div class="my-3">
         <router-link to="/">{{ $t('Start from the homepage.') }}</router-link>
@@ -26,10 +18,5 @@
 <script>
   export default {
     props: ['headerI18n', 'messageI18n', 'icon', 'guruMeditation', 'statusCode'],
-    data() {
-      return {
-        guruMeditationVisible: false,
-      };
-    },
   };
 </script>
