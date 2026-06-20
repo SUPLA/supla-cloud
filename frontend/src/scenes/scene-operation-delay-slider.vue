@@ -1,5 +1,5 @@
 <template>
-  <TimeIntervalSlider v-model="model" :min="250" :max="3600000">
+  <TimeIntervalSlider v-model="model" :min="250" :max="172800000">
     <template #buttons>
       <a @click="$emit('delete')">
         <fa :icon="faTrash" />

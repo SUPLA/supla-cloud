@@ -442,7 +442,7 @@ class ValueBasedTriggerValidator {
 
     private function validateDuration(array $onChangeTo): void {
         if (isset($onChangeTo['duration_sec'])) {
-            Assert::that($onChangeTo['duration_sec'])->integer()->greaterOrEqualThan(0)->lessOrEqualThan(3600);
+            Assert::that($onChangeTo['duration_sec'])->integer()->greaterOrEqualThan(0)->lessOrEqualThan(172800);
         }
     }
 }
