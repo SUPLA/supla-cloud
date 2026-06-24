@@ -46,9 +46,7 @@ services:
     resource: '../src/'
     exclude:
       - '../src/DependencyInjection/'
-      - '../src/frontend/'
       - '../src/Entity/'
-      - '../src/'
       - '../src/Kernel.php'
 
 
@@ -57,8 +55,6 @@ services:
   Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
   Symfony\Component\Serializer\NameConverter\NameConverterInterface: '@serializer.name_converter.metadata_aware'
 
-  App\Command\:
-    resource: '../src/Command'
   App\Command\Cyclic\DispatchCyclicTasksCommand:
     - !tagged supla.cyclic_command
   App\Command\Cyclic\DeleteNotConfirmedUsersCommand:
@@ -73,10 +69,6 @@ services:
   App\Command\User\ApiInfoCommand:
     $enabled: '%supla.api_rate_limit.enabled%'
     $blocking: '%supla.api_rate_limit.blocking%'
-
-  App\Controller\:
-    resource: '../src/Controller'
-    public: true
 
   App\Controller\DefaultController:
     $openApiCache: '@openapi_docs_cache'
@@ -113,16 +105,10 @@ services:
     tags:
       - {name: doctrine.orm.entity_listener}
 
-  App\Message\:
-    resource: '../src/Message'
-
   App\Message\EmailFromTemplateHandler:
     $defaultLocale: "%kernel.default_locale%"
   App\Message\EmailToAdminHandler:
     $adminEmail: "%env(SUPLA_ADMIN_EMAIL)%"
-
-  App\Model\:
-    resource: '../src/Model'
 
   App\Model\MeasurementLogsEntityManagerProvider:
     $databaseForLogs: '%supla.database_for_logs%'
@@ -165,9 +151,6 @@ services:
     $blockTimeInSeconds: '%supla.brute_force_auth_prevention.block_time_seconds%'
 
 
-  App\Supla\:
-    resource: '../src/Supla'
-
   App\Supla\SuplaServerMock:
     tags:
       - {name: monolog.logger, channel: supla_server}
@@ -197,9 +180,6 @@ services:
 
   App\Supla\SuplaOcrClient:
     $ocrUrl: '%supla.ocr.url%'
-
-  App\Auth\Voter\:
-    resource: '../src/Auth/Voter'
 
   App\Auth\UserProvider: ~
   App\Auth\SuplaAccessTokenManager: ~
@@ -263,11 +243,6 @@ services:
     tags:
       - {name: monolog.logger, channel: supla_migrations}
 
-  App\ParamConverter\:
-    resource: '../src/ParamConverter'
-
-  App\Serialization\:
-    resource: '../src/Serialization'
   App\Serialization\UserSerializer:
     $apiRateLimitEnabled: '%supla.api_rate_limit.enabled%'
 
@@ -277,9 +252,6 @@ services:
     tags:
       - {name: monolog.logger, channel: supla_mails}
 
-  App\Twig\FrontendConfig: ~
-
-  App\Auth\SuplaOAuth2Authenticator: ~
   App\Auth\SuplaOAuth2:
     arguments:
       - '@fos_oauth_server.storage'
@@ -290,9 +262,6 @@ services:
   OAuth2\OAuth2: '@App\Auth\SuplaOAuth2'
 
   ## REPOSITORIES ##
-
-  App\Repository\:
-    resource: '../src/Repository'
 
   App\Repository\AccessIdRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
