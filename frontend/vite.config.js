@@ -2,7 +2,6 @@ import {fileURLToPath, URL} from 'node:url';
 
 import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
-import vueDevTools from 'vite-plugin-vue-devtools';
 import ViteYaml from '@modyfi/vite-plugin-yaml';
 import * as path from 'node:path';
 import {version} from './scripts/version';
@@ -22,9 +21,10 @@ export default defineConfig({
       },
     }),
     ViteYaml(),
-    vueDevTools({
-      launchEditor: 'phpstorm',
-    }),
+    // TODO reenable after getting rid of vue-compat
+    // vueDevTools({
+    //   launchEditor: 'phpstorm',
+    // }),
   ],
   server: {
     port: 25787,
