@@ -7,6 +7,7 @@ use App\Entity\Main\User;
 use App\Entity\MeasurementLogs\EnergyTariff;
 use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
+use App\Enums\EnergyPriceComponent;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
@@ -83,7 +84,7 @@ class EnergyTariffControllerIntegrationTest extends IntegrationTestCase {
 
         $payload = $this->createProfilePayload('Spring profile');
         $payload['tariffPeriods'][0]['pricePeriods'][1]['items'] = [
-            ['componentCode' => 'ENERGY_ACTIVE_IMPORT', 'zoneCode' => 'NIGHT', 'amount' => 0.55, 'unit' => 'kWh', 'currency' => 'PLN'],
+            ['componentCode' => EnergyPriceComponent::FORWARD_ACTIVE_ENERGY->name, 'zoneCode' => 'NIGHT', 'amount' => 0.55, 'unit' => 'kWh', 'currency' => 'PLN'],
         ];
         $client->apiRequestV24('PUT', '/api/energy-tariff-profiles/' . $created['id'], $payload);
         $this->assertStatusCode(200, $client->getResponse());
@@ -150,8 +151,8 @@ class EnergyTariffControllerIntegrationTest extends IntegrationTestCase {
                         'validFrom' => '2026-01-01 00:00:00',
                         'validTo' => '2026-01-16 00:00:00',
                         'items' => [
-                            ['componentCode' => 'ENERGY_ACTIVE_IMPORT', 'zoneCode' => 'DAY', 'amount' => 0.95, 'unit' => 'kWh', 'currency' => 'PLN'],
-                            ['componentCode' => 'DISTRIBUTION_FIXED', 'zoneCode' => null, 'amount' => 12.12, 'unit' => 'month', 'currency' => 'PLN'],
+                            ['componentCode' => EnergyPriceComponent::FORWARD_ACTIVE_ENERGY->name, 'zoneCode' => 'DAY', 'amount' => 0.95, 'unit' => 'kWh', 'currency' => 'PLN'],
+                            ['componentCode' => EnergyPriceComponent::DISTRIBUTION_FIXED->name, 'zoneCode' => null, 'amount' => 12.12, 'unit' => 'month', 'currency' => 'PLN'],
                         ],
                     ],
                     [
@@ -160,7 +161,7 @@ class EnergyTariffControllerIntegrationTest extends IntegrationTestCase {
                         'validFrom' => '2026-01-16 00:00:00',
                         'validTo' => '2026-02-01 00:00:00',
                         'items' => [
-                            ['componentCode' => 'ENERGY_ACTIVE_IMPORT', 'zoneCode' => 'NIGHT', 'amount' => 0.65, 'unit' => 'kWh', 'currency' => 'PLN'],
+                            ['componentCode' => EnergyPriceComponent::FORWARD_ACTIVE_ENERGY->name, 'zoneCode' => 'NIGHT', 'amount' => 0.65, 'unit' => 'kWh', 'currency' => 'PLN'],
                         ],
                     ],
                 ],

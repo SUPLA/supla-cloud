@@ -25,6 +25,7 @@ use App\Entity\MeasurementLogs\EnergyTariffProfilePriceItem;
 use App\Entity\MeasurementLogs\EnergyTariffProfilePricePeriod;
 use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
 use App\Enums\ChannelFunction;
+use App\Enums\EnergyPriceComponent;
 use App\Model\ApiVersions;
 use App\Utils\DatabaseUtils;
 use App\Utils\DateUtils;
@@ -353,13 +354,14 @@ class EnergyTariffController extends RestController {
                 ];
             }
 
+            $componentCode = EnergyPriceComponent::from((int)$row['component_code'])->name;
             $componentCost = round((float)$row['total_kwh'] * (float)$row['amount'], 6);
             $phase1Cost = round((float)$row['phase1_kwh'] * (float)$row['amount'], 6);
             $phase2Cost = round((float)$row['phase2_kwh'] * (float)$row['amount'], 6);
             $phase3Cost = round((float)$row['phase3_kwh'] * (float)$row['amount'], 6);
 
             $logs[$key]['costs']['total'] += $componentCost;
-            $logs[$key]['costs']['byComponent'][$row['component_code']] = ($logs[$key]['costs']['byComponent'][$row['component_code']] ?? 0) + $componentCost;
+            $logs[$key]['costs']['byComponent'][$componentCode] = ($logs[$key]['costs']['byComponent'][$componentCode] ?? 0) + $componentCost;
             if ($row['zone_code']) {
                 $logs[$key]['costs']['byZone'][$row['zone_code']] = ($logs[$key]['costs']['byZone'][$row['zone_code']] ?? 0) + $componentCost;
             }
@@ -534,9 +536,9 @@ class EnergyTariffController extends RestController {
         }
     }
 
-    private function addSummaryCost(array &$summary, string $componentCode, float $amount): void {
+    private function addSummaryCost(array &$summary, EnergyPriceComponent $componentCode, float $amount): void {
         $summary['costs']['total'] += $amount;
-        $summary['costs']['byComponent'][$componentCode] = ($summary['costs']['byComponent'][$componentCode] ?? 0) + $amount;
+        $summary['costs']['byComponent'][$componentCode->name] = ($summary['costs']['byComponent'][$componentCode->name] ?? 0) + $amount;
     }
 
     private function countOverlappingLocalDays(
@@ -687,7 +689,7 @@ class EnergyTariffController extends RestController {
             Assertion::keyExists($itemData, 'unit');
             Assertion::keyExists($itemData, 'currency');
             $item = new EnergyTariffProfilePriceItem();
-            $item->setComponentCode($itemData['componentCode']);
+            $item->setComponentCode($this->parseEnergyPriceComponent($itemData['componentCode']));
             $item->setZoneCode($itemData['zoneCode'] ?? null);
             $item->setAmount((float)$itemData['amount']);
             $item->setUnit($itemData['unit']);
@@ -751,7 +753,6 @@ class EnergyTariffController extends RestController {
             $items = $pricePeriod->getItems()->toArray();
             Assertion::notEmpty($items, 'Price period must contain at least one price item.');
             foreach ($items as $item) {
-                Assertion::notBlank($item->getComponentCode());
                 Assertion::notBlank($item->getUnit());
                 Assertion::notBlank($item->getCurrency());
                 if ($item->getZoneCode() !== null && $zoneCodes) {
@@ -793,6 +794,20 @@ class EnergyTariffController extends RestController {
 
     private function parseNullableDateTime(?string $dateTime): ?\DateTime {
         return $dateTime ? $this->parseDateTime($dateTime) : null;
+    }
+
+    /**
+     * Accept enum case names for API stability and integer values for internal compatibility.
+     */
+    private function parseEnergyPriceComponent(string|int $componentCode): EnergyPriceComponent {
+        if (is_int($componentCode) || ctype_digit((string)$componentCode)) {
+            return EnergyPriceComponent::from((int)$componentCode);
+        }
+
+        $constantName = EnergyPriceComponent::class . '::' . $componentCode;
+        $component = defined($constantName) ? constant($constantName) : null;
+        Assertion::notNull($component, 'Invalid energy price component.');
+        return $component;
     }
 
     private function getMeasurementLogsEntityManager() {
@@ -839,7 +854,7 @@ class EnergyTariffController extends RestController {
             'validTo' => $pricePeriod->getValidTo()?->format(\DateTime::ATOM),
             'items' => array_map(fn(EnergyTariffProfilePriceItem $item) => [
                 'id' => $item->getId(),
-                'componentCode' => $item->getComponentCode(),
+                'componentCode' => $item->getComponentCode()->name,
                 'zoneCode' => $item->getZoneCode(),
                 'amount' => $item->getAmount(),
                 'unit' => $item->getUnit(),

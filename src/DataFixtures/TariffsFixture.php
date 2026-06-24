@@ -26,6 +26,7 @@ use App\Entity\MeasurementLogs\EnergyTariffProfilePriceItem;
 use App\Entity\MeasurementLogs\EnergyTariffProfilePricePeriod;
 use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
 use App\Enums\ChannelType;
+use App\Enums\EnergyPriceComponent;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use Doctrine\Persistence\ObjectManager;
 
@@ -72,9 +73,9 @@ class TariffsFixture extends SuplaFixture {
         $pricePeriod->setName('Sample G11 prices');
         $pricePeriod->setBillingPeriodStartDay(1);
         $pricePeriod->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
-        $pricePeriod->addItem($this->createProfilePriceItem('ENERGY_ACTIVE_IMPORT', 'ALL_DAY', 0.95, 'kWh'));
-        $pricePeriod->addItem($this->createProfilePriceItem('DISTRIBUTION_VARIABLE', 'ALL_DAY', 0.11, 'kWh'));
-        $pricePeriod->addItem($this->createProfilePriceItem('DISTRIBUTION_FIXED', null, 12.12, 'month'));
+        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.95, 'kWh'));
+        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'ALL_DAY', 0.11, 'kWh'));
+        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 12.12, 'month'));
         $tariffPeriod->addPricePeriod($pricePeriod);
 
         $profileAssignment = new EnergyTariffProfileAssignment();
@@ -86,7 +87,7 @@ class TariffsFixture extends SuplaFixture {
     }
 
     private function createProfilePriceItem(
-        string $componentCode,
+        EnergyPriceComponent $componentCode,
         ?string $zoneCode,
         float $amount,
         string $unit

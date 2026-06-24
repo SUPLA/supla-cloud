@@ -17,6 +17,7 @@
 
 namespace App\Entity\MeasurementLogs;
 
+use App\Enums\EnergyPriceComponent;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,8 +36,8 @@ class EnergyTariffProfilePriceItem {
      */
     private ?EnergyTariffProfilePricePeriod $pricePeriod = null;
 
-    /** @ORM\Column(name="component_code", type="string", length=100) */
-    private string $componentCode = '';
+    /** @ORM\Column(name="component_code", type="integer", enumType=EnergyPriceComponent::class) */
+    private EnergyPriceComponent $componentCode;
 
     /** @ORM\Column(name="zone_code", type="string", length=100, nullable=true) */
     private ?string $zoneCode = null;
@@ -62,11 +63,11 @@ class EnergyTariffProfilePriceItem {
         $this->pricePeriod = $pricePeriod;
     }
 
-    public function getComponentCode(): string {
+    public function getComponentCode(): EnergyPriceComponent {
         return $this->componentCode;
     }
 
-    public function setComponentCode(string $componentCode): void {
+    public function setComponentCode(EnergyPriceComponent $componentCode): void {
         $this->componentCode = $componentCode;
     }
 
