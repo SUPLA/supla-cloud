@@ -19,10 +19,11 @@ namespace App\Controller\Api;
 
 use App\Entity\Main\IODeviceChannel;
 use App\Entity\MeasurementLogs\EnergyTariff;
-use App\Entity\MeasurementLogs\EnergyTariffAssignment;
-use App\Entity\MeasurementLogs\EnergyTariffPriceList;
-use App\Entity\MeasurementLogs\EnergyTariffPriceListAssignment;
-use App\Entity\MeasurementLogs\EnergyTariffPriceListItem;
+use App\Entity\MeasurementLogs\EnergyTariffProfile;
+use App\Entity\MeasurementLogs\EnergyTariffProfileAssignment;
+use App\Entity\MeasurementLogs\EnergyTariffProfilePriceItem;
+use App\Entity\MeasurementLogs\EnergyTariffProfilePricePeriod;
+use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
 use App\Enums\ChannelFunction;
 use App\Model\ApiVersions;
 use App\Utils\DatabaseUtils;
@@ -53,206 +54,121 @@ class EnergyTariffController extends RestController {
 
     /**
      * @Security("is_granted('ROLE_CHANNELS_R')")
-     * @Rest\Get("/energy-tariffs/{tariffId}/price-lists")
+     * @Rest\Get("/energy-tariff-profiles")
      */
-    public function getEnergyTariffPriceListsAction(int $tariffId, Request $request) {
+    public function getEnergyTariffProfilesAction(Request $request) {
         $this->ensureApiVersion24($request);
-        $this->findTariffOrThrow($tariffId);
-        $priceLists = $this->getMeasurementLogsEntityManager()->getRepository(EnergyTariffPriceList::class)->findBy([
-            'tariff' => $tariffId,
+        $profiles = $this->getMeasurementLogsEntityManager()->getRepository(EnergyTariffProfile::class)->findBy([
             'userId' => $this->getCurrentUserOrThrow()->getId(),
-        ]);
-        return $this->view(array_map(fn(EnergyTariffPriceList $priceList) => $this->serializePriceList($priceList), $priceLists));
+        ], ['id' => 'ASC']);
+        return $this->view(array_map(fn(EnergyTariffProfile $profile) => $this->serializeProfile($profile), $profiles));
     }
 
     /**
      * @Security("is_granted('ROLE_CHANNELS_RW')")
-     * @Rest\Post("/energy-tariffs/{tariffId}/price-lists")
+     * @Rest\Post("/energy-tariff-profiles")
      */
-    public function postEnergyTariffPriceListAction(int $tariffId, Request $request) {
+    public function postEnergyTariffProfileAction(Request $request) {
         $this->ensureApiVersion24($request);
-        $tariff = $this->findTariffOrThrow($tariffId);
         $data = $this->getRequestData($request);
         Assertion::keyExists($data, 'name');
+        Assertion::keyExists($data, 'tariffPeriods');
 
-        $priceList = new EnergyTariffPriceList();
-        $priceList->setTariff($tariff);
-        $priceList->setUserId($this->getCurrentUserOrThrow()->getId());
-        $priceList->setName($data['name']);
-        $priceList->setBillingPeriodStartDay((int)($data['billingPeriodStartDay'] ?? 1));
-        $this->synchronizePriceListItems($priceList, $data['items'] ?? []);
-        $this->getMeasurementLogsEntityManager()->persist($priceList);
+        $profile = new EnergyTariffProfile();
+        $profile->setUserId($this->getCurrentUserOrThrow()->getId());
+        $profile->setName($data['name']);
+        $this->synchronizeProfileTariffPeriods($profile, $data['tariffPeriods']);
+        $this->validateProfile($profile);
+
+        $this->getMeasurementLogsEntityManager()->persist($profile);
         $this->getMeasurementLogsEntityManager()->flush();
 
-        return $this->view($this->serializePriceList($priceList), Response::HTTP_CREATED);
+        return $this->view($this->serializeProfile($profile), Response::HTTP_CREATED);
     }
 
     /**
      * @Security("is_granted('ROLE_CHANNELS_R')")
-     * @Rest\Get("/energy-tariffs/{tariffId}/price-lists/{priceListId}")
+     * @Rest\Get("/energy-tariff-profiles/{profileId}")
      */
-    public function getEnergyTariffPriceListAction(int $tariffId, int $priceListId, Request $request) {
+    public function getEnergyTariffProfileAction(int $profileId, Request $request) {
         $this->ensureApiVersion24($request);
-        return $this->view($this->serializePriceList($this->findOwnedPriceListOrThrow($tariffId, $priceListId)));
+        return $this->view($this->serializeProfile($this->findOwnedProfileOrThrow($profileId)));
     }
 
     /**
      * @Security("is_granted('ROLE_CHANNELS_RW')")
-     * @Rest\Put("/energy-tariffs/{tariffId}/price-lists/{priceListId}")
+     * @Rest\Put("/energy-tariff-profiles/{profileId}")
      */
-    public function putEnergyTariffPriceListAction(int $tariffId, int $priceListId, Request $request) {
+    public function putEnergyTariffProfileAction(int $profileId, Request $request) {
         $this->ensureApiVersion24($request);
-        $priceList = $this->findOwnedPriceListOrThrow($tariffId, $priceListId);
+        $profile = $this->findOwnedProfileOrThrow($profileId);
         $data = $this->getRequestData($request);
         if (array_key_exists('name', $data)) {
-            $priceList->setName($data['name']);
+            $profile->setName($data['name']);
         }
-        if (array_key_exists('billingPeriodStartDay', $data)) {
-            $priceList->setBillingPeriodStartDay((int)$data['billingPeriodStartDay']);
+        if (array_key_exists('tariffPeriods', $data)) {
+            $this->synchronizeProfileTariffPeriods($profile, $data['tariffPeriods']);
         }
-        if (array_key_exists('items', $data)) {
-            $this->synchronizePriceListItems($priceList, $data['items']);
-        }
+        $this->validateProfile($profile);
         $this->getMeasurementLogsEntityManager()->flush();
 
-        return $this->view($this->serializePriceList($priceList));
+        return $this->view($this->serializeProfile($profile));
     }
 
     /**
      * @Security("is_granted('ROLE_CHANNELS_RW')")
-     * @Rest\Delete("/energy-tariffs/{tariffId}/price-lists/{priceListId}")
+     * @Rest\Delete("/energy-tariff-profiles/{profileId}")
      */
-    public function deleteEnergyTariffPriceListAction(int $tariffId, int $priceListId, Request $request) {
+    public function deleteEnergyTariffProfileAction(int $profileId, Request $request) {
         $this->ensureApiVersion24($request);
-        $priceList = $this->findOwnedPriceListOrThrow($tariffId, $priceListId);
-        $this->getMeasurementLogsEntityManager()->remove($priceList);
+        $profile = $this->findOwnedProfileOrThrow($profileId);
+        $this->getMeasurementLogsEntityManager()->remove($profile);
         $this->getMeasurementLogsEntityManager()->flush();
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
     /**
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
-     * @Rest\Get("/channels/{channel}/energy-tariff-assignments")
+     * @Rest\Get("/channels/{channel}/energy-tariff-profile-assignment")
      */
-    public function getChannelEnergyTariffAssignmentsAction(IODeviceChannel $channel, Request $request) {
+    public function getChannelEnergyTariffProfileAssignmentAction(IODeviceChannel $channel, Request $request) {
         $this->ensureApiVersion24($request);
-        $assignments = $this->getMeasurementLogsEntityManager()->getRepository(EnergyTariffAssignment::class)->findBy(['channelId' => $channel->getId()]);
-        return $this->view(array_map(fn(EnergyTariffAssignment $assignment
-        ) => $this->serializeTariffAssignment($assignment), $assignments));
+        $this->ensureElectricityMeterChannel($channel);
+        $assignment = $this->findProfileAssignmentForChannel($channel->getId());
+        return $this->view($assignment ? $this->serializeProfileAssignment($assignment) : null);
     }
 
     /**
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
-     * @Rest\Post("/channels/{channel}/energy-tariff-assignments")
+     * @Rest\Put("/channels/{channel}/energy-tariff-profile-assignment")
      */
-    public function postChannelEnergyTariffAssignmentAction(IODeviceChannel $channel, Request $request) {
+    public function putChannelEnergyTariffProfileAssignmentAction(IODeviceChannel $channel, Request $request) {
         $this->ensureApiVersion24($request);
+        $this->ensureElectricityMeterChannel($channel);
         $data = $this->getRequestData($request);
-        $assignment = new EnergyTariffAssignment();
+        Assertion::keyExists($data, 'profileId');
+
+        $assignment = $this->findProfileAssignmentForChannel($channel->getId()) ?? new EnergyTariffProfileAssignment();
         $assignment->setChannelId($channel->getId());
-        $assignment->setTariff($this->findTariffOrThrow((int)$data['tariffId']));
-        $assignment->setValidFrom($this->parseDateTime($data['validFrom']));
-        $assignment->setValidTo($this->parseNullableDateTime($data['validTo'] ?? null));
+        $assignment->setProfile($this->findOwnedProfileOrThrow((int)$data['profileId']));
         $this->getMeasurementLogsEntityManager()->persist($assignment);
         $this->getMeasurementLogsEntityManager()->flush();
-        return $this->view($this->serializeTariffAssignment($assignment), Response::HTTP_CREATED);
+
+        return $this->view($this->serializeProfileAssignment($assignment));
     }
 
     /**
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
-     * @Rest\Put("/channels/{channel}/energy-tariff-assignments/{assignmentId}")
+     * @Rest\Delete("/channels/{channel}/energy-tariff-profile-assignment")
      */
-    public function putChannelEnergyTariffAssignmentAction(IODeviceChannel $channel, int $assignmentId, Request $request) {
+    public function deleteChannelEnergyTariffProfileAssignmentAction(IODeviceChannel $channel, Request $request) {
         $this->ensureApiVersion24($request);
-        $assignment = $this->findTariffAssignmentForChannelOrThrow($channel->getId(), $assignmentId);
-        $data = $this->getRequestData($request);
-        if (array_key_exists('tariffId', $data)) {
-            $assignment->setTariff($this->findTariffOrThrow((int)$data['tariffId']));
+        $this->ensureElectricityMeterChannel($channel);
+        $assignment = $this->findProfileAssignmentForChannel($channel->getId());
+        if ($assignment) {
+            $this->getMeasurementLogsEntityManager()->remove($assignment);
+            $this->getMeasurementLogsEntityManager()->flush();
         }
-        if (array_key_exists('validFrom', $data)) {
-            $assignment->setValidFrom($this->parseDateTime($data['validFrom']));
-        }
-        if (array_key_exists('validTo', $data)) {
-            $assignment->setValidTo($this->parseNullableDateTime($data['validTo']));
-        }
-        $this->getMeasurementLogsEntityManager()->flush();
-        return $this->view($this->serializeTariffAssignment($assignment));
-    }
-
-    /**
-     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
-     * @Rest\Delete("/channels/{channel}/energy-tariff-assignments/{assignmentId}")
-     */
-    public function deleteChannelEnergyTariffAssignmentAction(IODeviceChannel $channel, int $assignmentId, Request $request) {
-        $this->ensureApiVersion24($request);
-        $assignment = $this->findTariffAssignmentForChannelOrThrow($channel->getId(), $assignmentId);
-        $this->getMeasurementLogsEntityManager()->remove($assignment);
-        $this->getMeasurementLogsEntityManager()->flush();
-        return $this->view(null, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
-     * @Rest\Get("/channels/{channel}/energy-price-list-assignments")
-     */
-    public function getChannelEnergyPriceListAssignmentsAction(IODeviceChannel $channel, Request $request) {
-        $this->ensureApiVersion24($request);
-        $assignments = $this->getMeasurementLogsEntityManager()->getRepository(EnergyTariffPriceListAssignment::class)->findBy(['channelId' => $channel->getId()]);
-        $assignments = array_values(array_filter($assignments, fn(EnergyTariffPriceListAssignment $assignment
-        ) => $assignment->getPriceList()->getUserId() === $this->getCurrentUserOrThrow()->getId()));
-        return $this->view(array_map(fn(EnergyTariffPriceListAssignment $assignment
-        ) => $this->serializePriceListAssignment($assignment), $assignments));
-    }
-
-    /**
-     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
-     * @Rest\Post("/channels/{channel}/energy-price-list-assignments")
-     */
-    public function postChannelEnergyPriceListAssignmentAction(IODeviceChannel $channel, Request $request) {
-        $this->ensureApiVersion24($request);
-        $data = $this->getRequestData($request);
-        $assignment = new EnergyTariffPriceListAssignment();
-        $assignment->setChannelId($channel->getId());
-        $assignment->setPriceList($this->findOwnedPriceListByIdOrThrow((int)$data['priceListId']));
-        $assignment->setValidFrom($this->parseDateTime($data['validFrom']));
-        $assignment->setValidTo($this->parseNullableDateTime($data['validTo'] ?? null));
-        $this->getMeasurementLogsEntityManager()->persist($assignment);
-        $this->getMeasurementLogsEntityManager()->flush();
-        return $this->view($this->serializePriceListAssignment($assignment), Response::HTTP_CREATED);
-    }
-
-    /**
-     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
-     * @Rest\Put("/channels/{channel}/energy-price-list-assignments/{assignmentId}")
-     */
-    public function putChannelEnergyPriceListAssignmentAction(IODeviceChannel $channel, int $assignmentId, Request $request) {
-        $this->ensureApiVersion24($request);
-        $assignment = $this->findPriceListAssignmentForChannelOrThrow($channel->getId(), $assignmentId);
-        Assertion::eq($assignment->getPriceList()->getUserId(), $this->getCurrentUserOrThrow()->getId());
-        $data = $this->getRequestData($request);
-        if (array_key_exists('priceListId', $data)) {
-            $assignment->setPriceList($this->findOwnedPriceListByIdOrThrow((int)$data['priceListId']));
-        }
-        if (array_key_exists('validFrom', $data)) {
-            $assignment->setValidFrom($this->parseDateTime($data['validFrom']));
-        }
-        if (array_key_exists('validTo', $data)) {
-            $assignment->setValidTo($this->parseNullableDateTime($data['validTo']));
-        }
-        $this->getMeasurementLogsEntityManager()->flush();
-        return $this->view($this->serializePriceListAssignment($assignment));
-    }
-
-    /**
-     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
-     * @Rest\Delete("/channels/{channel}/energy-price-list-assignments/{assignmentId}")
-     */
-    public function deleteChannelEnergyPriceListAssignmentAction(IODeviceChannel $channel, int $assignmentId, Request $request) {
-        $this->ensureApiVersion24($request);
-        $assignment = $this->findPriceListAssignmentForChannelOrThrow($channel->getId(), $assignmentId);
-        Assertion::eq($assignment->getPriceList()->getUserId(), $this->getCurrentUserOrThrow()->getId());
-        $this->getMeasurementLogsEntityManager()->remove($assignment);
-        $this->getMeasurementLogsEntityManager()->flush();
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
@@ -324,14 +240,15 @@ class EnergyTariffController extends RestController {
                 b.phase1_fae,
                 b.phase2_fae,
                 b.phase3_fae,
-                ta.tariff_id,
+                pa.profile_id,
+                tp.tariff_id,
                 rz.zone_code,
-                pla.price_list_id,
-                pli.component_code,
-                pli.amount,
-                pli.unit,
-                pli.currency,
-                pl.billing_period_start_day,
+                pp.id price_period_id,
+                ppi.component_code,
+                ppi.amount,
+                ppi.unit,
+                ppi.currency,
+                pp.billing_period_start_day,
                 ((COALESCE(b.phase1_fae, 0) + COALESCE(b.phase2_fae, 0) + COALESCE(b.phase3_fae, 0)) / 1000.0) total_kwh,
                 (COALESCE(b.phase1_fae, 0) / 1000.0) phase1_kwh,
                 (COALESCE(b.phase2_fae, 0) / 1000.0) phase2_kwh,
@@ -343,26 +260,25 @@ class EnergyTariffController extends RestController {
                 ORDER BY d.date $order
                 LIMIT :limit OFFSET :offset
             ) b
-            LEFT JOIN supla_energy_tariff_assignment ta
-                ON ta.channel_id = b.channel_id
-                AND $slotStartExpr >= ta.valid_from
-                AND (ta.valid_to IS NULL OR $slotStartExpr < ta.valid_to)
+            LEFT JOIN supla_energy_tariff_profile_assignment pa
+                ON pa.channel_id = b.channel_id
+            LEFT JOIN supla_energy_tariff_profile_tariff_period tp
+                ON tp.profile_id = pa.profile_id
+                AND $slotStartExpr >= tp.valid_from
+                AND (tp.valid_to IS NULL OR $slotStartExpr < tp.valid_to)
             LEFT JOIN supla_energy_tariff_resolved_zone rz
-                ON rz.tariff_id = ta.tariff_id
+                ON rz.tariff_id = tp.tariff_id
                 AND $slotStartExpr >= rz.period_start
                 AND $slotStartExpr < rz.period_end
-            LEFT JOIN supla_energy_tariff_price_list_assignment pla
-                ON pla.channel_id = b.channel_id
-                AND $slotStartExpr >= pla.valid_from
-                AND (pla.valid_to IS NULL OR $slotStartExpr < pla.valid_to)
-            LEFT JOIN supla_energy_tariff_price_list pl
-                ON pl.id = pla.price_list_id
-                AND pl.tariff_id = ta.tariff_id
-            LEFT JOIN supla_energy_tariff_price_list_item pli
-                ON pli.price_list_id = pl.id
-                AND pli.unit = 'kWh'
-                AND (pli.zone_code = rz.zone_code OR pli.zone_code IS NULL)
-            ORDER BY b.date $order, pli.component_code ASC";
+            LEFT JOIN supla_energy_tariff_profile_price_period pp
+                ON pp.tariff_period_id = tp.id
+                AND $slotStartExpr >= pp.valid_from
+                AND (pp.valid_to IS NULL OR $slotStartExpr < pp.valid_to)
+            LEFT JOIN supla_energy_tariff_profile_price_item ppi
+                ON ppi.price_period_id = pp.id
+                AND ppi.unit = 'kWh'
+                AND (ppi.zone_code = rz.zone_code OR ppi.zone_code IS NULL)
+            ORDER BY b.date $order, ppi.component_code ASC";
 
         $stmt = $entityManager->getConnection()->prepare($sql);
         $stmt->bindValue('channelId', $channelId, 'integer');
@@ -408,9 +324,10 @@ class EnergyTariffController extends RestController {
                 $logs[$key] = [
                     'dateTimestamp' => (int)$row['date_timestamp'],
                     'slotStartTimestamp' => (int)$row['slot_start_timestamp'],
+                    'profileId' => $row['profile_id'] !== null ? (int)$row['profile_id'] : null,
                     'tariffId' => $row['tariff_id'] !== null ? (int)$row['tariff_id'] : null,
                     'zoneCode' => $row['zone_code'],
-                    'priceListId' => $row['price_list_id'] !== null ? (int)$row['price_list_id'] : null,
+                    'pricePeriodId' => $row['price_period_id'] !== null ? (int)$row['price_period_id'] : null,
                     'usage' => [
                         'phase1Fae' => $phase1,
                         'phase2Fae' => $phase2,
@@ -472,7 +389,7 @@ class EnergyTariffController extends RestController {
     private function buildEnergyCostSummaries(int $channelId, array $rows, int $afterTimestamp, int $beforeTimestamp): array {
         $logs = $this->hydrateCostLogs($rows);
         $tariffIds = array_values(array_unique(array_filter(array_map(fn(array $log) => $log['tariffId'], $logs))));
-        $priceListIds = array_values(array_unique(array_filter(array_map(fn(array $log) => $log['priceListId'], $logs))));
+        $pricePeriodIds = array_values(array_unique(array_filter(array_map(fn(array $log) => $log['pricePeriodId'], $logs))));
         $tariffs = [];
         foreach ($tariffIds as $tariffId) {
             $tariff = $this->getMeasurementLogsEntityManager()->find(EnergyTariff::class, $tariffId);
@@ -480,17 +397,17 @@ class EnergyTariffController extends RestController {
                 $tariffs[$tariffId] = $tariff;
             }
         }
-        $priceLists = [];
-        foreach ($priceListIds as $priceListId) {
-            $priceList = $this->getMeasurementLogsEntityManager()->find(EnergyTariffPriceList::class, $priceListId);
-            if ($priceList) {
-                $priceLists[$priceListId] = $priceList;
+        $pricePeriods = [];
+        foreach ($pricePeriodIds as $pricePeriodId) {
+            $pricePeriod = $this->getMeasurementLogsEntityManager()->find(EnergyTariffProfilePricePeriod::class, $pricePeriodId);
+            if ($pricePeriod) {
+                $pricePeriods[$pricePeriodId] = $pricePeriod;
             }
         }
 
         $summaries = [];
         foreach ($logs as $log) {
-            $context = $this->resolveBillingContext($log, $tariffs, $priceLists);
+            $context = $this->resolveBillingContext($log, $tariffs, $pricePeriods);
             $key = $context['key'];
             if (!isset($summaries[$key])) {
                 $summaries[$key] = [
@@ -530,7 +447,7 @@ class EnergyTariffController extends RestController {
             }
         }
 
-        $this->applyFixedCostsToSummaries($summaries, $channelId, $afterTimestamp, $beforeTimestamp, $tariffs, $priceLists);
+        $this->applyFixedCostsToSummaries($summaries, $channelId, $afterTimestamp, $beforeTimestamp);
 
         foreach ($summaries as &$summary) {
             $summary['usage']['totalKwh'] = round($summary['usage']['totalKwh'], 6);
@@ -553,68 +470,66 @@ class EnergyTariffController extends RestController {
         return $summaries;
     }
 
-    private function applyFixedCostsToSummaries(
-        array &$summaries,
-        int $channelId,
-        int $afterTimestamp,
-        int $beforeTimestamp,
-        array $tariffs,
-        array $priceLists
-    ): void {
-        $assignments = $this->getMeasurementLogsEntityManager()->getRepository(EnergyTariffPriceListAssignment::class)->findBy(['channelId' => $channelId]);
+    private function applyFixedCostsToSummaries(array &$summaries, int $channelId, int $afterTimestamp, int $beforeTimestamp): void {
+        $assignment = $this->findProfileAssignmentForChannel($channelId);
+        if (!$assignment || !$assignment->getProfile()) {
+            return;
+        }
+
         $rangeStart = new \DateTime('@' . max($afterTimestamp, 0));
         $rangeStart->setTimezone(new \DateTimeZone('UTC'));
         $rangeEnd = $beforeTimestamp > 0 ? new \DateTime('@' . $beforeTimestamp) : new \DateTime('now', new \DateTimeZone('UTC'));
         $rangeEnd->setTimezone(new \DateTimeZone('UTC'));
 
-        foreach ($assignments as $assignment) {
-            $priceList = $assignment->getPriceList();
-            if (!$priceList) {
+        foreach ($assignment->getProfile()->getTariffPeriods() as $tariffPeriod) {
+            $tariff = $tariffPeriod->getTariff();
+            if (!$tariff) {
                 continue;
             }
-            $tariff = $priceList->getTariff();
-            $timezone = new \DateTimeZone($tariff?->getConfig()['timezone'] ?? 'UTC');
-            $assignmentStart = clone $assignment->getValidFrom();
-            $assignmentEnd = $assignment->getValidTo() ? clone $assignment->getValidTo() : clone $rangeEnd;
-            $start = $assignmentStart > $rangeStart ? $assignmentStart : clone $rangeStart;
-            $end = $assignmentEnd < $rangeEnd ? $assignmentEnd : clone $rangeEnd;
-            if ($start >= $end) {
-                continue;
-            }
-
-            $billingContext = $this->resolveBillingPeriodForTimestamp($start->getTimestamp(), $timezone, $priceList->getBillingPeriodStartDay());
-            while (strtotime($billingContext['periodStart']) < $end->getTimestamp()) {
-                $summaryKey = $billingContext['periodStart'] . '|' . $billingContext['timezone'];
-                if (!isset($summaries[$summaryKey])) {
-                    $summaries[$summaryKey] = [
-                        'periodStart' => $billingContext['periodStart'],
-                        'periodEnd' => $billingContext['periodEnd'],
-                        'timezone' => $billingContext['timezone'],
-                        'usage' => ['totalKwh' => 0.0, 'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0]],
-                        'costs' => ['currency' => 'PLN', 'total' => 0.0, 'byComponent' => [], 'byZone' => [], 'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0]],
-                    ];
+            $timezone = new \DateTimeZone($tariff->getConfig()['timezone'] ?? 'UTC');
+            foreach ($tariffPeriod->getPricePeriods() as $pricePeriod) {
+                $pricePeriodStart = clone $pricePeriod->getValidFrom();
+                $pricePeriodEnd = $pricePeriod->getValidTo() ? clone $pricePeriod->getValidTo() : clone $rangeEnd;
+                $start = $pricePeriodStart > $rangeStart ? $pricePeriodStart : clone $rangeStart;
+                $end = $pricePeriodEnd < $rangeEnd ? $pricePeriodEnd : clone $rangeEnd;
+                if ($start >= $end) {
+                    continue;
                 }
 
-                foreach ($priceList->getItems() as $item) {
-                    if (!in_array($item->getUnit(), ['day', 'month'], true)) {
-                        continue;
+                $billingContext = $this->resolveBillingPeriodForTimestamp($start->getTimestamp(), $timezone, $pricePeriod->getBillingPeriodStartDay());
+                while (strtotime($billingContext['periodStart']) < $end->getTimestamp()) {
+                    $summaryKey = $billingContext['periodStart'] . '|' . $billingContext['timezone'];
+                    if (!isset($summaries[$summaryKey])) {
+                        $summaries[$summaryKey] = [
+                            'periodStart' => $billingContext['periodStart'],
+                            'periodEnd' => $billingContext['periodEnd'],
+                            'timezone' => $billingContext['timezone'],
+                            'usage' => ['totalKwh' => 0.0, 'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0]],
+                            'costs' => ['currency' => 'PLN', 'total' => 0.0, 'byComponent' => [], 'byZone' => [], 'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0]],
+                        ];
                     }
-                    if ($item->getUnit() === 'month') {
-                        $this->addSummaryCost($summaries[$summaryKey], $item->getComponentCode(), (float)$item->getAmount());
-                    } else {
-                        $days = $this->countOverlappingLocalDays(
-                            $billingContext['periodStart'],
-                            $billingContext['periodEnd'],
-                            $start,
-                            $end,
-                            $timezone
-                        );
-                        $this->addSummaryCost($summaries[$summaryKey], $item->getComponentCode(), (float)$item->getAmount() * $days);
-                    }
-                }
 
-                $next = new \DateTime($billingContext['periodEnd'], new \DateTimeZone('UTC'));
-                $billingContext = $this->resolveBillingPeriodForTimestamp($next->getTimestamp(), $timezone, $priceList->getBillingPeriodStartDay());
+                    foreach ($pricePeriod->getItems() as $item) {
+                        if (!in_array($item->getUnit(), ['day', 'month'], true)) {
+                            continue;
+                        }
+                        if ($item->getUnit() === 'month') {
+                            $this->addSummaryCost($summaries[$summaryKey], $item->getComponentCode(), (float)$item->getAmount());
+                        } else {
+                            $days = $this->countOverlappingLocalDays(
+                                $billingContext['periodStart'],
+                                $billingContext['periodEnd'],
+                                $start,
+                                $end,
+                                $timezone
+                            );
+                            $this->addSummaryCost($summaries[$summaryKey], $item->getComponentCode(), (float)$item->getAmount() * $days);
+                        }
+                    }
+
+                    $next = new \DateTime($billingContext['periodEnd'], new \DateTimeZone('UTC'));
+                    $billingContext = $this->resolveBillingPeriodForTimestamp($next->getTimestamp(), $timezone, $pricePeriod->getBillingPeriodStartDay());
+                }
             }
         }
     }
@@ -647,11 +562,11 @@ class EnergyTariffController extends RestController {
         return max(1, (int)$start->diff($end)->format('%a'));
     }
 
-    private function resolveBillingContext(array $log, array $tariffs, array $priceLists): array {
-        $priceList = $log['priceListId'] ? ($priceLists[$log['priceListId']] ?? null) : null;
+    private function resolveBillingContext(array $log, array $tariffs, array $pricePeriods): array {
+        $pricePeriod = $log['pricePeriodId'] ? ($pricePeriods[$log['pricePeriodId']] ?? null) : null;
         $tariff = $log['tariffId'] ? ($tariffs[$log['tariffId']] ?? null) : null;
         $timezone = new \DateTimeZone($tariff?->getConfig()['timezone'] ?? 'UTC');
-        $billingStartDay = $priceList?->getBillingPeriodStartDay() ?? 1;
+        $billingStartDay = $pricePeriod?->getBillingPeriodStartDay() ?? 1;
         return $this->resolveBillingPeriodForTimestamp($log['slotStartTimestamp'], $timezone, $billingStartDay);
     }
 
@@ -701,52 +616,175 @@ class EnergyTariffController extends RestController {
         return $tariff;
     }
 
-    private function findOwnedPriceListOrThrow(int $tariffId, int $priceListId): EnergyTariffPriceList {
-        $priceList = $this->findOwnedPriceListByIdOrThrow($priceListId);
-        if ((int)$priceList->getTariff()?->getId() !== $tariffId) {
+    private function findOwnedProfileOrThrow(int $profileId): EnergyTariffProfile {
+        $profile = $this->getMeasurementLogsEntityManager()->find(EnergyTariffProfile::class, $profileId);
+        if (!$profile || $profile->getUserId() !== $this->getCurrentUserOrThrow()->getId()) {
             throw new NotFoundHttpException();
         }
-        return $priceList;
+        return $profile;
     }
 
-    private function findOwnedPriceListByIdOrThrow(int $priceListId): EnergyTariffPriceList {
-        $priceList = $this->getMeasurementLogsEntityManager()->find(EnergyTariffPriceList::class, $priceListId);
-        if (!$priceList || $priceList->getUserId() !== $this->getCurrentUserOrThrow()->getId()) {
-            throw new NotFoundHttpException();
+    private function findProfileAssignmentForChannel(int $channelId): ?EnergyTariffProfileAssignment {
+        return $this->getMeasurementLogsEntityManager()->getRepository(EnergyTariffProfileAssignment::class)->findOneBy([
+            'channelId' => $channelId,
+        ]);
+    }
+
+    private function synchronizeProfileTariffPeriods(EnergyTariffProfile $profile, array $tariffPeriods): void {
+        Assertion::isArray($tariffPeriods);
+        foreach ($profile->getTariffPeriods()->toArray() as $tariffPeriod) {
+            $profile->removeTariffPeriod($tariffPeriod);
+            $this->getMeasurementLogsEntityManager()->remove($tariffPeriod);
         }
-        return $priceList;
-    }
 
-    private function findTariffAssignmentForChannelOrThrow(int $channelId, int $assignmentId): EnergyTariffAssignment {
-        $assignment = $this->getMeasurementLogsEntityManager()->find(EnergyTariffAssignment::class, $assignmentId);
-        if (!$assignment || $assignment->getChannelId() !== $channelId) {
-            throw new NotFoundHttpException();
+        foreach ($tariffPeriods as $tariffPeriodData) {
+            Assertion::keyExists($tariffPeriodData, 'tariffId');
+            Assertion::keyExists($tariffPeriodData, 'validFrom');
+            Assertion::keyExists($tariffPeriodData, 'pricePeriods');
+
+            $tariffPeriod = new EnergyTariffProfileTariffPeriod();
+            $tariffPeriod->setTariff($this->findTariffOrThrow((int)$tariffPeriodData['tariffId']));
+            $tariffPeriod->setValidFrom($this->parseDateTime($tariffPeriodData['validFrom']));
+            $tariffPeriod->setValidTo($this->parseNullableDateTime($tariffPeriodData['validTo'] ?? null));
+            $this->synchronizePricePeriods($tariffPeriod, $tariffPeriodData['pricePeriods']);
+            $profile->addTariffPeriod($tariffPeriod);
         }
-        return $assignment;
     }
 
-    private function findPriceListAssignmentForChannelOrThrow(int $channelId, int $assignmentId): EnergyTariffPriceListAssignment {
-        $assignment = $this->getMeasurementLogsEntityManager()->find(EnergyTariffPriceListAssignment::class, $assignmentId);
-        if (!$assignment || $assignment->getChannelId() !== $channelId) {
-            throw new NotFoundHttpException();
+    private function synchronizePricePeriods(EnergyTariffProfileTariffPeriod $tariffPeriod, array $pricePeriods): void {
+        Assertion::isArray($pricePeriods);
+        foreach ($tariffPeriod->getPricePeriods()->toArray() as $pricePeriod) {
+            $tariffPeriod->removePricePeriod($pricePeriod);
+            $this->getMeasurementLogsEntityManager()->remove($pricePeriod);
         }
-        return $assignment;
+
+        foreach ($pricePeriods as $pricePeriodData) {
+            Assertion::keyExists($pricePeriodData, 'name');
+            Assertion::keyExists($pricePeriodData, 'billingPeriodStartDay');
+            Assertion::keyExists($pricePeriodData, 'validFrom');
+            Assertion::keyExists($pricePeriodData, 'items');
+
+            $pricePeriod = new EnergyTariffProfilePricePeriod();
+            $pricePeriod->setName($pricePeriodData['name']);
+            $pricePeriod->setBillingPeriodStartDay((int)$pricePeriodData['billingPeriodStartDay']);
+            $pricePeriod->setValidFrom($this->parseDateTime($pricePeriodData['validFrom']));
+            $pricePeriod->setValidTo($this->parseNullableDateTime($pricePeriodData['validTo'] ?? null));
+            $this->synchronizePriceItems($pricePeriod, $pricePeriodData['items']);
+            $tariffPeriod->addPricePeriod($pricePeriod);
+        }
     }
 
-    private function synchronizePriceListItems(EnergyTariffPriceList $priceList, array $items): void {
-        foreach ($priceList->getItems()->toArray() as $item) {
-            $priceList->removeItem($item);
+    private function synchronizePriceItems(EnergyTariffProfilePricePeriod $pricePeriod, array $items): void {
+        Assertion::isArray($items);
+        foreach ($pricePeriod->getItems()->toArray() as $item) {
+            $pricePeriod->removeItem($item);
             $this->getMeasurementLogsEntityManager()->remove($item);
         }
+
         foreach ($items as $itemData) {
-            $item = new EnergyTariffPriceListItem();
+            Assertion::keyExists($itemData, 'componentCode');
+            Assertion::keyExists($itemData, 'amount');
+            Assertion::keyExists($itemData, 'unit');
+            Assertion::keyExists($itemData, 'currency');
+            $item = new EnergyTariffProfilePriceItem();
             $item->setComponentCode($itemData['componentCode']);
             $item->setZoneCode($itemData['zoneCode'] ?? null);
             $item->setAmount((float)$itemData['amount']);
             $item->setUnit($itemData['unit']);
             $item->setCurrency($itemData['currency']);
-            $priceList->addItem($item);
+            $pricePeriod->addItem($item);
         }
+    }
+
+    private function validateProfile(EnergyTariffProfile $profile): void {
+        Assertion::notBlank($profile->getName());
+        $tariffPeriods = $profile->getTariffPeriods()->toArray();
+        Assertion::notEmpty($tariffPeriods);
+
+        usort($tariffPeriods, fn(
+            EnergyTariffProfileTariffPeriod $left,
+            EnergyTariffProfileTariffPeriod $right
+        ) => $left->getValidFrom() <=> $right->getValidFrom());
+        $previousTariffPeriod = null;
+        foreach ($tariffPeriods as $tariffPeriod) {
+            $this->assertEndAfterStart($tariffPeriod->getValidFrom(), $tariffPeriod->getValidTo());
+            if ($previousTariffPeriod) {
+                Assertion::true(
+                    $this->compareDateTimeNullable($previousTariffPeriod->getValidTo(), $tariffPeriod->getValidFrom()) <= 0,
+                    'Tariff periods cannot overlap.'
+                );
+            }
+            $this->validatePricePeriodsCoverage($tariffPeriod);
+            $previousTariffPeriod = $tariffPeriod;
+        }
+    }
+
+    private function validatePricePeriodsCoverage(EnergyTariffProfileTariffPeriod $tariffPeriod): void {
+        $pricePeriods = $tariffPeriod->getPricePeriods()->toArray();
+        Assertion::notEmpty($pricePeriods, 'Tariff period must contain at least one price period.');
+        usort($pricePeriods, fn(
+            EnergyTariffProfilePricePeriod $left,
+            EnergyTariffProfilePricePeriod $right
+        ) => $left->getValidFrom() <=> $right->getValidFrom());
+
+        $zoneCodes = array_map(fn(array $zone) => $zone['code'], $tariffPeriod->getTariff()?->getConfig()['zones'] ?? []);
+        $previousPricePeriod = null;
+        foreach ($pricePeriods as $index => $pricePeriod) {
+            Assertion::notBlank($pricePeriod->getName());
+            Assertion::between($pricePeriod->getBillingPeriodStartDay(), 1, 28);
+            $this->assertEndAfterStart($pricePeriod->getValidFrom(), $pricePeriod->getValidTo());
+            Assertion::greaterOrEqualThan($pricePeriod->getValidFrom()->getTimestamp(), $tariffPeriod->getValidFrom()->getTimestamp(), 'Price period cannot start before the tariff period.');
+            if ($tariffPeriod->getValidTo()) {
+                Assertion::notNull($pricePeriod->getValidTo(), 'Price periods must not exceed the tariff period.');
+                Assertion::lessOrEqualThan($pricePeriod->getValidTo()->getTimestamp(), $tariffPeriod->getValidTo()->getTimestamp(), 'Price period cannot end after the tariff period.');
+            }
+            if ($index === 0) {
+                Assertion::eq($pricePeriod->getValidFrom()->getTimestamp(), $tariffPeriod->getValidFrom()->getTimestamp(), 'Price periods must cover the full tariff period.');
+            }
+            if ($previousPricePeriod) {
+                Assertion::eq(
+                    $this->compareDateTimeNullable($previousPricePeriod->getValidTo(), $pricePeriod->getValidFrom()),
+                    0,
+                    'Price periods cannot overlap and must cover the full tariff period without gaps.'
+                );
+            }
+            $items = $pricePeriod->getItems()->toArray();
+            Assertion::notEmpty($items, 'Price period must contain at least one price item.');
+            foreach ($items as $item) {
+                Assertion::notBlank($item->getComponentCode());
+                Assertion::notBlank($item->getUnit());
+                Assertion::notBlank($item->getCurrency());
+                if ($item->getZoneCode() !== null && $zoneCodes) {
+                    Assertion::inArray($item->getZoneCode(), $zoneCodes, 'Price item zone must exist in selected tariff.');
+                }
+            }
+            $previousPricePeriod = $pricePeriod;
+        }
+
+        Assertion::eq(
+            $this->compareDateTimeNullable(end($pricePeriods)->getValidTo(), $tariffPeriod->getValidTo()),
+            0,
+            'Price periods must cover the full tariff period.'
+        );
+    }
+
+    private function assertEndAfterStart(\DateTime $validFrom, ?\DateTime $validTo): void {
+        if ($validTo) {
+            Assertion::greaterThan($validTo->getTimestamp(), $validFrom->getTimestamp(), 'Period end must be later than period start.');
+        }
+    }
+
+    private function compareDateTimeNullable(?\DateTime $left, ?\DateTime $right): int {
+        if ($left === null && $right === null) {
+            return 0;
+        }
+        if ($left === null) {
+            return 1;
+        }
+        if ($right === null) {
+            return -1;
+        }
+        return $left <=> $right;
     }
 
     private function parseDateTime(string $dateTime): \DateTime {
@@ -770,43 +808,52 @@ class EnergyTariffController extends RestController {
         ];
     }
 
-    private function serializePriceList(EnergyTariffPriceList $priceList): array {
+    private function serializeProfile(EnergyTariffProfile $profile): array {
         return [
-            'id' => $priceList->getId(),
-            'tariffId' => $priceList->getTariff()?->getId(),
-            'userId' => $priceList->getUserId(),
-            'name' => $priceList->getName(),
-            'billingPeriodStartDay' => $priceList->getBillingPeriodStartDay(),
-            'items' => array_map(fn(EnergyTariffPriceListItem $item) => [
+            'id' => $profile->getId(),
+            'userId' => $profile->getUserId(),
+            'name' => $profile->getName(),
+            'tariffPeriods' => array_map(fn(EnergyTariffProfileTariffPeriod $tariffPeriod
+            ) => $this->serializeTariffPeriod($tariffPeriod), $profile->getTariffPeriods()->toArray()),
+        ];
+    }
+
+    private function serializeTariffPeriod(EnergyTariffProfileTariffPeriod $tariffPeriod): array {
+        return [
+            'id' => $tariffPeriod->getId(),
+            'tariffId' => $tariffPeriod->getTariff()?->getId(),
+            'tariff' => $tariffPeriod->getTariff() ? $this->serializeTariff($tariffPeriod->getTariff()) : null,
+            'validFrom' => $tariffPeriod->getValidFrom()->format(\DateTime::ATOM),
+            'validTo' => $tariffPeriod->getValidTo()?->format(\DateTime::ATOM),
+            'pricePeriods' => array_map(fn(EnergyTariffProfilePricePeriod $pricePeriod
+            ) => $this->serializePricePeriod($pricePeriod), $tariffPeriod->getPricePeriods()->toArray()),
+        ];
+    }
+
+    private function serializePricePeriod(EnergyTariffProfilePricePeriod $pricePeriod): array {
+        return [
+            'id' => $pricePeriod->getId(),
+            'name' => $pricePeriod->getName(),
+            'billingPeriodStartDay' => $pricePeriod->getBillingPeriodStartDay(),
+            'validFrom' => $pricePeriod->getValidFrom()->format(\DateTime::ATOM),
+            'validTo' => $pricePeriod->getValidTo()?->format(\DateTime::ATOM),
+            'items' => array_map(fn(EnergyTariffProfilePriceItem $item) => [
                 'id' => $item->getId(),
                 'componentCode' => $item->getComponentCode(),
                 'zoneCode' => $item->getZoneCode(),
                 'amount' => $item->getAmount(),
                 'unit' => $item->getUnit(),
                 'currency' => $item->getCurrency(),
-            ], $priceList->getItems()->toArray()),
+            ], $pricePeriod->getItems()->toArray()),
         ];
     }
 
-    private function serializeTariffAssignment(EnergyTariffAssignment $assignment): array {
+    private function serializeProfileAssignment(EnergyTariffProfileAssignment $assignment): array {
         return [
             'id' => $assignment->getId(),
             'channelId' => $assignment->getChannelId(),
-            'tariffId' => $assignment->getTariff()?->getId(),
-            'tariff' => $assignment->getTariff() ? $this->serializeTariff($assignment->getTariff()) : null,
-            'validFrom' => $assignment->getValidFrom()->format(\DateTime::ATOM),
-            'validTo' => $assignment->getValidTo()?->format(\DateTime::ATOM),
-        ];
-    }
-
-    private function serializePriceListAssignment(EnergyTariffPriceListAssignment $assignment): array {
-        return [
-            'id' => $assignment->getId(),
-            'channelId' => $assignment->getChannelId(),
-            'priceListId' => $assignment->getPriceList()?->getId(),
-            'priceList' => $assignment->getPriceList() ? $this->serializePriceList($assignment->getPriceList()) : null,
-            'validFrom' => $assignment->getValidFrom()->format(\DateTime::ATOM),
-            'validTo' => $assignment->getValidTo()?->format(\DateTime::ATOM),
+            'profileId' => $assignment->getProfile()?->getId(),
+            'profile' => $assignment->getProfile() ? $this->serializeProfile($assignment->getProfile()) : null,
         ];
     }
 }

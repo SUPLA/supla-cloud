@@ -23,27 +23,20 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_energy_tariff_price_list")
+ * @ORM\Table(name="supla_energy_tariff_profile", indexes={
+ *     @ORM\Index(name="idx_energy_tariff_profile_user", columns={"user_id"})
+ * })
  * @ORM\HasLifecycleCallbacks
  */
-class EnergyTariffPriceList {
+class EnergyTariffProfile {
     /** @ORM\Id @ORM\Column(name="id", type="bigint") @ORM\GeneratedValue(strategy="AUTO") */
     private $id;
 
     /** @ORM\Column(name="user_id", type="integer") */
     private int $userId;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="EnergyTariff", inversedBy="priceLists")
-     * @ORM\JoinColumn(name="tariff_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     */
-    private ?EnergyTariff $tariff = null;
-
     /** @ORM\Column(name="name", type="string", length=255) */
     private string $name = '';
-
-    /** @ORM\Column(name="billing_period_start_day", type="integer") */
-    private int $billingPeriodStartDay = 1;
 
     /** @ORM\Column(name="created_at", type="utcdatetime") */
     private \DateTime $createdAt;
@@ -52,29 +45,25 @@ class EnergyTariffPriceList {
     private \DateTime $updatedAt;
 
     /**
-     * @var Collection<int, EnergyTariffPriceListItem>
-     * @ORM\OneToMany(targetEntity="EnergyTariffPriceListItem", mappedBy="priceList", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @var Collection<int, EnergyTariffProfileTariffPeriod>
+     * @ORM\OneToMany(targetEntity="EnergyTariffProfileTariffPeriod", mappedBy="profile", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private Collection $items;
+    private Collection $tariffPeriods;
 
     /**
-     * @var Collection<int, EnergyTariffPriceListAssignment>
-     * @ORM\OneToMany(targetEntity="EnergyTariffPriceListAssignment", mappedBy="priceList", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @var Collection<int, EnergyTariffProfileAssignment>
+     * @ORM\OneToMany(targetEntity="EnergyTariffProfileAssignment", mappedBy="profile", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private Collection $assignments;
 
     public function __construct() {
-        $this->items = new ArrayCollection();
+        $this->tariffPeriods = new ArrayCollection();
         $this->assignments = new ArrayCollection();
         $this->updateTimestamps();
     }
 
     public function getId() {
         return $this->id;
-    }
-
-    public function getTariff(): ?EnergyTariff {
-        return $this->tariff;
     }
 
     public function getUserId(): int {
@@ -85,24 +74,12 @@ class EnergyTariffPriceList {
         $this->userId = $userId;
     }
 
-    public function setTariff(?EnergyTariff $tariff): void {
-        $this->tariff = $tariff;
-    }
-
     public function getName(): string {
         return $this->name;
     }
 
     public function setName(string $name): void {
         $this->name = $name;
-    }
-
-    public function getBillingPeriodStartDay(): int {
-        return $this->billingPeriodStartDay;
-    }
-
-    public function setBillingPeriodStartDay(int $billingPeriodStartDay): void {
-        $this->billingPeriodStartDay = $billingPeriodStartDay;
     }
 
     public function getCreatedAt(): \DateTime {
@@ -114,42 +91,42 @@ class EnergyTariffPriceList {
     }
 
     /**
-     * @return Collection<int, EnergyTariffPriceListItem>
+     * @return Collection<int, EnergyTariffProfileTariffPeriod>
      */
-    public function getItems(): Collection {
-        return $this->items;
+    public function getTariffPeriods(): Collection {
+        return $this->tariffPeriods;
     }
 
-    public function addItem(EnergyTariffPriceListItem $item): void {
-        if (!$this->items->contains($item)) {
-            $this->items->add($item);
-            $item->setPriceList($this);
+    public function addTariffPeriod(EnergyTariffProfileTariffPeriod $tariffPeriod): void {
+        if (!$this->tariffPeriods->contains($tariffPeriod)) {
+            $this->tariffPeriods->add($tariffPeriod);
+            $tariffPeriod->setProfile($this);
         }
     }
 
-    public function removeItem(EnergyTariffPriceListItem $item): void {
-        if ($this->items->removeElement($item) && $item->getPriceList() === $this) {
-            $item->setPriceList(null);
+    public function removeTariffPeriod(EnergyTariffProfileTariffPeriod $tariffPeriod): void {
+        if ($this->tariffPeriods->removeElement($tariffPeriod) && $tariffPeriod->getProfile() === $this) {
+            $tariffPeriod->setProfile(null);
         }
     }
 
     /**
-     * @return Collection<int, EnergyTariffPriceListAssignment>
+     * @return Collection<int, EnergyTariffProfileAssignment>
      */
     public function getAssignments(): Collection {
         return $this->assignments;
     }
 
-    public function addAssignment(EnergyTariffPriceListAssignment $assignment): void {
+    public function addAssignment(EnergyTariffProfileAssignment $assignment): void {
         if (!$this->assignments->contains($assignment)) {
             $this->assignments->add($assignment);
-            $assignment->setPriceList($this);
+            $assignment->setProfile($this);
         }
     }
 
-    public function removeAssignment(EnergyTariffPriceListAssignment $assignment): void {
-        if ($this->assignments->removeElement($assignment) && $assignment->getPriceList() === $this) {
-            $assignment->setPriceList(null);
+    public function removeAssignment(EnergyTariffProfileAssignment $assignment): void {
+        if ($this->assignments->removeElement($assignment) && $assignment->getProfile() === $this) {
+            $assignment->setProfile(null);
         }
     }
 

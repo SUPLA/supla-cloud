@@ -21,19 +21,19 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_energy_tariff_price_list_item", indexes={
- *     @ORM\Index(name="idx_price_list_component_zone", columns={"price_list_id", "component_code", "zone_code"})
+ * @ORM\Table(name="supla_energy_tariff_profile_price_item", indexes={
+ *     @ORM\Index(name="idx_tariff_profile_price_item_component_zone", columns={"price_period_id", "component_code", "zone_code"})
  * })
  */
-class EnergyTariffPriceListItem {
+class EnergyTariffProfilePriceItem {
     /** @ORM\Id @ORM\Column(name="id", type="bigint") @ORM\GeneratedValue(strategy="AUTO") */
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="EnergyTariffPriceList", inversedBy="items")
-     * @ORM\JoinColumn(name="price_list_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="EnergyTariffProfilePricePeriod", inversedBy="items")
+     * @ORM\JoinColumn(name="price_period_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private ?EnergyTariffPriceList $priceList = null;
+    private ?EnergyTariffProfilePricePeriod $pricePeriod = null;
 
     /** @ORM\Column(name="component_code", type="string", length=100) */
     private string $componentCode = '';
@@ -54,12 +54,12 @@ class EnergyTariffPriceListItem {
         return $this->id;
     }
 
-    public function getPriceList(): ?EnergyTariffPriceList {
-        return $this->priceList;
+    public function getPricePeriod(): ?EnergyTariffProfilePricePeriod {
+        return $this->pricePeriod;
     }
 
-    public function setPriceList(?EnergyTariffPriceList $priceList): void {
-        $this->priceList = $priceList;
+    public function setPricePeriod(?EnergyTariffProfilePricePeriod $pricePeriod): void {
+        $this->pricePeriod = $pricePeriod;
     }
 
     public function getComponentCode(): string {

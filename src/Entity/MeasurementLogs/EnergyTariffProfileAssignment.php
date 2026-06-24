@@ -21,11 +21,13 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_energy_tariff_price_list_assignment", indexes={
- *     @ORM\Index(name="idx_price_assignment_channel_time", columns={"channel_id", "valid_from", "valid_to"})
+ * @ORM\Table(name="supla_energy_tariff_profile_assignment", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="uniq_tariff_profile_assignment_channel", columns={"channel_id"})
+ * }, indexes={
+ *     @ORM\Index(name="idx_tariff_profile_assignment_profile", columns={"profile_id"})
  * })
  */
-class EnergyTariffPriceListAssignment {
+class EnergyTariffProfileAssignment {
     /** @ORM\Id @ORM\Column(name="id", type="bigint") @ORM\GeneratedValue(strategy="AUTO") */
     private $id;
 
@@ -33,16 +35,10 @@ class EnergyTariffPriceListAssignment {
     private int $channelId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="EnergyTariffPriceList", inversedBy="assignments")
-     * @ORM\JoinColumn(name="price_list_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="EnergyTariffProfile", inversedBy="assignments")
+     * @ORM\JoinColumn(name="profile_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private ?EnergyTariffPriceList $priceList = null;
-
-    /** @ORM\Column(name="valid_from", type="utcdatetime") */
-    private \DateTime $validFrom;
-
-    /** @ORM\Column(name="valid_to", type="utcdatetime", nullable=true) */
-    private ?\DateTime $validTo = null;
+    private ?EnergyTariffProfile $profile = null;
 
     public function getId() {
         return $this->id;
@@ -56,27 +52,11 @@ class EnergyTariffPriceListAssignment {
         $this->channelId = $channelId;
     }
 
-    public function getPriceList(): ?EnergyTariffPriceList {
-        return $this->priceList;
+    public function getProfile(): ?EnergyTariffProfile {
+        return $this->profile;
     }
 
-    public function setPriceList(?EnergyTariffPriceList $priceList): void {
-        $this->priceList = $priceList;
-    }
-
-    public function getValidFrom(): \DateTime {
-        return $this->validFrom;
-    }
-
-    public function setValidFrom(\DateTime $validFrom): void {
-        $this->validFrom = $validFrom;
-    }
-
-    public function getValidTo(): ?\DateTime {
-        return $this->validTo;
-    }
-
-    public function setValidTo(?\DateTime $validTo): void {
-        $this->validTo = $validTo;
+    public function setProfile(?EnergyTariffProfile $profile): void {
+        $this->profile = $profile;
     }
 }

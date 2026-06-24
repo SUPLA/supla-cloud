@@ -26,19 +26,25 @@ class EnergyTariffControllerIntegrationTest extends IntegrationTestCase {
     protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
-        $device = $this->createDevice($location, [[ChannelType::RELAY, ChannelFunction::LIGHTSWITCH]]);
+        $device = $this->createDevice($location, [[ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER]]);
         $this->channel = $device->getChannels()[0];
 
         $this->anotherUser = $this->createConfirmedUser('other@supla.org');
         $anotherLocation = $this->createLocation($this->anotherUser);
-        $anotherDevice = $this->createDevice($anotherLocation, [[ChannelType::RELAY, ChannelFunction::LIGHTSWITCH]]);
+        $anotherDevice = $this->createDevice($anotherLocation, [[ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER]]);
         $this->anotherChannel = $anotherDevice->getChannels()[0];
 
         $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
         $tariff = new EnergyTariff();
         $tariff->setCode('PL_G12');
         $tariff->setName('Polish G12');
-        $tariff->setConfig(['timezone' => 'Europe/Warsaw']);
+        $tariff->setConfig([
+            'timezone' => 'Europe/Warsaw',
+            'zones' => [
+                ['code' => 'DAY'],
+                ['code' => 'NIGHT'],
+            ],
+        ]);
         $logsEm->persist($tariff);
         $logsEm->flush();
         $this->tariffId = $tariff->getId();
@@ -53,103 +59,112 @@ class EnergyTariffControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('PL_G12', $content[0]['code']);
     }
 
-    public function testManagingUserScopedPriceLists() {
+    public function testManagingUserScopedProfiles() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('POST', '/api/energy-tariffs/' . $this->tariffId . '/price-lists', [
-            'name' => 'Winter 2026',
-            'items' => [
-                ['componentCode' => 'ENERGY_ACTIVE_IMPORT', 'zoneCode' => 'DAY', 'amount' => 0.95, 'unit' => 'kWh', 'currency' => 'PLN'],
-                ['componentCode' => 'DISTRIBUTION_FIXED', 'zoneCode' => null, 'amount' => 12.12, 'unit' => 'month', 'currency' => 'PLN'],
-            ],
-        ]);
+        $client->apiRequestV24('POST', '/api/energy-tariff-profiles', $this->createProfilePayload('Winter profile'));
         $this->assertStatusCode(201, $client->getResponse());
         $created = json_decode($client->getResponse()->getContent(), true);
         $this->assertEquals($this->user->getId(), $created['userId']);
-        $this->assertCount(2, $created['items']);
+        $this->assertEquals('Winter profile', $created['name']);
+        $this->assertCount(1, $created['tariffPeriods']);
+        $this->assertCount(2, $created['tariffPeriods'][0]['pricePeriods']);
 
-        $client->apiRequestV24('GET', '/api/energy-tariffs/' . $this->tariffId . '/price-lists');
+        $client->apiRequestV24('GET', '/api/energy-tariff-profiles');
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertCount(1, json_decode($client->getResponse()->getContent(), true));
 
         $anotherClient = $this->createAuthenticatedClient($this->anotherUser);
-        $anotherClient->apiRequestV24('GET', '/api/energy-tariffs/' . $this->tariffId . '/price-lists');
+        $anotherClient->apiRequestV24('GET', '/api/energy-tariff-profiles');
         $this->assertStatusCode(200, $anotherClient->getResponse());
         $this->assertCount(0, json_decode($anotherClient->getResponse()->getContent(), true));
 
-        $anotherClient->apiRequestV24('GET', '/api/energy-tariffs/' . $this->tariffId . '/price-lists/' . $created['id']);
+        $anotherClient->apiRequestV24('GET', '/api/energy-tariff-profiles/' . $created['id']);
         $this->assertStatusCode(404, $anotherClient->getResponse());
 
-        $client->apiRequestV24('PUT', '/api/energy-tariffs/' . $this->tariffId . '/price-lists/' . $created['id'], [
-            'name' => 'Spring 2026',
-            'items' => [
-                ['componentCode' => 'ENERGY_ACTIVE_IMPORT', 'zoneCode' => 'NIGHT', 'amount' => 0.55, 'unit' => 'kWh', 'currency' => 'PLN'],
-            ],
-        ]);
+        $payload = $this->createProfilePayload('Spring profile');
+        $payload['tariffPeriods'][0]['pricePeriods'][1]['items'] = [
+            ['componentCode' => 'ENERGY_ACTIVE_IMPORT', 'zoneCode' => 'NIGHT', 'amount' => 0.55, 'unit' => 'kWh', 'currency' => 'PLN'],
+        ];
+        $client->apiRequestV24('PUT', '/api/energy-tariff-profiles/' . $created['id'], $payload);
         $this->assertStatusCode(200, $client->getResponse());
         $updated = json_decode($client->getResponse()->getContent(), true);
-        $this->assertEquals('Spring 2026', $updated['name']);
-        $this->assertCount(1, $updated['items']);
+        $this->assertEquals('Spring profile', $updated['name']);
+        $this->assertCount(1, $updated['tariffPeriods']);
 
-        $client->apiRequestV24('DELETE', '/api/energy-tariffs/' . $this->tariffId . '/price-lists/' . $created['id']);
+        $client->apiRequestV24('DELETE', '/api/energy-tariff-profiles/' . $created['id']);
         $this->assertStatusCode(204, $client->getResponse());
     }
 
-    public function testManagingTariffAssignments() {
+    public function testRejectingInvalidProfileCoverage() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('POST', '/api/channels/' . $this->channel->getId() . '/energy-tariff-assignments', [
-            'tariffId' => $this->tariffId,
-            'validFrom' => '2026-01-01 00:00:00',
-            'validTo' => '2026-03-31 23:59:59',
-        ]);
-        $this->assertStatusCode(201, $client->getResponse());
-        $assignment = json_decode($client->getResponse()->getContent(), true);
-
-        $client->apiRequestV24('GET', '/api/channels/' . $this->channel->getId() . '/energy-tariff-assignments');
-        $this->assertStatusCode(200, $client->getResponse());
-        $this->assertCount(1, json_decode($client->getResponse()->getContent(), true));
-
-        $client->apiRequestV24('PUT', '/api/channels/' . $this->channel->getId() . '/energy-tariff-assignments/' . $assignment['id'], [
-            'validTo' => null,
-        ]);
-        $this->assertStatusCode(200, $client->getResponse());
-        $updated = json_decode($client->getResponse()->getContent(), true);
-        $this->assertNull($updated['validTo']);
-
-        $client->apiRequestV24('DELETE', '/api/channels/' . $this->channel->getId() . '/energy-tariff-assignments/' . $assignment['id']);
-        $this->assertStatusCode(204, $client->getResponse());
+        $payload = $this->createProfilePayload('Invalid profile');
+        $payload['tariffPeriods'][0]['pricePeriods'][0]['validTo'] = '2026-01-15 00:00:00';
+        $payload['tariffPeriods'][0]['pricePeriods'][1]['validFrom'] = '2026-01-20 00:00:00';
+        $client->apiRequestV24('POST', '/api/energy-tariff-profiles', $payload);
+        $this->assertStatusCode(400, $client->getResponse());
     }
 
-    public function testManagingPriceListAssignments() {
+    public function testManagingChannelProfileAssignment() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('POST', '/api/energy-tariffs/' . $this->tariffId . '/price-lists', [
-            'name' => 'Default list',
-            'items' => [
-                ['componentCode' => 'ENERGY_ACTIVE_IMPORT', 'zoneCode' => 'DAY', 'amount' => 0.95, 'unit' => 'kWh', 'currency' => 'PLN'],
-            ],
-        ]);
-        $priceList = json_decode($client->getResponse()->getContent(), true);
-
-        $client->apiRequestV24('POST', '/api/channels/' . $this->channel->getId() . '/energy-price-list-assignments', [
-            'priceListId' => $priceList['id'],
-            'validFrom' => '2026-01-01 00:00:00',
-            'validTo' => null,
-        ]);
+        $client->apiRequestV24('POST', '/api/energy-tariff-profiles', $this->createProfilePayload('Assigned profile'));
         $this->assertStatusCode(201, $client->getResponse());
+        $profile = json_decode($client->getResponse()->getContent(), true);
+
+        $client->apiRequestV24('PUT', '/api/channels/' . $this->channel->getId() . '/energy-tariff-profile-assignment', [
+            'profileId' => $profile['id'],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
         $assignment = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals($this->channel->getId(), $assignment['channelId']);
+        $this->assertEquals($profile['id'], $assignment['profileId']);
+
+        $client->apiRequestV24('GET', '/api/channels/' . $this->channel->getId() . '/energy-tariff-profile-assignment');
+        $this->assertStatusCode(200, $client->getResponse());
+        $storedAssignment = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals($profile['id'], $storedAssignment['profileId']);
 
         $anotherClient = $this->createAuthenticatedClient($this->anotherUser);
-        $anotherClient->apiRequestV24('POST', '/api/channels/' . $this->anotherChannel->getId() . '/energy-price-list-assignments', [
-            'priceListId' => $priceList['id'],
-            'validFrom' => '2026-01-01 00:00:00',
-            'validTo' => null,
+        $anotherClient->apiRequestV24('PUT', '/api/channels/' . $this->anotherChannel->getId() . '/energy-tariff-profile-assignment', [
+            'profileId' => $profile['id'],
         ]);
         $this->assertStatusCode(404, $anotherClient->getResponse());
 
-        $client->apiRequestV24('GET', '/api/channels/' . $this->channel->getId() . '/energy-price-list-assignments');
-        $this->assertStatusCode(200, $client->getResponse());
-        $this->assertCount(1, json_decode($client->getResponse()->getContent(), true));
-
-        $client->apiRequestV24('DELETE', '/api/channels/' . $this->channel->getId() . '/energy-price-list-assignments/' . $assignment['id']);
+        $client->apiRequestV24('DELETE', '/api/channels/' . $this->channel->getId() . '/energy-tariff-profile-assignment');
         $this->assertStatusCode(204, $client->getResponse());
+
+        $client->apiRequestV24('GET', '/api/channels/' . $this->channel->getId() . '/energy-tariff-profile-assignment');
+        $this->assertStatusCode(204, $client->getResponse());
+    }
+
+    private function createProfilePayload(string $name): array {
+        return [
+            'name' => $name,
+            'tariffPeriods' => [[
+                'tariffId' => $this->tariffId,
+                'validFrom' => '2026-01-01 00:00:00',
+                'validTo' => '2026-02-01 00:00:00',
+                'pricePeriods' => [
+                    [
+                        'name' => 'January first half',
+                        'billingPeriodStartDay' => 1,
+                        'validFrom' => '2026-01-01 00:00:00',
+                        'validTo' => '2026-01-16 00:00:00',
+                        'items' => [
+                            ['componentCode' => 'ENERGY_ACTIVE_IMPORT', 'zoneCode' => 'DAY', 'amount' => 0.95, 'unit' => 'kWh', 'currency' => 'PLN'],
+                            ['componentCode' => 'DISTRIBUTION_FIXED', 'zoneCode' => null, 'amount' => 12.12, 'unit' => 'month', 'currency' => 'PLN'],
+                        ],
+                    ],
+                    [
+                        'name' => 'January second half',
+                        'billingPeriodStartDay' => 1,
+                        'validFrom' => '2026-01-16 00:00:00',
+                        'validTo' => '2026-02-01 00:00:00',
+                        'items' => [
+                            ['componentCode' => 'ENERGY_ACTIVE_IMPORT', 'zoneCode' => 'NIGHT', 'amount' => 0.65, 'unit' => 'kWh', 'currency' => 'PLN'],
+                        ],
+                    ],
+                ],
+            ]],
+        ];
     }
 }

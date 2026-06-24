@@ -20,10 +20,11 @@ namespace App\DataFixtures;
 use App\Entity\Main\IODevice;
 use App\Entity\Main\IODeviceChannel;
 use App\Entity\MeasurementLogs\EnergyTariff;
-use App\Entity\MeasurementLogs\EnergyTariffAssignment;
-use App\Entity\MeasurementLogs\EnergyTariffPriceList;
-use App\Entity\MeasurementLogs\EnergyTariffPriceListAssignment;
-use App\Entity\MeasurementLogs\EnergyTariffPriceListItem;
+use App\Entity\MeasurementLogs\EnergyTariffProfile;
+use App\Entity\MeasurementLogs\EnergyTariffProfileAssignment;
+use App\Entity\MeasurementLogs\EnergyTariffProfilePriceItem;
+use App\Entity\MeasurementLogs\EnergyTariffProfilePricePeriod;
+use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
 use App\Enums\ChannelType;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use Doctrine\Persistence\ObjectManager;
@@ -46,11 +47,11 @@ class TariffsFixture extends SuplaFixture {
             $tariffs[$definition['code']] = $tariff;
         }
         $logsEm->flush();
-        $this->createSampleAssignment($logsEm, $tariffs['PL_G11']);
+        $this->createSampleProfile($logsEm, $tariffs['PL_G11']);
         $logsEm->flush();
     }
 
-    private function createSampleAssignment($logsEm, EnergyTariff $tariff): void {
+    private function createSampleProfile($logsEm, EnergyTariff $tariff): void {
         $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
         $channel = $device->getChannels()->filter(fn(IODeviceChannel $channel
         ) => $channel->getType()->getId() === ChannelType::ELECTRICITYMETER)->first();
@@ -58,31 +59,39 @@ class TariffsFixture extends SuplaFixture {
             return;
         }
 
-        $tariffAssignment = new EnergyTariffAssignment();
-        $tariffAssignment->setChannelId($channel->getId());
-        $tariffAssignment->setTariff($tariff);
-        $tariffAssignment->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
-        $logsEm->persist($tariffAssignment);
+        $profile = new EnergyTariffProfile();
+        $profile->setUserId($channel->getUser()->getId());
+        $profile->setName('Sample G11 profile');
 
-        $priceList = new EnergyTariffPriceList();
-        $priceList->setTariff($tariff);
-        $priceList->setUserId($channel->getUser()->getId());
-        $priceList->setName('Sample G11 price list');
-        $priceList->setBillingPeriodStartDay(1);
-        $priceList->addItem($this->createPriceListItem('ENERGY_ACTIVE_IMPORT', 'ALL_DAY', 0.95, 'kWh'));
-        $priceList->addItem($this->createPriceListItem('DISTRIBUTION_VARIABLE', 'ALL_DAY', 0.11, 'kWh'));
-        $priceList->addItem($this->createPriceListItem('DISTRIBUTION_FIXED', null, 12.12, 'month'));
-        $logsEm->persist($priceList);
+        $tariffPeriod = new EnergyTariffProfileTariffPeriod();
+        $tariffPeriod->setTariff($tariff);
+        $tariffPeriod->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
+        $profile->addTariffPeriod($tariffPeriod);
 
-        $priceListAssignment = new EnergyTariffPriceListAssignment();
-        $priceListAssignment->setChannelId($channel->getId());
-        $priceListAssignment->setPriceList($priceList);
-        $priceListAssignment->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
-        $logsEm->persist($priceListAssignment);
+        $pricePeriod = new EnergyTariffProfilePricePeriod();
+        $pricePeriod->setName('Sample G11 prices');
+        $pricePeriod->setBillingPeriodStartDay(1);
+        $pricePeriod->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
+        $pricePeriod->addItem($this->createProfilePriceItem('ENERGY_ACTIVE_IMPORT', 'ALL_DAY', 0.95, 'kWh'));
+        $pricePeriod->addItem($this->createProfilePriceItem('DISTRIBUTION_VARIABLE', 'ALL_DAY', 0.11, 'kWh'));
+        $pricePeriod->addItem($this->createProfilePriceItem('DISTRIBUTION_FIXED', null, 12.12, 'month'));
+        $tariffPeriod->addPricePeriod($pricePeriod);
+
+        $profileAssignment = new EnergyTariffProfileAssignment();
+        $profileAssignment->setChannelId($channel->getId());
+        $profileAssignment->setProfile($profile);
+
+        $logsEm->persist($profile);
+        $logsEm->persist($profileAssignment);
     }
 
-    private function createPriceListItem(string $componentCode, ?string $zoneCode, float $amount, string $unit): EnergyTariffPriceListItem {
-        $item = new EnergyTariffPriceListItem();
+    private function createProfilePriceItem(
+        string $componentCode,
+        ?string $zoneCode,
+        float $amount,
+        string $unit
+    ): EnergyTariffProfilePriceItem {
+        $item = new EnergyTariffProfilePriceItem();
         $item->setComponentCode($componentCode);
         $item->setZoneCode($zoneCode);
         $item->setAmount($amount);

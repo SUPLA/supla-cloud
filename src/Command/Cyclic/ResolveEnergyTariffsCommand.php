@@ -20,6 +20,7 @@ namespace App\Command\Cyclic;
 use App\Command\Initialization\InitializationCommand;
 use App\Entity\MeasurementLogs\EnergyTariff;
 use App\Entity\MeasurementLogs\EnergyTariffHoliday;
+use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
 use App\Entity\MeasurementLogs\EnergyTariffResolvedZone;
 use App\Model\TimeProvider;
 use Doctrine\ORM\EntityManagerInterface;
@@ -79,8 +80,8 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements Initi
 
         $timezone = new \DateTimeZone($config['timezone'] ?? 'UTC');
         $periodStart = $this->resolvePeriodStart($fromOption, $timezone);
-        if (!$fromOption && ($assignmentStart = $this->findEarliestTariffAssignmentStart($tariff))) {
-            $periodStart = $assignmentStart < $periodStart ? $assignmentStart : $periodStart;
+        if (!$fromOption && ($tariffPeriodStart = $this->findEarliestProfileTariffPeriodStart($tariff))) {
+            $periodStart = $tariffPeriodStart < $periodStart ? $tariffPeriodStart : $periodStart;
         }
         $periodEnd = (clone $periodStart)->add(new \DateInterval('P' . $monthsAhead . 'M'));
 
@@ -117,13 +118,13 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements Initi
         return $localStart;
     }
 
-    private function findEarliestTariffAssignmentStart(EnergyTariff $tariff): ?\DateTime {
-        $assignment = $this->measurementLogsEntityManager->getRepository(EnergyTariffAssignment::class)->findOneBy(
+    private function findEarliestProfileTariffPeriodStart(EnergyTariff $tariff): ?\DateTime {
+        $tariffPeriod = $this->measurementLogsEntityManager->getRepository(EnergyTariffProfileTariffPeriod::class)->findOneBy(
             ['tariff' => $tariff],
             ['validFrom' => 'ASC']
         );
 
-        return $assignment?->getValidFrom();
+        return $tariffPeriod?->getValidFrom();
     }
 
     /**

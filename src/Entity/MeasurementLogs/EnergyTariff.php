@@ -50,20 +50,13 @@ class EnergyTariff {
     private \DateTime $updatedAt;
 
     /**
-     * @var Collection<int, EnergyTariffAssignment>
-     * @ORM\OneToMany(targetEntity="EnergyTariffAssignment", mappedBy="tariff", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @var Collection<int, EnergyTariffProfileTariffPeriod>
+     * @ORM\OneToMany(targetEntity="EnergyTariffProfileTariffPeriod", mappedBy="tariff", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private Collection $assignments;
-
-    /**
-     * @var Collection<int, EnergyTariffPriceList>
-     * @ORM\OneToMany(targetEntity="EnergyTariffPriceList", mappedBy="tariff", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    private Collection $priceLists;
+    private Collection $profileTariffPeriods;
 
     public function __construct() {
-        $this->assignments = new ArrayCollection();
-        $this->priceLists = new ArrayCollection();
+        $this->profileTariffPeriods = new ArrayCollection();
         $this->updateTimestamps();
     }
 
@@ -104,42 +97,22 @@ class EnergyTariff {
     }
 
     /**
-     * @return Collection<int, EnergyTariffAssignment>
+     * @return Collection<int, EnergyTariffProfileTariffPeriod>
      */
-    public function getAssignments(): Collection {
-        return $this->assignments;
+    public function getProfileTariffPeriods(): Collection {
+        return $this->profileTariffPeriods;
     }
 
-    public function addAssignment(EnergyTariffAssignment $assignment): void {
-        if (!$this->assignments->contains($assignment)) {
-            $this->assignments->add($assignment);
-            $assignment->setTariff($this);
+    public function addProfileTariffPeriod(EnergyTariffProfileTariffPeriod $profileTariffPeriod): void {
+        if (!$this->profileTariffPeriods->contains($profileTariffPeriod)) {
+            $this->profileTariffPeriods->add($profileTariffPeriod);
+            $profileTariffPeriod->setTariff($this);
         }
     }
 
-    public function removeAssignment(EnergyTariffAssignment $assignment): void {
-        if ($this->assignments->removeElement($assignment) && $assignment->getTariff() === $this) {
-            $assignment->setTariff(null);
-        }
-    }
-
-    /**
-     * @return Collection<int, EnergyTariffPriceList>
-     */
-    public function getPriceLists(): Collection {
-        return $this->priceLists;
-    }
-
-    public function addPriceList(EnergyTariffPriceList $priceList): void {
-        if (!$this->priceLists->contains($priceList)) {
-            $this->priceLists->add($priceList);
-            $priceList->setTariff($this);
-        }
-    }
-
-    public function removePriceList(EnergyTariffPriceList $priceList): void {
-        if ($this->priceLists->removeElement($priceList) && $priceList->getTariff() === $this) {
-            $priceList->setTariff(null);
+    public function removeProfileTariffPeriod(EnergyTariffProfileTariffPeriod $profileTariffPeriod): void {
+        if ($this->profileTariffPeriods->removeElement($profileTariffPeriod) && $profileTariffPeriod->getTariff() === $this) {
+            $profileTariffPeriod->setTariff(null);
         }
     }
 
