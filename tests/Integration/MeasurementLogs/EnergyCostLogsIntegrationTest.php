@@ -131,13 +131,11 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         ));
         $logsEm->persist($quarterlyProfile);
 
-        $assignmentA = new EnergyTariffProfileAssignment();
-        $assignmentA->setChannelId($this->switchingProfileChannel->getId());
+        $assignmentA = new EnergyTariffProfileAssignment($this->switchingProfileChannel->getId());
         $assignmentA->setProfile($switchingProfile);
         $logsEm->persist($assignmentA);
 
-        $assignmentB = new EnergyTariffProfileAssignment();
-        $assignmentB->setChannelId($this->quarterlyProfileChannel->getId());
+        $assignmentB = new EnergyTariffProfileAssignment($this->quarterlyProfileChannel->getId());
         $assignmentB->setProfile($quarterlyProfile);
         $logsEm->persist($assignmentB);
 

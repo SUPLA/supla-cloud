@@ -151,8 +151,7 @@ class EnergyTariffController extends RestController {
         $data = $this->getRequestData($request);
         Assertion::keyExists($data, 'profileId');
 
-        $assignment = $this->findProfileAssignmentForChannel($channel->getId()) ?? new EnergyTariffProfileAssignment();
-        $assignment->setChannelId($channel->getId());
+        $assignment = $this->findProfileAssignmentForChannel($channel->getId()) ?? new EnergyTariffProfileAssignment($channel->getId());
         $assignment->setProfile($this->findOwnedProfileOrThrow((int)$data['profileId']));
         $this->getMeasurementLogsEntityManager()->persist($assignment);
         $this->getMeasurementLogsEntityManager()->flush();

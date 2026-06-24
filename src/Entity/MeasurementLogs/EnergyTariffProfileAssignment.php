@@ -28,10 +28,10 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  */
 class EnergyTariffProfileAssignment {
-    /** @ORM\Id @ORM\Column(name="id", type="bigint") @ORM\GeneratedValue(strategy="AUTO") */
-    private $id;
-
-    /** @ORM\Column(name="channel_id", type="integer") */
+    /**
+     * @ORM\Id
+     * @ORM\Column(name="channel_id", type="integer")
+     */
     private int $channelId;
 
     /**
@@ -40,16 +40,12 @@ class EnergyTariffProfileAssignment {
      */
     private ?EnergyTariffProfile $profile = null;
 
-    public function getId() {
-        return $this->id;
+    public function __construct(int $channelId) {
+        $this->channelId = $channelId;
     }
 
     public function getChannelId(): int {
         return $this->channelId;
-    }
-
-    public function setChannelId(int $channelId): void {
-        $this->channelId = $channelId;
     }
 
     public function getProfile(): ?EnergyTariffProfile {

@@ -82,8 +82,7 @@ class TariffsFixture extends SuplaFixture {
         $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 12.12, EnergyPriceUnit::MONTH));
         $tariffPeriod->addPricePeriod($pricePeriod);
 
-        $profileAssignment = new EnergyTariffProfileAssignment();
-        $profileAssignment->setChannelId($channel->getId());
+        $profileAssignment = new EnergyTariffProfileAssignment($channel->getId());
         $profileAssignment->setProfile($profile);
 
         $logsEm->persist($profile);
