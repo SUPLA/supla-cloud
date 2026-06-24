@@ -147,6 +147,73 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(150, $content[0]['usage']['totalFae']);
     }
 
+    public function testFetchingEnergyCostSummariesForG12DayNightPrices() {
+        $location = $this->createLocation($this->user);
+        $device = $this->createDevice($location, [[ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER]]);
+        $channel = $device->getChannels()[0];
+
+        $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
+        $this->createDeltaLog($logsEm, $channel->getId(), '2026-01-10 05:15:00', 100, 0, 0);
+        $this->createDeltaLog($logsEm, $channel->getId(), '2026-01-10 06:15:00', 100, 0, 0);
+
+        $tariff = new EnergyTariff();
+        $tariff->setCode('PL_G12_TEST');
+        $tariff->setName('G12 test');
+        $tariff->setConfig(['timezone' => 'UTC']);
+        $logsEm->persist($tariff);
+        $logsEm->flush();
+
+        $logsEm->persist(new EnergyTariffResolvedZone(
+            $tariff->getId(),
+            'NIGHT',
+            new \DateTime('2026-01-10 00:00:00', new \DateTimeZone('UTC')),
+            new \DateTime('2026-01-10 06:00:00', new \DateTimeZone('UTC'))
+        ));
+        $logsEm->persist(new EnergyTariffResolvedZone(
+            $tariff->getId(),
+            'DAY',
+            new \DateTime('2026-01-10 06:00:00', new \DateTimeZone('UTC')),
+            new \DateTime('2026-01-11 00:00:00', new \DateTimeZone('UTC'))
+        ));
+
+        $tariffAssignment = new EnergyTariffAssignment();
+        $tariffAssignment->setChannelId($channel->getId());
+        $tariffAssignment->setTariff($tariff);
+        $tariffAssignment->setValidFrom(new \DateTime('2026-01-01 00:00:00', new \DateTimeZone('UTC')));
+        $logsEm->persist($tariffAssignment);
+
+        $priceList = new EnergyTariffPriceList();
+        $priceList->setTariff($tariff);
+        $priceList->setUserId($this->user->getId());
+        $priceList->setName('G12 prices');
+        $priceList->setBillingPeriodStartDay(1);
+        $priceList->addItem($this->createPriceItem('ENERGY_ACTIVE_IMPORT', 'DAY', 1.30, 'kWh'));
+        $priceList->addItem($this->createPriceItem('ENERGY_ACTIVE_IMPORT', 'NIGHT', 0.50, 'kWh'));
+        $logsEm->persist($priceList);
+
+        $priceAssignment = new EnergyTariffPriceListAssignment();
+        $priceAssignment->setChannelId($channel->getId());
+        $priceAssignment->setPriceList($priceList);
+        $priceAssignment->setValidFrom(new \DateTime('2026-01-01 00:00:00', new \DateTimeZone('UTC')));
+        $logsEm->persist($priceAssignment);
+        $logsEm->flush();
+
+        $client = $this->createAuthenticatedClient($this->user);
+        $afterTimestamp = strtotime('2026-01-10 00:00:00 UTC');
+        $beforeTimestamp = strtotime('2026-01-11 00:00:00 UTC');
+        $client->apiRequestV24('GET', '/api/2.4.0/channels/' . $channel->getId() . '/energy-cost-summaries?afterTimestamp=' . $afterTimestamp . '&beforeTimestamp=' . $beforeTimestamp);
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertCount(1, $content);
+        $summary = $content[0];
+        $this->assertEquals(0.2, $summary['usage']['totalKwh']);
+        $this->assertEquals(0.18, $summary['costs']['total']);
+        $this->assertEquals(0.18, $summary['costs']['byComponent']['ENERGY_ACTIVE_IMPORT']);
+        $this->assertEquals(0.05, $summary['costs']['byZone']['NIGHT']);
+        $this->assertEquals(0.13, $summary['costs']['byZone']['DAY']);
+    }
+
     private function createDeltaLog($logsEm, int $channelId, string $date, int $phase1, int $phase2, int $phase3): void {
         $log = new ElectricityMeterDeltaLogItem($channelId, $date);
         EntityUtils::setField($log, 'phase1_fae', $phase1);
