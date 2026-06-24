@@ -50,11 +50,12 @@ class TariffsFixture extends SuplaFixture {
             $tariffs[$definition['code']] = $tariff;
         }
         $logsEm->flush();
-        $this->createSampleProfile($logsEm, $tariffs['PL_G11']);
+        $this->createSampleG11Profile($logsEm, $tariffs['PL_G11']);
+        $this->createSampleG12Profile($logsEm, $tariffs['PL_G12']);
         $logsEm->flush();
     }
 
-    private function createSampleProfile($logsEm, EnergyTariff $tariff): void {
+    private function createSampleG11Profile($logsEm, EnergyTariff $tariff): void {
         $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
         $channel = $device->getChannels()->filter(fn(IODeviceChannel $channel
         ) => $channel->getType()->getId() === ChannelType::ELECTRICITYMETER)->first();
@@ -87,6 +88,35 @@ class TariffsFixture extends SuplaFixture {
 
         $logsEm->persist($profile);
         $logsEm->persist($profileAssignment);
+    }
+
+    private function createSampleG12Profile($logsEm, EnergyTariff $tariff): void {
+        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
+
+        $profile = new EnergyTariffProfile();
+        $profile->setUserId($device->getUser()->getId());
+        $profile->setName('Sample G12 profile');
+
+        $tariffPeriod = new EnergyTariffProfileTariffPeriod();
+        $tariffPeriod->setTariff($tariff);
+        $tariffPeriod->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
+        $profile->addTariffPeriod($tariffPeriod);
+
+        $pricePeriod = new EnergyTariffProfilePricePeriod();
+        $pricePeriod->setName('Sample G12 prices');
+        $pricePeriod->setBillingPeriodLength(2);
+        $pricePeriod->setBillingPeriodUnit(BillingPeriodUnit::MONTH);
+        $pricePeriod->setCurrency('PLN');
+        $pricePeriod->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
+        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'NIGHT', 0.75, EnergyPriceUnit::KWH));
+        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'DAY', 0.95, EnergyPriceUnit::KWH));
+        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'NIGHT', 0.11, EnergyPriceUnit::KWH));
+        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'DAY', 0.12, EnergyPriceUnit::KWH));
+        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 12.12, EnergyPriceUnit::MONTH));
+        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::FEE_FIXED, null, 10, EnergyPriceUnit::PERIOD));
+        $tariffPeriod->addPricePeriod($pricePeriod);
+
+        $logsEm->persist($profile);
     }
 
     private function createProfilePriceItem(

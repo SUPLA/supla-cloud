@@ -135,10 +135,6 @@
         }
         if (this.channel.function.id === ChannelFunction.ELECTRICITYMETER) {
           this.availableTabs.push({
-            route: 'channel.tariffs',
-            header: 'Tariffs', // i18n
-          });
-          this.availableTabs.push({
             route: 'channel.costs',
             header: 'Costs', // i18n
           });

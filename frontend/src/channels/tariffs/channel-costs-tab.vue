@@ -43,6 +43,52 @@
       </div>
     </div>
 
+    <div class="details-page-block assignment-block">
+      <div class="assignment-block__header">
+        <div>
+          <h3 class="m-0">{{ $t('Tariff profile') }}</h3>
+          <div class="text-muted small">{{ $t('Choose which tariff profile should be used to calculate costs for this channel.') }}</div>
+        </div>
+        <router-link class="btn btn-default btn-sm" :to="{name: 'tariffProfiles'}">
+          {{ $t('Manage profiles') }}
+        </router-link>
+      </div>
+
+      <div v-if="!availableProfiles.length" class="alert alert-warning mb-0">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+          <span>{{ $t('No tariff profiles available yet. Create one first to see meaningful cost breakdowns.') }}</span>
+          <router-link class="btn btn-white btn-sm" :to="{name: 'tariffProfiles'}">{{ $t('Create profile') }}</router-link>
+        </div>
+      </div>
+
+      <div v-else class="row g-3 align-items-end">
+        <div class="col-lg-6">
+          <div class="form-group mb-0">
+            <label>{{ $t('Assigned profile') }}</label>
+            <select v-model.number="selectedProfileId" class="form-control" :disabled="assignmentBusy">
+              <option :value="null">{{ $t('No profile assigned') }}</option>
+              <option v-for="profile in availableProfiles" :key="profile.id" :value="profile.id">{{ profile.name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="assignment-block__actions">
+            <button
+              class="btn btn-white"
+              type="button"
+              :disabled="assignmentBusy || selectedProfileId === assignedProfileId || !selectedProfileId"
+              @click="saveProfileAssignment()"
+            >
+              {{ assignmentBusy ? $t('Saving') : $t('Assign profile') }}
+            </button>
+            <button class="btn btn-grey" type="button" :disabled="assignmentBusy || !assignedProfileId" @click="clearProfileAssignment()">
+              {{ $t('Remove assignment') }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="details-page-block filter-block">
       <div class="row align-items-end">
         <div class="col-lg-7">
@@ -64,7 +110,7 @@
     <loading-cover :loading="loading">
       <div v-if="!rows.length" class="details-page-block empty-panel">
         <h3>{{ $t('No cost data for the selected period.') }}</h3>
-        <p>{{ $t('Assign a tariff and a price list first, then come back here to explore the results.') }}</p>
+        <p>{{ $t('Assign a tariff profile first, then come back here to explore the results.') }}</p>
       </div>
 
       <template v-else>
@@ -212,6 +258,7 @@
   import {energyTariffsApi} from '@/api/energy-tariffs-api';
   import {formatDateTime} from '@/common/filters-date';
   import latinize from 'latinize';
+  import {successNotification} from '@/common/notifier';
 
   export default {
     components: {DateRangePicker, LoadingCover},
@@ -221,10 +268,14 @@
     data() {
       return {
         loading: true,
+        assignmentBusy: false,
         visualMode: 'hybrid',
         compareMode: 'none',
         breakdownMode: 'component',
         periodMode: 'month',
+        availableProfiles: [],
+        assignedProfileId: null,
+        selectedProfileId: null,
         rawCostLogs: [],
         rawBillingSummaries: [],
         comparisonRows: [],
@@ -352,7 +403,7 @@
       },
     },
     async mounted() {
-      await this.refresh();
+      await Promise.all([this.loadProfileAssignmentOptions(), this.refresh()]);
     },
     beforeUnmount() {
       this.trendChartInstance?.destroy();
@@ -360,6 +411,42 @@
     },
     methods: {
       formatDateTime,
+      async loadProfileAssignmentOptions() {
+        const [profiles, assignment] = await Promise.all([
+          energyTariffsApi.getTariffProfiles(),
+          energyTariffsApi.getChannelTariffProfileAssignment(this.channel.id),
+        ]);
+        this.availableProfiles = profiles;
+        this.assignedProfileId = assignment?.profileId || null;
+        this.selectedProfileId = this.assignedProfileId;
+      },
+      async saveProfileAssignment() {
+        if (!this.selectedProfileId) {
+          return;
+        }
+        this.assignmentBusy = true;
+        try {
+          const assignment = await energyTariffsApi.assignChannelTariffProfile(this.channel.id, this.selectedProfileId);
+          this.assignedProfileId = assignment.profileId;
+          this.selectedProfileId = assignment.profileId;
+          successNotification(this.$t('Tariff profile assigned.'));
+          await this.refresh();
+        } finally {
+          this.assignmentBusy = false;
+        }
+      },
+      async clearProfileAssignment() {
+        this.assignmentBusy = true;
+        try {
+          await energyTariffsApi.deleteChannelTariffProfileAssignment(this.channel.id);
+          this.assignedProfileId = null;
+          this.selectedProfileId = null;
+          successNotification(this.$t('Tariff profile assignment removed.'));
+          await this.refresh();
+        } finally {
+          this.assignmentBusy = false;
+        }
+      },
       async refresh() {
         this.loading = true;
         try {
@@ -922,5 +1009,22 @@
         justify-content: flex-start;
       }
     }
+  }
+
+  .assignment-block {
+    margin-bottom: 24px;
+  }
+
+  .assignment-block__header,
+  .assignment-block__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .assignment-block__header {
+    margin-bottom: 16px;
   }
 </style>
