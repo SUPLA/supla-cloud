@@ -17,6 +17,7 @@
 
 namespace App\Entity\MeasurementLogs;
 
+use App\Enums\BillingPeriodUnit;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -40,8 +41,11 @@ class EnergyTariffProfilePricePeriod {
     /** @ORM\Column(name="name", type="string", length=255) */
     private string $name = '';
 
-    /** @ORM\Column(name="billing_period_start_day", type="integer") */
-    private int $billingPeriodStartDay = 1;
+    /** @ORM\Column(name="billing_period_length", type="integer") */
+    private int $billingPeriodLength = 1;
+
+    /** @ORM\Column(name="billing_period_unit", type="string", enumType=BillingPeriodUnit::class) */
+    private BillingPeriodUnit $billingPeriodUnit = BillingPeriodUnit::MONTH;
 
     /** @ORM\Column(name="currency", type="string", length=10) */
     private string $currency = '';
@@ -82,12 +86,20 @@ class EnergyTariffProfilePricePeriod {
         $this->name = $name;
     }
 
-    public function getBillingPeriodStartDay(): int {
-        return $this->billingPeriodStartDay;
+    public function getBillingPeriodLength(): int {
+        return $this->billingPeriodLength;
     }
 
-    public function setBillingPeriodStartDay(int $billingPeriodStartDay): void {
-        $this->billingPeriodStartDay = $billingPeriodStartDay;
+    public function setBillingPeriodLength(int $billingPeriodLength): void {
+        $this->billingPeriodLength = $billingPeriodLength;
+    }
+
+    public function getBillingPeriodUnit(): BillingPeriodUnit {
+        return $this->billingPeriodUnit;
+    }
+
+    public function setBillingPeriodUnit(BillingPeriodUnit $billingPeriodUnit): void {
+        $this->billingPeriodUnit = $billingPeriodUnit;
     }
 
     public function getCurrency(): string {

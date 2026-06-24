@@ -24,8 +24,10 @@ use App\Entity\MeasurementLogs\EnergyTariffProfileAssignment;
 use App\Entity\MeasurementLogs\EnergyTariffProfilePriceItem;
 use App\Entity\MeasurementLogs\EnergyTariffProfilePricePeriod;
 use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
+use App\Enums\BillingPeriodUnit;
 use App\Enums\ChannelFunction;
 use App\Enums\EnergyPriceComponent;
+use App\Enums\EnergyPriceUnit;
 use App\Model\ApiVersions;
 use App\Utils\DatabaseUtils;
 use App\Utils\DateUtils;
@@ -249,7 +251,8 @@ class EnergyTariffController extends RestController {
                 ppi.amount,
                 ppi.unit,
                 pp.currency,
-                pp.billing_period_start_day,
+                pp.billing_period_length,
+                pp.billing_period_unit,
                 ((COALESCE(b.phase1_fae, 0) + COALESCE(b.phase2_fae, 0) + COALESCE(b.phase3_fae, 0)) / 1000.0) total_kwh,
                 (COALESCE(b.phase1_fae, 0) / 1000.0) phase1_kwh,
                 (COALESCE(b.phase2_fae, 0) / 1000.0) phase2_kwh,
@@ -498,7 +501,13 @@ class EnergyTariffController extends RestController {
                     continue;
                 }
 
-                $billingContext = $this->resolveBillingPeriodForTimestamp($start->getTimestamp(), $timezone, $pricePeriod->getBillingPeriodStartDay());
+                $billingContext = $this->resolveBillingPeriodForTimestamp(
+                    $start->getTimestamp(),
+                    $timezone,
+                    $pricePeriod->getValidFrom(),
+                    $pricePeriod->getBillingPeriodLength(),
+                    $pricePeriod->getBillingPeriodUnit()
+                );
                 while (strtotime($billingContext['periodStart']) < $end->getTimestamp()) {
                     $summaryKey = $billingContext['periodStart'] . '|' . $billingContext['timezone'];
                     if (!isset($summaries[$summaryKey])) {
@@ -507,30 +516,37 @@ class EnergyTariffController extends RestController {
                             'periodEnd' => $billingContext['periodEnd'],
                             'timezone' => $billingContext['timezone'],
                             'usage' => ['totalKwh' => 0.0, 'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0]],
-                            'costs' => ['currency' => 'PLN', 'total' => 0.0, 'byComponent' => [], 'byZone' => [], 'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0]],
+                            'costs' => ['currency' => $pricePeriod->getCurrency(), 'total' => 0.0, 'byComponent' => [], 'byZone' => [], 'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0]],
                         ];
                     }
 
                     foreach ($pricePeriod->getItems() as $item) {
-                        if (!in_array($item->getUnit(), ['day', 'month'], true)) {
+                        if ($item->getUnit() === EnergyPriceUnit::KWH) {
                             continue;
                         }
-                        if ($item->getUnit() === 'month') {
+                        if ($item->getUnit() === EnergyPriceUnit::PERIOD) {
                             $this->addSummaryCost($summaries[$summaryKey], $item->getComponentCode(), (float)$item->getAmount());
                         } else {
-                            $days = $this->countOverlappingLocalDays(
+                            $unitCount = $this->countOverlappingFixedUnits(
                                 $billingContext['periodStart'],
                                 $billingContext['periodEnd'],
                                 $start,
                                 $end,
-                                $timezone
+                                $timezone,
+                                $item->getUnit()
                             );
-                            $this->addSummaryCost($summaries[$summaryKey], $item->getComponentCode(), (float)$item->getAmount() * $days);
+                            $this->addSummaryCost($summaries[$summaryKey], $item->getComponentCode(), (float)$item->getAmount() * $unitCount);
                         }
                     }
 
                     $next = new \DateTime($billingContext['periodEnd'], new \DateTimeZone('UTC'));
-                    $billingContext = $this->resolveBillingPeriodForTimestamp($next->getTimestamp(), $timezone, $pricePeriod->getBillingPeriodStartDay());
+                    $billingContext = $this->resolveBillingPeriodForTimestamp(
+                        $next->getTimestamp(),
+                        $timezone,
+                        $pricePeriod->getValidFrom(),
+                        $pricePeriod->getBillingPeriodLength(),
+                        $pricePeriod->getBillingPeriodUnit()
+                    );
                 }
             }
         }
@@ -541,51 +557,86 @@ class EnergyTariffController extends RestController {
         $summary['costs']['byComponent'][$componentCode->name] = ($summary['costs']['byComponent'][$componentCode->name] ?? 0) + $amount;
     }
 
-    private function countOverlappingLocalDays(
+    private function countOverlappingFixedUnits(
         string $periodStart,
         string $periodEnd,
         \DateTime $rangeStart,
         \DateTime $rangeEnd,
-        \DateTimeZone $timezone
+        \DateTimeZone $timezone,
+        EnergyPriceUnit $unit
     ): int {
-        $start = new \DateTime($periodStart, new \DateTimeZone('UTC'));
-        $end = new \DateTime($periodEnd, new \DateTimeZone('UTC'));
-        if ($rangeStart > $start) {
-            $start = clone $rangeStart;
+        $periodStartLocal = new \DateTime($periodStart, new \DateTimeZone('UTC'));
+        $periodEndLocal = new \DateTime($periodEnd, new \DateTimeZone('UTC'));
+        $periodStartLocal->setTimezone($timezone);
+        $periodEndLocal->setTimezone($timezone);
+        $overlapStart = clone $periodStartLocal;
+        $overlapEnd = clone $periodEndLocal;
+        $rangeStartLocal = clone $rangeStart;
+        $rangeStartLocal->setTimezone($timezone);
+        $rangeEndLocal = clone $rangeEnd;
+        $rangeEndLocal->setTimezone($timezone);
+        if ($rangeStartLocal > $overlapStart) {
+            $overlapStart = clone $rangeStartLocal;
         }
-        if ($rangeEnd < $end) {
-            $end = clone $rangeEnd;
+        if ($rangeEndLocal < $overlapEnd) {
+            $overlapEnd = clone $rangeEndLocal;
         }
-        if ($start >= $end) {
+        if ($overlapStart >= $overlapEnd) {
             return 0;
         }
-        $start->setTimezone($timezone);
-        $end->setTimezone($timezone);
-        return max(1, (int)$start->diff($end)->format('%a'));
+        $cursor = clone $periodStartLocal;
+        $count = 0;
+        while ($cursor < $periodEndLocal) {
+            $next = $this->advanceDateTime(clone $cursor, 1, $this->mapPriceUnitToBillingPeriodUnit($unit));
+            if ($next > $periodEndLocal) {
+                $next = clone $periodEndLocal;
+            }
+            if ($next > $overlapStart && $cursor < $overlapEnd) {
+                $count++;
+            }
+            $cursor = $next;
+        }
+        return $count;
     }
 
     private function resolveBillingContext(array $log, array $tariffs, array $pricePeriods): array {
         $pricePeriod = $log['pricePeriodId'] ? ($pricePeriods[$log['pricePeriodId']] ?? null) : null;
         $tariff = $log['tariffId'] ? ($tariffs[$log['tariffId']] ?? null) : null;
         $timezone = new \DateTimeZone($tariff?->getConfig()['timezone'] ?? 'UTC');
-        $billingStartDay = $pricePeriod?->getBillingPeriodStartDay() ?? 1;
-        return $this->resolveBillingPeriodForTimestamp($log['slotStartTimestamp'], $timezone, $billingStartDay);
+        if (!$pricePeriod) {
+            return $this->resolveDefaultBillingPeriodForTimestamp($log['slotStartTimestamp'], $timezone);
+        }
+        return $this->resolveBillingPeriodForTimestamp(
+            $log['slotStartTimestamp'],
+            $timezone,
+            $pricePeriod->getValidFrom(),
+            $pricePeriod->getBillingPeriodLength(),
+            $pricePeriod->getBillingPeriodUnit()
+        );
     }
 
-    private function resolveBillingPeriodForTimestamp(int $timestamp, \DateTimeZone $timezone, int $billingStartDay): array {
+    private function resolveBillingPeriodForTimestamp(
+        int $timestamp,
+        \DateTimeZone $timezone,
+        \DateTime $billingAnchorUtc,
+        int $billingPeriodLength,
+        BillingPeriodUnit $billingPeriodUnit
+    ): array {
         $local = new \DateTime('@' . $timestamp);
         $local->setTimezone($timezone);
-        $billingStartDay = max(1, min(28, $billingStartDay));
+        $periodStartLocal = clone $billingAnchorUtc;
+        $periodStartLocal->setTimezone($timezone);
+        $periodEndLocal = $this->advanceDateTime(clone $periodStartLocal, $billingPeriodLength, $billingPeriodUnit);
 
-        $periodStartLocal = clone $local;
-        if ((int)$local->format('j') < $billingStartDay) {
-            $periodStartLocal->modify('first day of previous month');
-        } else {
-            $periodStartLocal->modify('first day of this month');
+        while ($local < $periodStartLocal) {
+            $periodEndLocal = clone $periodStartLocal;
+            $periodStartLocal = $this->advanceDateTime(clone $periodStartLocal, -$billingPeriodLength, $billingPeriodUnit);
         }
-        $periodStartLocal->setDate((int)$periodStartLocal->format('Y'), (int)$periodStartLocal->format('m'), $billingStartDay);
-        $periodStartLocal->setTime(0, 0, 0);
-        $periodEndLocal = (clone $periodStartLocal)->modify('+1 month');
+
+        while ($local >= $periodEndLocal) {
+            $periodStartLocal = clone $periodEndLocal;
+            $periodEndLocal = $this->advanceDateTime(clone $periodEndLocal, $billingPeriodLength, $billingPeriodUnit);
+        }
 
         $periodStartUtc = clone $periodStartLocal;
         $periodStartUtc->setTimezone(new \DateTimeZone('UTC'));
@@ -598,6 +649,35 @@ class EnergyTariffController extends RestController {
             'periodEnd' => $periodEndUtc->format(\DateTime::ATOM),
             'timezone' => $timezone->getName(),
         ];
+    }
+
+    private function resolveDefaultBillingPeriodForTimestamp(int $timestamp, \DateTimeZone $timezone): array {
+        $anchor = new \DateTime('@' . $timestamp);
+        $anchor->setTimezone($timezone);
+        $anchor->modify('first day of this month');
+        $anchor->setTime(0, 0, 0);
+        $anchor->setTimezone(new \DateTimeZone('UTC'));
+        return $this->resolveBillingPeriodForTimestamp($timestamp, $timezone, $anchor, 1, BillingPeriodUnit::MONTH);
+    }
+
+    private function advanceDateTime(\DateTime $dateTime, int $length, BillingPeriodUnit $unit): \DateTime {
+        $sign = $length >= 0 ? '+' : '-';
+        $absoluteLength = abs($length);
+        return match ($unit) {
+            BillingPeriodUnit::DAY => $dateTime->modify(sprintf('%s%d day', $sign, $absoluteLength)),
+            BillingPeriodUnit::WEEK => $dateTime->modify(sprintf('%s%d week', $sign, $absoluteLength)),
+            BillingPeriodUnit::MONTH => $dateTime->modify(sprintf('%s%d month', $sign, $absoluteLength)),
+            BillingPeriodUnit::YEAR => $dateTime->modify(sprintf('%s%d year', $sign, $absoluteLength)),
+        };
+    }
+
+    private function mapPriceUnitToBillingPeriodUnit(EnergyPriceUnit $unit): BillingPeriodUnit {
+        return match ($unit) {
+            EnergyPriceUnit::DAY => BillingPeriodUnit::DAY,
+            EnergyPriceUnit::WEEK => BillingPeriodUnit::WEEK,
+            EnergyPriceUnit::MONTH => BillingPeriodUnit::MONTH,
+            default => throw new \InvalidArgumentException('Unsupported fixed price unit.'),
+        };
     }
 
     private function ensureApiVersion24(Request $request): void {
@@ -662,14 +742,16 @@ class EnergyTariffController extends RestController {
 
         foreach ($pricePeriods as $pricePeriodData) {
             Assertion::keyExists($pricePeriodData, 'name');
-            Assertion::keyExists($pricePeriodData, 'billingPeriodStartDay');
+            Assertion::keyExists($pricePeriodData, 'billingPeriodLength');
+            Assertion::keyExists($pricePeriodData, 'billingPeriodUnit');
             Assertion::keyExists($pricePeriodData, 'currency');
             Assertion::keyExists($pricePeriodData, 'validFrom');
             Assertion::keyExists($pricePeriodData, 'items');
 
             $pricePeriod = new EnergyTariffProfilePricePeriod();
             $pricePeriod->setName($pricePeriodData['name']);
-            $pricePeriod->setBillingPeriodStartDay((int)$pricePeriodData['billingPeriodStartDay']);
+            $pricePeriod->setBillingPeriodLength((int)$pricePeriodData['billingPeriodLength']);
+            $pricePeriod->setBillingPeriodUnit($this->parseBillingPeriodUnit($pricePeriodData['billingPeriodUnit']));
             $pricePeriod->setCurrency($pricePeriodData['currency']);
             $pricePeriod->setValidFrom($this->parseDateTime($pricePeriodData['validFrom']));
             $pricePeriod->setValidTo($this->parseNullableDateTime($pricePeriodData['validTo'] ?? null));
@@ -693,7 +775,7 @@ class EnergyTariffController extends RestController {
             $item->setComponentCode($this->parseEnergyPriceComponent($itemData['componentCode']));
             $item->setZoneCode($itemData['zoneCode'] ?? null);
             $item->setAmount((float)$itemData['amount']);
-            $item->setUnit($itemData['unit']);
+            $item->setUnit($this->parseEnergyPriceUnit($itemData['unit']));
             $pricePeriod->addItem($item);
         }
     }
@@ -733,7 +815,7 @@ class EnergyTariffController extends RestController {
         $previousPricePeriod = null;
         foreach ($pricePeriods as $index => $pricePeriod) {
             Assertion::notBlank($pricePeriod->getName());
-            Assertion::between($pricePeriod->getBillingPeriodStartDay(), 1, 28);
+            Assertion::greaterThan($pricePeriod->getBillingPeriodLength(), 0);
             Assertion::regex($pricePeriod->getCurrency(), '/^[A-Z]{3}$/');
             $this->assertEndAfterStart($pricePeriod->getValidFrom(), $pricePeriod->getValidTo());
             Assertion::greaterOrEqualThan($pricePeriod->getValidFrom()->getTimestamp(), $tariffPeriod->getValidFrom()->getTimestamp(), 'Price period cannot start before the tariff period.');
@@ -754,7 +836,7 @@ class EnergyTariffController extends RestController {
             $items = $pricePeriod->getItems()->toArray();
             Assertion::notEmpty($items, 'Price period must contain at least one price item.');
             foreach ($items as $item) {
-                Assertion::notBlank($item->getUnit());
+                Assertion::true($item->getComponentCode()->supportsUnit($item->getUnit()), 'Price item unit is not allowed for selected component.');
                 if ($item->getZoneCode() !== null && $zoneCodes) {
                     Assertion::inArray($item->getZoneCode(), $zoneCodes, 'Price item zone must exist in selected tariff.');
                 }
@@ -810,6 +892,18 @@ class EnergyTariffController extends RestController {
         return $component;
     }
 
+    private function parseEnergyPriceUnit(string $unit): EnergyPriceUnit {
+        $parsed = EnergyPriceUnit::tryFrom($unit);
+        Assertion::notNull($parsed, 'Invalid energy price unit.');
+        return $parsed;
+    }
+
+    private function parseBillingPeriodUnit(string $unit): BillingPeriodUnit {
+        $parsed = BillingPeriodUnit::tryFrom($unit);
+        Assertion::notNull($parsed, 'Invalid billing period unit.');
+        return $parsed;
+    }
+
     private function getMeasurementLogsEntityManager() {
         return $this->measurementLogsEntityManager;
     }
@@ -849,7 +943,8 @@ class EnergyTariffController extends RestController {
         return [
             'id' => $pricePeriod->getId(),
             'name' => $pricePeriod->getName(),
-            'billingPeriodStartDay' => $pricePeriod->getBillingPeriodStartDay(),
+            'billingPeriodLength' => $pricePeriod->getBillingPeriodLength(),
+            'billingPeriodUnit' => $pricePeriod->getBillingPeriodUnit()->value,
             'currency' => $pricePeriod->getCurrency(),
             'validFrom' => $pricePeriod->getValidFrom()->format(\DateTime::ATOM),
             'validTo' => $pricePeriod->getValidTo()?->format(\DateTime::ATOM),
@@ -858,7 +953,7 @@ class EnergyTariffController extends RestController {
                 'componentCode' => $item->getComponentCode()->name,
                 'zoneCode' => $item->getZoneCode(),
                 'amount' => $item->getAmount(),
-                'unit' => $item->getUnit(),
+                'unit' => $item->getUnit()->value,
             ], $pricePeriod->getItems()->toArray()),
         ];
     }

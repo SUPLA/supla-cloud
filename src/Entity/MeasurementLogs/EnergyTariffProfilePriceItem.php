@@ -18,6 +18,7 @@
 namespace App\Entity\MeasurementLogs;
 
 use App\Enums\EnergyPriceComponent;
+use App\Enums\EnergyPriceUnit;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,8 +46,8 @@ class EnergyTariffProfilePriceItem {
     /** @ORM\Column(name="amount", type="decimal", precision=12, scale=6) */
     private ?float $amount = null;
 
-    /** @ORM\Column(name="unit", type="string", length=20) */
-    private string $unit = '';
+    /** @ORM\Column(name="unit", type="string", enumType=EnergyPriceUnit::class) */
+    private EnergyPriceUnit $unit;
 
     public function getId() {
         return $this->id;
@@ -84,11 +85,11 @@ class EnergyTariffProfilePriceItem {
         $this->amount = $amount;
     }
 
-    public function getUnit(): string {
+    public function getUnit(): EnergyPriceUnit {
         return $this->unit;
     }
 
-    public function setUnit(string $unit): void {
+    public function setUnit(EnergyPriceUnit $unit): void {
         $this->unit = $unit;
     }
 }

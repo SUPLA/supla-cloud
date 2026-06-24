@@ -25,8 +25,10 @@ use App\Entity\MeasurementLogs\EnergyTariffProfileAssignment;
 use App\Entity\MeasurementLogs\EnergyTariffProfilePriceItem;
 use App\Entity\MeasurementLogs\EnergyTariffProfilePricePeriod;
 use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
+use App\Enums\BillingPeriodUnit;
 use App\Enums\ChannelType;
 use App\Enums\EnergyPriceComponent;
+use App\Enums\EnergyPriceUnit;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use Doctrine\Persistence\ObjectManager;
 
@@ -71,12 +73,13 @@ class TariffsFixture extends SuplaFixture {
 
         $pricePeriod = new EnergyTariffProfilePricePeriod();
         $pricePeriod->setName('Sample G11 prices');
-        $pricePeriod->setBillingPeriodStartDay(1);
+        $pricePeriod->setBillingPeriodLength(1);
+        $pricePeriod->setBillingPeriodUnit(BillingPeriodUnit::MONTH);
         $pricePeriod->setCurrency('PLN');
         $pricePeriod->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
-        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.95, 'kWh'));
-        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'ALL_DAY', 0.11, 'kWh'));
-        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 12.12, 'month'));
+        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.95, EnergyPriceUnit::KWH));
+        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'ALL_DAY', 0.11, EnergyPriceUnit::KWH));
+        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 12.12, EnergyPriceUnit::MONTH));
         $tariffPeriod->addPricePeriod($pricePeriod);
 
         $profileAssignment = new EnergyTariffProfileAssignment();
@@ -91,7 +94,7 @@ class TariffsFixture extends SuplaFixture {
         EnergyPriceComponent $componentCode,
         ?string $zoneCode,
         float $amount,
-        string $unit
+        EnergyPriceUnit $unit
     ): EnergyTariffProfilePriceItem {
         $item = new EnergyTariffProfilePriceItem();
         $item->setComponentCode($componentCode);

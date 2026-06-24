@@ -16,9 +16,11 @@ use App\Entity\MeasurementLogs\EnergyTariffProfilePriceItem;
 use App\Entity\MeasurementLogs\EnergyTariffProfilePricePeriod;
 use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
 use App\Entity\MeasurementLogs\EnergyTariffResolvedZone;
+use App\Enums\BillingPeriodUnit;
 use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
 use App\Enums\EnergyPriceComponent;
+use App\Enums\EnergyPriceUnit;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
@@ -31,7 +33,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
 
     private ?User $user = null;
     private ?IODeviceChannel $switchingProfileChannel = null;
-    private ?IODeviceChannel $monthlyProfileChannel = null;
+    private ?IODeviceChannel $quarterlyProfileChannel = null;
     private ?IODeviceChannel $plainChannel = null;
 
     protected function initializeDatabaseForTests() {
@@ -43,7 +45,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
             [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
         ]);
         $this->switchingProfileChannel = $device->getChannels()[0];
-        $this->monthlyProfileChannel = $device->getChannels()[1];
+        $this->quarterlyProfileChannel = $device->getChannels()[1];
         $this->plainChannel = $device->getChannels()[2];
 
         $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
@@ -75,8 +77,9 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->createDeltaLog($logsEm, $this->switchingProfileChannel->getId(), '2026-01-10 00:30:00', 0, 200, 0);
         $this->createDeltaLog($logsEm, $this->switchingProfileChannel->getId(), '2026-02-05 12:15:00', 0, 0, 300);
 
-        $this->createDeltaLog($logsEm, $this->monthlyProfileChannel->getId(), '2026-01-31 23:15:00', 100, 0, 0);
-        $this->createDeltaLog($logsEm, $this->monthlyProfileChannel->getId(), '2026-02-01 00:15:00', 100, 0, 0);
+        $this->createDeltaLog($logsEm, $this->quarterlyProfileChannel->getId(), '2026-01-31 23:15:00', 100, 0, 0);
+        $this->createDeltaLog($logsEm, $this->quarterlyProfileChannel->getId(), '2026-02-01 00:15:00', 100, 0, 0);
+        $this->createDeltaLog($logsEm, $this->quarterlyProfileChannel->getId(), '2026-03-31 23:15:00', 100, 0, 0);
 
         $this->createDeltaLog($logsEm, $this->plainChannel->getId(), '2026-01-10 00:15:00', 150, 0, 0);
 
@@ -88,13 +91,13 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
             '2026-01-01 00:00:00',
             '2026-02-01 00:00:00',
             [
-                $this->createPricePeriod('January prices', 'PLN', 10, '2026-01-01 00:00:00', '2026-02-01 00:00:00', [
-                    $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'DAY', 1.0, 'kWh'),
-                    $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'NIGHT', 2.0, 'kWh'),
-                    $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'DAY', 0.1, 'kWh'),
-                    $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'NIGHT', 0.2, 'kWh'),
-                    $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 10.0, 'month'),
-                    $this->createPriceItem(EnergyPriceComponent::FEE_VARIABLE, null, 1.0, 'day'),
+                $this->createPricePeriod('January prices', 'PLN', 1, BillingPeriodUnit::MONTH, '2026-01-10 00:00:00', '2026-02-01 00:00:00', [
+                    $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'DAY', 1.0, EnergyPriceUnit::KWH),
+                    $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'NIGHT', 2.0, EnergyPriceUnit::KWH),
+                    $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'DAY', 0.1, EnergyPriceUnit::KWH),
+                    $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'NIGHT', 0.2, EnergyPriceUnit::KWH),
+                    $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 10.0, EnergyPriceUnit::MONTH),
+                    $this->createPriceItem(EnergyPriceComponent::FEE_VARIABLE, null, 1.0, EnergyPriceUnit::DAY),
                 ]),
             ]
         ));
@@ -103,30 +106,30 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
             '2026-02-01 00:00:00',
             '2026-03-01 00:00:00',
             [
-                $this->createPricePeriod('February prices', 'PLN', 1, '2026-02-01 00:00:00', '2026-03-01 00:00:00', [
-                    $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.5, 'kWh'),
-                    $this->createPriceItem(EnergyPriceComponent::FEE_FIXED, null, 3.0, 'month'),
+                $this->createPricePeriod('February prices', 'PLN', 1, BillingPeriodUnit::MONTH, '2026-02-01 00:00:00', '2026-03-01 00:00:00', [
+                    $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.5, EnergyPriceUnit::KWH),
+                    $this->createPriceItem(EnergyPriceComponent::FEE_FIXED, null, 3.0, EnergyPriceUnit::PERIOD),
                 ]),
             ]
         ));
         $logsEm->persist($switchingProfile);
 
-        $monthlyProfile = new EnergyTariffProfile();
-        $monthlyProfile->setUserId($this->user->getId());
-        $monthlyProfile->setName('Monthly EUR profile');
-        $monthlyProfile->addTariffPeriod($this->createTariffPeriod(
+        $quarterlyProfile = new EnergyTariffProfile();
+        $quarterlyProfile->setUserId($this->user->getId());
+        $quarterlyProfile->setName('Quarterly EUR profile');
+        $quarterlyProfile->addTariffPeriod($this->createTariffPeriod(
             $allDayTariff,
             '2026-01-01 00:00:00',
             null,
             [
-                $this->createPricePeriod('All months', 'EUR', 1, '2026-01-01 00:00:00', null, [
-                    $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.4, 'kWh'),
-                    $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'ALL_DAY', 0.05, 'kWh'),
-                    $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 6.0, 'month'),
+                $this->createPricePeriod('Quarter 1', 'EUR', 3, BillingPeriodUnit::MONTH, '2026-01-01 00:00:00', null, [
+                    $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.4, EnergyPriceUnit::KWH),
+                    $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'ALL_DAY', 0.05, EnergyPriceUnit::KWH),
+                    $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 6.0, EnergyPriceUnit::MONTH),
                 ]),
             ]
         ));
-        $logsEm->persist($monthlyProfile);
+        $logsEm->persist($quarterlyProfile);
 
         $assignmentA = new EnergyTariffProfileAssignment();
         $assignmentA->setChannelId($this->switchingProfileChannel->getId());
@@ -134,8 +137,8 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $logsEm->persist($assignmentA);
 
         $assignmentB = new EnergyTariffProfileAssignment();
-        $assignmentB->setChannelId($this->monthlyProfileChannel->getId());
-        $assignmentB->setProfile($monthlyProfile);
+        $assignmentB->setChannelId($this->quarterlyProfileChannel->getId());
+        $assignmentB->setProfile($quarterlyProfile);
         $logsEm->persist($assignmentB);
 
         $logsEm->flush();
@@ -214,35 +217,28 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(0.15, $februarySummary['costs']['byPhase']['phase3']);
     }
 
-    public function testFetchingEnergyCostSummariesForMonthlyProfileCreatesSeparateMonthlySummaries(): void {
+    public function testFetchingEnergyCostSummariesForQuarterlyProfileUsesThreeMonthBillingPeriod(): void {
         $client = $this->createAuthenticatedClient($this->user);
-        $afterTimestamp = strtotime('2026-01-31 00:00:00 UTC');
-        $beforeTimestamp = strtotime('2026-02-02 00:00:00 UTC');
+        $afterTimestamp = strtotime('2026-01-01 00:00:00 UTC');
+        $beforeTimestamp = strtotime('2026-04-01 00:00:00 UTC');
         $client->apiRequestV24(
             'GET',
-            '/api/2.4.0/channels/' . $this->monthlyProfileChannel->getId() . '/energy-cost-summaries?afterTimestamp=' . $afterTimestamp . '&beforeTimestamp=' . $beforeTimestamp
+            '/api/2.4.0/channels/' . $this->quarterlyProfileChannel->getId() . '/energy-cost-summaries?afterTimestamp=' . $afterTimestamp . '&beforeTimestamp=' . $beforeTimestamp
         );
         $this->assertStatusCode(200, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
 
-        $this->assertCount(2, $content);
+        $this->assertCount(1, $content);
 
-        $janSummary = $content[0];
-        $this->assertEquals('2026-01-01T00:00:00+00:00', $janSummary['periodStart']);
-        $this->assertEquals('2026-02-01T00:00:00+00:00', $janSummary['periodEnd']);
-        $this->assertEquals(0.1, $janSummary['usage']['totalKwh']);
-        $this->assertEquals('EUR', $janSummary['costs']['currency']);
-        $this->assertEquals(6.045, $janSummary['costs']['total']);
-        $this->assertEquals(0.04, $janSummary['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
-        $this->assertEquals(0.005, $janSummary['costs']['byComponent']['DISTRIBUTION_VARIABLE']);
-        $this->assertEquals(6.0, $janSummary['costs']['byComponent']['DISTRIBUTION_FIXED']);
-
-        $febSummary = $content[1];
-        $this->assertEquals('2026-02-01T00:00:00+00:00', $febSummary['periodStart']);
-        $this->assertEquals('2026-03-01T00:00:00+00:00', $febSummary['periodEnd']);
-        $this->assertEquals(0.1, $febSummary['usage']['totalKwh']);
-        $this->assertEquals('EUR', $febSummary['costs']['currency']);
-        $this->assertEquals(6.045, $febSummary['costs']['total']);
+        $quarterSummary = $content[0];
+        $this->assertEquals('2026-01-01T00:00:00+00:00', $quarterSummary['periodStart']);
+        $this->assertEquals('2026-04-01T00:00:00+00:00', $quarterSummary['periodEnd']);
+        $this->assertEquals(0.3, $quarterSummary['usage']['totalKwh']);
+        $this->assertEquals('EUR', $quarterSummary['costs']['currency']);
+        $this->assertEquals(18.09, $quarterSummary['costs']['total']);
+        $this->assertEquals(0.08, $quarterSummary['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
+        $this->assertEquals(0.01, $quarterSummary['costs']['byComponent']['DISTRIBUTION_VARIABLE']);
+        $this->assertEquals(18.0, $quarterSummary['costs']['byComponent']['DISTRIBUTION_FIXED']);
     }
 
     public function testFetchingLogsWithoutTariffProfileCosts(): void {
@@ -288,7 +284,8 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
     private function createPricePeriod(
         string $name,
         string $currency,
-        int $billingPeriodStartDay,
+        int $billingPeriodLength,
+        BillingPeriodUnit $billingPeriodUnit,
         string $validFrom,
         ?string $validTo,
         array $items
@@ -296,7 +293,8 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $pricePeriod = new EnergyTariffProfilePricePeriod();
         $pricePeriod->setName($name);
         $pricePeriod->setCurrency($currency);
-        $pricePeriod->setBillingPeriodStartDay($billingPeriodStartDay);
+        $pricePeriod->setBillingPeriodLength($billingPeriodLength);
+        $pricePeriod->setBillingPeriodUnit($billingPeriodUnit);
         $pricePeriod->setValidFrom(new \DateTime($validFrom, new \DateTimeZone('UTC')));
         $pricePeriod->setValidTo($validTo ? new \DateTime($validTo, new \DateTimeZone('UTC')) : null);
         foreach ($items as $item) {
@@ -309,7 +307,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         EnergyPriceComponent $component,
         ?string $zoneCode,
         float $amount,
-        string $unit
+        EnergyPriceUnit $unit
     ): EnergyTariffProfilePriceItem {
         $item = new EnergyTariffProfilePriceItem();
         $item->setComponentCode($component);
