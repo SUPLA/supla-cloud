@@ -248,7 +248,7 @@ class EnergyTariffController extends RestController {
                 ppi.component_code,
                 ppi.amount,
                 ppi.unit,
-                ppi.currency,
+                pp.currency,
                 pp.billing_period_start_day,
                 ((COALESCE(b.phase1_fae, 0) + COALESCE(b.phase2_fae, 0) + COALESCE(b.phase3_fae, 0)) / 1000.0) total_kwh,
                 (COALESCE(b.phase1_fae, 0) / 1000.0) phase1_kwh,
@@ -663,12 +663,14 @@ class EnergyTariffController extends RestController {
         foreach ($pricePeriods as $pricePeriodData) {
             Assertion::keyExists($pricePeriodData, 'name');
             Assertion::keyExists($pricePeriodData, 'billingPeriodStartDay');
+            Assertion::keyExists($pricePeriodData, 'currency');
             Assertion::keyExists($pricePeriodData, 'validFrom');
             Assertion::keyExists($pricePeriodData, 'items');
 
             $pricePeriod = new EnergyTariffProfilePricePeriod();
             $pricePeriod->setName($pricePeriodData['name']);
             $pricePeriod->setBillingPeriodStartDay((int)$pricePeriodData['billingPeriodStartDay']);
+            $pricePeriod->setCurrency($pricePeriodData['currency']);
             $pricePeriod->setValidFrom($this->parseDateTime($pricePeriodData['validFrom']));
             $pricePeriod->setValidTo($this->parseNullableDateTime($pricePeriodData['validTo'] ?? null));
             $this->synchronizePriceItems($pricePeriod, $pricePeriodData['items']);
@@ -687,13 +689,11 @@ class EnergyTariffController extends RestController {
             Assertion::keyExists($itemData, 'componentCode');
             Assertion::keyExists($itemData, 'amount');
             Assertion::keyExists($itemData, 'unit');
-            Assertion::keyExists($itemData, 'currency');
             $item = new EnergyTariffProfilePriceItem();
             $item->setComponentCode($this->parseEnergyPriceComponent($itemData['componentCode']));
             $item->setZoneCode($itemData['zoneCode'] ?? null);
             $item->setAmount((float)$itemData['amount']);
             $item->setUnit($itemData['unit']);
-            $item->setCurrency($itemData['currency']);
             $pricePeriod->addItem($item);
         }
     }
@@ -734,6 +734,7 @@ class EnergyTariffController extends RestController {
         foreach ($pricePeriods as $index => $pricePeriod) {
             Assertion::notBlank($pricePeriod->getName());
             Assertion::between($pricePeriod->getBillingPeriodStartDay(), 1, 28);
+            Assertion::regex($pricePeriod->getCurrency(), '/^[A-Z]{3}$/');
             $this->assertEndAfterStart($pricePeriod->getValidFrom(), $pricePeriod->getValidTo());
             Assertion::greaterOrEqualThan($pricePeriod->getValidFrom()->getTimestamp(), $tariffPeriod->getValidFrom()->getTimestamp(), 'Price period cannot start before the tariff period.');
             if ($tariffPeriod->getValidTo()) {
@@ -754,7 +755,6 @@ class EnergyTariffController extends RestController {
             Assertion::notEmpty($items, 'Price period must contain at least one price item.');
             foreach ($items as $item) {
                 Assertion::notBlank($item->getUnit());
-                Assertion::notBlank($item->getCurrency());
                 if ($item->getZoneCode() !== null && $zoneCodes) {
                     Assertion::inArray($item->getZoneCode(), $zoneCodes, 'Price item zone must exist in selected tariff.');
                 }
@@ -850,6 +850,7 @@ class EnergyTariffController extends RestController {
             'id' => $pricePeriod->getId(),
             'name' => $pricePeriod->getName(),
             'billingPeriodStartDay' => $pricePeriod->getBillingPeriodStartDay(),
+            'currency' => $pricePeriod->getCurrency(),
             'validFrom' => $pricePeriod->getValidFrom()->format(\DateTime::ATOM),
             'validTo' => $pricePeriod->getValidTo()?->format(\DateTime::ATOM),
             'items' => array_map(fn(EnergyTariffProfilePriceItem $item) => [
@@ -858,7 +859,6 @@ class EnergyTariffController extends RestController {
                 'zoneCode' => $item->getZoneCode(),
                 'amount' => $item->getAmount(),
                 'unit' => $item->getUnit(),
-                'currency' => $item->getCurrency(),
             ], $pricePeriod->getItems()->toArray()),
         ];
     }

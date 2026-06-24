@@ -72,6 +72,7 @@ class TariffsFixture extends SuplaFixture {
         $pricePeriod = new EnergyTariffProfilePricePeriod();
         $pricePeriod->setName('Sample G11 prices');
         $pricePeriod->setBillingPeriodStartDay(1);
+        $pricePeriod->setCurrency('PLN');
         $pricePeriod->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
         $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.95, 'kWh'));
         $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'ALL_DAY', 0.11, 'kWh'));
@@ -97,7 +98,6 @@ class TariffsFixture extends SuplaFixture {
         $item->setZoneCode($zoneCode);
         $item->setAmount($amount);
         $item->setUnit($unit);
-        $item->setCurrency('PLN');
         return $item;
     }
 

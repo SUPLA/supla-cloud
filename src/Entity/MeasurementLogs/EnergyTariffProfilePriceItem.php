@@ -48,9 +48,6 @@ class EnergyTariffProfilePriceItem {
     /** @ORM\Column(name="unit", type="string", length=20) */
     private string $unit = '';
 
-    /** @ORM\Column(name="currency", type="string", length=10) */
-    private string $currency = '';
-
     public function getId() {
         return $this->id;
     }
@@ -93,13 +90,5 @@ class EnergyTariffProfilePriceItem {
 
     public function setUnit(string $unit): void {
         $this->unit = $unit;
-    }
-
-    public function getCurrency(): string {
-        return $this->currency;
-    }
-
-    public function setCurrency(string $currency): void {
-        $this->currency = $currency;
     }
 }

@@ -84,7 +84,7 @@ class EnergyTariffControllerIntegrationTest extends IntegrationTestCase {
 
         $payload = $this->createProfilePayload('Spring profile');
         $payload['tariffPeriods'][0]['pricePeriods'][1]['items'] = [
-            ['componentCode' => EnergyPriceComponent::FORWARD_ACTIVE_ENERGY->name, 'zoneCode' => 'NIGHT', 'amount' => 0.55, 'unit' => 'kWh', 'currency' => 'PLN'],
+            ['componentCode' => EnergyPriceComponent::FORWARD_ACTIVE_ENERGY->name, 'zoneCode' => 'NIGHT', 'amount' => 0.55, 'unit' => 'kWh'],
         ];
         $client->apiRequestV24('PUT', '/api/energy-tariff-profiles/' . $created['id'], $payload);
         $this->assertStatusCode(200, $client->getResponse());
@@ -148,20 +148,22 @@ class EnergyTariffControllerIntegrationTest extends IntegrationTestCase {
                     [
                         'name' => 'January first half',
                         'billingPeriodStartDay' => 1,
+                        'currency' => 'PLN',
                         'validFrom' => '2026-01-01 00:00:00',
                         'validTo' => '2026-01-16 00:00:00',
                         'items' => [
-                            ['componentCode' => EnergyPriceComponent::FORWARD_ACTIVE_ENERGY->name, 'zoneCode' => 'DAY', 'amount' => 0.95, 'unit' => 'kWh', 'currency' => 'PLN'],
-                            ['componentCode' => EnergyPriceComponent::DISTRIBUTION_FIXED->name, 'zoneCode' => null, 'amount' => 12.12, 'unit' => 'month', 'currency' => 'PLN'],
+                            ['componentCode' => EnergyPriceComponent::FORWARD_ACTIVE_ENERGY->name, 'zoneCode' => 'DAY', 'amount' => 0.95, 'unit' => 'kWh'],
+                            ['componentCode' => EnergyPriceComponent::DISTRIBUTION_FIXED->name, 'zoneCode' => null, 'amount' => 12.12, 'unit' => 'month'],
                         ],
                     ],
                     [
                         'name' => 'January second half',
                         'billingPeriodStartDay' => 1,
+                        'currency' => 'PLN',
                         'validFrom' => '2026-01-16 00:00:00',
                         'validTo' => '2026-02-01 00:00:00',
                         'items' => [
-                            ['componentCode' => EnergyPriceComponent::FORWARD_ACTIVE_ENERGY->name, 'zoneCode' => 'NIGHT', 'amount' => 0.65, 'unit' => 'kWh', 'currency' => 'PLN'],
+                            ['componentCode' => EnergyPriceComponent::FORWARD_ACTIVE_ENERGY->name, 'zoneCode' => 'NIGHT', 'amount' => 0.65, 'unit' => 'kWh'],
                         ],
                     ],
                 ],

@@ -43,6 +43,9 @@ class EnergyTariffProfilePricePeriod {
     /** @ORM\Column(name="billing_period_start_day", type="integer") */
     private int $billingPeriodStartDay = 1;
 
+    /** @ORM\Column(name="currency", type="string", length=10) */
+    private string $currency = '';
+
     /** @ORM\Column(name="valid_from", type="utcdatetime") */
     private \DateTime $validFrom;
 
@@ -85,6 +88,14 @@ class EnergyTariffProfilePricePeriod {
 
     public function setBillingPeriodStartDay(int $billingPeriodStartDay): void {
         $this->billingPeriodStartDay = $billingPeriodStartDay;
+    }
+
+    public function getCurrency(): string {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): void {
+        $this->currency = $currency;
     }
 
     public function getValidFrom(): \DateTime {
