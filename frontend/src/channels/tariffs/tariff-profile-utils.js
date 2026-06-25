@@ -2,6 +2,7 @@ import {DateTime} from 'luxon';
 import {formatDateTime} from '@/common/filters-date';
 
 export const billingPeriodUnits = ['day', 'week', 'month', 'year'];
+export const DEFAULT_PROFILE_START = DateTime.fromISO('2016-01-01T00:00:00').toISO();
 
 export const componentOptions = [
   {value: 'FORWARD_ACTIVE_ENERGY', label: 'FORWARD_ACTIVE_ENERGY'},
@@ -32,14 +33,13 @@ export function createEmptyProfile() {
 }
 
 export function createTariffPeriod(overrides = {}) {
-  const now = DateTime.now().startOf('month').toISO();
   return {
     _key: createKey(),
     id: null,
     tariffId: null,
-    validFrom: now,
+    validFrom: DEFAULT_PROFILE_START,
     validTo: null,
-    pricePeriods: [createPricePeriod({validFrom: now})],
+    pricePeriods: [createPricePeriod({validFrom: DEFAULT_PROFILE_START})],
     ...overrides,
   };
 }
@@ -52,7 +52,7 @@ export function createPricePeriod(overrides = {}) {
     billingPeriodLength: 1,
     billingPeriodUnit: 'month',
     currency: 'PLN',
-    validFrom: DateTime.now().startOf('month').toISO(),
+    validFrom: DEFAULT_PROFILE_START,
     validTo: null,
     items: [createItem()],
     ...overrides,
@@ -72,16 +72,17 @@ export function createItem(overrides = {}) {
 }
 
 export function normalizeProfile(profile) {
+  const tariffPeriods = normalizeCollection(profile.tariffPeriods);
   return {
     id: profile.id,
     name: profile.name,
-    tariffPeriods: (profile.tariffPeriods || []).map((tariffPeriod) => ({
+    tariffPeriods: tariffPeriods.map((tariffPeriod) => ({
       _key: createKey(),
       id: tariffPeriod.id || null,
       tariffId: tariffPeriod.tariffId || tariffPeriod.tariff?.id || null,
       validFrom: tariffPeriod.validFrom || null,
       validTo: tariffPeriod.validTo || null,
-      pricePeriods: (tariffPeriod.pricePeriods || []).map((pricePeriod) => ({
+      pricePeriods: normalizeCollection(tariffPeriod.pricePeriods).map((pricePeriod) => ({
         _key: createKey(),
         id: pricePeriod.id || null,
         name: pricePeriod.name || '',
@@ -90,7 +91,7 @@ export function normalizeProfile(profile) {
         currency: pricePeriod.currency || 'PLN',
         validFrom: pricePeriod.validFrom || tariffPeriod.validFrom || null,
         validTo: pricePeriod.validTo || null,
-        items: (pricePeriod.items || []).map((item) => ({
+        items: normalizeCollection(pricePeriod.items).map((item) => ({
           _key: createKey(),
           id: item.id || null,
           componentCode: item.componentCode || '',
@@ -101,6 +102,18 @@ export function normalizeProfile(profile) {
       })),
     })),
   };
+}
+
+function normalizeCollection(collection) {
+  if (Array.isArray(collection)) {
+    return collection;
+  }
+
+  if (!collection || typeof collection !== 'object') {
+    return [];
+  }
+
+  return Object.values(collection);
 }
 
 export function cloneProfile(profile) {
@@ -167,11 +180,12 @@ export function hasTariffDefaults(tariffs, tariffPeriod) {
 }
 
 export function prefillPricePeriodFromTariff(pricePeriod, tariffPeriod, tariffs) {
-  const defaults = extractTariffDefaults(selectedTariff(tariffs, tariffPeriod.tariffId));
+  const tariff = selectedTariff(tariffs, tariffPeriod.tariffId);
+  const defaults = extractTariffDefaults(tariff);
   if (defaults.items.length) {
     pricePeriod.items = defaults.items.map((item) => createItem(item));
     if (!pricePeriod.name) {
-      pricePeriod.name = defaults.name || '';
+      pricePeriod.name = defaults.name || tariff?.name || '';
     }
     if (defaults.currency) {
       pricePeriod.currency = defaults.currency;
@@ -187,6 +201,9 @@ export function prefillPricePeriodFromTariff(pricePeriod, tariffPeriod, tariffs)
 
   const zones = tariffZones(tariffs, tariffPeriod);
   pricePeriod.items = zones.length ? zones.map((zone) => createItem({zoneCode: zone.code})) : [createItem()];
+  if (!pricePeriod.name) {
+    pricePeriod.name = tariff?.name || '';
+  }
 }
 
 export function extractTariffDefaults(tariff) {

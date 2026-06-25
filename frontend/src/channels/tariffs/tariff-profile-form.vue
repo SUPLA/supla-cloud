@@ -125,13 +125,18 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-lg-7">
+                <div v-if="profile.tariffPeriods.length > 1" class="col-lg-7">
                   <label>{{ $t('Validity') }}</label>
                   <DateRangePicker
                     :value="{dateStart: tariffPeriod.validFrom, dateEnd: tariffPeriod.validTo}"
                     @input="(value) => updateTariffPeriodRange(tariffPeriod, value)"
                   />
                 </div>
+              </div>
+
+              <div v-if="profile.tariffPeriods.length === 1" class="timeline-default mt-3">
+                <strong>{{ $t('Timeline') }}</strong>
+                <span>{{ $t('Full timeline from 2016-01-01 until changed later.') }}</span>
               </div>
 
               <div v-if="selectedTariff(tariffs, tariffPeriod.tariffId)" class="tariff-hint mt-3">
@@ -220,12 +225,17 @@
                   </div>
                 </div>
 
-                <div class="mt-3">
+                <div v-if="tariffPeriod.pricePeriods.length > 1" class="mt-3">
                   <label>{{ $t('Validity') }}</label>
                   <DateRangePicker
                     :value="{dateStart: pricePeriod.validFrom, dateEnd: pricePeriod.validTo}"
                     @input="(value) => updatePricePeriodRange(pricePeriod, value)"
                   />
+                </div>
+
+                <div v-if="tariffPeriod.pricePeriods.length === 1" class="timeline-default mt-3">
+                  <strong>{{ $t('Timeline') }}</strong>
+                  <span>{{ $t('Uses the full tariff period until you split prices.') }}</span>
                 </div>
 
                 <div class="price-period-toolbar mt-3">
@@ -316,6 +326,7 @@
     createItem,
     createPricePeriod,
     createTariffPeriod,
+    DEFAULT_PROFILE_START,
     formatRange,
     handleTariffChange,
     hasTariffDefaults,
@@ -396,22 +407,36 @@
 
   function addTariffPeriod() {
     const lastTariffPeriod = profile.value.tariffPeriods.at(-1);
+    const splitStart = suggestTariffSplitStart(lastTariffPeriod);
+    lastTariffPeriod.validTo = splitStart;
     profile.value.tariffPeriods.push(
       createTariffPeriod({
-        validFrom: lastTariffPeriod?.validTo || lastTariffPeriod?.validFrom,
+        validFrom: splitStart,
+        validTo: null,
       })
     );
+    syncPricePeriodsToTariffRange(lastTariffPeriod);
   }
 
   function removeTariffPeriod(index) {
+    const removedTariffPeriod = profile.value.tariffPeriods[index];
     profile.value.tariffPeriods.splice(index, 1);
+    if (index > 0 && removedTariffPeriod) {
+      profile.value.tariffPeriods[index - 1].validTo = removedTariffPeriod.validTo;
+      syncPricePeriodsToTariffRange(profile.value.tariffPeriods[index - 1]);
+    } else if (removedTariffPeriod && profile.value.tariffPeriods.length) {
+      profile.value.tariffPeriods[0].validFrom = removedTariffPeriod.validFrom;
+      syncPricePeriodsToTariffRange(profile.value.tariffPeriods[0]);
+    }
   }
 
   function addPricePeriod(tariffPeriod) {
     const lastPricePeriod = tariffPeriod.pricePeriods.at(-1);
+    const splitStart = suggestPriceSplitStart(lastPricePeriod, tariffPeriod);
+    lastPricePeriod.validTo = splitStart;
     tariffPeriod.pricePeriods.push(
       createPricePeriod({
-        validFrom: lastPricePeriod?.validTo || tariffPeriod.validFrom,
+        validFrom: splitStart,
         validTo: tariffPeriod.validTo,
       })
     );
@@ -419,7 +444,13 @@
   }
 
   function removePricePeriod(tariffPeriod, index) {
+    const removedPricePeriod = tariffPeriod.pricePeriods[index];
     tariffPeriod.pricePeriods.splice(index, 1);
+    if (index > 0 && removedPricePeriod) {
+      tariffPeriod.pricePeriods[index - 1].validTo = removedPricePeriod.validTo;
+    } else if (removedPricePeriod && tariffPeriod.pricePeriods.length) {
+      tariffPeriod.pricePeriods[0].validFrom = removedPricePeriod.validFrom;
+    }
     syncPricePeriodsToTariffRange(tariffPeriod);
   }
 
@@ -434,16 +465,92 @@
   function updateTariffPeriodRange(tariffPeriod, value) {
     tariffPeriod.validFrom = value.dateStart;
     tariffPeriod.validTo = value.dateEnd || null;
+    autoAdjustTariffNeighbors(tariffPeriod);
     syncPricePeriodsToTariffRange(tariffPeriod);
   }
 
   function updatePricePeriodRange(pricePeriod, value) {
     pricePeriod.validFrom = value.dateStart;
     pricePeriod.validTo = value.dateEnd || null;
+    autoAdjustPriceNeighbors(pricePeriod);
   }
 
   function onTariffChange(tariffPeriod) {
     handleTariffChange(tariffPeriod, tariffs.value);
+    const firstPricePeriod = tariffPeriod.pricePeriods[0];
+    if (firstPricePeriod && isInitialPricePeriod(firstPricePeriod)) {
+      prefillPricePeriodFromTariff(firstPricePeriod, tariffPeriod, tariffs.value);
+      syncPricePeriodsToTariffRange(tariffPeriod);
+    }
+  }
+
+  function autoAdjustTariffNeighbors(tariffPeriod) {
+    const index = profile.value.tariffPeriods.indexOf(tariffPeriod);
+    if (index > 0) {
+      profile.value.tariffPeriods[index - 1].validTo = tariffPeriod.validFrom;
+      syncPricePeriodsToTariffRange(profile.value.tariffPeriods[index - 1]);
+    }
+    if (index < profile.value.tariffPeriods.length - 1 && tariffPeriod.validTo) {
+      profile.value.tariffPeriods[index + 1].validFrom = tariffPeriod.validTo;
+      syncPricePeriodsToTariffRange(profile.value.tariffPeriods[index + 1]);
+    }
+  }
+
+  function autoAdjustPriceNeighbors(pricePeriod) {
+    const tariffPeriod = profile.value.tariffPeriods.find((entry) => entry.pricePeriods.includes(pricePeriod));
+    if (!tariffPeriod) {
+      return;
+    }
+
+    const index = tariffPeriod.pricePeriods.indexOf(pricePeriod);
+    if (index > 0) {
+      tariffPeriod.pricePeriods[index - 1].validTo = pricePeriod.validFrom;
+    }
+    if (index < tariffPeriod.pricePeriods.length - 1 && pricePeriod.validTo) {
+      tariffPeriod.pricePeriods[index + 1].validFrom = pricePeriod.validTo;
+    }
+  }
+
+  function isInitialPricePeriod(pricePeriod) {
+    if (!pricePeriod || pricePeriod.items.length !== 1) {
+      return false;
+    }
+
+    const [item] = pricePeriod.items;
+    return (
+      !pricePeriod.name &&
+      pricePeriod.billingPeriodLength === 1 &&
+      pricePeriod.billingPeriodUnit === 'month' &&
+      pricePeriod.currency === 'PLN' &&
+      item.componentCode === 'FORWARD_ACTIVE_ENERGY' &&
+      item.zoneCode === null &&
+      Number(item.amount) === 0 &&
+      item.unit === 'kWh'
+    );
+  }
+
+  function suggestTariffSplitStart(tariffPeriod) {
+    const start = new Date(tariffPeriod?.validFrom || DEFAULT_PROFILE_START);
+    if (tariffPeriod?.validTo) {
+      const end = new Date(tariffPeriod.validTo);
+      return new Date(start.getTime() + (end.getTime() - start.getTime()) / 2).toISOString();
+    }
+
+    const splitStart = new Date(start);
+    splitStart.setFullYear(splitStart.getFullYear() + 1);
+    return splitStart.toISOString();
+  }
+
+  function suggestPriceSplitStart(pricePeriod, tariffPeriod) {
+    const start = new Date(pricePeriod?.validFrom || tariffPeriod?.validFrom || DEFAULT_PROFILE_START);
+    if (pricePeriod?.validTo) {
+      const end = new Date(pricePeriod.validTo);
+      return new Date(start.getTime() + (end.getTime() - start.getTime()) / 2).toISOString();
+    }
+
+    const splitStart = new Date(start);
+    splitStart.setMonth(splitStart.getMonth() + 1);
+    return splitStart.toISOString();
   }
 
   async function submit() {
@@ -641,6 +748,17 @@
     background: rgba(31, 122, 79, 0.08);
     padding: 12px 14px;
     align-items: center;
+  }
+
+  .timeline-default {
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.04);
+    padding: 12px 14px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    color: #4e5863;
   }
 
   .wizard-buttons--mobile {
