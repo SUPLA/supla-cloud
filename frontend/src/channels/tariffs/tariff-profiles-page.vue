@@ -638,13 +638,16 @@
 
   function extractTariffDefaults(tariff) {
     const config = tariff?.config || {};
-    const defaults = config.profileDefaults || config.priceDefaults || config.defaultPrices || config.defaultPriceItems || config.defaults || {};
+    const defaults =
+      [config.defaultPrices, config.profileDefaults, config.priceDefaults, config.defaults].find(
+        (candidate) => candidate && !Array.isArray(candidate) && typeof candidate === 'object'
+      ) || {};
     const itemSource =
       [
         defaults.items,
         defaults.priceItems,
+        Array.isArray(config.defaultPrices?.items) ? config.defaultPrices.items : null,
         Array.isArray(config.defaultPriceItems) ? config.defaultPriceItems : null,
-        Array.isArray(config.defaultPrices) ? config.defaultPrices : null,
         Array.isArray(config.suggestedPriceItems) ? config.suggestedPriceItems : null,
       ].find(Array.isArray) || [];
 

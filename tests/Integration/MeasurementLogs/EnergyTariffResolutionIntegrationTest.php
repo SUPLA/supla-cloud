@@ -27,8 +27,10 @@ use PHPUnit\Framework\Attributes\Small;
 
 #[Small]
 class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
+    private const DEFINITIONS_FILE = __DIR__ . '/../../../src/DataFixtures/tariff-definitions.json';
+
     public function testGeneratingWarsawTariffHolidays(): void {
-        $this->createTariffFromFixture('PL_G13_TAURON', 'Polish G13 Tauron', 'g13-zone-profile.json');
+        $this->createTariffFromFixture('PL_G13_TAURON', 'Polish G13 Tauron');
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
@@ -43,7 +45,7 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
     }
 
     public function testMaterializingG11TariffZones(): void {
-        $tariff = $this->createTariffFromFixture('PL_G11', 'Polish G11', 'g11-zone-profile.json');
+        $tariff = $this->createTariffFromFixture('PL_G11', 'Polish G11');
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
@@ -56,7 +58,7 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
     }
 
     public function testMaterializingG12TariffZones(): void {
-        $tariff = $this->createTariffFromFixture('PL_G12', 'Polish G12', 'g12-zone-profile.json');
+        $tariff = $this->createTariffFromFixture('PL_G12', 'Polish G12');
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
@@ -72,7 +74,7 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
     }
 
     public function testMaterializingG13WinterTariffZones(): void {
-        $tariff = $this->createTariffFromFixture('PL_G13_TAURON', 'Polish G13 Tauron', 'g13-zone-profile.json');
+        $tariff = $this->createTariffFromFixture('PL_G13_TAURON', 'Polish G13 Tauron');
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
@@ -89,7 +91,7 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
     }
 
     public function testMaterializingG13SummerTariffZones(): void {
-        $tariff = $this->createTariffFromFixture('PL_G13_TAURON', 'Polish G13 Tauron', 'g13-zone-profile.json');
+        $tariff = $this->createTariffFromFixture('PL_G13_TAURON', 'Polish G13 Tauron');
 
         TestTimeProvider::setTime('2026-07-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
@@ -139,13 +141,15 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
         );
     }
 
-    private function createTariffFromFixture(string $code, string $name, string $fixtureName): EnergyTariff {
+    private function createTariffFromFixture(string $code, string $name): EnergyTariff {
         $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
+        $definitions = json_decode(file_get_contents(self::DEFINITIONS_FILE), true) ?: [];
+        $definition = current(array_values(array_filter($definitions, fn(array $definition) => $definition['code'] === $code)));
 
         $tariff = new EnergyTariff();
         $tariff->setCode($code);
         $tariff->setName($name);
-        $tariff->setConfig(json_decode(file_get_contents(__DIR__ . '/tariffs/' . $fixtureName), true));
+        $tariff->setConfig($definition['config'] ?? []);
         $logsEm->persist($tariff);
         $logsEm->flush();
 

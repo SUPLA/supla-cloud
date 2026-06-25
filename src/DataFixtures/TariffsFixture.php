@@ -34,6 +34,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class TariffsFixture extends SuplaFixture {
     public const ORDER = DevicesFixture::ORDER + 1;
+    private const DEFINITIONS_FILE = __DIR__ . '/tariff-definitions.json';
 
     public function __construct(private readonly MeasurementLogsEntityManagerProvider $measurementLogsEntityManagerProvider) {
     }
@@ -134,101 +135,6 @@ class TariffsFixture extends SuplaFixture {
     }
 
     private function getTariffDefinitions(): array {
-        return [
-            [
-                'code' => 'PL_G11',
-                'name' => 'G11 - jedna strefa',
-                'config' => [
-                    'id' => 'PL_G11',
-                    'timezone' => 'Europe/Warsaw',
-                    'zones' => [['code' => 'ALL_DAY']],
-                    'rules' => [[
-                        'zone' => 'ALL_DAY',
-                        'days' => ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
-                        'time_ranges' => [['from' => '00:00', 'to' => '00:00']],
-                    ]],
-                ],
-            ],
-            [
-                'code' => 'PL_G12',
-                'name' => 'G12 - dzień / noc',
-                'config' => [
-                    'id' => 'PL_G12',
-                    'timezone' => 'Europe/Warsaw',
-                    'zones' => [['code' => 'DAY'], ['code' => 'NIGHT']],
-                    'rules' => [
-                        [
-                            'zone' => 'NIGHT',
-                            'days' => ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
-                            'time_ranges' => [['from' => '22:00', 'to' => '06:00']],
-                        ],
-                        [
-                            'zone' => 'DAY',
-                            'days' => ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
-                            'time_ranges' => [['from' => '06:00', 'to' => '22:00']],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'code' => 'PL_G13_TAURON',
-                'name' => 'G13 - trzy strefy, sezon lato/zima',
-                'config' => [
-                    'id' => 'PL_G13_TAURON',
-                    'name' => 'G13 - trzy strefy, sezon lato/zima',
-                    'timezone' => 'Europe/Warsaw',
-                    'seasons' => [
-                        ['id' => 'SUMMER', 'name' => 'lato', 'from' => '--04-01', 'to' => '--10-01'],
-                        ['id' => 'WINTER', 'name' => 'zima', 'from' => '--10-01', 'to' => '--04-01'],
-                    ],
-                    'zones' => [
-                        ['code' => 'MORNING_PEAK', 'name' => 'szczyt przedpołudniowy'],
-                        ['code' => 'AFTERNOON_PEAK', 'name' => 'szczyt popołudniowy'],
-                        ['code' => 'OFF_PEAK', 'name' => 'pozostałe godziny'],
-                    ],
-                    'rules' => [
-                        [
-                            'id' => 'off-peak-weekends-holidays',
-                            'priority' => 100,
-                            'zone' => 'OFF_PEAK',
-                            'days' => ['sat', 'sun', 'holiday'],
-                            'time_ranges' => [['from' => '00:00', 'to' => '24:00']],
-                        ],
-                        [
-                            'id' => 'morning-peak-all-year',
-                            'priority' => 200,
-                            'zone' => 'MORNING_PEAK',
-                            'season' => '*',
-                            'days' => ['mon', 'tue', 'wed', 'thu', 'fri'],
-                            'time_ranges' => [['from' => '07:00', 'to' => '13:00']],
-                        ],
-                        [
-                            'id' => 'afternoon-peak-summer',
-                            'priority' => 200,
-                            'zone' => 'AFTERNOON_PEAK',
-                            'season' => 'SUMMER',
-                            'days' => ['mon', 'tue', 'wed', 'thu', 'fri'],
-                            'time_ranges' => [['from' => '19:00', 'to' => '22:00']],
-                        ],
-                        [
-                            'id' => 'afternoon-peak-winter',
-                            'priority' => 200,
-                            'zone' => 'AFTERNOON_PEAK',
-                            'season' => 'WINTER',
-                            'days' => ['mon', 'tue', 'wed', 'thu', 'fri'],
-                            'time_ranges' => [['from' => '16:00', 'to' => '21:00']],
-                        ],
-                        [
-                            'id' => 'default-off-peak',
-                            'priority' => 999,
-                            'zone' => 'OFF_PEAK',
-                            'season' => '*',
-                            'days' => ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'holiday'],
-                            'time_ranges' => [['from' => '00:00', 'to' => '24:00']],
-                        ],
-                    ],
-                ],
-            ],
-        ];
+        return json_decode(file_get_contents(self::DEFINITIONS_FILE), true) ?: [];
     }
 }

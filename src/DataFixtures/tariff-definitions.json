@@ -1,0 +1,355 @@
+[
+    {
+        "code": "PL_G11",
+        "name": "G11 - jedna strefa",
+        "config": {
+            "id": "PL_G11",
+            "timezone": "Europe/Warsaw",
+            "zones": [
+                {
+                    "code": "ALL_DAY"
+                }
+            ],
+            "defaultPrices": {
+                "name": "Suggested G11 household prices",
+                "currency": "PLN",
+                "billingPeriodLength": 1,
+                "billingPeriodUnit": "month",
+                "items": [
+                    {
+                        "componentCode": "FORWARD_ACTIVE_ENERGY",
+                        "zoneCode": "ALL_DAY",
+                        "amount": 0.89,
+                        "unit": "kWh"
+                    },
+                    {
+                        "componentCode": "DISTRIBUTION_VARIABLE",
+                        "zoneCode": "ALL_DAY",
+                        "amount": 0.14,
+                        "unit": "kWh"
+                    },
+                    {
+                        "componentCode": "DISTRIBUTION_FIXED",
+                        "zoneCode": null,
+                        "amount": 14.5,
+                        "unit": "month"
+                    },
+                    {
+                        "componentCode": "FEE_FIXED",
+                        "zoneCode": null,
+                        "amount": 9.9,
+                        "unit": "period"
+                    }
+                ]
+            },
+            "rules": [
+                {
+                    "zone": "ALL_DAY",
+                    "days": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri",
+                        "sat",
+                        "sun"
+                    ],
+                    "time_ranges": [
+                        {
+                            "from": "00:00",
+                            "to": "00:00"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "code": "PL_G12",
+        "name": "G12 - dzień / noc",
+        "config": {
+            "id": "PL_G12",
+            "timezone": "Europe/Warsaw",
+            "zones": [
+                {
+                    "code": "DAY"
+                },
+                {
+                    "code": "NIGHT"
+                }
+            ],
+            "defaultPrices": {
+                "name": "Suggested G12 household prices",
+                "currency": "PLN",
+                "billingPeriodLength": 1,
+                "billingPeriodUnit": "month",
+                "items": [
+                    {
+                        "componentCode": "FORWARD_ACTIVE_ENERGY",
+                        "zoneCode": "DAY",
+                        "amount": 0.98,
+                        "unit": "kWh"
+                    },
+                    {
+                        "componentCode": "FORWARD_ACTIVE_ENERGY",
+                        "zoneCode": "NIGHT",
+                        "amount": 0.71,
+                        "unit": "kWh"
+                    },
+                    {
+                        "componentCode": "DISTRIBUTION_VARIABLE",
+                        "zoneCode": "DAY",
+                        "amount": 0.16,
+                        "unit": "kWh"
+                    },
+                    {
+                        "componentCode": "DISTRIBUTION_VARIABLE",
+                        "zoneCode": "NIGHT",
+                        "amount": 0.11,
+                        "unit": "kWh"
+                    },
+                    {
+                        "componentCode": "DISTRIBUTION_FIXED",
+                        "zoneCode": null,
+                        "amount": 12.12,
+                        "unit": "month"
+                    },
+                    {
+                        "componentCode": "FEE_FIXED",
+                        "zoneCode": null,
+                        "amount": 10.0,
+                        "unit": "period"
+                    }
+                ]
+            },
+            "rules": [
+                {
+                    "zone": "NIGHT",
+                    "days": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri",
+                        "sat",
+                        "sun"
+                    ],
+                    "time_ranges": [
+                        {
+                            "from": "22:00",
+                            "to": "06:00"
+                        }
+                    ]
+                },
+                {
+                    "zone": "DAY",
+                    "days": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri",
+                        "sat",
+                        "sun"
+                    ],
+                    "time_ranges": [
+                        {
+                            "from": "06:00",
+                            "to": "22:00"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "code": "PL_G13_TAURON",
+        "name": "G13 - trzy strefy, sezon lato/zima",
+        "config": {
+            "id": "PL_G13_TAURON",
+            "name": "G13 - trzy strefy, sezon lato/zima",
+            "timezone": "Europe/Warsaw",
+            "seasons": [
+                {
+                    "id": "SUMMER",
+                    "name": "lato",
+                    "from": "--04-01",
+                    "to": "--10-01"
+                },
+                {
+                    "id": "WINTER",
+                    "name": "zima",
+                    "from": "--10-01",
+                    "to": "--04-01"
+                }
+            ],
+            "zones": [
+                {
+                    "code": "MORNING_PEAK",
+                    "name": "szczyt przedpołudniowy"
+                },
+                {
+                    "code": "AFTERNOON_PEAK",
+                    "name": "szczyt popołudniowy"
+                },
+                {
+                    "code": "OFF_PEAK",
+                    "name": "pozostałe godziny"
+                }
+            ],
+            "defaultPrices": {
+                "name": "Suggested G13 household prices",
+                "currency": "PLN",
+                "billingPeriodLength": 2,
+                "billingPeriodUnit": "month",
+                "items": [
+                    {
+                        "componentCode": "FORWARD_ACTIVE_ENERGY",
+                        "zoneCode": "MORNING_PEAK",
+                        "amount": 1.21,
+                        "unit": "kWh"
+                    },
+                    {
+                        "componentCode": "FORWARD_ACTIVE_ENERGY",
+                        "zoneCode": "AFTERNOON_PEAK",
+                        "amount": 1.18,
+                        "unit": "kWh"
+                    },
+                    {
+                        "componentCode": "FORWARD_ACTIVE_ENERGY",
+                        "zoneCode": "OFF_PEAK",
+                        "amount": 0.64,
+                        "unit": "kWh"
+                    },
+                    {
+                        "componentCode": "DISTRIBUTION_VARIABLE",
+                        "zoneCode": "MORNING_PEAK",
+                        "amount": 0.18,
+                        "unit": "kWh"
+                    },
+                    {
+                        "componentCode": "DISTRIBUTION_VARIABLE",
+                        "zoneCode": "AFTERNOON_PEAK",
+                        "amount": 0.18,
+                        "unit": "kWh"
+                    },
+                    {
+                        "componentCode": "DISTRIBUTION_VARIABLE",
+                        "zoneCode": "OFF_PEAK",
+                        "amount": 0.09,
+                        "unit": "kWh"
+                    },
+                    {
+                        "componentCode": "DISTRIBUTION_FIXED",
+                        "zoneCode": null,
+                        "amount": 16.0,
+                        "unit": "month"
+                    },
+                    {
+                        "componentCode": "FEE_FIXED",
+                        "zoneCode": null,
+                        "amount": 14.0,
+                        "unit": "period"
+                    }
+                ]
+            },
+            "rules": [
+                {
+                    "id": "off-peak-weekends-holidays",
+                    "priority": 100,
+                    "zone": "OFF_PEAK",
+                    "days": [
+                        "sat",
+                        "sun",
+                        "holiday"
+                    ],
+                    "time_ranges": [
+                        {
+                            "from": "00:00",
+                            "to": "24:00"
+                        }
+                    ]
+                },
+                {
+                    "id": "morning-peak-all-year",
+                    "priority": 200,
+                    "zone": "MORNING_PEAK",
+                    "season": "*",
+                    "days": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri"
+                    ],
+                    "time_ranges": [
+                        {
+                            "from": "07:00",
+                            "to": "13:00"
+                        }
+                    ]
+                },
+                {
+                    "id": "afternoon-peak-summer",
+                    "priority": 200,
+                    "zone": "AFTERNOON_PEAK",
+                    "season": "SUMMER",
+                    "days": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri"
+                    ],
+                    "time_ranges": [
+                        {
+                            "from": "19:00",
+                            "to": "22:00"
+                        }
+                    ]
+                },
+                {
+                    "id": "afternoon-peak-winter",
+                    "priority": 200,
+                    "zone": "AFTERNOON_PEAK",
+                    "season": "WINTER",
+                    "days": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri"
+                    ],
+                    "time_ranges": [
+                        {
+                            "from": "16:00",
+                            "to": "21:00"
+                        }
+                    ]
+                },
+                {
+                    "id": "default-off-peak",
+                    "priority": 999,
+                    "zone": "OFF_PEAK",
+                    "season": "*",
+                    "days": [
+                        "mon",
+                        "tue",
+                        "wed",
+                        "thu",
+                        "fri",
+                        "sat",
+                        "sun",
+                        "holiday"
+                    ],
+                    "time_ranges": [
+                        {
+                            "from": "00:00",
+                            "to": "24:00"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+]

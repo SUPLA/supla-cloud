@@ -46,6 +46,16 @@ class EnergyTariffControllerIntegrationTest extends IntegrationTestCase {
                 ['code' => 'DAY'],
                 ['code' => 'NIGHT'],
             ],
+            'defaultPrices' => [
+                'name' => 'Suggested profile defaults',
+                'currency' => 'PLN',
+                'billingPeriodLength' => 1,
+                'billingPeriodUnit' => 'month',
+                'items' => [
+                    ['componentCode' => 'FORWARD_ACTIVE_ENERGY', 'zoneCode' => 'DAY', 'amount' => 0.95, 'unit' => 'kWh'],
+                    ['componentCode' => 'FORWARD_ACTIVE_ENERGY', 'zoneCode' => 'NIGHT', 'amount' => 0.65, 'unit' => 'kWh'],
+                ],
+            ],
         ]);
         $logsEm->persist($tariff);
         $logsEm->flush();
@@ -59,6 +69,7 @@ class EnergyTariffControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($client->getResponse()->getContent(), true);
         $this->assertCount(1, $content);
         $this->assertEquals('PL_G12', $content[0]['code']);
+        $this->assertEquals('Suggested profile defaults', $content[0]['config']['defaultPrices']['name']);
     }
 
     public function testManagingUserScopedProfiles() {
