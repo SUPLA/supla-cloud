@@ -95,6 +95,20 @@ export default [
     path: '/tariff-profiles',
     component: () => import('@/channels/tariffs/tariff-profiles-page.vue'),
     name: 'tariffProfiles',
+    children: [
+      {
+        path: ':id/edit',
+        component: () => import('@/channels/tariffs/tariff-profile-form.vue'),
+        name: 'tariffProfile.edit',
+        props: true,
+      },
+      {
+        path: ':id',
+        component: () => import('@/channels/tariffs/tariff-profile-details-page.vue'),
+        name: 'tariffProfile',
+        props: true,
+      },
+    ],
   },
   {
     path: '/channels/:id',
