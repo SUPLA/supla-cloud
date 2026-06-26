@@ -76,7 +76,7 @@
                       </thead>
                       <tbody>
                         <tr v-for="(itemEntry, itemIndex) in pricePeriod.items" :key="itemEntry.id || itemIndex">
-                          <td>{{ itemEntry.componentCode }}</td>
+                          <td>{{ energyPriceComponentLabel(itemEntry.componentCode) }}</td>
                           <td>{{ itemEntry.zoneCode || $t('No zone') }}</td>
                           <td>{{ itemEntry.amount }}</td>
                           <td>{{ itemEntry.unit }}</td>
@@ -115,6 +115,7 @@
   import TariffProfileForm from './tariff-profile-form.vue';
   import {
     countPricePeriods,
+    energyPriceComponentLabel,
     formatRange,
     normalizeProfile,
     profileTariffSummary,

@@ -5,11 +5,11 @@ import {i18n} from '@/locale.js';
 export const billingPeriodUnits = ['day', 'week', 'month', 'year'];
 
 export const componentOptions = [
-  {value: 'FORWARD_ACTIVE_ENERGY', label: 'FORWARD_ACTIVE_ENERGY'},
-  {value: 'DISTRIBUTION_VARIABLE', label: 'DISTRIBUTION_VARIABLE'},
-  {value: 'DISTRIBUTION_FIXED', label: 'DISTRIBUTION_FIXED'},
-  {value: 'FEE_VARIABLE', label: 'FEE_VARIABLE'},
-  {value: 'FEE_FIXED', label: 'FEE_FIXED'},
+  {value: 'FORWARD_ACTIVE_ENERGY', label: energyPriceComponentLabel('FORWARD_ACTIVE_ENERGY')},
+  {value: 'DISTRIBUTION_VARIABLE', label: energyPriceComponentLabel('DISTRIBUTION_VARIABLE')},
+  {value: 'DISTRIBUTION_FIXED', label: energyPriceComponentLabel('DISTRIBUTION_FIXED')},
+  {value: 'FEE_VARIABLE', label: energyPriceComponentLabel('FEE_VARIABLE')},
+  {value: 'FEE_FIXED', label: energyPriceComponentLabel('FEE_FIXED')},
 ];
 
 export const componentUnitMap = {
@@ -22,6 +22,10 @@ export const componentUnitMap = {
 
 export function createKey() {
   return globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
+export function energyPriceComponentLabel(componentCode) {
+  return componentCode ? i18n.global.t(`energyPriceComponent_label_${componentCode}`) : '';
 }
 
 export function createEmptyProfile() {

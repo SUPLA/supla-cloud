@@ -70,7 +70,7 @@
 
 <script setup>
   import DateRangePicker from '@/activity/date-range-picker.vue';
-  import {extractTariffDefaults, tariffPeriodSummary, tariffZoneSummary} from './tariff-profile-utils';
+  import {energyPriceComponentLabel, extractTariffDefaults, tariffPeriodSummary, tariffZoneSummary} from './tariff-profile-utils';
   import TariffProfileIssues from './tariff-profile-issues.vue';
 
   const emit = defineEmits(['add-tariff-period', 'remove-tariff-period', 'tariff-change', 'update-tariff-period-range']);
@@ -96,7 +96,7 @@
 
   function tariffDefaultItemsSummary(tariffPeriod) {
     const items = extractTariffDefaults(currentTariff(tariffPeriod)).items;
-    return items.length ? items.map((item) => item.componentCode).join(', ') : '—';
+    return items.length ? items.map((item) => energyPriceComponentLabel(item.componentCode)).join(', ') : '—';
   }
 
   function emitRangeUpdate(tariffPeriod, value) {
