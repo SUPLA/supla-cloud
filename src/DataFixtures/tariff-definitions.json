@@ -11,7 +11,6 @@
                 }
             ],
             "defaultPrices": {
-                "name": "Suggested G11 household prices",
                 "currency": "PLN",
                 "billingPeriodLength": 1,
                 "billingPeriodUnit": "month",
@@ -79,7 +78,6 @@
                 }
             ],
             "defaultPrices": {
-                "name": "Suggested G12 household prices",
                 "currency": "PLN",
                 "billingPeriodLength": 1,
                 "billingPeriodUnit": "month",
@@ -198,7 +196,6 @@
                 }
             ],
             "defaultPrices": {
-                "name": "Suggested G13 household prices",
                 "currency": "PLN",
                 "billingPeriodLength": 2,
                 "billingPeriodUnit": "month",

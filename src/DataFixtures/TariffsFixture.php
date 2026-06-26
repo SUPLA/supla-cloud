@@ -74,7 +74,6 @@ class TariffsFixture extends SuplaFixture {
         $profile->addTariffPeriod($tariffPeriod);
 
         $pricePeriod = new EnergyTariffProfilePricePeriod();
-        $pricePeriod->setName('Sample G11 prices');
         $pricePeriod->setBillingPeriodLength(1);
         $pricePeriod->setBillingPeriodUnit(BillingPeriodUnit::MONTH);
         $pricePeriod->setCurrency('PLN');
@@ -104,7 +103,6 @@ class TariffsFixture extends SuplaFixture {
         $profile->addTariffPeriod($tariffPeriod);
 
         $pricePeriod = new EnergyTariffProfilePricePeriod();
-        $pricePeriod->setName('Sample G12 prices');
         $pricePeriod->setBillingPeriodLength(2);
         $pricePeriod->setBillingPeriodUnit(BillingPeriodUnit::MONTH);
         $pricePeriod->setCurrency('PLN');

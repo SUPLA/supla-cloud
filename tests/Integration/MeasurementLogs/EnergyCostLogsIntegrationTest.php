@@ -91,7 +91,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
             '2026-01-01 00:00:00',
             '2026-02-01 00:00:00',
             [
-                $this->createPricePeriod('January prices', 'PLN', 1, BillingPeriodUnit::MONTH, '2026-01-10 00:00:00', '2026-02-01 00:00:00', [
+                $this->createPricePeriod('PLN', 1, BillingPeriodUnit::MONTH, '2026-01-10 00:00:00', '2026-02-01 00:00:00', [
                     $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'DAY', 1.0, EnergyPriceUnit::KWH),
                     $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'NIGHT', 2.0, EnergyPriceUnit::KWH),
                     $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'DAY', 0.1, EnergyPriceUnit::KWH),
@@ -106,7 +106,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
             '2026-02-01 00:00:00',
             '2026-03-01 00:00:00',
             [
-                $this->createPricePeriod('February prices', 'PLN', 1, BillingPeriodUnit::MONTH, '2026-02-01 00:00:00', '2026-03-01 00:00:00', [
+                $this->createPricePeriod('PLN', 1, BillingPeriodUnit::MONTH, '2026-02-01 00:00:00', '2026-03-01 00:00:00', [
                     $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.5, EnergyPriceUnit::KWH),
                     $this->createPriceItem(EnergyPriceComponent::FEE_FIXED, null, 3.0, EnergyPriceUnit::PERIOD),
                 ]),
@@ -122,7 +122,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
             '2026-01-01 00:00:00',
             null,
             [
-                $this->createPricePeriod('Quarter 1', 'EUR', 3, BillingPeriodUnit::MONTH, '2026-01-01 00:00:00', null, [
+                $this->createPricePeriod('EUR', 3, BillingPeriodUnit::MONTH, '2026-01-01 00:00:00', null, [
                     $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.4, EnergyPriceUnit::KWH),
                     $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'ALL_DAY', 0.05, EnergyPriceUnit::KWH),
                     $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 6.0, EnergyPriceUnit::MONTH),
@@ -280,7 +280,6 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
     }
 
     private function createPricePeriod(
-        string $name,
         string $currency,
         int $billingPeriodLength,
         BillingPeriodUnit $billingPeriodUnit,
@@ -289,7 +288,6 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         array $items
     ): EnergyTariffProfilePricePeriod {
         $pricePeriod = new EnergyTariffProfilePricePeriod();
-        $pricePeriod->setName($name);
         $pricePeriod->setCurrency($currency);
         $pricePeriod->setBillingPeriodLength($billingPeriodLength);
         $pricePeriod->setBillingPeriodUnit($billingPeriodUnit);

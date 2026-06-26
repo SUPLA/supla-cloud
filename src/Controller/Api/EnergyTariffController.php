@@ -740,7 +740,6 @@ class EnergyTariffController extends RestController {
         }
 
         foreach ($pricePeriods as $pricePeriodData) {
-            Assertion::keyExists($pricePeriodData, 'name');
             Assertion::keyExists($pricePeriodData, 'billingPeriodLength');
             Assertion::keyExists($pricePeriodData, 'billingPeriodUnit');
             Assertion::keyExists($pricePeriodData, 'currency');
@@ -748,7 +747,6 @@ class EnergyTariffController extends RestController {
             Assertion::keyExists($pricePeriodData, 'items');
 
             $pricePeriod = new EnergyTariffProfilePricePeriod();
-            $pricePeriod->setName($pricePeriodData['name']);
             $pricePeriod->setBillingPeriodLength((int)$pricePeriodData['billingPeriodLength']);
             $pricePeriod->setBillingPeriodUnit($this->parseBillingPeriodUnit($pricePeriodData['billingPeriodUnit']));
             $pricePeriod->setCurrency($pricePeriodData['currency']);
@@ -813,7 +811,6 @@ class EnergyTariffController extends RestController {
         $zoneCodes = array_map(fn(array $zone) => $zone['code'], $tariffPeriod->getTariff()?->getConfig()['zones'] ?? []);
         $previousPricePeriod = null;
         foreach ($pricePeriods as $index => $pricePeriod) {
-            Assertion::notBlank($pricePeriod->getName());
             Assertion::greaterThan($pricePeriod->getBillingPeriodLength(), 0);
             Assertion::regex($pricePeriod->getCurrency(), '/^[A-Z]{3}$/');
             $this->assertEndAfterStart($pricePeriod->getValidFrom(), $pricePeriod->getValidTo());
@@ -941,7 +938,6 @@ class EnergyTariffController extends RestController {
     private function serializePricePeriod(EnergyTariffProfilePricePeriod $pricePeriod): array {
         return [
             'id' => $pricePeriod->getId(),
-            'name' => $pricePeriod->getName(),
             'billingPeriodLength' => $pricePeriod->getBillingPeriodLength(),
             'billingPeriodUnit' => $pricePeriod->getBillingPeriodUnit()->value,
             'currency' => $pricePeriod->getCurrency(),

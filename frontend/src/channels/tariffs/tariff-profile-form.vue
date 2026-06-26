@@ -169,7 +169,7 @@
               <div v-for="(pricePeriod, pricePeriodIndex) in tariffPeriod.pricePeriods" :key="pricePeriod._key" class="price-period-card">
                 <div class="price-period-card__header">
                   <div>
-                    <strong>{{ pricePeriod.name || `${$t('Price period')} ${pricePeriodIndex + 1}` }}</strong>
+                    <strong>{{ `${$t('Price period')} ${pricePeriodIndex + 1}` }}</strong>
                     <div class="small text-muted">{{ formatRange(pricePeriod.validFrom, pricePeriod.validTo) }}</div>
                   </div>
                   <div class="price-period-card__actions">
@@ -197,19 +197,13 @@
                 </ul>
 
                 <div class="row g-3">
-                  <div class="col-lg-5">
-                    <div class="form-group mb-0">
-                      <label>{{ $t('Price period name') }}</label>
-                      <input v-model="pricePeriod.name" class="form-control" type="text" :placeholder="$t('Optional')" />
-                    </div>
-                  </div>
-                  <div class="col-sm-4 col-lg-2">
+                  <div class="col-sm-4 col-lg-3">
                     <div class="form-group mb-0">
                       <label>{{ $t('Length') }}</label>
                       <input v-model.number="pricePeriod.billingPeriodLength" class="form-control" type="number" min="1" step="1" />
                     </div>
                   </div>
-                  <div class="col-sm-4 col-lg-2">
+                  <div class="col-sm-4 col-lg-3">
                     <div class="form-group mb-0">
                       <label>{{ $t('Unit') }}</label>
                       <select v-model="pricePeriod.billingPeriodUnit" class="form-control">
@@ -217,7 +211,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-sm-4 col-lg-3">
+                  <div class="col-sm-4 col-lg-6">
                     <div class="form-group mb-0">
                       <label>{{ $t('Currency') }}</label>
                       <CurrencyPicker v-model="pricePeriod.currency" />
@@ -518,7 +512,6 @@
 
     const [item] = pricePeriod.items;
     return (
-      !pricePeriod.name &&
       pricePeriod.billingPeriodLength === 1 &&
       pricePeriod.billingPeriodUnit === 'month' &&
       pricePeriod.currency === 'PLN' &&

@@ -58,7 +58,7 @@
                 <div v-for="(pricePeriod, pricePeriodIndex) in tariffPeriod.pricePeriods" :key="pricePeriod.id || pricePeriodIndex" class="price-period-card">
                   <div class="price-period-card__header">
                     <div>
-                      <strong>{{ pricePeriod.name || `${$t('Price period')} ${pricePeriodIndex + 1}` }}</strong>
+                      <strong>{{ `${$t('Price period')} ${pricePeriodIndex + 1}` }}</strong>
                       <div class="text-muted small">{{ formatRange(pricePeriod.validFrom, pricePeriod.validTo) }}</div>
                     </div>
                     <div class="text-muted small">{{ pricePeriod.billingPeriodLength }} {{ pricePeriod.billingPeriodUnit }} · {{ pricePeriod.currency }}</div>

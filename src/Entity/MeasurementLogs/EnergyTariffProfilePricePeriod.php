@@ -38,9 +38,6 @@ class EnergyTariffProfilePricePeriod {
      */
     private ?EnergyTariffProfileTariffPeriod $tariffPeriod = null;
 
-    /** @ORM\Column(name="name", type="string", length=255) */
-    private string $name = '';
-
     /** @ORM\Column(name="billing_period_length", type="integer") */
     private int $billingPeriodLength = 1;
 
@@ -76,14 +73,6 @@ class EnergyTariffProfilePricePeriod {
 
     public function setTariffPeriod(?EnergyTariffProfileTariffPeriod $tariffPeriod): void {
         $this->tariffPeriod = $tariffPeriod;
-    }
-
-    public function getName(): string {
-        return $this->name;
-    }
-
-    public function setName(string $name): void {
-        $this->name = $name;
     }
 
     public function getBillingPeriodLength(): int {

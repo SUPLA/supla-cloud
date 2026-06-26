@@ -48,7 +48,6 @@ export function createPricePeriod(overrides = {}) {
   return {
     _key: createKey(),
     id: null,
-    name: '',
     billingPeriodLength: 1,
     billingPeriodUnit: 'month',
     currency: 'PLN',
@@ -85,7 +84,6 @@ export function normalizeProfile(profile) {
       pricePeriods: normalizeCollection(tariffPeriod.pricePeriods).map((pricePeriod) => ({
         _key: createKey(),
         id: pricePeriod.id || null,
-        name: pricePeriod.name || '',
         billingPeriodLength: pricePeriod.billingPeriodLength || 1,
         billingPeriodUnit: pricePeriod.billingPeriodUnit || 'month',
         currency: pricePeriod.currency || 'PLN',
@@ -184,9 +182,6 @@ export function prefillPricePeriodFromTariff(pricePeriod, tariffPeriod, tariffs)
   const defaults = extractTariffDefaults(tariff);
   if (defaults.items.length) {
     pricePeriod.items = defaults.items.map((item) => createItem(item));
-    if (!pricePeriod.name) {
-      pricePeriod.name = defaults.name || tariff?.name || '';
-    }
     if (defaults.currency) {
       pricePeriod.currency = defaults.currency;
     }
@@ -201,9 +196,6 @@ export function prefillPricePeriodFromTariff(pricePeriod, tariffPeriod, tariffs)
 
   const zones = tariffZones(tariffs, tariffPeriod);
   pricePeriod.items = zones.length ? zones.map((zone) => createItem({zoneCode: zone.code})) : [createItem()];
-  if (!pricePeriod.name) {
-    pricePeriod.name = tariff?.name || '';
-  }
 }
 
 export function extractTariffDefaults(tariff) {
@@ -222,7 +214,6 @@ export function extractTariffDefaults(tariff) {
     ].find(Array.isArray) || [];
 
   return {
-    name: defaults.name || defaults.pricePeriodName || '',
     currency: defaults.currency || 'PLN',
     billingPeriodLength: Number(defaults.billingPeriodLength || 1),
     billingPeriodUnit: defaults.billingPeriodUnit || 'month',
@@ -264,7 +255,6 @@ export function toPayload(profile) {
       validFrom: tariffPeriod.validFrom,
       validTo: tariffPeriod.validTo,
       pricePeriods: tariffPeriod.pricePeriods.map((pricePeriod) => ({
-        name: pricePeriod.name,
         billingPeriodLength: Number(pricePeriod.billingPeriodLength),
         billingPeriodUnit: pricePeriod.billingPeriodUnit,
         currency: pricePeriod.currency,
