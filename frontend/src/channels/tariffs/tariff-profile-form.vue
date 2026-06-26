@@ -20,6 +20,11 @@
           </div>
         </template>
 
+        <div class="form-group">
+          <label>{{ $t('Profile name') }}</label>
+          <input v-model="profile.name" class="form-control" type="text" :placeholder="$t('e.g. Home 2026 tariff profile')" />
+        </div>
+
         <div class="wizard-shell">
           <div class="wizard-steps">
             <button type="button" :class="['wizard-step', {active: step === 1}]" @click="step = 1">
@@ -46,227 +51,29 @@
             </ul>
           </div>
 
-          <section v-show="step === 1" class="details-page-block wizard-panel">
-            <div class="row g-3 align-items-end">
-              <div class="col-lg-8">
-                <div class="form-group mb-0">
-                  <label>{{ $t('Profile name') }}</label>
-                  <input v-model="profile.name" class="form-control" type="text" :placeholder="$t('e.g. Home 2026 tariff profile')" />
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="helper-card">
-                  <strong>{{ $t('Default path') }}</strong>
-                  <div>{{ $t('Keep one tariff period unless the tariff itself changes in time.') }}</div>
-                </div>
-              </div>
-            </div>
+          <TariffProfileTariffStep
+            v-show="step === 1"
+            :profile="profile"
+            :tariffs="tariffs"
+            :validation="validation"
+            @add-tariff-period="addTariffPeriod()"
+            @remove-tariff-period="removeTariffPeriod($event)"
+            @tariff-change="onTariffChange($event)"
+            @update-tariff-period-range="updateTariffPeriodRange($event.tariffPeriod, $event.value)"
+          />
 
-            <div class="section-toolbar mt-4">
-              <div>
-                <h3 class="m-0">{{ $t('Tariff periods') }}</h3>
-                <div class="text-muted small">{{ $t('By default one tariff period covers the profile. Add more only when the tariff changes by date.') }}</div>
-              </div>
-              <button class="btn btn-default btn-sm" type="button" @click="addTariffPeriod()">{{ $t('Split timeline') }}</button>
-            </div>
-
-            <div v-for="(tariffPeriod, tariffPeriodIndex) in profile.tariffPeriods" :key="tariffPeriod._key" class="tariff-period-card">
-              <div class="tariff-period-card__header">
-                <div>
-                  <strong>{{ $t('Tariff period') }} {{ tariffPeriodIndex + 1 }}</strong>
-                  <div class="small text-muted">{{ tariffPeriodSummary(tariffPeriod, tariffs) }}</div>
-                </div>
-                <button
-                  v-if="profile.tariffPeriods.length > 1"
-                  class="btn btn-link btn-sm text-danger"
-                  type="button"
-                  @click="removeTariffPeriod(tariffPeriodIndex)"
-                >
-                  {{ $t('Delete') }}
-                </button>
-              </div>
-
-              <ul v-if="issuesFor(validation.tariffPeriods, tariffPeriod._key).length" class="issue-list issue-list--danger">
-                <li v-for="message in issuesFor(validation.tariffPeriods, tariffPeriod._key)" :key="`${tariffPeriod._key}-${message}`">{{ message }}</li>
-              </ul>
-              <ul v-if="issuesFor(validation.tariffPeriodWarnings, tariffPeriod._key).length" class="issue-list issue-list--warning">
-                <li v-for="message in issuesFor(validation.tariffPeriodWarnings, tariffPeriod._key)" :key="`${tariffPeriod._key}-warning-${message}`">
-                  {{ message }}
-                </li>
-              </ul>
-
-              <div class="row g-3">
-                <div class="col-lg-5">
-                  <div class="form-group mb-0">
-                    <label>{{ $t('Tariff definition') }}</label>
-                    <select v-model.number="tariffPeriod.tariffId" class="form-control" @change="onTariffChange(tariffPeriod)">
-                      <option :value="null">{{ $t('Choose tariff') }}</option>
-                      <option v-for="tariff in tariffs" :key="tariff.id" :value="tariff.id">{{ tariff.name }} ({{ tariff.code }})</option>
-                    </select>
-                  </div>
-                </div>
-                <div v-if="profile.tariffPeriods.length > 1" class="col-lg-7">
-                  <label>{{ $t('Validity') }}</label>
-                  <DateRangePicker
-                    date-only
-                    :value="{dateStart: tariffPeriod.validFrom, dateEnd: tariffPeriod.validTo}"
-                    @input="(value) => updateTariffPeriodRange(tariffPeriod, value)"
-                  />
-                </div>
-              </div>
-
-              <div v-if="profile.tariffPeriods.length === 1" class="timeline-default mt-3">
-                <strong>{{ $t('Timeline') }}</strong>
-                <span>{{ $t('No date limits until you split the timeline.') }}</span>
-              </div>
-
-              <div v-if="selectedTariff(tariffs, tariffPeriod.tariffId)" class="tariff-hint mt-3">
-                <div>
-                  <strong>{{ selectedTariff(tariffs, tariffPeriod.tariffId)?.code }}</strong>
-                  <span>{{ selectedTariff(tariffs, tariffPeriod.tariffId)?.config?.timezone || 'UTC' }}</span>
-                </div>
-                <div>{{ tariffZoneSummary(selectedTariff(tariffs, tariffPeriod.tariffId)) }}</div>
-              </div>
-            </div>
-          </section>
-
-          <section v-show="step === 2" class="details-page-block wizard-panel">
-            <div class="section-toolbar">
-              <div>
-                <h3 class="m-0">{{ $t('Price periods') }}</h3>
-                <div class="text-muted small">{{ $t('Start with one PLN period per tariff. Split only when prices change in time.') }}</div>
-              </div>
-            </div>
-
-            <div v-for="(tariffPeriod, tariffPeriodIndex) in profile.tariffPeriods" :key="tariffPeriod._key" class="tariff-period-card">
-              <div class="tariff-period-card__header">
-                <div>
-                  <strong>{{ $t('Tariff period') }} {{ tariffPeriodIndex + 1 }}</strong>
-                  <div class="small text-muted">{{ tariffPeriodSummary(tariffPeriod, tariffs) }}</div>
-                </div>
-                <button class="btn btn-default btn-sm" type="button" @click="addPricePeriod(tariffPeriod)">{{ $t('Split prices') }}</button>
-              </div>
-
-              <div v-for="(pricePeriod, pricePeriodIndex) in tariffPeriod.pricePeriods" :key="pricePeriod._key" class="price-period-card">
-                <div class="price-period-card__header">
-                  <div>
-                    <strong>{{ `${$t('Price period')} ${pricePeriodIndex + 1}` }}</strong>
-                    <div class="small text-muted">{{ formatRange(pricePeriod.validFrom, pricePeriod.validTo) }}</div>
-                  </div>
-                  <div class="price-period-card__actions">
-                    <button class="btn btn-default btn-sm" type="button" @click="prefillPricePeriodFromTariff(pricePeriod, tariffPeriod, tariffs)">
-                      {{ hasTariffDefaults(tariffs, tariffPeriod) ? $t('Use tariff defaults') : $t('Create zone rows') }}
-                    </button>
-                    <button
-                      v-if="tariffPeriod.pricePeriods.length > 1"
-                      class="btn btn-link btn-sm text-danger"
-                      type="button"
-                      @click="removePricePeriod(tariffPeriod, pricePeriodIndex)"
-                    >
-                      {{ $t('Delete') }}
-                    </button>
-                  </div>
-                </div>
-
-                <ul v-if="issuesFor(validation.pricePeriods, pricePeriod._key).length" class="issue-list issue-list--danger">
-                  <li v-for="message in issuesFor(validation.pricePeriods, pricePeriod._key)" :key="`${pricePeriod._key}-${message}`">{{ message }}</li>
-                </ul>
-                <ul v-if="issuesFor(validation.pricePeriodWarnings, pricePeriod._key).length" class="issue-list issue-list--warning">
-                  <li v-for="message in issuesFor(validation.pricePeriodWarnings, pricePeriod._key)" :key="`${pricePeriod._key}-warning-${message}`">
-                    {{ message }}
-                  </li>
-                </ul>
-
-                <div class="row g-3">
-                  <div class="col-sm-4 col-lg-3">
-                    <div class="form-group mb-0">
-                      <label>{{ $t('Length') }}</label>
-                      <input v-model.number="pricePeriod.billingPeriodLength" class="form-control" type="number" min="1" step="1" />
-                    </div>
-                  </div>
-                  <div class="col-sm-4 col-lg-3">
-                    <div class="form-group mb-0">
-                      <label>{{ $t('Unit') }}</label>
-                      <select v-model="pricePeriod.billingPeriodUnit" class="form-control">
-                        <option v-for="unit in billingPeriodUnits" :key="unit" :value="unit">{{ unit }}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-sm-4 col-lg-6">
-                    <div class="form-group mb-0">
-                      <label>{{ $t('Currency') }}</label>
-                      <CurrencyPicker v-model="pricePeriod.currency" />
-                    </div>
-                  </div>
-                </div>
-
-                <div v-if="tariffPeriod.pricePeriods.length > 1" class="mt-3">
-                  <label>{{ $t('Validity') }}</label>
-                  <DateRangePicker
-                    date-only
-                    :value="{dateStart: pricePeriod.validFrom, dateEnd: pricePeriod.validTo}"
-                    @input="(value) => updatePricePeriodRange(pricePeriod, value)"
-                  />
-                </div>
-
-                <div v-if="tariffPeriod.pricePeriods.length === 1" class="timeline-default mt-3">
-                  <strong>{{ $t('Timeline') }}</strong>
-                  <span>{{ $t('No date limits inside this tariff period until you split prices.') }}</span>
-                </div>
-
-                <div class="price-period-toolbar mt-3">
-                  <div>
-                    <strong>{{ $t('Price components') }}</strong>
-                    <div class="text-muted small">{{ $t('Add energy, distribution and fixed fees only where needed.') }}</div>
-                  </div>
-                  <button class="btn btn-default btn-sm" type="button" @click="addItem(pricePeriod)">{{ $t('Add component') }}</button>
-                </div>
-
-                <div v-if="!pricePeriod.items.length" class="empty-state text-center text-muted py-4">
-                  {{ $t('No price components yet.') }}
-                </div>
-
-                <div v-for="(item, itemIndex) in pricePeriod.items" :key="item._key" class="price-item-card">
-                  <div class="row g-2 align-items-end">
-                    <div class="col-lg-4">
-                      <label>{{ $t('Component') }}</label>
-                      <select v-model="item.componentCode" class="form-control" @change="syncItemUnit(item)">
-                        <option :value="''">{{ $t('Choose component') }}</option>
-                        <option v-for="component in componentOptions" :key="component.value" :value="component.value">{{ component.label }}</option>
-                      </select>
-                    </div>
-                    <div class="col-lg-2 col-sm-4">
-                      <label>{{ $t('Zone') }}</label>
-                      <select v-model="item.zoneCode" class="form-control">
-                        <option :value="null">{{ $t('No zone') }}</option>
-                        <option v-for="zone in tariffZones(tariffs, tariffPeriod)" :key="zone.code" :value="zone.code">{{ zone.name || zone.code }}</option>
-                      </select>
-                    </div>
-                    <div class="col-lg-2 col-sm-4">
-                      <label>{{ $t('Amount') }}</label>
-                      <input v-model.number="item.amount" class="form-control" type="number" step="0.000001" min="0" />
-                    </div>
-                    <div class="col-lg-2 col-sm-4">
-                      <label>{{ $t('Unit') }}</label>
-                      <select v-model="item.unit" class="form-control">
-                        <option v-for="unit in unitOptionsForItem(item)" :key="unit" :value="unit">{{ unit }}</option>
-                      </select>
-                    </div>
-                    <div class="col-lg-2 text-end">
-                      <button class="btn btn-link btn-sm text-danger" type="button" @click="removeItem(pricePeriod, itemIndex)">{{ $t('Delete') }}</button>
-                    </div>
-                  </div>
-
-                  <ul v-if="issuesFor(validation.items, item._key).length" class="issue-list issue-list--danger mt-2 mb-0">
-                    <li v-for="message in issuesFor(validation.items, item._key)" :key="`${item._key}-${message}`">{{ message }}</li>
-                  </ul>
-                  <ul v-if="issuesFor(validation.itemWarnings, item._key).length" class="issue-list issue-list--warning mt-2 mb-0">
-                    <li v-for="message in issuesFor(validation.itemWarnings, item._key)" :key="`${item._key}-warning-${message}`">{{ message }}</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </section>
+          <TariffProfilePriceStep
+            v-show="step === 2"
+            :profile="profile"
+            :tariffs="tariffs"
+            :validation="validation"
+            @add-price-period="addPricePeriod($event)"
+            @remove-price-period="removePricePeriod($event.tariffPeriod, $event.index)"
+            @prefill-price-period="prefillPricePeriodFromTariff($event.pricePeriod, $event.tariffPeriod, tariffs)"
+            @update-price-period-range="updatePricePeriodRange($event.pricePeriod, $event.value)"
+            @add-item="addItem($event)"
+            @remove-item="removeItem($event.pricePeriod, $event.index)"
+          />
 
           <div class="wizard-buttons wizard-buttons--mobile">
             <router-link :to="cancelRoute" class="btn btn-grey">{{ $t('Cancel') }}</router-link>
@@ -285,35 +92,25 @@
 <script setup>
   import {computed, onMounted, ref, watch} from 'vue';
   import {useRouter} from 'vue-router';
-  import DateRangePicker from '@/activity/date-range-picker.vue';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
-  import CurrencyPicker from '@/channels/params/currency-picker.vue';
   import PageContainer from '@/common/pages/page-container.vue';
   import PendingChangesPage from '@/common/pages/pending-changes-page.vue';
   import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
   import {energyTariffsApi} from '@/api/energy-tariffs-api';
   import {successNotification, warningNotification} from '@/common/notifier';
+  import TariffProfileTariffStep from './tariff-profile-tariff-step.vue';
+  import TariffProfilePriceStep from './tariff-profile-price-step.vue';
   import {
-    billingPeriodUnits,
     cloneProfile,
-    componentOptions,
     createEmptyProfile,
     createItem,
     createPricePeriod,
     createTariffPeriod,
-    formatRange,
     handleTariffChange,
-    hasTariffDefaults,
     normalizeProfile,
     prefillPricePeriodFromTariff,
-    selectedTariff,
-    syncItemUnit,
     syncPricePeriodsToTariffRange,
-    tariffPeriodSummary,
-    tariffZones,
-    tariffZoneSummary,
     toPayload,
-    unitOptionsForItem,
     validateProfile,
   } from './tariff-profile-utils';
 
@@ -377,10 +174,6 @@
 
   function stepTwoWarnings() {
     return [...Object.values(validation.value.pricePeriodWarnings).flat(), ...Object.values(validation.value.itemWarnings).flat()];
-  }
-
-  function issuesFor(map, key) {
-    return map[key] || [];
   }
 
   function addTariffPeriod() {
@@ -564,24 +357,6 @@
     gap: 20px;
   }
 
-  .wizard-intro {
-    border-radius: 24px;
-    background: linear-gradient(135deg, #153f2f, #1f7a4f);
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
-  .wizard-intro__eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 12px;
-    opacity: 0.75;
-    margin-bottom: 8px;
-  }
-
   .wizard-intro h2 {
     margin: 0 0 10px;
   }
@@ -659,19 +434,6 @@
     box-shadow: 0 0 0 2px rgba(31, 122, 79, 0.08);
   }
 
-  .wizard-panel,
-  .tariff-period-card,
-  .price-period-card,
-  .price-item-card {
-    border-radius: 20px;
-  }
-
-  .section-toolbar,
-  .tariff-period-card__header,
-  .price-period-card__header,
-  .price-period-card__actions,
-  .price-period-toolbar,
-  .tariff-hint,
   .wizard-buttons {
     display: flex;
     justify-content: space-between;
@@ -679,65 +441,8 @@
     flex-wrap: wrap;
   }
 
-  .section-toolbar {
-    align-items: center;
-    margin-bottom: 16px;
-  }
-
-  .compact-alert,
-  .issue-list,
-  .tariff-hint,
-  .tariff-period-card,
-  .price-period-card {
+  .compact-alert {
     margin-top: 16px;
-  }
-
-  .tariff-period-card,
-  .price-period-card,
-  .price-item-card {
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    padding: 18px;
-    background: #fcfdfd;
-  }
-
-  .price-period-card,
-  .price-item-card {
-    background: #fff;
-  }
-
-  .price-item-card {
-    margin-top: 12px;
-  }
-
-  .issue-list {
-    padding-left: 18px;
-    margin-bottom: 0;
-  }
-
-  .issue-list--danger {
-    color: #b04c56;
-  }
-
-  .issue-list--warning {
-    color: #9a6a17;
-  }
-
-  .tariff-hint {
-    border-radius: 14px;
-    background: rgba(31, 122, 79, 0.08);
-    padding: 12px 14px;
-    align-items: center;
-  }
-
-  .timeline-default {
-    border-radius: 14px;
-    background: rgba(0, 0, 0, 0.04);
-    padding: 12px 14px;
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-    color: #4e5863;
   }
 
   .wizard-buttons--mobile {

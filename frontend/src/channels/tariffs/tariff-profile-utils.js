@@ -394,7 +394,7 @@ function validatePricePeriods(tariffPeriod, tariff, tariffStart, tariffEnd, resu
     if (tariffEnd && priceEnd && priceEnd > tariffEnd) {
       errors.push('Price period cannot end after its tariff period.');
     }
-    if (pricePeriodIndex === 0 && compareByStartValue(pricePeriod.validFrom, tariffPeriod.validFrom) !== 0) {
+    if (pricePeriodIndex === 0 && !hasSameRangeStart(priceStart, tariffStart)) {
       errors.push('Price periods must cover the full tariff period start.');
     }
     if (previousPricePeriod) {
@@ -484,10 +484,15 @@ function compareByStart(left, right) {
   return leftStart - rightStart;
 }
 
-function compareByStartValue(left, right) {
-  const leftStart = parseDateTime(left)?.toMillis() ?? Number.NEGATIVE_INFINITY;
-  const rightStart = parseDateTime(right)?.toMillis() ?? Number.NEGATIVE_INFINITY;
-  return leftStart - rightStart;
+function hasSameRangeStart(leftStart, rightStart) {
+  if (leftStart === null && rightStart === null) {
+    return true;
+  }
+  if (leftStart === null || rightStart === null) {
+    return false;
+  }
+
+  return leftStart.toMillis() === rightStart.toMillis();
 }
 
 function compareEndToStart(leftEnd, rightStart) {
