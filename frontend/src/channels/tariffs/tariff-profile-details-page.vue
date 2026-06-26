@@ -8,98 +8,60 @@
           <RouterLink :to="{name: 'tariffProfiles'}">{{ $t('Tariff profiles') }}</RouterLink>
         </BreadcrumbList>
 
-        <div class="details-page-block tariff-profile-hero">
-          <div>
-            <div class="tariff-profile-hero__eyebrow">{{ $t('Energy tariffs') }}</div>
-            <h1 v-title>{{ profile.name }}</h1>
-            <p>{{ $t('Review tariff periods and pricing rules before assigning this profile to channels.') }}</p>
-          </div>
-          <div class="tariff-profile-hero__actions">
-            <router-link :to="{name: 'tariffProfile.edit', params: {id}}" class="btn btn-default">
-              {{ $t('Edit') }}
-            </router-link>
-            <button class="btn btn-danger" type="button" @click="deleteConfirm = true">{{ $t('Delete') }}</button>
-          </div>
-        </div>
-
-        <div class="row g-4 mt-1">
-          <div class="col-lg-4">
-            <div class="details-page-block summary-card h-100">
-              <h3>{{ $t('Overview') }}</h3>
-              <dl>
-                <dd>{{ $t('ID') }}</dd>
-                <dt>{{ profile.id }}</dt>
-                <dd>{{ $t('Tariff periods') }}</dd>
-                <dt>{{ profile.tariffPeriods.length }}</dt>
-                <dd>{{ $t('Price periods') }}</dd>
-                <dt>{{ countPricePeriods(profile) }}</dt>
-                <dd>{{ $t('Tariffs') }}</dd>
-                <dt>{{ profileTariffSummary(profile, tariffs) }}</dt>
-              </dl>
+        <PendingChangesPage :header="profile.name" deletable @delete="deleteProfile()">
+          <template #buttons>
+            <div class="btn-toolbar mr-2">
+              <router-link :to="{name: 'tariffProfile.edit', params: {id}}" class="btn btn-default">
+                {{ $t('Edit') }}
+              </router-link>
             </div>
+          </template>
+          <template #deleteConfirm>
+            {{ $t('Are you sure you want to delete this tariff profile?') }}
+          </template>
+        </PendingChangesPage>
+
+        <div v-for="(tariffPeriod, tariffPeriodIndex) in profile.tariffPeriods" :key="tariffPeriod.id || tariffPeriodIndex" class="period-card">
+          <div class="period-card__header">
+            <div>
+              <strong>{{ $t('Tariff period') }} {{ tariffPeriodIndex + 1 }}</strong>
+              <div class="text-muted small">{{ tariffPeriodSummary(tariffPeriod, tariffs) }}</div>
+            </div>
+            <div class="text-muted small">{{ tariffZoneSummary(selectedTariff(tariffs, tariffPeriod.tariffId)) }}</div>
           </div>
 
-          <div class="col-lg-8">
-            <div class="details-page-block periods-card">
-              <div class="periods-card__header">
-                <h3>{{ $t('Tariff periods') }}</h3>
-                <span class="periods-card__count">{{ profile.tariffPeriods.length }}</span>
+          <div v-for="(pricePeriod, pricePeriodIndex) in tariffPeriod.pricePeriods" :key="pricePeriod.id || pricePeriodIndex" class="price-period-card">
+            <div class="price-period-card__header">
+              <div>
+                <strong>{{ `${$t('Price period')} ${pricePeriodIndex + 1}` }}</strong>
+                <div class="text-muted small">{{ formatRange(pricePeriod.validFrom, pricePeriod.validTo) }}</div>
               </div>
+              <div class="text-muted small">{{ pricePeriod.billingPeriodLength }} {{ pricePeriod.billingPeriodUnit }} · {{ pricePeriod.currency }}</div>
+            </div>
 
-              <div v-for="(tariffPeriod, tariffPeriodIndex) in profile.tariffPeriods" :key="tariffPeriod.id || tariffPeriodIndex" class="period-card">
-                <div class="period-card__header">
-                  <div>
-                    <strong>{{ $t('Tariff period') }} {{ tariffPeriodIndex + 1 }}</strong>
-                    <div class="text-muted small">{{ tariffPeriodSummary(tariffPeriod, tariffs) }}</div>
-                  </div>
-                  <div class="text-muted small">{{ tariffZoneSummary(selectedTariff(tariffs, tariffPeriod.tariffId)) }}</div>
-                </div>
-
-                <div v-for="(pricePeriod, pricePeriodIndex) in tariffPeriod.pricePeriods" :key="pricePeriod.id || pricePeriodIndex" class="price-period-card">
-                  <div class="price-period-card__header">
-                    <div>
-                      <strong>{{ `${$t('Price period')} ${pricePeriodIndex + 1}` }}</strong>
-                      <div class="text-muted small">{{ formatRange(pricePeriod.validFrom, pricePeriod.validTo) }}</div>
-                    </div>
-                    <div class="text-muted small">{{ pricePeriod.billingPeriodLength }} {{ pricePeriod.billingPeriodUnit }} · {{ pricePeriod.currency }}</div>
-                  </div>
-
-                  <div class="components-table-wrap">
-                    <table class="table components-table">
-                      <thead>
-                        <tr>
-                          <th>{{ $t('Component') }}</th>
-                          <th>{{ $t('Zone') }}</th>
-                          <th>{{ $t('Amount') }}</th>
-                          <th>{{ $t('Unit') }}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(itemEntry, itemIndex) in pricePeriod.items" :key="itemEntry.id || itemIndex">
-                          <td>{{ energyPriceComponentLabel(itemEntry.componentCode) }}</td>
-                          <td>{{ itemEntry.zoneCode || $t('No zone') }}</td>
-                          <td>{{ itemEntry.amount }}</td>
-                          <td>{{ itemEntry.unit }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+            <div class="components-table-wrap">
+              <table class="table components-table">
+                <thead>
+                  <tr>
+                    <th>{{ $t('Component') }}</th>
+                    <th>{{ $t('Zone') }}</th>
+                    <th>{{ $t('Amount') }}</th>
+                    <th>{{ $t('Unit') }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(itemEntry, itemIndex) in pricePeriod.items" :key="itemEntry.id || itemIndex">
+                    <td>{{ energyPriceComponentLabel(itemEntry.componentCode) }}</td>
+                    <td>{{ itemEntry.zoneCode || $t('No zone') }}</td>
+                    <td>{{ itemEntry.amount }}</td>
+                    <td>{{ itemEntry.unit }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
-
-      <modal-confirm
-        v-if="deleteConfirm"
-        class="modal-warning"
-        :header="$t('Are you sure you want to delete this tariff profile?')"
-        :loading="loading"
-        @confirm="deleteProfile()"
-        @cancel="deleteConfirm = false"
-      >
-      </modal-confirm>
     </loading-cover>
   </page-container>
 </template>
@@ -109,20 +71,11 @@
   import PageContainer from '@/common/pages/page-container.vue';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import BreadcrumbList from '@/common/gui/breadcrumb/BreadcrumbList.vue';
-  import ModalConfirm from '@/common/modal-confirm.vue';
   import {energyTariffsApi} from '@/api/energy-tariffs-api';
   import {successNotification} from '@/common/notifier';
   import TariffProfileForm from './tariff-profile-form.vue';
-  import {
-    countPricePeriods,
-    energyPriceComponentLabel,
-    formatRange,
-    normalizeProfile,
-    profileTariffSummary,
-    selectedTariff,
-    tariffPeriodSummary,
-    tariffZoneSummary,
-  } from './tariff-profile-utils';
+  import {energyPriceComponentLabel, formatRange, normalizeProfile, selectedTariff, tariffPeriodSummary, tariffZoneSummary} from './tariff-profile-utils';
+  import PendingChangesPage from '@/common/pages/pending-changes-page.vue';
 
   const props = defineProps({id: String, item: Object});
   const emit = defineEmits(['add', 'delete']);

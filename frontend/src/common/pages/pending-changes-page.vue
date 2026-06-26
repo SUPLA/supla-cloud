@@ -16,7 +16,7 @@
               {{ $t('Save changes') }}
             </FormButton>
           </div>
-          <div v-else>
+          <div v-else class="d-flex">
             <slot name="buttons"></slot>
             <div v-if="deletable" class="btn-toolbar">
               <DialogWindow warning cancellable @confirm="$emit('delete', $event)">
