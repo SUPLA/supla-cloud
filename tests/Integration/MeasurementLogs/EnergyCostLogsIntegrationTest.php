@@ -239,6 +239,21 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(18.0, $quarterSummary['costs']['byComponent']['DISTRIBUTION_FIXED']);
     }
 
+    public function testFetchingEnergyCostLogsForOpenStartProfile(): void {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/2.4.0/channels/' . $this->quarterlyProfileChannel->getId() . '/energy-cost-logs?order=ASC');
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertCount(3, $content);
+        $this->assertEquals('ALL_DAY', $content[0]['zoneCode']);
+        $this->assertEquals(100, $content[0]['usage']['totalFae']);
+        $this->assertEquals('EUR', $content[0]['costs']['currency']);
+        $this->assertEquals(0.045, $content[0]['costs']['total']);
+        $this->assertEquals(0.04, $content[0]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
+        $this->assertEquals(0.005, $content[0]['costs']['byComponent']['DISTRIBUTION_VARIABLE']);
+    }
+
     public function testFetchingLogsWithoutTariffProfileCosts(): void {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/2.4.0/channels/' . $this->plainChannel->getId() . '/energy-cost-logs?order=ASC');

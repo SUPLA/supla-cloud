@@ -79,11 +79,12 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements Initi
         $config = $tariff->getConfig();
 
         $timezone = new \DateTimeZone($config['timezone'] ?? 'UTC');
-        $periodStart = $this->resolvePeriodStart($fromOption, $timezone);
+        $defaultPeriodStart = $this->resolvePeriodStart($fromOption, $timezone);
+        $periodStart = clone $defaultPeriodStart;
         if (!$fromOption && ($tariffPeriodStart = $this->findEarliestProfileTariffPeriodStart($tariff))) {
             $periodStart = $tariffPeriodStart < $periodStart ? $tariffPeriodStart : $periodStart;
         }
-        $periodEnd = (clone $periodStart)->add(new \DateInterval('P' . $monthsAhead . 'M'));
+        $periodEnd = (clone $defaultPeriodStart)->add(new \DateInterval('P' . $monthsAhead . 'M'));
 
         if ($output->isVerbose()) {
             $output->writeln(sprintf('Resolving tariff %s from %s to %s', $tariff->getCode(), $periodStart->format('Y-m-d H:i:s'), $periodEnd->format('Y-m-d H:i:s')));
@@ -124,7 +125,28 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements Initi
             ['validFrom' => 'ASC']
         );
 
-        return $tariffPeriod?->getValidFrom();
+        $earliestProfileStart = $tariffPeriod?->getValidFrom();
+        $earliestLogStart = $this->findEarliestTariffLogStart($tariff->getId());
+
+        if ($earliestProfileStart === null) {
+            return $earliestLogStart;
+        }
+        if ($earliestLogStart === null) {
+            return $earliestProfileStart;
+        }
+
+        return $earliestLogStart < $earliestProfileStart ? $earliestLogStart : $earliestProfileStart;
+    }
+
+    private function findEarliestTariffLogStart(int $tariffId): ?\DateTime {
+        $sql = 'SELECT MIN(DATE_SUB(d.date, INTERVAL 15 MINUTE)) earliest_slot_start
+            FROM supla_em_delta_log d
+            JOIN supla_energy_tariff_profile_assignment pa ON pa.channel_id = d.channel_id
+            JOIN supla_energy_tariff_profile_tariff_period tp ON tp.profile_id = pa.profile_id
+            WHERE tp.tariff_id = :tariffId';
+        $value = $this->measurementLogsEntityManager->getConnection()->fetchOne($sql, ['tariffId' => $tariffId]);
+
+        return $value ? new \DateTime($value, new \DateTimeZone('UTC')) : null;
     }
 
     /**
