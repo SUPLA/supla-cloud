@@ -2017,3 +2017,8 @@ suffix: sufiks
 
 #</editor-fold>
 Chosen: Wybrany
+energyPriceComponent_label_DISTRIBUTION_FIXED: Opłata dystrybucyjna (stała)
+energyPriceComponent_label_DISTRIBUTION_VARIABLE: Opłata dystrybucyjna (zmienna)
+energyPriceComponent_label_FEE_FIXED: Opłata dodatkowa (stała)
+energyPriceComponent_label_FEE_VARIABLE: Opłata dodatkowa (zmienna)
+energyPriceComponent_label_FORWARD_ACTIVE_ENERGY: Energia czynna

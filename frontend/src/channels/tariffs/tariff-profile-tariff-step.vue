@@ -52,12 +52,17 @@
         <span>{{ $t('No date limits until you split the timeline.') }}</span>
       </div>
 
-      <div v-if="selectedTariff(tariffs, tariffPeriod.tariffId)" class="tariff-hint mt-3">
-        <div>
-          <strong>{{ selectedTariff(tariffs, tariffPeriod.tariffId)?.code }}</strong>
-          <span>{{ selectedTariff(tariffs, tariffPeriod.tariffId)?.config?.timezone || 'UTC' }}</span>
+      <div v-if="currentTariff(tariffPeriod)" class="tariff-hint mt-3">
+        <div class="tariff-hint__identity">
+          <strong>{{ currentTariff(tariffPeriod)?.name }}</strong>
+          <span>{{ currentTariff(tariffPeriod)?.code }}</span>
         </div>
-        <div>{{ tariffZoneSummary(selectedTariff(tariffs, tariffPeriod.tariffId)) }}</div>
+        <div class="tariff-hint__details">
+          <span>{{ $t('Timezone') }}: {{ currentTariff(tariffPeriod)?.config?.timezone || 'UTC' }}</span>
+          <span>{{ $t('Zones') }}: {{ tariffZoneSummary(currentTariff(tariffPeriod)) }}</span>
+          <span>{{ $t('Default billing') }}: {{ tariffDefaultsSummary(tariffPeriod) }}</span>
+          <span>{{ $t('Default components') }}: {{ tariffDefaultItemsSummary(tariffPeriod) }}</span>
+        </div>
       </div>
     </div>
   </section>
@@ -65,12 +70,12 @@
 
 <script setup>
   import DateRangePicker from '@/activity/date-range-picker.vue';
-  import {selectedTariff, tariffPeriodSummary, tariffZoneSummary} from './tariff-profile-utils';
+  import {extractTariffDefaults, tariffPeriodSummary, tariffZoneSummary} from './tariff-profile-utils';
   import TariffProfileIssues from './tariff-profile-issues.vue';
 
   const emit = defineEmits(['add-tariff-period', 'remove-tariff-period', 'tariff-change', 'update-tariff-period-range']);
 
-  defineProps({
+  const props = defineProps({
     profile: Object,
     tariffs: Array,
     validation: Object,
@@ -78,6 +83,20 @@
 
   function issuesFor(map, key) {
     return map?.[key] || [];
+  }
+
+  function currentTariff(tariffPeriod) {
+    return props.tariffs?.find((tariff) => String(tariff.id) === String(tariffPeriod?.tariffId));
+  }
+
+  function tariffDefaultsSummary(tariffPeriod) {
+    const defaults = extractTariffDefaults(currentTariff(tariffPeriod));
+    return `${defaults.billingPeriodLength} ${defaults.billingPeriodUnit} · ${defaults.currency}`;
+  }
+
+  function tariffDefaultItemsSummary(tariffPeriod) {
+    const items = extractTariffDefaults(currentTariff(tariffPeriod)).items;
+    return items.length ? items.map((item) => item.componentCode).join(', ') : '—';
   }
 
   function emitRangeUpdate(tariffPeriod, value) {
@@ -116,7 +135,18 @@
     border-radius: 14px;
     background: rgba(31, 122, 79, 0.08);
     padding: 12px 14px;
-    align-items: center;
+    align-items: flex-start;
+  }
+
+  .tariff-hint__identity,
+  .tariff-hint__details {
+    display: grid;
+    gap: 4px;
+  }
+
+  .tariff-hint__identity span,
+  .tariff-hint__details span {
+    color: #4e5863;
   }
 
   .timeline-default {

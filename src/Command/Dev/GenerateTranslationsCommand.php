@@ -17,6 +17,7 @@
 
 namespace App\Command\Dev;
 
+use App\Enums\EnergyPriceComponent;
 use App\Enums\RgbwCommand;
 use App\Kernel;
 use App\Supla\SuplaServerAware;
@@ -39,6 +40,9 @@ class GenerateTranslationsCommand extends Command {
         $translations = array_merge($translations, array_map(function (RgbwCommand $command) {
             return "rgbwCommand_label_{$command->name}";
         }, RgbwCommand::cases()));
+        $translations = array_merge($translations, array_map(function (EnergyPriceComponent $component) {
+            return "energyPriceComponent_label_{$component->name}";
+        }, EnergyPriceComponent::cases()));
         $translations = array_map(fn(string $t) => "// i18n: ['$t']", $translations);
         file_put_contents(Kernel::VAR_PATH . '/local/translations.php', '<?php' . PHP_EOL . implode("\n", $translations) . PHP_EOL);
         return 0;
