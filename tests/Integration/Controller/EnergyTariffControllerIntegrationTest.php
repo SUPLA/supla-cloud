@@ -117,6 +117,18 @@ class EnergyTariffControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $client->getResponse());
     }
 
+    public function testManagingLeftOpenProfileCoverage() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $payload = $this->createProfilePayload('Open start profile', true);
+        $client->apiRequestV24('POST', '/api/energy-tariff-profiles', $payload);
+        $this->assertStatusCode(201, $client->getResponse());
+
+        $created = json_decode($client->getResponse()->getContent(), true);
+        $this->assertNull($created['tariffPeriods'][0]['validFrom']);
+        $this->assertNull($created['tariffPeriods'][0]['pricePeriods'][0]['validFrom']);
+        $this->assertEquals('2026-01-16 00:00:00', $payload['tariffPeriods'][0]['pricePeriods'][1]['validFrom']);
+    }
+
     public function testManagingChannelProfileAssignment() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('POST', '/api/energy-tariff-profiles', $this->createProfilePayload('Assigned profile'));
@@ -149,12 +161,12 @@ class EnergyTariffControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(204, $client->getResponse());
     }
 
-    private function createProfilePayload(string $name): array {
+    private function createProfilePayload(string $name, bool $leftOpen = false): array {
         return [
             'name' => $name,
             'tariffPeriods' => [[
                 'tariffId' => $this->tariffId,
-                'validFrom' => '2026-01-01 00:00:00',
+                'validFrom' => $leftOpen ? null : '2026-01-01 00:00:00',
                 'validTo' => '2026-02-01 00:00:00',
                 'pricePeriods' => [
                     [
@@ -162,7 +174,7 @@ class EnergyTariffControllerIntegrationTest extends IntegrationTestCase {
                         'billingPeriodLength' => 1,
                         'billingPeriodUnit' => 'month',
                         'currency' => 'PLN',
-                        'validFrom' => '2026-01-01 00:00:00',
+                        'validFrom' => $leftOpen ? null : '2026-01-01 00:00:00',
                         'validTo' => '2026-01-16 00:00:00',
                         'items' => [
                             ['componentCode' => EnergyPriceComponent::FORWARD_ACTIVE_ENERGY->name, 'zoneCode' => 'DAY', 'amount' => 0.95, 'unit' => EnergyPriceUnit::KWH->value],

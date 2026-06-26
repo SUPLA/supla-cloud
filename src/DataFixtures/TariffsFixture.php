@@ -70,14 +70,12 @@ class TariffsFixture extends SuplaFixture {
 
         $tariffPeriod = new EnergyTariffProfileTariffPeriod();
         $tariffPeriod->setTariff($tariff);
-        $tariffPeriod->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
         $profile->addTariffPeriod($tariffPeriod);
 
         $pricePeriod = new EnergyTariffProfilePricePeriod();
         $pricePeriod->setBillingPeriodLength(1);
         $pricePeriod->setBillingPeriodUnit(BillingPeriodUnit::MONTH);
         $pricePeriod->setCurrency('PLN');
-        $pricePeriod->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
         $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.95, EnergyPriceUnit::KWH));
         $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'ALL_DAY', 0.11, EnergyPriceUnit::KWH));
         $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 12.12, EnergyPriceUnit::MONTH));

@@ -44,8 +44,8 @@ class EnergyTariffProfileTariffPeriod {
      */
     private ?EnergyTariff $tariff = null;
 
-    /** @ORM\Column(name="valid_from", type="utcdatetime") */
-    private \DateTime $validFrom;
+    /** @ORM\Column(name="valid_from", type="utcdatetime", nullable=true) */
+    private ?\DateTime $validFrom = null;
 
     /** @ORM\Column(name="valid_to", type="utcdatetime", nullable=true) */
     private ?\DateTime $validTo = null;
@@ -80,11 +80,11 @@ class EnergyTariffProfileTariffPeriod {
         $this->tariff = $tariff;
     }
 
-    public function getValidFrom(): \DateTime {
+    public function getValidFrom(): ?\DateTime {
         return $this->validFrom;
     }
 
-    public function setValidFrom(\DateTime $validFrom): void {
+    public function setValidFrom(?\DateTime $validFrom): void {
         $this->validFrom = $validFrom;
     }
 

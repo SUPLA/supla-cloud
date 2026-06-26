@@ -119,10 +119,10 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $quarterlyProfile->setName('Quarterly EUR profile');
         $quarterlyProfile->addTariffPeriod($this->createTariffPeriod(
             $allDayTariff,
-            '2026-01-01 00:00:00',
+            null,
             null,
             [
-                $this->createPricePeriod('EUR', 3, BillingPeriodUnit::MONTH, '2026-01-01 00:00:00', null, [
+                $this->createPricePeriod('EUR', 3, BillingPeriodUnit::MONTH, null, null, [
                     $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.4, EnergyPriceUnit::KWH),
                     $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'ALL_DAY', 0.05, EnergyPriceUnit::KWH),
                     $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 6.0, EnergyPriceUnit::MONTH),
@@ -265,13 +265,13 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
 
     private function createTariffPeriod(
         EnergyTariff $tariff,
-        string $validFrom,
+        ?string $validFrom,
         ?string $validTo,
         array $pricePeriods
     ): EnergyTariffProfileTariffPeriod {
         $tariffPeriod = new EnergyTariffProfileTariffPeriod();
         $tariffPeriod->setTariff($tariff);
-        $tariffPeriod->setValidFrom(new \DateTime($validFrom, new \DateTimeZone('UTC')));
+        $tariffPeriod->setValidFrom($validFrom ? new \DateTime($validFrom, new \DateTimeZone('UTC')) : null);
         $tariffPeriod->setValidTo($validTo ? new \DateTime($validTo, new \DateTimeZone('UTC')) : null);
         foreach ($pricePeriods as $pricePeriod) {
             $tariffPeriod->addPricePeriod($pricePeriod);
@@ -283,7 +283,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         string $currency,
         int $billingPeriodLength,
         BillingPeriodUnit $billingPeriodUnit,
-        string $validFrom,
+        ?string $validFrom,
         ?string $validTo,
         array $items
     ): EnergyTariffProfilePricePeriod {
@@ -291,7 +291,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $pricePeriod->setCurrency($currency);
         $pricePeriod->setBillingPeriodLength($billingPeriodLength);
         $pricePeriod->setBillingPeriodUnit($billingPeriodUnit);
-        $pricePeriod->setValidFrom(new \DateTime($validFrom, new \DateTimeZone('UTC')));
+        $pricePeriod->setValidFrom($validFrom ? new \DateTime($validFrom, new \DateTimeZone('UTC')) : null);
         $pricePeriod->setValidTo($validTo ? new \DateTime($validTo, new \DateTimeZone('UTC')) : null);
         foreach ($items as $item) {
             $pricePeriod->addItem($item);

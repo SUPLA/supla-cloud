@@ -47,8 +47,8 @@ class EnergyTariffProfilePricePeriod {
     /** @ORM\Column(name="currency", type="string", length=10) */
     private string $currency = '';
 
-    /** @ORM\Column(name="valid_from", type="utcdatetime") */
-    private \DateTime $validFrom;
+    /** @ORM\Column(name="valid_from", type="utcdatetime", nullable=true) */
+    private ?\DateTime $validFrom = null;
 
     /** @ORM\Column(name="valid_to", type="utcdatetime", nullable=true) */
     private ?\DateTime $validTo = null;
@@ -99,11 +99,11 @@ class EnergyTariffProfilePricePeriod {
         $this->currency = $currency;
     }
 
-    public function getValidFrom(): \DateTime {
+    public function getValidFrom(): ?\DateTime {
         return $this->validFrom;
     }
 
-    public function setValidFrom(\DateTime $validFrom): void {
+    public function setValidFrom(?\DateTime $validFrom): void {
         $this->validFrom = $validFrom;
     }
 

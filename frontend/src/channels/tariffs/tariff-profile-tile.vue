@@ -3,7 +3,6 @@
     <router-link :to="{name: 'tariffProfile', params: {id: model.id}}">
       <div class="tariff-profile-tile__header">
         <div>
-          <div class="tariff-profile-tile__eyebrow">{{ $t('Tariff profile') }}</div>
           <h3>{{ model.name }}</h3>
         </div>
       </div>

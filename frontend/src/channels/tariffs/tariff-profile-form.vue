@@ -21,32 +21,12 @@
         </template>
 
         <div class="wizard-shell">
-          <div class="wizard-intro details-page-block">
-            <div>
-              <div class="wizard-intro__eyebrow">{{ $t('Wizard') }}</div>
-              <h2>{{ $t('Tariff profile setup') }}</h2>
-              <p>{{ $t('Start with one tariff and one price period. Split the timeline only when billing actually changes.') }}</p>
-            </div>
-            <div class="wizard-intro__stats">
-              <div>
-                <span>{{ $t('Tariff periods') }}</span>
-                <strong>{{ profile.tariffPeriods.length }}</strong>
-              </div>
-              <div>
-                <span>{{ $t('Price periods') }}</span>
-                <strong>{{ countPricePeriods(profile) }}</strong>
-              </div>
-            </div>
-          </div>
-
           <div class="wizard-steps">
             <button type="button" :class="['wizard-step', {active: step === 1}]" @click="step = 1">
-              <span>1</span>
               <strong>{{ $t('Tariff base') }}</strong>
               <small>{{ $t('Pick tariffs and date ranges') }}</small>
             </button>
             <button type="button" :class="['wizard-step', {active: step === 2}]" @click="step = 2">
-              <span>2</span>
               <strong>{{ $t('Price periods') }}</strong>
               <small>{{ $t('Set prices and components') }}</small>
             </button>
@@ -128,6 +108,7 @@
                 <div v-if="profile.tariffPeriods.length > 1" class="col-lg-7">
                   <label>{{ $t('Validity') }}</label>
                   <DateRangePicker
+                    date-only
                     :value="{dateStart: tariffPeriod.validFrom, dateEnd: tariffPeriod.validTo}"
                     @input="(value) => updateTariffPeriodRange(tariffPeriod, value)"
                   />
@@ -136,7 +117,7 @@
 
               <div v-if="profile.tariffPeriods.length === 1" class="timeline-default mt-3">
                 <strong>{{ $t('Timeline') }}</strong>
-                <span>{{ $t('Full timeline from 2016-01-01 until changed later.') }}</span>
+                <span>{{ $t('No date limits until you split the timeline.') }}</span>
               </div>
 
               <div v-if="selectedTariff(tariffs, tariffPeriod.tariffId)" class="tariff-hint mt-3">
@@ -222,6 +203,7 @@
                 <div v-if="tariffPeriod.pricePeriods.length > 1" class="mt-3">
                   <label>{{ $t('Validity') }}</label>
                   <DateRangePicker
+                    date-only
                     :value="{dateStart: pricePeriod.validFrom, dateEnd: pricePeriod.validTo}"
                     @input="(value) => updatePricePeriodRange(pricePeriod, value)"
                   />
@@ -229,7 +211,7 @@
 
                 <div v-if="tariffPeriod.pricePeriods.length === 1" class="timeline-default mt-3">
                   <strong>{{ $t('Timeline') }}</strong>
-                  <span>{{ $t('Uses the full tariff period until you split prices.') }}</span>
+                  <span>{{ $t('No date limits inside this tariff period until you split prices.') }}</span>
                 </div>
 
                 <div class="price-period-toolbar mt-3">
@@ -315,12 +297,10 @@
     billingPeriodUnits,
     cloneProfile,
     componentOptions,
-    countPricePeriods,
     createEmptyProfile,
     createItem,
     createPricePeriod,
     createTariffPeriod,
-    DEFAULT_PROFILE_START,
     formatRange,
     handleTariffChange,
     hasTariffDefaults,
@@ -368,6 +348,10 @@
       ]);
       tariffs.value = loadedTariffs;
       profile.value = isNew.value ? loadedProfile : normalizeProfile(loadedProfile);
+      if (isNew.value && loadedTariffs.length) {
+        profile.value.tariffPeriods[0].tariffId = loadedTariffs[0].id;
+        prefillPricePeriodFromTariff(profile.value.tariffPeriods[0].pricePeriods[0], profile.value.tariffPeriods[0], loadedTariffs);
+      }
     } catch (response) {
       error.value = response.status;
     } finally {
@@ -523,25 +507,27 @@
   }
 
   function suggestTariffSplitStart(tariffPeriod) {
-    const start = new Date(tariffPeriod?.validFrom || DEFAULT_PROFILE_START);
+    const start = tariffPeriod?.validFrom ? new Date(tariffPeriod.validFrom) : new Date();
     if (tariffPeriod?.validTo) {
       const end = new Date(tariffPeriod.validTo);
       return new Date(start.getTime() + (end.getTime() - start.getTime()) / 2).toISOString();
     }
 
     const splitStart = new Date(start);
-    splitStart.setFullYear(splitStart.getFullYear() + 1);
+    splitStart.setHours(0, 0, 0, 0);
+    splitStart.setMonth(splitStart.getMonth() + 1);
     return splitStart.toISOString();
   }
 
   function suggestPriceSplitStart(pricePeriod, tariffPeriod) {
-    const start = new Date(pricePeriod?.validFrom || tariffPeriod?.validFrom || DEFAULT_PROFILE_START);
+    const start = pricePeriod?.validFrom ? new Date(pricePeriod.validFrom) : tariffPeriod?.validFrom ? new Date(tariffPeriod.validFrom) : new Date();
     if (pricePeriod?.validTo) {
       const end = new Date(pricePeriod.validTo);
       return new Date(start.getTime() + (end.getTime() - start.getTime()) / 2).toISOString();
     }
 
     const splitStart = new Date(start);
+    splitStart.setHours(0, 0, 0, 0);
     splitStart.setMonth(splitStart.getMonth() + 1);
     return splitStart.toISOString();
   }

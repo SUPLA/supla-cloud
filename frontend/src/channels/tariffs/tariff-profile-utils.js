@@ -1,8 +1,8 @@
 import {DateTime} from 'luxon';
-import {formatDateTime} from '@/common/filters-date';
+import {formatDate} from '@/common/filters-date';
+import {i18n} from '@/locale.js';
 
 export const billingPeriodUnits = ['day', 'week', 'month', 'year'];
-export const DEFAULT_PROFILE_START = DateTime.fromISO('2016-01-01T00:00:00').toISO();
 
 export const componentOptions = [
   {value: 'FORWARD_ACTIVE_ENERGY', label: 'FORWARD_ACTIVE_ENERGY'},
@@ -27,7 +27,7 @@ export function createKey() {
 export function createEmptyProfile() {
   return {
     id: null,
-    name: '',
+    name: i18n.global.t('My Tariff Profile'),
     tariffPeriods: [createTariffPeriod()],
   };
 }
@@ -37,9 +37,9 @@ export function createTariffPeriod(overrides = {}) {
     _key: createKey(),
     id: null,
     tariffId: null,
-    validFrom: DEFAULT_PROFILE_START,
+    validFrom: null,
     validTo: null,
-    pricePeriods: [createPricePeriod({validFrom: DEFAULT_PROFILE_START})],
+    pricePeriods: [createPricePeriod({validFrom: null})],
     ...overrides,
   };
 }
@@ -51,7 +51,7 @@ export function createPricePeriod(overrides = {}) {
     billingPeriodLength: 1,
     billingPeriodUnit: 'month',
     currency: 'PLN',
-    validFrom: DEFAULT_PROFILE_START,
+    validFrom: null,
     validTo: null,
     items: [createItem()],
     ...overrides,
@@ -146,10 +146,26 @@ export function tariffPeriodSummary(tariffPeriod, tariffs) {
 }
 
 export function formatRange(validFrom, validTo) {
+  if (!validFrom && !validTo) {
+    return 'Always';
+  }
   if (!validFrom) {
+    return `Until ${formatRangeDate(validTo, true)}`;
+  }
+  if (!validTo) {
+    return `From ${formatRangeDate(validFrom)}`;
+  }
+  return `${formatRangeDate(validFrom)} – ${formatRangeDate(validTo, true)}`;
+}
+
+function formatRangeDate(value, isEnd = false) {
+  const parsed = DateTime.fromISO(value);
+  if (!parsed.isValid) {
     return '—';
   }
-  return `${formatDateTime(validFrom)} – ${validTo ? formatDateTime(validTo) : '∞'}`;
+
+  const displayValue = isEnd ? parsed.minus({days: 1}) : parsed;
+  return formatDate(displayValue, DateTime.DATE_MED);
 }
 
 export function unitOptionsForItem(item) {
@@ -304,18 +320,19 @@ export function validateProfile(profile, availableTariffs) {
     if (!tariffPeriod.tariffId) {
       tariffErrors.push('Choose a tariff definition.');
     }
-    if (!periodStart) {
-      tariffErrors.push('Tariff period start is required.');
-    }
     if (periodStart && periodEnd && periodEnd <= periodStart) {
       tariffErrors.push('Tariff period end must be later than start.');
     }
-    if (previousTariffPeriod?.end && periodStart) {
-      if (periodStart < previousTariffPeriod.end) {
-        tariffErrors.push(`Overlaps with the previous tariff period ending ${formatDateTime(previousTariffPeriod.end.toISO())}.`);
-      } else if (periodStart > previousTariffPeriod.end) {
+    if (previousTariffPeriod) {
+      if (compareEndToStart(previousTariffPeriod.end, periodStart) > 0) {
+        tariffErrors.push(
+          previousTariffPeriod.end
+            ? `Overlaps with the previous tariff period ending ${formatRangeDate(previousTariffPeriod.end.toISO(), true)}.`
+            : 'Open-start tariff periods must be the first and cannot be followed by another tariff period.'
+        );
+      } else if (previousTariffPeriod.end && periodStart && periodStart > previousTariffPeriod.end) {
         tariffWarnings.push(
-          `No tariff profile coverage between ${formatDateTime(previousTariffPeriod.end.toISO())} and ${formatDateTime(periodStart.toISO())}.`
+          `No tariff profile coverage between ${formatRangeDate(previousTariffPeriod.end.toISO(), true)} and ${formatRangeDate(periodStart.toISO())}.`
         );
       }
     }
@@ -365,9 +382,6 @@ function validatePricePeriods(tariffPeriod, tariff, tariffStart, tariffEnd, resu
     if (!/^[A-Z]{3}$/.test(pricePeriod.currency || '')) {
       errors.push('Currency must use a 3-letter ISO code.');
     }
-    if (!priceStart) {
-      errors.push('Price period start is required.');
-    }
     if (priceStart && priceEnd && priceEnd <= priceStart) {
       errors.push('Price period end must be later than start.');
     }
@@ -380,14 +394,15 @@ function validatePricePeriods(tariffPeriod, tariff, tariffStart, tariffEnd, resu
     if (tariffEnd && priceEnd && priceEnd > tariffEnd) {
       errors.push('Price period cannot end after its tariff period.');
     }
-    if (pricePeriodIndex === 0 && tariffStart && priceStart && priceStart > tariffStart) {
-      errors.push('Price periods do not cover the tariff period start.');
+    if (pricePeriodIndex === 0 && compareByStartValue(pricePeriod.validFrom, tariffPeriod.validFrom) !== 0) {
+      errors.push('Price periods must cover the full tariff period start.');
     }
-    if (previousPricePeriod?.end && priceStart) {
-      if (priceStart < previousPricePeriod.end) {
-        errors.push('Price periods overlap.');
-      } else if (priceStart > previousPricePeriod.end) {
+    if (previousPricePeriod) {
+      const comparison = compareEndToStart(previousPricePeriod.end, priceStart);
+      if (comparison < 0) {
         errors.push('Price periods leave an uncovered gap.');
+      } else if (comparison > 0) {
+        errors.push('Price periods overlap.');
       }
     }
 
@@ -464,9 +479,26 @@ function pushIssue(collection, key, message) {
 }
 
 function compareByStart(left, right) {
-  const leftStart = parseDateTime(left.validFrom)?.toMillis() || 0;
-  const rightStart = parseDateTime(right.validFrom)?.toMillis() || 0;
+  const leftStart = parseDateTime(left.validFrom)?.toMillis() ?? Number.NEGATIVE_INFINITY;
+  const rightStart = parseDateTime(right.validFrom)?.toMillis() ?? Number.NEGATIVE_INFINITY;
   return leftStart - rightStart;
+}
+
+function compareByStartValue(left, right) {
+  const leftStart = parseDateTime(left)?.toMillis() ?? Number.NEGATIVE_INFINITY;
+  const rightStart = parseDateTime(right)?.toMillis() ?? Number.NEGATIVE_INFINITY;
+  return leftStart - rightStart;
+}
+
+function compareEndToStart(leftEnd, rightStart) {
+  if (leftEnd === null) {
+    return 1;
+  }
+  if (rightStart === null) {
+    return 1;
+  }
+
+  return leftEnd.toMillis() - rightStart.toMillis();
 }
 
 function parseDateTime(value) {
