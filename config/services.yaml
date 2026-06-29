@@ -95,10 +95,13 @@ services:
     $logger: '@monolog.logger.supla_direct_links'
 
   App\Controller\OAuth\BrokerAuthorizeController:
-    public: true
+    tags: ["controller.service_arguments"]
     arguments:
       $authorizeForm: '@fos_oauth_server.authorize.form'
       $authorizeFormHandler: '@fos_oauth_server.authorize.form.handler.default'
+
+  App\Controller\OAuth\BrokerTokenController:
+    tags: ["controller.service_arguments"]
 
   App\Entity\Main\Listeners\:
     resource: '../src/Entity/Main/Listeners'

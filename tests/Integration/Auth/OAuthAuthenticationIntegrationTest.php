@@ -45,7 +45,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
 
     /** @before */
     public function init() {
-        $clientManager = self::$container->get(ClientManagerInterface::class);
+        $clientManager = self::getContainer()->get(ClientManagerInterface::class);
         $client = $clientManager->createClient();
         $client->setRedirectUris(['https://unicorns.pl']);
         $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
