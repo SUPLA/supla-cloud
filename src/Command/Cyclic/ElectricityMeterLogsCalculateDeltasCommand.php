@@ -31,7 +31,9 @@ use Symfony\Component\Lock\LockFactory;
 class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand implements InitializationCommand {
     use Transactional;
 
-    private const DEFAULT_BATCH_SIZE = 1000;
+    private const DEFAULT_BATCH_SIZE = 10000;
+    private const SLOT_DURATION_IN_SECONDS = 900;
+    private const DELTA_FIELDS = ['phase1_fae', 'phase1_rae', 'phase2_fae', 'phase2_rae', 'phase3_fae', 'phase3_rae'];
 
     public function __construct(
         private readonly EntityManagerInterface $measurementLogsEntityManager,
@@ -144,96 +146,127 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand i
      * @param \DateTime|null $startDate
      */
     private function calculateDeltasForChannel(int $channelId, array $logs, ?\DateTime $startDate, OutputInterface $output): void {
-        $firstLogDate = new \DateTime($logs[0]->getDate(), new \DateTimeZone('UTC'));
+        $normalizedLogs = $this->normalizeLogs($logs);
+        $firstLogDate = new \DateTime($normalizedLogs[0]['date'], new \DateTimeZone('UTC'));
+        $currentSlotDate = $this->getFirstSlotDate($firstLogDate, $startDate);
+        $lastLog = end($normalizedLogs);
+        $lastLogDate = new \DateTime($lastLog['date'], new \DateTimeZone('UTC'));
 
-        // Target dates should be :00, :15, :30, :45
-        $currentSlotDate = clone($startDate ?: $firstLogDate);
-        if (!$startDate) {
-            $minutes = (int)$currentSlotDate->format('i');
-            $seconds = (int)$currentSlotDate->format('s');
-            $next15 = (int)(ceil(($minutes + $seconds / 60.0 + 0.0001) / 15) * 15);
-            if ($next15 === 60) {
-                $currentSlotDate->modify("+1 hour");
-                $currentSlotDate->setTime((int)$currentSlotDate->format('H'), 0, 0);
-            } else {
-                $currentSlotDate->setTime((int)$currentSlotDate->format('H'), $next15, 0);
-            }
-        } else {
-            $currentSlotDate->modify("+15 minutes");
+        $firstSlotTimestamp = $currentSlotDate->getTimestamp();
+        $firstLogTimestamp = $firstLogDate->getTimestamp();
+        $lastLogTimestamp = $lastLogDate->getTimestamp();
+
+        if ($firstSlotTimestamp > $lastLogTimestamp) {
+            return;
         }
 
-        $lastLog = end($logs);
-        $lastLogDate = new \DateTime($lastLog->getDate(), new \DateTimeZone('UTC'));
+        $currentSlotEndTimestamp = null;
+        $currentSlotTotals = $this->createEmptySlotTotals();
 
-        $logIndex = 0;
-        $lastLogTimestamp = $lastLogDate->getTimestamp();
-        while ($currentSlotDate->getTimestamp() <= $lastLogTimestamp) {
-            // Find logs that surround $currentSlotDate
-            $nextLogTimestamp = (new \DateTime($logs[$logIndex + 1]->getDate(), new \DateTimeZone('UTC')))->getTimestamp();
-            while ($logIndex < count($logs) - 1 && $nextLogTimestamp < $currentSlotDate->getTimestamp()) {
-                $logIndex++;
-                if ($logIndex < count($logs) - 1) {
-                    $nextLogTimestamp = (new \DateTime($logs[$logIndex + 1]->getDate(), new \DateTimeZone('UTC')))->getTimestamp();
-                }
-            }
+        for ($i = 0, $logsCount = count($normalizedLogs) - 1; $i < $logsCount; $i++) {
+            $logA = $normalizedLogs[$i];
+            $logB = $normalizedLogs[$i + 1];
+            $tA = $logA['timestamp'];
+            $tB = $logB['timestamp'];
 
-            if ($logIndex >= count($logs) - 1) {
-                break;
-            }
-
-            $prevSlotDate = clone $currentSlotDate;
-            $prevSlotDate->modify("-15 minutes");
-
-            if ($prevSlotDate->getTimestamp() < $firstLogDate->getTimestamp()) {
-                $currentSlotDate->modify("+15 minutes");
+            if ($tB <= $tA) {
                 continue;
             }
 
-            $delta = new ElectricityMeterDeltaLogItem($channelId, $currentSlotDate->format('Y-m-d H:i:s'));
+            $slotEndTimestamp = intdiv($tA, self::SLOT_DURATION_IN_SECONDS) * self::SLOT_DURATION_IN_SECONDS + self::SLOT_DURATION_IN_SECONDS;
+            while ($slotEndTimestamp <= $lastLogTimestamp && $slotEndTimestamp - self::SLOT_DURATION_IN_SECONDS < $tB) {
+                $slotStartTimestamp = $slotEndTimestamp - self::SLOT_DURATION_IN_SECONDS;
+                if ($slotEndTimestamp >= $firstSlotTimestamp && $slotStartTimestamp >= $firstLogTimestamp) {
+                    if ($currentSlotEndTimestamp === null) {
+                        $currentSlotEndTimestamp = $slotEndTimestamp;
+                    }
 
-            foreach (['phase1_fae', 'phase1_rae', 'phase2_fae', 'phase2_rae', 'phase3_fae', 'phase3_rae'] as $field) {
-                $v = $this->calculateEnergyInInterval($logs, $prevSlotDate, $currentSlotDate, $field);
-                EntityUtils::setField($delta, $field, (int)round($v));
+                    while ($currentSlotEndTimestamp < $slotEndTimestamp) {
+                        $this->persistDelta($channelId, $currentSlotEndTimestamp, $currentSlotTotals);
+                        $currentSlotEndTimestamp += self::SLOT_DURATION_IN_SECONDS;
+                        $currentSlotTotals = $this->createEmptySlotTotals();
+                    }
+
+                    $overlapStart = max($slotStartTimestamp, $tA);
+                    $overlapEnd = min($slotEndTimestamp, $tB);
+
+                    if ($overlapStart < $overlapEnd) {
+                        $intervalDuration = $tB - $tA;
+                        $overlapRatio = ($overlapEnd - $overlapStart) / $intervalDuration;
+                        foreach (self::DELTA_FIELDS as $field) {
+                            $valA = $logA[$field];
+                            $valB = $logB[$field];
+                            if ($valB >= $valA) {
+                                $currentSlotTotals[$field] += ($valB - $valA) * $overlapRatio;
+                            }
+                        }
+                    }
+                }
+
+                $slotEndTimestamp += self::SLOT_DURATION_IN_SECONDS;
             }
+        }
 
-            $this->measurementLogsEntityManager->persist($delta);
-
-            $currentSlotDate->modify("+15 minutes");
+        if ($currentSlotEndTimestamp !== null) {
+            $this->persistDelta($channelId, $currentSlotEndTimestamp, $currentSlotTotals);
         }
     }
 
-    private function calculateEnergyInInterval(array $logs, \DateTime $start, \DateTime $end, string $field): float {
-        $totalEnergy = 0.0;
-        $tStart = $start->getTimestamp();
-        $tEnd = $end->getTimestamp();
-
-        for ($i = 0; $i < count($logs) - 1; $i++) {
-            $logA = $logs[$i];
-            $logB = $logs[$i + 1];
-            $tA = (new \DateTime($logA->getDate(), new \DateTimeZone('UTC')))->getTimestamp();
-            $tB = (new \DateTime($logB->getDate(), new \DateTimeZone('UTC')))->getTimestamp();
-
-            // Interval [tA, tB]
-            $overlapStart = max($tStart, $tA);
-            $overlapEnd = min($tEnd, $tB);
-
-            if ($overlapStart < $overlapEnd) {
-                $valA = EntityUtils::getField($logA, $field) ?: 0;
-                $valB = EntityUtils::getField($logB, $field) ?: 0;
-                $intervalDuration = $tB - $tA;
-                $overlapDuration = $overlapEnd - $overlapStart;
-
-                if ($valB < $valA) {
-                    // Reset! Treat logB as a new baseline. Energy consumed in this interval is 0.
-                    $energyInInterval = 0;
-                } else {
-                    $energyInInterval = ($valB - $valA) * ($overlapDuration / $intervalDuration);
-                }
-                $totalEnergy += $energyInInterval;
+    /**
+     * @param ElectricityMeterLogItem[] $logs
+     */
+    private function normalizeLogs(array $logs): array {
+        $normalizedLogs = [];
+        foreach ($logs as $log) {
+            $normalizedLog = [
+                'date' => $log->getDate(),
+                'timestamp' => (new \DateTime($log->getDate(), new \DateTimeZone('UTC')))->getTimestamp(),
+            ];
+            foreach (self::DELTA_FIELDS as $field) {
+                $normalizedLog[$field] = EntityUtils::getField($log, $field) ?: 0;
             }
+            $normalizedLogs[] = $normalizedLog;
         }
 
-        return $totalEnergy;
+        return $normalizedLogs;
+    }
+
+    private function createEmptySlotTotals(): array {
+        return array_fill_keys(self::DELTA_FIELDS, 0.0);
+    }
+
+    private function persistDelta(int $channelId, int $slotEndTimestamp, array $fields): void {
+        $delta = new ElectricityMeterDeltaLogItem(
+            $channelId,
+            gmdate('Y-m-d H:i:s', $slotEndTimestamp),
+            (int)round($fields['phase1_fae']),
+            (int)round($fields['phase1_rae']),
+            (int)round($fields['phase2_fae']),
+            (int)round($fields['phase2_rae']),
+            (int)round($fields['phase3_fae']),
+            (int)round($fields['phase3_rae']),
+        );
+        $this->measurementLogsEntityManager->persist($delta);
+    }
+
+    private function getFirstSlotDate(\DateTime $firstLogDate, ?\DateTime $startDate): \DateTime {
+        $currentSlotDate = clone($startDate ?: $firstLogDate);
+        if ($startDate) {
+            $currentSlotDate->modify('+15 minutes');
+            return $currentSlotDate;
+        }
+
+        $minutes = (int)$currentSlotDate->format('i');
+        $seconds = (int)$currentSlotDate->format('s');
+        $next15 = (int)(ceil(($minutes + $seconds / 60.0 + 0.0001) / 15) * 15);
+        if ($next15 === 60) {
+            $currentSlotDate->modify('+1 hour');
+            $currentSlotDate->setTime((int)$currentSlotDate->format('H'), 0, 0);
+        } else {
+            $currentSlotDate->setTime((int)$currentSlotDate->format('H'), $next15, 0);
+        }
+
+        return $currentSlotDate;
     }
 
     protected function getIntervalInMinutes(): int {

@@ -66,20 +66,35 @@ class ElectricityMeterDeltaLogItem {
      */
     private ?int $phase3_rae = null;
 
-    public function __construct(int $channel_id, string $date) {
+    public function __construct(
+        int $channel_id,
+        string $date,
+        ?int $phase1_fae = null,
+        ?int $phase1_rae = null,
+        ?int $phase2_fae = null,
+        ?int $phase2_rae = null,
+        ?int $phase3_fae = null,
+        ?int $phase3_rae = null,
+    ) {
         $this->channel_id = $channel_id;
         $this->date = $date;
+        $this->phase1_fae = $phase1_fae;
+        $this->phase1_rae = $phase1_rae;
+        $this->phase2_fae = $phase2_fae;
+        $this->phase2_rae = $phase2_rae;
+        $this->phase3_fae = $phase3_fae;
+        $this->phase3_rae = $phase3_rae;
     }
 
-    public function getChannelId() {
+    public function getChannelId(): int {
         return $this->channel_id;
     }
 
-    public function getDate() {
+    public function getDate(): string {
         return $this->date;
     }
 
-    public function getTotalForwardActiveEnergy($phase = 0) {
+    public function getTotalForwardActiveEnergy($phase = 0): ?int {
         switch ($phase) {
             case 1:
                 return $this->phase1_fae;
@@ -88,10 +103,10 @@ class ElectricityMeterDeltaLogItem {
             case 3:
                 return $this->phase3_fae;
         }
-        return $this->phase1_fae + $this->phase2_fae + $this->phase3_fae;
+        return ($this->phase1_fae ?: 0) + ($this->phase2_fae ?: 0) + ($this->phase3_fae ?: 0);
     }
 
-    public function getTotalReverseActiveEnergy($phase = 0) {
+    public function getTotalReverseActiveEnergy($phase = 0): ?int {
         switch ($phase) {
             case 1:
                 return $this->phase1_rae;
@@ -100,6 +115,6 @@ class ElectricityMeterDeltaLogItem {
             case 3:
                 return $this->phase3_rae;
         }
-        return $this->phase1_rae + $this->phase2_rae + $this->phase3_rae;
+        return ($this->phase1_rae ?: 0) + ($this->phase2_rae ?: 0) + ($this->phase3_rae ?: 0);
     }
 }
