@@ -1,4 +1,5 @@
 <?php
+
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
 
@@ -29,28 +30,26 @@ use App\Enums\BillingPeriodUnit;
 use App\Enums\ChannelType;
 use App\Enums\EnergyPriceComponent;
 use App\Enums\EnergyPriceUnit;
+use App\Model\MeasurementLogs\TariffDefinitionImporter;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use Doctrine\Persistence\ObjectManager;
 
 class TariffsFixture extends SuplaFixture {
-    public const ORDER = DevicesFixture::ORDER + 1;
-    private const DEFINITIONS_FILE = __DIR__ . '/tariff-definitions.json';
 
-    public function __construct(private readonly MeasurementLogsEntityManagerProvider $measurementLogsEntityManagerProvider) {
+    public const ORDER = DevicesFixture::ORDER + 1;
+
+    public function __construct(
+        private readonly MeasurementLogsEntityManagerProvider $measurementLogsEntityManagerProvider,
+        private readonly TariffDefinitionImporter $tariffDefinitionImporter,
+    ) {
     }
 
     public function load(ObjectManager $manager): void {
         $logsEm = $this->measurementLogsEntityManagerProvider->get();
-        $tariffs = [];
-        foreach ($this->getTariffDefinitions() as $definition) {
-            $tariff = new EnergyTariff();
-            $tariff->setCode($definition['code']);
-            $tariff->setName($definition['name']);
-            $tariff->setConfig($definition['config']);
-            $logsEm->persist($tariff);
-            $tariffs[$definition['code']] = $tariff;
-        }
-        $logsEm->flush();
+        $definitions = $this->tariffDefinitionImporter->loadDefinitionsFromFile(
+            __DIR__ . '/tariff-definitions.json'
+        );
+        $tariffs = $this->tariffDefinitionImporter->importDefinitions($definitions)['tariffsByCode'];
         $this->createSampleG11Profile($logsEm, $tariffs['PL_G11']);
         $this->createSampleG12Profile($logsEm, $tariffs['PL_G12']);
         $logsEm->flush();
@@ -76,9 +75,15 @@ class TariffsFixture extends SuplaFixture {
         $pricePeriod->setBillingPeriodLength(1);
         $pricePeriod->setBillingPeriodUnit(BillingPeriodUnit::MONTH);
         $pricePeriod->setCurrency('PLN');
-        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.95, EnergyPriceUnit::KWH));
-        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'ALL_DAY', 0.11, EnergyPriceUnit::KWH));
-        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 12.12, EnergyPriceUnit::MONTH));
+        $pricePeriod->addItem(
+            $this->createProfilePriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 0.95, EnergyPriceUnit::KWH)
+        );
+        $pricePeriod->addItem(
+            $this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'ALL_DAY', 0.11, EnergyPriceUnit::KWH)
+        );
+        $pricePeriod->addItem(
+            $this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 12.12, EnergyPriceUnit::MONTH)
+        );
         $tariffPeriod->addPricePeriod($pricePeriod);
 
         $profileAssignment = new EnergyTariffProfileAssignment($channel->getId());
@@ -104,13 +109,27 @@ class TariffsFixture extends SuplaFixture {
         $pricePeriod->setBillingPeriodLength(2);
         $pricePeriod->setBillingPeriodUnit(BillingPeriodUnit::MONTH);
         $pricePeriod->setCurrency('PLN');
-        $pricePeriod->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
-        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'NIGHT', 0.75, EnergyPriceUnit::KWH));
-        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'DAY', 0.95, EnergyPriceUnit::KWH));
-        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'NIGHT', 0.11, EnergyPriceUnit::KWH));
-        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'DAY', 0.12, EnergyPriceUnit::KWH));
-        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 12.12, EnergyPriceUnit::MONTH));
-        $pricePeriod->addItem($this->createProfilePriceItem(EnergyPriceComponent::FEE_FIXED, null, 10, EnergyPriceUnit::PERIOD));
+        $pricePeriod->setValidFrom(
+            new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC'))
+        );
+        $pricePeriod->addItem(
+            $this->createProfilePriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'NIGHT', 0.75, EnergyPriceUnit::KWH)
+        );
+        $pricePeriod->addItem(
+            $this->createProfilePriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'DAY', 0.95, EnergyPriceUnit::KWH)
+        );
+        $pricePeriod->addItem(
+            $this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'NIGHT', 0.11, EnergyPriceUnit::KWH)
+        );
+        $pricePeriod->addItem(
+            $this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'DAY', 0.12, EnergyPriceUnit::KWH)
+        );
+        $pricePeriod->addItem(
+            $this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 12.12, EnergyPriceUnit::MONTH)
+        );
+        $pricePeriod->addItem(
+            $this->createProfilePriceItem(EnergyPriceComponent::FEE_FIXED, null, 10, EnergyPriceUnit::PERIOD)
+        );
         $tariffPeriod->addPricePeriod($pricePeriod);
 
         $logsEm->persist($profile);
@@ -128,9 +147,5 @@ class TariffsFixture extends SuplaFixture {
         $item->setAmount($amount);
         $item->setUnit($unit);
         return $item;
-    }
-
-    private function getTariffDefinitions(): array {
-        return json_decode(file_get_contents(self::DEFINITIONS_FILE), true) ?: [];
     }
 }
