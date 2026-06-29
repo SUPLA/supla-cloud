@@ -767,8 +767,11 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?limit=10&logsType=voltage");
         $response = $client->getResponse();
+        $this->assertStatusCode('200', $response);
         $content = json_decode($response->getContent(), true);
-        $testItem = $content[3];
+        $this->assertNotEmpty($content);
+        $testItem = $content[0];
+        $this->assertArrayHasKey('date_timestamp', $testItem);
         $dateTime = new \DateTime('@' . $testItem['date_timestamp'], new \DateTimeZone($this->user->getTimezone()));
         $expectedRow = "$testItem[date_timestamp],\"" . $dateTime->format('Y-m-d H:i:s') . "\",$testItem[measurementTimeSec]";
         $this->assertStringContainsString($expectedRow, $csv);

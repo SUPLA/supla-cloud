@@ -46,12 +46,12 @@ class MeasurementCsvExporter {
         DatabaseUtils::turnOffQueryBuffering($this->measurementLogsEntityManager);
         [$csvHeaders, $sqlQuery] = $this->getDataFetchDefinition($channel, $logsType ?: 'default');
         $handle = fopen($tempFile, 'w+');
-        fputcsv($handle, $csvHeaders);
+        fputcsv($handle, $csvHeaders, escape: "\\");
         $stmt = $this->measurementLogsEntityManager->getConnection()->prepare($sqlQuery);
         $timezone = $this->getCurrentUserOrThrow()->getTimezone();
         $result = $stmt->executeQuery([':timezone' => $timezone, ':channelId' => $channel->getId()]);
         while ($row = $result->fetchNumeric()) {
-            fputcsv($handle, $row);
+            fputcsv($handle, $row, escape: "\\");
         }
         fclose($handle);
         return $tempFile;

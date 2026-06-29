@@ -23,6 +23,7 @@ use App\Entity\MeasurementLogs\EnergyTariffHoliday;
 use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
 use App\Entity\MeasurementLogs\EnergyTariffResolvedZone;
 use App\Model\TimeProvider;
+use App\Utils\DatabaseUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -144,11 +145,14 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements Initi
     }
 
     private function findEarliestTariffLogStart(int $tariffId): ?\DateTime {
-        $sql = 'SELECT MIN(DATE_SUB(d.date, INTERVAL 15 MINUTE)) earliest_slot_start
+        $slotStartExpr = DatabaseUtils::getPlatform($this->measurementLogsEntityManager) === DatabaseUtils::PSQL
+            ? "d.date - INTERVAL '15 minutes'"
+            : 'DATE_SUB(d.date, INTERVAL 15 MINUTE)';
+        $sql = "SELECT MIN($slotStartExpr) earliest_slot_start
             FROM supla_em_delta_log d
             JOIN supla_energy_tariff_profile_assignment pa ON pa.channel_id = d.channel_id
             JOIN supla_energy_tariff_profile_tariff_period tp ON tp.profile_id = pa.profile_id
-            WHERE tp.tariff_id = :tariffId';
+            WHERE tp.tariff_id = :tariffId";
         $value = $this->measurementLogsEntityManager->getConnection()->fetchOne($sql, ['tariffId' => $tariffId]);
 
         return $value ? new \DateTime($value, new \DateTimeZone('UTC')) : null;
