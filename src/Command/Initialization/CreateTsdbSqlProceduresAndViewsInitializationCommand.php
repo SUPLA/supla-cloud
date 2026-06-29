@@ -1,6 +1,7 @@
 <?php
 namespace App\Command\Initialization;
 
+use App\Kernel;
 use App\Utils\StringUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -10,9 +11,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CreateTsdbSqlProceduresAndViewsInitializationCommand extends Command {
-    private const PROCEDURES_PATH = __DIR__ . '/../../../../migrations/tsdb/procedures';
+    private const PROCEDURES_PATH = Kernel::ROOT_PATH . '/migrations/tsdb/procedures';
 
-    private EntityManagerInterface $entityManager;
+    private readonly EntityManagerInterface $entityManager;
 
     public function __construct(ManagerRegistry $doctrineRegistry) {
         parent::__construct();
