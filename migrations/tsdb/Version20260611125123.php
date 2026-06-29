@@ -31,7 +31,7 @@ class Version20260611125123 extends NoWayBackMigration {
         $this->addSql('CREATE SEQUENCE supla_energy_tariff_profile_price_period_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE supla_energy_tariff_profile_tariff_period_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE supla_energy_tariff_resolved_zone_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE supla_em_delta_log (channel_id INT NOT NULL, date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, phase1_fae VARCHAR(255) DEFAULT NULL, phase1_rae VARCHAR(255) DEFAULT NULL, phase2_fae VARCHAR(255) DEFAULT NULL, phase2_rae VARCHAR(255) DEFAULT NULL, phase3_fae VARCHAR(255) DEFAULT NULL, phase3_rae VARCHAR(255) DEFAULT NULL, PRIMARY KEY(channel_id, date))');
+        $this->addSql('CREATE TABLE supla_em_delta_log (channel_id INT NOT NULL, date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, phase1_fae INT DEFAULT NULL, phase1_rae INT DEFAULT NULL, phase2_fae INT DEFAULT NULL, phase2_rae INT DEFAULT NULL, phase3_fae INT DEFAULT NULL, phase3_rae INT DEFAULT NULL, PRIMARY KEY(channel_id, date))');
         $this->addSql('COMMENT ON COLUMN supla_em_delta_log.date IS \'(DC2Type:stringdatetime)\'');
         $this->addSql('CREATE TABLE supla_energy_tariff (id BIGINT NOT NULL, code VARCHAR(100) NOT NULL, name VARCHAR(255) NOT NULL, config_json JSON NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON COLUMN supla_energy_tariff.created_at IS \'(DC2Type:utcdatetime)\'');

@@ -37,34 +37,34 @@ class ElectricityMeterDeltaLogItem {
     private string $date;
 
     /**
-     * @ORM\Column(name="phase1_fae", nullable=true)
+     * @ORM\Column(name="phase1_fae", type="integer", nullable=true)
      */
-    private $phase1_fae;
+    private ?int $phase1_fae = null;
 
     /**
-     * @ORM\Column(name="phase1_rae", nullable=true)
+     * @ORM\Column(name="phase1_rae", type="integer", nullable=true)
      */
-    private $phase1_rae;
+    private ?int $phase1_rae = null;
 
     /**
-     * @ORM\Column(name="phase2_fae", nullable=true)
+     * @ORM\Column(name="phase2_fae", type="integer", nullable=true)
      */
-    private $phase2_fae;
+    private ?int $phase2_fae = null;
 
     /**
-     * @ORM\Column(name="phase2_rae",nullable=true)
+     * @ORM\Column(name="phase2_rae", type="integer", nullable=true)
      */
-    private $phase2_rae;
+    private ?int $phase2_rae = null;
 
     /**
-     * @ORM\Column(name="phase3_fae", nullable=true)
+     * @ORM\Column(name="phase3_fae", type="integer", nullable=true)
      */
-    private $phase3_fae;
+    private ?int $phase3_fae = null;
 
     /**
-     * @ORM\Column(name="phase3_rae", nullable=true)
+     * @ORM\Column(name="phase3_rae", type="integer", nullable=true)
      */
-    private $phase3_rae;
+    private ?int $phase3_rae = null;
 
     public function __construct(int $channel_id, string $date) {
         $this->channel_id = $channel_id;
