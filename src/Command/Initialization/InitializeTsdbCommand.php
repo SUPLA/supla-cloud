@@ -29,6 +29,8 @@ class InitializeTsdbCommand extends Command {
                 'doctrine:migrations:migrate -v --no-interaction --configuration=config/doctrine-migrations-tsdb.php';
             $this->getApplication()->run(new StringInput($migrateCommand), $output);
             $this->getApplication()->run(new StringInput('supla:initialize:create-tsdb-procedures'), $output);
+        } elseif ($input->isInteractive() || $output->isVerbose()) {
+            $output->writeln('Logs are not stored in TSDB.');
         }
         return 0;
     }
