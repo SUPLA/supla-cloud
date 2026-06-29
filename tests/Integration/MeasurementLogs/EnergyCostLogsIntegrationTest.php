@@ -249,6 +249,27 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(18.0, $quarterSummary['costs']['byComponent']['DISTRIBUTION_FIXED']);
     }
 
+    public function testFetchingEnergyCostSummariesForOpenStartProfileWithoutAfterTimestamp(): void {
+        $client = $this->createAuthenticatedClient($this->user);
+        $beforeTimestamp = strtotime('2026-04-01 00:00:00 UTC');
+        $client->apiRequestV24(
+            'GET',
+            sprintf(
+                "/api/2.4.0/channels/%s/energy-cost-summaries?beforeTimestamp=%s",
+                $this->quarterlyProfileChannel->getId(),
+                $beforeTimestamp
+            )
+        );
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertCount(1, $content);
+        $this->assertEquals('2026-01-01T00:00:00+00:00', $content[0]['periodStart']);
+        $this->assertEquals('2026-04-01T00:00:00+00:00', $content[0]['periodEnd']);
+        $this->assertEquals(0.3, $content[0]['usage']['totalKwh']);
+        $this->assertEquals(18.09, $content[0]['costs']['total']);
+    }
+
     public function testFetchingEnergyCostLogsForOpenStartProfile(): void {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/2.4.0/channels/' . $this->quarterlyProfileChannel->getId() . '/energy-cost-logs?order=ASC');
@@ -277,6 +298,67 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertNull($content[0]['pricePeriodId']);
         $this->assertNull($content[0]['costs']);
         $this->assertEquals(150, $content[0]['usage']['totalFae']);
+    }
+
+    public function testFetchingEnergyCostSummariesAcrossMultipleInternalBatches(): void {
+        $location = $this->createLocation($this->user);
+        $device = $this->createDevice($location, [[ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER]]);
+        $channel = $device->getChannels()[0];
+
+        $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
+        $tariff = $this->createTariff($logsEm, 'PL_BATCH_TEST', 'Batch test', 'UTC', [['code' => 'ALL_DAY']]);
+        $logsEm->flush();
+        $logsEm->persist(new EnergyTariffResolvedZone(
+            $tariff->getId(),
+            'ALL_DAY',
+            new \DateTime('2026-01-01 00:00:00', new \DateTimeZone('UTC')),
+            new \DateTime('2026-05-01 00:00:00', new \DateTimeZone('UTC'))
+        ));
+
+        $profile = new EnergyTariffProfile();
+        $profile->setUserId($this->user->getId());
+        $profile->setName('Batch profile');
+        $profile->addTariffPeriod($this->createTariffPeriod(
+            $tariff,
+            null,
+            null,
+            [
+                $this->createPricePeriod('PLN', 1, BillingPeriodUnit::YEAR, null, null, [
+                    $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 1.0, EnergyPriceUnit::KWH),
+                ]),
+            ]
+        ));
+        $logsEm->persist($profile);
+
+        $assignment = new EnergyTariffProfileAssignment($channel->getId());
+        $assignment->setProfile($profile);
+        $logsEm->persist($assignment);
+
+        $start = new \DateTime('2026-01-01 00:15:00', new \DateTimeZone('UTC'));
+        for ($i = 0; $i <= 10000; $i++) {
+            $date = clone $start;
+            if ($i > 0) {
+                $date->modify(sprintf('+%d minutes', $i * 15));
+            }
+            $this->createDeltaLog($logsEm, $channel->getId(), $date->format('Y-m-d H:i:s'), 100, 0, 0);
+        }
+        $logsEm->flush();
+
+        $client = $this->createAuthenticatedClient($this->user);
+        $beforeTimestamp = strtotime('2027-01-01 00:00:00 UTC');
+        $client->apiRequestV24(
+            'GET',
+            sprintf('/api/2.4.0/channels/%s/energy-cost-summaries?beforeTimestamp=%s', $channel->getId(), $beforeTimestamp)
+        );
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertCount(1, $content);
+        $this->assertEquals('2026-01-01T00:00:00+00:00', $content[0]['periodStart']);
+        $this->assertEquals('2027-01-01T00:00:00+00:00', $content[0]['periodEnd']);
+        $this->assertEquals(1000.1, $content[0]['usage']['totalKwh']);
+        $this->assertEquals(1000.1, $content[0]['costs']['total']);
+        $this->assertEquals(1000.1, $content[0]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
     }
 
     private function createTariff($logsEm, string $code, string $name, string $timezone, array $zones): EnergyTariff {
