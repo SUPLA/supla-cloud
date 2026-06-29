@@ -127,7 +127,7 @@ export function countPricePeriods(profile) {
 }
 
 export function selectedTariff(tariffs, tariffId) {
-  return tariffs.find((tariff) => tariff.id === tariffId);
+  return tariffs.find((tariff) => String(tariff.id) === String(tariffId));
 }
 
 export function tariffZones(tariffs, tariffPeriod) {
