@@ -15,6 +15,7 @@
   },
   "require": {
     "php": ">=8.2.10",
+    "ext-calendar": "*",
     "ext-curl": "*",
     "ext-gd": "*",
     "ext-intl": "*",
