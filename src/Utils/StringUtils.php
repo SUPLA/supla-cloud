@@ -52,7 +52,7 @@ final class StringUtils {
     /**
      * @see https://stackoverflow.com/a/15575293/878514
      */
-    public static function joinPaths(string...$paths): string {
+    public static function joinPaths(string ...$paths): string {
         $nonEmptyPaths = array_filter(
             $paths,
             function ($s) {

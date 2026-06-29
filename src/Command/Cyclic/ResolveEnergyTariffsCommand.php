@@ -314,7 +314,8 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements Initi
             if ($interval['start']->getTimestamp() > $segmentStartTs || $interval['end']->getTimestamp() < $segmentEndTs) {
                 continue;
             }
-            if (!$winner
+            if (
+                !$winner
                 || $interval['priority'] < $winner['priority']
                 || ($interval['priority'] === $winner['priority'] && $interval['ruleOrder'] < $winner['ruleOrder'])
             ) {

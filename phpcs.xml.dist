@@ -17,8 +17,10 @@
     <file>src/</file>
     <file>tests/</file>
 
-    <rule ref="PSR2">
+    <rule ref="PSR12">
         <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
+        <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
+        <exclude name="PSR12.Properties.ConstantVisibility.NotFound"/>
         <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
         <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
     </rule>

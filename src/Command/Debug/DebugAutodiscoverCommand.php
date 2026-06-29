@@ -8,7 +8,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class DebugAutodiscoverCommand extends Command {
-
     private SuplaAutodiscover $autodiscover;
 
     public function __construct(SuplaAutodiscover $autodiscover) {

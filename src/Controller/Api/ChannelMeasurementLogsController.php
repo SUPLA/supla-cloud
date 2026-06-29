@@ -278,9 +278,11 @@ class ChannelMeasurementLogsController extends RestController {
                         'sec_below "secBelow", sec_above "secAbove", max_sec_above "maxSecAbove", max_sec_below "maxSecBelow",' .
                         'min_voltage "minVoltage", max_voltage "maxVoltage", avg_voltage "avgVoltage", measurement_time_sec "measurementTimeSec"';
                 }
-                if (in_array($logsType, [
+                if (
+                    in_array($logsType, [
                     self::LOGS_TYPE_VOLTAGE_HISTORY, self::LOGS_TYPE_CURRENT_HISTORY, self::LOGS_TYPE_POWER_ACTIVE_HISTORY,
-                ])) {
+                    ])
+                ) {
                     $columns = 'phase_no "phaseNo", avg avg, min min, max max';
                 }
                 return $this->logItems(
@@ -628,11 +630,13 @@ class ChannelMeasurementLogsController extends RestController {
 
     private function findTargetChannel(IODeviceChannel $channel): IODeviceChannel {
         $targetChannel = $channel;
-        if (in_array($channel->getFunction()->getId(), [
+        if (
+            in_array($channel->getFunction()->getId(), [
             ChannelFunction::POWERSWITCH,
             ChannelFunction::LIGHTSWITCH,
             ChannelFunction::STAIRCASETIMER,
-        ])) {
+            ])
+        ) {
             $channelConfig = $this->channelParamConfigTranslator->getConfig($channel);
             $relatedMeasurementChannelId = $channelConfig['relatedMeterChannelId'] ?? null;
             if ($relatedMeasurementChannelId) {

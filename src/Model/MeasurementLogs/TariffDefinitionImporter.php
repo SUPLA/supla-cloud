@@ -22,7 +22,6 @@ use App\Entity\MeasurementLogs\EnergyTariff;
 use App\Model\MeasurementLogsEntityManagerProvider;
 
 class TariffDefinitionImporter {
-
     public function __construct(
         private readonly MeasurementLogsEntityManagerProvider $measurementLogsEntityManagerProvider,
     ) {

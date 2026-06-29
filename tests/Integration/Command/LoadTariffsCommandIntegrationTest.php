@@ -27,7 +27,6 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 /** @small */
 class LoadTariffsCommandIntegrationTest extends IntegrationTestCase {
-
     public function testLoadingSingleTariffDefinition(): void {
         $command = $this->application->find('supla:load-tariffs');
         $commandTester = new CommandTester($command);

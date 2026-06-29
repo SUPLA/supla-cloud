@@ -21,7 +21,6 @@ use App\Entity\Main\OAuth\ApiClient;
 use OAuth2\OAuth2;
 
 class AutodiscoverPublicClientStub extends ApiClient {
-
     /** @var string */
     private $publicId;
 

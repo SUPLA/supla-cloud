@@ -82,7 +82,6 @@
 
   const loading = ref(false);
   const error = ref(false);
-  const deleteConfirm = ref(false);
   const profile = ref();
   const tariffs = ref([]);
 

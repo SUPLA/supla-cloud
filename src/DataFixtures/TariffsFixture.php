@@ -35,7 +35,6 @@ use App\Model\MeasurementLogsEntityManagerProvider;
 use Doctrine\Persistence\ObjectManager;
 
 class TariffsFixture extends SuplaFixture {
-
     public const ORDER = DevicesFixture::ORDER + 1;
 
     public function __construct(
