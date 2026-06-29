@@ -1,151 +1,151 @@
 {
-    "name": "supla/supla-cloud",
-    "license": "GPL-2.0+",
-    "type": "project",
-    "description": "SUPLA-CLOUD is a central point joining the executive devices for indirect and direct operation of your household or office appliances and other elements with client applications which you can install on your tablets and smartphones.",
-    "autoload": {
-        "psr-4": {
-            "App\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "App\\Tests\\": "tests/"
-        }
-    },
-    "require": {
-        "php": ">=8.2.10",
-        "ext-curl": "*",
-        "ext-gd": "*",
-        "ext-intl": "*",
-        "ext-json": "*",
-        "ext-mbstring": "*",
-        "ext-zip": "*",
-        "composer-runtime-api": "^2",
-        "beberlei/assert": "^3.3.3",
-        "cocur/slugify": "^4.7",
-        "doctrine/doctrine-bundle": "^2.7.0",
-        "doctrine/doctrine-migrations-bundle": "^3.7",
-        "doctrine/orm": "^2.5",
-        "dragonmantank/cron-expression": "^3.6.0",
-        "egulias/email-validator": "^3.2.6",
-        "friendsofsymfony/rest-bundle": "^3.1",
-        "google/recaptcha": "^1.1",
-        "gumlet/php-image-resize": "^2.0",
-        "incenteev/composer-parameter-handler": "~2.0",
-        "klapaudius/oauth-server-bundle": "^3.0",
-        "monolog/monolog": "^2.11",
-        "myclabs/php-enum": "1.5.*",
-        "nelmio/cors-bundle": "^2.6.0",
-        "sensio/framework-extra-bundle": "^6.0",
-        "symfony/console": "^5.4",
-        "symfony/doctrine-messenger": "^5.4",
-        "symfony/dotenv": "^5.4",
-        "symfony/expression-language": "^5.4",
-        "symfony/flex": "^2.10",
-        "symfony/form": "^5.4",
-        "symfony/framework-bundle": "^5.4",
-        "symfony/lock": "^5.4",
-        "symfony/mailer": "^5.4",
-        "symfony/messenger": "^5.4",
-        "symfony/mime": "^5.4",
-        "symfony/monolog-bundle": "^3.2",
-        "symfony/polyfill-apcu": "^1.0",
-        "symfony/runtime": "^5.4",
-        "symfony/security-bundle": "^5.4",
-        "symfony/serializer": "^5.4",
-        "symfony/translation": "^5.4",
-        "symfony/validator": "^5.4",
-        "symfony/yaml": "^5.4",
-        "twig/intl-extra": "^3.3",
-        "twig/twig": "^3.3",
-        "ua-parser/uap-php": "^3.9",
-        "zircote/swagger-php": "^4.0"
-    },
-    "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^4.0",
-        "fakerphp/faker": "^1.23",
-        "phpunit/phpunit": "^10.0",
-        "rector/rector": "^2.3",
-        "squizlabs/php_codesniffer": "^3.6",
-        "symfony/browser-kit": "^5.4",
-        "symfony/phpunit-bridge": "^5.4",
-        "symfony/process": "^5.4"
-    },
-    "scripts": {
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
-        },
-        "post-install-cmd": [
-            "@auto-scripts",
-            "@dump-version"
-        ],
-        "post-update-cmd": [
-            "@auto-scripts",
-            "@dump-version"
-        ],
-        "dump-version": [
-            "App\\DependencyInjection\\GitVersionDumper::dumpVersion"
-        ],
-        "test": [
-            "phpunit -c app --testdox"
-        ],
-        "lint-backend": [
-            "phpcs src --standard=config/phpcs-rules.xml"
-        ],
-        "lint-frontend": [
-            "cd frontend && npm run lint -s"
-        ],
-        "lint": [
-            "@lint-frontend",
-            "@lint-backend"
-        ],
-        "phpcbf": [
-            "phpcbf src --standard=config/phpcs-rules.xml"
-        ],
-        "webpack": [
-            "cd frontend && npm install",
-            "cd frontend && npm run build"
-        ],
-        "release": [
-            "@dump-version",
-            "APP_ENV=prod APP_DEBUG=0 composer install --no-dev --optimize-autoloader",
-            "composer run-script webpack",
-            "cd frontend && npm run release"
-        ],
-        "release-dev": [
-            "@dump-version",
-            "composer install --optimize-autoloader",
-            "composer run-script webpack",
-            "cd frontend && npm run release-dev"
-        ],
-        "collect-translations": [
-            "php bin/console supla:dev:generateTranslations",
-            "cd frontend && npm run collect-translations"
-        ]
-    },
-    "config": {
-        "platform": {
-            "php": "8.2.26"
-        },
-        "process-timeout": 0,
-        "sort-packages": true,
-        "allow-plugins": {
-            "symfony/flex": true,
-            "symfony/runtime": true
-        },
-        "preferred-install": {
-            "*": "dist"
-        }
-    },
-    "conflict": {
-        "symfony/symfony": "*"
-    },
-    "extra": {
-        "symfony": {
-            "allow-contrib": false,
-            "require": "^5.4"
-        }
+  "name": "supla/supla-cloud",
+  "license": "GPL-2.0+",
+  "type": "project",
+  "description": "SUPLA-CLOUD is a central point joining the executive devices for indirect and direct operation of your household or office appliances and other elements with client applications which you can install on your tablets and smartphones.",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "App\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": ">=8.2.10",
+    "ext-curl": "*",
+    "ext-gd": "*",
+    "ext-intl": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "ext-zip": "*",
+    "composer-runtime-api": "^2",
+    "beberlei/assert": "^3.3.3",
+    "cocur/slugify": "^4.7",
+    "doctrine/doctrine-bundle": "^2.7.0",
+    "doctrine/doctrine-migrations-bundle": "^3.7",
+    "doctrine/orm": "^2.5",
+    "dragonmantank/cron-expression": "^3.6.0",
+    "egulias/email-validator": "^3.2.6",
+    "friendsofsymfony/rest-bundle": "^3.1",
+    "google/recaptcha": "^1.1",
+    "gumlet/php-image-resize": "^2.0",
+    "incenteev/composer-parameter-handler": "~2.0",
+    "klapaudius/oauth-server-bundle": "^3.0",
+    "monolog/monolog": "^2.11",
+    "myclabs/php-enum": "1.5.*",
+    "nelmio/cors-bundle": "^2.6.0",
+    "sensio/framework-extra-bundle": "^6.0",
+    "symfony/console": "^5.4",
+    "symfony/doctrine-messenger": "^5.4",
+    "symfony/dotenv": "^5.4",
+    "symfony/expression-language": "^5.4",
+    "symfony/flex": "^2.10",
+    "symfony/form": "^5.4",
+    "symfony/framework-bundle": "^5.4",
+    "symfony/lock": "^5.4",
+    "symfony/mailer": "^5.4",
+    "symfony/messenger": "^5.4",
+    "symfony/mime": "^5.4",
+    "symfony/monolog-bundle": "^3.2",
+    "symfony/polyfill-apcu": "^1.0",
+    "symfony/runtime": "^5.4",
+    "symfony/security-bundle": "^5.4",
+    "symfony/serializer": "^5.4",
+    "symfony/translation": "^5.4",
+    "symfony/validator": "^5.4",
+    "symfony/yaml": "^5.4",
+    "twig/intl-extra": "^3.3",
+    "twig/twig": "^3.3",
+    "ua-parser/uap-php": "^3.9",
+    "zircote/swagger-php": "^4.0"
+  },
+  "require-dev": {
+    "doctrine/doctrine-fixtures-bundle": "^4.0",
+    "fakerphp/faker": "^1.23",
+    "phpunit/phpunit": "^10.0",
+    "rector/rector": "^2.3",
+    "squizlabs/php_codesniffer": "^3.6",
+    "symfony/browser-kit": "^5.4",
+    "symfony/phpunit-bridge": "^5.4",
+    "symfony/process": "^5.4"
+  },
+  "scripts": {
+    "auto-scripts": {
+      "cache:clear": "symfony-cmd",
+      "assets:install %PUBLIC_DIR%": "symfony-cmd"
+    },
+    "post-install-cmd": [
+      "@auto-scripts",
+      "@dump-version"
+    ],
+    "post-update-cmd": [
+      "@auto-scripts",
+      "@dump-version"
+    ],
+    "dump-version": [
+      "App\\DependencyInjection\\GitVersionDumper::dumpVersion"
+    ],
+    "test": [
+      "phpunit -c app --testdox"
+    ],
+    "lint-backend": [
+      "phpcs"
+    ],
+    "lint-frontend": [
+      "cd frontend && npm run lint -s"
+    ],
+    "lint": [
+      "@lint-frontend",
+      "@lint-backend"
+    ],
+    "phpcbf": [
+      "phpcbf"
+    ],
+    "webpack": [
+      "cd frontend && npm install",
+      "cd frontend && npm run build"
+    ],
+    "release": [
+      "@dump-version",
+      "APP_ENV=prod APP_DEBUG=0 composer install --no-dev --optimize-autoloader",
+      "composer run-script webpack",
+      "cd frontend && npm run release"
+    ],
+    "release-dev": [
+      "@dump-version",
+      "composer install --optimize-autoloader",
+      "composer run-script webpack",
+      "cd frontend && npm run release-dev"
+    ],
+    "collect-translations": [
+      "php bin/console supla:dev:generateTranslations",
+      "cd frontend && npm run collect-translations"
+    ]
+  },
+  "config": {
+    "platform": {
+      "php": "8.2.26"
+    },
+    "process-timeout": 0,
+    "sort-packages": true,
+    "allow-plugins": {
+      "symfony/flex": true,
+      "symfony/runtime": true
+    },
+    "preferred-install": {
+      "*": "dist"
+    }
+  },
+  "conflict": {
+    "symfony/symfony": "*"
+  },
+  "extra": {
+    "symfony": {
+      "allow-contrib": false,
+      "require": "^5.4"
+    }
+  }
 }

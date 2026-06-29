@@ -87,7 +87,12 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements Initi
         $periodEnd = (clone $defaultPeriodStart)->add(new \DateInterval('P' . $monthsAhead . 'M'));
 
         if ($output->isVerbose()) {
-            $output->writeln(sprintf('Resolving tariff %s from %s to %s', $tariff->getCode(), $periodStart->format('Y-m-d H:i:s'), $periodEnd->format('Y-m-d H:i:s')));
+            $output->writeln(sprintf(
+                'Resolving tariff %s from %s to %s',
+                $tariff->getCode(),
+                $periodStart->format('Y-m-d H:i:s'),
+                $periodEnd->format('Y-m-d H:i:s')
+            ));
         }
 
         $this->measurementLogsEntityManager->createQueryBuilder()

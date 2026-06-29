@@ -44,8 +44,19 @@ class GenerateEnergyTariffHolidaysCommand extends AbstractCyclicCommand implemen
             ->setHidden(true)
             ->setName('supla:cyclic:generate-energy-tariff-holidays')
             ->setDescription('Generates holidays per timezone for energy tariffs.')
-            ->addOption('years-ahead', null, InputOption::VALUE_REQUIRED, 'How many years ahead should be generated.', self::DEFAULT_YEARS_AHEAD)
-            ->addOption('timezone', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Generate holidays only for selected timezones.');
+            ->addOption(
+                'years-ahead',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'How many years ahead should be generated.',
+                self::DEFAULT_YEARS_AHEAD
+            )
+            ->addOption(
+                'timezone',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'Generate holidays only for selected timezones.'
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int {

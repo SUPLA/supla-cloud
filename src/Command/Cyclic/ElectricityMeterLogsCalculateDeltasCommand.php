@@ -169,8 +169,12 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand i
         $lastLogTimestamp = $lastLogDate->getTimestamp();
         while ($currentSlotDate->getTimestamp() <= $lastLogTimestamp) {
             // Find logs that surround $currentSlotDate
-            while ($logIndex < count($logs) - 1 && (new \DateTime($logs[$logIndex + 1]->getDate(), new \DateTimeZone('UTC')))->getTimestamp() < $currentSlotDate->getTimestamp()) {
+            $nextLogTimestamp = (new \DateTime($logs[$logIndex + 1]->getDate(), new \DateTimeZone('UTC')))->getTimestamp();
+            while ($logIndex < count($logs) - 1 && $nextLogTimestamp < $currentSlotDate->getTimestamp()) {
                 $logIndex++;
+                if ($logIndex < count($logs) - 1) {
+                    $nextLogTimestamp = (new \DateTime($logs[$logIndex + 1]->getDate(), new \DateTimeZone('UTC')))->getTimestamp();
+                }
             }
 
             if ($logIndex >= count($logs) - 1) {

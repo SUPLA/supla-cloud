@@ -523,7 +523,13 @@ class EnergyTariffController extends RestController {
                             'periodEnd' => $billingContext['periodEnd'],
                             'timezone' => $billingContext['timezone'],
                             'usage' => ['totalKwh' => 0.0, 'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0]],
-                            'costs' => ['currency' => $pricePeriod->getCurrency(), 'total' => 0.0, 'byComponent' => [], 'byZone' => [], 'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0]],
+                            'costs' => [
+                                'currency' => $pricePeriod->getCurrency(),
+                                'total' => 0.0,
+                                'byComponent' => [],
+                                'byZone' => [],
+                                'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0],
+                            ],
                         ];
                     }
 
@@ -905,11 +911,19 @@ class EnergyTariffController extends RestController {
             Assertion::regex($pricePeriod->getCurrency(), '/^[A-Z]{3}$/');
             $this->assertEndAfterStart($pricePeriod->getValidFrom(), $pricePeriod->getValidTo());
             if ($tariffPeriod->getValidFrom() && $pricePeriod->getValidFrom()) {
-                Assertion::greaterOrEqualThan($pricePeriod->getValidFrom()->getTimestamp(), $tariffPeriod->getValidFrom()->getTimestamp(), 'Price period cannot start before the tariff period.');
+                Assertion::greaterOrEqualThan(
+                    $pricePeriod->getValidFrom()->getTimestamp(),
+                    $tariffPeriod->getValidFrom()->getTimestamp(),
+                    'Price period cannot start before the tariff period.'
+                );
             }
             if ($tariffPeriod->getValidTo()) {
                 Assertion::notNull($pricePeriod->getValidTo(), 'Price periods must not exceed the tariff period.');
-                Assertion::lessOrEqualThan($pricePeriod->getValidTo()->getTimestamp(), $tariffPeriod->getValidTo()->getTimestamp(), 'Price period cannot end after the tariff period.');
+                Assertion::lessOrEqualThan(
+                    $pricePeriod->getValidTo()->getTimestamp(),
+                    $tariffPeriod->getValidTo()->getTimestamp(),
+                    'Price period cannot end after the tariff period.'
+                );
             }
             if ($index === 0) {
                 Assertion::eq(

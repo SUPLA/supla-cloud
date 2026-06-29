@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         name="SUPLA"
          xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+
+    <description>SUPLA backend coding standard</description>
 
     <arg name="basepath" value="."/>
     <arg name="cache" value=".phpcs-cache"/>
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
 
-    <rule ref="PSR12"/>
-
     <file>bin/</file>
     <file>config/</file>
     <file>public/</file>
     <file>src/</file>
     <file>tests/</file>
+
+    <rule ref="PSR2">
+        <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
+        <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+    </rule>
+
+    <rule ref="Generic.Classes.OpeningBraceSameLine"/>
+    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
+
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="160"/>
+            <property name="absoluteLineLimit" value="200"/>
+            <property name="ignoreComments" value="true"/>
+        </properties>
+    </rule>
 
 </ruleset>

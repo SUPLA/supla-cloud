@@ -183,7 +183,12 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $beforeTimestamp = strtotime('2026-02-10 00:00:00 UTC');
         $client->apiRequestV24(
             'GET',
-            '/api/2.4.0/channels/' . $this->switchingProfileChannel->getId() . '/energy-cost-summaries?afterTimestamp=' . $afterTimestamp . '&beforeTimestamp=' . $beforeTimestamp
+            sprintf(
+                "/api/2.4.0/channels/%s/energy-cost-summaries?afterTimestamp=%s&beforeTimestamp=%s",
+                $this->switchingProfileChannel->getId(),
+                $afterTimestamp,
+                $beforeTimestamp
+            )
         );
         $this->assertStatusCode(200, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
@@ -221,7 +226,12 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $beforeTimestamp = strtotime('2026-04-01 00:00:00 UTC');
         $client->apiRequestV24(
             'GET',
-            '/api/2.4.0/channels/' . $this->quarterlyProfileChannel->getId() . '/energy-cost-summaries?afterTimestamp=' . $afterTimestamp . '&beforeTimestamp=' . $beforeTimestamp
+            sprintf(
+                "/api/2.4.0/channels/%s/energy-cost-summaries?afterTimestamp=%s&beforeTimestamp=%s",
+                $this->quarterlyProfileChannel->getId(),
+                $afterTimestamp,
+                $beforeTimestamp
+            )
         );
         $this->assertStatusCode(200, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
