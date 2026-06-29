@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Command;
 
 use Doctrine\Persistence\ManagerRegistry;
@@ -48,7 +49,7 @@ class CopyMeasurementLogsCommand extends Command {
         ini_set('memory_limit', $input->getOption('memory-limit'));
         $io = new SymfonyStyle($input, $output);
         $emMariadb = $this->registry->getManager('default');
-        $emTsdb = $this->registry->getManager('tsdb');
+        $emTsdb = $this->registry->getManager('logs_tsdb');
         $this->getApplication()->setAutoExit(false);
         $this->getApplication()->run(new StringInput("supla:initialize:tsdb --force"), $output);
 

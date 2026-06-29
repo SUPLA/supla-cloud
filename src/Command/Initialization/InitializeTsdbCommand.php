@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Command\Initialization;
 
 use App\Model\MeasurementLogsEntityManagerProvider;
@@ -25,7 +26,7 @@ class InitializeTsdbCommand extends Command {
         $this->getApplication()->setAutoExit(false);
         if ($this->emProvider->isTsdb() || $input->getOption('force')) {
             $migrateCommand =
-                "doctrine:migrations:migrate -v --no-interaction --configuration=config/packages/doctrine_migrations_tsdb.yml";
+                'doctrine:migrations:migrate -v --no-interaction --configuration=config/doctrine-migrations-tsdb.php';
             $this->getApplication()->run(new StringInput($migrateCommand), $output);
             $this->getApplication()->run(new StringInput('supla:initialize:create-tsdb-procedures'), $output);
         }
