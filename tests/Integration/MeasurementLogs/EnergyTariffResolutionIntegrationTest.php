@@ -17,27 +17,19 @@
 
 namespace App\Tests\Integration\MeasurementLogs;
 
-use App\Entity\EntityUtils;
-use App\Entity\MeasurementLogs\ElectricityMeterDeltaLogItem;
 use App\Entity\MeasurementLogs\EnergyTariff;
 use App\Entity\MeasurementLogs\EnergyTariffHoliday;
-use App\Entity\MeasurementLogs\EnergyTariffProfile;
-use App\Entity\MeasurementLogs\EnergyTariffProfileAssignment;
-use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
 use App\Entity\MeasurementLogs\EnergyTariffResolvedZone;
-use App\Enums\ChannelFunction;
-use App\Enums\ChannelType;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\TestTimeProvider;
-use App\Tests\Integration\Traits\UserFixtures;
 use PHPUnit\Framework\Attributes\Small;
 
 #[Small]
 class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
-    use UserFixtures;
-
     private const DEFINITIONS_FILE = __DIR__ . '/../../../src/DataFixtures/tariff-definitions.json';
+    private const WINTER_START_DATE = '2025-12-01 00:00:00';
+    private const SUMMER_START_DATE = '2026-06-01 00:00:00';
 
     public function testGeneratingWarsawTariffHolidays(): void {
         $this->createTariffFromFixture('PL_G13_TAURON', 'Polish G13 Tauron');
@@ -47,6 +39,7 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
 
         $holidays = $this->fetchHolidays('Europe/Warsaw');
 
+        $this->assertContains('2018-01-01', $holidays);
         $this->assertContains('2026-01-01', $holidays);
         $this->assertContains('2026-01-06', $holidays);
         $this->assertContains('2026-04-05', $holidays);
@@ -59,12 +52,15 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
-        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1 --from="2026-01-01 00:00:00"');
+        $this->executeCommand(sprintf(
+            'supla:cyclic:resolve-energy-tariffs --months-ahead=1 --start-date="%s"',
+            self::WINTER_START_DATE
+        ));
 
         $zones = $this->fetchResolvedZones($tariff);
 
         $this->assertCount(1, $zones);
-        $this->assertResolvedZone($zones[0], 'ALL_DAY', '2026-01-01 00:00:00', '2026-02-01 00:00:00');
+        $this->assertResolvedZone($zones[0], 'ALL_DAY', '2025-11-30 23:00:00', '2026-01-31 23:00:00');
     }
 
     public function testMaterializingG12TariffZones(): void {
@@ -72,15 +68,18 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
-        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1 --from="2026-01-01 00:00:00"');
+        $this->executeCommand(sprintf(
+            'supla:cyclic:resolve-energy-tariffs --months-ahead=1 --start-date="%s"',
+            self::WINTER_START_DATE
+        ));
 
-        $zones = $this->fetchResolvedZones($tariff);
+        $zones = $this->fetchResolvedZones($tariff, '2025-12-31 23:00:00');
 
         $this->assertCount(63, $zones);
-        $this->assertResolvedZone($zones[0], 'NIGHT', '2026-01-01 00:00:00', '2026-01-01 05:00:00');
+        $this->assertResolvedZone($zones[0], 'NIGHT', '2025-12-31 21:00:00', '2026-01-01 05:00:00');
         $this->assertResolvedZone($zones[1], 'DAY', '2026-01-01 05:00:00', '2026-01-01 21:00:00');
         $this->assertResolvedZone($zones[2], 'NIGHT', '2026-01-01 21:00:00', '2026-01-02 05:00:00');
-        $this->assertResolvedZone($zones[62], 'NIGHT', '2026-01-31 21:00:00', '2026-02-01 00:00:00');
+        $this->assertResolvedZone($zones[62], 'NIGHT', '2026-01-31 21:00:00', '2026-01-31 23:00:00');
     }
 
     public function testMaterializingG13WinterTariffZones(): void {
@@ -88,11 +87,14 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
-        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1 --from="2026-01-01 00:00:00"');
+        $this->executeCommand(sprintf(
+            'supla:cyclic:resolve-energy-tariffs --months-ahead=1 --start-date="%s"',
+            self::WINTER_START_DATE
+        ));
 
-        $zones = $this->fetchResolvedZones($tariff);
+        $zones = $this->fetchResolvedZones($tariff, '2025-12-31 23:00:00');
 
-        $this->assertResolvedZone($zones[0], 'OFF_PEAK', '2026-01-01 00:00:00', '2026-01-02 06:00:00');
+        $this->assertResolvedZone($zones[0], 'OFF_PEAK', '2025-12-31 20:00:00', '2026-01-02 06:00:00');
         $this->assertResolvedZone($zones[1], 'MORNING_PEAK', '2026-01-02 06:00:00', '2026-01-02 12:00:00');
         $this->assertResolvedZone($zones[2], 'OFF_PEAK', '2026-01-02 12:00:00', '2026-01-02 15:00:00');
         $this->assertResolvedZone($zones[3], 'AFTERNOON_PEAK', '2026-01-02 15:00:00', '2026-01-02 20:00:00');
@@ -105,73 +107,104 @@ class EnergyTariffResolutionIntegrationTest extends IntegrationTestCase {
 
         TestTimeProvider::setTime('2026-07-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
-        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1 --from="2026-07-01 00:00:00"');
+        $this->executeCommand(sprintf(
+            'supla:cyclic:resolve-energy-tariffs --months-ahead=1 --start-date="%s"',
+            self::SUMMER_START_DATE
+        ));
 
-        $zones = $this->fetchResolvedZones($tariff);
+        $zones = $this->fetchResolvedZones($tariff, '2026-06-30 22:00:00');
 
-        $this->assertResolvedZone($zones[0], 'OFF_PEAK', '2026-07-01 00:00:00', '2026-07-01 05:00:00');
+        $this->assertResolvedZone($zones[0], 'OFF_PEAK', '2026-06-30 20:00:00', '2026-07-01 05:00:00');
         $this->assertResolvedZone($zones[1], 'MORNING_PEAK', '2026-07-01 05:00:00', '2026-07-01 11:00:00');
         $this->assertResolvedZone($zones[2], 'OFF_PEAK', '2026-07-01 11:00:00', '2026-07-01 17:00:00');
         $this->assertResolvedZone($zones[3], 'AFTERNOON_PEAK', '2026-07-01 17:00:00', '2026-07-01 20:00:00');
         $this->assertResolvedZone($zones[4], 'OFF_PEAK', '2026-07-01 20:00:00', '2026-07-02 05:00:00');
     }
 
-    public function testMaterializingZonesForOpenStartTariffPeriodBackfillsHistoricalLogs(): void {
+    public function testContinuesFromLastResolvedZoneByDefault(): void {
         $tariff = $this->createTariffFromFixture('PL_G11', 'Polish G11');
-        $user = $this->createConfirmedUser();
-        $location = $this->createLocation($user);
-        $device = $this->createDevice($location, [[ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER]]);
-        $channel = $device->getChannels()[0];
-        $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
-
-        $log = new ElectricityMeterDeltaLogItem($channel->getId(), '2025-01-01 00:15:00');
-        EntityUtils::setField($log, 'phase1_fae', 100);
-        EntityUtils::setField($log, 'phase2_fae', 0);
-        EntityUtils::setField($log, 'phase3_fae', 0);
-        EntityUtils::setField($log, 'phase1_rae', 0);
-        EntityUtils::setField($log, 'phase2_rae', 0);
-        EntityUtils::setField($log, 'phase3_rae', 0);
-        $logsEm->persist($log);
-
-        $profile = new EnergyTariffProfile();
-        $profile->setUserId($user->getId());
-        $profile->setName('Open start profile');
-        $tariffPeriod = new EnergyTariffProfileTariffPeriod();
-        $tariffPeriod->setTariff($tariff);
-        $tariffPeriod->setValidFrom(null);
-        $tariffPeriod->setValidTo(null);
-        $profile->addTariffPeriod($tariffPeriod);
-        $logsEm->persist($profile);
-
-        $assignment = new EnergyTariffProfileAssignment($channel->getId());
-        $assignment->setProfile($profile);
-        $logsEm->persist($assignment);
-        $logsEm->flush();
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
         $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
-        $this->executeCommand('supla:cyclic:resolve-energy-tariffs --months-ahead=1');
+        $this->executeCommand(sprintf(
+            'supla:cyclic:resolve-energy-tariffs --months-ahead=1 --start-date="%s"',
+            self::WINTER_START_DATE
+        ));
+
+        TestTimeProvider::setTime('2026-02-01 00:00:00 UTC');
+        $this->executeCommand(sprintf(
+            'supla:cyclic:resolve-energy-tariffs --months-ahead=1 --start-date="%s"',
+            self::WINTER_START_DATE
+        ));
 
         $zones = $this->fetchResolvedZones($tariff);
 
-        $this->assertNotEmpty($zones);
-        $this->assertLessThanOrEqual('2025-01-01 00:00:00', $zones[0]->getPeriodStart()->format('Y-m-d H:i:s'));
+        $this->assertCount(2, $zones);
+        $this->assertResolvedZone($zones[0], 'ALL_DAY', '2025-11-30 23:00:00', '2026-01-31 23:00:00');
+        $this->assertResolvedZone($zones[1], 'ALL_DAY', '2026-01-31 23:00:00', '2026-02-28 23:00:00');
+    }
+
+    public function testRecalculateStartsAgainFromTheBeginning(): void {
+        $tariff = $this->createTariffFromFixture('PL_G11', 'Polish G11');
+
+        TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
+        $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
+        $this->executeCommand(sprintf(
+            'supla:cyclic:resolve-energy-tariffs --months-ahead=1 --start-date="%s"',
+            self::WINTER_START_DATE
+        ));
+
+        TestTimeProvider::setTime('2026-02-01 00:00:00 UTC');
+        $this->executeCommand(sprintf(
+            'supla:cyclic:resolve-energy-tariffs --months-ahead=1 --start-date="%s"',
+            self::WINTER_START_DATE
+        ));
+        $this->executeCommand(sprintf(
+            'supla:cyclic:resolve-energy-tariffs --months-ahead=1 --recalculate --start-date="%s"',
+            self::WINTER_START_DATE
+        ));
+
+        $zones = $this->fetchResolvedZones($tariff);
+
+        $this->assertCount(1, $zones);
+        $this->assertResolvedZone($zones[0], 'ALL_DAY', '2025-11-30 23:00:00', '2026-02-28 23:00:00');
+    }
+
+    public function testCanResolveOnlySelectedTariff(): void {
+        $resolvedTariff = $this->createTariffFromFixture('PL_G11', 'Polish G11');
+        $skippedTariff = $this->createTariffFromFixture('PL_G12', 'Polish G12');
+
+        TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
+        $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1');
+        $this->executeCommand(sprintf(
+            'supla:cyclic:resolve-energy-tariffs --months-ahead=1 --tariff-code=PL_G11 --start-date="%s"',
+            self::WINTER_START_DATE
+        ));
+
+        $this->assertNotEmpty($this->fetchResolvedZones($resolvedTariff));
+        $this->assertCount(0, $this->fetchResolvedZones($skippedTariff));
     }
 
     /**
      * @return EnergyTariffResolvedZone[]
      */
-    private function fetchResolvedZones(EnergyTariff $tariff): array {
+    private function fetchResolvedZones(EnergyTariff $tariff, ?string $from = null): array {
         $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
 
-        return $logsEm->createQueryBuilder()
+        $queryBuilder = $logsEm->createQueryBuilder()
             ->select('z')
             ->from(EnergyTariffResolvedZone::class, 'z')
             ->where('z.tariffId = :tariffId')
             ->setParameter('tariffId', $tariff->getId())
-            ->orderBy('z.periodStart', 'ASC')
-            ->getQuery()
-            ->getResult();
+            ->orderBy('z.periodStart', 'ASC');
+
+        if ($from !== null) {
+            $queryBuilder
+                ->andWhere('z.periodEnd > :from')
+                ->setParameter('from', new \DateTime($from, new \DateTimeZone('UTC')));
+        }
+
+        return $queryBuilder->getQuery()->getResult();
     }
 
     /**

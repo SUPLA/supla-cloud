@@ -20,10 +20,8 @@ namespace App\Command\Cyclic;
 use App\Command\Initialization\InitializationCommand;
 use App\Entity\MeasurementLogs\EnergyTariff;
 use App\Entity\MeasurementLogs\EnergyTariffHoliday;
-use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
 use App\Entity\MeasurementLogs\EnergyTariffResolvedZone;
 use App\Model\TimeProvider;
-use App\Utils\DatabaseUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -32,7 +30,7 @@ use Symfony\Component\Lock\LockFactory;
 
 class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements InitializationCommand {
     private const DEFAULT_MONTHS_AHEAD = 3;
-    private const DEFAULT_MONTHS_BACK = 1;
+    private const INITIAL_PERIOD_START = '2018-01-01 00:00:00';
     private const DAY_NAMES = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
     private const DEFAULT_RULE_PRIORITY = 500;
 
@@ -50,7 +48,9 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements Initi
             ->setName('supla:cyclic:resolve-energy-tariffs')
             ->setDescription('Materializes future tariff zones for fixed energy tariffs.')
             ->addOption('months-ahead', null, InputOption::VALUE_REQUIRED, 'How many months ahead should be materialized.', self::DEFAULT_MONTHS_AHEAD)
-            ->addOption('from', null, InputOption::VALUE_REQUIRED, 'Override materialization start date/time in UTC (Y-m-d H:i:s).');
+            ->addOption('recalculate', null, InputOption::VALUE_NONE, 'Recalculate tariff zones from the beginning.')
+            ->addOption('start-date', null, InputOption::VALUE_REQUIRED, 'Override the initial resolution start date.')
+            ->addOption('tariff-code', null, InputOption::VALUE_REQUIRED, 'Resolve zones only for the selected tariff code.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int {
@@ -62,10 +62,14 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements Initi
 
         try {
             $monthsAhead = max(1, (int)$input->getOption('months-ahead'));
+            $tariffCode = $input->getOption('tariff-code');
+            $startDateOption = $input->getOption('start-date');
             /** @var EnergyTariff[] $tariffs */
-            $tariffs = $this->measurementLogsEntityManager->getRepository(EnergyTariff::class)->findAll();
+            $tariffs = $tariffCode
+                ? $this->measurementLogsEntityManager->getRepository(EnergyTariff::class)->findBy(['code' => $tariffCode])
+                : $this->measurementLogsEntityManager->getRepository(EnergyTariff::class)->findAll();
             foreach ($tariffs as $tariff) {
-                $this->resolveTariff($tariff, $monthsAhead, $input->getOption('from'), $output);
+                $this->resolveTariff($tariff, $monthsAhead, (bool)$input->getOption('recalculate'), $startDateOption, $output);
                 $this->measurementLogsEntityManager->flush();
                 $this->measurementLogsEntityManager->clear();
             }
@@ -76,16 +80,25 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements Initi
         return self::SUCCESS;
     }
 
-    private function resolveTariff(EnergyTariff $tariff, int $monthsAhead, ?string $fromOption, OutputInterface $output): void {
+    private function resolveTariff(
+        EnergyTariff $tariff,
+        int $monthsAhead,
+        bool $recalculate,
+        ?string $startDateOption,
+        OutputInterface $output
+    ): void {
         $config = $tariff->getConfig();
 
         $timezone = new \DateTimeZone($config['timezone'] ?? 'UTC');
-        $defaultPeriodStart = $this->resolvePeriodStart($fromOption, $timezone);
-        $periodStart = clone $defaultPeriodStart;
-        if (!$fromOption && ($tariffPeriodStart = $this->findEarliestProfileTariffPeriodStart($tariff))) {
-            $periodStart = $tariffPeriodStart < $periodStart ? $tariffPeriodStart : $periodStart;
+        $periodStart = $this->resolvePeriodStart($tariff, $timezone, $recalculate, $startDateOption);
+        $periodEnd = $this->resolvePeriodEnd($timezone, $monthsAhead);
+
+        if ($periodStart >= $periodEnd) {
+            if ($output->isVerbose()) {
+                $output->writeln(sprintf('Skipping tariff %s, already resolved through %s', $tariff->getCode(), $periodEnd->format('Y-m-d H:i:s')));
+            }
+            return;
         }
-        $periodEnd = (clone $defaultPeriodStart)->add(new \DateInterval('P' . $monthsAhead . 'M'));
 
         if ($output->isVerbose()) {
             $output->writeln(sprintf(
@@ -110,52 +123,42 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements Initi
         }
     }
 
-    private function resolvePeriodStart(?string $fromOption, \DateTimeZone $timezone): \DateTime {
-        if ($fromOption) {
-            return new \DateTime($fromOption, new \DateTimeZone('UTC'));
+    private function resolvePeriodStart(
+        EnergyTariff $tariff,
+        \DateTimeZone $timezone,
+        bool $recalculate,
+        ?string $startDateOption
+    ): \DateTime {
+        if (!$recalculate && ($lastResolvedZoneEnd = $this->findLastResolvedZoneEnd($tariff->getId()))) {
+            return $lastResolvedZoneEnd;
         }
 
-        $nowUtc = new \DateTime('@' . $this->timeProvider->getTimestamp());
-        $nowUtc->setTimezone(new \DateTimeZone('UTC'));
-        $localStart = clone $nowUtc;
-        $localStart->setTimezone($timezone);
-        $localStart->setTime(0, 0, 0);
-        $localStart->sub(new \DateInterval('P' . self::DEFAULT_MONTHS_BACK . 'M'));
+        $localStart = new \DateTime($startDateOption ?: self::INITIAL_PERIOD_START, $timezone);
         $localStart->setTimezone(new \DateTimeZone('UTC'));
+
         return $localStart;
     }
 
-    private function findEarliestProfileTariffPeriodStart(EnergyTariff $tariff): ?\DateTime {
-        $tariffPeriod = $this->measurementLogsEntityManager->getRepository(EnergyTariffProfileTariffPeriod::class)->findOneBy(
-            ['tariff' => $tariff],
-            ['validFrom' => 'ASC']
-        );
+    private function resolvePeriodEnd(\DateTimeZone $timezone, int $monthsAhead): \DateTime {
+        $nowUtc = new \DateTime('@' . $this->timeProvider->getTimestamp());
+        $nowUtc->setTimezone(new \DateTimeZone('UTC'));
+        $localEnd = clone $nowUtc;
+        $localEnd->setTimezone($timezone);
+        $localEnd->setTime(0, 0, 0);
+        $localEnd->add(new \DateInterval('P' . $monthsAhead . 'M'));
+        $localEnd->setTimezone(new \DateTimeZone('UTC'));
 
-        $earliestProfileStart = $tariffPeriod?->getValidFrom();
-        $earliestLogStart = $this->findEarliestTariffLogStart($tariff->getId());
-
-        if ($earliestProfileStart === null) {
-            return $earliestLogStart;
-        }
-        if ($earliestLogStart === null) {
-            return $earliestProfileStart;
-        }
-
-        return $earliestLogStart < $earliestProfileStart ? $earliestLogStart : $earliestProfileStart;
+        return $localEnd;
     }
 
-    private function findEarliestTariffLogStart(int $tariffId): ?\DateTime {
-        $slotStartExpr = DatabaseUtils::getPlatform($this->measurementLogsEntityManager) === DatabaseUtils::PSQL
-            ? "d.date - INTERVAL '15 minutes'"
-            : 'DATE_SUB(d.date, INTERVAL 15 MINUTE)';
-        $sql = "SELECT MIN($slotStartExpr) earliest_slot_start
-            FROM supla_em_delta_log d
-            JOIN supla_energy_tariff_profile_assignment pa ON pa.channel_id = d.channel_id
-            JOIN supla_energy_tariff_profile_tariff_period tp ON tp.profile_id = pa.profile_id
-            WHERE tp.tariff_id = :tariffId";
-        $value = $this->measurementLogsEntityManager->getConnection()->fetchOne($sql, ['tariffId' => $tariffId]);
+    private function findLastResolvedZoneEnd(int $tariffId): ?\DateTime {
+        /** @var EnergyTariffResolvedZone|null $lastResolvedZone */
+        $lastResolvedZone = $this->measurementLogsEntityManager->getRepository(EnergyTariffResolvedZone::class)->findOneBy(
+            ['tariffId' => $tariffId],
+            ['periodEnd' => 'DESC', 'id' => 'DESC']
+        );
 
-        return $value ? new \DateTime($value, new \DateTimeZone('UTC')) : null;
+        return $lastResolvedZone?->getPeriodEnd();
     }
 
     /**

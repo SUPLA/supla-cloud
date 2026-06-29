@@ -29,6 +29,7 @@ use Symfony\Component\Lock\LockFactory;
 
 class GenerateEnergyTariffHolidaysCommand extends AbstractCyclicCommand implements InitializationCommand {
     private const DEFAULT_YEARS_AHEAD = 2;
+    private const INITIAL_YEAR = 2018;
     private const POLISH_FIXED_HOLIDAYS = ['01-01', '01-06', '05-01', '05-03', '08-15', '11-01', '11-11', '12-25', '12-26'];
 
     public function __construct(
@@ -56,6 +57,12 @@ class GenerateEnergyTariffHolidaysCommand extends AbstractCyclicCommand implemen
                 null,
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
                 'Generate holidays only for selected timezones.'
+            )
+            ->addOption(
+                'start-date',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Override the initial holiday generation start date.'
             );
     }
 
@@ -69,9 +76,10 @@ class GenerateEnergyTariffHolidaysCommand extends AbstractCyclicCommand implemen
         try {
             $yearsAhead = max(1, (int)$input->getOption('years-ahead'));
             $timezones = $input->getOption('timezone') ?: $this->extractTariffTimezones();
-            $currentYear = (int)(new \DateTime('@' . $this->timeProvider->getTimestamp()))->setTimezone(new \DateTimeZone('UTC'))->format('Y');
+            $startYear = $this->resolveStartYear($input->getOption('start-date'));
+            $endYear = (int)(new \DateTime('@' . $this->timeProvider->getTimestamp()))->setTimezone(new \DateTimeZone('UTC'))->format('Y') + $yearsAhead;
             foreach (array_unique(array_filter($timezones)) as $timezone) {
-                $this->generateForTimezone((string)$timezone, $currentYear, $yearsAhead, $output);
+                $this->generateForTimezone((string)$timezone, $startYear, $endYear, $output);
                 $this->measurementLogsEntityManager->flush();
                 $this->measurementLogsEntityManager->clear();
             }
@@ -92,7 +100,15 @@ class GenerateEnergyTariffHolidaysCommand extends AbstractCyclicCommand implemen
         return $timezones;
     }
 
-    private function generateForTimezone(string $timezone, int $currentYear, int $yearsAhead, OutputInterface $output): void {
+    private function resolveStartYear(?string $startDateOption): int {
+        if (!$startDateOption) {
+            return self::INITIAL_YEAR;
+        }
+
+        return (int)(new \DateTime($startDateOption, new \DateTimeZone('UTC')))->format('Y');
+    }
+
+    private function generateForTimezone(string $timezone, int $startYear, int $endYear, OutputInterface $output): void {
         $provider = $this->resolveHolidayProvider($timezone);
         if (!$provider) {
             if ($output->isVerbose()) {
@@ -101,8 +117,8 @@ class GenerateEnergyTariffHolidaysCommand extends AbstractCyclicCommand implemen
             return;
         }
 
-        $startDate = new \DateTimeImmutable(sprintf('%d-01-01', $currentYear));
-        $endDate = new \DateTimeImmutable(sprintf('%d-01-01', $currentYear + $yearsAhead + 1));
+        $startDate = new \DateTimeImmutable(sprintf('%d-01-01', $startYear));
+        $endDate = new \DateTimeImmutable(sprintf('%d-01-01', $endYear + 1));
 
         $this->measurementLogsEntityManager->createQueryBuilder()
             ->delete(EnergyTariffHoliday::class, 'h')
@@ -115,7 +131,7 @@ class GenerateEnergyTariffHolidaysCommand extends AbstractCyclicCommand implemen
             ->getQuery()
             ->execute();
 
-        for ($year = $currentYear; $year <= $currentYear + $yearsAhead; $year++) {
+        for ($year = $startYear; $year <= $endYear; $year++) {
             foreach ($provider($year) as $holidayDate) {
                 $this->measurementLogsEntityManager->persist(new EnergyTariffHoliday($timezone, $holidayDate));
             }
