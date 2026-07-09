@@ -5,7 +5,6 @@ import {i18n} from '@/locale.js';
 export const billingPeriodUnits = ['day', 'week', 'month', 'year'];
 
 export const componentOptions = [
-  {value: 'FORWARD_ACTIVE_ENERGY', label: energyPriceComponentLabel('FORWARD_ACTIVE_ENERGY')},
   {value: 'DISTRIBUTION_VARIABLE', label: energyPriceComponentLabel('DISTRIBUTION_VARIABLE')},
   {value: 'DISTRIBUTION_FIXED', label: energyPriceComponentLabel('DISTRIBUTION_FIXED')},
   {value: 'FEE_VARIABLE', label: energyPriceComponentLabel('FEE_VARIABLE')},
@@ -16,7 +15,7 @@ export const componentUnitMap = {
   FORWARD_ACTIVE_ENERGY: ['kWh'],
   DISTRIBUTION_VARIABLE: ['kWh'],
   DISTRIBUTION_FIXED: ['day', 'week', 'month', 'period'],
-  FEE_VARIABLE: ['day', 'week', 'month', 'period'],
+  FEE_VARIABLE: ['kWh'],
   FEE_FIXED: ['day', 'week', 'month', 'period'],
 };
 
@@ -66,7 +65,7 @@ export function createItem(overrides = {}) {
   return {
     _key: createKey(),
     id: null,
-    componentCode: 'FORWARD_ACTIVE_ENERGY',
+    componentCode: 'DISTRIBUTION_VARIABLE',
     zoneCode: null,
     amount: 0,
     unit: 'kWh',

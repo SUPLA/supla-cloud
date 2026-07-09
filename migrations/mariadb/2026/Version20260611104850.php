@@ -38,5 +38,7 @@ class Version20260611104850 extends NoWayBackMigration {
         $this->addSql('ALTER TABLE supla_energy_tariff_profile_price_period ADD CONSTRAINT FK_2B674158A3DDABB8 FOREIGN KEY (tariff_period_id) REFERENCES supla_energy_tariff_profile_tariff_period (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE supla_energy_tariff_profile_tariff_period ADD CONSTRAINT FK_A7CCE22CCCFA12B8 FOREIGN KEY (profile_id) REFERENCES supla_energy_tariff_profile (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE supla_energy_tariff_profile_tariff_period ADD CONSTRAINT FK_A7CCE22C92348FD2 FOREIGN KEY (tariff_id) REFERENCES supla_energy_tariff (id) ON DELETE CASCADE');
+        $this->addSql('CREATE TABLE supla_energy_tariff_dynamic_price (id BIGINT AUTO_INCREMENT NOT NULL, tariff_id BIGINT NOT NULL, component_code INT NOT NULL, date_from DATETIME NOT NULL COMMENT \'(DC2Type:utcdatetime)\', date_to DATETIME NOT NULL COMMENT \'(DC2Type:utcdatetime)\', currency VARCHAR(10) NOT NULL, amount NUMERIC(12, 6) NOT NULL, INDEX IDX_DFB5188B92348FD2 (tariff_id), INDEX idx_tariff_dynamic_price_tariff_time (tariff_id, date_from, date_to), UNIQUE INDEX uq_tariff_dynamic_price_slot (tariff_id, component_code, date_from), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE supla_energy_tariff_dynamic_price ADD CONSTRAINT FK_DFB5188B92348FD2 FOREIGN KEY (tariff_id) REFERENCES supla_energy_tariff (id) ON DELETE CASCADE');
     }
 }

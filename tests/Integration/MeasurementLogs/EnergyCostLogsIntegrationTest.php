@@ -121,7 +121,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
                     $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'DAY', 0.1, EnergyPriceUnit::KWH),
                     $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_VARIABLE, 'NIGHT', 0.2, EnergyPriceUnit::KWH),
                     $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 10.0, EnergyPriceUnit::MONTH),
-                    $this->createPriceItem(EnergyPriceComponent::FEE_VARIABLE, null, 1.0, EnergyPriceUnit::DAY),
+                    $this->createPriceItem(EnergyPriceComponent::FEE_VARIABLE, null, 1.0, EnergyPriceUnit::KWH),
                 ]),
             ]
         ));
@@ -199,20 +199,22 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($content[0]['profileId']);
         $this->assertNotNull($content[0]['pricePeriodId']);
         $this->assertEquals(100, $content[0]['usage']['totalFae']);
-        $this->assertEquals(0.11, $content[0]['costs']['total']);
+        $this->assertEquals(0.21, $content[0]['costs']['total']);
         $this->assertEquals('PLN', $content[0]['costs']['currency']);
         $this->assertEquals(0.1, $content[0]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
         $this->assertEquals(0.01, $content[0]['costs']['byComponent']['DISTRIBUTION_VARIABLE']);
-        $this->assertEquals(0.11, $content[0]['costs']['byZone']['DAY']);
-        $this->assertEquals(0.11, $content[0]['costs']['byPhase']['phase1']);
+        $this->assertEquals(0.1, $content[0]['costs']['byComponent']['FEE_VARIABLE']);
+        $this->assertEquals(0.21, $content[0]['costs']['byZone']['DAY']);
+        $this->assertEquals(0.21, $content[0]['costs']['byPhase']['phase1']);
 
         $this->assertEquals('NIGHT', $content[1]['zoneCode']);
         $this->assertEquals(200, $content[1]['usage']['totalFae']);
-        $this->assertEquals(0.44, $content[1]['costs']['total']);
+        $this->assertEquals(0.64, $content[1]['costs']['total']);
         $this->assertEquals(0.4, $content[1]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
         $this->assertEquals(0.04, $content[1]['costs']['byComponent']['DISTRIBUTION_VARIABLE']);
-        $this->assertEquals(0.44, $content[1]['costs']['byZone']['NIGHT']);
-        $this->assertEquals(0.44, $content[1]['costs']['byPhase']['phase2']);
+        $this->assertEquals(0.2, $content[1]['costs']['byComponent']['FEE_VARIABLE']);
+        $this->assertEquals(0.64, $content[1]['costs']['byZone']['NIGHT']);
+        $this->assertEquals(0.64, $content[1]['costs']['byPhase']['phase2']);
 
         $this->assertEquals('ALL_DAY', $content[2]['zoneCode']);
         $this->assertEquals(300, $content[2]['usage']['totalFae']);
@@ -245,14 +247,14 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('2026-02-10T00:00:00+00:00', $januarySummary['periodEnd']);
         $this->assertEquals('UTC', $januarySummary['timezone']);
         $this->assertEquals(0.3, $januarySummary['usage']['totalKwh']);
-        $this->assertEquals(32.55, $januarySummary['costs']['total']);
+        $this->assertEquals(10.85, $januarySummary['costs']['total']);
         $this->assertEquals('PLN', $januarySummary['costs']['currency']);
         $this->assertEquals(0.5, $januarySummary['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
         $this->assertEquals(0.05, $januarySummary['costs']['byComponent']['DISTRIBUTION_VARIABLE']);
         $this->assertEquals(10.0, $januarySummary['costs']['byComponent']['DISTRIBUTION_FIXED']);
-        $this->assertEquals(22.0, $januarySummary['costs']['byComponent']['FEE_VARIABLE']);
-        $this->assertEquals(0.11, $januarySummary['costs']['byZone']['DAY']);
-        $this->assertEquals(0.44, $januarySummary['costs']['byZone']['NIGHT']);
+        $this->assertEquals(0.3, $januarySummary['costs']['byComponent']['FEE_VARIABLE']);
+        $this->assertEquals(0.21, $januarySummary['costs']['byZone']['DAY']);
+        $this->assertEquals(0.64, $januarySummary['costs']['byZone']['NIGHT']);
 
         $februarySummary = $content[1];
         $this->assertEquals('2026-02-01T00:00:00+00:00', $februarySummary['periodStart']);

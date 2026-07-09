@@ -18,8 +18,8 @@ enum EnergyPriceComponent: int {
      */
     public function supportedUnits(): array {
         return match ($this) {
-            self::FORWARD_ACTIVE_ENERGY, self::DISTRIBUTION_VARIABLE => [EnergyPriceUnit::KWH],
-            self::DISTRIBUTION_FIXED, self::FEE_VARIABLE, self::FEE_FIXED => [
+            self::FORWARD_ACTIVE_ENERGY, self::DISTRIBUTION_VARIABLE, self::FEE_VARIABLE => [EnergyPriceUnit::KWH],
+            self::DISTRIBUTION_FIXED, self::FEE_FIXED => [
                 EnergyPriceUnit::DAY,
                 EnergyPriceUnit::WEEK,
                 EnergyPriceUnit::MONTH,
