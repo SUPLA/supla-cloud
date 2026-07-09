@@ -35,6 +35,7 @@ class LoadTariffsCommandIntegrationTest extends IntegrationTestCase {
             'name' => 'Test single tariff',
             'config' => [
                 'id' => 'TEST_SINGLE',
+                'type' => 'zoned_static',
                 'timezone' => 'Europe/Warsaw',
                 'zones' => [['code' => 'ALL_DAY']],
                 'rules' => [],
@@ -60,7 +61,7 @@ class LoadTariffsCommandIntegrationTest extends IntegrationTestCase {
         $existingTariff = new EnergyTariff();
         $existingTariff->setCode('TEST_EXISTING');
         $existingTariff->setName('Old tariff name');
-        $existingTariff->setConfig(['timezone' => 'UTC']);
+        $existingTariff->setConfig(['type' => 'zoned_static', 'timezone' => 'UTC']);
         $this->getLogsEntityManager()->persist($existingTariff);
         $this->getLogsEntityManager()->flush();
 
@@ -72,6 +73,7 @@ class LoadTariffsCommandIntegrationTest extends IntegrationTestCase {
                 'name' => 'Updated tariff name',
                 'config' => [
                     'id' => 'TEST_EXISTING',
+                    'type' => 'zoned_static',
                     'timezone' => 'Europe/Warsaw',
                     'zones' => [['code' => 'DAY']],
                     'rules' => [],
@@ -82,6 +84,7 @@ class LoadTariffsCommandIntegrationTest extends IntegrationTestCase {
                 'name' => 'New tariff name',
                 'config' => [
                     'id' => 'TEST_NEW',
+                    'type' => 'zoned_static',
                     'timezone' => 'UTC',
                     'zones' => [['code' => 'NIGHT']],
                     'rules' => [],

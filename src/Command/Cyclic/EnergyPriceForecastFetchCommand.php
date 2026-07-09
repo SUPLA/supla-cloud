@@ -18,6 +18,7 @@
 namespace App\Command\Cyclic;
 
 use App\Entity\MeasurementLogs\EnergyPriceLogItem;
+use App\Model\MeasurementLogs\EnergyTariffDynamicPriceMaterializer;
 use App\Model\Transactional;
 use App\Supla\SuplaAutodiscover;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,7 +28,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 class EnergyPriceForecastFetchCommand extends AbstractCyclicCommand {
     use Transactional;
 
-    public function __construct(private SuplaAutodiscover $ad, private EntityManagerInterface $measurementLogsEntityManager) {
+    public function __construct(
+        private SuplaAutodiscover $ad,
+        private EntityManagerInterface $measurementLogsEntityManager,
+        private EnergyTariffDynamicPriceMaterializer $dynamicPriceMaterializer,
+    ) {
         parent::__construct();
     }
 
@@ -61,6 +66,8 @@ class EnergyPriceForecastFetchCommand extends AbstractCyclicCommand {
             }
             $this->measurementLogsEntityManager->persist($log);
         }
+        $this->measurementLogsEntityManager->flush();
+        $this->dynamicPriceMaterializer->materializeAll();
         $this->measurementLogsEntityManager->flush();
         return 0;
     }

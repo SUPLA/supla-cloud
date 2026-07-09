@@ -19,6 +19,8 @@
 namespace App\Model\MeasurementLogs;
 
 use App\Entity\MeasurementLogs\EnergyTariff;
+use App\Enums\EnergyTariffDynamicPriceSource;
+use App\Enums\EnergyTariffType;
 use App\Model\MeasurementLogsEntityManagerProvider;
 
 class TariffDefinitionImporter {
@@ -123,6 +125,30 @@ class TariffDefinitionImporter {
                 'Tariff definition at index %d must contain an object "config".',
                 $index
             ));
+        }
+
+        $type = EnergyTariffType::tryFrom((string)($definition['config']['type'] ?? ''));
+        if (!$type) {
+            throw new \InvalidArgumentException(sprintf(
+                'Tariff definition at index %d must contain a valid config.type value.',
+                $index
+            ));
+        }
+
+        if ($type === EnergyTariffType::DYNAMIC_15M) {
+            $sourceConfig = $definition['config']['dynamicPriceSource'] ?? null;
+            if (!is_array($sourceConfig)) {
+                throw new \InvalidArgumentException(sprintf(
+                    'Dynamic tariff definition at index %d must contain config.dynamicPriceSource.',
+                    $index
+                ));
+            }
+            if (!EnergyTariffDynamicPriceSource::tryFrom((string)($sourceConfig['source'] ?? ''))) {
+                throw new \InvalidArgumentException(sprintf(
+                    'Dynamic tariff definition at index %d must contain a valid dynamicPriceSource.source value.',
+                    $index
+                ));
+            }
         }
     }
 }

@@ -130,6 +130,18 @@ export function selectedTariff(tariffs, tariffId) {
   return tariffs.find((tariff) => String(tariff.id) === String(tariffId));
 }
 
+export function tariffType(tariff) {
+  return tariff?.config?.type || 'zoned_static';
+}
+
+export function isDynamicTariff(tariff) {
+  return tariffType(tariff) === 'dynamic_15m';
+}
+
+export function isDynamicTariffPeriod(tariffs, tariffPeriod) {
+  return isDynamicTariff(selectedTariff(tariffs, tariffPeriod?.tariffId));
+}
+
 export function tariffZones(tariffs, tariffPeriod) {
   return selectedTariff(tariffs, tariffPeriod.tariffId)?.config?.zones || [];
 }
@@ -185,7 +197,13 @@ export function syncItemUnit(item) {
 
 export function handleTariffChange(tariffPeriod, tariffs) {
   tariffPeriod.pricePeriods.forEach((pricePeriod) => {
+    pricePeriod.items = pricePeriod.items.filter(
+      (item) => !isDynamicTariffPeriod(tariffs, tariffPeriod) || item.componentCode !== 'FORWARD_ACTIVE_ENERGY' || item.unit !== 'kWh'
+    );
     pricePeriod.items.forEach((item) => {
+      if (isDynamicTariffPeriod(tariffs, tariffPeriod)) {
+        item.zoneCode = null;
+      }
       if (item.zoneCode && !tariffZones(tariffs, tariffPeriod).some((zone) => zone.code === item.zoneCode)) {
         item.zoneCode = null;
       }
@@ -211,6 +229,11 @@ export function prefillPricePeriodFromTariff(pricePeriod, tariffPeriod, tariffs)
     if (defaults.billingPeriodUnit) {
       pricePeriod.billingPeriodUnit = defaults.billingPeriodUnit;
     }
+    return;
+  }
+
+  if (isDynamicTariff(tariff)) {
+    pricePeriod.items = [];
     return;
   }
 
@@ -361,6 +384,7 @@ export function validateProfile(profile, availableTariffs) {
 }
 
 function validatePricePeriods(tariffPeriod, tariff, tariffStart, tariffEnd, result) {
+  const dynamicTariff = isDynamicTariff(tariff);
   const zones = tariff?.config?.zones?.map((zone) => zone.code) || [];
   if (!tariffPeriod.pricePeriods.length) {
     pushIssue(result.pricePeriods, tariffPeriod._key, 'Add at least one price period.');
@@ -410,7 +434,7 @@ function validatePricePeriods(tariffPeriod, tariff, tariffStart, tariffEnd, resu
       }
     }
 
-    if (!pricePeriod.items.length) {
+    if (!dynamicTariff && !pricePeriod.items.length) {
       errors.push('Add at least one price component.');
     }
 
@@ -421,7 +445,7 @@ function validatePricePeriods(tariffPeriod, tariff, tariffStart, tariffEnd, resu
         warnings.push(`Repeated component/zone pair: ${signature}.`);
       }
       duplicateSignatures.add(signature);
-      validateItem(item, zones, result);
+      validateItem(item, zones, result, dynamicTariff);
     });
 
     if (errors.length) {
@@ -447,7 +471,7 @@ function validatePricePeriods(tariffPeriod, tariff, tariffStart, tariffEnd, resu
   }
 }
 
-function validateItem(item, zones, result) {
+function validateItem(item, zones, result, dynamicTariff) {
   const errors = [];
   const warnings = [];
   const allowedUnits = componentUnitMap[item.componentCode];
@@ -460,6 +484,12 @@ function validateItem(item, zones, result) {
   }
   if (!allowedUnits?.includes(item.unit)) {
     errors.push('Selected unit does not match the component.');
+  }
+  if (dynamicTariff && item.zoneCode) {
+    errors.push('Dynamic tariffs do not use zones.');
+  }
+  if (dynamicTariff && item.componentCode === 'FORWARD_ACTIVE_ENERGY' && item.unit === 'kWh') {
+    errors.push('Forward active energy is supplied by the tariff source for dynamic tariffs.');
   }
   if (item.zoneCode && zones.length && !zones.includes(item.zoneCode)) {
     errors.push('Selected zone does not exist in the tariff.');

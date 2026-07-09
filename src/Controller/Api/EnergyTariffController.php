@@ -28,6 +28,8 @@ use App\Enums\BillingPeriodUnit;
 use App\Enums\ChannelFunction;
 use App\Enums\EnergyPriceComponent;
 use App\Enums\EnergyPriceUnit;
+use App\Enums\EnergyTariffDynamicPriceSource;
+use App\Enums\EnergyTariffType;
 use App\Model\ApiVersions;
 use App\Model\MeasurementLogs\EnergyCostLogHydrator;
 use App\Model\MeasurementLogs\EnergyCostRowFetcher;
@@ -339,6 +341,8 @@ class EnergyTariffController extends RestController {
         ) => $this->compareDateTimeStartNullable($left->getValidFrom(), $right->getValidFrom()));
         $previousTariffPeriod = null;
         foreach ($tariffPeriods as $tariffPeriod) {
+            Assertion::notNull($tariffPeriod->getTariff(), 'Tariff period must reference a tariff.');
+            $this->validateTariffConfig($tariffPeriod->getTariff());
             $this->assertEndAfterStart($tariffPeriod->getValidFrom(), $tariffPeriod->getValidTo());
             if ($previousTariffPeriod) {
                 Assertion::true(
@@ -359,7 +363,9 @@ class EnergyTariffController extends RestController {
             EnergyTariffProfilePricePeriod $right
         ) => $this->compareDateTimeStartNullable($left->getValidFrom(), $right->getValidFrom()));
 
-        $zoneCodes = array_map(fn(array $zone) => $zone['code'], $tariffPeriod->getTariff()?->getConfig()['zones'] ?? []);
+        $tariff = $tariffPeriod->getTariff();
+        $isDynamicTariff = $tariff?->isDynamic() ?? false;
+        $zoneCodes = array_map(fn(array $zone) => $zone['code'], $tariff?->getConfig()['zones'] ?? []);
         $previousPricePeriod = null;
         foreach ($pricePeriods as $index => $pricePeriod) {
             Assertion::greaterThan($pricePeriod->getBillingPeriodLength(), 0);
@@ -395,10 +401,18 @@ class EnergyTariffController extends RestController {
                 );
             }
             $items = $pricePeriod->getItems()->toArray();
-            Assertion::notEmpty($items, 'Price period must contain at least one price item.');
+            if (!$isDynamicTariff) {
+                Assertion::notEmpty($items, 'Price period must contain at least one price item.');
+            }
             foreach ($items as $item) {
                 Assertion::true($item->getComponentCode()->supportsUnit($item->getUnit()), 'Price item unit is not allowed for selected component.');
-                if ($item->getZoneCode() !== null && $zoneCodes) {
+                if ($isDynamicTariff) {
+                    Assertion::null($item->getZoneCode(), 'Dynamic tariff price items cannot define zones.');
+                    Assertion::false(
+                        $item->getComponentCode() === EnergyPriceComponent::FORWARD_ACTIVE_ENERGY && $item->getUnit() === EnergyPriceUnit::KWH,
+                        'Dynamic forward active energy price is supplied by the tariff source.'
+                    );
+                } elseif ($item->getZoneCode() !== null && $zoneCodes) {
                     Assertion::inArray($item->getZoneCode(), $zoneCodes, 'Price item zone must exist in selected tariff.');
                 }
             }
@@ -509,6 +523,17 @@ class EnergyTariffController extends RestController {
         $parsed = BillingPeriodUnit::tryFrom($unit);
         Assertion::notNull($parsed, 'Invalid billing period unit.');
         return $parsed;
+    }
+
+    private function validateTariffConfig(EnergyTariff $tariff): void {
+        $type = $tariff->getType();
+        if ($type === EnergyTariffType::DYNAMIC_15M) {
+            $config = $tariff->getDynamicPriceSourceConfig();
+            Assertion::keyExists($config, 'source', 'Dynamic tariff must define a price source.');
+            Assertion::keyExists($config, 'currency', 'Dynamic tariff must define source currency.');
+            Assertion::notNull(EnergyTariffDynamicPriceSource::tryFrom((string)$config['source']), 'Dynamic tariff source is invalid.');
+            Assertion::regex((string)$config['currency'], '/^[A-Z]{3}$/');
+        }
     }
 
     private function getMeasurementLogsEntityManager() {

@@ -51,6 +51,7 @@ class TariffsFixture extends SuplaFixture {
         $tariffs = $this->tariffDefinitionImporter->importDefinitions($definitions)['tariffsByCode'];
         $this->createSampleG11Profile($logsEm, $tariffs['PL_G11']);
         $this->createSampleG12Profile($logsEm, $tariffs['PL_G12']);
+        $this->createSampleDynamicProfile($logsEm, $tariffs['PL_DYNAMIC_SPOT']);
         $logsEm->flush();
     }
 
@@ -128,6 +129,34 @@ class TariffsFixture extends SuplaFixture {
         );
         $pricePeriod->addItem(
             $this->createProfilePriceItem(EnergyPriceComponent::FEE_FIXED, null, 10, EnergyPriceUnit::PERIOD)
+        );
+        $tariffPeriod->addPricePeriod($pricePeriod);
+
+        $logsEm->persist($profile);
+    }
+
+    private function createSampleDynamicProfile($logsEm, EnergyTariff $tariff): void {
+        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
+
+        $profile = new EnergyTariffProfile();
+        $profile->setUserId($device->getUser()->getId());
+        $profile->setName('Sample dynamic profile');
+
+        $tariffPeriod = new EnergyTariffProfileTariffPeriod();
+        $tariffPeriod->setTariff($tariff);
+        $tariffPeriod->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
+        $profile->addTariffPeriod($tariffPeriod);
+
+        $pricePeriod = new EnergyTariffProfilePricePeriod();
+        $pricePeriod->setBillingPeriodLength(1);
+        $pricePeriod->setBillingPeriodUnit(BillingPeriodUnit::MONTH);
+        $pricePeriod->setCurrency('PLN');
+        $pricePeriod->setValidFrom(new \DateTime('2025-01-01 00:00:00', new \DateTimeZone('UTC')));
+        $pricePeriod->addItem(
+            $this->createProfilePriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 14.5, EnergyPriceUnit::MONTH)
+        );
+        $pricePeriod->addItem(
+            $this->createProfilePriceItem(EnergyPriceComponent::FEE_FIXED, null, 9.9, EnergyPriceUnit::PERIOD)
         );
         $tariffPeriod->addPricePeriod($pricePeriod);
 

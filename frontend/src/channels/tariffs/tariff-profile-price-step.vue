@@ -24,7 +24,7 @@
           </div>
           <div class="price-period-card__actions">
             <button class="btn btn-default btn-sm" type="button" @click="emitPrefill(pricePeriod, tariffPeriod)">
-              {{ hasTariffDefaults(tariffs, tariffPeriod) ? $t('Use tariff defaults') : $t('Create zone rows') }}
+              {{ hasTariffDefaults(tariffs, tariffPeriod) ? $t('Use tariff defaults') : dynamicButtonLabel(tariffs, tariffPeriod) }}
             </button>
             <button
               v-if="tariffPeriod.pricePeriods.length > 1"
@@ -81,6 +81,9 @@
           <div>
             <strong>{{ $t('Price components') }}</strong>
             <div class="text-muted small">{{ $t('Add energy, distribution and fixed fees only where needed.') }}</div>
+            <div v-if="isDynamicTariffPeriod(tariffs, tariffPeriod)" class="text-muted small mt-1">
+              {{ $t('Forward active energy comes from the dynamic tariff source for each 15-minute slot.') }}
+            </div>
           </div>
           <button class="btn btn-default btn-sm" type="button" @click="$emit('add-item', pricePeriod)">{{ $t('Add component') }}</button>
         </div>
@@ -98,7 +101,7 @@
                 <option v-for="component in componentOptions" :key="component.value" :value="component.value">{{ component.label }}</option>
               </select>
             </div>
-            <div class="col-lg-2 col-sm-4">
+            <div v-if="!isDynamicTariffPeriod(tariffs, tariffPeriod)" class="col-lg-2 col-sm-4">
               <label>{{ $t('Zone') }}</label>
               <select v-model="item.zoneCode" class="form-control">
                 <option :value="null">{{ $t('No zone') }}</option>
@@ -136,6 +139,7 @@
     componentOptions,
     formatRange,
     hasTariffDefaults,
+    isDynamicTariffPeriod,
     syncItemUnit,
     tariffPeriodSummary,
     tariffZones,
@@ -169,6 +173,10 @@
 
   function emitRemoveItem(pricePeriod, index) {
     emit('remove-item', {pricePeriod, index});
+  }
+
+  function dynamicButtonLabel(tariffs, tariffPeriod) {
+    return isDynamicTariffPeriod(tariffs, tariffPeriod) ? $t('Start empty') : $t('Create zone rows');
   }
 </script>
 

@@ -9,6 +9,7 @@ use App\Entity\EntityUtils;
 use App\Entity\Main\IODeviceChannel;
 use App\Entity\Main\User;
 use App\Entity\MeasurementLogs\ElectricityMeterDeltaLogItem;
+use App\Entity\MeasurementLogs\EnergyPriceLogItem;
 use App\Entity\MeasurementLogs\EnergyTariff;
 use App\Entity\MeasurementLogs\EnergyTariffProfile;
 use App\Entity\MeasurementLogs\EnergyTariffProfileAssignment;
@@ -21,6 +22,8 @@ use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
 use App\Enums\EnergyPriceComponent;
 use App\Enums\EnergyPriceUnit;
+use App\Enums\EnergyTariffType;
+use App\Model\MeasurementLogs\EnergyTariffDynamicPriceMaterializer;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
@@ -34,6 +37,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
     private ?User $user = null;
     private ?IODeviceChannel $switchingProfileChannel = null;
     private ?IODeviceChannel $quarterlyProfileChannel = null;
+    private ?IODeviceChannel $dynamicProfileChannel = null;
     private ?IODeviceChannel $plainChannel = null;
 
     protected function initializeDatabaseForTests() {
@@ -43,15 +47,18 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
             [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
             [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
             [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
+            [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
         ]);
         $this->switchingProfileChannel = $device->getChannels()[0];
         $this->quarterlyProfileChannel = $device->getChannels()[1];
-        $this->plainChannel = $device->getChannels()[2];
+        $this->dynamicProfileChannel = $device->getChannels()[2];
+        $this->plainChannel = $device->getChannels()[3];
 
         $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
 
         $g12Tariff = $this->createTariff($logsEm, 'PL_G12_TEST', 'G12 test', 'UTC', [['code' => 'DAY'], ['code' => 'NIGHT']]);
         $allDayTariff = $this->createTariff($logsEm, 'PL_G11_TEST', 'G11 test', 'UTC', [['code' => 'ALL_DAY']]);
+        $dynamicTariff = $this->createDynamicTariff($logsEm, 'PL_DYNAMIC_TEST', 'Dynamic test', 'UTC', 'fixing1', 'PLN', 0.001);
         $logsEm->flush();
 
         $logsEm->persist(new EnergyTariffResolvedZone(
@@ -81,7 +88,24 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->createDeltaLog($logsEm, $this->quarterlyProfileChannel->getId(), '2026-02-01 00:15:00', 100, 0, 0);
         $this->createDeltaLog($logsEm, $this->quarterlyProfileChannel->getId(), '2026-03-31 23:15:00', 100, 0, 0);
 
+        $this->createDeltaLog($logsEm, $this->dynamicProfileChannel->getId(), '2026-01-10 00:15:00', 100, 0, 0);
+        $this->createDeltaLog($logsEm, $this->dynamicProfileChannel->getId(), '2026-01-10 00:30:00', 0, 200, 0);
+
         $this->createDeltaLog($logsEm, $this->plainChannel->getId(), '2026-01-10 00:15:00', 150, 0, 0);
+
+        $dynamicPriceLogA = new EnergyPriceLogItem(
+            new \DateTime('2026-01-10 00:00:00', new \DateTimeZone('UTC')),
+            new \DateTime('2026-01-10 00:15:00', new \DateTimeZone('UTC'))
+        );
+        $dynamicPriceLogA->setFixing1(100.0);
+        $logsEm->persist($dynamicPriceLogA);
+
+        $dynamicPriceLogB = new EnergyPriceLogItem(
+            new \DateTime('2026-01-10 00:15:00', new \DateTimeZone('UTC')),
+            new \DateTime('2026-01-10 00:30:00', new \DateTimeZone('UTC'))
+        );
+        $dynamicPriceLogB->setFixing1(200.0);
+        $logsEm->persist($dynamicPriceLogB);
 
         $switchingProfile = new EnergyTariffProfile();
         $switchingProfile->setUserId($this->user->getId());
@@ -131,6 +155,21 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         ));
         $logsEm->persist($quarterlyProfile);
 
+        $dynamicProfile = new EnergyTariffProfile();
+        $dynamicProfile->setUserId($this->user->getId());
+        $dynamicProfile->setName('Dynamic profile');
+        $dynamicProfile->addTariffPeriod($this->createTariffPeriod(
+            $dynamicTariff,
+            null,
+            null,
+            [
+                $this->createPricePeriod('PLN', 1, BillingPeriodUnit::MONTH, null, null, [
+                    $this->createPriceItem(EnergyPriceComponent::DISTRIBUTION_FIXED, null, 5.0, EnergyPriceUnit::PERIOD),
+                ]),
+            ]
+        ));
+        $logsEm->persist($dynamicProfile);
+
         $assignmentA = new EnergyTariffProfileAssignment($this->switchingProfileChannel->getId());
         $assignmentA->setProfile($switchingProfile);
         $logsEm->persist($assignmentA);
@@ -139,6 +178,12 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $assignmentB->setProfile($quarterlyProfile);
         $logsEm->persist($assignmentB);
 
+        $assignmentC = new EnergyTariffProfileAssignment($this->dynamicProfileChannel->getId());
+        $assignmentC->setProfile($dynamicProfile);
+        $logsEm->persist($assignmentC);
+
+        $logsEm->flush();
+        self::getContainer()->get(EnergyTariffDynamicPriceMaterializer::class)->materializeAll();
         $logsEm->flush();
     }
 
@@ -285,6 +330,48 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(0.005, $content[0]['costs']['byComponent']['DISTRIBUTION_VARIABLE']);
     }
 
+    public function testFetchingEnergyCostLogsForDynamicProfile(): void {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/2.4.0/channels/' . $this->dynamicProfileChannel->getId() . '/energy-cost-logs?order=ASC');
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertCount(2, $content);
+        $this->assertNull($content[0]['zoneCode']);
+        $this->assertEquals('PLN', $content[0]['costs']['currency']);
+        $this->assertEquals(0.01, $content[0]['costs']['total']);
+        $this->assertEquals(0.01, $content[0]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
+        $this->assertEquals([], $content[0]['costs']['byZone']);
+
+        $this->assertEquals(0.04, $content[1]['costs']['total']);
+        $this->assertEquals(0.04, $content[1]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
+        $this->assertEquals(0.04, $content[1]['costs']['byPhase']['phase2']);
+    }
+
+    public function testFetchingEnergyCostSummariesForDynamicProfile(): void {
+        $client = $this->createAuthenticatedClient($this->user);
+        $afterTimestamp = strtotime('2026-01-01 00:00:00 UTC');
+        $beforeTimestamp = strtotime('2026-02-01 00:00:00 UTC');
+        $client->apiRequestV24(
+            'GET',
+            sprintf(
+                '/api/2.4.0/channels/%s/energy-cost-summaries?afterTimestamp=%s&beforeTimestamp=%s',
+                $this->dynamicProfileChannel->getId(),
+                $afterTimestamp,
+                $beforeTimestamp
+            )
+        );
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertCount(1, $content);
+        $this->assertEquals(0.3, $content[0]['usage']['totalKwh']);
+        $this->assertEquals(5.05, $content[0]['costs']['total']);
+        $this->assertEquals(0.05, $content[0]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
+        $this->assertEquals(5.0, $content[0]['costs']['byComponent']['DISTRIBUTION_FIXED']);
+        $this->assertEquals([], $content[0]['costs']['byZone']);
+    }
+
     public function testFetchingLogsWithoutTariffProfileCosts(): void {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/2.4.0/channels/' . $this->plainChannel->getId() . '/energy-cost-logs?order=ASC');
@@ -365,7 +452,32 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $tariff = new EnergyTariff();
         $tariff->setCode($code);
         $tariff->setName($name);
-        $tariff->setConfig(['timezone' => $timezone, 'zones' => $zones]);
+        $tariff->setConfig(['type' => EnergyTariffType::ZONED_STATIC->value, 'timezone' => $timezone, 'zones' => $zones]);
+        $logsEm->persist($tariff);
+        return $tariff;
+    }
+
+    private function createDynamicTariff(
+        $logsEm,
+        string $code,
+        string $name,
+        string $timezone,
+        string $source,
+        string $currency,
+        float $multiplier
+    ): EnergyTariff {
+        $tariff = new EnergyTariff();
+        $tariff->setCode($code);
+        $tariff->setName($name);
+        $tariff->setConfig([
+            'type' => EnergyTariffType::DYNAMIC_15M->value,
+            'timezone' => $timezone,
+            'dynamicPriceSource' => [
+                'source' => $source,
+                'currency' => $currency,
+                'multiplier' => $multiplier,
+            ],
+        ]);
         $logsEm->persist($tariff);
         return $tariff;
     }

@@ -89,6 +89,19 @@ class ResolveEnergyTariffsCommand extends AbstractCyclicCommand implements Initi
     ): void {
         $config = $tariff->getConfig();
 
+        if ($tariff->isDynamic()) {
+            $this->measurementLogsEntityManager->createQueryBuilder()
+                ->delete(EnergyTariffResolvedZone::class, 'z')
+                ->where('z.tariffId = :tariffId')
+                ->setParameter('tariffId', $tariff->getId())
+                ->getQuery()
+                ->execute();
+            if ($output->isVerbose()) {
+                $output->writeln(sprintf('Skipping dynamic tariff %s', $tariff->getCode()));
+            }
+            return;
+        }
+
         $timezone = new \DateTimeZone($config['timezone'] ?? 'UTC');
         $periodStart = $this->resolvePeriodStart($tariff, $timezone, $recalculate, $startDateOption);
         $periodEnd = $this->resolvePeriodEnd($timezone, $monthsAhead);

@@ -53,10 +53,10 @@ class EnergyCostRowFetcher {
                 tp.tariff_id,
                 rz.zone_code,
                 pp.id price_period_id,
-                ppi.component_code,
-                ppi.amount,
-                ppi.unit,
-                pp.currency,
+                COALESCE(ppi.component_code, dp.component_code) component_code,
+                COALESCE(ppi.amount, dp.amount) amount,
+                COALESCE(ppi.unit, 'kWh') unit,
+                COALESCE(dp.currency, pp.currency) currency,
                 pp.valid_from price_period_valid_from,
                 pp.billing_period_length,
                 pp.billing_period_unit,
@@ -89,7 +89,11 @@ class EnergyCostRowFetcher {
                 ON ppi.price_period_id = pp.id
                 AND ppi.unit = 'kWh'
                 AND (ppi.zone_code = rz.zone_code OR ppi.zone_code IS NULL)
-            ORDER BY b.date $order, ppi.component_code ASC";
+            LEFT JOIN supla_energy_tariff_dynamic_price dp
+                ON dp.tariff_id = tp.tariff_id
+                AND dp.date_from = $slotStartExpr
+                AND dp.component_code = 1
+            ORDER BY b.date $order, COALESCE(ppi.component_code, dp.component_code) ASC";
 
         $stmt = $this->measurementLogsEntityManager->getConnection()->prepare($sql);
         $stmt->bindValue('channelId', $channelId, 'integer');

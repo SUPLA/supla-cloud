@@ -17,6 +17,7 @@
 
 namespace App\Entity\MeasurementLogs;
 
+use App\Enums\EnergyTariffType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -86,6 +87,19 @@ class EnergyTariff {
 
     public function setConfig(array $config): void {
         $this->config = $config;
+    }
+
+    public function getType(): EnergyTariffType {
+        $type = $this->config['type'] ?? EnergyTariffType::ZONED_STATIC->value;
+        return EnergyTariffType::tryFrom((string)$type) ?? EnergyTariffType::ZONED_STATIC;
+    }
+
+    public function isDynamic(): bool {
+        return $this->getType() === EnergyTariffType::DYNAMIC_15M;
+    }
+
+    public function getDynamicPriceSourceConfig(): array {
+        return is_array($this->config['dynamicPriceSource'] ?? null) ? $this->config['dynamicPriceSource'] : [];
     }
 
     public function getCreatedAt(): \DateTime {
