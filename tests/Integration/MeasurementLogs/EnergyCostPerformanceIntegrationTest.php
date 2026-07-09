@@ -27,9 +27,11 @@ use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\TestTimeProvider;
 use App\Tests\Integration\Traits\UserFixtures;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Large;
 
 #[Large]
+#[Group('performance')]
 class EnergyCostPerformanceIntegrationTest extends IntegrationTestCase {
     use UserFixtures;
 
