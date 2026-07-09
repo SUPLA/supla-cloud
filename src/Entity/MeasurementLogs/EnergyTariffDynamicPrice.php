@@ -32,8 +32,11 @@ class EnergyTariffDynamicPrice {
     /** @ORM\Id @ORM\Column(name="id", type="bigint") @ORM\GeneratedValue(strategy="AUTO") */
     private $id;
 
-    /** @ORM\Column(name="tariff_id", type="bigint") */
-    private $tariffId;
+    /**
+     * @ORM\ManyToOne(targetEntity="EnergyTariff")
+     * @ORM\JoinColumn(name="tariff_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     */
+    private ?EnergyTariff $tariff = null;
 
     /** @ORM\Column(name="component_code", type="integer", enumType=EnergyPriceComponent::class) */
     private EnergyPriceComponent $componentCode;
@@ -50,22 +53,16 @@ class EnergyTariffDynamicPrice {
     /** @ORM\Column(name="amount", type="decimal", precision=12, scale=6) */
     private ?float $amount = null;
 
-    /** @ORM\Column(name="source", type="string", length=50) */
-    private string $source = '';
-
-    /** @ORM\Column(name="source_value", type="decimal", precision=12, scale=6, nullable=true) */
-    private ?float $sourceValue = null;
-
     public function getId() {
         return $this->id;
     }
 
-    public function getTariffId() {
-        return $this->tariffId;
+    public function getTariff(): ?EnergyTariff {
+        return $this->tariff;
     }
 
-    public function setTariffId($tariffId): void {
-        $this->tariffId = $tariffId;
+    public function setTariff(?EnergyTariff $tariff): void {
+        $this->tariff = $tariff;
     }
 
     public function getComponentCode(): EnergyPriceComponent {
@@ -108,21 +105,5 @@ class EnergyTariffDynamicPrice {
 
     public function setAmount(?float $amount): void {
         $this->amount = $amount;
-    }
-
-    public function getSource(): string {
-        return $this->source;
-    }
-
-    public function setSource(string $source): void {
-        $this->source = $source;
-    }
-
-    public function getSourceValue(): ?float {
-        return $this->sourceValue;
-    }
-
-    public function setSourceValue(?float $sourceValue): void {
-        $this->sourceValue = $sourceValue;
     }
 }

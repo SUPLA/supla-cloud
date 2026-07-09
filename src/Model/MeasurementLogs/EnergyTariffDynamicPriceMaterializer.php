@@ -24,7 +24,7 @@ readonly class EnergyTariffDynamicPriceMaterializer {
             ->delete(EnergyTariffDynamicPrice::class, 'price');
         if ($dynamicTariffIds) {
             $deleteBuilder
-                ->where('price.tariffId NOT IN (:tariffIds)')
+                ->where('IDENTITY(price.tariff) NOT IN (:tariffIds)')
                 ->setParameter('tariffIds', $dynamicTariffIds);
         }
         $deleteBuilder->getQuery()->execute();
@@ -38,7 +38,7 @@ readonly class EnergyTariffDynamicPriceMaterializer {
         if (!$tariff->isDynamic()) {
             $this->measurementLogsEntityManager->createQueryBuilder()
                 ->delete(EnergyTariffDynamicPrice::class, 'price')
-                ->where('price.tariffId = :tariffId')
+                ->where('IDENTITY(price.tariff) = :tariffId')
                 ->setParameter('tariffId', $tariff->getId())
                 ->getQuery()
                 ->execute();
@@ -52,7 +52,7 @@ readonly class EnergyTariffDynamicPriceMaterializer {
         $component = EnergyPriceComponent::FORWARD_ACTIVE_ENERGY;
 
         $existingRows = $this->measurementLogsEntityManager->getRepository(EnergyTariffDynamicPrice::class)->findBy([
-            'tariffId' => $tariff->getId(),
+            'tariff' => $tariff,
             'componentCode' => $component,
         ]);
         $existingBySlotStart = [];
@@ -72,13 +72,11 @@ readonly class EnergyTariffDynamicPriceMaterializer {
             }
 
             $price = $existingBySlotStart[$slotKey] ?? new EnergyTariffDynamicPrice();
-            $price->setTariffId($tariff->getId());
+            $price->setTariff($tariff);
             $price->setComponentCode($component);
             $price->setDateFrom(clone $log->getDateFrom());
             $price->setDateTo(clone $log->getDateTo());
             $price->setCurrency($currency);
-            $price->setSource($source->value);
-            $price->setSourceValue($sourceValue);
             $price->setAmount(round($sourceValue * $multiplier, 6));
             $this->measurementLogsEntityManager->persist($price);
             $keptKeys[$slotKey] = true;

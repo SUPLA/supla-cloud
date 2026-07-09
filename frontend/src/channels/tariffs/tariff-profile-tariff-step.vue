@@ -59,7 +59,7 @@
         </div>
         <div class="tariff-hint__details">
           <span>{{ $t('Timezone') }}: {{ currentTariff(tariffPeriod)?.config?.timezone || 'UTC' }}</span>
-          <span>{{ $t('Type') }}: {{ tariffTypeLabel(currentTariff(tariffPeriod)) }}</span>
+          <span>{{ $t('Type') }}: {{ tariffType(currentTariff(tariffPeriod)) }}</span>
           <span>{{ $t('Zones') }}: {{ tariffZoneSummary(currentTariff(tariffPeriod)) }}</span>
           <span>{{ $t('Default billing') }}: {{ tariffDefaultsSummary(tariffPeriod) }}</span>
           <span>{{ $t('Default components') }}: {{ tariffDefaultItemsSummary(tariffPeriod) }}</span>
@@ -74,7 +74,7 @@
 
 <script setup>
   import DateRangePicker from '@/activity/date-range-picker.vue';
-  import {energyPriceComponentLabel, extractTariffDefaults, isDynamicTariff, tariffPeriodSummary, tariffType, tariffZoneSummary} from './tariff-profile-utils';
+  import {energyPriceComponentLabel, extractTariffDefaults, tariffPeriodSummary, tariffType, tariffZoneSummary} from './tariff-profile-utils';
   import TariffProfileIssues from './tariff-profile-issues.vue';
 
   const emit = defineEmits(['add-tariff-period', 'remove-tariff-period', 'tariff-change', 'update-tariff-period-range']);
@@ -101,10 +101,6 @@
   function tariffDefaultItemsSummary(tariffPeriod) {
     const items = extractTariffDefaults(currentTariff(tariffPeriod)).items;
     return items.length ? items.map((item) => energyPriceComponentLabel(item.componentCode)).join(', ') : '—';
-  }
-
-  function tariffTypeLabel(tariff) {
-    return isDynamicTariff(tariff) ? 'dynamic_15m' : tariffType(tariff);
   }
 
   function emitRangeUpdate(tariffPeriod, value) {

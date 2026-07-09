@@ -132,6 +132,7 @@
 </template>
 
 <script setup>
+  import {useI18n} from 'vue-i18n';
   import DateRangePicker from '@/activity/date-range-picker.vue';
   import CurrencyPicker from '@/channels/params/currency-picker.vue';
   import {
@@ -148,6 +149,7 @@
   import TariffProfileIssues from './tariff-profile-issues.vue';
 
   const emit = defineEmits(['add-price-period', 'remove-price-period', 'prefill-price-period', 'update-price-period-range', 'add-item', 'remove-item']);
+  const {t} = useI18n();
 
   defineProps({
     profile: Object,
@@ -176,7 +178,7 @@
   }
 
   function dynamicButtonLabel(tariffs, tariffPeriod) {
-    return isDynamicTariffPeriod(tariffs, tariffPeriod) ? $t('Start empty') : $t('Create zone rows');
+    return isDynamicTariffPeriod(tariffs, tariffPeriod) ? t('Start empty') : t('Create zone rows');
   }
 </script>
 
