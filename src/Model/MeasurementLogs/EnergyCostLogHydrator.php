@@ -10,9 +10,6 @@ class EnergyCostLogHydrator {
         foreach ($rows as $row) {
             $key = (string)$row['date_timestamp'];
             if (!isset($logs[$key])) {
-                $phase1 = (int)$row['phase1_fae'];
-                $phase2 = (int)$row['phase2_fae'];
-                $phase3 = (int)$row['phase3_fae'];
                 $logs[$key] = [
                     'dateTimestamp' => (int)$row['date_timestamp'],
                     'slotStartTimestamp' => (int)$row['slot_start_timestamp'],
@@ -24,11 +21,10 @@ class EnergyCostLogHydrator {
                     'billingPeriodLength' => $row['billing_period_length'] !== null ? (int)$row['billing_period_length'] : null,
                     'billingPeriodUnit' => $row['billing_period_unit'],
                     'usage' => [
-                        'phase1Fae' => $phase1,
-                        'phase2Fae' => $phase2,
-                        'phase3Fae' => $phase3,
-                        'totalFae' => $phase1 + $phase2 + $phase3,
-                        'totalKwh' => round((float)$row['total_kwh'], 6),
+                        'phase1FaeKwh' => round((float)$row['phase1_kwh'], 6),
+                        'phase2FaeKwh' => round((float)$row['phase2_kwh'], 6),
+                        'phase3FaeKwh' => round((float)$row['phase3_kwh'], 6),
+                        'totalFaeKwh' => round((float)$row['total_kwh'], 6),
                     ],
                     'costs' => null,
                 ];

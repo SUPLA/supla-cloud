@@ -8,6 +8,7 @@ use App\Entity\MeasurementLogs\EnergyTariffProfilePricePeriod;
 use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
 use App\Enums\EnergyPriceUnit;
 use App\Utils\DateUtils;
+use App\Utils\ElectricityMeterValueConverter;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -112,10 +113,10 @@ class EnergyCostRowFetcher {
             $phase3 = (int)($row['phase3_fae'] ?? 0);
             $row['date_timestamp'] = $dateTimestamp;
             $row['slot_start_timestamp'] = $dateTimestamp - (15 * 60);
-            $row['total_kwh'] = ($phase1 + $phase2 + $phase3) / 1000.0;
-            $row['phase1_kwh'] = $phase1 / 1000.0;
-            $row['phase2_kwh'] = $phase2 / 1000.0;
-            $row['phase3_kwh'] = $phase3 / 1000.0;
+            $row['total_kwh'] = ElectricityMeterValueConverter::rawEnergyToFloat($phase1 + $phase2 + $phase3);
+            $row['phase1_kwh'] = ElectricityMeterValueConverter::rawEnergyToFloat($phase1);
+            $row['phase2_kwh'] = ElectricityMeterValueConverter::rawEnergyToFloat($phase2);
+            $row['phase3_kwh'] = ElectricityMeterValueConverter::rawEnergyToFloat($phase3);
         }
 
         return $rows;

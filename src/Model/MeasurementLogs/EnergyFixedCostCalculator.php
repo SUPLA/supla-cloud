@@ -63,7 +63,7 @@ class EnergyFixedCostCalculator {
                             'periodStart' => $billingContext['periodStart'],
                             'periodEnd' => $billingContext['periodEnd'],
                             'timezone' => $billingContext['timezone'],
-                            'usage' => ['totalKwh' => 0.0, 'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0]],
+                            'usage' => ['totalFaeKwh' => 0.0, 'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0]],
                             'costs' => [
                                 'currency' => $pricePeriod->getCurrency(),
                                 'total' => 0.0,

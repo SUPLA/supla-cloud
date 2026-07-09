@@ -36,7 +36,7 @@ class EnergyCostPerformanceIntegrationTest extends IntegrationTestCase {
     private const DEFINITIONS_FILE = __DIR__ . '/../../../src/DataFixtures/tariff-definitions.json';
     private const RAW_LOG_START = '2026-01-01 00:00:00';
     private const RAW_LOG_END = '2027-01-01 00:00:00';
-    private const HOURLY_INCREMENT = 400;
+    private const HOURLY_INCREMENT = 40000;
 
     private ?User $user = null;
     private ?IODeviceChannel $channel = null;

@@ -21,6 +21,7 @@ use App\Entity\Main\IODeviceChannel;
 use App\Enums\ChannelFunction;
 use App\Exception\ApiException;
 use App\Utils\DatabaseUtils;
+use App\Utils\ElectricityMeterValueConverter;
 use App\Utils\StringUtils;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
@@ -118,20 +119,20 @@ class MeasurementCsvExporter {
                         ? "COALESCE($field, 0)"
                         : "IFNULL($field, 0)";
                     $columns = implode(', ', [
-                        $ifNullBigInt('phase1_fae') . ' / 100000.00 phase1_fae',
-                        $ifNullBigInt('phase1_rae') . ' / 100000.00 phase1_rae',
-                        $ifNullBigInt('phase1_fre') . ' / 100000.00 phase1_fre',
-                        $ifNullBigInt('phase1_rre') . ' / 100000.00 phase1_rre',
-                        $ifNullBigInt('phase2_fae') . ' / 100000.00 phase2_fae',
-                        $ifNullBigInt('phase2_rae') . ' / 100000.00 phase2_rae',
-                        $ifNullBigInt('phase2_fre') . ' / 100000.00 phase2_fre',
-                        $ifNullBigInt('phase2_rre') . ' / 100000.00 phase2_rre',
-                        $ifNullBigInt('phase3_fae') . ' / 100000.00 phase3_fae',
-                        $ifNullBigInt('phase3_rae') . ' / 100000.00 phase3_rae',
-                        $ifNullBigInt('phase3_fre') . ' / 100000.00 phase3_fre',
-                        $ifNullBigInt('phase3_rre') . ' / 100000.00 phase3_rre',
-                        $ifNullBigInt('fae_balanced') . ' / 100000.00 fae_balanced',
-                        $ifNullBigInt('rae_balanced') . ' / 100000.00 rae_balanced',
+                        $ifNullBigInt('phase1_fae') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 phase1_fae',
+                        $ifNullBigInt('phase1_rae') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 phase1_rae',
+                        $ifNullBigInt('phase1_fre') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 phase1_fre',
+                        $ifNullBigInt('phase1_rre') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 phase1_rre',
+                        $ifNullBigInt('phase2_fae') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 phase2_fae',
+                        $ifNullBigInt('phase2_rae') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 phase2_rae',
+                        $ifNullBigInt('phase2_fre') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 phase2_fre',
+                        $ifNullBigInt('phase2_rre') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 phase2_rre',
+                        $ifNullBigInt('phase3_fae') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 phase3_fae',
+                        $ifNullBigInt('phase3_rae') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 phase3_rae',
+                        $ifNullBigInt('phase3_fre') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 phase3_fre',
+                        $ifNullBigInt('phase3_rre') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 phase3_rre',
+                        $ifNullBigInt('fae_balanced') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 fae_balanced',
+                        $ifNullBigInt('rae_balanced') . ' / ' . ElectricityMeterValueConverter::RAW_ENERGY_PRECISION . '.00 rae_balanced',
                     ]);
                     return [
                         [

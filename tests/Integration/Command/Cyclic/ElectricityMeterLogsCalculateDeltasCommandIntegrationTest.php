@@ -319,24 +319,24 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $log1 = new ElectricityMeterLogItem();
         EntityUtils::setField($log1, 'channel_id', $channelId);
         EntityUtils::setField($log1, 'date', '2026-06-11 12:00:00');
-        EntityUtils::setField($log1, 'phase1_fae', 1000);
-        EntityUtils::setField($log1, 'phase1_rae', 500);
-        EntityUtils::setField($log1, 'phase2_fae', 2000);
-        EntityUtils::setField($log1, 'phase2_rae', 1000);
-        EntityUtils::setField($log1, 'phase3_fae', 3000);
-        EntityUtils::setField($log1, 'phase3_rae', 1500);
+        EntityUtils::setField($log1, 'phase1_fae', 100000);
+        EntityUtils::setField($log1, 'phase1_rae', 50000);
+        EntityUtils::setField($log1, 'phase2_fae', 200000);
+        EntityUtils::setField($log1, 'phase2_rae', 100000);
+        EntityUtils::setField($log1, 'phase3_fae', 300000);
+        EntityUtils::setField($log1, 'phase3_rae', 150000);
         $this->entityManager->persist($log1);
 
         // Log 2: 12:15
         $log2 = new ElectricityMeterLogItem();
         EntityUtils::setField($log2, 'channel_id', $channelId);
         EntityUtils::setField($log2, 'date', '2026-06-11 12:15:00');
-        EntityUtils::setField($log2, 'phase1_fae', 1100); // delta 100
-        EntityUtils::setField($log2, 'phase1_rae', 550);  // delta 50
-        EntityUtils::setField($log2, 'phase2_fae', 2200); // delta 200
-        EntityUtils::setField($log2, 'phase2_rae', 1100); // delta 100
-        EntityUtils::setField($log2, 'phase3_fae', 3300); // delta 300
-        EntityUtils::setField($log2, 'phase3_rae', 1650); // delta 150
+        EntityUtils::setField($log2, 'phase1_fae', 200000); // delta 100000
+        EntityUtils::setField($log2, 'phase1_rae', 100000);  // delta 50000
+        EntityUtils::setField($log2, 'phase2_fae', 400000); // delta 200000
+        EntityUtils::setField($log2, 'phase2_rae', 200000); // delta 100000
+        EntityUtils::setField($log2, 'phase3_fae', 600000); // delta 300000
+        EntityUtils::setField($log2, 'phase3_rae', 300000); // delta 150000
         $this->entityManager->persist($log2);
 
         $this->entityManager->flush();
@@ -353,27 +353,27 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->assertCount(1, $deltas);
         $delta = $deltas[0];
 
-        $this->assertEquals(100, EntityUtils::getField($delta, 'phase1_fae'));
-        $this->assertEquals(50, EntityUtils::getField($delta, 'phase1_rae'));
-        $this->assertEquals(200, EntityUtils::getField($delta, 'phase2_fae'));
-        $this->assertEquals(100, EntityUtils::getField($delta, 'phase2_rae'));
-        $this->assertEquals(300, EntityUtils::getField($delta, 'phase3_fae'));
-        $this->assertEquals(150, EntityUtils::getField($delta, 'phase3_rae'));
+        $this->assertEquals(100000, EntityUtils::getField($delta, 'phase1_fae'));
+        $this->assertEquals(50000, EntityUtils::getField($delta, 'phase1_rae'));
+        $this->assertEquals(200000, EntityUtils::getField($delta, 'phase2_fae'));
+        $this->assertEquals(100000, EntityUtils::getField($delta, 'phase2_rae'));
+        $this->assertEquals(300000, EntityUtils::getField($delta, 'phase3_fae'));
+        $this->assertEquals(150000, EntityUtils::getField($delta, 'phase3_rae'));
 
         // Sums
-        // FAE: 100 + 200 + 300 = 600
-        // RAE: 50 + 100 + 150 = 300
-        $this->assertEquals(600, $delta->getTotalForwardActiveEnergy());
-        $this->assertEquals(300, $delta->getTotalReverseActiveEnergy());
+        // FAE: 100000 + 200000 + 300000 = 600000
+        // RAE: 50000 + 100000 + 150000 = 300000
+        $this->assertEquals(600000, $delta->getTotalForwardActiveEnergy());
+        $this->assertEquals(300000, $delta->getTotalReverseActiveEnergy());
 
         // Individual phase sums via getter
-        $this->assertEquals(100, $delta->getTotalForwardActiveEnergy(1));
-        $this->assertEquals(200, $delta->getTotalForwardActiveEnergy(2));
-        $this->assertEquals(300, $delta->getTotalForwardActiveEnergy(3));
+        $this->assertEquals(100000, $delta->getTotalForwardActiveEnergy(1));
+        $this->assertEquals(200000, $delta->getTotalForwardActiveEnergy(2));
+        $this->assertEquals(300000, $delta->getTotalForwardActiveEnergy(3));
 
-        $this->assertEquals(50, $delta->getTotalReverseActiveEnergy(1));
-        $this->assertEquals(100, $delta->getTotalReverseActiveEnergy(2));
-        $this->assertEquals(150, $delta->getTotalReverseActiveEnergy(3));
+        $this->assertEquals(50000, $delta->getTotalReverseActiveEnergy(1));
+        $this->assertEquals(100000, $delta->getTotalReverseActiveEnergy(2));
+        $this->assertEquals(150000, $delta->getTotalReverseActiveEnergy(3));
     }
 
     public function testSingleInstanceOnly() {

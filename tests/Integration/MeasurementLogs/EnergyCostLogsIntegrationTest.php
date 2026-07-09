@@ -27,6 +27,7 @@ use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
+use App\Utils\ElectricityMeterValueConverter;
 
 /** @small */
 class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
@@ -95,21 +96,21 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $dynamicTariff = $this->createDynamicTariff($logsEm, 'PL_DYNAMIC_TEST', 'Dynamic test', 'UTC', 'fixing1', 'PLN', 0.001);
         $logsEm->flush();
 
-        $this->createDeltaLog($logsEm, $this->switchingProfileChannel->getId(), '2026-01-10 00:15:00', 100, 0, 0);
-        $this->createDeltaLog($logsEm, $this->switchingProfileChannel->getId(), '2026-01-10 00:30:00', 0, 200, 0);
-        $this->createDeltaLog($logsEm, $this->switchingProfileChannel->getId(), '2026-02-05 12:15:00', 0, 0, 300);
+        $this->createDeltaLog($logsEm, $this->switchingProfileChannel->getId(), '2026-01-10 00:15:00', 0.1, 0, 0);
+        $this->createDeltaLog($logsEm, $this->switchingProfileChannel->getId(), '2026-01-10 00:30:00', 0, 0.2, 0);
+        $this->createDeltaLog($logsEm, $this->switchingProfileChannel->getId(), '2026-02-05 12:15:00', 0, 0, 0.3);
 
-        $this->createDeltaLog($logsEm, $this->quarterlyProfileChannel->getId(), '2026-01-31 23:15:00', 100, 0, 0);
-        $this->createDeltaLog($logsEm, $this->quarterlyProfileChannel->getId(), '2026-02-01 00:15:00', 100, 0, 0);
-        $this->createDeltaLog($logsEm, $this->quarterlyProfileChannel->getId(), '2026-03-31 23:15:00', 100, 0, 0);
+        $this->createDeltaLog($logsEm, $this->quarterlyProfileChannel->getId(), '2026-01-31 23:15:00', 0.1, 0, 0);
+        $this->createDeltaLog($logsEm, $this->quarterlyProfileChannel->getId(), '2026-02-01 00:15:00', 0.1, 0, 0);
+        $this->createDeltaLog($logsEm, $this->quarterlyProfileChannel->getId(), '2026-03-31 23:15:00', 0.1, 0, 0);
 
-        $this->createDeltaLog($logsEm, $this->dynamicProfileChannel->getId(), '2026-01-10 00:15:00', 100, 0, 0);
-        $this->createDeltaLog($logsEm, $this->dynamicProfileChannel->getId(), '2026-01-10 00:30:00', 0, 200, 0);
+        $this->createDeltaLog($logsEm, $this->dynamicProfileChannel->getId(), '2026-01-10 00:15:00', 0.1, 0, 0);
+        $this->createDeltaLog($logsEm, $this->dynamicProfileChannel->getId(), '2026-01-10 00:30:00', 0, 0.2, 0);
 
-        $this->createDeltaLog($logsEm, $this->plainChannel->getId(), '2026-01-10 00:15:00', 150, 0, 0);
-        $this->createDeltaLog($logsEm, $this->priceSwitchProfileChannel->getId(), '2026-01-15 12:15:00', 100, 0, 0);
-        $this->createDeltaLog($logsEm, $this->priceSwitchProfileChannel->getId(), '2026-01-16 12:15:00', 100, 0, 0);
-        $this->createDeltaLog($logsEm, $this->openEndedProfileChannel->getId(), '2026-02-10 12:15:00', 100, 0, 0);
+        $this->createDeltaLog($logsEm, $this->plainChannel->getId(), '2026-01-10 00:15:00', 0.15, 0, 0);
+        $this->createDeltaLog($logsEm, $this->priceSwitchProfileChannel->getId(), '2026-01-15 12:15:00', 0.1, 0, 0);
+        $this->createDeltaLog($logsEm, $this->priceSwitchProfileChannel->getId(), '2026-01-16 12:15:00', 0.1, 0, 0);
+        $this->createDeltaLog($logsEm, $this->openEndedProfileChannel->getId(), '2026-02-10 12:15:00', 0.1, 0, 0);
 
         $dynamicPriceLogA = new EnergyPriceLogItem(
             new \DateTime('2026-01-10 00:00:00', new \DateTimeZone('UTC')),
@@ -257,7 +258,8 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('DAY', $content[0]['zoneCode']);
         $this->assertNotNull($content[0]['profileId']);
         $this->assertNotNull($content[0]['pricePeriodId']);
-        $this->assertEquals(100, $content[0]['usage']['totalFae']);
+        $this->assertEquals(0.1, $content[0]['usage']['totalFaeKwh']);
+        $this->assertEquals(0.1, $content[0]['usage']['phase1FaeKwh']);
         $this->assertEquals(0.21, $content[0]['costs']['total']);
         $this->assertEquals('PLN', $content[0]['costs']['currency']);
         $this->assertEquals(0.1, $content[0]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
@@ -267,7 +269,8 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(0.21, $content[0]['costs']['byPhase']['phase1']);
 
         $this->assertEquals('NIGHT', $content[1]['zoneCode']);
-        $this->assertEquals(200, $content[1]['usage']['totalFae']);
+        $this->assertEquals(0.2, $content[1]['usage']['totalFaeKwh']);
+        $this->assertEquals(0.2, $content[1]['usage']['phase2FaeKwh']);
         $this->assertEquals(0.64, $content[1]['costs']['total']);
         $this->assertEquals(0.4, $content[1]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
         $this->assertEquals(0.04, $content[1]['costs']['byComponent']['DISTRIBUTION_VARIABLE']);
@@ -276,7 +279,8 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(0.64, $content[1]['costs']['byPhase']['phase2']);
 
         $this->assertEquals('ALL_DAY', $content[2]['zoneCode']);
-        $this->assertEquals(300, $content[2]['usage']['totalFae']);
+        $this->assertEquals(0.3, $content[2]['usage']['totalFaeKwh']);
+        $this->assertEquals(0.3, $content[2]['usage']['phase3FaeKwh']);
         $this->assertEquals(0.15, $content[2]['costs']['total']);
         $this->assertEquals(0.15, $content[2]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
         $this->assertEquals(0.15, $content[2]['costs']['byZone']['ALL_DAY']);
@@ -305,7 +309,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('2026-01-10T00:00:00+00:00', $januarySummary['periodStart']);
         $this->assertEquals('2026-02-10T00:00:00+00:00', $januarySummary['periodEnd']);
         $this->assertEquals('UTC', $januarySummary['timezone']);
-        $this->assertEquals(0.3, $januarySummary['usage']['totalKwh']);
+        $this->assertEquals(0.3, $januarySummary['usage']['totalFaeKwh']);
         $this->assertEquals(10.85, $januarySummary['costs']['total']);
         $this->assertEquals('PLN', $januarySummary['costs']['currency']);
         $this->assertEquals(0.5, $januarySummary['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
@@ -318,7 +322,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $februarySummary = $content[1];
         $this->assertEquals('2026-02-01T00:00:00+00:00', $februarySummary['periodStart']);
         $this->assertEquals('2026-03-01T00:00:00+00:00', $februarySummary['periodEnd']);
-        $this->assertEquals(0.3, $februarySummary['usage']['totalKwh']);
+        $this->assertEquals(0.3, $februarySummary['usage']['totalFaeKwh']);
         $this->assertEquals(3.15, $februarySummary['costs']['total']);
         $this->assertEquals(0.15, $februarySummary['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
         $this->assertEquals(3.0, $februarySummary['costs']['byComponent']['FEE_FIXED']);
@@ -347,7 +351,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $quarterSummary = $content[0];
         $this->assertEquals('2026-01-01T00:00:00+00:00', $quarterSummary['periodStart']);
         $this->assertEquals('2026-04-01T00:00:00+00:00', $quarterSummary['periodEnd']);
-        $this->assertEquals(0.3, $quarterSummary['usage']['totalKwh']);
+        $this->assertEquals(0.3, $quarterSummary['usage']['totalFaeKwh']);
         $this->assertEquals('EUR', $quarterSummary['costs']['currency']);
         $this->assertEquals(18.135, $quarterSummary['costs']['total']);
         $this->assertEquals(0.12, $quarterSummary['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
@@ -372,7 +376,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $content);
         $this->assertEquals('2026-01-01T00:00:00+00:00', $content[0]['periodStart']);
         $this->assertEquals('2026-04-01T00:00:00+00:00', $content[0]['periodEnd']);
-        $this->assertEquals(0.3, $content[0]['usage']['totalKwh']);
+        $this->assertEquals(0.3, $content[0]['usage']['totalFaeKwh']);
         $this->assertEquals(18.135, $content[0]['costs']['total']);
     }
 
@@ -384,7 +388,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
 
         $this->assertCount(3, $content);
         $this->assertEquals('ALL_DAY', $content[0]['zoneCode']);
-        $this->assertEquals(100, $content[0]['usage']['totalFae']);
+        $this->assertEquals(0.1, $content[0]['usage']['totalFaeKwh']);
         $this->assertEquals('EUR', $content[0]['costs']['currency']);
         $this->assertEquals(0.045, $content[0]['costs']['total']);
         $this->assertEquals(0.04, $content[0]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
@@ -426,7 +430,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $content = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertCount(1, $content);
-        $this->assertEquals(0.3, $content[0]['usage']['totalKwh']);
+        $this->assertEquals(0.3, $content[0]['usage']['totalFaeKwh']);
         $this->assertEquals(5.05, $content[0]['costs']['total']);
         $this->assertEquals(0.05, $content[0]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
         $this->assertEquals(5.0, $content[0]['costs']['byComponent']['DISTRIBUTION_FIXED']);
@@ -509,7 +513,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertNull($content[0]['zoneCode']);
         $this->assertNull($content[0]['pricePeriodId']);
         $this->assertNull($content[0]['costs']);
-        $this->assertEquals(150, $content[0]['usage']['totalFae']);
+        $this->assertEquals(0.15, $content[0]['usage']['totalFaeKwh']);
     }
 
     public function testFetchingEnergyCostSummariesAcrossMultipleInternalBatches(): void {
@@ -555,7 +559,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
             if ($i > 0) {
                 $date->modify(sprintf('+%d minutes', $i * 15));
             }
-            $this->createDeltaLog($logsEm, $channel->getId(), $date->format('Y-m-d H:i:s'), 100, 0, 0);
+            $this->createDeltaLog($logsEm, $channel->getId(), $date->format('Y-m-d H:i:s'), 0.1, 0, 0);
         }
         $logsEm->flush();
 
@@ -571,7 +575,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $content);
         $this->assertEquals('2026-01-01T00:00:00+00:00', $content[0]['periodStart']);
         $this->assertEquals('2027-01-01T00:00:00+00:00', $content[0]['periodEnd']);
-        $this->assertEquals(1000.1, $content[0]['usage']['totalKwh']);
+        $this->assertEquals(1000.1, $content[0]['usage']['totalFaeKwh']);
         $this->assertEquals(1000.1, $content[0]['costs']['total']);
         $this->assertEquals(1000.1, $content[0]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
     }
@@ -665,11 +669,11 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         return $item;
     }
 
-    private function createDeltaLog($logsEm, int $channelId, string $date, int $phase1, int $phase2, int $phase3): void {
+    private function createDeltaLog($logsEm, int $channelId, string $date, float $phase1, float $phase2, float $phase3): void {
         $log = new ElectricityMeterDeltaLogItem($channelId, $date);
-        EntityUtils::setField($log, 'phase1_fae', $phase1);
-        EntityUtils::setField($log, 'phase2_fae', $phase2);
-        EntityUtils::setField($log, 'phase3_fae', $phase3);
+        EntityUtils::setField($log, 'phase1_fae', ElectricityMeterValueConverter::floatToRawEnergy($phase1));
+        EntityUtils::setField($log, 'phase2_fae', ElectricityMeterValueConverter::floatToRawEnergy($phase2));
+        EntityUtils::setField($log, 'phase3_fae', ElectricityMeterValueConverter::floatToRawEnergy($phase3));
         EntityUtils::setField($log, 'phase1_rae', 0);
         EntityUtils::setField($log, 'phase2_rae', 0);
         EntityUtils::setField($log, 'phase3_rae', 0);

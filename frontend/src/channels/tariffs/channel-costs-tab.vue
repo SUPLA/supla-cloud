@@ -531,7 +531,7 @@
       },
       buildBillingRowsFromData(sourceRows) {
         return sourceRows.map((row) => {
-          const usageKwh = row.usage?.totalKwh || 0;
+          const usageKwh = row.usage?.totalFaeKwh || 0;
           const costTotal = row.costs?.total || 0;
           return {
             key: `${row.periodStart}-${row.timezone}`,
@@ -572,7 +572,7 @@
               byPhase: {phase1: 0, phase2: 0, phase3: 0},
             };
           }
-          groups[key].usageKwh += row.usage?.totalKwh || 0;
+          groups[key].usageKwh += row.usage?.totalFaeKwh || 0;
           if (row.costs) {
             groups[key].costTotal += row.costs.total || 0;
             Object.entries(row.costs.byComponent || {}).forEach(([component, value]) => {

@@ -50,7 +50,7 @@ class EnergyCostSummaryBuilder {
         }
 
         foreach ($summaries as &$summary) {
-            $summary['usage']['totalKwh'] = round($summary['usage']['totalKwh'], 6);
+            $summary['usage']['totalFaeKwh'] = round($summary['usage']['totalFaeKwh'], 6);
             foreach ($summary['usage']['byPhase'] as $phase => $amount) {
                 $summary['usage']['byPhase'][$phase] = round($amount, 6);
             }
@@ -80,7 +80,7 @@ class EnergyCostSummaryBuilder {
                     'periodEnd' => $context['periodEnd'],
                     'timezone' => $context['timezone'],
                     'usage' => [
-                        'totalKwh' => 0.0,
+                        'totalFaeKwh' => 0.0,
                         'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0],
                     ],
                     'costs' => [
@@ -93,10 +93,10 @@ class EnergyCostSummaryBuilder {
                 ];
             }
 
-            $summaries[$key]['usage']['totalKwh'] += $log['usage']['totalKwh'];
-            $summaries[$key]['usage']['byPhase']['phase1'] += $log['usage']['phase1Fae'] / 1000;
-            $summaries[$key]['usage']['byPhase']['phase2'] += $log['usage']['phase2Fae'] / 1000;
-            $summaries[$key]['usage']['byPhase']['phase3'] += $log['usage']['phase3Fae'] / 1000;
+            $summaries[$key]['usage']['totalFaeKwh'] += $log['usage']['totalFaeKwh'];
+            $summaries[$key]['usage']['byPhase']['phase1'] += $log['usage']['phase1FaeKwh'];
+            $summaries[$key]['usage']['byPhase']['phase2'] += $log['usage']['phase2FaeKwh'];
+            $summaries[$key]['usage']['byPhase']['phase3'] += $log['usage']['phase3FaeKwh'];
 
             if (!$log['costs']) {
                 continue;
