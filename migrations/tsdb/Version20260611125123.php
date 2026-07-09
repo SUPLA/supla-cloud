@@ -60,11 +60,6 @@ class Version20260611125123 extends NoWayBackMigration {
         $this->addSql('CREATE INDEX idx_tariff_profile_period_tariff ON supla_energy_tariff_profile_tariff_period (tariff_id)');
         $this->addSql('COMMENT ON COLUMN supla_energy_tariff_profile_tariff_period.valid_from IS \'(DC2Type:utcdatetime)\'');
         $this->addSql('COMMENT ON COLUMN supla_energy_tariff_profile_tariff_period.valid_to IS \'(DC2Type:utcdatetime)\'');
-        $this->addSql('CREATE TABLE supla_energy_tariff_resolved_zone (id BIGINT NOT NULL, tariff_id BIGINT NOT NULL, zone_code VARCHAR(100) NOT NULL, period_start TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, period_end TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE INDEX idx_tariff_period ON supla_energy_tariff_resolved_zone (tariff_id, period_start, period_end)');
-        $this->addSql('CREATE UNIQUE INDEX uq_tariff_zone_start ON supla_energy_tariff_resolved_zone (tariff_id, zone_code, period_start)');
-        $this->addSql('COMMENT ON COLUMN supla_energy_tariff_resolved_zone.period_start IS \'(DC2Type:utcdatetime)\'');
-        $this->addSql('COMMENT ON COLUMN supla_energy_tariff_resolved_zone.period_end IS \'(DC2Type:utcdatetime)\'');
         $this->addSql('ALTER TABLE supla_energy_tariff_profile_assignment ADD CONSTRAINT FK_C84A45A4CCFA12B8 FOREIGN KEY (profile_id) REFERENCES supla_energy_tariff_profile (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE supla_energy_tariff_profile_price_item ADD CONSTRAINT FK_9AC6D6BA6F3A4922 FOREIGN KEY (price_period_id) REFERENCES supla_energy_tariff_profile_price_period (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE supla_energy_tariff_profile_price_period ADD CONSTRAINT FK_2B674158A3DDABB8 FOREIGN KEY (tariff_period_id) REFERENCES supla_energy_tariff_profile_tariff_period (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');

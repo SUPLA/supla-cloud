@@ -16,7 +16,6 @@ use App\Entity\MeasurementLogs\EnergyTariffProfileAssignment;
 use App\Entity\MeasurementLogs\EnergyTariffProfilePriceItem;
 use App\Entity\MeasurementLogs\EnergyTariffProfilePricePeriod;
 use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
-use App\Entity\MeasurementLogs\EnergyTariffResolvedZone;
 use App\Enums\BillingPeriodUnit;
 use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
@@ -62,36 +61,39 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
 
         $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
 
-        $g12Tariff = $this->createTariff($logsEm, 'PL_G12_TEST', 'G12 test', 'UTC', [['code' => 'DAY'], ['code' => 'NIGHT']]);
-        $allDayTariff = $this->createTariff($logsEm, 'PL_G11_TEST', 'G11 test', 'UTC', [['code' => 'ALL_DAY']]);
-        $allDayWideTariff = $this->createTariff($logsEm, 'PL_G11_WIDE_TEST', 'G11 wide test', 'UTC', [['code' => 'ALL_DAY']]);
+        $g12Tariff = $this->createTariff(
+            $logsEm,
+            'PL_G12_TEST',
+            'G12 test',
+            'UTC',
+            [['code' => 'DAY'], ['code' => 'NIGHT']],
+            [
+                ['zone' => 'DAY', 'days' => ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'], 'time_ranges' => [['from' => '00:00', 'to' => '00:15']]],
+                ['zone' => 'NIGHT', 'days' => ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'], 'time_ranges' => [['from' => '00:15', 'to' => '24:00']]],
+            ]
+        );
+        $allDayTariff = $this->createTariff(
+            $logsEm,
+            'PL_G11_TEST',
+            'G11 test',
+            'UTC',
+            [['code' => 'ALL_DAY']],
+            [
+                ['zone' => 'ALL_DAY', 'days' => ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'], 'time_ranges' => [['from' => '00:00', 'to' => '24:00']]],
+            ]
+        );
+        $allDayWideTariff = $this->createTariff(
+            $logsEm,
+            'PL_G11_WIDE_TEST',
+            'G11 wide test',
+            'UTC',
+            [['code' => 'ALL_DAY']],
+            [
+                ['zone' => 'ALL_DAY', 'days' => ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'], 'time_ranges' => [['from' => '00:00', 'to' => '24:00']]],
+            ]
+        );
         $dynamicTariff = $this->createDynamicTariff($logsEm, 'PL_DYNAMIC_TEST', 'Dynamic test', 'UTC', 'fixing1', 'PLN', 0.001);
         $logsEm->flush();
-
-        $logsEm->persist(new EnergyTariffResolvedZone(
-            $g12Tariff->getId(),
-            'DAY',
-            new \DateTime('2026-01-10 00:00:00', new \DateTimeZone('UTC')),
-            new \DateTime('2026-01-10 00:15:00', new \DateTimeZone('UTC'))
-        ));
-        $logsEm->persist(new EnergyTariffResolvedZone(
-            $g12Tariff->getId(),
-            'NIGHT',
-            new \DateTime('2026-01-10 00:15:00', new \DateTimeZone('UTC')),
-            new \DateTime('2026-01-10 00:30:00', new \DateTimeZone('UTC'))
-        ));
-        $logsEm->persist(new EnergyTariffResolvedZone(
-            $allDayTariff->getId(),
-            'ALL_DAY',
-            new \DateTime('2026-01-31 00:00:00', new \DateTimeZone('UTC')),
-            new \DateTime('2026-02-06 00:00:00', new \DateTimeZone('UTC'))
-        ));
-        $logsEm->persist(new EnergyTariffResolvedZone(
-            $allDayWideTariff->getId(),
-            'ALL_DAY',
-            new \DateTime('2026-01-01 00:00:00', new \DateTimeZone('UTC')),
-            new \DateTime('2026-03-01 00:00:00', new \DateTimeZone('UTC'))
-        ));
 
         $this->createDeltaLog($logsEm, $this->switchingProfileChannel->getId(), '2026-01-10 00:15:00', 100, 0, 0);
         $this->createDeltaLog($logsEm, $this->switchingProfileChannel->getId(), '2026-01-10 00:30:00', 0, 200, 0);
@@ -347,9 +349,9 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('2026-04-01T00:00:00+00:00', $quarterSummary['periodEnd']);
         $this->assertEquals(0.3, $quarterSummary['usage']['totalKwh']);
         $this->assertEquals('EUR', $quarterSummary['costs']['currency']);
-        $this->assertEquals(18.09, $quarterSummary['costs']['total']);
-        $this->assertEquals(0.08, $quarterSummary['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
-        $this->assertEquals(0.01, $quarterSummary['costs']['byComponent']['DISTRIBUTION_VARIABLE']);
+        $this->assertEquals(18.135, $quarterSummary['costs']['total']);
+        $this->assertEquals(0.12, $quarterSummary['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
+        $this->assertEquals(0.015, $quarterSummary['costs']['byComponent']['DISTRIBUTION_VARIABLE']);
         $this->assertEquals(18.0, $quarterSummary['costs']['byComponent']['DISTRIBUTION_FIXED']);
     }
 
@@ -371,7 +373,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('2026-01-01T00:00:00+00:00', $content[0]['periodStart']);
         $this->assertEquals('2026-04-01T00:00:00+00:00', $content[0]['periodEnd']);
         $this->assertEquals(0.3, $content[0]['usage']['totalKwh']);
-        $this->assertEquals(18.09, $content[0]['costs']['total']);
+        $this->assertEquals(18.135, $content[0]['costs']['total']);
     }
 
     public function testFetchingEnergyCostLogsForOpenStartProfile(): void {
@@ -516,14 +518,17 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $channel = $device->getChannels()[0];
 
         $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
-        $tariff = $this->createTariff($logsEm, 'PL_BATCH_TEST', 'Batch test', 'UTC', [['code' => 'ALL_DAY']]);
+        $tariff = $this->createTariff(
+            $logsEm,
+            'PL_BATCH_TEST',
+            'Batch test',
+            'UTC',
+            [['code' => 'ALL_DAY']],
+            [
+                ['zone' => 'ALL_DAY', 'days' => ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'], 'time_ranges' => [['from' => '00:00', 'to' => '24:00']]],
+            ]
+        );
         $logsEm->flush();
-        $logsEm->persist(new EnergyTariffResolvedZone(
-            $tariff->getId(),
-            'ALL_DAY',
-            new \DateTime('2026-01-01 00:00:00', new \DateTimeZone('UTC')),
-            new \DateTime('2026-05-01 00:00:00', new \DateTimeZone('UTC'))
-        ));
 
         $profile = new EnergyTariffProfile();
         $profile->setUserId($this->user->getId());
@@ -571,11 +576,16 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(1000.1, $content[0]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
     }
 
-    private function createTariff($logsEm, string $code, string $name, string $timezone, array $zones): EnergyTariff {
+    private function createTariff($logsEm, string $code, string $name, string $timezone, array $zones, array $rules): EnergyTariff {
         $tariff = new EnergyTariff();
         $tariff->setCode($code);
         $tariff->setName($name);
-        $tariff->setConfig(['type' => EnergyTariffType::ZONED_STATIC->value, 'timezone' => $timezone, 'zones' => $zones]);
+        $tariff->setConfig([
+            'type' => EnergyTariffType::ZONED_STATIC->value,
+            'timezone' => $timezone,
+            'zones' => $zones,
+            'rules' => $rules,
+        ]);
         $logsEm->persist($tariff);
         return $tariff;
     }

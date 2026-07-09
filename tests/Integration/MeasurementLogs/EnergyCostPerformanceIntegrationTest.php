@@ -13,7 +13,6 @@ use App\Entity\MeasurementLogs\EnergyTariffProfileAssignment;
 use App\Entity\MeasurementLogs\EnergyTariffProfilePriceItem;
 use App\Entity\MeasurementLogs\EnergyTariffProfilePricePeriod;
 use App\Entity\MeasurementLogs\EnergyTariffProfileTariffPeriod;
-use App\Entity\MeasurementLogs\EnergyTariffResolvedZone;
 use App\Enums\BillingPeriodUnit;
 use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
@@ -22,6 +21,7 @@ use App\Enums\EnergyPriceUnit;
 use App\Model\MeasurementLogs\EnergyCostLogHydrator;
 use App\Model\MeasurementLogs\EnergyCostRowFetcher;
 use App\Model\MeasurementLogs\EnergyCostSummaryBuilder;
+use App\Model\MeasurementLogs\TariffZoneResolver;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\TestTimeProvider;
@@ -71,10 +71,17 @@ class EnergyCostPerformanceIntegrationTest extends IntegrationTestCase {
 
         TestTimeProvider::setTime('2026-01-01 00:00:00 UTC');
         $holidayGenerationMs = $this->measureMilliseconds(fn() => $this->executeCommand('supla:cyclic:generate-energy-tariff-holidays --years-ahead=1'));
-        $tariffResolutionMs = $this->measureMilliseconds(fn() => $this->executeCommand(
-            'supla:cyclic:resolve-energy-tariffs --months-ahead=12 --tariff-code=PL_G13_TAURON --start-date="2026-01-01 00:00:00"'
-        ));
-        $resolvedZoneCount = (int)$logsEm->getRepository(EnergyTariffResolvedZone::class)->count(['tariffId' => $tariff->getId()]);
+        /** @var TariffZoneResolver $tariffZoneResolver */
+        $tariffZoneResolver = self::getContainer()->get(TariffZoneResolver::class);
+        $resolvedIntervals = [];
+        $tariffResolutionMs = $this->measureMilliseconds(function () use ($tariffZoneResolver, $tariff, &$resolvedIntervals): void {
+            $resolvedIntervals = $tariffZoneResolver->resolveIntervals(
+                $tariff,
+                new \DateTime('2026-01-01 00:00:00', new \DateTimeZone('UTC')),
+                new \DateTime('2027-01-01 00:00:00', new \DateTimeZone('UTC'))
+            );
+        });
+        $resolvedZoneCount = count($resolvedIntervals);
         $this->assertGreaterThan(1000, $resolvedZoneCount);
 
         $afterTimestamp = strtotime(self::RAW_LOG_START . ' UTC');
@@ -111,8 +118,7 @@ class EnergyCostPerformanceIntegrationTest extends IntegrationTestCase {
             $afterTimestamp,
             $summaryBeforeTimestamp,
             $rowFetcher,
-            &
-            $summaries
+            &$summaries
         ): void {
             $summaries = $summaryBuilder->buildSummaries($channelId, $afterTimestamp, $summaryBeforeTimestamp, $rowFetcher);
         });

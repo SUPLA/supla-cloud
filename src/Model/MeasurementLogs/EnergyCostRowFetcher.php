@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class EnergyCostRowFetcher {
     public function __construct(
         private readonly EntityManagerInterface $measurementLogsEntityManager,
+        private readonly TariffZoneResolver $tariffZoneResolver,
         private readonly int $recordLimitPerRequest = 10000,
     ) {
     }
@@ -148,7 +149,7 @@ class EnergyCostRowFetcher {
         return [
             'profileId' => $assignment->getProfile()->getId(),
             'tariffPeriods' => $tariffPeriods,
-            'resolvedZones' => $this->loadResolvedZones($tariffIds, $rangeStartTimestamp, $rangeEndTimestamp),
+            'resolvedZones' => $this->resolveZonesForTariffs($tariffPeriods, $rangeStartTimestamp, $rangeEndTimestamp),
             'dynamicPrices' => $this->loadDynamicPrices($tariffIds, $rangeStartTimestamp, $rangeEndTimestamp),
         ];
     }
@@ -198,6 +199,7 @@ class EnergyCostRowFetcher {
             $normalized[] = [
                 'id' => (int)$tariffPeriod->getId(),
                 'tariffId' => (int)$tariffPeriod->getTariff()->getId(),
+                'tariff' => $tariffPeriod->getTariff(),
                 'isDynamic' => $tariffPeriod->getTariff()->isDynamic(),
                 'validFrom' => $tariffPeriod->getValidFrom(),
                 'validTo' => $tariffPeriod->getValidTo(),
@@ -211,35 +213,21 @@ class EnergyCostRowFetcher {
         return $normalized;
     }
 
-    private function loadResolvedZones(array $tariffIds, int $rangeStartTimestamp, int $rangeEndTimestamp): array {
-        if (!$tariffIds) {
-            return [];
-        }
-
+    private function resolveZonesForTariffs(array $tariffPeriods, int $rangeStartTimestamp, int $rangeEndTimestamp): array {
         $normalized = [];
-        $rows = $this->measurementLogsEntityManager->getConnection()->executeQuery(
-            'SELECT tariff_id, zone_code, period_start, period_end
-                FROM supla_energy_tariff_resolved_zone
-                WHERE tariff_id IN (:tariffIds)
-                    AND period_end > :rangeStart
-                    AND period_start < :rangeEnd
-                ORDER BY period_start ASC',
-            [
-                'tariffIds' => $tariffIds,
-                'rangeStart' => DateUtils::timestampToMysqlUtc($rangeStartTimestamp),
-                'rangeEnd' => DateUtils::timestampToMysqlUtc($rangeEndTimestamp),
-            ],
-            [
-                'tariffIds' => ArrayParameterType::INTEGER,
-            ]
-        )->fetchAllAssociative();
-
-        foreach ($rows as $row) {
-            $normalized[(int)$row['tariff_id']][] = [
-                'zoneCode' => $row['zone_code'],
-                'startTs' => (new \DateTime($row['period_start'], new \DateTimeZone('UTC')))->getTimestamp(),
-                'endTs' => (new \DateTime($row['period_end'], new \DateTimeZone('UTC')))->getTimestamp(),
-            ];
+        $periodStart = new \DateTime('@' . $rangeStartTimestamp);
+        $periodEnd = new \DateTime('@' . $rangeEndTimestamp);
+        $periodStart->setTimezone(new \DateTimeZone('UTC'));
+        $periodEnd->setTimezone(new \DateTimeZone('UTC'));
+        foreach ($tariffPeriods as $tariffPeriod) {
+            if ($tariffPeriod['isDynamic'] || isset($normalized[$tariffPeriod['tariffId']])) {
+                continue;
+            }
+            $normalized[$tariffPeriod['tariffId']] = $this->tariffZoneResolver->resolveIntervals(
+                $tariffPeriod['tariff'],
+                clone $periodStart,
+                clone $periodEnd
+            );
         }
 
         return $normalized;
