@@ -14,7 +14,7 @@
           </a>
         </span>
         <span v-if="unitBefore(field, subject)" class="input-group-addon">{{ $t(unitBefore(field, subject)) }}</span>
-        <SimpleDropdown v-if="valuesForDropdown.length" v-slot="{value}" v-model="threshold" :options="valuesForDropdown" @input="updateModel(false)">
+        <SimpleDropdown v-if="valuesForDropdown.length" v-slot="{value}" v-model="threshold" :options="valuesForDropdown" @input="updateThresholdFromDropdown">
           {{ value }} {{ $t(unit(field, subject)) }}
         </SimpleDropdown>
         <input v-else v-model="threshold" type="number" required :step="step()" :min="min()" :max="max()" class="form-control" @input="updateModel(true)" />
@@ -233,6 +233,10 @@
         const nextIndex = this.operators.indexOf(this.operator) + 1;
         this.operator = nextIndex >= this.operators.length ? this.operators[0] : this.operators[nextIndex];
         this.updateModel(true);
+      },
+      updateThresholdFromDropdown(value) {
+        this.threshold = value;
+        this.updateModel(false);
       },
       adjustResumeThreshold() {
         if (['lt', 'le'].includes(this.operator)) {
