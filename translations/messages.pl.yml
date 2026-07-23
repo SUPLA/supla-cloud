@@ -216,7 +216,6 @@ Change to be the same.: Ustaw tak samo.
 Changing channel’s function will also result in the following changes.: Zmiana funkcji kanału spowoduje także poniższe zmiany.
 Changing channel’s visibility will also change the visibility of other items.: Zmiana widoczności kanału zmieni także widoczność innych elementów.
 Changing the location will also imply changing the location of the following items.: Zmiana lokalizacji wpłynie także na jej zmianę dla poniższych elementów.
-Channel: Kanał
 Channel No: Numer kanału
 Channel available for {serviceName}: Kanał dostępny dla {serviceName}
 Channel group: Grupa kanałów
@@ -250,6 +249,7 @@ Choose the channel group: Wybierz grupę kanałów
 Choose the scene: Wybierz scenę
 Choose the schedule: Wybierz harmonogram
 Choose the source channel.: Wybierz kanał źródłowy.
+Chosen: Wybrany
 City: Miejscowość
 Clear: Wyczyść
 Clear filters: Wyczyść filtry
@@ -903,6 +903,7 @@ RESET: RESETUJ
 RGB led controller: Kontroler oświetlenia RGB
 RGB lighting: Oświetlenie RGB
 Rain sensor: Czujnik deszczu
+Random: Losowy
 Reaction notification: Powiadomienie o reakcji
 Reactions: Reakcje
 Reactions limit has been exceeded: Przekroczono limit reakcji
@@ -1606,8 +1607,11 @@ directLink_slugInfo: |
   Ze względów bezpieczeństwa, pełny URL tego linku bezpośredniego jest wyświetlany tylko zaraz po jego utworzeniu (do wylogowania się lub odświeżenia strony).
   Upewnij się, że jest zapisany w bezpiecznym miejscu.
 empty: pusty
-energyPriceForecast_field_fixing1: Cena energii RDN fixing I
-energyPriceForecast_field_fixing2: Cena energii RDN fixing II
+energyPriceForecast_field_fixing1: Cena energii RDN fixing I (15-minutowa)
+energyPriceForecast_field_fixing1_hourly: Cena energii RDN fixing I (godzinowa)
+energyPriceForecast_field_fixing2: Cena energii RDN fixing II (15-minutowa)
+energyPriceForecast_field_fixing2_hourly: Cena energii RDN fixing II (godzinowa)
+energyPriceForecast_field_pdgsz: Cena energii - Godziny szczytu
 energyPriceForecast_field_rce: Cena energii RCE
 everyday: codziennie
 executed: wykonano
@@ -1676,6 +1680,7 @@ openWeatherAttribute_field_airNo2: NO₂
 openWeatherAttribute_field_airO3: O₃
 openWeatherAttribute_field_airPm10: PM10
 openWeatherAttribute_field_airPm25: PM2.5
+openWeatherAttribute_field_clouds: Zachmurzenie
 openWeatherAttribute_field_feelsLike: Temperatura odczuwalna
 openWeatherAttribute_field_humidity: Wilgotność
 openWeatherAttribute_field_pressure: Ciśnienie
@@ -1871,6 +1876,7 @@ Calibration successful.: Kalibracja udana
 Cannot execute an action when the device is disconnected.: Nie można wykonywać akcji gdy urządzenie jest rozłączone.
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Mail nie dotarł? Sprawdź folder SPAM, lub {clickHereLink} aby wysłać ponownie mail aktywacyjny.
+Channel: Kanał
 Channel is disconnected.: Kanał jest rozłączony.
 Channel value: Wartość
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
@@ -1951,7 +1957,6 @@ Power supply: Zasilanie
 Previous login: Poprzednie logowanie
 RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ZALECANE OSZCZĘDZANIE. Zaplanuj domowe energochłonne czynności na inne godziny.
 REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: WYMAGANE OGRANICZANIE. Ogranicz swoje zużycie prądu do niezbędnego minimum.
-Random: Losowy
 Read the following channel's state: Odczytaj stan poniższego kanału
 Registration: Rejestracja
 Remaining: Pozostało
@@ -2002,11 +2007,9 @@ choose access identifiers: wybierz identyfikatory dostępu
 choose the channel: wybierz kanał
 choose the channel group: wybierz grupę kanałów
 comment: komentarz
-energyPriceForecast_field_pdgsz: Cena energii - Godziny szczytu
 execute: wykonaj
 for channel: dla kanału
 hourly: Każdy dzień
-openWeatherAttribute_field_clouds: Zachmurzenie
 prefix: prefiks
 reset chart view: wróć do początkowego widoku
 suffix: sufiks
@@ -2016,4 +2019,3 @@ suffix: sufiks
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-Chosen: Wybrany

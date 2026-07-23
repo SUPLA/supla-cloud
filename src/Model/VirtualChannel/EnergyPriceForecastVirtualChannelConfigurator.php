@@ -53,6 +53,26 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
                 'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
             ]],
         ],
+        'fixing1_hourly' => [
+            'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
+            'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'altIcon' => 45,
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'zł/MWh'],
+            'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'zł/MWh', 'hiddenConfigFields' => [
+                'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
+                'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
+            ]],
+        ],
+        'fixing2_hourly' => [
+            'type' => ChannelType::GENERAL_PURPOSE_MEASUREMENT,
+            'function' => ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+            'altIcon' => 45,
+            'userConfig' => ['valueMultiplier' => 1, 'valuePrecision' => 2, 'unitAfterValue' => 'zł/MWh'],
+            'properties' => ['defaultValuePrecision' => 2, 'defaultUnitAfterValue' => 'zł/MWh', 'hiddenConfigFields' => [
+                'keepHistory', 'chartType', 'refreshIntervalMs', 'valueMultiplier', 'valueDivider', 'valueAdded',
+                'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
+            ]],
+        ],
     ];
 
     public function __construct(
@@ -83,5 +103,9 @@ class EnergyPriceForecastVirtualChannelConfigurator implements VirtualChannelCon
 
     public function supports(VirtualChannelType $type): bool {
         return $type->getValue() === VirtualChannelType::ENERGY_PRICE_FORECAST;
+    }
+
+    public static function getSupportedFields(): array {
+        return array_keys(self::CONFIGS);
     }
 }

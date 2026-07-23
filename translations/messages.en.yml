@@ -61,8 +61,11 @@ directLinkExecutionFailureReason_unsupportedAction: The requested action is not 
 directLink_slugInfo: |
   For security reasons, the full URL of this direct link is displayed only immediately after its creation (until log out or refreshing the page).
   Make sure it is saved in a safe place.
-energyPriceForecast_field_fixing1: Energy price in Poland RDN fixing I
-energyPriceForecast_field_fixing2: Energy price in Poland RDN fixing II
+energyPriceForecast_field_fixing1: Energy price in Poland RDN fixing I (15-minute)
+energyPriceForecast_field_fixing1_hourly: Energy price in Poland RDN fixing I (hourly)
+energyPriceForecast_field_fixing2: Energy price in Poland RDN fixing II (15-minute)
+energyPriceForecast_field_fixing2_hourly: Energy price in Poland RDN fixing II (hourly)
+energyPriceForecast_field_pdgsz: Energy price in Poland - peek hours
 energyPriceForecast_field_rce: Energy price in Poland RCE
 firmwareUpdatePolicy_ALL_ENABLED: Install all updates automatically
 firmwareUpdatePolicy_DISABLED: Allow only manual updates
@@ -106,6 +109,7 @@ openWeatherAttribute_field_airNo2: Air NO₂
 openWeatherAttribute_field_airO3: Air O₃
 openWeatherAttribute_field_airPm10: Air PM10
 openWeatherAttribute_field_airPm25: Air PM2.5
+openWeatherAttribute_field_clouds: Clouds
 openWeatherAttribute_field_feelsLike: Perceived temperature
 openWeatherAttribute_field_humidity: Humidity
 openWeatherAttribute_field_pressure: Pressure
@@ -242,8 +246,6 @@ virtualChannelTypeName_OPEN_WEATHER: Weather
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
-energyPriceForecast_field_pdgsz: Energy price in Poland - peek hours
-openWeatherAttribute_field_clouds: Clouds
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">

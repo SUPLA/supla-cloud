@@ -174,7 +174,7 @@ class IntegrationsController extends RestController {
         $logsWithFixing = $measurementLogsEntityManager->getRepository(EnergyPriceLogItem::class)
             ->createQueryBuilder('e')
             ->where('e.dateFrom >= :date')
-            ->andWhere('e.fixing1 IS NOT NULL')
+            ->andWhere('e.fixing1 IS NOT NULL OR e.fixing1Hourly IS NOT NULL')
             ->setParameter('date', $timeProvider->getDateTime(\DateInterval::createFromDateString("-2 days")))
             ->setMaxResults(1)
             ->getQuery()
@@ -182,6 +182,8 @@ class IntegrationsController extends RestController {
         if ($logsWithFixing) {
             $parameters[] = 'fixing1';
             $parameters[] = 'fixing2';
+            $parameters[] = 'fixing1_hourly';
+            $parameters[] = 'fixing2_hourly';
         }
         return $this->view($parameters);
     }
