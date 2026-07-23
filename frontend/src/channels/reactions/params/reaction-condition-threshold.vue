@@ -193,18 +193,29 @@
     },
     methods: {
       updateInternalState() {
-        this.operator = this.operators.find((op) => Object.hasOwn(this.onChangeTo, op)) || this.operators[0];
-        this.threshold = Number.isFinite(this.onChangeTo[this.operator]) ? this.onChangeTo[this.operator] : this.defaultThreshold;
+        const nextOperator = this.operators.find((op) => Object.hasOwn(this.onChangeTo, op)) || this.operators[0];
+        const currentThreshold = this.threshold;
+        const currentResumeThreshold = this.resumeThreshold;
+
+        this.operator = nextOperator;
+        this.threshold = Number.isFinite(this.onChangeTo[this.operator])
+          ? this.onChangeTo[this.operator]
+          : Number.isFinite(currentThreshold)
+            ? currentThreshold
+            : this.defaultThreshold;
         this.duration = Number.isFinite(this.onChangeTo?.duration_sec) ? this.onChangeTo.duration_sec : this.defaultDurationSec;
         const resume = this.onChangeTo.resume || {};
-        this.resumeThreshold = Number.isFinite(resume[this.resumeOperator]) ? resume[this.resumeOperator] : this.defaultThreshold;
+        this.resumeThreshold = Number.isFinite(resume[this.resumeOperator])
+          ? resume[this.resumeOperator]
+          : Number.isFinite(currentResumeThreshold)
+            ? currentResumeThreshold
+            : this.defaultThreshold;
         if (this.valuesForDropdown.length && !this.valuesForDropdown.includes(this.threshold)) {
           this.threshold = this.valuesForDropdown[0];
           this.resumeThreshold = this.valuesForDropdown[0];
         }
       },
       updateModel(adjustResumeThreshold = false) {
-        console.log('updating model');
         if (adjustResumeThreshold && this.resumeOperator) {
           this.adjustResumeThreshold();
         }
@@ -221,7 +232,7 @@
       nextOperator() {
         const nextIndex = this.operators.indexOf(this.operator) + 1;
         this.operator = nextIndex >= this.operators.length ? this.operators[0] : this.operators[nextIndex];
-        this.updateModel();
+        this.updateModel(true);
       },
       adjustResumeThreshold() {
         if (['lt', 'le'].includes(this.operator)) {
