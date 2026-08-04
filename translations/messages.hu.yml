@@ -314,7 +314,7 @@ Device: Készülék
 Device identification is unsupported in the firmware.: A firmware nem támogatja a készülék azonosítását.
 Device is disconnected.: A készülék nincs csatlakoztatva
 Device might be sleeping: A készülék alvó üzemmódban lehet
-'Device name: %deviceName%': 'A készülék neve: %eszközNév%'
+'Device name: %deviceName%': 'A készülék neve: %deviceName%'
 Device should be now in configuration mode.: A készüléknek most konfigurációs módban kell lennie.
 Device should be restarting now.: A készüléket újra kell indítani.
 'Device software version: %deviceSoftwareVersion%': 'A készülék szoftver verziója: %deviceSoftwareVersion%'
