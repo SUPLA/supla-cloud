@@ -77,7 +77,7 @@ And more: E molto di più
 Anti-freeze and overheat protection: Protezione antigelo e sovratemperatura
 Anti-freeze protection: Protezione antigelo
 Any application or device that uses the {tokenName} token will not work anymore.: Tutte le applicazioni od i dispositivi che utilizzano il token {tokenName} smetteranno di funzionare.
-'App version: %clientAppSoftwareVersion%': Versione app
+'App version: %clientAppSoftwareVersion%': 'Versione app: %clientAppSoftwareVersion%'
 Application: Applicazione
 Application name cannot be blank.: Il nome dell’applicazione non può rimanere vuoto.
 Application requirements: Requisiti dell’applicazione
@@ -206,9 +206,9 @@ Choose the scene: Seleziona una scena
 Choose the schedule: Seleziona una programmazione
 Choose the source channel.: Scegliere la sorgente del canale
 Clear: Cancella
-Click the following link to confirm removal of your account on %cloudHost%.: Per confermare l’intenzione di cancellare il Tuo account SUPLA, clicca il seguente link.
-Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Clicca sul seguente link per confermare l’annullamento della registrazione della tua istanza SUPLA Cloud privata
-'Client app ID: %clientAppId%': ID app
+Click the following link to confirm removal of your account on %cloudHost%.: 'Per confermare l’intenzione di cancellare il Tuo account SUPLA su %cloudHost%, clicca il seguente link.'
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: 'Clicca sul seguente link per confermare l’annullamento della registrazione della tua istanza SUPLA Cloud privata (%targetCloudUrl%)'
+'Client app ID: %clientAppId%': 'ID app: %clientAppId%'
 Client registration: Registrazione dei clienti
 Client’s Apps: Applicazioni del cliente
 Client’s app has been deleted: Applicazione del cliente è stata rimossa
@@ -282,13 +282,13 @@ Description: Descrizione
 Details: Dettagli
 Device: Dispositivo
 'Device GUID: %deviceGuid%': 'GUID dispositivo: %deviceGuid%'
-'Device ID: %deviceId%': ID dispositivo
+'Device ID: %deviceId%': 'ID dispositivo: %deviceId%'
 Device is disconnected.: Dispositivo disconnesso
 Device might be sleeping: Il dispositivo potrebbe essere in modalità standby
-'Device name: %deviceName%': Nome dispositivo
+'Device name: %deviceName%': 'Nome dispositivo: %deviceName%'
 Device should be now in configuration mode.: Il dispositivo dovrebbe ora essere in modalità di configurazione
 Device should be restarting now.: Il dispositivo dovrebbe essere riavviato ora
-'Device software version: %deviceSoftwareVersion%': Versione SW del dispositivo
+'Device software version: %deviceSoftwareVersion%': 'Versione SW del dispositivo: %deviceSoftwareVersion%'
 Device unavailable: Dispositivo indisponibile
 Digi Glass: Digi Glass
 Digi Glass Horizontal: Digi Glass orizzontali
@@ -583,7 +583,7 @@ New password: Nuova password
 New reaction: Nuova reazione
 New scene: Nuovo scenario
 Newer: Più recenti
-'Next limit renewal: {date}': Il limite verrà rinnovato {data}
+'Next limit renewal: {date}': Il limite verrà rinnovato {date}
 Next run date: Prossima esecuzione
 'No': 'No'
 No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Nessun identificatore di accesso abilitato. Vai alla {accessIdsListLink} o {newAccessIdLink}.
@@ -917,7 +917,7 @@ Thermometers configuration: Configurazione termometri
 Thermostat: Termostato
 Thermostat programs: Programmi termostato
 directLinkExecutionFailureReason_invalidActionParameters_info: Questo link diretto richiede una precisazione dei parametri dell’azione eseguita. Vedi i seguenti esempi per scoprire quali parametri puoi impostare.
-This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ricevi questa informazione in materia di tentativo di accesso non riuscito al SUPLA-CLOUD con la Tua email.
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ricevi questa informazione in materia di tentativo di accesso non riuscito al SUPLA-CLOUD (%cloudHost%) con la Tua email.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Questa è la fase finale della cancellazione del tuo account. La compilazione e l’approvazione del modulo comporterà la cancellazione irreversibile dei tuoi dati.
 This is the list of applications you have granted access to your account.: Questo è un elenco delle applicazioni a cui hai dato un accesso al Tuo account.
 This link is only valid for an hour.: Il link sarà attivo per un’ora.
@@ -1359,10 +1359,10 @@ yesterday: ieri
 '{minutes} minutes after sunset': '{minutes} minuti dopo il tramonto'
 '{minutes} minutes before sunrise': '{minutes} minuti prima dell’alba'
 '{minutes} minutes before sunset': '{minutes} minuti prima del tramonto'
-'{requests} out of {limit} / day': '{richieste} di {limite} / giorno'
-'{requests} out of {limit} / h': '{richieste} di {limite} / ora'
-'{requests} out of {limit} / min': '{richieste} di {limite} / min.'
-'{requests} out of {limit} / {seconds} sec.': '{richieste} di {limite} / {secondi} sec.'
+'{requests} out of {limit} / day': '{requests} di {limit} / giorno'
+'{requests} out of {limit} / h': '{requests} di {limit} / ora'
+'{requests} out of {limit} / min': '{requests} di {limit} / min.'
+'{requests} out of {limit} / {seconds} sec.': '{requests} di {limit} / {seconds} sec.'
 '{serviceName} integration': Integrazione con {serviceName}
 
 #</editor-fold>

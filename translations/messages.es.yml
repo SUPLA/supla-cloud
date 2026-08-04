@@ -35,7 +35,7 @@ Account has been activated. You can Sign In now.: Se ha activado la cuenta. Pued
 Action confirmation: Confirmación de la acción
 Action execution: Realizar acción
 Action trigger: Activador de acción
-'Action trigger no. #{index}': 'Activador #{índex}'
+'Action trigger no. #{index}': 'Activador #{index}'
 Action triggers: Activadores de acción
 Actions: Acciones
 Active: Activos
@@ -219,9 +219,9 @@ Choose the scene: Seleccionar una escena
 Choose the schedule: Seleccionar un horario
 Choose the source channel.: Seleccionar un canal de origen.
 Clear: Limpiar
-Click the following link to confirm removal of your account on %cloudHost%.: Para confirmar la eliminación de tu cuenta SUPLA, haz clic en el siguiente enlace.
+Click the following link to confirm removal of your account on %cloudHost%.: Para confirmar la eliminación de tu cuenta SUPLA en %cloudHost%, haz clic en el siguiente enlace.
 Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Haz clic en el enlace a continuación para confirmar la cancelación del registro de tu instancia privada de SUPLA Cloud (%targetCloudUrl%).
-'Client app ID: %clientAppId%': ID :%clienteAppId%
+'Client app ID: %clientAppId%': 'ID: %clientAppId%'
 Client registration: Registro de clientes
 Client’s Apps: Aplicaciones cliente
 Client’s app has been deleted: Se ha eliminado la aplicación cliente
@@ -310,14 +310,14 @@ Description: Descripción
 Details: Detalles
 Device: Dispositivo
 'Device GUID: %deviceGuid%': 'GUID del dispositivo: %deviceGuid%.'
-'Device ID: %deviceId%': 'ID de dispositivo: %ID de dispositivo%'
+'Device ID: %deviceId%': 'ID de dispositivo: %deviceId%'
 Device identification is unsupported in the firmware.: La identificación del dispositivo no es compatible con el firmware.
 Device is disconnected.: El dispositivo está desconectado.
 Device might be sleeping: El dispositivo puede estar en modo de suspensión
-'Device name: %deviceName%': 'Nombre del dispositivo: %nombre del dispositivo%'
+'Device name: %deviceName%': 'Nombre del dispositivo: %deviceName%'
 Device should be now in configuration mode.: El dispositivo debería estar ahora en modo de configuración.
 Device should be restarting now.: El dispositivo debería reiniciarse.
-'Device software version: %deviceSoftwareVersion%': 'Versión de software: %dispositivoVersión de software%'
+'Device software version: %deviceSoftwareVersion%': 'Versión de software: %deviceSoftwareVersion%'
 Device time has been set.: Se han ajustado la fecha y la hora del dispositivo.
 Device unavailable: Dispositivo no disponible
 Different than on master thermostat.: Ajuste distinto al del termostato principal.
@@ -997,7 +997,7 @@ Thermostat programs: Programas de termostato
 This action will result in restarting the device. It will not be available for a while.: Al ordenar esta operación se reiniciará el dispositivo. Durante el reinicio, el dispositivo estará inaccesible.
 This channel was missing during last device registration attempt.: Falta este canal en el dispositivo.
 directLinkExecutionFailureReason_invalidActionParameters_info: Este enlace directo requiere una mayor aclaración de los parámetros de la acción que se está realizando. Vea los ejemplos a continuación para averiguar qué parámetros puede configurar.
-This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ha recibido esta notificación debido al error de acceso a la cuenta de SUPLA-CLOUD que se ha producido al intentar iniciar la sesión a través de la dirección de su correo electrónico.
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ha recibido esta notificación debido al error de acceso a la cuenta de SUPLA-CLOUD (%cloudHost%) que se ha producido al intentar iniciar la sesión a través de la dirección de su correo electrónico.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Esta es la etapa final de la eliminación de tu cuenta. La cumplimentación y aprobación del formulario conllevará la supresión irreversible de tus datos.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Esta es la última foto enviada desde el dispositivo. Marca cuidadosamente el área donde los números del contador son visibles.
 This is the list of applications you have granted access to your account.: Esta es la lista de aplicaciones a las que has otorgado acceso a tu cuenta.
@@ -1511,10 +1511,10 @@ yesterday: ayer
 '{count} minutes before sunrise': '{count} minutos antes del amanecer'
 '{count} minutes before sunset': '{count} minutos antes del atardecer'
 '{days} days': '{days} días'
-'{minutes} minutes after sunrise': '{minutos} minutos después del amanecer'
-'{minutes} minutes after sunset': '{minutos} minutos después del anochecer'
-'{minutes} minutes before sunrise': '{minutos} minutos antes del amanecer'
-'{minutes} minutes before sunset': '{minutos} minutos antes de anochecer'
+'{minutes} minutes after sunrise': '{minutes} minutos después del amanecer'
+'{minutes} minutes after sunset': '{minutes} minutos después del anochecer'
+'{minutes} minutes before sunrise': '{minutes} minutos antes del amanecer'
+'{minutes} minutes before sunset': '{minutes} minutos antes de anochecer'
 '{requests} out of {limit} / day': '{requests} de {limit} / día'
 '{requests} out of {limit} / h': '{requests} de {limit} / h'
 '{requests} out of {limit} / min': '{requests} de {limit} / min'

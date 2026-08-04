@@ -81,7 +81,7 @@ And more: Ir dar daugiau
 Anti-freeze and overheat protection: Apsauga nuo perkaitimo ir užšalimo
 Anti-freeze protection: Apsauga nuo užšalimo
 Any application or device that uses the {tokenName} token will not work anymore.: Visas lietojumprogrammas vai ierīces, kuras izmanto marķieri {tokenName} pārstās darboties.
-'App version: %clientAppSoftwareVersion%': 'Programos versija: %clientAppSorfwareVersion%'
+'App version: %clientAppSoftwareVersion%': 'Programos versija: %clientAppSoftwareVersion%'
 Application: Programėlė
 Application name cannot be blank.: Lietojumprogrammas nosaukums nevar būt tukšs
 Application requirements: Naudojimo reikalavimai
@@ -219,8 +219,8 @@ Choose the scene: Pasirinkite sceną
 Choose the schedule: Pasirinkite tvarkaraštį
 Choose the source channel.: Pasirinkti šaltinio kanalą.
 Clear: Išvalyti
-Click the following link to confirm removal of your account on %cloudHost%.: Jei nori patvirtinti norą pašalinti savo paskyrą SUPLA, spustelėk žemiau pateiktą nuorodą.
-Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Spustelėkite žemiau pateiktą nuorodą, kad patvirtintumėte savo privačios SUPLA Cloud (%targerCloudUrl%) paskyros išregistravimą.
+Click the following link to confirm removal of your account on %cloudHost%.: Jei nori patvirtinti norą pašalinti savo paskyrą SUPLA svetainėje %cloudHost%, spustelėk žemiau pateiktą nuorodą.
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Spustelėkite žemiau pateiktą nuorodą, kad patvirtintumėte savo privačios SUPLA Cloud (%targetCloudUrl%) paskyros išregistravimą.
 'Client app ID: %clientAppId%': 'Identifikatorius: %clientAppId%'
 Client registration: Klientų registracija
 Client’s Apps: Klientų programos
@@ -249,7 +249,7 @@ Confirm Password: Slaptažodžio patvirtinimas
 Confirm if you want to perform the calibration.: Patvirtinkite, kad norite atlikti kalibravimą.
 Confirm if you want to remove Access Identifier: Patvirtinkite, kad norite pašalinti Prieigos Identifikatorių
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Patvirtinkite, kad norite pašalinti Vietos ID{locationId}. Tolesnis įv/iš įrenginių jungimasis su šia vieta bus neįmanomas.
-Confirm if you want to remove {deviceName} device and all of its channels.: Patvirtinkite, kad norite pašalinti {deviveNam} įrenginį ir visus jo kanalus.
+Confirm if you want to remove {deviceName} device and all of its channels.: Patvirtinkite, kad norite pašalinti {deviceName} įrenginį ir visus jo kanalus.
 Confirmation: Patvirtinimas
 Conflict: Konfliktas
 Connected: Sujungta
@@ -713,8 +713,8 @@ Password: Slaptažodis
 Password Reset: Slaptažodžio atstatymas
 Password changed: Pakeistas slaptažodis
 Password has been changed: Slaptažodis pakeistas
-Password must be at least {minLength} characters.: Slaptažodį turi sudaryti bent {minLenght} simboliai.
-Password must be no longer than {maxLength} characters.: Slaptažodis negali būti ilgesnis nei {maxLenght} simbolių.
+Password must be at least {minLength} characters.: Slaptažodį turi sudaryti bent {minLength} simboliai.
+Password must be no longer than {maxLength} characters.: Slaptažodis negali būti ilgesnis nei {maxLength} simbolių.
 Password reset: Nustatyti slaptažodį iš naujo
 Password reset instructions.: Prieigos prie Jūsų paskyros grąžinimo instrukcija.
 Percentage of closing: Uždengimo procentas
@@ -997,7 +997,7 @@ Thermostat programs: Termostato programos
 This action will result in restarting the device. It will not be available for a while.: Aktyvavus šią operaciją, įrenginys bus paleistas iš naujo. Paleidimo iš naujo metu įrenginys bus nepasiekiamas.
 This channel was missing during last device registration attempt.: Šio kanalo įrenginyje nėra.
 directLinkExecutionFailureReason_invalidActionParameters_info: Ši tiesioginė nuoroda reikalauja išsamesnių atliekamo veiksmo parametrų. Pažiūrėk žemiau pateiktus pavyzdžius, kad sužinotum, kokius parametrus gali nustatyti.
-This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Gavote šią informaciją dėl nesėkmingo bandymo prisijungti prie SUPLA-CLOUD naudojant Jūsų el. pašto adresą.
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Gavote šią informaciją dėl nesėkmingo bandymo prisijungti prie SUPLA-CLOUD (%cloudHost%) naudojant Jūsų el. pašto adresą.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Tai paskutinis Jūsų paskyros ištrynimo veiksmas. Užpildžius ir patvirtinus formą Jūsų duomenys bus negrįžtamai ištrinti.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Tai paskutinė įrenginio atsiųsta nuotrauka. Pažymėkite tiksliai sritį, kurioje matomi skaitmenys iš skaitiklio.
 This is the list of applications you have granted access to your account.: Tai programų sąrašas, kurioms suteikėte prieigą Jūsų paskyroje.
@@ -1072,7 +1072,7 @@ Water meter: Vandens skaitiklis
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Siųsime Jums pranešimus apie kai kuriuos įvykius susijusius su Jūsų paskyra. Galite atsisakyti tų, kurių Jums nereikia.
 We could not connect to your SUPLA Cloud instance.: Nepavyko susijungti su jūsų privačia SUPLA Cloud instancija.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Gavome prašymą pašalinti Tavo paskyrą SUPLA Cloud (%cloudHost%).
-We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Pateiktas prašymas išregistruoti Jūsų privačią paskyrą SUPLA Cloud (%targerCloudUrl%)
+We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Pateiktas prašymas išregistruoti Jūsų privačią paskyrą SUPLA Cloud (%targetCloudUrl%)
 We have just sent you an activation link. You should be receiving it shortly.: Pranešimas su Jūsų paskyros aktyvavimo nuoroda ką tik buvo išsiųstas. Kantrybės.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Išsiuntėme Tau el. laišką su nuorodą, patvirtinančią norą pašalinti paskyrą. Gal dar apsigalvosi!
 We have sent you an email with further instructions.: Išsiuntėme Jums pranešimą su tolimesnėmis instrukcijomis.

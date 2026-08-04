@@ -219,7 +219,7 @@ Choose the scene: Vybrat scénu
 Choose the schedule: Vybrat harmonogram
 Choose the source channel.: Vyberte zdrojový kanál.
 Clear: Vymazat
-Click the following link to confirm removal of your account on %cloudHost%.: Pokud chcete opravdu smazat Váš účet SUPLA, tak klikněte na níže uvedený odkaz.
+Click the following link to confirm removal of your account on %cloudHost%.: Pokud chcete opravdu smazat Váš účet SUPLA na %cloudHost%, tak klikněte na níže uvedený odkaz.
 Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Kliknutím na níže uvedený odkaz potvrdíte zrušení registrace vaší soukromé instance SUPLA Cloud (%targetCloudUrl%).
 'Client app ID: %clientAppId%': 'Identifikátor: %clientAppId%'
 Client registration: Registrace zákazníka
@@ -997,7 +997,7 @@ Thermostat programs: Programy termostatu
 This action will result in restarting the device. It will not be available for a while.: Při zadání této operace se zařízení restartuje. Během restartu bude zařízení nedostupné.
 This channel was missing during last device registration attempt.: Tento kanál v zařízení chybí.
 directLinkExecutionFailureReason_invalidActionParameters_info: Tento přímý odkaz vyžaduje další upřesnění parametrů prováděné akce. Na níže uvedeném příkladu zjistíte, které parametry můžete nastavit.
-This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Tyto informace se zobrazují kvůli neúspěšnému pokusu o přihlášení k SUPLA-CLOUD pomocí vaší e-mailové adresy.
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Tyto informace se zobrazují kvůli neúspěšnému pokusu o přihlášení k SUPLA-CLOUD (%cloudHost%) pomocí vaší e-mailové adresy.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Toto je poslední fáze odstranění tvého účtu. Vyplněním a schválením formuláře dojde k nevratnému vymazání tvých údajů.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Toto je poslední fotografie nahraná ze zařízení. Označte přesnou oblast, kde jsou číslice počítadla viditelné.
 This is the list of applications you have granted access to your account.: Toto je seznam aplikací, kterým jste udělili přístup k vašemu účtu.

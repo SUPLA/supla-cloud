@@ -219,7 +219,7 @@ Choose the scene: επιλογή σκηνής
 Choose the schedule: επιλογή χρονοδιαγράμματος
 Choose the source channel.: Επιλέξτε το κανάλι προέλευσης.
 Clear: Αποκοπή
-Click the following link to confirm removal of your account on %cloudHost%.: Για να επιβεβαιώσετε ότι θέλετε να αφαιρέσετε τον λογαριασμό σας από το σύστημα SUPLA, κάντε κλικ στον παρακάτω σύνδεσμο.
+Click the following link to confirm removal of your account on %cloudHost%.: Για να επιβεβαιώσετε ότι θέλετε να αφαιρέσετε τον λογαριασμό σας από το σύστημα SUPLA στο %cloudHost%, κάντε κλικ στον παρακάτω σύνδεσμο.
 Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Κάντε κλικ στον παρακάτω σύνδεσμο  για να επιβεβαιώσετε την κατάργηση της εγγραφής της ιδιωτικής σας παρουσίας SUPLA Cloud  (%targetCloudUrl%).
 'Client app ID: %clientAppId%': 'Αναγνωριστικό: %clientAppId%'
 Client registration: Εγγραφή πελατών
@@ -317,7 +317,7 @@ Device might be sleeping: Η συσκευή ενδέχεται να βρίσκε
 'Device name: %deviceName%': 'Όνομα συσκευής: %deviceName%'
 Device should be now in configuration mode.: Η συσκευή θα πρέπει τώρα να βρίσκεται σε λειτουργία διαμόρφωσης.
 Device should be restarting now.: Η συσκευή θα πρέπει να επανεκκινήσει.
-'Device software version: %deviceSoftwareVersion%': 'Έκδοση λογισμικού: %συσκευήSoftwareVersion%'
+'Device software version: %deviceSoftwareVersion%': 'Έκδοση λογισμικού: %deviceSoftwareVersion%'
 Device time has been set.: Η ημερομηνία και η ώρα της συσκευής έχουν ρυθμιστεί.
 Device unavailable: Η συσκευή δεν είναι διαθέσιμη
 Different than on master thermostat.: Ρύθμιση διαφορετική από εκείνη του κύριου θερμοστάτη.
@@ -511,7 +511,7 @@ If you have not used this email address with %cloudHost%, please do not click th
 If you really want to delete the account, here are the instructions.: Εάν εξακολουθείτε να θέλετε να διαγράψετε τον λογαριασμό σας SUPLA, ακολουθούν οι οδηγίες.
 If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Εάν θέλετε πραγματικά να καταργήσετε την εγγραφή της ιδιωτικής σας παρουσίας στο SUPLA Cloud  - παρακάτω θα βρείτε όλες τις οδηγίες.
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Όταν καταχωρίσετε εκ νέου την εγγραφή του λογαριασμού σας, ορισμένες συσκευές ίσως θα χρειαστούν επαναπρογραμματισμό ακόμα κι αν παρέχετε την ίδια διεύθυνση ηλεκτρονικού ταχυδρομείου.
-If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Αν θέλετε να ενώσετε το ιδιωτικό SUPLA με τη δημόσια εφαρμογή OAuth, θα πρέπει πρώτα να καταχωρήσετε την ιδιότητά σας.
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Αν θέλετε να ενώσετε το ιδιωτικό SUPLA με τη δημόσια εφαρμογή OAuth, θα πρέπει πρώτα να {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Αν θέλετε να χρησιμοποιήσετε τον απευθείας σύνδεσμο σε άλλο λογισμικό, προσθέστε την κατάλληλη κεφαλίδα στο αίτημά σας για να λάβετε πιο εύκολη απάντηση προς επεξεργασία.
 If you wish not to receive such messages, change it in your account settings [here].: Εάν δεν θέλετε να λαμβάνετε τέτοιες ειδοποιήσεις από εμάς, <br> ανατρέξτε στις ρυθμίσεις του λογαριασμού σας [εδώ].
 If you wish to see the available integrations, go to {0}.: Εάν θέλετε να δείτε κάποιους διαθέσιμους συνδέσμους, μεταβείτε στο {0}.
@@ -757,7 +757,7 @@ Private Cloud domain name: Όνομα τομέα του ιδιωτικού σύ�
 Private instance of the SUPLA cloud with given URL is already registered.: Ένα ιδιωτικό σύννεφο SUPLA είναι ήδη καταχωρημένο σε αυτή τη διεύθυνση.
 Proceed: Συνέχεια
 Processing: Σε εξέλιξη
-Program {programNo}: Πρόγραμμα {programmeNo}
+Program {programNo}: Πρόγραμμα {programNo}
 Projector screen: Οθόνη προβολής
 Protocol: Πρωτόκολλο
 Public ID: Δημόσιο ID
@@ -997,7 +997,7 @@ Thermostat programs: Προγράμματα θερμοστάτη
 This action will result in restarting the device. It will not be available for a while.: Η εντολή αυτής της λειτουργίας θα επανεκκινήσει τη συσκευή. Κατά τη διάρκεια της επανεκκίνησης, η συσκευή δεν θα είναι προσβάσιμη.
 This channel was missing during last device registration attempt.: Αυτό το κανάλι λείπει από τη συσκευή.
 directLinkExecutionFailureReason_invalidActionParameters_info: Ο απευθείας σύνδεσμος απαιτεί κάποια αποσαφήνιση των παραμέτρων της ενέργειας που εκτελείται. Δείτε τα παρακάτω παραδείγματα για να μάθετε ποιες παράμετροι μπορείτε να ορίσετε.
-This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Λαμβάνετε αυτές τις πληροφορίες εξαιτίας μιας ανεπιτυχούς προσπάθειας σύνδεσης στο SUPLA-CLOUD με χρήση της διεύθυνσης ηλεκτρονικού σας ταχυδρομείου.
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Λαμβάνετε αυτές τις πληροφορίες εξαιτίας μιας ανεπιτυχούς προσπάθειας σύνδεσης στο SUPLA-CLOUD (%cloudHost%) με χρήση της διεύθυνσης ηλεκτρονικού σας ταχυδρομείου.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Αυτή είναι η τελική φάση της διαγραφής του λογαριασμού σας. Η συμπλήρωση και η έγκριση της φόρμας θα έχει ως αποτέλεσμα τη μη αναστρέψιμη διαγραφή των δεδομένων σας.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Αυτή είναι η τελευταία φωτογραφία που μεταφορτώθηκε από τη συσκευή. Σημειώστε την ακριβή περιοχή όπου είναι ορατά τα ψηφία του μετρητή.
 This is the list of applications you have granted access to your account.: Αυτή είναι η λίστα των εφαρμογών στις οποίες έχετε χορηγήσει πρόσβαση στο λογαριασμό σας.
@@ -1511,10 +1511,10 @@ yesterday: χθες
 '{count} minutes before sunrise': '{count} λεπτά πριν την ανατολή του ήλιου'
 '{count} minutes before sunset': '{count} λεπτά πριν από τη δύση του ηλίου'
 '{days} days': '{days} ημέρες'
-'{minutes} minutes after sunrise': '{λεπτά} λεπτά μετά την ανατολή του ηλίου'
-'{minutes} minutes after sunset': '{λεπτά} λεπτά μετά τη δύση του ηλίου'
-'{minutes} minutes before sunrise': '{λεπτά} λεπτά πριν την ανατολή του ηλίου'
-'{minutes} minutes before sunset': '{λεπτά} λεπτά πριν τη δύση του ηλίου'
+'{minutes} minutes after sunrise': '{minutes} λεπτά μετά την ανατολή του ηλίου'
+'{minutes} minutes after sunset': '{minutes} λεπτά μετά τη δύση του ηλίου'
+'{minutes} minutes before sunrise': '{minutes} λεπτά πριν την ανατολή του ηλίου'
+'{minutes} minutes before sunset': '{minutes} λεπτά πριν τη δύση του ηλίου'
 '{requests} out of {limit} / day': '{requests} από {limit} / ημέρα'
 '{requests} out of {limit} / h': '{requests} από {limit} / h'
 '{requests} out of {limit} / min': '{requests} από {limit} / λεπτό'

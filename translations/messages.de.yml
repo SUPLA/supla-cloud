@@ -219,7 +219,7 @@ Choose the scene: Wählen Sie eine Szene aus.
 Choose the schedule: Wählen Sie einen Zeitplan aus.
 Choose the source channel.: Wählen Sie den Quellkanal.
 Clear: Löschen
-Click the following link to confirm removal of your account on %cloudHost%.: Um das Konto zu löschen bitte auf den unteren Link klicken.
+Click the following link to confirm removal of your account on %cloudHost%.: Um das Konto auf %cloudHost% zu löschen, bitte auf den unteren Link klicken.
 Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Klicken Sie auf den Link unten, um die Abmeldung Ihrer privaten SUPLA-Cloud-Instant zu bestätigen (%targetCloudUrl%).
 'Client app ID: %clientAppId%': 'Kennung: %clientAppId%'
 Client registration: Registrierung der Client-Anwendungen
@@ -638,7 +638,7 @@ New password: Neuer Kennwort
 New reaction: Neue Reaktion
 New scene: Neue Szene
 Newer: Neuere
-'Next limit renewal: {date}': Limit wird erneuert {Daten}
+'Next limit renewal: {date}': Limit wird erneuert {date}
 Next run date: Nächste Ausführung
 'No': Nein
 No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Sie haben keine aktive Zugriffskennung. Gehen Sie zu {accessIdsListLink} oder{newAccessIdLink}.
@@ -997,7 +997,7 @@ Thermostat programs: Thermostatprogramme
 This action will result in restarting the device. It will not be available for a while.: Das Ausführen dieses Vorgangs führt zum Neustart des Geräts. Während des Neustarts ist das Gerät nicht verfügbar.
 This channel was missing during last device registration attempt.: Dieser Kanal fehlt auf dem Gerät.
 directLinkExecutionFailureReason_invalidActionParameters_info: Diese direkte Verbindung erfordert eine weitere Klärung der Parameter der durchgeführten Aktion. In den folgenden Beispielen erfahren Sie, welche Parameter Sie einstellen können.
-This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Sie erhalten diese Information aufgrund eines fehlgeschlagenen Anmeldeversuchs bei SUPLA-CLOUD mit Ihrer E-Mail-Adresse.
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Aufgrund eines fehlgeschlagenen Anmeldeversuchs bei SUPLA-CLOUD (%cloudHost%) erhalten Sie diese Information mit Ihrer E-Mail-Adresse.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Dies ist der letzte Schritt zur Löschung Ihres Kontos. Das Ausfüllen und Bestätigen des Formulars führt zur unwiderruflichen Löschung Ihrer Daten.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Dies ist das letzte Bild, das vom Gerät hochgeladen wurde. Markieren Sie genau den Bereich, in dem die Zahlen des Zählers sichtbar sind.
 This is the list of applications you have granted access to your account.: Dies ist die Liste der Anwendungen, denen Sie Zugriff auf Ihr Konto gewährt haben.
@@ -1515,11 +1515,11 @@ yesterday: gestern
 '{minutes} minutes after sunset': '{minutes} Minuten nach Sonnenuntergang'
 '{minutes} minutes before sunrise': '{minutes} Minuten vor Sonnenaufgang'
 '{minutes} minutes before sunset': '{minutes} Minuten vor Sonnenuntergang'
-'{requests} out of {limit} / day': '{Anfragen} von {Limit} / Tag'
-'{requests} out of {limit} / h': '{Anfragen} von {Limit} / h'
-'{requests} out of {limit} / min': '{Anfragen} von {Limit} / min'
+'{requests} out of {limit} / day': '{requests} von {limit} / Tag'
+'{requests} out of {limit} / h': '{requests} von {limit} / h'
+'{requests} out of {limit} / min': '{requests} von {limit} / min'
 '{requests} out of {limit} / {seconds} sec.': '{requests} z {limit} / {seconds} sek'
-'{serviceName} integration': Integration mit {Servicename}
+'{serviceName} integration': Integration mit {serviceName}
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">

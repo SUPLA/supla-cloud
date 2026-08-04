@@ -150,7 +150,7 @@ Choose client apps: Выберите клиентские приложения
 Choose location: Выбрать местоположение
 Choose the source channel.: Выберите исходный канал.
 Clear: Очистить
-Click the following link to confirm removal of your account on %cloudHost%.: Чтобы подтвердить удаление Вашей учетной записи SUPLA, нажмите на ссылку ниже.
+Click the following link to confirm removal of your account on %cloudHost%.: Чтобы подтвердить удаление Вашей учетной записи SUPLA на %cloudHost%, нажмите на ссылку ниже.
 Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Нажмите на ссылку ниже, чтобы подтвердить отмену регистрации вашего персонального экземпляра SUPLA Cloud (%targetCloudUrl%).
 'Client app ID: %clientAppId%': 'Идентификатор: %clientAppId%'
 Client registration: Регистрация клиентов
@@ -527,8 +527,8 @@ Register a new OAuth application: Зарегистрировать новое п
 Register private SUPLA Cloud: Зарегистрировать персональное облако SUPLA
 Register your SUPLA Cloud: Зарегистрируйте свой экземпляр SUPLA Cloud
 Registered: Зарегистрирован
-'Registered from IP address: %clientAppRegIp%': 'Зарегистрировано с IP-адреса: % clientAppRegIp%'
-'Registered from IP address: %deviceRegIp%': 'IP-адрес: % deviceRegIp%'
+'Registered from IP address: %clientAppRegIp%': 'Зарегистрировано с IP-адреса: %clientAppRegIp%'
+'Registered from IP address: %deviceRegIp%': 'IP-адрес: %deviceRegIp%'
 Relay: Реле
 Relay switching time: Время переключения реле
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Перед удалением местоположения необходимо переместить группы каналов, которые в нем находятся. Идентификаторы: {relatedIds}.'
@@ -669,7 +669,7 @@ There are no more channels you can add to this group: Нет других кан
 Thermometer: Термометр
 Thermostat: Термостат
 directLinkExecutionFailureReason_invalidActionParameters_info: Эта прямая ссылка требует уточнения параметров выполняемого действия. Смотрите приведенные ниже примеры, чтобы узнать, какие параметры вы можете задать.
-This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Вы получили эту информацию в связи с неудачной попыткой входа в SUPLA-CLOUD с использованием вашего адреса электронной почты.
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Вы получили эту информацию в связи с неудачной попыткой входа в SUPLA-CLOUD (%cloudHost%) с использованием вашего адреса электронной почты.
 This is the list of applications you have granted access to your account.: Это список приложений, которым вы предоставили доступ к вашей учетной записи.
 This link is only valid for an hour.: Ссылка действительна в течении часа.
 Thursdays: Четверги
