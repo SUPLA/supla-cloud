@@ -152,7 +152,6 @@ Binary sensor: Бінарний датчик
 Body: Зміст
 Bottom position: Нижня позиція
 Bridge: Перехід
-Brightness: Яскравість
 Brightness adjustment for automatic mode: Налаштування яскравості автоматичного режиму
 Brightness level: Рівень яскравості
 Button volume: Кнопка гучності
@@ -188,7 +187,6 @@ Change to be the same.: Налаштуйте так само.
 Changing channel’s function will also result in the following changes.: Зміна функції каналу також змінить наступне.
 Changing channel’s visibility will also change the visibility of other items.: Зміна видимості каналу також змінить видимість інших елементів.
 Changing the location will also imply changing the location of the following items.: Зміна розташування також призведе до зміни розташування наступних елементів.
-Channel: Канал
 Channel No: Номер каналу
 Channel available for {serviceName}: Канал доступний для {serviceName}
 Channel group: Група каналів
@@ -207,7 +205,6 @@ Chart type: Тип діаграми
 Check the direct link you used and try again.: Перевірте відображене пряме посилання та повторіть спробу.
 Check your email box: Перевірте свою електронну скриньку
 Check your email inbox: Перевірте свою поштову скриньку
-Choose: Виберіть
 Choose Access Identifier: Виберіть ідентифікатор доступу
 Choose Access Identifiers to be assigned to this Location: «Виберіть ідентифікатори доступу, які потрібно призначити цьому місцезнаходженню»
 Choose channel function: Виберіть функцію каналу
@@ -329,7 +326,6 @@ Dimmer: Диммер
 Dimmer & RGB led controller: RGB диммер і контролер освітлення
 Dimmer and RGB lighting: Диммер і RGB освітлення
 Direct link: Пряме посилання
-Direct link has been created successfully!: Пряме посилання успішно створено!
 Direct link has been executed: Зроблено пряме посилання
 'Direct link is not working right now. Reason:': 'На даний момент пряме посилання не працює. Причина:'
 Direct links: Прямі посилання
@@ -415,7 +411,6 @@ Flooding: Флуд
 For a period: За період
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Рекомендовано використовувати {suplaUrl} під час оновлення.
 For devices: Для пристроїв
-For security reasons, the full URL of this direct link will be displayed only once, during creation.: З міркувань безпеки повна URL-адреса цього прямого посилання відображатиметься лише один раз під час його створення.
 Forced off by sensor: Примусове вимкнення за датчиком
 Forgot your password?: Забули пароль?
 Forward active energy: Зібрана активна енергія
@@ -520,7 +515,6 @@ Impulse counter: Лічильник імпульсів
 Impulses: Імпульси
 In order to confirm account deletion, enter your password.: Введіть свій пароль, щоб підтвердити, що ви хочете видалити свій обліковий запис.
 In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.: Щоб отримати дані для входу в брокер MQTT, зв’яжіться з адміністратором цього екземпляра SUPLA Cloud.
-Inactive: Неактивний
 Include energy corrections in new measurements history (not recommended): Включати додану вартість в історію (не рекомендовано)
 Incorrect password: Невірний пароль
 Increment and decrement: Збільшення та зменшення
@@ -554,7 +548,6 @@ Last access: Останній дзвінок
 Last connection: Останній дзвінок
 Last paired device: Останній спарений пристрій
 Last used: Останнє використання
-Let me choose later: Дозвольте мені вибрати пізніше
 Light mode: Яскравий режим
 Light switch: Вмикач світла
 Lighting: Освітлення
@@ -588,7 +581,6 @@ Mail sensor: Датчик пошти
 Main thermometer: Основний термометр
 Maintenance mode active. You cannot modify any data now.: Робота в сервісному режимі. Ви не можете змінити жодні дані.
 Make sure to copy it now because you won’t be able to see it again!: Переконайтеся, що ви зберігаєте їх у безпечному місці.
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Переконайтеся, що ви помістили його в безпечне місце, якщо захочете використовувати його знову в майбутньому. Посилання більше не відображатиметься після виходу з цієї сторінки.
 Manage your new client app in the SUPLA-Cloud.: Керуйте налаштуваннями програми в SUPLA-Cloud.
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Керуйте своїм пристроєм у SUPLA-Cloud або за допомогою програми SUPLA на смартфоні.
 Manual: Інструкція
@@ -859,11 +851,9 @@ Secret: Секретний ключ (секрет)
 Security: Безпека
 Security log: Журнал безпеки
 See available integrations: Перегляньте доступні інтеграції
-See direct link possibilities: Перегляньте можливості прямого посилання
 See in SUPLA-Cloud: Переглянути на SUPLA-Cloud
 Seems like a secret place: Щось нам підказує, що Вас тут не повинно бути
 Select icon: Виберіть піктограму
-What the link is for?: Виберіть елемент (тему), яким хочете керувати за цим посиланням
 Selected: Вибране
 Selected device has been logged out.: Вибраний пристрій вийшов з системи
 Send a notification: Надіслати повідомлення
@@ -960,7 +950,6 @@ The entire history of the voltage aberrations will be removed from this channel.
 The following channels will be also removed along with their dependencies.: Наступні канали також будуть видалені разом з їхніми залежностями.
 The following items use the channels of these device. These references will be also removed.: Наступні елементи використовують канали з цього пристрою. Вони також будуть видалені.
 'The following items will be deleted with this device:': Наведені нижче елементи також буде видалено разом із цим пристроєм.
-The gate sensor must function properly in order to execute the Open and Close actions.: Датчик відкриття воріт має працювати належним чином, щоб виконати дію Відкрити або Закрити.
 The gate sensor must function properly in order to execute the scheduled action.: Щоб виконати дію, датчик відкриття воріт повинен працювати правильно.
 The incident was detected at %datetime%.: Подія відбулася %datetime%.
 The items below depend on this channel function, so they will be deleted.: Наведені нижче елементи базуються на поточній функції каналу та будуть видалені, коли її буде змінено.
@@ -995,7 +984,6 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Програми термостату
 This action will result in restarting the device. It will not be available for a while.: Виконання цієї операції призведе до перезапуску пристрою. Під час перезапуску пристрій буде недоступний.
 This channel was missing during last device registration attempt.: Цей канал відсутній у пристрої.
-directLinkExecutionFailureReason_invalidActionParameters_info: Це пряме посилання вимагає подальшого уточнення параметрів виконуваної дії. Перегляньте наведені нижче приклади, щоб дізнатися, які параметри можна встановити.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ви отримуєте це повідомлення через невдалий вхід до SUPLA-CLOUD (%cloudHost%) за допомогою вашої електронної адреси.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Це завершальний етап видалення Вашого облікового запису. Заповнення та затвердження форми призведе до незворотного видалення Ваших даних.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Це останнє фото, завантажене з пристрою. Позначте саме ту область, де видно цифри лічильника.
@@ -1040,7 +1028,7 @@ Update in progress: Оновлення триває
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Завантажені файли не порушують моральні принципи, авторські права та права третіх осіб, і я маю право їх використовувати.
 Upper voltage threshold: поріг високої напруги
 Use device default: Використовуйте значення за замовчуванням з пристрою
-"Use the {0} server command to change this account's limits. For example:": 'Щоб змінити обмеження для цього облікового запису, скористайтеся командою {0} на своєму сервері. Наприклад:'
+'Use the {0} server command to change this account''s limits. For example:': 'Щоб змінити обмеження для цього облікового запису, скористайтеся командою {0} на своєму сервері. Наприклад:'
 Use {theMasterThermostat} to control this device.: Для керування цим пристроєм використовуйте {theMasterThermostat}.
 Used current transformer type: Використаний трансформатор струму
 User interface: Інтерфейс користувача
@@ -1090,6 +1078,7 @@ Week: Тиждень
 Weekly schedule: Тижневий графік
 Weight sensor: Вага
 Welcome!: Привіт!
+What the link is for?: Виберіть елемент (тему), яким хочете керувати за цим посиланням
 What this token is for?: Для чого цей токен?
 When a certain distance is reached: Коли певну відстань буде досягнуто
 When a lack of liquid is detected: Коли виявляється недолік рідини
@@ -1221,7 +1210,6 @@ When there is certain amount of rain: Коли йде певна кількіс�
 When there weight reaches a certain value: Коли вага досягне певного значення
 Where is the JSON?: Де знаходиться JSON?
 Where is your SUPLA Cloud?: Де знаходиться Ваша Supla?
-White: Білий
 Will be deleted after: Видалення після
 Wind sensor: Датчик вітру
 Window opening sensor: Датчик відкриття вікна
@@ -1229,7 +1217,6 @@ With SUPLA you can operate the lights in your home or office: За допомо�
 With a timer: З таймером
 With function: З функцією
 Working period: Термін експлуатації
-YOUR LINK CODE: ВАШ КОД ПОСИЛАННЯ
 'Yes': Так
 You are changing the settings too quickly. You have to wait a while before making this change.: Ви занадто швидко змінюєте налаштування. Перш ніж змінити ці параметри, потрібно трохи почекати.
 You can browse only the most recent logs now. Wait a while for the full history.: Наразі відображаються лише останні вимірювання. Зачекайте деякий час, поки завантажиться вся історія.
@@ -1354,6 +1341,7 @@ directLinkExecutionFailureReason_expired: Термін дії прямого п�
 directLinkExecutionFailureReason_forbiddenAction: Посилання не дозволяє виконати цю дію
 directLinkExecutionFailureReason_httpGetForbidden: Цю дію було виконано за допомогою незаконного методу HTTP GET
 directLinkExecutionFailureReason_invalidActionParameters: Неправильні параметри прямого посилання
+directLinkExecutionFailureReason_invalidActionParameters_info: Це пряме посилання вимагає подальшого уточнення параметрів виконуваної дії. Перегляньте наведені нижче приклади, щоб дізнатися, які параметри можна встановити.
 directLinkExecutionFailureReason_invalidChannelState: Дія не може бути виконана через стан каналу.
 directLinkExecutionFailureReason_invalidSlug: Надісланий код перевірки неправильний.
 directLinkExecutionFailureReason_noAllowedActions: Не вибрано жодної дозволеної дії
@@ -1529,39 +1517,47 @@ After the delay: Через визначений проміжок часу
 After the delay, but only when it's dark: Через певний час, але тільки коли стемніє
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ви впевнені, що хочете видалити всю історію аберації цього каналу?
 Authorized OAuth apps: Авторизовані програми OAuth
+Brightness: Яскравість
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Вимкнення цієї опції дозволить керувати цим пристроєм з інтеграції без додаткового підтвердження. Це може призвести до небезпечного або менш безпечного стану (наприклад, випадкове відкриття воріт).
 Calculated value: Покази лічильника
 Calibration successful.: Калібрування успішне
 Cannot execute an action when the device is disconnected.: Неможливо виконати дію, коли пристрій відключено.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Не надійшло повідомлення з посиланням для активації вашого облікового запису? Переконайтеся, що він не потрапив у папку СПАМ (небажана пошта). Або ви можете {clickHereLink}, щоб надіслати його повторно.
+Channel: Канал
 Channel is disconnected.: Канал відключений.
 Channel value: Значення
 Chart data source type: Тип джерела даних
 Chart mode: Тип графіка
+Choose: Виберіть
 Coming Soon: Незабаром буде доступно
 Confirm if you want to perform the roller shutter calibration.: Переконайтеся, що модуль відкалібровано.
 Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Видалення вашого облікового запису також призведе до видалення всіх ваших даних, включаючи підключені пристрої, налаштовані канали, прямі посилання та історію вимірювань. Видалення облікового запису незворотне.
 Device channel value: Значення від пристрою
 Device settings: Параметри пристрою
 Differential: Диференціал
+Direct link has been created successfully!: Пряме посилання успішно створено!
 E-mail notifications: Сповіщення електронною поштою
 Entering configuration mode is unsupported in the firmware.: Віддалений перехід в режим конфігурації не підтримується мікропрограмою пристрою.
 Expected maximum increment: Очікуване максимальне зростання
 File is too large: Файл завеликий
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Прошивка цього пристрою надсилає сповіщення в контексті цього каналу. Тут ви можете налаштувати вміст і отримувачів. Для отримання додаткової інформації зверніться до постачальника пристрою.
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Прошивка цього пристрою надсилає сповіщення. Тут ви можете налаштувати вміст і отримувачів. Для отримання додаткової інформації зверніться до постачальника пристрою.
+For security reasons, the full URL of this direct link will be displayed only once, during creation.: З міркувань безпеки повна URL-адреса цього прямого посилання відображатиметься лише один раз під час його створення.
 Forward active energy balance: Баланс споживання активної енергії
 From IP: З IP-адреси
 Get SUPLA on your devices: Завантажте SUPLA на свої пристрої
 If you wish to register your instance, {clickHereLink}.: Якщо ви хочете зареєструвати свій екземпляр, {clickHereLink}.
 If you wish to unregister your instance, {clickHereLink}.: Якщо ви хочете скасувати реєстрацію свого екземпляра, {clickHereLink}.
 In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Щоб мінімізувати ризик неправильного зчитування, установіть лічильник на максимальний очікуваний крок між фотографіями.
+Inactive: Неактивний
 Information: Інформація
 Initial value: Початкове значення
 Interpolate measurements: Оцініть пропущені значення
 Invalid scene: Неправильна сцена
 It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: У цьому режимі пристрій почне транслювати свою мережу Wi-Fi, що дозволяє конфігурувати пристрій або оновлювати мікропрограму за допомогою смартфона, який підключається до цієї мережі.
 Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Пам’ятайте, що опис фрази в додатку не є досконалим і його єдина мета — допомогти вам ввести відповідне значення. Він не використовується для перевірки правильності введеного значення і тим більше для того, щоб похвалитися тим, що «виникла помилка в SUPLI». Після внесення змін перевірте розділ «Майбутні виконання», щоб підтвердити, що надана конфігурація розкладу відповідає вашим очікуванням.
+Let me choose later: Дозвольте мені вибрати пізніше
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Переконайтеся, що ви помістили його в безпечне місце, якщо захочете використовувати його знову в майбутньому. Посилання більше не відображатиметься після виходу з цієї сторінки.
 Maximum temperature that can be set from the device: Максимальна температура, яку можна встановити за допомогою пристрою
 Minimum temperature that can be set from the device: Мінімальна температура, яку можна встановити за допомогою пристрою
 Mobile Apps: Мобільні додатки
@@ -1574,6 +1570,7 @@ Previous login: Попередній вхід
 Reference to the channel will be removed from the items below.: Вказівка на цей канал буде вилучена з наступних.
 Reverse active energy balance: Баланс активної повернутої енергії
 Save changes to see Access IDs: Збережіть зміни, щоб переглянути ідентифікатори доступу
+See direct link possibilities: Перегляньте можливості прямого посилання
 Sensor (normal closed): Датчик (нормально закритий)
 Sensor (normal open): Датчик (нормально відкритий)
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Закрийте ролети, доки вони не торкнуться нижнього краю, і введіть у це поле відсоток закриття. Ця операція не є обов’язковою, але її виконання покращить візуалізацію положення ролет у мобільному додатку.
@@ -1584,6 +1581,7 @@ Temperature adjustment only: Тільки налаштування темпер�
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Завдяки інтеграції ви можете легко додавати нові функції до свого облікового запису, використовуючи рішення, надані зовнішніми постачальниками, розробниками або вами.
 The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Конфігурацію було змінено з іншого місця (наприклад, з іншого вікна браузера, мобільного додатку або пристрою). Перш ніж вносити подальші зміни, потрібно оновити конфігурацію.
 The events in voltage aberrations history will be automatically deleted after {days} days.: Події в історії відхилень напруги будуть автоматично видалені через {days}.
+The gate sensor must function properly in order to execute the Open and Close actions.: Датчик відкриття воріт має працювати належним чином, щоб виконати дію Відкрити або Закрити.
 The items below depend on this channel, so they will be deleted.: Наступні елементи залежать від цього каналу, тому вони будуть видалені.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: За допомогою рамки ми позначили сповіщення, у якому ви натиснули посилання для скасування підписки.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Реакція буде активною, коли будуть виконані всі наведені нижче умови. Якщо ви встановите всі доступні параметри, реакція активуватиметься лише між вибраними датами, у вибраний час і дні тижня, а також коли буде виконано одне з посилань на захід або схід сонця.
@@ -1611,7 +1609,9 @@ When the roof window reaches: Коли мансардне вікно досяг�
 When the terrace awning reaches: Коли тент для тераси досягає
 When the vertical blind reaches: Коли вертикальна штора досягає
 When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Ви можете виконати дію прямого посилання, вказавши його унікальний ідентифікатор у тілі запиту HTTP PATCH. Це безпечніше, оскільки запобігає збереженню повної адреси вашого посилання в журналах доступу серверів, через які проходить ваш запит. Нижче ви знайдете приклад виконання за допомогою інструменту cURL.
+White: Білий
 Working schedule: Графік діяльності
+YOUR LINK CODE: ВАШ КОД ПОСИЛАННЯ
 You need to provide icons for all states.: Ви повинні надати піктограми для всіх станів.
 Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Ваш браузер не підтримує механізм клієнтської бази даних (IndexedDB). Ця функція необхідна для відображення графіків і підтримки розширених налаштувань експорту даних. Оновіть браузер або вийдіть з режиму інкогніто, щоб скористатися цими можливостями.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Пристрій дозволяє розширити його функціональність і дозволяє виконувати будь-які дії на будь-якому вашому пристрої. Доступні параметри залежать від мікропрограми та пристрою, що використовується.
@@ -1644,29 +1644,40 @@ Alarm at level (and above) should be greater than the corresponding warning leve
 Alarm at level (and below) should be lower than the corresponding warning level.: ~
 Alarm level: ~
 Algorithms available on this device: ~
+An RGBW command that modified the action behavior.: ~
 Are you sure you want to delete this subdevice?: ~
 Attribute: ~
 Auto-close on flood: ~
 Aux thermometer for channel: ~
+Available commands: ~
 Battery health: ~
 Battery level: ~
 Baudrate: ~
 Binary sensor for channel: ~
 Bridge node online: ~
 Bridge node signal strength: ~
+Brightness value in percent format (e.g. {example}): ~
+C++: ~
 Calibration lost: ~
+Calibration request has been sent.: ~
 Cannot execute an action when the channel is not available.: ~
 Channel notification: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
 Chart aggregated balance: ~
 Check available updates: ~
 Choose many: ~
+Chosen: ~
 City: ~
+Clear filters: ~
+Color brightness in percent (e.g. {example}): ~
+Color value in HEX format (e.g. {example}): ~
+Condition must be true for minimum time: ~
 Confirm new password: ~
 Connection uptime: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
+Cooling temperature to set in Celsius degrees (e.g. {example}): ~
 Could not add the data source. Try again in a while.: ~
 Could not check updates.: ~
 Could not perform factory reset.: ~
@@ -1684,12 +1695,17 @@ Device date and time: ~
 Device interface: ~
 Device notification: ~
 Device should be checking and installing updates.: ~
+Dimmer CCT: ~
+Dimmer CCT and RGB: ~
+Direct link deleted successfully.: ~
 Does it look good?: ~
 E-mail: ~
 Each container level sensor must have different fill level.: ~
 Energy attribute: ~
 Energy prices: ~
 Everyone makes mistakes!: ~
+Example payload: ~
+Extension: ~
 Factory reset: ~
 Fill level: ~
 Filtering time: ~
@@ -1701,22 +1717,28 @@ Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
 Heat or cold source switch for channel: ~
+Heating temperature to set in Celsius degrees (e.g. {example}): ~
 IP: ~
+Identifier of a channel to copy state from (e.g. {example}): ~
 Image: ~
 Info: ~
 Invalid sensor state: ~
+Java: ~
+JavaScript: ~
 LED settings: ~
 Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
 Light source operating time: ~
+Link only: ~
 Lock type: ~
 MAC: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
 Minimum: ~
+Missing trigger field definition.: ~
 Motion sensor: ~
 Motor problem: ~
 Mute alarm: ~
@@ -1734,10 +1756,15 @@ Opening sensor for channel: ~
 Operating time: ~
 Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Overcurrent threshold: ~
+PHP: ~
+Parameters: ~
 Password is too long.: ~
 Password is too short.: ~
 Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
+Payload: ~
+Percentage of closing (e.g. {example}): ~
 Percentage of extension: ~
+Percentage of opening (e.g. {example}): ~
 Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
@@ -1745,6 +1772,7 @@ Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
 Pump switch for channel: ~
 Push: ~
+Python: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
 Reaction notification: ~
 Reading: ~
@@ -1761,21 +1789,25 @@ Septic tank: ~
 Serial: ~
 Set the configuration password: ~
 Set the password that restricts access to the device configuration page (https://192.168.4.1).: ~
+Set tilt angle in percent: ~
+Show examples: ~
 Slave timeout (ms): ~
 Sound alarm on: ~
 Status: ~
 Stop bits: ~
 Switch cycle count: ~
 Temperature control type: ~
+Temperature to set in Celsius degrees (e.g. {example}): ~
 Temperatures that can be set from local UI: ~
 The device is not connected. The values below represent the last known state.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
+The light will not turn on if you adjust the color only.: ~
 The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
+The reaction will fire only after the condition is met for the specified duration.: ~
 The subdevice has been deleted.: ~
 This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
-This is the list of configured notifications. If you want to add a new notification or alter the existing one, go to the channel details that should trigger it.: ~
 Timeout: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
@@ -1793,6 +1825,8 @@ Weather attribute: ~
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
+When goes offline: ~
+When goes online: ~
 When motion starts to be detected: ~
 When motion stops to be detected: ~
 When the alarm starts: ~
@@ -1802,6 +1836,7 @@ When the battery reaches a certain level: ~
 When the calibration fails: ~
 When the calibration has been lost: ~
 When the calibration has started: ~
+When the channel connection status changes: ~
 When the device starts to be powered from battery: ~
 When the device stops to be powered from battery: ~
 When the fill level becomes known again: ~
@@ -1809,6 +1844,7 @@ When the fill level becomes unknown: ~
 When the fill level changes: ~
 When the fill level reaches a certain value: ~
 When the fill level will be: ~
+When the measurements change: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
@@ -1824,6 +1860,12 @@ When the value value changes: ~
 When the value value will be: ~
 When the warning starts: ~
 When the warning stops: ~
+When the white color reaches a certain level of temperature: ~
+When the white temperature level changes: ~
+When the white temperature will be: ~
+White brightness: ~
+White temperature: ~
+White temperature in percent, 0 - warmest, 100 - coolest (e.g. {example}): ~
 Who has access?: ~
 Wi-Fi RSSI: ~
 Wi-Fi signal strength: ~
@@ -1835,13 +1877,18 @@ activityConditions_help: ~
 and wait until the battery level will be: ~
 and wait until the fill level will be: ~
 battery: ~
+cURL: ~
 choose the city: ~
 closeValveOnFloodType_ALWAYS: ~
 closeValveOnFloodType_ON_CHANGE: ~
 closeValveOnFloodType_help: ~
 directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
+directLink_slugInfo: ~
 energyPriceForecast_field_fixing1: ~
+energyPriceForecast_field_fixing1_hourly: ~
 energyPriceForecast_field_fixing2: ~
+energyPriceForecast_field_fixing2_hourly: ~
+energyPriceForecast_field_pdgsz: ~
 energyPriceForecast_field_rce: ~
 firmwareUpdatePolicy_ALL_ENABLED: ~
 firmwareUpdatePolicy_DISABLED: ~
@@ -1872,6 +1919,7 @@ openWeatherAttribute_field_airNo2: ~
 openWeatherAttribute_field_airO3: ~
 openWeatherAttribute_field_airPm10: ~
 openWeatherAttribute_field_airPm25: ~
+openWeatherAttribute_field_clouds: ~
 openWeatherAttribute_field_feelsLike: ~
 openWeatherAttribute_field_humidity: ~
 openWeatherAttribute_field_pressure: ~
@@ -1882,9 +1930,30 @@ openWeatherAttribute_field_tempHumidity: ~
 openWeatherAttribute_field_visibility: ~
 openWeatherAttribute_field_windGust: ~
 openWeatherAttribute_field_windSpeed: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_STOP: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_STOP: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_STOP: ~
+rgbwCommand_label_NOT_SET: ~
+rgbwCommand_label_SET_BRIGHTNESS_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_DIMMER_CCT_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_RGB_WITHOUT_TURN_ON: ~
+rgbwCommand_label_TOGGLE_ALL: ~
+rgbwCommand_label_TOGGLE_DIMMER: ~
+rgbwCommand_label_TOGGLE_RGB: ~
+rgbwCommand_label_TURN_OFF_ALL: ~
+rgbwCommand_label_TURN_OFF_DIMMER: ~
+rgbwCommand_label_TURN_OFF_RGB: ~
+rgbwCommand_label_TURN_ON_ALL: ~
+rgbwCommand_label_TURN_ON_DIMMER: ~
+rgbwCommand_label_TURN_ON_RGB: ~
 state-half: ~
 state-hi: ~
 state-low: ~
+subdevicePairingResult_DEVICE_NOT_SUPPORTED: ~
 subdevicePairingResult_REQUEST_SENT: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~
@@ -1907,4 +1976,5 @@ virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeInfoLong_OPEN_WEATHER: ~
 virtualChannelTypeName_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeName_OPEN_WEATHER: ~
+
 #</editor-fold>

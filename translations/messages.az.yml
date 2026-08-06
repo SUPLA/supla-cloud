@@ -38,7 +38,7 @@ Account notifications: Hesab bildirişləri
 Action confirmation: Əməliyyat təsdiqi
 Action execution: Əməliyyat icrası
 Action trigger: Əməliyyat tətiki
-Action trigger for channel: "@:{'Əməliyyat tətiki'} @:{'kanal üçün'}"
+Action trigger for channel: '@:{''Əməliyyat tətiki''} @:{''kanal üçün''}'
 'Action trigger no. #{index}': 'Tətik № #{index}'
 Action triggers: Əməliyyat tətikləri
 Actions: Əməliyyatlar
@@ -167,13 +167,12 @@ Be right back!: Tezliklə qayıdıram!
 Behavior settings: Davranış parametrləri
 Below threshold: Limitdən aşağı
 Binary sensor: İkili sensor
-Binary sensor for channel: "@:{'İkili sensor'} @:{'kanal üçün'}"
+Binary sensor for channel: '@:{''İkili sensor''} @:{''kanal üçün''}'
 Body: Məzmun
 Bottom position: Aşağı mövqe
 Bridge: Körpü
 Bridge node online: Körpü düyünü – onlayn
 Bridge node signal strength: Körpü düyünü siqnal gücü
-Brightness: Parlaqlıq
 Brightness adjustment for automatic mode: Avtomatik rejim üçün parlaqlıq tənzimləməsi
 Brightness level: Parlaqlıq səviyyəsi
 Button volume: Düymə səsi
@@ -211,7 +210,6 @@ Change to be the same.: Eyni et
 Changing channel’s function will also result in the following changes.: Kanal funksiyasının dəyişdirilməsi aşağıdakı dəyişikliklərə səbəb olacaq.
 Changing channel’s visibility will also change the visibility of other items.: Kanal görünürlüğünün dəyişdirilməsi digər elementlərin görünürlüğünü də dəyişəcək.
 Changing the location will also imply changing the location of the following items.: Yerin dəyişdirilməsi aşağıdakı elementlərin yerlərinin dəyişməsini də nəzərdə tutur.
-Channel: Kanal
 Channel No: Kanal №
 Channel available for {serviceName}: '{serviceName} üçün mövcud kanal'
 Channel group: Kanal qrupu
@@ -232,7 +230,6 @@ Check available updates: Mövcud yeniləmələri yoxla
 Check the direct link you used and try again.: İstifadə etdiyiniz birbaşa linki yoxlayın və yenidən cəhd edin.
 Check your email box: Email qutunuzu yoxlayın
 Check your email inbox: Email poçtunuzu yoxlayın
-Choose: Seç
 Choose Access Identifier: Giriş identifikatorunu seç
 Choose Access Identifiers to be assigned to this Location: Bu yerə təyin ediləcək giriş identifikatorlarını seç
 Choose channel function: Kanal funksiyasını seç
@@ -376,7 +373,6 @@ Dimmer: Dimmer
 Dimmer & RGB led controller: Dimmer və RGB LED idarəedicisi
 Dimmer and RGB lighting: Dimmer və RGB işıqlandırma
 Direct link: Birbaşa link
-Direct link has been created successfully!: Birbaşa link uğurla yaradıldı!
 Direct link has been executed: Birbaşa link icra olundu
 'Direct link is not working right now. Reason:': 'Birbaşa link hazırda işləmir. Səbəb:'
 Direct links: Birbaşa linklər
@@ -477,7 +473,6 @@ Flooding: Su basması
 For a period: Müddət üçün
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Qısa müddət ərzində {suplaUrl} ünvanından istifadə etməyiniz tövsiyə olunur.
 For devices: Cihazlar üçün
-For security reasons, the full URL of this direct link will be displayed only once, during creation.: Təhlükəsizlik səbəblərinə görə, bu birbaşa linkin tam URL-i yalnız yaradılma zamanı göstəriləcək.
 Forced off by sensor: Sensor tərəfindən məcburi söndürülüb
 Forgot your password?: Şifrənizi unutmusunuz?
 Forward active energy: Aktiv enerjinin alınması
@@ -585,7 +580,6 @@ Impulse counter: İmpuls sayğacı
 Impulses: İmpulslar
 In order to confirm account deletion, enter your password.: Hesabın silinməsini təsdiqləmək üçün şifrənizi daxil edin.
 In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.: MQTT Broker məlumatlarını almaq üçün bu SUPLA Cloud instansiyasının administratoru ilə əlaqə saxlayın.
-Inactive: Aktiv deyil
 Include energy corrections in new measurements history (not recommended): Yeni ölçmələr tarixçəsinə enerji düzəlişlərini əlavə et (tövsiyə edilmir)
 Incorrect password: Yanlış şifrə
 Increment and decrement: Artım və azalma
@@ -622,7 +616,6 @@ Last connection: Son əlaqə
 Last connection reset cause: Əlaqənin yenidən başlatılma səbəbi
 Last paired device: Son cütləşdirilmiş cihaz
 Last used: Son istifadə
-Let me choose later: Sonra seçməyə icazə ver
 Level sensor: Səviyyə sensoru
 Level sensor for container: Qab üçün səviyyə sensoru
 Level sensors: Səviyyə sensorları
@@ -660,16 +653,15 @@ MQTT Broker password has been changed.: MQTT Broker şifrəsi dəyişdirilib.
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Bu SUPLA Cloud instansiyasında istifadəçi adı və şifrə konfiqurasiya olunmayıb.
 Mail sensor: Poçt sensoru
 Main thermometer: Əsas termometr
-Main thermometer for channel: "@:{'Əsas termometr'} @:{'kanal üçün'}"
+Main thermometer for channel: '@:{''Əsas termometr''} @:{''kanal üçün''}'
 Maintenance mode active. You cannot modify any data now.: Baxım rejimi aktivdir. İndi heç bir məlumatı dəyişə bilməzsiniz.
 Make sure to copy it now because you won’t be able to see it again!: İndi kopyaladığınızdan əmin olun, çünki bir daha görməyəcəksiniz!
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Əgər gələcəkdə ona daxil olmaq istəyirsinizsə, onu təhlükəsiz yerdə saxladığınızdan əmin olun. Səhifəni tərk etdikdən sonra link yenidən göstərilməyəcək.
 Manage your new client app in the SUPLA-Cloud.: Yeni müştəri tətbiqinizi SUPLA-Cloud-da idarə edin.
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Yeni cihazınızı SUPLA-Cloud-da və ya smartfonunuzdakı SUPLA tətbiqi ilə idarə edin.
 Manual: Təlimat
 Manually closed: Əl ilə bağlanmış
 Master thermostat: Əsas termostat
-Master thermostat for channel: "@:{'Əsas termostat'} @:{'kanal üçün'}"
+Master thermostat for channel: '@:{''Əsas termostat''} @:{''kanal üçün''}'
 Max: Maks.
 Maximum: Maksimum
 Maximum delay is 60 minutes.: Maksimum gecikmə 60 dəqiqədir.
@@ -784,7 +776,7 @@ Open Weather Data: Open Weather məlumatları
 Open partially: Qismən aç
 Open value: Açıq dəyər
 Opening sensor: Açılma sensoru
-Opening sensor for channel: "@:{'Açılma sensoru'} @:{'kanal üçün'}"
+Opening sensor for channel: '@:{''Açılma sensoru''} @:{''kanal üçün''}'
 Operating time: İşləmə vaxtı
 Operation: Əməliyyat
 Operations: Əməliyyatlar
@@ -801,7 +793,7 @@ PIN for Google must have a length between {minLength} and {maxLength} digits.: G
 Pair new devices or sensors: Yeni cihazları və ya sensorları cütləşdir
 Pairing request sent.: Cütləşdirmə sorğusu göndərildi.
 Partial opening sensor: Qismən açılma sensoru
-Partially opened sensor for channel: "@:{'Qismən açılma sensoru'} @:{'kanal üçün'}"
+Partially opened sensor for channel: '@:{''Qismən açılma sensoru''} @:{''kanal üçün''}'
 Password: Şifrə
 Password Reset: Şifrəni sıfırla
 Password changed: Şifrə dəyişdirildi
@@ -866,7 +858,7 @@ Public ID: Publik ID
 Publish to integrations: İnteqrasiyalara göndər
 Publishes the event to integrated services like MQTT or webhooks.: Hadisəni MQTT və ya webhook kimi inteqrasiya olunmuş xidmətlərə göndərir
 Pump switch: Pompa açarı
-Pump switch for channel: "@:{'Pompa açarı'} @:{'kanal üçün'}"
+Pump switch for channel: '@:{''Pompa açarı''} @:{''kanal üçün''}'
 Push: Push
 Push notifications limit has been exceeded: Push bildiriş limiti aşılmışdır
 RECOMMENDED USE. Take advantage of excess energy.: TÖVSİYYƏ OLUNAN İSTİFADƏ. Artıq enerjidən istifadə edin.
@@ -971,11 +963,9 @@ Secret: Gizli açar (secret)
 Security: Təhlükəsizlik
 Security log: Təhlükəsizlik jurnalı
 See available integrations: Mövcud inteqrasiyaları gör
-See direct link possibilities: Birbaşa link imkanlarını gör
 See in SUPLA-Cloud: SUPLA-Cloud-da gör
 Seems like a secret place: Görünür, buraya girməməlisiniz
 Select icon: İkon seç
-What the link is for?: Bu link vasitəsilə idarə etmək istədiyiniz elementi seçin
 Selected: Seçilmiş
 Selected device has been logged out.: Seçilmiş cihazdan çıxış edilib
 Send a notification: Bildiriş göndər
@@ -1082,7 +1072,6 @@ The entire history of the voltage aberrations will be removed from this channel.
 The following channels will be also removed along with their dependencies.: Aşağıdakı kanallar və onlara bağlı asılılıqlar da silinəcək
 The following items use the channels of these device. These references will be also removed.: Aşağıdakı elementlər bu cihazın kanallarından istifadə edir. Bu istinadlar da silinəcək
 'The following items will be deleted with this device:': 'Aşağıdakı elementlər də bu cihazla birlikdə silinəcək:'
-The gate sensor must function properly in order to execute the Open and Close actions.: Qapı sensoru aç və bağla əməliyyatlarını yerinə yetirmək üçün düzgün işləməlidir
 The gate sensor must function properly in order to execute the scheduled action.: Planlaşdırılmış əməliyyatı yerinə yetirmək üçün qapı sensoru düzgün işləməlidir
 The incident was detected at %datetime%.: Hadisə %datetime%-də aşkarlandı
 The items below depend on the deleted channels, so they will be deleted, too.: Aşağıdakı elementlər silinmiş kanallardan asılıdır, ona görə də onlar da silinəcək
@@ -1122,7 +1111,6 @@ This action will result in restarting the device. It will not be available for a
 This action will result in trying to update the device firmware. It will not be available for a while.: Bu əməliyyat cihazın proqram təminatının yenilənməsinə səbəb olacaq. Cihaz bir müddət istifadə olunmayacaq
 This channel was missing during last device registration attempt.: Son cihaz qeydiyyatı zamanı bu kanal tapılmadı
 This device cannot be remotely awakened. We are awaiting communication from the device...: Bu cihazı uzaqdan oyatmaq mümkün deyil. Cihazdan cavab gözləyirik…
-directLinkExecutionFailureReason_invalidActionParameters_info: Bu birbaşa link düzgün işləməsi üçün əlavə parametrlər tələb edir. Aşağıdakı nümunələrə baxın
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Bu məlumat e-poçt ünvanınız istifadə edilərək SUPLA-CLOUD (%cloudHost%) uğursuz giriş cəhdi səbəbilə avtomatik yaradılıb
 This is only a test to see if the e-mail configuration is working.: Bu yalnız e-poçt konfiqurasiyasının işlədiyini yoxlamaq üçün testdir
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Bu silmə prosesinin son mərhələsidir. Formanı doldurmaq geri dönməyəcək məlumat itkisinə səbəb olacaq
@@ -1174,7 +1162,7 @@ Upper voltage threshold: Yüksək gərginlik həddi
 Uptime: İşləmə müddəti
 Use activity schedule: Fəaliyyət cədvəlindən istifadə et
 Use device default: Cihazın defolt dəyərindən istifadə et
-"Use the {0} server command to change this account's limits. For example:": 'Bu hesabın limitlərini dəyişdirmək üçün {0} server əmri istifadə edin. Məsələn:'
+'Use the {0} server command to change this account''s limits. For example:': 'Bu hesabın limitlərini dəyişdirmək üçün {0} server əmri istifadə edin. Məsələn:'
 Use {theMasterThermostat} to control this device.: Bu cihazı idarə etmək üçün {theMasterThermostat}-dan istifadə edin
 Used current transformer type: İstifadə edilən cərəyan transformatoru növü
 User interface: İstifadəçi interfeysi
@@ -1231,6 +1219,7 @@ Week: Həftə
 Weekly schedule: Həftəlik cədvəl
 Weight sensor: Çəki sensoru
 Welcome!: Xoş gəlmisiniz!
+What the link is for?: Bu link vasitəsilə idarə etmək istədiyiniz elementi seçin
 What this token is for?: Bu token nə üçündür?
 When a certain distance is reached: Müəyyən məsafəyə çatdıqda
 When a flood is detected: Su basması aşkarlandıqda
@@ -1391,7 +1380,6 @@ When there is certain amount of rain: Müəyyən miqdarda yağış yağdıqda
 When there weight reaches a certain value: Çəki müəyyən dəyərə çatdıqda
 Where is the JSON?: JSON haradadır?
 Where is your SUPLA Cloud?: Sizin SUPLA Cloud haradadır?
-White: Ağ
 Who has access?: Kim daxil ola bilər?
 Wi-Fi RSSI: Wi-Fi RSSI
 Wi-Fi signal strength: Wi-Fi siqnal gücü
@@ -1402,7 +1390,6 @@ With SUPLA you can operate the lights in your home or office: SUPLA ilə evinizd
 With a timer: Vaxt taymeri ilə
 With function: Funksiya ilə
 Working period: İşləmə müddəti
-YOUR LINK CODE: SİZİN LINK KODUNUZ
 'Yes': Bəli
 You are changing the settings too quickly. You have to wait a while before making this change.: Ayarları çox tez dəyişdirirsiniz. Bu dəyişikliyi etmədən əvvəl bir az gözləməlisiniz.
 You can browse only the most recent logs now. Wait a while for the full history.: Hal-hazırda yalnız ən son qeydləri görə bilərsiniz. Tam tarixçənin yüklənməsini gözləyin.
@@ -1539,6 +1526,7 @@ directLinkExecutionFailureReason_expired: Birbaşa linkin müddəti bitib
 directLinkExecutionFailureReason_forbiddenAction: Link bu əməliyyatı icra etməyə icazə vermir
 directLinkExecutionFailureReason_httpGetForbidden: Qadağan olunmuş HTTP GET metodu ilə əməliyyat icazəsi yoxdur
 directLinkExecutionFailureReason_invalidActionParameters: Yanlış birbaşa link parametrləri
+directLinkExecutionFailureReason_invalidActionParameters_info: Bu birbaşa link düzgün işləməsi üçün əlavə parametrlər tələb edir. Aşağıdakı nümunələrə baxın
 directLinkExecutionFailureReason_invalidChannelState: Kanal vəziyyəti səbəbindən əməliyyat icra edilə bilmir
 directLinkExecutionFailureReason_invalidSlug: Göndərilən identifikator yanlışdır
 directLinkExecutionFailureReason_noAllowedActions: Heç bir icazəli əməliyyat seçilməyib
@@ -1551,6 +1539,7 @@ directLinkExecutionFailureReason_unsupportedAction: Seçilmiş əməliyyat düzg
 empty: boş
 energyPriceForecast_field_fixing1: Enerji qiyməti RDN fixing I
 energyPriceForecast_field_fixing2: Enerji qiyməti RDN fixing II
+energyPriceForecast_field_pdgsz: Enerji qiyməti – Pik saatlar
 energyPriceForecast_field_rce: Enerji qiyməti RCE
 everyday: hər gün
 executed: icra edildi
@@ -1618,6 +1607,7 @@ openWeatherAttribute_field_airNo2: NO₂
 openWeatherAttribute_field_airO3: O₃
 openWeatherAttribute_field_airPm10: PM10
 openWeatherAttribute_field_airPm25: PM2.5
+openWeatherAttribute_field_clouds: Buludluq
 openWeatherAttribute_field_feelsLike: Hiss olunan temperatur
 openWeatherAttribute_field_humidity: Rütubət
 openWeatherAttribute_field_pressure: Təzyiq
@@ -1787,18 +1777,21 @@ Assigned Locations: Təyin edilmiş yerlər
 Authorized OAuth apps: Təsdiqlənmiş OAuth tətbiqləri
 Available: Mövcuddur
 Battery powered: Batareyalı
+Brightness: Parlaqlıq
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Bu seçimi söndürməklə, cihazınızın əlavə istifadəçi təsdiqi olmadan idarə oluna biləcəyini qəbul edirsiniz, bu isə təhlükəsiz olmayan vəziyyətə səbəb ola bilər.
 Calculated value: Sayğac dəyəri
 Calibration successful.: Kalibrləmə uğurlu
 Cannot execute an action when the device is disconnected.: Cihaz ayrılıbsa əməliyyat icra edilə bilməz.
 Cannot send an activation e-mail. Try again later.: Aktivasiya emaili göndərilə bilmədi. Sonra yenidən cəhd edin.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Aktivasiya mailini tapa bilmirsiniz? SPAM və ya Zibil qovluqlarınızı yoxlayın və ya {clickHereLink} vasitəsilə yenidən göndərin.
+Channel: Kanal
 Channel is disconnected.: Kanal əlaqəsi kəsilib.
 Channel value: Kanal dəyəri
 Channel will be deleted from the channel group below: Kanal aşağıdakı qrupdan silinəcək
 Channels in channel group: Kanal qruplarında olan kanallar
 Chart data source type: Qrafik məlumat mənbəyi tipi
 Chart mode: Qrafik tipi
+Choose: Seç
 Chosen hour: Seçilmiş saat
 Coming Soon: Tezliklə
 Confirm if you want to perform the roller shutter calibration.: Rolletin kalibrlənməsini etmək istədiyinizə əminsiniz?
@@ -1812,6 +1805,7 @@ Deleting your account will result also in deletion of all your data, including y
 Device channel value: Cihaz kanalı dəyəri
 Device settings: Cihaz parametrləri
 Differential: Diferensial
+Direct link has been created successfully!: Birbaşa link uğurla yaradıldı!
 Direct links below will be deleted: Aşağıdakı birbaşa linklər silinəcək
 Doors, Gates: Qapılar, Darvazalar
 E-mail notifications: E-poçt bildirişləri
@@ -1823,6 +1817,7 @@ Expected maximum increment: Gözlənilən maksimum artım
 File is too large: Fayl çox böyükdür
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Bu cihazın firmware-i bu kanal kontekstində bildirişlər göndərir. Burada qəbul edənləri və məzmunu konfiqurasiya edə bilərsiniz. Daha ətraflı məlumat üçün firmware təminatçısına müraciət edin.
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Bu cihazın firmware-i bildirişlər göndərir. Burada qəbul edənləri və məzmunu konfiqurasiya edə bilərsiniz. Daha ətraflı məlumat üçün firmware təminatçısına müraciət edin.
+For security reasons, the full URL of this direct link will be displayed only once, during creation.: Təhlükəsizlik səbəblərinə görə, bu birbaşa linkin tam URL-i yalnız yaradılma zamanı göstəriləcək.
 Forward active energy balance: Aktiv enerji balansı
 From IP: IP-dən
 Generic action: Digər əməliyyat
@@ -1835,6 +1830,7 @@ I/O: Giriş/Çıxış
 If you want to stay here, do something!: Burada qalmaq istəyirsənsə, bir şey et!
 If you wish to register your instance, {clickHereLink}.: Əgər instansiyanızı qeydiyyatdan keçirmək istəyirsinizsə, {clickHereLink}.
 If you wish to unregister your instance, {clickHereLink}.: Əgər instansiyanızı qeydə almaq istəmirsinizsə, {clickHereLink}.
+Inactive: Aktiv deyil
 Information: Məlumat
 Initial value: Başlanğıc dəyər
 Initial values: Başlanğıc dəyərlər
@@ -1845,10 +1841,12 @@ Invalid schedule config (incorrect action).: Cədvəl konfiqurasiyası səhvdir 
 It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: Bu rejimdə cihaz öz Wi-Fi nöqtəsini yayacaq ki, smartfonunuzla qoşularaq bağlantı parametrlərini tənzimləyəsiniz və ya firmware-i yeniləyəsiniz.
 Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Unutmayın ki, daxil etdiyiniz crontab-ın insan oxunuşlu təsviri mükəmməl deyil. Bu, yalnız düzgün dəyəri tapmaqda sizə kömək etmək üçündür, girişinizi yoxlamaq üçün deyil. Daxil etdiyiniz cədvəlin gözlənildiyi kimi işlədiyini təsdiqləmək üçün "Ən yaxın icra" bölməsinə diqqət yetirin.
 Languages: Dillər
+Let me choose later: Sonra seçməyə icazə ver
 Light source lifespan: İşıq mənbəyinin ömrü
 Loading: Yüklənir
 MODBUS: MODBUS
 Main thermometer must be set.: Əsas termometr təyin edilməlidir.
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Əgər gələcəkdə ona daxil olmaq istəyirsinizsə, onu təhlükəsiz yerdə saxladığınızdan əmin olun. Səhifəni tərk etdikdən sonra link yenidən göstərilməyəcək.
 Maximum temperature that can be set from the device: Cihazdan təyin edilə biləcək maksimum temperatur
 Minimum temperature that can be set from the device: Cihazdan təyin edilə biləcək minimum temperatur
 Minute: Dəqiqə
@@ -1877,6 +1875,7 @@ Reverse active energy balance: Aktiv enerjinin balansı
 Save changes to see Access IDs: Dəyişiklikləri yadda saxlayın ki, Giriş ID-ləri görünsün
 Schedule cannot be enabled: Cədvəl aktiv edilə bilmir
 Schedules below will be deleted: Aşağıdakı cədvəllər silinəcək
+See direct link possibilities: Birbaşa link imkanlarını gör
 Sensor (normal closed): Sensor (normal bağlı)
 Sensor (normal open): Sensor (normal açıq)
 Set initial values: Başlanğıc dəyərləri təyin et
@@ -1890,6 +1889,7 @@ Thanks to integrations, you can easily add new features to your account using so
 The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfiqurasiya başqa mənbədən (məsələn, başqa brauzer tabı, mobil tətbiq, cihaz) dəyişdirilib. Məlumat itkisini önləmək üçün əvvəlcə konfiqurasiyanı yeniləyin
 The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: Konfiqurasiya başqa mənbədən dəyişdirilib. Zəhmət olmasa parametrləri yenidən tənzimləyin və yadda saxlayın
 The factory reset was successful.: Fabrik sıfırlaması uğurla başa çatdı
+The gate sensor must function properly in order to execute the Open and Close actions.: Qapı sensoru aç və bağla əməliyyatlarını yerinə yetirmək üçün düzgün işləməlidir
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Kənar xətt ilə işarələnmiş bildiriş, abunəlikdən çıxmaq üçün kliklədiyiniz bildirişdir.
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Relye cərəyan həddindən artıq olduqda söndürülüb. Onu yenidən açmazdan əvvəl problemi həll etdiyinizə əmin olun. Onu uzaqdan açmaq istəyirsiniz?
 This action will result in erasing all stored information (including Wi-Fi settings, password, mail, server) and will not reconnect automatically.: Bu əməliyyat bütün saxlanılmış məlumatları (Wi-Fi parametrləri, şifrə, e-poçt, server daxil olmaqla) siləcək və avtomatik yenidən qoşulmayacaq
@@ -1903,6 +1903,8 @@ Turn off after: Vaxt bitdikdən sonra söndür
 Value per unit: Hər vahid üçün dəyər
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Aldığımız ikonları ən yaxşı şəkildə göstərməyə çalışacağıq, lakin ən yaxşı nəticə üçün şəffaf fonlu, eni {width}px və hündürlüyü {height} olan PNG faylı göndərin
 When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: HTTP PATCH metodu ilə linki işə saldıqda, linkin təsadüfi hissəsini ötürmədən, onu sorğu mətnində göndərə bilərsiniz. Bu daha təhlükəsizdir, çünki bu sorğu server və ya proksi qeydlərində saxlanılmayacaq. Aşağıda cURL nümunəsi verilmişdir.
+White: Ağ
+YOUR LINK CODE: SİZİN LINK KODUNUZ
 You can mark this reading manually as valid. This action WILL NOT immediately update the counter value, but it should improve the future readings for your counter.: Bu oxunu əl ilə düzgün kimi işarələyə bilərsiniz. Bu əməliyyat sayğac dəyərini dərhal yeniləməyəcək, amma gələcək oxumaları yaxşılaşdırmalıdır.
 You will be logged out shortly: Tezliklə çıxış ediləcəksiniz
 Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Brauzeriniz müştəri tərəfli verilənlər bazası mexanizmini (IndexedDB) dəstəkləmir. Bu, qrafiklərin göstərilməsi və inkişaf etmiş ixrac rejimlərinin aktivləşdirilməsi üçün tələb olunur. Bu xüsusiyyətlərdən istifadə etmək üçün brauzerinizi yeniləyin və ya gizli rejimdən çıxın.
@@ -1912,11 +1914,9 @@ choose access identifiers: Giriş identifikatorlarını seçin
 choose the channel: Kanalı seçin
 choose the channel group: Kanal qrupunu seçin
 comment: Şərh
-energyPriceForecast_field_pdgsz: Enerji qiyməti – Pik saatlar
 execute: İcra et
 for channel: Kanal üçün
 hourly: Saatlıq
-openWeatherAttribute_field_clouds: Buludluq
 prefix: Prefiks
 reset chart view: Qrafik görünüşünü sıfırla
 suffix: Sufiks
@@ -1925,28 +1925,96 @@ suffix: Sufiks
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 Action trigger notification: ~
+An RGBW command that modified the action behavior.: ~
+Available commands: ~
+Brightness value in percent format (e.g. {example}): ~
+C++: ~
+Calibration request has been sent.: ~
 Channel notification: ~
 Chart aggregated balance: ~
+Chosen: ~
+Clear filters: ~
+Color brightness in percent (e.g. {example}): ~
+Color value in HEX format (e.g. {example}): ~
+Condition must be true for minimum time: ~
+Cooling temperature to set in Celsius degrees (e.g. {example}): ~
 Device notification: ~
 Device should be checking and installing updates.: ~
+Dimmer CCT: ~
+Dimmer CCT and RGB: ~
+Direct link deleted successfully.: ~
+Example payload: ~
+Extension: ~
 Filtering time: ~
+Heating temperature to set in Celsius degrees (e.g. {example}): ~
+Identifier of a channel to copy state from (e.g. {example}): ~
 Info: ~
+Java: ~
+JavaScript: ~
+Link only: ~
+Missing trigger field definition.: ~
 Motion sensor: ~
 Not calibrated: ~
+PHP: ~
+Parameters: ~
+Payload: ~
+Percentage of closing (e.g. {example}): ~
+Percentage of opening (e.g. {example}): ~
+Python: ~
 Reaction notification: ~
 Remember that this is not your account. You have been trusted by the user when you were given the technical access password.: ~
 Scene notification: ~
 Sensitivity: ~
+Set tilt angle in percent: ~
+Show examples: ~
 Slat angle that the blind sets when closing: ~
 Slat angle that the blind sets when opening: ~
-This is the list of configured notifications. If you want to add a new notification or alter the existing one, go to the channel details that should trigger it.: ~
+Temperature to set in Celsius degrees (e.g. {example}): ~
+The light will not turn on if you adjust the color only.: ~
+The reaction will fire only after the condition is met for the specified duration.: ~
 Timeout: ~
+When goes offline: ~
+When goes online: ~
 When motion starts to be detected: ~
 When motion stops to be detected: ~
+When the channel connection status changes: ~
+When the measurements change: ~
 When the sensor state changes: ~
 When the sensor state changes to hi: ~
 When the sensor state changes to low: ~
+When the white color reaches a certain level of temperature: ~
+When the white temperature level changes: ~
+When the white temperature will be: ~
+White brightness: ~
+White temperature: ~
+White temperature in percent, 0 - warmest, 100 - coolest (e.g. {example}): ~
 With great power comes great responsibility.: ~
 You are using technical access.: ~
+cURL: ~
+directLink_slugInfo: ~
+energyPriceForecast_field_fixing1_hourly: ~
+energyPriceForecast_field_fixing2_hourly: ~
 normal session: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_STOP: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_STOP: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_STOP: ~
+rgbwCommand_label_NOT_SET: ~
+rgbwCommand_label_SET_BRIGHTNESS_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_DIMMER_CCT_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_RGB_WITHOUT_TURN_ON: ~
+rgbwCommand_label_TOGGLE_ALL: ~
+rgbwCommand_label_TOGGLE_DIMMER: ~
+rgbwCommand_label_TOGGLE_RGB: ~
+rgbwCommand_label_TURN_OFF_ALL: ~
+rgbwCommand_label_TURN_OFF_DIMMER: ~
+rgbwCommand_label_TURN_OFF_RGB: ~
+rgbwCommand_label_TURN_ON_ALL: ~
+rgbwCommand_label_TURN_ON_DIMMER: ~
+rgbwCommand_label_TURN_ON_RGB: ~
+subdevicePairingResult_DEVICE_NOT_SUPPORTED: ~
+
 #</editor-fold>

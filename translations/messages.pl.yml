@@ -38,7 +38,7 @@ Account notifications: Powiadomienia dotyczące konta
 Action confirmation: Potwierdzenie akcji
 Action execution: Wykonywanie akcji
 Action trigger: Wyzwalacz akcji
-Action trigger for channel: "@:{'Action trigger'} @:{'for channel'}"
+Action trigger for channel: '@:{''Action trigger''} @:{''for channel''}'
 'Action trigger no. #{index}': 'Wyzwalacz #{index}'
 Action trigger notification: Powiadomienie z wyzwalacza akcji
 Action triggers: Wyzwalacze akcji
@@ -152,7 +152,7 @@ Automatic thermostat: Termostat automatyczny
 Automatic time synchronization: Automatyczna synchronizacja daty i godziny
 Automation: Automatyka
 Aux thermometer: Termometr dodatkowy
-Aux thermometer for channel: "@:{'Aux thermometer'} @:{'for channel'}"
+Aux thermometer for channel: '@:{''Aux thermometer''} @:{''for channel''}'
 Aux thermometer type: Typ termometru dodatkowego
 Available commands: Dostępne komendy
 Available variables: Dostępne zmienne
@@ -170,7 +170,7 @@ Be right back!: Wróć za kilka chwil!
 Behavior settings: Zachowanie
 Below threshold: Poniżej progu
 Binary sensor: Czujnik binarny
-Binary sensor for channel: "@:{'Binary sensor'} @:{'for channel'}"
+Binary sensor for channel: '@:{''Binary sensor''} @:{''for channel''}'
 Body: Treść
 Bottom position: Dolna pozycja
 Bridge: Most
@@ -681,7 +681,7 @@ MQTT Broker password has been changed.: Hasło brokera MQTT zostało zmienione.
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Nazwa użytkownika lub hasło nie są skonfigurowane w tej instancji.
 Mail sensor: Czujnik poczty
 Main thermometer: Termometr główny
-Main thermometer for channel: "@:{'Main thermometer'} @:{'for channel'}"
+Main thermometer for channel: '@:{''Main thermometer''} @:{''for channel''}'
 Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
 Make sure to copy it now because you won’t be able to see it again!: Upewnij się, że zachowasz je w bezpiecznym miejscu.
 Manage your new client app in the SUPLA-Cloud.: Zarządzaj ustawieniami aplikacji w SUPLA-Cloud.
@@ -689,7 +689,7 @@ Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Za
 Manual: Instrukcja
 Manually closed: Zamknięty manualnie
 Master thermostat: Termostat nadrzędny
-Master thermostat for channel: "@:{'Master thermostat'} @:{'for channel'}"
+Master thermostat for channel: '@:{''Master thermostat''} @:{''for channel''}'
 Max: Maks.
 Maximum: Maksimum
 Maximum delay is 60 minutes.: Maksymalne opóźnienie to 60 minut.
@@ -807,7 +807,7 @@ Open Weather Data: Dane z Open Weather
 Open partially: Otwórz częściowo
 Open value: Wartość otwarcia
 Opening sensor: Czujnik otwarcia
-Opening sensor for channel: "@:{'Opening sensor'} @:{'for channel'}"
+Opening sensor for channel: '@:{''Opening sensor''} @:{''for channel''}'
 Operating time: Czas pracy
 Operation: Operacja
 Operations: Operacje
@@ -826,7 +826,7 @@ Pair new devices or sensors: Sparuj nowe urządzenia lub czujniki
 Pairing request sent.: Wysłano żądanie parowania.
 Parameters: Parametry
 Partial opening sensor: Czujnik pośredniego otwarcia
-Partially opened sensor for channel: "@:{'Partial opening sensor'} @:{'for channel'}"
+Partially opened sensor for channel: '@:{''Partial opening sensor''} @:{''for channel''}'
 Password: Hasło
 Password Reset: Resetowanie hasła
 Password changed: Hasło zmienione
@@ -894,7 +894,7 @@ Public ID: Publiczny ID
 Publish to integrations: Publikuj do integracji
 Publishes the event to integrated services like MQTT or webhooks.: Powiadamia integracje takie jak MQTT lub webhooki o wykonaniu tej akcji.
 Pump switch: Włącznik pompy
-Pump switch for channel: "@:{'Pump switch'} @:{'for channel'}"
+Pump switch for channel: '@:{''Pump switch''} @:{''for channel''}'
 Push: Push
 Push notifications limit has been exceeded: Limit powiadomień push został przekroczony
 Python: Python
@@ -1211,7 +1211,7 @@ Upper voltage threshold: Próg wysokiego napięcia
 Uptime: Czas pracy
 Use activity schedule: Użyj harmonogramu aktywności
 Use device default: Użyj domyślnej wartości z urządzenia
-"Use the {0} server command to change this account's limits. For example:": 'Aby zmienić limity dla tego konta, użyj komendy {0} na Twoim serwerze. Na przykład:'
+'Use the {0} server command to change this account''s limits. For example:': 'Aby zmienić limity dla tego konta, użyj komendy {0} na Twoim serwerze. Na przykład:'
 Use {theMasterThermostat} to control this device.: Użyj {theMasterThermostat}, aby sterować tym urządzeniem.
 Used current transformer type: Używany przekładnik prądowy
 User interface: Interfejs użytkownika
@@ -1977,10 +1977,8 @@ Standard: Standardowe
 Subject: Podmiot
 Sunrise / Sunset: Wschód / Zachód
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Dzięki integracjom możesz w łatwy sposób dodać nowe funkcje do swojego konta, wykorzystując rozwiązania dostarczone przez zewnętrznych dostawców, programistów lub przez samego siebie.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.:
-  |
+The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: |
   Konfiguracja została zmieniona z innego miejsca (np. inne okno przeglądarki, aplikacja mobilna lub urządzenie). Musisz odświeżyć konfigurację zanim wprowadzisz kolejne zmiany.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: Konfiguracja została zmieniona z innego miejsca (np. inne okno przeglądarki, aplikacja mobilna lub urządzenie). Wprowadź zmiany jeszcze raz i zapisz ponownie.
 The factory reset was successful.: Przywrócenie ustawień fabrycznych powiodło się
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Za pomocą ramki zaznaczyliśmy powiadomienie, z którego kliknąłeś/kliknęłaś link do wypisania się.
@@ -2014,6 +2012,7 @@ hourly: Każdy dzień
 prefix: prefiks
 reset chart view: wróć do początkowego widoku
 suffix: sufiks
+
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
