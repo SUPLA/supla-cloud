@@ -1765,6 +1765,7 @@ blue, otherwise: ~
 blue, when voltage lower than the low threshold: ~
 cURL: ~
 change: ~
+channel_config_changed_warning: ~
 choose the access identifiers: ~
 choose the city: ~
 choose the currency: ~

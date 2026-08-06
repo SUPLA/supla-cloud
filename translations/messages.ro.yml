@@ -1926,6 +1926,7 @@ and wait until the battery level will be: ~
 and wait until the fill level will be: ~
 battery: ~
 cURL: ~
+channel_config_changed_warning: ~
 choose the city: ~
 closeValveOnFloodType_ALWAYS: ~
 closeValveOnFloodType_ON_CHANGE: ~

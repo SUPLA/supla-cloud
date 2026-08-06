@@ -1496,6 +1496,7 @@ channelConfigHelp_stateVerificationMethod: 'Aktiv: Sensorun istənilən vəziyy�
 channelConfig_stateVerificationMethod_active: Aktiv
 channelConfig_stateVerificationMethod_passive: Passiv
 channelGroup: Kanal qrupu
+channel_config_changed_warning: Konfiqurasiya başqa mənbədən dəyişdirilib. Zəhmət olmasa parametrləri yenidən tənzimləyin və yadda saxlayın
 choose: seç
 choose the access identifiers: giriş identifikatorlarını seç
 choose the action: hərəkəti seç
@@ -1887,7 +1888,6 @@ Subject: Mövzu
 Sunrise / Sunset: Gün doğumu / Gün batımı
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: İntegrasiyaların köməyi ilə hesabınıza xarici tədarükçülər, inkişafçılar və ya özünüz tərəfindən təqdim olunan həllərlə yeni funksiyalar əlavə edə bilərsiniz
 The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfiqurasiya başqa mənbədən (məsələn, başqa brauzer tabı, mobil tətbiq, cihaz) dəyişdirilib. Məlumat itkisini önləmək üçün əvvəlcə konfiqurasiyanı yeniləyin
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: Konfiqurasiya başqa mənbədən dəyişdirilib. Zəhmət olmasa parametrləri yenidən tənzimləyin və yadda saxlayın
 The factory reset was successful.: Fabrik sıfırlaması uğurla başa çatdı
 The gate sensor must function properly in order to execute the Open and Close actions.: Qapı sensoru aç və bağla əməliyyatlarını yerinə yetirmək üçün düzgün işləməlidir
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Kənar xətt ilə işarələnmiş bildiriş, abunəlikdən çıxmaq üçün kliklədiyiniz bildirişdir.

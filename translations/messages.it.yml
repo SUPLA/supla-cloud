@@ -1852,6 +1852,7 @@ auxThermometerType_NOT_SET: ~
 auxThermometerType_WATER: ~
 battery: ~
 cURL: ~
+channel_config_changed_warning: ~
 choose the city: ~
 closeValveOnFloodType_ALWAYS: ~
 closeValveOnFloodType_ON_CHANGE: ~

@@ -1563,6 +1563,7 @@ channelConfigHelp_stateVerificationMethod: 'Aktywne: pierwsza zmiana stanu czujn
 channelConfig_stateVerificationMethod_active: Aktywny
 channelConfig_stateVerificationMethod_passive: Pasywny
 channelGroup: Grupa kanałów
+channel_config_changed_warning: Konfiguracja została zmieniona z innego miejsca (np. inne okno przeglądarki, aplikacja mobilna lub urządzenie). Wprowadź zmiany jeszcze raz i zapisz ponownie.
 choose: wybierz
 choose the access identifiers: wybierz identyfikatory dostępu
 choose the action: wybierz akcję
