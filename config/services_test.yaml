@@ -2,7 +2,7 @@ services:
   App\Tests\Integration\TestMailerTransport: ~
   App\Mailer\SuplaMailer:
     $transport: '@App\Tests\Integration\TestMailerTransport'
-    $mailerFrom: "%supla.mailer_from%"
+    $mailerFrom: '%supla.mailer_from%'
     $logger: '@monolog.logger.supla_mails'
   App\Model\TimeProvider:
     class: App\Tests\Integration\Traits\TestTimeProvider

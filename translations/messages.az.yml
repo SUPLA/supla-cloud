@@ -38,7 +38,7 @@ Account notifications: Hesab bildirişləri
 Action confirmation: Əməliyyat təsdiqi
 Action execution: Əməliyyat icrası
 Action trigger: Əməliyyat tətiki
-Action trigger for channel: '@:{''Əməliyyat tətiki''} @:{''kanal üçün''}'
+Action trigger for channel: "@:{'Əməliyyat tətiki'} @:{'kanal üçün'}"
 'Action trigger no. #{index}': 'Tətik № #{index}'
 Action triggers: Əməliyyat tətikləri
 Actions: Əməliyyatlar
@@ -167,7 +167,7 @@ Be right back!: Tezliklə qayıdıram!
 Behavior settings: Davranış parametrləri
 Below threshold: Limitdən aşağı
 Binary sensor: İkili sensor
-Binary sensor for channel: '@:{''İkili sensor''} @:{''kanal üçün''}'
+Binary sensor for channel: "@:{'İkili sensor'} @:{'kanal üçün'}"
 Body: Məzmun
 Bottom position: Aşağı mövqe
 Bridge: Körpü
@@ -660,7 +660,7 @@ MQTT Broker password has been changed.: MQTT Broker şifrəsi dəyişdirilib.
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Bu SUPLA Cloud instansiyasında istifadəçi adı və şifrə konfiqurasiya olunmayıb.
 Mail sensor: Poçt sensoru
 Main thermometer: Əsas termometr
-Main thermometer for channel: '@:{''Əsas termometr''} @:{''kanal üçün''}'
+Main thermometer for channel: "@:{'Əsas termometr'} @:{'kanal üçün'}"
 Maintenance mode active. You cannot modify any data now.: Baxım rejimi aktivdir. İndi heç bir məlumatı dəyişə bilməzsiniz.
 Make sure to copy it now because you won’t be able to see it again!: İndi kopyaladığınızdan əmin olun, çünki bir daha görməyəcəksiniz!
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Əgər gələcəkdə ona daxil olmaq istəyirsinizsə, onu təhlükəsiz yerdə saxladığınızdan əmin olun. Səhifəni tərk etdikdən sonra link yenidən göstərilməyəcək.
@@ -669,7 +669,7 @@ Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Ye
 Manual: Təlimat
 Manually closed: Əl ilə bağlanmış
 Master thermostat: Əsas termostat
-Master thermostat for channel: '@:{''Əsas termostat''} @:{''kanal üçün''}'
+Master thermostat for channel: "@:{'Əsas termostat'} @:{'kanal üçün'}"
 Max: Maks.
 Maximum: Maksimum
 Maximum delay is 60 minutes.: Maksimum gecikmə 60 dəqiqədir.
@@ -784,7 +784,7 @@ Open Weather Data: Open Weather məlumatları
 Open partially: Qismən aç
 Open value: Açıq dəyər
 Opening sensor: Açılma sensoru
-Opening sensor for channel: '@:{''Açılma sensoru''} @:{''kanal üçün''}'
+Opening sensor for channel: "@:{'Açılma sensoru'} @:{'kanal üçün'}"
 Operating time: İşləmə vaxtı
 Operation: Əməliyyat
 Operations: Əməliyyatlar
@@ -801,7 +801,7 @@ PIN for Google must have a length between {minLength} and {maxLength} digits.: G
 Pair new devices or sensors: Yeni cihazları və ya sensorları cütləşdir
 Pairing request sent.: Cütləşdirmə sorğusu göndərildi.
 Partial opening sensor: Qismən açılma sensoru
-Partially opened sensor for channel: '@:{''Qismən açılma sensoru''} @:{''kanal üçün''}'
+Partially opened sensor for channel: "@:{'Qismən açılma sensoru'} @:{'kanal üçün'}"
 Password: Şifrə
 Password Reset: Şifrəni sıfırla
 Password changed: Şifrə dəyişdirildi
@@ -866,7 +866,7 @@ Public ID: Publik ID
 Publish to integrations: İnteqrasiyalara göndər
 Publishes the event to integrated services like MQTT or webhooks.: Hadisəni MQTT və ya webhook kimi inteqrasiya olunmuş xidmətlərə göndərir
 Pump switch: Pompa açarı
-Pump switch for channel: '@:{''Pompa açarı''} @:{''kanal üçün''}'
+Pump switch for channel: "@:{'Pompa açarı'} @:{'kanal üçün'}"
 Push: Push
 Push notifications limit has been exceeded: Push bildiriş limiti aşılmışdır
 RECOMMENDED USE. Take advantage of excess energy.: TÖVSİYYƏ OLUNAN İSTİFADƏ. Artıq enerjidən istifadə edin.
@@ -1174,7 +1174,7 @@ Upper voltage threshold: Yüksək gərginlik həddi
 Uptime: İşləmə müddəti
 Use activity schedule: Fəaliyyət cədvəlindən istifadə et
 Use device default: Cihazın defolt dəyərindən istifadə et
-'Use the {0} server command to change this account''s limits. For example:': 'Bu hesabın limitlərini dəyişdirmək üçün {0} server əmri istifadə edin. Məsələn:'
+"Use the {0} server command to change this account's limits. For example:": 'Bu hesabın limitlərini dəyişdirmək üçün {0} server əmri istifadə edin. Məsələn:'
 Use {theMasterThermostat} to control this device.: Bu cihazı idarə etmək üçün {theMasterThermostat}-dan istifadə edin
 Used current transformer type: İstifadə edilən cərəyan transformatoru növü
 User interface: İstifadəçi interfeysi
@@ -1949,5 +1949,4 @@ When the sensor state changes to low: ~
 With great power comes great responsibility.: ~
 You are using technical access.: ~
 normal session: ~
-
 #</editor-fold>

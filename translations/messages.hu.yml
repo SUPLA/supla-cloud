@@ -1041,7 +1041,7 @@ Update in progress: Frissítés folyamatban
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: A feltöltött fájlok nem ütköznek a közerkölcsbe, nem sértik a szerzői jogokat se a harmadik személyek jogait, és jogsult vagyok ezek használatára.
 Upper voltage threshold: Magas feszültség küszöbértéke
 Use device default: Használja a készülék alapértelmezett értékét
-'Use the {0} server command to change this account''s limits. For example:': 'A {0} kiszolgálóparanccsal módosíthatja a fiók korlátozásait. Például:'
+"Use the {0} server command to change this account's limits. For example:": 'A {0} kiszolgálóparanccsal módosíthatja a fiók korlátozásait. Például:'
 Use {theMasterThermostat} to control this device.: Használja a {theMasterThermostat} eszközt a készülék vezérléséhez.
 Used current transformer type: Használatban lévő áramváltó
 User interface: Felhasználói felület
@@ -1677,7 +1677,6 @@ thermostatAlgorithm_help: |
   - 22,5°C-on bekapcsolja a fűtést, és leáll, amikor a 23.5°C-os hőmérséklet eléri a középső beállítás esetén
   - 22°C-on bekapcsolja a fűtést, és leáll, amikor a hőmérséklet eléri a 23°C-ot a felső beállítás esetén.
 will expire: lejár
-
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
@@ -1955,5 +1954,4 @@ virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeInfoLong_OPEN_WEATHER: ~
 virtualChannelTypeName_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeName_OPEN_WEATHER: ~
-
 #</editor-fold>

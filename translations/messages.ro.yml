@@ -1041,7 +1041,7 @@ Update in progress: Actualizarea este în curs
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Fișierele încărcate nu încalcă bunele obiceiuri, drepturile de autor și drepturile terților, iar eu am dreptul să le folosesc.
 Upper voltage threshold: Prag de înaltă tensiune
 Use device default: Utilizați valoarea implicită din dispozitiv
-'Use the {0} server command to change this account''s limits. For example:': 'Pentru a modifica limitele pentru acest cont, utilizați comanda {0} de pe serverul dvs. De exemplu:'
+"Use the {0} server command to change this account's limits. For example:": 'Pentru a modifica limitele pentru acest cont, utilizați comanda {0} de pe serverul dvs. De exemplu:'
 Use {theMasterThermostat} to control this device.: Utilizați {theMasterThermostat} pentru a controla acest dispozitiv.
 Used current transformer type: Transformator de curent utilizat
 User interface: Configurări interfață cu utilizatorul
@@ -1677,7 +1677,6 @@ thermostatAlgorithm_help: |
   - va porni încălzirea la 22,5°C și se va opri când temperatura atinge 23,5°C pentru setarea medie 
   - va porni încălzirea la 22°C și se va opri când temperatura atinge 23°C pentru setarea superioară
 will expire: expiră
-
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
@@ -1955,5 +1954,4 @@ virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeInfoLong_OPEN_WEATHER: ~
 virtualChannelTypeName_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeName_OPEN_WEATHER: ~
-
 #</editor-fold>

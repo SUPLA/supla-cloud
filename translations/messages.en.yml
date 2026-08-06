@@ -242,7 +242,6 @@ virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: Forecast of energy prices in P
 virtualChannelTypeInfoLong_OPEN_WEATHER: Current weather data fetched from Open Weather API. The weather data are not updated in real-time. Expect periodical updates of the weather attribute of your choice.
 virtualChannelTypeName_ENERGY_PRICE_FORECAST: Energy prices
 virtualChannelTypeName_OPEN_WEATHER: Weather
-
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.

@@ -1041,7 +1041,7 @@ Update in progress: Đang cập nhật
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Các tệp đã tải lên không chứa bất kỳ nội dung không phù hợp hoặc có bản quyền nào, chúng cũng không vi phạm Quyền của bên thứ ba và tôi có quyền sử dụng chúng.
 Upper voltage threshold: Ngưỡng điện áp cao
 Use device default: Sử dụng giá trị mặc định từ thiết bị
-'Use the {0} server command to change this account''s limits. For example:': 'Để thay đổi các hạn mức cho tài khoản này, hãy sử dụng câu lệnh {0} trên máy chủ của bạn. Ví dụ:'
+"Use the {0} server command to change this account's limits. For example:": 'Để thay đổi các hạn mức cho tài khoản này, hãy sử dụng câu lệnh {0} trên máy chủ của bạn. Ví dụ:'
 Use {theMasterThermostat} to control this device.: Sử dụng {theMasterThermostat} để điều khiển thiết bị này.
 Used current transformer type: Máy biến dòng đã qua sử dụng
 User interface: Giao diện người dùng
@@ -1951,5 +1951,4 @@ virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeInfoLong_OPEN_WEATHER: ~
 virtualChannelTypeName_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeName_OPEN_WEATHER: ~
-
 #</editor-fold>

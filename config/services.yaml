@@ -8,7 +8,6 @@ parameters:
   env(GOOGLE_RECAPTCHA_SITE_KEY): ''
   env(CORS_ALLOW_ORIGIN): '^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
 
-
 services:
   _defaults:
     autowire: true
@@ -48,7 +47,6 @@ services:
       - '../src/DependencyInjection/'
       - '../src/Entity/'
       - '../src/Kernel.php'
-
 
   Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
@@ -95,13 +93,13 @@ services:
     $logger: '@monolog.logger.supla_direct_links'
 
   App\Controller\OAuth\BrokerAuthorizeController:
-    tags: ["controller.service_arguments"]
+    tags: ['controller.service_arguments']
     arguments:
       $authorizeForm: '@fos_oauth_server.authorize.form'
       $authorizeFormHandler: '@fos_oauth_server.authorize.form.handler.default'
 
   App\Controller\OAuth\BrokerTokenController:
-    tags: ["controller.service_arguments"]
+    tags: ['controller.service_arguments']
 
   App\Entity\Main\Listeners\:
     resource: '../src/Entity/Main/Listeners'
@@ -109,9 +107,9 @@ services:
       - {name: doctrine.orm.entity_listener}
 
   App\Message\EmailFromTemplateHandler:
-    $defaultLocale: "%kernel.default_locale%"
+    $defaultLocale: '%kernel.default_locale%'
   App\Message\EmailToAdminHandler:
-    $adminEmail: "%env(SUPLA_ADMIN_EMAIL)%"
+    $adminEmail: '%env(SUPLA_ADMIN_EMAIL)%'
 
   App\Model\MeasurementLogsEntityManagerProvider:
     $databaseForLogs: '%supla.database_for_logs%'
@@ -126,7 +124,6 @@ services:
   App\Model\UserManager:
     $defaultClientsRegistrationTime: '%supla.clients_registration.registration_active_time.initial%'
     $defaultIoDevicesRegistrationTime: '%supla.io_devices_registration.registration_active_time.initial%'
-
 
   App\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner:
     tags: [{name: supla.schedule_planner, priority: -10}]
@@ -153,7 +150,6 @@ services:
     $maxFailedAttempts: '%supla.brute_force_auth_prevention.max_failed_attempts%'
     $blockTimeInSeconds: '%supla.brute_force_auth_prevention.block_time_seconds%'
 
-
   App\Supla\SuplaServerMock:
     tags:
       - {name: monolog.logger, channel: supla_server}
@@ -169,7 +165,7 @@ services:
 
   App\Supla\SuplaAutodiscoverReal:
     arguments:
-      $autodiscoverUrl: "%supla.autodiscover_url%"
+      $autodiscoverUrl: '%supla.autodiscover_url%'
       $actAsBrokerCloud: '%supla.act_as_broker_cloud%'
     tags:
       - {name: monolog.logger, channel: supla_autodiscover}
@@ -205,7 +201,7 @@ services:
 
   App\EventListener\ApiExceptionHandler:
     arguments:
-      - "%kernel.debug%"
+      - '%kernel.debug%'
     tags:
       - {name: kernel.event_subscriber}
 
@@ -225,7 +221,7 @@ services:
 
   App\EventListener\UnavailableInMaintenanceRequestListener:
     arguments:
-      $maintenanceMode: "%supla.maintenance_mode%"
+      $maintenanceMode: '%supla.maintenance_mode%'
     tags:
       - {name: kernel.event_listener, event: kernel.controller, method: onKernelController}
 
@@ -251,7 +247,7 @@ services:
 
   App\Mailer\SuplaMailer:
     arguments:
-      $mailerFrom: "%supla.mailer_from%"
+      $mailerFrom: '%supla.mailer_from%'
     tags:
       - {name: monolog.logger, channel: supla_mails}
 
@@ -267,83 +263,83 @@ services:
   ## REPOSITORIES ##
 
   App\Repository\AccessIdRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\AccessID]
 
   App\Repository\AccessTokenRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\OAuth\AccessToken]
 
   App\Repository\ApiClientRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\OAuth\ApiClient]
 
   App\Repository\ApiClientAuthorizationRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\OAuth\ApiClientAuthorization]
 
   App\Repository\AuditEntryRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\AuditEntry]
 
   App\Repository\ChannelGroupRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\IODeviceChannelGroup]
 
   App\Repository\SceneRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\Scene]
 
   App\Repository\UserIconRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\UserIcon]
 
   App\Repository\ClientAppRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\ClientApp]
 
   App\Repository\LocationRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\Location]
 
   App\Repository\ScheduleRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\Schedule]
 
   App\Repository\StateWebhookRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\StateWebhook]
 
   App\Repository\UserRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\User]
 
   App\Repository\IODeviceRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\IODevice]
 
   App\Repository\IODeviceChannelRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\IODeviceChannel]
 
   App\Repository\AmazonAlexaRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\AmazonAlexa]
 
   App\Repository\GoogleHomeRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\GoogleHome]
 
   App\Repository\DirectLinkRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\DirectLink]
 
   App\Repository\SettingsStringRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\SettingsString]
 
   App\Repository\PushNotificationRepository:
-    factory: ["@doctrine.orm.entity_manager", getRepository]
+    factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\PushNotification]
 
 when@dev:

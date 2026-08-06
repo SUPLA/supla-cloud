@@ -1041,7 +1041,7 @@ Update in progress: Vyksta atnaujinimas
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Įkelti failai nepažeidžia gerų įpročių, autorių teisių ir trečiųjų šalių teisių, o aš turiu teisę jais naudoti.
 Upper voltage threshold: Aukštos įtampos slenkstis
 Use device default: Naudoti numatytąją įrenginio vertę
-'Use the {0} server command to change this account''s limits. For example:': 'Norėdami pakeisti šios paskyros apribojimus, savo serveryje pasinaudokite komanda {0}. Pavyzdžiui:'
+"Use the {0} server command to change this account's limits. For example:": 'Norėdami pakeisti šios paskyros apribojimus, savo serveryje pasinaudokite komanda {0}. Pavyzdžiui:'
 Use {theMasterThermostat} to control this device.: Norėdami valdyti šį įrenginį, naudokite {theMasterThermostat}.
 Used current transformer type: Naudojamas srovės transformatorius
 User interface: Naudotojo sąsaja
@@ -1951,5 +1951,4 @@ virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeInfoLong_OPEN_WEATHER: ~
 virtualChannelTypeName_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeName_OPEN_WEATHER: ~
-
 #</editor-fold>

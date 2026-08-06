@@ -1041,7 +1041,7 @@ Update in progress: Ενημέρωση σε εξέλιξη
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Τα απεσταλμένα αρχεία δεν παραβιάζουν την ευπρέπεια, τα πνευματικά δικαιώματα και τα δικαιώματα τρίτων και έχω το δικαίωμα να τα χρησιμοποιήσω.
 Upper voltage threshold: Όριο υψηλής τάσης
 Use device default: Χρήση προεπιλεγμένης τιμής από τη συσκευή
-'Use the {0} server command to change this account''s limits. For example:': 'Για να αλλάξετε τα όρια για αυτόν τον λογαριασμό, χρησιμοποιήστε την εντολή {0} στον διακομιστή σας. Για παράδειγμα:'
+"Use the {0} server command to change this account's limits. For example:": 'Για να αλλάξετε τα όρια για αυτόν τον λογαριασμό, χρησιμοποιήστε την εντολή {0} στον διακομιστή σας. Για παράδειγμα:'
 Use {theMasterThermostat} to control this device.: Χρήση {theMasterThermostat} για να ελέγχετε αυτή τη συσκευή.
 Used current transformer type: Χρήση μετασχηματιστή ρεύματος
 User interface: Διεπαφή χρήστη
@@ -1951,5 +1951,4 @@ virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeInfoLong_OPEN_WEATHER: ~
 virtualChannelTypeName_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeName_OPEN_WEATHER: ~
-
 #</editor-fold>

@@ -1041,7 +1041,7 @@ Update in progress: La actualización en curso.
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Los archivos cargados no violan los buenos modales, derechos de autor y derechos de terceros, y tengo el derecho de usarlos.
 Upper voltage threshold: Umbral de alto voltaje
 Use device default: Usar valor predeterminado del dispositivo
-'Use the {0} server command to change this account''s limits. For example:': 'Para cambiar los límites de esta cuenta, usa el comando {0} en tu servidor. Por ejemplo:'
+"Use the {0} server command to change this account's limits. For example:": 'Para cambiar los límites de esta cuenta, usa el comando {0} en tu servidor. Por ejemplo:'
 Use {theMasterThermostat} to control this device.: Usar {theMasterThermostat} para controlar este dispositivo.
 Used current transformer type: Transformador de corriente usado
 User interface: Interfaz de usuario
@@ -1951,5 +1951,4 @@ virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeInfoLong_OPEN_WEATHER: ~
 virtualChannelTypeName_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeName_OPEN_WEATHER: ~
-
 #</editor-fold>

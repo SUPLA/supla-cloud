@@ -1,12 +1,12 @@
 twig:
-    default_path: '%kernel.project_dir%/templates'
-    exception_controller: null
-    debug: "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
-    paths:
-        '%kernel.project_dir%/public': web
-        '%kernel.project_dir%/src/Resources/views': Supla
+  default_path: '%kernel.project_dir%/templates'
+  exception_controller: null
+  debug: '%kernel.debug%'
+  strict_variables: '%kernel.debug%'
+  paths:
+    '%kernel.project_dir%/public': web
+    '%kernel.project_dir%/src/Resources/views': Supla
 
 when@test:
-    twig:
-        strict_variables: true
+  twig:
+    strict_variables: true

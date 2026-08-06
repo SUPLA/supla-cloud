@@ -791,12 +791,12 @@ Relay: Relais
 Relay switching time: Inschakeltijd relais
 Reload last photo: De laatste foto opnieuw laden
 Reload the chart: Vernieuw grafiek
-'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID''s: {relatedIds}.'
-'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID''s: {relatedIds}.'
+'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': "Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID's: {relatedIds}."
+'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': "Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID's: {relatedIds}."
 Remote restart is unsupported in the firmware.: Op afstand herstarten wordt niet ondersteund door de software van onderhavig toestel
-'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Verwijder gekoppelde apparaten voordat u deze locatie verwijdert. ID''s: {relatedIds}.'
+'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': "Verwijder gekoppelde apparaten voordat u deze locatie verwijdert. ID's: {relatedIds}."
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Verwijder alle bijbehorende scènes voordat je deze locatie verwijdert. Identificatoren: {relatedIds}.'
-'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Verwijder eerst alle apparaten die deze locatie als de oorspronkelijke locatie gebruiken. ID''s: {relatedIds}.'
+'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': "Verwijder eerst alle apparaten die deze locatie als de oorspronkelijke locatie gebruiken. ID's: {relatedIds}."
 Remove this item: Verwijder dit element
 Repeat password: Wachtwoord opnieuw invoeren
 Request device unlock: Toepassen om uw toestel te ontgrendelen
@@ -1041,7 +1041,7 @@ Update in progress: Update in uitvoering
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: op het zedelijkheid, het auteursrecht en de rechten van derden en ik heb het recht om ze te gebruiken.
 Upper voltage threshold: Drempelwaarde hoogspanning
 Use device default: Gebruik de standaardwaarde van het toestel
-'Use the {0} server command to change this account''s limits. For example:': 'Om de limieten voor deze account te wijzigen, gebruikt u het {0} commando op uw server. Bijvoorbeeld:'
+"Use the {0} server command to change this account's limits. For example:": 'Om de limieten voor deze account te wijzigen, gebruikt u het {0} commando op uw server. Bijvoorbeeld:'
 Use {theMasterThermostat} to control this device.: Gebruik {theMasterThermostat} om dit toestel te bedienen.
 Used current transformer type: Gebruikte stroomtransformator
 User interface: Gebruiker/computer-interface
@@ -1952,5 +1952,4 @@ virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeInfoLong_OPEN_WEATHER: ~
 virtualChannelTypeName_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeName_OPEN_WEATHER: ~
-
 #</editor-fold>

@@ -1041,7 +1041,7 @@ Update in progress: Oppdatering pågår
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Opplastede filer berører ikke gode skikker, opphavsrett eller tredjeparts rettigheter og jeg har rett til å bruke dem.
 Upper voltage threshold: Høy spenning terskel
 Use device default: Bruk standardverdien fra enheten
-'Use the {0} server command to change this account''s limits. For example:': 'For å endre grensene for denne kontoen, bruk kommandoen {0} på serveren din. For eksempel:'
+"Use the {0} server command to change this account's limits. For example:": 'For å endre grensene for denne kontoen, bruk kommandoen {0} på serveren din. For eksempel:'
 Use {theMasterThermostat} to control this device.: Bruk {theMasterThermostat} til å styre denne enheten.
 Used current transformer type: Brukt strømtransformator
 User interface: Brukergrensesnitt
@@ -1951,5 +1951,4 @@ virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeInfoLong_OPEN_WEATHER: ~
 virtualChannelTypeName_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeName_OPEN_WEATHER: ~
-
 #</editor-fold>

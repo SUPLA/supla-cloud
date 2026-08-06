@@ -9,7 +9,7 @@ framework:
     transports:
       # https://symfony.com/doc/current/messenger.html#transport-configuration
       async:
-        dsn: "doctrine://default"
+        dsn: 'doctrine://default'
         options:
           table_name: supla_email_notifications
 

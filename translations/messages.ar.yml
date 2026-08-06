@@ -1041,7 +1041,7 @@ Update in progress: جاري التحديث
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: لا تنتهك الملفات التي تم تحميلها حقوق الطبع والنشر وحقوق الأطراف الأخرى، ولدي الحق في استخدامها.
 Upper voltage threshold: عتبة الجهد العالي
 Use device default: استخدم القيمة الافتراضية من الجهاز
-'Use the {0} server command to change this account''s limits. For example:': 'لتغيير حدود هذا الحساب، استخدم الأمر {0} على الخادم الخاص بك. على سبيل المثال:'
+"Use the {0} server command to change this account's limits. For example:": 'لتغيير حدود هذا الحساب، استخدم الأمر {0} على الخادم الخاص بك. على سبيل المثال:'
 Use {theMasterThermostat} to control this device.: استخدم {theMasterThermostat} للتحكم في هذا الجهاز.
 Used current transformer type: محول التيار المستعمل
 User interface: واجهة المستخدم
@@ -1676,7 +1676,6 @@ thermostatAlgorithm_help: |
   - يقوم بتشغيل التدفئة عند 22.5 درجة مئوية ويتوقف عندما تصل درجة الحرارة إلى 23.5 درجة مئوية للإعداد الوسطي 
   - يقوم بتشغيل التدفئة عند 22 درجة مئوية ويتوقف عندما تصل درجة الحرارة إلى 23 درجة مئوية للإعداد العلوي
 will expire: يبطل مفعولها
-
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
@@ -1954,5 +1953,4 @@ virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeInfoLong_OPEN_WEATHER: ~
 virtualChannelTypeName_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeName_OPEN_WEATHER: ~
-
 #</editor-fold>

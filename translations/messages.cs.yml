@@ -1041,7 +1041,7 @@ Update in progress: Probíhá aktualizace
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Nahrané soubory neporušují dobré chování, autorská práva a práva třetích stran a mám právo je používat.
 Upper voltage threshold: Práh vysokého napětí
 Use device default: Použijte výchozí hodnotu ze zařízení
-'Use the {0} server command to change this account''s limits. For example:': 'Chcete-li změnit limity pro tento účet, použijte příkaz {0} na vašem serveru. Například:'
+"Use the {0} server command to change this account's limits. For example:": 'Chcete-li změnit limity pro tento účet, použijte příkaz {0} na vašem serveru. Například:'
 Use {theMasterThermostat} to control this device.: K ovládání tohoto zařízení použijte {theMasterThermostat}.
 Used current transformer type: Použitý transformátor proudu
 User interface: Počítačové rozhraní
@@ -1951,5 +1951,4 @@ virtualChannelTypeInfoLong_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeInfoLong_OPEN_WEATHER: ~
 virtualChannelTypeName_ENERGY_PRICE_FORECAST: ~
 virtualChannelTypeName_OPEN_WEATHER: ~
-
 #</editor-fold>

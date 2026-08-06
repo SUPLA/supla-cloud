@@ -94,7 +94,8 @@
             "phpcs src --standard=config/phpcs-rules.xml"
         ],
         "lint-frontend": [
-            "cd frontend && npm run lint -s"
+            "cd frontend && npm run lint -s",
+            "cd frontend && npm run format:check -s"
         ],
         "lint": [
             "@lint-frontend",
