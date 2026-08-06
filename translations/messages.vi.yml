@@ -507,7 +507,7 @@ If you do not want to unregister your instance, please do not click the link.: N
 If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Nếu bạn không thể kết nối với điểm phát trong vòng vài phút, thiết bị sẽ tự khởi động lại và kết nối bằng các cài đặt gần nhất.
 If you have doubts or more questions, you can contact us directly at %securityEmail%.: Nếu bạn có nghi ngờ hoặc có nhiều câu hỏi, bạn có thể liên hệ trực tiếp với chúng tôi tại %securityEmail%.
 If you have lost your instance token and you are going to re-register your instance, it's the right thing to do.: Nếu bạn muốn đăng kí lại SUPLA Cloud, bởi mã token được tạo ở lần đã kí trước đã mất -bạn đã tìm đến đúng chỗ.
-If you have not used this email address with %cloudHost%, please do not click the link.: Nếu bạn chưa sử dụng địa chỉ email này với cloud.supla.org, vui lòng không nhấp vào liên kết.
+If you have not used this email address with %cloudHost%, please do not click the link.: Nếu bạn chưa sử dụng địa chỉ email này với %cloudHost%, vui lòng không nhấp vào liên kết.
 If you really want to delete the account, here are the instructions.: Nếu bạn vẫn muốn xóa tài khoản SUPLA, thì có thể tìm thấy hướng dẫn tại đây.
 If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Nếu bạn chắc chắn muốn hủy đăng kí tài khoản cá nhân SUPLA Cloud – Bạn sẽ tìm thấy tất cả hướng dẫn bên dưới đây.
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Nếu bạn đăng ký lại trong tương lai, một số thiết bị có thể cần cấu hình lại ngay cả khi bạn sử dụng cùng một địa chỉ email.
@@ -730,7 +730,7 @@ Phase number: Pha
 Phase {phaseNumber}: Pha {phaseNumber}
 Photo interval: Khoảng thời gian chụp ảnh
 Please choose the schedule subject first.: Trước tiên, hãy chọn những gì lịch trình sẽ kiểm soát
-Please click the following link to reset your %cloudHost% password.: Vui lòng nhấp vào liên kết sau để đặt lại mật khẩu cloud.supla.org của bạn.
+Please click the following link to reset your %cloudHost% password.: Vui lòng nhấp vào liên kết sau để đặt lại mật khẩu %cloudHost% của bạn.
 Please click the link we have sent you after the registration to proceed.: Vui lòng nhấp vào liên kết chúng tôi đã gửi cho bạn sau khi đăng ký để tiến hành.
 Please confirm your SUPLA account.: Kích hoạt tài khoản SUPLA của bạn
 Please enter a valid email address: Vui lòng nhập một địa chỉ email hợp lệ
@@ -997,7 +997,7 @@ Thermostat programs: Chương trình điều nhiệt
 This action will result in restarting the device. It will not be available for a while.: Sắp xếp thao tác này sẽ khởi động lại thiết bị. Trong quá trình khởi động lại thiết bị sẽ không vào được
 This channel was missing during last device registration attempt.: Thiết bị của bạn bị thiếu kênh này.
 directLinkExecutionFailureReason_invalidActionParameters_info: Liên kết trực tiếp này yêu cầu các tham số tiếp theo để được thực hiện đúng. Xem các ví dụ dưới đây để có ý tưởng về những gì bạn có thể làm.
-This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: thông tin này đã được tạo tự động do nỗ lực đăng nhập không thành công vào SUPLA-CLOUD với việc sử dụng địa chỉ email của bạn.
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: thông tin này đã được tạo tự động do nỗ lực đăng nhập không thành công vào SUPLA-CLOUD (%cloudHost%) với việc sử dụng địa chỉ email của bạn.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Đây là giai đoạn cuối cùng trong quá trình xóa tài khoản của bạn. Việc điền và xác nhận biểu mẫu sẽ giúp xóa dữ liệu của bạn ở mức không thể phục hồi.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Đây là ảnh cuối cùng được tải lên từ thiết bị. Đánh dấu chính xác khu vực có thể nhìn thấy các chữ số từ máy đếm.
 This is the list of applications you have granted access to your account.: Đây là danh sách các ứng dụng bạn đã cấp quyền truy cập vào tài khoản của bạn..
@@ -1071,7 +1071,7 @@ Water meter: Thước đo nước
 'We also strongly advise you to choose a password that:': 'Hơn nữa, chúng tôi rất đề nghị chọn bạn một mật khẩu mà:'
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Chúng tôi sẽ gửi thông báo về những hoạt động liên quan đến tài khoản của bạn. Bạn có thể từ chối nhận những thông báo này nếu thấy không cần thiết.
 We could not connect to your SUPLA Cloud instance.: Chúng tôi không thể kết nối với ví dụ SUPLA Cloud của bạn.
-We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Chúng tôi đã được yêu cầu xóa tài khoản SUPLA Cloud của bạn.
+We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Chúng tôi đã được yêu cầu xóa tài khoản SUPLA Cloud (%cloudHost%) của bạn.
 We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Đã gửi yêu cầu hủy đăng ký phiên bản SUPLA Cloud riêng của bạn (%targetCloudUrl%)
 We have just sent you an activation link. You should be receiving it shortly.: Chúng tôi vừa gửi cho bạn một liên kết kích hoạt. Kiên nhẫn.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Chúng tôi đã gửi cho bạn một tin nhắn e-mail với một liên kết xác nhận xóa. Chỉ để được chắc chắn!
@@ -1515,10 +1515,10 @@ yesterday: hôm qua
 '{minutes} minutes after sunset': '{minutes} phút sau hoàng hôn'
 '{minutes} minutes before sunrise': '{minutes} phút trước bình minh'
 '{minutes} minutes before sunset': '{minutes} phút trước hoàng hôn'
-'{requests} out of {limit} / day': '{requêtes} trong {limite} / ngày'
-'{requests} out of {limit} / h': '{requêtes} trong {limite} / h'
-'{requests} out of {limit} / min': '{requêtes} trong {limite} / phút'
-'{requests} out of {limit} / {seconds} sec.': '{requêtes} trong {limit} / {seconds} giây'
+'{requests} out of {limit} / day': '{requests} trong {limit} / ngày'
+'{requests} out of {limit} / h': '{requests} trong {limit} / h'
+'{requests} out of {limit} / min': '{requests} trong {limit} / phút'
+'{requests} out of {limit} / {seconds} sec.': '{requests} trong {limit} / {seconds} giây'
 '{serviceName} integration': tích hợp với {serviceName}
 
 #</editor-fold>
