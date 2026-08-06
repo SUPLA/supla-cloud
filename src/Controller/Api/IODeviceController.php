@@ -494,7 +494,7 @@ class IODeviceController extends RestController {
         $this->transactional(function (EntityManagerInterface $em) use ($hiddenConfigTranslator, $channelDependencies, $ioDevice) {
             $hiddenConfigTranslator->setIdsToIgnore(EntityUtils::mapToIds($ioDevice->getChannels()));
             foreach ($ioDevice->getChannels() as $channel) {
-                $channelDependencies->clearDependencies($channel);
+                $channelDependencies->clearDependencies($channel, true);
             }
             foreach ($ioDevice->getChannels() as $channel) {
                 $em->remove($channel);

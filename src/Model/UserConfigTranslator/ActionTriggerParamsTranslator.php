@@ -2,6 +2,7 @@
 
 namespace App\Model\UserConfigTranslator;
 
+use App\Entity\ActionableSubject;
 use App\Entity\HasUserConfig;
 use App\Entity\Main\IODeviceChannel;
 use App\Entity\Main\PushNotification;
@@ -71,6 +72,23 @@ class ActionTriggerParamsTranslator extends UserConfigTranslator {
         return in_array($subject->getFunction()->getId(), [
             ChannelFunction::ACTION_TRIGGER,
         ]);
+    }
+
+    public function clearConfigForDeletion(HasUserConfig $subject): void {
+        $this->clearOldNotifications($subject->getUserConfigValue('actions', []));
+    }
+
+    public function removeActionsReferencingSubject(IODeviceChannel $actionTrigger, ActionableSubject $subject): void {
+        $actions = $actionTrigger->getUserConfigValue('actions', []);
+        $removedActions = array_filter($actions, function (array $action) use ($subject) {
+            return ($action['subjectType'] ?? null) === $subject->getOwnSubjectType()
+                && ($action['subjectId'] ?? null) === $subject->getId();
+        });
+        if (!$removedActions) {
+            return;
+        }
+        $this->clearOldNotifications($removedActions);
+        $actionTrigger->setUserConfigValue('actions', array_diff_key($actions, $removedActions));
     }
 
     private function adjustAction(HasUserConfig $subject, array $action): array {

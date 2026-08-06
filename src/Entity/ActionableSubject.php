@@ -6,7 +6,7 @@ use App\Enums\ChannelFunction;
 use App\Enums\ChannelFunctionAction;
 
 interface ActionableSubject {
-//    public function getId();
+    public function getId();
 
     public function getFunction(): ChannelFunction;
 
