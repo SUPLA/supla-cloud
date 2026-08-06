@@ -221,9 +221,10 @@ readonly class IODeviceConfigTranslator {
             ->integerNode('slaveTimeoutMs')->min(0)->max(10000)->defaultValue(0)->end()
             ->arrayNode('serialConfig')->ignoreExtraKeys()->addDefaultsIfNotSet()->children();
         $children->enumNode('mode')->values(array_merge($constraints['availableSerialModes'], ['DISABLED']))->defaultValue('DISABLED')->end();
-        if ($constraints['availableSerialBaudrates']) {
-            $children->enumNode('baudrate')->values($constraints['availableSerialBaudrates'])
-                ->defaultValue(in_array(19200, $constraints['availableSerialBaudrates']) ? 19200 : $constraints['availableSerialBaudrates'][0])->end();
+        $availableBaudrates = $constraints['availableSerialBaudrates'];
+        if ($availableBaudrates) {
+            $defaultBaudRate = in_array(19200, $availableBaudrates) ? 19200 : $availableBaudrates[0];
+            $children->enumNode('baudrate')->values($availableBaudrates)->defaultValue($defaultBaudRate)->end();
         }
         if ($constraints['availableSerialStopbits']) {
             $children->enumNode('stopBits')->values($constraints['availableSerialStopbits'])
