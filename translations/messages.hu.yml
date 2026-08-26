@@ -152,7 +152,6 @@ Binary sensor: Bináris érzékelő
 Body: Törzs
 Bottom position: Alsó pozíció
 Bridge: Híd
-Brightness: Fényerő
 Brightness adjustment for automatic mode: Automatikus üzemmód fényerő szabályozó
 Brightness level: Fényerőszint
 Button volume: Kapcsológomb hangerő
@@ -188,7 +187,6 @@ Change to be the same.: Állítsa be ugyanúgy.
 Changing channel’s function will also result in the following changes.: A csatorna funkciójának megváltoztatása a következő változásokat is okozza.
 Changing channel’s visibility will also change the visibility of other items.: A csatorna láthatóságának módosítása más elemek láthatóságát is módosítja.
 Changing the location will also imply changing the location of the following items.: A hely módosítása a következő elemekre is hatással lesz.
-Channel: Csatorna
 Channel No: Csatorna száma
 Channel available for {serviceName}: Csatorna elérhető a {serviceName} számára
 Channel group: Csatorna csoport
@@ -207,7 +205,6 @@ Chart type: Diagram típusa
 Check the direct link you used and try again.: Ellenőrizze a hívott közvetlen linket, és próbálja újra.
 Check your email box: Ellenőrizze az e-mail postafiókját
 Check your email inbox: Ellenőrizze a postaládáját
-Choose: Válassza ki
 Choose Access Identifier: Wybierz Identyfikator Dostępu
 Choose Access Identifiers to be assigned to this Location: Válassza ki az ehhez a helyhez hozzárendelhető Hozzáférési Azonosítókat
 Choose channel function: Válassza ki a csatorna funkciót
@@ -329,7 +326,6 @@ Dimmer: Fényerőszabályzó
 Dimmer & RGB led controller: Fény tompító és RGB világítási vezérlő
 Dimmer and RGB lighting: Fényerőszabályzó és RGB világítás
 Direct link: Közvetlen link
-Direct link has been created successfully!: Sikeresen létrehoztunk egy közvetlen linket!
 Direct link has been executed: Közvetlen link létrehozva
 'Direct link is not working right now. Reason:': 'A közvetlen link jelenleg nem működik. Indoklás:'
 Direct links: Közvetlen linkek
@@ -415,7 +411,6 @@ Flooding: Elárasztás
 For a period: Az alábbi időszakban
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: A frissítések során ajánlott a {suplaUrl} cím használata.
 For devices: Eszközökhöz
-For security reasons, the full URL of this direct link will be displayed only once, during creation.: Biztonsági okokból a közvetlen link teljes URL-je csak egyszer jelenik meg a létrehozása során.
 Forced off by sensor: Érzékelő által kényszerített kikapcsolás
 Forgot your password?: Elfelejtetted a jelszavad?
 Forward active energy: Fogyasztott aktív energia
@@ -520,7 +515,6 @@ Impulse counter: Impulzusszámláló
 Impulses: impulzusok
 In order to confirm account deletion, enter your password.: A fiók törlésére irányuló szándékának megerősítéséhez írja be a jelszavát.
 In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.: Az MQTT bróker bejelentkezési adatainak megszerzéséhez vegye fel a kapcsolatot a SUPLA Cloud fájlkezelőjével.
-Inactive: Inaktív
 Include energy corrections in new measurements history (not recommended): Vegye figyelembe a történethez hozzáadott állapotatribútumot (nem ajánlott)
 Incorrect password: Hibás jelszó
 Increment and decrement: Növekvő és csökkenő
@@ -554,7 +548,6 @@ Last access: Legutóbbi kapcsolat
 Last connection: Legutóbbi kapcsolat
 Last paired device: Utoljára párosított eszköz
 Last used: Utoljára használt
-Let me choose later: Hadd válasszam később
 Light mode: Világos üzemmód
 Light switch: Fény kapcsoló
 Lighting: Világítás
@@ -588,7 +581,6 @@ Mail sensor: Levél érzékelő
 Main thermometer: Fő hőmérő
 Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
 Make sure to copy it now because you won’t be able to see it again!: Tárolja biztonságos helyen.
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Ügyeljen arra, hogy biztonságos helyen elmentette, ha a jövőben használni akarja. Az oldal elhagyása után a link már nem jelenik meg.
 Manage your new client app in the SUPLA-Cloud.: Kezelje az új ügyfélalkalmazást a SUPLA-felhőben.
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Kezelje készülékét a SUPLA-felhőben vagy az okostelefonon található SUPLA alkalmazással.
 Manual: Utasítások
@@ -859,11 +851,9 @@ Secret: Titkos kulcs (secret)
 Security: Biztonság
 Security log: Biztonsági napló
 See available integrations: Nézze meg a rendelkezésre álló integrációkat
-See direct link possibilities: Lássa meg a közvetlen link lehetőségeit
 See in SUPLA-Cloud: Nézze meg a SUPLA-felhőben
 Seems like a secret place: Valami azt súgja, hogy nem szabad itt lennie
 Select icon: Ikon kiválasztása
-What the link is for?: Válassza ki az elemet  (entitást), amelyet ellenőrizni szeretne ezzel a linkkel
 Selected: Kijelölve
 Selected device has been logged out.: A kiválasztott eszköz kijelentkezett
 Send a notification: Küldjön értesítést
@@ -961,7 +951,6 @@ The entire history of the voltage aberrations will be removed from this channel.
 The following channels will be also removed along with their dependencies.: A következő csatornák szintén törlődnek a kapcsolódó csatornákkal együtt.
 The following items use the channels of these device. These references will be also removed.: Az alábbi elemek a készülék csatornáit használják. Ezek szintén törlésre kerülnek.
 'The following items will be deleted with this device:': Az alábbi elemek a készülékkel együtt törlésre kerülnek.
-The gate sensor must function properly in order to execute the Open and Close actions.: A kapu nyitó érzékelőnek rendeltetésszerűen kell működnie ahhoz, hogy a Nyitás Zárás művelet végrehajtása megtörténjen.
 The gate sensor must function properly in order to execute the scheduled action.: A művelet végrehajtásához a kapunyílás-érzékelőnek megfelelően kell működnie.
 The incident was detected at %datetime%.: Az esemény helye %datetime%.
 The items below depend on this channel function, so they will be deleted.: Az alábbi elemek az aktuális csatornafunkción alapulnak, ezért a csatorna módosításakor törlődnek.
@@ -996,7 +985,6 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Termosztát programok
 This action will result in restarting the device. It will not be available for a while.: A művelet elküldése újraindítja a készüléket. A készülék nem lesz elérhető az újraindítás során.
 This channel was missing during last device registration attempt.: Ez a csatorna nem található a készüléken.
-directLinkExecutionFailureReason_invalidActionParameters_info: Ez a közvetlen link megköveteli a végrehajtandó művelet paramétereinek pontosítását. Nézze meg az alábbi példákat, hogy megtudja, milyen paramétereket állíthat be.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ezt az információt azért kapja meg, mert az e-mail címével sikertelenül megkisérelt bejelentkezni a SUPLA-CLOUD-ba.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Ez a fiók törlésének utolsó szakasza. Az űrlap kitöltése és jóváhagyása az Ön adatainak visszafordíthatatlan törlését eredményezi.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Ez az eszközről utoljára feltöltött fénykép. Jelölje meg pontosan azt a területet, ahol a mérőóra számjegyei láthatóak.
@@ -1091,6 +1079,7 @@ Week: Hét
 Weekly schedule: Heti ütemterv
 Weight sensor: Súly
 Welcome!: Helló!
+What the link is for?: Válassza ki az elemet  (entitást), amelyet ellenőrizni szeretne ezzel a linkkel
 What this token is for?: Mire való ez a token?
 When a certain distance is reached: Meghatározott távolság elérésekor
 When a lack of liquid is detected: Észlelhető folyadékhiány esetén
@@ -1222,7 +1211,6 @@ When there is certain amount of rain: Meghatározott eső mennyiségének leesé
 When there weight reaches a certain value: Meghatározott súly érték elérésekor
 Where is the JSON?: Hol van a JSON?
 Where is your SUPLA Cloud?: Hol található a Suplája?
-White: Fehér
 Will be deleted after: Eltávolítás miután
 Wind sensor: Szélérzékelő
 Window opening sensor: Ablaknyitás-érzékelő
@@ -1230,7 +1218,6 @@ With SUPLA you can operate the lights in your home or office: A SUPLA segítség
 With a timer: Időzítővel
 With function: Funkcióval
 Working period: A működési időszaka
-YOUR LINK CODE: A LINKJE KÓDJA
 'Yes': Igen
 You are changing the settings too quickly. You have to wait a while before making this change.: Túl gyorsan módosítja a beállításokat. Az aktuális beállítások módosítása előtt várjon egy percet.
 You can browse only the most recent logs now. Wait a while for the full history.: Jelenleg csak a legfrissebb mérések jelennek meg. Várjon egy kicsit, amíg az összes előzmény letöltődik.
@@ -1355,6 +1342,7 @@ directLinkExecutionFailureReason_expired: A közvetlen link lejárt
 directLinkExecutionFailureReason_forbiddenAction: A link nem engedélyezi ezt a műveletet
 directLinkExecutionFailureReason_httpGetForbidden: Az illegális HTTP GET módszer felhasználásával megkisérelt művelet végrehajtása letiltva
 directLinkExecutionFailureReason_invalidActionParameters: Érvénytelen közvetlen link paraméterei
+directLinkExecutionFailureReason_invalidActionParameters_info: Ez a közvetlen link megköveteli a végrehajtandó művelet paramétereinek pontosítását. Nézze meg az alábbi példákat, hogy megtudja, milyen paramétereket állíthat be.
 directLinkExecutionFailureReason_invalidChannelState: A csatorna állapota miatt a művelet nem hajtható végre.
 directLinkExecutionFailureReason_invalidSlug: A megadott ellenőrző kód érvénytelen.
 directLinkExecutionFailureReason_noAllowedActions: Nincs kiválasztva semmilyen engedélyezett művelet
@@ -1535,17 +1523,20 @@ Are you sure you want to delete the entire voltage aberrations history saved for
 Are you sure you want to disable this device?: Biztosan ki akarja kapcsolni ezt az eszközt?
 Assigned Locations: Hozzárendelt Lokálizációk
 Authorized OAuth apps: Engedélyezett OAuth alkalmazások
+Brightness: Fényerő
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Ha letiltja ezt az opciót, akkor ez az eszköz további megerősítés nélkül vezérelhető az integrációból. Ez nem biztonságos vagy kevésbé biztonságos állapothoz vezethet (pl. egy kapu véletlen kinyitása).
 Calculated value: Mérőóra állás
 Calibration successful.: Sikeres kalibrálás
 Cannot execute an action when the device is disconnected.: Nem végezhet műveleteket, ha az eszköz ki van kapcsolva.
 Cannot send an activation e-mail. Try again later.: Nem lehet üzenetet küldeni az aktiválási linkkel. Kérjük, próbálja meg újra később.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Nem érkezett meg a fiókaktiválási linket tartalmazó üzenet? Győződjön meg róla, hogy nem került a SPAM (kéretlen levelek) mappába. Az újraküldéshez kattintson a gombra {clickHereLink}.
+Channel: Csatorna
 Channel is disconnected.: A csatorna nincs összekapcsolva.
 Channel value: Érték
 Channel will be deleted from the channel group below: A csatorná eltávolítva a következő csatornacsoportokból
 Chart data source type: Adatforrás típusa
 Chart mode: Diagram típusa
+Choose: Válassza ki
 Chosen hour: Kiválasztott óra
 Coming Soon: Hamarosan elérhető
 Confirm if you want to perform the roller shutter calibration.: Erősítse meg a modul kalibrálását.
@@ -1556,6 +1547,7 @@ Deleting your account will result also in deletion of all your data, including y
 Device channel value: Készülékből nyert érték
 Device settings: Készülék beállítások
 Differential: Differenciális
+Direct link has been created successfully!: Sikeresen létrehoztunk egy közvetlen linket!
 Direct links below will be deleted: Az alább felsorolt közvetlen linkek eltávolításra kerülnek
 Doors, Gates: Ajtók,  Kapuk
 E-mail notifications: E-mail értesítések
@@ -1567,6 +1559,7 @@ Expected maximum increment: Várható maximális kiterjedés
 File is too large: A fájl túl nagy
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: A készülék firmware programja ezen a csatornán küld értesítéseket. Itt konfigurálhatja a tartalmat és a címzetteket. További információért forduljon a készülék forgalmazójához.
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: A készülék firmware programja értesítéseket küld. Itt konfigurálhatja a tartalmat és a címzetteket. További információért forduljon a készülék forgalmazójához.
+For security reasons, the full URL of this direct link will be displayed only once, during creation.: Biztonsági okokból a közvetlen link teljes URL-je csak egyszer jelenik meg a létrehozása során.
 Forward active energy balance: Az aktív energiabevitel mérlege
 From IP: IP-címről
 Get SUPLA on your devices: Töltse le  SUPLA-t a készülékeire
@@ -1579,6 +1572,7 @@ If you want to stay here, do something!: Ha itt akar maradni, csináljon valamit
 If you wish to register your instance, {clickHereLink}.: Ha szeretné regisztrálni a példányát, {clickHereLink}.
 If you wish to unregister your instance, {clickHereLink}.: Ha szeretné letiltani a regisztrációt, {clickHereLink}.
 In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: A hibás leolvasás kockázatának minimalizálása érdekében állítsa be a mérőóra értékének maximális várható növekedését az egymást követő képek között.
+Inactive: Inaktív
 Information: Tájékoztatás
 Initial value: Kezdőérték
 Input: Bejárat
@@ -1587,9 +1581,11 @@ Invalid scene: Érvénytelen jelenet
 It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: Ebben a módban a készülék elkezdi sugározni a Wi-Fi hálózati hozzáférését, amely lehetővé teszi a készülék konfigurálását vagy a hardverfrissítést a hálózathoz csatlakoztatott okostelefonon keresztül.
 Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Ne feledje, hogy az alkalmazás által az adott kifejezés leírása nem tökéletes, és az egyetlen feladata, hogy segítsen beírni a megfelelő értéket. Nem arra szolgál, hogy ellenőrizze, hogy a megadott érték helyes-e, és még kevésbé arra, hogy a SUPLI-ban talált hibával dicsekedjen. Miután elvégezte a módosításokat, ellenőrizze a "Következő események" szakaszt, hogy megerősítse, hogy a megadott ütemterv-konfiguráció megfelel-e az Ön elvárásainak.
 Languages: Nyelvek
+Let me choose later: Hadd válasszam később
 Loading: Töltés
 Location password must be at least 4 characters.: A helyazonosító jelszónak legalább 4 karakter hosszúnak kell lennie.
 Location password must be no longer than 32 characters.: A helyazonosító jelszó nem lehet hosszabb 32 karakternél.
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Ügyeljen arra, hogy biztonságos helyen elmentette, ha a jövőben használni akarja. Az oldal elhagyása után a link már nem jelenik meg.
 Maximum temperature that can be set from the device: A készülékkel beállítható maximális hőmérséklet
 Minimum temperature that can be set from the device: A készülékkel beállítható minimális hőmérséklet
 Minute: Perc
@@ -1613,6 +1609,7 @@ Reverse active energy balance: A visszaadott aktív energia egyenlege
 Save changes to see Access IDs: A változtatások mentése a hozzáférési azonosítók megjelenítéséhez
 Schedule cannot be enabled: Az ütemezés engedélyezése sikertelen
 Schedules below will be deleted: Az alábbi ütemtervek törlésre kerülnek
+See direct link possibilities: Lássa meg a közvetlen link lehetőségeit
 Sensor (normal closed): Érzékelő (általában zárt)
 Sensor (normal open): Érzékelő (általában nyitva)
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Húzza le a redőnyt ütközéséig, és jegyezze fel a zárás százalék értékét ebbe a mezőbe. Ez a művelet nem szükséges, de megadása javítja a redőny helyzetének megjelenítését a mobilalkalmazásban.
@@ -1625,6 +1622,7 @@ Temperature adjustment only: Kizárólag hőmérséklet beállítása
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Az integrációknak köszönhetően könnyedén hozzáadhat az fiókjához  új funkciókat a külső szállítók, programozók vagy saját maga által nyújtott megoldásokat felhasználásával.
 The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: A konfigurációt egy másik helyről (pl. egy másik böngészőablakból, mobilalkalmazásból vagy eszközről) módosították. A további módosítások előtt frissítse a konfigurációt.
 The events in voltage aberrations history will be automatically deleted after {days} days.: A feszültségeltérési előzmények {days} nap után automatikusan törlődnek.
+The gate sensor must function properly in order to execute the Open and Close actions.: A kapu nyitó érzékelőnek rendeltetésszerűen kell működnie ahhoz, hogy a Nyitás Zárás művelet végrehajtása megtörténjen.
 The items below depend on this channel, so they will be deleted.: A következő elemek ehhez a csatornához kapcsolódnak, ezért eltávolításra kerülnek.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Az értesítést kerettel emeltük ki, amelyen a leiratkozás linkjére kattintott.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: A művelet akkor aktiválódik, ha az alábbi feltételek mindegyike teljesül. Amennyiben az összes rendelkezésre álló opciót beállítja, a művelet csak a kiválasztott dátumok között, a kiválasztott időpontokban és hétköznapokon aktiválódik, és csak akkor, ha a napnyugtára vagy napkeltére vonatkozó valamely beállítás teljesül.
@@ -1656,7 +1654,9 @@ When the roof window reaches: Tetőablak eléri
 When the terrace awning reaches: Amikor a terasz árnyékoló eléri
 When the vertical blind reaches: Amikor a függőleges árnyékoló eléri
 When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Közvetlen linkműveletet hajthat végre, ha megadja annak egyedi azonosítóját a HTTP PATCH kérés törzsében. Ez a biztonságosabb, mert megakadályozza, hogy a link teljes címe a szerver hozzáférési naplóiban kerüljön mentésre, amelyen keresztül a kérés átadódik. Az alábbiakban talál egy példát e műveletre a cURL eszköz használatával.
+White: Fehér
 Working schedule: Tevékenységi ütemterv
+YOUR LINK CODE: A LINKJE KÓDJA
 You need to provide icons for all states.: Minden állapothoz meg kell adnia egy ikont.
 You will be logged out shortly: Hamarosan ki lesz léptetve
 Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Az Ön böngészője nem támogatja az ügyféladatbázis-mechanizmust (IndexedDB). Ez a funkció a diagramok megjelenítéséhez és a fejlett adatexport-beállítások támogatásához szükséges. Frissítse böngészőjét, vagy lépjen ki az inkognitó módból, hogy használhassa ezeket a funkciókat.
@@ -1693,29 +1693,40 @@ Alarm at level (and above) should be greater than the corresponding warning leve
 Alarm at level (and below) should be lower than the corresponding warning level.: ~
 Alarm level: ~
 Algorithms available on this device: ~
+An RGBW command that modified the action behavior.: ~
 Are you sure you want to delete this subdevice?: ~
 Attribute: ~
 Auto-close on flood: ~
 Aux thermometer for channel: ~
+Available commands: ~
 Battery health: ~
 Battery level: ~
 Baudrate: ~
 Binary sensor for channel: ~
 Bridge node online: ~
 Bridge node signal strength: ~
+Brightness value in percent format (e.g. {example}): ~
+C++: ~
 Calibration lost: ~
+Calibration request has been sent.: ~
 Cannot execute an action when the channel is not available.: ~
 Channel notification: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
 Chart aggregated balance: ~
 Check available updates: ~
 Choose many: ~
+Chosen: ~
 City: ~
+Clear filters: ~
+Color brightness in percent (e.g. {example}): ~
+Color value in HEX format (e.g. {example}): ~
+Condition must be true for minimum time: ~
 Confirm new password: ~
 Connection uptime: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
+Cooling temperature to set in Celsius degrees (e.g. {example}): ~
 Could not add the data source. Try again in a while.: ~
 Could not check updates.: ~
 Could not perform factory reset.: ~
@@ -1733,12 +1744,17 @@ Device date and time: ~
 Device interface: ~
 Device notification: ~
 Device should be checking and installing updates.: ~
+Dimmer CCT: ~
+Dimmer CCT and RGB: ~
+Direct link deleted successfully.: ~
 Does it look good?: ~
 E-mail: ~
 Each container level sensor must have different fill level.: ~
 Energy attribute: ~
 Energy prices: ~
 Everyone makes mistakes!: ~
+Example payload: ~
+Extension: ~
 Factory reset: ~
 Fill level: ~
 Filtering time: ~
@@ -1750,22 +1766,28 @@ Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
 Heat or cold source switch for channel: ~
+Heating temperature to set in Celsius degrees (e.g. {example}): ~
 IP: ~
+Identifier of a channel to copy state from (e.g. {example}): ~
 Image: ~
 Info: ~
 Invalid sensor state: ~
+Java: ~
+JavaScript: ~
 LED settings: ~
 Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
 Light source operating time: ~
+Link only: ~
 Lock type: ~
 MAC: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
 Minimum: ~
+Missing trigger field definition.: ~
 Motion sensor: ~
 Motor problem: ~
 Mute alarm: ~
@@ -1783,10 +1805,15 @@ Opening sensor for channel: ~
 Operating time: ~
 Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Overcurrent threshold: ~
+PHP: ~
+Parameters: ~
 Password is too long.: ~
 Password is too short.: ~
 Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
+Payload: ~
+Percentage of closing (e.g. {example}): ~
 Percentage of extension: ~
+Percentage of opening (e.g. {example}): ~
 Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
@@ -1794,6 +1821,7 @@ Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
 Pump switch for channel: ~
 Push: ~
+Python: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
 Reaction notification: ~
 Reading: ~
@@ -1810,20 +1838,24 @@ Septic tank: ~
 Serial: ~
 Set the configuration password: ~
 Set the password that restricts access to the device configuration page (https://192.168.4.1).: ~
+Set tilt angle in percent: ~
+Show examples: ~
 Slave timeout (ms): ~
 Sound alarm on: ~
 Stop bits: ~
 Switch cycle count: ~
 Temperature control type: ~
+Temperature to set in Celsius degrees (e.g. {example}): ~
 Temperatures that can be set from local UI: ~
 The device is not connected. The values below represent the last known state.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
+The light will not turn on if you adjust the color only.: ~
 The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
+The reaction will fire only after the condition is met for the specified duration.: ~
 The subdevice has been deleted.: ~
 This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
-This is the list of configured notifications. If you want to add a new notification or alter the existing one, go to the channel details that should trigger it.: ~
 Timeout: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
@@ -1841,6 +1873,8 @@ Weather attribute: ~
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
+When goes offline: ~
+When goes online: ~
 When motion starts to be detected: ~
 When motion stops to be detected: ~
 When the alarm starts: ~
@@ -1850,6 +1884,7 @@ When the battery reaches a certain level: ~
 When the calibration fails: ~
 When the calibration has been lost: ~
 When the calibration has started: ~
+When the channel connection status changes: ~
 When the device starts to be powered from battery: ~
 When the device stops to be powered from battery: ~
 When the fill level becomes known again: ~
@@ -1857,6 +1892,7 @@ When the fill level becomes unknown: ~
 When the fill level changes: ~
 When the fill level reaches a certain value: ~
 When the fill level will be: ~
+When the measurements change: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
@@ -1872,6 +1908,12 @@ When the value value changes: ~
 When the value value will be: ~
 When the warning starts: ~
 When the warning stops: ~
+When the white color reaches a certain level of temperature: ~
+When the white temperature level changes: ~
+When the white temperature will be: ~
+White brightness: ~
+White temperature: ~
+White temperature in percent, 0 - warmest, 100 - coolest (e.g. {example}): ~
 Who has access?: ~
 Wi-Fi RSSI: ~
 Wi-Fi signal strength: ~
@@ -1883,13 +1925,19 @@ activityConditions_help: ~
 and wait until the battery level will be: ~
 and wait until the fill level will be: ~
 battery: ~
+cURL: ~
+channel_config_changed_warning: ~
 choose the city: ~
 closeValveOnFloodType_ALWAYS: ~
 closeValveOnFloodType_ON_CHANGE: ~
 closeValveOnFloodType_help: ~
 directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
+directLink_slugInfo: ~
 energyPriceForecast_field_fixing1: ~
+energyPriceForecast_field_fixing1_hourly: ~
 energyPriceForecast_field_fixing2: ~
+energyPriceForecast_field_fixing2_hourly: ~
+energyPriceForecast_field_pdgsz: ~
 energyPriceForecast_field_rce: ~
 firmwareUpdatePolicy_ALL_ENABLED: ~
 firmwareUpdatePolicy_DISABLED: ~
@@ -1920,6 +1968,7 @@ openWeatherAttribute_field_airNo2: ~
 openWeatherAttribute_field_airO3: ~
 openWeatherAttribute_field_airPm10: ~
 openWeatherAttribute_field_airPm25: ~
+openWeatherAttribute_field_clouds: ~
 openWeatherAttribute_field_feelsLike: ~
 openWeatherAttribute_field_humidity: ~
 openWeatherAttribute_field_pressure: ~
@@ -1930,9 +1979,30 @@ openWeatherAttribute_field_tempHumidity: ~
 openWeatherAttribute_field_visibility: ~
 openWeatherAttribute_field_windGust: ~
 openWeatherAttribute_field_windSpeed: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_STOP: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_STOP: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_STOP: ~
+rgbwCommand_label_NOT_SET: ~
+rgbwCommand_label_SET_BRIGHTNESS_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_DIMMER_CCT_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_RGB_WITHOUT_TURN_ON: ~
+rgbwCommand_label_TOGGLE_ALL: ~
+rgbwCommand_label_TOGGLE_DIMMER: ~
+rgbwCommand_label_TOGGLE_RGB: ~
+rgbwCommand_label_TURN_OFF_ALL: ~
+rgbwCommand_label_TURN_OFF_DIMMER: ~
+rgbwCommand_label_TURN_OFF_RGB: ~
+rgbwCommand_label_TURN_ON_ALL: ~
+rgbwCommand_label_TURN_ON_DIMMER: ~
+rgbwCommand_label_TURN_ON_RGB: ~
 state-half: ~
 state-hi: ~
 state-low: ~
+subdevicePairingResult_DEVICE_NOT_SUPPORTED: ~
 subdevicePairingResult_REQUEST_SENT: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~

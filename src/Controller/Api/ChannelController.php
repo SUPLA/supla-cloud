@@ -680,9 +680,9 @@ class ChannelController extends RestController {
             $idsToRemove = EntityUtils::mapToIds($channelsToRemoveWith);
             $idsToRemove[] = $channel->getId();
             $hiddenConfigTranslator->setIdsToIgnore($idsToRemove);
-            $channelDependencies->clearDependencies($channel);
+            $channelDependencies->clearDependencies($channel, true);
             foreach ($channelsToRemoveWith as $channelToRemove) {
-                $channelDependencies->clearDependencies($channelToRemove);
+                $channelDependencies->clearDependencies($channelToRemove, true);
                 $em->remove($channelToRemove);
             }
             $channelId = $channel->getId();

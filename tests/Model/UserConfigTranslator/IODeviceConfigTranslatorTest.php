@@ -236,6 +236,17 @@ class IODeviceConfigTranslatorTest extends TestCase {
         $this->assertEquals(19200, $config['modbus']['serialConfig']['baudrate']);
     }
 
+    public function testGettingModbusDefaultsWithoutSerialCapabilities() {
+        $device = new IODevice();
+        $device->setUserConfig(['modbus' => []]);
+        EntityUtils::setField($device, 'properties', json_encode(['modbus' => ['availableProtocols' => ['TCP']]]));
+
+        $config = $this->translator->getConfig($device);
+
+        $this->assertEquals(['mode' => 'DISABLED'], $config['modbus']['serialConfig']);
+        $this->assertEquals(['mode' => 'DISABLED', 'port' => 502], $config['modbus']['networkConfig']);
+    }
+
     public function testDoesNotFailOnInvalidModbusConfig() {
         $device = new IODevice();
         $device->setUserConfig(['modbus' => ['serialConfig' => ['mode' => 'RTU', 'baudrate' => 666]]]);

@@ -20,6 +20,7 @@
 ## Workflow Notes
 
 - `phpunit.dist.xml` defines the test suites; `integration`, `api`, and `measurement_logs` are separate suites.
+- before running the tests, clear the var/cache/test directory.
 - CI writes `.env.test.local` with `bin/write-ci-env.sh` before API/integration/measurement-log runs because shell DB env vars do not
   reliably reach PHP.
 - CI waits for MariaDB/Postgres with `bin/wait-for-service.sh`; use the same pattern when reproducing those suites locally.

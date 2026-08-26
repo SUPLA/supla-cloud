@@ -215,16 +215,22 @@ readonly class IODeviceConfigTranslator {
     private function adjustModbusConfig(IODevice $device, array $config) {
         $constraints = $this->getModbusConstraints($device);
         $configTree = new TreeBuilder('modbus');
-        $configTree->getRootNode()->ignoreExtraKeys()->children()
+        $children = $configTree->getRootNode()->ignoreExtraKeys()->children()
             ->enumNode('role')->values(array_merge($constraints['availableRoles'], ['NOT_SET']))->defaultValue('NOT_SET')->end()
             ->integerNode('modbusAddress')->min(1)->max(247)->defaultValue(1)->end()
             ->integerNode('slaveTimeoutMs')->min(0)->max(10000)->defaultValue(0)->end()
-            ->arrayNode('serialConfig')->ignoreExtraKeys()->addDefaultsIfNotSet()->children()
-            ->enumNode('mode')->values(array_merge($constraints['availableSerialModes'], ['DISABLED']))->defaultValue('DISABLED')->end()
-            ->enumNode('baudrate')->values($constraints['availableSerialBaudrates'])
-            ->defaultValue(in_array(19200, $constraints['availableSerialBaudrates']) ? 19200 : $constraints['availableSerialBaudrates'][0])->end()
-            ->enumNode('stopBits')->values($constraints['availableSerialStopbits'])->defaultValue($constraints['availableSerialStopbits'][0])->end()
-            ->end()->end()
+            ->arrayNode('serialConfig')->ignoreExtraKeys()->addDefaultsIfNotSet()->children();
+        $children->enumNode('mode')->values(array_merge($constraints['availableSerialModes'], ['DISABLED']))->defaultValue('DISABLED')->end();
+        $availableBaudrates = $constraints['availableSerialBaudrates'];
+        if ($availableBaudrates) {
+            $defaultBaudRate = in_array(19200, $availableBaudrates) ? 19200 : $availableBaudrates[0];
+            $children->enumNode('baudrate')->values($availableBaudrates)->defaultValue($defaultBaudRate)->end();
+        }
+        if ($constraints['availableSerialStopbits']) {
+            $children->enumNode('stopBits')->values($constraints['availableSerialStopbits'])
+                ->defaultValue($constraints['availableSerialStopbits'][0])->end();
+        }
+        $children->end()->end()
             ->arrayNode('networkConfig')->ignoreExtraKeys()->addDefaultsIfNotSet()->children()
             ->enumNode('mode')->values(array_merge($constraints['availableNetworkModes'], ['DISABLED']))->defaultValue('DISABLED')->end()
             ->integerNode('port')->min(0)->max(65535)->defaultValue(502)->end()

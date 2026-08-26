@@ -6,27 +6,21 @@ use App\Entity\ActionableSubject;
 use App\Entity\Main\IODevice;
 use App\Entity\Main\IODeviceChannel;
 use App\Enums\ChannelFunction;
+use App\Model\UserConfigTranslator\ActionTriggerParamsTranslator;
 use App\Model\UserConfigTranslator\SubjectConfigTranslator;
-use App\Utils\JsonArrayObject;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 
 abstract class ActionableSubjectDependencies {
-    /** @var EntityManagerInterface */
-    protected $entityManager;
-
-    /** @var SubjectConfigTranslator */
-    protected $channelParamConfigTranslator;
 
     private array $actionTriggerIndexCache = [];
 
     public function __construct(
-        EntityManagerInterface $entityManager,
-        SubjectConfigTranslator $channelParamConfigTranslator
+        protected readonly EntityManagerInterface $entityManager,
+        protected readonly SubjectConfigTranslator $channelParamConfigTranslator,
+        protected readonly ActionTriggerParamsTranslator $actionTriggerParamsTranslator,
     ) {
-        $this->entityManager = $entityManager;
-        $this->channelParamConfigTranslator = $channelParamConfigTranslator;
     }
 
     public function onlyDependenciesVisibleToUser(array $dependencies): array {
@@ -56,21 +50,7 @@ abstract class ActionableSubjectDependencies {
 
     protected function clearActionTriggersThatReferencesSubject(ActionableSubject $subject): void {
         foreach ($this->findActionTriggersForSubject($subject) as $actionTrigger) {
-            $config = $this->channelParamConfigTranslator->getConfig($actionTrigger);
-
-            $actions = (new JsonArrayObject($config['actions'] ?? []))->toArray();
-
-            $config['actions'] = array_filter(
-                $actions,
-                function (array $action) use ($subject) {
-                    return !(
-                        ($action['subjectType'] ?? null) === $subject->getOwnSubjectType()
-                        && ($action['subjectId'] ?? null) === $subject->getId()
-                    );
-                }
-            );
-
-            $this->channelParamConfigTranslator->setConfig($actionTrigger, $config);
+            $this->actionTriggerParamsTranslator->removeActionsReferencingSubject($actionTrigger, $subject);
             $this->entityManager->persist($actionTrigger);
         }
     }

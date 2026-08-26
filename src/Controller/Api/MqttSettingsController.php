@@ -26,20 +26,20 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\MessageDigestPasswordHasher;
 
 class MqttSettingsController extends RestController {
     use Transactional;
 
-    /** @var ContainerInterface */
-    private $containerWithParameters;
+    /** @var ParameterBagInterface */
+    private $parameterBag;
     /** @var ApiClientAuthorizationRepository */
     private $apiClientAuthorizationRepository;
 
-    public function __construct(ContainerInterface $container, ApiClientAuthorizationRepository $apiClientAuthorizationRepository) {
-        $this->containerWithParameters = $container;
+    public function __construct(ParameterBagInterface $parameterBag, ApiClientAuthorizationRepository $apiClientAuthorizationRepository) {
+        $this->parameterBag = $parameterBag;
         $this->apiClientAuthorizationRepository = $apiClientAuthorizationRepository;
     }
 
@@ -61,7 +61,7 @@ class MqttSettingsController extends RestController {
      */
     public function postMqttBrokerCredentialsAction() {
         $user = $this->getCurrentUserOrThrow();
-        if (!$this->containerWithParameters->getParameter('supla.mqtt_broker.enabled')) {
+        if (!$this->parameterBag->get('supla.mqtt_broker.enabled')) {
             throw new ApiException('MQTT Broker is not enabled on this Cloud instance.', Response::HTTP_CONFLICT);
         }
         if (!$user->isMqttBrokerEnabled()) {
@@ -77,7 +77,7 @@ class MqttSettingsController extends RestController {
             'tls' => 'supla.mqtt_broker.tls',
         ];
         $userSettings = [];
-        if ($this->containerWithParameters->getParameter('supla.mqtt_broker.integrated_auth')) {
+        if ($this->parameterBag->get('supla.mqtt_broker.integrated_auth')) {
             [$rawPassword, $encodedPassword] = self::generateMqttBrokerPassword(64);
             $authorization->setMqttBrokerAuthPassword($encodedPassword);
             $this->entityManager->persist($authorization);
@@ -90,7 +90,7 @@ class MqttSettingsController extends RestController {
             $parameters['username'] = 'supla.mqtt_broker.username';
             $parameters['password'] = 'supla.mqtt_broker.password';
         }
-        $parameters = array_map([$this->containerWithParameters, 'getParameter'], $parameters);
+        $parameters = array_map([$this->parameterBag, 'get'], $parameters);
         return $this->view(array_merge($parameters, $userSettings), 201);
     }
 
@@ -106,7 +106,7 @@ class MqttSettingsController extends RestController {
             'integratedAuth' => 'supla.mqtt_broker.integrated_auth',
             'hasLocalCredentials' => 'supla.mqtt_broker.password',
         ];
-        $parameters = array_map([$this->containerWithParameters, 'getParameter'], $parameters);
+        $parameters = array_map([$this->parameterBag, 'get'], $parameters);
         $parameters['hasLocalCredentials'] = !!$parameters['hasLocalCredentials'];
         $userSettings = [
             'userEnabled' => $user->isMqttBrokerEnabled(),

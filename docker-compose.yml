@@ -3,7 +3,7 @@ services:
     image: mariadb:11.7.2
     container_name: supla-db
     ports:
-      - "3306:3306"
+      - '3306:3306'
     environment:
       MYSQL_ROOT_PASSWORD: php
       MYSQL_DATABASE: supla
@@ -16,7 +16,7 @@ services:
   timescaledb:
     image: timescale/timescaledb:2.20.1-pg17
     container_name: supla-tsdb
-    ports: ["5432:5432"]
+    ports: ['5432:5432']
     environment:
       POSTGRES_PASSWORD: postgres
     volumes:
@@ -27,8 +27,8 @@ services:
     container_name: supla-smtp
     image: gessnerfl/fake-smtp-server:2.4.2
     ports:
-      - "2500:8025"
-      - "6245:8080"
+      - '2500:8025'
+      - '6245:8080'
 
 volumes:
   supla_db_data:

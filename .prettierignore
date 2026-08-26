@@ -1,0 +1,11 @@
+*
+!/.drone.yml
+!/compose.override.yaml
+!/config/
+!/config/**
+!/docker-compose.yml
+!/frontend/
+!/frontend/src/
+!/frontend/src/**
+!/frontend/tests/
+!/frontend/tests/**

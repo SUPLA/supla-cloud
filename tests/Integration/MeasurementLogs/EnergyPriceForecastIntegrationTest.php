@@ -32,6 +32,7 @@ use App\Tests\Integration\Traits\SuplaAssertions;
 use App\Tests\Integration\Traits\TestTimeProvider;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\Small;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 #[Small]
 class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
@@ -86,7 +87,7 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
     public function testFetchingData() {
         // @codingStandardsIgnoreStart
         SuplaAutodiscoverMock::mockResponse('energy-price-forecast', [
-            ['dateFrom' => '2025-06-12T00:00:00+02:00', 'dateTo' => '2025-06-12T00:14:59+02:00', 'rce' => 440.8, 'fixing1' => 436.2],
+            ['dateFrom' => '2025-06-12T00:00:00+02:00', 'dateTo' => '2025-06-12T00:14:59+02:00', 'rce' => 440.8, 'fixing1' => 436.2, 'fixing1_hourly' => 437.2],
             ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'rce' => 440.8],
             ['dateFrom' => '2025-06-12T00:30:00+02:00', 'dateTo' => '2025-06-12T00:44:59+02:00', 'rce' => 440.8],
         ]);
@@ -101,14 +102,16 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(440.8, $firstLog->getRce());
         $this->assertEquals(436.2, $firstLog->getFixing1());
         $this->assertNull($firstLog->getFixing2());
+        $this->assertEquals(437.2, $firstLog->getFixing1Hourly());
+        $this->assertNull($firstLog->getFixing2Hourly());
     }
 
     #[Depends('testFetchingData')]
     public function testFetchingDataSecondTimeCorrects() {
         // @codingStandardsIgnoreStart
         SuplaAutodiscoverMock::mockResponse('energy-price-forecast', [
-            ['dateFrom' => '2025-06-12T00:00:00+02:00', 'dateTo' => '2025-06-12T00:14:59+02:00', 'rce' => 441.8, 'fixing1' => 436.2, 'fixing2' => 448.91],
-            ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'rce' => 440.8, 'fixing1' => 436.2, 'fixing2' => 448.91],
+            ['dateFrom' => '2025-06-12T00:00:00+02:00', 'dateTo' => '2025-06-12T00:14:59+02:00', 'rce' => 441.8, 'fixing1' => 436.2, 'fixing2' => 448.91, 'fixing1_hourly' => 437.2, 'fixing2_hourly' => 449.91],
+            ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'rce' => 440.8, 'fixing1' => 436.2, 'fixing2' => 448.91, 'fixing1_hourly' => 437.2, 'fixing2_hourly' => 449.91],
             ['dateFrom' => '2025-06-12T00:30:00+02:00', 'dateTo' => '2025-06-12T00:44:59+02:00', 'rce' => 440.8],
         ]);
         // @codingStandardsIgnoreEnd
@@ -122,13 +125,15 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(441.8, $firstLog->getRce());
         $this->assertEquals(436.2, $firstLog->getFixing1());
         $this->assertEquals(448.91, $firstLog->getFixing2());
+        $this->assertEquals(437.2, $firstLog->getFixing1Hourly());
+        $this->assertEquals(449.91, $firstLog->getFixing2Hourly());
     }
 
     #[Depends('testFetchingDataSecondTimeCorrects')]
     public function testFetchingDataThirdTimeDoesNotForget() {
         SuplaAutodiscoverMock::mockResponse('energy-price-forecast', [
             ['dateFrom' => '2025-06-12T00:00:00+02:00', 'dateTo' => '2025-06-12T00:14:59+02:00'],
-            ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'fixing1' => 436.2, 'fixing2' => 448.91],
+            ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'fixing1' => 436.2, 'fixing2' => 448.91, 'fixing1_hourly' => 437.2, 'fixing2_hourly' => 449.91],
         ]);
         $this->executeCommand('supla:cyclic:energy-price-forecast-fetch');
         $em = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
@@ -140,13 +145,15 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(441.8, $firstLog->getRce());
         $this->assertEquals(436.2, $firstLog->getFixing1());
         $this->assertEquals(448.91, $firstLog->getFixing2());
+        $this->assertEquals(437.2, $firstLog->getFixing1Hourly());
+        $this->assertEquals(449.91, $firstLog->getFixing2Hourly());
     }
 
     public function testCreatingVirtualChannelEnergyForecast() {
         // @codingStandardsIgnoreStart
         SuplaAutodiscoverMock::mockResponse('energy-price-forecast', [
-            ['dateFrom' => '2025-06-12T00:00:00+02:00', 'dateTo' => '2025-06-12T00:14:59+02:00', 'rce' => 441.8, 'fixing1' => 436.2, 'fixing2' => 448.91],
-            ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'rce' => 442.8, 'fixing1' => 436.2, 'fixing2' => 448.91],
+            ['dateFrom' => '2025-06-12T00:00:00+02:00', 'dateTo' => '2025-06-12T00:14:59+02:00', 'rce' => 441.8, 'fixing1' => 436.2, 'fixing2' => 448.91, 'fixing1_hourly' => 437.2, 'fixing2_hourly' => 449.91],
+            ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'rce' => 442.8, 'fixing1' => 436.2, 'fixing2' => 448.91, 'fixing1_hourly' => 438.2, 'fixing2_hourly' => 450.91],
             ['dateFrom' => '2025-06-12T00:30:00+02:00', 'dateTo' => '2025-06-12T00:44:59+02:00', 'rce' => 443.8],
         ]);
         // @codingStandardsIgnoreEnd
@@ -156,7 +163,7 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV3('GET', '/api/integrations/energy-price-forecast/parameters');
         $this->assertStatusCode(200, $client->getResponse());
         $parameters = json_decode($client->getResponse()->getContent(), true);
-        $this->assertEquals(['rce', 'pdgsz', 'fixing1', 'fixing2'], $parameters);
+        $this->assertEquals(['rce', 'pdgsz', 'fixing1', 'fixing2', 'fixing1_hourly', 'fixing2_hourly'], $parameters);
         $client->apiRequestV3('POST', '/api/channels', [
             'virtualChannelType' => VirtualChannelType::ENERGY_PRICE_FORECAST,
             'virtualChannelConfig' => [
@@ -177,6 +184,44 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($chValue);
         $this->assertEquals(441.8, current(unpack('d', $chValue->getValue())));
         return $content['id'];
+    }
+
+    public function testCreatingVirtualChannelEnergyForecastHourly() {
+        // @codingStandardsIgnoreStart
+        SuplaAutodiscoverMock::mockResponse('energy-price-forecast', [
+            ['dateFrom' => '2025-06-12T00:00:00+02:00', 'dateTo' => '2025-06-12T00:14:59+02:00', 'rce' => 441.8, 'fixing1_hourly' => 437.2],
+            ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'rce' => 442.8, 'fixing1_hourly' => 438.2],
+            ['dateFrom' => '2025-06-12T00:30:00+02:00', 'dateTo' => '2025-06-12T00:44:59+02:00', 'rce' => 443.8],
+        ]);
+        // @codingStandardsIgnoreEnd
+        TestTimeProvider::setTime('2025-06-12T00:11:00+02:00');
+        $this->executeCommand('supla:cyclic:energy-price-forecast-fetch');
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/integrations/energy-price-forecast/parameters');
+        $this->assertStatusCode(200, $client->getResponse());
+        $parameters = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals(['rce', 'pdgsz', 'fixing1', 'fixing2', 'fixing1_hourly', 'fixing2_hourly'], $parameters);
+        $client->apiRequestV3('POST', '/api/channels', [
+            'virtualChannelType' => VirtualChannelType::ENERGY_PRICE_FORECAST,
+            'virtualChannelConfig' => [
+                'energyField' => 'fixing1_hourly',
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals('fixing1_hourly', $content['config']['virtualChannelConfig']['energyField']);
+        $chValue = $this->getEntityManager()->getRepository(ChannelValue::class)->findOneBy(['channel' => $content['id']]);
+        $this->assertNotNull($chValue);
+        $this->assertEquals(437.2, current(unpack('d', $chValue->getValue())));
+        self::ensureKernelShutdown();
+        $this->application = new Application(self::bootKernel(['debug' => false]));
+        $this->application->setAutoExit(false);
+        TestTimeProvider::setTime('2025-06-12T00:17:30+02:00');
+        $this->executeCommand('supla:cyclic:update-virtual-channels-state');
+        $chValue = $this->getEntityManager()->getRepository(ChannelValue::class)->findOneBy(['channel' => $content['id']]);
+        $this->assertNotNull($chValue);
+        $this->assertEquals(438.2, current(unpack('d', $chValue->getValue())));
     }
 
     #[Depends('testCreatingVirtualChannelEnergyForecast')]

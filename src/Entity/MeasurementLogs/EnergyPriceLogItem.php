@@ -56,6 +56,16 @@ class EnergyPriceLogItem {
      */
     private ?float $fixing2 = null;
 
+    /**
+     * @ORM\Column(name="fixing1_hourly", type="decimal", precision=8, scale=4, nullable=true)
+     */
+    private ?float $fixing1Hourly = null;
+
+    /**
+     * @ORM\Column(name="fixing2_hourly", type="decimal", precision=8, scale=4, nullable=true)
+     */
+    private ?float $fixing2Hourly = null;
+
     public function __construct(\DateTime $dateFrom, \DateTime $dateTo) {
         $dateFrom->setTimezone(new \DateTimeZone('UTC'));
         $dateTo->setTimezone(new \DateTimeZone('UTC'));
@@ -87,6 +97,14 @@ class EnergyPriceLogItem {
         return $this->fixing2;
     }
 
+    public function getFixing1Hourly(): ?float {
+        return $this->fixing1Hourly;
+    }
+
+    public function getFixing2Hourly(): ?float {
+        return $this->fixing2Hourly;
+    }
+
     public function setRce(?float $rce): void {
         $this->rce = $rce;
     }
@@ -101,5 +119,13 @@ class EnergyPriceLogItem {
 
     public function setFixing2(?float $fixing2): void {
         $this->fixing2 = $fixing2;
+    }
+
+    public function setFixing1Hourly(?float $fixing1Hourly): void {
+        $this->fixing1Hourly = $fixing1Hourly;
+    }
+
+    public function setFixing2Hourly(?float $fixing2Hourly): void {
+        $this->fixing2Hourly = $fixing2Hourly;
     }
 }

@@ -17,9 +17,10 @@
 
 namespace App\Command\Dev;
 
-use App\Enums\EnergyPriceComponent;
 use App\Enums\RgbwCommand;
 use App\Kernel;
+use App\Model\VirtualChannel\EnergyPriceForecastVirtualChannelConfigurator;
+use App\Model\VirtualChannel\OpenWeatherVirtualChannelConfigurator;
 use App\Supla\SuplaServerAware;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -40,6 +41,14 @@ class GenerateTranslationsCommand extends Command {
         $translations = array_merge($translations, array_map(function (RgbwCommand $command) {
             return "rgbwCommand_label_{$command->name}";
         }, RgbwCommand::cases()));
+        $translations = array_merge($translations, array_map(
+            fn(string $field) => 'energyPriceForecast_field_' . $field,
+            EnergyPriceForecastVirtualChannelConfigurator::getSupportedFields()
+        ));
+        $translations = array_merge($translations, array_map(
+            fn(string $field) => 'openWeatherAttribute_field_' . $field,
+            OpenWeatherVirtualChannelConfigurator::getSupportedFields()
+        ));
         $translations = array_merge($translations, array_map(function (EnergyPriceComponent $component) {
             return "energyPriceComponent_label_{$component->name}";
         }, EnergyPriceComponent::cases()));

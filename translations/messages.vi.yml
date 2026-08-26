@@ -152,7 +152,6 @@ Binary sensor: Cảm biến nhị phân
 Body: Nội dung
 Bottom position: Vị trí thấp hơn
 Bridge: Cầu
-Brightness: Độ sáng
 Brightness adjustment for automatic mode: Điều chỉnh độ sáng của chế độ tự động
 Brightness level: Mức độ sáng
 Button volume: Âm lượng nút bấm
@@ -188,7 +187,6 @@ Change to be the same.: Đặt như nhau.
 Changing channel’s function will also result in the following changes.: Thay đổi chức năng của kênh cũng sẽ dẫn đến các thay đổi kết quả.
 Changing channel’s visibility will also change the visibility of other items.: Thay đổi khả năng hiển thị của kênh cũng sẽ thay đổi khả năng hiển thị của các thành phần khác.
 Changing the location will also imply changing the location of the following items.: Thay đổi vị trí cũng sẽ thay đổi vị trí cho các mục sau.
-Channel: Kênh
 Channel No: Kênh No
 Channel available for {serviceName}: Kênh có sẵn cho {serviceName}
 Channel group: Nhóm kênh
@@ -207,7 +205,6 @@ Chart type: Loại biểu đồ
 Check the direct link you used and try again.: Kiểm tra liên kết trực tiếp và thử lại
 Check your email box: Check email đi bạn êi.
 Check your email inbox: Kiểm tra hộp thư của bạn
-Choose: Chọn
 Choose Access Identifier: Chọn định danh truy cập
 Choose Access Identifiers to be assigned to this Location: Chọn định danh truy cập cho vị trí
 Choose channel function: Chọn chức năng cho kênh
@@ -329,7 +326,6 @@ Dimmer: Dimmer
 Dimmer & RGB led controller: Bộ điều khiển led Dimmer & RGB
 Dimmer and RGB lighting: độ sáng Dimmer and RGB
 Direct link: Link liên kết
-Direct link has been created successfully!: Đã tạo thành công link liên kết !
 Direct link has been executed: Đã thực thi link liên kết
 'Direct link is not working right now. Reason:': 'Link liên kết thất bại. Lý do:'
 Direct links: Các link liên kết
@@ -415,7 +411,6 @@ Flooding: Ngập
 For a period: Cho giai đoạn
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Trong quá trình nâng cấp khuyến cáo sử dụng liên kết từ {suplaUrl}.
 For devices: Cho thiết bị
-For security reasons, the full URL of this direct link will be displayed only once, during creation.: Vì lý do bảo mật, URL đầy đủ của link liên kết này sẽ chỉ được hiển thị một lần, trong khi tạo
 Forced off by sensor: Buộc tắt máy bằng cảm biến
 Forgot your password?: Quên mật khẩu?
 Forward active energy: Forward active energy
@@ -520,7 +515,6 @@ Impulse counter: Bộ đếm xung
 Impulses: Impulses
 In order to confirm account deletion, enter your password.: Để xác nhận xóa tài khoản, nhập mật khẩu.
 In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.: Để nhận chi tiết đăng nhập vào kênh môi giới MQTT, vui lòng liên hệ với quản trị viên của phiên bản SUPLA Cloud này.
-Inactive: Không hoạt động
 Include energy corrections in new measurements history (not recommended): Bao gồm giá trị gia tăng trong lịch sử (không khuyến nghị)
 Incorrect password: Mật khẩu không chính xác
 Increment and decrement: Tăng và giảm
@@ -554,7 +548,6 @@ Last access: Truy cập lần cuối
 Last connection: Kết nối lần cuối
 Last paired device: Thiết bị được ghép nối lần cuối
 Last used: Sử dụng lần cuối
-Let me choose later: Để tôi chọn sau
 Light mode: Chế độ sáng
 Light switch: Công tắc đèn
 Lighting: Lighting
@@ -588,7 +581,6 @@ Mail sensor: Cảm biến mail
 Main thermometer: Nhiệt kế chính
 Maintenance mode active. You cannot modify any data now.: Chế độ bảo trì hoạt động. Hiện tại bạn không thể sửa đổi bất kỳ dữ liệu.
 Make sure to copy it now because you won’t be able to see it again!: Hãy chắc chắn là, bạn đã lưu dữ chúng ở nơi an toàn.
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Đảm bảo lưu nó ở một nơi an toàn nếu bạn muốn truy cập nó trong tương lai. Liên kết sẽ không hiển thị lại sau khi bạn rời khỏi trang này.
 Manage your new client app in the SUPLA-Cloud.: Quản lí cài đặt ứng dùng thông qua SUPLA-Cloud
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Quán lí thiết bị của bạn thông qua SUPLA-Cloud hoặc qua sự trợ giúp của ứng dụng SUPLA trên điện thoại smartphone của bạn.
 Manual: Hướng dẫn
@@ -859,11 +851,9 @@ Secret: Bí mật (secret)
 Security: Sự an toàn
 Security log: Nhật ký bảo mật
 See available integrations: Xem nhưng tích hợp có sẵn
-See direct link possibilities: Xem tình trạng link liên kết.
 See in SUPLA-Cloud: Xem trong SUPLA-Cloud
 Seems like a secret place: Có vẻ như là một nơi bí mật
 Select icon: Chọn biểu tượng
-What the link is for?: Chọn mục (chủ đề) bạn muốn kiểm soát bằng liên kết này.
 Selected: Đã chọn
 Selected device has been logged out.: Thiết bị được chọn đã đăng xuất
 Send a notification: Gửi thông báo
@@ -961,7 +951,6 @@ The entire history of the voltage aberrations will be removed from this channel.
 The following channels will be also removed along with their dependencies.: Các kênh sau cũng sẽ bị xóa cùng với các kênh phụ thuộc chúng.
 The following items use the channels of these device. These references will be also removed.: Các mục sau đây sử dụng kênh từ thiết bị này. Các mục này cũng sẽ bị xóa.
 'The following items will be deleted with this device:': Các mục sau đây cũng sẽ bị xóa với thiết bị này.
-The gate sensor must function properly in order to execute the Open and Close actions.: Cảm biến mở cổng phải hoạt động tốt để thực hiện hành động Mở hoặc Đóng.
 The gate sensor must function properly in order to execute the scheduled action.: Cảm biến cổng phải hoạt động đúng để thực hiện hành động theo lịch trình
 The incident was detected at %datetime%.: Sử việc sảy ra vào %datetime%.
 The items below depend on this channel function, so they will be deleted.: Các mục sau dựa trên các chức năng của kênh, nên cũng sẽ bị xóa sau thay đổi.
@@ -996,7 +985,6 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Chương trình điều nhiệt
 This action will result in restarting the device. It will not be available for a while.: Sắp xếp thao tác này sẽ khởi động lại thiết bị. Trong quá trình khởi động lại thiết bị sẽ không vào được
 This channel was missing during last device registration attempt.: Thiết bị của bạn bị thiếu kênh này.
-directLinkExecutionFailureReason_invalidActionParameters_info: Liên kết trực tiếp này yêu cầu các tham số tiếp theo để được thực hiện đúng. Xem các ví dụ dưới đây để có ý tưởng về những gì bạn có thể làm.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: thông tin này đã được tạo tự động do nỗ lực đăng nhập không thành công vào SUPLA-CLOUD với việc sử dụng địa chỉ email của bạn.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Đây là giai đoạn cuối cùng trong quá trình xóa tài khoản của bạn. Việc điền và xác nhận biểu mẫu sẽ giúp xóa dữ liệu của bạn ở mức không thể phục hồi.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Đây là ảnh cuối cùng được tải lên từ thiết bị. Đánh dấu chính xác khu vực có thể nhìn thấy các chữ số từ máy đếm.
@@ -1091,6 +1079,7 @@ Week: Tuần
 Weekly schedule: Lịch trình hàng tuần
 Weight sensor: Cảm biến trọng lượng
 Welcome!: Chào mừng bạn
+What the link is for?: Chọn mục (chủ đề) bạn muốn kiểm soát bằng liên kết này.
 What this token is for?: Mã thông báo này để làm gì ?
 When a certain distance is reached: Khi đạt được khoảng cách cụ thể
 When a lack of liquid is detected: Khi phát hiện không có chất lỏng
@@ -1222,7 +1211,6 @@ When there is certain amount of rain: Khi lượng mưa đạt mức cụ thể
 When there weight reaches a certain value: Khi trọng lượng đạt giá trị cụ thể
 Where is the JSON?: JSON ở đâu?
 Where is your SUPLA Cloud?: Đám mây SUPLA của bạn ở đâu??
-White: Trắng
 Will be deleted after: Xóa sau khi
 Wind sensor: Cảm biến gió
 Window opening sensor: Cảm biến mở cửa sổ
@@ -1230,7 +1218,6 @@ With SUPLA you can operate the lights in your home or office: Với SUPLA, bạn
 With a timer: Có hẹn giờ
 With function: Với chức năng
 Working period: Thời gian làm việc
-YOUR LINK CODE: MÃ LIÊN KẾT CỦA BẠN
 'Yes': Đồng ý
 You are changing the settings too quickly. You have to wait a while before making this change.: Bạn thay đổi các cài đặt quá nhanh. Bạn cần đợi một lúc trước khi tiếp tục thay đổi các cài đặt này.
 You can browse only the most recent logs now. Wait a while for the full history.: Hiện chỉ hiển thị các đo đạc mới nhất. Vui lòng đợi một chút để tải toàn bộ lịch sử.
@@ -1355,6 +1342,7 @@ directLinkExecutionFailureReason_expired: Liên kết trực tiếp không còn 
 directLinkExecutionFailureReason_forbiddenAction: Liên kết không cho phép hành động này
 directLinkExecutionFailureReason_httpGetForbidden: Không thể thực hiện hành động thông qua phương thức HTTP GET bị cấm.
 directLinkExecutionFailureReason_invalidActionParameters: Cài đặt liên kết trực tiếp không chính xác
+directLinkExecutionFailureReason_invalidActionParameters_info: Liên kết trực tiếp này yêu cầu các tham số tiếp theo để được thực hiện đúng. Xem các ví dụ dưới đây để có ý tưởng về những gì bạn có thể làm.
 directLinkExecutionFailureReason_invalidChannelState: Không thể thực hiện tác vụ do trạng thái của kênh.
 directLinkExecutionFailureReason_invalidSlug: Mã xác minh không chính xác
 directLinkExecutionFailureReason_noAllowedActions: Không có hành động được ủy quyền đã được chọn
@@ -1535,18 +1523,21 @@ Are you sure you want to delete the entire voltage aberrations history saved for
 Are you sure you want to disable this device?: Chắc chắn muốn xóa thiết bị này?
 Assigned Locations: Địa điểm được phân công
 Authorized OAuth apps: Ứng dụng OAuth ủy quyền
+Brightness: Độ sáng
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: 'Tắt tùy chọn này sẽ cho phép điều khiển thiết bị ở mức tích hợp mà không cần xác nhận bổ sung. Điều này có thể dẫn đến tình trạng nguy hiểm hoặc ít an toàn hơn (ví dụ: mở cổng ngẫu nhiên).'
 Calculated value: Đọc đồng hồ
 Calibration successful.: Hiệu chuẩn thành công
 Cannot execute an action when the device is disconnected.: Không thể thực hiện thao tác khi thiết bị bị ngắt kết nối.
 Cannot send an activation e-mail. Try again later.: Không gửi mail được. Thử lại sau.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Có vấn đề với kích hoạt tài khoản? Đảm bảo rằng thư không rơi vào thư mục SPAM/Thùng Rác. Bạn cũng có thể nhấp {clickHereLink} để gửi lại liên kết kích hoạt tài khoản
+Channel: Kênh
 Channel is disconnected.: Kênh bị ngắt kết nối.
 Channel value: Giá trị
 Channel will be deleted from the channel group below: Kênh sẽ bị xóa khỏi nhóm kênh
 Channels in channel group: Các kênh trong nhóm kênh
 Chart data source type: Loại nguồn dữ liệu
 Chart mode: Loại biểu đồ
+Choose: Chọn
 Chosen hour: Giờ được chọn
 Coming Soon: Sắp có
 Confirm if you want to perform the roller shutter calibration.: Xác nhận rằng mô-đun đã được hiệu chuẩn.
@@ -1557,6 +1548,7 @@ Deleting your account will result also in deletion of all your data, including y
 Device channel value: Giá trị từ thiết bị
 Device settings: Cài đặt thiết bị
 Differential: Khác biệt
+Direct link has been created successfully!: Đã tạo thành công link liên kết !
 Direct links below will be deleted: Link liên kết dưới đây sẽ bị xóa
 Doors, Gates: Cửa, Cổng
 E-mail notifications: Thông báo qua e-mail
@@ -1568,6 +1560,7 @@ Expected maximum increment: Mức tăng tối đa dự kiến
 File is too large: tập tin quá lớn
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Phần mềm của thiết bị này gửi thông báo trong ngữ cảnh của kênh này. Đây là nơi bạn có thể thiết lập nội dung và đối tượng của mình. Để biết thêm thông tin, vui lòng liên hệ với nhà cung cấp thiết bị.
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Phần mềm của thiết bị này sẽ gửi thông báo. Đây là nơi bạn có thể thiết lập nội dung và đối tượng của mình. Để biết thêm thông tin, vui lòng liên hệ với nhà cung cấp thiết bị.
+For security reasons, the full URL of this direct link will be displayed only once, during creation.: Vì lý do bảo mật, URL đầy đủ của link liên kết này sẽ chỉ được hiển thị một lần, trong khi tạo
 Forward active energy balance: Cân bằng năng lượng hoạt động tiêu thụ
 From IP: Từ IP
 Get SUPLA on your devices: Get SUPLA on your devices
@@ -1579,6 +1572,7 @@ If you want to stay here, do something!: Nếu bạn muốn ở lại đây, hã
 If you wish to register your instance, {clickHereLink}.: Nếu bạn muốn đăng kí phiên bản của bạn {clickHereLink}.
 If you wish to unregister your instance, {clickHereLink}.: Nếu bạn muốn hủy đăng kí phiên bản của bạn {clickHereLink}.
 In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Để giảm thiểu nguy cơ đọc sai, hãy đặt bộ đếm ở mức tăng tối đa dự kiến giữa các ảnh.
+Inactive: Không hoạt động
 Information: Thông tin
 Initial value: Giá trị ban đấu
 Input: Đầu vào
@@ -1587,9 +1581,11 @@ Invalid scene: Cảnh không hợp lệ
 It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: Trong chế độ này thiết bị sẽ phát sóng amngj Wi-Fi của mình, nhằm mục đích cài đặt thiết bị hoặc nâng cấp phần mềm thiệt bị thông qua điện thoại smartphone, được kết nối vớ mạng này.
 Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Hãy lưu ý là, những mô tả được trình bày bởi úng dụng không thực sự hoàn hà, mục đích của chúng là hỗ trợ bạn nhập đúng giá trị. Những mô tả này không nên dùng để kiểm tra xem những giá trị được nhập có chính xác không. Hoặc dùng để báo lỗi trong ứng dụng SUPLI. Sau khi thực hiện các thay đổi, hãy kiểm tra phần "Các lần thực hiện sắp tới" để xác nhận rằng cấu hình lịch biểu bạn đã nhập là phù hợp với mong muốn của bạn.
 Languages: Idiomas
+Let me choose later: Để tôi chọn sau
 Loading: Đang tải
 Location password must be at least 4 characters.: Mật khẩu vị trí phải có ít nhất 4 ký tự.
 Location password must be no longer than 32 characters.: Mật khẩu vị trí phải không dài hơn 32 ký tự.
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Đảm bảo lưu nó ở một nơi an toàn nếu bạn muốn truy cập nó trong tương lai. Liên kết sẽ không hiển thị lại sau khi bạn rời khỏi trang này.
 Maximum temperature that can be set from the device: Nhiệt độ tối đa mà thiết bị có thể cài đặt
 Minimum temperature that can be set from the device: Nhiệt độ tối thiểu mà thiết bị có thể cài đặt
 Minute: Phút
@@ -1611,6 +1607,7 @@ Reverse active energy balance: Cân bằng năng lượng hoạt động trở l
 Save changes to see Access IDs: Lưu các thay đổi để xem ID truy cập
 Schedule cannot be enabled: Lịch trình không thể được kích hoạt
 Schedules below will be deleted: Lịch trình dưới đây sẽ bị xóa
+See direct link possibilities: Xem tình trạng link liên kết.
 Sensor (normal closed): Cảm biến (đóng bình thường)
 Sensor (normal open): Cảm biến (mở bình thường)
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Đóng rèm cửa cho đến lúc chạm vào phần dưới của ô cửa và nhập tỷ lệ phần trăm đóng vào ô này. Hành động này không bắt buộc nhưng sẽ thiện khả năng hiển thị vị trí của rèm cửa trong ứng dụng di động.
@@ -1623,6 +1620,7 @@ Temperature adjustment only: Chỉ cài đặt nhiệt độ
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Nhờ tích hợp, bạn có thể dễ dàng thêm các tính năng mới vào tài khoản của mình bằng các giải pháp được cung cấp bởi các nhà cung cấp bên ngoài, nhà phát triển hoặc của chính bạn.
 The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: 'Cấu hình đã được thay đổi từ nơi khác (ví dụ: cửa sổ trình duyệt, ứng dụng di động hoặc thiết bị khác). Bạn phải làm mới cấu hình trước khi thực hiện bất kỳ thay đổi nào khác.'
 The events in voltage aberrations history will be automatically deleted after {days} days.: Các sự kiện trong lịch sử sự cố điện áp sẽ tự động bị xóa sau {days} ngày.
+The gate sensor must function properly in order to execute the Open and Close actions.: Cảm biến mở cổng phải hoạt động tốt để thực hiện hành động Mở hoặc Đóng.
 The items below depend on this channel, so they will be deleted.: Các mục sau đây phụ thuộc vào kênh này, vì vậy chúng sẽ bị xóa.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Chúng tôi đã đóng khung nhằm dấu những thông báo mà bạn  đã nhấp  vào liên kết hủy đăng ký.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Phản ứng sẽ xảy ra khi đáp ứng tất cả các điều kiện sau. Nếu bạn cài đặt chọn tất cả các lựa chọn có sẵn, hoạt động sẽ chỉ bật lên vào các ngày đã chọn, vào khung giờ và ngày trong tuần đã chọn và khi đã điền vào một trong các thông tin phụ lục về hoàng hôn hoặc bình minh.
@@ -1653,7 +1651,9 @@ When the roof window reaches: Khi cửa sổ trên mái đạt đến
 When the terrace awning reaches: Khi mái hiên đạt đến
 When the vertical blind reaches: Khi cửa chớp thẳng đứng chạm đến
 When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Khi bạn thực hiện liên kết với phương thức HTTP PATCH, bạn có thể bỏ qua phần ngẫu nhiên của liên kết và gửi nó trong phần thân yêu cầu. Điều này an toàn hơn vì yêu cầu như vậy sẽ không được lưu trữ trong bất kỳ nhật ký máy chủ hoặc proxy nào, bất kể cấu hình của chúng. Vui lòng tìm một yêu cầu ví dụ cURL dưới đây.
+White: Trắng
 Working schedule: Lịch hoạt động
+YOUR LINK CODE: MÃ LIÊN KẾT CỦA BẠN
 You need to provide icons for all states.: Bạn cần cung cấp các biểu tượng cho tất cả các tiểu bang
 You will be logged out shortly: Bạn sẽ được đăng xuất ngay
 Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Trình duyệt của bạn không hỗ trợ cơ chế cơ sở dữ liệu khách hàng (IndexedDB). Chức năng này là cần thiết để hiển thị biểu đồ và hỗ trợ các cài đặt nâng cao để xuất dữ liệu. Vui lòng cập nhật trình duyệt hoặc thoát khỏi chế độ ẩn danh để sử dụng các chức năng này.
@@ -1689,29 +1689,40 @@ Alarm at level (and above) should be greater than the corresponding warning leve
 Alarm at level (and below) should be lower than the corresponding warning level.: ~
 Alarm level: ~
 Algorithms available on this device: ~
+An RGBW command that modified the action behavior.: ~
 Are you sure you want to delete this subdevice?: ~
 Attribute: ~
 Auto-close on flood: ~
 Aux thermometer for channel: ~
+Available commands: ~
 Battery health: ~
 Battery level: ~
 Baudrate: ~
 Binary sensor for channel: ~
 Bridge node online: ~
 Bridge node signal strength: ~
+Brightness value in percent format (e.g. {example}): ~
+C++: ~
 Calibration lost: ~
+Calibration request has been sent.: ~
 Cannot execute an action when the channel is not available.: ~
 Channel notification: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
 Chart aggregated balance: ~
 Check available updates: ~
 Choose many: ~
+Chosen: ~
 City: ~
+Clear filters: ~
+Color brightness in percent (e.g. {example}): ~
+Color value in HEX format (e.g. {example}): ~
+Condition must be true for minimum time: ~
 Confirm new password: ~
 Connection uptime: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
+Cooling temperature to set in Celsius degrees (e.g. {example}): ~
 Could not add the data source. Try again in a while.: ~
 Could not check updates.: ~
 Could not perform factory reset.: ~
@@ -1729,12 +1740,17 @@ Device date and time: ~
 Device interface: ~
 Device notification: ~
 Device should be checking and installing updates.: ~
+Dimmer CCT: ~
+Dimmer CCT and RGB: ~
+Direct link deleted successfully.: ~
 Does it look good?: ~
 E-mail: ~
 Each container level sensor must have different fill level.: ~
 Energy attribute: ~
 Energy prices: ~
 Everyone makes mistakes!: ~
+Example payload: ~
+Extension: ~
 Factory reset: ~
 Fill level: ~
 Filtering time: ~
@@ -1746,22 +1762,28 @@ Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
 Heat or cold source switch for channel: ~
+Heating temperature to set in Celsius degrees (e.g. {example}): ~
 IP: ~
+Identifier of a channel to copy state from (e.g. {example}): ~
 Image: ~
 Info: ~
 Invalid sensor state: ~
+Java: ~
+JavaScript: ~
 LED settings: ~
 Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
 Light source operating time: ~
+Link only: ~
 Lock type: ~
 MAC: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
 Minimum: ~
+Missing trigger field definition.: ~
 Motion sensor: ~
 Motor problem: ~
 Mute alarm: ~
@@ -1779,10 +1801,15 @@ Opening sensor for channel: ~
 Operating time: ~
 Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Overcurrent threshold: ~
+PHP: ~
+Parameters: ~
 Password is too long.: ~
 Password is too short.: ~
 Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
+Payload: ~
+Percentage of closing (e.g. {example}): ~
 Percentage of extension: ~
+Percentage of opening (e.g. {example}): ~
 Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
@@ -1790,6 +1817,7 @@ Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
 Pump switch for channel: ~
 Push: ~
+Python: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
 Reaction notification: ~
 Reading: ~
@@ -1806,20 +1834,24 @@ Septic tank: ~
 Serial: ~
 Set the configuration password: ~
 Set the password that restricts access to the device configuration page (https://192.168.4.1).: ~
+Set tilt angle in percent: ~
+Show examples: ~
 Slave timeout (ms): ~
 Sound alarm on: ~
 Stop bits: ~
 Switch cycle count: ~
 Temperature control type: ~
+Temperature to set in Celsius degrees (e.g. {example}): ~
 Temperatures that can be set from local UI: ~
 The device is not connected. The values below represent the last known state.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
+The light will not turn on if you adjust the color only.: ~
 The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
+The reaction will fire only after the condition is met for the specified duration.: ~
 The subdevice has been deleted.: ~
 This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
-This is the list of configured notifications. If you want to add a new notification or alter the existing one, go to the channel details that should trigger it.: ~
 Timeout: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
@@ -1837,6 +1869,8 @@ Weather attribute: ~
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
+When goes offline: ~
+When goes online: ~
 When motion starts to be detected: ~
 When motion stops to be detected: ~
 When the alarm starts: ~
@@ -1846,6 +1880,7 @@ When the battery reaches a certain level: ~
 When the calibration fails: ~
 When the calibration has been lost: ~
 When the calibration has started: ~
+When the channel connection status changes: ~
 When the device starts to be powered from battery: ~
 When the device stops to be powered from battery: ~
 When the fill level becomes known again: ~
@@ -1853,6 +1888,7 @@ When the fill level becomes unknown: ~
 When the fill level changes: ~
 When the fill level reaches a certain value: ~
 When the fill level will be: ~
+When the measurements change: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
@@ -1868,6 +1904,12 @@ When the value value changes: ~
 When the value value will be: ~
 When the warning starts: ~
 When the warning stops: ~
+When the white color reaches a certain level of temperature: ~
+When the white temperature level changes: ~
+When the white temperature will be: ~
+White brightness: ~
+White temperature: ~
+White temperature in percent, 0 - warmest, 100 - coolest (e.g. {example}): ~
 Who has access?: ~
 Wi-Fi RSSI: ~
 Wi-Fi signal strength: ~
@@ -1879,13 +1921,19 @@ activityConditions_help: ~
 and wait until the battery level will be: ~
 and wait until the fill level will be: ~
 battery: ~
+cURL: ~
+channel_config_changed_warning: ~
 choose the city: ~
 closeValveOnFloodType_ALWAYS: ~
 closeValveOnFloodType_ON_CHANGE: ~
 closeValveOnFloodType_help: ~
 directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
+directLink_slugInfo: ~
 energyPriceForecast_field_fixing1: ~
+energyPriceForecast_field_fixing1_hourly: ~
 energyPriceForecast_field_fixing2: ~
+energyPriceForecast_field_fixing2_hourly: ~
+energyPriceForecast_field_pdgsz: ~
 energyPriceForecast_field_rce: ~
 firmwareUpdatePolicy_ALL_ENABLED: ~
 firmwareUpdatePolicy_DISABLED: ~
@@ -1916,6 +1964,7 @@ openWeatherAttribute_field_airNo2: ~
 openWeatherAttribute_field_airO3: ~
 openWeatherAttribute_field_airPm10: ~
 openWeatherAttribute_field_airPm25: ~
+openWeatherAttribute_field_clouds: ~
 openWeatherAttribute_field_feelsLike: ~
 openWeatherAttribute_field_humidity: ~
 openWeatherAttribute_field_pressure: ~
@@ -1926,9 +1975,30 @@ openWeatherAttribute_field_tempHumidity: ~
 openWeatherAttribute_field_visibility: ~
 openWeatherAttribute_field_windGust: ~
 openWeatherAttribute_field_windSpeed: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_STOP: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_STOP: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_STOP: ~
+rgbwCommand_label_NOT_SET: ~
+rgbwCommand_label_SET_BRIGHTNESS_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_DIMMER_CCT_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_RGB_WITHOUT_TURN_ON: ~
+rgbwCommand_label_TOGGLE_ALL: ~
+rgbwCommand_label_TOGGLE_DIMMER: ~
+rgbwCommand_label_TOGGLE_RGB: ~
+rgbwCommand_label_TURN_OFF_ALL: ~
+rgbwCommand_label_TURN_OFF_DIMMER: ~
+rgbwCommand_label_TURN_OFF_RGB: ~
+rgbwCommand_label_TURN_ON_ALL: ~
+rgbwCommand_label_TURN_ON_DIMMER: ~
+rgbwCommand_label_TURN_ON_RGB: ~
 state-half: ~
 state-hi: ~
 state-low: ~
+subdevicePairingResult_DEVICE_NOT_SUPPORTED: ~
 subdevicePairingResult_REQUEST_SENT: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~

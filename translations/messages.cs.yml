@@ -152,7 +152,6 @@ Binary sensor: Binární senzor
 Body: Obsah
 Bottom position: Dolní pozice
 Bridge: Most
-Brightness: Jas
 Brightness adjustment for automatic mode: Nastavení jasu v automatickém režimu
 Brightness level: Úroveň jasu
 Button volume: Hlasitost tlačítka
@@ -188,7 +187,6 @@ Change to be the same.: Nastavte stejnou hodnotu.
 Changing channel’s function will also result in the following changes.: Změna funkce kanálu také způsobí následující změny.
 Changing channel’s visibility will also change the visibility of other items.: Změnou viditelnosti kanálu se změní i viditelnost ostatních prvků.
 Changing the location will also imply changing the location of the following items.: Změnou umístění se změní také u následujících položek.
-Channel: Kanál
 Channel No: Číslo kanálu
 Channel available for {serviceName}: Kanál je dostupný pro {serviceName}
 Channel group: Skupina kanálů
@@ -207,7 +205,6 @@ Chart type: Typ schématu
 Check the direct link you used and try again.: Zkontrolujte zda-li se vytvořil odkaz a zkuste to ještě jednou.
 Check your email box: Zkontrolujte e-mailovou schránku
 Check your email inbox: Zkontrolujte si doručenou poštu
-Choose: Vybrat
 Choose Access Identifier: Vybrat přístupový identifikátor
 Choose Access Identifiers to be assigned to this Location: Vyberte ID přístupu, které budou k tomuto místu přiřazeny
 Choose channel function: Vyberte funkci kanálu
@@ -329,7 +326,6 @@ Dimmer: Reostat
 Dimmer & RGB led controller: Reostat a kontroler osvětlení RGB
 Dimmer and RGB lighting: Reostat a RGB osvětlení
 Direct link: Přímý odkaz
-Direct link has been created successfully!: Přímý odkaz byl úspěšně vytvořen!
 Direct link has been executed: Došlo k vytvoření přímého odkazu
 'Direct link is not working right now. Reason:': 'Přímý odkaz v tuto chvíli nefunguje. Důvod:'
 Direct links: Přímé odkazy
@@ -415,7 +411,6 @@ Flooding: Záplavení
 For a period: Za období
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Během aktualizace se doporučuje použít adresu {suplaUrl}.
 For devices: Pro zařízení
-For security reasons, the full URL of this direct link will be displayed only once, during creation.: Z bezpečnostních důvodů, se při vytváření zobrazí úplná adresa URL tohoto přímého odkazu pouze jednou.
 Forced off by sensor: Vynucené vypnutí senzorem
 Forgot your password?: Zapoměl jsi heslo?
 Forward active energy: Pobíraná činná energie
@@ -520,7 +515,6 @@ Impulse counter: Počítadlo implulzů
 Impulses: Impulzy
 In order to confirm account deletion, enter your password.: Pro potvrzení, že chcete odstranit Váš účet zadejte Vaše heslo.
 In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.: Pro získání přihlašovacích údajů do brokeru MQTT, kontaktujte prosím administrátora této instance SUPLA Cloud.
-Inactive: Neaktivní
 Include energy corrections in new measurements history (not recommended): Zahrnout přidanou hodnotu do historie (nedoporučuje se)
 Incorrect password: Nesprávné heslo
 Increment and decrement: Vzestupný a sestupný
@@ -554,7 +548,6 @@ Last access: Poslední hovor
 Last connection: Poslední připojení
 Last paired device: Poslední spárované zařízení
 Last used: Poslední použití
-Let me choose later: Nechte mě vybrat později
 Light mode: Jasný režim
 Light switch: Spínač světel
 Lighting: Osvětlení
@@ -588,7 +581,6 @@ Mail sensor: Poštovní snímač
 Main thermometer: Hlavní teploměr
 Maintenance mode active. You cannot modify any data now.: Provoz v servisním režimu. Není možné upravovat žádné údaje.
 Make sure to copy it now because you won’t be able to see it again!: Ujistěte se, že je uchováváte na bezpečném místě.
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Ujistěte se, že je uložen na bezpečném místě, pokud jej chcete v budoucnu použít. Po odchodu z této stránky již nebude odkaz zobrazen.
 Manage your new client app in the SUPLA-Cloud.: Spravujte nastavení aplikace v SUPLA-Cloud.
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Spravujte své zařízení v SUPLA-Cloud nebo pomocí aplikace SUPLA na vašem mobilním zařízení.
 Manual: Návod
@@ -859,11 +851,9 @@ Secret: Tajný klíč (secret)
 Security: Bezpečnost
 Security log: Bezpečnostní protokol
 See available integrations: Podívejte se na dostupné integrace
-See direct link possibilities: Prohlédněte si možnosti přímého linku
 See in SUPLA-Cloud: Zobrazit na SUPLA-Cloud
 Seems like a secret place: Něco nám říká, že byste tady neměl být
 Select icon: Vyberte ikonu
-What the link is for?: Vyberte prvek (předmět), který chcete ovládat pomocí tohoto odkazu
 Selected: Vybráno
 Selected device has been logged out.: Vybrané zařízení bylo odhlášeno
 Send a notification: Odeslat oznámení
@@ -961,7 +951,6 @@ The entire history of the voltage aberrations will be removed from this channel.
 The following channels will be also removed along with their dependencies.: Následující kanály budou také odstraněny spolu s jejich závislostmi.
 The following items use the channels of these device. These references will be also removed.: Následující položky používají kanály z tohoto zařízení. Budou rovněž smazány.
 'The following items will be deleted with this device:': S tímto zařízením budou také odstraněny také následující položky.
-The gate sensor must function properly in order to execute the Open and Close actions.: Pro otevírání a zavírání závory musí snímač závory fungovat velice správně.
 The gate sensor must function properly in order to execute the scheduled action.: K vykonání akce musí snímač otevření brány pracovat správně.
 The incident was detected at %datetime%.: Událost se stala %datetime%.
 The items below depend on this channel function, so they will be deleted.: Následující položky jsou založeny na aktuální funkci kanálu, takže budou při změně odstraněny.
@@ -996,7 +985,6 @@ Thermostat program settings are inherited from the master thermostat for this ch
 Thermostat programs: Programy termostatu
 This action will result in restarting the device. It will not be available for a while.: Při zadání této operace se zařízení restartuje. Během restartu bude zařízení nedostupné.
 This channel was missing during last device registration attempt.: Tento kanál v zařízení chybí.
-directLinkExecutionFailureReason_invalidActionParameters_info: Tento přímý odkaz vyžaduje další upřesnění parametrů prováděné akce. Na níže uvedeném příkladu zjistíte, které parametry můžete nastavit.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Tyto informace se zobrazují kvůli neúspěšnému pokusu o přihlášení k SUPLA-CLOUD pomocí vaší e-mailové adresy.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Toto je poslední fáze odstranění tvého účtu. Vyplněním a schválením formuláře dojde k nevratnému vymazání tvých údajů.
 This is the last photo sent from the photo device. Please select the area where our system should look for the measurement.: Toto je poslední fotografie nahraná ze zařízení. Označte přesnou oblast, kde jsou číslice počítadla viditelné.
@@ -1091,6 +1079,7 @@ Week: Týden
 Weekly schedule: Týdenní plán
 Weight sensor: Váha
 Welcome!: Vítejte!
+What the link is for?: Vyberte prvek (předmět), který chcete ovládat pomocí tohoto odkazu
 What this token is for?: K čemu je tento token?
 When a certain distance is reached: Když bude dosažena určitá vzdálenost
 When a lack of liquid is detected: Když bude zjištěna nepřítomnost kapaliny
@@ -1222,7 +1211,6 @@ When there is certain amount of rain: Když padá určité množství deště
 When there weight reaches a certain value: Když hmotnost dosáhne určité hodnoty
 Where is the JSON?: Kde je JSON?
 Where is your SUPLA Cloud?: Kde se nachází Vaše Supla?
-White: Bílý
 Will be deleted after: Odstranění po
 Wind sensor: Snímač větru
 Window opening sensor: Snímač otevření okna
@@ -1230,7 +1218,6 @@ With SUPLA you can operate the lights in your home or office: Se SUPLOU můžete
 With a timer: S časovačem
 With function: S funkcí
 Working period: Období provozu
-YOUR LINK CODE: KÓD VAŠEHO ODKAZU
 'Yes': Ano
 You are changing the settings too quickly. You have to wait a while before making this change.: Měníte nastavení příliš rychle. Před změnou těchto nastavení musíte chvíli počkat.
 You can browse only the most recent logs now. Wait a while for the full history.: V současné době se zobrazují pouze nejnovější měření. Chvíli počkej, až se celá  stáhne.
@@ -1355,6 +1342,7 @@ directLinkExecutionFailureReason_expired: Přímý odkaz je zastaralý
 directLinkExecutionFailureReason_forbiddenAction: Odkaz neumožňuje provedení této akce
 directLinkExecutionFailureReason_httpGetForbidden: Akci nebylo možné provést pomocí metody HTTP GET.
 directLinkExecutionFailureReason_invalidActionParameters: Nesprávné parametry přímého odkazu
+directLinkExecutionFailureReason_invalidActionParameters_info: Tento přímý odkaz vyžaduje další upřesnění parametrů prováděné akce. Na níže uvedeném příkladu zjistíte, které parametry můžete nastavit.
 directLinkExecutionFailureReason_invalidChannelState: Stav kanálu nedovoluje provést požadovanou akci.
 directLinkExecutionFailureReason_invalidSlug: Vyslaný ověřovací kód je nesprávný
 directLinkExecutionFailureReason_noAllowedActions: Nebyly vybrány žádné povolené akce
@@ -1535,18 +1523,21 @@ Are you sure you want to delete the entire voltage aberrations history saved for
 Are you sure you want to disable this device?: Opravdu chcete toto zařízení deaktivovat?
 Assigned Locations: Přiřazené umístění
 Authorized OAuth apps: Autorizované aplikace OAuth
+Brightness: Jas
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Zakázání této možnosti umožní ovládání tohoto zařízení z integrace bez dalšího potvrzení. To může vést k nebezpečnému nebo méně bezpečnému stavu (např. náhodné otevření brány).
 Calculated value: Stav elektroměru
 Calibration successful.: Kalibrace byla úspěšná
 Cannot execute an action when the device is disconnected.: Je zakázané provádět akci, pokud je zařízení vypnuté.
 Cannot send an activation e-mail. Try again later.: Nelze odeslat zprávu s aktivačním odkazem. Zkuste to prosím znovu později.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Neobdrželi jste zprávu s odkazem aktivujícím Váš účet? Ujistěte se, že neskončila ve složce SPAM (nevyžádaná pošta). Můžete také {clickHereLink} a odeslat ji znovu.
+Channel: Kanál
 Channel is disconnected.: Kanál je odpojen.
 Channel value: Hodnota
 Channel will be deleted from the channel group below: Kanál bude odstraněn z následujících skupin kanálů
 Channels in channel group: Kanály ve skupinách kanálů
 Chart data source type: Druh zdroje dat
 Chart mode: Typ grafu
+Choose: Vybrat
 Chosen hour: Vybraný čas
 Coming Soon: Brzy k dispozici
 Confirm if you want to perform the roller shutter calibration.: Potvrdit, že byl modul zkalibrován.
@@ -1557,6 +1548,7 @@ Deleting your account will result also in deletion of all your data, including y
 Device channel value: Hodnota ze zařízení
 Device settings: Nastavení zařízení
 Differential: Rozdíl
+Direct link has been created successfully!: Přímý odkaz byl úspěšně vytvořen!
 Direct links below will be deleted: Přímý odkaz uvedené níže budou odstraněny
 Doors, Gates: Dveře, Brány
 E-mail notifications: E-mailové upozornění
@@ -1568,6 +1560,7 @@ Expected maximum increment: Očekávané maximální zvýšení
 File is too large: Plik jest za duży
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tohoto zařízení odesílá oznámení v rámci tohoto kanálu. Zde můžete nastavit obsah a příjemce. Další informace získáte od dodavatele zařízení.
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tohoto zařízení odesílá oznámení. Zde můžete nastavit obsah a příjemce. Další informace získáte od dodavatele zařízení.
+For security reasons, the full URL of this direct link will be displayed only once, during creation.: Z bezpečnostních důvodů, se při vytváření zobrazí úplná adresa URL tohoto přímého odkazu pouze jednou.
 Forward active energy balance: Bilance příkonu aktivní energie
 From IP: Z adresy IP
 Get SUPLA on your devices: Stáhněte si zařízení SUPLA do vašeho zařízení
@@ -1579,6 +1572,7 @@ If you want to stay here, do something!: Pokud chcete zůstat, udělejte něco!
 If you wish to register your instance, {clickHereLink}.: Pokud chcete zaregistrovat svou instanci, {clickHereLink}.
 If you wish to unregister your instance, {clickHereLink}.: Pokud chcete zrušit registraci své instance, {clickHereLink}.
 In order to mitigate the risk of invalid measure read, please tell us what is the supposed maximum difference between two consequent photos.: Chcete-li minimalizovat riziko nesprávného odečtu, nastavte maximální očekávaný přírůstek hodnoty počítadla mezi po sobě jdoucími snímky.
+Inactive: Neaktivní
 Information: Informace
 Initial value: Počáteční hodnota
 Input: Vvstup
@@ -1587,9 +1581,11 @@ Invalid scene: Nesprávná scéna
 It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: V tomto režimu začne zařízení vysílat svou Wi-Fi síť, za účelem konfigurace zařízení nebo aktualizace firmwaru pomocí smartphonu, který se k této síti připojí.
 Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Pamatujte, že popis fráze v aplikaci není dokonalý a jeho jediným účelem je pomoci vám zadat vhodnou hodnotu. Neslouží ke kontrole správnosti zadané hodnoty, natož aby se chlubil tím, že "v SUPLI došlo k chybě". Po provedení změn zkontrolujte část „Dalšího nejbližšího spuštění“ a potvrďte, že vámi zadaná konfigurace plánu vám vyhovuje.
 Languages: Jazyky
+Let me choose later: Nechte mě vybrat později
 Loading: Načítání
 Location password must be at least 4 characters.: Heslo pro umístění musí mít délku alespoň 4 znaků.
 Location password must be no longer than 32 characters.: Heslo pro umístění nesmí být delší než 32 znaků.
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Ujistěte se, že je uložen na bezpečném místě, pokud jej chcete v budoucnu použít. Po odchodu z této stránky již nebude odkaz zobrazen.
 Maximum temperature that can be set from the device: Maximální teplota, kterou lze nastavit pomocí zařízení
 Minimum temperature that can be set from the device: Minimální teplota, kterou lze nastavit pomocí zařízení
 Minute: Minuta
@@ -1611,6 +1607,7 @@ Reverse active energy balance: Bilance vrácené aktivní energie
 Save changes to see Access IDs: Uložte změny a zobrazte ID přístupu
 Schedule cannot be enabled: Plán nemohl být zapnutý
 Schedules below will be deleted: Následující plány budou smazány
+See direct link possibilities: Prohlédněte si možnosti přímého linku
 Sensor (normal closed): Snímač (normálně zavřený)
 Sensor (normal open): Snímač (normálně otevřený)
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Zavřete roletu, dokud se nedotkne spodního okraje a do tohoto pole zadejte procento jejího uzavření. Tato operace není vyžadována, ale její poskytnutí zlepší vizualizaci polohy rolety v mobilní aplikaci.
@@ -1623,6 +1620,7 @@ Temperature adjustment only: Pouze nastavení teploty
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Díky integrací můžete snadno přidávat nové funkce do svého účtu pomocí řešení poskytovaných externími dodavateli, programátory nebo sami.
 The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: Konfigurace byla změněna z jiného místa (např. z jiného okna prohlížeče, mobilní aplikace nebo zařízení). Před provedením dalších změn je třeba obnovit konfiguraci.
 The events in voltage aberrations history will be automatically deleted after {days} days.: Události v historii napěťových aberací se automaticky odstraní po {days} dnech.
+The gate sensor must function properly in order to execute the Open and Close actions.: Pro otevírání a zavírání závory musí snímač závory fungovat velice správně.
 The items below depend on this channel, so they will be deleted.: Následující položky závisí na tomto kanálu, proto budou odstraněny.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Pomocí rámečku jsme označili oznámení, ze kterého jste klikl/klikla na odkaz pro odhlášení.
 The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reakce bude aktivní, pokud jsou splněny všechny následující podmínky. Pokud nastavíte všechny dostupné možnosti, reakce se aktivuje pouze mezi vybranými daty, ve vybraných časech a dnech v týdnu a při splnění jedné z referenčních hodnot západu nebo východu slunce.
@@ -1653,7 +1651,9 @@ When the roof window reaches: Když střešní okno dosáhne
 When the terrace awning reaches: Když markýza na terase dosáhne
 When the vertical blind reaches: Když vertikální žaluzie dosáhne
 When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Proces vytvoření přímého linku můžete vyvolat tím, že podáte jeho unikátní identifikátor v obsahu požadavku  HTTP PATCH. Tato cesta je bezpečnější, protože neumožňuje uložit celou Vaší adresu odkazu v loginech dostupných serverů, pomocí kterých přechází Tvůj požadavek. Níže se nacházejí příkladové požadované akce dostupné pomocí nástroje  cURL.
+White: Bílý
 Working schedule: Plán činnosti
+YOUR LINK CODE: KÓD VAŠEHO ODKAZU
 You need to provide icons for all states.: Musíte přidat ikony pro všechny stavy.
 You will be logged out shortly: Budete brzy odhlášeni
 Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Tvůj prohlížeč nepodporuje mechanismus klientské databáze (IndexedDB). Tato funkce je nutná pro zobrazení grafů a podporu pokročilých nastavení exportu dat. Chceš-li tyto funkce využívat, aktualizuj prohlížeč nebo ukonči režim inkognito.
@@ -1689,29 +1689,40 @@ Alarm at level (and above) should be greater than the corresponding warning leve
 Alarm at level (and below) should be lower than the corresponding warning level.: ~
 Alarm level: ~
 Algorithms available on this device: ~
+An RGBW command that modified the action behavior.: ~
 Are you sure you want to delete this subdevice?: ~
 Attribute: ~
 Auto-close on flood: ~
 Aux thermometer for channel: ~
+Available commands: ~
 Battery health: ~
 Battery level: ~
 Baudrate: ~
 Binary sensor for channel: ~
 Bridge node online: ~
 Bridge node signal strength: ~
+Brightness value in percent format (e.g. {example}): ~
+C++: ~
 Calibration lost: ~
+Calibration request has been sent.: ~
 Cannot execute an action when the channel is not available.: ~
 Channel notification: ~
 Channels that are meant to work with each other must have the same visibility setting.: ~
 Chart aggregated balance: ~
 Check available updates: ~
 Choose many: ~
+Chosen: ~
 City: ~
+Clear filters: ~
+Color brightness in percent (e.g. {example}): ~
+Color value in HEX format (e.g. {example}): ~
+Condition must be true for minimum time: ~
 Confirm new password: ~
 Connection uptime: ~
 Container: ~
 Container level sensor: ~
 Container supports up to 10 sensors.: ~
+Cooling temperature to set in Celsius degrees (e.g. {example}): ~
 Could not add the data source. Try again in a while.: ~
 Could not check updates.: ~
 Could not perform factory reset.: ~
@@ -1729,12 +1740,17 @@ Device date and time: ~
 Device interface: ~
 Device notification: ~
 Device should be checking and installing updates.: ~
+Dimmer CCT: ~
+Dimmer CCT and RGB: ~
+Direct link deleted successfully.: ~
 Does it look good?: ~
 E-mail: ~
 Each container level sensor must have different fill level.: ~
 Energy attribute: ~
 Energy prices: ~
 Everyone makes mistakes!: ~
+Example payload: ~
+Extension: ~
 Factory reset: ~
 Fill level: ~
 Filtering time: ~
@@ -1746,22 +1762,28 @@ Flood sensor: ~
 Flood sensor for valve: ~
 Flood sensors: ~
 Heat or cold source switch for channel: ~
+Heating temperature to set in Celsius degrees (e.g. {example}): ~
 IP: ~
+Identifier of a channel to copy state from (e.g. {example}): ~
 Image: ~
 Info: ~
 Invalid sensor state: ~
+Java: ~
+JavaScript: ~
 LED settings: ~
 Last connection reset cause: ~
 Level sensor: ~
 Level sensor for container: ~
 Level sensors: ~
 Light source operating time: ~
+Link only: ~
 Lock type: ~
 MAC: ~
 Main thermometer for channel: ~
 Master thermostat for channel: ~
 Maximum: ~
 Minimum: ~
+Missing trigger field definition.: ~
 Motion sensor: ~
 Motor problem: ~
 Mute alarm: ~
@@ -1779,10 +1801,15 @@ Opening sensor for channel: ~
 Operating time: ~
 Our brilliant code detected that the value {value} should not be accepted as a valid measurement, based on the counter history, the quality of the photo and other minor factors.: ~
 Overcurrent threshold: ~
+PHP: ~
+Parameters: ~
 Password is too long.: ~
 Password is too short.: ~
 Password should be at least 8 characters long and contain at least one uppercase, one lowercase letter and one number.: ~
+Payload: ~
+Percentage of closing (e.g. {example}): ~
 Percentage of extension: ~
+Percentage of opening (e.g. {example}): ~
 Perform firmware update: ~
 Photo history: ~
 Please confirm if you want to do this.: ~
@@ -1790,6 +1817,7 @@ Please fill all the fields: ~
 Please specify a valid address between 1 and 247.: ~
 Pump switch for channel: ~
 Push: ~
+Python: ~
 RECOMMENDED USE. Take advantage of excess energy.: ~
 Reaction notification: ~
 Reading: ~
@@ -1806,20 +1834,24 @@ Septic tank: ~
 Serial: ~
 Set the configuration password: ~
 Set the password that restricts access to the device configuration page (https://192.168.4.1).: ~
+Set tilt angle in percent: ~
+Show examples: ~
 Slave timeout (ms): ~
 Sound alarm on: ~
 Stop bits: ~
 Switch cycle count: ~
 Temperature control type: ~
+Temperature to set in Celsius degrees (e.g. {example}): ~
 Temperatures that can be set from local UI: ~
 The device is not connected. The values below represent the last known state.: ~
 The items below depend on the deleted channels, so they will be deleted, too.: ~
+The light will not turn on if you adjust the color only.: ~
 The notification marked with an orange background is the one you saw when you clicked the unsubscribe link.: ~
+The reaction will fire only after the condition is met for the specified duration.: ~
 The subdevice has been deleted.: ~
 This action will result in trying to update the device firmware. It will not be available for a while.: ~
 This device cannot be remotely awakened. We are awaiting communication from the device...: ~
 This is only a test to see if the e-mail configuration is working.: ~
-This is the list of configured notifications. If you want to add a new notification or alter the existing one, go to the channel details that should trigger it.: ~
 Timeout: ~
 Too small difference between aux setpoint temperatures.: ~
 Too small difference between freeze and overheat protection temperatures.: ~
@@ -1837,6 +1869,8 @@ Weather attribute: ~
 When a flood is detected: ~
 When a flooding state changes: ~
 When a flooding state has been cleared: ~
+When goes offline: ~
+When goes online: ~
 When motion starts to be detected: ~
 When motion stops to be detected: ~
 When the alarm starts: ~
@@ -1846,6 +1880,7 @@ When the battery reaches a certain level: ~
 When the calibration fails: ~
 When the calibration has been lost: ~
 When the calibration has started: ~
+When the channel connection status changes: ~
 When the device starts to be powered from battery: ~
 When the device stops to be powered from battery: ~
 When the fill level becomes known again: ~
@@ -1853,6 +1888,7 @@ When the fill level becomes unknown: ~
 When the fill level changes: ~
 When the fill level reaches a certain value: ~
 When the fill level will be: ~
+When the measurements change: ~
 When the motor reported a problem: ~
 When the position reaches: ~
 When the roller garage door reaches a certain position: ~
@@ -1868,6 +1904,12 @@ When the value value changes: ~
 When the value value will be: ~
 When the warning starts: ~
 When the warning stops: ~
+When the white color reaches a certain level of temperature: ~
+When the white temperature level changes: ~
+When the white temperature will be: ~
+White brightness: ~
+White temperature: ~
+White temperature in percent, 0 - warmest, 100 - coolest (e.g. {example}): ~
 Who has access?: ~
 Wi-Fi RSSI: ~
 Wi-Fi signal strength: ~
@@ -1879,13 +1921,19 @@ activityConditions_help: ~
 and wait until the battery level will be: ~
 and wait until the fill level will be: ~
 battery: ~
+cURL: ~
+channel_config_changed_warning: ~
 choose the city: ~
 closeValveOnFloodType_ALWAYS: ~
 closeValveOnFloodType_ON_CHANGE: ~
 closeValveOnFloodType_help: ~
 directLinkExecutionFailureReason_sceneDuringInactivePeriod: ~
+directLink_slugInfo: ~
 energyPriceForecast_field_fixing1: ~
+energyPriceForecast_field_fixing1_hourly: ~
 energyPriceForecast_field_fixing2: ~
+energyPriceForecast_field_fixing2_hourly: ~
+energyPriceForecast_field_pdgsz: ~
 energyPriceForecast_field_rce: ~
 firmwareUpdatePolicy_ALL_ENABLED: ~
 firmwareUpdatePolicy_DISABLED: ~
@@ -1916,6 +1964,7 @@ openWeatherAttribute_field_airNo2: ~
 openWeatherAttribute_field_airO3: ~
 openWeatherAttribute_field_airPm10: ~
 openWeatherAttribute_field_airPm25: ~
+openWeatherAttribute_field_clouds: ~
 openWeatherAttribute_field_feelsLike: ~
 openWeatherAttribute_field_humidity: ~
 openWeatherAttribute_field_pressure: ~
@@ -1926,9 +1975,30 @@ openWeatherAttribute_field_tempHumidity: ~
 openWeatherAttribute_field_visibility: ~
 openWeatherAttribute_field_windGust: ~
 openWeatherAttribute_field_windSpeed: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_ALL_STOP: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_COLOR_STOP: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_START: ~
+rgbwCommand_label_BRIGHTNESS_ADJUSTMENT_DIMMER_STOP: ~
+rgbwCommand_label_NOT_SET: ~
+rgbwCommand_label_SET_BRIGHTNESS_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_COLOR_BRIGHTNESS_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_DIMMER_CCT_WITHOUT_TURN_ON: ~
+rgbwCommand_label_SET_RGB_WITHOUT_TURN_ON: ~
+rgbwCommand_label_TOGGLE_ALL: ~
+rgbwCommand_label_TOGGLE_DIMMER: ~
+rgbwCommand_label_TOGGLE_RGB: ~
+rgbwCommand_label_TURN_OFF_ALL: ~
+rgbwCommand_label_TURN_OFF_DIMMER: ~
+rgbwCommand_label_TURN_OFF_RGB: ~
+rgbwCommand_label_TURN_ON_ALL: ~
+rgbwCommand_label_TURN_ON_DIMMER: ~
+rgbwCommand_label_TURN_ON_RGB: ~
 state-half: ~
 state-hi: ~
 state-low: ~
+subdevicePairingResult_DEVICE_NOT_SUPPORTED: ~
 subdevicePairingResult_REQUEST_SENT: ~
 tank_alarm_alarmAboveLevel: ~
 tank_alarm_alarmBelowLevel: ~

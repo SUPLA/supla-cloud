@@ -64,6 +64,12 @@ class EnergyPriceForecastFetchCommand extends AbstractCyclicCommand {
             if (($forecastItem['fixing2'] ?? null) !== null) {
                 $log->setFixing2($forecastItem['fixing2']);
             }
+            if (($forecastItem['fixing1_hourly'] ?? null) !== null) {
+                $log->setFixing1Hourly($forecastItem['fixing1_hourly']);
+            }
+            if (($forecastItem['fixing2_hourly'] ?? null) !== null) {
+                $log->setFixing2Hourly($forecastItem['fixing2_hourly']);
+            }
             $this->measurementLogsEntityManager->persist($log);
         }
         $this->measurementLogsEntityManager->flush();

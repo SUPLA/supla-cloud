@@ -62,6 +62,15 @@ class SubjectConfigTranslator {
         $subject->setUserConfig([]);
     }
 
+    public function clearConfigForDeletion(HasUserConfig $subject): void {
+        foreach ($this->translators as $translator) {
+            if ($translator->supports($subject)) {
+                $translator->clearConfigForDeletion($subject);
+            }
+        }
+        $subject->setUserConfig([]);
+    }
+
     public function getPublicConfig(HasUserConfig $subject) {
         $config = $this->getConfig($subject);
         $config = (new JsonArrayObject($config))->jsonSerialize();

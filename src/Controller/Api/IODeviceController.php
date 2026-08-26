@@ -45,6 +45,7 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * @OA\Schema(
@@ -87,9 +88,11 @@ class IODeviceController extends RestController {
 
     /** @var IODeviceChannelRepository */
     private $iodeviceRepository;
+    private MessageBusInterface $messageBus;
 
-    public function __construct(IODeviceRepository $iodeviceRepository) {
+    public function __construct(IODeviceRepository $iodeviceRepository, MessageBusInterface $messageBus) {
         $this->iodeviceRepository = $iodeviceRepository;
+        $this->messageBus = $messageBus;
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
@@ -424,7 +427,7 @@ class IODeviceController extends RestController {
                 Assertion::email($body['email']);
                 $unlockCode = $ad->requestDeviceUnlockCode($ioDevice, $body['email']);
                 $email = new ConfirmDeviceUnlockEmailNotification($body['email'], $ioDevice, $unlockCode);
-                $this->dispatchMessage($email);
+                $this->messageBus->dispatch($email);
             } else {
                 throw new ApiException('Invalid action given.');
             }
@@ -494,7 +497,7 @@ class IODeviceController extends RestController {
         $this->transactional(function (EntityManagerInterface $em) use ($hiddenConfigTranslator, $channelDependencies, $ioDevice) {
             $hiddenConfigTranslator->setIdsToIgnore(EntityUtils::mapToIds($ioDevice->getChannels()));
             foreach ($ioDevice->getChannels() as $channel) {
-                $channelDependencies->clearDependencies($channel);
+                $channelDependencies->clearDependencies($channel, true);
             }
             foreach ($ioDevice->getChannels() as $channel) {
                 $em->remove($channel);
@@ -525,7 +528,7 @@ class IODeviceController extends RestController {
             $em->persist($device);
         });
         $email = new ConfirmationAfterDeviceUnlockEmailNotification($device);
-        $this->dispatchMessage($email);
+        $this->messageBus->dispatch($email);
         return $this->view($device);
     }
 }

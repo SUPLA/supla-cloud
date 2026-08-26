@@ -216,7 +216,6 @@ Change to be the same.: Ustaw tak samo.
 Changing channel’s function will also result in the following changes.: Zmiana funkcji kanału spowoduje także poniższe zmiany.
 Changing channel’s visibility will also change the visibility of other items.: Zmiana widoczności kanału zmieni także widoczność innych elementów.
 Changing the location will also imply changing the location of the following items.: Zmiana lokalizacji wpłynie także na jej zmianę dla poniższych elementów.
-Channel: Kanał
 Channel No: Numer kanału
 Channel available for {serviceName}: Kanał dostępny dla {serviceName}
 Channel group: Grupa kanałów
@@ -1562,6 +1561,7 @@ channelConfigHelp_stateVerificationMethod: 'Aktywne: pierwsza zmiana stanu czujn
 channelConfig_stateVerificationMethod_active: Aktywny
 channelConfig_stateVerificationMethod_passive: Pasywny
 channelGroup: Grupa kanałów
+channel_config_changed_warning: Konfiguracja została zmieniona z innego miejsca (np. inne okno przeglądarki, aplikacja mobilna lub urządzenie). Wprowadź zmiany jeszcze raz i zapisz ponownie.
 choose: wybierz
 choose the access identifiers: wybierz identyfikatory dostępu
 choose the action: wybierz akcję
@@ -1606,8 +1606,11 @@ directLink_slugInfo: |
   Ze względów bezpieczeństwa, pełny URL tego linku bezpośredniego jest wyświetlany tylko zaraz po jego utworzeniu (do wylogowania się lub odświeżenia strony).
   Upewnij się, że jest zapisany w bezpiecznym miejscu.
 empty: pusty
-energyPriceForecast_field_fixing1: Cena energii RDN fixing I
-energyPriceForecast_field_fixing2: Cena energii RDN fixing II
+energyPriceForecast_field_fixing1: Cena energii RDN fixing I (15-minutowa)
+energyPriceForecast_field_fixing1_hourly: Cena energii RDN fixing I (godzinowa)
+energyPriceForecast_field_fixing2: Cena energii RDN fixing II (15-minutowa)
+energyPriceForecast_field_fixing2_hourly: Cena energii RDN fixing II (godzinowa)
+energyPriceForecast_field_pdgsz: Cena energii - Godziny szczytu
 energyPriceForecast_field_rce: Cena energii RCE
 everyday: codziennie
 executed: wykonano
@@ -1676,6 +1679,7 @@ openWeatherAttribute_field_airNo2: NO₂
 openWeatherAttribute_field_airO3: O₃
 openWeatherAttribute_field_airPm10: PM10
 openWeatherAttribute_field_airPm25: PM2.5
+openWeatherAttribute_field_clouds: Zachmurzenie
 openWeatherAttribute_field_feelsLike: Temperatura odczuwalna
 openWeatherAttribute_field_humidity: Wilgotność
 openWeatherAttribute_field_pressure: Ciśnienie
@@ -1974,7 +1978,6 @@ Sunrise / Sunset: Wschód / Zachód
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Dzięki integracjom możesz w łatwy sposób dodać nowe funkcje do swojego konta, wykorzystując rozwiązania dostarczone przez zewnętrznych dostawców, programistów lub przez samego siebie.
 The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: |
   Konfiguracja została zmieniona z innego miejsca (np. inne okno przeglądarki, aplikacja mobilna lub urządzenie). Musisz odświeżyć konfigurację zanim wprowadzisz kolejne zmiany.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: Konfiguracja została zmieniona z innego miejsca (np. inne okno przeglądarki, aplikacja mobilna lub urządzenie). Wprowadź zmiany jeszcze raz i zapisz ponownie.
 The factory reset was successful.: Przywrócenie ustawień fabrycznych powiodło się
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Za pomocą ramki zaznaczyliśmy powiadomienie, z którego kliknąłeś/kliknęłaś link do wypisania się.
@@ -2002,11 +2005,9 @@ choose access identifiers: wybierz identyfikatory dostępu
 choose the channel: wybierz kanał
 choose the channel group: wybierz grupę kanałów
 comment: komentarz
-energyPriceForecast_field_pdgsz: Cena energii - Godziny szczytu
 execute: wykonaj
 for channel: dla kanału
 hourly: Każdy dzień
-openWeatherAttribute_field_clouds: Zachmurzenie
 prefix: prefiks
 reset chart view: wróć do początkowego widoku
 suffix: sufiks
