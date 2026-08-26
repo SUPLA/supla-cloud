@@ -144,7 +144,8 @@ final class OAuthScope {
             'mqtt_broker',
             'scenes_ea',
         ];
-        foreach ([
+        foreach (
+            [
                      'accessids',
                      'account',
                      'channels',
@@ -155,7 +156,8 @@ final class OAuthScope {
                      'locations',
                      'scenes',
                      'schedules',
-                 ] as $rwScope) {
+                 ] as $rwScope
+        ) {
             $supportedScopes[] = $rwScope . '_r';
             $supportedScopes[] = $rwScope . '_rw';
         }

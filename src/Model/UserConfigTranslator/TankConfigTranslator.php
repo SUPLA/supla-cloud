@@ -36,9 +36,11 @@ class TankConfigTranslator extends UserConfigTranslator {
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
-        if (array_key_exists('levelSensorChannelIds', $config)
+        if (
+            array_key_exists('levelSensorChannelIds', $config)
             && !array_key_exists('levelSensors', $config)
-            && $config['levelSensorChannelIds'] !== null) {
+            && $config['levelSensorChannelIds'] !== null
+        ) {
             // request from ChannelDependencies clearing
             Assertion::isArray($config['levelSensorChannelIds'], null, 'levelSensorChannelIds');
             $currentConfig = $this->getConfig($subject);

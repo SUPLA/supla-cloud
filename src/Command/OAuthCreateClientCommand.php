@@ -10,7 +10,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class OAuthCreateClientCommand extends Command {
-
     public function __construct(private readonly ClientManagerInterface $clientManager) {
         parent::__construct();
     }

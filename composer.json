@@ -91,7 +91,7 @@
             "phpunit -c app --testdox"
         ],
         "lint-backend": [
-            "phpcs src --standard=config/phpcs-rules.xml"
+            "phpcs"
         ],
         "lint-frontend": [
             "cd frontend && npm run lint -s",
@@ -102,7 +102,7 @@
             "@lint-backend"
         ],
         "phpcbf": [
-            "phpcbf src --standard=config/phpcs-rules.xml"
+            "phpcbf"
         ],
         "webpack": [
             "cd frontend && npm install",

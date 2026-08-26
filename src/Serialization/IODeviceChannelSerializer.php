@@ -68,10 +68,12 @@ class IODeviceChannelSerializer extends AbstractSerializer {
                 $normalized['state'] = new JsonArrayObject($state);
             }
         }
-        if (!isset($normalized['relationsCount']) && (
+        if (
+            !isset($normalized['relationsCount']) && (
                 $this->isSerializationGroupRequested('channel.relationsCount', $context)
                 || $this->isSerializationGroupRequested('subject.relationsCount', $context)
-            )) {
+            )
+        ) {
             $normalized['relationsCount'] = $this->channelRepository->find($channel->getId())->getRelationsCount();
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {

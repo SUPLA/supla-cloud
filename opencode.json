@@ -5,24 +5,11 @@
   "snapshot": true,
   "formatter": {
     "prettier": {
-      "command": [
-        "npx",
-        "--prefix",
-        "frontend",
-        "prettier",
-        "--write",
-        "$FILE"
-      ]
+      "command": ["npx", "--prefix", "frontend", "prettier", "--write", "$FILE"]
     },
     "phpcbf": {
-      "command": [
-        "vendor/bin/phpcbf",
-        "--standard=config/phpcs-rules.xml",
-        "$FILE"
-      ],
-      "extensions": [
-        ".php"
-      ]
+      "command": ["vendor/bin/phpcbf", "$FILE"],
+      "extensions": [".php"]
     }
   },
   "lsp": true,
