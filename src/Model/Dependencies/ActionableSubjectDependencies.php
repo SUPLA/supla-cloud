@@ -13,7 +13,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 
 abstract class ActionableSubjectDependencies {
-
     private array $actionTriggerIndexCache = [];
 
     public function __construct(
