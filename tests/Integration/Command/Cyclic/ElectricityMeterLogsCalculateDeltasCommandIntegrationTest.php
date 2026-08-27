@@ -313,6 +313,80 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->assertEquals(100, $deltas[2]->getTotalForwardActiveEnergy());
     }
 
+    public function testDecreaseProducesZeroDelta() {
+        $channelId = 12;
+        $this->createEmLog($channelId, '2026-06-11 12:00:00', 1000);
+        $this->createEmLog($channelId, '2026-06-11 12:15:00', 1200);
+        $this->createEmLog($channelId, '2026-06-11 12:30:00', 1100);
+        $this->createEmLog($channelId, '2026-06-11 12:45:00', 1300);
+
+        $this->runDeltaCalculation();
+
+        $deltas = $this->entityManager->getRepository(ElectricityMeterDeltaLogItem::class)->findBy(['channel_id' => $channelId], ['date' => 'ASC']);
+
+        $this->assertCount(3, $deltas);
+        $this->assertEquals('2026-06-11 12:15:00', $deltas[0]->getDate());
+        $this->assertEquals(200, $deltas[0]->getTotalForwardActiveEnergy());
+        $this->assertEquals('2026-06-11 12:30:00', $deltas[1]->getDate());
+        $this->assertEquals(0, $deltas[1]->getTotalForwardActiveEnergy());
+        $this->assertEquals('2026-06-11 12:45:00', $deltas[2]->getDate());
+        $this->assertEquals(200, $deltas[2]->getTotalForwardActiveEnergy());
+    }
+
+    public function testZeroSourceReadingIsIgnoredBeforeLaterDecreaseAndIncrease() {
+        $channelId = 13;
+        $this->createEmLog($channelId, '2026-06-11 12:00:00', 1000);
+        $this->createEmLog($channelId, '2026-06-11 12:15:00', 1200);
+        $this->createEmLog($channelId, '2026-06-11 12:16:00', 0);
+        $this->createEmLog($channelId, '2026-06-11 12:30:00', 1000);
+        $this->createEmLog($channelId, '2026-06-11 12:45:00', 1200);
+
+        $this->runDeltaCalculation();
+
+        $deltas = $this->entityManager->getRepository(ElectricityMeterDeltaLogItem::class)->findBy(['channel_id' => $channelId], ['date' => 'ASC']);
+
+        $this->assertCount(3, $deltas);
+        $this->assertEquals(200, $deltas[0]->getTotalForwardActiveEnergy());
+        $this->assertEquals(0, $deltas[1]->getTotalForwardActiveEnergy());
+        $this->assertEquals(200, $deltas[2]->getTotalForwardActiveEnergy());
+    }
+
+    public function testZeroSourceReadingIsIgnoredBeforeLaterIncreases() {
+        $channelId = 14;
+        $this->createEmLog($channelId, '2026-06-11 12:00:00', 1000);
+        $this->createEmLog($channelId, '2026-06-11 12:15:00', 1200);
+        $this->createEmLog($channelId, '2026-06-11 12:16:00', 0);
+        $this->createEmLog($channelId, '2026-06-11 12:30:00', 1300);
+        $this->createEmLog($channelId, '2026-06-11 12:45:00', 1400);
+
+        $this->runDeltaCalculation();
+
+        $deltas = $this->entityManager->getRepository(ElectricityMeterDeltaLogItem::class)->findBy(['channel_id' => $channelId], ['date' => 'ASC']);
+
+        $this->assertCount(3, $deltas);
+        $this->assertEquals(200, $deltas[0]->getTotalForwardActiveEnergy());
+        $this->assertEquals(100, $deltas[1]->getTotalForwardActiveEnergy());
+        $this->assertEquals(100, $deltas[2]->getTotalForwardActiveEnergy());
+    }
+
+    public function testNullSourceReadingIsIgnoredLikeZero() {
+        $channelId = 15;
+        $this->createEmLog($channelId, '2026-06-11 12:00:00', 1000);
+        $this->createEmLog($channelId, '2026-06-11 12:15:00', 1200);
+        $this->createEmLog($channelId, '2026-06-11 12:16:00', null);
+        $this->createEmLog($channelId, '2026-06-11 12:30:00', 1300);
+        $this->createEmLog($channelId, '2026-06-11 12:45:00', 1400);
+
+        $this->runDeltaCalculation();
+
+        $deltas = $this->entityManager->getRepository(ElectricityMeterDeltaLogItem::class)->findBy(['channel_id' => $channelId], ['date' => 'ASC']);
+
+        $this->assertCount(3, $deltas);
+        $this->assertEquals(200, $deltas[0]->getTotalForwardActiveEnergy());
+        $this->assertEquals(100, $deltas[1]->getTotalForwardActiveEnergy());
+        $this->assertEquals(100, $deltas[2]->getTotalForwardActiveEnergy());
+    }
+
     public function testPhaseAndEnergySums() {
         $channelId = 11;
         // Log 1: 12:00
@@ -392,7 +466,7 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         }
     }
 
-    private function createEmLog(int $channelId, string $date, int $fae) {
+    private function createEmLog(int $channelId, string $date, ?int $fae) {
         $logItem = new ElectricityMeterLogItem();
         EntityUtils::setField($logItem, 'channel_id', $channelId);
         EntityUtils::setField($logItem, 'date', $date);
@@ -404,5 +478,14 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         EntityUtils::setField($logItem, 'phase3_rae', 0);
         $this->entityManager->persist($logItem);
         $this->entityManager->flush();
+    }
+
+    private function runDeltaCalculation(): void {
+        $lockFactory = new LockFactory(new FlockStore());
+        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager, $lockFactory);
+        EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
+        $this->application->add($command);
+        $commandTester = new CommandTester($command);
+        $commandTester->execute([]);
     }
 }

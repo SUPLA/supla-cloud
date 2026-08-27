@@ -162,6 +162,7 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand i
 
         $currentSlotEndTimestamp = null;
         $currentSlotTotals = $this->createEmptySlotTotals();
+        $lastAcceptedValues = $this->createInitialAcceptedValues($normalizedLogs[0]);
 
         for ($i = 0, $logsCount = count($normalizedLogs) - 1; $i < $logsCount; $i++) {
             $logA = $normalizedLogs[$i];
@@ -172,6 +173,8 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand i
             if ($tB <= $tA) {
                 continue;
             }
+
+            $intervalDeltas = $this->calculateIntervalDeltas($logB, $lastAcceptedValues);
 
             $slotEndTimestamp = intdiv($tA, self::SLOT_DURATION_IN_SECONDS) * self::SLOT_DURATION_IN_SECONDS + self::SLOT_DURATION_IN_SECONDS;
             while ($slotEndTimestamp <= $lastLogTimestamp && $slotEndTimestamp - self::SLOT_DURATION_IN_SECONDS < $tB) {
@@ -194,17 +197,15 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand i
                         $intervalDuration = $tB - $tA;
                         $overlapRatio = ($overlapEnd - $overlapStart) / $intervalDuration;
                         foreach (self::DELTA_FIELDS as $field) {
-                            $valA = $logA[$field];
-                            $valB = $logB[$field];
-                            if ($valB >= $valA) {
-                                $currentSlotTotals[$field] += ($valB - $valA) * $overlapRatio;
-                            }
+                            $currentSlotTotals[$field] += $intervalDeltas[$field] * $overlapRatio;
                         }
                     }
                 }
 
                 $slotEndTimestamp += self::SLOT_DURATION_IN_SECONDS;
             }
+
+            $lastAcceptedValues = $this->updateAcceptedValues($logB, $lastAcceptedValues);
         }
 
         if ($currentSlotEndTimestamp !== null) {
@@ -223,12 +224,50 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand i
                 'timestamp' => (new \DateTime($log->getDate(), new \DateTimeZone('UTC')))->getTimestamp(),
             ];
             foreach (self::DELTA_FIELDS as $field) {
-                $normalizedLog[$field] = EntityUtils::getField($log, $field) ?: 0;
+                $normalizedLog[$field] = EntityUtils::getField($log, $field);
             }
             $normalizedLogs[] = $normalizedLog;
         }
 
         return $normalizedLogs;
+    }
+
+    private function createInitialAcceptedValues(array $log): array {
+        $acceptedValues = array_fill_keys(self::DELTA_FIELDS, null);
+        foreach (self::DELTA_FIELDS as $field) {
+            if ($log[$field] > 0) {
+                $acceptedValues[$field] = $log[$field];
+            }
+        }
+
+        return $acceptedValues;
+    }
+
+    private function calculateIntervalDeltas(array $log, array $lastAcceptedValues): array {
+        $intervalDeltas = $this->createEmptySlotTotals();
+        foreach (self::DELTA_FIELDS as $field) {
+            $currentValue = $log[$field];
+            if ($currentValue === null || $currentValue === 0) {
+                continue;
+            }
+
+            $previousValue = $lastAcceptedValues[$field];
+            if ($previousValue !== null && $currentValue > $previousValue) {
+                $intervalDeltas[$field] = $currentValue - $previousValue;
+            }
+        }
+
+        return $intervalDeltas;
+    }
+
+    private function updateAcceptedValues(array $log, array $lastAcceptedValues): array {
+        foreach (self::DELTA_FIELDS as $field) {
+            if ($log[$field] !== null && $log[$field] > 0) {
+                $lastAcceptedValues[$field] = $log[$field];
+            }
+        }
+
+        return $lastAcceptedValues;
     }
 
     private function createEmptySlotTotals(): array {
