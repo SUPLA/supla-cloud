@@ -33,7 +33,12 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand i
 
     private const DEFAULT_BATCH_SIZE = 10000;
     private const SLOT_DURATION_IN_SECONDS = 900;
-    private const DELTA_FIELDS = ['phase1_fae', 'phase1_rae', 'phase2_fae', 'phase2_rae', 'phase3_fae', 'phase3_rae'];
+    private const DELTA_FIELDS = [
+        'phase1_fae', 'phase1_rae', 'phase1_fre', 'phase1_rre',
+        'phase2_fae', 'phase2_rae', 'phase2_fre', 'phase2_rre',
+        'phase3_fae', 'phase3_rae', 'phase3_fre', 'phase3_rre',
+        'fae_balanced', 'rae_balanced',
+    ];
 
     public function __construct(
         private readonly EntityManagerInterface $measurementLogsEntityManager,
@@ -282,8 +287,16 @@ class ElectricityMeterLogsCalculateDeltasCommand extends AbstractCyclicCommand i
             (int)round($fields['phase1_rae']),
             (int)round($fields['phase2_fae']),
             (int)round($fields['phase2_rae']),
+            (int)round($fields['phase1_fre']),
+            (int)round($fields['phase1_rre']),
+            (int)round($fields['phase2_fre']),
+            (int)round($fields['phase2_rre']),
             (int)round($fields['phase3_fae']),
             (int)round($fields['phase3_rae']),
+            (int)round($fields['phase3_fre']),
+            (int)round($fields['phase3_rre']),
+            (int)round($fields['fae_balanced']),
+            (int)round($fields['rae_balanced']),
         );
         $this->measurementLogsEntityManager->persist($delta);
     }

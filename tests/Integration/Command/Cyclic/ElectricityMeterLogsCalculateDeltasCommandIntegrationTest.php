@@ -389,38 +389,40 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
 
     public function testPhaseAndEnergySums() {
         $channelId = 11;
-        // Log 1: 12:00
-        $log1 = new ElectricityMeterLogItem();
-        EntityUtils::setField($log1, 'channel_id', $channelId);
-        EntityUtils::setField($log1, 'date', '2026-06-11 12:00:00');
-        EntityUtils::setField($log1, 'phase1_fae', 100000);
-        EntityUtils::setField($log1, 'phase1_rae', 50000);
-        EntityUtils::setField($log1, 'phase2_fae', 200000);
-        EntityUtils::setField($log1, 'phase2_rae', 100000);
-        EntityUtils::setField($log1, 'phase3_fae', 300000);
-        EntityUtils::setField($log1, 'phase3_rae', 150000);
-        $this->entityManager->persist($log1);
+        $this->createCustomEmLog($channelId, '2026-06-11 12:00:00', [
+            'phase1_fae' => 100000,
+            'phase1_rae' => 50000,
+            'phase1_fre' => 25000,
+            'phase1_rre' => 15000,
+            'phase2_fae' => 200000,
+            'phase2_rae' => 100000,
+            'phase2_fre' => 50000,
+            'phase2_rre' => 30000,
+            'phase3_fae' => 300000,
+            'phase3_rae' => 150000,
+            'phase3_fre' => 75000,
+            'phase3_rre' => 45000,
+            'fae_balanced' => 600000,
+            'rae_balanced' => 300000,
+        ]);
+        $this->createCustomEmLog($channelId, '2026-06-11 12:15:00', [
+            'phase1_fae' => 200000,
+            'phase1_rae' => 100000,
+            'phase1_fre' => 50000,
+            'phase1_rre' => 30000,
+            'phase2_fae' => 400000,
+            'phase2_rae' => 200000,
+            'phase2_fre' => 100000,
+            'phase2_rre' => 60000,
+            'phase3_fae' => 600000,
+            'phase3_rae' => 300000,
+            'phase3_fre' => 150000,
+            'phase3_rre' => 90000,
+            'fae_balanced' => 900000,
+            'rae_balanced' => 450000,
+        ]);
 
-        // Log 2: 12:15
-        $log2 = new ElectricityMeterLogItem();
-        EntityUtils::setField($log2, 'channel_id', $channelId);
-        EntityUtils::setField($log2, 'date', '2026-06-11 12:15:00');
-        EntityUtils::setField($log2, 'phase1_fae', 200000); // delta 100000
-        EntityUtils::setField($log2, 'phase1_rae', 100000);  // delta 50000
-        EntityUtils::setField($log2, 'phase2_fae', 400000); // delta 200000
-        EntityUtils::setField($log2, 'phase2_rae', 200000); // delta 100000
-        EntityUtils::setField($log2, 'phase3_fae', 600000); // delta 300000
-        EntityUtils::setField($log2, 'phase3_rae', 300000); // delta 150000
-        $this->entityManager->persist($log2);
-
-        $this->entityManager->flush();
-
-        $lockFactory = new LockFactory(new FlockStore());
-        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager, $lockFactory);
-        EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
-        $this->application->add($command);
-        $commandTester = new CommandTester($command);
-        $commandTester->execute([]);
+        $this->runDeltaCalculation();
 
         $deltas = $this->entityManager->getRepository(ElectricityMeterDeltaLogItem::class)->findBy(['channel_id' => $channelId], ['date' => 'ASC']);
 
@@ -431,14 +433,24 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->assertEquals(50000, EntityUtils::getField($delta, 'phase1_rae'));
         $this->assertEquals(200000, EntityUtils::getField($delta, 'phase2_fae'));
         $this->assertEquals(100000, EntityUtils::getField($delta, 'phase2_rae'));
+        $this->assertEquals(25000, EntityUtils::getField($delta, 'phase1_fre'));
+        $this->assertEquals(15000, EntityUtils::getField($delta, 'phase1_rre'));
+        $this->assertEquals(50000, EntityUtils::getField($delta, 'phase2_fre'));
+        $this->assertEquals(30000, EntityUtils::getField($delta, 'phase2_rre'));
         $this->assertEquals(300000, EntityUtils::getField($delta, 'phase3_fae'));
         $this->assertEquals(150000, EntityUtils::getField($delta, 'phase3_rae'));
+        $this->assertEquals(75000, EntityUtils::getField($delta, 'phase3_fre'));
+        $this->assertEquals(45000, EntityUtils::getField($delta, 'phase3_rre'));
+        $this->assertEquals(300000, $delta->getTotalForwardActiveEnergyBalanced());
+        $this->assertEquals(150000, $delta->getTotalReverseActiveEnergyBalanced());
 
         // Sums
         // FAE: 100000 + 200000 + 300000 = 600000
         // RAE: 50000 + 100000 + 150000 = 300000
         $this->assertEquals(600000, $delta->getTotalForwardActiveEnergy());
         $this->assertEquals(300000, $delta->getTotalReverseActiveEnergy());
+        $this->assertEquals(150000, $delta->getTotalForwardReactiveEnergy());
+        $this->assertEquals(90000, $delta->getTotalReverseReactiveEnergy());
 
         // Individual phase sums via getter
         $this->assertEquals(100000, $delta->getTotalForwardActiveEnergy(1));
@@ -448,6 +460,60 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->assertEquals(50000, $delta->getTotalReverseActiveEnergy(1));
         $this->assertEquals(100000, $delta->getTotalReverseActiveEnergy(2));
         $this->assertEquals(150000, $delta->getTotalReverseActiveEnergy(3));
+        $this->assertEquals(25000, $delta->getTotalForwardReactiveEnergy(1));
+        $this->assertEquals(50000, $delta->getTotalForwardReactiveEnergy(2));
+        $this->assertEquals(75000, $delta->getTotalForwardReactiveEnergy(3));
+        $this->assertEquals(15000, $delta->getTotalReverseReactiveEnergy(1));
+        $this->assertEquals(30000, $delta->getTotalReverseReactiveEnergy(2));
+        $this->assertEquals(45000, $delta->getTotalReverseReactiveEnergy(3));
+    }
+
+    public function testReactiveAndBalancedValuesFollowSameDeltaRules() {
+        $channelId = 16;
+        $this->createCustomEmLog($channelId, '2026-06-11 12:00:00', [
+            'phase1_fre' => 1000,
+            'phase1_rre' => 2000,
+            'fae_balanced' => 3000,
+            'rae_balanced' => 4000,
+        ]);
+        $this->createCustomEmLog($channelId, '2026-06-11 12:15:00', [
+            'phase1_fre' => 1200,
+            'phase1_rre' => 2300,
+            'fae_balanced' => 3200,
+            'rae_balanced' => 4500,
+        ]);
+        $this->createCustomEmLog($channelId, '2026-06-11 12:30:00', [
+            'phase1_fre' => 0,
+            'phase1_rre' => null,
+            'fae_balanced' => 0,
+            'rae_balanced' => null,
+        ]);
+        $this->createCustomEmLog($channelId, '2026-06-11 12:45:00', [
+            'phase1_fre' => 1300,
+            'phase1_rre' => 2200,
+            'fae_balanced' => 3100,
+            'rae_balanced' => 4700,
+        ]);
+
+        $this->runDeltaCalculation();
+
+        $deltas = $this->entityManager->getRepository(ElectricityMeterDeltaLogItem::class)->findBy(['channel_id' => $channelId], ['date' => 'ASC']);
+
+        $this->assertCount(3, $deltas);
+        $this->assertEquals(200, $deltas[0]->getTotalForwardReactiveEnergy(1));
+        $this->assertEquals(300, $deltas[0]->getTotalReverseReactiveEnergy(1));
+        $this->assertEquals(200, $deltas[0]->getTotalForwardActiveEnergyBalanced());
+        $this->assertEquals(500, $deltas[0]->getTotalReverseActiveEnergyBalanced());
+
+        $this->assertEquals(0, $deltas[1]->getTotalForwardReactiveEnergy(1));
+        $this->assertEquals(0, $deltas[1]->getTotalReverseReactiveEnergy(1));
+        $this->assertEquals(0, $deltas[1]->getTotalForwardActiveEnergyBalanced());
+        $this->assertEquals(0, $deltas[1]->getTotalReverseActiveEnergyBalanced());
+
+        $this->assertEquals(100, $deltas[2]->getTotalForwardReactiveEnergy(1));
+        $this->assertEquals(0, $deltas[2]->getTotalReverseReactiveEnergy(1));
+        $this->assertEquals(0, $deltas[2]->getTotalForwardActiveEnergyBalanced());
+        $this->assertEquals(200, $deltas[2]->getTotalReverseActiveEnergyBalanced());
     }
 
     public function testSingleInstanceOnly() {
@@ -467,15 +533,23 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
     }
 
     private function createEmLog(int $channelId, string $date, ?int $fae) {
+        $this->createCustomEmLog($channelId, $date, ['phase1_fae' => $fae]);
+    }
+
+    private function createCustomEmLog(int $channelId, string $date, array $fields): void {
         $logItem = new ElectricityMeterLogItem();
         EntityUtils::setField($logItem, 'channel_id', $channelId);
         EntityUtils::setField($logItem, 'date', $date);
-        EntityUtils::setField($logItem, 'phase1_fae', $fae);
-        EntityUtils::setField($logItem, 'phase1_rae', 0);
-        EntityUtils::setField($logItem, 'phase2_fae', 0);
-        EntityUtils::setField($logItem, 'phase2_rae', 0);
-        EntityUtils::setField($logItem, 'phase3_fae', 0);
-        EntityUtils::setField($logItem, 'phase3_rae', 0);
+        foreach (
+            [
+                'phase1_fae', 'phase1_rae', 'phase1_fre', 'phase1_rre',
+                'phase2_fae', 'phase2_rae', 'phase2_fre', 'phase2_rre',
+                'phase3_fae', 'phase3_rae', 'phase3_fre', 'phase3_rre',
+                'fae_balanced', 'rae_balanced',
+            ] as $field
+        ) {
+            EntityUtils::setField($logItem, $field, array_key_exists($field, $fields) ? $fields[$field] : 0);
+        }
         $this->entityManager->persist($logItem);
         $this->entityManager->flush();
     }
