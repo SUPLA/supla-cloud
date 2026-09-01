@@ -126,6 +126,7 @@
           ChannelFunction.THERMOSTATHEATPOLHOMEPLUS,
           ChannelFunction.GENERAL_PURPOSE_METER,
           ChannelFunction.GENERAL_PURPOSE_MEASUREMENT,
+          ChannelFunction.GENERAL_PURPOSE_TEXT,
         ];
         if (measurementsHistoryFunctions.includes(this.channel.functionId) && !this.channel.isVirtual) {
           this.availableTabs.push({

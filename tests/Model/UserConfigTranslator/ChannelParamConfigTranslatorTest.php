@@ -25,6 +25,7 @@ use App\Model\UserConfigTranslator\BinarySensorUserConfigTranslator;
 use App\Model\UserConfigTranslator\DigiglassParamTranslator;
 use App\Model\UserConfigTranslator\ElectricityMeterUserConfigTranslator;
 use App\Model\UserConfigTranslator\GeneralPurposeMeasurementConfigTranslator;
+use App\Model\UserConfigTranslator\GeneralPurposeTextConfigTranslator;
 use App\Model\UserConfigTranslator\HumidityAdjustmentConfigTranslator;
 use App\Model\UserConfigTranslator\ImpulseCounterUserConfigTranslator;
 use App\Model\UserConfigTranslator\NumberOfAttemptsToOpenOrCloseParamTranslator;
@@ -52,6 +53,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             new TemperatureAdjustmentConfigTranslator(),
             new BinarySensorUserConfigTranslator(),
             new GeneralPurposeMeasurementConfigTranslator(),
+            new GeneralPurposeTextConfigTranslator(),
             new DigiglassParamTranslator(),
             new NumberOfAttemptsToOpenOrCloseParamTranslator(),
             new RollerShutterUserConfigTranslator(),
@@ -161,6 +163,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::OPENINGSENSOR_WINDOW(), [null, null, null], ['invertedLogic' => true]],
             [ChannelFunction::STAIRCASETIMER(), [], ['relayTimeS' => 101.1]],
             [ChannelFunction::THERMOMETER(), [null, null], ['temperatureAdjustment' => 1.23]],
+            [ChannelFunction::GENERAL_PURPOSE_TEXT(), [], ['keepHistory' => false, 'refreshIntervalMs' => 1234]],
             [ChannelFunction::DIGIGLASS_VERTICAL(), [2, 1000], ['sectionsCount' => 2, 'regenerationTimeStart' => 1000]],
             [ChannelFunction::DIGIGLASS_HORIZONTAL(), [2, 1000], ['sectionsCount' => 2, 'regenerationTimeStart' => 1000]],
         ];
