@@ -24,7 +24,7 @@ use App\Migrations\NoWayBackMigration;
  */
 class Version20260901155422 extends NoWayBackMigration {
     public function migrate() {
-        $this->addSql('CREATE TABLE supla_calcfg_queue (iodevice_id INT NOT NULL, user_id INT NOT NULL, queue TEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, updated_at DATETIME NOT NULL COMMENT \'(DC2Type:utcdatetime)\', INDEX IDX_CALCFG_QUEUE_USER (user_id), PRIMARY KEY(iodevice_id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE supla_calcfg_queue (iodevice_id INT NOT NULL, user_id INT NOT NULL, queue TEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, valid_until DATETIME DEFAULT NULL COMMENT \'(DC2Type:utcdatetime)\', updated_at DATETIME NOT NULL COMMENT \'(DC2Type:utcdatetime)\', INDEX IDX_CALCFG_QUEUE_USER (user_id), PRIMARY KEY(iodevice_id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE supla_calcfg_queue ADD CONSTRAINT FK_CALCFG_QUEUE_DEVICE FOREIGN KEY (iodevice_id) REFERENCES supla_iodevice (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE supla_calcfg_queue ADD CONSTRAINT FK_CALCFG_QUEUE_USER FOREIGN KEY (user_id) REFERENCES supla_user (id) ON DELETE CASCADE');
     }
