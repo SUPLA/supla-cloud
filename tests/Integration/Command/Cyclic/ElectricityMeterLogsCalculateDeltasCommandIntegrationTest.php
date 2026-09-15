@@ -56,6 +56,8 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         // Delta 12:45 = 4500 - 3000 = 1500
 
         $this->assertCount(2, $deltas);
+        $this->assertEquals(1333, $deltas[0]->getTotalForwardActiveEnergy());
+        $this->assertEquals(1500, $deltas[1]->getTotalForwardActiveEnergy());
         $this->assertEquals('2026-06-11 12:30:00', $deltas[0]->getDate());
         $this->assertEquals('2026-06-11 12:45:00', $deltas[1]->getDate());
 

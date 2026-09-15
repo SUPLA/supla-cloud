@@ -165,7 +165,7 @@
     }
   },
   {
-    "code": "PL_G13_TAURON",
+    "code": "PL_G13",
     "name": "G13 - trzy strefy, sezon lato/zima",
     "config": {
       "id": "PL_G13_TAURON",
