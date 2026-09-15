@@ -19,6 +19,7 @@
 namespace App\Tests\Integration\Command;
 
 use App\Entity\MeasurementLogs\EnergyTariff;
+use App\Model\MeasurementLogs\TariffDefinitionImporter;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
 use Doctrine\ORM\EntityManagerInterface;
@@ -52,6 +53,7 @@ class LoadTariffsCommandIntegrationTest extends IntegrationTestCase {
             $this->assertNotNull($tariff);
             $this->assertSame('Test single tariff', $tariff->getName());
             $this->assertSame('Europe/Warsaw', $tariff->getConfig()['timezone']);
+            $this->assertSame(15, $tariff->getConfig()['aggregationPeriodMinutes']);
         } finally {
             @unlink($filePath);
         }
@@ -107,6 +109,30 @@ class LoadTariffsCommandIntegrationTest extends IntegrationTestCase {
         } finally {
             @unlink($filePath);
         }
+    }
+
+    /** @dataProvider invalidAggregationProvider */
+    public function testRejectsInvalidAggregation(array $config, string $message): void {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage($message);
+
+        self::getContainer()->get(TariffDefinitionImporter::class)->importDefinitions([[
+            'code' => 'TEST_INVALID_AGGREGATION',
+            'name' => 'Invalid aggregation',
+            'config' => $config,
+        ]]);
+    }
+
+    public static function invalidAggregationProvider(): iterable {
+        yield 'static value is not divisible by 15' => [[
+            'type' => 'zoned_static',
+            'aggregationPeriodMinutes' => 20,
+        ], 'positive integer'];
+        yield 'dynamic value is configured' => [[
+            'type' => 'dynamic_15m',
+            'aggregationPeriodMinutes' => 15,
+            'dynamicPriceSource' => ['source' => 'fixing1'],
+        ], 'cannot configure aggregationPeriodMinutes'];
     }
 
     private function getLogsEntityManager(): EntityManagerInterface {

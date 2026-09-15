@@ -51,6 +51,9 @@ class EnergyCostSummaryBuilder {
 
         foreach ($summaries as &$summary) {
             $summary['usage']['totalFaeKwh'] = round($summary['usage']['totalFaeKwh'], 6);
+            foreach (['forwardKwh', 'reverseKwh', 'diffKwh', 'chargeableKwh'] as $field) {
+                $summary['usage'][$field] = round($summary['usage'][$field], 6);
+            }
             foreach ($summary['usage']['byPhase'] as $phase => $amount) {
                 $summary['usage']['byPhase'][$phase] = round($amount, 6);
             }
@@ -81,6 +84,10 @@ class EnergyCostSummaryBuilder {
                     'timezone' => $context['timezone'],
                     'usage' => [
                         'totalFaeKwh' => 0.0,
+                        'forwardKwh' => 0.0,
+                        'reverseKwh' => 0.0,
+                        'diffKwh' => 0.0,
+                        'chargeableKwh' => 0.0,
                         'byPhase' => ['phase1' => 0.0, 'phase2' => 0.0, 'phase3' => 0.0],
                     ],
                     'costs' => [
@@ -94,6 +101,10 @@ class EnergyCostSummaryBuilder {
             }
 
             $summaries[$key]['usage']['totalFaeKwh'] += $log['usage']['totalFaeKwh'];
+            $summaries[$key]['usage']['forwardKwh'] += $log['usage']['forwardKwh'];
+            $summaries[$key]['usage']['reverseKwh'] += $log['usage']['reverseKwh'];
+            $summaries[$key]['usage']['diffKwh'] += $log['usage']['diffKwh'];
+            $summaries[$key]['usage']['chargeableKwh'] += $log['usage']['chargeableKwh'];
             $summaries[$key]['usage']['byPhase']['phase1'] += $log['usage']['phase1FaeKwh'];
             $summaries[$key]['usage']['byPhase']['phase2'] += $log['usage']['phase2FaeKwh'];
             $summaries[$key]['usage']['byPhase']['phase3'] += $log['usage']['phase3FaeKwh'];

@@ -60,6 +60,10 @@ class TariffDefinitionImporter {
             }
             $this->assertValidDefinition($definition, $index);
 
+            if (EnergyTariffType::from($definition['config']['type']) !== EnergyTariffType::DYNAMIC_15M) {
+                $definition['config']['aggregationPeriodMinutes'] ??= 15;
+            }
+
             /** @var EnergyTariff|null $tariff */
             $tariff = $repository->findOneBy(['code' => $definition['code']]);
             if ($tariff) {
@@ -136,6 +140,12 @@ class TariffDefinitionImporter {
         }
 
         if ($type === EnergyTariffType::DYNAMIC_15M) {
+            if (array_key_exists('aggregationPeriodMinutes', $definition['config'])) {
+                throw new \InvalidArgumentException(sprintf(
+                    'Dynamic tariff definition at index %d cannot configure aggregationPeriodMinutes.',
+                    $index
+                ));
+            }
             $sourceConfig = $definition['config']['dynamicPriceSource'] ?? null;
             if (!is_array($sourceConfig)) {
                 throw new \InvalidArgumentException(sprintf(
@@ -146,6 +156,14 @@ class TariffDefinitionImporter {
             if (!EnergyTariffDynamicPriceSource::tryFrom((string)($sourceConfig['source'] ?? ''))) {
                 throw new \InvalidArgumentException(sprintf(
                     'Dynamic tariff definition at index %d must contain a valid dynamicPriceSource.source value.',
+                    $index
+                ));
+            }
+        } else {
+            $aggregationPeriodMinutes = $definition['config']['aggregationPeriodMinutes'] ?? 15;
+            if (!is_int($aggregationPeriodMinutes) || $aggregationPeriodMinutes <= 0 || $aggregationPeriodMinutes % 15 !== 0) {
+                throw new \InvalidArgumentException(sprintf(
+                    'Tariff definition at index %d must contain a positive integer config.aggregationPeriodMinutes divisible by 15.',
                     $index
                 ));
             }

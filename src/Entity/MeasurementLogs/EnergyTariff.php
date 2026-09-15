@@ -98,6 +98,10 @@ class EnergyTariff {
         return $this->getType() === EnergyTariffType::DYNAMIC_15M;
     }
 
+    public function getAggregationPeriodMinutes(): int {
+        return $this->isDynamic() ? 15 : (int)($this->config['aggregationPeriodMinutes'] ?? 15);
+    }
+
     public function getDynamicPriceSourceConfig(): array {
         return is_array($this->config['dynamicPriceSource'] ?? null) ? $this->config['dynamicPriceSource'] : [];
     }

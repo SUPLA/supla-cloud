@@ -8,11 +8,16 @@ class EnergyCostLogHydrator {
     public function hydrateLogs(array $rows): array {
         $logs = [];
         foreach ($rows as $row) {
-            $key = (string)$row['date_timestamp'];
+            $key = $row['cost_log_key'];
             if (!isset($logs[$key])) {
+                $forwardKwh = (float)$row['total_kwh'];
+                $reverseKwh = (float)$row['reverse_kwh'];
+                $diffKwh = $forwardKwh - $reverseKwh;
+                $chargeableKwh = max($diffKwh, 0.0);
                 $logs[$key] = [
                     'dateTimestamp' => (int)$row['date_timestamp'],
                     'slotStartTimestamp' => (int)$row['slot_start_timestamp'],
+                    'aggregationPeriodMinutes' => (int)$row['aggregation_period_minutes'],
                     'profileId' => $row['profile_id'] !== null ? (int)$row['profile_id'] : null,
                     'tariffId' => $row['tariff_id'] !== null ? (int)$row['tariff_id'] : null,
                     'zoneCode' => $row['zone_code'],
@@ -25,6 +30,10 @@ class EnergyCostLogHydrator {
                         'phase2FaeKwh' => round((float)$row['phase2_kwh'], 6),
                         'phase3FaeKwh' => round((float)$row['phase3_kwh'], 6),
                         'totalFaeKwh' => round((float)$row['total_kwh'], 6),
+                        'forwardKwh' => round($forwardKwh, 6),
+                        'reverseKwh' => round($reverseKwh, 6),
+                        'diffKwh' => round($diffKwh, 6),
+                        'chargeableKwh' => round($chargeableKwh, 6),
                     ],
                     'costs' => null,
                 ];
@@ -45,10 +54,16 @@ class EnergyCostLogHydrator {
             }
 
             $componentCode = EnergyPriceComponent::from((int)$row['component_code'])->name;
-            $componentCost = round((float)$row['total_kwh'] * (float)$row['amount'], 6);
-            $phase1Cost = round((float)$row['phase1_kwh'] * (float)$row['amount'], 6);
-            $phase2Cost = round((float)$row['phase2_kwh'] * (float)$row['amount'], 6);
-            $phase3Cost = round((float)$row['phase3_kwh'] * (float)$row['amount'], 6);
+            $componentCost = round(max($logs[$key]['usage']['chargeableKwh'] * (float)$row['amount'], 0.0), 6);
+            $positivePhaseDiffs = [
+                'phase1' => max((float)$row['phase1_kwh'] - (float)$row['phase1_reverse_kwh'], 0.0),
+                'phase2' => max((float)$row['phase2_kwh'] - (float)$row['phase2_reverse_kwh'], 0.0),
+                'phase3' => max((float)$row['phase3_kwh'] - (float)$row['phase3_reverse_kwh'], 0.0),
+            ];
+            $positivePhaseTotal = array_sum($positivePhaseDiffs);
+            $phase1Cost = $positivePhaseTotal > 0 ? $componentCost * $positivePhaseDiffs['phase1'] / $positivePhaseTotal : 0.0;
+            $phase2Cost = $positivePhaseTotal > 0 ? $componentCost * $positivePhaseDiffs['phase2'] / $positivePhaseTotal : 0.0;
+            $phase3Cost = $componentCost - $phase1Cost - $phase2Cost;
 
             $logs[$key]['costs']['total'] += $componentCost;
             $logs[$key]['costs']['byComponent'][$componentCode] = ($logs[$key]['costs']['byComponent'][$componentCode] ?? 0) + $componentCost;

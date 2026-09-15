@@ -88,7 +88,10 @@ class EnergyCostRowFetcher {
                 d.date,
                 d.phase1_fae,
                 d.phase2_fae,
-                d.phase3_fae
+                d.phase3_fae,
+                d.phase1_rae,
+                d.phase2_rae,
+                d.phase3_rae
             FROM supla_em_delta_log d
             $where
             ORDER BY d.date $order
@@ -111,12 +114,19 @@ class EnergyCostRowFetcher {
             $phase1 = (int)($row['phase1_fae'] ?? 0);
             $phase2 = (int)($row['phase2_fae'] ?? 0);
             $phase3 = (int)($row['phase3_fae'] ?? 0);
+            $phase1Reverse = (int)($row['phase1_rae'] ?? 0);
+            $phase2Reverse = (int)($row['phase2_rae'] ?? 0);
+            $phase3Reverse = (int)($row['phase3_rae'] ?? 0);
             $row['date_timestamp'] = $dateTimestamp;
             $row['slot_start_timestamp'] = $dateTimestamp - (15 * 60);
             $row['total_kwh'] = ElectricityMeterValueConverter::rawEnergyToFloat($phase1 + $phase2 + $phase3);
             $row['phase1_kwh'] = ElectricityMeterValueConverter::rawEnergyToFloat($phase1);
             $row['phase2_kwh'] = ElectricityMeterValueConverter::rawEnergyToFloat($phase2);
             $row['phase3_kwh'] = ElectricityMeterValueConverter::rawEnergyToFloat($phase3);
+            $row['phase1_reverse_kwh'] = ElectricityMeterValueConverter::rawEnergyToFloat($phase1Reverse);
+            $row['phase2_reverse_kwh'] = ElectricityMeterValueConverter::rawEnergyToFloat($phase2Reverse);
+            $row['phase3_reverse_kwh'] = ElectricityMeterValueConverter::rawEnergyToFloat($phase3Reverse);
+            $row['reverse_kwh'] = ElectricityMeterValueConverter::rawEnergyToFloat($phase1Reverse + $phase2Reverse + $phase3Reverse);
         }
 
         return $rows;
@@ -202,6 +212,8 @@ class EnergyCostRowFetcher {
                 'tariffId' => (int)$tariffPeriod->getTariff()->getId(),
                 'tariff' => $tariffPeriod->getTariff(),
                 'isDynamic' => $tariffPeriod->getTariff()->isDynamic(),
+                'aggregationPeriodMinutes' => $tariffPeriod->getTariff()->getAggregationPeriodMinutes(),
+                'timezone' => $tariffPeriod->getTariff()->getConfig()['timezone'] ?? 'UTC',
                 'validFrom' => $tariffPeriod->getValidFrom(),
                 'validTo' => $tariffPeriod->getValidTo(),
                 'startTs' => $tariffPeriod->getValidFrom()?->getTimestamp() ?? PHP_INT_MIN,
@@ -271,14 +283,21 @@ class EnergyCostRowFetcher {
     private function expandCostRows(array $deltaRows, ?array $context): array {
         $expandedRows = [];
 
+        $deltaRows = $this->aggregateDeltaRows($deltaRows, $context);
+
         foreach ($deltaRows as $deltaRow) {
             $baseRow = [
+                'cost_log_key' => $deltaRow['cost_log_key'] ?? ('delta:' . $deltaRow['date_timestamp']),
                 'date_timestamp' => $deltaRow['date_timestamp'],
                 'slot_start_timestamp' => $deltaRow['slot_start_timestamp'],
+                'aggregation_period_minutes' => $deltaRow['aggregation_period_minutes'] ?? 15,
                 'date' => $deltaRow['date'],
                 'phase1_fae' => $deltaRow['phase1_fae'],
                 'phase2_fae' => $deltaRow['phase2_fae'],
                 'phase3_fae' => $deltaRow['phase3_fae'],
+                'phase1_rae' => $deltaRow['phase1_rae'],
+                'phase2_rae' => $deltaRow['phase2_rae'],
+                'phase3_rae' => $deltaRow['phase3_rae'],
                 'profile_id' => $context['profileId'] ?? null,
                 'tariff_id' => null,
                 'zone_code' => null,
@@ -294,6 +313,10 @@ class EnergyCostRowFetcher {
                 'phase1_kwh' => $deltaRow['phase1_kwh'],
                 'phase2_kwh' => $deltaRow['phase2_kwh'],
                 'phase3_kwh' => $deltaRow['phase3_kwh'],
+                'phase1_reverse_kwh' => $deltaRow['phase1_reverse_kwh'],
+                'phase2_reverse_kwh' => $deltaRow['phase2_reverse_kwh'],
+                'phase3_reverse_kwh' => $deltaRow['phase3_reverse_kwh'],
+                'reverse_kwh' => $deltaRow['reverse_kwh'],
             ];
 
             if (!$context) {
@@ -341,6 +364,77 @@ class EnergyCostRowFetcher {
         }
 
         return $expandedRows;
+    }
+
+    private function aggregateDeltaRows(array $deltaRows, ?array $context): array {
+        if (!$context) {
+            return $deltaRows;
+        }
+
+        $aggregated = [];
+        foreach ($deltaRows as $deltaRow) {
+            $tariffPeriod = $this->resolveInterval($context['tariffPeriods'], $deltaRow['slot_start_timestamp']);
+            $pricePeriod = $tariffPeriod
+                ? $this->resolveInterval($tariffPeriod['pricePeriods'], $deltaRow['slot_start_timestamp'])
+                : null;
+            $zoneCode = ($tariffPeriod && !$tariffPeriod['isDynamic'])
+                ? $this->resolveZoneCode(
+                    $context['resolvedZones'][$tariffPeriod['tariffId']] ?? [],
+                    $deltaRow['slot_start_timestamp']
+                )
+                : null;
+
+            if (!$tariffPeriod || $tariffPeriod['isDynamic']) {
+                $key = 'delta:' . $deltaRow['date_timestamp'];
+                $deltaRow['aggregation_period_minutes'] = 15;
+            } else {
+                $deltaRow['aggregation_period_minutes'] = $tariffPeriod['aggregationPeriodMinutes'];
+                $bucketStart = $this->alignTimestamp(
+                    $deltaRow['slot_start_timestamp'],
+                    $tariffPeriod['aggregationPeriodMinutes'],
+                    $tariffPeriod['timezone']
+                );
+                $key = implode(':', [
+                    'bucket',
+                    $bucketStart,
+                    $tariffPeriod['id'],
+                    $pricePeriod['id'] ?? 'none',
+                    $zoneCode ?? 'none',
+                ]);
+            }
+            $deltaRow['cost_log_key'] = $key;
+
+            if (!isset($aggregated[$key])) {
+                $aggregated[$key] = $deltaRow;
+                continue;
+            }
+
+            $target = &$aggregated[$key];
+            foreach (['phase1_fae', 'phase2_fae', 'phase3_fae', 'phase1_rae', 'phase2_rae', 'phase3_rae'] as $field) {
+                $target[$field] = (int)($target[$field] ?? 0) + (int)($deltaRow[$field] ?? 0);
+            }
+            foreach (
+                ['total_kwh', 'phase1_kwh', 'phase2_kwh', 'phase3_kwh', 'reverse_kwh',
+                    'phase1_reverse_kwh', 'phase2_reverse_kwh', 'phase3_reverse_kwh'] as $field
+            ) {
+                $target[$field] += $deltaRow[$field];
+            }
+            if ($deltaRow['date_timestamp'] > $target['date_timestamp']) {
+                $target['date_timestamp'] = $deltaRow['date_timestamp'];
+                $target['date'] = $deltaRow['date'];
+            }
+            $target['slot_start_timestamp'] = min($target['slot_start_timestamp'], $deltaRow['slot_start_timestamp']);
+            unset($target);
+        }
+
+        return array_values($aggregated);
+    }
+
+    private function alignTimestamp(int $timestamp, int $periodMinutes, string $timezone): int {
+        $local = (new \DateTimeImmutable('@' . $timestamp))->setTimezone(new \DateTimeZone($timezone));
+        $minutesSinceMidnight = ((int)$local->format('G') * 60) + (int)$local->format('i');
+        $bucketMinute = intdiv($minutesSinceMidnight, $periodMinutes) * $periodMinutes;
+        return $local->setTime(0, 0)->modify(sprintf('+%d minutes', $bucketMinute))->getTimestamp();
     }
 
     private function resolveInterval(array $intervals, int $timestamp): ?array {

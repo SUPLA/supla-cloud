@@ -5,6 +5,7 @@
     "config": {
       "id": "PL_G11",
       "type": "zoned_static",
+      "aggregationPeriodMinutes": 60,
       "timezone": "Europe/Warsaw",
       "zones": [
         {
@@ -70,6 +71,7 @@
     "config": {
       "id": "PL_G12",
       "type": "zoned_static",
+      "aggregationPeriodMinutes": 60,
       "timezone": "Europe/Warsaw",
       "zones": [
         {
@@ -169,6 +171,7 @@
       "id": "PL_G13_TAURON",
       "name": "G13 - trzy strefy, sezon lato/zima",
       "type": "zoned_static",
+      "aggregationPeriodMinutes": 60,
       "timezone": "Europe/Warsaw",
       "seasons": [
         {

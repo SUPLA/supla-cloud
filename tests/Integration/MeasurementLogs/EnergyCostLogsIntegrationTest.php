@@ -501,6 +501,105 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertSame('DAY', $content[1]['zoneCode']);
     }
 
+    public function testStaticTariffAggregatesHourlyAndNetsReverseEnergy(): void {
+        $location = $this->createLocation($this->user);
+        $device = $this->createDevice($location, [[ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER]]);
+        $channel = $device->getChannels()[0];
+        $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
+        $tariff = $this->createTariff(
+            $logsEm,
+            'PL_HOURLY_TEST',
+            'Hourly test',
+            'UTC',
+            [['code' => 'ALL_DAY']],
+            [['zone' => 'ALL_DAY', 'days' => ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+                'time_ranges' => [['from' => '00:00', 'to' => '24:00']]]],
+            60
+        );
+        $profile = new EnergyTariffProfile();
+        $profile->setUserId($this->user->getId());
+        $profile->setName('Hourly aggregation profile');
+        $profile->addTariffPeriod($this->createTariffPeriod($tariff, null, null, [
+            $this->createPricePeriod('PLN', 1, BillingPeriodUnit::MONTH, null, null, [
+                $this->createPriceItem(EnergyPriceComponent::FORWARD_ACTIVE_ENERGY, 'ALL_DAY', 2.0, EnergyPriceUnit::KWH),
+            ]),
+        ]));
+        $logsEm->persist($profile);
+        $assignment = new EnergyTariffProfileAssignment($channel->getId());
+        $assignment->setProfile($profile);
+        $logsEm->persist($assignment);
+        foreach (['00:15:00', '00:30:00', '00:45:00', '01:00:00'] as $time) {
+            $this->createDeltaLog($logsEm, $channel->getId(), "2026-01-10 $time", 0.1, 0, 0, 0.05);
+        }
+        foreach (['01:15:00', '01:30:00', '01:45:00', '02:00:00'] as $time) {
+            $this->createDeltaLog($logsEm, $channel->getId(), "2026-01-10 $time", 0.1, 0, 0, 0.2);
+        }
+        $logsEm->flush();
+
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/2.4.0/channels/' . $channel->getId() . '/energy-cost-logs?order=ASC');
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertCount(2, $content);
+        $this->assertSame(60, $content[0]['aggregationPeriodMinutes']);
+        $this->assertSame(0.4, $content[0]['usage']['forwardKwh']);
+        $this->assertSame(0.2, $content[0]['usage']['reverseKwh']);
+        $this->assertSame(0.2, $content[0]['usage']['diffKwh']);
+        $this->assertSame(0.2, $content[0]['usage']['chargeableKwh']);
+        $this->assertSame(0.4, $content[0]['costs']['total']);
+        $this->assertSame(0.4, $content[1]['usage']['forwardKwh']);
+        $this->assertSame(0.8, $content[1]['usage']['reverseKwh']);
+        $this->assertSame(-0.4, $content[1]['usage']['diffKwh']);
+        $this->assertEquals(0.0, $content[1]['usage']['chargeableKwh']);
+        $this->assertEquals(0.0, $content[1]['costs']['total']);
+
+        $client->apiRequestV24('GET', '/api/2.4.0/channels/' . $channel->getId() . '/energy-cost-summaries');
+        $this->assertStatusCode(200, $client->getResponse());
+        $summary = json_decode($client->getResponse()->getContent(), true)[0];
+        $this->assertSame(0.8, $summary['usage']['forwardKwh']);
+        $this->assertEquals(1.0, $summary['usage']['reverseKwh']);
+        $this->assertSame(-0.2, $summary['usage']['diffKwh']);
+        $this->assertSame(0.2, $summary['usage']['chargeableKwh']);
+        $this->assertSame(0.4, $summary['costs']['total']);
+    }
+
+    public function testDynamicTariffAlwaysBalancesIndividualFifteenMinuteDeltas(): void {
+        $location = $this->createLocation($this->user);
+        $device = $this->createDevice($location, [[ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER]]);
+        $channel = $device->getChannels()[0];
+        $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
+        $tariff = $this->createDynamicTariff($logsEm, 'PL_DYNAMIC_BALANCE_TEST', 'Dynamic balance', 'UTC', 'fixing1', 'PLN', 1.0);
+        $profile = new EnergyTariffProfile();
+        $profile->setUserId($this->user->getId());
+        $profile->setName('Dynamic balance profile');
+        $profile->addTariffPeriod($this->createTariffPeriod($tariff, null, null, [
+            $this->createPricePeriod('PLN', 1, BillingPeriodUnit::MONTH, null, null, [
+                $this->createPriceItem(EnergyPriceComponent::FEE_VARIABLE, null, 1.0, EnergyPriceUnit::KWH),
+            ]),
+        ]));
+        $logsEm->persist($profile);
+        $assignment = new EnergyTariffProfileAssignment($channel->getId());
+        $assignment->setProfile($profile);
+        $logsEm->persist($assignment);
+        $this->createDeltaLog($logsEm, $channel->getId(), '2026-01-10 00:15:00', 0.1, 0, 0, 0.2);
+        $this->createDeltaLog($logsEm, $channel->getId(), '2026-01-10 00:30:00', 0.2, 0, 0);
+        $logsEm->flush();
+
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/2.4.0/channels/' . $channel->getId() . '/energy-cost-logs?order=ASC');
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertCount(2, $content);
+        $this->assertSame(15, $content[0]['aggregationPeriodMinutes']);
+        $this->assertSame(-0.1, $content[0]['usage']['diffKwh']);
+        $this->assertEquals(0.0, $content[0]['usage']['chargeableKwh']);
+        $this->assertEquals(0.0, $content[0]['costs']['total']);
+        $this->assertSame(0.2, $content[1]['usage']['chargeableKwh']);
+        $this->assertSame(0.2, $content[1]['costs']['total']);
+    }
+
     public function testFetchingLogsWithoutTariffProfileCosts(): void {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/2.4.0/channels/' . $this->plainChannel->getId() . '/energy-cost-logs?order=ASC');
@@ -580,7 +679,15 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(1000.1, $content[0]['costs']['byComponent']['FORWARD_ACTIVE_ENERGY']);
     }
 
-    private function createTariff($logsEm, string $code, string $name, string $timezone, array $zones, array $rules): EnergyTariff {
+    private function createTariff(
+        $logsEm,
+        string $code,
+        string $name,
+        string $timezone,
+        array $zones,
+        array $rules,
+        int $aggregationPeriodMinutes = 15
+    ): EnergyTariff {
         $tariff = new EnergyTariff();
         $tariff->setCode($code);
         $tariff->setName($name);
@@ -589,6 +696,7 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
             'timezone' => $timezone,
             'zones' => $zones,
             'rules' => $rules,
+            'aggregationPeriodMinutes' => $aggregationPeriodMinutes,
         ]);
         $logsEm->persist($tariff);
         return $tariff;
@@ -669,14 +777,24 @@ class EnergyCostLogsIntegrationTest extends IntegrationTestCase {
         return $item;
     }
 
-    private function createDeltaLog($logsEm, int $channelId, string $date, float $phase1, float $phase2, float $phase3): void {
+    private function createDeltaLog(
+        $logsEm,
+        int $channelId,
+        string $date,
+        float $phase1,
+        float $phase2,
+        float $phase3,
+        float $phase1Reverse = 0,
+        float $phase2Reverse = 0,
+        float $phase3Reverse = 0
+    ): void {
         $log = new ElectricityMeterDeltaLogItem($channelId, $date);
         EntityUtils::setField($log, 'phase1_fae', ElectricityMeterValueConverter::floatToRawEnergy($phase1));
         EntityUtils::setField($log, 'phase2_fae', ElectricityMeterValueConverter::floatToRawEnergy($phase2));
         EntityUtils::setField($log, 'phase3_fae', ElectricityMeterValueConverter::floatToRawEnergy($phase3));
-        EntityUtils::setField($log, 'phase1_rae', 0);
-        EntityUtils::setField($log, 'phase2_rae', 0);
-        EntityUtils::setField($log, 'phase3_rae', 0);
+        EntityUtils::setField($log, 'phase1_rae', ElectricityMeterValueConverter::floatToRawEnergy($phase1Reverse));
+        EntityUtils::setField($log, 'phase2_rae', ElectricityMeterValueConverter::floatToRawEnergy($phase2Reverse));
+        EntityUtils::setField($log, 'phase3_rae', ElectricityMeterValueConverter::floatToRawEnergy($phase3Reverse));
         $logsEm->persist($log);
     }
 }
