@@ -1,0 +1,36 @@
+tariff: PL_G13
+prices:
+  MORNING_PEAK:
+    FORWARD_ACTIVE_ENERGY: 1.00
+    DISTRIBUTION_VARIABLE: 0.50
+  AFTERNOON_PEAK:
+    FORWARD_ACTIVE_ENERGY: 0.90
+    DISTRIBUTION_VARIABLE: 0.30
+  OFF_PEAK:
+    FORWARD_ACTIVE_ENERGY: 0.60
+    DISTRIBUTION_VARIABLE: 0.20
+logs:
+  - {date: '2026-06-15T10:01:00+02:00', forward: 1000000, reverse: 0}
+  - {date: '2026-06-15T13:01:00+02:00', forward: 4000000, reverse: 0}
+expectedCostLogs:
+  - dateTimestamp: '2026-06-15T11:00:00+02:00'
+    zoneCode: MORNING_PEAK
+    forwardKwh: 7.5
+    reverseKwh: 0.0
+    diffKwh: 7.5
+    chargeableKwh: 7.5
+    cost: 11.25
+  - dateTimestamp: '2026-06-15T12:00:00+02:00'
+    zoneCode: MORNING_PEAK
+    forwardKwh: 10.0
+    reverseKwh: 0.0
+    diffKwh: 10.0
+    chargeableKwh: 10.0
+    cost: 15.0
+  - dateTimestamp: '2026-06-15T13:00:00+02:00'
+    zoneCode: MORNING_PEAK
+    forwardKwh: 10.0
+    reverseKwh: 0.0
+    diffKwh: 10.0
+    chargeableKwh: 10.0
+    cost: 15.0

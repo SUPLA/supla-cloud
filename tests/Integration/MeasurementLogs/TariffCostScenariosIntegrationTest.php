@@ -66,8 +66,8 @@ class TariffCostScenariosIntegrationTest extends IntegrationTestCase {
         $costs = self::getContainer()->get(EnergyCostLogHydrator::class)->hydrateLogs(
             self::getContainer()->get(EnergyCostRowFetcher::class)->fetchCostRows(
                 $this->channel->getId(),
-                strtotime($scenario['logs'][0]['date'] . ' UTC') - 1,
-                strtotime(end($scenario['logs'])['date'] . ' UTC') + 1,
+                $this->timestamp($scenario['logs'][0]['date']) - 1,
+                $this->timestamp(end($scenario['logs'])['date']) + 1,
                 false,
                 100,
                 0
@@ -79,7 +79,7 @@ class TariffCostScenariosIntegrationTest extends IntegrationTestCase {
                 if ($field === 'zoneCode') {
                     $this->assertSame($value, $costs[$index]['zoneCode']);
                 } elseif ($field === 'dateTimestamp') {
-                    $this->assertSame(strtotime($value . ' UTC'), $costs[$index]['dateTimestamp']);
+                    $this->assertSame($this->timestamp($value), $costs[$index]['dateTimestamp']);
                 } elseif ($field === 'cost') {
                     $this->assertEquals($value, $costs[$index]['costs']['total']);
                 } else {
@@ -147,7 +147,7 @@ class TariffCostScenariosIntegrationTest extends IntegrationTestCase {
     private function insertRawLog(EntityManagerInterface $logsEm, array $values): void {
         $log = new ElectricityMeterLogItem();
         EntityUtils::setField($log, 'channel_id', $this->channel->getId());
-        EntityUtils::setField($log, 'date', $values['date']);
+        EntityUtils::setField($log, 'date', $this->utcDateTime($values['date']));
         foreach (
             [
                 'phase1_fae', 'phase2_fae', 'phase3_fae', 'phase1_rae', 'phase2_rae', 'phase3_rae',
@@ -158,5 +158,15 @@ class TariffCostScenariosIntegrationTest extends IntegrationTestCase {
             EntityUtils::setField($log, $field, $field === 'phase1_fae' ? $values['forward'] : ($field === 'phase1_rae' ? $values['reverse'] : 0));
         }
         $logsEm->persist($log);
+    }
+
+    private function timestamp(string $date): int {
+        return (new \DateTimeImmutable($date, new \DateTimeZone('UTC')))->getTimestamp();
+    }
+
+    private function utcDateTime(string $date): string {
+        return (new \DateTimeImmutable($date, new \DateTimeZone('UTC')))
+            ->setTimezone(new \DateTimeZone('UTC'))
+            ->format('Y-m-d H:i:s');
     }
 }

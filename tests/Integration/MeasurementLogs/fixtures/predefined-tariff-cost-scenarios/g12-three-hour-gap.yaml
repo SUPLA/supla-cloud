@@ -1,0 +1,33 @@
+tariff: PL_G12
+prices:
+  DAY:
+    FORWARD_ACTIVE_ENERGY: 1.00
+    DISTRIBUTION_VARIABLE: 0.50
+  NIGHT:
+    FORWARD_ACTIVE_ENERGY: 0.80
+    DISTRIBUTION_VARIABLE: 0.20
+logs:
+  - {date: '2026-01-15 10:01:00', forward: 1000000, reverse: 0}
+  - {date: '2026-01-15 13:01:00', forward: 4000000, reverse: 0}
+expectedCostLogs:
+  - dateTimestamp: '2026-01-15 11:00:00'
+    zoneCode: DAY
+    forwardKwh: 7.5
+    reverseKwh: 0.0
+    diffKwh: 7.5
+    chargeableKwh: 7.5
+    cost: 11.25
+  - dateTimestamp: '2026-01-15 12:00:00'
+    zoneCode: DAY
+    forwardKwh: 10.0
+    reverseKwh: 0.0
+    diffKwh: 10.0
+    chargeableKwh: 10.0
+    cost: 15.0
+  - dateTimestamp: '2026-01-15 13:00:00'
+    zoneCode: DAY
+    forwardKwh: 10.0
+    reverseKwh: 0.0
+    diffKwh: 10.0
+    chargeableKwh: 10.0
+    cost: 15.0
