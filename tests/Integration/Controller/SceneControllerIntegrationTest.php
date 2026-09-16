@@ -775,6 +775,33 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('Cannot execute an action on this subject.', $content['message']);
     }
 
+    public function testCreatingSceneWithGeneralPurposeText() {
+        $location = $this->createLocation($this->user);
+        $device = $this->createDevice($location, [[ChannelType::GENERAL_PURPOSE_TEXT, ChannelFunction::GENERAL_PURPOSE_TEXT]]);
+        $gpt = $device->getChannels()[0];
+
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $gpt->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'actionId' => ChannelFunctionAction::READ,
+                ],
+            ],
+        ]);
+
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content['operations']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL, $content['operations'][0]['subjectType']);
+        $this->assertEquals($gpt->getId(), $content['operations'][0]['subjectId']);
+        $this->assertEquals(ChannelFunctionAction::READ, $content['operations'][0]['actionId']);
+    }
+
     public function testCreatingSceneThatExecutesAnotherSceneTwice() {
         $scene1 = $this->testCreatingScene();
         $client = $this->createAuthenticatedClient($this->user);

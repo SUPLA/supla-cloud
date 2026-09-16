@@ -2,6 +2,7 @@
   <form @submit.prevent="saveChanges()">
     <NotificationForm
       v-model="notificationFields"
+      :subject="subject"
       :display-validation-errors="true"
       :disable-title-message="disableTitleMessage"
       :disable-body-message="disableBodyMessage"
@@ -25,6 +26,7 @@
     components: {NotificationForm},
     props: {
       notification: Object,
+      subject: Object,
     },
     data() {
       return {
