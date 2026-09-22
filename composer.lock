@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c2e0d9bef871e4d73bebe06e31d4a3b4",
+    "content-hash": "423dfb916b6221b9b0060c2242897108",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2672,6 +2672,45 @@
             },
             "abandoned": "Symfony",
             "time": "2023-02-24T14:57:12+00:00"
+        },
+        {
+            "name": "supla/energy-cost-calculator",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SUPLA/supla-energy-cost-calculator.git",
+                "reference": "1147996fc378a2f407b187400f17f73d6ca0a644"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SUPLA/supla-energy-cost-calculator/zipball/1147996fc378a2f407b187400f17f73d6ca0a644",
+                "reference": "1147996fc378a2f407b187400f17f73d6ca0a644",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10.5",
+                "symfony/yaml": "^5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Supla\\EnergyCostCalculator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "Framework-agnostic PHP library for calculating electricity costs from interval energy deltas and JSON billing rules.",
+            "support": {
+                "issues": "https://github.com/SUPLA/supla-energy-cost-calculator/issues",
+                "source": "https://github.com/SUPLA/supla-energy-cost-calculator/tree/0.2.0"
+            },
+            "time": "2026-09-22T17:23:55+00:00"
         },
         {
             "name": "symfony/amqp-messenger",

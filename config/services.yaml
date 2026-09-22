@@ -282,6 +282,14 @@ services:
     factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\AuditEntry]
 
+  App\Repository\EnergyCostPlanRepository:
+    factory: ['@doctrine.orm.entity_manager', getRepository]
+    arguments: [App\Entity\Main\EnergyCostPlan]
+
+  App\Repository\EnergyCostPlanAssignmentRepository:
+    factory: ['@doctrine.orm.entity_manager', getRepository]
+    arguments: [App\Entity\Main\EnergyCostPlanAssignment]
+
   App\Repository\ChannelGroupRepository:
     factory: ['@doctrine.orm.entity_manager', getRepository]
     arguments: [App\Entity\Main\IODeviceChannelGroup]
