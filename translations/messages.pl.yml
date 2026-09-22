@@ -249,7 +249,6 @@ Choose the channel group: Wybierz grupę kanałów
 Choose the scene: Wybierz scenę
 Choose the schedule: Wybierz harmonogram
 Choose the source channel.: Wybierz kanał źródłowy.
-Chosen: Wybrany
 City: Miejscowość
 Clear: Wyczyść
 Clear filters: Wyczyść filtry
@@ -903,7 +902,6 @@ RESET: RESETUJ
 RGB led controller: Kontroler oświetlenia RGB
 RGB lighting: Oświetlenie RGB
 Rain sensor: Czujnik deszczu
-Random: Losowy
 Reaction notification: Powiadomienie o reakcji
 Reactions: Reakcje
 Reactions limit has been exceeded: Przekroczono limit reakcji
@@ -1877,7 +1875,6 @@ Calibration successful.: Kalibracja udana
 Cannot execute an action when the device is disconnected.: Nie można wykonywać akcji gdy urządzenie jest rozłączone.
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
 Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Mail nie dotarł? Sprawdź folder SPAM, lub {clickHereLink} aby wysłać ponownie mail aktywacyjny.
-Channel: Kanał
 Channel is disconnected.: Kanał jest rozłączony.
 Channel value: Wartość
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
@@ -1958,6 +1955,7 @@ Power supply: Zasilanie
 Previous login: Poprzednie logowanie
 RECOMMENDED SAVING. Schedule energy-intensive household activities for other hours.: ZALECANE OSZCZĘDZANIE. Zaplanuj domowe energochłonne czynności na inne godziny.
 REQUIRED LIMITATION. Limit your electricity consumption to the essential minimum.: WYMAGANE OGRANICZANIE. Ogranicz swoje zużycie prądu do niezbędnego minimum.
+Random: Losowy
 Read the following channel's state: Odczytaj stan poniższego kanału
 Registration: Rejestracja
 Remaining: Pozostało
@@ -2019,3 +2017,9 @@ suffix: sufiks
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+Chosen: Wybrany
+energyPriceComponent_label_DISTRIBUTION_FIXED: Opłata dystrybucyjna (stała)
+energyPriceComponent_label_DISTRIBUTION_VARIABLE: Opłata dystrybucyjna (zmienna)
+energyPriceComponent_label_FEE_FIXED: Opłata dodatkowa (stała)
+energyPriceComponent_label_FEE_VARIABLE: Opłata dodatkowa (zmienna)
+energyPriceComponent_label_FORWARD_ACTIVE_ENERGY: Energia czynna

@@ -71,6 +71,10 @@ services:
   App\Controller\DefaultController:
     $openApiCache: '@openapi_docs_cache'
 
+  App\Controller\Api\EnergyTariffController:
+    public: true
+    tags: ['controller.service_arguments']
+
   App\Controller\Api\ServerController:
     $suplaServerHost: '%supla.host%'
     $suplaVersion: '%supla.version%'

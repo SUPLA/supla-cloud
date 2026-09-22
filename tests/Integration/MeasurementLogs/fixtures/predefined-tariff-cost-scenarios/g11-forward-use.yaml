@@ -1,0 +1,15 @@
+tariff: PL_G11
+prices:
+  ALL_DAY:
+    FORWARD_ACTIVE_ENERGY: 1.00
+    DISTRIBUTION_VARIABLE: 0.50
+logs:
+  - {date: '2026-01-10 00:00:00', forward: 1000000, reverse: 0}
+  - {date: '2026-01-10 01:00:00', forward: 1100000, reverse: 0}
+expectedCostLogs:
+  - zoneCode: ALL_DAY
+    forwardKwh: 1.0
+    reverseKwh: 0.0
+    diffKwh: 1.0
+    chargeableKwh: 1.0
+    cost: 1.50

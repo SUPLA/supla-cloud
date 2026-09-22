@@ -41,6 +41,7 @@
     <groups>
         <exclude>
             <group>AutodiscoverIntegrationTest</group>
+            <group>performance</group>
         </exclude>
     </groups>
     <source ignoreSuppressionOfDeprecations="true" restrictNotices="true" restrictWarnings="true">

@@ -23,7 +23,7 @@ use App\Migrations\NoWayBackMigration;
  * TODO comment
  */
 class <className> extends NoWayBackMigration {
-public function migrate() {
+    public function migrate(): void {
 <up>
     }
 }

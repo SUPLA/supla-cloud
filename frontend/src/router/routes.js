@@ -92,6 +92,25 @@ export default [
     props: true,
   },
   {
+    path: '/tariff-profiles',
+    component: () => import('@/channels/tariffs/tariff-profiles-page.vue'),
+    name: 'tariffProfiles',
+    children: [
+      {
+        path: ':id/edit',
+        component: () => import('@/channels/tariffs/tariff-profile-form.vue'),
+        name: 'tariffProfile.edit',
+        props: true,
+      },
+      {
+        path: ':id',
+        component: () => import('@/channels/tariffs/tariff-profile-details-page.vue'),
+        name: 'tariffProfile',
+        props: true,
+      },
+    ],
+  },
+  {
     path: '/channels/:id',
     component: () => import('@/channels/channel-details-page.vue'),
     name: 'channel',
@@ -159,6 +178,11 @@ export default [
         path: 'voltage-aberrations',
         component: () => import('@/channels/channel-voltage-history.vue'),
         name: 'channel.voltageAberrations',
+      },
+      {
+        path: 'costs',
+        component: () => import('@/channels/tariffs/channel-costs-tab.vue'),
+        name: 'channel.costs',
       },
     ],
   },

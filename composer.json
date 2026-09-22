@@ -15,6 +15,7 @@
     },
     "require": {
         "php": ">=8.2.10",
+        "ext-calendar": "*",
         "ext-curl": "*",
         "ext-gd": "*",
         "ext-intl": "*",
@@ -45,6 +46,7 @@
         "symfony/flex": "^2.10",
         "symfony/form": "^5.4",
         "symfony/framework-bundle": "^5.4",
+        "symfony/lock": "^5.4",
         "symfony/mailer": "^5.4",
         "symfony/messenger": "^5.4",
         "symfony/mime": "^5.4",

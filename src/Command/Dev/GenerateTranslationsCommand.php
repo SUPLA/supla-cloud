@@ -49,7 +49,10 @@ class GenerateTranslationsCommand extends Command {
             fn(string $field) => 'openWeatherAttribute_field_' . $field,
             OpenWeatherVirtualChannelConfigurator::getSupportedFields()
         ));
-        $translations = array_map(fn(string $t) => '// i18n: ' . "['$t']", $translations);
+        $translations = array_merge($translations, array_map(function (EnergyPriceComponent $component) {
+            return "energyPriceComponent_label_{$component->name}";
+        }, EnergyPriceComponent::cases()));
+        $translations = array_map(fn(string $t) => "// i18n: ['$t']", $translations);
         file_put_contents(Kernel::VAR_PATH . '/local/translations.php', '<?php' . PHP_EOL . implode("\n", $translations) . PHP_EOL);
         return 0;
     }

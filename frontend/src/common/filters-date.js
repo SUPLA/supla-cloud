@@ -2,7 +2,11 @@ import {DateTime} from 'luxon';
 
 export function toLuxon(anything) {
   if (typeof anything === 'string') {
-    return DateTime.fromISO(anything);
+    let parsed = DateTime.fromISO(anything);
+    if (!parsed.isValid) {
+      parsed = DateTime.fromSQL(anything);
+    }
+    return parsed;
   } else if (typeof anything === 'number') {
     return DateTime.fromSeconds(anything);
   } else if (anything instanceof DateTime) {
@@ -31,5 +35,5 @@ export function formatDateTimeLong(datetime) {
 }
 
 export function formatDateForHtmlInput(datetime) {
-  return DateTime.fromISO(datetime).startOf('minute').toISO({includeOffset: false, suppressSeconds: true, suppressMilliseconds: true});
+  return toLuxon(datetime).startOf('minute').toISO({includeOffset: false, suppressSeconds: true, suppressMilliseconds: true});
 }
