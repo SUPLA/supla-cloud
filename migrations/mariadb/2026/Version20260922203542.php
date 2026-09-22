@@ -15,15 +15,15 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace <namespace>;
+namespace SuplaBundle\Migrations\Migration;
 
 use App\Migrations\NoWayBackMigration;
 
 /**
- * TODO comment
+ * Add supla_em_delta_log table.
  */
-class <className> extends NoWayBackMigration {
+class Version20260922203542 extends NoWayBackMigration {
     public function migrate() {
-<up>
+        $this->addSql('CREATE TABLE supla_em_delta_log (channel_id INT NOT NULL, date DATETIME NOT NULL COMMENT \'(DC2Type:stringdatetime)\', phase1_fae INT DEFAULT NULL, phase1_rae INT DEFAULT NULL, phase2_fae INT DEFAULT NULL, phase2_rae INT DEFAULT NULL, phase1_fre INT DEFAULT NULL, phase1_rre INT DEFAULT NULL, phase2_fre INT DEFAULT NULL, phase2_rre INT DEFAULT NULL, phase3_fae INT DEFAULT NULL, phase3_rae INT DEFAULT NULL, phase3_fre INT DEFAULT NULL, phase3_rre INT DEFAULT NULL, fae_balanced INT DEFAULT NULL, rae_balanced INT DEFAULT NULL, PRIMARY KEY(channel_id, date)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB');
     }
 }
