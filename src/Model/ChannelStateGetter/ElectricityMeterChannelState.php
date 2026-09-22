@@ -3,6 +3,7 @@
 namespace App\Model\ChannelStateGetter;
 
 use App\Enums\ElectricityMeterSupportBits;
+use App\Utils\ElectricityMeterValueConverter;
 use App\Utils\NumberUtils;
 use App\Utils\StringUtils;
 use Assert\Assertion;
@@ -45,15 +46,15 @@ class ElectricityMeterChannelState {
     private static $SUPLA_SERVER_VALUES_MULTIPLIERS = [
         'voltage' => 100,
         'current' => 1000,
-        'powerActive' => 100000,
-        'powerReactive' => 100000,
-        'powerApparent' => 100000,
+        'powerActive' => ElectricityMeterValueConverter::RAW_POWER_PRECISION,
+        'powerReactive' => ElectricityMeterValueConverter::RAW_POWER_PRECISION,
+        'powerApparent' => ElectricityMeterValueConverter::RAW_POWER_PRECISION,
         'powerFactor' => 1000,
         'phaseAngle' => 10,
-        'totalForwardActiveEnergy' => 100000,
-        'totalReverseActiveEnergy' => 100000,
-        'totalForwardReactiveEnergy' => 100000,
-        'totalReverseReactiveEnergy' => 100000,
+        'totalForwardActiveEnergy' => ElectricityMeterValueConverter::RAW_ENERGY_PRECISION,
+        'totalReverseActiveEnergy' => ElectricityMeterValueConverter::RAW_ENERGY_PRECISION,
+        'totalForwardReactiveEnergy' => ElectricityMeterValueConverter::RAW_ENERGY_PRECISION,
+        'totalReverseReactiveEnergy' => ElectricityMeterValueConverter::RAW_ENERGY_PRECISION,
     ];
 
     public function __construct(array $valuesFromSuplaServer) {
