@@ -89,6 +89,11 @@ services:
   Supla\EnergyCostCalculator\Contract\EnergyDeltaSource: '@App\Model\EnergyCost\SuplaEnergyDeltaSource'
   Supla\EnergyCostCalculator\Contract\ReferenceDataSource: '@App\Model\EnergyCost\SuplaReferenceDataSource'
   Supla\EnergyCostCalculator\Definition\BillingDefinitionParser: ~
+  Supla\EnergyCostCalculator\Engine\CostCalculator:
+    arguments:
+      $deltaSource: '@Supla\EnergyCostCalculator\Contract\EnergyDeltaSource'
+      $referenceDataSource: '@Supla\EnergyCostCalculator\Contract\ReferenceDataSource'
+      $definitionParser: '@Supla\EnergyCostCalculator\Definition\BillingDefinitionParser'
   Supla\EnergyCostCalculator\Plan\CostPlanCompiler: ~
   Supla\EnergyCostCalculator\Plan\CostPlanDefinitionParser: ~
   Supla\EnergyCostCalculator\Preset\TariffPresetCatalog: ~
