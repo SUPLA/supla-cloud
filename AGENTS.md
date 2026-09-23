@@ -25,6 +25,8 @@
 - CI writes `.env.test.local` with `bin/write-ci-env.sh` before API/integration/measurement-log runs because shell DB env vars do not
   reliably reach PHP.
 - CI waits for MariaDB/Postgres with `bin/wait-for-service.sh`; use the same pattern when reproducing those suites locally.
-- `composer run collect-translations` runs backend translation generation first, then the frontend collector.
+- `composer run collect-translations` runs backend translation generation first, then the frontend collector. Do not run it unless explicitly asked.
+- Write frontend text in English and use Vue I18n tags and functions so it can be collected later.
+- Do not write database migration files. When a schema change is needed, edit the Doctrine entities only; the user generates migrations later.
 - Do not edit generated assets, caches, or `public/dist` by hand.
 - Public API changes should be treated as backward-compatibility sensitive.
