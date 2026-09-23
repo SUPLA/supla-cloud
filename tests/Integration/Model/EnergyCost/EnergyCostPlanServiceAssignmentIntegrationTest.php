@@ -16,11 +16,13 @@ use App\Entity\Main\IODeviceChannel;
 use App\Entity\Main\User;
 use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
+use App\Exception\ApiException;
 use App\Model\EnergyCost\EnergyCostPlanService;
 use App\Repository\EnergyCostPlanAssignmentRepository;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\UserFixtures;
 use DateTime;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EnergyCostPlanServiceAssignmentIntegrationTest extends IntegrationTestCase {
@@ -50,6 +52,26 @@ class EnergyCostPlanServiceAssignmentIntegrationTest extends IntegrationTestCase
 
         $this->expectException(NotFoundHttpException::class);
         $this->service()->assignToChannel($user, $channel, $foreignPlan->getId());
+    }
+
+    public function testRejectsAnotherUsersChannel(): void {
+        $owner = $this->createConfirmedUser('channel-owner@supla.org');
+        $user = $this->createConfirmedUser('other-user@supla.org');
+        $plan = $this->persistPlan($user, 'Home');
+
+        $this->expectException(AccessDeniedHttpException::class);
+        $this->service()->assignToChannel($user, $this->createElectricityMeterChannel($owner), $plan->getId());
+    }
+
+    public function testRejectsUnsupportedChannelFunction(): void {
+        $user = $this->createConfirmedUser();
+        $channel = $this->createDevice(
+            $this->createLocation($user),
+            [[ChannelType::RELAY, ChannelFunction::LIGHTSWITCH]],
+        )->getChannels()->first();
+
+        $this->expectException(ApiException::class);
+        $this->service()->assignToChannel($user, $channel, $this->persistPlan($user, 'Home')->getId());
     }
 
     private function service(): EnergyCostPlanService {
