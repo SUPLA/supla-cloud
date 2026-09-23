@@ -91,7 +91,7 @@ class EnergyCostPlanControllerIntegrationTest extends IntegrationTestCase {
 
         $client->apiRequestV24('POST', '/api/energy-cost-plans', [
             'name' => 'Home',
-            'configuration' => ['version' => 1, 'entries' => []],
+            'configuration' => ['version' => 2],
         ]);
         $this->assertStatusCode(400, $client->getResponse());
         $this->assertSame(
@@ -112,25 +112,33 @@ class EnergyCostPlanControllerIntegrationTest extends IntegrationTestCase {
 
     /** @return array<string, mixed> */
     private function configuration(string $presetId): array {
-        $values = $presetId === 'PL.TAURON_DYSTRYBUCJA.G12.2026'
+        $components = $presetId === 'PL.TAURON_DYSTRYBUCJA.G12.2026'
             ? [
-                'billingCycle.anchor' => '2026-01-15T00:00:00+01:00',
-                'energy.DAY' => '0.98',
-                'energy.NIGHT' => '0.62',
-                'distribution.DAY' => '0.2841',
-                'distribution.NIGHT' => '0.0558',
+                ['kind' => 'ENERGY_PURCHASE', 'presetId' => $presetId, 'componentId' => 'energy-purchase',
+                    'values' => ['energy.DAY' => '0.98', 'energy.NIGHT' => '0.62']],
+                ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => $presetId,
+                    'componentId' => 'distribution-variable', 'values' => []],
             ]
             : [
-                'billingCycle.anchor' => '2026-01-15T00:00:00+01:00',
-                'energy.rate' => '0.71',
+                ['kind' => 'ENERGY_PURCHASE', 'presetId' => $presetId, 'componentId' => 'energy-purchase', 'values' => ['energy.rate' => '0.71']],
+                ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => $presetId, 'componentId' => 'distribution-variable', 'values' => []],
             ];
         return [
-            'version' => 1,
-            'entries' => [[
+            'version' => 2,
+            'currency' => 'PLN',
+            'timezone' => 'Europe/Warsaw',
+            'priceBasis' => 'NET',
+            'billingCycles' => [[
                 'validFrom' => '2026-01-01T00:00:00+01:00',
                 'validTo' => '2027-01-01T00:00:00+01:00',
-                'presetId' => $presetId,
-                'values' => $values,
+                'anchor' => '2026-01-15',
+                'length' => 1,
+                'unit' => 'MONTH',
+            ]],
+            'periods' => [[
+                'validFrom' => '2026-01-01T00:00:00+01:00',
+                'validTo' => '2027-01-01T00:00:00+01:00',
+                'components' => $components,
             ]],
         ];
     }

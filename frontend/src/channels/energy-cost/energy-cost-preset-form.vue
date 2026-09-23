@@ -1,27 +1,30 @@
 <script setup>
   import {computed} from 'vue';
   import EnergyCostPresetInput from './energy-cost-preset-input.vue';
-  import {presetDefault} from './energy-cost-plan-utils';
+  import {inputsForComponent, presetDefault} from './energy-cost-plan-utils';
 
   const props = defineProps({
-    entry: {type: Object, required: true},
+    component: {type: Object, required: true},
+    componentIndex: {type: Number, required: true},
     preset: {type: Object, required: true},
     errors: {type: Object, required: true},
     idPrefix: {type: String, default: 'energy-cost'},
   });
   const emit = defineEmits(['update:values']);
 
-  const inputs = computed(() => props.preset.document.inputs || []);
-  const effectiveValue = (input) => (Object.hasOwn(props.entry.values, input.id) ? props.entry.values[input.id] : presetDefault(props.preset, input));
-  const hasDefault = (input) => presetDefault(props.preset, input) !== null && presetDefault(props.preset, input) !== undefined;
-  const isCustom = (input) => Object.hasOwn(props.entry.values, input.id) || !hasDefault(input);
-  const override = (input) => emit('update:values', {...props.entry.values, [input.id]: effectiveValue(input) ?? ''});
+  const inputs = computed(() => inputsForComponent(props.preset, props.componentIndex));
+  const effectiveValue = (input) =>
+    Object.hasOwn(props.component.values, input.id) ? props.component.values[input.id] : presetDefault(props.preset, input, props.componentIndex);
+  const hasDefault = (input) =>
+    presetDefault(props.preset, input, props.componentIndex) !== null && presetDefault(props.preset, input, props.componentIndex) !== undefined;
+  const isCustom = (input) => Object.hasOwn(props.component.values, input.id) || !hasDefault(input);
+  const override = (input) => emit('update:values', {...props.component.values, [input.id]: effectiveValue(input) ?? ''});
   const reset = (input) => {
-    const values = {...props.entry.values};
+    const values = {...props.component.values};
     delete values[input.id];
     emit('update:values', values);
   };
-  const update = (input, value) => emit('update:values', {...props.entry.values, [input.id]: value});
+  const update = (input, value) => emit('update:values', {...props.component.values, [input.id]: value});
 </script>
 
 <template>
