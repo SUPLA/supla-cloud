@@ -35,7 +35,7 @@ class GitVersionDumper {
             'supla.version_full' => ltrim($versionFull ?: $version, 'v'),
         ];
         $buildConfig = "<?php\n// Config generated automatically by Composer - changes will be overwritten\n\nreturn ";
-        $buildConfig .= var_export($config, true) . ';';
+        $buildConfig .= var_export($config, true) . ";\n";
         file_put_contents(__DIR__ . '/../../config/build/version-meta.php', $buildConfig);
     }
 }

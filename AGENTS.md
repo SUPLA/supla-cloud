@@ -6,7 +6,8 @@
 
 ## Commands
 
-- Repo-wide lint: `composer run lint` runs frontend lint first, then backend PHPCS.
+- Repo-wide lint: `composer run lint` fixes frontend and backend lint violations in place, then checks YAML files in `config/`. It exits
+  non-zero when fixes are applied or violations remain.
 - Backend lint: `composer run lint-backend`.
 - Frontend lint: `cd frontend && npm run lint` (it fixes in place).
 - Frontend format check: `cd frontend && npm run format:check`.

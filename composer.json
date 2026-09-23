@@ -91,6 +91,7 @@
             "phpunit -c app --testdox"
         ],
         "lint-backend": [
+            "phpcbf",
             "phpcs"
         ],
         "lint-frontend": [
@@ -98,6 +99,7 @@
             "cd frontend && npm run format:check -s"
         ],
         "lint": [
+            "bin/console lint:yaml config/ --parse-tags",
             "@lint-frontend",
             "@lint-backend"
         ],
