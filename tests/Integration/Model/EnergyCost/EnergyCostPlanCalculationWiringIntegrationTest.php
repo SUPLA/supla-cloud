@@ -38,13 +38,18 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
 
     /** @param array<string, mixed> $configuration */
     #[DataProvider('planConfigurations')]
-    public function testCalculatesPersistedPlansUsingSuppliedMeterAndReferenceFacts(array $configuration, bool $hasZones): void {
+    public function testCalculatesPersistedPlansUsingSuppliedMeterAndReferenceFacts(
+        array $configuration,
+        bool $hasZones,
+        bool $requiresReference,
+    ): void {
         $user = $this->createConfirmedUser();
         $channel = $this->createElectricityMeterChannel($user);
         $plan = $this->planService()->create($user, 'Home', $configuration);
+        $this->assertSame($configuration, $plan->getConfiguration());
         $this->planService()->assignToChannel($user, $channel, $plan->getId());
         $this->insertDelta($channel->getId());
-        if ($configuration['entries'][0]['presetId'] === 'PL.TAURON_DYSTRYBUCJA.G14dynamic.2026') {
+        if ($requiresReference) {
             $this->insertReference();
         }
 
@@ -58,67 +63,130 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
         $this->assertSame(1, $result->processedDeltaCount);
         $this->assertCount(1, $result->intervals);
         $this->assertNotEmpty($result->charges);
+        $this->assertArrayHasKey('energy-purchase', $result->usageBasedByComponent);
+        $this->assertArrayHasKey('distribution-variable', $result->usageBasedByComponent);
         if ($hasZones) {
             $this->assertNotEmpty($result->usageBasedByZone);
         }
     }
 
-    /** @return list<array{array<string, mixed>, bool}> */
+    /** @return list<array{array<string, mixed>, bool, bool}> */
     public static function planConfigurations(): array {
         return [
             [[
-                'version' => 1,
-                'entries' => [[
-                    'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
-                    'values' => [
-                        'billingCycle.anchor' => '2026-01-01T00:00:00+01:00',
-                        'energy.rate' => '0.71',
+                'version' => 2,
+                'currency' => 'PLN',
+                'timezone' => 'Europe/Warsaw',
+                'priceBasis' => 'NET',
+                'billingCycles' => [[
+                    'validFrom' => '2026-01-01T00:00:00+01:00',
+                    'validTo' => '2027-01-01T00:00:00+01:00',
+                    'anchor' => '2026-01-01',
+                    'length' => 1,
+                    'unit' => 'MONTH',
+                ]],
+                'periods' => [[
+                    'validFrom' => '2026-01-01T00:00:00+01:00',
+                    'validTo' => '2027-01-01T00:00:00+01:00',
+                    'components' => [
+                        ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026', 'componentId' => 'energy-purchase',
+                            'values' => ['energy.rate' => '0.71']],
+                        ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
+                            'componentId' => 'distribution-variable', 'values' => []],
                     ],
                 ]],
-            ], false],
+            ], false, false],
             [[
-                'version' => 1,
-                'entries' => [[
-                    'presetId' => 'PL.TAURON_DYSTRYBUCJA.G12.2026',
-                    'values' => [
-                        'billingCycle.anchor' => '2026-01-01T00:00:00+01:00',
-                        'energy.DAY' => '0.98',
-                        'energy.NIGHT' => '0.62',
-                        'distribution.DAY' => '0.2841',
-                        'distribution.NIGHT' => '0.0558',
+                'version' => 2,
+                'currency' => 'PLN',
+                'timezone' => 'Europe/Warsaw',
+                'priceBasis' => 'NET',
+                'billingCycles' => [[
+                    'validFrom' => '2026-01-01T00:00:00+01:00',
+                    'validTo' => '2027-01-01T00:00:00+01:00',
+                    'anchor' => '2026-01-01',
+                    'length' => 1,
+                    'unit' => 'MONTH',
+                ]],
+                'periods' => [[
+                    'validFrom' => '2026-01-01T00:00:00+01:00',
+                    'validTo' => '2027-01-01T00:00:00+01:00',
+                    'components' => [
+                        [
+                            'kind' => 'ENERGY_PURCHASE',
+                            'presetId' => 'PL.TAURON_DYSTRYBUCJA.G12.2026',
+                            'componentId' => 'energy-purchase',
+                            'values' => ['energy.DAY' => '0.98', 'energy.NIGHT' => '0.62'],
+                        ],
+                        ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
+                            'componentId' => 'distribution-variable', 'values' => []],
+                        ['kind' => 'SUPPLIER_FIXED', 'rate' => '12.00', 'per' => 'BILLING_PERIOD', 'prorate' => false],
                     ],
                 ]],
-            ], true],
+            ], true, false],
             [[
-                'version' => 1,
-                'entries' => [[
-                    'presetId' => 'PL.TAURON_DYSTRYBUCJA.G13.2026',
-                    'values' => [
-                        'billingCycle.anchor' => '2026-01-01T00:00:00+01:00',
-                        'billingCycle.length' => 1,
-                        'energy.MORNING_PEAK' => '0.98',
-                        'energy.AFTERNOON_PEAK' => '0.88',
-                        'energy.OFF_PEAK' => '0.62',
-                        'distribution.MORNING_PEAK' => '0.2841',
-                        'distribution.AFTERNOON_PEAK' => '0.1841',
-                        'distribution.OFF_PEAK' => '0.0558',
+                'version' => 2,
+                'currency' => 'PLN',
+                'timezone' => 'Europe/Warsaw',
+                'priceBasis' => 'NET',
+                'billingCycles' => [[
+                    'validFrom' => '2026-01-01T00:00:00+01:00',
+                    'validTo' => '2027-01-01T00:00:00+01:00',
+                    'anchor' => '2026-01-01',
+                    'length' => 1,
+                    'unit' => 'MONTH',
+                ]],
+                'periods' => [[
+                    'validFrom' => '2026-01-01T00:00:00+01:00',
+                    'validTo' => '2027-01-01T00:00:00+01:00',
+                    'components' => [
+                        [
+                            'kind' => 'ENERGY_PURCHASE',
+                            'presetId' => 'PL.TAURON_DYSTRYBUCJA.G13.2026',
+                            'componentId' => 'energy-purchase',
+                            'values' => [
+                                'energy.MORNING_PEAK' => '0.98',
+                                'energy.AFTERNOON_PEAK' => '0.88',
+                                'energy.OFF_PEAK' => '0.62',
+                            ],
+                        ],
+                        ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G13.2026',
+                            'componentId' => 'distribution-variable', 'values' => []],
                     ],
                 ]],
-            ], true],
+            ], true, false],
             [[
-                'version' => 1,
-                'entries' => [[
-                    'presetId' => 'PL.TAURON_DYSTRYBUCJA.G14dynamic.2026',
-                    'values' => [
-                        'billingCycle.anchor' => '2026-01-01T00:00:00+01:00',
-                        'energy.rate' => '0.71',
-                        'distribution.S1' => '0.0224',
-                        'distribution.S2' => '0.0893',
-                        'distribution.S3' => '0.3881',
-                        'distribution.S4' => '2.3756',
+                'version' => 2,
+                'currency' => 'PLN',
+                'timezone' => 'Europe/Warsaw',
+                'priceBasis' => 'NET',
+                'billingCycles' => [[
+                    'validFrom' => '2026-01-01T00:00:00+01:00',
+                    'validTo' => '2027-01-01T00:00:00+01:00',
+                    'anchor' => '2026-01-01',
+                    'length' => 1,
+                    'unit' => 'MONTH',
+                ]],
+                'periods' => [[
+                    'validFrom' => '2026-01-01T00:00:00+01:00',
+                    'validTo' => '2027-01-01T00:00:00+01:00',
+                    'components' => [
+                        ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G14dynamic.2026',
+                            'componentId' => 'energy-purchase', 'values' => ['energy.rate' => '0.71']],
+                        [
+                            'kind' => 'DISTRIBUTION_VARIABLE',
+                            'presetId' => 'PL.TAURON_DYSTRYBUCJA.G14dynamic.2026',
+                            'componentId' => 'distribution-variable',
+                            'values' => [
+                                'distribution.S1' => '0.0224',
+                                'distribution.S2' => '0.0893',
+                                'distribution.S3' => '0.3881',
+                                'distribution.S4' => '2.3756',
+                            ],
+                        ],
                     ],
                 ]],
-            ], true],
+            ], true, true],
         ];
     }
 
