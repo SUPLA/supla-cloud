@@ -127,6 +127,12 @@
           ChannelFunction.GENERAL_PURPOSE_METER,
           ChannelFunction.GENERAL_PURPOSE_MEASUREMENT,
         ];
+        if (this.channel.functionId === ChannelFunction.ELECTRICITYMETER) {
+          this.availableTabs.push({
+            route: 'channel.energyCosts',
+            header: 'Costs', // i18n
+          });
+        }
         if (measurementsHistoryFunctions.includes(this.channel.functionId) && !this.channel.isVirtual) {
           this.availableTabs.push({
             route: 'channel.measurementsHistory',

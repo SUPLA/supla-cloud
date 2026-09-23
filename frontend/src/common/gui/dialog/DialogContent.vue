@@ -11,10 +11,12 @@
   import {onClickOutside, onKeyStroke} from '@vueuse/core';
   import ButtonLoadingDots from '@/common/gui/loaders/button-loading-dots.vue';
 
+  defineProps({containerClass: String});
+
   const {opened, close, confirm, loading, cancellable, dialogCssClasses} = inject('dialog');
 
   const dialogContainer = useTemplateRef('dialogContainer');
-  onClickOutside(dialogContainer, () => opened.value && !loading.value && close);
+  onClickOutside(dialogContainer, () => opened.value && !loading.value && close());
 
   onKeyStroke('Escape', () => opened.value && !loading.value && close());
   onKeyStroke('Enter', (e) => {
@@ -30,7 +32,7 @@
   <Teleport to="body">
     <Transition name="dialog">
       <div v-if="opened" class="dialog-mask">
-        <div class="dialog-container" ref="dialogContainer" :class="dialogCssClasses">
+        <div class="dialog-container" ref="dialogContainer" :class="[dialogCssClasses, containerClass]">
           <div class="dialog-header">
             <slot name="header">default header</slot>
           </div>
@@ -119,18 +121,15 @@
   .dialog-body {
     margin: 20px 0;
     overflow-y: auto;
+    overflow-x: hidden;
   }
 
-  .dialog-800 {
-    .dialog-container {
-      max-width: 800px;
-    }
+  .dialog-container.dialog-800 {
+    max-width: 800px;
   }
 
-  .dialog-450 {
-    .dialog-container {
-      max-width: 450px;
-    }
+  .dialog-container.dialog-450 {
+    max-width: 450px;
   }
 
   .dialog-enter-from {
