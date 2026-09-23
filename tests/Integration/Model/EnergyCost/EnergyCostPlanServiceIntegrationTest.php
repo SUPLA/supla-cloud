@@ -11,7 +11,9 @@
 namespace App\Tests\Integration\Model\EnergyCost;
 
 use App\Entity\Main\EnergyCostPlan;
+use App\Entity\Main\EnergyCostPlanAssignment;
 use App\Model\EnergyCost\EnergyCostPlanService;
+use App\Repository\EnergyCostPlanAssignmentRepository;
 use App\Repository\EnergyCostPlanRepository;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\TestTimeProvider;
@@ -170,6 +172,7 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
     private function service(): EnergyCostPlanService {
         return new EnergyCostPlanService(
             $this->planRepository(),
+            $this->assignmentRepository(),
             $this->getEntityManager(),
             new TestTimeProvider(),
             new CostPlanDefinitionParser(),
@@ -180,6 +183,12 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
     private function planRepository(): EnergyCostPlanRepository {
         /** @var EnergyCostPlanRepository $repository */
         $repository = $this->getEntityManager()->getRepository(EnergyCostPlan::class);
+        return $repository;
+    }
+
+    private function assignmentRepository(): EnergyCostPlanAssignmentRepository {
+        /** @var EnergyCostPlanAssignmentRepository $repository */
+        $repository = $this->getEntityManager()->getRepository(EnergyCostPlanAssignment::class);
         return $repository;
     }
 
