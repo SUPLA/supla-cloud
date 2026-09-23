@@ -85,6 +85,15 @@ supla:
   state_webhooks:
     only_for_public_apps: '%env(bool:SUPLA_STATE_WEBHOOKS_ONLY_FOR_PUBLIC_APPS)%'
 
+services:
+  Supla\EnergyCostCalculator\Contract\EnergyDeltaSource: '@App\Model\EnergyCost\SuplaEnergyDeltaSource'
+  Supla\EnergyCostCalculator\Contract\ReferenceDataSource: '@App\Model\EnergyCost\SuplaReferenceDataSource'
+  Supla\EnergyCostCalculator\Definition\BillingDefinitionParser: ~
+  Supla\EnergyCostCalculator\Plan\CostPlanCompiler: ~
+  Supla\EnergyCostCalculator\Plan\CostPlanDefinitionParser: ~
+  Supla\EnergyCostCalculator\Preset\TariffPresetCatalog: ~
+  Supla\EnergyCostCalculator\Preset\TariffPresetCompiler: ~
+
 when@dev:
   supla:
     autodiscover_url: http://localhost:8010
