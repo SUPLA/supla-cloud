@@ -48,18 +48,59 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
     public function testCreatesValidG12Configuration(): void {
         $plan = $this->service()->create($this->createConfirmedUser(), 'Home', $this->g12Configuration());
 
-        $this->assertSame('PL.TAURON_DYSTRYBUCJA.G12.2026', $plan->getConfiguration()['entries'][0]['presetId']);
+        $this->assertContains(
+            'PL.TAURON_DYSTRYBUCJA.G12.2026',
+            array_column($plan->getConfiguration()['periods'][0]['components'], 'presetId')
+        );
+    }
+
+    public function testCreatesPlanWithMixedPresetComponentsAndIndependentPeriodBoundaries(): void {
+        $configuration = $this->g12Configuration();
+        foreach ($configuration['periods'][0]['components'] as &$component) {
+            if ($component['kind'] === 'DISTRIBUTION_VARIABLE') {
+                $component['presetId'] = 'PL.TAURON_DYSTRYBUCJA.G11.2026';
+                $component['values'] = [];
+            }
+        }
+        unset($component);
+        $configuration['periods'][] = $configuration['periods'][0];
+        $configuration['periods'][0]['validTo'] = '2026-07-01T00:00:00+02:00';
+        $configuration['periods'][1]['validFrom'] = '2026-07-01T00:00:00+02:00';
+        $configuration['billingCycles'] = [
+            ['validFrom' => '2026-01-01T00:00:00+01:00', 'validTo' => '2026-10-01T00:00:00+02:00', 'anchor' => '2026-01-15', 'length' => 1, 'unit' => 'MONTH'],
+            ['validFrom' => '2026-10-01T00:00:00+02:00', 'validTo' => '2027-01-01T00:00:00+01:00', 'anchor' => '2026-10-01', 'length' => 1, 'unit' => 'MONTH'],
+        ];
+
+        $plan = $this->service()->create($this->createConfirmedUser(), 'Home', $configuration);
+
+        $this->assertCount(2, $plan->getConfiguration()['billingCycles']);
+        $this->assertCount(2, $plan->getConfiguration()['periods']);
+        $this->assertSame(
+            ['PL.TAURON_DYSTRYBUCJA.G12.2026', 'PL.TAURON_DYSTRYBUCJA.G11.2026'],
+            array_column($plan->getConfiguration()['periods'][0]['components'], 'presetId')
+        );
     }
 
     public function testRejectsMalformedConfiguration(): void {
         $this->expectException(CostPlanDefinitionException::class);
 
-        $this->service()->create($this->createConfirmedUser(), 'Home', ['version' => 1, 'entries' => []]);
+        $this->service()->create($this->createConfirmedUser(), 'Home', ['version' => 2]);
+    }
+
+    public function testRejectsVersionOneConfiguration(): void {
+        $this->expectException(CostPlanDefinitionException::class);
+
+        $this->service()->create($this->createConfirmedUser(), 'Home', ['version' => 1]);
     }
 
     public function testRejectsUnknownPreset(): void {
         $configuration = $this->g11Configuration();
-        $configuration['entries'][0]['presetId'] = 'PL.UNKNOWN.G11.2026';
+        foreach ($configuration['periods'][0]['components'] as &$component) {
+            if ($component['kind'] === 'ENERGY_PURCHASE') {
+                $component['presetId'] = 'PL.UNKNOWN.G11.2026';
+            }
+        }
+        unset($component);
 
         $this->expectException(TariffPresetNotFoundException::class);
 
@@ -68,7 +109,12 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
 
     public function testRejectsConfigurationThatCannotCompile(): void {
         $configuration = $this->g11Configuration();
-        unset($configuration['entries'][0]['values']['energy.rate']);
+        foreach ($configuration['periods'][0]['components'] as &$component) {
+            if ($component['kind'] === 'ENERGY_PURCHASE') {
+                unset($component['values']['energy.rate']);
+            }
+        }
+        unset($component);
 
         $this->expectException(TariffPresetCompilationException::class);
 
@@ -97,7 +143,7 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
         $configuration = $plan->getConfiguration();
 
         try {
-            $this->service()->replaceConfiguration($user, $plan->getId(), ['version' => 1, 'entries' => []]);
+            $this->service()->replaceConfiguration($user, $plan->getId(), ['version' => 2]);
             $this->fail('Expected invalid configuration to be rejected.');
         } catch (CostPlanDefinitionException) {
         }
@@ -157,7 +203,7 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
         $this->service()->replaceConfiguration(
             $this->createConfirmedUser('other@supla.org'),
             $plan->getId(),
-            ['version' => 1, 'entries' => []],
+            ['version' => 2],
         );
     }
 
@@ -195,14 +241,25 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
     /** @return array<string, mixed> */
     private function g11Configuration(): array {
         return [
-            'version' => 1,
-            'entries' => [[
+            'version' => 2,
+            'currency' => 'PLN',
+            'timezone' => 'Europe/Warsaw',
+            'priceBasis' => 'NET',
+            'billingCycles' => [[
                 'validFrom' => '2026-01-01T00:00:00+01:00',
                 'validTo' => '2027-01-01T00:00:00+01:00',
-                'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
-                'values' => [
-                    'billingCycle.anchor' => '2026-01-15T00:00:00+01:00',
-                    'energy.rate' => '0.71',
+                'anchor' => '2026-01-15',
+                'length' => 1,
+                'unit' => 'MONTH',
+            ]],
+            'periods' => [[
+                'validFrom' => '2026-01-01T00:00:00+01:00',
+                'validTo' => '2027-01-01T00:00:00+01:00',
+                'components' => [
+                    ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026', 'componentId' => 'energy-purchase',
+                        'values' => ['energy.rate' => '0.71']],
+                    ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
+                        'componentId' => 'distribution-variable', 'values' => []],
                 ],
             ]],
         ];
@@ -211,17 +268,25 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
     /** @return array<string, mixed> */
     private function g12Configuration(): array {
         return [
-            'version' => 1,
-            'entries' => [[
+            'version' => 2,
+            'currency' => 'PLN',
+            'timezone' => 'Europe/Warsaw',
+            'priceBasis' => 'NET',
+            'billingCycles' => [[
                 'validFrom' => '2026-01-01T00:00:00+01:00',
                 'validTo' => '2027-01-01T00:00:00+01:00',
-                'presetId' => 'PL.TAURON_DYSTRYBUCJA.G12.2026',
-                'values' => [
-                    'billingCycle.anchor' => '2026-01-15T00:00:00+01:00',
-                    'energy.DAY' => '0.98',
-                    'energy.NIGHT' => '0.62',
-                    'distribution.DAY' => '0.2841',
-                    'distribution.NIGHT' => '0.0558',
+                'anchor' => '2026-01-15',
+                'length' => 1,
+                'unit' => 'MONTH',
+            ]],
+            'periods' => [[
+                'validFrom' => '2026-01-01T00:00:00+01:00',
+                'validTo' => '2027-01-01T00:00:00+01:00',
+                'components' => [
+                    ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G12.2026', 'componentId' => 'energy-purchase',
+                        'values' => ['energy.DAY' => '0.98', 'energy.NIGHT' => '0.62']],
+                    ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G12.2026',
+                        'componentId' => 'distribution-variable', 'values' => []],
                 ],
             ]],
         ];

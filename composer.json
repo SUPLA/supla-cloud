@@ -38,7 +38,7 @@
         "myclabs/php-enum": "1.5.*",
         "nelmio/cors-bundle": "^2.6.0",
         "sensio/framework-extra-bundle": "^6.0",
-        "supla/energy-cost-calculator": "^0.2.0",
+        "supla/energy-cost-calculator": "^0.3.0",
         "symfony/console": "^5.4",
         "symfony/doctrine-messenger": "^5.4",
         "symfony/dotenv": "^5.4",

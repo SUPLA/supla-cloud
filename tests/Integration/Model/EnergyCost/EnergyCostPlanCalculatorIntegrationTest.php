@@ -72,7 +72,12 @@ class EnergyCostPlanCalculatorIntegrationTest extends IntegrationTestCase {
         $calculator->calculate($user, $channel, $from, $to);
 
         $configuration = $plan->getConfiguration();
-        $configuration['entries'][0]['presetId'] = 'PL.UNKNOWN.G11.2026';
+        foreach ($configuration['periods'][0]['components'] as &$component) {
+            if ($component['kind'] === 'ENERGY_PURCHASE') {
+                $component['presetId'] = 'PL.UNKNOWN.G11.2026';
+            }
+        }
+        unset($component);
         $plan->setConfiguration($configuration, new DateTime('2026-01-03T12:00:00+00:00'));
         $this->getEntityManager()->flush();
         $this->getEntityManager()->clear();
@@ -160,14 +165,25 @@ class EnergyCostPlanCalculatorIntegrationTest extends IntegrationTestCase {
     /** @return array<string, mixed> */
     private function configuration(): array {
         return [
-            'version' => 1,
-            'entries' => [[
+            'version' => 2,
+            'currency' => 'PLN',
+            'timezone' => 'Europe/Warsaw',
+            'priceBasis' => 'NET',
+            'billingCycles' => [[
                 'validFrom' => '2026-01-01T00:00:00+01:00',
                 'validTo' => '2027-01-01T00:00:00+01:00',
-                'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
-                'values' => [
-                    'billingCycle.anchor' => '2026-01-01T00:00:00+01:00',
-                    'energy.rate' => '0.71',
+                'anchor' => '2026-01-01',
+                'length' => 1,
+                'unit' => 'MONTH',
+            ]],
+            'periods' => [[
+                'validFrom' => '2026-01-01T00:00:00+01:00',
+                'validTo' => '2027-01-01T00:00:00+01:00',
+                'components' => [
+                    ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026', 'componentId' => 'energy-purchase',
+                        'values' => ['energy.rate' => '0.71']],
+                    ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
+                        'componentId' => 'distribution-variable', 'values' => []],
                 ],
             ]],
         ];

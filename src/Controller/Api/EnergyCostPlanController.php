@@ -43,9 +43,19 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   schema="EnergyCostPlan", type="object",
  *   @OA\Property(property="id", type="integer", format="int64"),
  *   @OA\Property(property="name", type="string"),
- *   @OA\Property(property="configuration", type="object"),
+ *   @OA\Property(property="configuration", ref="#/components/schemas/EnergyCostPlanConfiguration"),
  *   @OA\Property(property="createdAt", type="string", format="date-time"),
  *   @OA\Property(property="updatedAt", type="string", format="date-time"),
+ * )
+ * @OA\Schema(
+ *   schema="EnergyCostPlanConfiguration", type="object", required={"version", "currency", "timezone", "priceBasis", "billingCycles", "periods"},
+ *   description="Cost Plan v2. Billing-cycle history is independent from pricing periods; each period selects typed components.",
+ *   @OA\Property(property="version", type="integer", enum={2}),
+ *   @OA\Property(property="currency", type="string"),
+ *   @OA\Property(property="timezone", type="string"),
+ *   @OA\Property(property="priceBasis", type="string", enum={"NET", "GROSS"}),
+ *   @OA\Property(property="billingCycles", type="array", @OA\Items(type="object")),
+ *   @OA\Property(property="periods", type="array", @OA\Items(type="object")),
  * )
  * @OA\Schema(
  *   schema="EnergyCostPlanAssignment", type="object",

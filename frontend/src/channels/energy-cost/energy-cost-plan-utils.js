@@ -14,13 +14,15 @@ export function readJsonPointer(document, pointer) {
     }, document);
 }
 
-export function presetDefault(preset, input) {
-  return readJsonPointer(preset?.document?.billingDefinitionTemplate, input.targets?.[0]);
+export function presetDefault(preset, input, componentIndex) {
+  const componentTarget = componentIndex === undefined ? undefined : `/components/${componentIndex}/`;
+  const target = componentTarget ? input.targets?.find((target) => target.includes(componentTarget)) : input.targets?.[0];
+  return readJsonPointer(preset?.document?.billingDefinitionTemplate, target);
 }
 
-export function simulationDefaultValues(preset) {
-  const inputIds = new Set(preset?.document?.inputs?.map((input) => input.id));
-  return Object.fromEntries(Object.entries(preset?.document?.simulationDefaults?.values || {}).filter(([inputId]) => inputIds.has(inputId)));
+export function inputsForComponent(preset, componentIndex) {
+  const componentTarget = `/components/${componentIndex}/`;
+  return preset?.document?.inputs?.filter((input) => input.targets?.some((target) => target.includes(componentTarget))) || [];
 }
 
 export const normalizeDecimal = (value) => String(value).trim().replace(',', '.');
@@ -70,13 +72,24 @@ export function shiftDatetimeDays(value, timezone, days) {
 }
 
 export function serializeConfiguration(configuration) {
+  const serializeBoundaries = ({validFrom, validTo, ...value}, period = false) => {
+    const serializeBoundary = (boundary, converter) => (/^\d{4}-\d{2}-\d{2}$/.test(boundary) ? converter(boundary, configuration.timezone) : boundary);
+    return {
+      ...(validFrom ? {validFrom: serializeBoundary(validFrom, dateToDatetime)} : {}),
+      ...(validTo ? {validTo: serializeBoundary(validTo, period ? dateToPeriodEnd : dateToDatetime)} : {}),
+      ...value,
+    };
+  };
+
   return {
-    version: 1,
-    entries: configuration.entries.map((entry) => ({
-      ...(entry.validFrom ? {validFrom: entry.validFrom} : {}),
-      ...(entry.validTo ? {validTo: entry.validTo} : {}),
-      presetId: entry.presetId,
-      values: {...entry.values},
+    version: 2,
+    currency: configuration.currency,
+    timezone: configuration.timezone,
+    priceBasis: configuration.priceBasis,
+    billingCycles: configuration.billingCycles.map(serializeBoundaries),
+    periods: configuration.periods.map((period) => ({
+      ...serializeBoundaries(period, true),
+      components: period.components.map((component) => ({...component, values: {...component.values}})),
     })),
   };
 }

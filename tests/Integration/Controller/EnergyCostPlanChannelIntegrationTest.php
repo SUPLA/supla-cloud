@@ -81,12 +81,25 @@ class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
     /** @return array<string, mixed> */
     private function configuration(): array {
         return [
-            'version' => 1,
-            'entries' => [[
-                'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
-                'values' => [
-                    'billingCycle.anchor' => '2026-01-15T00:00:00+01:00',
-                    'energy.rate' => '0.71',
+            'version' => 2,
+            'currency' => 'PLN',
+            'timezone' => 'Europe/Warsaw',
+            'priceBasis' => 'NET',
+            'billingCycles' => [[
+                'validFrom' => '2026-01-01T00:00:00+01:00',
+                'validTo' => '2027-01-01T00:00:00+01:00',
+                'anchor' => '2026-01-15',
+                'length' => 1,
+                'unit' => 'MONTH',
+            ]],
+            'periods' => [[
+                'validFrom' => '2026-01-01T00:00:00+01:00',
+                'validTo' => '2027-01-01T00:00:00+01:00',
+                'components' => [
+                    ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026', 'componentId' => 'energy-purchase',
+                        'values' => ['energy.rate' => '0.71']],
+                    ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
+                        'componentId' => 'distribution-variable', 'values' => []],
                 ],
             ]],
         ];
