@@ -52,6 +52,8 @@ services:
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
   Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
   Symfony\Component\Serializer\NameConverter\NameConverterInterface: '@serializer.name_converter.metadata_aware'
+  Supla\EnergyCostCalculator\Contract\EnergyDeltaSource: '@App\Model\EnergyCost\SuplaEnergyDeltaSource'
+  Supla\EnergyCostCalculator\Contract\ReferenceDataSource: '@App\Model\EnergyCost\SuplaReferenceDataSource'
 
   App\Command\Cyclic\DispatchCyclicTasksCommand:
     - !tagged supla.cyclic_command
