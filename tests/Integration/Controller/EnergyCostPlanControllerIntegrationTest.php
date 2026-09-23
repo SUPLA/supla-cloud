@@ -44,6 +44,18 @@ class EnergyCostPlanControllerIntegrationTest extends IntegrationTestCase {
         ], json_decode($client->getResponse()->getContent(), true));
     }
 
+    public function testReturnsSafeNotFoundForUnknownPreset(): void {
+        $client = $this->createAuthenticatedClient($this->createConfirmedUser('missing-preset@supla.org'));
+
+        $client->apiRequestV24('GET', '/api/energy-tariff-presets/PL.UNKNOWN.G11.2026');
+
+        $this->assertStatusCode(404, $client->getResponse());
+        $this->assertSame(
+            'Energy tariff preset does not exist.',
+            json_decode($client->getResponse()->getContent(), true)['message']
+        );
+    }
+
     public function testCreatesUpdatesAndHidesForeignPlans(): void {
         $user = $this->createConfirmedUser('plans@supla.org');
         $client = $this->createAuthenticatedClient($user);

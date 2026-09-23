@@ -28,7 +28,7 @@ class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
         $user = $this->createConfirmedUser('channel-api@supla.org');
         $channel = $this->createElectricityMeterChannel($user);
         /** @var EnergyCostPlanService $plans */
-        $plans = self::$container->get(EnergyCostPlanService::class);
+        $plans = self::getContainer()->get(EnergyCostPlanService::class);
         $plan = $plans->create($user, 'Home', $this->configuration());
         $client = $this->createAuthenticatedClient($user);
         $path = '/api/channels/' . $channel->getId() . '/energy-cost-plan-assignment';

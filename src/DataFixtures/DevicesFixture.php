@@ -48,6 +48,7 @@ class DevicesFixture extends SuplaFixture {
     const DEVICE_SUPLER = 'deviceSupler';
     const DEVICE_EVERY_FUNCTION = 'ALL-IN-ONE MEGA DEVICE';
     const DEVICE_MEASUREMENTS = 'deviceMeasurements';
+    const CHANNEL_ELECTRICITY_METER = 'channelElectricityMeter';
     const RANDOM_DEVICE_PREFIX = 'randomDevice';
 
     /** @var EntityManagerInterface */
@@ -73,7 +74,8 @@ class DevicesFixture extends SuplaFixture {
         $this->createDeviceGeneralPurposeMeasurement($this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class));
         $this->createDeviceGateway($this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class));
         $this->createDeviceSeptic($this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class));
-        $this->createDeviceModbus($this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class));
+        $electricityMeter = $this->createDeviceModbus($this->getReference(LocationsFixture::LOCATION_BEDROOM, Location::class));
+        $this->setReference(self::CHANNEL_ELECTRICITY_METER, $electricityMeter->getChannels()->first());
         $this->createDevice('EMPTY DEVICE', $location, []);
         $device = $this->createEveryFunctionDevice($location, 'SECOND MEGA DEVICE');
         foreach ($this->faker->randomElements($device->getChannels(), 3) as $noFunctionChannel) {
