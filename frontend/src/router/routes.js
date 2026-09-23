@@ -151,6 +151,11 @@ export default [
         name: 'channel.actionTriggers',
       },
       {
+        path: 'costs',
+        component: () => import('@/channels/energy-cost/channel-energy-costs.vue'),
+        name: 'channel.energyCosts',
+      },
+      {
         path: 'measurements',
         component: () => import('@/channels/history/channel-measurements-history.vue'),
         name: 'channel.measurementsHistory',

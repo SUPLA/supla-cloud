@@ -1,6 +1,6 @@
 <script setup>
   import {computed, inject, watch} from 'vue';
-  import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
+  import {faChevronRight, faExclamationCircle} from '@fortawesome/free-solid-svg-icons';
   import TransitionExpand from '@/common/gui/transition-expand.vue';
 
   const props = defineProps({
@@ -12,6 +12,7 @@
     iconOpened: {
       type: Object,
     },
+    error: Boolean,
   });
   const model = defineModel();
 
@@ -63,8 +64,11 @@
 <template>
   <div class="accordion-item" :class="{open: isOpen}">
     <a class="d-flex align-items-flex-start accordion-header" @click="toggle">
-      <span class="flex-grow-1">{{ $t(titleI18n) }}</span>
-      <span :class="{'accordion-header-icon': !iconOpened}">
+      <span class="flex-grow-1"
+        ><slot name="title">{{ $t(titleI18n) }}</slot></span
+      >
+      <span v-if="error" class="text-danger"><fa :icon="faExclamationCircle" /></span>
+      <span v-else :class="{'accordion-header-icon': !iconOpened}">
         <fa :icon="(isOpen && iconOpened) || faChevronRight" />
       </span>
     </a>
