@@ -34,6 +34,13 @@ describe('energy cost plan utilities', () => {
     expect(serializeConfiguration(configuration).periods[0].components[0].values).not.toHaveProperty('distribution.DAY');
   });
 
+  it('resolves component defaults from the tariff template', () => {
+    const preset = {document: {billingDefinitionTemplate: {periods: [{components: [{rate: {value: '0.5020'}}]}]}}};
+    const input = {id: 'energy.rate', targets: ['/periods/0/components/0/rate/value']};
+
+    expect(presetDefault(preset, input, 0)).toBe('0.5020');
+  });
+
   it('preserves an explicit override equal to the preset default', () => {
     const configuration = {
       currency: 'PLN',
