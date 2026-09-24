@@ -95,7 +95,19 @@ class EnergyCostPlanControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(400, $client->getResponse());
         $this->assertSame(
-            'Invalid energy cost plan configuration.',
+            'Invalid energy cost plan configuration: Version 2 plan requires currency, timezone and NET or GROSS priceBasis.',
+            json_decode($client->getResponse()->getContent(), true)['message']
+        );
+
+        $configuration = $this->configuration('PL.TAURON_DYSTRYBUCJA.G11.2026');
+        unset($configuration['periods'][0]['validFrom']);
+        $client->apiRequestV24('POST', '/api/energy-cost-plans', [
+            'name' => 'Home',
+            'configuration' => $configuration,
+        ]);
+        $this->assertStatusCode(400, $client->getResponse());
+        $this->assertSame(
+            'Invalid energy cost plan configuration: periods[0].validFrom must contain an explicit UTC offset or Z suffix.',
             json_decode($client->getResponse()->getContent(), true)['message']
         );
 

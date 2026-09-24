@@ -291,7 +291,7 @@ class EnergyCostPlanController extends RestController {
             throw new NotFoundHttpException('Energy tariff preset does not exist.', $exception);
         }
         if ($exception instanceof CostPlanDefinitionException) {
-            throw new ApiException('Invalid energy cost plan configuration.', Response::HTTP_BAD_REQUEST, $exception);
+            throw new ApiException('Invalid energy cost plan configuration: ' . $exception->getMessage(), Response::HTTP_BAD_REQUEST, $exception);
         }
         if ($exception instanceof TariffPresetCompilationException || $exception instanceof DefinitionException) {
             throw new ApiException('Energy cost plan configuration could not be compiled.', Response::HTTP_UNPROCESSABLE_ENTITY, $exception);

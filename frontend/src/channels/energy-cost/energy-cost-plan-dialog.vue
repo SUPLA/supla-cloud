@@ -53,16 +53,19 @@
   const deleteConfirmation = ref(false);
   const createdPlan = ref(null);
   const openedPeriod = ref('period-0');
+  const billingDetailsVisible = ref(false);
   const periods = computed(() => configuration.value.periods);
 
   async function resetDraft() {
     name.value = props.plan?.name || '';
     configuration.value = JSON.parse(JSON.stringify(props.plan?.configuration || defaultConfiguration()));
+    ensureOpenPeriodBoundaries();
     errors.value = {name: '', billingCycles: [], periods: []};
     openedPeriod.value = props.plan ? null : 'period-0';
     serverError.value = null;
     createdPlan.value = null;
     deleteConfirmation.value = false;
+    billingDetailsVisible.value = false;
     await nextTick();
   }
 
@@ -129,10 +132,8 @@
     });
     periods.value.forEach((period, index) => {
       const periodErrors = result.periods[index];
-      if (!period.validFrom) periodErrors.validFrom = 'Start date is required.'; // i18n
-      if (!period.validTo) periodErrors.validTo = 'End date is required.'; // i18n
       if (period.validFrom && period.validTo && period.validFrom >= period.validTo) periodErrors.validTo = 'End date must be after start date.'; // i18n
-      if (index < periods.value.length - 1 && period.validTo !== periods.value[index + 1].validFrom)
+      if (index < periods.value.length - 1 && (!period.validTo || period.validTo !== periods.value[index + 1].validFrom))
         periodErrors.validTo = 'The end date must match the next period start date.'; // i18n
       if (!period.components.length) periodErrors.components = [{preset: 'Add a price component.'}]; // i18n
       period.components.forEach((component, componentIndex) => validateComponent(component, periodErrors.components[componentIndex]));
@@ -168,8 +169,17 @@
 
   function updatePeriod(index, period) {
     configuration.value.periods[index] = period;
+    ensureOpenPeriodBoundaries();
+  }
+  function ensureOpenPeriodBoundaries() {
+    configuration.value.periods[0].validFrom = '';
+    configuration.value.periods.at(-1).validTo = '';
+  }
+  function updateSelectedPreset(presetId) {
+    if (!props.plan && !name.value) name.value = presets.value.find((preset) => preset.id === presetId)?.label || '';
   }
   function updateBoundary(index, boundary, date, timezone) {
+    if ((index === 0 && boundary === 'validFrom') || (index === periods.value.length - 1 && boundary === 'validTo')) return;
     configuration.value.periods[index][boundary] = boundary === 'validTo' ? dateToPeriodEnd(date, timezone) : dateToDatetime(date, timezone);
     normalizePeriods(index, timezone);
   }
@@ -193,7 +203,7 @@
     Object.keys(errors.value.periods[index] || {}).some((key) => key !== 'components') ||
     errors.value.periods[index]?.components?.some((component) => Object.keys(component).length);
   const periodLabel = (period) =>
-    period.components.map((component) => presets.value.find((preset) => preset.id === component.presetId)?.label || component.kind).join(', ');
+    [...new Set(period.components.map((component) => presets.value.find((preset) => preset.id === component.presetId)?.label || component.kind))].join(', ');
   function addPeriod() {
     const lastIndex = periods.value.length - 1;
     const lastPeriod = periods.value[lastIndex];
@@ -204,6 +214,7 @@
     const boundary = dateToDatetime(today, timezone);
     lastPeriod.validTo = boundary;
     configuration.value.periods.push({validFrom: boundary, validTo: end, components: []});
+    ensureOpenPeriodBoundaries();
     openedPeriod.value = `period-${lastIndex + 1}`;
   }
   function removePeriod(index) {
@@ -212,6 +223,7 @@
     else if (index === lastIndex) configuration.value.periods[index - 1].validTo = configuration.value.periods[index].validTo;
     else configuration.value.periods[index - 1].validTo = configuration.value.periods[index + 1].validFrom;
     configuration.value.periods.splice(index, 1);
+    ensureOpenPeriodBoundaries();
     openedPeriod.value = `period-${Math.max(0, index - 1)}`;
   }
   function addBillingCycle() {
@@ -219,6 +231,7 @@
     const boundary = dateToDatetime(firstDayOfMonth(), configuration.value.timezone);
     lastCycle.validTo = boundary;
     configuration.value.billingCycles.push({validFrom: boundary, anchor: firstDayOfMonth(), length: 1, unit: 'MONTH'});
+    billingDetailsVisible.value = true;
   }
   function removeBillingCycle(index) {
     configuration.value.billingCycles.splice(index, 1);
@@ -282,63 +295,73 @@
               $t(errors.name)
             }}</span>
           </div>
-          <h5>{{ $t('Billing periods') }}</h5>
-          <div v-for="(cycle, index) in configuration.billingCycles" :key="index" class="row energy-cost-billing-cycle">
-            <div class="col-sm-3 form-group">
-              <label>{{ $t('From date') }}</label
-              ><input
-                type="date"
-                class="form-control"
-                :value="dateFromDatetime(cycle.validFrom, configuration.timezone)"
-                @input="updateBillingBoundary(index, 'validFrom', $event.target.value)"
-              />
-            </div>
-            <div class="col-sm-3 form-group">
-              <label>{{ $t('To date') }}</label
-              ><input
-                type="date"
-                class="form-control"
-                :value="dateFromDatetime(cycle.validTo, configuration.timezone)"
-                @input="updateBillingBoundary(index, 'validTo', $event.target.value)"
-              />
-            </div>
-            <div class="col-sm-2 form-group" :class="{'has-error': errors.billingCycles[index]?.anchor}">
-              <label>{{ $t('Anchor date') }}</label
-              ><input v-model="cycle.anchor" type="date" class="form-control" />
-            </div>
-            <div class="col-sm-2 form-group">
-              <label>{{ $t('Length') }}</label
-              ><input v-model="cycle.length" type="number" min="1" class="form-control" />
-            </div>
-            <div class="col-sm-2 form-group">
-              <label>{{ $t('Unit') }}</label
-              ><select v-model="cycle.unit" class="form-control">
-                <option value="DAY">{{ $t('Day') }}</option>
-                <option value="WEEK">{{ $t('Week') }}</option>
-                <option value="MONTH">{{ $t('Month') }}</option>
-                <option value="YEAR">{{ $t('Year') }}</option></select
-              ><button v-if="configuration.billingCycles.length > 1" type="button" class="btn btn-link text-danger" @click="removeBillingCycle(index)">
-                {{ $t('Remove') }}
-              </button>
-            </div>
-          </div>
-          <button type="button" class="btn btn-default" @click="addBillingCycle">{{ $t('Add billing period') }}</button>
           <h5>{{ $t('Price periods') }}</h5>
           <accordion-root v-model="openedPeriod"
             ><accordion-item v-for="(period, index) in periods" :key="index" :name="`period-${index}`" :error="periodHasErrors(index)"
               ><template #title
-                >{{ periodLabel(period) }} ({{ period.validFrom ? dateFromDatetime(period.validFrom, periodTimezone(period)) : '...' }} -
-                {{ period.validTo ? dateFromPeriodEnd(period.validTo, periodTimezone(period)) : '...' }})</template
+                >{{ periodLabel(period) || $t('Choose tariff')
+                }}<template v-if="periods.length > 1">
+                  ({{ period.validFrom ? dateFromDatetime(period.validFrom, periodTimezone(period)) : '...' }} -
+                  {{ period.validTo ? dateFromPeriodEnd(period.validTo, periodTimezone(period)) : '...' }})</template
+                ></template
               ><energy-cost-plan-period
                 :period="period"
                 :index="index"
                 :count="periods.length"
                 :errors="errors.periods[index] || {}"
                 @update:period="updatePeriod(index, $event)"
+                @selected-preset="updateSelectedPreset"
                 @update:boundary="(boundary, date, timezone) => updateBoundary(index, boundary, date, timezone)"
                 @remove="removePeriod(index)" /></accordion-item
           ></accordion-root>
-          <button type="button" class="btn btn-default" @click="addPeriod">{{ $t('Add period') }}</button>
+          <button type="button" class="btn btn-default" @click="addPeriod">{{ $t('Add price period') }}</button>
+          <h5>{{ $t('Billing periods') }}</h5>
+          <div v-if="!billingDetailsVisible" class="form-control-static">
+            {{ $t('Monthly billing period, starting on the first day of each month.') }}
+            <button type="button" class="btn btn-link btn-xs" @click="billingDetailsVisible = true">{{ $t('Customize') }}</button>
+          </div>
+          <template v-else
+            ><div v-for="(cycle, index) in configuration.billingCycles" :key="index" class="row energy-cost-billing-cycle">
+              <div class="col-sm-3 form-group">
+                <label>{{ $t('From date') }}</label
+                ><input
+                  type="date"
+                  class="form-control"
+                  :value="dateFromDatetime(cycle.validFrom, configuration.timezone)"
+                  @input="updateBillingBoundary(index, 'validFrom', $event.target.value)"
+                />
+              </div>
+              <div class="col-sm-3 form-group">
+                <label>{{ $t('To date') }}</label
+                ><input
+                  type="date"
+                  class="form-control"
+                  :value="dateFromDatetime(cycle.validTo, configuration.timezone)"
+                  @input="updateBillingBoundary(index, 'validTo', $event.target.value)"
+                />
+              </div>
+              <div class="col-sm-2 form-group" :class="{'has-error': errors.billingCycles[index]?.anchor}">
+                <label>{{ $t('Anchor date') }}</label
+                ><input v-model="cycle.anchor" type="date" class="form-control" />
+              </div>
+              <div class="col-sm-2 form-group">
+                <label>{{ $t('Length') }}</label
+                ><input v-model="cycle.length" type="number" min="1" class="form-control" />
+              </div>
+              <div class="col-sm-2 form-group">
+                <label>{{ $t('Unit') }}</label
+                ><select v-model="cycle.unit" class="form-control">
+                  <option value="DAY">{{ $t('Day') }}</option>
+                  <option value="WEEK">{{ $t('Week') }}</option>
+                  <option value="MONTH">{{ $t('Month') }}</option>
+                  <option value="YEAR">{{ $t('Year') }}</option></select
+                ><button v-if="configuration.billingCycles.length > 1" type="button" class="btn btn-link text-danger" @click="removeBillingCycle(index)">
+                  {{ $t('Remove') }}
+                </button>
+              </div>
+            </div>
+            <button type="button" class="btn btn-default" @click="addBillingCycle">{{ $t('Add billing period') }}</button></template
+          >
           <div v-if="serverError" class="text-danger">{{ $t(serverError) }}</div>
         </template>
       </template>
