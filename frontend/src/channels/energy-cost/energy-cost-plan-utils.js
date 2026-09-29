@@ -14,15 +14,50 @@ export function readJsonPointer(document, pointer) {
     }, document);
 }
 
+export const targetPointer = (target) => (typeof target === 'string' ? target : target?.pointer);
+
+const structurallyEqual = (left, right) => JSON.stringify(left) === JSON.stringify(right);
+
+export function cloneTariffComponents(tariff) {
+  return JSON.parse(JSON.stringify(tariff.components || []));
+}
+
+export function commonPresetValidity(presets) {
+  const validFrom = presets
+    .map((preset) => preset.document?.validFrom)
+    .filter(Boolean)
+    .sort()
+    .at(-1);
+  const validTo = presets
+    .map((preset) => preset.document?.validTo)
+    .filter(Boolean)
+    .sort()[0];
+  if (validFrom && validTo && validFrom >= validTo) return null;
+  return {validFrom: validFrom || '', validTo: validTo || ''};
+}
+
+export function componentsMatchTariff(components, tariff) {
+  const identities = (items) => items.map(({kind, presetId, componentId}) => `${kind}\u0000${presetId}\u0000${componentId}`).sort();
+  return JSON.stringify(identities(components)) === JSON.stringify(identities(tariff.components || []));
+}
+
+export function compatiblePresetComponents(presets, component) {
+  return presets.filter((preset) =>
+    (preset.components || []).some((candidate) => candidate.kind === component.kind && candidate.componentId === component.componentId)
+  );
+}
+
 export function presetDefault(preset, input, componentIndex) {
   const componentTarget = componentIndex === undefined ? undefined : `/components/${componentIndex}/`;
-  const target = componentTarget ? input.targets?.find((target) => target.includes(componentTarget)) : input.targets?.[0];
-  return readJsonPointer(preset?.document?.billingDefinitionTemplate, target);
+  const target = componentTarget ? input.targets?.find((item) => targetPointer(item)?.includes(componentTarget)) : input.targets?.[0];
+  const value = readJsonPointer(preset?.document?.billingDefinitionTemplate, targetPointer(target));
+  if (!target || typeof target === 'string' || !target.values) return value;
+  return Object.entries(target.values).find(([, mappedValue]) => structurallyEqual(mappedValue, value))?.[0];
 }
 
 export function inputsForComponent(preset, componentIndex) {
   const componentTarget = `/components/${componentIndex}/`;
-  return preset?.document?.inputs?.filter((input) => input.targets?.some((target) => target.includes(componentTarget))) || [];
+  return preset?.document?.inputs?.filter((input) => input.targets?.some((target) => targetPointer(target)?.includes(componentTarget))) || [];
 }
 
 export const normalizeDecimal = (value) => String(value).trim().replace(',', '.');
@@ -72,22 +107,22 @@ export function shiftDatetimeDays(value, timezone, days) {
 }
 
 export function serializeConfiguration(configuration) {
+  const {billingCycles, periods} = configuration;
+  const configurationFields = Object.fromEntries(Object.entries(configuration).filter(([key]) => !['priceBasis', 'billingCycles', 'periods'].includes(key)));
   const serializeBoundaries = ({validFrom, validTo, ...value}, period = false) => {
     const serializeBoundary = (boundary, converter) => (/^\d{4}-\d{2}-\d{2}$/.test(boundary) ? converter(boundary, configuration.timezone) : boundary);
     return {
-      ...(validFrom ? {validFrom: serializeBoundary(validFrom, dateToDatetime)} : {}),
-      ...(validTo ? {validTo: serializeBoundary(validTo, period ? dateToPeriodEnd : dateToDatetime)} : {}),
+      ...(validFrom === null ? {validFrom: null} : validFrom ? {validFrom: serializeBoundary(validFrom, dateToDatetime)} : {}),
+      ...(validTo === null ? {validTo: null} : validTo ? {validTo: serializeBoundary(validTo, period ? dateToPeriodEnd : dateToDatetime)} : {}),
       ...value,
     };
   };
 
   return {
+    ...configurationFields,
     version: 2,
-    currency: configuration.currency,
-    timezone: configuration.timezone,
-    priceBasis: configuration.priceBasis,
-    billingCycles: configuration.billingCycles.map(serializeBoundaries),
-    periods: configuration.periods.map((period) => ({
+    billingCycles: billingCycles.map(serializeBoundaries),
+    periods: periods.map((period) => ({
       ...serializeBoundaries(period, true),
       components: period.components.map((component) => ({...component, values: {...component.values}})),
     })),

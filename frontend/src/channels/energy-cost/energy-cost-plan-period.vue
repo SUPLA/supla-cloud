@@ -2,14 +2,29 @@
   import {computed, ref} from 'vue';
   import {storeToRefs} from 'pinia';
   import EnergyCostPresetPicker from './energy-cost-preset-picker.vue';
+  import EnergyCostTariffPicker from './energy-cost-tariff-picker.vue';
   import EnergyCostPresetForm from './energy-cost-preset-form.vue';
-  import {dateFromDatetime, dateFromPeriodEnd} from './energy-cost-plan-utils';
+  import {
+    cloneTariffComponents,
+    commonPresetValidity,
+    compatiblePresetComponents,
+    dateFromDatetime,
+    dateFromPeriodEnd,
+    inputsForComponent,
+    presetDefault,
+  } from './energy-cost-plan-utils';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
-  const props = defineProps({period: {type: Object, required: true}, index: Number, count: Number, errors: {type: Object, required: true}});
-  const emit = defineEmits(['update:period', 'update:boundary', 'remove', 'selected-preset']);
+  const props = defineProps({
+    period: {type: Object, required: true},
+    index: Number,
+    count: Number,
+    errors: {type: Object, required: true},
+    tariffSelectable: Boolean,
+  });
+  const emit = defineEmits(['update:period', 'update:boundary', 'remove', 'select-tariff']);
   const store = useEnergyCostStore();
-  const {presets, presetDetailsById} = storeToRefs(store);
+  const {presets, presetDetailsById, tariffs} = storeToRefs(store);
   const timezone = computed(
     () => props.period.components.map((component) => presetDetailsById.value[component.presetId]?.document.timezone).find(Boolean) || 'Europe/Warsaw'
   );
@@ -25,14 +40,20 @@
     DISTRIBUTION_FIXED: 'distribution-fixed',
     SUPPLIER_FIXED: 'supplier-fixed',
   };
-  const componentKinds = Object.fromEntries(Object.entries(componentIds).map(([kind, componentId]) => [componentId, kind]));
   const detailsVisible = ref(false);
-  const selectedPresetId = computed(() => {
-    const presetIds = [...new Set(props.period.components.map((component) => component.presetId).filter(Boolean))];
-    return presetIds.length === 1 ? presetIds[0] : '';
-  });
+  const selectedTariffId = ref('');
   const presetComponentIndex = (component, preset) =>
     preset?.document.billingDefinitionTemplate?.periods?.[0]?.components?.findIndex((item) => item.id === component.componentId) ?? -1;
+  const componentInputs = (component) => {
+    const preset = presetDetailsById.value[component.presetId];
+    return inputsForComponent(preset, presetComponentIndex(component, preset));
+  };
+  const inputValue = (component, input) => {
+    const preset = presetDetailsById.value[component.presetId];
+    const index = presetComponentIndex(component, preset);
+    const value = Object.hasOwn(component.values || {}, input.id) ? component.values[input.id] : presetDefault(preset, input, index);
+    return input.type === 'CHOICE' ? input.options?.find((option) => option.value === value)?.label || value : value;
+  };
 
   function updateComponent(index, component) {
     const components = [...props.period.components];
@@ -42,7 +63,12 @@
 
   async function updatePreset(index, presetId) {
     const preset = presetId ? await store.fetchPreset(presetId) : null;
-    const components = props.period.components.map((item, componentIndex) => (componentIndex === index ? {...item, presetId, values: {}} : item));
+    const selected = preset?.components?.find(
+      (candidate) => candidate.kind === props.period.components[index].kind && candidate.componentId === props.period.components[index].componentId
+    );
+    const components = props.period.components.map((item, componentIndex) =>
+      componentIndex === index ? {...item, presetId, componentId: selected?.componentId || item.componentId, values: {}} : item
+    );
     emit('update:period', {
       ...props.period,
       validFrom: props.period.validFrom || preset?.document.validFrom || '',
@@ -51,25 +77,29 @@
     });
   }
 
-  async function initializeComponents(presetId) {
-    const preset = presetId ? await store.fetchPreset(presetId) : null;
-    const components =
-      preset?.document.billingDefinitionTemplate?.periods?.[0]?.components
-        ?.filter((component) => componentKinds[component.id])
-        .map((component) => ({kind: componentKinds[component.id], presetId, componentId: component.id, values: {}})) || [];
+  async function selectTariff(tariffId) {
+    if (!tariffId) return;
+    if (props.period.components.length) {
+      if (!window.confirm('Changing the tariff will reset custom pricing settings for this period.')) return;
+    }
+    const tariff = await store.fetchTariff(tariffId);
+    const details = await Promise.all(cloneTariffComponents(tariff).map((component) => store.fetchPreset(component.presetId)));
+    const validity = commonPresetValidity(details);
+    if (!validity) return emit('select-tariff', {error: 'The selected tariff has no common validity period.'});
+    selectedTariffId.value = tariffId;
     emit('update:period', {
       ...props.period,
-      validFrom: props.period.validFrom || preset?.document.validFrom || '',
-      validTo: props.period.validTo || preset?.document.validTo || '',
-      components,
+      validFrom: props.index === 0 ? null : props.period.validFrom || validity.validFrom,
+      validTo: props.index === props.count - 1 ? null : props.period.validTo || validity.validTo,
+      components: cloneTariffComponents(tariff),
     });
-    emit('selected-preset', presetId);
+    emit('select-tariff', {tariff});
   }
 
   function addComponent(kind) {
     const component =
       kind === 'DISTRIBUTION_FIXED' || kind === 'SUPPLIER_FIXED'
-        ? {kind, rate: '', per: 'BILLING_PERIOD', prorate: false}
+        ? {kind, rate: '', per: 'BILLING_PERIOD', prorate: false, taxTreatment: {included: []}}
         : {kind, presetId: '', componentId: componentIds[kind], values: {}};
     emit('update:period', {...props.period, components: [...props.period.components, component]});
   }
@@ -106,19 +136,48 @@
       </div>
     </div>
     <template v-if="!detailsVisible">
-      <energy-cost-preset-picker
-        :model-value="selectedPresetId"
-        :presets="presets"
+      <energy-cost-tariff-picker
+        v-if="tariffSelectable"
+        :model-value="selectedTariffId"
+        :tariffs="tariffs"
         :id-prefix="`energy-cost-period-${index}-initial`"
-        @update:model-value="initializeComponents"
+        @update:model-value="selectTariff"
       />
       <div v-if="errors.components?.[0]?.preset" class="text-danger">{{ $t(errors.components[0].preset) }}</div>
+      <div v-if="period.components.length" class="energy-cost-pricing-summary">
+        <div
+          v-for="(component, componentIndex) in period.components"
+          :key="`${component.componentId || component.kind}-${componentIndex}`"
+          class="energy-cost-component"
+        >
+          <h5>{{ $t(componentLabels[component.kind]) }}</h5>
+          <template v-if="component.presetId !== undefined">
+            <div v-for="input in componentInputs(component)" :key="input.id" class="form-control-static">
+              <strong>{{ input.label }}:</strong> {{ inputValue(component, input) }} <small v-if="input.unit">{{ input.unit }}</small>
+            </div>
+          </template>
+          <div v-else class="form-control-static">
+            <strong>{{ $t('Rate') }}:</strong> {{ component.rate }} <small v-if="component.per">{{ component.per }}</small>
+          </div>
+        </div>
+      </div>
       <button v-if="period.components.length" type="button" class="btn btn-link btn-sm" @click="detailsVisible = true">
         {{ $t('Customize pricing') }}
       </button>
     </template>
     <template v-else>
-      <div v-for="(component, componentIndex) in period.components" :key="component.kind" class="energy-cost-component">
+      <energy-cost-tariff-picker
+        v-if="tariffSelectable"
+        :model-value="selectedTariffId"
+        :tariffs="tariffs"
+        :id-prefix="`energy-cost-period-${index}-base`"
+        @update:model-value="selectTariff"
+      />
+      <div
+        v-for="(component, componentIndex) in period.components"
+        :key="`${component.componentId || component.kind}-${component.presetId || 'inline'}-${componentIndex}`"
+        class="energy-cost-component"
+      >
         <div class="clearfix">
           <h5 class="pull-left">{{ $t(componentLabels[component.kind]) }}</h5>
           <button v-if="period.components.length > 1" type="button" class="btn btn-link text-danger pull-right" @click="removeComponent(componentIndex)">
@@ -128,7 +187,7 @@
         <template v-if="component.presetId !== undefined">
           <energy-cost-preset-picker
             :model-value="component.presetId"
-            :presets="presets"
+            :presets="compatiblePresetComponents(presets, component)"
             :id-prefix="`energy-cost-period-${index}-${component.kind}`"
             @update:model-value="updatePreset(componentIndex, $event)"
           />
@@ -164,13 +223,7 @@
         </div>
       </div>
       <div class="btn-group">
-        <button
-          v-for="kind in Object.keys(componentLabels).filter((kind) => !period.components.some((component) => component.kind === kind))"
-          :key="kind"
-          type="button"
-          class="btn btn-default btn-sm"
-          @click="addComponent(kind)"
-        >
+        <button v-for="kind in Object.keys(componentLabels)" :key="kind" type="button" class="btn btn-default btn-sm" @click="addComponent(kind)">
           {{ $t('Add {component}', {component: componentLabels[kind]}) }}
         </button>
       </div>
