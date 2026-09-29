@@ -1,5 +1,12 @@
 import {describe, expect, it} from 'vitest';
-import {addDecimals, aggregateCharges, formatDecimal, preferredGranularity, summaryFromResult} from '@/channels/energy-cost/energy-cost-result-utils';
+import {
+  addDecimals,
+  aggregateCharges,
+  aggregateEnergy,
+  formatDecimal,
+  preferredGranularity,
+  summaryFromResult,
+} from '@/channels/energy-cost/energy-cost-result-utils';
 
 describe('energy cost result utilities', () => {
   it('keeps decimal aggregation exact', () => {
@@ -48,6 +55,18 @@ describe('energy cost result utilities', () => {
     expect(aggregateCharges(charges, 'day', 'Europe/Warsaw')[0].byComponent).toEqual({purchase: '1', distribution: '2'});
     expect(aggregateCharges(charges, 'month', 'Europe/Warsaw')).toHaveLength(2);
     expect(aggregateCharges([], 'day', 'Europe/Warsaw')).toEqual([]);
+  });
+
+  it('aggregates imported and exported energy by the selected granularity', () => {
+    const buckets = aggregateEnergy(
+      [
+        {from: '2026-03-29T00:30:00+01:00', usage: {ACTIVE_ENERGY_IMPORT: '0.1', ACTIVE_ENERGY_EXPORT: '0.02'}},
+        {from: '2026-03-29T03:30:00+02:00', usage: {ACTIVE_ENERGY_IMPORT: '0.2', ACTIVE_ENERGY_EXPORT: '0.03'}},
+      ],
+      'day',
+      'Europe/Warsaw'
+    );
+    expect(buckets).toEqual([{from: '2026-03-29T00:00:00.000+01:00', imported: '0.3', exported: '0.05'}]);
   });
 
   it('selects the documented automatic aggregation', () => {
