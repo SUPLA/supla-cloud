@@ -20,6 +20,7 @@ use App\Model\TimeProvider;
 use App\Repository\EnergyCostPlanAssignmentRepository;
 use App\Repository\EnergyCostPlanRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Supla\EnergyCostCalculator\Exception\CostPlanDefinitionException;
 use Supla\EnergyCostCalculator\Plan\CostPlanCompiler;
 use Supla\EnergyCostCalculator\Plan\CostPlanDefinitionParser;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -124,6 +125,16 @@ class EnergyCostPlanService {
 
     /** @param array<string, mixed> $configuration */
     private function validateConfiguration(array $configuration): void {
+        foreach ($configuration['periods'] ?? [] as $periodIndex => $period) {
+            if (!is_array($period) || array_key_exists('validFrom', $period)) {
+                continue;
+            }
+            $component = $period['components'][0] ?? [];
+            $componentKind = is_array($component) ? ($component['kind'] ?? 'ENERGY_PURCHASE') : 'ENERGY_PURCHASE';
+            throw new CostPlanDefinitionException(
+                "Preset does not cover period $periodIndex component $componentKind continuously."
+            );
+        }
         $this->compiler->compile($this->parser->parse($configuration));
     }
 

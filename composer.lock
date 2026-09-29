@@ -2683,16 +2683,16 @@
         },
         {
             "name": "supla/energy-cost-calculator",
-            "version": "0.5.1",
+            "version": "0.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SUPLA/supla-energy-cost-calculator.git",
-                "reference": "894986bb4cdd355615943d5075ec0d8aa58cedbd"
+                "reference": "a6dc4538b38b907493fc0e5633d24d373de2dd51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SUPLA/supla-energy-cost-calculator/zipball/894986bb4cdd355615943d5075ec0d8aa58cedbd",
-                "reference": "894986bb4cdd355615943d5075ec0d8aa58cedbd",
+                "url": "https://api.github.com/repos/SUPLA/supla-energy-cost-calculator/zipball/a6dc4538b38b907493fc0e5633d24d373de2dd51",
+                "reference": "a6dc4538b38b907493fc0e5633d24d373de2dd51",
                 "shasum": ""
             },
             "require": {
@@ -2716,9 +2716,9 @@
             "description": "Framework-agnostic PHP library for calculating electricity costs from interval energy deltas and JSON billing rules.",
             "support": {
                 "issues": "https://github.com/SUPLA/supla-energy-cost-calculator/issues",
-                "source": "https://github.com/SUPLA/supla-energy-cost-calculator/tree/0.5.1"
+                "source": "https://github.com/SUPLA/supla-energy-cost-calculator/tree/0.5.2"
             },
-            "time": "2026-09-29T16:17:36+00:00"
+            "time": "2026-09-29T17:22:11+00:00"
         },
         {
             "name": "symfony/amqp-messenger",
