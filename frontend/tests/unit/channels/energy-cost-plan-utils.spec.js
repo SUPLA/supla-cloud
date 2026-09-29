@@ -1,5 +1,8 @@
 import {describe, expect, it} from 'vitest';
 import {
+  cloneTariffComponents,
+  commonPresetValidity,
+  componentsMatchTariff,
   dateFromDatetime,
   dateFromPeriodEnd,
   dateToDatetime,
@@ -25,7 +28,6 @@ describe('energy cost plan utilities', () => {
     const configuration = {
       currency: 'PLN',
       timezone: 'Europe/Warsaw',
-      priceBasis: 'NET',
       billingCycles: [],
       periods: [{components: [{presetId: 'preset', values: {}}]}],
     };
@@ -45,7 +47,6 @@ describe('energy cost plan utilities', () => {
     const configuration = {
       currency: 'PLN',
       timezone: 'Europe/Warsaw',
-      priceBasis: 'NET',
       billingCycles: [],
       periods: [{components: [{presetId: 'preset', values: {'distribution.DAY': '0.2841'}}]}],
     };
@@ -80,6 +81,39 @@ describe('energy cost plan utilities', () => {
     expect(isTime('24:01')).toBe(false);
   });
 
+  it('supports mapped targets and resolves their logical CHOICE value', () => {
+    const input = {
+      id: 'taxes',
+      targets: [{pointer: '/components/0/taxTreatment/included', values: {WITHOUT_TAXES: [], WITH_VAT: ['VAT']}}],
+    };
+    const preset = {document: {billingDefinitionTemplate: {components: [{taxTreatment: {included: ['VAT']}}]}}};
+
+    expect(inputsForComponent({...preset, document: {...preset.document, inputs: [input]}}, 0)).toEqual([input]);
+    expect(presetDefault(preset, input, 0)).toBe('WITH_VAT');
+  });
+
+  it('copies tariff recipes and matches them without considering overrides', () => {
+    const tariff = {components: [{kind: 'ENERGY_PURCHASE', presetId: 'supply', componentId: 'energy', values: {}}]};
+    const components = cloneTariffComponents(tariff);
+    components[0].values.rate = '0.70';
+
+    expect(componentsMatchTariff(components, tariff)).toBe(true);
+    expect(componentsMatchTariff([...components, {kind: 'SUPPLIER_FIXED', componentId: 'fee'}], tariff)).toBe(false);
+    expect(tariff.components[0].values).toEqual({});
+  });
+
+  it('intersects validity of all tariff component presets', () => {
+    expect(
+      commonPresetValidity([
+        {document: {validFrom: '2026-01-01T00:00:00+01:00', validTo: '2027-01-01T00:00:00+01:00'}},
+        {document: {validFrom: '2026-02-01T00:00:00+01:00', validTo: '2026-12-01T00:00:00+01:00'}},
+      ])
+    ).toEqual({validFrom: '2026-02-01T00:00:00+01:00', validTo: '2026-12-01T00:00:00+01:00'});
+    expect(
+      commonPresetValidity([{document: {validFrom: '2026-02-01', validTo: '2026-03-01'}}, {document: {validFrom: '2026-03-01', validTo: '2026-04-01'}}])
+    ).toBeNull();
+  });
+
   it('serializes local datetimes using the preset timezone offset', () => {
     const value = fromDatetimeLocal('2026-01-15T00:00', 'Europe/Warsaw');
 
@@ -105,7 +139,7 @@ describe('energy cost plan utilities', () => {
     const configuration = {
       currency: 'PLN',
       timezone: 'Europe/Warsaw',
-      priceBasis: 'NET',
+      taxContext: {included: ['VAT']},
       billingCycles: [
         {anchor: '2026-01-15', length: 1, unit: 'MONTH', validFrom: '', validTo: undefined},
         {anchor: '2027-01-15', length: 2, unit: 'MONTH', validFrom: '2027-01-01'},
@@ -126,7 +160,7 @@ describe('energy cost plan utilities', () => {
       version: 2,
       currency: 'PLN',
       timezone: 'Europe/Warsaw',
-      priceBasis: 'NET',
+      taxContext: {included: ['VAT']},
       billingCycles: [
         {anchor: '2026-01-15', length: 1, unit: 'MONTH'},
         {anchor: '2027-01-15', length: 2, unit: 'MONTH', validFrom: '2027-01-01T00:00:00+01:00'},
