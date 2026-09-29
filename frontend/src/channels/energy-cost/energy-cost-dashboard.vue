@@ -1,12 +1,12 @@
 <script setup>
-  import {computed, onMounted, ref, watch} from 'vue';
+  import {computed, onBeforeUnmount, onMounted, ref, toRaw, watch} from 'vue';
   import {DateTime} from 'luxon';
   import {energyCostApi} from '@/api/energy-cost-api';
   import EnergyCostRangeSelector from './energy-cost-range-selector.vue';
   import EnergyCostSummary from './energy-cost-summary.vue';
   import EnergyCostChart from './energy-cost-chart.vue';
   import EnergyCostBreakdown from './energy-cost-breakdown.vue';
-  import {aggregateCharges, aggregateEnergy, preferredGranularity} from './energy-cost-result-utils';
+  import {preferredGranularity} from './energy-cost-result-utils';
   import {energyCostCalculationStorage, scenarioFingerprint} from './energy-cost-calculation-storage';
 
   const props = defineProps({channel: {type: Object, required: true}, plan: {type: Object, required: true}});
@@ -23,14 +23,45 @@
   const granularity = ref('day');
   const availableRange = ref(null);
   let requestToken = 0;
+  let chartRequestToken = 0;
 
-  const buckets = computed(() => (result.value ? aggregateCharges(result.value.charges, granularity.value, timezone.value) : []));
-  const energyBuckets = computed(() => (result.value ? aggregateEnergy(result.value.intervals, granularity.value, timezone.value) : []));
+  const buckets = ref([]);
+  const energyBuckets = ref([]);
+  const chartWorking = ref(false);
+  const chartGranularity = ref(null);
+  const chartWorker = new Worker(new URL('./energy-cost-chart.worker.js', import.meta.url), {type: 'module'});
+  chartWorker.onmessage = ({data}) => {
+    if (data.request !== chartRequestToken) return;
+    buckets.value = data.buckets;
+    energyBuckets.value = data.energyBuckets;
+    chartGranularity.value = data.granularity;
+    chartWorking.value = false;
+  };
   const rangeSeconds = computed(() => ({
     from: Math.floor(DateTime.fromISO(range.value.from).toSeconds()),
     to: Math.floor(DateTime.fromISO(range.value.to).toSeconds()),
   }));
   const fingerprint = computed(() => scenarioFingerprint(props.plan));
+
+  function prepareChart() {
+    chartRequestToken += 1;
+    if (!result.value) {
+      buckets.value = [];
+      energyBuckets.value = [];
+      chartWorking.value = false;
+      chartGranularity.value = null;
+      return;
+    }
+    chartWorking.value = true;
+    const rawResult = toRaw(result.value);
+    chartWorker.postMessage({
+      charges: rawResult.charges,
+      intervals: rawResult.intervals,
+      granularity: granularity.value,
+      timezone: timezone.value,
+      request: chartRequestToken,
+    });
+  }
 
   function setRange(next) {
     const fitted = fitToAvailableRange(next);
@@ -118,11 +149,13 @@
     fetchCalculation();
   });
   watch([range, () => props.plan], fetchCalculation, {deep: true});
+  watch([result, granularity, timezone], prepareChart, {deep: true});
+  onBeforeUnmount(() => chartWorker.terminate());
 </script>
 
 <template>
   <section class="energy-cost-dashboard mt-4">
-    <energy-cost-range-selector :model-value="range" :timezone="timezone" @update:model-value="setRange" />
+    <energy-cost-range-selector :model-value="range" :timezone="timezone" :billing-cycles="plan.configuration?.billingCycles" @update:model-value="setRange" />
     <div class="form-inline mb-2">
       <label class="mr-2">{{ $t('Aggregation') }}</label
       ><select v-model="granularity" class="form-control">
@@ -131,11 +164,14 @@
         <option value="month">{{ $t('Month') }}</option>
       </select>
     </div>
+    <p v-if="chartGranularity && chartGranularity !== granularity" class="text-muted">
+      {{ $t('Chart is displayed by {granularity} to keep it responsive.', {granularity: $t(chartGranularity)}) }}
+    </p>
     <div v-if="error" class="alert alert-danger">{{ $t(error) }}</div>
     <template v-else-if="result">
       <energy-cost-summary :result="result" />
       <h3>{{ $t('Gross usage-based cost over time') }}</h3>
-      <energy-cost-chart :buckets="buckets" :energy-buckets="energyBuckets" :loading="loading" :currency="result.currency" />
+      <energy-cost-chart :buckets="buckets" :energy-buckets="energyBuckets" :loading="loading || chartWorking" :currency="result.currency" />
       <energy-cost-breakdown :result="result" :currency="result.currency" />
     </template>
     <div v-else-if="loading" class="well text-center">{{ $t('Calculating costs...') }}</div>
