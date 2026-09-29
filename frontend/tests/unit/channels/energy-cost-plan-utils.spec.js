@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vitest';
 import {
+  availablePresetComponentId,
   billingCyclesCoverPeriod,
   cloneTariffComponents,
   commonPresetValidity,
@@ -16,6 +17,7 @@ import {
   readJsonPointer,
   serializeConfiguration,
   toDatetimeLocal,
+  uniqueComponentId,
 } from '@/channels/energy-cost/energy-cost-plan-utils';
 
 describe('energy cost plan utilities', () => {
@@ -117,6 +119,24 @@ describe('energy cost plan utilities', () => {
     expect(componentsMatchTariff(components, tariff)).toBe(true);
     expect(componentsMatchTariff([...components, {kind: 'SUPPLIER_FIXED', componentId: 'fee'}], tariff)).toBe(false);
     expect(tariff.components[0].values).toEqual({});
+  });
+
+  it('assigns distinct identities to repeated inline components', () => {
+    const components = [{kind: 'DISTRIBUTION_FIXED'}, {kind: 'DISTRIBUTION_FIXED', componentId: 'distribution-fixed-2'}, {kind: 'SUPPLIER_FIXED'}];
+
+    expect(uniqueComponentId('distribution-fixed', components)).toBe('distribution-fixed-3');
+    expect(uniqueComponentId('supplier-fixed', components)).toBe('supplier-fixed-2');
+  });
+
+  it('selects an unused concrete preset component identity for repeated kinds', () => {
+    const presets = [
+      {components: [{kind: 'ENERGY_PURCHASE', componentId: 'energy-standard'}]},
+      {components: [{kind: 'ENERGY_PURCHASE', componentId: 'energy-green'}]},
+    ];
+    const components = [{kind: 'ENERGY_PURCHASE', componentId: 'energy-standard'}];
+
+    expect(availablePresetComponentId(presets, 'ENERGY_PURCHASE', components)).toBe('energy-green');
+    expect(availablePresetComponentId(presets, 'ENERGY_PURCHASE', [...components, {kind: 'ENERGY_PURCHASE', componentId: 'energy-green'}])).toBeUndefined();
   });
 
   it('intersects validity of all tariff component presets', () => {
