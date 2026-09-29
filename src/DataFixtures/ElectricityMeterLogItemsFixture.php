@@ -93,12 +93,14 @@ class ElectricityMeterLogItemsFixture extends SuplaFixture {
 
     private function energyForInterval(\DateTimeImmutable $date, float $dayFactor, bool $sunny): array {
         $hour = (int)$date->format('G') + (int)$date->format('i') / 60;
-        $weekend = (int)$date->format('N') >= 6;
+        $dayOfWeek = (int)$date->format('N');
         $consumptionWatts = 120;
         $consumptionWatts += $this->bellCurve($hour, 7.5, 1.4) * 500;
         $consumptionWatts += $this->bellCurve($hour, 19, 2.3) * 950;
-        if ($weekend) {
-            $consumptionWatts += 130 + $this->bellCurve($hour, 13, 3.5) * 180;
+        if ($dayOfWeek === 6) {
+            $consumptionWatts += 120 + $this->bellCurve($hour, 13, 3.5) * 200;
+        } elseif ($dayOfWeek === 7) {
+            $consumptionWatts += 170 + $this->bellCurve($hour, 13, 4) * 260;
         }
         $consumptionWatts *= $dayFactor * (random_int(92, 108) / 100);
 
