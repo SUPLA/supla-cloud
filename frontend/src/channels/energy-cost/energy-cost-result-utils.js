@@ -81,6 +81,19 @@ export function aggregateCharges(charges = [], granularity, timezone) {
   return [...buckets.values()].sort((a, b) => a.from.localeCompare(b.from));
 }
 
+export function aggregateEnergy(intervals = [], granularity, timezone) {
+  const buckets = new Map();
+  intervals.forEach((interval) => {
+    const date = DateTime.fromISO(interval.from, {setZone: true}).setZone(timezone).startOf(granularity);
+    const key = date.toISO();
+    const bucket = buckets.get(key) || {from: key, imported: zero, exported: zero};
+    bucket.imported = addDecimals(bucket.imported, interval.usage?.ACTIVE_ENERGY_IMPORT ?? zero);
+    bucket.exported = addDecimals(bucket.exported, interval.usage?.ACTIVE_ENERGY_EXPORT ?? zero);
+    buckets.set(key, bucket);
+  });
+  return [...buckets.values()].sort((a, b) => a.from.localeCompare(b.from));
+}
+
 function breakdown(values = {}) {
   return Object.entries(values)
     .map(([id, amount]) => ({id, amount}))
