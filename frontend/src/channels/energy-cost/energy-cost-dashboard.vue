@@ -6,6 +6,7 @@
   import EnergyCostRangeSelector from './energy-cost-range-selector.vue';
   import EnergyCostSummary from './energy-cost-summary.vue';
   import EnergyCostChart from './energy-cost-chart.vue';
+  import EnergyCostHeatmap from './energy-cost-heatmap.vue';
   import EnergyCostBreakdown from './energy-cost-breakdown.vue';
   import EnergyCostDetails from './energy-cost-details.vue';
   import {alignedBillingPeriodRange} from './energy-cost-plan-utils';
@@ -30,14 +31,20 @@
 
   const buckets = ref([]);
   const energyBuckets = ref([]);
+  const heatmapBuckets = ref([]);
+  const heatmapEnergyBuckets = ref([]);
+  const heatmapMetric = ref('cost');
   const chartWorking = ref(false);
   const chartRendering = ref(false);
+  const heatmapRendering = ref(false);
   const chartGranularity = ref(null);
   const chartWorker = new Worker(new URL('./energy-cost-chart.worker.js', import.meta.url), {type: 'module'});
   chartWorker.onmessage = ({data}) => {
     if (data.request !== chartRequestToken) return;
     buckets.value = data.buckets;
     energyBuckets.value = data.energyBuckets;
+    heatmapBuckets.value = data.heatmapBuckets;
+    heatmapEnergyBuckets.value = data.heatmapEnergyBuckets;
     chartGranularity.value = data.granularity;
     chartWorking.value = false;
   };
@@ -52,6 +59,8 @@
     if (!result.value) {
       buckets.value = [];
       energyBuckets.value = [];
+      heatmapBuckets.value = [];
+      heatmapEnergyBuckets.value = [];
       chartWorking.value = false;
       chartGranularity.value = null;
       return;
@@ -163,7 +172,7 @@
 
 <template>
   <section class="energy-cost-dashboard mt-4">
-    <loading-cover :loading="loading || chartWorking || chartRendering" :debounce="0">
+    <loading-cover :loading="loading || chartWorking || chartRendering || heatmapRendering" :debounce="0">
       <energy-cost-range-selector
         :model-value="range"
         :timezone="timezone"
@@ -194,6 +203,27 @@
           :timezone="timezone"
           :granularity="chartGranularity || granularity"
           @rendering="chartRendering = $event"
+        />
+        <div class="clearfix">
+          <h3 class="pull-left">{{ $t('Gross cost by weekday and hour') }}</h3>
+          <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'cost'}" @click="heatmapMetric = 'cost'">
+              {{ $t('Total cost') }}
+            </button>
+            <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'costPerKwh'}" @click="heatmapMetric = 'costPerKwh'">
+              {{ $t('Cost per kWh') }}
+            </button>
+          </div>
+        </div>
+        <p class="text-muted">
+          {{ heatmapMetric === 'cost' ? $t('When did I spend the most?') : $t('When is electricity intrinsically most expensive?') }}
+        </p>
+        <energy-cost-heatmap
+          :buckets="heatmapBuckets"
+          :energy-buckets="heatmapEnergyBuckets"
+          :currency="result.currency"
+          :metric="heatmapMetric"
+          @rendering="heatmapRendering = $event"
         />
         <energy-cost-breakdown :result="result" :currency="result.currency" />
         <energy-cost-details :result="result" :timezone="timezone" @align-billing-periods="alignRangeWithBillingPeriods" />
