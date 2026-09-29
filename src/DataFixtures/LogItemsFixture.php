@@ -46,7 +46,7 @@ class LogItemsFixture extends SuplaFixture {
     /** @var Generator */
     private $faker;
 
-    const SINCE = '-14 day';
+    const SINCE = '-140 day';
 
     public function __construct(MeasurementLogsEntityManagerProvider $measurementLogsEntityProvider) {
         $this->faker = Factory::create('pl_PL');
@@ -214,7 +214,7 @@ class LogItemsFixture extends SuplaFixture {
             EntityUtils::setField($logItem, 'channel_id', $channelId);
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
             foreach ($state as $stateName => $value) {
-                $state[$stateName] += $this->faker->biasedNumberBetween(0, 10);
+                $state[$stateName] += $this->faker->biasedNumberBetween(0, 100);
                 EntityUtils::setField($logItem, $stateName, $state[$stateName]);
             }
             if ($this->faker->boolean(95)) {

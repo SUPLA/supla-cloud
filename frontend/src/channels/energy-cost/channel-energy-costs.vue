@@ -5,6 +5,7 @@
   import ChannelFunction from '@/common/enums/channel-function';
   import EnergyCostPlanDialog from './energy-cost-plan-dialog.vue';
   import EnergyCostPlanToolbar from './energy-cost-plan-toolbar.vue';
+  import EnergyCostDashboard from './energy-cost-dashboard.vue';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
   const props = defineProps({channel: {type: Object, required: true}});
@@ -121,6 +122,7 @@
           @create="createPlan"
           @edit="editPlan"
         />
+        <energy-cost-dashboard v-if="assignment && selectedPlan" :channel="channel" :plan="selectedPlan" />
       </div>
     </loading-cover>
     <energy-cost-plan-dialog

@@ -75,4 +75,52 @@ final class SuplaEnergyDeltaSource implements EnergyDeltaSource {
             yield new EnergyDelta($to->modify('-' . self::SLOT_DURATION), $to, $quantities);
         }
     }
+
+    public function longestContinuousRange(string $meterId, TimeRange $range): ?TimeRange {
+        if (!ctype_digit($meterId)) {
+            throw new InvalidArgumentException("Invalid electricity meter ID: $meterId");
+        }
+
+        $utc = new DateTimeZone('UTC');
+        $rows = $this->measurementLogsEntityManager->getConnection()->executeQuery(
+            'SELECT date
+               FROM supla_em_delta_log
+              WHERE channel_id = :channelId
+                AND date > :rangeFrom
+                AND date <= :rangeTo
+              ORDER BY date ASC',
+            [
+                'channelId' => (int)$meterId,
+                'rangeFrom' => $range->from->setTimezone($utc)->format('Y-m-d H:i:s.u'),
+                'rangeTo' => $range->to->setTimezone($utc)->format('Y-m-d H:i:s.u'),
+            ],
+            ['channelId' => ParameterType::INTEGER]
+        );
+
+        $longestRange = null;
+        $longestCount = 0;
+        $segmentFrom = null;
+        $previousTo = null;
+        $segmentCount = 0;
+        foreach ($rows->iterateAssociative() as $row) {
+            $to = (new DateTimeImmutable((string)$row['date'], $utc))->setTimezone($utc);
+            $from = $to->modify('-' . self::SLOT_DURATION);
+            if ($previousTo !== null && $from != $previousTo) {
+                if ($segmentCount > $longestCount) {
+                    $longestRange = new TimeRange($segmentFrom, $previousTo);
+                    $longestCount = $segmentCount;
+                }
+                $segmentFrom = null;
+                $segmentCount = 0;
+            }
+            $segmentFrom ??= $from;
+            $previousTo = $to;
+            ++$segmentCount;
+        }
+        if ($segmentCount > $longestCount) {
+            $longestRange = new TimeRange($segmentFrom, $previousTo);
+        }
+
+        return $longestRange;
+    }
 }

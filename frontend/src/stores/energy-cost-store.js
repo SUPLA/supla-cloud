@@ -1,6 +1,7 @@
 import {defineStore} from 'pinia';
 import {computed, ref} from 'vue';
 import {energyCostApi} from '@/api/energy-cost-api';
+import {energyCostCalculationStorage} from '@/channels/energy-cost/energy-cost-calculation-storage';
 
 export const useEnergyCostStore = defineStore('energyCost', () => {
   const presets = ref([]);
@@ -114,11 +115,13 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
   const updatePlan = async (id, data) => {
     const plan = await energyCostApi.updatePlan(id, data);
     plans.value = plans.value.map((item) => (item.id === plan.id ? plan : item));
+    await energyCostCalculationStorage.invalidatePlan(plan.id);
     return plan;
   };
 
   const deletePlan = async (id) => {
     await energyCostApi.deletePlan(id);
+    await energyCostCalculationStorage.invalidatePlan(Number(id));
     plans.value = plans.value.filter((plan) => plan.id !== Number(id));
     assignmentsByChannelId.value = Object.fromEntries(
       Object.entries(assignmentsByChannelId.value).map(([channelId, assignment]) => [channelId, assignment?.planId === Number(id) ? null : assignment])

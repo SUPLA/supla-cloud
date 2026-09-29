@@ -20,6 +20,7 @@ use DateTimeZone;
 use Supla\EnergyCostCalculator\Engine\CalculationOptions;
 use Supla\EnergyCostCalculator\Engine\CalculationResult;
 use Supla\EnergyCostCalculator\Engine\CostCalculator;
+use Supla\EnergyCostCalculator\Exception\CalculationException;
 use Supla\EnergyCostCalculator\Model\TimeRange;
 use Supla\EnergyCostCalculator\Plan\CostPlanCompiler;
 use Supla\EnergyCostCalculator\Plan\CostPlanDefinitionParser;
@@ -32,6 +33,7 @@ class EnergyCostPlanCalculator {
         private readonly CostPlanDefinitionParser $parser,
         private readonly CostPlanCompiler $compiler,
         private readonly CostCalculator $calculator,
+        private readonly ?SuplaEnergyDeltaSource $energyDeltaSource = null,
     ) {
     }
 
@@ -69,11 +71,47 @@ class EnergyCostPlanCalculator {
         $utc = new DateTimeZone('UTC');
         $range = new TimeRange($from->setTimezone($utc), $to->setTimezone($utc));
 
-        return $this->calculator->calculate(
-            (string)$channel->getId(),
-            $range,
-            $definition,
-            new CalculationOptions(includeIntervals: true, includeCharges: true),
-        );
+        try {
+            return $this->calculator->calculate(
+                (string)$channel->getId(),
+                $range,
+                $definition,
+                new CalculationOptions(includeIntervals: true, includeCharges: true),
+            );
+        } catch (CalculationException $exception) {
+            $availableRange = $this->energyDeltaSource?->longestContinuousRange((string)$channel->getId(), $range);
+            if ($availableRange === null && $this->energyDeltaSource !== null) {
+                return new CalculationResult(
+                    $definition->currency,
+                    $range,
+                    null,
+                    $definition->billingCycles,
+                    [],
+                    [
+                        'net' => ['total' => null],
+                        'taxes' => ['total' => null, 'byTax' => []],
+                        'gross' => [
+                            'total' => null,
+                            'usageBased' => ['total' => '0', 'byComponent' => [], 'byZone' => []],
+                            'periodic' => ['total' => null, 'byComponent' => []],
+                        ],
+                    ],
+                    [],
+                    ['requestedRangeCoversWholePeriods' => false, 'periods' => []],
+                    [],
+                    0,
+                );
+            }
+            if ($availableRange === null || $availableRange == $range) {
+                throw $exception;
+            }
+
+            return $this->calculator->calculate(
+                (string)$channel->getId(),
+                $availableRange,
+                $definition,
+                new CalculationOptions(includeIntervals: true, includeCharges: true),
+            );
+        }
     }
 }

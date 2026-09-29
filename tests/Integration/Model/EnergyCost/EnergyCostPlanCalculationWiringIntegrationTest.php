@@ -16,6 +16,7 @@ use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
 use App\Model\EnergyCost\EnergyCostPlanCalculator;
 use App\Model\EnergyCost\EnergyCostPlanService;
+use App\Model\EnergyCost\SuplaEnergyDeltaSource;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\UserFixtures;
@@ -70,6 +71,64 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
         if ($hasZones) {
             $this->assertNotEmpty($result->costs['gross']['usageBased']['byZone']);
         }
+    }
+
+    public function testFindsLongestContinuousLoggedRange(): void {
+        $channel = $this->createElectricityMeterChannel($this->createConfirmedUser());
+        foreach (['12:15:00', '12:30:00', '12:45:00', '13:00:00', '14:15:00', '14:30:00'] as $time) {
+            $this->insertDelta($channel->getId(), '2026-01-02 ' . $time);
+        }
+
+        $range = self::getContainer()->get(SuplaEnergyDeltaSource::class)->longestContinuousRange(
+            (string)$channel->getId(),
+            new \Supla\EnergyCostCalculator\Model\TimeRange(
+                new DateTimeImmutable('2026-01-02T12:00:00+00:00'),
+                new DateTimeImmutable('2026-01-02T15:00:00+00:00'),
+            ),
+        );
+
+        $this->assertNotNull($range);
+        $this->assertSame('2026-01-02T12:00:00+00:00', $range->from->format(DATE_ATOM));
+        $this->assertSame('2026-01-02T13:00:00+00:00', $range->to->format(DATE_ATOM));
+    }
+
+    public function testCalculatesLongestContinuousLoggedRangeWhenRequestedRangeContainsAGap(): void {
+        $user = $this->createConfirmedUser();
+        $channel = $this->createElectricityMeterChannel($user);
+        $plan = $this->planService()->create($user, 'Home', self::planConfigurations()[2][0]);
+        $this->planService()->assignToChannel($user, $channel, $plan->getId());
+        foreach (['12:15:00', '12:30:00', '12:45:00', '13:00:00'] as $time) {
+            $this->insertDelta($channel->getId(), '2026-01-02 ' . $time);
+        }
+
+        $result = $this->calculator()->calculate(
+            $user,
+            $channel,
+            new DateTimeImmutable('2026-01-02T11:00:00+00:00'),
+            new DateTimeImmutable('2026-01-02T13:00:00+00:00'),
+        );
+
+        $this->assertSame('2026-01-02T12:00:00+00:00', $result->range->from->format(DATE_ATOM));
+        $this->assertSame('2026-01-02T13:00:00+00:00', $result->range->to->format(DATE_ATOM));
+        $this->assertSame(4, $result->processedDeltaCount);
+    }
+
+    public function testReturnsAnIncompleteResultWhenNoMeterDeltasAreAvailable(): void {
+        $user = $this->createConfirmedUser();
+        $channel = $this->createElectricityMeterChannel($user);
+        $plan = $this->planService()->create($user, 'Home', self::planConfigurations()[2][0]);
+        $this->planService()->assignToChannel($user, $channel, $plan->getId());
+
+        $result = $this->calculator()->calculate(
+            $user,
+            $channel,
+            new DateTimeImmutable('2026-01-02T12:00:00+00:00'),
+            new DateTimeImmutable('2026-01-02T13:00:00+00:00'),
+        );
+
+        $this->assertSame(0, $result->processedDeltaCount);
+        $this->assertNull($result->costs['gross']['total']);
+        $this->assertSame([], $result->charges);
     }
 
     /** @return list<array{array<string, mixed>, bool, bool}> */
@@ -204,10 +263,10 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
         )->getChannels()->first();
     }
 
-    private function insertDelta(int $channelId): void {
+    private function insertDelta(int $channelId, string $date = '2026-01-02 12:15:00'): void {
         $this->measurementLogsConnection->insert('supla_em_delta_log', [
             'channel_id' => $channelId,
-            'date' => '2026-01-02 12:15:00',
+            'date' => $date,
             'phase1_fae' => 100000,
             'phase1_rae' => 0,
             'phase2_fae' => 0,
