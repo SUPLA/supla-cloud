@@ -47,6 +47,27 @@ export function compatiblePresetComponents(presets, component) {
   );
 }
 
+export const legacyComponentId = (kind) =>
+  ({
+    ENERGY_PURCHASE: 'energy-purchase',
+    DISTRIBUTION_VARIABLE: 'distribution-variable',
+    DISTRIBUTION_FIXED: 'distribution-fixed',
+    SUPPLIER_FIXED: 'supplier-fixed',
+  })[kind];
+
+export function uniqueComponentId(base, components) {
+  const usedIds = new Set(components.map((component) => component.componentId || legacyComponentId(component.kind)));
+  if (!usedIds.has(base)) return base;
+  let suffix = 2;
+  while (usedIds.has(`${base}-${suffix}`)) suffix++;
+  return `${base}-${suffix}`;
+}
+
+export function availablePresetComponentId(presets, kind, components) {
+  const usedIds = new Set(components.map((component) => component.componentId || legacyComponentId(component.kind)));
+  return presets.flatMap((preset) => preset.components || []).find((component) => component.kind === kind && !usedIds.has(component.componentId))?.componentId;
+}
+
 export function presetDefault(preset, input, componentIndex) {
   const componentTarget = componentIndex === undefined ? undefined : `/components/${componentIndex}/`;
   const target = componentTarget ? input.targets?.find((item) => targetPointer(item)?.includes(componentTarget)) : input.targets?.[0];
