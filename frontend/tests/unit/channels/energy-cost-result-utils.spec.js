@@ -21,13 +21,20 @@ describe('energy cost result utilities', () => {
     expect(formatDecimal('-0.0006')).toBe('-0.0006');
   });
 
-  it('extracts an incomplete billing summary without treating it as zero', () => {
+  it('extracts usage-based summary values when fixed charges are indeterminate', () => {
     expect(
-      summaryFromResult({costs: {gross: {total: null, usageBased: {total: '12.34'}, periodic: {total: '2'}}, net: {}, taxes: {}}, usage: {}})
+      summaryFromResult({
+        costs: {
+          gross: {total: null, usageBased: {total: '12.34'}, periodic: {total: null}},
+          net: {usageBased: {total: '10'}},
+          taxes: {byTax: {VAT: '2.1', EXCISE: '0.24'}},
+        },
+        usage: {},
+      })
     ).toMatchObject({
-      total: null,
       usageBased: '12.34',
-      incomplete: true,
+      usageBasedNet: '10',
+      usageBasedTaxes: '2.34',
     });
   });
 

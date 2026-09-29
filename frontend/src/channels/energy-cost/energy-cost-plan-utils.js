@@ -148,6 +148,35 @@ export function billingCyclesCoverPeriod(period, billingCycles) {
   return cursor === expectedEnd;
 }
 
+export function alignedBillingPeriodRange(range, billingCycles, timezone, availableTo = range.to) {
+  const rangeFrom = DateTime.fromISO(range.from, {zone: timezone});
+  const rangeTo = DateTime.fromISO(range.to, {zone: timezone});
+  const availableEnd = DateTime.fromISO(availableTo, {zone: timezone});
+  if (!rangeFrom.isValid || !rangeTo.isValid || !availableEnd.isValid || rangeTo <= rangeFrom) return null;
+  const cycleAt = (date) =>
+    billingCycles.find((cycle) => {
+      const validFrom = cycle.validFrom && DateTime.fromISO(cycle.validFrom, {zone: timezone});
+      const validTo = cycle.validTo && DateTime.fromISO(cycle.validTo, {zone: timezone});
+      return (!validFrom || validFrom <= date) && (!validTo || date < validTo);
+    });
+  const periodAt = (date) => {
+    const cycle = cycleAt(date);
+    if (!cycle) return null;
+    const duration = {[`${cycle.unit.toLowerCase()}s`]: Number(cycle.length)};
+    let start = DateTime.fromISO(cycle.anchor, {zone: timezone}).startOf('day');
+    while (start.plus(duration) <= date) start = start.plus(duration);
+    while (start > date) start = start.minus(duration);
+    return [start, start.plus(duration)];
+  };
+  const firstPeriod = periodAt(rangeFrom);
+  const lastPeriod = periodAt(rangeTo < availableEnd ? rangeTo : availableEnd);
+  if (!firstPeriod || !lastPeriod) return null;
+  const lastBoundary = lastPeriod[0];
+  if (firstPeriod[0] < lastBoundary) return {from: firstPeriod[0].toISO(), to: lastBoundary.toISO()};
+  const previousPeriod = periodAt(firstPeriod[0].minus({milliseconds: 1}));
+  return previousPeriod ? {from: previousPeriod[0].toISO(), to: previousPeriod[1].toISO()} : null;
+}
+
 export function serializeConfiguration(configuration) {
   const {billingCycles, periods} = configuration;
   const configurationFields = Object.fromEntries(Object.entries(configuration).filter(([key]) => !['priceBasis', 'billingCycles', 'periods'].includes(key)));

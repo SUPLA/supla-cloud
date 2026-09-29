@@ -6,6 +6,10 @@
   const props = defineProps({result: {type: Object, required: true}, timezone: {type: String, required: true}});
   const periodicCharges = computed(() => props.result.periodicCharges || []);
   const billingPeriods = computed(() => props.result.billingPeriods || []);
+  const periodicChargesIndeterminate = computed(() => props.result.costs?.gross?.periodic?.total === null);
+  const spansBillingPeriods = computed(() => (props.result.billingContext?.periods || []).length > 1);
+  const showBillingPeriodWarning = computed(() => periodicChargesIndeterminate.value && spansBillingPeriods.value);
+  const emit = defineEmits(['align-billing-periods']);
   const money = (value) => (value === null || value === undefined ? '—' : `${formatDecimal(value)} ${props.result.currency}`);
   const energy = (value) => `${formatDecimal(value)} kWh`;
   const label = (value) => String(value || '').replace(/[-_]/g, ' ');
@@ -15,8 +19,15 @@
 
 <template>
   <div class="energy-cost-details">
+    <div v-if="showBillingPeriodWarning" class="alert alert-info">
+      {{ $t('The selected range crosses billing periods. Fixed charges are not included in the total.') }}
+      <button type="button" class="btn btn-default btn-sm ml-2" @click="emit('align-billing-periods')">
+        {{ $t('Align date range with billing period') }}
+      </button>
+    </div>
     <div v-if="periodicCharges.length" class="mb-4">
       <h3>{{ $t('Fixed charges') }}</h3>
+      <p class="text-muted">{{ $t('Fixed charges are calculated only for complete billing periods.') }}</p>
       <div class="table-responsive">
         <table class="table table-condensed">
           <thead>
