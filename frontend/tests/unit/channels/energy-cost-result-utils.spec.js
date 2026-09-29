@@ -2,7 +2,9 @@ import {describe, expect, it} from 'vitest';
 import {
   addDecimals,
   aggregateCharges,
+  aggregateChargesByWeekdayAndHour,
   aggregateEnergy,
+  aggregateImportedEnergyByWeekdayAndHour,
   formatDecimal,
   preferredGranularity,
   summaryFromResult,
@@ -62,6 +64,23 @@ describe('energy cost result utilities', () => {
     expect(aggregateCharges(charges, 'day', 'Europe/Warsaw')[0].byComponent).toEqual({purchase: '1', distribution: '2'});
     expect(aggregateCharges(charges, 'month', 'Europe/Warsaw')).toHaveLength(2);
     expect(aggregateCharges([], 'day', 'Europe/Warsaw')).toEqual([]);
+  });
+
+  it('aggregates gross charges by local weekday and hour', () => {
+    const buckets = aggregateChargesByWeekdayAndHour(
+      [
+        {from: '2026-03-29T00:30:00+01:00', amounts: {gross: '0.1'}},
+        {from: '2026-03-29T03:30:00+02:00', amounts: {gross: '0.2'}},
+      ],
+      'Europe/Warsaw'
+    );
+    expect(buckets[6].hours[0]).toBe('0.1');
+    expect(buckets[6].hours[3]).toBe('0.2');
+  });
+
+  it('aggregates imported energy by local weekday and hour', () => {
+    const buckets = aggregateImportedEnergyByWeekdayAndHour([{from: '2026-03-29T03:30:00+02:00', usage: {ACTIVE_ENERGY_IMPORT: '1.25'}}], 'Europe/Warsaw');
+    expect(buckets[6].hours[3]).toBe('1.25');
   });
 
   it('aggregates imported and exported energy by the selected granularity', () => {

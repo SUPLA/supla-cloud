@@ -124,7 +124,7 @@ class EnergyCostPlanController extends RestController {
     public function getEnergyCostPlanStartersAction(): View {
         try {
             return $this->view($this->starterCatalog->starters());
-        } catch (CostPlanStarterNotFoundException|InvalidCostPlanStarterException $exception) {
+        } catch (CostPlanStarterNotFoundException | InvalidCostPlanStarterException $exception) {
             $this->throwStarterException($exception);
         }
     }
@@ -143,7 +143,7 @@ class EnergyCostPlanController extends RestController {
                 'metadata' => $starter->metadata,
                 'components' => $starter->components,
             ]);
-        } catch (CostPlanStarterNotFoundException|InvalidCostPlanStarterException $exception) {
+        } catch (CostPlanStarterNotFoundException | InvalidCostPlanStarterException $exception) {
             $this->throwStarterException($exception);
         }
     }
