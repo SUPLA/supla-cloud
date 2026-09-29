@@ -42,7 +42,6 @@
 
   async function updatePreset(index, presetId) {
     const preset = presetId ? await store.fetchPreset(presetId) : null;
-    const component = props.period.components[index];
     const components = props.period.components.map((item, componentIndex) => (componentIndex === index ? {...item, presetId, values: {}} : item));
     emit('update:period', {
       ...props.period,

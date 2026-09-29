@@ -96,6 +96,7 @@ services:
       $definitionParser: '@Supla\EnergyCostCalculator\Definition\BillingDefinitionParser'
   Supla\EnergyCostCalculator\Plan\CostPlanCompiler: ~
   Supla\EnergyCostCalculator\Plan\CostPlanDefinitionParser: ~
+  Supla\EnergyCostCalculator\Plan\CostPlanStarterCatalog: ~
   Supla\EnergyCostCalculator\Preset\TariffPresetCatalog: ~
   Supla\EnergyCostCalculator\Preset\TariffPresetCompiler: ~
 

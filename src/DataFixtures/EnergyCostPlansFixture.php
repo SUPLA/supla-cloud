@@ -16,6 +16,7 @@ use App\Entity\Main\IODeviceChannel;
 use App\Entity\Main\User;
 use DateTime;
 use Doctrine\Persistence\ObjectManager;
+use Supla\EnergyCostCalculator\Plan\CostPlanStarterCatalog;
 
 class EnergyCostPlansFixture extends SuplaFixture {
     public const ORDER = DevicesFixture::ORDER + 1;
@@ -41,7 +42,6 @@ class EnergyCostPlansFixture extends SuplaFixture {
             'version' => 2,
             'currency' => 'PLN',
             'timezone' => 'Europe/Warsaw',
-            'priceBasis' => 'NET',
             'billingCycles' => [[
                 'validFrom' => '2026-01-01T00:00:00+01:00',
                 'validTo' => '2027-01-01T00:00:00+01:00',
@@ -52,12 +52,7 @@ class EnergyCostPlansFixture extends SuplaFixture {
             'periods' => [[
                 'validFrom' => '2026-01-01T00:00:00+01:00',
                 'validTo' => '2027-01-01T00:00:00+01:00',
-                'components' => [
-                    ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026', 'componentId' => 'energy-purchase',
-                        'values' => ['energy.rate' => '0.71']],
-                    ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
-                        'componentId' => 'distribution-variable', 'values' => []],
-                ],
+                'components' => $this->starterComponents('PL.STARTER.TAURON_DYSTRYBUCJA.G11'),
             ]],
         ];
     }
@@ -68,7 +63,6 @@ class EnergyCostPlansFixture extends SuplaFixture {
             'version' => 2,
             'currency' => 'PLN',
             'timezone' => 'Europe/Warsaw',
-            'priceBasis' => 'NET',
             'billingCycles' => [[
                 'validFrom' => '2026-01-01T00:00:00+01:00',
                 'validTo' => '2027-01-01T00:00:00+01:00',
@@ -79,13 +73,13 @@ class EnergyCostPlansFixture extends SuplaFixture {
             'periods' => [[
                 'validFrom' => '2026-01-01T00:00:00+01:00',
                 'validTo' => '2027-01-01T00:00:00+01:00',
-                'components' => [
-                    ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G12.2026', 'componentId' => 'energy-purchase',
-                        'values' => ['energy.DAY' => '0.98', 'energy.NIGHT' => '0.62']],
-                    ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G12.2026',
-                        'componentId' => 'distribution-variable', 'values' => []],
-                ],
+                'components' => $this->starterComponents('PL.STARTER.TAURON_DYSTRYBUCJA.G12'),
             ]],
         ];
+    }
+
+    /** @return list<array<string, mixed>> */
+    private function starterComponents(string $starterId): array {
+        return (new CostPlanStarterCatalog())->get($starterId)->components;
     }
 }

@@ -41,6 +41,23 @@ class EnergyCostPlanCalculator {
         DateTimeImmutable $from,
         DateTimeImmutable $to,
     ): CalculationResult {
+        $plan = $this->assignmentRepository->findPlanForChannel($channel);
+        if ($plan === null || !$plan->belongsToUser($user)) {
+            throw new NotFoundHttpException('Energy cost plan assignment does not exist.');
+        }
+
+        // Compile on every request so live corrections to referenced presets take effect.
+        return $this->calculateConfiguration($user, $channel, $plan->getConfiguration(), $from, $to);
+    }
+
+    /** @param array<string, mixed> $configuration */
+    public function calculateConfiguration(
+        User $user,
+        IODeviceChannel $channel,
+        array $configuration,
+        DateTimeImmutable $from,
+        DateTimeImmutable $to,
+    ): CalculationResult {
         if (!$channel->belongsToUser($user)) {
             throw new AccessDeniedHttpException('Access to this channel is denied.');
         }
@@ -48,13 +65,7 @@ class EnergyCostPlanCalculator {
             throw new ApiException('Energy cost calculation is supported only for electricity meter channels.');
         }
 
-        $plan = $this->assignmentRepository->findPlanForChannel($channel);
-        if ($plan === null || !$plan->belongsToUser($user)) {
-            throw new NotFoundHttpException('Energy cost plan assignment does not exist.');
-        }
-
-        // Compile on every request so live corrections to referenced presets take effect.
-        $definition = $this->compiler->compile($this->parser->parse($plan->getConfiguration()));
+        $definition = $this->compiler->compile($this->parser->parse($configuration));
         $utc = new DateTimeZone('UTC');
         $range = new TimeRange($from->setTimezone($utc), $to->setTimezone($utc));
 
@@ -62,7 +73,7 @@ class EnergyCostPlanCalculator {
             (string)$channel->getId(),
             $range,
             $definition,
-            new CalculationOptions(includeIntervals: true),
+            new CalculationOptions(includeIntervals: true, includeCharges: true),
         );
     }
 }
