@@ -1,7 +1,8 @@
 <script setup>
-  import {onBeforeUnmount, ref, watch} from 'vue';
+  import {nextTick, onBeforeUnmount, ref, watch} from 'vue';
   import ApexCharts from 'apexcharts';
   import {useI18n} from 'vue-i18n';
+  import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import {formatDecimal} from './energy-cost-result-utils';
 
   const props = defineProps({
@@ -12,8 +13,15 @@
   });
   const i18n = useI18n();
   const element = ref();
+  const rendering = ref(false);
   let chart;
-  function render() {
+  let renderToken = 0;
+  async function render() {
+    const token = ++renderToken;
+    rendering.value = true;
+    await nextTick();
+    await new Promise(requestAnimationFrame);
+    if (token !== renderToken) return;
     const components = [...new Set(props.buckets.flatMap((bucket) => Object.keys(bucket.byComponent)))];
     const energySeries = [
       {name: i18n.t('Imported energy'), type: 'line', data: props.energyBuckets.map((bucket) => Number(formatDecimal(bucket.imported)))},
@@ -38,25 +46,15 @@
       legend: {position: 'top'},
       noData: {text: 'No cost data in this range'},
     });
-    chart.render();
+    await chart.render();
+    if (token === renderToken) rendering.value = false;
   }
   watch(() => [props.buckets, props.energyBuckets, props.currency], render, {deep: true});
   onBeforeUnmount(() => chart?.destroy());
 </script>
 
 <template>
-  <div class="position-relative">
+  <loading-cover :loading="loading || rendering" :debounce="0">
     <div ref="element"></div>
-    <div v-if="loading" class="energy-cost-chart-loading">{{ $t('Loading...') }}</div>
-  </div>
+  </loading-cover>
 </template>
-
-<style scoped>
-  .energy-cost-chart-loading {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    background: rgba(255, 255, 255, 0.55);
-  }
-</style>
