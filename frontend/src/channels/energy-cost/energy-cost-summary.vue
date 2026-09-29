@@ -9,26 +9,23 @@
 
 <template>
   <div>
-    <div v-if="summary.incomplete" class="alert alert-info">
-      {{ $t('The selected range does not contain complete billing periods. Fixed charges are not included in the complete total.') }}
-    </div>
     <div class="row energy-cost-summary">
       <div class="col-sm-4 col-lg">
         <div class="well">
-          <small>{{ $t(summary.incomplete ? 'Usage-based cost' : 'Total gross cost') }}</small
-          ><strong>{{ money(summary.incomplete ? summary.usageBased : summary.total) }}</strong>
+          <small>{{ $t('Usage-based gross cost') }}</small
+          ><strong>{{ money(summary.usageBased) }}</strong>
         </div>
       </div>
       <div class="col-sm-4 col-lg">
         <div class="well">
-          <small>{{ $t('Net cost') }}</small
-          ><strong>{{ money(summary.net) }}</strong>
+          <small>{{ $t('Usage-based net cost') }}</small
+          ><strong>{{ money(summary.usageBasedNet) }}</strong>
         </div>
       </div>
       <div class="col-sm-4 col-lg">
         <div class="well">
-          <small>{{ $t('Taxes') }}</small
-          ><strong>{{ money(summary.taxes) }}</strong>
+          <small>{{ $t('Usage-based taxes') }}</small
+          ><strong>{{ money(summary.usageBasedTaxes) }}</strong>
         </div>
       </div>
       <div class="col-sm-6 col-lg">
@@ -44,7 +41,6 @@
         </div>
       </div>
     </div>
-    <p v-if="summary.periodic !== '0'" class="text-muted">{{ $t('Periodic charges') }}: {{ money(summary.periodic) }}</p>
   </div>
 </template>
 

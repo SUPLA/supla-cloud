@@ -49,16 +49,14 @@ export function preferredGranularity(from, to, timezone) {
 export function summaryFromResult(result) {
   const costs = result?.costs || {};
   const gross = costs.gross || {};
+  const usageBasedTaxes = Object.values(costs.taxes?.byTax || {}).reduce((total, amount) => addDecimals(total, amount), zero);
   return {
     currency: result?.currency,
-    total: gross.total ?? null,
     usageBased: gross.usageBased?.total ?? zero,
-    periodic: gross.periodic?.total ?? zero,
-    net: costs.net?.total ?? null,
-    taxes: costs.taxes?.total ?? null,
+    usageBasedNet: costs.net?.usageBased?.total ?? zero,
+    usageBasedTaxes,
     imported: result?.usage?.ACTIVE_ENERGY_IMPORT ?? zero,
     exported: result?.usage?.ACTIVE_ENERGY_EXPORT ?? zero,
-    incomplete: gross.total === null,
   };
 }
 
