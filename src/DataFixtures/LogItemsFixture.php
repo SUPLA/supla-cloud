@@ -21,7 +21,6 @@ use App\Entity\EntityUtils;
 use App\Entity\Main\IODevice;
 use App\Entity\Main\IODeviceChannel;
 use App\Entity\MeasurementLogs\ElectricityMeterCurrentLogItem;
-use App\Entity\MeasurementLogs\ElectricityMeterLogItem;
 use App\Entity\MeasurementLogs\ElectricityMeterPowerActiveLogItem;
 use App\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
 use App\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
@@ -46,7 +45,7 @@ class LogItemsFixture extends SuplaFixture {
     /** @var Generator */
     private $faker;
 
-    const SINCE = '-140 day';
+    const SINCE = '-14 day';
 
     public function __construct(MeasurementLogsEntityManagerProvider $measurementLogsEntityProvider) {
         $this->faker = Factory::create('pl_PL');
@@ -62,8 +61,6 @@ class LogItemsFixture extends SuplaFixture {
         $this->createTemperatureAndHumidityLogItems();
         $this->entityManager->flush();
         $this->createImpulseCounterLogItems();
-        $this->entityManager->flush();
-        $this->createElectricityMeterLogItems();
         $this->entityManager->flush();
         $this->createElectricityMeterVoltageAberrationLogItems();
         $this->entityManager->flush();
@@ -181,47 +178,6 @@ class LogItemsFixture extends SuplaFixture {
                 if ($this->faker->boolean(1)) {
                     $counter = 0;
                 }
-            }
-        }
-    }
-
-    private function createElectricityMeterLogItems() {
-        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION, IODevice::class);
-        $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
-            return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER;
-        })->first();
-        $channelId = $ecChannel->getId();
-        $from = strtotime(self::SINCE);
-        $to = time();
-        $state = $initialState = [
-            'phase1_fae' => 1,
-            'phase1_rae' => 0,
-            'phase1_fre' => 1,
-            'phase1_rre' => 2,
-            'phase2_fae' => 1,
-            'phase2_rae' => 0,
-            'phase2_fre' => 1,
-            'phase2_rre' => 2,
-            'phase3_fae' => 1,
-            'phase3_rae' => 0,
-            'phase3_fre' => 1,
-            'phase3_rre' => 2,
-            'fae_balanced' => 3,
-            'rae_balanced' => 3,
-        ];
-        for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
-            $logItem = new ElectricityMeterLogItem();
-            EntityUtils::setField($logItem, 'channel_id', $channelId);
-            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
-            foreach ($state as $stateName => $value) {
-                $state[$stateName] += $this->faker->biasedNumberBetween(0, 100);
-                EntityUtils::setField($logItem, $stateName, $state[$stateName]);
-            }
-            if ($this->faker->boolean(95)) {
-                $this->entityManager->persist($logItem);
-            }
-            if ($this->faker->boolean(1) && $this->faker->boolean(10)) {
-                $state = $initialState;
             }
         }
     }

@@ -6,7 +6,7 @@
   import EnergyCostSummary from './energy-cost-summary.vue';
   import EnergyCostChart from './energy-cost-chart.vue';
   import EnergyCostBreakdown from './energy-cost-breakdown.vue';
-  import {aggregateCharges, preferredGranularity} from './energy-cost-result-utils';
+  import {aggregateCharges, aggregateEnergy, preferredGranularity} from './energy-cost-result-utils';
   import {energyCostCalculationStorage, scenarioFingerprint} from './energy-cost-calculation-storage';
 
   const props = defineProps({channel: {type: Object, required: true}, plan: {type: Object, required: true}});
@@ -25,6 +25,7 @@
   let requestToken = 0;
 
   const buckets = computed(() => (result.value ? aggregateCharges(result.value.charges, granularity.value, timezone.value) : []));
+  const energyBuckets = computed(() => (result.value ? aggregateEnergy(result.value.intervals, granularity.value, timezone.value) : []));
   const rangeSeconds = computed(() => ({
     from: Math.floor(DateTime.fromISO(range.value.from).toSeconds()),
     to: Math.floor(DateTime.fromISO(range.value.to).toSeconds()),
@@ -134,7 +135,7 @@
     <template v-else-if="result">
       <energy-cost-summary :result="result" />
       <h3>{{ $t('Gross usage-based cost over time') }}</h3>
-      <energy-cost-chart :buckets="buckets" :loading="loading" :currency="result.currency" />
+      <energy-cost-chart :buckets="buckets" :energy-buckets="energyBuckets" :loading="loading" :currency="result.currency" />
       <energy-cost-breakdown :result="result" :currency="result.currency" />
     </template>
     <div v-else-if="loading" class="well text-center">{{ $t('Calculating costs...') }}</div>

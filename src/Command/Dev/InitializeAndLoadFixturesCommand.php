@@ -46,6 +46,7 @@ class InitializeAndLoadFixturesCommand extends Command {
         $this->getApplication()->run(new StringInput('supla:initialize'), $output);
         $this->getApplication()->run(new StringInput('doctrine:fixtures:load --no-interaction --append -vvv'), $output);
         $this->getApplication()->run(new StringInput('supla:initialize'), $output);
+        $this->getApplication()->run(new StringInput('supla:cyclic:electricity-meter-logs-calculate-deltas'), $output);
         return self::SUCCESS;
     }
 }
