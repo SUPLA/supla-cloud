@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vitest';
 import {
+  alignedBillingPeriodRange,
   availablePresetComponentId,
   billingCyclesCoverPeriod,
   cloneTariffComponents,
@@ -137,6 +138,19 @@ describe('energy cost plan utilities', () => {
 
     expect(availablePresetComponentId(presets, 'ENERGY_PURCHASE', components)).toBe('energy-green');
     expect(availablePresetComponentId(presets, 'ENERGY_PURCHASE', [...components, {kind: 'ENERGY_PURCHASE', componentId: 'energy-green'}])).toBeUndefined();
+  });
+
+  it('selects complete billing periods closest to the range', () => {
+    const billingCycles = [{anchor: '2025-01-20T00:00:00+01:00', unit: 'MONTH', length: 1}];
+
+    expect(alignedBillingPeriodRange({from: '2025-02-01T00:00:00+01:00', to: '2025-03-01T00:00:00+01:00'}, billingCycles, 'Europe/Warsaw')).toEqual({
+      from: '2025-01-20T00:00:00.000+01:00',
+      to: '2025-02-20T00:00:00.000+01:00',
+    });
+    expect(alignedBillingPeriodRange({from: '2025-03-01T00:00:00+01:00', to: '2025-03-10T00:00:00+01:00'}, billingCycles, 'Europe/Warsaw')).toEqual({
+      from: '2025-01-20T00:00:00.000+01:00',
+      to: '2025-02-20T00:00:00.000+01:00',
+    });
   });
 
   it('intersects validity of all tariff component presets', () => {

@@ -7,6 +7,7 @@
   import EnergyCostChart from './energy-cost-chart.vue';
   import EnergyCostBreakdown from './energy-cost-breakdown.vue';
   import EnergyCostDetails from './energy-cost-details.vue';
+  import {alignedBillingPeriodRange} from './energy-cost-plan-utils';
   import {preferredGranularity} from './energy-cost-result-utils';
   import {energyCostCalculationStorage, scenarioFingerprint} from './energy-cost-calculation-storage';
 
@@ -83,6 +84,10 @@
     const fittedFrom = from < availableFrom ? availableFrom : from;
     const fittedTo = to > availableTo ? availableTo : to;
     return fittedFrom < fittedTo ? {from: fittedFrom.toISO(), to: fittedTo.toISO()} : null;
+  }
+  function alignRangeWithBillingPeriods() {
+    const aligned = alignedBillingPeriodRange(range.value, props.plan.configuration?.billingCycles || [], timezone.value, availableRange.value?.to);
+    if (aligned) setRange(aligned);
   }
   async function fetchCalculation() {
     const token = ++requestToken;
@@ -174,7 +179,7 @@
       <h3>{{ $t('Gross usage-based cost over time') }}</h3>
       <energy-cost-chart :buckets="buckets" :energy-buckets="energyBuckets" :loading="loading || chartWorking" :currency="result.currency" />
       <energy-cost-breakdown :result="result" :currency="result.currency" />
-      <energy-cost-details :result="result" :timezone="timezone" />
+      <energy-cost-details :result="result" :timezone="timezone" @align-billing-periods="alignRangeWithBillingPeriods" />
     </template>
     <div v-else-if="loading" class="well text-center">{{ $t('Calculating costs...') }}</div>
   </section>
