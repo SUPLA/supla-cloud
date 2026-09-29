@@ -14,7 +14,14 @@
   const emit = defineEmits(['update:value', 'override', 'reset']);
 
   const displayedValue = computed(() => (props.input.type === 'DATETIME' ? toDatetimeLocal(props.value, props.timezone) : (props.value ?? '')));
-  const inputType = computed(() => (props.input.type === 'INTEGER' ? 'number' : props.input.type === 'DATETIME' ? 'datetime-local' : 'text'));
+  const inputType = computed(() => {
+    if (props.input.type === 'INTEGER') return 'number';
+    if (props.input.type === 'DATE') return 'date';
+    if (props.input.type === 'DATETIME') return 'datetime-local';
+    if (props.input.type === 'TIME') return 'time';
+    return 'text';
+  });
+  const displayedLabel = computed(() => props.input.options?.find((option) => option.value === props.value)?.label || props.value);
 
   function updateValue(value) {
     if (props.input.type === 'DECIMAL') value = normalizeDecimal(value);
@@ -27,7 +34,17 @@
   <div class="form-group energy-cost-preset-input" :class="{'has-error': error}">
     <label :for="`${idPrefix}-input-${input.id}`">{{ input.label }}</label>
     <template v-if="custom">
+      <select
+        v-if="input.type === 'CHOICE'"
+        :id="`${idPrefix}-input-${input.id}`"
+        :value="displayedValue"
+        class="form-control"
+        @change="updateValue($event.target.value)"
+      >
+        <option v-for="option in input.options || []" :key="option.value" :value="option.value">{{ option.label }}</option>
+      </select>
       <input
+        v-else
         :id="`${idPrefix}-input-${input.id}`"
         :type="inputType"
         :value="displayedValue"
@@ -44,7 +61,7 @@
     </template>
     <template v-else>
       <div class="form-control-static">
-        {{ value }} <small v-if="input.unit">{{ input.unit }}</small>
+        {{ input.type === 'CHOICE' ? displayedLabel : value }} <small v-if="input.unit">{{ input.unit }}</small>
       </div>
       <small class="form-text text-muted">{{ $t('Value from tariff') }}</small>
       <button type="button" class="btn btn-link btn-xs" @click="$emit('override')">{{ $t('Override') }}</button>

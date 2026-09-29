@@ -13,6 +13,16 @@ export const energyCostApi = {
     return body;
   },
 
+  async getPlanStarters() {
+    const {body} = await api.get('energy-cost-plan-starters');
+    return body;
+  },
+
+  async getPlanStarter(id) {
+    const {body} = await api.get(`energy-cost-plan-starters/${pathPart(id)}`);
+    return body;
+  },
+
   async getPlans() {
     const {body} = await api.get('energy-cost-plans');
     return body;

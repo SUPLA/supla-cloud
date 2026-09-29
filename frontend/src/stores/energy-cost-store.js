@@ -6,6 +6,9 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
   const presets = ref([]);
   const presetsReady = ref(false);
   const presetDetailsById = ref({});
+  const tariffs = ref([]);
+  const tariffsReady = ref(false);
+  const tariffDetailsById = ref({});
   const plans = ref([]);
   const plansReady = ref(false);
   const assignmentsByChannelId = ref({});
@@ -40,6 +43,35 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
         .finally(() => delete fetchPreset.promises[id]);
     }
     return fetchPreset.promises[id];
+  };
+
+  const fetchTariffs = (force = false) => {
+    if (fetchTariffs.promise && !force) return fetchTariffs.promise;
+    if (tariffsReady.value && !force) return Promise.resolve(tariffs.value);
+    fetchTariffs.promise = energyCostApi
+      .getPlanStarters()
+      .then((response) => {
+        tariffs.value = response;
+        tariffsReady.value = true;
+        return response;
+      })
+      .finally(() => (fetchTariffs.promise = undefined));
+    return fetchTariffs.promise;
+  };
+
+  const fetchTariff = (id) => {
+    if (tariffDetailsById.value[id]) return Promise.resolve(tariffDetailsById.value[id]);
+    if (!fetchTariff.promises) fetchTariff.promises = {};
+    if (!fetchTariff.promises[id]) {
+      fetchTariff.promises[id] = energyCostApi
+        .getPlanStarter(id)
+        .then((tariff) => {
+          tariffDetailsById.value = {...tariffDetailsById.value, [id]: tariff};
+          return tariff;
+        })
+        .finally(() => delete fetchTariff.promises[id]);
+    }
+    return fetchTariff.promises[id];
   };
 
   const fetchPlans = (force = false) => {
@@ -110,6 +142,9 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     presets.value = [];
     presetsReady.value = false;
     presetDetailsById.value = {};
+    tariffs.value = [];
+    tariffsReady.value = false;
+    tariffDetailsById.value = {};
     plans.value = [];
     plansReady.value = false;
     assignmentsByChannelId.value = {};
@@ -117,6 +152,8 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     fetchPresets.promise = undefined;
     fetchPlans.promise = undefined;
     fetchPreset.promises = {};
+    fetchTariffs.promise = undefined;
+    fetchTariff.promises = {};
     fetchAssignment.promises = {};
   };
 
@@ -124,6 +161,9 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     presets,
     presetsReady,
     presetDetailsById,
+    tariffs,
+    tariffsReady,
+    tariffDetailsById,
     plans,
     plansById,
     plansReady,
@@ -131,6 +171,8 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     assignmentReadyByChannelId,
     fetchPresets,
     fetchPreset,
+    fetchTariffs,
+    fetchTariff,
     fetchPlans,
     fetchAssignment,
     createPlan,
