@@ -2,6 +2,7 @@
   import {computed, onBeforeUnmount, onMounted, ref, toRaw, watch} from 'vue';
   import {DateTime} from 'luxon';
   import {energyCostApi} from '@/api/energy-cost-api';
+  import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import EnergyCostRangeSelector from './energy-cost-range-selector.vue';
   import EnergyCostSummary from './energy-cost-summary.vue';
   import EnergyCostChart from './energy-cost-chart.vue';
@@ -30,6 +31,7 @@
   const buckets = ref([]);
   const energyBuckets = ref([]);
   const chartWorking = ref(false);
+  const chartRendering = ref(false);
   const chartGranularity = ref(null);
   const chartWorker = new Worker(new URL('./energy-cost-chart.worker.js', import.meta.url), {type: 'module'});
   chartWorker.onmessage = ({data}) => {
@@ -161,26 +163,42 @@
 
 <template>
   <section class="energy-cost-dashboard mt-4">
-    <energy-cost-range-selector :model-value="range" :timezone="timezone" :billing-cycles="plan.configuration?.billingCycles" @update:model-value="setRange" />
-    <div class="form-inline mb-2">
-      <label class="mr-2">{{ $t('Aggregation') }}</label
-      ><select v-model="granularity" class="form-control">
-        <option value="hour">{{ $t('Hour') }}</option>
-        <option value="day">{{ $t('Day') }}</option>
-        <option value="month">{{ $t('Month') }}</option>
-      </select>
-    </div>
-    <p v-if="chartGranularity && chartGranularity !== granularity" class="text-muted">
-      {{ $t('Chart is displayed by {granularity} to keep it responsive.', {granularity: $t(chartGranularity)}) }}
-    </p>
-    <div v-if="error" class="alert alert-danger">{{ $t(error) }}</div>
-    <template v-else-if="result">
-      <energy-cost-summary :result="result" />
-      <h3>{{ $t('Gross usage-based cost over time') }}</h3>
-      <energy-cost-chart :buckets="buckets" :energy-buckets="energyBuckets" :loading="loading || chartWorking" :currency="result.currency" />
-      <energy-cost-breakdown :result="result" :currency="result.currency" />
-      <energy-cost-details :result="result" :timezone="timezone" @align-billing-periods="alignRangeWithBillingPeriods" />
-    </template>
-    <div v-else-if="loading" class="well text-center">{{ $t('Calculating costs...') }}</div>
+    <loading-cover :loading="loading || chartWorking || chartRendering" :debounce="0">
+      <energy-cost-range-selector
+        :model-value="range"
+        :timezone="timezone"
+        :billing-cycles="plan.configuration?.billingCycles"
+        @update:model-value="setRange"
+      />
+      <p v-if="chartGranularity && chartGranularity !== granularity" class="text-muted">
+        {{ $t('Chart is displayed by {granularity} to keep it responsive.', {granularity: $t(chartGranularity)}) }}
+      </p>
+      <div v-if="error" class="alert alert-danger">{{ $t(error) }}</div>
+      <template v-else-if="result">
+        <energy-cost-summary :result="result" />
+        <div class="clearfix">
+          <h3 class="pull-left">{{ $t('Gross usage-based cost over time') }}</h3>
+          <div class="form-inline pull-right">
+            <label class="mr-2">{{ $t('Aggregation') }}</label
+            ><select v-model="granularity" class="form-control">
+              <option value="hour">{{ $t('Hour') }}</option>
+              <option value="day">{{ $t('Day') }}</option>
+              <option value="month">{{ $t('Month') }}</option>
+            </select>
+          </div>
+        </div>
+        <energy-cost-chart
+          :buckets="buckets"
+          :energy-buckets="energyBuckets"
+          :currency="result.currency"
+          :timezone="timezone"
+          :granularity="chartGranularity || granularity"
+          @rendering="chartRendering = $event"
+        />
+        <energy-cost-breakdown :result="result" :currency="result.currency" />
+        <energy-cost-details :result="result" :timezone="timezone" @align-billing-periods="alignRangeWithBillingPeriods" />
+      </template>
+      <div v-else-if="loading" class="well text-center">{{ $t('Calculating costs...') }}</div>
+    </loading-cover>
   </section>
 </template>
