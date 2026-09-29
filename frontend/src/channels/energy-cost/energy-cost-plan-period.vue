@@ -5,13 +5,16 @@
   import EnergyCostTariffPicker from './energy-cost-tariff-picker.vue';
   import EnergyCostPresetForm from './energy-cost-preset-form.vue';
   import {
+    availablePresetComponentId,
     cloneTariffComponents,
     commonPresetValidity,
     compatiblePresetComponents,
     dateFromDatetime,
     dateFromPeriodEnd,
     inputsForComponent,
+    legacyComponentId,
     presetDefault,
+    uniqueComponentId,
   } from './energy-cost-plan-utils';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
@@ -33,12 +36,6 @@
     DISTRIBUTION_VARIABLE: 'Variable distribution',
     DISTRIBUTION_FIXED: 'Fixed distribution',
     SUPPLIER_FIXED: 'Supplier fixed charge',
-  };
-  const componentIds = {
-    ENERGY_PURCHASE: 'energy-purchase',
-    DISTRIBUTION_VARIABLE: 'distribution-variable',
-    DISTRIBUTION_FIXED: 'distribution-fixed',
-    SUPPLIER_FIXED: 'supplier-fixed',
   };
   const detailsVisible = ref(false);
   const selectedTariffId = ref('');
@@ -97,12 +94,24 @@
   }
 
   function addComponent(kind) {
+    const componentId = availablePresetComponentId(presets.value, kind, props.period.components);
     const component =
       kind === 'DISTRIBUTION_FIXED' || kind === 'SUPPLIER_FIXED'
-        ? {kind, rate: '', per: 'BILLING_PERIOD', prorate: false, taxTreatment: {included: []}}
-        : {kind, presetId: '', componentId: componentIds[kind], values: {}};
+        ? {
+            kind,
+            componentId: uniqueComponentId(legacyComponentId(kind), props.period.components),
+            rate: '',
+            per: 'BILLING_PERIOD',
+            prorate: false,
+            taxTreatment: {included: []},
+          }
+        : componentId && {kind, presetId: '', componentId, values: {}};
+    if (!component) return;
     emit('update:period', {...props.period, components: [...props.period.components, component]});
   }
+
+  const canAddComponent = (kind) =>
+    kind === 'DISTRIBUTION_FIXED' || kind === 'SUPPLIER_FIXED' || Boolean(availablePresetComponentId(presets.value, kind, props.period.components));
 
   function removeComponent(index) {
     emit('update:period', {...props.period, components: props.period.components.filter((_, componentIndex) => componentIndex !== index)});
@@ -189,7 +198,7 @@
           <energy-cost-preset-picker
             :model-value="component.presetId"
             :presets="compatiblePresetComponents(presets, component)"
-            :id-prefix="`energy-cost-period-${index}-${component.kind}`"
+            :id-prefix="`energy-cost-period-${index}-${componentIndex}`"
             @update:model-value="updatePreset(componentIndex, $event)"
           />
           <div v-if="errors.components?.[componentIndex]?.preset" class="text-danger">{{ $t(errors.components[componentIndex].preset) }}</div>
@@ -199,7 +208,7 @@
             :component-index="presetComponentIndex(component, presetDetailsById[component.presetId])"
             :preset="presetDetailsById[component.presetId]"
             :errors="errors.components?.[componentIndex] || {}"
-            :id-prefix="`energy-cost-period-${index}-${component.kind}`"
+            :id-prefix="`energy-cost-period-${index}-${componentIndex}`"
             @update:values="updateComponent(componentIndex, {...component, values: $event})"
           />
         </template>
@@ -224,7 +233,14 @@
         </div>
       </div>
       <div class="btn-group">
-        <button v-for="kind in Object.keys(componentLabels)" :key="kind" type="button" class="btn btn-default btn-sm" @click="addComponent(kind)">
+        <button
+          v-for="kind in Object.keys(componentLabels)"
+          :key="kind"
+          type="button"
+          class="btn btn-default btn-sm"
+          :disabled="!canAddComponent(kind)"
+          @click="addComponent(kind)"
+        >
           {{ $t('Add {component}', {component: componentLabels[kind]}) }}
         </button>
       </div>
