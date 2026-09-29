@@ -9,6 +9,7 @@
   import EnergyCostTariffPicker from './energy-cost-tariff-picker.vue';
   import EnergyCostPlanPeriod from './energy-cost-plan-period.vue';
   import {
+    billingCyclesCoverPeriod,
     cloneTariffComponents,
     commonPresetValidity,
     componentsMatchTariff,
@@ -151,6 +152,8 @@
     periods.value.forEach((period, index) => {
       const periodErrors = result.periods[index];
       if (period.validFrom && period.validTo && period.validFrom >= period.validTo) periodErrors.validTo = 'End date must be after start date.'; // i18n
+      if (!billingCyclesCoverPeriod(period, configuration.value.billingCycles))
+        periodErrors.billingCycles = 'Billing cycles must cover this period continuously.'; // i18n
       if (index < periods.value.length - 1 && (!period.validTo || period.validTo !== periods.value[index + 1].validFrom))
         periodErrors.validTo = 'The end date must match the next period start date.'; // i18n
       if (!period.components.length) periodErrors.components = [{preset: 'Add a price component.'}]; // i18n

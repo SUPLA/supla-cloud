@@ -106,6 +106,27 @@ export function shiftDatetimeDays(value, timezone, days) {
   return date.isValid ? date.toISO({suppressMilliseconds: true, includeOffset: true}) : undefined;
 }
 
+export function billingCyclesCoverPeriod(period, billingCycles) {
+  const timestamp = (value, fallback) => (value ? Date.parse(value) : fallback);
+  const periodFrom = timestamp(period.validFrom, -Infinity);
+  const periodTo = timestamp(period.validTo, Infinity);
+  const coverage = billingCycles
+    .map((cycle) => ({
+      from: Math.max(periodFrom, timestamp(cycle.validFrom, -Infinity)),
+      to: Math.min(periodTo, timestamp(cycle.validTo, Infinity)),
+    }))
+    .filter((cycle) => cycle.from < cycle.to)
+    .sort((left, right) => left.from - right.from);
+  if (!coverage.length) return false;
+  let cursor = period.validFrom ? periodFrom : coverage[0].from;
+  const expectedEnd = period.validTo ? periodTo : coverage[coverage.length - 1].to;
+  for (const cycle of coverage) {
+    if (cycle.from !== cursor) return false;
+    cursor = cycle.to;
+  }
+  return cursor === expectedEnd;
+}
+
 export function serializeConfiguration(configuration) {
   const {billingCycles, periods} = configuration;
   const configurationFields = Object.fromEntries(Object.entries(configuration).filter(([key]) => !['priceBasis', 'billingCycles', 'periods'].includes(key)));
@@ -122,9 +143,16 @@ export function serializeConfiguration(configuration) {
     ...configurationFields,
     version: 2,
     billingCycles: billingCycles.map(serializeBoundaries),
-    periods: periods.map((period) => ({
-      ...serializeBoundaries(period, true),
-      components: period.components.map((component) => ({...component, values: {...component.values}})),
-    })),
+    periods: periods.map((period, index) => {
+      const boundaries = {
+        ...period,
+        validFrom: index === 0 ? null : period.validFrom,
+        validTo: index === periods.length - 1 ? null : period.validTo,
+      };
+      return {
+        ...serializeBoundaries(boundaries, true),
+        components: period.components.map(({values, ...component}) => (component.presetId === undefined ? component : {...component, values: {...values}})),
+      };
+    }),
   };
 }

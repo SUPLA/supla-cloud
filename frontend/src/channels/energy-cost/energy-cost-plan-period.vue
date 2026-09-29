@@ -135,6 +135,7 @@
         <span v-if="errors.validTo" class="help-block">{{ $t(errors.validTo) }}</span>
       </div>
     </div>
+    <div v-if="errors.billingCycles" class="text-danger">{{ $t(errors.billingCycles) }}</div>
     <template v-if="!detailsVisible">
       <energy-cost-tariff-picker
         v-if="tariffSelectable"

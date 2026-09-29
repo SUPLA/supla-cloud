@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vitest';
 import {
+  billingCyclesCoverPeriod,
   cloneTariffComponents,
   commonPresetValidity,
   componentsMatchTariff,
@@ -52,6 +53,22 @@ describe('energy cost plan utilities', () => {
     };
 
     expect(serializeConfiguration(configuration).periods[0].components[0].values).toEqual({'distribution.DAY': '0.2841'});
+  });
+
+  it('omits preset values from inline fixed charges', () => {
+    const configuration = {
+      currency: 'PLN',
+      timezone: 'Europe/Warsaw',
+      billingCycles: [],
+      periods: [{components: [{kind: 'DISTRIBUTION_FIXED', rate: '10', per: 'BILLING_PERIOD', prorate: false, values: {}}]}],
+    };
+
+    expect(serializeConfiguration(configuration).periods[0].components[0]).toEqual({
+      kind: 'DISTRIBUTION_FIXED',
+      rate: '10',
+      per: 'BILLING_PERIOD',
+      prorate: false,
+    });
   });
 
   it('returns only inputs targeting a component without rewriting their pointers', () => {
@@ -114,6 +131,13 @@ describe('energy cost plan utilities', () => {
     ).toBeNull();
   });
 
+  it('requires billing cycles to cover a plan period continuously', () => {
+    const billingCycles = [{validFrom: '2026-01-01T00:00:00+01:00', validTo: '2027-01-01T00:00:00+01:00'}];
+
+    expect(billingCyclesCoverPeriod({validFrom: '2000-01-01T00:00:00+01:00', validTo: '2100-01-01T00:00:00+01:00'}, billingCycles)).toBe(false);
+    expect(billingCyclesCoverPeriod({validFrom: null, validTo: null}, billingCycles)).toBe(true);
+  });
+
   it('serializes local datetimes using the preset timezone offset', () => {
     const value = fromDatetimeLocal('2026-01-15T00:00', 'Europe/Warsaw');
 
@@ -135,7 +159,7 @@ describe('energy cost plan utilities', () => {
     expect(dateFromPeriodEnd(boundary, 'Europe/Warsaw')).toBe('2026-07-01');
   });
 
-  it('serializes a v2 draft, omitting empty boundaries and preserving component values', () => {
+  it('serializes a v2 draft with open outer period boundaries and component values', () => {
     const configuration = {
       currency: 'PLN',
       timezone: 'Europe/Warsaw',
@@ -167,8 +191,8 @@ describe('energy cost plan utilities', () => {
       ],
       periods: [
         {
-          validFrom: '2026-01-01T00:00:00+01:00',
-          validTo: '2027-01-01T00:00:00+01:00',
+          validFrom: null,
+          validTo: null,
           components: [
             {kind: 'ENERGY_PURCHASE', presetId: 'first', componentId: 'energy', values: {rate: '1'}},
             {kind: 'DISTRIBUTION_VARIABLE', presetId: 'later', componentId: 'distribution', values: {rate: '2'}},
