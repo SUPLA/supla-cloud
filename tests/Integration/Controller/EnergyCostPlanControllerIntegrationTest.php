@@ -13,6 +13,7 @@ namespace App\Tests\Integration\Controller;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
+use Supla\EnergyCostCalculator\Plan\CostPlanStarterCatalog;
 use Supla\EnergyCostCalculator\Preset\TariffPresetCatalog;
 
 /** @small */
@@ -56,10 +57,35 @@ class EnergyCostPlanControllerIntegrationTest extends IntegrationTestCase {
         );
     }
 
+    public function testExposesStarterCatalogueAndSafeNotFound(): void {
+        $client = $this->createAuthenticatedClient($this->createConfirmedUser('starters@supla.org'));
+        /** @var CostPlanStarterCatalog $catalog */
+        $catalog = self::$container->get(CostPlanStarterCatalog::class);
+
+        $client->apiRequestV24('GET', '/api/energy-cost-plan-starters');
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSame($catalog->starters(), json_decode($client->getResponse()->getContent(), true));
+
+        $starterId = 'PL.STARTER.PGE_DYSTRYBUCJA.G12';
+        $client->apiRequestV24('GET', '/api/energy-cost-plan-starters/' . $starterId);
+        $this->assertStatusCode(200, $client->getResponse());
+        $starter = $catalog->get($starterId);
+        $this->assertSame([
+            'id' => $starter->id,
+            'revision' => $starter->revision,
+            'metadata' => $starter->metadata,
+            'components' => $starter->components,
+        ], json_decode($client->getResponse()->getContent(), true));
+
+        $client->apiRequestV24('GET', '/api/energy-cost-plan-starters/PL.UNKNOWN.G11');
+        $this->assertStatusCode(404, $client->getResponse());
+        $this->assertSame('Energy cost plan starter does not exist.', json_decode($client->getResponse()->getContent(), true)['message']);
+    }
+
     public function testCreatesUpdatesAndHidesForeignPlans(): void {
         $user = $this->createConfirmedUser('plans@supla.org');
         $client = $this->createAuthenticatedClient($user);
-        $configuration = $this->configuration('PL.TAURON_DYSTRYBUCJA.G11.2026');
+        $configuration = $this->configuration('PL.STARTER.TAURON_DYSTRYBUCJA.G11');
 
         $client->apiRequestV24('POST', '/api/energy-cost-plans', [
             'name' => 'Home',
@@ -70,7 +96,7 @@ class EnergyCostPlanControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSame('Home', $plan['name']);
         $this->assertSame($configuration, $plan['configuration']);
 
-        $newConfiguration = $this->configuration('PL.TAURON_DYSTRYBUCJA.G12.2026');
+        $newConfiguration = $this->configuration('PL.STARTER.TAURON_DYSTRYBUCJA.G12');
         $client->apiRequestV24('PUT', '/api/energy-cost-plans/' . $plan['id'], [
             'name' => 'Summer home',
             'configuration' => $newConfiguration,
@@ -95,11 +121,11 @@ class EnergyCostPlanControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(400, $client->getResponse());
         $this->assertSame(
-            'Invalid energy cost plan configuration: Version 2 plan requires currency, timezone and NET or GROSS priceBasis.',
+            'Invalid energy cost plan configuration: Version 2 plan requires currency and timezone.',
             json_decode($client->getResponse()->getContent(), true)['message']
         );
 
-        $configuration = $this->configuration('PL.TAURON_DYSTRYBUCJA.G11.2026');
+        $configuration = $this->configuration('PL.STARTER.TAURON_DYSTRYBUCJA.G11');
         unset($configuration['periods'][0]['validFrom']);
         $client->apiRequestV24('POST', '/api/energy-cost-plans', [
             'name' => 'Home',
@@ -107,13 +133,15 @@ class EnergyCostPlanControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(400, $client->getResponse());
         $this->assertSame(
-            'Invalid energy cost plan configuration: periods[0].validFrom must contain an explicit UTC offset or Z suffix.',
+            'Invalid energy cost plan configuration: Preset does not cover period 0 component ENERGY_PURCHASE continuously.',
             json_decode($client->getResponse()->getContent(), true)['message']
         );
 
+        $configuration = $this->configuration('PL.STARTER.TAURON_DYSTRYBUCJA.G11');
+        $configuration['periods'][0]['components'][0]['presetId'] = 'PL.UNKNOWN.G11.2026';
         $client->apiRequestV24('POST', '/api/energy-cost-plans', [
             'name' => 'Home',
-            'configuration' => $this->configuration('PL.UNKNOWN.G11.2026'),
+            'configuration' => $configuration,
         ]);
         $this->assertStatusCode(404, $client->getResponse());
         $this->assertSame(
@@ -123,23 +151,12 @@ class EnergyCostPlanControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @return array<string, mixed> */
-    private function configuration(string $presetId): array {
-        $components = $presetId === 'PL.TAURON_DYSTRYBUCJA.G12.2026'
-            ? [
-                ['kind' => 'ENERGY_PURCHASE', 'presetId' => $presetId, 'componentId' => 'energy-purchase',
-                    'values' => ['energy.DAY' => '0.98', 'energy.NIGHT' => '0.62']],
-                ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => $presetId,
-                    'componentId' => 'distribution-variable', 'values' => []],
-            ]
-            : [
-                ['kind' => 'ENERGY_PURCHASE', 'presetId' => $presetId, 'componentId' => 'energy-purchase', 'values' => ['energy.rate' => '0.71']],
-                ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => $presetId, 'componentId' => 'distribution-variable', 'values' => []],
-            ];
+    private function configuration(string $starterId): array {
+        $components = (new CostPlanStarterCatalog())->get($starterId)->components;
         return [
             'version' => 2,
             'currency' => 'PLN',
             'timezone' => 'Europe/Warsaw',
-            'priceBasis' => 'NET',
             'billingCycles' => [[
                 'validFrom' => '2026-01-01T00:00:00+01:00',
                 'validTo' => '2027-01-01T00:00:00+01:00',

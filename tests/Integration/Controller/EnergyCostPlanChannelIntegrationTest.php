@@ -15,18 +15,31 @@ use App\Entity\Main\User;
 use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
 use App\Model\EnergyCost\EnergyCostPlanService;
+use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
+use Supla\EnergyCostCalculator\Plan\CostPlanStarterCatalog;
 
 /** @small */
 class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
+    /** @var \Doctrine\DBAL\Connection */
+    private $measurementLogsConnection;
+
+    protected function initializeDatabaseForTests(): void {
+        $this->measurementLogsConnection = self::getContainer()
+            ->get(MeasurementLogsEntityManagerProvider::class)
+            ->get()
+            ->getConnection();
+    }
+
     public function testAssignsReadsAndDeletesPlanThroughChannelApi(): void {
         $user = $this->createConfirmedUser('channel-api@supla.org');
         $channel = $this->createElectricityMeterChannel($user);
+        $this->insertHourlyDeltas($channel);
         /** @var EnergyCostPlanService $plans */
         $plans = self::getContainer()->get(EnergyCostPlanService::class);
         $plan = $plans->create($user, 'Home', $this->configuration());
@@ -45,7 +58,7 @@ class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
 
         $client->apiRequestV24(
             'GET',
-            '/api/channels/' . $channel->getId() . '/energy-cost-calculation?fromTimestamp=1767265200&toTimestamp=1767266100'
+            '/api/channels/' . $channel->getId() . '/energy-cost-calculation?fromTimestamp=1767265200&toTimestamp=1767268800'
         );
         $this->assertStatusCode(200, $client->getResponse());
         $calculation = json_decode($client->getResponse()->getContent(), true);
@@ -60,6 +73,7 @@ class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
     public function testRejectsInvalidCalculationRangeBeforeCalculation(): void {
         $user = $this->createConfirmedUser('range-api@supla.org');
         $channel = $this->createElectricityMeterChannel($user);
+        $this->insertHourlyDeltas($channel);
         $client = $this->createAuthenticatedClient($user);
 
         $client->apiRequestV24('GET', '/api/channels/' . $channel->getId() . '/energy-cost-calculation?fromTimestamp=10&toTimestamp=10');
@@ -71,11 +85,40 @@ class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
         );
     }
 
+    public function testSimulatesTemporaryConfigurationWithoutAssignment(): void {
+        $user = $this->createConfirmedUser('simulation-api@supla.org');
+        $channel = $this->createElectricityMeterChannel($user);
+        $this->insertHourlyDeltas($channel);
+        $client = $this->createAuthenticatedClient($user);
+
+        $client->apiRequestV24('POST', '/api/channels/' . $channel->getId() . '/energy-cost-calculation', [
+            'fromTimestamp' => 1767265200,
+            'toTimestamp' => 1767268800,
+            'configuration' => $this->configuration(),
+        ]);
+
+        $this->assertStatusCode(200, $client->getResponse());
+        $calculation = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('costs', $calculation);
+        $this->assertArrayHasKey('charges', $calculation);
+    }
+
     private function createElectricityMeterChannel(User $user): IODeviceChannel {
         return $this->createDevice(
             $this->createLocation($user),
             [[ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER]],
         )->getChannels()->first();
+    }
+
+    private function insertHourlyDeltas(IODeviceChannel $channel): void {
+        foreach (['11:15:00', '11:30:00', '11:45:00', '12:00:00'] as $time) {
+            $this->measurementLogsConnection->insert('supla_em_delta_log', [
+                'channel_id' => $channel->getId(), 'date' => '2026-01-01 ' . $time,
+                'phase1_fae' => 100000, 'phase1_rae' => 0, 'phase2_fae' => 0, 'phase2_rae' => 0,
+                'phase3_fae' => 0, 'phase3_rae' => 0, 'phase1_fre' => 0, 'phase1_rre' => 0,
+                'phase2_fre' => 0, 'phase2_rre' => 0, 'phase3_fre' => 0, 'phase3_rre' => 0,
+            ]);
+        }
     }
 
     /** @return array<string, mixed> */
@@ -84,7 +127,6 @@ class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
             'version' => 2,
             'currency' => 'PLN',
             'timezone' => 'Europe/Warsaw',
-            'priceBasis' => 'NET',
             'billingCycles' => [[
                 'validFrom' => '2026-01-01T00:00:00+01:00',
                 'validTo' => '2027-01-01T00:00:00+01:00',
@@ -95,12 +137,7 @@ class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
             'periods' => [[
                 'validFrom' => '2026-01-01T00:00:00+01:00',
                 'validTo' => '2027-01-01T00:00:00+01:00',
-                'components' => [
-                    ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026', 'componentId' => 'energy-purchase',
-                        'values' => ['energy.rate' => '0.71']],
-                    ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
-                        'componentId' => 'distribution-variable', 'values' => []],
-                ],
+                'components' => (new CostPlanStarterCatalog())->get('PL.STARTER.TAURON_DYSTRYBUCJA.G11')->components,
             ]],
         ];
     }

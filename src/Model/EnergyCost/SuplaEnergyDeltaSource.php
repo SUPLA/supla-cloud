@@ -51,8 +51,7 @@ final class SuplaEnergyDeltaSource implements EnergyDeltaSource {
                     phase1_fae, phase2_fae, phase3_fae,
                     phase1_rae, phase2_rae, phase3_rae,
                     phase1_fre, phase2_fre, phase3_fre,
-                    phase1_rre, phase2_rre, phase3_rre,
-                    fae_balanced, rae_balanced
+                    phase1_rre, phase2_rre, phase3_rre
                FROM supla_em_delta_log
               WHERE channel_id = :channelId
                 AND date > :rangeFrom
@@ -73,15 +72,6 @@ final class SuplaEnergyDeltaSource implements EnergyDeltaSource {
                 $rawValue = array_sum(array_map(fn(string $column) => (int)($row[$column] ?? 0), $columns));
                 $quantities[$quantity] = ElectricityMeterValueConverter::rawEnergyToDecimal($rawValue);
             }
-            if ($row['fae_balanced'] !== null) {
-                $quantities[QuantityType::ACTIVE_ENERGY_BALANCED_IMPORT->value] =
-                    ElectricityMeterValueConverter::rawEnergyToDecimal((int)$row['fae_balanced']);
-            }
-            if ($row['rae_balanced'] !== null) {
-                $quantities[QuantityType::ACTIVE_ENERGY_BALANCED_EXPORT->value] =
-                    ElectricityMeterValueConverter::rawEnergyToDecimal((int)$row['rae_balanced']);
-            }
-
             yield new EnergyDelta($to->modify('-' . self::SLOT_DURATION), $to, $quantities);
         }
     }

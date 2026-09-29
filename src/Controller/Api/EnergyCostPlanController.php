@@ -26,12 +26,15 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Supla\EnergyCostCalculator\Exception\CalculationException;
 use Supla\EnergyCostCalculator\Exception\CostPlanDefinitionException;
+use Supla\EnergyCostCalculator\Exception\CostPlanStarterNotFoundException;
 use Supla\EnergyCostCalculator\Exception\DefinitionException;
 use Supla\EnergyCostCalculator\Exception\EnergyCostCalculatorException;
+use Supla\EnergyCostCalculator\Exception\InvalidCostPlanStarterException;
 use Supla\EnergyCostCalculator\Exception\InvalidTariffPresetException;
 use Supla\EnergyCostCalculator\Exception\MissingReferenceDataException;
 use Supla\EnergyCostCalculator\Exception\TariffPresetCompilationException;
 use Supla\EnergyCostCalculator\Exception\TariffPresetNotFoundException;
+use Supla\EnergyCostCalculator\Plan\CostPlanStarterCatalog;
 use Supla\EnergyCostCalculator\Preset\TariffPresetCatalog;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,12 +51,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   @OA\Property(property="updatedAt", type="string", format="date-time"),
  * )
  * @OA\Schema(
- *   schema="EnergyCostPlanConfiguration", type="object", required={"version", "currency", "timezone", "priceBasis", "billingCycles", "periods"},
- *   description="Cost Plan v2. Billing-cycle history is independent from pricing periods; each period selects typed components.",
+ *   schema="EnergyCostPlanConfiguration", type="object", required={"version", "currency", "timezone", "billingCycles", "periods"},
+ *   description="Cost Plan v2. Billing-cycle history is independent from pricing periods; component values contain explicit user overrides only.",
  *   @OA\Property(property="version", type="integer", enum={2}),
  *   @OA\Property(property="currency", type="string"),
  *   @OA\Property(property="timezone", type="string"),
- *   @OA\Property(property="priceBasis", type="string", enum={"NET", "GROSS"}),
+ *   @OA\Property(property="taxContext", type="object", description="Optional for inline-only configurations where taxes cannot be inferred from presets."),
  *   @OA\Property(property="billingCycles", type="array", @OA\Items(type="object")),
  *   @OA\Property(property="periods", type="array", @OA\Items(type="object")),
  * )
@@ -69,12 +72,20 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   @OA\Property(property="metadata", type="object"),
  *   @OA\Property(property="document", type="object"),
  * )
+ * @OA\Schema(
+ *   schema="EnergyCostPlanStarter", type="object",
+ *   @OA\Property(property="id", type="string"),
+ *   @OA\Property(property="revision", type="string"),
+ *   @OA\Property(property="metadata", type="object"),
+ *   @OA\Property(property="components", type="array", @OA\Items(type="object")),
+ * )
  */
 class EnergyCostPlanController extends RestController {
     public function __construct(
         private readonly EnergyCostPlanService $planService,
         private readonly EnergyCostPlanCalculator $calculator,
         private readonly TariffPresetCatalog $catalog,
+        private readonly CostPlanStarterCatalog $starterCatalog,
     ) {
     }
 
@@ -102,6 +113,38 @@ class EnergyCostPlanController extends RestController {
             return $this->view(['id' => $preset->id, 'revision' => $preset->revision, 'metadata' => $preset->metadata, 'document' => $preset->document]);
         } catch (EnergyCostCalculatorException $exception) {
             $this->throwCalculatorException($exception);
+        }
+    }
+
+    /**
+     * @OA\Get(path="/energy-cost-plan-starters", operationId="getEnergyCostPlanStarters", summary="Get energy cost plan starters", tags={"Energy cost"}, @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(type="object"))))
+     * @Rest\Get("/energy-cost-plan-starters")
+     * @Security("is_granted('ROLE_CHANNELS_R')")
+     */
+    public function getEnergyCostPlanStartersAction(): View {
+        try {
+            return $this->view($this->starterCatalog->starters());
+        } catch (CostPlanStarterNotFoundException|InvalidCostPlanStarterException $exception) {
+            $this->throwStarterException($exception);
+        }
+    }
+
+    /**
+     * @OA\Get(path="/energy-cost-plan-starters/{starterId}", operationId="getEnergyCostPlanStarter", summary="Get energy cost plan starter recipe", tags={"Energy cost"}, @OA\Parameter(name="starterId", in="path", required=true, @OA\Schema(type="string")), @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/EnergyCostPlanStarter")))
+     * @Rest\Get("/energy-cost-plan-starters/{starterId}")
+     * @Security("is_granted('ROLE_CHANNELS_R')")
+     */
+    public function getEnergyCostPlanStarterAction(string $starterId): View {
+        try {
+            $starter = $this->starterCatalog->get($starterId);
+            return $this->view([
+                'id' => $starter->id,
+                'revision' => $starter->revision,
+                'metadata' => $starter->metadata,
+                'components' => $starter->components,
+            ]);
+        } catch (CostPlanStarterNotFoundException|InvalidCostPlanStarterException $exception) {
+            $this->throwStarterException($exception);
         }
     }
 
@@ -245,6 +288,33 @@ class EnergyCostPlanController extends RestController {
         }
     }
 
+    /**
+     * @OA\Post(path="/channels/{channel}/energy-cost-calculation", operationId="simulateChannelEnergyCost", summary="Calculate a temporary energy cost plan", tags={"Energy cost"}, @OA\Parameter(name="channel", in="path", required=true, @OA\Schema(type="integer")), @OA\RequestBody(required=true, @OA\JsonContent(required={"fromTimestamp", "toTimestamp", "configuration"}, @OA\Property(property="fromTimestamp", type="integer", format="int64"), @OA\Property(property="toTimestamp", type="integer", format="int64"), @OA\Property(property="configuration", ref="#/components/schemas/EnergyCostPlanConfiguration"))), @OA\Response(response="200", description="Success. Costs are qualified as net, gross and taxes.", @OA\JsonContent(type="object")))
+     * @Rest\Post("/channels/{channel}/energy-cost-calculation")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
+     */
+    public function postEnergyCostCalculationAction(Request $request, IODeviceChannel $channel): JsonResponse {
+        $data = $request->request->all();
+        $fromTimestamp = $this->bodyTimestamp($data, 'fromTimestamp');
+        $toTimestamp = $this->bodyTimestamp($data, 'toTimestamp');
+        Assertion::lessThan($fromTimestamp, $toTimestamp, 'fromTimestamp must be lower than toTimestamp.');
+        Assertion::keyExists($data, 'configuration', 'Missing configuration.');
+        Assertion::isArray($data['configuration'], 'Invalid configuration.');
+        $utc = new DateTimeZone('UTC');
+        try {
+            $result = $this->calculator->calculateConfiguration(
+                $this->getUser(),
+                $channel,
+                $data['configuration'],
+                (new DateTimeImmutable('@' . $fromTimestamp))->setTimezone($utc),
+                (new DateTimeImmutable('@' . $toTimestamp))->setTimezone($utc),
+            );
+            return new JsonResponse($result);
+        } catch (EnergyCostCalculatorException $exception) {
+            $this->throwCalculatorException($exception);
+        }
+    }
+
     /** @return array{string, array<string, mixed>} */
     private function requestData(Request $request): array {
         $data = $request->request->all();
@@ -265,6 +335,13 @@ class EnergyCostPlanController extends RestController {
         $timestamp = filter_var($value, FILTER_VALIDATE_INT);
         Assertion::true($timestamp !== false, "Missing or invalid $name.");
         return $timestamp;
+    }
+
+    /** @param array<string, mixed> $data */
+    private function bodyTimestamp(array $data, string $name): int {
+        Assertion::keyExists($data, $name, "Missing or invalid $name.");
+        Assertion::integer($data[$name], "Missing or invalid $name.");
+        return $data[$name];
     }
 
     /** @return array<string, mixed> */
@@ -314,5 +391,12 @@ class EnergyCostPlanController extends RestController {
             );
         }
         throw new ApiException('Energy cost calculator could not complete the request.', Response::HTTP_UNPROCESSABLE_ENTITY, $exception);
+    }
+
+    private function throwStarterException(\RuntimeException $exception): never {
+        if ($exception instanceof CostPlanStarterNotFoundException) {
+            throw new NotFoundHttpException('Energy cost plan starter does not exist.', $exception);
+        }
+        throw new ApiException('Energy cost plan starter catalogue is unavailable.', Response::HTTP_INTERNAL_SERVER_ERROR, $exception);
     }
 }

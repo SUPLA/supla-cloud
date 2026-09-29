@@ -66,8 +66,6 @@ class SuplaEnergyDeltaSourceIntegrationTest extends IntegrationTestCase {
             QuantityType::ACTIVE_ENERGY_EXPORT->value => '2.00005',
             QuantityType::REACTIVE_ENERGY_IMPORT->value => '3.00009',
             QuantityType::REACTIVE_ENERGY_EXPORT->value => '4.00013',
-            QuantityType::ACTIVE_ENERGY_BALANCED_IMPORT->value => '5.00008',
-            QuantityType::ACTIVE_ENERGY_BALANCED_EXPORT->value => '0',
         ], $deltas[0]->quantities);
     }
 
@@ -84,7 +82,7 @@ class SuplaEnergyDeltaSourceIntegrationTest extends IntegrationTestCase {
         $this->assertSame('2026-01-01T12:30:00+00:00', $deltas[0]->to->format(DATE_ATOM));
     }
 
-    public function testReturnsPartiallyOverlappingIntervalWithoutClippingAndOmitsUnavailableBalancedValues(): void {
+    public function testReturnsPartiallyOverlappingIntervalWithoutClipping(): void {
         $this->insertDelta(1, '2026-01-01 12:30:00', ['fae_balanced' => null, 'rae_balanced' => null]);
 
         $deltas = iterator_to_array($this->source->getDeltas('1', $this->range('13:20', '13:25', '+01:00')), false);
@@ -92,8 +90,6 @@ class SuplaEnergyDeltaSourceIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $deltas);
         $this->assertSame('2026-01-01T12:15:00+00:00', $deltas[0]->from->format(DATE_ATOM));
         $this->assertSame('2026-01-01T12:30:00+00:00', $deltas[0]->to->format(DATE_ATOM));
-        $this->assertArrayNotHasKey(QuantityType::ACTIVE_ENERGY_BALANCED_IMPORT->value, $deltas[0]->quantities);
-        $this->assertArrayNotHasKey(QuantityType::ACTIVE_ENERGY_BALANCED_EXPORT->value, $deltas[0]->quantities);
     }
 
     public function testPreservesFractionalSecondRangeBounds(): void {
