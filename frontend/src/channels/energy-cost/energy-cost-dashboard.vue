@@ -6,6 +6,7 @@
   import EnergyCostSummary from './energy-cost-summary.vue';
   import EnergyCostChart from './energy-cost-chart.vue';
   import EnergyCostBreakdown from './energy-cost-breakdown.vue';
+  import EnergyCostDetails from './energy-cost-details.vue';
   import {preferredGranularity} from './energy-cost-result-utils';
   import {energyCostCalculationStorage, scenarioFingerprint} from './energy-cost-calculation-storage';
 
@@ -173,6 +174,7 @@
       <h3>{{ $t('Gross usage-based cost over time') }}</h3>
       <energy-cost-chart :buckets="buckets" :energy-buckets="energyBuckets" :loading="loading || chartWorking" :currency="result.currency" />
       <energy-cost-breakdown :result="result" :currency="result.currency" />
+      <energy-cost-details :result="result" :timezone="timezone" />
     </template>
     <div v-else-if="loading" class="well text-center">{{ $t('Calculating costs...') }}</div>
   </section>
