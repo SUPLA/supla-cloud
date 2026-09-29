@@ -1,18 +1,21 @@
 <script setup>
   import {computed} from 'vue';
   import {componentBreakdown, formatDecimal, taxBreakdown, zoneBreakdown} from './energy-cost-result-utils';
+  import EnergyCostDonut from './energy-cost-donut.vue';
 
   const props = defineProps({result: {type: Object, required: true}, currency: String});
   const components = computed(() => componentBreakdown(props.result));
   const zones = computed(() => zoneBreakdown(props.result));
   const taxes = computed(() => taxBreakdown(props.result));
   const label = (id) => id.replace(/[-_]/g, ' ');
+  const chartItems = (items) => items.map((item) => ({...item, label: label(item.id)}));
 </script>
 
 <template>
   <div v-if="components.length || zones.length || taxes.length" class="energy-cost-breakdown row">
     <div v-if="components.length" class="col-md-4">
       <h3>{{ $t('Cost by component') }}</h3>
+      <energy-cost-donut :items="chartItems(components)" :currency="currency" />
       <table class="table table-condensed">
         <tbody>
           <tr v-for="item in components" :key="item.id">
@@ -24,6 +27,7 @@
     </div>
     <div v-if="zones.length" class="col-md-4">
       <h3>{{ $t('Cost by tariff zone') }}</h3>
+      <energy-cost-donut :items="chartItems(zones)" :currency="currency" />
       <table class="table table-condensed">
         <tbody>
           <tr v-for="item in zones" :key="item.id">
@@ -35,6 +39,7 @@
     </div>
     <div v-if="taxes.length" class="col-md-4">
       <h3>{{ $t('Taxes by type') }}</h3>
+      <energy-cost-donut :items="chartItems(taxes)" :currency="currency" />
       <table class="table table-condensed">
         <tbody>
           <tr v-for="item in taxes" :key="item.id">
