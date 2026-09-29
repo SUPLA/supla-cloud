@@ -25,7 +25,7 @@ class ElectricityMeterLogItemsFixture extends SuplaFixture {
     const ORDER = LogItemsFixture::ORDER + 1;
     private const INTERVAL_SECONDS = 600;
     private const INITIAL_ENERGY_KWH = 1000;
-    private const SINCE = '-100 day';
+    private const SINCE = '-300 day';
 
     private readonly EntityManagerInterface $entityManager;
 
@@ -122,8 +122,8 @@ class ElectricityMeterLogItemsFixture extends SuplaFixture {
         $totalExport = 0;
         foreach ($phaseShares as $index => $share) {
             $phase = $index + 1;
-            $import = max(0, (int)round($consumption * $share) - (int)round($production * $share));
-            $export = max(0, (int)round($production * $share) - (int)round($consumption * $share));
+            $import = (int)round($consumption * $share);
+            $export = (int)round($production * $share);
             $state['phase' . $phase . '_fae'] += $import;
             $state['phase' . $phase . '_rae'] += $export;
             $state['phase' . $phase . '_fre'] += (int)round($import * .15);
