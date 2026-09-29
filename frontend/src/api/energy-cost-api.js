@@ -75,4 +75,10 @@ export const energyCostApi = {
     const {body} = await api.get(`channels/${pathPart(channelId)}/energy-cost-calculation?${query}`);
     return body;
   },
+
+  async getMeasurementBounds(channelId) {
+    const path = `channels/${pathPart(channelId)}/measurement-logs?limit=1&logsType=default`;
+    const [{body: oldest}, {body: newest}] = await Promise.all([api.get(`${path}&order=ASC`), api.get(`${path}&order=DESC`)]);
+    return {oldest: oldest[0] || null, newest: newest[0] || null};
+  },
 };
