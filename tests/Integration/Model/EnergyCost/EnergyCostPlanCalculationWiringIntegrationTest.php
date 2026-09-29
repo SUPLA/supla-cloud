@@ -63,10 +63,12 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
         $this->assertSame(1, $result->processedDeltaCount);
         $this->assertCount(1, $result->intervals);
         $this->assertNotEmpty($result->charges);
-        $this->assertArrayHasKey('energy-purchase', $result->usageBasedByComponent);
-        $this->assertArrayHasKey('distribution-variable', $result->usageBasedByComponent);
+        $this->assertArrayHasKey('energy-purchase', $result->costs['gross']['usageBased']['byComponent']);
+        $this->assertArrayHasKey('distribution-variable', $result->costs['gross']['usageBased']['byComponent']);
+        $this->assertNotEmpty($result->costs['net']);
+        $this->assertNotEmpty($result->costs['taxes']);
         if ($hasZones) {
-            $this->assertNotEmpty($result->usageBasedByZone);
+            $this->assertNotEmpty($result->costs['gross']['usageBased']['byZone']);
         }
     }
 
@@ -77,7 +79,6 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                 'version' => 2,
                 'currency' => 'PLN',
                 'timezone' => 'Europe/Warsaw',
-                'priceBasis' => 'NET',
                 'billingCycles' => [[
                     'validFrom' => '2026-01-01T00:00:00+01:00',
                     'validTo' => '2027-01-01T00:00:00+01:00',
@@ -89,8 +90,8 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                     'validFrom' => '2026-01-01T00:00:00+01:00',
                     'validTo' => '2027-01-01T00:00:00+01:00',
                     'components' => [
-                        ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026', 'componentId' => 'energy-purchase',
-                            'values' => ['energy.rate' => '0.71']],
+                        ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_SPRZEDAZ.G11.2026', 'componentId' => 'energy-purchase',
+                            'values' => []],
                         ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
                             'componentId' => 'distribution-variable', 'values' => []],
                     ],
@@ -100,7 +101,6 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                 'version' => 2,
                 'currency' => 'PLN',
                 'timezone' => 'Europe/Warsaw',
-                'priceBasis' => 'NET',
                 'billingCycles' => [[
                     'validFrom' => '2026-01-01T00:00:00+01:00',
                     'validTo' => '2027-01-01T00:00:00+01:00',
@@ -114,13 +114,14 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                     'components' => [
                         [
                             'kind' => 'ENERGY_PURCHASE',
-                            'presetId' => 'PL.TAURON_DYSTRYBUCJA.G12.2026',
+                            'presetId' => 'PL.TAURON_SPRZEDAZ.G12.2026',
                             'componentId' => 'energy-purchase',
                             'values' => ['energy.DAY' => '0.98', 'energy.NIGHT' => '0.62'],
                         ],
                         ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
                             'componentId' => 'distribution-variable', 'values' => []],
-                        ['kind' => 'SUPPLIER_FIXED', 'rate' => '12.00', 'per' => 'BILLING_PERIOD', 'prorate' => false],
+                        ['kind' => 'SUPPLIER_FIXED', 'rate' => '12.00', 'per' => 'BILLING_PERIOD', 'prorate' => false,
+                            'taxTreatment' => ['included' => []]],
                     ],
                 ]],
             ], true, false],
@@ -128,7 +129,6 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                 'version' => 2,
                 'currency' => 'PLN',
                 'timezone' => 'Europe/Warsaw',
-                'priceBasis' => 'NET',
                 'billingCycles' => [[
                     'validFrom' => '2026-01-01T00:00:00+01:00',
                     'validTo' => '2027-01-01T00:00:00+01:00',
@@ -142,7 +142,7 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                     'components' => [
                         [
                             'kind' => 'ENERGY_PURCHASE',
-                            'presetId' => 'PL.TAURON_DYSTRYBUCJA.G13.2026',
+                            'presetId' => 'PL.TAURON_SPRZEDAZ.G13.2026',
                             'componentId' => 'energy-purchase',
                             'values' => [
                                 'energy.MORNING_PEAK' => '0.98',
@@ -159,7 +159,6 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                 'version' => 2,
                 'currency' => 'PLN',
                 'timezone' => 'Europe/Warsaw',
-                'priceBasis' => 'NET',
                 'billingCycles' => [[
                     'validFrom' => '2026-01-01T00:00:00+01:00',
                     'validTo' => '2027-01-01T00:00:00+01:00',
@@ -171,7 +170,7 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                     'validFrom' => '2026-01-01T00:00:00+01:00',
                     'validTo' => '2027-01-01T00:00:00+01:00',
                     'components' => [
-                        ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G14dynamic.2026',
+                        ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_SPRZEDAZ.G14dynamic.2026',
                             'componentId' => 'energy-purchase', 'values' => ['energy.rate' => '0.71']],
                         [
                             'kind' => 'DISTRIBUTION_VARIABLE',
