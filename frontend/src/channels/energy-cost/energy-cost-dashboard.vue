@@ -326,7 +326,7 @@
         </section>
         <section class="energy-cost-print-chart">
           <div class="clearfix">
-            <h3 class="pull-left">{{ $t('Gross cost by weekday and hour') }}</h3>
+            <h3 class="pull-left">{{ $t(heatmapMetric === 'usage' ? 'Energy usage by weekday and hour' : 'Gross cost by weekday and hour') }}</h3>
             <div class="btn-group pull-right">
               <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'cost'}" @click="heatmapMetric = 'cost'">
                 {{ $t('Total cost') }}
@@ -334,10 +334,19 @@
               <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'costPerKwh'}" @click="heatmapMetric = 'costPerKwh'">
                 {{ $t('Cost per kWh') }}
               </button>
+              <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'usage'}" @click="heatmapMetric = 'usage'">
+                {{ $t('Energy usage') }}
+              </button>
             </div>
           </div>
           <p class="text-muted">
-            {{ heatmapMetric === 'cost' ? $t('When did I spend the most?') : $t('When is electricity intrinsically most expensive?') }}
+            {{
+              heatmapMetric === 'cost'
+                ? $t('When did I spend the most?')
+                : heatmapMetric === 'usage'
+                  ? $t('When did I use the most energy?')
+                  : $t('When is electricity intrinsically most expensive?')
+            }}
           </p>
           <energy-cost-heatmap
             :buckets="heatmapBuckets"
