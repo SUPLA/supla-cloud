@@ -85,6 +85,7 @@ class SuplaExtension extends ConfigurableExtension {
         $container->setParameter('supla.mqtt_broker.username', $mergedConfig['mqtt_broker']['username']);
         $container->setParameter('supla.mqtt_broker.password', $mergedConfig['mqtt_broker']['password']);
         $container->setParameter('supla.measurement_logs_retention', $mergedConfig['measurement_logs_retention']);
+        $container->setParameter('supla.energy_log_deltas_calculation.enabled', $mergedConfig['energy_log_deltas_calculation']['enabled']);
         $container->setParameter('supla.ocr.enabled', $mergedConfig['ocr']['enabled']);
         $container->setParameter('supla.ocr.url', $mergedConfig['ocr']['url']);
     }

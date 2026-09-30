@@ -114,6 +114,11 @@ class Configuration implements ConfigurationInterface {
             ->end()->end()
             ->end();
         $rootNode->children()
+            ->arrayNode('energy_log_deltas_calculation')->addDefaultsIfNotSet()->children()
+                ->booleanNode('enabled')->defaultTrue()->info('Whether electricity meter log deltas should be calculated on this server.')->end()
+            ->end()->end()
+            ->end();
+        $rootNode->children()
             ->arrayNode('ocr')->addDefaultsIfNotSet()->children()
                 ->booleanNode('enabled')->defaultFalse()->info('When true, OCR setting will be available in Cloud.')->end()
                 ->scalarNode('url')->defaultValue('ocr.supla.org')->info('URL address for the SUPLA OCR service.')->end()
