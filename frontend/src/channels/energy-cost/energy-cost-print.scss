@@ -6,6 +6,12 @@
   display: none;
 }
 
+.energy-cost-print-heatmaps {
+  position: absolute;
+  left: -10000px;
+  width: 100%;
+}
+
 @media print {
   @page {
     size: A4;
@@ -42,9 +48,15 @@
     margin: 0 !important;
   }
 
+  .energy-cost-print-heatmaps {
+    position: static;
+    width: auto;
+  }
+
   .energy-cost-range-selector,
   .energy-cost-plan-toolbar,
   .energy-cost-print-action,
+  .energy-cost-interactive-heatmap,
   .energy-cost-print-chart .form-inline,
   .energy-cost-dashboard button,
   .energy-cost-dashboard select,

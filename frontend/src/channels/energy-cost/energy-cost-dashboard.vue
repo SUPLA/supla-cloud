@@ -39,6 +39,11 @@
   const heatmapBuckets = ref([]);
   const heatmapEnergyBuckets = ref([]);
   const heatmapMetric = ref('cost');
+  const printHeatmapMetrics = [
+    {metric: 'cost', title: 'Gross cost by weekday and hour', description: 'When did I spend the most?'},
+    {metric: 'costPerKwh', title: 'Cost per kWh by weekday and hour', description: 'When is electricity intrinsically most expensive?'},
+    {metric: 'usage', title: 'Energy usage by weekday and hour', description: 'When did I use the most energy?'},
+  ];
   const chartWorking = ref(false);
   const chartRendering = ref(false);
   const heatmapRendering = ref(false);
@@ -324,7 +329,7 @@
             @rendering="chartRendering = $event"
           />
         </section>
-        <section class="energy-cost-print-chart">
+        <section class="energy-cost-print-chart energy-cost-interactive-heatmap">
           <div class="clearfix">
             <h3 class="pull-left">{{ $t(heatmapMetric === 'usage' ? 'Energy usage by weekday and hour' : 'Gross cost by weekday and hour') }}</h3>
             <div class="btn-group pull-right">
@@ -356,6 +361,13 @@
             @rendering="heatmapRendering = $event"
           />
         </section>
+        <div class="energy-cost-print-heatmaps" aria-hidden="true">
+          <section v-for="heatmap in printHeatmapMetrics" :key="heatmap.metric" class="energy-cost-print-chart">
+            <h3>{{ $t(heatmap.title) }}</h3>
+            <p class="text-muted">{{ $t(heatmap.description) }}</p>
+            <energy-cost-heatmap :buckets="heatmapBuckets" :energy-buckets="heatmapEnergyBuckets" :currency="result.currency" :metric="heatmap.metric" />
+          </section>
+        </div>
         <energy-cost-breakdown :result="result" :currency="result.currency" />
         <energy-cost-details :result="result" :timezone="timezone" @align-billing-periods="alignRangeWithBillingPeriods" />
         <footer class="energy-cost-print-footer">{{ $t('Generated') }}: {{ dateTime(reportGeneratedAt) }}</footer>
