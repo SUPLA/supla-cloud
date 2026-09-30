@@ -36,6 +36,7 @@ parameters:
   env(SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_VOLTAGE): '90'
   env(SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_CURRENT): '90'
   env(SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_POWER_ACTIVE): '90'
+  env(SUPLA_ENERGY_LOG_DELTAS_CALCULATION_ENABLED): 'true'
 
 supla:
   accounts_registration_enabled: '%env(bool:SUPLA_ACCOUNTS_REGISTRATION_ENABLED)%'
@@ -67,6 +68,8 @@ supla:
     em_voltage: '%env(int:SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_VOLTAGE)%'
     em_current: '%env(int:SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_CURRENT)%'
     em_power_active: '%env(int:SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_POWER_ACTIVE)%'
+  energy_log_deltas_calculation:
+    enabled: '%env(bool:SUPLA_ENERGY_LOG_DELTAS_CALCULATION_ENABLED)%'
   mqtt_broker:
     enabled: '%env(bool:SUPLA_MQTT_BROKER_ENABLED)%'
     tls: '%env(bool:SUPLA_MQTT_BROKER_TLS)%'
@@ -86,7 +89,12 @@ supla:
     only_for_public_apps: '%env(bool:SUPLA_STATE_WEBHOOKS_ONLY_FOR_PUBLIC_APPS)%'
 
 services:
+  Supla\EnergyCostCalculator\Contract\EnergyLogSource: '@App\Model\EnergyCost\SuplaEnergyLogSource'
   Supla\EnergyCostCalculator\Contract\EnergyDeltaSource: '@App\Model\EnergyCost\SuplaEnergyDeltaSource'
+  Supla\EnergyCostCalculator\Engine\EnergyLogDeltaCalculator: ~
+  App\Command\Cyclic\ElectricityMeterLogsCalculateDeltasCommand:
+    arguments:
+      $energyLogDeltaCalculationEnabled: '%supla.energy_log_deltas_calculation.enabled%'
   Supla\EnergyCostCalculator\Contract\ReferenceDataSource: '@App\Model\EnergyCost\SuplaReferenceDataSource'
   Supla\EnergyCostCalculator\Definition\BillingDefinitionParser: ~
   Supla\EnergyCostCalculator\Engine\CostCalculator:
