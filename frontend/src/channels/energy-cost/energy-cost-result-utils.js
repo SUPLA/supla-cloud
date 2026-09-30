@@ -93,20 +93,22 @@ export function aggregateEnergy(intervals = [], granularity, timezone) {
 }
 
 export function aggregateChargesByWeekdayAndHour(charges = [], timezone) {
-  const buckets = Array.from({length: 7}, (_, weekday) => ({weekday: weekday + 1, hours: Array(24).fill(zero)}));
+  const buckets = Array.from({length: 7}, (_, weekday) => ({weekday: weekday + 1, available: false, hours: Array(24).fill(zero)}));
   charges.forEach((charge) => {
     const date = DateTime.fromISO(charge.from, {setZone: true}).setZone(timezone);
     const bucket = buckets[date.weekday - 1];
+    bucket.available = true;
     bucket.hours[date.hour] = addDecimals(bucket.hours[date.hour], charge.amounts?.gross ?? zero);
   });
   return buckets;
 }
 
 export function aggregateImportedEnergyByWeekdayAndHour(intervals = [], timezone) {
-  const buckets = Array.from({length: 7}, (_, weekday) => ({weekday: weekday + 1, hours: Array(24).fill(zero)}));
+  const buckets = Array.from({length: 7}, (_, weekday) => ({weekday: weekday + 1, available: false, hours: Array(24).fill(zero)}));
   intervals.forEach((interval) => {
     const date = DateTime.fromISO(interval.from, {setZone: true}).setZone(timezone);
     const bucket = buckets[date.weekday - 1];
+    bucket.available = true;
     bucket.hours[date.hour] = addDecimals(bucket.hours[date.hour], interval.usage?.ACTIVE_ENERGY_IMPORT ?? zero);
   });
   return buckets;

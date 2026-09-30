@@ -29,6 +29,9 @@
     const imported = Number(props.energyBuckets[bucket.weekday - 1]?.hours[hour] || 0);
     return imported ? cost / imported : null;
   }
+  function visibleBuckets() {
+    return props.buckets.filter((bucket) => bucket.available || props.energyBuckets[bucket.weekday - 1]?.available);
+  }
 
   async function render() {
     const token = ++renderToken;
@@ -37,15 +40,16 @@
     await new Promise(requestAnimationFrame);
     if (token !== renderToken) return;
     chart?.destroy();
+    const buckets = visibleBuckets();
     chart = new ApexCharts(element.value, {
       chart: {type: 'heatmap', height: 340, animations: {enabled: false}, toolbar: {show: true}},
       colors: ['#f60'],
       series: mobile.value
         ? Array.from({length: 24}, (_, hour) => ({
             name: String(hour).padStart(2, '0'),
-            data: props.buckets.map((bucket) => ({x: weekdayName(bucket.weekday), y: cellValue(bucket, hour)})),
+            data: buckets.map((bucket) => ({x: weekdayName(bucket.weekday), y: cellValue(bucket, hour)})),
           })).reverse()
-        : props.buckets
+        : buckets
             .map((bucket) => ({
               name: weekdayName(bucket.weekday),
               data: bucket.hours.map((_, hour) => ({x: String(hour).padStart(2, '0'), y: cellValue(bucket, hour)})),
