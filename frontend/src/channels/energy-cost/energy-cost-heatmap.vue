@@ -39,6 +39,7 @@
     chart?.destroy();
     chart = new ApexCharts(element.value, {
       chart: {type: 'heatmap', height: 340, animations: {enabled: false}, toolbar: {show: true}},
+      colors: ['#f60'],
       series: mobile.value
         ? Array.from({length: 24}, (_, hour) => ({
             name: String(hour).padStart(2, '0'),
