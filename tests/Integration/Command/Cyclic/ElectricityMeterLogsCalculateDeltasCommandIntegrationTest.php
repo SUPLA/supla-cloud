@@ -6,9 +6,12 @@ use App\Command\Cyclic\ElectricityMeterLogsCalculateDeltasCommand;
 use App\Entity\EntityUtils;
 use App\Entity\MeasurementLogs\ElectricityMeterDeltaLogItem;
 use App\Entity\MeasurementLogs\ElectricityMeterLogItem;
+use App\Model\EnergyCost\SuplaEnergyLogSource;
 use App\Model\MeasurementLogsEntityManagerProvider;
 use App\Tests\Integration\IntegrationTestCase;
 use Doctrine\ORM\EntityManagerInterface;
+use Supla\EnergyCostCalculator\Engine\EnergyLogDeltaCalculator;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Lock\Store\FlockStore;
@@ -34,7 +37,7 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->createEmLog(2, '2026-06-11 12:50:00', 5000);
 
         $lockFactory = new LockFactory(new FlockStore());
-        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager, $lockFactory);
+        $command = $this->createCommand($lockFactory);
         EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
         $this->application->add($command);
         $commandTester = new CommandTester($command);
@@ -81,7 +84,7 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->createEmLog(4, '2026-06-11 16:43:33', 1550);
 
         $lockFactory = new LockFactory(new FlockStore());
-        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager, $lockFactory);
+        $command = $this->createCommand($lockFactory);
         EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
         $this->application->add($command);
         $commandTester = new CommandTester($command);
@@ -116,7 +119,7 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->createEmLog(6, '2026-06-11 12:35:00', 3000);
 
         $lockFactory = new LockFactory(new FlockStore());
-        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager, $lockFactory);
+        $command = $this->createCommand($lockFactory);
         EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
         $this->application->add($command);
         $commandTester = new CommandTester($command);
@@ -143,7 +146,7 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->createEmLog(3, '2026-06-11 12:15:00', 2000);
 
         $lockFactory = new LockFactory(new FlockStore());
-        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager, $lockFactory);
+        $command = $this->createCommand($lockFactory);
         EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
         $this->application->add($command);
         $commandTester = new CommandTester($command);
@@ -172,7 +175,7 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->createEmLog(5, '2026-06-11 12:30:00', 1300);
 
         $lockFactory = new LockFactory(new FlockStore());
-        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager, $lockFactory);
+        $command = $this->createCommand($lockFactory);
         EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
         $this->application->add($command);
         $commandTester = new CommandTester($command);
@@ -200,7 +203,7 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->createEmLog(7, '2026-06-11 12:45:00', 250);
 
         $lockFactory = new LockFactory(new FlockStore());
-        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager, $lockFactory);
+        $command = $this->createCommand($lockFactory);
         EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
         $this->application->add($command);
         $commandTester = new CommandTester($command);
@@ -230,7 +233,7 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->createEmLog(8, '2026-06-11 12:30:00', 150);
 
         $lockFactory = new LockFactory(new FlockStore());
-        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager, $lockFactory);
+        $command = $this->createCommand($lockFactory);
         EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
         $this->application->add($command);
         $commandTester = new CommandTester($command);
@@ -263,7 +266,7 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->createEmLog(9, '2026-06-12 12:00:00', 2000);
 
         $lockFactory = new LockFactory(new FlockStore());
-        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager, $lockFactory);
+        $command = $this->createCommand($lockFactory);
         EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
         $this->application->add($command);
         $commandTester = new CommandTester($command);
@@ -298,7 +301,7 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->createEmLog(10, '2026-06-11 12:45:00', 1100);
 
         $lockFactory = new LockFactory(new FlockStore());
-        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager, $lockFactory);
+        $command = $this->createCommand($lockFactory);
         EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
         $this->application->add($command);
         $commandTester = new CommandTester($command);
@@ -524,7 +527,7 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $lock->acquire();
 
         try {
-            $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager, $lockFactory);
+            $command = $this->createCommand($lockFactory);
             $tester = new CommandTester($command);
             $tester->execute([]);
 
@@ -532,6 +535,28 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         } finally {
             $lock->release();
         }
+    }
+
+    public function testDoesNotCalculateDeltasWhenDisabled(): void {
+        $this->createEmLog(42, '2026-06-11 12:00:00', 1000);
+        $this->createEmLog(42, '2026-06-11 12:15:00', 1200);
+        $command = $this->createCommand(new LockFactory(new FlockStore()), false);
+
+        (new CommandTester($command))->execute([]);
+
+        $deltas = $this->entityManager->getRepository(ElectricityMeterDeltaLogItem::class)->findBy(['channel_id' => 42]);
+        self::assertCount(0, $deltas);
+    }
+
+    public function testReportsWhenAllLogsAreProcessed(): void {
+        $this->createEmLog(420, '2026-06-12 12:00:00', 1000);
+        $this->createEmLog(420, '2026-06-12 12:15:00', 1200);
+        $tester = new CommandTester($this->createCommand(new LockFactory(new FlockStore())));
+
+        $tester->execute([], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
+
+        self::assertStringContainsString('All logs have been processed.', $tester->getDisplay());
+        self::assertStringNotContainsString('Fetched 2 logs for processing', $tester->getDisplay());
     }
 
     private function createEmLog(int $channelId, string $date, ?int $fae) {
@@ -556,12 +581,22 @@ class ElectricityMeterLogsCalculateDeltasCommandIntegrationTest extends Integrat
         $this->entityManager->flush();
     }
 
-    private function runDeltaCalculation(): void {
+    private function runDeltaCalculation() {
         $lockFactory = new LockFactory(new FlockStore());
-        $command = new ElectricityMeterLogsCalculateDeltasCommand($this->entityManager, $lockFactory);
+        $command = $this->createCommand($lockFactory);
         EntityUtils::setField($command, 'name', 'supla:cyclic:electricity-meter-logs-calculate-deltas');
         $this->application->add($command);
         $commandTester = new CommandTester($command);
         $commandTester->execute([]);
+    }
+
+    private function createCommand(LockFactory $lockFactory, bool $enabled = true): ElectricityMeterLogsCalculateDeltasCommand {
+        return new ElectricityMeterLogsCalculateDeltasCommand(
+            $this->entityManager,
+            $lockFactory,
+            new SuplaEnergyLogSource($this->entityManager),
+            new EnergyLogDeltaCalculator(),
+            $enabled
+        );
     }
 }
