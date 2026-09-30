@@ -27,6 +27,7 @@
     const cost = Number(bucket.hours[hour]);
     if (props.metric === 'cost') return cost;
     const imported = Number(props.energyBuckets[bucket.weekday - 1]?.hours[hour] || 0);
+    if (props.metric === 'usage') return imported;
     return imported ? cost / imported : null;
   }
   function visibleBuckets() {
@@ -58,7 +59,12 @@
       dataLabels: {enabled: false},
       xaxis: {title: {text: i18n.t(mobile.value ? 'Weekday' : 'Hour')}},
       yaxis: {title: {text: i18n.t(mobile.value ? 'Hour' : 'Weekday')}},
-      tooltip: {y: {formatter: (value) => `${formatDecimal(value)} ${props.metric === 'cost' ? props.currency || '' : `${props.currency || ''}/kWh`}`}},
+      tooltip: {
+        y: {
+          formatter: (value) =>
+            `${formatDecimal(value)} ${props.metric === 'usage' ? 'kWh' : props.metric === 'cost' ? props.currency || '' : `${props.currency || ''}/kWh`}`,
+        },
+      },
       noData: {text: i18n.t('No cost data in this range')},
     });
     await chart.render();
