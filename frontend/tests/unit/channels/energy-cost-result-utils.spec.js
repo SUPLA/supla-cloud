@@ -74,12 +74,16 @@ describe('energy cost result utilities', () => {
       ],
       'Europe/Warsaw'
     );
+    expect(buckets[6].available).toBe(true);
+    expect(buckets[0].available).toBe(false);
     expect(buckets[6].hours[0]).toBe('0.1');
     expect(buckets[6].hours[3]).toBe('0.2');
   });
 
   it('aggregates imported energy by local weekday and hour', () => {
     const buckets = aggregateImportedEnergyByWeekdayAndHour([{from: '2026-03-29T03:30:00+02:00', usage: {ACTIVE_ENERGY_IMPORT: '1.25'}}], 'Europe/Warsaw');
+    expect(buckets[6].available).toBe(true);
+    expect(buckets[0].available).toBe(false);
     expect(buckets[6].hours[3]).toBe('1.25');
   });
 
