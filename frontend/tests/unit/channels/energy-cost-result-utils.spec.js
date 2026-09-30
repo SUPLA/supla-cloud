@@ -21,6 +21,7 @@ describe('energy cost result utilities', () => {
     expect(formatDecimal('0')).toBe('0.00');
     expect(formatDecimal('0.004')).toBe('0.004');
     expect(formatDecimal('-0.0006')).toBe('-0.0006');
+    expect(formatDecimal(NaN)).toBe('');
   });
 
   it('extracts usage-based summary values when fixed charges are indeterminate', () => {

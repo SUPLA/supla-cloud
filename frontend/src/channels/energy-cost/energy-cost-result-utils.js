@@ -32,6 +32,7 @@ function roundDecimal(value, scale) {
 
 export function formatDecimal(value) {
   const normalized = /e/i.test(String(value ?? zero)) ? Number(value).toFixed(20) : value;
+  if (!/^[+-]?\d+(?:\.\d*)?$/.test(String(normalized ?? zero))) return '';
   const rounded = roundDecimal(normalized, 2);
   if (rounded !== '0.00' && rounded !== '-0.00') return rounded;
   const {integer, fraction} = decimalParts(normalized);
