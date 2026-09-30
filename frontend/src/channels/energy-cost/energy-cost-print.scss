@@ -1,0 +1,236 @@
+@use '../../styles/variables' as *;
+@use 'sass:color';
+
+.energy-cost-print-header,
+.energy-cost-print-footer {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    background: $supla-white !important;
+    color: $supla-black !important;
+    overflow: visible !important;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  .channel-energy-costs,
+  .channel-energy-costs * {
+    visibility: visible;
+  }
+
+  .channel-energy-costs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .energy-cost-dashboard {
+    margin: 0 !important;
+  }
+
+  .energy-cost-range-selector,
+  .energy-cost-plan-toolbar,
+  .energy-cost-print-action,
+  .energy-cost-print-chart .form-inline,
+  .energy-cost-dashboard button,
+  .energy-cost-dashboard select,
+  .apexcharts-toolbar {
+    display: none !important;
+  }
+
+  .energy-cost-print-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 3mm 7mm;
+    margin: 0 0 8mm;
+    padding: 0 0 5mm;
+    border-bottom: 0.6mm solid $supla-green;
+  }
+
+  .energy-cost-print-header img {
+    width: 28mm;
+    max-height: 14mm;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  .energy-cost-print-title p,
+  .energy-cost-print-tariff h2 {
+    margin: 0;
+  }
+
+  .energy-cost-print-title {
+    grid-column: 2;
+    text-align: center;
+  }
+
+  .energy-cost-print-title p {
+    color: $supla-green;
+    font-size: 20pt;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+  }
+
+  .energy-cost-print-title span {
+    color: $supla-grey-dark;
+    font-size: 9pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .energy-cost-print-period {
+    grid-column: 1 / -1;
+    padding: 2.5mm 4mm;
+    background: color.adjust($supla-green, $lightness: 61%);
+    text-align: center;
+  }
+
+  .energy-cost-print-period span,
+  .energy-cost-print-period strong {
+    display: block;
+  }
+
+  .energy-cost-print-period span {
+    color: $supla-grey-dark;
+    font-size: 8pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .energy-cost-print-period strong {
+    margin-top: 0.5mm;
+    font-size: 12pt;
+  }
+
+  .energy-cost-print-meta {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 3mm 6mm;
+    margin: 0;
+  }
+
+  .energy-cost-print-meta div {
+    min-width: 0;
+  }
+
+  .energy-cost-print-meta dt {
+    color: $supla-grey-dark;
+    font-size: 8pt;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+
+  .energy-cost-print-meta dd {
+    margin: 0.5mm 0 0;
+    font-size: 10pt;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+  }
+
+  .energy-cost-print-plan {
+    grid-column: span 2;
+  }
+
+  .energy-cost-print-tariff {
+    grid-column: 1 / -1;
+    padding: 3mm 4mm;
+    background: color.adjust($supla-green, $lightness: 61%);
+  }
+
+  .energy-cost-print-tariff h2 {
+    margin-bottom: 2mm;
+    font-size: 11pt;
+  }
+
+  .energy-cost-print-tariff > div {
+    display: grid;
+    grid-template-columns: 34mm 1fr;
+    gap: 3mm;
+    margin-top: 3mm;
+    font-size: 9pt;
+  }
+
+  .energy-cost-print-tariff > div > span {
+    grid-column: 2;
+    color: $supla-grey-dark;
+  }
+
+  .energy-cost-print-components {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 1.5mm;
+  }
+
+  .energy-cost-print-components > div {
+    display: grid;
+    grid-template-columns: 34mm 1fr;
+    gap: 1mm 3mm;
+    padding-top: 1.5mm;
+    border-top: 0.2mm solid color.adjust($supla-green, $lightness: 42%);
+  }
+
+  .energy-cost-print-components > div > span {
+    grid-column: 2;
+  }
+
+  .energy-cost-print-components small {
+    color: $supla-grey-dark;
+  }
+
+  .energy-cost-summary,
+  .energy-cost-breakdown,
+  .energy-cost-details,
+  .energy-cost-print-chart,
+  .apexcharts-canvas,
+  table {
+    break-inside: avoid;
+  }
+
+  .energy-cost-print-footer {
+    display: block;
+    margin-top: 8mm;
+    padding-top: 3mm;
+    border-top: 0.2mm solid $supla-grey-light;
+    color: $supla-grey-dark;
+    font-size: 8pt;
+    text-align: right;
+  }
+
+  .energy-cost-summary > .col-lg {
+    float: left;
+    width: 20%;
+  }
+
+  .energy-cost-breakdown > .col-md-4 {
+    float: left;
+    width: 33.333333%;
+  }
+
+  .table-responsive {
+    overflow: visible !important;
+  }
+
+  .table {
+    font-size: 8pt;
+  }
+
+  .table > thead > tr > th,
+  .table > tbody > tr > td {
+    padding: 1.2mm;
+  }
+}
