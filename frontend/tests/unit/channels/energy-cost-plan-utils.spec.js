@@ -6,6 +6,7 @@ import {
   cloneTariffComponents,
   commonPresetValidity,
   componentsMatchTariff,
+  configurationFromTariff,
   dateFromDatetime,
   dateFromPeriodEnd,
   dateToDatetime,
@@ -120,6 +121,18 @@ describe('energy cost plan utilities', () => {
     expect(componentsMatchTariff(components, tariff)).toBe(true);
     expect(componentsMatchTariff([...components, {kind: 'SUPPLIER_FIXED', componentId: 'fee'}], tariff)).toBe(false);
     expect(tariff.components[0].values).toEqual({});
+  });
+
+  it('builds a complete simulation configuration from a tariff starter', () => {
+    const tariff = {components: [{kind: 'ENERGY_PURCHASE', presetId: 'supply', componentId: 'energy', values: {}}]};
+
+    expect(configurationFromTariff(tariff, new Date('2026-03-12T12:00:00Z'))).toEqual({
+      version: 2,
+      currency: 'PLN',
+      timezone: 'Europe/Warsaw',
+      billingCycles: [{anchor: '2026-03-01', length: 1, unit: 'MONTH'}],
+      periods: [{validFrom: null, validTo: null, components: tariff.components}],
+    });
   });
 
   it('assigns distinct identities to repeated inline components', () => {
