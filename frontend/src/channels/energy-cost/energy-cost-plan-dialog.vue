@@ -13,6 +13,7 @@
     cloneTariffComponents,
     commonPresetValidity,
     componentsMatchTariff,
+    configurationFromTariff,
     dateFromDatetime,
     dateFromPeriodEnd,
     dateToDatetime,
@@ -29,25 +30,13 @@
   } from './energy-cost-plan-utils';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
-  const props = defineProps({modelValue: Boolean, plan: Object, channelId: Number});
+  const props = defineProps({modelValue: Boolean, plan: Object});
   const emit = defineEmits(['update:modelValue', 'saved', 'deleted']);
   const opened = computed({get: () => props.modelValue, set: (value) => emit('update:modelValue', value)});
   const store = useEnergyCostStore();
   const {presets, presetDetailsById, tariffs} = storeToRefs(store);
   const firstDayOfMonth = () => new Date().toISOString().slice(0, 8) + '01';
-  const defaultConfiguration = () => ({
-    version: 2,
-    currency: 'PLN',
-    timezone: 'Europe/Warsaw',
-    billingCycles: [{anchor: firstDayOfMonth(), length: 1, unit: 'MONTH'}],
-    periods: [
-      {
-        validFrom: null,
-        validTo: null,
-        components: [],
-      },
-    ],
-  });
+  const defaultConfiguration = () => configurationFromTariff({components: []});
   const name = ref('');
   const configuration = ref(defaultConfiguration());
   const errors = ref({name: '', billingCycles: [], periods: []});
@@ -307,11 +296,10 @@
     try {
       const plan = createdPlan.value || (props.plan ? await store.updatePlan(props.plan.id, payload()) : await store.createPlan(payload()));
       createdPlan.value = plan;
-      if (!props.plan && props.channelId) await store.assignPlan(props.channelId, plan.id);
       emit('saved', plan);
       opened.value = false;
     } catch (error) {
-      serverError.value = createdPlan.value ? 'The cost plan was created, but could not be assigned.' : error.body?.message || 'Could not save the cost plan.'; // i18n
+      serverError.value = error.body?.message || 'Could not save the tariff plan.'; // i18n
       dialog?.setLoading?.(false);
     } finally {
       saving.value = false;
@@ -325,7 +313,7 @@
       emit('deleted', props.plan.id);
       opened.value = false;
     } catch (error) {
-      serverError.value = error.body?.message || 'Could not delete the cost plan.';
+      serverError.value = error.body?.message || 'Could not delete the tariff plan.';
     } finally {
       // i18n
       deleting.value = false;
@@ -339,15 +327,17 @@
   <dialog-window v-model="opened" cancellable @confirm="save">
     <dialog-content container-class="dialog-800">
       <template #header
-        ><h4>{{ $t(plan ? 'Edit cost plan' : 'Create cost plan') }}</h4></template
+        ><h4>{{ plan ? $t('Edit tariff plan') : $t('Create tariff plan') }}</h4></template
       >
       <template #default>
         <template v-if="deleteConfirmation"
-          ><div class="alert alert-danger">{{ $t('Deleting this cost plan is irreversible and unassigns it from every electricity meter that uses it.') }}</div>
-          <p>{{ $t('Confirm deletion of the {planName} cost plan.', {planName: plan.name}) }}</p></template
+          ><div class="alert alert-danger">
+            {{ $t('Deleting this tariff plan is irreversible and unassigns it from every electricity meter that uses it.') }}
+          </div>
+          <p>{{ $t('Confirm deletion of the {planName} tariff plan.', {planName: plan.name}) }}</p></template
         >
         <template v-else>
-          <div v-if="plan" class="alert alert-warning">{{ $t('Changes to this cost plan affect every electricity meter that uses it.') }}</div>
+          <div v-if="plan" class="alert alert-warning">{{ $t('Changes to this tariff plan affect every electricity meter that uses it.') }}</div>
           <energy-cost-tariff-picker v-if="!plan" :model-value="selectedTariffId" :tariffs="tariffs" @update:model-value="selectMainTariff" />
           <div v-if="!advancedVisible && !selectedTariffId && plan" class="form-control-static">{{ $t('Custom configuration') }}</div>
           <button v-if="!advancedVisible" type="button" class="btn btn-link" @click="advancedVisible = true">{{ $t('Advanced settings') }}</button>
@@ -444,7 +434,7 @@
       </template>
       <template #footer
         ><template v-if="deleteConfirmation"
-          ><form-button :loading="deleting" button-class="btn-danger" @click="deletePlan">{{ $t('Delete cost plan') }}</form-button
+          ><form-button :loading="deleting" button-class="btn-danger" @click="deletePlan">{{ $t('Delete tariff plan') }}</form-button
           ><button type="button" class="btn btn-default" :disabled="deleting" @click="deleteConfirmation = false">{{ $t('Cancel') }}</button></template
         ><template v-else
           ><button v-if="plan" type="button" class="btn btn-danger pull-left" :disabled="saving" @click="deleteConfirmation = true">{{ $t('Delete') }}</button

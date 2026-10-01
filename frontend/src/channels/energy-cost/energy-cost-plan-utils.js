@@ -22,6 +22,17 @@ export function cloneTariffComponents(tariff) {
   return JSON.parse(JSON.stringify(tariff.components || []));
 }
 
+export function configurationFromTariff(tariff, now = new Date()) {
+  const anchor = now.toISOString().slice(0, 8) + '01';
+  return {
+    version: 2,
+    currency: 'PLN',
+    timezone: 'Europe/Warsaw',
+    billingCycles: [{anchor, length: 1, unit: 'MONTH'}],
+    periods: [{validFrom: null, validTo: null, components: cloneTariffComponents(tariff)}],
+  };
+}
+
 export function commonPresetValidity(presets) {
   const validFrom = presets
     .map((preset) => preset.document?.validFrom)

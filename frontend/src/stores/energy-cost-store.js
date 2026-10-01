@@ -141,6 +141,14 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     assignmentReadyByChannelId.value = {...assignmentReadyByChannelId.value, [channelId]: true};
   };
 
+  const assignStarter = async (channelId, starterId, configuration) => {
+    const {plan, assignment} = await energyCostApi.assignStarter(channelId, starterId, configuration);
+    plans.value = plans.value.some((item) => item.id === plan.id) ? plans.value.map((item) => (item.id === plan.id ? plan : item)) : [...plans.value, plan];
+    assignmentsByChannelId.value = {...assignmentsByChannelId.value, [channelId]: assignment};
+    assignmentReadyByChannelId.value = {...assignmentReadyByChannelId.value, [channelId]: true};
+    return plan;
+  };
+
   const $reset = () => {
     presets.value = [];
     presetsReady.value = false;
@@ -183,6 +191,7 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     deletePlan,
     assignPlan,
     unassignPlan,
+    assignStarter,
     $reset,
   };
 });

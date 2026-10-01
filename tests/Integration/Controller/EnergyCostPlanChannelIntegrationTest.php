@@ -103,6 +103,24 @@ class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('charges', $calculation);
     }
 
+    public function testCreatesAndReusesTariffPlanWhenAssigningStarter(): void {
+        $user = $this->createConfirmedUser('starter-assignment-api@supla.org');
+        $channel = $this->createElectricityMeterChannel($user);
+        $client = $this->createAuthenticatedClient($user);
+        $path = '/api/channels/' . $channel->getId() . '/energy-cost-plan-assignment/from-starter';
+        $payload = ['starterId' => 'PL.STARTER.TAURON_DYSTRYBUCJA.G11', 'configuration' => $this->configuration()];
+
+        $client->apiRequestV24('POST', $path, $payload);
+        $this->assertStatusCode(200, $client->getResponse());
+        $first = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame($first['plan']['id'], $first['assignment']['planId']);
+
+        $client->apiRequestV24('POST', $path, $payload);
+        $this->assertStatusCode(200, $client->getResponse());
+        $second = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame($first['plan']['id'], $second['plan']['id']);
+    }
+
     private function createElectricityMeterChannel(User $user): IODeviceChannel {
         return $this->createDevice(
             $this->createLocation($user),

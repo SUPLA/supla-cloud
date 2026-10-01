@@ -55,6 +55,15 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
         );
     }
 
+    public function testAddsSuffixToDuplicatePlanNames(): void {
+        $user = $this->createConfirmedUser();
+        $configuration = $this->g11Configuration();
+
+        $this->assertSame('Home', $this->service()->create($user, 'Home', $configuration)->getName());
+        $this->assertSame('Home (2)', $this->service()->create($user, 'Home', $configuration)->getName());
+        $this->assertSame('Home (3)', $this->service()->create($user, 'Home', $configuration)->getName());
+    }
+
     public function testCreatesPlanWithMixedPresetComponentsAndIndependentPeriodBoundaries(): void {
         $configuration = $this->g12Configuration();
         foreach ($configuration['periods'][0]['components'] as &$component) {

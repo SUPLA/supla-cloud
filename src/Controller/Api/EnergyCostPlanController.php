@@ -255,6 +255,38 @@ class EnergyCostPlanController extends RestController {
     }
 
     /**
+     * @OA\Post(path="/channels/{channel}/energy-cost-plan-assignment/from-starter", operationId="assignChannelEnergyCostPlanStarter", summary="Create or reuse and assign an energy cost plan starter", tags={"Energy cost"}, @OA\Parameter(name="channel", in="path", required=true, @OA\Schema(type="integer")), @OA\RequestBody(required=true, @OA\JsonContent(required={"starterId", "configuration"}, @OA\Property(property="starterId", type="string"), @OA\Property(property="configuration", ref="#/components/schemas/EnergyCostPlanConfiguration"))), @OA\Response(response="200", description="Success", @OA\JsonContent(type="object")))
+     * @Rest\Post("/channels/{channel}/energy-cost-plan-assignment/from-starter")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
+     * @UnavailableInMaintenance
+     */
+    public function postEnergyCostPlanStarterAssignmentAction(Request $request, IODeviceChannel $channel): View {
+        $data = $request->request->all();
+        Assertion::keyExists($data, 'starterId', 'Missing starterId.');
+        Assertion::string($data['starterId'], 'Invalid starterId.');
+        Assertion::keyExists($data, 'configuration', 'Missing configuration.');
+        Assertion::isArray($data['configuration'], 'Invalid configuration.');
+        try {
+            $starter = $this->starterCatalog->get($data['starterId']);
+            $result = $this->planService->assignStarterToChannel(
+                $this->getUser(),
+                $channel,
+                $starter->metadata['label'] ?? $starter->id,
+                $data['configuration'],
+                $starter->components,
+            );
+            return $this->view([
+                'plan' => $this->serializePlan($result['plan']),
+                'assignment' => $this->serializeAssignment($result['assignment']),
+            ]);
+        } catch (CostPlanStarterNotFoundException | InvalidCostPlanStarterException $exception) {
+            $this->throwStarterException($exception);
+        } catch (EnergyCostCalculatorException $exception) {
+            $this->throwCalculatorException($exception);
+        }
+    }
+
+    /**
      * @OA\Delete(path="/channels/{channel}/energy-cost-plan-assignment", operationId="deleteChannelEnergyCostPlanAssignment", summary="Delete channel energy cost plan assignment", tags={"Energy cost"}, @OA\Parameter(name="channel", in="path", required=true, @OA\Schema(type="integer")), @OA\Response(response="204", description="Success"))
      * @Rest\Delete("/channels/{channel}/energy-cost-plan-assignment")
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")

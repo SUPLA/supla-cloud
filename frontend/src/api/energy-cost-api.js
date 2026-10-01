@@ -66,6 +66,11 @@ export const energyCostApi = {
     return api.delete_(`channels/${pathPart(channelId)}/energy-cost-plan-assignment`);
   },
 
+  async assignStarter(channelId, starterId, configuration) {
+    const {body} = await api.post(`channels/${pathPart(channelId)}/energy-cost-plan-assignment/from-starter`, {starterId, configuration});
+    return body;
+  },
+
   async calculate(channelId, fromTimestamp, toTimestamp, options = {}) {
     const query = new URLSearchParams({
       fromTimestamp: String(fromTimestamp),
@@ -73,6 +78,11 @@ export const energyCostApi = {
       ...Object.fromEntries(Object.entries(options).map(([key, value]) => [key, String(value)])),
     });
     const {body} = await api.get(`channels/${pathPart(channelId)}/energy-cost-calculation?${query}`);
+    return body;
+  },
+
+  async simulate(channelId, fromTimestamp, toTimestamp, configuration) {
+    const {body} = await api.post(`channels/${pathPart(channelId)}/energy-cost-calculation`, {fromTimestamp, toTimestamp, configuration});
     return body;
   },
 
