@@ -6,12 +6,14 @@
   import EnergyCostPlanDialog from './energy-cost-plan-dialog.vue';
   import EnergyCostPlanToolbar from './energy-cost-plan-toolbar.vue';
   import EnergyCostDashboard from './energy-cost-dashboard.vue';
+  import {configurationFromTariff} from './energy-cost-plan-utils';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
   const props = defineProps({channel: {type: Object, required: true}});
   const store = useEnergyCostStore();
-  const {plans, plansReady, assignmentsByChannelId, assignmentReadyByChannelId} = storeToRefs(store);
-  const selectedPlanId = ref();
+  const {plans, plansReady, tariffs, tariffsReady, assignmentsByChannelId, assignmentReadyByChannelId} = storeToRefs(store);
+  const selectedOption = ref();
+  const starterScenario = ref(null);
   const dialogPlan = ref(null);
   const dialogMounted = ref(false);
   const dialogOpened = ref(false);
@@ -20,44 +22,67 @@
 
   const supported = computed(() => props.channel.functionId === ChannelFunction.ELECTRICITYMETER);
   const assignment = computed(() => assignmentsByChannelId.value[props.channel.id]);
-  const loaded = computed(() => plansReady.value && assignmentReadyByChannelId.value[props.channel.id]);
+  const loaded = computed(() => plansReady.value && tariffsReady.value && assignmentReadyByChannelId.value[props.channel.id]);
   const pageLoading = computed(() => !loaded.value && !error.value);
+  const selectedPlanId = computed(() => (selectedOption.value?.startsWith('plan:') ? Number(selectedOption.value.slice(5)) : undefined));
+  const selectedStarterId = computed(() => (selectedOption.value?.startsWith('starter:') ? selectedOption.value.slice(8) : undefined));
   const selectedPlan = computed(() => plans.value.find((plan) => plan.id === selectedPlanId.value));
+  const scenarioPlan = computed(() => selectedPlan.value || starterScenario.value);
+  let selectionToken = 0;
 
   async function load() {
     if (!supported.value) return;
+    selectedOption.value = undefined;
+    starterScenario.value = null;
     error.value = null;
     try {
-      await Promise.all([store.fetchPlans(), store.fetchAssignment(props.channel.id)]);
-      selectedPlanId.value = assignment.value?.planId;
+      await Promise.all([store.fetchPlans(), store.fetchTariffs(), store.fetchAssignment(props.channel.id)]);
+      selectedOption.value = assignment.value ? `plan:${assignment.value.planId}` : undefined;
     } catch (requestError) {
-      error.value = requestError.body?.message || 'Could not load cost plans.'; // i18n
+      error.value = requestError.body?.message || 'Could not load tariff plans.'; // i18n
     }
   }
 
   async function assign() {
-    const previousPlanId = assignment.value?.planId;
-    if (!selectedPlanId.value) return;
+    if (!selectedOption.value || (selectedStarterId.value && !starterScenario.value)) return;
     loading.value = true;
     error.value = null;
     try {
-      await store.assignPlan(props.channel.id, selectedPlanId.value);
+      if (selectedStarterId.value) {
+        const plan = await store.assignStarter(props.channel.id, selectedStarterId.value, starterScenario.value.configuration);
+        selectedOption.value = `plan:${plan.id}`;
+        starterScenario.value = null;
+      } else if (selectedPlanId.value) {
+        await store.assignPlan(props.channel.id, selectedPlanId.value);
+      }
     } catch (requestError) {
-      selectedPlanId.value = previousPlanId;
-      error.value = requestError.body?.message || 'Could not assign the cost plan.'; // i18n
+      error.value = requestError.body?.message || 'Could not assign the tariff plan.'; // i18n
     } finally {
       loading.value = false;
     }
   }
 
-  async function switchPlan(planId) {
-    const previousPlanId = assignment.value?.planId;
-    selectedPlanId.value = planId;
-    if (!planId && assignment.value) {
-      await unassign();
-      return;
+  async function selectPlan(option) {
+    const token = ++selectionToken;
+    selectedOption.value = option;
+    starterScenario.value = null;
+    error.value = null;
+    const starterId = selectedStarterId.value;
+    if (!starterId) return;
+    loading.value = true;
+    try {
+      const starter = await store.fetchTariff(starterId);
+      if (token !== selectionToken) return;
+      starterScenario.value = {
+        id: `starter:${starter.id}`,
+        name: starter.metadata?.label || starter.label || starter.id,
+        configuration: configurationFromTariff(starter),
+      };
+    } catch (requestError) {
+      if (token === selectionToken) error.value = requestError.body?.message || 'Could not load the tariff plan.'; // i18n
+    } finally {
+      if (token === selectionToken) loading.value = false;
     }
-    if (planId && planId !== previousPlanId) await assign();
   }
 
   async function unassign() {
@@ -65,9 +90,9 @@
     error.value = null;
     try {
       await store.unassignPlan(props.channel.id);
-      selectedPlanId.value = undefined;
+      selectedOption.value = undefined;
     } catch (requestError) {
-      error.value = requestError.body?.message || 'Could not unassign the cost plan.'; // i18n
+      error.value = requestError.body?.message || 'Could not unassign the tariff plan.'; // i18n
     } finally {
       loading.value = false;
     }
@@ -94,11 +119,11 @@
   }
 
   function saved(plan) {
-    selectedPlanId.value = plan.id;
+    selectedOption.value = `plan:${plan.id}`;
   }
 
   function deleted(planId) {
-    if (!assignment.value || Number(selectedPlanId.value) === Number(planId)) selectedPlanId.value = undefined;
+    if (!assignment.value || Number(selectedPlanId.value) === Number(planId)) selectedOption.value = undefined;
   }
 
   watch(() => props.channel.id, load, {immediate: true});
@@ -109,27 +134,26 @@
     <loading-cover :loading="pageLoading">
       <div v-if="supported">
         <div v-if="error" class="alert alert-danger">{{ $t(error) }}</div>
-        <div v-if="!plans.length" class="well text-center">
-          <p>{{ $t('No cost plan is assigned to this electricity meter.') }}</p>
-          <button type="button" class="btn btn-green" @click="createPlan">{{ $t('Create cost plan') }}</button>
-        </div>
         <energy-cost-plan-toolbar
-          v-else
           :plans="plans"
-          :selected-plan-id="selectedPlanId"
+          :tariffs="tariffs"
+          :model-value="selectedOption"
+          :assigned-plan-id="assignment?.planId"
           :loading="loading"
-          @update:selected-plan-id="switchPlan"
+          :assign-disabled="Boolean(selectedStarterId && !starterScenario)"
+          @update:model-value="selectPlan"
+          @assign="assign"
+          @unassign="unassign"
           @create="createPlan"
           @edit="editPlan"
         />
-        <energy-cost-dashboard v-if="assignment && selectedPlan" :channel="channel" :plan="selectedPlan" />
+        <energy-cost-dashboard v-if="scenarioPlan" :channel="channel" :plan="scenarioPlan" :assigned-plan-id="assignment?.planId" />
       </div>
     </loading-cover>
     <energy-cost-plan-dialog
       v-if="dialogMounted"
       :model-value="dialogOpened"
       :plan="dialogPlan"
-      :channel-id="channel.id"
       @update:model-value="setDialogOpened"
       @saved="saved"
       @deleted="deleted"

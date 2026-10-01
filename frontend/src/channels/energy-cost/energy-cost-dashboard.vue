@@ -16,7 +16,7 @@
   import {energyCostCalculationStorage, scenarioFingerprint} from './energy-cost-calculation-storage';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
-  const props = defineProps({channel: {type: Object, required: true}, plan: {type: Object, required: true}});
+  const props = defineProps({channel: {type: Object, required: true}, plan: {type: Object, required: true}, assignedPlanId: Number});
   const energyCostStore = useEnergyCostStore();
   const {presetDetailsById} = storeToRefs(energyCostStore);
   const timezone = computed(() => props.plan.configuration?.timezone || 'Europe/Warsaw');
@@ -66,6 +66,7 @@
     to: Math.floor(DateTime.fromISO(range.value.to).toSeconds()),
   }));
   const fingerprint = computed(() => scenarioFingerprint(props.plan));
+  const simulating = computed(() => props.plan.id !== props.assignedPlanId);
   const dateTime = (value) => DateTime.fromISO(value, {setZone: true}).setZone(timezone.value).toFormat('dd LLL yyyy, HH:mm');
   const reportPeriod = computed(() => `${dateTime(range.value.from)} - ${dateTime(range.value.to)}`);
   const componentLabels = {
@@ -164,29 +165,35 @@
   async function fetchCalculation() {
     const token = ++requestToken;
     const {from, to} = rangeSeconds.value;
-    const cached = await energyCostCalculationStorage.get(props.channel.id, fingerprint.value, from, to);
-    if (token !== requestToken) return;
-    if (cached) result.value = cached.result;
-    const reachesNow = to >= DateTime.now().toSeconds() - 86400;
-    const freshness = reachesNow ? 5 * 60 * 1000 : 6 * 60 * 60 * 1000;
-    if (cached && Date.now() - cached.fetchedAt < freshness) return;
+    if (!simulating.value) {
+      const cached = await energyCostCalculationStorage.get(props.channel.id, fingerprint.value, from, to);
+      if (token !== requestToken) return;
+      if (cached) result.value = cached.result;
+      const reachesNow = to >= DateTime.now().toSeconds() - 86400;
+      const freshness = reachesNow ? 5 * 60 * 1000 : 6 * 60 * 60 * 1000;
+      if (cached && Date.now() - cached.fetchedAt < freshness) return;
+    }
     loading.value = true;
     error.value = null;
     try {
-      const next = await energyCostApi.calculate(props.channel.id, from, to);
+      const next = simulating.value
+        ? await energyCostApi.simulate(props.channel.id, from, to, props.plan.configuration)
+        : await energyCostApi.calculate(props.channel.id, from, to);
       if (token !== requestToken) return;
       result.value = next;
-      await energyCostCalculationStorage.put({
-        key: energyCostCalculationStorage.key(props.channel.id, fingerprint.value, from, to),
-        channelId: props.channel.id,
-        scenarioType: 'saved-plan',
-        scenarioId: props.plan.id,
-        scenarioFingerprint: fingerprint.value,
-        fromTimestamp: from,
-        toTimestamp: to,
-        fetchedAt: Date.now(),
-        result: next,
-      });
+      if (!simulating.value) {
+        await energyCostCalculationStorage.put({
+          key: energyCostCalculationStorage.key(props.channel.id, fingerprint.value, from, to),
+          channelId: props.channel.id,
+          scenarioType: 'saved-plan',
+          scenarioId: props.plan.id,
+          scenarioFingerprint: fingerprint.value,
+          fromTimestamp: from,
+          toTimestamp: to,
+          fetchedAt: Date.now(),
+          result: next,
+        });
+      }
     } catch (requestError) {
       if (token === requestToken) error.value = requestError.body?.message || 'Could not calculate costs.';
     } finally {
@@ -266,7 +273,7 @@
               <dd>{{ channel.caption || `ID${channel.id}` }}</dd>
             </div>
             <div class="energy-cost-print-plan">
-              <dt>{{ $t('Cost plan') }}</dt>
+              <dt>{{ $t('Tariff plan') }}</dt>
               <dd>{{ plan.name }}</dd>
             </div>
             <div>

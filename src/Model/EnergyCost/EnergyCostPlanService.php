@@ -54,7 +54,7 @@ class EnergyCostPlanService {
     public function create(User $user, string $name, array $configuration): EnergyCostPlan {
         $this->validateConfiguration($configuration);
 
-        $plan = new EnergyCostPlan($user, $name, $configuration, $this->timeProvider->getDateTime());
+        $plan = new EnergyCostPlan($user, $this->uniqueName($user, $name), $configuration, $this->timeProvider->getDateTime());
         $this->entityManager->persist($plan);
         $this->entityManager->flush();
         return $plan;
@@ -62,7 +62,7 @@ class EnergyCostPlanService {
 
     public function rename(User $user, int|string $id, string $name): EnergyCostPlan {
         $plan = $this->get($user, $id);
-        $plan->setName($name, $this->timeProvider->getDateTime());
+        $plan->setName($this->uniqueName($user, $name, $plan), $this->timeProvider->getDateTime());
         $this->entityManager->flush();
         return $plan;
     }
@@ -72,7 +72,7 @@ class EnergyCostPlanService {
         $plan = $this->get($user, $id);
         $this->validateConfiguration($configuration);
         $updatedAt = $this->timeProvider->getDateTime();
-        $plan->setName($name, $updatedAt);
+        $plan->setName($this->uniqueName($user, $name, $plan), $updatedAt);
         $plan->setConfiguration($configuration, $updatedAt);
         $this->entityManager->flush();
         return $plan;
@@ -104,15 +104,36 @@ class EnergyCostPlanService {
     public function assignToChannel(User $user, IODeviceChannel $channel, int|string $planId): EnergyCostPlanAssignment {
         $this->assertChannelSupported($user, $channel);
         $plan = $this->get($user, $planId);
-        return $this->entityManager->wrapInTransaction(function () use ($channel, $plan): EnergyCostPlanAssignment {
-            $assignment = $this->assignmentRepository->findForChannel($channel);
-            if ($assignment === null) {
-                $assignment = new EnergyCostPlanAssignment($channel, $plan);
-                $this->entityManager->persist($assignment);
-            } else {
-                $assignment->setEnergyCostPlan($plan);
+        return $this->entityManager->wrapInTransaction(fn(): EnergyCostPlanAssignment => $this->assign($channel, $plan));
+    }
+
+    /**
+     * @param array<string, mixed> $configuration
+     * @param array<int, array<string, mixed>> $starterComponents
+     * @return array{plan: EnergyCostPlan, assignment: EnergyCostPlanAssignment}
+     */
+    public function assignStarterToChannel(
+        User $user,
+        IODeviceChannel $channel,
+        string $name,
+        array $configuration,
+        array $starterComponents,
+    ): array {
+        $this->assertChannelSupported($user, $channel);
+        $this->validateConfiguration($configuration);
+        return $this->entityManager->wrapInTransaction(function () use ($user, $channel, $name, $configuration, $starterComponents): array {
+            $plan = null;
+            foreach ($this->repository->findByUser($user) as $candidate) {
+                if ($this->matchesStarter($candidate, $starterComponents)) {
+                    $plan = $candidate;
+                    break;
+                }
             }
-            return $assignment;
+            if ($plan === null) {
+                $plan = new EnergyCostPlan($user, $this->uniqueName($user, $name), $configuration, $this->timeProvider->getDateTime());
+                $this->entityManager->persist($plan);
+            }
+            return ['plan' => $plan, 'assignment' => $this->assign($channel, $plan)];
         });
     }
 
@@ -136,6 +157,63 @@ class EnergyCostPlanService {
             );
         }
         $this->compiler->compile($this->parser->parse($configuration));
+    }
+
+    private function assign(IODeviceChannel $channel, EnergyCostPlan $plan): EnergyCostPlanAssignment {
+        $assignment = $this->assignmentRepository->findForChannel($channel);
+        if ($assignment === null) {
+            $assignment = new EnergyCostPlanAssignment($channel, $plan);
+            $this->entityManager->persist($assignment);
+        } else {
+            $assignment->setEnergyCostPlan($plan);
+        }
+        return $assignment;
+    }
+
+    /** @param array<int, array<string, mixed>> $starterComponents */
+    private function matchesStarter(EnergyCostPlan $plan, array $starterComponents): bool {
+        $periods = $plan->getConfiguration()['periods'] ?? [];
+        if (count($periods) !== 1 || !is_array($periods[0])) {
+            return false;
+        }
+        $components = $periods[0]['components'] ?? [];
+        return is_array($components) && $this->canonicalComponents($components) === $this->canonicalComponents($starterComponents);
+    }
+
+    /** @param array<int, array<string, mixed>> $components */
+    private function canonicalComponents(array $components): string {
+        $components = array_map($this->canonicalize(...), $components);
+        usort($components, fn(array $left, array $right): int => json_encode($left) <=> json_encode($right));
+        return json_encode($components, JSON_THROW_ON_ERROR);
+    }
+
+    /** @param array<string|int, mixed> $value */
+    private function canonicalize(array $value): array {
+        foreach ($value as $key => $item) {
+            if (is_array($item)) {
+                $value[$key] = $this->canonicalize($item);
+            }
+        }
+        if (!array_is_list($value)) {
+            ksort($value);
+        }
+        return $value;
+    }
+
+    private function uniqueName(User $user, string $name, ?EnergyCostPlan $ignoredPlan = null): string {
+        $names = array_map(
+            fn(EnergyCostPlan $plan): string => $plan->getName(),
+            array_filter($this->repository->findByUser($user), fn(EnergyCostPlan $plan): bool => $plan !== $ignoredPlan),
+        );
+        if (!in_array($name, $names, true)) {
+            return $name;
+        }
+        for ($suffix = 2;; ++$suffix) {
+            $candidate = "$name ($suffix)";
+            if (!in_array($candidate, $names, true)) {
+                return $candidate;
+            }
+        }
     }
 
     private function assertChannelSupported(User $user, IODeviceChannel $channel): void {
