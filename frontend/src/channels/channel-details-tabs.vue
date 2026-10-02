@@ -24,6 +24,8 @@
   import {mapStores} from 'pinia';
   import {useChannelsStore} from '@/stores/channels-store';
 
+  const energyPriceFields = ['rce', 'fixing1', 'fixing2', 'fixing1_hourly', 'fixing2_hourly'];
+
   export default {
     props: {
       channelId: Number,
@@ -53,6 +55,19 @@
     methods: {
       detectAvailableTabs() {
         this.availableTabs = [];
+        const energyField = this.channel.config?.virtualChannelConfig?.energyField;
+        if (this.channel.isVirtual && this.channel.config?.virtualChannelConfig?.type === 'ENERGY_PRICE_FORECAST' && energyField === 'pdgsz') {
+          this.availableTabs.push({
+            route: 'channel.peakHours',
+            header: 'Peak hours', // i18n
+          });
+        }
+        if (this.channel.isVirtual && this.channel.config?.virtualChannelConfig?.type === 'ENERGY_PRICE_FORECAST' && energyPriceFields.includes(energyField)) {
+          this.availableTabs.push({
+            route: 'channel.energyPrices',
+            header: 'Prices', // i18n
+          });
+        }
         const hasActions = this.channel.possibleActions?.length > 0;
         const isActionTrigger = this.channel.functionId === ChannelFunction.ACTION_TRIGGER;
         if (this.channel.typeId === 6100 && this.channel.config?.weeklySchedule) {

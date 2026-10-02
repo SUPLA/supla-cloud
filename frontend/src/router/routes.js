@@ -98,6 +98,16 @@ export default [
     props: true,
     children: [
       {
+        path: 'prices',
+        component: () => import('@/channels/energy-price/channel-energy-prices.vue'),
+        name: 'channel.energyPrices',
+      },
+      {
+        path: 'peak-hours',
+        component: () => import('@/channels/energy-price/channel-peak-hours.vue'),
+        name: 'channel.peakHours',
+      },
+      {
         path: 'reactions',
         component: () => import('@/channels/reactions/channel-reactions-config.vue'),
         name: 'channel.reactions',
