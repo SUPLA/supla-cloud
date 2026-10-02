@@ -232,12 +232,13 @@ class EnergyCostPlanController extends RestController {
     }
 
     /**
-     * @OA\Get(path="/channels/{channel}/energy-cost-plan-assignment", operationId="getChannelEnergyCostPlanAssignment", summary="Get channel energy cost plan assignment", tags={"Energy cost"}, @OA\Parameter(name="channel", in="path", required=true, @OA\Schema(type="integer")), @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/EnergyCostPlanAssignment")), @OA\Response(response="404", description="Assignment does not exist", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")))
+     * @OA\Get(path="/channels/{channel}/energy-cost-plan-assignment", operationId="getChannelEnergyCostPlanAssignment", summary="Get channel energy cost plan assignment", tags={"Energy cost"}, @OA\Parameter(name="channel", in="path", required=true, @OA\Schema(type="integer")), @OA\Response(response="200", description="Assignment or null", @OA\JsonContent(ref="#/components/schemas/EnergyCostPlanAssignment")))
      * @Rest\Get("/channels/{channel}/energy-cost-plan-assignment")
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getEnergyCostPlanAssignmentAction(IODeviceChannel $channel): View {
-        return $this->view($this->serializeAssignment($this->planService->getAssignment($this->getUser(), $channel)));
+        $assignment = $this->planService->findAssignment($this->getUser(), $channel);
+        return $this->view($assignment === null ? null : $this->serializeAssignment($assignment), Response::HTTP_OK);
     }
 
     /**

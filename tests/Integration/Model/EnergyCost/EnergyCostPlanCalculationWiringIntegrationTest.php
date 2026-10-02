@@ -49,20 +49,24 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
         $plan = $this->planService()->create($user, 'Home', $configuration);
         $this->assertSame($configuration, $plan->getConfiguration());
         $this->planService()->assignToChannel($user, $channel, $plan->getId());
-        $this->insertDelta($channel->getId());
+        foreach (['12:15:00', '12:30:00', '12:45:00', '13:00:00'] as $time) {
+            $this->insertDelta($channel->getId(), '2026-01-02 ' . $time);
+        }
         if ($requiresReference) {
-            $this->insertReference();
+            foreach (['12:00:00', '12:15:00', '12:30:00', '12:45:00'] as $time) {
+                $this->insertReference('2026-01-02 ' . $time);
+            }
         }
 
         $result = $this->calculator()->calculate(
             $user,
             $channel,
             new DateTimeImmutable('2026-01-02T12:00:00+00:00'),
-            new DateTimeImmutable('2026-01-02T12:15:00+00:00'),
+            new DateTimeImmutable('2026-01-02T13:00:00+00:00'),
         );
 
-        $this->assertSame(1, $result->processedDeltaCount);
-        $this->assertCount(1, $result->intervals);
+        $this->assertSame(4, $result->processedDeltaCount);
+        $this->assertCount(4, $result->intervals);
         $this->assertNotEmpty($result->charges);
         $this->assertArrayHasKey('energy-purchase', $result->costs['gross']['usageBased']['byComponent']);
         $this->assertArrayHasKey('distribution-variable', $result->costs['gross']['usageBased']['byComponent']);
@@ -129,6 +133,31 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
         $this->assertSame(0, $result->processedDeltaCount);
         $this->assertNull($result->costs['gross']['total']);
         $this->assertSame([], $result->charges);
+    }
+
+    public function testReturnsPartialResultWhenDynamicPriceDataIsMissing(): void {
+        $user = $this->createConfirmedUser();
+        $channel = $this->createElectricityMeterChannel($user);
+        $plan = $this->planService()->create($user, 'Home', self::planConfigurations()[3][0]);
+        $this->planService()->assignToChannel($user, $channel, $plan->getId());
+        foreach (['12:15:00', '12:30:00', '12:45:00', '13:00:00', '13:15:00', '13:30:00', '13:45:00', '14:00:00'] as $time) {
+            $this->insertDelta($channel->getId(), '2026-01-02 ' . $time);
+        }
+        foreach (['12:00:00', '12:15:00', '12:30:00', '12:45:00'] as $time) {
+            $this->insertReference('2026-01-02 ' . $time);
+        }
+
+        $result = $this->calculator()->calculate(
+            $user,
+            $channel,
+            new DateTimeImmutable('2026-01-02T12:00:00+00:00'),
+            new DateTimeImmutable('2026-01-02T14:00:00+00:00'),
+        );
+
+        $this->assertSame(4, $result->processedDeltaCount);
+        $this->assertTrue($result->jsonSerialize()['incomplete']);
+        $this->assertSame('MISSING_REFERENCE_DATA', $result->warnings[0]['code']);
+        $this->assertSame('TEMPORAL_NETTING_WINDOW', $result->warnings[0]['scope']);
     }
 
     /** @return list<array{array<string, mixed>, bool, bool}> */
@@ -229,7 +258,7 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                     'validFrom' => '2026-01-01T00:00:00+01:00',
                     'validTo' => '2027-01-01T00:00:00+01:00',
                     'components' => [
-                        ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_SPRZEDAZ.G14dynamic.2026',
+                        ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.GENERIC.ENERGY_PURCHASE.CONSTANT.V1',
                             'componentId' => 'energy-purchase', 'values' => ['energy.rate' => '0.71']],
                         [
                             'kind' => 'DISTRIBUTION_VARIABLE',
@@ -284,10 +313,11 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
         ]);
     }
 
-    private function insertReference(): void {
+    private function insertReference(string $from): void {
+        $from = new DateTimeImmutable($from);
         $this->measurementLogsConnection->insert('supla_energy_price_log', [
-            'date_from' => '2026-01-02 12:00:00',
-            'date_to' => '2026-01-02 12:14:59',
+            'date_from' => $from->format('Y-m-d H:i:s'),
+            'date_to' => $from->modify('+15 minutes -1 second')->format('Y-m-d H:i:s'),
             'rce' => null,
             'pdgsz' => 1,
             'fixing1' => null,
