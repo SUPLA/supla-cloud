@@ -141,7 +141,7 @@
   function setRange(next) {
     const fitted = fitToAvailableRange(next);
     if (!fitted) {
-      error.value = 'No complete meter data is available for the selected range.';
+      error.value = 'No logs are available for the selected range.';
       return;
     }
     range.value = fitted;
@@ -214,7 +214,7 @@
       availableRange.value = {from: first.startOf('hour').plus({hours: 1}).toISO(), to: last.startOf('hour').toISO()};
       const fitted = fitToAvailableRange(range.value);
       if (!fitted) {
-        error.value = 'No complete meter data is available for the selected range.';
+        error.value = 'No logs are available for the selected range.';
         return;
       }
       range.value = fitted;
