@@ -33,6 +33,7 @@
   const availableRange = ref(null);
   let requestToken = 0;
   let chartRequestToken = 0;
+  let calculationWatchEnabled = false;
 
   const buckets = ref([]);
   const energyBuckets = ref([]);
@@ -232,9 +233,17 @@
         sessionStorage.removeItem(storageKey.value);
       }
     }
+    await nextTick();
+    calculationWatchEnabled = true;
     fetchCalculation();
   });
-  watch([range, () => props.plan], fetchCalculation, {deep: true});
+  watch(
+    [range, () => props.plan],
+    () => {
+      if (calculationWatchEnabled) fetchCalculation();
+    },
+    {deep: true}
+  );
   watch([result, granularity, timezone], prepareChart, {deep: true});
   watch(tariffPeriods, loadPresetDetails, {deep: true, immediate: true});
   onBeforeUnmount(() => {
@@ -262,7 +271,19 @@
         </div>
         <template v-if="result.processedDeltaCount > 0">
           <div v-if="result.incomplete" class="alert alert-warning">
-            {{ $t('Some logs could not be calculated because dynamic price data is unavailable. Results may be incomplete.') }}
+            <p>{{ $t('Some logs could not be calculated. Results may be incomplete.') }}</p>
+            <details v-if="result.warnings?.length">
+              <summary>{{ $t('Warnings') }} ({{ result.warnings.length }})</summary>
+              <ul class="mb-0">
+                <li v-for="(warning, index) in result.warnings" :key="`${warning.code}-${warning.from}-${index}`">
+                  <strong>{{ $t(warning.scope === 'TEMPORAL_NETTING_WINDOW' ? 'Metering window' : 'Meter interval') }}:</strong>
+                  {{ dateTime(warning.from) }} - {{ dateTime(warning.to) }}
+                  <span v-if="warning.componentId">, {{ $t('Component') }}: {{ warning.componentId }}</span>
+                  <span v-if="warning.referenceDataId">, {{ $t('Reference data') }}: {{ warning.referenceDataId }}</span>
+                  <div>{{ warning.message }}</div>
+                </li>
+              </ul>
+            </details>
           </div>
           <header class="energy-cost-print-header">
             <img :src="logoUrl" alt="SUPLA" />

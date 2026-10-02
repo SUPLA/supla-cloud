@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "01530e22d0518ebc147433d5d6c358d4",
+    "content-hash": "0bcc2bc879af8c33b8ccfeb298fd33a6",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2683,16 +2683,16 @@
         },
         {
             "name": "supla/energy-cost-calculator",
-            "version": "0.7.1",
+            "version": "0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SUPLA/supla-energy-cost-calculator.git",
-                "reference": "8a37d84106143fe4546b9c4ffde86917dda0d294"
+                "reference": "77c4a77efdc16674c1f1783cb1a7f7f49291cb0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SUPLA/supla-energy-cost-calculator/zipball/8a37d84106143fe4546b9c4ffde86917dda0d294",
-                "reference": "8a37d84106143fe4546b9c4ffde86917dda0d294",
+                "url": "https://api.github.com/repos/SUPLA/supla-energy-cost-calculator/zipball/77c4a77efdc16674c1f1783cb1a7f7f49291cb0a",
+                "reference": "77c4a77efdc16674c1f1783cb1a7f7f49291cb0a",
                 "shasum": ""
             },
             "require": {
@@ -2716,9 +2716,9 @@
             "description": "Framework-agnostic PHP library for calculating electricity costs from interval energy deltas and JSON billing rules.",
             "support": {
                 "issues": "https://github.com/SUPLA/supla-energy-cost-calculator/issues",
-                "source": "https://github.com/SUPLA/supla-energy-cost-calculator/tree/0.7.1"
+                "source": "https://github.com/SUPLA/supla-energy-cost-calculator/tree/0.8.0"
             },
-            "time": "2026-10-02T11:11:59+00:00"
+            "time": "2026-10-02T11:39:19+00:00"
         },
         {
             "name": "symfony/amqp-messenger",

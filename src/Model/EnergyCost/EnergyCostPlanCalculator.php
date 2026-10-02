@@ -18,9 +18,9 @@ use App\Repository\EnergyCostPlanAssignmentRepository;
 use DateTimeImmutable;
 use DateTimeZone;
 use Supla\EnergyCostCalculator\Engine\CalculationOptions;
+use Supla\EnergyCostCalculator\Engine\CalculationProblemPolicy;
 use Supla\EnergyCostCalculator\Engine\CalculationResult;
 use Supla\EnergyCostCalculator\Engine\CostCalculator;
-use Supla\EnergyCostCalculator\Engine\MissingReferencePolicy;
 use Supla\EnergyCostCalculator\Exception\CalculationException;
 use Supla\EnergyCostCalculator\Model\TimeRange;
 use Supla\EnergyCostCalculator\Plan\CostPlanCompiler;
@@ -80,7 +80,7 @@ class EnergyCostPlanCalculator {
                 new CalculationOptions(
                     includeIntervals: true,
                     includeCharges: true,
-                    missingReferencePolicy: MissingReferencePolicy::SKIP_AFFECTED,
+                    calculationProblemPolicy: CalculationProblemPolicy::SKIP_AFFECTED,
                 ),
             );
         } catch (CalculationException $exception) {
@@ -118,7 +118,7 @@ class EnergyCostPlanCalculator {
                 new CalculationOptions(
                     includeIntervals: true,
                     includeCharges: true,
-                    missingReferencePolicy: MissingReferencePolicy::SKIP_AFFECTED,
+                    calculationProblemPolicy: CalculationProblemPolicy::SKIP_AFFECTED,
                 ),
             );
         }
