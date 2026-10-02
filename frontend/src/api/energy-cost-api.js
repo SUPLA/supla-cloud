@@ -50,7 +50,7 @@ export const energyCostApi = {
   async getAssignment(channelId) {
     try {
       const {body} = await api.get(`channels/${pathPart(channelId)}/energy-cost-plan-assignment`, {skipErrorHandler: [404]});
-      return body;
+      return body || null;
     } catch (error) {
       if (error.status === 404) return null;
       throw error;
