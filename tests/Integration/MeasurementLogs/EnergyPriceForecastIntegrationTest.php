@@ -249,4 +249,61 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->refresh($chValue);
         $this->assertEquals(443.8, current(unpack('d', $chValue->getValue())));
     }
+
+    public function testFetchingPriceLogsForVirtualChannel() {
+        TestTimeProvider::setTime('2028-06-12T12:00:00+02:00');
+        $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
+        foreach (
+            [
+            ['2028-06-07T12:00:00+02:00', 401.1, 301.1],
+            ['2028-06-12T12:00:00+02:00', 402.2, 302.2],
+            ['2028-06-14T12:00:00+02:00', 403.3, 303.3],
+            ] as [$date, $rce, $fixing1]
+        ) {
+            $dateFrom = new \DateTime($date);
+            $log = new EnergyPriceLogItem($dateFrom, (clone $dateFrom)->modify('+14 minutes 59 seconds'));
+            $log->setRce($rce);
+            $log->setFixing1($fixing1);
+            $logsEm->persist($log);
+        }
+        $logsEm->flush();
+
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('POST', '/api/channels', [
+            'virtualChannelType' => VirtualChannelType::ENERGY_PRICE_FORECAST,
+            'virtualChannelConfig' => ['energyField' => 'fixing1'],
+        ]);
+        $channel = json_decode($client->getResponse()->getContent(), true);
+        $client->apiRequestV3('GET', '/api/channels/' . $channel['id'] . '/energy-price-logs');
+
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertEquals([
+            ['dateTimestamp' => strtotime('2028-06-07T12:00:00+02:00'), 'value' => 301.1],
+            ['dateTimestamp' => strtotime('2028-06-12T12:00:00+02:00'), 'value' => 302.2],
+            ['dateTimestamp' => strtotime('2028-06-14T12:00:00+02:00'), 'value' => 303.3],
+        ], json_decode($client->getResponse()->getContent(), true));
+    }
+
+    public function testFetchingPriceLogsForPdgszVirtualChannel() {
+        TestTimeProvider::setTime('2029-06-12T12:00:00+02:00');
+        $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
+        $dateFrom = new \DateTime('2029-06-12T12:00:00+02:00');
+        $log = new EnergyPriceLogItem($dateFrom, (clone $dateFrom)->modify('+14 minutes 59 seconds'));
+        $log->setPdgsz(2);
+        $logsEm->persist($log);
+        $logsEm->flush();
+
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('POST', '/api/channels', [
+            'virtualChannelType' => VirtualChannelType::ENERGY_PRICE_FORECAST,
+            'virtualChannelConfig' => ['energyField' => 'pdgsz'],
+        ]);
+        $channel = json_decode($client->getResponse()->getContent(), true);
+        $client->apiRequestV3('GET', '/api/channels/' . $channel['id'] . '/energy-price-logs');
+
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertEquals([
+            ['dateTimestamp' => strtotime('2029-06-12T12:00:00+02:00'), 'value' => 2],
+        ], json_decode($client->getResponse()->getContent(), true));
+    }
 }
