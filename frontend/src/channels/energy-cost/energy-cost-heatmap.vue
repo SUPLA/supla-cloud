@@ -37,6 +37,12 @@
   async function render() {
     const token = ++renderToken;
     emit('rendering', true);
+    if (!visibleBuckets().length) {
+      chart?.destroy();
+      chart = undefined;
+      emit('rendering', false);
+      return;
+    }
     await nextTick();
     await new Promise(requestAnimationFrame);
     if (token !== renderToken) return;

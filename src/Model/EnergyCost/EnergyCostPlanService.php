@@ -93,12 +93,17 @@ class EnergyCostPlanService {
     }
 
     public function getAssignment(User $user, IODeviceChannel $channel): EnergyCostPlanAssignment {
-        $this->assertChannelSupported($user, $channel);
-        $assignment = $this->assignmentRepository->findForChannel($channel);
-        if ($assignment === null || !$assignment->getEnergyCostPlan()->belongsToUser($user)) {
+        $assignment = $this->findAssignment($user, $channel);
+        if ($assignment === null) {
             throw new NotFoundHttpException('Energy cost plan assignment does not exist.');
         }
         return $assignment;
+    }
+
+    public function findAssignment(User $user, IODeviceChannel $channel): ?EnergyCostPlanAssignment {
+        $this->assertChannelSupported($user, $channel);
+        $assignment = $this->assignmentRepository->findForChannel($channel);
+        return $assignment !== null && $assignment->getEnergyCostPlan()->belongsToUser($user) ? $assignment : null;
     }
 
     public function assignToChannel(User $user, IODeviceChannel $channel, int|string $planId): EnergyCostPlanAssignment {

@@ -90,6 +90,11 @@ class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
         $channel = $this->createElectricityMeterChannel($user);
         $this->insertHourlyDeltas($channel);
         $client = $this->createAuthenticatedClient($user);
+        $assignmentPath = '/api/channels/' . $channel->getId() . '/energy-cost-plan-assignment';
+
+        $client->apiRequestV24('GET', $assignmentPath);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSame('', $client->getResponse()->getContent());
 
         $client->apiRequestV24('POST', '/api/channels/' . $channel->getId() . '/energy-cost-calculation', [
             'fromTimestamp' => 1767265200,
