@@ -30,7 +30,7 @@ class OcppConfiguration {
         return [
             'id' => $station->getId(),
             'iodeviceId' => $station->getIODevice()->getId(),
-            'name' => $station->getIODevice()->getComment() ?: $station->getIODevice()->getName(),
+            'name' => $station->getIODevice()->getName(),
             'locationId' => $station->getIODevice()->getLocation()->getId(),
             'protocol' => 'OCPP 1.6 JSON',
             'securityProfile' => 2,

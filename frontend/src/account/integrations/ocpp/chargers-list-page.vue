@@ -19,19 +19,14 @@
       </div>
       <EmptyListPlaceholder v-if="!error && enabled && !stations.length" />
     </LoadingCover>
-    <ChargerConfigurationModal
-      v-if="modalOpen"
-      :station="selectedStation"
-      @close="modalOpen = false"
-      @created="refreshAfterCreation"
-      @updated="refreshAfterNameChange"
-    />
+    <ChargerConfigurationModal v-if="modalOpen" :station="selectedStation" @close="close" @created="refreshAfterCreation" />
   </div>
 </template>
 
 <script setup>
-  import {onMounted, ref} from 'vue';
+  import {onMounted, ref, watch} from 'vue';
   import {useI18n} from 'vue-i18n';
+  import {useRoute, useRouter} from 'vue-router';
   import {api} from '@/api/api';
   import {useDevicesStore} from '@/stores/devices-store';
   import {useChannelsStore} from '@/stores/channels-store';
@@ -41,6 +36,8 @@
 
   defineOptions({compatConfig: {MODE: 3}});
   const {t} = useI18n();
+  const route = useRoute();
+  const router = useRouter();
   const devices = useDevicesStore();
   const stations = ref([]);
   const enabled = ref(false);
@@ -52,6 +49,23 @@
     selectedStation.value = station || undefined;
     modalOpen.value = true;
   }
+  function openRequestedStation() {
+    const deviceId = route.query.deviceId;
+    if (!enabled.value || typeof deviceId !== 'string' || !/^[1-9]\d*$/.test(deviceId)) return;
+    const requestedId = Number(deviceId);
+    if (!Number.isSafeInteger(requestedId)) return;
+    const station = stations.value.find((station) => station.iodeviceId === requestedId);
+    if (station) open(station);
+  }
+  function close() {
+    modalOpen.value = false;
+    selectedStation.value = undefined;
+    if (route.query.deviceId !== undefined) {
+      const query = {...route.query};
+      delete query.deviceId;
+      router.replace({name: 'integrations.ocpp', query});
+    }
+  }
   async function fetchStations() {
     loading.value = true;
     error.value = '';
@@ -59,6 +73,7 @@
       const {body} = await api.get('integrations/ocpp', {skipErrorHandler: true});
       stations.value = body.stations;
       enabled.value = body.enabled;
+      openRequestedStation();
     } catch (e) {
       error.value = t('Could not load chargers. Try again in a while.');
     } finally {
@@ -73,10 +88,6 @@
       error.value = t('Could not refresh the device list. Reload the page after saving the key.');
     }
   }
-  function refreshAfterNameChange(device) {
-    devices.updateDevice(device);
-    const station = stations.value.find((station) => station.iodeviceId === device.id);
-    if (station) station.name = device.comment || device.name;
-  }
+  watch(() => route.query.deviceId, openRequestedStation);
   onMounted(fetchStations);
 </script>

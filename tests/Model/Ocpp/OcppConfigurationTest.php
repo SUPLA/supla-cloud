@@ -17,7 +17,6 @@ class OcppConfigurationTest extends TestCase {
     public function testConnectionSettingsDoNotExposeCredentials(): void {
         $device = new IODevice();
         EntityUtils::setField($device, 'location', $this->createMock(Location::class));
-        EntityUtils::setField($device, 'name', 'Original charger name');
         $station = new OcppChargingStation($this->createMock(User::class), $device, 'U1-ABCD', str_repeat('a', 128));
         $configuration = new OcppConfiguration('wss://ocpp.example.org:443/');
         $this->assertTrue($configuration->isEnabled());
@@ -25,9 +24,6 @@ class OcppConfigurationTest extends TestCase {
         $this->assertSame('wss://ocpp.example.org:443/U1-ABCD', $settings['url']);
         $this->assertSame('wss://ocpp.example.org:443', $settings['baseUrl']);
         $this->assertSame('U1-ABCD', $settings['username']);
-        $this->assertSame('Original charger name', $settings['name']);
-        $device->setComment('Renamed charger');
-        $this->assertSame('Renamed charger', $configuration->describe($station)['name']);
         $this->assertArrayNotHasKey('authorizationKey', $settings);
         $this->assertArrayNotHasKey('authKeyHash', $settings);
         $this->assertFalse((new OcppConfiguration(''))->isEnabled());

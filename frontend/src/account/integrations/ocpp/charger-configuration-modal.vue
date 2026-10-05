@@ -1,7 +1,7 @@
 <!-- SPDX-FileCopyrightText: AC SOFTWARE SP. Z O.O. -->
 <!-- SPDX-License-Identifier: GPL-2.0-or-later -->
 <template>
-  <Modal :header="connection ? $t('Charger configuration') : $t('Add charger')" @cancel="close" @confirm="connection ? saveName() : create()">
+  <Modal :header="connection ? $t('Charger configuration') : $t('Add charger')" @cancel="close" @confirm="connection ? close() : create()">
     <template v-if="!connection">
       <p>{{ $t('A charger creates a virtual device with an electricity meter and an on/off switch.') }}</p>
       <div class="form-group">
@@ -17,10 +17,6 @@
       </div>
     </template>
     <template v-else>
-      <div class="form-group">
-        <label for="ocpp-name">{{ $t('Charger name') }}</label>
-        <input id="ocpp-name" v-model="name" class="form-control" maxlength="200" :disabled="loading" />
-      </div>
       <ChargerConnectionSettings :connection="connection" />
       <template v-if="!connection.authorizationKey">
         <p>{{ $t('The old key cannot be retrieved. Generate a new one if you have lost it.') }}</p>
@@ -38,35 +34,29 @@
     <template #footer>
       <button v-if="!connection" class="btn btn-default mr-2" :disabled="loading" @click="close">{{ $t('Cancel') }}</button>
       <button v-if="!connection" class="btn btn-green" :disabled="loading || !name.trim() || !locationId" @click="create">{{ $t('Add charger') }}</button>
-      <template v-else>
-        <button class="btn btn-default mr-2" :disabled="loading" @click="close">{{ $t('Close') }}</button>
-        <button class="btn btn-green" :disabled="loading || !canSaveName" @click="saveName">{{ $t('Save changes') }}</button>
-      </template>
+      <button v-else class="btn btn-green" :disabled="loading" @click="close">{{ $t('Close') }}</button>
     </template>
   </Modal>
 </template>
 
 <script setup>
-  import {computed, ref} from 'vue';
+  import {ref} from 'vue';
   import {useI18n} from 'vue-i18n';
   import {api} from '@/api/api';
   import {useLocations} from '@/stores/locations-store';
   import Modal from '@/common/modal.vue';
   import ChargerConnectionSettings from './charger-connection-settings.vue';
 
-  defineOptions({compatConfig: {MODE: 3}});
   const props = defineProps({station: Object});
-  const emit = defineEmits(['close', 'created', 'updated']);
+  const emit = defineEmits(['close', 'created']);
   const {t} = useI18n();
   const locations = useLocations();
-  const name = ref(props.station?.name || '');
-  const savedName = ref(name.value);
+  const name = ref('');
   const locationId = ref(null);
   const connection = ref(props.station ? {...props.station} : null);
   const loading = ref(false);
   const error = ref('');
   const confirmReset = ref(false);
-  const canSaveName = computed(() => !!name.value.trim() && name.value.trim() !== savedName.value);
 
   function close() {
     if (!loading.value) emit('close');
@@ -79,28 +69,9 @@
     try {
       const {body} = await api.post('integrations/ocpp', {name: name.value.trim(), locationId: locationId.value}, {skipErrorHandler: true});
       connection.value = body;
-      name.value = body.name;
-      savedName.value = body.name;
       emit('created');
     } catch (e) {
       error.value = t(e.body?.message || 'Could not add the charger. Try again in a while.');
-    } finally {
-      loading.value = false;
-    }
-  }
-
-  async function saveName() {
-    if (loading.value || !connection.value || !canSaveName.value) return;
-    loading.value = true;
-    error.value = '';
-    try {
-      const newName = name.value.trim();
-      const {body} = await api.put(`iodevices/${connection.value.iodeviceId}?safe=1`, {comment: newName}, {skipErrorHandler: true});
-      name.value = newName;
-      savedName.value = newName;
-      emit('updated', body);
-    } catch (e) {
-      error.value = t(e.body?.message || 'Could not save charger name. Try again in a while.');
     } finally {
       loading.value = false;
     }
