@@ -1,3 +1,11 @@
+<script>
+  export default {
+    compatConfig: {
+      MODE: 3,
+    },
+  };
+</script>
+
 <script setup>
   import {nextTick, onBeforeUnmount, ref, watch} from 'vue';
   import ApexCharts from 'apexcharts';

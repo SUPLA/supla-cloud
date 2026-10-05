@@ -1,3 +1,11 @@
+<script>
+  export default {
+    compatConfig: {
+      MODE: 3,
+    },
+  };
+</script>
+
 <script setup>
   import {computed} from 'vue';
   import {componentBreakdown, formatDecimal, taxBreakdown, zoneBreakdown} from './energy-cost-result-utils';

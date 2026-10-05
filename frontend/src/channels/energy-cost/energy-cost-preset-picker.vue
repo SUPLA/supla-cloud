@@ -1,3 +1,11 @@
+<script>
+  export default {
+    compatConfig: {
+      MODE: 3,
+    },
+  };
+</script>
+
 <script setup>
   defineProps({presets: {type: Array, required: true}, modelValue: String, idPrefix: {type: String, default: 'energy-cost'}});
   defineEmits(['update:modelValue']);
