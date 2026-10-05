@@ -37,6 +37,8 @@
   const result = ref(null);
   const loading = ref(false);
   const error = ref(null);
+  const noLogsError = 'No logs are available for the selected range.';
+  const errorAlertClass = computed(() => (error.value === noLogsError ? 'alert-info' : 'alert-danger'));
   const granularity = ref('day');
   const availableRange = ref(null);
   let requestToken = 0;
@@ -150,7 +152,7 @@
   function setRange(next) {
     const fitted = fitToAvailableRange(next);
     if (!fitted) {
-      error.value = 'No logs are available for the selected range.';
+      error.value = noLogsError;
       return;
     }
     error.value = null;
@@ -224,7 +226,7 @@
       availableRange.value = {from: first.startOf('hour').plus({hours: 1}).toISO(), to: last.startOf('hour').toISO()};
       const fitted = fitToAvailableRange(range.value);
       if (!fitted) {
-        error.value = 'No logs are available for the selected range.';
+        error.value = noLogsError;
         return;
       }
       range.value = fitted;
@@ -273,7 +275,7 @@
       <p v-if="result?.processedDeltaCount && chartGranularity && chartGranularity !== granularity" class="text-muted">
         {{ $t('Chart is displayed by {granularity} to keep it responsive.', {granularity: $t(chartGranularity)}) }}
       </p>
-      <div v-if="error" class="alert alert-danger">{{ $t(error) }}</div>
+      <div v-if="error" class="alert" :class="errorAlertClass">{{ $t(error) }}</div>
       <template v-else-if="result">
         <div v-if="result.processedDeltaCount === 0" class="alert alert-info">
           {{ $t('No logs are available for the selected range.') }}
