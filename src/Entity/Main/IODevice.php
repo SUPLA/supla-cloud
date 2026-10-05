@@ -25,6 +25,7 @@ use App\Entity\HasUserConfigTrait;
 use App\Entity\Main\Listeners\IODeviceEntityListener;
 use App\Enums\IoDeviceFlags;
 use App\Enums\Manufacturer;
+use App\Enums\VirtualDeviceType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
@@ -197,6 +198,9 @@ class IODevice implements HasLocation, HasRelationsCount {
      */
     private bool $isVirtual = false;
 
+    /** @ORM\OneToOne(targetEntity="OcppChargingStation", mappedBy="iodevice") */
+    private ?OcppChargingStation $ocppChargingStation = null;
+
     /**
      * @ORM\Column(name="checksum", type="string", length=32, nullable=false, options={"charset"="ascii", "collation"="ascii_bin", "default"="", "fixed" = true})
      * @Groups({"basic"})
@@ -364,6 +368,22 @@ class IODevice implements HasLocation, HasRelationsCount {
 
     public function isVirtual(): bool {
         return $this->isVirtual;
+    }
+
+    /** @Groups({"basic"}) */
+    public function getVirtualType(): ?string {
+        if (!$this->isVirtual) {
+            return null;
+        }
+        return $this->ocppChargingStation ? VirtualDeviceType::OCPP : VirtualDeviceType::DATA_SOURCE;
+    }
+
+    public function isDataSource(): bool {
+        return $this->getVirtualType() === VirtualDeviceType::DATA_SOURCE;
+    }
+
+    public function setOcppChargingStation(OcppChargingStation $station): void {
+        $this->ocppChargingStation = $station;
     }
 
     public function getChecksum(): string {

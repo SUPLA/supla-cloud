@@ -6,6 +6,7 @@ parameters:
 
   env(GOOGLE_RECAPTCHA_SECRET): ''
   env(GOOGLE_RECAPTCHA_SITE_KEY): ''
+  env(SUPLA_OCPP_PUBLIC_URL): ''
   env(CORS_ALLOW_ORIGIN): '^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
 
 services:
@@ -144,6 +145,9 @@ services:
 
   App\Model\VirtualChannel\VirtualChannelFactory:
     $configurators: !tagged supla.virtual_channel_configurator
+
+  App\Model\Ocpp\OcppConfiguration:
+    $ocppPublicUrl: '%env(SUPLA_OCPP_PUBLIC_URL)%'
 
   App\Model\Audit\FailedAuthAttemptsUserBlocker:
     $enabled: '%supla.brute_force_auth_prevention.enabled%'

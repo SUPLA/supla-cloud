@@ -7,16 +7,16 @@
           <NewVirtualChannelButton />
         </div>
       </div>
-      <div v-show="allVirtualChannels && allVirtualChannels.length" class="container">
+      <div v-show="allVirtualDataSources && allVirtualDataSources.length" class="container">
         <virtual-channel-filters @filter-function="filterFunction = $event" @compare-function="compareFunction = $event" />
       </div>
       <div>
-        <square-links-grid v-if="allVirtualChannels?.length > 0" :count="filteredChannels.length + 1">
+        <square-links-grid v-if="allVirtualDataSources?.length > 0" :count="filteredChannels.length + 1">
           <div v-for="channel in filteredChannels" :key="channel.id">
             <channel-tile :model="channel"></channel-tile>
           </div>
         </square-links-grid>
-        <empty-list-placeholder v-else-if="allVirtualChannels" />
+        <empty-list-placeholder v-else-if="allVirtualDataSources" />
       </div>
     </loading-cover>
   </div>
@@ -49,11 +49,11 @@
     },
     computed: {
       ...mapState(useChannelsStore, {channels: 'list'}),
-      allVirtualChannels() {
-        return this.channels.filter((channel) => !channel.config.hideInChannelsList).filter((channel) => channel.isVirtual);
+      allVirtualDataSources() {
+        return this.channels.filter((channel) => !channel.config.hideInChannelsList).filter((channel) => channel.virtualType === 'DATA_SOURCE');
       },
       filteredChannels() {
-        const filteredChannels = this.allVirtualChannels.filter(this.filterFunction);
+        const filteredChannels = this.allVirtualDataSources.filter(this.filterFunction);
         filteredChannels.sort(this.compareFunction);
         return filteredChannels;
       },

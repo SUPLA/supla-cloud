@@ -37,6 +37,31 @@ fit together, see the SUPLA organization repository:
 
 ## Self-hosting and production use
 
+### OCPP chargers (PoC)
+
+Set `SUPLA_OCPP_PUBLIC_URL=wss://ocppX.supla.org` in the Cloud instance environment
+to enable charger registration in **Integrations → Electric vehicle chargers**.
+Use the public gateway base URL, without a path or charge point identity. The gateway
+and its TLS reverse proxy must be deployed separately; Cloud only supplies configuration.
+An empty value disables registration.
+
+Apply the OCPP database schema and install the `supla_v_ocpp_charging_station` view
+before enabling this feature. Each registration atomically creates one virtual device,
+an electricity meter, a charging switch, and the station credentials. No initial channel
+values are inserted. Chargers count towards the device limit, not the data source limit.
+
+`is_virtual` remains a boolean compatible with supla-server. The additive API field
+`virtualType` is `OCPP` for devices associated with a charging station, `DATA_SOURCE`
+for other virtual devices, and `null` for physical devices. Channels inherit this type.
+The cyclic data-source updater excludes OCPP devices.
+
+The configuration dialog shows the full WSS URL, base URL, identity, Basic Auth username,
+and a one-time 32-character hexadecimal AuthorizationKey. Copying the key omits display
+separators. Only the SHA-512 hash of the **binary** key is stored. Lost keys can be replaced;
+update and reconnect the charger afterwards, as an existing connection is not forcibly closed.
+
+### Full SUPLA stack
+
 For running your own SUPLA instance (recommended way for self-hosting and production),
 use **SUPLA Docker**:
 
@@ -118,4 +143,3 @@ For an overview of the SUPLA platform and ecosystem, see:
 ## License
 
 This project is licensed under the **GPL-2.0** license.
-

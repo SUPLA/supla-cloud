@@ -43,6 +43,14 @@
               </a>
             </li>
           </router-link>
+          <router-link :to="{name: 'integrations.ocpp'}" v-slot="{href, navigate, isActive}" custom>
+            <li :class="{active: isActive}">
+              <a :href="href" @click="navigate">
+                <fa :icon="faChargingStation" />
+                {{ $t('Electric vehicle chargers') }}
+              </a>
+            </li>
+          </router-link>
         </ul>
       </div>
     </div>
@@ -52,7 +60,7 @@
 
 <script setup>
   import {useFrontendConfigStore} from '@/stores/frontend-config-store';
-  import {faDatabase, faPodcast, faTrowelBricks} from '@fortawesome/free-solid-svg-icons';
+  import {faChargingStation, faDatabase, faPodcast, faTrowelBricks} from '@fortawesome/free-solid-svg-icons';
 
   const frontendConfig = useFrontendConfigStore();
 </script>

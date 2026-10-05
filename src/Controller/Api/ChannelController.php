@@ -763,7 +763,7 @@ class ChannelController extends RestController {
     public function createVirtualChannelAction(Request $request, VirtualChannelFactory $channelFactory) {
         $user = $this->getUser();
         Assertion::lessThan(
-            $user->getChannels()->filter(fn(IODeviceChannel $ch) => $ch->isVirtual())->count(),
+            $user->getChannels()->filter(fn(IODeviceChannel $ch) => $ch->isDataSource())->count(),
             $user->getLimits()['virtualChannels'],
             'Data sources limit has been exceeded' // i18n
         );

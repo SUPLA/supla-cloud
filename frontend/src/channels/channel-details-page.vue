@@ -5,8 +5,11 @@
         <BreadcrumbList :current="channelTitle">
           <router-link :to="{name: 'me'}">{{ $t('My SUPLA') }}</router-link>
           <router-link :to="{name: 'device', params: {id: channel.iodeviceId}}">{{ deviceTitle(devices[channel.iodeviceId]) }} </router-link>
-          <template #alt v-if="channel.isVirtual">
+          <template #alt v-if="channel.virtualType === 'DATA_SOURCE'">
             <router-link :to="{name: 'integrations.dataSources'}"> « {{ $t('Data sources') }} </router-link>
+          </template>
+          <template #alt v-else-if="channel.virtualType === 'OCPP'">
+            <router-link :to="{name: 'integrations.ocpp'}"> « {{ $t('Electric vehicle chargers') }} </router-link>
           </template>
         </BreadcrumbList>
         <div class="d-flex mt-3">
@@ -35,7 +38,7 @@
               <h3 class="text-center">{{ $t('Configuration') }}</h3>
               <div class="hover-editable hovered">
                 <form @submit.prevent="saveChanges()">
-                  <VirtualChannelInfo v-if="channel.isVirtual" :channel="channel" />
+                  <VirtualChannelInfo v-if="channel.virtualType === 'DATA_SOURCE'" :channel="channel" />
                   <dl>
                     <dd>{{ $t('Function') }}</dd>
                     <dt v-if="!channel.isVirtual" v-tooltip="hasPendingChanges && $t('Save or discard configuration changes first.')" class="text-center">

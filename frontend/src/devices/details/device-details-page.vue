@@ -14,7 +14,10 @@
           </div>
           <div class="d-flex align-items-flex-start">
             <DevicePairSubdeviceButton :device="device" class="mb-2" />
-            <NewVirtualChannelButton v-if="device.isVirtual" />
+            <NewVirtualChannelButton v-if="device.virtualType === 'DATA_SOURCE'" />
+            <router-link v-if="device.virtualType === 'OCPP'" class="btn btn-green" :to="{name: 'integrations.ocpp'}">
+              {{ $t('Charger configuration') }}
+            </router-link>
             <a class="btn btn-danger ml-3" @click="deleteConfirm = true">
               {{ $t('Delete') }}
             </a>

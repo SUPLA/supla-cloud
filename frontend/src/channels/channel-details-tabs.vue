@@ -127,7 +127,7 @@
           ChannelFunction.GENERAL_PURPOSE_METER,
           ChannelFunction.GENERAL_PURPOSE_MEASUREMENT,
         ];
-        if (measurementsHistoryFunctions.includes(this.channel.functionId) && !this.channel.isVirtual) {
+        if (measurementsHistoryFunctions.includes(this.channel.functionId) && this.channel.virtualType !== 'DATA_SOURCE') {
           this.availableTabs.push({
             route: 'channel.measurementsHistory',
             header: 'History of measurements', // i18n

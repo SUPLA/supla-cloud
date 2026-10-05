@@ -38,7 +38,7 @@ class VirtualChannelsUpdateStateCommand extends AbstractCyclicCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $channels = $this->channelRepository->findBy(['isVirtual' => true]);
+        $channels = $this->channelRepository->findDataSources();
         $this->updater->updateChannels($channels);
         return 0;
     }

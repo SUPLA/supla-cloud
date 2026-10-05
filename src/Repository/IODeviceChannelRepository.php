@@ -32,8 +32,21 @@ class IODeviceChannelRepository extends EntityWithRelationsRepository {
                 ChannelFunction::ACTION_TRIGGER
             ))
             ->from(IODeviceChannel::class, 'c')
+            ->join('c.iodevice', 'io')
+            ->leftJoin('io.ocppChargingStation', 'ocpp')
+            ->addSelect('io', 'ocpp')
             ->leftJoin('c.channelGroups', 'cg')
             ->groupBy('c.id');
+    }
+
+    /** @return IODeviceChannel[] */
+    public function findDataSources(): array {
+        return $this->createQueryBuilder('c')
+            ->join('c.iodevice', 'io')
+            ->leftJoin('io.ocppChargingStation', 'ocpp')
+            ->addSelect('io', 'ocpp')
+            ->where('c.isVirtual = true AND io.isVirtual = true AND ocpp.id IS NULL')
+            ->getQuery()->getResult();
     }
 
     /** @return IODeviceChannel[] */

@@ -33,6 +33,6 @@ class VirtualChannelConfigTranslator extends UserConfigTranslator {
     }
 
     public function supports(HasUserConfig $subject): bool {
-        return $subject instanceof IODeviceChannel && $subject->isVirtual();
+        return $subject instanceof IODeviceChannel && $subject->isDataSource();
     }
 }

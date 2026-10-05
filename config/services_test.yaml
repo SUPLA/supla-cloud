@@ -1,4 +1,6 @@
 services:
+  App\Model\Ocpp\OcppConfiguration:
+    $ocppPublicUrl: 'wss://ocpp-test.supla.org'
   App\Tests\Integration\TestMailerTransport: ~
   App\Mailer\SuplaMailer:
     $transport: '@App\Tests\Integration\TestMailerTransport'

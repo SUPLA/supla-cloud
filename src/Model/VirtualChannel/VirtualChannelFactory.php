@@ -10,7 +10,6 @@ use App\Enums\VirtualChannelType;
 use App\Repository\IODeviceRepository;
 use App\Supla\SuplaServerAware;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
 
 class VirtualChannelFactory {
     use SuplaServerAware;
@@ -27,7 +26,7 @@ class VirtualChannelFactory {
     }
 
     public function createVirtualChannel(User $user, VirtualChannelType $type, array $config): IODeviceChannel {
-        $virtualDevice = $this->getVirtualDevice($user);
+        $virtualDevice = $this->getDataSourceDevice($user);
         $channel = new IODeviceChannel();
         $nextChannelNumber = $virtualDevice->getChannels()
                 ->reduce(fn(int $max, IODeviceChannel $ch) => max($max, $ch->getChannelNumber()), 0) + 1;
@@ -47,11 +46,9 @@ class VirtualChannelFactory {
         return $channel;
     }
 
-    private function getVirtualDevice(User $user): IODevice {
+    private function getDataSourceDevice(User $user): IODevice {
         return $this->em->wrapInTransaction(function (EntityManagerInterface $em) use ($user) {
-            $virtualDevice = $this->deviceRepository->findAllForUser($user, function (QueryBuilder $query, string $alias) {
-                $query->andWhere("$alias.isVirtual = true");
-            })->first();
+            $virtualDevice = $this->deviceRepository->findDataSourceForUser($user);
             if (!$virtualDevice) {
                 $virtualDevice = new IODevice();
                 EntityUtils::setField($virtualDevice, 'isVirtual', true);

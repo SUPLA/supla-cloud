@@ -302,6 +302,11 @@ export default [
         component: () => import('@/account/integrations/data-sources/virtual-channel-list-page.vue'),
         name: 'integrations.dataSources',
       },
+      {
+        path: 'electric-vehicle-chargers',
+        component: () => import('@/account/integrations/ocpp/chargers-list-page.vue'),
+        name: 'integrations.ocpp',
+      },
     ],
   },
   {

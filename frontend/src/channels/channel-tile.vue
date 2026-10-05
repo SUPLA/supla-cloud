@@ -13,7 +13,7 @@
         <dd>ID</dd>
         <dt>{{ model.id }}</dt>
       </dl>
-      <dl v-if="device && !model.isVirtual" class="ellipsis">
+      <dl v-if="device && model.virtualType !== 'DATA_SOURCE'" class="ellipsis">
         <dd>{{ $t('Device') }}</dd>
         <dt>{{ device.name }}</dt>
       </dl>

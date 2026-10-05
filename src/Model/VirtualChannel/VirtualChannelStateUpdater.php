@@ -34,6 +34,10 @@ class VirtualChannelStateUpdater {
         $channelUpdates = [];
         $updatedDeviceIds = [];
         foreach ($channels as $channel) {
+            // Protect other callers too: OCPP values are supplied exclusively by the gateway.
+            if (!$channel->isDataSource()) {
+                continue;
+            }
             $channelUpdates[] = [$channel->getId(), $channel->getUser()->getId()];
             if (!in_array($channel->getIodevice()->getId(), $updatedDeviceIds)) {
                 $updatedDeviceIds[] = $channel->getIodevice()->getId();

@@ -33,6 +33,7 @@ use App\Enums\ChannelFunction;
 use App\Enums\ChannelFunctionAction;
 use App\Enums\ChannelType;
 use App\Enums\IoDeviceFlags;
+use App\Enums\VirtualDeviceType;
 use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -538,6 +539,10 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
 
     /** @Groups({"basic"}) */
     public function isDeletable(): bool {
+        // Both channels are required by the OCPP gateway. Delete the whole device instead.
+        if ($this->getVirtualType() === VirtualDeviceType::OCPP) {
+            return false;
+        }
         $deviceFlags = $this->getIoDevice()->getFlagsInt();
         return $this->getConflictDetails() ||
             IoDeviceFlags::ALWAYS_ALLOW_CHANNEL_DELETION()->isOn($deviceFlags) ||
@@ -547,5 +552,14 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
 
     public function isVirtual(): bool {
         return $this->isVirtual;
+    }
+
+    /** @Groups({"basic"}) */
+    public function getVirtualType(): ?string {
+        return $this->isVirtual ? $this->getIoDevice()->getVirtualType() : null;
+    }
+
+    public function isDataSource(): bool {
+        return $this->getVirtualType() === VirtualDeviceType::DATA_SOURCE;
     }
 }

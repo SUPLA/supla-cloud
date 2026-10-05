@@ -33,9 +33,14 @@ class UserRepository extends EntityWithRelationsRepository {
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s ac WHERE ac.user = u) apiClients', ApiClient::class))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s io WHERE io.user = u) ioDevices', IODevice::class))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s cl WHERE cl.user = u) clientApps', ClientApp::class))
-            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s c WHERE c.user = u AND c.isVirtual = false) channels', IODeviceChannel::class))
             ->addSelect(sprintf(
-                '(SELECT COUNT(1) FROM %s cv WHERE cv.user = u AND cv.isVirtual = true) virtualChannels',
+                '(SELECT COUNT(1) FROM %s c JOIN c.iodevice cd LEFT JOIN cd.ocppChargingStation cs '
+                    . 'WHERE c.user = u AND (c.isVirtual = false OR cs.id IS NOT NULL)) channels',
+                IODeviceChannel::class
+            ))
+            ->addSelect(sprintf(
+                '(SELECT COUNT(1) FROM %s cv JOIN cv.iodevice vd LEFT JOIN vd.ocppChargingStation vs '
+                    . 'WHERE cv.user = u AND cv.isVirtual = true AND vd.isVirtual = true AND vs.id IS NULL) virtualChannels',
                 IODeviceChannel::class,
             ))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s sc WHERE sc.user = u) scenes', Scene::class))

@@ -59,7 +59,7 @@
           .then(() => {
             this.dependenciesThatPreventsDeletion = undefined;
             successNotification(this.deletingSubdevice ? this.$t('The subdevice has been deleted.') : this.$t('The channel has been deleted.'));
-            if (deletedChannel.isVirtual) {
+            if (deletedChannel.virtualType === 'DATA_SOURCE') {
               this.$router.push({name: 'integrations.dataSources'});
             } else if (this.$route.name !== 'device.channels') {
               this.$router.push({name: 'device.channels', params: {id: this.channel.iodeviceId}});

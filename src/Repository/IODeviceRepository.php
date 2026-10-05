@@ -12,6 +12,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class IODeviceRepository extends EntityWithRelationsRepository {
     protected $alias = 'io';
 
+    public function findDataSourceForUser(User $user): ?IODevice {
+        return $this->createQueryBuilder('io')
+            ->leftJoin('io.ocppChargingStation', 'ocpp')->addSelect('ocpp')
+            ->where('io.user = :user AND io.isVirtual = true AND ocpp.id IS NULL')
+            ->setParameter('user', $user)
+            ->orderBy('io.id', 'ASC')->setMaxResults(1)
+            ->getQuery()->getOneOrNullResult();
+    }
+
     /**
      * Finds IO Device by id that belongs to the given user using GUID.
      * @param \App\Entity\Main\User $user user that should own the device
@@ -52,6 +61,8 @@ class IODeviceRepository extends EntityWithRelationsRepository {
                 PushNotification::class,
                 'managedNotifications'
             ))
-            ->from(IODevice::class, 'io');
+            ->from(IODevice::class, 'io')
+            ->leftJoin('io.ocppChargingStation', 'ocpp')
+            ->addSelect('ocpp');
     }
 }
