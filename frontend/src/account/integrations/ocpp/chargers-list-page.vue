@@ -19,7 +19,13 @@
       </div>
       <EmptyListPlaceholder v-if="!error && enabled && !stations.length" />
     </LoadingCover>
-    <ChargerConfigurationModal v-if="modalOpen" :station="selectedStation" @close="modalOpen = false" @created="refreshAfterCreation" />
+    <ChargerConfigurationModal
+      v-if="modalOpen"
+      :station="selectedStation"
+      @close="modalOpen = false"
+      @created="refreshAfterCreation"
+      @updated="refreshAfterNameChange"
+    />
   </div>
 </template>
 
@@ -33,6 +39,7 @@
   import EmptyListPlaceholder from '@/common/gui/empty-list-placeholder.vue';
   import ChargerConfigurationModal from './charger-configuration-modal.vue';
 
+  defineOptions({compatConfig: {MODE: 3}});
   const {t} = useI18n();
   const devices = useDevicesStore();
   const stations = ref([]);
@@ -65,6 +72,11 @@
     } catch (e) {
       error.value = t('Could not refresh the device list. Reload the page after saving the key.');
     }
+  }
+  function refreshAfterNameChange(device) {
+    devices.updateDevice(device);
+    const station = stations.value.find((station) => station.iodeviceId === device.id);
+    if (station) station.name = device.comment || device.name;
   }
   onMounted(fetchStations);
 </script>

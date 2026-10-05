@@ -106,6 +106,20 @@ class OcppChargingStationControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSame(2, $counts['channels']);
     }
 
+    public function testChargerNameCanBeChangedThroughDeviceSettings(): void {
+        $client = $this->createAuthenticatedClient($this->user);
+        $created = $this->createCharger($client);
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $created['iodeviceId'], ['comment' => 'Home charger']);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSame('Home charger', json_decode($client->getResponse()->getContent(), true)['comment']);
+
+        $client->apiRequestV3('GET', '/api/integrations/ocpp');
+        $this->assertStatusCode(200, $client->getResponse());
+        $stations = json_decode($client->getResponse()->getContent(), true)['stations'];
+        $this->assertSame('Home charger', $stations[0]['name']);
+        $this->assertSame($created['chargePointIdentity'], $stations[0]['chargePointIdentity']);
+    }
+
     public function testIsolationAndKeyReplacement(): void {
         $other = $this->createConfirmedUser('other@supla.org');
         $otherLocation = $this->createLocation($other);

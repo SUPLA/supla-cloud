@@ -8,7 +8,7 @@ import VirtualChannelListPage from '@/account/integrations/data-sources/virtual-
 import {createTestingPinia} from '@pinia/testing';
 import {api} from '@/api/api';
 
-vi.mock('@/api/api', () => ({api: {post: vi.fn()}}));
+vi.mock('@/api/api', () => ({api: {post: vi.fn(), put: vi.fn()}}));
 vi.mock('vue-i18n', async (importOriginal) => ({...(await importOriginal()), useI18n: () => ({t: (key) => key})}));
 vi.mock('@/stores/locations-store', async (importOriginal) => ({
   ...(await importOriginal()),
@@ -17,6 +17,8 @@ vi.mock('@/stores/locations-store', async (importOriginal) => ({
 
 const connection = {
   id: 7,
+  iodeviceId: 8,
+  name: 'Garage',
   url: 'wss://ocpp.example.org/U1-ABCD',
   baseUrl: 'wss://ocpp.example.org',
   chargePointIdentity: 'U1-ABCD',
@@ -41,8 +43,9 @@ describe('Charger configuration', () => {
     const element = document.createElement('div');
     document.body.appendChild(element);
     const created = vi.fn();
+    const updated = vi.fn();
     const closed = vi.fn();
-    const app = createApp(ChargerConfigurationModal, {station, onCreated: created, onClose: closed});
+    const app = createApp(ChargerConfigurationModal, {station, onCreated: created, onUpdated: updated, onClose: closed});
     app.config.globalProperties.$t = (key) => key;
     app.component('fa', {render: () => h('span')});
     app.mount(element);
@@ -50,7 +53,7 @@ describe('Charger configuration', () => {
       app.unmount();
       element.remove();
     });
-    return {element, created, closed};
+    return {element, created, updated, closed};
   }
 
   it('groups the displayed key but copies the exact gateway-compatible key', () => {
@@ -75,9 +78,47 @@ describe('Charger configuration', () => {
     await nextTick();
     expect(api.post).toHaveBeenCalledWith('integrations/ocpp', {name: 'Garage', locationId: 5}, {skipErrorHandler: true});
     expect(created).toHaveBeenCalledOnce();
-    expect(element.querySelector('#ocpp-name')).toBeNull();
+    expect(element.querySelector('#ocpp-name').value).toBe('Garage');
     expect(element.querySelector('#ocpp-key').value).toContain('0011-2233');
     expect(closed).not.toHaveBeenCalled();
+  });
+
+  it('saves a changed charger name as the device caption', async () => {
+    const device = {id: connection.iodeviceId, name: connection.name, comment: 'Home charger'};
+    api.put.mockResolvedValue({body: device});
+    const {element, updated} = mountModal(connection);
+    const name = element.querySelector('#ocpp-name');
+    expect(name.value).toBe('Garage');
+    const saveButton = element.querySelector('button.btn-green');
+    expect(saveButton.disabled).toBe(true);
+    name.value = ' Home charger ';
+    name.dispatchEvent(new Event('input', {bubbles: true}));
+    await nextTick();
+    expect(saveButton.disabled).toBe(false);
+    saveButton.click();
+    await flushPromises();
+    expect(api.put).toHaveBeenCalledWith('iodevices/8?safe=1', {comment: 'Home charger'}, {skipErrorHandler: true});
+    expect(updated).toHaveBeenCalledWith(device);
+    expect(name.value).toBe('Home charger');
+    expect(saveButton.disabled).toBe(true);
+  });
+
+  it('does not send an empty name and shows a save error', async () => {
+    api.put.mockRejectedValue({});
+    const {element, updated} = mountModal(connection);
+    const name = element.querySelector('#ocpp-name');
+    const saveButton = element.querySelector('button.btn-green');
+    name.value = ' ';
+    name.dispatchEvent(new Event('input', {bubbles: true}));
+    await nextTick();
+    expect(saveButton.disabled).toBe(true);
+    name.value = 'New name';
+    name.dispatchEvent(new Event('input', {bubbles: true}));
+    await nextTick();
+    saveButton.click();
+    await flushPromises();
+    expect(element.querySelector('[role="alert"]').textContent).toContain('Could not save charger name. Try again in a while.');
+    expect(updated).not.toHaveBeenCalled();
   });
 
   it('requires confirmation before replacing an existing key', async () => {
