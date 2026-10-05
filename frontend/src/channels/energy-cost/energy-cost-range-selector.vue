@@ -9,6 +9,7 @@
 <script setup>
   import {computed, ref, watch} from 'vue';
   import {DateTime} from 'luxon';
+  import SimpleDropdown from '@/common/gui/simple-dropdown.vue';
 
   const props = defineProps({
     modelValue: {type: Object, required: true},
@@ -25,6 +26,33 @@
     to: DateTime.fromISO(props.modelValue.to, {zone: props.timezone}),
   }));
   const displayedRange = ref(range.value);
+  const periodLabels = {
+    today: 'Today',
+    yesterday: 'Yesterday',
+    week: 'This week',
+    previousWeek: 'Previous week',
+    month: 'This month',
+    previousMonth: 'Previous month',
+    threeMonths: 'Last 3 months',
+    year: 'This year',
+    previousYear: 'Previous year',
+    billingCycle: 'Current billing cycle',
+    previousBillingCycle: 'Previous billing cycle',
+    custom: 'Custom',
+  };
+  const periodOptions = computed(() => [
+    'today',
+    'yesterday',
+    'week',
+    'previousWeek',
+    'month',
+    'previousMonth',
+    'threeMonths',
+    'year',
+    'previousYear',
+    ...(props.billingCycles.length ? ['billingCycle', 'previousBillingCycle'] : []),
+    'custom',
+  ]);
 
   function billingCycleRange(now, previous = false) {
     const cycle = props.billingCycles.find((item) => {
@@ -66,18 +94,22 @@
     displayedRange.value = {from: nextFrom, to: nextTo};
     emit('update:modelValue', {from: nextFrom.toISO(), to: nextTo.toISO()});
   }
+  function selectPeriod(kind) {
+    if (kind === 'custom') {
+      custom.value = true;
+      selectedPreset.value = kind;
+      return;
+    }
+    setRange(kind);
+  }
   function applyCustom() {
     const nextFrom = DateTime.fromFormat(from.value, "yyyy-LL-dd'T'HH:mm", {zone: props.timezone});
     const nextTo = DateTime.fromFormat(to.value, "yyyy-LL-dd'T'HH:mm", {zone: props.timezone});
     if (nextFrom.isValid && nextTo > nextFrom) {
-      selectedPreset.value = null;
+      selectedPreset.value = 'custom';
       displayedRange.value = {from: nextFrom, to: nextTo};
       emit('update:modelValue', {from: nextFrom.toISO(), to: nextTo.toISO()});
     }
-  }
-  function toggleCustom() {
-    custom.value = !custom.value;
-    if (custom.value) selectedPreset.value = null;
   }
   watch(
     range,
@@ -92,55 +124,75 @@
 
 <template>
   <div class="energy-cost-range-selector mb-3">
-    <div class="btn-group mr-2 mb-2">
-      <button
-        v-for="option in [
-          ['today', 'Today'],
-          ['yesterday', 'Yesterday'],
-          ['week', 'This week'],
-          ['previousWeek', 'Previous week'],
-          ['month', 'This month'],
-          ['previousMonth', 'Previous month'],
-          ['threeMonths', 'Last 3 months'],
-          ['year', 'This year'],
-          ['previousYear', 'Previous year'],
-        ]"
-        :key="option[0]"
-        type="button"
-        class="btn btn-default"
-        :class="{active: selectedPreset === option[0]}"
-        @click="setRange(option[0])"
-      >
-        {{ $t(option[1]) }}
-      </button>
-      <button
-        v-if="billingCycles.length"
-        type="button"
-        class="btn btn-default"
-        :class="{active: selectedPreset === 'billingCycle'}"
-        @click="setRange('billingCycle')"
-      >
-        {{ $t('Current billing cycle') }}
-      </button>
-      <button
-        v-if="billingCycles.length"
-        type="button"
-        class="btn btn-default"
-        :class="{active: selectedPreset === 'previousBillingCycle'}"
-        @click="setRange('previousBillingCycle')"
-      >
-        {{ $t('Previous billing cycle') }}
-      </button>
+    <div class="energy-cost-period-picker">
+      <label>{{ $t('Period') }}</label>
+      <!-- i18n:["Select period", "Today", "Yesterday", "This week", "Previous week", "This month", "Previous month", "Last 3 months", "This year", "Previous year", "Current billing cycle", "Previous billing cycle", "Custom"] -->
+      <SimpleDropdown :value="selectedPreset" :options="periodOptions" @input="selectPeriod">
+        <template #button="{value}">{{ $t(periodLabels[value] || 'Select period') }}</template>
+        <template #default="{value}">{{ $t(periodLabels[value]) }}</template>
+      </SimpleDropdown>
     </div>
-    <button type="button" class="btn btn-default mb-2" :class="{active: custom}" @click="toggleCustom">{{ $t('Custom') }}</button>
     <div v-if="custom" class="row mt-2">
       <div class="col-sm-5"><input v-model="from" type="datetime-local" class="form-control" @change="applyCustom" /></div>
       <div class="col-sm-5"><input v-model="to" type="datetime-local" class="form-control" @change="applyCustom" /></div>
     </div>
-    <p class="text-muted mb-0">
-      {{ $t('Selected period') }}: {{ displayedRange.from.toFormat('dd LLL yyyy, HH:mm') }} - {{ displayedRange.to.toFormat('dd LLL yyyy, HH:mm') }} ({{
-        timezone
-      }})
-    </p>
+    <div class="energy-cost-selected-period">
+      <span>{{ $t('Selected period') }}</span>
+      <strong>{{ displayedRange.from.toFormat('dd LLL yyyy, HH:mm') }} - {{ displayedRange.to.toFormat('dd LLL yyyy, HH:mm') }}</strong>
+      <small>{{ timezone }}</small>
+    </div>
   </div>
 </template>
+
+<style lang="scss">
+  @use '@/styles/variables' as *;
+
+  .energy-cost-range-selector {
+    .energy-cost-period-picker {
+      display: flex;
+      align-items: center;
+      gap: 0.75em;
+      max-width: 25em;
+      margin-bottom: 0.75em;
+
+      label {
+        margin: 0;
+        white-space: nowrap;
+      }
+
+      .dropdown {
+        flex: 1;
+      }
+    }
+
+    .energy-cost-selected-period {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.5em 1em;
+      align-items: baseline;
+      padding: 0.75em 1em;
+      border-left: 4px solid $supla-green;
+      background: $supla-grey-light;
+
+      span,
+      small {
+        color: $supla-grey-dark;
+      }
+
+      strong {
+        font-family: $supla-font-special;
+      }
+    }
+
+    @media (max-width: 575px) {
+      .energy-cost-period-picker {
+        max-width: none;
+      }
+
+      .energy-cost-selected-period {
+        grid-template-columns: 1fr;
+        gap: 0.25em;
+      }
+    }
+  }
+</style>
