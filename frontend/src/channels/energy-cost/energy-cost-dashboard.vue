@@ -145,6 +145,7 @@
       error.value = 'No logs are available for the selected range.';
       return;
     }
+    error.value = null;
     range.value = fitted;
     sessionStorage.setItem(storageKey.value, JSON.stringify(fitted));
     granularity.value = preferredGranularity(fitted.from, fitted.to, timezone.value);
@@ -166,6 +167,7 @@
   async function fetchCalculation() {
     const token = ++requestToken;
     const {from, to} = rangeSeconds.value;
+    error.value = null;
     if (!simulating.value) {
       const cached = await energyCostCalculationStorage.get(props.channel.id, fingerprint.value, from, to);
       if (token !== requestToken) return;
@@ -175,7 +177,6 @@
       if (cached && Date.now() - cached.fetchedAt < freshness) return;
     }
     loading.value = true;
-    error.value = null;
     try {
       const next = simulating.value
         ? await energyCostApi.simulate(props.channel.id, from, to, props.plan.configuration)
