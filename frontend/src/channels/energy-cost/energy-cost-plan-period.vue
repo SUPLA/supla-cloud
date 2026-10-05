@@ -1,3 +1,11 @@
+<script>
+  export default {
+    compatConfig: {
+      MODE: 3,
+    },
+  };
+</script>
+
 <script setup>
   import {computed, ref} from 'vue';
   import {storeToRefs} from 'pinia';

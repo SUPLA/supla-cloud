@@ -1,3 +1,11 @@
+<script>
+  export default {
+    compatConfig: {
+      MODE: 3,
+    },
+  };
+</script>
+
 <script setup>
   import {computed, nextTick, ref, watch} from 'vue';
   import {storeToRefs} from 'pinia';
