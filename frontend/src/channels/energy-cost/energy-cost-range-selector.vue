@@ -16,6 +16,7 @@
     from: DateTime.fromISO(props.modelValue.from, {zone: props.timezone}),
     to: DateTime.fromISO(props.modelValue.to, {zone: props.timezone}),
   }));
+  const displayedRange = ref(range.value);
 
   function billingCycleRange(now, previous = false) {
     const cycle = props.billingCycles.find((item) => {
@@ -54,6 +55,7 @@
     const [nextFrom, nextTo] = selectedRange;
     custom.value = false;
     selectedPreset.value = kind;
+    displayedRange.value = {from: nextFrom, to: nextTo};
     emit('update:modelValue', {from: nextFrom.toISO(), to: nextTo.toISO()});
   }
   function applyCustom() {
@@ -61,6 +63,7 @@
     const nextTo = DateTime.fromFormat(to.value, "yyyy-LL-dd'T'HH:mm", {zone: props.timezone});
     if (nextFrom.isValid && nextTo > nextFrom) {
       selectedPreset.value = null;
+      displayedRange.value = {from: nextFrom, to: nextTo};
       emit('update:modelValue', {from: nextFrom.toISO(), to: nextTo.toISO()});
     }
   }
@@ -71,6 +74,7 @@
   watch(
     range,
     ({from: nextFrom, to: nextTo}) => {
+      displayedRange.value = {from: nextFrom, to: nextTo};
       from.value = nextFrom.toFormat("yyyy-LL-dd'T'HH:mm");
       to.value = nextTo.toFormat("yyyy-LL-dd'T'HH:mm");
     },
@@ -126,7 +130,9 @@
       <div class="col-sm-5"><input v-model="to" type="datetime-local" class="form-control" @change="applyCustom" /></div>
     </div>
     <p class="text-muted mb-0">
-      {{ $t('Selected period') }}: {{ range.from.toFormat('dd LLL yyyy, HH:mm') }} - {{ range.to.toFormat('dd LLL yyyy, HH:mm') }} ({{ timezone }})
+      {{ $t('Selected period') }}: {{ displayedRange.from.toFormat('dd LLL yyyy, HH:mm') }} - {{ displayedRange.to.toFormat('dd LLL yyyy, HH:mm') }} ({{
+        timezone
+      }})
     </p>
   </div>
 </template>
