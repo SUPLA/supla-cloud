@@ -97,7 +97,7 @@
         ],
         "lint-frontend": [
             "cd frontend && npm run lint -s",
-            "cd frontend && npm run format:check -s"
+            "cd frontend && npm run format -s"
         ],
         "lint": [
             "bin/console lint:yaml config/ --parse-tags",
