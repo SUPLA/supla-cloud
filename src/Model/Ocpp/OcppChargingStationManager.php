@@ -66,6 +66,11 @@ class OcppChargingStationManager {
                 ) {
                     EntityUtils::setField($channel, $field, $value);
                 }
+                if ($type === ChannelType::ELECTRICITYMETER) {
+                    EntityUtils::setField($channel, 'properties', json_encode([
+                        'countersAvailable' => ['forwardActiveEnergy'],
+                    ]));
+                }
                 $device->getChannels()->add($channel);
                 $this->em->persist($channel);
             }

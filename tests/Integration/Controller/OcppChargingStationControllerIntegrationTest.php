@@ -56,6 +56,11 @@ class OcppChargingStationControllerIntegrationTest extends IntegrationTestCase {
             [ChannelFunction::ELECTRICITYMETER, ChannelFunction::POWERSWITCH],
             $device->getChannels()->map(fn($ch) => $ch->getFunction()->getId())->toArray()
         );
+        $this->assertSame(
+            ['countersAvailable' => ['forwardActiveEnergy']],
+            $device->getChannels()->first()->getProperties()
+        );
+        $this->assertSame([], $device->getChannels()->last()->getProperties());
         $this->assertSame(0, $em->getRepository(ChannelValue::class)->count([]));
         $this->assertNull($device->getLastConnected());
 
