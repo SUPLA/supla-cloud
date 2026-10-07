@@ -68,6 +68,10 @@ abstract class IntegrationTestCase extends WebTestCase {
         $initializedAtLeastOnce = isset(self::$dataForTests[static::class]);
         if (!$initializedAtLeastOnce || $this->size()->isLarge() || (!$this->requires() && !$this->size()->isSmall())) {
             $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->getManagerName();
+            // Server-owned tables are excluded from ORM schema management but reference managed parents.
+            foreach (['supla_suplan_grant', 'supla_suplan_peer_association', 'supla_suplan_device_state'] as $table) {
+                $this->getEntityManager()->getConnection()->executeStatement('DROP TABLE IF EXISTS ' . $table);
+            }
             $this->executeCommand('doctrine:schema:drop --force --full-database --em=default');
             $this->executeCommand('doctrine:schema:drop --force --full-database --em=' . $logsEm);
             $this->getEntityManager()->getConnection()->executeQuery('DROP TABLE supla_email_notifications;');
