@@ -19,6 +19,9 @@ namespace App\Enums;
 
 enum InstanceSettings: string {
     case TARGET_TOKEN = 'target_token';
+    case TARGET_TOKEN_ROTATION_PENDING_TOKEN = 'target_token_rotation_pending_token';
+    case TARGET_TOKEN_ROTATION_PENDING_IDEMPOTENCY_KEY = 'target_token_rotation_pending_idempotency_key';
+    case TARGET_TOKEN_ROTATION_NEXT_AT = 'target_token_rotation_next_at';
     case ALLOW_TGE_REPORTS = 'allow_tge_reports';
     case ALLOW_NOTIFICATIONS = 'allow_notifications';
     case AD_NOTIFICATIONS_LIMIT = 'ad_notifications_limit';

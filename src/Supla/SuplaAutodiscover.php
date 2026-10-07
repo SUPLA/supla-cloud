@@ -250,6 +250,28 @@ abstract class SuplaAutodiscover {
         return $token;
     }
 
+    /** @return array{previousTokenValidUntil: string} */
+    public function rotateTargetCloudAuthToken(string $replacementToken, string $idempotencyKey): array {
+        $response = $this->remoteRequest(
+            '/target-cloud-auth-token',
+            ['replacementToken' => $replacementToken],
+            $responseStatus,
+            ['Idempotency-Key' => $idempotencyKey]
+        );
+        $this->logger->debug(__FUNCTION__, ['responseStatus' => $responseStatus]);
+        if ($responseStatus !== Response::HTTP_OK || !is_array($response) || empty($response['previousTokenValidUntil'])) {
+            throw new ApiException('Could not rotate the target Cloud token.', $responseStatus);
+        }
+        return $response;
+    }
+
+    public function verifyTargetCloudAuthToken(): void {
+        $this->remoteRequest('/about', null, $responseStatus);
+        if ($responseStatus !== Response::HTTP_OK) {
+            throw new ApiException('Could not verify the target Cloud token.', $responseStatus);
+        }
+    }
+
     public function issueRemovalTokenForTargetCloud(TargetSuplaCloud $targetCloud, $email): array {
         $response = $this->remoteRequest('/target-cloud-removal-token', [
             'targetCloudUrl' => $targetCloud->getAddress(),

@@ -23,7 +23,9 @@ use App\Entity\Main\OAuth\ApiClient;
 use App\Entity\Main\SettingsString;
 use App\Entity\Main\User;
 use App\Enums\InstanceSettings;
+use App\Exception\ApiException;
 use App\Kernel;
+use App\Model\TargetCloudAuthTokenRotator;
 use App\Model\TargetSuplaCloud;
 use App\Supla\SuplaAutodiscover;
 use App\Tests\Integration\IntegrationTestCase;
@@ -31,6 +33,7 @@ use App\Tests\Integration\TestClient;
 use App\Tests\Integration\TestMailerTransport;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\TestSuplaHttpClient;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * For these tests to run, you need to launch your local instance of SUPLA Autodiscover from https://github.com/SUPLA/supla-autodiscover
@@ -66,6 +69,9 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
     /** @before */
     public function clearState() {
         $this->getDoctrine()->getRepository(SettingsString::class)->clearValue(InstanceSettings::TARGET_TOKEN);
+        $this->getDoctrine()->getRepository(SettingsString::class)->clearValue(InstanceSettings::TARGET_TOKEN_ROTATION_PENDING_TOKEN);
+        $this->getDoctrine()->getRepository(SettingsString::class)->clearValue(InstanceSettings::TARGET_TOKEN_ROTATION_PENDING_IDEMPOTENCY_KEY);
+        $this->getDoctrine()->getRepository(SettingsString::class)->clearValue(InstanceSettings::TARGET_TOKEN_ROTATION_NEXT_AT);
         @unlink(SuplaAutodiscover::PUBLIC_CLIENTS_SAVE_PATH);
         @unlink(SuplaAutodiscover::BROKER_CLOUDS_SAVE_PATH);
         $path = realpath(self::AD_PROJECT_PATH);
@@ -93,6 +99,44 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         @chmod(SuplaAutodiscover::PUBLIC_CLIENTS_SAVE_PATH, 0777);
     }
 
+    public function testRotatingTargetCloudAuthToken() {
+        $this->testRegisteringTargetCloud();
+        $settings = $this->getDoctrine()->getRepository(SettingsString::class);
+        $oldToken = $settings->getValue(InstanceSettings::TARGET_TOKEN);
+        $beforeRotation = time();
+        self::getContainer()->get(TargetCloudAuthTokenRotator::class)->rotate(true);
+        $newToken = $settings->getValue(InstanceSettings::TARGET_TOKEN);
+
+        $this->assertNotSame($oldToken, $newToken);
+        $this->assertSame(strstr($oldToken, '_', true), strstr($newToken, '_', true));
+        $this->assertFalse($settings->hasValue(InstanceSettings::TARGET_TOKEN_ROTATION_PENDING_TOKEN));
+        $this->assertFalse($settings->hasValue(InstanceSettings::TARGET_TOKEN_ROTATION_PENDING_IDEMPOTENCY_KEY));
+        $nextRotationAt = (int)$settings->getValue(InstanceSettings::TARGET_TOKEN_ROTATION_NEXT_AT);
+        $this->assertGreaterThanOrEqual($beforeRotation + 5 * 86400, $nextRotationAt);
+        $this->assertLessThanOrEqual($beforeRotation + 10 * 86400, $nextRotationAt);
+    }
+
+    public function testRotatedTargetCloudTokenWorksAndPreviousTokenDoesNot(): void {
+        $this->testRegisteringTargetCloud();
+        $settings = $this->getDoctrine()->getRepository(SettingsString::class);
+        $previousToken = $settings->getValue(InstanceSettings::TARGET_TOKEN);
+
+        self::getContainer()->get(TargetCloudAuthTokenRotator::class)->rotate(true);
+        $replacementToken = $settings->getValue(InstanceSettings::TARGET_TOKEN);
+
+        $this->autodiscover->verifyTargetCloudAuthToken();
+
+        $settings->setValue(InstanceSettings::TARGET_TOKEN, $previousToken);
+        try {
+            $this->autodiscover->verifyTargetCloudAuthToken();
+            $this->fail('The previous target Cloud token must be rejected by Autodiscover.');
+        } catch (ApiException $e) {
+            $this->assertSame(403, $e->getStatusCode());
+        } finally {
+            $settings->setValue(InstanceSettings::TARGET_TOKEN, $replacementToken);
+        }
+    }
+
     public function testSettingBrokerIps() {
         $this->testRegisteringTargetCloud();
         $this->treatAsBroker();
@@ -114,19 +158,31 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
     }
 
     public function testQueryingUserInfoAsBroker() {
-        $this->testRegisteringUserInAd();
-        $userData = [
-            'email' => 'adtest@supla.org',
-            'regulationsAgreed' => true,
-            'password' => 'alamakota',
-            'timezone' => 'Europe/Warsaw',
-        ];
-        self::ensureKernelShutdown();
-        $client = $this->createClient();
-        $client->apiRequest('POST', '/api/register-account', $userData);
-        $this->assertStatusCode(409, $client->getResponse());
-        $content = json_decode($client->getResponse()->getContent(), true);
-        $this->assertFalse($content['accountEnabled']);
+        TestSuplaHttpClient::mockHttpRequest('http://localhost:8008/api/v2.3.0/register', function (array $request) {
+            $this->assertSame('POST', $request['method']);
+            $this->assertSame('adtest@supla.org', $request['payload']['email']);
+            $brokerToken = $this->getDoctrine()->getRepository(SettingsString::class)->getValue(InstanceSettings::TARGET_TOKEN);
+            $this->assertSame('Bearer ' . $brokerToken, $request['headers']['SUPLA-Broker-Token'] ?? null);
+            return [true, json_encode(['accountEnabled' => false]), Response::HTTP_CONFLICT];
+        });
+
+        try {
+            $this->testRegisteringUserInAd();
+            $userData = [
+                'email' => 'adtest@supla.org',
+                'regulationsAgreed' => true,
+                'password' => 'alamakota',
+                'timezone' => 'Europe/Warsaw',
+            ];
+            self::ensureKernelShutdown();
+            $client = $this->createClient();
+            $client->apiRequest('POST', '/api/register-account', $userData);
+            $this->assertStatusCode(409, $client->getResponse());
+            $content = json_decode($client->getResponse()->getContent(), true);
+            $this->assertFalse($content['accountEnabled']);
+        } finally {
+            TestSuplaHttpClient::reset();
+        }
     }
 
     public function testDeletingUserDeletesItInAd() {
