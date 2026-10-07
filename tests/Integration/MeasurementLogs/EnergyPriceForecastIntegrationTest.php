@@ -110,8 +110,10 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
     public function testFetchingDataSecondTimeCorrects() {
         // @codingStandardsIgnoreStart
         SuplaAutodiscoverMock::mockResponse('energy-price-forecast', [
-            ['dateFrom' => '2025-06-12T00:00:00+02:00', 'dateTo' => '2025-06-12T00:14:59+02:00', 'rce' => 441.8, 'fixing1' => 436.2, 'fixing2' => 448.91, 'fixing1_hourly' => 437.2, 'fixing2_hourly' => 449.91],
-            ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'rce' => 440.8, 'fixing1' => 436.2, 'fixing2' => 448.91, 'fixing1_hourly' => 437.2, 'fixing2_hourly' => 449.91],
+            ['dateFrom' => '2025-06-12T00:00:00+02:00', 'dateTo' => '2025-06-12T00:14:59+02:00', 'rce' => 441.8, 'fixing1' => 436.2, 'fixing2' => 448.91,
+                'fixing1_hourly' => 437.2, 'fixing2_hourly' => 449.91],
+            ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'rce' => 440.8, 'fixing1' => 436.2, 'fixing2' => 448.91,
+                'fixing1_hourly' => 437.2, 'fixing2_hourly' => 449.91],
             ['dateFrom' => '2025-06-12T00:30:00+02:00', 'dateTo' => '2025-06-12T00:44:59+02:00', 'rce' => 440.8],
         ]);
         // @codingStandardsIgnoreEnd
@@ -133,7 +135,8 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
     public function testFetchingDataThirdTimeDoesNotForget() {
         SuplaAutodiscoverMock::mockResponse('energy-price-forecast', [
             ['dateFrom' => '2025-06-12T00:00:00+02:00', 'dateTo' => '2025-06-12T00:14:59+02:00'],
-            ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'fixing1' => 436.2, 'fixing2' => 448.91, 'fixing1_hourly' => 437.2, 'fixing2_hourly' => 449.91],
+            ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'fixing1' => 436.2, 'fixing2' => 448.91,
+                'fixing1_hourly' => 437.2, 'fixing2_hourly' => 449.91],
         ]);
         $this->executeCommand('supla:cyclic:energy-price-forecast-fetch');
         $em = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->get();
@@ -152,8 +155,10 @@ class EnergyPriceForecastIntegrationTest extends IntegrationTestCase {
     public function testCreatingVirtualChannelEnergyForecast() {
         // @codingStandardsIgnoreStart
         SuplaAutodiscoverMock::mockResponse('energy-price-forecast', [
-            ['dateFrom' => '2025-06-12T00:00:00+02:00', 'dateTo' => '2025-06-12T00:14:59+02:00', 'rce' => 441.8, 'fixing1' => 436.2, 'fixing2' => 448.91, 'fixing1_hourly' => 437.2, 'fixing2_hourly' => 449.91],
-            ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'rce' => 442.8, 'fixing1' => 436.2, 'fixing2' => 448.91, 'fixing1_hourly' => 438.2, 'fixing2_hourly' => 450.91],
+            ['dateFrom' => '2025-06-12T00:00:00+02:00', 'dateTo' => '2025-06-12T00:14:59+02:00', 'rce' => 441.8, 'fixing1' => 436.2, 'fixing2' => 448.91,
+                'fixing1_hourly' => 437.2, 'fixing2_hourly' => 449.91],
+            ['dateFrom' => '2025-06-12T00:15:00+02:00', 'dateTo' => '2025-06-12T00:29:59+02:00', 'rce' => 442.8, 'fixing1' => 436.2, 'fixing2' => 448.91,
+                'fixing1_hourly' => 438.2, 'fixing2_hourly' => 450.91],
             ['dateFrom' => '2025-06-12T00:30:00+02:00', 'dateTo' => '2025-06-12T00:44:59+02:00', 'rce' => 443.8],
         ]);
         // @codingStandardsIgnoreEnd

@@ -135,9 +135,7 @@
         if (error.body?.dependencies) {
           dependenciesThatWillBeDisabled.value = error.body;
         } else {
-          warningNotification(
-            'The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.'
-          );
+          warningNotification('channel_config_changed_warning'); // i18n
         }
       }
     } finally {

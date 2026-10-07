@@ -17,7 +17,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
 class ChangeUserLimitsCommand extends Command {
-
     public function __construct(
         private readonly UserRepository $userRepository,
         private readonly EntityManagerInterface $entityManager,
@@ -45,7 +44,8 @@ class ChangeUserLimitsCommand extends Command {
         Assertion::notNull($user, 'Such user does not exist.');
         $limitForAll = $input->getArgument('limitForAll');
         $limitForAll = $limitForAll ? $this->getLimits($user, $limitForAll) : null;
-        foreach ([
+        foreach (
+            [
                      'limitIoDev' => 'IO Devices',
                      'limitClientApp' => 'Client Apps (smartphones)',
                      'limitAid' => 'Access Identifiers',
@@ -61,7 +61,8 @@ class ChangeUserLimitsCommand extends Command {
                      'limitPushNotifications' => 'Push notifications',
                      'limitPushNotificationsPerHour' => 'Push notifications per hour',
                      'limitValueBasedTriggers' => 'Value based triggers (reactions)',
-                 ] as $field => $label) {
+            ] as $field => $label
+        ) {
             $currentLimit = EntityUtils::getField($user, $field);
             $newLimit = $limitForAll
                 ? $limitForAll[$field]

@@ -236,8 +236,10 @@ final class ChannelFunction extends Enum {
         $type = $channel->getType();
         if (in_array($type->getId(), [ChannelType::RELAY, ChannelType::BRIDGE, ChannelType::HVAC])) {
             return ChannelFlistRelay::getSupportedFunctions($channel->getFuncList());
-        } elseif (in_array($type->getId(), [ChannelType::DIMMER, ChannelType::RGBLEDCONTROLLER, ChannelType::DIMMERANDRGBLED])
-            && $channel->getFuncList() > 0) {
+        } elseif (
+            in_array($type->getId(), [ChannelType::DIMMER, ChannelType::RGBLEDCONTROLLER, ChannelType::DIMMERANDRGBLED])
+            && $channel->getFuncList() > 0
+        ) {
             return ChannelFlistRgbw::getSupportedFunctions($channel->getFuncList());
         } else {
             return ChannelType::functions()[$type->getValue()];

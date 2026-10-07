@@ -7,6 +7,7 @@ use App\Entity\Main\IODeviceChannel;
 use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
 use App\Model\Schedule\ScheduleManager;
+use App\Model\UserConfigTranslator\ActionTriggerParamsTranslator;
 use App\Model\UserConfigTranslator\SubjectConfigTranslator;
 use App\Repository\IODeviceChannelRepository;
 use App\Utils\ArrayUtils;
@@ -33,12 +34,13 @@ class ChannelDependencies extends ActionableSubjectDependencies {
     public function __construct(
         EntityManagerInterface $entityManager,
         SubjectConfigTranslator $channelParamConfigTranslator,
+        ActionTriggerParamsTranslator $actionTriggerParamsTranslator,
         ScheduleManager $scheduleManager,
         ChannelGroupDependencies $channelGroupDependencies,
         IODeviceChannelRepository $channelRepository,
         LoggerInterface $logger
     ) {
-        parent::__construct($entityManager, $channelParamConfigTranslator);
+        parent::__construct($entityManager, $channelParamConfigTranslator, $actionTriggerParamsTranslator);
         $this->scheduleManager = $scheduleManager;
         $this->channelGroupDependencies = $channelGroupDependencies;
         $this->channelRepository = $channelRepository;
@@ -105,8 +107,12 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         return array_values($removeMap);
     }
 
-    public function clearDependencies(IODeviceChannel $channel): void {
-        $this->channelParamConfigTranslator->clearConfig($channel);
+    public function clearDependencies(IODeviceChannel $channel, bool $isBeingDeleted = false): void {
+        if ($isBeingDeleted) {
+            $this->channelParamConfigTranslator->clearConfigForDeletion($channel);
+        } else {
+            $this->channelParamConfigTranslator->clearConfig($channel);
+        }
         foreach ($channel->getChannelGroups() as $channelGroup) {
             $channelGroup->getChannels()->removeElement($channel);
             if ($channelGroup->getChannels()->isEmpty()) {

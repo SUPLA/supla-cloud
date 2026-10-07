@@ -30,6 +30,7 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
@@ -37,7 +38,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity(repositoryClass="App\Repository\DirectLinkRepository")
  * @ORM\Table(name="supla_direct_link")
  */
-class DirectLink implements HasSubject {
+class DirectLink implements HasSubject, PasswordAuthenticatedUserInterface {
     use BelongsToUser;
     use HasSubjectTrait;
 
@@ -229,6 +230,10 @@ class DirectLink implements HasSubject {
     }
 
     public function getSlug() {
+        return $this->slug;
+    }
+
+    public function getPassword(): ?string {
         return $this->slug;
     }
 

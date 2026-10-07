@@ -6,7 +6,8 @@
 
 ## Commands
 
-- Repo-wide lint: `composer run lint` runs frontend lint first, then backend PHPCS.
+- Repo-wide lint: `composer run lint` fixes frontend and backend lint violations in place, then checks YAML files in `config/`. It exits
+  non-zero when fixes are applied or violations remain.
 - Backend lint: `composer run lint-backend`.
 - Frontend lint: `cd frontend && npm run lint` (it fixes in place).
 - Frontend format check: `cd frontend && npm run format:check`.
@@ -20,9 +21,14 @@
 ## Workflow Notes
 
 - `phpunit.dist.xml` defines the test suites; `integration`, `api`, and `measurement_logs` are separate suites.
+- before running the tests, clear the var/cache/test directory.
 - CI writes `.env.test.local` with `bin/write-ci-env.sh` before API/integration/measurement-log runs because shell DB env vars do not
   reliably reach PHP.
 - CI waits for MariaDB/Postgres with `bin/wait-for-service.sh`; use the same pattern when reproducing those suites locally.
-- `composer run collect-translations` runs backend translation generation first, then the frontend collector.
+- `composer run collect-translations` runs backend translation generation first, then the frontend collector. Do not run it unless explicitly asked.
+- Write frontend text in English and use Vue I18n tags and functions so it can be collected later.
+- New Vue components must use Vue 3 compatibility mode: set `compatConfig: { MODE: 3 }` on the component.
+- When modifying an existing Vue component, migrate it to Vue 3 syntax and set the appropriate compatibility mode when the change is straightforward. Check its usages and preserve its behavior so the migration does not break consumers.
+- Do not write database migration files. When a schema change is needed, edit the Doctrine entities only; the user generates migrations later.
 - Do not edit generated assets, caches, or `public/dist` by hand.
 - Public API changes should be treated as backward-compatibility sensitive.

@@ -6,6 +6,7 @@ use App\Entity\EntityUtils;
 use App\Entity\Main\IODevice;
 use App\Entity\Main\Location;
 use App\Model\Schedule\ScheduleManager;
+use App\Model\UserConfigTranslator\ActionTriggerParamsTranslator;
 use App\Model\UserConfigTranslator\SubjectConfigTranslator;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -21,10 +22,11 @@ class IODeviceDependencies extends ActionableSubjectDependencies {
     public function __construct(
         EntityManagerInterface $entityManager,
         SubjectConfigTranslator $channelParamConfigTranslator,
+        ActionTriggerParamsTranslator $actionTriggerParamsTranslator,
         ChannelDependencies $channelDependencies,
         ScheduleManager $scheduleManager
     ) {
-        parent::__construct($entityManager, $channelParamConfigTranslator);
+        parent::__construct($entityManager, $channelParamConfigTranslator, $actionTriggerParamsTranslator);
         $this->channelDependencies = $channelDependencies;
         $this->scheduleManager = $scheduleManager;
     }

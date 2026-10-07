@@ -4,6 +4,7 @@ namespace App\Model\Dependencies;
 
 use App\Entity\Main\Scene;
 use App\Model\Schedule\ScheduleManager;
+use App\Model\UserConfigTranslator\ActionTriggerParamsTranslator;
 use App\Model\UserConfigTranslator\SubjectConfigTranslator;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -19,9 +20,10 @@ class SceneDependencies extends ActionableSubjectDependencies {
     public function __construct(
         EntityManagerInterface $entityManager,
         SubjectConfigTranslator $channelParamConfigTranslator,
+        ActionTriggerParamsTranslator $actionTriggerParamsTranslator,
         ScheduleManager $scheduleManager
     ) {
-        parent::__construct($entityManager, $channelParamConfigTranslator);
+        parent::__construct($entityManager, $channelParamConfigTranslator, $actionTriggerParamsTranslator);
         $this->scheduleManager = $scheduleManager;
     }
 

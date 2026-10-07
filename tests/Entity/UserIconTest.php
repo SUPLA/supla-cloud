@@ -23,7 +23,6 @@ use App\Enums\ChannelFunction;
 use PHPUnit\Framework\TestCase;
 
 class UserIconTest extends TestCase {
-
     /** @var \App\Entity\Main\UserIcon */
     private $userIcon;
 

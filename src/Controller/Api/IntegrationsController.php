@@ -58,7 +58,7 @@ class IntegrationsController extends RestController {
             $aegc->setRegion($source->getRegion());
         } catch (NotFoundHttpException $e) {
             $aegc = $source;
-            $aegc->setRegDate(new \DateTime);
+            $aegc->setRegDate(new \DateTime());
         };
 
         $this->transactional(function (EntityManagerInterface $em) use ($aegc) {
@@ -84,7 +84,7 @@ class IntegrationsController extends RestController {
             $gh->setAccessToken($source->getAccessToken());
         } catch (NotFoundHttpException $e) {
             $gh = $source;
-            $gh->setRegDate(new \DateTime);
+            $gh->setRegDate(new \DateTime());
         };
 
         $this->transactional(function (EntityManagerInterface $em) use ($gh) {

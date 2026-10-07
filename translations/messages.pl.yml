@@ -1563,6 +1563,7 @@ channelConfigHelp_stateVerificationMethod: 'Aktywne: pierwsza zmiana stanu czujn
 channelConfig_stateVerificationMethod_active: Aktywny
 channelConfig_stateVerificationMethod_passive: Pasywny
 channelGroup: Grupa kanałów
+channel_config_changed_warning: Konfiguracja została zmieniona z innego miejsca (np. inne okno przeglądarki, aplikacja mobilna lub urządzenie). Wprowadź zmiany jeszcze raz i zapisz ponownie.
 choose: wybierz
 choose the access identifiers: wybierz identyfikatory dostępu
 choose the action: wybierz akcję
@@ -1979,7 +1980,6 @@ Sunrise / Sunset: Wschód / Zachód
 Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Dzięki integracjom możesz w łatwy sposób dodać nowe funkcje do swojego konta, wykorzystując rozwiązania dostarczone przez zewnętrznych dostawców, programistów lub przez samego siebie.
 The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: |
   Konfiguracja została zmieniona z innego miejsca (np. inne okno przeglądarki, aplikacja mobilna lub urządzenie). Musisz odświeżyć konfigurację zanim wprowadzisz kolejne zmiany.
-The configuration has been changed from another source (e.g. another browser tab, mobile app, device). Please adjust the settings and save again.: Konfiguracja została zmieniona z innego miejsca (np. inne okno przeglądarki, aplikacja mobilna lub urządzenie). Wprowadź zmiany jeszcze raz i zapisz ponownie.
 The factory reset was successful.: Przywrócenie ustawień fabrycznych powiodło się
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Za pomocą ramki zaznaczyliśmy powiadomienie, z którego kliknąłeś/kliknęłaś link do wypisania się.

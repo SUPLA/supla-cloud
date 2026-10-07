@@ -102,7 +102,8 @@ class ApiRateLimitListener {
             return false;
         }
         $userToken = $this->getCurrentUserToken();
-        if ($event->getRequest()->attributes->get(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_IS_WEBAPP)
+        if (
+            $event->getRequest()->attributes->get(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_IS_WEBAPP)
             || $event->getRequest()->attributes->get(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_IS_PUBLIC_APP)
             || $event->getRequest()->attributes->get(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_ACCESS_ID)
         ) {

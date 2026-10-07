@@ -446,6 +446,66 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertContains('USER-ON-DEVICE-DELETED:1,' . $deviceId, SuplaServerMock::$executedCommands);
     }
 
+    public function testDeletingDeviceWithUnsupportedActionTriggerConfig() {
+        $device = $this->createDevice($this->freshEntity($this->location), [
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
+        ]);
+        [$firstChannel, $secondChannel, $actionTrigger] = $device->getChannels()->toArray();
+        EntityUtils::setField($actionTrigger, 'properties', json_encode([
+            'actionTriggerCapabilities' => ['TURN_ON'],
+        ]));
+        $actionTrigger->setUserConfigValue('actions', [
+            'TURN_ON' => [
+                'subjectType' => 'channel',
+                'subjectId' => $firstChannel->getId(),
+                'action' => ['id' => ChannelFunctionAction::TURN_ON, 'param' => []],
+            ],
+            // Simulates a configuration persisted before the hardware stopped reporting this capability.
+            'SHORT_PRESS_X1' => [
+                'subjectType' => 'channel',
+                'subjectId' => $secondChannel->getId(),
+                'action' => ['id' => ChannelFunctionAction::TURN_ON, 'param' => []],
+            ],
+        ]);
+        $this->persist($actionTrigger);
+
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $device->getId());
+
+        $this->assertStatusCode(204, $client->getResponse());
+    }
+
+    public function testDeletingDeviceClearsActionsFromExternalActionTriggerWithUnsupportedConfig() {
+        $device = $this->createDevice($this->freshEntity($this->location), [
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+        ]);
+        $externalDevice = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $actionTrigger = $externalDevice->getChannels()[2];
+        $actionTrigger->setUserConfigValue('actions', [
+            'TURN_ON' => [
+                'subjectType' => 'channel',
+                'subjectId' => $device->getChannels()[0]->getId(),
+                'action' => ['id' => ChannelFunctionAction::TURN_ON, 'param' => []],
+            ],
+            'SHORT_PRESS_X1' => [
+                'subjectType' => 'channel',
+                'subjectId' => $externalDevice->getChannels()[0]->getId(),
+                'action' => ['id' => ChannelFunctionAction::TURN_ON, 'param' => []],
+            ],
+        ]);
+        $this->persist($actionTrigger);
+
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $device->getId());
+
+        $this->assertStatusCode(204, $client->getResponse());
+        $actionTrigger = $this->freshEntity($actionTrigger);
+        $this->assertArrayNotHasKey('TURN_ON', $actionTrigger->getUserConfig()['actions']);
+        $this->assertArrayHasKey('SHORT_PRESS_X1', $actionTrigger->getUserConfig()['actions']);
+    }
+
     public function testSuplaServerCanPreventDeviceDeletion() {
         $device = $this->createDeviceFull($this->freshEntity($this->location));
         SuplaServerMock::mockResponse('USER-BEFORE-DEVICE-DELETE:1,' . $device->getId(), 'NO!');

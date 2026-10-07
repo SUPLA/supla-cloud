@@ -17,5 +17,8 @@ abstract class UserConfigTranslator {
         $this->setConfig($subject, $config);
     }
 
+    public function clearConfigForDeletion(HasUserConfig $subject): void {
+    }
+
     abstract public function supports(HasUserConfig $subject): bool;
 }

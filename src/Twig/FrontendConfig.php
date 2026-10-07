@@ -20,11 +20,10 @@ namespace App\Twig;
 use App\Enums\InstanceSettings;
 use App\Repository\SettingsStringRepository;
 use App\Supla\SuplaAutodiscover;
-use Psr\Container\ContainerInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class FrontendConfig {
-    use ContainerAwareTrait;
+    private ParameterBagInterface $container;
 
     const PUBLIC_PARAMETERS = [
         'regulationsAcceptRequired' => 'supla.require_regulations_acceptance',
@@ -38,7 +37,7 @@ class FrontendConfig {
     ];
 
     public function __construct(
-        ContainerInterface $container,
+        ParameterBagInterface $container,
         private readonly SuplaAutodiscover $autodiscover,
         private readonly SettingsStringRepository $settingsRepository,
         private readonly ?string $recaptchaSiteKey = null,
@@ -63,7 +62,7 @@ class FrontendConfig {
     }
 
     private function isNotificationsEnabled(): bool {
-        return $this->container->getParameter('supla.act_as_broker_cloud')
+        return $this->container->get('supla.act_as_broker_cloud')
             || $this->settingsRepository->getValueBoolean(InstanceSettings::ALLOW_NOTIFICATIONS, false);
     }
 
@@ -72,7 +71,7 @@ class FrontendConfig {
             if (is_array($parameter)) {
                 return $this->mapParameters($parameter);
             } else {
-                return $this->container->getParameter($parameter);
+                return $this->container->get($parameter);
             }
         }, $parameters);
     }
