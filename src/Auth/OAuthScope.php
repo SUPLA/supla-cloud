@@ -156,7 +156,7 @@ final class OAuthScope {
                      'locations',
                      'scenes',
                      'schedules',
-                 ] as $rwScope
+            ] as $rwScope
         ) {
             $supportedScopes[] = $rwScope . '_r';
             $supportedScopes[] = $rwScope . '_rw';
