@@ -30,6 +30,7 @@ class SuplaHttpClient {
             return "$headerName: $headerValue";
         }, array_keys($headers), $headers);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 //        curl_setopt($ch, CURLOPT_COOKIE, 'XDEBUG_SESSION=PHPUNIT'); // uncomment to enable XDEBUG debugging in dev
         $result = curl_exec($ch);

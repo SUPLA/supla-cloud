@@ -42,14 +42,14 @@ use App\Tests\Integration\Traits\TestSuplaHttpClient;
  *
  * App\Supla\SuplaAutodiscover: '@App\Supla\SuplaAutodiscoverReal'
  *
- * In .env.local add these:
+ * In .env.test.local add these:
  *
  * SUPLA_HOST_ADDRESS=localhost:8008
  * SUPLA_ACT_AS_BROKER_CLOUD=true
  * SUPLA_PROTOCOL=http
  *
  * These tests are disabled by default because of the demand for the specific environment. To run them, change the group name below
- * (this group name is excluded in the app/phpunit.xml configuration file).
+ * (this group name is excluded in the phpunit.dist.xml configuration file).
  *
  * @group AutodiscoverIntegrationTest
  */
