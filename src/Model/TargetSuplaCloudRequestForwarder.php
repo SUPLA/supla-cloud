@@ -36,7 +36,7 @@ class TargetSuplaCloudRequestForwarder {
     }
 
     public function issueWebappToken(TargetSuplaCloud $target, string $username, string $password): array {
-        return $this->sendRequest($target, 'webapp-tokens', ['username' => $username, 'password' => $password]);
+        return $this->sendBrokerRequest($target, 'webapp-tokens', ['username' => $username, 'password' => $password]);
     }
 
     public function issueOAuthToken(TargetSuplaCloud $target, Request $request, array $mappedClientData): array {
@@ -50,27 +50,27 @@ class TargetSuplaCloudRequestForwarder {
             'client_secret' => $mappedClientData['secret'],
         ]);
 
-        return $this->sendRequest($target, '/oauth/v2/token', $inputData);
+        return $this->sendBrokerRequest($target, '/oauth/v2/token', $inputData);
     }
 
     public function resetPasswordToken(TargetSuplaCloud $target, string $username): array {
-        return $this->sendRequest($target, 'forgotten-password', ['email' => $username]);
+        return $this->sendBrokerRequest($target, 'forgotten-password', ['email' => $username]);
     }
 
     public function resendActivationEmail(TargetSuplaCloud $target, string $username): array {
-        return $this->sendRequest($target, 'register-resend', ['email' => $username]);
+        return $this->sendBrokerRequest($target, 'register-resend', ['email' => $username]);
     }
 
     public function requestUserDeletion(TargetSuplaCloud $target, string $username, string $password): array {
-        return $this->sendRequest($target, 'account-deletion', ['username' => $username, 'password' => $password], 'PUT');
+        return $this->sendBrokerRequest($target, 'account-deletion', ['username' => $username, 'password' => $password], 'PUT');
     }
 
     public function getUserInfo(TargetSuplaCloud $target, string $username): array {
-        return $this->sendRequest($target, 'user-info', ['username' => $username], 'PATCH');
+        return $this->sendBrokerRequest($target, 'user-info', ['username' => $username], 'PATCH');
     }
 
     public function registerUser(TargetSuplaCloud $target, Request $request): array {
-        return $this->sendRequest($target, 'register', $request->request->all());
+        return $this->sendBrokerRequest($target, 'register', $request->request->all());
     }
 
     public function getInfo(TargetSuplaCloud $target, array $headers = []): ?array {
@@ -82,12 +82,23 @@ class TargetSuplaCloudRequestForwarder {
         }
     }
 
-    private function sendRequest(
+    private function sendBrokerRequest(
         TargetSuplaCloud $target,
         string $apiEndpoint,
         ?array $data = null,
         ?string $method = null,
         array $headers = []
+    ): array {
+        return $this->sendRequest($target, $apiEndpoint, $data, $method, $headers, true);
+    }
+
+    private function sendRequest(
+        TargetSuplaCloud $target,
+        string $apiEndpoint,
+        ?array $data = null,
+        ?string $method = null,
+        array $headers = [],
+        bool $withBrokerToken = false
     ): array {
         if (self::$requestExecutor) {
             return (self::$requestExecutor)($target->getAddress(), $apiEndpoint, $data);
@@ -99,7 +110,18 @@ class TargetSuplaCloudRequestForwarder {
             $headers['X-Real-Ip'] = $ip;
         }
         $fullUrl = $target->getAddress() . $apiEndpoint;
-        $response = $this->brokerHttpClient->request($fullUrl, $data, $responseStatus, $headers, $method, 'SUPLA-Broker-Token');
+        if ($withBrokerToken) {
+            $response = $this->brokerHttpClient->requestWithStoredToken(
+                $fullUrl,
+                $data,
+                $responseStatus,
+                $headers,
+                $method,
+                'SUPLA-Broker-Token'
+            );
+        } else {
+            $response = $this->brokerHttpClient->request($fullUrl, $data, $responseStatus, $headers, $method);
+        }
         return [$response, $responseStatus];
     }
 }

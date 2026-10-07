@@ -45,6 +45,12 @@ class TargetSuplaCloud {
         $port = parse_url($url, PHP_URL_PORT);
         Assertion::string($domainName, 'Invalid SUPLA Cloud URL.'); // i18n
         Assertion::contains($domainName, '.', 'Invalid SUPLA Cloud URL.');
+        if (filter_var(trim($domainName, '[]'), FILTER_VALIDATE_IP)) {
+            Assertion::true(
+                filter_var(trim($domainName, '[]'), FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false,
+                'Invalid SUPLA Cloud URL.'
+            );
+        }
         return new self($scheme . $domainName . ($port ? ':' . $port : ''));
     }
 }
