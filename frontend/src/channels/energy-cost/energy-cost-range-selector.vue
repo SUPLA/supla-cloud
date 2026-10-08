@@ -17,15 +17,12 @@
     billingCycles: {type: Array, default: () => []},
   });
   const emit = defineEmits(['update:modelValue']);
-  const custom = ref(false);
-  const selectedPreset = ref(null);
   const from = ref('');
   const to = ref('');
   const range = computed(() => ({
     from: DateTime.fromISO(props.modelValue.from, {zone: props.timezone}),
     to: DateTime.fromISO(props.modelValue.to, {zone: props.timezone}),
   }));
-  const displayedRange = ref(range.value);
   const periodLabels = {
     today: 'Today',
     yesterday: 'Yesterday',
@@ -38,7 +35,6 @@
     previousYear: 'Previous year',
     billingCycle: 'Current billing cycle',
     previousBillingCycle: 'Previous billing cycle',
-    custom: 'Custom',
   };
   const periodOptions = computed(() => [
     'today',
@@ -51,7 +47,6 @@
     'year',
     'previousYear',
     ...(props.billingCycles.length ? ['billingCycle', 'previousBillingCycle'] : []),
-    'custom',
   ]);
 
   function billingCycleRange(now, previous = false) {
@@ -68,12 +63,11 @@
     return [start, start.plus(duration)];
   }
 
-  function setRange(kind) {
-    const now = DateTime.now().setZone(props.timezone);
+  function rangesFor(now) {
     const current = now.startOf('day');
     const latestCompleteHour = now.startOf('hour');
     const currentBillingCycle = billingCycleRange(now);
-    const ranges = {
+    return {
       today: [current, latestCompleteHour],
       yesterday: [current.minus({days: 1}), current],
       week: [now.startOf('week'), latestCompleteHour],
@@ -86,35 +80,37 @@
       billingCycle: currentBillingCycle && [currentBillingCycle[0], currentBillingCycle[1] < latestCompleteHour ? currentBillingCycle[1] : latestCompleteHour],
       previousBillingCycle: billingCycleRange(now, true),
     };
+  }
+
+  function setRange(kind) {
+    const ranges = rangesFor(DateTime.now().setZone(props.timezone));
     const selectedRange = ranges[kind];
     if (!selectedRange) return;
     const [nextFrom, nextTo] = selectedRange;
-    custom.value = false;
-    selectedPreset.value = kind;
-    displayedRange.value = {from: nextFrom, to: nextTo};
     emit('update:modelValue', {from: nextFrom.toISO(), to: nextTo.toISO()});
   }
-  function selectPeriod(kind) {
-    if (kind === 'custom') {
-      custom.value = true;
-      selectedPreset.value = kind;
-      return;
-    }
-    setRange(kind);
-  }
-  function applyCustom() {
+  function applyRange() {
     const nextFrom = DateTime.fromFormat(from.value, "yyyy-LL-dd'T'HH:mm", {zone: props.timezone});
     const nextTo = DateTime.fromFormat(to.value, "yyyy-LL-dd'T'HH:mm", {zone: props.timezone});
     if (nextFrom.isValid && nextTo > nextFrom) {
-      selectedPreset.value = 'custom';
-      displayedRange.value = {from: nextFrom, to: nextTo};
       emit('update:modelValue', {from: nextFrom.toISO(), to: nextTo.toISO()});
+    }
+  }
+  function shiftRange(direction) {
+    const {from: currentFrom, to: currentTo} = range.value;
+    const duration = currentTo.diff(currentFrom).as('milliseconds');
+    if (currentFrom.isValid && currentTo.isValid && duration > 0) {
+      const crossesMonth = currentFrom.year !== currentTo.year || currentFrom.month !== currentTo.month;
+      const shift = crossesMonth ? {months: direction} : {milliseconds: direction * duration};
+      emit('update:modelValue', {
+        from: currentFrom.plus(shift).toISO(),
+        to: currentTo.plus(shift).toISO(),
+      });
     }
   }
   watch(
     range,
     ({from: nextFrom, to: nextTo}) => {
-      displayedRange.value = {from: nextFrom, to: nextTo};
       from.value = nextFrom.toFormat("yyyy-LL-dd'T'HH:mm");
       to.value = nextTo.toFormat("yyyy-LL-dd'T'HH:mm");
     },
@@ -124,75 +120,53 @@
 
 <template>
   <div class="energy-cost-range-selector mb-3">
-    <div class="energy-cost-period-picker">
-      <label>{{ $t('Period') }}</label>
-      <!-- i18n:["Select period", "Today", "Yesterday", "This week", "Previous week", "This month", "Previous month", "Last 3 months", "This year", "Previous year", "Current billing cycle", "Previous billing cycle", "Custom"] -->
-      <SimpleDropdown :value="selectedPreset" :options="periodOptions" @input="selectPeriod">
-        <template #button="{value}">{{ $t(periodLabels[value] || 'Select period') }}</template>
-        <template #default="{value}">{{ $t(periodLabels[value]) }}</template>
-      </SimpleDropdown>
-    </div>
-    <div v-if="custom" class="row mt-2">
-      <div class="col-sm-5"><input v-model="from" type="datetime-local" class="form-control" @change="applyCustom" /></div>
-      <div class="col-sm-5"><input v-model="to" type="datetime-local" class="form-control" @change="applyCustom" /></div>
-    </div>
-    <div class="energy-cost-selected-period">
-      <span>{{ $t('Selected period') }}</span>
-      <strong>{{ displayedRange.from.toFormat('dd LLL yyyy, HH:mm') }} - {{ displayedRange.to.toFormat('dd LLL yyyy, HH:mm') }}</strong>
-      <small>{{ timezone }}</small>
+    <!-- i18n:["Predefined time ranges", "Today", "Yesterday", "This week", "Previous week", "This month", "Previous month", "Last 3 months", "This year", "Previous year", "Current billing cycle", "Previous billing cycle", "From", "To", "Previous period", "Next period"] -->
+    <SimpleDropdown :options="periodOptions" @input="setRange">
+      <template #button>{{ $t('Predefined time ranges') }}</template>
+      <template #default="{value}">{{ $t(periodLabels[value]) }}</template>
+    </SimpleDropdown>
+    <div class="energy-cost-date-range">
+      <div class="energy-cost-date-range-navigation form-group">
+        <button type="button" class="btn btn-default" :title="$t('Previous period')" @click="shiftRange(-1)">
+          <fa icon="chevron-left" />
+        </button>
+      </div>
+      <div class="row flex-grow-1">
+        <div class="col-sm-6 form-group">
+          <label>{{ $t('From') }}</label>
+          <input v-model="from" type="datetime-local" class="form-control" @change="applyRange" />
+        </div>
+        <div class="col-sm-6 form-group">
+          <label>{{ $t('To') }}</label>
+          <input v-model="to" type="datetime-local" class="form-control" @change="applyRange" />
+        </div>
+      </div>
+      <div class="energy-cost-date-range-navigation form-group">
+        <button type="button" class="btn btn-default" :title="$t('Next period')" @click="shiftRange(1)">
+          <fa icon="chevron-right" />
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-  @use '@/styles/variables' as *;
-
   .energy-cost-range-selector {
-    .energy-cost-period-picker {
+    > .dropdown {
+      display: table;
+      width: auto;
+      margin: 0 auto 1rem;
+    }
+
+    .energy-cost-date-range {
       display: flex;
-      align-items: center;
-      gap: 0.75em;
-      max-width: 25em;
-      margin-bottom: 0.75em;
-
-      label {
-        margin: 0;
-        white-space: nowrap;
-      }
-
-      .dropdown {
-        flex: 1;
-      }
+      gap: 1rem;
     }
 
-    .energy-cost-selected-period {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 0.5em 1em;
-      align-items: baseline;
-      padding: 0.75em 1em;
-      border-left: 4px solid $supla-green;
-      background: $supla-grey-light;
-
-      span,
-      small {
-        color: $supla-grey-dark;
-      }
-
-      strong {
-        font-family: $supla-font-special;
-      }
-    }
-
-    @media (max-width: 575px) {
-      .energy-cost-period-picker {
-        max-width: none;
-      }
-
-      .energy-cost-selected-period {
-        grid-template-columns: 1fr;
-        gap: 0.25em;
-      }
+    .energy-cost-date-range-navigation {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
   }
 </style>

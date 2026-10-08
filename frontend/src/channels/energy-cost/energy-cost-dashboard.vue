@@ -343,7 +343,7 @@
               </div>
             </div>
           </header>
-          <div class="energy-cost-print-action text-right">
+          <div class="energy-cost-print-action text-right mb-3">
             <button
               type="button"
               class="btn btn-default"
