@@ -207,8 +207,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('HEAT', $content['config']['subfunction']);
         $this->assertEquals($this->device->getChannels()[0]->getId(), $content['config']['mainThermometerChannelId']);
         $hvacChannel = $this->freshEntity($this->hvacChannel);
-        $this->assertNull($hvacChannel->getUserConfigValue('mainThermometerChannelId'));
-        $this->assertEquals(0, $hvacChannel->getUserConfigValue('mainThermometerChannelNo'));
+        $this->assertEquals($content['config']['mainThermometerChannelId'], $hvacChannel->getUserConfigValue('mainThermometerChannelId'));
+        $this->assertArrayNotHasKey('mainThermometerChannelNo', $hvacChannel->getUserConfig());
         $this->assertSuplaCommandExecuted(sprintf(
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,6100,420,%d',
             $hvacChannel->getIoDevice()->getId(),
@@ -238,8 +238,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('HEAT', $content['config']['subfunction']);
         $this->assertEquals($this->device->getChannels()[1]->getId(), $content['config']['mainThermometerChannelId']);
         $hvacChannel = $this->freshEntity($this->hvacChannel);
-        $this->assertNull($hvacChannel->getUserConfigValue('mainThermometerChannelId'));
-        $this->assertEquals(1, $hvacChannel->getUserConfigValue('mainThermometerChannelNo'));
+        $this->assertEquals($content['config']['mainThermometerChannelId'], $hvacChannel->getUserConfigValue('mainThermometerChannelId'));
+        $this->assertArrayNotHasKey('mainThermometerChannelNo', $hvacChannel->getUserConfig());
         $this->assertSuplaCommandExecuted(sprintf(
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,6100,420,%d',
             $hvacChannel->getIoDevice()->getId(),
@@ -309,8 +309,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('HEAT', $content['config']['subfunction']);
         $this->assertEquals($this->device->getChannels()[1]->getId(), $content['config']['auxThermometerChannelId']);
         $hvacChannel = $this->freshEntity($this->hvacChannel);
-        $this->assertNull($hvacChannel->getUserConfigValue('auxThermometerChannelId'));
-        $this->assertEquals(1, $hvacChannel->getUserConfigValue('auxThermometerChannelNo'));
+        $this->assertEquals($content['config']['auxThermometerChannelId'], $hvacChannel->getUserConfigValue('auxThermometerChannelId'));
+        $this->assertArrayNotHasKey('auxThermometerChannelNo', $hvacChannel->getUserConfig());
         $this->assertSuplaCommandExecuted(sprintf(
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,6100,420,%d',
             $this->hvacChannel->getIoDevice()->getId(),
@@ -732,7 +732,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(['connected' => false], $state);
     }
 
-    public function testChangingLocationOfThermostatAlsoChangesThermometersLocation() {
+    public function testChangingLocationOfThermostatPreservesThermometersLocation() {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
         $device->getChannels()[2]->setUserConfig([]);
         $device->getChannels()[4]->setUserConfig([]);
@@ -747,29 +747,24 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $location = $this->createLocation($this->user);
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV3('PUT', "/api/channels/$hvacId?safe=true", ['locationId' => $location->getId()]);
-        $this->assertStatusCode(409, $client->getResponse());
-        $content = json_decode($client->getResponse()->getContent());
-        $this->assertEquals([$mainThermoId], array_column($content->dependencies->channels, 'id'));
-        $client->apiRequestV3('PUT', "/api/channels/$hvacId", ['locationId' => $location->getId()]);
-        $this->assertEquals($location->getId(), $this->freshChannelById($mainThermoId)->getLocation()->getId());
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertEquals($originalLocationId, $this->freshChannelById($mainThermoId)->getLocation()->getId());
         $this->assertEquals($originalLocationId, $this->freshChannelById($auxThermoId)->getLocation()->getId());
         $this->assertEquals($location->getId(), $this->freshChannelById($hvacId)->getLocation()->getId());
         return [$mainThermoId, $auxThermoId, $hvacId];
     }
 
-    /** @depends testChangingLocationOfThermostatAlsoChangesThermometersLocation */
-    public function testChangingLocationOfThermometerAlsoChangesThermostatLocation(array $ids) {
+    /** @depends testChangingLocationOfThermostatPreservesThermometersLocation */
+    public function testChangingLocationOfThermometerPreservesThermostatLocation(array $ids) {
         [$mainThermoId, $auxThermoId, $hvacId] = $ids;
         $originalLocationId = $this->freshChannelById($auxThermoId)->getLocation()->getId();
+        $hvacLocationId = $this->freshChannelById($hvacId)->getLocation()->getId();
         $location = $this->createLocation($this->user);
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV3('PUT', "/api/channels/$mainThermoId?safe=true", ['locationId' => $location->getId()]);
-        $this->assertStatusCode(409, $client->getResponse());
-        $content = json_decode($client->getResponse()->getContent());
-        $this->assertEquals([$hvacId], array_column($content->dependencies->channels, 'id'));
-        $client->apiRequestV3('PUT', "/api/channels/$mainThermoId", ['locationId' => $location->getId()]);
+        $this->assertStatusCode(200, $client->getResponse());
         $this->assertEquals($location->getId(), $this->freshChannelById($mainThermoId)->getLocation()->getId());
-        $this->assertEquals($location->getId(), $this->freshChannelById($hvacId)->getLocation()->getId());
+        $this->assertEquals($hvacLocationId, $this->freshChannelById($hvacId)->getLocation()->getId());
         $this->assertEquals($originalLocationId, $this->freshChannelById($auxThermoId)->getLocation()->getId());
     }
 
@@ -844,7 +839,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ChannelFunction::NONE, $this->freshEntityById(IODeviceChannel::class, $mainThermoId)->getFunction()->getId());
         /** @var IODeviceChannel $hvacChannel */
         $hvacChannel = $this->freshEntityById(IODeviceChannel::class, $hvacId);
-        $this->assertNull($hvacChannel->getUserConfigValue('mainThermometerChannelNo'));
+        $this->assertNull($hvacChannel->getUserConfigValue('mainThermometerChannelId'));
+        $this->assertArrayNotHasKey('mainThermometerChannelNo', $hvacChannel->getUserConfig());
     }
 
     public function testDeletingHvacDeviceWithInvalidConfig() {
@@ -890,8 +886,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertEquals($this->device->getChannels()[8]->getId(), $content['config']['pumpSwitchChannelId']);
         $hvacChannel = $this->freshEntity($this->hvacChannel);
-        $this->assertNull($hvacChannel->getUserConfigValue('pumpSwitchChannelId'));
-        $this->assertEquals(8, $hvacChannel->getUserConfigValue('pumpSwitchChannelNo'));
+        $this->assertEquals($content['config']['pumpSwitchChannelId'], $hvacChannel->getUserConfigValue('pumpSwitchChannelId'));
+        $this->assertArrayNotHasKey('pumpSwitchChannelNo', $hvacChannel->getUserConfig());
         $this->assertSuplaCommandExecuted(sprintf(
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,6100,420,%d',
             $hvacChannel->getIoDevice()->getId(),
@@ -930,7 +926,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ChannelFunction::NONE, $this->freshEntityById(IODeviceChannel::class, $pumpId)->getFunction()->getId());
         /** @var IODeviceChannel $hvacChannel */
         $hvacChannel = $this->freshEntityById(IODeviceChannel::class, $hvacId);
-        $this->assertNull($hvacChannel->getUserConfigValue('pumpSwitchChannelNo'));
+        $this->assertNull($hvacChannel->getUserConfigValue('pumpSwitchChannelId'));
+        $this->assertArrayNotHasKey('pumpSwitchChannelNo', $hvacChannel->getUserConfig());
     }
 
     public function testSettingHeatOrColdSourceSwitch() {
@@ -951,8 +948,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertEquals($device->getChannels()[9]->getId(), $content['config']['heatOrColdSourceSwitchChannelId']);
         $hvacChannel = $this->freshEntity($hvacChannel);
-        $this->assertNull($hvacChannel->getUserConfigValue('heatOrColdSourceSwitchChannelId'));
-        $this->assertEquals(9, $hvacChannel->getUserConfigValue('heatOrColdSourceSwitchChannelNo'));
+        $this->assertEquals($content['config']['heatOrColdSourceSwitchChannelId'], $hvacChannel->getUserConfigValue('heatOrColdSourceSwitchChannelId'));
+        $this->assertArrayNotHasKey('heatOrColdSourceSwitchChannelNo', $hvacChannel->getUserConfig());
         $this->assertSuplaCommandExecuted(sprintf(
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,6100,420,%d',
             $hvacChannel->getIoDevice()->getId(),
@@ -1078,7 +1075,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $thermostatSlave = $this->persist($thermostatSlave);
         $channelConfig = $channelParamConfigTranslator->getConfig($thermostatSlave);
         $this->assertEquals($thermostatMaser->getId(), $channelConfig['masterThermostatChannelId']);
-        $this->assertEquals(2, $thermostatSlave->getUserConfigValue('masterThermostatChannelNo'));
+        $this->assertEquals($thermostatMaser->getId(), $thermostatSlave->getUserConfigValue('masterThermostatChannelId'));
         return $device->getId();
     }
 
@@ -1182,7 +1179,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $depFinder = self::$container->get(ChannelDependencies::class);
         $dependencies = $depFinder->getItemsThatDependOnLocation($problematicChannel);
         $this->assertArrayHasKey('channels', $dependencies);
-        $this->assertCount(10, $dependencies['channels']);
+        $this->assertCount(0, $dependencies['channels']);
     }
 
     public function testChangingLocalUILock() {

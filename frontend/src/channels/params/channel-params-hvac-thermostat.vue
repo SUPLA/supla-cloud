@@ -57,8 +57,8 @@
           <dt>
             <channels-id-dropdown
               v-model="channel.config.mainThermometerChannelId"
-              :params="`function=THERMOMETER,HUMIDITYANDTEMPERATURE&deviceIds=${channel.iodeviceId}`"
-              :filter="(ch) => ch.id !== channel.config.auxThermometerChannelId"
+              :params="mainThermometerParams"
+              :filter="mainThermometerFilter"
               :hide-none="true"
               :disabled="!canChangeSetting('mainThermometerChannelId')"
               @input="$emit('change')"
@@ -518,6 +518,9 @@
   import AccordionRoot from '@/common/gui/accordion/accordion-root.vue';
   import AccordionItem from '@/common/gui/accordion/accordion-item.vue';
   import Toggler from '@/common/gui/toggler.vue';
+  import {mapState} from 'pinia';
+  import {useDevicesStore} from '@/stores/devices-store';
+  import {isMainThermometerCandidate} from '@/channels/hvac/main-thermometer-candidates';
   import SimpleDropdown from '@/common/gui/simple-dropdown.vue';
 
   export default {
@@ -540,6 +543,11 @@
       };
     },
     computed: {
+      ...mapState(useDevicesStore, {devices: 'all'}),
+      mainThermometerParams() {
+        const functions = 'function=THERMOMETER,HUMIDITYANDTEMPERATURE';
+        return this.devices[this.channel.iodeviceId]?.flags?.suplanSupported ? functions : `${functions}&deviceIds=${this.channel.iodeviceId}`;
+      },
       defaultTemperatureConstraintName() {
         return this.channel.config?.defaultTemperatureConstraintName || 'room';
       },
@@ -643,6 +651,9 @@
       },
     },
     methods: {
+      mainThermometerFilter(candidate) {
+        return candidate.id !== this.channel.config.auxThermometerChannelId && isMainThermometerCandidate(this.channel, candidate, this.devices);
+      },
       changeSubfunction(subfunction) {
         this.channel.config.subfunction = subfunction;
         if (this.channel.config.outputValueOnError) {

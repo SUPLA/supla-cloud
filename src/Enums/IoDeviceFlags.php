@@ -28,6 +28,7 @@ namespace App\Enums;
  * @method static IoDeviceFlags IDENTIFY_DEVICE_AVAILABLE()
  * @method static IoDeviceFlags FACTORY_RESET_SUPPORTED()
  * @method static IoDeviceFlags AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED()
+ * @method static IoDeviceFlags SUPLAN_SUPPORTED()
  * @method static IoDeviceFlags SET_CFG_MODE_PASSWORD_SUPPORTED()
  */
 final class IoDeviceFlags extends ChannelBits {
@@ -46,5 +47,6 @@ final class IoDeviceFlags extends ChannelBits {
 
     const FACTORY_RESET_SUPPORTED = 0x4000;
     const AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED = 0x8000;
+    const SUPLAN_SUPPORTED = 0x80000;
     const SET_CFG_MODE_PASSWORD_SUPPORTED = 0x10000;
 }

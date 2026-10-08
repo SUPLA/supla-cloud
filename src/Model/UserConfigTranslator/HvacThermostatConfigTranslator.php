@@ -91,36 +91,8 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
     }
 
     public function getConfig(HasUserConfig $subject): array {
-        $userConfig = $subject->getUserConfig();
-        if (array_key_exists('mainThermometerChannelNo', $userConfig)) {
-            $mainThermometerChannelNo = $subject->getUserConfigValue('mainThermometerChannelNo');
-            $mainThermometer = null;
-            if (is_int($mainThermometerChannelNo)) {
-                $mainThermometer = $this->channelNoToChannel($subject, $mainThermometerChannelNo);
-                if (!$mainThermometer || $mainThermometer->getId() === $subject->getId()) {
-                    $mainThermometer = null;
-                }
-            }
-            $auxThermometerChannelNo = $subject->getUserConfigValue('auxThermometerChannelNo', -1);
-            $auxThermometer = null;
-            if ($auxThermometerChannelNo >= 0) {
-                $auxThermometer = $this->channelNoToChannel($subject, $auxThermometerChannelNo);
-            }
-            $binarySensorChannelNo = $subject->getUserConfigValue('binarySensorChannelNo', -1);
-            $binarySensor = null;
-            if ($binarySensorChannelNo >= 0) {
-                $binarySensor = $this->channelNoToChannel($subject, $binarySensorChannelNo);
-            }
-            $pumpSwitchChannelNo = $subject->getUserConfigValue('pumpSwitchChannelNo', -1);
-            $pumpSwitch = null;
-            if ($pumpSwitchChannelNo >= 0) {
-                $pumpSwitch = $this->channelNoToChannel($subject, $pumpSwitchChannelNo);
-            }
-            $heatOrColdSourceSwitchChannelNo = $subject->getUserConfigValue('heatOrColdSourceSwitchChannelNo', -1);
-            $heatOrColdSourceSwitch = null;
-            if ($heatOrColdSourceSwitchChannelNo >= 0) {
-                $heatOrColdSourceSwitch = $this->channelNoToChannel($subject, $heatOrColdSourceSwitchChannelNo);
-            }
+        $userConfig = HvacChannelReferences::canonicalConfig($subject);
+        if (array_key_exists('mainThermometerChannelId', $userConfig)) {
             $masterThermostatAvailable = $this->deviceChannelWithFunctionCount($subject, [
                     CF::THERMOSTAT(),
                     CF::HVAC_THERMOSTAT(),
@@ -129,16 +101,11 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                     CF::HVAC_THERMOSTAT_HEAT_COOL(),
                     CF::HVAC_DOMESTIC_HOT_WATER(),
                 ]) > 1;
-            $masterThermostatChannelNo = $subject->getUserConfigValue('masterThermostatChannelNo', -1);
-            $masterThermostat = null;
-            if ($masterThermostatChannelNo >= 0) {
-                $masterThermostat = $this->channelNoToChannel($subject, $masterThermostatChannelNo);
-            }
             $config = [
-                'mainThermometerChannelId' => $mainThermometer ? $mainThermometer->getId() : null,
-                'auxThermometerChannelId' => $auxThermometer ? $auxThermometer->getId() : null,
+                'mainThermometerChannelId' => $userConfig['mainThermometerChannelId'] ?? null,
+                'auxThermometerChannelId' => $userConfig['auxThermometerChannelId'] ?? null,
                 'auxThermometerType' => $subject->getUserConfigValue('auxThermometerType', 'NOT_SET'),
-                'binarySensorChannelId' => $binarySensor ? $binarySensor->getId() : null,
+                'binarySensorChannelId' => $userConfig['binarySensorChannelId'] ?? null,
                 'antiFreezeAndOverheatProtectionEnabled' => $subject->getUserConfigValue('antiFreezeAndOverheatProtectionEnabled', false),
                 'auxMinMaxSetpointEnabled' => $subject->getUserConfigValue('auxMinMaxSetpointEnabled', false),
                 'temperatureSetpointChangeSwitchesToManualMode' =>
@@ -153,11 +120,11 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 'temperatureConstraints' =>
                     array_map([$this, 'adjustTemperature'], $subject->getProperties()['temperatures'] ?? []) ?: new JsonArrayObject([]),
                 'pumpSwitchAvailable' => $this->deviceChannelWithFunctionCount($subject, [CF::PUMPSWITCH()]) > 0,
-                'pumpSwitchChannelId' => $pumpSwitch ? $pumpSwitch->getId() : null,
+                'pumpSwitchChannelId' => $userConfig['pumpSwitchChannelId'] ?? null,
                 'masterThermostatAvailable' => $masterThermostatAvailable,
-                'masterThermostatChannelId' => $masterThermostat ? $masterThermostat->getId() : null,
+                'masterThermostatChannelId' => $userConfig['masterThermostatChannelId'] ?? null,
                 'heatOrColdSourceSwitchAvailable' => $this->deviceChannelWithFunctionCount($subject, [CF::HEATORCOLDSOURCESWITCH()]) > 0,
-                'heatOrColdSourceSwitchChannelId' => $heatOrColdSourceSwitch ? $heatOrColdSourceSwitch->getId() : null,
+                'heatOrColdSourceSwitchChannelId' => $userConfig['heatOrColdSourceSwitchChannelId'] ?? null,
                 'heatingModeAvailable' => $this->isHeatingModeAvailable($subject),
                 'coolingModeAvailable' => $this->isCoolingModeAvailable($subject),
                 'readOnlyTemperatureConfigFields' => $subject->getProperty('readOnlyTemperatureConfigFields', []),
@@ -187,24 +154,25 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
+        HvacChannelReferences::migrate($subject);
         $channelConfig = $this->getConfig($subject);
         if (array_key_exists('mainThermometerChannelId', $config)) {
             $mainThermometerChannelId = $config['mainThermometerChannelId'];
             if ($mainThermometerChannelId) {
                 Assertion::integer($mainThermometerChannelId);
-                $thermometer = $this->channelIdToChannelFromDevice($subject, $mainThermometerChannelId);
+                $thermometer = $this->mainThermometerChannel($subject, $mainThermometerChannelId);
                 Assertion::inArray(
                     $thermometer->getFunction()->getId(),
                     [CF::THERMOMETER, CF::HUMIDITYANDTEMPERATURE]
                 );
-                $subject->setUserConfigValue('mainThermometerChannelNo', $thermometer->getChannelNumber());
-                Assertion::eq(
-                    $subject->getLocation()->getId(),
-                    $thermometer->getLocation()->getId(),
-                    'Channels that are meant to work with each other must be in the same location.' // i18n
+                Assertion::notEq(
+                    $thermometer->getId(),
+                    array_key_exists('auxThermometerChannelId', $config)
+                        ? $config['auxThermometerChannelId'] : $subject->getUserConfigValue('auxThermometerChannelId')
                 );
+                $subject->setUserConfigValue('mainThermometerChannelId', $thermometer->getId());
             } else {
-                $subject->setUserConfigValue('mainThermometerChannelNo', null);
+                $subject->setUserConfigValue('mainThermometerChannelId', null);
             }
         }
         if (array_key_exists('auxThermometerChannelId', $config)) {
@@ -215,13 +183,13 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                     $thermometer->getFunction()->getId(),
                     [CF::THERMOMETER, CF::HUMIDITYANDTEMPERATURE]
                 );
-                $mainThermometerChannelNo = $subject->getUserConfigValue('mainThermometerChannelNo');
-                if ($mainThermometerChannelNo) {
-                    Assertion::notEq($thermometer->getChannelNumber(), $mainThermometerChannelNo);
+                $mainThermometerChannelId = $subject->getUserConfigValue('mainThermometerChannelId');
+                if ($mainThermometerChannelId) {
+                    Assertion::notEq($thermometer->getId(), $mainThermometerChannelId);
                 }
-                $subject->setUserConfigValue('auxThermometerChannelNo', $thermometer->getChannelNumber());
+                $subject->setUserConfigValue('auxThermometerChannelId', $thermometer->getId());
             } else {
-                $subject->setUserConfigValue('auxThermometerChannelNo', null);
+                $subject->setUserConfigValue('auxThermometerChannelId', null);
                 $config['auxThermometerType'] = 'NOT_SET';
             }
         }
@@ -239,14 +207,9 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 Assertion::numeric($config['binarySensorChannelId']);
                 $sensor = $this->channelIdToChannelFromDevice($subject, $config['binarySensorChannelId']);
                 Assertion::eq(ChannelType::SENSORNO, $sensor->getType()->getId(), 'Invalid sensor type.');
-                $subject->setUserConfigValue('binarySensorChannelNo', $sensor->getChannelNumber());
-                Assertion::eq(
-                    $subject->getLocation()->getId(),
-                    $sensor->getLocation()->getId(),
-                    'Channels that are meant to work with each other must be in the same location.' // i18n
-                );
+                $subject->setUserConfigValue('binarySensorChannelId', $sensor->getId());
             } else {
-                $subject->setUserConfigValue('binarySensorChannelNo', null);
+                $subject->setUserConfigValue('binarySensorChannelId', null);
             }
         }
         if (array_key_exists('masterThermostatChannelId', $config)) {
@@ -255,7 +218,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $masterThermostat = $this->channelIdToChannelFromDevice($subject, $config['masterThermostatChannelId']);
                 Assertion::eq(ChannelType::HVAC, $masterThermostat->getType()->getId(), 'Invalid master thermostat type.');
                 Assertion::null(
-                    $masterThermostat->getUserConfigValue('masterThermostatChannelNo'),
+                    HvacChannelReferences::canonicalConfig($masterThermostat)['masterThermostatChannelId'] ?? null,
                     'The master termostat you chose already has a master.' // i18n
                 );
                 Assertion::eq(
@@ -263,14 +226,9 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                     $this->findSlaveThermostats($subject)->count(),
                     'You cannot to set a master thermostat for a channel that is master for others.' // i18n
                 );
-                $subject->setUserConfigValue('masterThermostatChannelNo', $masterThermostat->getChannelNumber());
-                Assertion::eq(
-                    $subject->getLocation()->getId(),
-                    $masterThermostat->getLocation()->getId(),
-                    'Channels that are meant to work with each other must be in the same location.' // i18n
-                );
+                $subject->setUserConfigValue('masterThermostatChannelId', $masterThermostat->getId());
             } else {
-                $subject->setUserConfigValue('masterThermostatChannelNo', null);
+                $subject->setUserConfigValue('masterThermostatChannelId', null);
             }
         }
         if (array_key_exists('pumpSwitchChannelId', $config)) {
@@ -278,9 +236,9 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 Assertion::numeric($config['pumpSwitchChannelId']);
                 $pump = $this->channelIdToChannelFromDevice($subject, $config['pumpSwitchChannelId']);
                 Assertion::eq(CF::PUMPSWITCH, $pump->getFunction()->getId(), 'Invalid pump switch function.');
-                $subject->setUserConfigValue('pumpSwitchChannelNo', $pump->getChannelNumber());
+                $subject->setUserConfigValue('pumpSwitchChannelId', $pump->getId());
             } else {
-                $subject->setUserConfigValue('pumpSwitchChannelNo', null);
+                $subject->setUserConfigValue('pumpSwitchChannelId', null);
             }
         }
         if (array_key_exists('heatOrColdSourceSwitchChannelId', $config)) {
@@ -288,9 +246,9 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 Assertion::numeric($config['heatOrColdSourceSwitchChannelId']);
                 $hcsSwitch = $this->channelIdToChannelFromDevice($subject, $config['heatOrColdSourceSwitchChannelId']);
                 Assertion::eq(CF::HEATORCOLDSOURCESWITCH, $hcsSwitch->getFunction()->getId(), 'Invalid heat or cold source switch function.');
-                $subject->setUserConfigValue('heatOrColdSourceSwitchChannelNo', $hcsSwitch->getChannelNumber());
+                $subject->setUserConfigValue('heatOrColdSourceSwitchChannelId', $hcsSwitch->getId());
             } else {
-                $subject->setUserConfigValue('heatOrColdSourceSwitchChannelNo', null);
+                $subject->setUserConfigValue('heatOrColdSourceSwitchChannelId', null);
             }
         }
         if (array_key_exists('antiFreezeAndOverheatProtectionEnabled', $config)) {
@@ -602,10 +560,27 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             ->count();
     }
 
+    private function mainThermometerChannel(IODeviceChannel $subject, int $channelId): IODeviceChannel {
+        $channel = $this->entityManager->find(IODeviceChannel::class, $channelId);
+        Assertion::isObject($channel, 'Invalid channel ID given: ' . $channelId);
+        Assertion::eq($subject->getUser()->getId(), $channel->getUser()->getId(), 'Invalid channel owner.');
+        Assertion::notEq($subject->getId(), $channel->getId(), 'A thermostat cannot reference itself.');
+        Assertion::inArray(
+            $channel->getType()->getId(),
+            [ChannelType::THERMOMETER, ChannelType::THERMOMETERDS18B20, ChannelType::HUMIDITYANDTEMPSENSOR],
+            'Invalid thermometer type.'
+        );
+        if ($subject->getIoDevice()->getId() !== $channel->getIoDevice()->getId()) {
+            Assertion::true($subject->getIoDevice()->getFlags()['suplanSupported'], 'Destination does not support SupLAN.');
+            Assertion::true($channel->getIoDevice()->getFlags()['suplanSupported'], 'Source does not support SupLAN.');
+        }
+        return $channel;
+    }
+
     private function findSlaveThermostats(IODeviceChannel $channel): Collection {
         return $channel->getIoDevice()
             ->getChannels()
-            ->filter(fn(IODeviceChannel $ch) => $ch->getUserConfigValue('masterThermostatChannelNo') === $channel->getChannelNumber());
+            ->filter(fn(IODeviceChannel $ch) => (HvacChannelReferences::canonicalConfig($ch)['masterThermostatChannelId'] ?? null) === $channel->getId());
     }
 
     private function isHeatingModeAvailable(IODeviceChannel $subject) {

@@ -28,7 +28,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
     private $logger;
 
     private array $dependencyCache = [];
-    private array $deviceDependencyIndexCache = [];
+    private array $accountDependencyIndexCache = [];
     private array $actionTriggersCache = [];
 
     public function __construct(
@@ -62,6 +62,9 @@ class ChannelDependencies extends ActionableSubjectDependencies {
 
     public function getItemsThatDependOnLocation(IODeviceChannel $channel): array {
         $dependentChannels = $this->findDependentChannelsRecursive($channel, [
+            'mainThermometerChannelId',
+            'binarySensorChannelId',
+            'masterThermostatChannelId',
             'auxThermometerChannelId',
             'pumpSwitchChannelId',
             'heatOrColdSourceSwitchChannelId',
@@ -74,7 +77,10 @@ class ChannelDependencies extends ActionableSubjectDependencies {
     }
 
     public function getItemsThatDependOnVisibility(IODeviceChannel $channel): array {
-        $deps = $this->getItemsThatDependOnLocation($channel);
+        $deps = ['channels' => array_values($this->findDependentChannelsRecursive($channel, [
+            'auxThermometerChannelId', 'pumpSwitchChannelId', 'heatOrColdSourceSwitchChannelId',
+            'floodSensorChannelIds', 'levelSensorChannelIds',
+        ]))];
         if ($channel->getType()->getId() === ChannelType::HVAC) {
             $deps['channels'] = [];
         }
@@ -203,7 +209,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             $dependentChannels[$atChannel->getId()] = $atChannel;
         }
 
-        foreach ($this->getDeviceDependencyIndex($channel->getIoDevice(), $skipConfigIds)[$channel->getId()] ?? [] as $possibleChannel) {
+        foreach ($this->getAccountDependencyIndex($channel->getIoDevice(), $skipConfigIds)[$channel->getId()] ?? [] as $possibleChannel) {
             $dependentChannels[$possibleChannel->getId()] = $possibleChannel;
         }
 
@@ -211,14 +217,14 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         return $dependentChannels;
     }
 
-    private function getDeviceDependencyIndex(IODevice $device, array $skipConfigIds = []): array {
-        $cacheKey = $device->getId() . '_' . implode('_', $skipConfigIds);
-        if (array_key_exists($cacheKey, $this->deviceDependencyIndexCache)) {
-            return $this->deviceDependencyIndexCache[$cacheKey];
+    private function getAccountDependencyIndex(IODevice $device, array $skipConfigIds = []): array {
+        $cacheKey = $device->getUser()->getId() . '_' . implode('_', $skipConfigIds);
+        if (array_key_exists($cacheKey, $this->accountDependencyIndexCache)) {
+            return $this->accountDependencyIndexCache[$cacheKey];
         }
 
         $index = [];
-        foreach ($this->channelRepository->findBy(['iodevice' => $device]) as $possibleChannel) {
+        foreach ($this->channelRepository->findBy(['user' => $device->getUser()]) as $possibleChannel) {
             $config = $this->channelParamConfigTranslator->getConfig($possibleChannel);
             foreach ($config as $key => $value) {
                 if (in_array($key, $skipConfigIds, true)) {
@@ -237,7 +243,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             }
         }
 
-        $this->deviceDependencyIndexCache[$cacheKey] = $index;
+        $this->accountDependencyIndexCache[$cacheKey] = $index;
         return $index;
     }
 
