@@ -58,7 +58,10 @@ The cyclic data-source updater excludes OCPP devices.
 The configuration dialog shows the full WSS URL, base URL, identity, Basic Auth username,
 and a one-time 32-character hexadecimal AuthorizationKey. Copying the key omits display
 separators. Only the SHA-512 hash of the **binary** key is stored. Lost keys can be replaced;
-update and reconnect the charger afterwards, as an existing connection is not forcibly closed.
+update and reconnect the charger afterwards. The gateway periodically revalidates
+existing sessions; a key replacement does not close them immediately. The gateway
+view excludes disabled devices. Refresh its definition with
+`supla:initialize:create-sql-procedures-and-views` when upgrading an existing PoC.
 
 ### Full SUPLA stack
 

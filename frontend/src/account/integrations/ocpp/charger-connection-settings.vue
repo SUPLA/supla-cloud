@@ -28,6 +28,8 @@
 <script setup>
   import CopyButton from '@/common/copy-button.vue';
 
+  defineOptions({compatConfig: {MODE: 3}});
+
   defineProps({connection: {type: Object, required: true}});
   const fields = [
     {key: 'url', label: 'Full charger URL'}, // i18n

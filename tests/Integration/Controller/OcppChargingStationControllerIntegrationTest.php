@@ -145,6 +145,24 @@ class OcppChargingStationControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSame(0, $em->getRepository(IODeviceChannel::class)->count([]));
     }
 
+    public function testGatewayViewExcludesDisabledDevices(): void {
+        $created = $this->createCharger($this->createAuthenticatedClient($this->user));
+        $em = $this->getEntityManager();
+        $connection = $em->getConnection();
+        $visible = fn() => (int)$connection->fetchOne(
+            'SELECT COUNT(*) FROM supla_v_ocpp_charging_station WHERE charging_station_id = ?',
+            [$created['id']]
+        );
+        $this->assertSame(1, $visible());
+        $device = $em->find(IODevice::class, $created['iodeviceId']);
+        EntityUtils::setField($device, 'enabled', false);
+        $this->flush();
+        $this->assertSame(0, $visible());
+        EntityUtils::setField($device, 'enabled', true);
+        $this->flush();
+        $this->assertSame(1, $visible());
+    }
+
     public function testWholeDeviceDeletionRemovesCredentialsButSingleChannelDeletionIsForbidden(): void {
         $client = $this->createAuthenticatedClient($this->user);
         $created = $this->createCharger($client);

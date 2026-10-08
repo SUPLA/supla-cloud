@@ -8,4 +8,6 @@ SELECT `cs`.`id`                    AS `charging_station_id`,
        `cs`.`auth_key_hash`         AS `auth_key_hash`,
        `u`.`short_unique_id`        AS `short_unique_id`
 FROM `supla_ocpp_charging_station` `cs`
-         JOIN `supla_user` `u` ON `u`.`id` = `cs`.`user_id`;
+         JOIN `supla_user` `u` ON `u`.`id` = `cs`.`user_id`
+         JOIN `supla_iodevice` `d` ON `d`.`id` = `cs`.`iodevice_id` AND `d`.`user_id` = `cs`.`user_id`
+WHERE `d`.`enabled` = 1;

@@ -47,6 +47,8 @@
   import Modal from '@/common/modal.vue';
   import ChargerConnectionSettings from './charger-connection-settings.vue';
 
+  defineOptions({compatConfig: {MODE: 3}});
+
   const props = defineProps({station: Object});
   const emit = defineEmits(['close', 'created']);
   const {t} = useI18n();
