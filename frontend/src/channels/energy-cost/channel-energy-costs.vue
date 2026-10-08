@@ -9,6 +9,7 @@
 <script setup>
   import {computed, nextTick, ref, watch} from 'vue';
   import {storeToRefs} from 'pinia';
+  import {useRoute, useRouter} from 'vue-router';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import ChannelFunction from '@/common/enums/channel-function';
   import EnergyCostPlanDialog from './energy-cost-plan-dialog.vue';
@@ -18,6 +19,8 @@
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
   const props = defineProps({channel: {type: Object, required: true}});
+  const route = useRoute();
+  const router = useRouter();
   const store = useEnergyCostStore();
   const {plans, plansReady, tariffs, tariffsReady, assignmentsByChannelId, assignmentReadyByChannelId} = storeToRefs(store);
   const selectedOption = ref();
@@ -38,6 +41,11 @@
   const scenarioPlan = computed(() => selectedPlan.value || starterScenario.value);
   let selectionToken = 0;
 
+  function saveSelectedOption(option) {
+    if (route.query.energyCostPlan === option) return;
+    router.replace({query: {...route.query, energyCostPlan: option || undefined}});
+  }
+
   async function load() {
     if (!supported.value) return;
     selectedOption.value = undefined;
@@ -45,7 +53,11 @@
     error.value = null;
     try {
       await Promise.all([store.fetchPlans(), store.fetchTariffs(), store.fetchAssignment(props.channel.id)]);
-      selectedOption.value = assignment.value ? `plan:${assignment.value.planId}` : undefined;
+      const selectedFromUrl = typeof route.query.energyCostPlan === 'string' ? route.query.energyCostPlan : undefined;
+      const optionExists =
+        (selectedFromUrl?.startsWith('plan:') && plans.value.some((plan) => plan.id === Number(selectedFromUrl.slice(5)))) ||
+        (selectedFromUrl?.startsWith('starter:') && tariffs.value.some((tariff) => tariff.id === selectedFromUrl.slice(8)));
+      await selectPlan(optionExists ? selectedFromUrl : assignment.value ? `plan:${assignment.value.planId}` : undefined);
     } catch (requestError) {
       error.value = requestError.body?.message || 'Could not load tariff plans.'; // i18n
     }
@@ -59,6 +71,7 @@
       if (selectedStarterId.value) {
         const plan = await store.assignStarter(props.channel.id, selectedStarterId.value, starterScenario.value.configuration);
         selectedOption.value = `plan:${plan.id}`;
+        saveSelectedOption(selectedOption.value);
         starterScenario.value = null;
       } else if (selectedPlanId.value) {
         await store.assignPlan(props.channel.id, selectedPlanId.value);
@@ -73,6 +86,7 @@
   async function selectPlan(option) {
     const token = ++selectionToken;
     selectedOption.value = option;
+    saveSelectedOption(option);
     starterScenario.value = null;
     error.value = null;
     const starterId = selectedStarterId.value;
@@ -99,6 +113,7 @@
     try {
       await store.unassignPlan(props.channel.id);
       selectedOption.value = undefined;
+      saveSelectedOption(selectedOption.value);
     } catch (requestError) {
       error.value = requestError.body?.message || 'Could not unassign the tariff plan.'; // i18n
     } finally {
@@ -128,10 +143,14 @@
 
   function saved(plan) {
     selectedOption.value = `plan:${plan.id}`;
+    saveSelectedOption(selectedOption.value);
   }
 
   function deleted(planId) {
-    if (!assignment.value || Number(selectedPlanId.value) === Number(planId)) selectedOption.value = undefined;
+    if (!assignment.value || Number(selectedPlanId.value) === Number(planId)) {
+      selectedOption.value = undefined;
+      saveSelectedOption(selectedOption.value);
+    }
   }
 
   watch(() => props.channel.id, load, {immediate: true});
