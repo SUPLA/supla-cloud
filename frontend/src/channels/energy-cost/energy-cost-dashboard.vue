@@ -9,6 +9,7 @@
 <script setup>
   import {computed, nextTick, onBeforeUnmount, onMounted, ref, toRaw, watch} from 'vue';
   import {storeToRefs} from 'pinia';
+  import {useRoute, useRouter} from 'vue-router';
   import {DateTime} from 'luxon';
   import logoUrl from '@/assets/img/logo.svg';
   import {energyCostApi} from '@/api/energy-cost-api';
@@ -25,6 +26,8 @@
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
   const props = defineProps({channel: {type: Object, required: true}, plan: {type: Object, required: true}, assignedPlanId: Number});
+  const route = useRoute();
+  const router = useRouter();
   const energyCostStore = useEnergyCostStore();
   const {presetDetailsById} = storeToRefs(energyCostStore);
   const timezone = computed(() => props.plan.configuration?.timezone || 'Europe/Warsaw');
@@ -33,7 +36,16 @@
     const now = DateTime.now().setZone(timezone.value);
     return {from: now.startOf('month').toISO(), to: now.startOf('hour').toISO()};
   };
-  const range = ref(defaultRange());
+  const rangeFromUrl = () => {
+    const {energyCostFrom: from, energyCostTo: to} = route.query;
+    if (typeof from !== 'string' || typeof to !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(from) || !/^\d{4}-\d{2}-\d{2}$/.test(to)) {
+      return null;
+    }
+    const fromDate = DateTime.fromISO(from, {zone: timezone.value}).startOf('day');
+    const toDate = DateTime.fromISO(to, {zone: timezone.value}).plus({days: 1}).startOf('day');
+    return fromDate.isValid && toDate.isValid && fromDate < toDate ? {from: fromDate.toISO(), to: toDate.toISO()} : null;
+  };
+  const range = ref(rangeFromUrl() || defaultRange());
   const result = ref(null);
   const loading = ref(false);
   const error = ref(null);
@@ -158,6 +170,11 @@
     error.value = null;
     range.value = fitted;
     sessionStorage.setItem(storageKey.value, JSON.stringify(fitted));
+    const urlFrom = DateTime.fromISO(fitted.from, {setZone: true}).setZone(timezone.value).toISODate();
+    const urlTo = DateTime.fromISO(fitted.to, {setZone: true}).setZone(timezone.value).minus({milliseconds: 1}).toISODate();
+    if (route.query.energyCostFrom !== urlFrom || route.query.energyCostTo !== urlTo) {
+      router.replace({query: {...route.query, energyCostFrom: urlFrom, energyCostTo: urlTo}});
+    }
     granularity.value = preferredGranularity(fitted.from, fitted.to, timezone.value);
   }
   function fitToAvailableRange(next) {
@@ -229,12 +246,12 @@
         error.value = noLogsError;
         return;
       }
-      range.value = fitted;
+      setRange(fitted);
     } catch {
       // The calculation endpoint remains usable if measurement-history bounds cannot be loaded.
     }
     const saved = sessionStorage.getItem(storageKey.value);
-    if (saved) {
+    if (!rangeFromUrl() && saved) {
       try {
         const savedRange = JSON.parse(saved);
         const fitted = fitToAvailableRange(savedRange);

@@ -90,8 +90,8 @@
     emit('update:modelValue', {from: nextFrom.toISO(), to: nextTo.toISO()});
   }
   function applyRange() {
-    const nextFrom = DateTime.fromFormat(from.value, "yyyy-LL-dd'T'HH:mm", {zone: props.timezone});
-    const nextTo = DateTime.fromFormat(to.value, "yyyy-LL-dd'T'HH:mm", {zone: props.timezone});
+    const nextFrom = DateTime.fromISO(from.value, {zone: props.timezone}).startOf('day');
+    const nextTo = DateTime.fromISO(to.value, {zone: props.timezone}).plus({days: 1}).startOf('day');
     if (nextFrom.isValid && nextTo > nextFrom) {
       emit('update:modelValue', {from: nextFrom.toISO(), to: nextTo.toISO()});
     }
@@ -111,8 +111,8 @@
   watch(
     range,
     ({from: nextFrom, to: nextTo}) => {
-      from.value = nextFrom.toFormat("yyyy-LL-dd'T'HH:mm");
-      to.value = nextTo.toFormat("yyyy-LL-dd'T'HH:mm");
+      from.value = nextFrom.toISODate();
+      to.value = nextTo.minus({milliseconds: 1}).toISODate();
     },
     {immediate: true}
   );
@@ -134,11 +134,11 @@
       <div class="row flex-grow-1">
         <div class="col-sm-6 form-group">
           <label>{{ $t('From') }}</label>
-          <input v-model="from" type="datetime-local" class="form-control" @change="applyRange" />
+          <input v-model="from" type="date" class="form-control" @change="applyRange" />
         </div>
         <div class="col-sm-6 form-group">
           <label>{{ $t('To') }}</label>
-          <input v-model="to" type="datetime-local" class="form-control" @change="applyRange" />
+          <input v-model="to" type="date" class="form-control" @change="applyRange" />
         </div>
       </div>
       <div class="energy-cost-date-range-navigation form-group">
