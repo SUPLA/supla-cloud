@@ -4,7 +4,7 @@ import {createTestingPinia} from '@pinia/testing';
 import HvacParams from '@/channels/params/channel-params-hvac-thermostat.vue';
 
 const destination = {id: 10, iodeviceId: 1, locationId: 1};
-const candidate = {id: 20, iodeviceId: 2, locationId: 2, function: {name: 'THERMOMETER'}, type: {name: 'THERMOMETERDS18B20'}, connected: false};
+const candidate = {id: 20, iodeviceId: 2, locationId: 2, function: {name: 'THERMOMETER'}, type: {name: 'THERMOMETER'}, connected: false};
 const devices = {1: {flags: {suplanSupported: true}}, 2: {flags: {suplanSupported: true}, connected: false}};
 
 describe('M3 HVAC MainThermometer candidates', () => {
@@ -32,7 +32,7 @@ describe('M3 HVAC MainThermometer candidates', () => {
 });
 
 describe('M3 HVAC selectors', () => {
-  it('keeps the five other selectors on the destination device', () => {
+  it('offers all six selectors in the shared role-aware scope', () => {
     const channel = {
       ...destination,
       function: {name: 'HVAC_THERMOSTAT'},
@@ -56,7 +56,7 @@ describe('M3 HVAC selectors', () => {
         renderStubDefaultSlot: false,
         plugins: [createTestingPinia({initialState: {devices: {all: devices}}})],
         stubs: {
-          ChannelsIdDropdown: {name: 'ChannelsIdDropdown', props: ['params', 'filter'], template: '<div />'},
+          ChannelsIdDropdown: {name: 'ChannelsIdDropdown', props: ['params', 'filter', 'destination', 'referenceRole'], template: '<div />'},
           AccordionRoot: {template: '<div><slot /></div>'},
           AccordionItem: {template: '<div><slot /></div>'},
           TransitionExpand: {template: '<div><slot /></div>'},
@@ -69,11 +69,18 @@ describe('M3 HVAC selectors', () => {
     const selectors = wrapper.findAllComponents({name: 'ChannelsIdDropdown'});
     expect(selectors).toHaveLength(6);
     const params = selectors.map((selector) => selector.props('params'));
-    expect(params.filter((param) => param.includes('deviceIds=1'))).toHaveLength(5);
-    const main = selectors.find((selector) => !selector.props('params').includes('deviceIds='));
+    expect(params.filter((param) => param.includes('deviceIds=1'))).toHaveLength(0);
+    expect(selectors.every((selector) => selector.props('destination')?.id === channel.id && selector.props('referenceRole'))).toBe(true);
+    const main = selectors.find((selector) => selector.props('referenceRole') === 'mainThermometerChannelId');
     expect(main.props('filter')(candidate)).toBe(true);
     channel.config.auxThermometerChannelId = candidate.id;
     expect(main.props('filter')(candidate)).toBe(false);
     wrapper.unmount();
   });
+});
+
+it('Main wrapper rejects local and remote Type 3000', () => {
+  const old = {...candidate, type: {name: 'THERMOMETERDS18B20'}};
+  expect(isMainThermometerCandidate(destination, old, devices)).toBe(false);
+  expect(isMainThermometerCandidate(destination, {...old, iodeviceId: 1}, {})).toBe(false);
 });

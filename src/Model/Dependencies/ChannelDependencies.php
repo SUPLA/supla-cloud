@@ -7,6 +7,9 @@ use App\Entity\Main\IODeviceChannel;
 use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
 use App\Model\Schedule\ScheduleManager;
+use App\Model\UserConfigTranslator\ChannelReferenceValidator;
+use App\Model\UserConfigTranslator\HiddenReadOnlyConfigFieldsUserConfigTranslator;
+use App\Model\UserConfigTranslator\HvacChannelReferences;
 use App\Model\UserConfigTranslator\ActionTriggerParamsTranslator;
 use App\Model\UserConfigTranslator\SubjectConfigTranslator;
 use App\Repository\IODeviceChannelRepository;
@@ -38,7 +41,9 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         ScheduleManager $scheduleManager,
         ChannelGroupDependencies $channelGroupDependencies,
         IODeviceChannelRepository $channelRepository,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        private ChannelReferenceValidator $references,
+        private HiddenReadOnlyConfigFieldsUserConfigTranslator $protectedFields
     ) {
         parent::__construct($entityManager, $channelParamConfigTranslator, $actionTriggerParamsTranslator);
         $this->scheduleManager = $scheduleManager;
@@ -113,7 +118,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         return array_values($removeMap);
     }
 
-    public function clearDependencies(IODeviceChannel $channel, bool $isBeingDeleted = false): void {
+    public function clearDependencies(IODeviceChannel $channel, bool $isBeingDeleted = false, ?ChannelFunction $newFunction = null): void {
         if ($isBeingDeleted) {
             $this->channelParamConfigTranslator->clearConfigForDeletion($channel);
         } else {
@@ -147,13 +152,43 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         foreach ($this->findDependentChannels($channel) as $depChannel) {
             $config = $this->channelParamConfigTranslator->getConfig($depChannel);
             foreach ($config as $key => $value) {
+                if (
+                    $newFunction && in_array($key, ChannelReferenceValidator::ROLES, true)
+                    && $this->references->compatible($depChannel, $channel, $key, $newFunction)
+                ) {
+                    continue;
+                }
                 if (str_ends_with($key, 'ChannelId') && $value === $channel->getId()) {
-                    $this->channelParamConfigTranslator->setConfig($depChannel, [$key => null]);
+                    if (in_array($key, ChannelReferenceValidator::ROLES, true)) {
+                        $this->protectedFields->setConfig($depChannel, [$key => null]);
+                        HvacChannelReferences::migrate($depChannel);
+                        // Cleanup must not revalidate unrelated stale sibling references.
+                        $depChannel->setUserConfigValue($key, null);
+                        if ($key === 'auxThermometerChannelId') {
+                            $depChannel->setUserConfigValue('auxThermometerType', 'NOT_SET');
+                        }
+                    } else {
+                        $this->channelParamConfigTranslator->setConfig($depChannel, [$key => null]);
+                    }
                     $this->entityManager->persist($depChannel);
                 }
                 if (str_ends_with($key, 'ChannelIds') && is_array($value) && in_array($channel->getId(), $value, true)) {
-                    $newIds = ArrayUtils::filter($value, fn(int $channelId) => $channelId !== $channel->getId());
-                    $this->channelParamConfigTranslator->setConfig($depChannel, [$key => $newIds]);
+                    $this->protectedFields->setConfig($depChannel, [$key => []]);
+                    if ($key === 'levelSensorChannelIds') {
+                        $sensors = $depChannel->getUserConfigValue('sensors', []);
+                        foreach ($sensors as &$sensor) {
+                            if (is_array($sensor) && ($sensor['channelId'] ?? null) === $channel->getId()) {
+                                $sensor['channelId'] = null;
+                            }
+                        }
+                        unset($sensor);
+                        $depChannel->setUserConfigValue('sensors', $sensors);
+                    } elseif ($key === 'floodSensorChannelIds') {
+                        $depChannel->setUserConfigValue($key, array_map(fn($id) => $id === $channel->getId() ? null : $id, $value));
+                    } else {
+                        $newIds = ArrayUtils::filter($value, fn($id) => $id !== $channel->getId());
+                        $this->channelParamConfigTranslator->setConfig($depChannel, [$key => $newIds]);
+                    }
                     $this->entityManager->persist($depChannel);
                 }
             }

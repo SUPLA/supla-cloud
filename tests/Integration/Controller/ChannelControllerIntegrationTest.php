@@ -1826,9 +1826,9 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $valve = $this->freshEntity($valve);
         $config = $channelParamConfigTranslator->getConfig($valve);
-        $this->assertCount(1, $config['floodSensorChannelIds']);
-        $this->assertEquals([$device->getChannels()[12]->getId()], $config['floodSensorChannelIds']);
-        $this->assertCount(1, $valve->getUserConfigValue('sensorChannelNumbers'));
+        $this->assertSame([$device->getChannels()[12]->getId(), null, null], $config['floodSensorChannelIds']);
+        $this->assertSame($config['floodSensorChannelIds'], $valve->getUserConfigValue('floodSensorChannelIds'));
+        $this->assertArrayNotHasKey('sensorChannelNumbers', $valve->getUserConfig());
     }
 
     public function testCanChangeValveAndSensorsLocationsIndependently() {
@@ -1885,9 +1885,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $tank = $this->freshEntity($tank);
         $config = $channelParamConfigTranslator->getConfig($tank);
-        $this->assertCount(1, $config['levelSensors']);
-        $this->assertEquals(['channelId' => $device->getChannels()[1]->getId(), 'fillLevel' => 10], $config['levelSensors'][0]);
-        $this->assertCount(1, $tank->getUserConfigValue('sensors'));
+        $this->assertSame([
+            ['channelId' => $device->getChannels()[1]->getId(), 'fillLevel' => 10],
+            ['channelId' => null, 'fillLevel' => 20],
+            ['channelId' => null, 'fillLevel' => 30],
+        ], $config['levelSensors']);
+        $this->assertSame($config['levelSensors'], $tank->getUserConfigValue('sensors'));
     }
 
     public function testDeletingThermometerUsedInManyChannelsDoesNotDuplicateDependencies() {

@@ -15,6 +15,7 @@ use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
+use Doctrine\DBAL\Logging\DebugStack;
 
 /** @small */
 class HvacSupLanIntegrationTest extends IntegrationTestCase {
@@ -29,7 +30,7 @@ class HvacSupLanIntegrationTest extends IntegrationTestCase {
 
     private function device(?User $user = null, int $flags = IoDeviceFlags::SUPLAN_SUPPORTED): IODevice {
         $device = $this->createDevice($this->createLocation($user ?: $this->user), [
-            [ChannelType::THERMOMETERDS18B20, CF::THERMOMETER],
+            [ChannelType::THERMOMETER, CF::THERMOMETER],
             [ChannelType::HUMIDITYANDTEMPSENSOR, CF::HUMIDITYANDTEMPERATURE],
             [ChannelType::SENSORNO, CF::NOLIQUIDSENSOR],
             [ChannelType::HVAC, CF::HVAC_THERMOSTAT],
@@ -45,6 +46,54 @@ class HvacSupLanIntegrationTest extends IntegrationTestCase {
         }
         $this->flush();
         return $device;
+    }
+
+    public function testAvailabilityUsesOneScalarQueryAndCurrentAccountCapabilityAndFunction() {
+        $user = $this->createConfirmedUser('availability-query@supla.org');
+        $destination = $this->createDevice($this->createLocation($user), [[ChannelType::HVAC, CF::HVAC_THERMOSTAT]]);
+        EntityUtils::setField($destination, 'flags', IoDeviceFlags::SUPLAN_SUPPORTED);
+        $hvac = $destination->getChannels()[0];
+        $hvac->setUserConfig(['mainThermometerChannelId' => null, 'subfunction' => 'HEAT']);
+        $source = $this->device($user, 0);
+        $this->device($this->createConfirmedUser('other-availability@supla.org'));
+        $this->flush();
+        $translator = self::getContainer()->get(SubjectConfigTranslator::class);
+        $connectionConfig = $this->getEntityManager()->getConnection()->getConfiguration();
+        $previousLogger = $connectionConfig->getSQLLogger();
+        $logger = new DebugStack();
+        $connectionConfig->setSQLLogger($logger);
+        try {
+            foreach ([false, true, false] as $available) {
+                EntityUtils::setField($source, 'flags', $available ? IoDeviceFlags::SUPLAN_SUPPORTED : 0);
+                $this->flush();
+                $logger->queries = [];
+                $config = $translator->getConfig($hvac);
+                foreach (['pumpSwitchAvailable', 'heatOrColdSourceSwitchAvailable', 'masterThermostatAvailable'] as $field) {
+                    $this->assertSame($available, $config[$field]);
+                }
+                $this->assertCount(1, $logger->queries);
+                $this->assertStringContainsString('COUNT(*)', array_values($logger->queries)[0]['sql']);
+                $this->assertStringContainsString('GROUP BY c.func', array_values($logger->queries)[0]['sql']);
+            }
+            EntityUtils::setField($source, 'flags', IoDeviceFlags::SUPLAN_SUPPORTED);
+            foreach ([3, 4, 5, 6] as $index) {
+                EntityUtils::setField($source->getChannels()[$index], 'function', CF::NONE);
+            }
+            $this->flush();
+            $config = $translator->getConfig($hvac);
+            $this->assertFalse($config['pumpSwitchAvailable']);
+            $this->assertFalse($config['heatOrColdSourceSwitchAvailable']);
+            $this->assertFalse($config['masterThermostatAvailable']);
+            EntityUtils::setField($destination, 'flags', 0);
+            $this->flush();
+            $logger->queries = [];
+            $config = $translator->getConfig($hvac);
+            $this->assertFalse($config['pumpSwitchAvailable']);
+            $this->assertFalse($config['masterThermostatAvailable']);
+            $this->assertCount(0, $logger->queries);
+        } finally {
+            $connectionConfig->setSQLLogger($previousLogger);
+        }
     }
 
     public function testAllSixCanonicalIdRoundTripThroughTranslatorAndDatabase() {
@@ -128,7 +177,7 @@ class HvacSupLanIntegrationTest extends IntegrationTestCase {
         bool $wrongAccount
     ) {
         $destination = $this->device(null, $destFlags);
-        $source = $this->device($wrongAccount ? $this->createConfirmedUser('other-hvac@supla.org') : null, $sourceFlags);
+        $source = $this->device($wrongAccount ? $this->createConfirmedUser('other-hvac-' . $field . '@supla.org') : null, $sourceFlags);
         $hvac = $destination->getChannels()[6];
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV3('PUT', '/api/channels/' . $hvac->getId(), [
@@ -146,12 +195,29 @@ class HvacSupLanIntegrationTest extends IntegrationTestCase {
             'both legacy' => ['mainThermometer', 0, 0, 0, false],
             'wrong account' => ['mainThermometer', 0, $flag, $flag, true],
             'wrong function' => ['mainThermometer', 4, $flag, $flag, false],
-            'aux remote deferred to M4' => ['auxThermometer', 1, $flag, $flag, false],
-            'binary remote deferred to M4' => ['binarySensor', 2, $flag, $flag, false],
-            'master remote deferred to M4' => ['masterThermostat', 3, $flag, $flag, false],
-            'pump remote deferred to M4' => ['pumpSwitch', 4, $flag, $flag, false],
-            'heat/cold remote deferred to M4' => ['heatOrColdSourceSwitch', 5, $flag, $flag, false],
+            'aux legacy source' => ['auxThermometer', 1, $flag, 0, false],
+            'binary legacy destination' => ['binarySensor', 2, 0, $flag, false],
+            'master wrong account' => ['masterThermostat', 3, $flag, $flag, true],
+            'pump wrong function' => ['pumpSwitch', 5, $flag, $flag, false],
+            'heat/cold wrong type' => ['heatOrColdSourceSwitch', 2, $flag, $flag, false],
         ];
+    }
+
+    /** @dataProvider remoteFields */
+    public function testAllM4RemoteFieldsAcceptOfflineSupLanAndPersistCanonicalIds(string $field, int $index) {
+        $destination = $this->device();
+        $source = $this->device();
+        $hvac = $destination->getChannels()[6];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('PUT', '/api/channels/' . $hvac->getId(), [
+            'config' => [$field . 'ChannelId' => $source->getChannels()[$index]->getId()],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSame($source->getChannels()[$index]->getId(), $this->freshEntity($hvac)->getUserConfigValue($field . 'ChannelId'));
+    }
+
+    public static function remoteFields(): array {
+        return [['auxThermometer', 1], ['binarySensor', 2], ['masterThermostat', 3], ['pumpSwitch', 4], ['heatOrColdSourceSwitch', 5]];
     }
 
     /** @dataProvider incompatibleMainThermometers */
@@ -172,7 +238,7 @@ class HvacSupLanIntegrationTest extends IntegrationTestCase {
     public static function incompatibleMainThermometers(): array {
         return [
             'correct function, wrong type' => [ChannelType::RELAY, CF::THERMOMETER],
-            'correct type, wrong function' => [ChannelType::THERMOMETERDS18B20, CF::HUMIDITY],
+            'correct type, wrong function' => [ChannelType::THERMOMETER, CF::HUMIDITY],
         ];
     }
 

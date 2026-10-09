@@ -215,7 +215,7 @@ class DevicesFixture extends SuplaFixture {
         );
         $sampleQuarters2 = array_map('intval', str_split(str_replace('4', '1', implode('', $sampleQuarters1))));
         $hvac = $this->createDevice('HVAC-Monster', $location, [
-            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+            [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
             [ChannelType::HUMIDITYANDTEMPSENSOR, ChannelFunction::HUMIDITYANDTEMPERATURE],
             [
                 ChannelType::HVAC,
@@ -437,9 +437,9 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::SENSORNO, ChannelFunction::HOTELCARDSENSOR, ['subDeviceId' => 1]],
             [ChannelType::SENSORNO, ChannelFunction::NONE],
             [ChannelType::THERMOSTATHEATPOLHOMEPLUS, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
-            [ChannelType::RELAY2XG5LA1A, ChannelFunction::PUMPSWITCH],
-            [ChannelType::RELAY2XG5LA1A, ChannelFunction::HEATORCOLDSOURCESWITCH],
-            [ChannelType::RELAY2XG5LA1A, ChannelFunction::PUMPSWITCH],
+            [ChannelType::RELAY, ChannelFunction::PUMPSWITCH],
+            [ChannelType::RELAY, ChannelFunction::HEATORCOLDSOURCESWITCH],
+            [ChannelType::RELAY, ChannelFunction::PUMPSWITCH],
         ], '');
         AnyFieldSetter::set($hvac, [
             'userConfig' => json_encode([
@@ -758,6 +758,21 @@ class DevicesFixture extends SuplaFixture {
                 'firmwareUpdatePolicy' => 'FORCED_OFF',
             ]),
         ]);
+        foreach ($device->getChannels() as $channel) {
+            $config = $channel->getUserConfig();
+            if (isset($config['sensors'])) {
+                foreach ($config['sensors'] as &$sensor) {
+                    $sensor['channelId'] = $device->getChannels()[$sensor['channelNo']]->getId();
+                    unset($sensor['channelNo']);
+                }
+                unset($sensor);
+            }
+            if (isset($config['sensorChannelNumbers'])) {
+                $config['floodSensorChannelIds'] = array_map(fn($number) => $device->getChannels()[$number]->getId(), $config['sensorChannelNumbers']);
+                unset($config['sensorChannelNumbers']);
+            }
+            $channel->setUserConfig($config);
+        }
         $this->entityManager->persist($device);
         return $device;
     }

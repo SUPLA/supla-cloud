@@ -440,7 +440,7 @@ class ChannelController extends RestController {
                 if ($newFunction) {
                     $paramConfigTranslator->clearConfig($channel);
                     try {
-                        $channelDependencies->clearDependencies($channel);
+                        $channelDependencies->clearDependencies($channel, false, $newFunction);
                     } catch (InvalidArgumentException $e) {
                         $e = 'You cannot change this function becuase it is required by another channel.'; // i18n
                         throw new ApiException($e);

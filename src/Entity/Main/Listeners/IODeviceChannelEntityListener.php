@@ -36,7 +36,7 @@ class IODeviceChannelEntityListener {
             $after = json_decode($changeArray['userConfig'][1] ?: '[]', true);
             $changedConfigKeys = array_keys(ArrayUtils::mergeConfigs($before, $after, $before));
             $relationsChanges = array_filter($changedConfigKeys, function ($key) {
-                return strpos($key, 'ChannelId') > 0 || strpos($key, 'ChannelNo') > 0;
+                return strpos($key, 'ChannelId') > 0 || strpos($key, 'ChannelNo') > 0 || $key === 'sensors';
             });
             if ($relationsChanges) {
                 $changes->add(ChannelConfigChangeScope::RELATIONS);
