@@ -44,6 +44,12 @@ class EnergyCostPlanCalculator {
         DateTimeImmutable $from,
         DateTimeImmutable $to,
     ): CalculationResult {
+        if (!$channel->belongsToUser($user)) {
+            throw new AccessDeniedHttpException('Access to this channel is denied.');
+        }
+        if ($channel->getFunction()->getId() !== ChannelFunction::ELECTRICITYMETER) {
+            throw new ApiException('Energy cost calculation is supported only for electricity meter channels.');
+        }
         $plan = $this->assignmentRepository->findPlanForChannel($channel);
         if ($plan === null || !$plan->belongsToUser($user)) {
             throw new NotFoundHttpException('Energy cost plan assignment does not exist.');

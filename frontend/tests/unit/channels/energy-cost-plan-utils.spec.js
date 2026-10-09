@@ -16,6 +16,7 @@ import {
   isTime,
   normalizeDecimal,
   presetDefault,
+  pricePeriodsForComponent,
   readJsonPointer,
   serializeConfiguration,
   toDatetimeLocal,
@@ -111,6 +112,29 @@ describe('energy cost plan utilities', () => {
 
     expect(inputsForComponent({...preset, document: {...preset.document, inputs: [input]}}, 0)).toEqual([input]);
     expect(presetDefault(preset, input, 0)).toBe('WITH_VAT');
+  });
+
+  it('resolves historical inputs by stable component id instead of the first template period index', () => {
+    const preset = {
+      document: {
+        inputs: [
+          {id: 'distribution.rate.2025', targets: ['/periods/0/components/1/rate/value']},
+          {id: 'distribution.rate.2026', targets: ['/periods/1/components/0/rate/value']},
+          {id: 'other.rate', targets: ['/periods/1/components/1/rate/value']},
+        ],
+        billingDefinitionTemplate: {
+          periods: [
+            {validFrom: null, validTo: '2026-01-01', components: [{id: 'energy'}, {id: 'distribution', rate: {value: '0.25'}}]},
+            {validFrom: '2026-01-01', validTo: null, components: [{id: 'distribution', rate: {value: '0.30'}}, {id: 'energy'}]},
+          ],
+        },
+      },
+    };
+
+    expect(inputsForComponent(preset, 'distribution').map((input) => input.id)).toEqual(['distribution.rate.2025', 'distribution.rate.2026']);
+    expect(presetDefault(preset, preset.document.inputs[0], 'distribution')).toBe('0.25');
+    expect(presetDefault(preset, preset.document.inputs[1], 'distribution')).toBe('0.30');
+    expect(pricePeriodsForComponent(preset, 'distribution').map(({periodIndex}) => periodIndex)).toEqual([0, 1]);
   });
 
   it('copies tariff recipes and matches them without considering overrides', () => {

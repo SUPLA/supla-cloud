@@ -10,6 +10,12 @@ describe('energy cost calculation storage', () => {
     expect(canonicalJson({b: 2, a: 1})).toBe('{"a":1,"b":2}');
   });
 
+  it('changes the fingerprint when a referenced preset revision changes', () => {
+    const plan = {id: 1, updatedAt: '2026-01-01', configuration: {periods: []}};
+
+    expect(scenarioFingerprint(plan, 'PL.G11:old')).not.toBe(scenarioFingerprint(plan, 'PL.G11:new'));
+  });
+
   it('separates cached exact queries and invalidates a changed plan', async () => {
     const storage = new EnergyCostCalculationStorage();
     await storage.connect();

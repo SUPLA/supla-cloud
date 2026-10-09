@@ -103,23 +103,18 @@
     {immediate: true}
   );
 
-  function componentPresetIndex(component, preset) {
-    return preset?.document.billingDefinitionTemplate?.periods?.[0]?.components?.findIndex((item) => item.id === component.componentId) ?? -1;
-  }
-
   function validateComponent(component, componentErrors) {
     if (component.presetId === undefined) {
       if (!isDecimal(component.rate)) componentErrors.rate = 'Invalid decimal value.'; // i18n
       return;
     }
     const preset = presetDetailsById.value[component.presetId];
-    const componentIndex = componentPresetIndex(component, preset);
-    if (!component.presetId || !preset || componentIndex < 0) {
+    if (!component.presetId || !preset || !inputsForComponent(preset, component.componentId).length) {
       componentErrors.preset = 'Choose a compatible tariff.'; // i18n
       return;
     }
-    inputsForComponent(preset, componentIndex).forEach((input) => {
-      const value = Object.hasOwn(component.values, input.id) ? component.values[input.id] : presetDefault(preset, input, componentIndex);
+    inputsForComponent(preset, component.componentId).forEach((input) => {
+      const value = Object.hasOwn(component.values, input.id) ? component.values[input.id] : presetDefault(preset, input, component.componentId);
       if (input.required && (value === null || value === undefined || value === ''))
         componentErrors[input.id] = 'This field is required.'; // i18n
       else if (value !== null && value !== undefined && value !== '') {
@@ -174,8 +169,7 @@
       components: period.components.map((component) => {
         const values = {...component.values};
         const preset = presetDetailsById.value[component.presetId];
-        const componentIndex = componentPresetIndex(component, preset);
-        inputsForComponent(preset, componentIndex).forEach((input) => {
+        inputsForComponent(preset, component.componentId).forEach((input) => {
           if (input.type === 'DECIMAL' && Object.hasOwn(values, input.id)) values[input.id] = normalizeDecimal(values[input.id]);
           if (input.type === 'INTEGER' && Object.hasOwn(values, input.id) && isInteger(values[input.id])) values[input.id] = Number(values[input.id]);
         });
@@ -358,7 +352,7 @@
                 >{{ $t(errors.name) }}</span
               >
             </div>
-            <h5>{{ $t('Price periods') }}</h5>
+            <h5>{{ $t('Tariff periods') }}</h5>
             <energy-cost-plan-period
               v-if="periods.length === 1"
               :period="periods[0]"

@@ -20,7 +20,7 @@
   import EnergyCostHeatmap from './energy-cost-heatmap.vue';
   import EnergyCostBreakdown from './energy-cost-breakdown.vue';
   import EnergyCostDetails from './energy-cost-details.vue';
-  import {alignedBillingPeriodRange, inputsForComponent, presetDefault} from './energy-cost-plan-utils';
+  import {alignedBillingPeriodRange, pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
   import {preferredGranularity} from './energy-cost-result-utils';
   import {energyCostCalculationStorage, scenarioFingerprint} from './energy-cost-calculation-storage';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
@@ -88,7 +88,8 @@
     from: Math.floor(DateTime.fromISO(range.value.from).toSeconds()),
     to: Math.floor(DateTime.fromISO(range.value.to).toSeconds()),
   }));
-  const fingerprint = computed(() => scenarioFingerprint(props.plan));
+  const catalogRevision = ref('');
+  const fingerprint = computed(() => scenarioFingerprint(props.plan, catalogRevision.value));
   const simulating = computed(() => props.plan.id !== props.assignedPlanId);
   const dateTime = (value) => DateTime.fromISO(value, {setZone: true}).setZone(timezone.value).toFormat('dd LLL yyyy, HH:mm');
   const reportPeriod = computed(() => `${dateTime(range.value.from)} - ${dateTime(range.value.to)}`);
@@ -102,12 +103,14 @@
   const pricingDetails = (component) => {
     if (component.presetId === undefined) return [{label: 'Rate', value: component.rate, unit: component.per}];
     const preset = presetDetailsById.value[component.presetId];
-    const index = preset?.document.billingDefinitionTemplate?.periods?.[0]?.components?.findIndex((item) => item.id === component.componentId);
-    return inputsForComponent(preset, index).map((input) => {
-      const value = Object.hasOwn(component.values || {}, input.id) ? component.values[input.id] : presetDefault(preset, input, index);
-      const label = input.type === 'CHOICE' ? input.options?.find((option) => option.value === value)?.label || value : value;
-      return {label: input.label, value: label, unit: input.unit};
-    });
+    return pricePeriodsForComponent(preset, component.componentId).flatMap(({period, inputs}) =>
+      inputs.map((input) => {
+        const overridden = Object.hasOwn(component.values || {}, input.id);
+        const value = overridden ? component.values[input.id] : presetDefault(preset, input, component.componentId);
+        const label = input.type === 'CHOICE' ? input.options?.find((option) => option.value === value)?.label || value : value;
+        return {label: input.label, value: label, unit: input.unit, period, overridden};
+      })
+    );
   };
 
   async function loadPresetDetails() {
@@ -196,6 +199,18 @@
     const {from, to} = rangeSeconds.value;
     error.value = null;
     if (!simulating.value) {
+      // Refresh the compact catalog before accepting an IndexedDB result. Preset documents
+      // are intentionally live, so a plan timestamp alone cannot identify a scenario.
+      const catalog = await energyCostStore.fetchPresets(true);
+      const referencedIds = new Set(
+        (props.plan.configuration?.periods || []).flatMap((period) => (period.components || []).map((component) => component.presetId)).filter(Boolean)
+      );
+      catalogRevision.value = catalog
+        .filter((preset) => referencedIds.has(preset.id))
+        .map((preset) => `${preset.id}:${preset.revision}`)
+        .sort()
+        .join('|');
+      if (token !== requestToken) return;
       const cached = await energyCostCalculationStorage.get(props.channel.id, fingerprint.value, from, to);
       if (token !== requestToken) return;
       if (cached) result.value = cached.result;
@@ -344,7 +359,7 @@
             <div v-if="tariffPeriods.length" class="energy-cost-print-tariff">
               <h2>{{ $t('Tariff details') }}</h2>
               <div v-for="(period, index) in tariffPeriods" :key="index">
-                <strong>{{ $t('Price period') }} {{ index + 1 }}</strong>
+                <strong>{{ $t('Tariff period') }} {{ index + 1 }}</strong>
                 <span>
                   {{ period.validFrom ? dateTime(period.validFrom) : $t('No limit') }} -
                   {{ period.validTo ? dateTime(period.validTo) : $t('No limit') }}
@@ -352,8 +367,10 @@
                 <div class="energy-cost-print-components">
                   <div v-for="(component, componentIndex) in period.components || []" :key="componentIndex">
                     <strong>{{ $t(componentLabels[component.kind] || component.kind) }}</strong>
-                    <span v-for="detail in pricingDetails(component)" :key="detail.label">
-                      {{ detail.label }}: {{ detail.value }}<small v-if="detail.unit"> {{ detail.unit }}</small>
+                    <span v-for="detail in pricingDetails(component)" :key="`${detail.period?.validFrom || ''}-${detail.label}`">
+                      <small v-if="detail.period">{{ detail.period.validFrom || $t('No limit') }} - {{ detail.period.validTo || $t('No limit') }}: </small>
+                      {{ detail.label }}: {{ detail.value }}<small v-if="detail.unit"> {{ detail.unit }}</small
+                      ><small> ({{ $t(detail.overridden ? 'Custom' : 'Preset default') }})</small>
                     </span>
                   </div>
                 </div>

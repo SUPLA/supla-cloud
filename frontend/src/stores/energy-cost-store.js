@@ -23,6 +23,10 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     fetchPresets.promise = energyCostApi
       .getPresets()
       .then((response) => {
+        const changedIds = new Set(response.filter((preset) => presetDetailsById.value[preset.id]?.revision !== preset.revision).map((preset) => preset.id));
+        if (changedIds.size) {
+          presetDetailsById.value = Object.fromEntries(Object.entries(presetDetailsById.value).filter(([id]) => !changedIds.has(id)));
+        }
         presets.value = response;
         presetsReady.value = true;
         return response;
@@ -31,8 +35,8 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     return fetchPresets.promise;
   };
 
-  const fetchPreset = (id) => {
-    if (presetDetailsById.value[id]) return Promise.resolve(presetDetailsById.value[id]);
+  const fetchPreset = (id, force = false) => {
+    if (presetDetailsById.value[id] && !force) return Promise.resolve(presetDetailsById.value[id]);
     if (!fetchPreset.promises) fetchPreset.promises = {};
     if (!fetchPreset.promises[id]) {
       fetchPreset.promises[id] = energyCostApi

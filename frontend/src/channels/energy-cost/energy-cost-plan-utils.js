@@ -79,17 +79,38 @@ export function availablePresetComponentId(presets, kind, components) {
   return presets.flatMap((preset) => preset.components || []).find((component) => component.kind === kind && !usedIds.has(component.componentId))?.componentId;
 }
 
-export function presetDefault(preset, input, componentIndex) {
-  const componentTarget = componentIndex === undefined ? undefined : `/components/${componentIndex}/`;
-  const target = componentTarget ? input.targets?.find((item) => targetPointer(item)?.includes(componentTarget)) : input.targets?.[0];
+export function presetDefault(preset, input, componentId) {
+  const target = inputTargetsForComponent(preset, input, componentId)[0] || input.targets?.[0];
   const value = readJsonPointer(preset?.document?.billingDefinitionTemplate, targetPointer(target));
   if (!target || typeof target === 'string' || !target.values) return value;
   return Object.entries(target.values).find(([, mappedValue]) => structurallyEqual(mappedValue, value))?.[0];
 }
 
-export function inputsForComponent(preset, componentIndex) {
-  const componentTarget = `/components/${componentIndex}/`;
-  return preset?.document?.inputs?.filter((input) => input.targets?.some((target) => targetPointer(target)?.includes(componentTarget))) || [];
+export function inputTargetsForComponent(preset, input, componentId) {
+  return (input.targets || []).filter((target) => {
+    const pointer = targetPointer(target);
+    const match = pointer?.match(/^\/periods\/(\d+)\/components\/(\d+)(?:\/|$)/);
+    if (match) return preset?.document?.billingDefinitionTemplate?.periods?.[match[1]]?.components?.[match[2]]?.id === componentId;
+    const legacyMatch = pointer?.match(/^\/components\/(\d+)(?:\/|$)/);
+    return legacyMatch ? String(legacyMatch[1]) === String(componentId) : false;
+  });
+}
+
+export function inputsForComponent(preset, componentId) {
+  return preset?.document?.inputs?.filter((input) => inputTargetsForComponent(preset, input, componentId).length) || [];
+}
+
+export function pricePeriodsForComponent(preset, componentId) {
+  const templatePeriods = preset?.document?.billingDefinitionTemplate?.periods || [];
+  return templatePeriods
+    .map((period, periodIndex) => ({
+      period,
+      periodIndex,
+      inputs: (preset?.document?.inputs || []).filter((input) =>
+        inputTargetsForComponent(preset, input, componentId).some((target) => targetPointer(target)?.startsWith(`/periods/${periodIndex}/`))
+      ),
+    }))
+    .filter(({inputs}) => inputs.length);
 }
 
 export const normalizeDecimal = (value) => String(value).trim().replace(',', '.');

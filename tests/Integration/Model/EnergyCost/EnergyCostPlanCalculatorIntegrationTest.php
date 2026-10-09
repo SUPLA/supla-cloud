@@ -47,16 +47,18 @@ class EnergyCostPlanCalculatorIntegrationTest extends IntegrationTestCase {
             $user,
             $channel,
             new DateTimeImmutable('2026-01-02T13:00:00+01:00'),
-            new DateTimeImmutable('2026-01-02T13:15:00+01:00'),
+            new DateTimeImmutable('2026-01-02T14:00:00+01:00'),
         );
 
         $this->assertInstanceOf(CalculationResult::class, $result);
         $this->assertSame((string)$channel->getId(), $source->meterId);
         $this->assertSame('UTC', $source->range->from->getTimezone()->getName());
         $this->assertSame('2026-01-02T12:00:00+00:00', $source->range->from->format(DATE_ATOM));
-        $this->assertSame('2026-01-02T12:15:00+00:00', $source->range->to->format(DATE_ATOM));
-        $this->assertCount(1, $result->intervals);
-        $this->assertNotEmpty($result->charges);
+        $this->assertSame('2026-01-02T13:00:00+00:00', $source->range->to->format(DATE_ATOM));
+        // The 0.9.0 preset uses hourly temporal netting. A lone 15-minute meter
+        // delta is intentionally skipped instead of being priced as a full hour.
+        $this->assertCount(0, $result->intervals);
+        $this->assertEmpty($result->charges);
     }
 
     public function testRecompilesPersistedConfigurationForEveryCalculation(): void {
@@ -74,7 +76,7 @@ class EnergyCostPlanCalculatorIntegrationTest extends IntegrationTestCase {
         $configuration = $plan->getConfiguration();
         foreach ($configuration['periods'][0]['components'] as &$component) {
             if ($component['kind'] === 'ENERGY_PURCHASE') {
-                $component['presetId'] = 'PL.UNKNOWN.G11.2026';
+                $component['presetId'] = 'PL.UNKNOWN.G11';
             }
         }
         unset($component);
@@ -179,9 +181,9 @@ class EnergyCostPlanCalculatorIntegrationTest extends IntegrationTestCase {
                 'validFrom' => '2026-01-01T00:00:00+01:00',
                 'validTo' => '2027-01-01T00:00:00+01:00',
                 'components' => [
-                    ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_SPRZEDAZ.G11.2026', 'componentId' => 'energy-purchase',
+                    ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_SPRZEDAZ.G11', 'componentId' => 'energy-purchase',
                         'values' => ['energy.rate' => '0.71']],
-                    ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
+                    ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11',
                         'componentId' => 'distribution-variable', 'values' => []],
                 ],
             ]],
