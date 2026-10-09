@@ -20,10 +20,12 @@ namespace App\Tests\Integration\Controller;
 use App\Entity\EntityUtils;
 use App\Entity\Main\IODevice;
 use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\SettingsString;
 use App\Entity\Main\User;
 use App\Enums\ChannelConfigChangeScope;
 use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
+use App\Enums\InstanceSettings;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
@@ -42,6 +44,7 @@ class OcrIntegrationTest extends IntegrationTestCase {
     private ?IODeviceChannel $counter;
 
     protected function initializeDatabaseForTests() {
+        $this->getDoctrine()->getRepository(SettingsString::class)->clearValue(InstanceSettings::TARGET_TOKEN);
         $this->user = $this->createConfirmedUser();
         $this->device = $this->createDevice($this->createLocation($this->user), [
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER],
@@ -53,19 +56,26 @@ class OcrIntegrationTest extends IntegrationTestCase {
     }
 
     public function testSyncingOcrSettings() {
+        $settings = $this->getDoctrine()->getRepository(SettingsString::class);
+        $settings->setValue(InstanceSettings::TARGET_TOKEN, 'broker-token');
         TestSuplaHttpClient::mockHttpRequest('/devices', function (array $request) {
             $this->assertEquals('POST', $request['method']);
             $this->assertEquals($this->counter->getIoDevice()->getGUIDString(), $request['payload']['guid']);
             $this->assertEquals($this->counter->getChannelNumber(), $request['payload']['channelNo']);
             $this->assertEquals('123', $request['payload']['authKey']);
+            $this->assertSame('Bearer broker-token', $request['headers']['Authorization']);
             return [true, '', 201];
         });
         $command = $this->application->find('supla:cyclic:synchronize-ocr-authkeys');
         $commandTester = new CommandTester($command);
-        $result = $commandTester->execute([]);
-        $this->assertEquals(0, $result);
-        $counter = $this->freshEntity($this->counter);
-        $this->assertTrue($counter->getProperty('ocr')['ocrSynced']);
+        try {
+            $result = $commandTester->execute([]);
+            $this->assertEquals(0, $result);
+            $counter = $this->freshEntity($this->counter);
+            $this->assertTrue($counter->getProperty('ocr')['ocrSynced']);
+        } finally {
+            $settings->clearValue(InstanceSettings::TARGET_TOKEN);
+        }
     }
 
     /** @depends testSyncingOcrSettings */
