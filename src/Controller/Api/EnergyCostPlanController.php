@@ -52,7 +52,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * )
  * @OA\Schema(
  *   schema="EnergyCostPlanConfiguration", type="object", required={"version", "currency", "timezone", "billingCycles", "periods"},
- *   description="Cost Plan v2. Billing-cycle history is independent from pricing periods; component values contain explicit user overrides only.",
+ *   description="Cost Plan v2. Tariff-selection history is independent from preset price periods and billing-cycle history; component values contain explicit user overrides only.",
  *   @OA\Property(property="version", type="integer", enum={2}),
  *   @OA\Property(property="currency", type="string"),
  *   @OA\Property(property="timezone", type="string"),

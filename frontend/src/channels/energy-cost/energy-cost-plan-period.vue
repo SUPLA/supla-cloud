@@ -47,16 +47,13 @@
   };
   const detailsVisible = ref(false);
   const selectedTariffId = ref('');
-  const presetComponentIndex = (component, preset) =>
-    preset?.document.billingDefinitionTemplate?.periods?.[0]?.components?.findIndex((item) => item.id === component.componentId) ?? -1;
   const componentInputs = (component) => {
     const preset = presetDetailsById.value[component.presetId];
-    return inputsForComponent(preset, presetComponentIndex(component, preset));
+    return inputsForComponent(preset, component.componentId);
   };
   const inputValue = (component, input) => {
     const preset = presetDetailsById.value[component.presetId];
-    const index = presetComponentIndex(component, preset);
-    const value = Object.hasOwn(component.values || {}, input.id) ? component.values[input.id] : presetDefault(preset, input, index);
+    const value = Object.hasOwn(component.values || {}, input.id) ? component.values[input.id] : presetDefault(preset, input, component.componentId);
     return input.type === 'CHOICE' ? input.options?.find((option) => option.value === value)?.label || value : value;
   };
 
@@ -211,9 +208,8 @@
           />
           <div v-if="errors.components?.[componentIndex]?.preset" class="text-danger">{{ $t(errors.components[componentIndex].preset) }}</div>
           <energy-cost-preset-form
-            v-if="presetDetailsById[component.presetId] && presetComponentIndex(component, presetDetailsById[component.presetId]) >= 0"
+            v-if="presetDetailsById[component.presetId]"
             :component="component"
-            :component-index="presetComponentIndex(component, presetDetailsById[component.presetId])"
             :preset="presetDetailsById[component.presetId]"
             :errors="errors.components?.[componentIndex] || {}"
             :id-prefix="`energy-cost-period-${index}-${componentIndex}`"

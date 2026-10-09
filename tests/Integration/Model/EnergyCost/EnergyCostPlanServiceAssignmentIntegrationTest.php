@@ -115,9 +115,9 @@ class EnergyCostPlanServiceAssignmentIntegrationTest extends IntegrationTestCase
                 'validFrom' => '2026-01-01T00:00:00+01:00',
                 'validTo' => '2027-01-01T00:00:00+01:00',
                 'components' => [
-                    ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_SPRZEDAZ.G11.2026', 'componentId' => 'energy-purchase',
+                    ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_SPRZEDAZ.G11', 'componentId' => 'energy-purchase',
                         'values' => ['energy.rate' => '0.71']],
-                    ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
+                    ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11',
                         'componentId' => 'distribution-variable', 'values' => []],
                 ],
             ]],

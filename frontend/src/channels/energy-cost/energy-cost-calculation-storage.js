@@ -12,8 +12,8 @@ export function canonicalJson(value) {
   return JSON.stringify(value);
 }
 
-export function scenarioFingerprint(plan) {
-  const source = `${plan?.id ?? 'assigned'}:${plan?.updatedAt ?? ''}:${canonicalJson(plan?.configuration ?? {})}`;
+export function scenarioFingerprint(plan, catalogRevision = '') {
+  const source = `${plan?.id ?? 'assigned'}:${plan?.updatedAt ?? ''}:${catalogRevision}:${canonicalJson(plan?.configuration ?? {})}`;
   let hash = 2166136261;
   for (let index = 0; index < source.length; index += 1) hash = Math.imul(hash ^ source.charCodeAt(index), 16777619);
   return (hash >>> 0).toString(36);

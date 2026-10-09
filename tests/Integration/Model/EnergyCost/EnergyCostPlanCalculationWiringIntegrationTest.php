@@ -178,9 +178,9 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                     'validFrom' => '2026-01-01T00:00:00+01:00',
                     'validTo' => '2027-01-01T00:00:00+01:00',
                     'components' => [
-                        ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_SPRZEDAZ.G11.2026', 'componentId' => 'energy-purchase',
+                        ['kind' => 'ENERGY_PURCHASE', 'presetId' => 'PL.TAURON_SPRZEDAZ.G11', 'componentId' => 'energy-purchase',
                             'values' => []],
-                        ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
+                        ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11',
                             'componentId' => 'distribution-variable', 'values' => []],
                     ],
                 ]],
@@ -202,11 +202,11 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                     'components' => [
                         [
                             'kind' => 'ENERGY_PURCHASE',
-                            'presetId' => 'PL.TAURON_SPRZEDAZ.G12.2026',
+                            'presetId' => 'PL.TAURON_SPRZEDAZ.G12',
                             'componentId' => 'energy-purchase',
                             'values' => ['energy.DAY' => '0.98', 'energy.NIGHT' => '0.62'],
                         ],
-                        ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11.2026',
+                        ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G11',
                             'componentId' => 'distribution-variable', 'values' => []],
                         ['kind' => 'SUPPLIER_FIXED', 'rate' => '12.00', 'per' => 'BILLING_PERIOD', 'prorate' => false,
                             'taxTreatment' => ['included' => []]],

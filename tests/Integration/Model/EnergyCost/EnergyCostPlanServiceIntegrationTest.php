@@ -50,7 +50,7 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
         $plan = $this->service()->create($this->createConfirmedUser(), 'Home', $this->g12Configuration());
 
         $this->assertContains(
-            'PL.TAURON_SPRZEDAZ.G12.2026',
+            'PL.TAURON_SPRZEDAZ.G12',
             array_column($plan->getConfiguration()['periods'][0]['components'], 'presetId')
         );
     }
@@ -68,7 +68,7 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
         $configuration = $this->g12Configuration();
         foreach ($configuration['periods'][0]['components'] as &$component) {
             if ($component['kind'] === 'DISTRIBUTION_VARIABLE') {
-                $component['presetId'] = 'PL.TAURON_DYSTRYBUCJA.G11.2026';
+                $component['presetId'] = 'PL.TAURON_DYSTRYBUCJA.G11';
                 $component['values'] = [];
             }
         }
@@ -86,8 +86,8 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
         $this->assertCount(2, $plan->getConfiguration()['billingCycles']);
         $this->assertCount(2, $plan->getConfiguration()['periods']);
         $this->assertSame(
-            ['PL.TAURON_SPRZEDAZ.G12.2026', 'PL.TAURON_DYSTRYBUCJA.G11.2026'],
-            array_column($plan->getConfiguration()['periods'][0]['components'], 'presetId')
+            ['PL.TAURON_SPRZEDAZ.G12', 'PL.TAURON_DYSTRYBUCJA.G11'],
+            array_slice(array_column($plan->getConfiguration()['periods'][0]['components'], 'presetId'), 0, 2)
         );
     }
 
@@ -107,7 +107,7 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
         $configuration = $this->g11Configuration();
         foreach ($configuration['periods'][0]['components'] as &$component) {
             if ($component['kind'] === 'ENERGY_PURCHASE') {
-                $component['presetId'] = 'PL.UNKNOWN.G11.2026';
+                $component['presetId'] = 'PL.UNKNOWN.G11';
             }
         }
         unset($component);

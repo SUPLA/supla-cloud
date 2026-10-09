@@ -48,7 +48,7 @@ class EnergyCostPlanControllerIntegrationTest extends IntegrationTestCase {
     public function testReturnsSafeNotFoundForUnknownPreset(): void {
         $client = $this->createAuthenticatedClient($this->createConfirmedUser('missing-preset@supla.org'));
 
-        $client->apiRequestV24('GET', '/api/energy-tariff-presets/PL.UNKNOWN.G11.2026');
+        $client->apiRequestV24('GET', '/api/energy-tariff-presets/PL.UNKNOWN.G11');
 
         $this->assertStatusCode(404, $client->getResponse());
         $this->assertSame(
@@ -138,7 +138,7 @@ class EnergyCostPlanControllerIntegrationTest extends IntegrationTestCase {
         );
 
         $configuration = $this->configuration('PL.STARTER.TAURON_DYSTRYBUCJA.G11');
-        $configuration['periods'][0]['components'][0]['presetId'] = 'PL.UNKNOWN.G11.2026';
+        $configuration['periods'][0]['components'][0]['presetId'] = 'PL.UNKNOWN.G11';
         $client->apiRequestV24('POST', '/api/energy-cost-plans', [
             'name' => 'Home',
             'configuration' => $configuration,
