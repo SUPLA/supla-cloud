@@ -83,6 +83,7 @@ class IODeviceChannelEntityListener {
             ChannelType::HUMIDITYANDTEMPSENSOR,
             ChannelType::SENSORNO,
             ChannelType::CONTAINER,
+            ChannelType::VALVEOPENCLOSE,
         ];
         $runtimeUpdateSupported = in_array($channel->getType()->getId(), $typesThatDoesNotTriggerReconnect)
             && ChannelFlags::RUNTIME_CHANNEL_CONFIG_UPDATE()->isSupported($channel->getFlags());

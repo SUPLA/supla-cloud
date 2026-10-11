@@ -533,6 +533,38 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSuplaCommandNotExecuted('USER-RECONNECT:1');
     }
 
+    /** @dataProvider valveRuntimeConfigFlags */
+    public function testValveConfigUpdateUsesRuntimeFlagInsteadOfUserReconnect(bool $runtimeUpdate) {
+        $client = $this->createAuthenticatedClient();
+        $this->simulateAuthentication($this->user);
+        $device = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
+        ]);
+        [$valve, $sensor] = $device->getChannels()->toArray();
+        EntityUtils::setField($valve, 'flags', ChannelFlags::FLOOD_SENSORS_SUPPORTED
+            | ($runtimeUpdate ? ChannelFlags::RUNTIME_CHANNEL_CONFIG_UPDATE : 0));
+        $this->persist($valve);
+        $client->apiRequestV3('PUT', '/api/channels/' . $valve->getId(), [
+            'config' => ['floodSensorChannelIds' => [$sensor->getId()]],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->getEntityManager()->refresh($valve);
+        $this->assertSame([$sensor->getId()], $valve->getUserConfigValue('floodSensorChannelIds'));
+        $notifications = array_filter(SuplaServerMock::$executedCommands,
+            fn($command) => str_starts_with($command, 'USER-ON-CHANNEL-CONFIG-CHANGED:'));
+        $this->assertNotEmpty($notifications, 'Canonical config must still notify Core.');
+        if ($runtimeUpdate) {
+            $this->assertSuplaCommandNotExecuted('USER-RECONNECT:1');
+        } else {
+            $this->assertSuplaCommandExecuted('USER-RECONNECT:1');
+        }
+    }
+
+    public static function valveRuntimeConfigFlags(): array {
+        return ['runtime config supported' => [true], 'legacy requires reconnect' => [false]];
+    }
+
     public function testChangingChannelFunctionFromPowerswitchToOpeningGateWithConfig() {
         $client = $this->createAuthenticatedClient();
         $this->simulateAuthentication($this->user);
