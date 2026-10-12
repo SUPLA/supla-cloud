@@ -144,7 +144,9 @@
         <button type="button" class="btn btn-link" @click="custom = !custom">{{ $t('Compose custom tariff') }}</button>
         <energy-cost-custom-composer v-if="custom" :period="draftPeriod" :configuration="configuration" @update:period="updateCustom" />
         <div class="transition-actions">
-          <button type="button" class="btn btn-default" :disabled="busy" @click="insert">{{ $t('Add tariff change') }}</button>
+          <button type="button" class="btn btn-default" :disabled="busy" @click="insert">
+            <i class="pe-7s-date" aria-hidden="true"></i> {{ $t('Add tariff change') }}
+          </button>
           <button type="button" class="btn btn-link" @click="cancelTransition">{{ $t('Cancel') }}</button>
         </div>
       </div>

@@ -148,7 +148,7 @@
                   :aria-expanded="activeSettings === 'transition'"
                   @click="toggleSettings('transition')"
                 >
-                  {{ $t('Add tariff change') }}
+                  <i class="pe-7s-date" aria-hidden="true"></i> {{ $t('Add tariff change') }}
                 </button>
                 <button
                   type="button"
@@ -157,7 +157,7 @@
                   :aria-expanded="activeSettings === 'billing'"
                   @click="toggleSettings('billing')"
                 >
-                  {{ $t('Advanced billing settings') }}
+                  <i class="pe-7s-cash" aria-hidden="true"></i> {{ $t('Billing settings') }}
                 </button>
               </div>
             </template>

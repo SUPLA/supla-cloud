@@ -134,7 +134,9 @@
         <template v-else-if="assignedPlan">
           <section class="well energy-cost-assigned-plan">
             <div class="pull-right">
-              <button class="btn btn-default" :disabled="loading" @click="selectorOpened = true">{{ $t('Change tariff') }}</button>
+              <button class="btn btn-default" :disabled="loading" @click="selectorOpened = true">
+                <i class="pe-7s-refresh-2" aria-hidden="true"></i> {{ $t('Change tariff') }}
+              </button>
               <button class="btn btn-link" :disabled="loading" @click="openAdvanced">{{ $t('Tariff history / settings') }}</button>
             </div>
             <strong>{{ $t('Tariff assigned to this meter') }}</strong>

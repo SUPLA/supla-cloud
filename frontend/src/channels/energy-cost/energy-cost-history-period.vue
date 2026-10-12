@@ -120,24 +120,28 @@
           <div v-if="summary.supplier">{{ $t('Electricity supply') }}: {{ summary.supplier }}</div>
           <div v-if="summary.distribution">{{ $t('Distribution') }}: {{ summary.distribution }}</div>
         </template>
-        <energy-cost-plan-period
-          v-if="advanced"
-          :period="period"
-          :index="index"
-          :count="1"
-          :errors="errors || {}"
-          :prices-only="true"
-          @update:period="emit('update:period', $event)"
-        />
       </div>
       <div class="col-sm-4 period-actions">
-        <button type="button" class="btn btn-link" @click="edit">{{ $t('Change tariff') }}</button>
-        <button type="button" class="btn btn-link" @click="advanced = !advanced">{{ $t('Customize prices') }}</button>
-        <button v-if="configuration.periods.length > 1" type="button" class="btn btn-link text-danger" @click="emit('remove')">
-          {{ $t('Remove period') }}
+        <button type="button" class="btn btn-link" :disabled="advanced" @click="edit">
+          <i class="pe-7s-refresh-2" aria-hidden="true"></i> {{ $t('Change tariff') }}
+        </button>
+        <button type="button" class="btn btn-link" @click="advanced = !advanced">
+          <i class="pe-7s-cash" aria-hidden="true"></i> {{ $t('Customize prices') }}
+        </button>
+        <button v-if="configuration.periods.length > 1" type="button" class="btn btn-link period-remove" :disabled="advanced" @click="emit('remove')">
+          <i class="pe-7s-trash" aria-hidden="true"></i> {{ $t('Remove period') }}
         </button>
       </div>
     </div>
+    <energy-cost-plan-period
+      v-if="!changing && advanced"
+      :period="period"
+      :index="index"
+      :count="1"
+      :errors="errors || {}"
+      :prices-only="true"
+      @update:period="emit('update:period', $event)"
+    />
     <template v-if="changing">
       <energy-cost-tariff-picker :tariffs="store.tariffs" :model-value="selectedStarter" :id-prefix="`history-${index}`" @update:model-value="selectStarter" />
       <div v-if="index > 0" class="form-group">
@@ -160,6 +164,13 @@
   </div>
 </template>
 <style scoped>
+  .period-remove {
+    color: #a94442;
+  }
+  .period-remove:hover,
+  .period-remove:focus {
+    color: #843534;
+  }
   .period-actions {
     display: flex;
     flex-direction: column;

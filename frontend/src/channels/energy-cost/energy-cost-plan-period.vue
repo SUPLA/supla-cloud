@@ -16,16 +16,20 @@
   import {
     availablePresetComponentId,
     cloneTariffComponents,
+    componentInputsOutsidePricePeriods,
     commonPresetValidity,
     compatiblePresetComponents,
     dateFromDatetime,
     dateFromPeriodEnd,
     inputsForComponent,
+    inputTargetsForComponent,
     legacyComponentId,
     presetDefault,
+    pricePeriodsForComponent,
     uniqueComponentId,
   } from './energy-cost-plan-utils';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
+  import {presentTariffPeriod} from './energy-cost-plan-presentation';
 
   const props = defineProps({
     period: {type: Object, required: true},
@@ -50,6 +54,19 @@
   };
   const detailsVisible = ref(props.pricesOnly);
   const selectedTariffId = ref('');
+  const summaryDetails = computed(() => presentTariffPeriod(props.period, {presets: presets.value, t}).details);
+  const perLabels = {DAY: 'Day', WEEK: 'Week', MONTH: 'Month', YEAR: 'Year', BILLING_PERIOD: 'Billing period'};
+  const latestPriceInputs = (component) => {
+    const preset = presetDetailsById.value[component.presetId];
+    return [
+      ...(pricePeriodsForComponent(preset, component.componentId).at(-1)?.inputs || []),
+      ...componentInputsOutsidePricePeriods(preset, component.componentId),
+    ].filter((input) =>
+      inputTargetsForComponent(preset, input, component.componentId).some((target) =>
+        /\/(?:rate|rates)(?:\/|$)/.test(typeof target === 'string' ? target : target.pointer)
+      )
+    );
+  };
   const componentInputs = (component) => {
     const preset = presetDetailsById.value[component.presetId];
     return inputsForComponent(preset, component.componentId);
@@ -123,7 +140,13 @@
   const canAddComponent = (kind) =>
     kind === 'DISTRIBUTION_FIXED' || kind === 'SUPPLIER_FIXED' || Boolean(availablePresetComponentId(presets.value, kind, props.period.components));
 
+  const requiredComponent = (kind) => kind === 'ENERGY_PURCHASE' || kind === 'DISTRIBUTION_VARIABLE';
+  const addableKinds = computed(() =>
+    Object.keys(componentLabels).filter((kind) => !requiredComponent(kind) || !props.period.components.some((component) => component.kind === kind))
+  );
+
   function removeComponent(index) {
+    if (requiredComponent(props.period.components[index].kind)) return;
     emit('update:period', {...props.period, components: props.period.components.filter((_, componentIndex) => componentIndex !== index)});
   }
 </script>
@@ -193,57 +216,84 @@
         :id-prefix="`energy-cost-period-${index}-base`"
         @update:model-value="selectTariff"
       />
-      <div
+      <component
+        :is="pricesOnly ? 'details' : 'div'"
         v-for="(component, componentIndex) in period.components"
-        :key="`${component.componentId || component.kind}-${component.presetId || 'inline'}-${componentIndex}`"
+        :key="`${component.componentId || component.kind}-${componentIndex}`"
         class="energy-cost-component"
+        :class="{'price-component-accordion': pricesOnly}"
       >
-        <div class="clearfix">
-          <h5 class="pull-left">{{ $t(componentLabels[component.kind]) }}</h5>
-          <button v-if="period.components.length > 1" type="button" class="btn btn-link text-danger pull-right" @click="removeComponent(componentIndex)">
-            {{ $t('Remove component') }}
-          </button>
+        <summary v-if="pricesOnly" class="price-component-summary">
+          <span class="price-component-description">
+            <strong>{{ summaryDetails[componentIndex].label }}</strong>
+            <small class="text-muted">{{ $t('Pricing source') }}: {{ summaryDetails[componentIndex].tariff }}</small>
+          </span>
+          <span class="price-component-rates">
+            <template v-if="component.presetId !== undefined">
+              <span v-for="input in latestPriceInputs(component)" :key="input.id">
+                {{ input.label }}: <strong>{{ inputValue(component, input) }}</strong> <small v-if="input.unit">{{ input.unit }}</small>
+              </span>
+            </template>
+            <span v-else
+              >{{ $t('Rate') }}: <strong>{{ component.rate }}</strong> <small v-if="component.per">/ {{ $t(perLabels[component.per]) }}</small></span
+            >
+            <small v-if="Object.keys(errors.components?.[componentIndex] || {}).length" class="text-danger">{{ $t('Check the pricing settings.') }}</small>
+          </span>
+        </summary>
+        <div :class="{'price-component-editor': pricesOnly}">
+          <div class="clearfix">
+            <h5 v-if="!pricesOnly" class="pull-left">{{ $t(componentLabels[component.kind]) }}</h5>
+            <button
+              v-if="period.components.length > 1 && !requiredComponent(component.kind)"
+              type="button"
+              class="btn btn-link period-remove pull-right"
+              @click="removeComponent(componentIndex)"
+            >
+              <i class="pe-7s-trash" aria-hidden="true"></i> {{ $t('Remove component') }}
+            </button>
+          </div>
+          <template v-if="component.presetId !== undefined">
+            <energy-cost-preset-picker
+              :model-value="component.presetId"
+              :presets="compatiblePresetComponents(presets, component)"
+              :source="presetDetailsById[component.presetId]?.document.source"
+              :id-prefix="`energy-cost-period-${index}-${componentIndex}`"
+              @update:model-value="updatePreset(componentIndex, $event)"
+            />
+            <div v-if="errors.components?.[componentIndex]?.preset" class="text-danger">{{ $t(errors.components[componentIndex].preset) }}</div>
+            <energy-cost-preset-form
+              v-if="presetDetailsById[component.presetId]"
+              :component="component"
+              :preset="presetDetailsById[component.presetId]"
+              :errors="errors.components?.[componentIndex] || {}"
+              :id-prefix="`energy-cost-period-${index}-${componentIndex}`"
+              @update:values="updateComponent(componentIndex, {...component, values: $event})"
+            />
+          </template>
+          <div v-else class="row">
+            <div class="col-sm-5 form-group" :class="{'has-error': errors.components?.[componentIndex]?.rate}">
+              <label>{{ $t('Rate') }}</label>
+              <input v-model="component.rate" class="form-control" inputmode="decimal" @input="updateComponent(componentIndex, {...component})" />
+            </div>
+            <div class="col-sm-5 form-group">
+              <label>{{ $t('Per') }}</label>
+              <select v-model="component.per" class="form-control" @change="updateComponent(componentIndex, {...component})">
+                <option value="DAY">{{ $t('Day') }}</option>
+                <option value="WEEK">{{ $t('Week') }}</option>
+                <option value="MONTH">{{ $t('Month') }}</option>
+                <option value="YEAR">{{ $t('Year') }}</option>
+                <option value="BILLING_PERIOD">{{ $t('Billing period') }}</option>
+              </select>
+            </div>
+            <div class="col-sm-2 checkbox">
+              <label><input v-model="component.prorate" type="checkbox" @change="updateComponent(componentIndex, {...component})" /> {{ $t('Prorate') }}</label>
+            </div>
+          </div>
         </div>
-        <template v-if="component.presetId !== undefined">
-          <energy-cost-preset-picker
-            :model-value="component.presetId"
-            :presets="compatiblePresetComponents(presets, component)"
-            :id-prefix="`energy-cost-period-${index}-${componentIndex}`"
-            @update:model-value="updatePreset(componentIndex, $event)"
-          />
-          <div v-if="errors.components?.[componentIndex]?.preset" class="text-danger">{{ $t(errors.components[componentIndex].preset) }}</div>
-          <energy-cost-preset-form
-            v-if="presetDetailsById[component.presetId]"
-            :component="component"
-            :preset="presetDetailsById[component.presetId]"
-            :errors="errors.components?.[componentIndex] || {}"
-            :id-prefix="`energy-cost-period-${index}-${componentIndex}`"
-            @update:values="updateComponent(componentIndex, {...component, values: $event})"
-          />
-        </template>
-        <div v-else class="row">
-          <div class="col-sm-5 form-group" :class="{'has-error': errors.components?.[componentIndex]?.rate}">
-            <label>{{ $t('Rate') }}</label>
-            <input v-model="component.rate" class="form-control" inputmode="decimal" @input="updateComponent(componentIndex, {...component})" />
-          </div>
-          <div class="col-sm-5 form-group">
-            <label>{{ $t('Per') }}</label>
-            <select v-model="component.per" class="form-control" @change="updateComponent(componentIndex, {...component})">
-              <option value="DAY">{{ $t('Day') }}</option>
-              <option value="WEEK">{{ $t('Week') }}</option>
-              <option value="MONTH">{{ $t('Month') }}</option>
-              <option value="YEAR">{{ $t('Year') }}</option>
-              <option value="BILLING_PERIOD">{{ $t('Billing period') }}</option>
-            </select>
-          </div>
-          <div class="col-sm-2 checkbox">
-            <label><input v-model="component.prorate" type="checkbox" @change="updateComponent(componentIndex, {...component})" /> {{ $t('Prorate') }}</label>
-          </div>
-        </div>
-      </div>
+      </component>
       <div class="btn-group">
         <button
-          v-for="kind in Object.keys(componentLabels)"
+          v-for="kind in addableKinds"
           :key="kind"
           type="button"
           class="btn btn-default btn-sm"
@@ -254,11 +304,20 @@
         </button>
       </div>
     </template>
-    <button v-if="count > 1" type="button" class="btn btn-link text-danger" @click="$emit('remove')">{{ $t('Remove period') }}</button>
+    <button v-if="count > 1" type="button" class="btn btn-link period-remove" @click="$emit('remove')">
+      <i class="pe-7s-trash" aria-hidden="true"></i> {{ $t('Remove period') }}
+    </button>
   </div>
 </template>
 
 <style scoped>
+  .period-remove {
+    color: #a94442;
+  }
+  .period-remove:hover,
+  .period-remove:focus {
+    color: #843534;
+  }
   .energy-cost-plan-period > .row {
     margin-right: 0;
     margin-left: 0;
@@ -266,5 +325,49 @@
   .energy-cost-component {
     padding: 10px 0;
     border-top: 1px solid #ddd;
+  }
+  .price-component-accordion {
+    padding: 0;
+  }
+  .price-component-summary {
+    position: relative;
+    padding: 10px 0 10px 20px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .price-component-summary::-webkit-details-marker {
+    display: none;
+  }
+  .price-component-summary::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    font-size: 20px;
+  }
+  .price-component-accordion[open] > .price-component-summary::before {
+    transform: rotate(90deg);
+  }
+  .price-component-description,
+  .price-component-rates {
+    display: flex;
+    flex-direction: column;
+  }
+  .price-component-rates {
+    text-align: right;
+  }
+  .price-component-editor {
+    padding: 0 0 10px 20px;
+  }
+  @media (max-width: 767px) {
+    .price-component-summary {
+      flex-wrap: wrap;
+    }
+    .price-component-rates {
+      text-align: left;
+    }
   }
 </style>

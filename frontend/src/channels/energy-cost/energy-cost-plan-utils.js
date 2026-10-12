@@ -238,7 +238,7 @@ export function serializeConfiguration(configuration) {
   return {
     ...configurationFields,
     version: 2,
-    billingCycles: billingCycles.map(serializeBoundaries),
+    billingCycles: billingCycles.map((cycle) => ({...serializeBoundaries(cycle), length: Number(cycle.length)})),
     periods: periods.map((period, index) => {
       const boundaries = {
         ...period,

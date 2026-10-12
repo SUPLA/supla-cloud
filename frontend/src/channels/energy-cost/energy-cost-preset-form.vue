@@ -8,6 +8,8 @@
 
 <script setup>
   import {computed} from 'vue';
+  import {useI18n} from 'vue-i18n';
+  import {DateTime} from 'luxon';
   import EnergyCostPresetInput from './energy-cost-preset-input.vue';
   import {componentInputsOutsidePricePeriods, pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
 
@@ -18,6 +20,12 @@
     idPrefix: {type: String, default: 'energy-cost'},
   });
   const emit = defineEmits(['update:values']);
+  const {locale} = useI18n();
+  const formatDate = (value, end = false) => {
+    let date = DateTime.fromISO(value).setZone(props.preset.document.timezone).setLocale(locale.value);
+    if (end && date.equals(date.startOf('day'))) date = date.minus({days: 1});
+    return date.toLocaleString({year: 'numeric', month: '2-digit', day: '2-digit'});
+  };
 
   const pricePeriods = computed(() => pricePeriodsForComponent(props.preset, props.component.componentId));
   const componentInputs = computed(() => componentInputsOutsidePricePeriods(props.preset, props.component.componentId));
@@ -40,15 +48,12 @@
     <div v-if="preset.document.warnings?.length" class="alert alert-warning">
       <div v-for="warning in preset.document.warnings" :key="warning">{{ warning }}</div>
     </div>
-    <component
-      v-for="({period, pricePeriodIndex, inputs}, index) in pricePeriods"
-      :is="period.validFrom || period.validTo ? 'details' : 'div'"
-      :key="pricePeriodIndex"
-      :open="pricePeriods.length === 1 || index === pricePeriods.length - 1"
-    >
-      <summary v-if="period.validFrom || period.validTo">
-        {{ $t('Price period') }}: {{ period.validFrom || $t('No start date') }} - {{ period.validTo || $t('No end date') }}
-      </summary>
+    <div v-for="{period, pricePeriodIndex, inputs} in pricePeriods" :key="pricePeriodIndex" class="energy-cost-price-period">
+      <div v-if="period.validFrom || period.validTo" class="price-period-heading">
+        <template v-if="period.validFrom && period.validTo">{{ formatDate(period.validFrom) }} - {{ formatDate(period.validTo, true) }}</template>
+        <template v-else-if="period.validTo">{{ $t('until {date}', {date: formatDate(period.validTo, true)}) }}</template>
+        <template v-else>{{ $t('from {date}', {date: formatDate(period.validFrom)}) }}</template>
+      </div>
       <energy-cost-preset-input
         v-for="input in inputs"
         :key="input.id"
@@ -63,7 +68,7 @@
         @reset="reset(input)"
         @update:value="update(input, $event)"
       />
-    </component>
+    </div>
     <div v-if="componentInputs.length" class="energy-cost-component-inputs">
       <energy-cost-preset-input
         v-for="input in componentInputs"
@@ -80,11 +85,17 @@
         @update:value="update(input, $event)"
       />
     </div>
-    <details v-if="preset.document.source" class="energy-cost-tariff-details">
-      <summary>{{ $t('Tariff details') }}</summary>
-      <p v-if="preset.document.source.title">{{ preset.document.source.title }}</p>
-      <p v-if="preset.document.source.retrievedAt">{{ $t('Retrieved') }}: {{ preset.document.source.retrievedAt }}</p>
-      <a v-if="preset.document.source.url" :href="preset.document.source.url" target="_blank" rel="noopener noreferrer">{{ preset.document.source.url }}</a>
-    </details>
   </div>
 </template>
+
+<style scoped>
+  .energy-cost-price-period + .energy-cost-price-period {
+    padding-top: 8px;
+    border-top: 1px solid #ddd;
+  }
+  .price-period-heading {
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+</style>
