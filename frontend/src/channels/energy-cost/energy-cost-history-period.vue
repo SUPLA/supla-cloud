@@ -6,10 +6,9 @@
   import {useI18n} from 'vue-i18n';
   import {DateTime} from 'luxon';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
-  import EnergyCostTariffPicker from './energy-cost-tariff-picker.vue';
-  import EnergyCostCustomComposer from './energy-cost-custom-composer.vue';
+  import EnergyCostTariffChoice from './energy-cost-tariff-choice.vue';
   import EnergyCostPlanPeriod from './energy-cost-plan-period.vue';
-  import {cloneTariffComponents, dateFromDatetime, dateToDatetime} from './energy-cost-plan-utils';
+  import {cloneTariffComponents, componentsMatchTariff, dateFromDatetime, dateToDatetime} from './energy-cost-plan-utils';
   import {changeTransition, copyDraft, hasPriceOverrides, timelineError} from './energy-cost-history';
   import {compatibleComponents} from './energy-cost-composer';
   import {presentTariffPeriod} from './energy-cost-plan-presentation';
@@ -43,7 +42,9 @@
     selectionVersion++;
     draft.value = copyDraft(props.period);
     fromDate.value = dateFromDatetime(props.period.validFrom, props.configuration.timezone);
-    selectedStarter.value = '';
+    selectedStarter.value = props.period.components.length
+      ? store.tariffs.find((tariff) => componentsMatchTariff(props.period.components, store.tariffDetailsById[tariff.id] || tariff))?.id || ''
+      : '';
     error.value = '';
     dateError.value = '';
     busy.value = false;
@@ -107,6 +108,12 @@
     selectedStarter.value = '';
     error.value = '';
   }
+  function changeMode(mode) {
+    selectionVersion++;
+    busy.value = false;
+    error.value = '';
+    custom.value = mode === 'custom';
+  }
 </script>
 <template>
   <div>
@@ -143,14 +150,24 @@
       @update:period="emit('update:period', $event)"
     />
     <template v-if="changing">
-      <energy-cost-tariff-picker :tariffs="store.tariffs" :model-value="selectedStarter" :id-prefix="`history-${index}`" @update:model-value="selectStarter" />
+      <energy-cost-tariff-choice
+        :mode="custom ? 'custom' : 'tariff'"
+        :selected-id="selectedStarter"
+        :tariffs="store.tariffs"
+        :period="draft"
+        :configuration="configuration"
+        :disabled="busy"
+        :id-prefix="`history-${index}`"
+        @update:mode="changeMode"
+        @update:selected-id="selectStarter"
+        @update:period="updateCustom"
+        @update:busy="busy = $event"
+      />
       <div v-if="index > 0" class="form-group">
         <label :for="`tariff-transition-${index}-date`">{{ $t('From date') }}</label>
         <input :id="`tariff-transition-${index}-date`" v-model="fromDate" type="date" class="form-control" :lang="locale" />
         <div v-if="dateError" class="text-danger">{{ $t(dateError) }}</div>
       </div>
-      <button type="button" class="btn btn-link" @click="custom = !custom">{{ $t('Compose custom tariff') }}</button>
-      <energy-cost-custom-composer v-if="custom" :period="draft" :configuration="configuration" @update:period="updateCustom" />
       <div class="edit-actions">
         <button type="button" class="btn btn-default" :disabled="busy" @click="save">{{ $t('OK') }}</button>
         <button type="button" class="btn btn-link" @click="cancel">{{ $t('Cancel') }}</button>

@@ -13,8 +13,7 @@
   import EnergyCostPlanDialog from './energy-cost-plan-dialog.vue';
   import EnergyCostDashboard from './energy-cost-dashboard.vue';
   import EnergyCostTariffSelector from './energy-cost-tariff-selector.vue';
-  import {cloneTariffComponents, configurationFromTariff} from './energy-cost-plan-utils';
-  import {copyDraft, replacePeriodComponents} from './energy-cost-history';
+  import {configurationFromTariff} from './energy-cost-plan-utils';
   import {presentCostPlan} from './energy-cost-plan-presentation';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
@@ -69,20 +68,11 @@
 
   async function applyStarter(starterId) {
     const channelId = props.channel.id;
-    const plan = assignedPlan.value;
-    const configuration = plan?.configuration?.periods?.length > 1 ? copyDraft(plan.configuration) : null;
-    const periodIndex = currentPeriodIndex.value;
     loading.value = true;
     error.value = null;
     try {
       const starter = await store.fetchTariff(starterId);
-      if (configuration) {
-        if (periodIndex < 0) throw new Error('No tariff currently effective'); // i18n
-        configuration.periods = replacePeriodComponents(configuration.periods, periodIndex, cloneTariffComponents(starter));
-        await store.saveAssignedConfiguration(channelId, configuration, 'thisMeter', plan.id);
-      } else {
-        await store.assignStarter(channelId, starterId, configurationFromTariff(starter));
-      }
+      await store.assignStarter(channelId, starterId, configurationFromTariff(starter));
       selectorOpened.value = false;
     } catch (requestError) {
       error.value = requestError.body?.message || 'Could not apply the tariff.'; // i18n
@@ -98,23 +88,25 @@
     dialogOpened.value = true;
   }
 
+  async function applyCustom(components) {
+    const channelId = props.channel.id;
+    loading.value = true;
+    error.value = null;
+    try {
+      const customPlan = await store.createPlan({name: 'Custom tariff', configuration: configurationFromTariff({components})});
+      await store.assignPlan(channelId, customPlan.id);
+      selectorOpened.value = false;
+    } catch (requestError) {
+      error.value = requestError.body?.message || 'Could not apply the tariff.'; // i18n
+    } finally {
+      loading.value = false;
+    }
+  }
+
   function saved(plan) {
     dialogOpened.value = false;
     dialogMounted.value = false;
     if (!assignment.value) store.assignPlan(props.channel.id, plan.id);
-  }
-
-  async function removeAssignment() {
-    loading.value = true;
-    error.value = null;
-    try {
-      if (assignment.value) await store.unassignPlan(props.channel.id);
-      selectorOpened.value = false;
-    } catch (requestError) {
-      error.value = requestError.body?.message || 'Could not remove the tariff assignment.'; // i18n
-    } finally {
-      loading.value = false;
-    }
   }
 
   watch(() => props.channel.id, load, {immediate: true});
@@ -125,22 +117,20 @@
     <loading-cover :loading="pageLoading">
       <div v-if="supported">
         <div v-if="error" class="alert alert-danger">{{ $t(error) }}</div>
-        <section v-if="!assignment" class="well text-center">
+        <section v-if="loaded && !assignment" class="well text-center">
           <h3>{{ $t('Set up electricity costs') }}</h3>
           <p>{{ $t('Choose a tariff to calculate the cost of electricity used by this meter.') }}</p>
           <p v-if="channel.config?.simpleCostSettingsAvailable" class="alert alert-warning">
             {{ $t('After assigning a tariff, the basic price per kWh and currency settings in channel configuration will be hidden.') }}
           </p>
-          <button class="btn btn-primary" :disabled="loading" @click="selectorOpened = true">{{ $t('Choose tariff') }}</button>
-          <button class="btn btn-link" :disabled="loading" @click="openAdvanced">{{ $t('Create custom tariff') }}</button>
+          <button class="btn btn-green" :disabled="loading" @click="selectorOpened = true">{{ $t('Choose tariff') }}</button>
         </section>
         <template v-else-if="assignedPlan">
           <section class="well energy-cost-assigned-plan">
             <div class="pull-right">
-              <button class="btn btn-default" :disabled="loading" @click="selectorOpened = true">
-                <i class="pe-7s-refresh-2" aria-hidden="true"></i> {{ $t('Change tariff') }}
+              <button class="btn btn-default" :disabled="loading" @click="openAdvanced">
+                <i class="pe-7s-config" aria-hidden="true"></i> {{ $t('Tariff history / settings') }}
               </button>
-              <button class="btn btn-link" :disabled="loading" @click="openAdvanced">{{ $t('Tariff history / settings') }}</button>
             </div>
             <strong>{{ $t('Tariff assigned to this meter') }}</strong>
             <div>{{ presentation.label }}</div>
@@ -177,7 +167,15 @@
         </template>
       </div>
     </loading-cover>
-    <energy-cost-tariff-selector v-model="selectorOpened" :tariffs="tariffs" :loading="loading" @select="applyStarter" @unassign="removeAssignment" />
+    <energy-cost-tariff-selector
+      v-if="loaded && !assignment"
+      v-model="selectorOpened"
+      :tariffs="tariffs"
+      :loading="loading"
+      @select="applyStarter"
+      @compose="applyCustom"
+      @unassign="selectorOpened = false"
+    />
     <energy-cost-plan-dialog v-if="dialogMounted" v-model="dialogOpened" :plan="dialogPlan" :channel-id="channel.id" @saved="saved" @deleted="load" />
   </div>
 </template>

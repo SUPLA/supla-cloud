@@ -2,18 +2,20 @@
   export default {compatConfig: {MODE: 3}};
 </script>
 <script setup>
-  import {computed, ref} from 'vue';
+  import {computed, onUnmounted, ref} from 'vue';
   import {useI18n} from 'vue-i18n';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
   import {composerOptions, composeRole, compatibleComponents} from './energy-cost-composer';
   import {tariffCatalogPresentation} from './energy-cost-plan-presentation';
 
   const props = defineProps({period: Object, configuration: Object});
-  const emit = defineEmits(['update:period']);
+  const emit = defineEmits(['update:period', 'update:busy']);
   const store = useEnergyCostStore();
   const {t} = useI18n();
   const error = ref('');
   const busy = ref(false);
+  let active = true;
+  onUnmounted(() => (active = false));
   const roles = ['supply', 'distribution'];
   const options = computed(() => Object.fromEntries(roles.map((role) => [role, composerOptions(role, store.presets, Object.values(store.tariffDetailsById))])));
   const selected = (role) =>
@@ -27,9 +29,11 @@
     const option = options.value[role].find((candidate) => candidate.preset.id === id);
     if (!option) return;
     busy.value = true;
+    emit('update:busy', true);
     error.value = '';
     try {
       await Promise.all(option.components.map((component) => store.fetchPreset(component.presetId)));
+      if (!active) return;
       const period = composeRole(props.period, role, option.components);
       if (!compatibleComponents(period.components, props.configuration, store.presetDetailsById)) throw new Error('Choose a compatible tariff.'); // i18n
       emit('update:period', period);
@@ -37,6 +41,7 @@
       error.value = reason.body?.message || reason.message;
     } finally {
       busy.value = false;
+      if (active) emit('update:busy', false);
     }
   }
 </script>

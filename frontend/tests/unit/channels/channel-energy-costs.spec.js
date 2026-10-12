@@ -4,11 +4,11 @@ import {createPinia, setActivePinia} from 'pinia';
 import {createI18n} from 'vue-i18n';
 import ChannelEnergyCosts from '@/channels/energy-cost/channel-energy-costs.vue';
 import EnergyCostTariffSelector from '@/channels/energy-cost/energy-cost-tariff-selector.vue';
+import EnergyCostPlanDialog from '@/channels/energy-cost/energy-cost-plan-dialog.vue';
 import ChannelFunction from '@/common/enums/channel-function';
 import {useEnergyCostStore} from '@/stores/energy-cost-store';
-import {energyCostApi} from '@/api/energy-cost-api';
 import {configurationFromTariff} from '@/channels/energy-cost/energy-cost-plan-utils';
-import {copyDraft, insertTransition} from '@/channels/energy-cost/energy-cost-history';
+import {insertTransition} from '@/channels/energy-cost/energy-cost-history';
 
 beforeEach(() => {
   vi.useFakeTimers({toFake: ['Date']});
@@ -38,7 +38,6 @@ async function editor(multiple = true, assigned = true) {
     configuration.periods[0].components[0].values.price = '0.99';
   }
   const plan = {id: 10, name: 'Shared tariff', configuration};
-  const originalPlan = copyDraft(plan);
   store.plans = assigned ? [plan] : [];
   store.plansReady = true;
   store.assignmentReadyByChannelId = {3: true};
@@ -49,10 +48,6 @@ async function editor(multiple = true, assigned = true) {
   vi.spyOn(store, 'fetchPlans').mockResolvedValue(store.plans);
   vi.spyOn(store, 'fetchAssignment').mockResolvedValue(store.assignmentsByChannelId[3]);
   const assignStarter = vi.spyOn(store, 'assignStarter').mockResolvedValue(plan);
-  const save = vi.spyOn(energyCostApi, 'saveAssignedConfiguration').mockImplementation(async (channelId, document) => ({
-    plan: {...plan, id: 11, configuration: document},
-    assignment: {channelId, planId: 11},
-  }));
   const wrapper = mount(ChannelEnergyCosts, {
     props: {channel: {id: 3, functionId: ChannelFunction.ELECTRICITYMETER, config: {simpleCostSettingsAvailable: true}}},
     global: {
@@ -61,83 +56,63 @@ async function editor(multiple = true, assigned = true) {
         LoadingCover: {template: '<div><slot /></div>'},
         EnergyCostDashboard: true,
         EnergyCostTariffSelector: true,
-        EnergyCostPlanDialog: true,
+        EnergyCostPlanDialog: {compatConfig: {MODE: 3}, props: ['modelValue', 'plan', 'channelId'], template: '<div />'},
       },
     },
   });
   await flushPromises();
-  return {wrapper, store, save, assignStarter, originalPlan, replacement};
+  return {wrapper, store, assignStarter, plan, replacement};
 }
 
-describe('meter tariff replacement', () => {
-  it('shows the current tariff and both effective dates and replaces only that period for this meter', async () => {
-    const {wrapper, store, save, assignStarter, originalPlan, replacement} = await editor();
+describe('meter tariff setup and summary', () => {
+  it('shows the current tariff and both effective dates without the change-tariff shortcut', async () => {
+    const {wrapper} = await editor();
     const summary = wrapper.get('.energy-cost-assigned-plan');
     expect(summary.text()).toContain('Latest G12');
     expect(summary.text()).toContain('From date: 01.05.2026');
     expect(summary.text()).toContain('To date: 30.04.2030');
     expect(summary.text()).not.toContain('Scheduled G13');
-    wrapper.findComponent(EnergyCostTariffSelector).vm.$emit('select', 'replacement');
-    await flushPromises();
-    const expected = copyDraft(originalPlan.configuration);
-    expected.periods[1].components = replacement.components;
-    expect(save).toHaveBeenCalledWith(3, expected, 'thisMeter', 10, undefined);
-    expect(assignStarter).not.toHaveBeenCalled();
-    expect(store.plans.find((plan) => plan.id === 10)).toEqual(originalPlan);
-    expect(store.assignmentsByChannelId[4].planId).toBe(10);
-    expect(store.assignmentsByChannelId[3].planId).toBe(11);
-    expect(summary.text()).toContain('Replacement G12w');
-    expect(summary.text()).toContain('From date: 01.05.2026');
-    expect(summary.text()).toContain('To date: 30.04.2030');
+    expect(summary.text()).not.toContain('Change tariff');
+    expect(wrapper.findComponent(EnergyCostTariffSelector).exists()).toBe(false);
   });
 
-  it('shows only the end date and replaces the first period when it is currently effective', async () => {
+  it('shows only the end date when the first period is currently effective', async () => {
     vi.setSystemTime(new Date('2026-04-15T12:00:00Z'));
-    const {wrapper, save, originalPlan, replacement} = await editor();
+    const {wrapper} = await editor();
     const summary = wrapper.get('.energy-cost-assigned-plan');
     expect(summary.text()).toContain('Original G11');
     expect(summary.text()).not.toContain('From date');
     expect(summary.text()).toContain('To date: 30.04.2026');
-    wrapper.findComponent(EnergyCostTariffSelector).vm.$emit('select', 'replacement');
-    await flushPromises();
-    const expected = copyDraft(originalPlan.configuration);
-    expected.periods[0].components = replacement.components;
-    expect(save).toHaveBeenCalledWith(3, expected, 'thisMeter', 10, undefined);
   });
 
   it('switches to the following period exactly at local midnight and hides the final end date', async () => {
     vi.setSystemTime(new Date('2030-04-30T22:00:00Z'));
-    const {wrapper, save, originalPlan, replacement} = await editor();
+    const {wrapper} = await editor();
     const summary = wrapper.get('.energy-cost-assigned-plan');
     expect(summary.text()).toContain('Scheduled G13');
     expect(summary.text()).toContain('From date: 01.05.2030');
     expect(summary.text()).not.toContain('To date');
-    wrapper.findComponent(EnergyCostTariffSelector).vm.$emit('select', 'replacement');
-    await flushPromises();
-    const expected = copyDraft(originalPlan.configuration);
-    expected.periods[2].components = replacement.components;
-    expect(save).toHaveBeenCalledWith(3, expected, 'thisMeter', 10, undefined);
   });
 
-  it('uses starter assignment and hides the start date for a single-period plan', async () => {
-    const {wrapper, save, assignStarter, replacement} = await editor(false);
+  it('hides the start date for a single-period plan', async () => {
+    const {wrapper} = await editor(false);
     expect(wrapper.get('.energy-cost-assigned-plan').text()).not.toContain('From date');
-    wrapper.findComponent(EnergyCostTariffSelector).vm.$emit('select', 'replacement');
-    await flushPromises();
-    expect(assignStarter).toHaveBeenCalledWith(3, 'replacement', configurationFromTariff(replacement));
-    expect(save).not.toHaveBeenCalled();
+    expect(wrapper.findComponent(EnergyCostTariffSelector).exists()).toBe(false);
   });
 
   it('can still assign a starter when the meter has no tariff', async () => {
-    const {wrapper, save, assignStarter, replacement} = await editor(false, false);
+    const {wrapper, assignStarter, replacement} = await editor(false, false);
     expect(wrapper.text()).toContain('Set up electricity costs');
+    const setupButtons = wrapper.get('section.well').findAll('button');
+    expect(setupButtons).toHaveLength(1);
+    expect(setupButtons[0].text()).toBe('Choose tariff');
+    expect(setupButtons[0].classes()).toContain('btn-green');
     expect(wrapper.get('.alert-warning').text()).toBe(
       'After assigning a tariff, the basic price per kWh and currency settings in channel configuration will be hidden.'
     );
     wrapper.findComponent(EnergyCostTariffSelector).vm.$emit('select', 'replacement');
     await flushPromises();
     expect(assignStarter).toHaveBeenCalledWith(3, 'replacement', configurationFromTariff(replacement));
-    expect(save).not.toHaveBeenCalled();
   });
 
   it('hides the basic-settings warning when simple costs are unavailable', async () => {
@@ -145,5 +120,30 @@ describe('meter tariff replacement', () => {
     await wrapper.setProps({channel: {id: 3, functionId: ChannelFunction.ELECTRICITYMETER, config: {simpleCostSettingsAvailable: false}}});
     expect(wrapper.text()).toContain('Set up electricity costs');
     expect(wrapper.find('.alert-warning').exists()).toBe(false);
+  });
+
+  it('creates and assigns a composed tariff to a meter without an assignment', async () => {
+    const {wrapper, store, replacement} = await editor(false, false);
+    const create = vi.spyOn(store, 'createPlan').mockResolvedValue({id: 12});
+    const assign = vi.spyOn(store, 'assignPlan').mockResolvedValue({channelId: 3, planId: 12});
+    wrapper.findComponent(EnergyCostTariffSelector).vm.$emit('compose', replacement.components);
+    await flushPromises();
+    expect(create).toHaveBeenCalledWith({name: 'Custom tariff', configuration: configurationFromTariff(replacement)});
+    expect(assign).toHaveBeenCalledWith(3, 12);
+    expect(wrapper.findComponent(EnergyCostTariffSelector).props('modelValue')).toBe(false);
+  });
+
+  it('opens tariff history and settings for the assigned plan', async () => {
+    const {wrapper, plan} = await editor();
+    const settings = wrapper.get('.energy-cost-assigned-plan .pull-right').get('button');
+    expect(settings.text()).toBe('Tariff history / settings');
+    expect(settings.classes()).toContain('btn-default');
+    expect(settings.find('i.pe-7s-config').exists()).toBe(true);
+    await settings.trigger('click');
+    await flushPromises();
+    const dialog = wrapper.findComponent(EnergyCostPlanDialog);
+    expect(dialog.props('modelValue')).toBe(true);
+    expect(dialog.props('plan')).toEqual(plan);
+    expect(dialog.props('channelId')).toBe(3);
   });
 });

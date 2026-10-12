@@ -5,10 +5,12 @@ import {createI18n} from 'vue-i18n';
 import EnergyCostHistoryPeriod from '@/channels/energy-cost/energy-cost-history-period.vue';
 import EnergyCostTariffPicker from '@/channels/energy-cost/energy-cost-tariff-picker.vue';
 import EnergyCostCustomComposer from '@/channels/energy-cost/energy-cost-custom-composer.vue';
+import EnergyCostTariffChoice from '@/channels/energy-cost/energy-cost-tariff-choice.vue';
 import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
 afterEach(() => vi.restoreAllMocks());
 const button = (wrapper, label) => wrapper.findAll('button').find((entry) => entry.text() === label);
+const customTab = (wrapper) => wrapper.findAll('.nav-tabs a').find((entry) => entry.text() === 'Compose custom tariff');
 
 function editor(index = 1) {
   const pinia = createPinia();
@@ -74,6 +76,27 @@ function pricingEditor() {
 }
 
 describe('individual tariff period editing', () => {
+  it('preselects the current ready-made tariff without resetting price overrides', async () => {
+    const {wrapper, store, period} = editor();
+    store.tariffs.push({id: 'current', label: 'Current G11 tariff'});
+    store.tariffDetailsById.current = {components: period.components.map((component) => ({...component, values: {}}))};
+    const fetch = vi.spyOn(store, 'fetchTariff');
+    const confirmation = vi.spyOn(window, 'confirm');
+    await button(wrapper, 'Change tariff').trigger('click');
+    expect(wrapper.findComponent(EnergyCostTariffPicker).props('modelValue')).toBe('current');
+    expect(wrapper.get('.energy-cost-tariff-picker select').element.value).toBe('current');
+    expect(fetch).not.toHaveBeenCalled();
+    await button(wrapper, 'OK').trigger('click');
+    expect(wrapper.emitted('update:period').at(-1)[0]).toEqual(period);
+    expect(confirmation).not.toHaveBeenCalled();
+  });
+
+  it('leaves the ready-made dropdown unselected for a custom tariff', async () => {
+    const {wrapper} = editor();
+    await button(wrapper, 'Change tariff').trigger('click');
+    expect(wrapper.get('.energy-cost-tariff-picker select').element.value).toBe('');
+  });
+
   it('shows localized information on the left, with actions on the right', async () => {
     const {wrapper, store, period} = editor();
     store.presets = [
@@ -225,6 +248,9 @@ describe('individual tariff period editing', () => {
     await button(wrapper, 'Change tariff').trigger('click');
     expect(wrapper.find('.col-sm-8').exists()).toBe(false);
     expect(wrapper.find('.period-actions').exists()).toBe(false);
+    expect(wrapper.findComponent(EnergyCostTariffChoice).exists()).toBe(true);
+    expect(wrapper.findAll('.nav-tabs a').map((tab) => tab.text())).toEqual(['Choose existing tariff', 'Compose custom tariff']);
+    expect(wrapper.findComponent(EnergyCostCustomComposer).exists()).toBe(false);
     await select(wrapper);
     await wrapper.get('input[type="date"]').setValue('2026-06-01');
     expect(wrapper.emitted('update:period')).toBeUndefined();
@@ -248,14 +274,15 @@ describe('individual tariff period editing', () => {
     await button(wrapper, 'Change tariff').trigger('click');
     await select(wrapper);
     await wrapper.get('input[type="date"]').setValue('2026-06-01');
-    await button(wrapper, 'Compose custom tariff').trigger('click');
+    await customTab(wrapper).trigger('click');
+    expect(wrapper.findComponent(EnergyCostTariffPicker).exists()).toBe(false);
     wrapper.findComponent(EnergyCostCustomComposer).vm.$emit('update:period', {...period, components});
     await button(wrapper, 'Cancel').trigger('click');
     expect(wrapper.emitted('update:period')).toBeUndefined();
     expect(wrapper.text()).toContain('From date: 01.05.2026');
     await button(wrapper, 'Change tariff').trigger('click');
     expect(wrapper.get('input[type="date"]').element.value).toBe('2026-05-01');
-    await button(wrapper, 'Compose custom tariff').trigger('click');
+    await customTab(wrapper).trigger('click');
     expect(wrapper.findComponent(EnergyCostCustomComposer).props('period')).toEqual(period);
   });
 
@@ -297,8 +324,37 @@ describe('individual tariff period editing', () => {
     await button(wrapper, 'Change tariff').trigger('click');
     resolve(store.tariffDetailsById.starter);
     await flushPromises();
-    await button(wrapper, 'Compose custom tariff').trigger('click');
+    await customTab(wrapper).trigger('click');
     expect(wrapper.findComponent(EnergyCostCustomComposer).props('period')).toEqual(period);
     expect(wrapper.emitted('update:period')).toBeUndefined();
+  });
+
+  it('composes a replacement tariff through the shared tabs and commits only on OK', async () => {
+    const {wrapper, store, period, components} = editor();
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    const distribution = {kind: 'DISTRIBUTION_VARIABLE', componentId: 'distribution', presetId: 'distribution', values: {}};
+    const fixed = {kind: 'DISTRIBUTION_FIXED', componentId: 'subscription', presetId: 'distribution', values: {}};
+    store.presets = [
+      {id: 'g12', components},
+      {id: 'distribution', components: [distribution, fixed]},
+    ];
+    store.presetDetailsById.distribution = {
+      document: {
+        currency: 'PLN',
+        timezone: 'Europe/Warsaw',
+        taxContext: {jurisdiction: 'PL', customerClass: 'HOUSEHOLD'},
+        billingDefinitionTemplate: {components: [distribution, fixed].map((component) => ({id: component.componentId, kind: component.kind}))},
+      },
+    };
+    await button(wrapper, 'Change tariff').trigger('click');
+    await customTab(wrapper).trigger('click');
+    await wrapper.findAll('select')[0].setValue('g12');
+    await flushPromises();
+    await wrapper.findAll('select')[1].setValue('distribution');
+    await flushPromises();
+    expect(wrapper.emitted('update:period')).toBeUndefined();
+    expect(period.components[0].values).toEqual({price: '0.99'});
+    await button(wrapper, 'OK').trigger('click');
+    expect(wrapper.emitted('update:period').at(-1)[0]).toEqual({...period, components: [...components, distribution, fixed]});
   });
 });

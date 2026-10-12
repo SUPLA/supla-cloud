@@ -8,8 +8,7 @@
   import TransitionExpand from '@/common/gui/transition-expand.vue';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
   import EnergyCostHistoryPeriod from './energy-cost-history-period.vue';
-  import EnergyCostTariffPicker from './energy-cost-tariff-picker.vue';
-  import EnergyCostCustomComposer from './energy-cost-custom-composer.vue';
+  import EnergyCostTariffChoice from './energy-cost-tariff-choice.vue';
   import {changeTransition, copyDraft, insertTransition, removeTransition, replacePeriodComponents, timelineError} from './energy-cost-history';
   import {cloneTariffComponents, dateFromDatetime, dateToDatetime} from './energy-cost-plan-utils';
   import {compatibleComponents} from './energy-cost-composer';
@@ -86,6 +85,14 @@
     selectedStarter.value = '';
     error.value = '';
   }
+  function changeMode(mode) {
+    if (custom.value === (mode === 'custom')) return;
+    selectionVersion++;
+    busy.value = false;
+    selectionFailed.value = false;
+    error.value = '';
+    custom.value = mode === 'custom';
+  }
   function updatePeriod(index, period) {
     let periods = props.configuration.periods.map((entry, position) => (position === index ? period : entry));
     if (index > 0 && period.validFrom !== props.configuration.periods[index].validFrom)
@@ -133,16 +140,21 @@
     <slot name="actions" />
     <transition-expand>
       <div v-if="addingTransition" class="form-group">
-        <energy-cost-tariff-picker
+        <energy-cost-tariff-choice
+          :mode="custom ? 'custom' : 'tariff'"
+          :selected-id="selectedStarter"
           :tariffs="store.tariffs"
-          :model-value="selectedStarter"
+          :period="draftPeriod"
+          :configuration="configuration"
+          :disabled="busy"
           id-prefix="new-tariff-transition"
-          @update:model-value="selectStarter"
+          @update:mode="changeMode"
+          @update:selected-id="selectStarter"
+          @update:period="updateCustom"
+          @update:busy="busy = $event"
         />
         <label for="new-tariff-transition-date">{{ $t('When the tariff should change?') }}</label>
         <input id="new-tariff-transition-date" v-model="newDate" type="date" class="form-control" :lang="locale" />
-        <button type="button" class="btn btn-link" @click="custom = !custom">{{ $t('Compose custom tariff') }}</button>
-        <energy-cost-custom-composer v-if="custom" :period="draftPeriod" :configuration="configuration" @update:period="updateCustom" />
         <div class="transition-actions">
           <button type="button" class="btn btn-default" :disabled="busy" @click="insert">
             <i class="pe-7s-date" aria-hidden="true"></i> {{ $t('Add tariff change') }}

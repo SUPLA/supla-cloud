@@ -6,12 +6,14 @@ import EnergyCostHistoryEditor from '@/channels/energy-cost/energy-cost-history-
 import EnergyCostHistoryPeriod from '@/channels/energy-cost/energy-cost-history-period.vue';
 import EnergyCostTariffPicker from '@/channels/energy-cost/energy-cost-tariff-picker.vue';
 import EnergyCostCustomComposer from '@/channels/energy-cost/energy-cost-custom-composer.vue';
+import EnergyCostTariffChoice from '@/channels/energy-cost/energy-cost-tariff-choice.vue';
 import {useEnergyCostStore} from '@/stores/energy-cost-store';
 import {insertTransition, timelineError} from '@/channels/energy-cost/energy-cost-history';
 
 afterEach(() => vi.restoreAllMocks());
 const components = [{kind: 'ENERGY_PURCHASE', presetId: 'g12w', componentId: 'energy', values: {}}];
 const button = (wrapper, label) => wrapper.findAll('button').find((entry) => entry.text() === label);
+const customTab = (wrapper) => wrapper.findAll('.nav-tabs a').find((entry) => entry.text() === 'Compose custom tariff');
 
 function editor() {
   const pinia = createPinia();
@@ -72,6 +74,9 @@ describe('tariff period history integration', () => {
     const previous = [{kind: 'ENERGY_PURCHASE', presetId: 'g11', componentId: 'energy', values: {price: '0.99'}}];
     const periods = configuration.periods.map((period) => ({...period, components: previous}));
     await wrapper.setProps({configuration: {...configuration, periods}, addingTransition: true});
+    expect(wrapper.findComponent(EnergyCostTariffChoice).exists()).toBe(true);
+    expect(wrapper.findAll('.nav-tabs a').map((tab) => tab.text())).toEqual(['Choose existing tariff', 'Compose custom tariff']);
+    expect(button(wrapper, 'Compose custom tariff')).toBeUndefined();
     await wrapper.get('#new-tariff-transition-date').setValue('2026-03-01');
     wrapper.findComponent(EnergyCostTariffPicker).vm.$emit('update:modelValue', 'replacement');
     await flushPromises();
@@ -102,14 +107,15 @@ describe('tariff period history integration', () => {
   it('discards composed tariff drafts on Cancel and permits composing a fresh transition', async () => {
     const wrapper = editor();
     await wrapper.setProps({addingTransition: true});
-    await button(wrapper, 'Compose custom tariff').trigger('click');
+    await customTab(wrapper).trigger('click');
+    expect(wrapper.findComponent(EnergyCostTariffPicker).exists()).toBe(false);
     const composer = wrapper.findComponent(EnergyCostCustomComposer);
     composer.vm.$emit('update:period', {...composer.props('period'), components});
     await button(wrapper, 'Cancel').trigger('click');
     expect(wrapper.emitted('update:periods')).toBeUndefined();
     await wrapper.setProps({addingTransition: false});
     await wrapper.setProps({addingTransition: true});
-    await button(wrapper, 'Compose custom tariff').trigger('click');
+    await customTab(wrapper).trigger('click');
     expect(wrapper.findComponent(EnergyCostCustomComposer).props('period').components).toEqual([]);
     wrapper.findComponent(EnergyCostCustomComposer).vm.$emit('update:period', {components});
     await wrapper.get('#new-tariff-transition-date').setValue('2026-06-01');
