@@ -12,6 +12,7 @@
   const props = defineProps({
     warning: Boolean,
     cancellable: Boolean,
+    closeOnBackdrop: {type: Boolean, default: true},
   });
 
   const emit = defineEmits(['confirm']);
@@ -34,7 +35,8 @@
   const dialog = {
     opened: readonly(opened),
     loading: readonly(loading),
-    cancellable: readonly(props.cancellable),
+    cancellable: computed(() => props.cancellable),
+    closeOnBackdrop: computed(() => props.closeOnBackdrop),
     dialogCssClasses,
     setOpened,
     setLoading,

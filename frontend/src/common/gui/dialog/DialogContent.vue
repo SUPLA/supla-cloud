@@ -10,13 +10,15 @@
   import {inject, useTemplateRef} from 'vue';
   import {onClickOutside, onKeyStroke} from '@vueuse/core';
   import ButtonLoadingDots from '@/common/gui/loaders/button-loading-dots.vue';
+  import {useDialogScrollLock} from './use-dialog-scroll-lock';
 
   defineProps({containerClass: String});
 
-  const {opened, close, confirm, loading, cancellable, dialogCssClasses} = inject('dialog');
+  const {opened, close, confirm, loading, cancellable, closeOnBackdrop, dialogCssClasses} = inject('dialog');
+  useDialogScrollLock(opened);
 
   const dialogContainer = useTemplateRef('dialogContainer');
-  onClickOutside(dialogContainer, () => opened.value && !loading.value && close());
+  onClickOutside(dialogContainer, () => opened.value && closeOnBackdrop.value && !loading.value && close());
 
   onKeyStroke('Escape', () => opened.value && !loading.value && close());
   onKeyStroke('Enter', (e) => {
@@ -61,6 +63,11 @@
 <style lang="scss">
   @use '@/styles/variables' as *;
   @use '@/styles/mixins' as *;
+
+  html.dialog-scroll-locked {
+    overflow: hidden !important;
+    overscroll-behavior: none;
+  }
 
   .dialog-mask {
     position: fixed;

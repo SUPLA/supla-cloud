@@ -124,7 +124,7 @@
   }
 </script>
 <template>
-  <dialog-window v-model="opened" cancellable @confirm="save">
+  <dialog-window v-model="opened" cancellable :close-on-backdrop="false" @confirm="save">
     <dialog-content container-class="dialog-800">
       <template #header
         ><h4>{{ $t('Tariff history / settings') }}</h4></template

@@ -29,7 +29,7 @@
 </script>
 
 <template>
-  <dialog-window v-model="opened" cancellable @confirm="confirm">
+  <dialog-window v-model="opened" cancellable :close-on-backdrop="false" @confirm="confirm">
     <dialog-content>
       <template #header>
         <h4>{{ $t('Choose tariff') }}</h4>
