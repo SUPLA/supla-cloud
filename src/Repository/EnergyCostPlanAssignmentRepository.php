@@ -4,6 +4,7 @@ namespace App\Repository;
 use App\Entity\Main\EnergyCostPlan;
 use App\Entity\Main\EnergyCostPlanAssignment;
 use App\Entity\Main\IODeviceChannel;
+use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityRepository;
 
 /** @extends EntityRepository<EnergyCostPlanAssignment> */
@@ -27,9 +28,17 @@ class EnergyCostPlanAssignmentRepository extends EntityRepository {
     }
 
     /** @return EnergyCostPlanAssignment[] */
-    public function findForPlan(EnergyCostPlan $plan): array {
+    public function findForPlan(EnergyCostPlan $plan, bool $lock = false): array {
+        $query = $this->createQueryBuilder('assignment')
+            ->where('assignment.energyCostPlan = :plan')
+            ->setParameter('plan', $plan)
+            ->getQuery();
+        if ($lock) {
+            // A locking/current read also avoids a stale repeatable-read snapshot after waiting for the plan lock.
+            $query->setLockMode(LockMode::PESSIMISTIC_WRITE);
+        }
         /** @var EnergyCostPlanAssignment[] $assignments */
-        $assignments = $this->findBy(['energyCostPlan' => $plan]);
+        $assignments = $query->getResult();
         return $assignments;
     }
 }

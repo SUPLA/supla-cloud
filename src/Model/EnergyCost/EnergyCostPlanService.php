@@ -19,11 +19,13 @@ use App\Exception\ApiException;
 use App\Model\TimeProvider;
 use App\Repository\EnergyCostPlanAssignmentRepository;
 use App\Repository\EnergyCostPlanRepository;
+use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManagerInterface;
 use Supla\EnergyCostCalculator\Plan\CostPlanCompiler;
 use Supla\EnergyCostCalculator\Plan\CostPlanDefinitionParser;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class EnergyCostPlanService {
     public function __construct(
@@ -33,6 +35,7 @@ class EnergyCostPlanService {
         private readonly TimeProvider $timeProvider,
         private readonly CostPlanDefinitionParser $parser,
         private readonly CostPlanCompiler $compiler,
+        private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {
     }
 
@@ -70,25 +73,35 @@ class EnergyCostPlanService {
     public function update(User $user, int|string $id, string $name, array $configuration): EnergyCostPlan {
         $plan = $this->get($user, $id);
         $this->validateConfiguration($configuration);
-        $updatedAt = $this->timeProvider->getDateTime();
-        $plan->setName($this->uniqueName($user, $name, $plan), $updatedAt);
-        $plan->setConfiguration($configuration, $updatedAt);
-        $this->entityManager->flush();
-        return $plan;
+        return $this->entityManager->wrapInTransaction(function () use ($user, $plan, $name, $configuration): EnergyCostPlan {
+            $this->entityManager->refresh($plan, LockMode::PESSIMISTIC_WRITE);
+            $this->assertAssignmentsAccessible($this->assignmentsForPlan($user, $plan, true));
+            $updatedAt = $this->timeProvider->getDateTime();
+            $plan->setName($this->uniqueName($user, $name, $plan), $updatedAt);
+            $plan->setConfiguration($configuration, $updatedAt);
+            return $plan;
+        });
     }
 
     /** @param array<string, mixed> $configuration */
     public function replaceConfiguration(User $user, int|string $id, array $configuration): EnergyCostPlan {
         $plan = $this->get($user, $id);
         $this->validateConfiguration($configuration);
-        $plan->setConfiguration($configuration, $this->timeProvider->getDateTime());
-        $this->entityManager->flush();
-        return $plan;
+        return $this->entityManager->wrapInTransaction(function () use ($user, $plan, $configuration): EnergyCostPlan {
+            $this->entityManager->refresh($plan, LockMode::PESSIMISTIC_WRITE);
+            $this->assertAssignmentsAccessible($this->assignmentsForPlan($user, $plan, true));
+            $plan->setConfiguration($configuration, $this->timeProvider->getDateTime());
+            return $plan;
+        });
     }
 
     public function delete(User $user, int|string $id): void {
-        $this->entityManager->remove($this->get($user, $id));
-        $this->entityManager->flush();
+        $plan = $this->get($user, $id);
+        $this->entityManager->wrapInTransaction(function () use ($user, $plan): void {
+            $this->entityManager->refresh($plan, LockMode::PESSIMISTIC_WRITE);
+            $this->assertAssignmentsAccessible($this->assignmentsForPlan($user, $plan, true));
+            $this->entityManager->remove($plan);
+        });
     }
 
     public function getAssignment(User $user, IODeviceChannel $channel): EnergyCostPlanAssignment {
@@ -143,14 +156,45 @@ class EnergyCostPlanService {
      * Updates a plan in place or creates a private copy and assigns it to one channel.
      *
      * @param array<string, mixed> $configuration
+     * @param int[]|null $expectedChannelIds
      * @return array{plan: EnergyCostPlan, assignment: EnergyCostPlanAssignment, affectedAssignments: EnergyCostPlanAssignment[]}
      */
-    public function saveForChannel(User $user, IODeviceChannel $channel, array $configuration, bool $allMeters): array {
-        $assignment = $this->getAssignment($user, $channel);
+    public function saveForChannel(
+        User $user,
+        IODeviceChannel $channel,
+        array $configuration,
+        bool $allMeters,
+        ?int $expectedPlanId = null,
+        ?array $expectedChannelIds = null,
+    ): array {
         $this->validateConfiguration($configuration);
-        return $this->entityManager->wrapInTransaction(function () use ($user, $channel, $assignment, $configuration, $allMeters): array {
+        return $this->entityManager->wrapInTransaction(function () use (
+            $user,
+            $channel,
+            $configuration,
+            $allMeters,
+            $expectedPlanId,
+            $expectedChannelIds
+        ): array {
+            $assignment = $this->getAssignment($user, $channel);
+            $this->entityManager->refresh($assignment, LockMode::PESSIMISTIC_WRITE);
             $plan = $assignment->getEnergyCostPlan();
-            $affectedAssignments = $this->assignmentsForPlan($user, $plan);
+            $this->entityManager->refresh($plan, LockMode::PESSIMISTIC_WRITE);
+            if ($expectedPlanId !== null && (int)$plan->getId() !== $expectedPlanId) {
+                throw new ApiException('The tariff assignment changed. Reopen tariff settings.', 409);
+            }
+            $affectedAssignments = $this->assignmentsForPlan($user, $plan, true);
+            if ($allMeters) {
+                $this->assertAssignmentsAccessible($affectedAssignments);
+                if ($expectedChannelIds !== null) {
+                    $actualIds = array_map(fn(EnergyCostPlanAssignment $item): int => $item->getChannelId(), $affectedAssignments);
+                    sort($actualIds);
+                    sort($expectedChannelIds);
+                    if ($actualIds !== $expectedChannelIds) {
+                        throw new ApiException('The meters using this plan changed. Review the save scope again.', 409);
+                    }
+                }
+            }
             if (!$allMeters && count($affectedAssignments) > 1) {
                 $plan = new EnergyCostPlan(
                     $user,
@@ -169,17 +213,30 @@ class EnergyCostPlanService {
     }
 
     /** @return EnergyCostPlanAssignment[] */
-    public function assignmentsForPlan(User $user, EnergyCostPlan $plan): array {
+    public function assignmentsForPlan(User $user, EnergyCostPlan $plan, bool $lock = false): array {
         $this->get($user, $plan->getId());
         return array_values(array_filter(
-            $this->assignmentRepository->findForPlan($plan),
+            $this->assignmentRepository->findForPlan($plan, $lock),
             fn(EnergyCostPlanAssignment $assignment): bool => $assignment->getChannel()->belongsToUser($user)
         ));
+    }
+
+    /** @param EnergyCostPlanAssignment[] $assignments */
+    public function assertAssignmentsAccessible(array $assignments, bool $write = true): void {
+        foreach ($assignments as $assignment) {
+            if (
+                !$this->authorizationChecker->isGranted($write ? 'ROLE_CHANNELS_RW' : 'ROLE_CHANNELS_R')
+                || !$this->authorizationChecker->isGranted('accessIdContains', $assignment->getChannel())
+            ) {
+                throw new AccessDeniedHttpException('Access to an affected electricity meter is denied.');
+            }
+        }
     }
 
     public function deleteAssignment(User $user, IODeviceChannel $channel): void {
         $assignment = $this->getAssignment($user, $channel);
         $this->entityManager->wrapInTransaction(function () use ($assignment): void {
+            $this->entityManager->lock($assignment->getEnergyCostPlan(), LockMode::PESSIMISTIC_WRITE);
             $this->entityManager->remove($assignment);
         });
     }
@@ -190,11 +247,15 @@ class EnergyCostPlanService {
     }
 
     private function assign(IODeviceChannel $channel, EnergyCostPlan $plan): EnergyCostPlanAssignment {
+        if ($plan->getId() !== null) {
+            $this->entityManager->lock($plan, LockMode::PESSIMISTIC_WRITE);
+        }
         $assignment = $this->assignmentRepository->findForChannel($channel);
         if ($assignment === null) {
             $assignment = new EnergyCostPlanAssignment($channel, $plan);
             $this->entityManager->persist($assignment);
         } else {
+            $this->entityManager->lock($assignment->getEnergyCostPlan(), LockMode::PESSIMISTIC_WRITE);
             $assignment->setEnergyCostPlan($plan);
         }
         return $assignment;
@@ -205,7 +266,10 @@ class EnergyCostPlanService {
         return $this->canonicalize($plan->getConfiguration()) === $this->canonicalize($configuration);
     }
 
-    /** @param array<string|int, mixed> $value */
+    /**
+     * @param array<string|int, mixed> $value
+     * @return array<string|int, mixed>
+     */
     private function canonicalize(array $value): array {
         foreach ($value as $key => $item) {
             if (is_array($item)) {

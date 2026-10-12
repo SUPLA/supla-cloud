@@ -11,7 +11,12 @@
   import {useI18n} from 'vue-i18n';
   import {tariffCatalogPresentation} from './energy-cost-plan-presentation';
 
-  const props = defineProps({tariffs: {type: Array, required: true}, modelValue: String, idPrefix: {type: String, default: 'energy-cost'}});
+  const props = defineProps({
+    tariffs: {type: Array, required: true},
+    modelValue: String,
+    idPrefix: {type: String, default: 'energy-cost'},
+    allowNoTariff: Boolean,
+  });
   defineEmits(['update:modelValue']);
   const {t} = useI18n();
   const groupedTariffs = computed(() => {
@@ -32,6 +37,7 @@
       <optgroup v-for="[operator, operatorTariffs] in groupedTariffs" :key="operator" :label="operator">
         <option v-for="tariff in operatorTariffs" :key="tariff.id" :value="tariff.id">{{ tariffCatalogPresentation(tariff, t).label }}</option>
       </optgroup>
+      <option v-if="allowNoTariff" value="__no_tariff__">{{ $t('No tariff') }}</option>
     </select>
   </div>
 </template>

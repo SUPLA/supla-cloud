@@ -230,6 +230,7 @@ class EnergyCostPlanServiceIntegrationTest extends IntegrationTestCase {
             new TestTimeProvider(),
             new CostPlanDefinitionParser(),
             new CostPlanCompiler(),
+            self::$container->get('security.authorization_checker'),
         );
     }
 

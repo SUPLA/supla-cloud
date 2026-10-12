@@ -10,6 +10,8 @@
 
 namespace App\Tests\Integration\Model\EnergyCost;
 
+use App\Auth\SuplaOAuth2Authenticator;
+use App\Entity\Main\AccessID;
 use App\Entity\Main\EnergyCostPlan;
 use App\Entity\Main\EnergyCostPlanAssignment;
 use App\Entity\Main\IODeviceChannel;
@@ -24,6 +26,7 @@ use App\Tests\Integration\Traits\UserFixtures;
 use DateTime;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class EnergyCostPlanServiceAssignmentIntegrationTest extends IntegrationTestCase {
     use UserFixtures;
@@ -72,6 +75,54 @@ class EnergyCostPlanServiceAssignmentIntegrationTest extends IntegrationTestCase
 
         $this->expectException(ApiException::class);
         $this->service()->assignToChannel($user, $channel, $this->persistPlan($user, 'Home')->getId());
+    }
+
+    /** @dataProvider sharedOperations */
+    public function testAccessIdRestrictionsPreventIndirectChangesToOtherMeters(string $operation): void {
+        $user = $this->createConfirmedUser();
+        $first = $this->createElectricityMeterChannel($user);
+        $second = $this->createElectricityMeterChannel($user);
+        $plan = $this->persistPlan($user, 'Shared');
+        $this->service()->assignToChannel($user, $first, $plan->getId());
+        $this->service()->assignToChannel($user, $second, $plan->getId());
+        $accessId = new AccessID();
+        $accessId->getLocations()->add($first->getLocation());
+        $token = new UsernamePasswordToken($user, 'main', ['ROLE_CHANNELS_RW', 'ROLE_CHANNELS_R']);
+        $token->setAttribute(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_ACCESS_ID, $accessId);
+        self::$container->get('security.token_storage')->setToken($token);
+
+        $this->expectException(AccessDeniedHttpException::class);
+        if ($operation === 'save') {
+            $this->service()->saveForChannel($user, $first, $this->configuration(), true);
+        } elseif ($operation === 'update') {
+            $this->service()->update($user, $plan->getId(), 'Changed', $this->configuration());
+        } else {
+            $this->service()->delete($user, $plan->getId());
+        }
+    }
+
+    public static function sharedOperations(): array {
+        return [['save'], ['update'], ['delete']];
+    }
+
+    public function testRestrictedClientCanSavePrivateCopyWithoutChangingInaccessibleMeter(): void {
+        $user = $this->createConfirmedUser();
+        $first = $this->createElectricityMeterChannel($user);
+        $second = $this->createElectricityMeterChannel($user);
+        $plan = $this->persistPlan($user, 'Shared');
+        $this->service()->assignToChannel($user, $first, $plan->getId());
+        $this->service()->assignToChannel($user, $second, $plan->getId());
+        $accessId = new AccessID();
+        $accessId->getLocations()->add($first->getLocation());
+        $token = new UsernamePasswordToken($user, 'main', ['ROLE_CHANNELS_RW', 'ROLE_CHANNELS_R']);
+        $token->setAttribute(SuplaOAuth2Authenticator::REQUEST_ATTRIBUTE_ACCESS_ID, $accessId);
+        self::$container->get('security.token_storage')->setToken($token);
+        $configuration = $this->configuration();
+        $configuration['periods'][0]['components'][0]['values']['energy.rate'] = '0.80';
+        $result = $this->service()->saveForChannel($user, $first, $configuration, false);
+        $this->assertNotSame($plan->getId(), $result['plan']->getId());
+        $this->assertSame($plan->getId(), $this->repository()->findForChannel($second)->getEnergyCostPlan()->getId());
+        $this->assertSame('0.71', $plan->getConfiguration()['periods'][0]['components'][0]['values']['energy.rate']);
     }
 
     private function service(): EnergyCostPlanService {

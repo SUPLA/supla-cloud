@@ -6,13 +6,15 @@
   import {computed, nextTick, ref, watch} from 'vue';
   import {storeToRefs} from 'pinia';
   import {useI18n} from 'vue-i18n';
+  import {DateTime} from 'luxon';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import TransitionExpand from '@/common/gui/transition-expand.vue';
   import ChannelFunction from '@/common/enums/channel-function';
   import EnergyCostPlanDialog from './energy-cost-plan-dialog.vue';
   import EnergyCostDashboard from './energy-cost-dashboard.vue';
   import EnergyCostTariffSelector from './energy-cost-tariff-selector.vue';
-  import {configurationFromTariff} from './energy-cost-plan-utils';
+  import {cloneTariffComponents, configurationFromTariff} from './energy-cost-plan-utils';
+  import {copyDraft, replacePeriodComponents} from './energy-cost-history';
   import {presentCostPlan} from './energy-cost-plan-presentation';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
@@ -41,6 +43,17 @@
       locale: locale.value,
     })
   );
+  const currentPeriodIndex = computed(() => presentation.value.history.findIndex((period) => period.current));
+  const currentPeriod = computed(() => assignedPlan.value?.configuration?.periods?.[currentPeriodIndex.value]);
+  function formatDate(value, end = false) {
+    if (!value) return '';
+    const configuration = assignedPlan.value?.configuration;
+    let date = DateTime.fromISO(value).setZone(configuration.timezone).setLocale(locale.value);
+    if (end && date.equals(date.startOf('day'))) date = date.minus({days: 1});
+    return date.toLocaleString({year: 'numeric', month: '2-digit', day: '2-digit'});
+  }
+  const assignedFromDate = computed(() => formatDate(currentPeriod.value?.validFrom));
+  const assignedToDate = computed(() => formatDate(currentPeriod.value?.validTo, true));
 
   async function load() {
     tariffDetailsVisible.value = false;
@@ -55,11 +68,21 @@
   }
 
   async function applyStarter(starterId) {
+    const channelId = props.channel.id;
+    const plan = assignedPlan.value;
+    const configuration = plan?.configuration?.periods?.length > 1 ? copyDraft(plan.configuration) : null;
+    const periodIndex = currentPeriodIndex.value;
     loading.value = true;
     error.value = null;
     try {
       const starter = await store.fetchTariff(starterId);
-      await store.assignStarter(props.channel.id, starterId, configurationFromTariff(starter));
+      if (configuration) {
+        if (periodIndex < 0) throw new Error('No tariff currently effective'); // i18n
+        configuration.periods = replacePeriodComponents(configuration.periods, periodIndex, cloneTariffComponents(starter));
+        await store.saveAssignedConfiguration(channelId, configuration, 'thisMeter', plan.id);
+      } else {
+        await store.assignStarter(channelId, starterId, configurationFromTariff(starter));
+      }
       selectorOpened.value = false;
     } catch (requestError) {
       error.value = requestError.body?.message || 'Could not apply the tariff.'; // i18n
@@ -79,6 +102,19 @@
     dialogOpened.value = false;
     dialogMounted.value = false;
     if (!assignment.value) store.assignPlan(props.channel.id, plan.id);
+  }
+
+  async function removeAssignment() {
+    loading.value = true;
+    error.value = null;
+    try {
+      if (assignment.value) await store.unassignPlan(props.channel.id);
+      selectorOpened.value = false;
+    } catch (requestError) {
+      error.value = requestError.body?.message || 'Could not remove the tariff assignment.'; // i18n
+    } finally {
+      loading.value = false;
+    }
   }
 
   watch(() => props.channel.id, load, {immediate: true});
@@ -103,6 +139,8 @@
             </div>
             <strong>{{ $t('Tariff assigned to this meter') }}</strong>
             <div>{{ presentation.label }}</div>
+            <div v-if="presentation.periodCount > 1 && assignedFromDate">{{ $t('From date') }}: {{ assignedFromDate }}</div>
+            <div v-if="currentPeriodIndex < presentation.periodCount - 1 && assignedToDate">{{ $t('To date') }}: {{ assignedToDate }}</div>
             <div v-if="presentation.supplier">{{ $t('Electricity supply') }}: {{ presentation.supplier }}</div>
             <div v-if="presentation.custom && presentation.distribution">{{ $t('Distribution') }}: {{ presentation.distribution }}</div>
             <small v-if="presentation.customized">{{ $t('Customized prices') }}</small>
@@ -134,7 +172,7 @@
         </template>
       </div>
     </loading-cover>
-    <energy-cost-tariff-selector v-model="selectorOpened" :tariffs="tariffs" :loading="loading" @select="applyStarter" />
+    <energy-cost-tariff-selector v-model="selectorOpened" :tariffs="tariffs" :loading="loading" @select="applyStarter" @unassign="removeAssignment" />
     <energy-cost-plan-dialog v-if="dialogMounted" v-model="dialogOpened" :plan="dialogPlan" :channel-id="channel.id" @saved="saved" @deleted="load" />
   </div>
 </template>

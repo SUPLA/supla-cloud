@@ -40,12 +40,15 @@
     <div v-if="preset.document.warnings?.length" class="alert alert-warning">
       <div v-for="warning in preset.document.warnings" :key="warning">{{ warning }}</div>
     </div>
-    <details
+    <component
       v-for="({period, pricePeriodIndex, inputs}, index) in pricePeriods"
+      :is="period.validFrom || period.validTo ? 'details' : 'div'"
       :key="pricePeriodIndex"
       :open="pricePeriods.length === 1 || index === pricePeriods.length - 1"
     >
-      <summary>{{ $t('Price period') }}: {{ period.validFrom || $t('No start date') }} - {{ period.validTo || $t('No end date') }}</summary>
+      <summary v-if="period.validFrom || period.validTo">
+        {{ $t('Price period') }}: {{ period.validFrom || $t('No start date') }} - {{ period.validTo || $t('No end date') }}
+      </summary>
       <energy-cost-preset-input
         v-for="input in inputs"
         :key="input.id"
@@ -60,7 +63,7 @@
         @reset="reset(input)"
         @update:value="update(input, $event)"
       />
-    </details>
+    </component>
     <div v-if="componentInputs.length" class="energy-cost-component-inputs">
       <energy-cost-preset-input
         v-for="input in componentInputs"

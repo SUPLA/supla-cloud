@@ -9,6 +9,7 @@
 <script setup>
   import {computed, ref} from 'vue';
   import {storeToRefs} from 'pinia';
+  import {useI18n} from 'vue-i18n';
   import EnergyCostPresetPicker from './energy-cost-preset-picker.vue';
   import EnergyCostTariffPicker from './energy-cost-tariff-picker.vue';
   import EnergyCostPresetForm from './energy-cost-preset-form.vue';
@@ -32,9 +33,11 @@
     count: Number,
     errors: {type: Object, required: true},
     tariffSelectable: Boolean,
+    pricesOnly: Boolean,
   });
   const emit = defineEmits(['update:period', 'update:boundary', 'remove', 'select-tariff']);
   const store = useEnergyCostStore();
+  const {t} = useI18n();
   const {presets, presetDetailsById, tariffs} = storeToRefs(store);
   const timezone = computed(
     () => props.period.components.map((component) => presetDetailsById.value[component.presetId]?.document.timezone).find(Boolean) || 'Europe/Warsaw'
@@ -45,7 +48,7 @@
     DISTRIBUTION_FIXED: 'Fixed distribution',
     SUPPLIER_FIXED: 'Supplier fixed charge',
   };
-  const detailsVisible = ref(false);
+  const detailsVisible = ref(props.pricesOnly);
   const selectedTariffId = ref('');
   const componentInputs = (component) => {
     const preset = presetDetailsById.value[component.presetId];
@@ -64,6 +67,11 @@
   }
 
   async function updatePreset(index, presetId) {
+    if (
+      Object.keys(props.period.components[index].values || {}).length &&
+      !window.confirm(t('Changing the tariff will reset custom pricing settings for this period.'))
+    )
+      return;
     const preset = presetId ? await store.fetchPreset(presetId) : null;
     const selected = preset?.components?.find(
       (candidate) => candidate.kind === props.period.components[index].kind && candidate.componentId === props.period.components[index].componentId
@@ -73,8 +81,6 @@
     );
     emit('update:period', {
       ...props.period,
-      validFrom: props.period.validFrom || preset?.document.validFrom || '',
-      validTo: props.period.validTo || preset?.document.validTo || '',
       components,
     });
   }
@@ -82,7 +88,7 @@
   async function selectTariff(tariffId) {
     if (!tariffId) return;
     if (props.period.components.length) {
-      if (!window.confirm('Changing the tariff will reset custom pricing settings for this period.')) return;
+      if (!window.confirm(t('Changing the tariff will reset custom pricing settings for this period.'))) return;
     }
     const tariff = await store.fetchTariff(tariffId);
     const details = await Promise.all(cloneTariffComponents(tariff).map((component) => store.fetchPreset(component.presetId)));
@@ -91,8 +97,6 @@
     selectedTariffId.value = tariffId;
     emit('update:period', {
       ...props.period,
-      validFrom: props.index === 0 ? null : props.period.validFrom || validity.validFrom,
-      validTo: props.index === props.count - 1 ? null : props.period.validTo || validity.validTo,
       components: cloneTariffComponents(tariff),
     });
     emit('select-tariff', {tariff});
@@ -100,8 +104,9 @@
 
   function addComponent(kind) {
     const componentId = availablePresetComponentId(presets.value, kind, props.period.components);
-    const component =
-      kind === 'DISTRIBUTION_FIXED' || kind === 'SUPPLIER_FIXED'
+    const component = componentId
+      ? {kind, presetId: '', componentId, values: {}}
+      : kind === 'DISTRIBUTION_FIXED' || kind === 'SUPPLIER_FIXED'
         ? {
             kind,
             componentId: uniqueComponentId(legacyComponentId(kind), props.period.components),
@@ -110,7 +115,7 @@
             prorate: false,
             taxTreatment: {included: []},
           }
-        : componentId && {kind, presetId: '', componentId, values: {}};
+        : null;
     if (!component) return;
     emit('update:period', {...props.period, components: [...props.period.components, component]});
   }
@@ -125,7 +130,7 @@
 
 <template>
   <div class="energy-cost-plan-period">
-    <div v-if="detailsVisible || count > 1" class="row">
+    <div v-if="!pricesOnly && (detailsVisible || count > 1)" class="row">
       <div v-if="index > 0" class="col-sm-6 form-group" :class="{'has-error': errors.validFrom}">
         <label :for="`energy-cost-period-${index}-from`">{{ $t('From date') }}</label>
         <input

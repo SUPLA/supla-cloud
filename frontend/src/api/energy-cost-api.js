@@ -33,6 +33,11 @@ export const energyCostApi = {
     return body;
   },
 
+  async getPlanChannels(id) {
+    const {body} = await api.get(`energy-cost-plans/${pathPart(id)}/channels`);
+    return body;
+  },
+
   async createPlan(data) {
     const {body} = await api.post('energy-cost-plans', data);
     return body;
@@ -71,8 +76,13 @@ export const energyCostApi = {
     return body;
   },
 
-  async saveAssignedConfiguration(channelId, configuration, scope = 'thisMeter') {
-    const {body} = await api.put(`channels/${pathPart(channelId)}/energy-cost-plan-assignment/configuration`, {configuration, scope});
+  async saveAssignedConfiguration(channelId, configuration, scope = 'thisMeter', expectedPlanId, expectedChannelIds) {
+    const {body} = await api.put(`channels/${pathPart(channelId)}/energy-cost-plan-assignment/configuration`, {
+      configuration,
+      scope,
+      expectedPlanId,
+      expectedChannelIds,
+    });
     return body;
   },
 

@@ -195,6 +195,22 @@ class EnergyCostPlanController extends RestController {
     }
 
     /**
+     * Owner-scoped list for shared-plan save confirmation. Restricted clients must be able to read every affected channel.
+     *
+     * @Rest\Get("/energy-cost-plans/{planId}/channels", requirements={"planId"="^\d+$"})
+     * @Security("is_granted('ROLE_CHANNELS_R')")
+     */
+    public function getEnergyCostPlanChannelsAction(string $planId): View {
+        $plan = $this->planService->get($this->getUser(), $planId);
+        $assignments = $this->planService->assignmentsForPlan($this->getUser(), $plan);
+        $this->planService->assertAssignmentsAccessible($assignments, false);
+        return $this->view(array_map(fn(EnergyCostPlanAssignment $assignment): array => [
+            'id' => $assignment->getChannelId(),
+            'caption' => $assignment->getChannel()->getCaption(),
+        ], $assignments));
+    }
+
+    /**
      * @OA\Put(
      *   path="/energy-cost-plans/{planId}", operationId="updateEnergyCostPlan", summary="Replace energy cost plan", tags={"Energy cost"},
      *   @OA\Parameter(name="planId", in="path", required=true, @OA\Schema(type="integer", format="int64")),
@@ -207,7 +223,8 @@ class EnergyCostPlanController extends RestController {
      */
     public function putEnergyCostPlanAction(Request $request, string $planId): View {
         // Preserve owner-scoped 404 behavior before inspecting a submitted document.
-        $this->planService->get($this->getUser(), $planId);
+        $plan = $this->planService->get($this->getUser(), $planId);
+        $this->planService->assertAssignmentsAccessible($this->planService->assignmentsForPlan($this->getUser(), $plan));
         [$name, $configuration] = $this->requestData($request);
         try {
             return $this->view($this->serializePlan($this->planService->update($this->getUser(), $planId, $name, $configuration)));
@@ -227,6 +244,8 @@ class EnergyCostPlanController extends RestController {
      * @UnavailableInMaintenance
      */
     public function deleteEnergyCostPlanAction(string $planId): Response {
+        $plan = $this->planService->get($this->getUser(), $planId);
+        $this->planService->assertAssignmentsAccessible($this->planService->assignmentsForPlan($this->getUser(), $plan));
         $this->planService->delete($this->getUser(), $planId);
         return new Response('', Response::HTTP_NO_CONTENT);
     }
@@ -299,8 +318,22 @@ class EnergyCostPlanController extends RestController {
         Assertion::isArray($data['configuration'], 'Invalid configuration.');
         $allMeters = $data['scope'] ?? 'thisMeter';
         Assertion::inArray($allMeters, ['thisMeter', 'allMeters'], 'Invalid scope.');
+        if (isset($data['expectedPlanId'])) {
+            Assertion::integer($data['expectedPlanId'], 'Invalid expectedPlanId.');
+        }
+        if (isset($data['expectedChannelIds'])) {
+            Assertion::isArray($data['expectedChannelIds'], 'Invalid expectedChannelIds.');
+            Assertion::allInteger($data['expectedChannelIds'], 'Invalid expectedChannelIds.');
+        }
         try {
-            $result = $this->planService->saveForChannel($this->getUser(), $channel, $data['configuration'], $allMeters === 'allMeters');
+            $result = $this->planService->saveForChannel(
+                $this->getUser(),
+                $channel,
+                $data['configuration'],
+                $allMeters === 'allMeters',
+                $data['expectedPlanId'] ?? null,
+                $data['expectedChannelIds'] ?? null,
+            );
             return $this->view([
                 'plan' => $this->serializePlan($result['plan']),
                 'assignment' => $this->serializeAssignment($result['assignment']),

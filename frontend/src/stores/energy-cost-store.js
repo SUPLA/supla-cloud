@@ -162,11 +162,15 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     return plan;
   };
 
-  const saveAssignedConfiguration = async (channelId, configuration, scope) => {
-    const {plan, assignment} = await energyCostApi.saveAssignedConfiguration(channelId, configuration, scope);
+  const saveAssignedConfiguration = async (channelId, configuration, scope, expectedPlanId, expectedChannelIds) => {
+    const {
+      plan,
+      assignment,
+      affectedAssignments = [assignment],
+    } = await energyCostApi.saveAssignedConfiguration(channelId, configuration, scope, expectedPlanId, expectedChannelIds);
     plans.value = plans.value.some((item) => item.id === plan.id) ? plans.value.map((item) => (item.id === plan.id ? plan : item)) : [...plans.value, plan];
-    assignmentsByChannelId.value = {...assignmentsByChannelId.value, [channelId]: assignment};
-    assignmentReadyByChannelId.value = {...assignmentReadyByChannelId.value, [channelId]: true};
+    assignmentsByChannelId.value = {...assignmentsByChannelId.value, ...Object.fromEntries(affectedAssignments.map((item) => [item.channelId, item]))};
+    assignmentReadyByChannelId.value = {...assignmentReadyByChannelId.value, ...Object.fromEntries(affectedAssignments.map((item) => [item.channelId, true]))};
     return {plan, assignment};
   };
 

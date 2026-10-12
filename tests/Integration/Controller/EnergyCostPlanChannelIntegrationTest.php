@@ -126,6 +126,39 @@ class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
         $this->assertSame($first['plan']['id'], $second['plan']['id']);
     }
 
+    public function testSavedPricingIsUsedByTheNextMeterCalculation(): void {
+        $user = $this->createConfirmedUser('saved-pricing@supla.org');
+        $channel = $this->createElectricityMeterChannel($user);
+        $this->insertHourlyDeltas($channel);
+        $service = self::getContainer()->get(EnergyCostPlanService::class);
+        $configuration = $this->configuration();
+        $plan = $service->create($user, 'Home', $configuration);
+        $service->assignToChannel($user, $channel, $plan->getId());
+        $client = $this->createAuthenticatedClient($user);
+        $calculationPath = '/api/channels/' . $channel->getId()
+            . '/energy-cost-calculation?fromTimestamp=1767265200&toTimestamp=1767268800';
+        $client->apiRequestV24('GET', $calculationPath);
+        $this->assertStatusCode(200, $client->getResponse());
+        $before = json_decode($client->getResponse()->getContent(), true)['costs'];
+        $configuration['periods'][0]['components'][0]['values'] = ['energy.rate' => '0.90'];
+        $client->apiRequestV24('PUT', '/api/channels/' . $channel->getId() . '/energy-cost-plan-assignment/configuration', [
+            'configuration' => $configuration, 'scope' => 'thisMeter',
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSame((int)$plan->getId(), json_decode($client->getResponse()->getContent(), true)['plan']['id']);
+        $client->apiRequestV24('GET', $calculationPath);
+        $this->assertStatusCode(200, $client->getResponse());
+        $after = json_decode($client->getResponse()->getContent(), true)['costs'];
+        $this->assertNotSame(
+            $before['gross']['usageBased']['byComponent']['energy-purchase'],
+            $after['gross']['usageBased']['byComponent']['energy-purchase'],
+        );
+        $this->assertSame(
+            $before['gross']['usageBased']['byComponent']['distribution-variable'],
+            $after['gross']['usageBased']['byComponent']['distribution-variable'],
+        );
+    }
+
     private function createElectricityMeterChannel(User $user): IODeviceChannel {
         return $this->createDevice(
             $this->createLocation($user),
