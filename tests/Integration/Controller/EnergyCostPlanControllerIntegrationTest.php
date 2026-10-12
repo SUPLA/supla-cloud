@@ -131,11 +131,7 @@ class EnergyCostPlanControllerIntegrationTest extends IntegrationTestCase {
             'name' => 'Home',
             'configuration' => $configuration,
         ]);
-        $this->assertStatusCode(400, $client->getResponse());
-        $this->assertSame(
-            'Invalid energy cost plan configuration: Preset does not cover period 0 component ENERGY_PURCHASE continuously.',
-            json_decode($client->getResponse()->getContent(), true)['message']
-        );
+        $this->assertStatusCode(201, $client->getResponse());
 
         $configuration = $this->configuration('PL.STARTER.TAURON_DYSTRYBUCJA.G11');
         $configuration['periods'][0]['components'][0]['presetId'] = 'PL.UNKNOWN.G11';

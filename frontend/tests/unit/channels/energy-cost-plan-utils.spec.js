@@ -43,10 +43,10 @@ describe('energy cost plan utilities', () => {
   });
 
   it('resolves component defaults from the tariff template', () => {
-    const preset = {document: {billingDefinitionTemplate: {periods: [{components: [{rate: {value: '0.5020'}}]}]}}};
-    const input = {id: 'energy.rate', targets: ['/periods/0/components/0/rate/value']};
+    const preset = {document: {billingDefinitionTemplate: {components: [{id: 'energy', pricePeriods: [{rate: {value: '0.5020'}}]}]}}};
+    const input = {id: 'energy.rate', targets: ['/components/0/pricePeriods/0/rate/value']};
 
-    expect(presetDefault(preset, input, 0)).toBe('0.5020');
+    expect(presetDefault(preset, input, 'energy')).toBe('0.5020');
   });
 
   it('preserves an explicit override equal to the preset default', () => {
@@ -85,16 +85,20 @@ describe('energy cost plan utilities', () => {
           {id: 'shared', targets: ['/components/0/values/fee', '/components/1/values/fee']},
         ],
         billingDefinitionTemplate: {
-          components: [{values: {rate: '0.71', fee: '2.00'}}, {values: {rate: '0.91', fee: '3.00'}}],
+          components: [
+            {id: 'first', values: {rate: '0.71', fee: '2.00'}},
+            {id: 'second', values: {rate: '0.91', fee: '3.00'}},
+          ],
         },
       },
     };
 
-    const inputs = inputsForComponent(preset, 1);
+    const inputs = inputsForComponent(preset, 'second');
 
     expect(inputs.map((input) => input.id)).toEqual(['second', 'shared']);
-    expect(presetDefault(preset, inputs[0], 1)).toBe('0.91');
-    expect(presetDefault(preset, inputs[1], 1)).toBe('3.00');
+    expect(presetDefault(preset, inputs[0], 'second')).toBe('0.91');
+    expect(presetDefault(preset, inputs[1], 'second')).toBe('3.00');
+    expect(presetDefault(preset, inputs[0], 'missing')).toBeUndefined();
   });
 
   it('normalizes Polish decimals and accepts calculator time values', () => {
@@ -110,22 +114,32 @@ describe('energy cost plan utilities', () => {
     };
     const preset = {document: {billingDefinitionTemplate: {components: [{taxTreatment: {included: ['VAT']}}]}}};
 
-    expect(inputsForComponent({...preset, document: {...preset.document, inputs: [input]}}, 0)).toEqual([input]);
-    expect(presetDefault(preset, input, 0)).toBe('WITH_VAT');
+    const componentPreset = {
+      ...preset,
+      document: {...preset.document, inputs: [input], billingDefinitionTemplate: {components: [{id: 'distribution', taxTreatment: {included: ['VAT']}}]}},
+    };
+    expect(inputsForComponent(componentPreset, 'distribution')).toEqual([input]);
+    expect(presetDefault(componentPreset, input, 'distribution')).toBe('WITH_VAT');
   });
 
-  it('resolves historical inputs by stable component id instead of the first template period index', () => {
+  it('resolves independent component price histories by stable component id', () => {
     const preset = {
       document: {
         inputs: [
-          {id: 'distribution.rate.2025', targets: ['/periods/0/components/1/rate/value']},
-          {id: 'distribution.rate.2026', targets: ['/periods/1/components/0/rate/value']},
-          {id: 'other.rate', targets: ['/periods/1/components/1/rate/value']},
+          {id: 'distribution.rate.2025', targets: ['/components/0/pricePeriods/0/rate/value']},
+          {id: 'distribution.rate.2026', targets: ['/components/0/pricePeriods/1/rate/value']},
+          {id: 'other.rate', targets: ['/components/1/pricePeriods/0/rate/value']},
         ],
         billingDefinitionTemplate: {
-          periods: [
-            {validFrom: null, validTo: '2026-01-01', components: [{id: 'energy'}, {id: 'distribution', rate: {value: '0.25'}}]},
-            {validFrom: '2026-01-01', validTo: null, components: [{id: 'distribution', rate: {value: '0.30'}}, {id: 'energy'}]},
+          components: [
+            {
+              id: 'distribution',
+              pricePeriods: [
+                {validFrom: null, validTo: '2026-01-01', rate: {value: '0.25'}},
+                {validFrom: '2026-01-01', validTo: null, rate: {value: '0.30'}},
+              ],
+            },
+            {id: 'energy', pricePeriods: [{validFrom: null, validTo: null, rate: {value: '0.50'}}]},
           ],
         },
       },
@@ -134,7 +148,7 @@ describe('energy cost plan utilities', () => {
     expect(inputsForComponent(preset, 'distribution').map((input) => input.id)).toEqual(['distribution.rate.2025', 'distribution.rate.2026']);
     expect(presetDefault(preset, preset.document.inputs[0], 'distribution')).toBe('0.25');
     expect(presetDefault(preset, preset.document.inputs[1], 'distribution')).toBe('0.30');
-    expect(pricePeriodsForComponent(preset, 'distribution').map(({periodIndex}) => periodIndex)).toEqual([0, 1]);
+    expect(pricePeriodsForComponent(preset, 'distribution').map(({pricePeriodIndex}) => pricePeriodIndex)).toEqual([0, 1]);
   });
 
   it('copies tariff recipes and matches them without considering overrides', () => {

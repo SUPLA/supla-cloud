@@ -16,6 +16,12 @@ describe('energy cost calculation storage', () => {
     expect(scenarioFingerprint(plan, 'PL.G11:old')).not.toBe(scenarioFingerprint(plan, 'PL.G11:new'));
   });
 
+  it('changes the fingerprint when calculation logic changes', () => {
+    const plan = {id: 1, updatedAt: '2026-01-01', configuration: {periods: []}};
+
+    expect(scenarioFingerprint(plan, 'PL.G11:1', 'calculator-0.10.0')).not.toBe(scenarioFingerprint(plan, 'PL.G11:1', 'calculator-0.11.0'));
+  });
+
   it('separates cached exact queries and invalidates a changed plan', async () => {
     const storage = new EnergyCostCalculationStorage();
     await storage.connect();

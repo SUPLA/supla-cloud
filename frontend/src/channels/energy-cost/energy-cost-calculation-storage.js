@@ -1,6 +1,8 @@
 import {openDB} from 'idb';
 
-const SCHEMA_VERSION = 1;
+const SCHEMA_VERSION = 2;
+// Bump when a frontend or calculator change can alter a calculation without changing a preset.
+const CALCULATION_REVISION = 'calculator-0.10.0';
 
 export function canonicalJson(value) {
   if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`;
@@ -12,8 +14,8 @@ export function canonicalJson(value) {
   return JSON.stringify(value);
 }
 
-export function scenarioFingerprint(plan, catalogRevision = '') {
-  const source = `${plan?.id ?? 'assigned'}:${plan?.updatedAt ?? ''}:${catalogRevision}:${canonicalJson(plan?.configuration ?? {})}`;
+export function scenarioFingerprint(plan, presetRevisions = '', calculationRevision = CALCULATION_REVISION) {
+  const source = `${plan?.id ?? 'assigned'}:${plan?.updatedAt ?? ''}:${calculationRevision}:${presetRevisions}:${canonicalJson(plan?.configuration ?? {})}`;
   let hash = 2166136261;
   for (let index = 0; index < source.length; index += 1) hash = Math.imul(hash ^ source.charCodeAt(index), 16777619);
   return (hash >>> 0).toString(36);

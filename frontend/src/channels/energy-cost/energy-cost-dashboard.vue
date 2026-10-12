@@ -20,7 +20,7 @@
   import EnergyCostHeatmap from './energy-cost-heatmap.vue';
   import EnergyCostBreakdown from './energy-cost-breakdown.vue';
   import EnergyCostDetails from './energy-cost-details.vue';
-  import {alignedBillingPeriodRange, pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
+  import {alignedBillingPeriodRange, componentInputsOutsidePricePeriods, pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
   import {preferredGranularity} from './energy-cost-result-utils';
   import {energyCostCalculationStorage, scenarioFingerprint} from './energy-cost-calculation-storage';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
@@ -103,14 +103,22 @@
   const pricingDetails = (component) => {
     if (component.presetId === undefined) return [{label: 'Rate', value: component.rate, unit: component.per}];
     const preset = presetDetailsById.value[component.presetId];
-    return pricePeriodsForComponent(preset, component.componentId).flatMap(({period, inputs}) =>
-      inputs.map((input) => {
-        const overridden = Object.hasOwn(component.values || {}, input.id);
-        const value = overridden ? component.values[input.id] : presetDefault(preset, input, component.componentId);
-        const label = input.type === 'CHOICE' ? input.options?.find((option) => option.value === value)?.label || value : value;
-        return {label: input.label, value: label, unit: input.unit, period, overridden};
-      })
-    );
+    const detail = (input, period = null) => {
+      const overridden = Object.hasOwn(component.values || {}, input.id);
+      const value = overridden ? component.values[input.id] : presetDefault(preset, input, component.componentId);
+      const label = input.type === 'CHOICE' ? input.options?.find((option) => option.value === value)?.label || value : value;
+      return {label: input.label, value: label, unit: input.unit, period, overridden};
+    };
+    return [
+      ...pricePeriodsForComponent(preset, component.componentId)
+        .filter(({period}) => {
+          const validFrom = period.validFrom ? Date.parse(period.validFrom) : -Infinity;
+          const validTo = period.validTo ? Date.parse(period.validTo) : Infinity;
+          return validFrom < Date.parse(range.value.to) && validTo > Date.parse(range.value.from);
+        })
+        .flatMap(({period, inputs}) => inputs.map((input) => detail(input, period))),
+      ...componentInputsOutsidePricePeriods(preset, component.componentId).map((input) => detail(input)),
+    ];
   };
 
   async function loadPresetDetails() {
@@ -210,6 +218,8 @@
         .map((preset) => `${preset.id}:${preset.revision}`)
         .sort()
         .join('|');
+      if (token !== requestToken) return;
+      await loadPresetDetails();
       if (token !== requestToken) return;
       const cached = await energyCostCalculationStorage.get(props.channel.id, fingerprint.value, from, to);
       if (token !== requestToken) return;

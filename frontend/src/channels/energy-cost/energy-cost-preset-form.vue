@@ -9,7 +9,7 @@
 <script setup>
   import {computed} from 'vue';
   import EnergyCostPresetInput from './energy-cost-preset-input.vue';
-  import {pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
+  import {componentInputsOutsidePricePeriods, pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
 
   const props = defineProps({
     component: {type: Object, required: true},
@@ -20,6 +20,7 @@
   const emit = defineEmits(['update:values']);
 
   const pricePeriods = computed(() => pricePeriodsForComponent(props.preset, props.component.componentId));
+  const componentInputs = computed(() => componentInputsOutsidePricePeriods(props.preset, props.component.componentId));
   const effectiveValue = (input) =>
     Object.hasOwn(props.component.values, input.id) ? props.component.values[input.id] : presetDefault(props.preset, input, props.component.componentId);
   const hasDefault = (input) =>
@@ -39,13 +40,17 @@
     <div v-if="preset.document.warnings?.length" class="alert alert-warning">
       <div v-for="warning in preset.document.warnings" :key="warning">{{ warning }}</div>
     </div>
-    <details v-for="({period, periodIndex, inputs}, index) in pricePeriods" :key="periodIndex" :open="index === pricePeriods.length - 1">
-      <summary>{{ $t('Price period') }}: {{ period.validFrom || $t('No limit') }} - {{ period.validTo || $t('No limit') }}</summary>
+    <details
+      v-for="({period, pricePeriodIndex, inputs}, index) in pricePeriods"
+      :key="pricePeriodIndex"
+      :open="pricePeriods.length === 1 || index === pricePeriods.length - 1"
+    >
+      <summary>{{ $t('Price period') }}: {{ period.validFrom || $t('No start date') }} - {{ period.validTo || $t('No end date') }}</summary>
       <energy-cost-preset-input
         v-for="input in inputs"
         :key="input.id"
         :input="input"
-        :id-prefix="`${idPrefix}-${periodIndex}`"
+        :id-prefix="`${idPrefix}-${pricePeriodIndex}`"
         :value="effectiveValue(input)"
         :timezone="preset.document.timezone"
         :custom="isCustom(input)"
@@ -56,6 +61,22 @@
         @update:value="update(input, $event)"
       />
     </details>
+    <div v-if="componentInputs.length" class="energy-cost-component-inputs">
+      <energy-cost-preset-input
+        v-for="input in componentInputs"
+        :key="input.id"
+        :input="input"
+        :id-prefix="idPrefix"
+        :value="effectiveValue(input)"
+        :timezone="preset.document.timezone"
+        :custom="isCustom(input)"
+        :has-default="hasDefault(input)"
+        :error="errors[input.id]"
+        @override="override(input)"
+        @reset="reset(input)"
+        @update:value="update(input, $event)"
+      />
+    </div>
     <details v-if="preset.document.source" class="energy-cost-tariff-details">
       <summary>{{ $t('Tariff details') }}</summary>
       <p v-if="preset.document.source.title">{{ preset.document.source.title }}</p>

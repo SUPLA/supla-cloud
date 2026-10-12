@@ -80,19 +80,21 @@ export function availablePresetComponentId(presets, kind, components) {
 }
 
 export function presetDefault(preset, input, componentId) {
-  const target = inputTargetsForComponent(preset, input, componentId)[0] || input.targets?.[0];
+  const target = inputTargetsForComponent(preset, input, componentId)[0] || (componentId === undefined ? input.targets?.[0] : undefined);
   const value = readJsonPointer(preset?.document?.billingDefinitionTemplate, targetPointer(target));
   if (!target || typeof target === 'string' || !target.values) return value;
   return Object.entries(target.values).find(([, mappedValue]) => structurallyEqual(mappedValue, value))?.[0];
 }
 
+export function componentPresetIndex(preset, componentId) {
+  return preset?.document?.billingDefinitionTemplate?.components?.findIndex((component) => component.id === componentId) ?? -1;
+}
+
 export function inputTargetsForComponent(preset, input, componentId) {
   return (input.targets || []).filter((target) => {
     const pointer = targetPointer(target);
-    const match = pointer?.match(/^\/periods\/(\d+)\/components\/(\d+)(?:\/|$)/);
-    if (match) return preset?.document?.billingDefinitionTemplate?.periods?.[match[1]]?.components?.[match[2]]?.id === componentId;
-    const legacyMatch = pointer?.match(/^\/components\/(\d+)(?:\/|$)/);
-    return legacyMatch ? String(legacyMatch[1]) === String(componentId) : false;
+    const match = pointer?.match(/^\/components\/(\d+)(?:\/|$)/);
+    return match ? componentPresetIndex(preset, componentId) === Number(match[1]) : false;
   });
 }
 
@@ -101,16 +103,28 @@ export function inputsForComponent(preset, componentId) {
 }
 
 export function pricePeriodsForComponent(preset, componentId) {
-  const templatePeriods = preset?.document?.billingDefinitionTemplate?.periods || [];
-  return templatePeriods
-    .map((period, periodIndex) => ({
+  const componentIndex = componentPresetIndex(preset, componentId);
+  const pricePeriods = preset?.document?.billingDefinitionTemplate?.components?.[componentIndex]?.pricePeriods || [];
+  return pricePeriods
+    .map((period, pricePeriodIndex) => ({
       period,
-      periodIndex,
+      pricePeriodIndex,
       inputs: (preset?.document?.inputs || []).filter((input) =>
-        inputTargetsForComponent(preset, input, componentId).some((target) => targetPointer(target)?.startsWith(`/periods/${periodIndex}/`))
+        inputTargetsForComponent(preset, input, componentId).some((target) =>
+          targetPointer(target)?.startsWith(`/components/${componentIndex}/pricePeriods/${pricePeriodIndex}/`)
+        )
       ),
     }))
     .filter(({inputs}) => inputs.length);
+}
+
+export function componentInputsOutsidePricePeriods(preset, componentId) {
+  const componentIndex = componentPresetIndex(preset, componentId);
+  if (componentIndex < 0) return [];
+  const pricePeriodPrefix = `/components/${componentIndex}/pricePeriods/`;
+  return inputsForComponent(preset, componentId).filter((input) =>
+    inputTargetsForComponent(preset, input, componentId).some((target) => !targetPointer(target)?.startsWith(pricePeriodPrefix))
+  );
 }
 
 export const normalizeDecimal = (value) => String(value).trim().replace(',', '.');

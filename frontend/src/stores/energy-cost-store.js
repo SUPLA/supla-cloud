@@ -14,15 +14,18 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
   const plansReady = ref(false);
   const assignmentsByChannelId = ref({});
   const assignmentReadyByChannelId = ref({});
+  let presetRequestVersion = 0;
 
   const plansById = computed(() => Object.fromEntries(plans.value.map((plan) => [plan.id, plan])));
 
   const fetchPresets = (force = false) => {
     if (fetchPresets.promise && !force) return fetchPresets.promise;
     if (presetsReady.value && !force) return Promise.resolve(presets.value);
+    const requestVersion = ++presetRequestVersion;
     fetchPresets.promise = energyCostApi
       .getPresets()
       .then((response) => {
+        if (requestVersion !== presetRequestVersion) return presets.value;
         const changedIds = new Set(response.filter((preset) => presetDetailsById.value[preset.id]?.revision !== preset.revision).map((preset) => preset.id));
         if (changedIds.size) {
           presetDetailsById.value = Object.fromEntries(Object.entries(presetDetailsById.value).filter(([id]) => !changedIds.has(id)));
@@ -41,7 +44,10 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     if (!fetchPreset.promises[id]) {
       fetchPreset.promises[id] = energyCostApi
         .getPreset(id)
-        .then((preset) => {
+        .then(async (preset) => {
+          const listedRevision = presets.value.find((candidate) => candidate.id === id)?.revision;
+          // A request started before a catalog refresh must not put an old document back into the store.
+          if (listedRevision && preset.revision !== listedRevision) preset = await energyCostApi.getPreset(id);
           presetDetailsById.value = {...presetDetailsById.value, [id]: preset};
           return preset;
         })
@@ -165,6 +171,7 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     assignmentsByChannelId.value = {};
     assignmentReadyByChannelId.value = {};
     fetchPresets.promise = undefined;
+    presetRequestVersion = 0;
     fetchPlans.promise = undefined;
     fetchPreset.promises = {};
     fetchTariffs.promise = undefined;
