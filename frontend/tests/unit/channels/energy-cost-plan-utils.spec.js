@@ -28,6 +28,18 @@ describe('energy cost plan utilities', () => {
     expect(readJsonPointer({'a/b': [{'c~d': 'value'}]}, '/a~1b/0/c~0d')).toBe('value');
   });
 
+  it('creates an editable custom draft without price components', () => {
+    const configuration = configurationFromTariff({components: []}, new Date('2026-05-15T12:00:00Z'));
+
+    expect(configuration.periods).toEqual([{validFrom: null, validTo: null, components: []}]);
+    expect(configuration.billingCycles[0].anchor).toBe('2026-05-01');
+  });
+
+  it('uses the plan timezone at the beginning of a tariff-change day', () => {
+    expect(dateToDatetime('2026-05-01', 'Europe/Warsaw')).toBe('2026-05-01T00:00:00+02:00');
+    expect(dateToPeriodEnd('2026-04-30', 'Europe/Warsaw')).toBe('2026-05-01T00:00:00+02:00');
+  });
+
   it('resolves defaults without putting them into plan values', () => {
     const preset = {document: {billingDefinitionTemplate: {rates: {DAY: '0.2841'}}}};
     const input = {id: 'distribution.DAY', targets: ['/rates/DAY']};

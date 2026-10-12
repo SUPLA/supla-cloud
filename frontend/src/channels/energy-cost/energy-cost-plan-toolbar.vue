@@ -7,7 +7,10 @@
 </script>
 
 <script setup>
-  import {computed} from 'vue';
+  import {computed, onMounted} from 'vue';
+  import {useI18n} from 'vue-i18n';
+  import {useEnergyCostStore} from '@/stores/energy-cost-store';
+  import {presentCostPlan, tariffCatalogPresentation} from './energy-cost-plan-presentation';
 
   const props = defineProps({
     plans: {type: Array, required: true},
@@ -18,6 +21,10 @@
     assignDisabled: Boolean,
   });
   defineEmits(['update:modelValue', 'assign', 'unassign', 'create', 'edit']);
+  const {t} = useI18n();
+  const store = useEnergyCostStore();
+  onMounted(() => store.fetchPresentationCatalogs());
+  const planLabel = (plan) => presentCostPlan(plan.configuration, {starters: Object.values(store.tariffDetailsById), presets: store.presets, t}).label;
   const selectedPlanId = computed(() => (props.modelValue?.startsWith('plan:') ? Number(props.modelValue.slice(5)) : undefined));
   const selectedStarter = computed(() => props.modelValue?.startsWith('starter:'));
   const assignedPlan = computed(() => props.plans.find((plan) => plan.id === props.assignedPlanId));
@@ -25,7 +32,7 @@
   const groupedTariffs = computed(() => {
     const groups = new Map();
     props.tariffs.forEach((tariff) => {
-      const label = tariff.operator?.label || tariff.operator || '';
+      const label = tariffCatalogPresentation(tariff, t).group;
       groups.set(label, [...(groups.get(label) || []), tariff]);
     });
     return [...groups.entries()];
@@ -44,12 +51,12 @@
         @change="$emit('update:modelValue', $event.target.value || undefined)"
       >
         <option v-if="!assignedPlanId" value="">{{ $t('No tariff plan') }}</option>
-        <option v-if="assignedPlan" :value="`plan:${assignedPlan.id}`">{{ assignedPlan.name }} ({{ $t('Assigned') }})</option>
+        <option v-if="assignedPlan" :value="`plan:${assignedPlan.id}`">{{ planLabel(assignedPlan) }} ({{ $t('Assigned') }})</option>
         <optgroup v-if="unassignedPlans.length" :label="$t('Your tariff plans')">
-          <option v-for="plan in unassignedPlans" :key="plan.id" :value="`plan:${plan.id}`">{{ plan.name }}</option>
+          <option v-for="plan in unassignedPlans" :key="plan.id" :value="`plan:${plan.id}`">{{ planLabel(plan) }}</option>
         </optgroup>
         <optgroup v-for="[operator, operatorTariffs] in groupedTariffs" :key="operator" :label="operator">
-          <option v-for="tariff in operatorTariffs" :key="tariff.id" :value="`starter:${tariff.id}`">{{ tariff.label }}</option>
+          <option v-for="tariff in operatorTariffs" :key="tariff.id" :value="`starter:${tariff.id}`">{{ tariffCatalogPresentation(tariff, t).label }}</option>
         </optgroup>
       </select>
       <button

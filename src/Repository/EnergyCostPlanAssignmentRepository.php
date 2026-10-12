@@ -25,4 +25,11 @@ class EnergyCostPlanAssignmentRepository extends EntityRepository {
             ->getOneOrNullResult();
         return $assignment?->getEnergyCostPlan();
     }
+
+    /** @return EnergyCostPlanAssignment[] */
+    public function findForPlan(EnergyCostPlan $plan): array {
+        /** @var EnergyCostPlanAssignment[] $assignments */
+        $assignments = $this->findBy(['energyCostPlan' => $plan]);
+        return $assignments;
+    }
 }

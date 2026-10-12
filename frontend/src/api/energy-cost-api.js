@@ -71,6 +71,11 @@ export const energyCostApi = {
     return body;
   },
 
+  async saveAssignedConfiguration(channelId, configuration, scope = 'thisMeter') {
+    const {body} = await api.put(`channels/${pathPart(channelId)}/energy-cost-plan-assignment/configuration`, {configuration, scope});
+    return body;
+  },
+
   async calculate(channelId, fromTimestamp, toTimestamp, options = {}) {
     const query = new URLSearchParams({
       fromTimestamp: String(fromTimestamp),

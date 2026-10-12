@@ -84,6 +84,12 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     return fetchTariff.promises[id];
   };
 
+  // Presentation is optional: unavailable descriptive metadata must not block assigned-plan calculations.
+  const fetchPresentationCatalogs = async () => {
+    const [catalog] = await Promise.allSettled([fetchTariffs(), fetchPresets()]);
+    if (catalog.status === 'fulfilled') await Promise.allSettled(catalog.value.map((starter) => fetchTariff(starter.id)));
+  };
+
   const fetchPlans = (force = false) => {
     if (fetchPlans.promise && !force) return fetchPlans.promise;
     if (plansReady.value && !force) return Promise.resolve(plans.value);
@@ -156,6 +162,14 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     return plan;
   };
 
+  const saveAssignedConfiguration = async (channelId, configuration, scope) => {
+    const {plan, assignment} = await energyCostApi.saveAssignedConfiguration(channelId, configuration, scope);
+    plans.value = plans.value.some((item) => item.id === plan.id) ? plans.value.map((item) => (item.id === plan.id ? plan : item)) : [...plans.value, plan];
+    assignmentsByChannelId.value = {...assignmentsByChannelId.value, [channelId]: assignment};
+    assignmentReadyByChannelId.value = {...assignmentReadyByChannelId.value, [channelId]: true};
+    return {plan, assignment};
+  };
+
   const $reset = () => {
     presets.value = [];
     presetsReady.value = false;
@@ -192,6 +206,7 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     fetchPreset,
     fetchTariffs,
     fetchTariff,
+    fetchPresentationCatalogs,
     fetchPlans,
     fetchAssignment,
     createPlan,
@@ -200,6 +215,7 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     assignPlan,
     unassignPlan,
     assignStarter,
+    saveAssignedConfiguration,
     $reset,
   };
 });

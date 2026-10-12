@@ -113,7 +113,6 @@ class EnergyCostPlanService {
 
     /**
      * @param array<string, mixed> $configuration
-     * @param array<int, array<string, mixed>> $starterComponents
      * @return array{plan: EnergyCostPlan, assignment: EnergyCostPlanAssignment}
      */
     public function assignStarterToChannel(
@@ -121,14 +120,13 @@ class EnergyCostPlanService {
         IODeviceChannel $channel,
         string $name,
         array $configuration,
-        array $starterComponents,
     ): array {
         $this->assertChannelSupported($user, $channel);
         $this->validateConfiguration($configuration);
-        return $this->entityManager->wrapInTransaction(function () use ($user, $channel, $name, $configuration, $starterComponents): array {
+        return $this->entityManager->wrapInTransaction(function () use ($user, $channel, $name, $configuration): array {
             $plan = null;
             foreach ($this->repository->findByUser($user) as $candidate) {
-                if ($this->matchesStarter($candidate, $starterComponents)) {
+                if ($this->matchesConfiguration($candidate, $configuration)) {
                     $plan = $candidate;
                     break;
                 }
@@ -139,6 +137,44 @@ class EnergyCostPlanService {
             }
             return ['plan' => $plan, 'assignment' => $this->assign($channel, $plan)];
         });
+    }
+
+    /**
+     * Updates a plan in place or creates a private copy and assigns it to one channel.
+     *
+     * @param array<string, mixed> $configuration
+     * @return array{plan: EnergyCostPlan, assignment: EnergyCostPlanAssignment, affectedAssignments: EnergyCostPlanAssignment[]}
+     */
+    public function saveForChannel(User $user, IODeviceChannel $channel, array $configuration, bool $allMeters): array {
+        $assignment = $this->getAssignment($user, $channel);
+        $this->validateConfiguration($configuration);
+        return $this->entityManager->wrapInTransaction(function () use ($user, $channel, $assignment, $configuration, $allMeters): array {
+            $plan = $assignment->getEnergyCostPlan();
+            $affectedAssignments = $this->assignmentsForPlan($user, $plan);
+            if (!$allMeters && count($affectedAssignments) > 1) {
+                $plan = new EnergyCostPlan(
+                    $user,
+                    $this->uniqueName($user, $plan->getName()),
+                    $configuration,
+                    $this->timeProvider->getDateTime(),
+                );
+                $this->entityManager->persist($plan);
+                $assignment->setEnergyCostPlan($plan);
+                $affectedAssignments = [$assignment];
+            } else {
+                $plan->setConfiguration($configuration, $this->timeProvider->getDateTime());
+            }
+            return ['plan' => $plan, 'assignment' => $assignment, 'affectedAssignments' => $affectedAssignments];
+        });
+    }
+
+    /** @return EnergyCostPlanAssignment[] */
+    public function assignmentsForPlan(User $user, EnergyCostPlan $plan): array {
+        $this->get($user, $plan->getId());
+        return array_values(array_filter(
+            $this->assignmentRepository->findForPlan($plan),
+            fn(EnergyCostPlanAssignment $assignment): bool => $assignment->getChannel()->belongsToUser($user)
+        ));
     }
 
     public function deleteAssignment(User $user, IODeviceChannel $channel): void {
@@ -164,21 +200,9 @@ class EnergyCostPlanService {
         return $assignment;
     }
 
-    /** @param array<int, array<string, mixed>> $starterComponents */
-    private function matchesStarter(EnergyCostPlan $plan, array $starterComponents): bool {
-        $periods = $plan->getConfiguration()['periods'] ?? [];
-        if (count($periods) !== 1 || !is_array($periods[0])) {
-            return false;
-        }
-        $components = $periods[0]['components'] ?? [];
-        return is_array($components) && $this->canonicalComponents($components) === $this->canonicalComponents($starterComponents);
-    }
-
-    /** @param array<int, array<string, mixed>> $components */
-    private function canonicalComponents(array $components): string {
-        $components = array_map($this->canonicalize(...), $components);
-        usort($components, fn(array $left, array $right): int => json_encode($left) <=> json_encode($right));
-        return json_encode($components, JSON_THROW_ON_ERROR);
+    /** @param array<string, mixed> $configuration */
+    private function matchesConfiguration(EnergyCostPlan $plan, array $configuration): bool {
+        return $this->canonicalize($plan->getConfiguration()) === $this->canonicalize($configuration);
     }
 
     /** @param array<string|int, mixed> $value */

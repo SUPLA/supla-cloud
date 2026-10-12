@@ -274,7 +274,6 @@ class EnergyCostPlanController extends RestController {
                 $channel,
                 $starter->metadata['label'] ?? $starter->id,
                 $data['configuration'],
-                $starter->components,
             );
             return $this->view([
                 'plan' => $this->serializePlan($result['plan']),
@@ -282,6 +281,31 @@ class EnergyCostPlanController extends RestController {
             ]);
         } catch (CostPlanStarterNotFoundException | InvalidCostPlanStarterException $exception) {
             $this->throwStarterException($exception);
+        } catch (EnergyCostCalculatorException $exception) {
+            $this->throwCalculatorException($exception);
+        }
+    }
+
+    /**
+     * Save a changed assigned plan with an explicit shared-plan scope.
+     *
+     * @Rest\Put("/channels/{channel}/energy-cost-plan-assignment/configuration")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
+     * @UnavailableInMaintenance
+     */
+    public function putEnergyCostPlanAssignmentConfigurationAction(Request $request, IODeviceChannel $channel): View {
+        $data = $request->request->all();
+        Assertion::keyExists($data, 'configuration', 'Missing configuration.');
+        Assertion::isArray($data['configuration'], 'Invalid configuration.');
+        $allMeters = $data['scope'] ?? 'thisMeter';
+        Assertion::inArray($allMeters, ['thisMeter', 'allMeters'], 'Invalid scope.');
+        try {
+            $result = $this->planService->saveForChannel($this->getUser(), $channel, $data['configuration'], $allMeters === 'allMeters');
+            return $this->view([
+                'plan' => $this->serializePlan($result['plan']),
+                'assignment' => $this->serializeAssignment($result['assignment']),
+                'affectedAssignments' => array_map($this->serializeAssignment(...), $result['affectedAssignments']),
+            ]);
         } catch (EnergyCostCalculatorException $exception) {
             $this->throwCalculatorException($exception);
         }

@@ -9,6 +9,8 @@
 <script setup>
   import {computed, nextTick, ref, watch} from 'vue';
   import {storeToRefs} from 'pinia';
+  import {useI18n} from 'vue-i18n';
+  import {presentCostPlan} from './energy-cost-plan-presentation';
   import DialogWindow from '@/common/gui/dialog/DialogWindow.vue';
   import DialogContent from '@/common/gui/dialog/DialogContent.vue';
   import FormButton from '@/common/gui/FormButton.vue';
@@ -23,7 +25,6 @@
     componentsMatchTariff,
     configurationFromTariff,
     dateFromDatetime,
-    dateFromPeriodEnd,
     dateToDatetime,
     dateToPeriodEnd,
     fromDatetimeLocal,
@@ -38,11 +39,20 @@
   } from './energy-cost-plan-utils';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
-  const props = defineProps({modelValue: Boolean, plan: Object});
+  const props = defineProps({modelValue: Boolean, plan: Object, channelId: Number});
   const emit = defineEmits(['update:modelValue', 'saved', 'deleted']);
   const opened = computed({get: () => props.modelValue, set: (value) => emit('update:modelValue', value)});
   const store = useEnergyCostStore();
-  const {presets, presetDetailsById, tariffs} = storeToRefs(store);
+  const {presets, presetDetailsById, tariffs, tariffDetailsById} = storeToRefs(store);
+  const {t, locale} = useI18n();
+  const presentation = computed(() =>
+    presentCostPlan(configuration.value, {
+      starters: Object.values(tariffDetailsById.value),
+      presets: presets.value,
+      t,
+      locale: locale.value,
+    })
+  );
   const firstDayOfMonth = () => new Date().toISOString().slice(0, 8) + '01';
   const defaultConfiguration = () => configurationFromTariff({components: []});
   const name = ref('');
@@ -61,7 +71,7 @@
   const periods = computed(() => configuration.value.periods);
 
   async function resetDraft() {
-    name.value = props.plan?.name || '';
+    name.value = props.plan?.name || 'Custom tariff';
     const draft = JSON.parse(JSON.stringify(props.plan?.configuration || defaultConfiguration()));
     configuration.value = {
       ...draft,
@@ -90,6 +100,7 @@
       await resetDraft();
       try {
         await Promise.all([store.fetchPresets(), store.fetchTariffs()]);
+        await store.fetchPresentationCatalogs();
         await Promise.all(
           periods.value.flatMap((period) =>
             period.components.filter((component) => component.presetId).map((component) => store.fetchPreset(component.presetId))
@@ -135,7 +146,6 @@
       billingCycles: configuration.value.billingCycles.map(() => ({})),
       periods: periods.value.map((period) => ({components: period.components.map(() => ({}))})),
     };
-    if (!name.value.trim()) result.name = 'Plan name is required.'; // i18n
     configuration.value.billingCycles.forEach((cycle, index) => {
       if (!/^\d{4}-\d{2}-\d{2}$/.test(cycle.anchor || '')) result.billingCycles[index].anchor = 'Anchor date is required.'; // i18n
       if (!isInteger(cycle.length) || Number(cycle.length) < 1) result.billingCycles[index].length = 'Length must be positive.'; // i18n
@@ -153,7 +163,6 @@
     });
     errors.value = result;
     return (
-      !result.name &&
       result.billingCycles.every((error) => Object.keys(error).length === 0) &&
       result.periods.every(
         (error) =>
@@ -205,8 +214,6 @@
   const periodHasErrors = (index) =>
     Object.keys(errors.value.periods[index] || {}).some((key) => key !== 'components') ||
     errors.value.periods[index]?.components?.some((component) => Object.keys(component).length);
-  const periodLabel = (period) =>
-    [...new Set(period.components.map((component) => presets.value.find((preset) => preset.id === component.presetId)?.label || component.kind))].join(', ');
   function addPeriod() {
     const lastIndex = periods.value.length - 1;
     const lastPeriod = periods.value[lastIndex];
@@ -296,7 +303,13 @@
     saving.value = true;
     serverError.value = null;
     try {
-      const plan = createdPlan.value || (props.plan ? await store.updatePlan(props.plan.id, payload()) : await store.createPlan(payload()));
+      const plan =
+        createdPlan.value ||
+        (props.plan && props.channelId
+          ? (await store.saveAssignedConfiguration(props.channelId, payload().configuration, 'thisMeter')).plan
+          : props.plan
+            ? await store.updatePlan(props.plan.id, payload())
+            : await store.createPlan(payload()));
       createdPlan.value = plan;
       emit('saved', plan);
       opened.value = false;
@@ -336,22 +349,27 @@
           ><div class="alert alert-danger">
             {{ $t('Deleting this tariff plan is irreversible and unassigns it from every electricity meter that uses it.') }}
           </div>
-          <p>{{ $t('Confirm deletion of the {planName} tariff plan.', {planName: plan.name}) }}</p></template
+          <p>{{ $t('Confirm deletion of the {planName} tariff plan.', {planName: presentation.label}) }}</p></template
         >
         <template v-else>
-          <div v-if="plan" class="alert alert-warning">{{ $t('Changes to this tariff plan affect every electricity meter that uses it.') }}</div>
+          <ul v-if="plan" class="list-unstyled">
+            <li v-for="(entry, index) in presentation.history" :key="index">
+              {{ entry.effectiveDates }} — {{ entry.label }}
+              <small v-if="entry.customized"> · {{ $t('Customized prices') }}</small>
+              <small v-if="entry.scheduled"> · {{ $t('Scheduled') }}</small>
+              <template v-if="entry.custom">
+                <div v-if="entry.supplier">{{ $t('Electricity supply') }}: {{ entry.supplier }}</div>
+                <div v-if="entry.distribution">{{ $t('Distribution') }}: {{ entry.distribution }}</div>
+              </template>
+            </li>
+          </ul>
+          <div v-if="plan && channelId" class="alert alert-info">
+            {{ $t('Changes are saved only for this meter. Other meters keep their current tariff plan.') }}
+          </div>
           <energy-cost-tariff-picker v-if="!plan" :model-value="selectedTariffId" :tariffs="tariffs" @update:model-value="selectMainTariff" />
           <div v-if="!advancedVisible && !selectedTariffId && plan" class="form-control-static">{{ $t('Custom configuration') }}</div>
           <button v-if="!advancedVisible" type="button" class="btn btn-link" @click="advancedVisible = true">{{ $t('Advanced settings') }}</button>
           <template v-if="advancedVisible">
-            <div class="form-group" :class="{'has-error': errors.name}">
-              <label for="energy-cost-plan-name">{{ $t('Name') }}</label
-              ><input id="energy-cost-plan-name" v-model="name" class="form-control" maxlength="255" @input="nameWasEdited = true" /><span
-                v-if="errors.name"
-                class="help-block"
-                >{{ $t(errors.name) }}</span
-              >
-            </div>
             <h5>{{ $t('Tariff periods') }}</h5>
             <energy-cost-plan-period
               v-if="periods.length === 1"
@@ -366,10 +384,8 @@
             <accordion-root v-else v-model="openedPeriod"
               ><accordion-item v-for="(period, index) in periods" :key="index" :name="`period-${index}`" :error="periodHasErrors(index)"
                 ><template #title
-                  >{{ periodLabel(period) || $t('Choose tariff')
-                  }}<template v-if="periods.length > 1">
-                    ({{ period.validFrom ? dateFromDatetime(period.validFrom, periodTimezone(period)) : '...' }} -
-                    {{ period.validTo ? dateFromPeriodEnd(period.validTo, periodTimezone(period)) : '...' }})</template
+                  >{{ presentation.history[index]?.effectiveDates }} — {{ presentation.history[index]?.label }}
+                  <small v-if="presentation.history[index]?.customized"> · {{ $t('Customized prices') }}</small>
                   ></template
                 ><energy-cost-plan-period
                   :period="period"

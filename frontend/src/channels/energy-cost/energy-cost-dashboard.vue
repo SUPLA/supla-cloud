@@ -9,6 +9,8 @@
 <script setup>
   import {computed, nextTick, onBeforeUnmount, onMounted, ref, toRaw, watch} from 'vue';
   import {storeToRefs} from 'pinia';
+  import {useI18n} from 'vue-i18n';
+  import {presentCostPlan} from './energy-cost-plan-presentation';
   import {useRoute, useRouter} from 'vue-router';
   import {DateTime} from 'luxon';
   import logoUrl from '@/assets/img/logo.svg';
@@ -28,6 +30,15 @@
   const route = useRoute();
   const router = useRouter();
   const energyCostStore = useEnergyCostStore();
+  const {t, locale} = useI18n();
+  const presentation = computed(() =>
+    presentCostPlan(props.plan.configuration, {
+      starters: Object.values(energyCostStore.tariffDetailsById),
+      presets: energyCostStore.presets,
+      t,
+      locale: locale.value,
+    })
+  );
   const {presetDetailsById} = storeToRefs(energyCostStore);
   const timezone = computed(() => props.plan.configuration?.timezone || 'Europe/Warsaw');
   const storageKey = computed(() => `energy-cost-range:${props.channel.id}`);
@@ -316,7 +327,7 @@
               </div>
               <div class="energy-cost-print-plan">
                 <dt>{{ $t('Tariff plan') }}</dt>
-                <dd>{{ plan.name }}</dd>
+                <dd>{{ presentation.label }}</dd>
               </div>
               <div>
                 <dt>{{ $t('Timezone') }}</dt>
