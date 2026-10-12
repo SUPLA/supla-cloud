@@ -128,6 +128,9 @@
         <section v-if="!assignment" class="well text-center">
           <h3>{{ $t('Set up electricity costs') }}</h3>
           <p>{{ $t('Choose a tariff to calculate the cost of electricity used by this meter.') }}</p>
+          <p v-if="channel.config?.simpleCostSettingsAvailable" class="alert alert-warning">
+            {{ $t('After assigning a tariff, the basic price per kWh and currency settings in channel configuration will be hidden.') }}
+          </p>
           <button class="btn btn-primary" :disabled="loading" @click="selectorOpened = true">{{ $t('Choose tariff') }}</button>
           <button class="btn btn-link" :disabled="loading" @click="openAdvanced">{{ $t('Create custom tariff') }}</button>
         </section>

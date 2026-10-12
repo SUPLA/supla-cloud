@@ -34,6 +34,7 @@ use App\Model\UserConfigTranslator\RelayTimeSUserConfigTranslator;
 use App\Model\UserConfigTranslator\RollerShutterUserConfigTranslator;
 use App\Model\UserConfigTranslator\SubjectConfigTranslator;
 use App\Model\UserConfigTranslator\TemperatureAdjustmentConfigTranslator;
+use App\Repository\EnergyCostPlanAssignmentRepository;
 use PHPUnit\Framework\TestCase;
 
 class ChannelParamConfigTranslatorTest extends TestCase {
@@ -46,7 +47,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             new RelayTimeMsUserConfigTranslator(),
             new RelayTimeSUserConfigTranslator(),
             new OpeningClosingTimeUserConfigTranslator(),
-            new ElectricityMeterUserConfigTranslator(),
+            new ElectricityMeterUserConfigTranslator($this->createMock(EnergyCostPlanAssignmentRepository::class)),
             new ImpulseCounterUserConfigTranslator(),
             new HumidityAdjustmentConfigTranslator(),
             new TemperatureAdjustmentConfigTranslator(),

@@ -18,23 +18,26 @@
 namespace App\Tests\Model\UserConfigTranslator;
 
 use App\Entity\EntityUtils;
+use App\Entity\Main\EnergyCostPlanAssignment;
 use App\Entity\Main\IODeviceChannel;
 use App\Model\UserConfigTranslator\ElectricityMeterUserConfigTranslator;
-use App\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
+use App\Repository\EnergyCostPlanAssignmentRepository;
 use App\Tests\Integration\Traits\UnitTestHelper;
 use PHPUnit\Framework\TestCase;
 
 class ElectricityMeterUserConfigTranslatorTest extends TestCase {
     use UnitTestHelper;
 
-    /** @var OpeningClosingTimeUserConfigTranslator */
+    /** @var ElectricityMeterUserConfigTranslator */
     private $configTranslator;
     /** @var \App\Entity\Main\IODeviceChannel */
     private $channel;
+    private EnergyCostPlanAssignmentRepository $assignmentRepository;
 
     /** @before */
     public function createTranslator() {
-        $this->configTranslator = new ElectricityMeterUserConfigTranslator();
+        $this->assignmentRepository = $this->createMock(EnergyCostPlanAssignmentRepository::class);
+        $this->configTranslator = new ElectricityMeterUserConfigTranslator($this->assignmentRepository);
         $this->channel = new IODeviceChannel();
         EntityUtils::setField($this->channel, 'properties', json_encode([
             'countersAvailable' => ['forwardActiveEnergy', 'reverseActiveEnergy', 'forwardReactiveEnergy', 'reverseReactiveEnergy',
@@ -44,6 +47,34 @@ class ElectricityMeterUserConfigTranslatorTest extends TestCase {
                 "OFF", "VOLTAGE_PRESENCE", "VOLTAGE_PRESENCE_INVERTED", "VOLTAGE_LEVEL", "POWER_ACTIVE_DIRECTION",
             ],
         ]));
+    }
+
+    public function testSimpleCostSettingsFollowAssignmentWithoutChangingStoredPrices() {
+        EntityUtils::setField($this->channel, 'id', 123);
+        $this->configTranslator->setConfig($this->channel, ['pricePerUnit' => 0.75, 'currency' => 'PLN']);
+        $this->assignmentRepository->expects($this->exactly(3))->method('findForChannel')->with($this->channel)
+            ->willReturnOnConsecutiveCalls(null, $this->createMock(EnergyCostPlanAssignment::class), null);
+
+        foreach ([true, false, true] as $available) {
+            $config = $this->configTranslator->getConfig($this->channel);
+            $this->assertSame($available, $config['simpleCostSettingsAvailable']);
+            $this->assertEquals(0.75, $config['pricePerUnit']);
+            $this->assertSame('PLN', $config['currency']);
+        }
+    }
+
+    public function testSimpleCostSettingsAvailabilityCannotBeOverriddenByUserConfig() {
+        $this->configTranslator->setConfig($this->channel, ['pricePerUnit' => 0.75, 'simpleCostSettingsAvailable' => false]);
+        $this->assertTrue($this->configTranslator->getConfig($this->channel)['simpleCostSettingsAvailable']);
+        $this->assertArrayNotHasKey('simpleCostSettingsAvailable', $this->channel->getUserConfig());
+    }
+
+    public function testSimpleCostSettingsRequireAPositivePrice() {
+        $this->assertFalse($this->configTranslator->getConfig($this->channel)['simpleCostSettingsAvailable']);
+        $this->configTranslator->setConfig($this->channel, ['pricePerUnit' => 0.0001]);
+        $this->assertTrue($this->configTranslator->getConfig($this->channel)['simpleCostSettingsAvailable']);
+        $this->configTranslator->setConfig($this->channel, ['pricePerUnit' => 0, 'simpleCostSettingsAvailable' => true]);
+        $this->assertFalse($this->configTranslator->getConfig($this->channel)['simpleCostSettingsAvailable']);
     }
 
     public function testDisablingPhases() {

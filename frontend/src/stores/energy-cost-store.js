@@ -1,6 +1,11 @@
 import {defineStore} from 'pinia';
 import {computed, ref} from 'vue';
 import {energyCostApi} from '@/api/energy-cost-api';
+import EventBus from '@/common/event-bus';
+
+function notifyCostSettingsChanged(channelIds) {
+  if (channelIds.length) EventBus.$emit('channel-cost-settings-changed', channelIds);
+}
 
 export const useEnergyCostStore = defineStore('energyCost', () => {
   const presets = ref([]);
@@ -135,16 +140,21 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
 
   const deletePlan = async (id) => {
     await energyCostApi.deletePlan(id);
+    const channelIds = Object.values(assignmentsByChannelId.value)
+      .filter((assignment) => assignment?.planId === Number(id))
+      .map((assignment) => assignment.channelId);
     plans.value = plans.value.filter((plan) => plan.id !== Number(id));
     assignmentsByChannelId.value = Object.fromEntries(
       Object.entries(assignmentsByChannelId.value).map(([channelId, assignment]) => [channelId, assignment?.planId === Number(id) ? null : assignment])
     );
+    notifyCostSettingsChanged(channelIds);
   };
 
   const assignPlan = async (channelId, planId) => {
     const assignment = await energyCostApi.assignPlan(channelId, planId);
     assignmentsByChannelId.value = {...assignmentsByChannelId.value, [channelId]: assignment};
     assignmentReadyByChannelId.value = {...assignmentReadyByChannelId.value, [channelId]: true};
+    notifyCostSettingsChanged([channelId]);
     return assignment;
   };
 
@@ -152,6 +162,7 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     await energyCostApi.unassignPlan(channelId);
     assignmentsByChannelId.value = {...assignmentsByChannelId.value, [channelId]: null};
     assignmentReadyByChannelId.value = {...assignmentReadyByChannelId.value, [channelId]: true};
+    notifyCostSettingsChanged([channelId]);
   };
 
   const assignStarter = async (channelId, starterId, configuration) => {
@@ -159,6 +170,7 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     plans.value = plans.value.some((item) => item.id === plan.id) ? plans.value.map((item) => (item.id === plan.id ? plan : item)) : [...plans.value, plan];
     assignmentsByChannelId.value = {...assignmentsByChannelId.value, [channelId]: assignment};
     assignmentReadyByChannelId.value = {...assignmentReadyByChannelId.value, [channelId]: true};
+    notifyCostSettingsChanged([channelId]);
     return plan;
   };
 
@@ -171,6 +183,7 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     plans.value = plans.value.some((item) => item.id === plan.id) ? plans.value.map((item) => (item.id === plan.id ? plan : item)) : [...plans.value, plan];
     assignmentsByChannelId.value = {...assignmentsByChannelId.value, ...Object.fromEntries(affectedAssignments.map((item) => [item.channelId, item]))};
     assignmentReadyByChannelId.value = {...assignmentReadyByChannelId.value, ...Object.fromEntries(affectedAssignments.map((item) => [item.channelId, true]))};
+    notifyCostSettingsChanged(affectedAssignments.map((item) => item.channelId));
     return {plan, assignment};
   };
 

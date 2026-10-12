@@ -54,7 +54,7 @@ async function editor(multiple = true, assigned = true) {
     assignment: {channelId, planId: 11},
   }));
   const wrapper = mount(ChannelEnergyCosts, {
-    props: {channel: {id: 3, functionId: ChannelFunction.ELECTRICITYMETER}},
+    props: {channel: {id: 3, functionId: ChannelFunction.ELECTRICITYMETER, config: {simpleCostSettingsAvailable: true}}},
     global: {
       plugins: [pinia, createI18n({legacy: false, locale: 'pl', missingWarn: false, fallbackWarn: false})],
       stubs: {
@@ -131,9 +131,19 @@ describe('meter tariff replacement', () => {
   it('can still assign a starter when the meter has no tariff', async () => {
     const {wrapper, save, assignStarter, replacement} = await editor(false, false);
     expect(wrapper.text()).toContain('Set up electricity costs');
+    expect(wrapper.get('.alert-warning').text()).toBe(
+      'After assigning a tariff, the basic price per kWh and currency settings in channel configuration will be hidden.'
+    );
     wrapper.findComponent(EnergyCostTariffSelector).vm.$emit('select', 'replacement');
     await flushPromises();
     expect(assignStarter).toHaveBeenCalledWith(3, 'replacement', configurationFromTariff(replacement));
     expect(save).not.toHaveBeenCalled();
+  });
+
+  it('hides the basic-settings warning when simple costs are unavailable', async () => {
+    const {wrapper} = await editor(false, false);
+    await wrapper.setProps({channel: {id: 3, functionId: ChannelFunction.ELECTRICITYMETER, config: {simpleCostSettingsAvailable: false}}});
+    expect(wrapper.text()).toContain('Set up electricity costs');
+    expect(wrapper.find('.alert-warning').exists()).toBe(false);
   });
 });

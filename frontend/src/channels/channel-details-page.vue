@@ -278,6 +278,7 @@
         saveConfigConfirmationObject: undefined,
         sleepingDeviceWarning: false,
         onChangeListener: undefined,
+        onCostSettingsChangeListener: undefined,
         configConflictDetected: false,
       };
     },
@@ -285,9 +286,14 @@
       this.fetchChannel();
       this.onChangeListener = () => this.refreshChannelConfig(false);
       EventBus.$on('channel-updated', this.onChangeListener);
+      this.onCostSettingsChangeListener = (channelIds) => {
+        if (channelIds.includes(Number(this.id))) this.refreshChannelConfig(false, ['simpleCostSettingsAvailable']);
+      };
+      EventBus.$on('channel-cost-settings-changed', this.onCostSettingsChangeListener);
     },
     beforeUnmount() {
       EventBus.$off('channel-updated', this.onChangeListener);
+      EventBus.$off('channel-cost-settings-changed', this.onCostSettingsChangeListener);
     },
     methods: {
       deviceTitle,
@@ -393,9 +399,17 @@
         }
         return this.channelsStore.fetchAll(true);
       },
-      refreshChannelConfig(showLoading = true) {
+      refreshChannelConfig(showLoading = true, configFields) {
         this.loading = showLoading;
-        this.channelsStore.fetchChannel(this.channel.id).then((channel) => {
+        return this.channelsStore.fetchChannel(this.channel.id).then((channel) => {
+          if (configFields) {
+            for (const field of configFields) {
+              this.channel.config[field] = channel.config[field];
+              this.channel.configBefore[field] = channel.config[field];
+            }
+            this.loading = false;
+            return;
+          }
           this.channel.relationsCount = channel.relationsCount;
           this.channel.config = channel.config;
           this.channel.configBefore = channel.configBefore;

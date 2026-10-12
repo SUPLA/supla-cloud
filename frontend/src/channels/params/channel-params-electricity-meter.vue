@@ -12,7 +12,7 @@
       </dt>
     </dl>
     <AccordionRoot>
-      <AccordionItem title-i18n="Costs">
+      <AccordionItem v-if="channel.config.simpleCostSettingsAvailable" title-i18n="Costs">
         <channel-params-meter-cost :channel="channel" unit="kWh" @change="$emit('change')" />
       </AccordionItem>
       <AccordionItem title-i18n="History">

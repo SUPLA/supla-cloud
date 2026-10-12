@@ -6,6 +6,7 @@ use App\Entity\HasUserConfig;
 use App\Entity\Main\IODeviceChannel;
 use App\Enums\ChannelFlags;
 use App\Enums\ChannelFunction;
+use App\Repository\EnergyCostPlanAssignmentRepository;
 use App\Utils\JsonArrayObject;
 use App\Utils\NumberUtils;
 use Assert\Assert;
@@ -19,6 +20,7 @@ use OpenApi\Annotations as OA;
  *     @OA\Property(property="resetCountersAvailable", type="boolean", readOnly=true),
  *     @OA\Property(property="pricePerUnit", type="number"),
  *     @OA\Property(property="currency", type="string"),
+ *     @OA\Property(property="simpleCostSettingsAvailable", type="boolean", readOnly=true),
  *     @OA\Property(property="electricityMeterInitialValues", type="object"),
  *     @OA\Property(property="relatedRelayChannelId", type="integer"),
  *     @OA\Property(property="addToHistory", type="boolean"),
@@ -41,10 +43,16 @@ use OpenApi\Annotations as OA;
 class ElectricityMeterUserConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
+    public function __construct(private readonly EnergyCostPlanAssignmentRepository $assignmentRepository) {
+    }
+
     public function getConfig(HasUserConfig $subject): array {
         return [
             'pricePerUnit' => NumberUtils::maximumDecimalPrecision($subject->getParam2() / 10000, 4),
             'currency' => $subject->getTextParam1() ?: null,
+            'simpleCostSettingsAvailable' => $subject instanceof IODeviceChannel
+                && $subject->getParam2() > 0
+                && (!$subject->getId() || !$this->assignmentRepository->findForChannel($subject)),
             'resetCountersAvailable' => ChannelFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($subject->getFlags()),
             'countersAvailable' => ($subject->getProperties()['countersAvailable'] ?? []) ?: [],
             'electricityMeterInitialValues' => new JsonArrayObject($subject->getUserConfig()['electricityMeterInitialValues'] ?? []),
