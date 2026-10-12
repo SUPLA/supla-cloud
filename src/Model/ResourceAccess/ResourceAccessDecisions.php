@@ -19,32 +19,118 @@ class ResourceAccessDecisions {
         return $permissions & 2 ? $permissions | 1 : $permissions;
     }
 
-    public function list(int $userId, callable $authorize, ?int $destination = null, ?int $device = null): array {
-        $connection = $this->entityManager->getConnection();
-        $parameters = [$userId];
+    public function list(
+        int $userId,
+        callable $authorize,
+        ?int $destination = null,
+        ?int $device = null,
+        ?int $before = null,
+        int $limit = 50,
+        ?string $status = null
+    ): array {
         $filter = '';
+        $parameters = [$userId];
         if ($destination !== null) {
-            $filter .= 'AND p.destination_device_id=? ';
+            $filter .= ' AND p.destination_device_id=?';
             $parameters[] = $destination;
         }
         if ($device !== null) {
-            $filter .= 'AND (p.destination_device_id=? OR p.source_device_id=?) ';
+            $filter .= ' AND (p.destination_device_id=? OR p.source_device_id=?)';
             array_push($parameters, $device, $device);
         }
-        $rows = $connection->fetchAllAssociative(
-            'SELECT d.*, p.user_id, p.destination_device_id, p.source_channel_id, p.source_device_id '
-            . 'FROM supla_resource_access_decision d JOIN supla_resource_access_pair p ON p.id=d.pair_id '
-            . 'WHERE p.user_id=? AND d.status<>\'REMOVED\' '
-            . $filter . 'ORDER BY d.id DESC',
-            $parameters
-        );
-        $result = [];
-        foreach ($rows as $row) {
-            $context = $this->context($row, false);
-            if (!$authorize($row, $context)) {
-                continue;
+        if ($before !== null) {
+            $filter .= ' AND d.id<?';
+            $parameters[] = $before;
+        }
+        if ($status !== null) {
+            $filter .= ' AND d.status=?';
+            $parameters[] = $status;
+        }
+        return $this->read($parameters, $filter, $authorize, min(50, max(1, $limit)));
+    }
+
+    public function detail(int $userId, int $id, callable $authorize): ?array {
+        return $this->read([$userId, $id], ' AND d.id=?', $authorize, 1)['items'][0] ?? null;
+    }
+
+    private function tables(): array {
+        // Schema-managed Core data is deliberately excluded from Doctrine's schema filter.
+        return $this->entityManager->getConnection()->fetchFirstColumn("SELECT table_name FROM information_schema.tables
+            WHERE table_schema=DATABASE() AND table_name IN ('supla_suplan_device_state','supla_suplan_grant','supla_suplan_peer_association')");
+    }
+
+    private function read(array $parameters, string $filter, callable $authorize, int $limit): array {
+        return $this->entityManager->getConnection()->transactional(function ($connection) use ($parameters, $filter, $authorize, $limit) {
+            $tables = $this->tables();
+            $select = 'd.*,p.user_id,p.destination_device_id,p.source_device_id,p.source_channel_id';
+            foreach (['src' => 's', 'dst' => 't'] as $prefix => $alias) {
+                foreach (['id', 'user_id', 'name', 'flags', 'protocol_version'] as $field) {
+                    $select .= ",$alias.$field {$prefix}_$field";
+                }
             }
-            $result[] = $this->view($row, $context);
+            foreach (['id', 'user_id', 'iodevice_id', 'type', 'func', 'caption', 'properties'] as $field) {
+                $select .= ",c.$field channel_$field";
+            }
+            $hasIdentity = in_array('supla_suplan_device_state', $tables, true);
+            $select .= $hasIdentity ? ',i.current_root_epoch,i.accepted_channels' : ',NULL current_root_epoch,NULL accepted_channels';
+            $rows = $connection->fetchAllAssociative('SELECT ' . $select . '
+                FROM supla_resource_access_decision d JOIN supla_resource_access_pair p ON p.id=d.pair_id
+                LEFT JOIN supla_iodevice s ON s.id=p.source_device_id AND s.user_id=p.user_id
+                LEFT JOIN supla_iodevice t ON t.id=p.destination_device_id AND t.user_id=p.user_id
+                LEFT JOIN supla_dev_channel c ON c.id=p.source_channel_id AND c.user_id=p.user_id '
+                . ($hasIdentity ? 'LEFT JOIN supla_suplan_device_state i ON i.device_id=p.source_device_id AND i.user_id=p.user_id ' : '')
+                . 'WHERE p.user_id=? AND d.status<>\'REMOVED\'' . $filter . ' ORDER BY d.id DESC LIMIT ' . ($limit + 1), $parameters);
+            $more = count($rows) > $limit;
+            $rows = array_slice($rows, 0, $limit);
+            $items = [];
+            if ($rows) {
+                $pairIds = array_unique(array_column($rows, 'pair_id'));
+                $placeholders = implode(',', array_fill(0, count($pairIds), '?'));
+                $manual = $connection->fetchAllKeyValue('SELECT pair_id,BIT_OR(permissions) FROM supla_resource_access_decision
+                    WHERE status=\'ACCEPTED\' AND pair_id IN (' . $placeholders . ') GROUP BY pair_id', array_values($pairIds));
+                $independent = [];
+                if (in_array('supla_suplan_grant', $tables, true) && in_array('supla_suplan_peer_association', $tables, true)) {
+                    $independent = $connection->fetchAllKeyValue('SELECT p.id,BIT_OR(g.permissions) FROM supla_resource_access_pair p
+                        JOIN supla_suplan_peer_association a ON a.user_id=p.user_id AND a.source_device_id=p.source_device_id
+                            AND a.destination_device_id=p.destination_device_id
+                        JOIN supla_suplan_grant g ON g.association_id=a.id AND g.origin_type<>2
+                            AND ((g.resource_type=1 AND g.resource_id=p.source_channel_id)
+                                OR (g.resource_type=2 AND g.resource_id=p.source_device_id))
+                        WHERE p.id IN (' . $placeholders . ') GROUP BY p.id', array_values($pairIds));
+                }
+                // The normal voter uses these managed subjects; hydrate each type once per page.
+                $deviceIds = array_unique([...array_column($rows, 'source_device_id'), ...array_column($rows, 'destination_device_id')]);
+                $this->entityManager->getRepository(IODevice::class)->findBy(['id' => $deviceIds]);
+                $this->entityManager->getRepository(IODeviceChannel::class)->findBy(['id' => array_unique(array_column($rows, 'source_channel_id'))]);
+                foreach ($rows as $row) {
+                    $devices = [];
+                    foreach (['src' => $row['source_device_id'], 'dst' => $row['destination_device_id']] as $prefix => $id) {
+                        $devices[(int)$id] = $row[$prefix . '_id'] === null ? false : $this->unprefix($row, $prefix);
+                    }
+                    $context = ['source' => $row['channel_id'] === null ? false : $this->unprefix($row, 'channel'),
+                        'devices' => $devices,
+                        'identity' => ['current_root_epoch' => $row['current_root_epoch'], 'accepted_channels' => $row['accepted_channels']]];
+                    if ($authorize($row, $context)) {
+                        $items[] = $this->view(
+                            $row,
+                            $context,
+                            self::normalize((int)($manual[$row['pair_id']] ?? 0)),
+                            self::normalize((int)($independent[$row['pair_id']] ?? 0))
+                        );
+                    }
+                }
+            }
+            $last = end($rows);
+            return ['items' => $items, 'nextCursor' => $more ? (string)$last['id'] : null];
+        });
+    }
+
+    private function unprefix(array $row, string $prefix): array {
+        $result = [];
+        foreach ($row as $key => $value) {
+            if (str_starts_with($key, $prefix . '_')) {
+                $result[substr($key, strlen($prefix) + 1)] = $value;
+            }
         }
         return $result;
     }
@@ -115,7 +201,13 @@ class ResourceAccessDecisions {
             'SELECT id,user_id,iodevice_id,type,func,caption,properties FROM supla_dev_channel WHERE id=?' . $suffix,
             [$row['source_channel_id']]
         );
-        return ['source' => $source, 'devices' => $devices];
+        $identity = false;
+        if (in_array('supla_suplan_device_state', $this->tables(), true)) {
+            // Same order as Core approval_context: pair, decision, sorted Devices, Source Channel, identity.
+            $identity = $connection->fetchAssociative('SELECT current_root_epoch,accepted_channels FROM supla_suplan_device_state
+                WHERE device_id=? AND user_id=?' . $suffix, [$row['source_device_id'], $row['user_id']]);
+        }
+        return ['source' => $source, 'devices' => $devices, 'identity' => $identity];
     }
 
     private function compatible(array $row, array $context): bool {
@@ -135,6 +227,9 @@ class ResourceAccessDecisions {
         if ((int)$source['user_id'] !== (int)$row['user_id'] || (int)$row['source_device_id'] === (int)$row['destination_device_id']) {
             return false;
         }
+        if (!self::acceptedIdentity($context['identity'], (int)$row['source_channel_id'])) {
+            return false;
+        }
         $properties = json_decode($source['properties'] ?: '{}', true);
         return ResourceAccessPermissions::supported(
             (int)$source['type'],
@@ -144,42 +239,8 @@ class ResourceAccessDecisions {
         );
     }
 
-    private function view(array $row, array $context): array {
+    private function view(array $row, array $context, int $manual, int $independent): array {
         $source = $context['source'];
-        if ($source && (int)$source['user_id'] !== (int)$row['user_id']) {
-            $source = null;
-        }
-        foreach ($context['devices'] as &$device) {
-            if ($device && (int)$device['user_id'] !== (int)$row['user_id']) {
-                $device = null;
-            }
-        }
-        unset($device);
-        $connection = $this->entityManager->getConnection();
-        $accepted = $connection->fetchFirstColumn(
-            'SELECT permissions FROM supla_resource_access_decision WHERE pair_id=? AND status=\'ACCEPTED\'',
-            [$row['pair_id']]
-        );
-        $manual = array_reduce($accepted, fn($mask, $permissions) => $mask | self::normalize((int)$permissions), 0);
-        // Observe independent projection without editing its grants, ACL or keys.
-        $independent = 0;
-        // Doctrine's schema filter deliberately hides the Core-owned tables.
-        if (
-            (int)$connection->fetchOne("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE()
-            AND table_name IN ('supla_suplan_grant','supla_suplan_peer_association')") === 2
-        ) {
-            $grants = $connection->fetchAllAssociative(
-                'SELECT g.permissions,g.origin_type FROM supla_suplan_grant g JOIN supla_suplan_peer_association a ON a.id=g.association_id '
-                . 'WHERE a.user_id=? AND a.source_device_id=? AND a.destination_device_id=? '
-                . 'AND ((g.resource_type=1 AND g.resource_id=?) OR (g.resource_type=2 AND g.resource_id=?))',
-                [$row['user_id'], $row['source_device_id'], $row['destination_device_id'], $row['source_channel_id'], $row['source_device_id']]
-            );
-            foreach ($grants as $grant) {
-                if ((int)$grant['origin_type'] !== 2) {
-                    $independent |= self::normalize((int)$grant['permissions']);
-                }
-            }
-        }
         return [
             'id' => (int)$row['id'], 'revision' => (int)$row['revision'], 'status' => $row['status'],
             'permissions' => (int)$row['permissions'], 'origin' => 'USER_APPROVAL',
@@ -196,6 +257,28 @@ class ResourceAccessDecisions {
             'acceptedManualPermissions' => $manual, 'independentPermissions' => $independent,
             'provisioningStatus' => 'NOT_CONFIRMED',
         ];
+    }
+
+    private static function acceptedIdentity(array|false $identity, int $channel): bool {
+        if (!$identity || (int)$identity['current_root_epoch'] < 1 || (int)$identity['current_root_epoch'] >= 4294967295) {
+            return false;
+        }
+        $blob = $identity['accepted_channels'];
+        if (!is_string($blob) || strlen($blob) > 512 || strlen($blob) % 4 !== 0) {
+            return false;
+        }
+        // Core persists sorted, unique, positive signed ChannelIds as big-endian u32s.
+        $previous = 0;
+        $member = false;
+        for ($offset = 0; $offset < strlen($blob); $offset += 4) {
+            $id = unpack('N', substr($blob, $offset, 4))[1];
+            if ($id <= $previous || $id > 2147483647) {
+                return false;
+            }
+            $member = $member || $id === $channel;
+            $previous = $id;
+        }
+        return $member;
     }
 
     private function timestamp(?string $value): ?string {

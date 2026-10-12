@@ -40,6 +40,10 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         $this->executeCommand(['command' => 'doctrine:migrations:execute',
             'versions' => ['SuplaBundle\\Migrations\\Migration\\Version20261007104248'], '--up' => true]);
         $connection = $this->getEntityManager()->getConnection();
+        foreach ($this->deviceIds as $index => $deviceId) {
+            $connection->insert('supla_suplan_device_state', ['device_id' => $deviceId, 'user_id' => $this->user->getId(),
+                'current_root_epoch' => 1, 'accepted_channels' => pack('N*', ...$this->channelIds[$index])]);
+        }
         $connection->insert('supla_suplan_peer_association', ['user_id' => $this->user->getId(),
             'source_device_id' => $this->deviceIds[0], 'destination_device_id' => $this->deviceIds[1], 'canonical_acl' => '']);
         $association = $connection->lastInsertId();
@@ -339,5 +343,148 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSame([], $client->getResponseBody());
         $client->apiRequestV3('GET', '/api/resource-access?deviceId=invalid');
         $this->assertStatusCode(404, $client->getResponse());
+    }
+
+    public static function invalidAcceptedIdentities(): array {
+        return [['absent'], ['missing-channel'], ['malformed'], ['duplicate'], ['unsorted'], ['out-of-range']];
+    }
+
+    /** @dataProvider invalidAcceptedIdentities */
+    public function testApproveRequiresCurrentAcceptedSourceIdentity(string $kind) {
+        $id = $this->decision();
+        $before = $this->row($id);
+        $connection = $this->getEntityManager()->getConnection();
+        $source = $this->deviceIds[0];
+        if ($kind === 'absent') {
+            $connection->delete('supla_suplan_device_state', ['device_id' => $source]);
+        } else {
+            $ids = $this->channelIds[0];
+            $blob = match ($kind) {
+                'missing-channel' => pack('N', $ids[1]),
+                'malformed' => "\x01\x02\x03",
+                'duplicate' => pack('N*', $ids[0], $ids[0]),
+                'unsorted' => pack('N*', $ids[1], $ids[0]),
+                'out-of-range' => pack('N', 2147483648),
+            };
+            $connection->update('supla_suplan_device_state', ['accepted_channels' => $blob], ['device_id' => $source]);
+        }
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/resource-access/' . $id);
+        $this->assertFalse($client->getResponseBody()['canApprove']);
+        $this->mutate($id, 'approve', $before, 409);
+        $this->assertSame($before, $this->row($id));
+        $this->assertSame([], SuplaServerMock::$executedCommands);
+        // Restoring identity cannot turn a failed approval into an Accepted decision.
+        $connection->delete('supla_suplan_device_state', ['device_id' => $source]);
+        $connection->insert('supla_suplan_device_state', ['device_id' => $source, 'user_id' => $this->user->getId(),
+            'current_root_epoch' => 2, 'accepted_channels' => pack('N*', ...$this->channelIds[0])]);
+        $this->assertSame('PENDING', $this->row($id)['status']);
+        $this->mutate($id, 'approve'); // Requires a new explicit user action, Source remains offline.
+        $this->assertSame('ACCEPTED', $this->row($id)['status']);
+    }
+
+    public function testIdentityChangeAfterDisplayAndRejectedReconsiderationAreGuarded() {
+        $id = $this->decision();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/resource-access/' . $id);
+        $this->assertTrue($client->getResponseBody()['canApprove']);
+        $connection = $this->getEntityManager()->getConnection();
+        $connection->update('supla_suplan_device_state', ['current_root_epoch' => 2,
+            'accepted_channels' => pack('N', $this->channelIds[0][1])], ['device_id' => $this->deviceIds[0]]);
+        $this->mutate($id, 'approve', null, 409);
+        $this->mutate($id, 'reject');
+        $this->mutate($id, 'approve', null, 409);
+        $this->assertSame('REJECTED', $this->row($id)['status']);
+        $this->mutate($id, 'remove'); // Invalid identity never prevents explicit orphan cleanup.
+        $this->assertSame('REMOVED', $this->row($id)['status']);
+    }
+
+    public function testRequestsPaginationAndDirectDetailHaveBoundedQueries() {
+        $first = $this->decision(1, 'ACCEPTED');
+        $em = $this->getEntityManager();
+        $configuration = $em->getConnection()->getConfiguration();
+        $logger = new \Doctrine\DBAL\Logging\DebugStack();
+        $previous = $configuration->getSQLLogger();
+        $service = new \App\Model\ResourceAccess\ResourceAccessDecisions($em, self::getContainer()->get(\App\Supla\SuplaServer::class));
+        $counts = [];
+        try {
+            foreach ([1, 50, 250] as $size) {
+                while ((int)$em->getConnection()->fetchOne('SELECT COUNT(*) FROM supla_resource_access_decision') < $size) {
+                    $this->decision(1, 'ACCEPTED');
+                }
+                $logger->queries = [];
+                $configuration->setSQLLogger($logger);
+                $page = $service->list($this->user->getId(), fn($row, $context) => true);
+                $counts[] = count($logger->queries);
+                $this->assertCount(min(50, $size), $page['items']);
+                $this->assertSame($size > 50, $page['nextCursor'] !== null);
+                $configuration->setSQLLogger($previous);
+            }
+            $this->assertSame($counts[0], $counts[1]);
+            $this->assertSame($counts[0], $counts[2]);
+            $this->assertLessThanOrEqual(8, $counts[2]);
+            $logger->queries = [];
+            $configuration->setSQLLogger($logger);
+            $this->assertSame($first, $service->detail($this->user->getId(), $first, fn($row, $context) => true)['id']);
+            $this->assertLessThanOrEqual(8, count($logger->queries));
+        } finally {
+            $configuration->setSQLLogger($previous);
+        }
+        $client = $this->createAuthenticatedClient($this->user);
+        $seen = [];
+        $cursor = null;
+        do {
+            $client->apiRequestV3('GET', '/api/resource-access' . ($cursor ? '?beforeId=' . $cursor : ''));
+            $this->assertStatusCode(200, $client->getResponse());
+            $rows = $client->getResponseBody();
+            $this->assertLessThanOrEqual(50, count($rows));
+            $seen = [...$seen, ...array_column($rows, 'id')];
+            $cursor = $client->getResponse()->headers->get('X-Next-Cursor');
+        } while ($cursor);
+        $this->assertCount(250, $seen);
+        $this->assertCount(250, array_unique($seen));
+        $sorted = $seen;
+        rsort($sorted);
+        $this->assertSame($sorted, $seen);
+        $client->apiRequestV3('GET', '/api/resource-access/' . $first);
+        $this->assertSame($first, $client->getResponseBody()['id']);
+        $client->apiRequestV3('GET', '/api/resource-access?limit=51');
+        $this->assertStatusCode(400, $client->getResponse());
+    }
+
+    public function testCoveredPendingCanBeExplicitlyApprovedAsIndependentManualAccess() {
+        $id = $this->decision();
+        $connection = $this->getEntityManager()->getConnection();
+        $connection->update('supla_suplan_peer_association', ['lifecycle' => 1,
+            'canonical_acl' => pack('CNC', 1, $this->channelIds[0][0], 1)], ['source_device_id' => $this->deviceIds[0]]);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/resource-access/' . $id);
+        $entry = $client->getResponseBody();
+        $this->assertSame('PENDING', $entry['status']);
+        $this->assertSame(1, $entry['independentPermissions']);
+        $this->assertTrue($entry['canApprove']);
+        $this->mutate($id, 'approve');
+        $this->assertSame('ACCEPTED', $this->row($id)['status']);
+        // A fixture of configuration-origin removal must not retire the independent user decision.
+        $connection->delete('supla_suplan_grant', ['origin_type' => 1]);
+        $this->assertSame('ACCEPTED', $this->row($id)['status']);
+    }
+
+    public function testPendingIndicatorFilterIsAccountAndDeviceScoped() {
+        $this->decision(1, 'ACCEPTED');
+        $this->decision(2, 'REJECTED');
+        $pending = $this->decision(1, 'PENDING', 1);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/resource-access?status=PENDING&limit=1&deviceId=' . $this->deviceIds[0]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSame([$pending], array_column($client->getResponseBody(), 'id'));
+        $client->apiRequestV3('GET', '/api/resource-access?status=PENDING&destinationDeviceId=' . $this->deviceIds[0]);
+        $this->assertSame([], $client->getResponseBody());
+        $client->apiRequestV3('GET', '/api/resource-access?status=ACCEPTED');
+        $this->assertStatusCode(400, $client->getResponse());
+        $foreign = $this->createConfirmedUser('foreign-pending-indicator@supla.org');
+        $client = $this->createAuthenticatedClient($foreign);
+        $client->apiRequestV3('GET', '/api/resource-access?status=PENDING&limit=1');
+        $this->assertSame([], $client->getResponseBody());
     }
 }

@@ -21,18 +21,30 @@ class ResourceAccessController extends RestController {
     public function listAction(Request $request): JsonResponse {
         $destination = $request->query->get('destinationDeviceId');
         $device = $request->query->get('deviceId');
-        foreach ([$destination, $device] as $filter) {
+        $before = $request->query->get('beforeId');
+        $limit = $request->query->get('limit', '50');
+        $status = $request->query->get('status');
+        \App\Exception\ApiException::throwIf($status !== null && $status !== 'PENDING', 'Invalid request status filter.');
+        foreach ([$destination, $device, $before, $limit] as $filter) {
             if ($filter !== null && (!ctype_digit((string)$filter) || (int)$filter < 1)) {
                 throw $this->createNotFoundException();
             }
         }
-        $entries = $this->decisions->list(
+        \App\Exception\ApiException::throwIf((int)$limit > 50, 'Invalid page size.');
+        $page = $this->decisions->list(
             $this->getUser()->getId(),
             $this->authorizePair(...),
             $destination !== null ? (int)$destination : null,
-            $device !== null ? (int)$device : null
+            $device !== null ? (int)$device : null,
+            $before !== null ? (int)$before : null,
+            (int)$limit,
+            $status
         );
-        return new JsonResponse(array_map($this->present(...), $entries));
+        return new JsonResponse(
+            array_map($this->present(...), $page['items']),
+            200,
+            $page['nextCursor'] !== null ? ['X-Next-Cursor' => $page['nextCursor']] : []
+        );
     }
 
     /**
@@ -40,10 +52,9 @@ class ResourceAccessController extends RestController {
      * @Security("is_granted('ROLE_ACCOUNT_R') and is_granted('ROLE_IODEVICES_R') and is_granted('ROLE_CHANNELS_R')")
      */
     public function detailAction(int $id): JsonResponse {
-        foreach ($this->decisions->list($this->getUser()->getId(), $this->authorizePair(...)) as $entry) {
-            if ($entry['id'] === $id) {
-                return new JsonResponse($this->present($entry));
-            }
+        $entry = $this->decisions->detail($this->getUser()->getId(), $id, $this->authorizePair(...));
+        if ($entry !== null) {
+            return new JsonResponse($this->present($entry));
         }
         throw $this->createNotFoundException();
     }

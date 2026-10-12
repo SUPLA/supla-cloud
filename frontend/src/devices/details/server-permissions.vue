@@ -7,6 +7,7 @@
     <p class="small text-muted">
       {{ $t('These are permissions authorized by the server. An offline source applies changes after reconnecting; removal is not immediate there.') }}
     </p>
+    <p v-if="networkError" class="text-warning" role="alert">{{ $t('Could not load permissions. Check your connection and refresh to try again.') }}</p>
     <form class="permission-filters" @submit.prevent="reload">
       <label>{{ $t('Source device ID') }}<input v-model="filters.sourceDeviceId" class="form-control" type="number" min="1" /></label>
       <label>{{ $t('Requesting device ID') }}<input v-model="filters.destinationDeviceId" class="form-control" type="number" min="1" /></label>
@@ -77,7 +78,7 @@
           </tr>
         </tbody>
       </table>
-      <EmptyListPlaceholder v-else-if="!loading" class="inline" />
+      <EmptyListPlaceholder v-else-if="!loading && !networkError" class="inline" />
     </LoadingCover>
     <div class="d-flex justify-content-between mb-4">
       <button class="btn btn-white" type="button" :disabled="loading || !history.length" @click="previous">{{ $t('Previous') }}</button>
@@ -125,10 +126,12 @@
   import EmptyListPlaceholder from '@/common/gui/empty-list-placeholder.vue';
   defineOptions({compatConfig: {MODE: 3}});
   const props = defineProps({device: Object});
+  const emit = defineEmits(['updated']);
   const entries = ref([]),
     loading = ref(false),
     detailLoading = ref(false),
     detail = ref();
+  const networkError = ref(false);
   const filters = ref({sourceDeviceId: '', destinationDeviceId: '', permission: '', origin: ''});
   const appliedFilters = ref({...filters.value});
   const cursor = ref(),
@@ -155,6 +158,7 @@
   async function load() {
     const current = ++generation;
     loading.value = true;
+    networkError.value = false;
     closeDetails();
     const query = new URLSearchParams({limit: '25'});
     for (const [key, value] of Object.entries(appliedFilters.value)) if (value !== '') query.set(key, value);
@@ -166,6 +170,8 @@
         entries.value = response.body.items;
         nextCursor.value = response.body.nextCursor;
       }
+    } catch (error) {
+      if (current === generation && !error?.status) networkError.value = true;
     } finally {
       if (current === generation) loading.value = false;
     }
@@ -176,7 +182,7 @@
     history.value = [];
     entries.value = [];
     nextCursor.value = undefined;
-    return load();
+    return load().then(() => emit('updated'));
   }
   function next() {
     history.value.push(cursor.value);
@@ -191,9 +197,12 @@
     const current = ++detailGeneration;
     detail.value = undefined;
     detailLoading.value = true;
+    networkError.value = false;
     try {
       const response = await api.get(`resource-access/permissions/${key(entry)}`);
       if (current === detailGeneration) detail.value = response.body;
+    } catch (error) {
+      if (current === detailGeneration && !error?.status) networkError.value = true;
     } finally {
       if (current === detailGeneration) detailLoading.value = false;
     }
@@ -202,9 +211,12 @@
     const current = ++detailGeneration,
       entry = detail.value;
     detailLoading.value = true;
+    networkError.value = false;
     try {
       const response = await api.get(`resource-access/permissions/${key(entry)}?cursor=${entry.nextOriginCursor}`);
       if (current === detailGeneration) detail.value = {...response.body, origins: [...entry.origins, ...response.body.origins]};
+    } catch (error) {
+      if (current === detailGeneration && !error?.status) networkError.value = true;
     } finally {
       if (current === detailGeneration) detailLoading.value = false;
     }

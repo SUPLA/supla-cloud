@@ -150,3 +150,42 @@ it('discard old device list and detail responses after the device changes', asyn
   expect(page.findAll('tbody tr')).toHaveLength(0);
   page.unmount();
 });
+
+it('shows retryable network failure without presenting an empty permissions result', async () => {
+  const get = vi
+    .spyOn(api, 'get')
+    .mockRejectedValueOnce(new TypeError('Failed to fetch'))
+    .mockResolvedValueOnce({body: {items: [entry], nextCursor: null}});
+  const page = mountList();
+  await flushPromises();
+  expect(page.find('[role="alert"]').text()).toContain('Could not load permissions');
+  expect(page.findComponent({name: 'EmptyListPlaceholder'}).exists()).toBe(false);
+  await page
+    .findAll('button')
+    .find((button) => button.text() === 'Refresh')
+    .trigger('click');
+  await flushPromises();
+  expect(get).toHaveBeenCalledTimes(2);
+  expect(page.find('[role="alert"]').exists()).toBe(false);
+  expect(page.findAll('tbody tr')).toHaveLength(1);
+  page.unmount();
+});
+
+it('signals pending decisions in Requests and refreshes the indicator after a decision', async () => {
+  let pending = true;
+  const get = vi
+    .spyOn(api, 'get')
+    .mockImplementation((endpoint) =>
+      Promise.resolve({body: endpoint.includes('status=PENDING') ? (pending ? [{id: 1}] : []) : {items: [], nextCursor: null}})
+    );
+  const page = mount(ResourceAccessPage, {props: {device: {id: 10}}, global: {stubs}});
+  await flushPromises();
+  expect(page.find('.requests-pending-indicator').exists()).toBe(true);
+  expect(page.find('.requests-pending-indicator').attributes('title')).toContain('need your attention');
+  expect(get).toHaveBeenCalledWith('resource-access?status=PENDING&limit=1&deviceId=10', {skipErrorHandler: true});
+  pending = false;
+  page.findComponent(ServerPermissions).vm.$emit('updated');
+  await flushPromises();
+  expect(page.find('.requests-pending-indicator').exists()).toBe(false);
+  page.unmount();
+});

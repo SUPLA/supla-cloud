@@ -1,4 +1,5 @@
 import {mount, flushPromises} from '@vue/test-utils';
+import {createPinia, setActivePinia} from 'pinia';
 import ResourceAccess from '@/devices/details/resource-access.vue';
 import {api} from '@/api/api';
 import {permissionLabels, confirmationText} from '@/devices/details/resource-access-labels';
@@ -31,9 +32,13 @@ const mountPage = (props = {}) =>
     },
   });
 
-afterEach(() => vi.restoreAllMocks());
+afterEach(() => {
+  vi.restoreAllMocks();
+  vi.unstubAllGlobals();
+  setActivePinia(undefined);
+});
 it('a selected accepted request stays separate and changing selection closes an old confirmation', async () => {
-  vi.spyOn(api, 'get').mockResolvedValue({body: [accepted, pending]});
+  vi.spyOn(api, 'get').mockImplementation((endpoint) => Promise.resolve({body: endpoint.endsWith('/2') ? pending : accepted}));
   const page = mountPage({decisionId: '2'});
   await flushPromises();
   expect(page.findAll('tbody tr')).toHaveLength(1);
@@ -249,5 +254,99 @@ it('shows requests made by a device separately from requests for its channels', 
   expect(sections[1].find('tbody tr').text()).toContain('ID12');
   const sortIds = page.findAll('.resource-access-sort select').map((select) => select.attributes('id'));
   expect(new Set(sortIds).size).toBe(2);
+  page.unmount();
+});
+
+it('shows an uncertain mutation outcome after rejected fetch and lets the user refresh before retrying', async () => {
+  setActivePinia(createPinia());
+  const get = vi.spyOn(api, 'get').mockResolvedValue({body: [pending]});
+  const fetch = vi.fn().mockRejectedValue(new TypeError('Failed to fetch'));
+  vi.stubGlobal('fetch', fetch);
+  const page = mountPage();
+  await flushPromises();
+  await page.find('.btn-green').trigger('click');
+  await page.findAll('button').at(-1).trigger('click');
+  await flushPromises();
+  expect(fetch).toHaveBeenCalledOnce();
+  const modal = page.findComponent({name: 'ModalConfirm'});
+  expect(modal.find('[role="alert"]').text()).toContain('may have reached the server');
+  expect(modal.props('loading')).toBe(false);
+  get.mockResolvedValueOnce({body: [{...pending, status: 'ACCEPTED', canApprove: false}]});
+  await modal
+    .findAll('button')
+    .find((button) => button.text() === 'Refresh request')
+    .trigger('click');
+  await flushPromises();
+  expect(page.findComponent({name: 'ModalConfirm'}).exists()).toBe(false);
+  expect(page.find('[role="alert"]').exists()).toBe(false);
+  expect(page.find('.btn-green').exists()).toBe(false);
+  page.unmount();
+});
+
+it('does not duplicate global HTTP error feedback with a network alert', async () => {
+  vi.spyOn(api, 'get').mockResolvedValue({body: [pending]});
+  vi.spyOn(api, 'post').mockRejectedValue({status: 403});
+  const page = mountPage();
+  await flushPromises();
+  await page.find('.btn-green').trigger('click');
+  await page.findAll('button').at(-1).trigger('click');
+  await flushPromises();
+  expect(page.find('[role="alert"]').exists()).toBe(false);
+  expect(page.findComponent({name: 'ModalConfirm'}).exists()).toBe(true);
+  page.unmount();
+});
+
+it('offers retry after request-list network failure and discards errors from the previous device', async () => {
+  vi.spyOn(api, 'get')
+    .mockRejectedValueOnce(new TypeError('Failed to fetch'))
+    .mockResolvedValue({body: [pending]});
+  const page = mountPage();
+  await flushPromises();
+  expect(page.find('[role="alert"]').text()).toContain('Could not load requests');
+  await page
+    .findAll('button')
+    .find((button) => button.text().trim() === 'Refresh')
+    .trigger('click');
+  await flushPromises();
+  expect(page.find('[role="alert"]').exists()).toBe(false);
+  expect(page.findAll('tbody tr')).toHaveLength(1);
+  page.unmount();
+});
+
+it('uses stable request cursors and direct lookup for selected decisions', async () => {
+  const get = vi
+    .spyOn(api, 'get')
+    .mockResolvedValueOnce({body: [{...pending, id: 100}], headers: new Headers({'X-Next-Cursor': '100'})})
+    .mockResolvedValueOnce({body: [{...pending, id: 50}], headers: new Headers()})
+    .mockResolvedValueOnce({body: [{...pending, id: 100}], headers: new Headers({'X-Next-Cursor': '100'})});
+  const page = mountPage();
+  await flushPromises();
+  await page
+    .findAll('button')
+    .find((button) => button.text() === 'Next')
+    .trigger('click');
+  await flushPromises();
+  expect(get).toHaveBeenLastCalledWith('resource-access?beforeId=100');
+  await page
+    .findAll('button')
+    .find((button) => button.text() === 'Previous')
+    .trigger('click');
+  await flushPromises();
+  expect(get).toHaveBeenLastCalledWith('resource-access');
+  get.mockResolvedValueOnce({body: accepted});
+  await page.setProps({decisionId: '1'});
+  await flushPromises();
+  expect(get).toHaveBeenLastCalledWith('resource-access/1');
+  expect(page.findAll('tbody tr')).toHaveLength(1);
+  page.unmount();
+});
+
+it('explains that approving a covered request creates manual access independent of configuration', async () => {
+  vi.spyOn(api, 'get').mockResolvedValue({body: [{...pending, permissions: 1, independentPermissions: 1}]});
+  const page = mountPage();
+  await flushPromises();
+  expect(page.find('tbody tr').text()).toContain('Already covered by configuration or policy');
+  await page.find('.btn-green').trigger('click');
+  expect(page.findComponent({name: 'ModalConfirm'}).text()).toContain('even if the configuration');
   page.unmount();
 });

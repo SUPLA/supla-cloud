@@ -64,6 +64,9 @@
                     .join(', ')
                 }}
               </div>
+              <div v-if="entry.status !== 'ACCEPTED' && independentlyCovered(entry)" class="small text-muted">
+                {{ $t('Already covered by configuration or policy. Approving adds independent manual access.') }}
+              </div>
             </td>
             <td>
               <span class="resource-access-field-label">{{ $t('Status') }}</span>
@@ -96,19 +99,19 @@
             <td class="text-right">
               <span class="resource-access-field-label">{{ $t('Actions') }}</span>
               <div class="resource-access-actions">
-                <button v-if="entry.canApprove" type="button" class="btn btn-green btn-xs" :disabled="loading" @click="emit('select', entry, 'approve')">
+                <button v-if="entry.canApprove" type="button" class="btn btn-green" :disabled="loading" @click="emit('select', entry, 'approve')">
                   {{ $t(entry.status === 'REJECTED' ? 'Reconsider and approve all' : 'Approve all') }}
                 </button>
                 <button
                   v-if="entry.canManage && entry.status === 'PENDING'"
                   type="button"
-                  class="btn btn-white btn-xs"
+                  class="btn btn-white"
                   :disabled="loading"
                   @click="emit('select', entry, 'reject')"
                 >
                   {{ $t('Reject') }}
                 </button>
-                <button v-if="entry.canManage" type="button" class="btn btn-red btn-xs" :disabled="loading" @click="emit('select', entry, 'remove')">
+                <button v-if="entry.canManage" type="button" class="btn btn-red" :disabled="loading" @click="emit('select', entry, 'remove')">
                   {{ $t('Remove') }}
                 </button>
               </div>
@@ -116,7 +119,7 @@
           </tr>
         </tbody>
       </table>
-      <EmptyListPlaceholder v-else-if="!loading" :class="{inline: compactEmpty}" />
+      <EmptyListPlaceholder v-else-if="!loading && !failed" :class="{inline: compactEmpty}" />
     </LoadingCover>
   </div>
 </template>
@@ -131,7 +134,7 @@
   import {permissionLabels, statusLabel} from '@/devices/details/resource-access-labels';
 
   defineOptions({compatConfig: {MODE: 3}});
-  const props = defineProps({entries: {type: Array, required: true}, loading: Boolean, compactEmpty: Boolean});
+  const props = defineProps({entries: {type: Array, required: true}, loading: Boolean, failed: Boolean, compactEmpty: Boolean});
   const emit = defineEmits(['select']);
   const statusStyles = {
     PENDING: {class: 'text-warning', icon: faClock},
@@ -148,6 +151,10 @@
   const sortKey = ref('destination');
   const sortDirection = ref('asc');
   const sortId = `resource-access-sort-${useId()}`;
+  function independentlyCovered(entry) {
+    const requested = entry.permissions & 2 ? entry.permissions | 1 : entry.permissions;
+    return (entry.independentPermissions & requested) === requested;
+  }
   const sortedEntries = computed(() => {
     const collator = new Intl.Collator(i18n.global.locale.value, {numeric: true, sensitivity: 'base'});
     const value = (entry) => {
