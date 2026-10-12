@@ -22,7 +22,6 @@
   import EnergyCostDetails from './energy-cost-details.vue';
   import {alignedBillingPeriodRange, componentInputsOutsidePricePeriods, pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
   import {preferredGranularity} from './energy-cost-result-utils';
-  import {energyCostCalculationStorage, scenarioFingerprint} from './energy-cost-calculation-storage';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
   const props = defineProps({channel: {type: Object, required: true}, plan: {type: Object, required: true}, assignedPlanId: Number});
@@ -88,8 +87,6 @@
     from: Math.floor(DateTime.fromISO(range.value.from).toSeconds()),
     to: Math.floor(DateTime.fromISO(range.value.to).toSeconds()),
   }));
-  const catalogRevision = ref('');
-  const fingerprint = computed(() => scenarioFingerprint(props.plan, catalogRevision.value));
   const simulating = computed(() => props.plan.id !== props.assignedPlanId);
   const dateTime = (value) => DateTime.fromISO(value, {setZone: true}).setZone(timezone.value).toFormat('dd LLL yyyy, HH:mm');
   const reportPeriod = computed(() => `${dateTime(range.value.from)} - ${dateTime(range.value.to)}`);
@@ -206,28 +203,6 @@
     const token = ++requestToken;
     const {from, to} = rangeSeconds.value;
     error.value = null;
-    if (!simulating.value) {
-      // Refresh the compact catalog before accepting an IndexedDB result. Preset documents
-      // are intentionally live, so a plan timestamp alone cannot identify a scenario.
-      const catalog = await energyCostStore.fetchPresets(true);
-      const referencedIds = new Set(
-        (props.plan.configuration?.periods || []).flatMap((period) => (period.components || []).map((component) => component.presetId)).filter(Boolean)
-      );
-      catalogRevision.value = catalog
-        .filter((preset) => referencedIds.has(preset.id))
-        .map((preset) => `${preset.id}:${preset.revision}`)
-        .sort()
-        .join('|');
-      if (token !== requestToken) return;
-      await loadPresetDetails();
-      if (token !== requestToken) return;
-      const cached = await energyCostCalculationStorage.get(props.channel.id, fingerprint.value, from, to);
-      if (token !== requestToken) return;
-      if (cached) result.value = cached.result;
-      const reachesNow = to >= DateTime.now().toSeconds() - 86400;
-      const freshness = reachesNow ? 5 * 60 * 1000 : 6 * 60 * 60 * 1000;
-      if (cached && Date.now() - cached.fetchedAt < freshness) return;
-    }
     loading.value = true;
     try {
       const next = simulating.value
@@ -235,19 +210,6 @@
         : await energyCostApi.calculate(props.channel.id, from, to);
       if (token !== requestToken) return;
       result.value = next;
-      if (!simulating.value) {
-        await energyCostCalculationStorage.put({
-          key: energyCostCalculationStorage.key(props.channel.id, fingerprint.value, from, to),
-          channelId: props.channel.id,
-          scenarioType: 'saved-plan',
-          scenarioId: props.plan.id,
-          scenarioFingerprint: fingerprint.value,
-          fromTimestamp: from,
-          toTimestamp: to,
-          fetchedAt: Date.now(),
-          result: next,
-        });
-      }
     } catch (requestError) {
       if (token === requestToken) error.value = requestError.body?.message || 'Could not calculate costs.';
     } finally {
@@ -256,7 +218,6 @@
   }
   onMounted(async () => {
     window.addEventListener('beforeprint', updateReportGeneratedAt);
-    await energyCostCalculationStorage.connect();
     try {
       const {oldest, newest} = await energyCostApi.getMeasurementBounds(props.channel.id);
       if (!oldest || !newest) {
