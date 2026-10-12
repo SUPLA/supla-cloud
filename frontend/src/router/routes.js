@@ -55,6 +55,7 @@ export default [
     props: true,
   },
   {path: '/smartphones', component: () => import('@/client-apps/client-apps-page.vue')},
+  {path: '/devices/resource-access', component: () => import('@/devices/details/resource-access-page.vue'), name: 'devices.resource-access'},
   {
     path: '/devices/:id',
     component: () => import('@/devices/details/device-details-page.vue'),
@@ -72,6 +73,7 @@ export default [
         component: () => import('@/devices/details/device-details-tab.vue'),
         name: 'device.details',
       },
+      {path: 'resource-access', component: () => import('@/devices/details/resource-access-page.vue'), name: 'device.resource-access'},
       {
         path: 'notifications',
         component: () => import('@/devices/details/device-managed-notifications.vue'),
