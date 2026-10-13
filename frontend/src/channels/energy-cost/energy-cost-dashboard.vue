@@ -22,6 +22,7 @@
   import EnergyCostHeatmap from './energy-cost-heatmap.vue';
   import EnergyCostBreakdown from './energy-cost-breakdown.vue';
   import EnergyCostDetails from './energy-cost-details.vue';
+  import EnergyCostComparison from './energy-cost-comparison.vue';
   import {alignedBillingPeriodRange, componentInputsOutsidePricePeriods, pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
   import {preferredGranularity} from './energy-cost-result-utils';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
@@ -57,6 +58,7 @@
   };
   const range = ref(rangeFromUrl() || defaultRange());
   const result = ref(null);
+  const view = ref('report');
   const loading = ref(false);
   const error = ref(null);
   const noLogsError = 'No logs are available for the selected range.';
@@ -160,7 +162,7 @@
 
   function prepareChart() {
     chartRequestToken += 1;
-    if (!result.value) {
+    if (!result.value || view.value !== 'report') {
       buckets.value = [];
       energyBuckets.value = [];
       heatmapBuckets.value = [];
@@ -215,6 +217,7 @@
     const {from, to} = rangeSeconds.value;
     error.value = null;
     loading.value = true;
+    result.value = null;
     try {
       const next = simulating.value
         ? await energyCostApi.simulate(props.channel.id, from, to, props.plan.configuration)
@@ -269,9 +272,11 @@
     },
     {deep: true}
   );
-  watch([result, granularity, timezone], prepareChart, {deep: true});
+  watch([result, granularity, timezone, view], prepareChart, {deep: true});
   watch(tariffPeriods, loadPresetDetails, {deep: true, immediate: true});
   onBeforeUnmount(() => {
+    requestToken++;
+    chartRequestToken++;
     window.removeEventListener('beforeprint', updateReportGeneratedAt);
     chartWorker.terminate();
   });
@@ -279,167 +284,188 @@
 
 <template>
   <section class="energy-cost-dashboard mt-4">
-    <loading-cover :loading="loading || chartWorking || chartRendering || heatmapRendering" :debounce="0">
+    <div v-if="!simulating" class="btn-group mb-3 energy-cost-view-selector">
+      <button class="btn btn-default" :class="{active: view === 'report'}" @click="view = 'report'">{{ $t('Cost report') }}</button>
+      <button class="btn btn-default" :class="{active: view === 'comparison'}" @click="view = 'comparison'">{{ $t('Compare tariffs') }}</button>
+    </div>
+    <loading-cover :loading="view === 'report' && (loading || chartWorking || chartRendering || heatmapRendering)" :debounce="0">
       <energy-cost-range-selector
         :model-value="range"
         :timezone="timezone"
         :billing-cycles="plan.configuration?.billingCycles"
         @update:model-value="setRange"
       />
-      <p v-if="result?.processedDeltaCount && chartGranularity && chartGranularity !== granularity" class="text-muted">
-        {{ $t('Chart is displayed by {granularity} to keep it responsive.', {granularity: $t(chartGranularity)}) }}
-      </p>
-      <div v-if="error" class="alert" :class="errorAlertClass">{{ $t(error) }}</div>
-      <template v-else-if="result">
-        <div v-if="result.processedDeltaCount === 0" class="alert alert-info">
-          {{ $t('No logs are available for the selected range.') }}
-        </div>
-        <template v-if="result.processedDeltaCount > 0">
-          <div v-if="result.incomplete" class="alert alert-warning">
-            <p>{{ $t('Some logs could not be calculated. Results may be incomplete.') }}</p>
-            <details v-if="result.warnings?.length">
-              <summary>{{ $t('Warnings') }} ({{ result.warnings.length }})</summary>
-              <ul class="mb-0">
-                <li v-for="(warning, index) in result.warnings" :key="`${warning.code}-${warning.from}-${index}`">
-                  <strong>{{ $t(warning.scope === 'TEMPORAL_NETTING_WINDOW' ? 'Metering window' : 'Meter interval') }}:</strong>
-                  {{ dateTime(warning.from) }} - {{ dateTime(warning.to) }}
-                  <span v-if="warning.componentId">, {{ $t('Component') }}: {{ warning.componentId }}</span>
-                  <span v-if="warning.referenceDataId">, {{ $t('Reference data') }}: {{ warning.referenceDataId }}</span>
-                  <div>{{ warning.message }}</div>
-                </li>
-              </ul>
-            </details>
+      <energy-cost-comparison
+        v-if="view === 'comparison'"
+        :channel="channel"
+        :plan="plan"
+        :range="range"
+        :baseline="result"
+        :baseline-loading="loading"
+        :baseline-error="error"
+        @applied="view = 'report'"
+      />
+      <template v-else>
+        <p v-if="result?.processedDeltaCount && chartGranularity && chartGranularity !== granularity" class="text-muted">
+          {{ $t('Chart is displayed by {granularity} to keep it responsive.', {granularity: $t(chartGranularity)}) }}
+        </p>
+        <div v-if="error" class="alert" :class="errorAlertClass">{{ $t(error) }}</div>
+        <template v-else-if="result">
+          <div v-if="result.processedDeltaCount === 0" class="alert alert-info">
+            {{ $t('No logs are available for the selected range.') }}
           </div>
-          <header class="energy-cost-print-header">
-            <img :src="logoUrl" alt="SUPLA" />
-            <div class="energy-cost-print-title">
-              <p>{{ $t('Energy cost report') }}</p>
-              <span>{{ $t('by SUPLA') }}</span>
+          <template v-if="result.processedDeltaCount > 0">
+            <div v-if="result.incomplete" class="alert alert-warning">
+              <p>{{ $t('Some logs could not be calculated. Results may be incomplete.') }}</p>
+              <details v-if="result.warnings?.length">
+                <summary>{{ $t('Warnings') }} ({{ result.warnings.length }})</summary>
+                <ul class="mb-0">
+                  <li v-for="(warning, index) in result.warnings" :key="`${warning.code}-${warning.from}-${index}`">
+                    <strong>{{ $t(warning.scope === 'TEMPORAL_NETTING_WINDOW' ? 'Metering window' : 'Meter interval') }}:</strong>
+                    {{ dateTime(warning.from) }} - {{ dateTime(warning.to) }}
+                    <span v-if="warning.componentId">, {{ $t('Component') }}: {{ warning.componentId }}</span>
+                    <span v-if="warning.referenceDataId">, {{ $t('Reference data') }}: {{ warning.referenceDataId }}</span>
+                    <div>{{ warning.message }}</div>
+                  </li>
+                </ul>
+              </details>
             </div>
-            <div class="energy-cost-print-period">
-              <span>{{ $t('Selected period') }}</span>
-              <strong>{{ reportPeriod }}</strong>
-            </div>
-            <dl class="energy-cost-print-meta">
-              <div>
-                <dt>{{ $t('Channel') }}</dt>
-                <dd>{{ channel.caption || `ID${channel.id}` }}</dd>
+            <header class="energy-cost-print-header">
+              <img :src="logoUrl" alt="SUPLA" />
+              <div class="energy-cost-print-title">
+                <p>{{ $t('Energy cost report') }}</p>
+                <span>{{ $t('by SUPLA') }}</span>
               </div>
-              <div class="energy-cost-print-plan">
-                <dt>{{ $t('Tariff plan') }}</dt>
-                <dd>{{ presentation.label }}</dd>
+              <div class="energy-cost-print-period">
+                <span>{{ $t('Selected period') }}</span>
+                <strong>{{ reportPeriod }}</strong>
               </div>
-              <div>
-                <dt>{{ $t('Timezone') }}</dt>
-                <dd>{{ timezone }}</dd>
-              </div>
-              <div>
-                <dt>{{ $t('Currency') }}</dt>
-                <dd>{{ result.currency }}</dd>
-              </div>
-            </dl>
-            <div v-if="tariffPeriods.length" class="energy-cost-print-tariff">
-              <h2>{{ $t('Tariff details') }}</h2>
-              <div v-for="(period, index) in tariffPeriods" :key="index">
-                <strong>{{ $t('Tariff period') }} {{ index + 1 }}</strong>
-                <span>
-                  {{ period.validFrom ? dateTime(period.validFrom) : $t('No limit') }} -
-                  {{ period.validTo ? dateTime(period.validTo) : $t('No limit') }}
-                </span>
-                <div class="energy-cost-print-components">
-                  <div v-for="(component, componentIndex) in period.components || []" :key="componentIndex">
-                    <strong>{{ $t(componentLabels[component.kind] || component.kind) }}</strong>
-                    <span v-for="detail in pricingDetails(component)" :key="`${detail.period?.validFrom || ''}-${detail.label}`">
-                      <small v-if="detail.period">{{ detail.period.validFrom || $t('No limit') }} - {{ detail.period.validTo || $t('No limit') }}: </small>
-                      {{ detail.label }}: {{ detail.value }}<small v-if="detail.unit"> {{ detail.unit }}</small
-                      ><small> ({{ $t(detail.overridden ? 'Custom' : 'Preset default') }})</small>
-                    </span>
+              <dl class="energy-cost-print-meta">
+                <div>
+                  <dt>{{ $t('Channel') }}</dt>
+                  <dd>{{ channel.caption || `ID${channel.id}` }}</dd>
+                </div>
+                <div class="energy-cost-print-plan">
+                  <dt>{{ $t('Tariff plan') }}</dt>
+                  <dd>{{ presentation.label }}</dd>
+                </div>
+                <div>
+                  <dt>{{ $t('Timezone') }}</dt>
+                  <dd>{{ timezone }}</dd>
+                </div>
+                <div>
+                  <dt>{{ $t('Currency') }}</dt>
+                  <dd>{{ result.currency }}</dd>
+                </div>
+              </dl>
+              <div v-if="tariffPeriods.length" class="energy-cost-print-tariff">
+                <h2>{{ $t('Tariff details') }}</h2>
+                <div v-for="(period, index) in tariffPeriods" :key="index">
+                  <strong>{{ $t('Tariff period') }} {{ index + 1 }}</strong>
+                  <span>
+                    {{ period.validFrom ? dateTime(period.validFrom) : $t('No limit') }} -
+                    {{ period.validTo ? dateTime(period.validTo) : $t('No limit') }}
+                  </span>
+                  <div class="energy-cost-print-components">
+                    <div v-for="(component, componentIndex) in period.components || []" :key="componentIndex">
+                      <strong>{{ $t(componentLabels[component.kind] || component.kind) }}</strong>
+                      <span v-for="detail in pricingDetails(component)" :key="`${detail.period?.validFrom || ''}-${detail.label}`">
+                        <small v-if="detail.period">{{ detail.period.validFrom || $t('No limit') }} - {{ detail.period.validTo || $t('No limit') }}: </small>
+                        {{ detail.label }}: {{ detail.value }}<small v-if="detail.unit"> {{ detail.unit }}</small
+                        ><small> ({{ $t(detail.overridden ? 'Custom' : 'Preset default') }})</small>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
+            </header>
+            <div class="energy-cost-print-action text-right mb-3">
+              <button
+                type="button"
+                class="btn btn-default"
+                :disabled="loading || chartWorking || chartRendering || heatmapRendering || presetDetailsLoading"
+                @click="printReport"
+              >
+                {{ $t('Print report') }}
+              </button>
             </div>
-          </header>
-          <div class="energy-cost-print-action text-right mb-3">
-            <button
-              type="button"
-              class="btn btn-default"
-              :disabled="loading || chartWorking || chartRendering || heatmapRendering || presetDetailsLoading"
-              @click="printReport"
-            >
-              {{ $t('Print report') }}
-            </button>
-          </div>
-          <energy-cost-summary :result="result" />
-          <section class="energy-cost-print-chart">
-            <div class="clearfix">
-              <h3 class="pull-left">{{ $t('Gross usage-based cost over time') }}</h3>
-              <div class="form-inline pull-right">
-                <label class="mr-2">{{ $t('Aggregation') }}</label
-                ><select v-model="granularity" class="form-control">
-                  <option value="hour">{{ $t('Hour') }}</option>
-                  <option value="day">{{ $t('Day') }}</option>
-                  <option value="month">{{ $t('Month') }}</option>
-                </select>
+            <energy-cost-summary :result="result" />
+            <section class="energy-cost-print-chart">
+              <div class="clearfix">
+                <h3 class="pull-left">{{ $t('Gross usage-based cost over time') }}</h3>
+                <div class="form-inline pull-right">
+                  <label class="mr-2">{{ $t('Aggregation') }}</label
+                  ><select v-model="granularity" class="form-control">
+                    <option value="hour">{{ $t('Hour') }}</option>
+                    <option value="day">{{ $t('Day') }}</option>
+                    <option value="month">{{ $t('Month') }}</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            <energy-cost-chart
-              :buckets="buckets"
-              :energy-buckets="energyBuckets"
-              :currency="result.currency"
-              :timezone="timezone"
-              :granularity="chartGranularity || granularity"
-              @rendering="chartRendering = $event"
-            />
-          </section>
-          <section class="energy-cost-print-chart energy-cost-interactive-heatmap">
-            <div class="clearfix">
-              <h3 class="pull-left">{{ $t(heatmapMetric === 'usage' ? 'Energy usage by weekday and hour' : 'Gross cost by weekday and hour') }}</h3>
-              <div class="btn-group pull-right">
-                <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'cost'}" @click="heatmapMetric = 'cost'">
-                  {{ $t('Total cost') }}
-                </button>
-                <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'costPerKwh'}" @click="heatmapMetric = 'costPerKwh'">
-                  {{ $t('Cost per kWh') }}
-                </button>
-                <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'usage'}" @click="heatmapMetric = 'usage'">
-                  {{ $t('Energy usage') }}
-                </button>
-              </div>
-            </div>
-            <p class="text-muted">
-              {{
-                heatmapMetric === 'cost'
-                  ? $t('When did I spend the most?')
-                  : heatmapMetric === 'usage'
-                    ? $t('When did I use the most energy?')
-                    : $t('When is electricity intrinsically most expensive?')
-              }}
-            </p>
-            <energy-cost-heatmap
-              :buckets="heatmapBuckets"
-              :energy-buckets="heatmapEnergyBuckets"
-              :currency="result.currency"
-              :metric="heatmapMetric"
-              @rendering="heatmapRendering = $event"
-            />
-          </section>
-          <div class="energy-cost-print-heatmaps" aria-hidden="true">
-            <section v-for="heatmap in printHeatmapMetrics" :key="heatmap.metric" class="energy-cost-print-chart">
-              <h3>{{ $t(heatmap.title) }}</h3>
-              <p class="text-muted">{{ $t(heatmap.description) }}</p>
-              <energy-cost-heatmap :buckets="heatmapBuckets" :energy-buckets="heatmapEnergyBuckets" :currency="result.currency" :metric="heatmap.metric" />
+              <energy-cost-chart
+                :buckets="buckets"
+                :energy-buckets="energyBuckets"
+                :currency="result.currency"
+                :timezone="timezone"
+                :granularity="chartGranularity || granularity"
+                @rendering="chartRendering = $event"
+              />
             </section>
-          </div>
-          <energy-cost-breakdown :result="result" :currency="result.currency" />
-          <energy-cost-details :result="result" :timezone="timezone" @align-billing-periods="alignRangeWithBillingPeriods" />
-          <footer class="energy-cost-print-footer">{{ $t('Generated') }}: {{ dateTime(reportGeneratedAt) }}</footer>
+            <section class="energy-cost-print-chart energy-cost-interactive-heatmap">
+              <div class="clearfix">
+                <h3 class="pull-left">{{ $t(heatmapMetric === 'usage' ? 'Energy usage by weekday and hour' : 'Gross cost by weekday and hour') }}</h3>
+                <div class="btn-group pull-right">
+                  <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'cost'}" @click="heatmapMetric = 'cost'">
+                    {{ $t('Total cost') }}
+                  </button>
+                  <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'costPerKwh'}" @click="heatmapMetric = 'costPerKwh'">
+                    {{ $t('Cost per kWh') }}
+                  </button>
+                  <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'usage'}" @click="heatmapMetric = 'usage'">
+                    {{ $t('Energy usage') }}
+                  </button>
+                </div>
+              </div>
+              <p class="text-muted">
+                {{
+                  heatmapMetric === 'cost'
+                    ? $t('When did I spend the most?')
+                    : heatmapMetric === 'usage'
+                      ? $t('When did I use the most energy?')
+                      : $t('When is electricity intrinsically most expensive?')
+                }}
+              </p>
+              <energy-cost-heatmap
+                :buckets="heatmapBuckets"
+                :energy-buckets="heatmapEnergyBuckets"
+                :currency="result.currency"
+                :metric="heatmapMetric"
+                @rendering="heatmapRendering = $event"
+              />
+            </section>
+            <div class="energy-cost-print-heatmaps" aria-hidden="true">
+              <section v-for="heatmap in printHeatmapMetrics" :key="heatmap.metric" class="energy-cost-print-chart">
+                <h3>{{ $t(heatmap.title) }}</h3>
+                <p class="text-muted">{{ $t(heatmap.description) }}</p>
+                <energy-cost-heatmap :buckets="heatmapBuckets" :energy-buckets="heatmapEnergyBuckets" :currency="result.currency" :metric="heatmap.metric" />
+              </section>
+            </div>
+            <energy-cost-breakdown :result="result" :currency="result.currency" />
+            <energy-cost-details :result="result" :timezone="timezone" @align-billing-periods="alignRangeWithBillingPeriods" />
+            <footer class="energy-cost-print-footer">{{ $t('Generated') }}: {{ dateTime(reportGeneratedAt) }}</footer>
+          </template>
         </template>
+        <div v-else-if="loading" class="well text-center">{{ $t('Calculating costs...') }}</div>
       </template>
-      <div v-else-if="loading" class="well text-center">{{ $t('Calculating costs...') }}</div>
     </loading-cover>
   </section>
 </template>
 
 <style lang="scss">
   @use './energy-cost-print';
+  @media print {
+    .energy-cost-view-selector {
+      display: none !important;
+    }
+  }
 </style>
