@@ -13,16 +13,17 @@
   import DialogContent from '@/common/gui/dialog/DialogContent.vue';
   import {presentCostPlan, tariffCatalogPresentation} from './energy-cost-plan-presentation';
   import {comparisonConfiguration, compareCalculations, comparisonBuckets} from './energy-cost-comparison-utils';
-  import {formatDecimal, preferredGranularity} from './energy-cost-result-utils';
+  import {formatDecimal, periodicCostsUnavailable, preferredGranularity} from './energy-cost-result-utils';
 
   const props = defineProps({channel: Object, plan: Object, range: Object, baseline: Object, baselineLoading: Boolean, baselineError: String});
-  const emit = defineEmits(['applied']);
+  const emit = defineEmits(['applied', 'update:periodicCostsUnavailable']);
   const store = useEnergyCostStore();
   const {t, locale} = useI18n();
   const selectedId = ref('');
   const starter = ref(null);
   const configuration = ref(null);
   const alternative = ref(null);
+  watch(alternative, (result) => emit('update:periodicCostsUnavailable', periodicCostsUnavailable(result)), {immediate: true});
   const loading = ref(false);
   const error = ref('');
   const catalogError = ref('');
@@ -214,9 +215,6 @@
       <button class="btn btn-default mt-3" :disabled="applying" @click="confirming = true">{{ $t('Apply this tariff to the meter') }}</button>
     </template>
     <p v-else-if="!busy && selectedId && baseline && alternative" class="alert alert-info">{{ $t(comparison.reason) }}</p>
-    <p v-if="scenarios.some(({result}) => result && !result.billingContext?.requestedRangeCoversWholePeriods)" class="text-muted">
-      {{ $t('The selected range does not cover complete billing periods.') }}
-    </p>
     <template v-for="scenario in scenarios" :key="scenario.label">
       <p v-if="differs(scenario.result)">
         {{ scenario.label }} — {{ $t('Effective calculation range') }}: {{ date(scenario.result.range.from) }} – {{ date(scenario.result.range.to) }}

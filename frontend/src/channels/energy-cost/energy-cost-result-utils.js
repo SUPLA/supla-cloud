@@ -47,15 +47,16 @@ export function preferredGranularity(from, to, timezone) {
   return 'month';
 }
 
+export const periodicCostsUnavailable = (result) => result?.processedDeltaCount > 0 && result.costs?.gross?.periodic?.total === null;
+
 export function summaryFromResult(result) {
   const costs = result?.costs || {};
   const gross = costs.gross || {};
-  const usageBasedTaxes = Object.values(costs.taxes?.byTax || {}).reduce((total, amount) => addDecimals(total, amount), zero);
   return {
     currency: result?.currency,
     usageBased: gross.usageBased?.total ?? zero,
-    usageBasedNet: costs.net?.usageBased?.total ?? zero,
-    usageBasedTaxes,
+    fixedCharges: gross.periodic?.total ?? null,
+    taxes: costs.taxes?.total ?? null,
     imported: result?.usage?.ACTIVE_ENERGY_IMPORT ?? zero,
     exported: result?.usage?.ACTIVE_ENERGY_EXPORT ?? zero,
   };

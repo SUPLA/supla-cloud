@@ -24,7 +24,7 @@
   import EnergyCostDetails from './energy-cost-details.vue';
   import EnergyCostComparison from './energy-cost-comparison.vue';
   import {alignedBillingPeriodRange, componentInputsOutsidePricePeriods, pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
-  import {preferredGranularity} from './energy-cost-result-utils';
+  import {periodicCostsUnavailable, preferredGranularity} from './energy-cost-result-utils';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
   const props = defineProps({channel: {type: Object, required: true}, plan: {type: Object, required: true}, assignedPlanId: Number});
@@ -59,6 +59,10 @@
   const range = ref(rangeFromUrl() || defaultRange());
   const result = ref(null);
   const view = ref('report');
+  const alternativePeriodicCostsUnavailable = ref(false);
+  const showBillingPeriodWarning = computed(
+    () => periodicCostsUnavailable(result.value) || (view.value === 'comparison' && alternativePeriodicCostsUnavailable.value)
+  );
   const loading = ref(false);
   const error = ref(null);
   const noLogsError = 'No logs are available for the selected range.';
@@ -295,6 +299,12 @@
         :billing-cycles="plan.configuration?.billingCycles"
         @update:model-value="setRange"
       />
+      <div v-if="showBillingPeriodWarning" class="alert alert-info energy-cost-billing-period-warning">
+        {{ $t('The selected range does not cover complete billing periods. Fixed charges are not included in the total.') }}
+        <button type="button" class="btn btn-default btn-sm ml-2" @click="alignRangeWithBillingPeriods">
+          {{ $t('Align date range with billing period') }}
+        </button>
+      </div>
       <energy-cost-comparison
         v-if="view === 'comparison'"
         :channel="channel"
@@ -303,6 +313,7 @@
         :baseline="result"
         :baseline-loading="loading"
         :baseline-error="error"
+        @update:periodic-costs-unavailable="alternativePeriodicCostsUnavailable = $event"
         @applied="view = 'report'"
       />
       <template v-else>
@@ -389,7 +400,7 @@
                 {{ $t('Print report') }}
               </button>
             </div>
-            <energy-cost-summary :result="result" />
+            <energy-cost-summary :result="result" :range="range" :timezone="timezone" @align-billing-periods="alignRangeWithBillingPeriods" />
             <section class="energy-cost-print-chart">
               <div class="clearfix">
                 <h3 class="pull-left">{{ $t('Gross usage-based cost over time') }}</h3>
@@ -451,7 +462,7 @@
               </section>
             </div>
             <energy-cost-breakdown :result="result" :currency="result.currency" />
-            <energy-cost-details :result="result" :timezone="timezone" @align-billing-periods="alignRangeWithBillingPeriods" />
+            <energy-cost-details :result="result" :timezone="timezone" />
             <footer class="energy-cost-print-footer">{{ $t('Generated') }}: {{ dateTime(reportGeneratedAt) }}</footer>
           </template>
         </template>

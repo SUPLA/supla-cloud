@@ -15,7 +15,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
   sessionStorage.clear();
 });
-async function dashboard() {
+async function dashboard(result = calculation()) {
   vi.stubGlobal(
     'Worker',
     class {
@@ -27,7 +27,7 @@ async function dashboard() {
   setActivePinia(pinia);
   vi.spyOn(useEnergyCostStore(), 'fetchPreset').mockResolvedValue({});
   vi.spyOn(energyCostApi, 'getMeasurementBounds').mockRejectedValue(new Error('Unavailable'));
-  const calculate = vi.spyOn(energyCostApi, 'calculate').mockResolvedValue(calculation());
+  const calculate = vi.spyOn(energyCostApi, 'calculate').mockResolvedValue(result);
   sessionStorage.setItem('energy-cost-range:3', JSON.stringify(range));
   const wrapper = mount(Dashboard, {
     props: {channel: {id: 3}, plan, assignedPlanId: 10},
@@ -49,6 +49,37 @@ async function dashboard() {
   return {wrapper, calculate};
 }
 describe('shared Costs views', () => {
+  it.each(['report', 'comparison'])('places the fixed-charge notice directly below the range selector in %s and aligns the shared range', async (view) => {
+    const {wrapper, calculate} = await dashboard();
+    if (view === 'comparison') await wrapper.get('.energy-cost-view-selector').findAll('button')[1].trigger('click');
+    const notice = wrapper.get('.energy-cost-billing-period-warning');
+    expect(wrapper.findComponent(RangeSelector).element.nextElementSibling).toBe(notice.element);
+    expect(notice.text()).toContain('Fixed charges are not included in the total.');
+    await notice.get('button').trigger('click');
+    await flushPromises();
+    const aligned = wrapper.findComponent(RangeSelector).props('modelValue');
+    expect(Date.parse(aligned.from)).toBe(Date.parse('2026-07-14T22:00:00Z'));
+    expect(Date.parse(aligned.to)).toBe(Date.parse('2026-08-14T22:00:00Z'));
+    expect(calculate).toHaveBeenLastCalledWith(3, Date.parse(aligned.from) / 1000, Date.parse(aligned.to) / 1000);
+    if (view === 'comparison') expect(wrapper.findComponent(Comparison).props('range')).toEqual(aligned);
+    wrapper.unmount();
+  });
+  it('shows the shared notice when only the alternative has unavailable fixed charges', async () => {
+    const {wrapper} = await dashboard(calculation('100', '10'));
+    expect(wrapper.find('.energy-cost-billing-period-warning').exists()).toBe(false);
+    const buttons = wrapper.get('.energy-cost-view-selector').findAll('button');
+    await buttons[1].trigger('click');
+    wrapper.findComponent(Comparison).vm.$emit('update:periodicCostsUnavailable', true);
+    await flushPromises();
+    expect(wrapper.find('.energy-cost-billing-period-warning').exists()).toBe(true);
+    wrapper.findComponent(Comparison).vm.$emit('update:periodicCostsUnavailable', false);
+    await flushPromises();
+    expect(wrapper.find('.energy-cost-billing-period-warning').exists()).toBe(false);
+    wrapper.findComponent(Comparison).vm.$emit('update:periodicCostsUnavailable', true);
+    await buttons[0].trigger('click');
+    expect(wrapper.find('.energy-cost-billing-period-warning').exists()).toBe(false);
+    wrapper.unmount();
+  });
   it('defaults to report, preserves the range across switches and GETs the assigned historical plan', async () => {
     const {wrapper, calculate} = await dashboard();
     expect(wrapper.findComponent(Comparison).exists()).toBe(false);

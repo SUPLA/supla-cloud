@@ -30,14 +30,14 @@ describe('energy cost result utilities', () => {
         costs: {
           gross: {total: null, usageBased: {total: '12.34'}, periodic: {total: null}},
           net: {usageBased: {total: '10'}},
-          taxes: {byTax: {VAT: '2.1', EXCISE: '0.24'}},
+          taxes: {total: null, byTax: {VAT: '2.1', EXCISE: '0.24'}},
         },
         usage: {},
       })
     ).toMatchObject({
       usageBased: '12.34',
-      usageBasedNet: '10',
-      usageBasedTaxes: '2.34',
+      fixedCharges: null,
+      taxes: null,
     });
   });
 

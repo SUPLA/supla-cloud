@@ -51,6 +51,7 @@ describe('tariff comparison interactions', () => {
     expect(assign).not.toHaveBeenCalled();
     expect(store.assignmentsByChannelId[3].planId).toBe(10);
     expect(wrapper.text()).toContain('Savings: 20.00 PLN');
+    expect(wrapper.emitted('update:periodicCostsUnavailable').at(-1)).toEqual([true]);
     expect(wrapper.text()).toContain('Fixed charges are not included.');
   });
   it('recalculates the same selected range and clears old results', async () => {
@@ -61,6 +62,7 @@ describe('tariff comparison interactions', () => {
     await flushPromises();
     expect(simulate).toHaveBeenLastCalledWith(3, Date.parse(range.from) / 1000, Date.parse('2026-09-01T03:00:00Z') / 1000, expect.any(Object));
     expect(wrapper.text()).not.toContain('Savings:');
+    expect(wrapper.emitted('update:periodicCostsUnavailable').at(-1)).toEqual([false]);
   });
   it('ignores stale simulation responses when another tariff is selected', async () => {
     const {wrapper, simulate, select} = await setup();
