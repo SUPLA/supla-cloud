@@ -94,6 +94,7 @@
   const noLogs = computed(
     () =>
       error.value === noLogsError ||
+      (result.value && !result.value.intervals?.length) ||
       (result.value?.processedDeltaCount === 0 &&
         !periodicCostsUnavailable(result.value) &&
         Number(result.value?.reportSummary?.costs?.gross?.periodic?.total || 0) === 0)

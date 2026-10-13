@@ -74,6 +74,12 @@ function merge(left, right) {
 }
 
 export function displayedPeriodicCharges(charges = [], billingPeriods) {
+  // Reported billing periods carry the authoritative per-period tax calculation.
+  // Keep the legacy top-level charges for callers that do not request reporting.
+  if (billingPeriods?.some((period) => Array.isArray(period.periodicCharges))) {
+    charges = billingPeriods.filter((period) => period.fullyCovered).flatMap((period) => period.periodicCharges || []);
+    billingPeriods = undefined;
+  }
   const rows = [];
   const latest = new Map();
   for (let charge of charges) {

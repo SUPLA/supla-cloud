@@ -87,15 +87,18 @@ describe('shared Costs views', () => {
     }
     wrapper.unmount();
   });
-  it('shows calculator fixed charges when the selected billing period has no deltas but overlaps history', async () => {
+  it('shows no logs instead of fixed-charge statistics when the calculator returns no intervals', async () => {
     const result = calculation('0', '12.3');
     result.processedDeltaCount = 0;
     result.usage = {};
+    result.intervals = [];
     result.reportSummary = {costs: result.costs, fixedChargesComplete: true};
     const {wrapper} = await dashboard(result);
-    expect(wrapper.findComponent(Summary).get('strong').text()).toBe('12.30 PLN');
-    expect(wrapper.text()).not.toContain('No logs are available');
-    expect(wrapper.find('energy-cost-details-stub').exists()).toBe(true);
+    expect(wrapper.get('.alert-info').text()).toBe('No logs are available for the selected range.');
+    expect(wrapper.findComponent(Summary).exists()).toBe(false);
+    expect(wrapper.find('.energy-cost-print-chart').exists()).toBe(false);
+    expect(wrapper.find('energy-cost-breakdown-stub').exists()).toBe(false);
+    expect(wrapper.find('energy-cost-details-stub').exists()).toBe(false);
     wrapper.unmount();
   });
   it('aligns to the alternative tariff only when its incomplete periods have omitted fixed charges', async () => {

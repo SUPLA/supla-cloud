@@ -85,6 +85,55 @@ describe('fixed-charge presentation', () => {
     expect(original).toEqual(snapshot);
   });
 
+  it('uses complete observed billing-period calculations when a reported range ends inside November', () => {
+    const august = '2026-08-01T00:00:00+02:00';
+    const september = '2026-09-01T00:00:00+02:00';
+    const november = '2026-11-01T00:00:00+01:00';
+    const novemberFifth = '2026-11-05T00:00:00+01:00';
+    const periodCharges = (from, to, subscription = true) => [
+      charge('network', from, to, '1', '7.38', '7.38', '1.6974', '9.0774'),
+      charge('capacity', from, to, '1', '17.18', '17.18', '3.9514', '21.1314'),
+      charge(
+        'subscription',
+        from,
+        to,
+        '1',
+        subscription ? '4.56' : '0',
+        subscription ? '4.56' : '0',
+        subscription ? '1.0488' : '0',
+        subscription ? '5.6088' : '0'
+      ),
+    ];
+    // This mirrors the reporting response: top-level fixed charges are unknown
+    // because November is partial, while complete observed invoice periods have details.
+    const result = {
+      currency: 'PLN',
+      periodicCharges: [
+        {...charge('network', august, novemberFifth), calculated: null},
+        {...charge('capacity', august, novemberFifth), calculated: null},
+        {...charge('subscription', august, novemberFifth), calculated: null},
+      ],
+      billingPeriods: [
+        {from: august, to: september, fullyCovered: true, periodicCharges: periodCharges(august, september)},
+        {from: september, to: october, fullyCovered: true, periodicCharges: periodCharges(september, october)},
+        {from: october, to: november, fullyCovered: true, periodicCharges: periodCharges(october, november, false)},
+        {from: november, to: novemberFifth, fullyCovered: false, periodicCharges: periodCharges(november, novemberFifth)},
+      ],
+      reportSummary: {costs: {net: {periodic: {total: '82.8'}}, taxes: {total: '19.044'}, gross: {periodic: {total: '101.844'}}}},
+    };
+
+    const rows = displayedPeriodicCharges(result.periodicCharges, result.billingPeriods);
+    expect(rows.map((row) => [row.id, row.appliesFrom, row.appliesTo, row.calculated.units])).toEqual([
+      ['network', august, november, '3'],
+      ['capacity', august, november, '3'],
+      ['subscription', august, october, '2'],
+    ]);
+    expect(sum(rows, 'net')).toBe(result.reportSummary.costs.net.periodic.total);
+    expect(sum(rows, 'taxTotal')).toBe(result.reportSummary.costs.taxes.total);
+    expect(sum(rows, 'gross')).toBe(result.reportSummary.costs.gross.periodic.total);
+    expect(rows.every((row) => Date.parse(row.appliesTo) <= Date.parse(november))).toBe(true);
+  });
+
   it('retains the existing fixed-charge table format with merged dates, units, rates and amounts', () => {
     const periodicCharges = tauron();
     const snapshot = structuredClone(periodicCharges);
