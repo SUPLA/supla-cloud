@@ -366,6 +366,7 @@
         @update:periodic-costs-unavailable="alternativePeriodicCostsUnavailable = $event"
         @update:incomplete-fixed-charge-periods="alternativeIncompletePeriods = $event"
         @update:loading="comparisonLoading = $event"
+        @align-billing-periods="alignRangeWithBillingPeriods"
       />
       <template v-else>
         <p v-if="result?.processedDeltaCount && chartGranularity && chartGranularity !== granularity" class="text-muted">
@@ -374,21 +375,6 @@
         <div v-if="error" class="alert" :class="errorAlertClass">{{ $t(error) }}</div>
         <template v-else-if="result">
           <template v-if="!noLogs">
-            <div v-if="calculationWarnings.length" class="alert alert-warning">
-              <p>{{ $t('Some logs could not be calculated. Results may be incomplete.') }}</p>
-              <details>
-                <summary>{{ $t('Warnings') }} ({{ calculationWarnings.length }})</summary>
-                <ul class="mb-0">
-                  <li v-for="(warning, index) in calculationWarnings" :key="`${warning.code}-${warning.from}-${index}`">
-                    <strong>{{ $t(warning.scope === 'TEMPORAL_NETTING_WINDOW' ? 'Metering window' : 'Meter interval') }}:</strong>
-                    {{ dateTime(warning.from) }} - {{ dateTime(warning.to) }}
-                    <span v-if="warning.componentId">, {{ $t('Component') }}: {{ warning.componentId }}</span>
-                    <span v-if="warning.referenceDataId">, {{ $t('Reference data') }}: {{ warning.referenceDataId }}</span>
-                    <div>{{ warning.message }}</div>
-                  </li>
-                </ul>
-              </details>
-            </div>
             <header class="energy-cost-print-header">
               <img :src="logoUrl" alt="SUPLA" />
               <div class="energy-cost-print-title">
@@ -438,6 +424,21 @@
                 </div>
               </div>
             </header>
+            <div v-if="calculationWarnings.length" class="alert alert-warning energy-cost-calculation-warning">
+              <p>{{ $t('Some logs could not be calculated. Results may be incomplete.') }}</p>
+              <details>
+                <summary>{{ $t('Warnings') }} ({{ calculationWarnings.length }})</summary>
+                <ul class="mb-0">
+                  <li v-for="(warning, index) in calculationWarnings" :key="`${warning.code}-${warning.from}-${index}`">
+                    <strong>{{ $t(warning.scope === 'TEMPORAL_NETTING_WINDOW' ? 'Metering window' : 'Meter interval') }}:</strong>
+                    {{ dateTime(warning.from) }} - {{ dateTime(warning.to) }}
+                    <span v-if="warning.componentId">, {{ $t('Component') }}: {{ warning.componentId }}</span>
+                    <span v-if="warning.referenceDataId">, {{ $t('Reference data') }}: {{ warning.referenceDataId }}</span>
+                    <div>{{ warning.message }}</div>
+                  </li>
+                </ul>
+              </details>
+            </div>
             <div class="energy-cost-print-action text-right mb-3">
               <button
                 type="button"

@@ -18,6 +18,7 @@
   const total = computed(() => props.result.reportSummary?.costs?.gross?.total ?? props.result.costs?.gross?.total ?? null);
   const missingFixedCharges = computed(() => props.result.reportSummary?.fixedChargesComplete === false);
   const partialPeriods = computed(() => incompleteFixedChargePeriods(props.result).length > 0);
+  const hasWarnings = computed(() => props.result.warnings?.length > 0);
   const expand = computed(() => props.result.billingPeriods?.length === 1);
   const selectedRange = computed(() => props.range || props.result.range);
   const rangeLabel = computed(() => selectedRangeLabel(selectedRange.value, props.timezone, locale.value));
@@ -30,7 +31,9 @@
       <h3>{{ $t('Total expenses for the selected period') }}</h3>
       <p v-if="selectedRange" class="text-muted">{{ rangeLabel }}</p>
       <strong>{{ money(total) }}</strong>
-      <small>{{ $t(grossCostLabel(result)) }}</small>
+      <small
+        >{{ $t(grossCostLabel(result)) }}<template v-if="hasWarnings">, {{ $t('calculations may be incomplete') }}</template></small
+      >
       <div v-if="missingFixedCharges" class="energy-cost-total-alignment-hint text-muted mt-2">
         {{ $t('Some fixed charges are not included because the selected date range does not cover complete billing periods.') }}
         <span v-if="partialPeriods">{{

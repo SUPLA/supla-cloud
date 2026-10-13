@@ -7,6 +7,7 @@ import {energyCostApi} from '@/api/energy-cost-api';
 import Comparison from '@/channels/energy-cost/energy-cost-comparison.vue';
 import Picker from '@/channels/energy-cost/energy-cost-tariff-picker.vue';
 import ComparisonChart from '@/channels/energy-cost/energy-cost-comparison-chart.vue';
+import Summary from '@/channels/energy-cost/energy-cost-summary.vue';
 import {calculation, monthlyCalculation, plan, range, starters} from './energy-cost-comparison-fixtures';
 
 afterEach(() => vi.restoreAllMocks());
@@ -79,6 +80,7 @@ describe('tariff comparison interactions', () => {
     expect(wrapper.get('.energy-cost-suggest').element.disabled).toBe(false);
     await wrapper.setProps({range: {from, to: new Date(Date.parse(to) + 1000).toISOString()}});
     expect(wrapper.get('.energy-cost-suggest').element.disabled).toBe(true);
+    expect(wrapper.get('.energy-cost-suggest-control small').text()).toBe('Available only for periods of up to 31 days.');
     await wrapper.get('.energy-cost-suggest').trigger('click');
     expect(suggest).not.toHaveBeenCalled();
   });
@@ -247,6 +249,23 @@ describe('tariff comparison interactions', () => {
     expect(wrapper.text()).toContain('These tariffs use different currencies and cannot be compared.');
     expect(wrapper.text()).not.toContain('Savings:');
     expect(wrapper.findAll('.energy-cost-scenario-price')).toHaveLength(0);
+  });
+  it('displays tariff warnings in the failed-calculation comparison notice', async () => {
+    const baseline = calculation();
+    baseline.warnings = [{code: 'UNSUPPORTED_RATE', from: range.from, to: range.to, message: 'Current tariff warning'}];
+    const {wrapper, select, simulate} = await setup(baseline);
+    const alternative = calculation('80');
+    alternative.warnings = [{code: 'UNSUPPORTED_RATE', from: range.from, to: range.to, message: 'Alternative tariff warning'}];
+    simulate.mockResolvedValue(alternative);
+    await select();
+    const notice = wrapper.get('.alert-info');
+    expect(notice.text()).toContain('Some logs could not be calculated. Results cannot be directly compared.');
+    expect(notice.text()).toContain('Current tariff warning');
+    expect(notice.text()).toContain('Alternative tariff warning');
+    expect(wrapper.findAll('.energy-cost-comparison > details')).toHaveLength(0);
+    expect(wrapper.findComponent(Summary).props('result')).toStrictEqual(baseline);
+    await wrapper.get('[role="tablist"] li:nth-child(2) a').trigger('click');
+    expect(wrapper.findComponent(Summary).props('result')).toStrictEqual(alternative);
   });
   it('renders the actual historical baseline and simulates without persistence', async () => {
     const {wrapper, store, select, simulate, assign} = await setup();

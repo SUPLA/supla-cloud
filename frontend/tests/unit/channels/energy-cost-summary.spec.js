@@ -71,12 +71,14 @@ describe('report total expenses', () => {
     expect(wrapper.find('.energy-cost-total-alignment-hint').exists()).toBe(false);
     expect(wrapper.get('.energy-cost-summary').text()).toContain('0.00 PLN');
   });
-  it('does not confuse calculation warnings with missing fixed charges', () => {
+  it('marks totals with calculation warnings as potentially incomplete without suggesting fixed-charge alignment', () => {
     const result = monthlyCalculation();
     result.incomplete = true;
     result.warnings = [{code: 'MISSING_REFERENCE_DATA'}];
     result.reportSummary = {costs: result.costs, fixedChargesComplete: true};
-    expect(summary(result).find('.energy-cost-total-alignment-hint').exists()).toBe(false);
+    const wrapper = summary(result);
+    expect(wrapper.get('.energy-cost-total-expenses small').text()).toBe('Gross cost, including fixed charges, calculations may be incomplete');
+    expect(wrapper.find('.energy-cost-total-alignment-hint').exists()).toBe(false);
   });
   it('localizes partial-range information and actions in Polish', () => {
     const result = calculation();

@@ -362,7 +362,8 @@ describe('shared Costs views', () => {
       warnings: [{code: 'MISSING_REFERENCE_DATA', scope: 'METER_INTERVAL', from: range.from, to: range.to, message: 'Missing price'}],
     };
     const next = await dashboard(skipped);
-    expect(next.wrapper.get('.alert-warning').text()).toContain('Some logs could not be calculated');
+    expect(next.wrapper.get('.energy-cost-calculation-warning').text()).toContain('Some logs could not be calculated');
+    expect(next.wrapper.findAll('.energy-cost-calculation-warning')).toHaveLength(1);
     expect(next.wrapper.find('.energy-cost-total-alignment-hint').exists()).toBe(false);
     next.wrapper.unmount();
   });

@@ -10,6 +10,7 @@
   import EnergyCostTariffPicker from './energy-cost-tariff-picker.vue';
   import EnergyCostComparisonChart from './energy-cost-comparison-chart.vue';
   import EnergyCostComparisonDetails from './energy-cost-comparison-details.vue';
+  import EnergyCostSummary from './energy-cost-summary.vue';
   import {presentCostPlan, tariffCatalogPresentation} from './energy-cost-plan-presentation';
   import {comparisonConfiguration, compareCalculations, comparisonBuckets} from './energy-cost-comparison-utils';
   import {
@@ -36,6 +37,7 @@
     'update:selectedTariffId',
     'update:tariffSuggestions',
     'update:loading',
+    'align-billing-periods',
   ]);
   const store = useEnergyCostStore();
   const {t, locale} = useI18n();
@@ -212,15 +214,18 @@
         <section class="well energy-cost-scenario">
           <div class="energy-cost-alternative-header">
             <h3>{{ $t('Alternative tariff') }}</h3>
-            <button
-              type="button"
-              class="btn btn-default energy-cost-suggest"
-              :disabled="!suggestionAllowed || busy"
-              :aria-busy="suggesting"
-              @click="suggestTariff"
-            >
-              <fa icon="wand-magic-sparkles" /> {{ $t('Find the cheapest') }}
-            </button>
+            <div class="energy-cost-suggest-control">
+              <button
+                type="button"
+                class="btn btn-default energy-cost-suggest"
+                :disabled="!suggestionAllowed || busy"
+                :aria-busy="suggesting"
+                @click="suggestTariff"
+              >
+                <fa icon="wand-magic-sparkles" /> {{ $t('Find the cheapest') }}
+              </button>
+              <small v-if="!suggestionAllowed" class="text-muted">{{ $t('Available only for periods of up to 31 days.') }}</small>
+            </div>
           </div>
           <span class="label label-info">{{ $t('Simulation') }}</span>
           <energy-cost-tariff-picker
@@ -317,7 +322,17 @@
         </div>
       </section>
     </template>
-    <p v-else-if="!busy && selectedId && baseline && alternative" class="alert alert-info">{{ $t(comparison.reason) }}</p>
+    <div v-else-if="!busy && selectedId && baseline && alternative" class="alert alert-info">
+      <p>{{ $t(comparison.reason) }}</p>
+      <template v-if="comparison.reason === 'Some logs could not be calculated. Results cannot be directly compared.'">
+        <details v-for="scenario in scenarios" v-show="scenario.result?.warnings?.length" :key="scenario.label">
+          <summary>{{ scenario.label }} — {{ $t('Warnings') }}</summary>
+          <ul>
+            <li v-for="(warning, index) in scenario.result.warnings" :key="index">{{ date(warning.from) }} – {{ date(warning.to) }}: {{ warning.message }}</li>
+          </ul>
+        </details>
+      </template>
+    </div>
     <section v-if="baseline && alternative && !busy && !noLogs" class="energy-cost-comparison-report mt-4">
       <ul class="nav nav-tabs mb-3" role="tablist">
         <li :class="{active: detailsTab === 'current'}" role="presentation">
@@ -328,6 +343,13 @@
         </li>
       </ul>
       <div role="tabpanel">
+        <energy-cost-summary
+          v-if="!comparison.comparable"
+          :result="detailsResult"
+          :range="range"
+          :timezone="plan.configuration.timezone"
+          @align-billing-periods="emit('align-billing-periods')"
+        />
         <energy-cost-comparison-details :result="detailsResult" :timezone="plan.configuration.timezone" />
       </div>
     </section>
@@ -335,7 +357,7 @@
       <p v-if="differs(scenario.result)">
         {{ scenario.label }} — {{ $t('Effective calculation range') }}: {{ date(scenario.result.range.from) }} – {{ date(scenario.result.range.to) }}
       </p>
-      <details v-if="scenario.result?.warnings?.length">
+      <details v-if="evaluated && scenario.result?.warnings?.length">
         <summary>{{ scenario.label }} — {{ $t('Warnings') }}</summary>
         <ul>
           <li v-for="(warning, index) in scenario.result.warnings" :key="index">{{ date(warning.from) }} – {{ date(warning.to) }}: {{ warning.message }}</li>
@@ -349,12 +371,24 @@
   .energy-cost-alternative-header {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
     gap: 10px;
+    position: relative;
   }
 
   .energy-cost-alternative-header > h3 {
     margin-top: 0;
+  }
+
+  .energy-cost-suggest-control {
+    position: relative;
+    margin-left: auto;
+  }
+
+  .energy-cost-suggest-control small {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    white-space: nowrap;
   }
 
   .energy-cost-scenarios {
