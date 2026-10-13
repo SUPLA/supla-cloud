@@ -17,6 +17,7 @@ use App\EventListener\UnavailableInMaintenance;
 use App\Exception\ApiException;
 use App\Model\EnergyCost\EnergyCostPlanCalculator;
 use App\Model\EnergyCost\EnergyCostPlanService;
+use App\Model\EnergyCost\EnergyCostTariffSuggestions;
 use Assert\Assertion;
 use DateTimeImmutable;
 use DateTimeZone;
@@ -403,6 +404,33 @@ class EnergyCostPlanController extends RestController {
                 (new DateTimeImmutable('@' . $toTimestamp))->setTimezone($utc),
             );
             return new JsonResponse($result);
+        } catch (EnergyCostCalculatorException $exception) {
+            $this->throwCalculatorException($exception);
+        }
+    }
+
+    /**
+     * @OA\Post(path="/channels/{channel}/energy-cost-calculation/suggestions", operationId="suggestChannelEnergyTariff", summary="Compare all tariff recipes for a period of at most 31 days", tags={"Energy cost"}, @OA\Parameter(name="channel", in="path", required=true, @OA\Schema(type="integer")), @OA\RequestBody(required=true, @OA\JsonContent(required={"fromTimestamp", "toTimestamp", "configuration"}, @OA\Property(property="fromTimestamp", type="integer", format="int64"), @OA\Property(property="toTimestamp", type="integer", format="int64"), @OA\Property(property="configuration", ref="#/components/schemas/EnergyCostPlanConfiguration"))), @OA\Response(response="200", description="Per-tariff gross reporting totals and cheapest eligible tariff ID", @OA\JsonContent(type="object")))
+     * @Rest\Post("/channels/{channel}/energy-cost-calculation/suggestions")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
+     */
+    public function postEnergyCostSuggestionsAction(Request $request, IODeviceChannel $channel, EnergyCostTariffSuggestions $suggestions): JsonResponse {
+        $data = $request->request->all();
+        $fromTimestamp = $this->bodyTimestamp($data, 'fromTimestamp');
+        $toTimestamp = $this->bodyTimestamp($data, 'toTimestamp');
+        Assertion::lessThan($fromTimestamp, $toTimestamp, 'fromTimestamp must be lower than toTimestamp.');
+        Assertion::keyExists($data, 'configuration', 'Missing configuration.');
+        Assertion::isArray($data['configuration'], 'Invalid configuration.');
+        try {
+            return new JsonResponse($suggestions->suggest(
+                $this->getUser(),
+                $channel,
+                $data['configuration'],
+                new DateTimeImmutable('@' . $fromTimestamp),
+                new DateTimeImmutable('@' . $toTimestamp),
+            ));
+        } catch (CostPlanStarterNotFoundException | InvalidCostPlanStarterException $exception) {
+            $this->throwStarterException($exception);
         } catch (EnergyCostCalculatorException $exception) {
             $this->throwCalculatorException($exception);
         }

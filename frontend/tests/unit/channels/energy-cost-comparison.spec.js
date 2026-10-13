@@ -39,6 +39,100 @@ async function setup(baseline = {...calculation(), reportSummary: {costs: {gross
   return {wrapper, store, simulate, assign, select};
 }
 describe('tariff comparison interactions', () => {
+  const suggestion = {
+    cheapestId: 'g12w',
+    tariffs: [
+      {id: 'g11', total: '100', currency: 'PLN', eligible: true, fixedChargesComplete: true},
+      {id: 'g12w', total: '80', currency: 'PLN', eligible: true, fixedChargesComplete: false},
+    ],
+  };
+  it('selects the suggested tariff and retains dropdown costs across manual tariff selection', async () => {
+    const suggest = vi.spyOn(energyCostApi, 'suggestTariff').mockResolvedValue(suggestion);
+    const {wrapper, select, simulate} = await setup();
+    await wrapper.get('.energy-cost-suggest').trigger('click');
+    await flushPromises();
+    expect(suggest).toHaveBeenCalledWith(3, Math.floor(Date.parse(range.from) / 1000), Math.floor(Date.parse(range.to) / 1000), plan.configuration);
+    expect(wrapper.emitted('update:selectedTariffId').at(-1)).toEqual(['g12w']);
+    await wrapper.setProps({selectedTariffId: 'g12w'});
+    await flushPromises();
+    expect(simulate).toHaveBeenCalledOnce();
+    const options = () =>
+      wrapper
+        .findComponent(Picker)
+        .findAll('option')
+        .map((option) => option.text());
+    expect(options()).toContain('Operator G11 — 100.00 PLN');
+    expect(options()).toContain('Operator G12w — 80.00 PLN');
+    await select('g11');
+    expect(options()).toContain('Operator G12w — 80.00 PLN');
+    await wrapper.setProps({range: {...range, to: '2026-09-03T00:00:00+02:00'}});
+    expect(options().every((option) => !option.includes('PLN'))).toBe(true);
+  });
+  it('disables suggestions beyond 31 days and accepts exactly 31 days', async () => {
+    const suggest = vi.spyOn(energyCostApi, 'suggestTariff').mockResolvedValue(suggestion);
+    const {wrapper} = await setup();
+    expect(wrapper.get('.energy-cost-alternative-header .energy-cost-suggest').text()).toBe('');
+    expect(wrapper.get('.energy-cost-suggest fa-stub').attributes('icon')).toBe('wand-magic-sparkles');
+    expect(wrapper.get('.energy-cost-suggest').element.parentElement.title).toBe('Suggest the cheapest');
+    const from = '2026-07-01T00:00:00Z';
+    const to = new Date(Date.parse(from) + 31 * 86400 * 1000).toISOString();
+    await wrapper.setProps({range: {from, to}});
+    expect(wrapper.get('.energy-cost-suggest').element.disabled).toBe(false);
+    await wrapper.setProps({range: {from, to: new Date(Date.parse(to) + 1000).toISOString()}});
+    expect(wrapper.get('.energy-cost-suggest').element.disabled).toBe(true);
+    expect(wrapper.get('.energy-cost-suggest').element.parentElement.title).toBe('Tariff suggestions are available for periods of up to 31 days.');
+    await wrapper.get('.energy-cost-suggest').trigger('click');
+    expect(suggest).not.toHaveBeenCalled();
+  });
+  it.each([
+    ['2026-10-04T22:00:00Z', '2026-11-04T23:00:00Z'],
+    ['2026-03-04T23:00:00Z', '2026-04-04T22:00:00Z'],
+  ])('allows 31 calendar days across DST from %s to %s', async (from, to) => {
+    const {wrapper} = await setup();
+    await wrapper.setProps({range: {from, to}});
+    expect(wrapper.get('.energy-cost-suggest').element.disabled).toBe(false);
+    await wrapper.setProps({range: {from, to: new Date(Date.parse(to) + 1000).toISOString()}});
+    expect(wrapper.get('.energy-cost-suggest').element.disabled).toBe(true);
+  });
+  it.each(['range', 'channel', 'plan'])('ignores stale suggestions after %s changes', async (context) => {
+    let resolve;
+    vi.spyOn(energyCostApi, 'suggestTariff').mockReturnValue(new Promise((done) => (resolve = done)));
+    const {wrapper} = await setup();
+    await wrapper.get('.energy-cost-suggest').trigger('click');
+    expect(wrapper.get('.energy-cost-suggest').element.disabled).toBe(true);
+    const changes = {
+      range: {...range, to: '2026-09-03T00:00:00+02:00'},
+      channel: {id: 4},
+      plan: {...plan, configuration: {...plan.configuration, timezone: 'UTC'}},
+    };
+    await wrapper.setProps({[context]: changes[context]});
+    resolve(suggestion);
+    await flushPromises();
+    expect(wrapper.emitted('update:selectedTariffId')).toBeUndefined();
+    expect(wrapper.findComponent(Picker).props('costLabels')).toEqual({});
+    expect(wrapper.get('.energy-cost-suggest').element.disabled).toBe(false);
+  });
+  it('shows unavailable costs without selecting a tariff when none are eligible', async () => {
+    vi.spyOn(energyCostApi, 'suggestTariff').mockResolvedValue({cheapestId: null, tariffs: [{id: 'g11', total: null, eligible: false}]});
+    const {wrapper} = await setup();
+    await wrapper.get('.energy-cost-suggest').trigger('click');
+    await flushPromises();
+    expect(wrapper.findComponent(Picker).text()).toContain('Operator G11 — Cost unavailable');
+    expect(wrapper.text()).toContain('No tariff can be reliably compared for the selected period.');
+    expect(wrapper.emitted('update:selectedTariffId')).toBeUndefined();
+  });
+  it('shows a request error and allows retrying suggestions', async () => {
+    const suggest = vi.spyOn(energyCostApi, 'suggestTariff').mockRejectedValueOnce(new Error('Unavailable')).mockResolvedValueOnce(suggestion);
+    const {wrapper} = await setup();
+    await wrapper.get('.energy-cost-suggest').trigger('click');
+    await flushPromises();
+    expect(wrapper.text()).toContain('Could not suggest a tariff for the selected period.');
+    expect(wrapper.get('.energy-cost-suggest').element.disabled).toBe(false);
+    await wrapper.get('.energy-cost-suggest').trigger('click');
+    await flushPromises();
+    expect(suggest).toHaveBeenCalledTimes(2);
+    expect(wrapper.text()).not.toContain('Could not suggest a tariff for the selected period.');
+  });
   it('shows report details for the selected current or alternative tab without recalculating', async () => {
     const baseline = calculation('100', '10');
     const alternative = calculation('80', '20');

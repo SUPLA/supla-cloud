@@ -17,6 +17,8 @@
     idPrefix: {type: String, default: 'energy-cost'},
     allowNoTariff: Boolean,
     hideLabel: Boolean,
+    disabled: Boolean,
+    costLabels: {type: Object, default: () => ({})},
   });
   defineEmits(['update:modelValue']);
   const {t} = useI18n();
@@ -33,10 +35,12 @@
 <template>
   <div class="energy-cost-tariff-picker form-group">
     <label :for="`${idPrefix}-tariff`" :class="{'sr-only': hideLabel}">{{ $t('Tariff') }}</label>
-    <select :id="`${idPrefix}-tariff`" :value="modelValue" class="form-control" @change="$emit('update:modelValue', $event.target.value)">
+    <select :id="`${idPrefix}-tariff`" :value="modelValue" :disabled="disabled" class="form-control" @change="$emit('update:modelValue', $event.target.value)">
       <option value="">{{ $t('Choose tariff') }}</option>
       <optgroup v-for="[operator, operatorTariffs] in groupedTariffs" :key="operator" :label="operator">
-        <option v-for="tariff in operatorTariffs" :key="tariff.id" :value="tariff.id">{{ tariffCatalogPresentation(tariff, t).label }}</option>
+        <option v-for="tariff in operatorTariffs" :key="tariff.id" :value="tariff.id">
+          {{ tariffCatalogPresentation(tariff, t).label }}{{ costLabels[tariff.id] ? ` — ${costLabels[tariff.id]}` : '' }}
+        </option>
       </optgroup>
       <option v-if="allowNoTariff" value="__no_tariff__">{{ $t('No tariff') }}</option>
     </select>

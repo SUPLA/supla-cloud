@@ -1,0 +1,37 @@
+{
+  "starters": [
+    {
+      "id": "normal",
+      "components": [
+        {"kind": "ENERGY_PURCHASE", "componentId": "energy-purchase", "presetId": "PL.TAURON_SPRZEDAZ.G11", "values": {"energy.rate": "0.8"}},
+        {"kind": "SUPPLIER_FIXED", "componentId": "fixed", "rate": "10", "per": "MONTH", "taxTreatment": {"included": []}}
+      ]
+    },
+    {
+      "id": "cheap-usage",
+      "components": [
+        {"kind": "ENERGY_PURCHASE", "componentId": "energy-purchase", "presetId": "PL.TAURON_SPRZEDAZ.G11", "values": {"energy.rate": "0.7"}},
+        {"kind": "SUPPLIER_FIXED", "componentId": "fixed", "rate": "20", "per": "MONTH", "taxTreatment": {"included": []}}
+      ]
+    },
+    {
+      "id": "tie",
+      "components": [
+        {"kind": "ENERGY_PURCHASE", "componentId": "energy-purchase", "presetId": "PL.TAURON_SPRZEDAZ.G11", "values": {"energy.rate": "0.7"}},
+        {"kind": "SUPPLIER_FIXED", "componentId": "fixed", "rate": "20", "per": "MONTH", "taxTreatment": {"included": []}}
+      ]
+    },
+    {
+      "id": "missing-preset",
+      "components": [{"kind": "ENERGY_PURCHASE", "componentId": "energy-purchase", "presetId": "MISSING", "values": {}}]
+    },
+    {
+      "id": "dynamic",
+      "components": [{"kind": "ENERGY_PURCHASE", "componentId": "energy-purchase", "presetId": "PL.GENERIC.ENERGY_PURCHASE.MARKET_REFERENCE.V1", "values": {}}]
+    },
+    {
+      "id": "dynamic-markup",
+      "components": [{"kind": "ENERGY_PURCHASE", "componentId": "energy-purchase", "presetId": "PL.GENERIC.ENERGY_PURCHASE.MARKET_REFERENCE.V1", "values": {"energy.add": "0.1"}}]
+    }
+  ]
+}

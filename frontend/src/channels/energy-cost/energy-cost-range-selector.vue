@@ -16,6 +16,7 @@
     modelValue: {type: Object, required: true},
     timezone: {type: String, default: 'Europe/Warsaw'},
     billingCycles: {type: Array, default: () => []},
+    disabled: Boolean,
   });
   const emit = defineEmits(['update:modelValue']);
   const from = ref('');
@@ -69,6 +70,7 @@
   }
 
   function setRange(kind) {
+    if (props.disabled) return;
     const ranges = rangesFor(DateTime.now().setZone(props.timezone));
     const selectedRange = ranges[kind];
     if (!selectedRange) return;
@@ -76,6 +78,7 @@
     emit('update:modelValue', {from: nextFrom.toISO(), to: nextTo.toISO()});
   }
   function applyRange() {
+    if (props.disabled) return;
     const nextFrom = DateTime.fromISO(from.value, {zone: props.timezone}).startOf('day');
     const nextTo = DateTime.fromISO(to.value, {zone: props.timezone}).plus({days: 1}).startOf('day');
     if (nextFrom.isValid && nextTo > nextFrom) {
@@ -83,6 +86,7 @@
     }
   }
   function shiftRange(direction) {
+    if (props.disabled) return;
     const {from: currentFrom, to: currentTo} = range.value;
     const duration = currentTo.diff(currentFrom).as('milliseconds');
     if (currentFrom.isValid && currentTo.isValid && duration > 0) {
@@ -107,28 +111,28 @@
 <template>
   <div class="energy-cost-range-selector mb-3">
     <!-- i18n:["Predefined time ranges", "Today", "Yesterday", "This week", "Previous week", "This month", "Previous month", "Last 3 months", "This year", "Previous year", "Current billing cycle", "Previous billing cycle", "From", "To", "Previous period", "Next period"] -->
-    <SimpleDropdown :options="periodOptions" @input="setRange">
+    <SimpleDropdown :options="periodOptions" :disabled="disabled" @input="setRange">
       <template #button>{{ $t('Predefined time ranges') }}</template>
       <template #default="{value}">{{ $t(periodLabels[value]) }}</template>
     </SimpleDropdown>
     <div class="energy-cost-date-range">
       <div class="energy-cost-date-range-navigation form-group">
-        <button type="button" class="btn btn-default" :title="$t('Previous period')" @click="shiftRange(-1)">
+        <button type="button" class="btn btn-default" :disabled="disabled" :title="$t('Previous period')" @click="shiftRange(-1)">
           <fa icon="chevron-left" />
         </button>
       </div>
       <div class="row flex-grow-1">
         <div class="col-sm-6 form-group">
           <label>{{ $t('From') }}</label>
-          <input v-model="from" type="date" class="form-control" @change="applyRange" />
+          <input v-model="from" type="date" class="form-control" :disabled="disabled" @change="applyRange" />
         </div>
         <div class="col-sm-6 form-group">
           <label>{{ $t('To') }}</label>
-          <input v-model="to" type="date" class="form-control" @change="applyRange" />
+          <input v-model="to" type="date" class="form-control" :disabled="disabled" @change="applyRange" />
         </div>
       </div>
       <div class="energy-cost-date-range-navigation form-group">
-        <button type="button" class="btn btn-default" :title="$t('Next period')" @click="shiftRange(1)">
+        <button type="button" class="btn btn-default" :disabled="disabled" :title="$t('Next period')" @click="shiftRange(1)">
           <fa icon="chevron-right" />
         </button>
       </div>

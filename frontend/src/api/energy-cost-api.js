@@ -101,6 +101,11 @@ export const energyCostApi = {
     return body;
   },
 
+  async suggestTariff(channelId, fromTimestamp, toTimestamp, configuration) {
+    const {body} = await api.post(`channels/${pathPart(channelId)}/energy-cost-calculation/suggestions`, {fromTimestamp, toTimestamp, configuration});
+    return body;
+  },
+
   async getMeasurementBounds(channelId) {
     const path = `channels/${pathPart(channelId)}/measurement-logs?limit=1&logsType=default`;
     const [{body: oldest}, {body: newest}] = await Promise.all([api.get(`${path}&order=ASC`), api.get(`${path}&order=DESC`)]);

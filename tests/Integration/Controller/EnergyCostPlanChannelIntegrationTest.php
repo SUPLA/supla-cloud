@@ -139,6 +139,45 @@ class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
         $this->assertSame($first['plan']['id'], $second['plan']['id']);
     }
 
+    public function testSuggestsTariffsWithTheSameTotalsAsDetailedSimulation(): void {
+        $user = $this->createConfirmedUser('tariff-suggestions@supla.org');
+        $channel = $this->createElectricityMeterChannel($user);
+        $this->insertHourlyDeltas($channel);
+        $client = $this->createAuthenticatedClient($user);
+        $path = '/api/channels/' . $channel->getId() . '/energy-cost-calculation';
+        $payload = ['fromTimestamp' => 1767265200, 'toTimestamp' => 1767268800, 'configuration' => $this->configuration()];
+        $client->apiRequestV24('POST', $path . '/suggestions', $payload);
+        $this->assertStatusCode(200, $client->getResponse());
+        $suggestions = json_decode($client->getResponse()->getContent(), true);
+        $catalog = self::getContainer()->get(CostPlanStarterCatalog::class);
+        $this->assertCount(count($catalog->starters()), $suggestions['tariffs']);
+        $this->assertNotNull($suggestions['cheapestId']);
+        $tariffs = array_column($suggestions['tariffs'], null, 'id');
+        $cheapest = $tariffs[$suggestions['cheapestId']];
+        $this->assertTrue($cheapest['eligible']);
+        $payload['configuration']['periods'] = [['components' => $catalog->get($cheapest['id'])->components]];
+        $client->apiRequestV24('POST', $path, $payload);
+        $this->assertStatusCode(200, $client->getResponse());
+        $calculation = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame($calculation['reportSummary']['costs']['gross']['total'], $cheapest['total']);
+        $this->assertSame($calculation['reportSummary']['fixedChargesComplete'], $cheapest['fixedChargesComplete']);
+        $client->apiRequestV24('GET', '/api/channels/' . $channel->getId() . '/energy-cost-plan-assignment');
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSame('', $client->getResponse()->getContent());
+    }
+
+    public function testRejectsTariffSuggestionsOver31Days(): void {
+        $user = $this->createConfirmedUser('long-tariff-suggestions@supla.org');
+        $channel = $this->createElectricityMeterChannel($user);
+        $client = $this->createAuthenticatedClient($user);
+        $client->apiRequestV24('POST', '/api/channels/' . $channel->getId() . '/energy-cost-calculation/suggestions', [
+            'fromTimestamp' => 1767265200,
+            'toTimestamp' => 1767265200 + 31 * 86400 + 1,
+            'configuration' => $this->configuration(),
+        ]);
+        $this->assertStatusCode(400, $client->getResponse());
+    }
+
     public function testSavedPricingIsUsedByTheNextMeterCalculation(): void {
         $user = $this->createConfirmedUser('saved-pricing@supla.org');
         $channel = $this->createElectricityMeterChannel($user);

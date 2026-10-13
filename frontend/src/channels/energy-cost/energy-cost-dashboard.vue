@@ -69,11 +69,15 @@
   const tariffFromUrl = () => (typeof route.query.energyCostTariff === 'string' ? route.query.energyCostTariff : '');
   const view = ref(viewFromUrl());
   const selectedTariffId = ref(tariffFromUrl());
+  const tariffSuggestions = ref([]);
+  watch([range, () => props.plan.configuration, () => props.channel.id], () => (tariffSuggestions.value = []), {deep: true});
   const alternativePeriodicCostsUnavailable = ref(false);
   const showBillingPeriodWarning = computed(
     () => view.value === 'comparison' && (periodicCostsUnavailable(result.value) || alternativePeriodicCostsUnavailable.value)
   );
   const loading = ref(false);
+  const comparisonLoading = ref(false);
+  const costRequestLoading = computed(() => loading.value || comparisonLoading.value);
   const error = ref(null);
   const noLogsError = 'No logs are available for the selected range.';
   const errorAlertClass = computed(() => (error.value === noLogsError ? 'alert-info' : 'alert-danger'));
@@ -321,6 +325,7 @@
     </div>
     <loading-cover :loading="view === 'report' && (loading || chartWorking || chartRendering || heatmapRendering)" :debounce="0">
       <energy-cost-range-selector
+        :disabled="costRequestLoading"
         :model-value="range"
         :timezone="timezone"
         :billing-cycles="plan.configuration?.billingCycles"
@@ -328,12 +333,13 @@
       />
       <div v-if="showBillingPeriodWarning" class="alert alert-info energy-cost-billing-period-warning">
         {{ $t('Some fixed charges are not included because the selected date range does not cover complete billing periods.') }}
-        <button type="button" class="btn btn-default btn-sm ml-2" @click="alignRangeWithBillingPeriods">
+        <button type="button" class="btn btn-default btn-sm ml-2" :disabled="costRequestLoading" @click="alignRangeWithBillingPeriods">
           {{ $t('Align date range with billing period') }}
         </button>
       </div>
       <energy-cost-comparison
         v-if="view === 'comparison'"
+        v-model:tariff-suggestions="tariffSuggestions"
         :channel="channel"
         :plan="plan"
         :range="range"
@@ -343,6 +349,7 @@
         :selected-tariff-id="selectedTariffId"
         @update:selected-tariff-id="setSelectedTariff"
         @update:periodic-costs-unavailable="alternativePeriodicCostsUnavailable = $event"
+        @update:loading="comparisonLoading = $event"
       />
       <template v-else>
         <p v-if="result?.processedDeltaCount && chartGranularity && chartGranularity !== granularity" class="text-muted">

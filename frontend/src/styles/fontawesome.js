@@ -25,6 +25,7 @@ import {
   faTimesCircle,
   faTrash,
   faUnlock,
+  faWandMagicSparkles,
   faWrench,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -53,7 +54,8 @@ library.add(
   faUnlock,
   faCircle,
   faExclamationTriangle,
-  faWrench
+  faWrench,
+  faWandMagicSparkles
 );
 
 export function registerFontAwesome(app) {

@@ -65,6 +65,58 @@ async function dashboard(result = calculation(), {bounds, selectedRange = range,
   return {wrapper, calculate, simulate};
 }
 describe('shared Costs views', () => {
+  it.each(['suggestion', 'simulation', 'range calculation'])('locks range controls and tariff selection during a pending %s', async (request) => {
+    const {wrapper, calculate, simulate} = await dashboard(calculation(), {realComparison: true, realRangeSelector: true});
+    await wrapper.get('.energy-cost-view-selector').findAll('button')[1].trigger('click');
+    await flushPromises();
+    let resolve;
+    const pending = new Promise((done) => (resolve = done));
+    if (request === 'suggestion') {
+      vi.spyOn(energyCostApi, 'suggestTariff').mockReturnValueOnce(pending);
+      await wrapper.get('.energy-cost-suggest').trigger('click');
+    } else if (request === 'simulation') {
+      simulate.mockReturnValueOnce(pending);
+      await wrapper.findComponent(Picker).get('select').setValue('g12w');
+    } else {
+      calculate.mockReturnValueOnce(pending);
+      wrapper.findComponent(RangeSelector).vm.$emit('update:modelValue', {...range, to: '2026-09-03T00:00:00+02:00'});
+    }
+    await flushPromises();
+    const rangeControls = () => wrapper.findComponent(RangeSelector).findAll('input, button');
+    expect(rangeControls().length).toBeGreaterThanOrEqual(4);
+    expect(rangeControls().every((control) => control.element.disabled)).toBe(true);
+    expect(wrapper.findComponent(Picker).get('select').element.disabled).toBe(true);
+    expect(wrapper.get('.energy-cost-suggest').element.disabled).toBe(true);
+    resolve(request === 'suggestion' ? {cheapestId: null, tariffs: []} : calculation('80'));
+    await flushPromises();
+    expect(rangeControls().every((control) => !control.element.disabled)).toBe(true);
+    expect(wrapper.findComponent(Picker).get('select').element.disabled).toBe(false);
+    wrapper.unmount();
+  });
+  it('retains suggested costs between views and clears them when the range changes in report mode', async () => {
+    const suggest = vi.spyOn(energyCostApi, 'suggestTariff').mockResolvedValue({
+      cheapestId: 'g12w',
+      tariffs: [{id: 'g12w', total: '80', currency: 'PLN', eligible: true, fixedChargesComplete: true}],
+    });
+    const {wrapper} = await dashboard(calculation(), {realComparison: true});
+    const buttons = wrapper.get('.energy-cost-view-selector').findAll('button');
+    await buttons[1].trigger('click');
+    await wrapper.get('.energy-cost-suggest').trigger('click');
+    await flushPromises();
+    expect(wrapper.findComponent(Picker).text()).toContain('Operator G12w — 80.00 PLN');
+    await buttons[0].trigger('click');
+    await buttons[1].trigger('click');
+    await flushPromises();
+    expect(wrapper.findComponent(Picker).text()).toContain('Operator G12w — 80.00 PLN');
+    expect(suggest).toHaveBeenCalledOnce();
+    await buttons[0].trigger('click');
+    wrapper.findComponent(RangeSelector).vm.$emit('update:modelValue', {...range, to: '2026-09-03T00:00:00+02:00'});
+    await flushPromises();
+    await buttons[1].trigger('click');
+    await flushPromises();
+    expect(wrapper.findComponent(Picker).text()).not.toContain('80.00 PLN');
+    wrapper.unmount();
+  });
   it('restores comparison mode and automatically simulates the tariff selected in the URL', async () => {
     Object.assign(router.query, {energyCostView: 'comparison', energyCostTariff: 'g12w'});
     const {wrapper, simulate} = await dashboard(calculation(), {realComparison: true});

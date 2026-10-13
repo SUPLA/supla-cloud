@@ -22,8 +22,9 @@
     baselineLoading: Boolean,
     baselineError: String,
     selectedTariffId: {type: String, default: ''},
+    tariffSuggestions: {type: Array, default: () => []},
   });
-  const emit = defineEmits(['update:periodicCostsUnavailable', 'update:selectedTariffId']);
+  const emit = defineEmits(['update:periodicCostsUnavailable', 'update:selectedTariffId', 'update:tariffSuggestions', 'update:loading']);
   const store = useEnergyCostStore();
   const {t, locale} = useI18n();
   const selectedId = computed({get: () => props.selectedTariffId, set: (id) => emit('update:selectedTariffId', id)});
@@ -33,6 +34,63 @@
   const loading = ref(false);
   const error = ref('');
   const catalogError = ref('');
+  const suggesting = ref(false);
+  const suggestions = ref(props.tariffSuggestions);
+  watch(
+    () => props.tariffSuggestions,
+    (results) => (suggestions.value = results)
+  );
+  watch(suggestions, (results) => emit('update:tariffSuggestions', results));
+  const suggestionError = ref('');
+  let suggestionVersion = 0;
+  const suggestionAllowed = computed(() => {
+    const from = DateTime.fromISO(props.range.from, {zone: props.plan.configuration.timezone});
+    const to = DateTime.fromISO(props.range.to, {zone: props.plan.configuration.timezone});
+    return from.isValid && to.isValid && to > from && to <= from.plus({days: 31});
+  });
+  const suggestionTooltip = computed(() =>
+    suggestionAllowed.value ? t('Suggest the cheapest') : t('Tariff suggestions are available for periods of up to 31 days.')
+  );
+  const suggestionCostLabels = computed(() =>
+    Object.fromEntries(
+      suggestions.value.map((result) => [
+        result.id,
+        result.total === null ? t('Cost unavailable') : `${money(result.total, result.currency)}${result.eligible ? '' : ` (${t('Not comparable')})`}`,
+      ])
+    )
+  );
+  watch(
+    [() => props.range, () => props.plan.configuration, () => props.channel.id],
+    () => {
+      suggestionVersion++;
+      suggesting.value = false;
+      suggestions.value = [];
+      suggestionError.value = '';
+    },
+    {deep: true}
+  );
+  async function suggestTariff() {
+    if (!suggestionAllowed.value || busy.value) return;
+    const token = ++suggestionVersion;
+    suggesting.value = true;
+    suggestionError.value = '';
+    try {
+      const result = await energyCostApi.suggestTariff(
+        props.channel.id,
+        Math.floor(Date.parse(props.range.from) / 1000),
+        Math.floor(Date.parse(props.range.to) / 1000),
+        props.plan.configuration
+      );
+      if (token !== suggestionVersion) return;
+      suggestions.value = result.tariffs;
+      if (result.cheapestId) selectedId.value = result.cheapestId;
+      else suggestionError.value = 'No tariff can be reliably compared for the selected period.'; // i18n
+    } catch {
+      if (token === suggestionVersion) suggestionError.value = 'Could not suggest a tariff for the selected period.'; // i18n
+    } finally {
+      if (token === suggestionVersion) suggesting.value = false;
+    }
+  }
   let version = 0;
   store.fetchTariffs().catch(() => {
     catalogError.value = 'Could not load tariff plans.';
@@ -49,7 +107,9 @@
   const comparison = computed(() => compareCalculations(props.baseline, alternative.value, props.range));
   const baselineTotal = computed(() => props.baseline?.reportSummary?.costs?.gross?.total ?? props.baseline?.costs?.gross?.total ?? null);
   const alternativeTotal = computed(() => alternative.value?.reportSummary?.costs?.gross?.total ?? alternative.value?.costs?.gross?.total ?? null);
-  const busy = computed(() => loading.value || props.baselineLoading);
+  const requestLoading = computed(() => loading.value || suggesting.value);
+  watch(requestLoading, (value) => emit('update:loading', value), {immediate: true});
+  const busy = computed(() => requestLoading.value || props.baselineLoading);
   const evaluated = computed(() => !busy.value && comparison.value.comparable);
   const granularity = ref('day');
   const hourlyAggregationAllowed = computed(() => allowsHourlyAggregation(props.range.from, props.range.to, props.plan.configuration.timezone));
@@ -111,7 +171,11 @@
     },
     {deep: true, immediate: true}
   );
-  onBeforeUnmount(() => version++);
+  onBeforeUnmount(() => {
+    version++;
+    suggestionVersion++;
+    emit('update:loading', false);
+  });
 </script>
 <template>
   <section class="energy-cost-comparison">
@@ -134,9 +198,31 @@
       </div>
       <div class="col-sm-6">
         <section class="well energy-cost-scenario">
-          <h3>{{ $t('Alternative tariff') }}</h3>
+          <div class="energy-cost-alternative-header">
+            <h3>{{ $t('Alternative tariff') }}</h3>
+            <span :title="suggestionTooltip" :tabindex="!suggestionAllowed || busy ? 0 : undefined">
+              <button
+                type="button"
+                class="btn btn-default energy-cost-suggest"
+                :disabled="!suggestionAllowed || busy"
+                :aria-label="suggestionTooltip"
+                :aria-busy="suggesting"
+                @click="suggestTariff"
+              >
+                <fa icon="wand-magic-sparkles" />
+              </button>
+            </span>
+          </div>
           <span class="label label-info">{{ $t('Simulation') }}</span>
-          <energy-cost-tariff-picker v-model="selectedId" :tariffs="store.tariffs" id-prefix="energy-cost-comparison" hide-label />
+          <energy-cost-tariff-picker
+            v-model="selectedId"
+            :tariffs="store.tariffs"
+            :cost-labels="suggestionCostLabels"
+            :disabled="busy"
+            id-prefix="energy-cost-comparison"
+            hide-label
+          />
+          <p v-if="suggestionError" class="text-danger mt-2" role="alert">{{ $t(suggestionError) }}</p>
           <div class="energy-cost-scenario-price">
             <strong>{{ money(alternativeTotal, alternative?.currency) }}</strong>
             <small>{{ $t(grossCostLabel(alternative)) }}</small>
@@ -251,6 +337,21 @@
 </template>
 
 <style scoped>
+  .energy-cost-alternative-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .energy-cost-alternative-header > h3 {
+    margin-top: 0;
+  }
+
+  .energy-cost-suggest:disabled {
+    pointer-events: none;
+  }
+
   .energy-cost-scenarios {
     display: flex;
     flex-wrap: wrap;
