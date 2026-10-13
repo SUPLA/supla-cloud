@@ -1,53 +1,53 @@
 parameters:
-  supla.act_as_broker_cloud: '%env(bool:SUPLA_ACT_AS_BROKER_CLOUD)%'
-  supla.protocol: '%env(SUPLA_PROTOCOL)%'
+  supla.act_as_broker_cloud: "%env(bool:SUPLA_ACT_AS_BROKER_CLOUD)%"
+  supla.protocol: "%env(SUPLA_PROTOCOL)%"
   supla.server_socket: /var/run/supla/supla-server-ctrl.sock
-  supla.url: '%env(default:supla.default_url:SUPLA_URL)%'
-  supla.default_url: '%supla.protocol%://%supla.host%'
-  supla.host: '%env(SUPLA_HOST_ADDRESS)%'
-  supla.mailer_from: '%env(SUPLA_MAILER_FROM)%'
-  supla.require_regulations_acceptance: '%env(bool:SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE)%'
-  supla.require_cookie_policy_acceptance: '%env(bool:SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE)%'
+  supla.url: "%env(default:supla.default_url:SUPLA_URL)%"
+  supla.default_url: "%supla.protocol%://%supla.host%"
+  supla.host: "%env(SUPLA_HOST_ADDRESS)%"
+  supla.mailer_from: "%env(SUPLA_MAILER_FROM)%"
+  supla.require_regulations_acceptance: "%env(bool:SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE)%"
+  supla.require_cookie_policy_acceptance: "%env(bool:SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE)%"
 
-  env(SUPLA_ACT_AS_BROKER_CLOUD): 'false'
-  env(SUPLA_PROTOCOL): 'https'
-  env(SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE): 'true'
-  env(SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE): 'true'
-  env(SUPLA_ACCOUNTS_REGISTRATION_ENABLED): 'true'
-  env(SUPLA_TOKEN_LIFETIME_WEBAPP): '1200'
+  env(SUPLA_ACT_AS_BROKER_CLOUD): "false"
+  env(SUPLA_PROTOCOL): "https"
+  env(SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE): "true"
+  env(SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE): "true"
+  env(SUPLA_ACCOUNTS_REGISTRATION_ENABLED): "true"
+  env(SUPLA_TOKEN_LIFETIME_WEBAPP): "1200"
 
-  env(SUPLA_API_RATE_LIMIT_ENABLED): 'true'
-  env(SUPLA_API_RATE_LIMIT_BLOCKING): 'false'
-  env(SUPLA_API_RATE_LIMIT_USER_DEFAULT_LIMIT): '1000/3600'
-  env(SUPLA_API_RATE_LIMIT_GLOBAL_LIMIT): '320/60'
+  env(SUPLA_API_RATE_LIMIT_ENABLED): "true"
+  env(SUPLA_API_RATE_LIMIT_BLOCKING): "false"
+  env(SUPLA_API_RATE_LIMIT_USER_DEFAULT_LIMIT): "1000/3600"
+  env(SUPLA_API_RATE_LIMIT_GLOBAL_LIMIT): "320/60"
 
-  env(SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED): 'true'
-  env(SUPLA_STATE_WEBHOOKS_ONLY_FOR_PUBLIC_APPS): 'false'
+  env(SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED): "true"
+  env(SUPLA_STATE_WEBHOOKS_ONLY_FOR_PUBLIC_APPS): "false"
 
-  env(SUPLA_MQTT_BROKER_ENABLED): 'false'
-  env(SUPLA_MQTT_BROKER_TLS): 'true'
-  env(SUPLA_MQTT_BROKER_INTEGRATED_AUTH): 'false'
-  env(SUPLA_MQTT_BROKER_HOST): ''
-  env(SUPLA_MQTT_BROKER_PORT): '8883'
-  env(SUPLA_MQTT_BROKER_USERNAME): ''
-  env(SUPLA_MQTT_BROKER_PASSWORD): ''
+  env(SUPLA_MQTT_BROKER_ENABLED): "false"
+  env(SUPLA_MQTT_BROKER_TLS): "true"
+  env(SUPLA_MQTT_BROKER_INTEGRATED_AUTH): "false"
+  env(SUPLA_MQTT_BROKER_HOST): ""
+  env(SUPLA_MQTT_BROKER_PORT): "8883"
+  env(SUPLA_MQTT_BROKER_USERNAME): ""
+  env(SUPLA_MQTT_BROKER_PASSWORD): ""
 
-  env(SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_VOLTAGE_ABERRATIONS): '180'
-  env(SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_VOLTAGE): '90'
-  env(SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_CURRENT): '90'
-  env(SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_POWER_ACTIVE): '90'
-  env(SUPLA_ENERGY_LOG_DELTAS_CALCULATION_ENABLED): 'true'
+  env(SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_VOLTAGE_ABERRATIONS): "180"
+  env(SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_VOLTAGE): "90"
+  env(SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_CURRENT): "90"
+  env(SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_POWER_ACTIVE): "90"
+  env(SUPLA_ENERGY_LOG_DELTAS_CALCULATION_ENABLED): "true"
 
 supla:
-  accounts_registration_enabled: '%env(bool:SUPLA_ACCOUNTS_REGISTRATION_ENABLED)%'
+  accounts_registration_enabled: "%env(bool:SUPLA_ACCOUNTS_REGISTRATION_ENABLED)%"
   autodiscover_url: https://autodiscover.supla.org
   api_rate_limit:
-    enabled: '%env(bool:SUPLA_API_RATE_LIMIT_ENABLED)%'
-    blocking: '%env(bool:SUPLA_API_RATE_LIMIT_BLOCKING)%'
-    user_default_limit: '%env(string:SUPLA_API_RATE_LIMIT_USER_DEFAULT_LIMIT)%'
-    global_limit: '%env(string:SUPLA_API_RATE_LIMIT_GLOBAL_LIMIT)%'
+    enabled: "%env(bool:SUPLA_API_RATE_LIMIT_ENABLED)%"
+    blocking: "%env(bool:SUPLA_API_RATE_LIMIT_BLOCKING)%"
+    user_default_limit: "%env(string:SUPLA_API_RATE_LIMIT_USER_DEFAULT_LIMIT)%"
+    global_limit: "%env(string:SUPLA_API_RATE_LIMIT_GLOBAL_LIMIT)%"
   brute_force_auth_prevention:
-    enabled: '%env(bool:SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED)%'
+    enabled: "%env(bool:SUPLA_BRUTE_FORCE_AUTH_PREVENTION_ENABLED)%"
     max_failed_attempts: 3
     block_time_seconds: 1200
   clients_registration:
@@ -64,37 +64,38 @@ supla:
     delete_audit_entries_older_than_days_custom:
       DIRECT_LINK_EXECUTION: 2
   measurement_logs_retention:
-    em_voltage_aberrations: '%env(int:SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_VOLTAGE_ABERRATIONS)%'
-    em_voltage: '%env(int:SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_VOLTAGE)%'
-    em_current: '%env(int:SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_CURRENT)%'
-    em_power_active: '%env(int:SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_POWER_ACTIVE)%'
+    em_voltage_aberrations: "%env(int:SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_VOLTAGE_ABERRATIONS)%"
+    em_voltage: "%env(int:SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_VOLTAGE)%"
+    em_current: "%env(int:SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_CURRENT)%"
+    em_power_active: "%env(int:SUPLA_MEASUREMENT_LOGS_RETENTION_DAYS_EM_POWER_ACTIVE)%"
   energy_log_deltas_calculation:
-    enabled: '%env(bool:SUPLA_ENERGY_LOG_DELTAS_CALCULATION_ENABLED)%'
+    enabled: "%env(bool:SUPLA_ENERGY_LOG_DELTAS_CALCULATION_ENABLED)%"
   mqtt_broker:
-    enabled: '%env(bool:SUPLA_MQTT_BROKER_ENABLED)%'
-    tls: '%env(bool:SUPLA_MQTT_BROKER_TLS)%'
-    integrated_auth: '%env(bool:SUPLA_MQTT_BROKER_INTEGRATED_AUTH)%'
-    host: '%env(string:SUPLA_MQTT_BROKER_HOST)%'
-    port: '%env(int:SUPLA_MQTT_BROKER_PORT)%'
-    username: '%env(string:SUPLA_MQTT_BROKER_USERNAME)%'
-    password: '%env(string:SUPLA_MQTT_BROKER_PASSWORD)%'
+    enabled: "%env(bool:SUPLA_MQTT_BROKER_ENABLED)%"
+    tls: "%env(bool:SUPLA_MQTT_BROKER_TLS)%"
+    integrated_auth: "%env(bool:SUPLA_MQTT_BROKER_INTEGRATED_AUTH)%"
+    host: "%env(string:SUPLA_MQTT_BROKER_HOST)%"
+    port: "%env(int:SUPLA_MQTT_BROKER_PORT)%"
+    username: "%env(string:SUPLA_MQTT_BROKER_USERNAME)%"
+    password: "%env(string:SUPLA_MQTT_BROKER_PASSWORD)%"
   oauth:
     tokens_lifetime:
-      webapp: {access: '%env(int:SUPLA_TOKEN_LIFETIME_WEBAPP)%'}
-      client_app: {access: 3600, refresh: 5184000} # 60 days
-      admin: {access: 3600, refresh: 5184000}
-      user: {access: 3600, refresh: 5184000}
-      broker: {access: 86400, refresh: 5184000}
+      webapp: { access: "%env(int:SUPLA_TOKEN_LIFETIME_WEBAPP)%" }
+      client_app: { access: 3600, refresh: 5184000 } # 60 days
+      admin: { access: 3600, refresh: 5184000 }
+      user: { access: 3600, refresh: 5184000 }
+      broker: { access: 86400, refresh: 5184000 }
   state_webhooks:
-    only_for_public_apps: '%env(bool:SUPLA_STATE_WEBHOOKS_ONLY_FOR_PUBLIC_APPS)%'
+    only_for_public_apps: "%env(bool:SUPLA_STATE_WEBHOOKS_ONLY_FOR_PUBLIC_APPS)%"
 
 services:
   Supla\EnergyCostCalculator\Contract\EnergyLogSource: '@App\Model\EnergyCost\SuplaEnergyLogSource'
   Supla\EnergyCostCalculator\Contract\EnergyDeltaSource: '@App\Model\EnergyCost\SuplaEnergyDeltaSource'
+  App\Model\EnergyCost\EnergyObservationRangeSource: '@App\Model\EnergyCost\SuplaEnergyDeltaSource'
   Supla\EnergyCostCalculator\Engine\EnergyLogDeltaCalculator: ~
   App\Command\Cyclic\ElectricityMeterLogsCalculateDeltasCommand:
     arguments:
-      $energyLogDeltaCalculationEnabled: '%supla.energy_log_deltas_calculation.enabled%'
+      $energyLogDeltaCalculationEnabled: "%supla.energy_log_deltas_calculation.enabled%"
   Supla\EnergyCostCalculator\Contract\ReferenceDataSource: '@App\Model\EnergyCost\SuplaReferenceDataSource'
   Supla\EnergyCostCalculator\Definition\BillingDefinitionParser: ~
   Supla\EnergyCostCalculator\Engine\CostCalculator:
@@ -117,10 +118,10 @@ when@dev:
       integrated_auth: true
     oauth:
       tokens_lifetime:
-        webapp: {access: 28800}
+        webapp: { access: 28800 }
     ocr:
       enabled: true
-      url: 'http://localhost:8044'
+      url: "http://localhost:8044"
 
 when@test:
   supla:

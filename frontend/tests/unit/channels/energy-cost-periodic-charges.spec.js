@@ -47,6 +47,27 @@ function freeze(value) {
 const sum = (rows, key) => rows.reduce((total, row) => addDecimals(total, row.calculated.amounts[key]), '0');
 
 describe('fixed-charge presentation', () => {
+  it('shows only September and October for a full-year selection with September 3 to October 9 history', () => {
+    const september = '2026-09-01T00:00:00+02:00';
+    const november = '2026-11-01T00:00:00+01:00';
+    const periods = [
+      {from: january, to: september, costs: {gross: {periodic: {total: '0', byComponent: {}}}}},
+      {from: september, to: october, costs: {gross: {periodic: {total: '9.0774', byComponent: {network: '9.0774'}}}}},
+      {from: october, to: november, costs: {gross: {periodic: {total: '9.0774', byComponent: {network: '9.0774'}}}}},
+      {from: november, to: nextJanuary, costs: {gross: {periodic: {total: '0', byComponent: {}}}}},
+    ];
+    const original = charge('network', january, nextJanuary, '2', '7.38', '14.76', '3.3948', '18.1548');
+    const rows = displayedPeriodicCharges([original], periods);
+    expect(rows).toEqual([{...original, appliesFrom: september, appliesTo: november}]);
+    expect(rows[0].calculated).toBe(original.calculated);
+    const wrapper = mount(Details, {
+      props: {result: {currency: 'PLN', periodicCharges: [original], billingPeriods: periods}, timezone: 'Europe/Warsaw'},
+      global: {plugins: [createI18n({legacy: false, locale: 'en', missingWarn: false, fallbackWarn: false})]},
+    });
+    expect(wrapper.find('tbody tr').text()).toContain('01 Sep 2026 - 01 Nov 2026');
+    expect(wrapper.find('tbody tr').text()).toContain('18.15 PLN');
+    wrapper.unmount();
+  });
   it('merges the interleaved TAURON G13 rows into three rows without changing any original data or monetary totals', () => {
     const original = tauron();
     const snapshot = structuredClone(original);

@@ -5,6 +5,7 @@ import {
   aggregateChargesByWeekdayAndHour,
   aggregateEnergy,
   aggregateImportedEnergyByWeekdayAndHour,
+  alignedFixedChargeRange,
   allowsHourlyAggregation,
   formatDecimal,
   grossCostLabel,
@@ -15,6 +16,19 @@ import {
 } from '@/channels/energy-cost/energy-cost-result-utils';
 
 describe('energy cost result utilities', () => {
+  it('aligns only incomplete periods with omitted observed fixed charges, preserving unobserved selection edges', () => {
+    const range = {from: '2026-01-10T00:00:00+01:00', to: '2026-10-09T00:00:00+02:00'};
+    const result = {
+      billingPeriods: [
+        {from: '2026-01-01T00:00:00+01:00', to: '2026-02-01T00:00:00+01:00', fullyCovered: false, costs: {gross: {periodic: {total: '0'}}}},
+        {from: '2026-09-01T00:00:00+02:00', to: '2026-10-01T00:00:00+02:00', fullyCovered: true, costs: {gross: {periodic: {total: '12.3'}}}},
+        {from: '2026-10-01T00:00:00+02:00', to: '2026-11-01T00:00:00+01:00', fullyCovered: false, costs: {gross: {periodic: {total: null}}}},
+      ],
+    };
+    expect(alignedFixedChargeRange(result, range)).toEqual({from: range.from, to: '2026-11-01T00:00:00+01:00'});
+    result.billingPeriods[2].costs.gross.periodic.total = '0';
+    expect(alignedFixedChargeRange(result, range)).toBeNull();
+  });
   it.each([
     ['0', false, 'Gross cost, without fixed charges'],
     ['0.000', true, 'Gross cost, without fixed charges'],

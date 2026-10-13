@@ -18,6 +18,7 @@ use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
 use App\Exception\ApiException;
 use App\Model\EnergyCost\EnergyCostPlanCalculator;
+use App\Model\EnergyCost\EnergyObservationRangeSource;
 use App\Repository\EnergyCostPlanAssignmentRepository;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\UserFixtures;
@@ -27,6 +28,7 @@ use DateTimeZone;
 use Supla\EnergyCostCalculator\Engine\CalculationResult;
 use Supla\EnergyCostCalculator\Engine\CostCalculator;
 use Supla\EnergyCostCalculator\Exception\TariffPresetNotFoundException;
+use Supla\EnergyCostCalculator\Model\TimeRange;
 use Supla\EnergyCostCalculator\Plan\CostPlanCompiler;
 use Supla\EnergyCostCalculator\Plan\CostPlanDefinitionParser;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -139,11 +141,17 @@ class EnergyCostPlanCalculatorIntegrationTest extends IntegrationTestCase {
     private function service(RecordingEnergyDeltaSource $source): EnergyCostPlanCalculator {
         /** @var EnergyCostPlanAssignmentRepository $repository */
         $repository = $this->getEntityManager()->getRepository(EnergyCostPlanAssignment::class);
+        $observations = $this->createMock(EnergyObservationRangeSource::class);
+        $observations->method('getObservationRange')->willReturn(new TimeRange(
+            new DateTimeImmutable('2026-01-01T00:00:00Z'),
+            new DateTimeImmutable('2027-01-01T00:00:00Z'),
+        ));
         return new EnergyCostPlanCalculator(
             $repository,
             new CostPlanDefinitionParser(),
             new CostPlanCompiler(),
             new CostCalculator($source, new EmptyReferenceDataSource()),
+            $observations,
         );
     }
 

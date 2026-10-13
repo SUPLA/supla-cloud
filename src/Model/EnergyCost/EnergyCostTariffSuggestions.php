@@ -40,6 +40,7 @@ class EnergyCostTariffSuggestions {
         private readonly CostPlanDefinitionParser $parser,
         private readonly CostPlanCompiler $compiler,
         private readonly CostPlanStarterCatalog $catalog,
+        private readonly EnergyObservationRangeSource $observationSource,
     ) {
     }
 
@@ -60,6 +61,10 @@ class EnergyCostTariffSuggestions {
             throw new ApiException('Tariff suggestions require a period of at most 31 days.');
         }
         $range = new TimeRange($from, $to);
+        $observationRange = $this->observationSource->getObservationRange((string)$channel->getId());
+        if ($observationRange === null) {
+            throw new ApiException('No logs are available for the selected range.');
+        }
         // The range is bounded, so materialize canonical facts once for all tariffs.
         $deltas = iterator_to_array((function () use ($channel, $range): iterable {
             yield from $this->deltaSource->getDeltas((string)$channel->getId(), $range);
@@ -93,6 +98,7 @@ class EnergyCostTariffSuggestions {
             includeCharges: false,
             calculationProblemPolicy: CalculationProblemPolicy::SKIP_AFFECTED,
             includeReportSummary: true,
+            observationRange: $observationRange,
         );
         $calculate = fn(array $config): array => $calculator->calculate(
             (string)$channel->getId(),

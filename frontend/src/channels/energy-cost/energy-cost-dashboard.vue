@@ -25,7 +25,13 @@
   import EnergyCostDetails from './energy-cost-details.vue';
   import EnergyCostComparison from './energy-cost-comparison.vue';
   import {billingCycleRange, componentInputsOutsidePricePeriods, pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
-  import {allowsHourlyAggregation, periodicCostsUnavailable, preferredGranularity, selectedRangeLabel} from './energy-cost-result-utils';
+  import {
+    alignedFixedChargeRange,
+    allowsHourlyAggregation,
+    periodicCostsUnavailable,
+    preferredGranularity,
+    selectedRangeLabel,
+  } from './energy-cost-result-utils';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
   const props = defineProps({channel: {type: Object, required: true}, plan: {type: Object, required: true}, assignedPlanId: Number});
@@ -64,7 +70,6 @@
   const range = ref(rangeFromUrl() || defaultRange());
   const result = ref(null);
   const calculationWarnings = computed(() => (result.value?.warnings || []).filter((warning) => warning.code !== 'MISSING_METER_DATA'));
-  const missingMeterData = computed(() => result.value?.warnings?.some((warning) => warning.code === 'MISSING_METER_DATA'));
   const viewFromUrl = () => (route.query.energyCostView === 'comparison' && props.plan.id === props.assignedPlanId ? 'comparison' : 'report');
   const tariffFromUrl = () => (typeof route.query.energyCostTariff === 'string' ? route.query.energyCostTariff : '');
   const view = ref(viewFromUrl());
@@ -72,23 +77,30 @@
   const tariffSuggestions = ref([]);
   watch([range, () => props.plan.configuration, () => props.channel.id], () => (tariffSuggestions.value = []), {deep: true});
   const alternativePeriodicCostsUnavailable = ref(false);
+  const alternativeIncompletePeriods = ref([]);
+  const alignmentRange = computed(() => {
+    const baseline = alignedFixedChargeRange(result.value, range.value);
+    if (view.value !== 'comparison') return baseline;
+    return alignedFixedChargeRange({billingPeriods: alternativeIncompletePeriods.value}, baseline || range.value) || baseline;
+  });
   const showBillingPeriodWarning = computed(
-    () => view.value === 'comparison' && (periodicCostsUnavailable(result.value) || alternativePeriodicCostsUnavailable.value)
+    () => !noLogs.value && view.value === 'comparison' && (periodicCostsUnavailable(result.value) || alternativePeriodicCostsUnavailable.value)
   );
   const loading = ref(false);
   const comparisonLoading = ref(false);
   const costRequestLoading = computed(() => loading.value || comparisonLoading.value);
   const error = ref(null);
   const noLogsError = 'No logs are available for the selected range.';
+  const noLogs = computed(
+    () =>
+      error.value === noLogsError ||
+      (result.value?.processedDeltaCount === 0 &&
+        !periodicCostsUnavailable(result.value) &&
+        Number(result.value?.reportSummary?.costs?.gross?.periodic?.total || 0) === 0)
+  );
   const errorAlertClass = computed(() => (error.value === noLogsError ? 'alert-info' : 'alert-danger'));
   const granularity = ref('day');
   const hourlyAggregationAllowed = computed(() => allowsHourlyAggregation(range.value.from, range.value.to, timezone.value));
-  const availableRange = ref(null);
-  const usageRangePartial = computed(
-    () =>
-      availableRange.value &&
-      (Date.parse(range.value.from) < Date.parse(availableRange.value.from) || Date.parse(range.value.to) > Date.parse(availableRange.value.to))
-  );
   let requestToken = 0;
   let chartRequestToken = 0;
   let calculationWatchEnabled = false;
@@ -242,8 +254,8 @@
     return from.isValid && to.isValid && from < to ? next : null;
   }
   function alignRangeWithBillingPeriods() {
-    const periods = result.value?.billingPeriods || [];
-    if (periods.length) setRange({from: periods[0].from, to: periods[periods.length - 1].to});
+    const aligned = alignmentRange.value;
+    if (aligned) setRange(aligned);
   }
   async function fetchCalculation() {
     const token = ++requestToken;
@@ -265,16 +277,6 @@
   }
   onMounted(async () => {
     window.addEventListener('beforeprint', updateReportGeneratedAt);
-    try {
-      const {oldest, newest} = await energyCostApi.getMeasurementBounds(props.channel.id);
-      if (oldest && newest) {
-        const first = DateTime.fromSeconds(oldest.date_timestamp, {zone: timezone.value});
-        const last = DateTime.fromSeconds(newest.date_timestamp, {zone: timezone.value});
-        availableRange.value = {from: first.startOf('hour').plus({hours: 1}).toISO(), to: last.startOf('hour').toISO()};
-      }
-    } catch {
-      // The calculation endpoint remains usable if measurement-history bounds cannot be loaded.
-    }
     const saved = sessionStorage.getItem(storageKey.value);
     if (!rangeFromUrl() && saved) {
       try {
@@ -319,10 +321,6 @@
 
 <template>
   <section class="energy-cost-dashboard mt-4">
-    <div v-if="!simulating" class="btn-group mb-3 energy-cost-view-selector">
-      <button class="btn btn-default" :class="{active: view === 'report'}" @click="setView('report')">{{ $t('Cost report') }}</button>
-      <button class="btn btn-default" :class="{active: view === 'comparison'}" @click="setView('comparison')">{{ $t('Compare tariffs') }}</button>
-    </div>
     <loading-cover :loading="view === 'report' && (loading || chartWorking || chartRendering || heatmapRendering)" :debounce="0">
       <energy-cost-range-selector
         :disabled="costRequestLoading"
@@ -331,14 +329,27 @@
         :billing-cycles="plan.configuration?.billingCycles"
         @update:model-value="setRange"
       />
+      <div v-if="!simulating && !noLogs" class="energy-cost-mode-switch">
+        <div class="energy-cost-view-selector" role="group" :aria-label="$t('View mode')">
+          <button type="button" :class="{active: view === 'report'}" :aria-pressed="String(view === 'report')" @click="setView('report')">
+            <fa icon="chart-column" aria-hidden="true" />
+            {{ $t('Cost report') }}
+          </button>
+          <button type="button" :class="{active: view === 'comparison'}" :aria-pressed="String(view === 'comparison')" @click="setView('comparison')">
+            <fa icon="scale-balanced" aria-hidden="true" />
+            {{ $t('Compare tariffs') }}
+          </button>
+        </div>
+      </div>
       <div v-if="showBillingPeriodWarning" class="alert alert-info energy-cost-billing-period-warning">
         {{ $t('Some fixed charges are not included because the selected date range does not cover complete billing periods.') }}
-        <button type="button" class="btn btn-default btn-sm ml-2" :disabled="costRequestLoading" @click="alignRangeWithBillingPeriods">
+        <button v-if="alignmentRange" type="button" class="btn btn-default btn-sm ml-2" :disabled="costRequestLoading" @click="alignRangeWithBillingPeriods">
           {{ $t('Align date range with billing period') }}
         </button>
       </div>
+      <div v-if="noLogs" class="alert alert-info">{{ $t(noLogsError) }}</div>
       <energy-cost-comparison
-        v-if="view === 'comparison'"
+        v-else-if="view === 'comparison'"
         v-model:tariff-suggestions="tariffSuggestions"
         :channel="channel"
         :plan="plan"
@@ -349,6 +360,7 @@
         :selected-tariff-id="selectedTariffId"
         @update:selected-tariff-id="setSelectedTariff"
         @update:periodic-costs-unavailable="alternativePeriodicCostsUnavailable = $event"
+        @update:incomplete-fixed-charge-periods="alternativeIncompletePeriods = $event"
         @update:loading="comparisonLoading = $event"
       />
       <template v-else>
@@ -357,14 +369,7 @@
         </p>
         <div v-if="error" class="alert" :class="errorAlertClass">{{ $t(error) }}</div>
         <template v-else-if="result">
-          <div v-if="result.processedDeltaCount === 0" class="alert alert-info">
-            {{ $t('No logs are available for the selected range.') }}
-          </div>
-          <template v-if="result.reportSummary || result.processedDeltaCount > 0">
-            <div v-if="usageRangePartial || missingMeterData" class="alert alert-info">
-              {{ $t('Usage costs are based only on available measurements, without extrapolating missing usage.') }}
-              <span v-if="availableRange">{{ dateTime(availableRange.from) }} – {{ dateTime(availableRange.to) }}</span>
-            </div>
+          <template v-if="!noLogs">
             <div v-if="calculationWarnings.length" class="alert alert-warning">
               <p>{{ $t('Some logs could not be calculated. Results may be incomplete.') }}</p>
               <details>
@@ -486,10 +491,76 @@
   </section>
 </template>
 
+<style lang="scss" scoped>
+  @use '../../styles/variables' as *;
+
+  .energy-cost-mode-switch {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 24px;
+  }
+
+  .energy-cost-view-selector {
+    display: inline-flex;
+    width: 640px;
+    max-width: 100%;
+    gap: 4px;
+    padding: 5px;
+    background: $supla-grey-light;
+    border-radius: 12px;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex: 1;
+      padding: 12px 20px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      background: transparent;
+      color: $supla-grey-dark;
+      font-weight: 600;
+      white-space: nowrap;
+      transition:
+        background 0.15s,
+        border-color 0.15s,
+        box-shadow 0.15s;
+
+      &:hover {
+        background: $supla-white;
+        color: $supla-black;
+      }
+
+      &.active {
+        background: $supla-white;
+        border-color: $supla-green;
+        color: $supla-black;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+
+      &:focus-visible {
+        outline: 2px solid $supla-blue;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .energy-cost-view-selector {
+      width: 100%;
+
+      button {
+        padding: 10px 8px;
+      }
+    }
+  }
+</style>
+
 <style lang="scss">
   @use './energy-cost-print';
   @media print {
-    .energy-cost-view-selector {
+    .energy-cost-mode-switch {
       display: none !important;
     }
   }

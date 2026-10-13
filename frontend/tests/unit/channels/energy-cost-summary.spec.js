@@ -43,7 +43,11 @@ describe('report total expenses', () => {
   });
   it('shows included middle-period fixed charges and offers Align for multiple periods', () => {
     const result = calculation();
-    result.billingPeriods = [{fullyCovered: false}, {fullyCovered: true}, {fullyCovered: false}];
+    result.billingPeriods = [
+      {fullyCovered: false, costs: {gross: {periodic: {total: null}}}},
+      {fullyCovered: true, costs: {gross: {periodic: {total: '12.3'}}}},
+      {fullyCovered: false, costs: {gross: {periodic: {total: null}}}},
+    ];
     result.reportSummary = {
       costs: {gross: {total: '135.3', usageBased: {total: '123'}, periodic: {total: '12.3'}}, taxes: {total: '25.3'}},
       fixedChargesComplete: false,
@@ -88,5 +92,13 @@ describe('report total expenses', () => {
     const wrapper = summary(result);
     expect(wrapper.get('.energy-cost-total-expenses strong').text()).toBe('—');
     expect(wrapper.text()).toContain('Total expenses are unavailable for this period.');
+  });
+  it('does not offer expansion for incomplete billing periods outside observation history', () => {
+    const result = calculation();
+    result.billingPeriods[0].costs.gross.periodic.total = '0';
+    result.reportSummary = {costs: {gross: {total: '0', periodic: {total: '0'}}}, fixedChargesComplete: true};
+    const wrapper = summary(result);
+    expect(wrapper.find('button').exists()).toBe(false);
+    expect(wrapper.text()).not.toContain('Expand the selection');
   });
 });

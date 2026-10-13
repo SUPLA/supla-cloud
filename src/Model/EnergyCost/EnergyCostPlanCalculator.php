@@ -33,6 +33,7 @@ class EnergyCostPlanCalculator {
         private readonly CostPlanDefinitionParser $parser,
         private readonly CostPlanCompiler $compiler,
         private readonly CostCalculator $calculator,
+        private readonly EnergyObservationRangeSource $observationSource,
     ) {
     }
 
@@ -75,6 +76,11 @@ class EnergyCostPlanCalculator {
         $definition = $this->compiler->compile($this->parser->parse($configuration));
         $utc = new DateTimeZone('UTC');
         $range = new TimeRange($from->setTimezone($utc), $to->setTimezone($utc));
+        $observationRange = $this->observationSource->getObservationRange((string)$channel->getId());
+        if ($observationRange === null) {
+            // The library's null means unrestricted history, not an empty meter.
+            throw new ApiException('No logs are available for the selected range.');
+        }
 
         return $this->calculator->calculate(
             (string)$channel->getId(),
@@ -85,6 +91,7 @@ class EnergyCostPlanCalculator {
                 includeCharges: true,
                 calculationProblemPolicy: CalculationProblemPolicy::SKIP_AFFECTED,
                 includeReportSummary: true,
+                observationRange: $observationRange,
             ),
         );
     }

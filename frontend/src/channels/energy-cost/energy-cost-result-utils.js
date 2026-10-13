@@ -65,6 +65,19 @@ export function selectedRangeLabel(range, timezone, locale = 'en') {
 export const periodicCostsUnavailable = (result) =>
   result?.reportSummary ? !result.reportSummary.fixedChargesComplete : result?.processedDeltaCount > 0 && result.costs?.gross?.periodic?.total === null;
 
+export const incompleteFixedChargePeriods = (result) =>
+  (result?.billingPeriods || []).filter((period) => !period.fullyCovered && period.costs?.gross?.periodic?.total === null);
+
+export function alignedFixedChargeRange(result, range) {
+  const periods = incompleteFixedChargePeriods(result);
+  if (!periods.length) return null;
+  // Extend only the edges with omitted, observed fixed charges. Preserve the original selection otherwise.
+  return {
+    from: Date.parse(periods[0].from) < Date.parse(range.from) ? periods[0].from : range.from,
+    to: Date.parse(periods[periods.length - 1].to) > Date.parse(range.to) ? periods[periods.length - 1].to : range.to,
+  };
+}
+
 export function grossCostLabel(result) {
   // i18n:["Gross cost", "Gross cost, without fixed charges", "Gross cost, including some fixed charges", "Gross cost, including fixed charges"]
   const fixedCharges = (result?.reportSummary?.costs || result?.costs)?.gross?.periodic?.total;

@@ -12,7 +12,14 @@
   import EnergyCostComparisonDetails from './energy-cost-comparison-details.vue';
   import {presentCostPlan, tariffCatalogPresentation} from './energy-cost-plan-presentation';
   import {comparisonConfiguration, compareCalculations, comparisonBuckets} from './energy-cost-comparison-utils';
-  import {allowsHourlyAggregation, formatDecimal, grossCostLabel, periodicCostsUnavailable, preferredGranularity} from './energy-cost-result-utils';
+  import {
+    allowsHourlyAggregation,
+    formatDecimal,
+    grossCostLabel,
+    incompleteFixedChargePeriods,
+    periodicCostsUnavailable,
+    preferredGranularity,
+  } from './energy-cost-result-utils';
 
   const props = defineProps({
     channel: Object,
@@ -24,13 +31,20 @@
     selectedTariffId: {type: String, default: ''},
     tariffSuggestions: {type: Array, default: () => []},
   });
-  const emit = defineEmits(['update:periodicCostsUnavailable', 'update:selectedTariffId', 'update:tariffSuggestions', 'update:loading']);
+  const emit = defineEmits([
+    'update:periodicCostsUnavailable',
+    'update:incompleteFixedChargePeriods',
+    'update:selectedTariffId',
+    'update:tariffSuggestions',
+    'update:loading',
+  ]);
   const store = useEnergyCostStore();
   const {t, locale} = useI18n();
   const selectedId = computed({get: () => props.selectedTariffId, set: (id) => emit('update:selectedTariffId', id)});
   const starter = ref(null);
   const alternative = ref(null);
   watch(alternative, (result) => emit('update:periodicCostsUnavailable', periodicCostsUnavailable(result)), {immediate: true});
+  watch(alternative, (result) => emit('update:incompleteFixedChargePeriods', incompleteFixedChargePeriods(result)), {immediate: true});
   const loading = ref(false);
   const error = ref('');
   const catalogError = ref('');
@@ -105,6 +119,7 @@
   );
   const starterLabel = computed(() => (starter.value ? tariffCatalogPresentation(starter.value, t).label : t('Choose tariff')));
   const comparison = computed(() => compareCalculations(props.baseline, alternative.value, props.range));
+  const noLogs = computed(() => props.baseline?.processedDeltaCount === 0 || alternative.value?.processedDeltaCount === 0);
   const baselineTotal = computed(() => props.baseline?.reportSummary?.costs?.gross?.total ?? props.baseline?.costs?.gross?.total ?? null);
   const alternativeTotal = computed(() => alternative.value?.reportSummary?.costs?.gross?.total ?? alternative.value?.costs?.gross?.total ?? null);
   const requestLoading = computed(() => loading.value || suggesting.value);
@@ -190,7 +205,7 @@
             <li v-for="(period, index) in presentation.history" :key="index">{{ period.label }} — {{ period.effectiveDates }}</li>
           </ul>
           <p v-if="baselineError" class="text-danger">{{ $t(baselineError) }}</p>
-          <div class="energy-cost-scenario-price">
+          <div v-if="!noLogs" class="energy-cost-scenario-price">
             <strong>{{ baselineLoading ? '—' : money(baselineTotal) }}</strong>
             <small>{{ $t(grossCostLabel(baseline)) }}</small>
           </div>
@@ -223,7 +238,7 @@
             hide-label
           />
           <p v-if="suggestionError" class="text-danger mt-2" role="alert">{{ $t(suggestionError) }}</p>
-          <div class="energy-cost-scenario-price">
+          <div v-if="!noLogs" class="energy-cost-scenario-price">
             <strong>{{ money(alternativeTotal, alternative?.currency) }}</strong>
             <small>{{ $t(grossCostLabel(alternative)) }}</small>
           </div>
@@ -309,7 +324,7 @@
       </section>
     </template>
     <p v-else-if="!busy && selectedId && baseline && alternative" class="alert alert-info">{{ $t(comparison.reason) }}</p>
-    <section v-if="baseline && alternative && !busy" class="energy-cost-comparison-report mt-4">
+    <section v-if="baseline && alternative && !busy && !noLogs" class="energy-cost-comparison-report mt-4">
       <ul class="nav nav-tabs mb-3" role="tablist">
         <li :class="{active: detailsTab === 'current'}" role="presentation">
           <a href="#" role="tab" :aria-selected="detailsTab === 'current'" @click.prevent="detailsTab = 'current'">{{ $t('Current plan') }}</a>
@@ -322,7 +337,7 @@
         <energy-cost-comparison-details :result="detailsResult" :timezone="plan.configuration.timezone" />
       </div>
     </section>
-    <template v-for="scenario in scenarios" :key="scenario.label">
+    <template v-for="scenario in noLogs ? [] : scenarios" :key="scenario.label">
       <p v-if="differs(scenario.result)">
         {{ scenario.label }} — {{ $t('Effective calculation range') }}: {{ date(scenario.result.range.from) }} – {{ date(scenario.result.range.to) }}
       </p>

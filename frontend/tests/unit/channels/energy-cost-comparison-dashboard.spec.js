@@ -65,6 +65,57 @@ async function dashboard(result = calculation(), {bounds, selectedRange = range,
   return {wrapper, calculate, simulate};
 }
 describe('shared Costs views', () => {
+  it('shows only the no-logs notice and controls even when an empty result has a cost summary', async () => {
+    const result = calculation();
+    result.processedDeltaCount = 0;
+    result.costs.gross.periodic.total = '0';
+    result.billingPeriods[0].costs.gross.periodic.total = '0';
+    result.reportSummary = {costs: result.costs, fixedChargesComplete: true};
+    const {wrapper} = await dashboard(result, {realComparison: true});
+    for (const view of ['report', 'comparison']) {
+      wrapper.vm.setView(view);
+      await flushPromises();
+      expect(wrapper.get('.alert-info').text()).toBe('No logs are available for the selected range.');
+      expect(wrapper.findComponent(RangeSelector).exists()).toBe(true);
+      expect(wrapper.findComponent(Summary).exists()).toBe(false);
+      expect(wrapper.findComponent(Comparison).exists()).toBe(false);
+      expect(wrapper.find('.energy-cost-print-chart').exists()).toBe(false);
+      expect(wrapper.find('energy-cost-breakdown-stub').exists()).toBe(false);
+      expect(wrapper.find('energy-cost-details-stub').exists()).toBe(false);
+      expect(wrapper.find('.energy-cost-billing-period-warning').exists()).toBe(false);
+      expect(wrapper.find('.energy-cost-mode-switch').exists()).toBe(false);
+    }
+    wrapper.unmount();
+  });
+  it('shows calculator fixed charges when the selected billing period has no deltas but overlaps history', async () => {
+    const result = calculation('0', '12.3');
+    result.processedDeltaCount = 0;
+    result.usage = {};
+    result.reportSummary = {costs: result.costs, fixedChargesComplete: true};
+    const {wrapper} = await dashboard(result);
+    expect(wrapper.findComponent(Summary).get('strong').text()).toBe('12.30 PLN');
+    expect(wrapper.text()).not.toContain('No logs are available');
+    expect(wrapper.find('energy-cost-details-stub').exists()).toBe(true);
+    wrapper.unmount();
+  });
+  it('aligns to the alternative tariff only when its incomplete periods have omitted fixed charges', async () => {
+    const result = calculation('100', '0');
+    const {wrapper, calculate} = await dashboard(result);
+    await wrapper.get('.energy-cost-view-selector').findAll('button')[1].trigger('click');
+    const period = {
+      from: '2026-09-01T00:00:00+02:00',
+      to: '2026-10-01T00:00:00+02:00',
+      fullyCovered: false,
+      costs: {gross: {periodic: {total: null}}},
+    };
+    wrapper.findComponent(Comparison).vm.$emit('update:periodicCostsUnavailable', true);
+    wrapper.findComponent(Comparison).vm.$emit('update:incompleteFixedChargePeriods', [period]);
+    await flushPromises();
+    await wrapper.get('.energy-cost-billing-period-warning button').trigger('click');
+    await flushPromises();
+    expect(calculate).toHaveBeenLastCalledWith(3, Date.parse(period.from) / 1000, Date.parse(period.to) / 1000);
+    wrapper.unmount();
+  });
   it.each(['suggestion', 'simulation', 'range calculation'])('locks range controls and tariff selection during a pending %s', async (request) => {
     const {wrapper, calculate, simulate} = await dashboard(calculation(), {realComparison: true, realRangeSelector: true});
     await wrapper.get('.energy-cost-view-selector').findAll('button')[1].trigger('click');
@@ -194,11 +245,13 @@ describe('shared Costs views', () => {
   });
   it('places the comparison notice below the selector and aligns using effective result boundaries', async () => {
     const result = calculation();
-    result.billingPeriods = [{from: '2026-08-15T00:00:00+02:00', to: '2026-09-15T00:00:00+02:00', fullyCovered: false}];
+    result.billingPeriods = [{from: '2026-08-15T00:00:00+02:00', to: '2026-09-15T00:00:00+02:00', fullyCovered: false, costs: result.costs}];
     const {wrapper, calculate} = await dashboard(result);
     await wrapper.get('.energy-cost-view-selector').findAll('button')[1].trigger('click');
     const notice = wrapper.get('.energy-cost-billing-period-warning');
-    expect(wrapper.findComponent(RangeSelector).element.nextElementSibling).toBe(notice.element);
+    const modeSwitch = wrapper.get('.energy-cost-mode-switch');
+    expect(wrapper.findComponent(RangeSelector).element.nextElementSibling).toBe(modeSwitch.element);
+    expect(modeSwitch.element.nextElementSibling).toBe(notice.element);
     expect(notice.text()).toContain('Some fixed charges are not included');
     await notice.get('button').trigger('click');
     await flushPromises();
@@ -214,7 +267,7 @@ describe('shared Costs views', () => {
     const full = {from: '2026-10-01T00:00:00+02:00', to: '2026-11-01T00:00:00+01:00'};
     const result = calculation();
     result.range = selectedRange;
-    result.billingPeriods = [{...full, fullyCovered: false}];
+    result.billingPeriods = [{...full, fullyCovered: false, costs: result.costs}];
     result.reportSummary = {costs: {gross: {total: '100', periodic: {total: '0'}}, taxes: {total: '18.7'}}, fixedChargesComplete: false};
     const {wrapper, calculate} = await dashboard(result, {
       selectedRange,
@@ -222,7 +275,7 @@ describe('shared Costs views', () => {
       bounds: {oldest: {date_timestamp: Date.parse(selectedRange.from) / 1000}, newest: {date_timestamp: Date.parse('2026-10-13T12:00:00+02:00') / 1000}},
     });
     expect(wrapper.find('.energy-cost-billing-period-warning').exists()).toBe(false);
-    expect(wrapper.text()).toContain('Usage costs are based only on available measurements');
+    expect(wrapper.text()).not.toContain('Usage costs are based only on available measurements');
     expect(calculate).toHaveBeenLastCalledWith(3, Date.parse(selectedRange.from) / 1000, Date.parse(selectedRange.to) / 1000);
     const expanded = {
       ...result,
@@ -251,9 +304,9 @@ describe('shared Costs views', () => {
   it('aligns partial edges across multiple effective periods without truncating either boundary', async () => {
     const result = calculation();
     result.billingPeriods = [
-      {from: '2026-08-01T00:00:00+02:00', to: '2026-09-01T00:00:00+02:00', fullyCovered: false},
+      {from: '2026-08-01T00:00:00+02:00', to: '2026-09-01T00:00:00+02:00', fullyCovered: false, costs: result.costs},
       {from: '2026-09-01T00:00:00+02:00', to: '2026-10-01T00:00:00+02:00', fullyCovered: true},
-      {from: '2026-10-01T00:00:00+02:00', to: '2026-11-01T00:00:00+01:00', fullyCovered: false},
+      {from: '2026-10-01T00:00:00+02:00', to: '2026-11-01T00:00:00+01:00', fullyCovered: false, costs: result.costs},
     ];
     result.reportSummary = {costs: {gross: {total: '112.3', periodic: {total: '12.3'}}}, fixedChargesComplete: false};
     const {wrapper, calculate} = await dashboard(result);
@@ -296,7 +349,7 @@ describe('shared Costs views', () => {
     result.incomplete = true;
     result.warnings = [{code: 'MISSING_METER_DATA', scope: 'METER_INTERVAL', from: range.from, to: range.to}];
     const {wrapper} = await dashboard(result);
-    expect(wrapper.text()).toContain('Usage costs are based only on available measurements');
+    expect(wrapper.text()).not.toContain('Usage costs are based only on available measurements');
     expect(wrapper.find('.alert-warning').exists()).toBe(false);
     expect(wrapper.find('.energy-cost-total-alignment-hint').exists()).toBe(false);
     wrapper.unmount();

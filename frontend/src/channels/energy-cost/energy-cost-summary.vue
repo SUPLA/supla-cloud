@@ -9,7 +9,7 @@
 <script setup>
   import {computed} from 'vue';
   import {useI18n} from 'vue-i18n';
-  import {formatDecimal, grossCostLabel, selectedRangeLabel, summaryFromResult} from './energy-cost-result-utils';
+  import {formatDecimal, grossCostLabel, incompleteFixedChargePeriods, selectedRangeLabel, summaryFromResult} from './energy-cost-result-utils';
 
   const props = defineProps({result: {type: Object, required: true}, range: Object, timezone: {type: String, default: 'UTC'}});
   const emit = defineEmits(['align-billing-periods']);
@@ -17,7 +17,7 @@
   const summary = computed(() => summaryFromResult(props.result));
   const total = computed(() => props.result.reportSummary?.costs?.gross?.total ?? props.result.costs?.gross?.total ?? null);
   const missingFixedCharges = computed(() => props.result.reportSummary?.fixedChargesComplete === false);
-  const partialPeriods = computed(() => props.result.billingPeriods?.some((period) => !period.fullyCovered));
+  const partialPeriods = computed(() => incompleteFixedChargePeriods(props.result).length > 0);
   const expand = computed(() => props.result.billingPeriods?.length === 1);
   const selectedRange = computed(() => props.range || props.result.range);
   const rangeLabel = computed(() => selectedRangeLabel(selectedRange.value, props.timezone, locale.value));

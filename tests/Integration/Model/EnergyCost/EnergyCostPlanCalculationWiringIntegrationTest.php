@@ -115,15 +115,17 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
         $this->assertSame('2026-01-02T11:00:00+00:00', $result->range->from->format(DATE_ATOM));
         $this->assertSame('2026-01-02T13:00:00+00:00', $result->range->to->format(DATE_ATOM));
         $this->assertSame(4, $result->processedDeltaCount);
-        $this->assertSame('MISSING_METER_DATA', $result->warnings[0]['code']);
+        $this->assertEmpty($result->warnings); // Leading absence outside observation history is not a meter gap.
         $this->assertTrue($result->reportSummary['fixedChargesComplete']);
     }
 
-    public function testReturnsAnIncompleteResultWhenNoMeterDeltasAreAvailable(): void {
+    public function testReturnsZeroWhenNoSelectedDeltasButHistoryExistsElsewhere(): void {
         $user = $this->createConfirmedUser();
         $channel = $this->createElectricityMeterChannel($user);
         $plan = $this->planService()->create($user, 'Home', self::planConfigurations()[2][0]);
         $this->planService()->assignToChannel($user, $channel, $plan->getId());
+
+        $this->insertDelta($channel->getId(), '2026-01-03 12:15:00');
 
         $result = $this->calculator()->calculate(
             $user,
@@ -134,8 +136,8 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
 
         $this->assertSame(0, $result->processedDeltaCount);
         $this->assertSame('0', $result->reportSummary['costs']['gross']['total']);
-        $this->assertSame('MISSING_METER_DATA', $result->warnings[0]['code']);
-        $this->assertTrue($result->jsonSerialize()['incomplete']);
+        $this->assertEmpty($result->warnings);
+        $this->assertFalse($result->jsonSerialize()['incomplete']);
         $this->assertSame([], $result->charges);
     }
 

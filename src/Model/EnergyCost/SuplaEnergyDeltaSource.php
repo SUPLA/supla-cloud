@@ -28,7 +28,7 @@ use Supla\EnergyCostCalculator\Model\EnergyDelta;
 use Supla\EnergyCostCalculator\Model\QuantityType;
 use Supla\EnergyCostCalculator\Model\TimeRange;
 
-final class SuplaEnergyDeltaSource implements EnergyDeltaSource {
+final class SuplaEnergyDeltaSource implements EnergyDeltaSource, EnergyObservationRangeSource {
     private const SLOT_DURATION = '15 minutes';
     private const PHASE_COLUMNS = [
         QuantityType::ACTIVE_ENERGY_IMPORT->value => ['phase1_fae', 'phase2_fae', 'phase3_fae'],
@@ -38,6 +38,30 @@ final class SuplaEnergyDeltaSource implements EnergyDeltaSource {
     ];
 
     public function __construct(private readonly EntityManagerInterface $measurementLogsEntityManager) {
+    }
+
+    public function getObservationRange(string $meterId): ?TimeRange {
+        if (!ctype_digit($meterId)) {
+            throw new InvalidArgumentException("Invalid electricity meter ID: $meterId");
+        }
+
+        // Two indexed endpoint lookups: do not scan/hydrate the meter's historical logs.
+        $bounds = $this->measurementLogsEntityManager->getConnection()->executeQuery(
+            'SELECT
+                (SELECT date FROM supla_em_delta_log WHERE channel_id = :channelId ORDER BY date ASC LIMIT 1) AS first_date,
+                (SELECT date FROM supla_em_delta_log WHERE channel_id = :channelId ORDER BY date DESC LIMIT 1) AS last_date',
+            ['channelId' => (int)$meterId],
+            ['channelId' => ParameterType::INTEGER],
+        )->fetchAssociative();
+        if ($bounds['first_date'] === null) {
+            return null;
+        }
+
+        $utc = new DateTimeZone('UTC');
+        return new TimeRange(
+            (new DateTimeImmutable($bounds['first_date'], $utc))->modify('-' . self::SLOT_DURATION),
+            new DateTimeImmutable($bounds['last_date'], $utc),
+        );
     }
 
     public function getDeltas(string $meterId, TimeRange $range): iterable {

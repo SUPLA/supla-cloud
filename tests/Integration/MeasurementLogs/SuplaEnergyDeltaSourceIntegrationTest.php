@@ -17,13 +17,23 @@
 
 namespace App\Tests\Integration\MeasurementLogs;
 
+use App\Entity\Main\IODeviceChannel;
+use App\Entity\Main\User;
+use App\Enums\ChannelFunction;
+use App\Exception\ApiException;
+use App\Model\EnergyCost\EnergyCostPlanCalculator;
 use App\Model\EnergyCost\SuplaEnergyDeltaSource;
 use App\Model\MeasurementLogsEntityManagerProvider;
+use App\Repository\EnergyCostPlanAssignmentRepository;
 use App\Tests\Integration\IntegrationTestCase;
 use DateTimeImmutable;
 use Doctrine\DBAL\Connection;
+use Supla\EnergyCostCalculator\Contract\ReferenceDataSource;
+use Supla\EnergyCostCalculator\Engine\CostCalculator;
 use Supla\EnergyCostCalculator\Model\QuantityType;
 use Supla\EnergyCostCalculator\Model\TimeRange;
+use Supla\EnergyCostCalculator\Plan\CostPlanCompiler;
+use Supla\EnergyCostCalculator\Plan\CostPlanDefinitionParser;
 
 class SuplaEnergyDeltaSourceIntegrationTest extends IntegrationTestCase {
     /** @var Connection */
@@ -103,6 +113,104 @@ class SuplaEnergyDeltaSourceIntegrationTest extends IntegrationTestCase {
 
         $this->assertCount(1, $deltas);
         $this->assertSame('2026-01-01T12:15:00+00:00', $deltas[0]->from->format(DATE_ATOM));
+    }
+
+    public function testObservationBoundariesUseEntireHistoryAndCanonicalDeltaTimes(): void {
+        $this->assertNull($this->source->getObservationRange('1'));
+        $this->insertDelta(1, '2026-09-02 22:15:00'); // September 3, 00:00 local interval start.
+        $this->insertDelta(1, '2026-10-08 22:00:00'); // October 9, 00:00 local exclusive end.
+        $this->insertDelta(2, '2026-01-01 00:00:00');
+        $this->insertDelta(2, '2027-01-01 00:00:00');
+        $history = $this->source->getObservationRange('1');
+        $this->assertSame('UTC', $history->from->getTimezone()->getName());
+        $this->assertSame('2026-09-02T22:00:00+00:00', $history->from->format(DATE_ATOM));
+        $this->assertSame('2026-10-08T22:00:00+00:00', $history->to->format(DATE_ATOM));
+        $deltas = iterator_to_array($this->source->getDeltas('1', $history), false);
+        $this->assertEquals($history->from, $deltas[0]->from);
+        $this->assertEquals($history->to, $deltas[1]->to);
+    }
+
+    public function testFullYearChargesOnlySeptemberAndOctoberIncludingZeroConsumption(): void {
+        $this->insertDelta(1, '2026-09-02 22:15:00');
+        $this->insertDelta(1, '2026-10-08 22:00:00');
+        $result = $this->calculate('2026-01-01T00:00:00+01:00', '2027-01-01T00:00:00+01:00');
+        $this->assertSame('2025-12-31T23:00:00+00:00', $result->range->from->format(DATE_ATOM));
+        $this->assertSame('2026-12-31T23:00:00+00:00', $result->range->to->format(DATE_ATOM));
+        $this->assertSame(2, $result->processedDeltaCount);
+        $this->assertSame('0', $result->usage['ACTIVE_ENERGY_IMPORT']);
+        $this->assertCount(12, $result->billingPeriods);
+        foreach ($result->billingPeriods as $index => $period) {
+            $observed = in_array($index, [8, 9], true);
+            $this->assertSame($observed ? '12.3' : '0', $period['costs']['gross']['periodic']['total']);
+            $this->assertSame($observed ? '2.3' : '0', $period['costs']['taxes']['total']);
+            $this->assertSame($observed ? '12.3' : '0', $period['costs']['gross']['total']);
+        }
+        $this->assertSame('2', $result->periodicCharges[0]['calculated']['units']);
+        $this->assertSame('24.6', $result->periodicCharges[0]['calculated']['amounts']['gross']);
+        $this->assertSame('24.6', $result->costs['gross']['total']);
+        $this->assertSame('24.6', $result->reportSummary['costs']['gross']['total']);
+        $this->assertSame('4.6', $result->reportSummary['costs']['taxes']['total']);
+        $this->assertTrue($result->reportSummary['fixedChargesComplete']);
+    }
+
+    public function testNoSelectedMeasurementsStillUsesHistoryForPeriodCompleteness(): void {
+        $this->insertDelta(1, '2026-09-02 22:15:00');
+        $this->insertDelta(1, '2026-10-08 22:00:00');
+        $inside = $this->calculate('2026-09-10T00:00:00+02:00', '2026-09-20T00:00:00+02:00');
+        $this->assertSame(0, $inside->processedDeltaCount);
+        $this->assertFalse($inside->reportSummary['fixedChargesComplete']);
+        $this->assertNull($inside->billingPeriods[0]['costs']['gross']['periodic']['total']);
+        $outside = $this->calculate('2026-01-10T00:00:00+01:00', '2026-01-20T00:00:00+01:00');
+        $this->assertSame(0, $outside->processedDeltaCount);
+        $this->assertTrue($outside->reportSummary['fixedChargesComplete']);
+        $this->assertSame('0', $outside->reportSummary['costs']['gross']['total']);
+        $this->assertSame('0', $outside->billingPeriods[0]['costs']['gross']['periodic']['total']);
+    }
+
+    public function testCompletePeriodWithoutSelectedMeasurementsInsideHistoryStillHasFixedCharges(): void {
+        $this->insertDelta(1, '2026-09-02 22:15:00');
+        $this->insertDelta(1, '2026-11-08 23:00:00');
+        $result = $this->calculate('2026-10-01T00:00:00+02:00', '2026-11-01T00:00:00+01:00');
+        $this->assertSame(0, $result->processedDeltaCount);
+        $this->assertSame('12.3', $result->reportSummary['costs']['gross']['total']);
+        $this->assertTrue($result->reportSummary['fixedChargesComplete']);
+    }
+
+    public function testHistoryEndingExactlyAtBillingBoundaryDoesNotChargeFollowingPeriod(): void {
+        $this->insertDelta(1, '2026-09-01 22:15:00');
+        $this->insertDelta(1, '2026-09-30 22:00:00');
+        $result = $this->calculate('2026-09-01T00:00:00+02:00', '2026-11-01T00:00:00+01:00');
+        $this->assertSame('12.3', $result->reportSummary['costs']['gross']['periodic']['total']);
+        $this->assertSame('0', $result->billingPeriods[1]['costs']['gross']['periodic']['total']);
+    }
+
+    public function testEmptyHistoryDoesNotPassUnrestrictedNullObservationRange(): void {
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessage('No logs are available for the selected range.');
+        $this->calculate('2026-01-01T00:00:00+01:00', '2027-01-01T00:00:00+01:00');
+    }
+
+    private function calculate(string $from, string $to): \Supla\EnergyCostCalculator\Engine\CalculationResult {
+        $user = $this->createMock(User::class);
+        $channel = $this->createMock(IODeviceChannel::class);
+        $channel->method('belongsToUser')->with($user)->willReturn(true);
+        $channel->method('getFunction')->willReturn(ChannelFunction::ELECTRICITYMETER());
+        $channel->method('getId')->willReturn(1);
+        $calculator = new EnergyCostPlanCalculator(
+            $this->createMock(EnergyCostPlanAssignmentRepository::class),
+            new CostPlanDefinitionParser(),
+            new CostPlanCompiler(),
+            new CostCalculator($this->source, $this->createMock(ReferenceDataSource::class)),
+            $this->source,
+        );
+        return $calculator->calculateConfiguration($user, $channel, [
+            'version' => 2, 'currency' => 'PLN', 'timezone' => 'Europe/Warsaw',
+            'taxContext' => ['jurisdiction' => 'PL', 'customerClass' => 'HOUSEHOLD'],
+            'billingCycles' => [['validFrom' => null, 'validTo' => null, 'anchor' => '2026-01-01', 'length' => 1, 'unit' => 'MONTH']],
+            'periods' => [['validFrom' => null, 'validTo' => null, 'components' => [
+                ['kind' => 'SUPPLIER_FIXED', 'componentId' => 'fixed', 'rate' => '10', 'per' => 'MONTH', 'taxTreatment' => ['included' => []]],
+            ]]],
+        ], new DateTimeImmutable($from), new DateTimeImmutable($to));
     }
 
     /** @param array<string, int|null> $values */

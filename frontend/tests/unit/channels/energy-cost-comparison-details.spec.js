@@ -27,6 +27,7 @@ function result(usage = '100', fixed = '10') {
   const result = calculation(usage, fixed);
   result.costs.gross.usageBased.byComponent = {energy: usage};
   result.costs.taxes = {byTax: {VAT: '20'}, total: '20'};
+  result.costs.gross.periodic.byComponent = {subscription: fixed};
   result.billingPeriods[0] = {...result.billingPeriods[0], usage: result.usage, costs: result.costs};
   result.periodicCharges = [
     {

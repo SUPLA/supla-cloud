@@ -73,10 +73,27 @@ function merge(left, right) {
   };
 }
 
-export function displayedPeriodicCharges(charges = []) {
+export function displayedPeriodicCharges(charges = [], billingPeriods) {
   const rows = [];
   const latest = new Map();
-  for (const charge of charges) {
+  for (let charge of charges) {
+    if (billingPeriods?.length) {
+      // Non-observed periods have calculator-produced zero periodic costs, even for partial selections.
+      const periods = billingPeriods.filter((period) => {
+        const costs = period.costs?.gross?.periodic;
+        return (
+          Date.parse(period.from) < Date.parse(charge.appliesTo) &&
+          Date.parse(period.to) > Date.parse(charge.appliesFrom) &&
+          (costs?.total === null || (decimal(costs?.byComponent?.[charge.id]) && !zero(costs.byComponent[charge.id])))
+        );
+      });
+      if (!periods.length) continue;
+      charge = {
+        ...charge,
+        appliesFrom: Date.parse(periods[0].from) > Date.parse(charge.appliesFrom) ? periods[0].from : charge.appliesFrom,
+        appliesTo: Date.parse(periods[periods.length - 1].to) < Date.parse(charge.appliesTo) ? periods[periods.length - 1].to : charge.appliesTo,
+      };
+    }
     if (zero(charge.calculated?.amounts?.gross)) {
       latest.delete(charge.id);
       continue;

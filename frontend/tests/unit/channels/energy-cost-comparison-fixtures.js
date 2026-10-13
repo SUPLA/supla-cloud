@@ -31,7 +31,7 @@ export function calculation(usage = '100', periodic = null) {
     warnings: [],
     usage: {ACTIVE_ENERGY_IMPORT: '2', ACTIVE_ENERGY_EXPORT: '0'},
     billingContext: {requestedRangeCoversWholePeriods: full, periods: [{from: range.from, to: range.to}]},
-    billingPeriods: [{...range, fullyCovered: full}],
+    billingPeriods: [{...range, fullyCovered: full, costs: {gross: {periodic: {total: periodic}}}}],
     costs: {
       gross: {usageBased: {total: usage, byZone: {ALL: usage}}, periodic: {total: periodic}, total: full ? String(Number(usage) + Number(periodic)) : null},
     },

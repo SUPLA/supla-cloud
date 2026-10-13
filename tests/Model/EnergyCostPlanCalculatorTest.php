@@ -14,6 +14,7 @@ use App\Entity\Main\IODeviceChannel;
 use App\Entity\Main\User;
 use App\Enums\ChannelFunction;
 use App\Model\EnergyCost\EnergyCostPlanCalculator;
+use App\Model\EnergyCost\EnergyObservationRangeSource;
 use App\Repository\EnergyCostPlanAssignmentRepository;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
@@ -53,11 +54,17 @@ class EnergyCostPlanCalculatorTest extends TestCase {
             }
         };
         $references = $this->createMock(ReferenceDataSource::class);
+        $observations = $this->createMock(EnergyObservationRangeSource::class);
+        $observations->expects(self::once())->method('getObservationRange')->with('123')->willReturn(new TimeRange(
+            new DateTimeImmutable('2026-08-10T12:00:00+02:00'),
+            new DateTimeImmutable('2026-10-10T13:00:00+02:00'),
+        ));
         $service = new EnergyCostPlanCalculator(
             $this->createMock(EnergyCostPlanAssignmentRepository::class),
             new CostPlanDefinitionParser(),
             new CostPlanCompiler(),
             new CostCalculator($source, $references),
+            $observations,
         );
         $configuration = [
             'version' => 2, 'currency' => 'PLN', 'timezone' => 'Europe/Warsaw',

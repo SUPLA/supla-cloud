@@ -15,12 +15,14 @@ use App\Entity\Main\User;
 use App\Enums\ChannelFunction;
 use App\Exception\ApiException;
 use App\Model\EnergyCost\EnergyCostTariffSuggestions;
+use App\Model\EnergyCost\EnergyObservationRangeSource;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Supla\EnergyCostCalculator\Contract\EnergyDeltaSource;
 use Supla\EnergyCostCalculator\Contract\ReferenceDataSource;
 use Supla\EnergyCostCalculator\Model\EnergyDelta;
 use Supla\EnergyCostCalculator\Model\ReferenceInterval;
+use Supla\EnergyCostCalculator\Model\TimeRange;
 use Supla\EnergyCostCalculator\Plan\CostPlanCompiler;
 use Supla\EnergyCostCalculator\Plan\CostPlanDefinitionParser;
 use Supla\EnergyCostCalculator\Plan\CostPlanStarterCatalog;
@@ -48,7 +50,14 @@ class EnergyCostTariffSuggestionsTest extends TestCase {
         $references = $this->createMock(ReferenceDataSource::class);
         // Both dynamic tariffs share one fetch, even when the series is empty.
         $references->expects(self::once())->method('get')->willReturn([]);
-        $service = new EnergyCostTariffSuggestions($source, $references, new CostPlanDefinitionParser(), new CostPlanCompiler(), $this->catalog());
+        $service = new EnergyCostTariffSuggestions(
+            $source,
+            $references,
+            new CostPlanDefinitionParser(),
+            new CostPlanCompiler(),
+            $this->catalog(),
+            $this->observations(),
+        );
         $result = $service->suggest($user, $channel, $this->configuration(), new DateTimeImmutable($from), new DateTimeImmutable($to));
         self::assertSame($cheapest, $result['cheapestId']);
         $tariffs = array_column($result['tariffs'], null, 'id');
@@ -76,7 +85,14 @@ class EnergyCostTariffSuggestionsTest extends TestCase {
         $references->expects(self::once())->method('get')->willReturn([
             new ReferenceInterval(new DateTimeImmutable('2026-09-10T12:00:00+02:00'), new DateTimeImmutable('2026-09-10T13:00:00+02:00'), '500', 'PLN/MWh'),
         ]);
-        $service = new EnergyCostTariffSuggestions($source, $references, new CostPlanDefinitionParser(), new CostPlanCompiler(), $this->catalog());
+        $service = new EnergyCostTariffSuggestions(
+            $source,
+            $references,
+            new CostPlanDefinitionParser(),
+            new CostPlanCompiler(),
+            $this->catalog(),
+            $this->observations(),
+        );
         $result = $service->suggest(
             $user,
             $this->channel($user),
@@ -96,7 +112,14 @@ class EnergyCostTariffSuggestionsTest extends TestCase {
         $source->method('getDeltas')->willReturn([]);
         $references = $this->createMock(ReferenceDataSource::class);
         $references->method('get')->willReturn([]);
-        $service = new EnergyCostTariffSuggestions($source, $references, new CostPlanDefinitionParser(), new CostPlanCompiler(), $this->catalog());
+        $service = new EnergyCostTariffSuggestions(
+            $source,
+            $references,
+            new CostPlanDefinitionParser(),
+            new CostPlanCompiler(),
+            $this->catalog(),
+            $this->observations(),
+        );
         $result = $service->suggest(
             $user,
             $this->channel($user),
@@ -119,6 +142,7 @@ class EnergyCostTariffSuggestionsTest extends TestCase {
             new CostPlanDefinitionParser(),
             new CostPlanCompiler(),
             $this->catalog(),
+            $this->createMock(EnergyObservationRangeSource::class),
         );
         $this->expectException($exception);
         $service->suggest($user, $this->channel($user, $owned), $this->configuration(), new DateTimeImmutable('@0'), new DateTimeImmutable('@' . $seconds));
@@ -137,7 +161,14 @@ class EnergyCostTariffSuggestionsTest extends TestCase {
         $source->expects(self::once())->method('getDeltas')->willReturn([]);
         $references = $this->createMock(ReferenceDataSource::class);
         $references->method('get')->willReturn([]);
-        $service = new EnergyCostTariffSuggestions($source, $references, new CostPlanDefinitionParser(), new CostPlanCompiler(), $this->catalog());
+        $service = new EnergyCostTariffSuggestions(
+            $source,
+            $references,
+            new CostPlanDefinitionParser(),
+            new CostPlanCompiler(),
+            $this->catalog(),
+            $this->observations(),
+        );
         $from = new DateTimeImmutable($fromDate);
         $to = new DateTimeImmutable($toDate);
         self::assertNull($service->suggest($user, $this->channel($user), $this->configuration(), $from, $to)['cheapestId']);
@@ -157,6 +188,64 @@ class EnergyCostTariffSuggestionsTest extends TestCase {
         $channel->method('getFunction')->willReturn(ChannelFunction::ELECTRICITYMETER());
         $channel->method('getId')->willReturn(123);
         return $channel;
+    }
+
+    private function observations(): EnergyObservationRangeSource {
+        $source = $this->createMock(EnergyObservationRangeSource::class);
+        $source->expects(self::once())->method('getObservationRange')->with('123')->willReturn(new TimeRange(
+            new DateTimeImmutable('2026-09-03T00:00:00+02:00'),
+            new DateTimeImmutable('2026-10-09T00:00:00+02:00'),
+        ));
+        return $source;
+    }
+
+    public function testSuggestionTotalsExcludeUnobservedBillingPeriods(): void {
+        $user = $this->createMock(User::class);
+        $deltas = $this->createMock(EnergyDeltaSource::class);
+        $deltas->method('getDeltas')->willReturn([]);
+        $service = new EnergyCostTariffSuggestions(
+            $deltas,
+            $this->createMock(ReferenceDataSource::class),
+            new CostPlanDefinitionParser(),
+            new CostPlanCompiler(),
+            $this->catalog(),
+            $this->observations(),
+        );
+        $result = $service->suggest(
+            $user,
+            $this->channel($user),
+            $this->configuration(),
+            new DateTimeImmutable('2026-11-01T00:00:00+01:00'),
+            new DateTimeImmutable('2026-12-01T00:00:00+01:00'),
+        );
+        $tariffs = array_column($result['tariffs'], null, 'id');
+        self::assertSame('0', $tariffs['normal']['total']);
+        self::assertSame('0', $tariffs['cheap-usage']['total']);
+        self::assertTrue($tariffs['normal']['fixedChargesComplete']);
+        self::assertNull($result['cheapestId']);
+    }
+
+    public function testEmptyHistoryCannotProduceUnrestrictedFixedChargeSuggestions(): void {
+        $user = $this->createMock(User::class);
+        $deltas = $this->createMock(EnergyDeltaSource::class);
+        $deltas->expects(self::never())->method('getDeltas');
+        $service = new EnergyCostTariffSuggestions(
+            $deltas,
+            $this->createMock(ReferenceDataSource::class),
+            new CostPlanDefinitionParser(),
+            new CostPlanCompiler(),
+            $this->catalog(),
+            $this->createMock(EnergyObservationRangeSource::class),
+        );
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessage('No logs are available for the selected range.');
+        $service->suggest(
+            $user,
+            $this->channel($user),
+            $this->configuration(),
+            new DateTimeImmutable('2026-09-01T00:00:00+02:00'),
+            new DateTimeImmutable('2026-10-01T00:00:00+02:00'),
+        );
     }
 
     private function deltas(): iterable {

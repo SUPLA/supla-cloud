@@ -13,7 +13,7 @@
   import {displayedPeriodicCharges} from './energy-cost-periodic-charges';
 
   const props = defineProps({result: {type: Object, required: true}, timezone: {type: String, required: true}});
-  const periodicCharges = computed(() => displayedPeriodicCharges(props.result.periodicCharges || []));
+  const periodicCharges = computed(() => displayedPeriodicCharges(props.result.periodicCharges || [], props.result.billingPeriods));
   const billingPeriods = computed(() => props.result.billingPeriods || []);
   const number = (value) => (value === null || value === undefined ? '—' : formatDecimal(value) || '—');
   const money = (value) => {
