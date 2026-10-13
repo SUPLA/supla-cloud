@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Узгодити
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Деякі фіксовані платежі не враховано, оскільки вибраний діапазон дат не охоплює повні розрахункові періоди.
+Expand the selection to the entire billing period to include its fixed charges.: Розширте вибір до всього розрахункового періоду, щоб врахувати його фіксовані платежі.
+Align the selection with billing periods to include omitted fixed charges.: Узгодьте вибір із розрахунковими періодами, щоб врахувати пропущені фіксовані платежі.
+Usage costs are based only on available measurements, without extrapolating missing usage.: Вартість споживання розраховано лише за доступними вимірюваннями, без екстраполяції відсутнього споживання.
 '% of closing': '% зачинення'
 '%s trigger is not supported by the hardware.': Команда %s  не підтримується пристроєм.
 ...open and shut roller shutters: …відкривати і закривати ролети

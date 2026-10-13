@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Aliniază
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Unele taxe fixe nu sunt incluse deoarece intervalul selectat nu acoperă perioade complete de facturare.
+Expand the selection to the entire billing period to include its fixed charges.: Extindeți selecția la întreaga perioadă de facturare pentru a include taxele fixe ale acesteia.
+Align the selection with billing periods to include omitted fixed charges.: Aliniați selecția cu perioadele de facturare pentru a include taxele fixe omise.
+Usage costs are based only on available measurements, without extrapolating missing usage.: Costurile de consum se bazează doar pe măsurătorile disponibile, fără extrapolarea consumului lipsă.
 '% of closing': '% închidere'
 '%s trigger is not supported by the hardware.': Declanșatorul %s nu este acceptat de dispozitiv.
 ...open and shut roller shutters: ...închiderea și deschiderea jaluzelelor

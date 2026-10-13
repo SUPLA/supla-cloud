@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Anpassen
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Einige Grundgebühren sind nicht enthalten, da der gewählte Zeitraum keine vollständigen Abrechnungsperioden umfasst.
+Expand the selection to the entire billing period to include its fixed charges.: Erweitern Sie die Auswahl auf die gesamte Abrechnungsperiode, um deren Grundgebühren einzubeziehen.
+Align the selection with billing periods to include omitted fixed charges.: Passen Sie die Auswahl an die Abrechnungsperioden an, um fehlende Grundgebühren einzubeziehen.
+Usage costs are based only on available measurements, without extrapolating missing usage.: Verbrauchskosten basieren nur auf verfügbaren Messungen, ohne fehlenden Verbrauch hochzurechnen.
 '% of closing': '% Schließung'
 '%s trigger is not supported by the hardware.': Der Auslöser %s wird durch das Gerät nicht unterstützt.
 ...open and shut roller shutters: ...die Rolladen auf- und zumachen

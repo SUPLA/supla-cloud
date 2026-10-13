@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Zarovnat
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Některé pevné poplatky nejsou zahrnuty, protože vybrané období nepokrývá celá zúčtovací období.
+Expand the selection to the entire billing period to include its fixed charges.: Rozšiřte výběr na celé zúčtovací období, aby zahrnoval jeho pevné poplatky.
+Align the selection with billing periods to include omitted fixed charges.: Zarovnejte výběr se zúčtovacími obdobími, aby zahrnoval vynechané pevné poplatky.
+Usage costs are based only on available measurements, without extrapolating missing usage.: Náklady na spotřebu vycházejí pouze z dostupných měření, bez odhadování chybějící spotřeby.
 '% of closing': '% uzamčení'
 '%s trigger is not supported by the hardware.': Spouštěč %s není zařízením podporován.
 ...open and shut roller shutters: ...otevírat a zavírat rolety

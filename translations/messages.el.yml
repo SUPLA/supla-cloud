@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Ευθυγράμμιση
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Ορισμένες πάγιες χρεώσεις δεν περιλαμβάνονται επειδή το επιλεγμένο εύρος δεν καλύπτει πλήρεις περιόδους χρέωσης.
+Expand the selection to the entire billing period to include its fixed charges.: Επεκτείνετε την επιλογή σε ολόκληρη την περίοδο χρέωσης για να συμπεριλάβετε τις πάγιες χρεώσεις της.
+Align the selection with billing periods to include omitted fixed charges.: Ευθυγραμμίστε την επιλογή με τις περιόδους χρέωσης για να συμπεριλάβετε τις πάγιες χρεώσεις που παραλείφθηκαν.
+Usage costs are based only on available measurements, without extrapolating missing usage.: Το κόστος κατανάλωσης βασίζεται μόνο στις διαθέσιμες μετρήσεις, χωρίς εκτίμηση της κατανάλωσης που λείπει.
 '% of closing': '% κλεισίματος'
 '%s trigger is not supported by the hardware.': Το έναυσμα %s δεν υποστηρίζεται από τη συσκευή.
 ...open and shut roller shutters: ...να ανοίξετε και να κλείσετε περσίδες

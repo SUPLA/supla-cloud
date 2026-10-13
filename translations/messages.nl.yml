@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Afstemmen
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Sommige vaste kosten zijn niet inbegrepen omdat het gekozen datumbereik geen volledige factuurperioden omvat.
+Expand the selection to the entire billing period to include its fixed charges.: Breid de selectie uit tot de hele factuurperiode om de vaste kosten ervan mee te nemen.
+Align the selection with billing periods to include omitted fixed charges.: Stem de selectie af op factuurperioden om ontbrekende vaste kosten mee te nemen.
+Usage costs are based only on available measurements, without extrapolating missing usage.: Verbruikskosten zijn alleen gebaseerd op beschikbare metingen, zonder ontbrekend verbruik te extrapoleren.
 '% of closing': '% gesloten'
 '%s trigger is not supported by the hardware.': De %s trigger wordt niet ondersteund door het apparaat.
 ...open and shut roller shutters: ...bedek en open de rolluiken

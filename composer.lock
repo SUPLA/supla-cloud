@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb62ffda7c6c0d8e1f10e4270b869864",
+    "content-hash": "7b1165bd11c514aaa1a3a65da429d66e",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2683,16 +2683,16 @@
         },
         {
             "name": "supla/energy-cost-calculator",
-            "version": "0.10.1",
+            "version": "0.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SUPLA/supla-energy-cost-calculator.git",
-                "reference": "52e158785b97a556013609cc95d913a947bc609a"
+                "reference": "7c40005a742b6b3b6bfbb80a110c0849555163df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SUPLA/supla-energy-cost-calculator/zipball/52e158785b97a556013609cc95d913a947bc609a",
-                "reference": "52e158785b97a556013609cc95d913a947bc609a",
+                "url": "https://api.github.com/repos/SUPLA/supla-energy-cost-calculator/zipball/7c40005a742b6b3b6bfbb80a110c0849555163df",
+                "reference": "7c40005a742b6b3b6bfbb80a110c0849555163df",
                 "shasum": ""
             },
             "require": {
@@ -2716,9 +2716,9 @@
             "description": "Framework-agnostic PHP library for calculating electricity costs from interval energy deltas and JSON billing rules.",
             "support": {
                 "issues": "https://github.com/SUPLA/supla-energy-cost-calculator/issues",
-                "source": "https://github.com/SUPLA/supla-energy-cost-calculator/tree/0.10.1"
+                "source": "https://github.com/SUPLA/supla-energy-cost-calculator/tree/0.11.1"
             },
-            "time": "2026-10-12T17:50:19+00:00"
+            "time": "2026-10-13T10:55:04+00:00"
         },
         {
             "name": "symfony/amqp-messenger",

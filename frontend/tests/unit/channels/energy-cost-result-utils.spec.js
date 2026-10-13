@@ -7,7 +7,9 @@ import {
   aggregateImportedEnergyByWeekdayAndHour,
   formatDecimal,
   preferredGranularity,
+  selectedRangeLabel,
   summaryFromResult,
+  taxBreakdown,
 } from '@/channels/energy-cost/energy-cost-result-utils';
 
 describe('energy cost result utilities', () => {
@@ -53,6 +55,19 @@ describe('energy cost result utilities', () => {
     expect(buckets).toHaveLength(1);
     expect(buckets[0].gross).toBe('0.3');
     expect(buckets[0].byZone).toEqual({DAY: '0.1', NIGHT: '0.2'});
+  });
+
+  it('uses included report fixed charges and individual taxes without recomputing them', () => {
+    const result = {
+      currency: 'PLN',
+      costs: {gross: {total: null, periodic: {total: null}}, taxes: {total: null, byTax: {VAT: '23'}}},
+      reportSummary: {
+        fixedChargesComplete: false,
+        costs: {gross: {total: '135.3', usageBased: {total: '123'}, periodic: {total: '12.3'}}, taxes: {total: '25.3', byTax: {VAT: '25.3'}}},
+      },
+    };
+    expect(summaryFromResult(result)).toMatchObject({usageBased: '123', fixedCharges: '12.3', taxes: '25.3'});
+    expect(taxBreakdown(result)).toEqual([{id: 'VAT', amount: '25.3'}]);
   });
 
   it('groups hourly, daily and monthly charges without spreading periodic costs', () => {
@@ -103,5 +118,10 @@ describe('energy cost result utilities', () => {
   it('selects the documented automatic aggregation', () => {
     expect(preferredGranularity('2026-01-01T00:00:00+01:00', '2026-01-02T00:00:00+01:00', 'Europe/Warsaw')).toBe('hour');
     expect(preferredGranularity('2026-01-01T00:00:00+01:00', '2026-06-01T00:00:00+02:00', 'Europe/Warsaw')).toBe('month');
+  });
+  it('labels date-only selections with an inclusive end across DST and localizes dates', () => {
+    const range = {from: '2026-09-30T22:00:00Z', to: '2026-10-31T23:00:00Z'};
+    expect(selectedRangeLabel(range, 'Europe/Warsaw')).toBe('01 Oct 2026 – 31 Oct 2026');
+    expect(selectedRangeLabel(range, 'Europe/Warsaw', 'pl')).toBe('01 paź 2026 – 31 paź 2026');
   });
 });

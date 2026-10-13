@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Căn chỉnh
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Một số phí cố định chưa được tính vì khoảng ngày đã chọn không bao gồm các kỳ thanh toán trọn vẹn.
+Expand the selection to the entire billing period to include its fixed charges.: Mở rộng lựa chọn ra toàn bộ kỳ thanh toán để tính các phí cố định của kỳ đó.
+Align the selection with billing periods to include omitted fixed charges.: Căn chỉnh lựa chọn theo các kỳ thanh toán để tính các phí cố định bị bỏ qua.
+Usage costs are based only on available measurements, without extrapolating missing usage.: Chi phí tiêu thụ chỉ dựa trên các số đo hiện có, không ước tính lượng tiêu thụ còn thiếu.
 '% of closing': '% đóng cửa'
 '%s trigger is not supported by the hardware.': Kích hoạt %s không được thiết bị hỗ trợ.
 ...open and shut roller shutters: ...mở và đóng cửa chớp lăn

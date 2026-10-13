@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Dopasuj
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Niektóre opłaty stałe nie są uwzględnione, ponieważ wybrany zakres dat nie obejmuje pełnych okresów rozliczeniowych.
+Expand the selection to the entire billing period to include its fixed charges.: Rozszerz zakres do całego okresu rozliczeniowego, aby uwzględnić jego opłaty stałe.
+Align the selection with billing periods to include omitted fixed charges.: Dopasuj zakres do okresów rozliczeniowych, aby uwzględnić pominięte opłaty stałe.
+Usage costs are based only on available measurements, without extrapolating missing usage.: Koszty zużycia są obliczone tylko na podstawie dostępnych pomiarów, bez szacowania brakującego zużycia.
 '% of closing': '% zamknięcia'
 '%s trigger is not supported by the hardware.': Wyzwalacz %s nie jest wspierany przez urządzenie.
 ...open and shut roller shutters: ...zasłonić i odsłonić rolety

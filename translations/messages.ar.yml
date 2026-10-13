@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: محاذاة
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: لم تُدرج بعض الرسوم الثابتة لأن النطاق المحدد لا يغطي فترات فوترة كاملة.
+Expand the selection to the entire billing period to include its fixed charges.: وسّع التحديد ليشمل فترة الفوترة كاملة لإدراج رسومها الثابتة.
+Align the selection with billing periods to include omitted fixed charges.: حاذِ التحديد مع فترات الفوترة لإدراج الرسوم الثابتة المستبعدة.
+Usage costs are based only on available measurements, without extrapolating missing usage.: تستند تكاليف الاستهلاك إلى القياسات المتاحة فقط، دون تقدير الاستهلاك المفقود.
 '% of closing': نسبة الإغلاق ٪
 '%s trigger is not supported by the hardware.': مشغل %s غير مدعوم من قبل الجهاز.
 ...open and shut roller shutters: ... إسدال وكشف الستائر

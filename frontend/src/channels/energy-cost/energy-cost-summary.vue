@@ -8,18 +8,19 @@
 
 <script setup>
   import {computed} from 'vue';
-  import {DateTime} from 'luxon';
   import {useI18n} from 'vue-i18n';
-  import {formatDecimal, summaryFromResult} from './energy-cost-result-utils';
+  import {formatDecimal, selectedRangeLabel, summaryFromResult} from './energy-cost-result-utils';
 
   const props = defineProps({result: {type: Object, required: true}, range: Object, timezone: {type: String, default: 'UTC'}});
   const emit = defineEmits(['align-billing-periods']);
   const {locale} = useI18n();
   const summary = computed(() => summaryFromResult(props.result));
-  const total = computed(() => (props.result.costs?.gross?.periodic?.total === null ? null : (props.result.costs?.gross?.total ?? null)));
-  const unaligned = computed(() => props.result.billingContext?.requestedRangeCoversWholePeriods === false);
+  const total = computed(() => props.result.reportSummary?.costs?.gross?.total ?? props.result.costs?.gross?.total ?? null);
+  const missingFixedCharges = computed(() => props.result.reportSummary?.fixedChargesComplete === false);
+  const partialPeriods = computed(() => props.result.billingPeriods?.some((period) => !period.fullyCovered));
+  const expand = computed(() => props.result.billingPeriods?.length === 1);
   const selectedRange = computed(() => props.range || props.result.range);
-  const date = (value) => DateTime.fromISO(value, {setZone: true}).setZone(props.timezone).setLocale(locale.value).toFormat('dd LLL yyyy, HH:mm');
+  const rangeLabel = computed(() => selectedRangeLabel(selectedRange.value, props.timezone, locale.value));
   const money = (value) => (value === null || value === undefined ? '—' : `${formatDecimal(value)} ${summary.value.currency}`);
 </script>
 
@@ -27,14 +28,18 @@
   <div>
     <section class="well energy-cost-total-expenses">
       <h3>{{ $t('Total expenses for the selected period') }}</h3>
-      <p v-if="selectedRange" class="text-muted">{{ date(selectedRange.from) }} – {{ date(selectedRange.to) }}</p>
+      <p v-if="selectedRange" class="text-muted">{{ rangeLabel }}</p>
       <strong>{{ money(total) }}</strong>
       <small>{{ $t('Gross cost, including fixed charges') }}</small>
-      <div v-if="unaligned" class="energy-cost-total-alignment-hint text-muted mt-2">
-        {{ $t('The selected dates are not aligned with billing periods.') }}
-        <span v-if="total === null">{{ $t('Align the dates to calculate total expenses including fixed charges.') }}</span>
-        <button type="button" class="btn btn-default btn-sm ml-2" @click="emit('align-billing-periods')">
-          {{ $t('Align date range with billing period') }}
+      <div v-if="missingFixedCharges" class="energy-cost-total-alignment-hint text-muted mt-2">
+        {{ $t('Some fixed charges are not included because the selected date range does not cover complete billing periods.') }}
+        <span v-if="partialPeriods">{{
+          expand
+            ? $t('Expand the selection to the entire billing period to include its fixed charges.')
+            : $t('Align the selection with billing periods to include omitted fixed charges.')
+        }}</span>
+        <button v-if="partialPeriods" type="button" class="btn btn-default btn-sm ml-2" @click="emit('align-billing-periods')">
+          {{ expand ? $t('Expand') : $t('Align') }}
         </button>
       </div>
       <small v-else-if="total === null" class="text-muted">{{ $t('Total expenses are unavailable for this period.') }}</small>

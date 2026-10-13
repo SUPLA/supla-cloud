@@ -65,6 +65,10 @@ class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('charges', $calculation);
         $this->assertArrayHasKey('intervals', $calculation);
         $this->assertArrayHasKey('costs', $calculation);
+        $this->assertArrayHasKey('reportSummary', $calculation);
+        $this->assertFalse($calculation['reportSummary']['fixedChargesComplete']);
+        $this->assertSame($calculation['costs']['gross']['usageBased']['total'], $calculation['reportSummary']['costs']['gross']['total']);
+        $this->assertNotNull($calculation['reportSummary']['costs']['taxes']['total']);
 
         $client->apiRequestV24('DELETE', $path);
         $this->assertStatusCode(204, $client->getResponse());
@@ -96,16 +100,25 @@ class EnergyCostPlanChannelIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertSame('', $client->getResponse()->getContent());
 
+        $configuration = $this->configuration();
+        $configuration['periods'][0]['components'][] = [
+            'kind' => 'SUPPLIER_FIXED', 'componentId' => 'fixed', 'rate' => '10', 'per' => 'MONTH', 'taxTreatment' => ['included' => []],
+        ];
         $client->apiRequestV24('POST', '/api/channels/' . $channel->getId() . '/energy-cost-calculation', [
             'fromTimestamp' => 1767265200,
             'toTimestamp' => 1767268800,
-            'configuration' => $this->configuration(),
+            'configuration' => $configuration,
         ]);
 
         $this->assertStatusCode(200, $client->getResponse());
         $calculation = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('costs', $calculation);
         $this->assertArrayHasKey('charges', $calculation);
+        $this->assertNull($calculation['costs']['gross']['total']);
+        $this->assertFalse($calculation['reportSummary']['fixedChargesComplete']);
+        $this->assertSame('0', $calculation['reportSummary']['costs']['gross']['periodic']['total']);
+        $this->assertSame($calculation['costs']['gross']['usageBased']['total'], $calculation['reportSummary']['costs']['gross']['total']);
+        $this->assertNotNull($calculation['reportSummary']['costs']['taxes']['total']);
     }
 
     public function testCreatesAndReusesTariffPlanWhenAssigningStarter(): void {

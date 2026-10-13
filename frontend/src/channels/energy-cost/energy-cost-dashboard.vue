@@ -23,8 +23,8 @@
   import EnergyCostBreakdown from './energy-cost-breakdown.vue';
   import EnergyCostDetails from './energy-cost-details.vue';
   import EnergyCostComparison from './energy-cost-comparison.vue';
-  import {alignedBillingPeriodRange, componentInputsOutsidePricePeriods, pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
-  import {periodicCostsUnavailable, preferredGranularity} from './energy-cost-result-utils';
+  import {componentInputsOutsidePricePeriods, pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
+  import {periodicCostsUnavailable, preferredGranularity, selectedRangeLabel} from './energy-cost-result-utils';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
   const props = defineProps({channel: {type: Object, required: true}, plan: {type: Object, required: true}, assignedPlanId: Number});
@@ -58,10 +58,12 @@
   };
   const range = ref(rangeFromUrl() || defaultRange());
   const result = ref(null);
+  const calculationWarnings = computed(() => (result.value?.warnings || []).filter((warning) => warning.code !== 'MISSING_METER_DATA'));
+  const missingMeterData = computed(() => result.value?.warnings?.some((warning) => warning.code === 'MISSING_METER_DATA'));
   const view = ref('report');
   const alternativePeriodicCostsUnavailable = ref(false);
   const showBillingPeriodWarning = computed(
-    () => periodicCostsUnavailable(result.value) || (view.value === 'comparison' && alternativePeriodicCostsUnavailable.value)
+    () => view.value === 'comparison' && (periodicCostsUnavailable(result.value) || alternativePeriodicCostsUnavailable.value)
   );
   const loading = ref(false);
   const error = ref(null);
@@ -69,6 +71,11 @@
   const errorAlertClass = computed(() => (error.value === noLogsError ? 'alert-info' : 'alert-danger'));
   const granularity = ref('day');
   const availableRange = ref(null);
+  const usageRangePartial = computed(
+    () =>
+      availableRange.value &&
+      (Date.parse(range.value.from) < Date.parse(availableRange.value.from) || Date.parse(range.value.to) > Date.parse(availableRange.value.to))
+  );
   let requestToken = 0;
   let chartRequestToken = 0;
   let calculationWatchEnabled = false;
@@ -106,7 +113,7 @@
   }));
   const simulating = computed(() => props.plan.id !== props.assignedPlanId);
   const dateTime = (value) => DateTime.fromISO(value, {setZone: true}).setZone(timezone.value).toFormat('dd LLL yyyy, HH:mm');
-  const reportPeriod = computed(() => `${dateTime(range.value.from)} - ${dateTime(range.value.to)}`);
+  const reportPeriod = computed(() => selectedRangeLabel(range.value, timezone.value, locale.value));
   const componentLabels = {
     ENERGY_PURCHASE: 'Energy purchase',
     DISTRIBUTION_VARIABLE: 'Variable distribution',
@@ -187,7 +194,7 @@
   }
 
   function setRange(next) {
-    const fitted = fitToAvailableRange(next);
+    const fitted = validatedRange(next);
     if (!fitted) {
       error.value = noLogsError;
       return;
@@ -202,19 +209,14 @@
     }
     granularity.value = preferredGranularity(fitted.from, fitted.to, timezone.value);
   }
-  function fitToAvailableRange(next) {
-    if (!availableRange.value) return next;
+  function validatedRange(next) {
     const from = DateTime.fromISO(next.from, {zone: timezone.value});
     const to = DateTime.fromISO(next.to, {zone: timezone.value});
-    const availableFrom = DateTime.fromISO(availableRange.value.from, {zone: timezone.value});
-    const availableTo = DateTime.fromISO(availableRange.value.to, {zone: timezone.value});
-    const fittedFrom = from < availableFrom ? availableFrom : from;
-    const fittedTo = to > availableTo ? availableTo : to;
-    return fittedFrom < fittedTo ? {from: fittedFrom.toISO(), to: fittedTo.toISO()} : null;
+    return from.isValid && to.isValid && from < to ? next : null;
   }
   function alignRangeWithBillingPeriods() {
-    const aligned = alignedBillingPeriodRange(range.value, props.plan.configuration?.billingCycles || [], timezone.value, availableRange.value?.to);
-    if (aligned) setRange(aligned);
+    const periods = result.value?.billingPeriods || [];
+    if (periods.length) setRange({from: periods[0].from, to: periods[periods.length - 1].to});
   }
   async function fetchCalculation() {
     const token = ++requestToken;
@@ -238,19 +240,11 @@
     window.addEventListener('beforeprint', updateReportGeneratedAt);
     try {
       const {oldest, newest} = await energyCostApi.getMeasurementBounds(props.channel.id);
-      if (!oldest || !newest) {
-        error.value = 'No meter data is available for cost calculation.';
-        return;
+      if (oldest && newest) {
+        const first = DateTime.fromSeconds(oldest.date_timestamp, {zone: timezone.value});
+        const last = DateTime.fromSeconds(newest.date_timestamp, {zone: timezone.value});
+        availableRange.value = {from: first.startOf('hour').plus({hours: 1}).toISO(), to: last.startOf('hour').toISO()};
       }
-      const first = DateTime.fromSeconds(oldest.date_timestamp, {zone: timezone.value});
-      const last = DateTime.fromSeconds(newest.date_timestamp, {zone: timezone.value});
-      availableRange.value = {from: first.startOf('hour').plus({hours: 1}).toISO(), to: last.startOf('hour').toISO()};
-      const fitted = fitToAvailableRange(range.value);
-      if (!fitted) {
-        error.value = noLogsError;
-        return;
-      }
-      setRange(fitted);
     } catch {
       // The calculation endpoint remains usable if measurement-history bounds cannot be loaded.
     }
@@ -258,8 +252,8 @@
     if (!rangeFromUrl() && saved) {
       try {
         const savedRange = JSON.parse(saved);
-        const fitted = fitToAvailableRange(savedRange);
-        if (fitted && DateTime.fromISO(fitted.to) <= DateTime.now().setZone(timezone.value).startOf('hour')) setRange(fitted);
+        const fitted = validatedRange(savedRange);
+        if (fitted) setRange(fitted);
         else sessionStorage.removeItem(storageKey.value);
       } catch {
         sessionStorage.removeItem(storageKey.value);
@@ -300,7 +294,7 @@
         @update:model-value="setRange"
       />
       <div v-if="showBillingPeriodWarning" class="alert alert-info energy-cost-billing-period-warning">
-        {{ $t('The selected range does not cover complete billing periods. Fixed charges are not included in the total.') }}
+        {{ $t('Some fixed charges are not included because the selected date range does not cover complete billing periods.') }}
         <button type="button" class="btn btn-default btn-sm ml-2" @click="alignRangeWithBillingPeriods">
           {{ $t('Align date range with billing period') }}
         </button>
@@ -325,13 +319,17 @@
           <div v-if="result.processedDeltaCount === 0" class="alert alert-info">
             {{ $t('No logs are available for the selected range.') }}
           </div>
-          <template v-if="result.processedDeltaCount > 0">
-            <div v-if="result.incomplete" class="alert alert-warning">
+          <template v-if="result.reportSummary || result.processedDeltaCount > 0">
+            <div v-if="usageRangePartial || missingMeterData" class="alert alert-info">
+              {{ $t('Usage costs are based only on available measurements, without extrapolating missing usage.') }}
+              <span v-if="availableRange">{{ dateTime(availableRange.from) }} – {{ dateTime(availableRange.to) }}</span>
+            </div>
+            <div v-if="calculationWarnings.length" class="alert alert-warning">
               <p>{{ $t('Some logs could not be calculated. Results may be incomplete.') }}</p>
-              <details v-if="result.warnings?.length">
-                <summary>{{ $t('Warnings') }} ({{ result.warnings.length }})</summary>
+              <details>
+                <summary>{{ $t('Warnings') }} ({{ calculationWarnings.length }})</summary>
                 <ul class="mb-0">
-                  <li v-for="(warning, index) in result.warnings" :key="`${warning.code}-${warning.from}-${index}`">
+                  <li v-for="(warning, index) in calculationWarnings" :key="`${warning.code}-${warning.from}-${index}`">
                     <strong>{{ $t(warning.scope === 'TEMPORAL_NETTING_WINDOW' ? 'Metering window' : 'Meter interval') }}:</strong>
                     {{ dateTime(warning.from) }} - {{ dateTime(warning.to) }}
                     <span v-if="warning.componentId">, {{ $t('Component') }}: {{ warning.componentId }}</span>

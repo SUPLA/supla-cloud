@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Igazítás
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Egyes fix díjak nem szerepelnek az összegben, mert a kiválasztott dátumtartomány nem fed le teljes számlázási időszakokat.
+Expand the selection to the entire billing period to include its fixed charges.: Bővítse a kijelölést a teljes számlázási időszakra a fix díjak beszámításához.
+Align the selection with billing periods to include omitted fixed charges.: Igazítsa a kijelölést a számlázási időszakokhoz a kihagyott fix díjak beszámításához.
+Usage costs are based only on available measurements, without extrapolating missing usage.: A fogyasztási költségek csak a rendelkezésre álló méréseken alapulnak, a hiányzó fogyasztás becslése nélkül.
 '% of closing': '% bezárás'
 '%s trigger is not supported by the hardware.': Az eseményindító az eszköz által nem támogatott.
 ...open and shut roller shutters: ... felhúzni és lehúzni a redőnyöket

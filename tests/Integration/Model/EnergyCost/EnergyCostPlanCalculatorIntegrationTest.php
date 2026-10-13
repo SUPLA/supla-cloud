@@ -59,6 +59,9 @@ class EnergyCostPlanCalculatorIntegrationTest extends IntegrationTestCase {
         // delta is intentionally skipped instead of being priced as a full hour.
         $this->assertCount(0, $result->intervals);
         $this->assertEmpty($result->charges);
+        $this->assertNotNull($result->reportSummary);
+        $this->assertSame($result->reportSummary, $result->jsonSerialize()['reportSummary']);
+        $this->assertTrue($result->reportSummary['fixedChargesComplete']);
     }
 
     public function testRecompilesPersistedConfigurationForEveryCalculation(): void {

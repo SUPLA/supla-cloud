@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Suderinti
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Kai kurie pastovieji mokesčiai neįtraukti, nes pasirinktas laikotarpis neapima visų atsiskaitymo laikotarpių.
+Expand the selection to the entire billing period to include its fixed charges.: Išplėskite pasirinkimą iki viso atsiskaitymo laikotarpio, kad įtrauktumėte jo pastoviuosius mokesčius.
+Align the selection with billing periods to include omitted fixed charges.: Suderinkite pasirinkimą su atsiskaitymo laikotarpiais, kad įtrauktumėte praleistus pastoviuosius mokesčius.
+Usage costs are based only on available measurements, without extrapolating missing usage.: Vartojimo išlaidos pagrįstos tik turimais matavimais, nevertinant trūkstamo vartojimo.
 '% of closing': '% uždarymo'
 '%s trigger is not supported by the hardware.': Įrenginys nepalaiko %s trigerio.
 ...open and shut roller shutters: ...uždengti ir atidengti žaliuzes

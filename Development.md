@@ -12,6 +12,32 @@ Managing real devices using SUPLA Cloud alone is not possible. By default, the d
 
 ---
 
+## Energy cost reporting
+
+The energy-cost calculation and simulation endpoints request the calculator's optional
+`reportSummary: {costs, fixedChargesComplete}`. The Costs report uses its gross total,
+included fixed charges and taxes; existing strict `costs` and usage-only chart facts
+remain available for detail/comparison consumers. This integration requires calculator
+0.11.0 once released; update the Composer requirement and lockfile together then.
+
+The calculator receives the original user-selected half-open `[from, to)` range in UTC.
+Date-only UI end dates are inclusive and become the next local midnight, including DST
+offset changes. Neither the backend nor the picker clips selections to measurements.
+Usage is priced only from available measurements, without extrapolation. Measurement
+availability information is shown separately from skipped-charge errors and omitted
+fixed charges.
+
+Fixed charges are included only for fully covered effective billing periods. The report
+offers **Expand** for one partial period and **Align** for multiple overlapping periods
+with partial edges, only when `fixedChargesComplete` is false. Both actions use the
+first/last `billingPeriods[]` boundaries and update the picker, saved range, URL and
+calculation request. Historical, ongoing and future periods follow the same rules.
+
+Regression coverage is in `tests/Model/EnergyCostPlanCalculatorTest.php` and the frontend
+`energy-cost-summary` / `energy-cost-comparison-dashboard` unit tests. When testing
+before the release, load the adjacent calculator with a temporary development autoloader
+or local Composer path repository; do not retain dependency overrides in version control.
+
 ## First launch
 
 ### Prerequisites
@@ -132,4 +158,3 @@ If you would like to contribute:
 5. Follow the rules described in `CONTRIBUTING.md`.
 
 Thank you for contributing to the SUPLA project.
-

@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Uyğunlaşdır
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Seçilmiş tarix aralığı tam hesablaşma dövrlərini əhatə etmədiyi üçün bəzi sabit ödənişlər daxil edilməyib.
+Expand the selection to the entire billing period to include its fixed charges.: Sabit ödənişləri daxil etmək üçün seçimi bütün hesablaşma dövrünə genişləndirin.
+Align the selection with billing periods to include omitted fixed charges.: Buraxılmış sabit ödənişləri daxil etmək üçün seçimi hesablaşma dövrlərinə uyğunlaşdırın.
+Usage costs are based only on available measurements, without extrapolating missing usage.: İstehlak xərcləri çatışmayan istehlak təxmin edilmədən yalnız mövcud ölçmələrə əsaslanır.
 '% of closing': '% bağlanma'
 '%s trigger is not supported by the hardware.': '%s tətik avadanlıq tərəfindən dəstəklənmir.'
 ...open and shut roller shutters: ...jalüzləri açmaq və bağlamaq

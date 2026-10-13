@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Tilpass
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Noen faste avgifter er ikke inkludert fordi den valgte perioden ikke dekker hele faktureringsperioder.
+Expand the selection to the entire billing period to include its fixed charges.: Utvid utvalget til hele faktureringsperioden for å inkludere de faste avgiftene.
+Align the selection with billing periods to include omitted fixed charges.: Tilpass utvalget til faktureringsperiodene for å inkludere utelatte faste avgifter.
+Usage costs are based only on available measurements, without extrapolating missing usage.: Forbrukskostnader er kun basert på tilgjengelige målinger, uten å anslå manglende forbruk.
 '% of closing': '% nedleggelse'
 '%s trigger is not supported by the hardware.': '% S-utløser støttes ikke av enheten.'
 ...open and shut roller shutters: ...åpne og stenge rullegardiner

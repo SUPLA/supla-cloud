@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Poravnaj
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Nekateri fiksni stroški niso vključeni, ker izbrano obdobje ne zajema celotnih obračunskih obdobij.
+Expand the selection to the entire billing period to include its fixed charges.: Razširite izbor na celotno obračunsko obdobje, da vključite njegove fiksne stroške.
+Align the selection with billing periods to include omitted fixed charges.: Poravnajte izbor z obračunskimi obdobji, da vključite izpuščene fiksne stroške.
+Usage costs are based only on available measurements, without extrapolating missing usage.: Stroški porabe temeljijo le na razpoložljivih meritvah, brez ocenjevanja manjkajoče porabe.
 '% of closing': '% zaprtja'
 '%s trigger is not supported by the hardware.': Naprava ne podpira sprožilca %s.
 ...open and shut roller shutters: ...spustiti in dvigniti rolete

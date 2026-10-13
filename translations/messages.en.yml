@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Align
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Some fixed charges are not included because the selected date range does not cover complete billing periods.
+Expand the selection to the entire billing period to include its fixed charges.: Expand the selection to the entire billing period to include its fixed charges.
+Align the selection with billing periods to include omitted fixed charges.: Align the selection with billing periods to include omitted fixed charges.
+Usage costs are based only on available measurements, without extrapolating missing usage.: Usage costs are based only on available measurements, without extrapolating missing usage.
 WELCOME_MESSAGE: |
   Having your house or the office connected to SUPLA is very easy.
   All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.

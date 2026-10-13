@@ -47,10 +47,20 @@ export function preferredGranularity(from, to, timezone) {
   return 'month';
 }
 
-export const periodicCostsUnavailable = (result) => result?.processedDeltaCount > 0 && result.costs?.gross?.periodic?.total === null;
+export function selectedRangeLabel(range, timezone, locale = 'en') {
+  if (!range) return '';
+  const from = DateTime.fromISO(range.from, {setZone: true}).setZone(timezone).setLocale(locale);
+  const to = DateTime.fromISO(range.to, {setZone: true}).setZone(timezone).setLocale(locale);
+  const dateOnly = from.toMillis() === from.startOf('day').toMillis() && to.toMillis() === to.startOf('day').toMillis();
+  const format = dateOnly ? 'dd LLL yyyy' : 'dd LLL yyyy, HH:mm';
+  return `${from.toFormat(format)} – ${(dateOnly ? to.minus({milliseconds: 1}) : to).toFormat(format)}`;
+}
+
+export const periodicCostsUnavailable = (result) =>
+  result?.reportSummary ? !result.reportSummary.fixedChargesComplete : result?.processedDeltaCount > 0 && result.costs?.gross?.periodic?.total === null;
 
 export function summaryFromResult(result) {
-  const costs = result?.costs || {};
+  const costs = result?.reportSummary?.costs || result?.costs || {};
   const gross = costs.gross || {};
   return {
     currency: result?.currency,
@@ -124,4 +134,4 @@ function breakdown(values = {}) {
 
 export const componentBreakdown = (result) => breakdown(result?.costs?.gross?.usageBased?.byComponent);
 export const zoneBreakdown = (result) => breakdown(result?.costs?.gross?.usageBased?.byZone);
-export const taxBreakdown = (result) => breakdown(result?.costs?.taxes?.byTax);
+export const taxBreakdown = (result) => breakdown(result?.reportSummary?.costs?.taxes?.byTax ?? result?.costs?.taxes?.byTax);

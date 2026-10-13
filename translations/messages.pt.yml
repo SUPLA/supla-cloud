@@ -1,5 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+Align: Alinhar
+Some fixed charges are not included because the selected date range does not cover complete billing periods.: Alguns encargos fixos não estão incluídos porque o intervalo selecionado não abrange períodos de faturação completos.
+Expand the selection to the entire billing period to include its fixed charges.: Expanda a seleção para todo o período de faturação para incluir os seus encargos fixos.
+Align the selection with billing periods to include omitted fixed charges.: Alinhe a seleção com os períodos de faturação para incluir os encargos fixos omitidos.
+Usage costs are based only on available measurements, without extrapolating missing usage.: Os custos de consumo baseiam-se apenas nas medições disponíveis, sem extrapolar o consumo em falta.
 '% of closing': '% de encerramento'
 '%s trigger is not supported by the hardware.': O gatilho  não é suportado pelo dispositivo.
 ...open and shut roller shutters: ...fechar ou abrir estores

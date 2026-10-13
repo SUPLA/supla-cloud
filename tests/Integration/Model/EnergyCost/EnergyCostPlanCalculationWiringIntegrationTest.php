@@ -96,7 +96,7 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
         $this->assertSame('2026-01-02T13:00:00+00:00', $range->to->format(DATE_ATOM));
     }
 
-    public function testCalculatesLongestContinuousLoggedRangeWhenRequestedRangeContainsAGap(): void {
+    public function testPreservesSelectedRangeWhenMeasurementsCoverOnlyPartOfIt(): void {
         $user = $this->createConfirmedUser();
         $channel = $this->createElectricityMeterChannel($user);
         $plan = $this->planService()->create($user, 'Home', self::planConfigurations()[2][0]);
@@ -112,9 +112,11 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
             new DateTimeImmutable('2026-01-02T13:00:00+00:00'),
         );
 
-        $this->assertSame('2026-01-02T12:00:00+00:00', $result->range->from->format(DATE_ATOM));
+        $this->assertSame('2026-01-02T11:00:00+00:00', $result->range->from->format(DATE_ATOM));
         $this->assertSame('2026-01-02T13:00:00+00:00', $result->range->to->format(DATE_ATOM));
         $this->assertSame(4, $result->processedDeltaCount);
+        $this->assertSame('MISSING_METER_DATA', $result->warnings[0]['code']);
+        $this->assertTrue($result->reportSummary['fixedChargesComplete']);
     }
 
     public function testReturnsAnIncompleteResultWhenNoMeterDeltasAreAvailable(): void {
@@ -131,8 +133,40 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
         );
 
         $this->assertSame(0, $result->processedDeltaCount);
-        $this->assertNull($result->costs['gross']['total']);
+        $this->assertSame('0', $result->reportSummary['costs']['gross']['total']);
+        $this->assertSame('MISSING_METER_DATA', $result->warnings[0]['code']);
+        $this->assertTrue($result->jsonSerialize()['incomplete']);
         $this->assertSame([], $result->charges);
+    }
+
+    public function testEntireSelectedMonthIncludesFixedChargesWithOnlyOneHourOfAvailableUsage(): void {
+        $user = $this->createConfirmedUser();
+        $channel = $this->createElectricityMeterChannel($user);
+        $configuration = self::planConfigurations()[0][0];
+        $configuration['periods'][0]['components'][] = [
+            'kind' => 'SUPPLIER_FIXED', 'componentId' => 'fixed', 'rate' => '10', 'per' => 'MONTH', 'taxTreatment' => ['included' => []],
+        ];
+        $plan = $this->planService()->create($user, 'Home', $configuration);
+        $this->planService()->assignToChannel($user, $channel, $plan->getId());
+        // An incomplete leading netting window must not discard the following full hour.
+        $this->insertDelta($channel->getId(), '2026-10-13 11:30:00');
+        foreach (['12:15:00', '12:30:00', '12:45:00', '13:00:00'] as $time) {
+            $this->insertDelta($channel->getId(), '2026-10-13 ' . $time);
+        }
+        $result = $this->calculator()->calculate(
+            $user,
+            $channel,
+            new DateTimeImmutable('2026-10-01T00:00:00+02:00'),
+            new DateTimeImmutable('2026-11-01T00:00:00+01:00')
+        );
+        $this->assertSame('2026-10-31T23:00:00+00:00', $result->range->to->format(DATE_ATOM));
+        $this->assertSame(4, $result->processedDeltaCount);
+        $this->assertSame('4', $result->usage['ACTIVE_ENERGY_IMPORT']);
+        $this->assertTrue($result->reportSummary['fixedChargesComplete']);
+        $this->assertSame('12.3', $result->reportSummary['costs']['gross']['periodic']['total']);
+        $this->assertNotNull($result->reportSummary['costs']['taxes']['total']);
+        $this->assertGreaterThan((float)$result->costs['gross']['usageBased']['total'], (float)$result->reportSummary['costs']['gross']['total']);
+        $this->assertNotContains('fixed', array_column($result->charges, 'componentId'));
     }
 
     public function testReturnsPartialResultWhenDynamicPriceDataIsMissing(): void {
@@ -230,7 +264,7 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                     'components' => [
                         [
                             'kind' => 'ENERGY_PURCHASE',
-                            'presetId' => 'PL.TAURON_SPRZEDAZ.G13.2026',
+                            'presetId' => 'PL.TAURON_SPRZEDAZ.G13',
                             'componentId' => 'energy-purchase',
                             'values' => [
                                 'energy.MORNING_PEAK' => '0.98',
@@ -238,7 +272,7 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                                 'energy.OFF_PEAK' => '0.62',
                             ],
                         ],
-                        ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G13.2026',
+                        ['kind' => 'DISTRIBUTION_VARIABLE', 'presetId' => 'PL.TAURON_DYSTRYBUCJA.G13',
                             'componentId' => 'distribution-variable', 'values' => []],
                     ],
                 ]],
@@ -262,7 +296,7 @@ class EnergyCostPlanCalculationWiringIntegrationTest extends IntegrationTestCase
                             'componentId' => 'energy-purchase', 'values' => ['energy.rate' => '0.71']],
                         [
                             'kind' => 'DISTRIBUTION_VARIABLE',
-                            'presetId' => 'PL.TAURON_DYSTRYBUCJA.G14dynamic.2026',
+                            'presetId' => 'PL.TAURON_DYSTRYBUCJA.G14dynamic',
                             'componentId' => 'distribution-variable',
                             'values' => [
                                 'distribution.S1' => '0.0224',
