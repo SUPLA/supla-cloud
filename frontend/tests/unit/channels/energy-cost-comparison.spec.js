@@ -6,7 +6,6 @@ import {useEnergyCostStore} from '@/stores/energy-cost-store';
 import {energyCostApi} from '@/api/energy-cost-api';
 import Comparison from '@/channels/energy-cost/energy-cost-comparison.vue';
 import Picker from '@/channels/energy-cost/energy-cost-tariff-picker.vue';
-import Dialog from '@/common/gui/dialog/DialogWindow.vue';
 import ComparisonChart from '@/channels/energy-cost/energy-cost-comparison-chart.vue';
 import {calculation, monthlyCalculation, plan, range, starters} from './energy-cost-comparison-fixtures';
 
@@ -28,7 +27,7 @@ async function setup(baseline = {...calculation(), reportSummary: {costs: {gross
     global: {
       plugins: [pinia, i18n],
       mocks: {$t: i18n.global.t},
-      stubs: {EnergyCostComparisonChart: true, EnergyCostComparisonDetails: true, DialogContent: {template: '<div><slot name="header"/><slot/></div>'}},
+      stubs: {EnergyCostComparisonChart: true, EnergyCostComparisonDetails: true},
     },
   });
   await flushPromises();
@@ -175,6 +174,7 @@ describe('tariff comparison interactions', () => {
       expect.objectContaining({periods: [{validFrom: null, validTo: null, components: starters[1].components}]})
     );
     expect(assign).not.toHaveBeenCalled();
+    expect(wrapper.text()).not.toContain('Apply this tariff to the meter');
     expect(store.assignmentsByChannelId[3].planId).toBe(10);
     expect(wrapper.text()).toContain('Savings: 20.00 PLN');
     expect(wrapper.emitted('update:periodicCostsUnavailable').at(-1)).toEqual([true]);
@@ -203,32 +203,6 @@ describe('tariff comparison interactions', () => {
     expect(wrapper.text()).toContain('Savings: 20.00 PLN');
     resolve(calculation('999'));
     await flushPromises();
-    expect(wrapper.text()).toContain('Savings: 20.00 PLN');
-  });
-  it('requires confirmation and replaces only this meter assignment on success', async () => {
-    const {wrapper, store, select, assign} = await setup();
-    await select();
-    await wrapper.get('button').trigger('click');
-    expect(assign).not.toHaveBeenCalled();
-    expect(wrapper.findComponent(Dialog).props('modelValue')).toBe(true);
-    expect(wrapper.text()).toContain('Historical cost calculations will use the newly assigned tariff.');
-    wrapper.findComponent(Dialog).vm.$emit('confirm', {setLoading: vi.fn()});
-    await flushPromises();
-    expect(assign).toHaveBeenCalledOnce();
-    expect(store.assignmentsByChannelId[3].planId).toBe(11);
-    expect(store.assignmentsByChannelId[4].planId).toBe(10);
-    expect(wrapper.emitted('applied')).toHaveLength(1);
-  });
-  it('preserves assignments and simulation when assignment fails', async () => {
-    const {wrapper, store, select, assign} = await setup();
-    await select();
-    assign.mockRejectedValue({body: {message: 'Assignment failed'}});
-    await wrapper.get('button').trigger('click');
-    wrapper.findComponent(Dialog).vm.$emit('confirm', {setLoading: vi.fn()});
-    await flushPromises();
-    expect(store.assignmentsByChannelId[3].planId).toBe(10);
-    expect(wrapper.text()).toContain('Assignment failed');
-    expect(wrapper.emitted('applied')).toBeUndefined();
     expect(wrapper.text()).toContain('Savings: 20.00 PLN');
   });
   it('handles baseline and alternative errors independently', async () => {

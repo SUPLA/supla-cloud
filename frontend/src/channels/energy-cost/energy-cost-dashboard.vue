@@ -343,7 +343,6 @@
         :selected-tariff-id="selectedTariffId"
         @update:selected-tariff-id="setSelectedTariff"
         @update:periodic-costs-unavailable="alternativePeriodicCostsUnavailable = $event"
-        @applied="setView('report')"
       />
       <template v-else>
         <p v-if="result?.processedDeltaCount && chartGranularity && chartGranularity !== granularity" class="text-muted">

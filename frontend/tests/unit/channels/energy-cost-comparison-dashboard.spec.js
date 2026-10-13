@@ -275,13 +275,12 @@ describe('shared Costs views', () => {
     expect(wrapper.findComponent(Comparison).props('range')).toEqual(next);
     wrapper.unmount();
   });
-  it('returns to report and refreshes the assigned calculation after successful assignment', async () => {
+  it('refreshes changed assigned plans while preserving comparison view and range', async () => {
     const {wrapper, calculate} = await dashboard();
     await wrapper.get('.energy-cost-view-selector').findAll('button')[1].trigger('click');
     await wrapper.setProps({plan: {...plan, id: 11}, assignedPlanId: 11});
-    wrapper.findComponent(Comparison).vm.$emit('applied');
     await flushPromises();
-    expect(wrapper.findComponent(Comparison).exists()).toBe(false);
+    expect(wrapper.findComponent(Comparison).exists()).toBe(true);
     expect(calculate).toHaveBeenCalledTimes(2);
     expect(wrapper.findComponent(RangeSelector).props('modelValue')).toEqual(range);
     wrapper.unmount();

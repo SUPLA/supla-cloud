@@ -90,8 +90,10 @@
     mediaQuery = window.matchMedia('(max-width: 767px)');
     updateMobile();
     mediaQuery.addEventListener('change', updateMobile);
+    render();
   });
   onBeforeUnmount(() => {
+    renderToken++;
     chart?.destroy();
     mediaQuery?.removeEventListener('change', updateMobile);
     emit('rendering', false);

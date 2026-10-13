@@ -10,8 +10,6 @@
   import EnergyCostTariffPicker from './energy-cost-tariff-picker.vue';
   import EnergyCostComparisonChart from './energy-cost-comparison-chart.vue';
   import EnergyCostComparisonDetails from './energy-cost-comparison-details.vue';
-  import DialogWindow from '@/common/gui/dialog/DialogWindow.vue';
-  import DialogContent from '@/common/gui/dialog/DialogContent.vue';
   import {presentCostPlan, tariffCatalogPresentation} from './energy-cost-plan-presentation';
   import {comparisonConfiguration, compareCalculations, comparisonBuckets} from './energy-cost-comparison-utils';
   import {allowsHourlyAggregation, formatDecimal, grossCostLabel, periodicCostsUnavailable, preferredGranularity} from './energy-cost-result-utils';
@@ -25,19 +23,16 @@
     baselineError: String,
     selectedTariffId: {type: String, default: ''},
   });
-  const emit = defineEmits(['applied', 'update:periodicCostsUnavailable', 'update:selectedTariffId']);
+  const emit = defineEmits(['update:periodicCostsUnavailable', 'update:selectedTariffId']);
   const store = useEnergyCostStore();
   const {t, locale} = useI18n();
   const selectedId = computed({get: () => props.selectedTariffId, set: (id) => emit('update:selectedTariffId', id)});
   const starter = ref(null);
-  const configuration = ref(null);
   const alternative = ref(null);
   watch(alternative, (result) => emit('update:periodicCostsUnavailable', periodicCostsUnavailable(result)), {immediate: true});
   const loading = ref(false);
   const error = ref('');
   const catalogError = ref('');
-  const confirming = ref(false);
-  const applying = ref(false);
   let version = 0;
   store.fetchTariffs().catch(() => {
     catalogError.value = 'Could not load tariff plans.';
@@ -85,8 +80,6 @@
       const token = ++version;
       alternative.value = null;
       starter.value = null;
-      configuration.value = null;
-      confirming.value = false;
       error.value = '';
       loading.value = false;
       if (!selectedId.value) return;
@@ -96,7 +89,6 @@
         if (token !== version) return;
         starter.value = nextStarter;
         const nextConfiguration = comparisonConfiguration(nextStarter, props.plan.configuration);
-        configuration.value = nextConfiguration;
         const result = await energyCostApi.simulate(
           props.channel.id,
           Math.floor(Date.parse(props.range.from) / 1000),
@@ -119,21 +111,6 @@
     },
     {deep: true, immediate: true}
   );
-  async function apply(dialog) {
-    if (!evaluated.value || applying.value) return dialog.setLoading(false);
-    applying.value = true;
-    error.value = '';
-    try {
-      await store.assignStarter(props.channel.id, selectedId.value, configuration.value);
-      confirming.value = false;
-      emit('applied');
-    } catch (reason) {
-      error.value = reason.body?.message || 'Could not apply the tariff.'; // i18n
-    } finally {
-      applying.value = false;
-      dialog.setLoading(false);
-    }
-  }
   onBeforeUnmount(() => version++);
 </script>
 <template>
@@ -159,9 +136,7 @@
         <section class="well energy-cost-scenario">
           <h3>{{ $t('Alternative tariff') }}</h3>
           <span class="label label-info">{{ $t('Simulation') }}</span>
-          <fieldset :disabled="applying">
-            <energy-cost-tariff-picker v-model="selectedId" :tariffs="store.tariffs" id-prefix="energy-cost-comparison" hide-label />
-          </fieldset>
+          <energy-cost-tariff-picker v-model="selectedId" :tariffs="store.tariffs" id-prefix="energy-cost-comparison" hide-label />
           <div class="energy-cost-scenario-price">
             <strong>{{ money(alternativeTotal, alternative?.currency) }}</strong>
             <small>{{ $t(grossCostLabel(alternative)) }}</small>
@@ -246,7 +221,6 @@
           </table>
         </div>
       </section>
-      <button class="btn btn-default mt-3" :disabled="applying" @click="confirming = true">{{ $t('Apply this tariff to the meter') }}</button>
     </template>
     <p v-else-if="!busy && selectedId && baseline && alternative" class="alert alert-info">{{ $t(comparison.reason) }}</p>
     <section v-if="baseline && alternative && !busy" class="energy-cost-comparison-report mt-4">
@@ -273,22 +247,6 @@
         </ul>
       </details>
     </template>
-    <dialog-window v-model="confirming" cancellable :close-on-backdrop="false" @confirm="apply">
-      <dialog-content
-        ><template #header
-          ><h4>{{ $t('Apply this tariff to the meter') }}</h4></template
-        >
-        <p>{{ starterLabel }}</p>
-        <p>
-          {{
-            $t(
-              'The existing tariff history of this meter will be replaced. Historical cost calculations will use the newly assigned tariff. Other meters will keep their current plans.'
-            )
-          }}
-        </p>
-        <p v-if="error" class="text-danger">{{ $t(error) }}</p>
-      </dialog-content>
-    </dialog-window>
   </section>
 </template>
 

@@ -10,11 +10,16 @@
   import {computed} from 'vue';
   import {DateTime} from 'luxon';
   import {formatDecimal} from './energy-cost-result-utils';
+  import {displayedPeriodicCharges} from './energy-cost-periodic-charges';
 
   const props = defineProps({result: {type: Object, required: true}, timezone: {type: String, required: true}});
-  const periodicCharges = computed(() => props.result.periodicCharges || []);
+  const periodicCharges = computed(() => displayedPeriodicCharges(props.result.periodicCharges || []));
   const billingPeriods = computed(() => props.result.billingPeriods || []);
-  const money = (value) => (value === null || value === undefined ? '—' : `${formatDecimal(value)} ${props.result.currency}`);
+  const number = (value) => (value === null || value === undefined ? '—' : formatDecimal(value) || '—');
+  const money = (value) => {
+    const formatted = number(value);
+    return formatted === '—' ? '—' : `${formatted} ${props.result.currency}`;
+  };
   const energy = (value) => `${formatDecimal(value)} kWh`;
   const label = (value) => String(value || '').replace(/[-_]/g, ' ');
   const date = (value) => DateTime.fromISO(value, {setZone: true}).setZone(props.timezone).toFormat('dd LLL yyyy');
@@ -43,7 +48,7 @@
             <tr v-for="charge in periodicCharges" :key="`${charge.id}-${charge.appliesFrom}`">
               <td>{{ label(charge.id || charge.kind) }}</td>
               <td>{{ dateRange(charge.appliesFrom, charge.appliesTo) }}</td>
-              <td class="text-right">{{ charge.calculated ? formatDecimal(charge.calculated.units) : '—' }}</td>
+              <td class="text-right">{{ number(charge.calculated?.units) }}</td>
               <td class="text-right">{{ charge.definition?.rate ? `${formatDecimal(charge.definition.rate)} ${charge.definition.unit || ''}` : '—' }}</td>
               <td class="text-right">{{ money(charge.calculated?.amounts?.net) }}</td>
               <td class="text-right">{{ money(charge.calculated?.amounts?.taxTotal) }}</td>
