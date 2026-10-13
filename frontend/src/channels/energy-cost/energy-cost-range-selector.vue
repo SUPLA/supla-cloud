@@ -79,23 +79,29 @@
   }
   function applyRange() {
     if (props.disabled) return;
-    const nextFrom = DateTime.fromISO(from.value, {zone: props.timezone}).startOf('day');
-    const nextTo = DateTime.fromISO(to.value, {zone: props.timezone}).plus({days: 1}).startOf('day');
+    const {from: nextFrom, to: nextTo} = draftRange();
     if (nextFrom.isValid && nextTo > nextFrom) {
       emit('update:modelValue', {from: nextFrom.toISO(), to: nextTo.toISO()});
     }
   }
+  function draftRange() {
+    return {
+      from: DateTime.fromISO(from.value, {zone: props.timezone}).startOf('day'),
+      to: DateTime.fromISO(to.value, {zone: props.timezone}).plus({days: 1}).startOf('day'),
+    };
+  }
+  function setDraftRange(nextFrom, nextTo) {
+    from.value = nextFrom.toISODate();
+    to.value = nextTo.minus({milliseconds: 1}).toISODate();
+  }
   function shiftRange(direction) {
     if (props.disabled) return;
-    const {from: currentFrom, to: currentTo} = range.value;
+    const {from: currentFrom, to: currentTo} = draftRange();
     const duration = currentTo.diff(currentFrom).as('milliseconds');
     if (currentFrom.isValid && currentTo.isValid && duration > 0) {
       const crossesMonth = currentFrom.year !== currentTo.year || currentFrom.month !== currentTo.month;
       const shift = crossesMonth ? {months: direction} : {milliseconds: direction * duration};
-      emit('update:modelValue', {
-        from: currentFrom.plus(shift).toISO(),
-        to: currentTo.plus(shift).toISO(),
-      });
+      setDraftRange(currentFrom.plus(shift), currentTo.plus(shift));
     }
   }
   watch(
@@ -110,7 +116,7 @@
 
 <template>
   <div class="energy-cost-range-selector mb-3">
-    <!-- i18n:["Predefined time ranges", "Today", "Yesterday", "This week", "Previous week", "This month", "Previous month", "Last 3 months", "This year", "Previous year", "Current billing cycle", "Previous billing cycle", "From", "To", "Previous period", "Next period"] -->
+    <!-- i18n:["Predefined time ranges", "Today", "Yesterday", "This week", "Previous week", "This month", "Previous month", "Last 3 months", "This year", "Previous year", "Current billing cycle", "Previous billing cycle", "From", "To", "Previous period", "Next period", "Apply"] -->
     <SimpleDropdown :options="periodOptions" :disabled="disabled" @input="setRange">
       <template #button>{{ $t('Predefined time ranges') }}</template>
       <template #default="{value}">{{ $t(periodLabels[value]) }}</template>
@@ -124,17 +130,20 @@
       <div class="row flex-grow-1">
         <div class="col-sm-6 form-group">
           <label>{{ $t('From') }}</label>
-          <input v-model="from" type="date" class="form-control" :disabled="disabled" @change="applyRange" />
+          <input v-model="from" type="date" class="form-control" :disabled="disabled" />
         </div>
         <div class="col-sm-6 form-group">
           <label>{{ $t('To') }}</label>
-          <input v-model="to" type="date" class="form-control" :disabled="disabled" @change="applyRange" />
+          <input v-model="to" type="date" class="form-control" :disabled="disabled" />
         </div>
       </div>
       <div class="energy-cost-date-range-navigation form-group">
         <button type="button" class="btn btn-default" :disabled="disabled" :title="$t('Next period')" @click="shiftRange(1)">
           <fa icon="chevron-right" />
         </button>
+      </div>
+      <div class="energy-cost-date-range-navigation form-group">
+        <button type="button" class="btn btn-default" :disabled="disabled" @click="applyRange">{{ $t('Apply') }}</button>
       </div>
     </div>
   </div>

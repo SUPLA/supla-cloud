@@ -48,7 +48,7 @@ async function dashboard(result = calculation(), {bounds, selectedRange = range,
     global: {
       plugins: [pinia, createI18n({legacy: false, locale: 'en', missingWarn: false, fallbackWarn: false})],
       stubs: {
-        LoadingCover: {template: '<div><slot/></div>'},
+        LoadingCover: {props: ['loading'], template: '<div class="loading-cover-stub" :data-loading="loading"><slot/></div>'},
         EnergyCostRangeSelector: !realRangeSelector,
         EnergyCostComparison: !realComparison,
         EnergyCostComparisonChart: true,
@@ -138,6 +138,7 @@ describe('shared Costs views', () => {
     expect(rangeControls().every((control) => control.element.disabled)).toBe(true);
     expect(wrapper.findComponent(Picker).get('select').element.disabled).toBe(true);
     expect(wrapper.get('.energy-cost-suggest').element.disabled).toBe(true);
+    expect(wrapper.get('.loading-cover-stub').attributes('data-loading')).toBe(request === 'range calculation' ? undefined : 'true');
     resolve(request === 'suggestion' ? {cheapestId: null, tariffs: []} : calculation('80'));
     await flushPromises();
     expect(rangeControls().every((control) => !control.element.disabled)).toBe(true);

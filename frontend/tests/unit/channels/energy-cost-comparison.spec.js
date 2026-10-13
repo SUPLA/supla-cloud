@@ -71,16 +71,14 @@ describe('tariff comparison interactions', () => {
   it('disables suggestions beyond 31 days and accepts exactly 31 days', async () => {
     const suggest = vi.spyOn(energyCostApi, 'suggestTariff').mockResolvedValue(suggestion);
     const {wrapper} = await setup();
-    expect(wrapper.get('.energy-cost-alternative-header .energy-cost-suggest').text()).toBe('');
+    expect(wrapper.get('.energy-cost-alternative-header .energy-cost-suggest').text()).toBe('Find the cheapest');
     expect(wrapper.get('.energy-cost-suggest fa-stub').attributes('icon')).toBe('wand-magic-sparkles');
-    expect(wrapper.get('.energy-cost-suggest').element.parentElement.title).toBe('Suggest the cheapest');
     const from = '2026-07-01T00:00:00Z';
     const to = new Date(Date.parse(from) + 31 * 86400 * 1000).toISOString();
     await wrapper.setProps({range: {from, to}});
     expect(wrapper.get('.energy-cost-suggest').element.disabled).toBe(false);
     await wrapper.setProps({range: {from, to: new Date(Date.parse(to) + 1000).toISOString()}});
     expect(wrapper.get('.energy-cost-suggest').element.disabled).toBe(true);
-    expect(wrapper.get('.energy-cost-suggest').element.parentElement.title).toBe('Tariff suggestions are available for periods of up to 31 days.');
     await wrapper.get('.energy-cost-suggest').trigger('click');
     expect(suggest).not.toHaveBeenCalled();
   });
@@ -211,49 +209,44 @@ describe('tariff comparison interactions', () => {
     expect(aggregation().element.value).toBe('day');
     expect(wrapper.findComponent(ComparisonChart).props('buckets')).toHaveLength(1);
   });
-  it.each([null, '10'])('keeps the Cost Report total before, during and after tariff selection with periodic costs %s', async (periodic) => {
-    const baseline = calculation('100', periodic);
-    baseline.reportSummary = {costs: {gross: {total: '112', periodic: {total: periodic ?? '0'}}}, fixedChargesComplete: periodic !== null};
+  it('displays usage-based costs when fixed charges are incomplete, even when reported totals differ', async () => {
+    const baseline = calculation('100');
+    baseline.costs.gross.total = '120';
+    baseline.costs.gross.periodic.total = '20';
+    baseline.reportSummary = {costs: {gross: {total: '999', periodic: {total: '20'}}}, fixedChargesComplete: false};
     const {wrapper, select, simulate} = await setup(baseline);
     const currentPlan = () => wrapper.get('.col-sm-6 section');
-    expect(currentPlan().get('strong').text()).toBe('112.00 PLN');
-    const subtitle = periodic === null ? 'Gross cost, without fixed charges' : 'Gross cost, including fixed charges';
-    expect(currentPlan().get('small').text()).toBe(subtitle);
-    let resolve;
-    simulate.mockReturnValueOnce(
-      new Promise((done) => {
-        resolve = done;
-      })
-    );
+    simulate.mockResolvedValue({...calculation('80'), costs: {gross: {usageBased: {total: '80'}, periodic: {total: '10'}, total: '90'}}});
     await select();
-    expect(currentPlan().get('strong').text()).toBe('112.00 PLN');
-    resolve({
-      ...calculation('80', periodic),
-      reportSummary: {costs: {gross: {total: '102', periodic: {total: periodic ?? '0'}}}, fixedChargesComplete: periodic !== null},
-    });
-    await flushPromises();
-    expect(wrapper.text()).toContain('Savings:');
-    expect(currentPlan().get('strong').text()).toBe('112.00 PLN');
-    expect(currentPlan().get('small').text()).toBe(subtitle);
+    expect(wrapper.text()).toContain('Savings: 20.00 PLN');
+    expect(currentPlan().get('strong').text()).toBe('100.00 PLN');
+    expect(currentPlan().get('small').text()).toBe('Usage-based cost (gross)');
     const alternativePlan = wrapper.findAll('.energy-cost-scenario')[1];
-    expect(alternativePlan.get('strong').text()).toBe('102.00 PLN');
-    expect(alternativePlan.get('small').text()).toBe(currentPlan().get('small').text());
-    await select('');
-    expect(currentPlan().get('strong').text()).toBe('112.00 PLN');
+    expect(alternativePlan.get('strong').text()).toBe('80.00 PLN');
+    expect(alternativePlan.get('small').text()).toBe('Usage-based cost (gross)');
+    expect(wrapper.text()).toContain('Fixed charges are not included.');
   });
-  it('labels partial and zero fixed charges independently in the two simulation boxes', async () => {
-    const baseline = calculation();
-    baseline.reportSummary = {costs: {gross: {total: '112', periodic: {total: '12'}}}, fixedChargesComplete: false};
+  it('displays full gross costs when both complete billing results are comparable', async () => {
+    const baseline = calculation('100', '50');
     const {wrapper, select, simulate} = await setup(baseline);
-    simulate.mockResolvedValue({
-      ...calculation('80'),
-      reportSummary: {costs: {gross: {total: '80', periodic: {total: '0'}}}, fixedChargesComplete: false},
-    });
+    simulate.mockResolvedValue(calculation('80', '50'));
     await select();
+    expect(wrapper.findAll('.energy-cost-scenario strong').map((amount) => amount.text())).toEqual(['150.00 PLN', '130.00 PLN']);
     expect(wrapper.findAll('.energy-cost-scenario small').map((subtitle) => subtitle.text())).toEqual([
-      'Gross cost, including some fixed charges',
-      'Gross cost, without fixed charges',
+      'Total gross cost, including fixed charges',
+      'Total gross cost, including fixed charges',
     ]);
+    expect(wrapper.text()).toContain('Savings: 20.00 PLN');
+  });
+  it('does not show primary comparison amounts or savings when results are not comparable', async () => {
+    const {wrapper, select, simulate} = await setup();
+    const alternative = calculation('80');
+    alternative.currency = 'EUR';
+    simulate.mockResolvedValue(alternative);
+    await select();
+    expect(wrapper.text()).toContain('These tariffs use different currencies and cannot be compared.');
+    expect(wrapper.text()).not.toContain('Savings:');
+    expect(wrapper.findAll('.energy-cost-scenario-price')).toHaveLength(0);
   });
   it('renders the actual historical baseline and simulates without persistence', async () => {
     const {wrapper, store, select, simulate, assign} = await setup();
@@ -304,7 +297,7 @@ describe('tariff comparison interactions', () => {
     simulate.mockRejectedValue({body: {message: 'Rates unavailable'}});
     await select();
     expect(wrapper.text()).toContain('This tariff could not be calculated for the selected period.');
-    expect(wrapper.text()).toContain('100.00 PLN');
+    expect(wrapper.text()).not.toContain('100.00 PLN');
     await wrapper.setProps({baseline: null, baselineError: 'Baseline unavailable'});
     expect(wrapper.text()).toContain('Baseline unavailable');
   });

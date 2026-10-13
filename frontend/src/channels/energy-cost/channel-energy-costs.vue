@@ -179,3 +179,11 @@
     <energy-cost-plan-dialog v-if="dialogMounted" v-model="dialogOpened" :plan="dialogPlan" :channel-id="channel.id" @saved="saved" @deleted="load" />
   </div>
 </template>
+
+<style>
+  @media print {
+    .energy-cost-assigned-plan {
+      display: none;
+    }
+  }
+</style>

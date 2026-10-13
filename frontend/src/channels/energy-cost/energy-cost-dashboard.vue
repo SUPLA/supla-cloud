@@ -321,7 +321,10 @@
 
 <template>
   <section class="energy-cost-dashboard mt-4">
-    <loading-cover :loading="view === 'report' && (loading || chartWorking || chartRendering || heatmapRendering)" :debounce="0">
+    <loading-cover
+      :loading="(view === 'report' && (loading || chartWorking || chartRendering || heatmapRendering)) || (view === 'comparison' && comparisonLoading)"
+      :debounce="0"
+    >
       <energy-cost-range-selector
         :disabled="costRequestLoading"
         :model-value="range"

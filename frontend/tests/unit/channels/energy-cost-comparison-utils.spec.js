@@ -8,19 +8,58 @@ describe('financial comparison', () => {
     ['120', '-20', -20],
     ['100', '0', 0],
   ])('calculates savings for %s', (alternative, savings, percentage) => {
-    expect(compareCalculations(calculation(), calculation(alternative), range)).toMatchObject({comparable: true, full: false, savings, percentage});
+    expect(compareCalculations(calculation(), calculation(alternative), range)).toMatchObject({
+      comparable: true,
+      full: false,
+      costBasis: 'usageBasedGross',
+      savings,
+      percentage,
+    });
   });
   it('does not divide by a zero baseline', () => {
     expect(compareCalculations(calculation('0'), calculation('10'), range)).toMatchObject({savings: '-10', percentage: null});
   });
   it('uses full gross totals only for two complete billing results', () => {
     const current = monthlyCalculation();
-    expect(compareCalculations(current, monthlyCalculation('1', '200'), current.range)).toMatchObject({full: true, savings: '-10'});
+    expect(compareCalculations(current, monthlyCalculation('1', '200'), current.range)).toMatchObject({
+      full: true,
+      costBasis: 'fullGross',
+      savings: '-10',
+    });
   });
   it.each([null, undefined])('does not treat missing periodic costs as zero: %s', (missing) => {
     const alternative = calculation('80', '30');
     alternative.costs.gross.periodic.total = missing;
     expect(compareCalculations(calculation('100', '10'), alternative, range)).toMatchObject({full: false, savings: '20'});
+  });
+  it('uses usage-based amounts when only one result has complete fixed charges', () => {
+    const alternative = calculation('80');
+    alternative.costs.gross.periodic.total = '10';
+    alternative.costs.gross.total = '90';
+    expect(compareCalculations(calculation('100', '20'), alternative, range)).toMatchObject({
+      comparable: true,
+      costBasis: 'usageBasedGross',
+      current: '100',
+      alternative: '80',
+      savings: '20',
+    });
+  });
+  it('ignores partial totals and report summaries when comparing incomplete fixed charges', () => {
+    const current = calculation('100');
+    const alternative = calculation('80');
+    current.costs.gross.periodic.total = '20';
+    current.costs.gross.total = '120';
+    alternative.costs.gross.periodic.total = '10';
+    alternative.costs.gross.total = '90';
+    current.reportSummary = {costs: {gross: {total: '999'}}, fixedChargesComplete: false};
+    alternative.reportSummary = {costs: {gross: {total: '1'}}, fixedChargesComplete: false};
+    expect(compareCalculations(current, alternative, range)).toMatchObject({
+      comparable: true,
+      costBasis: 'usageBasedGross',
+      current: '100',
+      alternative: '80',
+      savings: '20',
+    });
   });
   it('falls back when a billing period is partial', () => {
     const alternative = calculation('80', '30');

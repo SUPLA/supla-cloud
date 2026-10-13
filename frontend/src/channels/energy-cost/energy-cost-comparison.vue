@@ -15,7 +15,6 @@
   import {
     allowsHourlyAggregation,
     formatDecimal,
-    grossCostLabel,
     incompleteFixedChargePeriods,
     periodicCostsUnavailable,
     preferredGranularity,
@@ -62,9 +61,6 @@
     const to = DateTime.fromISO(props.range.to, {zone: props.plan.configuration.timezone});
     return from.isValid && to.isValid && to > from && to <= from.plus({days: 31});
   });
-  const suggestionTooltip = computed(() =>
-    suggestionAllowed.value ? t('Suggest the cheapest') : t('Tariff suggestions are available for periods of up to 31 days.')
-  );
   const suggestionCostLabels = computed(() =>
     Object.fromEntries(
       suggestions.value.map((result) => [
@@ -120,12 +116,13 @@
   const starterLabel = computed(() => (starter.value ? tariffCatalogPresentation(starter.value, t).label : t('Choose tariff')));
   const comparison = computed(() => compareCalculations(props.baseline, alternative.value, props.range));
   const noLogs = computed(() => props.baseline?.processedDeltaCount === 0 || alternative.value?.processedDeltaCount === 0);
-  const baselineTotal = computed(() => props.baseline?.reportSummary?.costs?.gross?.total ?? props.baseline?.costs?.gross?.total ?? null);
-  const alternativeTotal = computed(() => alternative.value?.reportSummary?.costs?.gross?.total ?? alternative.value?.costs?.gross?.total ?? null);
   const requestLoading = computed(() => loading.value || suggesting.value);
   watch(requestLoading, (value) => emit('update:loading', value), {immediate: true});
   const busy = computed(() => requestLoading.value || props.baselineLoading);
   const evaluated = computed(() => !busy.value && comparison.value.comparable);
+  const comparisonCostLabel = computed(() =>
+    comparison.value.costBasis === 'fullGross' ? 'Total gross cost, including fixed charges' : 'Usage-based cost (gross)'
+  );
   const granularity = ref('day');
   const hourlyAggregationAllowed = computed(() => allowsHourlyAggregation(props.range.from, props.range.to, props.plan.configuration.timezone));
   watch(
@@ -205,9 +202,9 @@
             <li v-for="(period, index) in presentation.history" :key="index">{{ period.label }} — {{ period.effectiveDates }}</li>
           </ul>
           <p v-if="baselineError" class="text-danger">{{ $t(baselineError) }}</p>
-          <div v-if="!noLogs" class="energy-cost-scenario-price">
-            <strong>{{ baselineLoading ? '—' : money(baselineTotal) }}</strong>
-            <small>{{ $t(grossCostLabel(baseline)) }}</small>
+          <div v-if="evaluated" class="energy-cost-scenario-price">
+            <strong>{{ money(comparison.current) }}</strong>
+            <small>{{ $t(comparisonCostLabel) }}</small>
           </div>
         </section>
       </div>
@@ -215,18 +212,15 @@
         <section class="well energy-cost-scenario">
           <div class="energy-cost-alternative-header">
             <h3>{{ $t('Alternative tariff') }}</h3>
-            <span :title="suggestionTooltip" :tabindex="!suggestionAllowed || busy ? 0 : undefined">
-              <button
-                type="button"
-                class="btn btn-default energy-cost-suggest"
-                :disabled="!suggestionAllowed || busy"
-                :aria-label="suggestionTooltip"
-                :aria-busy="suggesting"
-                @click="suggestTariff"
-              >
-                <fa icon="wand-magic-sparkles" />
-              </button>
-            </span>
+            <button
+              type="button"
+              class="btn btn-default energy-cost-suggest"
+              :disabled="!suggestionAllowed || busy"
+              :aria-busy="suggesting"
+              @click="suggestTariff"
+            >
+              <fa icon="wand-magic-sparkles" /> {{ $t('Find the cheapest') }}
+            </button>
           </div>
           <span class="label label-info">{{ $t('Simulation') }}</span>
           <energy-cost-tariff-picker
@@ -238,9 +232,9 @@
             hide-label
           />
           <p v-if="suggestionError" class="text-danger mt-2" role="alert">{{ $t(suggestionError) }}</p>
-          <div v-if="!noLogs" class="energy-cost-scenario-price">
-            <strong>{{ money(alternativeTotal, alternative?.currency) }}</strong>
-            <small>{{ $t(grossCostLabel(alternative)) }}</small>
+          <div v-if="evaluated" class="energy-cost-scenario-price">
+            <strong>{{ money(comparison.alternative, alternative?.currency) }}</strong>
+            <small>{{ $t(comparisonCostLabel) }}</small>
           </div>
         </section>
       </div>
@@ -305,7 +299,7 @@
                 v-for="[key, label] in [
                   ['usageBased', 'Usage-based cost'],
                   ['periodic', 'Fixed charges'],
-                  ['total', 'Total gross cost'],
+                  ['total', comparison.full ? 'Total gross cost' : 'Reported total gross cost (not compared)'],
                 ]"
                 :key="key"
               >
@@ -361,10 +355,6 @@
 
   .energy-cost-alternative-header > h3 {
     margin-top: 0;
-  }
-
-  .energy-cost-suggest:disabled {
-    pointer-events: none;
   }
 
   .energy-cost-scenarios {

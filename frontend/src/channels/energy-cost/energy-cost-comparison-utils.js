@@ -83,6 +83,7 @@ export function compareCalculations(current, alternative, requestedRange) {
   return {
     comparable: true,
     full,
+    costBasis: full ? 'fullGross' : 'usageBasedGross',
     current: amount(current),
     alternative: amount(alternative),
     savings,
