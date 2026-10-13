@@ -53,6 +53,7 @@
         ...components.map((name) => ({name, type: 'bar', data: props.buckets.map((bucket) => Number(formatDecimal(bucket.byComponent[name] || 0)))})),
         ...energySeries,
       ],
+      stroke: {width: [...components.map(() => 0), ...energySeries.map(() => 2)]},
       xaxis: {
         categories: props.buckets.map((bucket) => new Date(bucket.from).getTime()),
         type: 'datetime',

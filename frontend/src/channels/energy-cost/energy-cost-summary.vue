@@ -9,7 +9,7 @@
 <script setup>
   import {computed} from 'vue';
   import {useI18n} from 'vue-i18n';
-  import {formatDecimal, selectedRangeLabel, summaryFromResult} from './energy-cost-result-utils';
+  import {formatDecimal, grossCostLabel, selectedRangeLabel, summaryFromResult} from './energy-cost-result-utils';
 
   const props = defineProps({result: {type: Object, required: true}, range: Object, timezone: {type: String, default: 'UTC'}});
   const emit = defineEmits(['align-billing-periods']);
@@ -30,7 +30,7 @@
       <h3>{{ $t('Total expenses for the selected period') }}</h3>
       <p v-if="selectedRange" class="text-muted">{{ rangeLabel }}</p>
       <strong>{{ money(total) }}</strong>
-      <small>{{ $t('Gross cost, including fixed charges') }}</small>
+      <small>{{ $t(grossCostLabel(result)) }}</small>
       <div v-if="missingFixedCharges" class="energy-cost-total-alignment-hint text-muted mt-2">
         {{ $t('Some fixed charges are not included because the selected date range does not cover complete billing periods.') }}
         <span v-if="partialPeriods">{{

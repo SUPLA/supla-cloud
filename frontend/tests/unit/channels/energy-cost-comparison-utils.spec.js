@@ -27,6 +27,38 @@ describe('financial comparison', () => {
     alternative.billingPeriods[0].fullyCovered = false;
     expect(compareCalculations(calculation('100', '10'), alternative, range).full).toBe(false);
   });
+  it('compares a full current month using identical available logs before the month ends', () => {
+    const current = monthlyCalculation();
+    const alternative = monthlyCalculation('1', '200');
+    for (const result of [current, alternative]) {
+      result.intervals = result.intervals.slice(0, 100);
+      result.charges = result.charges.slice(0, 100);
+      result.processedDeltaCount = 100;
+      result.costs.gross.usageBased.total = result === current ? '100' : '80';
+      result.costs.gross.total = result === current ? '110' : '280';
+    }
+    expect(compareCalculations(current, alternative, current.range)).toMatchObject({comparable: true, full: true, savings: '-170'});
+  });
+  it('compares identical available logs when both results have leading, internal and trailing gaps', () => {
+    const current = monthlyCalculation();
+    const alternative = monthlyCalculation('1');
+    for (const result of [current, alternative]) {
+      result.intervals = [result.intervals[10], result.intervals[20]];
+      result.processedDeltaCount = 2;
+      result.warnings = [{code: 'MISSING_METER_DATA'}];
+      result.incomplete = true;
+    }
+    expect(compareCalculations(current, alternative, current.range)).toMatchObject({comparable: true, full: true});
+  });
+  it('still rejects charge calculation failures alongside missing measurements', () => {
+    const alternative = calculation('80');
+    alternative.warnings = [{code: 'MISSING_METER_DATA'}, {code: 'MISSING_PRICE'}];
+    alternative.incomplete = true;
+    expect(compareCalculations(calculation(), alternative, range)).toMatchObject({
+      comparable: false,
+      reason: 'Some logs could not be calculated. Results cannot be directly compared.',
+    });
+  });
   it.each(['incomplete', 'empty', 'differentRange', 'shortenedBoth', 'gap', 'differentReadings', 'currency', 'missingAmount'])(
     'rejects unsafe comparisons: %s',
     (problem) => {

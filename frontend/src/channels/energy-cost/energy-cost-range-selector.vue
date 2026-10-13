@@ -10,6 +10,7 @@
   import {computed, ref, watch} from 'vue';
   import {DateTime} from 'luxon';
   import SimpleDropdown from '@/common/gui/simple-dropdown.vue';
+  import {billingCycleRange} from './energy-cost-plan-utils';
 
   const props = defineProps({
     modelValue: {type: Object, required: true},
@@ -49,36 +50,21 @@
     ...(props.billingCycles.length ? ['billingCycle', 'previousBillingCycle'] : []),
   ]);
 
-  function billingCycleRange(now, previous = false) {
-    const cycle = props.billingCycles.find((item) => {
-      const validFrom = item.validFrom && DateTime.fromISO(item.validFrom, {zone: props.timezone});
-      const validTo = item.validTo && DateTime.fromISO(item.validTo, {zone: props.timezone});
-      return (!validFrom || validFrom <= now) && (!validTo || now < validTo);
-    });
-    if (!cycle) return null;
-    const duration = {[`${cycle.unit.toLowerCase()}s`]: Number(cycle.length)};
-    let start = DateTime.fromISO(cycle.anchor, {zone: props.timezone}).startOf('day');
-    while (start.plus(duration) <= now) start = start.plus(duration);
-    if (previous) start = start.minus(duration);
-    return [start, start.plus(duration)];
-  }
-
   function rangesFor(now) {
     const current = now.startOf('day');
-    const latestCompleteHour = now.startOf('hour');
-    const currentBillingCycle = billingCycleRange(now);
+    const currentBillingCycle = billingCycleRange(now, props.billingCycles, props.timezone);
     return {
-      today: [current, latestCompleteHour],
+      today: [current, current.plus({days: 1})],
       yesterday: [current.minus({days: 1}), current],
-      week: [now.startOf('week'), latestCompleteHour],
+      week: [now.startOf('week'), now.startOf('week').plus({weeks: 1})],
       previousWeek: [now.startOf('week').minus({weeks: 1}), now.startOf('week')],
-      month: [now.startOf('month'), latestCompleteHour],
+      month: [now.startOf('month'), now.startOf('month').plus({months: 1})],
       previousMonth: [now.startOf('month').minus({months: 1}), now.startOf('month')],
-      threeMonths: [now.startOf('month').minus({months: 2}), latestCompleteHour],
-      year: [now.startOf('year'), latestCompleteHour],
+      threeMonths: [now.startOf('month').minus({months: 2}), now.startOf('month').plus({months: 1})],
+      year: [now.startOf('year'), now.startOf('year').plus({years: 1})],
       previousYear: [now.startOf('year').minus({years: 1}), now.startOf('year')],
-      billingCycle: currentBillingCycle && [currentBillingCycle[0], currentBillingCycle[1] < latestCompleteHour ? currentBillingCycle[1] : latestCompleteHour],
-      previousBillingCycle: billingCycleRange(now, true),
+      billingCycle: currentBillingCycle,
+      previousBillingCycle: billingCycleRange(now, props.billingCycles, props.timezone, true),
     };
   }
 

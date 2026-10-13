@@ -1,6 +1,14 @@
 import {aggregateCharges, aggregateChargesByWeekdayAndHour, aggregateEnergy, aggregateImportedEnergyByWeekdayAndHour} from './energy-cost-result-utils';
 
-self.onmessage = ({data: {charges, intervals, granularity, timezone, request}}) => {
+self.onmessage = ({data: {charges, intervals, granularity, timezone, request, heatmapsOnly}}) => {
+  if (heatmapsOnly) {
+    self.postMessage({
+      request,
+      heatmapBuckets: aggregateChargesByWeekdayAndHour(charges, timezone),
+      heatmapEnergyBuckets: aggregateImportedEnergyByWeekdayAndHour(intervals, timezone),
+    });
+    return;
+  }
   const granularities = ['hour', 'day', 'month'];
   let effectiveGranularity = granularity;
   let buckets;

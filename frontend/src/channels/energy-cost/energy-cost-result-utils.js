@@ -40,6 +40,12 @@ export function formatDecimal(value) {
   return roundDecimal(normalized, fraction.search(/[1-9]/) + 1);
 }
 
+export function allowsHourlyAggregation(from, to, timezone) {
+  const start = DateTime.fromISO(from, {zone: timezone});
+  const end = DateTime.fromISO(to, {zone: timezone});
+  return start.isValid && end.isValid && end > start && end <= start.plus({months: 1});
+}
+
 export function preferredGranularity(from, to, timezone) {
   const hours = DateTime.fromISO(to, {zone: timezone}).diff(DateTime.fromISO(from, {zone: timezone}), 'hours').hours;
   if (hours <= 48) return 'hour';
@@ -58,6 +64,14 @@ export function selectedRangeLabel(range, timezone, locale = 'en') {
 
 export const periodicCostsUnavailable = (result) =>
   result?.reportSummary ? !result.reportSummary.fixedChargesComplete : result?.processedDeltaCount > 0 && result.costs?.gross?.periodic?.total === null;
+
+export function grossCostLabel(result) {
+  // i18n:["Gross cost", "Gross cost, without fixed charges", "Gross cost, including some fixed charges", "Gross cost, including fixed charges"]
+  const fixedCharges = (result?.reportSummary?.costs || result?.costs)?.gross?.periodic?.total;
+  if (fixedCharges === null || fixedCharges === undefined) return 'Gross cost';
+  if (/^[+-]?0+(?:\.0+)?$/.test(String(fixedCharges))) return 'Gross cost, without fixed charges';
+  return result.reportSummary?.fixedChargesComplete === false ? 'Gross cost, including some fixed charges' : 'Gross cost, including fixed charges';
+}
 
 export function summaryFromResult(result) {
   const costs = result?.reportSummary?.costs || result?.costs || {};

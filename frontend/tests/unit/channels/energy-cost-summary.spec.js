@@ -31,6 +31,7 @@ describe('report total expenses', () => {
     const wrapper = summary(result);
     const total = wrapper.get('.energy-cost-total-expenses');
     expect(total.get('strong').text()).toBe('100.00 PLN');
+    expect(total.get('small').text()).toBe('Gross cost, without fixed charges');
     expect(total.text()).toContain('01 Sep 2026, 02:00');
     expect(total.text()).toContain('Some fixed charges are not included');
     expect(total.get('button').text()).toBe('Expand');
@@ -49,6 +50,7 @@ describe('report total expenses', () => {
     };
     const wrapper = summary(result);
     expect(wrapper.get('.energy-cost-total-expenses strong').text()).toBe('135.30 PLN');
+    expect(wrapper.get('.energy-cost-total-expenses small').text()).toBe('Gross cost, including some fixed charges');
     expect(wrapper.get('.energy-cost-total-expenses button').text()).toBe('Align');
     expect(wrapper.get('.energy-cost-summary').text()).toContain('12.30 PLN');
     expect(wrapper.get('.energy-cost-summary').text()).toContain('25.30 PLN');
@@ -61,6 +63,7 @@ describe('report total expenses', () => {
     result.reportSummary = {costs: result.costs, fixedChargesComplete: true};
     const wrapper = summary(result);
     expect(wrapper.get('.energy-cost-total-expenses strong').text()).toBe('100.00 PLN');
+    expect(wrapper.get('.energy-cost-total-expenses small').text()).toBe('Gross cost, without fixed charges');
     expect(wrapper.find('.energy-cost-total-alignment-hint').exists()).toBe(false);
     expect(wrapper.get('.energy-cost-summary').text()).toContain('0.00 PLN');
   });

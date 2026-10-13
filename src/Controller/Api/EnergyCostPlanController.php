@@ -117,13 +117,16 @@ class EnergyCostPlanController extends RestController {
     }
 
     /**
-     * @OA\Get(path="/energy-cost-plan-starters", operationId="getEnergyCostPlanStarters", summary="Get energy cost plan starters", tags={"Energy cost"}, @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(type="object"))))
+     * @OA\Get(path="/energy-cost-plan-starters", operationId="getEnergyCostPlanStarters", summary="Get all energy cost plan starter recipes", tags={"Energy cost"}, @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/EnergyCostPlanStarter"))))
      * @Rest\Get("/energy-cost-plan-starters")
      * @Security("is_granted('ROLE_CHANNELS_R')")
      */
     public function getEnergyCostPlanStartersAction(): View {
         try {
-            return $this->view($this->starterCatalog->starters());
+            return $this->view(array_map(function (array $metadata): array {
+                $starter = $this->starterCatalog->get($metadata['id']);
+                return [...$metadata, 'metadata' => $starter->metadata, 'components' => $starter->components];
+            }, $this->starterCatalog->starters()));
         } catch (CostPlanStarterNotFoundException | InvalidCostPlanStarterException $exception) {
             $this->throwStarterException($exception);
         }

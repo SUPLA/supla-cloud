@@ -194,6 +194,21 @@ export function billingCyclesCoverPeriod(period, billingCycles) {
   return cursor === expectedEnd;
 }
 
+export function billingCycleRange(now, billingCycles, timezone, previous = false) {
+  const cycle = billingCycles.find((item) => {
+    const validFrom = item.validFrom && DateTime.fromISO(item.validFrom, {zone: timezone});
+    const validTo = item.validTo && DateTime.fromISO(item.validTo, {zone: timezone});
+    return (!validFrom || validFrom <= now) && (!validTo || now < validTo);
+  });
+  if (!cycle) return null;
+  const duration = {[`${cycle.unit.toLowerCase()}s`]: Number(cycle.length)};
+  let start = DateTime.fromISO(cycle.anchor, {zone: timezone}).startOf('day');
+  while (start.plus(duration) <= now) start = start.plus(duration);
+  while (start > now) start = start.minus(duration);
+  if (previous) start = start.minus(duration);
+  return [start, start.plus(duration)];
+}
+
 export function alignedBillingPeriodRange(range, billingCycles, timezone, availableTo = range.to) {
   const rangeFrom = DateTime.fromISO(range.from, {zone: timezone});
   const rangeTo = DateTime.fromISO(range.to, {zone: timezone});

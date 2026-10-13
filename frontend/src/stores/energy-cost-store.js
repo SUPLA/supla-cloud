@@ -67,6 +67,7 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
       .getPlanStarters()
       .then((response) => {
         tariffs.value = response;
+        tariffDetailsById.value = Object.fromEntries(response.map((tariff) => [tariff.id, tariff]));
         tariffsReady.value = true;
         return response;
       })
@@ -78,8 +79,8 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
     if (tariffDetailsById.value[id]) return Promise.resolve(tariffDetailsById.value[id]);
     if (!fetchTariff.promises) fetchTariff.promises = {};
     if (!fetchTariff.promises[id]) {
-      fetchTariff.promises[id] = energyCostApi
-        .getPlanStarter(id)
+      fetchTariff.promises[id] = fetchTariffs()
+        .then(() => tariffDetailsById.value[id] || energyCostApi.getPlanStarter(id))
         .then((tariff) => {
           tariffDetailsById.value = {...tariffDetailsById.value, [id]: tariff};
           return tariff;
@@ -91,8 +92,7 @@ export const useEnergyCostStore = defineStore('energyCost', () => {
 
   // Presentation is optional: unavailable descriptive metadata must not block assigned-plan calculations.
   const fetchPresentationCatalogs = async () => {
-    const [catalog] = await Promise.allSettled([fetchTariffs(), fetchPresets()]);
-    if (catalog.status === 'fulfilled') await Promise.allSettled(catalog.value.map((starter) => fetchTariff(starter.id)));
+    await Promise.allSettled([fetchTariffs(), fetchPresets()]);
   };
 
   const fetchPlans = (force = false) => {

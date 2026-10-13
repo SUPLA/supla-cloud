@@ -64,12 +64,26 @@ class EnergyCostPlanControllerIntegrationTest extends IntegrationTestCase {
 
         $client->apiRequestV24('GET', '/api/energy-cost-plan-starters');
         $this->assertStatusCode(200, $client->getResponse());
-        $this->assertSame($catalog->starters(), json_decode($client->getResponse()->getContent(), true));
+        $starters = json_decode($client->getResponse()->getContent(), true);
+        $this->assertCount(count($catalog->starters()), $starters);
+        foreach ($catalog->starters() as $index => $metadata) {
+            $starter = $catalog->get($metadata['id']);
+            $this->assertSame($metadata, array_diff_key($starters[$index], ['metadata' => true, 'components' => true]));
+            $this->assertSame($starter->metadata, $starters[$index]['metadata']);
+            $this->assertSame($starter->components, $starters[$index]['components']);
+        }
 
         $starterId = 'PL.STARTER.PGE_DYSTRYBUCJA.G12';
         $client->apiRequestV24('GET', '/api/energy-cost-plan-starters/' . $starterId);
         $this->assertStatusCode(200, $client->getResponse());
         $starter = $catalog->get($starterId);
+        $listedStarter = array_values(array_filter($starters, fn(array $item): bool => $item['id'] === $starterId))[0];
+        $this->assertSame([
+            'id' => $listedStarter['id'],
+            'revision' => $listedStarter['revision'],
+            'metadata' => $listedStarter['metadata'],
+            'components' => $listedStarter['components'],
+        ], json_decode($client->getResponse()->getContent(), true));
         $this->assertSame([
             'id' => $starter->id,
             'revision' => $starter->revision,

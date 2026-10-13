@@ -20,11 +20,12 @@
   import EnergyCostSummary from './energy-cost-summary.vue';
   import EnergyCostChart from './energy-cost-chart.vue';
   import EnergyCostHeatmap from './energy-cost-heatmap.vue';
+  import EnergyCostHeatmapPanel from './energy-cost-heatmap-panel.vue';
   import EnergyCostBreakdown from './energy-cost-breakdown.vue';
   import EnergyCostDetails from './energy-cost-details.vue';
   import EnergyCostComparison from './energy-cost-comparison.vue';
-  import {componentInputsOutsidePricePeriods, pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
-  import {periodicCostsUnavailable, preferredGranularity, selectedRangeLabel} from './energy-cost-result-utils';
+  import {billingCycleRange, componentInputsOutsidePricePeriods, pricePeriodsForComponent, presetDefault} from './energy-cost-plan-utils';
+  import {allowsHourlyAggregation, periodicCostsUnavailable, preferredGranularity, selectedRangeLabel} from './energy-cost-result-utils';
   import {useEnergyCostStore} from '@/stores/energy-cost-store';
 
   const props = defineProps({channel: {type: Object, required: true}, plan: {type: Object, required: true}, assignedPlanId: Number});
@@ -45,7 +46,11 @@
   const storageKey = computed(() => `energy-cost-range:${props.channel.id}`);
   const defaultRange = () => {
     const now = DateTime.now().setZone(timezone.value);
-    return {from: now.startOf('month').toISO(), to: now.startOf('hour').toISO()};
+    const [from, to] = billingCycleRange(now, props.plan.configuration?.billingCycles || [], timezone.value) || [
+      now.startOf('month'),
+      now.startOf('month').plus({months: 1}),
+    ];
+    return {from: from.toISO(), to: to.toISO()};
   };
   const rangeFromUrl = () => {
     const {energyCostFrom: from, energyCostTo: to} = route.query;
@@ -60,7 +65,10 @@
   const result = ref(null);
   const calculationWarnings = computed(() => (result.value?.warnings || []).filter((warning) => warning.code !== 'MISSING_METER_DATA'));
   const missingMeterData = computed(() => result.value?.warnings?.some((warning) => warning.code === 'MISSING_METER_DATA'));
-  const view = ref('report');
+  const viewFromUrl = () => (route.query.energyCostView === 'comparison' && props.plan.id === props.assignedPlanId ? 'comparison' : 'report');
+  const tariffFromUrl = () => (typeof route.query.energyCostTariff === 'string' ? route.query.energyCostTariff : '');
+  const view = ref(viewFromUrl());
+  const selectedTariffId = ref(tariffFromUrl());
   const alternativePeriodicCostsUnavailable = ref(false);
   const showBillingPeriodWarning = computed(
     () => view.value === 'comparison' && (periodicCostsUnavailable(result.value) || alternativePeriodicCostsUnavailable.value)
@@ -70,6 +78,7 @@
   const noLogsError = 'No logs are available for the selected range.';
   const errorAlertClass = computed(() => (error.value === noLogsError ? 'alert-info' : 'alert-danger'));
   const granularity = ref('day');
+  const hourlyAggregationAllowed = computed(() => allowsHourlyAggregation(range.value.from, range.value.to, timezone.value));
   const availableRange = ref(null);
   const usageRangePartial = computed(
     () =>
@@ -193,6 +202,20 @@
     });
   }
 
+  function viewQuery() {
+    const query = {...route.query, energyCostView: view.value};
+    if (selectedTariffId.value) query.energyCostTariff = selectedTariffId.value;
+    else delete query.energyCostTariff;
+    return query;
+  }
+  function setView(next) {
+    view.value = next;
+    router.replace({query: viewQuery()});
+  }
+  function setSelectedTariff(id) {
+    selectedTariffId.value = id;
+    router.replace({query: viewQuery()});
+  }
   function setRange(next) {
     const fitted = validatedRange(next);
     if (!fitted) {
@@ -205,7 +228,7 @@
     const urlFrom = DateTime.fromISO(fitted.from, {setZone: true}).setZone(timezone.value).toISODate();
     const urlTo = DateTime.fromISO(fitted.to, {setZone: true}).setZone(timezone.value).minus({milliseconds: 1}).toISODate();
     if (route.query.energyCostFrom !== urlFrom || route.query.energyCostTo !== urlTo) {
-      router.replace({query: {...route.query, energyCostFrom: urlFrom, energyCostTo: urlTo}});
+      router.replace({query: {...viewQuery(), energyCostFrom: urlFrom, energyCostTo: urlTo}});
     }
     granularity.value = preferredGranularity(fitted.from, fitted.to, timezone.value);
   }
@@ -271,6 +294,16 @@
     {deep: true}
   );
   watch([result, granularity, timezone, view], prepareChart, {deep: true});
+  watch(
+    () => [route.query.energyCostView, route.query.energyCostTariff],
+    () => {
+      view.value = viewFromUrl();
+      selectedTariffId.value = tariffFromUrl();
+    }
+  );
+  watch(hourlyAggregationAllowed, (allowed) => {
+    if (!allowed && granularity.value === 'hour') granularity.value = preferredGranularity(range.value.from, range.value.to, timezone.value);
+  });
   watch(tariffPeriods, loadPresetDetails, {deep: true, immediate: true});
   onBeforeUnmount(() => {
     requestToken++;
@@ -283,8 +316,8 @@
 <template>
   <section class="energy-cost-dashboard mt-4">
     <div v-if="!simulating" class="btn-group mb-3 energy-cost-view-selector">
-      <button class="btn btn-default" :class="{active: view === 'report'}" @click="view = 'report'">{{ $t('Cost report') }}</button>
-      <button class="btn btn-default" :class="{active: view === 'comparison'}" @click="view = 'comparison'">{{ $t('Compare tariffs') }}</button>
+      <button class="btn btn-default" :class="{active: view === 'report'}" @click="setView('report')">{{ $t('Cost report') }}</button>
+      <button class="btn btn-default" :class="{active: view === 'comparison'}" @click="setView('comparison')">{{ $t('Compare tariffs') }}</button>
     </div>
     <loading-cover :loading="view === 'report' && (loading || chartWorking || chartRendering || heatmapRendering)" :debounce="0">
       <energy-cost-range-selector
@@ -307,8 +340,10 @@
         :baseline="result"
         :baseline-loading="loading"
         :baseline-error="error"
+        :selected-tariff-id="selectedTariffId"
+        @update:selected-tariff-id="setSelectedTariff"
         @update:periodic-costs-unavailable="alternativePeriodicCostsUnavailable = $event"
-        @applied="view = 'report'"
+        @applied="setView('report')"
       />
       <template v-else>
         <p v-if="result?.processedDeltaCount && chartGranularity && chartGranularity !== granularity" class="text-muted">
@@ -405,7 +440,7 @@
                 <div class="form-inline pull-right">
                   <label class="mr-2">{{ $t('Aggregation') }}</label
                   ><select v-model="granularity" class="form-control">
-                    <option value="hour">{{ $t('Hour') }}</option>
+                    <option v-if="hourlyAggregationAllowed" value="hour">{{ $t('Hour') }}</option>
                     <option value="day">{{ $t('Day') }}</option>
                     <option value="month">{{ $t('Month') }}</option>
                   </select>
@@ -420,38 +455,13 @@
                 @rendering="chartRendering = $event"
               />
             </section>
-            <section class="energy-cost-print-chart energy-cost-interactive-heatmap">
-              <div class="clearfix">
-                <h3 class="pull-left">{{ $t(heatmapMetric === 'usage' ? 'Energy usage by weekday and hour' : 'Gross cost by weekday and hour') }}</h3>
-                <div class="btn-group pull-right">
-                  <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'cost'}" @click="heatmapMetric = 'cost'">
-                    {{ $t('Total cost') }}
-                  </button>
-                  <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'costPerKwh'}" @click="heatmapMetric = 'costPerKwh'">
-                    {{ $t('Cost per kWh') }}
-                  </button>
-                  <button type="button" class="btn btn-default" :class="{active: heatmapMetric === 'usage'}" @click="heatmapMetric = 'usage'">
-                    {{ $t('Energy usage') }}
-                  </button>
-                </div>
-              </div>
-              <p class="text-muted">
-                {{
-                  heatmapMetric === 'cost'
-                    ? $t('When did I spend the most?')
-                    : heatmapMetric === 'usage'
-                      ? $t('When did I use the most energy?')
-                      : $t('When is electricity intrinsically most expensive?')
-                }}
-              </p>
-              <energy-cost-heatmap
-                :buckets="heatmapBuckets"
-                :energy-buckets="heatmapEnergyBuckets"
-                :currency="result.currency"
-                :metric="heatmapMetric"
-                @rendering="heatmapRendering = $event"
-              />
-            </section>
+            <energy-cost-heatmap-panel
+              v-model="heatmapMetric"
+              :buckets="heatmapBuckets"
+              :energy-buckets="heatmapEnergyBuckets"
+              :currency="result.currency"
+              @rendering="heatmapRendering = $event"
+            />
             <div class="energy-cost-print-heatmaps" aria-hidden="true">
               <section v-for="heatmap in printHeatmapMetrics" :key="heatmap.metric" class="energy-cost-print-chart">
                 <h3>{{ $t(heatmap.title) }}</h3>

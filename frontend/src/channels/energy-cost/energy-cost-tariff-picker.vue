@@ -16,6 +16,7 @@
     modelValue: String,
     idPrefix: {type: String, default: 'energy-cost'},
     allowNoTariff: Boolean,
+    hideLabel: Boolean,
   });
   defineEmits(['update:modelValue']);
   const {t} = useI18n();
@@ -31,7 +32,7 @@
 
 <template>
   <div class="energy-cost-tariff-picker form-group">
-    <label :for="`${idPrefix}-tariff`">{{ $t('Tariff') }}</label>
+    <label :for="`${idPrefix}-tariff`" :class="{'sr-only': hideLabel}">{{ $t('Tariff') }}</label>
     <select :id="`${idPrefix}-tariff`" :value="modelValue" class="form-control" @change="$emit('update:modelValue', $event.target.value)">
       <option value="">{{ $t('Choose tariff') }}</option>
       <optgroup v-for="[operator, operatorTariffs] in groupedTariffs" :key="operator" :label="operator">

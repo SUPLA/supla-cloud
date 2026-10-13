@@ -5,7 +5,9 @@ import {
   aggregateChargesByWeekdayAndHour,
   aggregateEnergy,
   aggregateImportedEnergyByWeekdayAndHour,
+  allowsHourlyAggregation,
   formatDecimal,
+  grossCostLabel,
   preferredGranularity,
   selectedRangeLabel,
   summaryFromResult,
@@ -13,6 +15,29 @@ import {
 } from '@/channels/energy-cost/energy-cost-result-utils';
 
 describe('energy cost result utilities', () => {
+  it.each([
+    ['0', false, 'Gross cost, without fixed charges'],
+    ['0.000', true, 'Gross cost, without fixed charges'],
+    ['12.30', false, 'Gross cost, including some fixed charges'],
+    ['12.30', true, 'Gross cost, including fixed charges'],
+    ['0.00000000000000000001', false, 'Gross cost, including some fixed charges'],
+  ])('labels included fixed charges %s with completeness %s', (total, fixedChargesComplete, label) => {
+    expect(grossCostLabel({reportSummary: {costs: {gross: {periodic: {total}}}, fixedChargesComplete}})).toBe(label);
+  });
+  it('does not claim fixed charges are included when their amount is unavailable', () => {
+    expect(grossCostLabel(null)).toBe('Gross cost');
+    expect(grossCostLabel({costs: {gross: {periodic: {total: null}}}})).toBe('Gross cost');
+  });
+  it.each([
+    ['2026-02-01T00:00:00+01:00', '2026-03-01T00:00:00+01:00', true],
+    ['2026-03-01T00:00:00+01:00', '2026-04-01T00:00:00+02:00', true],
+    ['2026-10-01T00:00:00+02:00', '2026-11-01T00:00:00+01:00', true],
+    ['2026-10-01T00:00:00+02:00', '2026-11-01T00:00:01+01:00', false],
+    ['2026-01-15T00:00:00+01:00', '2026-02-15T00:00:00+01:00', true],
+    ['2026-01-15T00:00:00+01:00', '2026-03-15T00:00:00+01:00', false],
+  ])('allows hourly aggregation from %s to %s: %s', (from, to, allowed) => {
+    expect(allowsHourlyAggregation(from, to, 'Europe/Warsaw')).toBe(allowed);
+  });
   it('keeps decimal aggregation exact', () => {
     expect(addDecimals('0.1', '0.2')).toBe('0.3');
     expect(addDecimals('1.005', '2.995')).toBe('4');

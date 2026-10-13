@@ -17,20 +17,25 @@ function coverage(result) {
   return [...(result.intervals || [])].sort((a, b) => instant(a.from) - instant(b.from));
 }
 
-function continuous(result, intervals) {
+function validCoverage(result, intervals) {
   let end = instant(result.range?.from);
   for (const interval of intervals) {
-    if (instant(interval.from) !== end || instant(interval.to) <= end) return false;
+    if (instant(interval.from) < end || instant(interval.to) <= instant(interval.from) || instant(interval.to) > instant(result.range?.to)) return false;
     end = instant(interval.to);
   }
-  return intervals.length > 0 && end === instant(result.range?.to);
+  return intervals.length > 0;
+}
+
+function calculationFailed(result) {
+  const warnings = result.warnings || [];
+  return warnings.some((warning) => warning.code !== 'MISSING_METER_DATA') || (result.incomplete && !warnings.length);
 }
 
 export function compareCalculations(current, alternative, requestedRange) {
   const fail = (reason) => ({comparable: false, reason});
   if (!current || !alternative) return fail('Select a tariff to compare costs.'); // i18n
   if (!current.processedDeltaCount || !alternative.processedDeltaCount) return fail('No logs are available for the selected range.'); // i18n
-  if (current.incomplete || alternative.incomplete || current.warnings?.length || alternative.warnings?.length) {
+  if (calculationFailed(current) || calculationFailed(alternative)) {
     return fail('Some logs could not be calculated. Results cannot be directly compared.'); // i18n
   }
   if (!sameRange(current.range, alternative.range)) return fail('These results cannot be directly compared because the calculated time ranges differ.'); // i18n
@@ -40,8 +45,8 @@ export function compareCalculations(current, alternative, requestedRange) {
   const left = coverage(current);
   const right = coverage(alternative);
   if (
-    !continuous(current, left) ||
-    !continuous(alternative, right) ||
+    !validCoverage(current, left) ||
+    !validCoverage(alternative, right) ||
     left.length !== right.length ||
     current.processedDeltaCount !== alternative.processedDeltaCount ||
     left.some(
