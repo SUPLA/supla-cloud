@@ -53,33 +53,112 @@ class ResourceAccessDecisions {
         return $this->read([$userId, $id], ' AND d.id=?', $authorize, 1)['items'][0] ?? null;
     }
 
+    /** Authoritative READ consent, not a peer ACL/provisioning projection. */
+    public function readAuthorizations(int $userId, array $filters, callable $authorize, string $projection): array {
+        if (($filters['origin'] ?? 'user-approved') !== 'user-approved' || ($filters['permission'] ?? 1) !== 1) {
+            return ['items' => [], 'nextCursor' => null];
+        }
+        $where = " AND d.status='ACCEPTED' AND (d.permissions & 3)<>0
+            AND EXISTS(SELECT 1 FROM supla_resource_access_decision demand WHERE demand.pair_id=p.id AND demand.requested_delivery_mode=2)
+            AND d.id=(SELECT MIN(x.id) FROM supla_resource_access_decision x
+                WHERE x.pair_id=p.id AND x.status='ACCEPTED' AND (x.permissions & 3)<>0)
+            AND NOT EXISTS(SELECT 1 FROM acl e WHERE e.source_device_id=p.source_device_id
+                AND e.destination_device_id=p.destination_device_id AND (e.permissions & 3)<>0
+                AND e.resource_type=1 AND e.resource_id=p.source_channel_id)";
+        $parameters = [$userId, $userId]; // Projection account, then business account.
+        foreach (['sourceDeviceId' => 'source_device_id', 'destinationDeviceId' => 'destination_device_id'] as $key => $column) {
+            if (isset($filters[$key])) {
+                $where .= " AND p.$column=?";
+                $parameters[] = $filters[$key];
+            }
+        }
+        if (isset($filters['deviceId'])) {
+            $where .= ' AND (p.source_device_id=? OR p.destination_device_id=?)';
+            array_push($parameters, $filters['deviceId'], $filters['deviceId']);
+        }
+        if (!empty($filters['cursor']) && $filters['cursor'] !== 'read-0:0') {
+            $where .= ' AND p.id<?';
+            $parameters[] = (int)substr(explode(':', $filters['cursor'])[0], 5);
+        }
+        $page = $this->read(
+            $parameters,
+            $where,
+            fn($row, $context) => $this->compatible(array_replace($row, ['permissions' => 1, 'requested_delivery_mode' => 2]), $context)
+                && $authorize($row, $context),
+            $filters['limit'] ?? 25,
+            str_replace(':user', '?', $projection),
+            true
+        );
+        $page['nextCursor'] = $page['nextCursor'] === null ? null : 'read-' . $page['nextCursor'] . ':0';
+        return $page;
+    }
+
+    public function readAuthorization(int $userId, int $pair, callable $authorize): ?array {
+        return $this->read(
+            [$userId, $pair],
+            " AND p.id=? AND d.status='ACCEPTED'
+            AND d.id=(SELECT MIN(x.id) FROM supla_resource_access_decision x
+                WHERE x.pair_id=p.id AND x.status='ACCEPTED' AND (x.permissions & 3)<>0)
+            AND (d.permissions & 3)<>0 AND EXISTS(SELECT 1 FROM supla_resource_access_decision demand
+                WHERE demand.pair_id=p.id AND demand.requested_delivery_mode=2)",
+            fn($row, $context) => $this->compatible(array_replace($row, ['permissions' => 1, 'requested_delivery_mode' => 2]), $context)
+            && $authorize($row, $context),
+            1
+        )['items'][0] ?? null;
+    }
+
+    public function readOrigins(int $userId, int $pair, ?string $cursor): array {
+        $where = '';
+        $parameters = [$userId, $pair];
+        if ($cursor !== null) {
+            [, $id] = explode(':', $cursor);
+            $where = ' AND d.id>?';
+            $parameters[] = $id;
+        }
+        $rows = $this->entityManager->getConnection()->fetchAllAssociative("SELECT d.id,d.permissions
+            FROM supla_resource_access_decision d JOIN supla_resource_access_pair p ON p.id=d.pair_id
+            WHERE p.user_id=? AND p.id=?
+                AND d.status='ACCEPTED' AND (d.permissions & 3)<>0" . $where . ' ORDER BY d.id LIMIT 101', $parameters);
+        $more = count($rows) > 100;
+        $rows = array_slice($rows, 0, 100);
+        $last = end($rows);
+        return ['origins' => array_map(fn($row) => ['originType' => 2, 'originId' => (string)$row['id'],
+            'permissions' => 1, 'kind' => 'user-approved', 'field' => null, 'configuringChannel' => null,
+            'decisionId' => (string)$row['id']], $rows),
+            'nextOriginCursor' => $more ? '2:' . $last['id'] : null];
+    }
+
     private function tables(): array {
         // Schema-managed Core data is deliberately excluded from Doctrine's schema filter.
         return $this->entityManager->getConnection()->fetchFirstColumn("SELECT table_name FROM information_schema.tables
             WHERE table_schema=DATABASE() AND table_name IN ('supla_suplan_device_state','supla_suplan_grant','supla_suplan_peer_association')");
     }
 
-    private function read(array $parameters, string $filter, callable $authorize, int $limit): array {
-        return $this->entityManager->getConnection()->transactional(function ($connection) use ($parameters, $filter, $authorize, $limit) {
+    private function read(array $parameters, string $filter, callable $authorize, int $limit, string $sqlPrefix = '', bool $pairOrder = false): array {
+        $connection = $this->entityManager->getConnection();
+        return $connection->transactional(function ($connection) use ($parameters, $filter, $authorize, $limit, $sqlPrefix, $pairOrder) {
             $tables = $this->tables();
             $select = 'd.*,p.user_id,p.destination_device_id,p.source_device_id,p.source_channel_id';
             foreach (['src' => 's', 'dst' => 't'] as $prefix => $alias) {
-                foreach (['id', 'user_id', 'name', 'flags', 'protocol_version'] as $field) {
+                foreach (['id', 'user_id', 'name', 'flags', 'protocol_version', 'is_virtual'] as $field) {
                     $select .= ",$alias.$field {$prefix}_$field";
                 }
             }
-            foreach (['id', 'user_id', 'iodevice_id', 'type', 'func', 'caption', 'properties'] as $field) {
+            foreach (['id', 'user_id', 'iodevice_id', 'type', 'func', 'caption', 'properties', 'is_virtual'] as $field) {
                 $select .= ",c.$field channel_$field";
             }
             $hasIdentity = in_array('supla_suplan_device_state', $tables, true);
-            $select .= $hasIdentity ? ',i.current_root_epoch,i.accepted_channels' : ',NULL current_root_epoch,NULL accepted_channels';
-            $rows = $connection->fetchAllAssociative('SELECT ' . $select . '
+            $select .= $hasIdentity ? ',i.current_root_epoch,i.accepted_channels,j.current_root_epoch dst_root_epoch,j.accepted_channels dst_channels'
+                : ',NULL current_root_epoch,NULL accepted_channels,NULL dst_root_epoch,NULL dst_channels';
+            $rows = $connection->fetchAllAssociative($sqlPrefix . 'SELECT ' . $select . '
                 FROM supla_resource_access_decision d JOIN supla_resource_access_pair p ON p.id=d.pair_id
                 LEFT JOIN supla_iodevice s ON s.id=p.source_device_id AND s.user_id=p.user_id
                 LEFT JOIN supla_iodevice t ON t.id=p.destination_device_id AND t.user_id=p.user_id
                 LEFT JOIN supla_dev_channel c ON c.id=p.source_channel_id AND c.user_id=p.user_id '
-                . ($hasIdentity ? 'LEFT JOIN supla_suplan_device_state i ON i.device_id=p.source_device_id AND i.user_id=p.user_id ' : '')
-                . 'WHERE p.user_id=? AND d.status<>\'REMOVED\'' . $filter . ' ORDER BY d.id DESC LIMIT ' . ($limit + 1), $parameters);
+                . ($hasIdentity ? 'LEFT JOIN supla_suplan_device_state i ON i.device_id=p.source_device_id AND i.user_id=p.user_id '
+                    . 'LEFT JOIN supla_suplan_device_state j ON j.device_id=p.destination_device_id AND j.user_id=p.user_id ' : '')
+                . 'WHERE p.user_id=? AND d.status<>\'REMOVED\'' . $filter
+                . ($pairOrder ? ' ORDER BY p.id DESC LIMIT ' : ' ORDER BY d.id DESC LIMIT ') . ($limit + 1), $parameters);
             $more = count($rows) > $limit;
             $rows = array_slice($rows, 0, $limit);
             $items = [];
@@ -109,7 +188,8 @@ class ResourceAccessDecisions {
                     }
                     $context = ['source' => $row['channel_id'] === null ? false : $this->unprefix($row, 'channel'),
                         'devices' => $devices,
-                        'identity' => ['current_root_epoch' => $row['current_root_epoch'], 'accepted_channels' => $row['accepted_channels']]];
+                        'identity' => ['current_root_epoch' => $row['current_root_epoch'], 'accepted_channels' => $row['accepted_channels']],
+                        'destinationIdentity' => ['current_root_epoch' => $row['dst_root_epoch'], 'accepted_channels' => $row['dst_channels']]];
                     if ($authorize($row, $context)) {
                         $items[] = $this->view(
                             $row,
@@ -121,7 +201,7 @@ class ResourceAccessDecisions {
                 }
             }
             $last = end($rows);
-            return ['items' => $items, 'nextCursor' => $more ? (string)$last['id'] : null];
+            return ['items' => $items, 'nextCursor' => $more ? (string)$last[$pairOrder ? 'pair_id' : 'id'] : null];
         });
     }
 
@@ -195,39 +275,60 @@ class ResourceAccessDecisions {
         $ids = array_unique([(int)$row['source_device_id'], (int)$row['destination_device_id']]);
         sort($ids);
         foreach ($ids as $id) {
-            $devices[$id] = $connection->fetchAssociative('SELECT id,user_id,name,flags,protocol_version FROM supla_iodevice WHERE id=?' . $suffix, [$id]);
+            $devices[$id] = $connection->fetchAssociative(
+                'SELECT id,user_id,name,flags,protocol_version,is_virtual FROM supla_iodevice WHERE id=?' . $suffix,
+                [$id]
+            );
         }
         $source = $connection->fetchAssociative(
-            'SELECT id,user_id,iodevice_id,type,func,caption,properties FROM supla_dev_channel WHERE id=?' . $suffix,
+            'SELECT id,user_id,iodevice_id,type,func,caption,properties,is_virtual FROM supla_dev_channel WHERE id=?' . $suffix,
             [$row['source_channel_id']]
         );
-        $identity = false;
+        $identity = $destinationIdentity = false;
         if (in_array('supla_suplan_device_state', $this->tables(), true)) {
             // Same order as Core approval_context: pair, decision, sorted Devices, Source Channel, identity.
-            $identity = $connection->fetchAssociative('SELECT current_root_epoch,accepted_channels FROM supla_suplan_device_state
-                WHERE device_id=? AND user_id=?' . $suffix, [$row['source_device_id'], $row['user_id']]);
+            foreach ($ids as $id) {
+                $state = $connection->fetchAssociative('SELECT current_root_epoch,accepted_channels FROM supla_suplan_device_state
+                    WHERE device_id=? AND user_id=?' . $suffix, [$id, $row['user_id']]);
+                if ($id === (int)$row['source_device_id']) {
+                    $identity = $state;
+                }
+                if ($id === (int)$row['destination_device_id']) {
+                    $destinationIdentity = $state;
+                }
+            }
         }
-        return ['source' => $source, 'devices' => $devices, 'identity' => $identity];
+        return ['source' => $source, 'devices' => $devices, 'identity' => $identity, 'destinationIdentity' => $destinationIdentity];
     }
 
-    private function compatible(array $row, array $context): bool {
+    public function compatible(array $row, array $context): bool {
         $source = $context['source'];
         $permissions = (int)$row['permissions'];
         if (!$source || $permissions < 1 || $permissions > 7 || (int)$source['iodevice_id'] !== (int)$row['source_device_id']) {
             return false;
         }
-        foreach ($context['devices'] as $device) {
-            if (
-                !$device || (int)$device['user_id'] !== (int)$row['user_id']
-                || (int)$device['protocol_version'] < 29 || !((int)$device['flags'] & IoDeviceFlags::SUPLAN_SUPPORTED)
-            ) {
-                return false;
-            }
-        }
-        if ((int)$source['user_id'] !== (int)$row['user_id'] || (int)$row['source_device_id'] === (int)$row['destination_device_id']) {
+        $mode = (int)($row['requested_delivery_mode'] ?? 1);
+        $destination = $context['devices'][(int)$row['destination_device_id']] ?? false;
+        $sourceDevice = $context['devices'][(int)$row['source_device_id']] ?? false;
+        if (
+            !$destination || !$sourceDevice || (int)$source['user_id'] !== (int)$row['user_id']
+            || (int)$sourceDevice['user_id'] !== (int)$row['user_id'] || (int)$destination['user_id'] !== (int)$row['user_id']
+            || (int)$row['source_device_id'] === (int)$row['destination_device_id']
+            || (int)$destination['protocol_version'] < 29 || (bool)$destination['is_virtual']
+            || !((int)$destination['flags'] & IoDeviceFlags::SUPLAN_SUPPORTED)
+        ) {
             return false;
         }
-        if (!self::acceptedIdentity($context['identity'], (int)$row['source_channel_id'])) {
+        if ($mode === 2) {
+            // STREAM needs Destination bootstrap, never Source peer identity/reachability.
+            return $permissions === 1 && self::acceptedIdentity($context['destinationIdentity'], null)
+                && ResourceAccessPermissions::streamReadSupported((int)$source['type'], (int)$source['func']);
+        }
+        if (
+            $mode !== 1 || (bool)$sourceDevice['is_virtual'] || (bool)$source['is_virtual']
+            || (int)$sourceDevice['protocol_version'] < 29 || !((int)$sourceDevice['flags'] & IoDeviceFlags::SUPLAN_SUPPORTED)
+            || !self::acceptedIdentity($context['identity'], (int)$row['source_channel_id'])
+        ) {
             return false;
         }
         $properties = json_decode($source['properties'] ?: '{}', true);
@@ -242,7 +343,10 @@ class ResourceAccessDecisions {
     private function view(array $row, array $context, int $manual, int $independent): array {
         $source = $context['source'];
         return [
-            'id' => (int)$row['id'], 'revision' => (int)$row['revision'], 'status' => $row['status'],
+            'id' => (int)$row['id'], 'pairId' => (int)$row['pair_id'], 'revision' => (int)$row['revision'], 'status' => $row['status'],
+            'requestedDeliveryMode' => (int)($row['requested_delivery_mode'] ?? 1),
+            'sourceIsVirtual' => (bool)($source['is_virtual'] ?? false)
+                || (bool)($context['devices'][(int)$row['source_device_id']]['is_virtual'] ?? false),
             'permissions' => (int)$row['permissions'], 'origin' => 'USER_APPROVAL',
             'requestedAt' => $this->timestamp($row['requested_at'] ?? null),
             'lastDecisionAt' => $this->timestamp($row['last_decision_at'] ?? null),
@@ -259,7 +363,7 @@ class ResourceAccessDecisions {
         ];
     }
 
-    private static function acceptedIdentity(array|false $identity, int $channel): bool {
+    private static function acceptedIdentity(array|false $identity, ?int $channel): bool {
         if (!$identity || (int)$identity['current_root_epoch'] < 1 || (int)$identity['current_root_epoch'] >= 4294967295) {
             return false;
         }
@@ -269,7 +373,7 @@ class ResourceAccessDecisions {
         }
         // Core persists sorted, unique, positive signed ChannelIds as big-endian u32s.
         $previous = 0;
-        $member = false;
+        $member = $channel === null;
         for ($offset = 0; $offset < strlen($blob); $offset += 4) {
             $id = unpack('N', substr($blob, $offset, 4))[1];
             if ($id <= $previous || $id > 2147483647) {

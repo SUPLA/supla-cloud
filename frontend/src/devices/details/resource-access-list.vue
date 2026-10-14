@@ -87,7 +87,8 @@
                 <span v-else>{{ entry.sourceCaption || $t('Unavailable') }} (ID{{ entry.sourceChannelId }})</span>
               </div>
               <div class="small">
-                <router-link v-if="entry.sourceDeviceName != null" :to="{name: 'device.details', params: {id: entry.sourceDeviceId}}">
+                <span v-if="entry.sourceIsVirtual">{{ $t('Virtual / integration source') }}</span>
+                <router-link v-else-if="entry.sourceDeviceName != null" :to="{name: 'device.details', params: {id: entry.sourceDeviceId}}">
                   {{ entry.sourceDeviceName || $t('Device') }} (ID{{ entry.sourceDeviceId }})
                 </router-link>
                 <span v-else class="text-muted">{{ $t('Unavailable') }} (ID{{ entry.sourceDeviceId }})</span>

@@ -13,7 +13,7 @@ class SupLanM2MigrationIntegrationTest extends DatabaseMigrationTestCase {
     private const TABLES = ['supla_suplan_device_state', 'supla_suplan_grant', 'supla_suplan_peer_association'];
 
     public function testUpgradePreservesExistingSchemaAndCreatesExactContract() {
-        $this->migrateTo('SuplaBundle\\Migrations\\Migration\\Version20260922203542');
+        $this->migrateTo('SuplaBundle\\Migrations\\Migration\\Version20260901155422');
         $connection = $this->getEntityManager()->getConnection();
         $before = $connection->fetchFirstColumn('SHOW TABLES');
         $definitions = [];

@@ -56,4 +56,16 @@ class ResourceAccessPermissionsTest extends TestCase {
     public function testActionWithoutPhysicalCapabilitiesIsUnsupported() {
         $this->assertFalse(ResourceAccessPermissions::supported(CT::ACTION_TRIGGER, CF::ACTION_TRIGGER, 4, []));
     }
+    public static function streamTypes(): array {
+        return [[CT::IMPULSECOUNTER, 350, true], [CT::IMPULSECOUNTER, 360, true], [CT::DIMMER, CF::DIMMER_CCT, true],
+            [CT::THERMOMETERDS18B20, CF::THERMOMETER, true], [CT::THERMOMETER, CF::THERMOMETER, true],
+            [CT::RELAY2XG5LA1A, CF::LIGHTSWITCH, true], [CT::GENERAL_PURPOSE_MEASUREMENT, CF::GENERAL_PURPOSE_MEASUREMENT, true],
+            [CT::ACTION_TRIGGER, CF::ACTION_TRIGGER, false], [CT::THERMOMETER, CF::NONE, false],
+            [CT::RELAY, CF::THERMOMETER, false], [999999, CF::THERMOMETER, false]];
+    }
+
+    /** @dataProvider streamTypes */
+    public function testStreamReadDoesNotRequirePeerRepresentability(int $type, int $function, bool $expected) {
+        $this->assertSame($expected, ResourceAccessPermissions::streamReadSupported($type, $function));
+    }
 }

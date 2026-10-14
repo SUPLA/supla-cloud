@@ -22,6 +22,10 @@ class ResourceAccessDecision {
     private string $status;
     /** @ORM\Column(type="integer") */
     private int $permissions;
+    /** Request provenance only; consent remains independent of delivery mode.
+     * @ORM\Column(name="requested_delivery_mode", type="integer", options={"default":1})
+     */
+    private int $requestedDeliveryMode = 1;
     /** @ORM\Column(type="integer", options={"default":1}) */
     private int $revision = 1;
     /** @ORM\Column(name="requested_at", type="utcdatetime", nullable=true) */

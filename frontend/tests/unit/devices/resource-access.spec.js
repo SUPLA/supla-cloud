@@ -350,3 +350,31 @@ it('explains that approving a covered request creates manual access independent 
   expect(page.findComponent({name: 'ModalConfirm'}).text()).toContain('even if the configuration');
   page.unmount();
 });
+
+it('labels a virtual STREAM source without a fabricated physical device link and keeps exact READ consent', async () => {
+  const entry = {
+    ...pending,
+    permissions: 1,
+    requestedDeliveryMode: 2,
+    sourceIsVirtual: true,
+    sourceDeviceId: 12,
+    sourceDeviceName: 'Data sources',
+    sourceCaption: 'Weather',
+    sourceFunctionId: 40,
+  };
+  vi.spyOn(api, 'get').mockResolvedValue({body: [entry]});
+  const post = vi.spyOn(api, 'post').mockResolvedValue({});
+  const page = mountPage();
+  await flushPromises();
+  expect(page.text()).toContain('Virtual / integration source');
+  expect(page.find('a[data-route="device.details"][data-id="12"]').exists()).toBe(false);
+  expect(page.find('a[data-route="channel"][data-id="20"]').exists()).toBe(true);
+  await page.find('.btn-green').trigger('click');
+  expect(page.findComponent({name: 'ModalConfirm'}).text()).toContain('Virtual / integration source');
+  await page.findAll('button').at(-1).trigger('click');
+  await flushPromises();
+  expect(post).toHaveBeenCalledWith('resource-access/2/approve', {revision: 1, status: 'PENDING', permissions: 1}, {skipErrorHandler: [409]});
+  expect(page.findAll('select')).toHaveLength(1); // Existing sort only; no delivery-mode editor.
+  expect(confirmationText('ACCEPTED', 'remove', 2)).not.toContain('offline source');
+  page.unmount();
+});

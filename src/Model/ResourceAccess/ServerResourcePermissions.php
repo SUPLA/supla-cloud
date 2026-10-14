@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 /** Read-only view of Core's committed canonical ACL; never derives ACL from business decisions. */
 class ServerResourcePermissions {
-    public function __construct(private EntityManagerInterface $entityManager) {
+    public function __construct(private EntityManagerInterface $entityManager, private ResourceAccessDecisions $decisions) {
     }
 
     private function projection(): string {
@@ -25,6 +25,14 @@ class ServerResourcePermissions {
         ) ';
     }
 
+    private function manualReadOrigin(): string {
+        return "SELECT 1 FROM supla_resource_access_decision md JOIN supla_resource_access_pair mp ON mp.id=md.pair_id
+            WHERE mp.user_id=:user AND mp.source_device_id=e.source_device_id AND mp.destination_device_id=e.destination_device_id
+                AND mp.source_channel_id=e.resource_id AND e.resource_type=1 AND (e.permissions & 3)<>0 AND md.status='ACCEPTED' AND (md.permissions & 3)<>0
+                AND EXISTS(SELECT 1 FROM supla_resource_access_decision demand
+                    WHERE demand.pair_id=mp.id AND demand.requested_delivery_mode=2)";
+    }
+
     private function resources(): string {
         return ' FROM acl e
             JOIN supla_iodevice s ON s.id=e.source_device_id AND s.user_id=:user
@@ -38,6 +46,13 @@ class ServerResourcePermissions {
 
     public function list(int $userId, array $filters, callable $authorize): array {
         return $this->entityManager->getConnection()->transactional(function ($connection) use ($userId, $filters, $authorize) {
+            $authorizeRead = fn($row) => $authorize(['source_device_id' => $row['source_device_id'],
+                'destination_device_id' => $row['destination_device_id'], 'resource_type' => 1, 'resource_id' => $row['source_channel_id']]);
+            if (str_starts_with($filters['cursor'] ?? '', 'read-')) {
+                $page = $this->decisions->readAuthorizations($userId, $filters, $authorizeRead, $this->projection());
+                $page['items'] = array_map($this->presentRead(...), $page['items']);
+                return $page;
+            }
             $parameters = ['user' => $userId];
             $where = '';
             foreach (['sourceDeviceId' => 'source_device_id', 'destinationDeviceId' => 'destination_device_id'] as $key => $column) {
@@ -57,9 +72,10 @@ class ServerResourcePermissions {
                 }
             }
             if (isset($filters['origin'])) {
-                $where .= ' AND EXISTS(SELECT 1 FROM supla_suplan_grant g WHERE g.association_id=e.association_id
+                $where .= ' AND (EXISTS(SELECT 1 FROM supla_suplan_grant g WHERE g.association_id=e.association_id
                     AND g.resource_type=e.resource_type AND g.resource_id=e.resource_id AND '
-                    . ($filters['origin'] === 'other' ? 'g.origin_type NOT IN (1,2))' : 'g.origin_type=:origin)');
+                    . ($filters['origin'] === 'other' ? 'g.origin_type NOT IN (1,2))' : 'g.origin_type=:origin)')
+                    . ($filters['origin'] === 'user-approved' ? ' OR EXISTS(' . $this->manualReadOrigin() . ')' : '') . ')';
                 if ($filters['origin'] !== 'other') {
                     $parameters['origin'] = $filters['origin'] === 'configuration' ? 1 : 2;
                 }
@@ -70,7 +86,10 @@ class ServerResourcePermissions {
             }
             $limit = $filters['limit'] ?? 25;
             $rows = $connection->fetchAllAssociative($this->projection() . 'SELECT e.*,s.name source_name,d.name destination_name,
-                c.caption,c.func,
+                c.caption,c.func,s.is_virtual source_is_virtual,c.is_virtual channel_is_virtual,
+                (SELECT MAX(x.id) FROM supla_resource_access_decision x JOIN supla_resource_access_pair p ON p.id=x.pair_id
+                    WHERE p.user_id=:user AND x.requested_delivery_mode=2) has_read,
+                EXISTS(' . $this->manualReadOrigin() . ') has_manual_read,
                 (SELECT COUNT(DISTINCT g.origin_type) FROM supla_suplan_grant g WHERE g.association_id=e.association_id
                     AND g.resource_type=e.resource_type AND g.resource_id=e.resource_id) origin_types,
                 (SELECT MIN(g.origin_type) FROM supla_suplan_grant g WHERE g.association_id=e.association_id
@@ -86,14 +105,41 @@ class ServerResourcePermissions {
                 }
             }
             $last = end($rows);
-            return ['items' => $items, 'nextCursor' => $more ? $last['association_id'] . ':' . $last['slot'] : null];
+            if ($more) {
+                return ['items' => $items, 'nextCursor' => $last['association_id'] . ':' . $last['slot']];
+            }
+            if ($rows && !$rows[0]['has_read']) {
+                return ['items' => $items, 'nextCursor' => null];
+            }
+            $remaining = $limit - count($rows);
+            $readFilters = array_replace($filters, ['cursor' => 'read-0:0', 'limit' => max(1, $remaining)]);
+            $page = $this->decisions->readAuthorizations($userId, $readFilters, $authorizeRead, $this->projection());
+            if (!$remaining) {
+                return ['items' => $items, 'nextCursor' => $page['items'] || $page['nextCursor'] ? 'read-0:0' : null];
+            }
+            return ['items' => [...$items, ...array_map($this->presentRead(...), $page['items'])], 'nextCursor' => $page['nextCursor']];
         });
     }
 
     public function detail(int $userId, string $association, int $type, int $resource, callable $authorize, ?string $cursor = null): ?array {
         return $this->entityManager->getConnection()->transactional(function ($connection) use ($userId, $association, $type, $resource, $authorize, $cursor) {
+            if (str_starts_with($association, 'read-')) {
+                $entry = $this->decisions->readAuthorization(
+                    $userId,
+                    (int)substr($association, 5),
+                    fn($row) => $authorize(['source_device_id' => $row['source_device_id'],
+                    'destination_device_id' => $row['destination_device_id'],
+                    'resource_type' => 1,
+                    'resource_id' => $row['source_channel_id']])
+                );
+                if (!$entry || $type !== 1 || $entry['sourceChannelId'] !== $resource) {
+                    return null;
+                }
+                return $this->presentRead($entry) + $this->decisions->readOrigins($userId, $entry['pairId'], $cursor);
+            }
             $row = $connection->fetchAssociative(
-                $this->projection() . 'SELECT e.*,s.name source_name,d.name destination_name,c.caption,c.func'
+                $this->projection() . 'SELECT e.*,s.name source_name,d.name destination_name,
+                    c.caption,c.func,s.is_virtual source_is_virtual,c.is_virtual channel_is_virtual'
                 . $this->resources() . ' AND e.association_id=:association AND e.resource_type=:type AND e.resource_id=:resource',
                 ['user' => $userId, 'association' => $association, 'type' => $type, 'resource' => $resource]
             );
@@ -104,16 +150,26 @@ class ServerResourcePermissions {
             if (!$authorize($row)) {
                 return null;
             }
-            $parameters = [$association, $type, $resource];
+            $parameters = [$association, $type, $resource, $userId, $row['source_device_id'], $row['destination_device_id'],
+                $resource, $type === 1 && ((int)$row['permissions'] & 3) ? 1 : 0, $association, $type, $resource];
             $after = '';
             if ($cursor !== null) {
                 [$originType, $originId] = explode(':', $cursor);
                 $after = ' AND (g.origin_type>? OR (g.origin_type=? AND g.origin_id>?))';
                 array_push($parameters, $originType, $originType, $originId);
             }
-            $grants = $connection->fetchAllAssociative('SELECT g.origin_type,g.origin_id,g.permissions
-                FROM supla_suplan_grant g WHERE g.association_id=? AND g.resource_type=? AND g.resource_id=?'
-                . $after . ' ORDER BY g.origin_type,g.origin_id LIMIT 101', $parameters);
+            $grants = $connection->fetchAllAssociative("SELECT g.* FROM (
+                SELECT g.origin_type,g.origin_id,g.permissions FROM supla_suplan_grant g
+                    WHERE g.association_id=? AND g.resource_type=? AND g.resource_id=?
+                UNION ALL
+                SELECT 2,d.id,1 FROM supla_resource_access_decision d JOIN supla_resource_access_pair p ON p.id=d.pair_id
+                    WHERE p.user_id=? AND p.source_device_id=? AND p.destination_device_id=? AND p.source_channel_id=? AND ?=1
+                        AND d.status='ACCEPTED' AND (d.permissions & 3)<>0
+                        AND EXISTS(SELECT 1 FROM supla_resource_access_decision demand
+                            WHERE demand.pair_id=p.id AND demand.requested_delivery_mode=2)
+                        AND NOT EXISTS(SELECT 1 FROM supla_suplan_grant existing WHERE existing.association_id=?
+                            AND existing.resource_type=? AND existing.resource_id=? AND existing.origin_type=2 AND existing.origin_id=d.id)
+                ) g WHERE 1=1" . $after . ' ORDER BY g.origin_type,g.origin_id LIMIT 101', $parameters);
             $more = count($grants) > 100;
             $grants = array_slice($grants, 0, 100);
             $configIds = [];
@@ -201,16 +257,27 @@ class ServerResourcePermissions {
         }
     }
 
+    private function presentRead(array $entry): array {
+        return ['associationId' => null, 'resourceKey' => 'read-' . $entry['pairId'], 'authority' => 'SERVER',
+            'authorizationKind' => 'SERVER_READ', 'sourceDeviceId' => $entry['sourceDeviceId'],
+            'sourceDeviceName' => $entry['sourceDeviceName'], 'sourceIsVirtual' => $entry['sourceIsVirtual'],
+            'destinationDeviceId' => $entry['destinationDeviceId'], 'destinationName' => $entry['destinationName'],
+            'resourceType' => 1, 'resourceId' => $entry['sourceChannelId'], 'sourceCaption' => $entry['sourceCaption'],
+            'sourceFunction' => $entry['sourceFunction'], 'permissions' => 1, 'originSummary' => 'user-approved'];
+    }
+
     private function present(array $row): array {
         $originType = (int)($row['origin_type'] ?? 0);
+        $manual = !empty($row['has_manual_read']);
         return ['associationId' => (string)$row['association_id'], 'authority' => 'SERVER',
+            'sourceIsVirtual' => (bool)$row['source_is_virtual'] || (bool)$row['channel_is_virtual'],
             'sourceDeviceId' => (int)$row['source_device_id'], 'sourceDeviceName' => $row['source_name'],
             'destinationDeviceId' => (int)$row['destination_device_id'], 'destinationName' => $row['destination_name'],
             'resourceType' => (int)$row['resource_type'], 'resourceId' => (int)$row['resource_id'],
             'sourceCaption' => $row['caption'], 'sourceFunction' => isset($row['func']) && CF::isValid((int)$row['func'])
                 ? CF::fromString((int)$row['func'])->getName() : null,
             'permissions' => (int)$row['permissions'],
-            'originSummary' => (int)($row['origin_types'] ?? 0) > 1 ? 'mixed'
-                : ($originType === 1 ? 'configuration' : ($originType === 2 ? 'user-approved' : 'other'))];
+            'originSummary' => (int)($row['origin_types'] ?? 0) > 1 || ($manual && $originType && $originType !== 2) ? 'mixed'
+                : ($originType === 1 ? 'configuration' : ($originType === 2 || $manual ? 'user-approved' : 'other'))];
     }
 }

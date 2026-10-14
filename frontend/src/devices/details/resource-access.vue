@@ -13,7 +13,7 @@
     <p class="small text-muted">
       {{
         $t(
-          'A decision is not confirmation that access has reached the source. An offline source applies changes after reconnecting; removal is not immediate there.'
+          'A decision records permission, not delivery availability. Peer access changes reach an offline source after reconnecting. Server-delivered READ uses committed server authorization.'
         )
       }}
     </p>
@@ -34,8 +34,11 @@
       <button type="button" class="btn btn-white" :disabled="loading || !nextCursor" @click="next">{{ $t('Next') }}</button>
     </div>
     <ModalConfirm v-if="selection" :header="$t('Confirm access decision')" :loading="loading" @cancel="selection = undefined" @confirm="confirm">
-      <p>{{ $t(confirmationText(selection.entry.status, selection.action)) }}</p>
-      <p>{{ selection.entry.destinationName }} → {{ selection.entry.sourceDeviceName }} / ID{{ selection.entry.sourceChannelId }}</p>
+      <p>{{ $t(confirmationText(selection.entry.status, selection.action, selection.entry.requestedDeliveryMode)) }}</p>
+      <p>
+        {{ selection.entry.destinationName }} → {{ selection.entry.sourceIsVirtual ? $t('Virtual / integration source') : selection.entry.sourceDeviceName }} /
+        ID{{ selection.entry.sourceChannelId }}
+      </p>
       <strong>{{
         permissionLabels(selection.entry.permissions)
           .map((label) => $t(label))

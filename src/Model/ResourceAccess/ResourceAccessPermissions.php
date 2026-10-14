@@ -9,6 +9,15 @@ class ResourceAccessPermissions {
     // Protocol-v21 impulse functions not yet named in the general Cloud enum.
     private const IC_EVENTS = 350;
     private const IC_SECONDS = 360;
+    /** SRPC snapshot READ uses the canonical Channel model, including legacy and virtual types. */
+    public static function streamReadSupported(int $type, int $function): bool {
+        if (!$function || $type === CT::ACTION_TRIGGER || $function === CF::ACTION_TRIGGER) {
+            return false;
+        }
+        return self::supported($type, $function, 1, [])
+            || in_array($function, array_map(fn(CF $fn) => $fn->getId(), CT::functions()[$type] ?? []), true);
+    }
+
     public static function supported(int $type, int $function, int $permissions, array $properties): bool {
         if ($permissions < 1 || $permissions > 7 || !$function) {
             return false;

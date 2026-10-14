@@ -288,7 +288,7 @@ class ServerResourcePermissionsControllerIntegrationTest extends IntegrationTest
         $logger = new \Doctrine\DBAL\Logging\DebugStack();
         $configuration = $connection->getConfiguration();
         $previous = $configuration->getSQLLogger();
-        $service = new \App\Model\ResourceAccess\ServerResourcePermissions($this->getEntityManager());
+        $service = self::getContainer()->get(\App\Model\ResourceAccess\ServerResourcePermissions::class);
         try {
             $configuration->setSQLLogger($logger);
             $one = $service->list($this->user->getId(), ['limit' => 1], fn($row) => true);

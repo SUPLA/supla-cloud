@@ -189,3 +189,28 @@ it('signals pending decisions in Requests and refreshes the indicator after a de
   expect(page.find('.requests-pending-indicator').exists()).toBe(false);
   page.unmount();
 });
+
+it('shows server READ authorization for virtual sources without inventing a peer association', async () => {
+  const stream = {
+    ...entry,
+    associationId: null,
+    resourceKey: 'read-42',
+    sourceIsVirtual: true,
+    sourceDeviceName: 'Data sources',
+    authorizationKind: 'SERVER_READ',
+    originSummary: 'user-approved',
+  };
+  const get = vi
+    .spyOn(api, 'get')
+    .mockResolvedValueOnce({body: {items: [stream], nextCursor: null}})
+    .mockResolvedValueOnce({body: {...stream, origins: [], nextOriginCursor: null}});
+  const page = mountList();
+  await flushPromises();
+  expect(page.text()).toContain('Virtual / integration source');
+  expect(page.find('a[data-route="device.details"][data-id="9"]').exists()).toBe(false);
+  await page.find('tbody button').trigger('click');
+  await flushPromises();
+  expect(get).toHaveBeenLastCalledWith('resource-access/permissions/read-42/1/20');
+  expect(page.text()).toContain('no peer association or source provisioning is required');
+  page.unmount();
+});

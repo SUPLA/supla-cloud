@@ -5,7 +5,11 @@
       <button class="btn btn-white" type="button" :disabled="loading" @click="reload">{{ $t('Refresh') }}</button>
     </div>
     <p class="small text-muted">
-      {{ $t('These are permissions authorized by the server. An offline source applies changes after reconnecting; removal is not immediate there.') }}
+      {{
+        $t(
+          'These are permissions authorized by the server, not confirmation of delivery availability. Peer access changes reach an offline source after reconnecting. Server READ does not require a peer association.'
+        )
+      }}
     </p>
     <p v-if="networkError" class="text-warning" role="alert">{{ $t('Could not load permissions. Check your connection and refresh to try again.') }}</p>
     <form class="permission-filters" @submit.prevent="reload">
@@ -67,7 +71,8 @@
                 <div class="small text-muted">{{ entry.sourceFunction ? $t(entry.sourceFunction) : '' }}</div>
               </div>
               <div v-else>{{ $t('Whole device') }} (ID{{ entry.resourceId }})</div>
-              <router-link :to="{name: 'device.details', params: {id: entry.sourceDeviceId}}"
+              <span v-if="entry.sourceIsVirtual">{{ $t('Virtual / integration source') }}</span>
+              <router-link v-else :to="{name: 'device.details', params: {id: entry.sourceDeviceId}}"
                 >{{ entry.sourceDeviceName || $t('Device') }} (ID{{ entry.sourceDeviceId }})</router-link
               >
             </td>
@@ -89,6 +94,7 @@
         <h4>{{ $t('Permission origins') }}</h4>
         <button class="btn btn-white btn-xs" @click="closeDetails">{{ $t('Close') }}</button>
       </div>
+      <p v-if="detail.authorizationKind === 'SERVER_READ'">{{ $t('Server READ authorization; no peer association or source provisioning is required.') }}</p>
       <p>{{ labels(detail.permissions) }} — {{ detail.sourceCaption || detail.sourceDeviceName }} → {{ detail.destinationName }}</p>
       <p class="small text-muted">
         {{
@@ -144,7 +150,7 @@
     permissionLabels(mask)
       .map((label) => i18n.global.t(label))
       .join(', ');
-  const key = (entry) => `${entry.associationId}/${entry.resourceType}/${entry.resourceId}`;
+  const key = (entry) => `${entry.resourceKey || entry.associationId}/${entry.resourceType}/${entry.resourceId}`;
   const requestLink = (id) => ({
     name: props.device ? 'device.resource-access' : 'devices.resource-access',
     params: props.device ? {id: props.device.id} : {},
