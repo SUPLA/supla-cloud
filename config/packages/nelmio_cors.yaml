@@ -8,6 +8,7 @@ nelmio_cors:
       expose_headers:
         - 'X-Total-Count'
         - 'X-Count'
+        - 'X-Next-Cursor'
         - 'X-Min-Timestamp'
         - 'X-Max-Timestamp'
         - 'SUPLA-MQTT-Password'

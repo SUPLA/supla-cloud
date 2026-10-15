@@ -5,16 +5,31 @@
       class="channel-dropdown"
       :none-option="!hideNone"
       :options="channelsForDropdown"
+      :option-groups="
+        referenceRole
+          ? [
+              {id: 'local', labelI18n: 'Channels on this device'},
+              {id: 'remote', labelI18n: 'Channels on other devices'},
+            ]
+          : []
+      "
       :caption="channelCaption"
       :search-text="channelSearchText"
       :option-html="channelHtml"
       :choose-prompt-i18n="choosePromptI18n || 'choose the channel'"
       :disabled="disabled"
     />
+    <p v-if="staleSelection" class="text-warning small" role="alert">
+      {{ $t('Selected channel is unavailable or incompatible. Choose another channel or clear the selection.') }} (ID{{ value.id }})
+    </p>
+    <button v-if="staleSelection && !disabled" type="button" class="btn btn-default btn-sm" @click="$emit('input', undefined)">
+      {{ $t('Clear selection') }}
+    </button>
   </div>
 </template>
 
 <script>
+  import {localFirstCandidates} from '@/channels/channel-reference-candidates';
   import {channelIconUrl} from '@/common/filters';
   import SelectForSubjects from '@/devices/select-for-subjects.vue';
   import {useSubDevicesStore} from '@/stores/subdevices-store';
@@ -25,13 +40,16 @@
 
   export default {
     components: {SelectForSubjects},
-    props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter', 'choosePromptI18n', 'disabled'],
+    props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter', 'choosePromptI18n', 'disabled', 'destination', 'referenceRole'],
     mounted() {
       this.subDevicesStore.fetchAll();
     },
     methods: {
       channelCaption(channel) {
-        return channel.caption || `ID${channel.id} ${this.$t(channel.function.caption)}`;
+        const caption = channel.caption || `ID${channel.id} ${this.$t(channel.function?.caption || '')}`;
+        return this.referenceRole && channel.iodeviceId !== this.destination.iodeviceId
+          ? `${caption} / ${this.devices[channel.iodeviceId]?.name || `ID${channel.iodeviceId}`}`
+          : caption;
       },
       channelSearchText(channel) {
         const subDevice = this.subDevicesStore.forChannel(channel);
@@ -59,6 +77,9 @@
       },
     },
     computed: {
+      staleSelection() {
+        return !!(this.referenceRole && this.value?.id && !this.channelsForDropdown.some((candidate) => candidate.id === this.value.id));
+      },
       channelsForDropdown() {
         if (!this.channels) {
           return [];
@@ -69,11 +90,11 @@
           const hiddenIds = this.hiddenChannels.map((channel) => channel.id || channel);
           filter = (channel) => !hiddenIds.includes(channel.id) && filterOriginal(channel);
         }
-        const channels = this.channels.filter(filter);
+        const filtered = this.channels.filter(filter);
+        const channels = this.referenceRole ? localFirstCandidates(this.destination, filtered, this.devices, this.referenceRole) : filtered;
         this.$emit('update', channels);
         return channels.map((channel) => {
-          channel.fullCaption = this.channelCaption(channel);
-          return channel;
+          return {...channel, fullCaption: this.channelCaption(channel)};
         });
       },
       chosenChannel: {

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="container mb-3">
+      <router-link class="btn btn-default" :to="{name: 'devices.resource-access'}">{{ $t('Resource access') }}</router-link>
+    </div>
     <loading-cover :loading="!devices">
       <div v-show="devices && devices.length" class="container">
         <device-filters @filter-function="filterFunction = $event" @compare-function="compareFunction = $event"></device-filters>

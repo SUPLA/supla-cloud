@@ -7,6 +7,9 @@ use App\Entity\Main\IODeviceChannel;
 use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
 use App\Model\Schedule\ScheduleManager;
+use App\Model\UserConfigTranslator\ChannelReferenceValidator;
+use App\Model\UserConfigTranslator\HiddenReadOnlyConfigFieldsUserConfigTranslator;
+use App\Model\UserConfigTranslator\HvacChannelReferences;
 use App\Model\UserConfigTranslator\ActionTriggerParamsTranslator;
 use App\Model\UserConfigTranslator\SubjectConfigTranslator;
 use App\Repository\IODeviceChannelRepository;
@@ -28,7 +31,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
     private $logger;
 
     private array $dependencyCache = [];
-    private array $deviceDependencyIndexCache = [];
+    private array $accountDependencyIndexCache = [];
     private array $actionTriggersCache = [];
 
     public function __construct(
@@ -38,7 +41,9 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         ScheduleManager $scheduleManager,
         ChannelGroupDependencies $channelGroupDependencies,
         IODeviceChannelRepository $channelRepository,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        private ChannelReferenceValidator $references,
+        private HiddenReadOnlyConfigFieldsUserConfigTranslator $protectedFields
     ) {
         parent::__construct($entityManager, $channelParamConfigTranslator, $actionTriggerParamsTranslator);
         $this->scheduleManager = $scheduleManager;
@@ -62,6 +67,9 @@ class ChannelDependencies extends ActionableSubjectDependencies {
 
     public function getItemsThatDependOnLocation(IODeviceChannel $channel): array {
         $dependentChannels = $this->findDependentChannelsRecursive($channel, [
+            'mainThermometerChannelId',
+            'binarySensorChannelId',
+            'masterThermostatChannelId',
             'auxThermometerChannelId',
             'pumpSwitchChannelId',
             'heatOrColdSourceSwitchChannelId',
@@ -74,7 +82,10 @@ class ChannelDependencies extends ActionableSubjectDependencies {
     }
 
     public function getItemsThatDependOnVisibility(IODeviceChannel $channel): array {
-        $deps = $this->getItemsThatDependOnLocation($channel);
+        $deps = ['channels' => array_values($this->findDependentChannelsRecursive($channel, [
+            'auxThermometerChannelId', 'pumpSwitchChannelId', 'heatOrColdSourceSwitchChannelId',
+            'floodSensorChannelIds', 'levelSensorChannelIds',
+        ]))];
         if ($channel->getType()->getId() === ChannelType::HVAC) {
             $deps['channels'] = [];
         }
@@ -107,7 +118,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         return array_values($removeMap);
     }
 
-    public function clearDependencies(IODeviceChannel $channel, bool $isBeingDeleted = false): void {
+    public function clearDependencies(IODeviceChannel $channel, bool $isBeingDeleted = false, ?ChannelFunction $newFunction = null): void {
         if ($isBeingDeleted) {
             $this->channelParamConfigTranslator->clearConfigForDeletion($channel);
         } else {
@@ -141,13 +152,43 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         foreach ($this->findDependentChannels($channel) as $depChannel) {
             $config = $this->channelParamConfigTranslator->getConfig($depChannel);
             foreach ($config as $key => $value) {
+                if (
+                    $newFunction && in_array($key, ChannelReferenceValidator::ROLES, true)
+                    && $this->references->compatible($depChannel, $channel, $key, $newFunction)
+                ) {
+                    continue;
+                }
                 if (str_ends_with($key, 'ChannelId') && $value === $channel->getId()) {
-                    $this->channelParamConfigTranslator->setConfig($depChannel, [$key => null]);
+                    if (in_array($key, ChannelReferenceValidator::ROLES, true)) {
+                        $this->protectedFields->setConfig($depChannel, [$key => null]);
+                        HvacChannelReferences::migrate($depChannel);
+                        // Cleanup must not revalidate unrelated stale sibling references.
+                        $depChannel->setUserConfigValue($key, null);
+                        if ($key === 'auxThermometerChannelId') {
+                            $depChannel->setUserConfigValue('auxThermometerType', 'NOT_SET');
+                        }
+                    } else {
+                        $this->channelParamConfigTranslator->setConfig($depChannel, [$key => null]);
+                    }
                     $this->entityManager->persist($depChannel);
                 }
                 if (str_ends_with($key, 'ChannelIds') && is_array($value) && in_array($channel->getId(), $value, true)) {
-                    $newIds = ArrayUtils::filter($value, fn(int $channelId) => $channelId !== $channel->getId());
-                    $this->channelParamConfigTranslator->setConfig($depChannel, [$key => $newIds]);
+                    $this->protectedFields->setConfig($depChannel, [$key => []]);
+                    if ($key === 'levelSensorChannelIds') {
+                        $sensors = $depChannel->getUserConfigValue('sensors', []);
+                        foreach ($sensors as &$sensor) {
+                            if (is_array($sensor) && ($sensor['channelId'] ?? null) === $channel->getId()) {
+                                $sensor['channelId'] = null;
+                            }
+                        }
+                        unset($sensor);
+                        $depChannel->setUserConfigValue('sensors', $sensors);
+                    } elseif ($key === 'floodSensorChannelIds') {
+                        $depChannel->setUserConfigValue($key, array_map(fn($id) => $id === $channel->getId() ? null : $id, $value));
+                    } else {
+                        $newIds = ArrayUtils::filter($value, fn($id) => $id !== $channel->getId());
+                        $this->channelParamConfigTranslator->setConfig($depChannel, [$key => $newIds]);
+                    }
                     $this->entityManager->persist($depChannel);
                 }
             }
@@ -203,7 +244,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             $dependentChannels[$atChannel->getId()] = $atChannel;
         }
 
-        foreach ($this->getDeviceDependencyIndex($channel->getIoDevice(), $skipConfigIds)[$channel->getId()] ?? [] as $possibleChannel) {
+        foreach ($this->getAccountDependencyIndex($channel->getIoDevice(), $skipConfigIds)[$channel->getId()] ?? [] as $possibleChannel) {
             $dependentChannels[$possibleChannel->getId()] = $possibleChannel;
         }
 
@@ -211,14 +252,14 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         return $dependentChannels;
     }
 
-    private function getDeviceDependencyIndex(IODevice $device, array $skipConfigIds = []): array {
-        $cacheKey = $device->getId() . '_' . implode('_', $skipConfigIds);
-        if (array_key_exists($cacheKey, $this->deviceDependencyIndexCache)) {
-            return $this->deviceDependencyIndexCache[$cacheKey];
+    private function getAccountDependencyIndex(IODevice $device, array $skipConfigIds = []): array {
+        $cacheKey = $device->getUser()->getId() . '_' . implode('_', $skipConfigIds);
+        if (array_key_exists($cacheKey, $this->accountDependencyIndexCache)) {
+            return $this->accountDependencyIndexCache[$cacheKey];
         }
 
         $index = [];
-        foreach ($this->channelRepository->findBy(['iodevice' => $device]) as $possibleChannel) {
+        foreach ($this->channelRepository->findBy(['user' => $device->getUser()]) as $possibleChannel) {
             $config = $this->channelParamConfigTranslator->getConfig($possibleChannel);
             foreach ($config as $key => $value) {
                 if (in_array($key, $skipConfigIds, true)) {
@@ -237,7 +278,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             }
         }
 
-        $this->deviceDependencyIndexCache[$cacheKey] = $index;
+        $this->accountDependencyIndexCache[$cacheKey] = $index;
         return $index;
     }
 
