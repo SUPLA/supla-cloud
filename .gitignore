@@ -42,3 +42,5 @@ phpstan.neon
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+.opencode/
+.scratch/

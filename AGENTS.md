@@ -32,3 +32,13 @@
 - Do not write database migration files. When a schema change is needed, edit the Doctrine entities only; the user generates migrations later.
 - Do not edit generated assets, caches, or `public/dist` by hand.
 - Public API changes should be treated as backward-compatibility sensitive.
+
+## Agent skills
+
+### Issue tracker
+
+Issues and specs are maintained as local Markdown files under `.scratch/`. See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+This repository uses a single-context domain-documentation layout. See `docs/agents/domain.md`.
