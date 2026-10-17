@@ -20,6 +20,8 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
         "ext-zip": "*",
         "composer-runtime-api": "^2",
         "beberlei/assert": "^3.3.3",
