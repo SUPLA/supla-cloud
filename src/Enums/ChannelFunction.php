@@ -530,7 +530,7 @@ final class ChannelFunction extends Enum {
 
     public static function maxAlternativeIconIndexes(): array {
         return [
-            self::POWERSWITCH => 7,
+            self::POWERSWITCH => 8,
             self::LIGHTSWITCH => 2,
             self::CONTROLLINGTHEGATE => 2,
             self::OPENINGSENSOR_GATE => 2,
@@ -541,7 +541,7 @@ final class ChannelFunction extends Enum {
             self::DIGIGLASS_HORIZONTAL => 1,
             self::ELECTRICITYMETER => 1,
             self::SCENE => 19,
-            self::GENERAL_PURPOSE_MEASUREMENT => 45,
+            self::GENERAL_PURPOSE_MEASUREMENT => 46,
             self::GENERAL_PURPOSE_METER => 14,
             self::THERMOMETER => 7,
             self::HUMIDITYANDTEMPERATURE => 7,

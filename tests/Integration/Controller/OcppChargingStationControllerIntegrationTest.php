@@ -39,7 +39,7 @@ class OcppChargingStationControllerIntegrationTest extends IntegrationTestCase {
         return json_decode($client->getResponse()->getContent(), true);
     }
 
-    public function testCreatesDeviceAndTwoChannelsWithoutInventingValues(): void {
+    public function testCreatesDeviceAndThreeChannelsWithoutInventingValues(): void {
         $client = $this->createAuthenticatedClient($this->user);
         $created = $this->createCharger($client);
         $this->assertMatchesRegularExpression('/^[A-F0-9]{32}$/', $created['authorizationKey']);
@@ -51,16 +51,20 @@ class OcppChargingStationControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSame(hash('sha512', hex2bin($created['authorizationKey'])), $station->getAuthKeyHash());
         $device = $station->getIODevice();
         $this->assertSame(VirtualDeviceType::OCPP, $device->getVirtualType());
-        $this->assertCount(2, $device->getChannels());
+        $this->assertCount(3, $device->getChannels());
         $this->assertSame(
-            [ChannelFunction::ELECTRICITYMETER, ChannelFunction::POWERSWITCH],
+            [ChannelFunction::ELECTRICITYMETER, ChannelFunction::POWERSWITCH, ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
             $device->getChannels()->map(fn($ch) => $ch->getFunction()->getId())->toArray()
         );
         $this->assertSame(
             ['countersAvailable' => ['forwardActiveEnergy']],
             $device->getChannels()->first()->getProperties()
         );
-        $this->assertSame([], $device->getChannels()->last()->getProperties());
+        $this->assertSame([], $device->getChannels()[1]->getProperties());
+        $this->assertSame(8, $device->getChannels()[1]->getAltIcon());
+        $this->assertSame(46, $device->getChannels()[2]->getAltIcon());
+        $this->assertSame('%', $device->getChannels()[2]->getUserConfigValue('unitAfterValue'));
+        $this->assertFalse($device->getChannels()[2]->getUserConfigValue('keepHistory'));
         $this->assertSame(0, $em->getRepository(ChannelValue::class)->count([]));
         $this->assertNull($device->getLastConnected());
 
@@ -108,7 +112,7 @@ class OcppChargingStationControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $counts = json_decode($client->getResponse()->getContent(), true)['relationsCount'];
         $this->assertSame(1, $counts['virtualChannels']);
-        $this->assertSame(2, $counts['channels']);
+        $this->assertSame(3, $counts['channels']);
     }
 
     public function testIsolationAndKeyReplacement(): void {

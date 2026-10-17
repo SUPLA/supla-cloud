@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-FileCopyrightText: AC SOFTWARE SP. Z O.O. -->
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <path d="m131 240 45-78c7-13 20-21 35-21h105c15 0 28 8 35 21l45 78" stroke="#282828" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M116 240h280c24 0 44 20 44 44v69h-32M104 353H72v-69c0-24 20-44 44-44Z" stroke="#282828" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M178 353h156" stroke="#282828" stroke-width="20" stroke-linecap="round"/>
+  <circle cx="141" cy="353" r="37" stroke="#282828" stroke-width="20"/>
+  <circle cx="371" cy="353" r="37" stroke="#282828" stroke-width="20"/>
+  <rect x="200" y="262" width="107" height="61" rx="10" stroke="#282828" stroke-width="20"/>
+  <path d="M307 280h15v25h-15" stroke="#282828" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#12A71E">
+    <rect x="215" y="276" width="19" height="33" rx="3"/>
+    <rect x="240" y="276" width="19" height="33" rx="3"/>
+    <rect x="265" y="276" width="19" height="33" rx="3"/>
+  </g>
+</svg>

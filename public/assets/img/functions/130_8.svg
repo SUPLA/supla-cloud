@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-FileCopyrightText: AC SOFTWARE SP. Z O.O. -->
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect x="84" y="57" width="242" height="346" rx="31" stroke="#282828" stroke-width="20"/>
+  <rect x="130" y="111" width="150" height="185" rx="17" stroke="#282828" stroke-width="20"/>
+  <path d="M161 158h88M161 194h58" stroke="#282828" stroke-width="20" stroke-linecap="round"/>
+  <circle cx="205" cy="248" r="20" stroke="#282828" stroke-width="20"/>
+  <path d="M205 403v24c0 36 28 58 74 58h16c48 0 77-29 77-75v-58" stroke="#282828" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="340" y="281" width="64" height="71" rx="12" stroke="#282828" stroke-width="20"/>
+  <path d="M356 281v-29M388 281v-29" stroke="#282828" stroke-width="20" stroke-linecap="round"/>
+</svg>

@@ -55,6 +55,7 @@ class OcppChargingStationManager {
                 [
                 [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER, 0, 'Electricity meter'],
                 [ChannelType::RELAY, ChannelFunction::POWERSWITCH, ChannelFlistRelay::POWERSWITCH, 'Charging'],
+                [ChannelType::GENERAL_PURPOSE_MEASUREMENT, ChannelFunction::GENERAL_PURPOSE_MEASUREMENT, 0, 'Vehicle battery level'],
                 ] as $number => [$type, $function, $funcList, $caption]
             ) {
                 $channel = new IODeviceChannel();
@@ -69,6 +70,28 @@ class OcppChargingStationManager {
                 if ($type === ChannelType::ELECTRICITYMETER) {
                     EntityUtils::setField($channel, 'properties', json_encode([
                         'countersAvailable' => ['forwardActiveEnergy'],
+                    ]));
+                } elseif ($type === ChannelType::RELAY) {
+                    $channel->setAltIcon(8);
+                } elseif ($type === ChannelType::GENERAL_PURPOSE_MEASUREMENT) {
+                    $channel->setAltIcon(46);
+                    // SoC is a percentage reported by the vehicle. No report is not 0%.
+                    // This channel does not record a chart/history by default.
+                    foreach (['valueMultiplier' => 1000, 'valueDivider' => 1000,
+                              'valueAdded' => 0, 'valuePrecision' => 0,
+                              'unitAfterValue' => '%', 'noSpaceAfterValue' => true,
+                              'keepHistory' => false] as $field => $value) {
+                        $channel->setUserConfigValue($field, $value);
+                    }
+                    EntityUtils::setField($channel, 'properties', json_encode([
+                        'defaultValuePrecision' => 0,
+                        'defaultUnitAfterValue' => '%',
+                        'hiddenConfigFields' => [
+                            'keepHistory', 'chartType', 'refreshIntervalMs',
+                            'valueMultiplier', 'valueDivider', 'valueAdded',
+                            'unitAfterValue', 'unitBeforeValue', 'valuePrecision',
+                            'noSpaceAfterValue', 'noSpaceBeforeValue',
+                        ],
                     ]));
                 }
                 $device->getChannels()->add($channel);
