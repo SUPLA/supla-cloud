@@ -108,6 +108,8 @@ services:
 
   App\Message\EmailFromTemplateHandler:
     $defaultLocale: '%kernel.default_locale%'
+  App\Message\EmailTwigExtension:
+    $brokerPublicUrl: '%supla.broker_public_url%'
   App\Message\EmailToAdminHandler:
     $adminEmail: '%env(SUPLA_ADMIN_EMAIL)%'
 
@@ -172,7 +174,6 @@ services:
 
   App\Supla\SuplaServer: '@App\Supla\SuplaServerMock'
   App\Supla\SuplaAutodiscover: '@App\Supla\SuplaAutodiscoverMock'
-  #App\Supla\SuplaAutodiscover: '@App\Supla\SuplaAutodiscoverReal'
 
   App\Supla\SuplaBrokerHttpClient:
     tags:
@@ -352,4 +353,8 @@ when@dev:
 when@prod:
   services:
     App\Supla\SuplaServer: '@App\Supla\SuplaServerReal'
+    App\Supla\SuplaAutodiscover: '@App\Supla\SuplaAutodiscoverReal'
+
+when@adreal:
+  services:
     App\Supla\SuplaAutodiscover: '@App\Supla\SuplaAutodiscoverReal'

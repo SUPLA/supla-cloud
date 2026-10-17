@@ -1,0 +1,235 @@
+# Opt-in local broker sandbox.  Do not combine this file with docker-compose.yml:
+# it intentionally owns a separate Compose project, database, and volumes.
+name: supla-broker-sandbox
+
+services:
+  # Docker requires published ports to belong to one network namespace.  Sharing
+  # this namespace makes localhost URLs usable from the browser and from every
+  # application process, just as they are in a real broker response.
+  sandbox-network:
+    image: alpine:3.22.1
+    command: ['sh', '-c', 'exec sleep infinity']
+    ports:
+      - '127.0.0.1:${BROKER_SANDBOX_CLOUD_1_PORT:-8001}:8001'
+      - '127.0.0.1:${BROKER_SANDBOX_CLOUD_2_PORT:-8002}:8002'
+      - '127.0.0.1:${BROKER_SANDBOX_CLOUD_3_PORT:-8003}:8003'
+      - '127.0.0.1:${BROKER_SANDBOX_AUTODISCOVER_PORT:-8010}:8010'
+      - '127.0.0.1:${BROKER_SANDBOX_MAIL_SMTP_PORT:-1025}:1025'
+      - '127.0.0.1:${BROKER_SANDBOX_MAIL_UI_PORT:-8025}:8025'
+      - '127.0.0.1:${BROKER_SANDBOX_OAUTH_CALLBACK_PORT:-8090}:8090'
+
+  mariadb:
+    image: mariadb:11.7.2
+    environment:
+      MYSQL_ROOT_PASSWORD: ${BROKER_SANDBOX_DB_ROOT_PASSWORD:-broker-sandbox-root}
+      TZ: Europe/Warsaw
+    volumes:
+      - broker_sandbox_mariadb:/var/lib/mysql
+    network_mode: service:sandbox-network
+    depends_on:
+      sandbox-network:
+        condition: service_started
+    healthcheck:
+      test: ['CMD-SHELL', 'mariadb-admin ping -h 127.0.0.1 -u root -p"$$MYSQL_ROOT_PASSWORD" --silent']
+      interval: 2s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+
+  cloud-1:
+    build:
+      context: .
+      dockerfile: docker/broker-dev/http-runtime/Dockerfile
+    environment:
+      APP_PORT: 8001
+      APP_DOCUMENT_ROOT: /var/www/html/public
+      APP_ENV: adreal
+      SUPLA_ACT_AS_BROKER_CLOUD: '1'
+      SUPLA_AUTODISCOVER_URL: http://localhost:${BROKER_SANDBOX_AUTODISCOVER_PORT:-8010}
+      SUPLA_URL: http://localhost:${BROKER_SANDBOX_CLOUD_1_PORT:-8001}
+      SUPLA_BROKER_PUBLIC_URL: http://localhost:${BROKER_SANDBOX_CLOUD_1_PORT:-8001}
+      SESSION_COOKIE_NAME: SUPLA_BROKER_SANDBOX_${BROKER_SANDBOX_CLOUD_1_PORT:-8001}
+      MAILER_DSN: smtp://127.0.0.1:1025
+      SUPLA_MQTT_BROKER_ENABLED: 'false'
+      SUPLA_OCR_ENABLED: 'false'
+      DATABASE_HOST: 127.0.0.1
+      DATABASE_PORT: 3306
+      DATABASE_NAME: broker_sandbox_cloud_1
+      DATABASE_USER: broker_sandbox
+      DATABASE_PASSWORD: broker-sandbox
+      DATABASE_VERSION: mariadb-11.7.2
+      DATABASE_FOR_LOGS: mariadb
+    volumes:
+      - .:/var/www/html:ro
+      - broker_sandbox_cloud_1_vendor:/var/www/html/vendor
+      - broker_sandbox_cloud_1_runtime:/var/www/html/var
+      - broker_sandbox_cloud_1_assets:/var/www/html/public/dist
+    network_mode: service:sandbox-network
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'curl --fail --silent http://127.0.0.1:8001/ > /dev/null']
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  cloud-2:
+    build:
+      context: .
+      dockerfile: docker/broker-dev/http-runtime/Dockerfile
+    environment:
+      APP_PORT: 8002
+      APP_DOCUMENT_ROOT: /var/www/html/public
+      APP_ENV: adreal
+      SUPLA_ACT_AS_BROKER_CLOUD: '1'
+      SUPLA_AUTODISCOVER_URL: http://localhost:${BROKER_SANDBOX_AUTODISCOVER_PORT:-8010}
+      SUPLA_URL: http://localhost:${BROKER_SANDBOX_CLOUD_2_PORT:-8002}
+      SUPLA_BROKER_PUBLIC_URL: http://localhost:${BROKER_SANDBOX_CLOUD_2_PORT:-8002}
+      SESSION_COOKIE_NAME: SUPLA_BROKER_SANDBOX_${BROKER_SANDBOX_CLOUD_2_PORT:-8002}
+      MAILER_DSN: smtp://127.0.0.1:1025
+      SUPLA_MQTT_BROKER_ENABLED: 'false'
+      SUPLA_OCR_ENABLED: 'false'
+      DATABASE_HOST: 127.0.0.1
+      DATABASE_PORT: 3306
+      DATABASE_NAME: broker_sandbox_cloud_2
+      DATABASE_USER: broker_sandbox
+      DATABASE_PASSWORD: broker-sandbox
+      DATABASE_VERSION: mariadb-11.7.2
+      DATABASE_FOR_LOGS: mariadb
+    volumes:
+      - .:/var/www/html:ro
+      - broker_sandbox_cloud_2_vendor:/var/www/html/vendor
+      - broker_sandbox_cloud_2_runtime:/var/www/html/var
+      - broker_sandbox_cloud_2_assets:/var/www/html/public/dist
+    network_mode: service:sandbox-network
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'curl --fail --silent http://127.0.0.1:8002/ > /dev/null']
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  # This image is deliberately not built here.  The frozen-image workflow sets
+  # BROKER_SANDBOX_FROZEN_IMAGE explicitly; an unbuilt default cannot silently
+  # turn Cloud 3 into a copy of the live checkout.
+  cloud-3:
+    image: ${BROKER_SANDBOX_FROZEN_IMAGE:-supla-broker-sandbox-cloud-3:unbuilt}
+    environment:
+      APP_PORT: 8003
+      APP_ENV: adreal
+      SUPLA_AUTODISCOVER_URL: http://localhost:${BROKER_SANDBOX_AUTODISCOVER_PORT:-8010}
+      SUPLA_URL: http://localhost:${BROKER_SANDBOX_CLOUD_3_PORT:-8003}
+      SUPLA_BROKER_PUBLIC_URL: http://localhost:${BROKER_SANDBOX_CLOUD_3_PORT:-8003}
+      SESSION_COOKIE_NAME: SUPLA_BROKER_SANDBOX_${BROKER_SANDBOX_CLOUD_3_PORT:-8003}
+      MAILER_DSN: smtp://127.0.0.1:1025
+      SUPLA_MQTT_BROKER_ENABLED: 'false'
+      SUPLA_OCR_ENABLED: 'false'
+      DATABASE_HOST: 127.0.0.1
+      DATABASE_PORT: 3306
+      DATABASE_NAME: broker_sandbox_cloud_3
+      DATABASE_USER: broker_sandbox
+      DATABASE_PASSWORD: broker-sandbox
+      DATABASE_VERSION: mariadb-11.7.2
+      DATABASE_FOR_LOGS: mariadb
+    volumes:
+      - broker_sandbox_cloud_3_runtime:/var/www/html/var
+    network_mode: service:sandbox-network
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'curl --fail --silent http://127.0.0.1:8003/ > /dev/null']
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  autodiscover:
+    build:
+      context: .
+      dockerfile: docker/broker-dev/http-runtime/Dockerfile
+    environment:
+      APP_PORT: 8010
+      APP_DOCUMENT_ROOT: /var/www/html/web
+    volumes:
+      - ${SUPLA_AUTODISCOVER_PATH:-../supla-autodiscover}:/var/www/html:ro
+      - broker_sandbox_autodiscover_vendor:/var/www/html/vendor
+      - broker_sandbox_autodiscover_runtime:/var/www/html/var
+    network_mode: service:sandbox-network
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'curl --fail --silent http://127.0.0.1:8010/ > /dev/null']
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  mail:
+    image: axllent/mailpit:v1.26.2
+    environment:
+      MP_DATABASE: /data/mailpit.db
+      MP_SMTP_BIND_ADDR: 0.0.0.0:1025
+      MP_UI_BIND_ADDR: 0.0.0.0:8025
+    volumes:
+      - broker_sandbox_mail:/data
+    network_mode: service:sandbox-network
+    depends_on:
+      sandbox-network:
+        condition: service_started
+
+  oauth-callback:
+    build:
+      context: .
+      dockerfile: docker/broker-dev/oauth-callback/Dockerfile
+    environment:
+      CALLBACK_PORT: ${BROKER_SANDBOX_OAUTH_CALLBACK_PORT:-8090}
+    network_mode: service:sandbox-network
+    depends_on:
+      sandbox-network:
+        condition: service_started
+
+  bootstrap:
+    build:
+      context: .
+      dockerfile: docker/broker-dev/http-runtime/Dockerfile
+    entrypoint: ['/var/www/html/docker/broker-dev/bootstrap']
+    environment:
+      BROKER_SANDBOX_COMPOSE_FILE: /var/www/html/docker-compose.broker-dev.yml
+      BROKER_SANDBOX_DB_ROOT_PASSWORD: ${BROKER_SANDBOX_DB_ROOT_PASSWORD:-broker-sandbox-root}
+      BROKER_SANDBOX_CLOUD_1_PORT: ${BROKER_SANDBOX_CLOUD_1_PORT:-8001}
+      BROKER_SANDBOX_CLOUD_2_PORT: ${BROKER_SANDBOX_CLOUD_2_PORT:-8002}
+      BROKER_SANDBOX_CLOUD_3_PORT: ${BROKER_SANDBOX_CLOUD_3_PORT:-8003}
+      BROKER_SANDBOX_AUTODISCOVER_PORT: ${BROKER_SANDBOX_AUTODISCOVER_PORT:-8010}
+      BROKER_SANDBOX_OAUTH_CALLBACK_PORT: ${BROKER_SANDBOX_OAUTH_CALLBACK_PORT:-8090}
+    volumes:
+      - .:/var/www/html:ro
+      - ${SUPLA_AUTODISCOVER_PATH:-../supla-autodiscover}:/var/www/autodiscover:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - broker_sandbox_bootstrap:/var/lib/broker-sandbox
+    network_mode: service:sandbox-network
+    depends_on:
+      cloud-1:
+        condition: service_started
+      cloud-2:
+        condition: service_started
+      cloud-3:
+        condition: service_started
+      autodiscover:
+        condition: service_started
+
+volumes:
+  broker_sandbox_mariadb:
+  broker_sandbox_cloud_1_vendor:
+  broker_sandbox_cloud_1_runtime:
+  broker_sandbox_cloud_1_assets:
+  broker_sandbox_cloud_2_vendor:
+  broker_sandbox_cloud_2_runtime:
+  broker_sandbox_cloud_2_assets:
+  broker_sandbox_cloud_3_runtime:
+  broker_sandbox_autodiscover_vendor:
+  broker_sandbox_autodiscover_runtime:
+  broker_sandbox_mail:
+  broker_sandbox_bootstrap:

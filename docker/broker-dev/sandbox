@@ -1,0 +1,244 @@
+#!/bin/sh
+# Lifecycle commands for the isolated local broker sandbox.
+set -eu
+
+root=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
+compose_file="$root/docker-compose.broker-dev.yml"
+env_file=${BROKER_SANDBOX_ENV_FILE:-$root/.broker-sandbox.env}
+frozen_image_command=${BROKER_SANDBOX_FROZEN_IMAGE_COMMAND:-$root/docker/broker-dev/frozen-image}
+
+usage() {
+    cat <<USAGE
+Usage:
+  docker/broker-dev/sandbox setup
+  docker/broker-dev/sandbox start
+  docker/broker-dev/sandbox stop
+  docker/broker-dev/sandbox reset --confirm
+  docker/broker-dev/sandbox frontend
+  docker/broker-dev/sandbox frozen build --ref <git-ref> [--tag <image>]
+  docker/broker-dev/sandbox frozen build --snapshot [--tag <image>]
+  docker/broker-dev/sandbox frozen inspect
+  docker/broker-dev/sandbox logs [service ...]
+  docker/broker-dev/sandbox health
+  docker/broker-dev/sandbox oauth-credentials
+
+The active and pending frozen images are stored in .broker-sandbox.env. Setup
+explicitly starts and bootstraps a sandbox. Normal start only starts or resumes
+services; it never waits for or triggers bootstrap and never builds or replaces
+Cloud 3. Reset removes only this Compose project's named volumes, applies a
+pending frozen image, then bootstraps it without rebuilding it.
+USAGE
+}
+
+die() {
+    printf '%s\n' "$*" >&2
+    exit 1
+}
+
+compose() {
+    if [ -f "$env_file" ]; then
+        docker compose --env-file "$env_file" -f "$compose_file" "$@"
+    else
+        docker compose -f "$compose_file" "$@"
+    fi
+}
+
+endpoint() {
+    variable=$1
+    fallback=$2
+    eval "port=\${$variable:-$fallback}"
+    printf 'http://localhost:%s' "$port"
+}
+
+selected_frozen_image() {
+    if [ -f "$env_file" ]; then
+        sed -n 's/^BROKER_SANDBOX_FROZEN_IMAGE=//p' "$env_file" | tail -n 1
+    fi
+}
+
+pending_frozen_image() {
+    if [ -f "$env_file" ]; then
+        sed -n 's/^BROKER_SANDBOX_PENDING_FROZEN_IMAGE=//p' "$env_file" | tail -n 1
+    fi
+}
+
+bootstrap_status() {
+    failed=$(compose ps --all --filter service=bootstrap --filter status=exited -q)
+    if [ -n "$failed" ] && ! compose logs bootstrap 2>&1 | grep -F 'broker sandbox bootstrap: already complete' >/dev/null; then
+        printf '%s\n' failed
+        return
+    fi
+
+    if compose run --rm --no-deps bootstrap sh -lc 'test -f /var/lib/broker-sandbox/bootstrap-ready' >/dev/null 2>&1; then
+        printf '%s\n' complete
+    else
+        printf '%s\n' incomplete
+    fi
+}
+
+require_completed_bootstrap() {
+    case "$(bootstrap_status)" in
+        complete)
+            printf 'Broker sandbox bootstrap is complete.\n'
+            ;;
+        failed)
+            die 'Broker sandbox bootstrap previously failed. Inspect: docker/broker-dev/sandbox logs bootstrap. After correcting the cause, retry cleanly: docker/broker-dev/sandbox reset --confirm'
+            ;;
+        *)
+            die 'Broker sandbox bootstrap is incomplete. Run docker/broker-dev/sandbox setup for a new sandbox, or docker/broker-dev/sandbox reset --confirm for a clean retry.'
+            ;;
+    esac
+}
+
+require_selected_frozen_image() {
+    image=$(selected_frozen_image)
+    [ -n "$image" ] || die "No frozen Cloud 3 image is selected. Build one from the broker-sandbox baseline release or later: docker/broker-dev/sandbox frozen build --ref <git-ref>"
+}
+
+require_no_pending_frozen_image() {
+    image=$(pending_frozen_image)
+    [ -z "$image" ] || die "A pending frozen Cloud 3 image ($image) requires a whole-sandbox clean reset before it can run. Apply it with: docker/broker-dev/sandbox reset --confirm"
+}
+
+save_pending_frozen_image() {
+    image=$1
+    temporary="$env_file.tmp.$$"
+    mkdir -p "$(dirname "$env_file")"
+    {
+        if [ -f "$env_file" ]; then
+            grep -v '^BROKER_SANDBOX_PENDING_FROZEN_IMAGE=' "$env_file" || true
+        fi
+        printf 'BROKER_SANDBOX_PENDING_FROZEN_IMAGE=%s\n' "$image"
+    } > "$temporary"
+    mv "$temporary" "$env_file"
+}
+
+apply_pending_frozen_image() {
+    image=$(pending_frozen_image)
+    [ -n "$image" ] || return
+    temporary="$env_file.tmp.$$"
+    {
+        if [ -f "$env_file" ]; then
+            grep -v '^BROKER_SANDBOX_FROZEN_IMAGE=' "$env_file" | grep -v '^BROKER_SANDBOX_PENDING_FROZEN_IMAGE=' || true
+        fi
+        printf 'BROKER_SANDBOX_FROZEN_IMAGE=%s\n' "$image"
+    } > "$temporary"
+    mv "$temporary" "$env_file"
+}
+
+command=${1:-}
+[ -n "$command" ] || { usage >&2; exit 2; }
+shift
+
+case "$command" in
+    setup)
+        [ "$#" -eq 0 ] || { usage >&2; exit 2; }
+        require_no_pending_frozen_image
+        "$root/docker/broker-dev/check-ports"
+        require_selected_frozen_image
+        compose up -d
+        compose wait bootstrap
+        ;;
+    start)
+        [ "$#" -eq 0 ] || { usage >&2; exit 2; }
+        require_no_pending_frozen_image
+        require_selected_frozen_image
+        compose up -d
+        require_completed_bootstrap
+        ;;
+    stop)
+        [ "$#" -eq 0 ] || { usage >&2; exit 2; }
+        require_no_pending_frozen_image
+        compose stop
+        ;;
+    reset)
+        [ "${1:-}" = --confirm ] && [ "$#" -eq 1 ] || die 'Clean reset requires --confirm. It removes only broker-sandbox Compose volumes and then bootstraps fresh state.'
+        if [ -z "$(pending_frozen_image)" ]; then
+            require_selected_frozen_image
+        fi
+        compose down --volumes --remove-orphans
+        apply_pending_frozen_image
+        compose up -d
+        compose wait bootstrap
+        ;;
+    frontend)
+        [ "$#" -eq 0 ] || { usage >&2; exit 2; }
+        require_no_pending_frozen_image
+        compose exec cloud-1 sh -lc 'cd frontend && npm ci && npm run build'
+        compose exec cloud-2 sh -lc 'cd frontend && npm ci && npm run build'
+        ;;
+    frozen)
+        subcommand=${1:-}
+        shift || true
+        case "$subcommand" in
+            build)
+                "$frozen_image_command" build "$@"
+                tag='supla-broker-sandbox-cloud-3:latest'
+                previous=
+                while [ "$#" -gt 0 ]; do
+                    if [ "$previous" = --tag ]; then
+                        tag=$1
+                        previous=
+                    else
+                        previous=$1
+                    fi
+                    shift
+                done
+                save_pending_frozen_image "$tag"
+                printf 'Pending frozen Cloud 3 image: %s\n' "$tag"
+                printf 'Run docker/broker-dev/sandbox reset --confirm to replace the active image and bootstrap clean state.\n'
+                ;;
+            inspect)
+                [ "$#" -eq 0 ] || { usage >&2; exit 2; }
+                require_no_pending_frozen_image
+                require_selected_frozen_image
+                "$frozen_image_command" inspect --tag "$(selected_frozen_image)"
+                ;;
+            *) usage >&2; exit 2 ;;
+        esac
+        ;;
+    logs)
+        require_no_pending_frozen_image
+        compose logs --tail=100 "$@"
+        ;;
+    health)
+        [ "$#" -eq 0 ] || { usage >&2; exit 2; }
+        require_no_pending_frozen_image
+        compose ps
+        case "$(bootstrap_status)" in
+            complete) printf 'Bootstrap: complete\n' ;;
+            failed) printf 'Bootstrap: failed (inspect logs; run reset --confirm after correcting the cause)\n' >&2 ;;
+            *) printf 'Bootstrap: incomplete (run setup or reset --confirm)\n' >&2 ;;
+        esac
+        for endpoint_name in \
+            "Cloud 1|$(endpoint BROKER_SANDBOX_CLOUD_1_PORT 8001)" \
+            "Cloud 2|$(endpoint BROKER_SANDBOX_CLOUD_2_PORT 8002)" \
+            "Cloud 3|$(endpoint BROKER_SANDBOX_CLOUD_3_PORT 8003)" \
+            "Autodiscover|$(endpoint BROKER_SANDBOX_AUTODISCOVER_PORT 8010)"; do
+            name=${endpoint_name%%|*}
+            url=${endpoint_name#*|}
+            if curl --fail --silent --max-time 2 "$url/" >/dev/null; then
+                printf '%s reachable at %s\n' "$name" "$url"
+            else
+                printf '%s is not reachable at %s\n' "$name" "$url" >&2
+            fi
+        done
+        if image=$(selected_frozen_image); then
+            if [ -n "$image" ]; then
+                "$frozen_image_command" inspect --tag "$image"
+            else
+                printf 'Frozen Cloud 3 image: not selected\n' >&2
+            fi
+        fi
+        ;;
+    oauth-credentials)
+        [ "$#" -eq 0 ] || { usage >&2; exit 2; }
+        require_no_pending_frozen_image
+        require_completed_bootstrap
+        compose run --rm --no-deps bootstrap sh -lc 'cat /var/lib/broker-sandbox/oauth-client.env'
+        ;;
+    --help|-h|help)
+        usage
+        ;;
+    *) usage >&2; exit 2 ;;
+esac

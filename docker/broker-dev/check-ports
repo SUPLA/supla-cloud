@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+declare -A ports=(
+    ["${BROKER_SANDBOX_CLOUD_1_PORT:-8001}"]='Cloud 1'
+    ["${BROKER_SANDBOX_CLOUD_2_PORT:-8002}"]='Cloud 2'
+    ["${BROKER_SANDBOX_CLOUD_3_PORT:-8003}"]='Cloud 3'
+    ["${BROKER_SANDBOX_AUTODISCOVER_PORT:-8010}"]='Autodiscover'
+    ["${BROKER_SANDBOX_MAIL_SMTP_PORT:-1025}"]='Mail SMTP'
+    ["${BROKER_SANDBOX_MAIL_UI_PORT:-8025}"]='Mail inbox'
+    ["${BROKER_SANDBOX_OAUTH_CALLBACK_PORT:-8090}"]='OAuth callback receiver'
+)
+
+conflicts=0
+for port in "${!ports[@]}"; do
+    if ss -H -ltn "sport = :$port" | grep -q .; then
+        printf 'Port %s is already listening; broker sandbox %s cannot use it.\n' "$port" "${ports[$port]}" >&2
+        conflicts=1
+    fi
+done
+
+if ((conflicts)); then
+    cat >&2 <<'EOF'
+Stop the process that owns the conflicting port, or choose unused ports with
+BROKER_SANDBOX_*_PORT environment variables before starting the sandbox.
+Run `docker compose -f docker-compose.broker-dev.yml config` to inspect the
+resulting port mapping.
+EOF
+    exit 1
+fi
+
+echo 'Broker sandbox ports are available.'

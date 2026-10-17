@@ -111,6 +111,21 @@ npm run serve
 
 ---
 
+## Broker sandbox: manual mixed-version verification
+
+For manual testing of broker forwarding between two live Clouds and a frozen
+Cloud built from the broker-sandbox baseline release or a later compatible ref,
+use the isolated broker sandbox. It does not use the normal development Compose
+project, database, or volumes.
+
+The full operating instructions and verification checklist are in
+[docker/broker-dev/README.md](docker/broker-dev/README.md). In particular, the
+guide covers setup and lifecycle commands, provenance inspection, cross-broker
+webapp and CORS checks, OAuth, captured email, resilience checks, and known
+limitations.
+
+---
+
 ## Notes on scope
 
 * This setup is intended **only for development and testing**.
@@ -132,4 +147,3 @@ If you would like to contribute:
 5. Follow the rules described in `CONTRIBUTING.md`.
 
 Thank you for contributing to the SUPLA project.
-

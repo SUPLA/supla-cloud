@@ -3,13 +3,19 @@ parameters:
   supla.protocol: '%env(SUPLA_PROTOCOL)%'
   supla.server_socket: /var/run/supla/supla-server-ctrl.sock
   supla.url: '%env(default:supla.default_url:SUPLA_URL)%'
+  supla.broker_public_url: '%env(default:supla.default_broker_public_url:SUPLA_BROKER_PUBLIC_URL)%'
   supla.default_url: '%supla.protocol%://%supla.host%'
+  supla.default_broker_public_url: 'https://cloud.supla.org'
   supla.host: '%env(SUPLA_HOST_ADDRESS)%'
   supla.mailer_from: '%env(SUPLA_MAILER_FROM)%'
   supla.require_regulations_acceptance: '%env(bool:SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE)%'
   supla.require_cookie_policy_acceptance: '%env(bool:SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE)%'
 
   env(SUPLA_ACT_AS_BROKER_CLOUD): 'false'
+  env(SUPLA_BROKER_PUBLIC_URL): ''
+  env(SESSION_COOKIE_NAME): SUPLA_SESSION
+  env(SUPLA_AUTODISCOVER_URL): https://autodiscover.supla.org
+  env(SUPLA_OCR_ENABLED): 'false'
   env(SUPLA_PROTOCOL): 'https'
   env(SUPLA_REQUIRE_COOKIE_POLICY_ACCEPTANCE): 'true'
   env(SUPLA_REQUIRE_REGULATIONS_ACCEPTANCE): 'true'
@@ -39,7 +45,7 @@ parameters:
 
 supla:
   accounts_registration_enabled: '%env(bool:SUPLA_ACCOUNTS_REGISTRATION_ENABLED)%'
-  autodiscover_url: https://autodiscover.supla.org
+  autodiscover_url: '%env(SUPLA_AUTODISCOVER_URL)%'
   api_rate_limit:
     enabled: '%env(bool:SUPLA_API_RATE_LIMIT_ENABLED)%'
     blocking: '%env(bool:SUPLA_API_RATE_LIMIT_BLOCKING)%'
@@ -84,6 +90,8 @@ supla:
       broker: {access: 86400, refresh: 5184000}
   state_webhooks:
     only_for_public_apps: '%env(bool:SUPLA_STATE_WEBHOOKS_ONLY_FOR_PUBLIC_APPS)%'
+  ocr:
+    enabled: '%env(bool:SUPLA_OCR_ENABLED)%'
 
 when@dev:
   supla:

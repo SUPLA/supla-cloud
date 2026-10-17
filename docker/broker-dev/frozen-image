@@ -1,0 +1,104 @@
+#!/bin/sh
+# Build and inspect the immutable Cloud 3 comparison image.
+set -eu
+
+root=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
+default_tag='supla-broker-sandbox-cloud-3:latest'
+
+usage() {
+    cat <<USAGE
+Usage:
+  docker/broker-dev/frozen-image build --ref <git-ref> [--tag <image>]
+  docker/broker-dev/frozen-image build --snapshot [--tag <image>]
+  docker/broker-dev/frozen-image inspect [--tag <image>]
+
+A ref build reads Git objects without switching or modifying the checkout.
+A snapshot build includes tracked and untracked application files, but excludes
+credentials, caches, dependency directories, and generated frontend assets.
+USAGE
+}
+
+die() {
+    printf '%s\n' "$*" >&2
+    exit 1
+}
+
+require_current_layout() {
+    source=$1
+    description=$2
+    if [ ! -f "$source/public/index.php" ] || [ ! -f "$source/frontend/package.json" ]; then
+        if [ -f "$source/web/index.php" ] || [ -f "$source/src/frontend/package.json" ]; then
+            die "Unsupported Cloud layout for $description: this sandbox supports the broker-sandbox baseline release or later, not historical legacy-layout refs."
+        fi
+        die "Unsupported Cloud layout for $description: expected the broker-sandbox baseline-release-or-later paths public/index.php and frontend/package.json."
+    fi
+    [ -f "$source/composer.lock" ] || die "Unsupported Cloud layout for $description: composer.lock is required."
+    [ -f "$source/frontend/package-lock.json" ] || die "Unsupported Cloud layout for $description: frontend/package-lock.json is required."
+}
+
+require_runtime_compatibility() {
+    source=$1
+    description=$2
+    entrypoint="$source/public/index.php"
+    [ -f "$entrypoint" ] || die "Unsupported Cloud runtime for $description: public/index.php is missing."
+    if ! grep -q 'APP_DOCUMENT_ROOT\|Kernel\|Symfony' "$entrypoint"; then
+        die "Unsupported Cloud runtime for $description: public/index.php is not a supported Symfony Cloud entrypoint."
+    fi
+}
+
+command=${1:-}
+[ -n "$command" ] || { usage >&2; exit 2; }
+shift
+
+tag=$default_tag
+mode=
+ref=
+while [ "$#" -gt 0 ]; do
+    case $1 in
+        --ref) [ "$#" -ge 2 ] || die '--ref needs a Git ref'; mode=ref; ref=$2; shift 2 ;;
+        --snapshot) mode=snapshot; shift ;;
+        --tag) [ "$#" -ge 2 ] || die '--tag needs an image name'; tag=$2; shift 2 ;;
+        --help|-h) usage; exit 0 ;;
+        *) die "Unknown option: $1" ;;
+    esac
+done
+
+case $command in
+    build)
+        [ -n "$mode" ] || die 'Choose exactly one input: --ref <git-ref> or --snapshot.'
+        build_dir=$(mktemp -d "${TMPDIR:-/tmp}/broker-sandbox-frozen.XXXXXX")
+        trap 'rm -rf "$build_dir"' EXIT HUP INT TERM
+        source="$build_dir/source"
+        mkdir "$source"
+        if [ "$mode" = ref ]; then
+            commit=$(git -C "$root" rev-parse --verify "${ref}^{commit}") || die "Cannot resolve Git ref: $ref"
+            git -C "$root" archive --format=tar "$commit" | tar -xf - -C "$source"
+            requested_ref=$ref
+            snapshot_dirty=false
+        else
+            commit=$(git -C "$root" rev-parse HEAD)
+            requested_ref='working-tree snapshot'
+            snapshot_dirty=true
+            tar --exclude-vcs --exclude='./vendor' --exclude='./frontend/node_modules' --exclude='./var' --exclude='./public/dist' --exclude='./.env.local' --exclude='./.env.local.*' -C "$root" -cf - . | tar -xf - -C "$source"
+        fi
+        require_current_layout "$source" "$requested_ref"
+        require_runtime_compatibility "$source" "$requested_ref"
+        cat > "$source/.broker-sandbox-provenance" <<PROVENANCE
+requested_ref=$requested_ref
+resolved_commit=$commit
+working_tree_snapshot=$snapshot_dirty
+built_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+PROVENANCE
+        mkdir "$build_dir/harness"
+        cp "$root/docker/broker-dev/frozen-image.Dockerfile" "$build_dir/Dockerfile"
+        cp "$root/docker/broker-dev/http-runtime/entrypoint.sh" "$build_dir/harness/entrypoint.sh"
+        printf 'Building frozen Cloud 3 image %s\n' "$tag"
+        printf 'Provenance: requested=%s resolved=%s snapshot=%s\n' "$requested_ref" "$commit" "$snapshot_dirty"
+        docker build --file "$build_dir/Dockerfile" --build-context frozen-source="$source" --build-context sandbox-harness="$build_dir/harness" --tag "$tag" --label "org.supla.broker-sandbox.requested-ref=$requested_ref" --label "org.supla.broker-sandbox.resolved-commit=$commit" --label "org.supla.broker-sandbox.working-tree-snapshot=$snapshot_dirty" "$build_dir"
+        ;;
+    inspect)
+        [ -z "$mode" ] || die 'inspect accepts only --tag.'
+        docker image inspect --format 'image={{.RepoTags}} requested_ref={{index .Config.Labels "org.supla.broker-sandbox.requested-ref"}} resolved_commit={{index .Config.Labels "org.supla.broker-sandbox.resolved-commit"}} working_tree_snapshot={{index .Config.Labels "org.supla.broker-sandbox.working-tree-snapshot"}}' "$tag"
+        ;;
+    *) usage >&2; exit 2 ;;
+esac

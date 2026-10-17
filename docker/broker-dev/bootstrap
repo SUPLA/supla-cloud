@@ -1,0 +1,215 @@
+#!/bin/sh
+# Initializes the isolated broker sandbox once per set of named volumes.
+set -eu
+
+root=/var/www/html
+state_dir=/var/lib/broker-sandbox
+ready_file="$state_dir/bootstrap-ready"
+autodiscover_root=/var/www/autodiscover
+
+cloud_1_url="http://localhost:${BROKER_SANDBOX_CLOUD_1_PORT:-8001}"
+cloud_2_url="http://localhost:${BROKER_SANDBOX_CLOUD_2_PORT:-8002}"
+cloud_3_url="http://localhost:${BROKER_SANDBOX_CLOUD_3_PORT:-8003}"
+autodiscover_url="http://localhost:${BROKER_SANDBOX_AUTODISCOVER_PORT:-8010}"
+oauth_callback_url="http://localhost:${BROKER_SANDBOX_OAUTH_CALLBACK_PORT:-8090}/callback"
+
+stage() {
+    printf 'broker sandbox bootstrap: %s\n' "$1"
+}
+
+fail() {
+    printf 'broker sandbox bootstrap failed during %s: %s\n' "$stage_name" "$*" >&2
+    exit 1
+}
+
+run() {
+    "$@" || fail "command failed: $*"
+}
+
+mysql_root() {
+    mariadb -h 127.0.0.1 -u root -p"${BROKER_SANDBOX_DB_ROOT_PASSWORD:-broker-sandbox-root}" "$@"
+}
+
+cloud() {
+    service=$1
+    shift
+    docker compose -f "$BROKER_SANDBOX_COMPOSE_FILE" exec -T "$service" sh -lc "$*"
+}
+
+cloud_user_id() {
+    service=$1
+    email=$2
+    cloud "$service" "php bin/console doctrine:query:sql --no-interaction --format=txt \"SELECT id FROM supla_user WHERE email = '$email'\"" | awk 'NF && \$1 ~ /^[0-9]+$/ { print \$1; exit }'
+}
+
+wait_for_http() {
+    name=$1
+    url=$2
+    attempt=0
+    until curl --fail --silent --max-time 2 "$url" >/dev/null 2>&1; do
+        attempt=$((attempt + 1))
+        [ "$attempt" -lt 60 ] || fail "$name did not become reachable at $url"
+        sleep 1
+    done
+}
+
+verify_cloud_fixture() {
+    service=$1
+    email=$2
+    user_id=$(cloud_user_id "$service" "$email")
+    [ -n "$user_id" ] || fail "$service did not create fixture user $email"
+    devices=$(cloud "$service" "php bin/console doctrine:query:sql --no-interaction --format=txt \"SELECT COUNT(*) FROM supla_iodevice WHERE user_id = $user_id\"" | awk 'NF && \$1 ~ /^[0-9]+$/ { print \$1; exit }')
+    channels=$(cloud "$service" "php bin/console doctrine:query:sql --no-interaction --format=txt \"SELECT COUNT(*) FROM supla_dev_channel WHERE iodevice_id IN (SELECT id FROM supla_iodevice WHERE user_id = $user_id)\"" | awk 'NF && \$1 ~ /^[0-9]+$/ { print \$1; exit }')
+    [ "${devices:-0}" -gt 0 ] || fail "$service fixture user $email has no sample devices"
+    [ "${channels:-0}" -gt 0 ] || fail "$service fixture user $email has no sample channels"
+    printf '%s\n' "$user_id"
+}
+
+if [ -f "$ready_file" ]; then
+    stage 'already complete'
+    exit 0
+fi
+
+stage_name='MariaDB readiness'
+stage "$stage_name"
+attempt=0
+until mysql_root --skip-column-names -e 'SELECT 1' >/dev/null 2>&1; do
+    attempt=$((attempt + 1))
+    [ "$attempt" -lt 60 ] || fail 'MariaDB did not become ready'
+    sleep 1
+done
+
+stage_name='database creation and grants'
+stage "$stage_name"
+mysql_root <<'SQL' || fail 'could not create sandbox databases'
+CREATE DATABASE IF NOT EXISTS broker_sandbox_cloud_1 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS broker_sandbox_cloud_2 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS broker_sandbox_cloud_3 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS broker_sandbox_autodiscover CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER IF NOT EXISTS 'broker_sandbox'@'127.0.0.1' IDENTIFIED BY 'broker-sandbox';
+GRANT ALL PRIVILEGES ON broker_sandbox_cloud_1.* TO 'broker_sandbox'@'127.0.0.1';
+GRANT ALL PRIVILEGES ON broker_sandbox_cloud_2.* TO 'broker_sandbox'@'127.0.0.1';
+GRANT ALL PRIVILEGES ON broker_sandbox_cloud_3.* TO 'broker_sandbox'@'127.0.0.1';
+GRANT ALL PRIVILEGES ON broker_sandbox_autodiscover.* TO 'broker_sandbox'@'127.0.0.1';
+FLUSH PRIVILEGES;
+SQL
+
+stage_name='Cloud dependencies'
+stage "$stage_name"
+for service in cloud-1 cloud-2 cloud-3; do
+    cloud "$service" 'if [ -f composer.lock ]; then composer install --no-interaction --prefer-dist; else composer update --no-interaction --prefer-dist; fi'
+done
+
+stage_name='Cloud schemas and fixtures'
+stage "$stage_name"
+for service in cloud-1 cloud-2 cloud-3; do
+    cloud "$service" 'php bin/console supla:initialize --no-interaction'
+    cloud "$service" 'php bin/console doctrine:fixtures:load --no-interaction --append'
+done
+
+stage_name='autodiscover dependencies and configuration'
+stage "$stage_name"
+cloud autodiscover 'composer install --no-interaction --prefer-dist'
+cloud autodiscover 'mkdir -p var/config && printf "%s\\n" "autodiscover:" "  log_level: NOTICE" "  max_requests_per_minute: 0" "  db:" "    host: 127.0.0.1" "    name: broker_sandbox_autodiscover" "    user: broker_sandbox" "    password: broker-sandbox" > var/config/config.yml'
+
+stage_name='autodiscover schema and keys'
+stage "$stage_name"
+for schema in \
+    "$autodiscover_root"/sql/v1_0.sql \
+    "$autodiscover_root"/sql/v1_0-v2_0.sql \
+    "$autodiscover_root"/sql/v2_0-v2_1.sql \
+    "$autodiscover_root"/sql/v2_1-v2_2.sql \
+    "$autodiscover_root"/sql/v2_2-v2_3.sql \
+    "$autodiscover_root"/sql/v2_3-v2_4.sql \
+    "$autodiscover_root"/sql/v2_4-v2_5.sql \
+    "$autodiscover_root"/sql/v2_5-v2_6.sql \
+    "$autodiscover_root"/sql/v2_6-v2_7.sql \
+    "$autodiscover_root"/sql/v2_7-v2_8.sql \
+    "$autodiscover_root"/sql/v2_8-v2_9.sql \
+    "$autodiscover_root"/sql/v2_9-v2_10.sql \
+    "$autodiscover_root"/sql/v2_10-v2_11.sql \
+    "$autodiscover_root"/sql/v2_11-v2_12.sql \
+    "$autodiscover_root"/sql/v2_12-v2_13.sql \
+    "$autodiscover_root"/sql/v2_13-v2_14.sql; do
+    [ -f "$schema" ] || fail "required autodiscover schema is missing: $schema"
+    mysql_root broker_sandbox_autodiscover < "$schema" || fail "could not load $schema"
+done
+cloud autodiscover 'php src/autodiscover-cli.php initialize'
+
+stage_name='broker registration'
+stage "$stage_name"
+for service in cloud-1 cloud-2 cloud-3; do
+    case "$service" in
+        cloud-1) url=$cloud_1_url ; email=user1@example.test ;;
+        cloud-2) url=$cloud_2_url ; email=user2@example.test ;;
+        cloud-3) url=$cloud_3_url ; email=user3@example.test ;;
+    esac
+    token=$(cloud autodiscover "php src/autodiscover-cli.php target-clouds:registration-tokens:issue '$url' '$email'" | tail -n 1) || fail "could not issue registration token for $service"
+    cloud "$service" "php bin/console supla:register-target-cloud '$token' --no-interaction"
+done
+mysql_root broker_sandbox_autodiscover -e 'UPDATE supla_target_cloud SET is_broker = 1' || fail 'could not grant broker status'
+
+stage_name='distinct fixture accounts and ownership mappings'
+stage "$stage_name"
+for service in cloud-1 cloud-2 cloud-3; do
+    case "$service" in
+        cloud-1) email=user1@example.test ;;
+        cloud-2) email=user2@example.test ;;
+        cloud-3) email=user3@example.test ;;
+    esac
+    cloud "$service" "php bin/console supla:user:create '$email' broker-sandbox --if-not-exists"
+    user_id=$(verify_cloud_fixture "$service" "$email")
+    case "$service" in
+        cloud-1) url=$cloud_1_url ;;
+        cloud-2) url=$cloud_2_url ;;
+        cloud-3) url=$cloud_3_url ;;
+    esac
+    target_id=$(mysql_root --skip-column-names broker_sandbox_autodiscover -e "SELECT id FROM supla_target_cloud WHERE url = '$url'")
+    [ -n "$target_id" ] || fail "could not find registered target cloud for $url"
+    mysql_root broker_sandbox_autodiscover -e "INSERT INTO supla_user (target_id, user_id, email) VALUES ($target_id, $user_id, '$email') ON DUPLICATE KEY UPDATE target_id = VALUES(target_id), user_id = VALUES(user_id)" || fail "could not map $email to $service"
+    mapped_target=$(mysql_root --skip-column-names broker_sandbox_autodiscover -e "SELECT target_id FROM supla_user WHERE email = '$email'")
+    mapped_user=$(mysql_root --skip-column-names broker_sandbox_autodiscover -e "SELECT user_id FROM supla_user WHERE email = '$email'")
+    [ "$mapped_target" = "$target_id" ] && [ "$mapped_user" = "$user_id" ] || fail "ownership mapping for $email is incorrect"
+done
+
+stage_name='public OAuth client and mappings'
+stage "$stage_name"
+cloud autodiscover 'mkdir -p var/public-clients'
+client_output=$(cloud autodiscover 'php src/autodiscover-cli.php public-clients:create') || fail 'could not create sandbox OAuth client'
+client_file=$(printf '%s\n' "$client_output" | sed -n 's/.*editing the //p' | head -n 1)
+[ -n "$client_file" ] || fail 'could not find sandbox OAuth client data file'
+client_id=$(sed -n 's/^clientId: //p' "$client_file" | head -n 1)
+client_secret=$(sed -n 's/^secret: //p' "$client_file" | head -n 1)
+[ -n "$client_id" ] && [ -n "$client_secret" ] || fail 'could not read sandbox OAuth credentials'
+cat > "$client_file" <<EOF
+clientId: $client_id
+secret: $client_secret
+enabled: true
+hidden: true
+ordinalNumber: 0
+name: 'Broker Sandbox OAuth Client'
+description:
+  EN: 'Local broker sandbox OAuth client'
+longDescription:
+  EN: 'Development-only OAuth client for the local broker sandbox.'
+redirectUris:
+  - '$oauth_callback_url'
+websiteUrl: 'http://localhost:${BROKER_SANDBOX_OAUTH_CALLBACK_PORT:-8090}'
+defaultScope: 'account_r offline_access'
+defaultRedirectUri: '$oauth_callback_url'
+EOF
+client_number=${client_id%%_*}
+cloud autodiscover "php src/autodiscover-cli.php public-clients:update '$client_number'"
+printf 'BROKER_SANDBOX_OAUTH_CLIENT_ID=%s\nBROKER_SANDBOX_OAUTH_CLIENT_SECRET=%s\n' "$client_id" "$client_secret" > "$state_dir/oauth-client.env"
+for url in "$cloud_1_url" "$cloud_2_url" "$cloud_3_url"; do
+    cloud autodiscover "curl --fail --silent '$autodiscover_url/mapped-client/$client_id/$url' >/dev/null" || fail "could not seed OAuth mapping for $url"
+done
+
+stage_name='readiness confirmation'
+stage "$stage_name"
+wait_for_http 'Cloud 1' "$cloud_1_url/"
+wait_for_http 'Cloud 2' "$cloud_2_url/"
+wait_for_http 'Cloud 3' "$cloud_3_url/"
+wait_for_http 'Autodiscover' "$autodiscover_url/"
+touch "$ready_file" || fail 'could not persist bootstrap readiness'
+stage 'complete'
