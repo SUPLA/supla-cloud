@@ -161,11 +161,18 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
                 $this->getEntityManager()->remove($token);
                 $this->flush();
                 break;
+            case 'wrong_scope':
+                $token->setScope('account_r');
+                $this->flush();
+                break;
         }
 
         $client = $this->createHttpsClient(false);
         $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->targetTokenRequest([
-            'target_token' => $case === 'unknown' ? 'TKN_other-instance-token' : $tokenString,
+            // Never interpret the embedded target address as routing authority.
+            'target_token' => $case === 'foreign_instance'
+                ? $tokenString . '.' . base64_encode('https://foreign.example')
+                : $tokenString,
         ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
         $this->assertStatusCode(401, $client->getResponse());
         $this->assertSame(['outcome' => 'error', 'errorCode' => 'invalid_token'], $client->getResponseBody());
@@ -177,9 +184,10 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
 
     public static function invalidTargetTokenProvider(): array {
         return [
-            'unknown' => ['unknown'],
+            'foreign instance' => ['foreign_instance'],
             'expired' => ['expired'],
             'revoked' => ['revoked'],
+            'wrong scope' => ['wrong_scope'],
         ];
     }
 
@@ -415,8 +423,9 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertSame('account_r offline_access', $authorizations[0]->getScope());
     }
 
-    public function testRepeatedTargetTokenAuthorizationsKeepOneGrantAndSingleMqttEffect(): void {
-        $this->user->addApiClientAuthorization($this->oauthClient, 'account_r');
+    public function testRepeatedTargetTokenAuthorizationsDoNotMutateGrantOrTriggerMqttEffects(): void {
+        $this->user->addApiClientAuthorization($this->oauthClient, 'account_r mqtt_broker');
+        $this->user->setMqttBrokerEnabled(true);
         $this->persist($this->user);
 
         $codes = [];
@@ -424,15 +433,6 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
             $client = $this->createHttpsClient(false);
             $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->targetTokenRequest([
                 'scope' => 'account_r mqtt_broker',
-            ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
-            $this->assertStatusCode(401, $client->getResponse());
-            $this->assertSame(['outcome' => 'error', 'errorCode' => 'password_required'], $client->getResponseBody());
-        }
-
-        for ($attempt = 0; $attempt < 3; $attempt++) {
-            $client = $this->createHttpsClient(false);
-            $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->targetTokenRequest([
-                'scope' => 'account_r',
             ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
             $this->assertStatusCode(200, $client->getResponse());
             $this->assertSame('authorized', $client->getResponseBody()['outcome']);
@@ -445,7 +445,7 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($user->isMqttBrokerEnabled());
         $authorizations = $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll();
         $this->assertCount(1, $authorizations);
-        $this->assertSame('account_r', $authorizations[0]->getScope());
+        $this->assertSame('account_r mqtt_broker', $authorizations[0]->getScope());
         $commands = array_filter(SuplaServerMock::$executedCommands, fn($command) => str_contains($command, 'ON-MQTT-SETTINGS-CHANGED'));
         $this->assertSame([], array_values($commands));
         foreach ($codes as $code) {
@@ -468,6 +468,19 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
             $this->assertFalse($this->freshEntity($this->user)->isMqttBrokerEnabled());
             $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
         }
+    }
+
+    public function testTargetTokenCannotCreateTheFirstGrant(): void {
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->targetTokenRequest(), [], [], [
+            'HTTP_SUPLA-Broker-Token' => 'Bearer BROKER',
+        ]);
+
+        $this->assertStatusCode(401, $client->getResponse());
+        $this->assertSame(['outcome' => 'error', 'errorCode' => 'password_required'], $client->getResponseBody());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll());
+        $this->assertFalse($this->freshEntity($this->user)->isMqttBrokerEnabled());
     }
 
     public function testPartialGrantCoverageRequiresPasswordThenMergesScopes(): void {

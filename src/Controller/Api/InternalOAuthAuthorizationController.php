@@ -14,10 +14,13 @@ use App\Auth\OAuthAuthorizationGrantService;
 use App\Auth\OAuthScope;
 use App\Auth\SuplaOAuth2;
 use App\Auth\SuplaOAuthStorage;
+use App\Auth\UserProvider;
 use App\Auth\Voter\BrokerRequestSecurityVoter;
+use App\Entity\Main\OAuth\AccessToken;
 use App\Entity\Main\OAuth\ApiClient;
 use App\Entity\Main\User;
 use App\Exception\ApiException;
+use App\Exception\InsufficientGrantException;
 use Doctrine\DBAL\Exception as StorageException;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
@@ -41,6 +44,7 @@ class InternalOAuthAuthorizationController {
         private readonly ClientManagerInterface $clientManager,
         private readonly SuplaOAuth2 $oauth2Server,
         private readonly OAuthAuthorizationGrantService $authorizationGrantService,
+        private readonly UserProvider $userProvider,
         private readonly LoggerInterface $logger,
     ) {
     }
@@ -63,7 +67,7 @@ class InternalOAuthAuthorizationController {
         }
 
         $data = $request->request->all();
-        $allowedParameters = array_merge(self::AUTHORIZATION_PARAMETERS, ['decision', 'username', 'password']);
+        $allowedParameters = array_merge(self::AUTHORIZATION_PARAMETERS, ['decision', 'username', 'password', 'target_token']);
         foreach ($data as $name => $value) {
             if (!in_array($name, $allowedParameters, true) || !is_string($value)) {
                 return $this->error('invalid_request', Response::HTTP_BAD_REQUEST);
@@ -121,6 +125,54 @@ class InternalOAuthAuthorizationController {
                 $this->oauth2Server->finishClientAuthorization(false, null, $request);
             } catch (OAuth2RedirectException $e) {
                 return $this->response('denied', $this->redirectUrl($e, $request));
+            }
+        }
+
+        if (array_key_exists('target_token', $data)) {
+            if (($data['password'] ?? '') !== '') {
+                return $this->error('invalid_request', Response::HTTP_BAD_REQUEST);
+            }
+            $targetToken = $data['target_token'];
+            if ($targetToken === '') {
+                return $this->error('invalid_token', Response::HTTP_UNAUTHORIZED);
+            }
+            $username = $data['username'] ?? null;
+            $user = $this->verifyTargetBearerToken($targetToken, $username);
+            if (!$user instanceof User) {
+                return $user;
+            }
+
+            try {
+                $result = $this->authorizationGrantService->authorizeWithExistingGrant(
+                    $user,
+                    $client,
+                    $authorizationRequest['scope'] ?? '',
+                    function () use ($targetToken, $username, $request, $authorizationRequest) {
+                        // Re-verify after acquiring the user/grant lock so a
+                        // revoked or expired token cannot rely on stale evidence.
+                        $currentUser = $this->verifyTargetBearerToken($targetToken, $username);
+                        if (!$currentUser instanceof User) {
+                            return $currentUser;
+                        }
+                        return $this->oauth2Server->finishClientAuthorization(
+                            true,
+                            $currentUser,
+                            $request,
+                            $authorizationRequest['scope'] ?? null
+                        );
+                    }
+                );
+                if ($result instanceof JsonResponse) {
+                    return $result;
+                }
+                return $this->response('authorized', $result->headers->get('Location'));
+            } catch (InsufficientGrantException $e) {
+                return $this->error('password_required', Response::HTTP_UNAUTHORIZED);
+            } catch (OAuth2ServerException $e) {
+                return $this->oauthError($e, $request);
+            } catch (StorageException $e) {
+                $this->logger->error('Internal OAuth authorization storage failed.', ['exceptionType' => get_class($e)]);
+                return $this->error('server_error', Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         }
 
@@ -184,6 +236,42 @@ class InternalOAuthAuthorizationController {
             return $this->error('invalid_credentials', Response::HTTP_UNAUTHORIZED);
         }
         return $user;
+    }
+
+    /** @return User|JsonResponse */
+    private function verifyTargetBearerToken(string $token, ?string $username) {
+        try {
+            $accessToken = $this->oauth2Server->verifyAccessToken($token);
+        } catch (OAuth2ServerException $e) {
+            return $this->error('invalid_token', Response::HTTP_UNAUTHORIZED);
+        }
+
+        // Only a normal SUPLA WebApp token is identity evidence here. Its own
+        // scopes are not consent for the OAuth client; grant coverage is checked
+        // separately and authoritatively below.
+        if (!$accessToken instanceof AccessToken || !$accessToken->isForWebapp()) {
+            return $this->error('invalid_token', Response::HTTP_UNAUTHORIZED);
+        }
+        $user = $accessToken->getUser();
+        if (!$user instanceof User || ($username !== null && $username !== '' && $username !== $user->getUsername())) {
+            return $this->error('invalid_token', Response::HTTP_UNAUTHORIZED);
+        }
+
+        // Reuse the account-state checks used by WebApp password login. Token
+        // possession does not bypass a disabled or rate-limited account.
+        try {
+            $account = $this->userProvider->loadUserByIdentifier($user->getUsername());
+        } catch (LockedException $e) {
+            return $this->error('locked', Response::HTTP_TOO_MANY_REQUESTS);
+        } catch (DisabledException $e) {
+            return $this->error('disabled', Response::HTTP_CONFLICT);
+        } catch (UsernameNotFoundException $e) {
+            return $this->error('invalid_token', Response::HTTP_UNAUTHORIZED);
+        }
+        if (!$account instanceof User || $account->getId() !== $user->getId()) {
+            return $this->error('invalid_token', Response::HTTP_UNAUTHORIZED);
+        }
+        return $account;
     }
 
     private function response(string $outcome, ?string $redirectUrl): JsonResponse {
