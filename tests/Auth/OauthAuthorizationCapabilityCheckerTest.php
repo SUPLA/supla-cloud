@@ -57,6 +57,17 @@ class OauthAuthorizationCapabilityCheckerTest extends TestCase {
         $this->assertNull($capability->getApiVersion());
     }
 
+    public function testMalformedCapabilityValueIsUnavailableRatherThanUnsupported(): void {
+        $forwarder = $this->createMock(TargetSuplaCloudRequestForwarder::class);
+        $forwarder->method('getInfo')
+            ->willReturn(['oauthAuthorizationApiVersion' => '1']);
+
+        $capability = (new OAuthAuthorizationCapabilityChecker($forwarder))
+            ->check(TargetSuplaCloud::trustedPeer('https://target.cloud'));
+
+        $this->assertSame(OAuthAuthorizationCapability::TARGET_UNAVAILABLE, $capability->getStatus());
+    }
+
     public function testTargetUnavailableOnNetworkFailure() {
         $forwarder = $this->createMock(TargetSuplaCloudRequestForwarder::class);
         $forwarder->method('getInfo')

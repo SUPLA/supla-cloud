@@ -27,8 +27,10 @@ final class OAuthAuthorizationCapabilityChecker {
         try {
             $info = $this->requestForwarder->getInfo($target);
         } catch (ApiException $e) {
-            // Network/AD outage, timeout, or a rejected peer redirect:
-            // transient, the target's capability is unknown.
+            // Network outage, timeout, or a rejected peer redirect: the
+            // target's capability is unknown. AD discovery happens before
+            // this method because its input must already be a trusted peer;
+            // the caller maps AD discovery failures to target_unavailable.
             return OAuthAuthorizationCapability::targetUnavailable();
         }
         if (!is_array($info)) {
@@ -36,11 +38,22 @@ final class OAuthAuthorizationCapabilityChecker {
             // transient, do not label a broken target as unsupported.
             return OAuthAuthorizationCapability::targetUnavailable();
         }
-        if (($info['oauthAuthorizationApiVersion'] ?? null) === OAuthAuthorizationApi::VERSION) {
+        if (!array_key_exists('oauthAuthorizationApiVersion', $info)) {
+            // A successful server-info response without this field identifies
+            // a pre-capability target, independent of cloudVersion.
+            return OAuthAuthorizationCapability::unsupported();
+        }
+        $version = $info['oauthAuthorizationApiVersion'];
+        if (!is_int($version)) {
+            // A present but malformed capability cannot safely establish
+            // either support or permanent absence; treat it as unknown.
+            return OAuthAuthorizationCapability::targetUnavailable();
+        }
+        if ($version === OAuthAuthorizationApi::VERSION) {
             return OAuthAuthorizationCapability::supported(OAuthAuthorizationApi::VERSION);
         }
-        // The target answered server-info without the capability field: a
-        // pre-Release-A instance, a permanent missing-capability condition.
+        // A valid integer version other than this contract version is
+        // permanent incompatibility for this request contract.
         return OAuthAuthorizationCapability::unsupported();
     }
 }
