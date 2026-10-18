@@ -3,6 +3,7 @@
 namespace App\Tests\Supla;
 
 use App\Enums\InstanceSettings;
+use App\Exception\ApiException;
 use App\Repository\SettingsStringRepository;
 use App\Supla\SuplaBrokerHttpClient;
 use App\Supla\SuplaHttpClient;
@@ -39,5 +40,30 @@ class SuplaBrokerHttpClientTest extends TestCase {
 
         $client = new SuplaBrokerHttpClient($httpClient, $settings, $this->createMock(LoggerInterface::class));
         $client->requestWithStoredToken('https://broker.example/api', null, $status, [], null, 'SUPLA-Broker-Token');
+    }
+
+    public function testTrustedRequestEnablesPeerTransportProtections(): void {
+        $settings = $this->createMock(SettingsStringRepository::class);
+        $httpClient = $this->createMock(SuplaHttpClient::class);
+        $httpClient->expects($this->once())
+            ->method('request')
+            ->willReturnCallback(function ($url, $method, $payload, $headers, $trustedPeer) {
+                $this->assertSame('https://target.example/api', $url);
+                $this->assertTrue($trustedPeer);
+                return [true, '{}', 200];
+            });
+
+        $client = new SuplaBrokerHttpClient($httpClient, $settings, $this->createMock(LoggerInterface::class));
+        $client->requestTrusted('https://target.example/api', null, $status);
+    }
+
+    public function testTrustedRequestRejectsRedirectResponse(): void {
+        $settings = $this->createMock(SettingsStringRepository::class);
+        $httpClient = $this->createMock(SuplaHttpClient::class);
+        $httpClient->method('request')->willReturn([true, '{}', 302]);
+        $client = new SuplaBrokerHttpClient($httpClient, $settings, $this->createMock(LoggerInterface::class));
+
+        $this->expectException(ApiException::class);
+        $client->requestTrusted('https://target.example/api', null, $status);
     }
 }

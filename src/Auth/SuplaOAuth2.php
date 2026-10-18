@@ -150,10 +150,27 @@ class SuplaOAuth2 extends OAuth2 {
             $tokenParts = explode('.', $authCodeOrRefreshToken);
             if (count($tokenParts) === 2 && ($targetCloudUrl = base64_decode($tokenParts[1]))) {
                 // we hit token issue request as SUPLA Broker! let's verify the public client credentials now
-                $targetCloud = new TargetSuplaCloud($targetCloudUrl, false);
+                try {
+                    // Canonicalize before asking AD. A suffix is only a lookup
+                    // hint; it must not select a different spelling, protocol
+                    // or path from the trusted-peer record.
+                    $targetCloud = TargetSuplaCloud::trustedPeer($targetCloudUrl);
+                } catch (\InvalidArgumentException $e) {
+                    throw new OAuth2ServerException(
+                        Response::HTTP_BAD_REQUEST,
+                        self::ERROR_INVALID_CLIENT,
+                        'The target cloud is not trusted'
+                    );
+                }
                 $mappedClientData = $this->autodiscover->fetchTargetCloudClientSecret($client, $targetCloud);
                 if ($mappedClientData) {
-                    throw new ForwardRequestToTargetCloudException($targetCloud, $mappedClientData);
+                    // A positive AD mapping is the trusted-peer lookup. The
+                    // suffix remains only a hint and is never forwarded as an
+                    // unverified destination.
+                    throw new ForwardRequestToTargetCloudException(
+                        $targetCloud,
+                        $mappedClientData
+                    );
                 } else {
                     throw new OAuth2ServerException(
                         Response::HTTP_BAD_REQUEST,

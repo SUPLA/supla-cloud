@@ -45,6 +45,16 @@ class SuplaBrokerHttpClient {
         return $this->sendRequest($fullUrl, $payload, $responseStatus, $headers, $method);
     }
 
+    public function requestTrusted(
+        string $fullUrl,
+        ?array $payload = null,
+        ?int &$responseStatus = null,
+        array $headers = [],
+        ?string $method = null
+    ): ?array {
+        return $this->sendRequest($fullUrl, $payload, $responseStatus, $headers, $method, true);
+    }
+
     public function requestWithStoredToken(
         string $fullUrl,
         ?array $payload = null,
@@ -59,16 +69,31 @@ class SuplaBrokerHttpClient {
         return $this->sendRequest($fullUrl, $payload, $responseStatus, $headers, $method);
     }
 
+    public function requestTrustedWithStoredToken(
+        string $fullUrl,
+        ?array $payload = null,
+        ?int &$responseStatus = null,
+        array $headers = [],
+        ?string $method = null,
+        string $authorizationHeaderName = 'Authorization'
+    ): ?array {
+        if (!isset($headers[$authorizationHeaderName]) && $this->settingsStringRepository->hasValue(InstanceSettings::TARGET_TOKEN)) {
+            $headers[$authorizationHeaderName] = 'Bearer ' . $this->settingsStringRepository->getValue(InstanceSettings::TARGET_TOKEN);
+        }
+        return $this->sendRequest($fullUrl, $payload, $responseStatus, $headers, $method, true);
+    }
+
     private function sendRequest(
         string $fullUrl,
         ?array $payload,
         ?int &$responseStatus,
         array $headers,
-        ?string $method
+        ?string $method,
+        bool $trustedPeer = false
     ): ?array {
         $method = $method ?: ($payload ? 'POST' : 'GET');
         $headers['X-Cloud-Version'] = ApiVersions::LATEST;
-        [$responseSuccess, $rawResponse, $responseStatus] = $this->httpClient->request($fullUrl, $method, $payload, $headers);
+        [$responseSuccess, $rawResponse, $responseStatus] = $this->httpClient->request($fullUrl, $method, $payload, $headers, $trustedPeer);
         $logDetails = [
             'address' => $fullUrl,
             'method' => $method,
@@ -85,6 +110,9 @@ class SuplaBrokerHttpClient {
         } else {
             $this->logger->warning('Target service does not respond.', $logDetails);
             throw new ApiException('Service temporarily unavailable', Response::HTTP_SERVICE_UNAVAILABLE); // i18n
+        }
+        if ($trustedPeer && $responseStatus >= 300 && $responseStatus <= 399) {
+            throw new ApiException('Trusted peer redirects are not allowed', Response::HTTP_SERVICE_UNAVAILABLE);
         }
         return json_decode($rawResponse, true);
     }

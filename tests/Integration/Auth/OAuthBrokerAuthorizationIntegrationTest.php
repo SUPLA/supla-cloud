@@ -322,6 +322,27 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($response->isSuccessful());
     }
 
+    public function testDoesNotForwardTokenSuffixWithProhibitedAddressEvenIfItHasAnAdMapping() {
+        SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://127.0.0.1']['1_public'] = ['clientId' => '1_local', 'secret' => 'target-secret'];
+        $targetCalled = false;
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function () use (&$targetCalled) {
+            $targetCalled = true;
+            return ['OK', Response::HTTP_OK];
+        };
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/oauth/v2/token', [
+            'grant_type' => 'authorization_code',
+            'client_id' => '1_public',
+            'client_secret' => 'public-secret',
+            'redirect_uri' => 'https://cool.app',
+            'code' => 'ABC.' . base64_encode('https://127.0.0.1'),
+        ]);
+
+        $this->assertFalse($targetCalled);
+        $this->assertFalse($client->getResponse()->isSuccessful());
+    }
+
     public function testReturnsErrorIfPublicSecretDoesNotMatch() {
         SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
         SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['clientId' => '1_local', 'secret' => 'target-secret'];
