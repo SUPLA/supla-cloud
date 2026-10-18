@@ -164,6 +164,27 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('account_r offline_access', $response['scope']);
     }
 
+    public function testLegacyBrowserAuthorizationAndTokenExchangePreserveS256Binding() {
+        $verifier = str_repeat('legacy_verifier_', 4);
+        $challenge = rtrim(strtr(base64_encode(hash('sha256', $verifier, true)), '+/', '-_'), '=');
+        $browserClient = $this->makeOAuthAuthorizeRequest([
+            'code_challenge' => $challenge,
+            'code_challenge_method' => 'S256',
+        ]);
+        $authCodes = $this->getDoctrine()->getRepository(AuthCode::class)->findByClient($this->client);
+        $this->assertCount(1, $authCodes, sprintf(
+            'OAuth browser response: %d %s %s',
+            $browserClient->getResponse()->getStatusCode(),
+            $browserClient->getResponse()->headers->get('Location'),
+            substr($browserClient->getResponse()->getContent(), 0, 3000)
+        ));
+        $this->assertSame($challenge, $authCodes[0]->getCodeChallenge());
+        $this->assertSame('S256', $authCodes[0]->getCodeChallengeMethod());
+
+        $response = $this->issueTokenBasedOnAuthCode($authCodes[0], ['code_verifier' => $verifier]);
+        $this->assertArrayHasKey('access_token', $response);
+    }
+
     public function testErrorWhenWrongSecret() {
         $this->makeOAuthAuthorizeRequest();
         $authCodes = $this->getDoctrine()->getRepository(AuthCode::class)->findByClient($this->client);
