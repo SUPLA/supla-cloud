@@ -297,6 +297,56 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertSame(1, $authorizeCalls);
     }
 
+    public function testExchangesBrokerIssuedSuffixedCodeAtPublicTokenEndpoint() {
+        SuplaAutodiscoverMock::$userMapping['remote@supla.org'] = 'target.cloud';
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public'] = ['clientId' => '1_mapped', 'secret' => 'target-secret'];
+        SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
+        $suffixedCode = 'target-issued-code.' . base64_encode('https://target.cloud');
+
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function (string $address, string $endpoint, ?array $data) use ($suffixedCode) {
+            if ($endpoint === 'server-info' || str_ends_with($endpoint, '/server-info')) {
+                return [['oauthAuthorizationApiVersion' => 1], Response::HTTP_OK];
+            }
+            $this->assertSame('https://target.cloud', $address);
+            $this->assertSame('/api/internal/oauth/authorize', $endpoint);
+            return [[
+                'outcome' => 'authorized',
+                'redirectUrl' => 'https://cool.app/callback?code=' . $suffixedCode . '&state=original-state',
+            ], Response::HTTP_OK];
+        };
+
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/authorize', $this->brokerAuthorizationRequest());
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $redirectUrl = json_decode($client->getResponse()->getContent(), true)['redirectUrl'];
+        parse_str((string) parse_url($redirectUrl, PHP_URL_QUERY), $redirectQuery);
+
+        $tokenEndpoints = [];
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function (string $address, string $endpoint, array $data) use ($suffixedCode, &$tokenEndpoints) {
+            $tokenEndpoints[] = $endpoint;
+            $this->assertSame('https://target.cloud', $address);
+            $this->assertSame('/oauth/v2/token', $endpoint);
+            $this->assertSame($suffixedCode, $data['code']);
+            $this->assertSame('1_mapped', $data['client_id']);
+            $this->assertSame('target-secret', $data['client_secret']);
+            return [['access_token' => 'target-access-token', 'token_type' => 'Bearer'], Response::HTTP_OK];
+        };
+
+        $tokenClient = $this->createHttpsClient(false);
+        $tokenClient->apiRequest('POST', '/oauth/v2/token', [
+            'grant_type' => 'authorization_code',
+            'client_id' => '1_public',
+            'client_secret' => 'public-secret',
+            'redirect_uri' => 'https://cool.app/callback',
+            'code' => $redirectQuery['code'],
+            'state' => $redirectQuery['state'],
+        ]);
+
+        $this->assertSame(['/oauth/v2/token'], $tokenEndpoints);
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->assertSame('target-access-token', json_decode($tokenClient->getResponse()->getContent(), true)['access_token']);
+    }
+
     public function testDisplaysNormalLoginFormIfLocalClientExists() {
         $localClient = $this->clientManager->createClient();
         $localClient->setName('Local App');
