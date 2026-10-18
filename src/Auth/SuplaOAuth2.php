@@ -153,7 +153,13 @@ class SuplaOAuth2 extends OAuth2 {
                 $targetCloud = new TargetSuplaCloud($targetCloudUrl, false);
                 $mappedClientData = $this->autodiscover->fetchTargetCloudClientSecret($client, $targetCloud);
                 if ($mappedClientData) {
-                    throw new ForwardRequestToTargetCloudException($targetCloud, $mappedClientData);
+                    // A positive AD mapping is the trusted-peer lookup. The
+                    // suffix remains only a hint and is never forwarded as an
+                    // unverified destination.
+                    throw new ForwardRequestToTargetCloudException(
+                        TargetSuplaCloud::trustedPeer($targetCloudUrl),
+                        $mappedClientData
+                    );
                 } else {
                     throw new OAuth2ServerException(
                         Response::HTTP_BAD_REQUEST,

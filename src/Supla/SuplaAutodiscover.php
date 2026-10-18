@@ -104,7 +104,7 @@ abstract class SuplaAutodiscover {
                 if (!str_starts_with($serverUrl, 'http')) {
                     $serverUrl = $this->localSuplaCloud->getProtocol() . '://' . $serverUrl;
                 }
-                return new TargetSuplaCloud($serverUrl);
+                return TargetSuplaCloud::trustedPeer($serverUrl);
             }
         }
         return $this->localSuplaCloud;
@@ -116,7 +116,7 @@ abstract class SuplaAutodiscover {
                 $result = $this->remoteRequest('/new-account-server/' . urlencode($request->getClientIp()));
                 $domainFromAutodiscover = $result ? ($result['server'] ?? false) : false;
                 if ($domainFromAutodiscover) {
-                    return new TargetSuplaCloud($domainFromAutodiscover);
+                    return TargetSuplaCloud::trustedPeer($domainFromAutodiscover);
                 }
             }
         }

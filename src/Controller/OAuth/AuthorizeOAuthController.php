@@ -175,6 +175,10 @@ class AuthorizeOAuthController extends AbstractController {
         if ($targetCloud) {
             $mappedClientId = $this->autodiscover->getTargetCloudClientId($targetCloud, $oauthParams['client_id']);
             if ($mappedClientId) {
+                // The mapping lookup is the private-cloud trusted-peer
+                // registry check. Do not let the submitted host itself
+                // authorize the subsequent server-to-server probe.
+                $targetCloud = TargetSuplaCloud::trustedPeer($targetCloud->getAddress());
                 $oauthParams['client_id'] = $mappedClientId;
                 $oauthParams['ad_username'] = $username;
                 $redirectUrl = $targetCloud->getOauthAuthUrl($oauthParams);
