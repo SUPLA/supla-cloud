@@ -26,7 +26,7 @@ class BootstrapComposeTest extends TestCase {
         self::assertNotFalse($bootstrap);
 
         self::assertStringContainsString('autodiscover_root=/var/www/autodiscover', $bootstrap);
-        self::assertStringContainsString('$autodiscover_root/sql/v2_13-v2_14.sql', $bootstrap);
+        self::assertStringContainsString('"$autodiscover_root"/sql/v2_13-v2_14.sql', $bootstrap);
         self::assertStringNotContainsString('"$root"/sql/', $bootstrap);
         self::assertStringContainsString("wait_for_http 'Cloud 1'", $bootstrap);
         self::assertStringContainsString("wait_for_http 'Autodiscover'", $bootstrap);
@@ -42,6 +42,7 @@ class BootstrapComposeTest extends TestCase {
         self::assertStringContainsString('has no sample devices', $bootstrap);
         self::assertStringContainsString('has no sample channels', $bootstrap);
         self::assertStringNotContainsString("SELECT t.id, 1", $bootstrap);
+        self::assertStringContainsString("awk '/supla:register-target-cloud/ { print \$NF }'", $bootstrap);
     }
 
     public function testBootstrapCreatesTheFrozenCloudDatabaseBeforeItInitializesCloud3(): void {
@@ -50,6 +51,7 @@ class BootstrapComposeTest extends TestCase {
 
         self::assertStringContainsString('CREATE DATABASE IF NOT EXISTS broker_sandbox_cloud_3', $bootstrap);
         self::assertStringContainsString('GRANT ALL PRIVILEGES ON broker_sandbox_cloud_3.*', $bootstrap);
-        self::assertStringContainsString("cloud \"$service\" 'php bin/console supla:initialize --no-interaction'", $bootstrap);
+        self::assertStringContainsString('cloud "$service" \'php bin/console supla:initialize --no-interaction\'', $bootstrap);
+        self::assertStringContainsString("APP_ENV=dev php bin/console doctrine:fixtures:load --no-interaction --append", $bootstrap);
     }
 }

@@ -1,7 +1,13 @@
 FROM composer:2.8.2 AS php-dependencies
 WORKDIR /var/www/html
 COPY --from=frozen-source composer.json composer.lock ./
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+# The source context is intentionally copied only after dependencies are cached.
+# Symfony's Composer auto-scripts require bin/console, which is not available yet.
+# The final image installs these extensions; the Composer image does not provide them.
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-scripts \
+    --ignore-platform-req=ext-gd \
+    --ignore-platform-req=ext-intl \
+    --ignore-platform-req=ext-pdo_mysql
 
 FROM node:22.14.0-bookworm AS frontend
 WORKDIR /var/www/html/frontend

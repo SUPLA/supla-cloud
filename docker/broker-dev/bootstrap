@@ -104,7 +104,7 @@ stage_name='Cloud schemas and fixtures'
 stage "$stage_name"
 for service in cloud-1 cloud-2 cloud-3; do
     cloud "$service" 'php bin/console supla:initialize --no-interaction'
-    cloud "$service" 'php bin/console doctrine:fixtures:load --no-interaction --append'
+    cloud "$service" 'APP_ENV=dev php bin/console doctrine:fixtures:load --no-interaction --append'
 done
 
 stage_name='autodiscover dependencies and configuration'
@@ -144,7 +144,8 @@ for service in cloud-1 cloud-2 cloud-3; do
         cloud-2) url=$cloud_2_url ; email=user2@example.test ;;
         cloud-3) url=$cloud_3_url ; email=user3@example.test ;;
     esac
-    token=$(cloud autodiscover "php src/autodiscover-cli.php target-clouds:registration-tokens:issue '$url' '$email'" | tail -n 1) || fail "could not issue registration token for $service"
+    token=$(cloud autodiscover "php src/autodiscover-cli.php target-clouds:registration-tokens:issue '$url' '$email'" | awk '/supla:register-target-cloud/ { print $NF }') \
+        || fail "could not issue registration token for $service"
     cloud "$service" "php bin/console supla:register-target-cloud '$token' --no-interaction"
 done
 mysql_root broker_sandbox_autodiscover -e 'UPDATE supla_target_cloud SET is_broker = 1' || fail 'could not grant broker status'

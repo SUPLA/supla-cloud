@@ -355,8 +355,12 @@ docker/broker-dev/sandbox frontend
 
 ## Live Cloud runtime
 
-Clouds 1 and 2 mount the current checkout read-only. Their Composer
-dependencies, Symfony runtime state, and frontend assets are separate named
+Clouds 1 and 2 mount the current checkout read-only. The lifecycle script
+creates empty, ignored host directories only as Docker mountpoints:
+`public/dist/` in this checkout, plus `vendor/` and `var/` in the autodiscover
+checkout. Generated assets, dependencies, and runtime state remain in named
+volumes. Their Composer dependencies, Symfony runtime state, and frontend
+assets are separate named
 volumes, so installing dependencies inside a container never changes the host
 `vendor/` directory and each Cloud has independent logs, caches, sessions, and
 autodiscover metadata. PHP source changes are visible to both live Clouds

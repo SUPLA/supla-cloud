@@ -192,9 +192,10 @@ services:
         condition: service_started
 
   bootstrap:
+    image: supla-broker-sandbox-bootstrap:1
     build:
       context: .
-      dockerfile: docker/broker-dev/http-runtime/Dockerfile
+      dockerfile: docker/broker-dev/bootstrap.Dockerfile
     entrypoint: ['/var/www/html/docker/broker-dev/bootstrap']
     environment:
       BROKER_SANDBOX_COMPOSE_FILE: /var/www/html/docker-compose.broker-dev.yml

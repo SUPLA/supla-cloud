@@ -65,6 +65,14 @@ FAKE_DOCKER_LOG="$fixture/docker.log" PATH="$fixture:$PATH" BROKER_SANDBOX_ENV_F
 assert_contains "$fixture/docker.log" 'down --volumes --remove-orphans'
 assert_contains "$fixture/docker.log" 'up -d'
 assert_contains "$fixture/docker.log" 'wait bootstrap'
+[ -d "$root/public/dist" ] || {
+    echo 'Expected sandbox reset to prepare the public/dist volume mountpoint' >&2
+    exit 1
+}
+[ -d "$root/../supla-autodiscover/vendor" ] && [ -d "$root/../supla-autodiscover/var" ] || {
+    echo 'Expected sandbox reset to prepare autodiscover volume mountpoints' >&2
+    exit 1
+}
 assert_contains "$env_file" 'BROKER_SANDBOX_FROZEN_IMAGE=replacement-cloud-3'
 assert_not_contains "$env_file" 'BROKER_SANDBOX_PENDING_FROZEN_IMAGE='
 
@@ -98,7 +106,18 @@ assert_contains "$fixture/docker.log" 'up -d'
 assert_contains "$fixture/docker.log" 'wait bootstrap'
 assert_not_contains "$fixture/docker.log" 'build'
 
+: > "$fixture/docker.log"
+FAKE_DOCKER_LOG="$fixture/docker.log" PATH="$fixture:$PATH" BROKER_SANDBOX_ENV_FILE="$env_file" "$root/docker/broker-dev/sandbox" reset --confirm
+assert_contains "$fixture/docker.log" 'down --volumes --remove-orphans'
+assert_contains "$fixture/docker.log" 'up -d'
+assert_contains "$fixture/docker.log" 'wait bootstrap'
+
 assert_contains "$root/docker/broker-dev/bootstrap" 'public OAuth client and mappings'
+[ -x "$root/docker/broker-dev/bootstrap" ] || {
+    echo 'Expected bootstrap entrypoint to be executable' >&2
+    exit 1
+}
+assert_contains "$root/docker/broker-dev/bootstrap.Dockerfile" 'docker-compose'
 assert_contains "$root/docker/broker-dev/bootstrap" 'public-clients:create'
 assert_contains "$root/docker/broker-dev/bootstrap" 'public-clients:update'
 assert_contains "$root/docker/broker-dev/bootstrap" 'mapped-client'
