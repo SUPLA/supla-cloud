@@ -60,7 +60,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_mapped';
         $forwarded = null;
         TargetSuplaCloudRequestForwarder::$requestExecutor = function ($origin, $endpoint, $data) use (&$forwarded) {
-            if (str_ends_with($endpoint, '/server-info')) {
+            if ($endpoint === 'server-info' || str_ends_with($endpoint, '/server-info')) {
                 return [['oauthAuthorizationApiVersion' => 1], Response::HTTP_OK];
             }
             $forwarded = [$origin, $endpoint, $data];
@@ -137,6 +137,164 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
         $this->assertSame('invalid_client', json_decode($client->getResponse()->getContent(), true)['errorCode']);
         $this->assertSame(0, $requests);
+    }
+
+    public function testForwardsTargetTokenEvidenceWithoutUsingItsSuffixForRouting() {
+        SuplaAutodiscoverMock::$userMapping['remote@supla.org'] = 'target.cloud';
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_mapped';
+        $forwarded = null;
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function ($origin, $endpoint, $data) use (&$forwarded) {
+            if ($endpoint === 'server-info' || str_ends_with($endpoint, '/server-info')) {
+                return [['oauthAuthorizationApiVersion' => 1], Response::HTTP_OK];
+            }
+            $forwarded = [$origin, $endpoint, $data];
+            return [['outcome' => 'error', 'errorCode' => 'password_required'], Response::HTTP_UNAUTHORIZED];
+        };
+
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/authorize', [
+            'client_id' => '1_public',
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'decision' => 'approve',
+            'username' => 'remote@supla.org',
+            'target_token' => 'opaque-webapp-token',
+        ]);
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_UNAUTHORIZED);
+        $this->assertSame('https://target.cloud', $forwarded[0]);
+        $this->assertSame('opaque-webapp-token', $forwarded[2]['target_token']);
+        $this->assertArrayNotHasKey('password', $forwarded[2]);
+    }
+
+    public function testRejectsMixedPasswordAndTargetTokenEvidenceBeforeDiscovery() {
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/authorize', [
+            'client_id' => '1_public',
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'decision' => 'approve',
+            'username' => 'remote@supla.org',
+            'password' => 'fresh-password',
+            'target_token' => 'opaque-webapp-token',
+        ]);
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $this->assertSame('invalid_request', json_decode($client->getResponse()->getContent(), true)['errorCode']);
+        $this->assertSame(0, count(SuplaAutodiscoverMock::$requests));
+    }
+
+    public function testForwardsPkceChallengeFieldsUnchanged() {
+        SuplaAutodiscoverMock::$userMapping['remote@supla.org'] = 'target.cloud';
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_mapped';
+        $forwarded = null;
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function ($origin, $endpoint, $data) use (&$forwarded) {
+            if ($endpoint === 'server-info' || str_ends_with($endpoint, '/server-info')) {
+                return [['oauthAuthorizationApiVersion' => 1], Response::HTTP_OK];
+            }
+            $forwarded = [$origin, $endpoint, $data];
+            return [[
+                'outcome' => 'authorized',
+                'redirectUrl' => 'https://cool.app/callback?code=target-code&state=original-state',
+            ], Response::HTTP_OK];
+        };
+
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/authorize', [
+            'client_id' => '1_public',
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'state' => 'original-state',
+            'code_challenge' => 'challenge-value',
+            'code_challenge_method' => 'S256',
+            'decision' => 'approve',
+            'username' => 'remote@supla.org',
+            'password' => 'fresh-password',
+        ]);
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->assertSame('challenge-value', $forwarded[2]['code_challenge']);
+        $this->assertSame('S256', $forwarded[2]['code_challenge_method']);
+    }
+
+    public function testReturnsUnsupportedAuthorizationApiWhenTargetLacksCapability() {
+        SuplaAutodiscoverMock::$userMapping['remote@supla.org'] = 'target.cloud';
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_mapped';
+        $endpoints = [];
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function ($origin, $endpoint, $data) use (&$endpoints) {
+            $endpoints[] = $endpoint;
+            return [['cloudVersion' => '2.3.0'], Response::HTTP_OK];
+        };
+
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/authorize', $this->brokerAuthorizationRequest());
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_SERVICE_UNAVAILABLE);
+        $this->assertSame('unsupported_authorization_api', json_decode($client->getResponse()->getContent(), true)['errorCode']);
+        $this->assertSame(['server-info'], $endpoints);
+    }
+
+    public function testReturnsTargetUnavailableWhenCapabilityProbeFails() {
+        SuplaAutodiscoverMock::$userMapping['remote@supla.org'] = 'target.cloud';
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_mapped';
+        $endpoints = [];
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function ($origin, $endpoint, $data) use (&$endpoints) {
+            $endpoints[] = $endpoint;
+            return [null, Response::HTTP_SERVICE_UNAVAILABLE];
+        };
+
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/authorize', $this->brokerAuthorizationRequest());
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_SERVICE_UNAVAILABLE);
+        $this->assertSame('target_unavailable', json_decode($client->getResponse()->getContent(), true)['errorCode']);
+        $this->assertSame(['server-info'], $endpoints);
+    }
+
+    public function testDoesNotContactTargetWhenAutodiscoverResolvesPrivateAddress() {
+        SuplaAutodiscoverMock::$userMapping['remote@supla.org'] = '127.0.0.1:8443';
+        SuplaAutodiscoverMock::$clientMapping['https://127.0.0.1:8443']['1_public']['clientId'] = '1_mapped';
+        $requests = 0;
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function () use (&$requests) {
+            $requests++;
+            return [[], Response::HTTP_OK];
+        };
+
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/authorize', $this->brokerAuthorizationRequest());
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_SERVICE_UNAVAILABLE);
+        $this->assertSame('target_unavailable', json_decode($client->getResponse()->getContent(), true)['errorCode']);
+        $this->assertSame(0, $requests);
+    }
+
+    public function testPassesThroughClientMappingRetryForBoundedFreshRetry() {
+        SuplaAutodiscoverMock::$userMapping['remote@supla.org'] = 'target.cloud';
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_mapped';
+        $authorizeCalls = 0;
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function ($origin, $endpoint, $data) use (&$authorizeCalls) {
+            if ($endpoint === 'server-info' || str_ends_with($endpoint, '/server-info')) {
+                return [['oauthAuthorizationApiVersion' => 1], Response::HTTP_OK];
+            }
+            $authorizeCalls++;
+            return [
+                ['outcome' => 'error', 'errorCode' => 'client_mapping_retry'],
+                Response::HTTP_CONFLICT,
+            ];
+        };
+
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/authorize', $this->brokerAuthorizationRequest());
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_CONFLICT);
+        $this->assertSame(
+            ['outcome' => 'error', 'errorCode' => 'client_mapping_retry'],
+            json_decode($client->getResponse()->getContent(), true)
+        );
+        $this->assertSame(1, $authorizeCalls);
     }
 
     public function testDisplaysNormalLoginFormIfLocalClientExists() {
@@ -623,5 +781,17 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
                 'response_type' => $responseType,
                 'state' => 'some-state',
             ]);
+    }
+
+    private function brokerAuthorizationRequest() {
+        return [
+            'client_id' => '1_public',
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'decision' => 'approve',
+            'username' => 'remote@supla.org',
+            'password' => 'fresh-password',
+        ];
     }
 }

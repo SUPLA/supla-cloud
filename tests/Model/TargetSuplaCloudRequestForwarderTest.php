@@ -74,4 +74,53 @@ class TargetSuplaCloudRequestForwarderTest extends TestCase {
         $this->expectException(\InvalidArgumentException::class);
         $forwarder->getInfo(new TargetSuplaCloud('https://forged.example'));
     }
+
+    public function testAuthorizeOAuthSendsBrokerTokenToTrustedDestination(): void {
+        $payload = [
+            'client_id' => '1_mapped',
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'decision' => 'approve',
+            'username' => 'user@example.com',
+            'password' => 'password',
+        ];
+        $httpClient = $this->createMock(SuplaBrokerHttpClient::class);
+        $httpClient->expects($this->once())
+            ->method('requestTrustedWithStoredToken')
+            ->willReturnCallback(function ($url, $requestPayload, &$status, $headers, $method, $headerName) use ($payload) {
+                $this->assertSame('https://broker.example/api/internal/oauth/authorize', $url);
+                $this->assertSame($payload, $requestPayload);
+                $this->assertSame('SUPLA-Broker-Token', $headerName);
+                $status = 200;
+                return ['outcome' => 'authorized', 'redirectUrl' => 'https://cool.app/callback?code=abc'];
+            });
+        $httpClient->expects($this->never())->method('requestTrusted');
+
+        $forwarder = new TargetSuplaCloudRequestForwarder(
+            $httpClient,
+            $this->createMock(RealClientIpResolver::class),
+            new TrustedPeerDestinationSelector()
+        );
+
+        $this->assertSame(
+            [['outcome' => 'authorized', 'redirectUrl' => 'https://cool.app/callback?code=abc'], 200],
+            $forwarder->authorizeOAuth(TargetSuplaCloud::trustedPeer('https://broker.example'), $payload)
+        );
+    }
+
+    public function testAuthorizeOAuthRejectsUntrustedTargetBeforeAnyRequest(): void {
+        $httpClient = $this->createMock(SuplaBrokerHttpClient::class);
+        $httpClient->expects($this->never())->method('requestTrusted');
+        $httpClient->expects($this->never())->method('requestTrustedWithStoredToken');
+
+        $forwarder = new TargetSuplaCloudRequestForwarder(
+            $httpClient,
+            $this->createMock(RealClientIpResolver::class),
+            new TrustedPeerDestinationSelector()
+        );
+
+        $this->expectException(\InvalidArgumentException::class);
+        $forwarder->authorizeOAuth(new TargetSuplaCloud('https://forged.example'), ['client_id' => '1']);
+    }
 }

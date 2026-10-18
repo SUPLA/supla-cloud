@@ -8,7 +8,7 @@
  of the License, or (at your option) any later version.
  */
 
-namespace App\Controller\Api;
+namespace App\Controller\OAuth;
 
 use App\Auth\OAuthAuthorizationCapabilityChecker;
 use App\Exception\ApiException;
@@ -23,10 +23,18 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Dormant backend operation for public-cloud OAuth authorization. The legacy
  * browser login and authorization routes intentionally do not use this API.
+ *
+ * The route is annotated with its full path (like BrokerTokenController)
+ * instead of relying on the versioned /api/{version} prefix import: the
+ * prefixed variant would shadow /api/{version}/internal/oauth/authorize by
+ * matching {version}=internal.
  */
 class OAuthAuthorizationController {
-    private const AUTHORIZATION_FIELDS = ['client_id', 'redirect_uri', 'response_type', 'scope', 'state'];
-    private const ALLOWED_FIELDS = ['client_id', 'redirect_uri', 'response_type', 'scope', 'state', 'decision', 'username', 'password'];
+    private const AUTHORIZATION_FIELDS = ['client_id', 'redirect_uri', 'response_type', 'scope', 'state', 'code_challenge', 'code_challenge_method'];
+    private const ALLOWED_FIELDS = [
+        'client_id', 'redirect_uri', 'response_type', 'scope', 'state', 'code_challenge', 'code_challenge_method',
+        'decision', 'username', 'password', 'target_token',
+    ];
 
     public function __construct(
         private readonly SuplaAutodiscover $autodiscover,
@@ -35,7 +43,7 @@ class OAuthAuthorizationController {
     ) {
     }
 
-    /** @Route("/oauth/authorize", methods={"POST"}) */
+    /** @Route("/api/oauth/authorize", methods={"POST"}) */
     public function authorizeAction(Request $request): JsonResponse {
         $data = $request->request->all();
         foreach ($data as $name => $value) {
@@ -43,7 +51,7 @@ class OAuthAuthorizationController {
                 return $this->error('invalid_request', Response::HTTP_BAD_REQUEST);
             }
         }
-        foreach (['client_id', 'redirect_uri', 'response_type', 'scope', 'decision', 'username', 'password'] as $required) {
+        foreach (['client_id', 'redirect_uri', 'response_type', 'scope', 'decision', 'username'] as $required) {
             if (!isset($data[$required]) || $data[$required] === '') {
                 return $this->error('invalid_request', Response::HTTP_BAD_REQUEST);
             }
@@ -52,6 +60,13 @@ class OAuthAuthorizationController {
             // This broker operation only forwards fresh-password approval;
             // denial remains local to the existing browser operation.
             return $this->error('invalid_decision', Response::HTTP_BAD_REQUEST);
+        }
+        $hasTargetToken = array_key_exists('target_token', $data);
+        if (
+            ($hasTargetToken && ($data['target_token'] === '' || ($data['password'] ?? '') !== ''))
+            || (!$hasTargetToken && (!isset($data['password']) || $data['password'] === ''))
+        ) {
+            return $this->error('invalid_request', Response::HTTP_BAD_REQUEST);
         }
 
         if (!$this->autodiscover->enabled() || !$this->autodiscover->isBroker()) {
@@ -88,7 +103,7 @@ class OAuthAuthorizationController {
             return $this->error('target_unavailable', Response::HTTP_SERVICE_UNAVAILABLE);
         }
 
-        $forwarded = array_intersect_key($data, array_flip(array_merge(self::AUTHORIZATION_FIELDS, ['decision', 'username', 'password'])));
+        $forwarded = array_intersect_key($data, array_flip(array_merge(self::AUTHORIZATION_FIELDS, ['decision', 'username', 'password', 'target_token'])));
         $forwarded['client_id'] = $mappedClientId;
         try {
             [$body, $status] = $this->requestForwarder->authorizeOAuth($target, $forwarded);

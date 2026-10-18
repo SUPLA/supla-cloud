@@ -158,8 +158,10 @@ described below; authorization forwarding belongs to issue 04.
 
 `POST /api/oauth/authorize` is a dormant backend operation; it does not change
 the legacy OAuth browser login/form/session routes. It accepts the original
-authorization parameters plus `decision=approve`, `username`, and `password`.
-The broker resolves the account owner through Autodiscover, resolves the
+authorization parameters plus `decision=approve`, `username`, and either
+`password` or body-only `target_token` evidence (never both). Username is
+retained for AD owner discovery and binds the verified identity when token
+evidence is used. The broker resolves the account owner through Autodiscover, resolves the
 public client's target-local mapped id through Autodiscover, and verifies
 `oauthAuthorizationApiVersion: 1` before forwarding. The request is sent only
 through `TargetSuplaCloudRequestForwarder` after
@@ -167,8 +169,8 @@ through `TargetSuplaCloudRequestForwarder` after
 parameters, token suffixes, and caller-supplied trust flags cannot select a
 destination.
 
-The target verifies the password and owns grant mutation and FOS code
-issuance. The broker returns the target's structured result unchanged and
+The target verifies the password or bearer evidence and owns grant mutation
+and FOS code issuance. The broker returns the target's structured result unchanged and
 never redirects the browser. A missing capability returns
 `unsupported_authorization_api`; AD, capability, or transport failures return
 `target_unavailable`. The broker does not retry an authorization call. In
