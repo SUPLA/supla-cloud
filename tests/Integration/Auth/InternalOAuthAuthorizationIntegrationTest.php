@@ -14,6 +14,7 @@ use App\Entity\Main\OAuth\ApiClient;
 use App\Entity\Main\OAuth\ApiClientAuthorization;
 use App\Entity\Main\OAuth\AuthCode;
 use App\Entity\Main\User;
+use App\Enums\ApiClientType;
 use App\Exception\ApiException;
 use App\Supla\SuplaAutodiscoverMock;
 use App\Supla\SuplaServerMock;
@@ -307,6 +308,178 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $client->getResponse());
         $this->assertSame(['outcome' => 'error', 'errorCode' => 'invalid_client'], $client->getResponseBody());
         $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll());
+    }
+
+    public function testProvisionsTargetLocalClientForMappedPublicClientOnFirstAuthorization(): void {
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
+        SuplaAutodiscoverMock::$publicClients['1_public'] = [
+            'name' => 'unicorn',
+            'description' => 'Cool app',
+            'redirectUris' => ['https://cool.app'],
+        ];
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->authorizationRequest([
+            'client_id' => '1_local',
+            'redirect_uri' => 'https://cool.app',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+
+        $this->assertStatusCode(200, $client->getResponse());
+        $response = $client->getResponseBody();
+        $this->assertSame('authorized', $response['outcome']);
+        $this->assertStringContainsString('https://cool.app?', $response['redirectUrl']);
+        $this->assertStringContainsString('state=original-state', $response['redirectUrl']);
+
+        /** @var ApiClient $provisioned */
+        $provisioned = self::getContainer()->get(ClientManagerInterface::class)->findClientBy(['publicClientId' => '1_public']);
+        $this->assertNotNull($provisioned, 'The mapped public client must be provisioned target-locally.');
+        $this->assertSame('unicorn', $provisioned->getName());
+        $this->assertSame('Cool app', $provisioned->getDescription());
+        $this->assertSame(['https://cool.app'], $provisioned->getRedirectUris());
+        $this->assertSame(ApiClientType::BROKER()->getValue(), $provisioned->getType()->getValue());
+        $credentialUpdate = array_values(array_filter(
+            SuplaAutodiscoverMock::$requests,
+            fn(array $request) => $request['endpoint'] === '/mapped-client-credentials/1_local'
+        ));
+        $this->assertCount(1, $credentialUpdate);
+        $this->assertSame($provisioned->getPublicId(), $credentialUpdate[0]['post']['clientId']);
+        $this->assertSame($provisioned->getSecret(), $credentialUpdate[0]['post']['secret']);
+        $this->assertNotNull(
+            $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findOneByUserAndApiClient($this->user, $provisioned)
+        );
+    }
+
+    public function testRepeatedAuthorizationIsIdempotentForProvisionedMappedClient(): void {
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
+        SuplaAutodiscoverMock::$publicClients['1_public'] = [
+            'name' => 'unicorn',
+            'description' => 'Cool app',
+            'redirectUris' => ['https://cool.app'],
+        ];
+        $first = $this->createHttpsClient(false);
+        $first->apiRequest('POST', '/api/internal/oauth/authorize', $this->authorizationRequest([
+            'client_id' => '1_local',
+            'redirect_uri' => 'https://cool.app',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(200, $first->getResponse());
+
+        /** @var ApiClient $provisioned */
+        $provisioned = self::getContainer()->get(ClientManagerInterface::class)->findClientBy(['publicClientId' => '1_public']);
+        $this->assertNotNull($provisioned);
+
+        // A repeated authorization addressed to the now-provisioned target-local
+        // client id must resolve the existing client and not create a duplicate.
+        $second = $this->createHttpsClient(false);
+        $second->apiRequest('POST', '/api/internal/oauth/authorize', $this->authorizationRequest([
+            'client_id' => $provisioned->getPublicId(),
+            'redirect_uri' => 'https://cool.app',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(200, $second->getResponse());
+        $this->assertSame('authorized', $second->getResponseBody()['outcome']);
+
+        $this->assertCount(1, $this->getDoctrine()->getRepository(ApiClient::class)->findBy(['publicClientId' => '1_public']));
+    }
+
+    public function testRepeatedOriginalMappedIdReusesProvisionedClient(): void {
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
+        SuplaAutodiscoverMock::$publicClients['1_public'] = [
+            'name' => 'unicorn',
+            'description' => 'Cool app',
+            'redirectUris' => ['https://cool.app'],
+        ];
+        for ($attempt = 0; $attempt < 2; $attempt++) {
+            $client = $this->createHttpsClient(false);
+            $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->authorizationRequest([
+                'client_id' => '1_local',
+                'redirect_uri' => 'https://cool.app',
+            ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+            $this->assertStatusCode(200, $client->getResponse());
+        }
+
+        $this->assertCount(1, $this->getDoctrine()->getRepository(ApiClient::class)->findBy(['publicClientId' => '1_public']));
+    }
+
+    public function testRefreshedMetadataDoesNotAuthorizeAnUnregisteredCallback(): void {
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
+        SuplaAutodiscoverMock::$publicClients['1_public'] = [
+            'name' => 'unicorn',
+            'description' => 'Cool app',
+            'redirectUris' => ['https://cool.app'],
+        ];
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->authorizationRequest([
+            'client_id' => '1_local',
+            'redirect_uri' => 'https://cool.app',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(200, $client->getResponse());
+
+        // Simulate refreshed AD metadata: the prior callback is no longer
+        // registered. The request must be checked against current metadata.
+        SuplaAutodiscoverMock::$publicClients['1_public']['redirectUris'] = ['https://new.cool.app'];
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->authorizationRequest([
+            'client_id' => $this->getDoctrine()->getRepository(ApiClient::class)->findOneBy(['publicClientId' => '1_public'])->getPublicId(),
+            'redirect_uri' => 'https://cool.app',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(400, $client->getResponse());
+        $this->assertSame('redirect_uri_mismatch', $client->getResponseBody()['errorCode']);
+        $this->assertSame(
+            ['https://new.cool.app'],
+            $this->getDoctrine()->getRepository(ApiClient::class)->findOneBy(['publicClientId' => '1_public'])->getRedirectUris()
+        );
+        $this->assertCount(1, $this->getDoctrine()->getRepository(ApiClient::class)->findBy(['publicClientId' => '1_public']));
+    }
+
+    public function testInconsistentAutodiscoverMappingDoesNotCreateClientOrRedirect(): void {
+        // AD maps this target-local id to a public id that is absent from its
+        // current public-client catalogue.
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->authorizationRequest([
+            'client_id' => '1_local',
+            'redirect_uri' => 'https://attacker.invalid/callback',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(400, $client->getResponse());
+        $this->assertSame(['outcome' => 'error', 'errorCode' => 'invalid_client'], $client->getResponseBody());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(ApiClient::class)->findBy(['publicClientId' => '1_public']));
+        $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll());
+    }
+
+    public function testPublicClientNotMappedToThisTargetIsNotImported(): void {
+        // 2_public is a known AD public client, but it is not mapped to this
+        // target, so it must not be silently provisioned here.
+        SuplaAutodiscoverMock::$publicClients['2_public'] = [
+            'name' => 'other app',
+            'description' => 'Cool app',
+            'redirectUris' => ['https://cool.app'],
+        ];
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->authorizationRequest([
+            'client_id' => '2_public',
+            'redirect_uri' => 'https://cool.app',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(400, $client->getResponse());
+        $this->assertSame(['outcome' => 'error', 'errorCode' => 'invalid_client'], $client->getResponseBody());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(ApiClient::class)->findBy(['publicClientId' => '2_public']));
+        $this->assertCount(0, $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll());
+    }
+
+    public function testAutodiscoverOutageFailsSafelyWithoutProvisioning(): void {
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
+        SuplaAutodiscoverMock::$mockedResponses['/mapped-client-public-id/'] = [
+            'method' => 'GET',
+            'responseStatus' => 503,
+            'response' => new ApiException('Autodiscover unavailable', 503),
+        ];
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->authorizationRequest([
+            'client_id' => '1_local',
+            'redirect_uri' => 'https://cool.app',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(503, $client->getResponse());
+        $this->assertSame(['outcome' => 'error', 'errorCode' => 'target_unavailable'], $client->getResponseBody());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(ApiClient::class)->findBy(['publicClientId' => '1_public']));
         $this->assertCount(0, $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll());
     }
 

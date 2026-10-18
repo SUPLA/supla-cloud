@@ -247,11 +247,11 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $authCode->setScope('account_r');
         $authCode->setExpiresAt(time() + 60);
         $authCode->setRedirectUri('https://unicorns.pl');
-        $authCode->setToken('abcd.' . base64_encode('http://supla.local'));
+        $authCode->setToken('abcd.' . base64_encode('https://supla.local'));
         $this->getEntityManager()->persist($authCode);
 
         SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
-        SuplaAutodiscoverMock::$clientMapping['http://supla.local']['1_public'] =
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public'] =
             ['clientId' => $client->getPublicId(), 'secret' => $client->getSecret()];
         $params = [
             'grant_type' => 'authorization_code',
@@ -265,7 +265,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $targetCalled = false;
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint, array $data) use ($authCode, $client, $params, &$targetCalled) {
-                $this->assertEquals('http://supla.local', $address);
+                $this->assertEquals('https://supla.local', $address);
                 $this->assertEquals('/oauth/v2/token', $endpoint);
                 $this->assertEquals($client->getPublicId(), $data['client_id']);
                 $this->assertEquals($client->getSecret(), $data['client_secret']);
@@ -453,6 +453,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(503, $response);
     }
 
+    /** @large */
     public function testForcesReauthorizationIfUserIsAlreadyLoggedInButHitsPublicId() {
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
         SuplaAutodiscoverMock::$publicClients['1_public'] = [
@@ -476,6 +477,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertStringContainsString('clientName: "Unicorn App"', $response->getContent());
     }
 
+    /** @large */
     public function testForcesReauthrozatoinIfUserIsAlreadyLoggedInButHitsIdNotMappedYet() {
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['2_public']['clientId'] = '2_local';

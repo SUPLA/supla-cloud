@@ -10,6 +10,7 @@
 
 namespace App\Controller\Api;
 
+use App\Auth\MappedApiClientResolver;
 use App\Auth\OAuthAuthorizationGrantService;
 use App\Auth\OAuthScope;
 use App\Auth\SuplaOAuth2;
@@ -19,7 +20,6 @@ use App\Entity\Main\OAuth\ApiClient;
 use App\Entity\Main\User;
 use App\Exception\ApiException;
 use Doctrine\DBAL\Exception as StorageException;
-use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
 use OAuth2\OAuth2RedirectException;
 use OAuth2\OAuth2ServerException;
@@ -38,7 +38,7 @@ class InternalOAuthAuthorizationController {
     public function __construct(
         private readonly BrokerRequestSecurityVoter $brokerRequestSecurityVoter,
         private readonly SuplaOAuthStorage $oauthStorage,
-        private readonly ClientManagerInterface $clientManager,
+        private readonly MappedApiClientResolver $mappedClientResolver,
         private readonly SuplaOAuth2 $oauth2Server,
         private readonly OAuthAuthorizationGrantService $authorizationGrantService,
         private readonly LoggerInterface $logger,
@@ -72,9 +72,24 @@ class InternalOAuthAuthorizationController {
         $authorizationRequest = array_intersect_key($data, array_flip(self::AUTHORIZATION_PARAMETERS));
         $request->query->replace($authorizationRequest);
 
-        $client = $this->clientManager->findClientByPublicId($authorizationRequest['client_id'] ?? '');
+        try {
+            $client = $this->mappedClientResolver->resolve($authorizationRequest['client_id'] ?? null);
+        } catch (ApiException $e) {
+            // Autodiscover is unreachable while resolving a mapped public
+            // client. Fail closed without an untrusted browser callback.
+            return $this->error('target_unavailable', Response::HTTP_SERVICE_UNAVAILABLE);
+        }
         if (!$client instanceof ApiClient) {
             return $this->error('invalid_client', Response::HTTP_BAD_REQUEST);
+        }
+        // A lazily provisioned client is given a fresh target-local public id.
+        // The legacy browser flow bounces the browser back to the authorization
+        // URL using that id; here we bind the same id in-process so FOS resolves
+        // the provisioned client (not an Autodiscover stub) for validation and
+        // code issuance.
+        if ($client->getPublicId() !== ($authorizationRequest['client_id'] ?? null)) {
+            $authorizationRequest['client_id'] = $client->getPublicId();
+            $request->query->set('client_id', $client->getPublicId());
         }
 
         // oauth2-php 1.10 accepts URI prefixes (and sanitizes input). The new
