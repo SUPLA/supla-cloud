@@ -20,6 +20,7 @@ use App\Entity\Main\OAuth\ApiClient;
 use App\Entity\Main\User;
 use App\Exception\ApiException;
 use Doctrine\DBAL\Exception as StorageException;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use OAuth2\OAuth2;
 use OAuth2\OAuth2RedirectException;
 use OAuth2\OAuth2ServerException;
@@ -74,6 +75,12 @@ class InternalOAuthAuthorizationController {
 
         try {
             $client = $this->mappedClientResolver->resolve($authorizationRequest['client_id'] ?? null);
+        } catch (UniqueConstraintViolationException $e) {
+            // A concurrent request inserted the canonical mapped client after
+            // our lookup. The UNIQUE constraint prevents a second identity;
+            // this EntityManager is closed by Doctrine, so the caller must
+            // retry in a fresh request to resolve the committed canonical row.
+            return $this->error('client_mapping_retry', Response::HTTP_CONFLICT);
         } catch (ApiException $e) {
             // Autodiscover is unreachable while resolving a mapped public
             // client. Fail closed without an untrusted browser callback.

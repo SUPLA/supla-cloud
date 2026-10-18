@@ -1,4 +1,7 @@
 services:
+  App\Auth\MappedApiClientResolver:
+    autowire: true
+    public: true
   App\Tests\Integration\TestMailerTransport: ~
   App\Mailer\SuplaMailer:
     $transport: '@App\Tests\Integration\TestMailerTransport'

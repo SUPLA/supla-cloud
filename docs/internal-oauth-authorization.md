@@ -16,7 +16,7 @@ Body fields (JSON, using the existing API body decoder, or form data):
 
 | Field | Meaning |
 | --- | --- |
-| `client_id` | Public identifier of an already registered local `ApiClient` |
+| `client_id` | Registered local client id or the target-local mapped id for a Public AD application |
 | `redirect_uri` | Entire, exact registered callback, without a fragment |
 | `response_type` | `code` only |
 | `scope` | Nonempty, currently supported SUPLA scopes, separated by spaces |
@@ -47,12 +47,59 @@ Every operation result is JSON with `Cache-Control: no-store`:
 There are no additional result fields. Success/denial use HTTP 200. Invalid
 requests use 400; invalid broker/user credentials use 401 (`unauthorized_broker`
 or `invalid_credentials`); disabled users use 409 (`disabled`); account lockout
-uses 429 (`locked`). Protocol errors use FOS's structured `error` field, never
+uses 429 (`locked`). A concurrent mapped-client insert returns 409
+(`client_mapping_retry`) without a callback; retry the same request in a fresh
+HTTP request. Protocol errors use FOS's structured `error` field, never
 exception descriptions. An error callback is included only after the local
 client and exact callback have been verified. Internal storage failure uses
 500 (`server_error`) without database or exception details. An exception while
-verifying broker identity with AD uses 503 (`target_unavailable`) and never
-continues authorization.
+verifying broker identity or resolving a mapped client with AD uses 503
+(`target_unavailable`) and never continues authorization.
+
+## Mapped public client resolution (Release A, issue 03)
+
+For an already registered local client, authorization remains local. A target-
+local mapped id that is not yet registered is resolved using the existing
+Autodiscover reverse mapping, public metadata lookup, lazy `BROKER` client
+creation, and `updateTargetCloudCredentials` synchronization. FOS then uses the
+new local client id for validation and issuance. Subsequent requests resolve
+that canonical local client and refresh its public metadata before checking the
+exact callback; a callback absent from current metadata is rejected without a
+redirect. Unknown or inconsistent mappings and AD outages fail closed.
+
+The nullable `public_client_id` column has a UNIQUE constraint so concurrent
+workers cannot create two target-local representations of the same Public AD
+application. The database constraint is the cross-process race arbiter; this
+path does not depend on a process-local lock. If another request commits the
+canonical row between lookup and insert, the losing request receives
+`409 client_mapping_retry`, with no consent or authorization code. Retry the
+unchanged request in a new HTTP request/EntityManager: it will resolve the
+committed row by `public_client_id`, refresh metadata, and synchronize
+credentials before continuing.
+
+### Upgrade prerequisite for the UNIQUE constraint
+
+Historical code may have left duplicate non-NULL `public_client_id` values.
+Before applying the generated schema migration, run this read-only preflight
+against the target Cloud database:
+
+```sql
+SELECT public_client_id,
+       COUNT(*) AS client_count,
+       GROUP_CONCAT(id ORDER BY id) AS api_client_ids
+FROM supla_oauth_clients
+WHERE public_client_id IS NOT NULL
+GROUP BY public_client_id
+HAVING COUNT(*) > 1;
+```
+
+The migration may proceed only after the query returns no rows. If it returns
+duplicates, stop the upgrade and have the operator investigate each client
+against its Autodiscover mapping and associated grants, codes, and tokens.
+Choose and apply a reviewed, application-aware remediation, then rerun the
+preflight. Do not automatically delete or merge client rows. This repository
+contains no generated migration; migration generation and execution remain an
+operator-maintained upgrade step.
 
 Approval uses normal password hashing/migration, account-status checks and
 authentication audit/lockout even for non-WebApp clients. Legacy `api_N`
@@ -96,11 +143,10 @@ Inspected dependencies: `klapaudius/oauth-server-bundle` **3.1.6** and
 
 ## Scope and extension boundaries
 
-This issue does not resolve Public AD applications, create/synchronize mapped
-clients, forward to another target, accept bearer evidence for prior consent,
-implement PKCE or advertise `oauthAuthorizationApiVersion`. Those are later
-Release A tickets. In particular, PKCE/evidence fields currently fail closed
-as unknown fields, rather than being ignored.
+Issues 01 and 03 do not forward to another target, accept bearer evidence for
+prior consent, implement PKCE or advertise `oauthAuthorizationApiVersion`.
+Those are separate Release A tickets. In particular, PKCE/evidence fields
+currently fail closed as unknown fields, rather than being ignored.
 
 No outbound target request was added. Later forwarding must use the trusted
 peer forwarder boundary delivered by issue 07, not a request-supplied address.
@@ -110,4 +156,6 @@ cross-instance error mapping belong to their dependent tickets.
 
 MQTT notification retains the existing post-commit external side effect: this
 is not a transactional outbox or an exactly-once distributed delivery guarantee.
-No schema changes or migrations are needed by issue 01.
+Issue 01 introduced no schema changes. Issue 03 adds the mapped-public-client
+UNIQUE constraint described above; its migration is generated and applied
+separately by the operator.

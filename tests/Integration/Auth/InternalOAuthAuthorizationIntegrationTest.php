@@ -10,6 +10,7 @@
 
 namespace App\Tests\Integration\Auth;
 
+use App\Auth\MappedApiClientResolver;
 use App\Entity\Main\OAuth\ApiClient;
 use App\Entity\Main\OAuth\ApiClientAuthorization;
 use App\Entity\Main\OAuth\AuthCode;
@@ -21,6 +22,7 @@ use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
+use FOS\OAuthServerBundle\Model\ClientInterface;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
 
@@ -397,6 +399,96 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
         }
 
         $this->assertCount(1, $this->getDoctrine()->getRepository(ApiClient::class)->findBy(['publicClientId' => '1_public']));
+    }
+
+    public function testConcurrentMappedClientCreationReturnsRetryThenReusesCanonicalClient(): void {
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
+        SuplaAutodiscoverMock::$publicClients['1_public'] = [
+            'name' => 'unicorn',
+            'description' => 'Cool app',
+            'redirectUris' => ['https://cool.app'],
+        ];
+
+        $client = $this->createHttpsClient(false);
+        $clientManager = self::getContainer()->get(ClientManagerInterface::class);
+        $racingClientManager = new class ($clientManager) implements ClientManagerInterface {
+            public bool $insertedCompetingClient = false;
+
+            public function __construct(private ClientManagerInterface $inner) {
+            }
+
+            public function createClient(): ClientInterface {
+                return $this->inner->createClient();
+            }
+
+            public function getClass(): string {
+                return $this->inner->getClass();
+            }
+
+            public function findClientBy(array $criteria): ?ClientInterface {
+                $client = $this->inner->findClientBy($criteria);
+                if ($client === null && isset($criteria['publicClientId']) && !$this->insertedCompetingClient) {
+                    // Model another worker committing after this request's
+                    // lookup but before its insert. The stale miss is returned
+                    // so the real database UNIQUE constraint arbitrates the race.
+                    $this->insertedCompetingClient = true;
+                    $winner = $this->inner->createClient();
+                    $winner->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
+                    $winner->setType(ApiClientType::BROKER());
+                    $winner->setPublicClientId($criteria['publicClientId']);
+                    $winner->updateDataFromAutodiscover([
+                        'name' => 'unicorn',
+                        'description' => 'Cool app',
+                        'redirectUris' => ['https://cool.app'],
+                    ]);
+                    $this->inner->updateClient($winner);
+                }
+                return $client;
+            }
+
+            public function findClientByPublicId($publicId): ?ClientInterface {
+                return $this->inner->findClientByPublicId($publicId);
+            }
+
+            public function updateClient(ClientInterface $client) {
+                return $this->inner->updateClient($client);
+            }
+
+            public function deleteClient(ClientInterface $client) {
+                return $this->inner->deleteClient($client);
+            }
+        };
+        self::getContainer()->set(MappedApiClientResolver::class, new MappedApiClientResolver(
+            $racingClientManager,
+            self::getContainer()->get(\App\Supla\SuplaAutodiscover::class)
+        ));
+
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->authorizationRequest([
+            'client_id' => '1_local',
+            'redirect_uri' => 'https://cool.app',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertTrue($racingClientManager->insertedCompetingClient, 'The simulated concurrent insert should win the stale lookup.');
+        $this->assertStatusCode(409, $client->getResponse());
+        $this->assertSame(['outcome' => 'error', 'errorCode' => 'client_mapping_retry'], $client->getResponseBody());
+
+        // The failed insert closes Doctrine's EntityManager. Restart the kernel
+        // as a new request would, then verify the retry resolves the committed
+        // winner rather than attempting another local identity.
+        self::ensureKernelShutdown();
+        $retry = $this->createHttpsClient(false);
+        /** @var ApiClient $canonicalClient */
+        $canonicalClient = $this->getDoctrine()->getRepository(ApiClient::class)->findOneBy(['publicClientId' => '1_public']);
+        $this->assertNotNull($canonicalClient);
+        $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll());
+        $retry->apiRequest('POST', '/api/internal/oauth/authorize', $this->authorizationRequest([
+            'client_id' => '1_local',
+            'redirect_uri' => 'https://cool.app',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(200, $retry->getResponse());
+        $this->assertSame('authorized', $retry->getResponseBody()['outcome']);
+        $reusedClient = $this->getDoctrine()->getRepository(ApiClient::class)->findOneBy(['publicClientId' => '1_public']);
+        $this->assertSame($canonicalClient->getId(), $reusedClient->getId());
     }
 
     public function testRefreshedMetadataDoesNotAuthorizeAnUnregisteredCallback(): void {

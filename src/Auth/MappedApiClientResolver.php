@@ -41,6 +41,8 @@ class MappedApiClientResolver {
     /**
      * @throws ApiException when Autodiscover cannot be reached while resolving
      *                      a mapped public client.
+     * @throws \Doctrine\DBAL\Exception\UniqueConstraintViolationException when
+     *                      another request wins first-use client creation.
      */
     public function resolve(?string $clientId): ?ApiClient {
         if ($clientId === null || $clientId === '') {
