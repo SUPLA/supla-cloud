@@ -65,7 +65,7 @@ class TargetSuplaCloud {
             || (isset($parts['path']) && $parts['path'] !== '' && $parts['path'] !== '/')) {
             throw new \InvalidArgumentException('Invalid trusted SUPLA Cloud origin.');
         }
-        $host = strtolower($parts['host']);
+        $host = strtolower(trim($parts['host'], '[]'));
         $port = $parts['port'] ?? 443;
         if ($port < 1 || $port > 65535) {
             throw new \InvalidArgumentException('Invalid trusted SUPLA Cloud origin.');

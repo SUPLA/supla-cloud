@@ -13,7 +13,7 @@ class SuplaHttpClientTest extends TestCase {
         (new SuplaHttpClient())->request("https://$address", 'GET', null, [], true);
     }
 
-    public function prohibitedTrustedPeerAddresses(): array {
+    public static function prohibitedTrustedPeerAddresses(): array {
         return [
             'IPv4 documentation range' => ['192.0.2.1'],
             'IPv4 reserved range' => ['240.0.0.1'],

@@ -21,7 +21,7 @@ class TrustedPeerDestinationSelectorTest extends TestCase {
         TargetSuplaCloud::trustedPeer($origin);
     }
 
-    public function untrustedOrigins(): array {
+    public static function untrustedOrigins(): array {
         return [
             ['http://target.example'],
             ['https://user:password@target.example'],
