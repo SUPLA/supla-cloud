@@ -183,13 +183,12 @@ class SuplaOAuth2 extends OAuth2 {
         if (($input['grant_type'] ?? null) !== OAuth2::GRANT_TYPE_AUTH_CODE || !is_string($input['code'] ?? null)) {
             return parent::grantAccessToken($request);
         }
-        $codeParts = explode('.', $input['code']);
-        if (count($codeParts) === 2 && base64_decode($codeParts[1], true) !== false) {
-            // Keep the established broker-to-target forwarding attempt outside
-            // this local transaction; it throws to the forwarding controller.
-            return parent::grantAccessToken($request);
-        }
-
+        // Every local authorization-code exchange runs in a transaction so
+        // the row lock in grantAccessTokenAuthCode() spans the whole
+        // exchange; suffixed codes are local codes, not a forwarding signal.
+        // Broker forwarding throws before the lock and before any write, so
+        // its rollback is a no-op and the exception still reaches the
+        // forwarding controller.
         return $this->entityManager->wrapInTransaction(fn() => parent::grantAccessToken($request));
     }
 
