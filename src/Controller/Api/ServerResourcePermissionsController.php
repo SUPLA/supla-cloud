@@ -38,13 +38,13 @@ class ServerResourcePermissionsController extends RestController {
             ApiException::throwIf(!in_array($filters['origin'], ['configuration', 'user-approved', 'other'], true), 'Invalid origin.');
         }
         if ($request->query->has('cursor')) {
-            $filters['cursor'] = $this->cursor($request->query->get('cursor'), 88, true);
+            $filters['cursor'] = $this->cursor($request->query->get('cursor'), PHP_INT_MAX, true);
         }
         return new JsonResponse($this->permissions->list($this->getUser()->getId(), $filters, $this->authorizeResource(...)));
     }
 
     /**
-     * @Rest\Get("/resource-access/permissions/{association}/{type}/{resource}", requirements={"association"="^(read-)?\d+$", "type"="1|2", "resource"="^\d+$"})
+     * @Rest\Get("/resource-access/permissions/{association}/{type}/{resource}", requirements={"association"="^logical-\d+$", "type"="1|2", "resource"="^\d+$"})
      * @Security("is_granted('ROLE_ACCOUNT_R') and is_granted('ROLE_IODEVICES_R') and is_granted('ROLE_CHANNELS_R')")
      */
     public function detailAction(string $association, int $type, int $resource, Request $request): JsonResponse {
@@ -58,10 +58,10 @@ class ServerResourcePermissionsController extends RestController {
     }
 
     private function cursor(mixed $value, int $maxSecond, bool $read = false): string {
-        $pattern = $read ? '/^(read-)?[0-9]{1,20}:[0-9]{1,20}$/D' : '/^[0-9]{1,20}:[0-9]{1,20}$/D';
+        $pattern = $read ? '/^logical-[0-9]{1,20}:[0-9]{1,20}$/D' : '/^[0-9]{1,20}:[0-9]{1,20}$/D';
         ApiException::throwIf(!is_string($value) || !preg_match($pattern, $value), 'Invalid permissions cursor.');
         [, $second] = explode(':', $value);
-        ApiException::throwIf((str_starts_with($value, 'read-') && $second !== '0') || (int)$second > $maxSecond, 'Invalid permissions cursor.');
+        ApiException::throwIf((int)$second > $maxSecond, 'Invalid permissions cursor.');
         return $value;
     }
 

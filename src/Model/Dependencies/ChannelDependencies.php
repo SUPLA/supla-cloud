@@ -9,7 +9,6 @@ use App\Enums\ChannelType;
 use App\Model\Schedule\ScheduleManager;
 use App\Model\UserConfigTranslator\ChannelReferenceValidator;
 use App\Model\UserConfigTranslator\HiddenReadOnlyConfigFieldsUserConfigTranslator;
-use App\Model\UserConfigTranslator\HvacChannelReferences;
 use App\Model\UserConfigTranslator\ActionTriggerParamsTranslator;
 use App\Model\UserConfigTranslator\SubjectConfigTranslator;
 use App\Repository\IODeviceChannelRepository;
@@ -161,7 +160,6 @@ class ChannelDependencies extends ActionableSubjectDependencies {
                 if (str_ends_with($key, 'ChannelId') && $value === $channel->getId()) {
                     if (in_array($key, ChannelReferenceValidator::ROLES, true)) {
                         $this->protectedFields->setConfig($depChannel, [$key => null]);
-                        HvacChannelReferences::migrate($depChannel);
                         // Cleanup must not revalidate unrelated stale sibling references.
                         $depChannel->setUserConfigValue($key, null);
                         if ($key === 'auxThermometerChannelId') {

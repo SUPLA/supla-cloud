@@ -2,6 +2,8 @@ import {ConnectionString} from 'connection-string';
 import * as mysql from 'mysql2';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
 
 export default (on, config) => {
   on('task', {
@@ -9,6 +11,9 @@ export default (on, config) => {
       const connectionString = config.env.DATABASE;
       const connectionConfig = new ConnectionString(connectionString);
       const database = connectionConfig.path ? connectionConfig.path[0] : 'supla_e2e';
+      if (!/^[a-zA-Z0-9_]+_e2e$/.test(database)) {
+        throw new Error('Cypress database must end with _e2e and contain only letters, digits or underscores');
+      }
       const connection = mysql.createConnection({
         host: connectionConfig.host,
         user: connectionConfig.user,
@@ -42,7 +47,36 @@ export default (on, config) => {
               });
             }
             connection.end();
-            resolve(true);
+            // The SQL fixture dump predates SupLAN. Install the actual final DDL, not preview compatibility tables.
+            // Use e2e env with its suffix to target exactly the database just seeded above.
+            try {
+              await promisify(execFile)(
+                'php',
+                [
+                  '../bin/console',
+                  'doctrine:migrations:execute',
+                  'SuplaBundle\\Migrations\\Migration\\Version20261007104248',
+                  'SuplaBundle\\Migrations\\Migration\\Version20261011120000',
+                  'SuplaBundle\\Migrations\\Migration\\Version20261016120000',
+                  '--up',
+                  '--no-interaction',
+                  '--env=e2e',
+                ],
+                {
+                  env: {
+                    ...process.env,
+                    DATABASE_HOST: connectionConfig.host,
+                    DATABASE_PORT: String(connectionConfig.port || 3306),
+                    DATABASE_NAME: database.slice(0, -4),
+                    DATABASE_USER: connectionConfig.user,
+                    DATABASE_PASSWORD: connectionConfig.password || '',
+                  },
+                }
+              );
+              resolve(true);
+            } catch (error) {
+              reject(error);
+            }
           }
         });
       });

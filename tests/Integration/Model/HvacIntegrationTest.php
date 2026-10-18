@@ -531,7 +531,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient($this->user);
         $hvacChannel = $this->freshEntityById(IODeviceChannel::class, $hvacChannelId);
         $hvacChannel->setUserConfigValue('subfunction', 'HEAT');
-        $hvacChannel->setUserConfigValue('mainThermometerChannelNo', 2);
+        $hvacChannel->setUserConfigValue('mainThermometerChannelId', null);
         $this->getEntityManager()->persist($hvacChannel);
         $this->getEntityManager()->flush();
         $client->apiRequestV24('GET', '/api/channels/' . $hvacChannel->getId());
@@ -845,7 +845,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
 
     public function testDeletingHvacDeviceWithInvalidConfig() {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
-        $device->getChannels()[2]->setUserConfigValue('mainThermometerChannelNo', 123);
+        $device->getChannels()[2]->setUserConfigValue('mainThermometerChannelId', 123);
         $this->persist($device->getChannels()[2]);
         $client = $this->createAuthenticatedClient();
         $client->request('DELETE', '/api/iodevices/' . $device->getId());
@@ -976,7 +976,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
         $dhw = $device->getChannels()[4];
         $properties = $dhw->getProperties();
-        $properties['hiddenConfigFields'] = ['auxThermometerChannelNo'];
+        $properties['hiddenConfigFields'] = ['auxThermometerChannelId'];
         EntityUtils::setField($dhw, 'properties', json_encode($properties));
         $dhw = $this->persist($dhw);
         $client = $this->createAuthenticatedClient($this->user);

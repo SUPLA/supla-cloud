@@ -93,7 +93,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
     }
 
     public function getConfig(HasUserConfig $subject): array {
-        $userConfig = HvacChannelReferences::canonicalConfig($subject);
+        $userConfig = $subject->getUserConfig();
         if (array_key_exists('mainThermometerChannelId', $userConfig)) {
             $functionCounts = $this->availableDeviceFunctionCounts($subject);
             $masterThermostatAvailable = array_sum(array_intersect_key($functionCounts, array_flip([
@@ -157,7 +157,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
-        HvacChannelReferences::migrate($subject);
         $channelConfig = $this->getConfig($subject);
         if (array_key_exists('mainThermometerChannelId', $config)) {
             $mainThermometerChannelId = $config['mainThermometerChannelId'];
@@ -221,7 +220,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $masterThermostat = $this->references->resolve($subject, $config['masterThermostatChannelId'], 'masterThermostatChannelId');
                 Assertion::eq(ChannelType::HVAC, $masterThermostat->getType()->getId(), 'Invalid master thermostat type.');
                 Assertion::null(
-                    HvacChannelReferences::canonicalConfig($masterThermostat)['masterThermostatChannelId'] ?? null,
+                    $masterThermostat->getUserConfig()['masterThermostatChannelId'] ?? null,
                     'The master termostat you chose already has a master.' // i18n
                 );
                 Assertion::eq(
@@ -590,7 +589,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
     private function findSlaveThermostats(IODeviceChannel $channel): Collection {
         return new ArrayCollection(array_values(array_filter(
             $this->entityManager->getRepository(IODeviceChannel::class)->findBy(['user' => $channel->getUser()]),
-            fn(IODeviceChannel $ch) => (HvacChannelReferences::canonicalConfig($ch)['masterThermostatChannelId'] ?? null) === $channel->getId()
+            fn(IODeviceChannel $ch) => ($ch->getUserConfig()['masterThermostatChannelId'] ?? null) === $channel->getId()
         )));
     }
 

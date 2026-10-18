@@ -36,9 +36,6 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
             $this->channelIds[] = array_map(fn($channel) => $channel->getId(), $device->getChannels()->toArray());
         }
         $this->flush();
-        // Preserve an existing independent M2 CHANNEL_CONFIG origin in all mutation tests.
-        $this->executeCommand(['command' => 'doctrine:migrations:execute',
-            'versions' => ['SuplaBundle\\Migrations\\Migration\\Version20261007104248'], '--up' => true]);
         $connection = $this->getEntityManager()->getConnection();
         foreach ($this->deviceIds as $index => $deviceId) {
             $connection->insert('supla_suplan_device_state', ['device_id' => $deviceId, 'user_id' => $this->user->getId(),
@@ -46,14 +43,10 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         }
         $connection->insert('supla_suplan_peer_association', ['user_id' => $this->user->getId(),
             'source_device_id' => $this->deviceIds[0], 'destination_device_id' => $this->deviceIds[1], 'canonical_acl' => '']);
-        $association = $connection->lastInsertId();
-        $connection->insert('supla_suplan_grant', ['association_id' => $association, 'resource_type' => 1,
-            'resource_id' => $this->channelIds[0][0], 'origin_type' => 1, 'origin_id' => 123, 'permissions' => 1]);
-        // Execute the actual versioned migration on the isolated framework database.
-        $this->executeCommand(['command' => 'doctrine:migrations:execute',
-            'versions' => ['SuplaBundle\\Migrations\\Migration\\Version20261011120000'], '--up' => true]);
-        $this->executeCommand(['command' => 'doctrine:migrations:execute',
-            'versions' => ['SuplaBundle\\Migrations\\Migration\\Version20261013215600'], '--up' => true]);
+        $connection->insert('supla_resource_access_grant', ['user_id' => $this->user->getId(),
+            'source_device_id' => $this->deviceIds[0], 'destination_device_id' => $this->deviceIds[1], 'resource_type' => 1,
+            'resource_id' => $this->channelIds[0][0], 'origin_type' => 1, 'origin_id' => 123, 'permissions' => 1,
+            'source_type' => ChannelType::RELAY, 'source_function' => CF::LIGHTSWITCH, 'peer_eligible' => 1, 'requires_peer' => 0]);
     }
 
     private function decision(int $permissions = 1, string $status = 'PENDING', int $sourceIndex = 0): int {
@@ -68,7 +61,11 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         $connection->insert('supla_resource_access_decision', ['pair_id' => $pair,
             'open_pair_id' => in_array($status, ['PENDING', 'REJECTED']) ? $pair : null,
             'status' => $status, 'permissions' => $permissions, 'revision' => 1]);
-        return (int)$connection->lastInsertId();
+        $id = (int)$connection->lastInsertId();
+        if ($status === 'ACCEPTED') {
+            $connection->transactional(fn() => (new \App\Model\ResourceAccess\CloudResourceGrants($connection))->decision($id));
+        }
+        return $id;
     }
 
     private function row(int $id): array {
@@ -133,7 +130,9 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(2, $entries);
         $this->assertSame(1, $entries[0]['acceptedManualPermissions']);
         $this->assertSame(1, $entries[0]['independentPermissions']);
-        $this->assertSame(1, (int)$this->getEntityManager()->getConnection()->fetchOne('SELECT permissions FROM supla_suplan_grant'));
+        $this->assertSame(1, (int)$this->getEntityManager()->getConnection()->fetchOne(
+            'SELECT permissions FROM supla_resource_access_grant WHERE origin_type=1'
+        ));
         $this->assertSame('NOT_CONFIRMED', $entries[0]['provisioningStatus']);
     }
 
@@ -259,17 +258,13 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSame('PENDING', $this->row($id)['status']);
     }
 
-    public function testExistingIndependentDeviceScopeGrantIsDisplayedAndPreserved() {
+    public function testIndependentChannelOriginIsDisplayedAndPreserved() {
         $id = $this->decision();
-        $connection = $this->getEntityManager()->getConnection();
-        $association = $connection->fetchOne('SELECT id FROM supla_suplan_peer_association');
-        $connection->insert('supla_suplan_grant', ['association_id' => $association, 'resource_type' => 2,
-            'resource_id' => $this->deviceIds[0], 'origin_type' => 99, 'origin_id' => 456, 'permissions' => 2]);
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV3('GET', '/api/resource-access/' . $id);
-        $this->assertSame(3, $client->getResponseBody()['independentPermissions']);
+        $this->assertSame(1, $client->getResponseBody()['independentPermissions']);
         $this->mutate($id, 'remove');
-        $this->assertSame(2, (int)$connection->fetchOne('SELECT COUNT(*) FROM supla_suplan_grant'));
+        $this->assertSame(1, (int)$this->getEntityManager()->getConnection()->fetchOne('SELECT COUNT(*) FROM supla_resource_access_grant'));
     }
 
     public function testTransferredSourceMetadataIsHiddenAndCannotBeApproved() {
@@ -407,7 +402,11 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         $configuration = $em->getConnection()->getConfiguration();
         $logger = new \Doctrine\DBAL\Logging\DebugStack();
         $previous = $configuration->getSQLLogger();
-        $service = new \App\Model\ResourceAccess\ResourceAccessDecisions($em, self::getContainer()->get(\App\Supla\SuplaServer::class));
+        $service = new \App\Model\ResourceAccess\ResourceAccessDecisions(
+            $em,
+            self::getContainer()->get(\App\Supla\SuplaServer::class),
+            new \App\Model\ResourceAccess\CloudResourceGrants($em->getConnection())
+        );
         $counts = [];
         try {
             foreach ([1, 50, 250] as $size) {
@@ -468,7 +467,7 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         $this->mutate($id, 'approve');
         $this->assertSame('ACCEPTED', $this->row($id)['status']);
         // A fixture of configuration-origin removal must not retire the independent user decision.
-        $connection->delete('supla_suplan_grant', ['origin_type' => 1]);
+        $connection->delete('supla_resource_access_grant', ['origin_type' => 1]);
         $this->assertSame('ACCEPTED', $this->row($id)['status']);
     }
 
@@ -515,18 +514,21 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         $this->mutate($id, 'approve'); // Durable consent, no fresh ENSURE or Device consumer required.
         $this->assertSame('ACCEPTED', $this->row($id)['status']);
         $client->apiRequestV3('GET', '/api/resource-access/permissions');
-        $rights = $client->getResponseBody()['items'];
+        $rights = array_values(array_filter(
+            $client->getResponseBody()['items'],
+            fn($item) => $item['resourceId'] === $this->channelIds[0][1]
+        ));
         $this->assertCount(1, $rights);
         $this->assertNull($rights[0]['associationId']);
         $this->assertSame('SERVER_READ', $rights[0]['authorizationKind']);
         $this->assertSame($virtual, $rights[0]['sourceIsVirtual']);
-        $client->apiRequestV3('GET', '/api/resource-access/permissions/read-' . $id . '/1/' . $this->channelIds[0][1]);
+        $client->apiRequestV3('GET', '/api/resource-access/permissions/logical-' . $this->deviceIds[1] . '/1/' . $this->channelIds[0][1]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertSame((string)$id, $client->getResponseBody()['origins'][0]['decisionId']);
         $this->mutate($id, 'remove');
         $this->assertSame('REMOVED', $this->row($id)['status']);
         $client->apiRequestV3('GET', '/api/resource-access/permissions');
-        $this->assertSame([], $client->getResponseBody()['items']);
+        $this->assertCount(1, $client->getResponseBody()['items']); // Independent configuration origin survives.
         $later = $this->decision(1, 'PENDING', 1);
         $connection->update('supla_resource_access_decision', ['requested_delivery_mode' => 2], ['id' => $later]);
         $this->assertSame('PENDING', $this->row($later)['status']);
@@ -534,8 +536,8 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
             $this->user->getId(), $this->deviceIds[0], $this->channelIds[0][1], ChannelType::THERMOMETER, CF::THERMOMETER, 256,
         ]);
         $this->assertSame([$command, $command, $command], SuplaServerMock::$executedCommands);
-        $this->assertSame(1, (int)$connection->fetchOne('SELECT COUNT(*) FROM supla_suplan_grant WHERE origin_type=1'));
-        $this->assertSame(0, (int)$connection->fetchOne('SELECT COUNT(*) FROM supla_suplan_grant WHERE origin_type=2'));
+        $this->assertSame(1, (int)$connection->fetchOne('SELECT COUNT(*) FROM supla_resource_access_grant WHERE origin_type=1'));
+        $this->assertSame(0, (int)$connection->fetchOne('SELECT COUNT(*) FROM supla_resource_access_grant WHERE origin_type=2'));
     }
 
     public static function streamSources(): array {
@@ -617,10 +619,10 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSame('ACCEPTED', $this->row($other)['status']);
         $owner = $this->createAuthenticatedClient($this->user);
         $owner->apiRequestV3('GET', '/api/resource-access/permissions');
-        $this->assertCount(1, $owner->getResponseBody()['items']);
+        $this->assertCount(2, $owner->getResponseBody()['items']); // Separate configuration and accepted manual resources survive.
         $this->assertSame(1, $owner->getResponseBody()['items'][0]['permissions']);
 
-        $client->apiRequestV3('GET', '/api/resource-access/permissions/read-' . $id . '/1/' . $this->channelIds[0][1]);
+        $client->apiRequestV3('GET', '/api/resource-access/permissions/logical-' . $this->deviceIds[1] . '/1/' . $this->channelIds[0][1]);
         $this->assertStatusCode(404, $client->getResponse());
     }
     public function testActualWeatherVirtualChannelUsesItsExistingAuthoritativeContainer() {
@@ -657,6 +659,7 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
     public function testStreamRequestsAndRightsTraverseMultiplePagesAndKeepAccountFilters() {
         $this->streamDecision(true);
         $connection = $this->getEntityManager()->getConnection();
+        $connection->delete('supla_resource_access_grant', ['origin_type' => 1]); // This test isolates STREAM pagination.
         // Fifty-five canonical virtual channels; no physical peer or new grant table.
         $source = $this->createDevice(
             $this->createLocation($this->freshEntity($this->user)),
@@ -669,6 +672,8 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
                 'source_device_id' => $source->getId(), 'destination_device_id' => $this->deviceIds[1], 'source_channel_id' => $channel->getId()]);
             $connection->insert('supla_resource_access_decision', ['pair_id' => $connection->lastInsertId(),
                 'status' => 'ACCEPTED', 'permissions' => 1, 'requested_delivery_mode' => 2]);
+            $id = (int)$connection->lastInsertId();
+            $connection->transactional(fn() => (new \App\Model\ResourceAccess\CloudResourceGrants($connection))->decision($id));
         }
         $client = $this->createAuthenticatedClient($this->user);
         $seen = [];
@@ -707,7 +712,7 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV3('GET', '/api/resource-access/permissions');
         $this->assertCount(1, $client->getResponseBody()['items']);
-        $this->assertSame(1, $client->getResponseBody()['items'][0]['permissions']);
+        $this->assertSame($mask & 2 ? 3 : 1, $client->getResponseBody()['items'][0]['permissions']);
         $this->mutate($id, 'remove', $before, 409);
         $this->mutate($id, 'remove');
         $this->assertSame('REMOVED', $this->row($id)['status']);
@@ -727,7 +732,7 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         $list = $client->getResponseBody()['items'];
         $this->assertCount(1, $list);
         $this->assertSame('mixed', $list[0]['originSummary']);
-        $client->apiRequestV3('GET', '/api/resource-access/permissions/' . $list[0]['associationId'] . '/1/' . $this->channelIds[0][0]);
+        $client->apiRequestV3('GET', '/api/resource-access/permissions/' . $list[0]['resourceKey'] . '/1/' . $this->channelIds[0][0]);
         $origins = $client->getResponseBody()['origins'];
         $this->assertCount(2, $origins);
         $this->assertSame((string)$id, $origins[1]['decisionId']);
@@ -735,41 +740,13 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV3('GET', '/api/resource-access/permissions');
         $this->assertCount(1, $client->getResponseBody()['items']);
         $this->assertSame('configuration', $client->getResponseBody()['items'][0]['originSummary']);
-        $this->assertSame(1, (int)$connection->fetchOne('SELECT COUNT(*) FROM supla_suplan_grant WHERE origin_type=1'));
-    }
-    public function testDeviceWildcardDoesNotHideAcceptedChannelOrigin() {
-        $id = $this->decision(1, 'ACCEPTED');
-        $connection = $this->getEntityManager()->getConnection();
-        $connection->update('supla_resource_access_decision', ['requested_delivery_mode' => 2], ['id' => $id]);
-        $association = $connection->fetchOne('SELECT id FROM supla_suplan_peer_association');
-        $connection->delete('supla_suplan_grant', ['association_id' => $association]);
-        $connection->insert('supla_suplan_grant', ['association_id' => $association, 'resource_type' => 2,
-            'resource_id' => $this->deviceIds[0], 'origin_type' => 3, 'origin_id' => 123, 'permissions' => 1]);
-        $connection->update('supla_suplan_peer_association', ['lifecycle' => 1,
-            'canonical_acl' => pack('CNC', 2, $this->deviceIds[0], 1)], ['id' => $association]);
-        $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV3('GET', '/api/resource-access/permissions?origin=user-approved');
-        $this->assertStatusCode(200, $client->getResponse());
-        $this->assertCount(1, $client->getResponseBody()['items'], 'An independent accepted CHANNEL READ must remain discoverable.');
-        $manual = $client->getResponseBody()['items'][0];
-        $this->assertSame(1, $manual['resourceType']);
-        $this->assertSame($this->channelIds[0][0], $manual['resourceId']);
-        $client->apiRequestV3('GET', '/api/resource-access/permissions/' . $manual['resourceKey'] . '/1/' . $manual['resourceId']);
-        $this->assertStatusCode(200, $client->getResponse());
-        $this->assertSame((string)$id, $client->getResponseBody()['origins'][0]['decisionId']);
-        $client->apiRequestV3('GET', '/api/resource-access/permissions');
-        $this->assertCount(2, $client->getResponseBody()['items']); // Distinct DEVICE and CHANNEL resources.
-        $this->mutate($id, 'remove');
-        $client->apiRequestV3('GET', '/api/resource-access/permissions');
-        $this->assertCount(1, $client->getResponseBody()['items']);
-        $this->assertSame(2, $client->getResponseBody()['items'][0]['resourceType']);
-        $this->assertSame(1, (int)$connection->fetchOne('SELECT COUNT(*) FROM supla_suplan_grant WHERE origin_type=3'));
+        $this->assertSame(1, (int)$connection->fetchOne('SELECT COUNT(*) FROM supla_resource_access_grant WHERE origin_type=1'));
     }
 
     public function testUnseenPairIsNotSkippedWhenOneIndependentOriginIsRemoved() {
-        $old = $this->decision(1, 'ACCEPTED');
-        $other = $this->decision(1, 'ACCEPTED', 1);
-        $survivor = $this->decision(1, 'ACCEPTED');
+        $old = $this->decision(1, 'ACCEPTED', 1);
+        $other = $this->decision(1, 'ACCEPTED');
+        $survivor = $this->decision(1, 'ACCEPTED', 1);
         $connection = $this->getEntityManager()->getConnection();
         foreach ([$old, $other, $survivor] as $id) {
             $connection->update('supla_resource_access_decision', ['requested_delivery_mode' => 2], ['id' => $id]);
@@ -777,15 +754,15 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV3('GET', '/api/resource-access/permissions?limit=1');
         $page = $client->getResponseBody();
-        $this->assertSame($this->channelIds[0][1], $page['items'][0]['resourceId']);
+        $this->assertSame($this->channelIds[0][0], $page['items'][0]['resourceId']);
         $pair = (int)$this->row($old)['pair_id'];
         $this->assertNotNull($page['nextCursor']);
         $this->mutate($old, 'remove'); // The unseen resource retains its independent READ consent.
         $client->apiRequestV3('GET', '/api/resource-access/permissions?limit=1&cursor=' . $page['nextCursor']);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertCount(1, $client->getResponseBody()['items'], 'The canonical pair was not deleted and must not disappear from pagination.');
-        $this->assertSame('read-' . $pair, $client->getResponseBody()['items'][0]['resourceKey']);
-        $client->apiRequestV3('GET', '/api/resource-access/permissions/read-' . $pair . '/1/' . $this->channelIds[0][0]);
+        $this->assertSame('logical-' . $this->deviceIds[1], $client->getResponseBody()['items'][0]['resourceKey']);
+        $client->apiRequestV3('GET', '/api/resource-access/permissions/logical-' . $this->deviceIds[1] . '/1/' . $this->channelIds[0][1]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertSame((string)$survivor, $client->getResponseBody()['origins'][0]['decisionId']);
     }

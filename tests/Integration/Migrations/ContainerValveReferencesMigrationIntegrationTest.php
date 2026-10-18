@@ -59,6 +59,10 @@ class ContainerValveReferencesMigrationIntegrationTest extends DatabaseMigration
     private function migrateReferences(): void {
         $output = $this->executeCommand(['command' => 'doctrine:migrations:migrate', 'version' => self::VERSION]);
         $this->assertStringContainsString('Successfully migrated to version:', $output);
+        // Runtime/API checks require the complete current schema after historical data conversion.
+        $this->executeCommand(['command' => 'doctrine:migrations:migrate',
+            'version' => 'SuplaBundle\\Migrations\\Migration\\Version20261016120000']);
+        $this->getEntityManager()->getConnection()->close();
     }
 
     public function testTenAndTwentySlotsPerDevicePreserveOrderSettingsMetadataAndActualIdempotency() {

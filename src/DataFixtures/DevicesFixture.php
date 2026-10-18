@@ -30,6 +30,7 @@ use App\Enums\ChannelFlistRgbw;
 use App\Enums\ChannelFunction;
 use App\Enums\ChannelType;
 use App\Enums\IoDeviceFlags;
+use App\Model\UserConfigTranslator\HvacChannelReferences;
 use App\Tests\AnyFieldSetter;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -239,8 +240,8 @@ class DevicesFixture extends SuplaFixture {
                     ]),
                     'userConfig' => json_encode([
                         'subfunction' => 'HEAT',
-                        'mainThermometerChannelNo' => 1,
-                        'auxThermometerChannelNo' => null,
+                        'mainThermometerChannelId' => 1,
+                        'auxThermometerChannelId' => null,
                         'usedAlgorithm' => 'ON_OFF_SETPOINT_MIDDLE',
                         'temperatureControlType' => 'ROOM_TEMPERATURE',
                         'temperatures' => [
@@ -292,8 +293,8 @@ class DevicesFixture extends SuplaFixture {
                         'localUILockingCapabilities' => ['TEMPERATURE'],
                     ]),
                     'userConfig' => json_encode([
-                        'mainThermometerChannelNo' => 0,
-                        'auxThermometerChannelNo' => 1,
+                        'mainThermometerChannelId' => 0,
+                        'auxThermometerChannelId' => 1,
                         'auxThermometerType' => 'FLOOR',
                         'temperatureControlType' => 'NOT_SUPPORTED',
                         'antiFreezeAndOverheatProtectionEnabled' => true,
@@ -347,9 +348,9 @@ class DevicesFixture extends SuplaFixture {
                             'autoOffsetMax' => 2000,
                         ],
                         'readOnlyConfigFields' => [
-                            //"mainThermometerChannelNo",
-                            //"auxThermometerChannelNo",
-                            "binarySensorChannelNo",
+                            //"mainThermometerChannelId",
+                            //"auxThermometerChannelId",
+                            "binarySensorChannelId",
                             //"auxThermometerType",
                             //"antiFreezeAndOverheatProtectionEnabled",
                             "usedAlgorithm",
@@ -359,15 +360,15 @@ class DevicesFixture extends SuplaFixture {
                             "subfunction",
                             //"auxMinMaxSetpointEnabled",
                             //"useSeparateHeatCoolOutputs",
-                            //"masterThermostatChannelNo",
-                            //"heatOrColdSourceSwitchChannelNo",
-                            //"pumpSwitchChannelNo",
+                            //"masterThermostatChannelId",
+                            //"heatOrColdSourceSwitchChannelId",
+                            //"pumpSwitchChannelId",
                             //"temperatureSetpointChangeSwitchesToManualMode",
                         ],
                         'hiddenConfigFields' => [
-                            //"mainThermometerChannelNo",
-//                            "auxThermometerChannelNo",
-                            //"binarySensorChannelNo",
+                            //"mainThermometerChannelId",
+//                            "auxThermometerChannelId",
+                            //"binarySensorChannelId",
                             //"auxThermometerType",
                             "antiFreezeAndOverheatProtectionEnabled",
                             //"usedAlgorithm",
@@ -377,9 +378,9 @@ class DevicesFixture extends SuplaFixture {
                             //"subfunction",
                             //"auxMinMaxSetpointEnabled",
                             //"useSeparateHeatCoolOutputs",
-                            //"masterThermostatChannelNo",
-                            //"heatOrColdSourceSwitchChannelNo",
-                            "pumpSwitchChannelNo",
+                            //"masterThermostatChannelId",
+                            //"heatOrColdSourceSwitchChannelId",
+                            "pumpSwitchChannelId",
                             //"temperatureSetpointChangeSwitchesToManualMode",
                         ],
                         'readOnlyTemperatureConfigFields' => [
@@ -410,9 +411,9 @@ class DevicesFixture extends SuplaFixture {
                         ],
                     ]),
                     'userConfig' => json_encode([
-                        'mainThermometerChannelNo' => null,
-                        'auxThermometerChannelNo' => null,
-                        'binarySensorChannelNo' => 5,
+                        'mainThermometerChannelId' => null,
+                        'auxThermometerChannelId' => null,
+                        'binarySensorChannelId' => 5,
                         'usedAlgorithm' => 'ON_OFF_SETPOINT_AT_MOST',
                         'antiFreezeAndOverheatProtectionEnabled' => true,
                         'temperatures' => [
@@ -596,8 +597,8 @@ class DevicesFixture extends SuplaFixture {
                 [
                     'subDeviceId' => 4,
                     'funcList' => Functions::HVAC_THERMOSTAT,
-                    'properties' => json_encode(['readOnlyConfigFields' => ['auxThermometerChannelNo']]),
-                    'userConfig' => json_encode(['mainThermometerChannelNo' => 8, 'auxThermometerChannelNo' => 9]),
+                    'properties' => json_encode(['readOnlyConfigFields' => ['auxThermometerChannelId']]),
+                    'userConfig' => json_encode(['mainThermometerChannelId' => 8, 'auxThermometerChannelId' => 9]),
                 ],
             ],
             [
@@ -606,8 +607,8 @@ class DevicesFixture extends SuplaFixture {
                 [
                     'subDeviceId' => 4,
                     'funcList' => Functions::HVAC_THERMOSTAT,
-                    'properties' => json_encode(['readOnlyConfigFields' => ['auxThermometerChannelNo']]),
-                    'userConfig' => json_encode(['mainThermometerChannelNo' => 8, 'auxThermometerChannelNo' => 9]),
+                    'properties' => json_encode(['readOnlyConfigFields' => ['auxThermometerChannelId']]),
+                    'userConfig' => json_encode(['mainThermometerChannelId' => 8, 'auxThermometerChannelId' => 9]),
                 ],
             ],
             [
@@ -616,8 +617,8 @@ class DevicesFixture extends SuplaFixture {
                 [
                     'subDeviceId' => 4,
                     'funcList' => Functions::HVAC_THERMOSTAT,
-                    'properties' => json_encode(['readOnlyConfigFields' => ['auxThermometerChannelNo']]),
-                    'userConfig' => json_encode(['mainThermometerChannelNo' => 8, 'auxThermometerChannelNo' => 9]),
+                    'properties' => json_encode(['readOnlyConfigFields' => ['auxThermometerChannelId']]),
+                    'userConfig' => json_encode(['mainThermometerChannelId' => 8, 'auxThermometerChannelId' => 9]),
                 ],
             ],
             [
@@ -626,8 +627,8 @@ class DevicesFixture extends SuplaFixture {
                 [
                     'subDeviceId' => 4,
                     'funcList' => Functions::HVAC_THERMOSTAT,
-                    'properties' => json_encode(['readOnlyConfigFields' => ['auxThermometerChannelNo']]),
-                    'userConfig' => json_encode(['mainThermometerChannelNo' => 8, 'auxThermometerChannelNo' => 9]),
+                    'properties' => json_encode(['readOnlyConfigFields' => ['auxThermometerChannelId']]),
+                    'userConfig' => json_encode(['mainThermometerChannelId' => 8, 'auxThermometerChannelId' => 9]),
                 ],
             ],
         ]);
@@ -843,6 +844,20 @@ class DevicesFixture extends SuplaFixture {
             $this->entityManager->flush();
         }
         $this->entityManager->refresh($device);
+        // Fixture declarations use channel indexes; persist canonical IDs once all fixture channels exist.
+        foreach ($device->getChannels() as $channel) {
+            if ($channel->getType()->getId() !== ChannelType::HVAC) {
+                continue;
+            }
+            foreach (HvacChannelReferences::FIELDS as $field) {
+                $key = $field . 'ChannelId';
+                $index = $channel->getUserConfigValue($key);
+                if ($index !== null) {
+                    $channel->setUserConfigValue($key, $device->getChannels()[$index]->getId());
+                }
+            }
+        }
+        $this->entityManager->flush();
         if ($registerAs && $this->referenceRepository) {
             $this->setReference($registerAs, $device);
         }

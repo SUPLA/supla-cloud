@@ -45,6 +45,7 @@ class Version20261007104248 extends NoWayBackMigration {
   lifecycle TINYINT UNSIGNED NOT NULL DEFAULT 3,
   peer_generation INT UNSIGNED NOT NULL DEFAULT 1,
   acl_revision INT UNSIGNED NOT NULL DEFAULT 1,
+  change_revision BIGINT UNSIGNED NOT NULL DEFAULT 0,
   provisioned_root_epoch INT UNSIGNED NOT NULL DEFAULT 0,
   provisioned_peer_generation INT UNSIGNED NOT NULL DEFAULT 0,
   canonical_acl VARBINARY(534) NOT NULL,
@@ -65,22 +66,6 @@ class Version20261007104248 extends NoWayBackMigration {
   CONSTRAINT suplan_boolean_state CHECK (
     source_empty_acked IN (0,1) AND destination_empty_acked IN (0,1)
     AND source_removed IN (0,1) AND destination_removed IN (0,1))
-) ENGINE=InnoDB;');
-        $this->addSql('CREATE TABLE supla_suplan_grant (
-  association_id BIGINT UNSIGNED NOT NULL,
-  resource_type TINYINT UNSIGNED NOT NULL,
-  resource_id INT UNSIGNED NOT NULL,
-  origin_type SMALLINT UNSIGNED NOT NULL,
-  origin_id BIGINT UNSIGNED NOT NULL,
-  permissions TINYINT UNSIGNED NOT NULL,
-  PRIMARY KEY (association_id,resource_type,resource_id,origin_type,origin_id),
-  KEY suplan_grant_origin (origin_type,origin_id,association_id),
-  KEY suplan_grant_resource (resource_type,resource_id,association_id),
-  CONSTRAINT suplan_grant_parent FOREIGN KEY (association_id)
-    REFERENCES supla_suplan_peer_association(id) ON DELETE CASCADE,
-  CONSTRAINT suplan_grant_resource_type CHECK (resource_type IN (1,2)),
-  CONSTRAINT suplan_grant_identity CHECK (resource_id>0 AND origin_type>0 AND origin_id>0),
-  CONSTRAINT suplan_grant_permissions CHECK (permissions BETWEEN 1 AND 7)
 ) ENGINE=InnoDB;');
     }
 }

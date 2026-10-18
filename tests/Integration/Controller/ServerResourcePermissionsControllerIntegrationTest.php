@@ -29,14 +29,13 @@ class ServerResourcePermissionsControllerIntegrationTest extends IntegrationTest
                 [CT::SENSORNO, CF::OPENINGSENSOR_GATE], [CT::RELAY, CF::PUMPSWITCH], [CT::RELAY, CF::HEATORCOLDSOURCESWITCH],
             ]);
             EntityUtils::setField($device, 'lastConnected', null);
+            EntityUtils::setField($device, 'flags', 524288);
+            EntityUtils::setField($device, 'protocolVersion', 29);
+            EntityUtils::setField($device->getChannels()[5], 'properties', json_encode(['actionTriggerCapabilities' => ['TURN_ON']]));
             $this->devices[$i] = $device->getId();
             $this->channels[$i] = array_map(fn($channel) => $channel->getId(), $device->getChannels()->toArray());
         }
         $this->flush();
-        foreach (['20261007104248', '20261011120000'] as $version) {
-            $this->executeCommand(['command' => 'doctrine:migrations:execute',
-                'versions' => ['SuplaBundle\\Migrations\\Migration\\Version' . $version], '--up' => true]);
-        }
         $connection = $this->getEntityManager()->getConnection();
         $connection->insert('supla_suplan_peer_association', ['user_id' => $this->user->getId(),
             'source_device_id' => $this->devices[0], 'destination_device_id' => $this->devices[1],
@@ -54,9 +53,15 @@ class ServerResourcePermissionsControllerIntegrationTest extends IntegrationTest
     }
 
     private function grant(int $resource, int $originType, int|string $originId, int $permissions = 1, int $resourceType = 1): void {
-        $this->getEntityManager()->getConnection()->insert('supla_suplan_grant', ['association_id' => $this->association,
+        $c = $this->getEntityManager()->getConnection();
+        $channel = $c->fetchAssociative('SELECT * FROM supla_dev_channel WHERE id=?', [$resource]);
+        $c->insert('supla_resource_access_grant', ['user_id' => $this->user->getId(),
+            'source_device_id' => $this->devices[0], 'destination_device_id' => $this->devices[1],
             'resource_type' => $resourceType, 'resource_id' => $resource, 'origin_type' => $originType,
-            'origin_id' => $originId, 'permissions' => $permissions]);
+            'origin_id' => $originId, 'permissions' => $permissions, 'source_type' => $channel['type'],
+            'source_function' => $channel['func'], 'peer_eligible' => 1, 'requires_peer' => 0,
+            'binding_target_channel_id' => $originType === 1 && in_array((int)$originId & 255, [5, 6], true)
+                ? $this->channels[1][((int)$originId & 255) === 5 ? 7 : 8] : null]);
     }
 
     private function get(string $suffix = '', int $status = 200, ?User $user = null): array {
@@ -67,7 +72,7 @@ class ServerResourcePermissionsControllerIntegrationTest extends IntegrationTest
     }
 
     private function detail(int $resource, int $type = 1, string $suffix = '', int $status = 200, ?User $user = null): array {
-        return $this->get('/' . $this->association . '/' . $type . '/' . $resource . $suffix, $status, $user);
+        return $this->get('/logical-' . $this->devices[1] . '/' . $type . '/' . $resource . $suffix, $status, $user);
     }
 
     public static function configurationFields(): array {
@@ -138,10 +143,10 @@ class ServerResourcePermissionsControllerIntegrationTest extends IntegrationTest
         }
         $pending = $this->decision($read, 'PENDING', 2);
         $rejected = $this->decision($control, 'REJECTED', 4);
-        $this->assertSame([], $this->get()['items']); // Accepted alone is not a projected grant.
+        $this->assertCount(3, $this->get()['items']); // Logical grants are visible without peer projection.
         $this->project([[1, $read, 1], [1, $control, 2], [1, $action, 4]]);
         $items = $this->get()['items'];
-        $this->assertSame([1, 2, 4], array_column($items, 'permissions'));
+        $this->assertSame([1, 3, 4], array_column($items, 'permissions'));
         foreach ($items as $item) {
             $detail = $this->detail($item['resourceId']);
             $this->assertNotNull($detail['origins'][0]['decisionId']);
@@ -159,41 +164,41 @@ class ServerResourcePermissionsControllerIntegrationTest extends IntegrationTest
         $this->assertSame('mixed', $this->get()['items'][0]['originSummary']);
         $this->assertCount(2, $this->detail($resource)['origins']);
         $connection = $this->getEntityManager()->getConnection();
-        $connection->update('supla_suplan_grant', ['permissions' => 2], ['origin_type' => 2, 'origin_id' => $manual]);
+        $connection->update('supla_resource_access_grant', ['permissions' => 2], ['origin_type' => 2, 'origin_id' => $manual]);
         $this->project([[1, $resource, 2]]);
-        $this->assertSame(2, $this->get()['items'][0]['permissions']);
-        $connection->delete('supla_suplan_grant', ['origin_type' => 2, 'origin_id' => $manual]);
+        $this->assertSame(3, $this->get()['items'][0]['permissions']);
+        $connection->delete('supla_resource_access_grant', ['origin_type' => 2, 'origin_id' => $manual]);
         $this->project([[1, $resource, 1]]);
         $this->assertSame(1, $this->get()['items'][0]['permissions']);
         $this->assertCount(1, $this->detail($resource)['origins']);
-        $connection->delete('supla_suplan_grant', ['origin_type' => 1, 'origin_id' => $config]);
+        $connection->delete('supla_resource_access_grant', ['origin_type' => 1, 'origin_id' => $config]);
         $this->grant($resource, 2, $manual);
         $this->assertSame('user-approved', $this->get()['items'][0]['originSummary']);
     }
 
-    public function testDeviceScopeFiltersPaginationUnknownOriginsAndReadHasNoWrites() {
+    public function testDeviceScopeFiltersPaginationIndependentOriginsAndReadHasNoWrites() {
         $channel = $this->channels[0][0];
         $this->grant($channel, 1, ($this->channels[1][1] << 8) | 1);
-        $this->grant($this->devices[0], 7, '18446744073709551615', 2, 2);
-        $this->project([[1, $channel, 1], [2, $this->devices[0], 2]]);
+        $this->grant($this->channels[0][4], 2, '18446744073709551615', 2);
+        $this->project([[1, $channel, 1], [1, $this->channels[0][4], 2]]);
         $connection = $this->getEntityManager()->getConnection();
         $before = $connection->fetchAllAssociative('SELECT * FROM supla_suplan_peer_association');
-        $grants = $connection->fetchAllAssociative('SELECT * FROM supla_suplan_grant');
+        $grants = $connection->fetchAllAssociative('SELECT * FROM supla_resource_access_grant');
         $page = $this->get('?limit=1');
         $this->assertCount(1, $page['items']);
         $this->assertNotNull($page['nextCursor']);
         $second = $this->get('?limit=1&cursor=' . $page['nextCursor']);
-        $this->assertSame(2, $second['items'][0]['resourceType']);
+        $this->assertSame(1, $second['items'][0]['resourceType']);
         $this->assertNull($second['nextCursor']);
         $this->assertSame([], $this->get('?sourceDeviceId=' . $this->devices[1])['items']);
         $this->assertCount(2, $this->get('?deviceId=' . $this->devices[1] . '&permission=1')['items']);
         $this->assertCount(1, $this->get('?origin=configuration')['items']);
-        $this->assertCount(1, $this->get('?origin=other&permission=2')['items']);
-        $detail = $this->detail($this->devices[0], 2);
+        $this->assertCount(1, $this->get('?origin=user-approved&permission=2')['items']);
+        $detail = $this->detail($this->channels[0][4]);
         $this->assertSame('18446744073709551615', $detail['origins'][0]['originId']);
         $this->assertNull($detail['origins'][0]['configuringChannel']);
         $this->assertSame($before, $connection->fetchAllAssociative('SELECT * FROM supla_suplan_peer_association'));
-        $this->assertSame($grants, $connection->fetchAllAssociative('SELECT * FROM supla_suplan_grant'));
+        $this->assertSame($grants, $connection->fetchAllAssociative('SELECT * FROM supla_resource_access_grant'));
         $this->assertSame([], SuplaServerMock::$executedCommands);
         foreach (['limit=51', 'permission=3', 'origin=invalid', 'cursor=bad', 'sourceDeviceId=-1'] as $query) {
             $this->get('?' . $query, 400);
@@ -207,8 +212,8 @@ class ServerResourcePermissionsControllerIntegrationTest extends IntegrationTest
         $connection = $this->getEntityManager()->getConnection();
         foreach ([2, 3] as $lifecycle) {
             $connection->update('supla_suplan_peer_association', ['lifecycle' => $lifecycle], ['id' => $this->association]);
-            $this->assertSame([], $this->get()['items']);
-            $this->detail($resource, 1, '', 404);
+            $this->assertCount(1, $this->get()['items']); // Provisioning lifecycle is not logical authorization.
+            $this->detail($resource);
         }
         $connection->update('supla_suplan_peer_association', ['lifecycle' => 1], ['id' => $this->association]);
         $connection->update('supla_dev_channel', ['func' => 0], ['id' => $resource]);
@@ -251,7 +256,7 @@ class ServerResourcePermissionsControllerIntegrationTest extends IntegrationTest
     public function testOriginsArePagedWithoutLosingIndependentContributions() {
         $resource = $this->channels[0][0];
         for ($id = 1; $id <= 102; $id++) {
-            $this->grant($resource, 9, $id);
+            $this->grant($resource, 2, $id);
         }
         $this->project([[1, $resource, 1]]);
         $first = $this->detail($resource);
@@ -281,7 +286,7 @@ class ServerResourcePermissionsControllerIntegrationTest extends IntegrationTest
         $entries = [];
         foreach ($this->channels[0] as $resource) {
             $entries[] = [1, $resource, 1];
-            $this->grant($resource, 9, 1);
+            $this->grant($resource, 2, 1);
         }
         $this->project($entries);
         $connection = $this->getEntityManager()->getConnection();

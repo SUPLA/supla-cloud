@@ -69,17 +69,22 @@ abstract class IntegrationTestCase extends WebTestCase {
         if (!$initializedAtLeastOnce || $this->size()->isLarge() || (!$this->requires() && !$this->size()->isSmall())) {
             $logsEm = self::getContainer()->get(MeasurementLogsEntityManagerProvider::class)->getManagerName();
             // Server-owned tables are excluded from ORM schema management but reference managed parents.
-            foreach (['supla_suplan_grant', 'supla_suplan_peer_association', 'supla_suplan_device_state'] as $table) {
+            $this->getEntityManager()->getConnection()->executeStatement('DROP VIEW IF EXISTS supla_resource_access_grant_valid');
+            foreach (
+                ['supla_suplan_changed_pair', 'supla_resource_access_grant', 'supla_resource_access_origin_lock',
+                'supla_suplan_peer_association', 'supla_suplan_device_state'] as $table
+            ) {
                 $this->getEntityManager()->getConnection()->executeStatement('DROP TABLE IF EXISTS ' . $table);
             }
             $this->executeCommand('doctrine:schema:drop --force --full-database --em=default');
             $this->executeCommand('doctrine:schema:drop --force --full-database --em=' . $logsEm);
-            $this->getEntityManager()->getConnection()->executeQuery('DROP TABLE supla_email_notifications;');
+            $this->getEntityManager()->getConnection()->executeQuery('DROP TABLE IF EXISTS supla_email_notifications;');
             $this->executeCommand('doctrine:schema:create --em=default');
             $this->executeCommand('doctrine:schema:create --em=' . $logsEm);
             $this->executeCommand('supla:initialize:create-sql-procedures-and-views');
             $this->executeCommand('supla:initialize:create-webapp-client');
             $this->getEntityManager()->getConnection()->executeQuery('TRUNCATE supla_email_notifications;');
+            $this->installSupLanSchema();
             $this->initializeDatabaseForTests();
             $reflection = new ReflectionClass($this);
             $vars = $reflection->getProperties(ReflectionProperty::IS_PRIVATE);
@@ -102,6 +107,19 @@ abstract class IntegrationTestCase extends WebTestCase {
                 }
             }
         }
+    }
+
+    protected function installSupLanSchema(): void {
+        // ORM fixtures use the same final SupLAN DDL/procedures as deployed Cloud, without preview schemas.
+        $connection = $this->getEntityManager()->getConnection();
+        $connection->executeStatement('DROP TABLE IF EXISTS supla_resource_access_decision');
+        $connection->executeStatement('DROP TABLE IF EXISTS supla_resource_access_pair');
+        $this->executeCommand(['command' => 'doctrine:migrations:execute', 'versions' => [
+            'SuplaBundle\\Migrations\\Migration\\Version20261007104248',
+            'SuplaBundle\\Migrations\\Migration\\Version20261011120000',
+            'SuplaBundle\\Migrations\\Migration\\Version20261016120000',
+        ], '--up' => true]);
+        $connection->close(); // Reset DBAL nesting after MariaDB DDL's implicit commit.
     }
 
     protected function initializeDatabaseWithMigrations() {

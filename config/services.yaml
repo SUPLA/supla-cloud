@@ -111,6 +111,10 @@ services:
   App\Message\EmailToAdminHandler:
     $adminEmail: '%env(SUPLA_ADMIN_EMAIL)%'
 
+  App\Entity\Main\Listeners\CloudResourceGrantsListener:
+    autoconfigure: false
+    tags: [{name: doctrine.event_subscriber, connection: default}]
+
   App\Model\MeasurementLogsEntityManagerProvider:
     $databaseForLogs: '%supla.database_for_logs%'
 

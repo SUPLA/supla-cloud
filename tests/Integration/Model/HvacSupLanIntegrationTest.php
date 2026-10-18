@@ -117,16 +117,25 @@ class HvacSupLanIntegrationTest extends IntegrationTestCase {
         }
     }
 
-    public function testLegacyConfigMigratesWhenAnUnrelatedSettingIsSaved() {
+    public function testLegacyConfigIsNotLazilyMigratedOnReadOrUnrelatedSave() {
         $device = $this->device();
         $hvac = $device->getChannels()[6];
         $hvac->setUserConfig(['mainThermometerChannelNo' => 0, 'auxThermometerChannelNo' => null, 'subfunction' => 'HEAT']);
-        self::getContainer()->get(SubjectConfigTranslator::class)->setConfig($hvac, ['minOnTimeS' => 12]);
+        EntityUtils::setField($hvac, 'properties', json_encode([
+            'hiddenConfigFields' => ['mainThermometerChannelNo'], 'readOnlyConfigFields' => ['auxThermometerChannelNo'],
+        ]));
+        $translator = self::getContainer()->get(SubjectConfigTranslator::class);
+        $read = $translator->getConfig($hvac);
+        $this->assertTrue($read['waitingForConfigInit']);
+        $this->assertSame(['mainThermometerChannelNo'], $read['hiddenConfigFields']);
+        $this->assertSame(['auxThermometerChannelNo'], $read['readOnlyConfigFields']);
+        $translator->setConfig($hvac, ['minOnTimeS' => 12]);
         $this->flush();
         $stored = $this->freshEntity($hvac)->getUserConfig();
-        $this->assertSame($device->getChannels()[0]->getId(), $stored['mainThermometerChannelId']);
-        $this->assertArrayNotHasKey('mainThermometerChannelNo', $stored);
-        $this->assertArrayNotHasKey('auxThermometerChannelNo', $stored);
+        $this->assertSame(0, $stored['mainThermometerChannelNo']);
+        $this->assertArrayHasKey('auxThermometerChannelNo', $stored);
+        $this->assertArrayNotHasKey('mainThermometerChannelId', $stored);
+        $this->assertArrayNotHasKey('auxThermometerChannelId', $stored);
     }
 
     public function testSameDeviceReferencesAcceptDifferentLocationsWithoutSupLan() {
