@@ -22,6 +22,7 @@
 
 - `phpunit.dist.xml` defines the test suites; `integration`, `api`, and `measurement_logs` are separate suites.
 - before running the tests, clear the var/cache/test directory.
+- When dispatching subagents that run the backend test suites in parallel, give each a unique `DATABASE_NAME` (for example `DATABASE_NAME=supla_agent01`, which yields the isolated `supla_agent01_test` database via the test `_test` suffix) instead of the shared `supla_test`, so concurrent schema drops/creates do not collide.
 - CI writes `.env.test.local` with `bin/write-ci-env.sh` before API/integration/measurement-log runs because shell DB env vars do not
   reliably reach PHP.
 - CI waits for MariaDB/Postgres with `bin/wait-for-service.sh`; use the same pattern when reproducing those suites locally.
