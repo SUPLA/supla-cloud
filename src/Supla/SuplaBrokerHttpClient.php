@@ -111,6 +111,9 @@ class SuplaBrokerHttpClient {
             $this->logger->warning('Target service does not respond.', $logDetails);
             throw new ApiException('Service temporarily unavailable', Response::HTTP_SERVICE_UNAVAILABLE); // i18n
         }
+        if ($trustedPeer && $responseStatus >= 300 && $responseStatus <= 399) {
+            throw new ApiException('Trusted peer redirects are not allowed', Response::HTTP_SERVICE_UNAVAILABLE);
+        }
         return json_decode($rawResponse, true);
     }
 }

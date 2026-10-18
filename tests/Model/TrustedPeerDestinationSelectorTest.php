@@ -27,6 +27,9 @@ class TrustedPeerDestinationSelectorTest extends TestCase {
             ['https://user:password@target.example'],
             ['https://target.example/other-path'],
             ['https://target.example?redirect=https://forged.example'],
+            ['https://127.0.0.1'],
+            ['https://169.254.169.254'],
+            ['https://[::1]'],
         ];
     }
 }

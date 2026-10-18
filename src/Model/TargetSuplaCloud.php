@@ -70,6 +70,10 @@ class TargetSuplaCloud {
         if ($port < 1 || $port > 65535) {
             throw new \InvalidArgumentException('Invalid trusted SUPLA Cloud origin.');
         }
+        if (filter_var($host, FILTER_VALIDATE_IP)
+            && filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+            throw new \InvalidArgumentException('Invalid trusted SUPLA Cloud origin.');
+        }
         return 'https://' . (str_contains($host, ':') ? "[$host]" : $host) . ($port === 443 ? '' : ":$port");
     }
 
