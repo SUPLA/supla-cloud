@@ -11,6 +11,7 @@
 namespace App\Tests\Integration\Auth;
 
 use App\Auth\MappedApiClientResolver;
+use App\Entity\Main\OAuth\AccessToken;
 use App\Entity\Main\OAuth\ApiClient;
 use App\Entity\Main\OAuth\ApiClientAuthorization;
 use App\Entity\Main\OAuth\AuthCode;
@@ -89,6 +90,45 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertSame('invalid_grant', $tokenClient->getResponseBody()['error']);
     }
 
+    public function testVerifiedTargetTokenReissuesSingleUseCodeForCompleteGrant(): void {
+        $this->user->addApiClientAuthorization($this->oauthClient, 'account_r offline_access');
+        $this->persist($this->user);
+
+        self::ensureKernelShutdown();
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->targetTokenRequest(), [], [], [
+            'HTTP_SUPLA-Broker-Token' => 'Bearer BROKER',
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $response = $client->getResponseBody();
+        $this->assertSame('authorized', $response['outcome']);
+        $this->assertEqualsCanonicalizing(['outcome', 'redirectUrl'], array_keys($response));
+        $this->assertTrue($client->getResponse()->headers->hasCacheControlDirective('no-store'));
+        $this->assertFalse($client->getResponse()->headers->has('Set-Cookie'));
+        $this->assertStringContainsString('https://unicorns.pl/callback?', $response['redirectUrl']);
+        $this->assertStringContainsString('state=original-state', $response['redirectUrl']);
+
+        $authorization = $this->getDoctrine()->getRepository(ApiClientAuthorization::class)
+            ->findOneByUserAndApiClient($this->user, $this->oauthClient);
+        $this->assertNotNull($authorization);
+        $this->assertSame('account_r offline_access', $authorization->getScope());
+
+        parse_str(parse_url($response['redirectUrl'], PHP_URL_QUERY), $query);
+        $this->exchangeCode($query['code']);
+
+        self::ensureKernelShutdown();
+        $tokenClient = $this->createClient();
+        $tokenClient->apiRequest('POST', '/oauth/v2/token', [
+            'grant_type' => 'authorization_code',
+            'client_id' => $this->oauthClient->getPublicId(),
+            'client_secret' => $this->oauthClient->getSecret(),
+            'redirect_uri' => 'https://unicorns.pl/callback',
+            'code' => $query['code'],
+        ]);
+        $this->assertStatusCode(400, $tokenClient->getResponse());
+        $this->assertSame('invalid_grant', $tokenClient->getResponseBody()['error']);
+    }
+
     public function testBrowserAndInvalidBrokerRequestsCannotAuthorize(): void {
         self::ensureKernelShutdown();
         $client = $this->createHttpsClient();
@@ -104,6 +144,54 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
 
         $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
         $this->assertCount(0, $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll());
+    }
+
+    /** @dataProvider invalidTargetTokenProvider */
+    public function testUnverifiableTargetTokensCannotAuthorize(string $case): void {
+        $this->user->addApiClientAuthorization($this->oauthClient, 'account_r offline_access');
+        $this->persist($this->user);
+        $tokenString = base64_encode($this->user->getEmail());
+        $token = $this->getDoctrine()->getRepository(AccessToken::class)->findOneBy(['token' => $tokenString]);
+        $this->assertNotNull($token);
+        switch ($case) {
+            case 'expired':
+                $this->getEntityManager()->getConnection()->executeQuery(
+                    'UPDATE supla_oauth_access_tokens SET expires_at = :exp WHERE token = :token',
+                    ['exp' => time() - 3600, 'token' => $tokenString]
+                );
+                break;
+            case 'revoked':
+                $this->getEntityManager()->remove($token);
+                $this->flush();
+                break;
+            case 'wrong_scope':
+                $token->setScope('account_r');
+                $this->flush();
+                break;
+        }
+
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->targetTokenRequest([
+            // Never interpret the embedded target address as routing authority.
+            'target_token' => $case === 'foreign_instance'
+                ? $tokenString . '.' . base64_encode('https://foreign.example')
+                : $tokenString,
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(401, $client->getResponse());
+        $this->assertSame(['outcome' => 'error', 'errorCode' => 'invalid_token'], $client->getResponseBody());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
+        $authorizations = $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll();
+        $this->assertCount(1, $authorizations);
+        $this->assertSame('account_r offline_access', $authorizations[0]->getScope());
+    }
+
+    public static function invalidTargetTokenProvider(): array {
+        return [
+            'foreign instance' => ['foreign_instance'],
+            'expired' => ['expired'],
+            'revoked' => ['revoked'],
+            'wrong scope' => ['wrong_scope'],
+        ];
     }
 
     public function testInvalidCredentialsAndAuthorizationRequestDoNotCreateGrantOrCode(): void {
@@ -201,6 +289,7 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
             'scope boolean' => [['scope' => true]],
             'state array' => [['state' => ['opaque']]],
             'unsupported bearer evidence' => [['bearerToken' => 'unverified']],
+            'target_token array' => [['target_token' => ['supler@supla.org']]],
             'unsupported PKCE evidence' => [['code_challenge' => 'challenge', 'code_challenge_method' => 'S256']],
         ];
     }
@@ -272,6 +361,42 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertSame(['USER-ON-MQTT-SETTINGS-CHANGED:' . $user->getId()], array_values($commands));
     }
 
+    public function testTargetTokenOfDifferentUserCannotAuthorizeOtherAccount(): void {
+        $other = $this->createConfirmedUser('other@supla.org');
+        $other->addApiClientAuthorization($this->oauthClient, 'account_r offline_access');
+        $this->persist($other);
+
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->targetTokenRequest([
+            'username' => $this->user->getEmail(),
+            'target_token' => base64_encode('other@supla.org'),
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(401, $client->getResponse());
+        $this->assertSame(['outcome' => 'error', 'errorCode' => 'invalid_token'], $client->getResponseBody());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
+        $this->assertNull($this->getDoctrine()->getRepository(ApiClientAuthorization::class)
+            ->findOneByUserAndApiClient($this->user, $this->oauthClient));
+        $otherAuthorization = $this->getDoctrine()->getRepository(ApiClientAuthorization::class)
+            ->findOneByUserAndApiClient($other, $this->oauthClient);
+        $this->assertNotNull($otherAuthorization);
+        $this->assertSame('account_r offline_access', $otherAuthorization->getScope());
+    }
+
+    public function testDisabledUserTargetTokenIsRejected(): void {
+        $this->user->addApiClientAuthorization($this->oauthClient, 'account_r offline_access');
+        $this->user->setEnabled(false);
+        $this->persist($this->user);
+
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->targetTokenRequest(), [], [], [
+            'HTTP_SUPLA-Broker-Token' => 'Bearer BROKER',
+        ]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $this->assertSame(['outcome' => 'error', 'errorCode' => 'disabled'], $client->getResponseBody());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
+        $this->assertCount(1, $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll());
+    }
+
     public function testDisabledUserCannotGrantEvenWithCorrectPassword(): void {
         $this->user->setEnabled(false);
         $this->persist($this->user);
@@ -283,6 +408,52 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertSame(['outcome' => 'error', 'errorCode' => 'disabled'], $client->getResponseBody());
         $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
         $this->assertCount(0, $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll());
+    }
+
+    public function testPasswordAndTargetTokenEvidenceIsRejectedAsAmbiguous(): void {
+        $this->user->addApiClientAuthorization($this->oauthClient, 'account_r offline_access');
+        $this->persist($this->user);
+
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->targetTokenRequest([
+            'password' => 'supla123',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(400, $client->getResponse());
+        $this->assertSame(['outcome' => 'error', 'errorCode' => 'invalid_request'], $client->getResponseBody());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
+        $authorizations = $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll();
+        $this->assertCount(1, $authorizations);
+        $this->assertSame('account_r offline_access', $authorizations[0]->getScope());
+    }
+
+    public function testRepeatedTargetTokenAuthorizationsDoNotMutateGrantOrTriggerMqttEffects(): void {
+        $this->user->addApiClientAuthorization($this->oauthClient, 'account_r mqtt_broker');
+        $this->user->setMqttBrokerEnabled(true);
+        $this->persist($this->user);
+
+        $codes = [];
+        for ($attempt = 0; $attempt < 3; $attempt++) {
+            $client = $this->createHttpsClient(false);
+            $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->targetTokenRequest([
+                'scope' => 'account_r mqtt_broker',
+            ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+            $this->assertStatusCode(200, $client->getResponse());
+            $this->assertSame('authorized', $client->getResponseBody()['outcome']);
+            parse_str(parse_url($client->getResponseBody()['redirectUrl'], PHP_URL_QUERY), $query);
+            $codes[] = $query['code'];
+        }
+
+        $this->assertCount(3, array_unique($codes));
+        $user = $this->freshEntity($this->user);
+        $this->assertTrue($user->isMqttBrokerEnabled());
+        $authorizations = $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll();
+        $this->assertCount(1, $authorizations);
+        $this->assertSame('account_r mqtt_broker', $authorizations[0]->getScope());
+        $commands = array_filter(SuplaServerMock::$executedCommands, fn($command) => str_contains($command, 'ON-MQTT-SETTINGS-CHANGED'));
+        $this->assertSame([], array_values($commands));
+        foreach ($codes as $code) {
+            $this->exchangeCode($code);
+        }
     }
 
     public function testFailedExpansionAndDenialNeverModifyPriorConsent(): void {
@@ -300,6 +471,45 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
             $this->assertFalse($this->freshEntity($this->user)->isMqttBrokerEnabled());
             $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
         }
+    }
+
+    public function testTargetTokenCannotCreateTheFirstGrant(): void {
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->targetTokenRequest(), [], [], [
+            'HTTP_SUPLA-Broker-Token' => 'Bearer BROKER',
+        ]);
+
+        $this->assertStatusCode(401, $client->getResponse());
+        $this->assertSame(['outcome' => 'error', 'errorCode' => 'password_required'], $client->getResponseBody());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll());
+        $this->assertFalse($this->freshEntity($this->user)->isMqttBrokerEnabled());
+    }
+
+    public function testPartialGrantCoverageRequiresPasswordThenMergesScopes(): void {
+        $this->user->addApiClientAuthorization($this->oauthClient, 'account_r');
+        $this->persist($this->user);
+
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->targetTokenRequest([
+            'scope' => 'account_r account_rw',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(401, $client->getResponse());
+        $this->assertSame(['outcome' => 'error', 'errorCode' => 'password_required'], $client->getResponseBody());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
+        $authorizations = $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll();
+        $this->assertCount(1, $authorizations);
+        $this->assertSame('account_r', $authorizations[0]->getScope());
+
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->authorizationRequest([
+            'scope' => 'account_r account_rw',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSame('authorized', $client->getResponseBody()['outcome']);
+        $authorizations = $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findAll();
+        $this->assertCount(1, $authorizations);
+        $this->assertSame('account_r account_rw', $authorizations[0]->getScope());
     }
 
     public function testUnknownClientIsNotResolvedThroughAutodiscover(): void {
@@ -617,6 +827,32 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
             $this->assertSame('keep+value', $query['existing']);
             $this->assertSame('', $query['state']);
         }
+    }
+
+    private function targetTokenRequest(array $overrides = []): array {
+        return array_merge([
+            'client_id' => $this->oauthClient->getPublicId(),
+            'redirect_uri' => 'https://unicorns.pl/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r offline_access',
+            'state' => 'original-state',
+            'target_token' => base64_encode($this->user->getEmail()),
+            'decision' => 'approve',
+        ], $overrides);
+    }
+
+    private function exchangeCode(string $code): void {
+        self::ensureKernelShutdown();
+        $tokenClient = $this->createClient();
+        $tokenClient->apiRequest('POST', '/oauth/v2/token', [
+            'grant_type' => 'authorization_code',
+            'client_id' => $this->oauthClient->getPublicId(),
+            'client_secret' => $this->oauthClient->getSecret(),
+            'redirect_uri' => 'https://unicorns.pl/callback',
+            'code' => $code,
+        ]);
+        $this->assertStatusCode(200, $tokenClient->getResponse());
+        $this->assertArrayHasKey('access_token', $tokenClient->getResponseBody());
     }
 
     private function authorizationRequest(array $overrides = []): array {
