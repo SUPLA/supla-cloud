@@ -201,6 +201,9 @@ services:
   App\Auth\SuplaOAuthStorage:
     $userProvider: '@App\Auth\UserProvider'
 
+  App\Form\Type\Extension\AuthorizePkceFormTypeExtension:
+    tags: ['form.type_extension']
+
   App\Auth\OAuthEventListener: ~
 
   App\EventListener\ApiExceptionHandler:

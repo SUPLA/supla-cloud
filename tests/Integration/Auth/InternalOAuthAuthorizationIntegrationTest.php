@@ -18,6 +18,7 @@ use App\Exception\ApiException;
 use App\Supla\SuplaAutodiscoverMock;
 use App\Supla\SuplaServerMock;
 use App\Tests\Integration\IntegrationTestCase;
+use App\Tests\Integration\TestClient;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
@@ -84,6 +85,202 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
         $tokenClient->apiRequest('POST', '/oauth/v2/token', $tokenRequest);
         $this->assertStatusCode(400, $tokenClient->getResponse());
         $this->assertSame('invalid_grant', $tokenClient->getResponseBody()['error']);
+    }
+
+    public function testBrokerCanAuthorizeAndExchangeCodeBoundToS256Challenge(): void {
+        $verifier = str_repeat('verifier_', 8);
+        $challenge = $this->s256Challenge($verifier);
+        $client = $this->authorize($this->authorizationRequest([
+            'code_challenge' => $challenge,
+            'code_challenge_method' => 'S256',
+        ]));
+
+        $this->assertStatusCode(200, $client->getResponse());
+        parse_str(parse_url($client->getResponseBody()['redirectUrl'], PHP_URL_QUERY), $query);
+        $authCode = $this->getDoctrine()->getRepository(AuthCode::class)->findOneBy(['token' => $query['code']]);
+        $this->assertSame($challenge, $authCode->getCodeChallenge());
+        $this->assertSame('S256', $authCode->getCodeChallengeMethod());
+
+        $tokenRequest = $this->tokenRequest($query['code']);
+        self::ensureKernelShutdown();
+        $tokenClient = $this->createClient();
+        $tokenClient->apiRequest('POST', '/oauth/v2/token', $tokenRequest);
+        $this->assertStatusCode(400, $tokenClient->getResponse());
+        $this->assertSame('invalid_grant', $tokenClient->getResponseBody()['error']);
+
+        self::ensureKernelShutdown();
+        $tokenClient = $this->createClient();
+        $tokenClient->apiRequest('POST', '/oauth/v2/token', $tokenRequest + ['code_verifier' => $verifier]);
+        $this->assertStatusCode(200, $tokenClient->getResponse());
+        $this->assertArrayHasKey('access_token', $tokenClient->getResponseBody());
+
+        self::ensureKernelShutdown();
+        $tokenClient = $this->createClient();
+        $tokenClient->apiRequest('POST', '/oauth/v2/token', $tokenRequest + ['code_verifier' => $verifier]);
+        $this->assertStatusCode(400, $tokenClient->getResponse());
+        $this->assertSame('invalid_grant', $tokenClient->getResponseBody()['error']);
+    }
+
+    /** @dataProvider invalidVerifierProvider */
+    public function testS256CodeRejectsInvalidVerifier(string $verifier, string $expectedError): void {
+        $validVerifier = str_repeat('valid_verifier_', 4);
+        $client = $this->authorize($this->authorizationRequest([
+            'code_challenge' => $this->s256Challenge($validVerifier),
+            'code_challenge_method' => 'S256',
+        ]));
+        parse_str(parse_url($client->getResponseBody()['redirectUrl'], PHP_URL_QUERY), $query);
+
+        self::ensureKernelShutdown();
+        $tokenClient = $this->createClient();
+        $tokenClient->apiRequest('POST', '/oauth/v2/token', $this->tokenRequest($query['code']) + [
+            'code_verifier' => $verifier,
+        ]);
+        $this->assertStatusCode(400, $tokenClient->getResponse());
+        $this->assertSame($expectedError, $tokenClient->getResponseBody()['error']);
+    }
+
+    public static function invalidVerifierProvider(): array {
+        return [
+            'incorrect' => [str_repeat('wrong_verifier_', 4), 'invalid_grant'],
+            'malformed' => ['has spaces and is not a verifier', 'invalid_grant'],
+        ];
+    }
+
+    public function testS256CodeRemainsBoundToItsClientAndRedirectUri(): void {
+        $verifier = str_repeat('bound_verifier_', 4);
+        $client = $this->authorize($this->authorizationRequest([
+            'code_challenge' => $this->s256Challenge($verifier),
+            'code_challenge_method' => 'S256',
+        ]));
+        parse_str(parse_url($client->getResponseBody()['redirectUrl'], PHP_URL_QUERY), $query);
+        $otherClient = self::getContainer()->get(ClientManagerInterface::class)->createClient();
+        $otherClient->setRedirectUris(['https://unicorns.pl/callback']);
+        $otherClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE]);
+        self::getContainer()->get(ClientManagerInterface::class)->updateClient($otherClient);
+
+        $tokenRequest = $this->tokenRequest($query['code']) + ['code_verifier' => $verifier];
+        self::ensureKernelShutdown();
+        $tokenClient = $this->createClient();
+        $tokenClient->apiRequest('POST', '/oauth/v2/token', array_merge($tokenRequest, [
+            'redirect_uri' => 'https://unicorns.pl/callback/attacker',
+        ]));
+        $this->assertStatusCode(400, $tokenClient->getResponse());
+        $this->assertSame('redirect_uri_mismatch', $tokenClient->getResponseBody()['error']);
+
+        self::ensureKernelShutdown();
+        $tokenClient = $this->createClient();
+        $tokenClient->apiRequest('POST', '/oauth/v2/token', array_merge($tokenRequest, [
+            'client_id' => $otherClient->getPublicId(),
+            'client_secret' => $otherClient->getSecret(),
+        ]));
+        $this->assertStatusCode(400, $tokenClient->getResponse());
+        $this->assertSame('invalid_grant', $tokenClient->getResponseBody()['error']);
+
+        self::ensureKernelShutdown();
+        $tokenClient = $this->createClient();
+        $tokenClient->apiRequest('POST', '/oauth/v2/token', $tokenRequest);
+        $this->assertStatusCode(200, $tokenClient->getResponse());
+    }
+
+    public function testConcurrentS256CodeExchangeSucceedsExactlyOnce(): void {
+        if (!function_exists('pcntl_fork')) {
+            $this->markTestSkipped('The pcntl extension is required to exercise concurrent exchanges.');
+        }
+        $verifier = str_repeat('concurrent_verifier_', 3);
+        $client = $this->authorize($this->authorizationRequest([
+            'code_challenge' => $this->s256Challenge($verifier),
+            'code_challenge_method' => 'S256',
+        ]));
+        parse_str(parse_url($client->getResponseBody()['redirectUrl'], PHP_URL_QUERY), $query);
+        $tokenRequest = $this->tokenRequest($query['code']) + ['code_verifier' => $verifier];
+        self::ensureKernelShutdown();
+
+        [$parentSocket, $childSocket] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, 0);
+        $pid = pcntl_fork();
+        $this->assertNotSame(-1, $pid, 'Could not fork the concurrent token request.');
+        if ($pid === 0) {
+            fclose($parentSocket);
+            fread($childSocket, 1);
+            $client = $this->createClient();
+            $client->apiRequest('POST', '/oauth/v2/token', $tokenRequest);
+            fwrite($childSocket, $client->getResponse()->getStatusCode() . '|' . $client->getResponse()->getContent() . "\n");
+            fclose($childSocket);
+            exit(0);
+        }
+
+        fclose($childSocket);
+        fwrite($parentSocket, 'x');
+        $parentClient = $this->createClient();
+        $parentClient->apiRequest('POST', '/oauth/v2/token', $tokenRequest);
+        $parentStatus = $parentClient->getResponse()->getStatusCode();
+        $parentBody = $parentClient->getResponse()->getContent();
+        $childResponse = stream_get_line($parentSocket, 4096, "\n");
+        [$childStatus, $childBody] = explode('|', $childResponse, 2);
+        fclose($parentSocket);
+        pcntl_waitpid($pid, $childStatusCode);
+
+        $this->assertSame(0, pcntl_wexitstatus($childStatusCode));
+        $this->assertEqualsCanonicalizing(
+            [200, 400],
+            [$parentStatus, (int)$childStatus],
+            sprintf('Parent status %d; child status %d and body %s', $parentStatus, $childStatus, $childBody)
+        );
+        $responses = [
+            [$parentStatus, json_decode($parentBody, true)],
+            [(int)$childStatus, json_decode($childBody, true)],
+        ];
+        foreach ($responses as [$status, $body]) {
+            $this->assertSame($status === 200 ? 'access_token' : 'invalid_grant', $status === 200
+                ? (isset($body['access_token']) ? 'access_token' : null)
+                : ($body['error'] ?? null));
+        }
+    }
+
+    public function testVerifierWithoutChallengeIsRejectedAsDowngrade(): void {
+        $client = $this->authorize($this->authorizationRequest());
+        parse_str(parse_url($client->getResponseBody()['redirectUrl'], PHP_URL_QUERY), $query);
+        self::ensureKernelShutdown();
+        $tokenClient = $this->createClient();
+        $tokenClient->request('GET', '/oauth/v2/token?' . http_build_query($this->tokenRequest($query['code']) + [
+            'code_verifier' => str_repeat('verifier_', 8),
+        ]));
+        $this->assertStatusCode(400, $tokenClient->getResponse());
+        $this->assertSame('invalid_request', $tokenClient->getResponseBody()['error']);
+    }
+
+    /** @dataProvider invalidChallengeProvider */
+    public function testAuthorizationRejectsUnsupportedOrMalformedPkce(?string $challenge, ?string $method): void {
+        $request = [];
+        if ($challenge !== null) {
+            $request['code_challenge'] = $challenge;
+        }
+        if ($method !== null) {
+            $request['code_challenge_method'] = $method;
+        }
+        $client = $this->authorize($this->authorizationRequest($request));
+        $this->assertStatusCode(400, $client->getResponse());
+        $response = $client->getResponseBody();
+        $this->assertSame('invalid_request', $response['errorCode']);
+        parse_str(parse_url($response['redirectUrl'], PHP_URL_QUERY), $query);
+        $this->assertSame('invalid_request', $query['error']);
+        $this->assertSame('original-state', $query['state']);
+        $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
+    }
+
+    public static function invalidChallengeProvider(): array {
+        $canonicalChallenge = rtrim(strtr(
+            base64_encode(hash('sha256', str_repeat('valid_verifier_', 4), true)),
+            '+/',
+            '-_'
+        ), '=');
+        return [
+            'plain' => [$canonicalChallenge, 'plain'],
+            'unsupported method' => [$canonicalChallenge, 'S512'],
+            'missing method' => [$canonicalChallenge, null],
+            'short challenge' => ['short', 'S256'],
+            'noncanonical S256 challenge' => [str_repeat('a', 43), 'S256'],
+            'method without challenge' => [null, 'S256'],
+        ];
     }
 
     public function testBrowserAndInvalidBrokerRequestsCannotAuthorize(): void {
@@ -198,7 +395,6 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
             'scope boolean' => [['scope' => true]],
             'state array' => [['state' => ['opaque']]],
             'unsupported bearer evidence' => [['bearerToken' => 'unverified']],
-            'unsupported PKCE evidence' => [['code_challenge' => 'challenge', 'code_challenge_method' => 'S256']],
         ];
     }
 
@@ -365,5 +561,28 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
             'password' => 'supla123',
             'decision' => 'approve',
         ], $overrides);
+    }
+
+    private function authorize(array $authorizationRequest): TestClient {
+        self::ensureKernelShutdown();
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $authorizationRequest, [], [], [
+            'HTTP_SUPLA-Broker-Token' => 'Bearer BROKER',
+        ]);
+        return $client;
+    }
+
+    private function tokenRequest(string $code): array {
+        return [
+            'grant_type' => 'authorization_code',
+            'client_id' => $this->oauthClient->getPublicId(),
+            'client_secret' => $this->oauthClient->getSecret(),
+            'redirect_uri' => 'https://unicorns.pl/callback',
+            'code' => $code,
+        ];
+    }
+
+    private function s256Challenge(string $verifier): string {
+        return rtrim(strtr(base64_encode(hash('sha256', $verifier, true)), '+/', '-_'), '=');
     }
 }
