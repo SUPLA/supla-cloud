@@ -37,7 +37,7 @@ use Symfony\Component\Security\Core\Exception\LockedException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 class InternalOAuthAuthorizationController {
-    private const AUTHORIZATION_PARAMETERS = ['client_id', 'redirect_uri', 'response_type', 'scope', 'state'];
+    private const AUTHORIZATION_PARAMETERS = ['client_id', 'redirect_uri', 'response_type', 'scope', 'state', 'code_challenge', 'code_challenge_method'];
 
     public function __construct(
         private readonly BrokerRequestSecurityVoter $brokerRequestSecurityVoter,

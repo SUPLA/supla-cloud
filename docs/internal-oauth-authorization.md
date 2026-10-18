@@ -21,12 +21,17 @@ Body fields (JSON, using the existing API body decoder, or form data):
 | `response_type` | `code` only |
 | `scope` | Nonempty, currently supported SUPLA scopes, separated by spaces |
 | `state` | Optional opaque string; returned unchanged, including `"0"`/empty |
+| `code_challenge`, `code_challenge_method` | Optional PKCE binding; if used, the method must be `S256` and the challenge a canonical base64url SHA-256 value |
 | `decision` | `approve` or `deny` |
 | `username`, `password` | Required for approval; target verifies the password |
 
 Fields must be strings. Unknown fields are rejected rather than silently
 discarding security evidence. Only authorization parameters are copied into
-the FOS request query; passwords never go into that query or a session.
+the FOS request query; passwords never go into that query or a session. A
+challenge without a method, a `plain` challenge, any other method, and malformed
+challenges are rejected as `invalid_request` once the callback is verified.
+PKCE is optional for every client; Autodiscover catalog membership does not
+classify an OAuth client or make PKCE mandatory.
 Denial requires broker authentication and a valid authorization request, but
 does not require user credentials and never changes consent.
 
@@ -119,6 +124,21 @@ Inspected dependencies: `klapaudius/oauth-server-bundle` **3.1.6** and
   FOS generates and stores the code through its existing auth-code manager.
   The existing `/oauth/v2/token` exchanges it, retaining client/callback binding,
   scope normalization, the SUPLA suffix format and single-use semantics.
+* oauth2-php 1.10.0 does not implement PKCE. The local `AuthCode` entity adds
+  nullable `codeChallenge` and `codeChallengeMethod` metadata; custom FOS storage
+  sets them on the existing code object before its insert. Code exchange
+  requires a 43–128 character verifier using the RFC unreserved set and checks
+  its S256 digest. A missing, malformed or mismatched verifier is `invalid_grant`;
+  a verifier supplied for an unbound code is `invalid_request`. Verification
+  follows FOS client and code-lifetime checks. Since pinned FOS callback
+  matching accepts path prefixes, PKCE-bound codes additionally require exact
+  callback equality with the URI stored on that code. A pessimistic row lock is
+  held through FOS token creation and code deletion, so concurrent exchanges
+  cannot both succeed. Legacy rows and new non-PKCE codes keep both fields null.
+* The legacy FOS consent form posts to a fixed route without the original query.
+  A small form-type extension adds unmapped hidden challenge/method fields so the
+  authorization request reaches the same FOS-backed issuance hook. It does not
+  store PKCE state in the session or create a separate code issuer.
 * Pinned FOS matches callback prefixes and sanitizes input. The internal API
   first requires an exact original registered URI; this stricter rule is not
   applied retroactively to the legacy browser controller. The API also limits
@@ -145,8 +165,17 @@ Inspected dependencies: `klapaudius/oauth-server-bundle` **3.1.6** and
 
 The integrated backend supports local password authorization (01), verified
 prior-consent reuse (02), mapped-client resolution (03), trusted peer transport
-(07), and capability negotiation (08). Broker authorization orchestration and
-PKCE remain separate Release A tickets; no new browser flow is activated.
+(07), capability negotiation (08), and local PKCE (05). Broker authorization
+orchestration and brokered PKCE remain separate Release A tickets; no new
+browser flow is activated.
+
+Issue 06 must preserve `code_verifier` while forwarding token requests; this
+local change validates it at the owning target and does not add forwarding.
+
+The ORM additions are nullable columns on `supla_oauth_auth_codes`:
+`code_challenge` (string length 128) and `code_challenge_method` (string length
+20). The project owner generates/applies the backwards-compatible migration;
+this change intentionally includes no migration file.
 
 No outbound target request was added. Later forwarding must use the trusted
 peer forwarder boundary delivered by issue 07, not a request-supplied address.

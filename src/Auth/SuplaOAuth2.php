@@ -16,6 +16,7 @@
  */
 namespace App\Auth;
 
+use App\Entity\Main\OAuth\AuthCode;
 use App\Entity\Main\OAuth\AccessToken;
 use App\Entity\Main\OAuth\ApiClient;
 use App\Entity\Main\OAuth\RefreshToken;
@@ -25,9 +26,12 @@ use App\Model\LocalSuplaCloud;
 use App\Model\TargetSuplaCloud;
 use App\Repository\ApiClientAuthorizationRepository;
 use App\Supla\SuplaAutodiscover;
+use Doctrine\DBAL\Exception\DriverException;
+use Doctrine\ORM\EntityManagerInterface;
 use OAuth2\IOAuth2Storage;
 use OAuth2\Model\IOAuth2Client;
 use OAuth2\OAuth2;
+use OAuth2\OAuth2RedirectException;
 use OAuth2\OAuth2ServerException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -52,7 +56,9 @@ class SuplaOAuth2 extends OAuth2 {
         LocalSuplaCloud $localSuplaCloud,
         SuplaAutodiscover $autodiscover,
         ApiClientAuthorizationRepository $apiClientAuthorizationRepository,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly OAuthPkce $oauthPkce
     ) {
         parent::__construct($storage, $config);
         $this->tokensLifetime = $tokensLifetime;
@@ -73,7 +79,18 @@ class SuplaOAuth2 extends OAuth2 {
      * without probing it with a synthetic denial or issuing a code.
      */
     public function validateAuthorizationRequest(Request $request): array {
-        return $this->getAuthorizeParams($request);
+        $params = $this->getAuthorizeParams($request);
+        try {
+            $this->oauthPkce->getChallenge($request);
+        } catch (OAuth2ServerException $e) {
+            throw new OAuth2RedirectException(
+                $params['redirect_uri'],
+                self::ERROR_INVALID_REQUEST,
+                null,
+                $params['state'] ?? null
+            );
+        }
+        return $params;
     }
 
     /**
@@ -136,7 +153,69 @@ class SuplaOAuth2 extends OAuth2 {
 
     protected function grantAccessTokenAuthCode(IOAuth2Client $client, array $input) {
         $this->forwardIssueTokenRequestIfBroker($client, $input['code'] ?? '');
-        return parent::grantAccessTokenAuthCode($client, $input);
+        if (is_string($input['code'] ?? null)) {
+            $this->lockLocalAuthCode($input['code']);
+        }
+        $stored = parent::grantAccessTokenAuthCode($client, $input);
+        if ($this->usedAuthCode instanceof AuthCode && ($request = $this->requestStack->getCurrentRequest())) {
+            if ($this->usedAuthCode->getCodeChallenge() !== null) {
+                $requestInput = $request->getMethod() === 'POST' ? $request->request->all() : $request->query->all();
+                $redirectUri = $requestInput['redirect_uri'] ?? null;
+                if (
+                    !is_string($redirectUri)
+                    || !hash_equals($this->usedAuthCode->getRedirectUri(), $redirectUri)
+                ) {
+                    throw new OAuth2ServerException((string)Response::HTTP_BAD_REQUEST, self::ERROR_REDIRECT_URI_MISMATCH);
+                }
+            }
+            $this->oauthPkce->verify($this->usedAuthCode, $request);
+        }
+        return $stored;
+    }
+
+    /** Lock local code exchange from lookup through code deletion/token creation. */
+    public function grantAccessToken(?Request $request = null) {
+        $request ??= $this->requestStack->getCurrentRequest();
+        if (!$request) {
+            return parent::grantAccessToken();
+        }
+        $input = $request->getMethod() === 'POST' ? $request->request->all() : $request->query->all();
+        if (($input['grant_type'] ?? null) !== OAuth2::GRANT_TYPE_AUTH_CODE || !is_string($input['code'] ?? null)) {
+            return parent::grantAccessToken($request);
+        }
+        $codeParts = explode('.', $input['code']);
+        if (count($codeParts) === 2 && base64_decode($codeParts[1], true) !== false) {
+            // Keep the established broker-to-target forwarding attempt outside
+            // this local transaction; it throws to the forwarding controller.
+            return parent::grantAccessToken($request);
+        }
+
+        return $this->entityManager->wrapInTransaction(fn() => parent::grantAccessToken($request));
+    }
+
+    private function lockLocalAuthCode(string $token): void {
+        // A no-op UPDATE obtains the row's write lock without leaving a stale
+        // SELECT snapshot if another exchange deletes the code while we wait.
+        try {
+            $this->entityManager->getConnection()->executeStatement(
+                'UPDATE supla_oauth_auth_codes SET id = id WHERE token = ?',
+                [$token]
+            );
+            $exists = $this->entityManager->getConnection()->fetchOne(
+                'SELECT id FROM supla_oauth_auth_codes WHERE token = ? FOR UPDATE',
+                [$token]
+            );
+            if ($exists === false) {
+                throw new OAuth2ServerException((string)Response::HTTP_BAD_REQUEST, self::ERROR_INVALID_GRANT);
+            }
+        } catch (DriverException $e) {
+            // MariaDB can report ER_RECORD_CHANGED (1020) when the winning
+            // exchange deletes a locked row while this UPDATE is waiting.
+            if ((int)$e->getCode() === 1020 || str_contains($e->getMessage(), '1020 Record has changed')) {
+                throw new OAuth2ServerException((string)Response::HTTP_BAD_REQUEST, self::ERROR_INVALID_GRANT);
+            }
+            throw $e;
+        }
     }
 
     protected function grantAccessTokenRefreshToken(IOAuth2Client $client, array $input) {
