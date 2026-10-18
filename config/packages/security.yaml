@@ -59,6 +59,7 @@ security:
 
   access_control:
     - {path: ^/oauth/v2/auth, roles: IS_AUTHENTICATED_FULLY}
+    - {path: ^/api/internal/oauth/authorize$, roles: PUBLIC_ACCESS, requires_channel: '%supla.protocol%'}
     - path: ^/(api/(v?\d\.\d\.\d/)?(server-status|server-info|user-info|account-deletion|register|forgotten-password|confirm|webapp-tokens|webapp-auth|public-oauth-apps|remove-target-cloud))
       roles: PUBLIC_ACCESS
       requires_channel: '%supla.protocol%'

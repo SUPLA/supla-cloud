@@ -91,6 +91,25 @@ class SuplaOAuthStorage extends OAuthStorage {
         return $credentialsValid;
     }
 
+    /** Password-backed consent must use WebApp login's status checks and audit/lockout, regardless of client type. */
+    public function authenticateAuthorizationUser(ApiClient $client, string $username, string $password): ?User {
+        try {
+            $this->userProvider->loadUserByIdentifier($username);
+        } catch (AuthenticationException $e) {
+            $this->onAuthenticationFailure($username);
+            throw $e;
+        }
+        $credentials = $this->checkUserCredentials($client, $username, $password);
+        if ($client->getType() != ApiClientType::WEBAPP()) {
+            if ($credentials) {
+                $this->userLoginAttemptListener->onAuthenticationSuccess($username);
+            } else {
+                $this->onAuthenticationFailure($username);
+            }
+        }
+        return $credentials ? $credentials['data'] : null;
+    }
+
     /**
      * This is a copy-pase of the parent function but fixes using salt for migrating old passwords.
      */
