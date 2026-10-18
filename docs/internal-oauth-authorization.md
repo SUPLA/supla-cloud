@@ -2,7 +2,7 @@
 
 This is a private broker-to-target operation, **not a browser API**. Release A
 keeps the existing OAuth login, Twig consent forms, sessions and token endpoint
-active. This change does not activate a new UI or advertise capability support.
+active. This contract remains separate from the legacy browser flow.
 
 ## Transport contract
 
@@ -143,16 +143,16 @@ Inspected dependencies: `klapaudius/oauth-server-bundle` **3.1.6** and
 
 ## Scope and extension boundaries
 
-Issues 01 and 03 do not forward to another target, accept bearer evidence for
-prior consent, implement PKCE or advertise `oauthAuthorizationApiVersion`.
-Those are separate Release A tickets. In particular, PKCE/evidence fields
-currently fail closed as unknown fields, rather than being ignored.
+The integrated backend supports local password authorization (01), verified
+prior-consent reuse (02), mapped-client resolution (03), trusted peer transport
+(07), and capability negotiation (08). Broker authorization orchestration and
+PKCE remain separate Release A tickets; no new browser flow is activated.
 
 No outbound target request was added. Later forwarding must use the trusted
 peer forwarder boundary delivered by issue 07, not a request-supplied address.
 Broker identity verification continues to depend on the existing AD verifier;
-an unavailable/negative verification fails closed. Capability negotiation and
-cross-instance error mapping belong to their dependent tickets.
+an unavailable/negative verification fails closed. Capability negotiation is
+described below; authorization forwarding belongs to issue 04.
 
 ## Broker password authorization operation (Release A, issue 04)
 
@@ -180,3 +180,38 @@ is not a transactional outbox or an exactly-once distributed delivery guarantee.
 Issue 01 introduced no schema changes. Issue 03 adds the mapped-public-client
 UNIQUE constraint described above; its migration is generated and applied
 separately by the operator.
+
+## Release A capability advertisement (issue 08)
+
+An instance that ships this endpoint advertises the integer
+`oauthAuthorizationApiVersion: 1` in `GET /api/server-info`. It is included on
+all server-info API versions, including the legacy wrapped response shape, and
+does not reveal credentials, users, grants, or authorization outcomes. The
+field reflects the deployed internal authorization endpoint above; it is not
+derived from `cloudVersion`. An older instance keeps its existing browser OAuth
+flow and simply omits this field.
+
+Broker-side code uses
+`App\Auth\OAuthAuthorizationCapabilityChecker::check(TargetSuplaCloud $target): OAuthAuthorizationCapability`
+after the target has already been resolved by Autodiscover or an equivalent
+trusted-peer registry. The checker performs only the public, unauthenticated
+`server-info` read through `TargetSuplaCloudRequestForwarder`, which enforces
+the issue-07 trusted-peer destination selector, DNS/IP validation,
+no-redirect policy, and bounded timeouts. It does not accept a URL/address and
+rejects a non-trusted target before making a request. The server-info endpoint
+is intentionally public and read-only; sensitive authorization remains on the
+broker-authenticated internal POST endpoint above.
+
+The result status has stable machine-readable semantics for broker callers:
+
+| `getStatus()` | Meaning | Retry guidance |
+| --- | --- | --- |
+| `supported` | A valid integer field equals `1`; `getApiVersion()` is `1`. | No probe needed again for this operation. |
+| `unsupported_authorization_api` | A successful server-info response omitted the field, or advertised a different integer contract version. | Permanent for this target build; return update-required and do not retry in a loop. |
+| `target_unavailable` | Network/timeout/redirect rejection, non-200 server-info (including 5xx), malformed response value, or capability otherwise unknown. | Transient; retry only with a bounded attempt count and modest backoff. Do not issue repetitive probes. |
+
+Autodiscover resolution happens before the checker by design. If AD is
+unavailable or cannot provide a trusted Target Cloud, the caller must return
+`target_unavailable`; it must not call the checker with an untrusted or
+client-supplied destination. The checker itself returns `target_unavailable`
+for outbound transient failures, never `unsupported_authorization_api`.
