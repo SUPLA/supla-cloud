@@ -59,6 +59,11 @@ class TargetSuplaCloudRequestForwarder {
         return $this->sendBrokerRequest($target, '/oauth/v2/token', $inputData);
     }
 
+    /** Forward a fresh-password authorization request to its trusted owner. */
+    public function authorizeOAuth(TargetSuplaCloud $target, array $authorizationData): array {
+        return $this->sendBrokerRequest($target, '/api/internal/oauth/authorize', $authorizationData);
+    }
+
     public function resetPasswordToken(TargetSuplaCloud $target, string $username): array {
         return $this->sendBrokerRequest($target, 'forgotten-password', ['email' => $username]);
     }

@@ -154,6 +154,27 @@ Broker identity verification continues to depend on the existing AD verifier;
 an unavailable/negative verification fails closed. Capability negotiation and
 cross-instance error mapping belong to their dependent tickets.
 
+## Broker password authorization operation (Release A, issue 04)
+
+`POST /api/oauth/authorize` is a dormant backend operation; it does not change
+the legacy OAuth browser login/form/session routes. It accepts the original
+authorization parameters plus `decision=approve`, `username`, and `password`.
+The broker resolves the account owner through Autodiscover, resolves the
+public client's target-local mapped id through Autodiscover, and verifies
+`oauthAuthorizationApiVersion: 1` before forwarding. The request is sent only
+through `TargetSuplaCloudRequestForwarder` after
+`TrustedPeerDestinationSelector` accepts the AD-derived trusted peer. Browser
+parameters, token suffixes, and caller-supplied trust flags cannot select a
+destination.
+
+The target verifies the password and owns grant mutation and FOS code
+issuance. The broker returns the target's structured result unchanged and
+never redirects the browser. A missing capability returns
+`unsupported_authorization_api`; AD, capability, or transport failures return
+`target_unavailable`. The broker does not retry an authorization call. In
+particular, `409 client_mapping_retry` is returned for a fresh bounded retry
+by the caller; do not replay side effects within the same request.
+
 MQTT notification retains the existing post-commit external side effect: this
 is not a transactional outbox or an exactly-once distributed delivery guarantee.
 Issue 01 introduced no schema changes. Issue 03 adds the mapped-public-client

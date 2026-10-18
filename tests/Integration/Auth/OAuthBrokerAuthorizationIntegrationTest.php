@@ -44,10 +44,99 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     /** @var User */
     private $user;
 
+    protected function tearDown(): void {
+        TargetSuplaCloudRequestForwarder::$requestExecutor = null;
+        parent::tearDown();
+    }
+
     public function initializeDatabaseForTests() {
         $this->autodiscover = self::getContainer()->get(SuplaAutodiscover::class);
         $this->clientManager = self::getContainer()->get(ClientManagerInterface::class);
         $this->user = $this->createConfirmedUser();
+    }
+
+    public function testForwardsFreshPasswordAuthorizationToTrustedTargetAndReturnsStructuredResult() {
+        SuplaAutodiscoverMock::$userMapping['remote@supla.org'] = 'target.cloud';
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_mapped';
+        $forwarded = null;
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function ($origin, $endpoint, $data) use (&$forwarded) {
+            if (str_ends_with($endpoint, '/server-info')) {
+                return [['oauthAuthorizationApiVersion' => 1], Response::HTTP_OK];
+            }
+            $forwarded = [$origin, $endpoint, $data];
+            return [[
+                'outcome' => 'authorized',
+                'redirectUrl' => 'https://cool.app/callback?code=target-code&state=original-state',
+            ], Response::HTTP_OK];
+        };
+
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/authorize', [
+            'client_id' => '1_public',
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'state' => 'original-state',
+            'decision' => 'approve',
+            'username' => 'remote@supla.org',
+            'password' => 'fresh-password',
+        ]);
+
+        $this->assertStatusCode(Response::HTTP_OK, $client->getResponse());
+        $result = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame('authorized', $result['outcome']);
+        $this->assertSame('https://cool.app/callback?code=target-code&state=original-state', $result['redirectUrl']);
+        $this->assertSame('https://target.cloud', $forwarded[0]);
+        $this->assertSame('/api/internal/oauth/authorize', $forwarded[1]);
+        $this->assertSame('1_mapped', $forwarded[2]['client_id']);
+        $this->assertSame('fresh-password', $forwarded[2]['password']);
+        $this->assertSame('original-state', $forwarded[2]['state']);
+        $this->assertFalse($client->getResponse()->isRedirect());
+    }
+
+    public function testDoesNotForwardAuthorizationForUnknownTargetOrClientMapping() {
+        $forwarded = false;
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function () use (&$forwarded) {
+            $forwarded = true;
+            return [[], Response::HTTP_OK];
+        };
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/authorize', [
+            'client_id' => '1_public',
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'decision' => 'approve',
+            'username' => 'not-registered@supla.org',
+            'password' => 'fresh-password',
+        ]);
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+        $result = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame('unknown_target', $result['errorCode']);
+        $this->assertFalse($forwarded);
+    }
+
+    public function testDoesNotProbeTargetWhenAutodiscoverHasNoMappedClient() {
+        SuplaAutodiscoverMock::$userMapping['remote@supla.org'] = 'target.cloud';
+        $requests = 0;
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function () use (&$requests) {
+            $requests++;
+            return [[], Response::HTTP_OK];
+        };
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/authorize', [
+            'client_id' => 'unmapped-public',
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'decision' => 'approve',
+            'username' => 'remote@supla.org',
+            'password' => 'fresh-password',
+        ]);
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $this->assertSame('invalid_client', json_decode($client->getResponse()->getContent(), true)['errorCode']);
+        $this->assertSame(0, $requests);
     }
 
     public function testDisplaysNormalLoginFormIfLocalClientExists() {
