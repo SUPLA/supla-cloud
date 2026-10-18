@@ -104,6 +104,9 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             if (preg_match("#$mockedEndpoint#", $endpoint) && $method === $responseSpec['method']) {
                 unset(self::$mockedResponses[$mockedEndpoint]);
                 $responseStatus = $responseSpec['responseStatus'];
+                if ($responseSpec['response'] instanceof \Throwable) {
+                    throw $responseSpec['response'];
+                }
                 return $responseSpec['response'];
             }
         }

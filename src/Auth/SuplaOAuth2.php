@@ -29,6 +29,7 @@ use OAuth2\IOAuth2Storage;
 use OAuth2\Model\IOAuth2Client;
 use OAuth2\OAuth2;
 use OAuth2\OAuth2ServerException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -64,6 +65,15 @@ class SuplaOAuth2 extends OAuth2 {
 
     protected function genAccessToken() {
         return parent::genAccessToken() . '.' . base64_encode($this->localSuplaCloud->getAddress());
+    }
+
+    /**
+     * oauth2-php 1.10 exposes validation only as a protected hook. Keep the
+     * internal API on exactly the validator used by finishClientAuthorization,
+     * without probing it with a synthetic denial or issuing a code.
+     */
+    public function validateAuthorizationRequest(Request $request): array {
+        return $this->getAuthorizeParams($request);
     }
 
     /**
