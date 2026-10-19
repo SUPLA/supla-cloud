@@ -8,6 +8,31 @@ use App\Supla\TrustedPeerDnsResolver;
 use PHPUnit\Framework\TestCase;
 
 class SuplaHttpClientTest extends TestCase {
+    public function testMissingCliExecutableFailsBeforeStartingDnsProcess(): void {
+        $runner = new class extends BoundedProcessRunner {
+            public bool $started = false;
+
+            public function run(array $command, float $timeoutSeconds, ?array $environment = null): string {
+                $this->started = true;
+                return parent::run($command, $timeoutSeconds, $environment);
+            }
+        };
+        $resolver = new class ($runner) extends TrustedPeerDnsResolver {
+            protected function phpCliExecutable(): string {
+                return '/definitely/missing/php';
+            }
+        };
+
+        try {
+            $resolver->resolve('peer.example');
+            $this->fail('Expected missing PHP CLI to fail closed.');
+        } catch (\InvalidArgumentException $exception) {
+            $this->assertStringContainsString('available PHP CLI', $exception->getMessage());
+        }
+
+        $this->assertFalse($runner->started);
+    }
+
     public function testDnsResolutionRunsWithTheCliExecutableDiscoveredFromPhpBindir(): void {
         $addresses = (new TrustedPeerDnsResolver())->resolve('localhost');
 

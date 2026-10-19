@@ -31,7 +31,7 @@ class TrustedPeerDnsResolver {
         echo json_encode(array_values(array_unique($ips)));
 PHP;
 
-        $phpCli = PHP_BINDIR . DIRECTORY_SEPARATOR . ('\\' === DIRECTORY_SEPARATOR ? 'php.exe' : 'php');
+        $phpCli = $this->phpCliExecutable();
         if (!is_executable($phpCli) || is_dir($phpCli)) {
             throw new \InvalidArgumentException('Trusted peer DNS resolution requires an available PHP CLI executable.');
         }
@@ -51,5 +51,10 @@ PHP;
             throw new \InvalidArgumentException('Trusted peer DNS resolution returned an invalid response.');
         }
         return array_values(array_unique($ips));
+    }
+
+    /** The runtime's installed PHP CLI, never a caller-selected executable. */
+    protected function phpCliExecutable(): string {
+        return PHP_BINDIR . DIRECTORY_SEPARATOR . ('\\' === DIRECTORY_SEPARATOR ? 'php.exe' : 'php');
     }
 }
