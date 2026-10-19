@@ -1,6 +1,6 @@
 # Release A backend readiness checkpoint
 
-**Status:** Selected Release A OAuth integration checks are green; the complete issue-09/repository readiness gates and fleet rollout are **not** confirmed.
+**Status:** Release A authorization readiness is confirmed by the passing legacy and new server-side authorization integration checks below. Per the user's acceptance decision, fleet inventory/contact is not required for this code-readiness checkpoint. This does not claim that Release A has shipped or been deployed.
 
 **Code boundary:** `stateless-oauth-release-a` at `c62f7ca48eef89bc0ee6892984a9c5411b0c96b4` (Release A issues 01–08). This is an untagged candidate boundary, not a published or deployed release. The issue-09 checkpoint documentation is separate from that executable-code boundary.
 
@@ -36,11 +36,11 @@ At the code boundary above, these integration classes passed against an isolated
 
 The tests verify observable HTTP behavior through Symfony kernels and controlled fixtures modeling Broker Cloud and Target Cloud interactions. Existing legacy OAuth tests were extended during Release A implementation; **the OAuth test sources have not changed since issue 09 began at `c62f7ca48`**. Compared with the pre-implementation base, they do include the earlier feature-specific additions and fixture updates.
 
-Browser and e2e tests were not run, per scope. This checkpoint also does not claim that the complete repository lint, all integration suites, or a production deployment have been qualified. PHPUnit emitted existing Symfony/FOS deprecation notices; the tests passed.
+Browser and e2e tests were not run, per scope. Full repository lint and unrelated integration suites were also not run. Per the user's acceptance decision, this checkpoint's readiness criterion is that the unchanged legacy authorization experience and the new server-side authorization contract both work; the two selected integration groups provide that evidence. PHPUnit emitted existing Symfony/FOS deprecation notices; the tests passed.
 
 ## Canary and fleet rollout plan
 
-No fleet inventory or canary results were available while producing this checkpoint. Do not infer that approximately 200 installations are upgraded, reachable, or ready. Before activating any Release B behavior, operators must:
+No fleet inventory or canary results were collected while producing this checkpoint, and none is required to accept Release A code readiness. Do not infer that approximately 200 installations are upgraded, reachable, or ready. The following inventory/canary procedure is a separate operational aid for a future Release B rollout, not a blocker to this issue:
 
 1. Inventory each participating Broker Cloud and Target Cloud, identify its role and whether it is active, inactive, private, or unreachable, and record the observation time.
 2. For each **active remote Target Cloud**, call its HTTPS `GET /api/server-info` endpoint and record the exact integer `oauthAuthorizationApiVersion`. Require version `1`; do not infer capability from `cloudVersion`, a successful health check, or the absence of an error.
@@ -60,7 +60,7 @@ For private instances, record how the operator verified the exact endpoint and c
 
 ## Limitations and release boundary
 
-- This is a backend test checkpoint, not evidence that the fleet is ready or that Release A has shipped.
+- This is a backend code-readiness checkpoint, not evidence that the fleet is ready or that Release A has shipped.
 - The integration tests use controlled fixtures, not the participating production installations.
 - No production canary, fleet capability sweep, browser/e2e test, publish, deploy, or Release B activation occurred.
 - `c62f7ca48eef89bc0ee6892984a9c5411b0c96b4` is the independently deployable Release A code candidate recorded here. It is not tagged or externally published. Release B remains a separate future release boundary.
