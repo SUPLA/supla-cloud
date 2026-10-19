@@ -80,6 +80,9 @@ services:
   App\Controller\Api\InternalOAuthAuthorizationController:
     tags: ['controller.service_arguments']
 
+  App\Controller\OAuth\OAuthAuthorizationController:
+    tags: ['controller.service_arguments']
+
   App\Controller\Api\StateWebhookController:
     $stateWebhooksForPublicAppsOnly: '%supla.state_webhooks.only_for_public_apps%'
 
