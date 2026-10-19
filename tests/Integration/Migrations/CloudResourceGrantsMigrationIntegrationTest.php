@@ -7,6 +7,7 @@ use App\Enums\ChannelType as CT;
 use App\Model\ResourceAccess\CloudResourceGrants;
 use App\Model\ResourceAccess\ServerResourcePermissions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
+use Symfony\Component\Console\Tester\CommandTester;
 
 class CloudResourceGrantsMigrationIntegrationTest extends DatabaseMigrationTestCase {
     use SuplaApiHelper;
@@ -127,6 +128,62 @@ class CloudResourceGrantsMigrationIntegrationTest extends DatabaseMigrationTestC
         $this->assertSame($new, $c->fetchOne('SELECT revision FROM supla_suplan_changed_pair WHERE association_id=?', [$association]));
     }
 
+    public function testSourceFirstBindingDeletionAfterCascadePreservesOtherOriginThenDrains(): void {
+        [$user, $source, $destination, $channels, $consumers] = $this->fixture();
+        $c = $this->getEntityManager()->getConnection();
+        $pair = $c->fetchAssociative('SELECT * FROM supla_suplan_peer_association
+            WHERE source_device_id=? AND destination_device_id=?', [$destination->getId(), $source->getId()]);
+        $c->transactional(fn() => $this->call('supla_suplan_changed_ack', [$user->getId(), $pair['id'], $pair['change_revision']]));
+        foreach ([4, 5] as $index) {
+            $c->transactional(function () use ($c, $user, $channels, $index) {
+                // Bypass dependency cleanup: the procedure must recover AFTER the binding FK cascaded.
+                $c->delete('supla_dev_channel', ['id' => $channels[$index]->getId()]);
+                $this->call('supla_suplan_resource_cleanup', [$user->getId(), $channels[$index]->getId()]);
+            });
+            $current = $c->fetchAssociative('SELECT * FROM supla_suplan_peer_association WHERE id=?', [$pair['id']]);
+            if ($index === 4) {
+                $this->assertSame($pair, $current); // Independent HOCS origin still grants the same HVAC READ.
+                $this->assertFalse($c->fetchOne('SELECT revision FROM supla_suplan_changed_pair WHERE association_id=?', [$pair['id']]));
+            } else {
+                $this->assertSame('', $current['canonical_acl']);
+                $this->assertSame(2, (int)$current['lifecycle']);
+                $this->assertGreaterThan((int)$pair['acl_revision'], (int)$current['acl_revision']);
+                $this->assertSame($current['change_revision'], $c->fetchOne(
+                    'SELECT revision FROM supla_suplan_changed_pair WHERE association_id=?',
+                    [$pair['id']]
+                ));
+            }
+        }
+        $this->assertSame(0, (int)$c->fetchOne('SELECT COUNT(*) FROM supla_resource_access_grant
+            WHERE source_device_id=? AND destination_device_id=?', [$destination->getId(), $source->getId()]));
+        $this->assertSame(34, (int)$c->fetchOne('SELECT COUNT(*) FROM supla_resource_access_grant'));
+        // A repeated cleanup must not bump the empty ACL or its marker again.
+        $c->transactional(fn() => $this->call('supla_suplan_resource_cleanup', [$user->getId(), $channels[5]->getId()]));
+        $this->assertSame($current, $c->fetchAssociative('SELECT * FROM supla_suplan_peer_association WHERE id=?', [$pair['id']]));
+    }
+
+    public function testSourceFirstOrmDeletionProjectsInsideBusinessTransaction(): void {
+        [$user, $source, $destination, $channels, $consumers] = $this->fixture();
+        $c = $this->getEntityManager()->getConnection();
+        $consumers[0]->setUserConfigValue('heatOrColdSourceSwitchChannelId', null);
+        $this->flush();
+        $before = $c->fetchAssociative('SELECT * FROM supla_suplan_peer_association
+            WHERE source_device_id=? AND destination_device_id=?', [$destination->getId(), $source->getId()]);
+        $pumpId = $channels[4]->getId();
+        $c->beginTransaction();
+        try {
+            $this->getEntityManager()->remove($channels[4]);
+            $this->getEntityManager()->flush();
+            $this->assertSame('', $c->fetchOne('SELECT canonical_acl FROM supla_suplan_peer_association WHERE id=?', [$before['id']]));
+            $this->assertSame(2, (int)$c->fetchOne('SELECT lifecycle FROM supla_suplan_peer_association WHERE id=?', [$before['id']]));
+        } finally {
+            $c->rollBack();
+        }
+        $this->assertSame($before, $c->fetchAssociative('SELECT * FROM supla_suplan_peer_association WHERE id=?', [$before['id']]));
+        $this->assertSame(1, (int)$c->fetchOne('SELECT COUNT(*) FROM supla_resource_access_grant
+            WHERE binding_target_channel_id=?', [$pumpId]));
+    }
+
     public function testVirtualAndLegacyManualStreamNoPeerAndDirectDeviceJsonHasNoAuthority(): void {
         [$user, $source, $destination, $channels] = $this->fixture();
         $c = $this->getEntityManager()->getConnection();
@@ -236,6 +293,29 @@ class CloudResourceGrantsMigrationIntegrationTest extends DatabaseMigrationTestC
             }
         } finally {
             $restricted->close();
+            $c->executeStatement("DROP USER '$account'@'%'");
+        }
+    }
+
+    public function testRestrictedCoreSetupRejectsBusinessExecuteBeforeGrantingTechnicalPrivileges(): void {
+        $this->fixture();
+        $c = $this->getEntityManager()->getConnection();
+        $account = 'grants_test_' . bin2hex(random_bytes(4));
+        $c->executeStatement("CREATE USER '$account'@'%' IDENTIFIED BY 'disposable-only'");
+        $database = $c->quoteIdentifier($c->getDatabase());
+        try {
+            $c->executeStatement("GRANT SELECT ON $database.* TO '$account'@'%'");
+            $c->executeStatement("GRANT EXECUTE ON PROCEDURE $database.supla_resource_access_replace TO '$account'@'%'");
+            $before = $c->fetchFirstColumn("SHOW GRANTS FOR '$account'@'%'");
+            $command = new CommandTester($this->application->find('supla:initialize:grant-suplan-core-procedures'));
+            try {
+                $command->execute(['user' => $account, 'host' => '%']);
+                $this->fail('Business EXECUTE must prevent technical privilege setup.');
+            } catch (\InvalidArgumentException $e) {
+                $this->assertStringContainsString('Restrict Core DML', $e->getMessage());
+            }
+            $this->assertSame($before, $c->fetchFirstColumn("SHOW GRANTS FOR '$account'@'%'"));
+        } finally {
             $c->executeStatement("DROP USER '$account'@'%'");
         }
     }

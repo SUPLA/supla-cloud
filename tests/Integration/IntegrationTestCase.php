@@ -125,6 +125,11 @@ abstract class IntegrationTestCase extends WebTestCase {
     protected function initializeDatabaseWithMigrations() {
         $this->executeCommand('doctrine:database:drop --force');
         $this->executeCommand('doctrine:database:create --if-not-exists');
+        // Reset both cached metadata and frozen migration instances after recreating the database.
+        self::ensureKernelShutdown();
+        $client = self::createClient(['debug' => false]);
+        $this->application = new Application($client->getKernel());
+        $this->application->setAutoExit(false);
         $this->executeCommand('supla:initialize');
     }
 

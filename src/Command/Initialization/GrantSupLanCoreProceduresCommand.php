@@ -43,6 +43,8 @@ class GrantSupLanCoreProceduresCommand extends Command {
                 continue;
             }
             $scope = explode(' TO ', $parts[1], 2)[0];
+            // SHOW GRANTS prefixes routine scopes with PROCEDURE/FUNCTION, unlike database/table grants.
+            $scope = preg_replace('/^(?:PROCEDURE|FUNCTION|TABLE)\s+/i', '', $scope);
             $wide = $scope === '*.*' || $scope === $database . '.*';
             $here = $wide || str_starts_with($scope, $database . '.');
             $dml = preg_match('/\b(ALL PRIVILEGES|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP)\b/i', $parts[0]);

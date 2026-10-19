@@ -7,7 +7,12 @@ BEGIN
   WITH RECURSIVE slots(n) AS (SELECT 0 UNION ALL SELECT n+1 FROM slots WHERE n<88)
   SELECT a.source_device_id,a.destination_device_id FROM supla_suplan_peer_association a
    JOIN slots ON slots.n*6<LENGTH(a.canonical_acl)
-   WHERE a.user_id=p_user AND SUBSTRING(a.canonical_acl,slots.n*6+1,5)=CONCAT(X'01',UNHEX(LPAD(HEX(p_channel),8,'0')))
+   WHERE a.user_id=p_user AND (
+    SUBSTRING(a.canonical_acl,slots.n*6+1,5)=CONCAT(X'01',UNHEX(LPAD(HEX(p_channel),8,'0')))
+    OR (SUBSTRING(a.canonical_acl,slots.n*6+1,1)=X'01' AND NOT EXISTS(
+     SELECT 1 FROM supla_resource_access_grant_valid g
+     WHERE g.user_id=a.user_id AND g.source_device_id=a.source_device_id AND g.destination_device_id=a.destination_device_id
+      AND g.resource_type=1 AND g.resource_id=CONV(HEX(SUBSTRING(a.canonical_acl,slots.n*6+2,4)),16,10) AND g.peer_eligible=1)))
   UNION
   SELECT source_device_id,destination_device_id FROM supla_resource_access_grant
    WHERE user_id=p_user AND origin_type=1 AND (origin_id >> 8)=p_channel
@@ -16,7 +21,8 @@ BEGIN
  IF @@in_transaction=0 OR EXISTS(SELECT 1 FROM supla_dev_channel WHERE id=p_channel AND user_id=p_user) THEN
   SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='Cleanup requires deleted or foreign channel'; END IF;
  SELECT id INTO v_lock FROM supla_user WHERE id=p_user FOR UPDATE;
- -- Canonical ACL still identifies affected peers even when resource FK deletion already removed logical rows.
+ -- Resource/binding FK cascades may already have removed the logical rows.
+ -- Source-first ACLs name the HVAC, not the deleted Pump/HOCS: include ACL resources with no remaining peer authority.
  OPEN pairs;
  pair_loop: LOOP
   FETCH pairs INTO v_source,v_destination;
