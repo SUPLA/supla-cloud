@@ -236,7 +236,7 @@ class AuthorizeOAuthController extends AbstractController {
             'You cannot use SUPLA project name in the domain name.' // i18n
         );
 
-        $info = $this->getTargetCloudInfo($targetCloud);
+        $info = $this->getRegistrationTargetCloudInfo($targetCloud);
         // @codingStandardsIgnoreStart
         Assertion::isArray(
             $info,
@@ -291,6 +291,14 @@ class AuthorizeOAuthController extends AbstractController {
         try {
             return $this->suplaCloudRequestForwarder->getInfo($targetCloud);
         } catch (ApiException $e) {
+            return null;
+        }
+    }
+
+    private function getRegistrationTargetCloudInfo(TargetSuplaCloud $targetCloud): ?array {
+        try {
+            return $this->suplaCloudRequestForwarder->getRegistrationInfo($targetCloud->getAddress());
+        } catch (ApiException | \InvalidArgumentException $e) {
             return null;
         }
     }
