@@ -7,6 +7,7 @@ use App\Enums\ChannelType as CT;
 use App\Model\ResourceAccess\CloudResourceGrants;
 use App\Model\ResourceAccess\ServerResourcePermissions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
+use Doctrine\DBAL\Logging\DebugStack;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class CloudResourceGrantsMigrationIntegrationTest extends DatabaseMigrationTestCase {
@@ -64,6 +65,84 @@ class CloudResourceGrantsMigrationIntegrationTest extends DatabaseMigrationTestC
         $connection = $this->getEntityManager()->getConnection();
         $result = $connection->executeQuery('CALL ' . $name . '(' . implode(',', array_fill(0, count($parameters), '?')) . ')', $parameters);
         $result->free();
+    }
+
+    private function recordSql(callable $mutation): array {
+        $config = $this->getEntityManager()->getConnection()->getConfiguration();
+        $previous = $config->getSQLLogger();
+        $logger = new DebugStack();
+        $config->setSQLLogger($logger);
+        try {
+            $mutation();
+            $this->flush();
+        } finally {
+            $config->setSQLLogger($previous);
+        }
+        return $logger->queries;
+    }
+
+    public function testUnrelatedConfigAndPropertyEditDoesNotRewriteConfigOrigins(): void {
+        [$user, $source, $destination, $channels, $consumers] = $this->fixture();
+        $c = $this->getEntityManager()->getConnection();
+        $before = $c->fetchAllAssociative('SELECT * FROM supla_resource_access_grant ORDER BY origin_id');
+        $peers = $c->fetchAllAssociative('SELECT * FROM supla_suplan_peer_association ORDER BY id');
+        $queries = $this->recordSql(function () use ($consumers) {
+            $consumers[0]->setUserConfigValue('unrelatedSetting', 1);
+            EntityUtils::setField($consumers[0], 'properties', json_encode(['unrelatedProperty' => 1]));
+        });
+        $this->assertCount(0, array_filter($queries, fn($q) => str_starts_with($q['sql'], 'CALL supla_resource_access_replace')));
+        $this->assertCount(1, array_filter($queries, fn($q) => str_contains($q['sql'], 'SELECT DISTINCT origin_type,origin_id')));
+        $this->assertSame($before, $c->fetchAllAssociative('SELECT * FROM supla_resource_access_grant ORDER BY origin_id'));
+        $this->assertSame($peers, $c->fetchAllAssociative('SELECT * FROM supla_suplan_peer_association ORDER BY id'));
+    }
+
+    public function testChangedConfigOriginIsReplacedOnceWithCombinedMetadataEdit(): void {
+        [$user, $source, $destination, $channels, $consumers] = $this->fixture();
+        $queries = $this->recordSql(function () use ($consumers, $channels) {
+            $consumers[0]->setUserConfigValue('mainThermometerChannelId', $channels[1]->getId());
+            EntityUtils::setField($consumers[0], 'properties', json_encode(['unrelatedProperty' => 1]));
+        });
+        $calls = array_values(array_filter($queries, fn($q) => str_starts_with($q['sql'], 'CALL supla_resource_access_replace')));
+        $this->assertCount(1, $calls);
+        $origin = ($consumers[0]->getId() << 8) | 1;
+        $this->assertSame($origin, (int)$calls[0]['params'][2]);
+        $c = $this->getEntityManager()->getConnection();
+        $this->assertSame($channels[1]->getId(), (int)$c->fetchOne(
+            'SELECT resource_id FROM supla_resource_access_grant WHERE origin_type=1 AND origin_id=?',
+            [$origin]
+        ));
+        $this->assertSame(36, (int)$c->fetchOne('SELECT COUNT(*) FROM supla_resource_access_grant'));
+    }
+
+    public function testConfigTypeChangeRevokesFormerSlotsWithoutResurrection(): void {
+        [$user, $source, $destination, $channels, $consumers] = $this->fixture();
+        $c = $this->getEntityManager()->getConnection();
+        EntityUtils::setField($consumers[0], 'type', CT::RELAY);
+        $consumers[0]->setFunction(CF::POWERSWITCH());
+        $consumers[0]->setUserConfigValue('unrelatedSetting', 1);
+        $this->flush();
+        $this->assertSame(30, (int)$c->fetchOne('SELECT COUNT(*) FROM supla_resource_access_grant'));
+        EntityUtils::setField($consumers[0], 'type', CT::HVAC);
+        $consumers[0]->setFunction(CF::HVAC_THERMOSTAT());
+        $consumers[0]->setUserConfigValue('unrelatedSetting', 2);
+        $this->flush();
+        $this->assertSame(30, (int)$c->fetchOne('SELECT COUNT(*) FROM supla_resource_access_grant'));
+    }
+
+    public function testConfigEditStillInvalidatesIncomingMasterOrigin(): void {
+        [$user, $source, $destination, $channels, $consumers] = $this->fixture();
+        $c = $this->getEntityManager()->getConnection();
+        // Simulate an invalid persisted chain without the API validator: no grant may survive or be added for it.
+        $channels[3]->setUserConfigValue('masterThermostatChannelId', $consumers[0]->getId());
+        $this->flush();
+        $this->assertSame(35, (int)$c->fetchOne('SELECT COUNT(*) FROM supla_resource_access_grant'));
+        $this->assertSame(
+            0,
+            (int)$c->fetchOne(
+                'SELECT COUNT(*) FROM supla_resource_access_grant WHERE origin_type=1 AND origin_id IN (?,?)',
+                [($consumers[0]->getId() << 8) | 4, ($channels[3]->getId() << 8) | 4]
+            )
+        );
     }
 
     public function testFinalSchemaAll36SlotsSourceFirstAndIdempotentProjection(): void {

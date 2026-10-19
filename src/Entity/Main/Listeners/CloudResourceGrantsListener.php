@@ -39,14 +39,17 @@ class CloudResourceGrantsListener implements EventSubscriber {
             );
         }
         if ($entity instanceof IODeviceChannel) {
-            if ($new || isset($changes['userConfig'])) {
+            $configurationChanged = $new || isset($changes['userConfig']);
+            if ($configurationChanged) {
                 $grants->configuration($entity->getId(), $new ? null : (json_decode($changes['userConfig'][0] ?: '{}', true) ?: []));
-                if (!$new) {
-                    $grants->metadata($entity->getUser()->getId(), $entity->getIoDevice()->getId(), $entity->getId());
-                }
             }
-            if (array_intersect(['function', 'type', 'properties', 'user', 'iodevice'], array_keys($changes))) {
-                $grants->metadata($entity->getUser()->getId(), $entity->getIoDevice()->getId(), $entity->getId());
+            if ((!$new && $configurationChanged) || array_intersect(['function', 'type', 'properties', 'user', 'iodevice'], array_keys($changes))) {
+                $grants->metadata(
+                    $entity->getUser()->getId(),
+                    $entity->getIoDevice()->getId(),
+                    $entity->getId(),
+                    $configurationChanged ? $entity->getId() : null
+                );
             }
         } elseif (array_intersect(['flags', 'protocolVersion', 'isVirtual', 'user'], array_keys($changes))) {
             $grants->metadata($entity->getUser()->getId(), $entity->getId());

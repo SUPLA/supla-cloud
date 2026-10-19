@@ -3,6 +3,7 @@ namespace App\Model\ResourceAccess;
 
 use App\Enums\ChannelFunction as CF;
 use App\Enums\ChannelType as CT;
+use App\Enums\IoDeviceFlags;
 use App\Model\UserConfigTranslator\HvacChannelReferences;
 use Doctrine\DBAL\Connection;
 
@@ -25,7 +26,7 @@ class CloudResourceGrants {
     private static function peer(array $source, array $destination): bool {
         foreach ([$source, $destination] as $channel) {
             if (
-                !((int)$channel['device_flags'] & 524288) || $channel['device_virtual'] || $channel['is_virtual']
+                !((int)$channel['device_flags'] & IoDeviceFlags::SUPLAN_SUPPORTED) || $channel['device_virtual'] || $channel['is_virtual']
                 || (int)$channel['protocol_version'] < 29
             ) {
                 return false;
@@ -60,8 +61,7 @@ class CloudResourceGrants {
         );
     }
 
-    private function configGrant(array $consumer, int $field, string|int $key): array {
-        $config = self::config($consumer);
+    private function configGrant(array $consumer, array $config, int $field, string|int $key): array {
         $reference = $field < 32 ? ($config[$key] ?? null)
             : ($field < 64 ? ($config['sensors'][$key]['channelId'] ?? null) : ($config['floodSensorChannelIds'][$key] ?? null));
         if (
@@ -115,9 +115,7 @@ class CloudResourceGrants {
         $result->free();
     }
 
-    private function existingTarget(int $user, int|string $origin, array $desired): array {
-        $rows = $this->connection->fetchAllAssociative('SELECT source_device_id,destination_device_id,resource_id,binding_target_channel_id
-            FROM supla_resource_access_grant WHERE user_id=? AND origin_type=1 AND origin_id=? FOR UPDATE', [$user, $origin]);
+    private function existingTarget(array $rows, array $desired): array {
         return array_values(array_filter($desired, function ($grant) use ($rows) {
             foreach ($rows as $row) {
                 if (
@@ -132,31 +130,61 @@ class CloudResourceGrants {
         }));
     }
 
+    /** CONFIG origins contain at most one grant; compare the full logical row before issuing a replacement. */
+    private function replaceConfig(int $user, int|string $origin, array $grants, array $existing): void {
+        $stored = array_map(fn($row) => [
+            'source' => (int)$row['source_device_id'], 'destination' => (int)$row['destination_device_id'],
+            'resource' => (int)$row['resource_id'], 'permissions' => (int)$row['permissions'],
+            'type' => (int)$row['source_type'], 'function' => (int)$row['source_function'],
+            'peerEligible' => (int)$row['peer_eligible'], 'requiresPeer' => (int)$row['requires_peer'],
+            'bindingTarget' => $row['binding_target_channel_id'] === null ? null : (int)$row['binding_target_channel_id'],
+        ], $existing);
+        if ($stored !== $grants) {
+            $this->replace($user, 1, $origin, $grants);
+        }
+    }
+
     public function configuration(int $id, ?array $previous = null): void {
         $this->transaction();
         if (!($consumer = $this->channel($id))) {
             return;
         }
         $this->connection->fetchOne('SELECT id FROM supla_user WHERE id=? FOR UPDATE', [$consumer['user_id']]);
-        $existing = $this->connection->fetchFirstColumn('SELECT origin_id FROM supla_resource_access_grant
-            WHERE user_id=? AND origin_type=1 AND (origin_id >> 8)=?', [$consumer['user_id'], $id]);
-        foreach (self::slots() as $field => $key) {
-            $current = self::config($consumer);
+        $existing = [];
+        foreach (
+            $this->connection->fetchAllAssociative('SELECT * FROM supla_resource_access_grant
+            WHERE user_id=? AND origin_type=1 AND (origin_id >> 8)=? ORDER BY origin_id FOR UPDATE', [$consumer['user_id'], $id]) as $row
+        ) {
+            $existing[(int)$row['origin_id']][] = $row;
+        }
+        $allSlots = self::slots();
+        [$offset, $count] = match ((int)$consumer['type']) {
+            CT::HVAC => [0, 6], CT::CONTAINER => [6, 10], CT::VALVEOPENCLOSE, CT::VALVEPERCENTAGE => [16, 20],
+            default => [0, 0],
+        };
+        $slots = array_slice($allSlots, $offset, $count, true);
+        // Existing origins must still be revoked when their former consumer type/function is no longer supported.
+        foreach ($existing as $origin => $rows) {
+            $field = $origin & 255;
+            $slots[$field] = $allSlots[$field];
+        }
+        ksort($slots);
+        $current = self::config($consumer);
+        foreach ($slots as $field => $key) {
+            $origin = ($id << 8) | $field;
+            $rows = $existing[$origin] ?? [];
             $oldReference = $field < 32 ? ($previous[$key] ?? null)
                 : ($field < 64 ? ($previous['sensors'][$key]['channelId'] ?? null) : ($previous['floodSensorChannelIds'][$key] ?? null));
             $newReference = $field < 32 ? ($current[$key] ?? null)
                 : ($field < 64 ? ($current['sensors'][$key]['channelId'] ?? null) : ($current['floodSensorChannelIds'][$key] ?? null));
-            if ($previous !== null && $oldReference === $newReference && !in_array(($id << 8) | $field, $existing)) {
+            if ($previous !== null && $oldReference === $newReference && !$rows) {
                 continue; // An unrelated Cloud edit cannot resurrect a previously invalidated origin.
             }
-            $grants = $this->configGrant($consumer, $field, $key);
+            $grants = $this->configGrant($consumer, $current, $field, $key);
             if ($previous !== null && $oldReference === $newReference) {
-                $grants = $this->existingTarget((int)$consumer['user_id'], ($id << 8) | $field, $grants);
+                $grants = $this->existingTarget($rows, $grants);
             }
-            if (!$grants && !in_array(($id << 8) | $field, $existing)) {
-                continue;
-            }
-            $this->replace((int)$consumer['user_id'], 1, ($id << 8) | $field, $grants);
+            $this->replaceConfig((int)$consumer['user_id'], $origin, $grants, $rows);
         }
     }
 
@@ -177,7 +205,7 @@ class CloudResourceGrants {
             $row['status'] === 'ACCEPTED' && $source && $destination && $source['user_id'] === $row['user_id']
             && $destination['user_id'] === $row['user_id'] && $source['iodevice_id'] === $row['source_device_id']
             && $source['iodevice_id'] !== $row['destination_device_id'] && !$destination['is_virtual']
-            && ((int)$destination['flags'] & 524288) && (int)$destination['protocol_version'] >= 29
+            && ((int)$destination['flags'] & IoDeviceFlags::SUPLAN_SUPPORTED) && (int)$destination['protocol_version'] >= 29
         ) {
             $permissions = (int)$row['permissions'];
             $properties = json_decode($source['properties'] ?: '{}', true) ?: [];
@@ -196,7 +224,7 @@ class CloudResourceGrants {
     }
 
     /** Revalidate only existing origins: a capability/function change cannot resurrect a removed grant. */
-    public function metadata(int $user, int $device, ?int $channel = null): void {
+    public function metadata(int $user, int $device, ?int $channel = null, ?int $configuredChannel = null): void {
         $this->transaction();
         $this->connection->fetchOne('SELECT id FROM supla_user WHERE id=? FOR UPDATE', [$user]);
         $origins = $this->connection->fetchAllAssociative('SELECT DISTINCT origin_type,origin_id FROM supla_resource_access_grant
@@ -207,10 +235,15 @@ class CloudResourceGrants {
                 $this->decision((int)$origin['origin_id']);
             } else {
                 $id = (int)$origin['origin_id'] >> 8;
+                if ($id === $configuredChannel) {
+                    continue; // configuration() already revalidated every existing CONFIG origin for this channel.
+                }
                 $field = (int)$origin['origin_id'] & 255;
                 $consumer = $this->channel($id);
-                $desired = $consumer ? $this->configGrant($consumer, $field, self::slots()[$field]) : [];
-                $this->replace($user, 1, $origin['origin_id'], $this->existingTarget($user, $origin['origin_id'], $desired));
+                $rows = $this->connection->fetchAllAssociative('SELECT * FROM supla_resource_access_grant
+                    WHERE user_id=? AND origin_type=1 AND origin_id=? FOR UPDATE', [$user, $origin['origin_id']]);
+                $desired = $consumer ? $this->configGrant($consumer, self::config($consumer), $field, self::slots()[$field]) : [];
+                $this->replaceConfig($user, $origin['origin_id'], $this->existingTarget($rows, $desired), $rows);
             }
         }
     }
