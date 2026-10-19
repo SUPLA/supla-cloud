@@ -8,6 +8,13 @@ use App\Supla\TrustedPeerDnsResolver;
 use PHPUnit\Framework\TestCase;
 
 class SuplaHttpClientTest extends TestCase {
+    public function testDnsResolutionRunsWithTheCliExecutableDiscoveredFromPhpBindir(): void {
+        $addresses = (new TrustedPeerDnsResolver())->resolve('localhost');
+
+        $this->assertNotEmpty($addresses);
+        $this->assertContains('127.0.0.1', $addresses);
+    }
+
     public function testTimedOutDnsResolutionIsRejectedBeforeOpeningSocket(): void {
         $listener = stream_socket_server('tcp://127.0.0.1:0', $errorCode, $errorMessage);
         $this->assertNotFalse($listener, $errorMessage);

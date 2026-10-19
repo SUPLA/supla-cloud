@@ -19,21 +19,26 @@ class TrustedPeerDnsResolver {
         }
 
         $script = <<<'PHP'
-$host = getenv('SUPLA_TRUSTED_PEER_HOST');
-$ips = @gethostbynamel($host) ?: [];
-if (function_exists('dns_get_record')) {
-    foreach (@dns_get_record($host, DNS_AAAA) ?: [] as $record) {
-        if (isset($record['ipv6'])) {
-            $ips[] = $record['ipv6'];
+        $host = getenv('SUPLA_TRUSTED_PEER_HOST');
+        $ips = @gethostbynamel($host) ?: [];
+        if (function_exists('dns_get_record')) {
+            foreach (@dns_get_record($host, DNS_AAAA) ?: [] as $record) {
+                if (isset($record['ipv6'])) {
+                    $ips[] = $record['ipv6'];
+                }
+            }
         }
-    }
-}
-echo json_encode(array_values(array_unique($ips)));
+        echo json_encode(array_values(array_unique($ips)));
 PHP;
+
+        $phpCli = PHP_BINDIR . DIRECTORY_SEPARATOR . ('\\' === DIRECTORY_SEPARATOR ? 'php.exe' : 'php');
+        if (!is_executable($phpCli) || is_dir($phpCli)) {
+            throw new \InvalidArgumentException('Trusted peer DNS resolution requires an available PHP CLI executable.');
+        }
 
         try {
             $output = $this->processRunner->run(
-                [PHP_BINARY, '-r', $script],
+                [$phpCli, '-r', $script],
                 self::TIMEOUT_SECONDS,
                 ['SUPLA_TRUSTED_PEER_HOST' => $host]
             );
