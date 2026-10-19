@@ -7,10 +7,10 @@
 ## What Release A provides
 
 - The existing OAuth browser authorization experience remains active: Symfony sessions, login/consent forms rendered by Twig, the existing routes, and existing code/token formats are retained. Release A does not activate the Vue authorization flow or disable sessions.
-- Target Cloud-owned authorization and Public AD application-to-Mapped client support are available through the internal authorization API. Broker Cloud calls require the broker authentication contract and independently trusted Target Cloud selection.
-- Authorization codes support optional S256 PKCE locally and across broker token exchange. Existing non-PKCE clients and refresh-token behavior remain supported.
+- Target Cloud-owned authorization and Public AD application-to-Mapped client support are available through the internal authorization API. Broker Cloud calls require the Broker Cloud authentication contract and independently trusted Target Cloud selection.
+- Authorization codes support optional S256 PKCE locally and across Broker Cloud token exchange. Existing non-PKCE clients and refresh-token behavior remain supported.
 - `GET /api/server-info` reports `oauthAuthorizationApiVersion: 1` when the internal authorization API is available. Capability, not `cloudVersion`, is the readiness signal for the new contract.
-- Legacy broker token forwarding and the registration-only private-cloud probe use the hardened destination policy. The registration probe does not grant peer trust or permit OAuth forwarding.
+- Legacy Broker Cloud token forwarding and the registration-only private-cloud probe use the hardened destination policy. The registration probe does not grant peer trust or permit OAuth forwarding.
 
 The internal API contract, capability behavior, and PHP CLI/`proc_open` runtime requirement are described in [internal OAuth authorization](internal-oauth-authorization.md).
 
@@ -31,10 +31,10 @@ At the code boundary above, these integration classes passed against an isolated
 
 | Coverage | Integration classes | Result |
 | --- | --- | --- |
-| Legacy OAuth/session authorization and broker forwarding | `OAuthAuthenticationIntegrationTest`, `OAuthBrokerAuthorizationIntegrationTest` | 63 tests, 315 assertions; 1 existing skip |
-| Target-owned and brokered future authorization, PKCE, capability/mixed-version behavior | `InternalOAuthAuthorizationIntegrationTest`, `OauthAuthorizationCapabilityIntegrationTest` | 62 tests, 342 assertions |
+| Legacy OAuth/session authorization and Broker Cloud forwarding | `OAuthAuthenticationIntegrationTest`, `OAuthBrokerAuthorizationIntegrationTest` | 63 tests, 315 assertions; 1 existing skip |
+| Target Cloud-owned and Broker Cloud-mediated future authorization, PKCE, capability/mixed-version behavior | `InternalOAuthAuthorizationIntegrationTest`, `OauthAuthorizationCapabilityIntegrationTest` | 62 tests, 342 assertions |
 
-The tests verify observable HTTP behavior through Symfony kernels and controlled broker/target fixtures. Existing legacy OAuth tests were extended during Release A implementation; **the OAuth test sources have not changed since issue 09 began at `c62f7ca48`**. Compared with the pre-implementation base, they do include the earlier feature-specific additions and fixture updates.
+The tests verify observable HTTP behavior through Symfony kernels and controlled fixtures modeling Broker Cloud and Target Cloud interactions. Existing legacy OAuth tests were extended during Release A implementation; **the OAuth test sources have not changed since issue 09 began at `c62f7ca48`**. Compared with the pre-implementation base, they do include the earlier feature-specific additions and fixture updates.
 
 Browser and e2e tests were not run, per scope. This checkpoint also does not claim that the complete repository lint, all integration suites, or a production deployment have been qualified. PHPUnit emitted existing Symfony/FOS deprecation notices; the tests passed.
 
