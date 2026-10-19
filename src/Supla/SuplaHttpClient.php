@@ -18,6 +18,15 @@
 namespace App\Supla;
 
 class SuplaHttpClient {
+    private const TRUSTED_REQUEST_TIMEOUT_MS = 10000;
+    private const TRUSTED_CONNECT_TIMEOUT_MS = 3000;
+
+    private TrustedPeerDnsResolver $dnsResolver;
+
+    public function __construct(?TrustedPeerDnsResolver $dnsResolver = null) {
+        $this->dnsResolver = $dnsResolver ?? new TrustedPeerDnsResolver();
+    }
+
     public function request(
         string $fullUrl,
         ?string $method = null,
@@ -25,6 +34,7 @@ class SuplaHttpClient {
         array $headers = [],
         bool $trustedPeer = false
     ): array {
+        $startedAt = hrtime(true);
         $resolvedIps = $trustedPeer ? $this->resolveTrustedPeer($fullUrl) : [];
         $ch = curl_init($fullUrl);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
@@ -38,22 +48,45 @@ class SuplaHttpClient {
         }, array_keys($headers), $headers);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         if ($trustedPeer) {
-            $parts = parse_url($fullUrl);
-            curl_setopt($ch, CURLOPT_RESOLVE, [sprintf('%s:%d:%s', $parts['host'], $parts['port'] ?? 443, implode(',', $resolvedIps))]);
+            [$resolvePin, $connectTimeoutMs, $overallTimeoutMs] = $this->trustedPeerCurlConfiguration($fullUrl, $resolvedIps, $startedAt);
+            curl_setopt($ch, CURLOPT_RESOLVE, [$resolvePin]);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
             curl_setopt($ch, CURLOPT_MAXREDIRS, 0);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, $connectTimeoutMs);
+            curl_setopt($ch, CURLOPT_TIMEOUT_MS, $overallTimeoutMs);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        } else {
+            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         }
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 //        curl_setopt($ch, CURLOPT_COOKIE, 'XDEBUG_SESSION=PHPUNIT'); // uncomment to enable XDEBUG debugging in dev
-        $result = curl_exec($ch);
+        $result = $this->executeCurlHandle($ch);
         $responseStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $requestSuccess = curl_errno($ch) === 0;
         curl_close($ch);
         return [$requestSuccess, $result, $responseStatus];
+    }
+
+    /**
+     * Computes the cURL pin and time budget for a trusted-peer request. The
+     * overall budget starts before DNS resolution, so cURL only receives the
+     * time that remains; the validated address is pinned (CURLOPT_RESOLVE) so
+     * a later DNS answer cannot move the destination.
+     *
+     * @param string[] $resolvedIps
+     * @return array{0: string, 1: int, 2: int} [resolve pin, connect timeout ms, overall timeout ms]
+     */
+    protected function trustedPeerCurlConfiguration(string $fullUrl, array $resolvedIps, int $startedAt): array {
+        $remainingTimeoutMs = $this->remainingTrustedTimeoutMs($startedAt);
+        $parts = parse_url($fullUrl);
+        $resolvePin = sprintf('%s:%d:%s', $parts['host'], $parts['port'] ?? 443, implode(',', $resolvedIps));
+        return [$resolvePin, min(self::TRUSTED_CONNECT_TIMEOUT_MS, $remainingTimeoutMs), $remainingTimeoutMs];
+    }
+
+    /** Performs the cURL transfer for an already-configured handle. */
+    protected function executeCurlHandle(\CurlHandle $ch): string|false {
+        return curl_exec($ch);
     }
 
     /** @return string[] */
@@ -63,19 +96,20 @@ class SuplaHttpClient {
             throw new \InvalidArgumentException('Invalid trusted peer destination.');
         }
         $host = trim($parts['host'], '[]');
-        $ips = filter_var($host, FILTER_VALIDATE_IP) ? [$host] : (gethostbynamel($host) ?: []);
-        if (function_exists('dns_get_record') && !filter_var($host, FILTER_VALIDATE_IP)) {
-            foreach (dns_get_record($host, DNS_AAAA) ?: [] as $record) {
-                if (isset($record['ipv6'])) {
-                    $ips[] = $record['ipv6'];
-                }
-            }
-        }
+        $ips = $this->dnsResolver->resolve($host);
         $ips = array_values(array_unique($ips));
         if (!$ips || count($ips) > 16 || array_filter($ips, fn(string $ip) => $this->isProhibitedIp($ip))) {
             throw new \InvalidArgumentException('Trusted peer resolved to a prohibited address.');
         }
         return $ips;
+    }
+
+    private function remainingTrustedTimeoutMs(int $startedAt): int {
+        $remainingNs = self::TRUSTED_REQUEST_TIMEOUT_MS * 1000000 - (hrtime(true) - $startedAt);
+        if ($remainingNs <= 0) {
+            throw new \InvalidArgumentException('Trusted peer request exceeded its time budget.');
+        }
+        return max(1, (int) ceil($remainingNs / 1000000));
     }
 
     private function isProhibitedIp(string $ip): bool {

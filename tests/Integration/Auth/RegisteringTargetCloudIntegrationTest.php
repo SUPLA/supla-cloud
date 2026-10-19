@@ -38,11 +38,12 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
 
     public function testRegistertingTargetCloud() {
         $client = $this->createHttpsClient();
+        $attemptedDestinations = [];
         TargetSuplaCloudRequestForwarder::$requestExecutor =
-            function (string $address, string $endpoint) use (&$targetCalled) {
+            function (string $address, string $endpoint) use (&$attemptedDestinations) {
                 $this->assertEquals('https://supla.private.pl', $address);
                 $this->assertEquals('server-info', $endpoint);
-                $targetCalled = true;
+                $attemptedDestinations[] = [$address, $endpoint];
                 return [['cloudVersion' => '2.3.0'], Response::HTTP_OK];
             };
 
@@ -51,6 +52,7 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('token', $body);
+        $this->assertSame([['https://supla.private.pl', 'server-info']], $attemptedDestinations);
     }
 
     public function testRegisteringTargetIfInvalidDomain() {

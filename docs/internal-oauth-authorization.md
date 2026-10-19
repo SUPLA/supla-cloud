@@ -269,3 +269,31 @@ unavailable or cannot provide a trusted Target Cloud, the caller must return
 `target_unavailable`; it must not call the checker with an untrusted or
 client-supplied destination. The checker itself returns `target_unavailable`
 for outbound transient failures, never `unsupported_authorization_api`.
+
+### Pre-registration compatibility probe (issue 07 exception)
+
+The existing `POST /api/register-target-cloud` workflow has a separate,
+narrowly scoped exception: before Autodiscover registers a private Cloud as a
+peer, it reads that submitted origin's public `server-info` to preserve the
+existing availability, HTTPS, and minimum-version checks. This probe accepts
+only a canonical HTTPS origin and uses the same pinned outbound transport as
+trusted-peer reads (prohibited-IP rejection, DNS resolution pinned to the
+connection, TLS certificate/host verification, no redirects, and bounded
+connect/overall timeouts). The probe does not mark the origin trusted and does
+not call the generic broker-token forwarder or attach a stored broker token.
+
+This exception is exclusively for pre-registration `server-info`. OAuth
+authorization, authorization-code exchange, refresh-token exchange, and all
+other credential-bearing or private operations continue to require an
+Autodiscover/private-cloud trusted-peer record and the strict peer selector.
+
+Trusted-peer DNS bounding launches the runtime's PHP CLI executable from
+`PHP_BINDIR` (`php.exe` on Windows) through Symfony Process, which requires
+`proc_open`. The supported `supla-docker` deployment runs the Cloud image's
+console as `php bin/console` (see the
+[supla-docker compose definition](https://github.com/SUPLA/supla-docker/blob/master/docker-compose.yml)
+and its `supla.sh` console command); the runtime therefore needs an available
+PHP CLI. If it is missing or unusable, trusted-peer forwarding fails closed
+before a network connection is made. Install/enable the PHP CLI and
+`proc_open` in the Cloud runtime rather than configuring an alternate
+executable path.

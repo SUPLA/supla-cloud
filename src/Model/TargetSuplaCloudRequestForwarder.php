@@ -27,7 +27,7 @@ class TargetSuplaCloudRequestForwarder {
 
     /**
      * For the sake of tests.
-     * @var callable
+     * @var callable|null
      */
     public static $requestExecutor;
 
@@ -91,6 +91,26 @@ class TargetSuplaCloudRequestForwarder {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Probe a submitted origin only for private-cloud registration. This
+     * narrow exception may read public server metadata, but does not establish
+     * peer trust and never sends broker credentials.
+     * @return array<string, mixed>|null
+     */
+    public function getRegistrationInfo(string $submittedOrigin): ?array {
+        $origin = TargetSuplaCloud::canonicalOrigin($submittedOrigin);
+        if (self::$requestExecutor) {
+            [$response, $status] = (self::$requestExecutor)($origin, 'server-info', null);
+        } else {
+            $response = $this->brokerHttpClient->requestTrusted(
+                $origin . '/api/v' . ApiVersions::V2_3 . '/server-info',
+                null,
+                $status
+            );
+        }
+        return $status === 200 ? $response : null;
     }
 
     private function sendBrokerRequest(
