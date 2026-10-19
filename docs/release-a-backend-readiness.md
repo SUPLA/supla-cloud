@@ -42,9 +42,9 @@ Browser and e2e tests were not run, per scope. This checkpoint also does not cla
 
 No fleet inventory or canary results were available while producing this checkpoint. Do not infer that approximately 200 installations are upgraded, reachable, or ready. Before activating any Release B behavior, operators must:
 
-1. Inventory each participating broker and target, identify its role and whether it is active, inactive, private, or unreachable, and record the observation time.
-2. For each **active remote target**, call its HTTPS `GET /api/server-info` endpoint and record the exact integer `oauthAuthorizationApiVersion`. Require version `1`; do not infer capability from `cloudVersion`, a successful health check, or the absence of an error.
-3. Exercise a canary matrix with the Release A legacy browser OAuth flow, local Target Cloud authorization, and Broker Cloud-to-Target Cloud authorization/token exchange, including PKCE and a target without the new capability. Confirm the latter fails clearly for the new broker operation while its legacy flow remains usable.
+1. Inventory each participating Broker Cloud and Target Cloud, identify its role and whether it is active, inactive, private, or unreachable, and record the observation time.
+2. For each **active remote Target Cloud**, call its HTTPS `GET /api/server-info` endpoint and record the exact integer `oauthAuthorizationApiVersion`. Require version `1`; do not infer capability from `cloudVersion`, a successful health check, or the absence of an error.
+3. Exercise a canary matrix with the Release A legacy browser OAuth flow, local Target Cloud authorization, and Broker Cloud-to-Target Cloud authorization/token exchange, including PKCE and a Target Cloud without the new capability. Confirm the latter fails clearly for the new Broker Cloud operation while its legacy flow remains usable.
 4. Confirm no new UI/session behavior has been activated, ordinary login and remote WebApp tokens still work, existing grants remain usable, and consent revocation still works. Expand the rollout only after the operator reviews canary results and the inactive/private/unreachable exceptions.
 5. Keep Release A as the rollback boundary. If Release B is later activated and must be rolled back, redeploy Release A without reverting compatible schema or changing existing grants, codes, or tokens. An in-flight browser flow may need to restart.
 
@@ -52,7 +52,7 @@ No fleet inventory or canary results were available while producing this checkpo
 
 Maintain one row per participating instance. This template is intentionally empty; no fleet state is asserted by this document.
 
-| Instance / operator identifier | Role (broker/target/both) | Classification (active/inactive/private/unreachable) | HTTPS server-info checked at (UTC) | `oauthAuthorizationApiVersion` | Legacy flow / remote WebApp token | Broker/target and PKCE canary | Consent revocation | Exception / follow-up |
+| Instance / operator identifier | Role (Broker Cloud/Target Cloud/both) | Classification (active/inactive/private/unreachable) | HTTPS server-info checked at (UTC) | `oauthAuthorizationApiVersion` | Legacy flow / remote WebApp token | Broker Cloud/Target Cloud and PKCE canary | Consent revocation | Exception / follow-up |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 |  |  |  |  |  |  |  |  |  |
 
