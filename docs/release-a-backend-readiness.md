@@ -7,7 +7,7 @@
 ## What Release A provides
 
 - The existing OAuth browser authorization experience remains active: Symfony sessions, login/consent forms rendered by Twig, the existing routes, and existing code/token formats are retained. Release A does not activate the Vue authorization flow or disable sessions.
-- Target-owned authorization and mapped public-client support are available through the internal authorization API. Broker calls require the broker authentication contract and independently trusted target selection.
+- Target Cloud-owned authorization and Public AD application-to-Mapped client support are available through the internal authorization API. Broker Cloud calls require the broker authentication contract and independently trusted Target Cloud selection.
 - Authorization codes support optional S256 PKCE locally and across broker token exchange. Existing non-PKCE clients and refresh-token behavior remain supported.
 - `GET /api/server-info` reports `oauthAuthorizationApiVersion: 1` when the internal authorization API is available. Capability, not `cloudVersion`, is the readiness signal for the new contract.
 - Legacy broker token forwarding and the registration-only private-cloud probe use the hardened destination policy. The registration probe does not grant peer trust or permit OAuth forwarding.
@@ -44,17 +44,17 @@ No fleet inventory or canary results were available while producing this checkpo
 
 1. Inventory each participating broker and target, identify its role and whether it is active, inactive, private, or unreachable, and record the observation time.
 2. For each **active remote target**, call its HTTPS `GET /api/server-info` endpoint and record the exact integer `oauthAuthorizationApiVersion`. Require version `1`; do not infer capability from `cloudVersion`, a successful health check, or the absence of an error.
-3. Exercise a canary matrix with the Release A legacy browser OAuth flow, local target authorization, and broker-to-target authorization/token exchange, including PKCE and a target without the new capability. Confirm the latter fails clearly for the new broker operation while its legacy flow remains usable.
-4. Confirm no new UI/session behavior has been activated, ordinary login still works, and existing grants/tokens remain usable. Expand the rollout only after the operator reviews canary results and the inactive/private/unreachable exceptions.
+3. Exercise a canary matrix with the Release A legacy browser OAuth flow, local Target Cloud authorization, and Broker Cloud-to-Target Cloud authorization/token exchange, including PKCE and a target without the new capability. Confirm the latter fails clearly for the new broker operation while its legacy flow remains usable.
+4. Confirm no new UI/session behavior has been activated, ordinary login and remote WebApp tokens still work, existing grants remain usable, and consent revocation still works. Expand the rollout only after the operator reviews canary results and the inactive/private/unreachable exceptions.
 5. Keep Release A as the rollback boundary. If Release B is later activated and must be rolled back, redeploy Release A without reverting compatible schema or changing existing grants, codes, or tokens. An in-flight browser flow may need to restart.
 
 ### Operator inventory checklist
 
 Maintain one row per participating instance. This template is intentionally empty; no fleet state is asserted by this document.
 
-| Instance / operator identifier | Role (broker/target/both) | Classification (active/inactive/private/unreachable) | HTTPS server-info checked at (UTC) | `oauthAuthorizationApiVersion` | Legacy flow canary | Broker/target canary | Exception / follow-up |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-|  |  |  |  |  |  |  |  |
+| Instance / operator identifier | Role (broker/target/both) | Classification (active/inactive/private/unreachable) | HTTPS server-info checked at (UTC) | `oauthAuthorizationApiVersion` | Legacy flow / remote WebApp token | Broker/target and PKCE canary | Consent revocation | Exception / follow-up |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |  |  |  |
 
 For private instances, record how the operator verified the exact endpoint and capability. For inactive or unreachable instances, record the reason and owner; do not count them as ready. The Release B activation gate remains closed until the fleet owner has reviewed the completed inventory and approved rollout.
 
