@@ -169,8 +169,31 @@ prior-consent reuse (02), mapped-client resolution (03), trusted peer transport
 orchestration and brokered PKCE remain separate Release A tickets; no new
 browser flow is activated.
 
-Issue 06 must preserve `code_verifier` while forwarding token requests; this
-local change validates it at the owning target and does not add forwarding.
+## Brokered PKCE token exchange (Release A, issue 06)
+
+The existing `/oauth/v2/token` broker flow forwards the full incoming request
+body to the trusted Target Cloud and overlays only the AD-mapped client ID and
+secret. This preserves the original `code_verifier` unchanged in the secure
+request body. The verifier is neither appended to the authorization-code
+suffix nor put in a URL, and the broker does not log or transform it. The
+Target Cloud validates the verifier against the S256 challenge stored with the
+individual FOS authorization code; it rejects absent, malformed, incorrect or
+downgraded proofs and retains FOS client/callback binding and single-use code
+semantics.
+
+The token endpoint rejects `code_verifier` in the query for both GET and POST
+with OAuth `invalid_request`, before target exchange or broker forwarding. A
+POST body verifier remains supported, as do legacy GET exchanges that omit a
+verifier.
+
+The integration fixture exercises target issuance through the authenticated
+internal authorization HTTP endpoint, followed by public token exchange at
+the broker endpoint, then delivers the forwarded request to a separate target
+Symfony kernel over its actual token HTTP endpoint. It covers mapped target
+credentials, exact verifier preservation, target-side proof failures, changed
+callback/client mismatch, one-time exchange, and non-PKCE authorization-code
+plus refresh-token compatibility. The authorization-code/token suffix format
+is unchanged.
 
 The ORM additions are nullable columns on `supla_oauth_auth_codes`:
 `code_challenge` (string length 128) and `code_challenge_method` (string length

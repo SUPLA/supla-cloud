@@ -94,13 +94,15 @@ class SuplaBrokerHttpClient {
         $method = $method ?: ($payload ? 'POST' : 'GET');
         $headers['X-Cloud-Version'] = ApiVersions::LATEST;
         [$responseSuccess, $rawResponse, $responseStatus] = $this->httpClient->request($fullUrl, $method, $payload, $headers, $trustedPeer);
-        $sensitiveAuthorization = str_ends_with((string) parse_url($fullUrl, PHP_URL_PATH), '/api/internal/oauth/authorize');
+        $requestPath = (string) parse_url($fullUrl, PHP_URL_PATH);
+        $sensitiveOAuthRequest = str_ends_with($requestPath, '/api/internal/oauth/authorize')
+            || str_ends_with($requestPath, '/oauth/v2/token');
         $logDetails = [
             'address' => $fullUrl,
             'method' => $method,
-            'payload' => $sensitiveAuthorization ? '[redacted]' : $payload,
+            'payload' => $sensitiveOAuthRequest ? '[redacted]' : $payload,
             'responseStatus' => $responseStatus,
-            'response' => $sensitiveAuthorization ? '[redacted]' : var_export($rawResponse, true),
+            'response' => $sensitiveOAuthRequest ? '[redacted]' : var_export($rawResponse, true),
         ];
         if ($responseSuccess) {
             if ($responseStatus >= 200 && $responseStatus <= 399) {
