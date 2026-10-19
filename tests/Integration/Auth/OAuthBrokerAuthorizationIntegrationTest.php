@@ -19,10 +19,12 @@ namespace App\Tests\Integration\Auth;
 
 use App\Entity\Main\OAuth\AuthCode;
 use App\Entity\Main\User;
+use App\Kernel;
 use App\Model\TargetSuplaCloudRequestForwarder;
 use App\Supla\SuplaAutodiscover;
 use App\Supla\SuplaAutodiscoverMock;
 use App\Tests\Integration\IntegrationTestCase;
+use App\Tests\Integration\TestClient;
 use App\Tests\Integration\Traits\ResponseAssertions;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\TestSuplaHttpClient;
@@ -345,6 +347,168 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertSame(['/oauth/v2/token'], $tokenEndpoints);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertSame('target-access-token', json_decode($tokenClient->getResponse()->getContent(), true)['access_token']);
+    }
+
+    public function testExchangesActualTargetIssuedPkceCodeThroughBrokerAndTargetEnforcesVerifier(): void {
+        $targetClientEntity = $this->clientManager->createClient();
+        $targetClientEntity->setRedirectUris(['https://cool.app/callback']);
+        $targetClientEntity->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
+        $this->clientManager->updateClient($targetClientEntity);
+        $this->flush();
+        $targetClientId = $targetClientEntity->getPublicId();
+        $targetClientSecret = $targetClientEntity->getSecret();
+
+        $targetKernel = new Kernel('test', false);
+        $targetBrowser = new TestClient($targetKernel, [
+            'HTTPS' => true,
+            'HTTP_Accept' => 'application/json',
+            'REMOTE_ADDR' => '1.2.3.4',
+        ]);
+        $verifier = str_repeat('BrokerVerifier_0123456789-._~', 2);
+        $challenge = rtrim(strtr(base64_encode(hash('sha256', $verifier, true)), '+/', '-_'), '=');
+        $targetBrowser->apiRequest('POST', '/api/internal/oauth/authorize', [
+            'client_id' => $targetClientId,
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'state' => 'brokered-pkce-state',
+            'code_challenge' => $challenge,
+            'code_challenge_method' => 'S256',
+            'decision' => 'approve',
+            'username' => $this->user->getUsername(),
+            'password' => 'supla123',
+        ], [], [], [
+            'HTTP_SUPLA-Broker-Token' => 'Bearer BROKER',
+        ]);
+        $this->assertStatusCode(Response::HTTP_OK, $targetBrowser->getResponse());
+        $callback = $targetBrowser->getResponseBody()['redirectUrl'];
+        parse_str((string) parse_url($callback, PHP_URL_QUERY), $callbackParams);
+        $code = $callbackParams['code'];
+        $this->assertSame('brokered-pkce-state', $callbackParams['state']);
+        $this->assertSame('https://supla.local', base64_decode(substr($code, strrpos($code, '.') + 1)));
+
+        SuplaAutodiscoverMock::$publicClients['1_public'] = ['secret' => 'public-secret'];
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public'] = [
+            'clientId' => $targetClientEntity->getPublicId(),
+            'secret' => $targetClientEntity->getSecret(),
+        ];
+        $forwardedRequests = [];
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function (
+            string $address,
+            string $endpoint,
+            array $data
+        ) use (
+            $targetBrowser,
+            &$forwardedRequests
+        ) {
+            $this->assertSame('https://supla.local', $address);
+            $this->assertSame('/oauth/v2/token', $endpoint);
+            $forwardedRequests[] = $data;
+            $targetBrowser->apiRequest('POST', $endpoint, $data);
+            return [$targetBrowser->getResponseBody(), $targetBrowser->getResponse()->getStatusCode()];
+        };
+
+        $brokerBrowser = $this->createHttpsClient(false);
+        $exchange = [
+            'grant_type' => 'authorization_code',
+            'client_id' => '1_public',
+            'client_secret' => 'public-secret',
+            'redirect_uri' => 'https://cool.app/callback',
+            'code' => $code,
+        ];
+
+        $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $exchange + ['code_verifier' => str_repeat('wrong', 10)]);
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $brokerBrowser->getResponse());
+        $this->assertTokenError($brokerBrowser, 'invalid_grant');
+
+        $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $exchange);
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $brokerBrowser->getResponse());
+        $this->assertTokenError($brokerBrowser, 'invalid_grant');
+
+        $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $exchange + ['code_verifier' => 'malformed verifier']);
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $brokerBrowser->getResponse());
+        $this->assertTokenError($brokerBrowser, 'invalid_grant');
+
+        $brokerBrowser->apiRequest('POST', '/oauth/v2/token', array_merge($exchange, [
+            'redirect_uri' => 'https://cool.app/changed-callback',
+            'code_verifier' => $verifier,
+        ]));
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $brokerBrowser->getResponse());
+        $this->assertTokenError($brokerBrowser, 'redirect_uri_mismatch');
+
+        $otherTargetClient = $this->clientManager->createClient();
+        $otherTargetClient->setRedirectUris(['https://cool.app/callback']);
+        $otherTargetClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
+        $this->clientManager->updateClient($otherTargetClient);
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public'] = [
+            'clientId' => $otherTargetClient->getPublicId(),
+            'secret' => $otherTargetClient->getSecret(),
+        ];
+        $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $exchange + ['code_verifier' => $verifier]);
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $brokerBrowser->getResponse());
+        $this->assertTokenError($brokerBrowser, 'invalid_grant');
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public'] = [
+            'clientId' => $targetClientId,
+            'secret' => $targetClientSecret,
+        ];
+
+        $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $exchange + ['code_verifier' => $verifier]);
+        $this->assertStatusCode(Response::HTTP_OK, $brokerBrowser->getResponse());
+        $this->assertArrayHasKey('access_token', $brokerBrowser->getResponseBody());
+
+        $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $exchange + ['code_verifier' => $verifier]);
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $brokerBrowser->getResponse());
+        $this->assertTokenError($brokerBrowser, 'invalid_grant');
+
+        $this->assertSame(str_repeat('wrong', 10), $forwardedRequests[0]['code_verifier']);
+        $this->assertArrayNotHasKey('code_verifier', $forwardedRequests[1]);
+        $this->assertSame('malformed verifier', $forwardedRequests[2]['code_verifier']);
+        $this->assertSame($targetClientId, $forwardedRequests[0]['client_id']);
+        $this->assertSame($targetClientSecret, $forwardedRequests[0]['client_secret']);
+        $this->assertNotSame($targetClientId, $forwardedRequests[4]['client_id']);
+        $this->assertSame($verifier, $forwardedRequests[4]['code_verifier']);
+        $this->assertSame($verifier, $forwardedRequests[5]['code_verifier']);
+        $this->assertSame($verifier, $forwardedRequests[6]['code_verifier']);
+
+        // A legacy non-PKCE grant still exchanges through the same broker and
+        // keeps refresh-token behavior intact.
+        $targetBrowser->apiRequest('POST', '/api/internal/oauth/authorize', [
+            'client_id' => $targetClientId,
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r offline_access',
+            'state' => 'legacy-broker-state',
+            'decision' => 'approve',
+            'username' => $this->user->getUsername(),
+            'password' => 'supla123',
+        ], [], [], [
+            'HTTP_SUPLA-Broker-Token' => 'Bearer BROKER',
+        ]);
+        $this->assertStatusCode(Response::HTTP_OK, $targetBrowser->getResponse());
+        parse_str((string) parse_url($targetBrowser->getResponseBody()['redirectUrl'], PHP_URL_QUERY), $legacyCallbackParams);
+        $legacyExchange = $exchange;
+        $legacyExchange['code'] = $legacyCallbackParams['code'];
+        $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $legacyExchange + ['code_verifier' => $verifier]);
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $brokerBrowser->getResponse());
+        $this->assertTokenError($brokerBrowser, 'invalid_request');
+
+        $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $legacyExchange);
+        $this->assertStatusCode(Response::HTTP_OK, $brokerBrowser->getResponse());
+        $legacyTokenResponse = $brokerBrowser->getResponseBody();
+        $this->assertArrayHasKey('refresh_token', $legacyTokenResponse);
+        $this->assertSame($verifier, $forwardedRequests[7]['code_verifier']);
+        $this->assertArrayNotHasKey('code_verifier', $forwardedRequests[8]);
+
+        $brokerBrowser->apiRequest('POST', '/oauth/v2/token', [
+            'grant_type' => 'refresh_token',
+            'client_id' => '1_public',
+            'client_secret' => 'public-secret',
+            'refresh_token' => $legacyTokenResponse['refresh_token'],
+        ]);
+        $this->assertStatusCode(Response::HTTP_OK, $brokerBrowser->getResponse());
+        $this->assertArrayHasKey('access_token', $brokerBrowser->getResponseBody());
+        $this->assertSame('refresh_token', $forwardedRequests[9]['grant_type']);
+        $targetKernel->shutdown();
     }
 
     public function testDisplaysNormalLoginFormIfLocalClientExists() {
@@ -843,5 +1007,9 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'username' => 'remote@supla.org',
             'password' => 'fresh-password',
         ];
+    }
+
+    private function assertTokenError(TestClient $client, string $error): void {
+        $this->assertSame($error, $client->getResponseBody()['error']);
     }
 }

@@ -66,4 +66,32 @@ class SuplaBrokerHttpClientTest extends TestCase {
         $this->expectException(ApiException::class);
         $client->requestTrusted('https://target.example/api', null, $status);
     }
+
+    public function testOAuthTokenRequestRedactsVerifierAndTokenResponseFromLogs(): void {
+        $settings = $this->createMock(SettingsStringRepository::class);
+        $httpClient = $this->createMock(SuplaHttpClient::class);
+        $httpClient->expects($this->once())
+            ->method('request')
+            ->willReturn([true, '{"access_token":"issued-token","refresh_token":"issued-refresh"}', 200]);
+        $logger = $this->createMock(LoggerInterface::class);
+        $logger->expects($this->once())
+            ->method('debug')
+            ->with('HTTP Request', $this->callback(function (array $context): bool {
+                $this->assertSame('[redacted]', $context['payload']);
+                $this->assertSame('[redacted]', $context['response']);
+                $this->assertStringNotContainsString('secret-verifier', json_encode($context));
+                $this->assertStringNotContainsString('issued-token', json_encode($context));
+                return true;
+            }));
+
+        $client = new SuplaBrokerHttpClient($httpClient, $settings, $logger);
+        $client->requestTrustedWithStoredToken(
+            'https://target.example/oauth/v2/token',
+            ['grant_type' => 'authorization_code', 'code_verifier' => 'secret-verifier'],
+            $status,
+            [],
+            'POST',
+            'SUPLA-Broker-Token'
+        );
+    }
 }
