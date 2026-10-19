@@ -392,23 +392,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'clientId' => $targetClientEntity->getPublicId(),
             'secret' => $targetClientEntity->getSecret(),
         ];
-        $forwardedRequests = [];
-        TargetSuplaCloudRequestForwarder::$requestExecutor = function (
-            string $address,
-            string $endpoint,
-            array $data
-        ) use (
-            $targetBrowser,
-            &$forwardedRequests
-        ) {
-            $this->assertSame('https://supla.local', $address);
-            $this->assertSame('/oauth/v2/token', $endpoint);
-            $forwardedRequests[] = $data;
-            $targetBrowser->apiRequest('POST', $endpoint, $data);
-            return [$targetBrowser->getResponseBody(), $targetBrowser->getResponse()->getStatusCode()];
-        };
 
-        $brokerBrowser = $this->createHttpsClient(false);
         $exchange = [
             'grant_type' => 'authorization_code',
             'client_id' => '1_public',
@@ -416,19 +400,73 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'redirect_uri' => 'https://cool.app/callback',
             'code' => $code,
         ];
+        $targetExchange = array_merge($exchange, [
+            'client_id' => $targetClientId,
+            'client_secret' => $targetClientSecret,
+        ]);
+        $targetBrowser->request('GET', '/oauth/v2/token?' . http_build_query($targetExchange + [
+            'code_verifier' => $verifier,
+        ]));
+        $this->assertQueryVerifierRejected($targetBrowser, $verifier);
 
+        $targetBrowser->apiRequest(
+            'POST',
+            '/oauth/v2/token?' . http_build_query(['code_verifier' => $verifier]),
+            $targetExchange + ['code_verifier' => $verifier]
+        );
+        $this->assertQueryVerifierRejected($targetBrowser, $verifier);
+
+        /** @var array<string, array<string, mixed>> $forwardedRequests */
+        $forwardedRequests = [];
+        $forwardedRequestName = null;
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function (
+            string $address,
+            string $endpoint,
+            array $data
+        ) use (
+            $targetBrowser,
+            &$forwardedRequests,
+            &$forwardedRequestName
+        ) {
+            $this->assertSame('https://supla.local', $address);
+            $this->assertSame('/oauth/v2/token', $endpoint);
+            $forwardedRequests[$forwardedRequestName] = $data;
+            $targetBrowser->apiRequest('POST', $endpoint, $data);
+            return [$targetBrowser->getResponseBody(), $targetBrowser->getResponse()->getStatusCode()];
+        };
+
+        $brokerBrowser = $this->createHttpsClient(false);
+        $brokerBrowser->apiRequest(
+            'GET',
+            '/oauth/v2/token?' . http_build_query($exchange + ['code_verifier' => $verifier])
+        );
+        $this->assertQueryVerifierRejected($brokerBrowser, $verifier);
+        $this->assertCount(0, $forwardedRequests);
+
+        $brokerBrowser->apiRequest(
+            'POST',
+            '/oauth/v2/token?' . http_build_query(['code_verifier' => $verifier]),
+            $exchange + ['code_verifier' => $verifier]
+        );
+        $this->assertQueryVerifierRejected($brokerBrowser, $verifier);
+        $this->assertCount(0, $forwardedRequests);
+
+        $forwardedRequestName = 'incorrect-proof';
         $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $exchange + ['code_verifier' => str_repeat('wrong', 10)]);
         $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $brokerBrowser->getResponse());
         $this->assertTokenError($brokerBrowser, 'invalid_grant');
 
+        $forwardedRequestName = 'missing-proof';
         $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $exchange);
         $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $brokerBrowser->getResponse());
         $this->assertTokenError($brokerBrowser, 'invalid_grant');
 
+        $forwardedRequestName = 'malformed-proof';
         $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $exchange + ['code_verifier' => 'malformed verifier']);
         $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $brokerBrowser->getResponse());
         $this->assertTokenError($brokerBrowser, 'invalid_grant');
 
+        $forwardedRequestName = 'changed-callback';
         $brokerBrowser->apiRequest('POST', '/oauth/v2/token', array_merge($exchange, [
             'redirect_uri' => 'https://cool.app/changed-callback',
             'code_verifier' => $verifier,
@@ -444,6 +482,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'clientId' => $otherTargetClient->getPublicId(),
             'secret' => $otherTargetClient->getSecret(),
         ];
+        $forwardedRequestName = 'mapped-client-mismatch';
         $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $exchange + ['code_verifier' => $verifier]);
         $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $brokerBrowser->getResponse());
         $this->assertTokenError($brokerBrowser, 'invalid_grant');
@@ -452,23 +491,25 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'secret' => $targetClientSecret,
         ];
 
+        $forwardedRequestName = 'valid-proof';
         $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $exchange + ['code_verifier' => $verifier]);
         $this->assertStatusCode(Response::HTTP_OK, $brokerBrowser->getResponse());
         $this->assertArrayHasKey('access_token', $brokerBrowser->getResponseBody());
 
+        $forwardedRequestName = 'replay';
         $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $exchange + ['code_verifier' => $verifier]);
         $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $brokerBrowser->getResponse());
         $this->assertTokenError($brokerBrowser, 'invalid_grant');
 
-        $this->assertSame(str_repeat('wrong', 10), $forwardedRequests[0]['code_verifier']);
-        $this->assertArrayNotHasKey('code_verifier', $forwardedRequests[1]);
-        $this->assertSame('malformed verifier', $forwardedRequests[2]['code_verifier']);
-        $this->assertSame($targetClientId, $forwardedRequests[0]['client_id']);
-        $this->assertSame($targetClientSecret, $forwardedRequests[0]['client_secret']);
-        $this->assertNotSame($targetClientId, $forwardedRequests[4]['client_id']);
-        $this->assertSame($verifier, $forwardedRequests[4]['code_verifier']);
-        $this->assertSame($verifier, $forwardedRequests[5]['code_verifier']);
-        $this->assertSame($verifier, $forwardedRequests[6]['code_verifier']);
+        $this->assertSame(str_repeat('wrong', 10), $forwardedRequests['incorrect-proof']['code_verifier']);
+        $this->assertArrayNotHasKey('code_verifier', $forwardedRequests['missing-proof']);
+        $this->assertSame('malformed verifier', $forwardedRequests['malformed-proof']['code_verifier']);
+        $this->assertSame($targetClientId, $forwardedRequests['incorrect-proof']['client_id']);
+        $this->assertSame($targetClientSecret, $forwardedRequests['incorrect-proof']['client_secret']);
+        $this->assertNotSame($targetClientId, $forwardedRequests['mapped-client-mismatch']['client_id']);
+        $this->assertSame($verifier, $forwardedRequests['mapped-client-mismatch']['code_verifier']);
+        $this->assertSame($verifier, $forwardedRequests['valid-proof']['code_verifier']);
+        $this->assertSame($verifier, $forwardedRequests['replay']['code_verifier']);
 
         // A legacy non-PKCE grant still exchanges through the same broker and
         // keeps refresh-token behavior intact.
@@ -488,17 +529,20 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         parse_str((string) parse_url($targetBrowser->getResponseBody()['redirectUrl'], PHP_URL_QUERY), $legacyCallbackParams);
         $legacyExchange = $exchange;
         $legacyExchange['code'] = $legacyCallbackParams['code'];
+        $forwardedRequestName = 'legacy-downgrade';
         $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $legacyExchange + ['code_verifier' => $verifier]);
         $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $brokerBrowser->getResponse());
         $this->assertTokenError($brokerBrowser, 'invalid_request');
 
-        $brokerBrowser->apiRequest('POST', '/oauth/v2/token', $legacyExchange);
+        $forwardedRequestName = 'legacy-non-pkce';
+        $brokerBrowser->apiRequest('GET', '/oauth/v2/token?' . http_build_query($legacyExchange));
         $this->assertStatusCode(Response::HTTP_OK, $brokerBrowser->getResponse());
         $legacyTokenResponse = $brokerBrowser->getResponseBody();
         $this->assertArrayHasKey('refresh_token', $legacyTokenResponse);
-        $this->assertSame($verifier, $forwardedRequests[7]['code_verifier']);
-        $this->assertArrayNotHasKey('code_verifier', $forwardedRequests[8]);
+        $this->assertSame($verifier, $forwardedRequests['legacy-downgrade']['code_verifier']);
+        $this->assertArrayNotHasKey('code_verifier', $forwardedRequests['legacy-non-pkce']);
 
+        $forwardedRequestName = 'refresh-token';
         $brokerBrowser->apiRequest('POST', '/oauth/v2/token', [
             'grant_type' => 'refresh_token',
             'client_id' => '1_public',
@@ -507,7 +551,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(Response::HTTP_OK, $brokerBrowser->getResponse());
         $this->assertArrayHasKey('access_token', $brokerBrowser->getResponseBody());
-        $this->assertSame('refresh_token', $forwardedRequests[9]['grant_type']);
+        $this->assertSame('refresh_token', $forwardedRequests['refresh-token']['grant_type']);
         $targetKernel->shutdown();
     }
 
@@ -1011,5 +1055,11 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
 
     private function assertTokenError(TestClient $client, string $error): void {
         $this->assertSame($error, $client->getResponseBody()['error']);
+    }
+
+    private function assertQueryVerifierRejected(TestClient $client, string $verifier): void {
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $client->getResponse());
+        $this->assertTokenError($client, 'invalid_request');
+        $this->assertStringNotContainsString($verifier, $client->getResponse()->getContent());
     }
 }

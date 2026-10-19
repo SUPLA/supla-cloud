@@ -181,6 +181,11 @@ individual FOS authorization code; it rejects absent, malformed, incorrect or
 downgraded proofs and retains FOS client/callback binding and single-use code
 semantics.
 
+The token endpoint rejects `code_verifier` in the query for both GET and POST
+with OAuth `invalid_request`, before target exchange or broker forwarding. A
+POST body verifier remains supported, as do legacy GET exchanges that omit a
+verifier.
+
 The integration fixture exercises target issuance through the authenticated
 internal authorization HTTP endpoint, followed by public token exchange at
 the broker endpoint, then delivers the forwarded request to a separate target
