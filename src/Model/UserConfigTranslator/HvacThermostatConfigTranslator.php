@@ -162,7 +162,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $mainThermometerChannelId = $config['mainThermometerChannelId'];
             if ($mainThermometerChannelId) {
                 Assertion::integer($mainThermometerChannelId);
-                $thermometer = $this->mainThermometerChannel($subject, $mainThermometerChannelId);
+                $thermometer = $this->references->resolve($subject, $mainThermometerChannelId, 'mainThermometerChannelId');
                 Assertion::inArray(
                     $thermometer->getFunction()->getId(),
                     [CF::THERMOMETER, CF::HUMIDITYANDTEMPERATURE]
@@ -580,10 +580,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $counts[(int)$row['func']] = (int)$row['channel_count'];
         }
         return $counts;
-    }
-
-    private function mainThermometerChannel(IODeviceChannel $subject, int $channelId): IODeviceChannel {
-        return $this->references->resolve($subject, $channelId, 'mainThermometerChannelId');
     }
 
     private function findSlaveThermostats(IODeviceChannel $channel): Collection {

@@ -1,4 +1,4 @@
-import {isMainThermometerCandidate} from '@/channels/hvac/main-thermometer-candidates';
+import {isChannelReferenceCandidate} from '@/channels/channel-reference-candidates';
 import {mount} from '@vue/test-utils';
 import {createTestingPinia} from '@pinia/testing';
 import HvacParams from '@/channels/params/channel-params-hvac-thermostat.vue';
@@ -9,21 +9,21 @@ const devices = {1: {flags: {suplanSupported: true}}, 2: {flags: {suplanSupporte
 
 describe('M3 HVAC MainThermometer candidates', () => {
   it('offers an offline SupLAN thermometer on another device and Location', () => {
-    expect(isMainThermometerCandidate(destination, candidate, devices)).toBe(true);
+    expect(isChannelReferenceCandidate(destination, candidate, devices, 'mainThermometerChannelId')).toBe(true);
   });
   it('offers local cross-Location thermometers on a legacy device', () => {
-    expect(isMainThermometerCandidate(destination, {...candidate, iodeviceId: 1}, {})).toBe(true);
+    expect(isChannelReferenceCandidate(destination, {...candidate, iodeviceId: 1}, {}, 'mainThermometerChannelId')).toBe(true);
   });
   it.each([{1: {flags: {suplanSupported: false}}, 2: devices[2]}, {1: devices[1], 2: {flags: {suplanSupported: false}}}, {}])(
     'rejects remote candidates unless both devices support SupLAN',
     (flags) => {
-      expect(isMainThermometerCandidate(destination, candidate, flags)).toBe(false);
+      expect(isChannelReferenceCandidate(destination, candidate, flags, 'mainThermometerChannelId')).toBe(false);
     }
   );
   it('rejects incompatible functions, types and self references', () => {
-    expect(isMainThermometerCandidate(destination, {...candidate, function: {name: 'HUMIDITY'}}, devices)).toBe(false);
-    expect(isMainThermometerCandidate(destination, {...candidate, type: {name: 'RELAY'}}, devices)).toBe(false);
-    expect(isMainThermometerCandidate(destination, {...candidate, id: destination.id}, devices)).toBe(false);
+    expect(isChannelReferenceCandidate(destination, {...candidate, function: {name: 'HUMIDITY'}}, devices, 'mainThermometerChannelId')).toBe(false);
+    expect(isChannelReferenceCandidate(destination, {...candidate, type: {name: 'RELAY'}}, devices, 'mainThermometerChannelId')).toBe(false);
+    expect(isChannelReferenceCandidate(destination, {...candidate, id: destination.id}, devices, 'mainThermometerChannelId')).toBe(false);
   });
   it('uses account thermometer candidates for SupLAN and same-device candidates for legacy', () => {
     expect(HvacParams.computed.mainThermometerParams.call({channel: destination, devices})).toBe('function=THERMOMETER,HUMIDITYANDTEMPERATURE');
@@ -79,8 +79,8 @@ describe('M3 HVAC selectors', () => {
   });
 });
 
-it('Main wrapper rejects local and remote Type 3000', () => {
+it('Main rejects local and remote Type 3000', () => {
   const old = {...candidate, type: {name: 'THERMOMETERDS18B20'}};
-  expect(isMainThermometerCandidate(destination, old, devices)).toBe(false);
-  expect(isMainThermometerCandidate(destination, {...old, iodeviceId: 1}, {})).toBe(false);
+  expect(isChannelReferenceCandidate(destination, old, devices, 'mainThermometerChannelId')).toBe(false);
+  expect(isChannelReferenceCandidate(destination, {...old, iodeviceId: 1}, {}, 'mainThermometerChannelId')).toBe(false);
 });

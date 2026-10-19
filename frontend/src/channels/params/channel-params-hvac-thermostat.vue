@@ -62,7 +62,7 @@
               :destination="channel"
               reference-role="mainThermometerChannelId"
               :params="mainThermometerParams"
-              :filter="mainThermometerFilter"
+              :filter="(ch) => ch.id !== channel.config.auxThermometerChannelId"
               :hide-none="true"
               :disabled="!canChangeSetting('mainThermometerChannelId')"
               @input="$emit('change')"
@@ -532,7 +532,6 @@
   import Toggler from '@/common/gui/toggler.vue';
   import {mapState} from 'pinia';
   import {useDevicesStore} from '@/stores/devices-store';
-  import {isMainThermometerCandidate} from '@/channels/hvac/main-thermometer-candidates';
   import SimpleDropdown from '@/common/gui/simple-dropdown.vue';
 
   export default {
@@ -663,9 +662,6 @@
       },
     },
     methods: {
-      mainThermometerFilter(candidate) {
-        return candidate.id !== this.channel.config.auxThermometerChannelId && isMainThermometerCandidate(this.channel, candidate, this.devices);
-      },
       changeSubfunction(subfunction) {
         this.channel.config.subfunction = subfunction;
         if (this.channel.config.outputValueOnError) {
