@@ -20,6 +20,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
+  if (window.errorDetails) {
+    return;
+  }
   const currentUser = useCurrentUserStore();
   const frontendConfig = useFrontendConfigStore();
   if (!currentUser.username && !to.meta.unrestricted) {
@@ -45,6 +48,9 @@ router.afterEach((to) => {
 });
 
 router.beforeEach((to) => {
+  if (window.errorDetails) {
+    return;
+  }
   const currentUser = useCurrentUserStore();
   const frontendConfig = useFrontendConfigStore();
   if (frontendConfig.config.regulationsAcceptRequired) {

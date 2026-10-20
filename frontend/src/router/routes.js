@@ -1,4 +1,10 @@
-export default [
+const errorRoute = {
+  path: '/:pathMatch(.*)*',
+  component: () => import('@/common/errors/error-page-status.vue'),
+  meta: {bodyClass: 'red', unrestricted: true},
+};
+
+const routes = [
   {path: '/me', redirect: '/'}, // backward compat
   {path: '/old-config', redirect: '/home'}, // backward compat
   {path: '/', component: () => import('@/home/my-supla-page.vue'), name: 'me'},
@@ -370,9 +376,8 @@ export default [
     component: () => import('@/account/integrations/register-target-cloud-form.vue'),
     meta: {unrestricted: true, unavailableInMaintenance: true, bodyClass: 'register-slider-body'},
   },
-  {
-    path: '/:pathMatch(.*)*',
-    component: () => import('@/common/errors/error-page-status.vue'),
-    meta: {bodyClass: 'red', unrestricted: true},
-  },
+  errorRoute,
 ];
+
+// A server-rendered error must win even when its URL matches a normal page.
+export default window.errorDetails ? [errorRoute] : routes;

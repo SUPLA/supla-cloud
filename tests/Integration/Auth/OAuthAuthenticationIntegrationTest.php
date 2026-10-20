@@ -98,7 +98,14 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRequestForInvalidScopeResultsInRedirectionWithError() {
-        $client = $this->makeOAuthAuthorizeRequest(['state' => 'horse', 'scope' => 'account_r unicorn']);
+        $client = $this->createHttpsClient(false);
+        $client->request('GET', '/oauth/v2/auth?' . http_build_query([
+            'client_id' => $this->client->getPublicId(),
+            'redirect_uri' => 'https://unicorns.pl',
+            'response_type' => 'code',
+            'state' => 'horse',
+            'scope' => 'account_r unicorn',
+        ]));
         $response = $client->getResponse();
         $this->assertTrue($response->isRedirection());
         $targetUrl = $response->headers->get('Location');
@@ -118,7 +125,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRequestForInvalidRedirectUriResultsInError() {
-        $client = $this->makeOAuthAuthorizeRequest(['state' => 'horse', 'redirect_uri' => 'https://horses.pl']);
+        $client = $this->makeOAuthAuthorizeRequest(['state' => 'horse', 'redirect_uri' => 'https://horses.pl'], ['login' => false]);
         $response = $client->getResponse();
         $this->assertFalse($response->isRedirection());
         $this->assertStatusCode(400, $response);
@@ -126,10 +133,10 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
 
     public function testLogsOutAfterGrantingAccess() {
         $this->makeOAuthAuthorizeRequest();
-        $client = $this->makeOAuthAuthorizeRequest(['client_id' => '1_local'], ['login' => false]);
+        $client = $this->makeOAuthAuthorizeRequest([], ['login' => false]);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('askForTargetCloud: true', $response->getContent());
+        $this->assertStringContainsString('askForTargetCloud: false', $response->getContent());
     }
 
     private function issueTokenBasedOnAuthCode($authCode = null, array $params = []) {

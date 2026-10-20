@@ -46,6 +46,15 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     /** @var User */
     private $user;
 
+    /** @before */
+    public function registerBrowserTestApplication(): void {
+        SuplaAutodiscoverMock::$publicClients['1_public'] = [
+            'name' => 'Test application',
+            'redirectUris' => ['https://cool.app'],
+            'secret' => 'test-public-secret',
+        ];
+    }
+
     protected function tearDown(): void {
         TargetSuplaCloudRequestForwarder::$requestExecutor = null;
         parent::tearDown();
@@ -586,6 +595,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     public function testDisplaysNormalLoginFormIfLocalClientExists() {
         $localClient = $this->clientManager->createClient();
         $localClient->setName('Local App');
+        $localClient->setRedirectUris(['https://cool.app']);
         $this->clientManager->updateClient($localClient);
         $client = $this->createHttpsInsulatedClient();
         $client->request('GET', $this->oauthAuthorizeUrl($localClient->getPublicId()));
@@ -674,8 +684,10 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDisplaysErrorIfTargetCloudIsNotRegisteredInAutodiscover() {
-        $client = $this->createHttpsInsulatedClient();
+        $client = $this->createHttpsClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertStringContainsString('askForTargetCloud: true', $client->getResponse()->getContent());
         $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -685,8 +697,10 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDisplaysErrorIfTargetCloudUrlIsWrong() {
-        $client = $this->createHttpsInsulatedClient();
+        $client = $this->createHttpsClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertStringContainsString('askForTargetCloud: true', $client->getResponse()->getContent());
         $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'xxx']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -696,8 +710,10 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testEscapesTargetCloudUrl() {
-        $client = $this->createHttpsInsulatedClient();
+        $client = $this->createHttpsClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertStringContainsString('askForTargetCloud: true', $client->getResponse()->getContent());
         $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'x"x\'x']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -707,8 +723,10 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDisplaysErrorIfUserCannotBeAutodiscovered() {
-        $client = $this->createHttpsInsulatedClient();
+        $client = $this->createHttpsClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertStringContainsString('askForTargetCloud: true', $client->getResponse()->getContent());
         $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -1050,7 +1068,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
             'redirectUris' => ['https://cooler.app'],
         ];
         $client = $this->createHttpsClient();
-        $client->request('GET', $this->oauthAuthorizeUrl($localClient->getPublicId()));
+        $client->request('GET', $this->oauthAuthorizeUrl($localClient->getPublicId(), 'https://cooler.app'));
         $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
         $createdClient = $this->clientManager->findClientByPublicId($localClient->getPublicId());
         $this->assertNotNull($createdClient);
@@ -1059,7 +1077,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(['https://cooler.app'], $createdClient->getRedirectUris());
     }
 
-    private function oauthAuthorizeUrl($clientId, $redirectUri = 'https://app.com/auth', $scope = 'account_r', $responseType = 'code') {
+    private function oauthAuthorizeUrl($clientId, $redirectUri = 'https://cool.app', $scope = 'account_r', $responseType = 'code') {
         return '/oauth/v2/auth?' . http_build_query([
                 'client_id' => $clientId,
                 'redirect_uri' => $redirectUri,

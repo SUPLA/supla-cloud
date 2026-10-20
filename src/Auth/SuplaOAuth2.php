@@ -93,6 +93,28 @@ class SuplaOAuth2 extends OAuth2 {
         return $params;
     }
 
+    /** Validate the browser link before the security firewall starts login. */
+    public function validateBrowserAuthorizationRequest(Request $request, ApiClient $client): void {
+        $query = $request->query->all();
+        foreach (['redirect_uri', 'scope', 'state'] as $field) {
+            if (isset($query[$field]) && !is_string($query[$field])) {
+                throw new OAuth2ServerException(Response::HTTP_BAD_REQUEST, self::ERROR_INVALID_REQUEST, 'Invalid authorization parameters.');
+            }
+        }
+        // Use the legacy callback matching policy, but establish trust before
+        // any protocol error can send the browser back to the application.
+        $redirectUri = $this->getRedirectUri($query['redirect_uri'] ?? null, $client);
+        $scope = $query['scope'] ?? '';
+        if ($scope && !$this->checkScope($scope, $this->getVariable(self::CONFIG_SUPPORTED_SCOPES))) {
+            throw new OAuth2RedirectException($redirectUri, self::ERROR_INVALID_SCOPE, 'An unsupported scope was requested.', $query['state'] ?? null);
+        }
+        try {
+            $this->oauthPkce->getChallenge($request);
+        } catch (OAuth2ServerException $e) {
+            throw new OAuth2RedirectException($redirectUri, self::ERROR_INVALID_REQUEST, null, $query['state'] ?? null);
+        }
+    }
+
     /**
      * @param ApiClient $client
      * @inheritdoc
