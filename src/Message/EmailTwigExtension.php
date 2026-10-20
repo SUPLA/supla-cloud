@@ -17,11 +17,19 @@ class EmailTwigExtension extends AbstractExtension {
     private $localSuplaCloud;
     /** @var SuplaAutodiscover */
     private $autodiscover;
+    /** @var string */
+    private $brokerPublicUrl;
 
-    public function __construct(TranslatorInterface $translator, LocalSuplaCloud $localSuplaCloud, SuplaAutodiscover $autodiscover) {
+    public function __construct(
+        TranslatorInterface $translator,
+        LocalSuplaCloud $localSuplaCloud,
+        SuplaAutodiscover $autodiscover,
+        string $brokerPublicUrl
+    ) {
         $this->translator = $translator;
         $this->localSuplaCloud = $localSuplaCloud;
         $this->autodiscover = $autodiscover;
+        $this->brokerPublicUrl = $brokerPublicUrl;
     }
 
     public function getFilters() {
@@ -84,7 +92,7 @@ GREENBUTTON;
     }
 
     public function getCloudUrl(array $context, string $url = ''): string {
-        $fullUrl = $this->autodiscover->isBroker() ? 'https://cloud.supla.org' : $this->localSuplaCloud->getAddress();
+        $fullUrl = $this->autodiscover->isBroker() ? $this->brokerPublicUrl : $this->localSuplaCloud->getAddress();
         if ($url) {
             $fullUrl = StringUtils::joinPaths($fullUrl, $url);
             if ($locale = $context['userLocale'] ?? null) {
@@ -95,7 +103,11 @@ GREENBUTTON;
     }
 
     public function getCloudHost(): string {
-        return $this->autodiscover->isBroker() ? 'cloud.supla.org' : $this->localSuplaCloud->getHost();
+        if (!$this->autodiscover->isBroker()) {
+            return $this->localSuplaCloud->getHost();
+        }
+        $brokerPublicUrl = parse_url($this->brokerPublicUrl);
+        return $brokerPublicUrl['host'] . (isset($brokerPublicUrl['port']) ? ':' . $brokerPublicUrl['port'] : '');
     }
 
     public function getSvrUrl(array $context, string $url = ''): string {
