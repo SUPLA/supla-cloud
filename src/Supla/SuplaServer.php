@@ -219,8 +219,8 @@ abstract class SuplaServer {
         return $this->userAction('ON-STATE-WEBHOOK-CHANGED');
     }
 
-    public function mqttSettingsChanged(): bool {
-        return $this->userAction('ON-MQTT-SETTINGS-CHANGED');
+    public function mqttSettingsChanged(?User $user = null): bool {
+        return $this->userAction('ON-MQTT-SETTINGS-CHANGED', [], $user);
     }
 
     public function googleHomeCredentialsChanged(): bool {

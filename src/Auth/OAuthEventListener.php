@@ -17,13 +17,9 @@
 
 namespace App\Auth;
 
-use App\Entity\Main\OAuth\ApiClientAuthorization;
 use App\Entity\Main\User;
-use App\Model\Transactional;
 use App\Repository\ApiClientAuthorizationRepository;
 use App\Repository\UserRepository;
-use App\Supla\SuplaServerAware;
-use Doctrine\ORM\EntityManagerInterface;
 use FOS\OAuthServerBundle\Event\OAuthEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -33,14 +29,12 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  * @see https://github.com/FriendsOfSymfony/FOSOAuthServerBundle/blob/master/Resources/doc/the_oauth_event_class.md
  */
 class OAuthEventListener implements EventSubscriberInterface {
-    use Transactional;
-    use SuplaServerAware;
-
     public function __construct(
         private readonly ApiClientAuthorizationRepository $authorizationRepository,
         private readonly UserRepository $userRepository,
         private readonly RequestStack $requestStack,
         private readonly TokenStorageInterface $tokenStorage,
+        private readonly OAuthAuthorizationGrantService $authorizationGrantService,
     ) {
     }
 
@@ -70,34 +64,11 @@ class OAuthEventListener implements EventSubscriberInterface {
                 $formData = $request->get('fos_oauth_server_authorize_form', []);
                 $scope = $formData['scope'] ?? null;
                 if ($scope) {
-                    $authorization = $this->transactional(function (EntityManagerInterface $entityManager) use ($client, $scope, $user) {
-                        $authorization = $this->authorizationRepository->findOneByUserAndApiClient($user, $client);
-                        if ($authorization) {
-                            $authorization->authorizeNewScope($scope);
-                            $entityManager->persist($authorization);
-                        } else {
-                            $authorization = $user->addApiClientAuthorization($client, $scope);
-                            $entityManager->persist($user);
-                        }
-                        return $authorization;
-                    });
-                    $this->onAuthorizationCreated($authorization);
+                    $this->authorizationGrantService->authorize($user, $client, $scope);
                 }
             }
         }
         $this->invalidateSession();
-    }
-
-    private function onAuthorizationCreated(ApiClientAuthorization $authorization): void {
-        $scope = new OAuthScope($authorization->getScope());
-        $user = $authorization->getUser();
-        if ($scope->hasScope('mqtt_broker') && !$user->isMqttBrokerEnabled()) {
-            $this->transactional(function (EntityManagerInterface $entityManager) use ($user) {
-                $user->setMqttBrokerEnabled(true);
-                $entityManager->persist($user);
-            });
-            $this->suplaServer->mqttSettingsChanged();
-        }
     }
 
     private function invalidateSession(): void {

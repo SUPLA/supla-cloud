@@ -16,6 +16,7 @@
  */
 namespace App\Auth;
 
+use App\Entity\Main\OAuth\AuthCode;
 use App\Entity\Main\OAuth\AccessToken;
 use App\Entity\Main\OAuth\ApiClient;
 use App\Entity\Main\OAuth\RefreshToken;
@@ -25,10 +26,14 @@ use App\Model\LocalSuplaCloud;
 use App\Model\TargetSuplaCloud;
 use App\Repository\ApiClientAuthorizationRepository;
 use App\Supla\SuplaAutodiscover;
+use Doctrine\DBAL\Exception\DriverException;
+use Doctrine\ORM\EntityManagerInterface;
 use OAuth2\IOAuth2Storage;
 use OAuth2\Model\IOAuth2Client;
 use OAuth2\OAuth2;
+use OAuth2\OAuth2RedirectException;
 use OAuth2\OAuth2ServerException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -51,7 +56,9 @@ class SuplaOAuth2 extends OAuth2 {
         LocalSuplaCloud $localSuplaCloud,
         SuplaAutodiscover $autodiscover,
         ApiClientAuthorizationRepository $apiClientAuthorizationRepository,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly OAuthPkce $oauthPkce
     ) {
         parent::__construct($storage, $config);
         $this->tokensLifetime = $tokensLifetime;
@@ -64,6 +71,26 @@ class SuplaOAuth2 extends OAuth2 {
 
     protected function genAccessToken() {
         return parent::genAccessToken() . '.' . base64_encode($this->localSuplaCloud->getAddress());
+    }
+
+    /**
+     * oauth2-php 1.10 exposes validation only as a protected hook. Keep the
+     * internal API on exactly the validator used by finishClientAuthorization,
+     * without probing it with a synthetic denial or issuing a code.
+     */
+    public function validateAuthorizationRequest(Request $request): array {
+        $params = $this->getAuthorizeParams($request);
+        try {
+            $this->oauthPkce->getChallenge($request);
+        } catch (OAuth2ServerException $e) {
+            throw new OAuth2RedirectException(
+                $params['redirect_uri'],
+                self::ERROR_INVALID_REQUEST,
+                null,
+                $params['state'] ?? null
+            );
+        }
+        return $params;
     }
 
     /**
@@ -126,7 +153,68 @@ class SuplaOAuth2 extends OAuth2 {
 
     protected function grantAccessTokenAuthCode(IOAuth2Client $client, array $input) {
         $this->forwardIssueTokenRequestIfBroker($client, $input['code'] ?? '');
-        return parent::grantAccessTokenAuthCode($client, $input);
+        if (is_string($input['code'] ?? null)) {
+            $this->lockLocalAuthCode($input['code']);
+        }
+        $stored = parent::grantAccessTokenAuthCode($client, $input);
+        if ($this->usedAuthCode instanceof AuthCode && ($request = $this->requestStack->getCurrentRequest())) {
+            if ($this->usedAuthCode->getCodeChallenge() !== null) {
+                $requestInput = $request->getMethod() === 'POST' ? $request->request->all() : $request->query->all();
+                $redirectUri = $requestInput['redirect_uri'] ?? null;
+                if (
+                    !is_string($redirectUri)
+                    || !hash_equals($this->usedAuthCode->getRedirectUri(), $redirectUri)
+                ) {
+                    throw new OAuth2ServerException((string)Response::HTTP_BAD_REQUEST, self::ERROR_REDIRECT_URI_MISMATCH);
+                }
+            }
+            $this->oauthPkce->verify($this->usedAuthCode, $request);
+        }
+        return $stored;
+    }
+
+    /** Lock local code exchange from lookup through code deletion/token creation. */
+    public function grantAccessToken(?Request $request = null) {
+        $request ??= $this->requestStack->getCurrentRequest();
+        if (!$request) {
+            return parent::grantAccessToken();
+        }
+        $input = $request->getMethod() === 'POST' ? $request->request->all() : $request->query->all();
+        if (($input['grant_type'] ?? null) !== OAuth2::GRANT_TYPE_AUTH_CODE || !is_string($input['code'] ?? null)) {
+            return parent::grantAccessToken($request);
+        }
+        // Every local authorization-code exchange runs in a transaction so
+        // the row lock in grantAccessTokenAuthCode() spans the whole
+        // exchange; suffixed codes are local codes, not a forwarding signal.
+        // Broker forwarding throws before the lock and before any write, so
+        // its rollback is a no-op and the exception still reaches the
+        // forwarding controller.
+        return $this->entityManager->wrapInTransaction(fn() => parent::grantAccessToken($request));
+    }
+
+    private function lockLocalAuthCode(string $token): void {
+        // A no-op UPDATE obtains the row's write lock without leaving a stale
+        // SELECT snapshot if another exchange deletes the code while we wait.
+        try {
+            $this->entityManager->getConnection()->executeStatement(
+                'UPDATE supla_oauth_auth_codes SET id = id WHERE token = ?',
+                [$token]
+            );
+            $exists = $this->entityManager->getConnection()->fetchOne(
+                'SELECT id FROM supla_oauth_auth_codes WHERE token = ? FOR UPDATE',
+                [$token]
+            );
+            if ($exists === false) {
+                throw new OAuth2ServerException((string)Response::HTTP_BAD_REQUEST, self::ERROR_INVALID_GRANT);
+            }
+        } catch (DriverException $e) {
+            // MariaDB can report ER_RECORD_CHANGED (1020) when the winning
+            // exchange deletes a locked row while this UPDATE is waiting.
+            if ((int)$e->getCode() === 1020 || str_contains($e->getMessage(), '1020 Record has changed')) {
+                throw new OAuth2ServerException((string)Response::HTTP_BAD_REQUEST, self::ERROR_INVALID_GRANT);
+            }
+            throw $e;
+        }
     }
 
     protected function grantAccessTokenRefreshToken(IOAuth2Client $client, array $input) {
@@ -150,10 +238,27 @@ class SuplaOAuth2 extends OAuth2 {
             $tokenParts = explode('.', $authCodeOrRefreshToken);
             if (count($tokenParts) === 2 && ($targetCloudUrl = base64_decode($tokenParts[1]))) {
                 // we hit token issue request as SUPLA Broker! let's verify the public client credentials now
-                $targetCloud = new TargetSuplaCloud($targetCloudUrl, false);
+                try {
+                    // Canonicalize before asking AD. A suffix is only a lookup
+                    // hint; it must not select a different spelling, protocol
+                    // or path from the trusted-peer record.
+                    $targetCloud = TargetSuplaCloud::trustedPeer($targetCloudUrl);
+                } catch (\InvalidArgumentException $e) {
+                    throw new OAuth2ServerException(
+                        Response::HTTP_BAD_REQUEST,
+                        self::ERROR_INVALID_CLIENT,
+                        'The target cloud is not trusted'
+                    );
+                }
                 $mappedClientData = $this->autodiscover->fetchTargetCloudClientSecret($client, $targetCloud);
                 if ($mappedClientData) {
-                    throw new ForwardRequestToTargetCloudException($targetCloud, $mappedClientData);
+                    // A positive AD mapping is the trusted-peer lookup. The
+                    // suffix remains only a hint and is never forwarded as an
+                    // unverified destination.
+                    throw new ForwardRequestToTargetCloudException(
+                        $targetCloud,
+                        $mappedClientData
+                    );
                 } else {
                     throw new OAuth2ServerException(
                         Response::HTTP_BAD_REQUEST,

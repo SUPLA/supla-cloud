@@ -7,10 +7,21 @@ class TargetSuplaCloud {
     /** @var string */
     private $address;
     private $local;
+    private bool $trustedPeer;
 
-    public function __construct(string $address, bool $local = false) {
+    public function __construct(string $address, bool $local = false, bool $trustedPeer = false) {
         $this->address = $address;
         $this->local = $local;
+        $this->trustedPeer = $trustedPeer;
+    }
+
+    /**
+     * Creates a target which was returned by Autodiscover or an equivalent
+     * private-cloud trusted-peer registry. It must not be used for a browser
+     * supplied URL or a token suffix before that lookup has succeeded.
+     */
+    public static function trustedPeer(string $address): self {
+        return new self(self::canonicalOrigin($address), false, true);
     }
 
     public function getOauthAuthUrl(array $oauthParams): string {
@@ -32,6 +43,46 @@ class TargetSuplaCloud {
 
     public function isLocal(): bool {
         return $this->local;
+    }
+
+    public function isTrustedPeer(): bool {
+        return $this->trustedPeer;
+    }
+
+    public function getCanonicalOrigin(): string {
+        return self::canonicalOrigin($this->address);
+    }
+
+    public static function canonicalOrigin(string $address): string {
+        $parts = parse_url($address);
+        $validationEnabled = TrustedPeerOriginPolicy::isValidationEnabled();
+        if (
+            !is_array($parts)
+            || !in_array($parts['scheme'] ?? null, $validationEnabled ? ['https'] : ['http', 'https'], true)
+            || empty($parts['host'])
+            || isset($parts['user'])
+            || isset($parts['pass'])
+            || isset($parts['query'])
+            || isset($parts['fragment'])
+            || (isset($parts['path']) && $parts['path'] !== '' && $parts['path'] !== '/')
+        ) {
+            throw new \InvalidArgumentException('Invalid trusted SUPLA Cloud origin.');
+        }
+        $host = strtolower(trim($parts['host'], '[]'));
+        $port = $parts['port'] ?? 443;
+        if ($port < 1 || $port > 65535) {
+            throw new \InvalidArgumentException('Invalid trusted SUPLA Cloud origin.');
+        }
+        if (
+            $validationEnabled
+            && filter_var($host, FILTER_VALIDATE_IP)
+            && filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false
+        ) {
+            throw new \InvalidArgumentException('Invalid trusted SUPLA Cloud origin.');
+        }
+        $scheme = $parts['scheme'];
+        $defaultPort = $scheme === 'https' ? 443 : 80;
+        return $scheme . '://' . (str_contains($host, ':') ? "[$host]" : $host) . ($port === $defaultPort ? '' : ":$port");
     }
 
     public static function forHost(string $scheme, $domainName): self {

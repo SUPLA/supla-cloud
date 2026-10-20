@@ -67,8 +67,8 @@ class UserLoginAttemptListener {
             ->setUser($user)
             ->buildAndFlush();
         $this->logger->debug('Invalid user auth', [
-            'requestHeaders' => $this->requestStack->getCurrentRequest()->headers->all(),
-            'requestServer' => $this->requestStack->getCurrentRequest()->server->all(),
+            // Do not log bearer/broker tokens, cookies, or request credentials.
+            'clientIp' => $this->requestStack->getCurrentRequest()->getClientIp(),
         ]);
         if ($user && $user->isEnabled() && $entry->getIntParam() != AuthenticationFailureReason::BLOCKED) {
             $this->messageBus->dispatch(new FailedAuthAttemptNotification($user, $entry->getIpv4()));

@@ -25,6 +25,7 @@ use Psr\Cache\CacheItemPoolInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -46,6 +47,22 @@ class DefaultController extends AbstractController {
     public function __construct(string $suplaUrl, CacheItemPoolInterface $openApiCache) {
         $this->suplaUrl = $suplaUrl;
         $this->openApiCache = $openApiCache;
+    }
+
+    /**
+     * @Route("/.well-known/oauth-authorization-server", methods={"GET"})
+     */
+    public function oauthAuthorizationServerMetadataAction(): JsonResponse {
+        $issuer = rtrim($this->getParameter('supla.broker_public_url'), '/');
+        return new JsonResponse([
+            'issuer' => $issuer,
+            'authorization_endpoint' => $issuer . '/oauth/v2/auth',
+            'token_endpoint' => $issuer . '/oauth/v2/token',
+            'response_types_supported' => ['code'],
+            'grant_types_supported' => ['authorization_code', 'refresh_token'],
+            'code_challenge_methods_supported' => ['S256'],
+            'token_endpoint_auth_methods_supported' => ['client_secret_basic', 'client_secret_post'],
+        ]);
     }
 
     /**

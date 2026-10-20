@@ -7,6 +7,7 @@ parameters:
   env(GOOGLE_RECAPTCHA_SECRET): ''
   env(GOOGLE_RECAPTCHA_SITE_KEY): ''
   env(CORS_ALLOW_ORIGIN): '^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
+  env(SUPLA_TRUSTED_CLOUD_ORIGIN_VALIDATION): 'true'
 
 services:
   _defaults:
@@ -76,6 +77,12 @@ services:
     $suplaVersion: '%supla.version%'
     $suplaVersionFull: '%supla.version_full%'
     $actAsBrokerCloud: '%supla.act_as_broker_cloud%'
+
+  App\Controller\Api\InternalOAuthAuthorizationController:
+    tags: ['controller.service_arguments']
+
+  App\Controller\OAuth\OAuthAuthorizationController:
+    tags: ['controller.service_arguments']
 
   App\Controller\Api\StateWebhookController:
     $stateWebhooksForPublicAppsOnly: '%supla.state_webhooks.only_for_public_apps%'
@@ -198,6 +205,9 @@ services:
 
   App\Auth\SuplaOAuthStorage:
     $userProvider: '@App\Auth\UserProvider'
+
+  App\Form\Type\Extension\AuthorizePkceFormTypeExtension:
+    tags: ['form.type_extension']
 
   App\Auth\OAuthEventListener: ~
 

@@ -31,6 +31,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(name="supla_oauth_clients", indexes={
  *     @ORM\Index(name="supla_oauth_clients_random_id_idx", columns={"random_id"}),
  *     @ORM\Index(name="supla_oauth_clients_type_idx", columns={"type"})
+ * }, uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="supla_oauth_clients_public_client_id_uniq", columns={"public_client_id"})
  * })
  */
 class ApiClient extends Client {

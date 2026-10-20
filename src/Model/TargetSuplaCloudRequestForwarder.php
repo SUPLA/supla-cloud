@@ -23,16 +23,22 @@ use Symfony\Component\HttpFoundation\Request;
 class TargetSuplaCloudRequestForwarder {
     private SuplaBrokerHttpClient $brokerHttpClient;
     private RealClientIpResolver $clientIpResolver;
+    private TrustedPeerDestinationSelector $trustedPeerDestinationSelector;
 
     /**
      * For the sake of tests.
-     * @var callable
+     * @var callable|null
      */
     public static $requestExecutor;
 
-    public function __construct(SuplaBrokerHttpClient $brokerHttpClient, RealClientIpResolver $clientIpResolver) {
+    public function __construct(
+        SuplaBrokerHttpClient $brokerHttpClient,
+        RealClientIpResolver $clientIpResolver,
+        TrustedPeerDestinationSelector $trustedPeerDestinationSelector
+    ) {
         $this->brokerHttpClient = $brokerHttpClient;
         $this->clientIpResolver = $clientIpResolver;
+        $this->trustedPeerDestinationSelector = $trustedPeerDestinationSelector;
     }
 
     public function issueWebappToken(TargetSuplaCloud $target, string $username, string $password): array {
@@ -51,6 +57,11 @@ class TargetSuplaCloudRequestForwarder {
         ]);
 
         return $this->sendBrokerRequest($target, '/oauth/v2/token', $inputData);
+    }
+
+    /** Forward a fresh-password authorization request to its trusted owner. */
+    public function authorizeOAuth(TargetSuplaCloud $target, array $authorizationData): array {
+        return $this->sendBrokerRequest($target, '/api/internal/oauth/authorize', $authorizationData);
     }
 
     public function resetPasswordToken(TargetSuplaCloud $target, string $username): array {
@@ -82,6 +93,26 @@ class TargetSuplaCloudRequestForwarder {
         }
     }
 
+    /**
+     * Probe a submitted origin only for private-cloud registration. This
+     * narrow exception may read public server metadata, but does not establish
+     * peer trust and never sends broker credentials.
+     * @return array<string, mixed>|null
+     */
+    public function getRegistrationInfo(string $submittedOrigin): ?array {
+        $origin = TargetSuplaCloud::canonicalOrigin($submittedOrigin);
+        if (self::$requestExecutor) {
+            [$response, $status] = (self::$requestExecutor)($origin, 'server-info', null);
+        } else {
+            $response = $this->brokerHttpClient->requestTrusted(
+                $origin . '/api/v' . ApiVersions::V2_3 . '/server-info',
+                null,
+                $status
+            );
+        }
+        return $status === 200 ? $response : null;
+    }
+
     private function sendBrokerRequest(
         TargetSuplaCloud $target,
         string $apiEndpoint,
@@ -100,8 +131,9 @@ class TargetSuplaCloudRequestForwarder {
         array $headers = [],
         bool $withBrokerToken = false
     ): array {
+        $destination = $this->trustedPeerDestinationSelector->select($target);
         if (self::$requestExecutor) {
-            return (self::$requestExecutor)($target->getAddress(), $apiEndpoint, $data);
+            return (self::$requestExecutor)($destination->getOrigin(), $apiEndpoint, $data);
         }
         if (!str_starts_with($apiEndpoint, '/')) {
             $apiEndpoint = '/api/v' . ApiVersions::V2_3 . '/' . $apiEndpoint;
@@ -109,9 +141,9 @@ class TargetSuplaCloudRequestForwarder {
         if ($ip = $this->clientIpResolver->getRealIp()) {
             $headers['X-Real-Ip'] = $ip;
         }
-        $fullUrl = $target->getAddress() . $apiEndpoint;
+        $fullUrl = $destination->getOrigin() . $apiEndpoint;
         if ($withBrokerToken) {
-            $response = $this->brokerHttpClient->requestWithStoredToken(
+            $response = $this->brokerHttpClient->requestTrustedWithStoredToken(
                 $fullUrl,
                 $data,
                 $responseStatus,
@@ -120,7 +152,7 @@ class TargetSuplaCloudRequestForwarder {
                 'SUPLA-Broker-Token'
             );
         } else {
-            $response = $this->brokerHttpClient->request($fullUrl, $data, $responseStatus, $headers, $method);
+            $response = $this->brokerHttpClient->requestTrusted($fullUrl, $data, $responseStatus, $headers, $method);
         }
         return [$response, $responseStatus];
     }
