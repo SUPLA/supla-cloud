@@ -24,6 +24,7 @@ use App\Entity\MeasurementLogs\ElectricityMeterLogItem;
 use App\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
 use App\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
 use App\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
+use App\Entity\MeasurementLogs\GeneralPurposeTextLogItem;
 use App\Entity\MeasurementLogs\ImpulseCounterLogItem;
 use App\Entity\MeasurementLogs\TemperatureLogItem;
 use App\Entity\MeasurementLogs\TempHumidityLogItem;
@@ -155,6 +156,15 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $date->add($oneday);
         }
 
+        foreach (['hello', 'world', 'supla'] as $value) {
+            $logItem = new GeneralPurposeTextLogItem();
+            EntityUtils::setField($logItem, 'channel_id', 15 + $offset);
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
+            EntityUtils::setField($logItem, 'value', $value);
+            $this->getMeasurementLogsEntityManager()->persist($logItem);
+            $date->add($oneday);
+        }
+
         $fixture = new LogItemsFixture($this->getContainer()->get(MeasurementLogsEntityManagerProvider::class));
         $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-1 days', 1);
         $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-1 days', 2);
@@ -183,6 +193,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             [ChannelType::HUMIDITYSENSOR, ChannelFunction::HUMIDITY],
             [ChannelType::GENERAL_PURPOSE_MEASUREMENT, ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
             [ChannelType::GENERAL_PURPOSE_METER, ChannelFunction::GENERAL_PURPOSE_METER],
+            [ChannelType::GENERAL_PURPOSE_TEXT, ChannelFunction::GENERAL_PURPOSE_TEXT],
         ];
 
         $this->device1 = $this->createDevice($location, $channels);
@@ -224,7 +235,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     public static function measurementLogsCounts() {
-        return [[2], [3], [4], [5], [6], [7], [8], [9], [10]];
+        return [[2], [3], [4], [5], [6], [7], [8], [9], [10], [15]];
     }
 
     public function testGettingTemperatureLogsCountObsolete() {
@@ -367,6 +378,12 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertEqualsWithDelta(174.568, $firstLog['value'], 0.001);
     }
 
+    public function testGettingGeneralPurposeTextLogs() {
+        $firstLog = $this->getMeasurementLogsV24(15)[0];
+        $this->assertIsInt($firstLog['date_timestamp']);
+        $this->assertSame('supla', $firstLog['value']);
+    }
+
     public function testGettingElectricityCounterLogsV22() {
         $this->ensureImpulseCounterLogsV22(5);
     }
@@ -435,6 +452,11 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     public function testGettingElectricityMeasurementLogsAscending() {
         $content = $this->getMeasurementLogsAscending(4);
         $this->ensureElectricityMeasurementLogsOrder($content, [854800, 854900, 855000]);
+    }
+
+    public function testGettingGeneralPurposeTextLogsAscending() {
+        $content = $this->getMeasurementLogsAscending(15);
+        $this->assertSame(['hello', 'world', 'supla'], array_column($content, 'value'));
     }
 
     private function ensureImpulseCounterLogsAscending($channelId) {

@@ -155,6 +155,11 @@
       {field: 'date', label: 'Date and time'},
       {field: 'value', label: 'Value'},
     ],
+    [ChannelFunction.GENERAL_PURPOSE_TEXT]: [
+      {field: 'date_timestamp', label: 'Timestamp'},
+      {field: 'date', label: 'Date and time'},
+      {field: 'value', label: 'Text value'},
+    ],
   };
 
   EXPORT_DEFINITIONS[ChannelFunction.IC_HEATMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
@@ -168,6 +173,7 @@
   export default {
     components: {TransitionExpand},
     props: {
+      channel: Object,
       storage: Object,
       dateRange: Object,
       chartMode: String,
@@ -185,9 +191,6 @@
       };
     },
     computed: {
-      channel() {
-        return this.storage.channel;
-      },
       filename() {
         return [
           latinize((this.channel.caption || '').toLowerCase().trim())
@@ -208,7 +211,7 @@
         return EXPORT_DEFINITIONS[fncDescriptor];
       },
       supportsFrontendExport() {
-        return window.indexedDB && this.storage.hasSupport && !!this.exportFields;
+        return window.indexedDB && !!this.storage && this.storage.hasSupport && !!this.exportFields;
       },
       supportsIncrementalLogs() {
         return (
