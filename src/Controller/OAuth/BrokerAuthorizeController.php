@@ -55,22 +55,13 @@ class BrokerAuthorizeController extends AuthorizeController {
      */
     public function authorizeAction(Request $request): Response {
         try {
-            try {
-                try {
-                    return parent::authorizeAction($request);
-                } catch (OAuthReauthenticateException $exception) {
-                    return new RedirectResponse($request->getUri());
-                } catch (OAuth2RedirectException $redirectException) {
-                    throw $redirectException;
-                } catch (OAuth2ServerException $e) {
-                    throw new ApiException($e->getDescription() ?: 'error', Response::HTTP_BAD_REQUEST, $e);
-                }
-            } catch (ApiException $e) {
-                $this->oauth2Server->finishClientAuthorization(false);
-                throw $e;
-            }
+            return parent::authorizeAction($request);
+        } catch (OAuthReauthenticateException $exception) {
+            return new RedirectResponse($request->getUri());
         } catch (OAuth2RedirectException $redirectException) {
             return new Response('', Response::HTTP_FOUND, $redirectException->getResponseHeaders());
+        } catch (OAuth2ServerException $e) {
+            throw new ApiException($e->getDescription() ?: 'error', Response::HTTP_BAD_REQUEST, $e);
         }
     }
 
