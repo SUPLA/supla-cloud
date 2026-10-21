@@ -141,10 +141,72 @@ it('submits exactly the confirmation snapshot and refreshes safely after a confl
   pending.revision = 99;
   await page.findAll('button').at(-1).trigger('click');
   await flushPromises();
-  expect(post).toHaveBeenCalledWith('resource-access/2/approve', {revision: 1, status: 'PENDING', permissions: 2}, {skipErrorHandler: [409]});
+  expect(post).toHaveBeenCalledWith('resource-access/2/approve', {revision: 1, status: 'PENDING', permissions: 2}, {skipErrorHandler: [404, 409]});
   expect(get).toHaveBeenCalledTimes(2);
   expect(page.find('[role="alert"]').text()).toContain('request changed');
   pending.revision = 1;
+  page.unmount();
+});
+it('closes a successfully removed selected request without reading its deleted detail', async () => {
+  const get = vi.spyOn(api, 'get').mockResolvedValue({body: accepted});
+  const post = vi.spyOn(api, 'post').mockResolvedValue({status: 204});
+  const page = mountPage({decisionId: '1'});
+  await flushPromises();
+  await page.find('.btn-red').trigger('click');
+  await page.findAll('button').at(-1).trigger('click');
+  await flushPromises();
+  expect(post).toHaveBeenCalledWith('resource-access/1/remove', {revision: 1, status: 'ACCEPTED', permissions: 1}, {skipErrorHandler: [404, 409]});
+  expect(get).toHaveBeenCalledTimes(1);
+  expect(page.findAll('tbody tr')).toHaveLength(0);
+  expect(page.findComponent({name: 'ModalConfirm'}).exists()).toBe(false);
+  expect(page.emitted('close-selected-request')).toHaveLength(1);
+  get.mockResolvedValue({body: []});
+  await page.setProps({decisionId: undefined});
+  await flushPromises();
+  expect(get).toHaveBeenLastCalledWith('resource-access');
+  page.unmount();
+});
+it.each([404, 409])('clears an already removed selected request after mutation status %s', async (status) => {
+  const get = vi.spyOn(api, 'get').mockResolvedValueOnce({body: accepted}).mockRejectedValue({status: 404});
+  vi.spyOn(api, 'post').mockRejectedValue({status});
+  const page = mountPage({decisionId: '1'});
+  await flushPromises();
+  await page.find('.btn-red').trigger('click');
+  await page.findAll('button').at(-1).trigger('click');
+  await flushPromises();
+  expect(page.findAll('tbody tr')).toHaveLength(0);
+  expect(page.findComponent({name: 'ModalConfirm'}).exists()).toBe(false);
+  expect(page.emitted('close-selected-request')).toHaveLength(1);
+  expect(page.emitted('updated')).toBeUndefined();
+  expect(get).toHaveBeenCalledTimes(status === 409 ? 2 : 1);
+  if (status === 409) expect(get).toHaveBeenLastCalledWith('resource-access/1', {skipErrorHandler: [404]});
+  page.unmount();
+});
+it('leaves a selected request that disappeared before the page was opened', async () => {
+  const get = vi.spyOn(api, 'get').mockRejectedValue({status: 404});
+  const page = mountPage({decisionId: '1'});
+  await flushPromises();
+  expect(get).toHaveBeenCalledWith('resource-access/1', {skipErrorHandler: [404]});
+  expect(page.findAll('tbody tr')).toHaveLength(0);
+  expect(page.emitted('close-selected-request')).toHaveLength(1);
+  page.unmount();
+});
+it('ignores a late detail 404 after selecting a different request', async () => {
+  let rejectOld;
+  vi.spyOn(api, 'get')
+    .mockReturnValueOnce(
+      new Promise((resolve, reject) => {
+        rejectOld = reject;
+      })
+    )
+    .mockResolvedValue({body: pending});
+  const page = mountPage({decisionId: '1'});
+  await page.setProps({decisionId: '2'});
+  await flushPromises();
+  rejectOld({status: 404});
+  await flushPromises();
+  expect(page.findAll('tbody tr')).toHaveLength(1);
+  expect(page.emitted('close-selected-request')).toBeUndefined();
   page.unmount();
 });
 it('explains remove differently for each state and ACTION covers all physical events', () => {
@@ -336,7 +398,7 @@ it('uses stable request cursors and direct lookup for selected decisions', async
   get.mockResolvedValueOnce({body: accepted});
   await page.setProps({decisionId: '1'});
   await flushPromises();
-  expect(get).toHaveBeenLastCalledWith('resource-access/1');
+  expect(get).toHaveBeenLastCalledWith('resource-access/1', {skipErrorHandler: [404]});
   expect(page.findAll('tbody tr')).toHaveLength(1);
   page.unmount();
 });
@@ -373,7 +435,7 @@ it('labels a virtual STREAM source without a fabricated physical device link and
   expect(page.findComponent({name: 'ModalConfirm'}).text()).toContain('Virtual / integration source');
   await page.findAll('button').at(-1).trigger('click');
   await flushPromises();
-  expect(post).toHaveBeenCalledWith('resource-access/2/approve', {revision: 1, status: 'PENDING', permissions: 1}, {skipErrorHandler: [409]});
+  expect(post).toHaveBeenCalledWith('resource-access/2/approve', {revision: 1, status: 'PENDING', permissions: 1}, {skipErrorHandler: [404, 409]});
   expect(page.findAll('select')).toHaveLength(1); // Existing sort only; no delivery-mode editor.
   expect(confirmationText('ACCEPTED', 'remove', 2)).not.toContain('offline source');
   page.unmount();

@@ -55,7 +55,7 @@ export default [
     props: true,
   },
   {path: '/smartphones', component: () => import('@/client-apps/client-apps-page.vue')},
-  {path: '/devices/resource-access', component: () => import('@/devices/details/resource-access-page.vue'), name: 'devices.resource-access'},
+  {path: '/devices/resource-access', redirect: {name: 'safety.resourceAccess'}},
   {
     path: '/devices/:id',
     component: () => import('@/devices/details/device-details-page.vue'),
@@ -329,6 +329,11 @@ export default [
         path: 'personal-access-tokens',
         component: () => import('@/account/safety/personal-tokens/personal-access-tokens.vue'),
         name: 'safety.personalTokens',
+      },
+      {
+        path: 'resource-access',
+        component: () => import('@/devices/details/resource-access-page.vue'),
+        name: 'safety.resourceAccess',
       },
       {
         path: 'change-password',

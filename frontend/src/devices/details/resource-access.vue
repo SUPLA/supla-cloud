@@ -4,7 +4,7 @@
       <h4 class="no-margin-top">{{ $t('Requests') }}</h4>
       <div>
         <button type="button" class="btn btn-white" :disabled="loading" @click="reload">
-          <i class="pe-7s-refresh"></i>
+          <i class="pe-7s-refresh-2" aria-hidden="true"></i>
           {{ $t('Refresh') }}
         </button>
       </div>
@@ -53,7 +53,10 @@
       </p>
       <div v-if="networkError" class="text-warning" role="alert">
         <p>{{ $t('Could not confirm the result. The decision may have reached the server. Refresh to check its status before trying again.') }}</p>
-        <button type="button" class="btn btn-white" :disabled="loading" @click="reload">{{ $t('Refresh request') }}</button>
+        <button type="button" class="btn btn-white" :disabled="loading" @click="reload">
+          <i class="pe-7s-refresh-2" aria-hidden="true"></i>
+          {{ $t('Refresh request') }}
+        </button>
       </div>
     </ModalConfirm>
   </div>
@@ -68,7 +71,7 @@
 
   defineOptions({compatConfig: {MODE: 3}});
   const props = defineProps({device: Object, decisionId: String});
-  const emit = defineEmits(['updated']);
+  const emit = defineEmits(['updated', 'close-selected-request']);
   const entries = ref([]);
   const loading = ref(false);
   const conflict = ref(false);
@@ -106,7 +109,7 @@
     try {
       let response;
       if (props.decisionId) {
-        response = await api.get(`resource-access/${props.decisionId}`);
+        response = await api.get(`resource-access/${props.decisionId}`, {skipErrorHandler: [404]});
       } else {
         const query = new URLSearchParams();
         if (deviceId !== undefined) query.set('deviceId', deviceId);
@@ -116,19 +119,26 @@
       if (revision === loadRevision && deviceId === props.device?.id) {
         entries.value = props.decisionId ? [response.body] : response.body;
         nextCursor.value = response.headers?.get('X-Next-Cursor');
+        return true;
       }
     } catch (error) {
+      if (revision === loadRevision && props.decisionId && error?.status === 404) {
+        closeSelectedRequest();
+      }
       if (revision === loadRevision && !error?.status) networkError.value = true;
     } finally {
       if (revision === loadRevision) loading.value = false;
     }
+    return false;
   }
   function reload() {
     selection.value = undefined;
     cursor.value = undefined;
     nextCursor.value = undefined;
     history.value = [];
-    return load().then(() => emit('updated'));
+    return load().then((loaded) => {
+      if (loaded) emit('updated');
+    });
   }
   function next() {
     history.value.push(cursor.value);
@@ -145,6 +155,12 @@
     conflict.value = false;
     networkError.value = false;
   }
+  function closeSelectedRequest() {
+    entries.value = [];
+    selection.value = undefined;
+    conflict.value = false;
+    emit('close-selected-request');
+  }
   async function confirm() {
     if (!selection.value || loading.value) return;
     const context = contextRevision;
@@ -155,19 +171,25 @@
       await api.post(
         `resource-access/${entry.id}/${action}`,
         {revision: entry.revision, status: entry.status, permissions: entry.permissions},
-        {skipErrorHandler: [409]}
+        {skipErrorHandler: [404, 409]}
       );
       if (context !== contextRevision) return;
       selection.value = undefined;
-      await load();
-      emit('updated');
+      if (action === 'remove' && props.decisionId) {
+        closeSelectedRequest();
+      } else if (await load()) {
+        emit('updated');
+      }
     } catch (error) {
       if (context !== contextRevision) return;
-      if (error.status === 409) {
+      if (error.status === 404 || error.status === 409) {
         conflict.value = true;
         selection.value = undefined;
-        await load();
-        emit('updated');
+        if (error.status === 404 && props.decisionId) {
+          closeSelectedRequest();
+        } else if (await load()) {
+          emit('updated');
+        }
       } else if (!error?.status) {
         networkError.value = true;
       }

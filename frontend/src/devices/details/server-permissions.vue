@@ -1,8 +1,13 @@
 <template>
   <div class="container server-permissions">
     <div class="clearfix left-right-header">
-      <h4>{{ $t('Server permissions') }}</h4>
-      <button class="btn btn-white" type="button" :disabled="loading" @click="reload">{{ $t('Refresh') }}</button>
+      <h4 class="no-margin-top">{{ $t('Server permissions') }}</h4>
+      <div>
+        <button type="button" class="btn btn-white" :disabled="loading" @click="reload">
+          <i class="pe-7s-refresh-2" aria-hidden="true"></i>
+          {{ $t('Refresh') }}
+        </button>
+      </div>
     </div>
     <p class="small text-muted">
       {{
@@ -152,7 +157,7 @@
       .join(', ');
   const key = (entry) => `${entry.resourceKey || entry.associationId}/${entry.resourceType}/${entry.resourceId}`;
   const requestLink = (id) => ({
-    name: props.device ? 'device.resource-access' : 'devices.resource-access',
+    name: props.device ? 'device.resource-access' : 'safety.resourceAccess',
     params: props.device ? {id: props.device.id} : {},
     query: {view: 'requests', decisionId: id},
   });

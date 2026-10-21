@@ -5,8 +5,9 @@ import ResourceAccessPage from '@/devices/details/resource-access-page.vue';
 import ResourceAccess from '@/devices/details/resource-access.vue';
 import {api} from '@/api/api';
 
-const route = reactive({name: 'devices.resource-access', params: {}, query: {}});
-vi.mock('vue-router', async (importOriginal) => ({...(await importOriginal()), useRoute: () => route}));
+const route = reactive({name: 'safety.resourceAccess', params: {}, query: {}});
+const replace = vi.fn();
+vi.mock('vue-router', async (importOriginal) => ({...(await importOriginal()), useRoute: () => route, useRouter: () => ({replace})}));
 const entry = {
   associationId: '17',
   sourceDeviceId: 9,
@@ -29,19 +30,47 @@ const stubs = {
 const mountList = (props) => mount(ServerPermissions, {props, global: {stubs}});
 afterEach(() => {
   vi.restoreAllMocks();
+  replace.mockReset();
+  route.name = 'safety.resourceAccess';
+  route.params = {};
   route.query = {};
 });
 
 it('defaults to Permissions and keeps Requests accessible in the same navigation', async () => {
-  vi.spyOn(api, 'get').mockResolvedValue({body: {items: [], nextCursor: null}});
+  vi.spyOn(api, 'get').mockImplementation((endpoint) =>
+    Promise.resolve({body: endpoint.includes('/permissions') ? {items: [entry], nextCursor: null} : [{id: 42, status: 'PENDING', permissions: 1}]})
+  );
   const page = mount(ResourceAccessPage, {global: {stubs}});
   await flushPromises();
   expect(page.findComponent(ServerPermissions).exists()).toBe(true);
   expect(page.findComponent(ResourceAccess).exists()).toBe(false);
   route.query = {view: 'requests', decisionId: '42'};
-  vi.mocked(api.get).mockResolvedValue({body: []});
+  vi.mocked(api.get).mockResolvedValue({body: {id: 42, status: 'PENDING', permissions: 1}});
   await flushPromises();
   expect(page.findComponent(ResourceAccess).props('decisionId')).toBe('42');
+  page.unmount();
+});
+
+it.each([
+  ['safety.resourceAccess', {}, undefined],
+  ['device.resource-access', {id: '10'}, {id: 10}],
+])('returns from a removed request detail to the same Requests list (%s)', async (name, params, device) => {
+  route.name = name;
+  route.params = params;
+  route.query = {view: 'requests', decisionId: '42'};
+  vi.spyOn(api, 'get').mockImplementation((endpoint) =>
+    Promise.resolve({
+      body: endpoint.includes('/permissions')
+        ? {items: [entry], nextCursor: null}
+        : endpoint === 'resource-access/42'
+          ? {id: 42, status: 'ACCEPTED', permissions: 1}
+          : [{id: 42}],
+    })
+  );
+  const page = mount(ResourceAccessPage, {props: {device}, global: {stubs}});
+  await flushPromises();
+  page.findComponent(ResourceAccess).vm.$emit('close-selected-request');
+  expect(replace).toHaveBeenCalledWith({name, params, query: {view: 'requests'}});
   page.unmount();
 });
 it('renders effective rights, scope, links and offline copy without raw grant actions', async () => {
@@ -173,11 +202,10 @@ it('shows retryable network failure without presenting an empty permissions resu
 
 it('signals pending decisions in Requests and refreshes the indicator after a decision', async () => {
   let pending = true;
-  const get = vi
-    .spyOn(api, 'get')
-    .mockImplementation((endpoint) =>
-      Promise.resolve({body: endpoint.includes('status=PENDING') ? (pending ? [{id: 1}] : []) : {items: [], nextCursor: null}})
-    );
+  const get = vi.spyOn(api, 'get').mockImplementation((endpoint) => {
+    if (endpoint.includes('/permissions')) return Promise.resolve({body: {items: [entry], nextCursor: null}});
+    return Promise.resolve({body: endpoint.includes('status=PENDING') ? (pending ? [{id: 1}] : []) : [{id: 1}]});
+  });
   const page = mount(ResourceAccessPage, {props: {device: {id: 10}}, global: {stubs}});
   await flushPromises();
   expect(page.find('.requests-pending-indicator').exists()).toBe(true);
@@ -187,6 +215,63 @@ it('signals pending decisions in Requests and refreshes the indicator after a de
   page.findComponent(ServerPermissions).vm.$emit('updated');
   await flushPromises();
   expect(page.find('.requests-pending-indicator').exists()).toBe(false);
+  page.unmount();
+});
+
+it.each([
+  [true, false, 'requests', 'permissions'],
+  [false, true, 'permissions', 'requests'],
+  [true, true, 'permissions', 'permissions'],
+  [false, false, 'permissions', null],
+])('shows only populated tabs (permissions=%s, requests=%s)', async (hasPermissions, hasRequests, selected, visible) => {
+  route.query = {view: selected};
+  vi.spyOn(api, 'get').mockImplementation((endpoint) => {
+    if (endpoint.includes('/permissions')) return Promise.resolve({body: {items: hasPermissions ? [entry] : [], nextCursor: null}});
+    return Promise.resolve({body: hasRequests ? [{id: 1, status: 'REJECTED', permissions: 1}] : []});
+  });
+  const page = mount(ResourceAccessPage, {global: {stubs}});
+  await flushPromises();
+  expect(page.find('a[data-view="permissions"]').exists()).toBe(hasPermissions);
+  expect(page.find('a[data-view="requests"]').exists()).toBe(hasRequests);
+  expect(page.findComponent(ServerPermissions).exists()).toBe(visible === 'permissions');
+  expect(page.findComponent(ResourceAccess).exists()).toBe(visible === 'requests');
+  if (visible === null) expect(replace).toHaveBeenCalledWith({name: 'safety.log'});
+  page.unmount();
+});
+
+it('keeps Permissions available when a filter returns no rows', async () => {
+  vi.spyOn(api, 'get').mockImplementation((endpoint) =>
+    Promise.resolve({
+      body: endpoint.includes('/permissions') ? {items: endpoint.includes('limit=1&') || endpoint.endsWith('limit=1') ? [entry] : [], nextCursor: null} : [],
+    })
+  );
+  const page = mount(ResourceAccessPage, {global: {stubs}});
+  await flushPromises();
+  const list = page.findComponent(ServerPermissions);
+  expect(list.findAll('tbody tr')).toHaveLength(0);
+  list.vm.$emit('updated');
+  await flushPromises();
+  expect(page.find('a[data-view="permissions"]').exists()).toBe(true);
+  expect(replace).not.toHaveBeenCalled();
+  page.unmount();
+});
+
+it('switches to Requests after the last permission disappears and keeps history visible', async () => {
+  let hasPermissions = true;
+  vi.spyOn(api, 'get').mockImplementation((endpoint) =>
+    Promise.resolve({
+      body: endpoint.includes('/permissions') ? {items: hasPermissions ? [entry] : [], nextCursor: null} : [{id: 1, status: 'ACCEPTED', permissions: 1}],
+    })
+  );
+  const page = mount(ResourceAccessPage, {global: {stubs}});
+  await flushPromises();
+  hasPermissions = false;
+  page.findComponent(ServerPermissions).vm.$emit('updated');
+  await flushPromises();
+  expect(page.find('a[data-view="permissions"]').exists()).toBe(false);
+  expect(page.find('a[data-view="requests"]').exists()).toBe(true);
+  expect(page.findComponent(ResourceAccess).exists()).toBe(true);
+  expect(replace).not.toHaveBeenCalled();
   page.unmount();
 });
 
