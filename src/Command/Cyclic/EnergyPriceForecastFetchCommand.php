@@ -39,6 +39,9 @@ class EnergyPriceForecastFetchCommand extends AbstractCyclicCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
+        if (!$this->ad->isTarget()) {
+            return 0;
+        }
         $repo = $this->measurementLogsEntityManager->getRepository(EnergyPriceLogItem::class);
         $forecast = $this->ad->fetchEnergyPriceForecast();
         foreach ($forecast as $forecastItem) {
