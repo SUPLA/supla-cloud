@@ -20,10 +20,7 @@
             </router-link>
             <router-link v-if="access.hasEntries.value" :to="{name: 'safety.resourceAccess'}" class="btn">
               {{ $t('Resource access') }}
-              <span v-if="access.pending.value" class="text-warning ml-1 requests-pending-indicator" :title="$t('Pending decisions need your attention.')">
-                <fa :icon="faClock" />
-                <span class="sr-only">{{ $t('Pending decisions need your attention.') }}</span>
-              </span>
+              <PendingRequestsBadge :count="access.pendingCount.value" />
             </router-link>
             <router-link :to="{name: 'safety.changePassword'}" class="btn" v-if="!currentUser.technicalAccess">
               {{ $t('Change Password') }}
@@ -38,7 +35,7 @@
 
 <script setup>
   import {provide} from 'vue';
-  import {faClock} from '@fortawesome/free-solid-svg-icons';
+  import PendingRequestsBadge from '@/devices/details/pending-requests-badge.vue';
   import {useCurrentUserStore} from '@/stores/current-user-store.js';
   import {resourceAccessAvailabilityKey, useResourceAccessAvailability} from '@/devices/details/resource-access-availability';
 

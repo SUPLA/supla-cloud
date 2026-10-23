@@ -6,14 +6,7 @@
           <li v-for="tabDefinition in availableTabs" :key="tabDefinition.id" :class="{active: $route.name === tabDefinition.route}">
             <router-link :to="{name: tabDefinition.route, params: {id: device.id}}">
               {{ $t(tabDefinition.header) }}
-              <span
-                v-if="tabDefinition.route === 'device.resource-access' && access.pending.value"
-                class="text-warning ml-1 requests-pending-indicator"
-                :title="$t('Pending decisions need your attention.')"
-              >
-                <fa :icon="faClock" />
-                <span class="sr-only">{{ $t('Pending decisions need your attention.') }}</span>
-              </span>
+              <PendingRequestsBadge v-if="tabDefinition.route === 'device.resource-access'" :count="access.pendingCount.value" />
               <span v-if="tabDefinition.count !== undefined">({{ tabDefinition.count() }})</span>
             </router-link>
           </li>
@@ -27,7 +20,7 @@
 <script setup>
   import {computed, onMounted, provide} from 'vue';
   import {useRoute, useRouter} from 'vue-router';
-  import {faClock} from '@fortawesome/free-solid-svg-icons';
+  import PendingRequestsBadge from '@/devices/details/pending-requests-badge.vue';
   import {resourceAccessAvailabilityKey, useResourceAccessAvailability} from '@/devices/details/resource-access-availability';
 
   defineOptions({compatConfig: {MODE: 3}});

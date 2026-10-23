@@ -9,10 +9,7 @@
         <li v-if="requests || requestsFailed" :class="{active: view === 'requests'}">
           <router-link :to="tab('requests')">
             {{ $t('Requests') }}
-            <span v-if="pending" class="text-warning ml-1 requests-pending-indicator" :title="$t('Pending decisions need your attention.')">
-              <fa :icon="faClock" />
-              <span class="sr-only">{{ $t('Pending decisions need your attention.') }}</span>
-            </span>
+            <PendingRequestsBadge :count="pendingCount" />
           </router-link>
         </li>
       </ul>
@@ -28,14 +25,14 @@
   import {useRoute, useRouter} from 'vue-router';
   import ServerPermissions from '@/devices/details/server-permissions.vue';
   import ResourceAccess from '@/devices/details/resource-access.vue';
-  import {faClock} from '@fortawesome/free-solid-svg-icons';
+  import PendingRequestsBadge from '@/devices/details/pending-requests-badge.vue';
   import {resourceAccessAvailabilityKey, useResourceAccessAvailability} from '@/devices/details/resource-access-availability';
   defineOptions({compatConfig: {MODE: 3}});
   const props = defineProps({device: Object});
   const route = useRoute();
   const router = useRouter();
   const access = inject(resourceAccessAvailabilityKey, null) || useResourceAccessAvailability(() => props.device?.id);
-  const {permissions, requests, pending, permissionsFailed, requestsFailed, failed, empty} = access;
+  const {permissions, requests, pendingCount, permissionsFailed, requestsFailed, failed, empty} = access;
   const view = computed(() => {
     const requested = route.query.view === 'requests' ? 'requests' : 'permissions';
     if (requested === 'permissions' && permissions.value === false && !permissionsFailed.value && (requests.value || requestsFailed.value)) return 'requests';

@@ -259,17 +259,17 @@ it('shows retryable network failure without presenting an empty permissions resu
 });
 
 it('signals pending decisions in Requests and refreshes the indicator after a decision', async () => {
-  let pending = true;
+  let pending = 3;
   const get = vi.spyOn(api, 'get').mockImplementation((endpoint) => {
     if (endpoint.includes('/permissions')) return Promise.resolve({body: {items: [entry], nextCursor: null}});
-    return Promise.resolve({body: endpoint.includes('status=PENDING') ? (pending ? [{id: 1}] : []) : [{id: 1}]});
+    return Promise.resolve({body: endpoint.includes('status=PENDING') ? Array.from({length: pending}, (_, id) => ({id})) : [{id: 1}]});
   });
   const page = mount(ResourceAccessPage, {props: {device: {id: 10}}, global: {stubs}});
   await flushPromises();
-  expect(page.find('.requests-pending-indicator').exists()).toBe(true);
+  expect(page.find('.requests-pending-indicator').text()).toMatch(/^3\b/);
   expect(page.find('.requests-pending-indicator').attributes('title')).toContain('need your attention');
-  expect(get).toHaveBeenCalledWith('resource-access?status=PENDING&limit=1&deviceId=10', {skipErrorHandler: true});
-  pending = false;
+  expect(get).toHaveBeenCalledWith('resource-access?status=PENDING&limit=50&deviceId=10', {skipErrorHandler: true});
+  pending = 0;
   page.findComponent(ServerPermissions).vm.$emit('updated');
   await flushPromises();
   expect(page.find('.requests-pending-indicator').exists()).toBe(false);

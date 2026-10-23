@@ -113,24 +113,49 @@ it.each([
   [SafetyPage, 'safety.resourceAccess'],
 ])('shares the pending indicator with the parent Resource access tab (%s)', async (component, target) => {
   route.name = target;
-  let pending = true;
+  let pending = 3;
   const get = vi.spyOn(api, 'get').mockImplementation((endpoint) => {
     if (endpoint.includes('/permissions')) return Promise.resolve({body: {items: [{id: 20}], nextCursor: null}});
-    return Promise.resolve({body: endpoint.includes('status=PENDING') && !pending ? [] : [{id: 1, status: pending ? 'PENDING' : 'ACCEPTED', permissions: 1}]});
+    return Promise.resolve({body: endpoint.includes('status=PENDING') ? Array.from({length: pending}, (_, id) => ({id})) : [{id: 1}]});
   });
   const global = options();
   global.stubs.RouterView = {props: ['device'], components: {ResourceAccessPage}, template: '<ResourceAccessPage :device="device" />'};
   const page = mount(component, {props: component === DeviceDetailsTabs ? {device} : {}, global});
   await flushPromises();
   const link = () => page.find(`a[data-route="${target}"]`);
-  expect(link().find('.requests-pending-indicator').exists()).toBe(true);
-  expect(page.findComponent(ResourceAccessPage).find('.requests-pending-indicator').exists()).toBe(true);
+  expect(link().find('.requests-pending-indicator').text()).toMatch(/^3\b/);
+  expect(page.findComponent(ResourceAccessPage).find('.requests-pending-indicator').text()).toMatch(/^3\b/);
   expect(get.mock.calls.filter(([endpoint]) => endpoint.includes('status=PENDING'))).toHaveLength(1);
-  pending = false;
+  pending = 0;
   page.findComponent(ServerPermissions).vm.$emit('updated');
   await flushPromises();
   expect(link().exists()).toBe(true);
   expect(page.find('.requests-pending-indicator').exists()).toBe(false);
+  page.unmount();
+});
+
+it('counts every pending page and retains the last complete count when a later page fails', async () => {
+  route.name = 'device.resource-access';
+  let failLastPage = false;
+  const get = vi.spyOn(api, 'get').mockImplementation((endpoint) => {
+    if (endpoint.includes('/permissions')) return Promise.resolve({body: {items: [{id: 20}], nextCursor: null}});
+    if (!endpoint.includes('status=PENDING')) return Promise.resolve({body: [{id: 1}]});
+    if (endpoint.includes('beforeId=100')) {
+      return failLastPage ? Promise.reject({status: 503}) : Promise.resolve({body: [{id: 99}, {id: 98}]});
+    }
+    return Promise.resolve({body: Array.from({length: 50}, (_, i) => ({id: 150 - i})), headers: new Headers({'X-Next-Cursor': '100'})});
+  });
+  const global = options();
+  global.stubs.RouterView = {props: ['device'], components: {ResourceAccessPage}, template: '<ResourceAccessPage :device="device" />'};
+  const page = mount(DeviceDetailsTabs, {props: {device}, global});
+  await flushPromises();
+  const badge = () => page.find('a[data-route="device.resource-access"] .requests-pending-indicator');
+  expect(badge().text()).toMatch(/^52\b/);
+  expect(get).toHaveBeenCalledWith('resource-access?status=PENDING&limit=50&deviceId=10&beforeId=100', {skipErrorHandler: true});
+  failLastPage = true;
+  page.findComponent(ServerPermissions).vm.$emit('updated');
+  await flushPromises();
+  expect(badge().text()).toMatch(/^52\b/);
   page.unmount();
 });
 
