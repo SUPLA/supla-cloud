@@ -739,7 +739,9 @@ const ChannelFunctionTriggers = {
           if (channel.config.fillLevelReportingInFullRange) {
             return undefined;
           } else {
-            return uniq([0, ...(channel.config.levelSensors || []).map((def) => +def.fillLevel)]).sort((a, b) => a - b);
+            const slots = Array.isArray(channel.config.levelSensors) ? channel.config.levelSensors : [];
+            const levels = slots.map((def) => def?.fillLevel).filter((level) => Number.isInteger(level) && level >= 0 && level <= 100);
+            return uniq([0, ...levels]).sort((a, b) => a - b);
           }
         },
         labelI18n: () => 'When the fill level will be', // i18n

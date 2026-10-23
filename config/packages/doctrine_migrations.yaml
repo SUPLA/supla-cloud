@@ -4,7 +4,8 @@ doctrine_migrations:
     SuplaBundle\Migrations\Migration: '%kernel.project_dir%/migrations/mariadb'
   custom_template: '%kernel.project_dir%/migrations/migration.tpl'
   organize_migrations: BY_YEAR
-  all_or_nothing: true
+  # MariaDB DDL commits implicitly; final SupLAN schema installation is nontransactional.
+  all_or_nothing: false
   storage:
     table_storage:
       table_name: 'migration_versions'

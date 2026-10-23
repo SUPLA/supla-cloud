@@ -45,7 +45,8 @@ class ValveConfigTranslatorIntegrationTest extends IntegrationTestCase {
     public function testTranslatingValveSensors() {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
         $valve = $device->getChannels()[11];
-        $valve->setUserConfigValue('sensorChannelNumbers', [12, 13, 15]);
+        $valve->setUserConfigValue('floodSensorChannelIds', [$device->getChannels()[12]->getId(), $device->getChannels()[13]->getId()
+            , $device->getChannels()[15]->getId()]);
         $config = $this->translator->getConfig($valve);
         $this->assertArrayHasKey('floodSensorChannelIds', $config);
         $this->assertCount(3, $config['floodSensorChannelIds']);
@@ -61,16 +62,16 @@ class ValveConfigTranslatorIntegrationTest extends IntegrationTestCase {
             $device->getChannels()[12]->getId(),
             $device->getChannels()[17]->getId(),
         ]]);
-        $channelNos = $valve->getUserConfigValue('sensorChannelNumbers');
+        $channelNos = $valve->getUserConfigValue('floodSensorChannelIds');
         $this->assertCount(2, $channelNos);
-        $this->assertEquals([12, 17], $channelNos);
+        $this->assertEquals([$device->getChannels()[12]->getId(), $device->getChannels()[17]->getId()], $channelNos);
     }
 
     public function testSettingValveSensorsEmpty() {
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
         $valve = $device->getChannels()[11];
         $this->translator->setConfig($valve, ['floodSensorChannelIds' => []]);
-        $channelNos = $valve->getUserConfigValue('sensorChannelNumbers');
+        $channelNos = $valve->getUserConfigValue('floodSensorChannelIds');
         $this->assertEmpty($channelNos);
     }
 
@@ -81,13 +82,13 @@ class ValveConfigTranslatorIntegrationTest extends IntegrationTestCase {
             $device->getChannels()[4]->getId(),
             $device->getChannels()[17]->getId(),
         ]]);
-        $channelNos = $valve->getUserConfigValue('sensorChannelNumbers');
+        $channelNos = $valve->getUserConfigValue('floodSensorChannelIds');
         $this->assertCount(2, $channelNos);
-        $this->assertEquals([4, 17], $channelNos);
+        $this->assertEquals([$device->getChannels()[4]->getId(), $device->getChannels()[17]->getId()], $channelNos);
     }
 
     public function testCantChooseNotBinarySensorForValveSensor() {
-        $this->expectExceptionMessage('Only binary sensors can be chosen for valve sensors');
+        $this->expectExceptionMessage('Incompatible channel type or function');
         $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
         $valve = $device->getChannels()[11];
         $this->translator->setConfig($valve, ['floodSensorChannelIds' => [

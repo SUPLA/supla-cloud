@@ -318,6 +318,7 @@ class IODevice implements HasLocation, HasRelationsCount {
     /** @Groups({"basic"}) */
     public function getFlags(): array {
         return [
+            'suplanSupported' => IoDeviceFlags::SUPLAN_SUPPORTED()->isOn($this->flags),
             'identifyDeviceAvailable' => IoDeviceFlags::IDENTIFY_DEVICE_AVAILABLE()->isOn($this->flags),
             'pairingSubdevicesAvailable' => IoDeviceFlags::PAIRING_SUBDEVICES_AVAILABLE()->isOn($this->flags),
             'automaticFirmwareUpdatesSupported' => IoDeviceFlags::AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED()->isOn($this->flags),

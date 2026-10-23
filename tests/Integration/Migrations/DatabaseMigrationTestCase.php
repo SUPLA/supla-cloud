@@ -5,6 +5,10 @@ use App\Tests\Integration\IntegrationTestCase;
 
 abstract class DatabaseMigrationTestCase extends IntegrationTestCase {
     protected function clearDatabase() {
+        // Historical Cloud migration fixtures intentionally precede the current runtime schema.
+        $this->getEntityManager()->getEventManager()->removeEventSubscriber(
+            self::getContainer()->get(\App\Entity\Main\Listeners\CloudResourceGrantsListener::class)
+        );
         $this->executeCommand('doctrine:database:drop --force');
         $this->executeCommand('doctrine:database:create --if-not-exists');
     }

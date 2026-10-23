@@ -52,9 +52,12 @@
       value() {
         if (this.dropdown) {
           if (this.multiple) {
-            this.dropdown.setValue((this.value || []).map((v) => v.id));
+            this.dropdown.setValue(
+              (this.value || []).map((v) => v.id),
+              true
+            );
           } else {
-            this.dropdown.setValue(this.value?.id || undefined);
+            this.dropdown.setValue(this.value?.id || undefined, true);
           }
         }
       },
@@ -79,6 +82,7 @@
             labelField: 'fullCaption',
             searchField: 'searchText',
             optgroupField: 'group',
+            lockOptgroupOrder: true,
             hideSelected: !this.doNotHideSelected,
             maxItems: this.multiple ? null : 1,
             maxOptions: this.maxOptions,
@@ -141,13 +145,16 @@
               this.dropdown.addOption(optionToAdd);
             });
             if (this.multiple) {
-              this.dropdown.setValue((this.value || []).map((v) => v.id));
+              this.dropdown.setValue(
+                (this.value || []).map((v) => v.id),
+                true
+              );
             } else {
-              this.dropdown.setValue(this.value?.id || undefined);
+              this.dropdown.setValue(this.value?.id || undefined, true);
             }
           } else {
             this.dropdown.disable();
-            this.dropdown.setValue(this.multiple ? [] : undefined);
+            this.dropdown.setValue(this.multiple ? [] : undefined, true);
           }
           if (this.disabled) {
             this.dropdown.disable();

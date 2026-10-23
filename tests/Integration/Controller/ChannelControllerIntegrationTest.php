@@ -533,6 +533,38 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSuplaCommandNotExecuted('USER-RECONNECT:1');
     }
 
+    /** @dataProvider valveRuntimeConfigFlags */
+    public function testValveConfigUpdateUsesRuntimeFlagInsteadOfUserReconnect(bool $runtimeUpdate) {
+        $client = $this->createAuthenticatedClient();
+        $this->simulateAuthentication($this->user);
+        $device = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
+            [ChannelType::SENSORNO, ChannelFunction::FLOOD_SENSOR],
+        ]);
+        [$valve, $sensor] = $device->getChannels()->toArray();
+        EntityUtils::setField($valve, 'flags', ChannelFlags::FLOOD_SENSORS_SUPPORTED
+            | ($runtimeUpdate ? ChannelFlags::RUNTIME_CHANNEL_CONFIG_UPDATE : 0));
+        $this->persist($valve);
+        $client->apiRequestV3('PUT', '/api/channels/' . $valve->getId(), [
+            'config' => ['floodSensorChannelIds' => [$sensor->getId()]],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->getEntityManager()->refresh($valve);
+        $this->assertSame([$sensor->getId()], $valve->getUserConfigValue('floodSensorChannelIds'));
+        $notifications = array_filter(SuplaServerMock::$executedCommands,
+            fn($command) => str_starts_with($command, 'USER-ON-CHANNEL-CONFIG-CHANGED:'));
+        $this->assertNotEmpty($notifications, 'Canonical config must still notify Core.');
+        if ($runtimeUpdate) {
+            $this->assertSuplaCommandNotExecuted('USER-RECONNECT:1');
+        } else {
+            $this->assertSuplaCommandExecuted('USER-RECONNECT:1');
+        }
+    }
+
+    public static function valveRuntimeConfigFlags(): array {
+        return ['runtime config supported' => [true], 'legacy requires reconnect' => [false]];
+    }
+
     public function testChangingChannelFunctionFromPowerswitchToOpeningGateWithConfig() {
         $client = $this->createAuthenticatedClient();
         $this->simulateAuthentication($this->user);
@@ -1826,9 +1858,9 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $valve = $this->freshEntity($valve);
         $config = $channelParamConfigTranslator->getConfig($valve);
-        $this->assertCount(1, $config['floodSensorChannelIds']);
-        $this->assertEquals([$device->getChannels()[12]->getId()], $config['floodSensorChannelIds']);
-        $this->assertCount(1, $valve->getUserConfigValue('sensorChannelNumbers'));
+        $this->assertSame([$device->getChannels()[12]->getId(), null, null], $config['floodSensorChannelIds']);
+        $this->assertSame($config['floodSensorChannelIds'], $valve->getUserConfigValue('floodSensorChannelIds'));
+        $this->assertArrayNotHasKey('sensorChannelNumbers', $valve->getUserConfig());
     }
 
     public function testCanChangeValveAndSensorsLocationsIndependently() {
@@ -1885,9 +1917,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $tank = $this->freshEntity($tank);
         $config = $channelParamConfigTranslator->getConfig($tank);
-        $this->assertCount(1, $config['levelSensors']);
-        $this->assertEquals(['channelId' => $device->getChannels()[1]->getId(), 'fillLevel' => 10], $config['levelSensors'][0]);
-        $this->assertCount(1, $tank->getUserConfigValue('sensors'));
+        $this->assertSame([
+            ['channelId' => $device->getChannels()[1]->getId(), 'fillLevel' => 10],
+            ['channelId' => null, 'fillLevel' => 20],
+            ['channelId' => null, 'fillLevel' => 30],
+        ], $config['levelSensors']);
+        $this->assertSame($config['levelSensors'], $tank->getUserConfigValue('sensors'));
     }
 
     public function testDeletingThermometerUsedInManyChannelsDoesNotDuplicateDependencies() {
