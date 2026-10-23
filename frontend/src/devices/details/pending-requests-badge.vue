@@ -19,6 +19,8 @@
     height: 1.6em;
     min-width: 1.6em;
     padding: 0 0.3em;
+    /* Keep the badge from increasing the surrounding text line's height. */
+    margin-block: -0.3em;
     border-radius: 999px;
     line-height: 1;
     vertical-align: middle;
