@@ -112,6 +112,90 @@ class ResourceAccessControllerIntegrationTest extends IntegrationTestCase {
         return [['PENDING'], ['REJECTED'], ['ACCEPTED']];
     }
 
+    public static function deletedDevices(): array {
+        return [[0], [1]];
+    }
+
+    /** @dataProvider deletedDevices */
+    public function testDeletingDeviceCleansDecisionsInBothRolesAndPreservesDraining(int $deletedIndex): void {
+        $connection = $this->getEntityManager()->getConnection();
+        $ids = [
+            $this->decision(1, 'ACCEPTED'), $this->decision(1, 'PENDING', 1),
+            $this->decision(4, 'REJECTED', 2), $this->decision(1, 'REMOVED'),
+        ];
+        $snapshot = $this->row($ids[0]);
+        $connection->insert('supla_resource_access_pair', ['user_id' => $this->user->getId(),
+            'source_device_id' => $this->deviceIds[1], 'destination_device_id' => $this->deviceIds[0],
+            'source_channel_id' => $this->channelIds[1][0]]);
+        $pair = (int)$connection->lastInsertId();
+        $connection->insert('supla_resource_access_decision', ['pair_id' => $pair,
+            'open_pair_id' => $pair, 'status' => 'PENDING', 'permissions' => 1]);
+        $ids[] = (int)$connection->lastInsertId();
+        $other = $this->createDevice($this->createLocation($this->freshEntity($this->user)), [[ChannelType::THERMOMETER, CF::THERMOMETER]]);
+        $connection->insert('supla_resource_access_pair', ['user_id' => $this->user->getId(),
+            'source_device_id' => $other->getId(), 'destination_device_id' => $this->deviceIds[1 - $deletedIndex],
+            'source_channel_id' => $other->getChannels()[0]->getId()]);
+        $connection->insert('supla_resource_access_decision', ['pair_id' => $connection->lastInsertId(), 'status' => 'ACCEPTED', 'permissions' => 1]);
+        $preserved = (int)$connection->lastInsertId();
+        $connection->transactional(fn() => (new \App\Model\ResourceAccess\CloudResourceGrants($connection))->decision($preserved));
+        $association = (int)$connection->fetchOne(
+            'SELECT id FROM supla_suplan_peer_association WHERE source_device_id=? AND destination_device_id=?',
+            $this->deviceIds
+        );
+        $connection->update('supla_suplan_peer_association', ['provisioned_root_epoch' => 1, 'provisioned_peer_generation' => 1], ['id' => $association]);
+
+        $deleted = $this->deviceIds[$deletedIndex];
+        $this->getEntityManager()->remove($this->getEntityManager()->find(\App\Entity\Main\IODevice::class, $deleted));
+        $this->flush();
+
+        $this->assertSame(0, (int)$connection->fetchOne('SELECT COUNT(*) FROM supla_resource_access_pair
+            WHERE source_device_id=? OR destination_device_id=?', [$deleted, $deleted]));
+        foreach ($ids as $id) {
+            $this->assertFalse($connection->fetchOne('SELECT id FROM supla_resource_access_decision WHERE id=?', [$id]));
+        }
+        $this->assertSame('ACCEPTED', $this->row($preserved)['status']);
+        $this->assertSame(1, (int)$connection->fetchOne('SELECT COUNT(*) FROM supla_resource_access_grant WHERE origin_type=2 AND origin_id=?', [$preserved]));
+        $peer = $connection->fetchAssociative('SELECT * FROM supla_suplan_peer_association WHERE id=?', [$association]);
+        $this->assertSame(2, (int)$peer['lifecycle']);
+        $this->assertSame('', $peer['canonical_acl']);
+        $this->assertSame($deletedIndex === 0 ? 1 : 0, (int)$peer['source_empty_acked']);
+        $this->assertSame($deletedIndex === 1 ? 1 : 0, (int)$peer['destination_empty_acked']);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/resource-access/' . $ids[0]);
+        $this->assertStatusCode(404, $client->getResponse());
+        $this->mutate($ids[0], 'approve', $snapshot, 404);
+    }
+
+    public function testDeletingChannelCleansDecisionsAtomicallyWithoutRemovingOtherChannels(): void {
+        $ids = [$this->decision(1, 'ACCEPTED'), $this->decision(2), $this->decision(1, 'REMOVED')];
+        $preserved = $this->decision(1, 'ACCEPTED', 1);
+        $connection = $this->getEntityManager()->getConnection();
+        $before = [];
+        foreach (['supla_resource_access_pair', 'supla_resource_access_decision', 'supla_resource_access_grant', 'supla_suplan_peer_association'] as $table) {
+            $before[$table] = $connection->fetchAllAssociative('SELECT * FROM ' . $table);
+        }
+        $channelId = $this->channelIds[0][0];
+        $connection->beginTransaction();
+        $this->getEntityManager()->remove($this->getEntityManager()->find(\App\Entity\Main\IODeviceChannel::class, $channelId));
+        $this->flush();
+        $this->assertFalse($connection->fetchOne('SELECT id FROM supla_resource_access_pair WHERE source_channel_id=?', [$channelId]));
+        foreach ($ids as $id) {
+            $this->assertFalse($connection->fetchOne('SELECT id FROM supla_resource_access_decision WHERE id=?', [$id]));
+        }
+        $connection->rollBack();
+        foreach ($before as $table => $rows) {
+            $this->assertSame($rows, $connection->fetchAllAssociative('SELECT * FROM ' . $table));
+        }
+        $this->getEntityManager()->clear();
+        $this->getEntityManager()->remove($this->getEntityManager()->find(\App\Entity\Main\IODeviceChannel::class, $channelId));
+        $this->flush();
+        foreach ($ids as $id) {
+            $this->assertFalse($connection->fetchOne('SELECT id FROM supla_resource_access_decision WHERE id=?', [$id]));
+        }
+        $this->assertSame('ACCEPTED', $this->row($preserved)['status']);
+        $this->assertSame(1, (int)$connection->fetchOne('SELECT COUNT(*) FROM supla_resource_access_grant WHERE origin_type=2 AND origin_id=?', [$preserved]));
+    }
+
     /** @dataProvider states */
     public function testRemoveResetsOnlySelectedOriginAndFreshRequestIsPending(string $status) {
         $accepted = $this->decision(1, 'ACCEPTED');

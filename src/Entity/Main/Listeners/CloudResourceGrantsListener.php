@@ -77,9 +77,12 @@ class CloudResourceGrantsListener implements EventSubscriber {
         $grants = new CloudResourceGrants($connection);
         if ($entity instanceof IODeviceChannel) {
             $grants->deletedChannel($user, $device, $channel);
+            $connection->delete('supla_resource_access_pair', ['user_id' => $user, 'source_channel_id' => $channel]);
         } else {
             $result = $connection->executeQuery('CALL supla_suplan_cleanup(?,?)', [$user, $device]);
             $result->free();
+            $connection->executeStatement('DELETE FROM supla_resource_access_pair
+                WHERE user_id=? AND (source_device_id=? OR destination_device_id=?)', [$user, $device, $device]);
         }
     }
 }

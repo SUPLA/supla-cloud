@@ -101,7 +101,7 @@
               <span class="resource-access-field-label">{{ $t('Actions') }}</span>
               <div class="resource-access-actions">
                 <button v-if="entry.canApprove" type="button" class="btn btn-green" :disabled="loading" @click="emit('select', entry, 'approve')">
-                  {{ $t(entry.status === 'REJECTED' ? 'Reconsider and approve all' : 'Approve all') }}
+                  {{ $t('Approve') }}
                 </button>
                 <button
                   v-if="entry.canManage && entry.status === 'PENDING'"

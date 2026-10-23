@@ -24,21 +24,18 @@
 </template>
 
 <script setup>
-  import {computed, inject, ref, watch, onBeforeUnmount} from 'vue';
+  import {computed, inject, watch} from 'vue';
   import {useRoute, useRouter} from 'vue-router';
   import ServerPermissions from '@/devices/details/server-permissions.vue';
   import ResourceAccess from '@/devices/details/resource-access.vue';
-  import {api} from '@/api/api';
   import {faClock} from '@fortawesome/free-solid-svg-icons';
   import {resourceAccessAvailabilityKey, useResourceAccessAvailability} from '@/devices/details/resource-access-availability';
   defineOptions({compatConfig: {MODE: 3}});
   const props = defineProps({device: Object});
-  const pending = ref(false);
-  let generation = 0;
   const route = useRoute();
   const router = useRouter();
   const access = inject(resourceAccessAvailabilityKey, null) || useResourceAccessAvailability(() => props.device?.id);
-  const {permissions, requests, permissionsFailed, requestsFailed, failed, empty} = access;
+  const {permissions, requests, pending, permissionsFailed, requestsFailed, failed, empty} = access;
   const view = computed(() => {
     const requested = route.query.view === 'requests' ? 'requests' : 'permissions';
     if (requested === 'permissions' && permissions.value === false && !permissionsFailed.value && (requests.value || requestsFailed.value)) return 'requests';
@@ -52,9 +49,11 @@
     delete query.decisionId;
     router.replace({name: route.name, params: route.params, query});
   }
-  function updated() {
+  async function updated() {
+    if (view.value === 'requests' && route.query.view !== 'requests') {
+      await router.replace({name: route.name, params: route.params, query: {...route.query, view: 'requests'}});
+    }
     access.reload();
-    loadPending();
   }
   watch(
     empty,
@@ -65,24 +64,4 @@
     },
     {immediate: true}
   );
-  async function loadPending() {
-    const current = ++generation;
-    const query = new URLSearchParams({status: 'PENDING', limit: '1'});
-    if (props.device) query.set('deviceId', props.device.id);
-    try {
-      const response = await api.get(`resource-access?${query}`, {skipErrorHandler: true});
-      if (current === generation) pending.value = response.body.length > 0;
-    } catch {
-      // Advisory indicator: keep the last known state and the main screen's error feedback.
-    }
-  }
-  watch(
-    () => [props.device?.id, view.value],
-    () => {
-      pending.value = false;
-      loadPending();
-    },
-    {immediate: true, flush: 'sync'}
-  );
-  onBeforeUnmount(() => generation++);
 </script>

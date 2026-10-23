@@ -21,7 +21,15 @@ const options = () => ({
   stubs: {'router-link': linkStub, RouterView: true},
 });
 const probe = (permissions, requests) =>
-  vi.spyOn(api, 'get').mockImplementation((endpoint) => Promise.resolve({body: endpoint.includes('/permissions') ? {items: permissions} : requests}));
+  vi.spyOn(api, 'get').mockImplementation((endpoint) =>
+    Promise.resolve({
+      body: endpoint.includes('/permissions')
+        ? {items: permissions}
+        : endpoint.includes('status=PENDING')
+          ? requests.filter((r) => r.status === 'PENDING')
+          : requests,
+    })
+  );
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -59,13 +67,16 @@ it('ignores old presence responses after switching to another device', async () 
   const get = vi.spyOn(api, 'get').mockImplementation(() => new Promise((resolve) => pending.push(resolve)));
   const page = mount(DeviceDetailsTabs, {props: {device}, global: options()});
   await page.setProps({device: {...device, id: 11}});
-  pending[2]({body: {items: []}});
-  pending[3]({body: []});
+  pending[3]({body: {items: []}});
+  pending[4]({body: []});
+  pending[5]({body: []});
   await flushPromises();
   pending[0]({body: {items: [{id: 20}]}});
   pending[1]({body: [{id: 1}]});
+  pending[2]({body: [{id: 1, status: 'PENDING'}]});
   await flushPromises();
   expect(page.find('a[data-route="device.resource-access"]').exists()).toBe(false);
+  expect(page.find('.requests-pending-indicator').exists()).toBe(false);
   expect(get).toHaveBeenCalledWith('resource-access?limit=1&deviceId=11', {skipErrorHandler: true});
   page.unmount();
 });
@@ -94,6 +105,57 @@ it('shares presence with the device page and keeps known tabs when refresh fails
   await flushPromises();
   expect(page.find('a[data-route="device.resource-access"]').exists()).toBe(true);
   expect(replace).not.toHaveBeenCalled();
+  page.unmount();
+});
+
+it.each([
+  [DeviceDetailsTabs, 'device.resource-access'],
+  [SafetyPage, 'safety.resourceAccess'],
+])('shares the pending indicator with the parent Resource access tab (%s)', async (component, target) => {
+  route.name = target;
+  let pending = true;
+  const get = vi.spyOn(api, 'get').mockImplementation((endpoint) => {
+    if (endpoint.includes('/permissions')) return Promise.resolve({body: {items: [{id: 20}], nextCursor: null}});
+    return Promise.resolve({body: endpoint.includes('status=PENDING') && !pending ? [] : [{id: 1, status: pending ? 'PENDING' : 'ACCEPTED', permissions: 1}]});
+  });
+  const global = options();
+  global.stubs.RouterView = {props: ['device'], components: {ResourceAccessPage}, template: '<ResourceAccessPage :device="device" />'};
+  const page = mount(component, {props: component === DeviceDetailsTabs ? {device} : {}, global});
+  await flushPromises();
+  const link = () => page.find(`a[data-route="${target}"]`);
+  expect(link().find('.requests-pending-indicator').exists()).toBe(true);
+  expect(page.findComponent(ResourceAccessPage).find('.requests-pending-indicator').exists()).toBe(true);
+  expect(get.mock.calls.filter(([endpoint]) => endpoint.includes('status=PENDING'))).toHaveLength(1);
+  pending = false;
+  page.findComponent(ServerPermissions).vm.$emit('updated');
+  await flushPromises();
+  expect(link().exists()).toBe(true);
+  expect(page.find('.requests-pending-indicator').exists()).toBe(false);
+  page.unmount();
+});
+
+it('waits for the current Requests probe before hiding Resource access during refresh', async () => {
+  route.name = 'device.resource-access';
+  route.query = {view: 'permissions'};
+  const get = probe([{id: 20}], []);
+  const global = options();
+  global.stubs.RouterView = {props: ['device'], components: {ResourceAccessPage}, template: '<ResourceAccessPage :device="device" />'};
+  const page = mount(DeviceDetailsTabs, {props: {device}, global});
+  await flushPromises();
+  let resolveRequests;
+  get.mockImplementation((endpoint) => {
+    if (endpoint === 'resource-access?limit=1&deviceId=10') return new Promise((resolve) => (resolveRequests = resolve));
+    return Promise.resolve({body: endpoint.includes('/permissions') ? {items: []} : []});
+  });
+  page.findComponent(ServerPermissions).vm.$emit('updated');
+  await flushPromises();
+  expect(replace).not.toHaveBeenCalled();
+  expect(page.find('a[data-route="device.resource-access"]').exists()).toBe(true);
+  resolveRequests({body: [{id: 1, status: 'ACCEPTED', permissions: 1}]});
+  await flushPromises();
+  expect(replace).not.toHaveBeenCalled();
+  expect(page.find('a[data-route="device.resource-access"]').exists()).toBe(true);
+  expect(page.findComponent(ResourceAccessPage).find('h4').text()).toBe('Requests');
   page.unmount();
 });
 

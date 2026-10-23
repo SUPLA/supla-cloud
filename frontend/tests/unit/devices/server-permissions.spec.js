@@ -54,6 +54,64 @@ it('defaults to Permissions and keeps Requests accessible in the same navigation
 it.each([
   ['safety.resourceAccess', {}, undefined],
   ['device.resource-access', {id: '10'}, {id: 10}],
+])('keeps Requests selected after approving the first request (%s)', async (name, params, device) => {
+  route.name = name;
+  route.params = params;
+  route.query = {decisionId: '42'};
+  replace.mockImplementation(async (to) => {
+    route.query = to.query;
+  });
+  let approved = false;
+  const request = () => ({
+    id: 42,
+    status: approved ? 'ACCEPTED' : 'PENDING',
+    canApprove: !approved,
+    revision: approved ? 2 : 1,
+    permissions: 1,
+    destinationDeviceId: 10,
+    sourceDeviceId: 9,
+  });
+  vi.spyOn(api, 'get').mockImplementation((endpoint) =>
+    Promise.resolve({
+      body: endpoint.includes('/permissions')
+        ? {items: approved ? [entry] : [], nextCursor: null}
+        : endpoint === 'resource-access/42'
+          ? request()
+          : endpoint.includes('status=PENDING') && approved
+            ? []
+            : [request()],
+    })
+  );
+  const post = vi.spyOn(api, 'post').mockImplementation(async () => {
+    approved = true;
+  });
+  const page = mount(ResourceAccessPage, {
+    props: {device},
+    global: {
+      stubs: {
+        ...stubs,
+        ModalConfirm: {emits: ['confirm'], template: '<div><slot/><button class="confirm" @click="$emit(\'confirm\')">Confirm</button></div>'},
+      },
+    },
+  });
+  await flushPromises();
+  expect(page.findComponent(ResourceAccess).exists()).toBe(true);
+  expect(page.find('.btn-green').text()).toBe('Approve');
+  await page.find('.btn-green').trigger('click');
+  await page.find('button.confirm').trigger('click');
+  await flushPromises();
+  expect(post).toHaveBeenCalledWith('resource-access/42/approve', {revision: 1, status: 'PENDING', permissions: 1}, {skipErrorHandler: [404, 409]});
+  expect(route.query).toEqual({decisionId: '42', view: 'requests'});
+  expect(page.findComponent(ResourceAccess).exists()).toBe(true);
+  expect(page.findComponent(ServerPermissions).exists()).toBe(false);
+  expect(page.find('a[data-view="permissions"]').exists()).toBe(true);
+  expect(page.find('.requests-pending-indicator').exists()).toBe(false);
+  page.unmount();
+});
+
+it.each([
+  ['safety.resourceAccess', {}, undefined],
+  ['device.resource-access', {id: '10'}, {id: 10}],
 ])('returns from a removed request detail to the same Requests list (%s)', async (name, params, device) => {
   route.name = name;
   route.params = params;
