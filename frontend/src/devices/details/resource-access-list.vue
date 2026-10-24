@@ -26,7 +26,6 @@
                 </button>
               </div>
             </th>
-            <th scope="col" class="text-right">{{ $t('Actions') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -69,17 +68,7 @@
               </div>
             </td>
             <td>
-              <span class="resource-access-field-label">{{ $t('Status') }}</span>
-              <span :class="statusStyles[entry.status].class">
-                <fa :icon="statusStyles[entry.status].icon" fixed-width /> {{ $t(statusLabel(entry.status)) }}
-              </span>
-              <div class="small text-muted" :title="entry.requestedAt ? $t('Requested: {date}', {date: formatDateTime(entry.requestedAt)}) : undefined">
-                <time v-if="entry.lastDecisionAt" :datetime="entry.lastDecisionAt">{{ formatDateTime(entry.lastDecisionAt) }}</time>
-                <span v-else>—</span>
-              </div>
-            </td>
-            <td>
-              <span class="resource-access-field-label">{{ $t('Source device and channel') }}</span>
+              <span class="resource-access-field-label">{{ $t('Access to') }}</span>
               <div>
                 <router-link v-if="entry.sourceFunctionId != null" :to="{name: 'channel', params: {id: entry.sourceChannelId}}">
                   {{ entry.sourceCaption || $t('Channel') }} (ID{{ entry.sourceChannelId }})
@@ -97,8 +86,15 @@
                 {{ entry.sourceFunction ? $t(entry.sourceFunction) : `${$t('Function')} ${entry.sourceFunctionId ?? ''}` }}
               </div>
             </td>
-            <td class="text-right">
-              <span class="resource-access-field-label">{{ $t('Actions') }}</span>
+            <td>
+              <span class="resource-access-field-label">{{ $t('Status') }}</span>
+              <span :class="statusStyles[entry.status].class">
+                <fa :icon="statusStyles[entry.status].icon" fixed-width /> {{ $t(statusLabel(entry.status)) }}
+              </span>
+              <div class="small text-muted" :title="entry.requestedAt ? $t('Requested: {date}', {date: formatDateTime(entry.requestedAt)}) : undefined">
+                <time v-if="entry.lastDecisionAt" :datetime="entry.lastDecisionAt">{{ formatDateTime(entry.lastDecisionAt) }}</time>
+                <span v-else>—</span>
+              </div>
               <div class="resource-access-actions">
                 <button v-if="entry.canApprove" type="button" class="btn btn-green" :disabled="loading" @click="emit('select', entry, 'approve')">
                   {{ $t('Approve') }}
@@ -145,8 +141,8 @@
   const sortableColumns = [
     {key: 'destination', label: 'Requesting device'}, // i18n
     {key: 'permissions', label: 'Permissions'}, // i18n
+    {key: 'source', label: 'Access to'}, // i18n
     {key: 'status', label: 'Status'}, // i18n
-    {key: 'source', label: 'Source device and channel'}, // i18n
     {key: 'lastDecision', label: 'Last decision'}, // i18n
   ];
   const sortKey = ref('destination');
@@ -217,13 +213,10 @@
       width: 18%;
     }
     th:nth-child(3) {
-      width: 16%;
+      width: 36%;
     }
     th:nth-child(4) {
       width: 28%;
-    }
-    th:nth-child(5) {
-      width: 20%;
     }
     td {
       overflow-wrap: anywhere;
@@ -241,7 +234,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-    justify-content: flex-end;
+    justify-content: flex-start;
     .btn {
       max-width: 100%;
       white-space: normal;

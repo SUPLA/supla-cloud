@@ -17,58 +17,45 @@
       }}
     </p>
     <p v-if="networkError" class="text-warning" role="alert">{{ $t('Could not load permissions. Check your connection and refresh to try again.') }}</p>
-    <form class="permission-filters" @submit.prevent="reload">
-      <label>{{ $t('Source device ID') }}<input v-model="filters.sourceDeviceId" class="form-control" type="number" min="1" /></label>
-      <label>{{ $t('Requesting device ID') }}<input v-model="filters.destinationDeviceId" class="form-control" type="number" min="1" /></label>
-      <label
-        >{{ $t('Permissions')
-        }}<select v-model="filters.permission" class="form-control">
-          <option value="">{{ $t('All') }}</option>
-          <option value="1">READ</option>
-          <option value="2">CONTROL</option>
-          <option value="4">ACTION</option>
-        </select></label
-      >
-      <label
-        >{{ $t('Origin')
-        }}<select v-model="filters.origin" class="form-control">
-          <option value="">{{ $t('All') }}</option>
-          <option value="configuration">{{ $t('Configuration') }}</option>
-          <option value="user-approved">{{ $t('User-approved') }}</option>
-          <option value="other">{{ $t('Other') }}</option>
-        </select></label
-      >
-      <button class="btn btn-white" type="submit" :disabled="loading">{{ $t('Filter') }}</button>
-    </form>
+    <p class="small text-muted">{{ $t('Sorting applies to this page.') }}</p>
+    <div class="permission-sort form-group">
+      <label :for="sortId">{{ $t('Sort by') }}</label>
+      <div class="d-flex">
+        <select :id="sortId" class="form-control" v-model="sortKey">
+          <option v-for="column in sortableColumns" :key="column.key" :value="column.key">{{ $t(column.label) }}</option>
+        </select>
+        <button type="button" class="btn btn-white ml-2" :aria-label="$t('Reverse sort order')" @click="reverseSort">
+          <fa :icon="sortDirection === 'asc' ? faSortUp : faSortDown" />
+        </button>
+      </div>
+    </div>
     <LoadingCover :loading="loading">
       <table v-if="entries.length" class="table table-striped table-valign-middle permissions-table">
         <thead>
           <tr>
-            <th>{{ $t('Requesting device') }}</th>
-            <th>{{ $t('Permissions') }}</th>
-            <th>{{ $t('Origin') }}</th>
-            <th>{{ $t('Source device and channel') }}</th>
+            <th v-for="column in sortableColumns" :key="column.key" scope="col" :aria-sort="ariaSort(column.key)">
+              <button type="button" class="permission-sort-button" :data-sort="column.key" @click="sortBy(column.key)">
+                {{ $t(column.label) }}
+                <fa :icon="sortIcon(column.key)" fixed-width />
+              </button>
+            </th>
             <th>{{ $t('Details') }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="entry in entries" :key="key(entry)">
+          <tr v-for="entry in sortedEntries" :key="key(entry)">
             <td>
-              <span class="field-label">{{ $t('Requesting device') }}</span
+              <span class="field-label">{{ $t('Device with access') }}</span
               ><router-link :to="{name: 'device.details', params: {id: entry.destinationDeviceId}}"
                 >{{ entry.destinationName || $t('Device') }} (ID{{ entry.destinationDeviceId }})</router-link
               >
             </td>
             <td>
-              <span class="field-label">{{ $t('Permissions') }}</span
+              <span class="field-label">{{ $t('Permission') }}</span
               >{{ labels(entry.permissions) }}
             </td>
             <td>
-              <span class="field-label">{{ $t('Origin') }}</span
-              >{{ $t(originLabels[entry.originSummary]) }}
-            </td>
-            <td>
-              <span class="field-label">{{ $t('Source device and channel') }}</span>
+              <span class="field-label">{{ $t('Access to') }}</span>
               <div v-if="entry.resourceType === 1">
                 <router-link :to="{name: 'channel', params: {id: entry.resourceId}}"
                   >{{ entry.sourceCaption || $t('Channel') }} (ID{{ entry.resourceId }})</router-link
@@ -129,12 +116,13 @@
 </template>
 
 <script setup>
-  import {onMounted, onBeforeUnmount, ref, watch} from 'vue';
+  import {computed, onMounted, onBeforeUnmount, ref, useId, watch} from 'vue';
   import {api} from '@/api/api';
   import {permissionLabels} from '@/devices/details/resource-access-labels';
   import {i18n} from '@/locale';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
   import EmptyListPlaceholder from '@/common/gui/empty-list-placeholder.vue';
+  import {faSort, faSortUp, faSortDown} from '@fortawesome/free-solid-svg-icons';
   defineOptions({compatConfig: {MODE: 3}});
   const props = defineProps({device: Object});
   const emit = defineEmits(['updated']);
@@ -143,8 +131,6 @@
     detailLoading = ref(false),
     detail = ref();
   const networkError = ref(false);
-  const filters = ref({sourceDeviceId: '', destinationDeviceId: '', permission: '', origin: ''});
-  const appliedFilters = ref({...filters.value});
   const cursor = ref(),
     nextCursor = ref(),
     history = ref([]);
@@ -156,6 +142,44 @@
       .map((label) => i18n.global.t(label))
       .join(', ');
   const key = (entry) => `${entry.resourceKey || entry.associationId}/${entry.resourceType}/${entry.resourceId}`;
+  const sortableColumns = [
+    {key: 'destination', label: 'Device with access'}, // i18n
+    {key: 'permissions', label: 'Permission'}, // i18n
+    {key: 'source', label: 'Access to'}, // i18n
+  ];
+  const sortKey = ref('destination');
+  const sortDirection = ref('asc');
+  const sortId = `permission-sort-${useId()}`;
+  const sortedEntries = computed(() => {
+    const collator = new Intl.Collator(i18n.global.locale.value, {numeric: true, sensitivity: 'base'});
+    const value = (entry) => {
+      switch (sortKey.value) {
+        case 'destination':
+          return entry.destinationName || String(entry.destinationDeviceId);
+        case 'permissions':
+          return labels(entry.permissions);
+        case 'source':
+          return `${entry.sourceCaption || entry.resourceId} ${entry.sourceDeviceName || ''}`;
+      }
+    };
+    return [...entries.value].sort((a, b) => (sortDirection.value === 'asc' ? 1 : -1) * collator.compare(value(a), value(b)));
+  });
+  function reverseSort() {
+    sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
+  }
+  function sortBy(key) {
+    if (sortKey.value === key) reverseSort();
+    else {
+      sortKey.value = key;
+      sortDirection.value = 'asc';
+    }
+  }
+  function ariaSort(key) {
+    return sortKey.value === key ? (sortDirection.value === 'asc' ? 'ascending' : 'descending') : 'none';
+  }
+  function sortIcon(key) {
+    return sortKey.value !== key ? faSort : sortDirection.value === 'asc' ? faSortUp : faSortDown;
+  }
   const requestLink = (id) => ({
     name: props.device ? 'device.resource-access' : 'safety.resourceAccess',
     params: props.device ? {id: props.device.id} : {},
@@ -172,7 +196,6 @@
     networkError.value = false;
     closeDetails();
     const query = new URLSearchParams({limit: '25'});
-    for (const [key, value] of Object.entries(appliedFilters.value)) if (value !== '') query.set(key, value);
     if (props.device) query.set('deviceId', props.device.id);
     if (cursor.value) query.set('cursor', cursor.value);
     try {
@@ -188,7 +211,6 @@
     }
   }
   function reload() {
-    appliedFilters.value = {...filters.value};
     cursor.value = undefined;
     history.value = [];
     entries.value = [];
@@ -241,16 +263,13 @@
 </script>
 
 <style scoped lang="scss">
-  .permission-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    align-items: flex-end;
-    margin-bottom: 20px;
-    label {
-      flex: 1 1 150px;
-      min-width: 0;
-    }
+  .permission-sort-button {
+    border: 0;
+    padding: 0;
+    background: none;
+    color: inherit;
+    font-weight: inherit;
+    text-align: left;
   }
   .permissions-table {
     width: 100%;
@@ -258,17 +277,21 @@
     td {
       overflow-wrap: anywhere;
     }
-    th:nth-child(4) {
+    th:nth-child(3) {
       width: 30%;
     }
   }
   .permission-details {
     overflow-wrap: anywhere;
   }
-  .field-label {
+  .field-label,
+  .permission-sort {
     display: none;
   }
   @media (max-width: 991px) {
+    .permission-sort {
+      display: block;
+    }
     .permissions-table {
       display: block;
       thead {

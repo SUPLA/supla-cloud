@@ -138,25 +138,23 @@ it('renders effective rights, scope, links and offline copy without raw grant ac
   const page = mountList();
   await flushPromises();
   expect(page.findAll('tbody tr')).toHaveLength(2);
-  expect(page.text()).toContain('Mixed');
+  expect(page.findAll('thead th').map((cell) => cell.text())).toEqual(['Device with access', 'Permission', 'Access to', 'Details']);
+  expect(page.find('tbody').text()).not.toContain('Mixed');
   expect(page.text()).toContain('Whole device');
-  expect(page.text()).toContain('CONTROL (includes READ)');
+  expect(page.text()).toContain('Control');
   expect(page.text()).toContain('offline source');
   expect(page.find('a[data-route="channel"]').attributes('data-id')).toBe('20');
   expect(page.text()).not.toContain('Revoke');
   expect(page.text()).not.toContain('Approve');
   page.unmount();
 });
-it('pages and filters on the server, including both roles of a selected Device', async () => {
+it('pages on the server and preserves the selected device scope', async () => {
   const get = vi.spyOn(api, 'get').mockResolvedValue({body: {items: [entry], nextCursor: '17:0'}});
   const page = mountList({device: {id: 10}});
   await flushPromises();
   expect(get).toHaveBeenLastCalledWith('resource-access/permissions?limit=25&deviceId=10');
-  await page.findAll('select')[0].setValue('1');
-  await page.findAll('select')[1].setValue('configuration');
-  await page.find('form').trigger('submit');
-  await flushPromises();
-  expect(get).toHaveBeenLastCalledWith('resource-access/permissions?limit=25&permission=1&origin=configuration&deviceId=10');
+  expect(page.find('form').exists()).toBe(false);
+  expect(page.findAll('input')).toHaveLength(0);
   await page
     .findAll('button')
     .find((b) => b.text() === 'Next')
@@ -169,6 +167,42 @@ it('pages and filters on the server, including both roles of a selected Device',
     .trigger('click');
   await flushPromises();
   expect(get.mock.lastCall[0]).not.toContain('cursor=');
+  page.unmount();
+});
+
+it('sorts Permissions by its data columns in both directions, with the same narrow-screen controls as Requests', async () => {
+  const get = vi.spyOn(api, 'get').mockResolvedValue({
+    body: {
+      items: [
+        {...entry, resourceId: 21, destinationName: 'Zulu', sourceCaption: 'A source', permissions: 4},
+        {...entry, resourceId: 22, destinationName: 'Alpha', sourceCaption: 'C source', permissions: 2},
+        {...entry, resourceId: 23, destinationName: 'Bravo', sourceCaption: 'B source', permissions: 1},
+      ],
+      nextCursor: null,
+    },
+  });
+  const page = mountList();
+  await flushPromises();
+  const rows = () => page.findAll('tbody tr').map((row) => Number(row.find('a[data-route="channel"]').attributes('data-id')));
+  expect(rows()).toEqual([22, 23, 21]);
+  expect(page.find('thead th').attributes('aria-sort')).toBe('ascending');
+  await page.find('[data-sort="destination"]').trigger('click');
+  expect(rows()).toEqual([21, 23, 22]);
+  for (const [key, ascending, descending] of [
+    ['permissions', [22, 23, 21], [21, 23, 22]],
+    ['source', [21, 23, 22], [22, 23, 21]],
+  ]) {
+    await page.find(`[data-sort="${key}"]`).trigger('click');
+    expect(rows()).toEqual(ascending);
+    await page.find(`[data-sort="${key}"]`).trigger('click');
+    expect(rows()).toEqual(descending);
+  }
+  await page.find('.permission-sort select').setValue('destination');
+  expect(rows()).toEqual([21, 23, 22]);
+  await page.find('button[aria-label="Reverse sort order"]').trigger('click');
+  expect(rows()).toEqual([22, 23, 21]);
+  expect(page.text()).toContain('Sorting applies to this page.');
+  expect(get).toHaveBeenCalledOnce();
   page.unmount();
 });
 it('details enumerate config and manual contributions with the correct editor and accepted request links', async () => {
@@ -199,6 +233,8 @@ it('details enumerate config and manual contributions with the correct editor an
   await flushPromises();
   expect(get).toHaveBeenLastCalledWith('resource-access/permissions/17/1/20');
   expect(page.findAll('.list-group-item')).toHaveLength(3);
+  expect(page.find('.permission-details').text()).toContain('Configuration');
+  expect(page.find('.permission-details').text()).toContain('User-approved');
   expect(page.find('.permission-details a[data-route="channel"]').attributes('data-id')).toBe('100');
   const link = page.find('.permission-details a[data-view="requests"]');
   expect(link.attributes('data-decision')).toBe('42');
@@ -297,7 +333,7 @@ it.each([
   page.unmount();
 });
 
-it('keeps Permissions available when a filter returns no rows', async () => {
+it('keeps Permissions available when the current page returns no rows', async () => {
   vi.spyOn(api, 'get').mockImplementation((endpoint) =>
     Promise.resolve({
       body: endpoint.includes('/permissions') ? {items: endpoint.includes('limit=1&') || endpoint.endsWith('limit=1') ? [entry] : [], nextCursor: null} : [],

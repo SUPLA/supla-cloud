@@ -1,8 +1,8 @@
 export function permissionLabels(mask) {
   const labels = [];
-  if (mask & 1) labels.push('READ'); // i18n
-  if (mask & 2) labels.push('CONTROL (includes READ)'); // i18n
-  if (mask & 4) labels.push('ACTION (all supported physical events)'); // i18n
+  if (mask & 1) labels.push('Read'); // i18n
+  if (mask & 2) labels.push('Control'); // i18n
+  if (mask & 4) labels.push('Receive events'); // i18n
   return labels;
 }
 export function statusLabel(status) {

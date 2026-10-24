@@ -57,7 +57,7 @@ it('shows separate accepted and pending records with exact rights, without per-e
   const page = mountPage();
   await flushPromises();
   expect(page.findAll('tbody tr')).toHaveLength(2);
-  expect(page.text()).toContain('CONTROL (includes READ)');
+  expect(page.text()).toContain('Control');
   expect(page.findAll('input')).toHaveLength(0);
   expect(page.text()).toContain('offline source');
   page.unmount();
@@ -213,7 +213,7 @@ it('explains remove differently for each state and ACTION covers all physical ev
   expect(confirmationText('ACCEPTED', 'remove')).toContain('Independent permissions remain');
   expect(confirmationText('REJECTED', 'remove')).toContain('Remove this rejection');
   expect(confirmationText('PENDING', 'remove')).toContain('Cancel this pending');
-  expect(permissionLabels(4)).toEqual(['ACTION (all supported physical events)']);
+  expect(permissionLabels(4)).toEqual(['Receive events']);
 });
 it('offers no mutation controls for a read-only token', async () => {
   vi.spyOn(api, 'get').mockResolvedValue({body: [{...pending, canManage: false, canApprove: false}]});
@@ -230,8 +230,8 @@ it('shows existing access only when present and keeps pending permissions separa
   const page = mountPage();
   await flushPromises();
   const row = page.find('tbody tr');
-  expect(row.text()).toContain('CONTROL (includes READ)');
-  expect(row.text()).toContain('Already accepted: READ');
+  expect(row.text()).toContain('Control');
+  expect(row.text()).toContain('Already accepted: Read');
   expect(row.text()).not.toContain('Access from configuration or policy');
   page.unmount();
 });
@@ -254,9 +254,7 @@ it('uses text statuses and links to the requesting device, source device and cha
   const page = mountPage();
   await flushPromises();
   const headings = page.findAll('thead th').map((cell) => cell.text());
-  expect(headings.map((text, index) => text.startsWith(['Requesting device', 'Permissions', 'Status', 'Source device and channel', 'Actions'][index]))).toEqual(
-    [true, true, true, true, true]
-  );
+  expect(headings.map((text, index) => text.startsWith(['Requesting device', 'Permissions', 'Access to', 'Status'][index]))).toEqual([true, true, true, true]);
   expect(page.find('.label').exists()).toBe(false);
   expect(page.find('tbody .text-warning').text()).toBe('Pending decision');
   expect(page.find('a[data-route="device.details"][data-id="10"]').exists()).toBe(true);
@@ -279,9 +277,9 @@ it('sorts each data column in both directions and offers sorting on narrow scree
   const names = () => page.findAll('tbody tr').map((row) => row.find('td').text());
   await page.find('[data-sort="destination"]').trigger('click');
   expect(names()[0]).toContain('Zulu');
-  const sources = () => page.findAll('tbody tr').map((row) => ['A', 'M', 'Z'].find((letter) => row.findAll('td')[3].text().includes(`${letter} source`)));
+  const sources = () => page.findAll('tbody tr').map((row) => ['A', 'M', 'Z'].find((letter) => row.findAll('td')[2].text().includes(`${letter} source`)));
   for (const [key, ascending, descending] of [
-    ['permissions', ['A', 'Z', 'M'], ['M', 'Z', 'A']],
+    ['permissions', ['Z', 'M', 'A'], ['A', 'M', 'Z']],
     ['status', ['M', 'Z', 'A'], ['A', 'Z', 'M']],
     ['source', ['A', 'M', 'Z'], ['Z', 'M', 'A']],
     ['lastDecision', ['A', 'Z', 'M'], ['Z', 'A', 'M']],
@@ -293,7 +291,7 @@ it('sorts each data column in both directions and offers sorting on narrow scree
   }
   await page.find('.resource-access-sort select').setValue('permissions');
   expect(page.find('.resource-access-sort select').element.value).toBe('permissions');
-  expect(page.findAll('.resource-access-field-label')).toHaveLength(15);
+  expect(page.findAll('.resource-access-field-label')).toHaveLength(12);
   page.unmount();
 });
 
