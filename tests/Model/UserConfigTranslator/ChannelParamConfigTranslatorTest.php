@@ -163,7 +163,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::OPENINGSENSOR_WINDOW(), [null, null, null], ['invertedLogic' => true]],
             [ChannelFunction::STAIRCASETIMER(), [], ['relayTimeS' => 101.1]],
             [ChannelFunction::THERMOMETER(), [null, null], ['temperatureAdjustment' => 1.23]],
-            [ChannelFunction::GENERAL_PURPOSE_TEXT(), [], ['keepHistory' => false, 'refreshIntervalMs' => 1234]],
+            [ChannelFunction::GENERAL_PURPOSE_TEXT(), [], ['refreshIntervalMs' => 1234]],
             [ChannelFunction::DIGIGLASS_VERTICAL(), [2, 1000], ['sectionsCount' => 2, 'regenerationTimeStart' => 1000]],
             [ChannelFunction::DIGIGLASS_HORIZONTAL(), [2, 1000], ['sectionsCount' => 2, 'regenerationTimeStart' => 1000]],
         ];

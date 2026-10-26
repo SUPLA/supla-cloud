@@ -25,22 +25,17 @@ use OpenApi\Annotations as OA;
 /**
  * @OA\Schema(schema="ChannelConfigGeneralPurposeText",
  *   description="Config for `GENERAL_PURPOSE_TEXT` function.",
- *   @OA\Property(property="keepHistory", type="boolean"),
  *   @OA\Property(property="refreshIntervalMs", type="integer"),
  * )
  */
 class GeneralPurposeTextConfigTranslator extends UserConfigTranslator {
     public function getConfig(HasUserConfig $subject): array {
         return [
-            'keepHistory' => $subject->getUserConfigValue('keepHistory', true),
             'refreshIntervalMs' => $subject->getUserConfigValue('refreshIntervalMs', 0),
         ];
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
-        if (array_key_exists('keepHistory', $config)) {
-            $subject->setUserConfigValue('keepHistory', filter_var($config['keepHistory'], FILTER_VALIDATE_BOOLEAN));
-        }
         if (array_key_exists('refreshIntervalMs', $config)) {
             Assert::that($config['refreshIntervalMs'], null, 'refreshIntervalMs')->integer()->between(0, 65535);
             $subject->setUserConfigValue('refreshIntervalMs', intval($config['refreshIntervalMs']));

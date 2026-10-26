@@ -155,11 +155,6 @@
       {field: 'date', label: 'Date and time'},
       {field: 'value', label: 'Value'},
     ],
-    [ChannelFunction.GENERAL_PURPOSE_TEXT]: [
-      {field: 'date_timestamp', label: 'Timestamp'},
-      {field: 'date', label: 'Date and time'},
-      {field: 'value', label: 'Text value'},
-    ],
   };
 
   EXPORT_DEFINITIONS[ChannelFunction.IC_HEATMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];

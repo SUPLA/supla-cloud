@@ -1,12 +1,6 @@
 <template>
   <div>
     <dl>
-      <dd>{{ $t('Keep history') }}</dd>
-      <dt>
-        <toggler v-model="props.channel.config.keepHistory" @update:model-value="$emit('change')" />
-      </dt>
-    </dl>
-    <dl>
       <dd>{{ $t('Refresh interval (ms)') }}</dd>
       <dt>
         <NumberInput
@@ -25,7 +19,6 @@
 
 <script setup>
   import NumberInput from '@/common/number-input.vue';
-  import Toggler from '@/common/gui/toggler.vue';
 
   const props = defineProps({channel: Object});
   defineEmits(['change']);

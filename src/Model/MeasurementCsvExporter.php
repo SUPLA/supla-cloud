@@ -180,11 +180,6 @@ class MeasurementCsvExporter {
                     ['Timestamp', 'Date and time', 'Value'],
                     "SELECT $timestampSelect, value FROM supla_gp_meter_log WHERE channel_id = :channelId",
                 ];
-            case ChannelFunction::GENERAL_PURPOSE_TEXT:
-                return [
-                    ['Timestamp', 'Date and time', 'Text value'],
-                    "SELECT $timestampSelect, value FROM supla_gp_text_log WHERE channel_id = :channelId",
-                ];
             default:
                 throw new ApiException('Cannot generate CSV from this channel - invalid type.');
         }

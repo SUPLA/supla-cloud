@@ -35,18 +35,16 @@ class GeneralPurposeTextConfigTranslatorTest extends TestCase {
 
     public function testGettingDefaultConfig() {
         $config = $this->configTranslator->getConfig($this->channel);
-        $this->assertTrue($config['keepHistory']);
-        $this->assertSame(0, $config['refreshIntervalMs']);
+        $this->assertSame(['refreshIntervalMs' => 0], $config);
     }
 
     public function testSettingConfig() {
         $this->configTranslator->setConfig($this->channel, [
-            'keepHistory' => false,
             'refreshIntervalMs' => 1234,
         ]);
 
-        $this->assertFalse($this->channel->getUserConfigValue('keepHistory'));
         $this->assertSame(1234, $this->channel->getUserConfigValue('refreshIntervalMs'));
+        $this->assertSame(['refreshIntervalMs' => 1234], $this->configTranslator->getConfig($this->channel));
     }
 
     public function testSupportsGeneralPurposeTextOnly() {

@@ -24,7 +24,6 @@ use App\Entity\MeasurementLogs\ElectricityMeterLogItem;
 use App\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
 use App\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
 use App\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
-use App\Entity\MeasurementLogs\GeneralPurposeTextLogItem;
 use App\Entity\MeasurementLogs\ImpulseCounterLogItem;
 use App\Entity\MeasurementLogs\TemperatureLogItem;
 use App\Entity\MeasurementLogs\TempHumidityLogItem;
@@ -156,15 +155,6 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $date->add($oneday);
         }
 
-        foreach (['hello', 'world', 'supla'] as $value) {
-            $logItem = new GeneralPurposeTextLogItem();
-            EntityUtils::setField($logItem, 'channel_id', 15 + $offset);
-            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
-            EntityUtils::setField($logItem, 'value', $value);
-            $this->getMeasurementLogsEntityManager()->persist($logItem);
-            $date->add($oneday);
-        }
-
         $fixture = new LogItemsFixture($this->getContainer()->get(MeasurementLogsEntityManagerProvider::class));
         $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-1 days', 1);
         $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-1 days', 2);
@@ -235,7 +225,16 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     public static function measurementLogsCounts() {
-        return [[2], [3], [4], [5], [6], [7], [8], [9], [10], [15]];
+        return [[2], [3], [4], [5], [6], [7], [8], [9], [10]];
+    }
+
+    public function testGeneralPurposeTextMeasurementLogsAreUnavailable() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels/15/measurement-logs');
+        $this->assertStatusCode('4xx', $client->getResponse());
+
+        $client->apiRequestV24('GET', '/api/channels/15/measurement-logs-csv');
+        $this->assertStatusCode('4xx', $client->getResponse());
     }
 
     public function testGettingTemperatureLogsCountObsolete() {
