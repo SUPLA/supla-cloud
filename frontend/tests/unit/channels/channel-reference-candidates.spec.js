@@ -104,6 +104,7 @@ describe('M4 common channel candidates', () => {
       disable: vi.fn(),
       addOption: vi.fn(),
       setValue: vi.fn(),
+      refreshOptions: vi.fn(),
     };
     SelectForSubjects.methods.syncDropdown.call({dropdown, optionGroups: [], options: [], value: {id: 666}, $t: (s) => s});
     expect(dropdown.setValue).toHaveBeenCalledWith(undefined, true);

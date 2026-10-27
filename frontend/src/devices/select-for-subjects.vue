@@ -6,6 +6,7 @@
 
 <script>
   import TomSelect from 'tom-select';
+  import {escape} from 'lodash';
   import 'tom-select/dist/css/tom-select.bootstrap4.min.css';
 
   export default {
@@ -43,6 +44,7 @@
       return {
         chosenId: undefined,
         dropdown: undefined,
+        dropdownContentKey: undefined,
       };
     },
     watch: {
@@ -51,6 +53,14 @@
       },
       value() {
         if (this.dropdown) {
+          const ids = this.multiple ? (this.value || []).map((v) => v.id) : this.value?.id ? [this.value.id] : [];
+          if (
+            ids
+              .filter((id) => this.dropdown.options[id])
+              .map(String)
+              .join(',') === this.dropdown.items.join(',')
+          )
+            return;
           if (this.multiple) {
             this.dropdown.setValue(
               (this.value || []).map((v) => v.id),
@@ -62,6 +72,12 @@
         }
       },
       '$i18n.locale'() {
+        this.syncDropdown();
+      },
+      optionGroups() {
+        this.syncDropdown();
+      },
+      disabled() {
         this.syncDropdown();
       },
     },
@@ -128,22 +144,40 @@
       },
       syncDropdown() {
         if (this.dropdown) {
+          const options = (this.options || []).map((option) => {
+            const prepared = {...option, fullCaption: this.caption(option)};
+            prepared.searchText = this.searchText(prepared);
+            return prepared;
+          });
+          const groups = this.optionGroups.map(({id, labelI18n}) => [id, this.$t(labelI18n)]);
+          const placeholder = this.$t(this.choosePromptI18n);
+          // Polling changes channel state too. Rebuild only if the visible/searchable options change.
+          const contentKey = JSON.stringify([
+            options.map((option) => [option.id, option.group, option.fullCaption, option.searchText, this.optionHtml(option, escape)]),
+            groups,
+            placeholder,
+            this.noneOption,
+            this.disabled,
+            this.$t('None'),
+          ]);
+          if (contentKey === this.dropdownContentKey) return;
+          this.dropdownContentKey = contentKey;
+          const wasOpen = this.dropdown.isOpen;
+          const search = this.dropdown.control_input?.value || '';
+          const scrollTop = this.dropdown.dropdown_content?.scrollTop || 0;
+          const activeValue = this.dropdown.activeOption?.dataset.value;
           this.dropdown.clear(true);
           this.dropdown.clearOptions();
           this.dropdown.clearOptionGroups();
-          this.optionGroups.forEach(({id, labelI18n}) => this.dropdown.addOptionGroup(id, {label: this.$t(labelI18n)}));
-          this.dropdown.settings.placeholder = this.$t(this.choosePromptI18n);
+          groups.forEach(([id, label]) => this.dropdown.addOptionGroup(id, {label}));
+          this.dropdown.settings.placeholder = placeholder;
           this.dropdown.inputState();
-          if (this.options && this.options.length) {
+          if (options.length) {
             this.dropdown.enable();
             if (this.noneOption) {
               this.dropdown.addOption({id: 0, caption: this.$t('None')});
             }
-            this.options.forEach((o) => {
-              const optionToAdd = {...o, fullCaption: this.caption(o)};
-              optionToAdd.searchText = this.searchText(optionToAdd);
-              this.dropdown.addOption(optionToAdd);
-            });
+            options.forEach((option) => this.dropdown.addOption(option));
             if (this.multiple) {
               this.dropdown.setValue(
                 (this.value || []).map((v) => v.id),
@@ -158,6 +192,17 @@
           }
           if (this.disabled) {
             this.dropdown.disable();
+          }
+          if (wasOpen) this.dropdown.setTextboxValue(search);
+          this.dropdown.refreshOptions(false);
+          if (wasOpen && !this.dropdown.isDisabled) {
+            this.dropdown.open();
+            const active = this.dropdown.getOption(activeValue);
+            if (active && this.dropdown.dropdown_content.contains(active)) this.dropdown.setActiveOption(active, false);
+            const scrollBehavior = this.dropdown.dropdown_content.style.scrollBehavior;
+            this.dropdown.dropdown_content.style.scrollBehavior = 'auto';
+            this.dropdown.dropdown_content.scrollTop = scrollTop;
+            this.dropdown.dropdown_content.style.scrollBehavior = scrollBehavior;
           }
         }
       },
