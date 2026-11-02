@@ -35,6 +35,8 @@ use Psr\Log\LoggerInterface;
 abstract class SuplaServer {
     use CurrentUserAware;
 
+    protected bool $calcfgActionInProgress = false;
+
     /** @var string */
     protected $socketPath;
     /** @var LocalSuplaCloud */
@@ -97,8 +99,25 @@ abstract class SuplaServer {
         } else {
             throw new SuplaServerIsDownException();
         }
-        $this->logger->debug('SuplaServer command', ['command' => $command, 'result' => $result]);
+        $sensitiveCommand = preg_match('/^SET-CFG-MODE-PASSWORD:/i', $command) === 1;
+        $loggedCommand = self::redactCommandForLogging($command);
+        $this->logger->debug('SuplaServer command', [
+            'command' => $loggedCommand,
+            'result' => $sensitiveCommand ? '[REDACTED]' : $result,
+        ]);
         return $result;
+    }
+
+    public static function redactCommandForLogging(string $command): string {
+        if (preg_match('/^(SET-CFG-MODE-PASSWORD):(.*)$/i', $command, $matches) !== 1) {
+            return $command;
+        }
+
+        if (preg_match('/^(\d+,\d+),/', $matches[2], $identifiers) === 1) {
+            return $matches[1] . ':' . $identifiers[1] . ',[REDACTED]';
+        }
+
+        return $matches[1] . ':[REDACTED]';
     }
 
     private function doExecuteCommand(string $command) {
@@ -192,18 +211,46 @@ abstract class SuplaServer {
         }
     }
 
-    public function deviceAction(IODevice $device, string $commandName, array $params = []): bool {
+    public function deviceAction(IODevice $device, string $commandName, array $params = []): CalcfgActionResult|false {
         $params = implode(',', array_merge([$device->getUser()->getId(), $device->getId()], $params));
         $command = "$commandName:$params";
-        $result = $this->doExecuteCommand($command);
-        return $result !== false && str_starts_with($result, 'OK:');
+        $this->calcfgActionInProgress = true;
+        try {
+            $result = $this->doExecuteCommand($command);
+        } finally {
+            $this->calcfgActionInProgress = false;
+        }
+        return $this->parseCalcfgActionResult($result);
     }
 
-    public function channelAction(IODeviceChannel $channel, string $commandName): bool {
+    public function channelAction(IODeviceChannel $channel, string $commandName): CalcfgActionResult|false {
         $params = implode(',', [$channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId()]);
         $command = "$commandName:$params";
-        $result = $this->doExecuteCommand($command);
-        return $result !== false && str_starts_with($result, 'OK:');
+        $this->calcfgActionInProgress = true;
+        try {
+            $result = $this->doExecuteCommand($command);
+        } finally {
+            $this->calcfgActionInProgress = false;
+        }
+        return $this->parseCalcfgActionResult($result);
+    }
+
+    private function parseCalcfgActionResult(mixed $result): CalcfgActionResult|false {
+        if (!is_string($result)) {
+            return false;
+        }
+        if (preg_match('/^OK:(\d+)\r?\n$/D', $result, $match)) {
+            $id = filter_var($match[1], FILTER_VALIDATE_INT);
+            return $id !== false && $id > 0 ? new CalcfgActionResult(CalcfgActionResult::ACCEPTED, $id, null) : false;
+        }
+        if (preg_match('/^(QUEUED|WAITING_FOR_RESULT):(\d+),(\d+)\r?\n$/D', $result, $match)) {
+            $id = filter_var($match[2], FILTER_VALIDATE_INT);
+            $queuedAt = filter_var($match[3], FILTER_VALIDATE_INT);
+            if ($id !== false && $id > 0 && $queuedAt !== false && $queuedAt >= 0) {
+                return new CalcfgActionResult($match[1], $id, $queuedAt);
+            }
+        }
+        return false;
     }
 
     public function reconnect(?User $user = null): void {

@@ -32,7 +32,7 @@ class SuplaServerMockCommandsCollector extends DataCollector {
     }
 
     public function addCommand(string $command) {
-        $this->data['commands'][] = $command;
+        $this->data['commands'][] = SuplaServer::redactCommandForLogging($command);
     }
 
     public function getCommands(): array {

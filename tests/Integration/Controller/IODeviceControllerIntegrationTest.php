@@ -312,8 +312,8 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRemoteOtaUpdate() {
-        SuplaServerMock::mockResponse('OTA-PERFORM-UPDATE', 'OK:TEST');
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        SuplaServerMock::mockResponse('OTA-PERFORM-UPDATE', 'OK:' . $device->getUser()->getId() . "\n");
         AnyFieldSetter::set($device, 'flags', IoDeviceFlags::AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED);
         $this->persist($device);
         $client = $this->createAuthenticatedClient();
@@ -324,8 +324,8 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRemoteFactoryReset() {
-        SuplaServerMock::mockResponse('FACTORY-RESET', 'OK:TEST');
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        SuplaServerMock::mockResponse('FACTORY-RESET', 'OK:' . $device->getId() . "\n");
         AnyFieldSetter::set($device, 'flags', IoDeviceFlags::FACTORY_RESET_SUPPORTED);
         $this->persist($device);
         $client = $this->createAuthenticatedClient();

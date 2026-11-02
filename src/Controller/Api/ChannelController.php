@@ -575,23 +575,23 @@ class ChannelController extends RestController {
             if ($action === 'resetCounters') {
                 Assertion::true($channelConfig['resetCountersAvailable'] ?? false, 'Cannot reset counters of this channel.');
                 $result = $this->suplaServer->channelAction($channel, 'RESET-COUNTERS');
-                Assertion::true($result, 'Could not reset the counters.');
+                Assertion::true($result !== false, 'Could not reset the counters.');
                 if ($channelConfig['ocr'] ?? false) {
                     $ocr->resetCounter($channel);
                 }
             } elseif ($action === 'recalibrate') {
                 Assertion::true($channelConfig['recalibrateAvailable'] ?? false, 'Cannot recalibrate this channel.');
                 $result = $this->suplaServer->channelAction($channel, 'RECALIBRATE');
-                Assertion::true($result, 'Could not recalibrate.');
+                Assertion::true($result !== false, 'Could not recalibrate.');
             } elseif ($action === 'muteAlarm') {
                 $state = $channelStateGetter->getState($channel);
                 Assertion::keyExists($state, 'soundAlarmOn', 'Cannot mute alarm for this channel.');
                 $result = $this->suplaServer->channelAction($channel, 'MUTE-ALARM-SOUND');
-                Assertion::true($result, 'Could not mute alarm.');
+                Assertion::true($result !== false, 'Could not mute alarm.');
             } elseif ($action === 'ocr:takePhoto') {
                 Assertion::keyExists($channelConfig, 'ocr', 'This channel does not support OCR.');
                 $result = $this->suplaServer->channelAction($channel, 'TAKE-OCR-PHOTO');
-                Assertion::true($result, 'Could not take OCR photo.');
+                Assertion::true($result !== false, 'Could not take OCR photo.');
             } elseif ($action === 'ocr:markLastMeasurementValid') {
                 Assertion::keyExists($channelConfig, 'ocr', 'This channel does not support OCR.');
                 Assertion::keyExists($body, 'imageId');
@@ -730,14 +730,14 @@ class ChannelController extends RestController {
                 'Device identification is unsupported in the firmware.' // i18n
             );
             $result = $this->suplaServer->channelAction($channel, 'IDENTIFY-SUBDEVICE');
-            Assertion::true($result, 'Could not send the identify command.'); // i18n
+            Assertion::true($result !== false, 'Could not send the identify command.'); // i18n
         } elseif ($body['action'] === 'restart') {
             Assertion::true(
                 ChannelFlags::RESTART_SUBDEVICE_AVAILABLE()->isOn($channel->getFlags()),
                 'Remote restart is unsupported in the firmware.' // i18n
             );
             $result = $this->suplaServer->channelAction($channel, 'RESTART-SUBDEVICE');
-            Assertion::true($result, 'Could not restart the device.'); // i18n
+            Assertion::true($result !== false, 'Could not restart the device.'); // i18n
         } else {
             throw new ApiException('Invalid action given.');
         }

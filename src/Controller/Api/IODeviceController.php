@@ -376,23 +376,23 @@ class IODeviceController extends RestController {
             if ($action === 'enterConfigurationMode') {
                 Assertion::true($ioDevice->getFlags()['enterConfigurationModeAvailable'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'ENTER-CONFIGURATION-MODE');
-                Assertion::true($result, 'Could not enter the configuration mode.'); // i18n
+                Assertion::true($result !== false, 'Could not enter the configuration mode.'); // i18n
             } elseif ($action === 'restartDevice') {
                 Assertion::true($ioDevice->getFlags()['remoteRestartAvailable'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'RESTART-DEVICE');
-                Assertion::true($result, 'Could not restart the device.'); // i18n
+                Assertion::true($result !== false, 'Could not restart the device.'); // i18n
             } elseif ($action === 'otaCheckUpdates') {
                 Assertion::true($ioDevice->getFlags()['automaticFirmwareUpdatesSupported'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'OTA-CHECK-UPDATES');
-                Assertion::true($result, 'Could not check updates.'); // i18n
+                Assertion::true($result !== false, 'Could not check updates.'); // i18n
             } elseif ($action === 'otaPerformUpdate') {
                 Assertion::true($ioDevice->getFlags()['automaticFirmwareUpdatesSupported'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'OTA-PERFORM-UPDATE');
-                Assertion::true($result, 'Could not perform firmware update.'); // i18n
+                Assertion::true($result !== false, 'Could not perform firmware update.'); // i18n
             } elseif ($action === 'factoryReset') {
                 Assertion::true($ioDevice->getFlags()['factoryResetSupported'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'FACTORY-RESET');
-                Assertion::true($result, 'Could not perform factory reset.'); // i18n
+                Assertion::true($result !== false, 'Could not perform factory reset.'); // i18n
             } elseif ($action === 'setCfgModePassword') {
                 $userToken = $this->getCurrentUserToken();
                 Assertion::true($this->isGranted('ROLE_WEBAPP'), 'Device password can be changed from the web interface only.');
@@ -402,15 +402,15 @@ class IODeviceController extends RestController {
                     ->minLength(5, 'Password is too short.') // i18n
                     ->maxLength(64, 'Password is too long.'); // i18n
                 $result = $this->suplaServer->deviceAction($ioDevice, 'SET-CFG-MODE-PASSWORD', [base64_encode($body['password'])]);
-                Assertion::true($result, 'Could not set device password.'); // i18n
+                Assertion::true($result !== false, 'Could not set device password.'); // i18n
             } elseif ($action === 'pairSubdevice') {
                 Assertion::true($ioDevice->getFlags()['pairingSubdevicesAvailable'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'PAIR-SUBDEVICE');
-                Assertion::true($result, 'Could not enter the configuration mode.'); // i18n
+                Assertion::true($result !== false, 'Could not enter the configuration mode.'); // i18n
             } elseif ($action === 'identifyDevice') {
                 Assertion::true($ioDevice->getFlags()['identifyDeviceAvailable'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'IDENTIFY-DEVICE');
-                Assertion::true($result, 'Could not send the identify command.'); // i18n
+                Assertion::true($result !== false, 'Could not send the identify command.'); // i18n
             } elseif ($action === 'setTime') {
                 Assertion::keyExists($body, 'time', 'Missing time.');
                 $timestamp = strtotime($body['time']);
@@ -421,7 +421,7 @@ class IODeviceController extends RestController {
                 $suplaDayOfWeek = intval($dateTime->format('w')) + 1; // 1 - Sunday, ... 7 - Monday
                 $params = $dateTime->format("Y,n,j,$suplaDayOfWeek,G,i,s,") . base64_encode($timezoneName);
                 $result = $this->suplaServer->deviceAction($ioDevice, 'DEVICE-SET-TIME', [$params]);
-                Assertion::true($result, 'Could not set the device time.'); // i18n
+                Assertion::true($result !== false, 'Could not set the device time.'); // i18n
             } elseif ($action === 'unlock') {
                 Assertion::keyExists($body, 'email');
                 Assertion::email($body['email']);

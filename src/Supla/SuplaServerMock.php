@@ -112,8 +112,8 @@ class SuplaServerMock extends SuplaServer {
             return 'OK:HURRA';
         } elseif (preg_match('#^ACTION-(CG-)?(.+?):.+$#', $cmd, $match)) {
             return 'OK:HURRA';
-        } elseif (preg_match('#^(RESTART-(SUB)?DEVICE|OTA-PERFORM-UPDATE):.+$#', $cmd, $match)) {
-            return 'OK:HURRA';
+        } elseif (preg_match('#^(RESTART-(SUB)?DEVICE|OTA-PERFORM-UPDATE):(\d+),(\d+)(?:,(\d+))?$#', $cmd, $match)) {
+            return "OK:" . ($match[1] === 'OTA-PERFORM-UPDATE' ? $match[3] : (!empty($match[2]) && !empty($match[5]) ? $match[5] : $match[4])) . "\n";
         } elseif (preg_match('#^OTA-CHECK-UPDATES:(\d+),(\d+)$#', $cmd, $match)) {
             $device = $this->em->find(IODevice::class, $match[2]);
             $properties = $device->getProperties();
@@ -125,7 +125,7 @@ class SuplaServerMock extends SuplaServer {
             EntityUtils::setField($device, 'properties', json_encode($properties));
             $this->em->persist($device);
             $this->em->flush();
-            return 'OK:HURRA';
+            return "OK:$match[1]\n";
         } elseif (preg_match('#^SET-CFG-MODE-PASSWORD:(\d+),(\d+).*$#', $cmd, $match)) {
             $device = $this->em->find(IODevice::class, $match[2]);
             $properties = $device->getProperties();
@@ -137,7 +137,7 @@ class SuplaServerMock extends SuplaServer {
             EntityUtils::setField($device, 'properties', json_encode($properties));
             $this->em->persist($device);
             $this->em->flush();
-            return 'OK:HURRA';
+            return "OK:$match[2]\n";
         } elseif (preg_match('#^PAIR-SUBDEVICE:(\d+),(\d+)$#', $cmd, $match)) {
             $device = $this->em->find(IODevice::class, $match[2]);
             $statuses = [
@@ -150,11 +150,11 @@ class SuplaServerMock extends SuplaServer {
             EntityUtils::setField($device, 'pairingResult', json_encode($this->faker->randomElement($statuses)));
             $this->em->persist($device);
             $this->em->flush();
-            return 'OK:HURRA';
-        } elseif (preg_match('#^(DEVICE-SET-TIME|ENTER-CONFIGURATION-MODE):.+$#', $cmd, $match)) {
-            return 'OK:HURRA';
-        } elseif (preg_match('#^IDENTIFY-(SUB)?DEVICE:.+$#', $cmd, $match)) {
-            return 'OK:HURRA';
+            return "OK:$match[2]\n";
+        } elseif (preg_match('#^IDENTIFY-SUBDEVICE:\d+,\d+,(\d+)(?:,.*)?$#', $cmd, $match)) {
+            return "OK:$match[1]\n";
+        } elseif (preg_match('#^(DEVICE-SET-TIME|ENTER-CONFIGURATION-MODE|FACTORY-RESET|IDENTIFY-(SUB)?DEVICE):\d+,(\d+)(?:,.*)?$#', $cmd, $match)) {
+            return "OK:$match[3]\n";
         } elseif (preg_match('#^(RESET-COUNTERS|RECALIBRATE|TAKE-OCR-PHOTO|MUTE-ALARM-SOUND):(\d+),(\d+),(\d+)$#', $cmd, $match)) {
             return "OK:$match[4]\n";
         } elseif (preg_match('#^(EXECUTE|INTERRUPT|INTERRUPT-AND-EXECUTE)-SCENE:.+$#', $cmd, $match)) {
