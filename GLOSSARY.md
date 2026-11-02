@@ -2,6 +2,24 @@
 
 The shared language for SUPLA Cloud concepts. Use these terms consistently in specifications, issues, code, tests, and operational documentation.
 
+## CALCFG operations
+
+**CALCFG operation**:
+A device configuration or maintenance operation directed at a device or one of its channels. Acceptance of a request is distinct from the device performing the operation.
+_Avoid_: completed action (when only acceptance is known)
+
+**CALCFG acceptance**:
+Acknowledgement that a CALCFG request has been accepted for dispatch, queued for later dispatch, or matched to an earlier operation awaiting its result. Acceptance alone does not confirm device-side execution.
+_Avoid_: execution success, operation completed
+
+**Queued CALCFG operation**:
+A CALCFG operation awaiting dispatch to a sleeping device. A new request can replace earlier queued work rather than schedule an additional operation.
+_Avoid_: guaranteed execution, additional operation
+
+**CALCFG operation awaiting result**:
+A previously dispatched CALCFG operation for which a device response is still outstanding. A matching new request does not submit its new payload or create another operation.
+_Avoid_: new request submitted, new password applied
+
 ## OAuth authorization
 
 **OAuth authorization request**:
