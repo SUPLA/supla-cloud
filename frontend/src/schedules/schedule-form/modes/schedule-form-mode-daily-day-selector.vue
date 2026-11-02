@@ -83,7 +83,7 @@
     },
     methods: {
       nextGroup() {
-        let emptyIndex = -1;
+        let emptyIndex;
         while ((emptyIndex = this.groups.findIndex((group) => group.length === 0)) >= 0) {
           this.groups.splice(emptyIndex, 1);
           this.$emit('groupIndexRemove', emptyIndex);
