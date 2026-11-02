@@ -10,7 +10,7 @@ use OAuth2\OAuth2;
 class DebugOAuthFlowIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
-    public function testConsentFormCarriesS256ParametersAfterLogin(): void {
+    public function testStatelessAuthorizationBindsS256ParametersToTheIssuedCode(): void {
         $clientManager = self::getContainer()->get(ClientManagerInterface::class);
         $oauthClient = $clientManager->createClient();
         $oauthClient->setRedirectUris(['https://unicorns.pl']);
@@ -20,26 +20,33 @@ class DebugOAuthFlowIntegrationTest extends IntegrationTestCase {
 
         $verifier = str_repeat('diagnostic_verifier_', 3);
         $challenge = rtrim(strtr(base64_encode(hash('sha256', $verifier, true)), '+/', '-_'), '=');
-        $client = $this->createHttpsClient();
-        $client->followRedirects();
-        $client->request('GET', '/oauth/v2/auth?' . http_build_query([
+        $authorization = [
             'client_id' => $oauthClient->getPublicId(),
             'redirect_uri' => 'https://unicorns.pl',
             'response_type' => 'code',
             'scope' => 'account_r',
+            'state' => 'stateless-state',
             'code_challenge' => $challenge,
             'code_challenge_method' => 'S256',
-        ]));
+        ];
+        $client = $this->createHttpsClient(false);
+        $authorizationUrl = '/oauth/v2/auth?' . http_build_query($authorization);
+        $client->request('GET', $authorizationUrl);
+        $this->assertSame(200, $client->getResponse()->getStatusCode());
+        $this->assertSame($authorizationUrl, $client->getRequest()->getRequestUri());
+        $this->assertFalse($client->getResponse()->headers->has('Set-Cookie'));
 
-        $crawler = $client->apiRequest('POST', '/oauth/v2/auth_login', [
-            '_username' => 'supler@supla.org',
-            '_password' => 'supla123',
+        $client->apiRequest('POST', '/api/oauth/authorize', $authorization + [
+            'decision' => 'approve',
+            'username' => 'supler@supla.org',
+            'password' => 'supla123',
         ]);
-        $challengeInput = $crawler->filterXPath('//input[contains(@name, "[code_challenge]")]');
-        $methodInput = $crawler->filterXPath('//input[contains(@name, "[code_challenge_method]")]');
-        $this->assertCount(1, $challengeInput);
-        $this->assertSame($challenge, $challengeInput->attr('value'));
-        $this->assertCount(1, $methodInput);
-        $this->assertSame('S256', $methodInput->attr('value'));
+        $result = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame('authorized', $result['outcome']);
+        $this->assertStringContainsString('state=stateless-state', $result['redirectUrl']);
+        $authCodes = self::getContainer()->get('doctrine')->getRepository(\App\Entity\Main\OAuth\AuthCode::class)->findByClient($oauthClient);
+        $this->assertCount(1, $authCodes);
+        $this->assertSame($challenge, $authCodes[0]->getCodeChallenge());
+        $this->assertSame('S256', $authCodes[0]->getCodeChallengeMethod());
     }
 }

@@ -67,6 +67,20 @@ class InternalOAuthAuthorizationController {
             return $this->error('unauthorized_broker', Response::HTTP_UNAUTHORIZED);
         }
 
+        return $this->authorizeTargetRequest($request);
+    }
+
+    /**
+     * Browser-facing local authorization enters the same target-side FOS path
+     * after the broker controller has resolved the username to this instance.
+     * This method is intentionally not routed: remote callers must use the
+     * broker-authenticated internal endpoint above.
+     */
+    public function authorizeLocalBrowserRequest(Request $request): JsonResponse {
+        return $this->authorizeTargetRequest($request);
+    }
+
+    private function authorizeTargetRequest(Request $request): JsonResponse {
         $data = $request->request->all();
         $allowedParameters = array_merge(self::AUTHORIZATION_PARAMETERS, ['decision', 'username', 'password', 'target_token']);
         foreach ($data as $name => $value) {

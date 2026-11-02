@@ -30,7 +30,7 @@ use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\SuplaAssertions;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
-use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\HttpFoundation\Response;
 
 class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
@@ -62,19 +62,24 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
             'response_type' => 'code',
             'scope' => 'account_r offline_access',
         ], $params);
-        self::ensureKernelShutdown();
-        $client = false ? $this->createInsulatedClient() : $this->createClient();
-        $client->followRedirects();
+        $client = $this->createHttpsClient(false);
         $client->request('GET', '/oauth/v2/auth?' . http_build_query($params));
-        if ($testCase['login']) {
-            /** @var Crawler $crawler */
-            $crawler = $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
-            if ($testCase['grant']) {
-                $client->followRedirects(false);
-                $form = $crawler->selectButton('accepted')->form();
-                $client->submit($form);
-            }
+        if (!$testCase['login'] || $client->getResponse()->getStatusCode() !== Response::HTTP_OK) {
+            return $client;
         }
+
+        $credentials = ['username' => 'supler@supla.org'];
+        if ($testCase['grant']) {
+            $credentials['password'] = 'supla123';
+        } else {
+            $client->apiRequest('POST', '/api/webapp-tokens', [
+                'username' => 'supler@supla.org',
+                'password' => 'supla123',
+            ]);
+            $tokenResponse = json_decode($client->getResponse()->getContent(), true);
+            $credentials['target_token'] = $tokenResponse['access_token'];
+        }
+        $client->apiRequest('POST', '/api/oauth/authorize', $params + $credentials + ['decision' => 'approve']);
         return $client;
     }
 
@@ -89,9 +94,8 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
 
     public function testRedirectionAfterGrantingAccess() {
         $client = $this->makeOAuthAuthorizeRequest(['state' => 'horse']);
-        $response = $client->getResponse();
-        $this->assertTrue($response->isRedirection());
-        $targetUrl = $response->headers->get('Location');
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $targetUrl = $response['redirectUrl'];
         $this->assertStringContainsString('https://unicorns.pl?', $targetUrl);
         $this->assertStringContainsString('state=horse', $targetUrl);
         $this->assertStringContainsString('code=', $targetUrl);
@@ -136,7 +140,26 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->makeOAuthAuthorizeRequest([], ['login' => false]);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('askForTargetCloud: false', $response->getContent());
+        $this->assertStringContainsString('<div id="vue-container"', $response->getContent());
+    }
+
+    public function testAnonymousUserCanDenyValidatedAuthorizationRequest(): void {
+        $browser = $this->createHttpsClient(false);
+        $browser->apiRequest('POST', '/api/oauth/authorize', [
+            'client_id' => $this->client->getPublicId(),
+            'redirect_uri' => 'https://unicorns.pl',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'state' => '0',
+            'decision' => 'deny',
+        ]);
+
+        $this->assertStatusCode(Response::HTTP_OK, $browser->getResponse());
+        $result = json_decode($browser->getResponse()->getContent(), true);
+        $this->assertSame('denied', $result['outcome']);
+        $this->assertStringContainsString('error=access_denied', $result['redirectUrl']);
+        $this->assertStringContainsString('state=0', $result['redirectUrl']);
+        $this->assertSame([], $this->getDoctrine()->getRepository(ApiClientAuthorization::class)->findBy(['apiClient' => $this->client]));
     }
 
     private function issueTokenBasedOnAuthCode($authCode = null, array $params = []) {
@@ -182,7 +205,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $authCodes, sprintf(
             'OAuth browser response: %d %s %s',
             $browserClient->getResponse()->getStatusCode(),
-            $browserClient->getResponse()->headers->get('Location'),
+            json_decode($browserClient->getResponse()->getContent(), true)['redirectUrl'] ?? '',
             substr($browserClient->getResponse()->getContent(), 0, 3000)
         ));
         $this->assertSame($challenge, $authCodes[0]->getCodeChallenge());

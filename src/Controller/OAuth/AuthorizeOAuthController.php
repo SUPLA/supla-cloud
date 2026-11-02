@@ -17,43 +17,26 @@
 
 namespace App\Controller\OAuth;
 
-use App\Entity\Main\OAuth\ApiClient;
-use App\Enums\ApiClientType;
 use App\EventListener\UnavailableInMaintenance;
 use App\Exception\ApiException;
 use App\Message\Emails\DeleteTargetCloudConfirmationEmailNotification;
 use App\Model\ApiVersions;
-use App\Model\Audit\FailedAuthAttemptsUserBlocker;
 use App\Model\LocalSuplaCloud;
 use App\Model\TargetSuplaCloud;
 use App\Model\TargetSuplaCloudRequestForwarder;
 use App\Supla\SuplaAutodiscover;
 use Assert\Assertion;
-use FOS\OAuthServerBundle\Model\ClientManagerInterface;
-use InvalidArgumentException;
-use OAuth2\OAuth2;
 use ReCaptcha\ReCaptcha;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class AuthorizeOAuthController extends AbstractController {
-    use TargetPathTrait;
-
-    /** @var FailedAuthAttemptsUserBlocker */
-    private $failedAuthAttemptsUserBlocker;
     /** @var SuplaAutodiscover */
     private $autodiscover;
-    /** @var ClientManagerInterface */
-    private $clientManager;
 
-    const LAST_TARGET_CLOUD_ADDRESS_KEY = '_lastTargetCloud';
     /** @var LocalSuplaCloud */
     private $localSuplaCloud;
     /** @var TargetSuplaCloudRequestForwarder */
@@ -64,17 +47,13 @@ class AuthorizeOAuthController extends AbstractController {
     private $recaptchaEnabled;
 
     public function __construct(
-        FailedAuthAttemptsUserBlocker $failedAuthAttemptsUserBlocker,
         SuplaAutodiscover $autodiscover,
-        ClientManagerInterface $clientManager,
         LocalSuplaCloud $localSuplaCloud,
         TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder,
         ?string $recaptchaSecret,
         ?string $recaptchaSiteKey,
     ) {
-        $this->failedAuthAttemptsUserBlocker = $failedAuthAttemptsUserBlocker;
         $this->autodiscover = $autodiscover;
-        $this->clientManager = $clientManager;
         $this->localSuplaCloud = $localSuplaCloud;
         $this->suplaCloudRequestForwarder = $suplaCloudRequestForwarder;
         $this->recaptchaSecret = $recaptchaSecret;
@@ -82,141 +61,22 @@ class AuthorizeOAuthController extends AbstractController {
     }
 
     /**
+     * Compatibility endpoints for already-open legacy OAuth pages.
      * @Route("/oauth-authorize", name="_oauth_login", methods={"GET", "POST"})
      * @Route("/oauth/v2/auth_login", name="_oauth_login_check", methods={"GET", "POST"})
      * @Route("/oauth/v2/broker_login", name="_oauth_broker_check", methods={"POST"})
-     * @Template("oauth/o_auth_login.html.twig")
      */
-    public function oAuthLoginAction(Request $request) {
-        $session = $request->getSession();
-        $lastUsername = $session->get(Security::LAST_USERNAME);
-
-        $askForTargetCloud = false;
-        $client = null;
-        $publicClientName = null;
-        if ($this->autodiscover->enabled()) {
-            $targetPath = $this->getTargetPath($session, 'oauth_authorize');
-            $oauthParams = [];
-            if ($targetPath && preg_match('#/oauth/v2/auth/?\?(.+)#', $targetPath, $match)) {
-                parse_str($match[1], $oauthParams);
-            }
-            if (isset($oauthParams['client_id'])) {
-                if ($this->autodiscover->isBroker() && $request->isMethod(Request::METHOD_POST)) {
-                    return $this->handleBrokerAuth($request, $oauthParams);
-                } elseif (!($client = $this->clientManager->findClientByPublicId($oauthParams['client_id']))) {
-                    // this client does not exist. maybe it has just been created in AD?
-                    if ($redirectionToNewClient = $this->fetchClientFromAutodiscover($oauthParams)) {
-                        return $redirectionToNewClient;
-                    } elseif ($this->autodiscover->isBroker()) {
-                        // this client neither exists nor AD provided it. Maybe it exists somewhere else... lets ask for the Target Cloud!
-                        $askForTargetCloud = true;
-                        $publicClient = $this->autodiscover->getPublicClient($oauthParams['client_id']) ?: [];
-                        $publicClientName = $publicClient['name'] ?? null;
-                    }
-                }
-            }
-            if (!$lastUsername && isset($oauthParams) && isset($oauthParams['ad_username'])) {
-                $lastUsername = $oauthParams['ad_username'];
-            }
-        }
-
-        if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(Security::AUTHENTICATION_ERROR);
-        } else {
-            $error = $session->get(Security::AUTHENTICATION_ERROR);
-            $session->remove(Security::AUTHENTICATION_ERROR);
-        }
-
-        $lastTargetCloudAddress = $session->get(self::LAST_TARGET_CLOUD_ADDRESS_KEY);
-        if ($error && !in_array($error, ['autodiscover_fail', 'private_cloud_fail'])) {
-            $error = 'error';
-            if ($lastUsername && $this->failedAuthAttemptsUserBlocker->isAuthenticationFailureLimitExceeded($lastUsername)) {
-                $error = 'locked';
-            }
-        }
-
-        if (!$client && !$askForTargetCloud) {
-            throw new NotFoundHttpException();
-        }
-
-        return [
-            'last_username' => $lastUsername,
-            'error' => $error,
-            'askForTargetCloud' => $askForTargetCloud,
-            'lastTargetCloud' => $lastTargetCloudAddress,
-            'client' => $client,
-            'clientName' => ($client ? $client->getName() : $publicClientName) ?: '',
-        ];
-    }
-
-    private function handleBrokerAuth(Request $request, array $oauthParams): Response {
-        $session = $request->getSession();
-        $username = $request->get('_username');
-        $targetCloud = null;
-        $targetCloudUrl = $request->get('targetCloud', null);
-        $privateCloud = false;
-        $error = null;
-        if ($targetCloudUrl) {
-            $session->set(self::LAST_TARGET_CLOUD_ADDRESS_KEY, $targetCloudUrl);
-            try {
-                $targetCloud = TargetSuplaCloud::forHost($this->localSuplaCloud->getProtocol(), $targetCloudUrl);
-            } catch (InvalidArgumentException $e) {
-                $error = 'autodiscover_fail';
-            }
-            $privateCloud = true;
-        } else {
-            $session->remove(self::LAST_TARGET_CLOUD_ADDRESS_KEY);
-        }
-        if (!$targetCloud && !$error) {
-            if ($this->autodiscover->userExists($username)) {
-                $targetCloud = $this->autodiscover->getAuthServerForUser($username);
-            }
-        }
-        if ($targetCloud) {
-            $mappedClientId = $this->autodiscover->getTargetCloudClientId($targetCloud, $oauthParams['client_id']);
-            if ($mappedClientId) {
-                // The mapping lookup is the private-cloud trusted-peer
-                // registry check. Do not let the submitted host itself
-                // authorize the subsequent server-to-server probe.
-                $targetCloud = TargetSuplaCloud::trustedPeer($targetCloud->getAddress());
-                $oauthParams['client_id'] = $mappedClientId;
-                $oauthParams['ad_username'] = $username;
-                $redirectUrl = $targetCloud->getOauthAuthUrl($oauthParams);
-                if ($privateCloud && !$this->getTargetCloudInfo($targetCloud)) {
-                    $error = 'private_cloud_fail';
-                } else {
-                    @$request->getSession()->invalidate();
-                    return $this->redirect($redirectUrl);
-                }
-            }
-        }
-        $session->set(Security::LAST_USERNAME, $username);
-        $session->set(Security::AUTHENTICATION_ERROR, $error ?: 'autodiscover_fail');
-        return $this->redirectToRoute('_oauth_login');
-    }
-
-    private function fetchClientFromAutodiscover(array $oauthParams) {
-        $publicId = $this->autodiscover->getPublicIdBasedOnMappedId($oauthParams['client_id']);
-        if ($publicId && ($clientData = $this->autodiscover->getPublicClient($publicId))) {
-            /** @var ApiClient $client */
-            $client = $this->clientManager->createClient();
-            $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
-            $client->setType(ApiClientType::BROKER());
-            $client->setPublicClientId($publicId);
-            $client->updateDataFromAutodiscover($clientData);
-            $this->clientManager->updateClient($client);
-            $this->autodiscover->updateTargetCloudCredentials($oauthParams['client_id'], $client);
-            $oauthParams['client_id'] = $client->getPublicId();
-            $redirectUrl = $this->localSuplaCloud->getOauthAuthUrl($oauthParams);
-            return $this->redirect($redirectUrl);
-        }
+    public function oAuthLoginAction(): Response {
+        return new Response('This OAuth login page is no longer available. Restart authorization from the application.', Response::HTTP_GONE, [
+            'Cache-Control' => 'no-store',
+        ]);
     }
 
     /**
      * @Route("/api/register-target-cloud", methods={"POST"})
      * @UnavailableInMaintenance
      */
-    public function registerTargetCloudAction(Request $request) {
+    public function registerTargetCloudAction(Request $request): Response {
         if ($this->recaptchaEnabled) {
             $gRecaptchaResponse = $request->get('captcha');
             $recaptcha = new ReCaptcha($this->recaptchaSecret);
@@ -287,14 +147,7 @@ class AuthorizeOAuthController extends AbstractController {
         return new Response('', Response::HTTP_NO_CONTENT);
     }
 
-    private function getTargetCloudInfo(TargetSuplaCloud $targetCloud) {
-        try {
-            return $this->suplaCloudRequestForwarder->getInfo($targetCloud);
-        } catch (ApiException $e) {
-            return null;
-        }
-    }
-
+    /** @return array<string, mixed>|null */
     private function getRegistrationTargetCloudInfo(TargetSuplaCloud $targetCloud): ?array {
         try {
             return $this->suplaCloudRequestForwarder->getRegistrationInfo($targetCloud->getAddress());

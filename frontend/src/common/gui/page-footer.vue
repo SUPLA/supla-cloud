@@ -34,6 +34,7 @@
   import {useFrontendConfigStore} from '@/stores/frontend-config-store';
 
   export default {
+    compatConfig: {MODE: 3},
     components: {LanguageSelector, SessionCountdown},
     props: ['username'],
     computed: {
@@ -43,7 +44,7 @@
           : `${this.frontendConfigStore.frontendVersion} / ${this.frontendConfigStore.cloudVersion}`;
       },
       isLoginPage() {
-        return this.$route.path.indexOf('/login') === 0 || this.$route.path.indexOf('/oauth-authorize') === 0;
+        return this.$route.path.indexOf('/login') === 0;
       },
       domain() {
         return this.frontendConfigStore.config.suplaUrl.replace(/https?:\/\//, '');

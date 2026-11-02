@@ -18,6 +18,7 @@
 namespace App\Auth;
 
 use App\Entity\Main\User;
+use App\Entity\Main\OAuth\ApiClient;
 use App\Repository\ApiClientAuthorizationRepository;
 use App\Repository\UserRepository;
 use FOS\OAuthServerBundle\Event\OAuthEvent;
@@ -47,18 +48,22 @@ class OAuthEventListener implements EventSubscriberInterface {
 
     public function onPreAuthorization(OAuthEvent $event): void {
         if ($user = $this->getUser($event)) {
+            $client = $event->getClient();
+            if (!$client instanceof ApiClient) {
+                return;
+            }
             $scope = $this->requestStack->getCurrentRequest()->get('scope', null);
-            $authorization = $this->authorizationRepository->findOneByUserAndApiClient($user, $event->getClient());
+            $authorization = $this->authorizationRepository->findOneByUserAndApiClient($user, $client);
             if ($scope && $authorization && $authorization->isAuthorized($scope)) {
                 $event->setAuthorizedClient(true);
-                $this->invalidateSession();
+                $this->clearAuthenticationToken();
             }
         }
     }
 
     public function onPostAuthorization(OAuthEvent $event): void {
         if ($event->isAuthorizedClient()) {
-            if (null !== $client = $event->getClient()) {
+            if (($client = $event->getClient()) instanceof ApiClient) {
                 $user = $this->getUser($event);
                 $request = $this->requestStack->getCurrentRequest();
                 $formData = $request->get('fos_oauth_server_authorize_form', []);
@@ -68,15 +73,11 @@ class OAuthEventListener implements EventSubscriberInterface {
                 }
             }
         }
-        $this->invalidateSession();
+        $this->clearAuthenticationToken();
     }
 
-    private function invalidateSession(): void {
+    private function clearAuthenticationToken(): void {
         $this->tokenStorage->setToken(null);
-        $request = $this->requestStack->getCurrentRequest();
-        if ($request && ($session = $request->getSession())) {
-            @$session->invalidate();
-        }
     }
 
     private function getUser(OAuthEvent $event): ?User {

@@ -130,6 +130,42 @@ class InternalOAuthAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertSame('invalid_grant', $tokenClient->getResponseBody()['error']);
     }
 
+    public function testTargetRechecksGrantAfterPresentationBeforeAutoAuthorization(): void {
+        $this->user->addApiClientAuthorization($this->oauthClient, 'account_r offline_access');
+        $this->persist($this->user);
+        $token = base64_encode($this->user->getEmail());
+        $presentationClient = $this->createHttpsClient(false);
+        $presentationClient->request(
+            'GET',
+            '/api/oauth/authorization-request?client_id=' . rawurlencode($this->oauthClient->getPublicId())
+                . '&redirect_uri=' . rawurlencode('https://unicorns.pl/callback')
+                . '&response_type=code&scope=account_r%20offline_access&state=revoked-after-read',
+            [],
+            [],
+            ['HTTP_AUTHORIZATION' => 'Bearer ' . $token]
+        );
+
+        $this->assertStatusCode(200, $presentationClient->getResponse());
+        $this->assertTrue(json_decode($presentationClient->getResponse()->getContent(), true)['canAutoAuthorize']);
+
+        $authorization = $this->getDoctrine()->getRepository(ApiClientAuthorization::class)
+            ->findOneByUserAndApiClient($this->user, $this->oauthClient);
+        $this->getEntityManager()->remove($authorization);
+        $this->flush();
+
+        $client = $this->createHttpsClient(false);
+        $client->apiRequest('POST', '/api/internal/oauth/authorize', $this->targetTokenRequest([
+            'target_token' => $token,
+            'state' => 'revoked-after-read',
+        ]), [], [], ['HTTP_SUPLA-Broker-Token' => 'Bearer BROKER']);
+
+        $this->assertStatusCode(401, $client->getResponse());
+        $this->assertSame(['outcome' => 'error', 'errorCode' => 'password_required'], $client->getResponseBody());
+        $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findAll());
+        $this->assertNull($this->getDoctrine()->getRepository(ApiClientAuthorization::class)
+            ->findOneByUserAndApiClient($this->user, $this->oauthClient));
+    }
+
     public function testBrokerCanAuthorizeAndExchangeCodeBoundToS256Challenge(): void {
         $verifier = str_repeat('verifier_', 8);
         $challenge = $this->s256Challenge($verifier);

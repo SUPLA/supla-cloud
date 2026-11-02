@@ -70,6 +70,15 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
     synchronizeAuthState();
   };
 
+  // OAuth authorization can encounter an expired browser token while the
+  // original request must remain visible. Clear only authentication routing
+  // state rather than resetting unrelated WebApp stores or reloading the page.
+  const forgetOAuthToken = () => {
+    userToken.value = null;
+    tokenExpiration.value = null;
+    serverUrl.value = '';
+  };
+
   const fetchUser = async () => {
     if (userToken.value) {
       synchronizeAuthState();
@@ -111,6 +120,7 @@ export const useCurrentUserStore = defineStore('currentUser', () => {
     authenticate,
     updateUserLocale,
     forget,
+    forgetOAuthToken,
     username,
     userToken,
     filesToken,

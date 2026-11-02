@@ -17,6 +17,7 @@
 
 namespace App\Controller\Api;
 
+use App\Auth\AutodiscoverPublicClientStub;
 use App\Auth\OAuthScope;
 use App\Auth\SuplaOAuth2;
 use App\Auth\SuplaOAuth2Authenticator;
@@ -34,6 +35,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OAuth2\OAuth2;
+use OAuth2\OAuth2ServerException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,6 +63,124 @@ class OAuthController extends RestController {
         $this->oauthServer = $oauthServer;
         $this->clientManager = $clientManager;
         $this->autodiscover = $autodiscover;
+    }
+
+    /**
+     * Read-only OAuth request presentation. This result is never sufficient
+     * authority for a later grant or code issuance.
+     *
+     * @Rest\Get("/oauth/authorization-request")
+     */
+    public function getAuthorizationRequestAction(Request $request) {
+        $query = $request->query->all();
+        if ($this->hasDuplicateAuthorizationParameter((string)$request->server->get('QUERY_STRING', ''))) {
+            return $this->authorizationRequestError('invalid_request', Response::HTTP_BAD_REQUEST);
+        }
+        $clientId = $query['client_id'] ?? null;
+        if (!is_string($clientId) || $clientId === '') {
+            return $this->authorizationRequestError('invalid_client', Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
+            $client = $this->resolveAuthorizationRequestClient($clientId);
+        } catch (\Throwable $e) {
+            return $this->authorizationRequestError('metadata_unavailable', Response::HTTP_SERVICE_UNAVAILABLE);
+        }
+        if (!$client) {
+            return $this->authorizationRequestError('invalid_client', Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
+            $this->oauthServer->validateBrowserAuthorizationRequest($request, $client);
+        } catch (OAuth2ServerException $e) {
+            $error = json_decode($e->getResponseBody(), true)['error'] ?? OAuth2::ERROR_INVALID_REQUEST;
+            return $this->authorizationRequestError($error ?: OAuth2::ERROR_INVALID_REQUEST, Response::HTTP_BAD_REQUEST);
+        }
+
+        $requestedScope = $query['scope'] ?? '';
+        if (!is_string($requestedScope)) {
+            return $this->authorizationRequestError('invalid_request', Response::HTTP_BAD_REQUEST);
+        }
+        $requested = array_values(array_unique(array_filter(explode(' ', $requestedScope), 'strlen')));
+        $expanded = (new OAuthScope($requested))->addImplicitScopes();
+        $implicitScopes = array_values(array_filter(explode(' ', (string)$expanded), 'strlen'));
+        $implicit = array_values(array_diff($implicitScopes, $requested));
+
+        $accessToken = $this->getCurrentAccessToken();
+        $user = $accessToken && $accessToken->isForWebapp() ? $accessToken->getUser() : null;
+        $status = 'unauthenticated';
+        $canAutoAuthorize = false;
+        if ($user) {
+            $status = 'consent_required';
+            // Public catalog stubs are never local grant owners. An existing
+            // local client is required before exposing any grant status.
+            if (!$client instanceof AutodiscoverPublicClientStub) {
+                $authorization = $this->entityManager->getRepository(ApiClientAuthorization::class)
+                    ->findOneByUserAndApiClient($user, $client);
+                if ($authorization && $authorization->isAuthorized($expanded)) {
+                    $status = 'already_authorized';
+                    $canAutoAuthorize = true;
+                }
+            }
+        }
+
+        $result = [
+            'application' => [
+                'name' => $client->getName(),
+                'description' => $client->getDescription(),
+            ],
+            'scopes' => ['requested' => $requested, 'implicit' => $implicit],
+            'status' => $status,
+            'canAutoAuthorize' => $canAutoAuthorize,
+        ];
+        if ($user) {
+            $result['email'] = $user->getEmail();
+        }
+        return $this->json($result, Response::HTTP_OK, ['Cache-Control' => 'no-store']);
+    }
+
+    private function resolveAuthorizationRequestClient(string $clientId): ?ApiClient {
+        $client = $this->clientManager->findClientByPublicId($clientId);
+        if (!$this->autodiscover->enabled()) {
+            return $client;
+        }
+        $publicId = $client ? $client->getPublicClientId() : $clientId;
+        $data = $publicId ? $this->autodiscover->getPublicClient($publicId) : null;
+        if (!$client && !$data && $this->autodiscover->isTarget()) {
+            $publicId = $this->autodiscover->getPublicIdBasedOnMappedId($clientId);
+            $data = $publicId ? $this->autodiscover->getPublicClient($publicId) : null;
+        }
+        if ($data) {
+            // When a Browser WebApp token routes this read to its Target
+            // Cloud, the request may still carry the public identifier. Match
+            // an existing mapped local client without creating or mutating it.
+            if (!$client && isset($data['clientId'])) {
+                $client = $this->clientManager->findClientBy(['publicClientId' => $data['clientId']]);
+            }
+            $client = $client ? clone $client : new AutodiscoverPublicClientStub($clientId);
+            $client->updateDataFromAutodiscover($data);
+        }
+        return $client;
+    }
+
+    private function authorizationRequestError(string $code, int $status) {
+        return $this->json(['error' => $code], $status, ['Cache-Control' => 'no-store']);
+    }
+
+    private function hasDuplicateAuthorizationParameter(string $query): bool {
+        $oauthParameters = ['client_id', 'redirect_uri', 'response_type', 'scope', 'state', 'code_challenge', 'code_challenge_method'];
+        $seen = [];
+        foreach (explode('&', $query) as $parameter) {
+            [$name] = explode('=', $parameter, 2);
+            $name = urldecode($name);
+            if (in_array($name, $oauthParameters, true)) {
+                if (isset($seen[$name])) {
+                    return true;
+                }
+                $seen[$name] = true;
+            }
+        }
+        return false;
     }
 
     /**

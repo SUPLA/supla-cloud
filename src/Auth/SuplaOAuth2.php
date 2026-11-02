@@ -94,16 +94,36 @@ class SuplaOAuth2 extends OAuth2 {
     }
 
     /** Validate the browser link before the security firewall starts login. */
-    public function validateBrowserAuthorizationRequest(Request $request, ApiClient $client): void {
+    public function validateBrowserAuthorizationRequest(Request $request, ApiClient $client): string {
         $query = $request->query->all();
         foreach (['redirect_uri', 'scope', 'state'] as $field) {
             if (isset($query[$field]) && !is_string($query[$field])) {
                 throw new OAuth2ServerException(Response::HTTP_BAD_REQUEST, self::ERROR_INVALID_REQUEST, 'Invalid authorization parameters.');
             }
         }
-        // Use the legacy callback matching policy, but establish trust before
-        // any protocol error can send the browser back to the application.
-        $redirectUri = $this->getRedirectUri($query['redirect_uri'] ?? null, $client);
+        // oauth2-php accepts URI prefixes. The browser boundary must establish
+        // trust against the complete registered URI before any OAuth error can
+        // redirect to the callback.
+        $redirectUri = $query['redirect_uri'] ?? null;
+        if (
+            !is_string($redirectUri)
+            || !in_array($redirectUri, $client->getRedirectUris(), true)
+            || preg_match('/[\x00-\x20\x7f]/', $redirectUri)
+            || str_contains($redirectUri, '#')
+        ) {
+            throw new OAuth2ServerException(
+                (string) Response::HTTP_BAD_REQUEST,
+                self::ERROR_REDIRECT_URI_MISMATCH,
+                'The redirect URI provided does not match a registered URI.'
+            );
+        }
+        $responseType = $query['response_type'] ?? null;
+        if (!is_string($responseType) || $responseType === '') {
+            throw new OAuth2RedirectException($redirectUri, self::ERROR_INVALID_REQUEST, null, $query['state'] ?? null);
+        }
+        if ($responseType !== 'code') {
+            throw new OAuth2RedirectException($redirectUri, self::ERROR_UNSUPPORTED_RESPONSE_TYPE, null, $query['state'] ?? null);
+        }
         $scope = $query['scope'] ?? '';
         if ($scope && !$this->checkScope($scope, $this->getVariable(self::CONFIG_SUPPORTED_SCOPES))) {
             throw new OAuth2RedirectException($redirectUri, self::ERROR_INVALID_SCOPE, 'An unsupported scope was requested.', $query['state'] ?? null);
@@ -113,6 +133,18 @@ class SuplaOAuth2 extends OAuth2 {
         } catch (OAuth2ServerException $e) {
             throw new OAuth2RedirectException($redirectUri, self::ERROR_INVALID_REQUEST, null, $query['state'] ?? null);
         }
+        return $redirectUri;
+    }
+
+    public function getDeniedAuthorizationRedirect(Request $request, ApiClient $client): string {
+        $redirectUri = $this->validateBrowserAuthorizationRequest($request, $client);
+        $state = $request->query->get('state');
+        $exception = new OAuth2RedirectException($redirectUri, self::ERROR_USER_DENIED, null, is_string($state) ? $state : null);
+        $location = $exception->getResponseHeaders()['Location'];
+        if ($request->query->has('state') && !$state) {
+            $location .= '&state=' . rawurlencode((string) $state);
+        }
+        return $location;
     }
 
     /**
