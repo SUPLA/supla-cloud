@@ -3,11 +3,9 @@
 namespace App\Tests\Controller;
 
 use App\Controller\OAuth\AuthorizeOAuthController;
-use App\Model\Audit\FailedAuthAttemptsUserBlocker;
 use App\Model\LocalSuplaCloud;
 use App\Model\TargetSuplaCloudRequestForwarder;
 use App\Supla\SuplaAutodiscover;
-use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -19,9 +17,7 @@ class AuthorizeOAuthControllerTest extends TestCase {
         $forwarder = $this->createMock(TargetSuplaCloudRequestForwarder::class);
         $forwarder->expects($this->never())->method('getRegistrationInfo');
         $controller = new AuthorizeOAuthController(
-            $this->createMock(FailedAuthAttemptsUserBlocker::class),
             $autodiscover,
-            $this->createMock(ClientManagerInterface::class),
             $this->createMock(LocalSuplaCloud::class),
             $forwarder,
             null,

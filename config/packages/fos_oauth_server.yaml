@@ -1,6 +1,7 @@
 # Read the documentation: https://github.com/FriendsOfSymfony/FOSOAuthServerBundle/blob/master/Resources/doc/index.md#step-5-configure-fosoauthserverbundle
 
 fos_oauth_server:
+  authorize: false
   access_token_class: App\Entity\Main\OAuth\AccessToken
   auth_code_class: App\Entity\Main\OAuth\AuthCode
   client_class: App\Entity\Main\OAuth\ApiClient

@@ -17,7 +17,10 @@
 
 namespace App\Tests\Integration\Auth;
 
+use App\Controller\Api\InternalOAuthAuthorizationController;
 use App\Entity\Main\OAuth\AuthCode;
+use App\Entity\Main\OAuth\ApiClient;
+use App\Entity\Main\OAuth\ApiClientAuthorization;
 use App\Entity\Main\User;
 use App\Kernel;
 use App\Model\TargetSuplaCloudRequestForwarder;
@@ -31,6 +34,7 @@ use App\Tests\Integration\Traits\TestSuplaHttpClient;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
 use PHPUnit\Framework\ExpectationFailedException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
@@ -103,6 +107,253 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertSame('fresh-password', $forwarded[2]['password']);
         $this->assertSame('original-state', $forwarded[2]['state']);
         $this->assertFalse($client->getResponse()->isRedirect());
+    }
+
+    public function testForwardsRemoteDenialToTrustedTargetWithoutPasswordOrBrowserTargetAddress() {
+        SuplaAutodiscoverMock::$userMapping['remote@supla.org'] = 'target.cloud';
+        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_mapped';
+        $forwarded = null;
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function ($origin, $endpoint, $data) use (&$forwarded) {
+            if ($endpoint === 'server-info' || str_ends_with($endpoint, '/server-info')) {
+                return [['oauthAuthorizationApiVersion' => 1], Response::HTTP_OK];
+            }
+            $forwarded = [$origin, $endpoint, $data];
+            return [[
+                'outcome' => 'denied',
+                'redirectUrl' => 'https://cool.app/callback?error=access_denied&state=original-denial-state',
+            ], Response::HTTP_OK];
+        };
+
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/authorize', [
+            'client_id' => '1_public',
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'state' => 'original-denial-state',
+            'decision' => 'deny',
+            'username' => 'remote@supla.org',
+        ]);
+
+        $this->assertStatusCode(Response::HTTP_OK, $client->getResponse());
+        $result = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame('denied', $result['outcome']);
+        $this->assertSame(
+            'https://cool.app/callback?error=access_denied&state=original-denial-state',
+            $result['redirectUrl']
+        );
+        $this->assertSame('https://target.cloud', $forwarded[0]);
+        $this->assertSame('/api/internal/oauth/authorize', $forwarded[1]);
+        $this->assertSame('1_mapped', $forwarded[2]['client_id']);
+        $this->assertSame('deny', $forwarded[2]['decision']);
+        $this->assertSame('original-denial-state', $forwarded[2]['state']);
+        $this->assertArrayNotHasKey('password', $forwarded[2]);
+        $this->assertArrayNotHasKey('target_token', $forwarded[2]);
+        $this->assertArrayNotHasKey('targetCloud', $forwarded[2]);
+        $this->assertArrayNotHasKey('target_cloud', $forwarded[2]);
+        $this->assertArrayNotHasKey('target_address', $forwarded[2]);
+        $this->assertFalse($client->getResponse()->isRedirect());
+    }
+
+    public function testExplicitPrivateCloudSelectionReturnsTrustedNavigationPreservingAuthorizationIntent(): void {
+        SuplaAutodiscoverMock::$clientMapping['https://private.cloud']['1_public']['clientId'] = '1_private_mapped';
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function ($origin, $endpoint, $data) {
+            self::assertSame('https://private.cloud', $origin);
+            self::assertSame('server-info', $endpoint);
+            self::assertNull($data);
+            return [['oauthAuthorizationApiVersion' => 1], Response::HTTP_OK];
+        };
+
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/private-cloud', [
+            'targetCloud' => 'private.cloud',
+            'client_id' => '1_public',
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'state' => 'original+state',
+            'code_challenge' => 'a' . str_repeat('b', 42),
+            'code_challenge_method' => 'S256',
+        ]);
+
+        $this->assertStatusCode(Response::HTTP_OK, $client->getResponse());
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame('https://private.cloud/oauth/v2/auth', parse_url($body['redirectUrl'], PHP_URL_SCHEME)
+            . '://' . parse_url($body['redirectUrl'], PHP_URL_HOST) . parse_url($body['redirectUrl'], PHP_URL_PATH));
+        parse_str(parse_url($body['redirectUrl'], PHP_URL_QUERY), $query);
+        $this->assertSame('1_private_mapped', $query['client_id']);
+        $this->assertSame('https://cool.app/callback', $query['redirect_uri']);
+        $this->assertSame('code', $query['response_type']);
+        $this->assertSame('account_r', $query['scope']);
+        $this->assertSame('original+state', $query['state']);
+        $this->assertSame('a' . str_repeat('b', 42), $query['code_challenge']);
+        $this->assertSame('S256', $query['code_challenge_method']);
+        $this->assertArrayNotHasKey('password', $query);
+        $this->assertArrayNotHasKey('target_token', $query);
+        $this->assertArrayNotHasKey('username', $query);
+        $this->assertTrue($client->getResponse()->headers->hasCacheControlDirective('no-store'));
+        $this->assertFalse($client->getResponse()->headers->has('Set-Cookie'));
+    }
+
+    public function testPrivateCloudHandoffRejectsUntrustedAndUnmappedDestinations(): void {
+        $authorization = [
+            'client_id' => '1_public',
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+        ];
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/private-cloud', $authorization + ['targetCloud' => 'private.cloud/path']);
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $client->getResponse());
+        $this->assertSame('invalid_target', json_decode($client->getResponse()->getContent(), true)['errorCode']);
+
+        self::ensureKernelShutdown();
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/private-cloud', $authorization + ['targetCloud' => '127.0.0.1']);
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $client->getResponse());
+        $this->assertSame('invalid_target', json_decode($client->getResponse()->getContent(), true)['errorCode']);
+
+        self::ensureKernelShutdown();
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/private-cloud', $authorization + ['targetCloud' => 'private.cloud:0']);
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $client->getResponse());
+        $this->assertSame('invalid_target', json_decode($client->getResponse()->getContent(), true)['errorCode']);
+
+        self::ensureKernelShutdown();
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/private-cloud', $authorization + ['targetCloud' => 'unregistered.private.cloud']);
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $client->getResponse());
+        $this->assertSame('invalid_client', json_decode($client->getResponse()->getContent(), true)['errorCode']);
+    }
+
+    public function testPrivateCloudHandoffRejectsAnUnavailableRegisteredTarget(): void {
+        SuplaAutodiscoverMock::$clientMapping['https://private.cloud']['1_public']['clientId'] = '1_private_mapped';
+        TargetSuplaCloudRequestForwarder::$requestExecutor = static fn() => [null, Response::HTTP_SERVICE_UNAVAILABLE];
+        $client = $this->createHttpsClient();
+        $client->request('POST', '/api/oauth/private-cloud', [
+            'targetCloud' => 'private.cloud',
+            'client_id' => '1_public',
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+        ]);
+
+        $this->assertStatusCode(Response::HTTP_SERVICE_UNAVAILABLE, $client->getResponse());
+        $this->assertSame('target_unavailable', json_decode($client->getResponse()->getContent(), true)['errorCode']);
+    }
+
+    public function testAuthorizesLocalAccountAndReturnsCodeDestination(): void {
+        $oauthClient = $this->clientManager->createClient();
+        $oauthClient->setRedirectUris(['https://cool.app/callback']);
+        $oauthClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
+        $this->clientManager->updateClient($oauthClient);
+        $verifier = str_repeat('local-verifier_', 5);
+        $challenge = rtrim(strtr(base64_encode(hash('sha256', $verifier, true)), '+/', '-_'), '=');
+
+        $browser = $this->createHttpsClient();
+        $browser->request('POST', '/api/oauth/authorize', [
+            'client_id' => $oauthClient->getPublicId(),
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'state' => 'local-state',
+            'code_challenge' => $challenge,
+            'code_challenge_method' => 'S256',
+            'decision' => 'approve',
+            'username' => $this->user->getUsername(),
+            'password' => 'supla123',
+        ]);
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $result = json_decode($browser->getResponse()->getContent(), true);
+        $this->assertSame('authorized', $result['outcome']);
+        $this->assertStringStartsWith('https://cool.app/callback?', $result['redirectUrl']);
+        $this->assertStringContainsString('state=local-state', $result['redirectUrl']);
+        $this->assertTrue($browser->getResponse()->headers->hasCacheControlDirective('no-store'));
+        $this->assertFalse($browser->getResponse()->headers->has('Set-Cookie'));
+
+        parse_str(parse_url($result['redirectUrl'], PHP_URL_QUERY), $query);
+        self::ensureKernelShutdown();
+        $tokenClient = $this->createHttpsClient();
+        $tokenClient->request('POST', '/oauth/v2/token', [
+            'grant_type' => 'authorization_code',
+            'client_id' => $oauthClient->getPublicId(),
+            'client_secret' => $oauthClient->getSecret(),
+            'redirect_uri' => 'https://cool.app/callback',
+            'code' => $query['code'],
+            'code_verifier' => $verifier,
+        ]);
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->assertArrayHasKey('access_token', json_decode($tokenClient->getResponse()->getContent(), true));
+    }
+
+    public function testDeniesLocalAuthorizationWithStateAndDoesNotCreateGrant(): void {
+        $oauthClient = $this->clientManager->createClient();
+        $oauthClient->setRedirectUris(['https://cool.app/callback']);
+        $oauthClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
+        $this->clientManager->updateClient($oauthClient);
+
+        $browser = $this->createHttpsClient();
+        $browser->request('POST', '/api/oauth/authorize', [
+            'client_id' => $oauthClient->getPublicId(),
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r',
+            'state' => 'denied-state',
+            'decision' => 'deny',
+            'username' => $this->user->getUsername(),
+        ]);
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $result = json_decode($browser->getResponse()->getContent(), true);
+        $this->assertSame('denied', $result['outcome']);
+        $this->assertStringStartsWith('https://cool.app/callback?', $result['redirectUrl']);
+        $this->assertStringContainsString('error=access_denied', $result['redirectUrl']);
+        $this->assertStringContainsString('state=denied-state', $result['redirectUrl']);
+        $this->assertNull($this->getDoctrine()->getRepository(ApiClientAuthorization::class)
+            ->findOneByUserAndApiClient($this->user, $oauthClient));
+    }
+
+    public function testExpandedLocalConsentRequiresPasswordAndPreservesGrantOnFailure(): void {
+        $oauthClient = $this->clientManager->createClient();
+        $oauthClient->setRedirectUris(['https://cool.app/callback']);
+        $oauthClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
+        $this->clientManager->updateClient($oauthClient);
+        $userId = $this->user->getId();
+        $clientId = $oauthClient->getId();
+        $managedUser = $this->getEntityManager()->find(User::class, $userId);
+        $managedClient = $this->getEntityManager()->find(ApiClient::class, $clientId);
+        $managedUser->addApiClientAuthorization($managedClient, 'account_r');
+        $this->persist($managedUser);
+        $authorizationRequest = [
+            'client_id' => $oauthClient->getPublicId(),
+            'redirect_uri' => 'https://cool.app/callback',
+            'response_type' => 'code',
+            'scope' => 'account_r channels_rw',
+            'state' => 'expanded-state',
+            'decision' => 'approve',
+            'username' => $this->user->getUsername(),
+        ];
+
+        $browser = $this->createHttpsClient();
+        $browser->request('POST', '/api/oauth/authorize', $authorizationRequest + ['password' => 'incorrect']);
+        $this->assertResponseStatusCodeSame(Response::HTTP_UNAUTHORIZED);
+        $this->assertSame('invalid_credentials', json_decode($browser->getResponse()->getContent(), true)['errorCode']);
+        $authorization = $this->getDoctrine()->getRepository(ApiClientAuthorization::class)
+            ->findOneByUserAndApiClient(
+                $this->getEntityManager()->find(User::class, $userId),
+                $this->getEntityManager()->find(ApiClient::class, $clientId)
+            );
+        $this->assertSame('account_r', $authorization->getScope());
+
+        $browser->request('POST', '/api/oauth/authorize', $authorizationRequest + ['password' => 'supla123']);
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $authorization = $this->getDoctrine()->getRepository(ApiClientAuthorization::class)
+            ->findOneByUserAndApiClient(
+                $this->getEntityManager()->find(User::class, $userId),
+                $this->getEntityManager()->find(ApiClient::class, $clientId)
+            );
+        $this->assertSame('account_r channels_rw channels_r', $authorization->getScope());
     }
 
     public function testDoesNotForwardAuthorizationForUnknownTargetOrClientMapping() {
@@ -358,6 +609,187 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertSame('target-access-token', json_decode($tokenClient->getResponse()->getContent(), true)['access_token']);
     }
 
+    public function testReleaseABrokerAuthorizationContractIssuesAndExchangesTargetCode(): void {
+        $username = 'broker-target-issue-13@supla.org';
+        $targetAddress = 'https://target.cloud';
+        $targetLocalAddress = 'https://supla.local';
+        $publicClientId = 'issue13_real_exchange';
+        $targetClientId = '1_target_issue_13';
+        $targetClientSecret = 'target-issue-13-secret';
+        SuplaAutodiscoverMock::$userMapping[$username] = 'target.cloud';
+        SuplaAutodiscoverMock::$publicClients[$publicClientId] = [
+            'name' => 'Test application',
+            'redirectUris' => ['https://cool.app/callback'],
+            'secret' => 'test-public-secret',
+        ];
+        SuplaAutodiscoverMock::$clientMapping[$targetAddress][$publicClientId] = [
+            'clientId' => $targetClientId,
+            'secret' => $targetClientSecret,
+        ];
+        // On the target, the mapped id resolves back to the public client. The
+        // separate local-cloud mapping supplies credentials for code exchange.
+        SuplaAutodiscoverMock::$clientMapping[$targetLocalAddress][$publicClientId] = [
+            'clientId' => $targetClientId,
+        ];
+
+        $targetBrowser = $this->createHttpsClient(false);
+        $targetClient = null;
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function (
+            string $address,
+            string $endpoint,
+            ?array $data
+        ) use (
+            $username,
+            $targetAddress,
+            $targetLocalAddress,
+            $publicClientId,
+            $targetClientId,
+            &$targetClient,
+            $targetBrowser
+        ) {
+            if ($endpoint === 'server-info' || str_ends_with($endpoint, '/server-info')) {
+                // Release A introduced authorization API v1; Release B brokers
+                // must use this contract without requiring a newer target API.
+                return [['oauthAuthorizationApiVersion' => 1], Response::HTTP_OK];
+            }
+            if ($endpoint === '/api/internal/oauth/authorize') {
+                $this->assertSame($targetAddress, $address);
+                $this->assertSame($targetClientId, $data['client_id']);
+                // Keep this account absent through broker discovery; create it
+                // only once the request has reached its simulated target.
+                $this->createConfirmedUser($username);
+
+                $targetRequest = Request::create('/api/internal/oauth/authorize', 'POST', $data);
+                $targetRequest->headers->set('SUPLA-Broker-Token', 'Bearer BROKER');
+                $targetResponse = self::getContainer()->get(InternalOAuthAuthorizationController::class)
+                    ->authorizeAction($targetRequest);
+                $targetClient = $this->clientManager->findClientBy(['publicClientId' => $publicClientId]);
+                return [json_decode($targetResponse->getContent(), true), $targetResponse->getStatusCode()];
+            }
+            if ($endpoint === '/oauth/v2/token') {
+                $this->assertSame($targetLocalAddress, $address);
+                $this->assertSame($targetClient->getPublicId(), $data['client_id']);
+                $this->assertSame($targetClient->getSecret(), $data['client_secret']);
+                $targetBrowser->apiRequest('POST', $endpoint, $data);
+                return [$targetBrowser->getResponseBody(), $targetBrowser->getResponse()->getStatusCode()];
+            }
+            $this->fail('Unexpected target request: ' . $endpoint);
+        };
+
+        $browser = $this->createHttpsClient();
+        $browser->request('POST', '/api/oauth/authorize', array_merge($this->brokerAuthorizationRequest(), [
+            'client_id' => $publicClientId,
+            'username' => $username,
+            'password' => 'supla123',
+            'state' => 'issue-13-state',
+        ]));
+        $this->assertSame(['https://cool.app/callback'], $targetClient->getRedirectUris());
+        $this->assertStatusCode(Response::HTTP_OK, $browser->getResponse());
+        $result = json_decode($browser->getResponse()->getContent(), true);
+        $this->assertSame('authorized', $result['outcome']);
+        $this->assertEqualsCanonicalizing(['outcome', 'redirectUrl'], array_keys($result));
+        $this->assertStringStartsWith('https://cool.app/callback?', $result['redirectUrl']);
+        $this->assertStringContainsString('state=issue-13-state', $result['redirectUrl']);
+        $this->assertFalse($browser->getResponse()->isRedirect());
+        $this->assertSame('/api/oauth/authorize', $browser->getRequest()->getPathInfo());
+        $this->assertNotSame(parse_url($targetAddress, PHP_URL_HOST), $browser->getRequest()->getHost());
+        parse_str((string) parse_url($result['redirectUrl'], PHP_URL_QUERY), $callback);
+        $this->assertSame($targetLocalAddress, base64_decode(substr($callback['code'], strrpos($callback['code'], '.') + 1)));
+
+        // The target-local client mapping is what the broker uses to validate
+        // its public credentials and route the target-suffixed code.
+        SuplaAutodiscoverMock::$clientMapping[$targetLocalAddress][$publicClientId] = [
+            'clientId' => $targetClient->getPublicId(),
+            'secret' => $targetClient->getSecret(),
+        ];
+        $brokerTokenClient = $this->createHttpsClient(false);
+        $brokerTokenClient->apiRequest('POST', '/oauth/v2/token', [
+            'grant_type' => 'authorization_code',
+            'client_id' => $publicClientId,
+            'client_secret' => 'test-public-secret',
+            'redirect_uri' => 'https://cool.app/callback',
+            'code' => $callback['code'],
+        ]);
+        $this->assertStatusCode(Response::HTTP_OK, $brokerTokenClient->getResponse());
+        $this->assertArrayHasKey('access_token', $brokerTokenClient->getResponseBody());
+    }
+
+    public function testBrokerPasswordFailurePreservesStateAndCreatesNoTargetConsentOrCode(): void {
+        $username = 'broker-password-failure-13@supla.org';
+        $targetAddress = 'https://target.cloud';
+        $publicClientId = 'issue13_wrong_password';
+        $targetClientId = '1_target_password_failure_13';
+        SuplaAutodiscoverMock::$userMapping[$username] = 'target.cloud';
+        SuplaAutodiscoverMock::$publicClients[$publicClientId] = [
+            'name' => 'Test application',
+            'redirectUris' => ['https://cool.app/callback'],
+            'secret' => 'test-public-secret',
+        ];
+        SuplaAutodiscoverMock::$clientMapping[$targetAddress][$publicClientId] = [
+            'clientId' => $targetClientId,
+            'secret' => 'target-password-failure-secret',
+        ];
+        SuplaAutodiscoverMock::$clientMapping['https://supla.local'][$publicClientId] = [
+            'clientId' => $targetClientId,
+        ];
+
+        $forwarded = null;
+        $targetUserId = null;
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function (
+            string $address,
+            string $endpoint,
+            ?array $data
+        ) use (
+            $username,
+            $targetAddress,
+            $targetClientId,
+            &$forwarded,
+            &$targetUserId
+        ) {
+            if ($endpoint === 'server-info' || str_ends_with($endpoint, '/server-info')) {
+                return [['oauthAuthorizationApiVersion' => 1], Response::HTTP_OK];
+            }
+            $this->assertSame($targetAddress, $address);
+            $this->assertSame('/api/internal/oauth/authorize', $endpoint);
+            $this->assertSame($targetClientId, $data['client_id']);
+            $targetUserId = $this->createConfirmedUser($username)->getId();
+            $forwarded = $data;
+
+            $targetRequest = Request::create('/api/internal/oauth/authorize', 'POST', $data);
+            $targetRequest->headers->set('SUPLA-Broker-Token', 'Bearer BROKER');
+            $targetResponse = self::getContainer()->get(InternalOAuthAuthorizationController::class)
+                ->authorizeAction($targetRequest);
+            return [json_decode($targetResponse->getContent(), true), $targetResponse->getStatusCode()];
+        };
+
+        $browser = $this->createHttpsClient();
+        $browser->request('POST', '/api/oauth/authorize', array_merge($this->brokerAuthorizationRequest(), [
+            'client_id' => $publicClientId,
+            'username' => $username,
+            'password' => 'incorrect-password',
+            'state' => 'password-failure-state',
+        ]));
+
+        $this->assertSame('password-failure-state', $forwarded['state']);
+        $this->assertStatusCode(Response::HTTP_UNAUTHORIZED, $browser->getResponse());
+        $this->assertSame(
+            ['outcome' => 'error', 'errorCode' => 'invalid_credentials'],
+            json_decode($browser->getResponse()->getContent(), true)
+        );
+        $this->assertArrayNotHasKey('redirectUrl', json_decode($browser->getResponse()->getContent(), true));
+
+        $targetClient = $this->clientManager->findClientBy(['publicClientId' => $publicClientId]);
+        $this->assertNotNull($targetClient);
+        $this->assertNull($this->getDoctrine()->getRepository(ApiClientAuthorization::class)
+            ->findOneByUserAndApiClient(
+                $this->getEntityManager()->find(User::class, $targetUserId),
+                $targetClient
+            ));
+        $this->assertCount(0, $this->getDoctrine()->getRepository(AuthCode::class)->findBy([
+            'user' => $this->getEntityManager()->find(User::class, $targetUserId),
+        ]));
+    }
+
     /** @dataProvider missingBrokerClientSecrets */
     public function testPkceExchangeWithoutBrokerClientSecretReturnsInvalidClient(array $credentials): void {
         $forwarded = false;
@@ -592,7 +1024,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $targetKernel->shutdown();
     }
 
-    public function testDisplaysNormalLoginFormIfLocalClientExists() {
+    public function testServesStatelessSpaForAnExistingLocalClient() {
         $localClient = $this->clientManager->createClient();
         $localClient->setName('Local App');
         $localClient->setRedirectUris(['https://cool.app']);
@@ -601,142 +1033,38 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $client->request('GET', $this->oauthAuthorizeUrl($localClient->getPublicId()));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('askForTargetCloud: false', $response->getContent());
+        $this->assertStringContainsString('<div id="vue-container"', $response->getContent());
+        $this->assertFalse($response->headers->has('Set-Cookie'));
     }
 
-    public function testDisplaysBrokerLoginFormIfLocalClientDoesNotExist() {
+    public function testServesStatelessSpaForAnAutodiscoveredPublicClient() {
         $client = $this->createHttpsClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('askForTargetCloud: true', $response->getContent());
+        $this->assertStringContainsString('<div id="vue-container"', $response->getContent());
+        $this->assertFalse($response->headers->has('Set-Cookie'));
     }
 
-    public function testDisplaysNormalLoginFormIfLocalClientDoesNotExistButCloudIsNotBroker() {
+    public function testStandaloneCloudCanServeTheStatelessSpa() {
         SuplaAutodiscoverMock::$isBroker = false;
         self::ensureKernelShutdown();
         $client = self::createClient(['debug' => false], ['HTTPS' => true, 'HTTP_Accept' => 'text/html']);
-        $client->followRedirects();
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $response = $client->getResponse();
-        $this->assertStatusCode(404, $response);
-        $this->assertStringContainsString('statusCode: 404', $response->getContent());
+        $this->assertStatusCode(200, $response);
+        $this->assertStringContainsString('<div id="vue-container"', $response->getContent());
     }
 
-    public function testRedirectsToGivenTargetCloudIfAutodiscoverKnowsIt() {
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_local';
-        $client = $this->createHttpsClient(false);
-        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        $client->followRedirect();
-        TestSuplaHttpClient::mockHttpRequest('https://target.cloud/.+/server-info', ['version' => '2.3.0']);
-        $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
-        $response = $client->getResponse();
-        $this->assertTrue($response->isRedirect());
-        $targetUrl = $response->headers->get('Location');
-        $this->assertStringContainsString('https://target.cloud/oauth/v2/auth?', $targetUrl);
-        $this->assertStringContainsString('client_id=1_local', $targetUrl);
-        $this->assertStringContainsString('scope=account_r', $targetUrl);
-        $this->assertStringContainsString('ad_username=ala%40supla.org', $targetUrl);
-        $this->assertStringContainsString('state=some-state', $targetUrl);
-    }
-
-    public function testTriesToBrokerLoginWithInvalidSession() {
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_local';
-        $client = $this->createHttpsClient(false);
-        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        $client->followRedirect();
+    public function testLegacyBrokerLoginIsRetiredWithoutCreatingASession() {
         $client = $this->createHttpsClient(false);
         $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
-        $this->assertResponseStatusCodeSame(404);
-    }
-
-    public function testDoesNotRedirectToGivenTargetCloudIfItDoesNotWork() {
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_local';
-        $client = $this->createHttpsClient();
-        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        TargetSuplaCloudRequestForwarder::$requestExecutor =
-            function () {
-                return [null, Response::HTTP_SERVICE_UNAVAILABLE];
-            };
-        $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
         $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('error: "private_cloud_fail"', $response->getContent());
-        $this->assertStringContainsString('lastTargetCloud: "target.cloud"', $response->getContent());
-        $this->assertStringContainsString('lastUsername: "ala@supla.org"', $response->getContent());
+        $this->assertStatusCode(Response::HTTP_GONE, $response);
+        $this->assertFalse($response->headers->has('Set-Cookie'));
     }
 
-    public function testRedirectsToTargetCloudByAutodiscoveredUsername() {
-        SuplaAutodiscoverMock::$clientMapping['https://target.cloud']['1_public']['clientId'] = '1_local';
-        SuplaAutodiscoverMock::$userMapping['ala@supla.org'] = 'target.cloud';
-        $client = $this->createHttpsClient(false);
-        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        $client->followRedirect();
-        $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org']);
-        $response = $client->getResponse();
-        $this->assertTrue($response->isRedirect());
-        $targetUrl = $response->headers->get('Location');
-        $this->assertStringContainsString('https://target.cloud/oauth/v2/auth?', $targetUrl);
-        $this->assertStringContainsString('client_id=1_local', $targetUrl);
-        $this->assertStringContainsString('scope=account_r', $targetUrl);
-        $this->assertStringContainsString('ad_username=ala%40supla.org', $targetUrl);
-        $this->assertStringContainsString('state=some-state', $targetUrl);
-    }
-
-    public function testDisplaysErrorIfTargetCloudIsNotRegisteredInAutodiscover() {
-        $client = $this->createHttpsClient();
-        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        $this->assertStatusCode(200, $client->getResponse());
-        $this->assertStringContainsString('askForTargetCloud: true', $client->getResponse()->getContent());
-        $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
-        $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('error: "autodiscover_fail"', $response->getContent());
-        $this->assertStringContainsString('lastTargetCloud: "target.cloud"', $response->getContent());
-        $this->assertStringContainsString('lastUsername: "ala@supla.org"', $response->getContent());
-    }
-
-    public function testDisplaysErrorIfTargetCloudUrlIsWrong() {
-        $client = $this->createHttpsClient();
-        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        $this->assertStatusCode(200, $client->getResponse());
-        $this->assertStringContainsString('askForTargetCloud: true', $client->getResponse()->getContent());
-        $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'xxx']);
-        $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('error: "autodiscover_fail"', $response->getContent());
-        $this->assertStringContainsString('lastTargetCloud: "xxx"', $response->getContent());
-        $this->assertStringContainsString('lastUsername: "ala@supla.org"', $response->getContent());
-    }
-
-    public function testEscapesTargetCloudUrl() {
-        $client = $this->createHttpsClient();
-        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        $this->assertStatusCode(200, $client->getResponse());
-        $this->assertStringContainsString('askForTargetCloud: true', $client->getResponse()->getContent());
-        $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'x"x\'x']);
-        $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('error: "autodiscover_fail"', $response->getContent());
-        $this->assertStringContainsString('lastTargetCloud: "x\\"x\'x"', $response->getContent());
-        $this->assertStringContainsString('lastUsername: "ala@supla.org"', $response->getContent());
-    }
-
-    public function testDisplaysErrorIfUserCannotBeAutodiscovered() {
-        $client = $this->createHttpsClient();
-        $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        $this->assertStatusCode(200, $client->getResponse());
-        $this->assertStringContainsString('askForTargetCloud: true', $client->getResponse()->getContent());
-        $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org']);
-        $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('askForTargetCloud: true', $response->getContent());
-        $this->assertStringContainsString('error: "autodiscover_fail"', $response->getContent());
-        $this->assertStringContainsString('lastTargetCloud: null', $response->getContent());
-        $this->assertStringContainsString('lastUsername: "ala@supla.org"', $response->getContent());
-    }
-
-    public function testCreatesNewApiClientForPublicClientInTargetCloudDuringTheFirstRequest() {
+    public function testAuthorizationPreflightProvisionsMappedClientOnFirstUse() {
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
         SuplaAutodiscoverMock::$publicClients['1_public'] = [
             'name' => 'unicorn',
@@ -745,17 +1073,12 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         ];
         $client = $this->createHttpsClient(false);
         $client->request('GET', $this->oauthAuthorizeUrl('1_local'));
-        $client->followRedirect(); // to login form
         $response = $client->getResponse();
-        $this->assertTrue($response->isRedirect()); // to new client id
-        $targetUrl = $response->headers->get('Location');
-        /** @var \App\Entity\Main\OAuth\ApiClient $createdClient */
-        $createdClient = $this->clientManager->findClientBy(['name' => 'unicorn']);
-        $this->assertStringContainsString('https://supla.local/oauth/v2/auth?', $targetUrl);
-        $this->assertStringContainsString('client_id=' . $createdClient->getPublicId(), $targetUrl);
-        $this->assertEquals('Cool app', $createdClient->getDescription());
-        $this->assertEquals('1_public', $createdClient->getPublicClientId());
-        $this->assertEquals(['https://cool.app'], $createdClient->getRedirectUris());
+        $this->assertStatusCode(Response::HTTP_OK, $response);
+        $this->assertStringContainsString('<div id="vue-container"', $response->getContent());
+        $createdClient = $this->clientManager->findClientBy(['publicClientId' => '1_public']);
+        $this->assertNotNull($createdClient);
+        $this->assertSame('unicorn', $createdClient->getName());
     }
 
     public function testForwardsIssueTokenRequestBasedOnAuthCode() {
@@ -1005,7 +1328,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     /** @large */
-    public function testForcesReauthorizationIfUserIsAlreadyLoggedInButHitsPublicId() {
+    public function testLegacyLoginEndpointCannotRestoreAnOAuthTargetPath() {
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
         SuplaAutodiscoverMock::$publicClients['1_public'] = [
             'name' => 'Unicorn App',
@@ -1016,20 +1339,16 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $client->request('GET', $this->oauthAuthorizeUrl('1_local'));
         $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
         $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('desiredScopes: "account_r"', $response->getContent());
-        $this->assertStringContainsString('clientName: "Unicorn App"', $response->getContent());
-        // now, try again with the public id
+        $this->assertStatusCode(Response::HTTP_GONE, $response);
+        $this->assertFalse($response->headers->has('Set-Cookie'));
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        // the broker login form should be displayed
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('askForTargetCloud: true', $response->getContent());
-        $this->assertStringContainsString('clientName: "Unicorn App"', $response->getContent());
+        $this->assertStringContainsString('<div id="vue-container"', $response->getContent());
     }
 
     /** @large */
-    public function testForcesReauthrozatoinIfUserIsAlreadyLoggedInButHitsIdNotMappedYet() {
+    public function testStaleLoginSubmissionDoesNotPersistIdentityForNextOAuthRequest() {
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['2_public']['clientId'] = '2_local';
         SuplaAutodiscoverMock::$publicClients['1_public'] = [
@@ -1042,21 +1361,16 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $client->request('GET', $this->oauthAuthorizeUrl('1_local'));
         $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
         $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('desiredScopes: "account_r"', $response->getContent());
-        $this->assertStringContainsString('clientName: "Unicorn App"', $response->getContent());
-        // now, try again with the not-mapped-yet client id
+        $this->assertStatusCode(Response::HTTP_GONE, $response);
+        $this->assertFalse($response->headers->has('Set-Cookie'));
         $client->request('GET', $this->oauthAuthorizeUrl('2_local'));
         $this->assertStatusCode(200, $client->getResponse());
-        // the normal login form with newely mapped client should be displayed
         $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $this->assertStringContainsString('askForTargetCloud: false', $response->getContent());
-        $this->assertStringContainsString('clientName: "Unicorn App"', $response->getContent());
+        $this->assertStringContainsString('<div id="vue-container"', $response->getContent());
     }
 
     /** @large */
-    public function testUpdatesMappedClientNameAndDescriptionIfUpdatedInAd() {
+    public function testAuthorizationPreflightDoesNotPersistAdMetadataToMappedClient() {
         $localClient = $this->clientManager->createClient();
         $localClient->setName('Local App');
         $localClient->setPublicClientId('1_public');
@@ -1069,12 +1383,11 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         ];
         $client = $this->createHttpsClient();
         $client->request('GET', $this->oauthAuthorizeUrl($localClient->getPublicId(), 'https://cooler.app'));
-        $client->apiRequest('POST', '/oauth/v2/auth_login', ['_username' => 'supler@supla.org', '_password' => 'supla123']);
+        $this->assertStatusCode(Response::HTTP_OK, $client->getResponse());
         $createdClient = $this->clientManager->findClientByPublicId($localClient->getPublicId());
         $this->assertNotNull($createdClient);
-        $this->assertEquals('butterfly', $createdClient->getName());
-        $this->assertEquals(['pl' => 'Spoko apka', 'en' => 'Cooler app'], $createdClient->getDescription());
-        $this->assertEquals(['https://cooler.app'], $createdClient->getRedirectUris());
+        $this->assertEquals('Local App', $createdClient->getName());
+        $this->assertEquals([], $createdClient->getDescription());
     }
 
     private function oauthAuthorizeUrl($clientId, $redirectUri = 'https://cool.app', $scope = 'account_r', $responseType = 'code') {

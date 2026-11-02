@@ -86,6 +86,9 @@ services:
   App\Controller\OAuth\OAuthAuthorizationController:
     tags: ['controller.service_arguments']
 
+  App\Controller\OAuth\PrivateOAuthCloudController:
+    tags: ['controller.service_arguments']
+
   App\Controller\Api\StateWebhookController:
     $stateWebhooksForPublicAppsOnly: '%supla.state_webhooks.only_for_public_apps%'
 
@@ -101,11 +104,9 @@ services:
   App\Controller\ExecuteDirectLinkController:
     $logger: '@monolog.logger.supla_direct_links'
 
-  App\Controller\OAuth\BrokerAuthorizeController:
-    tags: ['controller.service_arguments']
+  App\EventListener\OAuthBrowserAuthorizationListener:
     arguments:
-      $authorizeForm: '@fos_oauth_server.authorize.form'
-      $authorizeFormHandler: '@fos_oauth_server.authorize.form.handler.default'
+      $projectDir: '%kernel.project_dir%'
 
   App\Controller\OAuth\BrokerTokenController:
     tags: ['controller.service_arguments']
@@ -207,11 +208,6 @@ services:
 
   App\Auth\SuplaOAuthStorage:
     $userProvider: '@App\Auth\UserProvider'
-
-  App\Form\Type\Extension\AuthorizePkceFormTypeExtension:
-    tags: ['form.type_extension']
-
-  App\Auth\OAuthEventListener: ~
 
   App\EventListener\ApiExceptionHandler:
     arguments:

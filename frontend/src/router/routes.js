@@ -245,11 +245,6 @@ const routes = [
     meta: {unrestricted: true},
   },
   {
-    path: '/oauth-authorize',
-    component: () => import('@/login/login-page-oauth.vue'),
-    meta: {unrestricted: true, bodyClass: 'centered-form-page'},
-  },
-  {
     path: '/oauth/v2/auth',
     component: () => import('@/login/oauth-authorize-form.vue'),
     meta: {unrestricted: true, bodyClass: 'centered-form-page'},
