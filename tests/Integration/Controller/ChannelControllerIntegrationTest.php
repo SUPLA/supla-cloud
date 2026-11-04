@@ -1145,6 +1145,45 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSuplaCommandExecuted("MUTE-ALARM-SOUND:1,{$septicDevice->getId()},{$tankChannel->getId()}");
     }
 
+    public function testChannelActionReturnsWaitingReceiptWithoutChangingGet() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
+        $channel = $device->getChannels()[0];
+        SuplaServerMock::mockResponse('MUTE-ALARM-SOUND', "WAITING_FOR_RESULT:{$channel->getId()},1793577600\n");
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PATCH', "/api/channels/{$channel->getId()}/settings", ['action' => 'muteAlarm']);
+        $this->assertStatusCode(200, $client->getResponse());
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame(['status' => 'WAITING_FOR_RESULT', 'id' => $channel->getId(), 'queuedAt' => 1793577600], $body['actionResult']);
+        $client->apiRequestV3('GET', "/api/channels/{$channel->getId()}");
+        $resource = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayNotHasKey('actionResult', $resource);
+        unset($body['actionResult']);
+        $this->assertEquals($resource, $body);
+    }
+
+    public function testChannelActionReceiptsAcrossApiVersions() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceSeptic($this->location);
+        $channel = $device->getChannels()[0];
+        $client = $this->createAuthenticatedClient();
+        foreach (['2.1.0', '2.2.0', '2.3.0', '2.4.0', '3'] as $version) {
+            foreach (
+                ['ACCEPTED' => "OK:{$channel->getId()}\n", 'QUEUED' => "QUEUED:{$channel->getId()},1793577600\n",
+                'WAITING_FOR_RESULT' => "WAITING_FOR_RESULT:{$channel->getId()},1793577600\n"] as $status => $reply
+            ) {
+                SuplaServerMock::mockResponse('MUTE-ALARM-SOUND', $reply);
+                $client->apiRequest('PATCH', "/api/channels/{$channel->getId()}/settings", ['action' => 'muteAlarm'], [], [], [], $version);
+                $this->assertStatusCode(200, $client->getResponse());
+                $body = $client->getResponseBody();
+                if ($version === '3') {
+                    $this->assertSame(['status' => $status, 'id' => $channel->getId(),
+                        'queuedAt' => $status === 'ACCEPTED' ? null : 1793577600], $body['actionResult']);
+                } else {
+                    $this->assertArrayNotHasKey('actionResult', $body);
+                }
+            }
+        }
+    }
+
     public function testFetchingActionTriggers() {
         $client = $this->createAuthenticatedClient($this->user);
         $anotherDevice = $this->createDeviceSonoff($this->getEntityManager()->find(Location::class, $this->location->getId()));
@@ -1945,10 +1984,14 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         EntityUtils::setField($channel, 'flags', ChannelFlags::IDENTIFY_SUBDEVICE_AVAILABLE);
         $this->persist($channel);
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV24('PATCH', "/api/channels/{$channel->getId()}/subdevice", ['action' => 'identify']);
+        $client->apiRequestV3('PATCH', "/api/channels/{$channel->getId()}/subdevice", ['action' => 'identify']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
+        $this->assertSame(['status' => 'ACCEPTED', 'id' => $channel->getId(), 'queuedAt' => null], $client->getResponseBody()['actionResult']);
         $this->assertSuplaCommandExecuted("IDENTIFY-SUBDEVICE:1,{$device->getId()},{$channel->getId()}");
+        $client->apiRequestV24('PATCH', "/api/channels/{$channel->getId()}/subdevice", ['action' => 'identify']);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertArrayNotHasKey('actionResult', $client->getResponseBody());
     }
 
     public function testRestartingSubDevice() {
@@ -1971,6 +2014,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->persist($channel);
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV3('PATCH', "/api/channels/{$channel->getId()}/settings", ['action' => 'refreshState']);
+        $this->assertArrayNotHasKey('actionResult', $client->getResponseBody());
         $client->apiRequestV3('GET', "/api/channels/{$channel->getId()}?include=state");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);

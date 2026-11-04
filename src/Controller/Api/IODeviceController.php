@@ -361,7 +361,9 @@ class IODeviceController extends RestController {
      *          @OA\Property(property="action", type="string"),
      *       )
      *     ),
-     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
+     *     @OA\Response(response="200", description="Success. actionResult is included for API v3 and later.",
+     *         @OA\JsonContent(allOf={@OA\Schema(ref="#/components/schemas/Device"),
+     *             @OA\Schema(@OA\Property(property="actionResult", ref="#/components/schemas/CalcfgActionResult"))})),
      *    ),
      * )
      * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
@@ -371,8 +373,9 @@ class IODeviceController extends RestController {
     public function patchIodeviceAction(Request $request, IODevice $ioDevice, SuplaAutodiscover $ad) {
         $body = json_decode($request->getContent(), true);
         Assertion::keyExists($body, 'action', 'Missing action.');
-        $device = $this->transactional(function (EntityManagerInterface $em) use ($ad, $body, $ioDevice) {
+        [$device, $actionResult] = $this->transactional(function (EntityManagerInterface $em) use ($ad, $body, $ioDevice) {
             $action = $body['action'];
+            $result = null;
             if ($action === 'enterConfigurationMode') {
                 Assertion::true($ioDevice->getFlags()['enterConfigurationModeAvailable'], 'Action is unsupported in the firmware.');
                 $result = $this->suplaServer->deviceAction($ioDevice, 'ENTER-CONFIGURATION-MODE');
@@ -432,9 +435,9 @@ class IODeviceController extends RestController {
                 throw new ApiException('Invalid action given.');
             }
             $em->persist($ioDevice);
-            return $ioDevice;
+            return [$ioDevice, $result];
         });
-        return $this->getIodeviceAction($request, $device->clearRelationsCount());
+        return $this->withActionResult($this->getIodeviceAction($request, $device->clearRelationsCount()), $actionResult, $request);
     }
 
     /**

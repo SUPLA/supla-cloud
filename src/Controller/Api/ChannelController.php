@@ -549,7 +549,9 @@ class ChannelController extends RestController {
      *          @OA\Property(property="action", type="string", enum={"resetCounters", "recalibrate", "ocr:takePhoto"})
      *       ),
      *     ),
-     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
+     *     @OA\Response(response="200", description="Success. actionResult is included for API v3 and later.",
+     *         @OA\JsonContent(allOf={@OA\Schema(ref="#/components/schemas/Channel"),
+     *             @OA\Schema(@OA\Property(property="actionResult", ref="#/components/schemas/CalcfgActionResult"))})),
      * )
      * @Rest\Patch("/channels/{channel}/settings")
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
@@ -564,7 +566,7 @@ class ChannelController extends RestController {
         $body = json_decode($request->getContent(), true);
         Assertion::keyExists($body, 'action', 'Missing action.');
         $channelConfig = $paramConfigTranslator->getConfig($channel);
-        $channel = $this->transactional(function (EntityManagerInterface $em) use (
+        [$channel, $actionResult] = $this->transactional(function (EntityManagerInterface $em) use (
             $channelStateGetter,
             $ocr,
             $body,
@@ -572,6 +574,7 @@ class ChannelController extends RestController {
             $channelConfig
         ) {
             $action = $body['action'];
+            $result = null;
             if ($action === 'resetCounters') {
                 Assertion::true($channelConfig['resetCountersAvailable'] ?? false, 'Cannot reset counters of this channel.');
                 $result = $this->suplaServer->channelAction($channel, 'RESET-COUNTERS');
@@ -604,9 +607,9 @@ class ChannelController extends RestController {
                 throw new ApiException('Invalid action given.');
             }
             $em->persist($channel);
-            return $channel;
+            return [$channel, $result];
         });
-        return $this->getChannelAction($request, $channel->clearRelationsCount());
+        return $this->withActionResult($this->getChannelAction($request, $channel->clearRelationsCount()), $actionResult, $request);
     }
 
     /**
@@ -714,7 +717,9 @@ class ChannelController extends RestController {
      *          @OA\Property(property="action", type="string"),
      *       )
      *     ),
-     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="object")),
+     *     @OA\Response(response="200", description="Success. actionResult is included for API v3 and later.",
+     *         @OA\JsonContent(allOf={@OA\Schema(ref="#/components/schemas/Channel"),
+     *             @OA\Schema(@OA\Property(property="actionResult", ref="#/components/schemas/CalcfgActionResult"))})),
      *    ),
      * )
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
@@ -741,7 +746,7 @@ class ChannelController extends RestController {
         } else {
             throw new ApiException('Invalid action given.');
         }
-        return $this->getChannelAction($request, $channel->clearRelationsCount());
+        return $this->withActionResult($this->getChannelAction($request, $channel->clearRelationsCount()), $result, $request);
     }
 
     /**

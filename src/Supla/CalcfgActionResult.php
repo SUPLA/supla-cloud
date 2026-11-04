@@ -2,6 +2,17 @@
 
 namespace App\Supla;
 
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Schema(
+ *     schema="CalcfgActionResult", type="object", required={"status", "id", "queuedAt"},
+ *     description="Request-scoped acceptance, not confirmation of device-side execution. ACCEPTED means immediate dispatch was accepted. QUEUED means work was queued or replaced earlier queued work. WAITING_FOR_RESULT means an earlier operation awaits a result and the new payload was not submitted.",
+ *     @OA\Property(property="status", type="string", enum={"ACCEPTED", "QUEUED", "WAITING_FOR_RESULT"}),
+ *     @OA\Property(property="id", type="integer", description="Command-specific target ID."),
+ *     @OA\Property(property="queuedAt", type="integer", nullable=true, description="Unix seconds; null for ACCEPTED, or the earlier enqueue time for WAITING_FOR_RESULT.")
+ * )
+ */
 final class CalcfgActionResult {
     public const ACCEPTED = 'ACCEPTED';
     public const QUEUED = 'QUEUED';

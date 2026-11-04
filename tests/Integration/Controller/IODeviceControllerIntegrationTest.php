@@ -262,6 +262,48 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertSuplaCommandExecuted('ENTER-CONFIGURATION-MODE:1,' . $device->getId());
     }
 
+    public function testDeviceActionReturnsQueuedReceiptWithoutChangingGet() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        SuplaServerMock::mockResponse('ENTER-CONFIGURATION-MODE', "QUEUED:{$device->getId()},1793577600\n");
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'enterConfigurationMode']);
+        $this->assertStatusCode(200, $client->getResponse());
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertSame(['status' => 'QUEUED', 'id' => $device->getId(), 'queuedAt' => 1793577600], $body['actionResult']);
+        $client->apiRequestV3('GET', '/api/iodevices/' . $device->getId());
+        $resource = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayNotHasKey('actionResult', $resource);
+        unset($body['actionResult']);
+        $this->assertEquals($resource, $body);
+    }
+
+    public function testDeviceActionReceiptsAcrossApiVersions() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $client = $this->createAuthenticatedClient();
+        foreach (['2.1.0', '2.2.0', '2.3.0', '2.4.0', '3'] as $version) {
+            foreach (
+                ['ACCEPTED' => "OK:{$device->getId()}\n", 'QUEUED' => "QUEUED:{$device->getId()},1793577600\n",
+                'WAITING_FOR_RESULT' => "WAITING_FOR_RESULT:{$device->getId()},1793577600\n"] as $status => $reply
+            ) {
+                SuplaServerMock::mockResponse('ENTER-CONFIGURATION-MODE', $reply);
+                $client->apiRequest('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'enterConfigurationMode'], [], [], [], $version);
+                $this->assertStatusCode(200, $client->getResponse());
+                $body = $client->getResponseBody();
+                if ($version === '3') {
+                    $this->assertSame(['status' => $status, 'id' => $device->getId(),
+                        'queuedAt' => $status === 'ACCEPTED' ? null : 1793577600], $body['actionResult']);
+                    unset($body['actionResult']);
+                } elseif ($version === '2.1.0') {
+                    $this->assertArrayNotHasKey('actionResult', $body[0]);
+                } else {
+                    $this->assertArrayNotHasKey('actionResult', $body);
+                }
+                $client->apiRequest('GET', '/api/iodevices/' . $device->getId(), [], [], [], [], $version);
+                $this->assertEquals($client->getResponseBody(), $body);
+            }
+        }
+    }
+
     public function testEnteringConfigurationModeWhenDeviceDoesNotSupportIt() {
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
         AnyFieldSetter::set($device, 'flags', 0);
@@ -351,9 +393,12 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         AnyFieldSetter::set($device, 'flags', IoDeviceFlags::SET_CFG_MODE_PASSWORD_SUPPORTED);
         $this->persist($device);
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'setCfgModePassword', 'password' => 'ala123']);
+        $client->apiRequestV3('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'setCfgModePassword', 'password' => 'ala123']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
+        $this->assertStringNotContainsString('ala123', $response->getContent());
+        $this->assertStringNotContainsString(base64_encode('ala123'), $response->getContent());
+        $this->assertSame(['status' => 'ACCEPTED', 'id' => $device->getId(), 'queuedAt' => null], $client->getResponseBody()['actionResult']);
         $this->assertSuplaCommandExecuted('SET-CFG-MODE-PASSWORD:1,' . $device->getId() . ',' . base64_encode('ala123'));
         return $device->getId();
     }
