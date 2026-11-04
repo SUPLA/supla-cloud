@@ -18,6 +18,10 @@
             <router-link :to="{name: 'safety.personalTokens'}" class="btn">
               {{ $t('Personal access tokens') }}
             </router-link>
+            <router-link v-if="access.hasEntries.value" :to="{name: 'safety.resourceAccess'}" class="btn">
+              {{ $t('Resource access') }}
+              <PendingRequestsBadge :count="access.pendingCount.value" />
+            </router-link>
             <router-link :to="{name: 'safety.changePassword'}" class="btn" v-if="!currentUser.technicalAccess">
               {{ $t('Change Password') }}
             </router-link>
@@ -30,7 +34,13 @@
 </template>
 
 <script setup>
+  import {provide} from 'vue';
+  import PendingRequestsBadge from '@/devices/details/pending-requests-badge.vue';
   import {useCurrentUserStore} from '@/stores/current-user-store.js';
+  import {resourceAccessAvailabilityKey, useResourceAccessAvailability} from '@/devices/details/resource-access-availability';
 
+  defineOptions({compatConfig: {MODE: 3}});
   const currentUser = useCurrentUserStore();
+  const access = useResourceAccessAvailability();
+  provide(resourceAccessAvailabilityKey, access);
 </script>

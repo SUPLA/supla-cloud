@@ -1,7 +1,35 @@
 import ChannelFunction from '@/common/enums/channel-function';
-import {reactionTriggerCaption} from '@/channels/reactions/channel-function-triggers';
+import {getTriggerDefinitionsForChannel, reactionTriggerCaption} from '@/channels/reactions/channel-function-triggers';
+import {mount} from '@vue/test-utils';
+import ReactionConditionThreshold from '@/channels/reactions/params/reaction-condition-threshold.vue';
 
 describe('ChannelFunctionTriggers', () => {
+  it.each([ChannelFunction.CONTAINER, ChannelFunction.SEPTIC_TANK, ChannelFunction.WATER_TANK])(
+    'renders fill-level reaction thresholds with unset and malformed slots for %s',
+    (functionId) => {
+      const subject = {
+        functionId,
+        config: {
+          levelSensors: [null, {channelId: 101, fillLevel: 75}, {channelId: null, fillLevel: 25}, false, 'bad', {channelId: null}],
+        },
+      };
+      const definition = getTriggerDefinitionsForChannel(subject).find((def) => def.component === ReactionConditionThreshold);
+      expect(definition.props.availableValues(subject)).toEqual([0, 25, 75]);
+      const wrapper = mount(ReactionConditionThreshold, {
+        props: {...definition.props, subject, modelValue: {on_change_to: {eq: 75}}},
+        global: {stubs: {ReactionConditionDuration: true}},
+      });
+      expect(wrapper.vm.valuesForDropdown).toEqual([0, 25, 75]);
+      wrapper.unmount();
+    }
+  );
+
+  it('keeps continuous fill-level reactions independent of sensor slots', () => {
+    const subject = {functionId: ChannelFunction.CONTAINER, config: {levelSensors: [null], fillLevelReportingInFullRange: true}};
+    const definition = getTriggerDefinitionsForChannel(subject).find((def) => def.component === ReactionConditionThreshold);
+    expect(definition.props.availableValues(subject)).toBeUndefined();
+  });
+
   describe('channelFunctionTriggerCaption', () => {
     const tests = [
       ['When the temperature will be = 20°C', ChannelFunction.THERMOMETER, {on_change_to: {eq: 20, name: 'temperature'}}],

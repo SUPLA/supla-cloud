@@ -28,7 +28,9 @@
       <dt>
         <channels-id-dropdown
           v-model="channel.config.masterThermostatChannelId"
-          :params="`type=HVAC&deviceIds=${channel.iodeviceId}&skipIds=${channel.id}`"
+          :destination="channel"
+          reference-role="masterThermostatChannelId"
+          :params="`type=HVAC&skipIds=${channel.id}`"
           :disabled="!canChangeSetting('masterThermostatChannelId')"
           choose-prompt-i18n="Function disabled"
           @channel-changed="(c) => (masterThermostat = c)"
@@ -57,7 +59,9 @@
           <dt>
             <channels-id-dropdown
               v-model="channel.config.mainThermometerChannelId"
-              :params="`function=THERMOMETER,HUMIDITYANDTEMPERATURE&deviceIds=${channel.iodeviceId}`"
+              :destination="channel"
+              reference-role="mainThermometerChannelId"
+              :params="mainThermometerParams"
               :filter="(ch) => ch.id !== channel.config.auxThermometerChannelId"
               :hide-none="true"
               :disabled="!canChangeSetting('mainThermometerChannelId')"
@@ -76,7 +80,9 @@
           <dt>
             <channels-id-dropdown
               v-model="channel.config.auxThermometerChannelId"
-              :params="`function=THERMOMETER,HUMIDITYANDTEMPERATURE&deviceIds=${channel.iodeviceId}`"
+              :destination="channel"
+              reference-role="auxThermometerChannelId"
+              :params="`function=THERMOMETER,HUMIDITYANDTEMPERATURE`"
               :filter="(ch) => ch.id !== channel.config.mainThermometerChannelId"
               :disabled="!canChangeSetting('auxThermometerChannelId')"
               @input="auxThermometerChanged()"
@@ -266,7 +272,9 @@
           <dt>
             <channels-id-dropdown
               v-model="channel.config.binarySensorChannelId"
-              :params="`type=SENSORNO&deviceIds=${channel.iodeviceId}`"
+              :destination="channel"
+              reference-role="binarySensorChannelId"
+              :params="`type=SENSORNO`"
               :disabled="!canChangeSetting('binarySensorChannelId')"
               choose-prompt-i18n="Function disabled"
               @input="$emit('change')"
@@ -284,7 +292,9 @@
           <dt>
             <channels-id-dropdown
               v-model="channel.config.pumpSwitchChannelId"
-              :params="`function=PUMPSWITCH&deviceIds=${channel.iodeviceId}`"
+              :destination="channel"
+              reference-role="pumpSwitchChannelId"
+              :params="`function=PUMPSWITCH`"
               choose-prompt-i18n="Function disabled"
               :disabled="!canChangeSetting('pumpSwitchChannelId')"
               @input="$emit('change')"
@@ -302,7 +312,9 @@
           <dt>
             <channels-id-dropdown
               v-model="channel.config.heatOrColdSourceSwitchChannelId"
-              :params="`function=HEATORCOLDSOURCESWITCH&deviceIds=${channel.iodeviceId}`"
+              :destination="channel"
+              reference-role="heatOrColdSourceSwitchChannelId"
+              :params="`function=HEATORCOLDSOURCESWITCH`"
               choose-prompt-i18n="Function disabled"
               :disabled="!canChangeSetting('heatOrColdSourceSwitchChannelId')"
               @input="$emit('change')"
@@ -518,6 +530,8 @@
   import AccordionRoot from '@/common/gui/accordion/accordion-root.vue';
   import AccordionItem from '@/common/gui/accordion/accordion-item.vue';
   import Toggler from '@/common/gui/toggler.vue';
+  import {mapState} from 'pinia';
+  import {useDevicesStore} from '@/stores/devices-store';
   import SimpleDropdown from '@/common/gui/simple-dropdown.vue';
 
   export default {
@@ -540,6 +554,11 @@
       };
     },
     computed: {
+      ...mapState(useDevicesStore, {devices: 'all'}),
+      mainThermometerParams() {
+        const functions = 'function=THERMOMETER,HUMIDITYANDTEMPERATURE';
+        return this.devices[this.channel.iodeviceId]?.flags?.suplanSupported ? functions : `${functions}&deviceIds=${this.channel.iodeviceId}`;
+      },
       defaultTemperatureConstraintName() {
         return this.channel.config?.defaultTemperatureConstraintName || 'room';
       },

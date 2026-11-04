@@ -18,7 +18,10 @@ class HiddenReadOnlyConfigFieldsUserConfigTranslator extends UserConfigTranslato
     }
 
     private function addChannelIdsToChannelNoParametersNames(array $fields) {
-        foreach (array_filter($fields, fn($f) => str_ends_with($f, 'ChannelNo')) as $channelNoParameter) {
+        foreach (
+            array_filter($fields, fn($f) => str_ends_with($f, 'ChannelNo')
+            && !in_array(substr($f, 0, -9), HvacChannelReferences::FIELDS, true)) as $channelNoParameter
+        ) {
             $fields[] = substr($channelNoParameter, 0, -2) . 'Id';
         }
         return $fields;

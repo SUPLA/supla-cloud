@@ -26,12 +26,14 @@ export const useChannelsDependenciesStore = defineStore('channelsDependencies', 
           .filter((key) => !hiddenRelations.includes(key))
           .filter((key) => channel.config[key]?.length > 0)
           .map((role) =>
-            channel.config[role].map((channelId) => ({
-              id: `ch_${role}_${Math.min(channelId, channel.id)}_${Math.max(channelId, channel.id)}`,
-              role,
-              channel1Id: channel.id,
-              channel2Id: channelId,
-            }))
+            channel.config[role]
+              .filter((id) => Number.isInteger(id) && id > 0)
+              .map((channelId) => ({
+                id: `ch_${role}_${Math.min(channelId, channel.id)}_${Math.max(channelId, channel.id)}`,
+                role,
+                channel1Id: channel.id,
+                channel2Id: channelId,
+              }))
           )
           .forEach((depList) => depList.forEach((dep) => (acc[dep.id] = dep)));
         return acc;

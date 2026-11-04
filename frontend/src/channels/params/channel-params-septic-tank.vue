@@ -4,12 +4,16 @@
       <dd class="valign-top">{{ $t('Level sensors') }}</dd>
       <dt>
         <div v-if="levelSensorsDef.length > 0" class="mb-3">
-          <div v-for="lvl in levelSensorsDef" :key="lvl.id" class="d-flex align-items-center bottom-border py-2">
+          <div v-for="(lvl, slot) in levelSensorsDef" :key="slot" class="d-flex align-items-center bottom-border py-2">
             <div class="flex-grow-1">
               <h5 class="my-1">
-                {{ channelTitle(channelsStore.all[lvl.channelId]) }}
+                {{ channelsStore.all[lvl?.channelId] ? channelTitle(channelsStore.all[lvl?.channelId]) : $t('None') }}
+                <small v-if="lvl?.channelId" class="text-muted"> / {{ devicesStore.all[channelsStore.all[lvl?.channelId]?.iodeviceId]?.name }}</small>
+                <small v-if="lvl?.channelId && !validSensor(lvl?.channelId)" class="text-warning" role="alert"
+                  >{{ $t('Selected channel is unavailable or incompatible. Remove it and choose another channel.') }} (ID{{ lvl?.channelId }})</small
+                >
               </h5>
-              <dl>
+              <dl v-if="lvl">
                 <dt>{{ $t('Fill level') }}</dt>
                 <dd>
                   <NumberInput v-model="lvl.fillLevel" :min="1" :max="100" suffix=" %" @update:modelValue="levelChanged()" required />
@@ -17,7 +21,7 @@
               </dl>
             </div>
             <div class="pl-3">
-              <a class="text-default" @click="handleRemoveSensor(lvl)">
+              <a class="text-default" @click="handleRemoveSensor(slot)">
                 <fa icon="trash" />
               </a>
             </div>
@@ -26,7 +30,10 @@
         <span class="small">{{ $t('Choose many') }}</span>
         <ChannelsDropdown
           :hide-none="true"
-          :params="{skipIds: levelSensorsIds, deviceIds: channel.iodeviceId, fnc: 'CONTAINER_LEVEL_SENSOR'}"
+          :params="{skipIds: levelSensorsIds}"
+          :destination="channel"
+          reference-role="levelSensorChannelIds"
+          :disabled="levelSensorsDef.length >= 10"
           :filter="onlyFreeSensors"
           @input="handleNewSensor"
         />
@@ -88,6 +95,8 @@
 </template>
 
 <script setup>
+  import {useDevicesStore} from '@/stores/devices-store';
+  import {isChannelReferenceCandidate} from '@/channels/channel-reference-candidates';
   import {computed} from 'vue';
   import {useChannelsStore} from '@/stores/channels-store';
   import ChannelsDropdown from '@/devices/channels-dropdown.vue';
@@ -99,12 +108,14 @@
   import SimpleDropdown from '@/common/gui/simple-dropdown.vue';
 
   const props = defineProps({channel: Object});
-  const emit = defineEmits('change');
+  const emit = defineEmits(['change']);
 
   const channelsStore = useChannelsStore();
+  const devicesStore = useDevicesStore();
+  const validSensor = (id) => isChannelReferenceCandidate(props.channel, channelsStore.all[id], devicesStore.all, 'levelSensorChannelIds');
   const dependenciesStore = useChannelsDependenciesStore();
 
-  const levelSensorsIds = computed(() => props.channel.config.levelSensors?.map((s) => s.channelId) || []);
+  const levelSensorsIds = computed(() => props.channel.config.levelSensors?.map((s) => s?.channelId) || []);
   const levelSensorsDef = computed({
     get() {
       return props.channel.config.levelSensors;
@@ -114,7 +125,7 @@
       emit('change');
     },
   });
-  const availableFillLevels = computed(() => uniq([0, ...levelSensorsDef.value.map((def) => +def.fillLevel)]).sort((a, b) => a - b));
+  const availableFillLevels = computed(() => uniq([0, ...levelSensorsDef.value.map((def) => +def?.fillLevel).filter(Number.isFinite)]).sort((a, b) => a - b));
   const fillLevelInFullRange = computed(() => props.channel.config.fillLevelReportingInFullRange);
 
   const availableFillLevelsPerAlarm = computed(() => ({
@@ -158,11 +169,12 @@
   }
 
   function handleNewSensor(newSensor) {
+    if (!newSensor) return;
     levelSensorsDef.value = [...levelSensorsDef.value, {channelId: newSensor.id, fillLevel: 1}];
   }
 
-  function handleRemoveSensor(sensorToRemove) {
-    levelSensorsDef.value = levelSensorsDef.value.filter((ch) => ch.channelId !== sensorToRemove.channelId);
+  function handleRemoveSensor(slot) {
+    levelSensorsDef.value = levelSensorsDef.value.filter((ch, index) => index !== slot);
     levelChanged();
   }
 

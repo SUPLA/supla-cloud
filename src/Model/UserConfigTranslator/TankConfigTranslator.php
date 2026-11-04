@@ -5,23 +5,15 @@ namespace App\Model\UserConfigTranslator;
 use App\Entity\HasUserConfig;
 use App\Enums\ChannelFlags;
 use App\Enums\ChannelFunction;
-use App\Enums\ChannelType;
-use App\Utils\ArrayUtils;
 use Assert\Assert;
 use Assert\Assertion;
 
 class TankConfigTranslator extends UserConfigTranslator {
-    use ChannelNoToIdTranslator;
+    public function __construct(private ChannelReferenceValidator $references) {
+    }
 
     public function getConfig(HasUserConfig $subject): array {
-        $levelSensors = [];
-        foreach ($subject->getUserConfigValue('sensors', []) as $lvlConfig) {
-            $id = $this->channelNoToChannel($subject, $lvlConfig['channelNo'] ?? 0)?->getId();
-            if ($id) {
-                $levelSensors[] = array_merge(['channelId' => $id, 'fillLevel' => $lvlConfig['fillLevel']]);
-            }
-        }
-        usort($levelSensors, fn($a, $b) => $a['fillLevel'] - $b['fillLevel']);
+        $levelSensors = $this->getSensorSlots($subject);
         return [
             'levelSensors' => $levelSensors,
             'levelSensorChannelIds' => array_column($levelSensors, 'channelId'),
@@ -43,37 +35,46 @@ class TankConfigTranslator extends UserConfigTranslator {
         ) {
             // request from ChannelDependencies clearing
             Assertion::isArray($config['levelSensorChannelIds'], null, 'levelSensorChannelIds');
-            $currentConfig = $this->getConfig($subject);
-            $config['levelSensors'] = ArrayUtils::filter(
-                $currentConfig['levelSensors'],
-                fn($sensor) => in_array($sensor['channelId'], $config['levelSensorChannelIds'])
-            );
+            // Preserve independent slots and scalar settings during reverse cleanup.
+            $sensors = $this->getSensorSlots($subject);
+            foreach ($sensors as &$sensor) {
+                if (is_array($sensor) && !in_array($sensor['channelId'] ?? null, $config['levelSensorChannelIds'], true)) {
+                    $sensor['channelId'] = null;
+                }
+            }
+            unset($sensor);
+            $subject->setUserConfigValue('sensors', $sensors);
         }
         if (array_key_exists('levelSensors', $config) && $config['levelSensors'] !== null) {
             Assertion::isArray($config['levelSensors'], null, 'levelSensors');
-            Assert::thatAll($config['levelSensors'], null, 'levelSensors')
-                ->isArray()->keyExists('channelId')->keyExists('fillLevel');
-
-            $options = array_map(function (array $lvlConfig) use ($subject) {
-                $sensor = $this->channelIdToChannelFromDevice($subject, $lvlConfig['channelId']);
-                Assertion::eq(
-                    $sensor->getType()->getId(),
-                    ChannelType::SENSORNO,
-                    'Only binary sensors can be chosen for valve sensors.',
-                    'levelSensors'
-                );
-                return ['channelNo' => $sensor->getChannelNumber(), 'fillLevel' => $lvlConfig['fillLevel']];
+            Assertion::true(array_is_list($config['levelSensors']), 'Expected a list.', 'levelSensors');
+            $options = array_map(function ($lvlConfig) use ($subject) {
+                if ($lvlConfig === null) {
+                    return null; // Explicit unconfigured slot.
+                }
+                Assertion::isArray($lvlConfig, null, 'levelSensors');
+                Assertion::keyExists($lvlConfig, 'channelId', null, 'levelSensors');
+                $id = $lvlConfig['channelId'];
+                if ($id !== null) {
+                    Assertion::integer($id, null, 'levelSensors');
+                    $this->references->resolve($subject, $id, 'levelSensorChannelIds');
+                    Assertion::keyExists($lvlConfig, 'fillLevel', null, 'levelSensors');
+                }
+                // Preserve metadata attached to an independently configured slot.
+                unset($lvlConfig['channelNo']);
+                return $lvlConfig;
             }, $config['levelSensors']);
-            Assert::thatAll(array_column($options, 'fillLevel'), null, 'levelSensors.fillLevel')
+            $configuredSlots = array_filter($options, fn($slot) => is_array($slot) && ($slot['channelId'] ?? null) !== null);
+            Assert::thatAll(array_column($configuredSlots, 'fillLevel'), null, 'levelSensors.fillLevel')
                 ->integer()->between(1, 100);
             Assertion::uniqueValues(
-                array_column($options, 'fillLevel'),
+                array_column($configuredSlots, 'fillLevel'),
                 'Each container level sensor must have different fill level.' // i18n
             );
             Assertion::maxCount($options, 10, 'Container supports up to 10 sensors.'); // i18n
             $subject->setUserConfigValue('sensors', $options);
         }
-        $availableFillLevels = array_merge([0], array_column($subject->getUserConfigValue('sensors', []), 'fillLevel'));
+        $availableFillLevels = array_merge([0], array_column($this->getSensorSlots($subject), 'fillLevel'));
         if (ChannelFlags::TANK_FILL_LEVEL_REPORTING_IN_FULL_RANGE()->isOn($subject->getFlags())) {
             $availableFillLevels = range(0, 100);
         }
@@ -121,6 +122,12 @@ class TankConfigTranslator extends UserConfigTranslator {
         if (array_key_exists('muteAlarmSoundWithoutAdditionalAuth', $config)) {
             $subject->setUserConfigValue('muteAlarmSoundWithoutAdditionalAuth', boolval($config['muteAlarmSoundWithoutAdditionalAuth']));
         }
+    }
+
+    private function getSensorSlots(HasUserConfig $subject): array {
+        $sensors = $subject->getUserConfigValue('sensors', []);
+        // Read malformed historical arrays as unset without overwriting their diagnostic payload.
+        return is_array($sensors) && array_is_list($sensors) ? $sensors : [];
     }
 
     public function supports(HasUserConfig $subject): bool {
