@@ -32,14 +32,14 @@ class SuplaServerRealTest extends TestCase {
     public function testDeviceActionRejectsTruncatedAndLongReplies(): void {
         foreach (["OK:222", 'OK:222' . str_repeat('x', 5000) . "\n", str_repeat('x', 1048577) . "\n"] as $response) {
             $this->assertActionsWithResponses([$response], function (SuplaServerReal $server, IODevice $device): void {
-                $this->assertFalse($server->deviceAction($device, 'ENTER-CONFIGURATION-MODE'));
+                $this->assertFalse($server->deviceAction($device, 'ENTER-CONFIGURATION-MODE')->isAccepted());
             });
         }
     }
 
     public function testDeviceActionDisconnectsAfterIncompleteResponseBeforeChannelAction(): void {
         $this->assertActionsWithResponses([["OK:222"], ["OK:333\n"]], function (SuplaServerReal $server, IODevice $device, IODeviceChannel $channel): void {
-            $this->assertFalse($server->deviceAction($device, 'ENTER-CONFIGURATION-MODE'));
+            $this->assertFalse($server->deviceAction($device, 'ENTER-CONFIGURATION-MODE')->isAccepted());
             $result = $server->channelAction($channel, 'MUTE-ALARM-SOUND');
             $this->assertInstanceOf(CalcfgActionResult::class, $result);
             $this->assertSame(333, $result->id);
@@ -48,7 +48,7 @@ class SuplaServerRealTest extends TestCase {
 
     public function testChannelActionDisconnectsAfterIncompleteResponseBeforeDeviceAction(): void {
         $this->assertActionsWithResponses([["OK:333"], ["OK:222\n"]], function (SuplaServerReal $server, IODevice $device, IODeviceChannel $channel): void {
-            $this->assertFalse($server->channelAction($channel, 'MUTE-ALARM-SOUND'));
+            $this->assertFalse($server->channelAction($channel, 'MUTE-ALARM-SOUND')->isAccepted());
             $result = $server->deviceAction($device, 'ENTER-CONFIGURATION-MODE');
             $this->assertInstanceOf(CalcfgActionResult::class, $result);
             $this->assertSame(222, $result->id);
@@ -61,7 +61,7 @@ class SuplaServerRealTest extends TestCase {
             IODevice $device,
             IODeviceChannel $channel
         ): void {
-            $this->assertFalse($server->deviceAction($device, 'ENTER-CONFIGURATION-MODE'));
+            $this->assertFalse($server->deviceAction($device, 'ENTER-CONFIGURATION-MODE')->isAccepted());
             $result = $server->channelAction($channel, 'MUTE-ALARM-SOUND');
             $this->assertInstanceOf(CalcfgActionResult::class, $result);
             $this->assertSame(333, $result->id);
@@ -75,7 +75,7 @@ class SuplaServerRealTest extends TestCase {
             IODeviceChannel $channel
         ): void {
             $startedAt = microtime(true);
-            $this->assertFalse($server->deviceAction($device, 'ENTER-CONFIGURATION-MODE'));
+            $this->assertFalse($server->deviceAction($device, 'ENTER-CONFIGURATION-MODE')->isAccepted());
             $this->assertLessThan(5.8, microtime(true) - $startedAt, 'A slow trickle must not extend the CALCFG response deadline.');
             $result = $server->channelAction($channel, 'MUTE-ALARM-SOUND');
             $this->assertInstanceOf(CalcfgActionResult::class, $result);

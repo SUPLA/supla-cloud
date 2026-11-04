@@ -211,7 +211,7 @@ abstract class SuplaServer {
         }
     }
 
-    public function deviceAction(IODevice $device, string $commandName, array $params = []): CalcfgActionResult|false {
+    public function deviceAction(IODevice $device, string $commandName, array $params = []): CalcfgActionResult {
         $params = implode(',', array_merge([$device->getUser()->getId(), $device->getId()], $params));
         $command = "$commandName:$params";
         $this->calcfgActionInProgress = true;
@@ -223,7 +223,7 @@ abstract class SuplaServer {
         return $this->parseCalcfgActionResult($result);
     }
 
-    public function channelAction(IODeviceChannel $channel, string $commandName): CalcfgActionResult|false {
+    public function channelAction(IODeviceChannel $channel, string $commandName): CalcfgActionResult {
         $params = implode(',', [$channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId()]);
         $command = "$commandName:$params";
         $this->calcfgActionInProgress = true;
@@ -235,13 +235,15 @@ abstract class SuplaServer {
         return $this->parseCalcfgActionResult($result);
     }
 
-    private function parseCalcfgActionResult(mixed $result): CalcfgActionResult|false {
+    private function parseCalcfgActionResult(mixed $result): CalcfgActionResult {
         if (!is_string($result)) {
-            return false;
+            return new CalcfgActionResult(CalcfgActionResult::REJECTED, null, null);
         }
         if (preg_match('/^OK:(\d+)\r?\n$/D', $result, $match)) {
             $id = filter_var($match[1], FILTER_VALIDATE_INT);
-            return $id !== false && $id > 0 ? new CalcfgActionResult(CalcfgActionResult::ACCEPTED, $id, null) : false;
+            return $id !== false && $id > 0
+                ? new CalcfgActionResult(CalcfgActionResult::ACCEPTED, $id, null)
+                : new CalcfgActionResult(CalcfgActionResult::REJECTED, null, null);
         }
         if (preg_match('/^(QUEUED|WAITING_FOR_RESULT):(\d+),(\d+)\r?\n$/D', $result, $match)) {
             $id = filter_var($match[2], FILTER_VALIDATE_INT);
@@ -250,7 +252,7 @@ abstract class SuplaServer {
                 return new CalcfgActionResult($match[1], $id, $queuedAt);
             }
         }
-        return false;
+        return new CalcfgActionResult(CalcfgActionResult::REJECTED, null, null);
     }
 
     public function reconnect(?User $user = null): void {

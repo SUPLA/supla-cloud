@@ -103,7 +103,7 @@ class SuplaServerMockTest extends TestCase {
         $this->assertSame(CalcfgActionResult::QUEUED, $result->status);
         $this->assertSame(222, $result->id);
         $this->assertSame(1793577600, $result->queuedAt);
-        $this->assertFalse($result->isAccepted());
+        $this->assertTrue($result->isAccepted());
     }
 
     public function testDeviceActionParsesEveryAcceptanceStatus() {
@@ -118,6 +118,7 @@ class SuplaServerMockTest extends TestCase {
             $result = $this->server->deviceAction($this->device, 'ENTER-CONFIGURATION-MODE');
             $this->assertInstanceOf(CalcfgActionResult::class, $result);
             $this->assertSame($status, $result->status);
+            $this->assertTrue($result->isAccepted());
             $this->assertSame(222, $result->id);
             $this->assertSame($queuedAt, $result->queuedAt);
         }
@@ -135,6 +136,7 @@ class SuplaServerMockTest extends TestCase {
             $result = $this->server->channelAction($this->channel, 'MUTE-ALARM-SOUND');
             $this->assertInstanceOf(CalcfgActionResult::class, $result);
             $this->assertSame($status, $result->status);
+            $this->assertTrue($result->isAccepted());
             $this->assertSame(333, $result->id);
             $this->assertSame($queuedAt, $result->queuedAt);
         }
@@ -168,7 +170,7 @@ class SuplaServerMockTest extends TestCase {
         $this->assertSame(CalcfgActionResult::WAITING_FOR_RESULT, $result->status);
         $this->assertSame(333, $result->id);
         $this->assertSame(1793577500, $result->queuedAt);
-        $this->assertFalse($result->isAccepted());
+        $this->assertTrue($result->isAccepted());
     }
 
     public function testDeviceActionRejectsMalformedAcceptanceReplies() {
@@ -185,8 +187,23 @@ class SuplaServerMockTest extends TestCase {
         ];
         foreach ($responses as $response) {
             SuplaServerMock::mockResponse('ENTER-CONFIGURATION-MODE', $response);
-            $this->assertFalse($this->server->deviceAction($this->device, 'ENTER-CONFIGURATION-MODE'));
+            $result = $this->server->deviceAction($this->device, 'ENTER-CONFIGURATION-MODE');
+            $this->assertFalse($result->isAccepted());
+            $this->assertSame(CalcfgActionResult::REJECTED, $result->status);
+            $this->assertNull($result->id);
+            $this->assertNull($result->queuedAt);
         }
+    }
+
+    public function testChannelActionReturnsRejectedResultForErrorReply() {
+        SuplaServerMock::mockResponse('MUTE-ALARM-SOUND', "UNKNOWN:333\n");
+
+        $result = $this->server->channelAction($this->channel, 'MUTE-ALARM-SOUND');
+
+        $this->assertSame(CalcfgActionResult::REJECTED, $result->status);
+        $this->assertFalse($result->isAccepted());
+        $this->assertNull($result->id);
+        $this->assertNull($result->queuedAt);
     }
 
     public function testDefaultPairingReplyIsNumericAndMutatesPairingState() {
