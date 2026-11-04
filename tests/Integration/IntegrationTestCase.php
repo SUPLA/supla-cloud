@@ -128,6 +128,7 @@ abstract class IntegrationTestCase extends WebTestCase {
             $application = new Application($client->getKernel());
             $application->setAutoExit(false);
         }
+        $application->setSignalsToDispatchEvent();
         $output = new BufferedOutput();
         $input->setInteractive(false);
         $error = $application->run($input, $output);
