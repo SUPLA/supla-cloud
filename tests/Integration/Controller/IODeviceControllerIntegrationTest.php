@@ -106,6 +106,23 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->device->getRegIpv4(), $content[0]->regIpv4);
     }
 
+    public function testNewManufacturerInDeviceListAndDetails() {
+        EntityUtils::setField($this->device, 'manufacturer', 23);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $expected = ['id' => 23, 'name' => 'SMARTBOB', 'caption' => 'SmartBOB'];
+
+        $client->apiRequestV24('GET', '/api/iodevices');
+        $this->assertStatusCode(200, $client->getResponse());
+        $list = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals($expected, $list[0]['manufacturer']);
+
+        $client->apiRequestV24('GET', '/api/iodevices/' . $this->device->getId());
+        $this->assertStatusCode(200, $client->getResponse());
+        $details = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals($expected, $details['manufacturer']);
+    }
+
     public function testGettingDevicesWithChannels22() {
         $client = $this->createAuthenticatedClient();
         $client->request('GET', '/api/iodevices?include=channels', [], [], $this->versionHeader(ApiVersions::V2_2()));
