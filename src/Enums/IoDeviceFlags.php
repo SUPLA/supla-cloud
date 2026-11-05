@@ -29,6 +29,7 @@ namespace App\Enums;
  * @method static IoDeviceFlags FACTORY_RESET_SUPPORTED()
  * @method static IoDeviceFlags AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED()
  * @method static IoDeviceFlags SET_CFG_MODE_PASSWORD_SUPPORTED()
+ * @method static IoDeviceFlags SYNC_DONE_SUPPORTED()
  */
 final class IoDeviceFlags extends ChannelBits {
     /** @see https://github.com/SUPLA/supla-cloud/issues/448 */
@@ -47,4 +48,5 @@ final class IoDeviceFlags extends ChannelBits {
     const FACTORY_RESET_SUPPORTED = 0x4000;
     const AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED = 0x8000;
     const SET_CFG_MODE_PASSWORD_SUPPORTED = 0x10000;
+    const SYNC_DONE_SUPPORTED = 0x20000;
 }

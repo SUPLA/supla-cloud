@@ -30,6 +30,7 @@ use App\Enums\VirtualChannelType;
 use App\EventListener\UnavailableInMaintenance;
 use App\Exception\ApiException;
 use App\Model\ApiVersions;
+use App\Model\CalcfgQueueEligibility;
 use App\Model\ChannelActionExecutor\ChannelActionExecutor;
 use App\Model\ChannelStateGetter\ChannelStateGetter;
 use App\Model\Dependencies\ChannelDependencies;
@@ -588,7 +589,15 @@ class ChannelController extends RestController {
                 Assertion::true($result->isAccepted(), 'Could not recalibrate.');
             } elseif ($action === 'muteAlarm') {
                 $state = $channelStateGetter->getState($channel);
-                Assertion::keyExists($state, 'soundAlarmOn', 'Cannot mute alarm for this channel.');
+                Assertion::true(
+                    array_key_exists('soundAlarmOn', $state)
+                        || CalcfgQueueEligibility::forChannel(
+                            $channel,
+                            CalcfgQueueEligibility::supportsMuteAlarm($channel),
+                            false
+                        )['muteAlarm'],
+                    'Cannot mute alarm for this channel.'
+                );
                 $result = $this->suplaServer->channelAction($channel, 'MUTE-ALARM-SOUND');
                 Assertion::true($result->isAccepted(), 'Could not mute alarm.');
             } elseif ($action === 'ocr:takePhoto') {

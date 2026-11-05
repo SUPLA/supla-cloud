@@ -19,6 +19,7 @@ namespace App\Tests\Integration\Serialization;
 
 use App\Entity\EntityUtils;
 use App\Entity\Main\IODevice;
+use App\Enums\IoDeviceFlags;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Integration\Traits\SuplaApiHelper;
 use App\Tests\Integration\Traits\TestTimeProvider;
@@ -43,6 +44,62 @@ class IODeviceSerializerIntegrationTest extends IntegrationTestCase {
         $deviceJson = json_decode($serializedDevice, true);
         $this->assertEquals($this->device->getId(), $deviceJson['id']);
         $this->assertFalse(isset($deviceJson['location']));
+    }
+
+    public function testSerializesBackendDerivedOfflineActionEligibility() {
+        $actionSupport = IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE
+            | IoDeviceFlags::REMOTE_RESTART_AVAILABLE
+            | IoDeviceFlags::IDENTIFY_DEVICE_AVAILABLE
+            | IoDeviceFlags::FACTORY_RESET_SUPPORTED
+            | IoDeviceFlags::AUTOMATIC_FIRMWARE_UPDATE_SUPPORTED
+            | IoDeviceFlags::SET_CFG_MODE_PASSWORD_SUPPORTED;
+        $cases = [
+            'awake devices do not advertise offline actions' => [0, false, false],
+            'legacy sleeping devices advertise supported device actions only' => [IoDeviceFlags::SLEEP_MODE_ENABLED, true, false],
+            'sync-capable sleeping devices include other supported queue commands' => [
+                IoDeviceFlags::SLEEP_MODE_ENABLED | IoDeviceFlags::SYNC_DONE_SUPPORTED,
+                true,
+                true,
+            ],
+        ];
+        foreach ($cases as $name => [$sleepFlags, $legacyActionsExpected, $syncActionsExpected]) {
+            EntityUtils::setField($this->device, 'flags', $actionSupport | $sleepFlags);
+            $deviceJson = json_decode(self::$container->get('serializer')->serialize($this->device, 'json', ['groups' => ['basic']]), true);
+            $this->assertSame($syncActionsExpected, $deviceJson['flags']['syncDoneSupported'], $name);
+            $this->assertSame($legacyActionsExpected, $deviceJson['calcfgQueueableActions']['enterConfigurationMode'], $name);
+            $this->assertSame($legacyActionsExpected, $deviceJson['calcfgQueueableActions']['restartDevice'], $name);
+            $this->assertSame($legacyActionsExpected, $deviceJson['calcfgQueueableActions']['identifyDevice'], $name);
+            $this->assertSame($syncActionsExpected, $deviceJson['calcfgQueueableActions']['factoryReset'], $name);
+            $this->assertSame($syncActionsExpected, $deviceJson['calcfgQueueableActions']['setCfgModePassword'], $name);
+            $this->assertSame($syncActionsExpected, $deviceJson['calcfgQueueableActions']['otaCheckUpdates'], $name);
+            $this->assertSame($syncActionsExpected, $deviceJson['calcfgQueueableActions']['otaPerformUpdate'], $name);
+        }
+    }
+
+    public function testDoesNotAdvertiseUnsupportedDeviceActions() {
+        EntityUtils::setField($this->device, 'flags', IoDeviceFlags::SLEEP_MODE_ENABLED | IoDeviceFlags::SYNC_DONE_SUPPORTED);
+        $deviceJson = json_decode(self::$container->get('serializer')->serialize($this->device, 'json', ['groups' => ['basic']]), true);
+
+        foreach ($deviceJson['calcfgQueueableActions'] as $action => $queueable) {
+            $this->assertFalse($queueable, "$action must not be advertised without firmware support.");
+        }
+    }
+
+    public function testSerializesChannelEligibilityWithEmptyPublicConfig() {
+        $channel = $this->device->getChannels()[0];
+        EntityUtils::setField($this->device, 'flags', IoDeviceFlags::SLEEP_MODE_ENABLED | IoDeviceFlags::SYNC_DONE_SUPPORTED);
+        EntityUtils::setField($channel, 'flags', 0);
+        $channel->setUserConfig([]);
+
+        $channelJson = json_decode(self::$container->get('serializer')->serialize($channel, 'json', ['groups' => ['basic']]), true);
+
+        $this->assertSame([
+            'muteAlarm' => false,
+            'ocr:takePhoto' => false,
+            'identify' => false,
+            'restart' => false,
+        ], $channelJson['calcfgQueueableActions']);
+        $this->assertSame([], (array)($channelJson['config'] ?? []));
     }
 
     public function testSerializingIODeviceWithLocation() {
