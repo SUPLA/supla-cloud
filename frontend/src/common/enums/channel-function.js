@@ -72,6 +72,9 @@ const ChannelFunction = Object.freeze({
   FLOOD_SENSOR: 1000,
   MOTION_SENSOR: 1010,
   BINARY_SENSOR: 1020,
+  SMOKE_SENSOR: 1030,
+  CARBON_MONOXIDE_SENSOR: 1040,
+  GAS_SENSOR: 1050,
 });
 
 export default ChannelFunction;

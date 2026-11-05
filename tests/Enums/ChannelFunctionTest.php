@@ -141,9 +141,7 @@ class ChannelFunctionTest extends TestCase {
         }, $functionIdsUsedInFrontend);
         $functionIdsUsedInFrontend = ArrayUtils::flattenOnce($functionIdsUsedInFrontend);
         $functionIdsUsedInFrontend = array_map('intval', $functionIdsUsedInFrontend);
-        // Frontend filter support for protocol v29 sensors is handled in Task 04.
-        $skip = [ChannelFunction::SCENE, ChannelFunction::SCHEDULE, ChannelFunction::NOTIFICATION,
-            ChannelFunction::SMOKE_SENSOR, ChannelFunction::CARBON_MONOXIDE_SENSOR, ChannelFunction::GAS_SENSOR];
+        $skip = [ChannelFunction::SCENE, ChannelFunction::SCHEDULE, ChannelFunction::NOTIFICATION];
         foreach (ChannelFunction::values() as $functionName => $channelFunction) {
             $functionId = $channelFunction->getValue();
             if (in_array($functionId, $skip)) {
