@@ -4,7 +4,7 @@
       <div class="col-lg-4 col-sm-6">
         <div class="details-page-block">
           <h3 class="text-center">{{ $t('Settings') }}</h3>
-          <DeviceDetailsTabSettings :device="device" />
+          <DeviceDetailsTabSettings :device="device" @pending-change="hasPendingChanges = $event" />
         </div>
       </div>
       <div class="col-lg-4 col-sm-6">
@@ -20,7 +20,7 @@
         </div>
         <div v-if="hasRemoteAccessButtons" class="details-page-block">
           <h3 class="text-center">{{ $t('Actions') }}</h3>
-          <DeviceDetailsTabRemoteButtons :device="device" />
+          <DeviceDetailsTabRemoteButtons :device="device" :has-pending-changes="hasPendingChanges" />
         </div>
       </div>
     </div>
@@ -28,13 +28,16 @@
 </template>
 
 <script setup>
+  defineOptions({compatConfig: {MODE: 3}});
+
   import DeviceDetailsTabFirmwareInfo from '@/devices/details/device-details-tab-firmware-info.vue';
   import DeviceDetailsTabLocation from '@/devices/details/device-details-tab-location.vue';
   import DeviceDetailsTabSettings from '@/devices/details/device-details-tab-settings.vue';
   import DeviceDetailsTabRemoteButtons from '@/devices/details/device-details-tab-remote-buttons.vue';
-  import {computed} from 'vue';
+  import {computed, ref} from 'vue';
 
   const props = defineProps({device: Object});
+  const hasPendingChanges = ref(false);
 
   const hasRemoteAccessButtons = computed(
     () =>

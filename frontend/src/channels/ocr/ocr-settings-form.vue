@@ -80,7 +80,7 @@
           </div>
 
           <div class="text-center">
-            <button class="btn btn-white" type="button" :disabled="takingPhoto" @click="takePhotoNow()">
+            <button class="btn btn-white" type="button" :disabled="takingPhoto || !canTakePhoto" @click="takePhotoNow()">
               {{ $t('Take a photo now') }}
             </button>
             <button class="btn btn-white ml-3" type="button" @click="fetchLatestImage()">
@@ -89,6 +89,7 @@
           </div>
         </div>
       </transition-expand>
+      <CalcfgSubmissionFeedback :message="photoSubmissionMessage" />
     </loading-cover>
   </pending-changes-page>
 </template>
@@ -108,9 +109,12 @@
   import DropdownMenu from '@/common/gui/dropdown/dropdown-menu.vue';
   import DropdownMenuTrigger from '@/common/gui/dropdown/dropdown-menu-trigger.vue';
   import LoadingCover from '@/common/gui/loaders/loading-cover.vue';
+  import CalcfgSubmissionFeedback from '@/devices/details/calcfg-submission-feedback.vue';
+  import {canSubmitCalcfgAction, getCalcfgActionResult, getCalcfgSubmissionMessage} from '@/devices/details/calcfg-submission.js';
 
   export default {
     components: {
+      CalcfgSubmissionFeedback,
       LoadingCover,
       DropdownMenuTrigger,
       DropdownMenu,
@@ -121,6 +125,7 @@
       OcrPhotoCrop,
       PendingChangesPage,
     },
+    compatConfig: {MODE: 3},
     props: {
       subject: Object,
     },
@@ -132,12 +137,16 @@
         latestImageError: undefined,
         latestImageDetails: undefined,
         takingPhoto: false,
+        photoSubmissionMessage: '',
         editingPhoto: false,
       };
     },
     computed: {
       unit() {
         return measurementUnit(this.subject);
+      },
+      canTakePhoto() {
+        return canSubmitCalcfgAction(this.subject, 'ocr:takePhoto');
       },
     },
     beforeMount() {
@@ -190,9 +199,17 @@
       },
       takePhotoNow() {
         this.takingPhoto = true;
-        api
+        this.photoSubmissionMessage = '';
+        return api
           .patch(`channels/${this.subject.id}/settings`, {action: 'ocr:takePhoto'})
-          .then(() => successNotification(this.$t('Command has been sent to the device. Try refreshing the photo in a while.')))
+          .then((response) => {
+            const message = getCalcfgSubmissionMessage(getCalcfgActionResult(response));
+            if (message) {
+              this.photoSubmissionMessage = message;
+            } else {
+              successNotification(this.$t('Command has been sent to the device. Try refreshing the photo in a while.'));
+            }
+          })
           .finally(() => (this.takingPhoto = false));
       },
     },

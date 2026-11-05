@@ -30,6 +30,9 @@ auxThermometerType_GENERIC_COOLER: Generic cooler
 auxThermometerType_GENERIC_HEATER: Generic heater
 auxThermometerType_NOT_SET: Not set
 auxThermometerType_WATER: Water
+calcfg_feedback_QUEUED: Request accepted and queued. It may be delivered when the device is available, and may replace earlier queued work.
+calcfg_feedback_WAITING_FOR_RESULT: An earlier operation is awaiting a result. This request was not submitted.
+calcfg_feedback_WAITING_FOR_RESULT_PASSWORD: An earlier operation is awaiting a result. The new password was not submitted.
 channel: Channel
 channelConfigHelp_gateCloseAfterHelp: The agent that starts the gate closing procedure can be delayed up to one minute from the set time.
 channelConfigHelp_numberOfAttemptsGate: After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.
