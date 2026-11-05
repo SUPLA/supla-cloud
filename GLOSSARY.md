@@ -2,6 +2,12 @@
 
 The shared language for SUPLA Cloud concepts. Use these terms consistently in specifications, issues, code, tests, and operational documentation.
 
+## Channel capabilities
+
+**Channel capability**:
+A feature or mode that a device advertises as supported by a channel. Support does not indicate the channel's selected mode or its current execution state.
+_Avoid_: active mode, current state
+
 ## CALCFG operations
 
 **CALCFG operation**:

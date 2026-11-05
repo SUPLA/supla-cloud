@@ -136,6 +136,59 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ActionableSubjectType::CHANNEL, $content['ownSubjectType']);
     }
 
+    public function testChannelFlagsSurviveRegistrationUpdateHydrationAndApi(): void {
+        $connection = $this->getEntityManager()->getConnection();
+        $deviceId = $this->device->getId();
+        $userId = $this->user->getId();
+        $connection->executeStatement(
+            'CALL supla_add_channel(?, ?, 0, 0, 0, ?, 127, ?, 0, ?, 0, 0)',
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, $userId, $deviceId, 0x100000000]
+        );
+        $channelId = (int) $connection->fetchOne('SELECT id FROM supla_dev_channel WHERE iodevice_id = ? AND channel_number = 127', [$deviceId]);
+        $this->assertGreaterThan(0, $channelId);
+        $this->getEntityManager()->clear();
+        $channel = $this->getEntityManager()->find(IODeviceChannel::class, $channelId);
+        $this->assertSame(0x100000000, $channel->getFlags());
+        $this->assertTrue(ChannelFlags::BUTTON_MODE_SUPPORTED()->isOn($channel->getFlags()));
+
+        foreach ([0x2000000000, 0x2118010000, ChannelFlags::RELAY_MODE_START_SUPPORTED | ChannelFlags::HAS_EXTENDED_CHANNEL_STATE] as $flags) {
+            $connection->executeStatement('UPDATE supla_dev_channel SET flags = ? WHERE id = ?', [ChannelFlags::HAS_EXTENDED_CHANNEL_STATE, $channelId]);
+            $connection->executeStatement('CALL supla_update_channel_flags(?, ?, ?)', [$channelId, $userId, $flags]);
+            $this->getEntityManager()->clear();
+            $channel = $this->getEntityManager()->find(IODeviceChannel::class, $channelId);
+            $expected = $flags | ChannelFlags::HAS_EXTENDED_CHANNEL_STATE;
+            $this->assertSame($expected, $channel->getFlags());
+            $this->assertNotSame($expected & 0xFFFFFFFF, $channel->getFlags());
+        }
+
+        $client = $this->createAuthenticatedClient($this->freshEntity($this->user));
+        $client->apiRequestV24('GET', '/api/channels/' . $channelId);
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($content['config']['relayModeStartSupported']);
+        $this->assertFalse($content['config']['relayModeForcedSupported']);
+        $this->assertFalse($content['config']['relayModeAutomaticSupported']);
+        $this->assertFalse($content['config']['relayModeNotSetSupported']);
+        $this->assertArrayNotHasKey('buttonModeSupported', $content['config']);
+
+        $client->apiRequestV23('GET', '/api/channels/' . $channelId);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertArrayNotHasKey('config', json_decode($client->getResponse()->getContent(), true));
+
+        $connection->executeStatement(
+            'CALL supla_add_channel(?, ?, 0, 0, 0, ?, 126, ?, 0, ?, 0, 0)',
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER, $userId, $deviceId, 0x2118010000]
+        );
+        $actionTriggerId = (int) $connection->fetchOne('SELECT id FROM supla_dev_channel WHERE iodevice_id = ? AND channel_number = 126', [$deviceId]);
+        $client->apiRequestV24('GET', '/api/channels/' . $actionTriggerId);
+        $this->assertStatusCode(200, $client->getResponse());
+        $config = json_decode($client->getResponse()->getContent(), true)['config'];
+        $this->assertTrue($config['buttonModeSupported']);
+        $this->assertTrue($config['buttonTemporaryUnlockSupported']);
+        $this->assertArrayNotHasKey('relayModeStartSupported', $config);
+        $connection->executeStatement('DELETE FROM supla_dev_channel WHERE id IN (?, ?)', [$channelId, $actionTriggerId]);
+    }
+
     public function testGettingChannelInfoV3() {
         $client = $this->createAuthenticatedClient($this->user);
         $channel = $this->device->getChannels()[0];
@@ -785,6 +838,10 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'numberOfAttemptsToOpen' => 5,
             'numberOfAttemptsToClose' => 5,
             'stateVerificationMethodActive' => false,
+            'relayModeStartSupported' => false,
+            'relayModeForcedSupported' => false,
+            'relayModeAutomaticSupported' => false,
+            'relayModeNotSetSupported' => false,
         ];
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $config = $channelParamConfigTranslator->getConfig($gateChannel);
